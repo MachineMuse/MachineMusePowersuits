@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import machinemuse.powersuits.client.ClientPacketHandler;
+import machinemuse.powersuits.common.augmentation.AugmentationTypes;
 import machinemuse.powersuits.common.block.BlockTinkerTable;
 import machinemuse.powersuits.common.item.ItemPowerArmor;
+import machinemuse.powersuits.common.item.ItemPowerTool;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
@@ -53,13 +55,33 @@ public class PowersuitsMod {
 	public void load(FMLInitializationEvent event) {
 		allBlocks.add(new BlockTinkerTable());
 
-		for (int i = 0; i < 4; i++) {
-			allItems.add(new ItemPowerArmor(
-					Config.Items.values()[i]));
-		}
+		loadItems();
 
+		proxy.registerHandlers();
 		proxy.registerRenderers();
 		NetworkRegistry.instance().registerGuiHandler(this, guiHandler);
+	}
+
+	public static void loadItems() {
+		ItemPowerArmor item = new ItemPowerArmor(Config.Items.PowerArmorHead);
+		item.setValidAugTypes(AugmentationTypes.validHeadAugmentations());
+		allItems.add(item);
+
+		item = new ItemPowerArmor(Config.Items.PowerArmorTorso);
+		item.setValidAugTypes(AugmentationTypes.validTorsoAugmentations());
+		allItems.add(item);
+
+		item = new ItemPowerArmor(Config.Items.PowerArmorLegs);
+		item.setValidAugTypes(AugmentationTypes.validLegsAugmentations());
+		allItems.add(item);
+
+		item = new ItemPowerArmor(Config.Items.PowerArmorFeet);
+		item.setValidAugTypes(AugmentationTypes.validFeetAugmentations());
+		allItems.add(item);
+
+		ItemPowerTool tool = new ItemPowerTool(Config.Items.PowerTool);
+		item.setValidAugTypes(AugmentationTypes.validToolAugmentations());
+		allItems.add(tool);
 	}
 
 	@PostInit

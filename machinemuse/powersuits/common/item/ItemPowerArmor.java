@@ -2,6 +2,7 @@ package machinemuse.powersuits.common.item;
 
 import machinemuse.powersuits.common.CommonProxy;
 import machinemuse.powersuits.common.Config;
+import machinemuse.powersuits.common.augmentation.AugmentationTypes;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumArmorMaterial;
@@ -13,6 +14,8 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class ItemPowerArmor extends ItemArmor implements ISpecialArmor,
 		IModularItem {
+	AugmentationTypes[] validAugTypes;
+
 	public ItemPowerArmor(Config.Items item) {
 		super(Config.getAssignedItemID(item), // itemID
 				EnumArmorMaterial.IRON, // Material
@@ -59,5 +62,14 @@ public class ItemPowerArmor extends ItemArmor implements ISpecialArmor,
 	public void damageArmor(EntityLiving entity, ItemStack stack,
 			DamageSource source, int damage, int slot) {
 		// Damage the armor's durability
+	}
+
+	public void setValidAugTypes(AugmentationTypes[] types) {
+		validAugTypes = types;
+	}
+
+	@Override
+	public AugmentationTypes[] getValidAugTypes() {
+		return validAugTypes;
 	}
 }

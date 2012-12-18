@@ -60,7 +60,38 @@ public class EquipmentRenderer implements IItemRenderer {
 		default:
 		}
 		MuseGui muse = new MuseGui();
-		muse.drawCircleAround(8, 8, 8);
+		switch (item.getItem().getIconIndex(item)) {
+		case 0: // Head
+			muse.draw3x3item(
+					true, true, true,
+					true, false, true,
+					false, false, false);
+			break;
+		case 1: // Torso
+			muse.draw3x3item(
+					true, false, true,
+					true, true, true,
+					true, true, true);
+			break;
+		case 2: // Legs
+			muse.draw3x3item(
+					true, true, true,
+					true, false, true,
+					true, false, true);
+			break;
+		case 3: // Feet
+			muse.draw3x3item(
+					false, false, false,
+					true, false, true,
+					true, false, true);
+			break;
+		case 4: // Tool
+			muse.draw3x3item(
+					true, true, true,
+					false, true, false,
+					false, true, false);
+			break;
+		}
 	}
 
 	/**

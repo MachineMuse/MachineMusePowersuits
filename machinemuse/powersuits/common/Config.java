@@ -33,8 +33,12 @@ public class Config extends Configuration {
 		config.save();
 	}
 
+	public static String getModuleNBTTagPrefix() {
+		return "mmmpsmod";
+	}
+
 	public static String getNetworkChannelName() {
-		return "MachineMuse PowerSuits";
+		return "mmmPowerSuits";
 	}
 
 	public static CreativeTabs getCreativeTab() {

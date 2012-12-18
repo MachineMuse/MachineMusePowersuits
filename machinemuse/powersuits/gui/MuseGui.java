@@ -3,7 +3,6 @@ package machinemuse.powersuits.gui;
 import java.util.ArrayList;
 
 import machinemuse.general.geometry.Colour;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.client.renderer.Tessellator;
@@ -33,6 +32,30 @@ public class MuseGui extends GuiScreen {
 		this.controlList.clear();
 		Keyboard.enableRepeatEvents(true);
 		creationTime = System.currentTimeMillis();
+	}
+
+	public void draw3x3item(boolean a, boolean b, boolean c, boolean d,
+			boolean e, boolean f, boolean g, boolean h, boolean i) {
+		if (a)
+			drawCircleAround(3, 3, 2);
+		if (b)
+			drawCircleAround(8, 3, 2);
+		if (c)
+			drawCircleAround(13, 3, 2);
+
+		if (d)
+			drawCircleAround(3, 8, 2);
+		if (e)
+			drawCircleAround(8, 8, 2);
+		if (f)
+			drawCircleAround(13, 8, 2);
+
+		if (g)
+			drawCircleAround(3, 13, 2);
+		if (h)
+			drawCircleAround(8, 13, 2);
+		if (i)
+			drawCircleAround(13, 13, 2);
 	}
 
 	public void drawRectangularBackground() {
@@ -115,10 +138,10 @@ public class MuseGui extends GuiScreen {
 		itemRenderer.zLevel = 100.0F;
 		itemRenderer.renderItemAndEffectIntoGUI(this.fontRenderer, engine,
 				item, absX(x) - xcenter, absY(y) - ycenter);
-		Minecraft.getMinecraft().fontRenderer.drawString(
-				item.getItem().getItemDisplayName(item).substring(12, 16),
-				absX(x) - xcenter, absY(y) - ycenter,
-				Colour.getGreyscale(1.0F, 1.0F).getInt());
+		// Minecraft.getMinecraft().fontRenderer.drawString(
+		// item.getItem().getItemDisplayName(item).substring(12, 16),
+		// absX(x) - xcenter, absY(y) - ycenter,
+		// Colour.getGreyscale(1.0F, 1.0F).getInt());
 		// drawCircleAround(absX(x), absY(y), 8);
 		itemRenderer.zLevel = 0.0F;
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
