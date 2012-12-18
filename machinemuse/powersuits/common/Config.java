@@ -33,6 +33,10 @@ public class Config extends Configuration {
 		config.save();
 	}
 
+	public static String getNetworkChannelName() {
+		return "MachineMuse PowerSuits";
+	}
+
 	public static CreativeTabs getCreativeTab() {
 		return CreativeTabs.tabMisc;
 	}
@@ -117,5 +121,4 @@ public class Config extends Configuration {
 		}
 
 	}
-
 }
