@@ -9,6 +9,12 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 
+/**
+ * Packet handler for the server side.
+ * 
+ * @author MachineMuse
+ * 
+ */
 public class ServerPacketHandler implements IPacketHandler {
 
 	@Override

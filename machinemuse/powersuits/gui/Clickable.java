@@ -4,6 +4,11 @@ import java.util.List;
 
 import machinemuse.general.geometry.Point2D;
 
+/**
+ * Defines a generic clickable item for a MuseGui.
+ * 
+ * @author MachineMuse
+ */
 public abstract class Clickable {
 	private Point2D position;
 

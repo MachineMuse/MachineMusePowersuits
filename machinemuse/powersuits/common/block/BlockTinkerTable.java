@@ -3,7 +3,6 @@ package machinemuse.powersuits.common.block;
 import machinemuse.powersuits.common.CommonProxy;
 import machinemuse.powersuits.common.Config;
 import machinemuse.powersuits.common.PowersuitsMod;
-import machinemuse.powersuits.common.Config.Blocks;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -12,8 +11,18 @@ import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
+/**
+ * This is the tinkertable block. It doesn't do much except look pretty
+ * (eventually) and provide a way for the player to access the TinkerTable GUI.
+ * 
+ * @author MachineMuse
+ * 
+ */
 public class BlockTinkerTable extends Block {
 
+	/**
+	 * Constructor. Reads all the block info from Config.
+	 */
 	public BlockTinkerTable() {
 		super(Config.getAssignedBlockID(Config.Blocks.TinkerTable),
 				Config.Blocks.TinkerTable.textureIndex,
@@ -46,7 +55,9 @@ public class BlockTinkerTable extends Block {
 		if (player.isSneaking()) {
 			return false;
 		}
-		player.openGui(PowersuitsMod.instance, 0, world, x, y, z);
+		player.openGui(PowersuitsMod.instance,
+				Config.Guis.GuiTinkerTable.ordinal(),
+				world, x, y, z);
 		return true;
 	}
 }

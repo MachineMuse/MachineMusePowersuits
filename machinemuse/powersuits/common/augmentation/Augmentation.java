@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 /**
  * An Augmentation is a module that can be slotted into the power armor or tool.
  * 
- * @author Claire
+ * @author MachineMuse
  * 
  */
 public abstract class Augmentation {

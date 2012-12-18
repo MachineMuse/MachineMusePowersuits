@@ -5,6 +5,12 @@ import java.util.List;
 import machinemuse.general.geometry.Point2D;
 import net.minecraft.item.ItemStack;
 
+/**
+ * Extends the Clickable class to add a clickable ItemStack - note that this
+ * will be a button that looks like the item, not a container slot.
+ * 
+ * @author MachineMuse
+ */
 public class ClickableItem extends Clickable {
 	public static final Point2D offset = new Point2D(8, 8);
 	private ItemStack item;

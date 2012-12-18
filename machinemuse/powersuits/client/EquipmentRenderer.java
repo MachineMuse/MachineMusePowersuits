@@ -10,6 +10,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.storage.MapData;
 import net.minecraftforge.client.IItemRenderer;
 
+/**
+ * Custom renderer for the power armor and tools. Note - this only renders the
+ * item as held in hand, in an inventory slot, or sitting on the ground. To
+ * render the player's armor is a different interface (not sure yet).
+ * 
+ * @author MachineMuse
+ * 
+ */
 public class EquipmentRenderer implements IItemRenderer {
 	private static final boolean useRenderHelper = true;
 
@@ -60,6 +68,7 @@ public class EquipmentRenderer implements IItemRenderer {
 		default:
 		}
 		MuseGui muse = new MuseGui();
+		// Placeholder graphics
 		switch (item.getItem().getIconIndex(item)) {
 		case 0: // Head
 			muse.draw3x3item(

@@ -12,17 +12,23 @@ import net.minecraft.item.ItemStack;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
+/**
+ * I got fed up with Minecraft's gui system so I wrote my own (to some extent.
+ * Still based on GuiScreen). This class contains a variety of helper functions
+ * to draw geometry and various other prettifications. Note that MuseGui is
+ * heavily geometry-based as opposed to texture-based.
+ * 
+ * @author MachineMuse
+ * 
+ */
 public class MuseGui extends GuiScreen {
 	protected static RenderItem itemRenderer = new RenderItem();
 	private final boolean usePretty = true;
-	private static final int numSegments = 360;
 	private static final int xcenter = 8;
 	private static final int ycenter = 8;
 	private static final Tessellator tesselator = Tessellator.instance;
 	private long creationTime;
 	int xSize, ySize;
-
-	public static final double theta = (2 * Math.PI) / numSegments;
 
 	/**
 	 * Adds the buttons (and other controls) to the screen in question.
@@ -34,6 +40,10 @@ public class MuseGui extends GuiScreen {
 		creationTime = System.currentTimeMillis();
 	}
 
+	/**
+	 * Mostly for placeholder graphics, this function draws a 3x3 grid of swirly
+	 * circles over a 16x16 square.
+	 */
 	public void draw3x3item(boolean a, boolean b, boolean c, boolean d,
 			boolean e, boolean f, boolean g, boolean h, boolean i) {
 		if (a)
@@ -58,6 +68,9 @@ public class MuseGui extends GuiScreen {
 			drawCircleAround(13, 13, 2);
 	}
 
+	/**
+	 * Draws the gradient-rectangle background you see in the TinkerTable gui.
+	 */
 	public void drawRectangularBackground() {
 		int xpadding = (width - xSize) / 2;
 		int ypadding = (height - ySize) / 2;
@@ -80,6 +93,7 @@ public class MuseGui extends GuiScreen {
 		// GL11.glEnd();
 	}
 
+	// TODO: Make this draw clickables instead of itemstacks
 	public void drawItemsOnVerticalLine(ArrayList<ItemStack> items,
 			float xoffset,
 			float yoffset,
@@ -98,8 +112,8 @@ public class MuseGui extends GuiScreen {
 	}
 
 	/**
-	 * Returns absolute screen coordinates (0 to width) from a relative
-	 * coordinate (-1.0F to +1.0F)
+	 * Returns absolute screen coordinates (int 0 to width) from a relative
+	 * coordinate (float -1.0F to +1.0F)
 	 * 
 	 * @param relx
 	 *            Relative X coordinate
@@ -112,8 +126,8 @@ public class MuseGui extends GuiScreen {
 	}
 
 	/**
-	 * Returns absolute screen coordinates (0 to width) from a relative
-	 * coordinate (-1.0F to +1.0F)
+	 * Returns absolute screen coordinates (int 0 to width) from a relative
+	 * coordinate (float -1.0F to +1.0F)
 	 * 
 	 * @param relx
 	 *            Relative Y coordinate
@@ -149,9 +163,20 @@ public class MuseGui extends GuiScreen {
 		GL11.glEnable(GL11.GL_LIGHTING);
 	}
 
+	/**
+	 * Draws a swirly green circle at the specified coordinates in the current
+	 * reference frame.
+	 * 
+	 * @param xoffset
+	 * @param yoffset
+	 * @param radius
+	 */
 	public static void drawCircleAround(float xoffset, float yoffset,
 			float radius) {
-		int start = (int) (System.currentTimeMillis() / 4 % 360);
+		int numSegments = 360;
+		double theta = (2 * Math.PI) / numSegments;
+
+		int start = (int) (System.currentTimeMillis() / 4 % numSegments);
 		double x = radius * Math.sin(theta * start);
 		double y = radius * Math.cos(theta * start);
 		double tf = Math.tan(theta);

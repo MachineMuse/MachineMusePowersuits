@@ -7,20 +7,28 @@ import net.minecraft.world.World;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
+/**
+ * Tick handler for the mod. This is where you put code that should be executed
+ * once every tick.
+ * 
+ * @author MachineMuse
+ * 
+ */
 public class TickHandler implements ITickHandler {
 	/**
 	 * Called at the "start" phase of a tick
 	 * 
-	 * Multiple ticks may fire simultaneously- you will only be called once with
-	 * all the firing ticks
+	 * Multiple tick types may fire simultaneously- you will only be called once
+	 * with all the firing ticks
 	 */
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
 		World world;
 		EntityPlayer player;
-		if (type.contains(TickType.WORLD)) {
-			world = (World) tickData[0];
-		}
+		// if (type.contains(TickType.WORLD)) {
+		// world = (World) tickData[0];
+		// }
+		// TODO: Find a better way to handle this^
 
 	}
 

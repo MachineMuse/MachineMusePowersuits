@@ -10,9 +10,19 @@ import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 
+/**
+ * The Client Proxy does all the things that should only be done client-side,
+ * like registering client-side handlers and renderers.
+ * 
+ * @author Claire
+ * 
+ */
 public class ClientProxy extends CommonProxy {
 	private static EquipmentRenderer eRenderer = new EquipmentRenderer();
 
+	/**
+	 * Register all the custom renderers for this mod.
+	 */
 	@Override
 	public void registerRenderers() {
 		for (Item i : PowersuitsMod.allItems) {
@@ -27,6 +37,11 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.preloadTexture("/gui/tinktablegui.png");
 	}
 
+	/**
+	 * Register the tick handler (for on-tick behaviour) and packet handler (for
+	 * network synchronization and permission stuff).
+	 */
+	@Override
 	public void registerHandlers() {
 		tickHandler = new TickHandler();
 		TickRegistry.registerTickHandler(tickHandler, Side.CLIENT);

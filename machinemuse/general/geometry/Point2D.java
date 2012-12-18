@@ -1,5 +1,14 @@
 package machinemuse.general.geometry;
 
+/**
+ * Base class for Points. The main reason for this is to have a
+ * pass-by-reference coordinate with getter/setter functions so that points with
+ * more elaborate behaviour can be implemented - such as for open/close
+ * animations.
+ * 
+ * @author MachineMuse
+ * 
+ */
 public class Point2D {
 	private float x;
 	private float y;

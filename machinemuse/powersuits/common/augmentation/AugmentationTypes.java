@@ -1,5 +1,12 @@
 package machinemuse.powersuits.common.augmentation;
 
+/**
+ * An enumeration of the different types of augmentations and their IDs. Also
+ * contains valid-for-slot configuration.
+ * 
+ * @author MachineMuse
+ * 
+ */
 public enum AugmentationTypes {
 
 	ArmorPlate("armorPlate", "Armor Plate", 1),

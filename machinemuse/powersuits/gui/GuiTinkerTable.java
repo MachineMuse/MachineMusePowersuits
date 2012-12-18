@@ -7,10 +7,21 @@ import machinemuse.powersuits.common.item.IModularItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
+/**
+ * The gui class for the TinkerTable block.
+ * 
+ * @author MachineMuse
+ * 
+ */
 public class GuiTinkerTable extends MuseGui {
 	protected EntityPlayer player;
 	protected ArrayList<ItemStack> modularItems;
 
+	/**
+	 * Constructor. Takes a player as an argument.
+	 * 
+	 * @param player
+	 */
 	public GuiTinkerTable(EntityPlayer player) {
 		this.player = player;
 		this.modularItems = new ArrayList<ItemStack>();
@@ -19,7 +30,7 @@ public class GuiTinkerTable extends MuseGui {
 	}
 
 	/**
-	 * Adds the buttons (and other controls) to the screen in question.
+	 * Add the buttons (and other controls) to the screen.
 	 */
 	public void initGui()
 	{
@@ -29,12 +40,6 @@ public class GuiTinkerTable extends MuseGui {
 			if (stack != null && stack.getItem() instanceof IModularItem) {
 				modularItems.add(stack);
 			}
-		}
-	}
-
-	public void refresh() {
-		for (int i = 0; i < 4; i++) {
-
 		}
 	}
 
@@ -60,13 +65,21 @@ public class GuiTinkerTable extends MuseGui {
 	//
 	// }
 	//
+
+	/**
+	 * Draws the background layer for the GUI.
+	 */
 	public void drawBackground() {
-		this.drawDefaultBackground();
-		this.drawRectangularBackground();
+		this.drawDefaultBackground(); // Shading on the world view
+		this.drawRectangularBackground(); // The window rectangle
 	}
 
-	public void drawScreen(int par1, int par2, float par3) {
-		super.drawScreen(par1, par2, par3);
+	/**
+	 * Called every frame, draws the screen!
+	 */
+	@Override
+	public void drawScreen(int x, int y, float z) {
+		super.drawScreen(x, y, z);
 		drawBackground();
 		drawItemList();
 		Colour colour = Colour.getGreyscale(1.0F, 1.0F);
@@ -78,6 +91,9 @@ public class GuiTinkerTable extends MuseGui {
 		// }
 	}
 
+	/**
+	 * todo: Replace this with clickables...
+	 */
 	public void drawItemList() {
 		this.drawItemsOnVerticalLine(modularItems, -0.9F, 0.0F,
 				0.9f,
