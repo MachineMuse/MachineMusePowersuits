@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import machinemuse.powersuits.client.ClientPacketHandler;
+import machinemuse.powersuits.common.block.BlockTinkerTable;
+import machinemuse.powersuits.common.item.ItemPowerArmor;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
@@ -55,7 +57,6 @@ public class PowersuitsMod {
 			allItems.add(new ItemPowerArmor(
 					Config.Items.values()[i]));
 		}
-		allItems.add(new ItemAugmentation(Config.Items.Augmentation));
 
 		proxy.registerRenderers();
 		NetworkRegistry.instance().registerGuiHandler(this, guiHandler);

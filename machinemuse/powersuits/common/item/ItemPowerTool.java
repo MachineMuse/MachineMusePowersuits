@@ -1,8 +1,8 @@
-package machinemuse.powersuits.common;
+package machinemuse.powersuits.common.item;
 
 import net.minecraft.item.Item;
 
-public class ItemPowerTool extends Item {
+public class ItemPowerTool extends Item implements IModularItem {
 
 	public ItemPowerTool(int par1) {
 		super(par1);

@@ -1,5 +1,7 @@
-package machinemuse.powersuits.common;
+package machinemuse.powersuits.common.item;
 
+import machinemuse.powersuits.common.CommonProxy;
+import machinemuse.powersuits.common.Config;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumArmorMaterial;
@@ -9,8 +11,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-public class ItemPowerArmor extends ItemArmor implements ISpecialArmor {
-	protected ItemPowerArmor(Config.Items item) {
+public class ItemPowerArmor extends ItemArmor implements ISpecialArmor,
+		IModularItem {
+	public ItemPowerArmor(Config.Items item) {
 		super(Config.getAssignedItemID(item), // itemID
 				EnumArmorMaterial.IRON, // Material
 				item.iconIndex, // Texture index

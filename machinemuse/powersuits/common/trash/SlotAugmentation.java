@@ -1,4 +1,4 @@
-package machinemuse.powersuits.common;
+package machinemuse.powersuits.common.trash;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;

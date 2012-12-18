@@ -1,5 +1,9 @@
-package machinemuse.powersuits.common;
+package machinemuse.powersuits.common.block;
 
+import machinemuse.powersuits.common.CommonProxy;
+import machinemuse.powersuits.common.Config;
+import machinemuse.powersuits.common.PowersuitsMod;
+import machinemuse.powersuits.common.Config.Blocks;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

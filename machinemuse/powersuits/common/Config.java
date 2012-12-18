@@ -1,5 +1,6 @@
 package machinemuse.powersuits.common;
 
+import machinemuse.powersuits.common.block.BlockTinkerTable;
 import net.minecraft.block.Block;
 import net.minecraft.block.StepSound;
 import net.minecraft.block.material.Material;
@@ -101,7 +102,6 @@ public class Config extends Configuration {
 		PowerArmorLegs(2, "powerArmorLegs", "Power Armor Legs"),
 		PowerArmorFeet(3, "powerArmorFeet", "Power Armor Feet"),
 		PowerTool(4, "powerTool", "Power Tool"),
-		Augmentation(5, "modularAugmentation", "Modular Augmentation"),
 
 		;
 

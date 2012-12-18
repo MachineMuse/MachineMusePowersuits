@@ -1,8 +1,10 @@
-package machinemuse.powersuits.common;
+package machinemuse.powersuits.common.trash;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import machinemuse.powersuits.common.Config;
+import machinemuse.powersuits.common.Config.Items;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

@@ -1,7 +1,8 @@
-package machinemuse.powersuits.common;
+package machinemuse.powersuits.common.trash;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class AugSlot {
 	private List<AugSlot> connectedSlots;
