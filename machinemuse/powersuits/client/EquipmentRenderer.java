@@ -1,6 +1,7 @@
 package machinemuse.powersuits.client;
 
-import machinemuse.powersuits.gui.MuseGui;
+import machinemuse.general.geometry.Doodler;
+import machinemuse.powersuits.item.IModularItem;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.entity.EntityLiving;
@@ -19,7 +20,6 @@ import net.minecraftforge.client.IItemRenderer;
  * 
  */
 public class EquipmentRenderer implements IItemRenderer {
-	private static final boolean useRenderHelper = true;
 
 	/**
 	 * Forge checks this to see if our custom renderer will handle a certain
@@ -38,7 +38,7 @@ public class EquipmentRenderer implements IItemRenderer {
 	 */
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-		return useRenderHelper;
+		return true;
 	}
 
 	/**
@@ -47,7 +47,16 @@ public class EquipmentRenderer implements IItemRenderer {
 	 * 
 	 */
 	@Override
-	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
+	public void renderItem(ItemRenderType type, ItemStack itemStack,
+			Object... data) {
+
+		IModularItem item;
+		if (itemStack.getItem() instanceof IModularItem) {
+			item = (IModularItem) (itemStack.getItem());
+		} else {
+			return;
+		}
+
 		switch (type) {
 		case ENTITY:
 			RenderBlocks renderEntity = (RenderBlocks) data[0];
@@ -67,40 +76,92 @@ public class EquipmentRenderer implements IItemRenderer {
 			break;
 		default:
 		}
-		MuseGui muse = new MuseGui();
-		// Placeholder graphics
-		switch (item.getItem().getIconIndex(item)) {
-		case 0: // Head
-			muse.draw3x3item(
-					true, true, true,
-					true, false, true,
-					false, false, false);
+		switch (item.getItemType()) {
+		case PowerArmorHead:
+			drawHead(itemStack);
 			break;
-		case 1: // Torso
-			muse.draw3x3item(
-					true, false, true,
-					true, true, true,
-					true, true, true);
+		case PowerArmorTorso:
+			drawTorso(itemStack);
 			break;
-		case 2: // Legs
-			muse.draw3x3item(
-					true, true, true,
-					true, false, true,
-					true, false, true);
+		case PowerArmorLegs:
+			drawLegs(itemStack);
 			break;
-		case 3: // Feet
-			muse.draw3x3item(
-					false, false, false,
-					true, false, true,
-					true, false, true);
+		case PowerArmorFeet:
+			drawFeet(itemStack);
 			break;
-		case 4: // Tool
-			muse.draw3x3item(
-					true, true, true,
-					false, true, false,
-					false, true, false);
+		case PowerTool:
+			drawTool(itemStack);
+			break;
+		default:
 			break;
 		}
+	}
+
+	public void drawHead(ItemStack itemStack) {
+		Doodler.draw3x3placeholder(
+				true, true, true,
+				true, false, true,
+				false, false, false);
+	}
+
+	public void drawTorso(ItemStack itemStack) {
+		Doodler.draw3x3placeholder(
+				true, false, true,
+				true, true, true,
+				true, true, true);
+	}
+
+	public void drawLegs(ItemStack itemStack) {
+		float z = 1.0F;
+		float a = 1F;
+
+		float[] v = {
+				2, 1, z,
+				14, 1, z,
+				15, 15, z,
+				9, 15, z,
+				8, 5, z,
+				7, 15, z,
+				1, 15, z
+		};
+
+		float[] c = {
+				1.0F, 1.0F, 1.0F, a,
+				0.1F, 0.1F, 0.1F, a,
+				0.1F, 0.1F, 0.1F, a,
+				0.7F, 0.7F, 0.7f, a,
+				0.8F, 0.8F, 0.8F, a,
+				0.9F, 0.9F, 0.9F, a,
+				1.0F, 1.0F, 1.0F, a
+		};
+		int[] i = {
+				0, 6, 5,
+				0, 5, 4,
+				0, 4, 1,
+				1, 3, 2,
+				1, 4, 3
+		};
+		Doodler.drawTriangles(v, c, i);
+		// }
+
+		// Doodler.draw3x3placeholder(
+		// true, true, true,
+		// true, false, true,
+		// true, false, true);
+	}
+
+	public void drawFeet(ItemStack itemStack) {
+		Doodler.draw3x3placeholder(
+				false, false, false,
+				true, false, true,
+				true, false, true);
+	}
+
+	public void drawTool(ItemStack itemStack) {
+		Doodler.draw3x3placeholder(
+				true, true, true,
+				false, true, false,
+				false, true, false);
 	}
 
 	/**

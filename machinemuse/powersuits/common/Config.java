@@ -45,16 +45,6 @@ public class Config extends Configuration {
 	}
 
 	/**
-	 * Default prefix for all NBTtag keys on itemstacks. Needed in case some
-	 * other mod adds NBT data to items.
-	 * 
-	 * @return
-	 */
-	public static String getModuleNBTTagPrefix() {
-		return "mmmpsmod";
-	}
-
-	/**
 	 * The packet channel for this mod. We will only listen for and send packets
 	 * on this 'channel'. Max of 16 characters.
 	 * 

@@ -1,8 +1,8 @@
-package machinemuse.powersuits.common.trash;
+package machinemuse.powersuits.trash;
 
 import java.util.ArrayList;
 
-import machinemuse.powersuits.common.item.ItemPowerArmor;
+import machinemuse.powersuits.item.ItemPowerArmor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;

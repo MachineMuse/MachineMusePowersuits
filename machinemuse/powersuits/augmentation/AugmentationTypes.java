@@ -1,4 +1,7 @@
-package machinemuse.powersuits.common.augmentation;
+package machinemuse.powersuits.augmentation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An enumeration of the different types of augmentations and their IDs. Also
@@ -34,8 +37,9 @@ public enum AugmentationTypes {
 	 * @param list
 	 * @param type
 	 */
-	private static void putList(AugmentationTypes[] list, AugmentationTypes type) {
-		list[type.id] = type;
+	private static void putList(List<AugmentationTypes> list,
+			AugmentationTypes type) {
+		list.add(type);
 	}
 
 	/**
@@ -44,9 +48,9 @@ public enum AugmentationTypes {
 	 * @param list
 	 * @param type
 	 */
-	public static AugmentationTypes[] validHeadAugmentations() {
-		AugmentationTypes[] list =
-				new AugmentationTypes[AugmentationTypes.maxid];
+	public static List<AugmentationTypes> validHeadAugmentations() {
+		List<AugmentationTypes> list =
+				new ArrayList<AugmentationTypes>();
 		putList(list, ArmorPlate);
 		putList(list, DamageShieldPassive);
 		putList(list, DamageShieldActive);
@@ -55,9 +59,9 @@ public enum AugmentationTypes {
 		return list;
 	}
 
-	public static AugmentationTypes[] validTorsoAugmentations() {
-		AugmentationTypes[] list =
-				new AugmentationTypes[AugmentationTypes.maxid];
+	public static List<AugmentationTypes> validTorsoAugmentations() {
+		List<AugmentationTypes> list =
+				new ArrayList<AugmentationTypes>();
 		putList(list, ArmorPlate);
 		putList(list, DamageShieldPassive);
 		putList(list, DamageShieldActive);
@@ -65,9 +69,9 @@ public enum AugmentationTypes {
 		return list;
 	}
 
-	public static AugmentationTypes[] validLegsAugmentations() {
-		AugmentationTypes[] list =
-				new AugmentationTypes[AugmentationTypes.maxid];
+	public static List<AugmentationTypes> validLegsAugmentations() {
+		List<AugmentationTypes> list =
+				new ArrayList<AugmentationTypes>();
 		putList(list, ArmorPlate);
 		putList(list, DamageShieldPassive);
 		putList(list, DamageShieldActive);
@@ -75,9 +79,9 @@ public enum AugmentationTypes {
 		return list;
 	}
 
-	public static AugmentationTypes[] validFeetAugmentations() {
-		AugmentationTypes[] list =
-				new AugmentationTypes[AugmentationTypes.maxid];
+	public static List<AugmentationTypes> validFeetAugmentations() {
+		List<AugmentationTypes> list =
+				new ArrayList<AugmentationTypes>();
 		putList(list, ArmorPlate);
 		putList(list, DamageShieldPassive);
 		putList(list, DamageShieldActive);
@@ -85,9 +89,9 @@ public enum AugmentationTypes {
 		return list;
 	}
 
-	public static AugmentationTypes[] validToolAugmentations() {
-		AugmentationTypes[] list =
-				new AugmentationTypes[AugmentationTypes.maxid];
+	public static List<AugmentationTypes> validToolAugmentations() {
+		List<AugmentationTypes> list =
+				new ArrayList<AugmentationTypes>();
 		putList(list, BatteryElectric);
 		putList(list, SteamGenerator);
 		return list;

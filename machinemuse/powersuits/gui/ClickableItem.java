@@ -2,7 +2,10 @@ package machinemuse.powersuits.gui;
 
 import java.util.List;
 
+import machinemuse.general.geometry.Doodler;
 import machinemuse.general.geometry.Point2D;
+import net.minecraft.client.renderer.RenderEngine;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -12,18 +15,24 @@ import net.minecraft.item.ItemStack;
  * @author MachineMuse
  */
 public class ClickableItem extends Clickable {
-	public static final Point2D offset = new Point2D(8, 8);
-	private ItemStack item;
+	public static final int offsetx = 8;
+	public static final int offsety = 8;
+	public static RenderItem itemRenderer;
+	protected ItemStack item;
 
 	public ClickableItem(ItemStack item, Point2D pos) {
 		super(pos);
 		this.item = item;
 	}
 
+	public ItemStack getItem() {
+		return item;
+	}
+
 	@Override
-	public boolean hitBox(float x, float y) {
-		boolean hitx = Math.abs(x - getPosition().getX()) < offset.getX();
-		boolean hity = Math.abs(y - getPosition().getY()) < offset.getY();
+	public boolean hitBox(int x, int y, MuseGui gui) {
+		boolean hitx = Math.abs(x - gui.absX(getPosition().x())) < offsetx;
+		boolean hity = Math.abs(y - gui.absY(getPosition().y())) < offsety;
 		return hitx && hity;
 	}
 
@@ -32,4 +41,16 @@ public class ClickableItem extends Clickable {
 		return item.getTooltip(null, false);
 	}
 
+	/**
+	 * Draws the specified itemstack at the *relative* coordinates x,y. Used
+	 * mainly in clickables.
+	 */
+	@Override
+	public void draw(RenderEngine engine, MuseGui gui) {
+
+		Doodler.drawItemAt(
+				(int) gui.absX(getPosition().x()) - offsetx,
+				(int) gui.absY(getPosition().y()) - offsety,
+				gui, item);
+	}
 }

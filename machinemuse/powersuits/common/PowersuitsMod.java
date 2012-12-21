@@ -3,11 +3,14 @@ package machinemuse.powersuits.common;
 import java.util.ArrayList;
 import java.util.List;
 
+import machinemuse.powersuits.block.BlockTinkerTable;
 import machinemuse.powersuits.client.ClientPacketHandler;
-import machinemuse.powersuits.common.augmentation.AugmentationTypes;
-import machinemuse.powersuits.common.block.BlockTinkerTable;
-import machinemuse.powersuits.common.item.ItemPowerArmor;
-import machinemuse.powersuits.common.item.ItemPowerTool;
+import machinemuse.powersuits.item.ItemPowerArmor;
+import machinemuse.powersuits.item.ItemPowerArmorFeet;
+import machinemuse.powersuits.item.ItemPowerArmorHead;
+import machinemuse.powersuits.item.ItemPowerArmorLegs;
+import machinemuse.powersuits.item.ItemPowerArmorTorso;
+import machinemuse.powersuits.item.ItemPowerTool;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -117,24 +120,19 @@ public class PowersuitsMod {
 	 * Custom function to collect all the item-loading in one place.
 	 */
 	public static void loadItems() {
-		ItemPowerArmor item = new ItemPowerArmor(Config.Items.PowerArmorHead);
-		item.setValidAugTypes(AugmentationTypes.validHeadAugmentations());
+		ItemPowerArmor item = new ItemPowerArmorHead();
 		allItems.add(item);
 
-		item = new ItemPowerArmor(Config.Items.PowerArmorTorso);
-		item.setValidAugTypes(AugmentationTypes.validTorsoAugmentations());
+		item = new ItemPowerArmorTorso();
 		allItems.add(item);
 
-		item = new ItemPowerArmor(Config.Items.PowerArmorLegs);
-		item.setValidAugTypes(AugmentationTypes.validLegsAugmentations());
+		item = new ItemPowerArmorLegs();
 		allItems.add(item);
 
-		item = new ItemPowerArmor(Config.Items.PowerArmorFeet);
-		item.setValidAugTypes(AugmentationTypes.validFeetAugmentations());
+		item = new ItemPowerArmorFeet();
 		allItems.add(item);
 
-		ItemPowerTool tool = new ItemPowerTool(Config.Items.PowerTool);
-		item.setValidAugTypes(AugmentationTypes.validToolAugmentations());
+		ItemPowerTool tool = new ItemPowerTool();
 		allItems.add(tool);
 	}
 
@@ -143,13 +141,15 @@ public class PowersuitsMod {
 	 */
 	public static void loadBlocks() {
 		Block tinkTable = new BlockTinkerTable();
+
 		ItemStack iron = new ItemStack(Item.ingotIron);
+		ItemStack emerald = new ItemStack(Item.emerald);
 		ItemStack lapis = new ItemStack(Item.dyePowder, 1);
 		GameRegistry.addRecipe(new ItemStack(tinkTable),
-				" I ",
 				"ILI",
-				" I ",
-				'I', iron, 'L', lapis);
+				"LEL",
+				"ILI",
+				'I', iron, 'L', lapis, 'E', emerald);
 		allBlocks.add(tinkTable);
 	}
 

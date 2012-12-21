@@ -1,4 +1,4 @@
-package machinemuse.powersuits.common.augmentation;
+package machinemuse.powersuits.augmentation;
 
 import java.util.List;
 
@@ -7,20 +7,22 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class AugmentationArmorPlating extends Augmentation {
 
+	public AugmentationArmorPlating() {
+
+	}
+
 	public AugmentationArmorPlating(NBTTagCompound tag) {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Armor Plating";
 	}
 
 	@Override
 	public float getWeight() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 1;
 	}
 
 	@Override
@@ -39,6 +41,12 @@ public class AugmentationArmorPlating extends Augmentation {
 	public NBTTagCompound getNBTTag() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Augmentation newAug() {
+		// TODO Auto-generated method stub
+		return new AugmentationArmorPlating();
 	}
 
 }

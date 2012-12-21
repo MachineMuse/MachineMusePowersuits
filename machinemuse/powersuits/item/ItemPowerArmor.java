@@ -1,8 +1,7 @@
-package machinemuse.powersuits.common.item;
+package machinemuse.powersuits.item;
 
-import machinemuse.powersuits.common.CommonProxy;
 import machinemuse.powersuits.common.Config;
-import machinemuse.powersuits.common.augmentation.AugmentationTypes;
+import machinemuse.powersuits.common.Config.Items;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumArmorMaterial;
@@ -10,42 +9,29 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 /**
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.
  * 
  * @author MachineMuse
  */
-public class ItemPowerArmor extends ItemArmor implements ISpecialArmor,
+public abstract class ItemPowerArmor extends ItemArmor implements
+		ISpecialArmor,
 		IModularItem {
-	AugmentationTypes[] validAugTypes;
-
 	/**
-	 * Constructor. Takes information from the Config.Items enum.
-	 * 
-	 * @param item
+	 * @param par1
+	 * @param par2EnumArmorMaterial
+	 * @param par3
+	 * @param par4
 	 */
-	public ItemPowerArmor(Config.Items item) {
-		super(Config.getAssignedItemID(item), // itemID
-				EnumArmorMaterial.IRON, // Material
-				item.iconIndex, // Texture index
-				item.ordinal()); // armor type.
+	public ItemPowerArmor(int par1, EnumArmorMaterial par2EnumArmorMaterial,
+			int par3, int par4) {
+		super(par1, par2EnumArmorMaterial, par3, par4);
 		setMaxStackSize(1);
 		setCreativeTab(Config.getCreativeTab());
-		setIconIndex(item.iconIndex);
-		setItemName(item.idName);
-		LanguageRegistry.addName(this, item.englishName);
 	}
 
-	/**
-	 * Returns the texture file for this tool. Probably won't be used since we
-	 * are using a custom renderer.
-	 */
-	public String getTextureFile() {
-		// TODO: Delete this probably
-		return CommonProxy.ITEMS_PNG;
-	}
+	Config.Items itemType;
 
 	/**
 	 * Inherited from ISpecialArmor, allows significant customization of damage
@@ -92,21 +78,9 @@ public class ItemPowerArmor extends ItemArmor implements ISpecialArmor,
 		// Damage the armor's durability
 	}
 
-	/**
-	 * For IModularItem's aug-list functionality.
-	 * 
-	 * @param types
-	 */
-	public void setValidAugTypes(AugmentationTypes[] types) {
-		validAugTypes = types;
+	@Override
+	public Items getItemType() {
+		return itemType;
 	}
 
-	/**
-	 * Inherited from IModularItem, returns a (potentially sparse) array of
-	 * valid augmentations for this item.
-	 */
-	@Override
-	public AugmentationTypes[] getValidAugTypes() {
-		return validAugTypes;
-	}
 }

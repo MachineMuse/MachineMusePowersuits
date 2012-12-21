@@ -3,6 +3,7 @@ package machinemuse.powersuits.gui;
 import java.util.List;
 
 import machinemuse.general.geometry.Point2D;
+import net.minecraft.client.renderer.RenderEngine;
 
 /**
  * Defines a generic clickable item for a MuseGui.
@@ -10,7 +11,7 @@ import machinemuse.general.geometry.Point2D;
  * @author MachineMuse
  */
 public abstract class Clickable {
-	private Point2D position;
+	protected Point2D position;
 
 	public Clickable() {
 		position = new Point2D(0, 0);
@@ -28,7 +29,9 @@ public abstract class Clickable {
 		this.position = position;
 	}
 
-	public abstract boolean hitBox(float x, float y);
+	public abstract void draw(RenderEngine engine, MuseGui gui);
+
+	public abstract boolean hitBox(int x, int y, MuseGui gui);
 
 	public abstract List<String> getToolTip();
 }

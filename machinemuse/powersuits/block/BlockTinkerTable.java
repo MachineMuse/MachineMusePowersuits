@@ -1,4 +1,4 @@
-package machinemuse.powersuits.common.block;
+package machinemuse.powersuits.block;
 
 import machinemuse.powersuits.common.CommonProxy;
 import machinemuse.powersuits.common.Config;

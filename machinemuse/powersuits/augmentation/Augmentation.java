@@ -1,4 +1,4 @@
-package machinemuse.powersuits.common.augmentation;
+package machinemuse.powersuits.augmentation;
 
 import java.util.List;
 
@@ -12,6 +12,13 @@ import net.minecraft.nbt.NBTTagCompound;
  * 
  */
 public abstract class Augmentation {
+	/**
+	 * Default compound for all NBTtag keys on itemstacks. Needed in case some
+	 * other mod adds NBT data to these items.
+	 * 
+	 * @return
+	 */
+	public static String nbtPrefix = "mmmpsmod";
 
 	public static Augmentation fromNBTTag(NBTTagCompound tag) {
 		int id = tag.getInteger("AugID");
@@ -60,4 +67,6 @@ public abstract class Augmentation {
 	public abstract List<ItemStack> getDowngradeRefund(int level);
 
 	public abstract NBTTagCompound getNBTTag();
+
+	public abstract Augmentation newAug();
 }

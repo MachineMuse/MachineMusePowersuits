@@ -1,4 +1,4 @@
-package machinemuse.powersuits.common.trash;
+package machinemuse.powersuits.trash;
 
 import java.util.ArrayList;
 import java.util.List;

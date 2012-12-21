@@ -1,16 +1,21 @@
 package machinemuse.powersuits.gui;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import machinemuse.general.geometry.Colour;
+import machinemuse.general.geometry.Doodler;
+import machinemuse.general.geometry.FlyFromMiddlePoint2D;
+import machinemuse.general.geometry.Point2D;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.item.ItemStack;
 
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
 
 /**
  * I got fed up with Minecraft's gui system so I wrote my own (to some extent.
@@ -22,93 +27,123 @@ import org.lwjgl.opengl.GL11;
  * 
  */
 public class MuseGui extends GuiScreen {
-	protected static RenderItem itemRenderer = new RenderItem();
-	private final boolean usePretty = true;
-	private static final int xcenter = 8;
-	private static final int ycenter = 8;
-	private static final Tessellator tesselator = Tessellator.instance;
-	private long creationTime;
+	protected static RenderItem renderItem;
+	protected final boolean usePretty = true;
+	protected static final Tessellator tesselator = Tessellator.instance;
+	protected Point2D ul, br;
+	protected long creationTime;
 	int xSize, ySize;
+
+	public MuseGui() {
+		super();
+	}
 
 	/**
 	 * Adds the buttons (and other controls) to the screen in question.
 	 */
+	@Override
 	public void initGui() {
 		super.initGui();
 		this.controlList.clear();
 		Keyboard.enableRepeatEvents(true);
 		creationTime = System.currentTimeMillis();
-	}
 
-	/**
-	 * Mostly for placeholder graphics, this function draws a 3x3 grid of swirly
-	 * circles over a 16x16 square.
-	 */
-	public void draw3x3item(boolean a, boolean b, boolean c, boolean d,
-			boolean e, boolean f, boolean g, boolean h, boolean i) {
-		if (a)
-			drawCircleAround(3, 3, 2);
-		if (b)
-			drawCircleAround(8, 3, 2);
-		if (c)
-			drawCircleAround(13, 3, 2);
-
-		if (d)
-			drawCircleAround(3, 8, 2);
-		if (e)
-			drawCircleAround(8, 8, 2);
-		if (f)
-			drawCircleAround(13, 8, 2);
-
-		if (g)
-			drawCircleAround(3, 13, 2);
-		if (h)
-			drawCircleAround(8, 13, 2);
-		if (i)
-			drawCircleAround(13, 13, 2);
+		int xpadding = (width - xSize) / 2;
+		int ypadding = (height - ySize) / 2;
+		ul = new FlyFromMiddlePoint2D(-1, -1, 150);
+		br = new FlyFromMiddlePoint2D(1, 1, 150);
 	}
 
 	/**
 	 * Draws the gradient-rectangle background you see in the TinkerTable gui.
 	 */
 	public void drawRectangularBackground() {
-		int xpadding = (width - xSize) / 2;
-		int ypadding = (height - ySize) / 2;
-
-		drawGradientRect(
-				xpadding, ypadding,
-				xpadding + xSize, ypadding + ySize,
+		Doodler.drawGradientRect(
+				absX(ul.x()), absY(ul.y()),
+				absX(br.x()), absY(br.y()),
 				Colour.getGreyscale(0.8f, 0.8f),
-				Colour.getGreyscale(0.3f, 0.8f));
-
-		// GL11.glEnable(GL11.GL_BLEND);
-		// GL11.glEnable(GL11.GL_LINE_SMOOTH);
-		// GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		// GL11.glBegin(GL11.GL_QUADS);
-		// GL11.glColor4f(0.5f, 0.5f, 0.5f, 0.8f);
-		// GL11.glVertex2d(0, 0);
-		// GL11.glVertex2d(width - 10, 0);
-		// GL11.glVertex2d(width - 10, height - 10);
-		// GL11.glVertex2d(0, height - 10);
-		// GL11.glEnd();
+				Colour.getGreyscale(0.3f, 0.8f), (double) this.zLevel);
 	}
 
-	// TODO: Make this draw clickables instead of itemstacks
-	public void drawItemsOnVerticalLine(ArrayList<ItemStack> items,
-			float xoffset,
-			float yoffset,
-			float lineheight, RenderEngine engine) {
-		if (items.size() < 1) {
-			return;
-		} else if (items.size() < 2) {
-			drawItemAt(xoffset, yoffset, engine, items.get(0));
-		} else {
-			float step = 2 * lineheight / (items.size() - 1);
-			for (int i = 0; i < items.size(); i++) {
-				drawItemAt(xoffset, yoffset - lineheight + i * step, engine,
-						items.get(i));
+	/**
+	 * Draws all clickables in a list!
+	 */
+	public void drawClickables(List<? extends Clickable> list) {
+		Iterator<? extends Clickable> iter = list.iterator();
+		Clickable clickie;
+		while (iter.hasNext())
+		{
+			clickie = iter.next();
+			clickie.draw(Minecraft.getMinecraft().renderEngine, this);
+		}
+	}
+
+	/**
+	 * Returns the first ID in the list that is hit by a click
+	 * 
+	 * @return
+	 */
+	public Clickable hitboxClickables(int x, int y,
+			List<? extends Clickable> list) {
+		Iterator<? extends Clickable> iter = list.iterator();
+		Clickable clickie;
+		while (iter.hasNext())
+		{
+			clickie = iter.next();
+			if (clickie.hitBox(x, y, this)) {
+				// MuseLogger.logDebug("Hit!");
+				return clickie;
 			}
 		}
+		return null;
+	}
+
+	/**
+	 * Creates a list of points linearly interpolated between points a and b
+	 * inclusive.
+	 * 
+	 * @return A list of num points
+	 */
+	public List<Point2D> pointsInLine(int num, Point2D a, Point2D b) {
+		List<Point2D> points = new ArrayList<Point2D>();
+		if (num < 1) {
+			return null;
+		} else if (num < 2) {
+			points.add(b.minus(a).times(0.5F).plus(a));
+		} else {
+			Point2D step = b.minus(a).times(1.0F / (num - 1));
+			for (int i = 0; i < num; i++) {
+				points.add(a.plus(step.times(i)));
+			}
+		}
+
+		return points;
+	}
+
+	/**
+	 * Singleton pattern for the RenderItem
+	 * 
+	 * @return the static renderItem instance
+	 */
+	public static RenderItem getRenderItem() {
+		if (renderItem == null) {
+			renderItem = new RenderItem();
+		}
+		return renderItem;
+	}
+
+	/**
+	 * Singleton pattern for FontRenderer
+	 */
+	public static FontRenderer getFontRenderer() {
+		return Minecraft.getMinecraft().fontRenderer;
+	}
+
+	/**
+	 * Singleton pattern for RenderEngine
+	 */
+	public static RenderEngine getRenderEngine() {
+		return Minecraft.getMinecraft().renderEngine;
 	}
 
 	/**
@@ -126,6 +161,17 @@ public class MuseGui extends GuiScreen {
 	}
 
 	/**
+	 * Returns relative coordinate (float -1.0F to +1.0F) from absolute
+	 * coordinates (int 0 to width)
+	 * 
+	 */
+	public int relX(float absx) {
+		int padding = (width - xSize) / 2;
+		int relx = (int) ((absx - padding) * 2 / xSize - 1);
+		return relx;
+	}
+
+	/**
 	 * Returns absolute screen coordinates (int 0 to width) from a relative
 	 * coordinate (float -1.0F to +1.0F)
 	 * 
@@ -140,121 +186,14 @@ public class MuseGui extends GuiScreen {
 	}
 
 	/**
-	 * Draws the specified itemstack at the *relative* coordinates x,y. Used
-	 * mainly in clickables.
-	 */
-	public void drawItemAt(float x, float y, RenderEngine engine,
-			ItemStack item) {
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		// GL11.glDepthFunc(GL11.GL_GREATER);
-		GL11.glDisable(GL11.GL_LIGHTING);
-
-		itemRenderer.zLevel = 100.0F;
-		itemRenderer.renderItemAndEffectIntoGUI(this.fontRenderer, engine,
-				item, absX(x) - xcenter, absY(y) - ycenter);
-		// Minecraft.getMinecraft().fontRenderer.drawString(
-		// item.getItem().getItemDisplayName(item).substring(12, 16),
-		// absX(x) - xcenter, absY(y) - ycenter,
-		// Colour.getGreyscale(1.0F, 1.0F).getInt());
-		// drawCircleAround(absX(x), absY(y), 8);
-		itemRenderer.zLevel = 0.0F;
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
-		// GL11.glDepthFunc(GL11.GL_LEQUAL);
-		GL11.glEnable(GL11.GL_LIGHTING);
-	}
-
-	/**
-	 * Draws a swirly green circle at the specified coordinates in the current
-	 * reference frame.
+	 * Returns relative coordinate (float -1.0F to +1.0F) from absolute
+	 * coordinates (int 0 to width)
 	 * 
-	 * @param xoffset
-	 * @param yoffset
-	 * @param radius
 	 */
-	public static void drawCircleAround(float xoffset, float yoffset,
-			float radius) {
-		int numSegments = 360;
-		double theta = (2 * Math.PI) / numSegments;
-
-		int start = (int) (System.currentTimeMillis() / 4 % numSegments);
-		double x = radius * Math.sin(theta * start);
-		double y = radius * Math.cos(theta * start);
-		double tf = Math.tan(theta);
-		double rf = Math.cos(theta);
-		double tx;
-		double ty;
-		Colour c = new Colour(0.0f, 1.0f, 0.0f, 0.0f);
-
-		texturelessOn();
-
-		GL11.glBegin(GL11.GL_LINE_LOOP);
-		for (int i = 0; i < numSegments; i++) {
-			GL11.glColor4f(c.r, c.g, c.b, c.a);
-			GL11.glVertex2d(x + xoffset, y + yoffset);
-			tx = y;
-			ty = -x;
-			x += tx * tf;
-			y += ty * tf;
-			x *= rf;
-			y *= rf;
-			c.r += theta / 7;
-			c.b += theta / 7;
-			c.a += theta / 2;
-		}
-		GL11.glEnd();
-
-		texturelessOff();
+	public int relY(float absy) {
+		int padding = (height - ySize) / 2;
+		int rely = (int) ((absy - padding) * 2 / ySize - 1);
+		return rely;
 	}
 
-	/**
-	 * Call before doing any pure geometry (ie. with colours rather than
-	 * textures).
-	 */
-	public static void texturelessOn() {
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
-		GL11.glDisable(GL11.GL_ALPHA_TEST);
-
-		GL11.glEnable(GL11.GL_LINE_SMOOTH);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glShadeModel(GL11.GL_SMOOTH);
-	}
-
-	/**
-	 * Call after doing pure geometry (ie. with colours) to go back to the
-	 * texture mode (default).
-	 */
-	public static void texturelessOff() {
-		GL11.glShadeModel(GL11.GL_FLAT);
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glEnable(GL11.GL_ALPHA_TEST);
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
-	}
-
-	/**
-	 * Draws a rectangle with a vertical gradient between the specified colors.
-	 */
-	protected void drawGradientRect(int left, int top, int right, int bottom,
-			Colour c1, Colour c2)
-	{
-		texturelessOn();
-
-		Tessellator tessellator = Tessellator.instance;
-
-		tessellator.startDrawingQuads();
-		tessellator.setColorRGBA_F(c1.r, c1.g, c1.b, c1.a);
-		tessellator.addVertex((double) right, (double) top,
-				(double) this.zLevel);
-		tessellator
-				.addVertex((double) left, (double) top, (double) this.zLevel);
-
-		tessellator.setColorRGBA_F(c2.r, c2.g, c2.b, c2.a);
-		tessellator.addVertex((double) left, (double) bottom,
-				(double) this.zLevel);
-		tessellator.addVertex((double) right, (double) bottom,
-				(double) this.zLevel);
-		tessellator.draw();
-
-		texturelessOff();
-	}
 }

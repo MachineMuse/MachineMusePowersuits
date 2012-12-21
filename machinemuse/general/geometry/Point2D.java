@@ -10,19 +10,23 @@ package machinemuse.general.geometry;
  * 
  */
 public class Point2D {
-	private float x;
-	private float y;
+	protected float x;
+	protected float y;
 
 	public Point2D(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	public float getX() {
+	public Point2D(Point2D p) {
+		this(p.x, p.y);
+	}
+
+	public float x() {
 		return x;
 	}
 
-	public float getY() {
+	public float y() {
 		return y;
 	}
 
@@ -32,5 +36,17 @@ public class Point2D {
 
 	public void setY(float y) {
 		this.y = y;
+	}
+
+	public Point2D plus(Point2D b) {
+		return new Point2D(x + b.x, y + b.y);
+	}
+
+	public Point2D minus(Point2D b) {
+		return new Point2D(x - b.x, y - b.y);
+	}
+
+	public Point2D times(float f) {
+		return new Point2D(x * f, y * f);
 	}
 }
