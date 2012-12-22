@@ -69,6 +69,7 @@ public class AugmentationList {
 		}
 		augdata = aug.newAug();
 		augCache.put(aug, augdata);
+		tag.setCompoundTag(aug.getName(), augdata.getNBTTag());
 		return augdata;
 	}
 

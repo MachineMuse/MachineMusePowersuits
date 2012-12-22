@@ -1,5 +1,6 @@
 package machinemuse.powersuits.common;
 
+import machinemuse.powersuits.network.ServerPacketHandler;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.network.IPacketHandler;

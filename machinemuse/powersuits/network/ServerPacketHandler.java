@@ -1,4 +1,4 @@
-package machinemuse.powersuits.common;
+package machinemuse.powersuits.network;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -16,7 +16,6 @@ import cpw.mods.fml.common.network.Player;
  * 
  */
 public class ServerPacketHandler implements IPacketHandler {
-
 	@Override
 	public void onPacketData(INetworkManager manager,
 			Packet250CustomPayload packet, Player player) {

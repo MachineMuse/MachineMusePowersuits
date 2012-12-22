@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import machinemuse.powersuits.block.BlockTinkerTable;
-import machinemuse.powersuits.client.ClientPacketHandler;
 import machinemuse.powersuits.item.ItemPowerArmor;
 import machinemuse.powersuits.item.ItemPowerArmorFeet;
 import machinemuse.powersuits.item.ItemPowerArmorHead;
 import machinemuse.powersuits.item.ItemPowerArmorLegs;
 import machinemuse.powersuits.item.ItemPowerArmorTorso;
 import machinemuse.powersuits.item.ItemPowerTool;
+import machinemuse.powersuits.network.ClientPacketHandler;
+import machinemuse.powersuits.network.ServerPacketHandler;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

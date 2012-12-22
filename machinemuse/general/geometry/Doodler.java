@@ -225,8 +225,8 @@ public abstract class Doodler {
 	/**
 	 * Draws a rectangle with a vertical gradient between the specified colors.
 	 */
-	public static void drawGradientRect(int left, int top, int right,
-			int bottom, Colour c1, Colour c2, double zLevel)
+	public static void drawGradientRect(float left, float top, float right,
+			float bottom, Colour c1, Colour c2, double zLevel)
 	{
 		texturelessOn();
 		on2D();
@@ -267,5 +267,21 @@ public abstract class Doodler {
 		// GL11.glDepthFunc(GL11.GL_LEQUAL);
 		GL11.glEnable(GL11.GL_LIGHTING);
 
+	}
+
+	/**
+	 * 
+	 */
+	public static void relativeCoords(MuseGui gui) {
+		GL11.glPushMatrix();
+		GL11.glTranslatef(gui.width / 2, gui.height / 2, 0);
+		GL11.glScalef(gui.getxSize(), gui.getySize(), 0);
+	}
+
+	/**
+	 * 
+	 */
+	public static void popMatrix() {
+		GL11.glPopMatrix();
 	}
 }

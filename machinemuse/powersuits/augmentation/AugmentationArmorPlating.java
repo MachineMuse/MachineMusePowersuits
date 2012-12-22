@@ -9,13 +9,11 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class AugmentationArmorPlating extends Augmentation {
 	protected int durability;
-
-	public AugmentationArmorPlating() {
-		level = 0;
-	}
+	protected static final String STR_DURABILITY = "Durability";
 
 	public AugmentationArmorPlating(NBTTagCompound tag) {
 		this.nbtTag = tag;
+		level = 0;
 	}
 
 	@Override
@@ -44,22 +42,23 @@ public class AugmentationArmorPlating extends Augmentation {
 
 	@Override
 	public Augmentation newAug() {
-		// TODO Auto-generated method stub
-		return new AugmentationArmorPlating();
+		return new AugmentationArmorPlating(new NBTTagCompound());
 	}
 
 	@Override
 	public Augmentation fromNBTTag(NBTTagCompound tag) {
-		AugmentationArmorPlating aug = new AugmentationArmorPlating();
-		if (tag.hasKey("level")) {
-			aug.level = tag.getInteger("Level");
+		AugmentationArmorPlating aug = new AugmentationArmorPlating(tag);
+		if (tag.hasKey(STR_LEVEL)) {
+			aug.level = tag.getInteger(STR_LEVEL);
 		} else {
-			aug.level = new Integer(0);
+			aug.level = 0;
+			tag.setInteger(STR_LEVEL, 0);
 		}
-		if (tag.hasKey("durability")) {
-			aug.durability = tag.getInteger("Durability");
+		if (tag.hasKey(STR_DURABILITY)) {
+			aug.durability = tag.getInteger(STR_DURABILITY);
 		} else {
-			aug.durability = new Integer(0);
+			aug.durability = 100;
+			tag.setInteger(STR_DURABILITY, 100);
 		}
 		return aug;
 	}

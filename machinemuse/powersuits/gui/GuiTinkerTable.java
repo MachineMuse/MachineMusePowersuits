@@ -31,6 +31,8 @@ public class GuiTinkerTable extends MuseGui {
 	protected Augmentation workingAugmentation;
 	protected List<ItemStack> workingUpgradeCost;
 	protected List<ItemStack> workingDowngradeRefund;
+	protected ClickableButton upgradeButton;
+	protected ClickableButton downgradeButton;
 
 	/**
 	 * Constructor. Takes a player as an argument.
@@ -162,6 +164,7 @@ public class GuiTinkerTable extends MuseGui {
 				Point2D next = pointiter.next();
 				Doodler.drawItemAt(absX(next.x()), absY(next.y()), this, item);
 			}
+			upgradeButton.draw(this.getRenderEngine(), this);
 		}
 		if (workingDowngradeRefund != null) {
 			Doodler.on2D();
@@ -178,6 +181,7 @@ public class GuiTinkerTable extends MuseGui {
 				Point2D next = pointiter.next();
 				Doodler.drawItemAt(absX(next.x()), absY(next.y()), this, item);
 			}
+			downgradeButton.draw(this.getRenderEngine(), this);
 		}
 
 	}
@@ -190,6 +194,8 @@ public class GuiTinkerTable extends MuseGui {
 		this.workingAugmentation = null;
 		this.workingUpgradeCost = null;
 		this.workingDowngradeRefund = null;
+		this.upgradeButton = null;
+		this.downgradeButton = null;
 	}
 
 	/**
@@ -211,9 +217,61 @@ public class GuiTinkerTable extends MuseGui {
 			} else if (augClicked != null) {
 				this.selectedAugClickable = augClicked;
 				this.workingAugmentation = augData.getAugData(augClicked.aug);
-				this.workingUpgradeCost = workingAugmentation.getUpgradeCost();
-				this.workingDowngradeRefund = workingAugmentation
-						.getDowngradeRefund();
+				refreshUpgrades();
+			} else if (upgradeButton != null
+					&& upgradeButton.enabled
+					&& upgradeButton.hitBox(x, y, this)) {
+				doUpgrade();
+			} else if (downgradeButton != null
+					&& downgradeButton.enabled
+					&& downgradeButton.hitBox(x, y, this)) {
+				doDowngrade();
+			}
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void doDowngrade() {
+		// TODO Auto-generated method stub
+
+	}
+
+	/**
+	 * Performs all the functions associated with the upgrade button. This
+	 * requires communicating with the server.
+	 */
+	private void doUpgrade() {
+		if (ItemUtils.hasInInventory(workingUpgradeCost, player.inventory)) {
+			ItemUtils.deleteFromInventory(workingUpgradeCost, player.inventory);
+			workingAugmentation.upgrade();
+		}
+	}
+
+	/**
+	 * Updates the upgrade/downgrade buttons. May someday also include repairs.
+	 */
+	private void refreshUpgrades() {
+		if (workingAugmentation != null) {
+			this.workingUpgradeCost = workingAugmentation.getUpgradeCost();
+			if (workingUpgradeCost != null) {
+				this.upgradeButton = new ClickableButton("Upgrade",
+						new Point2D(0.6F, -0.2F),
+						new Point2D(0.25F, 0.05F), true);
+				if (ItemUtils.hasInInventory(workingUpgradeCost,
+						player.inventory)) {
+					upgradeButton.enabled = true;
+				} else {
+					upgradeButton.enabled = false;
+				}
+			}
+			this.workingDowngradeRefund = workingAugmentation
+					.getDowngradeRefund();
+			if (workingDowngradeRefund != null) {
+				this.downgradeButton = new ClickableButton("Downgrade",
+						new Point2D(0.6F, 0.8F),
+						new Point2D(0.25F, 0.05F), true);
 			}
 		}
 	}

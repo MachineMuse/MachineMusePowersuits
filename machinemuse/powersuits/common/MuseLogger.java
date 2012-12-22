@@ -9,7 +9,19 @@ import java.util.logging.Logger;
  * 
  */
 public abstract class MuseLogger {
+	protected final static String DEBUGPREFIX = "MMMPS - DEBUG - ";
+
+	protected final static String ERRORPREFIX = "MMMPS - ERROR - ";
+
 	public static void logDebug(String string) {
-		Logger.getLogger("STDOUT").info(string);
+		Logger.getLogger("STDOUT").info(DEBUGPREFIX + string);
+	}
+
+	/**
+	 * @param string
+	 */
+	public static void logError(String string) {
+		Logger.getLogger("STDERR").info(ERRORPREFIX + string);
+
 	}
 }

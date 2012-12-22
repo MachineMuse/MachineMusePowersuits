@@ -142,12 +142,6 @@ public class EquipmentRenderer implements IItemRenderer {
 				1, 4, 3
 		};
 		Doodler.drawTriangles(v, c, i);
-		// }
-
-		// Doodler.draw3x3placeholder(
-		// true, true, true,
-		// true, false, true,
-		// true, false, true);
 	}
 
 	public void drawFeet(ItemStack itemStack) {

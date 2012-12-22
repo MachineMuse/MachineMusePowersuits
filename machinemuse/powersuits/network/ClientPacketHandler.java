@@ -1,7 +1,4 @@
-package machinemuse.powersuits.client;
-
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
+package machinemuse.powersuits.network;
 
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
@@ -18,8 +15,7 @@ public class ClientPacketHandler implements IPacketHandler {
 	@Override
 	public void onPacketData(INetworkManager manager,
 			Packet250CustomPayload payload, Player player) {
-		DataInputStream data = new DataInputStream(new ByteArrayInputStream(
-				payload.data));
+
 	}
 
 }

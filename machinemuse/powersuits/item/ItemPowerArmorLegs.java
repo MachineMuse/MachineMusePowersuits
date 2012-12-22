@@ -7,6 +7,7 @@ import machinemuse.powersuits.augmentation.AugmentationArmorPlating;
 import machinemuse.powersuits.augmentation.AugmentationBattery;
 import machinemuse.powersuits.common.Config;
 import net.minecraft.item.EnumArmorMaterial;
+import net.minecraft.nbt.NBTTagCompound;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class ItemPowerArmorLegs extends ItemPowerArmor {
@@ -29,8 +30,8 @@ public class ItemPowerArmorLegs extends ItemPowerArmor {
 	 */
 	public void setValidAugTypes() {
 		validAugTypes = new ArrayList<Augmentation>();
-		validAugTypes.add(new AugmentationBattery());
-		validAugTypes.add(new AugmentationArmorPlating());
+		validAugTypes.add(new AugmentationBattery(new NBTTagCompound()));
+		validAugTypes.add(new AugmentationArmorPlating(new NBTTagCompound()));
 	}
 
 }

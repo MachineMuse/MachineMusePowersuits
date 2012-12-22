@@ -15,20 +15,20 @@ import net.minecraft.nbt.NBTTagCompound;
  * 
  */
 public class AugmentationBattery extends Augmentation {
-	float energy;
+	protected float energy;
+	protected static final String STR_ENERGY = "CurrentEnergy";
 
-	public AugmentationBattery() {
-
+	/**
+	 * @param nbtTagCompound
+	 */
+	public AugmentationBattery(NBTTagCompound tag) {
+		this.nbtTag = tag;
+		this.level = 0;
 	}
 
 	@Override
 	public String getName() {
 		return "Electric Battery";
-	}
-
-	@Override
-	public float getWeight() {
-		return 1;
 	}
 
 	public float getAvailableEnergy() {
@@ -41,6 +41,11 @@ public class AugmentationBattery extends Augmentation {
 
 	public float setAvailableEnergy() {
 		return energy;
+	}
+
+	@Override
+	public float getWeight() {
+		return 1;
 	}
 
 	@Override
@@ -59,13 +64,24 @@ public class AugmentationBattery extends Augmentation {
 
 	@Override
 	public Augmentation newAug() {
-		return new AugmentationBattery();
+		return new AugmentationArmorPlating(new NBTTagCompound());
 	}
 
 	@Override
 	public Augmentation fromNBTTag(NBTTagCompound tag) {
-		// TODO Auto-generated method stub
-		return null;
+		AugmentationBattery aug = new AugmentationBattery(tag);
+		if (tag.hasKey(STR_LEVEL)) {
+			aug.level = tag.getInteger(STR_LEVEL);
+		} else {
+			aug.level = 0;
+			tag.setInteger(STR_LEVEL, 0);
+		}
+		if (tag.hasKey(STR_ENERGY)) {
+			aug.energy = tag.getFloat(STR_ENERGY);
+		} else {
+			aug.energy = 0;
+			tag.setFloat(STR_ENERGY, 0);
+		}
+		return aug;
 	}
-
 }

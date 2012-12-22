@@ -23,6 +23,7 @@ public abstract class Augmentation {
 	public static String nbtPrefix = "mmmpsmod";
 
 	protected int level;
+	protected static final String STR_LEVEL = "Level";
 
 	public int getLevel() {
 		return level;
@@ -30,13 +31,12 @@ public abstract class Augmentation {
 
 	public void upgrade() {
 		level += 1;
-		if (nbtTag != null) {
-			nbtTag.setInteger("level", level);
-		}
+		nbtTag.setInteger("level", level);
 	}
 
 	public void downgrade() {
 		level -= 1;
+		nbtTag.setInteger("level", level);
 	}
 
 	/**

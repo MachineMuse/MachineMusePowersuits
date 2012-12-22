@@ -32,7 +32,8 @@ public class MuseGui extends GuiScreen {
 	protected static final Tessellator tesselator = Tessellator.instance;
 	protected Point2D ul, br;
 	protected long creationTime;
-	int xSize, ySize;
+	protected int xSize;
+	protected int ySize;
 
 	public MuseGui() {
 		super();
@@ -48,7 +49,7 @@ public class MuseGui extends GuiScreen {
 		Keyboard.enableRepeatEvents(true);
 		creationTime = System.currentTimeMillis();
 
-		int xpadding = (width - xSize) / 2;
+		int xpadding = (width - getxSize()) / 2;
 		int ypadding = (height - ySize) / 2;
 		ul = new FlyFromMiddlePoint2D(-1, -1, 150);
 		br = new FlyFromMiddlePoint2D(1, 1, 150);
@@ -156,8 +157,8 @@ public class MuseGui extends GuiScreen {
 	 * @return Absolute X coordinate
 	 */
 	public int absX(float relx) {
-		int absx = (int) ((relx + 1) * xSize / 2);
-		int xpadding = (width - xSize) / 2;
+		int absx = (int) ((relx + 1) * getxSize() / 2);
+		int xpadding = (width - getxSize()) / 2;
 		return absx + xpadding;
 	}
 
@@ -167,8 +168,8 @@ public class MuseGui extends GuiScreen {
 	 * 
 	 */
 	public int relX(float absx) {
-		int padding = (width - xSize) / 2;
-		int relx = (int) ((absx - padding) * 2 / xSize - 1);
+		int padding = (width - getxSize()) / 2;
+		int relx = (int) ((absx - padding) * 2 / getxSize() - 1);
 		return relx;
 	}
 
@@ -195,6 +196,36 @@ public class MuseGui extends GuiScreen {
 		int padding = (height - ySize) / 2;
 		int rely = (int) ((absy - padding) * 2 / ySize - 1);
 		return rely;
+	}
+
+	/**
+	 * @return the xSize
+	 */
+	public int getxSize() {
+		return xSize;
+	}
+
+	/**
+	 * @param xSize
+	 *            the xSize to set
+	 */
+	public void setxSize(int xSize) {
+		this.xSize = xSize;
+	}
+
+	/**
+	 * @return the ySize
+	 */
+	public int getySize() {
+		return ySize;
+	}
+
+	/**
+	 * @param ySize
+	 *            the ySize to set
+	 */
+	public void setySize(int ySize) {
+		this.ySize = ySize;
 	}
 
 }

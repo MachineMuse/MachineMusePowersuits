@@ -8,6 +8,7 @@ import machinemuse.powersuits.augmentation.AugmentationBattery;
 import machinemuse.powersuits.common.Config;
 import machinemuse.powersuits.common.Config.Items;
 import net.minecraft.item.Item;
+import net.minecraft.nbt.NBTTagCompound;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 /**
@@ -38,7 +39,7 @@ public class ItemPowerTool extends Item implements IModularItem {
 	 */
 	public void setValidAugTypes() {
 		validAugTypes = new ArrayList<Augmentation>();
-		validAugTypes.add(new AugmentationBattery());
+		validAugTypes.add(new AugmentationBattery(new NBTTagCompound()));
 	}
 
 	/**

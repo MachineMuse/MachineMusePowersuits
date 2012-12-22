@@ -7,6 +7,7 @@ import java.util.List;
 import machinemuse.powersuits.augmentation.Augmentation;
 import machinemuse.powersuits.augmentation.AugmentationList;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -57,5 +58,59 @@ public class ItemUtils {
 		}
 
 		return augs;
+	}
+
+	/**
+	 * Checks if the player has a copy of all of the items in
+	 * workingUpgradeCost.
+	 * 
+	 * @param workingUpgradeCost
+	 * @param inventory
+	 * @return
+	 */
+	public static boolean hasInInventory(List<ItemStack> workingUpgradeCost,
+			InventoryPlayer inventory) {
+		for (int j = 0; j < workingUpgradeCost.size(); j++) {
+			ItemStack stackInCost = workingUpgradeCost.get(j);
+			int found = 0;
+			for (int i = 0; i < inventory.getSizeInventory(); i++) {
+				ItemStack stackInInventory = inventory.getStackInSlot(i);
+				if (stackInInventory != null) {
+					if (stackInInventory.itemID == stackInCost.itemID) {
+						found += stackInInventory.stackSize;
+					}
+				}
+			}
+			if (found < stackInCost.stackSize) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * @param workingUpgradeCost
+	 * @param inventory
+	 */
+	public static void deleteFromInventory(List<ItemStack> workingUpgradeCost,
+			InventoryPlayer inventory) {
+		for (int j = 0; j < workingUpgradeCost.size(); j++) {
+			ItemStack stackInCost = workingUpgradeCost.get(j);
+			int remaining = stackInCost.stackSize;
+			for (int i = 0; i < inventory.getSizeInventory(); i++) {
+				ItemStack stackInInventory = inventory.getStackInSlot(i);
+				if (stackInInventory != null) {
+					if (stackInInventory.itemID == stackInCost.itemID) {
+						if (stackInInventory.stackSize > remaining) {
+							stackInInventory.stackSize -= remaining;
+							remaining = 0;
+						} else {
+							remaining -= stackInInventory.stackSize;
+							stackInInventory.stackSize = 0;
+						}
+					}
+				}
+			}
+		}
 	}
 }
