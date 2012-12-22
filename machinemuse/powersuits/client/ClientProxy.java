@@ -3,7 +3,7 @@ package machinemuse.powersuits.client;
 import machinemuse.powersuits.common.CommonProxy;
 import machinemuse.powersuits.common.Config;
 import machinemuse.powersuits.common.PowersuitsMod;
-import machinemuse.powersuits.common.TickHandler;
+import machinemuse.powersuits.common.WorldTickHandler;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.common.Side;
@@ -43,7 +43,7 @@ public class ClientProxy extends CommonProxy {
 	 */
 	@Override
 	public void registerHandlers() {
-		tickHandler = new TickHandler();
+		tickHandler = new WorldTickHandler();
 		TickRegistry.registerTickHandler(tickHandler, Side.CLIENT);
 
 		packetHandler = new ClientPacketHandler();

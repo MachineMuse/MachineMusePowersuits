@@ -49,9 +49,9 @@ public class Colour {
 	public int getInt() {
 		int val = 0;
 		val = val | ((int) (a * 255) << 24);
-		val = val | ((int) (b * 255) << 16);
+		val = val | ((int) (r * 255) << 16);
 		val = val | ((int) (g * 255) << 8);
-		val = val | ((int) (r * 255));
+		val = val | ((int) (b * 255));
 
 		return val;
 	}

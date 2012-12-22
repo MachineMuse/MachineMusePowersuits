@@ -4,7 +4,6 @@
 package machinemuse.powersuits.item;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import machinemuse.powersuits.augmentation.Augmentation;
 import machinemuse.powersuits.augmentation.AugmentationArmorPlating;
@@ -18,8 +17,6 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
  * 
  */
 public class ItemPowerArmorFeet extends ItemPowerArmor {
-	protected static List<Augmentation> validAugTypes;
-
 	/**
 	 * @param item
 	 */
@@ -44,15 +41,6 @@ public class ItemPowerArmorFeet extends ItemPowerArmor {
 		validAugTypes = new ArrayList<Augmentation>();
 		validAugTypes.add(new AugmentationBattery());
 		validAugTypes.add(new AugmentationArmorPlating());
-	}
-
-	/**
-	 * Inherited from IModularItem, returns a (potentially sparse) array of
-	 * valid augmentations for this item.
-	 */
-	@Override
-	public List<Augmentation> getValidAugs() {
-		return validAugTypes;
 	}
 
 }

@@ -8,7 +8,7 @@ import machinemuse.powersuits.common.Config;
 /**
  * Interface for ItemPowerArmor and ItemPowerTool to share.
  * 
- * @author Claire
+ * @author MachineMuse
  */
 public interface IModularItem {
 	public List<Augmentation> getValidAugs();

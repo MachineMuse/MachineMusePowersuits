@@ -1,12 +1,18 @@
 package machinemuse.powersuits.trash;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import machinemuse.powersuits.item.ItemPowerArmor;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.world.World;
 
 public class ContainerTinkerTable extends Container {
@@ -172,4 +178,81 @@ public class ContainerTinkerTable extends Container {
 		return var3;
 	}
 
+	/**
+	 * Adds a recipe. See spreadsheet on first page for details.
+	 */
+	public void addRecipe(ItemStack outputStack, Object... recipeParameters)
+	{
+		String reshapedString = "";
+		int currentArg = 0;
+		int var5 = 0;
+		int var6 = 0;
+
+		if (recipeParameters[currentArg] instanceof String[])
+		{
+			String[] nextRecipeString = (String[]) ((String[]) recipeParameters[currentArg++]);
+
+			for (int i = 0; i < nextRecipeString.length; ++i)
+			{
+				String nextChar = nextRecipeString[i];
+				++var6;
+				var5 = nextChar.length();
+				reshapedString = reshapedString + nextChar;
+			}
+		}
+		else
+		{
+			while (recipeParameters[currentArg] instanceof String)
+			{
+				String var11 = (String) recipeParameters[currentArg++];
+				++var6;
+				var5 = var11.length();
+				reshapedString = reshapedString + var11;
+			}
+		}
+
+		HashMap var12;
+
+		for (var12 = new HashMap(); currentArg < recipeParameters.length; currentArg += 2)
+		{
+			Character var13 = (Character) recipeParameters[currentArg];
+			ItemStack var14 = null;
+
+			if (recipeParameters[currentArg + 1] instanceof Item)
+			{
+				var14 = new ItemStack((Item) recipeParameters[currentArg + 1]);
+			}
+			else if (recipeParameters[currentArg + 1] instanceof Block)
+			{
+				var14 = new ItemStack((Block) recipeParameters[currentArg + 1], 1, -1);
+			}
+			else if (recipeParameters[currentArg + 1] instanceof ItemStack)
+			{
+				var14 = (ItemStack) recipeParameters[currentArg + 1];
+			}
+
+			var12.put(var13, var14);
+		}
+
+		ItemStack[] var15 = new ItemStack[var5 * var6];
+
+		for (int var16 = 0; var16 < var5 * var6; ++var16)
+		{
+			char var10 = reshapedString.charAt(var16);
+
+			if (var12.containsKey(Character.valueOf(var10)))
+			{
+				var15[var16] = ((ItemStack) var12.get(Character.valueOf(var10)))
+						.copy();
+			}
+			else
+			{
+				var15[var16] = null;
+			}
+		}
+
+		List<IRecipe> recipes = new ArrayList<IRecipe>();
+		recipes.add(new ShapedRecipes(var5, var6, var15,
+				outputStack));
+	}
 }

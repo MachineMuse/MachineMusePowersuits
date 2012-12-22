@@ -61,8 +61,9 @@ public class MuseGui extends GuiScreen {
 		Doodler.drawGradientRect(
 				absX(ul.x()), absY(ul.y()),
 				absX(br.x()), absY(br.y()),
-				Colour.getGreyscale(0.8f, 0.8f),
-				Colour.getGreyscale(0.3f, 0.8f), (double) this.zLevel);
+				new Colour(0.1F, 0.9F, 0.1F, 0.8F),
+				new Colour(0.0F, 0.2F, 0.0F, 0.8F),
+				(double) this.zLevel);
 	}
 
 	/**
@@ -111,8 +112,8 @@ public class MuseGui extends GuiScreen {
 		} else if (num < 2) {
 			points.add(b.minus(a).times(0.5F).plus(a));
 		} else {
-			Point2D step = b.minus(a).times(1.0F / (num - 1));
-			for (int i = 0; i < num; i++) {
+			Point2D step = b.minus(a).times(1.0F / (num + 1));
+			for (int i = 1; i < num + 2; i++) {
 				points.add(a.plus(step.times(i)));
 			}
 		}

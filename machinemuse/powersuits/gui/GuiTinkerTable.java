@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import machinemuse.general.geometry.Colour;
 import machinemuse.general.geometry.Doodler;
 import machinemuse.general.geometry.FlyFromMiddlePoint2D;
 import machinemuse.general.geometry.Point2D;
 import machinemuse.powersuits.augmentation.Augmentation;
 import machinemuse.powersuits.augmentation.AugmentationList;
 import machinemuse.powersuits.common.MuseLogger;
-import machinemuse.powersuits.item.ItemUtil;
+import machinemuse.powersuits.item.ItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -25,8 +26,11 @@ public class GuiTinkerTable extends MuseGui {
 	protected List<ClickableItem> itemButtons;
 	protected ClickableItem selectedItemStack;
 	protected List<ClickableAugmentation> augButtons;
-	protected ClickableAugmentation selectedAugmentation;
+	protected ClickableAugmentation selectedAugClickable;
 	protected AugmentationList augData;
+	protected Augmentation workingAugmentation;
+	protected List<ItemStack> workingUpgradeCost;
+	protected List<ItemStack> workingDowngradeRefund;
 
 	/**
 	 * Constructor. Takes a player as an argument.
@@ -56,7 +60,7 @@ public class GuiTinkerTable extends MuseGui {
 	 * 
 	 */
 	public void loadItems() {
-		List<ItemStack> stacks = ItemUtil
+		List<ItemStack> stacks = ItemUtils
 				.getModularItemsInInventory(player.inventory);
 
 		List<Point2D> points = this.pointsInLine(stacks.size(),
@@ -79,7 +83,7 @@ public class GuiTinkerTable extends MuseGui {
 	protected void loadAugList(ClickableItem itemClicked) {
 		augButtons = new ArrayList<ClickableAugmentation>();
 		augData = new AugmentationList(itemClicked.getItem());
-		List<Augmentation> validAugs = ItemUtil.getAsModular(itemClicked
+		List<Augmentation> validAugs = ItemUtils.getAsModular(itemClicked
 				.getItem().getItem()).getValidAugs();
 		List<Point2D> points = this.pointsInLine(validAugs.size(),
 				new Point2D(-0.7F, -0.9F),
@@ -106,17 +110,13 @@ public class GuiTinkerTable extends MuseGui {
 					10);
 		}
 
-		if (selectedAugmentation != null) {
+		if (selectedAugClickable != null) {
 			Doodler.drawCircleAround(
-					absX(selectedAugmentation.getPosition().x()),
-					absY(selectedAugmentation.getPosition().y()),
+					absX(selectedAugClickable.getPosition().x()),
+					absY(selectedAugClickable.getPosition().y()),
 					10);
+
 		}
-		// for (Augmentation a : Augmentation.getAllAugs()) {
-		// if (a.canGoInSlot(selectedSlot.getType())) {
-		//
-		// }
-		// }
 
 	}
 
@@ -143,13 +143,53 @@ public class GuiTinkerTable extends MuseGui {
 		drawClickables(this.itemButtons);
 		drawSelection();
 		drawClickables(this.augButtons);
-		// Colour colour = Colour.getGreyscale(1.0F, 1.0F);
-		// if (editingItem != null && editingLayout != null) {
-		// drawLayout(editingLayout);
-		// if (selectedSlot != null) {
-		// drawSelection();
-		// }
-		// }
+		drawUpgradeDowngrade();
+	}
+
+	/**
+	 * Draws the upgrade/downgrade cost, buttons, and labels.
+	 */
+	public void drawUpgradeDowngrade() {
+		if (workingUpgradeCost != null) {
+			this.drawString(fontRenderer, "Cost:", absX(0.4F),
+					absY(-0.7F),
+					new Colour(0.5F, 1.0F, 0.5F, 1.0F).getInt());
+			List<Point2D> points = this.pointsInLine(workingUpgradeCost.size(),
+					new Point2D(0.4F, -0.5F),
+					new Point2D(0.9F, -0.5F));
+			Iterator<Point2D> pointiter = points.iterator();
+			for (ItemStack item : workingUpgradeCost) {
+				Point2D next = pointiter.next();
+				Doodler.drawItemAt(absX(next.x()), absY(next.y()), this, item);
+			}
+		}
+		if (workingDowngradeRefund != null) {
+			Doodler.on2D();
+			this.drawString(fontRenderer, "Refund:", absX(0.4F),
+					absY(0.3F),
+					new Colour(1.0F, 0.6F, 0.2F, 1.0F).getInt());
+			Doodler.off2D();
+			List<Point2D> points = this.pointsInLine(
+					workingDowngradeRefund.size(),
+					new Point2D(0.4F, 0.5F),
+					new Point2D(0.9F, 0.5F));
+			Iterator<Point2D> pointiter = points.iterator();
+			for (ItemStack item : workingDowngradeRefund) {
+				Point2D next = pointiter.next();
+				Doodler.drawItemAt(absX(next.x()), absY(next.y()), this, item);
+			}
+		}
+
+	}
+
+	/**
+	 * Clear all the UI stuff that's there.
+	 */
+	protected void clearSelections() {
+		this.selectedAugClickable = null;
+		this.workingAugmentation = null;
+		this.workingUpgradeCost = null;
+		this.workingDowngradeRefund = null;
 	}
 
 	/**
@@ -165,13 +205,16 @@ public class GuiTinkerTable extends MuseGui {
 					(ClickableAugmentation) hitboxClickables(x, y,
 							this.augButtons);
 			if (itemClicked != null) {
+				clearSelections();
 				this.selectedItemStack = itemClicked;
 				loadAugList(itemClicked);
 			} else if (augClicked != null) {
-				this.selectedAugmentation = augClicked;
-				// TODO: add ui on the right for stuff
+				this.selectedAugClickable = augClicked;
+				this.workingAugmentation = augData.getAugData(augClicked.aug);
+				this.workingUpgradeCost = workingAugmentation.getUpgradeCost();
+				this.workingDowngradeRefund = workingAugmentation
+						.getDowngradeRefund();
 			}
 		}
 	}
-
 }

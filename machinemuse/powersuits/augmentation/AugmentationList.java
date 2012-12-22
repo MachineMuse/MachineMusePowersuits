@@ -1,12 +1,14 @@
 package machinemuse.powersuits.augmentation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import machinemuse.powersuits.item.IModularItem;
-import machinemuse.powersuits.item.ItemUtil;
+import machinemuse.powersuits.item.ItemUtils;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
 
 /**
@@ -27,20 +29,21 @@ public class AugmentationList {
 	 * @param itemStack
 	 */
 	public AugmentationList(ItemStack itemStack) {
-		IModularItem item = ItemUtil.getAsModular(itemStack.getItem());
-
+		IModularItem item = ItemUtils.getAsModular(itemStack.getItem());
+		CraftingManager.getInstance().getRecipeList();
 		if (item != null) {
+			augCache = new HashMap<Augmentation, Augmentation>();
 			if (itemStack.hasTagCompound()) {
 
 				this.tag = itemStack.getTagCompound().getCompoundTag(
 						Augmentation.nbtPrefix);
 				validAugs = item.getValidAugs();
-				augCache = new HashMap<Augmentation, Augmentation>();
 			} else {
 				NBTTagCompound nbt = new NBTTagCompound();
 				nbt.setCompoundTag(Augmentation.nbtPrefix,
 						new NBTTagCompound());
 				itemStack.setTagCompound(nbt);
+				this.tag = nbt;
 			}
 		}
 	}
@@ -72,5 +75,17 @@ public class AugmentationList {
 	public int getCurrentArmorValue() {
 
 		return 0;
+	}
+
+	/**
+	 * @return
+	 */
+	public List<Augmentation> getAllAugData() {
+		List<Augmentation> augData = new ArrayList<Augmentation>();
+		Iterator<Augmentation> iter = validAugs.iterator();
+		while (iter.hasNext()) {
+			augData.add(getAugData(iter.next()));
+		}
+		return augData;
 	}
 }

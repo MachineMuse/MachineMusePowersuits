@@ -14,7 +14,7 @@ import cpw.mods.fml.common.TickType;
  * @author MachineMuse
  * 
  */
-public class TickHandler implements ITickHandler {
+public class WorldTickHandler implements ITickHandler {
 	/**
 	 * Called at the "start" phase of a tick
 	 * 
@@ -41,7 +41,6 @@ public class TickHandler implements ITickHandler {
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		// TODO Auto-generated method stub
-
 	}
 
 	/**

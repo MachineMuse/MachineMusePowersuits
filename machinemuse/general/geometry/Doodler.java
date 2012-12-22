@@ -259,6 +259,8 @@ public abstract class Doodler {
 		gui.getRenderItem().zLevel = 100.0F;
 		gui.getRenderItem().renderItemAndEffectIntoGUI(
 				gui.getFontRenderer(), gui.getRenderEngine(), item, x, y);
+		gui.getRenderItem().renderItemOverlayIntoGUI(gui.getFontRenderer(),
+				gui.getRenderEngine(), item, x, y);
 		gui.getRenderItem().zLevel = 0.0F;
 
 		GL11.glDisable(GL11.GL_DEPTH_TEST);

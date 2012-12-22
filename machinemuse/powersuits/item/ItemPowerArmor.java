@@ -1,5 +1,8 @@
 package machinemuse.powersuits.item;
 
+import java.util.List;
+
+import machinemuse.powersuits.augmentation.Augmentation;
 import machinemuse.powersuits.common.Config;
 import machinemuse.powersuits.common.Config.Items;
 import net.minecraft.entity.EntityLiving;
@@ -15,9 +18,12 @@ import net.minecraftforge.common.ISpecialArmor;
  * 
  * @author MachineMuse
  */
-public abstract class ItemPowerArmor extends ItemArmor implements
-		ISpecialArmor,
-		IModularItem {
+public abstract class ItemPowerArmor extends ItemArmor
+		implements ISpecialArmor, IModularItem {
+	protected List<Augmentation> validAugTypes;
+
+	Config.Items itemType;
+
 	/**
 	 * @param par1
 	 * @param par2EnumArmorMaterial
@@ -30,8 +36,6 @@ public abstract class ItemPowerArmor extends ItemArmor implements
 		setMaxStackSize(1);
 		setCreativeTab(Config.getCreativeTab());
 	}
-
-	Config.Items itemType;
 
 	/**
 	 * Inherited from ISpecialArmor, allows significant customization of damage
@@ -75,12 +79,28 @@ public abstract class ItemPowerArmor extends ItemArmor implements
 	@Override
 	public void damageArmor(EntityLiving entity, ItemStack stack,
 			DamageSource source, int damage, int slot) {
-		// Damage the armor's durability
+
 	}
 
 	@Override
 	public Items getItemType() {
 		return itemType;
+	}
+
+	/**
+	 * For IModularItem's aug-list functionality.
+	 */
+	public void addValidAugType(Augmentation template) {
+		validAugTypes.add(template);
+	}
+
+	/**
+	 * Inherited from IModularItem, returns an array of valid augmentations for
+	 * this item.
+	 */
+	@Override
+	public List<Augmentation> getValidAugs() {
+		return validAugTypes;
 	}
 
 }

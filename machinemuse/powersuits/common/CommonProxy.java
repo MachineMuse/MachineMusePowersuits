@@ -31,7 +31,7 @@ public class CommonProxy {
 	 * Register the server-side tickhandler and packethandler.
 	 */
 	public void registerHandlers() {
-		tickHandler = new TickHandler();
+		tickHandler = new WorldTickHandler();
 		TickRegistry.registerTickHandler(tickHandler, Side.SERVER);
 
 		packetHandler = new ServerPacketHandler();

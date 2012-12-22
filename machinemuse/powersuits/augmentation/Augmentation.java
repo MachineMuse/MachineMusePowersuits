@@ -12,6 +12,8 @@ import net.minecraft.nbt.NBTTagCompound;
  * 
  */
 public abstract class Augmentation {
+	protected NBTTagCompound nbtTag;
+
 	/**
 	 * Default compound for all NBTtag keys on itemstacks. Needed in case some
 	 * other mod adds NBT data to these items.
@@ -20,16 +22,30 @@ public abstract class Augmentation {
 	 */
 	public static String nbtPrefix = "mmmpsmod";
 
-	public static Augmentation fromNBTTag(NBTTagCompound tag) {
-		int id = tag.getInteger("AugID");
+	protected int level;
 
-		switch (id) {
-		case 1:
-			return new AugmentationArmorPlating(tag);
-		default:
-			return null;
+	public int getLevel() {
+		return level;
+	}
+
+	public void upgrade() {
+		level += 1;
+		if (nbtTag != null) {
+			nbtTag.setInteger("level", level);
 		}
 	}
+
+	public void downgrade() {
+		level -= 1;
+	}
+
+	/**
+	 * Allows the items to create Augmentation instances.
+	 * 
+	 * @param tag
+	 * @return
+	 */
+	public abstract Augmentation fromNBTTag(NBTTagCompound tag);
 
 	/**
 	 * Returns the name of this Augmentation.
@@ -54,7 +70,7 @@ public abstract class Augmentation {
 	 *            the level you would be upgrading to
 	 * @return a list of ItemStacks describing the cost.
 	 */
-	public abstract List<ItemStack> getUpgradeCost(int level);
+	public abstract List<ItemStack> getUpgradeCost();
 
 	/**
 	 * Returns a list of materials that would be refunded from downgrading or
@@ -64,9 +80,11 @@ public abstract class Augmentation {
 	 *            the level you would be downgrading to
 	 * @return a list of ItemStacks describing the cost.
 	 */
-	public abstract List<ItemStack> getDowngradeRefund(int level);
+	public abstract List<ItemStack> getDowngradeRefund();
 
-	public abstract NBTTagCompound getNBTTag();
+	public NBTTagCompound getNBTTag() {
+		return nbtTag;
+	}
 
 	public abstract Augmentation newAug();
 }

@@ -16,7 +16,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
  * @author MachineMuse
  */
 public class ItemPowerTool extends Item implements IModularItem {
-	private List<Augmentation> validAugTypes;
+	protected List<Augmentation> validAugTypes;
 
 	/**
 	 * Constructor. Takes information from the Config.Items enum.

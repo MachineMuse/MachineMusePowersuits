@@ -1,14 +1,17 @@
 package machinemuse.powersuits.item;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import machinemuse.powersuits.augmentation.Augmentation;
+import machinemuse.powersuits.augmentation.AugmentationList;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public abstract class ItemUtil {
-
+public class ItemUtils {
 	/**
 	 * Scans a specified inventory for modular items.
 	 * 
@@ -29,11 +32,30 @@ public abstract class ItemUtil {
 		return stacks;
 	}
 
+	/**
+	 * Attempts to cast an item to IModularItem, returns null if fails
+	 */
 	public static IModularItem getAsModular(Item item) {
 		if (item instanceof IModularItem) {
 			return (IModularItem) item;
 		} else {
 			return null;
 		}
+	}
+
+	/**
+	 * @param player
+	 * @return
+	 */
+	public static List<Augmentation> getPlayerAugs(EntityPlayer player) {
+		List<Augmentation> augs = new ArrayList<Augmentation>();
+		List<ItemStack> items = getModularItemsInInventory(player.inventory);
+		Iterator<ItemStack> iter = items.iterator();
+		while (iter.hasNext()) {
+			AugmentationList itemAugs = new AugmentationList(iter.next());
+			augs.addAll(itemAugs.getAllAugData());
+		}
+
+		return augs;
 	}
 }
