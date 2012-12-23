@@ -20,7 +20,7 @@ public abstract class Augmentation {
 	 * 
 	 * @return
 	 */
-	public static String nbtPrefix = "mmmpsmod";
+	public static final String nbtPrefix = "mmmpsmod";
 
 	protected int level;
 	protected static final String STR_LEVEL = "Level";

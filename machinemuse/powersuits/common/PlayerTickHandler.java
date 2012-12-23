@@ -25,8 +25,7 @@ import cpw.mods.fml.common.TickType;
 public class PlayerTickHandler implements ITickHandler {
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
-		World world = toWorld(tickData[0]);
-		EntityPlayer player = toPlayer(tickData[1]);
+		EntityPlayer player = toPlayer(tickData[0]);
 		List<Augmentation> playerAugs = ItemUtils
 				.getPlayerAugs(player);
 		float totalEnergy = 0;
@@ -49,8 +48,7 @@ public class PlayerTickHandler implements ITickHandler {
 
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
-		World world = toWorld(tickData[0]);
-		EntityPlayer player = toPlayer(tickData[1]);
+		EntityPlayer player = toPlayer(tickData[0]);
 		List<ItemStack> stacks = ItemUtils
 				.getModularItemsInInventory(player.inventory);
 

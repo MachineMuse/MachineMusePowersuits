@@ -1,4 +1,4 @@
-package machinemuse.powersuits.network;
+package machinemuse.powersuits.trash;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;

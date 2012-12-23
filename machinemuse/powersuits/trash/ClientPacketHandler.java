@@ -1,4 +1,4 @@
-package machinemuse.powersuits.network;
+package machinemuse.powersuits.trash;
 
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;

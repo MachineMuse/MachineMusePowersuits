@@ -1,10 +1,8 @@
 package machinemuse.powersuits.common;
 
-import machinemuse.powersuits.network.ServerPacketHandler;
+import machinemuse.powersuits.network.MusePacketHandler;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.Side;
-import cpw.mods.fml.common.network.IPacketHandler;
-import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 
 /**
@@ -20,7 +18,7 @@ public class CommonProxy {
 	public static String BLOCK_PNG = "/tutorial/generic/block.png";
 
 	public static ITickHandler tickHandler;
-	public static IPacketHandler packetHandler;
+	public static MusePacketHandler packetHandler;
 
 	/**
 	 * Only the client needs to register renderers.
@@ -32,11 +30,10 @@ public class CommonProxy {
 	 * Register the server-side tickhandler and packethandler.
 	 */
 	public void registerHandlers() {
-		tickHandler = new WorldTickHandler();
+		tickHandler = new PlayerTickHandler();
 		TickRegistry.registerTickHandler(tickHandler, Side.SERVER);
 
-		packetHandler = new ServerPacketHandler();
-		NetworkRegistry.instance().registerChannel(packetHandler,
-				Config.getNetworkChannelName());
+		packetHandler = new MusePacketHandler();
+		packetHandler.register();
 	}
 }

@@ -39,11 +39,13 @@ public class AugmentationList {
 						Augmentation.nbtPrefix);
 				validAugs = item.getValidAugs();
 			} else {
-				NBTTagCompound nbt = new NBTTagCompound();
-				nbt.setCompoundTag(Augmentation.nbtPrefix,
-						new NBTTagCompound());
-				itemStack.setTagCompound(nbt);
-				this.tag = nbt;
+				NBTTagCompound itemTag = new NBTTagCompound();
+				this.tag = new NBTTagCompound();
+				itemTag.setCompoundTag(Augmentation.nbtPrefix,
+						this.tag);
+				itemStack.setTagCompound(itemTag);
+				validAugs = item.getValidAugs();
+
 			}
 		}
 	}

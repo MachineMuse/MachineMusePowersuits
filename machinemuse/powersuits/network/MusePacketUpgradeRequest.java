@@ -4,10 +4,8 @@
 package machinemuse.powersuits.network;
 
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
-import machinemuse.powersuits.common.MuseLogger;
 import cpw.mods.fml.common.network.Player;
 
 /**
@@ -31,15 +29,8 @@ public class MusePacketUpgradeRequest extends MusePacket {
 	public MusePacketUpgradeRequest(Player player, int slotToUpgrade,
 			int augToUpgrade) {
 		super(player);
-		DataOutputStream data = wrapNewPacket(MusePacketHandler.PacketTypes.UpgradeRequest);
-		try {
-			data.write(slotToUpgrade);
-			data.write(augToUpgrade);
-		} catch (IOException e) {
-			MuseLogger.logError("PROBLEM WRITING PACKET TO SEND D:");
-			e.printStackTrace();
-		}
-		endWrapPacket();
+		writeInt(slotToUpgrade, data);
+		writeInt(augToUpgrade, data);
 	}
 
 	/**
@@ -50,20 +41,17 @@ public class MusePacketUpgradeRequest extends MusePacket {
 	 * 
 	 */
 	public MusePacketUpgradeRequest(DataInputStream data, Player player) {
-		super(player);
+		super(player, data);
 		try {
 			int slotToUpgrade = data.readInt();
 			int augToUpgrade = data.readInt();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public void handleSelf() {
-		// TODO Auto-generated method stub
-
 	}
 
 }

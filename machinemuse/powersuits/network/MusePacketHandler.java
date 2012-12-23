@@ -6,12 +6,20 @@ package machinemuse.powersuits.network;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
+import machinemuse.powersuits.common.Config;
 import machinemuse.powersuits.common.MuseLogger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
+
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+
 import cpw.mods.fml.common.network.IPacketHandler;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.Player;
 
 /**
@@ -19,55 +27,131 @@ import cpw.mods.fml.common.network.Player;
  * 
  */
 public class MusePacketHandler implements IPacketHandler {
-	public enum PacketTypes {
-		UpgradeRequest,
-		DowngradeRequest,
-		AugData,
-		InventoryRefresh;
-	}
+	public static BiMap<Integer, Constructor<? extends MusePacket>> packetConstructors = HashBiMap
+			.create();
 
 	@Override
 	public void onPacketData(INetworkManager manager,
 			Packet250CustomPayload payload, Player player) {
-		MusePacket repackaged = repackage(payload, player);
-		if (repackaged != null) {
-			repackaged.handleSelf();
+		if (payload.channel.equals(Config.getNetworkChannelName())) {
+			MusePacket repackaged = repackage(payload, player);
+			if (repackaged != null) {
+				repackaged.handleSelf();
+			}
 		}
 	}
 
 	public static MusePacket repackage(Packet250CustomPayload payload,
 			Player player) {
-		MusePacket repackaged;
+		MusePacket repackaged = null;
 		DataInputStream data = new DataInputStream(new ByteArrayInputStream(
 				payload.data));
 		EntityPlayer target = (EntityPlayer) player;
-		PacketTypes packetType;
+		int packetType;
 		try {
-			packetType = PacketTypes.values()[data.readInt()];
+			packetType = data.readInt();
 		} catch (IOException e) {
-			MuseLogger.logDebug("PROBLEM READING PACKET TYPE D:");
+			MuseLogger.logError("PROBLEM READING PACKET TYPE D:");
 			e.printStackTrace();
 			return null;
 		}
-		switch (packetType) {
-		case UpgradeRequest:
-			repackaged = new MusePacketUpgradeRequest(data,
-					player);
-			break;
-		case AugData:
-			repackaged = null;
-			break;
-		case DowngradeRequest:
-			repackaged = null;
-			break;
-		case InventoryRefresh:
-			repackaged = null;
-			break;
-		default:
-			repackaged = null;
-			break;
-		}
+		MuseLogger.logDebug("Packet types: " + packetConstructors);
+		MuseLogger.logDebug("ID: " + packetType);
+		repackaged = useConstructor(packetConstructors.get(packetType), data,
+				player);
 
 		return repackaged;
 	}
+
+	/**
+	 * @param type
+	 * @return
+	 */
+	public static int getTypeID(MusePacket packet) {
+		try {
+			return packetConstructors.inverse().get(
+					getConstructor(packet.getClass()));
+		} catch (NoSuchMethodException e) {
+			MuseLogger.logError("INVALID PACKET CONSTRUCTOR D:");
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			MuseLogger.logError("PACKET SECURITY PROBLEM D:");
+			e.printStackTrace();
+		}
+		return -150;
+	}
+
+	/**
+	 * Returns the constructor of the given object. Keep in sync with
+	 * useConstructor.
+	 * 
+	 * @param packetType
+	 * @return
+	 * @throws NoSuchMethodException
+	 * @throws SecurityException
+	 */
+	protected static Constructor<? extends MusePacket> getConstructor(
+			Class<? extends MusePacket> packetType)
+			throws NoSuchMethodException, SecurityException {
+		return packetType.getConstructor(DataInputStream.class, Player.class);
+	}
+
+	/**
+	 * Returns a new instance of the object, created via the constructor in
+	 * question. Keep in sync with getConstructor.
+	 * 
+	 * @param constructor
+	 * @return
+	 */
+	protected static MusePacket useConstructor(
+			Constructor<? extends MusePacket> constructor,
+			DataInputStream data, Player player) {
+		try {
+			MuseLogger.logDebug(" ~ " + constructor + " ~ " + data + " ~ "
+					+ player);
+			return constructor.newInstance(data, player);
+		} catch (InstantiationException e) {
+			MuseLogger.logError("PROBLEM INSTATIATING PACKET D:");
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			MuseLogger.logError("PROBLEM ACCESSING PACKET D:");
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			MuseLogger.logError("INVALID PACKET CONSTRUCTOR D:");
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			MuseLogger.logError("PROBLEM INVOKING PACKET CONSTRUCTOR D:");
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static boolean addPacketType(int id,
+			Class<? extends MusePacket> packetType) {
+		try {
+			// Add constructor to the list
+			packetConstructors.put(id, getConstructor(packetType));
+			return true;
+		} catch (NoSuchMethodException e) {
+			MuseLogger.logError("UNABLE TO REGISTER PACKET TYPE: "
+					+ packetType + ": INVALID CONSTRUCTOR");
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			MuseLogger.logError("UNABLE TO REGISTER PACKET TYPE: "
+					+ packetType + ": SECURITY PROBLEM");
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public void register() {
+		addPacketType(1, MusePacketUpgradeRequest.class);
+
+		NetworkRegistry.instance().registerChannel(this,
+				Config.getNetworkChannelName());
+	}
+	// UpgradeRequest,
+	// DowngradeRequest,
+	// AugData,
+	// InventoryRefresh;
 }

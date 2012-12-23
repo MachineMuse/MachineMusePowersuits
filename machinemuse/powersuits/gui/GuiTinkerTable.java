@@ -10,10 +10,12 @@ import machinemuse.general.geometry.FlyFromMiddlePoint2D;
 import machinemuse.general.geometry.Point2D;
 import machinemuse.powersuits.augmentation.Augmentation;
 import machinemuse.powersuits.augmentation.AugmentationList;
-import machinemuse.powersuits.common.MuseLogger;
 import machinemuse.powersuits.item.ItemUtils;
+import machinemuse.powersuits.network.MusePacketUpgradeRequest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.common.network.Player;
 
 /**
  * The gui class for the TinkerTable block.
@@ -92,7 +94,6 @@ public class GuiTinkerTable extends MuseGui {
 				new Point2D(-0.7F, 0.9F));
 		Iterator<Point2D> pointiter = points.iterator();
 		for (Augmentation vaug : validAugs) {
-			MuseLogger.logDebug("Found a valid augmentation");
 			augButtons.add(new ClickableAugmentation(vaug, pointiter.next()));
 		}
 	}
@@ -244,8 +245,11 @@ public class GuiTinkerTable extends MuseGui {
 	 */
 	private void doUpgrade() {
 		if (ItemUtils.hasInInventory(workingUpgradeCost, player.inventory)) {
-			ItemUtils.deleteFromInventory(workingUpgradeCost, player.inventory);
-			workingAugmentation.upgrade();
+			// ItemUtils.deleteFromInventory(workingUpgradeCost,
+			// player.inventory);
+			// workingAugmentation.upgrade();
+			PacketDispatcher.sendPacketToServer(new MusePacketUpgradeRequest(
+					(Player) player, 0, 1).getPacket());
 		}
 	}
 
