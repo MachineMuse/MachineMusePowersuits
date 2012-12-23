@@ -12,9 +12,8 @@ import machinemuse.powersuits.augmentation.Augmentation;
 import machinemuse.powersuits.augmentation.AugmentationList;
 import machinemuse.powersuits.item.ItemUtils;
 import machinemuse.powersuits.network.MusePacketUpgradeRequest;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.item.ItemStack;
-import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
 /**
@@ -24,7 +23,7 @@ import cpw.mods.fml.common.network.Player;
  * 
  */
 public class GuiTinkerTable extends MuseGui {
-	protected EntityPlayer player;
+	protected EntityClientPlayerMP player;
 	protected List<ClickableItem> itemButtons;
 	protected ClickableItem selectedItemStack;
 	protected List<ClickableAugmentation> augButtons;
@@ -41,7 +40,7 @@ public class GuiTinkerTable extends MuseGui {
 	 * 
 	 * @param player
 	 */
-	public GuiTinkerTable(EntityPlayer player) {
+	public GuiTinkerTable(EntityClientPlayerMP player) {
 		this.player = player;
 		this.itemButtons = new ArrayList<ClickableItem>();
 
@@ -248,8 +247,9 @@ public class GuiTinkerTable extends MuseGui {
 			// ItemUtils.deleteFromInventory(workingUpgradeCost,
 			// player.inventory);
 			// workingAugmentation.upgrade();
-			PacketDispatcher.sendPacketToServer(new MusePacketUpgradeRequest(
+			player.sendQueue.addToSendQueue(new MusePacketUpgradeRequest(
 					(Player) player, 0, 1).getPacket());
+			// player.sendQueue.sendPacket();
 		}
 	}
 

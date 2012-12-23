@@ -123,6 +123,15 @@ public class MuseGui extends GuiScreen {
 	}
 
 	/**
+	 * Whether or not this gui pauses the game in single player.
+	 */
+	@Override
+	public boolean doesGuiPauseGame()
+	{
+		return false;
+	}
+
+	/**
 	 * Singleton pattern for the RenderItem
 	 * 
 	 * @return the static renderItem instance
