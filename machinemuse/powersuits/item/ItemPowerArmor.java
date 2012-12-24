@@ -2,7 +2,6 @@ package machinemuse.powersuits.item;
 
 import java.util.List;
 
-import machinemuse.powersuits.augmentation.Augmentation;
 import machinemuse.powersuits.common.Config;
 import machinemuse.powersuits.common.Config.Items;
 import net.minecraft.entity.EntityLiving;
@@ -20,7 +19,7 @@ import net.minecraftforge.common.ISpecialArmor;
  */
 public abstract class ItemPowerArmor extends ItemArmor
 		implements ISpecialArmor, IModularItem {
-	protected List<Augmentation> validAugTypes;
+	protected List<String> validAugTypes;
 
 	Config.Items itemType;
 
@@ -86,21 +85,4 @@ public abstract class ItemPowerArmor extends ItemArmor
 	public Items getItemType() {
 		return itemType;
 	}
-
-	/**
-	 * For IModularItem's aug-list functionality.
-	 */
-	public void addValidAugType(Augmentation template) {
-		validAugTypes.add(template);
-	}
-
-	/**
-	 * Inherited from IModularItem, returns an array of valid augmentations for
-	 * this item.
-	 */
-	@Override
-	public List<Augmentation> getValidAugs() {
-		return validAugTypes;
-	}
-
 }

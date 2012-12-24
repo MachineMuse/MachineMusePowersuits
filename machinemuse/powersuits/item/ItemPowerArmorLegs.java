@@ -2,12 +2,8 @@ package machinemuse.powersuits.item;
 
 import java.util.ArrayList;
 
-import machinemuse.powersuits.augmentation.Augmentation;
-import machinemuse.powersuits.augmentation.AugmentationArmorPlating;
-import machinemuse.powersuits.augmentation.AugmentationBattery;
 import machinemuse.powersuits.common.Config;
 import net.minecraft.item.EnumArmorMaterial;
-import net.minecraft.nbt.NBTTagCompound;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class ItemPowerArmorLegs extends ItemPowerArmor {
@@ -29,9 +25,9 @@ public class ItemPowerArmorLegs extends ItemPowerArmor {
 	 * @param types
 	 */
 	public void setValidAugTypes() {
-		validAugTypes = new ArrayList<Augmentation>();
-		validAugTypes.add(new AugmentationBattery(new NBTTagCompound()));
-		validAugTypes.add(new AugmentationArmorPlating(new NBTTagCompound()));
+		validAugTypes = new ArrayList<String>();
+		validAugTypes.add("Battery");
+		validAugTypes.add("Armor Plating");
 	}
 
 }

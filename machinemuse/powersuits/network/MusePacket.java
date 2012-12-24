@@ -172,4 +172,58 @@ public abstract class MusePacket {
 			data.write(compressednbt);
 		}
 	}
+
+	/**
+	 * Writes a String to the DataOutputStream
+	 */
+	public static void writeString(String string, DataOutputStream data)
+	{
+		try {
+			if (string.length() > 32767)
+			{
+				throw new IOException("String too big");
+			}
+			else
+			{
+				data.writeShort(string.length());
+				data.writeChars(string);
+			}
+		} catch (IOException e) {
+			MuseLogger.logError("String too big D:");
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Reads a string from a packet
+	 */
+	public static String readString(DataInputStream data, int maxlength)
+			throws IOException
+	{
+		short length = data.readShort();
+
+		if (length > maxlength)
+		{
+			throw new IOException(
+					"Received string length longer than maximum allowed ("
+							+ length + " > " + maxlength + ")");
+		}
+		else if (length < 0)
+		{
+			throw new IOException(
+					"Received string length is less than zero! Weird string!");
+		}
+		else
+		{
+			StringBuilder builder = new StringBuilder();
+
+			for (int i = 0; i < length; ++i)
+			{
+				builder.append(data.readChar());
+			}
+
+			return builder.toString();
+		}
+	}
+
 }

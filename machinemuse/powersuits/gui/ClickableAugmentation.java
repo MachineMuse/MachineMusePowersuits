@@ -5,8 +5,8 @@ import java.util.List;
 import machinemuse.general.geometry.Colour;
 import machinemuse.general.geometry.Doodler;
 import machinemuse.general.geometry.Point2D;
-import machinemuse.powersuits.augmentation.Augmentation;
 import net.minecraft.client.renderer.RenderEngine;
+import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Extends the Clickable class to make a clickable Augmentation; note that this
@@ -15,12 +15,12 @@ import net.minecraft.client.renderer.RenderEngine;
  * @author MachineMuse
  */
 public class ClickableAugmentation extends Clickable {
-	protected Augmentation aug;
+	protected NBTTagCompound aug;
 
 	/**
 	 * @param vaug
 	 */
-	public ClickableAugmentation(Augmentation aug, Point2D position) {
+	public ClickableAugmentation(NBTTagCompound aug, Point2D position) {
 		super(position);
 		this.aug = aug;
 	}

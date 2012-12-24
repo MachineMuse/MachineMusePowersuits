@@ -11,6 +11,7 @@ import cpw.mods.fml.common.network.Player;
  * @author MachineMuse
  * 
  */
+@Deprecated
 public class ClientPacketHandler implements IPacketHandler {
 	@Override
 	public void onPacketData(INetworkManager manager,

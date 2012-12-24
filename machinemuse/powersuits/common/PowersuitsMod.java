@@ -107,7 +107,6 @@ public class PowersuitsMod {
 	 */
 	@Init
 	public void load(FMLInitializationEvent event) {
-
 		loadBlocks();
 
 		loadItems();

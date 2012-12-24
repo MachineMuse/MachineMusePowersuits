@@ -2,15 +2,16 @@ package machinemuse.powersuits.item;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
-import machinemuse.powersuits.augmentation.Augmentation;
-import machinemuse.powersuits.augmentation.AugmentationList;
+import machinemuse.powersuits.augmentation.AugManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class ItemUtils {
 	/**
@@ -34,6 +35,25 @@ public class ItemUtils {
 	}
 
 	/**
+	 * Scans a specified inventory for modular items.
+	 * 
+	 * @param inv
+	 *            IInventory to scan.
+	 * @return A List of inventory slots containing an IModularItem
+	 */
+	public static List<Integer> getModularItemSlotsInInventory(IInventory inv) {
+		ArrayList<Integer> slots = new ArrayList<Integer>();
+
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack stack = inv.getStackInSlot(i);
+			if (stack != null && stack.getItem() instanceof IModularItem) {
+				slots.add(i);
+			}
+		}
+		return slots;
+	}
+
+	/**
 	 * Attempts to cast an item to IModularItem, returns null if fails
 	 */
 	public static IModularItem getAsModular(Item item) {
@@ -45,19 +65,70 @@ public class ItemUtils {
 	}
 
 	/**
+	 * 
+	 * 
 	 * @param player
 	 * @return
 	 */
-	public static List<Augmentation> getPlayerAugs(EntityPlayer player) {
-		List<Augmentation> augs = new ArrayList<Augmentation>();
+	public static List<NBTTagCompound> getPlayerAugs(EntityPlayer player) {
+		List<NBTTagCompound> augs = new ArrayList<NBTTagCompound>();
 		List<ItemStack> items = getModularItemsInInventory(player.inventory);
 		Iterator<ItemStack> iter = items.iterator();
 		while (iter.hasNext()) {
-			AugmentationList itemAugs = new AugmentationList(iter.next());
-			augs.addAll(itemAugs.getAllAugData());
+			NBTTagCompound itemAugs = getItemAugs(iter.next());
+			for (Object ob : itemAugs.getTags()) {
+				if (ob instanceof NBTTagCompound) {
+					augs.add((NBTTagCompound) ob);
+				}
+			}
 		}
 
 		return augs;
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param next
+	 * @return
+	 */
+	public static NBTTagCompound getItemAugs(ItemStack stack) {
+		NBTTagCompound augs = null;
+		if (stack.hasTagCompound()) {
+			NBTTagCompound stackTag = stack.getTagCompound();
+			if (stackTag.hasKey(AugManager.nbtPrefix)) {
+				augs = stackTag.getCompoundTag(AugManager.nbtPrefix);
+			} else {
+				augs = new NBTTagCompound();
+				stackTag.setCompoundTag(AugManager.nbtPrefix, augs);
+			}
+		} else {
+			NBTTagCompound stackTag = new NBTTagCompound();
+			stack.setTagCompound(stackTag);
+			augs = new NBTTagCompound();
+			stackTag.setCompoundTag(AugManager.nbtPrefix, augs);
+		}
+		return augs;
+	}
+
+	/**
+	 * @param next
+	 * @return
+	 */
+	public static List<NBTTagCompound> getItemAugsWithPadding(ItemStack stack) {
+		List<String> validAugs = AugManager.getValidAugsForItem(stack
+				.getItem());
+		NBTTagCompound itemAugs = getItemAugs(stack);
+		List<NBTTagCompound> augsList = new ArrayList<NBTTagCompound>();
+		for (String validAug : validAugs) {
+			NBTTagCompound matchedAug = itemAugs.getCompoundTag(validAug);
+			if (matchedAug != null) {
+				augsList.add(matchedAug);
+			} else {
+				augsList.add(AugManager.newAugOfType(validAug));
+			}
+		}
+		return augsList;
 	}
 
 	/**
@@ -92,10 +163,11 @@ public class ItemUtils {
 	 * @param workingUpgradeCost
 	 * @param inventory
 	 */
-	public static void deleteFromInventory(List<ItemStack> workingUpgradeCost,
+	public static List<Integer> deleteFromInventory(List<ItemStack> cost,
 			InventoryPlayer inventory) {
-		for (int j = 0; j < workingUpgradeCost.size(); j++) {
-			ItemStack stackInCost = workingUpgradeCost.get(j);
+		List<Integer> slots = new LinkedList<Integer>();
+		for (int j = 0; j < cost.size(); j++) {
+			ItemStack stackInCost = cost.get(j);
 			int remaining = stackInCost.stackSize;
 			for (int i = 0; i < inventory.getSizeInventory(); i++) {
 				ItemStack stackInInventory = inventory.getStackInSlot(i);
@@ -104,13 +176,32 @@ public class ItemUtils {
 						if (stackInInventory.stackSize > remaining) {
 							stackInInventory.stackSize -= remaining;
 							remaining = 0;
+							break;
 						} else {
 							remaining -= stackInInventory.stackSize;
 							stackInInventory.stackSize = 0;
 						}
+						slots.add(i);
 					}
 				}
 			}
 		}
+		return slots;
+	}
+
+	/**
+	 * Sums the weights of augmentations in the list.
+	 * 
+	 * @param playerAugs
+	 * @return
+	 */
+	public static float getTotalWeight(List<NBTTagCompound> playerAugs) {
+		float weight = 0;
+		for (NBTTagCompound aug : playerAugs) {
+			if (aug.hasKey(AugManager.WEIGHT)) {
+				weight += aug.getFloat(AugManager.WEIGHT);
+			}
+		}
+		return weight;
 	}
 }

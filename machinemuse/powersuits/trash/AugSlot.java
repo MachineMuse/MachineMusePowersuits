@@ -3,7 +3,7 @@ package machinemuse.powersuits.trash;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Deprecated
 public class AugSlot {
 	private List<AugSlot> connectedSlots;
 	private SlotType type;

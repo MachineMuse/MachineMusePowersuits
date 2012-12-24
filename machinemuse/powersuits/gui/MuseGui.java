@@ -85,19 +85,18 @@ public class MuseGui extends GuiScreen {
 	 * 
 	 * @return
 	 */
-	public Clickable hitboxClickables(int x, int y,
+	public int hitboxClickables(int x, int y,
 			List<? extends Clickable> list) {
-		Iterator<? extends Clickable> iter = list.iterator();
 		Clickable clickie;
-		while (iter.hasNext())
+		for (int i = 0; i < list.size(); i++)
 		{
-			clickie = iter.next();
+			clickie = list.get(i);
 			if (clickie.hitBox(x, y, this)) {
 				// MuseLogger.logDebug("Hit!");
-				return clickie;
+				return i;
 			}
 		}
-		return null;
+		return -1;
 	}
 
 	/**

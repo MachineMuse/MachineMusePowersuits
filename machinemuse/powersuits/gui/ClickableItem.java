@@ -18,10 +18,12 @@ public class ClickableItem extends Clickable {
 	public static final int offsetx = 8;
 	public static final int offsety = 8;
 	public static RenderItem itemRenderer;
+	public int inventorySlot;
 	protected ItemStack item;
 
-	public ClickableItem(ItemStack item, Point2D pos) {
+	public ClickableItem(ItemStack item, Point2D pos, int inventorySlot) {
 		super(pos);
+		this.inventorySlot = inventorySlot;
 		this.item = item;
 	}
 

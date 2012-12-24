@@ -15,6 +15,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.world.World;
 
+@Deprecated
 public class ContainerTinkerTable extends Container {
 	EntityPlayer player;
 	private World world;
@@ -224,7 +225,8 @@ public class ContainerTinkerTable extends Container {
 			}
 			else if (recipeParameters[currentArg + 1] instanceof Block)
 			{
-				var14 = new ItemStack((Block) recipeParameters[currentArg + 1], 1, -1);
+				var14 = new ItemStack((Block) recipeParameters[currentArg + 1],
+						1, -1);
 			}
 			else if (recipeParameters[currentArg + 1] instanceof ItemStack)
 			{

@@ -5,7 +5,18 @@ package machinemuse.powersuits.network;
 
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.util.List;
 
+import machinemuse.powersuits.augmentation.AugManager;
+import machinemuse.powersuits.common.MuseLogger;
+import machinemuse.powersuits.item.ItemUtils;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.packet.Packet5PlayerInventory;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Side;
+import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
 /**
@@ -17,6 +28,10 @@ import cpw.mods.fml.common.network.Player;
  * 
  */
 public class MusePacketUpgradeRequest extends MusePacket {
+	protected ItemStack stack;
+	protected int slot;
+	protected String aug;
+
 	/**
 	 * Constructor for sending this packet.
 	 * 
@@ -27,10 +42,10 @@ public class MusePacketUpgradeRequest extends MusePacket {
 	 * @param augToUpgrade
 	 */
 	public MusePacketUpgradeRequest(Player player, int slotToUpgrade,
-			int augToUpgrade) {
+			String augToUpgrade) {
 		super(player);
 		writeInt(slotToUpgrade, data);
-		writeInt(augToUpgrade, data);
+		writeString(augToUpgrade, data);
 	}
 
 	/**
@@ -43,15 +58,42 @@ public class MusePacketUpgradeRequest extends MusePacket {
 	public MusePacketUpgradeRequest(DataInputStream data, Player player) {
 		super(player, data);
 		try {
-			int slotToUpgrade = data.readInt();
-			int augToUpgrade = data.readInt();
+			slot = data.readInt();
+			aug = readString(data, 64);
+			Side side = FMLCommonHandler.instance().getEffectiveSide();
+			if (side == Side.SERVER) {
+				EntityPlayerMP srvplayer = (EntityPlayerMP) player;
+				stack = srvplayer.inventory
+						.getStackInSlot(slot);
+
+			}
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			MuseLogger.logError("Problem creating new Augmentation D:");
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public void handleSelf() {
+		Side side = FMLCommonHandler.instance().getEffectiveSide();
+		if (side == Side.SERVER) {
+			if (aug != null) {
+				InventoryPlayer inventory = ((EntityPlayerMP) player).inventory;
+				int entityId = ((EntityPlayerMP) player).entityId;
+				List<ItemStack> cost = AugManager.getInstallCost(aug);
+				if (ItemUtils.hasInInventory(cost, inventory)) {
+					List<Integer> slots = ItemUtils.deleteFromInventory(
+							AugManager.getInstallCost(aug), inventory);
+					slots.add(this.slot);
+					for (Integer slotiter : slots) {
+						PacketDispatcher.sendPacketToPlayer(
+								new Packet5PlayerInventory(entityId, slotiter,
+										stack), player);
+					}
+				}
+			}
+		}
 	}
-
 }

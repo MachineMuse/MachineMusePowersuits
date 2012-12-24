@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.asm.SideOnly;
 
+@Deprecated
 public class ItemAugmentation extends Item {
 	static List<ItemAugmentation> allAugs = new ArrayList<ItemAugmentation>();
 	public static int index;

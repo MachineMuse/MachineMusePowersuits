@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.asm.SideOnly;
 
+@Deprecated
 public class SlotArmorInTinkerTable extends Slot {
 	/**
 	 * The armor type that can be placed on that slot, it uses the same values

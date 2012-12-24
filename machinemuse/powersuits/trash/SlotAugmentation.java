@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.asm.SideOnly;
 
+@Deprecated
 public class SlotAugmentation extends Slot {
 
 	public SlotAugmentation(IInventory par1iInventory, int par2, int par3,

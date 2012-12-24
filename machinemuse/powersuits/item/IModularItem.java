@@ -1,8 +1,5 @@
 package machinemuse.powersuits.item;
 
-import java.util.List;
-
-import machinemuse.powersuits.augmentation.Augmentation;
 import machinemuse.powersuits.common.Config;
 
 /**
@@ -11,7 +8,6 @@ import machinemuse.powersuits.common.Config;
  * @author MachineMuse
  */
 public interface IModularItem {
-	public List<Augmentation> getValidAugs();
 
 	public Config.Items getItemType();
 }

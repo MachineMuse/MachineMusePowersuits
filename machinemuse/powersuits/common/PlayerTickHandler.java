@@ -7,11 +7,10 @@ import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
 
-import machinemuse.powersuits.augmentation.Augmentation;
-import machinemuse.powersuits.augmentation.AugmentationBattery;
 import machinemuse.powersuits.item.ItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
@@ -26,19 +25,20 @@ public class PlayerTickHandler implements ITickHandler {
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
 		EntityPlayer player = toPlayer(tickData[0]);
-		List<Augmentation> playerAugs = ItemUtils
+		List<NBTTagCompound> playerAugs = ItemUtils
 				.getPlayerAugs(player);
 		float totalEnergy = 0;
-		float totalWeight = 0;
+		float totalWeight = ItemUtils
+				.getTotalWeight(playerAugs);
 
-		Iterator<Augmentation> iter = playerAugs.iterator();
+		Iterator<NBTTagCompound> iter = playerAugs.iterator();
 
 		while (iter.hasNext()) {
-			Augmentation aug = iter.next();
-			if (aug instanceof AugmentationBattery) {
-				totalEnergy += ((AugmentationBattery) aug).getAvailableEnergy();
+			NBTTagCompound aug = iter.next();
+			if (aug.hasKey("Available Energy")) {
+				totalEnergy += aug.getFloat("Available Energy");
 			}
-			totalWeight += aug.getWeight();
+			totalWeight += aug.getCompoundTag("Armor").getInteger("Level");
 		}
 		if (totalWeight > 25) {
 			player.motionX *= 25 / totalWeight;

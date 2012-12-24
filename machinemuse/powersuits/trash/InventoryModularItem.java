@@ -9,6 +9,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+@Deprecated
 public class InventoryModularItem implements IInventory {
 
 	/** List of the stacks in the crafting matrix. */

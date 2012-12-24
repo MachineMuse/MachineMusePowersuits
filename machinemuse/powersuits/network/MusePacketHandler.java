@@ -55,8 +55,6 @@ public class MusePacketHandler implements IPacketHandler {
 			e.printStackTrace();
 			return null;
 		}
-		MuseLogger.logDebug("Packet types: " + packetConstructors);
-		MuseLogger.logDebug("ID: " + packetType);
 		repackaged = useConstructor(packetConstructors.get(packetType), data,
 				player);
 
@@ -107,8 +105,6 @@ public class MusePacketHandler implements IPacketHandler {
 			Constructor<? extends MusePacket> constructor,
 			DataInputStream data, Player player) {
 		try {
-			MuseLogger.logDebug(" ~ " + constructor + " ~ " + data + " ~ "
-					+ player);
 			return constructor.newInstance(data, player);
 		} catch (InstantiationException e) {
 			MuseLogger.logError("PROBLEM INSTATIATING PACKET D:");

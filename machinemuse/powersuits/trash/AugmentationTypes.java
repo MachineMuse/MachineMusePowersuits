@@ -10,6 +10,7 @@ import java.util.List;
  * @author MachineMuse
  * 
  */
+@Deprecated
 public enum AugmentationTypes {
 
 	ArmorPlate("armorPlate", "Armor Plate", 1),
