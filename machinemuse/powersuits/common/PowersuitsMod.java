@@ -10,8 +10,7 @@ import machinemuse.powersuits.item.ItemPowerArmorHead;
 import machinemuse.powersuits.item.ItemPowerArmorLegs;
 import machinemuse.powersuits.item.ItemPowerArmorTorso;
 import machinemuse.powersuits.item.ItemPowerTool;
-import machinemuse.powersuits.trash.ClientPacketHandler;
-import machinemuse.powersuits.trash.ServerPacketHandler;
+import machinemuse.powersuits.network.MusePacketHandler;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -53,9 +52,9 @@ import cpw.mods.fml.common.registry.GameRegistry;
 // Inventory Tweaks.
 @NetworkMod(clientSideRequired = true, serverSideRequired = true,
 		clientPacketHandlerSpec =
-		@SidedPacketHandler(channels = { "mmPowersuits" }, packetHandler = ClientPacketHandler.class),
+		@SidedPacketHandler(channels = { "mmPowersuits" }, packetHandler = MusePacketHandler.class),
 		serverPacketHandlerSpec =
-		@SidedPacketHandler(channels = { "mmPowersuits" }, packetHandler = ServerPacketHandler.class))
+		@SidedPacketHandler(channels = { "mmPowersuits" }, packetHandler = MusePacketHandler.class))
 public class PowersuitsMod {
 
 	/**

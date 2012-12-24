@@ -2,8 +2,8 @@ package machinemuse.powersuits.common;
 
 import machinemuse.powersuits.network.MusePacketHandler;
 import cpw.mods.fml.common.ITickHandler;
-import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 /**
  * Server side of the CommonProxy/ClientProxy paradigm. Provides functions which

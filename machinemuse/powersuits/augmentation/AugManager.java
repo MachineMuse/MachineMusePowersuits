@@ -65,8 +65,14 @@ public abstract class AugManager {
 	 * 
 	 * @return
 	 */
-	public float getWeight(NBTTagCompound aug) {
-		return aug.getFloat(WEIGHT);
+	public static float getWeight(NBTTagCompound aug) {
+		String augname = aug.getString(NAME);
+		if (augname.equals(STONEARMORPLATING)
+				|| augname.equals(IRONARMORPLATING)
+				|| augname.equals(DIAMONDARMORPLATING)) {
+			return 10.0F * getLevel(aug);
+		}
+		return 0;
 	}
 
 	/**
@@ -108,25 +114,19 @@ public abstract class AugManager {
 		NBTTagCompound newAug = new NBTTagCompound();
 		if (validAug.equals(STONEARMORPLATING)) {
 			newAug.setString(NAME, STONEARMORPLATING);
-			newAug.setFloat(WEIGHT, 10.0F);
 			newAug.setInteger(DURABILITY, 100);
 		} else if (validAug.equals(IRONARMORPLATING)) {
 			newAug.setString(NAME, IRONARMORPLATING);
-			newAug.setFloat(WEIGHT, 10.0F);
 			newAug.setInteger(DURABILITY, 100);
 		} else if (validAug.equals(DIAMONDARMORPLATING)) {
 			newAug.setString(NAME, DIAMONDARMORPLATING);
-			newAug.setFloat(WEIGHT, 10.0F);
 			newAug.setInteger(DURABILITY, 100);
 		} else if (validAug.equals(NICADBATTERY)) {
 			newAug.setString(NAME, NICADBATTERY);
-			newAug.setFloat(WEIGHT, 10.0F);
 		} else if (validAug.equals(LIIONBATTERY)) {
 			newAug.setString(NAME, LIIONBATTERY);
-			newAug.setFloat(WEIGHT, 10.0F);
 		} else if (validAug.equals(CARBONTUBEBATTERY)) {
 			newAug.setString(NAME, CARBONTUBEBATTERY);
-			newAug.setFloat(WEIGHT, 10.0F);
 		}
 		return newAug;
 	}

@@ -106,7 +106,7 @@ public abstract class Doodler {
 	 * @param yoffset
 	 * @param radius
 	 */
-	public static void drawTriangles(float[] v, float[] c,
+	public static void drawTriangles2D(float[] v, float[] c,
 			int[] i) {
 		arraysOn();
 		texturelessOn();
@@ -151,6 +151,56 @@ public abstract class Doodler {
 	}
 
 	/**
+	 * Draws a swirly green circle at the specified coordinates in the current
+	 * reference frame.
+	 * 
+	 * @param xoffset
+	 * @param yoffset
+	 * @param radius
+	 */
+	public static void drawTriangles3D(float[] v, float[] c,
+			int[] i) {
+		arraysOn();
+		texturelessOn();
+
+		// float subdivisions = 5f;
+		// float radius = 0.5f;
+
+		// GL11.glPushMatrix();
+		// GL11.glTranslatef(-radius, -radius, 0);
+		// for (int i1 = 0; i1 <= subdivisions * 2; i1++) {
+		// for (int i2 = 0; i2 <= subdivisions * 2; i2++) {
+		FloatBuffer vertices = BufferUtils.createFloatBuffer(v.length);
+		vertices.put(v);
+		vertices.flip();
+
+		FloatBuffer colours = BufferUtils.createFloatBuffer(c.length);
+		colours.put(c);
+		colours.flip();
+
+		IntBuffer indices = BufferUtils.createIntBuffer(i.length);
+		indices.put(i);
+		indices.flip();
+
+		// GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+
+		GL11.glVertexPointer(3, 0, vertices);
+		GL11.glColorPointer(4, 0, colours);
+
+		GL11.glDrawElements(GL11.GL_TRIANGLES, indices);
+
+		// GL11.glTranslatef(0, radius / subdivisions, 0);
+		// }
+		// GL11.glTranslatef(radius / subdivisions, -radius * 2, 0);
+		// }
+		// GL11.glPopMatrix();
+
+		texturelessOff();
+		arraysOff();
+
+	}
+
+	/**
 	 * 2D rendering mode on/off
 	 */
 
@@ -174,9 +224,9 @@ public abstract class Doodler {
 	}
 
 	public static void off2D() {
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		// GL11.glDepthFunc(GL11.GL_GREATER);
-		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glEnable(GL11.GL_LIGHTING);
 	}
 
 	/**
@@ -235,15 +285,15 @@ public abstract class Doodler {
 
 		tessellator.startDrawingQuads();
 		tessellator.setColorRGBA_F(c1.r, c1.g, c1.b, c1.a);
-		tessellator.addVertex((double) right, (double) top,
+		tessellator.addVertex(right, top,
 				zLevel);
 		tessellator
-				.addVertex((double) left, (double) top, zLevel);
+				.addVertex(left, top, zLevel);
 
 		tessellator.setColorRGBA_F(c2.r, c2.g, c2.b, c2.a);
-		tessellator.addVertex((double) left, (double) bottom,
+		tessellator.addVertex(left, bottom,
 				zLevel);
-		tessellator.addVertex((double) right, (double) bottom,
+		tessellator.addVertex(right, bottom,
 				zLevel);
 		tessellator.draw();
 

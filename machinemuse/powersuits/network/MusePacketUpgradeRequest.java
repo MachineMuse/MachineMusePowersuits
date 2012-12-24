@@ -13,9 +13,9 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
+import cpw.mods.fml.relauncher.Side;
 
 /**
  * Packet for requesting to purchase an upgrade. Player-to-server. Server
@@ -65,8 +65,7 @@ public class MusePacketUpgradeRequest extends MusePacket {
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 		if (side == Side.SERVER) {
 			EntityPlayerMP srvplayer = (EntityPlayerMP) player;
-			stack = srvplayer.inventory
-					.getStackInSlot(slot);
+			stack = srvplayer.inventory.getStackInSlot(slot);
 		}
 	}
 
@@ -85,9 +84,8 @@ public class MusePacketUpgradeRequest extends MusePacket {
 							.getStackInSlot(slot)), aug);
 					slots.add(this.slot);
 					for (Integer slotiter : slots) {
-						MusePacket reply = new MusePacketInventory(
-								player, slotiter,
-								inventory.getStackInSlot(slotiter));
+						MusePacket reply = new MusePacketInventory(player,
+								slotiter, inventory.getStackInSlot(slotiter));
 						PacketDispatcher.sendPacketToPlayer(reply.getPacket(),
 								player);
 					}

@@ -6,8 +6,9 @@ import machinemuse.powersuits.common.PowersuitsMod;
 import machinemuse.powersuits.network.MusePacketHandler;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
-import cpw.mods.fml.common.Side;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 /**
  * The Client Proxy does all the things that should only be done client-side,
@@ -33,6 +34,7 @@ public class ClientProxy extends CommonProxy {
 		// i.shiftedIndex, eRenderer);
 		// }
 
+		RenderingRegistry.registerBlockHandler(new BlockRenderer());
 		MinecraftForgeClient.preloadTexture("/gui/tinktablegui.png");
 	}
 

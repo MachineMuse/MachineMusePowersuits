@@ -116,8 +116,8 @@ public class ItemUtils {
 	 * @return
 	 */
 	public static List<NBTTagCompound> getItemAugsWithPadding(ItemStack stack) {
-		List<String> validAugs = AugManager.getValidAugsForItem(stack
-				.getItem());
+		List<String> validAugs = AugManager
+				.getValidAugsForItem(stack.getItem());
 		NBTTagCompound itemAugs = getItemAugs(stack);
 		List<NBTTagCompound> augsList = new ArrayList<NBTTagCompound>();
 		for (String validAug : validAugs) {
@@ -202,9 +202,7 @@ public class ItemUtils {
 	public static float getTotalWeight(List<NBTTagCompound> playerAugs) {
 		float weight = 0;
 		for (NBTTagCompound aug : playerAugs) {
-			if (aug.hasKey(AugManager.WEIGHT)) {
-				weight += aug.getFloat(AugManager.WEIGHT);
-			}
+			weight += AugManager.getWeight(aug);
 		}
 		return weight;
 	}
