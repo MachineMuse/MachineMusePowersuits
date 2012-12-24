@@ -4,6 +4,7 @@ import java.util.List;
 
 import machinemuse.general.geometry.Doodler;
 import machinemuse.general.geometry.Point2D;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
@@ -40,7 +41,7 @@ public class ClickableItem extends Clickable {
 
 	@Override
 	public List<String> getToolTip() {
-		return item.getTooltip(null, false);
+		return item.getTooltip(Minecraft.getMinecraft().thePlayer, false);
 	}
 
 	/**

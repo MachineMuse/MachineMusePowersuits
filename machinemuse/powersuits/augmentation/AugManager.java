@@ -3,6 +3,7 @@ package machinemuse.powersuits.augmentation;
 import java.util.ArrayList;
 import java.util.List;
 
+import machinemuse.powersuits.common.MuseLogger;
 import machinemuse.powersuits.item.ItemPowerArmor;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -27,9 +28,9 @@ public abstract class AugManager {
 	/**
 	 * Names of augs
 	 */
-	public static final String STONEARMORPLATING = "Armor Plating";
-	public static final String IRONARMORPLATING = "Armor Plating";
-	public static final String DIAMONDARMORPLATING = "Armor Plating";
+	public static final String STONEARMORPLATING = "Stone Armor Plating";
+	public static final String IRONARMORPLATING = "Iron Armor Plating";
+	public static final String DIAMONDARMORPLATING = "Diamond Armor Plating";
 	public static final String NICADBATTERY = "Nickel-Cadmium Battery";
 	public static final String LIIONBATTERY = "Lithium-Ion Battery";
 	public static final String CARBONTUBEBATTERY = "Carbon Nanotube Battery";
@@ -54,17 +55,12 @@ public abstract class AugManager {
 		aug.setInteger(LEVEL, level);
 	}
 
-	/**
-	 * Returns the name of this Augmentation.
-	 * 
-	 * @return
-	 */
 	public static String getName(NBTTagCompound aug) {
 		return aug.getString(NAME);
 	}
 
 	/**
-	 * The amount that this Aug contributes to the weight factor. Mostly used in
+	 * The amount that the Aug contributes to the weight factor. Mostly used in
 	 * determining speed penalty for now.
 	 * 
 	 * @return
@@ -151,5 +147,33 @@ public abstract class AugManager {
 		validAugs.add(LIIONBATTERY);
 		validAugs.add(CARBONTUBEBATTERY);
 		return validAugs;
+	}
+
+	/**
+	 * @param itemAugs
+	 * @param aug
+	 */
+	public static void upgrade(NBTTagCompound itemAugs, String aug) {
+		MuseLogger.logDebug("Upgrading " + aug);
+		if (itemAugs.hasKey(aug)) {
+			NBTTagCompound augTag = itemAugs.getCompoundTag(aug);
+			setLevel(augTag, getLevel(augTag) + 1);
+		} else {
+			NBTTagCompound augTag = newAugOfType(aug);
+			itemAugs.setCompoundTag(aug, augTag);
+			setLevel(augTag, getLevel(augTag) + 1);
+		}
+	}
+
+	/**
+	 * @param aug
+	 * @return
+	 */
+	public static List<String> getTooltipFor(NBTTagCompound aug) {
+		List<String> tooltiplines = new ArrayList<String>();
+		tooltiplines.add("Augmentation: ");
+		tooltiplines.add(aug.getString(NAME));
+		tooltiplines.add("Level: " + aug.getInteger(LEVEL));
+		return tooltiplines;
 	}
 }

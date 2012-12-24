@@ -40,9 +40,8 @@ public class GuiTinkerTable extends MuseGui {
 	 */
 	public GuiTinkerTable(EntityClientPlayerMP player) {
 		this.player = player;
-		this.itemButtons = new ArrayList<ClickableItem>();
+		this.loadItems();
 
-		this.augButtons = new ArrayList<ClickableAugmentation>();
 		this.xSize = 256;
 		this.ySize = 226;
 	}
@@ -53,7 +52,6 @@ public class GuiTinkerTable extends MuseGui {
 	public void initGui()
 	{
 		super.initGui();
-		loadItems();
 	}
 
 	/**
@@ -61,6 +59,7 @@ public class GuiTinkerTable extends MuseGui {
 	 * 
 	 */
 	public void loadItems() {
+		itemButtons = new ArrayList<ClickableItem>();
 		List<Integer> slots = ItemUtils
 				.getModularItemSlotsInInventory(player.inventory);
 
@@ -144,6 +143,7 @@ public class GuiTinkerTable extends MuseGui {
 		drawSelection();
 		drawClickables(this.augButtons);
 		drawUpgradeDowngrade();
+		drawToolTip();
 	}
 
 	/**
@@ -241,7 +241,9 @@ public class GuiTinkerTable extends MuseGui {
 			// player.inventory);
 			// workingAugmentation.upgrade();
 			player.sendQueue.addToSendQueue(new MusePacketUpgradeRequest(
-					(Player) player, 1, augButtons
+					(Player) player,
+					itemButtons.get(selectedItemStack).inventorySlot,
+					augButtons
 							.get(this.selectedAugClickable).aug
 							.getString(AugManager.NAME)).getPacket());
 			// player.sendQueue.sendPacket();
@@ -278,5 +280,31 @@ public class GuiTinkerTable extends MuseGui {
 						new Point2D(0.25F, 0.05F), true);
 			}
 		}
+	}
+
+	/**
+	 * @return
+	 */
+	@Override
+	protected List<String> getToolTip(int x, int y) {
+		List<String> hitTip = null;
+		int itemHover = hitboxClickables(x, y, this.itemButtons);
+		if (itemHover > -1) {
+			hitTip = itemButtons.get(itemHover).getToolTip();
+		}
+		int augHover = hitboxClickables(x, y, this.augButtons);
+		if (augHover > -1) {
+			hitTip = augButtons.get(augHover).getToolTip();
+		}
+		return hitTip;
+	}
+
+	@Override
+	public void refresh() {
+		loadItems();
+		if (selectedItemStack != -1 && selectedItemStack < itemButtons.size()) {
+			loadAugList(itemButtons.get(selectedItemStack));
+		}
+		refreshUpgrades();
 	}
 }

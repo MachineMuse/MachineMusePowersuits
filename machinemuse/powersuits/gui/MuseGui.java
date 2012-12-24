@@ -16,6 +16,8 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
 
 /**
  * I got fed up with Minecraft's gui system so I wrote my own (to some extent.
@@ -71,6 +73,9 @@ public class MuseGui extends GuiScreen {
 	 * Draws all clickables in a list!
 	 */
 	public void drawClickables(List<? extends Clickable> list) {
+		if (list == null) {
+			return;
+		}
 		Iterator<? extends Clickable> iter = list.iterator();
 		Clickable clickie;
 		while (iter.hasNext())
@@ -87,6 +92,9 @@ public class MuseGui extends GuiScreen {
 	 */
 	public int hitboxClickables(int x, int y,
 			List<? extends Clickable> list) {
+		if (list == null) {
+			return -1;
+		}
 		Clickable clickie;
 		for (int i = 0; i < list.size(); i++)
 		{
@@ -236,4 +244,49 @@ public class MuseGui extends GuiScreen {
 		this.ySize = ySize;
 	}
 
+	/**
+	 * @param x
+	 * @param y
+	 */
+	protected void drawToolTip() {
+		int x = Mouse.getEventX() * this.width / this.mc.displayWidth;
+		int y = this.height - Mouse.getEventY() * this.height
+				/ this.mc.displayHeight - 1;
+		List<String> tooltip = getToolTip(x, y);
+		if (tooltip != null) {
+			int strwidth = 0;
+			for (String s : tooltip) {
+				int currstrwidth = getFontRenderer().getStringWidth(s);
+				if (currstrwidth > strwidth) {
+					strwidth = currstrwidth;
+				}
+			}
+			GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
+			Doodler.drawGradientRect(
+					x, y - 10 * tooltip.size() - 5,
+					x + 10 + strwidth, y + 5,
+					new Colour(0.2F, 0.6F, 0.9F, 0.7F),
+					new Colour(0.1F, 0.3F, 0.4F, 0.7F),
+					0.0F);
+			Colour fontcolour = new Colour(0.9F, 0.6F, 0.2F, 1.0F);
+			for (int i = 0; i < tooltip.size(); i++) {
+				this.getFontRenderer().drawStringWithShadow(tooltip.get(i),
+						x + 5,
+						y - 10 * (tooltip.size() - i), fontcolour.getInt());
+			}
+		}
+	}
+
+	/**
+	 * @return
+	 */
+	protected List<String> getToolTip(int x, int y) {
+		return null;
+	}
+
+	/**
+	 * 
+	 */
+	public void refresh() {
+	}
 }

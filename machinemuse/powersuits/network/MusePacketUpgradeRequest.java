@@ -8,12 +8,10 @@ import java.io.IOException;
 import java.util.List;
 
 import machinemuse.powersuits.augmentation.AugManager;
-import machinemuse.powersuits.common.MuseLogger;
 import machinemuse.powersuits.item.ItemUtils;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.packet.Packet5PlayerInventory;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.network.PacketDispatcher;
@@ -44,8 +42,8 @@ public class MusePacketUpgradeRequest extends MusePacket {
 	public MusePacketUpgradeRequest(Player player, int slotToUpgrade,
 			String augToUpgrade) {
 		super(player);
-		writeInt(slotToUpgrade, data);
-		writeString(augToUpgrade, data);
+		writeInt(slotToUpgrade);
+		writeString(augToUpgrade);
 	}
 
 	/**
@@ -57,21 +55,18 @@ public class MusePacketUpgradeRequest extends MusePacket {
 	 */
 	public MusePacketUpgradeRequest(DataInputStream data, Player player) {
 		super(player, data);
+		slot = readInt();
 		try {
-			slot = data.readInt();
-			aug = readString(data, 64);
-			Side side = FMLCommonHandler.instance().getEffectiveSide();
-			if (side == Side.SERVER) {
-				EntityPlayerMP srvplayer = (EntityPlayerMP) player;
-				stack = srvplayer.inventory
-						.getStackInSlot(slot);
-
-			}
+			aug = readString(64);
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (Exception e) {
-			MuseLogger.logError("Problem creating new Augmentation D:");
-			e.printStackTrace();
+		}
+		Side side = FMLCommonHandler.instance().getEffectiveSide();
+		if (side == Side.SERVER) {
+			EntityPlayerMP srvplayer = (EntityPlayerMP) player;
+			stack = srvplayer.inventory
+					.getStackInSlot(slot);
 		}
 	}
 
@@ -86,11 +81,15 @@ public class MusePacketUpgradeRequest extends MusePacket {
 				if (ItemUtils.hasInInventory(cost, inventory)) {
 					List<Integer> slots = ItemUtils.deleteFromInventory(
 							AugManager.getInstallCost(aug), inventory);
+					AugManager.upgrade(ItemUtils.getItemAugs(inventory
+							.getStackInSlot(slot)), aug);
 					slots.add(this.slot);
 					for (Integer slotiter : slots) {
-						PacketDispatcher.sendPacketToPlayer(
-								new Packet5PlayerInventory(entityId, slotiter,
-										stack), player);
+						MusePacket reply = new MusePacketInventory(
+								player, slotiter,
+								inventory.getStackInSlot(slotiter));
+						PacketDispatcher.sendPacketToPlayer(reply.getPacket(),
+								player);
 					}
 				}
 			}

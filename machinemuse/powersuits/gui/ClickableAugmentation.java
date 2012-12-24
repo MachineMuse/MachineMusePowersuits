@@ -5,6 +5,7 @@ import java.util.List;
 import machinemuse.general.geometry.Colour;
 import machinemuse.general.geometry.Doodler;
 import machinemuse.general.geometry.Point2D;
+import machinemuse.powersuits.augmentation.AugManager;
 import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -27,8 +28,8 @@ public class ClickableAugmentation extends Clickable {
 
 	@Override
 	public List<String> getToolTip() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return AugManager.getTooltipFor(aug);
 	}
 
 	@Override

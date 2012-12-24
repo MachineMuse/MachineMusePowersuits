@@ -28,15 +28,16 @@ public abstract class MusePacket {
 	protected ByteArrayOutputStream bytes;
 
 	protected Packet250CustomPayload packet;
-	protected DataOutputStream data;
+	protected DataOutputStream dataout;
+	protected DataInputStream datain;
 	protected int id;
 
 	protected MusePacket(Player player) {
 		this.player = player;
 		this.bytes = new ByteArrayOutputStream();
-		this.data = new DataOutputStream(bytes);
+		this.dataout = new DataOutputStream(bytes);
 		int id = MusePacketHandler.getTypeID(this);
-		writeInt(id, data);
+		writeInt(id);
 	}
 
 	private String listBytes(byte[] bytes) {
@@ -49,6 +50,7 @@ public abstract class MusePacket {
 
 	protected MusePacket(Player player, DataInputStream data) {
 		this.player = player;
+		this.datain = data;
 	}
 
 	/**
@@ -67,9 +69,9 @@ public abstract class MusePacket {
 	 */
 	public abstract void handleSelf();
 
-	public static int readInt(DataInputStream data) {
+	public int readInt() {
 		try {
-			int read = data.readInt();
+			int read = datain.readInt();
 			return read;
 		} catch (IOException e) {
 			MuseLogger.logError("PROBLEM WRITING INT TO PACKET D:");
@@ -78,9 +80,9 @@ public abstract class MusePacket {
 		}
 	}
 
-	public static void writeInt(int i, DataOutputStream data) {
+	public void writeInt(int i) {
 		try {
-			data.writeInt(i);
+			dataout.writeInt(i);
 		} catch (IOException e) {
 
 			e.printStackTrace();
@@ -90,57 +92,64 @@ public abstract class MusePacket {
 	/**
 	 * Reads a ItemStack from the InputStream
 	 */
-	public static ItemStack readItemStack(DataInputStream data)
-			throws IOException
+	public ItemStack readItemStack()
 	{
 		ItemStack stack = null;
-		short itemID = data.readShort();
+		try {
+			short itemID = datain.readShort();
 
-		if (itemID >= 0)
-		{
-			byte stackSize = data.readByte();
-			short damageAmount = data.readShort();
-			stack = new ItemStack(itemID, stackSize, damageAmount);
-			stack.stackTagCompound = readNBTTagCompound(data);
+			if (itemID >= 0)
+			{
+				byte stackSize = datain.readByte();
+				short damageAmount = datain.readShort();
+				stack = new ItemStack(itemID, stackSize, damageAmount);
+				stack.stackTagCompound = readNBTTagCompound();
+			}
+
+		} catch (IOException e) {
+			MuseLogger.logError("Problem reading itemstack D:");
+			e.printStackTrace();
 		}
-
 		return stack;
 	}
 
 	/**
 	 * Writes the ItemStack's ID (short), then size (byte), then damage. (short)
 	 */
-	public static void writeItemStack(ItemStack stack,
-			DataOutputStream outputStream) throws IOException
+	public void writeItemStack(ItemStack stack)
 	{
-		if (stack == null)
-		{
-			outputStream.writeShort(-1);
-		}
-		else
-		{
-			outputStream.writeShort(stack.itemID);
-			outputStream.writeByte(stack.stackSize);
-			outputStream.writeShort(stack.getItemDamage());
-			NBTTagCompound nbt = null;
-
-			if (stack.getItem().isDamageable()
-					|| stack.getItem().getShareTag())
+		try {
+			if (stack == null)
 			{
-				nbt = stack.stackTagCompound;
+				dataout.writeShort(-1);
 			}
+			else
+			{
+				dataout.writeShort(stack.itemID);
+				dataout.writeByte(stack.stackSize);
+				dataout.writeShort(stack.getItemDamage());
+				NBTTagCompound nbt = null;
 
-			writeNBTTagCompound(nbt, outputStream);
+				if (stack.getItem().isDamageable()
+						|| stack.getItem().getShareTag())
+				{
+					nbt = stack.stackTagCompound;
+				}
+
+				writeNBTTagCompound(nbt);
+			}
+		} catch (IOException e) {
+			MuseLogger.logError("Problem writing itemstack D:");
+			e.printStackTrace();
 		}
 	}
 
 	/**
 	 * Reads a compressed NBTTagCompound from the InputStream
 	 */
-	public static NBTTagCompound readNBTTagCompound(
-			DataInputStream data) throws IOException
+	public NBTTagCompound readNBTTagCompound() throws IOException
 	{
-		short length = data.readShort();
+		short length = datain.readShort();
 
 		if (length < 0)
 		{
@@ -149,7 +158,7 @@ public abstract class MusePacket {
 		else
 		{
 			byte[] fullData = new byte[length];
-			data.readFully(fullData);
+			datain.readFully(fullData);
 			return CompressedStreamTools.decompress(fullData);
 		}
 	}
@@ -157,26 +166,25 @@ public abstract class MusePacket {
 	/**
 	 * Writes a compressed NBTTagCompound to the OutputStream
 	 */
-	protected static void writeNBTTagCompound(
-			NBTTagCompound nbt,
-			DataOutputStream data) throws IOException
+	protected void writeNBTTagCompound(
+			NBTTagCompound nbt) throws IOException
 	{
 		if (nbt == null)
 		{
-			data.writeShort(-1);
+			dataout.writeShort(-1);
 		}
 		else
 		{
 			byte[] compressednbt = CompressedStreamTools.compress(nbt);
-			data.writeShort((short) compressednbt.length);
-			data.write(compressednbt);
+			dataout.writeShort((short) compressednbt.length);
+			dataout.write(compressednbt);
 		}
 	}
 
 	/**
 	 * Writes a String to the DataOutputStream
 	 */
-	public static void writeString(String string, DataOutputStream data)
+	public void writeString(String string)
 	{
 		try {
 			if (string.length() > 32767)
@@ -185,8 +193,8 @@ public abstract class MusePacket {
 			}
 			else
 			{
-				data.writeShort(string.length());
-				data.writeChars(string);
+				dataout.writeShort(string.length());
+				dataout.writeChars(string);
 			}
 		} catch (IOException e) {
 			MuseLogger.logError("String too big D:");
@@ -197,10 +205,10 @@ public abstract class MusePacket {
 	/**
 	 * Reads a string from a packet
 	 */
-	public static String readString(DataInputStream data, int maxlength)
+	public String readString(int maxlength)
 			throws IOException
 	{
-		short length = data.readShort();
+		short length = datain.readShort();
 
 		if (length > maxlength)
 		{
@@ -219,7 +227,7 @@ public abstract class MusePacket {
 
 			for (int i = 0; i < length; ++i)
 			{
-				builder.append(data.readChar());
+				builder.append(datain.readChar());
 			}
 
 			return builder.toString();

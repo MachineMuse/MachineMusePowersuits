@@ -121,11 +121,14 @@ public class ItemUtils {
 		NBTTagCompound itemAugs = getItemAugs(stack);
 		List<NBTTagCompound> augsList = new ArrayList<NBTTagCompound>();
 		for (String validAug : validAugs) {
-			NBTTagCompound matchedAug = itemAugs.getCompoundTag(validAug);
-			if (matchedAug != null) {
+			if (itemAugs.hasKey(validAug)) {
+				NBTTagCompound matchedAug = itemAugs.getCompoundTag(validAug);
 				augsList.add(matchedAug);
 			} else {
-				augsList.add(AugManager.newAugOfType(validAug));
+				NBTTagCompound newAug = AugManager.newAugOfType(validAug);
+				augsList.add(newAug);
+				itemAugs.setCompoundTag(validAug, newAug);
+
 			}
 		}
 		return augsList;
@@ -176,10 +179,11 @@ public class ItemUtils {
 						if (stackInInventory.stackSize > remaining) {
 							stackInInventory.stackSize -= remaining;
 							remaining = 0;
+							slots.add(i);
 							break;
 						} else {
 							remaining -= stackInInventory.stackSize;
-							stackInInventory.stackSize = 0;
+							inventory.setInventorySlotContents(i, null);
 						}
 						slots.add(i);
 					}

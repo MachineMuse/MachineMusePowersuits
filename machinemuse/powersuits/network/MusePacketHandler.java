@@ -142,6 +142,7 @@ public class MusePacketHandler implements IPacketHandler {
 
 	public void register() {
 		addPacketType(1, MusePacketUpgradeRequest.class);
+		addPacketType(2, MusePacketInventory.class);
 
 		NetworkRegistry.instance().registerChannel(this,
 				Config.getNetworkChannelName());
