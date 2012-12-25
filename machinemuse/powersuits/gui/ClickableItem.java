@@ -2,7 +2,7 @@ package machinemuse.powersuits.gui;
 
 import java.util.List;
 
-import machinemuse.general.geometry.Doodler;
+import machinemuse.general.geometry.MuseRenderer;
 import machinemuse.general.geometry.Point2D;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderEngine;
@@ -51,7 +51,7 @@ public class ClickableItem extends Clickable {
 	@Override
 	public void draw(RenderEngine engine, MuseGui gui) {
 
-		Doodler.drawItemAt(
+		MuseRenderer.drawItemAt(
 				(int) gui.absX(getPosition().x()) - offsetx,
 				(int) gui.absY(getPosition().y()) - offsety,
 				gui, item);

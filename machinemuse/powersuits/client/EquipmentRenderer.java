@@ -1,6 +1,6 @@
 package machinemuse.powersuits.client;
 
-import machinemuse.general.geometry.Doodler;
+import machinemuse.general.geometry.MuseRenderer;
 import machinemuse.powersuits.item.IModularItem;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.RenderEngine;
@@ -98,14 +98,14 @@ public class EquipmentRenderer implements IItemRenderer {
 	}
 
 	public void drawHead(ItemStack itemStack) {
-		Doodler.draw3x3placeholder(
+		MuseRenderer.draw3x3placeholder(
 				true, true, true,
 				true, false, true,
 				false, false, false);
 	}
 
 	public void drawTorso(ItemStack itemStack) {
-		Doodler.draw3x3placeholder(
+		MuseRenderer.draw3x3placeholder(
 				true, false, true,
 				true, true, true,
 				true, true, true);
@@ -141,18 +141,18 @@ public class EquipmentRenderer implements IItemRenderer {
 				1, 3, 2,
 				1, 4, 3
 		};
-		Doodler.drawTriangles2D(v, c, i);
+		MuseRenderer.drawTriangles2D(v, c, i);
 	}
 
 	public void drawFeet(ItemStack itemStack) {
-		Doodler.draw3x3placeholder(
+		MuseRenderer.draw3x3placeholder(
 				false, false, false,
 				true, false, true,
 				true, false, true);
 	}
 
 	public void drawTool(ItemStack itemStack) {
-		Doodler.draw3x3placeholder(
+		MuseRenderer.draw3x3placeholder(
 				true, true, true,
 				false, true, false,
 				false, true, false);

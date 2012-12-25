@@ -16,7 +16,7 @@ import org.lwjgl.opengl.GL11;
  * @author MachineMuse
  * 
  */
-public abstract class Doodler {
+public abstract class MuseRenderer {
 
 	/**
 	 * Mostly for placeholder graphics, this function draws a 3x3 grid of swirly
@@ -151,14 +151,10 @@ public abstract class Doodler {
 	}
 
 	/**
-	 * Draws a swirly green circle at the specified coordinates in the current
-	 * reference frame.
+	 * Draws the given vertex arrays (textureless)
 	 * 
-	 * @param xoffset
-	 * @param yoffset
-	 * @param radius
 	 */
-	public static void drawTriangles3D(float[] v, float[] c,
+	public static void drawTriangles3DR(float[] v, float[] c,
 			int[] i) {
 		arraysOn();
 		texturelessOn();
@@ -333,5 +329,50 @@ public abstract class Doodler {
 	 */
 	public static void popMatrix() {
 		GL11.glPopMatrix();
+	}
+
+	/**
+	 * Draws a rectangular prism (cube or otherwise orthogonal)
+	 */
+	public static void drawRectPrism(float bottom, float top, float left,
+			float right, float front, float back) {
+		float[] points = {
+				bottom, left, front,
+				top, left, front,
+				bottom, right, front,
+				top, right, front,
+				bottom, left, back,
+				top, left, back,
+				bottom, right, back,
+				top, right, back
+		};
+		float r = 0.3f;
+		float g = 0.8f;
+		float b = 0.5f;
+		float a = 0.9f;
+		float[] colours = {
+				r, g, b, a,
+				r, g, b, a,
+				r, g, b, a,
+				r, g, b, a,
+				r, g, b, a,
+				r, g, b, a,
+				r, g, b, a,
+				r, g, b, a
+		};
+		int[] indices = {
+				0, 3, 1,
+				0, 2, 3,
+				2, 6, 7,
+				2, 7, 3,
+				6, 4, 5,
+				6, 5, 7,
+				4, 0, 1,
+				4, 1, 5,
+				1, 3, 7,
+				1, 7, 5,
+				0, 6, 2,
+				0, 4, 6
+		};
 	}
 }

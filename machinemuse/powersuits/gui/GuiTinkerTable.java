@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import machinemuse.general.geometry.Colour;
-import machinemuse.general.geometry.Doodler;
+import machinemuse.general.geometry.MuseRenderer;
 import machinemuse.general.geometry.FlyFromMiddlePoint2D;
 import machinemuse.general.geometry.Point2D;
 import machinemuse.powersuits.augmentation.AugManager;
@@ -103,14 +103,14 @@ public class GuiTinkerTable extends MuseGui {
 
 	public void drawSelection() {
 		if (selectedItemStack != -1) {
-			Doodler.drawCircleAround(
+			MuseRenderer.drawCircleAround(
 					absX(itemButtons.get(selectedItemStack).getPosition().x()),
 					absY(itemButtons.get(selectedItemStack).getPosition().y()),
 					10);
 		}
 
 		if (selectedAugClickable != -1) {
-			Doodler.drawCircleAround(
+			MuseRenderer.drawCircleAround(
 					absX(augButtons.get(selectedAugClickable).getPosition().x()),
 					absY(augButtons.get(selectedAugClickable).getPosition().y()),
 					10);
@@ -160,16 +160,16 @@ public class GuiTinkerTable extends MuseGui {
 			Iterator<Point2D> pointiter = points.iterator();
 			for (ItemStack item : workingUpgradeCost) {
 				Point2D next = pointiter.next();
-				Doodler.drawItemAt(absX(next.x()), absY(next.y()), this, item);
+				MuseRenderer.drawItemAt(absX(next.x()), absY(next.y()), this, item);
 			}
 			upgradeButton.draw(this.getRenderEngine(), this);
 		}
 		if (workingDowngradeRefund != null && workingDowngradeRefund.size() > 0) {
-			Doodler.on2D();
+			MuseRenderer.on2D();
 			this.drawString(fontRenderer, "Refund:", absX(0.4F),
 					absY(0.3F),
 					new Colour(1.0F, 0.6F, 0.2F, 1.0F).getInt());
-			Doodler.off2D();
+			MuseRenderer.off2D();
 			List<Point2D> points = this.pointsInLine(
 					workingDowngradeRefund.size(),
 					new Point2D(0.4F, 0.5F),
@@ -177,7 +177,7 @@ public class GuiTinkerTable extends MuseGui {
 			Iterator<Point2D> pointiter = points.iterator();
 			for (ItemStack item : workingDowngradeRefund) {
 				Point2D next = pointiter.next();
-				Doodler.drawItemAt(absX(next.x()), absY(next.y()), this, item);
+				MuseRenderer.drawItemAt(absX(next.x()), absY(next.y()), this, item);
 			}
 			downgradeButton.draw(this.getRenderEngine(), this);
 		}

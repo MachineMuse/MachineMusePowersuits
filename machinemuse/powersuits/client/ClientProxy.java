@@ -1,6 +1,7 @@
 package machinemuse.powersuits.client;
 
 import machinemuse.powersuits.common.CommonProxy;
+import machinemuse.powersuits.common.MuseLogger;
 import machinemuse.powersuits.common.PlayerTickHandler;
 import machinemuse.powersuits.common.PowersuitsMod;
 import machinemuse.powersuits.network.MusePacketHandler;
@@ -33,9 +34,9 @@ public class ClientProxy extends CommonProxy {
 		// MinecraftForgeClient.registerItemRenderer(
 		// i.shiftedIndex, eRenderer);
 		// }
-
+		MuseLogger.logDebug("Registering TinkerTable renderer");
 		RenderingRegistry.registerBlockHandler(new BlockRenderer());
-		MinecraftForgeClient.preloadTexture("/gui/tinktablegui.png");
+		// MinecraftForgeClient.preloadTexture("/gui/tinktablegui.png");
 	}
 
 	/**

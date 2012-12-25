@@ -3,7 +3,7 @@ package machinemuse.powersuits.gui;
 import java.util.List;
 
 import machinemuse.general.geometry.Colour;
-import machinemuse.general.geometry.Doodler;
+import machinemuse.general.geometry.MuseRenderer;
 import machinemuse.general.geometry.Point2D;
 import machinemuse.powersuits.augmentation.AugManager;
 import net.minecraft.client.renderer.RenderEngine;
@@ -40,7 +40,7 @@ public class ClickableAugmentation extends Clickable {
 		Colour c1 = new Colour(1.0F, 0.2F, 0.6F, 1.0F);
 		Colour c2 = new Colour(0.6F, 0.2F, 1.0F, 1.0F);
 
-		Doodler.drawGradientRect(x - 8, y - 8, x + 8, y + 8, c1, c2, 100.0f);
+		MuseRenderer.drawGradientRect(x - 8, y - 8, x + 8, y + 8, c1, c2, 100.0f);
 
 	}
 

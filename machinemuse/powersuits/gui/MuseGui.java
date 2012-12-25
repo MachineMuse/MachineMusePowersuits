@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import machinemuse.general.geometry.Colour;
-import machinemuse.general.geometry.Doodler;
+import machinemuse.general.geometry.MuseRenderer;
 import machinemuse.general.geometry.FlyFromMiddlePoint2D;
 import machinemuse.general.geometry.Point2D;
 import net.minecraft.client.Minecraft;
@@ -61,7 +61,7 @@ public class MuseGui extends GuiScreen {
 	 * Draws the gradient-rectangle background you see in the TinkerTable gui.
 	 */
 	public void drawRectangularBackground() {
-		Doodler.drawGradientRect(
+		MuseRenderer.drawGradientRect(
 				absX(ul.x()), absY(ul.y()),
 				absX(br.x()), absY(br.y()),
 				new Colour(0.1F, 0.9F, 0.1F, 0.8F),
@@ -262,7 +262,7 @@ public class MuseGui extends GuiScreen {
 				}
 			}
 			GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
-			Doodler.drawGradientRect(
+			MuseRenderer.drawGradientRect(
 					x, y - 10 * tooltip.size() - 5,
 					x + 10 + strwidth, y + 5,
 					new Colour(0.2F, 0.6F, 0.9F, 0.7F),

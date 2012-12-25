@@ -6,7 +6,7 @@ package machinemuse.powersuits.gui;
 import java.util.List;
 
 import machinemuse.general.geometry.Colour;
-import machinemuse.general.geometry.Doodler;
+import machinemuse.general.geometry.MuseRenderer;
 import machinemuse.general.geometry.Point2D;
 import net.minecraft.client.renderer.RenderEngine;
 
@@ -45,7 +45,7 @@ public class ClickableButton extends Clickable {
 			topcolour = new Colour(0.3F, 0.3F, 0.3F, 1);
 			bottomcolour = new Colour(0.5F, 0.6F, 0.8F, 1);
 		}
-		Doodler.drawGradientRect(
+		MuseRenderer.drawGradientRect(
 				gui.absX(position.x() - radius.x()),
 				gui.absY(position.y() - radius.y()),
 				gui.absX(position.x() + radius.x()),

@@ -3,6 +3,7 @@
  */
 package machinemuse.powersuits.client;
 
+import machinemuse.general.geometry.MuseRenderer;
 import machinemuse.powersuits.common.Config;
 import machinemuse.powersuits.common.Config.Blocks;
 import net.minecraft.block.Block;
@@ -33,8 +34,8 @@ public class BlockRenderer implements ISimpleBlockRenderingHandler {
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID,
 			RenderBlocks renderer) {
-		// TODO Auto-generated method stub
 
+		MuseRenderer.drawRectPrism(0, 1, 0, 1, 0, 1);
 	}
 
 	/*
@@ -49,9 +50,8 @@ public class BlockRenderer implements ISimpleBlockRenderingHandler {
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z,
 			Block block, int modelId, RenderBlocks renderer) {
-
-		// TODO Auto-generated method stub
-		return false;
+		MuseRenderer.drawRectPrism(0, 1, 0, 1, 0, 1);
+		return true;
 	}
 
 	/*
@@ -62,8 +62,7 @@ public class BlockRenderer implements ISimpleBlockRenderingHandler {
 	 */
 	@Override
 	public boolean shouldRender3DInInventory() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	/*
