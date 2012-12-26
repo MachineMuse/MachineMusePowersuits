@@ -1,14 +1,13 @@
 package machinemuse.powersuits.block;
 
-import machinemuse.powersuits.common.CommonProxy;
 import machinemuse.powersuits.common.Config;
 import machinemuse.powersuits.common.PowersuitsMod;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
@@ -33,10 +32,11 @@ public class BlockTinkerTable extends Block {
 		setResistance(80.0F);
 		setStepSound(Config.Blocks.TinkerTable.stepSound);
 		setBlockName(Config.Blocks.TinkerTable.idName);
-		setLightOpacity(1); // How much light is stopped by this block
+		setLightOpacity(0); // How much light is stopped by this block
 		setCreativeTab(Config.getCreativeTab());
-		setLightValue(0.25F); // Light level / 15
-		setTickRandomly(false); // Whether to receive random ticks e.g. plants
+		setLightValue(0.4f); // Light level, 0-1. Gets multiplied by 15.
+		setTickRandomly(false); // Whether to receive random ticks e.g.
+		// plants
 
 		LanguageRegistry.addName(this, Config.Blocks.TinkerTable.englishName);
 		MinecraftForge.setBlockHarvestLevel(this,
@@ -44,13 +44,11 @@ public class BlockTinkerTable extends Block {
 				Config.Blocks.TinkerTable.harvestLevel);
 		ItemStack recipeResult = new ItemStack(this);
 
+		GameRegistry.registerTileEntity(TileEntityTinkerTable.class,
+				Config.Blocks.TinkerTable.idName);
+
 		GameRegistry.registerBlock(this);
 
-	}
-
-	@Override
-	public String getTextureFile() {
-		return CommonProxy.BLOCK_PNG;
 	}
 
 	/**
@@ -77,7 +75,7 @@ public class BlockTinkerTable extends Block {
 	 */
 	@Override
 	public int getRenderType() {
-		return -1;
+		return Config.getAssignedBlockID(Config.Blocks.TinkerTable);
 	}
 
 	/**
@@ -1308,28 +1306,29 @@ public class BlockTinkerTable extends Block {
 	// return blockMaterial.isOpaque() && renderAsNormalBlock();
 	// }
 	//
-	/**
-	 * Checks if the block is a solid face on the given side, used by placement
-	 * logic.
-	 * 
-	 * @param world
-	 *            The current world
-	 * @param x
-	 *            X Position
-	 * @param y
-	 *            Y position
-	 * @param z
-	 *            Z position
-	 * @param side
-	 *            The side to check
-	 * @return True if the block is solid on the specified side.
-	 */
-	@Override
-	public boolean isBlockSolidOnSide(World world, int x, int y, int z,
-			ForgeDirection side)
-	{
-		return false;
-	}
+	// /**
+	// * Checks if the block is a solid face on the given side, used by
+	// placement
+	// * logic.
+	// *
+	// * @param world
+	// * The current world
+	// * @param x
+	// * X Position
+	// * @param y
+	// * Y position
+	// * @param z
+	// * Z position
+	// * @param side
+	// * The side to check
+	// * @return True if the block is solid on the specified side.
+	// */
+	// @Override
+	// public boolean isBlockSolidOnSide(World world, int x, int y, int z,
+	// ForgeDirection side)
+	// {
+	// return true;
+	// }
 
 	// /**
 	// * Determines if a new block can be replace the space occupied by this
@@ -1532,45 +1531,42 @@ public class BlockTinkerTable extends Block {
 	// blockFireSpreadSpeed[id] = encouragement;
 	// blockFlammability[id] = flammability;
 	// }
-	//
-	// /**
-	// * Called throughout the code as a replacement for block instanceof
-	// BlockContainer
-	// * Moving this to the Block base class allows for mods that wish to extend
-	// vinella
-	// * blocks, and also want to have a tile entity on that block, may.
-	// *
-	// * Return true from this function to specify this block has a tile entity.
-	// *
-	// * @param metadata Metadata of the current block
-	// * @return True if block has a tile entity, false otherwise
-	// */
-	// @Override
-	// public boolean hasTileEntity(int metadata)
-	// {
-	// return isBlockContainer;
-	// }
-	//
-	// /**
-	// * Called throughout the code as a replacement for
-	// BlockContainer.getBlockEntity
-	// * Return the same thing you would from that function.
-	// * This will fall back to BlockContainer.getBlockEntity if this block is a
-	// BlockContainer.
-	// *
-	// * @param metadata The Metadata of the current block
-	// * @return A instance of a class extending TileEntity
-	// */
-	// @Override
-	// public TileEntity createTileEntity(World world, int metadata)
-	// {
-	// if (this instanceof BlockContainer)
-	// {
-	// return ((BlockContainer)this).createNewTileEntity(world, metadata);
-	// }
-	// return null;
-	// }
-	//
+
+	/**
+	 * Called throughout the code as a replacement for block instanceof
+	 * BlockContainer Moving this to the Block base class allows for mods that
+	 * wish to extend vinella blocks, and also want to have a tile entity on
+	 * that block, may.
+	 * 
+	 * Return true from this function to specify this block has a tile entity.
+	 * 
+	 * @param metadata
+	 *            Metadata of the current block
+	 * @return True if block has a tile entity, false otherwise
+	 */
+	@Override
+	public boolean hasTileEntity(int metadata)
+	{
+		return true;
+	}
+
+	/**
+	 * Called throughout the code as a replacement for
+	 * BlockContainer.getBlockEntity Return the same thing you would from that
+	 * function. This will fall back to BlockContainer.getBlockEntity if this
+	 * block is a BlockContainer.
+	 * 
+	 * @param metadata
+	 *            The Metadata of the current block
+	 * @return A instance of a class extending TileEntity
+	 */
+	@Override
+	public TileEntity createTileEntity(World world, int metadata)
+	{
+		return new TileEntityTinkerTable();
+
+	}
+
 	// /**
 	// * Metadata and fortune sensitive version, this replaces the old (int
 	// meta, Random rand)

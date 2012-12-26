@@ -5,7 +5,7 @@ import java.util.List;
 import machinemuse.general.geometry.Colour;
 import machinemuse.general.geometry.MuseRenderer;
 import machinemuse.general.geometry.Point2D;
-import machinemuse.powersuits.augmentation.AugManager;
+import machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -15,21 +15,32 @@ import net.minecraft.nbt.NBTTagCompound;
  * 
  * @author MachineMuse
  */
-public class ClickableAugmentation extends Clickable {
-	protected NBTTagCompound aug;
+public class ClickablePowerModule extends Clickable {
+	protected PowerModule module;
+	protected NBTTagCompound moduleTag;
 
 	/**
 	 * @param vaug
 	 */
-	public ClickableAugmentation(NBTTagCompound aug, Point2D position) {
+	public ClickablePowerModule(PowerModule module, Point2D position) {
 		super(position);
-		this.aug = aug;
+		this.module = module;
+		this.moduleTag = module.newModuleTag();
+	}
+
+	/**
+	 * @param vaug
+	 */
+	public ClickablePowerModule(NBTTagCompound moduleTag, Point2D position) {
+		super(position);
+		this.moduleTag = moduleTag;
+		this.module = PowerModule.getModuleFromNBT(moduleTag);
 	}
 
 	@Override
 	public List<String> getToolTip() {
-
-		return AugManager.getTooltipFor(aug);
+		return module.getTooltip(
+				null, null);
 	}
 
 	@Override
@@ -40,7 +51,7 @@ public class ClickableAugmentation extends Clickable {
 		Colour c1 = new Colour(1.0F, 0.2F, 0.6F, 1.0F);
 		Colour c2 = new Colour(0.6F, 0.2F, 1.0F, 1.0F);
 
-		MuseRenderer.drawGradientRect(x - 8, y - 8, x + 8, y + 8, c1, c2, 100.0f);
+		MuseRenderer.drawModuleAt(x - 8, y - 8, gui, module, moduleTag, null);
 
 	}
 

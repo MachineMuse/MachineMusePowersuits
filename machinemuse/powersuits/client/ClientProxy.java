@@ -1,13 +1,13 @@
 package machinemuse.powersuits.client;
 
+import machinemuse.powersuits.block.TileEntityTinkerTable;
 import machinemuse.powersuits.common.CommonProxy;
-import machinemuse.powersuits.common.MuseLogger;
 import machinemuse.powersuits.common.PlayerTickHandler;
 import machinemuse.powersuits.common.PowersuitsMod;
 import machinemuse.powersuits.network.MusePacketHandler;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
-import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
@@ -34,9 +34,10 @@ public class ClientProxy extends CommonProxy {
 		// MinecraftForgeClient.registerItemRenderer(
 		// i.shiftedIndex, eRenderer);
 		// }
-		MuseLogger.logDebug("Registering TinkerTable renderer");
-		RenderingRegistry.registerBlockHandler(new BlockRenderer());
-		// MinecraftForgeClient.preloadTexture("/gui/tinktablegui.png");
+		ClientRegistry.bindTileEntitySpecialRenderer(
+				TileEntityTinkerTable.class, new TinkerTableRenderer());
+		MinecraftForgeClient.preloadTexture("/tinkertable.png");
+		MinecraftForgeClient.preloadTexture("/moduleicons.png");
 	}
 
 	/**
@@ -48,7 +49,6 @@ public class ClientProxy extends CommonProxy {
 		tickHandler = new PlayerTickHandler();
 		TickRegistry.registerTickHandler(tickHandler, Side.CLIENT);
 
-		packetHandler = new MusePacketHandler();
-		packetHandler.register();
+		packetHandler = new MusePacketHandler().register();
 	}
 }

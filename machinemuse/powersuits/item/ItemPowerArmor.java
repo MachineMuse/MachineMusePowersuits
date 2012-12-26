@@ -1,7 +1,5 @@
 package machinemuse.powersuits.item;
 
-import java.util.List;
-
 import machinemuse.powersuits.common.Config;
 import machinemuse.powersuits.common.Config.Items;
 import net.minecraft.entity.EntityLiving;
@@ -19,19 +17,18 @@ import net.minecraftforge.common.ISpecialArmor;
  */
 public abstract class ItemPowerArmor extends ItemArmor
 		implements ISpecialArmor, IModularItem {
-	protected List<String> validAugTypes;
-
 	Config.Items itemType;
 
 	/**
-	 * @param par1
-	 * @param par2EnumArmorMaterial
-	 * @param par3
-	 * @param par4
+	 * @param id
+	 * @param material
+	 * @param renderIndex
+	 * @param armorType
+	 *            0 = head; 1 = torso; 2 = legs; 3 = feet
 	 */
-	public ItemPowerArmor(int par1, EnumArmorMaterial par2EnumArmorMaterial,
-			int par3, int par4) {
-		super(par1, par2EnumArmorMaterial, par3, par4);
+	public ItemPowerArmor(int id, EnumArmorMaterial material,
+			int renderIndex, int armorType) {
+		super(id, material, renderIndex, armorType);
 		setMaxStackSize(1);
 		setCreativeTab(Config.getCreativeTab());
 	}

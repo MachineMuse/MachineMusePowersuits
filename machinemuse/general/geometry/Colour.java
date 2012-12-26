@@ -1,5 +1,7 @@
 package machinemuse.general.geometry;
 
+import org.lwjgl.opengl.GL11;
+
 /**
  * A class representing an RGBA colour and various helper functions. Mainly to
  * improve readability elsewhere.
@@ -76,5 +78,9 @@ public class Colour {
 				this.g * complement + target.g * interval,
 				this.b * complement + target.b * interval,
 				this.a * complement + target.a * interval);
+	}
+
+	public void doGL() {
+		GL11.glColor4f(r, g, b, a);
 	}
 }

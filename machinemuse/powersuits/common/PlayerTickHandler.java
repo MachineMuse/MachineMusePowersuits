@@ -28,18 +28,9 @@ public class PlayerTickHandler implements ITickHandler {
 		List<NBTTagCompound> playerAugs = ItemUtils
 				.getPlayerAugs(player);
 		float totalEnergy = 0;
-		float totalWeight = ItemUtils
-				.getTotalWeight(playerAugs);
-
+		float totalWeight = 0;
 		Iterator<NBTTagCompound> iter = playerAugs.iterator();
 
-		while (iter.hasNext()) {
-			NBTTagCompound aug = iter.next();
-			if (aug.hasKey("Available Energy")) {
-				totalEnergy += aug.getFloat("Available Energy");
-			}
-			totalWeight += aug.getCompoundTag("Armor").getInteger("Level");
-		}
 		if (totalWeight > 25) {
 			player.motionX *= 25 / totalWeight;
 			player.motionZ *= 25 / totalWeight;

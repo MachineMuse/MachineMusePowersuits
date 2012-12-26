@@ -5,10 +5,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import machinemuse.general.geometry.Colour;
-import machinemuse.general.geometry.MuseRenderer;
 import machinemuse.general.geometry.FlyFromMiddlePoint2D;
+import machinemuse.general.geometry.MuseRenderer;
 import machinemuse.general.geometry.Point2D;
-import machinemuse.powersuits.augmentation.AugManager;
 import machinemuse.powersuits.item.ItemUtils;
 import machinemuse.powersuits.network.MusePacketUpgradeRequest;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -26,7 +25,7 @@ public class GuiTinkerTable extends MuseGui {
 	protected EntityClientPlayerMP player;
 	protected List<ClickableItem> itemButtons;
 	protected int selectedItemStack = -1;
-	protected List<ClickableAugmentation> augButtons;
+	protected List<ClickablePowerModule> augButtons;
 	protected int selectedAugClickable = -1;
 	protected List<ItemStack> workingUpgradeCost;
 	protected List<ItemStack> workingDowngradeRefund;
@@ -49,6 +48,7 @@ public class GuiTinkerTable extends MuseGui {
 	/**
 	 * Add the buttons (and other controls) to the screen.
 	 */
+	@Override
 	public void initGui()
 	{
 		super.initGui();
@@ -81,16 +81,16 @@ public class GuiTinkerTable extends MuseGui {
 	}
 
 	protected void loadAugList(ClickableItem itemClicked) {
-		augButtons = new ArrayList<ClickableAugmentation>();
+		augButtons = new ArrayList<ClickablePowerModule>();
 		List<NBTTagCompound> workingAugs = ItemUtils
-				.getItemAugsWithPadding(itemClicked
+				.getItemModulesWithPadding(itemClicked
 						.getItem());
 		List<Point2D> points = this.pointsInLine(workingAugs.size(),
 				new Point2D(-0.7F, -0.9F),
 				new Point2D(-0.7F, 0.9F));
 		Iterator<Point2D> pointiter = points.iterator();
 		for (NBTTagCompound aug : workingAugs) {
-			augButtons.add(new ClickableAugmentation(aug, pointiter.next()));
+			augButtons.add(new ClickablePowerModule(aug, pointiter.next()));
 		}
 	}
 
@@ -110,10 +110,13 @@ public class GuiTinkerTable extends MuseGui {
 		}
 
 		if (selectedAugClickable != -1) {
-			MuseRenderer.drawCircleAround(
-					absX(augButtons.get(selectedAugClickable).getPosition().x()),
-					absY(augButtons.get(selectedAugClickable).getPosition().y()),
-					10);
+			MuseRenderer
+					.drawCircleAround(
+							absX(augButtons.get(selectedAugClickable)
+									.getPosition().x()),
+							absY(augButtons.get(selectedAugClickable)
+									.getPosition().y()),
+							10);
 
 		}
 
@@ -160,7 +163,8 @@ public class GuiTinkerTable extends MuseGui {
 			Iterator<Point2D> pointiter = points.iterator();
 			for (ItemStack item : workingUpgradeCost) {
 				Point2D next = pointiter.next();
-				MuseRenderer.drawItemAt(absX(next.x()), absY(next.y()), this, item);
+				MuseRenderer.drawItemAt(absX(next.x()), absY(next.y()), this,
+						item);
 			}
 			upgradeButton.draw(this.getRenderEngine(), this);
 		}
@@ -177,7 +181,8 @@ public class GuiTinkerTable extends MuseGui {
 			Iterator<Point2D> pointiter = points.iterator();
 			for (ItemStack item : workingDowngradeRefund) {
 				Point2D next = pointiter.next();
-				MuseRenderer.drawItemAt(absX(next.x()), absY(next.y()), this, item);
+				MuseRenderer.drawItemAt(absX(next.x()), absY(next.y()), this,
+						item);
 			}
 			downgradeButton.draw(this.getRenderEngine(), this);
 		}
@@ -198,6 +203,7 @@ public class GuiTinkerTable extends MuseGui {
 	/**
 	 * Called when the mouse is clicked.
 	 */
+	@Override
 	protected void mouseClicked(int x, int y, int button)
 	{
 		if (button == 0) // Left Mouse Button
@@ -240,12 +246,15 @@ public class GuiTinkerTable extends MuseGui {
 			// ItemUtils.deleteFromInventory(workingUpgradeCost,
 			// player.inventory);
 			// workingAugmentation.upgrade();
-			player.sendQueue.addToSendQueue(new MusePacketUpgradeRequest(
-					(Player) player,
-					itemButtons.get(selectedItemStack).inventorySlot,
-					augButtons
-							.get(this.selectedAugClickable).aug
-							.getString(AugManager.NAME)).getPacket());
+			player.sendQueue
+					.addToSendQueue(
+					new MusePacketUpgradeRequest(
+							(Player) player,
+							itemButtons.get(selectedItemStack).inventorySlot,
+							augButtons.get(selectedAugClickable).module
+									.getName()
+					).getPacket()
+					);
 			// player.sendQueue.sendPacket();
 		}
 	}
@@ -256,9 +265,8 @@ public class GuiTinkerTable extends MuseGui {
 	private void refreshUpgrades() {
 		if (selectedAugClickable != -1) {
 			this.workingUpgradeCost =
-					AugManager.getInstallCost(augButtons
-							.get(selectedAugClickable).aug
-							.getString(AugManager.NAME));
+					augButtons.get(selectedAugClickable).module.getCost(player,
+							augButtons.get(selectedAugClickable).moduleTag);
 			if (workingUpgradeCost != null) {
 				this.upgradeButton = new ClickableButton("Upgrade",
 						new Point2D(0.6F, -0.2F),
@@ -269,15 +277,6 @@ public class GuiTinkerTable extends MuseGui {
 				} else {
 					upgradeButton.enabled = false;
 				}
-			}
-			this.workingDowngradeRefund =
-					AugManager.getDowngradeRefund(augButtons
-							.get(selectedAugClickable).aug
-							.getString(AugManager.NAME));
-			if (workingDowngradeRefund != null) {
-				this.downgradeButton = new ClickableButton("Downgrade",
-						new Point2D(0.6F, 0.8F),
-						new Point2D(0.25F, 0.05F), true);
 			}
 		}
 	}

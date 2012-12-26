@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import machinemuse.powersuits.augmentation.AugManager;
+import machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
@@ -75,7 +75,7 @@ public class ItemUtils {
 		List<ItemStack> items = getModularItemsInInventory(player.inventory);
 		Iterator<ItemStack> iter = items.iterator();
 		while (iter.hasNext()) {
-			NBTTagCompound itemAugs = getItemAugs(iter.next());
+			NBTTagCompound itemAugs = PowerModule.getItemModules(iter.next());
 			for (Object ob : itemAugs.getTags()) {
 				if (ob instanceof NBTTagCompound) {
 					augs.add((NBTTagCompound) ob);
@@ -87,51 +87,27 @@ public class ItemUtils {
 	}
 
 	/**
-	 * 
-	 * 
 	 * @param next
 	 * @return
 	 */
-	public static NBTTagCompound getItemAugs(ItemStack stack) {
-		NBTTagCompound augs = null;
-		if (stack.hasTagCompound()) {
-			NBTTagCompound stackTag = stack.getTagCompound();
-			if (stackTag.hasKey(AugManager.nbtPrefix)) {
-				augs = stackTag.getCompoundTag(AugManager.nbtPrefix);
+	public static List<NBTTagCompound> getItemModulesWithPadding(ItemStack stack) {
+		List<PowerModule> validModules = PowerModule
+				.getValidModulesForItem(stack.getItem());
+		NBTTagCompound itemModule = PowerModule.getItemModules(stack);
+		List<NBTTagCompound> modulesList = new ArrayList<NBTTagCompound>();
+		for (PowerModule validModule : validModules) {
+			if (itemModule.hasKey(validModule.getName())) {
+				NBTTagCompound matchedAug = itemModule
+						.getCompoundTag(validModule
+								.getName());
+				modulesList.add(matchedAug);
 			} else {
-				augs = new NBTTagCompound();
-				stackTag.setCompoundTag(AugManager.nbtPrefix, augs);
-			}
-		} else {
-			NBTTagCompound stackTag = new NBTTagCompound();
-			stack.setTagCompound(stackTag);
-			augs = new NBTTagCompound();
-			stackTag.setCompoundTag(AugManager.nbtPrefix, augs);
-		}
-		return augs;
-	}
-
-	/**
-	 * @param next
-	 * @return
-	 */
-	public static List<NBTTagCompound> getItemAugsWithPadding(ItemStack stack) {
-		List<String> validAugs = AugManager
-				.getValidAugsForItem(stack.getItem());
-		NBTTagCompound itemAugs = getItemAugs(stack);
-		List<NBTTagCompound> augsList = new ArrayList<NBTTagCompound>();
-		for (String validAug : validAugs) {
-			if (itemAugs.hasKey(validAug)) {
-				NBTTagCompound matchedAug = itemAugs.getCompoundTag(validAug);
-				augsList.add(matchedAug);
-			} else {
-				NBTTagCompound newAug = AugManager.newAugOfType(validAug);
-				augsList.add(newAug);
-				itemAugs.setCompoundTag(validAug, newAug);
-
+				NBTTagCompound newModule = validModule.newModuleTag();
+				modulesList.add(newModule);
+				itemModule.setCompoundTag(validModule.getName(), newModule);
 			}
 		}
-		return augsList;
+		return modulesList;
 	}
 
 	/**
@@ -199,10 +175,11 @@ public class ItemUtils {
 	 * @param playerAugs
 	 * @return
 	 */
-	public static float getTotalWeight(List<NBTTagCompound> playerAugs) {
+	public static float getTotalWeight(EntityPlayer player,
+			List<NBTTagCompound> playerAugs) {
 		float weight = 0;
 		for (NBTTagCompound aug : playerAugs) {
-			weight += AugManager.getWeight(aug);
+			weight += PowerModule.getModuleFromNBT(aug).getWeight(player, aug);
 		}
 		return weight;
 	}

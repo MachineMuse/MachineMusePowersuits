@@ -5,19 +5,19 @@ import java.util.Iterator;
 import java.util.List;
 
 import machinemuse.general.geometry.Colour;
-import machinemuse.general.geometry.MuseRenderer;
 import machinemuse.general.geometry.FlyFromMiddlePoint2D;
+import machinemuse.general.geometry.MuseRenderer;
 import machinemuse.general.geometry.Point2D;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.RenderEngine;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
 
 /**
  * I got fed up with Minecraft's gui system so I wrote my own (to some extent.
@@ -66,7 +66,7 @@ public class MuseGui extends GuiScreen {
 				absX(br.x()), absY(br.y()),
 				new Colour(0.1F, 0.9F, 0.1F, 0.8F),
 				new Colour(0.0F, 0.2F, 0.0F, 0.8F),
-				(double) this.zLevel);
+				this.zLevel);
 	}
 
 	/**
@@ -109,7 +109,7 @@ public class MuseGui extends GuiScreen {
 
 	/**
 	 * Creates a list of points linearly interpolated between points a and b
-	 * inclusive.
+	 * noninclusive.
 	 * 
 	 * @return A list of num points
 	 */
@@ -261,13 +261,13 @@ public class MuseGui extends GuiScreen {
 					strwidth = currstrwidth;
 				}
 			}
-			GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
 			MuseRenderer.drawGradientRect(
 					x, y - 10 * tooltip.size() - 5,
 					x + 10 + strwidth, y + 5,
 					new Colour(0.2F, 0.6F, 0.9F, 0.7F),
 					new Colour(0.1F, 0.3F, 0.4F, 0.7F),
 					0.0F);
+			RenderHelper.disableStandardItemLighting();
 			Colour fontcolour = new Colour(0.9F, 0.6F, 0.2F, 1.0F);
 			for (int i = 0; i < tooltip.size(); i++) {
 				this.getFontRenderer().drawStringWithShadow(tooltip.get(i),

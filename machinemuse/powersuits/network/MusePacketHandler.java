@@ -11,22 +11,35 @@ import java.lang.reflect.InvocationTargetException;
 
 import machinemuse.powersuits.common.Config;
 import machinemuse.powersuits.common.MuseLogger;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.Player;
+import cpw.mods.fml.relauncher.Side;
 
 /**
  * @author MachineMuse
  * 
  */
 public class MusePacketHandler implements IPacketHandler {
+	public MusePacketHandler register() {
+		addPacketType(1, MusePacketUpgradeRequest.class);
+		addPacketType(2, MusePacketInventoryRefresh.class);
+
+		NetworkRegistry.instance().registerChannel(this,
+				Config.getNetworkChannelName());
+		return this;
+	}
+
 	public static BiMap<Integer, Constructor<? extends MusePacket>> packetConstructors = HashBiMap
 			.create();
 
@@ -36,7 +49,12 @@ public class MusePacketHandler implements IPacketHandler {
 		if (payload.channel.equals(Config.getNetworkChannelName())) {
 			MusePacket repackaged = repackage(payload, player);
 			if (repackaged != null) {
-				repackaged.handleSelf();
+				Side side = FMLCommonHandler.instance().getEffectiveSide();
+				if (side == Side.CLIENT) {
+					repackaged.handleClient((EntityClientPlayerMP) player);
+				} else if (side == Side.SERVER) {
+					repackaged.handleServer((EntityPlayerMP) player);
+				}
 			}
 		}
 	}
@@ -50,13 +68,13 @@ public class MusePacketHandler implements IPacketHandler {
 		int packetType;
 		try {
 			packetType = data.readInt();
+			repackaged = useConstructor(packetConstructors.get(packetType),
+					data, player);
 		} catch (IOException e) {
 			MuseLogger.logError("PROBLEM READING PACKET TYPE D:");
 			e.printStackTrace();
 			return null;
 		}
-		repackaged = useConstructor(packetConstructors.get(packetType), data,
-				player);
 
 		return repackaged;
 	}
@@ -140,15 +158,4 @@ public class MusePacketHandler implements IPacketHandler {
 		return false;
 	}
 
-	public void register() {
-		addPacketType(1, MusePacketUpgradeRequest.class);
-		addPacketType(2, MusePacketInventory.class);
-
-		NetworkRegistry.instance().registerChannel(this,
-				Config.getNetworkChannelName());
-	}
-	// UpgradeRequest,
-	// DowngradeRequest,
-	// AugData,
-	// InventoryRefresh;
 }

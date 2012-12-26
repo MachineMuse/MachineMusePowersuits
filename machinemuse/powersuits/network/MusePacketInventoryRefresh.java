@@ -10,24 +10,24 @@ import machinemuse.powersuits.gui.MuseGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.Player;
-import cpw.mods.fml.relauncher.Side;
 
 /**
  * @author MachineMuse
  * 
  */
-public class MusePacketInventory extends MusePacket {
+public class MusePacketInventoryRefresh extends MusePacket {
 	protected ItemStack stack;
 	protected int slot;
 
 	/**
 	 * @param player
 	 */
-	public MusePacketInventory(Player player, int slot, ItemStack stack) {
+	public MusePacketInventoryRefresh(Player player, int slot,
+			ItemStack stack) {
 		super(player);
 		writeInt(slot);
 		writeItemStack(stack);
@@ -37,7 +37,7 @@ public class MusePacketInventory extends MusePacket {
 	 * @param player
 	 * @param data
 	 */
-	public MusePacketInventory(DataInputStream datain, Player player) {
+	public MusePacketInventoryRefresh(DataInputStream datain, Player player) {
 		super(player, datain);
 		slot = readInt();
 		stack = readItemStack();
@@ -49,19 +49,19 @@ public class MusePacketInventory extends MusePacket {
 	 * @see machinemuse.powersuits.network.MusePacket#handleSelf()
 	 */
 	@Override
-	public void handleSelf() {
-		Side side = FMLCommonHandler.instance().getEffectiveSide();
-		if (side == Side.CLIENT) {
-			EntityClientPlayerMP mpplayer = (EntityClientPlayerMP) player;
-			IInventory inventory = mpplayer.inventory;
-			inventory.setInventorySlotContents(slot, stack);
-			MuseLogger.logDebug("Received slot " + slot);
-			GuiScreen playerscreen = Minecraft.getMinecraft().currentScreen;
-			if (playerscreen != null && playerscreen instanceof MuseGui) {
-				((MuseGui) playerscreen).refresh();
-			}
-
+	public void handleClient(EntityClientPlayerMP player) {
+		IInventory inventory = player.inventory;
+		inventory.setInventorySlotContents(slot, stack);
+		MuseLogger.logDebug("Received slot " + slot);
+		GuiScreen playerscreen = Minecraft.getMinecraft().currentScreen;
+		if (playerscreen != null && playerscreen instanceof MuseGui) {
+			((MuseGui) playerscreen).refresh();
 		}
 
 	}
+
+	@Override
+	public void handleServer(EntityPlayerMP player) {
+	}
+
 }

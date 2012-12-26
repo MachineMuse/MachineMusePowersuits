@@ -10,6 +10,8 @@ import java.io.IOException;
 
 import machinemuse.powersuits.common.Config;
 import machinemuse.powersuits.common.MuseLogger;
+import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,6 +23,7 @@ import cpw.mods.fml.common.network.Player;
  * 
  */
 public abstract class MusePacket {
+
 	protected static final int READ_ERROR = -150;
 
 	protected Player player;
@@ -66,8 +69,12 @@ public abstract class MusePacket {
 
 	/**
 	 * Called by the network manager since it does all the packet mapping
+	 * 
+	 * @param player2
 	 */
-	public abstract void handleSelf();
+	public abstract void handleClient(EntityClientPlayerMP player);
+
+	public abstract void handleServer(EntityPlayerMP player);
 
 	public int readInt() {
 		try {
@@ -206,32 +213,36 @@ public abstract class MusePacket {
 	 * Reads a string from a packet
 	 */
 	public String readString(int maxlength)
-			throws IOException
 	{
-		short length = datain.readShort();
+		try {
+			short length = datain.readShort();
 
-		if (length > maxlength)
-		{
-			throw new IOException(
-					"Received string length longer than maximum allowed ("
-							+ length + " > " + maxlength + ")");
-		}
-		else if (length < 0)
-		{
-			throw new IOException(
-					"Received string length is less than zero! Weird string!");
-		}
-		else
-		{
-			StringBuilder builder = new StringBuilder();
-
-			for (int i = 0; i < length; ++i)
+			if (length > maxlength)
 			{
-				builder.append(datain.readChar());
+				throw new IOException(
+						"Received string length longer than maximum allowed ("
+								+ length + " > " + maxlength + ")");
 			}
+			else if (length < 0)
+			{
+				throw new IOException(
+						"Received string length is less than zero! Weird string!");
+			}
+			else
+			{
+				StringBuilder builder = new StringBuilder();
 
-			return builder.toString();
+				for (int i = 0; i < length; ++i)
+				{
+					builder.append(datain.readChar());
+				}
+
+				return builder.toString();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		return null;
 	}
 
 }

@@ -4,8 +4,14 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import machinemuse.powersuits.gui.MuseGui;
+import machinemuse.powersuits.powermodule.PowerModule;
+import net.minecraft.client.model.PositionTextureVertex;
+import net.minecraft.client.model.TexturedQuad;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.Vec3;
+import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
@@ -74,6 +80,7 @@ public abstract class MuseRenderer {
 		Colour c = new Colour(0.0f, 1.0f, 0.0f, 0.0f);
 
 		texturelessOn();
+		smoothingOn();
 
 		GL11.glBegin(GL11.GL_LINE_LOOP);
 		for (int i = 0; i < numSegments; i++) {
@@ -108,8 +115,9 @@ public abstract class MuseRenderer {
 	 */
 	public static void drawTriangles2D(float[] v, float[] c,
 			int[] i) {
-		arraysOn();
+		arraysOnC();
 		texturelessOn();
+		smoothingOn();
 		on2D();
 
 		// float subdivisions = 5f;
@@ -156,8 +164,9 @@ public abstract class MuseRenderer {
 	 */
 	public static void drawTriangles3DR(float[] v, float[] c,
 			int[] i) {
-		arraysOn();
+		arraysOnC();
 		texturelessOn();
+		smoothingOn();
 
 		// float subdivisions = 5f;
 		// float radius = 0.5f;
@@ -202,8 +211,8 @@ public abstract class MuseRenderer {
 
 	public static void on2D() {
 
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		// GL11.glDisable(GL11.GL_CULL_FACE);
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glDisable(GL11.GL_LIGHTING);
 
 		// attempt at fake antialiasing
@@ -220,8 +229,7 @@ public abstract class MuseRenderer {
 	}
 
 	public static void off2D() {
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
-		// GL11.glDepthFunc(GL11.GL_GREATER);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glEnable(GL11.GL_LIGHTING);
 	}
 
@@ -229,15 +237,22 @@ public abstract class MuseRenderer {
 	 * Arrays on/off
 	 */
 
-	public static void arraysOn() {
+	public static void arraysOnC() {
 		GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
 		GL11.glEnableClientState(GL11.GL_COLOR_ARRAY);
+		// GL11.glEnableClientState(GL11.GL_INDEX_ARRAY);
+	}
+
+	public static void arraysOnT() {
+		GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
+		GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
 		// GL11.glEnableClientState(GL11.GL_INDEX_ARRAY);
 	}
 
 	public static void arraysOff() {
 		GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
 		GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
+		GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
 		// GL11.glDisableClientState(GL11.GL_INDEX_ARRAY);
 
 	}
@@ -248,13 +263,7 @@ public abstract class MuseRenderer {
 	 */
 	public static void texturelessOn() {
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
-		// GL11.glDisable(GL11.GL_ALPHA_TEST);
 
-		GL11.glShadeModel(GL11.GL_SMOOTH);
-		GL11.glEnable(GL11.GL_LINE_SMOOTH);
-		GL11.glEnable(GL11.GL_POLYGON_SMOOTH);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 	}
 
 	/**
@@ -262,10 +271,23 @@ public abstract class MuseRenderer {
 	 * texture mode (default).
 	 */
 	public static void texturelessOff() {
-		GL11.glShadeModel(GL11.GL_FLAT);
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
+	}
+
+	public static void smoothingOn() {
+		GL11.glShadeModel(GL11.GL_SMOOTH);
+		GL11.glEnable(GL11.GL_LINE_SMOOTH);
+		GL11.glEnable(GL11.GL_POLYGON_SMOOTH);
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+	}
+
+	public static void smoothingOff() {
+		GL11.glShadeModel(GL11.GL_FLAT);
+		GL11.glDisable(GL11.GL_LINE_SMOOTH);
+		GL11.glDisable(GL11.GL_POLYGON_SMOOTH);
+		GL11.glDisable(GL11.GL_BLEND);
+		// GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 	}
 
 	/**
@@ -275,6 +297,60 @@ public abstract class MuseRenderer {
 			float bottom, Colour c1, Colour c2, double zLevel)
 	{
 		texturelessOn();
+		smoothingOn();
+		on2D();
+
+		Tessellator tessellator = Tessellator.instance;
+
+		tessellator.startDrawingQuads();
+		tessellator.setColorRGBA_F(c1.r, c1.g, c1.b, c1.a);
+		tessellator.addVertex(right, top,
+				zLevel);
+		tessellator
+				.addVertex(left, top, zLevel);
+
+		tessellator.setColorRGBA_F(c2.r, c2.g, c2.b, c2.a);
+		tessellator.addVertex(left, bottom,
+				zLevel);
+		tessellator.addVertex(right, bottom,
+				zLevel);
+		tessellator.draw();
+
+		off2D();
+		texturelessOff();
+	}
+
+	public static void drawGradientRect3D(Vec3 origin, Vec3 size, Colour c1,
+			Colour c2)
+	{
+		Tessellator tessellator = Tessellator.instance;
+		tessellator.setBrightness(256);
+
+		tessellator.startDrawingQuads();
+		tessellator.setColorRGBA_F(c1.r, c1.g, c1.b, c1.a);
+		tessellator.addVertex(origin.xCoord, origin.yCoord,
+				origin.zCoord);
+		tessellator.addVertex(origin.xCoord + size.xCoord, origin.yCoord,
+				origin.zCoord);
+
+		tessellator.setColorRGBA_F(c2.r, c2.g, c2.b, c2.a);
+		tessellator.addVertex(origin.xCoord + size.xCoord, origin.yCoord
+				+ size.yCoord,
+				origin.zCoord + size.zCoord);
+		tessellator.addVertex(origin.xCoord, origin.yCoord + size.yCoord,
+				origin.zCoord + size.zCoord);
+		tessellator.draw();
+
+	}
+
+	/**
+	 * Draws a rectangle with the specified texture coords.
+	 */
+	public static void drawTexRect(float left, float top, float right,
+			float bottom, Colour c1, Colour c2, double zLevel)
+	{
+		texturelessOff();
+		smoothingOn();
 		on2D();
 
 		Tessellator tessellator = Tessellator.instance;
@@ -312,7 +388,46 @@ public abstract class MuseRenderer {
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		// GL11.glDepthFunc(GL11.GL_LEQUAL);
 		GL11.glEnable(GL11.GL_LIGHTING);
+	}
 
+	public static void drawModuleAt(int x, int y, MuseGui gui,
+			PowerModule module, NBTTagCompound moduleTag, Colour colour) {
+		GL11.glPushMatrix();
+		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glEnable(GL11.GL_CULL_FACE);
+		smoothingOn();
+
+		ForgeHooksClient.bindTexture(module.getIconFile(), 0);
+
+		if (colour != null)
+		{
+			colour.doGL();
+		}
+
+		Tessellator tess = Tessellator.instance;
+		tess.startDrawingQuads();
+		float r = 0.0625f;
+		float u = (module.getIconIndex() % 16) * r;
+		float v = (module.getIconIndex() / 16) * r;
+		tess.addVertexWithUV(
+				x, y, 0,
+				u, v);
+		tess.addVertexWithUV(
+				x, y + 16, 0,
+				u, v + r);
+		tess.addVertexWithUV(
+				x + 16, y + 16, 0,
+				u + r, v + r);
+		tess.addVertexWithUV(
+				x + 16, y, 0,
+				u + r, v);
+		tess.draw();
+
+		MuseRenderer.smoothingOff();
+		GL11.glEnable(GL11.GL_CULL_FACE);
+		// GL11.glDepthFunc(GL11.GL_LEQUAL);
+		GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glPopMatrix();
 	}
 
 	/**
@@ -334,45 +449,128 @@ public abstract class MuseRenderer {
 	/**
 	 * Draws a rectangular prism (cube or otherwise orthogonal)
 	 */
-	public static void drawRectPrism(float bottom, float top, float left,
-			float right, float front, float back) {
-		float[] points = {
-				bottom, left, front,
-				top, left, front,
-				bottom, right, front,
-				top, right, front,
-				bottom, left, back,
-				top, left, back,
-				bottom, right, back,
-				top, right, back
+	public static void drawRectPrism(double x, double d, double e,
+			double f, double z, double g,
+			float texturex, float texturey,
+			float texturex2, float texturey2) {
+		arraysOnT();
+		texturelessOff();
+		Vec3[] points = {
+				Vec3.createVectorHelper(x, e, z),
+				Vec3.createVectorHelper(d, e, z),
+				Vec3.createVectorHelper(x, f, z),
+				Vec3.createVectorHelper(d, f, z),
+				Vec3.createVectorHelper(x, e, g),
+				Vec3.createVectorHelper(d, e, g),
+				Vec3.createVectorHelper(x, f, g),
+				Vec3.createVectorHelper(d, f, g)
 		};
-		float r = 0.3f;
-		float g = 0.8f;
-		float b = 0.5f;
-		float a = 0.9f;
-		float[] colours = {
-				r, g, b, a,
-				r, g, b, a,
-				r, g, b, a,
-				r, g, b, a,
-				r, g, b, a,
-				r, g, b, a,
-				r, g, b, a,
-				r, g, b, a
+		PositionTextureVertex[] va1 = {
+				new PositionTextureVertex(points[0], texturex, texturey2),
+				new PositionTextureVertex(points[2], texturex2, texturey2),
+				new PositionTextureVertex(points[3], texturex2, texturey),
+				new PositionTextureVertex(points[1], texturex, texturey)
+
 		};
-		int[] indices = {
-				0, 3, 1,
-				0, 2, 3,
-				2, 6, 7,
-				2, 7, 3,
-				6, 4, 5,
-				6, 5, 7,
-				4, 0, 1,
-				4, 1, 5,
-				1, 3, 7,
-				1, 7, 5,
-				0, 6, 2,
-				0, 4, 6
+		new TexturedQuad(va1).draw(Tessellator.instance, 1.0F);
+		PositionTextureVertex[] va2 = {
+				new PositionTextureVertex(points[2], texturex, texturey2),
+				new PositionTextureVertex(points[6], texturex2, texturey2),
+				new PositionTextureVertex(points[7], texturex2, texturey),
+				new PositionTextureVertex(points[3], texturex, texturey)
+
 		};
+		new TexturedQuad(va2).draw(Tessellator.instance, 1.0F);
+		PositionTextureVertex[] va3 = {
+				new PositionTextureVertex(points[6], texturex, texturey2),
+				new PositionTextureVertex(points[4], texturex2, texturey2),
+				new PositionTextureVertex(points[5], texturex2, texturey),
+				new PositionTextureVertex(points[7], texturex, texturey)
+
+		};
+		new TexturedQuad(va3).draw(Tessellator.instance, 1.0F);
+		PositionTextureVertex[] va4 = {
+				new PositionTextureVertex(points[4], texturex, texturey2),
+				new PositionTextureVertex(points[0], texturex2, texturey2),
+				new PositionTextureVertex(points[1], texturex2, texturey),
+				new PositionTextureVertex(points[5], texturex, texturey)
+
+		};
+		new TexturedQuad(va4).draw(Tessellator.instance, 1.0F);
+		PositionTextureVertex[] va5 = {
+				new PositionTextureVertex(points[1], texturex, texturey2),
+				new PositionTextureVertex(points[3], texturex2, texturey2),
+				new PositionTextureVertex(points[7], texturex2, texturey),
+				new PositionTextureVertex(points[5], texturex, texturey)
+
+		};
+		new TexturedQuad(va5).draw(Tessellator.instance, 1.0F);
+		PositionTextureVertex[] va6 = {
+				new PositionTextureVertex(points[0], texturex, texturey2),
+				new PositionTextureVertex(points[4], texturex2, texturey2),
+				new PositionTextureVertex(points[6], texturex2, texturey),
+				new PositionTextureVertex(points[2], texturex, texturey)
+
+		};
+		new TexturedQuad(va6).draw(Tessellator.instance, 1.0F);
+		// int[] indices = {
+		// 0, 3, 1,
+		// 0, 2, 3,
+		// 2, 6, 7,
+		// 2, 7, 3,
+		// 6, 4, 5,
+		// 6, 5, 7,
+		// 4, 0, 1,
+		// 4, 1, 5,
+		// 1, 3, 7,
+		// 1, 7, 5,
+		// 0, 6, 2,
+		// 0, 4, 6
+		// };
+		// drawTriangles3DT(points, textures, indices);
+		texturelessOff();
+		arraysOff();
+	}
+
+	private static void drawTriangles3DT(float[] v, float[] textures2,
+			int[] i) {
+		arraysOnT();
+		texturelessOff();
+
+		// float subdivisions = 5f;
+		// float radius = 0.5f;
+
+		// GL11.glPushMatrix();
+		// GL11.glTranslatef(-radius, -radius, 0);
+		// for (int i1 = 0; i1 <= subdivisions * 2; i1++) {
+		// for (int i2 = 0; i2 <= subdivisions * 2; i2++) {
+		FloatBuffer vertices = BufferUtils.createFloatBuffer(v.length);
+		vertices.put(v);
+		vertices.flip();
+
+		FloatBuffer textures = BufferUtils.createFloatBuffer(textures2.length);
+		textures.put(textures2);
+		textures.flip();
+
+		IntBuffer indices = BufferUtils.createIntBuffer(i.length);
+		indices.put(i);
+		indices.flip();
+
+		// GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+
+		GL11.glVertexPointer(3, 0, vertices);
+		GL11.glTexCoordPointer(2, 0, textures);
+
+		GL11.glDrawElements(GL11.GL_TRIANGLES, indices);
+
+		// GL11.glTranslatef(0, radius / subdivisions, 0);
+		// }
+		// GL11.glTranslatef(radius / subdivisions, -radius * 2, 0);
+		// }
+		// GL11.glPopMatrix();
+
+		texturelessOff();
+		arraysOff();
+
 	}
 }

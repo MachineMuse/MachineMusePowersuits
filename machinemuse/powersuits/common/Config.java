@@ -175,4 +175,8 @@ public class Config extends Configuration {
 		GuiTinkerTable,
 		GuiSuitManager;
 	}
+
+	public static int getAugMaxID() {
+		return 256;
+	}
 }

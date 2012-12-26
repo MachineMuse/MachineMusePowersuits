@@ -7,11 +7,13 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.List;
 
-import machinemuse.powersuits.augmentation.AugManager;
 import machinemuse.powersuits.item.ItemUtils;
+import machinemuse.powersuits.powermodule.PowerModule;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
@@ -28,7 +30,7 @@ import cpw.mods.fml.relauncher.Side;
 public class MusePacketUpgradeRequest extends MusePacket {
 	protected ItemStack stack;
 	protected int slot;
-	protected String aug;
+	protected String moduleName;
 
 	/**
 	 * Constructor for sending this packet.
@@ -51,17 +53,13 @@ public class MusePacketUpgradeRequest extends MusePacket {
 	 * 
 	 * @param player
 	 * @param data
+	 * @throws IOException
 	 * 
 	 */
 	public MusePacketUpgradeRequest(DataInputStream data, Player player) {
 		super(player, data);
 		slot = readInt();
-		try {
-			aug = readString(64);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		moduleName = readString(64);
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 		if (side == Side.SERVER) {
 			EntityPlayerMP srvplayer = (EntityPlayerMP) player;
@@ -70,27 +68,36 @@ public class MusePacketUpgradeRequest extends MusePacket {
 	}
 
 	@Override
-	public void handleSelf() {
-		Side side = FMLCommonHandler.instance().getEffectiveSide();
-		if (side == Side.SERVER) {
-			if (aug != null) {
-				InventoryPlayer inventory = ((EntityPlayerMP) player).inventory;
-				int entityId = ((EntityPlayerMP) player).entityId;
-				List<ItemStack> cost = AugManager.getInstallCost(aug);
-				if (ItemUtils.hasInInventory(cost, inventory)) {
-					List<Integer> slots = ItemUtils.deleteFromInventory(
-							AugManager.getInstallCost(aug), inventory);
-					AugManager.upgrade(ItemUtils.getItemAugs(inventory
-							.getStackInSlot(slot)), aug);
-					slots.add(this.slot);
-					for (Integer slotiter : slots) {
-						MusePacket reply = new MusePacketInventory(player,
-								slotiter, inventory.getStackInSlot(slotiter));
-						PacketDispatcher.sendPacketToPlayer(reply.getPacket(),
-								player);
-					}
+	public void handleServer(EntityPlayerMP playerEntity) {
+		if (moduleName != null) {
+			InventoryPlayer inventory = playerEntity.inventory;
+			int entityId = playerEntity.entityId;
+			PowerModule moduleType = PowerModule.getModuleByID(moduleName);
+			NBTTagCompound moduleTag = PowerModule.getItemModules(stack)
+					.getCompoundTag(
+							moduleName);
+			List<ItemStack> cost = moduleType.getCost(playerEntity,
+					moduleTag);
+			if (ItemUtils.hasInInventory(cost, inventory)) {
+				List<Integer> slots = ItemUtils.deleteFromInventory(
+						cost, inventory);
+				moduleType.onUpgrade(playerEntity, moduleTag);
+				slots.add(this.slot);
+				for (Integer slotiter : slots) {
+					MusePacket reply = new MusePacketInventoryRefresh(
+							player,
+							slotiter, inventory.getStackInSlot(slotiter));
+					PacketDispatcher.sendPacketToPlayer(reply.getPacket(),
+							player);
 				}
 			}
 		}
 	}
+
+	@Override
+	public void handleClient(EntityClientPlayerMP player) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

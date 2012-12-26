@@ -50,10 +50,9 @@ public class ClickableItem extends Clickable {
 	 */
 	@Override
 	public void draw(RenderEngine engine, MuseGui gui) {
-
 		MuseRenderer.drawItemAt(
-				(int) gui.absX(getPosition().x()) - offsetx,
-				(int) gui.absY(getPosition().y()) - offsety,
+				gui.absX(getPosition().x()) - offsetx,
+				gui.absY(getPosition().y()) - offsety,
 				gui, item);
 	}
 }

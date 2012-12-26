@@ -146,9 +146,10 @@ public class EquipmentRenderer implements IItemRenderer {
 
 	public void drawFeet(ItemStack itemStack) {
 		MuseRenderer.draw3x3placeholder(
-				false, false, false,
-				true, false, true,
-				true, false, true);
+				true, true, true,
+				false, true, false,
+				false, true, false);
+		// MuseRenderer.drawRectPrism(0, 16, 0, 16, 0, 16);
 	}
 
 	public void drawTool(ItemStack itemStack) {
