@@ -1,8 +1,9 @@
 package net.machinemuse.powersuits.item;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
+import net.machinemuse.general.StringUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.Config.Items;
 import net.minecraft.block.Block;
@@ -14,7 +15,6 @@ import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import universalelectricity.core.electricity.ElectricInfo;
 import universalelectricity.core.implement.IItemElectric;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -164,36 +164,51 @@ public class ItemPowerTool extends ItemTool
 		}
 	}
 
-	@Override
-	public List<String> getValidProperties() {
-		return Arrays.asList(
-				IModularItem.CURRENT_ENERGY,
-				IModularItem.MAXIMUM_ENERGY,
-				"Shovel Level",
-				"Axe Level",
-				"Pick level");
+	public static String formatInfo(String string, double value) {
+		return string + "\t" + StringUtils.formatNumberShort(value);
 	}
 
 	@Override
+	public List<String> getLongInfo(ItemStack stack) {
+		List<String> info = new ArrayList();
+		NBTTagCompound itemProperties = ItemUtils
+				.getItemModularProperties(stack);
+		info.add("Material\t" + getToolMaterialName());
+		info.add(formatInfo("Energy Storage", getMaxJoules(stack)));
+		return info;
+	}
+
+	// //////////////////////////////////////////////
+	// --- UNIVERSAL ELECTRICITY COMPATABILITY ---//
+	// //////////////////////////////////////////////
+	@Override
 	public double onReceive(double amps, double voltage, ItemStack itemStack) {
-		double stored = getJoules(itemStack);
-		double receivable = ElectricInfo.getJoules(amps, voltage, 1);
-		double received = Math.min(receivable,
-				getMaxJoules(itemStack) - stored);
-		setJoules(stored + received, itemStack);
-		return receivable - received;
+		return ModularItemCommon.onReceive(amps, voltage, itemStack);
 	}
 
 	@Override
 	public double onUse(double joulesNeeded, ItemStack itemStack) {
-		NBTTagCompound itemProperties = ItemUtils
-				.getItemModularProperties(itemStack);
+		return ModularItemCommon.onUse(joulesNeeded, itemStack);
+	}
 
-		double joulesAvail = getJoules(itemStack);
-		double joulesProvided = Math.min(joulesAvail, joulesNeeded);
+	@Override
+	public double getJoules(Object... data) {
+		return ModularItemCommon.getJoules(getAsStack(data));
+	}
 
-		setJoules(joulesAvail - joulesProvided, itemStack);
-		return joulesProvided;
+	@Override
+	public void setJoules(double joules, Object... data) {
+		ModularItemCommon.setJoules(joules, getAsStack(data));
+	}
+
+	@Override
+	public double getMaxJoules(Object... data) {
+		return ModularItemCommon.getMaxJoules(getAsStack(data));
+	}
+
+	@Override
+	public double getVoltage() {
+		return ModularItemCommon.getVoltage();
 	}
 
 	@Override
@@ -206,46 +221,16 @@ public class ItemPowerTool extends ItemTool
 		return true;
 	}
 
-	@Override
-	public double getJoules(Object... data) {
-		NBTTagCompound itemProperties = ItemUtils
-				.getItemModularProperties(getStackFromData(data));
-		return ItemUtils.getDoubleOrZero(itemProperties,
-				IModularItem.CURRENT_ENERGY);
-	}
-
-	@Override
-	public void setJoules(double joules, Object... data) {
-		NBTTagCompound itemProperties = ItemUtils
-				.getItemModularProperties(getStackFromData(data));
-		itemProperties.setDouble(IModularItem.CURRENT_ENERGY, joules);
-	}
-
-	@Override
-	public double getMaxJoules(Object... data) {
-		NBTTagCompound itemProperties = ItemUtils
-				.getItemModularProperties(getStackFromData(data));
-		return ItemUtils.getDoubleOrZero(itemProperties,
-				IModularItem.MAXIMUM_ENERGY);
-	}
-
-	@Override
-	public double getVoltage() {
-		return 120;
-	}
-
 	/**
-	 * Helper function to deal with varargs
-	 * 
-	 * @param data
-	 * @return
+	 * Helper function to deal with UE's use of varargs
 	 */
-	private ItemStack getStackFromData(Object[] data) {
+	private ItemStack getAsStack(Object[] data) {
 		if (data[0] instanceof ItemStack) {
 			return (ItemStack) data[0];
 		} else {
 			throw new IllegalArgumentException(
-					"MusePowerSuits: Invalid ItemStack");
+					"MusePowerSuits: Invalid ItemStack passed via UE interface");
 		}
 	}
+
 }

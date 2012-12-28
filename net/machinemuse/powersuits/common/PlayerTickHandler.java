@@ -83,7 +83,7 @@ public class PlayerTickHandler implements ITickHandler {
 	 */
 	@Override
 	public String getLabel() {
-		return "MMMPS PlayerTickHandler";
+		return "MMMPS: Player Tick";
 	}
 
 }

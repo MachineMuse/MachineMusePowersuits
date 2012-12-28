@@ -30,6 +30,9 @@ public class ItemUtils {
 	}
 
 	public static NBTTagCompound getItemModularProperties(ItemStack stack) {
+		if (stack == null) {
+			return null;
+		}
 		NBTTagCompound properties = null;
 		if (stack.hasTagCompound()) {
 			NBTTagCompound stackTag = stack.getTagCompound();
@@ -224,10 +227,7 @@ public class ItemUtils {
 	}
 
 	/**
-	 * Getter with sanity checks.
-	 * 
-	 * @param playerModules
-	 * @return
+	 * Checks the given NBTTag and returns the value if it exists, otherwise 0.
 	 */
 	public static double getDoubleOrZero(NBTTagCompound itemProperties,
 			String string) {
@@ -238,5 +238,37 @@ public class ItemUtils {
 			}
 		}
 		return value;
+	}
+
+	/**
+	 * Bouncer for succinctness. Checks the item's modular properties and
+	 * returns the value if it exists, otherwise 0.
+	 */
+	public static double getDoubleOrZero(ItemStack stack, String string) {
+		return getDoubleOrZero(getItemModularProperties(stack), string);
+	}
+
+	/**
+	 * Sets the value of the given nbt tag, or removes it if the value would be
+	 * zero.
+	 */
+	public static void setDoubleOrRemove(NBTTagCompound nbt, String string,
+			double value) {
+		if (nbt != null) {
+			if (value == 0) {
+				nbt.removeTag(string);
+			} else {
+				nbt.setDouble(string, value);
+			}
+		}
+	}
+
+	/**
+	 * Sets the given itemstack's modular property, or removes it if the value
+	 * would be zero.
+	 */
+	public static void setDoubleOrRemove(ItemStack stack, String string,
+			double value) {
+		setDoubleOrRemove(getItemModularProperties(stack), string, value);
 	}
 }

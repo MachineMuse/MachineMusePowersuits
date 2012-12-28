@@ -60,7 +60,7 @@ public class WorldTickHandler implements ITickHandler {
 	 */
 	@Override
 	public String getLabel() {
-		return "MachineMuse Powersuits";
+		return "MMMPS: World Tick";
 	}
 
 	/**

@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.gui;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
 
-public class GuiFrame {
+public abstract class GuiFrame {
 	protected Colour borderColour, insideColour;
 	protected int left, top, right, bottom;
 
@@ -22,4 +22,6 @@ public class GuiFrame {
 		MuseRenderer.drawFrameRect(left, top, right, bottom, borderColour,
 				insideColour, 0, 8);
 	}
+
+	abstract public void draw();
 }

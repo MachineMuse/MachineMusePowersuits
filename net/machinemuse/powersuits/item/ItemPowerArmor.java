@@ -1,8 +1,9 @@
 package net.machinemuse.powersuits.item;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
+import net.machinemuse.general.StringUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.Config.Items;
 import net.minecraft.entity.EntityLiving;
@@ -13,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor;
-import universalelectricity.core.electricity.ElectricInfo;
 import universalelectricity.core.implement.IItemElectric;
 
 /**
@@ -75,26 +75,30 @@ public abstract class ItemPowerArmor extends ItemArmor
 	 */
 	@Override
 	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
+		return (int) getArmorDouble(armor);
+	}
+
+	public double getArmorDouble(ItemStack stack) {
 		double totalarmor = 0;
-		NBTTagCompound props = ItemUtils.getItemModularProperties(armor);
+		NBTTagCompound props = ItemUtils.getItemModularProperties(stack);
 
 		double physArmor = ItemUtils.getDoubleOrZero(props,
-				IModularItem.ARMOR_VALUE);
+				ModularItemCommon.ARMOR_VALUE);
 		double armorDura = ItemUtils.getDoubleOrZero(props,
-				IModularItem.ARMOR_DURABILITY);
+				ModularItemCommon.ARMOR_DURABILITY);
 		if (armorDura > 0) {
 			totalarmor += physArmor;
 		}
 
 		double elecArmor = ItemUtils.getDoubleOrZero(props,
-				IModularItem.PASSIVE_SHIELDING);
+				ModularItemCommon.PASSIVE_SHIELDING);
 		double energy = ItemUtils.getDoubleOrZero(props,
-				IModularItem.CURRENT_ENERGY);
+				ModularItemCommon.CURRENT_ENERGY);
 		if (energy > 0) {
 			totalarmor += elecArmor;
 		}
 
-		return (int) totalarmor;
+		return totalarmor;
 	}
 
 	/**
@@ -115,40 +119,73 @@ public abstract class ItemPowerArmor extends ItemArmor
 		return itemType;
 	}
 
+	/**
+	 * Adds information to the item's tooltip when 'getting' it.
+	 * 
+	 * @param stack
+	 *            The itemstack to get the tooltip for
+	 * @param player
+	 *            The player (client) viewing the tooltip
+	 * @param currentTipList
+	 *            A list of strings containing the existing tooltip. When
+	 *            passed, it will just contain the name of the item;
+	 *            enchantments and lore are appended afterwards.
+	 * @param advancedToolTips
+	 *            Whether or not the player has 'advanced tooltips' turned on in
+	 *            their settings.
+	 */
 	@Override
-	public List<String> getValidProperties() {
-		return Arrays.asList(
-				"Max Energy",
-				"Energy Flow",
-				"Armor Value",
-				"Weight",
-				"Shield Value",
-				"Shield Efficiency",
-				"Shock Absorption",
-				"Heat Resistance"
-				);
+	public void addInformation(ItemStack stack,
+			EntityPlayer player, List currentTipList, boolean advancedToolTips) {
+		ModularItemCommon.addInformation(stack, player, currentTipList,
+				advancedToolTips);
+	}
+
+	public static String formatInfo(String string, double value) {
+		return string + "\t" + StringUtils.formatNumberShort(value);
 	}
 
 	@Override
+	public List<String> getLongInfo(ItemStack stack) {
+		List<String> info = new ArrayList();
+		NBTTagCompound itemProperties = ItemUtils
+				.getItemModularProperties(stack);
+		info.add(formatInfo("Armor", getArmorDouble(stack)));
+		info.add(formatInfo("Energy Storage", getMaxJoules(stack)));
+		return info;
+	}
+
+	// //////////////////////////////////////////////
+	// --- UNIVERSAL ELECTRICITY COMPATABILITY ---//
+	// //////////////////////////////////////////////
+	@Override
 	public double onReceive(double amps, double voltage, ItemStack itemStack) {
-		double stored = getJoules(itemStack);
-		double receivable = ElectricInfo.getJoules(amps, voltage, 1);
-		double received = Math.min(receivable,
-				getMaxJoules(itemStack) - stored);
-		setJoules(stored + received, itemStack);
-		return receivable - received;
+		return ModularItemCommon.onReceive(amps, voltage, itemStack);
 	}
 
 	@Override
 	public double onUse(double joulesNeeded, ItemStack itemStack) {
-		NBTTagCompound itemProperties = ItemUtils
-				.getItemModularProperties(itemStack);
+		return ModularItemCommon.onUse(joulesNeeded, itemStack);
+	}
 
-		double joulesAvail = getJoules(itemStack);
-		double joulesProvided = Math.min(joulesAvail, joulesNeeded);
+	@Override
+	public double getJoules(Object... data) {
+		return ModularItemCommon.getJoules(getAsStack(data));
+	}
 
-		setJoules(joulesAvail - joulesProvided, itemStack);
-		return joulesProvided;
+	@Override
+	public void setJoules(double joules, Object... data) {
+		ModularItemCommon.setJoules(joules, getAsStack(data));
+	}
+
+	@Override
+	public double getMaxJoules(Object... data) {
+		return ModularItemCommon.getMaxJoules(getAsStack(data));
+	}
+
+	@Override
+	public double getVoltage() {
+		return ModularItemCommon.getVoltage();
 	}
 
 	@Override
@@ -161,46 +198,15 @@ public abstract class ItemPowerArmor extends ItemArmor
 		return true;
 	}
 
-	@Override
-	public double getJoules(Object... data) {
-		NBTTagCompound itemProperties = ItemUtils
-				.getItemModularProperties(getStackFromData(data));
-		return ItemUtils.getDoubleOrZero(itemProperties,
-				IModularItem.CURRENT_ENERGY);
-	}
-
-	@Override
-	public void setJoules(double joules, Object... data) {
-		NBTTagCompound itemProperties = ItemUtils
-				.getItemModularProperties(getStackFromData(data));
-		itemProperties.setDouble(IModularItem.CURRENT_ENERGY, joules);
-	}
-
-	@Override
-	public double getMaxJoules(Object... data) {
-		NBTTagCompound itemProperties = ItemUtils
-				.getItemModularProperties(getStackFromData(data));
-		return ItemUtils.getDoubleOrZero(itemProperties,
-				IModularItem.MAXIMUM_ENERGY);
-	}
-
-	@Override
-	public double getVoltage() {
-		return 120;
-	}
-
 	/**
 	 * Helper function to deal with UE's use of varargs
-	 * 
-	 * @param data
-	 * @return
 	 */
-	private ItemStack getStackFromData(Object[] data) {
+	private ItemStack getAsStack(Object[] data) {
 		if (data[0] instanceof ItemStack) {
 			return (ItemStack) data[0];
 		} else {
 			throw new IllegalArgumentException(
-					"MusePowerSuits: Invalid ItemStack");
+					"MusePowerSuits: Invalid ItemStack passed via UE interface");
 		}
 	}
 }

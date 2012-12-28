@@ -124,13 +124,13 @@ public class Config extends Configuration {
 				.addCost(new ItemStack(Item.ingotIron))
 				.addEffect(
 						new TinkerEffectAdditive(
-								IModularItem.ARMOR_VALUE, 1.0, 2.0))
+								ModularItemCommon.ARMOR_VALUE, 1.0, 2.0))
 				.addEffect(
 						new TinkerEffectAdditive(
-								IModularItem.ARMOR_DURABILITY, 1.0, 2.0))
+								ModularItemCommon.ARMOR_DURABILITY, 1.0, 2.0))
 				.addEffect(
 						new TinkerEffectAdditive(
-								IModularItem.ARMOR_WEIGHT, 1.0, 2.0))
+								ModularItemCommon.ARMOR_WEIGHT, 1.0, 2.0))
 				.setDescription(
 						"By adding some iron plating, you might be able to make this armor more protective.")
 				.setIcon(new MuseIcon("/icons.png", 1)));
@@ -138,17 +138,17 @@ public class Config extends Configuration {
 				.addCost(new ItemStack(Item.lightStoneDust))
 				.addEffect(
 						new TinkerEffectMultiplicative(
-								IModularItem.ARMOR_VALUE, .95, 1))
+								ModularItemCommon.ARMOR_VALUE, .95, 1))
 				.addEffect(
 						new TinkerEffectMultiplicative(
-								IModularItem.ARMOR_DURABILITY, .95, 1))
+								ModularItemCommon.ARMOR_DURABILITY, .95, 1))
 				.addEffect(
 						new TinkerEffectMultiplicative(
-								IModularItem.ARMOR_WEIGHT, .9, .95))
+								ModularItemCommon.ARMOR_WEIGHT, .9, .95))
 				.addRequirement(
-						new TinkerRequirement(IModularItem.ARMOR_VALUE, '>', 2))
+						new TinkerRequirement(ModularItemCommon.ARMOR_VALUE, '>', 2))
 				.addRequirement(
-						new TinkerRequirement(IModularItem.ARMOR_WEIGHT, '>', 2))
+						new TinkerRequirement(ModularItemCommon.ARMOR_WEIGHT, '>', 2))
 				.setDescription(
 						"Using the lightening effects of glowstone, you might be able to reduce the weight of this armor.")
 				.setIcon(new MuseIcon("/icons.png", 4)));
@@ -156,13 +156,13 @@ public class Config extends Configuration {
 				.addCost(new ItemStack(Item.redstone))
 				.addEffect(
 						new TinkerEffectAdditive(
-								IModularItem.MAXIMUM_ENERGY, 10000.0, 20000.0))
+								ModularItemCommon.MAXIMUM_ENERGY, 10000.0, 20000.0))
 				.addEffect(
 						new TinkerEffectAdditive(
-								IModularItem.ARMOR_WEIGHT, 0.5, 1))
+								ModularItemCommon.ARMOR_WEIGHT, 0.5, 1))
 				.addRequirement(
 						new TinkerRequirement(
-								IModularItem.MAXIMUM_ENERGY, '=', 0))
+								ModularItemCommon.MAXIMUM_ENERGY, '=', 0))
 				.setDescription(
 						"By adding a battery, you might be able to have a source of energy on hand at all times.")
 				.setIcon(new MuseIcon("/icons.png", 5)));
@@ -170,13 +170,13 @@ public class Config extends Configuration {
 				.addCost(new ItemStack(Item.redstone))
 				.addEffect(
 						new TinkerEffectMultiplicative(
-								IModularItem.MAXIMUM_ENERGY, .95, 1))
+								ModularItemCommon.MAXIMUM_ENERGY, .95, 1))
 				.addEffect(
 						new TinkerEffectMultiplicative(
-								IModularItem.ARMOR_WEIGHT, .9, .95))
+								ModularItemCommon.ARMOR_WEIGHT, .9, .95))
 				.addRequirement(
 						new TinkerRequirement(
-								IModularItem.MAXIMUM_ENERGY, '>', 10000))
+								ModularItemCommon.MAXIMUM_ENERGY, '>', 10000))
 				.setDescription(
 						"Using lapis instead of redstone might allow you to store the same amount of energy in a smaller frame.")
 				.setIcon(new MuseIcon("/icons.png", 9)));

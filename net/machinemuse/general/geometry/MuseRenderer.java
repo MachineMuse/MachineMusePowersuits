@@ -3,6 +3,7 @@ package net.machinemuse.general.geometry;
 import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.List;
 
 import net.machinemuse.powersuits.gui.MuseGui;
 import net.machinemuse.powersuits.gui.MuseIcon;
@@ -513,6 +514,9 @@ public abstract class MuseRenderer {
 
 	public static void drawString(String s, double x, double y, Colour c) {
 		RenderHelper.disableStandardItemLighting();
+		if (c == null) {
+			c = new Colour(1, 1, 1, 1);
+		}
 		MuseGui.getFontRenderer().drawStringWithShadow(s, (int) x, (int) y,
 				c.getInt());
 	}
@@ -642,6 +646,25 @@ public abstract class MuseRenderer {
 
 		texturelessOff();
 		arraysOff();
+
+	}
+
+	public static void drawStringsEvenlySpaced(List<String> words, int x1,
+			int x2, int y) {
+		int totalwidth = 0;
+		for (String word : words) {
+			totalwidth += MuseGui.getFontRenderer().getStringWidth(
+					word);
+		}
+
+		double spacing = (x2 - x1 - totalwidth) / (words.size() - 1);
+
+		double currentwidth = 0;
+		for (String word : words) {
+			MuseRenderer.drawString(word, x1 + currentwidth, y, null);
+			currentwidth += MuseGui.getFontRenderer().getStringWidth(
+					word) + spacing;
+		}
 
 	}
 }
