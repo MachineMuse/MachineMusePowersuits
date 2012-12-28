@@ -3,11 +3,14 @@ package net.machinemuse.powersuits.common;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.machinemuse.powersuits.item.TinkerAction;
+import net.machinemuse.powersuits.gui.MuseIcon;
+import net.machinemuse.powersuits.item.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.StepSound;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 
 /**
@@ -21,6 +24,11 @@ public class Config extends Configuration {
 	private static final int[] assignedItemIDs = new int[Items.values().length];
 	private static final int[] assignedBlockIDs = new int[Blocks.values().length];
 	private static final Map<String, TinkerAction> tinkerings = new HashMap();
+
+	public static Map<String, TinkerAction> getTinkerings() {
+		return tinkerings;
+	}
+
 	private static Configuration config;
 
 	/**
@@ -100,10 +108,78 @@ public class Config extends Configuration {
 		return assignedBlockIDs[block.ordinal()];
 	}
 
+	public static void addTinkerAction(TinkerAction action) {
+		tinkerings.put(action.getName(), action);
+	}
+
 	/**
-	 * Load all the tinkerings in the config file into memory.
+	 * Load all the tinkerings in the config file into memory. Eventually. For
+	 * now, they are hardcoded.
 	 */
-	public void loadTinkerings() {
+	public static void loadTinkerings() {
+		boolean[] ARMORONLY = { true, true, true, true, false };
+		boolean[] TOOLONLY = { false, false, false, false, true };
+		boolean[] ALLITEMS = { true, true, true, true, true };
+		addTinkerAction(new TinkerAction("Add armor plating", ARMORONLY)
+				.addCost(new ItemStack(Item.ingotIron))
+				.addEffect(
+						new TinkerEffectAdditive(
+								IModularItem.ARMOR_VALUE, 1.0, 2.0))
+				.addEffect(
+						new TinkerEffectAdditive(
+								IModularItem.ARMOR_DURABILITY, 1.0, 2.0))
+				.addEffect(
+						new TinkerEffectAdditive(
+								IModularItem.ARMOR_WEIGHT, 1.0, 2.0))
+				.setDescription(
+						"By adding some iron plating, you might be able to make this armor more protective.")
+				.setIcon(new MuseIcon("/icons.png", 1)));
+		addTinkerAction(new TinkerAction("Lighten armor plating", ARMORONLY)
+				.addCost(new ItemStack(Item.lightStoneDust))
+				.addEffect(
+						new TinkerEffectMultiplicative(
+								IModularItem.ARMOR_VALUE, .95, 1))
+				.addEffect(
+						new TinkerEffectMultiplicative(
+								IModularItem.ARMOR_DURABILITY, .95, 1))
+				.addEffect(
+						new TinkerEffectMultiplicative(
+								IModularItem.ARMOR_WEIGHT, .9, .95))
+				.addRequirement(
+						new TinkerRequirement(IModularItem.ARMOR_VALUE, '>', 2))
+				.addRequirement(
+						new TinkerRequirement(IModularItem.ARMOR_WEIGHT, '>', 2))
+				.setDescription(
+						"Using the lightening effects of glowstone, you might be able to reduce the weight of this armor.")
+				.setIcon(new MuseIcon("/icons.png", 4)));
+		addTinkerAction(new TinkerAction("Install a battery", ALLITEMS)
+				.addCost(new ItemStack(Item.redstone))
+				.addEffect(
+						new TinkerEffectAdditive(
+								IModularItem.MAXIMUM_ENERGY, 10000.0, 20000.0))
+				.addEffect(
+						new TinkerEffectAdditive(
+								IModularItem.ARMOR_WEIGHT, 0.5, 1))
+				.addRequirement(
+						new TinkerRequirement(
+								IModularItem.MAXIMUM_ENERGY, '=', 0))
+				.setDescription(
+						"By adding a battery, you might be able to have a source of energy on hand at all times.")
+				.setIcon(new MuseIcon("/icons.png", 5)));
+		addTinkerAction(new TinkerAction("Lighten the battery", ALLITEMS)
+				.addCost(new ItemStack(Item.redstone))
+				.addEffect(
+						new TinkerEffectMultiplicative(
+								IModularItem.MAXIMUM_ENERGY, .95, 1))
+				.addEffect(
+						new TinkerEffectMultiplicative(
+								IModularItem.ARMOR_WEIGHT, .9, .95))
+				.addRequirement(
+						new TinkerRequirement(
+								IModularItem.MAXIMUM_ENERGY, '>', 10000))
+				.setDescription(
+						"Using lapis instead of redstone might allow you to store the same amount of energy in a smaller frame.")
+				.setIcon(new MuseIcon("/icons.png", 9)));
 	}
 
 	/**

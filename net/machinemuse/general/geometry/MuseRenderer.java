@@ -5,13 +5,12 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import net.machinemuse.powersuits.gui.MuseGui;
-import net.machinemuse.powersuits.trash.PowerModule;
+import net.machinemuse.powersuits.gui.MuseIcon;
 import net.minecraft.client.model.PositionTextureVertex;
 import net.minecraft.client.model.TexturedQuad;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.ForgeHooksClient;
 
@@ -453,14 +452,16 @@ public abstract class MuseRenderer {
 		GL11.glEnable(GL11.GL_LIGHTING);
 	}
 
-	public static void drawModuleAt(int x, int y, MuseGui gui,
-			PowerModule module, NBTTagCompound moduleTag, Colour colour) {
+	public static void drawIconAt(int x, int y, MuseGui gui,
+			MuseIcon icon, Colour colour) {
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glEnable(GL11.GL_CULL_FACE);
+		GL11.glDisable(GL11.GL_CULL_FACE);
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		texturelessOff();
 		smoothingOn();
 
-		ForgeHooksClient.bindTexture(module.getIconFile(), 0);
+		ForgeHooksClient.bindTexture(icon.getTexturefile(), 0);
 
 		if (colour != null)
 		{
@@ -470,8 +471,8 @@ public abstract class MuseRenderer {
 		Tessellator tess = Tessellator.instance;
 		tess.startDrawingQuads();
 		float r = 0.0625f;
-		float u = (module.getIconIndex() % 16) * r;
-		float v = (module.getIconIndex() / 16) * r;
+		float u = (icon.getIconIndex() % 16) * r;
+		float v = (icon.getIconIndex() / 16) * r;
 		tess.addVertexWithUV(
 				x, y, 0,
 				u, v);
@@ -490,6 +491,7 @@ public abstract class MuseRenderer {
 		GL11.glEnable(GL11.GL_CULL_FACE);
 		// GL11.glDepthFunc(GL11.GL_LEQUAL);
 		GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glPopMatrix();
 	}
 

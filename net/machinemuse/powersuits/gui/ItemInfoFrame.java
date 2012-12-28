@@ -1,29 +1,24 @@
 package net.machinemuse.powersuits.gui;
 
-import java.util.Set;
+import java.util.List;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
-import net.machinemuse.powersuits.common.NBTTagAccessor;
+import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.item.TinkerAction;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 import org.lwjgl.opengl.GL11;
 
-public class StatsFrame extends GuiFrame {
-	protected NBTTagCompound properties;
+public class ItemInfoFrame extends GuiFrame {
 	protected ItemStack stack;
-	protected Set<String> propertiesToList;
 	protected TinkerAction previewAction;
 
-	public StatsFrame(int left, int top, int right, int bottom,
+	public ItemInfoFrame(int left, int top, int right, int bottom,
 			Colour borderColour, Colour insideColour, ItemStack itemStack) {
 		super(left, top, right, bottom, borderColour, insideColour);
 		this.stack = itemStack;
-		this.properties = ItemUtils.getItemModularProperties(stack);
-		this.propertiesToList = NBTTagAccessor.getMap(properties).keySet();
 		this.left *= 2.0;
 		this.right *= 2.0;
 		this.top *= 2.0;
@@ -37,8 +32,10 @@ public class StatsFrame extends GuiFrame {
 		int xoffset = 8;
 		int yoffset = 8;
 		int i = 0;
+		List<String> info = ((IModularItem) stack.getItem()).getLongInfo();
 		for (String propName : propertiesToList) {
-			double propValue = ItemUtils.getDoubleOrZero(properties, propName);
+			double propValue = ItemUtils.getDoubleOrZero(
+					ItemUtils.getItemModularProperties(stack), propName);
 			String propValueString = String.format("%.2f", propValue);
 			int strlen = MuseGui.getFontRenderer().getStringWidth(
 					propValueString);
@@ -52,4 +49,5 @@ public class StatsFrame extends GuiFrame {
 		GL11.glPopMatrix();
 
 	}
+
 }

@@ -83,6 +83,7 @@ public class PowersuitsMod {
 				event.getSuggestedConfigurationFile()));
 	}
 
+	public static Config config;
 	/**
 	 * A static handle for the blocks and items. We only want one instance of
 	 * each of them.
@@ -127,6 +128,9 @@ public class PowersuitsMod {
 
 		ItemPowerTool tool = new ItemPowerTool();
 		allItems.add(tool);
+
+		Config.loadTinkerings();
+
 	}
 
 	/**

@@ -14,6 +14,7 @@ import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import universalelectricity.core.electricity.ElectricInfo;
 import universalelectricity.core.implement.IItemElectric;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -28,19 +29,6 @@ public class ItemPowerTool extends ItemTool
 		implements
 		IModularItem,
 		IItemElectric {
-
-	/**
-	 * Copied the comment for reference
-	 */
-	// /** Array of blocks the tool has extra effect against. */
-	// private Block[] blocksEffectiveAgainst;
-	// public float efficiencyOnProperMaterial = 4.0F;
-	//
-	// /** Damage versus entities. */
-	// public int damageVsEntity;
-	//
-	// /** The material this tool is made from. */
-	// protected EnumToolMaterial toolMaterial;
 
 	/**
 	 * Constructor. Takes information from the Config.Items enum.
@@ -60,7 +48,8 @@ public class ItemPowerTool extends ItemTool
 		setMaxDamage(0);
 		this.damageVsEntity = 1;
 		setCreativeTab(Config.getCreativeTab());
-		setIconIndex(Config.Items.PowerTool.iconIndex);
+		setIconIndex(9);
+		setTextureFile("/icons.png");
 		setItemName(Config.Items.PowerTool.idName);
 		LanguageRegistry.addName(this, Config.Items.PowerTool.englishName);
 	}
@@ -178,8 +167,8 @@ public class ItemPowerTool extends ItemTool
 	@Override
 	public List<String> getValidProperties() {
 		return Arrays.asList(
-				"Max Energy",
-				"Current Energy",
+				IModularItem.CURRENT_ENERGY,
+				IModularItem.MAXIMUM_ENERGY,
 				"Shovel Level",
 				"Axe Level",
 				"Pick level");
@@ -188,10 +177,11 @@ public class ItemPowerTool extends ItemTool
 	@Override
 	public double onReceive(double amps, double voltage, ItemStack itemStack) {
 		double stored = getJoules(itemStack);
-		double received = Math.min(amps * voltage, stored
-				- getMaxJoules(itemStack));
+		double receivable = ElectricInfo.getJoules(amps, voltage, 1);
+		double received = Math.min(receivable,
+				getMaxJoules(itemStack) - stored);
 		setJoules(stored + received, itemStack);
-		return received;
+		return receivable - received;
 	}
 
 	@Override
@@ -220,20 +210,23 @@ public class ItemPowerTool extends ItemTool
 	public double getJoules(Object... data) {
 		NBTTagCompound itemProperties = ItemUtils
 				.getItemModularProperties(getStackFromData(data));
-		return ItemUtils.getDoubleOrZero(itemProperties, "Current energy");
+		return ItemUtils.getDoubleOrZero(itemProperties,
+				IModularItem.CURRENT_ENERGY);
 	}
 
 	@Override
 	public void setJoules(double joules, Object... data) {
 		NBTTagCompound itemProperties = ItemUtils
 				.getItemModularProperties(getStackFromData(data));
-		itemProperties.setDouble("Current energy", joules);
+		itemProperties.setDouble(IModularItem.CURRENT_ENERGY, joules);
 	}
 
 	@Override
 	public double getMaxJoules(Object... data) {
-
-		return 0;
+		NBTTagCompound itemProperties = ItemUtils
+				.getItemModularProperties(getStackFromData(data));
+		return ItemUtils.getDoubleOrZero(itemProperties,
+				IModularItem.MAXIMUM_ENERGY);
 	}
 
 	@Override

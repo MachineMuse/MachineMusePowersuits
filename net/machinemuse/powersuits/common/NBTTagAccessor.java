@@ -3,7 +3,6 @@
  */
 package net.machinemuse.powersuits.common;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
@@ -28,8 +27,11 @@ public class NBTTagAccessor extends NBTTagCompound {
 	 * Will likely need to be updated every time the obfuscation changes.
 	 * 
 	 * @return
+	 * @throws SecurityException
+	 * @throws NoSuchMethodException
 	 */
-	public static Method getTagAccessor() {
+	public static Method getTagAccessor() throws NoSuchMethodException,
+			SecurityException {
 		if (mTagAccessor == null) {
 			try {
 				mTagAccessor = NBTTagCompound.class.getDeclaredMethod(
@@ -37,40 +39,23 @@ public class NBTTagAccessor extends NBTTagCompound {
 				mTagAccessor.setAccessible(true);
 				return mTagAccessor;
 			} catch (NoSuchMethodException e) {
-				MuseLogger.logError("4");
-				try {
-					mTagAccessor = NBTTagCompound.class.getDeclaredMethod(
-							"a", NBTTagCompound.class);
-					mTagAccessor.setAccessible(true);
-					return mTagAccessor;
-				} catch (NoSuchMethodException e1) {
-					MuseLogger.logError("1");
-					e1.printStackTrace();
-				} catch (SecurityException e1) {
-					MuseLogger.logError("2");
-					e1.printStackTrace();
-				}
-			} catch (SecurityException e) {
-				MuseLogger.logError("3");
-				e.printStackTrace();
+				mTagAccessor = NBTTagCompound.class.getDeclaredMethod(
+						"a", NBTTagCompound.class);
+				mTagAccessor.setAccessible(true);
+				return mTagAccessor;
 			}
-
+		} else {
+			return mTagAccessor;
 		}
-		MuseLogger.logError("Error 1: Unable to access nbt tag map!");
-		return null;
 	}
 
 	public static Map getMap(NBTTagCompound nbt) {
 		try {
-			return (Map) getTagAccessor().invoke(null, nbt);
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
+			return (Map) getTagAccessor().invoke(nbt, nbt);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		MuseLogger.logError("Error 2: Unable to access nbt tag map!");
+		MuseLogger.logError("Unable to access nbt tag map!");
 		return null;
 	}
 }

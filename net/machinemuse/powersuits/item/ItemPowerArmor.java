@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor;
+import universalelectricity.core.electricity.ElectricInfo;
 import universalelectricity.core.implement.IItemElectric;
 
 /**
@@ -37,6 +38,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 	public ItemPowerArmor(int id, EnumArmorMaterial material,
 			int renderIndex, int armorType) {
 		super(id, material, renderIndex, armorType);
+		setTextureFile("/icons.png");
 		setMaxStackSize(1);
 		setCreativeTab(Config.getCreativeTab());
 	}
@@ -73,7 +75,26 @@ public abstract class ItemPowerArmor extends ItemArmor
 	 */
 	@Override
 	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
-		return 4;
+		double totalarmor = 0;
+		NBTTagCompound props = ItemUtils.getItemModularProperties(armor);
+
+		double physArmor = ItemUtils.getDoubleOrZero(props,
+				IModularItem.ARMOR_VALUE);
+		double armorDura = ItemUtils.getDoubleOrZero(props,
+				IModularItem.ARMOR_DURABILITY);
+		if (armorDura > 0) {
+			totalarmor += physArmor;
+		}
+
+		double elecArmor = ItemUtils.getDoubleOrZero(props,
+				IModularItem.PASSIVE_SHIELDING);
+		double energy = ItemUtils.getDoubleOrZero(props,
+				IModularItem.CURRENT_ENERGY);
+		if (energy > 0) {
+			totalarmor += elecArmor;
+		}
+
+		return (int) totalarmor;
 	}
 
 	/**
@@ -111,10 +132,11 @@ public abstract class ItemPowerArmor extends ItemArmor
 	@Override
 	public double onReceive(double amps, double voltage, ItemStack itemStack) {
 		double stored = getJoules(itemStack);
-		double received = Math.min(amps * voltage, stored
-				- getMaxJoules(itemStack));
+		double receivable = ElectricInfo.getJoules(amps, voltage, 1);
+		double received = Math.min(receivable,
+				getMaxJoules(itemStack) - stored);
 		setJoules(stored + received, itemStack);
-		return received;
+		return receivable - received;
 	}
 
 	@Override
@@ -143,20 +165,23 @@ public abstract class ItemPowerArmor extends ItemArmor
 	public double getJoules(Object... data) {
 		NBTTagCompound itemProperties = ItemUtils
 				.getItemModularProperties(getStackFromData(data));
-		return ItemUtils.getDoubleOrZero(itemProperties, "Current energy");
+		return ItemUtils.getDoubleOrZero(itemProperties,
+				IModularItem.CURRENT_ENERGY);
 	}
 
 	@Override
 	public void setJoules(double joules, Object... data) {
 		NBTTagCompound itemProperties = ItemUtils
 				.getItemModularProperties(getStackFromData(data));
-		itemProperties.setDouble("Current energy", joules);
+		itemProperties.setDouble(IModularItem.CURRENT_ENERGY, joules);
 	}
 
 	@Override
 	public double getMaxJoules(Object... data) {
-
-		return 0;
+		NBTTagCompound itemProperties = ItemUtils
+				.getItemModularProperties(getStackFromData(data));
+		return ItemUtils.getDoubleOrZero(itemProperties,
+				IModularItem.MAXIMUM_ENERGY);
 	}
 
 	@Override
@@ -165,7 +190,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 	}
 
 	/**
-	 * Helper function to deal with varargs
+	 * Helper function to deal with UE's use of varargs
 	 * 
 	 * @param data
 	 * @return

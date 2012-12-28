@@ -5,7 +5,6 @@ package net.machinemuse.powersuits.network;
 
 import java.io.DataInputStream;
 
-import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.gui.MuseGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -52,7 +51,6 @@ public class MusePacketInventoryRefresh extends MusePacket {
 	public void handleClient(EntityClientPlayerMP player) {
 		IInventory inventory = player.inventory;
 		inventory.setInventorySlotContents(slot, stack);
-		MuseLogger.logDebug("Received slot " + slot);
 		GuiScreen playerscreen = Minecraft.getMinecraft().currentScreen;
 		if (playerscreen != null && playerscreen instanceof MuseGui) {
 			((MuseGui) playerscreen).refresh();

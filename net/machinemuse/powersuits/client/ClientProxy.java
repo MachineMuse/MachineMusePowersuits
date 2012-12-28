@@ -3,9 +3,7 @@ package net.machinemuse.powersuits.client;
 import net.machinemuse.powersuits.block.TileEntityTinkerTable;
 import net.machinemuse.powersuits.common.CommonProxy;
 import net.machinemuse.powersuits.common.PlayerTickHandler;
-import net.machinemuse.powersuits.common.PowersuitsMod;
 import net.machinemuse.powersuits.network.MusePacketHandler;
-import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
@@ -26,11 +24,7 @@ public class ClientProxy extends CommonProxy {
 	 */
 	@Override
 	public void registerRenderers() {
-		for (Item i : PowersuitsMod.allItems) {
-			MinecraftForgeClient.registerItemRenderer(
-					i.shiftedIndex, eRenderer);
-		}
-		// for (Item i : PowersuitsMod.allBlocks) {
+		// for (Item i : PowersuitsMod.allItems) {
 		// MinecraftForgeClient.registerItemRenderer(
 		// i.shiftedIndex, eRenderer);
 		// }

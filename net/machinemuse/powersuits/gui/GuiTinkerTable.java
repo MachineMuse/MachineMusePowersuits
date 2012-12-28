@@ -9,6 +9,7 @@ import net.machinemuse.general.geometry.FlyFromMiddlePoint2D;
 import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.Point2D;
 import net.machinemuse.powersuits.item.ItemUtils;
+import net.machinemuse.powersuits.item.TinkerAction;
 import net.machinemuse.powersuits.network.MusePacketTinkerRequest;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -24,12 +25,11 @@ public class GuiTinkerTable extends MuseGui {
 	protected EntityClientPlayerMP player;
 	protected List<ClickableItem> itemButtons;
 	protected int selectedItemStack = -1;
-	protected List<ClickableTinkerAction> augButtons;
-	protected int selectedAugClickable = -1;
+	protected List<ClickableTinkerAction> tinkeringButtons;
+	protected int selectedTinkerAction = -1;
 	protected List<ItemStack> workingUpgradeCost;
 	protected List<ItemStack> workingDowngradeRefund;
-	protected ClickableButton upgradeButton;
-	protected ClickableButton downgradeButton;
+	protected ClickableButton applyTinkerButton;
 	protected StatsFrame statsFrame;
 
 	/**
@@ -64,8 +64,8 @@ public class GuiTinkerTable extends MuseGui {
 				.getModularItemSlotsInInventory(player.inventory);
 
 		List<Point2D> points = this.pointsInLine(slots.size(),
-				new Point2D(-0.9F, -0.9F),
-				new Point2D(-0.9F, 0.9F));
+				new Point2D(-0.9F, 0.9F),
+				new Point2D(-0.9F, -0.9F));
 
 		Iterator<Integer> slotiterator = slots.iterator();
 		Iterator<Point2D> pointiterator = points.iterator();
@@ -80,24 +80,28 @@ public class GuiTinkerTable extends MuseGui {
 
 	}
 
-	protected void loadAugList(ClickableItem itemClicked) {
+	protected void loadTinkersList(ClickableItem itemClicked) {
 		statsFrame = new StatsFrame(
-				absX(-0.7f), absY(-0.9f),
-				absX(0.3f), absY(0.9f),
+				absX(0f), absY(-0.9f),
+				absX(0.9f), absY(0.9f),
 				Colour.LIGHTBLUE.withAlpha(0.8),
 				Colour.DARKBLUE.withAlpha(0.8),
 				itemClicked.getItem());
-		// augButtons = new ArrayList<ClickableTinkering>();
-		// List<NBTTagCompound> workingAugs = ItemUtils
-		// .getItemModulesWithPadding(itemClicked
-		// .getItem());
-		// List<Point2D> points = this.pointsInLine(workingAugs.size(),
-		// new Point2D(-0.7F, -0.9F),
-		// new Point2D(-0.7F, 0.9F));
-		// Iterator<Point2D> pointiter = points.iterator();
-		// for (NBTTagCompound aug : workingAugs) {
-		// augButtons.add(new ClickableTinkering(aug, pointiter.next()));
-		// }
+		tinkeringButtons = new ArrayList();
+		List<TinkerAction> workingTinkers = ItemUtils
+				.getValidTinkersForItem(player, itemClicked
+						.getItem());
+		if (workingTinkers.size() > 0) {
+			List<Point2D> points = this.pointsInLine(workingTinkers.size(),
+					new Point2D(-0.7F, -0.9F),
+					new Point2D(-0.7F, 0.9F));
+			Iterator<Point2D> pointiter = points.iterator();
+			for (TinkerAction tinker : workingTinkers) {
+				tinkeringButtons.add(new ClickableTinkerAction(tinker,
+						pointiter
+								.next()));
+			}
+		}
 	}
 
 	// public void drawNthItem(ItemStack stack, int n) {
@@ -115,12 +119,12 @@ public class GuiTinkerTable extends MuseGui {
 					10);
 		}
 
-		if (selectedAugClickable != -1) {
+		if (selectedTinkerAction != -1) {
 			MuseRenderer
 					.drawCircleAround(
-							absX(augButtons.get(selectedAugClickable)
+							absX(tinkeringButtons.get(selectedTinkerAction)
 									.getPosition().x()),
-							absY(augButtons.get(selectedAugClickable)
+							absY(tinkeringButtons.get(selectedTinkerAction)
 									.getPosition().y()),
 							10);
 
@@ -153,47 +157,29 @@ public class GuiTinkerTable extends MuseGui {
 		if (statsFrame != null) {
 			statsFrame.draw();
 		}
-		// drawClickables(this.augButtons);
-		// drawUpgradeDowngrade();
+		drawClickables(this.tinkeringButtons);
+		drawApplyTinkerFrame();
 		drawToolTip();
 	}
 
 	/**
 	 * Draws the upgrade/downgrade cost, buttons, and labels.
 	 */
-	public void drawUpgradeDowngrade() {
+	public void drawApplyTinkerFrame() {
 		if (workingUpgradeCost != null && workingUpgradeCost.size() > 0) {
-			this.drawString(fontRenderer, "Cost:", absX(0.4F),
-					absY(-0.7F),
-					new Colour(0.5F, 1.0F, 0.5F, 1.0F).getInt());
+			MuseRenderer.drawString("Cost:", absX(-0.6F),
+					absY(0.5F),
+					new Colour(0.5F, 1.0F, 0.5F, 1.0F));
 			List<Point2D> points = this.pointsInLine(workingUpgradeCost.size(),
-					new Point2D(0.4F, -0.5F),
-					new Point2D(0.9F, -0.5F));
+					new Point2D(-0.4F, 0.7F),
+					new Point2D(-0.8F, 0.7F));
 			Iterator<Point2D> pointiter = points.iterator();
 			for (ItemStack item : workingUpgradeCost) {
 				Point2D next = pointiter.next();
 				MuseRenderer.drawItemAt(absX(next.x()), absY(next.y()), this,
 						item);
 			}
-			upgradeButton.draw(this.getRenderEngine(), this);
-		}
-		if (workingDowngradeRefund != null && workingDowngradeRefund.size() > 0) {
-			MuseRenderer.on2D();
-			this.drawString(fontRenderer, "Refund:", absX(0.4F),
-					absY(0.3F),
-					new Colour(1.0F, 0.6F, 0.2F, 1.0F).getInt());
-			MuseRenderer.off2D();
-			List<Point2D> points = this.pointsInLine(
-					workingDowngradeRefund.size(),
-					new Point2D(0.4F, 0.5F),
-					new Point2D(0.9F, 0.5F));
-			Iterator<Point2D> pointiter = points.iterator();
-			for (ItemStack item : workingDowngradeRefund) {
-				Point2D next = pointiter.next();
-				MuseRenderer.drawItemAt(absX(next.x()), absY(next.y()), this,
-						item);
-			}
-			downgradeButton.draw(this.getRenderEngine(), this);
+			applyTinkerButton.draw(this.getRenderEngine(), this);
 		}
 
 	}
@@ -202,11 +188,10 @@ public class GuiTinkerTable extends MuseGui {
 	 * Clear all the UI stuff that's there.
 	 */
 	protected void clearSelections() {
-		this.selectedAugClickable = -1;
+		this.selectedTinkerAction = -1;
 		this.workingUpgradeCost = null;
 		this.workingDowngradeRefund = null;
-		this.upgradeButton = null;
-		this.downgradeButton = null;
+		this.applyTinkerButton = null;
 	}
 
 	/**
@@ -218,22 +203,18 @@ public class GuiTinkerTable extends MuseGui {
 		if (button == 0) // Left Mouse Button
 		{
 			int itemClicked = hitboxClickables(x, y, this.itemButtons);
-			int augClicked = hitboxClickables(x, y, this.augButtons);
+			int augClicked = hitboxClickables(x, y, this.tinkeringButtons);
 			if (itemClicked != -1) {
 				clearSelections();
 				this.selectedItemStack = itemClicked;
-				loadAugList(itemButtons.get(itemClicked));
+				loadTinkersList(itemButtons.get(itemClicked));
 			} else if (augClicked != -1) {
-				this.selectedAugClickable = augClicked;
+				this.selectedTinkerAction = augClicked;
 				refreshUpgrades();
-			} else if (upgradeButton != null
-					&& upgradeButton.enabled
-					&& upgradeButton.hitBox(x, y, this)) {
-				doUpgrade();
-			} else if (downgradeButton != null
-					&& downgradeButton.enabled
-					&& downgradeButton.hitBox(x, y, this)) {
-				doDowngrade();
+			} else if (applyTinkerButton != null
+					&& applyTinkerButton.enabled
+					&& applyTinkerButton.hitBox(x, y, this)) {
+				doTinker();
 			}
 		}
 	}
@@ -250,7 +231,7 @@ public class GuiTinkerTable extends MuseGui {
 	 * Performs all the functions associated with the upgrade button. This
 	 * requires communicating with the server.
 	 */
-	private void doUpgrade() {
+	private void doTinker() {
 		if (ItemUtils.hasInInventory(workingUpgradeCost, player.inventory)) {
 			// ItemUtils.deleteFromInventory(workingUpgradeCost,
 			// player.inventory);
@@ -260,7 +241,7 @@ public class GuiTinkerTable extends MuseGui {
 					new MusePacketTinkerRequest(
 							(Player) player,
 							itemButtons.get(selectedItemStack).inventorySlot,
-							augButtons.get(selectedAugClickable).module
+							tinkeringButtons.get(selectedTinkerAction).action
 									.getName()
 					).getPacket()
 					);
@@ -268,23 +249,26 @@ public class GuiTinkerTable extends MuseGui {
 		}
 	}
 
+	static boolean refreshing = false;
+
 	/**
 	 * Updates the upgrade/downgrade buttons. May someday also include repairs.
 	 */
 	private void refreshUpgrades() {
-		if (selectedAugClickable != -1) {
+		if (selectedTinkerAction != -1
+				&& tinkeringButtons.size() > selectedTinkerAction) {
 			this.workingUpgradeCost =
-					augButtons.get(selectedAugClickable).module.getCost(player,
-							augButtons.get(selectedAugClickable).moduleTag);
+					tinkeringButtons.get(selectedTinkerAction).action
+							.getCosts();
 			if (workingUpgradeCost != null) {
-				this.upgradeButton = new ClickableButton("Upgrade",
-						new Point2D(0.6F, -0.2F),
-						new Point2D(0.25F, 0.05F), true);
+				this.applyTinkerButton = new ClickableButton("Apply",
+						new Point2D(-.25F, 0.8F),
+						new Point2D(0.20F, 0.05F), true);
 				if (ItemUtils.hasInInventory(workingUpgradeCost,
 						player.inventory)) {
-					upgradeButton.enabled = true;
+					applyTinkerButton.enabled = true;
 				} else {
-					upgradeButton.enabled = false;
+					applyTinkerButton.enabled = false;
 				}
 			}
 		}
@@ -300,9 +284,9 @@ public class GuiTinkerTable extends MuseGui {
 		if (itemHover > -1) {
 			hitTip = itemButtons.get(itemHover).getToolTip();
 		}
-		int augHover = hitboxClickables(x, y, this.augButtons);
+		int augHover = hitboxClickables(x, y, this.tinkeringButtons);
 		if (augHover > -1) {
-			hitTip = augButtons.get(augHover).getToolTip();
+			hitTip = tinkeringButtons.get(augHover).getToolTip();
 		}
 		return hitTip;
 	}
@@ -311,7 +295,7 @@ public class GuiTinkerTable extends MuseGui {
 	public void refresh() {
 		loadItems();
 		if (selectedItemStack != -1 && selectedItemStack < itemButtons.size()) {
-			loadAugList(itemButtons.get(selectedItemStack));
+			loadTinkersList(itemButtons.get(selectedItemStack));
 		}
 		refreshUpgrades();
 	}

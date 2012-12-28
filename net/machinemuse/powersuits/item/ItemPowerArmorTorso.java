@@ -12,7 +12,7 @@ public class ItemPowerArmorTorso extends ItemPowerArmor {
 				1); // armor type.
 		itemType = Config.Items.PowerArmorTorso;
 		setItemName(itemType.idName);
-
+		setIconIndex(31);
 		LanguageRegistry.addName(this, itemType.englishName);
 	}
 

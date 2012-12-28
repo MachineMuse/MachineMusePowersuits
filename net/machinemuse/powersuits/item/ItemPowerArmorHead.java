@@ -12,6 +12,7 @@ public class ItemPowerArmorHead extends ItemPowerArmor {
 				0); // armor type. 0=head, 1=torso, 2=legs, 3=feet
 		itemType = Config.Items.PowerArmorHead;
 		setItemName(itemType.idName);
+		setIconIndex(15);
 		LanguageRegistry.addName(this, itemType.englishName);
 	}
 

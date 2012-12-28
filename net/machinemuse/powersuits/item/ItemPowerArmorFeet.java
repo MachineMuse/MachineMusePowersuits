@@ -22,8 +22,7 @@ public class ItemPowerArmorFeet extends ItemPowerArmor {
 				3); // armor type. 0=head, 1=torso, 2=legs, 3=feet
 		itemType = Config.Items.PowerArmorFeet;
 		setItemName(itemType.idName);
-
+		setIconIndex(63);
 		LanguageRegistry.addName(this, itemType.englishName);
 	}
-
 }

@@ -25,9 +25,11 @@ public class TinkerRequirement {
 			return testvalue < value;
 		case '>':
 			return testvalue > value;
+		case '=':
+			return testvalue == value;
 		default:
 			throw new IllegalArgumentException(
-					"Invalid operator; must be one of < or >");
+					"Invalid operator; must be one of <, =, or >");
 		}
 	}
 

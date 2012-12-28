@@ -7,9 +7,9 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.List;
 
+import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemUtils;
-import net.machinemuse.powersuits.trash.ModuleUtils;
-import net.machinemuse.powersuits.trash.PowerModule;
+import net.machinemuse.powersuits.item.TinkerAction;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -30,23 +30,23 @@ import cpw.mods.fml.relauncher.Side;
  */
 public class MusePacketTinkerRequest extends MusePacket {
 	protected ItemStack stack;
-	protected int slot;
-	protected String moduleName;
+	protected int itemSlot;
+	protected String tinkerName;
 
 	/**
 	 * Constructor for sending this packet.
 	 * 
 	 * @param player
 	 *            Player making the request
-	 * @param slotToUpgrade
+	 * @param itemSlot
 	 *            Slot containing the item for which the upgrade is requested
-	 * @param augToUpgrade
+	 * @param tinkerName
 	 */
-	public MusePacketTinkerRequest(Player player, int slotToUpgrade,
-			String augToUpgrade) {
+	public MusePacketTinkerRequest(Player player, int itemSlot,
+			String tinkerName) {
 		super(player);
-		writeInt(slotToUpgrade);
-		writeString(augToUpgrade);
+		writeInt(itemSlot);
+		writeString(tinkerName);
 	}
 
 	/**
@@ -59,31 +59,30 @@ public class MusePacketTinkerRequest extends MusePacket {
 	 */
 	public MusePacketTinkerRequest(DataInputStream data, Player player) {
 		super(player, data);
-		slot = readInt();
-		moduleName = readString(64);
+		itemSlot = readInt();
+		tinkerName = readString(64);
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 		if (side == Side.SERVER) {
 			EntityPlayerMP srvplayer = (EntityPlayerMP) player;
-			stack = srvplayer.inventory.getStackInSlot(slot);
+			stack = srvplayer.inventory.getStackInSlot(itemSlot);
 		}
 	}
 
 	@Override
 	public void handleServer(EntityPlayerMP playerEntity) {
-		if (moduleName != null) {
+		if (tinkerName != null) {
 			InventoryPlayer inventory = playerEntity.inventory;
 			int entityId = playerEntity.entityId;
-			PowerModule moduleType = ModuleUtils.getModuleByID(moduleName);
-			NBTTagCompound moduleTag = ModuleUtils.getItemModules(stack)
+			TinkerAction tinkerType = Config.getTinkerings().get(tinkerName);
+			NBTTagCompound itemTag = ItemUtils
+					.getItemModularProperties(stack)
 					.getCompoundTag(
-							moduleName);
-			List<ItemStack> cost = moduleType.getCost(playerEntity,
-					moduleTag);
-			if (ItemUtils.hasInInventory(cost, inventory)) {
+							tinkerName);
+			if (tinkerType.validate(playerEntity, stack)) {
 				List<Integer> slots = ItemUtils.deleteFromInventory(
-						cost, inventory);
-				moduleType.onUpgrade(playerEntity, moduleTag);
-				slots.add(this.slot);
+						tinkerType.getCosts(), inventory);
+				tinkerType.apply(stack);
+				slots.add(this.itemSlot);
 				for (Integer slotiter : slots) {
 					MusePacket reply = new MusePacketInventoryRefresh(
 							player,

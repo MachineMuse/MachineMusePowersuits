@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.trash.IPowerModuleWeight;
 import net.machinemuse.powersuits.trash.ModuleUtils;
 import net.machinemuse.powersuits.trash.PowerModule;
@@ -16,6 +17,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class ItemUtils {
+
+	public static List<TinkerAction> getValidTinkersForItem(
+			EntityPlayer player, ItemStack stack) {
+		List<TinkerAction> validActions = new ArrayList();
+		for (TinkerAction action : Config.getTinkerings().values()) {
+			if (action.validate(player, stack)) {
+				validActions.add(action);
+			}
+		}
+		return validActions;
+	}
+
 	public static NBTTagCompound getItemModularProperties(ItemStack stack) {
 		NBTTagCompound properties = null;
 		if (stack.hasTagCompound()) {
