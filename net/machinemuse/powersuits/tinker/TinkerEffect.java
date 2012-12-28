@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.item;
+package net.machinemuse.powersuits.tinker;
 
 import net.minecraft.nbt.NBTTagCompound;
 

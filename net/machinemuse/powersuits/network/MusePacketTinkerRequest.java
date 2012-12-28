@@ -9,7 +9,7 @@ import java.util.List;
 
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemUtils;
-import net.machinemuse.powersuits.item.TinkerAction;
+import net.machinemuse.powersuits.tinker.TinkerAction;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;

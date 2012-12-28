@@ -9,8 +9,8 @@ import net.machinemuse.general.geometry.FlyFromMiddlePoint2D;
 import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.Point2D;
 import net.machinemuse.powersuits.item.ItemUtils;
-import net.machinemuse.powersuits.item.TinkerAction;
 import net.machinemuse.powersuits.network.MusePacketTinkerRequest;
+import net.machinemuse.powersuits.tinker.TinkerAction;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.network.Player;
@@ -179,8 +179,7 @@ public class GuiTinkerTable extends MuseGui {
 	public void drawApplyTinkerFrame() {
 		if (workingUpgradeCost != null && workingUpgradeCost.size() > 0) {
 			MuseRenderer.drawString("Cost:", absX(-0.7F),
-					absY(0.7F),
-					new Colour(0.5F, 1.0F, 0.5F, 1.0F));
+					absY(0.7F));
 			List<Point2D> points = this.pointsInLine(workingUpgradeCost.size(),
 					new Point2D(-0.4F, 0.7F),
 					new Point2D(-0.8F, 0.7F));

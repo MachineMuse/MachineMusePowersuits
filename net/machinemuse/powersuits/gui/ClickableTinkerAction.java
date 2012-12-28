@@ -6,8 +6,8 @@ import java.util.List;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.Point2D;
-import net.machinemuse.powersuits.item.TinkerAction;
-import net.machinemuse.powersuits.item.TinkerEffect;
+import net.machinemuse.powersuits.tinker.TinkerAction;
+import net.machinemuse.powersuits.tinker.TinkerEffect;
 import net.minecraft.client.renderer.RenderEngine;
 
 /**

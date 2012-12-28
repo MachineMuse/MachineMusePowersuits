@@ -9,6 +9,7 @@ import net.machinemuse.powersuits.common.Config.Items;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
@@ -148,7 +149,7 @@ public class ItemPowerTool extends ItemTool
 		int axeLevel = MinecraftForge.getBlockHarvestLevel(block, meta, "axe");
 		int pickaxeLevel = MinecraftForge.getBlockHarvestLevel(block, meta,
 				"pickaxe");
-		// TODO: Make these based on nbttags maybe
+		// TODO: Iron this out
 		boolean shovelActive = shovelLevel > axeLevel
 				&& shovelLevel > pickaxeLevel;
 		boolean axeActive = axeLevel > pickaxeLevel;
@@ -176,6 +177,28 @@ public class ItemPowerTool extends ItemTool
 		info.add("Material\t" + getToolMaterialName());
 		info.add(formatInfo("Energy Storage", getMaxJoules(stack)));
 		return info;
+	}
+
+	/**
+	 * Adds information to the item's tooltip when 'getting' it.
+	 * 
+	 * @param stack
+	 *            The itemstack to get the tooltip for
+	 * @param player
+	 *            The player (client) viewing the tooltip
+	 * @param currentTipList
+	 *            A list of strings containing the existing tooltip. When
+	 *            passed, it will just contain the name of the item;
+	 *            enchantments and lore are appended afterwards.
+	 * @param advancedToolTips
+	 *            Whether or not the player has 'advanced tooltips' turned on in
+	 *            their settings.
+	 */
+	@Override
+	public void addInformation(ItemStack stack,
+			EntityPlayer player, List currentTipList, boolean advancedToolTips) {
+		ModularItemCommon.addInformation(stack, player, currentTipList,
+				advancedToolTips);
 	}
 
 	// //////////////////////////////////////////////

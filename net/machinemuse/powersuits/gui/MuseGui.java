@@ -269,8 +269,7 @@ public class MuseGui extends GuiScreen {
 			for (int i = 0; i < tooltip.size(); i++) {
 				MuseRenderer.drawString(tooltip.get(i),
 						x + 5,
-						y - 10 * (tooltip.size() - i),
-						Colour.ORANGE);
+						y - 10 * (tooltip.size() - i));
 			}
 		}
 	}

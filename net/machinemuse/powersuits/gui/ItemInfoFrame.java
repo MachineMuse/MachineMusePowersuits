@@ -6,7 +6,7 @@ import java.util.List;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.powersuits.item.IModularItem;
-import net.machinemuse.powersuits.item.TinkerAction;
+import net.machinemuse.powersuits.tinker.TinkerAction;
 import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;

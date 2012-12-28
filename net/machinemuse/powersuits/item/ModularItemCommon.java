@@ -20,15 +20,37 @@ public abstract class ModularItemCommon {
 	public static final String ARMOR_VALUE = "Armor Value";
 	public static final String PASSIVE_SHIELDING = "Passive Shielding";
 
+	/**
+	 * Adds information to the item's tooltip when 'getting' it.
+	 * 
+	 * @param stack
+	 *            The itemstack to get the tooltip for
+	 * @param player
+	 *            The player (client) viewing the tooltip
+	 * @param currentTipList
+	 *            A list of strings containing the existing tooltip. When
+	 *            passed, it will just contain the name of the item;
+	 *            enchantments and lore are appended afterwards.
+	 * @param advancedToolTips
+	 *            Whether or not the player has 'advanced tooltips' turned on in
+	 *            their settings.
+	 */
 	public static void addInformation(ItemStack stack,
 			EntityPlayer player, List currentTipList, boolean advancedToolTips) {
+		if (stack.getItem() instanceof ItemPowerTool) {
+			String mode = ItemUtils.getStringOrNull(stack, "Tool Mode");
+			if (mode != null) {
+				currentTipList.add("Mode:" + StringUtils.wrapFormatTags(mode,
+						StringUtils.FormatCodes.Red));
+			}
+		}
 		String energyinfo = "Energy: "
 				+ StringUtils.formatNumberShort(getJoules(stack)) + "/"
 				+ StringUtils.formatNumberShort(getMaxJoules(stack));
 		currentTipList.add(
 				StringUtils.wrapMultipleFormatTags(energyinfo,
 						StringUtils.FormatCodes.Italic.character,
-						StringUtils.FormatCodes.DarkGrey));
+						StringUtils.FormatCodes.Grey));
 	}
 
 	// ///////////////////////////// //

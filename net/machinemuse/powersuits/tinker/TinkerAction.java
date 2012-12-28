@@ -1,9 +1,10 @@
-package net.machinemuse.powersuits.item;
+package net.machinemuse.powersuits.tinker;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import net.machinemuse.powersuits.gui.MuseIcon;
+import net.machinemuse.powersuits.item.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;

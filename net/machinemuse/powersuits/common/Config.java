@@ -4,7 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.machinemuse.powersuits.gui.MuseIcon;
-import net.machinemuse.powersuits.item.*;
+import net.machinemuse.powersuits.item.ModularItemCommon;
+import net.machinemuse.powersuits.tinker.TinkerAction;
+import net.machinemuse.powersuits.tinker.TinkerEffectAdditive;
+import net.machinemuse.powersuits.tinker.TinkerEffectMultiplicative;
+import net.machinemuse.powersuits.tinker.TinkerRequirement;
 import net.minecraft.block.Block;
 import net.minecraft.block.StepSound;
 import net.minecraft.block.material.Material;
@@ -146,9 +150,11 @@ public class Config extends Configuration {
 						new TinkerEffectMultiplicative(
 								ModularItemCommon.ARMOR_WEIGHT, .9, .95))
 				.addRequirement(
-						new TinkerRequirement(ModularItemCommon.ARMOR_VALUE, '>', 2))
+						new TinkerRequirement(ModularItemCommon.ARMOR_VALUE,
+								'>', 2))
 				.addRequirement(
-						new TinkerRequirement(ModularItemCommon.ARMOR_WEIGHT, '>', 2))
+						new TinkerRequirement(ModularItemCommon.ARMOR_WEIGHT,
+								'>', 2))
 				.setDescription(
 						"Using the lightening effects of glowstone, you might be able to reduce the weight of this armor.")
 				.setIcon(new MuseIcon("/icons.png", 4)));
@@ -156,10 +162,11 @@ public class Config extends Configuration {
 				.addCost(new ItemStack(Item.redstone))
 				.addEffect(
 						new TinkerEffectAdditive(
-								ModularItemCommon.MAXIMUM_ENERGY, 10000.0, 20000.0))
+								ModularItemCommon.MAXIMUM_ENERGY, 10000.0,
+								20000.0))
 				.addEffect(
 						new TinkerEffectAdditive(
-								ModularItemCommon.ARMOR_WEIGHT, 0.5, 1))
+								ModularItemCommon.BATTERY_WEIGHT, 0.5, 1))
 				.addRequirement(
 						new TinkerRequirement(
 								ModularItemCommon.MAXIMUM_ENERGY, '=', 0))
@@ -173,7 +180,7 @@ public class Config extends Configuration {
 								ModularItemCommon.MAXIMUM_ENERGY, .95, 1))
 				.addEffect(
 						new TinkerEffectMultiplicative(
-								ModularItemCommon.ARMOR_WEIGHT, .9, .95))
+								ModularItemCommon.BATTERY_WEIGHT, .9, .95))
 				.addRequirement(
 						new TinkerRequirement(
 								ModularItemCommon.MAXIMUM_ENERGY, '>', 10000))

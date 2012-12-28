@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.tinker.TinkerAction;
 import net.machinemuse.powersuits.trash.IPowerModuleWeight;
 import net.machinemuse.powersuits.trash.ModuleUtils;
 import net.machinemuse.powersuits.trash.PowerModule;
@@ -252,13 +253,14 @@ public class ItemUtils {
 	 * Sets the value of the given nbt tag, or removes it if the value would be
 	 * zero.
 	 */
-	public static void setDoubleOrRemove(NBTTagCompound nbt, String string,
+	public static void setDoubleOrRemove(NBTTagCompound itemProperties,
+			String string,
 			double value) {
-		if (nbt != null) {
+		if (itemProperties != null) {
 			if (value == 0) {
-				nbt.removeTag(string);
+				itemProperties.removeTag(string);
 			} else {
-				nbt.setDouble(string, value);
+				itemProperties.setDouble(string, value);
 			}
 		}
 	}
@@ -270,5 +272,36 @@ public class ItemUtils {
 	public static void setDoubleOrRemove(ItemStack stack, String string,
 			double value) {
 		setDoubleOrRemove(getItemModularProperties(stack), string, value);
+	}
+
+	public static String getStringOrNull(NBTTagCompound itemProperties,
+			String key) {
+		String value = null;
+		if (itemProperties != null) {
+			if (itemProperties.hasKey(key)) {
+				value = itemProperties.getString(key);
+			}
+		}
+		return value;
+	}
+
+	public static String getStringOrNull(ItemStack stack, String key) {
+		return getStringOrNull(getItemModularProperties(stack), key);
+	}
+
+	public static void setStringOrNull(NBTTagCompound itemProperties,
+			String key, String value) {
+		if (itemProperties != null) {
+			if (value.equals("")) {
+				itemProperties.removeTag(key);
+			} else {
+				itemProperties.setString(key, value);
+			}
+		}
+	}
+
+	public static void setStringOrNull(ItemStack stack, String key, String value) {
+		setStringOrNull(getItemModularProperties(stack),
+				key, value);
 	}
 }

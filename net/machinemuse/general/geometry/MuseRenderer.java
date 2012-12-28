@@ -512,13 +512,10 @@ public abstract class MuseRenderer {
 		GL11.glPopMatrix();
 	}
 
-	public static void drawString(String s, double x, double y, Colour c) {
+	public static void drawString(String s, double x, double y) {
 		RenderHelper.disableStandardItemLighting();
-		if (c == null) {
-			c = new Colour(1, 1, 1, 1);
-		}
 		MuseGui.getFontRenderer().drawStringWithShadow(s, (int) x, (int) y,
-				c.getInt());
+				new Colour(1, 1, 1, 1).getInt());
 	}
 
 	/**
@@ -661,7 +658,7 @@ public abstract class MuseRenderer {
 
 		double currentwidth = 0;
 		for (String word : words) {
-			MuseRenderer.drawString(word, x1 + currentwidth, y, null);
+			MuseRenderer.drawString(word, x1 + currentwidth, y);
 			currentwidth += MuseGui.getFontRenderer().getStringWidth(
 					word) + spacing;
 		}

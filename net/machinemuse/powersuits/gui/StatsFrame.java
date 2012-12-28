@@ -6,7 +6,7 @@ import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.powersuits.common.NBTTagAccessor;
 import net.machinemuse.powersuits.item.ItemUtils;
-import net.machinemuse.powersuits.item.TinkerAction;
+import net.machinemuse.powersuits.tinker.TinkerAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -43,10 +43,10 @@ public class StatsFrame extends GuiFrame {
 			int strlen = MuseGui.getFontRenderer().getStringWidth(
 					propValueString);
 			MuseRenderer.drawString(propName, left + xoffset,
-					top + yoffset + i * 10, borderColour);
+					top + yoffset + i * 10);
 			MuseRenderer.drawString(propValueString, right - xoffset
 					- strlen - 40,
-					top + yoffset + i * 10, borderColour);
+					top + yoffset + i * 10);
 			i++;
 		}
 		GL11.glPopMatrix();

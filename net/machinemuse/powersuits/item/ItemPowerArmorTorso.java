@@ -8,12 +8,11 @@ public class ItemPowerArmorTorso extends ItemPowerArmor {
 	public ItemPowerArmorTorso() {
 		super(Config.getAssignedItemID(Config.Items.PowerArmorTorso), // itemID
 				EnumArmorMaterial.IRON, // Material
-				0, // Texture index
-				1); // armor type.
+				0, // Texture index for rendering armor on the player
+				1); // armor type. 0=head, 1=torso, 2=legs, 3=feet
 		itemType = Config.Items.PowerArmorTorso;
 		setItemName(itemType.idName);
 		setIconIndex(31);
 		LanguageRegistry.addName(this, itemType.englishName);
 	}
-
 }
