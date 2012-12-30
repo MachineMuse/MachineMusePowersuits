@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.machinemuse.powersuits.client;
+package net.machinemuse.powersuits.block;
 
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;

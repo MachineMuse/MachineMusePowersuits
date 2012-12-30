@@ -4,13 +4,14 @@ import java.util.List;
 
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.item.ItemStack;
+import universalelectricity.core.implement.IItemElectric;
 
 /**
  * Interface for ItemPowerArmor and ItemPowerTool to share.
  * 
  * @author MachineMuse
  */
-public interface IModularItem {
+public interface IModularItem extends IItemElectric {
 
 	/**
 	 * Returns the item's 'type' as assigned in the Config.Items enum. TODO:

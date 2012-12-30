@@ -2,9 +2,9 @@ package net.machinemuse.powersuits.gui;
 
 import java.util.Set;
 
+import net.machinemuse.general.NBTTagAccessor;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
-import net.machinemuse.powersuits.common.NBTTagAccessor;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.tinker.TinkerAction;
 import net.minecraft.item.ItemStack;

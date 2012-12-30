@@ -1,9 +1,11 @@
 package net.machinemuse.powersuits.client;
 
 import net.machinemuse.powersuits.block.TileEntityTinkerTable;
+import net.machinemuse.powersuits.block.TinkerTableRenderer;
 import net.machinemuse.powersuits.common.CommonProxy;
-import net.machinemuse.powersuits.common.PlayerTickHandler;
 import net.machinemuse.powersuits.network.MusePacketHandler;
+import net.machinemuse.powersuits.tick.PlayerTickHandler;
+import net.machinemuse.powersuits.tick.RenderTickHandler;
 import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
@@ -13,11 +15,13 @@ import cpw.mods.fml.relauncher.Side;
  * The Client Proxy does all the things that should only be done client-side,
  * like registering client-side handlers and renderers.
  * 
- * @author Claire
+ * @author MachineMuse
  * 
  */
 public class ClientProxy extends CommonProxy {
 	private static EquipmentRenderer eRenderer = new EquipmentRenderer();
+	private static PlayerTickHandler playerTickHandler = new PlayerTickHandler();
+	private static RenderTickHandler renderTickHandler = new RenderTickHandler();
 
 	/**
 	 * Register all the custom renderers for this mod.
@@ -32,6 +36,7 @@ public class ClientProxy extends CommonProxy {
 				TileEntityTinkerTable.class, new TinkerTableRenderer());
 		MinecraftForgeClient.preloadTexture("/tinkertable.png");
 		MinecraftForgeClient.preloadTexture("/moduleicons.png");
+		MinecraftForgeClient.preloadTexture("/icons.png");
 	}
 
 	/**
@@ -40,8 +45,8 @@ public class ClientProxy extends CommonProxy {
 	 */
 	@Override
 	public void registerHandlers() {
-		tickHandler = new PlayerTickHandler();
-		TickRegistry.registerTickHandler(tickHandler, Side.CLIENT);
+		TickRegistry.registerTickHandler(playerTickHandler, Side.CLIENT);
+		TickRegistry.registerTickHandler(renderTickHandler, Side.CLIENT);
 
 		packetHandler = new MusePacketHandler().register();
 	}

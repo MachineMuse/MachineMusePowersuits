@@ -46,9 +46,9 @@ import cpw.mods.fml.common.registry.GameRegistry;
 // Inventory Tweaks.
 @NetworkMod(clientSideRequired = true, serverSideRequired = true,
 		clientPacketHandlerSpec =
-		@SidedPacketHandler(channels = { "mmPowersuits" }, packetHandler = MusePacketHandler.class),
+		@SidedPacketHandler(channels = { "mmmPowersuits" }, packetHandler = MusePacketHandler.class),
 		serverPacketHandlerSpec =
-		@SidedPacketHandler(channels = { "mmPowersuits" }, packetHandler = MusePacketHandler.class))
+		@SidedPacketHandler(channels = { "mmmPowersuits" }, packetHandler = MusePacketHandler.class))
 public class PowersuitsMod {
 
 	/**

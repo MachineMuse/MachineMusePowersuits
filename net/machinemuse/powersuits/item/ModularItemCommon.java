@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.item;
 
 import java.util.List;
 
-import net.machinemuse.general.StringUtils;
+import net.machinemuse.general.MuseStringUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -40,17 +40,17 @@ public abstract class ModularItemCommon {
 		if (stack.getItem() instanceof ItemPowerTool) {
 			String mode = ItemUtils.getStringOrNull(stack, "Tool Mode");
 			if (mode != null) {
-				currentTipList.add("Mode:" + StringUtils.wrapFormatTags(mode,
-						StringUtils.FormatCodes.Red));
+				currentTipList.add("Mode:" + MuseStringUtils.wrapFormatTags(mode,
+						MuseStringUtils.FormatCodes.Red));
 			}
 		}
 		String energyinfo = "Energy: "
-				+ StringUtils.formatNumberShort(getJoules(stack)) + "/"
-				+ StringUtils.formatNumberShort(getMaxJoules(stack));
+				+ MuseStringUtils.formatNumberShort(getJoules(stack)) + "/"
+				+ MuseStringUtils.formatNumberShort(getMaxJoules(stack));
 		currentTipList.add(
-				StringUtils.wrapMultipleFormatTags(energyinfo,
-						StringUtils.FormatCodes.Italic.character,
-						StringUtils.FormatCodes.Grey));
+				MuseStringUtils.wrapMultipleFormatTags(energyinfo,
+						MuseStringUtils.FormatCodes.Italic.character,
+						MuseStringUtils.FormatCodes.Grey));
 	}
 
 	// ///////////////////////////// //

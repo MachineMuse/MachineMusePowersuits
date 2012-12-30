@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.client;
+package net.machinemuse.powersuits.block;
 
 import java.util.Random;
 

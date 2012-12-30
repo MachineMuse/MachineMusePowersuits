@@ -10,6 +10,7 @@ import net.machinemuse.powersuits.tinker.TinkerAction;
 import net.machinemuse.powersuits.trash.IPowerModuleWeight;
 import net.machinemuse.powersuits.trash.ModuleUtils;
 import net.machinemuse.powersuits.trash.PowerModule;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
@@ -303,5 +304,21 @@ public class ItemUtils {
 	public static void setStringOrNull(ItemStack stack, String key, String value) {
 		setStringOrNull(getItemModularProperties(stack),
 				key, value);
+	}
+
+	public static double getAvailableEnergy(EntityPlayer player) {
+		double avail = 0;
+		for (ItemStack stack : getModularItemsInInventory(player.inventory)) {
+			avail += ((IModularItem) stack.getItem()).getJoules(stack);
+		}
+		return avail;
+	}
+
+	public static double getMaxEnergy(EntityClientPlayerMP player) {
+		double max = 0;
+		for (ItemStack stack : getModularItemsInInventory(player.inventory)) {
+			max += ((IModularItem) stack.getItem()).getMaxJoules(stack);
+		}
+		return max;
 	}
 }

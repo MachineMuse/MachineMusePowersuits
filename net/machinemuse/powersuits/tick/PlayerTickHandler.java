@@ -1,12 +1,13 @@
 /**
  * 
  */
-package net.machinemuse.powersuits.common;
+package net.machinemuse.powersuits.tick;
 
 import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
 
+import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -16,8 +17,12 @@ import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
 /**
- * Tick handler for Player ticks. This is where we compute all the updates that
- * should go every tick.
+ * Tick handler for Player update step. tickStart() is queued before the entity
+ * is updated, and tickEnd() is queued afterwards.
+ * 
+ * Player update step: "Called to update the entity's position/logic."
+ * 
+ * tickData: EntityPlayer of the entity being updated.
  * 
  * @author MachineMuse
  */

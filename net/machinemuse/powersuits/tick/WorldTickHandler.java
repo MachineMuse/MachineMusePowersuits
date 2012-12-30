@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.common;
+package net.machinemuse.powersuits.tick;
 
 import java.util.EnumSet;
 
@@ -8,8 +8,8 @@ import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
 /**
- * Tick handler for the mod. This is where you put code that should be executed
- * once every tick.
+ * World tick handler for the mod. This is where you put code that should be
+ * executed once every world tick.
  * 
  * @author MachineMuse
  * 

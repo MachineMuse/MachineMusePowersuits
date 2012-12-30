@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.item;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.machinemuse.general.StringUtils;
+import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.Config.Items;
 import net.minecraft.entity.EntityLiving;
@@ -14,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor;
-import universalelectricity.core.implement.IItemElectric;
 
 /**
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.
@@ -24,8 +23,7 @@ import universalelectricity.core.implement.IItemElectric;
 public abstract class ItemPowerArmor extends ItemArmor
 		implements
 		ISpecialArmor,
-		IModularItem,
-		IItemElectric {
+		IModularItem {
 	Config.Items itemType;
 
 	/**
@@ -142,7 +140,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 	}
 
 	public static String formatInfo(String string, double value) {
-		return string + "\t" + StringUtils.formatNumberShort(value);
+		return string + "\t" + MuseStringUtils.formatNumberShort(value);
 	}
 
 	@Override

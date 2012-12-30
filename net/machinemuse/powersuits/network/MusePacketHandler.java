@@ -46,15 +46,21 @@ public class MusePacketHandler implements IPacketHandler {
 	@Override
 	public void onPacketData(INetworkManager manager,
 			Packet250CustomPayload payload, Player player) {
+
 		if (payload.channel.equals(Config.getNetworkChannelName())) {
+
 			MusePacket repackaged = repackage(payload, player);
+
 			if (repackaged != null) {
+
 				Side side = FMLCommonHandler.instance().getEffectiveSide();
+
 				if (side == Side.CLIENT) {
 					repackaged.handleClient((EntityClientPlayerMP) player);
 				} else if (side == Side.SERVER) {
 					repackaged.handleServer((EntityPlayerMP) player);
 				}
+
 			}
 		}
 	}
@@ -67,9 +73,11 @@ public class MusePacketHandler implements IPacketHandler {
 		EntityPlayer target = (EntityPlayer) player;
 		int packetType;
 		try {
+
 			packetType = data.readInt();
 			repackaged = useConstructor(packetConstructors.get(packetType),
 					data, player);
+
 		} catch (IOException e) {
 			MuseLogger.logError("PROBLEM READING PACKET TYPE D:");
 			e.printStackTrace();

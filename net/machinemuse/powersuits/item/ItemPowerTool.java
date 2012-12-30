@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.item;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.machinemuse.general.StringUtils;
+import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.Config.Items;
 import net.minecraft.block.Block;
@@ -16,7 +16,6 @@ import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import universalelectricity.core.implement.IItemElectric;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -28,8 +27,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public class ItemPowerTool extends ItemTool
 		implements
-		IModularItem,
-		IItemElectric {
+		IModularItem {
 
 	/**
 	 * Constructor. Takes information from the Config.Items enum.
@@ -166,7 +164,7 @@ public class ItemPowerTool extends ItemTool
 	}
 
 	public static String formatInfo(String string, double value) {
-		return string + "\t" + StringUtils.formatNumberShort(value);
+		return string + "\t" + MuseStringUtils.formatNumberShort(value);
 	}
 
 	@Override

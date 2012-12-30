@@ -2,7 +2,7 @@ package net.machinemuse.general;
 
 import java.text.DecimalFormat;
 
-public abstract class StringUtils {
+public abstract class MuseStringUtils {
 	public static final char[] smallSuffixes = { 'm', 'u', 'n', 'p', 'f', 'a',
 			'z', 'y' };
 	public static final char[] bigSuffixes = { 'k', 'M', 'G', 'T', 'P', 'E',
