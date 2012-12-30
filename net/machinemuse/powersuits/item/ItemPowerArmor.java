@@ -56,7 +56,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 		// How much of incoming damage is absorbed by this armor piece.
 		// 1.0 = absorbs all damage
 		// 0.5 = 50% damage to item, 50% damage carried over
-		double absorbRatio = 0.2;
+		double absorbRatio = Math.min(0.04 * getArmorDouble(armor), 0.25);
 
 		// Maximum damage absorbed by this piece. Actual damage to this item
 		// will be clamped between (damage * absorbRatio) and (absorbMax). Note
@@ -96,6 +96,9 @@ public abstract class ItemPowerArmor extends ItemArmor
 			totalarmor += elecArmor;
 		}
 
+		// Make it so each armor piece can only contribute 1/4 of the armor
+		// value
+		totalarmor = Math.min(6.25, totalarmor);
 		return totalarmor;
 	}
 

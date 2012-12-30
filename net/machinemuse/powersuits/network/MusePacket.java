@@ -43,14 +43,6 @@ public abstract class MusePacket {
 		writeInt(id);
 	}
 
-	private String listBytes(byte[] bytes) {
-		String s = "";
-		for (byte b : bytes) {
-			s = s + Byte.toString(b) + " ~ ";
-		}
-		return s;
-	}
-
 	protected MusePacket(Player player, DataInputStream data) {
 		this.player = player;
 		this.datain = data;
@@ -194,15 +186,8 @@ public abstract class MusePacket {
 	public void writeString(String string)
 	{
 		try {
-			if (string.length() > 32767)
-			{
-				throw new IOException("String too big");
-			}
-			else
-			{
-				dataout.writeShort(string.length());
-				dataout.writeChars(string);
-			}
+			dataout.writeShort(string.length());
+			dataout.writeChars(string);
 		} catch (IOException e) {
 			MuseLogger.logError("String too big D:");
 			e.printStackTrace();
@@ -214,6 +199,7 @@ public abstract class MusePacket {
 	 */
 	public String readString(int maxlength)
 	{
+		String read = null;
 		try {
 			short length = datain.readShort();
 
@@ -237,12 +223,12 @@ public abstract class MusePacket {
 					builder.append(datain.readChar());
 				}
 
-				return builder.toString();
+				read = builder.toString();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return read;
 	}
 
 }

@@ -1,15 +1,11 @@
 package net.machinemuse.powersuits.item;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.tinker.TinkerAction;
-import net.machinemuse.powersuits.trash.IPowerModuleWeight;
-import net.machinemuse.powersuits.trash.ModuleUtils;
-import net.machinemuse.powersuits.trash.PowerModule;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -19,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class ItemUtils {
+	public static final String nbtPrefix = "mmmpsmod";
 
 	public static List<TinkerAction> getValidTinkersForItem(
 			EntityPlayer player, ItemStack stack) {
@@ -38,19 +35,19 @@ public class ItemUtils {
 		NBTTagCompound properties = null;
 		if (stack.hasTagCompound()) {
 			NBTTagCompound stackTag = stack.getTagCompound();
-			if (stackTag.hasKey(PowerModule.Constants.nbtPrefix)) {
+			if (stackTag.hasKey(nbtPrefix)) {
 				properties = stackTag
-						.getCompoundTag(PowerModule.Constants.nbtPrefix);
+						.getCompoundTag(nbtPrefix);
 			} else {
 				properties = new NBTTagCompound();
-				properties.setCompoundTag(PowerModule.Constants.nbtPrefix,
+				properties.setCompoundTag(nbtPrefix,
 						properties);
 			}
 		} else {
 			NBTTagCompound stackTag = new NBTTagCompound();
 			stack.setTagCompound(stackTag);
 			properties = new NBTTagCompound();
-			stackTag.setCompoundTag(PowerModule.Constants.nbtPrefix, properties);
+			stackTag.setCompoundTag(nbtPrefix, properties);
 		}
 		return properties;
 	}
@@ -103,52 +100,6 @@ public class ItemUtils {
 		} else {
 			return null;
 		}
-	}
-
-	/**
-	 * 
-	 * 
-	 * @param player
-	 * @return
-	 */
-	public static List<NBTTagCompound> getPlayerAugs(EntityPlayer player) {
-		List<NBTTagCompound> augs = new ArrayList<NBTTagCompound>();
-		List<ItemStack> items = getModularItemsInInventory(player.inventory);
-		Iterator<ItemStack> iter = items.iterator();
-		while (iter.hasNext()) {
-			NBTTagCompound itemAugs = ModuleUtils.getItemModules(iter.next());
-			for (Object ob : itemAugs.getTags()) {
-				if (ob instanceof NBTTagCompound) {
-					augs.add((NBTTagCompound) ob);
-				}
-			}
-		}
-
-		return augs;
-	}
-
-	/**
-	 * @param next
-	 * @return
-	 */
-	public static List<NBTTagCompound> getItemModulesWithPadding(ItemStack stack) {
-		List<PowerModule> validModules = ModuleUtils
-				.getValidModulesForItem(stack.getItem());
-		NBTTagCompound itemModule = ModuleUtils.getItemModules(stack);
-		List<NBTTagCompound> modulesList = new ArrayList<NBTTagCompound>();
-		for (PowerModule validModule : validModules) {
-			if (itemModule.hasKey(validModule.getName())) {
-				NBTTagCompound matchedAug = itemModule
-						.getCompoundTag(validModule
-								.getName());
-				modulesList.add(matchedAug);
-			} else {
-				NBTTagCompound newModule = validModule.newModuleTag();
-				modulesList.add(newModule);
-				itemModule.setCompoundTag(validModule.getName(), newModule);
-			}
-		}
-		return modulesList;
 	}
 
 	/**
@@ -208,24 +159,6 @@ public class ItemUtils {
 			}
 		}
 		return slots;
-	}
-
-	/**
-	 * Sums the weights of augmentations in the list.
-	 * 
-	 * @param playerModules
-	 * @return
-	 */
-	public static float getTotalWeight(EntityPlayer player,
-			List<NBTTagCompound> playerModules) {
-		float weight = 0;
-		for (NBTTagCompound aug : playerModules) {
-			PowerModule module = ModuleUtils.getModuleFromNBT(aug);
-			if (module instanceof IPowerModuleWeight) {
-				weight += ((IPowerModuleWeight) module).getWeight(player, aug);
-			}
-		}
-		return weight;
 	}
 
 	/**

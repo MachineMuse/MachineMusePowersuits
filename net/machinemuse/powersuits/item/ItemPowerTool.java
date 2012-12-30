@@ -199,9 +199,9 @@ public class ItemPowerTool extends ItemTool
 				advancedToolTips);
 	}
 
-	// //////////////////////////////////////////////
-	// --- UNIVERSAL ELECTRICITY COMPATABILITY ---//
-	// //////////////////////////////////////////////
+	// /////////////////////////////////////////// //
+	// --- UNIVERSAL ELECTRICITY COMPATABILITY --- //
+	// /////////////////////////////////////////// //
 	@Override
 	public double onReceive(double amps, double voltage, ItemStack itemStack) {
 		return ModularItemCommon.onReceive(amps, voltage, itemStack);

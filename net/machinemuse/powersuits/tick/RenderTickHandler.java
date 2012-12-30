@@ -12,7 +12,7 @@ import cpw.mods.fml.common.TickType;
 
 /**
  * Called before and after the 3D world is rendered (tickEnd is called BEFORE
- * the 2D gui is drawn).
+ * the 2D gui is drawn... I think?).
  * 
  * @param float tickData[0] the amount of time (0.0f-1.0f) since the last tick.
  * 
