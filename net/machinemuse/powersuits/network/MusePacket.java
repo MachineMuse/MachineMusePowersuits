@@ -53,7 +53,7 @@ public abstract class MusePacket {
 	 * 
 	 * @return Packet250CustomPayload
 	 */
-	public Packet250CustomPayload getPacket() {
+	public Packet250CustomPayload getPacket250() {
 		byte[] output = bytes.toByteArray();
 		return new Packet250CustomPayload(Config.getNetworkChannelName(),
 				bytes.toByteArray());

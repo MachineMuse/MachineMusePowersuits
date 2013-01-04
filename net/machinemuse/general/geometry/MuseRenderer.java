@@ -7,10 +7,14 @@ import java.util.List;
 
 import net.machinemuse.powersuits.gui.MuseGui;
 import net.machinemuse.powersuits.gui.MuseIcon;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.PositionTextureVertex;
 import net.minecraft.client.model.TexturedQuad;
+import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.ForgeHooksClient;
@@ -25,6 +29,8 @@ import org.lwjgl.opengl.GL11;
  * 
  */
 public abstract class MuseRenderer {
+
+	protected static RenderItem renderItem;
 
 	/**
 	 * Mostly for placeholder graphics, this function draws a 3x3 grid of swirly
@@ -99,19 +105,43 @@ public abstract class MuseRenderer {
 		return buffer;
 	}
 
+	/**
+	 * Efficient algorithm for drawing circles and arcs in pure opengl!
+	 * 
+	 * @param startangle
+	 *            Start angle in radians
+	 * @param endangle
+	 *            End angle in radians
+	 * @param radius
+	 *            Radius of the circle (used in calculating number of segments
+	 *            to draw as well as size of the arc)
+	 * @param xoffset
+	 *            Convenience parameter, added to every vertex
+	 * @param yoffset
+	 *            Convenience parameter, added to every vertex
+	 * @param zoffset
+	 *            Convenience parameter, added to every vertex
+	 * @return
+	 */
 	public static DoubleBuffer getGradientArcPoints(double startangle,
 			double endangle, double radius, double xoffset, double yoffset,
 			double zoffset) {
-		// roughly 4 vertices per pixel.
-		double numVertices = 360;
+		// roughly 8 vertices per Minecraft 'pixel' - should result in at least
+		// 2 vertices per real pixel on the screen.
+		int numVertices = (int) Math.ceil(Math.abs((endangle - startangle) * 16
+				* Math.PI));
 		double theta = (endangle - startangle) / numVertices;
 		DoubleBuffer buffer = BufferUtils
-				.createDoubleBuffer((int) Math.ceil(numVertices) * 3);
+				.createDoubleBuffer(numVertices * 3);
 
 		double x = radius * Math.sin(startangle);
 		double y = radius * Math.cos(startangle);
-		double tf = Math.tan(theta);
-		double rf = Math.cos(theta);
+		double tf = Math.tan(theta); // precompute tangent factor: how much to
+										// move along the tangent line each
+										// iteration
+		double rf = Math.cos(theta); // precompute radial factor: how much to
+										// move back towards the origin each
+										// iteration
 		double tx;
 		double ty;
 
@@ -121,7 +151,7 @@ public abstract class MuseRenderer {
 			buffer.put(zoffset);
 			tx = y; // compute tangent lines
 			ty = -x;
-			x += tx * tf;
+			x += tx * tf; // add tangent line * tangent factor
 			y += ty * tf;
 			x *= rf;
 			y *= rf;
@@ -351,8 +381,8 @@ public abstract class MuseRenderer {
 	 * Draws a rectangle with a vertical gradient between the specified colors.
 	 */
 	public static void drawFrameRect(float left, float top, float right,
-			float bottom, Colour c1, Colour c2, double zLevel,
-			double cornerradius)
+			float bottom, Colour borderColour, Colour insideColour,
+			double zLevel, double cornerradius)
 	{
 		texturelessOn();
 		smoothingOn();
@@ -384,7 +414,7 @@ public abstract class MuseRenderer {
 		allVertices.put(corner);
 		allVertices.flip();
 		DoubleBuffer colours = getColourGradient(
-				c1, c1,
+				borderColour, borderColour,
 				allVertices.limit() * 4 / 3 + 8);
 
 		GL11.glColorPointer(4, 0, colours);
@@ -399,7 +429,7 @@ public abstract class MuseRenderer {
 		triFanVertices.flip();
 
 		colours = getColourGradient(
-				c2, c2,
+				insideColour, insideColour,
 				allVertices.limit() * 4 / 3 + 8);
 
 		GL11.glColorPointer(4, 0, colours);
@@ -409,6 +439,14 @@ public abstract class MuseRenderer {
 		arraysOff();
 		off2D();
 		texturelessOff();
+	}
+
+	public static void drawFrameRect(Point2D topleft, Point2D bottomright,
+			Colour borderColour, Colour insideColour, double zLevel,
+			double cornerRadius) {
+		drawFrameRect(topleft.x(), topleft.y(), bottomright.x(),
+				bottomright.y(), borderColour,
+				insideColour, zLevel, cornerRadius);
 	}
 
 	public static void drawGradientRect3D(Vec3 origin, Vec3 size, Colour c1,
@@ -436,24 +474,22 @@ public abstract class MuseRenderer {
 
 	}
 
-	public static void drawItemAt(int x, int y, MuseGui gui, ItemStack item) {
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
+	public static void drawItemAt(double x, double y, ItemStack item) {
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		// GL11.glDepthFunc(GL11.GL_GREATER);
 		GL11.glDisable(GL11.GL_LIGHTING);
 
-		gui.getRenderItem().zLevel = 100.0F;
-		gui.getRenderItem().renderItemAndEffectIntoGUI(
-				gui.getFontRenderer(), gui.getRenderEngine(), item, x, y);
-		gui.getRenderItem().renderItemOverlayIntoGUI(gui.getFontRenderer(),
-				gui.getRenderEngine(), item, x, y);
-		gui.getRenderItem().zLevel = 0.0F;
+		getRenderItem().renderItemAndEffectIntoGUI(
+				getFontRenderer(), getRenderEngine(), item, (int) x, (int) y);
+		getRenderItem().renderItemOverlayIntoGUI(getFontRenderer(),
+				getRenderEngine(), item, (int) x, (int) y);
 
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		// GL11.glDepthFunc(GL11.GL_LEQUAL);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glEnable(GL11.GL_LIGHTING);
 	}
 
-	public static void drawIconAt(int x, int y, MuseGui gui,
+	public static void drawIconAt(double x, double y,
 			MuseIcon icon, Colour colour) {
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
@@ -514,7 +550,7 @@ public abstract class MuseRenderer {
 
 	public static void drawString(String s, double x, double y) {
 		RenderHelper.disableStandardItemLighting();
-		MuseGui.getFontRenderer().drawStringWithShadow(s, (int) x, (int) y,
+		getFontRenderer().drawStringWithShadow(s, (int) x, (int) y,
 				new Colour(1, 1, 1, 1).getInt());
 	}
 
@@ -646,11 +682,11 @@ public abstract class MuseRenderer {
 
 	}
 
-	public static void drawStringsEvenlySpaced(List<String> words, int x1,
-			int x2, int y) {
+	public static void drawStringsJustified(List<String> words, double x1,
+			double x2, double y) {
 		int totalwidth = 0;
 		for (String word : words) {
-			totalwidth += MuseGui.getFontRenderer().getStringWidth(
+			totalwidth += getFontRenderer().getStringWidth(
 					word);
 		}
 
@@ -659,9 +695,35 @@ public abstract class MuseRenderer {
 		double currentwidth = 0;
 		for (String word : words) {
 			MuseRenderer.drawString(word, x1 + currentwidth, y);
-			currentwidth += MuseGui.getFontRenderer().getStringWidth(
+			currentwidth += getFontRenderer().getStringWidth(
 					word) + spacing;
 		}
 
+	}
+
+	/**
+	 * Singleton pattern for FontRenderer
+	 */
+	public static FontRenderer getFontRenderer() {
+		return Minecraft.getMinecraft().fontRenderer;
+	}
+
+	/**
+	 * Singleton pattern for RenderEngine
+	 */
+	public static RenderEngine getRenderEngine() {
+		return Minecraft.getMinecraft().renderEngine;
+	}
+
+	/**
+	 * Singleton pattern for the RenderItem
+	 * 
+	 * @return the static renderItem instance
+	 */
+	public static RenderItem getRenderItem() {
+		if (renderItem == null) {
+			renderItem = new RenderItem();
+		}
+		return renderItem;
 	}
 }

@@ -171,7 +171,7 @@ public class ItemPowerTool extends ItemTool
 	public List<String> getLongInfo(ItemStack stack) {
 		List<String> info = new ArrayList();
 		NBTTagCompound itemProperties = ItemUtils
-				.getItemModularProperties(stack);
+				.getMuseItemTag(stack);
 		info.add("Material\t" + getToolMaterialName());
 		info.add(formatInfo("Energy Storage", getMaxJoules(stack)));
 		return info;

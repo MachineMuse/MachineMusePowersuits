@@ -1,15 +1,13 @@
 /**
  * 
  */
-package net.machinemuse.powersuits.gui;
+package net.machinemuse.powersuits.gui.clickable;
 
 import java.util.List;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.Point2D;
-import net.minecraft.client.renderer.RenderEngine;
-import net.minecraft.client.renderer.RenderHelper;
 
 /**
  * @author MachineMuse
@@ -18,14 +16,14 @@ import net.minecraft.client.renderer.RenderHelper;
 public class ClickableButton extends Clickable {
 	protected String label;
 	protected Point2D radius;
-	protected boolean enabled;
+	private boolean enabled;
 
 	public ClickableButton(String label, Point2D position, Point2D radius,
 			boolean enabled) {
 		this.label = label;
 		this.position = position;
 		this.radius = radius;
-		this.enabled = enabled;
+		this.setEnabled(enabled);
 	}
 
 	/*
@@ -36,11 +34,11 @@ public class ClickableButton extends Clickable {
 	 * .RenderEngine, machinemuse.powersuits.gui.MuseGui)
 	 */
 	@Override
-	public void draw(RenderEngine engine, MuseGui gui) {
+	public void draw() {
 		Colour topcolour;
 		Colour bottomcolour;
 		Colour fontcolour;
-		if (enabled) {
+		if (isEnabled()) {
 			topcolour = new Colour(0.5F, 0.6F, 0.8F, 1);
 			bottomcolour = new Colour(0.3F, 0.3F, 0.3F, 1);
 			fontcolour = new Colour(0.9F, 0.9F, 0.9F, 1);
@@ -49,20 +47,15 @@ public class ClickableButton extends Clickable {
 			bottomcolour = new Colour(0.5F, 0.6F, 0.8F, 1);
 			fontcolour = new Colour(0.4F, 0.4F, 0.4F, 1);
 		}
-		MuseRenderer.drawGradientRect(
-				gui.absX(position.x() - radius.x()),
-				gui.absY(position.y() - radius.y()),
-				gui.absX(position.x() + radius.x()),
-				gui.absY(position.y() + radius.y()),
+		MuseRenderer.drawFrameRect(
+				position.x() - radius.x(),
+				position.y() - radius.y(),
+				position.x() + radius.x(),
+				position.y() + radius.y(),
 				topcolour,
 				bottomcolour,
-				0.0F);
-		RenderHelper.disableStandardItemLighting();
-		gui.drawCenteredString(gui.getFontRenderer(),
-				this.label,
-				gui.absX(position.x()),
-				gui.absY(position.y()) - 4,
-				fontcolour.getInt());
+				0.0F, Math.min(radius.x(), radius.y()));
+		MuseRenderer.drawString(this.label, position.x(), position.y());
 	}
 
 	/*
@@ -72,11 +65,12 @@ public class ClickableButton extends Clickable {
 	 * machinemuse.powersuits.gui.MuseGui)
 	 */
 	@Override
-	public boolean hitBox(int x, int y, MuseGui gui) {
-		boolean hitx = Math.abs(x - gui.absX(getPosition().x())) < gui.xSize
-				* radius.x();
-		boolean hity = Math.abs(y - gui.absY(getPosition().y())) < gui.ySize
-				* radius.y();
+	public boolean hitBox(int x, int y) {
+		/**
+		 * Todo: Fix!
+		 */
+		boolean hitx = false;
+		boolean hity = false;
 		return hitx && hity;
 	}
 
@@ -89,6 +83,15 @@ public class ClickableButton extends Clickable {
 	public List<String> getToolTip() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public ClickableButton setEnabled(boolean enabled) {
+		this.enabled = enabled;
+		return this;
 	}
 
 }

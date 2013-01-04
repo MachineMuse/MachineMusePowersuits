@@ -61,7 +61,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 		// Maximum damage absorbed by this piece. Actual damage to this item
 		// will be clamped between (damage * absorbRatio) and (absorbMax). Note
 		// that a player has 20 hp (1hp = 1 half-heart)
-		int absorbMax = 4;
+		int absorbMax = 5;
 
 		return new ArmorProperties(priority, absorbRatio,
 				absorbMax);
@@ -78,7 +78,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 
 	public double getArmorDouble(ItemStack stack) {
 		double totalarmor = 0;
-		NBTTagCompound props = ItemUtils.getItemModularProperties(stack);
+		NBTTagCompound props = ItemUtils.getMuseItemTag(stack);
 
 		double physArmor = ItemUtils.getDoubleOrZero(props,
 				ModularItemCommon.ARMOR_VALUE);
@@ -110,7 +110,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 	public void damageArmor(EntityLiving entity, ItemStack stack,
 			DamageSource source, int damage, int slot) {
 		NBTTagCompound itemProperties = ItemUtils
-				.getItemModularProperties(stack);
+				.getMuseItemTag(stack);
 		float drain = damage * itemProperties.getFloat("Energy per damage");
 		onUse(drain, stack);
 	}
@@ -150,7 +150,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 	public List<String> getLongInfo(ItemStack stack) {
 		List<String> info = new ArrayList();
 		NBTTagCompound itemProperties = ItemUtils
-				.getItemModularProperties(stack);
+				.getMuseItemTag(stack);
 		info.add(formatInfo("Armor", getArmorDouble(stack)));
 		info.add(formatInfo("Energy Storage", getMaxJoules(stack)));
 		return info;

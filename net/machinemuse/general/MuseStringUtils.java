@@ -1,6 +1,8 @@
 package net.machinemuse.general;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class MuseStringUtils {
 	public static final char[] smallSuffixes = { 'm', 'u', 'n', 'p', 'f', 'a',
@@ -57,6 +59,26 @@ public abstract class MuseStringUtils {
 			}
 		}
 		return appendResetTag(str);
+	}
+
+	public static List<String> wrapStringToLength(String str, int length) {
+		List<String> strlist = new ArrayList();
+
+		int i = 0;
+		while (i + length < str.length()) {
+			int j = str.lastIndexOf(" ", i + length);
+			if (j == -1) {
+				j = str.indexOf(" ", i + length);
+			}
+			if (j == -1) {
+				break;
+			}
+			strlist.add(str.substring(i, j));
+			i = j;
+		}
+		strlist.add(str.substring(i));
+
+		return strlist;
 	}
 
 	public static enum FormatCodes {

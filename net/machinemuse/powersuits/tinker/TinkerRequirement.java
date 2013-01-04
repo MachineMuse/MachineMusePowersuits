@@ -10,33 +10,37 @@ import net.minecraft.nbt.NBTTagCompound;
  */
 public class TinkerRequirement {
 	public String propertyName;
-	public char operator;
-	public double value;
+	public double lowvalue;
+	public double highvalue;
 
-	public TinkerRequirement(String propertyName, char operator, double value) {
+	/**
+	 * Require a property to be between two values to use the TinkerAction this
+	 * is on. For an unbounded property, you can use something ridiculous, or
+	 * Double.NEGATIVE_INFINITY / Double.POSITIVE_INFINITY
+	 * 
+	 * @param propertyName
+	 * @param lowvalue
+	 * @param highvalue
+	 */
+	public TinkerRequirement(String propertyName,
+			double lowvalue, double highvalue) {
 		this.propertyName = propertyName;
-		this.operator = operator;
-		this.value = value;
+		this.lowvalue = lowvalue;
+		this.highvalue = highvalue;
 	}
 
 	public boolean test(NBTTagCompound properties) {
 		double testvalue = ItemUtils.getDoubleOrZero(properties, propertyName);
-		switch (operator) {
-		case '<':
-			return testvalue < value;
-		case '>':
-			return testvalue > value;
-		case '=':
-			return testvalue == value;
-		default:
-			throw new IllegalArgumentException(
-					"Invalid operator; must be one of <, =, or >");
+		if (testvalue > lowvalue && testvalue < highvalue) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 
 	@Override
 	public String toString() {
-		return propertyName + " " + operator + " "
-				+ String.format("%.2f", value);
+		return String.format("%.2f", lowvalue) + " < " + propertyName + " < "
+				+ String.format("%.2f", highvalue);
 	}
 }

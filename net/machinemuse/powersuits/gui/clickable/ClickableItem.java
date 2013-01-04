@@ -1,11 +1,10 @@
-package net.machinemuse.powersuits.gui;
+package net.machinemuse.powersuits.gui.clickable;
 
 import java.util.List;
 
 import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.Point2D;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 
@@ -33,9 +32,9 @@ public class ClickableItem extends Clickable {
 	}
 
 	@Override
-	public boolean hitBox(int x, int y, MuseGui gui) {
-		boolean hitx = Math.abs(x - gui.absX(getPosition().x())) < offsetx;
-		boolean hity = Math.abs(y - gui.absY(getPosition().y())) < offsety;
+	public boolean hitBox(int x, int y) {
+		boolean hitx = Math.abs(x - getPosition().x()) < offsetx;
+		boolean hity = Math.abs(y - getPosition().y()) < offsety;
 		return hitx && hity;
 	}
 
@@ -49,10 +48,9 @@ public class ClickableItem extends Clickable {
 	 * mainly in clickables.
 	 */
 	@Override
-	public void draw(RenderEngine engine, MuseGui gui) {
+	public void draw() {
 		MuseRenderer.drawItemAt(
-				gui.absX(getPosition().x()) - offsetx,
-				gui.absY(getPosition().y()) - offsety,
-				gui, item);
+				getPosition().x() - offsetx,
+				getPosition().y() - offsety, item);
 	}
 }

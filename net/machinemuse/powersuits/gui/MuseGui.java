@@ -5,13 +5,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.general.geometry.FlyFromMiddlePoint2D;
+import net.machinemuse.general.geometry.FlyFromPointToPoint2D;
 import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.Point2D;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
+import net.machinemuse.powersuits.gui.clickable.Clickable;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 
@@ -52,8 +50,9 @@ public class MuseGui extends GuiScreen {
 
 		int xpadding = (width - getxSize()) / 2;
 		int ypadding = (height - ySize) / 2;
-		ul = new FlyFromMiddlePoint2D(-1, -1, 150);
-		br = new FlyFromMiddlePoint2D(1, 1, 150);
+		ul = new FlyFromPointToPoint2D(absX(0), absY(0), absX(-1), absY(-1),
+				150);
+		br = new FlyFromPointToPoint2D(absX(0), absY(0), absX(1), absY(1), 150);
 	}
 
 	/**
@@ -61,8 +60,8 @@ public class MuseGui extends GuiScreen {
 	 */
 	public void drawRectangularBackground() {
 		MuseRenderer.drawFrameRect(
-				absX(ul.x()), absY(ul.y()),
-				absX(br.x()), absY(br.y()),
+				ul.x(), ul.y(),
+				br.x(), br.y(),
 				new Colour(0.1F, 0.9F, 0.1F, 0.8F),
 				new Colour(0.0F, 0.2F, 0.0F, 0.8F),
 				this.zLevel, 8f);
@@ -80,7 +79,7 @@ public class MuseGui extends GuiScreen {
 		while (iter.hasNext())
 		{
 			clickie = iter.next();
-			clickie.draw(Minecraft.getMinecraft().renderEngine, this);
+			clickie.draw();
 		}
 	}
 
@@ -98,7 +97,7 @@ public class MuseGui extends GuiScreen {
 		for (int i = 0; i < list.size(); i++)
 		{
 			clickie = list.get(i);
-			if (clickie.hitBox(x, y, this)) {
+			if (clickie.hitBox(x, y)) {
 				// MuseLogger.logDebug("Hit!");
 				return i;
 			}
@@ -135,32 +134,6 @@ public class MuseGui extends GuiScreen {
 	public boolean doesGuiPauseGame()
 	{
 		return false;
-	}
-
-	/**
-	 * Singleton pattern for the RenderItem
-	 * 
-	 * @return the static renderItem instance
-	 */
-	public static RenderItem getRenderItem() {
-		if (renderItem == null) {
-			renderItem = new RenderItem();
-		}
-		return renderItem;
-	}
-
-	/**
-	 * Singleton pattern for FontRenderer
-	 */
-	public static FontRenderer getFontRenderer() {
-		return Minecraft.getMinecraft().fontRenderer;
-	}
-
-	/**
-	 * Singleton pattern for RenderEngine
-	 */
-	public static RenderEngine getRenderEngine() {
-		return Minecraft.getMinecraft().renderEngine;
 	}
 
 	/**
@@ -255,7 +228,8 @@ public class MuseGui extends GuiScreen {
 		if (tooltip != null) {
 			int strwidth = 0;
 			for (String s : tooltip) {
-				int currstrwidth = getFontRenderer().getStringWidth(s);
+				int currstrwidth = MuseRenderer.getFontRenderer()
+						.getStringWidth(s);
 				if (currstrwidth > strwidth) {
 					strwidth = currstrwidth;
 				}

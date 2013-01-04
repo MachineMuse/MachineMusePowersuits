@@ -18,6 +18,7 @@ public class TinkerAction {
 	public List<ItemStack> costs;
 	public MuseIcon icon;
 	public String description;
+	public String category;
 	public boolean[] validSlots;
 
 	public TinkerAction(String name, boolean[] validSlots) {
@@ -31,7 +32,7 @@ public class TinkerAction {
 	public boolean validate(EntityPlayer player, ItemStack stack) {
 		boolean slot = validForItemType(stack.getItem());
 		boolean req = validateRequirements(ItemUtils
-				.getItemModularProperties(stack));
+				.getMuseItemTag(stack));
 		boolean cost = validateCost(player.inventory);
 
 		return slot && req && cost;
@@ -118,8 +119,17 @@ public class TinkerAction {
 		return this;
 	}
 
+	public String getCategory() {
+		return category;
+	}
+
+	public TinkerAction setCategory(String category) {
+		this.category = category;
+		return this;
+	}
+
 	public void apply(ItemStack stack) {
-		NBTTagCompound tag = ItemUtils.getItemModularProperties(stack);
+		NBTTagCompound tag = ItemUtils.getMuseItemTag(stack);
 		for (TinkerEffect effect : this.effects) {
 			effect.applyEffect(tag);
 		}

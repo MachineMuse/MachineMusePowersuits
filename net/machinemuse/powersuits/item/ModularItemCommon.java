@@ -68,7 +68,7 @@ public abstract class ModularItemCommon {
 
 	public static double onUse(double joulesNeeded, ItemStack itemStack) {
 		NBTTagCompound itemProperties = ItemUtils
-				.getItemModularProperties(itemStack);
+				.getMuseItemTag(itemStack);
 
 		double joulesAvail = getJoules(itemStack);
 		double joulesProvided = Math.min(joulesAvail, joulesNeeded);

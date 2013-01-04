@@ -75,9 +75,9 @@ public class MusePacketTinkerRequest extends MusePacket {
 			int entityId = playerEntity.entityId;
 			TinkerAction tinkerType = Config.getTinkerings().get(tinkerName);
 			NBTTagCompound itemTag = ItemUtils
-					.getItemModularProperties(stack)
-					.getCompoundTag(
-							tinkerName);
+					.getMuseItemTag(stack)
+					.getCompoundTag(tinkerName);
+
 			if (tinkerType.validate(playerEntity, stack)) {
 				List<Integer> slots = ItemUtils.deleteFromInventory(
 						tinkerType.getCosts(), inventory);
@@ -87,7 +87,7 @@ public class MusePacketTinkerRequest extends MusePacket {
 					MusePacket reply = new MusePacketInventoryRefresh(
 							player,
 							slotiter, inventory.getStackInSlot(slotiter));
-					PacketDispatcher.sendPacketToPlayer(reply.getPacket(),
+					PacketDispatcher.sendPacketToPlayer(reply.getPacket250(),
 							player);
 				}
 			}

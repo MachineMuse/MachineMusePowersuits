@@ -1,6 +1,9 @@
 package net.machinemuse.powersuits.gui;
 
 public class MuseIcon {
+	public static final String ICON_PATH = "/icons.png";
+	public static final MuseIcon ORB1 = new MuseIcon(ICON_PATH, 0);
+
 	String texturefile;
 	int index;
 

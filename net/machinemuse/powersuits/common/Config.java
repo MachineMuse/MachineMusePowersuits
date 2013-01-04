@@ -137,6 +137,7 @@ public class Config extends Configuration {
 								ModularItemCommon.ARMOR_WEIGHT, 1.0, 2.0))
 				.setDescription(
 						"By adding some iron plating, you might be able to make this armor more protective.")
+				.setCategory("Armor")
 				.setIcon(new MuseIcon("/icons.png", 1)));
 		addTinkerAction(new TinkerAction("Lighten armor plating", ARMORONLY)
 				.addCost(new ItemStack(Item.lightStoneDust))
@@ -148,15 +149,16 @@ public class Config extends Configuration {
 								ModularItemCommon.ARMOR_DURABILITY, .95, 1))
 				.addEffect(
 						new TinkerEffectMultiplicative(
-								ModularItemCommon.ARMOR_WEIGHT, .9, .95))
+								ModularItemCommon.ARMOR_WEIGHT, .9, 1))
 				.addRequirement(
 						new TinkerRequirement(ModularItemCommon.ARMOR_VALUE,
-								'>', 2))
+								2, 10))
 				.addRequirement(
 						new TinkerRequirement(ModularItemCommon.ARMOR_WEIGHT,
-								'>', 2))
+								2, 1000000))
 				.setDescription(
 						"Using the lightening effects of glowstone, you might be able to reduce the weight of this armor.")
+				.setCategory("Armor")
 				.setIcon(new MuseIcon("/icons.png", 4)));
 		addTinkerAction(new TinkerAction("Install a battery", ALLITEMS)
 				.addCost(new ItemStack(Item.redstone))
@@ -169,9 +171,10 @@ public class Config extends Configuration {
 								ModularItemCommon.BATTERY_WEIGHT, 0.5, 1))
 				.addRequirement(
 						new TinkerRequirement(
-								ModularItemCommon.MAXIMUM_ENERGY, '=', 0))
+								ModularItemCommon.MAXIMUM_ENERGY, -100, 0))
 				.setDescription(
 						"By adding a battery, you might be able to have a source of energy on hand at all times.")
+				.setCategory("Battery")
 				.setIcon(new MuseIcon("/icons.png", 5)));
 		addTinkerAction(new TinkerAction("Lighten the battery", ALLITEMS)
 				.addCost(new ItemStack(Item.redstone))
@@ -186,6 +189,7 @@ public class Config extends Configuration {
 								ModularItemCommon.MAXIMUM_ENERGY, '>', 10000))
 				.setDescription(
 						"Using lapis instead of redstone might allow you to store the same amount of energy in a smaller frame.")
+				.setCategory("Battery")
 				.setIcon(new MuseIcon("/icons.png", 9)));
 	}
 

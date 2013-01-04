@@ -28,7 +28,7 @@ public class ItemUtils {
 		return validActions;
 	}
 
-	public static NBTTagCompound getItemModularProperties(ItemStack stack) {
+	public static NBTTagCompound getMuseItemTag(ItemStack stack) {
 		if (stack == null) {
 			return null;
 		}
@@ -70,6 +70,10 @@ public class ItemUtils {
 			}
 		}
 		return stacks;
+	}
+
+	public static List<ItemStack> getModularItemsInInventory(EntityPlayer player) {
+		return getModularItemsInInventory(player.inventory);
 	}
 
 	/**
@@ -180,7 +184,7 @@ public class ItemUtils {
 	 * returns the value if it exists, otherwise 0.
 	 */
 	public static double getDoubleOrZero(ItemStack stack, String string) {
-		return getDoubleOrZero(getItemModularProperties(stack), string);
+		return getDoubleOrZero(getMuseItemTag(stack), string);
 	}
 
 	/**
@@ -205,7 +209,7 @@ public class ItemUtils {
 	 */
 	public static void setDoubleOrRemove(ItemStack stack, String string,
 			double value) {
-		setDoubleOrRemove(getItemModularProperties(stack), string, value);
+		setDoubleOrRemove(getMuseItemTag(stack), string, value);
 	}
 
 	public static String getStringOrNull(NBTTagCompound itemProperties,
@@ -220,7 +224,7 @@ public class ItemUtils {
 	}
 
 	public static String getStringOrNull(ItemStack stack, String key) {
-		return getStringOrNull(getItemModularProperties(stack), key);
+		return getStringOrNull(getMuseItemTag(stack), key);
 	}
 
 	public static void setStringOrNull(NBTTagCompound itemProperties,
@@ -235,7 +239,7 @@ public class ItemUtils {
 	}
 
 	public static void setStringOrNull(ItemStack stack, String key, String value) {
-		setStringOrNull(getItemModularProperties(stack),
+		setStringOrNull(getMuseItemTag(stack),
 				key, value);
 	}
 
