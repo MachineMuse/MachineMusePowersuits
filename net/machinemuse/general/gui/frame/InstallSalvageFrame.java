@@ -1,16 +1,17 @@
-package net.machinemuse.powersuits.gui.frame;
+package net.machinemuse.general.gui.frame;
 
 import java.util.List;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.Point2D;
-import net.machinemuse.powersuits.gui.clickable.ClickableButton;
-import net.machinemuse.powersuits.gui.clickable.ClickableItem;
-import net.machinemuse.powersuits.gui.clickable.ClickableModule;
+import net.machinemuse.general.gui.clickable.ClickableButton;
+import net.machinemuse.general.gui.clickable.ClickableItem;
+import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.machinemuse.powersuits.network.MusePacketInstallModuleRequest;
+import net.machinemuse.powersuits.network.MusePacketSalvageModuleRequest;
 import net.machinemuse.powersuits.powermodule.GenericModule;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -40,7 +41,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 				new Point2D(20, 6), true);
 		this.salvageButton = new ClickableButton("Salvage", new Point2D(
 				topleft.x() + sizex / 2.0, topleft.y() + sizey / 4.0),
-				new Point2D(20, 6), false);
+				new Point2D(20, 6), true);
 
 	}
 
@@ -62,15 +63,12 @@ public class InstallSalvageFrame extends ScrollableFrame {
 	private void drawItems() {
 		ItemStack stack = targetItem.getSelectedItem().getItem();
 		GenericModule module = targetModule.getSelectedModule().getModule();
-		List<ItemStack> itemsToDraw;
+		List<ItemStack> itemsToDraw = targetModule.getSelectedModule()
+				.getModule().getInstallCost();
 		double yoffset;
 		if (!ItemUtils.itemHasModule(stack, module.getName())) {
-			itemsToDraw = targetModule.getSelectedModule()
-					.getModule().getInstallCost();
 			yoffset = topleft.y() + 4;
 		} else {
-			itemsToDraw = targetModule.getSelectedModule()
-					.getModule().getSalvageRefund();
 			yoffset = bottomright.y() - 20;
 		}
 		double xoffset = -8.0 * itemsToDraw.size()
@@ -118,6 +116,12 @@ public class InstallSalvageFrame extends ScrollableFrame {
 	}
 
 	private void doSalvage() {
+		GenericModule module = targetModule.getSelectedModule().getModule();
+		MusePacket newpacket = new MusePacketSalvageModuleRequest(
+				(Player) player,
+				targetItem.getSelectedItem().inventorySlot,
+				module.getName());
+		player.sendQueue.addToSendQueue(newpacket.getPacket250());
 	}
 
 	/**

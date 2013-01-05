@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.gui.clickable;
+package net.machinemuse.general.gui.clickable;
 
 import net.machinemuse.general.geometry.Point2D;
 

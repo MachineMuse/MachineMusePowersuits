@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.common;
 
-import net.machinemuse.powersuits.gui.GuiTinkerTable;
+import net.machinemuse.powersuits.block.GuiTinkerTable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;

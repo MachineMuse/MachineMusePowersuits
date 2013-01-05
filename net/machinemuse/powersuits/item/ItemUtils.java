@@ -1,13 +1,13 @@
 package net.machinemuse.powersuits.item;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
+import net.machinemuse.general.MuseMathUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.GenericModule;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -157,15 +157,12 @@ public class ItemUtils {
 	 */
 	public static boolean hasInInventory(List<ItemStack> workingUpgradeCost,
 			InventoryPlayer inventory) {
-		for (int j = 0; j < workingUpgradeCost.size(); j++) {
-			ItemStack stackInCost = workingUpgradeCost.get(j);
+		for (ItemStack stackInCost : workingUpgradeCost) {
 			int found = 0;
 			for (int i = 0; i < inventory.getSizeInventory(); i++) {
 				ItemStack stackInInventory = inventory.getStackInSlot(i);
-				if (stackInInventory != null) {
-					if (stackInInventory.itemID == stackInCost.itemID) {
-						found += stackInInventory.stackSize;
-					}
+				if (isSameItem(stackInInventory, stackInCost)) {
+					found += stackInInventory.stackSize;
 				}
 			}
 			if (found < stackInCost.stackSize) {
@@ -182,24 +179,19 @@ public class ItemUtils {
 	public static List<Integer> deleteFromInventory(List<ItemStack> cost,
 			InventoryPlayer inventory) {
 		List<Integer> slots = new LinkedList<Integer>();
-		for (int j = 0; j < cost.size(); j++) {
-			ItemStack stackInCost = cost.get(j);
+		for (ItemStack stackInCost : cost) {
 			int remaining = stackInCost.stackSize;
-			for (int i = 0; i < inventory.getSizeInventory(); i++) {
+			for (int i = 0; i < inventory.getSizeInventory() && remaining > 0; i++) {
 				ItemStack stackInInventory = inventory.getStackInSlot(i);
-				if (stackInInventory != null) {
-					if (stackInInventory.itemID == stackInCost.itemID) {
-						if (stackInInventory.stackSize > remaining) {
-							stackInInventory.stackSize -= remaining;
-							remaining = 0;
-							slots.add(i);
-							break;
-						} else {
-							remaining -= stackInInventory.stackSize;
-							inventory.setInventorySlotContents(i, null);
-						}
-						slots.add(i);
+				if (isSameItem(stackInInventory, stackInCost)) {
+					int numToTake = Math.min(stackInInventory.stackSize,
+							remaining);
+					stackInInventory.stackSize -= numToTake;
+					remaining -= numToTake;
+					if (stackInInventory.stackSize == 0) {
+						inventory.setInventorySlotContents(i, null);
 					}
+					slots.add(i);
 				}
 			}
 		}
@@ -298,5 +290,90 @@ public class ItemUtils {
 			max += ((IModularItem) stack.getItem()).getMaxJoules(stack);
 		}
 		return max;
+	}
+
+	public static boolean canStackTogether(ItemStack stack1, ItemStack stack2) {
+		if (!isSameItem(stack1, stack2)) {
+			return false;
+		} else if (!stack1.isStackable()) {
+			return false;
+		} else if (stack1.stackSize >= stack1.getMaxStackSize()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public static boolean isSameItem(ItemStack stack1, ItemStack stack2) {
+		if (stack1 == null || stack2 == null) {
+			return false;
+		} else if (stack1.itemID != stack2.itemID) {
+			return false;
+		} else if ((!stack1.isItemStackDamageable())
+				&& (stack1.getItemDamage() != stack2.getItemDamage())) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public static void transferStackWithChance(ItemStack itemsToGive,
+			ItemStack destinationStack, double chanceOfSuccess) {
+		int maxSize = destinationStack.getMaxStackSize();
+		while (itemsToGive.stackSize > 0
+				&& destinationStack.stackSize < maxSize) {
+			itemsToGive.stackSize -= 1;
+			if (MuseMathUtils.nextDouble() < chanceOfSuccess) {
+				destinationStack.stackSize += 1;
+			}
+		}
+	}
+
+	public static Set<Integer> giveOrDropItems(ItemStack itemsToGive,
+			EntityPlayerMP player) {
+		return giveOrDropItemWithChance(itemsToGive, player, 1.0);
+	}
+
+	public static Set<Integer> giveOrDropItemWithChance(ItemStack itemsToGive,
+			EntityPlayerMP player, double chanceOfSuccess) {
+		Set<Integer> slots = new HashSet<Integer>();
+
+		// First try to add the items to existing stacks
+		for (int i = 0; i < player.inventory.getSizeInventory()
+				&& itemsToGive.stackSize > 0; i++) {
+			ItemStack currentStack = player.inventory.getStackInSlot(i);
+			if (canStackTogether(currentStack, itemsToGive)) {
+				slots.add(i);
+				transferStackWithChance(itemsToGive, currentStack,
+						chanceOfSuccess);
+			}
+		}
+		// Then try to add the items to empty slots
+		for (int i = 0; i < player.inventory.getSizeInventory()
+				&& itemsToGive.stackSize > 0; i++) {
+			if (player.inventory.getStackInSlot(i) == null) {
+				ItemStack destination = new ItemStack(itemsToGive.itemID,
+						0, itemsToGive.getItemDamage());
+				transferStackWithChance(itemsToGive, destination,
+						chanceOfSuccess);
+				if (destination.stackSize > 0) {
+					player.inventory.setInventorySlotContents(i,
+							destination);
+					slots.add(i);
+				}
+			}
+		}
+		// Finally spawn the items in the world.
+		if (itemsToGive.stackSize > 0) {
+			for (int i = 0; i < itemsToGive.stackSize; i++) {
+				if (MuseMathUtils.nextDouble() < chanceOfSuccess) {
+					ItemStack copyStack = itemsToGive.copy();
+					copyStack.stackSize = 1;
+					player.dropPlayerItem(copyStack);
+				}
+			}
+		}
+
+		return slots;
 	}
 }

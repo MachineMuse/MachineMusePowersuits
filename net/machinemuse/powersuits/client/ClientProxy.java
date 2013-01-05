@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.client;
 
+import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.block.TileEntityTinkerTable;
 import net.machinemuse.powersuits.block.TinkerTableRenderer;
 import net.machinemuse.powersuits.common.CommonProxy;
@@ -8,6 +9,7 @@ import net.machinemuse.powersuits.tick.PlayerTickHandler;
 import net.machinemuse.powersuits.tick.RenderTickHandler;
 import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
@@ -32,10 +34,14 @@ public class ClientProxy extends CommonProxy {
 		// MinecraftForgeClient.registerItemRenderer(
 		// i.shiftedIndex, eRenderer);
 		// }
+		int tinkTableRenderID = RenderingRegistry.getNextAvailableRenderId();
+		TinkerTableRenderer tinkTableRenderer = new TinkerTableRenderer(
+				tinkTableRenderID);
+		BlockTinkerTable.instance().setRenderType(tinkTableRenderID);
 		ClientRegistry.bindTileEntitySpecialRenderer(
-				TileEntityTinkerTable.class, new TinkerTableRenderer());
+				TileEntityTinkerTable.class, tinkTableRenderer);
+		RenderingRegistry.registerBlockHandler(tinkTableRenderer);
 		MinecraftForgeClient.preloadTexture("/tinkertable.png");
-		MinecraftForgeClient.preloadTexture("/moduleicons.png");
 		MinecraftForgeClient.preloadTexture("/icons.png");
 	}
 

@@ -6,8 +6,8 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.machinemuse.powersuits.gui.MuseGui;
-import net.machinemuse.powersuits.gui.MuseIcon;
+import net.machinemuse.general.gui.MuseGui;
+import net.machinemuse.general.gui.MuseIcon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.PositionTextureVertex;
@@ -33,42 +33,13 @@ public abstract class MuseRenderer {
 
 	protected static RenderItem renderItem;
 
-	/**
-	 * Mostly for placeholder graphics, this function draws a 3x3 grid of swirly
-	 * circles over a 16x16 square.
-	 */
-	public static void draw3x3placeholder(boolean a, boolean b, boolean c,
-			boolean d,
-			boolean e, boolean f, boolean g, boolean h, boolean i) {
-		if (a)
-			drawCircleAround(3, 3, 2);
-		if (b)
-			drawCircleAround(8, 3, 2);
-		if (c)
-			drawCircleAround(13, 3, 2);
-
-		if (d)
-			drawCircleAround(3, 8, 2);
-		if (e)
-			drawCircleAround(8, 8, 2);
-		if (f)
-			drawCircleAround(13, 8, 2);
-
-		if (g)
-			drawCircleAround(3, 13, 2);
-		if (h)
-			drawCircleAround(8, 13, 2);
-		if (i)
-			drawCircleAround(13, 13, 2);
-	}
-
 	public static void drawCircleAround(double xoffset, double yoffset,
 			double radius) {
 		int start = (int) (System.currentTimeMillis() / 4 % 360);
 		double startangle = 2.0 * Math.PI * start / 360.0;
 		double endangle = startangle + 2.0 * Math.PI;
 
-		DoubleBuffer vertices = getGradientArcPoints(startangle, endangle,
+		DoubleBuffer vertices = getArcPoints(startangle, endangle,
 				radius, xoffset, yoffset, 0);
 		int numvertices = vertices.limit() / 3;
 		DoubleBuffer colours = getColourGradient(
@@ -146,7 +117,7 @@ public abstract class MuseRenderer {
 	 *            Convenience parameter, added to every vertex
 	 * @return
 	 */
-	public static DoubleBuffer getGradientArcPoints(double startangle,
+	public static DoubleBuffer getArcPoints(double startangle,
 			double endangle, double radius, double xoffset, double yoffset,
 			double zoffset) {
 		// roughly 8 vertices per Minecraft 'pixel' - should result in at least
@@ -413,24 +384,24 @@ public abstract class MuseRenderer {
 
 		arraysOnC();
 
-		DoubleBuffer corner = getGradientArcPoints(
+		DoubleBuffer corner = getArcPoints(
 				Math.PI, 3.0 * Math.PI / 2.0,
 				cornerradius, left + cornerradius, top + cornerradius, zLevel);
 
 		DoubleBuffer allVertices = BufferUtils.createDoubleBuffer(corner
 				.limit() * 4);
 		allVertices.put(corner);
-		corner = getGradientArcPoints(
+		corner = getArcPoints(
 				3.0 * Math.PI / 2.0, 2.0 * Math.PI,
 				cornerradius, left + cornerradius, bottom - cornerradius,
 				zLevel);
 		allVertices.put(corner);
-		corner = getGradientArcPoints(
+		corner = getArcPoints(
 				0, Math.PI / 2.0,
 				cornerradius, right - cornerradius, bottom - cornerradius,
 				zLevel);
 		allVertices.put(corner);
-		corner = getGradientArcPoints(
+		corner = getArcPoints(
 				Math.PI / 2.0, Math.PI,
 				cornerradius, right - cornerradius, top + cornerradius,
 				zLevel);

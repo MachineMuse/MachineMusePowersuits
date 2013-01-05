@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.gui.frame;
+package net.machinemuse.general.gui.frame;
 
 import java.util.List;
 

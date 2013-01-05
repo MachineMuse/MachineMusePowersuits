@@ -3,21 +3,30 @@
  */
 package net.machinemuse.powersuits.block;
 
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.opengl.GL11;
 
-/**
- * @author Claire
- * 
- */
-public class TinkerTableRenderer extends TileEntitySpecialRenderer {
-	protected TinkerTableModel model;
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
-	public TinkerTableRenderer() {
+/**
+ * Rendering handler for the tinkertable
+ * 
+ * @author MachineMuse
+ */
+public class TinkerTableRenderer extends TileEntitySpecialRenderer implements
+		ISimpleBlockRenderingHandler {
+	protected TinkerTableModel model;
+	protected int renderId;
+
+	public TinkerTableRenderer(int renderId) {
 		model = new TinkerTableModel();
+		this.renderId = renderId;
 	}
 
 	@Override
@@ -39,5 +48,34 @@ public class TinkerTableRenderer extends TileEntitySpecialRenderer {
 
 		GL11.glPopMatrix();
 
+	}
+
+	@Override
+	public void renderInventoryBlock(Block block, int metadata, int modelID,
+			RenderBlocks renderer) {
+		ForgeHooksClient.bindTexture("/tinkertable.png", 0);
+		GL11.glPushMatrix();
+		GL11.glTranslated(0, -1.0 / 16.0, 0);
+		model.doRender(null, 0, 0, 0, 0, 0);
+		GL11.glPopMatrix();
+
+	}
+
+	// Should do nothing since the tile entity handles all the rendering of the
+	// world block
+	@Override
+	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z,
+			Block block, int modelId, RenderBlocks renderer) {
+		return true;
+	}
+
+	@Override
+	public boolean shouldRender3DInInventory() {
+		return true;
+	}
+
+	@Override
+	public int getRenderId() {
+		return renderId;
 	}
 }

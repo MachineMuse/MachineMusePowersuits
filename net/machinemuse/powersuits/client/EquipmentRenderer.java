@@ -98,17 +98,9 @@ public class EquipmentRenderer implements IItemRenderer {
 	}
 
 	public void drawHead(ItemStack itemStack) {
-		MuseRenderer.draw3x3placeholder(
-				true, true, true,
-				true, false, true,
-				false, false, false);
 	}
 
 	public void drawTorso(ItemStack itemStack) {
-		MuseRenderer.draw3x3placeholder(
-				true, false, true,
-				true, true, true,
-				true, true, true);
 	}
 
 	public void drawLegs(ItemStack itemStack) {
@@ -145,18 +137,10 @@ public class EquipmentRenderer implements IItemRenderer {
 	}
 
 	public void drawFeet(ItemStack itemStack) {
-		MuseRenderer.draw3x3placeholder(
-				true, true, true,
-				false, true, false,
-				false, true, false);
 		// MuseRenderer.drawRectPrism(0, 16, 0, 16, 0, 16);
 	}
 
 	public void drawTool(ItemStack itemStack) {
-		MuseRenderer.draw3x3placeholder(
-				true, true, true,
-				false, true, false,
-				false, true, false);
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.gui.frame;
+package net.machinemuse.general.gui.frame;
 
 import java.util.List;
 import java.util.Set;
@@ -8,7 +8,6 @@ import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.Point2D;
 import net.machinemuse.powersuits.item.ItemUtils;
-import net.machinemuse.powersuits.tinker.TinkerAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -18,7 +17,6 @@ public class StatsFrame extends ScrollableFrame implements IGuiFrame {
 	protected NBTTagCompound properties;
 	protected ItemStack stack;
 	protected Set<String> propertiesToList;
-	protected TinkerAction previewAction;
 
 	public StatsFrame(Point2D topleft, Point2D bottomright,
 			Colour borderColour, Colour insideColour, ItemStack stack) {

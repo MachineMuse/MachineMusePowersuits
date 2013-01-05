@@ -3,7 +3,8 @@ package net.machinemuse.powersuits.powermodule;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.machinemuse.powersuits.gui.MuseIcon;
+import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.powersuits.tinker.TinkerProperty;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -14,8 +15,8 @@ public class GenericModule {
 	protected MuseIcon icon;
 	protected boolean[] validSlots;
 	protected List<ItemStack> installCost;
-	protected List<ItemStack> salvageRefund;
-	protected List<TinkerTradeoff> tradeoffs;
+	protected List<String> tweaks;
+	protected List<TinkerProperty> properties;
 	protected NBTTagCompound defaultTag;
 
 	public GenericModule(String name,
@@ -23,8 +24,8 @@ public class GenericModule {
 		this.name = name;
 		this.validSlots = validSlots;
 		this.installCost = new ArrayList();
-		this.salvageRefund = new ArrayList();
-		this.tradeoffs = new ArrayList();
+		this.properties = new ArrayList();
+		this.tweaks = new ArrayList();
 		this.defaultTag = new NBTTagCompound();
 	}
 
@@ -56,12 +57,13 @@ public class GenericModule {
 		return installCost;
 	}
 
-	public List<ItemStack> getSalvageRefund() {
-		return salvageRefund;
+
+	public List<TinkerProperty> getTradeoffs() {
+		return properties;
 	}
 
-	public List<TinkerTradeoff> getTradeoffs() {
-		return tradeoffs;
+	public List<String> getTweaks() {
+		return tweaks;
 	}
 
 	public GenericModule setDescription(String description) {
@@ -94,13 +96,13 @@ public class GenericModule {
 		return this;
 	}
 
-	public GenericModule addSalvageRefund(ItemStack stack) {
-		this.salvageRefund.add(stack);
+	public GenericModule addTweak(String tweakName) {
+		this.tweaks.add(tweakName);
 		return this;
 	}
 
-	public GenericModule addTradeoff(TinkerTradeoff tradeoff) {
-		this.tradeoffs.add(tradeoff);
+	public GenericModule addRelevantProperty(TinkerProperty tinkerProperty) {
+		this.properties.add(tinkerProperty);
 		return this;
 	}
 }

@@ -3,7 +3,9 @@ package net.machinemuse.powersuits.block;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.PowersuitsMod;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
@@ -20,34 +22,99 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
  * 
  */
 public class BlockTinkerTable extends Block {
+	/**
+	 * Singleton pattern: instance field
+	 */
+	protected static BlockTinkerTable instance;
+
+	/**
+	 * Singleton pattern: instance getter method
+	 */
+	public static BlockTinkerTable instance() {
+		if (instance == null) {
+			instance = new BlockTinkerTable();
+		}
+		return instance;
+	}
+
+	protected int renderType;
+
+	public BlockTinkerTable setRenderType(int id) {
+		this.renderType = id;
+		return this;
+	}
 
 	/**
 	 * Constructor. Reads all the block info from Config.
 	 */
-	public BlockTinkerTable() {
-		super(Config.getAssignedBlockID(Config.Blocks.TinkerTable),
+	protected BlockTinkerTable() {
+		// Block constructor call
+		super(
+				// Block ID
+				Config.getAssignedBlockID(Config.Blocks.TinkerTable),
+				// Texture index (not used since we have a custom renderer)
 				Config.Blocks.TinkerTable.textureIndex,
-				Config.Blocks.TinkerTable.material);
-		setHardness(Config.Blocks.TinkerTable.hardness);
-		setResistance(80.0F);
-		setStepSound(Config.Blocks.TinkerTable.stepSound);
+				// Material (used for various things like whether it can burn,
+				// whether it requires a tool, and whether it can be moved by a
+				// piston
+				Material.iron);
+
+		// Block's internal/ID name
 		setBlockName(Config.Blocks.TinkerTable.idName);
-		setLightOpacity(0); // How much light is stopped by this block
+
+		// Block's creative tab
 		setCreativeTab(Config.getCreativeTab());
-		setLightValue(0.4f); // Light level, 0-1. Gets multiplied by 15.
-		setTickRandomly(false); // Whether to receive random ticks e.g.
-		// plants
+
+		// Block's hardness (base time to harvest it with the correct tool).
+		// Sand = 0.5, Stone = 1.5, Ore = 3.0 Obsidian = 20
+		setHardness(1.5F);
+
+		// Block's resistance to explosions. Stone = 10, obsidian = 2000
+		setResistance(1000.0F);
+
+		// Sound to play when player steps on the block
+		setStepSound(Block.soundMetalFootstep);
+
+		// How much light is stopped by this block; 0 for air, 255 for fully
+		// opaque.
+		setLightOpacity(0);
+
+		// Light level, 0-1. Gets multiplied by 15 and truncated to find the
+		// actual light level for the block.
+		setLightValue(0.4f);
+
+		// Whether to receive random ticks e.g. plants
+		setTickRandomly(false);
 
 		LanguageRegistry.addName(this, Config.Blocks.TinkerTable.englishName);
-		MinecraftForge.setBlockHarvestLevel(this,
-				Config.Blocks.TinkerTable.harvestTool,
-				Config.Blocks.TinkerTable.harvestLevel);
+
+		// Harvest level for this block. par2 can be pickaxe, axe, or shovel, or
+		// a different toolclass. par3 is the minimum level of item required to
+		// break it:
+		// 0=bare hands, 1=wood, 2=stone, 3=iron, 4=diamond
+		MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 0);
+
+		// Recipe
+		ItemStack iron = new ItemStack(Item.ingotIron);
+		ItemStack emerald = new ItemStack(Item.emerald);
+		ItemStack lapis = new ItemStack(Item.dyePowder, 1, 4); // metadata 4 =
+																// 'blue'
 		ItemStack recipeResult = new ItemStack(this);
 
+		GameRegistry.addRecipe(new ItemStack(this),
+				"ILI",
+				"LEL",
+				"ILI",
+				'I', iron, 'L', lapis, 'E', emerald);
+
+		// Register the tile entity, which is only used for rendering at the
+		// moment
 		GameRegistry.registerTileEntity(TileEntityTinkerTable.class,
 				Config.Blocks.TinkerTable.idName);
 
-		GameRegistry.registerBlock(this);
+		// Finally, register the block so that it appears in the game. New
+		// standard requires a name to be passed.
+		GameRegistry.registerBlock(this, Config.Blocks.TinkerTable.idName);
 
 	}
 
@@ -77,7 +144,7 @@ public class BlockTinkerTable extends Block {
 	 */
 	@Override
 	public int getRenderType() {
-		return Config.getAssignedBlockID(Config.Blocks.TinkerTable);
+		return renderType;
 	}
 
 	/**

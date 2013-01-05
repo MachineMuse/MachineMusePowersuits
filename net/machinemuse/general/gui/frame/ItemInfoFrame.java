@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.gui.frame;
+package net.machinemuse.general.gui.frame;
 
 import java.util.Arrays;
 import java.util.List;
@@ -6,9 +6,8 @@ import java.util.List;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.Point2D;
-import net.machinemuse.powersuits.gui.clickable.ClickableItem;
+import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.powersuits.item.IModularItem;
-import net.machinemuse.powersuits.tinker.TinkerAction;
 import net.minecraft.entity.player.EntityPlayer;
 
 import org.lwjgl.opengl.GL11;
@@ -16,7 +15,6 @@ import org.lwjgl.opengl.GL11;
 public class ItemInfoFrame implements IGuiFrame {
 	public static final double SCALEFACTOR = 0.5;
 	protected ItemSelectionFrame target;
-	protected TinkerAction previewAction;
 	protected Point2D topleft;
 	protected Point2D bottomright;
 	protected Colour borderColour;

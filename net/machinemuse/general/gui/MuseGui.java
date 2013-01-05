@@ -1,5 +1,6 @@
-package net.machinemuse.powersuits.gui;
+package net.machinemuse.general.gui;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -7,7 +8,8 @@ import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.FlyFromPointToPoint2D;
 import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.Point2D;
-import net.machinemuse.powersuits.gui.clickable.Clickable;
+import net.machinemuse.general.gui.clickable.Clickable;
+import net.machinemuse.general.gui.frame.IGuiFrame;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -32,28 +34,30 @@ public class MuseGui extends GuiScreen {
 	protected long creationTime;
 	protected int xSize;
 	protected int ySize;
-
+	
+	protected List<IGuiFrame> frames;
+	
 	public MuseGui() {
 		super();
+		frames = new ArrayList();
 	}
-
+	
 	/**
 	 * Adds the buttons (and other controls) to the screen in question.
 	 */
-	@Override
-	public void initGui() {
+	@Override public void initGui() {
 		super.initGui();
 		this.controlList.clear();
 		Keyboard.enableRepeatEvents(true);
 		creationTime = System.currentTimeMillis();
-
+		
 		int xpadding = (width - getxSize()) / 2;
 		int ypadding = (height - ySize) / 2;
 		ul = new FlyFromPointToPoint2D(absX(0), absY(0), absX(-1), absY(-1),
 				150);
 		br = new FlyFromPointToPoint2D(absX(0), absY(0), absX(1), absY(1), 150);
 	}
-
+	
 	/**
 	 * Draws the gradient-rectangle background you see in the TinkerTable gui.
 	 */
@@ -65,7 +69,15 @@ public class MuseGui extends GuiScreen {
 				new Colour(0.0F, 0.2F, 0.0F, 0.8F),
 				this.zLevel, 8f);
 	}
-
+	/**
+	 * Adds a frame to this gui's draw list.
+	 * 
+	 * @param frame
+	 */
+	public void addFrame(IGuiFrame frame) {
+		frames.add(frame);
+	}
+	
 	/**
 	 * Draws all clickables in a list!
 	 */
@@ -81,7 +93,27 @@ public class MuseGui extends GuiScreen {
 			clickie.draw();
 		}
 	}
-
+	
+	/**
+	 * Draws the background layer for the GUI.
+	 */
+	public void drawBackground() {
+		this.drawDefaultBackground(); // Shading on the world view
+		this.drawRectangularBackground(); // The window rectangle
+	}
+	
+	/**
+	 * Called every frame, draws the screen!
+	 */
+	@Override public void drawScreen(int x, int y, float z) {
+		super.drawScreen(x, y, z);
+		drawBackground();
+		for (IGuiFrame frame : frames) {
+			frame.draw();
+		}
+		drawToolTip();
+	}
+	
 	/**
 	 * Returns the first ID in the list that is hit by a click
 	 * 
@@ -103,16 +135,15 @@ public class MuseGui extends GuiScreen {
 		}
 		return -1;
 	}
-
+	
 	/**
 	 * Whether or not this gui pauses the game in single player.
 	 */
-	@Override
-	public boolean doesGuiPauseGame()
+	@Override public boolean doesGuiPauseGame()
 	{
 		return false;
 	}
-
+	
 	/**
 	 * Returns absolute screen coordinates (int 0 to width) from a relative
 	 * coordinate (float -1.0F to +1.0F)
@@ -126,7 +157,7 @@ public class MuseGui extends GuiScreen {
 		int xpadding = (width - getxSize()) / 2;
 		return absx + xpadding;
 	}
-
+	
 	/**
 	 * Returns relative coordinate (float -1.0F to +1.0F) from absolute
 	 * coordinates (int 0 to width)
@@ -137,7 +168,7 @@ public class MuseGui extends GuiScreen {
 		int relx = (int) ((absx - padding) * 2 / getxSize() - 1);
 		return relx;
 	}
-
+	
 	/**
 	 * Returns absolute screen coordinates (int 0 to width) from a relative
 	 * coordinate (float -1.0F to +1.0F)
@@ -151,7 +182,7 @@ public class MuseGui extends GuiScreen {
 		int ypadding = (height - ySize) / 2;
 		return absy + ypadding;
 	}
-
+	
 	/**
 	 * Returns relative coordinate (float -1.0F to +1.0F) from absolute
 	 * coordinates (int 0 to width)
@@ -162,14 +193,14 @@ public class MuseGui extends GuiScreen {
 		int rely = (int) ((absy - padding) * 2 / ySize - 1);
 		return rely;
 	}
-
+	
 	/**
 	 * @return the xSize
 	 */
 	public int getxSize() {
 		return xSize;
 	}
-
+	
 	/**
 	 * @param xSize
 	 *            the xSize to set
@@ -177,14 +208,14 @@ public class MuseGui extends GuiScreen {
 	public void setxSize(int xSize) {
 		this.xSize = xSize;
 	}
-
+	
 	/**
 	 * @return the ySize
 	 */
 	public int getySize() {
 		return ySize;
 	}
-
+	
 	/**
 	 * @param ySize
 	 *            the ySize to set
@@ -192,7 +223,19 @@ public class MuseGui extends GuiScreen {
 	public void setySize(int ySize) {
 		this.ySize = ySize;
 	}
-
+	
+	/**
+	 * Called when the mouse is clicked.
+	 */
+	@Override protected void mouseClicked(int x, int y, int button)
+	{
+		if (button == 0) // Left Mouse Button
+		{
+			for (IGuiFrame frame : frames) {
+				frame.onMouseDown(x, y);
+			}
+		}
+	}
 	/**
 	 * @param x
 	 * @param y
@@ -220,11 +263,11 @@ public class MuseGui extends GuiScreen {
 			} else {
 				top = y;
 				bottom = y + 10 * tooltip.size() + 8;
-
+				
 				left = x + 4;
 				right = x + 12 + strwidth;
 			}
-
+			
 			MuseRenderer.drawFrameRect(
 					left, top,
 					right, bottom,
@@ -238,17 +281,23 @@ public class MuseGui extends GuiScreen {
 			}
 		}
 	}
-
+	
 	/**
 	 * @return
 	 */
-	protected List<String> getToolTip(int x, int y) {
+	public List<String> getToolTip(int x, int y) {
+		List<String> hitTip = null;
+		for (IGuiFrame frame : frames) {
+			hitTip = frame.getToolTip(x, y);
+			if (hitTip != null) {
+				return hitTip;
+			}
+		}
 		return null;
 	}
-
+	
 	/**
 	 * 
 	 */
-	public void refresh() {
-	}
+	public void refresh() {}
 }

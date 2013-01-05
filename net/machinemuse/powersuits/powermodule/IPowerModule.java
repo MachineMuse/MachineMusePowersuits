@@ -2,8 +2,8 @@ package net.machinemuse.powersuits.powermodule;
 
 import java.util.List;
 
-import net.machinemuse.powersuits.gui.MuseIcon;
-import net.machinemuse.powersuits.gui.frame.IGuiFrame;
+import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.general.gui.frame.IGuiFrame;
 import net.minecraft.item.ItemStack;
 
 public interface IPowerModule {

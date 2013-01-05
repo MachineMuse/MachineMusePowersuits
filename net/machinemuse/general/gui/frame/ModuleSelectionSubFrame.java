@@ -1,11 +1,11 @@
-package net.machinemuse.powersuits.gui.frame;
+package net.machinemuse.general.gui.frame;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.Point2D;
-import net.machinemuse.powersuits.gui.clickable.ClickableModule;
+import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.powersuits.powermodule.GenericModule;
 
 public class ModuleSelectionSubFrame {

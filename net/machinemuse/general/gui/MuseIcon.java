@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.gui;
+package net.machinemuse.general.gui;
 
 public class MuseIcon {
 	public static final String ICON_PATH = "/icons.png";

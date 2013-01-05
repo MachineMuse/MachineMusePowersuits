@@ -8,6 +8,7 @@ import java.util.List;
 
 import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.item.ItemUtils;
+import net.machinemuse.powersuits.item.ModularCommon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -25,25 +26,28 @@ import cpw.mods.fml.common.TickType;
  * @author MachineMuse
  */
 public class PlayerTickHandler implements ITickHandler {
-	@Override
-	public void tickStart(EnumSet<TickType> type, Object... tickData) {
+	@Override public void tickStart(EnumSet<TickType> type, Object... tickData) {
 		EntityPlayer player = toPlayer(tickData[0]);
-		float totalEnergy = 0;
-		float totalWeight = 0;
-		if (totalWeight > 25) {
-			player.motionX *= 25 / totalWeight;
-			player.motionZ *= 25 / totalWeight;
+		double totalEnergy = 0;
+		double totalWeight = 0;
+		double weightCapacity = 25000;
+		
+		for (ItemStack item : ItemUtils.getModularItemsInInventory(player)) {
+			totalWeight += ModularCommon.getTotalWeight(item);
+		}
+		if (totalWeight > weightCapacity) {
+			player.motionX *= weightCapacity / totalWeight;
+			player.motionZ *= weightCapacity / totalWeight;
 		}
 	}
-
-	@Override
-	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
+	
+	@Override public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		EntityPlayer player = toPlayer(tickData[0]);
 		List<ItemStack> stacks = ItemUtils
 				.getModularItemsInInventory(player.inventory);
-
+		
 	}
-
+	
 	public static World toWorld(Object data) {
 		World world = null;
 		try {
@@ -55,7 +59,7 @@ public class PlayerTickHandler implements ITickHandler {
 		}
 		return world;
 	}
-
+	
 	public static EntityPlayer toPlayer(Object data) {
 		EntityPlayer player = null;
 		try {
@@ -68,21 +72,19 @@ public class PlayerTickHandler implements ITickHandler {
 		}
 		return player;
 	}
-
+	
 	/**
 	 * Type of tick handled by this handler
 	 */
-	@Override
-	public EnumSet<TickType> ticks() {
+	@Override public EnumSet<TickType> ticks() {
 		return EnumSet.of(TickType.PLAYER);
 	}
-
+	
 	/**
 	 * Profiling label for this handler
 	 */
-	@Override
-	public String getLabel() {
+	@Override public String getLabel() {
 		return "MMMPS: Player Tick";
 	}
-
+	
 }

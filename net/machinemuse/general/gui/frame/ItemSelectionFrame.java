@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.gui.frame;
+package net.machinemuse.general.gui.frame;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,7 +8,7 @@ import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.FlyFromPointToPoint2D;
 import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.Point2D;
-import net.machinemuse.powersuits.gui.clickable.ClickableItem;
+import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 

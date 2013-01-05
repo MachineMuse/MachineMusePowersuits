@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.machinemuse.powersuits.gui.clickable;
+package net.machinemuse.general.gui.clickable;
 
 import java.util.List;
 

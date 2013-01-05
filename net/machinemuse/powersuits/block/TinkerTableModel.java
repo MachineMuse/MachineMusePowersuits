@@ -92,19 +92,18 @@ public class TinkerTableModel extends Render {
 		cube.render(0.015625f);
 		// cube.render(0.016000f);
 		GL11.glPopMatrix();
-
-		GL11.glDisable(GL11.GL_CULL_FACE);
-		for (int i = 0; i < 1; i++) {
-			drawScanLine(angle);
+		if (f1 != 0) {
+			GL11.glDisable(GL11.GL_CULL_FACE);
+			for (int i = 0; i < 1; i++) {
+				drawScanLine(angle);
+			}
+			MuseRenderer.drawGradientRect3D(
+					Vec3.createVectorHelper(0, 1.2, 0),
+					Vec3.createVectorHelper(1, 0, 1),
+					new Colour(0.0f, 1.0f, 0.0f, 0.3f),
+					new Colour(0.0f, 1.0f, 0.0f, 0.3f));
+			// GL11.glEnable(GL11.GL_CULL_FACE);
 		}
-		MuseRenderer.drawGradientRect3D(
-				Vec3.createVectorHelper(0, 1.2, 0),
-				Vec3.createVectorHelper(1, 0, 1),
-				new Colour(0.0f, 1.0f, 0.0f, 0.3f),
-				new Colour(0.0f, 1.0f, 0.0f, 0.3f));
-		GL11.glEnable(GL11.GL_CULL_FACE);
-
-		// MuseRenderer.off2D();
 		RenderHelper.enableStandardItemLighting();
 		MuseRenderer.smoothingOff();
 		GL11.glPopMatrix();

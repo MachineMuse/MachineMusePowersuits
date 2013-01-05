@@ -8,7 +8,6 @@ import net.machinemuse.powersuits.item.*;
 import net.machinemuse.powersuits.network.MusePacketHandler;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.Mod.Init;
@@ -21,7 +20,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
  * Main mod class. This is what Forge loads to get the mod up and running, both
@@ -137,16 +135,8 @@ public class PowersuitsMod {
 	 * Custom function to collect all the block-loading in one place.
 	 */
 	public static void loadBlocks() {
-		Block tinkTable = new BlockTinkerTable();
+		Block tinkTable = BlockTinkerTable.instance();
 
-		ItemStack iron = new ItemStack(Item.ingotIron);
-		ItemStack emerald = new ItemStack(Item.emerald);
-		ItemStack lapis = new ItemStack(Item.dyePowder, 1);
-		GameRegistry.addRecipe(new ItemStack(tinkTable),
-				"ILI",
-				"LEL",
-				"ILI",
-				'I', iron, 'L', lapis, 'E', emerald);
 		allBlocks.add(tinkTable);
 	}
 

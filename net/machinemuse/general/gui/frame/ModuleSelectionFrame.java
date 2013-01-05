@@ -1,12 +1,12 @@
-package net.machinemuse.powersuits.gui.frame;
+package net.machinemuse.general.gui.frame;
 
 import java.util.*;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.Point2D;
-import net.machinemuse.powersuits.gui.clickable.ClickableItem;
-import net.machinemuse.powersuits.gui.clickable.ClickableModule;
+import net.machinemuse.general.gui.clickable.ClickableItem;
+import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.powermodule.GenericModule;
 
