@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.gui;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -103,28 +102,6 @@ public class MuseGui extends GuiScreen {
 			}
 		}
 		return -1;
-	}
-
-	/**
-	 * Creates a list of points linearly interpolated between points a and b
-	 * noninclusive.
-	 * 
-	 * @return A list of num points
-	 */
-	public List<Point2D> pointsInLine(int num, Point2D a, Point2D b) {
-		List<Point2D> points = new ArrayList<Point2D>();
-		if (num < 1) {
-			return null;
-		} else if (num < 2) {
-			points.add(b.minus(a).times(0.5F).plus(a));
-		} else {
-			Point2D step = b.minus(a).times(1.0F / (num + 1));
-			for (int i = 1; i < num + 2; i++) {
-				points.add(a.plus(step.times(i)));
-			}
-		}
-
-		return points;
 	}
 
 	/**
@@ -234,16 +211,30 @@ public class MuseGui extends GuiScreen {
 					strwidth = currstrwidth;
 				}
 			}
+			int top, bottom, left, right;
+			if (y > this.height / 2) {
+				top = y - 10 * tooltip.size() - 8;
+				bottom = y;
+				left = x;
+				right = x + 8 + strwidth;
+			} else {
+				top = y;
+				bottom = y + 10 * tooltip.size() + 8;
+
+				left = x + 4;
+				right = x + 12 + strwidth;
+			}
+
 			MuseRenderer.drawFrameRect(
-					x, y - 10 * tooltip.size() - 5,
-					x + 10 + strwidth, y + 5,
+					left, top,
+					right, bottom,
 					new Colour(0.2F, 0.6F, 0.9F, 0.7F),
 					new Colour(0.1F, 0.3F, 0.4F, 0.7F),
-					0.0F, 8f);
+					0.0F, 4f);
 			for (int i = 0; i < tooltip.size(); i++) {
 				MuseRenderer.drawString(tooltip.get(i),
-						x + 5,
-						y - 10 * (tooltip.size() - i));
+						left + 4,
+						bottom - 10 * (tooltip.size() - i) - 4);
 			}
 		}
 	}

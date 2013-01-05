@@ -4,11 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.machinemuse.powersuits.gui.MuseIcon;
-import net.machinemuse.powersuits.item.ModularItemCommon;
-import net.machinemuse.powersuits.tinker.TinkerAction;
-import net.machinemuse.powersuits.tinker.TinkerEffectAdditive;
-import net.machinemuse.powersuits.tinker.TinkerEffectMultiplicative;
-import net.machinemuse.powersuits.tinker.TinkerRequirement;
+import net.machinemuse.powersuits.item.ModularCommon;
+import net.machinemuse.powersuits.powermodule.GenericModule;
 import net.minecraft.block.Block;
 import net.minecraft.block.StepSound;
 import net.minecraft.block.material.Material;
@@ -16,6 +13,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
+import basiccomponents.common.BasicComponents;
 
 /**
  * Initial attempt at storing all tweakable/configurable values in one class.
@@ -27,10 +25,18 @@ import net.minecraftforge.common.Configuration;
 public class Config extends Configuration {
 	private static final int[] assignedItemIDs = new int[Items.values().length];
 	private static final int[] assignedBlockIDs = new int[Blocks.values().length];
-	private static final Map<String, TinkerAction> tinkerings = new HashMap();
+	private static final Map<String, GenericModule> allModules = new HashMap();
 
-	public static Map<String, TinkerAction> getTinkerings() {
-		return tinkerings;
+	public static Map<String, GenericModule> getAllModules() {
+		return allModules;
+	}
+
+	public static GenericModule getModule(String key) {
+		return allModules.get(key);
+	}
+
+	public static void addModule(GenericModule module) {
+		allModules.put(module.getName(), module);
 	}
 
 	private static Configuration config;
@@ -112,10 +118,6 @@ public class Config extends Configuration {
 		return assignedBlockIDs[block.ordinal()];
 	}
 
-	public static void addTinkerAction(TinkerAction action) {
-		tinkerings.put(action.getName(), action);
-	}
-
 	/**
 	 * Load all the tinkerings in the config file into memory. Eventually. For
 	 * now, they are hardcoded.
@@ -124,73 +126,68 @@ public class Config extends Configuration {
 		boolean[] ARMORONLY = { true, true, true, true, false };
 		boolean[] TOOLONLY = { false, false, false, false, true };
 		boolean[] ALLITEMS = { true, true, true, true, true };
-		addTinkerAction(new TinkerAction("Add armor plating", ARMORONLY)
-				.addCost(new ItemStack(Item.ingotIron))
-				.addEffect(
-						new TinkerEffectAdditive(
-								ModularItemCommon.ARMOR_VALUE, 1.0, 2.0))
-				.addEffect(
-						new TinkerEffectAdditive(
-								ModularItemCommon.ARMOR_DURABILITY, 1.0, 2.0))
-				.addEffect(
-						new TinkerEffectAdditive(
-								ModularItemCommon.ARMOR_WEIGHT, 1.0, 2.0))
+
+		GenericModule module;
+
+		module = new GenericModule(ModularCommon.IRON_SHIELDING, ARMORONLY)
+				.setDescription("Iron plating is heavy but protective.")
+				.setIcon(MuseIcon.PLATE_1_RED)
+				.setCategory(ModularCommon.CATEGORY_ARMOR)
+				.setDefaultDouble(ModularCommon.ARMOR_THICKNESS, 3)
+				.addInstallCost(new ItemStack(Item.ingotIron, 3))
+				.addInstallCost(
+						new ItemStack(BasicComponents.itemCircuit, 1, 0))
+				.addSalvageRefund(new ItemStack(Item.ingotIron, 2));
+		addModule(module);
+
+		module = new GenericModule(ModularCommon.DIAMOND_SHIELDING, ARMORONLY)
 				.setDescription(
-						"By adding some iron plating, you might be able to make this armor more protective.")
-				.setCategory("Armor")
-				.setIcon(new MuseIcon("/icons.png", 1)));
-		addTinkerAction(new TinkerAction("Lighten armor plating", ARMORONLY)
-				.addCost(new ItemStack(Item.lightStoneDust))
-				.addEffect(
-						new TinkerEffectMultiplicative(
-								ModularItemCommon.ARMOR_VALUE, .95, 1))
-				.addEffect(
-						new TinkerEffectMultiplicative(
-								ModularItemCommon.ARMOR_DURABILITY, .95, 1))
-				.addEffect(
-						new TinkerEffectMultiplicative(
-								ModularItemCommon.ARMOR_WEIGHT, .9, 1))
-				.addRequirement(
-						new TinkerRequirement(ModularItemCommon.ARMOR_VALUE,
-								2, 10))
-				.addRequirement(
-						new TinkerRequirement(ModularItemCommon.ARMOR_WEIGHT,
-								2, 1000000))
+						"Diamonds are lighter, harder, and more protective than Iron but much harder to find.")
+				.setIcon(MuseIcon.PLATE_1_BLUE)
+				.setCategory(ModularCommon.CATEGORY_ARMOR)
+				.setDefaultDouble(ModularCommon.ARMOR_THICKNESS, 3)
+				.setDefaultDouble(ModularCommon.ARMOR_DURABILITY, 1000)
+				.addInstallCost(new ItemStack(Item.diamond, 3))
+				.addInstallCost(
+						new ItemStack(BasicComponents.itemCircuit, 1, 1))
+				.addSalvageRefund(new ItemStack(Item.diamond, 2));
+		addModule(module);
+
+		module = new GenericModule(ModularCommon.SHOVEL, TOOLONLY)
 				.setDescription(
-						"Using the lightening effects of glowstone, you might be able to reduce the weight of this armor.")
-				.setCategory("Armor")
-				.setIcon(new MuseIcon("/icons.png", 4)));
-		addTinkerAction(new TinkerAction("Install a battery", ALLITEMS)
-				.addCost(new ItemStack(Item.redstone))
-				.addEffect(
-						new TinkerEffectAdditive(
-								ModularItemCommon.MAXIMUM_ENERGY, 10000.0,
-								20000.0))
-				.addEffect(
-						new TinkerEffectAdditive(
-								ModularItemCommon.BATTERY_WEIGHT, 0.5, 1))
-				.addRequirement(
-						new TinkerRequirement(
-								ModularItemCommon.MAXIMUM_ENERGY, -100, 0))
+						"Shovels are good for soft materials like dirt and sand.")
+				.setIcon(MuseIcon.TOOL_SHOVEL)
+				.setCategory(ModularCommon.CATEGORY_TOOL)
+				.addInstallCost(new ItemStack(Item.ingotIron, 3))
+				.addSalvageRefund(new ItemStack(Item.ingotIron, 2));
+		addModule(module);
+
+		module = new GenericModule(ModularCommon.AXE, TOOLONLY)
 				.setDescription(
-						"By adding a battery, you might be able to have a source of energy on hand at all times.")
-				.setCategory("Battery")
-				.setIcon(new MuseIcon("/icons.png", 5)));
-		addTinkerAction(new TinkerAction("Lighten the battery", ALLITEMS)
-				.addCost(new ItemStack(Item.redstone))
-				.addEffect(
-						new TinkerEffectMultiplicative(
-								ModularItemCommon.MAXIMUM_ENERGY, .95, 1))
-				.addEffect(
-						new TinkerEffectMultiplicative(
-								ModularItemCommon.BATTERY_WEIGHT, .9, .95))
-				.addRequirement(
-						new TinkerRequirement(
-								ModularItemCommon.MAXIMUM_ENERGY, '>', 10000))
+						"Axes are mostly for chopping trees.")
+				.setIcon(MuseIcon.TOOL_AXE)
+				.setCategory(ModularCommon.CATEGORY_TOOL)
+				.addInstallCost(new ItemStack(Item.ingotIron, 3))
+				.addSalvageRefund(new ItemStack(Item.ingotIron, 2));
+		addModule(module);
+
+		module = new GenericModule(ModularCommon.PICKAXE, TOOLONLY)
 				.setDescription(
-						"Using lapis instead of redstone might allow you to store the same amount of energy in a smaller frame.")
-				.setCategory("Battery")
-				.setIcon(new MuseIcon("/icons.png", 9)));
+						"Picks are good for harder materials like stone and ore.")
+				.setIcon(MuseIcon.TOOL_PICK)
+				.setCategory(ModularCommon.CATEGORY_TOOL)
+				.addInstallCost(new ItemStack(Item.ingotIron, 3))
+				.addSalvageRefund(new ItemStack(Item.ingotIron, 2));
+		addModule(module);
+
+		module = new GenericModule(ModularCommon.BATTERY, ALLITEMS)
+				.setDescription(
+						"Integrate a battery to allow the item to store energy.")
+				.setIcon(MuseIcon.ORB_1_GREEN)
+				.setCategory(ModularCommon.CATEGORY_ENERGY)
+				.addInstallCost(new ItemStack(BasicComponents.itemBattery, 1))
+				.addSalvageRefund(new ItemStack(BasicComponents.itemBattery, 1));
+		addModule(module);
 	}
 
 	/**
@@ -267,7 +264,7 @@ public class Config extends Configuration {
 	 * An enum to describe the various GUI windows which can appear. IDs are
 	 * less important here since this data isn't saved or synced.
 	 * 
-	 * @author Claire
+	 * @author MachineMuse
 	 * 
 	 */
 	public static enum Guis {

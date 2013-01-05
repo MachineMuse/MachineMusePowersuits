@@ -45,9 +45,15 @@ public class ClientProxy extends CommonProxy {
 	 */
 	@Override
 	public void registerHandlers() {
+
 		TickRegistry.registerTickHandler(playerTickHandler, Side.CLIENT);
 		TickRegistry.registerTickHandler(renderTickHandler, Side.CLIENT);
 
 		packetHandler = new MusePacketHandler().register();
+	}
+
+	@Override
+	public void postInit() {
+
 	}
 }

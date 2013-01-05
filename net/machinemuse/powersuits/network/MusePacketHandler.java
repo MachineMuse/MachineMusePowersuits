@@ -32,7 +32,7 @@ import cpw.mods.fml.relauncher.Side;
  */
 public class MusePacketHandler implements IPacketHandler {
 	public MusePacketHandler register() {
-		addPacketType(1, MusePacketTinkerRequest.class);
+		addPacketType(1, MusePacketInstallModuleRequest.class);
 		addPacketType(2, MusePacketInventoryRefresh.class);
 
 		NetworkRegistry.instance().registerChannel(this,

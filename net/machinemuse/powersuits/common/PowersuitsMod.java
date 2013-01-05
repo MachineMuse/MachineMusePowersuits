@@ -159,5 +159,6 @@ public class PowersuitsMod {
 	 */
 	@PostInit
 	public void postInit(FMLPostInitializationEvent event) {
+		proxy.postInit();
 	}
 }

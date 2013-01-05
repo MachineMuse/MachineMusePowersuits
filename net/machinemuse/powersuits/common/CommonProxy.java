@@ -37,4 +37,9 @@ public class CommonProxy {
 		packetHandler = new MusePacketHandler();
 		packetHandler.register();
 	}
+
+	public void postInit() {
+		// TODO Auto-generated method stub
+
+	}
 }

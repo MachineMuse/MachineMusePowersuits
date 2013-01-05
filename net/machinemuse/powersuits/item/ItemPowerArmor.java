@@ -56,7 +56,12 @@ public abstract class ItemPowerArmor extends ItemArmor
 		// How much of incoming damage is absorbed by this armor piece.
 		// 1.0 = absorbs all damage
 		// 0.5 = 50% damage to item, 50% damage carried over
-		double absorbRatio = Math.min(0.04 * getArmorDouble(armor), 0.25);
+		double absorbRatio;
+		if (player instanceof EntityPlayer) {
+			absorbRatio = 0.04 * getArmorDouble((EntityPlayer) player, armor);
+		} else {
+			absorbRatio = 0.1;
+		}
 
 		// Maximum damage absorbed by this piece. Actual damage to this item
 		// will be clamped between (damage * absorbRatio) and (absorbMax). Note
@@ -73,27 +78,22 @@ public abstract class ItemPowerArmor extends ItemArmor
 	 */
 	@Override
 	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
-		return (int) getArmorDouble(armor);
+		return (int) getArmorDouble(player, armor);
 	}
 
-	public double getArmorDouble(ItemStack stack) {
+	public double getArmorDouble(EntityPlayer player, ItemStack stack) {
 		double totalarmor = 0;
 		NBTTagCompound props = ItemUtils.getMuseItemTag(stack);
 
-		double physArmor = ItemUtils.getDoubleOrZero(props,
-				ModularItemCommon.ARMOR_VALUE);
-		double armorDura = ItemUtils.getDoubleOrZero(props,
-				ModularItemCommon.ARMOR_DURABILITY);
-		if (armorDura > 0) {
-			totalarmor += physArmor;
-		}
+		double energy = ItemUtils.getAvailableEnergy(player);
 
-		double elecArmor = ItemUtils.getDoubleOrZero(props,
-				ModularItemCommon.PASSIVE_SHIELDING);
-		double energy = ItemUtils.getDoubleOrZero(props,
-				ModularItemCommon.CURRENT_ENERGY);
-		if (energy > 0) {
-			totalarmor += elecArmor;
+		if (ItemUtils.itemHasModule(stack, ModularCommon.IRON_SHIELDING)
+				&& energy > 0) {
+			totalarmor += 3;
+		}
+		if (ItemUtils.itemHasModule(stack, ModularCommon.DIAMOND_SHIELDING)
+				&& energy > 0) {
+			totalarmor += 5;
 		}
 
 		// Make it so each armor piece can only contribute 1/4 of the armor
@@ -138,7 +138,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 	@Override
 	public void addInformation(ItemStack stack,
 			EntityPlayer player, List currentTipList, boolean advancedToolTips) {
-		ModularItemCommon.addInformation(stack, player, currentTipList,
+		ModularCommon.addInformation(stack, player, currentTipList,
 				advancedToolTips);
 	}
 
@@ -147,11 +147,12 @@ public abstract class ItemPowerArmor extends ItemArmor
 	}
 
 	@Override
-	public List<String> getLongInfo(ItemStack stack) {
+	public List<String> getLongInfo(EntityPlayer player, ItemStack stack) {
 		List<String> info = new ArrayList();
 		NBTTagCompound itemProperties = ItemUtils
 				.getMuseItemTag(stack);
-		info.add(formatInfo("Armor", getArmorDouble(stack)));
+		info.add("Detailed Summary");
+		info.add(formatInfo("Armor", getArmorDouble(player, stack)));
 		info.add(formatInfo("Energy Storage", getMaxJoules(stack)));
 		return info;
 	}
@@ -161,32 +162,32 @@ public abstract class ItemPowerArmor extends ItemArmor
 	// //////////////////////////////////////////////
 	@Override
 	public double onReceive(double amps, double voltage, ItemStack itemStack) {
-		return ModularItemCommon.onReceive(amps, voltage, itemStack);
+		return ModularCommon.onReceive(amps, voltage, itemStack);
 	}
 
 	@Override
 	public double onUse(double joulesNeeded, ItemStack itemStack) {
-		return ModularItemCommon.onUse(joulesNeeded, itemStack);
+		return ModularCommon.onUse(joulesNeeded, itemStack);
 	}
 
 	@Override
 	public double getJoules(Object... data) {
-		return ModularItemCommon.getJoules(getAsStack(data));
+		return ModularCommon.getJoules(getAsStack(data));
 	}
 
 	@Override
 	public void setJoules(double joules, Object... data) {
-		ModularItemCommon.setJoules(joules, getAsStack(data));
+		ModularCommon.setJoules(joules, getAsStack(data));
 	}
 
 	@Override
 	public double getMaxJoules(Object... data) {
-		return ModularItemCommon.getMaxJoules(getAsStack(data));
+		return ModularCommon.getMaxJoules(getAsStack(data));
 	}
 
 	@Override
 	public double getVoltage() {
-		return ModularItemCommon.getVoltage();
+		return ModularCommon.getVoltage();
 	}
 
 	@Override

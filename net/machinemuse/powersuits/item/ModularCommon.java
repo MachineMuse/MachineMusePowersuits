@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import universalelectricity.core.electricity.ElectricInfo;
 
-public abstract class ModularItemCommon {
+public abstract class ModularCommon {
 	/**
 	 * String literals as constants to eliminate case sensitivity issues etc.
 	 */
@@ -18,7 +18,21 @@ public abstract class ModularItemCommon {
 	public static final String ARMOR_WEIGHT = "Armor Weight";
 	public static final String ARMOR_DURABILITY = "Armor Durability";
 	public static final String ARMOR_VALUE = "Armor Value";
-	public static final String PASSIVE_SHIELDING = "Passive Shielding";
+	public static final String ARMOR_THICKNESS = "Armor Thickness";
+	public static final String IRON_SHIELDING = "Iron Shielding";
+	public static final String DIAMOND_SHIELDING = "Diamond Shielding";
+	public static final String SHOVEL = "Shovel";
+	public static final String BATTERY = "Battery";
+
+	/**
+	 * Categories for modules
+	 */
+	public static final String CATEGORY_ARMOR = "Armor";
+	public static final String CATEGORY_ENERGY = "Energy";
+	public static final String CATEGORY_TOOL = "Tool";
+	public static final String CATEGORY_WEAPON = "Weapon";
+	public static final String AXE = "Axe";
+	public static final String PICKAXE = "Pickaxe";
 
 	/**
 	 * Adds information to the item's tooltip when 'getting' it.
@@ -40,8 +54,9 @@ public abstract class ModularItemCommon {
 		if (stack.getItem() instanceof ItemPowerTool) {
 			String mode = ItemUtils.getStringOrNull(stack, "Tool Mode");
 			if (mode != null) {
-				currentTipList.add("Mode:" + MuseStringUtils.wrapFormatTags(mode,
-						MuseStringUtils.FormatCodes.Red));
+				currentTipList.add("Mode:"
+						+ MuseStringUtils.wrapFormatTags(mode,
+								MuseStringUtils.FormatCodes.Red));
 			}
 		}
 		String energyinfo = "Energy: "
@@ -83,13 +98,16 @@ public abstract class ModularItemCommon {
 	}
 
 	public static void setJoules(double joules, ItemStack stack) {
-		ItemUtils.setDoubleOrRemove(stack, ModularItemCommon.CURRENT_ENERGY,
+		ItemUtils.setDoubleOrRemove(stack, ModularCommon.CURRENT_ENERGY,
 				joules);
 	}
 
 	public static double getMaxJoules(ItemStack stack) {
-		return ItemUtils.getDoubleOrZero(stack,
-				ModularItemCommon.MAXIMUM_ENERGY);
+		double maxEnergy = 0;
+		if (ItemUtils.itemHasModule(stack, ModularCommon.BATTERY)) {
+			maxEnergy += 20000;
+		}
+		return maxEnergy;
 	}
 
 	public static double getVoltage() {

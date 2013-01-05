@@ -16,7 +16,7 @@ import net.machinemuse.general.geometry.Point2D;
 public class ClickableButton extends Clickable {
 	protected String label;
 	protected Point2D radius;
-	private boolean enabled;
+	protected boolean enabled;
 
 	public ClickableButton(String label, Point2D position, Point2D radius,
 			boolean enabled) {
@@ -52,10 +52,11 @@ public class ClickableButton extends Clickable {
 				position.y() - radius.y(),
 				position.x() + radius.x(),
 				position.y() + radius.y(),
-				topcolour,
 				bottomcolour,
-				0.0F, Math.min(radius.x(), radius.y()));
-		MuseRenderer.drawString(this.label, position.x(), position.y());
+				topcolour,
+				0.0F, 4);
+		MuseRenderer.drawCenteredString(this.label, position.x(),
+				position.y() - 4);
 	}
 
 	/*
@@ -69,8 +70,8 @@ public class ClickableButton extends Clickable {
 		/**
 		 * Todo: Fix!
 		 */
-		boolean hitx = false;
-		boolean hity = false;
+		boolean hitx = Math.abs(position.x() - x) < radius.x();
+		boolean hity = Math.abs(position.y() - y) < radius.y();
 		return hitx && hity;
 	}
 
@@ -81,7 +82,6 @@ public class ClickableButton extends Clickable {
 	 */
 	@Override
 	public List<String> getToolTip() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.item;
 import java.util.List;
 
 import net.machinemuse.powersuits.common.Config;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import universalelectricity.core.implement.IItemElectric;
 
@@ -27,6 +28,6 @@ public interface IModularItem extends IItemElectric {
 	 * @param stack
 	 * @return
 	 */
-	public List<String> getLongInfo(ItemStack stack);
+	public List<String> getLongInfo(EntityPlayer player, ItemStack stack);
 
 }

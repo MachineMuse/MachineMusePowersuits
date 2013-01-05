@@ -168,10 +168,11 @@ public class ItemPowerTool extends ItemTool
 	}
 
 	@Override
-	public List<String> getLongInfo(ItemStack stack) {
+	public List<String> getLongInfo(EntityPlayer player, ItemStack stack) {
 		List<String> info = new ArrayList();
 		NBTTagCompound itemProperties = ItemUtils
 				.getMuseItemTag(stack);
+		info.add("Detailed Summary");
 		info.add("Material\t" + getToolMaterialName());
 		info.add(formatInfo("Energy Storage", getMaxJoules(stack)));
 		return info;
@@ -195,7 +196,7 @@ public class ItemPowerTool extends ItemTool
 	@Override
 	public void addInformation(ItemStack stack,
 			EntityPlayer player, List currentTipList, boolean advancedToolTips) {
-		ModularItemCommon.addInformation(stack, player, currentTipList,
+		ModularCommon.addInformation(stack, player, currentTipList,
 				advancedToolTips);
 	}
 
@@ -204,32 +205,32 @@ public class ItemPowerTool extends ItemTool
 	// /////////////////////////////////////////// //
 	@Override
 	public double onReceive(double amps, double voltage, ItemStack itemStack) {
-		return ModularItemCommon.onReceive(amps, voltage, itemStack);
+		return ModularCommon.onReceive(amps, voltage, itemStack);
 	}
 
 	@Override
 	public double onUse(double joulesNeeded, ItemStack itemStack) {
-		return ModularItemCommon.onUse(joulesNeeded, itemStack);
+		return ModularCommon.onUse(joulesNeeded, itemStack);
 	}
 
 	@Override
 	public double getJoules(Object... data) {
-		return ModularItemCommon.getJoules(getAsStack(data));
+		return ModularCommon.getJoules(getAsStack(data));
 	}
 
 	@Override
 	public void setJoules(double joules, Object... data) {
-		ModularItemCommon.setJoules(joules, getAsStack(data));
+		ModularCommon.setJoules(joules, getAsStack(data));
 	}
 
 	@Override
 	public double getMaxJoules(Object... data) {
-		return ModularItemCommon.getMaxJoules(getAsStack(data));
+		return ModularCommon.getMaxJoules(getAsStack(data));
 	}
 
 	@Override
 	public double getVoltage() {
-		return ModularItemCommon.getVoltage();
+		return ModularCommon.getVoltage();
 	}
 
 	@Override

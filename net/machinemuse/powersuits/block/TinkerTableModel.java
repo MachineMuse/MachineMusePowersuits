@@ -93,15 +93,15 @@ public class TinkerTableModel extends Render {
 		// cube.render(0.016000f);
 		GL11.glPopMatrix();
 
-		for (int i = 0; i < 2; i++) {
+		GL11.glDisable(GL11.GL_CULL_FACE);
+		for (int i = 0; i < 1; i++) {
 			drawScanLine(angle);
 		}
-		GL11.glDisable(GL11.GL_CULL_FACE);
 		MuseRenderer.drawGradientRect3D(
 				Vec3.createVectorHelper(0, 1.2, 0),
 				Vec3.createVectorHelper(1, 0, 1),
-				new Colour(0.3f, 1.0f, 0.3f, 0.8f),
-				new Colour(0.3f, 1.0f, 0.3f, 0.8f));
+				new Colour(0.0f, 1.0f, 0.0f, 0.3f),
+				new Colour(0.0f, 1.0f, 0.0f, 0.3f));
 		GL11.glEnable(GL11.GL_CULL_FACE);
 
 		// MuseRenderer.off2D();
@@ -119,11 +119,16 @@ public class TinkerTableModel extends Render {
 		GL11.glVertex3d(0.5, 1.05 + 0.02f * Math.sin(angle * 3), 0.5);
 		GL11.glVertex3d(xtarg, 1.2f, ytarg);
 		GL11.glEnd();
-
+		// MuseRenderer.drawGradientRect3D(
+		// Vec3.createVectorHelper(Math.floor(xtarg * 16.0) / 16.0, 1.201,
+		// Math.floor(ytarg * 16.0) / 16.0),
+		// Vec3.createVectorHelper(1.0 / 16.0, 0, 1.0 / 16.0),
+		// new Colour(0.0f, 1.0f, 0.0f, 0.4f),
+		// new Colour(0.0f, 1.0f, 0.0f, 0.4f));
 	}
 
 	/**
-	 * Sets the models various rotation angles then renders the model.
+	 * Sets the model's various rotation angles then renders the model.
 	 */
 	public void render(Entity par1Entity, float par2, float par3, float par4,
 			float par5, float par6, float par7) {

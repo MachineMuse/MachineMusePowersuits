@@ -3,6 +3,7 @@ package net.machinemuse.general.geometry;
 import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
 import java.util.List;
 
 import net.machinemuse.powersuits.gui.MuseGui;
@@ -61,8 +62,8 @@ public abstract class MuseRenderer {
 			drawCircleAround(13, 13, 2);
 	}
 
-	public static void drawCircleAround(float xoffset, float yoffset,
-			float radius) {
+	public static void drawCircleAround(double xoffset, double yoffset,
+			double radius) {
 		int start = (int) (System.currentTimeMillis() / 4 % 360);
 		double startangle = 2.0 * Math.PI * start / 360.0;
 		double endangle = startangle + 2.0 * Math.PI;
@@ -89,6 +90,28 @@ public abstract class MuseRenderer {
 		off2D();
 		texturelessOff();
 		arraysOff();
+	}
+
+	/**
+	 * Creates a list of points linearly interpolated between points a and b
+	 * noninclusive.
+	 * 
+	 * @return A list of num points
+	 */
+	public static List<Point2D> pointsInLine(int num, Point2D a, Point2D b) {
+		List<Point2D> points = new ArrayList<Point2D>();
+		if (num < 1) {
+			return null;
+		} else if (num < 2) {
+			points.add(b.minus(a).times(0.5F).plus(a));
+		} else {
+			Point2D step = b.minus(a).times(1.0F / (num + 1));
+			for (int i = 1; i < num + 1; i++) {
+				points.add(a.plus(step.times(i)));
+			}
+		}
+
+		return points;
 	}
 
 	public static DoubleBuffer getColourGradient(Colour c1, Colour c2,
@@ -380,8 +403,8 @@ public abstract class MuseRenderer {
 	/**
 	 * Draws a rectangle with a vertical gradient between the specified colors.
 	 */
-	public static void drawFrameRect(float left, float top, float right,
-			float bottom, Colour borderColour, Colour insideColour,
+	public static void drawFrameRect(double left, double top, double right,
+			double bottom, Colour borderColour, Colour insideColour,
 			double zLevel, double cornerradius)
 	{
 		texturelessOn();
@@ -452,26 +475,23 @@ public abstract class MuseRenderer {
 	public static void drawGradientRect3D(Vec3 origin, Vec3 size, Colour c1,
 			Colour c2)
 	{
-		Tessellator tessellator = Tessellator.instance;
-		tessellator.setBrightness(256);
-
-		tessellator.startDrawingQuads();
-		tessellator.setColorRGBA_F((float) c1.r, (float) c1.g, (float) c1.b,
-				(float) c1.a);
-		tessellator.addVertex(origin.xCoord, origin.yCoord,
+		texturelessOn();
+		GL11.glBegin(GL11.GL_QUADS);
+		c1.doGL();
+		GL11.glVertex3d(origin.xCoord, origin.yCoord,
 				origin.zCoord);
-		tessellator.addVertex(origin.xCoord + size.xCoord, origin.yCoord,
+		GL11.glVertex3d(origin.xCoord + size.xCoord, origin.yCoord,
 				origin.zCoord);
 
-		tessellator.setColorRGBA_F((float) c2.r, (float) c2.g, (float) c2.b,
-				(float) c2.a);
-		tessellator.addVertex(origin.xCoord + size.xCoord, origin.yCoord
+		c2.doGL();
+		GL11.glVertex3d(origin.xCoord + size.xCoord, origin.yCoord
 				+ size.yCoord,
 				origin.zCoord + size.zCoord);
-		tessellator.addVertex(origin.xCoord, origin.yCoord + size.yCoord,
+		GL11.glVertex3d(origin.xCoord, origin.yCoord + size.yCoord,
 				origin.zCoord + size.zCoord);
-		tessellator.draw();
 
+		GL11.glEnd();
+		texturelessOff();
 	}
 
 	public static void drawItemAt(double x, double y, ItemStack item) {
@@ -552,6 +572,11 @@ public abstract class MuseRenderer {
 		RenderHelper.disableStandardItemLighting();
 		getFontRenderer().drawStringWithShadow(s, (int) x, (int) y,
 				new Colour(1, 1, 1, 1).getInt());
+	}
+
+	public static void drawCenteredString(String s, double x, double y) {
+		double xradius = getFontRenderer().getStringWidth(s) / 2;
+		drawString(s, x - xradius, y);
 	}
 
 	/**

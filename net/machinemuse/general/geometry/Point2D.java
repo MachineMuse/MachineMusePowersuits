@@ -10,10 +10,10 @@ package net.machinemuse.general.geometry;
  * 
  */
 public class Point2D {
-	protected float x;
-	protected float y;
+	protected double x;
+	protected double y;
 
-	public Point2D(float x, float y) {
+	public Point2D(double x, double y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -22,19 +22,19 @@ public class Point2D {
 		this(p.x, p.y);
 	}
 
-	public float x() {
+	public double x() {
 		return x;
 	}
 
-	public float y() {
+	public double y() {
 		return y;
 	}
 
-	public void setX(float x) {
+	public void setX(double x) {
 		this.x = x;
 	}
 
-	public void setY(float y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 
@@ -46,7 +46,7 @@ public class Point2D {
 		return new Point2D(x - b.x, y - b.y);
 	}
 
-	public Point2D times(float f) {
-		return new Point2D(x * f, y * f);
+	public Point2D times(double scalefactor) {
+		return new Point2D(x * scalefactor, y * scalefactor);
 	}
 }

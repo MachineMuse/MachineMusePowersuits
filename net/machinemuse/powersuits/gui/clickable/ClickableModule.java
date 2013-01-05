@@ -7,8 +7,7 @@ import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.Point2D;
-import net.machinemuse.powersuits.tinker.TinkerAction;
-import net.machinemuse.powersuits.tinker.TinkerEffect;
+import net.machinemuse.powersuits.powermodule.GenericModule;
 
 /**
  * Extends the Clickable class to make a clickable Augmentation; note that this
@@ -16,26 +15,23 @@ import net.machinemuse.powersuits.tinker.TinkerEffect;
  * 
  * @author MachineMuse
  */
-public class ClickableTinkerAction extends Clickable {
-	private TinkerAction action;
+public class ClickableModule extends Clickable {
+	private GenericModule module;
 
 	/**
 	 * @param vaug
 	 */
-	public ClickableTinkerAction(TinkerAction action, Point2D position) {
+	public ClickableModule(GenericModule module, Point2D position) {
 		super(position);
-		this.setAction(action);
+		this.setModule(module);
 	}
 
 	@Override
 	public List<String> getToolTip() {
 		List<String> toolTipText = new ArrayList();
-		toolTipText.add(getAction().name);
+		toolTipText.add(getModule().getName());
 		toolTipText.addAll(MuseStringUtils.wrapStringToLength(
-				getAction().description, 30));
-		for (TinkerEffect effect : getAction().getEffects()) {
-			toolTipText.add(effect.toString());
-		}
+				getModule().getDescription(), 30));
 
 		return toolTipText;
 	}
@@ -47,7 +43,7 @@ public class ClickableTinkerAction extends Clickable {
 
 		Colour.getGreyscale(1.0f, 1.0f).doGL();
 		MuseRenderer.drawIconAt(getPosition().x() - 8, getPosition().y() - 8,
-				getAction().getIcon(), null);
+				getModule().getIcon(), null);
 
 	}
 
@@ -58,12 +54,12 @@ public class ClickableTinkerAction extends Clickable {
 		return hitx && hity;
 	}
 
-	public TinkerAction getAction() {
-		return action;
+	public GenericModule getModule() {
+		return module;
 	}
 
-	public ClickableTinkerAction setAction(TinkerAction action) {
-		this.action = action;
+	public ClickableModule setModule(GenericModule module) {
+		this.module = module;
 		return this;
 	}
 

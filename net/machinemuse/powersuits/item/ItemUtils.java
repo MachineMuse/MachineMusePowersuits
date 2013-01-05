@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.tinker.TinkerAction;
+import net.machinemuse.powersuits.powermodule.GenericModule;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -15,39 +15,80 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class ItemUtils {
-	public static final String nbtPrefix = "mmmpsmod";
+	public static final String NBTPREFIX = "mmmpsmod";
 
-	public static List<TinkerAction> getValidTinkersForItem(
+	public static List<GenericModule> getValidModulesForItem(
 			EntityPlayer player, ItemStack stack) {
-		List<TinkerAction> validActions = new ArrayList();
-		for (TinkerAction action : Config.getTinkerings().values()) {
-			if (action.validate(player, stack)) {
-				validActions.add(action);
+		List<GenericModule> validModules = new ArrayList();
+		for (GenericModule module : Config.getAllModules().values()) {
+			if (module.isValidForSlot(getAsModular(stack.getItem())
+					.getItemType().ordinal())) {
+				validModules.add(module);
 			}
 		}
-		return validActions;
+		return validModules;
 	}
 
+	public static boolean tagHasModule(NBTTagCompound tag, String moduleName) {
+		if (tag.hasKey(moduleName)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static boolean itemHasModule(ItemStack stack, String moduleName) {
+		return tagHasModule(getMuseItemTag(stack), moduleName);
+	}
+
+	public static void tagAddModule(NBTTagCompound tag, GenericModule module) {
+		tag.setCompoundTag(module.getName(), module.getNewTag());
+	}
+
+	public static void itemAddModule(ItemStack stack, GenericModule module) {
+		tagAddModule(getMuseItemTag(stack), module);
+	}
+
+	public static boolean removeModule(NBTTagCompound tag, String moduleName) {
+		if (tag.hasKey(moduleName)) {
+			tag.removeTag(moduleName);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static boolean removeModule(ItemStack stack, String moduleName) {
+		return removeModule(getMuseItemTag(stack), moduleName);
+	}
+
+	/**
+	 * Gets or creates stack.getTagCompound().getTag(NBTPREFIX)
+	 * 
+	 * @param stack
+	 * @return an NBTTagCompound, may be newly created. If stack is null,
+	 *         returns null.
+	 */
 	public static NBTTagCompound getMuseItemTag(ItemStack stack) {
 		if (stack == null) {
 			return null;
 		}
-		NBTTagCompound properties = null;
+		NBTTagCompound stackTag;
 		if (stack.hasTagCompound()) {
-			NBTTagCompound stackTag = stack.getTagCompound();
-			if (stackTag.hasKey(nbtPrefix)) {
-				properties = stackTag
-						.getCompoundTag(nbtPrefix);
-			} else {
-				properties = new NBTTagCompound();
-				properties.setCompoundTag(nbtPrefix,
-						properties);
-			}
+			stackTag = stack.getTagCompound();
 		} else {
-			NBTTagCompound stackTag = new NBTTagCompound();
+			stackTag = new NBTTagCompound();
 			stack.setTagCompound(stackTag);
+		}
+
+		NBTTagCompound properties;
+		if (stackTag.hasKey(NBTPREFIX)) {
+			properties = stackTag
+					.getCompoundTag(NBTPREFIX);
+		} else {
 			properties = new NBTTagCompound();
-			stackTag.setCompoundTag(nbtPrefix, properties);
+			stackTag.setCompoundTag(NBTPREFIX,
+					properties);
 		}
 		return properties;
 	}
