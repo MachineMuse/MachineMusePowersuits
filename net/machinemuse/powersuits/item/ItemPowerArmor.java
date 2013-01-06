@@ -87,11 +87,11 @@ public abstract class ItemPowerArmor extends ItemArmor
 		
 		if (ItemUtils.itemHasModule(stack, ModularCommon.IRON_SHIELDING)
 				&& energy > 0) {
-			totalarmor += 3;
+			totalarmor = 3;
 		}
 		if (ItemUtils.itemHasModule(stack, ModularCommon.DIAMOND_SHIELDING)
 				&& energy > 0) {
-			totalarmor += 5;
+			totalarmor = 5;
 		}
 		
 		// Make it so each armor piece can only contribute 1/4 of the armor

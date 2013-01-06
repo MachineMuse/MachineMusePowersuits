@@ -14,10 +14,10 @@ public class TinkerProperty {
 		this.units = units;
 		this.callback = callback;
 	}
-
+	
 	public String getString(ItemStack stack) {
 		return label
-				+ ": "
+				+ ":\t"
 				+ MuseStringUtils.formatNumberShort(callback.getValue(stack))
 				+ units;
 	}

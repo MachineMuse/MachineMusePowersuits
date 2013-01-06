@@ -107,11 +107,20 @@ public class MuseGui extends GuiScreen {
 	 */
 	@Override public void drawScreen(int x, int y, float z) {
 		super.drawScreen(x, y, z);
+		update();
 		drawBackground();
 		for (IGuiFrame frame : frames) {
 			frame.draw();
 		}
 		drawToolTip();
+	}
+	public void update() {
+		double x = Mouse.getEventX() * this.width / (double) this.mc.displayWidth;
+		double y = this.height - Mouse.getEventY() * this.height
+				/ (double) this.mc.displayHeight - 1;
+		for (IGuiFrame frame : frames) {
+			frame.update(x, y);
+		}
 	}
 	
 	/**
@@ -229,13 +238,23 @@ public class MuseGui extends GuiScreen {
 	 */
 	@Override protected void mouseClicked(int x, int y, int button)
 	{
-		if (button == 0) // Left Mouse Button
-		{
-			for (IGuiFrame frame : frames) {
-				frame.onMouseDown(x, y);
-			}
+		for (IGuiFrame frame : frames) {
+			frame.onMouseDown(x, y, button);
 		}
 	}
+	
+	/**
+	 * Called when the mouse is moved or a mouse button is released. Signature:
+	 * (mouseX, mouseY, which) which==-1 is mouseMove, which==0 or which==1 is
+	 * mouseUp
+	 */
+	@Override protected void mouseMovedOrUp(int x, int y, int which)
+	{
+		for (IGuiFrame frame : frames) {
+			frame.onMouseUp(x, y, which);
+		}
+	}
+	
 	/**
 	 * @param x
 	 * @param y

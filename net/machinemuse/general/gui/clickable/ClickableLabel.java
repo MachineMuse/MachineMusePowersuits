@@ -28,7 +28,7 @@ public class ClickableLabel implements IClickable {
 	}
 
 	@Override
-	public boolean hitBox(int x, int y) {
+	public boolean hitBox(double x, double y) {
 		return false;
 	}
 

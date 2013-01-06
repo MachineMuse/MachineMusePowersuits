@@ -13,7 +13,7 @@ public class ModuleSelectionSubFrame {
 	protected Point2D topleft;
 	protected Point2D bottomright;
 	protected String category;
-
+	
 	public ModuleSelectionSubFrame(String category, Point2D topleft,
 			Point2D bottomright) {
 		this.category = category;
@@ -21,20 +21,20 @@ public class ModuleSelectionSubFrame {
 		this.bottomright = bottomright;
 		this.moduleButtons = new ArrayList<ClickableModule>();
 	}
-
+	
 	public void draw() {
 		MuseRenderer.drawString(this.category, topleft.x(), topleft.y());
 		for (ClickableModule clickie : moduleButtons) {
 			clickie.draw();
 		}
 	}
-
+	
 	public ClickableModule addModule(GenericModule module) {
 		double x = topleft.x() + 8 + 16 * moduleButtons.size();
 		double y = topleft.y() + 16;
 		ClickableModule clickie = new ClickableModule(module, new Point2D(x, y));
 		this.moduleButtons.add(clickie);
 		return clickie;
-
+		
 	}
 }

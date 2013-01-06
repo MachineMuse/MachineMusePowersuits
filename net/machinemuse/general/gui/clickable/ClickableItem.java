@@ -32,7 +32,7 @@ public class ClickableItem extends Clickable {
 	}
 
 	@Override
-	public boolean hitBox(int x, int y) {
+	public boolean hitBox(double x, double y) {
 		boolean hitx = Math.abs(x - getPosition().x()) < offsetx;
 		boolean hity = Math.abs(y - getPosition().y()) < offsety;
 		return hitx && hity;

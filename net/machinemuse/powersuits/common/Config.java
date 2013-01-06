@@ -5,9 +5,7 @@ import java.util.Map;
 
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ModularCommon;
-import net.machinemuse.powersuits.powermodule.GenericModule;
-import net.machinemuse.powersuits.tinker.ITinkerPropertyCallback;
-import net.machinemuse.powersuits.tinker.TinkerProperty;
+import net.machinemuse.powersuits.powermodule.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -25,6 +23,14 @@ public class Config extends Configuration {
 	private static final int[] assignedItemIDs = new int[Items.values().length];
 	private static final int[] assignedBlockIDs = new int[Blocks.values().length];
 	private static final Map<String, GenericModule> allModules = new HashMap();
+	private static final Map<String, ModularProperty> allModularProperties = new HashMap();
+	
+	public static Map<String, ModularProperty> getAllModularProperties() {
+		return allModularProperties;
+	}
+	public static IModularProperty getModularProperty(String key) {
+		return allModularProperties.get(key);
+	}
 	
 	public static Map<String, GenericModule> getAllModules() {
 		return allModules;
@@ -126,87 +132,98 @@ public class Config extends Configuration {
 		return assignedBlockIDs[block.ordinal()];
 	}
 	
+	public static ModularProperty loadModularProperty(String name, double defaultValue) {
+		if (allModularProperties.containsKey(name)) {
+			return allModularProperties.get(name);
+		} else {
+			ModularProperty newprop = new ModularProperty(name, defaultValue);
+			allModularProperties.put(name, newprop);
+			return newprop;
+		}
+	}
+	
+	public static void loadModularProperties() {
+		loadModularProperty(ModularCommon.MAXIMUM_ENERGY, 0);
+		loadModularProperty(ModularCommon.BATTERY_WEIGHT, 0);
+		loadModularProperty(ModularCommon.SHOVEL_HARVEST_SPEED, 0);
+		loadModularProperty(ModularCommon.SHOVEL_ENERGY_CONSUMPTION, 0);
+		loadModularProperty(ModularCommon.AXE_HARVEST_SPEED, 0);
+		loadModularProperty(ModularCommon.PICKAXE_HARVEST_SPEED, 0);
+		
+	}
+	public static double computeModularProperty(ItemStack stack, String propertyName) {
+		ModularProperty propertyComputer = loadModularProperty(propertyName, 0);
+		return propertyComputer.computeProperty(stack);
+	}
+	public static void addSimpleTradeoff(
+			GenericModule module, String tradeoffName,
+			String firstPropertyName, String firstUnits, double firstPropertyBase, double firstPropertyMultiplier,
+			String secondPropertyName, String secondUnits, double secondPropertyBase, double secondPropertyMultiplier) {
+		IModuleProperty first = new ModulePropertySimple(firstPropertyName, firstUnits, firstPropertyBase, tradeoffName, firstPropertyMultiplier);
+		ModularProperty firstFull = loadModularProperty(firstPropertyName, 0);
+		firstFull.addModuleWithProperty(module.getName(), first);
+		
+		IModuleProperty second = new ModulePropertySimple(secondPropertyName, secondUnits, secondPropertyBase, tradeoffName, secondPropertyMultiplier);
+		ModularProperty secondFull = loadModularProperty(secondPropertyName, 0);
+		secondFull.addModuleWithProperty(module.getName(), second);
+		
+		module.addTweak(tradeoffName);
+		module.addProperty(first);
+		module.addProperty(second);
+	}
+	
 	/**
 	 * Load all the tinkerings in the config file into memory. Eventually. For
 	 * now, they are hardcoded.
 	 */
 	public static void loadTinkerings() {
+		// loadModularProperties();
 		boolean[] ARMORONLY = { true, true, true, true, false };
 		boolean[] TOOLONLY = { false, false, false, false, true };
 		boolean[] ALLITEMS = { true, true, true, true, true };
 		GenericModule module;
 		
-		module = new GenericModule(ModularCommon.IRON_SHIELDING, ARMORONLY)
+		module = new GenericModule(ModularCommon.IRON_SHIELDING, ARMORONLY, MuseIcon.PLATE_1_RED, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Iron plating is heavy but protective.")
-				.setIcon(MuseIcon.PLATE_1_RED)
-				.setCategory(ModularCommon.CATEGORY_ARMOR)
 				.setDefaultDouble(ModularCommon.TRADEOFF_ARMOR_THICKNESS, 3)
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
-				.addInstallCost(
-						new ItemStack(BasicComponents.itemCircuit, 1, 0));
+				.addInstallCost(new ItemStack(BasicComponents.itemCircuit, 1, 0));
 		addModule(module);
 		
-		module = new GenericModule(ModularCommon.DIAMOND_SHIELDING, ARMORONLY)
-				.setDescription(
-						"Diamonds are lighter, harder, and more protective than Iron but much harder to find.")
-				.setIcon(MuseIcon.PLATE_1_BLUE)
-				.setCategory(ModularCommon.CATEGORY_ARMOR)
-				.setDefaultDouble(ModularCommon.TRADEOFF_ARMOR_THICKNESS, 3)
-				.setDefaultDouble(ModularCommon.ARMOR_DURABILITY, 1000)
+		module = new GenericModule(ModularCommon.DIAMOND_SHIELDING, ARMORONLY, MuseIcon.PLATE_1_BLUE, ModularCommon.CATEGORY_ARMOR)
+				.setDescription("Diamonds are lighter, harder, and more protective than Iron but much harder to find.")
 				.addInstallCost(new ItemStack(Item.diamond, 3))
-				.addInstallCost(
-						new ItemStack(BasicComponents.itemCircuit, 1, 1));
+				.addInstallCost(new ItemStack(BasicComponents.itemCircuit, 1, 1));
 		addModule(module);
 		
-		module = new GenericModule(ModularCommon.SHOVEL, TOOLONLY)
-				.setDescription(
-						"Shovels are good for soft materials like dirt and sand.")
-				.setIcon(MuseIcon.TOOL_SHOVEL)
-				.setCategory(ModularCommon.CATEGORY_TOOL)
+		module = new GenericModule(ModularCommon.SHOVEL, TOOLONLY, MuseIcon.TOOL_SHOVEL, ModularCommon.CATEGORY_TOOL)
+				.setDescription("Shovels are good for soft materials like dirt and sand.")
+				.addInstallCost(new ItemStack(Item.ingotIron, 3));
+		addSimpleTradeoff(
+				module,
+				ModularCommon.TRADEOFF_OVERCLOCK,
+				ModularCommon.SHOVEL_ENERGY_CONSUMPTION, "J", 10, 990,
+				ModularCommon.SHOVEL_HARVEST_SPEED, "", 2, 18);
+		addModule(module);
+		
+		module = new GenericModule(ModularCommon.AXE, TOOLONLY, MuseIcon.TOOL_AXE, ModularCommon.CATEGORY_TOOL)
+				.setDescription("Axes are mostly for chopping trees.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3));
 		addModule(module);
 		
-		module = new GenericModule(ModularCommon.AXE, TOOLONLY)
-				.setDescription(
-						"Axes are mostly for chopping trees.")
-				.setIcon(MuseIcon.TOOL_AXE)
-				.setCategory(ModularCommon.CATEGORY_TOOL)
+		module = new GenericModule(ModularCommon.PICKAXE, TOOLONLY, MuseIcon.TOOL_PICK, ModularCommon.CATEGORY_TOOL)
+				.setDescription("Picks are good for harder materials like stone and ore.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3));
 		addModule(module);
 		
-		module = new GenericModule(ModularCommon.PICKAXE, TOOLONLY)
-				.setDescription(
-						"Picks are good for harder materials like stone and ore.")
-				.setIcon(MuseIcon.TOOL_PICK)
-				.setCategory(ModularCommon.CATEGORY_TOOL)
-				.addInstallCost(new ItemStack(Item.ingotIron, 3));
-		addModule(module);
-		
-		ITinkerPropertyCallback maxEnergyCallback = new ITinkerPropertyCallback() {
-			@Override public double getValue(ItemStack stack) {
-				return ModularCommon.getMaxJoules(stack);
-			}
-		};
-		ITinkerPropertyCallback batteryWeightCallback = new ITinkerPropertyCallback() {
-			@Override public double getValue(ItemStack stack) {
-				return ModularCommon.getBatteryWeight(stack);
-			}
-		};
-		
-		module = new GenericModule(ModularCommon.BATTERY_BASIC, ALLITEMS)
-				.setDescription(
-						"Integrate a battery to allow the item to store energy.")
-				.setIcon(MuseIcon.ORB_1_GREEN)
-				.setCategory(ModularCommon.CATEGORY_ENERGY)
-				.addInstallCost(new ItemStack(BasicComponents.itemBattery, 1))
-				
-				.addTweak(ModularCommon.TRADEOFF_BATTERY_SIZE)
-				.addRelevantProperty(
-						new TinkerProperty("Max Energy", "J", maxEnergyCallback))
-				.addRelevantProperty(
-						new TinkerProperty("Weight", "g", batteryWeightCallback))
-		
-		;
+		module = new GenericModule(ModularCommon.BATTERY_BASIC, ALLITEMS, MuseIcon.ORB_1_GREEN, ModularCommon.CATEGORY_ENERGY)
+				.setDescription("Integrate a battery to allow the item to store energy.")
+				.addInstallCost(new ItemStack(BasicComponents.itemBattery, 1));
+		addSimpleTradeoff(
+				module,
+				ModularCommon.TRADEOFF_BATTERY_SIZE,
+				ModularCommon.MAXIMUM_ENERGY, "J", 20000, 480000,
+				ModularCommon.WEIGHT, "g", 2000, 8000);
 		addModule(module);
 	}
 	

@@ -10,12 +10,12 @@ public class ScrollableFrame implements IGuiFrame {
 	protected int totalsize;
 	protected int currentscrollpixels;
 	protected int buttonsize = 5;
-
+	
 	protected Point2D topleft;
 	protected Point2D bottomright;
 	protected Colour borderColour;
 	protected Colour insideColour;
-
+	
 	public ScrollableFrame(Point2D topleft, Point2D bottomright,
 			Colour borderColour, Colour insideColour) {
 		this.topleft = topleft;
@@ -23,17 +23,21 @@ public class ScrollableFrame implements IGuiFrame {
 		this.borderColour = borderColour;
 		this.insideColour = insideColour;
 	}
-
+	
 	protected double getScrollAmount() {
 		return 8;
 	}
-
-	@Override
-	public void draw() {
+	
+	@Override public void update(double mousex, double mousey) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override public void draw() {
 		MuseRenderer.drawFrameRect(topleft, bottomright, borderColour,
 				insideColour, 0, 8);
 	}
-
+	
 	// @Override
 	// public boolean hitBox(int x, int y) {
 	// if (x > left && x < right && y > top && y < bottom) {
@@ -49,29 +53,20 @@ public class ScrollableFrame implements IGuiFrame {
 	// return false;
 	// }
 	// }
-
-	@Override
-	public void onMouseDown(int x, int y) {
+	
+	@Override public void onMouseDown(double x, double y, int button) {
 		// TODO Auto-generated method stub
-
+		
 	}
-
-	@Override
-	public void onMouseMove(int x, int y) {
+	
+	@Override public void onMouseUp(double x, double y, int button) {
 		// TODO Auto-generated method stub
-
+		
 	}
-
-	@Override
-	public void onMouseUp(int x, int y) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List<String> getToolTip(int x, int y) {
+	
+	@Override public List<String> getToolTip(int x, int y) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 }

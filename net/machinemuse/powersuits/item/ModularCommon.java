@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.item;
 import java.util.List;
 
 import net.machinemuse.general.MuseStringUtils;
+import net.machinemuse.powersuits.common.Config;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -15,15 +16,21 @@ public abstract class ModularCommon {
 	public static final String MAXIMUM_ENERGY = "Maximum Energy";
 	public static final String CURRENT_ENERGY = "Current Energy";
 	public static final String ARMOR_WEIGHT = "Armor Weight";
+	public static final String WEIGHT = "Weight";
 	public static final String ARMOR_DURABILITY = "Armor Durability";
 	public static final String ARMOR_VALUE = "Armor Value";
+	public static final String SHOVEL_HARVEST_SPEED = "Shovel Harvest Speed";
+	public static final String SHOVEL_ENERGY_CONSUMPTION = "Shovel Energy Consumption";
+	public static final String AXE_HARVEST_SPEED = "Axe Harvest Speed";
+	public static final String PICKAXE_HARVEST_SPEED = "Pickaxe Harvest Speed";
+	public static final String BATTERY_WEIGHT = "Battery Weight";
 	
 	/**
 	 * Tradeoffs for module properties
 	 */
 	public static final String TRADEOFF_ARMOR_THICKNESS = "Armor Thickness";
 	public static final String TRADEOFF_BATTERY_SIZE = "Battery Size";
-	
+	public static final String TRADEOFF_OVERCLOCK = "Overclock";
 	/**
 	 * Module names
 	 */
@@ -104,11 +111,11 @@ public abstract class ModularCommon {
 	}
 	
 	public static double getMaxJoules(ItemStack stack) {
-		double maxEnergy = 0;
-		if (ItemUtils.itemHasModule(stack, BATTERY_BASIC)) {
-			maxEnergy += 20000 + getBatterySize(stack, BATTERY_BASIC) * 180000;
+		double maxJoules = Config.computeModularProperty(stack, ModularCommon.MAXIMUM_ENERGY);
+		if (getJoules(stack) > maxJoules) {
+			setJoules(maxJoules, stack);
 		}
-		return maxEnergy;
+		return maxJoules;
 	}
 	
 	public static double getVoltage() {
@@ -117,32 +124,33 @@ public abstract class ModularCommon {
 	// //////////////////////// //
 	// --- OTHER PROPERTIES --- //
 	// //////////////////////// //
-	public static double getOrSetModuleProperty(ItemStack stack, String moduleName, String propertyName, double defaultValue) {
-		NBTTagCompound batteryTag = ItemUtils.getMuseItemTag(stack).getCompoundTag(moduleName);
-		if (!batteryTag.hasKey(propertyName)) {
-			batteryTag.setDouble(propertyName, defaultValue);
+	public static double getOrSetModuleProperty(NBTTagCompound moduleTag, String propertyName, double defaultValue) {
+		if (!moduleTag.hasKey(propertyName)) {
+			moduleTag.setDouble(propertyName, defaultValue);
 		}
-		return batteryTag.getDouble(propertyName);
+		return moduleTag.getDouble(propertyName);
 	}
-	
-	public static double getBatterySize(ItemStack stack, String batteryType) {
-		return getOrSetModuleProperty(stack, batteryType, TRADEOFF_BATTERY_SIZE, 0.1);
-	}
-	
-	public static double getBatteryWeight(ItemStack stack) {
-		NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
-		double batteryWeight = 0;
-		if (ItemUtils.tagHasModule(itemTag, BATTERY_BASIC)) {
-			batteryWeight += 100 + getBatterySize(stack, BATTERY_BASIC) * 9900;
-		}
-		return batteryWeight;
-	}
-	
 	public static double getTotalWeight(ItemStack stack) {
-		double weight = 1000;
-		weight += getBatteryWeight(stack);
-		
-		return weight;
+		return Config.computeModularProperty(stack, ModularCommon.WEIGHT);
 	}
 	
+	public static double getShovelPowerConsumption(ItemStack stack) {
+		NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
+		double energyConsumption = 10;
+		if (ItemUtils.tagHasModule(itemTag, SHOVEL)) {
+			NBTTagCompound moduleTag = itemTag.getCompoundTag(SHOVEL);
+			energyConsumption += 990 * getOrSetModuleProperty(moduleTag, TRADEOFF_OVERCLOCK, 0.1);
+		}
+		return energyConsumption;
+	}
+	
+	public static double getShovelHarvestSpeed(ItemStack stack) {
+		NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
+		double harvestSpeed = 2;
+		if (ItemUtils.tagHasModule(itemTag, SHOVEL)) {
+			NBTTagCompound moduleTag = itemTag.getCompoundTag(SHOVEL);
+			harvestSpeed += 18 * getOrSetModuleProperty(moduleTag, TRADEOFF_OVERCLOCK, 0.1);
+		}
+		return harvestSpeed;
+	}
 }

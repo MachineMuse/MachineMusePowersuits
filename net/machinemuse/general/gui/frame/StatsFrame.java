@@ -13,11 +13,11 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import org.lwjgl.opengl.GL11;
 
-public class StatsFrame extends ScrollableFrame implements IGuiFrame {
+public class StatsFrame extends ScrollableFrame {
 	protected NBTTagCompound properties;
 	protected ItemStack stack;
 	protected Set<String> propertiesToList;
-
+	
 	public StatsFrame(Point2D topleft, Point2D bottomright,
 			Colour borderColour, Colour insideColour, ItemStack stack) {
 		super(topleft, bottomright, borderColour, insideColour);
@@ -25,9 +25,8 @@ public class StatsFrame extends ScrollableFrame implements IGuiFrame {
 		this.properties = ItemUtils.getMuseItemTag(stack);
 		this.propertiesToList = NBTTagAccessor.getMap(properties).keySet();
 	}
-
-	@Override
-	public void draw() {
+	
+	@Override public void draw() {
 		GL11.glPushMatrix();
 		MuseRenderer.drawFrameRect(topleft, bottomright, borderColour,
 				insideColour, 0, 8);
@@ -47,29 +46,20 @@ public class StatsFrame extends ScrollableFrame implements IGuiFrame {
 			i++;
 		}
 		GL11.glPopMatrix();
-
+		
 	}
-
-	@Override
-	public void onMouseDown(int x, int y) {
+	
+	@Override public void onMouseDown(double x, double y, int button) {
 		// TODO Auto-generated method stub
-
+		
 	}
-
-	@Override
-	public void onMouseMove(int x, int y) {
+	
+	@Override public void onMouseUp(double x, double y, int button) {
 		// TODO Auto-generated method stub
-
+		
 	}
-
-	@Override
-	public void onMouseUp(int x, int y) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List<String> getToolTip(int x, int y) {
+	
+	@Override public List<String> getToolTip(int x, int y) {
 		// TODO Auto-generated method stub
 		return null;
 	}

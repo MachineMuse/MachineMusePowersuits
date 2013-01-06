@@ -6,7 +6,7 @@ public interface IClickable {
 
 	public abstract void draw();
 
-	public abstract boolean hitBox(int x, int y);
+	public abstract boolean hitBox(double x, double y);
 
 	public abstract List<String> getToolTip();
 }

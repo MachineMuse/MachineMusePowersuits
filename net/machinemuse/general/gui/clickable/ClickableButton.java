@@ -66,7 +66,7 @@ public class ClickableButton extends Clickable {
 	 * machinemuse.powersuits.gui.MuseGui)
 	 */
 	@Override
-	public boolean hitBox(int x, int y) {
+	public boolean hitBox(double x, double y) {
 		/**
 		 * Todo: Fix!
 		 */

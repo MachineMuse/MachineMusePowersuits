@@ -23,7 +23,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 	protected ClickableButton installButton;
 	protected ClickableButton salvageButton;
 	protected EntityClientPlayerMP player;
-
+	
 	public InstallSalvageFrame(EntityClientPlayerMP player, Point2D topleft,
 			Point2D bottomright,
 			Colour borderColour, Colour insideColour,
@@ -34,19 +34,23 @@ public class InstallSalvageFrame extends ScrollableFrame {
 		this.targetModule = targetModule;
 		double sizex = bottomright.x() - topleft.x();
 		double sizey = bottomright.y() - topleft.y();
-
+		
 		this.installButton = new ClickableButton("Install", new Point2D(
 				bottomright.x() - sizex / 2.0, bottomright.y() - sizey
 						/ 4.0),
 				new Point2D(20, 6), true);
 		this.salvageButton = new ClickableButton("Salvage", new Point2D(
 				topleft.x() + sizex / 2.0, topleft.y() + sizey / 4.0),
-				new Point2D(20, 6), true);
-
+				new Point2D(24, 6), true);
+		
 	}
-
-	@Override
-	public void draw() {
+	
+	@Override public void update(double mousex, double mousey) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override public void draw() {
 		if (targetItem.getSelectedItem() != null
 				&& targetModule.getSelectedModule() != null) {
 			drawBackground();
@@ -54,12 +58,12 @@ public class InstallSalvageFrame extends ScrollableFrame {
 			drawButtons();
 		}
 	}
-
+	
 	private void drawBackground() {
 		MuseRenderer.drawFrameRect(topleft, bottomright, borderColour,
 				insideColour, 0, 4);
 	}
-
+	
 	private void drawItems() {
 		ItemStack stack = targetItem.getSelectedItem().getItem();
 		GenericModule module = targetModule.getSelectedModule().getModule();
@@ -81,12 +85,12 @@ public class InstallSalvageFrame extends ScrollableFrame {
 					costItem);
 		}
 	}
-
+	
 	private void drawButtons() {
 		ItemStack stack = targetItem.getSelectedItem().getItem();
 		GenericModule module = targetModule.getSelectedModule().getModule();
 		if (!ItemUtils.itemHasModule(stack, module.getName())) {
-
+			
 			installButton.setEnabled(ItemUtils.hasInInventory(
 					module.getInstallCost(), player.inventory));
 			installButton.draw();
@@ -94,15 +98,14 @@ public class InstallSalvageFrame extends ScrollableFrame {
 			salvageButton.draw();
 		}
 	}
-
-	@Override
-	public void onMouseDown(int x, int y) {
+	
+	@Override public void onMouseDown(double x, double y, int button) {
 		ClickableItem selItem = targetItem.getSelectedItem();
 		ClickableModule selModule = targetModule.getSelectedModule();
 		if (selItem != null && selModule != null) {
 			ItemStack stack = selItem.getItem();
 			GenericModule module = selModule.getModule();
-
+			
 			if (!ItemUtils.itemHasModule(stack, module.getName())) {
 				if (installButton.hitBox(x, y)) {
 					doInstall();
@@ -114,7 +117,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 			}
 		}
 	}
-
+	
 	private void doSalvage() {
 		GenericModule module = targetModule.getSelectedModule().getModule();
 		MusePacket newpacket = new MusePacketSalvageModuleRequest(
@@ -123,7 +126,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 				module.getName());
 		player.sendQueue.addToSendQueue(newpacket.getPacket250());
 	}
-
+	
 	/**
 	 * Performs all the functions associated with the install button. This
 	 * requires communicating with the server.

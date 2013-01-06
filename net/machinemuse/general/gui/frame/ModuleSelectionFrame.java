@@ -15,18 +15,22 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 	protected Map<String, ModuleSelectionSubFrame> categories;
 	protected List<ClickableModule> moduleButtons;
 	protected int selectedModule = -1;
-
+	
 	public ModuleSelectionFrame(Point2D topleft, Point2D bottomright,
 			Colour borderColour, Colour insideColour, ItemSelectionFrame target) {
 		super(topleft, bottomright, borderColour, insideColour);
 		this.target = target;
-
+		
 		moduleButtons = new ArrayList();
 		categories = new HashMap();
 	}
-
-	@Override
-	public void draw() {
+	
+	@Override public void update(double mousex, double mousey) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override public void draw() {
 		if (target.getSelectedItem() != null) {
 			loadModules();
 			drawBackground();
@@ -34,18 +38,18 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 			drawSelection();
 		}
 	}
-
+	
 	private void drawBackground() {
 		MuseRenderer.drawFrameRect(topleft, bottomright, borderColour,
 				insideColour, 0, 4);
 	}
-
+	
 	private void drawItems() {
 		for (ModuleSelectionSubFrame frame : categories.values()) {
 			frame.draw();
 		}
 	}
-
+	
 	private void drawSelection() {
 		ClickableModule module = getSelectedModule();
 		if (module != null) {
@@ -53,11 +57,11 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 					moduleButtons.get(selectedModule).getPosition().x(),
 					moduleButtons.get(selectedModule).getPosition().y(),
 					10);
-
+			
 		}
-
+		
 	}
-
+	
 	public ClickableModule getSelectedModule() {
 		if (moduleButtons.size() > selectedModule && selectedModule != -1) {
 			return moduleButtons.get(selectedModule);
@@ -65,16 +69,16 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 			return null;
 		}
 	}
-
+	
 	public void loadModules() {
 		ClickableItem clickie = target.getSelectedItem();
 		if (clickie != null) {
 			double centerx = (topleft.x() + bottomright.x()) / 2;
 			double centery = (topleft.y() + bottomright.y()) / 2;
-
+			
 			moduleButtons = new ArrayList();
 			categories = new HashMap();
-
+			
 			List<GenericModule> workingModules = ItemUtils
 					.getValidModulesForItem(null,
 							clickie.getItem());
@@ -92,7 +96,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 			}
 		}
 	}
-
+	
 	private ModuleSelectionSubFrame getOrCreateCategory(String category) {
 		if (categories.containsKey(category)) {
 			return categories.get(category);
@@ -103,14 +107,13 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 							* categories.size()),
 					new Point2D(bottomright.x() - 4, bottomright.y() + 34 + 30
 							* categories.size()));
-
+			
 			categories.put(category, frame);
 			return frame;
 		}
 	}
-
-	@Override
-	public void onMouseDown(int x, int y) {
+	
+	@Override public void onMouseDown(double x, double y, int button) {
 		loadModules();
 		int i = 0;
 		for (ClickableModule module : moduleButtons) {
@@ -122,9 +125,8 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 			}
 		}
 	}
-
-	@Override
-	public List<String> getToolTip(int x, int y) {
+	
+	@Override public List<String> getToolTip(int x, int y) {
 		if (moduleButtons != null) {
 			int moduleHover = -1;
 			int i = 0;
@@ -145,5 +147,5 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 			return null;
 		}
 	}
-
+	
 }

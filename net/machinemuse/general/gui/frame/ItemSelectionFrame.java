@@ -17,7 +17,7 @@ public class ItemSelectionFrame extends ScrollableFrame {
 	protected int selectedItemStack = -1;
 	protected EntityPlayer player;
 	protected List<Point2D> itemPoints;
-
+	
 	public ItemSelectionFrame(Point2D topleft, Point2D bottomright,
 			Colour borderColour, Colour insideColour, EntityPlayer player) {
 		super(topleft, bottomright, borderColour, insideColour);
@@ -27,7 +27,7 @@ public class ItemSelectionFrame extends ScrollableFrame {
 		loadPoints(slots.size());
 		loadItems();
 	}
-
+	
 	private void loadPoints(int num) {
 		double centerx = (topleft.x() + bottomright.x()) / 2;
 		double centery = (topleft.y() + bottomright.y()) / 2;
@@ -42,7 +42,7 @@ public class ItemSelectionFrame extends ScrollableFrame {
 					point, 200));
 		}
 	}
-
+	
 	private void loadItems() {
 		itemButtons = new ArrayList<ClickableItem>();
 		double centerx = (topleft.x() + bottomright.x()) / 2;
@@ -54,7 +54,7 @@ public class ItemSelectionFrame extends ScrollableFrame {
 		}
 		if (slots.size() > 0) {
 			Iterator<Point2D> pointiterator = itemPoints.iterator();
-
+			
 			for (int slot : slots) {
 				ClickableItem clickie = new ClickableItem(
 						player.inventory.getStackInSlot(slot),
@@ -63,26 +63,30 @@ public class ItemSelectionFrame extends ScrollableFrame {
 			}
 		}
 	}
-
-	@Override
-	public void draw() {
+	
+	@Override public void update(double mousex, double mousey) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override public void draw() {
 		loadItems();
 		drawBackground();
 		drawItems();
 		drawSelection();
 	}
-
+	
 	private void drawBackground() {
 		MuseRenderer.drawFrameRect(topleft, bottomright, borderColour,
 				insideColour, 0, 4);
 	}
-
+	
 	private void drawItems() {
 		for (ClickableItem item : itemButtons) {
 			item.draw();
 		}
 	}
-
+	
 	private void drawSelection() {
 		if (selectedItemStack != -1) {
 			MuseRenderer.drawCircleAround(
@@ -93,7 +97,7 @@ public class ItemSelectionFrame extends ScrollableFrame {
 					10);
 		}
 	}
-
+	
 	public ClickableItem getSelectedItem() {
 		if (itemButtons.size() > selectedItemStack && selectedItemStack != -1) {
 			return itemButtons.get(selectedItemStack);
@@ -101,9 +105,8 @@ public class ItemSelectionFrame extends ScrollableFrame {
 			return null;
 		}
 	}
-
-	@Override
-	public void onMouseDown(int x, int y) {
+	
+	@Override public void onMouseDown(double x, double y, int button) {
 		int i = 0;
 		for (ClickableItem item : itemButtons) {
 			if (item.hitBox(x, y)) {
@@ -114,9 +117,8 @@ public class ItemSelectionFrame extends ScrollableFrame {
 			}
 		}
 	}
-
-	@Override
-	public List<String> getToolTip(int x, int y) {
+	
+	@Override public List<String> getToolTip(int x, int y) {
 		int itemHover = -1;
 		int i = 0;
 		for (ClickableItem item : itemButtons) {
@@ -133,5 +135,5 @@ public class ItemSelectionFrame extends ScrollableFrame {
 			return null;
 		}
 	}
-
+	
 }
