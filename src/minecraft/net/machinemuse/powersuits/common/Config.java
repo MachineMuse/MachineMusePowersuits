@@ -238,7 +238,7 @@ public class Config extends Configuration {
 				ModularCommon.PICKAXE_HARVEST_SPEED, "", 2, 18);
 		addModule(module);
 		
-		module = new GenericModule(ModularCommon.MODULE_BATTERY_BASIC, ALLITEMS, MuseIcon.BATTERY_UPGRADE, ModularCommon.CATEGORY_ENERGY)
+		module = new GenericModule(ModularCommon.MODULE_BATTERY_BASIC, ALLITEMS, MuseIcon.NEXUS_1_GREEN, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Integrate a battery to allow the item to store energy.")
 				.addInstallCost(new ItemStack(BasicComponents.itemBattery, 1));
 		addSimpleTradeoff(
