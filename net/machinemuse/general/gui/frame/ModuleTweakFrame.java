@@ -1,39 +1,44 @@
 package net.machinemuse.general.gui.frame;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.Point2D;
+import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableSlider;
 import net.machinemuse.powersuits.item.ItemUtils;
+import net.machinemuse.powersuits.network.MusePacket;
+import net.machinemuse.powersuits.network.MusePacketTweakRequest;
 import net.machinemuse.powersuits.powermodule.GenericModule;
 import net.machinemuse.powersuits.powermodule.IModuleProperty;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.common.network.Player;
 
 public class ModuleTweakFrame extends ScrollableFrame {
 	protected static double SCALERATIO = 0.5;
 	protected ItemSelectionFrame itemTarget;
 	protected ModuleSelectionFrame moduleTarget;
 	protected List<ClickableSlider> sliders;
-	protected List<String> propertyStrings;
+	protected Map<String, Double> propertyStrings;
 	protected ClickableSlider selectedSlider;
+	protected EntityClientPlayerMP player;
 	
 	public ModuleTweakFrame(
-			EntityPlayer player,
+			EntityClientPlayerMP player,
 			Point2D topleft, Point2D bottomright,
 			Colour borderColour, Colour insideColour,
 			ItemSelectionFrame itemTarget, ModuleSelectionFrame moduleTarget) {
 		super(topleft.times(1 / SCALERATIO), bottomright.times(1 / SCALERATIO), borderColour, insideColour);
 		this.itemTarget = itemTarget;
 		this.moduleTarget = moduleTarget;
+		this.player = player;
 	}
 	
 	@Override public void update(double mousex, double mousey) {
@@ -66,9 +71,9 @@ public class ModuleTweakFrame extends ScrollableFrame {
 			}
 			int nexty = (int) (sliders.size() * 24 + topleft.y() + 24);
 			GenericModule module = moduleTarget.getSelectedModule().getModule();
-			for (String property : propertyStrings) {
+			for (Map.Entry<String, Double> property : propertyStrings.entrySet()) {
 				nexty += 8;
-				String[] str = property.split("\t");
+				String[] str = { property.getKey() + ":", MuseStringUtils.formatNumberShort(property.getValue()) };
 				MuseRenderer.drawStringsJustified(Arrays.asList(str), topleft.x() + 4, bottomright.x() - 4, nexty);
 				
 			}
@@ -79,11 +84,16 @@ public class ModuleTweakFrame extends ScrollableFrame {
 		NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
 		NBTTagCompound moduleTag = itemTag.getCompoundTag(module.getName());
 		
-		propertyStrings = new LinkedList<String>();
+		propertyStrings = new HashMap();
 		
 		Set<IModuleProperty> propertyCalcs = module.getPropertyComputers();
 		for (IModuleProperty property : propertyCalcs) {
-			propertyStrings.add(property.getString(moduleTag));
+			double currValue = 0;
+			if (propertyStrings.containsKey(property.getName())) {
+				currValue = propertyStrings.get(property.getName());
+			}
+			currValue += property.computeProperty(moduleTag);
+			propertyStrings.put(property.getName(), currValue);
 		}
 		
 		Set<String> tweaks = module.getTweaks();
@@ -113,9 +123,15 @@ public class ModuleTweakFrame extends ScrollableFrame {
 	}
 	
 	@Override public void onMouseUp(double x, double y, int button) {
+		if (selectedSlider != null && itemTarget.getSelectedItem() != null && moduleTarget.getSelectedModule() != null) {
+			ClickableItem item = itemTarget.getSelectedItem();
+			GenericModule module = moduleTarget.getSelectedModule().getModule();
+			MusePacket tweakRequest = new MusePacketTweakRequest((Player) player, item.inventorySlot, module.getName(), selectedSlider.getName(),
+					selectedSlider.getValue());
+			player.sendQueue.addToSendQueue(tweakRequest.getPacket250());
+		}
 		if (button == 0) {
 			selectedSlider = null;
 		}
 	}
-	
 }

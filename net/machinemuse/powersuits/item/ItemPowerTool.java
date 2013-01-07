@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.machinemuse.general.MuseStringUtils;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.Config.Items;
 import net.minecraft.block.Block;
@@ -11,11 +12,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumToolMaterial;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.ForgeHooks;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -28,6 +30,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemPowerTool extends ItemTool
 		implements
 		IModularItem {
+	private static final ItemStack ironPickaxe = new ItemStack(Item.pickaxeSteel);
+	private static final ItemStack ironAxe = new ItemStack(Item.axeSteel);
+	private static final ItemStack ironShovel = new ItemStack(Item.shovelSteel);
+	private static final ItemStack diamondPick = new ItemStack(Item.pickaxeDiamond);
 	
 	/**
 	 * Constructor. Takes information from the Config.Items enum.
@@ -48,7 +54,7 @@ public class ItemPowerTool extends ItemTool
 		this.damageVsEntity = 1;
 		setCreativeTab(Config.getCreativeTab());
 		setIconIndex(10);
-		setTextureFile("/icons.png");
+		setTextureFile(MuseIcon.SEBK_ICON_PATH);
 		setItemName(Config.Items.PowerTool.idName);
 		LanguageRegistry.addName(this, Config.Items.PowerTool.englishName);
 	}
@@ -66,6 +72,38 @@ public class ItemPowerTool extends ItemTool
 		return getStrVsBlock(stack, block, 0);
 	}
 	
+	public static boolean canHarvestBlock(ItemStack stack, Block block, int meta) {
+		if (ForgeHooks.canToolHarvestBlock(block, meta, ironPickaxe) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_PICKAXE)) {
+			return true;
+		} else if (ForgeHooks.canToolHarvestBlock(block, meta, ironShovel) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_SHOVEL)) {
+			return true;
+		} else if (ForgeHooks.canToolHarvestBlock(block, meta, ironAxe) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_AXE)) {
+			return true;
+		} else if (ForgeHooks.canToolHarvestBlock(block, meta, diamondPick)
+				&& ItemUtils.itemHasModule(stack, ModularCommon.MODULE_DIAMOND_PICK_UPGRADE)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/** FORGE: Overridden to allow custom tool effectiveness */
+	@Override public float getStrVsBlock(ItemStack stack, Block block, int meta) {
+		double harvestSpeed = 1;
+		if (ForgeHooks.isToolEffective(ironPickaxe, block, meta) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_PICKAXE)) {
+			harvestSpeed = Config.computeModularProperty(stack, ModularCommon.PICKAXE_HARVEST_SPEED);
+		} else if (ForgeHooks.isToolEffective(ironShovel, block, meta) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_SHOVEL)) {
+			harvestSpeed = Config.computeModularProperty(stack, ModularCommon.SHOVEL_HARVEST_SPEED);
+		} else if (ForgeHooks.isToolEffective(ironAxe, block, meta) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_AXE)) {
+			harvestSpeed = Config.computeModularProperty(stack, ModularCommon.AXE_HARVEST_SPEED);
+		} else if (ForgeHooks.isToolEffective(diamondPick, block, meta) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_DIAMOND_PICK_UPGRADE)) {
+			harvestSpeed = Config.computeModularProperty(stack, ModularCommon.PICKAXE_HARVEST_SPEED);
+		} else {
+			harvestSpeed = 1;
+		}
+		return (float) harvestSpeed;
+	}
+	
 	/**
 	 * Current implementations of this method in child classes do not use the
 	 * entry argument beside stack. They just raise the damage on the stack.
@@ -81,12 +119,24 @@ public class ItemPowerTool extends ItemTool
 	 */
 	@Override public boolean onBlockDestroyed(ItemStack stack, World world,
 			int blockID, int x, int y, int z,
-			EntityLiving par7EntityLiving) {
-		if (Block.blocksList[blockID]
-				.getBlockHardness(world, x, y, z) != 0.0D) {
-			stack.damageItem(1, par7EntityLiving);
+			EntityLiving entity) {
+		double drain = 1;
+		Block block = Block.blocksList[blockID];
+		int meta = 0;
+		if (ForgeHooks.isToolEffective(diamondPick, block, meta)) {
+			drain = Config.computeModularProperty(stack, ModularCommon.PICKAXE_ENERGY_CONSUMPTION);
+		} else if (ForgeHooks.isToolEffective(ironShovel, block, meta)) {
+			drain = Config.computeModularProperty(stack, ModularCommon.SHOVEL_ENERGY_CONSUMPTION);
+		} else if (ForgeHooks.isToolEffective(ironAxe, block, meta)) {
+			drain = Config.computeModularProperty(stack, ModularCommon.AXE_ENERGY_CONSUMPTION);
+		} else {
+			drain = 1;
 		}
-		
+		if (entity instanceof EntityPlayer) {
+			ItemUtils.drainPlayerEnergy((EntityPlayer) entity, drain);
+		} else {
+			onUse(drain, stack);
+		}
 		return true;
 	}
 	
@@ -124,32 +174,7 @@ public class ItemPowerTool extends ItemTool
 	 */
 	@Override public boolean getIsRepairable(ItemStack par1ItemStack,
 			ItemStack par2ItemStack) {
-		return this.toolMaterial.getToolCraftingMaterial() == par2ItemStack.itemID ? true
-				: super.getIsRepairable(par1ItemStack, par2ItemStack);
-	}
-	
-	/** FORGE: Overridden to allow custom tool effectiveness */
-	@Override public float getStrVsBlock(ItemStack stack, Block block, int meta) {
-		
-		int shovelLevel = MinecraftForge.getBlockHarvestLevel(block, meta,
-				"shovel");
-		int axeLevel = MinecraftForge.getBlockHarvestLevel(block, meta, "axe");
-		int pickaxeLevel = MinecraftForge.getBlockHarvestLevel(block, meta,
-				"pickaxe");
-		// TODO: Iron this out
-		boolean shovelActive = shovelLevel > axeLevel
-				&& shovelLevel > pickaxeLevel;
-		boolean axeActive = axeLevel > pickaxeLevel;
-		boolean pickaxeActive = pickaxeLevel > 1.0f;
-		if (shovelActive) {
-			return shovelLevel;
-		} else if (axeActive) {
-			return axeLevel;
-		} else if (pickaxeActive) {
-			return pickaxeLevel;
-		} else {
-			return 1.0F;
-		}
+		return false;
 	}
 	
 	public static String formatInfo(String string, double value) {

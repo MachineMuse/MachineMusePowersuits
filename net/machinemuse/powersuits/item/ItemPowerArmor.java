@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.machinemuse.general.MuseStringUtils;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.Config.Items;
 import net.minecraft.entity.EntityLiving;
@@ -13,6 +14,7 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
+import net.minecraftforge.common.IArmorTextureProvider;
 import net.minecraftforge.common.ISpecialArmor;
 
 /**
@@ -23,7 +25,8 @@ import net.minecraftforge.common.ISpecialArmor;
 public abstract class ItemPowerArmor extends ItemArmor
 		implements
 		ISpecialArmor,
-		IModularItem {
+		IModularItem,
+		IArmorTextureProvider {
 	Config.Items itemType;
 	
 	/**
@@ -36,9 +39,13 @@ public abstract class ItemPowerArmor extends ItemArmor
 	public ItemPowerArmor(int id, EnumArmorMaterial material,
 			int renderIndex, int armorType) {
 		super(id, material, renderIndex, armorType);
-		setTextureFile("/icons.png");
+		setTextureFile(MuseIcon.SEBK_ICON_PATH);
 		setMaxStackSize(1);
 		setCreativeTab(Config.getCreativeTab());
+	}
+	
+	@Override public String getArmorTextureFile(ItemStack itemstack) {
+		return "/blankarmor.png";
 	}
 	
 	/**
@@ -80,24 +87,23 @@ public abstract class ItemPowerArmor extends ItemArmor
 	}
 	
 	public double getArmorDouble(EntityPlayer player, ItemStack stack) {
-		double totalarmor = 0;
+		double totalArmor = 0;
 		NBTTagCompound props = ItemUtils.getMuseItemTag(stack);
 		
-		double energy = ItemUtils.getAvailableEnergy(player);
+		double energy = ItemUtils.getPlayerEnergy(player);
+		double physArmor = Config.computeModularProperty(stack, ModularCommon.ARMOR_VALUE_PHYSICAL);
+		double enerArmor = Config.computeModularProperty(stack, ModularCommon.ARMOR_VALUE_ENERGY);
+		double enerConsum = Config.computeModularProperty(stack, ModularCommon.ARMOR_ENERGY_CONSUMPTION);
 		
-		if (ItemUtils.itemHasModule(stack, ModularCommon.IRON_SHIELDING)
-				&& energy > 0) {
-			totalarmor = 3;
-		}
-		if (ItemUtils.itemHasModule(stack, ModularCommon.DIAMOND_SHIELDING)
-				&& energy > 0) {
-			totalarmor = 5;
-		}
+		totalArmor += physArmor;
 		
-		// Make it so each armor piece can only contribute 1/4 of the armor
+		if (energy > enerConsum) {
+			totalArmor += enerArmor;
+		}
+		// Make it so each armor piece can only contribute 2/5 of the armor
 		// value
-		totalarmor = Math.min(6.25, totalarmor);
-		return totalarmor;
+		totalArmor = Math.min(10, totalArmor);
+		return totalArmor;
 	}
 	
 	/**
@@ -106,10 +112,14 @@ public abstract class ItemPowerArmor extends ItemArmor
 	 */
 	@Override public void damageArmor(EntityLiving entity, ItemStack stack,
 			DamageSource source, int damage, int slot) {
-		NBTTagCompound itemProperties = ItemUtils
-				.getMuseItemTag(stack);
-		float drain = damage * itemProperties.getFloat("Energy per damage");
-		onUse(drain, stack);
+		NBTTagCompound itemProperties = ItemUtils.getMuseItemTag(stack);
+		double enerConsum = Config.computeModularProperty(stack, ModularCommon.ARMOR_ENERGY_CONSUMPTION);
+		double drain = enerConsum * damage;
+		if (entity instanceof EntityPlayer) {
+			ItemUtils.drainPlayerEnergy((EntityPlayer) entity, drain);
+		} else {
+			onUse(drain, stack);
+		}
 	}
 	
 	@Override public Items getItemType() {

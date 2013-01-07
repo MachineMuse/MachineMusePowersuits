@@ -6,6 +6,7 @@ import java.util.Map;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ModularCommon;
 import net.machinemuse.powersuits.powermodule.*;
+import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -61,13 +62,13 @@ public class Config extends Configuration {
 		// Request block IDs
 		for (Blocks b : Blocks.values()) {
 			assignedBlockIDs[b.ordinal()] =
-					config.getBlock(b.englishName, 1002).getInt();
+					config.getBlock(b.englishName, b.defaultBlockId).getInt();
 		}
 		
 		// Request item IDs
 		for (Items i : Items.values()) {
 			assignedItemIDs[i.ordinal()] =
-					config.getItem(i.englishName, 5000).getInt();
+					config.getItem(i.englishName, i.defaultItemID).getInt();
 		}
 		config.save();
 	}
@@ -111,8 +112,7 @@ public class Config extends Configuration {
 	 */
 	public static int getAssignedItemID(Items item) {
 		if (assignedItemIDs[item.ordinal()] == 0) {
-			assignedItemIDs[item.ordinal()] = config.getItem(item.englishName,
-					1002).getInt();
+			assignedItemIDs[item.ordinal()] = config.getItem(item.englishName, item.defaultItemID).getInt();
 		}
 		return assignedItemIDs[item.ordinal()];
 	}
@@ -126,8 +126,7 @@ public class Config extends Configuration {
 	 */
 	public static int getAssignedBlockID(Blocks block) {
 		if (assignedBlockIDs[block.ordinal()] == 0) {
-			assignedBlockIDs[block.ordinal()] = config.getBlock(
-					block.englishName, 5000).getInt();
+			assignedBlockIDs[block.ordinal()] = config.getBlock(block.englishName, block.defaultBlockId).getInt();
 		}
 		return assignedBlockIDs[block.ordinal()];
 	}
@@ -142,15 +141,6 @@ public class Config extends Configuration {
 		}
 	}
 	
-	public static void loadModularProperties() {
-		loadModularProperty(ModularCommon.MAXIMUM_ENERGY, 0);
-		loadModularProperty(ModularCommon.BATTERY_WEIGHT, 0);
-		loadModularProperty(ModularCommon.SHOVEL_HARVEST_SPEED, 0);
-		loadModularProperty(ModularCommon.SHOVEL_ENERGY_CONSUMPTION, 0);
-		loadModularProperty(ModularCommon.AXE_HARVEST_SPEED, 0);
-		loadModularProperty(ModularCommon.PICKAXE_HARVEST_SPEED, 0);
-		
-	}
 	public static double computeModularProperty(ItemStack stack, String propertyName) {
 		ModularProperty propertyComputer = loadModularProperty(propertyName, 0);
 		return propertyComputer.computeProperty(stack);
@@ -179,51 +169,113 @@ public class Config extends Configuration {
 	public static void loadTinkerings() {
 		// loadModularProperties();
 		boolean[] ARMORONLY = { true, true, true, true, false };
+		boolean[] HEADONLY = { true, false, false, false, false };
+		boolean[] TORSOONLY = { false, true, false, false, false };
+		boolean[] LEGSONLY = { false, false, true, false, false };
+		boolean[] FEETONLY = { false, false, false, true, false };
 		boolean[] TOOLONLY = { false, false, false, false, true };
 		boolean[] ALLITEMS = { true, true, true, true, true };
 		GenericModule module;
 		
-		module = new GenericModule(ModularCommon.IRON_SHIELDING, ARMORONLY, MuseIcon.PLATE_1_RED, ModularCommon.CATEGORY_ARMOR)
+		module = new GenericModule(ModularCommon.MODULE_IRON_PLATING, ARMORONLY, MuseIcon.ORB_1_GREEN, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Iron plating is heavy but protective.")
-				.setDefaultDouble(ModularCommon.TRADEOFF_ARMOR_THICKNESS, 3)
-				.addInstallCost(new ItemStack(Item.ingotIron, 3))
-				.addInstallCost(new ItemStack(BasicComponents.itemCircuit, 1, 0));
+				.addInstallCost(new ItemStack(Item.ingotIron, 5));
+		addSimpleTradeoff(
+				module, "Plating Thickness",
+				ModularCommon.ARMOR_VALUE_PHYSICAL, "", 0, 5,
+				ModularCommon.WEIGHT, "g", 0, 10000);
 		addModule(module);
 		
-		module = new GenericModule(ModularCommon.DIAMOND_SHIELDING, ARMORONLY, MuseIcon.PLATE_1_BLUE, ModularCommon.CATEGORY_ARMOR)
+		module = new GenericModule(ModularCommon.MODULE_DIAMOND_PLATING, ARMORONLY, MuseIcon.ORB_1_BLUE, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Diamonds are lighter, harder, and more protective than Iron but much harder to find.")
-				.addInstallCost(new ItemStack(Item.diamond, 3))
-				.addInstallCost(new ItemStack(BasicComponents.itemCircuit, 1, 1));
+				.addInstallCost(new ItemStack(Item.diamond, 5));
+		addSimpleTradeoff(
+				module, "Plating Thickness",
+				ModularCommon.ARMOR_VALUE_PHYSICAL, "", 0, 6,
+				ModularCommon.WEIGHT, "g", 0, 6000);
 		addModule(module);
 		
-		module = new GenericModule(ModularCommon.SHOVEL, TOOLONLY, MuseIcon.TOOL_SHOVEL, ModularCommon.CATEGORY_TOOL)
+		module = new GenericModule(ModularCommon.MODULE_ENERGY_SHIELD, ARMORONLY, MuseIcon.ENERGY_SHIELD, ModularCommon.CATEGORY_ARMOR)
+				.setDescription("Energy shields are much lighter than plating, but consume energy.")
+				.addInstallCost(new ItemStack(BasicComponents.itemCircuit, 3, 1));
+		addSimpleTradeoff(
+				module, "Field Strength",
+				ModularCommon.ARMOR_ENERGY_CONSUMPTION, "J", 0, 500,
+				ModularCommon.ARMOR_VALUE_ENERGY, "", 0, 6);
+		addModule(module);
+		
+		module = new GenericModule(ModularCommon.MODULE_SHOVEL, TOOLONLY, MuseIcon.TOOL_SHOVEL, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Shovels are good for soft materials like dirt and sand.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3));
 		addSimpleTradeoff(
-				module,
-				ModularCommon.TRADEOFF_OVERCLOCK,
+				module, "Overclock",
 				ModularCommon.SHOVEL_ENERGY_CONSUMPTION, "J", 10, 990,
 				ModularCommon.SHOVEL_HARVEST_SPEED, "", 2, 18);
 		addModule(module);
 		
-		module = new GenericModule(ModularCommon.AXE, TOOLONLY, MuseIcon.TOOL_AXE, ModularCommon.CATEGORY_TOOL)
+		module = new GenericModule(ModularCommon.MODULE_AXE, TOOLONLY, MuseIcon.TOOL_AXE, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Axes are mostly for chopping trees.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3));
+		addSimpleTradeoff(
+				module, "Overclock",
+				ModularCommon.AXE_ENERGY_CONSUMPTION, "J", 10, 990,
+				ModularCommon.AXE_HARVEST_SPEED, "", 2, 18);
 		addModule(module);
 		
-		module = new GenericModule(ModularCommon.PICKAXE, TOOLONLY, MuseIcon.TOOL_PICK, ModularCommon.CATEGORY_TOOL)
+		module = new GenericModule(ModularCommon.MODULE_PICKAXE, TOOLONLY, MuseIcon.TOOL_PICK, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Picks are good for harder materials like stone and ore.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3));
+		addSimpleTradeoff(
+				module, "Overclock",
+				ModularCommon.PICKAXE_ENERGY_CONSUMPTION, "J", 10, 990,
+				ModularCommon.PICKAXE_HARVEST_SPEED, "", 2, 18);
 		addModule(module);
 		
-		module = new GenericModule(ModularCommon.BATTERY_BASIC, ALLITEMS, MuseIcon.ORB_1_GREEN, ModularCommon.CATEGORY_ENERGY)
+		module = new GenericModule(ModularCommon.MODULE_BATTERY_BASIC, ALLITEMS, MuseIcon.BATTERY_UPGRADE, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Integrate a battery to allow the item to store energy.")
 				.addInstallCost(new ItemStack(BasicComponents.itemBattery, 1));
 		addSimpleTradeoff(
-				module,
-				ModularCommon.TRADEOFF_BATTERY_SIZE,
-				ModularCommon.MAXIMUM_ENERGY, "J", 20000, 480000,
+				module, "Battery Size",
+				ModularCommon.MAXIMUM_ENERGY, "J", 20000, 80000,
 				ModularCommon.WEIGHT, "g", 2000, 8000);
+		addModule(module);
+		
+		module = new GenericModule(ModularCommon.MODULE_DIAMOND_PICK_UPGRADE, TOOLONLY, MuseIcon.DIAMOND_PICK_UPGRADE, ModularCommon.CATEGORY_TOOL)
+				.setDescription("Add diamonds to allow your pickaxe module to mine Obsidian.")
+				.addInstallCost(new ItemStack(Item.diamond, 3));
+		addModule(module);
+		
+		module = new GenericModule(ModularCommon.MODULE_SPRINT_ASSIST, LEGSONLY, MuseIcon.SPRINT_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
+				.setDescription("A set of servo motors to help you sprint (double-tap forward) faster.")
+				.addInstallCost(new ItemStack(BasicComponents.itemMotor, 4));
+		addSimpleTradeoff(
+				module, "Power",
+				ModularCommon.SPRINT_ENERGY_CONSUMPTION, "J", 0, 100,
+				ModularCommon.SPRINT_SPEED_MULTIPLIER, "x", 1, 2);
+		addSimpleTradeoff(
+				module, "Compensation",
+				ModularCommon.SPRINT_ENERGY_CONSUMPTION, "J", 0, 10,
+				ModularCommon.SPRINT_FOOD_COMPENSATION, "x", 0, 1);
+		addModule(module);
+		
+		module = new GenericModule(ModularCommon.MODULE_JUMP_ASSIST, LEGSONLY, MuseIcon.JUMP_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
+				.setDescription("Another set of servo motors to help you jump higher.")
+				.addInstallCost(new ItemStack(BasicComponents.itemMotor, 4));
+		addSimpleTradeoff(
+				module, "Power",
+				ModularCommon.JUMP_ENERGY_CONSUMPTION, "J", 0, 100,
+				ModularCommon.JUMP_MULTIPLIER, "x", 1, 2);
+		addModule(module);
+		
+		module = new GenericModule(ModularCommon.MODULE_SHOCK_ABSORBER, FEETONLY, MuseIcon.PLATE_1_RED, ModularCommon.CATEGORY_MOVEMENT)
+				.setDescription("With some servos, springs, and padding, you should be able to negate a portion of fall damage.")
+				.addInstallCost(new ItemStack(BasicComponents.itemMotor, 2))
+				.addInstallCost(new ItemStack(Block.cloth, 2));
+		addSimpleTradeoff(
+				module, "Power",
+				ModularCommon.SHOCK_ABSORB_ENERGY_CONSUMPTION, "J", 0, 10,
+				ModularCommon.SHOCK_ABSORB_MULTIPLIER, "x", 0, 1);
+		
 		addModule(module);
 	}
 	
@@ -235,7 +287,7 @@ public class Config extends Configuration {
 	 * 
 	 */
 	public static enum Blocks {
-		TinkerTable(1002, 0, "tinkerTable", "Tinker Table");
+		TinkerTable(2477, 0, "tinkerTable", "Tinker Table");
 		
 		public final int defaultBlockId;
 		public final int textureIndex;
@@ -262,20 +314,22 @@ public class Config extends Configuration {
 	 */
 	public static enum Items {
 		// Icon index, ID name, English name, Armor Type
-		PowerArmorHead(0, "powerArmorHead", "Power Armor Head"),
-		PowerArmorTorso(1, "powerArmorTorso", "Power Armor Torso"),
-		PowerArmorLegs(2, "powerArmorLegs", "Power Armor Legs"),
-		PowerArmorFeet(3, "powerArmorFeet", "Power Armor Feet"),
-		PowerTool(4, "powerTool", "Power Tool"),
+		PowerArmorHead(24770, 0, "powerArmorHead", "Power Armor Head"),
+		PowerArmorTorso(24771, 1, "powerArmorTorso", "Power Armor Torso"),
+		PowerArmorLegs(24772, 2, "powerArmorLegs", "Power Armor Legs"),
+		PowerArmorFeet(24773, 3, "powerArmorFeet", "Power Armor Feet"),
+		PowerTool(24774, 4, "powerTool", "Power Tool"),
 		
 		;
 		
+		public final int defaultItemID;
 		public final int iconIndex;
 		public final String idName;
 		public final String englishName;
 		
-		Items(int iconIndex,
+		Items(int defaultItemID, int iconIndex,
 				String idName, String englishName) {
+			this.defaultItemID = defaultItemID;
 			this.iconIndex = iconIndex;
 			this.idName = idName;
 			this.englishName = englishName;

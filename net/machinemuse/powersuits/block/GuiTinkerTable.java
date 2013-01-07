@@ -23,7 +23,7 @@ public class GuiTinkerTable extends MuseGui {
 	public GuiTinkerTable(EntityClientPlayerMP player) {
 		this.player = player;
 		this.xSize = 256;
-		this.ySize = 226;
+		this.ySize = 200;
 	}
 	
 	/**
@@ -39,6 +39,7 @@ public class GuiTinkerTable extends MuseGui {
 				Colour.DARKBLUE.withAlpha(0.8F),
 				player);
 		frames.add(itemSelectFrame);
+		
 		ItemInfoFrame statsFrame = new ItemInfoFrame(player,
 				new Point2D(absX(0f), absY(-0.9f)),
 				new Point2D(absX(0.9f), absY(-0.05f)),
@@ -46,6 +47,7 @@ public class GuiTinkerTable extends MuseGui {
 				Colour.DARKBLUE.withAlpha(0.8),
 				itemSelectFrame);
 		frames.add(statsFrame);
+		
 		ModuleSelectionFrame moduleSelectFrame = new ModuleSelectionFrame(
 				new Point2D(absX(-0.75F), absY(-0.95f)),
 				new Point2D(absX(-0.05F), absY(0.55f)),
@@ -53,6 +55,7 @@ public class GuiTinkerTable extends MuseGui {
 				Colour.DARKBLUE.withAlpha(0.8),
 				itemSelectFrame);
 		frames.add(moduleSelectFrame);
+		
 		InstallSalvageFrame installFrame = new InstallSalvageFrame(
 				player,
 				new Point2D(absX(-0.75F), absY(0.6f)),
@@ -61,6 +64,7 @@ public class GuiTinkerTable extends MuseGui {
 				Colour.DARKBLUE.withAlpha(0.8),
 				itemSelectFrame, moduleSelectFrame);
 		frames.add(installFrame);
+		
 		ModuleTweakFrame tweakFrame = new ModuleTweakFrame(
 				player,
 				new Point2D(absX(0f), absY(0f)),

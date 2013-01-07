@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.powermodule;
 
-import net.machinemuse.general.MuseStringUtils;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class ModulePropertySimple implements IModuleProperty {
@@ -30,10 +29,11 @@ public class ModulePropertySimple implements IModuleProperty {
 		return property;
 	}
 	
-	@Override public String getString(NBTTagCompound moduleTag) {
-		return name
-				+ ":\t"
-				+ MuseStringUtils.formatNumberShort(computeProperty(moduleTag))
-				+ units;
+	@Override public String getName() {
+		return name;
+	}
+	
+	@Override public String getUnits() {
+		return units;
 	}
 }

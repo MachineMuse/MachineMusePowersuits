@@ -29,7 +29,7 @@ public class RenderTickHandler implements ITickHandler {
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
 		if (player != null) {
-			double currEnergy = ItemUtils.getAvailableEnergy(player);
+			double currEnergy = ItemUtils.getPlayerEnergy(player);
 			double maxEnergy = ItemUtils.getMaxEnergy(player);
 			if (maxEnergy > 0) {
 				String currStr = MuseStringUtils.formatNumberShort(currEnergy);

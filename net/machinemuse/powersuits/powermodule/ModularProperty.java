@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.powermodule;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 import net.machinemuse.powersuits.item.ItemUtils;
@@ -9,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class ModularProperty implements IModularProperty {
-	protected Map<String, IModuleProperty> modulesWithProperty;
+	protected Map<String, List<IModuleProperty>> modulesWithProperty;
 	protected String name;
 	protected double baseValue;
 	
@@ -22,27 +21,24 @@ public class ModularProperty implements IModularProperty {
 	@Override public double computeProperty(ItemStack stack) {
 		double value = baseValue;
 		NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
-		for (Entry<String, IModuleProperty> entry : modulesWithProperty.entrySet()) {
+		for (Entry<String, List<IModuleProperty>> entry : modulesWithProperty.entrySet()) {
 			if (itemTag.hasKey(entry.getKey())) {
-				NBTTagCompound moduleTag = itemTag.getCompoundTag(entry.getKey());
-				value += entry.getValue().computeProperty(moduleTag);
+				for (IModuleProperty property : entry.getValue()) {
+					NBTTagCompound moduleTag = itemTag.getCompoundTag(entry.getKey());
+					value += property.computeProperty(moduleTag);
+				}
 			}
 		}
 		return value;
 	}
 	
 	public void addModuleWithProperty(String moduleName, IModuleProperty property) {
-		modulesWithProperty.put(moduleName, property);
+		if (!modulesWithProperty.containsKey(moduleName)) {
+			modulesWithProperty.put(moduleName, new LinkedList());
+		}
+		List<IModuleProperty> moduleProperties = modulesWithProperty.get(moduleName);
+		moduleProperties.add(property);
 	}
-	
-	public Map<String, IModuleProperty> getModulesWithProperty() {
-		return modulesWithProperty;
-	}
-	
-	public void setModulesWithProperty(Map<String, IModuleProperty> modulesWithProperty) {
-		this.modulesWithProperty = modulesWithProperty;
-	}
-	
 	public String getName() {
 		return name;
 	}

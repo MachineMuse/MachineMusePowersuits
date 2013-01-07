@@ -16,7 +16,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class ItemUtils {
 	public static final String NBTPREFIX = "mmmpsmod";
-
+	
 	public static List<GenericModule> getValidModulesForItem(
 			EntityPlayer player, ItemStack stack) {
 		List<GenericModule> validModules = new ArrayList();
@@ -28,7 +28,7 @@ public class ItemUtils {
 		}
 		return validModules;
 	}
-
+	
 	public static boolean tagHasModule(NBTTagCompound tag, String moduleName) {
 		if (tag.hasKey(moduleName)) {
 			return true;
@@ -36,19 +36,19 @@ public class ItemUtils {
 			return false;
 		}
 	}
-
+	
 	public static boolean itemHasModule(ItemStack stack, String moduleName) {
 		return tagHasModule(getMuseItemTag(stack), moduleName);
 	}
-
+	
 	public static void tagAddModule(NBTTagCompound tag, GenericModule module) {
 		tag.setCompoundTag(module.getName(), module.getNewTag());
 	}
-
+	
 	public static void itemAddModule(ItemStack stack, GenericModule module) {
 		tagAddModule(getMuseItemTag(stack), module);
 	}
-
+	
 	public static boolean removeModule(NBTTagCompound tag, String moduleName) {
 		if (tag.hasKey(moduleName)) {
 			tag.removeTag(moduleName);
@@ -57,11 +57,11 @@ public class ItemUtils {
 			return false;
 		}
 	}
-
+	
 	public static boolean removeModule(ItemStack stack, String moduleName) {
 		return removeModule(getMuseItemTag(stack), moduleName);
 	}
-
+	
 	/**
 	 * Gets or creates stack.getTagCompound().getTag(NBTPREFIX)
 	 * 
@@ -80,7 +80,7 @@ public class ItemUtils {
 			stackTag = new NBTTagCompound();
 			stack.setTagCompound(stackTag);
 		}
-
+		
 		NBTTagCompound properties;
 		if (stackTag.hasKey(NBTPREFIX)) {
 			properties = stackTag
@@ -92,7 +92,7 @@ public class ItemUtils {
 		}
 		return properties;
 	}
-
+	
 	/**
 	 * Scans a specified inventory for modular items.
 	 * 
@@ -103,7 +103,7 @@ public class ItemUtils {
 	 */
 	public static List<ItemStack> getModularItemsInInventory(IInventory inv) {
 		ArrayList<ItemStack> stacks = new ArrayList<ItemStack>();
-
+		
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			if (stack != null && stack.getItem() instanceof IModularItem) {
@@ -112,11 +112,11 @@ public class ItemUtils {
 		}
 		return stacks;
 	}
-
+	
 	public static List<ItemStack> getModularItemsInInventory(EntityPlayer player) {
 		return getModularItemsInInventory(player.inventory);
 	}
-
+	
 	/**
 	 * Scans a specified inventory for modular items.
 	 * 
@@ -126,7 +126,7 @@ public class ItemUtils {
 	 */
 	public static List<Integer> getModularItemSlotsInInventory(IInventory inv) {
 		ArrayList<Integer> slots = new ArrayList<Integer>();
-
+		
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			if (stack != null && stack.getItem() instanceof IModularItem) {
@@ -135,7 +135,7 @@ public class ItemUtils {
 		}
 		return slots;
 	}
-
+	
 	/**
 	 * Attempts to cast an item to IModularItem, returns null if fails
 	 */
@@ -146,7 +146,7 @@ public class ItemUtils {
 			return null;
 		}
 	}
-
+	
 	/**
 	 * Checks if the player has a copy of all of the items in
 	 * workingUpgradeCost.
@@ -171,7 +171,7 @@ public class ItemUtils {
 		}
 		return true;
 	}
-
+	
 	/**
 	 * @param workingUpgradeCost
 	 * @param inventory
@@ -197,7 +197,7 @@ public class ItemUtils {
 		}
 		return slots;
 	}
-
+	
 	/**
 	 * Checks the given NBTTag and returns the value if it exists, otherwise 0.
 	 */
@@ -211,7 +211,7 @@ public class ItemUtils {
 		}
 		return value;
 	}
-
+	
 	/**
 	 * Bouncer for succinctness. Checks the item's modular properties and
 	 * returns the value if it exists, otherwise 0.
@@ -219,7 +219,7 @@ public class ItemUtils {
 	public static double getDoubleOrZero(ItemStack stack, String string) {
 		return getDoubleOrZero(getMuseItemTag(stack), string);
 	}
-
+	
 	/**
 	 * Sets the value of the given nbt tag, or removes it if the value would be
 	 * zero.
@@ -235,7 +235,7 @@ public class ItemUtils {
 			}
 		}
 	}
-
+	
 	/**
 	 * Sets the given itemstack's modular property, or removes it if the value
 	 * would be zero.
@@ -244,7 +244,7 @@ public class ItemUtils {
 			double value) {
 		setDoubleOrRemove(getMuseItemTag(stack), string, value);
 	}
-
+	
 	public static String getStringOrNull(NBTTagCompound itemProperties,
 			String key) {
 		String value = null;
@@ -255,11 +255,11 @@ public class ItemUtils {
 		}
 		return value;
 	}
-
+	
 	public static String getStringOrNull(ItemStack stack, String key) {
 		return getStringOrNull(getMuseItemTag(stack), key);
 	}
-
+	
 	public static void setStringOrNull(NBTTagCompound itemProperties,
 			String key, String value) {
 		if (itemProperties != null) {
@@ -270,20 +270,34 @@ public class ItemUtils {
 			}
 		}
 	}
-
+	
 	public static void setStringOrNull(ItemStack stack, String key, String value) {
 		setStringOrNull(getMuseItemTag(stack),
 				key, value);
 	}
-
-	public static double getAvailableEnergy(EntityPlayer player) {
+	
+	public static double getPlayerEnergy(EntityPlayer player) {
 		double avail = 0;
 		for (ItemStack stack : getModularItemsInInventory(player.inventory)) {
 			avail += ((IModularItem) stack.getItem()).getJoules(stack);
 		}
 		return avail;
 	}
-
+	
+	public static void drainPlayerEnergy(EntityPlayer player, double drainAmount) {
+		for (ItemStack stack : getModularItemsInInventory(player.inventory)) {
+			IModularItem item = getAsModular(stack.getItem());
+			double joules = item.getJoules(stack);
+			if (joules > drainAmount) {
+				item.onUse(drainAmount, stack);
+				break;
+			} else {
+				drainAmount -= joules;
+				item.onUse(joules, stack);
+			}
+		}
+	}
+	
 	public static double getMaxEnergy(EntityClientPlayerMP player) {
 		double max = 0;
 		for (ItemStack stack : getModularItemsInInventory(player.inventory)) {
@@ -291,7 +305,7 @@ public class ItemUtils {
 		}
 		return max;
 	}
-
+	
 	public static boolean canStackTogether(ItemStack stack1, ItemStack stack2) {
 		if (!isSameItem(stack1, stack2)) {
 			return false;
@@ -303,7 +317,7 @@ public class ItemUtils {
 			return true;
 		}
 	}
-
+	
 	public static boolean isSameItem(ItemStack stack1, ItemStack stack2) {
 		if (stack1 == null || stack2 == null) {
 			return false;
@@ -316,7 +330,7 @@ public class ItemUtils {
 			return true;
 		}
 	}
-
+	
 	public static void transferStackWithChance(ItemStack itemsToGive,
 			ItemStack destinationStack, double chanceOfSuccess) {
 		int maxSize = destinationStack.getMaxStackSize();
@@ -328,16 +342,16 @@ public class ItemUtils {
 			}
 		}
 	}
-
+	
 	public static Set<Integer> giveOrDropItems(ItemStack itemsToGive,
 			EntityPlayerMP player) {
 		return giveOrDropItemWithChance(itemsToGive, player, 1.0);
 	}
-
+	
 	public static Set<Integer> giveOrDropItemWithChance(ItemStack itemsToGive,
 			EntityPlayerMP player, double chanceOfSuccess) {
 		Set<Integer> slots = new HashSet<Integer>();
-
+		
 		// First try to add the items to existing stacks
 		for (int i = 0; i < player.inventory.getSizeInventory()
 				&& itemsToGive.stackSize > 0; i++) {
@@ -373,7 +387,7 @@ public class ItemUtils {
 				}
 			}
 		}
-
+		
 		return slots;
 	}
 }

@@ -6,14 +6,18 @@ package net.machinemuse.powersuits.tick;
 import java.util.EnumSet;
 import java.util.List;
 
+import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MuseLogger;
+import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.item.ModularCommon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
+import cpw.mods.fml.relauncher.Side;
 
 /**
  * Tick handler for Player update step. tickStart() is queued before the entity
@@ -28,19 +32,36 @@ import cpw.mods.fml.common.TickType;
 public class PlayerTickHandler implements ITickHandler {
 	@Override public void tickStart(EnumSet<TickType> type, Object... tickData) {
 		EntityPlayer player = toPlayer(tickData[0]);
-		double totalEnergy = 0;
+		double totalEnergy = ItemUtils.getPlayerEnergy(player);
 		double totalWeight = 0;
 		double weightCapacity = 25000;
+		Side side = FMLCommonHandler.instance().getEffectiveSide();
 		
-		for (ItemStack item : ItemUtils.getModularItemsInInventory(player)) {
-			totalWeight += ModularCommon.getTotalWeight(item);
+		for (ItemStack stack : ItemUtils.getModularItemsInInventory(player)) {
+			totalWeight += ModularCommon.getTotalWeight(stack);
+		}
+		if (player.isSprinting()) {
+			// idk why this is the pants slot
+			ItemStack pants = player.getCurrentArmor(1);
+			if (pants != null && pants.getItem() instanceof IModularItem && ItemUtils.itemHasModule(pants, ModularCommon.MODULE_SPRINT_ASSIST)) {
+				double sprintCost = Config.computeModularProperty(pants, ModularCommon.SPRINT_ENERGY_CONSUMPTION);
+				if (sprintCost < totalEnergy) {
+					totalEnergy -= sprintCost;
+					ItemUtils.drainPlayerEnergy(player, sprintCost);
+					double sprintBoost = Config.computeModularProperty(pants, ModularCommon.SPRINT_SPEED_MULTIPLIER);
+					player.landMovementFactor *= sprintBoost;
+					player.jumpMovementFactor *= sprintBoost;
+					double movement = Math.round(Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ) * 100.0F);
+					double exhaustionComp = Config.computeModularProperty(pants, ModularCommon.SPRINT_FOOD_COMPENSATION);
+					player.addExhaustion((float) (-0.0001 * movement * exhaustionComp));
+				}
+			}
 		}
 		if (totalWeight > weightCapacity) {
 			player.motionX *= weightCapacity / totalWeight;
 			player.motionZ *= weightCapacity / totalWeight;
 		}
 	}
-	
 	@Override public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		EntityPlayer player = toPlayer(tickData[0]);
 		List<ItemStack> stacks = ItemUtils

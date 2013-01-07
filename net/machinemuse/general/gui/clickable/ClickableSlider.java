@@ -44,6 +44,16 @@ public class ClickableSlider extends Clickable {
 			return false;
 		}
 	}
+	public String getName() {
+		return name;
+	}
+	public double getValue() {
+		double val = 0;
+		if (moduleTag.hasKey(name)) {
+			val = moduleTag.getDouble(name);
+		}
+		return val;
+	}
 	public void moveSlider(double x, double y) {
 		double xval = position.x() - x;
 		double xratio = 0.5 - (xval / width);

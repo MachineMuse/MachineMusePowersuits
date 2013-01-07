@@ -15,31 +15,39 @@ public abstract class ModularCommon {
 	 */
 	public static final String MAXIMUM_ENERGY = "Maximum Energy";
 	public static final String CURRENT_ENERGY = "Current Energy";
-	public static final String ARMOR_WEIGHT = "Armor Weight";
+	public static final String ARMOR_VALUE_PHYSICAL = "Armor (Physical)";
+	public static final String ARMOR_VALUE_ENERGY = "Armor (Energy)";
+	public static final String ARMOR_ENERGY_CONSUMPTION = "Energy Per Damage";
 	public static final String WEIGHT = "Weight";
-	public static final String ARMOR_DURABILITY = "Armor Durability";
-	public static final String ARMOR_VALUE = "Armor Value";
 	public static final String SHOVEL_HARVEST_SPEED = "Shovel Harvest Speed";
-	public static final String SHOVEL_ENERGY_CONSUMPTION = "Shovel Energy Consumption";
 	public static final String AXE_HARVEST_SPEED = "Axe Harvest Speed";
 	public static final String PICKAXE_HARVEST_SPEED = "Pickaxe Harvest Speed";
+	public static final String SHOVEL_ENERGY_CONSUMPTION = "Shovel Energy Consumption";
+	public static final String AXE_ENERGY_CONSUMPTION = "Axe Energy Consumption";
+	public static final String PICKAXE_ENERGY_CONSUMPTION = "Pickaxe Energy Consumption";
 	public static final String BATTERY_WEIGHT = "Battery Weight";
+	public static final String SPRINT_ENERGY_CONSUMPTION = "Sprint Energy Consumption";
+	public static final String SPRINT_SPEED_MULTIPLIER = "Sprint Speed Multiplier";
+	public static final String SPRINT_FOOD_COMPENSATION = "Exhaustion Compensation";
+	public static final String JUMP_ENERGY_CONSUMPTION = "Jump Energy Consumption";
+	public static final String JUMP_MULTIPLIER = "Jump Multiplier";
+	public static final String SHOCK_ABSORB_MULTIPLIER = "Distance Reduction";
+	public static final String SHOCK_ABSORB_ENERGY_CONSUMPTION = "Energy consumption";
 	
-	/**
-	 * Tradeoffs for module properties
-	 */
-	public static final String TRADEOFF_ARMOR_THICKNESS = "Armor Thickness";
-	public static final String TRADEOFF_BATTERY_SIZE = "Battery Size";
-	public static final String TRADEOFF_OVERCLOCK = "Overclock";
 	/**
 	 * Module names
 	 */
-	public static final String SHOVEL = "Shovel";
-	public static final String AXE = "Axe";
-	public static final String PICKAXE = "Pickaxe";
-	public static final String BATTERY_BASIC = "Basic Battery";
-	public static final String IRON_SHIELDING = "Iron Shielding";
-	public static final String DIAMOND_SHIELDING = "Diamond Shielding";
+	public static final String MODULE_SHOVEL = "Shovel";
+	public static final String MODULE_AXE = "Axe";
+	public static final String MODULE_PICKAXE = "Pickaxe";
+	public static final String MODULE_BATTERY_BASIC = "Basic Battery";
+	public static final String MODULE_IRON_PLATING = "Iron Plating";
+	public static final String MODULE_DIAMOND_PLATING = "Diamond Plating";
+	public static final String MODULE_ENERGY_SHIELD = "Energy Shield";
+	public static final String MODULE_DIAMOND_PICK_UPGRADE = "Diamond Drill Upgrade";
+	public static final String MODULE_SPRINT_ASSIST = "Sprint Assist";
+	public static final String MODULE_JUMP_ASSIST = "Jump Assist";
+	public static final String MODULE_SHOCK_ABSORBER = "Shock Absorber";
 	
 	/**
 	 * Categories for modules
@@ -48,6 +56,7 @@ public abstract class ModularCommon {
 	public static final String CATEGORY_ENERGY = "Energy";
 	public static final String CATEGORY_TOOL = "Tool";
 	public static final String CATEGORY_WEAPON = "Weapon";
+	public static final String CATEGORY_MOVEMENT = "Movement";
 	
 	/**
 	 * Adds information to the item's tooltip when 'getting' it.
@@ -132,25 +141,5 @@ public abstract class ModularCommon {
 	}
 	public static double getTotalWeight(ItemStack stack) {
 		return Config.computeModularProperty(stack, ModularCommon.WEIGHT);
-	}
-	
-	public static double getShovelPowerConsumption(ItemStack stack) {
-		NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
-		double energyConsumption = 10;
-		if (ItemUtils.tagHasModule(itemTag, SHOVEL)) {
-			NBTTagCompound moduleTag = itemTag.getCompoundTag(SHOVEL);
-			energyConsumption += 990 * getOrSetModuleProperty(moduleTag, TRADEOFF_OVERCLOCK, 0.1);
-		}
-		return energyConsumption;
-	}
-	
-	public static double getShovelHarvestSpeed(ItemStack stack) {
-		NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
-		double harvestSpeed = 2;
-		if (ItemUtils.tagHasModule(itemTag, SHOVEL)) {
-			NBTTagCompound moduleTag = itemTag.getCompoundTag(SHOVEL);
-			harvestSpeed += 18 * getOrSetModuleProperty(moduleTag, TRADEOFF_OVERCLOCK, 0.1);
-		}
-		return harvestSpeed;
 	}
 }
