@@ -4,6 +4,7 @@ import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.block.TileEntityTinkerTable;
 import net.machinemuse.powersuits.block.TinkerTableRenderer;
 import net.machinemuse.powersuits.common.CommonProxy;
+import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.network.MusePacketHandler;
 import net.machinemuse.powersuits.tick.PlayerTickHandler;
 import net.machinemuse.powersuits.tick.RenderTickHandler;
@@ -41,8 +42,10 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(
 				TileEntityTinkerTable.class, tinkTableRenderer);
 		RenderingRegistry.registerBlockHandler(tinkTableRenderer);
-		MinecraftForgeClient.preloadTexture("/tinkertable.png");
-		MinecraftForgeClient.preloadTexture("/icons.png");
+		MinecraftForgeClient.preloadTexture(Config.SEBK_ICON_PATH);
+		MinecraftForgeClient.preloadTexture(Config.WC_ICON_PATH);
+		MinecraftForgeClient.preloadTexture(Config.TINKERTABLE_TEXTURE_PATH);
+		MinecraftForgeClient.preloadTexture(Config.ARMOR_MODEL_PATH);
 	}
 
 	/**

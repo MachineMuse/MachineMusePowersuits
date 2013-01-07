@@ -21,10 +21,17 @@ import basiccomponents.common.BasicComponents;
  * 
  */
 public class Config extends Configuration {
+	public static final String SEBK_ICON_PATH = "/resource/sebkicons.png";
+	public static final String WC_ICON_PATH = "/resource/watericons.png";
+	public static final String TINKERTABLE_TEXTURE_PATH = "/resource/tinkertable.png";
+	public static final String ARMOR_MODEL_PATH = "/resource/blankarmor.png";
+	
 	private static final int[] assignedItemIDs = new int[Items.values().length];
 	private static final int[] assignedBlockIDs = new int[Blocks.values().length];
 	private static final Map<String, GenericModule> allModules = new HashMap();
 	private static final Map<String, ModularProperty> allModularProperties = new HashMap();
+
+
 	
 	public static Map<String, ModularProperty> getAllModularProperties() {
 		return allModularProperties;

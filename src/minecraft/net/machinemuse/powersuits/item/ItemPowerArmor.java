@@ -45,7 +45,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 	}
 	
 	@Override public String getArmorTextureFile(ItemStack itemstack) {
-		return "/blankarmor.png";
+		return Config.ARMOR_MODEL_PATH;
 	}
 	
 	/**

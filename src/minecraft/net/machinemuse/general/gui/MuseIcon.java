@@ -1,7 +1,10 @@
 package net.machinemuse.general.gui;
 
+import net.machinemuse.powersuits.common.Config;
+
 public class MuseIcon {
-	public static final String SEBK_ICON_PATH = "/sebkicons.png";
+	public static final String SEBK_ICON_PATH = Config.SEBK_ICON_PATH;
+	public static final String WC_ICON_PATH = Config.WC_ICON_PATH;
 	public static final MuseIcon ORB_1_GREEN = new MuseIcon(SEBK_ICON_PATH, 0);
 	public static final MuseIcon ORB_1_RED = new MuseIcon(SEBK_ICON_PATH, 1);
 	public static final MuseIcon ORB_1_BLUE = new MuseIcon(SEBK_ICON_PATH, 2);
@@ -27,7 +30,6 @@ public class MuseIcon {
 	public static final MuseIcon ARMOR_TORSO = new MuseIcon(SEBK_ICON_PATH, 31);
 	public static final MuseIcon ARMOR_LEGS = new MuseIcon(SEBK_ICON_PATH, 47);
 	public static final MuseIcon ARMOR_FEET = new MuseIcon(SEBK_ICON_PATH, 63);
-	public static final String WC_ICON_PATH = "/watericons.png";
 	public static final MuseIcon JETBOOTS = new MuseIcon(WC_ICON_PATH, 0);
 	public static final MuseIcon JETPACK = new MuseIcon(WC_ICON_PATH, 1);
 	public static final MuseIcon GLIDER = new MuseIcon(WC_ICON_PATH, 2);
