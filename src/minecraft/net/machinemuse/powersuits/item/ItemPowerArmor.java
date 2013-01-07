@@ -45,7 +45,16 @@ public abstract class ItemPowerArmor extends ItemArmor
 	}
 	
 	@Override public String getArmorTextureFile(ItemStack itemstack) {
-		return Config.ARMOR_MODEL_PATH;
+		if(itemstack != null) {
+			if(ItemUtils.itemHasModule(itemstack, ModularCommon.MODULE_TRANSPARENT_ARMOR)) {
+				return Config.BLANK_ARMOR_MODEL_PATH;
+			} else 	if(itemstack.getItem() instanceof ItemPowerArmorLegs) {
+				return Config.SEBK_ARMORPANTS_PATH;
+			} else {
+				return Config.SEBK_ARMOR_PATH;
+			}
+		}
+		return Config.BLANK_ARMOR_MODEL_PATH; 
 	}
 	
 	/**

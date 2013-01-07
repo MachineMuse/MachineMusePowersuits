@@ -48,6 +48,7 @@ public abstract class ModularCommon {
 	public static final String MODULE_SPRINT_ASSIST = "Sprint Assist";
 	public static final String MODULE_JUMP_ASSIST = "Jump Assist";
 	public static final String MODULE_SHOCK_ABSORBER = "Shock Absorber";
+	public static final String MODULE_TRANSPARENT_ARMOR = "Transparent Armor";
 	
 	/**
 	 * Categories for modules
@@ -57,6 +58,7 @@ public abstract class ModularCommon {
 	public static final String CATEGORY_TOOL = "Tool";
 	public static final String CATEGORY_WEAPON = "Weapon";
 	public static final String CATEGORY_MOVEMENT = "Movement";
+	public static final String CATEGORY_COSMETIC = "Cosmetic";
 	
 	/**
 	 * Adds information to the item's tooltip when 'getting' it.

@@ -22,9 +22,11 @@ import basiccomponents.common.BasicComponents;
  */
 public class Config extends Configuration {
 	public static final String SEBK_ICON_PATH = "/resource/sebkicons.png";
+	public static final String SEBK_ARMOR_PATH = "/resource/sebkarmor.png";
+	public static final String SEBK_ARMORPANTS_PATH = "/resource/sebkarmorpants.png";
 	public static final String WC_ICON_PATH = "/resource/watericons.png";
 	public static final String TINKERTABLE_TEXTURE_PATH = "/resource/tinkertable.png";
-	public static final String ARMOR_MODEL_PATH = "/resource/blankarmor.png";
+	public static final String BLANK_ARMOR_MODEL_PATH = "/resource/blankarmor.png";
 	
 	private static final int[] assignedItemIDs = new int[Items.values().length];
 	private static final int[] assignedBlockIDs = new int[Blocks.values().length];
@@ -247,11 +249,16 @@ public class Config extends Configuration {
 				ModularCommon.WEIGHT, "g", 2000, 8000);
 		addModule(module);
 		
-		module = new GenericModule(ModularCommon.MODULE_DIAMOND_PICK_UPGRADE, TOOLONLY, MuseIcon.DIAMOND_PICK_UPGRADE, ModularCommon.CATEGORY_TOOL)
+		module = new GenericModule(ModularCommon.MODULE_DIAMOND_PICK_UPGRADE, TOOLONLY, MuseIcon.INDICATOR_1_BLUE, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Add diamonds to allow your pickaxe module to mine Obsidian.")
 				.addInstallCost(new ItemStack(Item.diamond, 3));
 		addModule(module);
-		
+
+		module = new GenericModule(ModularCommon.MODULE_TRANSPARENT_ARMOR, ARMORONLY, MuseIcon.PLATE_2_GREEN, ModularCommon.CATEGORY_COSMETIC)
+		.setDescription("Show some skin.")
+		.addInstallCost(new ItemStack(Block.glass, 3));
+		addModule(module);
+
 		module = new GenericModule(ModularCommon.MODULE_SPRINT_ASSIST, LEGSONLY, MuseIcon.SPRINT_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("A set of servo motors to help you sprint (double-tap forward) faster.")
 				.addInstallCost(new ItemStack(BasicComponents.itemMotor, 4));
@@ -282,7 +289,6 @@ public class Config extends Configuration {
 				module, "Power",
 				ModularCommon.SHOCK_ABSORB_ENERGY_CONSUMPTION, "J", 0, 10,
 				ModularCommon.SHOCK_ABSORB_MULTIPLIER, "x", 0, 1);
-		
 		addModule(module);
 	}
 	

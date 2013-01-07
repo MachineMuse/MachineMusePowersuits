@@ -70,7 +70,6 @@ public class ModuleTweakFrame extends ScrollableFrame {
 				slider.draw();
 			}
 			int nexty = (int) (sliders.size() * 24 + topleft.y() + 24);
-			GenericModule module = moduleTarget.getSelectedModule().getModule();
 			for (Map.Entry<String, Double> property : propertyStrings.entrySet()) {
 				nexty += 8;
 				String[] str = { property.getKey() + ":", MuseStringUtils.formatNumberShort(property.getValue()) };
