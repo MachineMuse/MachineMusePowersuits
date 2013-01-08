@@ -72,7 +72,7 @@ public abstract class MuseRenderer {
 	public static List<Point2D> pointsInLine(int num, Point2D a, Point2D b) {
 		List<Point2D> points = new ArrayList<Point2D>();
 		if (num < 1) {
-			return null;
+			return points;
 		} else if (num < 2) {
 			points.add(b.minus(a).times(0.5F).plus(a));
 		} else {
