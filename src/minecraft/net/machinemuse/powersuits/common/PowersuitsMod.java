@@ -5,7 +5,13 @@ import java.util.List;
 
 import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.event.EventHandler;
-import net.machinemuse.powersuits.item.*;
+import net.machinemuse.powersuits.event.FallManager;
+import net.machinemuse.powersuits.item.ItemPowerArmor;
+import net.machinemuse.powersuits.item.ItemPowerArmorFeet;
+import net.machinemuse.powersuits.item.ItemPowerArmorHead;
+import net.machinemuse.powersuits.item.ItemPowerArmorLegs;
+import net.machinemuse.powersuits.item.ItemPowerArmorTorso;
+import net.machinemuse.powersuits.item.ItemPowerTool;
 import net.machinemuse.powersuits.network.MusePacketHandler;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -13,11 +19,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import basiccomponents.common.BasicComponents;
-import cpw.mods.fml.common.*;
+import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.Mod.PostInit;
 import cpw.mods.fml.common.Mod.PreInit;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -82,6 +89,7 @@ public class PowersuitsMod {
 		Config.init(new Configuration(
 				event.getSuggestedConfigurationFile()));
 		MinecraftForge.EVENT_BUS.register(new EventHandler());
+		MinecraftForge.EVENT_BUS.register(new FallManager());
 	}
 	
 	public static Config config;

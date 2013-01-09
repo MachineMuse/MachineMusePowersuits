@@ -10,7 +10,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
 public class EventHandler {
@@ -18,11 +17,11 @@ public class EventHandler {
 		EntityPlayer player = event.entityPlayer;
 		Block block = event.block;
 		ItemStack stack = player.inventory.getCurrentItem();
-		if (stack.getItem() instanceof ItemPowerTool && ItemPowerTool.canHarvestBlock(stack, block, 0)) {
+		if (stack != null && stack.getItem() instanceof ItemPowerTool && ItemPowerTool.canHarvestBlock(stack, block, 0)) {
 			event.success = true;
 		}
 	}
-	
+
 	@ForgeSubscribe public void handleLivingJumpEvent(LivingJumpEvent event) {
 		if (event.entityLiving instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
@@ -36,27 +35,7 @@ public class EventHandler {
 					player.motionY *= jumpAssist;
 				}
 			}
-			
-		}
-	}
-	@ForgeSubscribe public void handleFallEvent(LivingFallEvent event) {
-		if (event.entityLiving instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.entityLiving;
-			ItemStack boots = player.getCurrentArmor(0);
-			if (boots != null) {
-				if (ItemUtils.itemHasModule(boots, ModularCommon.MODULE_SHOCK_ABSORBER)) {
-					double distanceAbsorb = event.distance * Config.computeModularProperty(boots, ModularCommon.SHOCK_ABSORB_MULTIPLIER);
-					
-					double drain = distanceAbsorb * distanceAbsorb * 0.05
-							* Config.computeModularProperty(boots, ModularCommon.SHOCK_ABSORB_ENERGY_CONSUMPTION);
-					double avail = ItemUtils.getPlayerEnergy(player);
-					if (drain < avail) {
-						ItemUtils.drainPlayerEnergy(player, drain);
-						event.distance -= distanceAbsorb;
-					}
-				}
-			}
-			
+
 		}
 	}
 }

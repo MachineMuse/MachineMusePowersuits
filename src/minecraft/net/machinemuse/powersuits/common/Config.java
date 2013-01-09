@@ -290,6 +290,11 @@ public class Config extends Configuration {
 				ModularCommon.SHOCK_ABSORB_ENERGY_CONSUMPTION, "J", 0, 10,
 				ModularCommon.SHOCK_ABSORB_MULTIPLIER, "x", 0, 1);
 		addModule(module);
+		
+		module = new GenericModule(ModularCommon.MODULE_GLIDER, TORSOONLY, MuseIcon.GLIDER, ModularCommon.CATEGORY_MOVEMENT)
+			.setDescription("Tack on some wings so you can slow your fall and maybe fly a bit if you jump from a decent height.")
+			.addInstallCost(new ItemStack(BasicComponents.itemSteelPlate, 2));
+		addModule(module);
 	}
 	
 	/**

@@ -49,6 +49,7 @@ public abstract class ModularCommon {
 	public static final String MODULE_JUMP_ASSIST = "Jump Assist";
 	public static final String MODULE_SHOCK_ABSORBER = "Shock Absorber";
 	public static final String MODULE_TRANSPARENT_ARMOR = "Transparent Armor";
+	public static final String MODULE_GLIDER = "Glider";
 	
 	/**
 	 * Categories for modules

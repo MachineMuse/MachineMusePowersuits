@@ -1,6 +1,11 @@
 package net.machinemuse.general.gui.frame;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
@@ -29,7 +34,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
 	protected Map<String, Double> propertyStrings;
 	protected ClickableSlider selectedSlider;
 	protected EntityClientPlayerMP player;
-	
+
 	public ModuleTweakFrame(
 			EntityClientPlayerMP player,
 			Point2D topleft, Point2D bottomright,
@@ -40,7 +45,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
 		this.moduleTarget = moduleTarget;
 		this.player = player;
 	}
-	
+
 	@Override public void update(double mousex, double mousey) {
 		mousex /= SCALERATIO;
 		mousey /= SCALERATIO;
@@ -53,13 +58,16 @@ public class ModuleTweakFrame extends ScrollableFrame {
 				sliders = null;
 				propertyStrings = null;
 			}
+		} else {
+			sliders = null;
+			propertyStrings = null;
 		}
 		if (selectedSlider != null) {
 			selectedSlider.moveSlider(mousex, mousey);
 		}
-		
+
 	}
-	
+
 	@Override public void draw() {
 		if (sliders != null) {
 			MuseRenderer.drawFrameRect(topleft.times(SCALERATIO), bottomright.times(SCALERATIO), borderColour, insideColour, 0, 2);
@@ -74,17 +82,18 @@ public class ModuleTweakFrame extends ScrollableFrame {
 				nexty += 8;
 				String[] str = { property.getKey() + ":", MuseStringUtils.formatNumberShort(property.getValue()) };
 				MuseRenderer.drawStringsJustified(Arrays.asList(str), topleft.x() + 4, bottomright.x() - 4, nexty);
-				
+
 			}
 			GL11.glPopMatrix();
 		}
 	}
+
 	private void loadTweaks(ItemStack stack, GenericModule module) {
 		NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
 		NBTTagCompound moduleTag = itemTag.getCompoundTag(module.getName());
-		
+
 		propertyStrings = new HashMap();
-		
+
 		Set<IModuleProperty> propertyCalcs = module.getPropertyComputers();
 		for (IModuleProperty property : propertyCalcs) {
 			double currValue = 0;
@@ -94,7 +103,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
 			currValue += property.computeProperty(moduleTag);
 			propertyStrings.put(property.getName(), currValue);
 		}
-		
+
 		Set<String> tweaks = module.getTweaks();
 		sliders = new LinkedList();
 		int y = 0;
@@ -107,6 +116,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
 			sliders.add(slider);
 		}
 	}
+
 	@Override public void onMouseDown(double x, double y, int button) {
 		x /= SCALERATIO;
 		y /= SCALERATIO;
@@ -120,7 +130,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
 			}
 		}
 	}
-	
+
 	@Override public void onMouseUp(double x, double y, int button) {
 		if (selectedSlider != null && itemTarget.getSelectedItem() != null && moduleTarget.getSelectedModule() != null) {
 			ClickableItem item = itemTarget.getSelectedItem();

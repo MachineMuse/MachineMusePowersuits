@@ -11,6 +11,7 @@ import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.item.ModularCommon;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -36,7 +37,7 @@ public class PlayerTickHandler implements ITickHandler {
 		double totalWeight = 0;
 		double weightCapacity = 25000;
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
-		
+
 		for (ItemStack stack : ItemUtils.getModularItemsInInventory(player)) {
 			totalWeight += ModularCommon.getTotalWeight(stack);
 		}
@@ -57,18 +58,33 @@ public class PlayerTickHandler implements ITickHandler {
 				}
 			}
 		}
+		if (player instanceof EntityClientPlayerMP) {
+			EntityClientPlayerMP clientplayer = (EntityClientPlayerMP) player;
+			boolean jumpkey = clientplayer.movementInput.jump;
+			ItemStack torso = player.getCurrentArmor(2);
+			if (jumpkey && torso != null) {
+				if (ItemUtils.itemHasModule(torso, ModularCommon.MODULE_GLIDER)) {
+					if (player.motionY < -0.1) {
+						player.motionY = Math.min(player.motionY + 0.1, -0.1);
+
+						player.jumpMovementFactor += 0.3;
+					}
+				}
+			}
+		}
 		if (totalWeight > weightCapacity) {
 			player.motionX *= weightCapacity / totalWeight;
 			player.motionZ *= weightCapacity / totalWeight;
 		}
 	}
+
 	@Override public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		EntityPlayer player = toPlayer(tickData[0]);
 		List<ItemStack> stacks = ItemUtils
 				.getModularItemsInInventory(player.inventory);
-		
+
 	}
-	
+
 	public static World toWorld(Object data) {
 		World world = null;
 		try {
@@ -80,7 +96,7 @@ public class PlayerTickHandler implements ITickHandler {
 		}
 		return world;
 	}
-	
+
 	public static EntityPlayer toPlayer(Object data) {
 		EntityPlayer player = null;
 		try {
@@ -93,19 +109,19 @@ public class PlayerTickHandler implements ITickHandler {
 		}
 		return player;
 	}
-	
+
 	/**
 	 * Type of tick handled by this handler
 	 */
 	@Override public EnumSet<TickType> ticks() {
 		return EnumSet.of(TickType.PLAYER);
 	}
-	
+
 	/**
 	 * Profiling label for this handler
 	 */
 	@Override public String getLabel() {
 		return "MMMPS: Player Tick";
 	}
-	
+
 }
