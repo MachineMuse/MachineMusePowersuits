@@ -6,11 +6,11 @@ package net.machinemuse.powersuits.tick;
 import java.util.EnumSet;
 import java.util.List;
 
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.item.ModularCommon;
+import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -31,37 +31,43 @@ import cpw.mods.fml.relauncher.Side;
  * @author MachineMuse
  */
 public class PlayerTickHandler implements ITickHandler {
-	@Override public void tickStart(EnumSet<TickType> type, Object... tickData) {
+	@Override
+	public void tickStart(EnumSet<TickType> type, Object... tickData) {
+
 		EntityPlayer player = toPlayer(tickData[0]);
+
+		ItemStack helmet = player.getCurrentArmor(3);
+		ItemStack torso = player.getCurrentArmor(2);
+		ItemStack pants = player.getCurrentArmor(1);
+		ItemStack boots = player.getCurrentArmor(0);
+		ItemStack tool = player.getCurrentEquippedItem();
+
 		double totalEnergy = ItemUtils.getPlayerEnergy(player);
-		double totalWeight = 0;
+		double totalWeight = ItemUtils.getPlayerWeight(player);
 		double weightCapacity = 25000;
+
+		double landMovementFactor = 0.1F;
+		double jumpMovementFactor = 0.02F;
+
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 
-		for (ItemStack stack : ItemUtils.getModularItemsInInventory(player)) {
-			totalWeight += ModularCommon.getTotalWeight(stack);
-		}
-		if (player.isSprinting()) {
-			// idk why this is the pants slot
-			ItemStack pants = player.getCurrentArmor(1);
-			if (pants != null && pants.getItem() instanceof IModularItem && ItemUtils.itemHasModule(pants, ModularCommon.MODULE_SPRINT_ASSIST)) {
-				double sprintCost = Config.computeModularProperty(pants, ModularCommon.SPRINT_ENERGY_CONSUMPTION);
+		if (pants != null && pants.getItem() instanceof IModularItem) {
+			if (player.isSprinting() && ItemUtils.itemHasModule(pants, ModularCommon.MODULE_SPRINT_ASSIST)) {
+				double sprintCost = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_ENERGY_CONSUMPTION);
 				if (sprintCost < totalEnergy) {
 					totalEnergy -= sprintCost;
 					ItemUtils.drainPlayerEnergy(player, sprintCost);
-					double sprintBoost = Config.computeModularProperty(pants, ModularCommon.SPRINT_SPEED_MULTIPLIER);
+					double sprintBoost = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_SPEED_MULTIPLIER);
 					player.landMovementFactor *= sprintBoost;
-					player.jumpMovementFactor *= sprintBoost;
-					double movement = Math.round(Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ) * 100.0F);
-					double exhaustionComp = Config.computeModularProperty(pants, ModularCommon.SPRINT_FOOD_COMPENSATION);
-					player.addExhaustion((float) (-0.0001 * movement * exhaustionComp));
+					double exhaustion = Math.round(Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ) * 100.0F) * 0.01;
+					double exhaustionComp = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_FOOD_COMPENSATION);
+					player.addExhaustion((float) (-0.01 * exhaustion * exhaustionComp));
 				}
 			}
 		}
 		if (player instanceof EntityClientPlayerMP) {
 			EntityClientPlayerMP clientplayer = (EntityClientPlayerMP) player;
 			boolean jumpkey = clientplayer.movementInput.jump;
-			ItemStack torso = player.getCurrentArmor(2);
 			if (jumpkey && torso != null) {
 				if (ItemUtils.itemHasModule(torso, ModularCommon.MODULE_GLIDER)) {
 					if (player.motionY < -0.1) {
@@ -78,7 +84,8 @@ public class PlayerTickHandler implements ITickHandler {
 		}
 	}
 
-	@Override public void tickEnd(EnumSet<TickType> type, Object... tickData) {
+	@Override
+	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		EntityPlayer player = toPlayer(tickData[0]);
 		List<ItemStack> stacks = ItemUtils
 				.getModularItemsInInventory(player.inventory);
@@ -113,14 +120,16 @@ public class PlayerTickHandler implements ITickHandler {
 	/**
 	 * Type of tick handled by this handler
 	 */
-	@Override public EnumSet<TickType> ticks() {
+	@Override
+	public EnumSet<TickType> ticks() {
 		return EnumSet.of(TickType.PLAYER);
 	}
 
 	/**
 	 * Profiling label for this handler
 	 */
-	@Override public String getLabel() {
+	@Override
+	public String getLabel() {
 		return "MMMPS: Player Tick";
 	}
 

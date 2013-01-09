@@ -7,6 +7,7 @@ import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.Config.Items;
+import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -34,7 +35,7 @@ public class ItemPowerTool extends ItemTool
 	private static final ItemStack ironAxe = new ItemStack(Item.axeSteel);
 	private static final ItemStack ironShovel = new ItemStack(Item.shovelSteel);
 	private static final ItemStack diamondPick = new ItemStack(Item.pickaxeDiamond);
-	
+
 	/**
 	 * Constructor. Takes information from the Config.Items enum.
 	 */
@@ -58,20 +59,22 @@ public class ItemPowerTool extends ItemTool
 		setItemName(Config.Items.PowerTool.idName);
 		LanguageRegistry.addName(this, Config.Items.PowerTool.englishName);
 	}
-	
-	@Override public Items getItemType() {
+
+	@Override
+	public Items getItemType() {
 		return Config.Items.PowerTool;
 	}
-	
+
 	/**
 	 * Returns the strength of the stack against a given block. 1.0F base,
 	 * (Quality+1)*2 if correct blocktype, 1.5F if sword
 	 */
-	@Override public float getStrVsBlock(ItemStack stack, Block block) {
+	@Override
+	public float getStrVsBlock(ItemStack stack, Block block) {
 		// TODO: Make sure this is right
 		return getStrVsBlock(stack, block, 0);
 	}
-	
+
 	public static boolean canHarvestBlock(ItemStack stack, Block block, int meta) {
 		if (ForgeHooks.canToolHarvestBlock(block, meta, ironPickaxe) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_PICKAXE)) {
 			return true;
@@ -86,49 +89,52 @@ public class ItemPowerTool extends ItemTool
 			return false;
 		}
 	}
-	
+
 	/** FORGE: Overridden to allow custom tool effectiveness */
-	@Override public float getStrVsBlock(ItemStack stack, Block block, int meta) {
+	@Override
+	public float getStrVsBlock(ItemStack stack, Block block, int meta) {
 		double harvestSpeed = 1;
 		if (ForgeHooks.isToolEffective(ironPickaxe, block, meta) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_PICKAXE)) {
-			harvestSpeed = Config.computeModularProperty(stack, ModularCommon.PICKAXE_HARVEST_SPEED);
+			harvestSpeed = ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_HARVEST_SPEED);
 		} else if (ForgeHooks.isToolEffective(ironShovel, block, meta) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_SHOVEL)) {
-			harvestSpeed = Config.computeModularProperty(stack, ModularCommon.SHOVEL_HARVEST_SPEED);
+			harvestSpeed = ModuleManager.computeModularProperty(stack, ModularCommon.SHOVEL_HARVEST_SPEED);
 		} else if (ForgeHooks.isToolEffective(ironAxe, block, meta) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_AXE)) {
-			harvestSpeed = Config.computeModularProperty(stack, ModularCommon.AXE_HARVEST_SPEED);
+			harvestSpeed = ModuleManager.computeModularProperty(stack, ModularCommon.AXE_HARVEST_SPEED);
 		} else if (ForgeHooks.isToolEffective(diamondPick, block, meta) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_DIAMOND_PICK_UPGRADE)) {
-			harvestSpeed = Config.computeModularProperty(stack, ModularCommon.PICKAXE_HARVEST_SPEED);
+			harvestSpeed = ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_HARVEST_SPEED);
 		} else {
 			harvestSpeed = 1;
 		}
 		return (float) harvestSpeed;
 	}
-	
+
 	/**
 	 * Current implementations of this method in child classes do not use the
 	 * entry argument beside stack. They just raise the damage on the stack.
 	 */
-	@Override public boolean hitEntity(ItemStack stack,
+	@Override
+	public boolean hitEntity(ItemStack stack,
 			EntityLiving entityDoingHitting, EntityLiving entityBeingHit) {
 		// stack.damageItem(2, entityBeingHit);
 		return true;
 	}
-	
+
 	/**
 	 * Called when a block is destroyed using this tool.
 	 */
-	@Override public boolean onBlockDestroyed(ItemStack stack, World world,
+	@Override
+	public boolean onBlockDestroyed(ItemStack stack, World world,
 			int blockID, int x, int y, int z,
 			EntityLiving entity) {
 		double drain = 1;
 		Block block = Block.blocksList[blockID];
 		int meta = 0;
 		if (ForgeHooks.isToolEffective(diamondPick, block, meta)) {
-			drain = Config.computeModularProperty(stack, ModularCommon.PICKAXE_ENERGY_CONSUMPTION);
+			drain = ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_ENERGY_CONSUMPTION);
 		} else if (ForgeHooks.isToolEffective(ironShovel, block, meta)) {
-			drain = Config.computeModularProperty(stack, ModularCommon.SHOVEL_ENERGY_CONSUMPTION);
+			drain = ModuleManager.computeModularProperty(stack, ModularCommon.SHOVEL_ENERGY_CONSUMPTION);
 		} else if (ForgeHooks.isToolEffective(ironAxe, block, meta)) {
-			drain = Config.computeModularProperty(stack, ModularCommon.AXE_ENERGY_CONSUMPTION);
+			drain = ModuleManager.computeModularProperty(stack, ModularCommon.AXE_ENERGY_CONSUMPTION);
 		} else {
 			drain = 1;
 		}
@@ -139,49 +145,56 @@ public class ItemPowerTool extends ItemTool
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Returns the damage against a given entity.
 	 */
-	@Override public int getDamageVsEntity(Entity par1Entity) {
+	@Override
+	public int getDamageVsEntity(Entity par1Entity) {
 		return 1;
 	}
-	
-	@Override @SideOnly(Side.CLIENT)/**
-									 * Returns True is the item is renderer in full 3D when hold.
-									 */
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	/**
+	 * Returns True is the item is renderer in full 3D when hold.
+	 */
 	public boolean isFull3D() {
 		return true;
 	}
-	
+
 	/**
 	 * Return the enchantability factor of the item. In this case, 0. Might add
 	 * an enchantability module later :P
 	 */
-	@Override public int getItemEnchantability() {
+	@Override
+	public int getItemEnchantability() {
 		return 0;
 	}
-	
+
 	/**
 	 * Return the name for this tool's material.
 	 */
-	@Override public String getToolMaterialName() {
+	@Override
+	public String getToolMaterialName() {
 		return this.toolMaterial.toString();
 	}
-	
+
 	/**
 	 * Return whether this item is repairable in an anvil.
 	 */
-	@Override public boolean getIsRepairable(ItemStack par1ItemStack,
+	@Override
+	public boolean getIsRepairable(ItemStack par1ItemStack,
 			ItemStack par2ItemStack) {
 		return false;
 	}
-	
+
 	public static String formatInfo(String string, double value) {
 		return string + "\t" + MuseStringUtils.formatNumberShort(value);
 	}
-	
-	@Override public List<String> getLongInfo(EntityPlayer player, ItemStack stack) {
+
+	@Override
+	public List<String> getLongInfo(EntityPlayer player, ItemStack stack) {
 		List<String> info = new ArrayList();
 		NBTTagCompound itemProperties = ItemUtils
 				.getMuseItemTag(stack);
@@ -191,7 +204,7 @@ public class ItemPowerTool extends ItemTool
 		info.add(formatInfo("Weight", ModularCommon.getTotalWeight(stack)) + "g");
 		return info;
 	}
-	
+
 	/**
 	 * Adds information to the item's tooltip when 'getting' it.
 	 * 
@@ -207,47 +220,56 @@ public class ItemPowerTool extends ItemTool
 	 *            Whether or not the player has 'advanced tooltips' turned on in
 	 *            their settings.
 	 */
-	@Override public void addInformation(ItemStack stack,
+	@Override
+	public void addInformation(ItemStack stack,
 			EntityPlayer player, List currentTipList, boolean advancedToolTips) {
 		ModularCommon.addInformation(stack, player, currentTipList,
 				advancedToolTips);
 	}
-	
+
 	// /////////////////////////////////////////// //
 	// --- UNIVERSAL ELECTRICITY COMPATABILITY --- //
 	// /////////////////////////////////////////// //
-	@Override public double onReceive(double amps, double voltage, ItemStack itemStack) {
+	@Override
+	public double onReceive(double amps, double voltage, ItemStack itemStack) {
 		return ModularCommon.onReceive(amps, voltage, itemStack);
 	}
-	
-	@Override public double onUse(double joulesNeeded, ItemStack itemStack) {
+
+	@Override
+	public double onUse(double joulesNeeded, ItemStack itemStack) {
 		return ModularCommon.onUse(joulesNeeded, itemStack);
 	}
-	
-	@Override public double getJoules(Object... data) {
+
+	@Override
+	public double getJoules(Object... data) {
 		return ModularCommon.getJoules(getAsStack(data));
 	}
-	
-	@Override public void setJoules(double joules, Object... data) {
+
+	@Override
+	public void setJoules(double joules, Object... data) {
 		ModularCommon.setJoules(joules, getAsStack(data));
 	}
-	
-	@Override public double getMaxJoules(Object... data) {
+
+	@Override
+	public double getMaxJoules(Object... data) {
 		return ModularCommon.getMaxJoules(getAsStack(data));
 	}
-	
-	@Override public double getVoltage() {
+
+	@Override
+	public double getVoltage() {
 		return ModularCommon.getVoltage();
 	}
-	
-	@Override public boolean canReceiveElectricity() {
+
+	@Override
+	public boolean canReceiveElectricity() {
 		return true;
 	}
-	
-	@Override public boolean canProduceElectricity() {
+
+	@Override
+	public boolean canProduceElectricity() {
 		return true;
 	}
-	
+
 	/**
 	 * Helper function to deal with UE's use of varargs
 	 */
@@ -259,5 +281,5 @@ public class ItemPowerTool extends ItemTool
 					"MusePowerSuits: Invalid ItemStack passed via UE interface");
 		}
 	}
-	
+
 }

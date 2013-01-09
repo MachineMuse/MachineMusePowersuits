@@ -7,9 +7,9 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.List;
 
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.powermodule.GenericModule;
+import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -72,7 +72,7 @@ public class MusePacketInstallModuleRequest extends MusePacket {
 		if (moduleName != null) {
 			InventoryPlayer inventory = playerEntity.inventory;
 			int entityId = playerEntity.entityId;
-			GenericModule moduleType = Config.getModule(moduleName);
+			GenericModule moduleType = ModuleManager.getModule(moduleName);
 			List<ItemStack> cost = moduleType.getInstallCost();
 
 			if (ItemUtils.hasInInventory(cost, playerEntity.inventory)) {

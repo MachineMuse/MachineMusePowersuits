@@ -7,6 +7,7 @@ import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.Config.Items;
+import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumArmorMaterial;
@@ -28,7 +29,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 		IModularItem,
 		IArmorTextureProvider {
 	Config.Items itemType;
-	
+
 	/**
 	 * @param id
 	 * @param material
@@ -43,72 +44,76 @@ public abstract class ItemPowerArmor extends ItemArmor
 		setMaxStackSize(1);
 		setCreativeTab(Config.getCreativeTab());
 	}
-	
-	@Override public String getArmorTextureFile(ItemStack itemstack) {
-		if(itemstack != null) {
-			if(ItemUtils.itemHasModule(itemstack, ModularCommon.MODULE_TRANSPARENT_ARMOR)) {
+
+	@Override
+	public String getArmorTextureFile(ItemStack itemstack) {
+		if (itemstack != null) {
+			if (ItemUtils.itemHasModule(itemstack, ModularCommon.MODULE_TRANSPARENT_ARMOR)) {
 				return Config.BLANK_ARMOR_MODEL_PATH;
-			} else 	if(itemstack.getItem() instanceof ItemPowerArmorLegs) {
+			} else if (itemstack.getItem() instanceof ItemPowerArmorLegs) {
 				return Config.SEBK_ARMORPANTS_PATH;
 			} else {
 				return Config.SEBK_ARMOR_PATH;
 			}
 		}
-		return Config.BLANK_ARMOR_MODEL_PATH; 
+		return Config.BLANK_ARMOR_MODEL_PATH;
 	}
-	
+
 	/**
 	 * Inherited from ISpecialArmor, allows significant customization of damage
 	 * calculations.
 	 */
-	@Override public ArmorProperties getProperties(EntityLiving player, ItemStack armor,
+	@Override
+	public ArmorProperties getProperties(EntityLiving player, ItemStack armor,
 			DamageSource source, double damage, int slot) {
 		// Order in which this armor is assessed for damage. Higher(?) priority
 		// items take damage first, and if none spills over, the other items
 		// take no damage.
 		int priority = 1;
-		
+
 		double armorDouble;
 
 		if (player instanceof EntityPlayer) {
-			armorDouble = getArmorDouble((EntityPlayer) player, armor);	
+			armorDouble = getArmorDouble((EntityPlayer) player, armor);
 		} else {
 			armorDouble = 2;
 		}
-		
+
 		// How much of incoming damage is absorbed by this armor piece.
 		// 1.0 = absorbs all damage
 		// 0.5 = 50% damage to item, 50% damage carried over
 		double absorbRatio = 0.04 * armorDouble;
-		
+
 		// Maximum damage absorbed by this piece. Actual damage to this item
 		// will be clamped between (damage * absorbRatio) and (absorbMax). Note
 		// that a player has 20 hp (1hp = 1 half-heart)
-		int absorbMax = (int) armorDouble*25; // Not sure why this is necessary but oh well
-		
+		int absorbMax = (int) armorDouble * 25; // Not sure why this is
+												// necessary but oh well
+
 		return new ArmorProperties(priority, absorbRatio,
 				absorbMax);
 	}
-	
+
 	/**
 	 * Inherited from ISpecialArmor, allows us to customize the calculations for
 	 * how much armor will display on the player's HUD.
 	 */
-	@Override public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
+	@Override
+	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
 		return (int) getArmorDouble(player, armor);
 	}
-	
+
 	public double getArmorDouble(EntityPlayer player, ItemStack stack) {
 		double totalArmor = 0;
 		NBTTagCompound props = ItemUtils.getMuseItemTag(stack);
-		
+
 		double energy = ItemUtils.getPlayerEnergy(player);
-		double physArmor = Config.computeModularProperty(stack, ModularCommon.ARMOR_VALUE_PHYSICAL);
-		double enerArmor = Config.computeModularProperty(stack, ModularCommon.ARMOR_VALUE_ENERGY);
-		double enerConsum = Config.computeModularProperty(stack, ModularCommon.ARMOR_ENERGY_CONSUMPTION);
-		
+		double physArmor = ModuleManager.computeModularProperty(stack, ModularCommon.ARMOR_VALUE_PHYSICAL);
+		double enerArmor = ModuleManager.computeModularProperty(stack, ModularCommon.ARMOR_VALUE_ENERGY);
+		double enerConsum = ModuleManager.computeModularProperty(stack, ModularCommon.ARMOR_ENERGY_CONSUMPTION);
+
 		totalArmor += physArmor;
-		
+
 		if (energy > enerConsum) {
 			totalArmor += enerArmor;
 		}
@@ -117,15 +122,16 @@ public abstract class ItemPowerArmor extends ItemArmor
 		totalArmor = Math.min(10, totalArmor);
 		return totalArmor;
 	}
-	
+
 	/**
 	 * Inherited from ISpecialArmor, allows us to customize how the armor
 	 * handles being damaged.
 	 */
-	@Override public void damageArmor(EntityLiving entity, ItemStack stack,
+	@Override
+	public void damageArmor(EntityLiving entity, ItemStack stack,
 			DamageSource source, int damage, int slot) {
 		NBTTagCompound itemProperties = ItemUtils.getMuseItemTag(stack);
-		double enerConsum = Config.computeModularProperty(stack, ModularCommon.ARMOR_ENERGY_CONSUMPTION);
+		double enerConsum = ModuleManager.computeModularProperty(stack, ModularCommon.ARMOR_ENERGY_CONSUMPTION);
 		double drain = enerConsum * damage;
 		if (entity instanceof EntityPlayer) {
 			ItemUtils.drainPlayerEnergy((EntityPlayer) entity, drain);
@@ -133,11 +139,12 @@ public abstract class ItemPowerArmor extends ItemArmor
 			onUse(drain, stack);
 		}
 	}
-	
-	@Override public Items getItemType() {
+
+	@Override
+	public Items getItemType() {
 		return itemType;
 	}
-	
+
 	/**
 	 * Adds information to the item's tooltip when 'getting' it.
 	 * 
@@ -153,17 +160,19 @@ public abstract class ItemPowerArmor extends ItemArmor
 	 *            Whether or not the player has 'advanced tooltips' turned on in
 	 *            their settings.
 	 */
-	@Override public void addInformation(ItemStack stack,
+	@Override
+	public void addInformation(ItemStack stack,
 			EntityPlayer player, List currentTipList, boolean advancedToolTips) {
 		ModularCommon.addInformation(stack, player, currentTipList,
 				advancedToolTips);
 	}
-	
+
 	public static String formatInfo(String string, double value) {
 		return string + "\t" + MuseStringUtils.formatNumberShort(value);
 	}
-	
-	@Override public List<String> getLongInfo(EntityPlayer player, ItemStack stack) {
+
+	@Override
+	public List<String> getLongInfo(EntityPlayer player, ItemStack stack) {
 		List<String> info = new ArrayList();
 		NBTTagCompound itemProperties = ItemUtils
 				.getMuseItemTag(stack);
@@ -173,41 +182,50 @@ public abstract class ItemPowerArmor extends ItemArmor
 		info.add(formatInfo("Weight", ModularCommon.getTotalWeight(stack)) + "g");
 		return info;
 	}
+
 	// //////////////////////////////////////////////
 	// --- UNIVERSAL ELECTRICITY COMPATABILITY ---//
 	// //////////////////////////////////////////////
-	@Override public double onReceive(double amps, double voltage, ItemStack itemStack) {
+	@Override
+	public double onReceive(double amps, double voltage, ItemStack itemStack) {
 		return ModularCommon.onReceive(amps, voltage, itemStack);
 	}
-	
-	@Override public double onUse(double joulesNeeded, ItemStack itemStack) {
+
+	@Override
+	public double onUse(double joulesNeeded, ItemStack itemStack) {
 		return ModularCommon.onUse(joulesNeeded, itemStack);
 	}
-	
-	@Override public double getJoules(Object... data) {
+
+	@Override
+	public double getJoules(Object... data) {
 		return ModularCommon.getJoules(getAsStack(data));
 	}
-	
-	@Override public void setJoules(double joules, Object... data) {
+
+	@Override
+	public void setJoules(double joules, Object... data) {
 		ModularCommon.setJoules(joules, getAsStack(data));
 	}
-	
-	@Override public double getMaxJoules(Object... data) {
+
+	@Override
+	public double getMaxJoules(Object... data) {
 		return ModularCommon.getMaxJoules(getAsStack(data));
 	}
-	
-	@Override public double getVoltage() {
+
+	@Override
+	public double getVoltage() {
 		return ModularCommon.getVoltage();
 	}
-	
-	@Override public boolean canReceiveElectricity() {
+
+	@Override
+	public boolean canReceiveElectricity() {
 		return true;
 	}
-	
-	@Override public boolean canProduceElectricity() {
+
+	@Override
+	public boolean canProduceElectricity() {
 		return true;
 	}
-	
+
 	/**
 	 * Helper function to deal with UE's use of varargs
 	 */

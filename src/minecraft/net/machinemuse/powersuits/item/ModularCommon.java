@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.item;
 import java.util.List;
 
 import net.machinemuse.general.MuseStringUtils;
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -33,7 +33,7 @@ public abstract class ModularCommon {
 	public static final String JUMP_MULTIPLIER = "Jump Multiplier";
 	public static final String SHOCK_ABSORB_MULTIPLIER = "Distance Reduction";
 	public static final String SHOCK_ABSORB_ENERGY_CONSUMPTION = "Energy consumption";
-	
+
 	/**
 	 * Module names
 	 */
@@ -50,7 +50,7 @@ public abstract class ModularCommon {
 	public static final String MODULE_SHOCK_ABSORBER = "Shock Absorber";
 	public static final String MODULE_TRANSPARENT_ARMOR = "Transparent Armor";
 	public static final String MODULE_GLIDER = "Glider";
-	
+
 	/**
 	 * Categories for modules
 	 */
@@ -60,7 +60,7 @@ public abstract class ModularCommon {
 	public static final String CATEGORY_WEAPON = "Weapon";
 	public static final String CATEGORY_MOVEMENT = "Movement";
 	public static final String CATEGORY_COSMETIC = "Cosmetic";
-	
+
 	/**
 	 * Adds information to the item's tooltip when 'getting' it.
 	 * 
@@ -90,7 +90,7 @@ public abstract class ModularCommon {
 				MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character, MuseStringUtils.FormatCodes.Grey)
 				);
 	}
-	
+
 	// ///////////////////////////// //
 	// --- UNIVERSAL ELECTRICITY --- //
 	// ///////////////////////////// //
@@ -103,36 +103,37 @@ public abstract class ModularCommon {
 		setJoules(stored + taken, itemStack);
 		return surplus;
 	}
-	
+
 	public static double onUse(double joulesNeeded, ItemStack itemStack) {
 		NBTTagCompound itemProperties = ItemUtils.getMuseItemTag(itemStack);
-		
+
 		double joulesAvail = getJoules(itemStack);
 		double joulesProvided = Math.min(joulesAvail, joulesNeeded);
-		
+
 		setJoules(joulesAvail - joulesProvided, itemStack);
 		return joulesProvided;
 	}
-	
+
 	public static double getJoules(ItemStack stack) {
 		return ItemUtils.getDoubleOrZero(stack, CURRENT_ENERGY);
 	}
-	
+
 	public static void setJoules(double joules, ItemStack stack) {
 		ItemUtils.setDoubleOrRemove(stack, CURRENT_ENERGY, joules);
 	}
-	
+
 	public static double getMaxJoules(ItemStack stack) {
-		double maxJoules = Config.computeModularProperty(stack, ModularCommon.MAXIMUM_ENERGY);
+		double maxJoules = ModuleManager.computeModularProperty(stack, ModularCommon.MAXIMUM_ENERGY);
 		if (getJoules(stack) > maxJoules) {
 			setJoules(maxJoules, stack);
 		}
 		return maxJoules;
 	}
-	
+
 	public static double getVoltage() {
 		return 120;
 	}
+
 	// //////////////////////// //
 	// --- OTHER PROPERTIES --- //
 	// //////////////////////// //
@@ -142,7 +143,8 @@ public abstract class ModularCommon {
 		}
 		return moduleTag.getDouble(propertyName);
 	}
+
 	public static double getTotalWeight(ItemStack stack) {
-		return Config.computeModularProperty(stack, ModularCommon.WEIGHT);
+		return ModuleManager.computeModularProperty(stack, ModularCommon.WEIGHT);
 	}
 }
