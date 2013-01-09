@@ -68,20 +68,23 @@ public abstract class ItemPowerArmor extends ItemArmor
 		// take no damage.
 		int priority = 1;
 		
+		double armorDouble;
+
+		if (player instanceof EntityPlayer) {
+			armorDouble = getArmorDouble((EntityPlayer) player, armor);	
+		} else {
+			armorDouble = 2;
+		}
+		
 		// How much of incoming damage is absorbed by this armor piece.
 		// 1.0 = absorbs all damage
 		// 0.5 = 50% damage to item, 50% damage carried over
-		double absorbRatio;
-		if (player instanceof EntityPlayer) {
-			absorbRatio = 0.04 * getArmorDouble((EntityPlayer) player, armor);
-		} else {
-			absorbRatio = 0.1;
-		}
+		double absorbRatio = 0.04 * armorDouble;
 		
 		// Maximum damage absorbed by this piece. Actual damage to this item
 		// will be clamped between (damage * absorbRatio) and (absorbMax). Note
 		// that a player has 20 hp (1hp = 1 half-heart)
-		int absorbMax = 5;
+		int absorbMax = (int) armorDouble*25; // Not sure why this is necessary but oh well
 		
 		return new ArmorProperties(priority, absorbRatio,
 				absorbMax);
