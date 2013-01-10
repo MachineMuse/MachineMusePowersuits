@@ -2,8 +2,8 @@ package net.machinemuse.powersuits.common;
 
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ModularCommon;
-import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
+import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -115,10 +115,10 @@ public class Config extends Configuration {
 	}
 
 	/**
-	 * Load all the tinkerings in the config file into memory. Eventually. For
-	 * now, they are hardcoded.
+	 * Load all the modules in the config file into memory. Eventually. For now,
+	 * they are hardcoded.
 	 */
-	public static void loadTinkerings() {
+	public static void loadPowerModules() {
 		// loadModularProperties();
 		boolean[] ARMORONLY = { true, true, true, true, false };
 		boolean[] HEADONLY = { true, false, false, false, false };
@@ -132,22 +132,22 @@ public class Config extends Configuration {
 		module = new PowerModule(ModularCommon.MODULE_IRON_PLATING, ARMORONLY, MuseIcon.ORB_1_GREEN, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Iron plating is heavy but protective.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 5))
-				.addTradeoffProperty(ModularCommon.ARMOR_VALUE_PHYSICAL, 5, "Plating Thickness")
-				.addTradeoffProperty(ModularCommon.WEIGHT, 10000, "Plating Thickness");
+				.addTradeoffProperty("Plating Thickness", ModularCommon.ARMOR_VALUE_PHYSICAL, 5)
+				.addTradeoffProperty("Plating Thickness", ModularCommon.WEIGHT, 10000);
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_DIAMOND_PLATING, ARMORONLY, MuseIcon.ORB_1_BLUE, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Diamonds are lighter, harder, and more protective than Iron but much harder to find.")
 				.addInstallCost(new ItemStack(Item.diamond, 5))
-				.addTradeoffProperty(ModularCommon.ARMOR_VALUE_PHYSICAL, 6, "Plating Thickness")
-				.addTradeoffProperty(ModularCommon.WEIGHT, 6000, "Plating Thickness");
+				.addTradeoffProperty("Plating Thickness", ModularCommon.ARMOR_VALUE_PHYSICAL, 6)
+				.addTradeoffProperty("Plating Thickness", ModularCommon.WEIGHT, 6000);
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_ENERGY_SHIELD, ARMORONLY, MuseIcon.ENERGY_SHIELD, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Energy shields are much lighter than plating, but consume energy.")
 				.addInstallCost(new ItemStack(BasicComponents.itemCircuit, 3, 1))
-				.addTradeoffProperty(ModularCommon.ARMOR_VALUE_ENERGY, 6, "Field Strength")
-				.addTradeoffProperty(ModularCommon.ARMOR_ENERGY_CONSUMPTION, 500, "Field Strength");
+				.addTradeoffProperty("Field Strength", ModularCommon.ARMOR_VALUE_ENERGY, 6)
+				.addTradeoffProperty("Field Strength", ModularCommon.ARMOR_ENERGY_CONSUMPTION, 500);
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_SHOVEL, TOOLONLY, MuseIcon.TOOL_SHOVEL, ModularCommon.CATEGORY_TOOL)
@@ -155,26 +155,26 @@ public class Config extends Configuration {
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addBaseProperty(ModularCommon.SHOVEL_ENERGY_CONSUMPTION, 10)
 				.addBaseProperty(ModularCommon.SHOVEL_HARVEST_SPEED, 2)
-				.addTradeoffProperty(ModularCommon.SHOVEL_ENERGY_CONSUMPTION, 990, "Overclock")
-				.addTradeoffProperty(ModularCommon.SHOVEL_HARVEST_SPEED, 18, "Overclock");
+				.addTradeoffProperty("Overclock", ModularCommon.SHOVEL_ENERGY_CONSUMPTION, 990)
+				.addTradeoffProperty("Overclock", ModularCommon.SHOVEL_HARVEST_SPEED, 18);
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_AXE, TOOLONLY, MuseIcon.TOOL_AXE, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Axes are mostly for chopping trees.")
-				.addInstallCost(new ItemStack(Item.ingotIron, 3));
-		ModuleManager.addSimpleTradeoff(
-				module, "Overclock",
-				ModularCommon.AXE_ENERGY_CONSUMPTION, "J", 10, 990,
-				ModularCommon.AXE_HARVEST_SPEED, "", 2, 18);
+				.addInstallCost(new ItemStack(Item.ingotIron, 3))
+				.addBaseProperty(ModularCommon.AXE_ENERGY_CONSUMPTION, 10)
+				.addBaseProperty(ModularCommon.AXE_HARVEST_SPEED, 2)
+				.addTradeoffProperty("Overclock", ModularCommon.AXE_ENERGY_CONSUMPTION, 990)
+				.addTradeoffProperty("Overclock", ModularCommon.AXE_HARVEST_SPEED, 18);
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_PICKAXE, TOOLONLY, MuseIcon.TOOL_PICK, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Picks are good for harder materials like stone and ore.")
-				.addInstallCost(new ItemStack(Item.ingotIron, 3));
-		ModuleManager.addSimpleTradeoff(
-				module, "Overclock",
-				ModularCommon.PICKAXE_ENERGY_CONSUMPTION, "J", 10, 990,
-				ModularCommon.PICKAXE_HARVEST_SPEED, "", 2, 18);
+				.addInstallCost(new ItemStack(Item.ingotIron, 3))
+				.addBaseProperty(ModularCommon.PICKAXE_ENERGY_CONSUMPTION, 10)
+				.addBaseProperty(ModularCommon.PICKAXE_HARVEST_SPEED, 2)
+				.addTradeoffProperty("Overclock", ModularCommon.PICKAXE_ENERGY_CONSUMPTION, 990)
+				.addTradeoffProperty("Overclock", ModularCommon.PICKAXE_HARVEST_SPEED, 18);
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_BATTERY_BASIC, ALLITEMS, MuseIcon.NEXUS_1_GREEN, ModularCommon.CATEGORY_ENERGY)

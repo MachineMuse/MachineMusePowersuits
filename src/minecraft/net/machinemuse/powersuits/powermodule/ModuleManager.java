@@ -37,9 +37,9 @@ public class ModuleManager {
 			String firstPropertyName, String firstUnits, double firstPropertyBase, double firstPropertyMultiplier,
 			String secondPropertyName, String secondUnits, double secondPropertyBase, double secondPropertyMultiplier) {
 		module.addBaseProperty(firstPropertyName, firstPropertyBase);
-		module.addTradeoffProperty(firstPropertyName, firstPropertyMultiplier, tradeoffName);
+		module.addTradeoffProperty(tradeoffName, firstPropertyName, firstPropertyMultiplier);
 		module.addBaseProperty(secondPropertyName, secondPropertyBase);
-		module.addTradeoffProperty(secondPropertyName, secondPropertyMultiplier, tradeoffName);
+		module.addTradeoffProperty(tradeoffName, secondPropertyName, secondPropertyMultiplier);
 	}
 
 }

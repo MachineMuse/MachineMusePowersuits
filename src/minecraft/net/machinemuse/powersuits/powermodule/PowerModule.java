@@ -53,7 +53,7 @@ public class PowerModule {
 		return icon;
 	}
 
-	public PowerModule addTradeoffProperty(String propertyName, double multiplier, String tradeoffName) {
+	public PowerModule addTradeoffProperty(String tradeoffName, String propertyName, double multiplier) {
 		return addPropertyModifier(propertyName, new PropertyModifierLinearAdditive(tradeoffName, multiplier));
 	}
 

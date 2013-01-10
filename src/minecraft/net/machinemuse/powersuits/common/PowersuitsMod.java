@@ -164,7 +164,7 @@ public class PowersuitsMod {
 				" IC",
 				'I', iron, 'C', circuit);
 		
-		Config.loadTinkerings();
+		Config.loadPowerModules();
 		
 	}
 	
