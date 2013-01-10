@@ -8,10 +8,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 
-public class FallManager {
+public class MovementManager {
 	@ForgeSubscribe
 	public void handleFallEvent(LivingFallEvent event) {
-		event.distance = (float) computeFallHeightFromVelocity(event.entity.motionY);
 		if (event.entityLiving instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 			ItemStack boots = player.getCurrentArmor(0);
@@ -38,7 +37,7 @@ public class FallManager {
 
 	public static double computeFallHeightFromVelocity(double velocity) {
 		double ticks = velocity / DEFAULT_GRAVITY;
-		double distance = 0.5 * velocity * ticks * ticks;
+		double distance = -0.5 * DEFAULT_GRAVITY * ticks * ticks;
 		return distance;
 	}
 }

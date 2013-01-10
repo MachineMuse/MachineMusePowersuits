@@ -5,7 +5,7 @@ import java.util.List;
 
 import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.event.EventHandler;
-import net.machinemuse.powersuits.event.FallManager;
+import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.ItemPowerArmor;
 import net.machinemuse.powersuits.item.ItemPowerArmorFeet;
 import net.machinemuse.powersuits.item.ItemPowerArmorHead;
@@ -43,7 +43,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 // Informs forge that this is a base mod class, and gives it some info for the
 // FML mod list. This is also where it looks to see if your client's version
 // matches the server's.
-@Mod(modid = "mmmPowersuits", name = "MachineMuse Modular Powersuits", version = "0.0.3")
+@Mod(modid = "mmmPowersuits", name = "MachineMuse Modular Powersuits", version = "0.0.5")
 // Informs forge of the requirements:
 //
 // clientSideRequired means players can't connect without it. True for things
@@ -60,20 +60,22 @@ import cpw.mods.fml.common.registry.GameRegistry;
 		serverPacketHandlerSpec =
 		@SidedPacketHandler(channels = { "mmmPowersuits" }, packetHandler = MusePacketHandler.class))
 public class PowersuitsMod {
-	
+
 	/**
 	 * The instance of the mod that Forge will access. Note that it has to be
 	 * set by hand in the preInit step.
 	 */
-	@Instance("PowersuitsMod") public static PowersuitsMod instance;
-	
+	@Instance("PowersuitsMod")
+	public static PowersuitsMod instance;
+
 	/**
 	 * Tells Forge what classes to load for the client and server proxies. These
 	 * execute side-specific code like registering renderers (for the client) or
 	 * different tick handlers (for the server).
 	 */
-	@SidedProxy(clientSide = "net.machinemuse.powersuits.client.ClientProxy", serverSide = "net.machinemuse.powersuits.common.CommonProxy") public static CommonProxy proxy;
-	
+	@SidedProxy(clientSide = "net.machinemuse.powersuits.client.ClientProxy", serverSide = "net.machinemuse.powersuits.common.CommonProxy")
+	public static CommonProxy proxy;
+
 	/**
 	 * In the preInit step you only want to load configs, reserve block/item
 	 * IDs, and inform Forge if your mod has to be loaded after any others. No
@@ -84,14 +86,14 @@ public class PowersuitsMod {
 	 * @param event
 	 *            An event object with useful data
 	 */
-	@PreInit public void preInit(FMLPreInitializationEvent event) {
+	@PreInit
+	public void preInit(FMLPreInitializationEvent event) {
 		instance = this;
-		Config.init(new Configuration(
-				event.getSuggestedConfigurationFile()));
+		Config.init(new Configuration(event.getSuggestedConfigurationFile()));
 		MinecraftForge.EVENT_BUS.register(new EventHandler());
-		MinecraftForge.EVENT_BUS.register(new FallManager());
+		MinecraftForge.EVENT_BUS.register(new MovementManager());
 	}
-	
+
 	public static Config config;
 	/**
 	 * A static handle for the blocks and items. We only want one instance of
@@ -100,7 +102,7 @@ public class PowersuitsMod {
 	public static List<Block> allBlocks = new ArrayList<Block>();
 	public static List<Item> allItems = new ArrayList<Item>();
 	public static GuiHandler guiHandler = new GuiHandler();
-	
+
 	/**
 	 * This is where all the heavy loading and registering of handlers goes.
 	 * This occurs when you connect to a server or open a world.
@@ -108,16 +110,17 @@ public class PowersuitsMod {
 	 * @param event
 	 *            An event object with useful data
 	 */
-	@Init public void load(FMLInitializationEvent event) {
+	@Init
+	public void load(FMLInitializationEvent event) {
 		loadBlocks();
-		
+
 		loadItems();
-		
+
 		proxy.registerHandlers();
 		proxy.registerRenderers();
 		NetworkRegistry.instance().registerGuiHandler(this, guiHandler);
 	}
-	
+
 	/**
 	 * Custom function to collect all the item-loading in one place.
 	 */
@@ -125,14 +128,14 @@ public class PowersuitsMod {
 		// Recipe
 		ItemStack iron = new ItemStack(Item.ingotIron);
 		ItemStack circuit = new ItemStack(BasicComponents.itemCircuit, 1, 0);
-		
+
 		ItemPowerArmor item = new ItemPowerArmorHead();
 		allItems.add(item);
 		GameRegistry.addRecipe(new ItemStack(item),
 				"III",
 				"C C",
 				'I', iron, 'C', circuit);
-		
+
 		item = new ItemPowerArmorTorso();
 		allItems.add(item);
 		GameRegistry.addRecipe(new ItemStack(item),
@@ -140,7 +143,7 @@ public class PowersuitsMod {
 				"CIC",
 				"III",
 				'I', iron, 'C', circuit);
-		
+
 		item = new ItemPowerArmorLegs();
 		allItems.add(item);
 		GameRegistry.addRecipe(new ItemStack(item),
@@ -148,14 +151,14 @@ public class PowersuitsMod {
 				"C C",
 				"I I",
 				'I', iron, 'C', circuit);
-		
+
 		item = new ItemPowerArmorFeet();
 		allItems.add(item);
 		GameRegistry.addRecipe(new ItemStack(item),
 				"C C",
 				"I I",
 				'I', iron, 'C', circuit);
-		
+
 		ItemPowerTool tool = new ItemPowerTool();
 		allItems.add(tool);
 		GameRegistry.addRecipe(new ItemStack(tool),
@@ -163,20 +166,20 @@ public class PowersuitsMod {
 				"CI ",
 				" IC",
 				'I', iron, 'C', circuit);
-		
+
 		Config.loadPowerModules();
-		
+
 	}
-	
+
 	/**
 	 * Custom function to collect all the block-loading in one place.
 	 */
 	public static void loadBlocks() {
 		Block tinkTable = BlockTinkerTable.instance();
-		
+
 		allBlocks.add(tinkTable);
 	}
-	
+
 	/**
 	 * Stuff to do after the player connects. This is for things that need to
 	 * wait until the world is completely loaded before initializing.
@@ -184,7 +187,8 @@ public class PowersuitsMod {
 	 * @param event
 	 *            An event object with useful data
 	 */
-	@PostInit public void postInit(FMLPostInitializationEvent event) {
+	@PostInit
+	public void postInit(FMLPostInitializationEvent event) {
 		proxy.postInit();
 	}
 }

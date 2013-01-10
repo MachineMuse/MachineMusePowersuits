@@ -23,8 +23,7 @@ import cpw.mods.fml.relauncher.Side;
  */
 public class ClientProxy extends CommonProxy {
 	private static EquipmentRenderer eRenderer = new EquipmentRenderer();
-	private static PlayerTickHandler playerTickHandler = new PlayerTickHandler();
-	private static RenderTickHandler renderTickHandler = new RenderTickHandler();
+	private static RenderTickHandler renderTickHandler;
 
 	/**
 	 * Register all the custom renderers for this mod.
@@ -54,8 +53,10 @@ public class ClientProxy extends CommonProxy {
 	 */
 	@Override
 	public void registerHandlers() {
-
+		playerTickHandler = new PlayerTickHandler();
 		TickRegistry.registerTickHandler(playerTickHandler, Side.CLIENT);
+
+		renderTickHandler = new RenderTickHandler();
 		TickRegistry.registerTickHandler(renderTickHandler, Side.CLIENT);
 
 		packetHandler = new MusePacketHandler().register();

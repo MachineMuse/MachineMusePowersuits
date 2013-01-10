@@ -7,9 +7,12 @@ import java.util.EnumSet;
 import java.util.List;
 
 import net.machinemuse.powersuits.common.MuseLogger;
+import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.item.ModularCommon;
+import net.machinemuse.powersuits.network.MusePacket;
+import net.machinemuse.powersuits.network.MusePacketFallDistance;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,6 +34,7 @@ import cpw.mods.fml.relauncher.Side;
  * @author MachineMuse
  */
 public class PlayerTickHandler implements ITickHandler {
+
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
 
@@ -65,17 +69,22 @@ public class PlayerTickHandler implements ITickHandler {
 				}
 			}
 		}
-		if (player instanceof EntityClientPlayerMP) {
-			EntityClientPlayerMP clientplayer = (EntityClientPlayerMP) player;
-			boolean jumpkey = clientplayer.movementInput.jump;
-			if (jumpkey && torso != null) {
-				if (ItemUtils.itemHasModule(torso, ModularCommon.MODULE_GLIDER)) {
-					if (player.motionY < -0.1) {
-						player.motionY = Math.min(player.motionY + 0.1, -0.1);
-
-						player.jumpMovementFactor += 0.3;
+		if (side == Side.CLIENT) {
+			if (player instanceof EntityClientPlayerMP) {
+				EntityClientPlayerMP clientplayer = (EntityClientPlayerMP) player;
+				boolean jumpkey = clientplayer.movementInput.jump;
+				if (jumpkey && torso != null) {
+					if (ItemUtils.itemHasModule(torso, ModularCommon.MODULE_GLIDER)) {
+						if (player.motionY < -0.1) {
+							player.motionY = Math.min(player.motionY + 0.05, -0.1);
+							player.jumpMovementFactor = 0.13f; // sprinting
+																// speed
+						}
 					}
 				}
+				double fallDistance = MovementManager.computeFallHeightFromVelocity(player.motionY);
+				MusePacket packet = new MusePacketFallDistance(player, fallDistance);
+				clientplayer.sendQueue.addToSendQueue(packet.getPacket250());
 			}
 		}
 		if (totalWeight > weightCapacity) {

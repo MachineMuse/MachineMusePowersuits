@@ -36,36 +36,38 @@ public class MusePacketHandler implements IPacketHandler {
 		addPacketType(2, MusePacketInstallModuleRequest.class);
 		addPacketType(3, MusePacketSalvageModuleRequest.class);
 		addPacketType(4, MusePacketTweakRequest.class);
-		
+		addPacketType(5, MusePacketFallDistance.class);
+
 		NetworkRegistry.instance().registerChannel(this,
 				Config.getNetworkChannelName());
 		return this;
 	}
-	
+
 	public static BiMap<Integer, Constructor<? extends MusePacket>> packetConstructors = HashBiMap
 			.create();
-	
-	@Override public void onPacketData(INetworkManager manager,
+
+	@Override
+	public void onPacketData(INetworkManager manager,
 			Packet250CustomPayload payload, Player player) {
-		
+
 		if (payload.channel.equals(Config.getNetworkChannelName())) {
-			
+
 			MusePacket repackaged = repackage(payload, player);
-			
+
 			if (repackaged != null) {
-				
+
 				Side side = FMLCommonHandler.instance().getEffectiveSide();
-				
+
 				if (side == Side.CLIENT) {
 					repackaged.handleClient((EntityClientPlayerMP) player);
 				} else if (side == Side.SERVER) {
 					repackaged.handleServer((EntityPlayerMP) player);
 				}
-				
+
 			}
 		}
 	}
-	
+
 	public static MusePacket repackage(Packet250CustomPayload payload,
 			Player player) {
 		MusePacket repackaged = null;
@@ -74,20 +76,20 @@ public class MusePacketHandler implements IPacketHandler {
 		EntityPlayer target = (EntityPlayer) player;
 		int packetType;
 		try {
-			
+
 			packetType = data.readInt();
 			repackaged = useConstructor(packetConstructors.get(packetType),
 					data, player);
-			
+
 		} catch (IOException e) {
 			MuseLogger.logError("PROBLEM READING PACKET TYPE D:");
 			e.printStackTrace();
 			return null;
 		}
-		
+
 		return repackaged;
 	}
-	
+
 	/**
 	 * @param type
 	 * @return
@@ -105,7 +107,7 @@ public class MusePacketHandler implements IPacketHandler {
 		}
 		return -150;
 	}
-	
+
 	/**
 	 * Returns the constructor of the given object. Keep in sync with
 	 * useConstructor.
@@ -120,7 +122,7 @@ public class MusePacketHandler implements IPacketHandler {
 			throws NoSuchMethodException, SecurityException {
 		return packetType.getConstructor(DataInputStream.class, Player.class);
 	}
-	
+
 	/**
 	 * Returns a new instance of the object, created via the constructor in
 	 * question. Keep in sync with getConstructor.
@@ -148,7 +150,7 @@ public class MusePacketHandler implements IPacketHandler {
 		}
 		return null;
 	}
-	
+
 	public static boolean addPacketType(int id,
 			Class<? extends MusePacket> packetType) {
 		try {
@@ -166,5 +168,5 @@ public class MusePacketHandler implements IPacketHandler {
 		}
 		return false;
 	}
-	
+
 }

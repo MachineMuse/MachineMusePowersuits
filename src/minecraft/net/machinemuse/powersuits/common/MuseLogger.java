@@ -2,6 +2,9 @@ package net.machinemuse.powersuits.common;
 
 import java.util.logging.Logger;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+
 /**
  * Logger access class. May become more fleshed out in the future.
  * 
@@ -14,14 +17,16 @@ public abstract class MuseLogger {
 	protected final static String ERRORPREFIX = "MMMPS - ERROR - ";
 
 	public static void logDebug(String string) {
-		Logger.getLogger("STDOUT").info(DEBUGPREFIX + string);
+		Side side = FMLCommonHandler.instance().getEffectiveSide();
+		Logger.getLogger("STDOUT").info(DEBUGPREFIX + side + ": " + string);
 	}
 
 	/**
 	 * @param string
 	 */
 	public static void logError(String string) {
-		Logger.getLogger("STDERR").info(ERRORPREFIX + string);
+		Side side = FMLCommonHandler.instance().getEffectiveSide();
+		Logger.getLogger("STDERR").info(ERRORPREFIX + side + ": " + string);
 
 	}
 }

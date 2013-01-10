@@ -17,26 +17,28 @@ import cpw.mods.fml.relauncher.Side;
 public class CommonProxy {
 	public static String ITEMS_PNG = "/tutorial/generic/items.png";
 	public static String BLOCK_PNG = "/tutorial/generic/block.png";
-	
-	public static ITickHandler tickHandler = new PlayerTickHandler();
-	public static MusePacketHandler packetHandler = new MusePacketHandler();
-	
+
+	public static ITickHandler playerTickHandler;
+	public static MusePacketHandler packetHandler;
+
 	/**
 	 * Only the client needs to register renderers.
 	 */
 	public void registerRenderers() {}
-	
+
 	/**
 	 * Register the server-side tickhandler and packethandler.
 	 */
 	public void registerHandlers() {
-		TickRegistry.registerTickHandler(tickHandler, Side.SERVER);
-		
+		playerTickHandler = new PlayerTickHandler();
+		TickRegistry.registerTickHandler(playerTickHandler, Side.SERVER);
+
+		packetHandler = new MusePacketHandler();
 		packetHandler.register();
 	}
-	
+
 	public void postInit() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
