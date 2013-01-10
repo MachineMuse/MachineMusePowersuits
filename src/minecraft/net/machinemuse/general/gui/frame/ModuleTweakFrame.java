@@ -2,6 +2,7 @@ package net.machinemuse.general.gui.frame;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +17,9 @@ import net.machinemuse.general.gui.clickable.ClickableSlider;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.machinemuse.powersuits.network.MusePacketTweakRequest;
-import net.machinemuse.powersuits.powermodule.GenericModule;
-import net.machinemuse.powersuits.powermodule.IModuleProperty;
+import net.machinemuse.powersuits.powermodule.PowerModule;
+import net.machinemuse.powersuits.powermodule.property.IPropertyModifier;
+import net.machinemuse.powersuits.powermodule.property.PropertyModifierLinearAdditive;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -46,12 +48,13 @@ public class ModuleTweakFrame extends ScrollableFrame {
 		this.player = player;
 	}
 
-	@Override public void update(double mousex, double mousey) {
+	@Override
+	public void update(double mousex, double mousey) {
 		mousex /= SCALERATIO;
 		mousey /= SCALERATIO;
 		if (itemTarget.getSelectedItem() != null && moduleTarget.getSelectedModule() != null) {
 			ItemStack stack = itemTarget.getSelectedItem().getItem();
-			GenericModule module = moduleTarget.getSelectedModule().getModule();
+			PowerModule module = moduleTarget.getSelectedModule().getModule();
 			if (ItemUtils.itemHasModule(itemTarget.getSelectedItem().getItem(), moduleTarget.getSelectedModule().getModule().getName())) {
 				loadTweaks(stack, module);
 			} else {
@@ -68,7 +71,8 @@ public class ModuleTweakFrame extends ScrollableFrame {
 
 	}
 
-	@Override public void draw() {
+	@Override
+	public void draw() {
 		if (sliders != null) {
 			MuseRenderer.drawFrameRect(topleft.times(SCALERATIO), bottomright.times(SCALERATIO), borderColour, insideColour, 0, 2);
 			MuseRenderer.drawCenteredString("Tinker", (topleft.x() + bottomright.x()) / 4, topleft.y() / 2 + 2);
@@ -88,23 +92,26 @@ public class ModuleTweakFrame extends ScrollableFrame {
 		}
 	}
 
-	private void loadTweaks(ItemStack stack, GenericModule module) {
+	private void loadTweaks(ItemStack stack, PowerModule module) {
 		NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
 		NBTTagCompound moduleTag = itemTag.getCompoundTag(module.getName());
 
 		propertyStrings = new HashMap();
+		Set<String> tweaks = new HashSet<String>();
 
-		Set<IModuleProperty> propertyCalcs = module.getPropertyComputers();
-		for (IModuleProperty property : propertyCalcs) {
+		Map<String, List<IPropertyModifier>> propertyModifiers = module.getPropertyModifiers();
+		for (Map.Entry<String, List<IPropertyModifier>> property : propertyModifiers.entrySet()) {
 			double currValue = 0;
-			if (propertyStrings.containsKey(property.getName())) {
-				currValue = propertyStrings.get(property.getName());
+			for (IPropertyModifier modifier : property.getValue()) {
+				currValue = modifier.applyModifier(moduleTag, currValue);
+				if (modifier instanceof PropertyModifierLinearAdditive) {
+					tweaks.add(((PropertyModifierLinearAdditive) modifier).getTradeoffName());
+				}
 			}
-			currValue += property.computeProperty(moduleTag);
-			propertyStrings.put(property.getName(), currValue);
+			propertyStrings.put(property.getKey(), currValue);
+
 		}
 
-		Set<String> tweaks = module.getTweaks();
 		sliders = new LinkedList();
 		int y = 0;
 		for (String tweak : tweaks) {
@@ -117,7 +124,8 @@ public class ModuleTweakFrame extends ScrollableFrame {
 		}
 	}
 
-	@Override public void onMouseDown(double x, double y, int button) {
+	@Override
+	public void onMouseDown(double x, double y, int button) {
 		x /= SCALERATIO;
 		y /= SCALERATIO;
 		if (button == 0) {
@@ -131,10 +139,11 @@ public class ModuleTweakFrame extends ScrollableFrame {
 		}
 	}
 
-	@Override public void onMouseUp(double x, double y, int button) {
+	@Override
+	public void onMouseUp(double x, double y, int button) {
 		if (selectedSlider != null && itemTarget.getSelectedItem() != null && moduleTarget.getSelectedModule() != null) {
 			ClickableItem item = itemTarget.getSelectedItem();
-			GenericModule module = moduleTarget.getSelectedModule().getModule();
+			PowerModule module = moduleTarget.getSelectedModule().getModule();
 			MusePacket tweakRequest = new MusePacketTweakRequest((Player) player, item.inventorySlot, module.getName(), selectedSlider.getName(),
 					selectedSlider.getValue());
 			player.sendQueue.addToSendQueue(tweakRequest.getPacket250());

@@ -12,7 +12,7 @@ import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.machinemuse.powersuits.network.MusePacketInstallModuleRequest;
 import net.machinemuse.powersuits.network.MusePacketSalvageModuleRequest;
-import net.machinemuse.powersuits.powermodule.GenericModule;
+import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.network.Player;
@@ -66,7 +66,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 	
 	private void drawItems() {
 		ItemStack stack = targetItem.getSelectedItem().getItem();
-		GenericModule module = targetModule.getSelectedModule().getModule();
+		PowerModule module = targetModule.getSelectedModule().getModule();
 		List<ItemStack> itemsToDraw = targetModule.getSelectedModule()
 				.getModule().getInstallCost();
 		double yoffset;
@@ -88,7 +88,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 	
 	private void drawButtons() {
 		ItemStack stack = targetItem.getSelectedItem().getItem();
-		GenericModule module = targetModule.getSelectedModule().getModule();
+		PowerModule module = targetModule.getSelectedModule().getModule();
 		if (!ItemUtils.itemHasModule(stack, module.getName())) {
 			
 			installButton.setEnabled(ItemUtils.hasInInventory(
@@ -104,7 +104,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 		ClickableModule selModule = targetModule.getSelectedModule();
 		if (selItem != null && selModule != null) {
 			ItemStack stack = selItem.getItem();
-			GenericModule module = selModule.getModule();
+			PowerModule module = selModule.getModule();
 			
 			if (!ItemUtils.itemHasModule(stack, module.getName())) {
 				if (installButton.hitBox(x, y)) {
@@ -119,7 +119,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 	}
 	
 	private void doSalvage() {
-		GenericModule module = targetModule.getSelectedModule().getModule();
+		PowerModule module = targetModule.getSelectedModule().getModule();
 		MusePacket newpacket = new MusePacketSalvageModuleRequest(
 				(Player) player,
 				targetItem.getSelectedItem().inventorySlot,
@@ -133,7 +133,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 	 */
 	private void doInstall() {
 		ItemStack stack = targetItem.getSelectedItem().getItem();
-		GenericModule module = targetModule.getSelectedModule().getModule();
+		PowerModule module = targetModule.getSelectedModule().getModule();
 		if (ItemUtils.hasInInventory(module.getInstallCost(), player.inventory)) {
 			// Doing it client-side first in case of lag
 			ItemUtils.deleteFromInventory(module.getInstallCost(),

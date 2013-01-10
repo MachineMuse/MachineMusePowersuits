@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import net.machinemuse.general.MuseMathUtils;
-import net.machinemuse.powersuits.powermodule.GenericModule;
+import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,10 +21,10 @@ import net.minecraft.nbt.NBTTagCompound;
 public class ItemUtils {
 	public static final String NBTPREFIX = "mmmpsmod";
 
-	public static List<GenericModule> getValidModulesForItem(
+	public static List<PowerModule> getValidModulesForItem(
 			EntityPlayer player, ItemStack stack) {
-		List<GenericModule> validModules = new ArrayList();
-		for (GenericModule module : ModuleManager.getAllModules().values()) {
+		List<PowerModule> validModules = new ArrayList();
+		for (PowerModule module : ModuleManager.getAllModules().values()) {
 			if (module.isValidForSlot(getAsModular(stack.getItem())
 					.getItemType().ordinal())) {
 				validModules.add(module);
@@ -45,11 +45,11 @@ public class ItemUtils {
 		return tagHasModule(getMuseItemTag(stack), moduleName);
 	}
 
-	public static void tagAddModule(NBTTagCompound tag, GenericModule module) {
+	public static void tagAddModule(NBTTagCompound tag, PowerModule module) {
 		tag.setCompoundTag(module.getName(), module.getNewTag());
 	}
 
-	public static void itemAddModule(ItemStack stack, GenericModule module) {
+	public static void itemAddModule(ItemStack stack, PowerModule module) {
 		tagAddModule(getMuseItemTag(stack), module);
 	}
 

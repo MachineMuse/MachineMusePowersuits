@@ -6,7 +6,7 @@ import java.util.List;
 import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.Point2D;
 import net.machinemuse.general.gui.clickable.ClickableModule;
-import net.machinemuse.powersuits.powermodule.GenericModule;
+import net.machinemuse.powersuits.powermodule.PowerModule;
 
 public class ModuleSelectionSubFrame {
 	protected List<ClickableModule> moduleButtons;
@@ -29,7 +29,7 @@ public class ModuleSelectionSubFrame {
 		}
 	}
 	
-	public ClickableModule addModule(GenericModule module) {
+	public ClickableModule addModule(PowerModule module) {
 		double x = topleft.x() + 8 + 16 * moduleButtons.size();
 		double y = topleft.y() + 16;
 		ClickableModule clickie = new ClickableModule(module, new Point2D(x, y));

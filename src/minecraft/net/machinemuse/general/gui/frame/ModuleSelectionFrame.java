@@ -8,7 +8,7 @@ import net.machinemuse.general.geometry.Point2D;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.powersuits.item.ItemUtils;
-import net.machinemuse.powersuits.powermodule.GenericModule;
+import net.machinemuse.powersuits.powermodule.PowerModule;
 
 public class ModuleSelectionFrame extends ScrollableFrame {
 	protected ItemSelectionFrame target;
@@ -79,7 +79,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 			moduleButtons = new ArrayList();
 			categories = new HashMap();
 			
-			List<GenericModule> workingModules = ItemUtils
+			List<PowerModule> workingModules = ItemUtils
 					.getValidModulesForItem(null,
 							clickie.getItem());
 			if (workingModules.size() > 0) {
@@ -88,7 +88,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 						new Point2D(centerx, topleft.y()),
 						new Point2D(centerx, bottomright.y()));
 				Iterator<Point2D> pointiter = points.iterator();
-				for (GenericModule module : workingModules) {
+				for (PowerModule module : workingModules) {
 					ModuleSelectionSubFrame frame = getOrCreateCategory(module
 							.getCategory());
 					moduleButtons.add(frame.addModule(module));

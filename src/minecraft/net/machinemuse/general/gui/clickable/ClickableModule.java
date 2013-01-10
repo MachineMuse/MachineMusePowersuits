@@ -7,7 +7,7 @@ import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.Point2D;
-import net.machinemuse.powersuits.powermodule.GenericModule;
+import net.machinemuse.powersuits.powermodule.PowerModule;
 
 /**
  * Extends the Clickable class to make a clickable Augmentation; note that this
@@ -16,12 +16,12 @@ import net.machinemuse.powersuits.powermodule.GenericModule;
  * @author MachineMuse
  */
 public class ClickableModule extends Clickable {
-	private GenericModule module;
+	private PowerModule module;
 
 	/**
 	 * @param vaug
 	 */
-	public ClickableModule(GenericModule module, Point2D position) {
+	public ClickableModule(PowerModule module, Point2D position) {
 		super(position);
 		this.setModule(module);
 	}
@@ -54,11 +54,11 @@ public class ClickableModule extends Clickable {
 		return hitx && hity;
 	}
 
-	public GenericModule getModule() {
+	public PowerModule getModule() {
 		return module;
 	}
 
-	public ClickableModule setModule(GenericModule module) {
+	public ClickableModule setModule(PowerModule module) {
 		this.module = module;
 		return this;
 	}
