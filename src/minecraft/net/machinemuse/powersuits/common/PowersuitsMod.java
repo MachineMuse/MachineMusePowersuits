@@ -43,7 +43,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 // Informs forge that this is a base mod class, and gives it some info for the
 // FML mod list. This is also where it looks to see if your client's version
 // matches the server's.
-@Mod(modid = "mmmPowersuits", name = "MachineMuse Modular Powersuits", version = "0.0.5")
+@Mod(modid = "mmmPowersuits", name = "MachineMuse Modular Powersuits", version = "0.0.7")
 // Informs forge of the requirements:
 //
 // clientSideRequired means players can't connect without it. True for things
