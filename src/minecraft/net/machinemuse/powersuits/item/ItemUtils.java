@@ -202,6 +202,22 @@ public class ItemUtils {
 		return slots;
 	}
 
+	public static List<Integer> findInInventoryForCost(List<ItemStack> workingUpgradeCost,
+			InventoryPlayer inventory) {
+		List<Integer> slots = new LinkedList<Integer>();
+		for (ItemStack stackInCost : workingUpgradeCost) {
+			int found = 0;
+			for (int i = 0; i < inventory.getSizeInventory() && found < stackInCost.stackSize; i++) {
+				ItemStack stackInInventory = inventory.getStackInSlot(i);
+				if (isSameItem(stackInInventory, stackInCost)) {
+					found += stackInInventory.stackSize;
+					slots.add(i);
+				}
+			}
+		}
+		return slots;
+	}
+	
 	/**
 	 * Checks the given NBTTag and returns the value if it exists, otherwise 0.
 	 */

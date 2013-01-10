@@ -7,6 +7,9 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.List;
 
+import universalelectricity.core.implement.IItemElectric;
+
+import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
@@ -74,13 +77,24 @@ public class MusePacketInstallModuleRequest extends MusePacket {
 			int entityId = playerEntity.entityId;
 			PowerModule moduleType = ModuleManager.getModule(moduleName);
 			List<ItemStack> cost = moduleType.getInstallCost();
-
+			
 			if (ItemUtils.hasInInventory(cost, playerEntity.inventory)) {
-				List<Integer> slots = ItemUtils.deleteFromInventory(
+				List<Integer> slots = ItemUtils.findInInventoryForCost(cost, playerEntity.inventory);
+				double amps=0;
+				double volts = ItemUtils.getAsModular(stack.getItem()).getVoltage();
+				for(Integer slot : slots) {
+					ItemStack stackInSlot = playerEntity.inventory.getStackInSlot(slot);
+					if(stackInSlot != null && stackInSlot.getItem() instanceof IItemElectric) {
+						IItemElectric electricItem = (IItemElectric)stackInSlot.getItem();
+						amps = electricItem.getJoules(stackInSlot)/volts;
+					}
+				}
+				List<Integer> slotsToUpdate = ItemUtils.deleteFromInventory(
 						cost, inventory);
 				ItemUtils.itemAddModule(stack, moduleType);
 				slots.add(this.itemSlot);
-				for (Integer slotiter : slots) {
+				ItemUtils.getAsModular(stack.getItem()).onReceive(amps, volts, stack);
+				for (Integer slotiter : slotsToUpdate) {
 					MusePacket reply = new MusePacketInventoryRefresh(
 							player,
 							slotiter, inventory.getStackInSlot(slotiter));
