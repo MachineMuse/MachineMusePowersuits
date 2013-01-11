@@ -9,6 +9,7 @@ import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.Config.Items;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -76,7 +77,12 @@ public class ItemPowerTool extends ItemTool
 	}
 
 	public static boolean canHarvestBlock(ItemStack stack, Block block, int meta) {
-		if (ForgeHooks.canToolHarvestBlock(block, meta, ironPickaxe) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_PICKAXE)) {
+		if ((ForgeHooks.canToolHarvestBlock(block, meta, ironPickaxe)
+				|| block.blockMaterial == Material.iron
+				|| block.blockMaterial == Material.anvil
+				|| block.blockMaterial == Material.rock)
+
+				&& ItemUtils.itemHasModule(stack, ModularCommon.MODULE_PICKAXE)) {
 			return true;
 		} else if (ForgeHooks.canToolHarvestBlock(block, meta, ironShovel) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_SHOVEL)) {
 			return true;
@@ -94,7 +100,12 @@ public class ItemPowerTool extends ItemTool
 	@Override
 	public float getStrVsBlock(ItemStack stack, Block block, int meta) {
 		double harvestSpeed = 1;
-		if (ForgeHooks.isToolEffective(ironPickaxe, block, meta) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_PICKAXE)) {
+		if ((ForgeHooks.isToolEffective(ironPickaxe, block, meta)
+				|| block.blockMaterial == Material.iron
+				|| block.blockMaterial == Material.anvil
+				|| block.blockMaterial == Material.rock)
+
+				&& ItemUtils.itemHasModule(stack, ModularCommon.MODULE_PICKAXE)) {
 			harvestSpeed = ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_HARVEST_SPEED);
 		} else if (ForgeHooks.isToolEffective(ironShovel, block, meta) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_SHOVEL)) {
 			harvestSpeed = ModuleManager.computeModularProperty(stack, ModularCommon.SHOVEL_HARVEST_SPEED);

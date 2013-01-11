@@ -326,7 +326,7 @@ public class ItemUtils {
 	}
 
 	public static void drainPlayerEnergy(EntityPlayer player, double drainAmount) {
-		for (ItemStack stack : itemsEquipped(player)) {
+		for (ItemStack stack : modularItemsEquipped(player)) {
 			if (stack != null) {
 				IModularItem item = getAsModular(stack.getItem());
 				double joules = item.getJoules(stack);

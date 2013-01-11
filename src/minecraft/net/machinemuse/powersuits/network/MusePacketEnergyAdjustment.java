@@ -10,7 +10,7 @@ import cpw.mods.fml.common.network.Player;
 
 public class MusePacketEnergyAdjustment extends MusePacket {
 
-	protected double drain;
+	protected double adjustment;
 	protected EntityPlayer entityPlayer;
 
 	public MusePacketEnergyAdjustment(EntityPlayer player, double drain) {
@@ -20,7 +20,7 @@ public class MusePacketEnergyAdjustment extends MusePacket {
 
 	public MusePacketEnergyAdjustment(DataInputStream data, Player player) {
 		super(player, data);
-		drain = readDouble();
+		adjustment = readDouble();
 	}
 
 	@Override
@@ -31,6 +31,8 @@ public class MusePacketEnergyAdjustment extends MusePacket {
 
 	@Override
 	public void handleServer(EntityPlayerMP player) {
-		ItemUtils.drainPlayerEnergy(player, drain);
+		if (adjustment < 0) {
+			ItemUtils.drainPlayerEnergy(player, -adjustment);
+		}
 	}
 }

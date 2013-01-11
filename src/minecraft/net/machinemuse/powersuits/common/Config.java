@@ -241,14 +241,24 @@ public class Config extends Configuration {
 
 		module = new PowerModule(ModularCommon.MODULE_JETPACK, TORSOONLY, MuseIcon.JETPACK, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("A jetpack should allow you to jump indefinitely, or at least until you run out of power.")
-				.addInstallCost(new ItemStack(BasicComponents.itemSteelPlate, 4))
-				.addInstallCost(new ItemStack(Item.lightStoneDust, 4));
+				.addInstallCost(new ItemStack(BasicComponents.itemSteelPlate, 10))
+				.addInstallCost(new ItemStack(Item.lightStoneDust, 8))
+				.addInstallCost(new ItemStack(Item.redstone, 8))
+				.addBaseProperty(ModularCommon.JET_ENERGY_CONSUMPTION, 0)
+				.addBaseProperty(ModularCommon.JET_THRUST, 0)
+				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 100)
+				.addTradeoffProperty("Thrust", ModularCommon.JET_THRUST, 0.16);
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_JETBOOTS, FEETONLY, MuseIcon.JETBOOTS, ModularCommon.CATEGORY_MOVEMENT)
-				.setDescription("Jet boots are not as strong as a jetpack, but if your kit is light, it should be fine.")
-				.addInstallCost(new ItemStack(BasicComponents.itemSteelPlate, 2))
-				.addInstallCost(new ItemStack(Item.lightStoneDust, 2));
+				.setDescription("Jet boots are not as strong as a jetpack, but they should help a bit.")
+				.addInstallCost(new ItemStack(BasicComponents.itemSteelPlate, 4))
+				.addInstallCost(new ItemStack(Item.lightStoneDust, 4))
+				.addInstallCost(new ItemStack(Item.redstone, 4))
+				.addBaseProperty(ModularCommon.JET_ENERGY_CONSUMPTION, 0)
+				.addBaseProperty(ModularCommon.JET_THRUST, 0)
+				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 50)
+				.addTradeoffProperty("Thrust", ModularCommon.JET_THRUST, 0.08);
 		ModuleManager.addModule(module);
 	}
 

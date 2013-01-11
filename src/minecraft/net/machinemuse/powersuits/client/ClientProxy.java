@@ -6,7 +6,7 @@ import net.machinemuse.powersuits.block.TinkerTableRenderer;
 import net.machinemuse.powersuits.common.CommonProxy;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.network.MusePacketHandler;
-import net.machinemuse.powersuits.tick.PlayerTickHandler;
+import net.machinemuse.powersuits.tick.PlayerTickHandlerClient;
 import net.machinemuse.powersuits.tick.RenderTickHandler;
 import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -24,6 +24,7 @@ import cpw.mods.fml.relauncher.Side;
 public class ClientProxy extends CommonProxy {
 	private static EquipmentRenderer eRenderer = new EquipmentRenderer();
 	private static RenderTickHandler renderTickHandler;
+	private static PlayerTickHandlerClient playerTickHandler;
 
 	/**
 	 * Register all the custom renderers for this mod.
@@ -53,7 +54,7 @@ public class ClientProxy extends CommonProxy {
 	 */
 	@Override
 	public void registerHandlers() {
-		playerTickHandler = new PlayerTickHandler();
+		playerTickHandler = new PlayerTickHandlerClient();
 		TickRegistry.registerTickHandler(playerTickHandler, Side.CLIENT);
 
 		renderTickHandler = new RenderTickHandler();

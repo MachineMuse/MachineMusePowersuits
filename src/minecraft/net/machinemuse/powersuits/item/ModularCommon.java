@@ -32,7 +32,9 @@ public abstract class ModularCommon {
 	public static final String JUMP_ENERGY_CONSUMPTION = "Jump Energy Consumption";
 	public static final String JUMP_MULTIPLIER = "Jump Multiplier";
 	public static final String SHOCK_ABSORB_MULTIPLIER = "Distance Reduction";
-	public static final String SHOCK_ABSORB_ENERGY_CONSUMPTION = "Energy consumption";
+	public static final String SHOCK_ABSORB_ENERGY_CONSUMPTION = "Impact Energy consumption";
+	public static final String JET_ENERGY_CONSUMPTION = "Jet Energy Consumption";
+	public static final String JET_THRUST = "Jet Thrust";
 
 	/**
 	 * Module names
