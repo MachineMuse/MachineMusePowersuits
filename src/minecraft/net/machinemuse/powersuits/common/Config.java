@@ -179,11 +179,11 @@ public class Config extends Configuration {
 
 		module = new PowerModule(ModularCommon.MODULE_BATTERY_BASIC, ALLITEMS, MuseIcon.NEXUS_1_GREEN, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Integrate a battery to allow the item to store energy.")
-				.addInstallCost(new ItemStack(BasicComponents.itemBattery, 1));
-		ModuleManager.addSimpleTradeoff(
-				module, "Battery Size",
-				ModularCommon.MAXIMUM_ENERGY, "J", 20000, 80000,
-				ModularCommon.WEIGHT, "g", 2000, 8000);
+				.addInstallCost(new ItemStack(BasicComponents.itemBattery, 1))
+				.addBaseProperty(ModularCommon.MAXIMUM_ENERGY, 20000)
+				.addBaseProperty(ModularCommon.WEIGHT, 2000)
+				.addTradeoffProperty("Battery Size", ModularCommon.MAXIMUM_ENERGY, 80000)
+				.addTradeoffProperty("Battery Size", ModularCommon.WEIGHT, 8000);
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_DIAMOND_PICK_UPGRADE, TOOLONLY, MuseIcon.INDICATOR_1_BLUE, ModularCommon.CATEGORY_TOOL)
@@ -231,6 +231,24 @@ public class Config extends Configuration {
 		module = new PowerModule(ModularCommon.MODULE_GLIDER, TORSOONLY, MuseIcon.GLIDER, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("Tack on some wings so you can slow your fall and maybe fly a bit if you jump from a decent height.")
 				.addInstallCost(new ItemStack(BasicComponents.itemSteelPlate, 2));
+		ModuleManager.addModule(module);
+
+		module = new PowerModule(ModularCommon.MODULE_PARACHUTE, TORSOONLY, MuseIcon.PLATE_2_GREEN, ModularCommon.CATEGORY_MOVEMENT)
+				.setDescription("Add a parachute to slow your descent. Activate by pressing space in midair.")
+				.addInstallCost(new ItemStack(Item.silk, 2))
+				.addInstallCost(new ItemStack(Block.cloth));
+		ModuleManager.addModule(module);
+
+		module = new PowerModule(ModularCommon.MODULE_JETPACK, TORSOONLY, MuseIcon.JETPACK, ModularCommon.CATEGORY_MOVEMENT)
+				.setDescription("A jetpack should allow you to jump indefinitely, or at least until you run out of power.")
+				.addInstallCost(new ItemStack(BasicComponents.itemSteelPlate, 4))
+				.addInstallCost(new ItemStack(Item.lightStoneDust, 4));
+		ModuleManager.addModule(module);
+
+		module = new PowerModule(ModularCommon.MODULE_JETBOOTS, FEETONLY, MuseIcon.JETBOOTS, ModularCommon.CATEGORY_MOVEMENT)
+				.setDescription("Jet boots are not as strong as a jetpack, but if your kit is light, it should be fine.")
+				.addInstallCost(new ItemStack(BasicComponents.itemSteelPlate, 2))
+				.addInstallCost(new ItemStack(Item.lightStoneDust, 2));
 		ModuleManager.addModule(module);
 	}
 

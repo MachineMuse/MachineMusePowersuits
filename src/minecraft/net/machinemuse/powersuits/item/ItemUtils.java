@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 import net.machinemuse.general.MuseMathUtils;
-import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
+import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -217,7 +217,7 @@ public class ItemUtils {
 		}
 		return slots;
 	}
-	
+
 	/**
 	 * Checks the given NBTTag and returns the value if it exists, otherwise 0.
 	 */
@@ -327,14 +327,16 @@ public class ItemUtils {
 
 	public static void drainPlayerEnergy(EntityPlayer player, double drainAmount) {
 		for (ItemStack stack : itemsEquipped(player)) {
-			IModularItem item = getAsModular(stack.getItem());
-			double joules = item.getJoules(stack);
-			if (joules > drainAmount) {
-				item.onUse(drainAmount, stack);
-				break;
-			} else {
-				drainAmount -= joules;
-				item.onUse(joules, stack);
+			if (stack != null) {
+				IModularItem item = getAsModular(stack.getItem());
+				double joules = item.getJoules(stack);
+				if (joules > drainAmount) {
+					item.onUse(drainAmount, stack);
+					break;
+				} else {
+					drainAmount -= joules;
+					item.onUse(joules, stack);
+				}
 			}
 		}
 	}

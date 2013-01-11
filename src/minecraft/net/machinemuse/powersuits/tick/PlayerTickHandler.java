@@ -4,7 +4,9 @@
 package net.machinemuse.powersuits.tick;
 
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.event.MovementManager;
@@ -12,11 +14,13 @@ import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.item.ModularCommon;
 import net.machinemuse.powersuits.network.MusePacket;
+import net.machinemuse.powersuits.network.MusePacketEnergyAdjustment;
 import net.machinemuse.powersuits.network.MusePacketFallDistance;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ITickHandler;
@@ -34,6 +38,7 @@ import cpw.mods.fml.relauncher.Side;
  * @author MachineMuse
  */
 public class PlayerTickHandler implements ITickHandler {
+	public static Map<String, Integer> playerJumpTicks = new HashMap();
 
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
@@ -50,8 +55,11 @@ public class PlayerTickHandler implements ITickHandler {
 		double totalWeight = ItemUtils.getPlayerWeight(player);
 		double weightCapacity = 25000;
 
-		double landMovementFactor = 0.1F;
-		double jumpMovementFactor = 0.02F;
+		double landMovementFactor = 0.1;
+		double jumpMovementFactor = 0.02;
+		double sprintMultiplier = 1.0;
+		double horzMovement = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ);
+		double exhaustion = Math.round(horzMovement * 100.0F) * 0.01;
 
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 
@@ -61,11 +69,14 @@ public class PlayerTickHandler implements ITickHandler {
 				if (sprintCost < totalEnergy) {
 					totalEnergy -= sprintCost;
 					ItemUtils.drainPlayerEnergy(player, sprintCost);
-					double sprintBoost = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_SPEED_MULTIPLIER);
-					player.landMovementFactor *= sprintBoost;
-					double exhaustion = Math.round(Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ) * 100.0F) * 0.01;
+					sprintMultiplier = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_SPEED_MULTIPLIER);
+					player.landMovementFactor *= sprintMultiplier;
 					double exhaustionComp = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_FOOD_COMPENSATION);
 					player.addExhaustion((float) (-0.01 * exhaustion * exhaustionComp));
+					if (side == Side.CLIENT) {
+						MusePacket packet = new MusePacketEnergyAdjustment(player, sprintCost);
+						((EntityClientPlayerMP) player).sendQueue.addToSendQueue(packet.getPacket250());
+					}
 				}
 			}
 		}
@@ -73,14 +84,36 @@ public class PlayerTickHandler implements ITickHandler {
 			if (player instanceof EntityClientPlayerMP) {
 				EntityClientPlayerMP clientplayer = (EntityClientPlayerMP) player;
 				boolean jumpkey = clientplayer.movementInput.jump;
+				float forwardkey = clientplayer.movementInput.moveForward;
+				int jumpTicks;
+				if (playerJumpTicks.containsKey(player.username)) {
+					jumpTicks = playerJumpTicks.get(player.username);
+				}
 				if (jumpkey && torso != null) {
-					if (ItemUtils.itemHasModule(torso, ModularCommon.MODULE_GLIDER)) {
+					boolean hasGlider = ItemUtils.itemHasModule(torso, ModularCommon.MODULE_GLIDER);
+					boolean hasParachute = ItemUtils.itemHasModule(torso, ModularCommon.MODULE_PARACHUTE);
+					boolean isFalling = player.motionY < -0.1;
+					if (hasGlider && isFalling && (!hasParachute || forwardkey > 0)) {
 						if (player.motionY < -0.1) {
-							player.motionY = Math.min(player.motionY + 0.05, -0.1);
-							player.jumpMovementFactor = 0.13f; // sprinting
-																// speed
+							double motionYchange = Math.min(0.08, -0.1 - player.motionY);
+							player.motionY += motionYchange;
+							Vec3 playerLookVec = player.getLookVec();
+							playerLookVec.yCoord = 0;
+							playerLookVec.normalize();
+							player.motionX += playerLookVec.xCoord * motionYchange;
+							player.motionZ += playerLookVec.zCoord * motionYchange;
+
+							// sprinting speed
+							player.jumpMovementFactor += 0.03f;
 						}
 					}
+					if (hasParachute && isFalling && (!hasGlider || forwardkey <= 0)) {
+						double totalVelocity = Math.sqrt(horzMovement * horzMovement + player.motionY * player.motionY);
+						player.motionX = player.motionX * 0.1 / totalVelocity;
+						player.motionY = player.motionY * 0.1 / totalVelocity;
+						player.motionZ = player.motionZ * 0.1 / totalVelocity;
+					}
+
 				}
 				double fallDistance = MovementManager.computeFallHeightFromVelocity(player.motionY);
 				MusePacket packet = new MusePacketFallDistance(player, fallDistance);

@@ -41,6 +41,8 @@ public abstract class ModularCommon {
 	public static final String MODULE_AXE = "Axe";
 	public static final String MODULE_PICKAXE = "Pickaxe";
 	public static final String MODULE_BATTERY_BASIC = "Basic Battery";
+	public static final String MODULE_BATTERY_ADVANCED = "Advanced Battery";
+	public static final String MODULE_BATTERY_ELITE = "Elite Battery";
 	public static final String MODULE_IRON_PLATING = "Iron Plating";
 	public static final String MODULE_DIAMOND_PLATING = "Diamond Plating";
 	public static final String MODULE_ENERGY_SHIELD = "Energy Shield";
@@ -50,6 +52,10 @@ public abstract class ModularCommon {
 	public static final String MODULE_SHOCK_ABSORBER = "Shock Absorber";
 	public static final String MODULE_TRANSPARENT_ARMOR = "Transparent Armor";
 	public static final String MODULE_GLIDER = "Glider";
+	public static final String MODULE_JETPACK = "Jetpack";
+	public static final String MODULE_JETBOOTS = "Jet Boots";
+	public static final String MODULE_PARACHUTE = "Parachute";
+	public static final String MODULE_ANTIGRAVITY = "Antigravity Drive";
 
 	/**
 	 * Categories for modules
