@@ -343,7 +343,7 @@ public class ItemUtils {
 
 	public static double getMaxEnergy(EntityClientPlayerMP player) {
 		double max = 0;
-		for (ItemStack stack : getModularItemsInInventory(player.inventory)) {
+		for (ItemStack stack : modularItemsEquipped(player)) {
 			max += ((IModularItem) stack.getItem()).getMaxJoules(stack);
 		}
 		return max;

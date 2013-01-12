@@ -67,6 +67,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 
 			boolean jumpkey = player.movementInput.jump;
 			float forwardkey = player.movementInput.moveForward;
+			boolean sneakkey = player.movementInput.sneak;
 
 			boolean hasSprintAssist = false;
 			boolean hasGlider = false;
@@ -88,10 +89,16 @@ public class PlayerTickHandlerClient implements ITickHandler {
 
 			// Jetpack & jetboots
 			if ((hasJetpack || hasJetboots) && jumpkey) {
-				double jetEnergy = ModuleManager.computeModularProperty(boots, ModularCommon.JET_ENERGY_CONSUMPTION)
-						+ ModuleManager.computeModularProperty(torso, ModularCommon.JET_ENERGY_CONSUMPTION);
-				double thrust = ModuleManager.computeModularProperty(boots, ModularCommon.JET_THRUST)
-						+ ModuleManager.computeModularProperty(torso, ModularCommon.JET_THRUST);
+				double jetEnergy = 0;
+				double thrust = 0;
+				if (hasJetpack) {
+					jetEnergy += ModuleManager.computeModularProperty(torso, ModularCommon.JET_ENERGY_CONSUMPTION);
+					thrust += ModuleManager.computeModularProperty(torso, ModularCommon.JET_THRUST);
+				}
+				if (hasJetboots) {
+					jetEnergy += ModuleManager.computeModularProperty(boots, ModularCommon.JET_ENERGY_CONSUMPTION);
+					thrust += ModuleManager.computeModularProperty(boots, ModularCommon.JET_THRUST);
+				}
 				if (jetEnergy + totalEnergyDrain < totalEnergy) {
 					totalEnergyDrain += jetEnergy;
 					if (forwardkey == 0) {
@@ -106,7 +113,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			}
 
 			// Glider
-			if (hasGlider && jumpkey && player.motionY < -0.1 && (!hasParachute || forwardkey > 0)) {
+			if (hasGlider && sneakkey && player.motionY < -0.1 && (!hasParachute || forwardkey > 0)) {
 				if (player.motionY < -0.1) {
 					double motionYchange = Math.min(0.08, -0.1 - player.motionY);
 					player.motionY += motionYchange;

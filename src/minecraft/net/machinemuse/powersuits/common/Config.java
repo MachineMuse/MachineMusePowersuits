@@ -192,7 +192,7 @@ public class Config extends Configuration {
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_TRANSPARENT_ARMOR, ARMORONLY, MuseIcon.PLATE_2_GREEN, ModularCommon.CATEGORY_COSMETIC)
-				.setDescription("Show some skin.")
+				.setDescription("Make the item transparent, so you can show off your skin without losing armor.")
 				.addInstallCost(new ItemStack(Block.glass, 3));
 		ModuleManager.addModule(module);
 
@@ -201,11 +201,11 @@ public class Config extends Configuration {
 				.addInstallCost(new ItemStack(BasicComponents.itemMotor, 4));
 		ModuleManager.addSimpleTradeoff(
 				module, "Power",
-				ModularCommon.SPRINT_ENERGY_CONSUMPTION, "J", 0, 100,
+				ModularCommon.SPRINT_ENERGY_CONSUMPTION, "J", 0, 5,
 				ModularCommon.SPRINT_SPEED_MULTIPLIER, "x", 1, 2);
 		ModuleManager.addSimpleTradeoff(
 				module, "Compensation",
-				ModularCommon.SPRINT_ENERGY_CONSUMPTION, "J", 0, 10,
+				ModularCommon.SPRINT_ENERGY_CONSUMPTION, "J", 0, 1,
 				ModularCommon.SPRINT_FOOD_COMPENSATION, "x", 0, 1);
 		ModuleManager.addModule(module);
 
@@ -229,7 +229,7 @@ public class Config extends Configuration {
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_GLIDER, TORSOONLY, MuseIcon.GLIDER, ModularCommon.CATEGORY_MOVEMENT)
-				.setDescription("Tack on some wings so you can slow your fall and maybe fly a bit if you jump from a decent height.")
+				.setDescription("Tack on some wings to turn downward into forward momentum. Press shift while falling to activate.")
 				.addInstallCost(new ItemStack(BasicComponents.itemSteelPlate, 2));
 		ModuleManager.addModule(module);
 
@@ -246,7 +246,7 @@ public class Config extends Configuration {
 				.addInstallCost(new ItemStack(Item.redstone, 8))
 				.addBaseProperty(ModularCommon.JET_ENERGY_CONSUMPTION, 0)
 				.addBaseProperty(ModularCommon.JET_THRUST, 0)
-				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 100)
+				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 16)
 				.addTradeoffProperty("Thrust", ModularCommon.JET_THRUST, 0.16);
 		ModuleManager.addModule(module);
 
@@ -257,7 +257,7 @@ public class Config extends Configuration {
 				.addInstallCost(new ItemStack(Item.redstone, 4))
 				.addBaseProperty(ModularCommon.JET_ENERGY_CONSUMPTION, 0)
 				.addBaseProperty(ModularCommon.JET_THRUST, 0)
-				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 50)
+				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 8)
 				.addTradeoffProperty("Thrust", ModularCommon.JET_THRUST, 0.08);
 		ModuleManager.addModule(module);
 	}
