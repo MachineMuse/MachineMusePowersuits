@@ -5,8 +5,6 @@ import net.machinemuse.powersuits.common.PowersuitsMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -22,21 +20,6 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
  * 
  */
 public class BlockTinkerTable extends Block {
-	/**
-	 * Singleton pattern: instance field
-	 */
-	protected static BlockTinkerTable instance;
-
-	/**
-	 * Singleton pattern: instance getter method
-	 */
-	public static BlockTinkerTable instance() {
-		if (instance == null) {
-			instance = new BlockTinkerTable();
-		}
-		return instance;
-	}
-
 	protected int renderType;
 
 	public BlockTinkerTable setRenderType(int id) {
@@ -47,7 +30,7 @@ public class BlockTinkerTable extends Block {
 	/**
 	 * Constructor. Reads all the block info from Config.
 	 */
-	protected BlockTinkerTable() {
+	public BlockTinkerTable() {
 		// Block constructor call
 		super(
 				// Block ID
@@ -93,19 +76,6 @@ public class BlockTinkerTable extends Block {
 		// break it:
 		// 0=bare hands, 1=wood, 2=stone, 3=iron, 4=diamond
 		MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 0);
-
-		// Recipe
-		ItemStack iron = new ItemStack(Item.ingotIron);
-		ItemStack emerald = new ItemStack(Item.emerald);
-		ItemStack lapis = new ItemStack(Item.dyePowder, 1, 4); // metadata 4 =
-																// 'blue'
-		ItemStack recipeResult = new ItemStack(this);
-
-		GameRegistry.addRecipe(new ItemStack(this),
-				"ILI",
-				"LEL",
-				"ILI",
-				'I', iron, 'L', lapis, 'E', emerald);
 
 		// Register the tile entity, which is only used for rendering at the
 		// moment

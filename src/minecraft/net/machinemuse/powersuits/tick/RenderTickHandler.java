@@ -19,6 +19,7 @@ import cpw.mods.fml.common.TickType;
  * @author MachineMuse
  */
 public class RenderTickHandler implements ITickHandler {
+	// private GUITicker thaumcraftGui = new GUITicker();
 
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
@@ -37,6 +38,8 @@ public class RenderTickHandler implements ITickHandler {
 				MuseRenderer.drawString(currStr + "/" + maxStr + " J", 1, 1);
 			}
 		}
+
+		// thaumcraftGui.renderGogglesHUD(0, player, 0);
 	}
 
 	@Override

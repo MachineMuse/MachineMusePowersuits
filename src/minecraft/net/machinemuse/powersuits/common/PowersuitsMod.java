@@ -1,24 +1,17 @@
 package net.machinemuse.powersuits.common;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.event.EventHandler;
 import net.machinemuse.powersuits.event.MovementManager;
-import net.machinemuse.powersuits.item.ItemPowerArmor;
+import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.ItemPowerArmorFeet;
 import net.machinemuse.powersuits.item.ItemPowerArmorHead;
 import net.machinemuse.powersuits.item.ItemPowerArmorLegs;
 import net.machinemuse.powersuits.item.ItemPowerArmorTorso;
 import net.machinemuse.powersuits.item.ItemPowerTool;
 import net.machinemuse.powersuits.network.MusePacketHandler;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
-import basiccomponents.common.BasicComponents;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -31,7 +24,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
  * Main mod class. This is what Forge loads to get the mod up and running, both
@@ -60,6 +52,13 @@ import cpw.mods.fml.common.registry.GameRegistry;
 		serverPacketHandlerSpec =
 		@SidedPacketHandler(channels = { "mmmPowersuits" }, packetHandler = MusePacketHandler.class))
 public class PowersuitsMod {
+
+	public static ItemPowerArmorHead powerArmorHead;
+	public static ItemPowerArmorTorso powerArmorTorso;
+	public static ItemPowerArmorLegs powerArmorLegs;
+	public static ItemPowerArmorFeet powerArmorFeet;
+	public static ItemPowerTool powerTool;
+	public static BlockTinkerTable tinkerTable;
 
 	/**
 	 * The instance of the mod that Forge will access. Note that it has to be
@@ -99,8 +98,6 @@ public class PowersuitsMod {
 	 * A static handle for the blocks and items. We only want one instance of
 	 * each of them.
 	 */
-	public static List<Block> allBlocks = new ArrayList<Block>();
-	public static List<Item> allItems = new ArrayList<Item>();
 	public static GuiHandler guiHandler = new GuiHandler();
 
 	/**
@@ -112,72 +109,20 @@ public class PowersuitsMod {
 	 */
 	@Init
 	public void load(FMLInitializationEvent event) {
-		loadBlocks();
+		powerArmorHead = new ItemPowerArmorHead();
+		powerArmorTorso = new ItemPowerArmorTorso();
+		powerArmorLegs = new ItemPowerArmorLegs();
+		powerArmorFeet = new ItemPowerArmorFeet();
+		powerTool = new ItemPowerTool();
+		tinkerTable = new BlockTinkerTable();
+		ItemComponent components = new ItemComponent();
+		components.populate();
 
-		loadItems();
+		Config.loadPowerModules();
 
 		proxy.registerHandlers();
 		proxy.registerRenderers();
 		NetworkRegistry.instance().registerGuiHandler(this, guiHandler);
-	}
-
-	/**
-	 * Custom function to collect all the item-loading in one place.
-	 */
-	public static void loadItems() {
-		// Recipe
-		ItemStack iron = new ItemStack(Item.ingotIron);
-		ItemStack circuit = new ItemStack(BasicComponents.itemCircuit, 1, 0);
-
-		ItemPowerArmor item = new ItemPowerArmorHead();
-		allItems.add(item);
-		GameRegistry.addRecipe(new ItemStack(item),
-				"III",
-				"C C",
-				'I', iron, 'C', circuit);
-
-		item = new ItemPowerArmorTorso();
-		allItems.add(item);
-		GameRegistry.addRecipe(new ItemStack(item),
-				"I I",
-				"CIC",
-				"III",
-				'I', iron, 'C', circuit);
-
-		item = new ItemPowerArmorLegs();
-		allItems.add(item);
-		GameRegistry.addRecipe(new ItemStack(item),
-				"III",
-				"C C",
-				"I I",
-				'I', iron, 'C', circuit);
-
-		item = new ItemPowerArmorFeet();
-		allItems.add(item);
-		GameRegistry.addRecipe(new ItemStack(item),
-				"C C",
-				"I I",
-				'I', iron, 'C', circuit);
-
-		ItemPowerTool tool = new ItemPowerTool();
-		allItems.add(tool);
-		GameRegistry.addRecipe(new ItemStack(tool),
-				" C ",
-				"CI ",
-				" IC",
-				'I', iron, 'C', circuit);
-
-		Config.loadPowerModules();
-
-	}
-
-	/**
-	 * Custom function to collect all the block-loading in one place.
-	 */
-	public static void loadBlocks() {
-		Block tinkTable = BlockTinkerTable.instance();
-
-		allBlocks.add(tinkTable);
 	}
 
 	/**
@@ -190,5 +135,6 @@ public class PowersuitsMod {
 	@PostInit
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.postInit();
+		RecipeManager.addRecipes();
 	}
 }

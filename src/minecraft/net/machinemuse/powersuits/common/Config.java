@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.common;
 
 import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.ModularCommon;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.machinemuse.powersuits.powermodule.PowerModule;
@@ -25,9 +26,11 @@ public class Config extends Configuration {
 	public static final String WC_ICON_PATH = "/resource/watericons.png";
 	public static final String TINKERTABLE_TEXTURE_PATH = "/resource/tinkertable.png";
 	public static final String BLANK_ARMOR_MODEL_PATH = "/resource/blankarmor.png";
+	public static final String MUSE_ICON_PATH = "/resource/museicons.png";
 
 	private static final int[] assignedItemIDs = new int[Items.values().length];
 	private static final int[] assignedBlockIDs = new int[Blocks.values().length];
+
 	private static Configuration config;
 
 	/**
@@ -114,6 +117,12 @@ public class Config extends Configuration {
 		return assignedBlockIDs[block.ordinal()];
 	}
 
+	public static ItemStack copyAndResize(ItemStack stack, int number) {
+		ItemStack copy = stack.copy();
+		copy.stackSize = number;
+		return copy;
+	}
+
 	/**
 	 * Load all the modules in the config file into memory. Eventually. For now,
 	 * they are hardcoded.
@@ -145,7 +154,7 @@ public class Config extends Configuration {
 
 		module = new PowerModule(ModularCommon.MODULE_ENERGY_SHIELD, ARMORONLY, MuseIcon.ENERGY_SHIELD, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Energy shields are much lighter than plating, but consume energy.")
-				.addInstallCost(new ItemStack(BasicComponents.itemCircuit, 3, 1))
+				.addInstallCost(copyAndResize(ItemComponent.electromagnet, 4))
 				.addTradeoffProperty("Field Strength", ModularCommon.ARMOR_VALUE_ENERGY, 6)
 				.addTradeoffProperty("Field Strength", ModularCommon.ARMOR_ENERGY_CONSUMPTION, 500);
 		ModuleManager.addModule(module);
@@ -153,6 +162,7 @@ public class Config extends Configuration {
 		module = new PowerModule(ModularCommon.MODULE_SHOVEL, TOOLONLY, MuseIcon.TOOL_SHOVEL, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Shovels are good for soft materials like dirt and sand.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
+				.addInstallCost(copyAndResize(ItemComponent.electromagnet, 1))
 				.addBaseProperty(ModularCommon.SHOVEL_ENERGY_CONSUMPTION, 10)
 				.addBaseProperty(ModularCommon.SHOVEL_HARVEST_SPEED, 2)
 				.addTradeoffProperty("Overclock", ModularCommon.SHOVEL_ENERGY_CONSUMPTION, 990)
@@ -162,6 +172,7 @@ public class Config extends Configuration {
 		module = new PowerModule(ModularCommon.MODULE_AXE, TOOLONLY, MuseIcon.TOOL_AXE, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Axes are mostly for chopping trees.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
+				.addInstallCost(copyAndResize(ItemComponent.electromagnet, 1))
 				.addBaseProperty(ModularCommon.AXE_ENERGY_CONSUMPTION, 10)
 				.addBaseProperty(ModularCommon.AXE_HARVEST_SPEED, 2)
 				.addTradeoffProperty("Overclock", ModularCommon.AXE_ENERGY_CONSUMPTION, 990)
@@ -171,6 +182,7 @@ public class Config extends Configuration {
 		module = new PowerModule(ModularCommon.MODULE_PICKAXE, TOOLONLY, MuseIcon.TOOL_PICK, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Picks are good for harder materials like stone and ore.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
+				.addInstallCost(copyAndResize(ItemComponent.electromagnet, 1))
 				.addBaseProperty(ModularCommon.PICKAXE_ENERGY_CONSUMPTION, 10)
 				.addBaseProperty(ModularCommon.PICKAXE_HARVEST_SPEED, 2)
 				.addTradeoffProperty("Overclock", ModularCommon.PICKAXE_ENERGY_CONSUMPTION, 990)
@@ -188,6 +200,7 @@ public class Config extends Configuration {
 
 		module = new PowerModule(ModularCommon.MODULE_DIAMOND_PICK_UPGRADE, TOOLONLY, MuseIcon.INDICATOR_1_BLUE, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Add diamonds to allow your pickaxe module to mine Obsidian.")
+				.addInstallCost(copyAndResize(ItemComponent.electromagnet, 1))
 				.addInstallCost(new ItemStack(Item.diamond, 3));
 		ModuleManager.addModule(module);
 
@@ -198,7 +211,7 @@ public class Config extends Configuration {
 
 		module = new PowerModule(ModularCommon.MODULE_SPRINT_ASSIST, LEGSONLY, MuseIcon.SPRINT_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("A set of servo motors to help you sprint (double-tap forward) faster.")
-				.addInstallCost(new ItemStack(BasicComponents.itemMotor, 4));
+				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 4));
 		ModuleManager.addSimpleTradeoff(
 				module, "Power",
 				ModularCommon.SPRINT_ENERGY_CONSUMPTION, "J", 0, 5,
@@ -211,7 +224,7 @@ public class Config extends Configuration {
 
 		module = new PowerModule(ModularCommon.MODULE_JUMP_ASSIST, LEGSONLY, MuseIcon.JUMP_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("Another set of servo motors to help you jump higher.")
-				.addInstallCost(new ItemStack(BasicComponents.itemMotor, 4));
+				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 4));
 		ModuleManager.addSimpleTradeoff(
 				module, "Power",
 				ModularCommon.JUMP_ENERGY_CONSUMPTION, "J", 0, 100,
@@ -220,7 +233,7 @@ public class Config extends Configuration {
 
 		module = new PowerModule(ModularCommon.MODULE_SHOCK_ABSORBER, FEETONLY, MuseIcon.PLATE_1_RED, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("With some servos, springs, and padding, you should be able to negate a portion of fall damage.")
-				.addInstallCost(new ItemStack(BasicComponents.itemMotor, 2))
+				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
 				.addInstallCost(new ItemStack(Block.cloth, 2));
 		ModuleManager.addSimpleTradeoff(
 				module, "Power",
@@ -230,20 +243,17 @@ public class Config extends Configuration {
 
 		module = new PowerModule(ModularCommon.MODULE_GLIDER, TORSOONLY, MuseIcon.GLIDER, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("Tack on some wings to turn downward into forward momentum. Press shift while falling to activate.")
-				.addInstallCost(new ItemStack(BasicComponents.itemSteelPlate, 2));
+				.addInstallCost(copyAndResize(ItemComponent.gliderWing, 2));
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_PARACHUTE, TORSOONLY, MuseIcon.PLATE_2_GREEN, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("Add a parachute to slow your descent. Activate by pressing space in midair.")
-				.addInstallCost(new ItemStack(Item.silk, 2))
-				.addInstallCost(new ItemStack(Block.cloth));
+				.addInstallCost(copyAndResize(ItemComponent.parachute, 2));
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_JETPACK, TORSOONLY, MuseIcon.JETPACK, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("A jetpack should allow you to jump indefinitely, or at least until you run out of power.")
-				.addInstallCost(new ItemStack(BasicComponents.itemSteelPlate, 10))
-				.addInstallCost(new ItemStack(Item.lightStoneDust, 8))
-				.addInstallCost(new ItemStack(Item.redstone, 8))
+				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 4))
 				.addBaseProperty(ModularCommon.JET_ENERGY_CONSUMPTION, 0)
 				.addBaseProperty(ModularCommon.JET_THRUST, 0)
 				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 16)
@@ -252,9 +262,7 @@ public class Config extends Configuration {
 
 		module = new PowerModule(ModularCommon.MODULE_JETBOOTS, FEETONLY, MuseIcon.JETBOOTS, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("Jet boots are not as strong as a jetpack, but they should help a bit.")
-				.addInstallCost(new ItemStack(BasicComponents.itemSteelPlate, 4))
-				.addInstallCost(new ItemStack(Item.lightStoneDust, 4))
-				.addInstallCost(new ItemStack(Item.redstone, 4))
+				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 2))
 				.addBaseProperty(ModularCommon.JET_ENERGY_CONSUMPTION, 0)
 				.addBaseProperty(ModularCommon.JET_THRUST, 0)
 				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 8)
@@ -302,6 +310,7 @@ public class Config extends Configuration {
 		PowerArmorLegs(24772, 2, "powerArmorLegs", "Power Armor Legs"),
 		PowerArmorFeet(24773, 3, "powerArmorFeet", "Power Armor Feet"),
 		PowerTool(24774, 4, "powerTool", "Power Tool"),
+		PowerArmorComponent(24775, 5, "powerArmorComponent", "Power Armor Component"),
 
 		;
 

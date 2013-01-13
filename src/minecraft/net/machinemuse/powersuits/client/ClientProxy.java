@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.client;
 
-import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.block.TileEntityTinkerTable;
 import net.machinemuse.powersuits.block.TinkerTableRenderer;
 import net.machinemuse.powersuits.common.CommonProxy;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.PowersuitsMod;
 import net.machinemuse.powersuits.network.MusePacketHandler;
 import net.machinemuse.powersuits.tick.PlayerTickHandlerClient;
 import net.machinemuse.powersuits.tick.RenderTickHandler;
@@ -38,7 +38,7 @@ public class ClientProxy extends CommonProxy {
 		int tinkTableRenderID = RenderingRegistry.getNextAvailableRenderId();
 		TinkerTableRenderer tinkTableRenderer = new TinkerTableRenderer(
 				tinkTableRenderID);
-		BlockTinkerTable.instance().setRenderType(tinkTableRenderID);
+		PowersuitsMod.tinkerTable.setRenderType(tinkTableRenderID);
 		ClientRegistry.bindTileEntitySpecialRenderer(
 				TileEntityTinkerTable.class, tinkTableRenderer);
 		RenderingRegistry.registerBlockHandler(tinkTableRenderer);
