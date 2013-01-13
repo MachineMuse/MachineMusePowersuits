@@ -9,7 +9,6 @@ import java.util.Set;
 import net.machinemuse.general.MuseMathUtils;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.machinemuse.powersuits.powermodule.PowerModule;
-import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -341,7 +340,7 @@ public class ItemUtils {
 		}
 	}
 
-	public static double getMaxEnergy(EntityClientPlayerMP player) {
+	public static double getMaxEnergy(EntityPlayer player) {
 		double max = 0;
 		for (ItemStack stack : modularItemsEquipped(player)) {
 			max += ((IModularItem) stack.getItem()).getMaxJoules(stack);

@@ -4,6 +4,7 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class RecipeManager {
@@ -28,76 +29,159 @@ public class RecipeManager {
 		ItemStack lapis = new ItemStack(Item.dyePowder, 1, 4); // metadata 4 =
 																// 'blue'
 
-		GameRegistry.addRecipe(new ItemStack(PowersuitsMod.tinkerTable),
-				"ILI",
-				"LEL",
-				"ILI",
-				'I', iron, 'L', lapis, 'E', emerald);
+		if (Config.vanillaRecipesEnabled()) {
+			GameRegistry.addRecipe(new ItemStack(PowersuitsMod.tinkerTable),
+					"ILI",
+					"LEL",
+					"ILI",
+					'I', iron, 'L', lapis, 'E', emerald);
 
-		GameRegistry.addRecipe(new ItemStack(PowersuitsMod.powerArmorHead),
-				"III",
-				"C C",
-				'I', iron, 'C', circuit);
+			GameRegistry.addRecipe(new ItemStack(PowersuitsMod.powerArmorHead),
+					"III",
+					"C C",
+					'I', iron, 'C', circuit);
 
-		GameRegistry.addRecipe(new ItemStack(PowersuitsMod.powerArmorTorso),
-				"I I",
-				"CIC",
-				"III",
-				'I', iron, 'C', circuit);
+			GameRegistry.addRecipe(new ItemStack(PowersuitsMod.powerArmorTorso),
+					"I I",
+					"CIC",
+					"III",
+					'I', iron, 'C', circuit);
 
-		GameRegistry.addRecipe(new ItemStack(PowersuitsMod.powerArmorLegs),
-				"III",
-				"C C",
-				"I I",
-				'I', iron, 'C', circuit);
+			GameRegistry.addRecipe(new ItemStack(PowersuitsMod.powerArmorLegs),
+					"III",
+					"C C",
+					"I I",
+					'I', iron, 'C', circuit);
 
-		GameRegistry.addRecipe(new ItemStack(PowersuitsMod.powerArmorFeet),
-				"C C",
-				"I I",
-				'I', iron, 'C', circuit);
+			GameRegistry.addRecipe(new ItemStack(PowersuitsMod.powerArmorFeet),
+					"C C",
+					"I I",
+					'I', iron, 'C', circuit);
 
-		GameRegistry.addRecipe(new ItemStack(PowersuitsMod.powerTool),
-				" C ",
-				"CI ",
-				" IC",
-				'I', iron, 'C', circuit);
+			GameRegistry.addRecipe(new ItemStack(PowersuitsMod.powerTool),
+					" C ",
+					"CI ",
+					" IC",
+					'I', iron, 'C', circuit);
 
-		GameRegistry.addRecipe(copyAndResize(ItemComponent.wiring, 8),
-				"GRG", 'G', goldNugget, 'R', redstone);
+			GameRegistry.addRecipe(copyAndResize(ItemComponent.wiring, 8),
+					"GRG", 'G', goldNugget, 'R', redstone);
 
-		GameRegistry.addRecipe(ItemComponent.parachute,
-				"WWW", "S S", 'W', wool, 'S', string);
+			GameRegistry.addRecipe(ItemComponent.parachute,
+					"WWW", "S S", 'W', wool, 'S', string);
 
-		GameRegistry.addRecipe(ItemComponent.capacitor,
-				"GPL",
-				"W W",
-				'W', ItemComponent.wiring,
-				'G', goldNugget,
-				'P', paper,
-				'L', lapis);
+			GameRegistry.addRecipe(ItemComponent.capacitor,
+					"GPL",
+					"W W",
+					'W', ItemComponent.wiring,
+					'G', goldNugget,
+					'P', paper,
+					'L', lapis);
 
-		GameRegistry.addRecipe(ItemComponent.electromagnet,
-				"WIW",
-				"WIW",
-				"WIW",
-				'W', ItemComponent.wiring,
-				'I', iron);
+			GameRegistry.addRecipe(ItemComponent.solenoid,
+					"WIW",
+					"WIW",
+					"WIW",
+					'W', ItemComponent.wiring,
+					'I', iron);
 
-		GameRegistry.addRecipe(ItemComponent.gliderWing,
-				" II",
-				"II ",
-				"I  ",
-				'I', iron);
+			GameRegistry.addRecipe(ItemComponent.gliderWing,
+					" II",
+					"II ",
+					"I  ",
+					'I', iron);
 
-		GameRegistry.addRecipe(ItemComponent.servoMotor,
-				" W ",
-				"EIE",
-				'I', iron, 'E', ItemComponent.electromagnet, 'W', ItemComponent.wiring);
+			GameRegistry.addRecipe(ItemComponent.servoMotor,
+					" W ",
+					"EIE",
+					'I', iron, 'E', ItemComponent.solenoid, 'W', ItemComponent.wiring);
 
-		GameRegistry.addRecipe(ItemComponent.ionThruster,
-				"III",
-				"EGE",
-				"E E",
-				'I', iron, 'E', ItemComponent.electromagnet, 'G', glowstone);
+			GameRegistry.addRecipe(ItemComponent.ionThruster,
+					"III",
+					"EGE",
+					"E E",
+					'I', iron, 'E', ItemComponent.solenoid, 'G', glowstone);
+		}
+		if (Config.UERecipesEnabled()) {
+			String basicCircuit = "basicCircuit";
+			String advancedCircuit = "advancedCircuit";
+			String eliteCircuit = "eliteCircuit";
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.tinkerTable), true,
+					"ILI",
+					"LEL",
+					"ILI",
+					'I', "plateSteel", 'L', "basicCircuit", 'E', emerald));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerArmorHead), true,
+					"III",
+					"C C",
+					'I', "plateSteel", 'C', "basicCircuit"));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerArmorTorso), true,
+					"I I",
+					"CIC",
+					"III",
+					'I', "plateSteel", 'C', "basicCircuit"));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerArmorLegs), true,
+					"III",
+					"C C",
+					"I I",
+					'I', "plateSteel", 'C', "basicCircuit"));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerArmorFeet), true,
+					"C C",
+					"I I",
+					'I', "plateSteel", 'C', "basicCircuit"));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerTool), true,
+					" C ",
+					"CI ",
+					" IC",
+					'I', "plateSteel", 'C', "basicCircuit"));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(ItemComponent.wiring, 1), true,
+					"GWG", 'G', goldNugget, 'W', "copperWire"));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.parachute, true,
+					"WWW",
+					"S S", 'W', wool, 'S', string));
+
+			// GameRegistry.addRecipe(ItemComponent.capacitor,
+			// "GPL",
+			// "W W",
+			// 'W', ItemComponent.wiring,
+			// 'G', goldNugget,
+			// 'P', paper,
+			// 'L', lapis);
+			//
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solenoid, true,
+					"WCW",
+					"WIW",
+					"WIW",
+					'W', "copperWire",
+					'C', "basicCircuit",
+					'I', iron));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.gliderWing, true,
+					" II",
+					"II ",
+					"I  ",
+					'I', "plateSteel"));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.servoMotor, true,
+					" C ",
+					"EIE",
+					'I', iron, 'E', ItemComponent.solenoid, 'C',
+					"advancedCircuit"));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true,
+					"ICI",
+					"EGE",
+					"E E",
+					'I', iron, 'E', ItemComponent.solenoid, 'G', glowstone, 'C', "eliteCircuit"));
+		}
+
 	}
 }

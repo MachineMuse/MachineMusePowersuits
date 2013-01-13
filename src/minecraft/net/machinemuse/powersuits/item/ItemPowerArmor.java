@@ -212,8 +212,8 @@ public abstract class ItemPowerArmor extends ItemArmor
 	}
 
 	@Override
-	public double getVoltage() {
-		return ModularCommon.getVoltage();
+	public double getVoltage(Object... data) {
+		return ModularCommon.getVoltage(getAsStack(data));
 	}
 
 	@Override

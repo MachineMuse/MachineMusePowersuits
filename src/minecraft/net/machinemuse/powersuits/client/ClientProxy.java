@@ -22,7 +22,7 @@ import cpw.mods.fml.relauncher.Side;
  * 
  */
 public class ClientProxy extends CommonProxy {
-	private static EquipmentRenderer eRenderer = new EquipmentRenderer();
+	private static EquipmentRenderer equipmentRenderer = new EquipmentRenderer();
 	private static RenderTickHandler renderTickHandler;
 	private static PlayerTickHandlerClient playerTickHandler;
 
@@ -31,10 +31,8 @@ public class ClientProxy extends CommonProxy {
 	 */
 	@Override
 	public void registerRenderers() {
-		// for (Item i : PowersuitsMod.allItems) {
-		// MinecraftForgeClient.registerItemRenderer(
-		// i.shiftedIndex, eRenderer);
-		// }
+		// MinecraftForgeClient.registerItemRenderer(PowersuitsMod.powerTool.itemID,
+		// equipmentRenderer);
 		int tinkTableRenderID = RenderingRegistry.getNextAvailableRenderId();
 		TinkerTableRenderer tinkTableRenderer = new TinkerTableRenderer(
 				tinkTableRenderID);

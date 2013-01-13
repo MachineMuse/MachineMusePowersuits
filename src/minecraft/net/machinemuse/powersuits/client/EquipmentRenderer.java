@@ -4,6 +4,8 @@ import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.powersuits.item.IModularItem;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.RenderEngine;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,7 +21,7 @@ import net.minecraftforge.client.IItemRenderer;
  * @author MachineMuse
  * 
  */
-public class EquipmentRenderer implements IItemRenderer {
+public class EquipmentRenderer extends Render implements IItemRenderer {
 
 	/**
 	 * Forge checks this to see if our custom renderer will handle a certain
@@ -90,7 +92,7 @@ public class EquipmentRenderer implements IItemRenderer {
 			drawFeet(itemStack);
 			break;
 		case PowerTool:
-			drawTool(itemStack);
+			new ToolModel().render(null, 0, 0, 0, 0, 0, 0);
 			break;
 		default:
 			break;
@@ -140,7 +142,7 @@ public class EquipmentRenderer implements IItemRenderer {
 		// MuseRenderer.drawRectPrism(0, 16, 0, 16, 0, 16);
 	}
 
-	public void drawTool(ItemStack itemStack) {
+	public void drawTool(ItemStack itemStack, ItemRenderType type) {
 	}
 
 	/**
@@ -163,6 +165,12 @@ public class EquipmentRenderer implements IItemRenderer {
 	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item,
 			ItemRendererHelper helper) {
 		return false;
+	}
+
+	@Override
+	public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

@@ -18,7 +18,7 @@ public class ItemComponent extends Item {
 	public static List<String> names;
 
 	public static ItemStack wiring;
-	public static ItemStack electromagnet;
+	public static ItemStack solenoid;
 	public static ItemStack servoMotor;
 	public static ItemStack gliderWing;
 	public static ItemStack ionThruster;
@@ -53,7 +53,7 @@ public class ItemComponent extends Item {
 
 	public void populate() {
 		wiring = addComponent("Wiring", MuseIcon.COMPONENT_WIRING);
-		electromagnet = addComponent("Electromagnet", MuseIcon.COMPONENT_ELECTROMAGNET);
+		solenoid = addComponent("Solenoid", MuseIcon.COMPONENT_SOLENOID);
 		servoMotor = addComponent("Servo Motor", MuseIcon.COMPONENT_SERVOMOTOR);
 		gliderWing = addComponent("Glider Wing", MuseIcon.COMPONENT_GLIDERWING);
 		ionThruster = addComponent("Ion Thruster", MuseIcon.COMPONENT_IONTHRUSTER);

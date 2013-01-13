@@ -267,8 +267,8 @@ public class ItemPowerTool extends ItemTool
 	}
 
 	@Override
-	public double getVoltage() {
-		return ModularCommon.getVoltage();
+	public double getVoltage(Object... data) {
+		return ModularCommon.getVoltage(getAsStack(data));
 	}
 
 	@Override

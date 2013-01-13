@@ -48,7 +48,7 @@ public class MuseIcon {
 	// Component icons
 	public static final MuseIcon COMPONENT_WIRING = new MuseIcon(MUSE_ICON_PATH, 0);
 	public static final MuseIcon COMPONENT_CAPACITOR = new MuseIcon(MUSE_ICON_PATH, 1);
-	public static final MuseIcon COMPONENT_ELECTROMAGNET = new MuseIcon(MUSE_ICON_PATH, 2);
+	public static final MuseIcon COMPONENT_SOLENOID = new MuseIcon(MUSE_ICON_PATH, 2);
 	public static final MuseIcon COMPONENT_GLIDERWING = new MuseIcon(MUSE_ICON_PATH, 4);
 	public static final MuseIcon COMPONENT_SERVOMOTOR = new MuseIcon(MUSE_ICON_PATH, 3);
 	public static final MuseIcon COMPONENT_IONTHRUSTER = new MuseIcon(MUSE_ICON_PATH, 5);

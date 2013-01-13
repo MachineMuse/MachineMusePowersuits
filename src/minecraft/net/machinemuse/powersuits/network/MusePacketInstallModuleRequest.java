@@ -7,16 +7,14 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.List;
 
-import universalelectricity.core.implement.IItemElectric;
-
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemUtils;
-import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
+import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
+import universalelectricity.core.implement.IItemElectric;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
@@ -77,16 +75,16 @@ public class MusePacketInstallModuleRequest extends MusePacket {
 			int entityId = playerEntity.entityId;
 			PowerModule moduleType = ModuleManager.getModule(moduleName);
 			List<ItemStack> cost = moduleType.getInstallCost();
-			
+
 			if (ItemUtils.hasInInventory(cost, playerEntity.inventory)) {
 				List<Integer> slots = ItemUtils.findInInventoryForCost(cost, playerEntity.inventory);
-				double amps=0;
-				double volts = ItemUtils.getAsModular(stack.getItem()).getVoltage();
-				for(Integer slot : slots) {
+				double amps = 0;
+				double volts = ItemUtils.getAsModular(stack.getItem()).getVoltage(stack);
+				for (Integer slot : slots) {
 					ItemStack stackInSlot = playerEntity.inventory.getStackInSlot(slot);
-					if(stackInSlot != null && stackInSlot.getItem() instanceof IItemElectric) {
-						IItemElectric electricItem = (IItemElectric)stackInSlot.getItem();
-						amps = electricItem.getJoules(stackInSlot)/volts;
+					if (stackInSlot != null && stackInSlot.getItem() instanceof IItemElectric) {
+						IItemElectric electricItem = (IItemElectric) stackInSlot.getItem();
+						amps = electricItem.getJoules(stackInSlot) / volts;
 					}
 				}
 				List<Integer> slotsToUpdate = ItemUtils.deleteFromInventory(

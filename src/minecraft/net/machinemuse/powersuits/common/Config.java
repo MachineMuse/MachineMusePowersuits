@@ -27,6 +27,7 @@ public class Config extends Configuration {
 	public static final String TINKERTABLE_TEXTURE_PATH = "/resource/tinkertable.png";
 	public static final String BLANK_ARMOR_MODEL_PATH = "/resource/blankarmor.png";
 	public static final String MUSE_ICON_PATH = "/resource/museicons.png";
+	public static final String SEBK_TOOL_TEXTURE = "/resource/tool.png";
 
 	private static final int[] assignedItemIDs = new int[Items.values().length];
 	private static final int[] assignedBlockIDs = new int[Blocks.values().length];
@@ -56,7 +57,17 @@ public class Config extends Configuration {
 			assignedItemIDs[i.ordinal()] =
 					config.getItem(i.englishName, i.defaultItemID).getInt();
 		}
+		vanillaRecipesEnabled();
+		UERecipesEnabled();
 		config.save();
+	}
+
+	public static boolean vanillaRecipesEnabled() {
+		return config.get(Configuration.CATEGORY_GENERAL, "Vanilla Recipes (Easy)", false).getBoolean(false);
+	}
+
+	public static boolean UERecipesEnabled() {
+		return config.get(Configuration.CATEGORY_GENERAL, "UE Recipes (Hard)", true).getBoolean(true);
 	}
 
 	/**
@@ -77,7 +88,7 @@ public class Config extends Configuration {
 	 * @return
 	 */
 	public static CreativeTabs getCreativeTab() {
-		return CreativeTabs.tabMisc;
+		return MuseCreativeTab.instance();
 	}
 
 	/**
@@ -86,7 +97,7 @@ public class Config extends Configuration {
 	 * @return percent chance, 0.0 to 1.0
 	 */
 	public static double getSalvageChance() {
-		return 0.9;
+		return config.get(Configuration.CATEGORY_GENERAL, "Salvage Ratio", 0.9).getDouble(0.9);
 	}
 
 	/**
@@ -154,7 +165,7 @@ public class Config extends Configuration {
 
 		module = new PowerModule(ModularCommon.MODULE_ENERGY_SHIELD, ARMORONLY, MuseIcon.ENERGY_SHIELD, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Energy shields are much lighter than plating, but consume energy.")
-				.addInstallCost(copyAndResize(ItemComponent.electromagnet, 4))
+				.addInstallCost(copyAndResize(ItemComponent.solenoid, 4))
 				.addTradeoffProperty("Field Strength", ModularCommon.ARMOR_VALUE_ENERGY, 6)
 				.addTradeoffProperty("Field Strength", ModularCommon.ARMOR_ENERGY_CONSUMPTION, 500);
 		ModuleManager.addModule(module);
@@ -162,7 +173,7 @@ public class Config extends Configuration {
 		module = new PowerModule(ModularCommon.MODULE_SHOVEL, TOOLONLY, MuseIcon.TOOL_SHOVEL, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Shovels are good for soft materials like dirt and sand.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
-				.addInstallCost(copyAndResize(ItemComponent.electromagnet, 1))
+				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
 				.addBaseProperty(ModularCommon.SHOVEL_ENERGY_CONSUMPTION, 10)
 				.addBaseProperty(ModularCommon.SHOVEL_HARVEST_SPEED, 2)
 				.addTradeoffProperty("Overclock", ModularCommon.SHOVEL_ENERGY_CONSUMPTION, 990)
@@ -172,7 +183,7 @@ public class Config extends Configuration {
 		module = new PowerModule(ModularCommon.MODULE_AXE, TOOLONLY, MuseIcon.TOOL_AXE, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Axes are mostly for chopping trees.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
-				.addInstallCost(copyAndResize(ItemComponent.electromagnet, 1))
+				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
 				.addBaseProperty(ModularCommon.AXE_ENERGY_CONSUMPTION, 10)
 				.addBaseProperty(ModularCommon.AXE_HARVEST_SPEED, 2)
 				.addTradeoffProperty("Overclock", ModularCommon.AXE_ENERGY_CONSUMPTION, 990)
@@ -182,7 +193,7 @@ public class Config extends Configuration {
 		module = new PowerModule(ModularCommon.MODULE_PICKAXE, TOOLONLY, MuseIcon.TOOL_PICK, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Picks are good for harder materials like stone and ore.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
-				.addInstallCost(copyAndResize(ItemComponent.electromagnet, 1))
+				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
 				.addBaseProperty(ModularCommon.PICKAXE_ENERGY_CONSUMPTION, 10)
 				.addBaseProperty(ModularCommon.PICKAXE_HARVEST_SPEED, 2)
 				.addTradeoffProperty("Overclock", ModularCommon.PICKAXE_ENERGY_CONSUMPTION, 990)
@@ -200,7 +211,7 @@ public class Config extends Configuration {
 
 		module = new PowerModule(ModularCommon.MODULE_DIAMOND_PICK_UPGRADE, TOOLONLY, MuseIcon.INDICATOR_1_BLUE, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Add diamonds to allow your pickaxe module to mine Obsidian.")
-				.addInstallCost(copyAndResize(ItemComponent.electromagnet, 1))
+				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
 				.addInstallCost(new ItemStack(Item.diamond, 3));
 		ModuleManager.addModule(module);
 

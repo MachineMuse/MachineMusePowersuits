@@ -138,7 +138,7 @@ public abstract class ModularCommon {
 		return maxJoules;
 	}
 
-	public static double getVoltage() {
+	public static double getVoltage(ItemStack itemStack) {
 		return 120;
 	}
 
