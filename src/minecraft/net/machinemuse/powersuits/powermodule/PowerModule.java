@@ -156,4 +156,8 @@ public class PowerModule {
 		this.tweaks.add(tweak);
 		return this;
 	}
+
+	public boolean equals(PowerModule other) {
+		return other == this;
+	}
 }

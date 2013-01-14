@@ -1,6 +1,10 @@
 package net.machinemuse.general.gui.frame;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
@@ -15,22 +19,24 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 	protected Map<String, ModuleSelectionSubFrame> categories;
 	protected List<ClickableModule> moduleButtons;
 	protected int selectedModule = -1;
-	
+	protected PowerModule prevSelection;
+
 	public ModuleSelectionFrame(Point2D topleft, Point2D bottomright,
 			Colour borderColour, Colour insideColour, ItemSelectionFrame target) {
 		super(topleft, bottomright, borderColour, insideColour);
 		this.target = target;
-		
+
 		moduleButtons = new ArrayList();
 		categories = new HashMap();
 	}
-	
-	@Override public void update(double mousex, double mousey) {
-		// TODO Auto-generated method stub
-		
+
+	@Override
+	public void update(double mousex, double mousey) {
+
 	}
-	
-	@Override public void draw() {
+
+	@Override
+	public void draw() {
 		if (target.getSelectedItem() != null) {
 			loadModules();
 			drawBackground();
@@ -38,18 +44,18 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 			drawSelection();
 		}
 	}
-	
+
 	private void drawBackground() {
 		MuseRenderer.drawFrameRect(topleft, bottomright, borderColour,
 				insideColour, 0, 4);
 	}
-	
+
 	private void drawItems() {
 		for (ModuleSelectionSubFrame frame : categories.values()) {
 			frame.draw();
 		}
 	}
-	
+
 	private void drawSelection() {
 		ClickableModule module = getSelectedModule();
 		if (module != null) {
@@ -57,11 +63,11 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 					moduleButtons.get(selectedModule).getPosition().x(),
 					moduleButtons.get(selectedModule).getPosition().y(),
 					10);
-			
+
 		}
-		
+
 	}
-	
+
 	public ClickableModule getSelectedModule() {
 		if (moduleButtons.size() > selectedModule && selectedModule != -1) {
 			return moduleButtons.get(selectedModule);
@@ -69,64 +75,67 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 			return null;
 		}
 	}
-	
+
 	public void loadModules() {
-		ClickableItem clickie = target.getSelectedItem();
-		if (clickie != null) {
+		ClickableItem selectedItem = target.getSelectedItem();
+		if (selectedItem != null) {
 			double centerx = (topleft.x() + bottomright.x()) / 2;
 			double centery = (topleft.y() + bottomright.y()) / 2;
-			
+
 			moduleButtons = new ArrayList();
 			categories = new HashMap();
-			
-			List<PowerModule> workingModules = ItemUtils
-					.getValidModulesForItem(null,
-							clickie.getItem());
+
+			List<PowerModule> workingModules = ItemUtils.getValidModulesForItem(null, selectedItem.getItem());
 			if (workingModules.size() > 0) {
 				List<Point2D> points = MuseRenderer.pointsInLine(
 						workingModules.size(),
 						new Point2D(centerx, topleft.y()),
 						new Point2D(centerx, bottomright.y()));
+				this.selectedModule = -1;
 				Iterator<Point2D> pointiter = points.iterator();
 				for (PowerModule module : workingModules) {
-					ModuleSelectionSubFrame frame = getOrCreateCategory(module
-							.getCategory());
-					moduleButtons.add(frame.addModule(module));
+					ModuleSelectionSubFrame frame = getOrCreateCategory(module.getCategory());
+					ClickableModule moduleClickable = frame.addModule(module);
+					if (moduleClickable.getModule().equals(this.prevSelection)) {
+						this.selectedModule = moduleButtons.size();
+					}
+					moduleButtons.add(moduleClickable);
 				}
 			}
 		}
 	}
-	
+
 	private ModuleSelectionSubFrame getOrCreateCategory(String category) {
 		if (categories.containsKey(category)) {
 			return categories.get(category);
 		} else {
 			ModuleSelectionSubFrame frame = new ModuleSelectionSubFrame(
 					category,
-					new Point2D(topleft.x() + 4, topleft.y() + 4 + 30
-							* categories.size()),
-					new Point2D(bottomright.x() - 4, bottomright.y() + 34 + 30
-							* categories.size()));
-			
+					new Point2D(topleft.x() + 4, topleft.y() + 4 + 30 * categories.size()),
+					new Point2D(bottomright.x() - 4, bottomright.y() + 34 + 30 * categories.size()));
+
 			categories.put(category, frame);
 			return frame;
 		}
 	}
-	
-	@Override public void onMouseDown(double x, double y, int button) {
+
+	@Override
+	public void onMouseDown(double x, double y, int button) {
 		loadModules();
 		int i = 0;
 		for (ClickableModule module : moduleButtons) {
 			if (module.hitBox(x, y)) {
 				selectedModule = i;
+				prevSelection = module.getModule();
 				break;
 			} else {
 				i++;
 			}
 		}
 	}
-	
-	@Override public List<String> getToolTip(int x, int y) {
+
+	@Override
+	public List<String> getToolTip(int x, int y) {
 		if (moduleButtons != null) {
 			int moduleHover = -1;
 			int i = 0;
@@ -147,5 +156,5 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 			return null;
 		}
 	}
-	
+
 }
