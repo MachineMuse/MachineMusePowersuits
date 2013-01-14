@@ -105,6 +105,14 @@ public class EventHandler {
 					player.setAir(300);
 				}
 			}
+			ItemStack legs = player.getCurrentArmor(1);
+			if (legs != null && legs.getItem() instanceof IModularItem
+					&& ItemUtils.itemHasModule(legs,
+							ModularCommon.MODULE_UPHILL_WALKING)) {
+				player.stepHeight = 1.01F;
+			} else if (player.stepHeight == 1.01F) {
+				player.stepHeight = 0.5F;
+			}
 		}
 	}
 

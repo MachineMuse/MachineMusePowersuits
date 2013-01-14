@@ -10,7 +10,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
-import basiccomponents.common.BasicComponents;
 
 /**
  * Initial attempt at storing all tweakable/configurable values in one class.
@@ -250,7 +249,7 @@ public class Config extends Configuration {
 				.addInstallCost(new ItemStack(Item.dyePowder, 1, 4))
 				.addTradeoffProperty("Intensity", ModularCommon.MODULE_BLUE_TINT, 1, "%");
 		ModuleManager.addModule(module);
-		
+
 		module = new PowerModule(ModularCommon.MODULE_TRANSPARENT_ARMOR, ARMORONLY, MuseIcon.TRANSPARENT_ARMOR, ModularCommon.CATEGORY_COSMETIC)
 				.setDescription("Make the item transparent, so you can show off your skin without losing armor.")
 				.addInstallCost(new ItemStack(Block.glass, 3));
@@ -289,7 +288,8 @@ public class Config extends Configuration {
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_GLIDER, TORSOONLY, MuseIcon.GLIDER, ModularCommon.CATEGORY_MOVEMENT)
-				.setDescription("Tack on some wings to turn downward into forward momentum. Press Sneak (defaults to shift) while falling to activate.")
+				.setDescription(
+						"Tack on some wings to turn downward into forward momentum. Press Sneak (defaults to shift) while falling to activate.")
 				.addInstallCost(copyAndResize(ItemComponent.gliderWing, 2));
 		ModuleManager.addModule(module);
 
@@ -303,16 +303,16 @@ public class Config extends Configuration {
 				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 4))
 				.addBaseProperty(ModularCommon.JET_ENERGY_CONSUMPTION, 0, "J/s")
 				.addBaseProperty(ModularCommon.JET_THRUST, 0, "N")
-				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 100)
+				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 150)
 				.addTradeoffProperty("Thrust", ModularCommon.JET_THRUST, 0.16);
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_JETBOOTS, FEETONLY, MuseIcon.JETBOOTS, ModularCommon.CATEGORY_MOVEMENT)
-				.setDescription("Jet boots are not as strong as a jetpack, but they should help a bit.")
+				.setDescription("Jet boots are not as strong as a jetpack, but they should at least be strong enough to counteract gravity.")
 				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 2))
 				.addBaseProperty(ModularCommon.JET_ENERGY_CONSUMPTION, 0)
 				.addBaseProperty(ModularCommon.JET_THRUST, 0)
-				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 50)
+				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 75)
 				.addTradeoffProperty("Thrust", ModularCommon.JET_THRUST, 0.08);
 		ModuleManager.addModule(module);
 
@@ -331,6 +331,10 @@ public class Config extends Configuration {
 				.addTradeoffProperty("Power", ModularCommon.UNDERWATER_HARVEST_SPEED, 0.8);
 		ModuleManager.addModule(module);
 
+		module = new PowerModule(ModularCommon.MODULE_UPHILL_WALKING, LEGSONLY, MuseIcon.GO_FAST, ModularCommon.CATEGORY_MOVEMENT)
+				.setDescription("A pair of dedicated servos allow you to effortlessly step up 1m-high ledges.")
+				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2));
+		ModuleManager.addModule(module);
 
 		// red = 1, green = 2, blue = 4
 	}
