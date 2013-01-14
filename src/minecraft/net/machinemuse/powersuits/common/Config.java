@@ -149,33 +149,33 @@ public class Config extends Configuration {
 		boolean[] ALLITEMS = { true, true, true, true, true };
 		PowerModule module;
 
-		module = new PowerModule(ModularCommon.MODULE_IRON_PLATING, ARMORONLY, MuseIcon.ORB_1_GREEN, ModularCommon.CATEGORY_ARMOR)
+		module = new PowerModule(ModularCommon.MODULE_IRON_PLATING, ARMORONLY, MuseIcon.IRON_PLATING, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Iron plating is heavy but protective.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 5))
-				.addTradeoffProperty("Plating Thickness", ModularCommon.ARMOR_VALUE_PHYSICAL, 5)
-				.addTradeoffProperty("Plating Thickness", ModularCommon.WEIGHT, 10000);
+				.addTradeoffProperty("Plating Thickness", ModularCommon.ARMOR_VALUE_PHYSICAL, 5, " Points")
+				.addTradeoffProperty("Plating Thickness", ModularCommon.WEIGHT, 10000, "g");
 		ModuleManager.addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_DIAMOND_PLATING, ARMORONLY, MuseIcon.ORB_1_BLUE, ModularCommon.CATEGORY_ARMOR)
+		module = new PowerModule(ModularCommon.MODULE_DIAMOND_PLATING, ARMORONLY, MuseIcon.DIAMOND_PLATING, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Diamonds are lighter, harder, and more protective than Iron but much harder to find.")
 				.addInstallCost(new ItemStack(Item.diamond, 5))
-				.addTradeoffProperty("Plating Thickness", ModularCommon.ARMOR_VALUE_PHYSICAL, 6)
-				.addTradeoffProperty("Plating Thickness", ModularCommon.WEIGHT, 6000);
+				.addTradeoffProperty("Plating Thickness", ModularCommon.ARMOR_VALUE_PHYSICAL, 6, " Points")
+				.addTradeoffProperty("Plating Thickness", ModularCommon.WEIGHT, 6000, "g");
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_ENERGY_SHIELD, ARMORONLY, MuseIcon.ENERGY_SHIELD, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Energy shields are much lighter than plating, but consume energy.")
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 4))
-				.addTradeoffProperty("Field Strength", ModularCommon.ARMOR_VALUE_ENERGY, 6)
-				.addTradeoffProperty("Field Strength", ModularCommon.ARMOR_ENERGY_CONSUMPTION, 500);
+				.addTradeoffProperty("Field Strength", ModularCommon.ARMOR_VALUE_ENERGY, 6, " Points")
+				.addTradeoffProperty("Field Strength", ModularCommon.ARMOR_ENERGY_CONSUMPTION, 500, "J");
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_SHOVEL, TOOLONLY, MuseIcon.TOOL_SHOVEL, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Shovels are good for soft materials like dirt and sand.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
-				.addBaseProperty(ModularCommon.SHOVEL_ENERGY_CONSUMPTION, 10)
-				.addBaseProperty(ModularCommon.SHOVEL_HARVEST_SPEED, 2)
+				.addBaseProperty(ModularCommon.SHOVEL_ENERGY_CONSUMPTION, 10, "J")
+				.addBaseProperty(ModularCommon.SHOVEL_HARVEST_SPEED, 2, "%")
 				.addTradeoffProperty("Overclock", ModularCommon.SHOVEL_ENERGY_CONSUMPTION, 990)
 				.addTradeoffProperty("Overclock", ModularCommon.SHOVEL_HARVEST_SPEED, 18);
 		ModuleManager.addModule(module);
@@ -184,8 +184,8 @@ public class Config extends Configuration {
 				.setDescription("Axes are mostly for chopping trees.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
-				.addBaseProperty(ModularCommon.AXE_ENERGY_CONSUMPTION, 10)
-				.addBaseProperty(ModularCommon.AXE_HARVEST_SPEED, 2)
+				.addBaseProperty(ModularCommon.AXE_ENERGY_CONSUMPTION, 10, "J")
+				.addBaseProperty(ModularCommon.AXE_HARVEST_SPEED, 2, "%")
 				.addTradeoffProperty("Overclock", ModularCommon.AXE_ENERGY_CONSUMPTION, 990)
 				.addTradeoffProperty("Overclock", ModularCommon.AXE_HARVEST_SPEED, 18);
 		ModuleManager.addModule(module);
@@ -194,28 +194,28 @@ public class Config extends Configuration {
 				.setDescription("Picks are good for harder materials like stone and ore.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
-				.addBaseProperty(ModularCommon.PICKAXE_ENERGY_CONSUMPTION, 10)
-				.addBaseProperty(ModularCommon.PICKAXE_HARVEST_SPEED, 2)
+				.addBaseProperty(ModularCommon.PICKAXE_ENERGY_CONSUMPTION, 10, "J")
+				.addBaseProperty(ModularCommon.PICKAXE_HARVEST_SPEED, 2, "%")
 				.addTradeoffProperty("Overclock", ModularCommon.PICKAXE_ENERGY_CONSUMPTION, 990)
 				.addTradeoffProperty("Overclock", ModularCommon.PICKAXE_HARVEST_SPEED, 18);
 		ModuleManager.addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_BATTERY_BASIC, ALLITEMS, MuseIcon.NEXUS_1_GREEN, ModularCommon.CATEGORY_ENERGY)
+		module = new PowerModule(ModularCommon.MODULE_BATTERY_BASIC, ALLITEMS, MuseIcon.BATTERY_EMPTY, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Integrate a battery to allow the item to store energy.")
 				.addInstallCost(new ItemStack(BasicComponents.itemBattery, 1))
-				.addBaseProperty(ModularCommon.MAXIMUM_ENERGY, 20000)
-				.addBaseProperty(ModularCommon.WEIGHT, 2000)
+				.addBaseProperty(ModularCommon.MAXIMUM_ENERGY, 20000, "J")
+				.addBaseProperty(ModularCommon.WEIGHT, 2000, "g")
 				.addTradeoffProperty("Battery Size", ModularCommon.MAXIMUM_ENERGY, 80000)
 				.addTradeoffProperty("Battery Size", ModularCommon.WEIGHT, 8000);
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_DIAMOND_PICK_UPGRADE, TOOLONLY, MuseIcon.INDICATOR_1_BLUE, ModularCommon.CATEGORY_TOOL)
-				.setDescription("Add diamonds to allow your pickaxe module to mine Obsidian.")
+				.setDescription("Add diamonds to allow your pickaxe module to mine Obsidian. *REQUIRES PICKAXE MODULE TO WORK*")
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
 				.addInstallCost(new ItemStack(Item.diamond, 3));
 		ModuleManager.addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_TRANSPARENT_ARMOR, ARMORONLY, MuseIcon.PLATE_2_GREEN, ModularCommon.CATEGORY_COSMETIC)
+		module = new PowerModule(ModularCommon.MODULE_TRANSPARENT_ARMOR, ARMORONLY, MuseIcon.SHIELD, ModularCommon.CATEGORY_COSMETIC)
 				.setDescription("Make the item transparent, so you can show off your skin without losing armor.")
 				.addInstallCost(new ItemStack(Block.glass, 3));
 		ModuleManager.addModule(module);
@@ -226,11 +226,11 @@ public class Config extends Configuration {
 		ModuleManager.addSimpleTradeoff(
 				module, "Power",
 				ModularCommon.SPRINT_ENERGY_CONSUMPTION, "J", 0, 5,
-				ModularCommon.SPRINT_SPEED_MULTIPLIER, "x", 1, 2);
+				ModularCommon.SPRINT_SPEED_MULTIPLIER, "%", 1, 2);
 		ModuleManager.addSimpleTradeoff(
 				module, "Compensation",
 				ModularCommon.SPRINT_ENERGY_CONSUMPTION, "J", 0, 1,
-				ModularCommon.SPRINT_FOOD_COMPENSATION, "x", 0, 1);
+				ModularCommon.SPRINT_FOOD_COMPENSATION, "%", 0, 1);
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_JUMP_ASSIST, LEGSONLY, MuseIcon.JUMP_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
@@ -239,17 +239,17 @@ public class Config extends Configuration {
 		ModuleManager.addSimpleTradeoff(
 				module, "Power",
 				ModularCommon.JUMP_ENERGY_CONSUMPTION, "J", 0, 100,
-				ModularCommon.JUMP_MULTIPLIER, "x", 1, 2);
+				ModularCommon.JUMP_MULTIPLIER, "%", 1, 2);
 		ModuleManager.addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_SHOCK_ABSORBER, FEETONLY, MuseIcon.PLATE_1_RED, ModularCommon.CATEGORY_MOVEMENT)
+		module = new PowerModule(ModularCommon.MODULE_SHOCK_ABSORBER, FEETONLY, MuseIcon.SHOCK_ABSORBER, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("With some servos, springs, and padding, you should be able to negate a portion of fall damage.")
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
 				.addInstallCost(new ItemStack(Block.cloth, 2));
 		ModuleManager.addSimpleTradeoff(
 				module, "Power",
 				ModularCommon.SHOCK_ABSORB_ENERGY_CONSUMPTION, "J", 0, 10,
-				ModularCommon.SHOCK_ABSORB_MULTIPLIER, "x", 0, 1);
+				ModularCommon.SHOCK_ABSORB_MULTIPLIER, "%", 0, 1);
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_GLIDER, TORSOONLY, MuseIcon.GLIDER, ModularCommon.CATEGORY_MOVEMENT)
@@ -265,8 +265,8 @@ public class Config extends Configuration {
 		module = new PowerModule(ModularCommon.MODULE_JETPACK, TORSOONLY, MuseIcon.JETPACK, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("A jetpack should allow you to jump indefinitely, or at least until you run out of power.")
 				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 4))
-				.addBaseProperty(ModularCommon.JET_ENERGY_CONSUMPTION, 0)
-				.addBaseProperty(ModularCommon.JET_THRUST, 0)
+				.addBaseProperty(ModularCommon.JET_ENERGY_CONSUMPTION, 0, "J/s")
+				.addBaseProperty(ModularCommon.JET_THRUST, 0, "m/s\u00B2")
 				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 16)
 				.addTradeoffProperty("Thrust", ModularCommon.JET_THRUST, 0.16);
 		ModuleManager.addModule(module);

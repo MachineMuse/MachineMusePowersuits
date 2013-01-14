@@ -34,6 +34,24 @@ public abstract class MuseStringUtils {
 		return retval;
 	}
 
+	public static String formatNumberPercent(double number) {
+		DecimalFormat format = (DecimalFormat) DecimalFormat.getInstance();
+		format.setMinimumIntegerDigits(1);
+		format.setMaximumFractionDigits(2);
+		format.applyPattern("##0.##");
+
+		String formattedNumber = format.format(number * 100);
+		return formattedNumber;
+	}
+
+	public static String formatNumberFromUnits(double number, String units) {
+		if (units.equals("%")) {
+			return formatNumberPercent(number) + "%";
+		} else {
+			return formatNumberShort(number) + units;
+		}
+	}
+
 	public static String prependFormatTag(String str, char format) {
 		return "\u00a7" + format + str;
 	}

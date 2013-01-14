@@ -36,10 +36,9 @@ public class ModuleManager {
 			PowerModule module, String tradeoffName,
 			String firstPropertyName, String firstUnits, double firstPropertyBase, double firstPropertyMultiplier,
 			String secondPropertyName, String secondUnits, double secondPropertyBase, double secondPropertyMultiplier) {
-		module.addBaseProperty(firstPropertyName, firstPropertyBase);
+		module.addBaseProperty(firstPropertyName, firstPropertyBase, firstUnits);
 		module.addTradeoffProperty(tradeoffName, firstPropertyName, firstPropertyMultiplier);
-		module.addBaseProperty(secondPropertyName, secondPropertyBase);
+		module.addBaseProperty(secondPropertyName, secondPropertyBase, secondUnits);
 		module.addTradeoffProperty(tradeoffName, secondPropertyName, secondPropertyMultiplier);
 	}
-
 }

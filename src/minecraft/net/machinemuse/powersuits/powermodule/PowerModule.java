@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.powermodule.property.IPropertyModifier;
 import net.machinemuse.powersuits.powermodule.property.PropertyModifierFlatAdditive;
 import net.machinemuse.powersuits.powermodule.property.PropertyModifierLinearAdditive;
@@ -25,6 +26,7 @@ public class PowerModule {
 	protected List<ItemStack> installCost;
 	protected NBTTagCompound defaultTag;
 	protected Map<String, List<IPropertyModifier>> propertyModifiers;
+	protected static Map<String, String> units = new HashMap();
 
 	public PowerModule(String name, boolean[] validSlots, MuseIcon icon, String category) {
 		this.name = name;
@@ -57,7 +59,26 @@ public class PowerModule {
 		return addPropertyModifier(propertyName, new PropertyModifierLinearAdditive(tradeoffName, multiplier));
 	}
 
+	public PowerModule addTradeoffProperty(String tradeoffName, String propertyName, double multiplier, String unit) {
+		units.put(propertyName, unit);
+		return addPropertyModifier(propertyName, new PropertyModifierLinearAdditive(tradeoffName, multiplier));
+	}
+
+	public static String getUnit(String propertyName) {
+		if (units.containsKey(propertyName)) {
+			return units.get(propertyName);
+		} else {
+			return "";
+		}
+	}
+
 	public PowerModule addBaseProperty(String propertyName, double baseVal) {
+		return addPropertyModifier(propertyName, new PropertyModifierFlatAdditive(baseVal));
+	}
+
+	public PowerModule addBaseProperty(String propertyName, double baseVal, String unit) {
+		MuseLogger.logDebug("Adding unit: " + propertyName + " maps to " + unit);
+		units.put(propertyName, unit);
 		return addPropertyModifier(propertyName, new PropertyModifierFlatAdditive(baseVal));
 	}
 

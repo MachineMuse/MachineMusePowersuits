@@ -42,8 +42,15 @@ public class MuseIcon {
 	public static final MuseIcon SPRINT_ASSIST = new MuseIcon(WC_ICON_PATH, 4);
 	public static final MuseIcon JUMP_ASSIST = new MuseIcon(WC_ICON_PATH, 5);
 	public static final MuseIcon ENERGY_SHIELD = new MuseIcon(WC_ICON_PATH, 6);
-	public static final MuseIcon DIAMOND_PICK_UPGRADE = new MuseIcon(WC_ICON_PATH, 7);
-	public static final MuseIcon BATTERY_UPGRADE = new MuseIcon(WC_ICON_PATH, 8);
+	public static final MuseIcon IRON_PLATING = new MuseIcon(WC_ICON_PATH, 7);
+	public static final MuseIcon DIAMOND_PLATING = new MuseIcon(WC_ICON_PATH, 8);
+	public static final MuseIcon HEART = new MuseIcon(WC_ICON_PATH, 13);
+	public static final MuseIcon BATTERY_FULL = new MuseIcon(WC_ICON_PATH, 14);
+	public static final MuseIcon BATTERY_EMPTY = new MuseIcon(WC_ICON_PATH, 15);
+	public static final MuseIcon SHOCK_ABSORBER = new MuseIcon(WC_ICON_PATH, 16);
+	public static final MuseIcon PARACHUTE_MODULE = new MuseIcon(WC_ICON_PATH, 18);
+	public static final MuseIcon SHIELD = new MuseIcon(WC_ICON_PATH, 20);
+	public static final MuseIcon GO_FAST = new MuseIcon(WC_ICON_PATH, 21);
 
 	// Component icons
 	public static final MuseIcon COMPONENT_WIRING = new MuseIcon(MUSE_ICON_PATH, 0);

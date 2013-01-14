@@ -84,7 +84,8 @@ public class ModuleTweakFrame extends ScrollableFrame {
 			int nexty = (int) (sliders.size() * 24 + topleft.y() + 24);
 			for (Map.Entry<String, Double> property : propertyStrings.entrySet()) {
 				nexty += 8;
-				String[] str = { property.getKey() + ":", MuseStringUtils.formatNumberShort(property.getValue()) };
+				String[] str = { property.getKey() + ":",
+						MuseStringUtils.formatNumberFromUnits(property.getValue(), PowerModule.getUnit(property.getKey())) };
 				MuseRenderer.drawStringsJustified(Arrays.asList(str), topleft.x() + 4, bottomright.x() - 4, nexty);
 
 			}
