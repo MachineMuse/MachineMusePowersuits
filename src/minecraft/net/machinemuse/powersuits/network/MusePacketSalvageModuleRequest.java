@@ -11,8 +11,8 @@ import java.util.Set;
 
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemUtils;
-import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
+import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -82,17 +82,12 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
 				Set<Integer> slots = new HashSet<Integer>();
 				ItemUtils.removeModule(stack, moduleName);
 				for (ItemStack refundItem : refund) {
-					slots.addAll(ItemUtils
-							.giveOrDropItemWithChance(refundItem.copy(),
-									playerEntity, Config.getSalvageChance()));
+					slots.addAll(ItemUtils.giveOrDropItemWithChance(refundItem.copy(), playerEntity, Config.getSalvageChance()));
 				}
 				slots.add(this.itemSlot);
 				for (Integer slotiter : slots) {
-					MusePacket reply = new MusePacketInventoryRefresh(
-							player,
-							slotiter, inventory.getStackInSlot(slotiter));
-					PacketDispatcher.sendPacketToPlayer(reply.getPacket250(),
-							player);
+					MusePacket reply = new MusePacketInventoryRefresh(player, slotiter, inventory.getStackInSlot(slotiter));
+					PacketDispatcher.sendPacketToPlayer(reply.getPacket250(), player);
 
 				}
 			}

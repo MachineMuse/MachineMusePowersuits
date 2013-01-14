@@ -375,16 +375,19 @@ public class ItemUtils {
 
 	public static void transferStackWithChance(ItemStack itemsToGive,
 			ItemStack destinationStack, double chanceOfSuccess) {
-		if(ItemUtils.isSameItem(itemsToGive, ItemComponent.lvcapacitor)) {
+		if (ItemUtils.isSameItem(itemsToGive, ItemComponent.lvcapacitor)) {
+			itemsToGive.stackSize = 0;
 			return;
 		}
-		if(ItemUtils.isSameItem(itemsToGive, ItemComponent.mvcapacitor)) {
+		if (ItemUtils.isSameItem(itemsToGive, ItemComponent.mvcapacitor)) {
+			itemsToGive.stackSize = 0;
 			return;
 		}
-		if(ItemUtils.isSameItem(itemsToGive, ItemComponent.hvcapacitor)) {
+		if (ItemUtils.isSameItem(itemsToGive, ItemComponent.hvcapacitor)) {
+			itemsToGive.stackSize = 0;
 			return;
 		}
-		
+
 		int maxSize = destinationStack.getMaxStackSize();
 		while (itemsToGive.stackSize > 0
 				&& destinationStack.stackSize < maxSize) {
