@@ -266,7 +266,7 @@ public class Config extends Configuration {
 				.setDescription("A jetpack should allow you to jump indefinitely, or at least until you run out of power.")
 				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 4))
 				.addBaseProperty(ModularCommon.JET_ENERGY_CONSUMPTION, 0, "J/s")
-				.addBaseProperty(ModularCommon.JET_THRUST, 0, "m/s\u00B2")
+				.addBaseProperty(ModularCommon.JET_THRUST, 0, "N")
 				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 16)
 				.addTradeoffProperty("Thrust", ModularCommon.JET_THRUST, 0.16);
 		ModuleManager.addModule(module);

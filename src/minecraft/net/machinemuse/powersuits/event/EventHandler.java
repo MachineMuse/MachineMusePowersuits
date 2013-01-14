@@ -18,7 +18,7 @@ public class EventHandler {
 		EntityPlayer player = event.entityPlayer;
 		Block block = event.block;
 		ItemStack stack = player.inventory.getCurrentItem();
-		if (stack != null && stack.getItem() instanceof ItemPowerTool && ItemPowerTool.canHarvestBlock(stack, block, 0)) {
+		if (stack != null && stack.getItem() instanceof ItemPowerTool && ItemPowerTool.canHarvestBlock(stack, block, 0, player)) {
 			event.success = true;
 		}
 	}
@@ -41,5 +41,44 @@ public class EventHandler {
 			}
 
 		}
+	}
+
+	@ForgeSubscribe
+	public void handleBreakSpeedEvent(PlayerEvent.BreakSpeed event) {
+		Block block = event.block;
+		EntityPlayer player = event.entityPlayer;
+		double harvestSpeed = event.newSpeed;
+		double energy = ItemUtils.getPlayerEnergy(player);
+		int meta = event.metadata;
+		ItemStack stack = player.getCurrentEquippedItem();
+		if (stack != null && stack.getItem() instanceof ItemPowerTool) {
+			if (ItemPowerTool.useIronPickaxe(stack, block, meta)
+					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_ENERGY_CONSUMPTION)) {
+
+				harvestSpeed *= ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_HARVEST_SPEED);
+
+			} else if (ItemPowerTool.useIronShovel(stack, block, meta)
+					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.SHOVEL_ENERGY_CONSUMPTION)) {
+
+				harvestSpeed *= ModuleManager.computeModularProperty(stack, ModularCommon.SHOVEL_HARVEST_SPEED);
+
+			} else if (ItemPowerTool.useIronAxe(stack, block, meta)
+					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.AXE_ENERGY_CONSUMPTION)) {
+
+				harvestSpeed *= ModuleManager.computeModularProperty(stack, ModularCommon.AXE_HARVEST_SPEED);
+
+			} else if (ItemPowerTool.useDiamondPickaxe(stack, block, meta)
+					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_ENERGY_CONSUMPTION)) {
+
+				harvestSpeed *= ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_HARVEST_SPEED);
+
+			} else {
+
+				harvestSpeed = 1;
+
+			}
+			event.newSpeed = (float) harvestSpeed;
+		}
+
 	}
 }

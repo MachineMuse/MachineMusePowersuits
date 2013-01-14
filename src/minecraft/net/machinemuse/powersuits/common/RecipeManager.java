@@ -106,12 +106,13 @@ public class RecipeManager {
 			String basicCircuit = "basicCircuit";
 			String advancedCircuit = "advancedCircuit";
 			String eliteCircuit = "eliteCircuit";
+			ItemStack lapisBlock = new ItemStack(Block.blockLapis);
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.tinkerTable), true,
 					"ILI",
 					"LEL",
 					"ILI",
-					'I', "plateSteel", 'L', "basicCircuit", 'E', emerald));
+					'I', "plateSteel", 'L', lapisBlock, 'E', emerald));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerArmorHead), true,
 					"III",
@@ -141,7 +142,7 @@ public class RecipeManager {
 					" IC",
 					'I', "plateSteel", 'C', "basicCircuit"));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(ItemComponent.wiring, 1), true,
+			GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(ItemComponent.wiring, 4), true,
 					"GWG", 'G', goldNugget, 'W', "copperWire"));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.parachute, true,
@@ -157,30 +158,26 @@ public class RecipeManager {
 			// 'L', lapis);
 			//
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solenoid, true,
-					"WCW",
 					"WIW",
 					"WIW",
-					'W', "copperWire",
-					'C', "basicCircuit",
+					"WIW",
+					'W', ItemComponent.wiring,
 					'I', iron));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.gliderWing, true,
-					" II",
-					"II ",
-					"I  ",
-					'I', "plateSteel"));
+					" SI",
+					"SI ",
+					"S  ",
+					'I', iron, 'S', "plateSteel"));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.servoMotor, true,
 					" C ",
-					"EIE",
-					'I', iron, 'E', ItemComponent.solenoid, 'C',
-					"advancedCircuit"));
+					"EIE", 'I', iron, 'E', ItemComponent.solenoid, 'C', "basicCircuit"));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true,
 					"ICI",
 					"EGE",
-					"E E",
-					'I', iron, 'E', ItemComponent.solenoid, 'G', glowstone, 'C', "eliteCircuit"));
+					"E E", 'I', "plateSteel", 'E', ItemComponent.solenoid, 'G', glowstone, 'C', "eliteCircuit"));
 		}
 
 	}

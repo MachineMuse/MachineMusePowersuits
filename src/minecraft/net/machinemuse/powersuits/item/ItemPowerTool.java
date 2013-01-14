@@ -32,10 +32,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemPowerTool extends ItemTool
 		implements
 		IModularItem {
-	private static final ItemStack ironPickaxe = new ItemStack(Item.pickaxeSteel);
-	private static final ItemStack ironAxe = new ItemStack(Item.axeSteel);
-	private static final ItemStack ironShovel = new ItemStack(Item.shovelSteel);
-	private static final ItemStack diamondPick = new ItemStack(Item.pickaxeDiamond);
+	public static final ItemStack ironPickaxe = new ItemStack(Item.pickaxeSteel);
+	public static final ItemStack ironAxe = new ItemStack(Item.axeSteel);
+	public static final ItemStack ironShovel = new ItemStack(Item.shovelSteel);
+	public static final ItemStack diamondPick = new ItemStack(Item.pickaxeDiamond);
 
 	/**
 	 * Constructor. Takes information from the Config.Items enum.
@@ -76,47 +76,39 @@ public class ItemPowerTool extends ItemTool
 		return getStrVsBlock(stack, block, 0);
 	}
 
-	public static boolean canHarvestBlock(ItemStack stack, Block block, int meta) {
-		if ((ForgeHooks.canToolHarvestBlock(block, meta, ironPickaxe)
-				|| block.blockMaterial == Material.iron
-				|| block.blockMaterial == Material.anvil
-				|| block.blockMaterial == Material.rock)
-
-				&& ItemUtils.itemHasModule(stack, ModularCommon.MODULE_PICKAXE)) {
-			return true;
-		} else if (ForgeHooks.canToolHarvestBlock(block, meta, ironShovel) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_SHOVEL)) {
-			return true;
-		} else if (ForgeHooks.canToolHarvestBlock(block, meta, ironAxe) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_AXE)) {
-			return true;
-		} else if (ForgeHooks.canToolHarvestBlock(block, meta, diamondPick)
-				&& ItemUtils.itemHasModule(stack, ModularCommon.MODULE_DIAMOND_PICK_UPGRADE)) {
-			return true;
-		} else {
-			return false;
+	public static boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
+		if (player != null) {
+			double energy = ItemUtils.getPlayerEnergy(player);
+			if ((ForgeHooks.canToolHarvestBlock(block, meta, ironPickaxe)
+					|| block.blockMaterial == Material.iron
+					|| block.blockMaterial == Material.anvil
+					|| block.blockMaterial == Material.rock)
+					&& ItemUtils.itemHasModule(stack, ModularCommon.MODULE_PICKAXE)
+					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_ENERGY_CONSUMPTION)) {
+				return true;
+			} else if ((ForgeHooks.canToolHarvestBlock(block, meta, ironShovel)
+					|| block == Block.snow)
+					&& ItemUtils.itemHasModule(stack, ModularCommon.MODULE_SHOVEL)
+					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.SHOVEL_ENERGY_CONSUMPTION)) {
+				return true;
+			} else if (ForgeHooks.canToolHarvestBlock(block, meta, ironAxe) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_AXE)
+					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.AXE_ENERGY_CONSUMPTION)) {
+				return true;
+			} else if (ForgeHooks.canToolHarvestBlock(block, meta, diamondPick)
+					&& ItemUtils.itemHasModule(stack, ModularCommon.MODULE_DIAMOND_PICK_UPGRADE)
+					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_ENERGY_CONSUMPTION)) {
+				return true;
+			} else {
+				return false;
+			}
 		}
+		return false;
 	}
 
 	/** FORGE: Overridden to allow custom tool effectiveness */
 	@Override
 	public float getStrVsBlock(ItemStack stack, Block block, int meta) {
-		double harvestSpeed = 1;
-		if ((ForgeHooks.isToolEffective(ironPickaxe, block, meta)
-				|| block.blockMaterial == Material.iron
-				|| block.blockMaterial == Material.anvil
-				|| block.blockMaterial == Material.rock)
-
-				&& ItemUtils.itemHasModule(stack, ModularCommon.MODULE_PICKAXE)) {
-			harvestSpeed = ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_HARVEST_SPEED);
-		} else if (ForgeHooks.isToolEffective(ironShovel, block, meta) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_SHOVEL)) {
-			harvestSpeed = ModuleManager.computeModularProperty(stack, ModularCommon.SHOVEL_HARVEST_SPEED);
-		} else if (ForgeHooks.isToolEffective(ironAxe, block, meta) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_AXE)) {
-			harvestSpeed = ModuleManager.computeModularProperty(stack, ModularCommon.AXE_HARVEST_SPEED);
-		} else if (ForgeHooks.isToolEffective(diamondPick, block, meta) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_DIAMOND_PICK_UPGRADE)) {
-			harvestSpeed = ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_HARVEST_SPEED);
-		} else {
-			harvestSpeed = 1;
-		}
-		return (float) harvestSpeed;
+		return 1;
 	}
 
 	/**
@@ -155,6 +147,56 @@ public class ItemPowerTool extends ItemTool
 			onUse(drain, stack);
 		}
 		return true;
+	}
+
+	public static boolean useIronPickaxe(ItemStack stack, Block block, int meta) {
+		if (ItemUtils.itemHasModule(stack, ModularCommon.MODULE_PICKAXE)) {
+			if (ForgeHooks.isToolEffective(ironPickaxe, block, meta)) {
+				return true;
+			} else if (block.blockMaterial == Material.iron
+					|| block.blockMaterial == Material.anvil
+					|| block.blockMaterial == Material.rock) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean useIronShovel(ItemStack stack, Block block, int meta) {
+		if (ItemUtils.itemHasModule(stack, ModularCommon.MODULE_SHOVEL)) {
+			if (ForgeHooks.isToolEffective(ironShovel, block, meta)) {
+				return true;
+			} else if (block.blockMaterial == Material.snow) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean useIronAxe(ItemStack stack, Block block, int meta) {
+		if (ItemUtils.itemHasModule(stack, ModularCommon.MODULE_AXE)) {
+			if (ForgeHooks.isToolEffective(ironAxe, block, meta)) {
+				return true;
+			} else if (block.blockMaterial == Material.wood
+					|| block.blockMaterial == Material.plants
+					|| block.blockMaterial == Material.vine) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean useDiamondPickaxe(ItemStack stack, Block block, int meta) {
+		if (ItemUtils.itemHasModule(stack, ModularCommon.MODULE_DIAMOND_PICK_UPGRADE)) {
+			if (ForgeHooks.isToolEffective(diamondPick, block, meta)) {
+				return true;
+			} else if (block.blockMaterial == Material.iron
+					|| block.blockMaterial == Material.anvil
+					|| block.blockMaterial == Material.rock) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
