@@ -12,8 +12,7 @@ import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.item.ModularCommon;
 import net.machinemuse.powersuits.network.MusePacket;
-import net.machinemuse.powersuits.network.MusePacketEnergyAdjustment;
-import net.machinemuse.powersuits.network.MusePacketFallDistance;
+import net.machinemuse.powersuits.network.MusePacketPlayerUpdate;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
@@ -52,9 +51,11 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			ItemStack tool = player.getCurrentEquippedItem();
 
 			double totalEnergy = ItemUtils.getPlayerEnergy(player);
-			double totalEnergyDrain = 0;
 			double totalWeight = ItemUtils.getPlayerWeight(player);
 			double weightCapacity = 25000;
+
+			double totalEnergyDrain = 0;
+			double exhaustionAdjustment = 0;
 
 			double landMovementFactor = 0.1;
 			double jumpMovementFactor = 0.02;
@@ -126,7 +127,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			}
 
 			// Parachute
-			if (hasParachute && jumpkey && player.motionY < -0.1 && (!hasGlider || forwardkey <= 0)) {
+			if (hasParachute && sneakkey && player.motionY < -0.1 && (!hasGlider || forwardkey <= 0)) {
 				double totalVelocity = Math.sqrt(horzMovement * horzMovement + player.motionY * player.motionY);
 				player.motionX = player.motionX * 0.1 / totalVelocity;
 				player.motionY = player.motionY * 0.1 / totalVelocity;
@@ -141,21 +142,24 @@ public class PlayerTickHandlerClient implements ITickHandler {
 					double exhaustionComp = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_FOOD_COMPENSATION);
 					totalEnergyDrain += sprintCost;
 					player.landMovementFactor *= sprintMultiplier;
-					player.addExhaustion((float) (-0.01 * exhaustion * exhaustionComp));
+
+					exhaustionComp += -0.01 * exhaustion * exhaustionComp;
 				}
 			}
 
-			// Update fall distance for damage
+			// Update fall distance for damage, energy drain, and exhaustion
+			// this tick
 			double fallDistance = MovementManager.computeFallHeightFromVelocity(player.motionY);
-			MusePacket packet = new MusePacketFallDistance(player, fallDistance);
-			player.sendQueue.addToSendQueue(packet.getPacket250());
 
-			// Update energy drain
 			if (totalEnergyDrain > 0) {
 				ItemUtils.drainPlayerEnergy(player, totalEnergyDrain);
-				packet = new MusePacketEnergyAdjustment(player, -totalEnergyDrain);
-				player.sendQueue.addToSendQueue(packet.getPacket250());
+			} else {
+				ItemUtils.givePlayerEnergy(player, -totalEnergyDrain);
 			}
+
+			player.addExhaustion((float) (exhaustionAdjustment));
+			MusePacket packet = new MusePacketPlayerUpdate(player, -totalEnergyDrain, exhaustionAdjustment, fallDistance);
+			player.sendQueue.addToSendQueue(packet.getPacket250());
 
 			// Weight movement penalty
 			if (totalWeight > weightCapacity) {

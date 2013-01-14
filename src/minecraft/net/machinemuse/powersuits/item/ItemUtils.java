@@ -453,4 +453,20 @@ public class ItemUtils {
 		}
 		return weight;
 	}
+
+	public static void givePlayerEnergy(EntityPlayer player, double joulesToGive) {
+		for (ItemStack stack : modularItemsEquipped(player)) {
+			if (stack != null) {
+				IModularItem item = getAsModular(stack.getItem());
+				double missingjoules = item.getMaxJoules(stack) - item.getJoules(stack);
+				if (missingjoules > joulesToGive) {
+					item.onUse(-joulesToGive, stack);
+					break;
+				} else {
+					joulesToGive -= missingjoules;
+					item.onUse(-missingjoules, stack);
+				}
+			}
+		}
+	}
 }
