@@ -200,12 +200,30 @@ public class Config extends Configuration {
 				.addTradeoffProperty("Overclock", ModularCommon.PICKAXE_HARVEST_SPEED, 18);
 		ModuleManager.addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_BATTERY_BASIC, ALLITEMS, MuseIcon.BATTERY_EMPTY, ModularCommon.CATEGORY_ENERGY)
+		module = new PowerModule(ModularCommon.MODULE_BATTERY_BASIC, ALLITEMS, MuseIcon.COMPONENT_LVCAPACITOR, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Integrate a battery to allow the item to store energy.")
-				.addInstallCost(new ItemStack(BasicComponents.itemBattery, 1))
+				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1))
 				.addBaseProperty(ModularCommon.MAXIMUM_ENERGY, 20000, "J")
 				.addBaseProperty(ModularCommon.WEIGHT, 2000, "g")
 				.addTradeoffProperty("Battery Size", ModularCommon.MAXIMUM_ENERGY, 80000)
+				.addTradeoffProperty("Battery Size", ModularCommon.WEIGHT, 8000);
+		ModuleManager.addModule(module);
+
+		module = new PowerModule(ModularCommon.MODULE_BATTERY_ADVANCED, ALLITEMS, MuseIcon.BATTERY_EMPTY, ModularCommon.CATEGORY_ENERGY)
+				.setDescription("Integrate a more advanced battery to store more energy.")
+				.addInstallCost(copyAndResize(ItemComponent.mvcapacitor, 1))
+				.addBaseProperty(ModularCommon.MAXIMUM_ENERGY, 100000, "J")
+				.addBaseProperty(ModularCommon.WEIGHT, 2000, "g")
+				.addTradeoffProperty("Battery Size", ModularCommon.MAXIMUM_ENERGY, 400000)
+				.addTradeoffProperty("Battery Size", ModularCommon.WEIGHT, 8000);
+		ModuleManager.addModule(module);
+
+		module = new PowerModule(ModularCommon.MODULE_BATTERY_ELITE, ALLITEMS, MuseIcon.BATTERY_FULL, ModularCommon.CATEGORY_ENERGY)
+				.setDescription("Integrate a the most advanced battery to store an extensive amount of energy.")
+				.addInstallCost(copyAndResize(ItemComponent.hvcapacitor, 1))
+				.addBaseProperty(ModularCommon.MAXIMUM_ENERGY, 750000, "J")
+				.addBaseProperty(ModularCommon.WEIGHT, 2000, "g")
+				.addTradeoffProperty("Battery Size", ModularCommon.MAXIMUM_ENERGY, 4250000)
 				.addTradeoffProperty("Battery Size", ModularCommon.WEIGHT, 8000);
 		ModuleManager.addModule(module);
 
@@ -215,7 +233,25 @@ public class Config extends Configuration {
 				.addInstallCost(new ItemStack(Item.diamond, 3));
 		ModuleManager.addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_TRANSPARENT_ARMOR, ARMORONLY, MuseIcon.SHIELD, ModularCommon.CATEGORY_COSMETIC)
+		module = new PowerModule(ModularCommon.MODULE_RED_TINT, ARMORONLY, MuseIcon.PLATE_2_RED, ModularCommon.CATEGORY_COSMETIC)
+				.setDescription("Give your armor some red tinting. Combine with the other cosmetic modules to customize your armor's appearance.")
+				.addInstallCost(new ItemStack(Item.dyePowder, 1, 1))
+				.addTradeoffProperty("Intensity", ModularCommon.MODULE_RED_TINT, 1, "%");
+		ModuleManager.addModule(module);
+
+		module = new PowerModule(ModularCommon.MODULE_GREEN_TINT, ARMORONLY, MuseIcon.PLATE_2_GREEN, ModularCommon.CATEGORY_COSMETIC)
+				.setDescription("Give your armor some green tinting. Combine with the other cosmetic modules to customize your armor's appearance.")
+				.addInstallCost(new ItemStack(Item.dyePowder, 1, 2))
+				.addTradeoffProperty("Intensity", ModularCommon.MODULE_GREEN_TINT, 1, "%");
+		ModuleManager.addModule(module);
+
+		module = new PowerModule(ModularCommon.MODULE_BLUE_TINT, ARMORONLY, MuseIcon.PLATE_2_BLUE, ModularCommon.CATEGORY_COSMETIC)
+				.setDescription("Give your armor some blue tinting. Combine with the other cosmetic modules to customize your armor's appearance.")
+				.addInstallCost(new ItemStack(Item.dyePowder, 1, 4))
+				.addTradeoffProperty("Intensity", ModularCommon.MODULE_BLUE_TINT, 1, "%");
+		ModuleManager.addModule(module);
+		
+		module = new PowerModule(ModularCommon.MODULE_TRANSPARENT_ARMOR, ARMORONLY, MuseIcon.TRANSPARENT_ARMOR, ModularCommon.CATEGORY_COSMETIC)
 				.setDescription("Make the item transparent, so you can show off your skin without losing armor.")
 				.addInstallCost(new ItemStack(Block.glass, 3));
 		ModuleManager.addModule(module);
@@ -238,7 +274,7 @@ public class Config extends Configuration {
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 4));
 		ModuleManager.addSimpleTradeoff(
 				module, "Power",
-				ModularCommon.JUMP_ENERGY_CONSUMPTION, "J", 0, 100,
+				ModularCommon.JUMP_ENERGY_CONSUMPTION, "J", 0, 25,
 				ModularCommon.JUMP_MULTIPLIER, "%", 1, 2);
 		ModuleManager.addModule(module);
 
@@ -248,16 +284,16 @@ public class Config extends Configuration {
 				.addInstallCost(new ItemStack(Block.cloth, 2));
 		ModuleManager.addSimpleTradeoff(
 				module, "Power",
-				ModularCommon.SHOCK_ABSORB_ENERGY_CONSUMPTION, "J", 0, 10,
+				ModularCommon.SHOCK_ABSORB_ENERGY_CONSUMPTION, "J/m", 0, 1,
 				ModularCommon.SHOCK_ABSORB_MULTIPLIER, "%", 0, 1);
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_GLIDER, TORSOONLY, MuseIcon.GLIDER, ModularCommon.CATEGORY_MOVEMENT)
-				.setDescription("Tack on some wings to turn downward into forward momentum. Press shift while falling to activate.")
+				.setDescription("Tack on some wings to turn downward into forward momentum. Press Sneak (defaults to shift) while falling to activate.")
 				.addInstallCost(copyAndResize(ItemComponent.gliderWing, 2));
 		ModuleManager.addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_PARACHUTE, TORSOONLY, MuseIcon.PLATE_2_GREEN, ModularCommon.CATEGORY_MOVEMENT)
+		module = new PowerModule(ModularCommon.MODULE_PARACHUTE, TORSOONLY, MuseIcon.PARACHUTE_MODULE, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("Add a parachute to slow your descent. Activate by pressing space in midair.")
 				.addInstallCost(copyAndResize(ItemComponent.parachute, 2));
 		ModuleManager.addModule(module);
@@ -267,7 +303,7 @@ public class Config extends Configuration {
 				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 4))
 				.addBaseProperty(ModularCommon.JET_ENERGY_CONSUMPTION, 0, "J/s")
 				.addBaseProperty(ModularCommon.JET_THRUST, 0, "N")
-				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 16)
+				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 100)
 				.addTradeoffProperty("Thrust", ModularCommon.JET_THRUST, 0.16);
 		ModuleManager.addModule(module);
 
@@ -276,9 +312,27 @@ public class Config extends Configuration {
 				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 2))
 				.addBaseProperty(ModularCommon.JET_ENERGY_CONSUMPTION, 0)
 				.addBaseProperty(ModularCommon.JET_THRUST, 0)
-				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 8)
+				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 50)
 				.addTradeoffProperty("Thrust", ModularCommon.JET_THRUST, 0.08);
 		ModuleManager.addModule(module);
+
+		module = new PowerModule(ModularCommon.MODULE_WATER_ELECTROLYZER, HEADONLY, MuseIcon.PLATE_1_BLUE, ModularCommon.CATEGORY_AQUATIC)
+				.setDescription("When you run out of air, this module will jolt the water around you, electrolyzing a small bubble to breathe from.")
+				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1))
+				.addBaseProperty(ModularCommon.WATERBREATHING_ENERGY_CONSUMPTION, 1000, "J");
+		ModuleManager.addModule(module);
+
+		module = new PowerModule(ModularCommon.MODULE_AQUA_AFFINITY, TOOLONLY, MuseIcon.ORB_1_BLUE, ModularCommon.CATEGORY_AQUATIC)
+				.setDescription("Reduces the speed penalty for using your tool underwater.")
+				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 1))
+				.addBaseProperty(ModularCommon.AQUA_AFFINITY_ENERGY_CONSUMPTION, 0, "J")
+				.addBaseProperty(ModularCommon.UNDERWATER_HARVEST_SPEED, 0.2, "%")
+				.addTradeoffProperty("Power", ModularCommon.AQUA_AFFINITY_ENERGY_CONSUMPTION, 100)
+				.addTradeoffProperty("Power", ModularCommon.UNDERWATER_HARVEST_SPEED, 0.8);
+		ModuleManager.addModule(module);
+
+
+		// red = 1, green = 2, blue = 4
 	}
 
 	/**

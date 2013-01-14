@@ -35,6 +35,9 @@ public abstract class ModularCommon {
 	public static final String SHOCK_ABSORB_ENERGY_CONSUMPTION = "Impact Energy consumption";
 	public static final String JET_ENERGY_CONSUMPTION = "Jet Energy Consumption";
 	public static final String JET_THRUST = "Jet Thrust";
+	public static final String WATERBREATHING_ENERGY_CONSUMPTION = "Jolt Energy";
+	public static final String AQUA_AFFINITY_ENERGY_CONSUMPTION = "Underwater Energy Consumption";
+	public static final String UNDERWATER_HARVEST_SPEED = "Underwater Harvest Speed";
 
 	/**
 	 * Module names
@@ -58,6 +61,11 @@ public abstract class ModularCommon {
 	public static final String MODULE_JETBOOTS = "Jet Boots";
 	public static final String MODULE_PARACHUTE = "Parachute";
 	public static final String MODULE_ANTIGRAVITY = "Antigravity Drive";
+	public static final String MODULE_WATER_ELECTROLYZER = "Water Electrolyzer";
+	public static final String MODULE_AQUA_AFFINITY = "Aqua Affinity";
+	public static final String MODULE_RED_TINT = "Red Tint";
+	public static final String MODULE_GREEN_TINT = "Green Tint";
+	public static final String MODULE_BLUE_TINT = "Blue Tint";
 
 	/**
 	 * Categories for modules
@@ -68,6 +76,7 @@ public abstract class ModularCommon {
 	public static final String CATEGORY_WEAPON = "Weapon";
 	public static final String CATEGORY_MOVEMENT = "Movement";
 	public static final String CATEGORY_COSMETIC = "Cosmetic";
+	public static final String CATEGORY_AQUATIC = "Aquatic";
 
 	/**
 	 * Adds information to the item's tooltip when 'getting' it.

@@ -7,6 +7,10 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.List;
 
+import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.PowersuitsMod;
+import net.machinemuse.powersuits.common.Config.Items;
+import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.machinemuse.powersuits.powermodule.PowerModule;
@@ -78,20 +82,22 @@ public class MusePacketInstallModuleRequest extends MusePacket {
 
 			if (ItemUtils.hasInInventory(cost, playerEntity.inventory)) {
 				List<Integer> slots = ItemUtils.findInInventoryForCost(cost, playerEntity.inventory);
-				double amps = 0;
-				double volts = ItemUtils.getAsModular(stack.getItem()).getVoltage(stack);
-				for (Integer slot : slots) {
-					ItemStack stackInSlot = playerEntity.inventory.getStackInSlot(slot);
-					if (stackInSlot != null && stackInSlot.getItem() instanceof IItemElectric) {
-						IItemElectric electricItem = (IItemElectric) stackInSlot.getItem();
-						amps = electricItem.getJoules(stackInSlot) / volts;
-					}
-				}
 				List<Integer> slotsToUpdate = ItemUtils.deleteFromInventory(
 						cost, inventory);
 				ItemUtils.itemAddModule(stack, moduleType);
 				slots.add(this.itemSlot);
-				ItemUtils.getAsModular(stack.getItem()).onReceive(amps, volts, stack);
+				for(ItemStack itemCost : cost) {
+					double joules = ItemUtils.getAsModular(stack.getItem()).getJoules(stack);
+					if(ItemUtils.isSameItem(itemCost, ItemComponent.lvcapacitor)) {
+						ItemUtils.getAsModular(stack.getItem()).setJoules(joules + 20000, stack);
+					}
+					if(ItemUtils.isSameItem(itemCost, ItemComponent.mvcapacitor)) {
+						ItemUtils.getAsModular(stack.getItem()).setJoules(joules + 100000, stack);
+					}
+					if(ItemUtils.isSameItem(itemCost, ItemComponent.hvcapacitor)) {
+						ItemUtils.getAsModular(stack.getItem()).setJoules(joules + 750000, stack);
+					}
+				}
 				for (Integer slotiter : slotsToUpdate) {
 					MusePacket reply = new MusePacketInventoryRefresh(
 							player,

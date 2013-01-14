@@ -139,10 +139,16 @@ public class ItemPowerTool extends ItemTool
 		} else if (ForgeHooks.isToolEffective(ironAxe, block, meta)) {
 			drain = ModuleManager.computeModularProperty(stack, ModularCommon.AXE_ENERGY_CONSUMPTION);
 		} else {
-			drain = 1;
+			drain = 0;
+		}
+
+		if (drain > 0 && entity.isInsideOfMaterial(Material.water)
+				&& ItemUtils.itemHasModule(stack, ModularCommon.MODULE_AQUA_AFFINITY)) {
+			drain += ModuleManager.computeModularProperty(stack, ModularCommon.AQUA_AFFINITY_ENERGY_CONSUMPTION);
 		}
 		if (entity instanceof EntityPlayer) {
-			ItemUtils.drainPlayerEnergy((EntityPlayer) entity, drain);
+			EntityPlayer player = (EntityPlayer) entity;
+			ItemUtils.drainPlayerEnergy(player, drain);
 		} else {
 			onUse(drain, stack);
 		}
@@ -252,7 +258,6 @@ public class ItemPowerTool extends ItemTool
 		NBTTagCompound itemProperties = ItemUtils
 				.getMuseItemTag(stack);
 		info.add("Detailed Summary");
-		info.add("Material\t" + getToolMaterialName());
 		info.add(formatInfo("Energy Storage", getMaxJoules(stack)) + "J");
 		info.add(formatInfo("Weight", ModularCommon.getTotalWeight(stack)) + "g");
 		return info;

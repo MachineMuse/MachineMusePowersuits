@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.machinemuse.general.MuseStringUtils;
+import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.Config.Items;
+import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,6 +19,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.IArmorTextureProvider;
 import net.minecraftforge.common.ISpecialArmor;
+
+import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.
@@ -37,9 +44,9 @@ public abstract class ItemPowerArmor extends ItemArmor
 	 * @param armorType
 	 *            0 = head; 1 = torso; 2 = legs; 3 = feet
 	 */
-	public ItemPowerArmor(int id, EnumArmorMaterial material,
+	public ItemPowerArmor(int id,
 			int renderIndex, int armorType) {
-		super(id, material, renderIndex, armorType);
+		super(id, EnumArmorMaterial.CLOTH, renderIndex, armorType);
 		setTextureFile(MuseIcon.SEBK_ICON_PATH);
 		setMaxStackSize(1);
 		setCreativeTab(Config.getCreativeTab());
@@ -48,12 +55,19 @@ public abstract class ItemPowerArmor extends ItemArmor
 	@Override
 	public String getArmorTextureFile(ItemStack itemstack) {
 		if (itemstack != null) {
-			if (ItemUtils.itemHasModule(itemstack, ModularCommon.MODULE_TRANSPARENT_ARMOR)) {
-				return Config.BLANK_ARMOR_MODEL_PATH;
-			} else if (itemstack.getItem() instanceof ItemPowerArmorLegs) {
-				return Config.SEBK_ARMORPANTS_PATH;
+			NBTTagCompound itemTag = ItemUtils.getMuseItemTag(itemstack);
+			if(itemTag.hasKey("didColour")) {
+
+				itemTag.removeTag("didColour");
+				return Config.BLANK_ARMOR_MODEL_PATH; 
 			} else {
-				return Config.SEBK_ARMOR_PATH;
+				if (ItemUtils.itemHasModule(itemstack, ModularCommon.MODULE_TRANSPARENT_ARMOR)) {
+					return Config.BLANK_ARMOR_MODEL_PATH;
+				} else if (itemstack.getItem() instanceof ItemPowerArmorLegs) {
+					return Config.SEBK_ARMORPANTS_PATH;
+				} else {
+					return Config.SEBK_ARMOR_PATH;
+				}
 			}
 		}
 		return Config.BLANK_ARMOR_MODEL_PATH;
@@ -92,6 +106,64 @@ public abstract class ItemPowerArmor extends ItemArmor
 
 		return new ArmorProperties(priority, absorbRatio,
 				absorbMax);
+	}
+
+	public static double clampDouble(double value, double min, double max) {
+		if (value < min)
+			return min;
+		if (value > max)
+			return max;
+		return value;
+	}
+
+	public Colour getColorFromItemStack(ItemStack stack) {
+		double computedred = ModuleManager.computeModularProperty(stack, ModularCommon.MODULE_RED_TINT);
+		double computedgreen = ModuleManager.computeModularProperty(stack, ModularCommon.MODULE_GREEN_TINT);
+		double computedblue = ModuleManager.computeModularProperty(stack, ModularCommon.MODULE_BLUE_TINT);
+		Colour colour = new Colour(
+				clampDouble(1 + computedred - (computedblue + computedgreen), 0, 1),
+				clampDouble(1 + computedgreen - (computedblue + computedred), 0, 1),
+				clampDouble(1 + computedblue - (computedred + computedgreen), 0, 1),
+				1.0F);
+		return colour;
+	}
+
+	@SideOnly(Side.CLIENT)
+	public int getColorFromItemStack(ItemStack stack, int par2)
+	{
+		Colour c = getColorFromItemStack(stack);
+		return c.getInt();
+	}
+
+	@Override
+	public int getColor(ItemStack stack) {
+
+		NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
+		itemTag.setString("didColour", "yes");
+		Colour c = getColorFromItemStack(stack);
+		return c.getInt();
+	}
+
+	@SideOnly(Side.CLIENT)
+	public boolean requiresMultipleRenderPasses()
+	{
+		return false;
+	}
+
+	/**
+	 * Return whether the specified armor ItemStack has a color.
+	 */
+	public boolean hasColor(ItemStack stack)
+	{
+		NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
+		if (ItemUtils.tagHasModule(itemTag, ModularCommon.MODULE_RED_TINT)
+				|| ItemUtils.tagHasModule(itemTag, ModularCommon.MODULE_GREEN_TINT)
+				|| ItemUtils.tagHasModule(itemTag, ModularCommon.MODULE_BLUE_TINT)) {
+			MuseLogger.logDebug("True!");
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**

@@ -375,6 +375,16 @@ public class ItemUtils {
 
 	public static void transferStackWithChance(ItemStack itemsToGive,
 			ItemStack destinationStack, double chanceOfSuccess) {
+		if(ItemUtils.isSameItem(itemsToGive, ItemComponent.lvcapacitor)) {
+			return;
+		}
+		if(ItemUtils.isSameItem(itemsToGive, ItemComponent.mvcapacitor)) {
+			return;
+		}
+		if(ItemUtils.isSameItem(itemsToGive, ItemComponent.hvcapacitor)) {
+			return;
+		}
+		
 		int maxSize = destinationStack.getMaxStackSize();
 		while (itemsToGive.stackSize > 0
 				&& destinationStack.stackSize < maxSize) {

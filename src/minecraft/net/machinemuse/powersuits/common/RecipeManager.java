@@ -70,13 +70,21 @@ public class RecipeManager {
 			GameRegistry.addRecipe(ItemComponent.parachute,
 					"WWW", "S S", 'W', wool, 'S', string);
 
-			GameRegistry.addRecipe(ItemComponent.capacitor,
+			GameRegistry.addRecipe(ItemComponent.lvcapacitor,
 					"GPL",
 					"W W",
 					'W', ItemComponent.wiring,
 					'G', goldNugget,
 					'P', paper,
 					'L', lapis);
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.mvcapacitor,
+					"WBW",
+					'W', ItemComponent.wiring,
+					'B', "advancedBattery"));
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.hvcapacitor,
+					"WBW",
+					'W', ItemComponent.wiring,
+					'B', "eliteBattery"));
 
 			GameRegistry.addRecipe(ItemComponent.solenoid,
 					"WIW",
@@ -149,14 +157,19 @@ public class RecipeManager {
 					"WWW",
 					"S S", 'W', wool, 'S', string));
 
-			// GameRegistry.addRecipe(ItemComponent.capacitor,
-			// "GPL",
-			// "W W",
-			// 'W', ItemComponent.wiring,
-			// 'G', goldNugget,
-			// 'P', paper,
-			// 'L', lapis);
-			//
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.lvcapacitor,
+					"WBW",
+					'W', ItemComponent.wiring,
+					'B', "battery"));
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.mvcapacitor,
+					"WBW",
+					'W', ItemComponent.wiring,
+					'B', "advancedBattery"));
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.hvcapacitor,
+					"WBW",
+					'W', ItemComponent.wiring,
+					'B', "eliteBattery"));
+
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solenoid, true,
 					"WIW",
 					"WIW",

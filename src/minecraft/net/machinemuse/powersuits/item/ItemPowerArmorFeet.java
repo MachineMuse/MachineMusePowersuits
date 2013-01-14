@@ -4,7 +4,6 @@
 package net.machinemuse.powersuits.item;
 
 import net.machinemuse.powersuits.common.Config;
-import net.minecraft.item.EnumArmorMaterial;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 /**
@@ -17,7 +16,6 @@ public class ItemPowerArmorFeet extends ItemPowerArmor {
 	 */
 	public ItemPowerArmorFeet() {
 		super(Config.getAssignedItemID(Config.Items.PowerArmorFeet), // itemID
-				EnumArmorMaterial.IRON, // Material
 				0, // Texture index for rendering armor on the player
 				3); // armor type. 0=head, 1=torso, 2=legs, 3=feet
 		itemType = Config.Items.PowerArmorFeet;

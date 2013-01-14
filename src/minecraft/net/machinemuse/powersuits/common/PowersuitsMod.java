@@ -58,6 +58,7 @@ public class PowersuitsMod {
 	public static ItemPowerArmorLegs powerArmorLegs;
 	public static ItemPowerArmorFeet powerArmorFeet;
 	public static ItemPowerTool powerTool;
+	public static ItemComponent components;
 	public static BlockTinkerTable tinkerTable;
 
 	/**
@@ -115,7 +116,7 @@ public class PowersuitsMod {
 		powerArmorFeet = new ItemPowerArmorFeet();
 		powerTool = new ItemPowerTool();
 		tinkerTable = new BlockTinkerTable();
-		ItemComponent components = new ItemComponent();
+		components = new ItemComponent();
 		components.populate();
 
 		Config.loadPowerModules();

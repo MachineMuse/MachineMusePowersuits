@@ -23,7 +23,10 @@ public class ItemComponent extends Item {
 	public static ItemStack gliderWing;
 	public static ItemStack ionThruster;
 	public static ItemStack parachute;
-	public static ItemStack capacitor;
+	public static ItemStack lvcapacitor;
+	public static ItemStack mvcapacitor;
+	public static ItemStack hvcapacitor;
+	public static ItemStack evcapacitor;
 
 	public ItemComponent() {
 		super(Config.getAssignedItemID(Config.Items.PowerArmorComponent));
@@ -57,7 +60,9 @@ public class ItemComponent extends Item {
 		servoMotor = addComponent("Servo Motor", MuseIcon.COMPONENT_SERVOMOTOR);
 		gliderWing = addComponent("Glider Wing", MuseIcon.COMPONENT_GLIDERWING);
 		ionThruster = addComponent("Ion Thruster", MuseIcon.COMPONENT_IONTHRUSTER);
-		capacitor = addComponent("Capacitor", MuseIcon.COMPONENT_CAPACITOR);
+		lvcapacitor = addComponent("LV Capacitor", MuseIcon.COMPONENT_LVCAPACITOR);
+		mvcapacitor = addComponent("MV Capacitor", MuseIcon.COMPONENT_MVCAPACITOR);
+		hvcapacitor = addComponent("HV Capacitor", MuseIcon.COMPONENT_HVCAPACITOR);
 		parachute = addComponent("Parachute", MuseIcon.COMPONENT_PARACHUTE);
 	}
 

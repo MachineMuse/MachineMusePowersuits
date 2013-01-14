@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Set;
 
 import net.machinemuse.general.gui.MuseIcon;
-import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.powermodule.property.IPropertyModifier;
 import net.machinemuse.powersuits.powermodule.property.PropertyModifierFlatAdditive;
 import net.machinemuse.powersuits.powermodule.property.PropertyModifierLinearAdditive;
@@ -77,7 +76,6 @@ public class PowerModule {
 	}
 
 	public PowerModule addBaseProperty(String propertyName, double baseVal, String unit) {
-		MuseLogger.logDebug("Adding unit: " + propertyName + " maps to " + unit);
 		units.put(propertyName, unit);
 		return addPropertyModifier(propertyName, new PropertyModifierFlatAdditive(baseVal));
 	}
