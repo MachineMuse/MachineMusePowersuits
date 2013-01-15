@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.machinemuse.powersuits.network;
+package net.machinemuse.powersuits.network.packets;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -12,6 +12,7 @@ import net.machinemuse.powersuits.common.PowersuitsMod;
 import net.machinemuse.powersuits.common.Config.Items;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.ItemUtils;
+import net.machinemuse.powersuits.network.MusePacket;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.client.entity.EntityClientPlayerMP;

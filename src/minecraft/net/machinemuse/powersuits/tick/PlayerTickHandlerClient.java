@@ -12,7 +12,7 @@ import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.item.ModularCommon;
 import net.machinemuse.powersuits.network.MusePacket;
-import net.machinemuse.powersuits.network.MusePacketPlayerUpdate;
+import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,8 +35,6 @@ import cpw.mods.fml.relauncher.Side;
  * @author MachineMuse
  */
 public class PlayerTickHandlerClient implements ITickHandler {
-	public int playerJumpTicks = 0;
-
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
 		EntityPlayer rawPlayer = toPlayer(tickData[0]);
@@ -75,9 +73,11 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			boolean hasParachute = false;
 			boolean hasJetpack = false;
 			boolean hasJetboots = false;
+			boolean hasJumpAssist = false;
 
 			if (pants != null && pants.getItem() instanceof IModularItem) {
 				hasSprintAssist = ItemUtils.itemHasModule(pants, ModularCommon.MODULE_SPRINT_ASSIST);
+				hasJumpAssist = ItemUtils.itemHasModule(pants, ModularCommon.MODULE_JUMP_ASSIST);
 			}
 			if (boots != null && boots.getItem() instanceof IModularItem) {
 				hasJetboots = ItemUtils.itemHasModule(boots, ModularCommon.MODULE_JETBOOTS);
@@ -88,8 +88,18 @@ public class PlayerTickHandlerClient implements ITickHandler {
 				hasParachute = ItemUtils.itemHasModule(torso, ModularCommon.MODULE_PARACHUTE);
 			}
 
+			if (hasJumpAssist && jumpkey) {
+				double multiplier = MovementManager.getPlayerJumpMultiplier(player);
+				double drain = ModuleManager.computeModularProperty(pants, ModularCommon.JUMP_ENERGY_CONSUMPTION);
+				if (multiplier > 0 && totalEnergyDrain + drain < totalEnergy) {
+					player.motionY += 0.2 * Math.min(multiplier, 1);
+					MovementManager.setPlayerJumpTicks(player, multiplier - 1);
+					totalEnergyDrain += drain;
+				}
+			}
+
 			// Jetpack & jetboots
-			if ((hasJetpack || hasJetboots) && jumpkey) {
+			if ((hasJetpack || hasJetboots) && jumpkey && player.motionY < 0.5) {
 				double jetEnergy = 0;
 				double thrust = 0;
 				if (hasJetpack) {
@@ -124,6 +134,9 @@ public class PlayerTickHandlerClient implements ITickHandler {
 					// sprinting speed
 					player.jumpMovementFactor += 0.03f;
 				}
+			}
+			if (player.isJumping && !jumpkey) {
+				player.motionY = Math.min(player.motionY, 0);
 			}
 
 			// Parachute

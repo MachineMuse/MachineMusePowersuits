@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.event;
 
 import net.machinemuse.powersuits.item.IModularItem;
-import net.machinemuse.powersuits.item.ItemPowerArmor;
 import net.machinemuse.powersuits.item.ItemPowerTool;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.item.ModularCommon;
@@ -12,7 +11,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
 public class EventHandler {
@@ -23,26 +21,6 @@ public class EventHandler {
 		ItemStack stack = player.inventory.getCurrentItem();
 		if (stack != null && stack.getItem() instanceof ItemPowerTool && ItemPowerTool.canHarvestBlock(stack, block, 0, player)) {
 			event.success = true;
-		}
-	}
-
-	@ForgeSubscribe
-	public void handleLivingJumpEvent(LivingJumpEvent event) {
-		if (event.entityLiving instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.entityLiving;
-			ItemStack stack = player.getCurrentArmor(1);
-			if (stack != null && stack.getItem() instanceof ItemPowerArmor && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_JUMP_ASSIST)) {
-				double jumpAssist = ModuleManager.computeModularProperty(stack, ModularCommon.JUMP_MULTIPLIER);
-				double drain = ModuleManager.computeModularProperty(stack, ModularCommon.JUMP_ENERGY_CONSUMPTION);
-				double avail = ItemUtils.getPlayerEnergy(player);
-				if (drain < avail) {
-					ItemUtils.drainPlayerEnergy(player, drain);
-					player.motionX *= jumpAssist;
-					player.motionY *= jumpAssist;
-					player.motionZ *= jumpAssist;
-				}
-			}
-
 		}
 	}
 
@@ -108,7 +86,7 @@ public class EventHandler {
 			ItemStack legs = player.getCurrentArmor(1);
 			if (legs != null && legs.getItem() instanceof IModularItem
 					&& ItemUtils.itemHasModule(legs,
-							ModularCommon.MODULE_UPHILL_WALKING)) {
+							ModularCommon.MODULE_CLIMB_ASSIST)) {
 				player.stepHeight = 1.01F;
 			} else if (player.stepHeight == 1.01F) {
 				player.stepHeight = 0.5F;

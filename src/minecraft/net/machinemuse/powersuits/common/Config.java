@@ -331,7 +331,7 @@ public class Config extends Configuration {
 				.addTradeoffProperty("Power", ModularCommon.UNDERWATER_HARVEST_SPEED, 0.8);
 		ModuleManager.addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_UPHILL_WALKING, LEGSONLY, MuseIcon.GO_FAST, ModularCommon.CATEGORY_MOVEMENT)
+		module = new PowerModule(ModularCommon.MODULE_CLIMB_ASSIST, LEGSONLY, MuseIcon.GO_FAST, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("A pair of dedicated servos allow you to effortlessly step up 1m-high ledges.")
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2));
 		ModuleManager.addModule(module);

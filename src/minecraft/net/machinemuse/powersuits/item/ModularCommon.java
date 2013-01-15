@@ -66,7 +66,7 @@ public abstract class ModularCommon {
 	public static final String MODULE_RED_TINT = "Red Tint";
 	public static final String MODULE_GREEN_TINT = "Green Tint";
 	public static final String MODULE_BLUE_TINT = "Blue Tint";
-	public static final String MODULE_UPHILL_WALKING = "Uphill Walking Assist";
+	public static final String MODULE_CLIMB_ASSIST = "Uphill Step Assist";
 
 	/**
 	 * Categories for modules

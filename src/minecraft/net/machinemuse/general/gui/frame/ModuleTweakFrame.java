@@ -16,7 +16,7 @@ import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableSlider;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.network.MusePacket;
-import net.machinemuse.powersuits.network.MusePacketTweakRequest;
+import net.machinemuse.powersuits.network.packets.MusePacketTweakRequest;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.machinemuse.powersuits.powermodule.property.IPropertyModifier;
 import net.machinemuse.powersuits.powermodule.property.PropertyModifierLinearAdditive;

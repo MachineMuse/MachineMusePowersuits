@@ -11,6 +11,12 @@ import java.lang.reflect.InvocationTargetException;
 
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MuseLogger;
+import net.machinemuse.powersuits.network.packets.MusePacketFallDistance;
+import net.machinemuse.powersuits.network.packets.MusePacketInstallModuleRequest;
+import net.machinemuse.powersuits.network.packets.MusePacketInventoryRefresh;
+import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
+import net.machinemuse.powersuits.network.packets.MusePacketSalvageModuleRequest;
+import net.machinemuse.powersuits.network.packets.MusePacketTweakRequest;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

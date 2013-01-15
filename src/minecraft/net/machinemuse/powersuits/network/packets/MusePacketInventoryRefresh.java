@@ -1,11 +1,12 @@
 /**
  * 
  */
-package net.machinemuse.powersuits.network;
+package net.machinemuse.powersuits.network.packets;
 
 import java.io.DataInputStream;
 
 import net.machinemuse.general.gui.MuseGui;
+import net.machinemuse.powersuits.network.MusePacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.GuiScreen;
