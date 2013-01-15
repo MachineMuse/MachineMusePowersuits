@@ -35,7 +35,7 @@ public class MovementManager {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 			ItemStack stack = player.getCurrentArmor(1);
 			if (stack != null && stack.getItem() instanceof ItemPowerArmor && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_JUMP_ASSIST)) {
-				double jumpAssist = ModuleManager.computeModularProperty(stack, ModularCommon.JUMP_MULTIPLIER);
+				double jumpAssist = ModuleManager.computeModularProperty(stack, ModularCommon.JUMP_MULTIPLIER) * 2;
 				double drain = ModuleManager.computeModularProperty(stack, ModularCommon.JUMP_ENERGY_CONSUMPTION);
 				double avail = ItemUtils.getPlayerEnergy(player);
 				if (drain < avail) {

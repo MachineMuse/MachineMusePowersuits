@@ -87,15 +87,15 @@ public class PlayerTickHandlerClient implements ITickHandler {
 				hasGlider = ItemUtils.itemHasModule(torso, ModularCommon.MODULE_GLIDER);
 				hasParachute = ItemUtils.itemHasModule(torso, ModularCommon.MODULE_PARACHUTE);
 			}
-
+			// Jump Assist
 			if (hasJumpAssist && jumpkey) {
 				double multiplier = MovementManager.getPlayerJumpMultiplier(player);
-				double drain = ModuleManager.computeModularProperty(pants, ModularCommon.JUMP_ENERGY_CONSUMPTION);
-				if (multiplier > 0 && totalEnergyDrain + drain < totalEnergy) {
-					player.motionY += 0.2 * Math.min(multiplier, 1);
+				if (multiplier > 0) {
+					player.motionY += 0.15 * Math.min(multiplier, 1);
 					MovementManager.setPlayerJumpTicks(player, multiplier - 1);
-					totalEnergyDrain += drain;
 				}
+			} else {
+				MovementManager.setPlayerJumpTicks(player, 0);
 			}
 
 			// Jetpack & jetboots
@@ -134,9 +134,6 @@ public class PlayerTickHandlerClient implements ITickHandler {
 					// sprinting speed
 					player.jumpMovementFactor += 0.03f;
 				}
-			}
-			if (player.isJumping && !jumpkey) {
-				player.motionY = Math.min(player.motionY, 0);
 			}
 
 			// Parachute

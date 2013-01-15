@@ -273,8 +273,8 @@ public class Config extends Configuration {
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 4));
 		ModuleManager.addSimpleTradeoff(
 				module, "Power",
-				ModularCommon.JUMP_ENERGY_CONSUMPTION, "J", 0, 25,
-				ModularCommon.JUMP_MULTIPLIER, "%", 1, 2);
+				ModularCommon.JUMP_ENERGY_CONSUMPTION, "J", 0, 5,
+				ModularCommon.JUMP_MULTIPLIER, "%", 1, 4);
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_SHOCK_ABSORBER, FEETONLY, MuseIcon.SHOCK_ABSORBER, ModularCommon.CATEGORY_MOVEMENT)
