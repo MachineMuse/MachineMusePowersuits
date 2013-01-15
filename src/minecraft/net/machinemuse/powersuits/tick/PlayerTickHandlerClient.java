@@ -126,7 +126,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 				if (hasJumpAssist && jumpkey) {
 					double multiplier = MovementManager.getPlayerJumpMultiplier(player);
 					if (multiplier > 0) {
-						player.motionY += 0.15 * Math.min(multiplier, 1);
+						player.motionY += 0.15 * Math.min(multiplier, 1) * getWeightPenaltyRatio(totalWeight, weightCapacity);
 						MovementManager.setPlayerJumpTicks(player, multiplier - 1);
 					}
 				} else {
@@ -147,6 +147,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 					}
 					if (jetEnergy + totalEnergyDrain < totalEnergy) {
 						totalEnergyDrain += jetEnergy;
+						thrust *= getWeightPenaltyRatio(totalWeight, weightCapacity);
 						if (forwardkey == 0) {
 							player.motionY += thrust;
 						} else {
@@ -173,10 +174,12 @@ public class PlayerTickHandlerClient implements ITickHandler {
 
 				// Parachute
 				if (hasParachute && sneakkey && player.motionY < -0.1 && (!hasGlider || forwardkey <= 0)) {
-					double totalVelocity = Math.sqrt(horzMovement * horzMovement + player.motionY * player.motionY);
-					player.motionX = player.motionX * 0.1 / totalVelocity;
-					player.motionY = player.motionY * 0.1 / totalVelocity;
-					player.motionZ = player.motionZ * 0.1 / totalVelocity;
+					double totalVelocity = Math.sqrt(horzMovement * horzMovement + player.motionY * player.motionY)*getWeightPenaltyRatio(totalWeight, weightCapacity);
+					if (totalVelocity > 0) {
+						player.motionX = player.motionX * 0.1 / totalVelocity;
+						player.motionY = player.motionY * 0.1 / totalVelocity;
+						player.motionZ = player.motionZ * 0.1 / totalVelocity;
+					}
 				}
 
 				// Sprint assist
@@ -193,7 +196,8 @@ public class PlayerTickHandlerClient implements ITickHandler {
 				}
 			}
 
-			// Update fall distance for damage, energy drain, and exhaustion
+			// Update fall distance for damage, energy drain, and
+			// exhaustion
 			// this tick
 			double fallDistance = MovementManager.computeFallHeightFromVelocity(player.motionY);
 
@@ -212,6 +216,14 @@ public class PlayerTickHandlerClient implements ITickHandler {
 				player.motionX *= weightCapacity / totalWeight;
 				player.motionZ *= weightCapacity / totalWeight;
 			}
+		}
+	}
+
+	public static double getWeightPenaltyRatio(double currentWeight, double capacity) {
+		if (currentWeight < capacity) {
+			return 1;
+		} else {
+			return capacity / currentWeight;
 		}
 	}
 
