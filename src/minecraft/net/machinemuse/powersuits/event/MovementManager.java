@@ -71,7 +71,7 @@ public class MovementManager {
 	/**
 	 * Gravity, in meters per tick per tick.
 	 */
-	public static double DEFAULT_GRAVITY = -0.0784000015258789;
+	public static final double DEFAULT_GRAVITY = -0.0784000015258789;
 
 	public static double computeFallHeightFromVelocity(double velocity) {
 		double ticks = velocity / DEFAULT_GRAVITY;

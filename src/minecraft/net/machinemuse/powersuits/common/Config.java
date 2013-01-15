@@ -289,12 +289,12 @@ public class Config extends Configuration {
 
 		module = new PowerModule(ModularCommon.MODULE_GLIDER, TORSOONLY, MuseIcon.GLIDER, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription(
-						"Tack on some wings to turn downward into forward momentum. Press Sneak (defaults to shift) while falling to activate.")
+						"Tack on some wings to turn downward into forward momentum. Press sneak+forward while falling to activate.")
 				.addInstallCost(copyAndResize(ItemComponent.gliderWing, 2));
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_PARACHUTE, TORSOONLY, MuseIcon.PARACHUTE_MODULE, ModularCommon.CATEGORY_MOVEMENT)
-				.setDescription("Add a parachute to slow your descent. Activate by pressing space in midair.")
+				.setDescription("Add a parachute to slow your descent. Activate by pressing sneak (defaults to Shift) in midair.")
 				.addInstallCost(copyAndResize(ItemComponent.parachute, 2));
 		ModuleManager.addModule(module);
 
@@ -316,7 +316,7 @@ public class Config extends Configuration {
 				.addTradeoffProperty("Thrust", ModularCommon.JET_THRUST, 0.08);
 		ModuleManager.addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_WATER_ELECTROLYZER, HEADONLY, MuseIcon.PLATE_1_BLUE, ModularCommon.CATEGORY_AQUATIC)
+		module = new PowerModule(ModularCommon.MODULE_WATER_ELECTROLYZER, HEADONLY, MuseIcon.HEART, ModularCommon.CATEGORY_AQUATIC)
 				.setDescription("When you run out of air, this module will jolt the water around you, electrolyzing a small bubble to breathe from.")
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1))
 				.addBaseProperty(ModularCommon.WATERBREATHING_ENERGY_CONSUMPTION, 1000, "J");
@@ -329,6 +329,15 @@ public class Config extends Configuration {
 				.addBaseProperty(ModularCommon.UNDERWATER_HARVEST_SPEED, 0.2, "%")
 				.addTradeoffProperty("Power", ModularCommon.AQUA_AFFINITY_ENERGY_CONSUMPTION, 100)
 				.addTradeoffProperty("Power", ModularCommon.UNDERWATER_HARVEST_SPEED, 0.8);
+		ModuleManager.addModule(module);
+
+		module = new PowerModule(ModularCommon.MODULE_SWIM_BOOST, LEGSONLY, MuseIcon.INDICATOR_1_BLUE, ModularCommon.CATEGORY_AQUATIC)
+				.setDescription(
+						"By refitting an ion thruster for underwater use, you may be able to add extra forward (or backward) thrust when underwater.")
+				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 1))
+				.addInstallCost(copyAndResize(ItemComponent.solenoid, 2))
+				.addTradeoffProperty("Thrust", ModularCommon.SWIM_BOOST_ENERGY_CONSUMPTION, 100, "J")
+				.addTradeoffProperty("Thrust", ModularCommon.SWIM_BOOST_AMOUNT, 1, "m/s");
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_CLIMB_ASSIST, LEGSONLY, MuseIcon.GO_FAST, ModularCommon.CATEGORY_MOVEMENT)

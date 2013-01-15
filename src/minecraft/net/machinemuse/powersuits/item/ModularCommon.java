@@ -38,6 +38,8 @@ public abstract class ModularCommon {
 	public static final String WATERBREATHING_ENERGY_CONSUMPTION = "Jolt Energy";
 	public static final String AQUA_AFFINITY_ENERGY_CONSUMPTION = "Underwater Energy Consumption";
 	public static final String UNDERWATER_HARVEST_SPEED = "Underwater Harvest Speed";
+	public static final String SWIM_BOOST_AMOUNT = "Underwater Movement Boost";
+	public static final String SWIM_BOOST_ENERGY_CONSUMPTION = "Swim Boost Energy Consumption";
 
 	/**
 	 * Module names
@@ -67,6 +69,7 @@ public abstract class ModularCommon {
 	public static final String MODULE_GREEN_TINT = "Green Tint";
 	public static final String MODULE_BLUE_TINT = "Blue Tint";
 	public static final String MODULE_CLIMB_ASSIST = "Uphill Step Assist";
+	public static final String MODULE_SWIM_BOOST = "Swim Boost";
 
 	/**
 	 * Categories for modules

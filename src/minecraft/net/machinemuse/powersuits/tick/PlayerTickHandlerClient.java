@@ -66,6 +66,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 
 			boolean jumpkey = player.movementInput.jump;
 			float forwardkey = player.movementInput.moveForward;
+			float strafekey = player.movementInput.moveStrafe;
 			boolean sneakkey = player.movementInput.sneak;
 
 			boolean hasSprintAssist = false;
@@ -74,10 +75,12 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			boolean hasJetpack = false;
 			boolean hasJetboots = false;
 			boolean hasJumpAssist = false;
+			boolean hasSwimAssist = false;
 
 			if (pants != null && pants.getItem() instanceof IModularItem) {
 				hasSprintAssist = ItemUtils.itemHasModule(pants, ModularCommon.MODULE_SPRINT_ASSIST);
 				hasJumpAssist = ItemUtils.itemHasModule(pants, ModularCommon.MODULE_JUMP_ASSIST);
+				hasSwimAssist = ItemUtils.itemHasModule(pants, ModularCommon.MODULE_SWIM_BOOST);
 			}
 			if (boots != null && boots.getItem() instanceof IModularItem) {
 				hasJetboots = ItemUtils.itemHasModule(boots, ModularCommon.MODULE_JETBOOTS);
@@ -121,6 +124,16 @@ public class PlayerTickHandlerClient implements ITickHandler {
 					}
 				}
 
+			}
+			if (hasSwimAssist && forwardkey != 0 && player.isInWater()) {
+				double swimAssistRate = ModuleManager.computeModularProperty(pants, ModularCommon.SWIM_BOOST_AMOUNT) * 0.05;
+				double swimEnergyConsumption = ModuleManager.computeModularProperty(pants, ModularCommon.SWIM_BOOST_ENERGY_CONSUMPTION);
+				if (swimEnergyConsumption + totalEnergyDrain < totalEnergy) {
+					totalEnergyDrain += swimEnergyConsumption;
+					player.motionX += player.getLookVec().xCoord * swimAssistRate;
+					player.motionY += player.getLookVec().yCoord * swimAssistRate;
+					player.motionZ += player.getLookVec().zCoord * swimAssistRate;
+				}
 			}
 
 			// Glider
