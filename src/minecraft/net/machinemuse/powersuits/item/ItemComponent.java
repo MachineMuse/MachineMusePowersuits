@@ -86,7 +86,7 @@ public class ItemComponent extends Item {
 	 */
 	public void getSubItems(int itemID, CreativeTabs tab, List listToAddTo)
 	{
-		for (int i = 0; i < names.size() - 1; ++i)
+		for (int i = 0; i < names.size(); ++i)
 		{
 			listToAddTo.add(new ItemStack(itemID, 1, i));
 		}
