@@ -90,83 +90,106 @@ public class PlayerTickHandlerClient implements ITickHandler {
 				hasGlider = ItemUtils.itemHasModule(torso, ModularCommon.MODULE_GLIDER);
 				hasParachute = ItemUtils.itemHasModule(torso, ModularCommon.MODULE_PARACHUTE);
 			}
-			// Jump Assist
-			if (hasJumpAssist && jumpkey) {
-				double multiplier = MovementManager.getPlayerJumpMultiplier(player);
-				if (multiplier > 0) {
-					player.motionY += 0.15 * Math.min(multiplier, 1);
-					MovementManager.setPlayerJumpTicks(player, multiplier - 1);
+
+			if (player.isInWater()) {
+				if (hasSwimAssist && (forwardkey != 0 || strafekey != 0 || jumpkey || sneakkey)) {
+					double moveRatio = 0;
+					if (forwardkey != 0) {
+						moveRatio += forwardkey * forwardkey;
+					}
+					if (strafekey != 0) {
+						moveRatio += strafekey * strafekey;
+					}
+					if (jumpkey || sneakkey) {
+						moveRatio += 0.2 * 0.2;
+					}
+					double swimAssistRate = ModuleManager.computeModularProperty(pants, ModularCommon.SWIM_BOOST_AMOUNT) * 0.05;
+					double swimEnergyConsumption = ModuleManager.computeModularProperty(pants, ModularCommon.SWIM_BOOST_ENERGY_CONSUMPTION);
+					if (swimEnergyConsumption + totalEnergyDrain < totalEnergy) {
+						totalEnergyDrain += swimEnergyConsumption;
+						// Forward/backward movement
+						player.motionX += player.getLookVec().xCoord * swimAssistRate * forwardkey / moveRatio;
+						player.motionY += player.getLookVec().yCoord * swimAssistRate * forwardkey / moveRatio;
+						player.motionZ += player.getLookVec().zCoord * swimAssistRate * forwardkey / moveRatio;
+
+						if (jumpkey) {
+							player.motionY += swimAssistRate * 0.2 / moveRatio;
+						}
+
+						if (sneakkey) {
+							player.motionY -= swimAssistRate * 0.2 / moveRatio;
+						}
+					}
 				}
 			} else {
-				MovementManager.setPlayerJumpTicks(player, 0);
-			}
+				// Jump Assist
+				if (hasJumpAssist && jumpkey) {
+					double multiplier = MovementManager.getPlayerJumpMultiplier(player);
+					if (multiplier > 0) {
+						player.motionY += 0.15 * Math.min(multiplier, 1);
+						MovementManager.setPlayerJumpTicks(player, multiplier - 1);
+					}
+				} else {
+					MovementManager.setPlayerJumpTicks(player, 0);
+				}
 
-			// Jetpack & jetboots
-			if ((hasJetpack || hasJetboots) && jumpkey && player.motionY < 0.5) {
-				double jetEnergy = 0;
-				double thrust = 0;
-				if (hasJetpack) {
-					jetEnergy += ModuleManager.computeModularProperty(torso, ModularCommon.JET_ENERGY_CONSUMPTION);
-					thrust += ModuleManager.computeModularProperty(torso, ModularCommon.JET_THRUST);
+				// Jetpack & jetboots
+				if ((hasJetpack || hasJetboots) && jumpkey && player.motionY < 0.5) {
+					double jetEnergy = 0;
+					double thrust = 0;
+					if (hasJetpack) {
+						jetEnergy += ModuleManager.computeModularProperty(torso, ModularCommon.JET_ENERGY_CONSUMPTION);
+						thrust += ModuleManager.computeModularProperty(torso, ModularCommon.JET_THRUST);
+					}
+					if (hasJetboots) {
+						jetEnergy += ModuleManager.computeModularProperty(boots, ModularCommon.JET_ENERGY_CONSUMPTION);
+						thrust += ModuleManager.computeModularProperty(boots, ModularCommon.JET_THRUST);
+					}
+					if (jetEnergy + totalEnergyDrain < totalEnergy) {
+						totalEnergyDrain += jetEnergy;
+						if (forwardkey == 0) {
+							player.motionY += thrust;
+						} else {
+							player.motionY += thrust / 2;
+							player.motionX += playerHorzFacing.xCoord * thrust / 2 * Math.signum(forwardkey);
+							player.motionZ += playerHorzFacing.zCoord * thrust / 2 * Math.signum(forwardkey);
+						}
+					}
+
 				}
-				if (hasJetboots) {
-					jetEnergy += ModuleManager.computeModularProperty(boots, ModularCommon.JET_ENERGY_CONSUMPTION);
-					thrust += ModuleManager.computeModularProperty(boots, ModularCommon.JET_THRUST);
-				}
-				if (jetEnergy + totalEnergyDrain < totalEnergy) {
-					totalEnergyDrain += jetEnergy;
-					if (forwardkey == 0) {
-						player.motionY += thrust;
-					} else {
-						player.motionY += thrust / 2;
-						player.motionX += playerHorzFacing.xCoord * thrust / 2 * Math.signum(forwardkey);
-						player.motionZ += playerHorzFacing.zCoord * thrust / 2 * Math.signum(forwardkey);
+
+				// Glider
+				if (hasGlider && sneakkey && player.motionY < -0.1 && (!hasParachute || forwardkey > 0)) {
+					if (player.motionY < -0.1) {
+						double motionYchange = Math.min(0.08, -0.1 - player.motionY);
+						player.motionY += motionYchange;
+						player.motionX += playerHorzFacing.xCoord * motionYchange;
+						player.motionZ += playerHorzFacing.zCoord * motionYchange;
+
+						// sprinting speed
+						player.jumpMovementFactor += 0.03f;
 					}
 				}
 
-			}
-			if (hasSwimAssist && forwardkey != 0 && player.isInWater()) {
-				double swimAssistRate = ModuleManager.computeModularProperty(pants, ModularCommon.SWIM_BOOST_AMOUNT) * 0.05;
-				double swimEnergyConsumption = ModuleManager.computeModularProperty(pants, ModularCommon.SWIM_BOOST_ENERGY_CONSUMPTION);
-				if (swimEnergyConsumption + totalEnergyDrain < totalEnergy) {
-					totalEnergyDrain += swimEnergyConsumption;
-					player.motionX += player.getLookVec().xCoord * swimAssistRate;
-					player.motionY += player.getLookVec().yCoord * swimAssistRate;
-					player.motionZ += player.getLookVec().zCoord * swimAssistRate;
+				// Parachute
+				if (hasParachute && sneakkey && player.motionY < -0.1 && (!hasGlider || forwardkey <= 0)) {
+					double totalVelocity = Math.sqrt(horzMovement * horzMovement + player.motionY * player.motionY);
+					player.motionX = player.motionX * 0.1 / totalVelocity;
+					player.motionY = player.motionY * 0.1 / totalVelocity;
+					player.motionZ = player.motionZ * 0.1 / totalVelocity;
 				}
-			}
 
-			// Glider
-			if (hasGlider && sneakkey && player.motionY < -0.1 && (!hasParachute || forwardkey > 0)) {
-				if (player.motionY < -0.1) {
-					double motionYchange = Math.min(0.08, -0.1 - player.motionY);
-					player.motionY += motionYchange;
-					player.motionX += playerHorzFacing.xCoord * motionYchange;
-					player.motionZ += playerHorzFacing.zCoord * motionYchange;
+				// Sprint assist
+				if (hasSprintAssist && player.isSprinting()) {
+					double sprintCost = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_ENERGY_CONSUMPTION);
+					if (sprintCost + totalEnergyDrain < totalEnergy) {
+						double sprintMultiplier = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_SPEED_MULTIPLIER);
+						double exhaustionComp = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_FOOD_COMPENSATION);
+						totalEnergyDrain += sprintCost;
+						player.landMovementFactor *= sprintMultiplier;
 
-					// sprinting speed
-					player.jumpMovementFactor += 0.03f;
-				}
-			}
-
-			// Parachute
-			if (hasParachute && sneakkey && player.motionY < -0.1 && (!hasGlider || forwardkey <= 0)) {
-				double totalVelocity = Math.sqrt(horzMovement * horzMovement + player.motionY * player.motionY);
-				player.motionX = player.motionX * 0.1 / totalVelocity;
-				player.motionY = player.motionY * 0.1 / totalVelocity;
-				player.motionZ = player.motionZ * 0.1 / totalVelocity;
-			}
-
-			// Sprint assist
-			if (hasSprintAssist && player.isSprinting()) {
-				double sprintCost = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_ENERGY_CONSUMPTION);
-				if (sprintCost + totalEnergyDrain < totalEnergy) {
-					double sprintMultiplier = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_SPEED_MULTIPLIER);
-					double exhaustionComp = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_FOOD_COMPENSATION);
-					totalEnergyDrain += sprintCost;
-					player.landMovementFactor *= sprintMultiplier;
-
-					exhaustionComp += -0.01 * exhaustion * exhaustionComp;
+						exhaustionComp += -0.01 * exhaustion * exhaustionComp;
+					}
 				}
 			}
 
