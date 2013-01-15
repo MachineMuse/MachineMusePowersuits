@@ -65,12 +65,11 @@ public class ItemSelectionFrame extends ScrollableFrame {
 	}
 	
 	@Override public void update(double mousex, double mousey) {
-		// TODO Auto-generated method stub
+		loadItems();
 		
 	}
 	
 	@Override public void draw() {
-		loadItems();
 		drawBackground();
 		drawItems();
 		drawSelection();
@@ -96,6 +95,9 @@ public class ItemSelectionFrame extends ScrollableFrame {
 							.y()),
 					10);
 		}
+	}
+	public boolean hasNoItems() {
+		return itemButtons.size() == 0;
 	}
 	
 	public ClickableItem getSelectedItem() {

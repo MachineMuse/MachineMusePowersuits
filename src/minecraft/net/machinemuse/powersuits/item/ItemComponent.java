@@ -52,6 +52,11 @@ public class ItemComponent extends Item {
 						"Power Armor Component",
 						MuseStringUtils.FormatCodes.Grey,
 						MuseStringUtils.FormatCodes.Italic));
+		currentTipList.add(
+				MuseStringUtils.wrapMultipleFormatTags(
+						"For use in Tinker Table",
+						MuseStringUtils.FormatCodes.Grey,
+						MuseStringUtils.FormatCodes.Italic));
 	}
 
 	public void populate() {

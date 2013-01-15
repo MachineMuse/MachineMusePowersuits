@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.block;
 
 import net.machinemuse.general.geometry.Colour;
+import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.Point2D;
 import net.machinemuse.general.gui.MuseGui;
 import net.machinemuse.general.gui.frame.*;
@@ -15,6 +16,7 @@ import net.minecraft.client.entity.EntityClientPlayerMP;
 public class GuiTinkerTable extends MuseGui {
 	protected EntityClientPlayerMP player;
 	
+	protected ItemSelectionFrame itemSelectFrame;
 	/**
 	 * Constructor. Takes a player as an argument.
 	 * 
@@ -32,7 +34,7 @@ public class GuiTinkerTable extends MuseGui {
 	@Override public void initGui()
 	{
 		super.initGui();
-		ItemSelectionFrame itemSelectFrame = new ItemSelectionFrame(
+		itemSelectFrame = new ItemSelectionFrame(
 				new Point2D(absX(-0.95F), absY(-0.95F)),
 				new Point2D(absX(-0.78F), absY(0.95F)),
 				Colour.LIGHTBLUE.withAlpha(0.8F),
@@ -74,5 +76,15 @@ public class GuiTinkerTable extends MuseGui {
 				itemSelectFrame, moduleSelectFrame);
 		frames.add(tweakFrame);
 	}
-	
+	@Override public void drawScreen(int x, int y, float z) {
+		super.drawScreen(x, y, z);
+		if(itemSelectFrame.hasNoItems()) {
+			double centerx = absX(0);
+			double centery = absY(0);
+			MuseRenderer.drawCenteredString("No modular powersuit items", centerx, centery-15);
+			MuseRenderer.drawCenteredString("found in inventory. Make some!", centerx, centery - 5);
+			MuseRenderer.drawCenteredString("We recommend experimenting", centerx, centery+5);
+			MuseRenderer.drawCenteredString("with steel plates and basic circuits.", centerx, centery+15);
+		}
+	}
 }

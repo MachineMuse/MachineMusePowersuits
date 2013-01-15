@@ -356,7 +356,7 @@ public class Config extends Configuration {
 	 * 
 	 */
 	public static enum Blocks {
-		TinkerTable(2477, 0, "tinkerTable", "Tinker Table");
+		TinkerTable(2477, 0, "tinkerTable", "Power Armor Tinker Table");
 
 		public final int defaultBlockId;
 		public final int textureIndex;

@@ -1,10 +1,14 @@
 package net.machinemuse.powersuits.block;
 
+import java.util.List;
+
+import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.PowersuitsMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -87,7 +91,7 @@ public class BlockTinkerTable extends Block {
 		GameRegistry.registerBlock(this, Config.Blocks.TinkerTable.idName);
 
 	}
-
+	
 	/**
 	 * Called upon block activation (right click on the block.)
 	 */
