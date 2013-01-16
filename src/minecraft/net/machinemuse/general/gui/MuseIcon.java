@@ -54,14 +54,14 @@ public class MuseIcon {
 
 	// Component icons
 	public static final MuseIcon COMPONENT_WIRING = new MuseIcon(WC_ICON_PATH, 32);
-	public static final MuseIcon COMPONENT_LVCAPACITOR = new MuseIcon(WC_ICON_PATH, 37);
 	public static final MuseIcon COMPONENT_SOLENOID = new MuseIcon(WC_ICON_PATH, 33);
 	public static final MuseIcon COMPONENT_GLIDERWING = new MuseIcon(WC_ICON_PATH, 35);
 	public static final MuseIcon COMPONENT_SERVOMOTOR = new MuseIcon(WC_ICON_PATH, 34);
 	public static final MuseIcon COMPONENT_IONTHRUSTER = new MuseIcon(WC_ICON_PATH, 36);
+	public static final MuseIcon COMPONENT_LVCAPACITOR = new MuseIcon(WC_ICON_PATH, 37);
 	public static final MuseIcon COMPONENT_PARACHUTE = new MuseIcon(WC_ICON_PATH, 38);
-	public static final MuseIcon COMPONENT_MVCAPACITOR = new MuseIcon(WC_ICON_PATH, 15);
-	public static final MuseIcon COMPONENT_HVCAPACITOR = new MuseIcon(WC_ICON_PATH, 14);
+	public static final MuseIcon COMPONENT_MVCAPACITOR = new MuseIcon(WC_ICON_PATH, 53);
+	public static final MuseIcon COMPONENT_HVCAPACITOR = new MuseIcon(WC_ICON_PATH, 69);
 
 	String texturefile;
 	int index;
