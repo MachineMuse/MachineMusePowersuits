@@ -1,5 +1,7 @@
 package net.machinemuse.powersuits.item;
 
+import ic2.api.ICustomElectricItem;
+
 import java.util.List;
 
 import net.machinemuse.powersuits.common.Config;
@@ -12,7 +14,11 @@ import universalelectricity.core.implement.IItemElectric;
  * 
  * @author MachineMuse
  */
-public interface IModularItem extends IItemElectric {
+public interface IModularItem
+	extends
+	IItemElectric, // Universal Electricity
+	ICustomElectricItem // Industrial Craft 2
+	{
 
 	/**
 	 * Returns the item's 'type' as assigned in the Config.Items enum. TODO:

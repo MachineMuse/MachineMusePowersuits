@@ -24,10 +24,12 @@ public class RecipeManager {
 		ItemStack wool = new ItemStack(Block.cloth);
 		ItemStack string = new ItemStack(Item.silk);
 		ItemStack paper = new ItemStack(Item.paper);
+		ItemStack glass = new ItemStack(Block.glass);
 		ItemStack glowstone = new ItemStack(Item.lightStoneDust);
 		ItemStack emerald = new ItemStack(Item.emerald);
 		ItemStack lapis = new ItemStack(Item.dyePowder, 1, 4); // metadata 4 =
 																// 'blue'
+		ItemStack enderPearl = new ItemStack(Item.enderPearl);
 
 		if (Config.vanillaRecipesEnabled()) {
 			GameRegistry.addRecipe(new ItemStack(PowersuitsMod.tinkerTable),
@@ -71,20 +73,27 @@ public class RecipeManager {
 					"WWW", "S S", 'W', wool, 'S', string);
 
 			GameRegistry.addRecipe(ItemComponent.lvcapacitor,
+					"WPI",
+					"W W",
+					'W', ItemComponent.wiring,
+					'I', iron,
+					'P', paper,
+					'L', lapis);
+			
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.mvcapacitor,
 					"GPL",
 					"W W",
 					'W', ItemComponent.wiring,
 					'G', goldNugget,
 					'P', paper,
-					'L', lapis);
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.mvcapacitor,
-					"WBW",
-					'W', ItemComponent.wiring,
-					'B', "advancedBattery"));
+					'L', lapis));
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.hvcapacitor,
-					"WBW",
+					"EPG",
+					"W W",
 					'W', ItemComponent.wiring,
-					'B', "eliteBattery"));
+					'E', enderPearl,
+					'P', glass,
+					'G', glowstone));
 
 			GameRegistry.addRecipe(ItemComponent.solenoid,
 					"WIW",
@@ -191,6 +200,96 @@ public class RecipeManager {
 					"ICI",
 					"EGE",
 					"E E", 'I', "plateSteel", 'E', ItemComponent.solenoid, 'G', glowstone, 'C', "eliteCircuit"));
+		}
+		if (Config.IC2RecipesEnabled()) {
+			// TODO: Change these out for IC2 components somehow
+
+			GameRegistry.addRecipe(new ItemStack(PowersuitsMod.tinkerTable),
+					"ILI",
+					"LEL",
+					"ILI",
+					'I', iron, 'L', lapis, 'E', emerald);
+
+			GameRegistry.addRecipe(new ItemStack(PowersuitsMod.powerArmorHead),
+					"III",
+					"C C",
+					'I', iron, 'C', circuit);
+
+			GameRegistry.addRecipe(new ItemStack(PowersuitsMod.powerArmorTorso),
+					"I I",
+					"CIC",
+					"III",
+					'I', iron, 'C', circuit);
+
+			GameRegistry.addRecipe(new ItemStack(PowersuitsMod.powerArmorLegs),
+					"III",
+					"C C",
+					"I I",
+					'I', iron, 'C', circuit);
+
+			GameRegistry.addRecipe(new ItemStack(PowersuitsMod.powerArmorFeet),
+					"C C",
+					"I I",
+					'I', iron, 'C', circuit);
+
+			GameRegistry.addRecipe(new ItemStack(PowersuitsMod.powerTool),
+					" C ",
+					"CI ",
+					" IC",
+					'I', iron, 'C', circuit);
+
+			GameRegistry.addRecipe(copyAndResize(ItemComponent.wiring, 8),
+					"GRG", 'G', goldNugget, 'R', redstone);
+
+			GameRegistry.addRecipe(ItemComponent.parachute,
+					"WWW", "S S", 'W', wool, 'S', string);
+
+			GameRegistry.addRecipe(ItemComponent.lvcapacitor,
+					"WPI",
+					"W W",
+					'W', ItemComponent.wiring,
+					'I', iron,
+					'P', paper,
+					'L', lapis);
+			
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.mvcapacitor,
+					"GPL",
+					"W W",
+					'W', ItemComponent.wiring,
+					'G', goldNugget,
+					'P', paper,
+					'L', lapis));
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.hvcapacitor,
+					"EPG",
+					"W W",
+					'W', ItemComponent.wiring,
+					'E', enderPearl,
+					'P', glass,
+					'G', glowstone));
+
+			GameRegistry.addRecipe(ItemComponent.solenoid,
+					"WIW",
+					"WIW",
+					"WIW",
+					'W', ItemComponent.wiring,
+					'I', iron);
+
+			GameRegistry.addRecipe(ItemComponent.gliderWing,
+					" II",
+					"II ",
+					"I  ",
+					'I', iron);
+
+			GameRegistry.addRecipe(ItemComponent.servoMotor,
+					" W ",
+					"EIE",
+					'I', iron, 'E', ItemComponent.solenoid, 'W', ItemComponent.wiring);
+
+			GameRegistry.addRecipe(ItemComponent.ionThruster,
+					"III",
+					"EGE",
+					"E E",
+					'I', iron, 'E', ItemComponent.solenoid, 'G', glowstone);
 		}
 
 	}

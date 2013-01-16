@@ -115,12 +115,11 @@ public abstract class ModularCommon {
 	// ///////////////////////////// //
 	// --- UNIVERSAL ELECTRICITY --- //
 	// ///////////////////////////// //
-	public static double onReceive(double amps, double voltage, ItemStack itemStack) {
+	public static double charge(double amount, ItemStack itemStack) {
 		double stored = getJoules(itemStack);
-		double provided = ElectricInfo.getJoules(amps, voltage, 1);
 		double capacity = getMaxJoules(itemStack) - stored;
-		double taken = Math.min(provided, capacity);
-		double surplus = provided - taken;
+		double taken = Math.min(amount, capacity);
+		double surplus = amount - taken;
 		setJoules(stored + taken, itemStack);
 		return surplus;
 	}

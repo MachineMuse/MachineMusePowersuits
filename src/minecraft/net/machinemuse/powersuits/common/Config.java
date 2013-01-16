@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.common;
 
+import cpw.mods.fml.common.Loader;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.ModularCommon;
@@ -61,14 +62,29 @@ public class Config {
 		config.save();
 	}
 
+	public static boolean isBasicComponentsLoaded() {
+		return Loader.isModLoaded("BasicComponents");
+	}
+	
+	public static boolean isIndustrialCraftLoaded() {
+		return Loader.isModLoaded("IC2");
+	}
+	
+	
 	public static boolean vanillaRecipesEnabled() {
-		return config.get(Configuration.CATEGORY_GENERAL, "Vanilla Recipes (Easy)", false).getBoolean(false);
+		boolean loaded = (!isBasicComponentsLoaded()) && (!isIndustrialCraftLoaded());
+ 		return config.get(Configuration.CATEGORY_GENERAL, "Vanilla Recipes", loaded).getBoolean(loaded);
 	}
 
 	public static boolean UERecipesEnabled() {
-		return config.get(Configuration.CATEGORY_GENERAL, "UE Recipes (Hard)", true).getBoolean(true);
+		boolean loaded = isBasicComponentsLoaded();
+		return config.get(Configuration.CATEGORY_GENERAL, "Universal Electricity Recipes", loaded).getBoolean(loaded);
 	}
 
+	public static boolean IC2RecipesEnabled() {
+		boolean loaded = isIndustrialCraftLoaded();
+		return config.get(Configuration.CATEGORY_GENERAL, "IndustrialCraft Recipes", loaded).getBoolean(loaded);
+	}
 	/**
 	 * The packet channel for this mod. We will only listen for and send packets
 	 * on this 'channel'. Max of 16 characters.
@@ -423,4 +439,23 @@ public class Config {
 		return config;
 	}
 
+	public static int joulesToEU(double joules) {
+		return (int) (joules / getIC2Ratio());
+	}
+	
+	public static double joulesFromEU(int eu) {
+		return getIC2Ratio() * eu;
+	}
+	
+	public static double getIC2Ratio() {
+		if(isBasicComponentsLoaded()) {
+			return config.get(Configuration.CATEGORY_GENERAL, "Joules per IC2 EU", 50.0).getDouble(50.0);
+		} else {
+			return 1;
+		}
+	}
+
+	public static double getBCRatio() {
+		return config.get(Configuration.CATEGORY_GENERAL, "Joules per MJ", 500.0).getDouble(500.0);
+	}
 }

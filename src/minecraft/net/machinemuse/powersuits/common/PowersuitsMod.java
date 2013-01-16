@@ -12,6 +12,7 @@ import net.machinemuse.powersuits.item.ItemPowerTool;
 import net.machinemuse.powersuits.network.MusePacketHandler;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -35,7 +36,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 // Informs forge that this is a base mod class, and gives it some info for the
 // FML mod list. This is also where it looks to see if your client's version
 // matches the server's.
-@Mod(modid = "mmmPowersuits", name = "MachineMuse's Modular Powersuits", version = "0.1.2")
+@Mod(modid = "mmmPowersuits", name = "MachineMuse's Modular Powersuits", version = "0.1.10")
 // Informs forge of the requirements:
 //
 // clientSideRequired means players can't connect without it. True for things

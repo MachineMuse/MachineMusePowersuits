@@ -22,6 +22,8 @@ import net.minecraftforge.common.ISpecialArmor;
 
 import org.lwjgl.opengl.GL11;
 
+import universalelectricity.core.electricity.ElectricInfo;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -32,7 +34,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public abstract class ItemPowerArmor extends ItemArmor
 		implements
-		ISpecialArmor,
+		ISpecialArmor, //
 		IModularItem,
 		IArmorTextureProvider {
 	Config.Items itemType;
@@ -56,10 +58,10 @@ public abstract class ItemPowerArmor extends ItemArmor
 	public String getArmorTextureFile(ItemStack itemstack) {
 		if (itemstack != null) {
 			NBTTagCompound itemTag = ItemUtils.getMuseItemTag(itemstack);
-			if(itemTag.hasKey("didColour")) {
+			if (itemTag.hasKey("didColour")) {
 
 				itemTag.removeTag("didColour");
-				return Config.BLANK_ARMOR_MODEL_PATH; 
+				return Config.BLANK_ARMOR_MODEL_PATH;
 			} else {
 				if (ItemUtils.itemHasModule(itemstack, ModularCommon.MODULE_TRANSPARENT_ARMOR)) {
 					return Config.BLANK_ARMOR_MODEL_PATH;
@@ -189,9 +191,8 @@ public abstract class ItemPowerArmor extends ItemArmor
 		if (energy > enerConsum) {
 			totalArmor += enerArmor;
 		}
-		// Make it so each armor piece can only contribute 2/5 of the armor
-		// value
-		totalArmor = Math.min(10, totalArmor);
+		// Make it so each armor piece can only contribute 24% reduction
+		totalArmor = Math.min(6, totalArmor);
 		return totalArmor;
 	}
 
@@ -260,7 +261,8 @@ public abstract class ItemPowerArmor extends ItemArmor
 	// //////////////////////////////////////////////
 	@Override
 	public double onReceive(double amps, double voltage, ItemStack itemStack) {
-		return ModularCommon.onReceive(amps, voltage, itemStack);
+		double amount = ElectricInfo.getJoules(amps, voltage, 1);
+		return ModularCommon.charge(amount, itemStack);
 	}
 
 	@Override
@@ -309,4 +311,85 @@ public abstract class ItemPowerArmor extends ItemArmor
 					"MusePowerSuits: Invalid ItemStack passed via UE interface");
 		}
 	}
+
+	// //////////////////////////////////////// //
+	// --- INDUSTRIAL CRAFT 2 COMPATABILITY --- //
+	// //////////////////////////////////////// //
+	@Override
+	public int charge(ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
+		double joulesProvided = Config.joulesFromEU(amount);
+		double maxJoules = ModularCommon.getMaxJoules(stack);
+		if (!ignoreTransferLimit && (joulesProvided > maxJoules / 200.0)) {
+			joulesProvided = maxJoules / 200.0;
+		}
+		double currentJoules = ModularCommon.getJoules(stack);
+		double surplus = ModularCommon.charge(joulesProvided, stack);
+		if (simulate) {
+			ModularCommon.setJoules(currentJoules, stack);
+		}
+
+		return Config.joulesToEU(joulesProvided - surplus);
+	}
+
+	@Override
+	public int discharge(ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
+		double joulesRequested = Config.joulesFromEU(amount);
+		double maxJoules = ModularCommon.getMaxJoules(stack);
+		if (!ignoreTransferLimit && (joulesRequested > maxJoules / 200.0)) {
+			joulesRequested = maxJoules / 200.0;
+		}
+		double currentJoules = ModularCommon.getJoules(stack);
+		double givenJoules = ModularCommon.onUse(joulesRequested, stack);
+		if (simulate) {
+			ModularCommon.setJoules(currentJoules, stack);
+		}
+		return Config.joulesToEU(givenJoules);
+	}
+
+	@Override
+	public boolean canUse(ItemStack stack, int amount) {
+		double joulesRequested = Config.joulesFromEU(amount);
+		double currentJoules = ModularCommon.getJoules(stack);
+		if (currentJoules > joulesRequested) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean canShowChargeToolTip(ItemStack itemStack) {
+		return false;
+	}
+
+	@Override
+	public boolean canProvideEnergy() {
+		return true;
+	}
+
+	@Override
+	public int getChargedItemId() {
+		return this.itemID;
+	}
+
+	@Override
+	public int getEmptyItemId() {
+		return this.itemID;
+	}
+
+	@Override
+	public int getMaxCharge() {
+		return 0;
+	}
+
+	@Override
+	public int getTier() {
+		return 1;
+	}
+
+	@Override
+	public int getTransferLimit() {
+		return 0;
+	}
+
 }

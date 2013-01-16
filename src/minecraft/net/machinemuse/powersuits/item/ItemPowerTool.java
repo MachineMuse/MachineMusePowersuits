@@ -3,6 +3,8 @@ package net.machinemuse.powersuits.item;
 import java.util.ArrayList;
 import java.util.List;
 
+import universalelectricity.core.electricity.ElectricInfo;
+
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
@@ -290,7 +292,8 @@ public class ItemPowerTool extends ItemTool
 	// /////////////////////////////////////////// //
 	@Override
 	public double onReceive(double amps, double voltage, ItemStack itemStack) {
-		return ModularCommon.onReceive(amps, voltage, itemStack);
+		double amount = ElectricInfo.getJoules(amps, voltage, 1);
+		return ModularCommon.charge(amount, itemStack);
 	}
 
 	@Override
@@ -338,6 +341,78 @@ public class ItemPowerTool extends ItemTool
 			throw new IllegalArgumentException(
 					"MusePowerSuits: Invalid ItemStack passed via UE interface");
 		}
+	}
+
+	// //////////////////////////////////////// //
+	// --- INDUSTRIAL CRAFT 2 COMPATABILITY --- //
+	// //////////////////////////////////////// //
+	@Override
+	public int charge(ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
+		double joulesProvided = Config.joulesFromEU(amount);
+		double currentJoules = ModularCommon.getJoules(stack);
+		double surplus = ModularCommon.charge(joulesProvided, stack);
+		if(simulate) {
+			ModularCommon.setJoules(currentJoules, stack);
+		}
+		return Config.joulesToEU(joulesProvided - surplus);
+	}
+
+	@Override
+	public int discharge(ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
+
+		double joulesRequested = Config.joulesFromEU(amount);
+		double currentJoules = ModularCommon.getJoules(stack);
+		double givenJoules = ModularCommon.onUse(joulesRequested, stack);
+		if(simulate) {
+			ModularCommon.setJoules(currentJoules, stack);
+		}
+		return Config.joulesToEU(givenJoules);
+	}
+
+	@Override
+	public boolean canUse(ItemStack stack, int amount) {
+		double joulesRequested = Config.joulesFromEU(amount);
+		double currentJoules = ModularCommon.getJoules(stack);
+		if(currentJoules > joulesRequested) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean canShowChargeToolTip(ItemStack itemStack) {
+		return false;
+	}
+
+	@Override
+	public boolean canProvideEnergy() {
+		return true;
+	}
+
+	@Override
+	public int getChargedItemId() {
+		return this.itemID;
+	}
+
+	@Override
+	public int getEmptyItemId() {
+		return this.itemID;
+	}
+
+	@Override
+	public int getMaxCharge() {
+		return 0;
+	}
+
+	@Override
+	public int getTier() {
+		return 1;
+	}
+
+	@Override
+	public int getTransferLimit() {
+		return 0;
 	}
 
 }
