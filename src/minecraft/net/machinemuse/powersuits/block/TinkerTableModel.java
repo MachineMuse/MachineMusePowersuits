@@ -4,6 +4,8 @@ import java.util.Random;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
+import net.machinemuse.powersuits.common.Config;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -76,9 +78,11 @@ public class TinkerTableModel extends Render {
 		slab.render(0.0625f);
 		legs.render(0.0625f);
 		GL11.glPushMatrix();
-		MuseRenderer.smoothingOn();
-		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit,
-				240.0F, 240.0F);
+		if (Minecraft.getMinecraft().isFancyGraphicsEnabled()) {
+			MuseRenderer.smoothingOn();
+		}
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);
+
 		RenderHelper.disableStandardItemLighting();
 		GL11.glPushMatrix();
 		GL11.glTranslated(0.5f, 1.05f, 0.5f);
@@ -92,17 +96,20 @@ public class TinkerTableModel extends Render {
 		cube.render(0.015625f);
 		// cube.render(0.016000f);
 		GL11.glPopMatrix();
-		if (f1 != 0) {
-			GL11.glDisable(GL11.GL_CULL_FACE);
-			for (int i = 0; i < 1; i++) {
-				drawScanLine(angle);
+
+		if (Minecraft.getMinecraft().isFancyGraphicsEnabled()) {
+			if (f1 != 0) {
+				GL11.glDisable(GL11.GL_CULL_FACE);
+				for (int i = 0; i < 1; i++) {
+					drawScanLine(angle);
+				}
+				MuseRenderer.drawGradientRect3D(
+						Vec3.createVectorHelper(0, 1.2, 0),
+						Vec3.createVectorHelper(1, 0, 1),
+						new Colour(0.0f, 1.0f, 0.0f, 0.3f),
+						new Colour(0.0f, 1.0f, 0.0f, 0.3f));
+				// GL11.glEnable(GL11.GL_CULL_FACE);
 			}
-			MuseRenderer.drawGradientRect3D(
-					Vec3.createVectorHelper(0, 1.2, 0),
-					Vec3.createVectorHelper(1, 0, 1),
-					new Colour(0.0f, 1.0f, 0.0f, 0.3f),
-					new Colour(0.0f, 1.0f, 0.0f, 0.3f));
-			// GL11.glEnable(GL11.GL_CULL_FACE);
 		}
 		RenderHelper.enableStandardItemLighting();
 		MuseRenderer.smoothingOff();

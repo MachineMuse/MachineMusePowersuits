@@ -18,7 +18,7 @@ import net.minecraftforge.common.Configuration;
  * @author MachineMuse
  * 
  */
-public class Config extends Configuration {
+public class Config {
 	public static final String SEBK_ICON_PATH = "/resource/sebkicons.png";
 	public static final String SEBK_ARMOR_PATH = "/resource/sebkarmor.png";
 	public static final String SEBK_ARMORPANTS_PATH = "/resource/sebkarmorpants.png";
@@ -417,6 +417,10 @@ public class Config extends Configuration {
 	public static enum Guis {
 		GuiTinkerTable,
 		GuiSuitManager;
+	}
+	
+	public static Configuration getConfig() {
+		return config;
 	}
 
 }
