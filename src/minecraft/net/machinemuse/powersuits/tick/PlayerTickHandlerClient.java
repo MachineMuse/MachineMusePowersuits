@@ -16,6 +16,7 @@ import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -41,182 +42,194 @@ public class PlayerTickHandlerClient implements ITickHandler {
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 		if (side == Side.CLIENT && rawPlayer instanceof EntityClientPlayerMP) {
 			EntityClientPlayerMP player = (EntityClientPlayerMP) rawPlayer;
+			handleClient(player);
+		} else if((side == Side.SERVER) && (rawPlayer instanceof EntityPlayerMP)) {
+			EntityPlayerMP player = (EntityPlayerMP) rawPlayer;
+			handleServer(player);
+		}
+		
+	}
+	public void handleClient(EntityClientPlayerMP player) {
 
-			ItemStack helmet = player.getCurrentArmor(3);
-			ItemStack torso = player.getCurrentArmor(2);
-			ItemStack pants = player.getCurrentArmor(1);
-			ItemStack boots = player.getCurrentArmor(0);
-			ItemStack tool = player.getCurrentEquippedItem();
+		ItemStack helmet = player.getCurrentArmor(3);
+		ItemStack torso = player.getCurrentArmor(2);
+		ItemStack pants = player.getCurrentArmor(1);
+		ItemStack boots = player.getCurrentArmor(0);
+		ItemStack tool = player.getCurrentEquippedItem();
 
-			double totalEnergy = ItemUtils.getPlayerEnergy(player);
-			double totalWeight = ItemUtils.getPlayerWeight(player);
-			double weightCapacity = 25000;
+		double totalEnergy = ItemUtils.getPlayerEnergy(player);
+		double totalWeight = ItemUtils.getPlayerWeight(player);
+		double weightCapacity = 25000;
 
-			double totalEnergyDrain = 0;
-			double exhaustionAdjustment = 0;
+		double totalEnergyDrain = 0;
+		double exhaustionAdjustment = 0;
 
-			double landMovementFactor = 0.1;
-			double jumpMovementFactor = 0.02;
-			double horzMovement = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ);
-			double exhaustion = Math.round(horzMovement * 100.0F) * 0.01;
+		double landMovementFactor = 0.1;
+		double jumpMovementFactor = 0.02;
+		double horzMovement = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ);
+		double exhaustion = Math.round(horzMovement * 100.0F) * 0.01;
 
-			Vec3 playerHorzFacing = player.getLookVec();
-			playerHorzFacing.yCoord = 0;
-			playerHorzFacing.normalize();
+		Vec3 playerHorzFacing = player.getLookVec();
+		playerHorzFacing.yCoord = 0;
+		playerHorzFacing.normalize();
 
-			boolean jumpkey = player.movementInput.jump;
-			float forwardkey = player.movementInput.moveForward;
-			float strafekey = player.movementInput.moveStrafe;
-			boolean sneakkey = player.movementInput.sneak;
+		boolean jumpkey = player.movementInput.jump;
+		float forwardkey = player.movementInput.moveForward;
+		float strafekey = player.movementInput.moveStrafe;
+		boolean sneakkey = player.movementInput.sneak;
 
-			boolean hasSprintAssist = false;
-			boolean hasGlider = false;
-			boolean hasParachute = false;
-			boolean hasJetpack = false;
-			boolean hasJetboots = false;
-			boolean hasJumpAssist = false;
-			boolean hasSwimAssist = false;
+		boolean hasSprintAssist = false;
+		boolean hasGlider = false;
+		boolean hasParachute = false;
+		boolean hasJetpack = false;
+		boolean hasJetboots = false;
+		boolean hasJumpAssist = false;
+		boolean hasSwimAssist = false;
 
-			if (pants != null && pants.getItem() instanceof IModularItem) {
-				hasSprintAssist = ItemUtils.itemHasModule(pants, ModularCommon.MODULE_SPRINT_ASSIST);
-				hasJumpAssist = ItemUtils.itemHasModule(pants, ModularCommon.MODULE_JUMP_ASSIST);
-				hasSwimAssist = ItemUtils.itemHasModule(pants, ModularCommon.MODULE_SWIM_BOOST);
+		if (pants != null && pants.getItem() instanceof IModularItem) {
+			hasSprintAssist = ItemUtils.itemHasModule(pants, ModularCommon.MODULE_SPRINT_ASSIST);
+			hasJumpAssist = ItemUtils.itemHasModule(pants, ModularCommon.MODULE_JUMP_ASSIST);
+			hasSwimAssist = ItemUtils.itemHasModule(pants, ModularCommon.MODULE_SWIM_BOOST);
+		}
+		if (boots != null && boots.getItem() instanceof IModularItem) {
+			hasJetboots = ItemUtils.itemHasModule(boots, ModularCommon.MODULE_JETBOOTS);
+		}
+		if (torso != null && torso.getItem() instanceof IModularItem) {
+			hasJetpack = ItemUtils.itemHasModule(torso, ModularCommon.MODULE_JETPACK);
+			hasGlider = ItemUtils.itemHasModule(torso, ModularCommon.MODULE_GLIDER);
+			hasParachute = ItemUtils.itemHasModule(torso, ModularCommon.MODULE_PARACHUTE);
+		}
+
+		if (player.isInWater()) {
+			if (hasSwimAssist && (forwardkey != 0 || strafekey != 0 || jumpkey || sneakkey)) {
+				double moveRatio = 0;
+				if (forwardkey != 0) {
+					moveRatio += forwardkey * forwardkey;
+				}
+				if (strafekey != 0) {
+					moveRatio += strafekey * strafekey;
+				}
+				if (jumpkey || sneakkey) {
+					moveRatio += 0.2 * 0.2;
+				}
+				double swimAssistRate = ModuleManager.computeModularProperty(pants, ModularCommon.SWIM_BOOST_AMOUNT) * 0.05;
+				double swimEnergyConsumption = ModuleManager.computeModularProperty(pants, ModularCommon.SWIM_BOOST_ENERGY_CONSUMPTION);
+				if (swimEnergyConsumption + totalEnergyDrain < totalEnergy) {
+					totalEnergyDrain += swimEnergyConsumption;
+					// Forward/backward movement
+					player.motionX += player.getLookVec().xCoord * swimAssistRate * forwardkey / moveRatio;
+					player.motionY += player.getLookVec().yCoord * swimAssistRate * forwardkey / moveRatio;
+					player.motionZ += player.getLookVec().zCoord * swimAssistRate * forwardkey / moveRatio;
+
+					if (jumpkey) {
+						player.motionY += swimAssistRate * 0.2 / moveRatio;
+					}
+
+					if (sneakkey) {
+						player.motionY -= swimAssistRate * 0.2 / moveRatio;
+					}
+				}
 			}
-			if (boots != null && boots.getItem() instanceof IModularItem) {
-				hasJetboots = ItemUtils.itemHasModule(boots, ModularCommon.MODULE_JETBOOTS);
-			}
-			if (torso != null && torso.getItem() instanceof IModularItem) {
-				hasJetpack = ItemUtils.itemHasModule(torso, ModularCommon.MODULE_JETPACK);
-				hasGlider = ItemUtils.itemHasModule(torso, ModularCommon.MODULE_GLIDER);
-				hasParachute = ItemUtils.itemHasModule(torso, ModularCommon.MODULE_PARACHUTE);
-			}
-
-			if (player.isInWater()) {
-				if (hasSwimAssist && (forwardkey != 0 || strafekey != 0 || jumpkey || sneakkey)) {
-					double moveRatio = 0;
-					if (forwardkey != 0) {
-						moveRatio += forwardkey * forwardkey;
-					}
-					if (strafekey != 0) {
-						moveRatio += strafekey * strafekey;
-					}
-					if (jumpkey || sneakkey) {
-						moveRatio += 0.2 * 0.2;
-					}
-					double swimAssistRate = ModuleManager.computeModularProperty(pants, ModularCommon.SWIM_BOOST_AMOUNT) * 0.05;
-					double swimEnergyConsumption = ModuleManager.computeModularProperty(pants, ModularCommon.SWIM_BOOST_ENERGY_CONSUMPTION);
-					if (swimEnergyConsumption + totalEnergyDrain < totalEnergy) {
-						totalEnergyDrain += swimEnergyConsumption;
-						// Forward/backward movement
-						player.motionX += player.getLookVec().xCoord * swimAssistRate * forwardkey / moveRatio;
-						player.motionY += player.getLookVec().yCoord * swimAssistRate * forwardkey / moveRatio;
-						player.motionZ += player.getLookVec().zCoord * swimAssistRate * forwardkey / moveRatio;
-
-						if (jumpkey) {
-							player.motionY += swimAssistRate * 0.2 / moveRatio;
-						}
-
-						if (sneakkey) {
-							player.motionY -= swimAssistRate * 0.2 / moveRatio;
-						}
-					}
+		} else {
+			// Jump Assist
+			if (hasJumpAssist && jumpkey) {
+				double multiplier = MovementManager.getPlayerJumpMultiplier(player);
+				if (multiplier > 0) {
+					player.motionY += 0.15 * Math.min(multiplier, 1) * getWeightPenaltyRatio(totalWeight, weightCapacity);
+					MovementManager.setPlayerJumpTicks(player, multiplier - 1);
 				}
 			} else {
-				// Jump Assist
-				if (hasJumpAssist && jumpkey) {
-					double multiplier = MovementManager.getPlayerJumpMultiplier(player);
-					if (multiplier > 0) {
-						player.motionY += 0.15 * Math.min(multiplier, 1) * getWeightPenaltyRatio(totalWeight, weightCapacity);
-						MovementManager.setPlayerJumpTicks(player, multiplier - 1);
-					}
-				} else {
-					MovementManager.setPlayerJumpTicks(player, 0);
+				MovementManager.setPlayerJumpTicks(player, 0);
+			}
+
+			// Jetpack & jetboots
+			if ((hasJetpack || hasJetboots) && jumpkey && player.motionY < 0.5) {
+				double jetEnergy = 0;
+				double thrust = 0;
+				if (hasJetpack) {
+					jetEnergy += ModuleManager.computeModularProperty(torso, ModularCommon.JET_ENERGY_CONSUMPTION);
+					thrust += ModuleManager.computeModularProperty(torso, ModularCommon.JET_THRUST);
 				}
-
-				// Jetpack & jetboots
-				if ((hasJetpack || hasJetboots) && jumpkey && player.motionY < 0.5) {
-					double jetEnergy = 0;
-					double thrust = 0;
-					if (hasJetpack) {
-						jetEnergy += ModuleManager.computeModularProperty(torso, ModularCommon.JET_ENERGY_CONSUMPTION);
-						thrust += ModuleManager.computeModularProperty(torso, ModularCommon.JET_THRUST);
-					}
-					if (hasJetboots) {
-						jetEnergy += ModuleManager.computeModularProperty(boots, ModularCommon.JET_ENERGY_CONSUMPTION);
-						thrust += ModuleManager.computeModularProperty(boots, ModularCommon.JET_THRUST);
-					}
-					if (jetEnergy + totalEnergyDrain < totalEnergy) {
-						totalEnergyDrain += jetEnergy;
-						thrust *= getWeightPenaltyRatio(totalWeight, weightCapacity);
-						if (forwardkey == 0) {
-							player.motionY += thrust;
-						} else {
-							player.motionY += thrust / 2;
-							player.motionX += playerHorzFacing.xCoord * thrust / 2 * Math.signum(forwardkey);
-							player.motionZ += playerHorzFacing.zCoord * thrust / 2 * Math.signum(forwardkey);
-						}
-					}
-
+				if (hasJetboots) {
+					jetEnergy += ModuleManager.computeModularProperty(boots, ModularCommon.JET_ENERGY_CONSUMPTION);
+					thrust += ModuleManager.computeModularProperty(boots, ModularCommon.JET_THRUST);
 				}
-
-				// Glider
-				if (hasGlider && sneakkey && player.motionY < -0.1 && (!hasParachute || forwardkey > 0)) {
-					if (player.motionY < -0.1) {
-						double motionYchange = Math.min(0.08, -0.1 - player.motionY);
-						player.motionY += motionYchange;
-						player.motionX += playerHorzFacing.xCoord * motionYchange;
-						player.motionZ += playerHorzFacing.zCoord * motionYchange;
-
-						// sprinting speed
-						player.jumpMovementFactor += 0.03f;
+				if (jetEnergy + totalEnergyDrain < totalEnergy) {
+					totalEnergyDrain += jetEnergy;
+					thrust *= getWeightPenaltyRatio(totalWeight, weightCapacity);
+					if (forwardkey == 0) {
+						player.motionY += thrust;
+					} else {
+						player.motionY += thrust / 2;
+						player.motionX += playerHorzFacing.xCoord * thrust / 2 * Math.signum(forwardkey);
+						player.motionZ += playerHorzFacing.zCoord * thrust / 2 * Math.signum(forwardkey);
 					}
 				}
 
-				// Parachute
-				if (hasParachute && sneakkey && player.motionY < -0.1 && (!hasGlider || forwardkey <= 0)) {
-					double totalVelocity = Math.sqrt(horzMovement * horzMovement + player.motionY * player.motionY)*getWeightPenaltyRatio(totalWeight, weightCapacity);
-					if (totalVelocity > 0) {
-						player.motionX = player.motionX * 0.1 / totalVelocity;
-						player.motionY = player.motionY * 0.1 / totalVelocity;
-						player.motionZ = player.motionZ * 0.1 / totalVelocity;
-					}
-				}
+			}
 
-				// Sprint assist
-				if (hasSprintAssist && player.isSprinting()) {
-					double sprintCost = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_ENERGY_CONSUMPTION);
-					if (sprintCost + totalEnergyDrain < totalEnergy) {
-						double sprintMultiplier = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_SPEED_MULTIPLIER);
-						double exhaustionComp = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_FOOD_COMPENSATION);
-						totalEnergyDrain += sprintCost;
-						player.landMovementFactor *= sprintMultiplier;
+			// Glider
+			if (hasGlider && sneakkey && player.motionY < -0.1 && (!hasParachute || forwardkey > 0)) {
+				if (player.motionY < -0.1) {
+					double motionYchange = Math.min(0.08, -0.1 - player.motionY);
+					player.motionY += motionYchange;
+					player.motionX += playerHorzFacing.xCoord * motionYchange;
+					player.motionZ += playerHorzFacing.zCoord * motionYchange;
 
-						exhaustionComp += -0.01 * exhaustion * exhaustionComp;
-					}
+					// sprinting speed
+					player.jumpMovementFactor += 0.03f;
 				}
 			}
 
-			// Update fall distance for damage, energy drain, and
-			// exhaustion
-			// this tick
-			double fallDistance = MovementManager.computeFallHeightFromVelocity(player.motionY);
-
-			if (totalEnergyDrain > 0) {
-				ItemUtils.drainPlayerEnergy(player, totalEnergyDrain);
-			} else {
-				ItemUtils.givePlayerEnergy(player, -totalEnergyDrain);
+			// Parachute
+			if (hasParachute && sneakkey && player.motionY < -0.1 && (!hasGlider || forwardkey <= 0)) {
+				double totalVelocity = Math.sqrt(horzMovement * horzMovement + player.motionY * player.motionY)*getWeightPenaltyRatio(totalWeight, weightCapacity);
+				if (totalVelocity > 0) {
+					player.motionX = player.motionX * 0.1 / totalVelocity;
+					player.motionY = player.motionY * 0.1 / totalVelocity;
+					player.motionZ = player.motionZ * 0.1 / totalVelocity;
+				}
 			}
 
-			player.addExhaustion((float) (exhaustionAdjustment));
-			MusePacket packet = new MusePacketPlayerUpdate(player, -totalEnergyDrain, exhaustionAdjustment, fallDistance);
-			player.sendQueue.addToSendQueue(packet.getPacket250());
+			// Sprint assist
+			if (hasSprintAssist && player.isSprinting()) {
+				double sprintCost = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_ENERGY_CONSUMPTION);
+				if (sprintCost + totalEnergyDrain < totalEnergy) {
+					double sprintMultiplier = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_SPEED_MULTIPLIER);
+					double exhaustionComp = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_FOOD_COMPENSATION);
+					totalEnergyDrain += sprintCost;
+					player.landMovementFactor *= sprintMultiplier;
 
-			// Weight movement penalty
-			if (totalWeight > weightCapacity) {
-				player.motionX *= weightCapacity / totalWeight;
-				player.motionZ *= weightCapacity / totalWeight;
+					exhaustionComp += -0.01 * exhaustion * exhaustionComp;
+				}
 			}
 		}
+
+		// Update fall distance for damage, energy drain, and
+		// exhaustion
+		// this ticki
+		player.fallDistance = (float) MovementManager.computeFallHeightFromVelocity(player.motionY);
+
+		if (totalEnergyDrain > 0) {
+			ItemUtils.drainPlayerEnergy(player, totalEnergyDrain);
+		} else {
+			ItemUtils.givePlayerEnergy(player, -totalEnergyDrain);
+		}
+
+		player.addExhaustion((float) (exhaustionAdjustment));
+
+		// Weight movement penalty
+		if (totalWeight > weightCapacity) {
+			player.motionX *= weightCapacity / totalWeight;
+			player.motionZ *= weightCapacity / totalWeight;
+		}
+		
+		MusePacket packet = new MusePacketPlayerUpdate(player, -totalEnergyDrain, exhaustionAdjustment);
+		player.sendQueue.addToSendQueue(packet.getPacket250());
+	
+	}
+	public void handleServer(EntityPlayerMP player) {
+		
 	}
 
 	public static double getWeightPenaltyRatio(double currentWeight, double capacity) {

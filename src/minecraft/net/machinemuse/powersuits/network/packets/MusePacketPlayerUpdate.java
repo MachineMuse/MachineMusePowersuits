@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.network.packets;
 
 import java.io.DataInputStream;
 
+import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -13,21 +14,27 @@ public class MusePacketPlayerUpdate extends MusePacket {
 
 	protected double energyAdjustment;
 	protected double exhaustionAdjustment;
-	protected double newFallDistance;
+	protected double motionX;
+	protected double motionY;
+	protected double motionZ;
 	protected EntityPlayer entityPlayer;
 
-	public MusePacketPlayerUpdate(EntityPlayer player, double energyAdjustment, double exhaustionAdjustment, double newFallDistance) {
+	public MusePacketPlayerUpdate(EntityPlayer player, double energyAdjustment, double exhaustionAdjustment) {
 		super((Player) player);
 		writeDouble(energyAdjustment);
 		writeDouble(exhaustionAdjustment);
-		writeDouble(newFallDistance);
+		writeDouble(player.motionX);
+		writeDouble(player.motionY);
+		writeDouble(player.motionZ);
 	}
 
 	public MusePacketPlayerUpdate(DataInputStream data, Player player) {
 		super(player, data);
 		energyAdjustment = readDouble();
 		exhaustionAdjustment = readDouble();
-		newFallDistance = readDouble();
+		motionX = readDouble();
+		motionY = readDouble();
+		motionZ = readDouble();
 	}
 
 	@Override
@@ -48,6 +55,10 @@ public class MusePacketPlayerUpdate extends MusePacket {
 			player.addExhaustion((float) exhaustionAdjustment);
 		}
 
-		player.fallDistance = (float) newFallDistance;
+		player.fallDistance = (float) MovementManager.computeFallHeightFromVelocity(motionY);
+		player.motionX = motionX;
+		player.motionY = motionY;
+		player.motionZ = motionZ;
+		
 	}
 }
