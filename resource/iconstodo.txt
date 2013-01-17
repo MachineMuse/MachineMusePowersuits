@@ -1,0 +1,21 @@
+Icons for content that is currently in
+============
+Diamond Pickaxe Upgrade (for tool)
+Aqua Affinity Upgrade (underwater mining speed)
+Water Electrolyzer (rebreather)
+Step Assist
+
+Icons for stuff which will be added soon
+============
+Control Circuits (but can use the tier 1 special battery thingy ... although a variety would be ideal)
+Carbon Myofibers (artificial muscles)
+Heat-resistant plating (maybe made of tungsten or similar)
+Cooling systems
+
+Icons for stuff that will be added eventually
+============
+Generators of various types (coal, uranium, fusion - arc reactor will work for now)
+Fire-based weapon (flamethrower?)
+Lightning-based weapon (lightning arc thingy?)
+Sound-based weapon
+Energy beam type weapon
