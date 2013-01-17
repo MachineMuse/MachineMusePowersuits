@@ -9,6 +9,7 @@ import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.Config.Items;
+import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -348,30 +349,30 @@ public class ItemPowerTool extends ItemTool
 	// //////////////////////////////////////// //
 	@Override
 	public int charge(ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
-		double joulesProvided = Config.joulesFromEU(amount);
+		double joulesProvided = ModCompatability.joulesFromEU(amount);
 		double currentJoules = ModularCommon.getJoules(stack);
 		double surplus = ModularCommon.charge(joulesProvided, stack);
 		if(simulate) {
 			ModularCommon.setJoules(currentJoules, stack);
 		}
-		return Config.joulesToEU(joulesProvided - surplus);
+		return ModCompatability.joulesToEU(joulesProvided - surplus);
 	}
 
 	@Override
 	public int discharge(ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
 
-		double joulesRequested = Config.joulesFromEU(amount);
+		double joulesRequested = ModCompatability.joulesFromEU(amount);
 		double currentJoules = ModularCommon.getJoules(stack);
 		double givenJoules = ModularCommon.onUse(joulesRequested, stack);
 		if(simulate) {
 			ModularCommon.setJoules(currentJoules, stack);
 		}
-		return Config.joulesToEU(givenJoules);
+		return ModCompatability.joulesToEU(givenJoules);
 	}
 
 	@Override
 	public boolean canUse(ItemStack stack, int amount) {
-		double joulesRequested = Config.joulesFromEU(amount);
+		double joulesRequested = ModCompatability.joulesFromEU(amount);
 		double currentJoules = ModularCommon.getJoules(stack);
 		if(currentJoules > joulesRequested) {
 			return true;

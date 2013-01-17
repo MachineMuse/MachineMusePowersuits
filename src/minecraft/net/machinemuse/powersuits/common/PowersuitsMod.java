@@ -93,6 +93,7 @@ public class PowersuitsMod {
 		Config.init(new Configuration(event.getSuggestedConfigurationFile()));
 		MinecraftForge.EVENT_BUS.register(new EventHandler());
 		MinecraftForge.EVENT_BUS.register(new MovementManager());
+
 	}
 
 	public static Config config;
