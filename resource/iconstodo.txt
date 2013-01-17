@@ -5,8 +5,10 @@ Aqua Affinity Upgrade (underwater mining speed)
 Water Electrolyzer (rebreather)
 Step Assist
 
-Icons for stuff which will be added soon
+Icons for stuff which will likely be added soon
 ============
+Laser/hologram projector (to be used as a component in the cosmetic as well as HUD upgrades)
+Force Field Emitter (component in shields and possibly some other things)
 Control Circuits (but can use the tier 1 special battery thingy ... although a variety would be ideal)
 Carbon Myofibers (artificial muscles)
 Heat-resistant plating (maybe made of tungsten or similar)
@@ -14,7 +16,7 @@ Cooling systems
 
 Icons for stuff that will be added eventually
 ============
-Generators of various types (coal, uranium, fusion - arc reactor will work for now)
+Generators of various types (kinetic, coal, uranium, fusion...)
 Fire-based weapon (flamethrower?)
 Lightning-based weapon (lightning arc thingy?)
 Sound-based weapon
