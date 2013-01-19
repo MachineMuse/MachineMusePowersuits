@@ -6,12 +6,25 @@
 
 package net.machinemuse.powersuits.client;
 
+import net.machinemuse.powersuits.common.MuseLogger;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiContainerCreative;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.client.ForgeHooksClient;
+
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
 
 public class ToolModel extends ModelBase
 {
+	public final static String TEXTUREPATH = "/resource/tool.png";
 
 	// fields
 	ModelRenderer mainarm;
@@ -269,45 +282,168 @@ public class ToolModel extends ModelBase
 		setRotation(supportleft5, 0F, -0.7714355F, 0F);
 	}
 
-	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+	public static int xtap;
+	public static int ytap;
+	public static int ztap;
+	public static boolean tap;
+
+	public void render(Entity entity, float scale, boolean isFirstPerson)
 	{
-		super.render(entity, f, f1, f2, f3, f4, f5);
-		setRotationAngles(f, f1, f2, f3, f4, f5);
-		mainarm.render(f5);
-		armorright.render(f5);
-		armorleft.render(f5);
-		wristtopright.render(f5);
-		wristtopleft.render(f5);
-		wristbottomright.render(f5);
-		wristbottomleft.render(f5);
-		index1.render(f5);
-		index2.render(f5);
-		middlefinger1.render(f5);
-		middlefinger2.render(f5);
-		ringfinger1.render(f5);
-		ringfinger2.render(f5);
-		pinky1.render(f5);
-		pinky2.render(f5);
-		thumb1.render(f5);
-		thumb2.render(f5);
-		fingerguard.render(f5);
-		crystalholder.render(f5);
-		crystal.render(f5);
-		supportright1.render(f5);
-		supportright2.render(f5);
-		supportright3.render(f5);
-		supportright4.render(f5);
-		supportright5.render(f5);
-		supportbaseright.render(f5);
-		palm.render(f5);
-		supportbaseleft.render(f5);
-		supportleftfront.render(f5);
-		supportrightfront.render(f5);
-		supportleft1.render(f5);
-		supportleft2.render(f5);
-		supportleft3.render(f5);
-		supportleft4.render(f5);
-		supportleft5.render(f5);
+		// super.render(entity, f, f1, f2, f3, f4, f5);
+		int numsegments = 16;
+		if (!tap) {
+			if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD1)) {
+				xtap = (xtap + 1);
+				tap = true;
+			}
+			if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD2)) {
+				ytap = (ytap + 1);
+				tap = true;
+			}
+			if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD3)) {
+				ztap = (ztap + 1);
+				tap = true;
+			}
+			if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD4)) {
+				xtap = (xtap - 1);
+				tap = true;
+			}
+			if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD5)) {
+				ytap = (ytap - 1);
+				tap = true;
+			}
+			if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD6)) {
+				ztap = (ztap - 1);
+				tap = true;
+			}
+			if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD8)) {
+				xtap = 0;
+				ytap = 0;
+				ztap = 0;
+				tap = true;
+			}
+			if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD0)) {
+				MuseLogger.logDebug(xtap + ", " + ytap + ", " + ztap);
+				tap = true;
+			}
+		} else {
+			if (!Keyboard.isKeyDown(Keyboard.KEY_NUMPAD0)
+					&& !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD1)
+					&& !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD2)
+					&& !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD3)
+					&& !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD4)
+					&& !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD5)
+					&& !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD6)) {
+				tap = false;
+			}
+			if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
+				tap = false;
+			}
+		}
+		GL11.glPushMatrix();
+
+		ForgeHooksClient.bindTexture(TEXTUREPATH, 0);
+
+		double scale1 = 1.0 / 16.0;
+		boolean isThisEntity = entity == Minecraft.getMinecraft().renderViewEntity;
+		isFirstPerson = (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0);
+		boolean isInInventoryGui = Minecraft.getMinecraft().currentScreen instanceof GuiInventory
+				|| Minecraft.getMinecraft().currentScreen instanceof GuiContainerCreative;
+		boolean doFirstPersonRender = isThisEntity && isFirstPerson && !isInInventoryGui;
+		if (doFirstPersonRender) {
+			// if (entity instanceof EntityPlayer) {
+			// EntityPlayer player = (EntityPlayer) entity;
+			// RenderPlayer rp = new RenderPlayer();
+			// // Render first person hand:
+			// rp.func_82441_a(player);
+			// }
+			GL11.glScaled(scale1, scale1, scale1);
+			GL11.glDisable(GL11.GL_CULL_FACE);
+			GL11.glRotatef(270, 1, 0, 0);
+			GL11.glRotatef(45, 0, 1, 0);
+			GL11.glRotatef(-90, 0, 0, 1);
+			GL11.glTranslatef(0, 0, 4);
+			// GL11.glRotatef(xtap, 1, 0, 0);
+			// GL11.glRotatef(ytap, 0, 1, 0);
+			// GL11.glRotatef(ztap, 0, 0, 1);
+
+		} else {
+			GL11.glScaled(-scale1, scale1, scale1);
+			GL11.glRotatef(-90, 0, 1, 0);
+			GL11.glRotatef(180, 0, 0, 1);
+			GL11.glRotatef(35, 1, 0, 0);
+
+			GL11.glRotatef(-5, 0, 1, 0);
+			GL11.glRotatef(1.5F, 0, 0, 1);
+			GL11.glTranslatef(2 / 4.0F, 3 / 4.0F, 1 / 4.0F);
+			GL11.glTranslatef(-2, -1, 4);
+
+		}
+		GL11.glPushMatrix();
+		// Compensate for offset when Sebk was doing his rendering
+		GL11.glRotatef(-15, 1, 0, 0);
+		GL11.glTranslatef(3, 0, 8);
+		GL11.glScalef(1 / 1.5F, 1 / 1.5F, 1 / 1.5F);
+		if (doFirstPersonRender) {
+			mainarm.render(scale);
+		}
+		armorright.render(scale);
+		armorleft.render(scale);
+		wristtopright.render(scale);
+		wristtopleft.render(scale);
+		wristbottomright.render(scale);
+		wristbottomleft.render(scale);
+		index1.render(scale);
+		index2.render(scale);
+		middlefinger1.render(scale);
+		middlefinger2.render(scale);
+		ringfinger1.render(scale);
+		ringfinger2.render(scale);
+		pinky1.render(scale);
+		pinky2.render(scale);
+		thumb1.render(scale);
+		thumb2.render(scale);
+		fingerguard.render(scale);
+		crystalholder.render(scale);
+		supportright1.render(scale);
+		supportright2.render(scale);
+		supportright3.render(scale);
+		supportright4.render(scale);
+		supportright5.render(scale);
+		supportbaseright.render(scale);
+		palm.render(scale);
+		supportbaseleft.render(scale);
+		supportleftfront.render(scale);
+		supportrightfront.render(scale);
+		supportleft1.render(scale);
+		supportleft2.render(scale);
+		supportleft3.render(scale);
+		supportleft4.render(scale);
+		supportleft5.render(scale);
+
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);
+
+		crystal.render(scale);
+
+		GL11.glPopMatrix();
+		// GL11.glDisable(GL11.GL_DEPTH_TEST);
+		// GL11.glBegin(GL11.GL_LINES);
+		//
+		// GL11.glColor3f(1, 0, 0);
+		// GL11.glVertex3f(-16, 0, 0);
+		// GL11.glVertex3f(16, 0, 0);
+		//
+		// GL11.glColor3f(0, 1, 0);
+		// GL11.glVertex3f(0, -16, 0);
+		// GL11.glVertex3f(0, 16, 0);
+		//
+		// GL11.glColor3f(0, 0, 1);
+		// GL11.glVertex3f(0, 0, -16);
+		// GL11.glVertex3f(0, 0, 16);
+		// GL11.glColor3f(1, 1, 1);
+		// GL11.glEnd();
+		// GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glPopMatrix();
 	}
 
 	private void setRotation(ModelRenderer model, float x, float y, float z)
@@ -317,6 +453,12 @@ public class ToolModel extends ModelBase
 		model.rotateAngleZ = z;
 	}
 
+	/**
+	 * Sets the model's various rotation angles. For bipeds, par1 and par2 are
+	 * used for animating the movement of arms and legs, where par1 represents
+	 * the time(so that arms and legs swing back and forth) and par2 represents
+	 * how "far" arms and legs can swing at most.
+	 */
 	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5)
 	{
 		super.setRotationAngles(f, f1, f2, f3, f4, 0.0625f, null);

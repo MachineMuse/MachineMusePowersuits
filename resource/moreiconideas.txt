@@ -1,0 +1,8 @@
+
+BTW, some new components that will be added soon (and added to the cost of existing modules as well as some new ones):
+-Tungsten plating (for heat capacity)
+-Cooling systems of some sort
+-Carbon myofibers (artificial muscles, will supplement servos in movement modules)
+-Control circuits (for modules that can be configured on-the-fly)
+-Laser/hologram emitters (for HUD-related modules as well as cosmetic ones)
+-Force field generators (to make energy shields more difficult to acquire, and perhaps add some some other things like an item magnet, hover mode, etc.)
