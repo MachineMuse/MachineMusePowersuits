@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.common;
 
 import net.machinemuse.powersuits.block.BlockTinkerTable;
+import net.machinemuse.powersuits.client.KeybindKeyHandler;
 import net.machinemuse.powersuits.event.EventHandler;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -36,7 +37,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 // Informs forge that this is a base mod class, and gives it some info for the
 // FML mod list. This is also where it looks to see if your client's version
 // matches the server's.
-@Mod(modid = "mmmPowersuits", name = "MachineMuse's Modular Powersuits", version = "0.1.10")
+@Mod(modid = "mmmPowersuits", name = "MachineMuse's Modular Powersuits", version = "0.1.37")
 // Informs forge of the requirements:
 //
 // clientSideRequired means players can't connect without it. True for things
@@ -120,6 +121,7 @@ public class PowersuitsMod {
 		tinkerTable = new BlockTinkerTable();
 		components = new ItemComponent();
 		components.populate();
+		
 
 		Config.loadPowerModules();
 
@@ -139,5 +141,6 @@ public class PowersuitsMod {
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.postInit();
 		RecipeManager.addRecipes();
+		Config.getConfig().save();
 	}
 }

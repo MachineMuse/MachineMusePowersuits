@@ -1,7 +1,12 @@
 package net.machinemuse.powersuits.client;
 
+import org.lwjgl.opengl.GL11;
+
+import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.IModularItem;
+import net.machinemuse.powersuits.item.ItemPowerTool;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.client.renderer.entity.Render;
@@ -11,6 +16,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.storage.MapData;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.IItemRenderer;
 
 /**
@@ -21,7 +27,8 @@ import net.minecraftforge.client.IItemRenderer;
  * @author MachineMuse
  * 
  */
-public class EquipmentRenderer extends Render implements IItemRenderer {
+public class ToolRenderer extends Render implements IItemRenderer {
+	public ToolModel model = new ToolModel();
 
 	/**
 	 * Forge checks this to see if our custom renderer will handle a certain
@@ -51,98 +58,31 @@ public class EquipmentRenderer extends Render implements IItemRenderer {
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack itemStack,
 			Object... data) {
-
-		IModularItem item;
-		if (itemStack.getItem() instanceof IModularItem) {
-			item = (IModularItem) (itemStack.getItem());
-		} else {
-			return;
-		}
-
+		boolean drawIcon = false;
+		
 		switch (type) {
 		case ENTITY:
 			RenderBlocks renderEntity = (RenderBlocks) data[0];
 			EntityItem entityEntity = (EntityItem) data[1];
+			model.render(null, 1, false);
 			break;
 		case INVENTORY:
 			RenderBlocks renderInventory = (RenderBlocks) data[0];
+			MuseRenderer.drawIconAt(0, 0, ItemPowerTool.getCurrentIconFor(itemStack), Colour.WHITE);
 			break;
 		case EQUIPPED:
 			RenderBlocks renderEquipped = (RenderBlocks) data[0];
 			EntityLiving entityEquipped = (EntityLiving) data[1];
+			model.render(entityEquipped, 1, false);
 			break;
 		case FIRST_PERSON_MAP:
 			EntityPlayer playerFirstPerson = (EntityPlayer) data[0];
 			RenderEngine engineFirstPerson = (RenderEngine) data[1];
 			MapData mapDataFirstPerson = (MapData) data[2];
+			model.render(playerFirstPerson, 1, true);
 			break;
 		default:
 		}
-		switch (item.getItemType()) {
-		case PowerArmorHead:
-			drawHead(itemStack);
-			break;
-		case PowerArmorTorso:
-			drawTorso(itemStack);
-			break;
-		case PowerArmorLegs:
-			drawLegs(itemStack);
-			break;
-		case PowerArmorFeet:
-			drawFeet(itemStack);
-			break;
-		case PowerTool:
-			new ToolModel().render(null, 0, 0, 0, 0, 0, 0);
-			break;
-		default:
-			break;
-		}
-	}
-
-	public void drawHead(ItemStack itemStack) {
-	}
-
-	public void drawTorso(ItemStack itemStack) {
-	}
-
-	public void drawLegs(ItemStack itemStack) {
-		float z = 1.0F;
-		float a = 1F;
-
-		float[] v = {
-				2, 1, z,
-				14, 1, z,
-				15, 15, z,
-				9, 15, z,
-				8, 5, z,
-				7, 15, z,
-				1, 15, z
-		};
-
-		float[] c = {
-				1.0F, 1.0F, 1.0F, a,
-				0.1F, 0.1F, 0.1F, a,
-				0.1F, 0.1F, 0.1F, a,
-				0.7F, 0.7F, 0.7f, a,
-				0.8F, 0.8F, 0.8F, a,
-				0.9F, 0.9F, 0.9F, a,
-				1.0F, 1.0F, 1.0F, a
-		};
-		int[] i = {
-				0, 6, 5,
-				0, 5, 4,
-				0, 4, 1,
-				1, 3, 2,
-				1, 4, 3
-		};
-		MuseRenderer.drawTriangles2D(v, c, i);
-	}
-
-	public void drawFeet(ItemStack itemStack) {
-		// MuseRenderer.drawRectPrism(0, 16, 0, 16, 0, 16);
-	}
-
-	public void drawTool(ItemStack itemStack, ItemRenderType type) {
 	}
 
 	/**
@@ -169,8 +109,7 @@ public class EquipmentRenderer extends Render implements IItemRenderer {
 
 	@Override
 	public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 }

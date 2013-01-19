@@ -92,7 +92,7 @@ public abstract class MuseStringUtils {
 				break;
 			}
 			strlist.add(str.substring(i, j));
-			i = j;
+			i = j+1;
 		}
 		strlist.add(str.substring(i));
 

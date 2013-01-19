@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.common;
 
+import net.machinemuse.powersuits.client.KeybindKeyHandler;
 import net.machinemuse.powersuits.network.MusePacketHandler;
 import net.machinemuse.powersuits.tick.PlayerTickHandlerClient;
 import cpw.mods.fml.common.ITickHandler;
