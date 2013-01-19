@@ -43,14 +43,14 @@ public class PlayerTickHandlerClient implements ITickHandler {
 		if (side == Side.CLIENT && rawPlayer instanceof EntityClientPlayerMP) {
 			EntityClientPlayerMP player = (EntityClientPlayerMP) rawPlayer;
 			handleClient(player);
-		} else if ((side == Side.SERVER) && (rawPlayer instanceof EntityPlayerMP)) {
+		} else if((side == Side.SERVER) && (rawPlayer instanceof EntityPlayerMP)) {
 			EntityPlayerMP player = (EntityPlayerMP) rawPlayer;
 			handleServer(player);
 		}
-
+		
 	}
-
 	public void handleClient(EntityClientPlayerMP player) {
+
 		ItemStack helmet = player.getCurrentArmor(3);
 		ItemStack torso = player.getCurrentArmor(2);
 		ItemStack pants = player.getCurrentArmor(1);
@@ -62,10 +62,12 @@ public class PlayerTickHandlerClient implements ITickHandler {
 		double weightCapacity = 25000;
 
 		double totalEnergyDrain = 0;
-		double foodAdjustment = 0;
+		double exhaustionAdjustment = 0;
 
 		double landMovementFactor = 0.1;
 		double jumpMovementFactor = 0.02;
+		double horzMovement = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ);
+		double exhaustion = Math.round(horzMovement * 100.0F) * 0.01;
 
 		Vec3 playerHorzFacing = player.getLookVec();
 		playerHorzFacing.yCoord = 0;
@@ -129,6 +131,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 				}
 			}
 		} else {
+			// Jump Assist
 			if (hasJumpAssist && jumpkey) {
 				double multiplier = MovementManager.getPlayerJumpMultiplier(player);
 				if (multiplier > 0) {
@@ -180,8 +183,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 
 			// Parachute
 			if (hasParachute && sneakkey && player.motionY < -0.1 && (!hasGlider || forwardkey <= 0)) {
-				double totalVelocity = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ + player.motionY * player.motionY)
-						* getWeightPenaltyRatio(totalWeight, weightCapacity);
+				double totalVelocity = Math.sqrt(horzMovement * horzMovement + player.motionY * player.motionY)*getWeightPenaltyRatio(totalWeight, weightCapacity);
 				if (totalVelocity > 0) {
 					player.motionX = player.motionX * 0.1 / totalVelocity;
 					player.motionY = player.motionY * 0.1 / totalVelocity;
@@ -191,9 +193,6 @@ public class PlayerTickHandlerClient implements ITickHandler {
 
 			// Sprint assist
 			if (hasSprintAssist && player.isSprinting()) {
-				double horzMovement = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ);
-				double exhaustion = Math.round(horzMovement * 100.0F) * 0.01;
-				
 				double sprintCost = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_ENERGY_CONSUMPTION);
 				if (sprintCost + totalEnergyDrain < totalEnergy) {
 					double sprintMultiplier = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_SPEED_MULTIPLIER);
@@ -201,7 +200,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 					totalEnergyDrain += sprintCost;
 					player.landMovementFactor *= sprintMultiplier;
 
-					foodAdjustment += 0.01 * exhaustion * exhaustionComp;
+					exhaustionComp += -0.01 * exhaustion * exhaustionComp;
 				}
 			}
 		}
@@ -217,21 +216,20 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			ItemUtils.givePlayerEnergy(player, -totalEnergyDrain);
 		}
 
-		player.getFoodStats().addExhaustion((float) (-foodAdjustment));
+		player.addExhaustion((float) (exhaustionAdjustment));
 
 		// Weight movement penalty
 		if (totalWeight > weightCapacity) {
 			player.motionX *= weightCapacity / totalWeight;
 			player.motionZ *= weightCapacity / totalWeight;
 		}
-
-		MusePacket packet = new MusePacketPlayerUpdate(player, -totalEnergyDrain, -foodAdjustment);
+		
+		MusePacket packet = new MusePacketPlayerUpdate(player, -totalEnergyDrain, exhaustionAdjustment);
 		player.sendQueue.addToSendQueue(packet.getPacket250());
-
+	
 	}
-
 	public void handleServer(EntityPlayerMP player) {
-
+		
 	}
 
 	public static double getWeightPenaltyRatio(double currentWeight, double capacity) {

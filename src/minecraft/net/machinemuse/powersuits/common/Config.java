@@ -1,21 +1,16 @@
 package net.machinemuse.powersuits.common;
 
-import org.lwjgl.input.Keyboard;
-
-import net.machinemuse.general.MuseStringUtils;
+import cpw.mods.fml.common.Loader;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.ModularCommon;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 
 /**
  * Initial attempt at storing all tweakable/configurable values in one class.
@@ -144,23 +139,23 @@ public class Config {
 		boolean[] ALLITEMS = { true, true, true, true, true };
 		PowerModule module;
 
-		module = new PowerModule(ModularCommon.MODULE_BASIC_PLATING, ARMORONLY, MuseIcon.IRON_PLATING, ModularCommon.CATEGORY_ARMOR)
-				.setDescription("Basic plating is heavy but protective.")
-				.addInstallCost(copyAndResize(ItemComponent.basicPlating, 1))
+		module = new PowerModule(ModularCommon.MODULE_IRON_PLATING, ARMORONLY, MuseIcon.IRON_PLATING, ModularCommon.CATEGORY_ARMOR)
+				.setDescription("Iron plating is heavy but protective.")
+				.addInstallCost(new ItemStack(Item.ingotIron, 5))
 				.addTradeoffProperty("Plating Thickness", ModularCommon.ARMOR_VALUE_PHYSICAL, 5, " Points")
 				.addTradeoffProperty("Plating Thickness", ModularCommon.WEIGHT, 10000, "g");
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_DIAMOND_PLATING, ARMORONLY, MuseIcon.DIAMOND_PLATING, ModularCommon.CATEGORY_ARMOR)
-				.setDescription("Advanced plating is lighter, harder, and more protective than Basic but much harder to make.")
-				.addInstallCost(copyAndResize(ItemComponent.advancedPlating, 1))
+				.setDescription("Diamonds are lighter, harder, and more protective than Iron but much harder to find.")
+				.addInstallCost(new ItemStack(Item.diamond, 5))
 				.addTradeoffProperty("Plating Thickness", ModularCommon.ARMOR_VALUE_PHYSICAL, 6, " Points")
 				.addTradeoffProperty("Plating Thickness", ModularCommon.WEIGHT, 6000, "g");
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_ENERGY_SHIELD, ARMORONLY, MuseIcon.ENERGY_SHIELD, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Energy shields are much lighter than plating, but consume energy.")
-				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 4))
+				.addInstallCost(copyAndResize(ItemComponent.solenoid, 4))
 				.addTradeoffProperty("Field Strength", ModularCommon.ARMOR_VALUE_ENERGY, 6, " Points")
 				.addTradeoffProperty("Field Strength", ModularCommon.ARMOR_ENERGY_CONSUMPTION, 500, "J");
 		ModuleManager.addModule(module);
@@ -195,7 +190,7 @@ public class Config {
 				.addTradeoffProperty("Overclock", ModularCommon.PICKAXE_HARVEST_SPEED, 18);
 		ModuleManager.addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_BATTERY_BASIC, ALLITEMS, MuseIcon.BATTERY1, ModularCommon.CATEGORY_ENERGY)
+		module = new PowerModule(ModularCommon.MODULE_BATTERY_BASIC, ALLITEMS, MuseIcon.COMPONENT_LVCAPACITOR, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Integrate a battery to allow the item to store energy.")
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1))
 				.addBaseProperty(ModularCommon.MAXIMUM_ENERGY, 20000, "J")
@@ -204,7 +199,7 @@ public class Config {
 				.addTradeoffProperty("Battery Size", ModularCommon.WEIGHT, 8000);
 		ModuleManager.addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_BATTERY_ADVANCED, ALLITEMS, MuseIcon.BATTERY2, ModularCommon.CATEGORY_ENERGY)
+		module = new PowerModule(ModularCommon.MODULE_BATTERY_ADVANCED, ALLITEMS, MuseIcon.BATTERY_EMPTY, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Integrate a more advanced battery to store more energy.")
 				.addInstallCost(copyAndResize(ItemComponent.mvcapacitor, 1))
 				.addBaseProperty(ModularCommon.MAXIMUM_ENERGY, 100000, "J")
@@ -213,7 +208,7 @@ public class Config {
 				.addTradeoffProperty("Battery Size", ModularCommon.WEIGHT, 8000);
 		ModuleManager.addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_BATTERY_ELITE, ALLITEMS, MuseIcon.BATTERYCRYSTAL, ModularCommon.CATEGORY_ENERGY)
+		module = new PowerModule(ModularCommon.MODULE_BATTERY_ELITE, ALLITEMS, MuseIcon.BATTERY_FULL, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Integrate a the most advanced battery to store an extensive amount of energy.")
 				.addInstallCost(copyAndResize(ItemComponent.hvcapacitor, 1))
 				.addBaseProperty(ModularCommon.MAXIMUM_ENERGY, 750000, "J")
@@ -228,17 +223,27 @@ public class Config {
 				.addInstallCost(new ItemStack(Item.diamond, 3));
 		ModuleManager.addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_TINT, ARMORONLY, MuseIcon.NETHERSTAR, ModularCommon.CATEGORY_COSMETIC)
-				.setDescription("Give your armor some coloured tinting to customize your armor's appearance.")
-				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1))
-				.addTradeoffProperty("Red Intensity", ModularCommon.RED_TINT, 1, "%")
-				.addTradeoffProperty("Green Intensity", ModularCommon.GREEN_TINT, 1, "%")
-				.addTradeoffProperty("Blue Intensity", ModularCommon.BLUE_TINT, 1, "%");
+		module = new PowerModule(ModularCommon.MODULE_RED_TINT, ARMORONLY, MuseIcon.PLATE_2_RED, ModularCommon.CATEGORY_COSMETIC)
+				.setDescription("Give your armor some red tinting. Combine with the other cosmetic modules to customize your armor's appearance.")
+				.addInstallCost(new ItemStack(Item.dyePowder, 1, 1))
+				.addTradeoffProperty("Intensity", ModularCommon.MODULE_RED_TINT, 1, "%");
+		ModuleManager.addModule(module);
+
+		module = new PowerModule(ModularCommon.MODULE_GREEN_TINT, ARMORONLY, MuseIcon.PLATE_2_GREEN, ModularCommon.CATEGORY_COSMETIC)
+				.setDescription("Give your armor some green tinting. Combine with the other cosmetic modules to customize your armor's appearance.")
+				.addInstallCost(new ItemStack(Item.dyePowder, 1, 2))
+				.addTradeoffProperty("Intensity", ModularCommon.MODULE_GREEN_TINT, 1, "%");
+		ModuleManager.addModule(module);
+
+		module = new PowerModule(ModularCommon.MODULE_BLUE_TINT, ARMORONLY, MuseIcon.PLATE_2_BLUE, ModularCommon.CATEGORY_COSMETIC)
+				.setDescription("Give your armor some blue tinting. Combine with the other cosmetic modules to customize your armor's appearance.")
+				.addInstallCost(new ItemStack(Item.dyePowder, 1, 4))
+				.addTradeoffProperty("Intensity", ModularCommon.MODULE_BLUE_TINT, 1, "%");
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_TRANSPARENT_ARMOR, ARMORONLY, MuseIcon.TRANSPARENT_ARMOR, ModularCommon.CATEGORY_COSMETIC)
 				.setDescription("Make the item transparent, so you can show off your skin without losing armor.")
-				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1));
+				.addInstallCost(new ItemStack(Block.glass, 3));
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_SPRINT_ASSIST, LEGSONLY, MuseIcon.SPRINT_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
@@ -261,10 +266,6 @@ public class Config {
 				module, "Power",
 				ModularCommon.JUMP_ENERGY_CONSUMPTION, "J", 0, 5,
 				ModularCommon.JUMP_MULTIPLIER, "%", 1, 4);
-		ModuleManager.addSimpleTradeoff(
-				module, "Compensation",
-				ModularCommon.JUMP_ENERGY_CONSUMPTION, "J", 0, 1,
-				ModularCommon.JUMP_FOOD_COMPENSATION, "%", 0, 1);
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_SHOCK_ABSORBER, FEETONLY, MuseIcon.SHOCK_ABSORBER, ModularCommon.CATEGORY_MOVEMENT)
@@ -321,7 +322,7 @@ public class Config {
 				.addTradeoffProperty("Power", ModularCommon.UNDERWATER_HARVEST_SPEED, 0.8);
 		ModuleManager.addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_SWIM_BOOST, LEGSONLY, MuseIcon.SWIM_BOOST, ModularCommon.CATEGORY_AQUATIC)
+		module = new PowerModule(ModularCommon.MODULE_SWIM_BOOST, LEGSONLY, MuseIcon.INDICATOR_1_BLUE, ModularCommon.CATEGORY_AQUATIC)
 				.setDescription(
 						"By refitting an ion thruster for underwater use, you may be able to add extra forward (or backward) thrust when underwater.")
 				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 1))
@@ -330,7 +331,7 @@ public class Config {
 				.addTradeoffProperty("Thrust", ModularCommon.SWIM_BOOST_AMOUNT, 1, "m/s");
 		ModuleManager.addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_CLIMB_ASSIST, LEGSONLY, MuseIcon.INDICATOR_1_BLUE, ModularCommon.CATEGORY_MOVEMENT)
+		module = new PowerModule(ModularCommon.MODULE_CLIMB_ASSIST, LEGSONLY, MuseIcon.GO_FAST, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("A pair of dedicated servos allow you to effortlessly step up 1m-high ledges.")
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2));
 		ModuleManager.addModule(module);
@@ -411,23 +412,5 @@ public class Config {
 	
 	public static Configuration getConfig() {
 		return config;
-	}
-
-	public static boolean doAdditionalInfo() {
-		if(FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT){
-			if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public static Object additionalInfoInstructions() {
-		String message = "Press SHIFT for more information.";
-		message = MuseStringUtils.wrapMultipleFormatTags(
-				message,
-				MuseStringUtils.FormatCodes.Grey,
-				MuseStringUtils.FormatCodes.Italic);
-		return message;
 	}
 }

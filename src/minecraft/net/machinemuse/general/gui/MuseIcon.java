@@ -45,32 +45,23 @@ public class MuseIcon {
 	public static final MuseIcon IRON_PLATING = new MuseIcon(WC_ICON_PATH, 7);
 	public static final MuseIcon DIAMOND_PLATING = new MuseIcon(WC_ICON_PATH, 8);
 	public static final MuseIcon HEART = new MuseIcon(WC_ICON_PATH, 13);
-	public static final MuseIcon FIELD_EMITTER = new MuseIcon(WC_ICON_PATH, 14);
-	public static final MuseIcon CARBON_MYOFIBER = new MuseIcon(WC_ICON_PATH, 15);
+	public static final MuseIcon BATTERY_FULL = new MuseIcon(WC_ICON_PATH, 14);
+	public static final MuseIcon BATTERY_EMPTY = new MuseIcon(WC_ICON_PATH, 15);
 	public static final MuseIcon SHOCK_ABSORBER = new MuseIcon(WC_ICON_PATH, 16);
 	public static final MuseIcon PARACHUTE_MODULE = new MuseIcon(WC_ICON_PATH, 18);
 	public static final MuseIcon TRANSPARENT_ARMOR = new MuseIcon(WC_ICON_PATH, 20);
-	public static final MuseIcon SWIM_BOOST = new MuseIcon(WC_ICON_PATH, 21);
+	public static final MuseIcon GO_FAST = new MuseIcon(WC_ICON_PATH, 21);
 
 	// Component icons
-	public static final MuseIcon WIRING = new MuseIcon(WC_ICON_PATH, 32);
-	public static final MuseIcon SOLENOID = new MuseIcon(WC_ICON_PATH, 33);
-	public static final MuseIcon GLIDERWING = new MuseIcon(WC_ICON_PATH, 35);
-	public static final MuseIcon SERVOMOTOR = new MuseIcon(WC_ICON_PATH, 34);
-	public static final MuseIcon IONTHRUSTER = new MuseIcon(WC_ICON_PATH, 36);
-	public static final MuseIcon LVCAPACITOR = new MuseIcon(WC_ICON_PATH, 37);
-	public static final MuseIcon PARACHUTE = new MuseIcon(WC_ICON_PATH, 38);
-	public static final MuseIcon MVCAPACITOR = new MuseIcon(WC_ICON_PATH, 53);
-	public static final MuseIcon HVCAPACITOR = new MuseIcon(WC_ICON_PATH, 69);
-	public static final MuseIcon BATTERY1 = new MuseIcon(WC_ICON_PATH, 30);
-	public static final MuseIcon BATTERY2 = new MuseIcon(WC_ICON_PATH, 46);
-	public static final MuseIcon BATTERYCRYSTAL = new MuseIcon(WC_ICON_PATH, 62);
-	public static final MuseIcon ALIEN = new MuseIcon(WC_ICON_PATH, 78);
-	public static final MuseIcon NETHERSTAR = new MuseIcon(WC_ICON_PATH, 94);
-	public static final MuseIcon ARCREACTOR = new MuseIcon(WC_ICON_PATH, 110);
-	public static final MuseIcon CIRCUIT = new MuseIcon(WC_ICON_PATH, 31);
-	public static final MuseIcon LAMP = new MuseIcon(WC_ICON_PATH, 47);
-	public static final MuseIcon CRYSTAL = new MuseIcon(WC_ICON_PATH, 63);
+	public static final MuseIcon COMPONENT_WIRING = new MuseIcon(WC_ICON_PATH, 32);
+	public static final MuseIcon COMPONENT_SOLENOID = new MuseIcon(WC_ICON_PATH, 33);
+	public static final MuseIcon COMPONENT_GLIDERWING = new MuseIcon(WC_ICON_PATH, 35);
+	public static final MuseIcon COMPONENT_SERVOMOTOR = new MuseIcon(WC_ICON_PATH, 34);
+	public static final MuseIcon COMPONENT_IONTHRUSTER = new MuseIcon(WC_ICON_PATH, 36);
+	public static final MuseIcon COMPONENT_LVCAPACITOR = new MuseIcon(WC_ICON_PATH, 37);
+	public static final MuseIcon COMPONENT_PARACHUTE = new MuseIcon(WC_ICON_PATH, 38);
+	public static final MuseIcon COMPONENT_MVCAPACITOR = new MuseIcon(WC_ICON_PATH, 53);
+	public static final MuseIcon COMPONENT_HVCAPACITOR = new MuseIcon(WC_ICON_PATH, 69);
 
 	String texturefile;
 	int index;

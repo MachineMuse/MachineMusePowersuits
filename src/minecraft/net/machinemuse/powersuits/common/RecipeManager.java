@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.common;
 
-import gregtechmod.api.GregTech_API;
 import ic2.api.Ic2Recipes;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.block.Block;
@@ -29,38 +28,11 @@ public class RecipeManager {
 		ItemStack glass = new ItemStack(Block.glass);
 		ItemStack glowstone = new ItemStack(Item.lightStoneDust);
 		ItemStack emerald = new ItemStack(Item.emerald);
-		ItemStack diamond = new ItemStack(Item.diamond);
-		ItemStack lapis = new ItemStack(Item.dyePowder, 1, 4);
-		ItemStack rosered = new ItemStack(Item.dyePowder, 1, 1);
-		ItemStack cactusgreen = new ItemStack(Item.dyePowder, 1, 2);
+		ItemStack lapis = new ItemStack(Item.dyePowder, 1, 4); // metadata 4 =
+																// 'blue'
 		ItemStack enderPearl = new ItemStack(Item.enderPearl);
 
 		if (ModCompatability.vanillaRecipesEnabled()) {
-			GameRegistry.addRecipe(ItemComponent.basicPlating,
-				"II",
-				"CI",
-				"II",
-				'C', ItemComponent.wiring,
-				'I', iron);
-			
-			GameRegistry.addRecipe(ItemComponent.advancedPlating,
-				"II",
-				"CI",
-				"II",
-				'C', ItemComponent.solenoid,
-				'I', diamond);
-			
-			GameRegistry.addRecipe(ItemComponent.laserHologram,
-					"YTG",
-					"TWT",
-					"BTR",
-					'W', ItemComponent.wiring,
-					'T', glass,
-					'Y', glowstone,
-					'G', cactusgreen,
-					'B', lapis,
-					'R', rosered);
-			
 			GameRegistry.addRecipe(new ItemStack(PowersuitsMod.tinkerTable),
 					"ILI",
 					"LEL",
@@ -142,60 +114,17 @@ public class RecipeManager {
 					"EIE",
 					'I', iron, 'E', ItemComponent.solenoid, 'W', ItemComponent.wiring);
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.fieldEmitter, true,
-					"SES",
-					"ESE",
-					"SES",
-					'S', ItemComponent.solenoid,
-					'E', enderPearl));
-			
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.controlCircuit, true,
-					"WGW",
-					"LWL",
-					"WGW",
-					'W', ItemComponent.wiring,
-					'G', glass,
-					'L', lapis));
-			
 			GameRegistry.addRecipe(ItemComponent.ionThruster,
-					" FE",
+					" EE",
 					"IG ",
-					"IFE",
-					'I', iron,
-					'E', ItemComponent.solenoid,
-					'G', glowstone,
-					'F', ItemComponent.fieldEmitter);
-			
+					"IEE",
+					'I', iron, 'E', ItemComponent.solenoid, 'G', glowstone);
 		}
 		if (ModCompatability.UERecipesEnabled()) {
 			String basicCircuit = "basicCircuit";
 			String advancedCircuit = "advancedCircuit";
 			String eliteCircuit = "eliteCircuit";
 			ItemStack lapisBlock = new ItemStack(Block.blockLapis);
-			
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.laserHologram, true,
-					"YTG",
-					"TWT",
-					"BTR",
-					'W', ItemComponent.wiring,
-					'T', glass,
-					'Y', glowstone,
-					'G', cactusgreen,
-					'B', lapis,
-					'R', rosered));
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.basicPlating, true,
-					"II",
-					"CI",
-					"II",
-					'C', basicCircuit,
-					'I', "plateSteel"));
-				
-				GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true,
-					"II",
-					"CI",
-					"II",
-					'C', advancedCircuit,
-					'I', diamond));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.tinkerTable), true,
 					"ILI",
@@ -268,24 +197,10 @@ public class RecipeManager {
 					" C ",
 					"EIE", 'I', iron, 'E', ItemComponent.solenoid, 'C', "basicCircuit"));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.fieldEmitter, true,
-					"SES",
-					"ECE",
-					"SES",
-					'S', ItemComponent.solenoid,
-					'E', enderPearl,
-					'C', "advancedCircuit"));
-			
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true,
-					" FE",
+					" EE",
 					"CG ",
-					"IFE",
-					'I',
-					"plateSteel",
-					'E', ItemComponent.solenoid,
-					'G', glowstone,
-					'C', "advancedCircuit",
-					'F', ItemComponent.fieldEmitter));
+					"IEE", 'I', "plateSteel", 'E', ItemComponent.solenoid, 'G', glowstone, 'C', "advancedCircuit"));
 		}
 		if (ModCompatability.IC2RecipesEnabled()) {
 			circuit = ModCompatability.getIC2Item("electronicCircuit").copy();
@@ -298,33 +213,9 @@ public class RecipeManager {
 			ItemStack energyCrystal = ModCompatability.getIC2Item("energyCrystal").copy();
 			ItemStack lapotronCrystal = ModCompatability.getIC2Item("lapotronCrystal").copy();
 			ItemStack iridiumOre = ModCompatability.getIC2Item("iridiumOre").copy();
-			ItemStack carbonPlate = ModCompatability.getIC2Item("carbonPlate").copy();
+			ItemStack carbonFiber = ModCompatability.getIC2Item("carbonPlate").copy();
 			ItemStack machine = ModCompatability.getIC2Item("machine").copy();
 			ItemStack advMachine = ModCompatability.getIC2Item("advancedMachine").copy();
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.laserHologram, true,
-					"YTG",
-					"TWT",
-					"BTR",
-					'W', ItemComponent.wiring,
-					'T', glass,
-					'Y', glowstone,
-					'G', cactusgreen,
-					'B', lapis,
-					'R', rosered));
-			
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.basicPlating, true,
-					"II",
-					"CI",
-					"II",
-					'C', circuit,
-					'I', "ingotRefinedIron"));
-				
-				GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true,
-					"II",
-					"CI",
-					"II",
-					'C', advCircuit,
-					'I', diamond));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.tinkerTable), true,
 					"E",
@@ -392,7 +283,7 @@ public class RecipeManager {
 					" CC",
 					"CCI",
 					"C  ",
-					'C', carbonPlate.copy(),
+					'C', carbonFiber.copy(),
 					'I', ItemComponent.solenoid));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.servoMotor, true,
@@ -400,14 +291,6 @@ public class RecipeManager {
 					"EME",
 					'M', machine.copy(), 'E', ItemComponent.solenoid, 'W', circuit.copy()));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.fieldEmitter, true,
-					"SES",
-					"ECE",
-					"SES",
-					'S', ItemComponent.solenoid,
-					'E', enderPearl,
-					'C', advCircuit));
-			
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true,
 					" EE",
 					"MG ",
@@ -422,178 +305,103 @@ public class RecipeManager {
 			// This means Gregtech is installed, and GregoriusT in his infinite
 			// wisdom has registered literally everything in the universe with
 			// the ore dictionary, so we can just use strings here :D ...once we decide what to put.
-			String computerMonitor = "monitorTier02";
-			String advancedCircuit = "circuitTier04";
-			String refinedIron = "ingotRefinedIron";
-			String advancedMachine = "rawMachineTier02";
-			String dataStorageCircuit = "circuitTier05";
-			String energyFlowCircuit = "circuitTier07";
-			String machineParts = "itemMachineParts";
-			String nitrogen = "molecule_1n";
-			ItemStack neutronReflector = GregTech_API.getGregTechItem(40, 1, 0);;
-			String advancedHeatVent = "item.reactorVentDiamond";
-			ItemStack carbonPlate = ModCompatability.getIC2Item("carbonPlate").copy();
-			ItemStack uninsulatedCopper = ModCompatability.getIC2Item("copperCableItem").copy();
-			ItemStack luminator = ModCompatability.getIC2Item("luminator").copy();
+			circuit = ModCompatability.getIC2Item("electronicCircuit");
+			ItemStack advCircuit = ModCompatability.getIC2Item("advancedCircuit");
+			gold = ModCompatability.getIC2Item("goldCableItem");
+			String refIron = "ingotRefinedIron";
+			String tin = "ingotTin";
+			String copper = "ingotCopper";
+			ItemStack reBattery = ModCompatability.getIC2Item("reBattery").copy();
+			ItemStack energyCrystal = ModCompatability.getIC2Item("energyCrystal").copy();
+			ItemStack lapotronCrystal = ModCompatability.getIC2Item("lapotronCrystal").copy();
 			
-			
-
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.laserHologram, true,
-					"LLL",
-					"RGB",
-					"LLL",
-					'L', luminator,
-					'R', "gemRuby",
-					'G', "gemGreenSapphire",
-					'B', "gemSapphire"));
-
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.basicPlating, true,
-					"II",
-					"CI",
-					"II",
-					'C', advancedCircuit,
-					'I', "ingotTitanium"));
-				
-				GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true,
-					"II",
-					"CI",
-					"II",
-					'C', dataStorageCircuit,
-					'I', "plateIridium"));
+			ItemStack iridiumOre = ModCompatability.getIC2Item("iridiumOre");
+			ItemStack carbonFiber = ModCompatability.getIC2Item("carbonPlate");
+			ItemStack machine = ModCompatability.getIC2Item("machine");
+			ItemStack advMachine = ModCompatability.getIC2Item("advancedMachine");
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.tinkerTable), true,
-					"CVC",
-					"IEI",
-					"IMI",
-					'C', advancedCircuit,
-					'E', emerald,
-					'V', computerMonitor,
-					'I', refinedIron,
-					'M', advancedMachine));
+					"E", "C", "M",
+					'E', "gemEmerald", 'C', "circuitTier04", 'M', "rawMachineTier02"));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerArmorHead), true,
-					"ACA",
-					"MVM",
-					'A', "ingotAluminium",
-					'C', dataStorageCircuit,
-					'M', machineParts,
-					'V', computerMonitor));
+					"III",
+					"C C",
+					'I', refIron, 'C', circuit.copy()));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerArmorTorso), true,
-					"AMA",
-					"ACA",
-					"AAA",
-					'A', "ingotAluminium",
-					'C', dataStorageCircuit,
-					'M', machineParts));
+					"I I",
+					"CIC",
+					"III",
+					'I', refIron, 'C', circuit.copy()));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerArmorLegs), true,
-					"MCM",
-					"A A",
-					"A A",
-					'A', "ingotAluminium",
-					'C', dataStorageCircuit,
-					'M', machineParts));
+					"III",
+					"C C",
+					"I I",
+					'I', refIron, 'C', circuit.copy()));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerArmorFeet), true,
-					"M M",
-					"ACA",
-					'A', "ingotAluminium",
-					'C', dataStorageCircuit,
-					'M', machineParts));
+					"C C",
+					"I I",
+					'I', refIron, 'C', circuit.copy()));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerTool), true,
-					"A A",
-					"AMA",
 					" C ",
-					'A', "ingotAluminium",
-					'C', dataStorageCircuit,
-					'M', machineParts));
+					"CI ",
+					" IC",
+					'I', refIron, 'C', circuit.copy()));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(ItemComponent.wiring, 2), true,
-					"CCC",
-					"SSS",
-					"CCC", 
-					'C', uninsulatedCopper,
-					'S', "ingotSilver"));
+					"GRG", 'G', gold.copy(), 'R', redstone));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.parachute, true,
-					"WWW",
-					"S S",
-					"CNC",
-					'W', wool,
-					'S', string,
-					'C', carbonPlate,
-					'N', nitrogen));
+					"WWW", "S S", 'W', wool, 'S', string));
 			
 			Ic2Recipes.addCraftingRecipe(ItemComponent.lvcapacitor,
-					"IWI",
-					"IBI",
-					"IBI",
-					'W', ItemComponent.wiring,
-					'I', refinedIron,
-					'B', "100kEUStore"); // Lithium battery
+					"WBW",
+					'W', ItemComponent.wiring.copy(),
+					'B', reBattery);
 
 			Ic2Recipes.addCraftingRecipe(ItemComponent.mvcapacitor,
-					"IWI",
-					"IBI",
-					"IBI",
-					'W', ItemComponent.wiring,
-					'I', "ingotTitanium",
-					'B', "1kkEUStore"); // Lapotron crystal
+					"WBW",
+					'W', ItemComponent.wiring.copy(),
+					'B', energyCrystal);
 			
 			Ic2Recipes.addCraftingRecipe(ItemComponent.hvcapacitor,
-					"IWI",
-					"IBI",
-					"IBI",
-					'W', ItemComponent.wiring,
-					'I', "ingotChrome",
-					'B', "10kkEUStore"); // Lapotronic EnergyOrb
+					"WBW",
+					'W', ItemComponent.wiring.copy(),
+					'B', lapotronCrystal);
 
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solenoid, true,
-					"WSW",
-					"WSW",
-					"WSW",
+					" W ",
+					"WIW",
+					" W ",
 					'W', ItemComponent.wiring,
-					'S', "ingotSteel"));
+					'I', machine));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.gliderWing, true,
-					" MC",
-					"MPI",
-					"M  ",
-					'P', carbonPlate,
-					'M', "plateMagnalium",
-					'I', ItemComponent.solenoid,
-					'C', advancedCircuit));
+					" CC",
+					"CCI",
+					"C  ",
+					'C', carbonFiber.copy(),
+					'I', ItemComponent.solenoid));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.servoMotor, true,
-					"IBI",
-					"CSC",
-					"IBI",
-					'I', "ingotSteel",
-					'B', "ingotBrass",
-					'C', advancedCircuit,
-					'S', ItemComponent.solenoid));
+					" W ",
+					"EME",
+					'M', machine.copy(), 'E', ItemComponent.solenoid, 'W', circuit.copy()));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.fieldEmitter, true,
-					"ISI",
-					"CUC",
-					"ISI",
-					'I', "plateIridium",
-					'S', ItemComponent.solenoid,
-					'U', energyFlowCircuit,
-					'C', "itemSuperconductor"));
-			
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true,
-					"ISI",
-					"FCF",
-					"N N",
-					'I', "plateIridium",
-					'S', "itemSuperconductor",
-					'N', neutronReflector,
-					'C', ItemComponent.hvcapacitor,
-					'F', ItemComponent.fieldEmitter));
+					" EE",
+					"MG ",
+					"CEE",
+					'I', iron,
+					'E', ItemComponent.solenoid,
+					'G', glowstone,
+					'C', advCircuit.copy(),
+					'M', advMachine.copy()));
 		}
 	}
 }

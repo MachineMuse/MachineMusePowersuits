@@ -1,15 +1,13 @@
 package net.machinemuse.powersuits.item;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import net.machinemuse.general.MuseStringUtils;
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
-import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import universalelectricity.core.electricity.ElectricInfo;
 
 public abstract class ModularCommon {
 	/**
@@ -30,10 +28,9 @@ public abstract class ModularCommon {
 	public static final String BATTERY_WEIGHT = "Battery Weight";
 	public static final String SPRINT_ENERGY_CONSUMPTION = "Sprint Energy Consumption";
 	public static final String SPRINT_SPEED_MULTIPLIER = "Sprint Speed Multiplier";
-	public static final String SPRINT_FOOD_COMPENSATION = "Sprint Exhaustion Compensation";
+	public static final String SPRINT_FOOD_COMPENSATION = "Exhaustion Compensation";
 	public static final String JUMP_ENERGY_CONSUMPTION = "Jump Energy Consumption";
 	public static final String JUMP_MULTIPLIER = "Jump Multiplier";
-	public static final String JUMP_FOOD_COMPENSATION = "Jump Exhaustion Compensation";
 	public static final String SHOCK_ABSORB_MULTIPLIER = "Distance Reduction";
 	public static final String SHOCK_ABSORB_ENERGY_CONSUMPTION = "Impact Energy consumption";
 	public static final String JET_ENERGY_CONSUMPTION = "Jet Energy Consumption";
@@ -43,9 +40,6 @@ public abstract class ModularCommon {
 	public static final String UNDERWATER_HARVEST_SPEED = "Underwater Harvest Speed";
 	public static final String SWIM_BOOST_AMOUNT = "Underwater Movement Boost";
 	public static final String SWIM_BOOST_ENERGY_CONSUMPTION = "Swim Boost Energy Consumption";
-	public static final String RED_TINT = "Red Tint";
-	public static final String GREEN_TINT = "Green Tint";
-	public static final String BLUE_TINT = "Blue Tint";
 
 	/**
 	 * Module names
@@ -56,7 +50,7 @@ public abstract class ModularCommon {
 	public static final String MODULE_BATTERY_BASIC = "Basic Battery";
 	public static final String MODULE_BATTERY_ADVANCED = "Advanced Battery";
 	public static final String MODULE_BATTERY_ELITE = "Elite Battery";
-	public static final String MODULE_BASIC_PLATING = "Iron Plating";
+	public static final String MODULE_IRON_PLATING = "Iron Plating";
 	public static final String MODULE_DIAMOND_PLATING = "Diamond Plating";
 	public static final String MODULE_ENERGY_SHIELD = "Energy Shield";
 	public static final String MODULE_DIAMOND_PICK_UPGRADE = "Diamond Drill Upgrade";
@@ -71,7 +65,9 @@ public abstract class ModularCommon {
 	public static final String MODULE_ANTIGRAVITY = "Antigravity Drive";
 	public static final String MODULE_WATER_ELECTROLYZER = "Water Electrolyzer";
 	public static final String MODULE_AQUA_AFFINITY = "Aqua Affinity";
-	public static final String MODULE_TINT = "Custom Colour Module";
+	public static final String MODULE_RED_TINT = "Red Tint";
+	public static final String MODULE_GREEN_TINT = "Green Tint";
+	public static final String MODULE_BLUE_TINT = "Blue Tint";
 	public static final String MODULE_CLIMB_ASSIST = "Uphill Step Assist";
 	public static final String MODULE_SWIM_BOOST = "Swim Boost";
 
@@ -114,33 +110,11 @@ public abstract class ModularCommon {
 		currentTipList.add(
 				MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character, MuseStringUtils.FormatCodes.Grey)
 				);
-		if (Config.doAdditionalInfo()) {
-			List<String> installed = ModularCommon.getItemInstalledModules(player, stack);
-			if (installed.size() == 0) {
-				String message = "No installed modules! This item is useless until you add some modules at a Tinker Table.";
-				currentTipList.addAll(MuseStringUtils.wrapStringToLength(message, 30));
-			} else {
-				currentTipList.add("Installed Modules:");
-				currentTipList.addAll(installed);
-			}
-		} else {
-			currentTipList.add(Config.additionalInfoInstructions());
-		}
 	}
 
 	// ///////////////////////////// //
 	// --- UNIVERSAL ELECTRICITY --- //
 	// ///////////////////////////// //
-
-	/**
-	 * Provide energy to an item.
-	 * 
-	 * @param joulesNeeded
-	 *            Amount to request (in UE Joules).
-	 * @param itemStack
-	 *            Itemstack to request the energy from.
-	 * @return Amount of joules provided by the item.
-	 */
 	public static double charge(double amount, ItemStack itemStack) {
 		double stored = getJoules(itemStack);
 		double capacity = getMaxJoules(itemStack) - stored;
@@ -150,16 +124,7 @@ public abstract class ModularCommon {
 		return surplus;
 	}
 
-	/**
-	 * Request energy from this item.
-	 * 
-	 * @param joulesNeeded
-	 *            Amount to request (in UE Joules).
-	 * @param itemStack
-	 *            Itemstack to request the energy from.
-	 * @return Amount of joules provided by the item.
-	 */
-	public static double discharge(double joulesNeeded, ItemStack itemStack) {
+	public static double onUse(double joulesNeeded, ItemStack itemStack) {
 		NBTTagCompound itemProperties = ItemUtils.getMuseItemTag(itemStack);
 
 		double joulesAvail = getJoules(itemStack);
@@ -201,16 +166,5 @@ public abstract class ModularCommon {
 
 	public static double getTotalWeight(ItemStack stack) {
 		return ModuleManager.computeModularProperty(stack, ModularCommon.WEIGHT);
-	}
-
-	public static List<String> getItemInstalledModules(EntityPlayer player, ItemStack stack) {
-		NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
-		List<String> modules = new LinkedList();
-		for (PowerModule module : ItemUtils.getValidModulesForItem(player, stack)) {
-			if (ItemUtils.tagHasModule(itemTag, module.getName())) {
-				modules.add(module.getName());
-			}
-		}
-		return modules;
 	}
 }

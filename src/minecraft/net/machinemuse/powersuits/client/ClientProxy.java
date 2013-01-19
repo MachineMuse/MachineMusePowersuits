@@ -22,17 +22,17 @@ import cpw.mods.fml.relauncher.Side;
  * 
  */
 public class ClientProxy extends CommonProxy {
-	private static ToolRenderer toolRenderer = new ToolRenderer();
+	private static EquipmentRenderer equipmentRenderer = new EquipmentRenderer();
 	private static RenderTickHandler renderTickHandler;
 	private static PlayerTickHandlerClient playerTickHandler;
-	public static KeybindKeyHandler keybindHandler;
 
 	/**
 	 * Register all the custom renderers for this mod.
 	 */
 	@Override
 	public void registerRenderers() {
-		MinecraftForgeClient.registerItemRenderer(PowersuitsMod.powerTool.itemID, toolRenderer);
+		// MinecraftForgeClient.registerItemRenderer(PowersuitsMod.powerTool.itemID,
+		// equipmentRenderer);
 		int tinkTableRenderID = RenderingRegistry.getNextAvailableRenderId();
 		TinkerTableRenderer tinkTableRenderer = new TinkerTableRenderer(
 				tinkTableRenderID);
@@ -52,8 +52,6 @@ public class ClientProxy extends CommonProxy {
 	 */
 	@Override
 	public void registerHandlers() {
-		keybindHandler = new KeybindKeyHandler();
-		
 		playerTickHandler = new PlayerTickHandlerClient();
 		TickRegistry.registerTickHandler(playerTickHandler, Side.CLIENT);
 

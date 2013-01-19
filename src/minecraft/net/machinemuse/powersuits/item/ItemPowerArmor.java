@@ -120,9 +120,9 @@ public abstract class ItemPowerArmor extends ItemArmor
 	}
 
 	public Colour getColorFromItemStack(ItemStack stack) {
-		double computedred = ModuleManager.computeModularProperty(stack, ModularCommon.RED_TINT);
-		double computedgreen = ModuleManager.computeModularProperty(stack, ModularCommon.GREEN_TINT);
-		double computedblue = ModuleManager.computeModularProperty(stack, ModularCommon.BLUE_TINT);
+		double computedred = ModuleManager.computeModularProperty(stack, ModularCommon.MODULE_RED_TINT);
+		double computedgreen = ModuleManager.computeModularProperty(stack, ModularCommon.MODULE_GREEN_TINT);
+		double computedblue = ModuleManager.computeModularProperty(stack, ModularCommon.MODULE_BLUE_TINT);
 		Colour colour = new Colour(
 				clampDouble(1 + computedred - (computedblue + computedgreen), 0, 1),
 				clampDouble(1 + computedgreen - (computedblue + computedred), 0, 1),
@@ -159,9 +159,9 @@ public abstract class ItemPowerArmor extends ItemArmor
 	public boolean hasColor(ItemStack stack)
 	{
 		NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
-		if (ItemUtils.tagHasModule(itemTag, ModularCommon.RED_TINT)
-				|| ItemUtils.tagHasModule(itemTag, ModularCommon.GREEN_TINT)
-				|| ItemUtils.tagHasModule(itemTag, ModularCommon.BLUE_TINT)) {
+		if (ItemUtils.tagHasModule(itemTag, ModularCommon.MODULE_RED_TINT)
+				|| ItemUtils.tagHasModule(itemTag, ModularCommon.MODULE_GREEN_TINT)
+				|| ItemUtils.tagHasModule(itemTag, ModularCommon.MODULE_BLUE_TINT)) {
 			MuseLogger.logDebug("True!");
 			return true;
 		} else {
@@ -268,7 +268,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 
 	@Override
 	public double onUse(double joulesNeeded, ItemStack itemStack) {
-		return ModularCommon.discharge(joulesNeeded, itemStack);
+		return ModularCommon.onUse(joulesNeeded, itemStack);
 	}
 
 	@Override
@@ -340,7 +340,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 			joulesRequested = maxJoules / 200.0;
 		}
 		double currentJoules = ModularCommon.getJoules(stack);
-		double givenJoules = ModularCommon.discharge(joulesRequested, stack);
+		double givenJoules = ModularCommon.onUse(joulesRequested, stack);
 		if (simulate) {
 			ModularCommon.setJoules(currentJoules, stack);
 		}

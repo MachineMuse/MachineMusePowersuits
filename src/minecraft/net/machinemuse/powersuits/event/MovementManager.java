@@ -3,12 +3,9 @@ package net.machinemuse.powersuits.event;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.item.ItemPowerArmor;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.item.ModularCommon;
-import net.machinemuse.powersuits.network.MusePacket;
-import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -44,14 +41,6 @@ public class MovementManager {
 				if (drain < avail) {
 					ItemUtils.drainPlayerEnergy(player, drain);
 					setPlayerJumpTicks(player, jumpAssist);
-					double jumpCompensationRatio = ModuleManager.computeModularProperty(stack, ModularCommon.JUMP_FOOD_COMPENSATION);
-					MuseLogger.logDebug("Jumped");
-					if (player.isSprinting()) {
-						player.getFoodStats().addExhaustion((float) (-0.8 * jumpCompensationRatio));
-					} else {
-						player.getFoodStats().addExhaustion((float) (-0.2 * jumpCompensationRatio));
-					}
-
 				}
 			}
 

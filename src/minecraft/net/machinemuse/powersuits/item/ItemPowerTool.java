@@ -299,7 +299,7 @@ public class ItemPowerTool extends ItemTool
 
 	@Override
 	public double onUse(double joulesNeeded, ItemStack itemStack) {
-		return ModularCommon.discharge(joulesNeeded, itemStack);
+		return ModularCommon.onUse(joulesNeeded, itemStack);
 	}
 
 	@Override
@@ -363,7 +363,7 @@ public class ItemPowerTool extends ItemTool
 
 		double joulesRequested = ModCompatability.joulesFromEU(amount);
 		double currentJoules = ModularCommon.getJoules(stack);
-		double givenJoules = ModularCommon.discharge(joulesRequested, stack);
+		double givenJoules = ModularCommon.onUse(joulesRequested, stack);
 		if(simulate) {
 			ModularCommon.setJoules(currentJoules, stack);
 		}
@@ -414,10 +414,6 @@ public class ItemPowerTool extends ItemTool
 	@Override
 	public int getTransferLimit() {
 		return 0;
-	}
-
-	public static MuseIcon getCurrentIconFor(ItemStack itemStack) {
-		return MuseIcon.TOOL_PICK;
 	}
 
 }
