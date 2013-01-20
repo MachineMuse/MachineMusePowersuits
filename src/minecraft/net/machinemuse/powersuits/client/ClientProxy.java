@@ -4,11 +4,15 @@ import net.machinemuse.powersuits.block.TileEntityTinkerTable;
 import net.machinemuse.powersuits.block.TinkerTableRenderer;
 import net.machinemuse.powersuits.common.CommonProxy;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.common.PowersuitsMod;
+import net.machinemuse.powersuits.event.MovementManager;
+import net.machinemuse.powersuits.event.ThaumRenderEventHandler;
 import net.machinemuse.powersuits.network.MusePacketHandler;
 import net.machinemuse.powersuits.tick.PlayerTickHandlerClient;
 import net.machinemuse.powersuits.tick.RenderTickHandler;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
@@ -59,6 +63,10 @@ public class ClientProxy extends CommonProxy {
 
 		renderTickHandler = new RenderTickHandler();
 		TickRegistry.registerTickHandler(renderTickHandler, Side.CLIENT);
+		
+		if(ModCompatability.isThaumCraftLoaded() && ModCompatability.enableThaumGogglesModule()) {
+			MinecraftForge.EVENT_BUS.register(new ThaumRenderEventHandler());
+		}
 
 		packetHandler = new MusePacketHandler().register();
 	}

@@ -84,7 +84,8 @@ public abstract class ModularCommon {
 	public static final String CATEGORY_WEAPON = "Weapon";
 	public static final String CATEGORY_MOVEMENT = "Movement";
 	public static final String CATEGORY_COSMETIC = "Cosmetic";
-	public static final String CATEGORY_AQUATIC = "Aquatic";
+	public static final String CATEGORY_ENVIRONMENTAL = "Environment";
+	public static final String CATEGORY_TOOL_ADDON = "Special";
 
 	/**
 	 * Adds information to the item's tooltip when 'getting' it.

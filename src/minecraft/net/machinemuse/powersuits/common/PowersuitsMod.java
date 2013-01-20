@@ -37,7 +37,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 // Informs forge that this is a base mod class, and gives it some info for the
 // FML mod list. This is also where it looks to see if your client's version
 // matches the server's.
-@Mod(modid = "mmmPowersuits", name = "MachineMuse's Modular Powersuits", version = "0.1.37")
+@Mod(modid = "mmmPowersuits", name = "MachineMuse's Modular Powersuits", version = "0.1.42")
 // Informs forge of the requirements:
 //
 // clientSideRequired means players can't connect without it. True for things
@@ -141,6 +141,8 @@ public class PowersuitsMod {
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.postInit();
 		RecipeManager.addRecipes();
+		ModCompatability.registerModSpecificModules();
+		
 		Config.getConfig().save();
 	}
 }

@@ -44,13 +44,23 @@ public class MuseIcon {
 	public static final MuseIcon ENERGY_SHIELD = new MuseIcon(WC_ICON_PATH, 6);
 	public static final MuseIcon IRON_PLATING = new MuseIcon(WC_ICON_PATH, 7);
 	public static final MuseIcon DIAMOND_PLATING = new MuseIcon(WC_ICON_PATH, 8);
+	public static final MuseIcon TUNGSTEN_PLATING = new MuseIcon(WC_ICON_PATH, 9);
 	public static final MuseIcon HEART = new MuseIcon(WC_ICON_PATH, 13);
 	public static final MuseIcon FIELD_EMITTER = new MuseIcon(WC_ICON_PATH, 14);
 	public static final MuseIcon CARBON_MYOFIBER = new MuseIcon(WC_ICON_PATH, 15);
 	public static final MuseIcon SHOCK_ABSORBER = new MuseIcon(WC_ICON_PATH, 16);
 	public static final MuseIcon PARACHUTE_MODULE = new MuseIcon(WC_ICON_PATH, 18);
+	public static final MuseIcon WATER_ELECTROLYZER = new MuseIcon(WC_ICON_PATH, 19);
 	public static final MuseIcon TRANSPARENT_ARMOR = new MuseIcon(WC_ICON_PATH, 20);
 	public static final MuseIcon SWIM_BOOST = new MuseIcon(WC_ICON_PATH, 21);
+	public static final MuseIcon STEP_ASSIST = new MuseIcon(WC_ICON_PATH, 22);
+	public static final MuseIcon DIAMOND_PICK = new MuseIcon(WC_ICON_PATH, 26);
+	public static final MuseIcon AQUA_AFFINITY = new MuseIcon(WC_ICON_PATH, 42);
+	public static final MuseIcon WEAPON_FIRE = new MuseIcon(WC_ICON_PATH, 12);
+	public static final MuseIcon WEAPON_ELECTRIC = new MuseIcon(WC_ICON_PATH, 28);
+	public static final MuseIcon WEAPON_SOUND = new MuseIcon(WC_ICON_PATH, 44);
+	public static final MuseIcon WEAPON_GRAVITY = new MuseIcon(WC_ICON_PATH, 60);
+	
 
 	// Component icons
 	public static final MuseIcon WIRING = new MuseIcon(WC_ICON_PATH, 32);

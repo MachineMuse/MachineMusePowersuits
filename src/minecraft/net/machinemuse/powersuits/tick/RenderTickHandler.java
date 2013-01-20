@@ -11,6 +11,7 @@ import net.machinemuse.powersuits.item.ItemUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
@@ -23,9 +24,6 @@ import cpw.mods.fml.common.TickType;
  * @author MachineMuse
  */
 public class RenderTickHandler implements ITickHandler {
-	private Method thaumGuiRenderer;
-	private Object thaumcraftGui;
-
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
 
@@ -43,23 +41,8 @@ public class RenderTickHandler implements ITickHandler {
 				MuseRenderer.drawString(currStr + "/" + maxStr + " J", 1, 1);
 			}
 		}
-
-		//renderThaumGui(0, player, 0);
 	}
 
-	public void renderThaumGui(float par1, EntityPlayer player, long par2) {
-		try {
-			if (thaumGuiRenderer == null || thaumcraftGui == null && ModCompatability.isThaumCraftLoaded()) {
-				Class guiticker = Class.forName("thaumcraft.client.GUITicker");
-				thaumcraftGui = guiticker.getConstructor().newInstance();
-				thaumGuiRenderer = guiticker.getMethod("renderGogglesHUD", float.class, EntityPlayer.class, long.class);
-			}
-			thaumGuiRenderer.invoke(thaumcraftGui, par1, player, par2);
-		} catch (Exception e) {
-			MuseLogger.logError("Problem loading Thaumcraft classes to display HUD");
-			e.printStackTrace();
-		}
-	}
 
 	@Override
 	public EnumSet<TickType> ticks() {

@@ -195,6 +195,22 @@ public class Config {
 				.addTradeoffProperty("Overclock", ModularCommon.PICKAXE_HARVEST_SPEED, 18);
 		ModuleManager.addModule(module);
 
+
+		module = new PowerModule(ModularCommon.MODULE_DIAMOND_PICK_UPGRADE, TOOLONLY, MuseIcon.DIAMOND_PICK, ModularCommon.CATEGORY_TOOL_ADDON)
+				.setDescription("Add diamonds to allow your pickaxe module to mine Obsidian. *REQUIRES PICKAXE MODULE TO WORK*")
+				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
+				.addInstallCost(new ItemStack(Item.diamond, 3));
+		ModuleManager.addModule(module);
+
+		module = new PowerModule(ModularCommon.MODULE_AQUA_AFFINITY, TOOLONLY, MuseIcon.AQUA_AFFINITY, ModularCommon.CATEGORY_TOOL_ADDON)
+				.setDescription("Reduces the speed penalty for using your tool underwater.")
+				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 1))
+				.addBaseProperty(ModularCommon.AQUA_AFFINITY_ENERGY_CONSUMPTION, 0, "J")
+				.addBaseProperty(ModularCommon.UNDERWATER_HARVEST_SPEED, 0.2, "%")
+				.addTradeoffProperty("Power", ModularCommon.AQUA_AFFINITY_ENERGY_CONSUMPTION, 100)
+				.addTradeoffProperty("Power", ModularCommon.UNDERWATER_HARVEST_SPEED, 0.8);
+		ModuleManager.addModule(module);
+
 		module = new PowerModule(ModularCommon.MODULE_BATTERY_BASIC, ALLITEMS, MuseIcon.BATTERY1, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Integrate a battery to allow the item to store energy.")
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1))
@@ -221,26 +237,7 @@ public class Config {
 				.addTradeoffProperty("Battery Size", ModularCommon.MAXIMUM_ENERGY, 4250000)
 				.addTradeoffProperty("Battery Size", ModularCommon.WEIGHT, 8000);
 		ModuleManager.addModule(module);
-
-		module = new PowerModule(ModularCommon.MODULE_DIAMOND_PICK_UPGRADE, TOOLONLY, MuseIcon.INDICATOR_1_BLUE, ModularCommon.CATEGORY_TOOL)
-				.setDescription("Add diamonds to allow your pickaxe module to mine Obsidian. *REQUIRES PICKAXE MODULE TO WORK*")
-				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
-				.addInstallCost(new ItemStack(Item.diamond, 3));
-		ModuleManager.addModule(module);
-
-		module = new PowerModule(ModularCommon.MODULE_TINT, ARMORONLY, MuseIcon.NETHERSTAR, ModularCommon.CATEGORY_COSMETIC)
-				.setDescription("Give your armor some coloured tinting to customize your armor's appearance.")
-				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1))
-				.addTradeoffProperty("Red Intensity", ModularCommon.RED_TINT, 1, "%")
-				.addTradeoffProperty("Green Intensity", ModularCommon.GREEN_TINT, 1, "%")
-				.addTradeoffProperty("Blue Intensity", ModularCommon.BLUE_TINT, 1, "%");
-		ModuleManager.addModule(module);
-
-		module = new PowerModule(ModularCommon.MODULE_TRANSPARENT_ARMOR, ARMORONLY, MuseIcon.TRANSPARENT_ARMOR, ModularCommon.CATEGORY_COSMETIC)
-				.setDescription("Make the item transparent, so you can show off your skin without losing armor.")
-				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1));
-		ModuleManager.addModule(module);
-
+		
 		module = new PowerModule(ModularCommon.MODULE_SPRINT_ASSIST, LEGSONLY, MuseIcon.SPRINT_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("A set of servo motors to help you sprint (double-tap forward) faster.")
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 4));
@@ -306,22 +303,13 @@ public class Config {
 				.addTradeoffProperty("Thrust", ModularCommon.JET_THRUST, 0.08);
 		ModuleManager.addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_WATER_ELECTROLYZER, HEADONLY, MuseIcon.HEART, ModularCommon.CATEGORY_AQUATIC)
+		module = new PowerModule(ModularCommon.MODULE_WATER_ELECTROLYZER, HEADONLY, MuseIcon.WATER_ELECTROLYZER, ModularCommon.CATEGORY_ENVIRONMENTAL)
 				.setDescription("When you run out of air, this module will jolt the water around you, electrolyzing a small bubble to breathe from.")
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1))
 				.addBaseProperty(ModularCommon.WATERBREATHING_ENERGY_CONSUMPTION, 1000, "J");
 		ModuleManager.addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_AQUA_AFFINITY, TOOLONLY, MuseIcon.ORB_1_BLUE, ModularCommon.CATEGORY_AQUATIC)
-				.setDescription("Reduces the speed penalty for using your tool underwater.")
-				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 1))
-				.addBaseProperty(ModularCommon.AQUA_AFFINITY_ENERGY_CONSUMPTION, 0, "J")
-				.addBaseProperty(ModularCommon.UNDERWATER_HARVEST_SPEED, 0.2, "%")
-				.addTradeoffProperty("Power", ModularCommon.AQUA_AFFINITY_ENERGY_CONSUMPTION, 100)
-				.addTradeoffProperty("Power", ModularCommon.UNDERWATER_HARVEST_SPEED, 0.8);
-		ModuleManager.addModule(module);
-
-		module = new PowerModule(ModularCommon.MODULE_SWIM_BOOST, LEGSONLY, MuseIcon.SWIM_BOOST, ModularCommon.CATEGORY_AQUATIC)
+		module = new PowerModule(ModularCommon.MODULE_SWIM_BOOST, LEGSONLY, MuseIcon.SWIM_BOOST, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription(
 						"By refitting an ion thruster for underwater use, you may be able to add extra forward (or backward) thrust when underwater.")
 				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 1))
@@ -330,9 +318,22 @@ public class Config {
 				.addTradeoffProperty("Thrust", ModularCommon.SWIM_BOOST_AMOUNT, 1, "m/s");
 		ModuleManager.addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_CLIMB_ASSIST, LEGSONLY, MuseIcon.INDICATOR_1_BLUE, ModularCommon.CATEGORY_MOVEMENT)
+		module = new PowerModule(ModularCommon.MODULE_CLIMB_ASSIST, LEGSONLY, MuseIcon.STEP_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("A pair of dedicated servos allow you to effortlessly step up 1m-high ledges.")
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2));
+		ModuleManager.addModule(module);
+
+		module = new PowerModule(ModularCommon.MODULE_TINT, ARMORONLY, MuseIcon.NETHERSTAR, ModularCommon.CATEGORY_COSMETIC)
+				.setDescription("Give your armor some coloured tinting to customize your armor's appearance.")
+				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1))
+				.addTradeoffProperty("Red Intensity", ModularCommon.RED_TINT, 1, "%")
+				.addTradeoffProperty("Green Intensity", ModularCommon.GREEN_TINT, 1, "%")
+				.addTradeoffProperty("Blue Intensity", ModularCommon.BLUE_TINT, 1, "%");
+		ModuleManager.addModule(module);
+
+		module = new PowerModule(ModularCommon.MODULE_TRANSPARENT_ARMOR, ARMORONLY, MuseIcon.TRANSPARENT_ARMOR, ModularCommon.CATEGORY_COSMETIC)
+				.setDescription("Make the item transparent, so you can show off your skin without losing armor.")
+				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1));
 		ModuleManager.addModule(module);
 
 		// red = 1, green = 2, blue = 4
