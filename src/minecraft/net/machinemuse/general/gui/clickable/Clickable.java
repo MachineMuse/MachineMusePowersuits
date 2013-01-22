@@ -25,4 +25,8 @@ public abstract class Clickable implements IClickable {
 	public void setPosition(Point2D position) {
 		this.position = position;
 	}
+	public void move(double x, double y) {
+		this.position.setX(x);
+		this.position.setY(y);
+	}
 }

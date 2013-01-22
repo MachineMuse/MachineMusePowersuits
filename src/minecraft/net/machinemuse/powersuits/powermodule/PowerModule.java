@@ -26,6 +26,7 @@ public class PowerModule {
 	protected NBTTagCompound defaultTag;
 	protected Map<String, List<IPropertyModifier>> propertyModifiers;
 	protected static Map<String, String> units = new HashMap();
+	protected boolean toggleable = true;
 
 	public PowerModule(String name, boolean[] validSlots, MuseIcon icon, String category) {
 		this.name = name;
@@ -52,6 +53,14 @@ public class PowerModule {
 
 	public MuseIcon getIcon() {
 		return icon;
+	}
+
+	public boolean isToggleable() {
+		return toggleable;
+	}
+	public PowerModule setToggleable(boolean value) {
+		this.toggleable = value;
+		return this;
 	}
 
 	public PowerModule addTradeoffProperty(String tradeoffName, String propertyName, double multiplier) {
@@ -158,6 +167,6 @@ public class PowerModule {
 	}
 
 	public boolean equals(PowerModule other) {
-		return other == this;
+		return other != null && other.name == this.name;
 	}
 }

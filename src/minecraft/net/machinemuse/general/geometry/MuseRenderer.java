@@ -8,6 +8,7 @@ import java.util.List;
 
 import net.machinemuse.general.gui.MuseGui;
 import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.general.gui.clickable.IClickable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.PositionTextureVertex;
@@ -721,5 +722,33 @@ public abstract class MuseRenderer {
 			renderItem = new RenderItem();
 		}
 		return renderItem;
+	}
+
+	public static void drawLineBetween(IClickable firstClickable, IClickable secondClickable, Colour gradientColour) {
+		long varia = System.currentTimeMillis() % 2000 - 1000; // ranges from -1000 to 1000 and around, period = 2 seconds
+		double gradientRatio = 1.0 - ((varia + 1000) % 1000)/1000.0;
+		Point2D midpoint = (firstClickable.getPosition().minus(secondClickable.getPosition()).times(Math.abs(varia/1000.0)).plus(secondClickable.getPosition()));
+		Point2D firstpoint, secondpoint;
+		if(varia < 0) {
+			firstpoint = secondClickable.getPosition();
+			secondpoint = firstClickable.getPosition();
+		} else {
+			firstpoint = firstClickable.getPosition();
+			secondpoint = secondClickable.getPosition();
+		}
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		GL11.glBegin(GL11.GL_LINES);
+		gradientColour.withAlpha(gradientRatio).doGL();
+		GL11.glVertex3d(midpoint.x(), midpoint.y(), 1);
+		gradientColour.withAlpha(0.0).doGL();
+		GL11.glVertex3d(firstpoint.x(), firstpoint.y(), 1);
+
+		gradientColour.withAlpha(gradientRatio).doGL();
+		GL11.glVertex3d(secondpoint.x(), secondpoint.y(), 1);
+		Colour.WHITE.withAlpha(1.0).doGL();
+		GL11.glVertex3d(midpoint.x(), midpoint.y(), 1);
+		GL11.glEnd();
+
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
 	}
 }

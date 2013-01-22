@@ -42,4 +42,15 @@ public class ClickableLabel implements IClickable {
 		return null;
 	}
 
+	@Override
+	public void move(double x, double y) {
+		this.position.setX(x);
+		this.position.setY(y);
+	}
+
+	@Override
+	public Point2D getPosition() {
+		return position;
+	}
+
 }

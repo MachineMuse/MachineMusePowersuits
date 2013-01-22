@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.common;
 
+import net.machinemuse.general.gui.KeyConfigGui;
 import net.machinemuse.powersuits.block.GuiTinkerTable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -31,6 +32,8 @@ public class GuiHandler implements IGuiHandler {
 			Minecraft.getMinecraft().thePlayer.addStat(
 					AchievementList.openInventory, 1);
 			return new GuiTinkerTable((EntityClientPlayerMP) player);
+		case 1:
+			return new KeyConfigGui(player);
 		default:
 			return null;
 		}

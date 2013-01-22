@@ -469,4 +469,17 @@ public class ItemUtils {
 			}
 		}
 	}
+	
+	public static List<PowerModule> getPlayerInstalledModules(EntityPlayer player) {
+		List<PowerModule> installedModules = new ArrayList();
+		for (ItemStack stack : ItemUtils.getModularItemsInInventory(player)) {
+			NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
+			for(PowerModule module : ItemUtils.getValidModulesForItem(player, stack)) {
+				if(tagHasModule(itemTag, module.getName())) {
+					installedModules.add(module);
+				}
+			}
+		}
+		return installedModules;
+	}
 }

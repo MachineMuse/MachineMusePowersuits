@@ -16,7 +16,7 @@ import net.machinemuse.powersuits.powermodule.PowerModule;
  * @author MachineMuse
  */
 public class ClickableModule extends Clickable {
-	private PowerModule module;
+	protected PowerModule module;
 
 	/**
 	 * @param vaug

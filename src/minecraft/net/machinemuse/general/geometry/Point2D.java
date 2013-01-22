@@ -49,4 +49,27 @@ public class Point2D {
 	public Point2D times(double scalefactor) {
 		return new Point2D(x * scalefactor, y * scalefactor);
 	}
+
+	public double distance() {
+		return Math.sqrt(x*x + y*y);
+	}
+
+	public double distanceTo(Point2D position) {
+		return Math.sqrt(distanceSq(position));
+	}
+
+	public double distanceSq(Point2D position) {
+		double xdist = position.x - this.x;
+		double ydist = position.y - this.y;
+		return xdist*xdist+ydist*ydist;
+	}
+
+	public Point2D normalize() {
+		double distance = distance();
+		return new Point2D(x/distance, y/distance);
+	}
+
+	public Point2D midpoint(Point2D target) {
+		return new Point2D((this.x + target.x)/2, (this.y + target.y)/2);
+	}
 }
