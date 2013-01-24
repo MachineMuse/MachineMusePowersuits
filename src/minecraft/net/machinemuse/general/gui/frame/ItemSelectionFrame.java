@@ -7,7 +7,7 @@ import java.util.List;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.FlyFromPointToPoint2D;
 import net.machinemuse.general.geometry.MuseRenderer;
-import net.machinemuse.general.geometry.Point2D;
+import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,9 +16,9 @@ public class ItemSelectionFrame extends ScrollableFrame {
 	protected List<ClickableItem> itemButtons;
 	protected int selectedItemStack = -1;
 	protected EntityPlayer player;
-	protected List<Point2D> itemPoints;
+	protected List<MusePoint2D> itemPoints;
 
-	public ItemSelectionFrame(Point2D topleft, Point2D bottomright,
+	public ItemSelectionFrame(MusePoint2D topleft, MusePoint2D bottomright,
 			Colour borderColour, Colour insideColour, EntityPlayer player) {
 		super(topleft, bottomright, borderColour, insideColour);
 		this.player = player;
@@ -32,13 +32,13 @@ public class ItemSelectionFrame extends ScrollableFrame {
 		double centerx = (topleft.x() + bottomright.x()) / 2;
 		double centery = (topleft.y() + bottomright.y()) / 2;
 		itemPoints = new ArrayList();
-		List<Point2D> targetPoints = MuseRenderer.pointsInLine(num,
-				new Point2D(centerx, bottomright.y()),
-				new Point2D(centerx, topleft.y()));
-		for (Point2D point : targetPoints) {
+		List<MusePoint2D> targetPoints = MuseRenderer.pointsInLine(num,
+				new MusePoint2D(centerx, bottomright.y()),
+				new MusePoint2D(centerx, topleft.y()));
+		for (MusePoint2D point : targetPoints) {
 			// Fly from middle over 200 ms
 			itemPoints.add(new FlyFromPointToPoint2D(
-					new Point2D(centerx, centery),
+					new MusePoint2D(centerx, centery),
 					point, 200));
 		}
 	}
@@ -54,7 +54,7 @@ public class ItemSelectionFrame extends ScrollableFrame {
 				loadPoints(slots.size());
 			}
 			if (slots.size() > 0) {
-				Iterator<Point2D> pointiterator = itemPoints.iterator();
+				Iterator<MusePoint2D> pointiterator = itemPoints.iterator();
 
 				for (int slot : slots) {
 					ClickableItem clickie = new ClickableItem(

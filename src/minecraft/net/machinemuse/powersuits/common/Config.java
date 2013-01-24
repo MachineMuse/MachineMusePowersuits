@@ -1,7 +1,5 @@
 package net.machinemuse.powersuits.common;
 
-import org.lwjgl.input.Keyboard;
-
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -9,11 +7,13 @@ import net.machinemuse.powersuits.item.ModularCommon;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
+
+import org.lwjgl.input.Keyboard;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 
@@ -93,6 +93,15 @@ public class Config {
 	 */
 	public static double getSalvageChance() {
 		return config.get(Configuration.CATEGORY_GENERAL, "Salvage Ratio", 0.9).getDouble(0.9);
+	}
+
+	/**
+	 * Whether or not to print debugging info.
+	 * 
+	 * @return
+	 */
+	public static boolean isDebugging() {
+		return config.get(Configuration.CATEGORY_GENERAL, "Debugging info", false).getBoolean(false);
 	}
 
 	/**

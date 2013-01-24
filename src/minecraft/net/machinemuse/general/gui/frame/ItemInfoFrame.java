@@ -5,7 +5,7 @@ import java.util.List;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
-import net.machinemuse.general.geometry.Point2D;
+import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemUtils;
@@ -19,8 +19,8 @@ public class ItemInfoFrame extends ScrollableFrame {
 	protected EntityPlayer player;
 	protected List<String> info;
 	
-	public ItemInfoFrame(EntityPlayer player, Point2D topleft,
-			Point2D bottomright,
+	public ItemInfoFrame(EntityPlayer player, MusePoint2D topleft,
+			MusePoint2D bottomright,
 			Colour borderColour, Colour insideColour, ItemSelectionFrame target) {
 		super(topleft, bottomright, borderColour, insideColour);
 		this.topleft = topleft.times(1.0 / SCALEFACTOR);

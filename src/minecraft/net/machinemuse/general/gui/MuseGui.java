@@ -7,7 +7,7 @@ import java.util.List;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.FlyFromPointToPoint2D;
 import net.machinemuse.general.geometry.MuseRenderer;
-import net.machinemuse.general.geometry.Point2D;
+import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.Clickable;
 import net.machinemuse.general.gui.frame.IGuiFrame;
 import net.minecraft.client.gui.GuiScreen;
@@ -30,7 +30,7 @@ public class MuseGui extends GuiScreen {
 	protected static RenderItem renderItem;
 	protected final boolean usePretty = true;
 	protected static final Tessellator tesselator = Tessellator.instance;
-	protected Point2D ul, br;
+	protected MusePoint2D ul, br;
 	protected long creationTime;
 	protected int xSize;
 	protected int ySize;

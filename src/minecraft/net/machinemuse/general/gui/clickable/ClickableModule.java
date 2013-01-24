@@ -6,7 +6,7 @@ import java.util.List;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
-import net.machinemuse.general.geometry.Point2D;
+import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 
 /**
@@ -21,7 +21,7 @@ public class ClickableModule extends Clickable {
 	/**
 	 * @param vaug
 	 */
-	public ClickableModule(PowerModule module, Point2D position) {
+	public ClickableModule(PowerModule module, MusePoint2D position) {
 		super(position);
 		this.setModule(module);
 	}

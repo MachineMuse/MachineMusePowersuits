@@ -3,13 +3,13 @@ package net.machinemuse.general.gui.clickable;
 import java.util.List;
 
 import net.machinemuse.general.geometry.MuseRenderer;
-import net.machinemuse.general.geometry.Point2D;
+import net.machinemuse.general.geometry.MusePoint2D;
 
 public class ClickableLabel implements IClickable {
 	protected String label;
-	protected Point2D position;
+	protected MusePoint2D position;
 
-	public ClickableLabel(String label, Point2D position) {
+	public ClickableLabel(String label, MusePoint2D position) {
 		this.label = label;
 		this.position = position;
 	}
@@ -49,7 +49,7 @@ public class ClickableLabel implements IClickable {
 	}
 
 	@Override
-	public Point2D getPosition() {
+	public MusePoint2D getPosition() {
 		return position;
 	}
 

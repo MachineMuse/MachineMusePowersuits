@@ -3,7 +3,7 @@ package net.machinemuse.general.gui.clickable;
 import java.util.List;
 
 import net.machinemuse.general.geometry.MuseRenderer;
-import net.machinemuse.general.geometry.Point2D;
+import net.machinemuse.general.geometry.MusePoint2D;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
@@ -21,7 +21,7 @@ public class ClickableItem extends Clickable {
 	public int inventorySlot;
 	protected ItemStack item;
 
-	public ClickableItem(ItemStack item, Point2D pos, int inventorySlot) {
+	public ClickableItem(ItemStack item, MusePoint2D pos, int inventorySlot) {
 		super(pos);
 		this.inventorySlot = inventorySlot;
 		this.item = item;

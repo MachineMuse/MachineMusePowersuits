@@ -6,7 +6,7 @@ import java.util.Set;
 import net.machinemuse.general.NBTTagAccessor;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
-import net.machinemuse.general.geometry.Point2D;
+import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,7 +18,7 @@ public class StatsFrame extends ScrollableFrame {
 	protected ItemStack stack;
 	protected Set<String> propertiesToList;
 	
-	public StatsFrame(Point2D topleft, Point2D bottomright,
+	public StatsFrame(MusePoint2D topleft, MusePoint2D bottomright,
 			Colour borderColour, Colour insideColour, ItemStack stack) {
 		super(topleft, bottomright, borderColour, insideColour);
 		this.stack = stack;

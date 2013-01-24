@@ -70,14 +70,14 @@ public abstract class MuseRenderer {
 	 * 
 	 * @return A list of num points
 	 */
-	public static List<Point2D> pointsInLine(int num, Point2D a, Point2D b) {
-		List<Point2D> points = new ArrayList<Point2D>();
+	public static List<MusePoint2D> pointsInLine(int num, MusePoint2D a, MusePoint2D b) {
+		List<MusePoint2D> points = new ArrayList<MusePoint2D>();
 		if (num < 1) {
 			return points;
 		} else if (num < 2) {
 			points.add(b.minus(a).times(0.5F).plus(a));
 		} else {
-			Point2D step = b.minus(a).times(1.0F / (num + 1));
+			MusePoint2D step = b.minus(a).times(1.0F / (num + 1));
 			for (int i = 1; i < num + 1; i++) {
 				points.add(a.plus(step.times(i)));
 			}
@@ -436,7 +436,7 @@ public abstract class MuseRenderer {
 		texturelessOff();
 	}
 
-	public static void drawFrameRect(Point2D topleft, Point2D bottomright,
+	public static void drawFrameRect(MusePoint2D topleft, MusePoint2D bottomright,
 			Colour borderColour, Colour insideColour, double zLevel,
 			double cornerRadius) {
 		drawFrameRect(topleft.x(), topleft.y(), bottomright.x(),
@@ -727,8 +727,8 @@ public abstract class MuseRenderer {
 	public static void drawLineBetween(IClickable firstClickable, IClickable secondClickable, Colour gradientColour) {
 		long varia = System.currentTimeMillis() % 2000 - 1000; // ranges from -1000 to 1000 and around, period = 2 seconds
 		double gradientRatio = 1.0 - ((varia + 1000) % 1000)/1000.0;
-		Point2D midpoint = (firstClickable.getPosition().minus(secondClickable.getPosition()).times(Math.abs(varia/1000.0)).plus(secondClickable.getPosition()));
-		Point2D firstpoint, secondpoint;
+		MusePoint2D midpoint = (firstClickable.getPosition().minus(secondClickable.getPosition()).times(Math.abs(varia/1000.0)).plus(secondClickable.getPosition()));
+		MusePoint2D firstpoint, secondpoint;
 		if(varia < 0) {
 			firstpoint = secondClickable.getPosition();
 			secondpoint = firstClickable.getPosition();

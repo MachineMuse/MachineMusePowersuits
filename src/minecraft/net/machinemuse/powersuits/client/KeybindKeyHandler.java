@@ -2,7 +2,6 @@ package net.machinemuse.powersuits.client;
 
 import java.util.EnumSet;
 
-import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.common.PowersuitsMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -31,12 +30,12 @@ public class KeybindKeyHandler extends KeyHandler {
 
 	@Override
 	public void keyDown(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd, boolean isRepeat) {
-		MuseLogger.logDebug("Key " + kb + " Pressed");
 		if (kb.equals(openKeybindGUI)) {
-			MuseLogger.logDebug("Opening KB Gui");
 			EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
 			World world = Minecraft.getMinecraft().theWorld;
-			player.openGui(PowersuitsMod.instance, 1, world, 0, 0, 0);
+			if (Minecraft.getMinecraft().inGameHasFocus) {
+				player.openGui(PowersuitsMod.instance, 1, world, 0, 0, 0);
+			}
 		}
 	}
 

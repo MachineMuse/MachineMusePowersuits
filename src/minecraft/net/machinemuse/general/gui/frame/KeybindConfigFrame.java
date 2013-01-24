@@ -6,7 +6,7 @@ import java.util.List;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
-import net.machinemuse.general.geometry.Point2D;
+import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.general.gui.clickable.IClickable;
@@ -20,26 +20,26 @@ public class KeybindConfigFrame implements IGuiFrame {
 	protected IClickable selectedClickie;
 	protected ClickableKeybinding closestKeybind;
 	protected EntityPlayer player;
-	protected Point2D ul;
-	protected Point2D br;
+	protected MusePoint2D ul;
+	protected MusePoint2D br;
 
-	public KeybindConfigFrame(Point2D ul, Point2D br, EntityPlayer player) {
+	public KeybindConfigFrame(MusePoint2D ul, MusePoint2D br, EntityPlayer player) {
 		modules = new ArrayList();
 		keybinds = new ArrayList();
 		this.ul = ul;
 		this.br = br;
 		List<PowerModule> installedModules = ItemUtils.getPlayerInstalledModules(player);
-		List<Point2D> points = MuseRenderer.pointsInLine(
+		List<MusePoint2D> points = MuseRenderer.pointsInLine(
 				installedModules.size(),
-				new Point2D(ul.x() + 10, ul.y() + 10),
-				new Point2D(ul.x() + 10, br.y() - 10));
-		Iterator<Point2D> pointIterator = points.iterator();
+				new MusePoint2D(ul.x() + 10, ul.y() + 10),
+				new MusePoint2D(ul.x() + 10, br.y() - 10));
+		Iterator<MusePoint2D> pointIterator = points.iterator();
 		for (PowerModule module : installedModules) {
 			if (module.isToggleable()) {
 				modules.add(new ClickableModule(module, pointIterator.next()));
 			}
 		}
-		keybinds.add(new ClickableKeybinding("B", new Point2D(br.x() - 10, br.y() - 10)));
+		keybinds.add(new ClickableKeybinding("B", new MusePoint2D(br.x() - 10, br.y() - 10)));
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class KeybindConfigFrame implements IGuiFrame {
 	}
 
 	private void clampModulePosition(ClickableModule module) {
-		Point2D position = module.getPosition();
+		MusePoint2D position = module.getPosition();
 		position.setX(clampDouble(position.x(), ul.x(), br.x()));
 		position.setY(clampDouble(position.y(), ul.y(), br.y()));
 	}
@@ -126,13 +126,13 @@ public class KeybindConfigFrame implements IGuiFrame {
 	}
 
 	private void repelOtherModules(ClickableModule module) {
-		Point2D modulePosition = module.getPosition();
+		MusePoint2D modulePosition = module.getPosition();
 		for (ClickableModule otherModule : modules) {
 			if (otherModule != selectedClickie && otherModule != module && otherModule.getPosition().distanceTo(modulePosition) < 16) {
-				Point2D euclideanDistance = otherModule.getPosition().minus(module.getPosition());
-				Point2D directionVector = euclideanDistance.normalize();
-				Point2D tangentTarget = directionVector.times(16).plus(module.getPosition());
-				Point2D midpointTangent = otherModule.getPosition().midpoint(tangentTarget);
+				MusePoint2D euclideanDistance = otherModule.getPosition().minus(module.getPosition());
+				MusePoint2D directionVector = euclideanDistance.normalize();
+				MusePoint2D tangentTarget = directionVector.times(16).plus(module.getPosition());
+				MusePoint2D midpointTangent = otherModule.getPosition().midpoint(tangentTarget);
 				if (midpointTangent.distanceTo(module.getPosition()) > 2) {
 					otherModule.move(midpointTangent.x(), midpointTangent.y());
 				}

@@ -9,16 +9,16 @@ package net.machinemuse.general.geometry;
  * @author MachineMuse
  * 
  */
-public class Point2D {
+public class MusePoint2D {
 	protected double x;
 	protected double y;
 
-	public Point2D(double x, double y) {
+	public MusePoint2D(double x, double y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	public Point2D(Point2D p) {
+	public MusePoint2D(MusePoint2D p) {
 		this(p.x, p.y);
 	}
 
@@ -38,38 +38,38 @@ public class Point2D {
 		this.y = y;
 	}
 
-	public Point2D plus(Point2D b) {
-		return new Point2D(x + b.x, y + b.y);
+	public MusePoint2D plus(MusePoint2D b) {
+		return new MusePoint2D(x + b.x, y + b.y);
 	}
 
-	public Point2D minus(Point2D b) {
-		return new Point2D(x - b.x, y - b.y);
+	public MusePoint2D minus(MusePoint2D b) {
+		return new MusePoint2D(x - b.x, y - b.y);
 	}
 
-	public Point2D times(double scalefactor) {
-		return new Point2D(x * scalefactor, y * scalefactor);
+	public MusePoint2D times(double scalefactor) {
+		return new MusePoint2D(x * scalefactor, y * scalefactor);
 	}
 
 	public double distance() {
 		return Math.sqrt(x*x + y*y);
 	}
 
-	public double distanceTo(Point2D position) {
+	public double distanceTo(MusePoint2D position) {
 		return Math.sqrt(distanceSq(position));
 	}
 
-	public double distanceSq(Point2D position) {
+	public double distanceSq(MusePoint2D position) {
 		double xdist = position.x - this.x;
 		double ydist = position.y - this.y;
 		return xdist*xdist+ydist*ydist;
 	}
 
-	public Point2D normalize() {
+	public MusePoint2D normalize() {
 		double distance = distance();
-		return new Point2D(x/distance, y/distance);
+		return new MusePoint2D(x/distance, y/distance);
 	}
 
-	public Point2D midpoint(Point2D target) {
-		return new Point2D((this.x + target.x)/2, (this.y + target.y)/2);
+	public MusePoint2D midpoint(MusePoint2D target) {
+		return new MusePoint2D((this.x + target.x)/2, (this.y + target.y)/2);
 	}
 }

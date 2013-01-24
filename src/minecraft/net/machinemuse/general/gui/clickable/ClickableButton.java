@@ -7,7 +7,7 @@ import java.util.List;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
-import net.machinemuse.general.geometry.Point2D;
+import net.machinemuse.general.geometry.MusePoint2D;
 
 /**
  * @author MachineMuse
@@ -15,10 +15,10 @@ import net.machinemuse.general.geometry.Point2D;
  */
 public class ClickableButton extends Clickable {
 	protected String label;
-	protected Point2D radius;
+	protected MusePoint2D radius;
 	protected boolean enabled;
 
-	public ClickableButton(String label, Point2D position, Point2D radius,
+	public ClickableButton(String label, MusePoint2D position, MusePoint2D radius,
 			boolean enabled) {
 		this.label = label;
 		this.position = position;

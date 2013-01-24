@@ -1,6 +1,6 @@
 package net.machinemuse.general.gui.clickable;
 
-import net.machinemuse.general.geometry.Point2D;
+import net.machinemuse.general.geometry.MusePoint2D;
 
 /**
  * Defines a generic clickable item for a MuseGui.
@@ -8,21 +8,21 @@ import net.machinemuse.general.geometry.Point2D;
  * @author MachineMuse
  */
 public abstract class Clickable implements IClickable {
-	protected Point2D position;
+	protected MusePoint2D position;
 
 	public Clickable() {
-		position = new Point2D(0, 0);
+		position = new MusePoint2D(0, 0);
 	}
 
-	public Clickable(Point2D point) {
+	public Clickable(MusePoint2D point) {
 		position = point;
 	}
 
-	public Point2D getPosition() {
+	public MusePoint2D getPosition() {
 		return position;
 	}
 
-	public void setPosition(Point2D position) {
+	public void setPosition(MusePoint2D position) {
 		this.position = position;
 	}
 	public void move(double x, double y) {

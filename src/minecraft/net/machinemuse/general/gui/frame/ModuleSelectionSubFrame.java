@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.machinemuse.general.geometry.MuseRenderer;
-import net.machinemuse.general.geometry.Point2D;
+import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 
 public class ModuleSelectionSubFrame {
 	protected List<ClickableModule> moduleButtons;
-	protected Point2D topleft;
-	protected Point2D bottomright;
+	protected MusePoint2D topleft;
+	protected MusePoint2D bottomright;
 	protected String category;
 	
-	public ModuleSelectionSubFrame(String category, Point2D topleft,
-			Point2D bottomright) {
+	public ModuleSelectionSubFrame(String category, MusePoint2D topleft,
+			MusePoint2D bottomright) {
 		this.category = category;
 		this.topleft = topleft;
 		this.bottomright = bottomright;
@@ -32,7 +32,7 @@ public class ModuleSelectionSubFrame {
 	public ClickableModule addModule(PowerModule module) {
 		double x = topleft.x() + 8 + 16 * moduleButtons.size();
 		double y = topleft.y() + 16;
-		ClickableModule clickie = new ClickableModule(module, new Point2D(x, y));
+		ClickableModule clickie = new ClickableModule(module, new MusePoint2D(x, y));
 		this.moduleButtons.add(clickie);
 		return clickie;
 		

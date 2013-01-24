@@ -4,19 +4,19 @@ import java.util.List;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
-import net.machinemuse.general.geometry.Point2D;
+import net.machinemuse.general.geometry.MusePoint2D;
 
 public class ScrollableFrame implements IGuiFrame {
 	protected int totalsize;
 	protected int currentscrollpixels;
 	protected int buttonsize = 5;
 	
-	protected Point2D topleft;
-	protected Point2D bottomright;
+	protected MusePoint2D topleft;
+	protected MusePoint2D bottomright;
 	protected Colour borderColour;
 	protected Colour insideColour;
 	
-	public ScrollableFrame(Point2D topleft, Point2D bottomright,
+	public ScrollableFrame(MusePoint2D topleft, MusePoint2D bottomright,
 			Colour borderColour, Colour insideColour) {
 		this.topleft = topleft;
 		this.bottomright = bottomright;

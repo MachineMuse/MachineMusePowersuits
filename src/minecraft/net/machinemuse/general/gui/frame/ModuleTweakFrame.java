@@ -11,7 +11,7 @@ import java.util.Set;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
-import net.machinemuse.general.geometry.Point2D;
+import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableSlider;
 import net.machinemuse.powersuits.item.ItemUtils;
@@ -39,7 +39,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
 
 	public ModuleTweakFrame(
 			EntityClientPlayerMP player,
-			Point2D topleft, Point2D bottomright,
+			MusePoint2D topleft, MusePoint2D bottomright,
 			Colour borderColour, Colour insideColour,
 			ItemSelectionFrame itemTarget, ModuleSelectionFrame moduleTarget) {
 		super(topleft.times(1 / SCALERATIO), bottomright.times(1 / SCALERATIO), borderColour, insideColour);
@@ -118,7 +118,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
 		for (String tweak : tweaks) {
 			y += 24;
 			ClickableSlider slider = new ClickableSlider(
-					new Point2D((topleft.x() + bottomright.x()) / 2, topleft.y() + y),
+					new MusePoint2D((topleft.x() + bottomright.x()) / 2, topleft.y() + y),
 					bottomright.x() - topleft.x() - 8,
 					moduleTag, tweak);
 			sliders.add(slider);

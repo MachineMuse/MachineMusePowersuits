@@ -3,8 +3,6 @@ package net.machinemuse.powersuits.item;
 import java.util.ArrayList;
 import java.util.List;
 
-import universalelectricity.core.electricity.ElectricInfo;
-
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
@@ -23,6 +21,7 @@ import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import universalelectricity.core.electricity.ElectricInfo;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -159,7 +158,7 @@ public class ItemPowerTool extends ItemTool
 	}
 
 	public static boolean useIronPickaxe(ItemStack stack, Block block, int meta) {
-		if (ItemUtils.itemHasModule(stack, ModularCommon.MODULE_PICKAXE)) {
+		if (ItemUtils.itemHasModule(stack, ModularCommon.MODULE_PICKAXE) && ForgeHooks.canToolHarvestBlock(block, meta, stack)) {
 			if (ForgeHooks.isToolEffective(ironPickaxe, block, meta)) {
 				return true;
 			} else if (block.blockMaterial == Material.iron

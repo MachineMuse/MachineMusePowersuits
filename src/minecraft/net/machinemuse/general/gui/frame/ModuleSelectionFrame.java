@@ -8,7 +8,7 @@ import java.util.Map;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
-import net.machinemuse.general.geometry.Point2D;
+import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.powersuits.item.ItemUtils;
@@ -21,7 +21,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 	protected int selectedModule = -1;
 	protected PowerModule prevSelection;
 
-	public ModuleSelectionFrame(Point2D topleft, Point2D bottomright,
+	public ModuleSelectionFrame(MusePoint2D topleft, MusePoint2D bottomright,
 			Colour borderColour, Colour insideColour, ItemSelectionFrame target) {
 		super(topleft, bottomright, borderColour, insideColour);
 		this.target = target;
@@ -87,12 +87,12 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 
 			List<PowerModule> workingModules = ItemUtils.getValidModulesForItem(null, selectedItem.getItem());
 			if (workingModules.size() > 0) {
-				List<Point2D> points = MuseRenderer.pointsInLine(
+				List<MusePoint2D> points = MuseRenderer.pointsInLine(
 						workingModules.size(),
-						new Point2D(centerx, topleft.y()),
-						new Point2D(centerx, bottomright.y()));
+						new MusePoint2D(centerx, topleft.y()),
+						new MusePoint2D(centerx, bottomright.y()));
 				this.selectedModule = -1;
-				Iterator<Point2D> pointiter = points.iterator();
+				Iterator<MusePoint2D> pointiter = points.iterator();
 				for (PowerModule module : workingModules) {
 					ModuleSelectionSubFrame frame = getOrCreateCategory(module.getCategory());
 					ClickableModule moduleClickable = frame.addModule(module);
@@ -111,8 +111,8 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 		} else {
 			ModuleSelectionSubFrame frame = new ModuleSelectionSubFrame(
 					category,
-					new Point2D(topleft.x() + 4, topleft.y() + 4 + 30 * categories.size()),
-					new Point2D(bottomright.x() - 4, bottomright.y() + 34 + 30 * categories.size()));
+					new MusePoint2D(topleft.x() + 4, topleft.y() + 4 + 30 * categories.size()),
+					new MusePoint2D(bottomright.x() - 4, bottomright.y() + 34 + 30 * categories.size()));
 
 			categories.put(category, frame);
 			return frame;

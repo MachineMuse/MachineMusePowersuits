@@ -4,7 +4,7 @@ import java.util.List;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
-import net.machinemuse.general.geometry.Point2D;
+import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.powersuits.item.ModularCommon;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -14,7 +14,7 @@ public class ClickableSlider extends Clickable {
 	protected double width;
 	protected static final int cornersize = 2;
 	
-	public ClickableSlider(Point2D topmiddle, double width, NBTTagCompound moduleTag, String name) {
+	public ClickableSlider(MusePoint2D topmiddle, double width, NBTTagCompound moduleTag, String name) {
 		this.moduleTag = moduleTag;
 		this.name = name;
 		this.position = topmiddle;

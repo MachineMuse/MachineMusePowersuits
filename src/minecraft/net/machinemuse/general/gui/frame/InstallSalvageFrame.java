@@ -4,7 +4,7 @@ import java.util.List;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
-import net.machinemuse.general.geometry.Point2D;
+import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableButton;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableModule;
@@ -24,8 +24,8 @@ public class InstallSalvageFrame extends ScrollableFrame {
 	protected ClickableButton salvageButton;
 	protected EntityClientPlayerMP player;
 
-	public InstallSalvageFrame(EntityClientPlayerMP player, Point2D topleft,
-			Point2D bottomright,
+	public InstallSalvageFrame(EntityClientPlayerMP player, MusePoint2D topleft,
+			MusePoint2D bottomright,
 			Colour borderColour, Colour insideColour,
 			ItemSelectionFrame targetItem, ModuleSelectionFrame targetModule) {
 		super(topleft, bottomright, borderColour, insideColour);
@@ -35,13 +35,13 @@ public class InstallSalvageFrame extends ScrollableFrame {
 		double sizex = bottomright.x() - topleft.x();
 		double sizey = bottomright.y() - topleft.y();
 
-		this.installButton = new ClickableButton("Install", new Point2D(
+		this.installButton = new ClickableButton("Install", new MusePoint2D(
 				bottomright.x() - sizex / 2.0, bottomright.y() - sizey
 						/ 4.0),
-				new Point2D(20, 6), true);
-		this.salvageButton = new ClickableButton("Salvage", new Point2D(
+				new MusePoint2D(20, 6), true);
+		this.salvageButton = new ClickableButton("Salvage", new MusePoint2D(
 				topleft.x() + sizex / 2.0, topleft.y() + sizey / 4.0),
-				new Point2D(24, 6), true);
+				new MusePoint2D(24, 6), true);
 
 	}
 

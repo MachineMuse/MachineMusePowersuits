@@ -6,13 +6,13 @@ import java.util.List;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MuseRenderer;
-import net.machinemuse.general.geometry.Point2D;
+import net.machinemuse.general.geometry.MusePoint2D;
 
 public class ClickableKeybinding extends Clickable {
 	protected List<ClickableModule> boundModules;
 	protected String label;
 
-	public ClickableKeybinding(String label, Point2D position) {
+	public ClickableKeybinding(String label, MusePoint2D position) {
 		this.label = label;
 		this.position = position;
 		this.boundModules = new ArrayList();
@@ -29,7 +29,7 @@ public class ClickableKeybinding extends Clickable {
 
 	@Override
 	public boolean hitBox(double x, double y) {
-		return position.minus(new Point2D(x, y)).distance() < 8;
+		return position.minus(new MusePoint2D(x, y)).distance() < 8;
 	}
 
 	@Override
@@ -69,10 +69,10 @@ public class ClickableKeybinding extends Clickable {
 	public void attractBoundModules(IClickable exception) {
 		for (ClickableModule module : boundModules) {
 			if (module != exception) {
-				Point2D euclideanDistance = module.getPosition().minus(this.getPosition());
-				Point2D directionVector = euclideanDistance.normalize();
-				Point2D tangentTarget = directionVector.times(getTargetDistance()).plus(this.getPosition());
-				Point2D midpointTangent = module.getPosition().midpoint(tangentTarget);
+				MusePoint2D euclideanDistance = module.getPosition().minus(this.getPosition());
+				MusePoint2D directionVector = euclideanDistance.normalize();
+				MusePoint2D tangentTarget = directionVector.times(getTargetDistance()).plus(this.getPosition());
+				MusePoint2D midpointTangent = module.getPosition().midpoint(tangentTarget);
 				module.move(midpointTangent.x(), midpointTangent.y());
 			}
 		}
