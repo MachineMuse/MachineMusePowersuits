@@ -27,14 +27,12 @@ public class ClientTickHandler implements ITickHandler {
 
 	@Override
 	public EnumSet<TickType> ticks() {
-		// TODO Auto-generated method stub
-		return null;
+		return EnumSet.of(TickType.CLIENT);
 	}
 
 	@Override
 	public String getLabel() {
-		// TODO Auto-generated method stub
-		return null;
+		return "MMMPS: Client Tick";
 	}
 
 }

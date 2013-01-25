@@ -166,7 +166,7 @@ public class RecipeManager {
 					'F', ItemComponent.fieldEmitter);
 			
 		}
-		if (ModCompatability.UERecipesEnabled()) {
+		if (ModCompatability.UERecipesEnabled() && ModCompatability.isBasicComponentsLoaded()) {
 			String basicCircuit = "basicCircuit";
 			String advancedCircuit = "advancedCircuit";
 			String eliteCircuit = "eliteCircuit";
@@ -286,7 +286,7 @@ public class RecipeManager {
 					'C', "advancedCircuit",
 					'F', ItemComponent.fieldEmitter));
 		}
-		if (ModCompatability.IC2RecipesEnabled()) {
+		if (ModCompatability.IC2RecipesEnabled() && ModCompatability.isIndustrialCraftLoaded()) {
 			circuit = ModCompatability.getIC2Item("electronicCircuit").copy();
 			ItemStack advCircuit = ModCompatability.getIC2Item("advancedCircuit").copy();
 			gold = ModCompatability.getIC2Item("goldCableItem").copy();
@@ -417,7 +417,7 @@ public class RecipeManager {
 					'C', advCircuit.copy(),
 					'M', advMachine.copy()));
 		}
-		if (ModCompatability.GregTechRecipesEnabled()) {
+		if (ModCompatability.GregTechRecipesEnabled()&& ModCompatability.isIndustrialCraftLoaded() && ModCompatability.isGregTechLoaded()) {
 			// This means Gregtech is installed, and GregoriusT in his infinite
 			// wisdom has registered literally everything in the universe with
 			// the ore dictionary, so we can just use strings here :D ...once we decide what to put.
