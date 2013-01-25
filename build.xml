@@ -1,63 +1,103 @@
 <project name="ModularPowersuits" default="install" basedir=".">
 
 	<property environment="env" />
+	<property file="build_number.txt"/>
 
+	<!-- Versions -->
+	<property name="build.ver" value="0.1" />
+    <property name="build.number" value="0" />
+    <property name="fullversion" value ="${build.ver}.${build.number}"/>
+	<property name="mcp.version" value="723" />
+	<property name="forge.version" value="1.4.7-6.6.0.497" />
+	<property name="ic2api.version" value="1.112.198-lf" />
+	<property name="ueapi.version" value="1.2.4.334" />
+
+
+	<!-- Directories -->
+	<property name="download.dir" value="downloads" />
+	<property name="ue.download.dir" value="${download.dir}/ue/minecraft/universalelectricity" />
+	<property name="src.dir" value="src" />
+	<property name="lib.dir" value="${src.dir}/lib" />
 	<property name="build.dir" value="build" />
 	<property name="classes.dir" value="${build.dir}/packaging" />
-	<property name="src.dir" value="src" />
-	<property name="forge.version" value="1.4.7-6.6.0.497" />
-	<property name="forge.url" value="http://files.minecraftforge.net/minecraftforge/minecraftforge-src-${forge.version}.zip" />
-	<property name="mcp.version" value="723" />
 	<property name="forge.dir" value="${build.dir}/forge" />
+	<property name="dist.dir" value="${build.dir}/dist" />
 	<property name="mcp.dir" value="${forge.dir}/mcp" />
 	<property name="mcpsrc.dir" value="${mcp.dir}/src/minecraft" />
-	<property name="resources.dir" value="resources" />
+	<property name="resources.dir" value="resource" />
 
+	<!-- URLs -->
+	<property name="forge.url" value="http://files.minecraftforge.net/minecraftforge/minecraftforge-src-${forge.version}.zip" />
+
+
+	<!-- Name -->
 	<property name="package.meta-inf" value="META-INF" />
-	<property name="build.ver" value="0.2.0" />
-	<!--<property name="files.minecraft.dir" value="jars" />-->
-	<property name="dist.dir" value="${build.dir}/dist" />
 
-	<property name="download.dir" value="downloads" />
 
-	<property name="lib.dir" value="${src.dir}/lib" />
 
-	<mkdir dir="${download.dir}"/>
+	<mkdir dir="${download.dir}" />
 	<mkdir dir="${build.dir}" />
 
+	<!-- Dependencies -->
+	<target name="get-coremod">
 
-	<target name="get-coremod" depends="get-version">
 		<echo message="Downloading IC2 API... " />
-		<get src="https://dl.dropbox.com/u/861751/IC2/1.112/industrialcraft-2-api_1.112.198-lf.zip" dest="${download.dir}/industrialcraft-2-api.zip"/>
-		<unzip src="${download.dir}/industrialcraft-2-api.zip" dest="${download.dir}"/>
-		<move file="${download.dir}/PowerCrystalsCore-master/src/powercrystals/core" todir="${mcpsrc.dir}/powercrystals/"/>
-		<delete file="${download.dir}/PowerCrystalsCore-master.zip"/>
+		<get src="https://dl.dropbox.com/u/861751/IC2/1.112/industrialcraft-2-api_${ic2api.version}.zip" dest="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" />
+		<unzip src="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" dest="${download.dir}" />
+		<mkdir dir="${mcpsrc.dir}/ic2" />
+		<mkdir dir="${mcpsrc.dir}/ic2/api" />
+		<move file="${download.dir}/ic2/api/Ic2Recipes.java" todir="${mcpsrc.dir}/ic2/api/" />
+		<move file="${download.dir}/ic2/api/ICustomElectricItem.java" todir="${mcpsrc.dir}/ic2/api/" />
+		<move file="${download.dir}/ic2/api/IElectricItem.java" todir="${mcpsrc.dir}/ic2/api/" />
+		<move file="${download.dir}/ic2/api/Items.java" todir="${mcpsrc.dir}/ic2/api/" />
+		<delete dir="${download.dir}/ic2" />
+
 		<echo message="Downloading Universal Electricity API..." />
-		<get src="https://github.com/BuildCraft/BuildCraft/archive/master.zip" dest="${download.dir}/BuildCraft-master.zip"/>
-		<unzip src="${download.dir}/BuildCraft-master.zip" dest="${download.dir}"/>
-		<mkdir dir="${mcpsrc.dir}/buildcraft/" />
-		<move file="${download.dir}/BuildCraft-master/common/buildcraft/api" todir="${mcpsrc.dir}/buildcraft/"/>
+		<get src="https://calclavia.com/downloads/ue/UniversalElectricity_v${ueapi.version}_api.zip" dest="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" />
+		<mkdir dir="${download.dir}/ue" />
+		<unzip src="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" dest="${download.dir}/ue" />
+		<mkdir dir="${mcpsrc.dir}/universalelectricity" />
+		<mkdir dir="${mcpsrc.dir}/universalelectricity/core" />
+		<mkdir dir="${mcpsrc.dir}/universalelectricity/core/electricity" />
+		<move file="${ue.download.dir}/core/electricity/ElectricInfo.java" todir="${mcpsrc.dir}/universalelectricity/core/electricity/ElectricInfo.java" />
+		<mkdir dir="${mcpsrc.dir}/universalelectricity/core/implement" />
+		<move file="${ue.download.dir}/core/implement/IItemElectric.java" todir="${mcpsrc.dir}/universalelectricity/core/implement/IItemElectric.java" />
+		<move file="${ue.download.dir}/core/implement/IJouleStorage.java" todir="${mcpsrc.dir}/universalelectricity/core/implement/IJouleStorage.java" />
+		<move file="${ue.download.dir}/core/implement/IVoltage.java" todir="${mcpsrc.dir}/universalelectricity/core/implement/IVoltage.java" />
+		<mkdir dir="${mcpsrc.dir}/universalelectricity/prefab" />
+		<move file="${ue.download.dir}/prefab/UEDamageSource.java" todir="${mcpsrc.dir}/universalelectricity/prefab/UEDamageSource.java" />
+		<mkdir dir="${mcpsrc.dir}/universalelectricity/prefab/potion" />
+		<move file="${ue.download.dir}/prefab/potion/CustomPotion.java" todir="${mcpsrc.dir}/universalelectricity/prefab/potion/CustomPotion.java" />
+		<move file="${ue.download.dir}/prefab/potion/CustomPotionEffect.java" todir="${mcpsrc.dir}/universalelectricity/prefab/potion/CustomPotionEffect.java" />
+		<delete dir="${download.dir}/ue" />
 	</target>
-	
-	
+
+
 	<available property="forge-exists" file="${download.dir}/minecraftforge-src-${forge.version}.zip" />
-	<available property="already-compiled" file="${classes.dir}/deathrat" />
+	<available property="already-compiled" file="${classes.dir}/net/machinemuse" />
 	<condition property="should-download-ant-contrib">
 		<or>
-			<available file="${download.dir}/ant-contrib/ant-contrib-1.0b3.jar"/>
-			<available file="${download.dir}/minecraftforge-src-${forge.version}.zip"/>
+			<available file="${download.dir}/ant-contrib/ant-contrib-1.0b3.jar" />
+			<available file="${download.dir}/minecraftforge-src-${forge.version}.zip" />
 		</or>
 	</condition>
 
+    <target name="revision">
+        <propertyfile  file="build_number">
+                <entry key="build.number" type="int" operation="+" value="1" pattern="000"/>
+        </propertyfile>
+    </target>
+	
 	<target name="install" depends="build">
-		<jar destfile="${dist.dir}/ModularPowersuits-${build.ver}-${build.number}.jar" basedir="${classes.dir}"/>
+		<jar destfile="${dist.dir}/ModularPowersuits-${fullversion}.jar" basedir="${classes.dir}" />
 		<delete dir="${classes.dir}" />
 	</target>
 
 	<target name="build" depends="get-coremod" unless="already-compiled">
+	    <antcall target="revision"/>
 		<!-- Recompile -->
 		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows" failonerror="true">
-			<arg line="/c recompile.bat"/>
+			<arg line="/c recompile.bat" />
 		</exec>
 
 		<exec dir="${mcp.dir}" executable="sh" osfamily="unix" failonerror="true">
@@ -66,39 +106,26 @@
 
 		<!-- Reobf -->
 		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows">
-			<arg line="/c reobfuscate.bat"/>
+			<arg line="/c reobfuscate.bat" />
 		</exec>
 
 		<exec dir="${mcp.dir}" executable="sh" osfamily="unix">
 			<arg value="reobfuscate.sh" />
 		</exec>
 
-		<delete dir="${mcp.dir}/reobf/minecraft/powercrystals/core"/>
-		<delete dir="${mcp.dir}/reobf/minecraft/buildcraft"/>
 		<copy todir="${classes.dir}">
-			<fileset dir="${mcp.dir}/reobf/minecraft"/>
+			<fileset dir="${mcp.dir}/reobf/minecraft" />
 		</copy>
 		<copy todir="${classes.dir}">
-			<fileset dir="${resources.dir}"/>
+			<fileset dir="${resources.dir}" />
 		</copy>
 	</target>
 
-	<target name="build-number-there" if="env.BUILD_NUMBER" >
-		<echo message="Using build number ${env.BUILD_NUMBER}..." />
-		<property name="build.number" value="${env.BUILD_NUMBER}" />
-	</target>
+	<target name="setup-forge" depends="download-forge" unless="already-compiled">
 
-	<target name="build-number-not-there" unless="env.BUILD_NUMBER" >
-		<echo message="!! No build number set !!" />
-		<property name="build.number" value="CUSTOM_BUILD" />
-	</target>
-
-	<target name="setup-forge" depends="download-forge,build-number-there,build-number-not-there" unless="already-compiled">
-
-		<property name="build.full" value="${build.number}" />
 		<unzip dest="${build.dir}">
 			<fileset dir="${download.dir}">
-				<include name="minecraftforge-src-${forge.version}.zip"/>
+				<include name="minecraftforge-src-${forge.version}.zip" />
 			</fileset>
 		</unzip>
 
@@ -106,16 +133,16 @@
 
 		<!-- Change executables' permitions -->
 
-		<chmod file="${forge.dir}/install.sh" perm="+x"/>
+		<chmod file="${forge.dir}/install.sh" perm="+x" />
 
 		<!-- if your building on OSX these 2 should be executable -->
 
 
 
 		<!-- Install forge -->
-		<delete dir="${mcp.dir}" failonerror="no"/>
+		<delete dir="${mcp.dir}" failonerror="no" />
 		<exec dir="${forge.dir}" executable="cmd" osfamily="windows" inputstring="Yes\n">
-			<arg line="/c install.cmd"/>
+			<arg line="/c install.cmd" />
 		</exec>
 
 		<exec dir="${forge.dir}" executable="sh" osfamily="unix" inputstring="Yes\n">
@@ -124,25 +151,31 @@
 		</exec>
 
 
-		<chmod file="${mcp.dir}/updatemd5.sh" perm="+x"/>
-		<chmod file="${mcp.dir}/recompile.sh" perm="+x"/>
-		<chmod file="${mcp.dir}/reobfuscate.sh" perm="+x"/>
+		<chmod file="${mcp.dir}/updatemd5.sh" perm="+x" />
+		<chmod file="${mcp.dir}/recompile.sh" perm="+x" />
+		<chmod file="${mcp.dir}/reobfuscate.sh" perm="+x" />
 		<chmod file="${mcp.dir}/runtime/bin/astyle-osx" perm="+x" />
 		<chmod file="${mcp.dir}/runtime/bin/jad-osx" perm="+x" />
 		<!-- Copy source -->
-		<mkdir dir="${mcpsrc.dir}/machinemuse" />
-		<copy todir="${mcpsrc.dir}/machinemuse">
-			<fileset dir="${src.dir}/minecraft/machinemuse"/>
+		<mkdir dir="${mcpsrc.dir}/net/machinemuse" />
+		<copy todir="${mcpsrc.dir}/net/machinemuse">
+			<fileset dir="${src.dir}/minecraft/net/machinemuse" />
+	         <filterset>
+	                <filter token="MOD_VERSION" value="${fullversion}" />
+	         </filterset>
 		</copy>
-		<copy todir="${mcpsrc.dir}" file="mcmod.info"/>
-		<mkdir dir="${mcpsrc.dir}/machinemuse" />
-		<copy todir="${mcpsrc.dir}/machinemuse" >
-			<fileset dir="${src.dir}/minecraft/machinemuse"/>
+		<copy todir="${mcpsrc.dir}" file="mcmod.info" />
+		<mkdir dir="${mcpsrc.dir}/net/machinemuse" />
+		<copy todir="${mcpsrc.dir}/net/machinemuse">
+			<fileset dir="${src.dir}/minecraft/net/machinemuse" />
+            <filterset>
+                   <filter token="MOD_VERSION" value="${fullversion}" />
+            </filterset>
 		</copy>
 
 		<!-- Copy libraries -->
-		<copy todir="${mcp.dir}/lib" >
-			<fileset dir="lib" >
+		<copy todir="${mcp.dir}/lib">
+			<fileset dir="lib">
 				<patternset includes="*.jar" />
 			</fileset>
 		</copy>
@@ -151,40 +184,39 @@
 	<target name="download-forge" depends="download-ant-contrib" unless="forge-exists">
 		<taskdef resource="net/sf/antcontrib/antlib.xml">
 			<classpath>
-				<pathelement location="${download.dir}/ant-contrib/ant-contrib-1.0b3.jar"/>
+				<pathelement location="${download.dir}/ant-contrib/ant-contrib-1.0b3.jar" />
 				<fileset dir="${download.dir}/ant-contrib/lib">
-					<include name="*.jar"/>
+					<include name="*.jar" />
 				</fileset>
 			</classpath>
 		</taskdef>
 		<echo message="Downloading forge... " />
-		<getMethod url="http://files.minecraftforge.net/minecraftforge-src-${forge.version}.zip"
-							 responseDataFile="${download.dir}/minecraftforge-src-${forge.version}.zip">
-			<header name="User-Agent" value="Ant-${ant.version}/${ant.java.version}"/>
+		<getMethod url="http://files.minecraftforge.net/minecraftforge-src-${forge.version}.zip" responseDataFile="${download.dir}/minecraftforge-src-${forge.version}.zip">
+			<header name="User-Agent" value="Ant-${ant.version}/${ant.java.version}" />
 		</getMethod>
 	</target>
 
 	<target name="download-ant-contrib" unless="should-download-ant-contrib">
-		<echo message="Getting: ant-contrib"/>
-		<mkdir dir="${download.dir}/tmp"/>
+		<echo message="Getting: ant-contrib" />
+		<mkdir dir="${download.dir}/tmp" />
 		<mkdir dir="${download.dir}/ant-contrib/lib" />
-		<get src="http://sourceforge.net/projects/ant-contrib/files/ant-contrib/1.0b3/ant-contrib-1.0b3-bin.zip/download" dest="${download.dir}/tmp/ant-contrib-1.0b3-bin.zip"/>
-		<get src="http://archive.apache.org/dist/commons/codec/binaries/commons-codec-1.6-bin.zip" dest="${download.dir}/tmp/commons-codec-1.6-bin.zip"/>
+		<get src="http://sourceforge.net/projects/ant-contrib/files/ant-contrib/1.0b3/ant-contrib-1.0b3-bin.zip/download" dest="${download.dir}/tmp/ant-contrib-1.0b3-bin.zip" />
+		<get src="http://archive.apache.org/dist/commons/codec/binaries/commons-codec-1.6-bin.zip" dest="${download.dir}/tmp/commons-codec-1.6-bin.zip" />
 
-		<unzip src="${download.dir}/tmp/ant-contrib-1.0b3-bin.zip" dest="${download.dir}"/>
-		<unzip src="${download.dir}/tmp/commons-codec-1.6-bin.zip" dest="${download.dir}/tmp"/>
+		<unzip src="${download.dir}/tmp/ant-contrib-1.0b3-bin.zip" dest="${download.dir}" />
+		<unzip src="${download.dir}/tmp/commons-codec-1.6-bin.zip" dest="${download.dir}/tmp" />
 
 		<move todir="${download.dir}/ant-contrib/lib">
-			<fileset file="${download.dir}/tmp/commons-codec-1.6/commons-codec-1.6.jar"/>
+			<fileset file="${download.dir}/tmp/commons-codec-1.6/commons-codec-1.6.jar" />
 		</move>
 
 		<!-- Delete useless files -->
-		<delete dir="${download.dir}/ant-contrib/docs"/>
-		<delete dir="${download.dir}/tmp"/>
+		<delete dir="${download.dir}/ant-contrib/docs" />
+		<delete dir="${download.dir}/tmp" />
 
 	</target>
 
-	<target name="clean" >
+	<target name="clean">
 		<delete dir="${build.dir}" />
 	</target>
 
