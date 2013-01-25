@@ -3,6 +3,7 @@
 !/src
 !/mcmod.info
 !/build.xml
+!/build_number.txt
 
 src/minecraft/*
 !src/minecraft/net
