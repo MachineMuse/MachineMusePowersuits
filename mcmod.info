@@ -8,7 +8,7 @@
     "updateUrl": "",
     "authors": [ "MachineMuse" ],
     "credits": "Code by MachineMuse, Icons by WaterCandle, Modeling by SebK",
-    "logoFile": "/resource/mmmpslogo_250.png",
+    "logoFile": "/resource/mmmpslogo_64.png",
     "screenshots": [ ],
     "parent": "",
     "requiredMods": [ "Forge" ],

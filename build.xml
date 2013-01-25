@@ -1,7 +1,7 @@
 <project name="ModularPowersuits" default="install" basedir=".">
 
 	<property environment="env" />
-	
+
 
 	<!-- Versions -->
 	<property name="build.ver" value="0.2.0" />
@@ -118,7 +118,11 @@
 		<copy todir="${classes.dir}/resource">
 			<fileset dir="${resources.dir}" />
 		</copy>
-        <copy todir="${classes.dir}" file="mcmod.info" />
+		<copy todir="${classes.dir}" file="mcmod.info">
+			<filterset>
+				<filter token="MOD_VERSION" value="${fullversion}" />
+			</filterset>
+		</copy>
 	</target>
 
 	<target name="setup-forge" depends="download-forge" unless="already-compiled">
