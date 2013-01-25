@@ -53,7 +53,7 @@
 		<delete dir="${download.dir}/ic2" />
 
 		<echo message="Downloading Universal Electricity API..." />
-		<get src="https://calclavia.com/downloads/ue/UniversalElectricity_v${ueapi.version}_api.zip" dest="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" />
+		<get src="https://dl.dropbox.com/s/7e2eox36v3mgyin/UniversalElectricity_v1.2.4.334_api.zip" dest="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" />
 		<mkdir dir="${download.dir}/ue" />
 		<unzip src="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" dest="${download.dir}/ue" />
 		<mkdir dir="${mcpsrc.dir}/universalelectricity" />
