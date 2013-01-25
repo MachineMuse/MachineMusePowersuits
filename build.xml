@@ -93,7 +93,7 @@
 		<delete dir="${classes.dir}" />
 	</target>
 
-	<target name="build" depends="get-coremod" unless="already-compiled">
+	<target name="build" depends="get-coremod,setup-forge" unless="already-compiled">
 	    <antcall target="revision"/>
 		<!-- Recompile -->
 		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows" failonerror="true">
