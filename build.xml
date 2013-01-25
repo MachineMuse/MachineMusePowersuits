@@ -83,7 +83,7 @@
 	</condition>
 
     <target name="revision">
-        <propertyfile  file="build_number">
+        <propertyfile  file="build_number.txt">
                 <entry key="build.number" type="int" operation="+" value="1" pattern="000"/>
         </propertyfile>
     </target>
