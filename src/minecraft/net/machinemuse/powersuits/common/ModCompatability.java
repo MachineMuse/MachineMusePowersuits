@@ -74,6 +74,14 @@ public class ModCompatability {
 	public static ItemStack getIC2Item(String name) {
 		return ic2.api.Items.getItem(name);
 	}
+	
+	public static ItemStack getGregtechItem(int aIndex, int aAmount, int aMeta) {
+		try {
+			return (ItemStack)Class.forName("gregtechmod.GT_Mod").getMethod("getGregTechItem", new Class[] { Integer.TYPE, Integer.TYPE, Integer.TYPE }).invoke(null, new Object[] { Integer.valueOf(aIndex), Integer.valueOf(aAmount), Integer.valueOf(aMeta) });
+		} catch (Exception e) {
+		}
+		return null;
+	}
 
 	public static void registerModSpecificModules() {
 		getIC2Ratio();

@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.common;
 
-import gregtechmod.api.GregTech_API;
 import ic2.api.Ic2Recipes;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.block.Block;
@@ -430,7 +429,7 @@ public class RecipeManager {
 			String energyFlowCircuit = "circuitTier07";
 			String machineParts = "itemMachineParts";
 			String nitrogen = "molecule_1n";
-			ItemStack neutronReflector = GregTech_API.getGregTechItem(40, 1, 0);
+			ItemStack neutronReflector = ModCompatability.getGregtechItem(40, 1, 0);
 			String advancedHeatVent = "item.reactorVentDiamond";
 			ItemStack carbonPlate = ModCompatability.getIC2Item("carbonPlate").copy();
 			ItemStack uninsulatedCopper = ModCompatability.getIC2Item("copperCableItem").copy();
