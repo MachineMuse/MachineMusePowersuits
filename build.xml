@@ -42,7 +42,7 @@
 	<target name="get-coremod">
 
 		<echo message="Downloading IC2 API... " />
-		<get src="https://dl.dropbox.com/u/861751/IC2/1.112/industrialcraft-2-api_${ic2api.version}.zip" dest="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" />
+		<get src="https://dl.dropbox.com/s/u7adzz0rbftlufu/industrialcraft-2-api_1.112.198-lf.zip" dest="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" />
 		<unzip src="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" dest="${download.dir}" />
 		<mkdir dir="${mcpsrc.dir}/ic2" />
 		<mkdir dir="${mcpsrc.dir}/ic2/api" />
