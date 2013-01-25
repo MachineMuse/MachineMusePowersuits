@@ -36,7 +36,9 @@
 	<!-- Version Checking -->
 
 	<propertyfile file="${forge.dir}/forgeversion.properties" />
-	<equals property="forge.already.installed" arg1="${forge.build.number}" arg2="497" />
+	<condition property="forge.already.installed">
+		<equals arg1="${forge.build.number}" arg2="497" />
+	</condition>
 	<available property="forge-exists" file="${download.dir}/minecraftforge-src-${forge.version}.zip" />
 	<available property="forge-exists" file="${download.dir}/minecraftforge-src-${forge.version}.zip" />
 	<available property="already-compiled" file="${classes.dir}/net/machinemuse" />
@@ -84,14 +86,6 @@
 		<delete dir="${download.dir}/ue" />
 	</target>
 
-
-
-	<target name="revision">
-		<propertyfile file="build_number.txt">
-			<entry key="build.number" type="int" operation="+" value="1" pattern="000" />
-		</propertyfile>
-	</target>
-
 	<target name="install" depends="build">
 		<jar destfile="${dist.dir}/ModularPowersuits-${fullversion}.jar" basedir="${classes.dir}" />
 		<delete dir="${classes.dir}" />
@@ -102,7 +96,6 @@
 
 
 	<target name="build" depends="get-coremod" unless="already-compiled">
-		<antcall target="revision" />
 		<!-- Copy source -->
 		<copy todir="${mcpsrc.dir}/net/machinemuse">
 			<fileset dir="${src.dir}/minecraft/net/machinemuse" />
