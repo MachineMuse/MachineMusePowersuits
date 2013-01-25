@@ -1,12 +1,12 @@
 <project name="ModularPowersuits" default="install" basedir=".">
 
 	<property environment="env" />
-	<property file="build_number.txt"/>
+	<property file="build_number.txt" />
 
 	<!-- Versions -->
 	<property name="build.ver" value="0.1" />
-    <property name="build.number" value="0" />
-    <property name="fullversion" value ="${build.ver}.${build.number}"/>
+	<property name="build.number" value="0" />
+	<property name="fullversion" value="${build.ver}.${build.number}" />
 	<property name="mcp.version" value="723" />
 	<property name="forge.version" value="1.4.7-6.6.0.497" />
 	<property name="ic2api.version" value="1.112.198-lf" />
@@ -82,19 +82,19 @@
 		</or>
 	</condition>
 
-    <target name="revision">
-        <propertyfile  file="build_number.txt">
-                <entry key="build.number" type="int" operation="+" value="1" pattern="000"/>
-        </propertyfile>
-    </target>
-	
+	<target name="revision">
+		<propertyfile file="build_number.txt">
+			<entry key="build.number" type="int" operation="+" value="1" pattern="000" />
+		</propertyfile>
+	</target>
+
 	<target name="install" depends="build">
 		<jar destfile="${dist.dir}/ModularPowersuits-${fullversion}.jar" basedir="${classes.dir}" />
 		<delete dir="${classes.dir}" />
 	</target>
 
 	<target name="build" depends="get-coremod,setup-forge" unless="already-compiled">
-	    <antcall target="revision"/>
+		<antcall target="revision" />
 		<!-- Recompile -->
 		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows" failonerror="true">
 			<arg line="/c recompile.bat" />
@@ -160,25 +160,25 @@
 		<mkdir dir="${mcpsrc.dir}/net/machinemuse" />
 		<copy todir="${mcpsrc.dir}/net/machinemuse">
 			<fileset dir="${src.dir}/minecraft/net/machinemuse" />
-	         <filterset>
-	                <filter token="MOD_VERSION" value="${fullversion}" />
-	         </filterset>
+			<filterset>
+				<filter token="MOD_VERSION" value="${fullversion}" />
+			</filterset>
 		</copy>
 		<copy todir="${mcpsrc.dir}" file="mcmod.info" />
 		<mkdir dir="${mcpsrc.dir}/net/machinemuse" />
 		<copy todir="${mcpsrc.dir}/net/machinemuse">
 			<fileset dir="${src.dir}/minecraft/net/machinemuse" />
-            <filterset>
-                   <filter token="MOD_VERSION" value="${fullversion}" />
-            </filterset>
+			<filterset>
+				<filter token="MOD_VERSION" value="${fullversion}" />
+			</filterset>
 		</copy>
 
-		<!-- Copy libraries -->
+		<!-- Copy libraries
 		<copy todir="${mcp.dir}/lib">
 			<fileset dir="lib">
 				<patternset includes="*.jar" />
 			</fileset>
-		</copy>
+		</copy> -->
 	</target>
 
 	<target name="download-forge" depends="download-ant-contrib" unless="forge-exists">
