@@ -4,8 +4,8 @@
 	<property file="build_number.txt" />
 
 	<!-- Versions -->
-	<property name="build.ver" value="0.2" />
-	<property name="fullversion" value="${build.ver}.${build.number}" />
+	<property name="build.ver" value="0.2.0" />
+	<property name="fullversion" value="${build.ver}-${build.number}" />
 	<property name="mcp.version" value="723" />
 	<property name="forge.version" value="1.4.7-6.6.0.497" />
 	<property name="ic2api.version" value="1.112.198-lf" />
