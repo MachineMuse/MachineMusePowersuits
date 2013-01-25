@@ -111,13 +111,14 @@
 		<exec dir="${mcp.dir}" executable="sh" osfamily="unix">
 			<arg value="reobfuscate.sh" />
 		</exec>
-
 		<copy todir="${classes.dir}">
 			<fileset dir="${mcp.dir}/reobf/minecraft" />
 		</copy>
-		<copy todir="${classes.dir}">
+		<mkdir dir="${classes.dir}/resource" />
+		<copy todir="${classes.dir}/resource">
 			<fileset dir="${resources.dir}" />
 		</copy>
+        <copy todir="${classes.dir}" file="mcmod.info" />
 	</target>
 
 	<target name="setup-forge" depends="download-forge" unless="already-compiled">
@@ -163,7 +164,6 @@
 				<filter token="MOD_VERSION" value="${fullversion}" />
 			</filterset>
 		</copy>
-		<copy todir="${mcpsrc.dir}" file="mcmod.info" />
 		<mkdir dir="${mcpsrc.dir}/net/machinemuse" />
 		<copy todir="${mcpsrc.dir}/net/machinemuse">
 			<fileset dir="${src.dir}/minecraft/net/machinemuse" />
