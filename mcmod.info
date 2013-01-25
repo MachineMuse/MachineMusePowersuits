@@ -1,21 +1,16 @@
-{
-  "modinfoversion": 1,
-  "modlist": [{
+[{
     "modid": "mmmPowersuits",
     "name": "MachineMuse's Modular Powersuits",
     "description": "A mod which adds modular power armor, power tool, and a tinker table to configure them. Uses UniversalElectricty or IC2 for energy.",
-    "version": "MOD_VERSION",
+    "version": "@MOD_VERSION@",
     "mcversion": "1.4.7",
     "url": "http://universalelectricity.com/?m=modular_powersuits",
     "updateUrl": "",
     "authors": [ "MachineMuse" ],
     "credits": "Code by MachineMuse, Icons by WaterCandle, Modeling by SebK",
-    "logoFile": "",
+    "logoFile": "/resource/mmmpslogo_250.png",
     "screenshots": [ ],
     "parent": "",
     "requiredMods": [ "Forge" ],
-    "dependencies": [  ],
-    "dependants": [ ],
-    "useDependencyInformation": "true"
-  }]
-}
+    "dependencies": [  ]
+}]
