@@ -179,12 +179,12 @@ public class TinkerTableModel extends ModelBase {
 	public void doRender(Entity entity, double x, double y, double z, float f,
 			float f1) {
 		f = 0.0625f;
-		int timestep = (int) ((System.currentTimeMillis()) % 10000);
-		double angle = timestep * Math.PI / 5000.0;
-		GL11.glPushMatrix();
 		if (Minecraft.getMinecraft().isFancyGraphicsEnabled()) {
 			MuseRenderer.smoothingOn();
 		}
+		int timestep = (int) ((System.currentTimeMillis()) % 10000);
+		double angle = timestep * Math.PI / 5000.0;
+		GL11.glPushMatrix();
 		GL11.glRotatef(180.0f, 1.0f, 0, 0);
 		GL11.glTranslatef(0.5f, -1.5f, -0.5f);
 		middletable.render(f);
@@ -209,10 +209,6 @@ public class TinkerTableModel extends ModelBase {
 		if (Minecraft.getMinecraft().isFancyGraphicsEnabled()) {
 			MuseRenderer.smoothingOn();
 		}
-		screen3.render(f);
-		screen2.render(f);
-		screen1.render(f);
-		particles.render(f);
 		GL11.glPopMatrix();
 		GL11.glPushMatrix();
 		GL11.glTranslated(0.5f, 1.05f, 0.5f);
@@ -228,6 +224,14 @@ public class TinkerTableModel extends ModelBase {
 		// cube.render(0.016000f);
 		GL11.glPopMatrix();
 		GL11.glPushMatrix();
+		GL11.glRotatef(180.0f, 1.0f, 0, 0);
+		GL11.glTranslatef(0.5f, -1.5f, -0.5f);
+		screen3.render(f);
+		screen2.render(f);
+		screen1.render(f);
+		particles.render(f);
+		GL11.glPopMatrix();
+//		GL11.glPushMatrix();
 //		if (Minecraft.getMinecraft().isFancyGraphicsEnabled()) {
 //			if (f1 != 0) {
 //				GL11.glDisable(GL11.GL_CULL_FACE);
@@ -236,8 +240,8 @@ public class TinkerTableModel extends ModelBase {
 //				}
 //			}
 //		}
+//		GL11.glPopMatrix();
 		MuseRenderer.smoothingOff();
-		GL11.glPopMatrix();
 	}
 
 	private void drawScanLine(double angle) {
