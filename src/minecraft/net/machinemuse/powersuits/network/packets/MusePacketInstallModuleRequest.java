@@ -5,11 +5,9 @@ package net.machinemuse.powersuits.network.packets;
 
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.common.PowersuitsMod;
-import net.machinemuse.powersuits.common.Config.Items;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.network.MusePacket;
@@ -19,7 +17,6 @@ import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
-import universalelectricity.core.implement.IItemElectric;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
@@ -81,24 +78,26 @@ public class MusePacketInstallModuleRequest extends MusePacket {
 			PowerModule moduleType = ModuleManager.getModule(moduleName);
 			List<ItemStack> cost = moduleType.getInstallCost();
 
-			if (ItemUtils.hasInInventory(cost, playerEntity.inventory)) {
-				List<Integer> slots = ItemUtils.findInInventoryForCost(cost, playerEntity.inventory);
-				List<Integer> slotsToUpdate = ItemUtils.deleteFromInventory(
-						cost, inventory);
+			if (ItemUtils.hasInInventory(cost, playerEntity.inventory) || playerEntity.capabilities.isCreativeMode) {
 				ItemUtils.itemAddModule(stack, moduleType);
-				slots.add(this.itemSlot);
-				for(ItemStack itemCost : cost) {
-					double joules = ItemUtils.getAsModular(stack.getItem()).getJoules(stack);
-					if(ItemUtils.isSameItem(itemCost, ItemComponent.lvcapacitor)) {
-						ItemUtils.getAsModular(stack.getItem()).setJoules(joules + 20000, stack);
-					}
-					if(ItemUtils.isSameItem(itemCost, ItemComponent.mvcapacitor)) {
-						ItemUtils.getAsModular(stack.getItem()).setJoules(joules + 100000, stack);
-					}
-					if(ItemUtils.isSameItem(itemCost, ItemComponent.hvcapacitor)) {
-						ItemUtils.getAsModular(stack.getItem()).setJoules(joules + 750000, stack);
+
+				List<Integer> slotsToUpdate = new ArrayList();
+				if (playerEntity.capabilities.isCreativeMode) {
+					slotsToUpdate = ItemUtils.deleteFromInventory(cost, inventory);
+					for (ItemStack itemCost : cost) {
+						double joules = ItemUtils.getAsModular(stack.getItem()).getJoules(stack);
+						if (ItemUtils.isSameItem(itemCost, ItemComponent.lvcapacitor)) {
+							ItemUtils.getAsModular(stack.getItem()).setJoules(joules + 20000, stack);
+						}
+						if (ItemUtils.isSameItem(itemCost, ItemComponent.mvcapacitor)) {
+							ItemUtils.getAsModular(stack.getItem()).setJoules(joules + 100000, stack);
+						}
+						if (ItemUtils.isSameItem(itemCost, ItemComponent.hvcapacitor)) {
+							ItemUtils.getAsModular(stack.getItem()).setJoules(joules + 750000, stack);
+						}
 					}
 				}
+				slotsToUpdate.add(itemSlot);
 				for (Integer slotiter : slotsToUpdate) {
 					MusePacket reply = new MusePacketInventoryRefresh(
 							player,

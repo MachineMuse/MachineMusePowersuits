@@ -3,8 +3,8 @@ package net.machinemuse.general.gui.frame;
 import java.util.List;
 
 import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.MusePoint2D;
+import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.gui.clickable.ClickableButton;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableModule;
@@ -118,7 +118,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 		PowerModule module = targetModule.getSelectedModule().getModule();
 		if (!ItemUtils.itemHasModule(stack, module.getName())) {
 
-			installButton.setEnabled(ItemUtils.hasInInventory(
+			installButton.setEnabled(player.capabilities.isCreativeMode || ItemUtils.hasInInventory(
 					module.getInstallCost(), player.inventory));
 			installButton.draw();
 		} else {
@@ -162,7 +162,14 @@ public class InstallSalvageFrame extends ScrollableFrame {
 	private void doInstall() {
 		ItemStack stack = targetItem.getSelectedItem().getItem();
 		PowerModule module = targetModule.getSelectedModule().getModule();
-		if (ItemUtils.hasInInventory(module.getInstallCost(), player.inventory)) {
+		if (player.capabilities.isCreativeMode) {
+			ItemUtils.itemAddModule(stack, module);
+			MusePacket newpacket = new MusePacketInstallModuleRequest(
+					(Player) player,
+					targetItem.getSelectedItem().inventorySlot,
+					module.getName());
+			player.sendQueue.addToSendQueue(newpacket.getPacket250());
+		} else if (ItemUtils.hasInInventory(module.getInstallCost(), player.inventory)) {
 			// Doing it client-side first in case of lag
 			ItemUtils.deleteFromInventory(module.getInstallCost(),
 					player.inventory);
