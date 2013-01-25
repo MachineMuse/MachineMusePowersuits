@@ -35,7 +35,7 @@
 
 	<!-- Version Checking -->
 
-	<propertyfile file="${forge.dir}/forgeversion.properties" />
+	<property file="${forge.dir}/forgeversion.properties" />
 	<condition property="forge.already.installed">
 		<equals arg1="${forge.build.number}" arg2="497" />
 	</condition>
