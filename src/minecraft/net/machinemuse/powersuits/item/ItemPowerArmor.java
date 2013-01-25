@@ -20,11 +20,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.IArmorTextureProvider;
 import net.minecraftforge.common.ISpecialArmor;
-
-import org.lwjgl.opengl.GL11;
-
 import universalelectricity.core.electricity.ElectricInfo;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -118,6 +114,11 @@ public abstract class ItemPowerArmor extends ItemArmor
 			return max;
 		return value;
 	}
+
+    public int getItemEnchantability()
+    {
+        return 0;
+    }
 
 	public Colour getColorFromItemStack(ItemStack stack) {
 		double computedred = ModuleManager.computeModularProperty(stack, ModularCommon.RED_TINT);

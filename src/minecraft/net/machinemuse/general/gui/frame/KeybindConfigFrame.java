@@ -5,11 +5,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.MusePoint2D;
+import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.general.gui.clickable.IClickable;
+import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.entity.player.EntityPlayer;
@@ -157,9 +158,11 @@ public class KeybindConfigFrame implements IGuiFrame {
 
 	@Override
 	public List<String> getToolTip(int x, int y) {
-		for(ClickableModule module : modules) {
-			if(module.hitBox(x, y)) {
-				return module.getToolTip();
+		if (Config.doAdditionalInfo()) {
+			for (ClickableModule module : modules) {
+				if (module.hitBox(x, y)) {
+					return module.getToolTip();
+				}
 			}
 		}
 		return null;
