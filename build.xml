@@ -38,7 +38,7 @@
 	<mkdir dir="${build.dir}" />
 
 	<!-- Dependencies -->
-	<target name="get-coremod" depends="setup-forge">
+	<target name="get-coremod" depends="forgeinstalled.check,setup-forge">
 
 		<echo message="Downloading IC2 API... " />
 		<get src="https://dl.dropbox.com/s/u7adzz0rbftlufu/industrialcraft-2-api_1.112.198-lf.zip" dest="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" />
@@ -91,6 +91,14 @@
 		<jar destfile="${dist.dir}/ModularPowersuits-${fullversion}.jar" basedir="${classes.dir}" />
 		<delete dir="${classes.dir}" />
 	</target>
+	
+	<target name="forgeinstalled.check">
+		<propertyfile file="${forge.dir}/forgeversion.properties"/>
+        <condition property="forge.already.installed">
+            <equals arg1="${forge.build.number}" arg2="497" />
+        </condition>
+	</target>
+	
 
 	<target name="build" depends="get-coremod" unless="already-compiled">
 		<antcall target="revision" />
@@ -125,7 +133,7 @@
 		</copy>
 	</target>
 
-	<target name="setup-forge" depends="download-forge" unless="already-compiled">
+	<target name="setup-forge" depends="download-forge" unless="forge.already.installed">
 
 		<unzip dest="${build.dir}">
 			<fileset dir="${download.dir}">
