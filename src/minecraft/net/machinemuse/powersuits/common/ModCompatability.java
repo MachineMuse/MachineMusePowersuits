@@ -76,27 +76,27 @@ public class ModCompatability {
 	}
 
 	public static void registerModSpecificModules() {
+		getIC2Ratio();
 		if (ModCompatability.isThaumCraftLoaded() && ModCompatability.enableThaumGogglesModule()) {
-			Class tcItems;ItemStack gogglesStack = null;
+			Class tcItems;
+			ItemStack gogglesStack = null;
 			try {
 				tcItems = Class.forName("thaumcraft.common.Config");
 				Field itemGoggles = tcItems.getField("itemGoggles");
 				Item goggles = (Item) itemGoggles.get(itemGoggles);
 				gogglesStack = new ItemStack(goggles);
+				PowerModule module = new PowerModule("Aurameter", new boolean[] { true, false, false, false, false }, new MuseIcon(
+						"/thaumcraft/resources/ss_core.png", 144), ModularCommon.CATEGORY_COSMETIC)
+						.setDescription(
+								"Connect up some Thaumic goggles to show the nearby aura values. (Does not reveal aura nodes, only shows the HUD)")
+						.addInstallCost(ItemComponent.laserHologram.copy())
+						.addInstallCost(gogglesStack);
+				ModuleManager.addModule(module);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-			PowerModule module = new PowerModule("Aurameter", new boolean[] { true, false, false, false, false }, new MuseIcon(
-					"/thaumcraft/resources/ss_core.png", 144), ModularCommon.CATEGORY_COSMETIC)
-					.setDescription("Connect up some Thaumic goggles to show the nearby aura values.")
-					.addInstallCost(ItemComponent.laserHologram.copy())
-					.addInstallCost(gogglesStack)
-					.addTradeoffProperty("Red Intensity", ModularCommon.RED_TINT, 1, "%")
-					.addTradeoffProperty("Green Intensity", ModularCommon.GREEN_TINT, 1, "%")
-					.addTradeoffProperty("Blue Intensity", ModularCommon.BLUE_TINT, 1, "%");
-			ModuleManager.addModule(module);
 		}
 	}
 }

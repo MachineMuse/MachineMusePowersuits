@@ -82,9 +82,10 @@ public class ItemPowerTool extends ItemTool
 		if (player != null) {
 			double energy = ItemUtils.getPlayerEnergy(player);
 			if ((ForgeHooks.canToolHarvestBlock(block, meta, ironPickaxe)
-					|| block.blockMaterial == Material.iron
-					|| block.blockMaterial == Material.anvil
-					|| block.blockMaterial == Material.rock)
+					|| (!ForgeHooks.canToolHarvestBlock(block, meta, diamondPick) && (
+							block.blockMaterial == Material.iron
+							|| block.blockMaterial == Material.anvil
+							|| block.blockMaterial == Material.rock)))
 					&& ItemUtils.itemHasModule(stack, ModularCommon.MODULE_PICKAXE)
 					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_ENERGY_CONSUMPTION)) {
 				return true;
@@ -134,11 +135,11 @@ public class ItemPowerTool extends ItemTool
 		double drain = 1;
 		Block block = Block.blocksList[blockID];
 		int meta = 0;
-		if (ForgeHooks.isToolEffective(diamondPick, block, meta)) {
+		if (useDiamondPickaxe(stack, block, meta)) {
 			drain = ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_ENERGY_CONSUMPTION);
-		} else if (ForgeHooks.isToolEffective(ironShovel, block, meta)) {
+		} else if (useIronShovel(stack, block, meta)) {
 			drain = ModuleManager.computeModularProperty(stack, ModularCommon.SHOVEL_ENERGY_CONSUMPTION);
-		} else if (ForgeHooks.isToolEffective(ironAxe, block, meta)) {
+		} else if (useIronAxe(stack, block, meta)) {
 			drain = ModuleManager.computeModularProperty(stack, ModularCommon.AXE_ENERGY_CONSUMPTION);
 		} else {
 			drain = 0;
@@ -158,12 +159,12 @@ public class ItemPowerTool extends ItemTool
 	}
 
 	public static boolean useIronPickaxe(ItemStack stack, Block block, int meta) {
-		if (ItemUtils.itemHasModule(stack, ModularCommon.MODULE_PICKAXE) && ForgeHooks.canToolHarvestBlock(block, meta, stack)) {
+		if (ItemUtils.itemHasModule(stack, ModularCommon.MODULE_PICKAXE)) {
 			if (ForgeHooks.isToolEffective(ironPickaxe, block, meta)) {
 				return true;
-			} else if (block.blockMaterial == Material.iron
+			} else if (!ForgeHooks.isToolEffective(diamondPick, block, meta) && (block.blockMaterial == Material.iron
 					|| block.blockMaterial == Material.anvil
-					|| block.blockMaterial == Material.rock) {
+					|| block.blockMaterial == Material.rock)) {
 				return true;
 			}
 		}
@@ -351,7 +352,7 @@ public class ItemPowerTool extends ItemTool
 		double joulesProvided = ModCompatability.joulesFromEU(amount);
 		double currentJoules = ModularCommon.getJoules(stack);
 		double surplus = ModularCommon.charge(joulesProvided, stack);
-		if(simulate) {
+		if (simulate) {
 			ModularCommon.setJoules(currentJoules, stack);
 		}
 		return ModCompatability.joulesToEU(joulesProvided - surplus);
@@ -363,7 +364,7 @@ public class ItemPowerTool extends ItemTool
 		double joulesRequested = ModCompatability.joulesFromEU(amount);
 		double currentJoules = ModularCommon.getJoules(stack);
 		double givenJoules = ModularCommon.discharge(joulesRequested, stack);
-		if(simulate) {
+		if (simulate) {
 			ModularCommon.setJoules(currentJoules, stack);
 		}
 		return ModCompatability.joulesToEU(givenJoules);
@@ -373,7 +374,7 @@ public class ItemPowerTool extends ItemTool
 	public boolean canUse(ItemStack stack, int amount) {
 		double joulesRequested = ModCompatability.joulesFromEU(amount);
 		double currentJoules = ModularCommon.getJoules(stack);
-		if(currentJoules > joulesRequested) {
+		if (currentJoules > joulesRequested) {
 			return true;
 		} else {
 			return false;

@@ -1,6 +1,9 @@
 /*
 !/resource
 !/src
+!/build_number
+!/mcmod.info
+!/build.xml
 
 src/minecraft/*
 !src/minecraft/net
