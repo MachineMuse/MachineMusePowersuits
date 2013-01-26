@@ -45,7 +45,7 @@ public class MusePacketHandler implements IPacketHandler {
 		addPacketType(4, MusePacketTweakRequest.class);
 		addPacketType(5, MusePacketFallDistance.class);
 		addPacketType(6, MusePacketPlayerUpdate.class);
-		addPacketType(6, MusePacketToggleRequest.class);
+		addPacketType(7, MusePacketToggleRequest.class);
 
 		NetworkRegistry.instance().registerChannel(this,
 				Config.getNetworkChannelName());

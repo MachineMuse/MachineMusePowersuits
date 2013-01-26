@@ -19,7 +19,7 @@ public class MusePacketFallDistance extends MusePacket {
 	}
 
 	public MusePacketFallDistance(DataInputStream data, Player player) {
-		super(player, data);
+		super(data, player);
 		distance = readDouble();
 	}
 

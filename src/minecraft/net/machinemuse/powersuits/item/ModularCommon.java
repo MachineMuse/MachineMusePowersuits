@@ -171,7 +171,13 @@ public abstract class ModularCommon {
 	}
 
 	public static double getJoules(ItemStack stack) {
-		return ItemUtils.getDoubleOrZero(stack, CURRENT_ENERGY);
+		double joules = ItemUtils.getDoubleOrZero(stack, CURRENT_ENERGY);
+		double maxJoules = getMaxJoules(stack);
+		if (joules > maxJoules) {
+			joules = maxJoules;
+			setJoules(joules, stack);
+		}
+		return joules;
 	}
 
 	public static void setJoules(double joules, ItemStack stack) {
@@ -180,9 +186,6 @@ public abstract class ModularCommon {
 
 	public static double getMaxJoules(ItemStack stack) {
 		double maxJoules = ModuleManager.computeModularProperty(stack, ModularCommon.MAXIMUM_ENERGY);
-		if (getJoules(stack) > maxJoules) {
-			setJoules(maxJoules, stack);
-		}
 		return maxJoules;
 	}
 

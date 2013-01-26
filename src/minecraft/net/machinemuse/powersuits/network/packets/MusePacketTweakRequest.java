@@ -59,7 +59,7 @@ public class MusePacketTweakRequest extends MusePacket {
 	 * 
 	 */
 	public MusePacketTweakRequest(DataInputStream data, Player player) {
-		super(player, data);
+		super(data, player);
 		itemSlot = readInt();
 		moduleName = readString(64);
 		tweakName = readString(64);

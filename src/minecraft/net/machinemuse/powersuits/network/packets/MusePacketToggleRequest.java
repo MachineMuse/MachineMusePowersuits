@@ -13,14 +13,14 @@ public class MusePacketToggleRequest extends MusePacket {
 	String module;
 	boolean value;
 
-	protected MusePacketToggleRequest(Player player, String module, boolean active) {
+	public MusePacketToggleRequest(Player player, String module, boolean active) {
 		super(player);
 		writeString(module);
 		writeBoolean(active);
 	}
 
-	protected MusePacketToggleRequest(Player player, DataInputStream data) {
-		super(player, data);
+	public MusePacketToggleRequest(DataInputStream data, Player player) {
+		super(data, player);
 		module = readString(64);
 		value = readBoolean();
 	}

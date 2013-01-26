@@ -60,7 +60,7 @@ public class MusePacketInstallModuleRequest extends MusePacket {
 	 * 
 	 */
 	public MusePacketInstallModuleRequest(DataInputStream data, Player player) {
-		super(player, data);
+		super(data, player);
 		itemSlot = readInt();
 		moduleName = readString(64);
 		Side side = FMLCommonHandler.instance().getEffectiveSide();

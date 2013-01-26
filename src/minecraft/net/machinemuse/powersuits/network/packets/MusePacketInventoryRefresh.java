@@ -38,7 +38,7 @@ public class MusePacketInventoryRefresh extends MusePacket {
 	 * @param data
 	 */
 	public MusePacketInventoryRefresh(DataInputStream datain, Player player) {
-		super(player, datain);
+		super(datain, player);
 		slot = readInt();
 		stack = readItemStack();
 	}

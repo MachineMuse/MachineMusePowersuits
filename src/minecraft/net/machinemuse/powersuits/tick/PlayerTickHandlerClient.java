@@ -84,17 +84,17 @@ public class PlayerTickHandlerClient implements ITickHandler {
 		boolean hasSwimAssist = false;
 
 		if (pants != null && pants.getItem() instanceof IModularItem) {
-			hasSprintAssist = ItemUtils.itemHasModule(pants, ModularCommon.MODULE_SPRINT_ASSIST);
-			hasJumpAssist = ItemUtils.itemHasModule(pants, ModularCommon.MODULE_JUMP_ASSIST);
-			hasSwimAssist = ItemUtils.itemHasModule(pants, ModularCommon.MODULE_SWIM_BOOST);
+			hasSprintAssist = ItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_SPRINT_ASSIST);
+			hasJumpAssist = ItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_JUMP_ASSIST);
+			hasSwimAssist = ItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_SWIM_BOOST);
 		}
 		if (boots != null && boots.getItem() instanceof IModularItem) {
-			hasJetboots = ItemUtils.itemHasModule(boots, ModularCommon.MODULE_JETBOOTS);
+			hasJetboots = ItemUtils.itemHasActiveModule(boots, ModularCommon.MODULE_JETBOOTS);
 		}
 		if (torso != null && torso.getItem() instanceof IModularItem) {
-			hasJetpack = ItemUtils.itemHasModule(torso, ModularCommon.MODULE_JETPACK);
-			hasGlider = ItemUtils.itemHasModule(torso, ModularCommon.MODULE_GLIDER);
-			hasParachute = ItemUtils.itemHasModule(torso, ModularCommon.MODULE_PARACHUTE);
+			hasJetpack = ItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_JETPACK);
+			hasGlider = ItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_GLIDER);
+			hasParachute = ItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_PARACHUTE);
 		}
 
 		if (player.isInWater()) {
@@ -129,6 +129,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			}
 		} else {
 			if (hasJumpAssist && jumpkey) {
+				player.jumpMovementFactor = player.landMovementFactor;
 				double multiplier = MovementManager.getPlayerJumpMultiplier(player);
 				if (multiplier > 0) {
 					player.motionY += 0.15 * Math.min(multiplier, 1) * getWeightPenaltyRatio(totalWeight, weightCapacity);
@@ -202,6 +203,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 
 					foodAdjustment += 0.01 * exhaustion * exhaustionComp;
 				}
+				player.jumpMovementFactor = player.landMovementFactor;
 			}
 		}
 

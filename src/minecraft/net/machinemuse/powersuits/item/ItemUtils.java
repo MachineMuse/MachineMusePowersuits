@@ -43,7 +43,9 @@ public class ItemUtils {
 	}
 
 	public static boolean isModuleActive(NBTTagCompound itemTag, String moduleName) {
-		if (ItemUtils.tagHasModule(itemTag, moduleName) && itemTag.getCompoundTag(moduleName).getBoolean(ACTIVE)) {
+		if (ItemUtils.tagHasModule(itemTag, moduleName) && !itemTag.getCompoundTag(moduleName).hasKey(ACTIVE)) {
+			return true;
+		} else if (ItemUtils.tagHasModule(itemTag, moduleName) && itemTag.getCompoundTag(moduleName).getBoolean(ACTIVE)) {
 			return true;
 		}
 		return false;
@@ -504,6 +506,10 @@ public class ItemUtils {
 			toggleModule(itemTag, name, toggleval);
 		}
 
+	}
+
+	public static boolean itemHasActiveModule(ItemStack pants, String module) {
+		return itemHasModule(pants, module) && isModuleActive(getMuseItemTag(pants), module);
 	}
 
 }

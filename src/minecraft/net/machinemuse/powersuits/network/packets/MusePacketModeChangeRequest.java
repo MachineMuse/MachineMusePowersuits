@@ -29,7 +29,7 @@ public class MusePacketModeChangeRequest extends MusePacket {
 	 * @param data
 	 */
 	public MusePacketModeChangeRequest(Player player, DataInputStream data) {
-		super(player, data);
+		super(data, player);
 		// TODO Auto-generated constructor stub
 	}
 

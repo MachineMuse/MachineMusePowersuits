@@ -43,7 +43,7 @@ public abstract class MusePacket {
 		writeInt(id);
 	}
 
-	protected MusePacket(Player player, DataInputStream data) {
+	protected MusePacket(DataInputStream data, Player player) {
 		this.player = player;
 		this.datain = data;
 	}

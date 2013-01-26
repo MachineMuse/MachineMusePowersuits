@@ -8,11 +8,14 @@ import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.powersuits.item.ItemUtils;
+import net.machinemuse.powersuits.network.packets.MusePacketToggleRequest;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.player.EntityPlayer;
 
 import org.lwjgl.input.Keyboard;
+
+import cpw.mods.fml.common.network.Player;
 
 public class ClickableKeybinding extends ClickableButton {
 	protected List<ClickableModule> boundModules;
@@ -43,7 +46,7 @@ public class ClickableKeybinding extends ClickableButton {
 	}
 
 	public void toggleModules() {
-		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
 		if (player == null) {
 			return;
 		}
@@ -51,6 +54,7 @@ public class ClickableKeybinding extends ClickableButton {
 			String valstring = toggleval ? " on" : " off";
 			player.sendChatToPlayer("Toggled " + module.getModule().getName() + valstring);
 			ItemUtils.toggleModuleForPlayer(player, module.getModule().getName(), toggleval);
+			MusePacketToggleRequest toggleRequest = new MusePacketToggleRequest((Player) player, module.getModule().getName(), toggleval);
 		}
 		toggleval = !toggleval;
 	}

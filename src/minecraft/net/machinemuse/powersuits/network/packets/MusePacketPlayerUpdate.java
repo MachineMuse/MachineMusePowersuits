@@ -29,7 +29,7 @@ public class MusePacketPlayerUpdate extends MusePacket {
 	}
 
 	public MusePacketPlayerUpdate(DataInputStream data, Player player) {
-		super(player, data);
+		super(data, player);
 		energyAdjustment = readDouble();
 		exhaustionAdjustment = readDouble();
 		motionX = readDouble();
