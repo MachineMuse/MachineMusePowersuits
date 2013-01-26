@@ -3,7 +3,6 @@ package net.machinemuse.powersuits.block;
 import java.util.Random;
 
 import net.machinemuse.general.geometry.MuseRenderer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -14,8 +13,7 @@ import org.lwjgl.opengl.GL11;
 public class TinkerTableModel extends ModelBase {
 	// public float onGround;
 	// public boolean isRiding = false;
-	protected ModelBase model = new ModelBase() {
-	};
+	protected ModelBase model = new ModelBase() {};
 
 	private static final Random random = new Random();
 	/**
@@ -179,9 +177,7 @@ public class TinkerTableModel extends ModelBase {
 	public void doRender(Entity entity, double x, double y, double z, float f,
 			float f1) {
 		f = 0.0625f;
-		if (Minecraft.getMinecraft().isFancyGraphicsEnabled()) {
-			MuseRenderer.smoothingOn();
-		}
+		MuseRenderer.smoothingOn();
 		int timestep = (int) ((System.currentTimeMillis()) % 10000);
 		double angle = timestep * Math.PI / 5000.0;
 		GL11.glPushMatrix();
@@ -204,11 +200,9 @@ public class TinkerTableModel extends ModelBase {
 		Wirelong1.render(f);
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);
 
-		//RenderHelper.disableStandardItemLighting();
+		// RenderHelper.disableStandardItemLighting();
 
-		if (Minecraft.getMinecraft().isFancyGraphicsEnabled()) {
-			MuseRenderer.smoothingOn();
-		}
+		MuseRenderer.smoothingOn();
 		GL11.glPopMatrix();
 		GL11.glPushMatrix();
 		GL11.glTranslated(0.5f, 1.05f, 0.5f);
@@ -220,7 +214,7 @@ public class TinkerTableModel extends ModelBase {
 		GL11.glRotatef(35.2643897f, 0, 1, 1);
 		// cube.render(0.0625f);
 		GL11.glColor4d(1, 1, 1, 0.8);
-		cube.render(f/2.0f);
+		cube.render(f / 2.0f);
 		// cube.render(0.016000f);
 		GL11.glPopMatrix();
 		GL11.glPushMatrix();
@@ -231,16 +225,16 @@ public class TinkerTableModel extends ModelBase {
 		screen1.render(f);
 		particles.render(f);
 		GL11.glPopMatrix();
-//		GL11.glPushMatrix();
-//		if (Minecraft.getMinecraft().isFancyGraphicsEnabled()) {
-//			if (f1 != 0) {
-//				GL11.glDisable(GL11.GL_CULL_FACE);
-//				for (int i = 0; i < 1; i++) {
-//					drawScanLine(angle);
-//				}
-//			}
-//		}
-//		GL11.glPopMatrix();
+		// GL11.glPushMatrix();
+		// if (Minecraft.getMinecraft().isFancyGraphicsEnabled()) {
+		// if (f1 != 0) {
+		// GL11.glDisable(GL11.GL_CULL_FACE);
+		// for (int i = 0; i < 1; i++) {
+		// drawScanLine(angle);
+		// }
+		// }
+		// }
+		// GL11.glPopMatrix();
 		MuseRenderer.smoothingOff();
 	}
 

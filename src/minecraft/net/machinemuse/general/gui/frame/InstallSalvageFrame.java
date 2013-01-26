@@ -38,10 +38,10 @@ public class InstallSalvageFrame extends ScrollableFrame {
 		this.installButton = new ClickableButton("Install", new MusePoint2D(
 				bottomright.x() - sizex / 2.0, bottomright.y() - sizey
 						/ 4.0),
-				new MusePoint2D(20, 6), true);
+				true);
 		this.salvageButton = new ClickableButton("Salvage", new MusePoint2D(
 				topleft.x() + sizex / 2.0, topleft.y() + sizey / 4.0),
-				new MusePoint2D(24, 6), true);
+				true);
 
 	}
 

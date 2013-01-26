@@ -325,11 +325,13 @@ public abstract class MuseRenderer {
 	}
 
 	public static void smoothingOn() {
-		GL11.glShadeModel(GL11.GL_SMOOTH);
-		// GL11.glEnable(GL11.GL_LINE_SMOOTH);
-		// GL11.glEnable(GL11.GL_POLYGON_SMOOTH);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		if (Minecraft.getMinecraft().isFancyGraphicsEnabled()) {
+			GL11.glShadeModel(GL11.GL_SMOOTH);
+			// GL11.glEnable(GL11.GL_LINE_SMOOTH);
+			// GL11.glEnable(GL11.GL_POLYGON_SMOOTH);
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		}
 	}
 
 	public static void smoothingOff() {
@@ -725,11 +727,16 @@ public abstract class MuseRenderer {
 	}
 
 	public static void drawLineBetween(IClickable firstClickable, IClickable secondClickable, Colour gradientColour) {
-		long varia = System.currentTimeMillis() % 2000 - 1000; // ranges from -1000 to 1000 and around, period = 2 seconds
-		double gradientRatio = 1.0 - ((varia + 1000) % 1000)/1000.0;
-		MusePoint2D midpoint = (firstClickable.getPosition().minus(secondClickable.getPosition()).times(Math.abs(varia/1000.0)).plus(secondClickable.getPosition()));
+		long varia = System.currentTimeMillis() % 2000 - 1000; // ranges from
+																// -1000 to 1000
+																// and around,
+																// period = 2
+																// seconds
+		double gradientRatio = 1.0 - ((varia + 1000) % 1000) / 1000.0;
+		MusePoint2D midpoint = (firstClickable.getPosition().minus(secondClickable.getPosition()).times(Math.abs(varia / 1000.0))
+				.plus(secondClickable.getPosition()));
 		MusePoint2D firstpoint, secondpoint;
-		if(varia < 0) {
+		if (varia < 0) {
 			firstpoint = secondClickable.getPosition();
 			secondpoint = firstClickable.getPosition();
 		} else {

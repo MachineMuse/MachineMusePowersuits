@@ -45,6 +45,10 @@ public class KeybindKeyHandler extends KeyHandler {
 
 	}
 
+	public void addKeybind(KeyBinding kb) {
+
+	}
+
 	@Override
 	public EnumSet<TickType> ticks() {
 		return EnumSet.of(TickType.CLIENT);

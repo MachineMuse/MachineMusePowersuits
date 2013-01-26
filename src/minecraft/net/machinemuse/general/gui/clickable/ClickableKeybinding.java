@@ -5,15 +5,18 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.MusePoint2D;
+import net.machinemuse.general.geometry.MuseRenderer;
+import net.minecraft.client.settings.KeyBinding;
+
+import org.lwjgl.input.Keyboard;
 
 public class ClickableKeybinding extends Clickable {
 	protected List<ClickableModule> boundModules;
-	protected String label;
+	protected KeyBinding keybind;
 
-	public ClickableKeybinding(String label, MusePoint2D position) {
-		this.label = label;
+	public ClickableKeybinding(KeyBinding keybind, MusePoint2D position) {
+		this.keybind = keybind;
 		this.position = position;
 		this.boundModules = new ArrayList();
 	}
@@ -21,7 +24,8 @@ public class ClickableKeybinding extends Clickable {
 	@Override
 	public void draw() {
 		MuseRenderer.drawCircleAround(position.x(), position.y(), 8);
-		MuseRenderer.drawCenteredString(label, position.x(), position.y() - 4);
+		String name = keybind.keyCode < 0 ? "Mouse" + (keybind.keyCode + 100) : Keyboard.getKeyName(keybind.keyCode);
+		MuseRenderer.drawCenteredString("" + name, position.x(), position.y() - 4);
 		for (ClickableModule module : boundModules) {
 			MuseRenderer.drawLineBetween(this, module, Colour.LIGHTBLUE);
 		}
@@ -37,6 +41,10 @@ public class ClickableKeybinding extends Clickable {
 		return null;
 	}
 
+	public KeyBinding getKeyBinding() {
+		return keybind;
+	}
+
 	public void bindModule(ClickableModule module) {
 		boundModules.add(module);
 	}
@@ -50,18 +58,18 @@ public class ClickableKeybinding extends Clickable {
 		ClickableModule module;
 		while (iterator.hasNext()) {
 			module = iterator.next();
-			int maxDistance = getTargetDistance()*2;
+			int maxDistance = getTargetDistance() * 2;
 			double distanceSq = module.getPosition().distanceSq(this.getPosition());
 			if (distanceSq > maxDistance * maxDistance) {
 				iterator.remove();
 			}
 		}
 	}
-	
+
 	public int getTargetDistance() {
 		int targetDistance = 16;
-		if(boundModules.size() > 6) {
-			targetDistance += (boundModules.size()-6)*3;
+		if (boundModules.size() > 6) {
+			targetDistance += (boundModules.size() - 6) * 3;
 		}
 		return targetDistance;
 	}

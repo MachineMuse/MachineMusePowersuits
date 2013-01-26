@@ -9,24 +9,33 @@ public class KeyConfigGui extends MuseGui {
 	protected static KeybindConfigFrame frame;
 
 	public KeybindConfigFrame getFrame() {
-		if(frame == null) {
-		frame = new KeybindConfigFrame(
+		if (frame == null) {
+			frame = new KeybindConfigFrame(this,
 					new MusePoint2D(absX(-0.95F), absY(-0.95F)),
 					new MusePoint2D(absX(0.95F), absY(0.95F)), player);
 		}
 		return frame;
 	}
+
 	public KeyConfigGui(EntityPlayer player) {
 		super();
 		this.player = player;
 		this.xSize = 256;
 		this.ySize = 226;
 	}
+
 	/**
 	 * Add the buttons (and other controls) to the screen.
 	 */
-	@Override public void initGui() {
+	@Override
+	public void initGui() {
 		super.initGui();
 		frames.add(getFrame());
+	}
+
+	@Override
+	public void handleKeyboardInput() {
+		super.handleKeyboardInput();
+		frame.handleKeyboard();
 	}
 }

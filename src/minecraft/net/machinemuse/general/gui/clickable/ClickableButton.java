@@ -6,8 +6,8 @@ package net.machinemuse.general.gui.clickable;
 import java.util.List;
 
 import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.MusePoint2D;
+import net.machinemuse.general.geometry.MuseRenderer;
 
 /**
  * @author MachineMuse
@@ -18,11 +18,10 @@ public class ClickableButton extends Clickable {
 	protected MusePoint2D radius;
 	protected boolean enabled;
 
-	public ClickableButton(String label, MusePoint2D position, MusePoint2D radius,
-			boolean enabled) {
+	public ClickableButton(String label, MusePoint2D position, boolean enabled) {
 		this.label = label;
 		this.position = position;
-		this.radius = radius;
+		this.radius = new MusePoint2D(MuseRenderer.getFontRenderer().getStringWidth(label) / 2 + 2, 6);
 		this.setEnabled(enabled);
 	}
 
