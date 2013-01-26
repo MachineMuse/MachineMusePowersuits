@@ -55,6 +55,7 @@ public class ClickableKeybinding extends ClickableButton {
 			player.sendChatToPlayer("Toggled " + module.getModule().getName() + valstring);
 			ItemUtils.toggleModuleForPlayer(player, module.getModule().getName(), toggleval);
 			MusePacketToggleRequest toggleRequest = new MusePacketToggleRequest((Player) player, module.getModule().getName(), toggleval);
+			player.sendQueue.addToSendQueue(toggleRequest.getPacket250());
 		}
 		toggleval = !toggleval;
 	}

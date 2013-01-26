@@ -509,7 +509,7 @@ public class ItemUtils {
 	}
 
 	public static boolean itemHasActiveModule(ItemStack itemStack, String moduleName) {
-		return (itemHasModule(itemStack, moduleName) && isModuleActive(getMuseItemTag(itemStack), moduleName));
+		return isModuleActive(getMuseItemTag(itemStack), moduleName);
 	}
 
 }
