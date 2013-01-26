@@ -1,10 +1,21 @@
 package net.machinemuse.powersuits.client;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
+import net.machinemuse.general.gui.clickable.ClickableModule;
+import net.machinemuse.powersuits.common.MuseLogger;
+import net.machinemuse.powersuits.item.ItemUtils;
+import net.machinemuse.powersuits.powermodule.ModuleManager;
+import net.machinemuse.powersuits.powermodule.PowerModule;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 
 import org.lwjgl.input.Keyboard;
@@ -40,6 +51,59 @@ public class KeybindManager {
 			return "Mouse" + (keybind.keyCode + 100);
 		} else {
 			return Keyboard.getKeyName(keybind.keyCode);
+		}
+	}
+
+	public static void writeOutKeybinds() {
+		try {
+			File file = new File("config/powersuits-keybinds.cfg");
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			List<PowerModule> modulesToWrite = ItemUtils.getPlayerInstalledModules(Minecraft.getMinecraft().thePlayer);
+			for (ClickableKeybinding keybinding : getInstance().keybindings) {
+				writer.write(keybinding.getKeyBinding().keyCode + ":" + keybinding.getPosition().x() + ":" + keybinding.getPosition().y() + "\n");
+				for (ClickableModule module : keybinding.getBoundModules()) {
+					writer.write(module.getModule().getName() + "~" + module.getPosition().x() + "~" + module.getPosition().y() + "\n");
+				}
+			}
+			writer.close();
+		} catch (Exception e) {
+			MuseLogger.logError("Problem writing out keyconfig :(");
+			e.printStackTrace();
+		}
+	}
+
+	public static void readInKeybinds() {
+		try {
+			File file = new File("config/powersuits-keybinds.cfg");
+			if (!file.exists()) {
+				MuseLogger.logError("No powersuits keybind file found.");
+				return;
+			}
+			BufferedReader reader = new BufferedReader(new FileReader(file));
+			ClickableKeybinding workingKeybinding = null;
+			while (reader.ready()) {
+				String line = reader.readLine();
+				MuseLogger.logDebug("Read in line: " + line);
+				if (line.contains(":")) {
+					String[] exploded = line.split(":");
+					int id = Integer.parseInt(exploded[0]);
+					MusePoint2D position = new MusePoint2D(Double.parseDouble(exploded[1]), Double.parseDouble(exploded[2]));
+					workingKeybinding = new ClickableKeybinding(new KeyBinding(Keyboard.getKeyName(id), id), position);
+				} else if (line.contains("~") && workingKeybinding != null) {
+					String[] exploded = line.split("~");
+					MusePoint2D position = new MusePoint2D(Double.parseDouble(exploded[1]), Double.parseDouble(exploded[2]));
+					PowerModule module = ModuleManager.getModule(exploded[0]);
+					ClickableModule cmodule = new ClickableModule(module, position);
+					workingKeybinding.bindModule(cmodule);
+
+				}
+			}
+		} catch (Exception e) {
+			MuseLogger.logError("Problem reading in keyconfig :(");
+			e.printStackTrace();
 		}
 	}
 }

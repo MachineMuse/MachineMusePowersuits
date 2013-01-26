@@ -79,6 +79,10 @@ public class ClickableKeybinding extends ClickableButton {
 		return keybind;
 	}
 
+	public List<ClickableModule> getBoundModules() {
+		return boundModules;
+	}
+
 	public void bindModule(ClickableModule module) {
 		boundModules.add(module);
 	}

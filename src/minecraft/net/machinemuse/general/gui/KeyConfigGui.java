@@ -2,6 +2,7 @@ package net.machinemuse.general.gui;
 
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.frame.KeybindConfigFrame;
+import net.machinemuse.powersuits.client.KeybindManager;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class KeyConfigGui extends MuseGui {
@@ -37,5 +38,11 @@ public class KeyConfigGui extends MuseGui {
 	public void handleKeyboardInput() {
 		super.handleKeyboardInput();
 		frame.handleKeyboard();
+	}
+
+	@Override
+	public void onGuiClosed() {
+		super.onGuiClosed();
+		KeybindManager.writeOutKeybinds();
 	}
 }
