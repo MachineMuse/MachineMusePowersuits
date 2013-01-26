@@ -60,6 +60,8 @@ public class ClientProxy extends CommonProxy {
 	public void registerHandlers() {
 		keybindHandler = new KeybindKeyHandler();
 		KeyBindingRegistry.registerKeyBinding(keybindHandler);
+		KeybindManager.readInKeybinds();
+
 
 		playerTickHandler = new PlayerTickHandlerClient();
 		TickRegistry.registerTickHandler(playerTickHandler, Side.CLIENT);

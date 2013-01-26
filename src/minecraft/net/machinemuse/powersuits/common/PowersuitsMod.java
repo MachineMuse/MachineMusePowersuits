@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.common;
 
 import net.machinemuse.powersuits.block.BlockTinkerTable;
-import net.machinemuse.powersuits.client.KeybindManager;
 import net.machinemuse.powersuits.event.EventHandler;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -122,8 +121,7 @@ public class PowersuitsMod {
 		components.populate();
 
 		Config.loadPowerModules();
-		KeybindManager.readInKeybinds();
-
+		
 		proxy.registerHandlers();
 		proxy.registerRenderers();
 		NetworkRegistry.instance().registerGuiHandler(this, guiHandler);
