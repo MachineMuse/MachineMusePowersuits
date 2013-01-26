@@ -86,12 +86,12 @@ public class KeybindManager {
 			ClickableKeybinding workingKeybinding = null;
 			while (reader.ready()) {
 				String line = reader.readLine();
-				MuseLogger.logDebug("Read in line: " + line);
 				if (line.contains(":")) {
 					String[] exploded = line.split(":");
 					int id = Integer.parseInt(exploded[0]);
 					MusePoint2D position = new MusePoint2D(Double.parseDouble(exploded[1]), Double.parseDouble(exploded[2]));
 					workingKeybinding = new ClickableKeybinding(new KeyBinding(Keyboard.getKeyName(id), id), position);
+					getInstance().keybindings.add(workingKeybinding);
 				} else if (line.contains("~") && workingKeybinding != null) {
 					String[] exploded = line.split("~");
 					MusePoint2D position = new MusePoint2D(Double.parseDouble(exploded[1]), Double.parseDouble(exploded[2]));

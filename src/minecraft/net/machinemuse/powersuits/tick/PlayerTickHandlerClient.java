@@ -47,6 +47,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			EntityPlayerMP player = (EntityPlayerMP) rawPlayer;
 			handleServer(player);
 		}
+
 	}
 
 	public void handleClient(EntityClientPlayerMP player) {
@@ -129,7 +130,6 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			}
 		} else {
 			if (hasJumpAssist && jumpkey) {
-				player.jumpMovementFactor = player.landMovementFactor;
 				double multiplier = MovementManager.getPlayerJumpMultiplier(player);
 				if (multiplier > 0) {
 					player.motionY += 0.15 * Math.min(multiplier, 1) * getWeightPenaltyRatio(totalWeight, weightCapacity);
@@ -203,7 +203,6 @@ public class PlayerTickHandlerClient implements ITickHandler {
 
 					foodAdjustment += 0.01 * exhaustion * exhaustionComp;
 				}
-				player.jumpMovementFactor = player.landMovementFactor;
 			}
 		}
 
