@@ -5,8 +5,8 @@ import java.util.List;
 
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.MusePoint2D;
+import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 
 /**
@@ -61,6 +61,13 @@ public class ClickableModule extends Clickable {
 	public ClickableModule setModule(PowerModule module) {
 		this.module = module;
 		return this;
+	}
+
+	public boolean equals(ClickableModule other) {
+		if (this.module.equals(other.module)) {
+			return true;
+		}
+		return false;
 	}
 
 }

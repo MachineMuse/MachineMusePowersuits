@@ -1,8 +1,9 @@
 package net.machinemuse.general.gui.frame;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
@@ -22,7 +23,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.input.Keyboard;
 
 public class KeybindConfigFrame implements IGuiFrame {
-	protected List<ClickableModule> modules;
+	protected Set<ClickableModule> modules;
 	protected IClickable selectedClickie;
 	protected ClickableKeybinding closestKeybind;
 	protected EntityPlayer player;
@@ -35,22 +36,11 @@ public class KeybindConfigFrame implements IGuiFrame {
 	protected long takenTime;
 
 	public KeybindConfigFrame(MuseGui gui, MusePoint2D ul, MusePoint2D br, EntityPlayer player) {
-		modules = new ArrayList();
+		modules = new HashSet();
 		this.gui = gui;
 		this.ul = ul;
 		this.br = br;
-		List<PowerModule> installedModules = ItemUtils.getPlayerInstalledModules(player);
-		List<MusePoint2D> points = MuseRenderer.pointsInLine(
-				installedModules.size(),
-				new MusePoint2D(ul.x() + 10, ul.y() + 10),
-				new MusePoint2D(ul.x() + 10, br.y() - 10));
-		Iterator<MusePoint2D> pointIterator = points.iterator();
-		for (PowerModule module : installedModules) {
-			if (module.isToggleable()) {
-				modules.add(new ClickableModule(module, pointIterator.next()));
-			}
-		}
-		int offset = 1;
+		this.player = player;
 		// for (Object keybind : KeyBinding.keybindArray) {
 		// if (((KeyBinding) keybind).keyCode > 0) {
 		// keybinds.add(new ClickableKeybinding((KeyBinding) keybind, new
@@ -85,6 +75,30 @@ public class KeybindConfigFrame implements IGuiFrame {
 		}
 	}
 
+	public void refreshModules() {
+		List<PowerModule> installedModules = ItemUtils.getPlayerInstalledModules(player);
+		List<MusePoint2D> points = MuseRenderer.pointsInLine(
+				installedModules.size(),
+				new MusePoint2D(ul.x() + 10, ul.y() + 10),
+				new MusePoint2D(ul.x() + 10, br.y() - 10));
+		Iterator<MusePoint2D> pointIterator = points.iterator();
+		for (PowerModule module : installedModules) {
+			if (module.isToggleable() && !alreadyAdded(module)) {
+				ClickableModule clickie = new ClickableModule(module, pointIterator.next());
+				modules.add(clickie);
+			}
+		}
+	}
+
+	public boolean alreadyAdded(PowerModule module) {
+		for (ClickableModule clickie : modules) {
+			if (clickie.getModule().getName().equals(module.getName())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	@Override
 	public void onMouseUp(double x, double y, int button) {
 		if (button == 0) {
@@ -106,6 +120,7 @@ public class KeybindConfigFrame implements IGuiFrame {
 		if (selecting) {
 			return;
 		}
+		refreshModules();
 		this.closestKeybind = null;
 		double closestDistance = Double.MAX_VALUE;
 		if (this.selectedClickie != null) {
