@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 import net.machinemuse.general.MuseMathUtils;
-import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.entity.player.EntityPlayer;
@@ -53,7 +52,6 @@ public class ItemUtils {
 
 	public static void toggleModule(NBTTagCompound itemTag, String name, boolean toggleval) {
 		if (ItemUtils.tagHasModule(itemTag, name)) {
-			MuseLogger.logDebug("Toggling " + name + ": " + toggleval);
 			NBTTagCompound moduleTag = itemTag.getCompoundTag(name);
 			moduleTag.setBoolean(ACTIVE, toggleval);
 		}

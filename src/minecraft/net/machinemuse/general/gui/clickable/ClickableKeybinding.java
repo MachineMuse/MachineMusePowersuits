@@ -15,7 +15,9 @@ import net.minecraft.client.settings.KeyBinding;
 
 import org.lwjgl.input.Keyboard;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.Player;
+import cpw.mods.fml.relauncher.Side;
 
 public class ClickableKeybinding extends ClickableButton {
 	protected List<ClickableModule> boundModules;
@@ -52,7 +54,9 @@ public class ClickableKeybinding extends ClickableButton {
 		}
 		for (ClickableModule module : boundModules) {
 			String valstring = toggleval ? " on" : " off";
-			player.sendChatToPlayer("Toggled " + module.getModule().getName() + valstring);
+			if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+				player.sendChatToPlayer("Toggled " + module.getModule().getName() + valstring);
+			}
 			ItemUtils.toggleModuleForPlayer(player, module.getModule().getName(), toggleval);
 			MusePacketToggleRequest toggleRequest = new MusePacketToggleRequest((Player) player, module.getModule().getName(), toggleval);
 			player.sendQueue.addToSendQueue(toggleRequest.getPacket250());
