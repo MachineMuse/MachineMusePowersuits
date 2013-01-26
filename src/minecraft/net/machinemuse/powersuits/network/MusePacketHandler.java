@@ -16,6 +16,7 @@ import net.machinemuse.powersuits.network.packets.MusePacketInstallModuleRequest
 import net.machinemuse.powersuits.network.packets.MusePacketInventoryRefresh;
 import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
 import net.machinemuse.powersuits.network.packets.MusePacketSalvageModuleRequest;
+import net.machinemuse.powersuits.network.packets.MusePacketToggleRequest;
 import net.machinemuse.powersuits.network.packets.MusePacketTweakRequest;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
@@ -44,6 +45,7 @@ public class MusePacketHandler implements IPacketHandler {
 		addPacketType(4, MusePacketTweakRequest.class);
 		addPacketType(5, MusePacketFallDistance.class);
 		addPacketType(6, MusePacketPlayerUpdate.class);
+		addPacketType(6, MusePacketToggleRequest.class);
 
 		NetworkRegistry.instance().registerChannel(this,
 				Config.getNetworkChannelName());

@@ -17,9 +17,9 @@ public abstract class MuseLogger {
 	protected final static String ERRORPREFIX = "MMMPS - ERROR - ";
 
 	public static void logDebug(String string) {
-		if(Config.isDebugging()) {
+		if (Config.isDebugging()) {
 			Side side = FMLCommonHandler.instance().getEffectiveSide();
-			Logger.getLogger("MMMPS DEBUG").info(side + ": " + string);
+			Logger.getLogger("STDOUT").info(DEBUGPREFIX + side + ": " + string);
 		}
 	}
 
@@ -28,7 +28,7 @@ public abstract class MuseLogger {
 	 */
 	public static void logError(String string) {
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
-		Logger.getLogger("MMMPS ERROR").info(side + ": " + string);
+		Logger.getLogger("STDERR").info(ERRORPREFIX + side + ": " + string);
 
 	}
 }

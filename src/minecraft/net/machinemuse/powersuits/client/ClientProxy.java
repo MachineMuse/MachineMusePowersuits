@@ -8,6 +8,7 @@ import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.common.PowersuitsMod;
 import net.machinemuse.powersuits.event.ThaumRenderEventHandler;
 import net.machinemuse.powersuits.network.MusePacketHandler;
+import net.machinemuse.powersuits.tick.ClientTickHandler;
 import net.machinemuse.powersuits.tick.PlayerTickHandlerClient;
 import net.machinemuse.powersuits.tick.RenderTickHandler;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -27,6 +28,7 @@ import cpw.mods.fml.relauncher.Side;
  */
 public class ClientProxy extends CommonProxy {
 	private static ToolRenderer toolRenderer = new ToolRenderer();
+	private static ClientTickHandler clientTickHandler;
 	private static RenderTickHandler renderTickHandler;
 	private static PlayerTickHandlerClient playerTickHandler;
 	public static KeybindKeyHandler keybindHandler;
@@ -58,14 +60,17 @@ public class ClientProxy extends CommonProxy {
 	public void registerHandlers() {
 		keybindHandler = new KeybindKeyHandler();
 		KeyBindingRegistry.registerKeyBinding(keybindHandler);
-		
+
 		playerTickHandler = new PlayerTickHandlerClient();
 		TickRegistry.registerTickHandler(playerTickHandler, Side.CLIENT);
 
 		renderTickHandler = new RenderTickHandler();
 		TickRegistry.registerTickHandler(renderTickHandler, Side.CLIENT);
-		
-		if(ModCompatability.isThaumCraftLoaded() && ModCompatability.enableThaumGogglesModule()) {
+
+		clientTickHandler = new ClientTickHandler();
+		TickRegistry.registerTickHandler(clientTickHandler, Side.CLIENT);
+
+		if (ModCompatability.isThaumCraftLoaded() && ModCompatability.enableThaumGogglesModule()) {
 			MinecraftForge.EVENT_BUS.register(new ThaumRenderEventHandler());
 		}
 

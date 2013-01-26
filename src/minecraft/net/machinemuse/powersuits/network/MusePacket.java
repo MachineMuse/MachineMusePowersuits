@@ -23,18 +23,18 @@ import cpw.mods.fml.common.network.Player;
  * 
  */
 public abstract class MusePacket {
-	
+
 	protected static final int READ_ERROR = -150;
-	
+
 	protected Player player;
-	
+
 	protected ByteArrayOutputStream bytes;
-	
+
 	protected Packet250CustomPayload packet;
 	protected DataOutputStream dataout;
 	protected DataInputStream datain;
 	protected int id;
-	
+
 	protected MusePacket(Player player) {
 		this.player = player;
 		this.bytes = new ByteArrayOutputStream();
@@ -42,12 +42,12 @@ public abstract class MusePacket {
 		int id = MusePacketHandler.getTypeID(this);
 		writeInt(id);
 	}
-	
+
 	protected MusePacket(Player player, DataInputStream data) {
 		this.player = player;
 		this.datain = data;
 	}
-	
+
 	/**
 	 * Gets the MC packet associated with this MusePacket
 	 * 
@@ -58,16 +58,16 @@ public abstract class MusePacket {
 		return new Packet250CustomPayload(Config.getNetworkChannelName(),
 				bytes.toByteArray());
 	}
-	
+
 	/**
 	 * Called by the network manager since it does all the packet mapping
 	 * 
 	 * @param player2
 	 */
 	public abstract void handleClient(EntityClientPlayerMP player);
-	
+
 	public abstract void handleServer(EntityPlayerMP player);
-	
+
 	public int readInt() {
 		try {
 			int read = datain.readInt();
@@ -78,15 +78,35 @@ public abstract class MusePacket {
 			return READ_ERROR;
 		}
 	}
-	
+
 	public void writeInt(int i) {
 		try {
 			dataout.writeInt(i);
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
 	}
+
+	public boolean readBoolean() {
+		try {
+			boolean read = datain.readBoolean();
+			return read;
+		} catch (IOException e) {
+			MuseLogger.logError("PROBLEM READING DOUBLE FROM PACKET D:");
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public void writeBoolean(boolean val) {
+		try {
+			dataout.writeBoolean(val);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public double readDouble() {
 		try {
 			double read = datain.readDouble();
@@ -97,16 +117,16 @@ public abstract class MusePacket {
 			return READ_ERROR;
 		}
 	}
-	
+
 	public void writeDouble(double i) {
 		try {
 			dataout.writeDouble(i);
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Reads a ItemStack from the InputStream
 	 */
@@ -115,7 +135,7 @@ public abstract class MusePacket {
 		ItemStack stack = null;
 		try {
 			short itemID = datain.readShort();
-			
+
 			if (itemID >= 0)
 			{
 				byte stackSize = datain.readByte();
@@ -123,14 +143,14 @@ public abstract class MusePacket {
 				stack = new ItemStack(itemID, stackSize, damageAmount);
 				stack.stackTagCompound = readNBTTagCompound();
 			}
-			
+
 		} catch (IOException e) {
 			MuseLogger.logError("Problem reading itemstack D:");
 			e.printStackTrace();
 		}
 		return stack;
 	}
-	
+
 	/**
 	 * Writes the ItemStack's ID (short), then size (byte), then damage. (short)
 	 */
@@ -147,13 +167,13 @@ public abstract class MusePacket {
 				dataout.writeByte(stack.stackSize);
 				dataout.writeShort(stack.getItemDamage());
 				NBTTagCompound nbt = null;
-				
+
 				if (stack.getItem().isDamageable()
 						|| stack.getItem().getShareTag())
 				{
 					nbt = stack.stackTagCompound;
 				}
-				
+
 				writeNBTTagCompound(nbt);
 			}
 		} catch (IOException e) {
@@ -161,14 +181,14 @@ public abstract class MusePacket {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Reads a compressed NBTTagCompound from the InputStream
 	 */
 	public NBTTagCompound readNBTTagCompound() throws IOException
 	{
 		short length = datain.readShort();
-		
+
 		if (length < 0)
 		{
 			return null;
@@ -180,7 +200,7 @@ public abstract class MusePacket {
 			return CompressedStreamTools.decompress(fullData);
 		}
 	}
-	
+
 	/**
 	 * Writes a compressed NBTTagCompound to the OutputStream
 	 */
@@ -198,7 +218,7 @@ public abstract class MusePacket {
 			dataout.write(compressednbt);
 		}
 	}
-	
+
 	/**
 	 * Writes a String to the DataOutputStream
 	 */
@@ -212,7 +232,7 @@ public abstract class MusePacket {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Reads a string from a packet
 	 */
@@ -221,7 +241,7 @@ public abstract class MusePacket {
 		String read = null;
 		try {
 			short length = datain.readShort();
-			
+
 			if (length > maxlength)
 			{
 				throw new IOException(
@@ -236,12 +256,12 @@ public abstract class MusePacket {
 			else
 			{
 				StringBuilder builder = new StringBuilder();
-				
+
 				for (int i = 0; i < length; ++i)
 				{
 					builder.append(datain.readChar());
 				}
-				
+
 				read = builder.toString();
 			}
 		} catch (IOException e) {
@@ -249,5 +269,5 @@ public abstract class MusePacket {
 		}
 		return read;
 	}
-	
+
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import net.machinemuse.general.MuseMathUtils;
+import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.entity.player.EntityPlayer;
@@ -42,10 +43,18 @@ public class ItemUtils {
 	}
 
 	public static boolean isModuleActive(NBTTagCompound itemTag, String moduleName) {
-		if (itemTag.hasKey(moduleName) && itemTag.getCompoundTag(moduleName).getBoolean(ACTIVE)) {
+		if (ItemUtils.tagHasModule(itemTag, moduleName) && itemTag.getCompoundTag(moduleName).getBoolean(ACTIVE)) {
 			return true;
 		}
 		return false;
+	}
+
+	public static void toggleModule(NBTTagCompound itemTag, String name, boolean toggleval) {
+		if (ItemUtils.tagHasModule(itemTag, name)) {
+			MuseLogger.logDebug("Toggling " + name + ": " + toggleval);
+			NBTTagCompound moduleTag = itemTag.getCompoundTag(name);
+			moduleTag.setBoolean(ACTIVE, toggleval);
+		}
 	}
 
 	public static boolean itemHasModule(ItemStack stack, String moduleName) {
@@ -251,9 +260,7 @@ public class ItemUtils {
 	 * Sets the value of the given nbt tag, or removes it if the value would be
 	 * zero.
 	 */
-	public static void setDoubleOrRemove(NBTTagCompound itemProperties,
-			String string,
-			double value) {
+	public static void setDoubleOrRemove(NBTTagCompound itemProperties, String string, double value) {
 		if (itemProperties != null) {
 			if (value == 0) {
 				itemProperties.removeTag(string);
@@ -491,10 +498,12 @@ public class ItemUtils {
 		return installedModules;
 	}
 
-	public static void toggleModule(NBTTagCompound itemTag, String name, boolean toggleval) {
-		if (ItemUtils.tagHasModule(itemTag, name)) {
-			NBTTagCompound moduleTag = itemTag.getCompoundTag(name);
-			moduleTag.setBoolean(ACTIVE, toggleval);
+	public static void toggleModuleForPlayer(EntityPlayer player, String name, boolean toggleval) {
+		for (ItemStack stack : ItemUtils.modularItemsEquipped(player)) {
+			NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
+			toggleModule(itemTag, name, toggleval);
 		}
+
 	}
+
 }

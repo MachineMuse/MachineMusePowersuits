@@ -64,7 +64,7 @@ public class Config {
 		}
 		config.save();
 	}
-	
+
 	/**
 	 * The packet channel for this mod. We will only listen for and send packets
 	 * on this 'channel'. Max of 16 characters.
@@ -169,7 +169,7 @@ public class Config {
 
 		module = new PowerModule(ModularCommon.MODULE_ENERGY_SHIELD, ARMORONLY, MuseIcon.ENERGY_SHIELD, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Energy shields are much lighter than plating, but consume energy.")
-				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 4))
+				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2))
 				.addTradeoffProperty("Field Strength", ModularCommon.ARMOR_VALUE_ENERGY, 6, " Points")
 				.addTradeoffProperty("Field Strength", ModularCommon.ARMOR_ENERGY_CONSUMPTION, 500, "J");
 		ModuleManager.addModule(module);
@@ -204,7 +204,6 @@ public class Config {
 				.addTradeoffProperty("Overclock", ModularCommon.PICKAXE_HARVEST_SPEED, 18);
 		ModuleManager.addModule(module);
 
-
 		module = new PowerModule(ModularCommon.MODULE_DIAMOND_PICK_UPGRADE, TOOLONLY, MuseIcon.DIAMOND_PICK, ModularCommon.CATEGORY_TOOL_ADDON)
 				.setDescription("Add diamonds to allow your pickaxe module to mine Obsidian. *REQUIRES PICKAXE MODULE TO WORK*")
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
@@ -214,6 +213,7 @@ public class Config {
 		module = new PowerModule(ModularCommon.MODULE_AQUA_AFFINITY, TOOLONLY, MuseIcon.AQUA_AFFINITY, ModularCommon.CATEGORY_TOOL_ADDON)
 				.setDescription("Reduces the speed penalty for using your tool underwater.")
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 1))
+				.setToggleable(true)
 				.addBaseProperty(ModularCommon.AQUA_AFFINITY_ENERGY_CONSUMPTION, 0, "J")
 				.addBaseProperty(ModularCommon.UNDERWATER_HARVEST_SPEED, 0.2, "%")
 				.addTradeoffProperty("Power", ModularCommon.AQUA_AFFINITY_ENERGY_CONSUMPTION, 100)
@@ -246,9 +246,10 @@ public class Config {
 				.addTradeoffProperty("Battery Size", ModularCommon.MAXIMUM_ENERGY, 4250000)
 				.addTradeoffProperty("Battery Size", ModularCommon.WEIGHT, 8000);
 		ModuleManager.addModule(module);
-		
+
 		module = new PowerModule(ModularCommon.MODULE_SPRINT_ASSIST, LEGSONLY, MuseIcon.SPRINT_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("A set of servo motors to help you sprint (double-tap forward) faster.")
+				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 4));
 		ModuleManager.addSimpleTradeoff(
 				module, "Power",
@@ -262,6 +263,7 @@ public class Config {
 
 		module = new PowerModule(ModularCommon.MODULE_JUMP_ASSIST, LEGSONLY, MuseIcon.JUMP_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("Another set of servo motors to help you jump higher.")
+				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 4));
 		ModuleManager.addSimpleTradeoff(
 				module, "Power",
@@ -276,6 +278,7 @@ public class Config {
 		module = new PowerModule(ModularCommon.MODULE_SHOCK_ABSORBER, FEETONLY, MuseIcon.SHOCK_ABSORBER, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("With some servos, springs, and padding, you should be able to negate a portion of fall damage.")
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
+				.setToggleable(true)
 				.addInstallCost(new ItemStack(Block.cloth, 2));
 		ModuleManager.addSimpleTradeoff(
 				module, "Power",
@@ -284,6 +287,7 @@ public class Config {
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_GLIDER, TORSOONLY, MuseIcon.GLIDER, ModularCommon.CATEGORY_MOVEMENT)
+				.setToggleable(true)
 				.setDescription(
 						"Tack on some wings to turn downward into forward momentum. Press sneak+forward while falling to activate.")
 				.addInstallCost(copyAndResize(ItemComponent.gliderWing, 2));
@@ -296,6 +300,7 @@ public class Config {
 
 		module = new PowerModule(ModularCommon.MODULE_JETPACK, TORSOONLY, MuseIcon.JETPACK, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("A jetpack should allow you to jump indefinitely, or at least until you run out of power.")
+				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 4))
 				.addBaseProperty(ModularCommon.JET_ENERGY_CONSUMPTION, 0, "J/s")
 				.addBaseProperty(ModularCommon.JET_THRUST, 0, "N")
@@ -305,6 +310,7 @@ public class Config {
 
 		module = new PowerModule(ModularCommon.MODULE_JETBOOTS, FEETONLY, MuseIcon.JETBOOTS, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("Jet boots are not as strong as a jetpack, but they should at least be strong enough to counteract gravity.")
+				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 2))
 				.addBaseProperty(ModularCommon.JET_ENERGY_CONSUMPTION, 0)
 				.addBaseProperty(ModularCommon.JET_THRUST, 0)
@@ -315,12 +321,14 @@ public class Config {
 		module = new PowerModule(ModularCommon.MODULE_WATER_ELECTROLYZER, HEADONLY, MuseIcon.WATER_ELECTROLYZER, ModularCommon.CATEGORY_ENVIRONMENTAL)
 				.setDescription("When you run out of air, this module will jolt the water around you, electrolyzing a small bubble to breathe from.")
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1))
+				.setToggleable(true)
 				.addBaseProperty(ModularCommon.WATERBREATHING_ENERGY_CONSUMPTION, 1000, "J");
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_SWIM_BOOST, LEGSONLY, MuseIcon.SWIM_BOOST, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription(
 						"By refitting an ion thruster for underwater use, you may be able to add extra forward (or backward) thrust when underwater.")
+				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 1))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 2))
 				.addTradeoffProperty("Thrust", ModularCommon.SWIM_BOOST_ENERGY_CONSUMPTION, 100, "J")
@@ -329,12 +337,14 @@ public class Config {
 
 		module = new PowerModule(ModularCommon.MODULE_CLIMB_ASSIST, LEGSONLY, MuseIcon.STEP_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("A pair of dedicated servos allow you to effortlessly step up 1m-high ledges.")
+				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2));
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_TINT, ARMORONLY, MuseIcon.NETHERSTAR, ModularCommon.CATEGORY_COSMETIC)
 				.setDescription("Give your armor some coloured tinting to customize your armor's appearance.")
 				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1))
+				.setToggleable(true)
 				.addTradeoffProperty("Red Intensity", ModularCommon.RED_TINT, 1, "%")
 				.addTradeoffProperty("Green Intensity", ModularCommon.GREEN_TINT, 1, "%")
 				.addTradeoffProperty("Blue Intensity", ModularCommon.BLUE_TINT, 1, "%");
@@ -342,6 +352,7 @@ public class Config {
 
 		module = new PowerModule(ModularCommon.MODULE_TRANSPARENT_ARMOR, ARMORONLY, MuseIcon.TRANSPARENT_ARMOR, ModularCommon.CATEGORY_COSMETIC)
 				.setDescription("Make the item transparent, so you can show off your skin without losing armor.")
+				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1));
 		ModuleManager.addModule(module);
 
@@ -418,14 +429,14 @@ public class Config {
 		GuiTinkerTable,
 		GuiSuitManager;
 	}
-	
+
 	public static Configuration getConfig() {
 		return config;
 	}
 
 	public static boolean doAdditionalInfo() {
-		if(FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT){
-			if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
+		if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+			if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
 				return true;
 			}
 		}

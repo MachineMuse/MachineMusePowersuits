@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.powermodule.property.IPropertyModifier;
 import net.machinemuse.powersuits.powermodule.property.PropertyModifierFlatAdditive;
 import net.machinemuse.powersuits.powermodule.property.PropertyModifierLinearAdditive;
@@ -26,7 +27,7 @@ public class PowerModule {
 	protected NBTTagCompound defaultTag;
 	protected Map<String, List<IPropertyModifier>> propertyModifiers;
 	protected static Map<String, String> units = new HashMap();
-	protected boolean toggleable = true;
+	protected boolean toggleable = false;
 
 	public PowerModule(String name, boolean[] validSlots, MuseIcon icon, String category) {
 		this.name = name;
@@ -37,6 +38,7 @@ public class PowerModule {
 		this.propertyModifiers = new HashMap();
 		this.installCost = new ArrayList();
 		this.defaultTag = new NBTTagCompound();
+		this.defaultTag.setBoolean(ItemUtils.ACTIVE, true);
 	}
 
 	public String getName() {
@@ -58,6 +60,7 @@ public class PowerModule {
 	public boolean isToggleable() {
 		return toggleable;
 	}
+
 	public PowerModule setToggleable(boolean value) {
 		this.toggleable = value;
 		return this;

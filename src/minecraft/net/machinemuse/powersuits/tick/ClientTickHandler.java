@@ -2,6 +2,8 @@ package net.machinemuse.powersuits.tick;
 
 import java.util.EnumSet;
 
+import net.machinemuse.general.gui.clickable.ClickableKeybinding;
+import net.machinemuse.powersuits.client.KeybindManager;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
@@ -15,15 +17,13 @@ public class ClientTickHandler implements ITickHandler {
 
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
-		// TODO Auto-generated method stub
-
+		for (ClickableKeybinding kb : KeybindManager.getKeybindings()) {
+			kb.doToggleTick();
+		}
 	}
 
 	@Override
-	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
-		// TODO Auto-generated method stub
-
-	}
+	public void tickEnd(EnumSet<TickType> type, Object... tickData) {}
 
 	@Override
 	public EnumSet<TickType> ticks() {

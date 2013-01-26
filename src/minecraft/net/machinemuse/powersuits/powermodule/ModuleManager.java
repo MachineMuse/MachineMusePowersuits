@@ -31,7 +31,9 @@ public class ModuleManager {
 		double propertyValue = 0;
 		NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
 		for (PowerModule module : moduleList) {
-			propertyValue = module.applyPropertyModifiers(itemTag, propertyName, propertyValue);
+			if (ItemUtils.isModuleActive(itemTag, module.getName())) {
+				propertyValue = module.applyPropertyModifiers(itemTag, propertyName, propertyValue);
+			}
 		}
 		return propertyValue;
 	}

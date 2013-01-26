@@ -11,8 +11,6 @@ import net.machinemuse.powersuits.item.ItemUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 import org.lwjgl.input.Keyboard;
 
@@ -33,6 +31,10 @@ public class ClickableKeybinding extends ClickableButton {
 		return toggled;
 	}
 
+	public void doToggleTick() {
+		doToggleIf(keybind.pressed);
+	}
+
 	public void doToggleIf(boolean value) {
 		if (value && !toggled) {
 			toggleModules();
@@ -45,13 +47,11 @@ public class ClickableKeybinding extends ClickableButton {
 		if (player == null) {
 			return;
 		}
-		for (ItemStack stack : ItemUtils.getModularItemsInInventory(player)) {
-			NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
-			for (ClickableModule module : boundModules) {
-				ItemUtils.toggleModule(itemTag, module.getModule().getName(), toggleval);
-			}
+		for (ClickableModule module : boundModules) {
+			String valstring = toggleval ? " on" : " off";
+			player.sendChatToPlayer("Toggled " + module.getModule().getName() + valstring);
+			ItemUtils.toggleModuleForPlayer(player, module.getModule().getName(), toggleval);
 		}
-
 		toggleval = !toggleval;
 	}
 
@@ -115,4 +115,5 @@ public class ClickableKeybinding extends ClickableButton {
 			}
 		}
 	}
+
 }

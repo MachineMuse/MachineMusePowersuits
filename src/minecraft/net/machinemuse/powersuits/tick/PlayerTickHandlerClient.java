@@ -47,7 +47,6 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			EntityPlayerMP player = (EntityPlayerMP) rawPlayer;
 			handleServer(player);
 		}
-
 	}
 
 	public void handleClient(EntityClientPlayerMP player) {
@@ -193,7 +192,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			if (hasSprintAssist && player.isSprinting()) {
 				double horzMovement = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ);
 				double exhaustion = Math.round(horzMovement * 100.0F) * 0.01;
-				
+
 				double sprintCost = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_ENERGY_CONSUMPTION);
 				if (sprintCost + totalEnergyDrain < totalEnergy) {
 					double sprintMultiplier = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_SPEED_MULTIPLIER);
