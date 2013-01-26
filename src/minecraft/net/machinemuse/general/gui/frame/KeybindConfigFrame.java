@@ -12,6 +12,7 @@ import net.machinemuse.general.gui.clickable.ClickableButton;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.general.gui.clickable.IClickable;
+import net.machinemuse.powersuits.client.KeybindManager;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.powermodule.PowerModule;
@@ -22,7 +23,6 @@ import org.lwjgl.input.Keyboard;
 
 public class KeybindConfigFrame implements IGuiFrame {
 	protected List<ClickableModule> modules;
-	protected List<ClickableKeybinding> keybinds;
 	protected IClickable selectedClickie;
 	protected ClickableKeybinding closestKeybind;
 	protected EntityPlayer player;
@@ -36,7 +36,6 @@ public class KeybindConfigFrame implements IGuiFrame {
 
 	public KeybindConfigFrame(MuseGui gui, MusePoint2D ul, MusePoint2D br, EntityPlayer player) {
 		modules = new ArrayList();
-		keybinds = new ArrayList();
 		this.gui = gui;
 		this.ul = ul;
 		this.br = br;
@@ -73,7 +72,7 @@ public class KeybindConfigFrame implements IGuiFrame {
 						return;
 					}
 				}
-				for (ClickableKeybinding keybind : keybinds) {
+				for (ClickableKeybinding keybind : KeybindManager.getKeybindings()) {
 					if (keybind.hitBox(x, y)) {
 						selectedClickie = keybind;
 						return;
@@ -95,7 +94,7 @@ public class KeybindConfigFrame implements IGuiFrame {
 				KeyBinding binding = ((ClickableKeybinding) selectedClickie).getKeyBinding();
 				KeyBinding.keybindArray.remove(binding);
 				KeyBinding.hash.removeObject(binding.keyCode);
-
+				KeybindManager.getKeybindings().remove(selectedClickie);
 			}
 			selectedClickie = null;
 		}
@@ -113,7 +112,7 @@ public class KeybindConfigFrame implements IGuiFrame {
 			this.selectedClickie.move(mousex, mousey);
 			if (this.selectedClickie instanceof ClickableModule) {
 				ClickableModule selectedModule = ((ClickableModule) this.selectedClickie);
-				for (ClickableKeybinding keybind : this.keybinds) {
+				for (ClickableKeybinding keybind : KeybindManager.getKeybindings()) {
 					double distance = keybind.getPosition().minus(selectedModule.getPosition()).distance();
 					if (distance < closestDistance) {
 						closestDistance = distance;
@@ -124,7 +123,7 @@ public class KeybindConfigFrame implements IGuiFrame {
 				}
 			}
 		}
-		for (ClickableKeybinding keybind : this.keybinds) {
+		for (ClickableKeybinding keybind : KeybindManager.getKeybindings()) {
 			if (keybind != selectedClickie) {
 				keybind.unbindFarModules();
 			}
@@ -135,7 +134,7 @@ public class KeybindConfigFrame implements IGuiFrame {
 				repelOtherModules(module);
 			}
 		}
-		for (IClickable keybind : keybinds) {
+		for (IClickable keybind : KeybindManager.getKeybindings()) {
 			if (keybind != selectedClickie) {
 				repelOtherModules(keybind);
 			}
@@ -143,7 +142,7 @@ public class KeybindConfigFrame implements IGuiFrame {
 		for (IClickable module : modules) {
 			clampClickiePosition(module);
 		}
-		for (IClickable keybind : keybinds) {
+		for (IClickable keybind : KeybindManager.getKeybindings()) {
 			clampClickiePosition(keybind);
 		}
 	}
@@ -195,7 +194,7 @@ public class KeybindConfigFrame implements IGuiFrame {
 		for (ClickableModule module : modules) {
 			module.draw();
 		}
-		for (ClickableKeybinding keybind : keybinds) {
+		for (ClickableKeybinding keybind : KeybindManager.getKeybindings()) {
 			keybind.draw();
 		}
 		newKeybindButton.draw();
@@ -224,7 +223,7 @@ public class KeybindConfigFrame implements IGuiFrame {
 				if (!KeyBinding.hash.containsItem(key)) {
 					KeyBinding keybind = new KeyBinding(Keyboard.getKeyName(key), key);
 					ClickableKeybinding clickie = new ClickableKeybinding(keybind, newKeybindButton.getPosition().plus(new MusePoint2D(0, -20)));
-					keybinds.add(clickie);
+					KeybindManager.getKeybindings().add(clickie);
 				} else {
 					takenTime = System.currentTimeMillis();
 				}

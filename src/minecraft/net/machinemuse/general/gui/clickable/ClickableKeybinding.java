@@ -7,38 +7,68 @@ import java.util.List;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.geometry.MuseRenderer;
+import net.machinemuse.powersuits.item.ItemUtils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 import org.lwjgl.input.Keyboard;
 
-public class ClickableKeybinding extends Clickable {
+public class ClickableKeybinding extends ClickableButton {
 	protected List<ClickableModule> boundModules;
 	protected KeyBinding keybind;
+	protected boolean toggleval;
+	protected boolean toggled;
 
 	public ClickableKeybinding(KeyBinding keybind, MusePoint2D position) {
+		super(parseName(keybind), position, true);
 		this.keybind = keybind;
 		this.position = position;
 		this.boundModules = new ArrayList();
 	}
 
-	@Override
-	public void draw() {
-		MuseRenderer.drawCircleAround(position.x(), position.y(), 8);
-		String name = keybind.keyCode < 0 ? "Mouse" + (keybind.keyCode + 100) : Keyboard.getKeyName(keybind.keyCode);
-		MuseRenderer.drawCenteredString("" + name, position.x(), position.y() - 4);
-		for (ClickableModule module : boundModules) {
-			MuseRenderer.drawLineBetween(this, module, Colour.LIGHTBLUE);
+	public boolean isToggled() {
+		return toggled;
+	}
+
+	public void doToggleIf(boolean value) {
+		if (value && !toggled) {
+			toggleModules();
+		}
+		toggled = value;
+	}
+
+	public void toggleModules() {
+		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		if (player == null) {
+			return;
+		}
+		for (ItemStack stack : ItemUtils.getModularItemsInInventory(player)) {
+			NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
+			for (ClickableModule module : boundModules) {
+				ItemUtils.toggleModule(itemTag, module.getModule().getName(), toggleval);
+			}
+		}
+
+		toggleval = !toggleval;
+	}
+
+	public static String parseName(KeyBinding keybind) {
+		if (keybind.keyCode < 0) {
+			return "Mouse" + (keybind.keyCode + 100);
+		} else {
+			return Keyboard.getKeyName(keybind.keyCode);
 		}
 	}
 
 	@Override
-	public boolean hitBox(double x, double y) {
-		return position.minus(new MusePoint2D(x, y)).distance() < 8;
-	}
-
-	@Override
-	public List<String> getToolTip() {
-		return null;
+	public void draw() {
+		super.draw();
+		for (ClickableModule module : boundModules) {
+			MuseRenderer.drawLineBetween(this, module, Colour.LIGHTBLUE);
+		}
 	}
 
 	public KeyBinding getKeyBinding() {

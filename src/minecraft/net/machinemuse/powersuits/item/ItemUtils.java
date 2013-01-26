@@ -19,6 +19,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class ItemUtils {
 	public static final String NBTPREFIX = "mmmpsmod";
+	public static final String ACTIVE = "Active";
 
 	public static List<PowerModule> getValidModulesForItem(
 			EntityPlayer player, ItemStack stack) {
@@ -38,6 +39,13 @@ public class ItemUtils {
 		} else {
 			return false;
 		}
+	}
+
+	public static boolean isModuleActive(NBTTagCompound itemTag, String moduleName) {
+		if (itemTag.hasKey(moduleName) && itemTag.getCompoundTag(moduleName).getBoolean(ACTIVE)) {
+			return true;
+		}
+		return false;
 	}
 
 	public static boolean itemHasModule(ItemStack stack, String moduleName) {
@@ -469,17 +477,24 @@ public class ItemUtils {
 			}
 		}
 	}
-	
+
 	public static List<PowerModule> getPlayerInstalledModules(EntityPlayer player) {
 		List<PowerModule> installedModules = new ArrayList();
 		for (ItemStack stack : ItemUtils.getModularItemsInInventory(player)) {
 			NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
-			for(PowerModule module : ItemUtils.getValidModulesForItem(player, stack)) {
-				if(tagHasModule(itemTag, module.getName())) {
+			for (PowerModule module : ItemUtils.getValidModulesForItem(player, stack)) {
+				if (tagHasModule(itemTag, module.getName())) {
 					installedModules.add(module);
 				}
 			}
 		}
 		return installedModules;
+	}
+
+	public static void toggleModule(NBTTagCompound itemTag, String name, boolean toggleval) {
+		if (ItemUtils.tagHasModule(itemTag, name)) {
+			NBTTagCompound moduleTag = itemTag.getCompoundTag(name);
+			moduleTag.setBoolean(ACTIVE, toggleval);
+		}
 	}
 }

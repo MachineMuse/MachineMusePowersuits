@@ -1,23 +1,45 @@
 package net.machinemuse.powersuits.client;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import net.machinemuse.general.geometry.MusePoint2D;
+import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.minecraft.client.settings.KeyBinding;
 
+import org.lwjgl.input.Keyboard;
+
 public class KeybindManager {
+	// only stores keybindings relevant to us!!
+	protected List<ClickableKeybinding> keybindings;
+	protected static KeybindManager instance;
 
-	public List<KeyBinding> getKeybindings() {
-		// IntHashMap map = KeyBinding.hash;
-		// Set<Integer> keys = map.getKeySet();
-		// List<KeyBinding> bindings = new ArrayList();
-		// for (Integer key : keys) {
-		// bindings.add((KeyBinding) map.lookup(key));
-		// }
-		return KeyBinding.keybindArray;
+	protected KeybindManager() {
+		keybindings = new ArrayList();
 	}
 
-	public void addKeybinding(KeyBinding binding) {
-
+	public static KeybindManager getInstance() {
+		if (instance == null) {
+			instance = new KeybindManager();
+		}
+		return instance;
 	}
 
+	public static List<ClickableKeybinding> getKeybindings() {
+		return getInstance().keybindings;
+	}
+
+	public static KeyBinding addKeybinding(String keybindDescription, int keycode, MusePoint2D position) {
+		KeyBinding kb = new KeyBinding(keybindDescription, keycode);
+		getInstance().keybindings.add(new ClickableKeybinding(kb, position));
+		return kb;
+	}
+
+	public static String parseName(KeyBinding keybind) {
+		if (keybind.keyCode < 0) {
+			return "Mouse" + (keybind.keyCode + 100);
+		} else {
+			return Keyboard.getKeyName(keybind.keyCode);
+		}
+	}
 }
