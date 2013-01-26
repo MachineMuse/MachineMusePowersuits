@@ -5,8 +5,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
@@ -22,11 +23,11 @@ import org.lwjgl.input.Keyboard;
 
 public class KeybindManager {
 	// only stores keybindings relevant to us!!
-	protected List<ClickableKeybinding> keybindings;
+	protected Set<ClickableKeybinding> keybindings;
 	protected static KeybindManager instance;
 
 	protected KeybindManager() {
-		keybindings = new ArrayList();
+		keybindings = new HashSet();
 	}
 
 	public static KeybindManager getInstance() {
@@ -36,7 +37,7 @@ public class KeybindManager {
 		return instance;
 	}
 
-	public static List<ClickableKeybinding> getKeybindings() {
+	public static Set<ClickableKeybinding> getKeybindings() {
 		return getInstance().keybindings;
 	}
 
@@ -89,9 +90,14 @@ public class KeybindManager {
 				if (line.contains(":")) {
 					String[] exploded = line.split(":");
 					int id = Integer.parseInt(exploded[0]);
-					MusePoint2D position = new MusePoint2D(Double.parseDouble(exploded[1]), Double.parseDouble(exploded[2]));
-					workingKeybinding = new ClickableKeybinding(new KeyBinding(Keyboard.getKeyName(id), id), position);
-					getInstance().keybindings.add(workingKeybinding);
+					if (!KeyBinding.hash.containsItem(id)) {
+						MusePoint2D position = new MusePoint2D(Double.parseDouble(exploded[1]), Double.parseDouble(exploded[2]));
+						workingKeybinding = new ClickableKeybinding(new KeyBinding(Keyboard.getKeyName(id), id), position);
+						getInstance().keybindings.add(workingKeybinding);
+					} else {
+						workingKeybinding = null;
+					}
+
 				} else if (line.contains("~") && workingKeybinding != null) {
 					String[] exploded = line.split("~");
 					MusePoint2D position = new MusePoint2D(Double.parseDouble(exploded[1]), Double.parseDouble(exploded[2]));
@@ -101,6 +107,7 @@ public class KeybindManager {
 
 				}
 			}
+			reader.close();
 		} catch (Exception e) {
 			MuseLogger.logError("Problem reading in keyconfig :(");
 			e.printStackTrace();

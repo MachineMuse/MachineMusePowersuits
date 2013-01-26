@@ -46,12 +46,6 @@ public class KeybindConfigFrame implements IGuiFrame {
 		this.ul = ul;
 		this.br = br;
 		this.player = player;
-		// for (Object keybind : KeyBinding.keybindArray) {
-		// if (((KeyBinding) keybind).keyCode > 0) {
-		// keybinds.add(new ClickableKeybinding((KeyBinding) keybind, new
-		// MusePoint2D(br.x() - 10, br.y() - (offset++ * 10))));
-		// }
-		// }
 		MusePoint2D center = br.plus(ul).times(0.5);
 		newKeybindButton = new ClickableButton("New", center.plus(new MusePoint2D(0, -8)), true);
 		trashKeybindButton = new ClickableButton("Trash", center.plus(new MusePoint2D(0, 8)), true);
@@ -202,11 +196,16 @@ public class KeybindConfigFrame implements IGuiFrame {
 
 	@Override
 	public void draw() {
+		MusePoint2D center = ul.plus(br).times(0.5);
 		if (selecting) {
-			MusePoint2D pos = ul.plus(br).times(0.5);
-			MuseRenderer.drawCenteredString("Press Key", pos.x(), pos.y());
+			MuseRenderer.drawCenteredString("Press Key", center.x(),center.y());
 			return;
 		}
+		newKeybindButton.draw();
+		trashKeybindButton.draw();
+		MuseRenderer.drawCenteredString("Use 'new' to bind new keys.", center.x(), center.y()+40);
+		MuseRenderer.drawCenteredString("Drag and drop modules to bind them to keys.", center.x(), center.y()+50);
+		MuseRenderer.drawCenteredString("Drop keys on 'trash' to unbind them.", center.x(), center.y()+60);
 		if (takenTime + 1000 > System.currentTimeMillis()) {
 			MusePoint2D pos = newKeybindButton.getPosition().plus(new MusePoint2D(0, -20));
 			MuseRenderer.drawCenteredString("Taken!", pos.x(), pos.y());
@@ -217,8 +216,6 @@ public class KeybindConfigFrame implements IGuiFrame {
 		for (ClickableKeybinding keybind : KeybindManager.getKeybindings()) {
 			keybind.draw();
 		}
-		newKeybindButton.draw();
-		trashKeybindButton.draw();
 		if (selectedClickie != null && closestKeybind != null) {
 			MuseRenderer.drawLineBetween(selectedClickie, closestKeybind, Colour.YELLOW);
 		}

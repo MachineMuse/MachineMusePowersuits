@@ -60,7 +60,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 				itemTag.removeTag("didColour");
 				return Config.BLANK_ARMOR_MODEL_PATH;
 			} else {
-				if (ItemUtils.itemHasModule(itemstack, ModularCommon.MODULE_TRANSPARENT_ARMOR)) {
+				if (ItemUtils.itemHasActiveModule(itemstack, ModularCommon.MODULE_TRANSPARENT_ARMOR)) {
 					return Config.BLANK_ARMOR_MODEL_PATH;
 				} else if (itemstack.getItem() instanceof ItemPowerArmorLegs) {
 					return Config.SEBK_ARMORPANTS_PATH;

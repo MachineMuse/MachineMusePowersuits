@@ -125,4 +125,8 @@ public class ClickableKeybinding extends ClickableButton {
 		}
 	}
 
+	public boolean equals(ClickableKeybinding other) {
+		return other.keybind.keyCode == this.keybind.keyCode;
+	}
+
 }
