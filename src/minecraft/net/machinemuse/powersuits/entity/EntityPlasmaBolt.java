@@ -35,7 +35,8 @@ public class EntityPlasmaBolt extends EntityThrowable {
 		this.motionX = direction.xCoord * scale;
 		this.motionY = direction.yCoord * scale;
 		this.motionZ = direction.zCoord * scale;
-		double xoffset = 0.9f;
+		double r = this.size / 50.0;
+		double xoffset = 1.3f + r;
 		double yoffset = -.4;
 		double zoffset = 0.6f;
 		Vec3 horzdir = direction.normalize();
@@ -44,23 +45,23 @@ public class EntityPlasmaBolt extends EntityThrowable {
 		this.posX = shootingEntity.posX + direction.xCoord * xoffset - direction.yCoord * horzdir.xCoord * yoffset - horzdir.zCoord * zoffset;
 		this.posY = shootingEntity.posY + shootingEntity.getEyeHeight() + direction.yCoord * xoffset + (1 - Math.abs(direction.yCoord)) * yoffset;
 		this.posZ = shootingEntity.posZ + direction.zCoord * xoffset - direction.yCoord * horzdir.zCoord * yoffset + horzdir.xCoord * zoffset;
-		double r = this.size / 50.0;
 		this.boundingBox.setBounds(posX - r, posY - r, posZ - r, posX + r, posY + r, posZ + r);
 	}
 
-	//
-	// @Override
-	// public void onEntityUpdate() {
-	// // super.onEntityUpdate();
-	// if (this.isCollided) {
-	// this.setDead();
-	// }
-	// this.moveEntity(motionX, motionY, motionZ);
-	// lifespan--;
-	// if (lifespan < 0) {
-	// this.setDead();
-	// }
-	// }
+	@Override
+	public void onEntityUpdate() {
+		super.onEntityUpdate();
+		if (this.isInWater()) {
+			this.setDead();
+			for (int var3 = 0; var3 < this.size; ++var3)
+			{
+				this.worldObj.spawnParticle("flame", this.posX + Math.random() * 1, this.posY + Math.random() * 1, this.posZ + Math.random()
+						* 0.1,
+						0.0D, 0.0D, 0.0D);
+			}
+
+		}
+	}
 
 	public int getMaxLifetime()
 	{

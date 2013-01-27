@@ -59,11 +59,10 @@ public class MovementManager {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 			ItemStack boots = player.getCurrentArmor(0);
 			if (boots != null) {
-				if (ItemUtils.itemHasActiveModule(boots, ModularCommon.MODULE_SHOCK_ABSORBER)) {
+				if (ItemUtils.itemHasActiveModule(boots, ModularCommon.MODULE_SHOCK_ABSORBER) && event.distance > 3) {
 					double distanceAbsorb = event.distance * ModuleManager.computeModularProperty(boots, ModularCommon.SHOCK_ABSORB_MULTIPLIER);
 
-					double drain = distanceAbsorb * distanceAbsorb * 0.05
-							* ModuleManager.computeModularProperty(boots, ModularCommon.SHOCK_ABSORB_ENERGY_CONSUMPTION);
+					double drain = distanceAbsorb * ModuleManager.computeModularProperty(boots, ModularCommon.SHOCK_ABSORB_ENERGY_CONSUMPTION);
 					double avail = ItemUtils.getPlayerEnergy(player);
 					if (drain < avail) {
 						ItemUtils.drainPlayerEnergy(player, drain);
