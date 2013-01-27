@@ -136,13 +136,13 @@ public class EntityPlasmaBolt extends EntityThrowable {
 			}
 			break;
 		case TILE:
-			if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
-			{
-				this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.size / 50.0f * this.explosiveness), true);
-			}
 			break;
 		default:
 			break;
+		}
+		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+		{
+			this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.size / 50.0f * this.explosiveness), true);
 		}
 		for (int var3 = 0; var3 < 8; ++var3)
 		{
