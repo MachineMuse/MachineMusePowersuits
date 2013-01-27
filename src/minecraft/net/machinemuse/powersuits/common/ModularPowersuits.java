@@ -67,7 +67,7 @@ public class ModularPowersuits {
 	 * The instance of the mod that Forge will access. Note that it has to be
 	 * set by hand in the preInit step.
 	 */
-	@Instance("PowersuitsMod")
+	@Instance("ModularPowersuits")
 	public static ModularPowersuits instance;
 
 	/**
