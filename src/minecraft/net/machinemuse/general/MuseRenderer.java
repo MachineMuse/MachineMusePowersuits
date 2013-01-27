@@ -1,4 +1,4 @@
-package net.machinemuse.general.geometry;
+package net.machinemuse.general;
 
 import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
@@ -6,6 +6,8 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.machinemuse.general.geometry.Colour;
+import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.MuseGui;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.general.gui.clickable.IClickable;
@@ -13,6 +15,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.PositionTextureVertex;
 import net.minecraft.client.model.TexturedQuad;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
@@ -700,6 +703,12 @@ public abstract class MuseRenderer {
 
 	}
 
+	public static void glowOn() {
+
+		RenderHelper.disableStandardItemLighting();
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);
+	}
+
 	/**
 	 * Singleton pattern for FontRenderer
 	 */
@@ -757,5 +766,68 @@ public abstract class MuseRenderer {
 		GL11.glEnd();
 
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
+	}
+
+	public static void drawSolidCircle(double radius, Colour colour1, Colour colour2) {
+		DoubleBuffer points = getArcPoints(0, Math.PI * 2, radius, 0, 0, 0);
+		DoubleBuffer pointsToDraw = BufferUtils.createDoubleBuffer(points.remaining() + 6);
+		pointsToDraw.put(new double[] { 0, 0, 0 });
+		pointsToDraw.put(points);
+		pointsToDraw.put(new double[] { 0, radius, 0 });
+		pointsToDraw.flip();
+		DoubleBuffer colourArray = getColourGradient(colour1, colour1, pointsToDraw.limit() / 3 - 1);
+		DoubleBuffer coloursToDraw = BufferUtils.createDoubleBuffer(pointsToDraw.limit() * 4 / 3);
+		coloursToDraw.put(new double[] { colour2.r, colour2.g, colour2.b, colour2.a });
+		coloursToDraw.put(colourArray);
+		coloursToDraw.flip();
+		arraysOnC();
+		texturelessOn();
+		smoothingOn();
+		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glDisable(GL11.GL_CULL_FACE);
+		GL11.glPushMatrix();
+
+		GL11.glVertexPointer(3, 0, pointsToDraw);
+		GL11.glColorPointer(4, 0, coloursToDraw);
+		GL11.glDrawArrays(GL11.GL_TRIANGLE_FAN, 0, pointsToDraw.limit() / 3);
+		GL11.glPopMatrix();
+		GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glEnable(GL11.GL_CULL_FACE);
+		arraysOff();
+		texturelessOff();
+	}
+
+	public static void drawLightning(double x1, double y1, double z1, double x2, double y2, double z2, Colour colour) {
+		double tx = x2 - x1, ty = y2 - y1, tz = z2 - z1, cx = 0, cy = 0, cz = 0;
+		double jagfactor = 0.3;
+		texturelessOn();
+		smoothingOn();
+		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glDisable(GL11.GL_CULL_FACE);
+		GL11.glBegin(GL11.GL_LINE_STRIP);
+		while (Math.abs(cx) < Math.abs(tx) && Math.abs(cy) < Math.abs(ty) && Math.abs(cz) < Math.abs(tz)) {
+			colour.doGL();
+			// GL11.glLineWidth(1);
+			double ox = x1 + cx;
+			double oy = y1 + cy;
+			double oz = z1 + cz;
+			cx += Math.random() * tx * jagfactor - 0.1 * tx;
+			cy += Math.random() * ty * jagfactor - 0.1 * ty;
+			cz += Math.random() * tz * jagfactor - 0.1 * tz;
+			GL11.glVertex3d(x1 + cx, y1 + cy, z1 + cz);
+			//
+			// GL11.glLineWidth(3);
+			// colour.withAlpha(0.5).doGL();
+			// GL11.glVertex3d(ox, oy, oz);
+			//
+			// GL11.glLineWidth(5);
+			// colour.withAlpha(0.1).doGL();
+			// GL11.glVertex3d(x1 + cx, y1 + cy, z1 + cz);
+		}
+		GL11.glEnd();
+		GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glEnable(GL11.GL_CULL_FACE);
+		texturelessOff();
+
 	}
 }

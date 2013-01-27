@@ -3,8 +3,8 @@ package net.machinemuse.powersuits.tick;
 import java.lang.reflect.Method;
 import java.util.EnumSet;
 
+import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.MuseStringUtils;
-import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.item.ItemUtils;

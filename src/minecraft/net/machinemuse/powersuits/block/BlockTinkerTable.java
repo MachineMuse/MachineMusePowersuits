@@ -4,7 +4,7 @@ import java.util.List;
 
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.common.PowersuitsMod;
+import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -103,7 +103,7 @@ public class BlockTinkerTable extends Block {
 		if (player.isSneaking()) {
 			return false;
 		}
-		player.openGui(PowersuitsMod.instance,
+		player.openGui(ModularPowersuits.instance,
 				Config.Guis.GuiTinkerTable.ordinal(),
 				world, x, y, z);
 		return true;

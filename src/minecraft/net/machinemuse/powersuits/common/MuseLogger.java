@@ -18,8 +18,8 @@ public abstract class MuseLogger {
 
 	public static void logDebug(String string) {
 		if (Config.isDebugging()) {
-			Side side = FMLCommonHandler.instance().getEffectiveSide();
-			Logger.getLogger("STDOUT").info(DEBUGPREFIX + side + ": " + string);
+			Side side1 = FMLCommonHandler.instance().getEffectiveSide();
+			Logger.getLogger("STDOUT").info(DEBUGPREFIX + side1 + ": " + string);
 		}
 	}
 

@@ -2,8 +2,8 @@ package net.machinemuse.general.gui.frame;
 
 import java.util.List;
 
+import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.MusePoint2D;
 
 public class ScrollableFrame implements IGuiFrame {

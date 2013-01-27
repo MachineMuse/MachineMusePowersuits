@@ -67,35 +67,35 @@ public class RecipeManager {
 					'B', lapis,
 					'R', rosered);
 			
-			GameRegistry.addRecipe(new ItemStack(PowersuitsMod.tinkerTable),
+			GameRegistry.addRecipe(new ItemStack(ModularPowersuits.tinkerTable),
 					"ILI",
 					"LEL",
 					"ILI",
 					'I', iron, 'L', lapis, 'E', emerald);
 
-			GameRegistry.addRecipe(new ItemStack(PowersuitsMod.powerArmorHead),
+			GameRegistry.addRecipe(new ItemStack(ModularPowersuits.powerArmorHead),
 					"III",
 					"C C",
 					'I', iron, 'C', circuit);
 
-			GameRegistry.addRecipe(new ItemStack(PowersuitsMod.powerArmorTorso),
+			GameRegistry.addRecipe(new ItemStack(ModularPowersuits.powerArmorTorso),
 					"I I",
 					"CIC",
 					"III",
 					'I', iron, 'C', circuit);
 
-			GameRegistry.addRecipe(new ItemStack(PowersuitsMod.powerArmorLegs),
+			GameRegistry.addRecipe(new ItemStack(ModularPowersuits.powerArmorLegs),
 					"III",
 					"C C",
 					"I I",
 					'I', iron, 'C', circuit);
 
-			GameRegistry.addRecipe(new ItemStack(PowersuitsMod.powerArmorFeet),
+			GameRegistry.addRecipe(new ItemStack(ModularPowersuits.powerArmorFeet),
 					"C C",
 					"I I",
 					'I', iron, 'C', circuit);
 
-			GameRegistry.addRecipe(new ItemStack(PowersuitsMod.powerTool),
+			GameRegistry.addRecipe(new ItemStack(ModularPowersuits.powerTool),
 					" C ",
 					"CI ",
 					" IC",
@@ -215,35 +215,35 @@ public class RecipeManager {
 			GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(diamond, 5), true,
 					"P", 'P', ItemComponent.advancedPlating));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.tinkerTable), true,
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.tinkerTable), true,
 					"ILI",
 					"LEL",
 					"ILI",
 					'I', "plateSteel", 'L', lapisBlock, 'E', emerald));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerArmorHead), true,
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorHead), true,
 					"III",
 					"C C",
 					'I', "plateSteel", 'C', "basicCircuit"));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerArmorTorso), true,
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorTorso), true,
 					"I I",
 					"CIC",
 					"III",
 					'I', "plateSteel", 'C', "basicCircuit"));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerArmorLegs), true,
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorLegs), true,
 					"III",
 					"C C",
 					"I I",
 					'I', "plateSteel", 'C', "basicCircuit"));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerArmorFeet), true,
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorFeet), true,
 					"C C",
 					"I I",
 					'I', "plateSteel", 'C', "basicCircuit"));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerTool), true,
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerTool), true,
 					" C ",
 					"CI ",
 					" IC",
@@ -358,35 +358,35 @@ public class RecipeManager {
 					'C', advCircuit,
 					'I', diamond));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.tinkerTable), true,
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.tinkerTable), true,
 					"E",
 					"C",
 					"M",
 					'E', emerald, 'C', circuit.copy(), 'M', machine));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerArmorHead), true,
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorHead), true,
 					"III",
 					"C C",
 					'I', refIron, 'C', circuit.copy()));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerArmorTorso), true,
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorTorso), true,
 					"I I",
 					"CIC",
 					"III",
 					'I', refIron, 'C', circuit.copy()));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerArmorLegs), true,
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorLegs), true,
 					"III",
 					"C C",
 					"I I",
 					'I', refIron, 'C', circuit.copy()));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerArmorFeet), true,
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorFeet), true,
 					"C C",
 					"I I",
 					'I', refIron, 'C', circuit.copy()));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerTool), true,
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerTool), true,
 					" C ",
 					"CI ",
 					" IC",
@@ -507,7 +507,7 @@ public class RecipeManager {
 					'C', "circuitTier04",
 					'I', "plateIridium"));			
 			
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.tinkerTable), true,
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.tinkerTable), true,
 					"CVC",
 					"IEI",
 					"IMI",
@@ -517,7 +517,7 @@ public class RecipeManager {
 					'I', refinedIron,
 					'M', advancedMachine));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerArmorHead), true,
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorHead), true,
 					"ACA",
 					"MVM",
 					'A', "ingotAluminium",
@@ -525,7 +525,7 @@ public class RecipeManager {
 					'M', machineParts,
 					'V', computerMonitor));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerArmorTorso), true,
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorTorso), true,
 					"AMA",
 					"ACA",
 					"AAA",
@@ -533,7 +533,7 @@ public class RecipeManager {
 					'C', dataStorageCircuit,
 					'M', machineParts));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerArmorLegs), true,
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorLegs), true,
 					"MCM",
 					"A A",
 					"A A",
@@ -541,14 +541,14 @@ public class RecipeManager {
 					'C', dataStorageCircuit,
 					'M', machineParts));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerArmorFeet), true,
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorFeet), true,
 					"M M",
 					"ACA",
 					'A', "ingotAluminium",
 					'C', dataStorageCircuit,
 					'M', machineParts));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.powerTool), true,
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerTool), true,
 					"A A",
 					"AMA",
 					" C ",

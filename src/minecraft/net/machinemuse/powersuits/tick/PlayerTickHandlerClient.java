@@ -7,6 +7,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 import net.machinemuse.powersuits.common.MuseLogger;
+import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemUtils;
@@ -36,6 +37,8 @@ import cpw.mods.fml.relauncher.Side;
  * @author MachineMuse
  */
 public class PlayerTickHandlerClient implements ITickHandler {
+	public static EntityPlasmaBolt bolt;
+
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
 		EntityPlayer rawPlayer = toPlayer(tickData[0]);
@@ -233,7 +236,6 @@ public class PlayerTickHandlerClient implements ITickHandler {
 	}
 
 	public void handleServer(EntityPlayerMP player) {
-
 	}
 
 	public static double getWeightPenaltyRatio(double currentWeight, double capacity) {
@@ -257,8 +259,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 		try {
 			world = (World) data;
 		} catch (ClassCastException e) {
-			MuseLogger.logDebug(
-					"MMMPS: Player tick handler received invalid World object");
+			MuseLogger.logError("MMMPS: Player tick handler received invalid World object");
 			e.printStackTrace();
 		}
 		return world;
@@ -269,9 +270,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 		try {
 			player = (EntityPlayer) data;
 		} catch (ClassCastException e) {
-			MuseLogger
-					.logDebug(
-					"MMMPS: Player tick handler received invalid Player object");
+			MuseLogger.logError("MMMPS: Player tick handler received invalid Player object");
 			e.printStackTrace();
 		}
 		return player;

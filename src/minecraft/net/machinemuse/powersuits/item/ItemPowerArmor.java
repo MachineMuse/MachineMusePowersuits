@@ -9,7 +9,6 @@ import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.Config.Items;
 import net.machinemuse.powersuits.common.ModCompatability;
-import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -115,10 +114,10 @@ public abstract class ItemPowerArmor extends ItemArmor
 		return value;
 	}
 
-    public int getItemEnchantability()
-    {
-        return 0;
-    }
+	public int getItemEnchantability()
+	{
+		return 0;
+	}
 
 	public Colour getColorFromItemStack(ItemStack stack) {
 		double computedred = ModuleManager.computeModularProperty(stack, ModularCommon.RED_TINT);
@@ -163,7 +162,6 @@ public abstract class ItemPowerArmor extends ItemArmor
 		if (ItemUtils.tagHasModule(itemTag, ModularCommon.RED_TINT)
 				|| ItemUtils.tagHasModule(itemTag, ModularCommon.GREEN_TINT)
 				|| ItemUtils.tagHasModule(itemTag, ModularCommon.BLUE_TINT)) {
-			MuseLogger.logDebug("True!");
 			return true;
 		} else {
 			return false;

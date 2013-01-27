@@ -74,7 +74,6 @@ public class MusePacketInstallModuleRequest extends MusePacket {
 	public void handleServer(EntityPlayerMP playerEntity) {
 		if (moduleName != null) {
 			InventoryPlayer inventory = playerEntity.inventory;
-			int entityId = playerEntity.entityId;
 			PowerModule moduleType = ModuleManager.getModule(moduleName);
 			List<ItemStack> cost = moduleType.getInstallCost();
 

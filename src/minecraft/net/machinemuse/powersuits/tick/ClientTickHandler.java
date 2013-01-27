@@ -14,16 +14,17 @@ import cpw.mods.fml.common.TickType;
  * @author MachineMuse
  */
 public class ClientTickHandler implements ITickHandler {
-
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
 		for (ClickableKeybinding kb : KeybindManager.getKeybindings()) {
 			kb.doToggleTick();
 		}
+
 	}
 
 	@Override
-	public void tickEnd(EnumSet<TickType> type, Object... tickData) {}
+	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
+	}
 
 	@Override
 	public EnumSet<TickType> ticks() {

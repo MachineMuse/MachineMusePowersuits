@@ -8,12 +8,15 @@ import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.Config.Items;
 import net.machinemuse.powersuits.common.ModCompatability;
+import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
+import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,6 +25,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import universalelectricity.core.electricity.ElectricInfo;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -83,7 +89,7 @@ public class ItemPowerTool extends ItemTool
 			double energy = ItemUtils.getPlayerEnergy(player);
 			if ((ForgeHooks.canToolHarvestBlock(block, meta, ironPickaxe)
 					|| (!ForgeHooks.canToolHarvestBlock(block, meta, diamondPick) && (
-							block.blockMaterial == Material.iron
+					block.blockMaterial == Material.iron
 							|| block.blockMaterial == Material.anvil
 							|| block.blockMaterial == Material.rock)))
 					&& ItemUtils.itemHasModule(stack, ModularCommon.MODULE_PICKAXE)
@@ -286,6 +292,71 @@ public class ItemPowerTool extends ItemTool
 			EntityPlayer player, List currentTipList, boolean advancedToolTips) {
 		ModularCommon.addInformation(stack, player, currentTipList,
 				advancedToolTips);
+	}
+
+	/**
+	 * How long it takes to use or consume an item
+	 */
+	public int getMaxItemUseDuration(ItemStack par1ItemStack)
+	{
+		return 72000;
+	}
+
+	/**
+	 * What happens when the duration runs out
+	 */
+	public ItemStack onFoodEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
+	{
+		return par1ItemStack;
+	}
+
+	/**
+	 * Called when the right click button is pressed
+	 */
+	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
+	{
+		if (ItemUtils.itemHasActiveModule(itemStack, ModularCommon.MODULE_PLASMA_CANNON)) {
+			// if ( /*||
+			// par3EntityPlayer.inventory.hasItem(Item.arrow.itemID)*/)
+			// {
+			player.setItemInUse(itemStack, 72000);
+			// }
+
+		}
+
+		return itemStack;
+	}
+
+	/**
+	 * returns the action that specifies what animation to play when the items
+	 * is being used
+	 */
+	public EnumAction getItemUseAction(ItemStack stack)
+	{
+		return EnumAction.bow;
+	}
+
+	/**
+	 * Called when the right click button is released
+	 */
+	public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4)
+	{
+		int chargeTicks = this.getMaxItemUseDuration(itemStack) - par4;
+
+		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+		{
+			double energyConsumption = ModuleManager.computeModularProperty(itemStack, ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK) * chargeTicks;
+			if (ItemUtils.getPlayerEnergy(player) > energyConsumption) {
+				ItemUtils.drainPlayerEnergy(player, energyConsumption);
+				double explosiveness = ModuleManager.computeModularProperty(itemStack, ModularCommon.PLASMA_CANNON_EXPLOSIVENESS);
+				double damagingness = ModuleManager.computeModularProperty(itemStack, ModularCommon.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE);
+
+				EntityPlasmaBolt plasmaBolt = new EntityPlasmaBolt(world, player, explosiveness, damagingness, chargeTicks);
+				world.spawnEntityInWorld(plasmaBolt);
+				MusePacketPlasmaBolt packet = new MusePacketPlasmaBolt((Player) player, plasmaBolt.entityId, plasmaBolt.size);
+				PacketDispatcher.sendPacketToAllPlayers(packet.getPacket250());
+			}
+		}
 	}
 
 	// /////////////////////////////////////////// //

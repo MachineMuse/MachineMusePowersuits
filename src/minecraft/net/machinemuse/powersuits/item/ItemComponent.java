@@ -84,9 +84,9 @@ public class ItemComponent extends Item {
 		mvcapacitor = addComponent("componentMVCapacitor", "MV Capacitor","A more advanced capacitor which can store more energy at higher voltages.", MuseIcon.MVCAPACITOR);
 		hvcapacitor = addComponent("componentHVCapacitor", "HV Capacitor", "A synthetic crystal device which can store and release massive amounts of energy.", MuseIcon.HVCAPACITOR);
 		parachute = addComponent("componentParachute", "Parachute", "A simple reusable parachute which can be deployed and recovered in midair.", MuseIcon.PARACHUTE);
-		basicPlating = addComponent("componentPlatingBasic", "Basic Plating", "Some carefully-arranged metal armor plates.", MuseIcon.IRON_PLATING);
-		advancedPlating = addComponent("componentPlatingAdvanced", "Advanced Plating","Some carefully-arranged armor plates of a rare and stronger material",  MuseIcon.DIAMOND_PLATING);
-		fieldEmitter = addComponent("componentFieldEmitter", "Force Field Emitter","An advanced device which directly manipulates electromagnetic and gravitational fields in an area.", MuseIcon.FIELD_EMITTER);
+		basicPlating = addComponent("componentPlatingBasic", "Basic Plating", "Some carefully-arranged metal armor plates.", MuseIcon.ITEM_IRON_PLATING);
+		advancedPlating = addComponent("componentPlatingAdvanced", "Advanced Plating","Some carefully-arranged armor plates of a rare and stronger material",  MuseIcon.ITEM_DIAMOND_PLATING);
+		fieldEmitter = addComponent("componentFieldEmitter", "Force Field Emitter","An advanced device which directly manipulates electromagnetic and gravitational fields in an area.", MuseIcon.FIELD_GENERATOR);
 		laserHologram = addComponent("componentLaserEmitter", "Hologram Emitter", "A multicoloured laser array which can cheaply alter the appearance of something.", MuseIcon.NETHERSTAR);
 		carbonMyofiber = addComponent("componentCarbonMyofiber", "Carbon Myofiber", "An artificial muscle with less range of movement but more strength than human muscles.", MuseIcon.NEXUS_1_BLUE);
 		controlCircuit = addComponent("controlCircuit", "Control Circuit", "A simple networkable microcontroller for coordinating an individual component.", MuseIcon.CIRCUIT);

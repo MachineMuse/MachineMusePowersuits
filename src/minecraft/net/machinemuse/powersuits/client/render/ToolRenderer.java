@@ -1,11 +1,7 @@
-package net.machinemuse.powersuits.client;
+package net.machinemuse.powersuits.client.render;
 
-import org.lwjgl.opengl.GL11;
-
+import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.general.geometry.MuseRenderer;
-import net.machinemuse.general.gui.MuseIcon;
-import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemPowerTool;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.RenderEngine;
@@ -16,7 +12,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.storage.MapData;
-import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.IItemRenderer;
 
 /**
@@ -59,11 +54,12 @@ public class ToolRenderer extends Render implements IItemRenderer {
 	public void renderItem(ItemRenderType type, ItemStack itemStack,
 			Object... data) {
 		boolean drawIcon = false;
-		
+
 		switch (type) {
 		case ENTITY:
 			RenderBlocks renderEntity = (RenderBlocks) data[0];
 			EntityItem entityEntity = (EntityItem) data[1];
+			model.setNeutralPose();
 			model.render(null, 1, false);
 			break;
 		case INVENTORY:
@@ -73,12 +69,21 @@ public class ToolRenderer extends Render implements IItemRenderer {
 		case EQUIPPED:
 			RenderBlocks renderEquipped = (RenderBlocks) data[0];
 			EntityLiving entityEquipped = (EntityLiving) data[1];
+
+			if (entityEquipped instanceof EntityPlayer) {
+				model.setPoseForPlayer((EntityPlayer) entityEquipped, itemStack);
+			} else {
+				model.setNeutralPose();
+			}
+
 			model.render(entityEquipped, 1, false);
 			break;
 		case FIRST_PERSON_MAP:
 			EntityPlayer playerFirstPerson = (EntityPlayer) data[0];
 			RenderEngine engineFirstPerson = (RenderEngine) data[1];
 			MapData mapDataFirstPerson = (MapData) data[2];
+			model.setPoseForPlayer(playerFirstPerson, itemStack);
+
 			model.render(playerFirstPerson, 1, true);
 			break;
 		default:
@@ -104,12 +109,16 @@ public class ToolRenderer extends Render implements IItemRenderer {
 	@Override
 	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item,
 			ItemRendererHelper helper) {
-		return false;
+		if (type == ItemRenderType.ENTITY) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
 	public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {
-		
+
 	}
 
 }

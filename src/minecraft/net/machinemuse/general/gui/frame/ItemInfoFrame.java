@@ -3,8 +3,8 @@ package net.machinemuse.general.gui.frame;
 import java.util.Arrays;
 import java.util.List;
 
+import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.powersuits.item.IModularItem;

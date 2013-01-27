@@ -153,14 +153,27 @@ public class Config {
 		boolean[] ALLITEMS = { true, true, true, true, true };
 		PowerModule module;
 
-		module = new PowerModule(ModularCommon.MODULE_BASIC_PLATING, ARMORONLY, MuseIcon.IRON_PLATING, ModularCommon.CATEGORY_ARMOR)
+		module = new PowerModule(ModularCommon.MODULE_PLASMA_CANNON, TOOLONLY, MuseIcon.WEAPON_ELECTRIC, ModularCommon.CATEGORY_WEAPON)
+				.setDescription("Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.")
+				.setToggleable(true)
+				.addBaseProperty(ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 10)
+				.addBaseProperty(ModularCommon.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 2)
+				.addTradeoffProperty("Voltage", ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 100)
+				.addTradeoffProperty("Voltage", ModularCommon.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 10)
+				.addTradeoffProperty("Amperage", ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 100)
+				.addTradeoffProperty("Amperage", ModularCommon.PLASMA_CANNON_EXPLOSIVENESS, 2)
+				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2))
+				.addInstallCost(copyAndResize(ItemComponent.hvcapacitor, 2));
+		ModuleManager.addModule(module);
+
+		module = new PowerModule(ModularCommon.MODULE_BASIC_PLATING, ARMORONLY, MuseIcon.MODULE_IRON_PLATING, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Basic plating is heavy but protective.")
 				.addInstallCost(copyAndResize(ItemComponent.basicPlating, 1))
 				.addTradeoffProperty("Plating Thickness", ModularCommon.ARMOR_VALUE_PHYSICAL, 5, " Points")
 				.addTradeoffProperty("Plating Thickness", ModularCommon.WEIGHT, 10000, "g");
 		ModuleManager.addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_DIAMOND_PLATING, ARMORONLY, MuseIcon.DIAMOND_PLATING, ModularCommon.CATEGORY_ARMOR)
+		module = new PowerModule(ModularCommon.MODULE_DIAMOND_PLATING, ARMORONLY, MuseIcon.MODULE_DIAMOND_PLATING, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Advanced plating is lighter, harder, and more protective than Basic but much harder to make.")
 				.addInstallCost(copyAndResize(ItemComponent.advancedPlating, 1))
 				.addTradeoffProperty("Plating Thickness", ModularCommon.ARMOR_VALUE_PHYSICAL, 6, " Points")

@@ -1,11 +1,10 @@
-package net.machinemuse.powersuits.block;
+package net.machinemuse.powersuits.client.render;
 
 import java.util.Random;
 
-import net.machinemuse.general.geometry.MuseRenderer;
+import net.machinemuse.general.MuseRenderer;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.entity.Entity;
 
 import org.lwjgl.opengl.GL11;
@@ -13,7 +12,8 @@ import org.lwjgl.opengl.GL11;
 public class TinkerTableModel extends ModelBase {
 	// public float onGround;
 	// public boolean isRiding = false;
-	protected ModelBase model = new ModelBase() {};
+	protected ModelBase model = new ModelBase() {
+	};
 
 	private static final Random random = new Random();
 	/**
@@ -198,10 +198,8 @@ public class TinkerTableModel extends ModelBase {
 		wireshort2.render(f);
 		Wireshort1.render(f);
 		Wirelong1.render(f);
-		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);
 
-		// RenderHelper.disableStandardItemLighting();
-
+		MuseRenderer.glowOn();
 		MuseRenderer.smoothingOn();
 		GL11.glPopMatrix();
 		GL11.glPushMatrix();

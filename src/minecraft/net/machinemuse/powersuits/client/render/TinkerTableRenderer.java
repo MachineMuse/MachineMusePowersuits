@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.machinemuse.powersuits.block;
+package net.machinemuse.powersuits.client.render;
 
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.block.Block;

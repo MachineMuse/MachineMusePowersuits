@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.common;
 
 import net.machinemuse.powersuits.block.BlockTinkerTable;
+import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.event.EventHandler;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -24,6 +25,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.EntityRegistry;
 
 /**
  * Main mod class. This is what Forge loads to get the mod up and running, both
@@ -51,7 +53,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 		@SidedPacketHandler(channels = { "mmmPowersuits" }, packetHandler = MusePacketHandler.class),
 		serverPacketHandlerSpec =
 		@SidedPacketHandler(channels = { "mmmPowersuits" }, packetHandler = MusePacketHandler.class))
-public class PowersuitsMod {
+public class ModularPowersuits {
 
 	public static ItemPowerArmorHead powerArmorHead;
 	public static ItemPowerArmorTorso powerArmorTorso;
@@ -66,7 +68,7 @@ public class PowersuitsMod {
 	 * set by hand in the preInit step.
 	 */
 	@Instance("PowersuitsMod")
-	public static PowersuitsMod instance;
+	public static ModularPowersuits instance;
 
 	/**
 	 * Tells Forge what classes to load for the client and server proxies. These
@@ -92,7 +94,6 @@ public class PowersuitsMod {
 		Config.init(new Configuration(event.getSuggestedConfigurationFile()));
 		MinecraftForge.EVENT_BUS.register(new EventHandler());
 		MinecraftForge.EVENT_BUS.register(new MovementManager());
-		MuseLogger.logDebug("Registered!");
 	}
 
 	public static Config config;
@@ -121,7 +122,8 @@ public class PowersuitsMod {
 		components.populate();
 
 		Config.loadPowerModules();
-		
+
+		EntityRegistry.registerModEntity(EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, this, 128, 20, true);
 		proxy.registerHandlers();
 		proxy.registerRenderers();
 		NetworkRegistry.instance().registerGuiHandler(this, guiHandler);
@@ -139,7 +141,6 @@ public class PowersuitsMod {
 		proxy.postInit();
 		RecipeManager.addRecipes();
 		ModCompatability.registerModSpecificModules();
-
 		Config.getConfig().save();
 	}
 }

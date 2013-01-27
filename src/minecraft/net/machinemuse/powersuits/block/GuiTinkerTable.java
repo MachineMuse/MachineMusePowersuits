@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.block;
 
+import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.MuseGui;
 import net.machinemuse.general.gui.frame.*;

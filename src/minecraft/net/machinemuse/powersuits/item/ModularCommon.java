@@ -46,6 +46,9 @@ public abstract class ModularCommon {
 	public static final String RED_TINT = "Red Tint";
 	public static final String GREEN_TINT = "Green Tint";
 	public static final String BLUE_TINT = "Blue Tint";
+	public static final String PLASMA_CANNON_ENERGY_PER_TICK = "Plasma Energy Per Tick";
+	public static final String PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE = "Plasma Damage At Full Charge";
+	public static final String PLASMA_CANNON_EXPLOSIVENESS = "Plasma Explosiveness";
 
 	/**
 	 * Module names
@@ -74,6 +77,7 @@ public abstract class ModularCommon {
 	public static final String MODULE_TINT = "Custom Colour Module";
 	public static final String MODULE_CLIMB_ASSIST = "Uphill Step Assist";
 	public static final String MODULE_SWIM_BOOST = "Swim Boost";
+	public static final String MODULE_PLASMA_CANNON = "Plasma Cannon";
 
 	/**
 	 * Categories for modules

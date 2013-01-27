@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.client;
 
 import java.util.EnumSet;
 
-import net.machinemuse.powersuits.common.PowersuitsMod;
+import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.settings.KeyBinding;
@@ -34,7 +34,7 @@ public class KeybindKeyHandler extends KeyHandler {
 			EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
 			World world = Minecraft.getMinecraft().theWorld;
 			if (Minecraft.getMinecraft().inGameHasFocus) {
-				player.openGui(PowersuitsMod.instance, 1, world, 0, 0, 0);
+				player.openGui(ModularPowersuits.instance, 1, world, 0, 0, 0);
 			}
 		}
 	}

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
-import net.machinemuse.general.geometry.MuseRenderer;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.network.packets.MusePacketToggleRequest;
 import net.minecraft.client.Minecraft;

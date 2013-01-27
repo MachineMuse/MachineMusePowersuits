@@ -4,19 +4,18 @@
 // Keep in mind that you still need to fill in some blanks
 // - ZeuX
 
-package net.machinemuse.powersuits.client;
+package net.machinemuse.powersuits.client.render;
 
+import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.powersuits.common.MuseLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.input.Keyboard;
@@ -25,6 +24,7 @@ import org.lwjgl.opengl.GL11;
 public class ToolModel extends ModelBase
 {
 	public final static String TEXTUREPATH = "/resource/tool.png";
+	public int boltSize;
 
 	// fields
 	ModelRenderer mainarm;
@@ -113,62 +113,63 @@ public class ToolModel extends ModelBase
 		wristbottomleft.mirror = true;
 		setRotation(wristbottomleft, 0.2617994F, 0F, 0F);
 		index1 = new ModelRenderer(this, 34, 13);
-		index1.addBox(-4F, 1F, 9F, 1, 1, 5);
-		index1.setRotationPoint(0F, 0F, 0F);
+		index1.addBox(-.5F, -.5F, 0F, 1, 1, 5);
+		index1.setRotationPoint(-3.5F, -1.5F, 10F);
 		index1.setTextureSize(64, 32);
 		index1.mirror = true;
 		setRotation(index1, 0.2617994F, 0F, 0F);
 		index2 = new ModelRenderer(this, 34, 13);
-		index2.addBox(-4F, -6.066667F, 12.83333F, 1, 1, 4);
-		index2.setRotationPoint(0F, 0F, 0F);
+		index2.addBox(-.5F, -.5F, 0F, 1, 1, 4);
+		index2.setRotationPoint(0, 0, 5F);
 		index2.setTextureSize(64, 32);
 		index2.mirror = true;
-		setRotation(index2, -0.2617994F, 0F, 0F);
+		index1.addChild(index2);
+		setRotation(index2, -0.2617994F * 2, 0F, 0F);
 		middlefinger1 = new ModelRenderer(this, 34, 13);
-		middlefinger1.addBox(-2F, 1F, 9F, 1, 1, 6);
-		middlefinger1.setRotationPoint(0F, 0F, 0F);
+		middlefinger1.addBox(-.5F, -.5F, 0F, 1, 1, 6);
+		middlefinger1.setRotationPoint(-1.5F, -1.5F, 10F);
 		middlefinger1.setTextureSize(64, 32);
 		middlefinger1.mirror = true;
 		setRotation(middlefinger1, 0.2617994F, 0F, 0F);
 		middlefinger2 = new ModelRenderer(this, 34, 13);
-		middlefinger2.addBox(-2F, -7.666667F, 13.33333F, 1, 1, 4);
-		middlefinger2.setRotationPoint(0F, 0F, 0F);
+		middlefinger2.addBox(-.5F, -.5F, 0F, 1, 1, 4);
+		middlefinger2.setRotationPoint(0, 0, 6F);
 		middlefinger2.setTextureSize(64, 32);
 		middlefinger2.mirror = true;
 		setRotation(middlefinger2, -0.3444116F, 0F, 0F);
 		ringfinger1 = new ModelRenderer(this, 34, 13);
-		ringfinger1.addBox(0F, 1F, 9F, 1, 1, 5);
-		ringfinger1.setRotationPoint(0F, 0F, 0F);
+		ringfinger1.addBox(-.5F, -.5F, 0F, 1, 1, 5);
+		ringfinger1.setRotationPoint(0.5F, -1.5F, 10F);
 		ringfinger1.setTextureSize(64, 32);
 		ringfinger1.mirror = true;
 		setRotation(ringfinger1, 0.2617994F, 0F, 0F);
 		ringfinger2 = new ModelRenderer(this, 34, 13);
-		ringfinger2.addBox(0F, -6.3F, 12.76667F, 1, 1, 4);
-		ringfinger2.setRotationPoint(0F, 0F, 0F);
+		ringfinger2.addBox(-.5F, -.5F, 0F, 1, 1, 4);
+		ringfinger2.setRotationPoint(0, 0, 5F);
 		ringfinger2.setTextureSize(64, 32);
 		ringfinger2.mirror = true;
 		setRotation(ringfinger2, -0.2617994F, 0F, 0F);
 		pinky1 = new ModelRenderer(this, 34, 13);
-		pinky1.addBox(2F, 1F, 9F, 1, 1, 4);
-		pinky1.setRotationPoint(0F, 0F, 0F);
+		pinky1.addBox(-.5F, -.5F, 0F, 1, 1, 4);
+		pinky1.setRotationPoint(2.5F, -1.5F, 10F);
 		pinky1.setTextureSize(64, 32);
 		pinky1.mirror = true;
 		setRotation(pinky1, 0.2617994F, 0F, 0F);
 		pinky2 = new ModelRenderer(this, 34, 13);
-		pinky2.addBox(2F, -8F, 11F, 1, 1, 4);
-		pinky2.setRotationPoint(0F, 0F, 0F);
+		pinky2.addBox(-.5F, -.5F, 0F, 1, 1, 4);
+		pinky2.setRotationPoint(0, 0, 4F);
 		pinky2.setTextureSize(64, 32);
 		pinky2.mirror = true;
 		setRotation(pinky2, -0.4537856F, 0F, 0F);
 		thumb1 = new ModelRenderer(this, 16, 9);
-		thumb1.addBox(-0.5333334F, 0.6F, 9.666667F, 1, 2, 4);
-		thumb1.setRotationPoint(0F, 0F, 0F);
+		thumb1.addBox(-.5F, -1F, 0F, 1, 2, 4);
+		thumb1.setRotationPoint(-4F, 1.5F, 8F);
 		thumb1.setTextureSize(64, 32);
 		thumb1.mirror = true;
 		setRotation(thumb1, 0F, -0.4014257F, 0F);
 		thumb2 = new ModelRenderer(this, 10, 0);
-		thumb2.addBox(-6F, 0.9333333F, 12F, 1, 1, 3);
-		thumb2.setRotationPoint(0F, 0F, 0F);
+		thumb2.addBox(-.5F, -.5F, 0F, 1, 1, 3);
+		thumb2.setRotationPoint(0, 0, 4F);
 		thumb2.setTextureSize(64, 32);
 		thumb2.mirror = true;
 		setRotation(thumb2, 0F, 0F, 0F);
@@ -280,12 +281,43 @@ public class ToolModel extends ModelBase
 		supportleft5.setTextureSize(64, 32);
 		supportleft5.mirror = true;
 		setRotation(supportleft5, 0F, -0.7714355F, 0F);
+		index1.addChild(index2);
+		middlefinger1.addChild(middlefinger2);
+		ringfinger1.addChild(ringfinger2);
+		pinky1.addChild(pinky2);
+		thumb1.addChild(thumb2);
+		palm.addChild(index1);
+		palm.addChild(middlefinger1);
+		palm.addChild(ringfinger1);
+		palm.addChild(pinky1);
+		palm.addChild(thumb1);
+		// makeChild(index2, index1);
+		// makeChild(middlefinger2, middlefinger1);
+		// makeChild(ringfinger2, ringfinger1);
+		// makeChild(pinky2, pinky1);
+		// makeChild(thumb2, thumb1);
+		// makeChild(index1, palm);
+		// makeChild(middlefinger1, palm);
+		// makeChild(ringfinger1, palm);
+		// makeChild(pinky1, palm);
+		// makeChild(thumb1, palm);
+		// setRotation(index1, 1.2617994F, 0F, 0F);
 	}
 
 	public static int xtap;
 	public static int ytap;
 	public static int ztap;
 	public static boolean tap;
+
+	public void makeChild(ModelRenderer child, ModelRenderer parent) {
+		parent.addChild(child);
+		child.rotationPointX -= parent.rotationPointX;
+		child.rotationPointY -= parent.rotationPointY;
+		child.rotationPointZ -= parent.rotationPointZ;
+		child.rotateAngleX -= parent.rotateAngleX;
+		child.rotateAngleY -= parent.rotateAngleY;
+		child.rotateAngleZ -= parent.rotateAngleZ;
+	}
 
 	public void render(Entity entity, float scale, boolean isFirstPerson)
 	{
@@ -393,16 +425,16 @@ public class ToolModel extends ModelBase
 		wristtopleft.render(scale);
 		wristbottomright.render(scale);
 		wristbottomleft.render(scale);
-		index1.render(scale);
-		index2.render(scale);
-		middlefinger1.render(scale);
-		middlefinger2.render(scale);
-		ringfinger1.render(scale);
-		ringfinger2.render(scale);
-		pinky1.render(scale);
-		pinky2.render(scale);
-		thumb1.render(scale);
-		thumb2.render(scale);
+		// index1.render(scale);
+		// index2.render(scale);
+		// middlefinger1.render(scale);
+		// middlefinger2.render(scale);
+		// ringfinger1.render(scale);
+		// ringfinger2.render(scale);
+		// pinky1.render(scale);
+		// pinky2.render(scale);
+		// thumb1.render(scale);
+		// thumb2.render(scale);
 		fingerguard.render(scale);
 		crystalholder.render(scale);
 		supportright1.render(scale);
@@ -421,10 +453,14 @@ public class ToolModel extends ModelBase
 		supportleft4.render(scale);
 		supportleft5.render(scale);
 
-		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);
-
+		MuseRenderer.glowOn();
 		crystal.render(scale);
 
+		if (boltSize != 0) {
+			GL11.glTranslated(-1, 1, 16);
+			GL11.glRotatef(180, 0, 1, 0);
+			RenderPlasmaBolt.doRender(boltSize);
+		}
 		GL11.glPopMatrix();
 		// GL11.glDisable(GL11.GL_DEPTH_TEST);
 		// GL11.glBegin(GL11.GL_LINES);
@@ -459,9 +495,34 @@ public class ToolModel extends ModelBase
 	 * the time(so that arms and legs swing back and forth) and par2 represents
 	 * how "far" arms and legs can swing at most.
 	 */
-	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5)
-	{
-		super.setRotationAngles(f, f1, f2, f3, f4, 0.0625f, null);
+	public void setPose(float indexOpen, float indexFlex, float thumbOpen, float thumbFlex, float otherFingersOpen, float otherFingersFlex) {
+		index1.rotateAngleX = indexOpen;
+		index2.rotateAngleX = indexFlex;
+		middlefinger1.rotateAngleX = otherFingersOpen;
+		middlefinger2.rotateAngleX = otherFingersFlex;
+		ringfinger1.rotateAngleX = otherFingersOpen;
+		ringfinger2.rotateAngleX = otherFingersFlex;
+		pinky1.rotateAngleX = otherFingersOpen - 0.1f;
+		pinky2.rotateAngleX = otherFingersFlex;
+		thumb1.rotateAngleY = -thumbOpen;
+		thumb2.rotateAngleY = -thumbFlex;
+
+	}
+
+	public void setPoseForPlayer(EntityPlayer player, ItemStack itemStack) {
+		if (player.isUsingItem()) {
+			setPose(1.5f, -1, 1.5f, -1, 1.5f, -1);
+			this.boltSize = player.getItemInUseDuration() > 50 ? 50 : player.getItemInUseDuration();
+		} else {
+			setPose(0.5f, -1, 0.5f, -1, 0.5f, -1);
+			this.boltSize = 0;
+		}
+
+	}
+
+	public void setNeutralPose() {
+		setPose(0.5f, -1, 0.5f, -1, 0.5f, -1);
+		this.boltSize = 0;
 	}
 
 }

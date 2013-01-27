@@ -3,7 +3,7 @@ package net.machinemuse.general.gui.frame;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.machinemuse.general.geometry.MuseRenderer;
+import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.powersuits.powermodule.PowerModule;

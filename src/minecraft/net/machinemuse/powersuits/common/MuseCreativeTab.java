@@ -24,7 +24,7 @@ public class MuseCreativeTab extends CreativeTabs {
 	@Override
 	public ItemStack getIconItemStack() {
 		if (stack == null) {
-			stack = new ItemStack(PowersuitsMod.powerArmorHead);
+			stack = new ItemStack(ModularPowersuits.powerArmorHead);
 		}
 		return stack;
 	}
