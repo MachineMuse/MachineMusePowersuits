@@ -8,6 +8,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -43,7 +44,7 @@ public class EntityPlasmaBolt extends EntityThrowable {
 		this.posX = shootingEntity.posX + direction.xCoord * xoffset - direction.yCoord * horzdir.xCoord * yoffset - horzdir.zCoord * zoffset;
 		this.posY = shootingEntity.posY + shootingEntity.getEyeHeight() + direction.yCoord * xoffset + (1 - Math.abs(direction.yCoord)) * yoffset;
 		this.posZ = shootingEntity.posZ + direction.zCoord * xoffset - direction.yCoord * horzdir.zCoord * yoffset + horzdir.xCoord * zoffset;
-		double r = 0.1f;
+		double r = this.size / 50.0;
 		this.boundingBox.setBounds(posX - r, posY - r, posZ - r, posX + r, posY + r, posZ + r);
 	}
 
@@ -134,7 +135,7 @@ public class EntityPlasmaBolt extends EntityThrowable {
 			}
 			break;
 		case TILE:
-			if (!this.worldObj.isRemote)
+			if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
 			{
 				this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.size / 50.0f * this.explosiveness), true);
 			}
@@ -148,7 +149,7 @@ public class EntityPlasmaBolt extends EntityThrowable {
 					0.0D, 0.0D, 0.0D);
 		}
 
-		if (!this.worldObj.isRemote)
+		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
 		{
 			this.setDead();
 		}
