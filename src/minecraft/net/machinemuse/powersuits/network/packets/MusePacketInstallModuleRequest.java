@@ -82,7 +82,7 @@ public class MusePacketInstallModuleRequest extends MusePacket {
 				ItemUtils.itemAddModule(stack, moduleType);
 
 				List<Integer> slotsToUpdate = new ArrayList();
-				if (playerEntity.capabilities.isCreativeMode) {
+				if (!playerEntity.capabilities.isCreativeMode) {
 					slotsToUpdate = ItemUtils.deleteFromInventory(cost, inventory);
 					for (ItemStack itemCost : cost) {
 						double joules = ItemUtils.getAsModular(stack.getItem()).getJoules(stack);

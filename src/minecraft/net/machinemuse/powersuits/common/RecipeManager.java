@@ -5,6 +5,7 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -48,6 +49,12 @@ public class RecipeManager {
 				"II",
 				'C', ItemComponent.solenoid,
 				'I', diamond);
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(iron, 5), true,
+					"P", 'P', ItemComponent.basicPlating));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(diamond, 5), true,
+					"P", 'P', ItemComponent.advancedPlating));
 			
 			GameRegistry.addRecipe(ItemComponent.laserHologram,
 					"YTG",
@@ -171,6 +178,14 @@ public class RecipeManager {
 			String advancedCircuit = "advancedCircuit";
 			String eliteCircuit = "eliteCircuit";
 			ItemStack lapisBlock = new ItemStack(Block.blockLapis);
+			try {
+				ItemStack steelPlate = OreDictionary.getOres("plateSteel").get(0);
+				GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(steelPlate,5), true,
+						"P", 'P', ItemComponent.basicPlating));
+			} catch (Exception e) {
+				MuseLogger.logError("Unable to load steel plate");
+			}
+
 			
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.laserHologram, true,
 					"YTG",
@@ -186,15 +201,19 @@ public class RecipeManager {
 					"II",
 					"CI",
 					"II",
-					'C', basicCircuit,
+					'C', ItemComponent.wiring,
 					'I', "plateSteel"));
 				
 				GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true,
 					"II",
 					"CI",
 					"II",
-					'C', advancedCircuit,
+					'C', "basicCircuit",
 					'I', diamond));
+
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(diamond, 5), true,
+					"P", 'P', ItemComponent.advancedPlating));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.tinkerTable), true,
 					"ILI",
@@ -300,6 +319,20 @@ public class RecipeManager {
 			ItemStack carbonPlate = ModCompatability.getIC2Item("carbonPlate").copy();
 			ItemStack machine = ModCompatability.getIC2Item("machine").copy();
 			ItemStack advMachine = ModCompatability.getIC2Item("advancedMachine").copy();
+			
+
+			try {
+				ItemStack refinedIron = OreDictionary.getOres("ingotRefinedIron").get(0);
+				GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(refinedIron,5), true,
+						"P", 'P', ItemComponent.basicPlating));
+			} catch (Exception e) {
+				MuseLogger.logError("Unable to load Refined Iron");
+				GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(iron, 5), true,
+						"P", 'P', ItemComponent.basicPlating));
+			}
+			GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(diamond, 5), true,
+					"P", 'P', ItemComponent.advancedPlating));
+			
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.laserHologram, true,
 					"YTG",
 					"TWT",
@@ -437,6 +470,20 @@ public class RecipeManager {
 			
 			
 
+			try {
+				ItemStack titanium = OreDictionary.getOres("ingotTitanium").get(0);
+				GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(titanium,5), true,
+						"P", 'P', ItemComponent.basicPlating));
+			} catch (Exception e) {
+				MuseLogger.logError("Unable to load Titanium");
+			}
+			try {
+				ItemStack iridium = OreDictionary.getOres("plateIridium").get(0);
+				GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(iridium,5), true,
+						"P", 'P', ItemComponent.advancedPlating));
+			} catch (Exception e) {
+				MuseLogger.logError("Unable to load Iridium Plate");
+			}
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.laserHologram, true,
 					"LLL",
 					"RGB",
@@ -450,16 +497,16 @@ public class RecipeManager {
 					"II",
 					"CI",
 					"II",
-					'C', advancedCircuit,
+					'C', "circuitTier02",
 					'I', "ingotTitanium"));
 				
-				GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true,
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true,
 					"II",
 					"CI",
 					"II",
-					'C', dataStorageCircuit,
-					'I', "plateIridium"));
-
+					'C', "circuitTier04",
+					'I', "plateIridium"));			
+			
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(PowersuitsMod.tinkerTable), true,
 					"CVC",
 					"IEI",
