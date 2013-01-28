@@ -458,8 +458,13 @@ public class ToolModel extends ModelBase
 
 		if (boltSize != 0) {
 			GL11.glTranslated(-1, 1, 16);
+			GL11.glPushMatrix();
+			RenderPlasmaBolt.doRender(boltSize);
+			GL11.glPopMatrix();
+			GL11.glPushMatrix();
 			GL11.glRotatef(180, 0, 1, 0);
 			RenderPlasmaBolt.doRender(boltSize);
+			GL11.glPopMatrix();
 		}
 		GL11.glPopMatrix();
 		// GL11.glDisable(GL11.GL_DEPTH_TEST);

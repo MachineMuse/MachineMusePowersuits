@@ -46,9 +46,12 @@ public class RenderPlasmaBolt extends Render {
 		Colour c1 = new Colour(.3, .3, 1, 0.3);
 		MuseRenderer.drawSolidCircle(4, c1, c1);
 		c1 = new Colour(.3, .3, 1, 0.6);
+		GL11.glTranslated(0, 0, 0.001);
 		MuseRenderer.drawSolidCircle(3 + timeScale / 2, c1, c1);
 		c1 = new Colour(.3, .3, 1, 1);
+		GL11.glTranslated(0, 0, 0.001);
 		MuseRenderer.drawSolidCircle(2 + timeScale, c1, c1);
+		GL11.glTranslated(0, 0, 0.001);
 		MuseRenderer.drawSolidCircle(1 + timeScale, c1, new Colour(1, 1, 1, 1));
 		for (int i = 0; i < 3; i++) {
 			double angle1 = (Math.random() * 2 * Math.PI);

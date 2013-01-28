@@ -161,7 +161,7 @@ public class Config {
 				.addTradeoffProperty("Voltage", ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 100, "J")
 				.addTradeoffProperty("Voltage", ModularCommon.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 10, "pt")
 				.addTradeoffProperty("Amperage", ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 100, "J")
-				.addTradeoffProperty("Amperage", ModularCommon.PLASMA_CANNON_EXPLOSIVENESS, 1, "Creepers")
+				.addTradeoffProperty("Amperage", ModularCommon.PLASMA_CANNON_EXPLOSIVENESS, 1, "Creeper")
 				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2))
 				.addInstallCost(copyAndResize(ItemComponent.hvcapacitor, 2));
 		ModuleManager.addModule(module);
