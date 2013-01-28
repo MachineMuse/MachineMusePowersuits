@@ -22,6 +22,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import universalelectricity.core.electricity.ElectricInfo;
@@ -63,8 +65,8 @@ public class ItemPowerTool extends ItemTool
 		setMaxDamage(0);
 		this.damageVsEntity = 1;
 		setCreativeTab(Config.getCreativeTab());
-		setIconIndex(10);
-		setTextureFile(MuseIcon.SEBK_ICON_PATH);
+		setIconIndex(59);
+		setTextureFile(MuseIcon.WC_ICON_PATH);
 		setItemName(Config.Items.PowerTool.idName);
 		LanguageRegistry.addName(this, Config.Items.PowerTool.englishName);
 	}
@@ -125,9 +127,21 @@ public class ItemPowerTool extends ItemTool
 	 * entry argument beside stack. They just raise the damage on the stack.
 	 */
 	@Override
-	public boolean hitEntity(ItemStack stack,
-			EntityLiving entityDoingHitting, EntityLiving entityBeingHit) {
-		// stack.damageItem(2, entityBeingHit);
+	public boolean hitEntity(ItemStack stack, EntityLiving entityBeingHit, EntityLiving entityDoingHitting) {
+		if (entityDoingHitting instanceof EntityPlayer && ItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_MELEE_ASSIST)) {
+			EntityPlayer player = (EntityPlayer) entityDoingHitting;
+			double drain = ModuleManager.computeModularProperty(stack, ModularCommon.PUNCH_ENERGY);
+			if (ItemUtils.getPlayerEnergy(player) > drain) {
+				ItemUtils.drainPlayerEnergy(player, drain);
+				double damage = ModuleManager.computeModularProperty(stack, ModularCommon.PUNCH_DAMAGE);
+				double knockback = ModuleManager.computeModularProperty(stack, ModularCommon.PUNCH_KNOCKBACK);
+				DamageSource damageSource = DamageSource.causePlayerDamage(player);
+				if (entityBeingHit.attackEntityFrom(damageSource, (int) damage)) {
+					Vec3 lookVec = player.getLookVec();
+					entityBeingHit.addVelocity(lookVec.xCoord * knockback, Math.abs(lookVec.yCoord + 0.2f) * knockback, lookVec.zCoord * knockback);
+				}
+			}
+		}
 		return true;
 	}
 

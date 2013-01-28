@@ -94,7 +94,8 @@ public class MuseIcon {
 	public static final MuseIcon ALIEN = new MuseIcon(WC_ICON_PATH, 78);
 	public static final MuseIcon NETHERSTAR = new MuseIcon(WC_ICON_PATH, 94);
 	public static final MuseIcon ARCREACTOR = new MuseIcon(WC_ICON_PATH, 110);
-	
+	public static final MuseIcon PUNCHY = new MuseIcon(WC_ICON_PATH, 233);
+
 	String texturefile;
 	int index;
 

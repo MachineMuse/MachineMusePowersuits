@@ -49,6 +49,9 @@ public abstract class ModularCommon {
 	public static final String PLASMA_CANNON_ENERGY_PER_TICK = "Plasma Energy Per Tick";
 	public static final String PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE = "Plasma Damage At Full Charge";
 	public static final String PLASMA_CANNON_EXPLOSIVENESS = "Plasma Explosiveness";
+	public static final String PUNCH_ENERGY = "Punch Energy Consumption";
+	public static final String PUNCH_DAMAGE = "Melee Damage";
+	public static final String PUNCH_KNOCKBACK = "Melee Knockback";
 
 	/**
 	 * Module names
@@ -78,6 +81,7 @@ public abstract class ModularCommon {
 	public static final String MODULE_CLIMB_ASSIST = "Uphill Step Assist";
 	public static final String MODULE_SWIM_BOOST = "Swim Boost";
 	public static final String MODULE_PLASMA_CANNON = "Plasma Cannon";
+	public static final String MODULE_MELEE_ASSIST = "Melee Assist";
 
 	/**
 	 * Categories for modules

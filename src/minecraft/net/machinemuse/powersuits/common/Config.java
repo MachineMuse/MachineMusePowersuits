@@ -156,14 +156,27 @@ public class Config {
 		module = new PowerModule(ModularCommon.MODULE_PLASMA_CANNON, TOOLONLY, MuseIcon.WEAPON_ELECTRIC, ModularCommon.CATEGORY_WEAPON)
 				.setDescription("Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.")
 				.setToggleable(true)
-				.addBaseProperty(ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 10)
-				.addBaseProperty(ModularCommon.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 2)
-				.addTradeoffProperty("Voltage", ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 100)
-				.addTradeoffProperty("Voltage", ModularCommon.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 10)
-				.addTradeoffProperty("Amperage", ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 100)
-				.addTradeoffProperty("Amperage", ModularCommon.PLASMA_CANNON_EXPLOSIVENESS, 2)
+				.addBaseProperty(ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 10, "J")
+				.addBaseProperty(ModularCommon.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 2, "pt")
+				.addTradeoffProperty("Voltage", ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 100, "J")
+				.addTradeoffProperty("Voltage", ModularCommon.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 10, "pt")
+				.addTradeoffProperty("Amperage", ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 100, "J")
+				.addTradeoffProperty("Amperage", ModularCommon.PLASMA_CANNON_EXPLOSIVENESS, 2, "deciCreepers")
 				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2))
 				.addInstallCost(copyAndResize(ItemComponent.hvcapacitor, 2));
+		ModuleManager.addModule(module);
+
+		module = new PowerModule(ModularCommon.MODULE_MELEE_ASSIST, TOOLONLY, MuseIcon.PUNCHY, ModularCommon.CATEGORY_WEAPON)
+				.setDescription("A much simpler addon, makes your powertool punches hit harder.")
+				.setToggleable(true)
+				.addBaseProperty(ModularCommon.PUNCH_ENERGY, 10, "J")
+				.addBaseProperty(ModularCommon.PUNCH_DAMAGE, 2, "pt")
+				.addTradeoffProperty("Impact", ModularCommon.PUNCH_ENERGY, 100, "J")
+				.addTradeoffProperty("Impact", ModularCommon.PUNCH_DAMAGE, 8, "pt")
+				.addTradeoffProperty("Carry-through", ModularCommon.PUNCH_ENERGY, 20, "J")
+				.addTradeoffProperty("Carry-through", ModularCommon.PUNCH_KNOCKBACK, 1, "P")
+				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
+				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1));
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_BASIC_PLATING, ARMORONLY, MuseIcon.MODULE_IRON_PLATING, ModularCommon.CATEGORY_ARMOR)
@@ -315,7 +328,7 @@ public class Config {
 				.setDescription("A jetpack should allow you to jump indefinitely, or at least until you run out of power.")
 				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 4))
-				.addBaseProperty(ModularCommon.JET_ENERGY_CONSUMPTION, 0, "J/s")
+				.addBaseProperty(ModularCommon.JET_ENERGY_CONSUMPTION, 0, "J/t")
 				.addBaseProperty(ModularCommon.JET_THRUST, 0, "N")
 				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 150)
 				.addTradeoffProperty("Thrust", ModularCommon.JET_THRUST, 0.16);
