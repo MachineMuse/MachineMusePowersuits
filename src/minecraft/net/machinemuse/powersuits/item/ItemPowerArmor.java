@@ -379,7 +379,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 
 	@Override
 	public int getMaxCharge() {
-		return 0;
+		return 1;
 	}
 
 	@Override

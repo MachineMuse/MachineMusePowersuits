@@ -474,7 +474,7 @@ public class ItemPowerTool extends ItemTool
 
 	@Override
 	public int getMaxCharge() {
-		return 0;
+		return 1;
 	}
 
 	@Override
