@@ -141,12 +141,14 @@ public class ItemPowerTool extends ItemTool
 		double drain = 1;
 		Block block = Block.blocksList[blockID];
 		int meta = 0;
-		if (useDiamondPickaxe(stack, block, meta)) {
+		if (useIronPickaxe(stack, block, meta)) {
 			drain = ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_ENERGY_CONSUMPTION);
 		} else if (useIronShovel(stack, block, meta)) {
 			drain = ModuleManager.computeModularProperty(stack, ModularCommon.SHOVEL_ENERGY_CONSUMPTION);
 		} else if (useIronAxe(stack, block, meta)) {
 			drain = ModuleManager.computeModularProperty(stack, ModularCommon.AXE_ENERGY_CONSUMPTION);
+		} else if (useDiamondPickaxe(stack, block, meta)) {
+			drain = ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_ENERGY_CONSUMPTION);
 		} else {
 			drain = 0;
 		}
@@ -168,7 +170,7 @@ public class ItemPowerTool extends ItemTool
 		if (ItemUtils.itemHasModule(stack, ModularCommon.MODULE_PICKAXE)) {
 			if (ForgeHooks.isToolEffective(ironPickaxe, block, meta)) {
 				return true;
-			} else if (!ForgeHooks.isToolEffective(diamondPick, block, meta) && (block.blockMaterial == Material.iron
+			} else if ((!ForgeHooks.isToolEffective(diamondPick, block, meta)) && (block.blockMaterial == Material.iron
 					|| block.blockMaterial == Material.anvil
 					|| block.blockMaterial == Material.rock)) {
 				return true;
@@ -353,7 +355,8 @@ public class ItemPowerTool extends ItemTool
 
 				EntityPlasmaBolt plasmaBolt = new EntityPlasmaBolt(world, player, explosiveness, damagingness, chargeTicks);
 				world.spawnEntityInWorld(plasmaBolt);
-				MusePacketPlasmaBolt packet = new MusePacketPlasmaBolt((Player) player, plasmaBolt.entityId, plasmaBolt.size);
+				MusePacketPlasmaBolt packet = new MusePacketPlasmaBolt((Player) player, plasmaBolt.entityId,
+						plasmaBolt.size);
 				PacketDispatcher.sendPacketToAllPlayers(packet.getPacket250());
 			}
 		}

@@ -15,6 +15,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class EntityPlasmaBolt extends EntityThrowable {
 	public int lifespan;
 	public double size;
+	public static final int SIZE = 24;
 	public double damagingness;
 	public double explosiveness;
 	public Entity shootingEntity;
@@ -22,6 +23,7 @@ public class EntityPlasmaBolt extends EntityThrowable {
 	public EntityPlasmaBolt(World world)
 	{
 		super(world);
+		dataWatcher.addObject(SIZE, Byte.valueOf((byte) this.size));
 	}
 
 	public EntityPlasmaBolt(World world, EntityLiving shootingEntity, double explosiveness, double damagingness, int chargeTicks) {
@@ -46,11 +48,13 @@ public class EntityPlasmaBolt extends EntityThrowable {
 		this.posY = shootingEntity.posY + shootingEntity.getEyeHeight() + direction.yCoord * xoffset + (1 - Math.abs(direction.yCoord)) * yoffset;
 		this.posZ = shootingEntity.posZ + direction.zCoord * xoffset - direction.yCoord * horzdir.zCoord * yoffset + horzdir.xCoord * zoffset;
 		this.boundingBox.setBounds(posX - r, posY - r, posZ - r, posX + r, posY + r, posZ + r);
+		dataWatcher.addObject(SIZE, Byte.valueOf((byte) this.size));
 	}
 
 	@Override
 	public void onEntityUpdate() {
 		super.onEntityUpdate();
+		this.size = dataWatcher.getWatchableObjectByte(SIZE);
 		if (this.isInWater()) {
 			this.setDead();
 			for (int var3 = 0; var3 < this.size; ++var3)
