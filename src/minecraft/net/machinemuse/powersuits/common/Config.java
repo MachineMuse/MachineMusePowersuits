@@ -161,7 +161,7 @@ public class Config {
 				.addTradeoffProperty("Voltage", ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 100, "J")
 				.addTradeoffProperty("Voltage", ModularCommon.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 10, "pt")
 				.addTradeoffProperty("Amperage", ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 100, "J")
-				.addTradeoffProperty("Amperage", ModularCommon.PLASMA_CANNON_EXPLOSIVENESS, 2, "deciCreepers")
+				.addTradeoffProperty("Amperage", ModularCommon.PLASMA_CANNON_EXPLOSIVENESS, 1, "Creepers")
 				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2))
 				.addInstallCost(copyAndResize(ItemComponent.hvcapacitor, 2));
 		ModuleManager.addModule(module);
@@ -279,11 +279,11 @@ public class Config {
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 4));
 		ModuleManager.addSimpleTradeoff(
 				module, "Power",
-				ModularCommon.SPRINT_ENERGY_CONSUMPTION, "J", 0, 5,
+				ModularCommon.SPRINT_ENERGY_CONSUMPTION, "J", 0, 10,
 				ModularCommon.SPRINT_SPEED_MULTIPLIER, "%", 1, 2);
 		ModuleManager.addSimpleTradeoff(
 				module, "Compensation",
-				ModularCommon.SPRINT_ENERGY_CONSUMPTION, "J", 0, 1,
+				ModularCommon.SPRINT_ENERGY_CONSUMPTION, "J", 0, 2,
 				ModularCommon.SPRINT_FOOD_COMPENSATION, "%", 0, 1);
 		ModuleManager.addModule(module);
 
@@ -293,11 +293,11 @@ public class Config {
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 4));
 		ModuleManager.addSimpleTradeoff(
 				module, "Power",
-				ModularCommon.JUMP_ENERGY_CONSUMPTION, "J", 0, 5,
+				ModularCommon.JUMP_ENERGY_CONSUMPTION, "J", 0, 25,
 				ModularCommon.JUMP_MULTIPLIER, "%", 1, 4);
 		ModuleManager.addSimpleTradeoff(
 				module, "Compensation",
-				ModularCommon.JUMP_ENERGY_CONSUMPTION, "J", 0, 1,
+				ModularCommon.JUMP_ENERGY_CONSUMPTION, "J", 0, 5,
 				ModularCommon.JUMP_FOOD_COMPENSATION, "%", 0, 1);
 		ModuleManager.addModule(module);
 
@@ -308,7 +308,7 @@ public class Config {
 				.addInstallCost(new ItemStack(Block.cloth, 2));
 		ModuleManager.addSimpleTradeoff(
 				module, "Power",
-				ModularCommon.SHOCK_ABSORB_ENERGY_CONSUMPTION, "J/m", 0, 1,
+				ModularCommon.SHOCK_ABSORB_ENERGY_CONSUMPTION, "J/m", 0, 10,
 				ModularCommon.SHOCK_ABSORB_MULTIPLIER, "%", 0, 1);
 		ModuleManager.addModule(module);
 
