@@ -80,21 +80,21 @@ public class MusePacketInstallModuleRequest extends MusePacket {
 			if (ItemUtils.hasInInventory(cost, playerEntity.inventory) || playerEntity.capabilities.isCreativeMode) {
 				ItemUtils.itemAddModule(stack, moduleType);
 
+				for (ItemStack itemCost : cost) {
+					double joules = ItemUtils.getAsModular(stack.getItem()).getJoules(stack);
+					if (ItemUtils.isSameItem(itemCost, ItemComponent.lvcapacitor)) {
+						ItemUtils.getAsModular(stack.getItem()).setJoules(joules + 20000, stack);
+					}
+					if (ItemUtils.isSameItem(itemCost, ItemComponent.mvcapacitor)) {
+						ItemUtils.getAsModular(stack.getItem()).setJoules(joules + 100000, stack);
+					}
+					if (ItemUtils.isSameItem(itemCost, ItemComponent.hvcapacitor)) {
+						ItemUtils.getAsModular(stack.getItem()).setJoules(joules + 750000, stack);
+					}
+				}
 				List<Integer> slotsToUpdate = new ArrayList();
 				if (!playerEntity.capabilities.isCreativeMode) {
 					slotsToUpdate = ItemUtils.deleteFromInventory(cost, inventory);
-					for (ItemStack itemCost : cost) {
-						double joules = ItemUtils.getAsModular(stack.getItem()).getJoules(stack);
-						if (ItemUtils.isSameItem(itemCost, ItemComponent.lvcapacitor)) {
-							ItemUtils.getAsModular(stack.getItem()).setJoules(joules + 20000, stack);
-						}
-						if (ItemUtils.isSameItem(itemCost, ItemComponent.mvcapacitor)) {
-							ItemUtils.getAsModular(stack.getItem()).setJoules(joules + 100000, stack);
-						}
-						if (ItemUtils.isSameItem(itemCost, ItemComponent.hvcapacitor)) {
-							ItemUtils.getAsModular(stack.getItem()).setJoules(joules + 750000, stack);
-						}
-					}
 				}
 				slotsToUpdate.add(itemSlot);
 				for (Integer slotiter : slotsToUpdate) {
