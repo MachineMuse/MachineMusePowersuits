@@ -204,30 +204,30 @@ public class Config {
 				.setDescription("Shovels are good for soft materials like dirt and sand.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
-				.addBaseProperty(ModularCommon.SHOVEL_ENERGY_CONSUMPTION, 10, "J")
-				.addBaseProperty(ModularCommon.SHOVEL_HARVEST_SPEED, 2, "%")
-				.addTradeoffProperty("Overclock", ModularCommon.SHOVEL_ENERGY_CONSUMPTION, 990)
-				.addTradeoffProperty("Overclock", ModularCommon.SHOVEL_HARVEST_SPEED, 18);
+				.addBaseProperty(ModularCommon.SHOVEL_ENERGY_CONSUMPTION, 100, "J")
+				.addBaseProperty(ModularCommon.SHOVEL_HARVEST_SPEED, 8, "x")
+				.addTradeoffProperty("Overclock", ModularCommon.SHOVEL_ENERGY_CONSUMPTION, 900)
+				.addTradeoffProperty("Overclock", ModularCommon.SHOVEL_HARVEST_SPEED, 17);
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_AXE, TOOLONLY, MuseIcon.TOOL_AXE, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Axes are mostly for chopping trees.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
-				.addBaseProperty(ModularCommon.AXE_ENERGY_CONSUMPTION, 10, "J")
-				.addBaseProperty(ModularCommon.AXE_HARVEST_SPEED, 2, "%")
-				.addTradeoffProperty("Overclock", ModularCommon.AXE_ENERGY_CONSUMPTION, 990)
-				.addTradeoffProperty("Overclock", ModularCommon.AXE_HARVEST_SPEED, 18);
+				.addBaseProperty(ModularCommon.AXE_ENERGY_CONSUMPTION, 100, "J")
+				.addBaseProperty(ModularCommon.AXE_HARVEST_SPEED, 8, "x")
+				.addTradeoffProperty("Overclock", ModularCommon.AXE_ENERGY_CONSUMPTION, 900)
+				.addTradeoffProperty("Overclock", ModularCommon.AXE_HARVEST_SPEED, 17);
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_PICKAXE, TOOLONLY, MuseIcon.TOOL_PICK, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Picks are good for harder materials like stone and ore.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
-				.addBaseProperty(ModularCommon.PICKAXE_ENERGY_CONSUMPTION, 10, "J")
-				.addBaseProperty(ModularCommon.PICKAXE_HARVEST_SPEED, 2, "%")
-				.addTradeoffProperty("Overclock", ModularCommon.PICKAXE_ENERGY_CONSUMPTION, 990)
-				.addTradeoffProperty("Overclock", ModularCommon.PICKAXE_HARVEST_SPEED, 18);
+				.addBaseProperty(ModularCommon.PICKAXE_ENERGY_CONSUMPTION, 100, "J")
+				.addBaseProperty(ModularCommon.PICKAXE_HARVEST_SPEED, 8, "x")
+				.addTradeoffProperty("Overclock", ModularCommon.PICKAXE_ENERGY_CONSUMPTION, 900)
+				.addTradeoffProperty("Overclock", ModularCommon.PICKAXE_HARVEST_SPEED, 17);
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_DIAMOND_PICK_UPGRADE, TOOLONLY, MuseIcon.DIAMOND_PICK, ModularCommon.CATEGORY_TOOL_ADDON)

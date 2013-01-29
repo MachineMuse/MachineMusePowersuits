@@ -54,6 +54,9 @@ public class EntityPlasmaBolt extends EntityThrowable {
 	@Override
 	public void onEntityUpdate() {
 		super.onEntityUpdate();
+		if (this.ticksExisted > this.getMaxLifetime()) {
+			this.setDead();
+		}
 		this.size = dataWatcher.getWatchableObjectByte(SIZE);
 		if (this.isInWater()) {
 			this.setDead();
@@ -69,7 +72,7 @@ public class EntityPlasmaBolt extends EntityThrowable {
 
 	public int getMaxLifetime()
 	{
-		return 1200;
+		return 200;
 	}
 
 	/**
@@ -98,18 +101,7 @@ public class EntityPlasmaBolt extends EntityThrowable {
 
 	@Override
 	protected void entityInit() {
-		if (shootingEntity != null) {
-			Vec3 direction = shootingEntity.getLookVec().normalize();
-			double scale = 0.1;
-			this.motionX = direction.xCoord * scale;
-			this.motionY = direction.yCoord * scale;
-			this.motionZ = direction.zCoord * scale;
-			this.posX = shootingEntity.posX;
-			this.posY = shootingEntity.posY;
-			this.posZ = shootingEntity.posZ;
-		}
 		this.renderDistanceWeight = 10.0D;
-		lifespan = 100;
 	}
 
 	@Override

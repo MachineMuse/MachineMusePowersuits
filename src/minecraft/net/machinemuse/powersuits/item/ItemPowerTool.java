@@ -89,24 +89,16 @@ public class ItemPowerTool extends ItemTool
 	public static boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
 		if (player != null) {
 			double energy = ItemUtils.getPlayerEnergy(player);
-			if ((ForgeHooks.canToolHarvestBlock(block, meta, ironPickaxe)
-					|| (!ForgeHooks.canToolHarvestBlock(block, meta, diamondPick) && (
-					block.blockMaterial == Material.iron
-							|| block.blockMaterial == Material.anvil
-							|| block.blockMaterial == Material.rock)))
-					&& ItemUtils.itemHasModule(stack, ModularCommon.MODULE_PICKAXE)
+			if (useIronPickaxe(stack, block, meta)
 					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_ENERGY_CONSUMPTION)) {
 				return true;
-			} else if ((ForgeHooks.canToolHarvestBlock(block, meta, ironShovel)
-					|| block == Block.snow)
-					&& ItemUtils.itemHasModule(stack, ModularCommon.MODULE_SHOVEL)
+			} else if (useIronShovel(stack, block, meta)
 					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.SHOVEL_ENERGY_CONSUMPTION)) {
 				return true;
-			} else if (ForgeHooks.canToolHarvestBlock(block, meta, ironAxe) && ItemUtils.itemHasModule(stack, ModularCommon.MODULE_AXE)
+			} else if (useIronAxe(stack, block, meta)
 					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.AXE_ENERGY_CONSUMPTION)) {
 				return true;
-			} else if (ForgeHooks.canToolHarvestBlock(block, meta, diamondPick)
-					&& ItemUtils.itemHasModule(stack, ModularCommon.MODULE_DIAMOND_PICK_UPGRADE)
+			} else if (useDiamondPickaxe(stack, block, meta)
 					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_ENERGY_CONSUMPTION)) {
 				return true;
 			} else {
@@ -168,7 +160,7 @@ public class ItemPowerTool extends ItemTool
 		}
 
 		if (drain > 0 && entity.isInsideOfMaterial(Material.water)
-				&& ItemUtils.itemHasModule(stack, ModularCommon.MODULE_AQUA_AFFINITY)) {
+				&& ItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_AQUA_AFFINITY)) {
 			drain += ModuleManager.computeModularProperty(stack, ModularCommon.AQUA_AFFINITY_ENERGY_CONSUMPTION);
 		}
 		if (entity instanceof EntityPlayer) {
@@ -181,7 +173,7 @@ public class ItemPowerTool extends ItemTool
 	}
 
 	public static boolean useIronPickaxe(ItemStack stack, Block block, int meta) {
-		if (ItemUtils.itemHasModule(stack, ModularCommon.MODULE_PICKAXE)) {
+		if (ItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_PICKAXE)) {
 			if (ForgeHooks.isToolEffective(ironPickaxe, block, meta)) {
 				return true;
 			} else if ((!ForgeHooks.isToolEffective(diamondPick, block, meta)) && (block.blockMaterial == Material.iron
@@ -194,7 +186,7 @@ public class ItemPowerTool extends ItemTool
 	}
 
 	public static boolean useIronShovel(ItemStack stack, Block block, int meta) {
-		if (ItemUtils.itemHasModule(stack, ModularCommon.MODULE_SHOVEL)) {
+		if (ItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_SHOVEL)) {
 			if (ForgeHooks.isToolEffective(ironShovel, block, meta)) {
 				return true;
 			} else if (block.blockMaterial == Material.snow) {
@@ -205,7 +197,7 @@ public class ItemPowerTool extends ItemTool
 	}
 
 	public static boolean useIronAxe(ItemStack stack, Block block, int meta) {
-		if (ItemUtils.itemHasModule(stack, ModularCommon.MODULE_AXE)) {
+		if (ItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_AXE)) {
 			if (ForgeHooks.isToolEffective(ironAxe, block, meta)) {
 				return true;
 			} else if (block.blockMaterial == Material.wood
@@ -218,7 +210,7 @@ public class ItemPowerTool extends ItemTool
 	}
 
 	public static boolean useDiamondPickaxe(ItemStack stack, Block block, int meta) {
-		if (ItemUtils.itemHasModule(stack, ModularCommon.MODULE_DIAMOND_PICK_UPGRADE)) {
+		if (ItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_DIAMOND_PICK_UPGRADE)) {
 			if (ForgeHooks.isToolEffective(diamondPick, block, meta)) {
 				return true;
 			} else if (block.blockMaterial == Material.iron

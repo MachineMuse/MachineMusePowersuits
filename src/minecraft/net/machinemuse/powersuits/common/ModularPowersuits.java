@@ -123,7 +123,7 @@ public class ModularPowersuits {
 
 		Config.loadPowerModules();
 
-		EntityRegistry.registerModEntity(EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, this, 128, 20, true);
+		EntityRegistry.registerModEntity(EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, this, 64, 20, true);
 		proxy.registerHandlers();
 		proxy.registerRenderers();
 		NetworkRegistry.instance().registerGuiHandler(this, guiHandler);

@@ -60,7 +60,7 @@ public class EventHandler {
 			}
 			if (harvestSpeed > 1
 					&& player.isInsideOfMaterial(Material.water)
-					&& ItemUtils.itemHasModule(stack, ModularCommon.MODULE_AQUA_AFFINITY)
+					&& ItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_AQUA_AFFINITY)
 					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.AQUA_AFFINITY_ENERGY_CONSUMPTION)) {
 				harvestSpeed *= 5 * ModuleManager.computeModularProperty(stack, ModularCommon.UNDERWATER_HARVEST_SPEED);
 			}
@@ -75,7 +75,7 @@ public class EventHandler {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 			ItemStack helmet = player.getCurrentArmor(3);
 			if (helmet != null && helmet.getItem() instanceof IModularItem
-					&& ItemUtils.itemHasModule(helmet, ModularCommon.MODULE_WATER_ELECTROLYZER)) {
+					&& ItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_WATER_ELECTROLYZER)) {
 				double energy = ItemUtils.getPlayerEnergy(player);
 				double energyConsumption = ModuleManager.computeModularProperty(helmet, ModularCommon.WATERBREATHING_ENERGY_CONSUMPTION);
 				if (energy > energyConsumption && player.getAir() < 10) {
@@ -85,11 +85,11 @@ public class EventHandler {
 			}
 			ItemStack legs = player.getCurrentArmor(1);
 			if (legs != null && legs.getItem() instanceof IModularItem
-					&& ItemUtils.itemHasModule(legs,
+					&& ItemUtils.itemHasActiveModule(legs,
 							ModularCommon.MODULE_CLIMB_ASSIST)) {
 				player.stepHeight = 1.01F;
 			} else if (player.stepHeight == 1.01F) {
-				player.stepHeight = 0.5F;
+				player.stepHeight = 0F;
 			}
 		}
 	}
