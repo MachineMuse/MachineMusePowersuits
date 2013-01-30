@@ -69,7 +69,7 @@
 		<get src="https://dl.dropbox.com/s/7e2eox36v3mgyin/UniversalElectricity_v1.2.4.334_api.zip" dest="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" />
 
 		<echo message="Downloading ICBM API..." />
-		<get src="https://dl.dropbox.com/s/atvew3p36ih3hrq/ICBM_v1.0.3.133_api.zip" dest="${download.dir}/ICBM_v1.0.3.133_api.zip" />
+		<get src="https://dl.dropbox.com/s/504m5qsei34v58a/ICBM_v1.0.4.135_api.zip" dest="${download.dir}/ICBM_v1.0.4.135_api.zip" />
 	</target>
 
 	<!-- Dependencies -->
@@ -102,7 +102,7 @@
 		<move file="${ue.download.dir}/prefab/potion/CustomPotionEffect.java" todir="${mcpsrc.dir}/universalelectricity/prefab/potion/CustomPotionEffect.java" />
 
 		<echo message="Extracting ICBM API... " />
-		<unzip src="${download.dir}/ICBM_v1.0.3.133_api.zip" dest="${download.dir}/ue" />
+		<unzip src="${download.dir}/ICBM_v1.0.4.135_api.zip" dest="${download.dir}/ue" />
 		<mkdir dir="${mcpsrc.dir}/icbm" />
 		<mkdir dir="${mcpsrc.dir}/icbm/api" />
 		<move file="${download.dir}/ue/minecraft/icbm/api/IExplosive.java" todir="${mcpsrc.dir}/icbm/api/IExplosive.java" />
