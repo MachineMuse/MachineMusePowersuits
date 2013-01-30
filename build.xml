@@ -10,6 +10,7 @@
 	<property name="forge.version" value="1.4.7-6.6.0.497" />
 	<property name="ic2api.version" value="1.112.198-lf" />
 	<property name="ueapi.version" value="1.2.4.334" />
+    <property name="icbmapi.version" value="1.0.4.135" />
 
 
 	<!-- Directories -->
@@ -57,19 +58,19 @@
 		<and>
 			<available file="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" />
 			<available file="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" />
-			<available file="${download.dir}/ICBM_v1.0.3.133_api.zip" />
+			<available file="${download.dir}/ICBM_v${icbmapi.version}_api.zip" />
 		</and>
 	</condition>
 
 	<target name="download-apis" unless="${have-apis}">
 		<echo message="Downloading IC2 API... " />
-		<get src="https://dl.dropbox.com/s/u7adzz0rbftlufu/industrialcraft-2-api_1.112.198-lf.zip" dest="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" />
+		<get src="https://dl.dropbox.com/s/u7adzz0rbftlufu/industrialcraft-2-api_${ic2api.version}.zip" dest="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" />
 
 		<echo message="Downloading Universal Electricity API..." />
-		<get src="https://dl.dropbox.com/s/7e2eox36v3mgyin/UniversalElectricity_v1.2.4.334_api.zip" dest="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" />
+		<get src="https://dl.dropbox.com/s/7e2eox36v3mgyin/UniversalElectricity_v${ueapi.version}_api.zip" dest="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" />
 
 		<echo message="Downloading ICBM API..." />
-		<get src="https://dl.dropbox.com/s/504m5qsei34v58a/ICBM_v1.0.4.135_api.zip" dest="${download.dir}/ICBM_v1.0.4.135_api.zip" />
+		<get src="https://dl.dropbox.com/s/504m5qsei34v58a/ICBM_v${icbmapi.version}_api.zip" dest="${download.dir}/ICBM_v${icbmapi.version}_api.zip" />
 	</target>
 
 	<!-- Dependencies -->
