@@ -1,5 +1,7 @@
 package net.machinemuse.powersuits.item;
 
+import icbm.api.IExplosive;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.machinemuse.powersuits.powermodule.PowerModule;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -32,7 +35,7 @@ public abstract class ModularCommon {
 	public static final String SPRINT_SPEED_MULTIPLIER = "Sprint Speed Multiplier";
 	public static final String SPRINT_FOOD_COMPENSATION = "Sprint Exhaustion Compensation";
 	public static final String JUMP_ENERGY_CONSUMPTION = "Jump Energy Consumption";
-	public static final String JUMP_MULTIPLIER = "Jump Multiplier";
+	public static final String JUMP_MULTIPLIER = "Jump Boost";
 	public static final String JUMP_FOOD_COMPENSATION = "Jump Exhaustion Compensation";
 	public static final String SHOCK_ABSORB_MULTIPLIER = "Distance Reduction";
 	public static final String SHOCK_ABSORB_ENERGY_CONSUMPTION = "Impact Energy consumption";
@@ -224,5 +227,9 @@ public abstract class ModularCommon {
 			}
 		}
 		return modules;
+	}
+
+	public static void onEMP(ItemStack itemStack, Entity entity, IExplosive empExplosive) {
+		setJoules(0, itemStack);
 	}
 }

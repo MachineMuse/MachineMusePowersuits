@@ -3,6 +3,7 @@ package net.machinemuse.general.gui.clickable;
 import java.util.List;
 
 import net.machinemuse.general.MuseRenderer;
+import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -52,5 +53,9 @@ public class ClickableItem extends Clickable {
 		MuseRenderer.drawItemAt(
 				getPosition().x() - offsetx,
 				getPosition().y() - offsety, item);
+		if (inventorySlot > 35 || Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem() == item) {
+			String string = MuseStringUtils.wrapFormatTags("e", MuseStringUtils.FormatCodes.DarkGreen);
+			MuseRenderer.drawString(string, getPosition().x() + 3, getPosition().y() + 1);
+		}
 	}
 }

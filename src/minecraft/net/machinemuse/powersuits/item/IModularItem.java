@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.item;
 
 import ic2.api.ICustomElectricItem;
+import icbm.api.IEMPItem;
 
 import java.util.List;
 
@@ -15,10 +16,11 @@ import universalelectricity.core.implement.IItemElectric;
  * @author MachineMuse
  */
 public interface IModularItem
-	extends
-	IItemElectric, // Universal Electricity
-	ICustomElectricItem // Industrial Craft 2
-	{
+		extends
+		IItemElectric, // Universal Electricity
+		ICustomElectricItem, // Industrial Craft 2
+		IEMPItem // for ICBM EMP interfacing
+{
 
 	/**
 	 * Returns the item's 'type' as assigned in the Config.Items enum. TODO:

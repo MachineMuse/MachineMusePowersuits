@@ -1,5 +1,7 @@
 package net.machinemuse.powersuits.item;
 
+import icbm.api.IExplosive;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,7 @@ import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.Config.Items;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumArmorMaterial;
@@ -390,6 +393,11 @@ public abstract class ItemPowerArmor extends ItemArmor
 	@Override
 	public int getTransferLimit() {
 		return 0;
+	}
+
+	@Override
+	public void onEMP(ItemStack itemStack, Entity entity, IExplosive empExplosive) {
+		ModularCommon.onEMP(itemStack, entity, empExplosive);
 	}
 
 }

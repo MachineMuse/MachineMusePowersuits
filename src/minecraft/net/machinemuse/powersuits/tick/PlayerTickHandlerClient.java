@@ -212,8 +212,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 		}
 
 		// Update fall distance for damage, energy drain, and
-		// exhaustion
-		// this ticki
+		// exhaustion this tick
 		player.fallDistance = (float) MovementManager.computeFallHeightFromVelocity(player.motionY);
 
 		if (totalEnergyDrain > 0) {

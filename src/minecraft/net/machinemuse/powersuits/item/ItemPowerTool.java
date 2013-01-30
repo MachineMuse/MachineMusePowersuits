@@ -1,5 +1,7 @@
 package net.machinemuse.powersuits.item;
 
+import icbm.api.IExplosive;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -498,6 +500,11 @@ public class ItemPowerTool extends ItemTool
 
 	public static MuseIcon getCurrentIconFor(ItemStack itemStack) {
 		return MuseIcon.TOOL_PICK;
+	}
+
+	@Override
+	public void onEMP(ItemStack itemStack, Entity entity, IExplosive empExplosive) {
+		ModularCommon.onEMP(itemStack, entity, empExplosive);
 	}
 
 }
