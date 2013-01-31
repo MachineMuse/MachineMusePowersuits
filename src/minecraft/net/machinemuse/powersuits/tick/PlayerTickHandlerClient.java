@@ -120,12 +120,12 @@ public class PlayerTickHandlerClient implements ITickHandler {
 		}
 
 		if (hasInvis) {
-			player.addPotionEffect(new PotionEffect(Potion.invisibility.id, 500, -337));
+			player.addPotionEffect(new PotionEffect(Potion.invisibility.id, 500, 81));
 			ItemUtils.drainPlayerEnergy(player, 50);
 		} else {
 			Collection<PotionEffect> effects = player.getActivePotionEffects();
 			for (PotionEffect effect : effects) {
-				if (effect.getAmplifier() == -337 && effect.getPotionID() == Potion.invisibility.id) {
+				if (effect.getAmplifier() == 81 && effect.getPotionID() == Potion.invisibility.id) {
 					player.removePotionEffectClient(Potion.invisibility.id);
 				}
 			}
