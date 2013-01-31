@@ -158,10 +158,10 @@ public class Config {
 				.setToggleable(true)
 				.addBaseProperty(ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 10, "J")
 				.addBaseProperty(ModularCommon.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 2, "pt")
-				.addTradeoffProperty("Voltage", ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 150, "J")
-				.addTradeoffProperty("Voltage", ModularCommon.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 18, "pt")
-				.addTradeoffProperty("Amperage", ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 50, "J")
-				.addTradeoffProperty("Amperage", ModularCommon.PLASMA_CANNON_EXPLOSIVENESS, 0.5, "Creeper")
+				.addTradeoffProperty("Amperage", ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 150, "J")
+				.addTradeoffProperty("Amperage", ModularCommon.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 18, "pt")
+				.addTradeoffProperty("Voltage", ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 50, "J")
+				.addTradeoffProperty("Voltage", ModularCommon.PLASMA_CANNON_EXPLOSIVENESS, 0.5, "Creeper")
 				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2))
 				.addInstallCost(copyAndResize(ItemComponent.hvcapacitor, 2));
 		ModuleManager.addModule(module);
