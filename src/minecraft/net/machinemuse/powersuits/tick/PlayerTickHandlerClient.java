@@ -101,7 +101,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			hasJetboots = ItemUtils.itemHasActiveModule(boots, ModularCommon.MODULE_JETBOOTS);
 		}
 		if (torso != null && torso.getItem() instanceof IModularItem) {
-			hasInvis = ItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_ACTIVE_CAMOUFLAGE);
+			hasInvis = ItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_ACTIVE_CAMOUFLAGE);
 			hasJetpack = ItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_JETPACK);
 			hasGlider = ItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_GLIDER);
 			hasParachute = ItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_PARACHUTE);
