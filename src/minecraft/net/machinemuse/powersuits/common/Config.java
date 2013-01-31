@@ -153,6 +153,13 @@ public class Config {
 		boolean[] ALLITEMS = { true, true, true, true, true };
 		PowerModule module;
 
+		module = new PowerModule(ModularCommon.MODULE_NIGHT_VISION, HEADONLY, MuseIcon.SCANNER, ModularCommon.CATEGORY_VISION)
+				.setDescription("A pair of augmented vision goggles to help you see at night and underwater.")
+				.setToggleable(true)
+				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1))
+				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
+		ModuleManager.addModule(module);
+
 		module = new PowerModule(ModularCommon.MODULE_PLASMA_CANNON, TOOLONLY, MuseIcon.WEAPON_ELECTRIC, ModularCommon.CATEGORY_WEAPON)
 				.setDescription("Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.")
 				.setToggleable(true)

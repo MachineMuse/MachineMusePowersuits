@@ -3,11 +3,11 @@
  */
 package net.machinemuse.powersuits.tick;
 
+import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
 
 import net.machinemuse.powersuits.common.MuseLogger;
-import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemUtils;
@@ -19,12 +19,14 @@ import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * Tick handler for Player update step. tickStart() is queued before the entity
@@ -36,20 +38,15 @@ import cpw.mods.fml.relauncher.Side;
  * 
  * @author MachineMuse
  */
+@SideOnly(Side.CLIENT)
 public class PlayerTickHandlerClient implements ITickHandler {
-	public static EntityPlasmaBolt bolt;
 
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
 		EntityPlayer rawPlayer = toPlayer(tickData[0]);
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
-		if (side == Side.CLIENT && rawPlayer instanceof EntityClientPlayerMP) {
-			EntityClientPlayerMP player = (EntityClientPlayerMP) rawPlayer;
-			handleClient(player);
-		} else if ((side == Side.SERVER) && (rawPlayer instanceof EntityPlayerMP)) {
-			EntityPlayerMP player = (EntityPlayerMP) rawPlayer;
-			handleServer(player);
-		}
+		EntityClientPlayerMP player = (EntityClientPlayerMP) rawPlayer;
+		handleClient(player);
 
 	}
 
@@ -86,7 +83,13 @@ public class PlayerTickHandlerClient implements ITickHandler {
 		boolean hasJetboots = false;
 		boolean hasJumpAssist = false;
 		boolean hasSwimAssist = false;
+		boolean hasNightVision = false;
+		boolean turnOffNightVision = false;
 
+		if (helmet != null && helmet.getItem() instanceof IModularItem) {
+			hasNightVision = ItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_NIGHT_VISION);
+			turnOffNightVision = !hasNightVision && ItemUtils.itemHasModule(helmet, ModularCommon.MODULE_NIGHT_VISION);
+		}
 		if (pants != null && pants.getItem() instanceof IModularItem) {
 			hasSprintAssist = ItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_SPRINT_ASSIST);
 			hasJumpAssist = ItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_JUMP_ASSIST);
@@ -101,6 +104,17 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			hasParachute = ItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_PARACHUTE);
 		}
 
+		if (hasNightVision) {
+			player.addPotionEffect(new PotionEffect(16, 500, -337));
+			ItemUtils.drainPlayerEnergy(player, 5);
+		} else {
+			Collection<PotionEffect> effects = player.getActivePotionEffects();
+			for (PotionEffect effect : effects) {
+				if (effect.getAmplifier() == -337 && effect.getPotionID() == 16) {
+					player.removePotionEffectClient(16);
+				}
+			}
+		}
 		if (player.isInWater()) {
 			if (hasSwimAssist && (forwardkey != 0 || strafekey != 0 || jumpkey || sneakkey)) {
 				double moveRatio = 0;

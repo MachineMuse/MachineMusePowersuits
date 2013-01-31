@@ -74,10 +74,12 @@ public class ModCompatability {
 	public static ItemStack getIC2Item(String name) {
 		return ic2.api.Items.getItem(name);
 	}
-	
+
 	public static ItemStack getGregtechItem(int aIndex, int aAmount, int aMeta) {
 		try {
-			return (ItemStack)Class.forName("gregtechmod.GT_Mod").getMethod("getGregTechItem", new Class[] { Integer.TYPE, Integer.TYPE, Integer.TYPE }).invoke(null, new Object[] { Integer.valueOf(aIndex), Integer.valueOf(aAmount), Integer.valueOf(aMeta) });
+			return (ItemStack) Class.forName("gregtechmod.GT_Mod")
+					.getMethod("getGregTechItem", new Class[] { Integer.TYPE, Integer.TYPE, Integer.TYPE })
+					.invoke(null, new Object[] { Integer.valueOf(aIndex), Integer.valueOf(aAmount), Integer.valueOf(aMeta) });
 		} catch (Exception e) {
 		}
 		return null;
@@ -94,14 +96,13 @@ public class ModCompatability {
 				Item goggles = (Item) itemGoggles.get(itemGoggles);
 				gogglesStack = new ItemStack(goggles);
 				PowerModule module = new PowerModule("Aurameter", new boolean[] { true, false, false, false, false }, new MuseIcon(
-						"/thaumcraft/resources/ss_core.png", 144), ModularCommon.CATEGORY_COSMETIC)
+						"/thaumcraft/resources/ss_core.png", 144), ModularCommon.CATEGORY_VISION)
 						.setDescription(
 								"Connect up some Thaumic goggles to show the nearby aura values. (Does not reveal aura nodes, only shows the HUD)")
 						.addInstallCost(ItemComponent.laserHologram.copy())
 						.addInstallCost(gogglesStack);
 				ModuleManager.addModule(module);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 

@@ -34,6 +34,8 @@ public class ItemComponent extends Item {
 	public static ItemStack laserHologram;
 	public static ItemStack carbonMyofiber;
 	public static ItemStack controlCircuit;
+	public static ItemStack myofiberGel;
+	public static ItemStack artificialMuscle;
 
 	public ItemComponent() {
 		super(Config.getAssignedItemID(Config.Items.PowerArmorComponent));
@@ -56,7 +58,7 @@ public class ItemComponent extends Item {
 	}
 
 	public void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
-		if(Config.doAdditionalInfo()){
+		if (Config.doAdditionalInfo()) {
 			String message = "For use in Tinker Table.";
 			message = MuseStringUtils.wrapMultipleFormatTags(
 					message,
@@ -64,8 +66,8 @@ public class ItemComponent extends Item {
 					MuseStringUtils.FormatCodes.Italic);
 			currentTipList.add(message);
 			int damage = stack.getItemDamage();
-			if( damage < descriptions.size()) {
-				String description =  descriptions.get(damage);
+			if (damage < descriptions.size()) {
+				String description = descriptions.get(damage);
 				currentTipList.addAll(MuseStringUtils.wrapStringToLength(description, 30));
 			}
 		} else {
@@ -75,21 +77,42 @@ public class ItemComponent extends Item {
 
 	public void populate() {
 		// NOTE: Only add to end otherwise people's IDs will get screwed up n.n'
-		wiring = addComponent("componentWiring", "Wiring", "A special type of wiring with high voltaic capacity and precision, necessary for the sensitive electronics in power armor.", MuseIcon.WIRING);
-		solenoid = addComponent("componentSolenoid", "Solenoid","Wires wound around a ferromagnetic core produces a basic electromagnet.", MuseIcon.SOLENOID);
-		servoMotor = addComponent("componentServo", "Servo Motor", "A special type of motor which uses a pulse-modulated signal to enact very precise movements.", MuseIcon.SERVOMOTOR);
-		gliderWing = addComponent("componentGliderWing", "Glider Wing", "A lightweight aerodynamic wing with an electromagnet for quick deployment and retraction.", MuseIcon.GLIDERWING);
-		ionThruster = addComponent("componentIonThruster", "Ion Thruster", "Essentially a miniature particle accelerator. Accelerates ions to near-light speed to produce thrust.", MuseIcon.IONTHRUSTER);
-		lvcapacitor = addComponent("componentLVCapacitor", "LV Capacitor", "A simple capacitor can store and discharge small amounts of energy rapidly.", MuseIcon.LVCAPACITOR);
-		mvcapacitor = addComponent("componentMVCapacitor", "MV Capacitor","A more advanced capacitor which can store more energy at higher voltages.", MuseIcon.MVCAPACITOR);
-		hvcapacitor = addComponent("componentHVCapacitor", "HV Capacitor", "A synthetic crystal device which can store and release massive amounts of energy.", MuseIcon.HVCAPACITOR);
-		parachute = addComponent("componentParachute", "Parachute", "A simple reusable parachute which can be deployed and recovered in midair.", MuseIcon.PARACHUTE);
-		basicPlating = addComponent("componentPlatingBasic", "Basic Plating", "Some carefully-arranged metal armor plates.", MuseIcon.ITEM_IRON_PLATING);
-		advancedPlating = addComponent("componentPlatingAdvanced", "Advanced Plating","Some carefully-arranged armor plates of a rare and stronger material",  MuseIcon.ITEM_DIAMOND_PLATING);
-		fieldEmitter = addComponent("componentFieldEmitter", "Force Field Emitter","An advanced device which directly manipulates electromagnetic and gravitational fields in an area.", MuseIcon.FIELD_GENERATOR);
-		laserHologram = addComponent("componentLaserEmitter", "Hologram Emitter", "A multicoloured laser array which can cheaply alter the appearance of something.", MuseIcon.NETHERSTAR);
-		carbonMyofiber = addComponent("componentCarbonMyofiber", "Carbon Myofiber", "An artificial muscle with less range of movement but more strength than human muscles.", MuseIcon.NEXUS_1_BLUE);
-		controlCircuit = addComponent("controlCircuit", "Control Circuit", "A simple networkable microcontroller for coordinating an individual component.", MuseIcon.CIRCUIT);
+		wiring = addComponent("componentWiring", "Wiring",
+				"A special type of wiring with high voltaic capacity and precision, necessary for the sensitive electronics in power armor.",
+				MuseIcon.WIRING);
+		solenoid = addComponent("componentSolenoid", "Solenoid", "Wires wound around a ferromagnetic core produces a basic electromagnet.",
+				MuseIcon.SOLENOID);
+		servoMotor = addComponent("componentServo", "Servo Motor",
+				"A special type of motor which uses a pulse-modulated signal to enact very precise movements.", MuseIcon.SERVOMOTOR);
+		gliderWing = addComponent("componentGliderWing", "Glider Wing",
+				"A lightweight aerodynamic wing with an electromagnet for quick deployment and retraction.", MuseIcon.GLIDERWING);
+		ionThruster = addComponent("componentIonThruster", "Ion Thruster",
+				"Essentially a miniature particle accelerator. Accelerates ions to near-light speed to produce thrust.", MuseIcon.IONTHRUSTER);
+		lvcapacitor = addComponent("componentLVCapacitor", "LV Capacitor",
+				"A simple capacitor can store and discharge small amounts of energy rapidly.", MuseIcon.LVCAPACITOR);
+		mvcapacitor = addComponent("componentMVCapacitor", "MV Capacitor",
+				"A more advanced capacitor which can store more energy at higher voltages.", MuseIcon.MVCAPACITOR);
+		hvcapacitor = addComponent("componentHVCapacitor", "HV Capacitor",
+				"A synthetic crystal device which can store and release massive amounts of energy.", MuseIcon.HVCAPACITOR);
+		parachute = addComponent("componentParachute", "Parachute", "A simple reusable parachute which can be deployed and recovered in midair.",
+				MuseIcon.PARACHUTE);
+		basicPlating = addComponent("componentPlatingBasic", "Basic Plating", "Some carefully-arranged metal armor plates.",
+				MuseIcon.ITEM_IRON_PLATING);
+		advancedPlating = addComponent("componentPlatingAdvanced", "Advanced Plating",
+				"Some carefully-arranged armor plates of a rare and stronger material", MuseIcon.ITEM_DIAMOND_PLATING);
+		fieldEmitter = addComponent("componentFieldEmitter", "Force Field Emitter",
+				"An advanced device which directly manipulates electromagnetic and gravitational fields in an area.", MuseIcon.FIELD_GENERATOR);
+		laserHologram = addComponent("componentLaserEmitter", "Hologram Emitter",
+				"A multicoloured laser array which can cheaply alter the appearance of something.", MuseIcon.HOLOGRAM_EMITTER);
+		carbonMyofiber = addComponent("componentCarbonMyofiber", "Carbon Myofiber",
+				"A small bundle of carbon fibers, refined for use in artificial muscles.", MuseIcon.CARBON_MYOFIBER);
+		controlCircuit = addComponent("componentControlCircuit", "Control Circuit",
+				"A simple networkable microcontroller for coordinating an individual component.", MuseIcon.CIRCUIT);
+		myofiberGel = addComponent("componentMyofiberGel", "Myofiber Gel",
+				"A thick, conductive paste, perfect for fitting between myofibers in an artificial muscle.", MuseIcon.MYOFIBER_PASTE);
+		artificialMuscle = addComponent("componentArtificialMuscle", "Artificial Muscle",
+				"An electrical, artificial muscle, with less range of movement than human muscle but orders of magnitude more strength.",
+				MuseIcon.ARTIFICIAL_MUSCLE);
 	}
 
 	/**
