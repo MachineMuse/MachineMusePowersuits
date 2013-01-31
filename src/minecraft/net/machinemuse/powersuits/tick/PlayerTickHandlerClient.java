@@ -167,7 +167,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 					player.motionY += 0.15 * Math.min(multiplier, 1) * getWeightPenaltyRatio(totalWeight, weightCapacity);
 					MovementManager.setPlayerJumpTicks(player, multiplier - 1);
 				}
-				player.jumpMovementFactor = player.landMovementFactor;
+				player.jumpMovementFactor = player.landMovementFactor * .7f;
 			} else {
 				MovementManager.setPlayerJumpTicks(player, 0);
 			}
@@ -235,8 +235,8 @@ public class PlayerTickHandlerClient implements ITickHandler {
 					player.landMovementFactor *= sprintMultiplier;
 
 					foodAdjustment += 0.01 * exhaustion * exhaustionComp;
+					player.jumpMovementFactor = player.landMovementFactor * .5f;
 				}
-				player.jumpMovementFactor = player.landMovementFactor;
 			}
 		}
 
