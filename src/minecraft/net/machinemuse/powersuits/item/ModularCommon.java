@@ -86,6 +86,7 @@ public abstract class ModularCommon {
 	public static final String MODULE_PLASMA_CANNON = "Plasma Cannon";
 	public static final String MODULE_MELEE_ASSIST = "Melee Assist";
 	public static final String MODULE_NIGHT_VISION = "Night Vision";
+	public static final String MODULE_ACTIVE_CAMOUFLAGE = "Active Camouflage";
 
 	/**
 	 * Categories for modules
@@ -98,7 +99,7 @@ public abstract class ModularCommon {
 	public static final String CATEGORY_COSMETIC = "Cosmetic";
 	public static final String CATEGORY_VISION = "Vision";
 	public static final String CATEGORY_ENVIRONMENTAL = "Environment";
-	public static final String CATEGORY_TOOL_ADDON = "Special";
+	public static final String CATEGORY_SPECIAL = "Special";
 
 	/**
 	 * Adds information to the item's tooltip when 'getting' it.

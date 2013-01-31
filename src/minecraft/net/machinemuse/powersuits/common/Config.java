@@ -132,6 +132,16 @@ public class Config {
 		return assignedBlockIDs[block.ordinal()];
 	}
 
+	/**
+	 * Helper function for making recipes. Returns a copy of the itemstack with
+	 * the specified stacksize.
+	 * 
+	 * @param stack
+	 *            Itemstack to copy
+	 * @param number
+	 *            New Stacksize
+	 * @return A new itemstack with the specified properties
+	 */
 	public static ItemStack copyAndResize(ItemStack stack, int number) {
 		ItemStack copy = stack.copy();
 		copy.stackSize = number;
@@ -158,6 +168,14 @@ public class Config {
 				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1))
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
+		ModuleManager.addModule(module);
+
+		module = new PowerModule(ModularCommon.MODULE_ACTIVE_CAMOUFLAGE, TORSOONLY, MuseIcon.ORB_1_BLUE, ModularCommon.CATEGORY_SPECIAL)
+				.setDescription("Emit a hologram of your surroundings to make yourself almost imperceptible.")
+				.setToggleable(true)
+				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 4))
+				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2))
+				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 2));
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_PLASMA_CANNON, TOOLONLY, MuseIcon.WEAPON_ELECTRIC, ModularCommon.CATEGORY_WEAPON)
@@ -237,13 +255,13 @@ public class Config {
 				.addTradeoffProperty("Overclock", ModularCommon.PICKAXE_HARVEST_SPEED, 17);
 		ModuleManager.addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_DIAMOND_PICK_UPGRADE, TOOLONLY, MuseIcon.DIAMOND_PICK, ModularCommon.CATEGORY_TOOL_ADDON)
+		module = new PowerModule(ModularCommon.MODULE_DIAMOND_PICK_UPGRADE, TOOLONLY, MuseIcon.DIAMOND_PICK, ModularCommon.CATEGORY_SPECIAL)
 				.setDescription("Add diamonds to allow your pickaxe module to mine Obsidian. *REQUIRES PICKAXE MODULE TO WORK*")
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
 				.addInstallCost(new ItemStack(Item.diamond, 3));
 		ModuleManager.addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_AQUA_AFFINITY, TOOLONLY, MuseIcon.AQUA_AFFINITY, ModularCommon.CATEGORY_TOOL_ADDON)
+		module = new PowerModule(ModularCommon.MODULE_AQUA_AFFINITY, TOOLONLY, MuseIcon.AQUA_AFFINITY, ModularCommon.CATEGORY_SPECIAL)
 				.setDescription("Reduces the speed penalty for using your tool underwater.")
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 1))
 				.setToggleable(true)

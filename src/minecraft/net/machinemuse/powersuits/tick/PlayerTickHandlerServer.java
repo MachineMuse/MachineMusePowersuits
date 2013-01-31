@@ -14,6 +14,7 @@ import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -39,8 +40,10 @@ public class PlayerTickHandlerServer implements ITickHandler {
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
 		EntityPlayer rawPlayer = toPlayer(tickData[0]);
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
-		EntityPlayerMP player = (EntityPlayerMP) rawPlayer;
-		handleServer(player);
+		if (rawPlayer instanceof EntityPlayerMP) {
+			EntityPlayerMP player = (EntityPlayerMP) rawPlayer;
+			handleServer(player);
+		}
 
 	}
 
@@ -262,10 +265,12 @@ public class PlayerTickHandlerServer implements ITickHandler {
 		ItemStack boots = player.getCurrentArmor(0);
 		ItemStack tool = player.getCurrentEquippedItem();
 		boolean hasNightVision = false;
-		boolean turnOffNightVision = false;
+		boolean hasInvis = false;
 		if (helmet != null && helmet.getItem() instanceof IModularItem) {
 			hasNightVision = ItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_NIGHT_VISION);
-			turnOffNightVision = !hasNightVision && ItemUtils.itemHasModule(helmet, ModularCommon.MODULE_NIGHT_VISION);
+		}
+		if (torso != null && torso.getItem() instanceof IModularItem) {
+			hasInvis = ItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_ACTIVE_CAMOUFLAGE);
 		}
 		if (hasNightVision) {
 			player.addPotionEffect(new PotionEffect(16, 500, -337));
@@ -275,6 +280,18 @@ public class PlayerTickHandlerServer implements ITickHandler {
 			for (PotionEffect effect : effects) {
 				if (effect.getAmplifier() == -337 && effect.getPotionID() == 16) {
 					player.removePotionEffect(16);
+				}
+			}
+		}
+
+		if (hasInvis) {
+			player.addPotionEffect(new PotionEffect(Potion.invisibility.id, 500, -337));
+			ItemUtils.drainPlayerEnergy(player, 50);
+		} else {
+			Collection<PotionEffect> effects = player.getActivePotionEffects();
+			for (PotionEffect effect : effects) {
+				if (effect.getAmplifier() == -337 && effect.getPotionID() == Potion.invisibility.id) {
+					player.removePotionEffectClient(Potion.invisibility.id);
 				}
 			}
 		}
