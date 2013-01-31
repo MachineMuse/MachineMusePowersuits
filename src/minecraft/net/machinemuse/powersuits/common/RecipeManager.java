@@ -21,7 +21,8 @@ public class RecipeManager {
 		// Recipe
 		ItemStack iron = new ItemStack(Item.ingotIron);
 		ItemStack circuit = ItemComponent.wiring;
-		ItemStack gold = new ItemStack(Item.goldNugget);
+		ItemStack goldNugget = new ItemStack(Item.goldNugget);
+		ItemStack ingotGold = new ItemStack(Item.ingotGold);
 		ItemStack redstone = new ItemStack(Item.redstone);
 		ItemStack wool = new ItemStack(Block.cloth);
 		ItemStack string = new ItemStack(Item.silk);
@@ -37,25 +38,33 @@ public class RecipeManager {
 
 		if (ModCompatability.vanillaRecipesEnabled()) {
 			GameRegistry.addRecipe(ItemComponent.basicPlating,
-				"II",
-				"CI",
-				"II",
-				'C', ItemComponent.wiring,
-				'I', iron);
-			
-			GameRegistry.addRecipe(ItemComponent.advancedPlating,
-				"II",
-				"CI",
-				"II",
-				'C', ItemComponent.solenoid,
-				'I', diamond);
+					"II",
+					"CI",
+					"II",
+					'C', ItemComponent.wiring,
+					'I', iron);
 
+			GameRegistry.addRecipe(ItemComponent.advancedPlating,
+					"II",
+					"CI",
+					"II",
+					'C', ItemComponent.solenoid,
+					'I', diamond);
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.controlCircuit, true,
+					"WCI",
+					"RGC",
+					"IRW",
+					'W', ItemComponent.wiring,
+					'C', cactusgreen,
+					'I', ingotGold,
+					'G', glowstone,
+					'R', redstone));
 			GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(iron, 5), true,
 					"P", 'P', ItemComponent.basicPlating));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(diamond, 5), true,
 					"P", 'P', ItemComponent.advancedPlating));
-			
+
 			GameRegistry.addRecipe(ItemComponent.laserHologram,
 					"YTG",
 					"TWT",
@@ -66,7 +75,7 @@ public class RecipeManager {
 					'G', cactusgreen,
 					'B', lapis,
 					'R', rosered);
-			
+
 			GameRegistry.addRecipe(new ItemStack(ModularPowersuits.tinkerTable),
 					"ILI",
 					"LEL",
@@ -102,7 +111,7 @@ public class RecipeManager {
 					'I', iron, 'C', circuit);
 
 			GameRegistry.addRecipe(copyAndResize(ItemComponent.wiring, 8),
-					"GRG", 'G', gold, 'R', redstone);
+					"GRG", 'G', goldNugget, 'R', redstone);
 
 			GameRegistry.addRecipe(ItemComponent.parachute,
 					"WWW", "S S", 'W', wool, 'S', string);
@@ -119,7 +128,7 @@ public class RecipeManager {
 					"GPL",
 					"W W",
 					'W', ItemComponent.wiring,
-					'G', gold,
+					'G', goldNugget,
 					'P', paper,
 					'L', lapis));
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.hvcapacitor,
@@ -154,7 +163,7 @@ public class RecipeManager {
 					"SES",
 					'S', ItemComponent.solenoid,
 					'E', enderPearl));
-			
+
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.controlCircuit, true,
 					"WGW",
 					"LWL",
@@ -162,7 +171,7 @@ public class RecipeManager {
 					'W', ItemComponent.wiring,
 					'G', glass,
 					'L', lapis));
-			
+
 			GameRegistry.addRecipe(ItemComponent.ionThruster,
 					" FE",
 					"IG ",
@@ -171,7 +180,7 @@ public class RecipeManager {
 					'E', ItemComponent.solenoid,
 					'G', glowstone,
 					'F', ItemComponent.fieldEmitter);
-			
+
 		}
 		if (ModCompatability.UERecipesEnabled() && ModCompatability.isBasicComponentsLoaded()) {
 			String basicCircuit = "basicCircuit";
@@ -180,13 +189,19 @@ public class RecipeManager {
 			ItemStack lapisBlock = new ItemStack(Block.blockLapis);
 			try {
 				ItemStack steelPlate = OreDictionary.getOres("plateSteel").get(0);
-				GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(steelPlate,5), true,
+				GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(steelPlate, 5), true,
 						"P", 'P', ItemComponent.basicPlating));
 			} catch (Exception e) {
 				MuseLogger.logError("Unable to load steel plate");
 			}
-
-			
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.controlCircuit, true,
+					"WC ",
+					"RGC",
+					" RW",
+					'W', ItemComponent.wiring,
+					'C', basicCircuit,
+					'G', glowstone,
+					'R', redstone));
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.laserHologram, true,
 					"YTG",
 					"TWT",
@@ -203,14 +218,13 @@ public class RecipeManager {
 					"II",
 					'C', ItemComponent.wiring,
 					'I', "plateSteel"));
-				
-				GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true,
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true,
 					"II",
 					"CI",
 					"II",
 					'C', "basicCircuit",
 					'I', diamond));
-
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(diamond, 5), true,
 					"P", 'P', ItemComponent.advancedPlating));
@@ -250,7 +264,7 @@ public class RecipeManager {
 					'I', "plateSteel", 'C', "basicCircuit"));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(ItemComponent.wiring, 4), true,
-					"GWG", 'G', gold, 'W', "copperWire"));
+					"GWG", 'G', goldNugget, 'W', "copperWire"));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.parachute, true,
 					"WWW",
@@ -293,7 +307,7 @@ public class RecipeManager {
 					'S', ItemComponent.solenoid,
 					'E', enderPearl,
 					'C', "advancedCircuit"));
-			
+
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true,
 					" FE",
 					"CG ",
@@ -308,7 +322,7 @@ public class RecipeManager {
 		if (ModCompatability.IC2RecipesEnabled() && ModCompatability.isIndustrialCraftLoaded()) {
 			circuit = ModCompatability.getIC2Item("electronicCircuit").copy();
 			ItemStack advCircuit = ModCompatability.getIC2Item("advancedCircuit").copy();
-			gold = ModCompatability.getIC2Item("goldCableItem").copy();
+			goldNugget = ModCompatability.getIC2Item("goldCableItem").copy();
 			String refIron = "ingotRefinedIron";
 			String tin = "ingotTin";
 			String copper = "ingotCopper";
@@ -319,20 +333,27 @@ public class RecipeManager {
 			ItemStack carbonPlate = ModCompatability.getIC2Item("carbonPlate").copy();
 			ItemStack machine = ModCompatability.getIC2Item("machine").copy();
 			ItemStack advMachine = ModCompatability.getIC2Item("advancedMachine").copy();
-			
 
 			try {
 				ItemStack refinedIron = OreDictionary.getOres("ingotRefinedIron").get(0);
-				GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(refinedIron,5), true,
+				GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(refinedIron, 5), true,
 						"P", 'P', ItemComponent.basicPlating));
 			} catch (Exception e) {
 				MuseLogger.logError("Unable to load Refined Iron");
 				GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(iron, 5), true,
 						"P", 'P', ItemComponent.basicPlating));
 			}
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.controlCircuit, true,
+					"WC ",
+					"RGC",
+					" RW",
+					'W', ItemComponent.wiring,
+					'C', circuit,
+					'G', glowstone,
+					'R', redstone));
 			GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(diamond, 5), true,
 					"P", 'P', ItemComponent.advancedPlating));
-			
+
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.laserHologram, true,
 					"YTG",
 					"TWT",
@@ -343,15 +364,15 @@ public class RecipeManager {
 					'G', cactusgreen,
 					'B', lapis,
 					'R', rosered));
-			
+
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.basicPlating, true,
 					"II",
 					"CI",
 					"II",
 					'C', circuit,
 					'I', "ingotRefinedIron"));
-				
-				GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true,
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true,
 					"II",
 					"CI",
 					"II",
@@ -393,7 +414,7 @@ public class RecipeManager {
 					'I', refIron, 'C', circuit.copy()));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(ItemComponent.wiring, 2), true,
-					"GRG", 'G', gold.copy(), 'R', redstone));
+					"GRG", 'G', goldNugget.copy(), 'R', redstone));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.parachute, true,
 					"WWW", "S S", 'W', wool, 'S', string));
@@ -407,7 +428,7 @@ public class RecipeManager {
 					"WBW",
 					'W', ItemComponent.wiring.copy(),
 					'B', energyCrystal);
-			
+
 			Ic2Recipes.addCraftingRecipe(ItemComponent.hvcapacitor,
 					"WBW",
 					'W', ItemComponent.wiring.copy(),
@@ -439,7 +460,7 @@ public class RecipeManager {
 					'S', ItemComponent.solenoid,
 					'E', enderPearl,
 					'C', advCircuit));
-			
+
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true,
 					" EE",
 					"MG ",
@@ -450,10 +471,11 @@ public class RecipeManager {
 					'C', advCircuit.copy(),
 					'M', advMachine.copy()));
 		}
-		if (ModCompatability.GregTechRecipesEnabled()&& ModCompatability.isIndustrialCraftLoaded() && ModCompatability.isGregTechLoaded()) {
+		if (ModCompatability.GregTechRecipesEnabled() && ModCompatability.isIndustrialCraftLoaded() && ModCompatability.isGregTechLoaded()) {
 			// This means Gregtech is installed, and GregoriusT in his infinite
 			// wisdom has registered literally everything in the universe with
-			// the ore dictionary, so we can just use strings here :D ...once we decide what to put.
+			// the ore dictionary, so we can just use strings here :D ...once we
+			// decide what to put.
 			String computerMonitor = "monitorTier02";
 			String advancedCircuit = "circuitTier04";
 			String refinedIron = "ingotRefinedIron";
@@ -467,23 +489,32 @@ public class RecipeManager {
 			ItemStack carbonPlate = ModCompatability.getIC2Item("carbonPlate").copy();
 			ItemStack uninsulatedCopper = ModCompatability.getIC2Item("copperCableItem").copy();
 			ItemStack luminator = ModCompatability.getIC2Item("luminator").copy();
-			
-			
 
 			try {
 				ItemStack titanium = OreDictionary.getOres("ingotTitanium").get(0);
-				GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(titanium,5), true,
+				GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(titanium, 5), true,
 						"P", 'P', ItemComponent.basicPlating));
 			} catch (Exception e) {
 				MuseLogger.logError("Unable to load Titanium");
 			}
 			try {
 				ItemStack iridium = OreDictionary.getOres("plateIridium").get(0);
-				GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(iridium,5), true,
+				GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(iridium, 5), true,
 						"P", 'P', ItemComponent.advancedPlating));
 			} catch (Exception e) {
 				MuseLogger.logError("Unable to load Iridium Plate");
 			}
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.controlCircuit, true,
+					"WCI",
+					"RGC",
+					"IRW",
+					'W', ItemComponent.wiring,
+					'C', advancedCircuit,
+					'G', energyFlowCircuit,
+					'R', dataStorageCircuit,
+					'I', "ingotElectrum"));
+
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.laserHologram, true,
 					"LLL",
 					"RGB",
@@ -499,14 +530,14 @@ public class RecipeManager {
 					"II",
 					'C', "circuitTier02",
 					'I', "ingotTitanium"));
-				
+
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true,
 					"II",
 					"CI",
 					"II",
 					'C', "circuitTier04",
-					'I', "plateIridium"));			
-			
+					'I', "plateIridium"));
+
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.tinkerTable), true,
 					"CVC",
 					"IEI",
@@ -559,7 +590,7 @@ public class RecipeManager {
 			GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(ItemComponent.wiring, 2), true,
 					"CCC",
 					"SSS",
-					"CCC", 
+					"CCC",
 					'C', uninsulatedCopper,
 					'S', "ingotSilver"));
 
@@ -571,7 +602,7 @@ public class RecipeManager {
 					'S', string,
 					'C', carbonPlate,
 					'N', nitrogen));
-			
+
 			Ic2Recipes.addCraftingRecipe(ItemComponent.lvcapacitor,
 					"IWI",
 					"IBI",
@@ -587,7 +618,7 @@ public class RecipeManager {
 					'W', ItemComponent.wiring,
 					'I', "ingotTitanium",
 					'B', "1kkEUStore"); // Lapotron crystal
-			
+
 			Ic2Recipes.addCraftingRecipe(ItemComponent.hvcapacitor,
 					"IWI",
 					"IBI",
@@ -595,7 +626,6 @@ public class RecipeManager {
 					'W', ItemComponent.wiring,
 					'I', "ingotChrome",
 					'B', "10kkEUStore"); // Lapotronic EnergyOrb
-
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solenoid, true,
 					"WSW",
@@ -630,7 +660,7 @@ public class RecipeManager {
 					'S', ItemComponent.solenoid,
 					'U', energyFlowCircuit,
 					'C', "itemSuperconductor"));
-			
+
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true,
 					"ISI",
 					"FCF",

@@ -85,6 +85,7 @@ public abstract class ModularCommon {
 	public static final String MODULE_SWIM_BOOST = "Swim Boost";
 	public static final String MODULE_PLASMA_CANNON = "Plasma Cannon";
 	public static final String MODULE_MELEE_ASSIST = "Melee Assist";
+	public static final String MODULE_NIGHT_VISION = "Night Vision";
 
 	/**
 	 * Categories for modules
@@ -95,6 +96,7 @@ public abstract class ModularCommon {
 	public static final String CATEGORY_WEAPON = "Weapon";
 	public static final String CATEGORY_MOVEMENT = "Movement";
 	public static final String CATEGORY_COSMETIC = "Cosmetic";
+	public static final String CATEGORY_VISION = "Vision";
 	public static final String CATEGORY_ENVIRONMENTAL = "Environment";
 	public static final String CATEGORY_TOOL_ADDON = "Special";
 
