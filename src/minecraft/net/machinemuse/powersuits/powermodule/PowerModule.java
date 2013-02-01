@@ -12,6 +12,7 @@ import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.IPropertyModifier;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.IModularItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -68,12 +69,16 @@ public class PowerModule implements IPowerModule {
 	}
 
 	public PowerModule addTradeoffProperty(String tradeoffName, String propertyName, double multiplier) {
-		return addPropertyModifier(propertyName, new PropertyModifierLinearAdditive(tradeoffName, multiplier));
+		double propFromConfig = Config.getConfig().get("Properties", getName() + "." + propertyName + "." + tradeoffName + ".multiplier", multiplier)
+				.getDouble(multiplier);
+		return addPropertyModifier(propertyName, new PropertyModifierLinearAdditive(tradeoffName, propFromConfig));
 	}
 
 	public PowerModule addTradeoffProperty(String tradeoffName, String propertyName, double multiplier, String unit) {
+		double propFromConfig = Config.getConfig().get("Properties", getName() + "." + propertyName + "." + tradeoffName + ".multiplier", multiplier)
+				.getDouble(multiplier);
 		units.put(propertyName, unit);
-		return addPropertyModifier(propertyName, new PropertyModifierLinearAdditive(tradeoffName, multiplier));
+		return addPropertyModifier(propertyName, new PropertyModifierLinearAdditive(tradeoffName, propFromConfig));
 	}
 
 	public static String getUnit(String propertyName) {
@@ -85,12 +90,14 @@ public class PowerModule implements IPowerModule {
 	}
 
 	public PowerModule addBaseProperty(String propertyName, double baseVal) {
-		return addPropertyModifier(propertyName, new PropertyModifierFlatAdditive(baseVal));
+		double propFromConfig = Config.getConfig().get("Properties", getName() + "." + propertyName + ".base", baseVal).getDouble(baseVal);
+		return addPropertyModifier(propertyName, new PropertyModifierFlatAdditive(propFromConfig));
 	}
 
 	public PowerModule addBaseProperty(String propertyName, double baseVal, String unit) {
+		double propFromConfig = Config.getConfig().get("Properties", getName() + "." + propertyName + ".base", baseVal).getDouble(baseVal);
 		units.put(propertyName, unit);
-		return addPropertyModifier(propertyName, new PropertyModifierFlatAdditive(baseVal));
+		return addPropertyModifier(propertyName, new PropertyModifierFlatAdditive(propFromConfig));
 	}
 
 	public PowerModule addPropertyModifier(String propertyName, IPropertyModifier modifier) {
