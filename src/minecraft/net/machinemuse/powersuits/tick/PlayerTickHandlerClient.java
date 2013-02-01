@@ -107,9 +107,9 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			hasParachute = ItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_PARACHUTE);
 		}
 
-		if (hasNightVision) {
+		if (hasNightVision && totalEnergyDrain + 5 < totalEnergy) {
 			player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 500, -337));
-			ItemUtils.drainPlayerEnergy(player, 5);
+			totalEnergyDrain += 5;
 		} else {
 			Collection<PotionEffect> effects = player.getActivePotionEffects();
 			for (PotionEffect effect : effects) {
@@ -119,9 +119,9 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			}
 		}
 
-		if (hasInvis) {
+		if (hasInvis && totalEnergyDrain + 50 < totalEnergy) {
 			player.addPotionEffect(new PotionEffect(Potion.invisibility.id, 500, 81));
-			ItemUtils.drainPlayerEnergy(player, 50);
+			totalEnergyDrain += 50;
 		} else {
 			Collection<PotionEffect> effects = player.getActivePotionEffects();
 			for (PotionEffect effect : effects) {

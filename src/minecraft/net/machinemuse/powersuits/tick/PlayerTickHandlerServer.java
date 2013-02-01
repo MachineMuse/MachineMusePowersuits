@@ -272,9 +272,8 @@ public class PlayerTickHandlerServer implements ITickHandler {
 		if (torso != null && torso.getItem() instanceof IModularItem) {
 			hasInvis = ItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_ACTIVE_CAMOUFLAGE);
 		}
-		if (hasNightVision) {
+		if (hasNightVision && 5 < ItemUtils.getPlayerEnergy(player)) {
 			player.addPotionEffect(new PotionEffect(16, 500, -337));
-			ItemUtils.drainPlayerEnergy(player, 5);
 		} else {
 			Collection<PotionEffect> effects = player.getActivePotionEffects();
 			for (PotionEffect effect : effects) {
@@ -284,9 +283,8 @@ public class PlayerTickHandlerServer implements ITickHandler {
 			}
 		}
 
-		if (hasInvis) {
+		if (hasInvis && 50 < ItemUtils.getPlayerEnergy(player)) {
 			player.addPotionEffect(new PotionEffect(Potion.invisibility.id, 500, 81));
-			ItemUtils.drainPlayerEnergy(player, 50);
 		} else {
 			Collection<PotionEffect> effects = player.getActivePotionEffects();
 			for (PotionEffect effect : effects) {
