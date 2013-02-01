@@ -1,7 +1,11 @@
 package net.machinemuse.powersuits.common;
 
+import java.util.Arrays;
+import java.util.List;
+
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.ModularCommon;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
@@ -154,13 +158,24 @@ public class Config {
 	 */
 	public static void loadPowerModules() {
 		// loadModularProperties();
-		boolean[] ARMORONLY = { true, true, true, true, false };
-		boolean[] HEADONLY = { true, false, false, false, false };
-		boolean[] TORSOONLY = { false, true, false, false, false };
-		boolean[] LEGSONLY = { false, false, true, false, false };
-		boolean[] FEETONLY = { false, false, false, true, false };
-		boolean[] TOOLONLY = { false, false, false, false, true };
-		boolean[] ALLITEMS = { true, true, true, true, true };
+		List<IModularItem> ARMORONLY = Arrays.asList((IModularItem)
+				ModularPowersuits.powerArmorHead, ModularPowersuits.powerArmorTorso,
+				ModularPowersuits.powerArmorLegs, ModularPowersuits.powerArmorFeet);
+		List<IModularItem> HEADONLY = Arrays.asList((IModularItem)
+				ModularPowersuits.powerArmorHead);
+		List<IModularItem> TORSOONLY = Arrays.asList((IModularItem)
+				ModularPowersuits.powerArmorTorso);
+		List<IModularItem> LEGSONLY = Arrays.asList((IModularItem)
+				ModularPowersuits.powerArmorLegs);
+		List<IModularItem> FEETONLY = Arrays.asList((IModularItem)
+				ModularPowersuits.powerArmorFeet);
+		List<IModularItem> TOOLONLY = Arrays.asList((IModularItem)
+				ModularPowersuits.powerTool);
+		List<IModularItem> ALLITEMS = Arrays.asList((IModularItem)
+				ModularPowersuits.powerArmorHead, ModularPowersuits.powerArmorTorso,
+				ModularPowersuits.powerArmorLegs, ModularPowersuits.powerArmorFeet,
+				ModularPowersuits.powerTool);
+
 		PowerModule module;
 
 		module = new PowerModule(ModularCommon.MODULE_NIGHT_VISION, HEADONLY, MuseIcon.SCANNER, ModularCommon.CATEGORY_VISION)

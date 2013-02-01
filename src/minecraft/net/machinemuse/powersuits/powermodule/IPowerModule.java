@@ -15,7 +15,7 @@ public interface IPowerModule {
 
 	public abstract String getCategory();
 
-	public abstract boolean isValidForSlot(int slotnumber);
+	public abstract boolean isValidForItem(ItemStack stack);
 
 	public abstract String getName();
 

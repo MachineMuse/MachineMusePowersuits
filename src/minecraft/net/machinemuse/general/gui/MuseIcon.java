@@ -2,6 +2,12 @@ package net.machinemuse.general.gui;
 
 import net.machinemuse.powersuits.common.Config;
 
+/**
+ * MuseIcon is just a helper class to make it more convenient to have multiple
+ * sprite sheets and to keep all the icon indices in one place.
+ * 
+ * @author MachineMuse
+ */
 public class MuseIcon {
 	public static final String SEBK_ICON_PATH = Config.SEBK_ICON_PATH;
 	public static final String WC_ICON_PATH = Config.WC_ICON_PATH;

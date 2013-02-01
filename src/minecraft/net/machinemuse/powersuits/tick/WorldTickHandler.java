@@ -9,7 +9,7 @@ import cpw.mods.fml.common.TickType;
 
 /**
  * World tick handler for the mod. This is where you put code that should be
- * executed once every world tick.
+ * executed once every world tick. ~Not yet used~
  * 
  * @author MachineMuse
  * 

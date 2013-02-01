@@ -25,8 +25,7 @@ public class ItemUtils {
 			EntityPlayer player, ItemStack stack) {
 		List<IPowerModule> validModules = new ArrayList();
 		for (IPowerModule module : ModuleManager.getAllModules()) {
-			if (module.isValidForSlot(getAsModular(stack.getItem())
-					.getItemType().ordinal())) {
+			if (module.isValidForItem(stack)) {
 				validModules.add(module);
 			}
 		}

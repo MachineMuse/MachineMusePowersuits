@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.powermodule.property.IPropertyModifier;
 import net.machinemuse.powersuits.powermodule.property.PropertyModifierFlatAdditive;
@@ -21,17 +22,17 @@ public class PowerModule implements IPowerModule {
 	protected String description;
 	protected String category;
 	protected MuseIcon icon;
-	protected boolean[] validSlots;
 	protected Set<String> tweaks;
 	protected List<ItemStack> installCost;
 	protected NBTTagCompound defaultTag;
 	protected Map<String, List<IPropertyModifier>> propertyModifiers;
 	protected static Map<String, String> units = new HashMap();
 	protected boolean toggleable = false;
+	protected List<IModularItem> validItems;
 
-	public PowerModule(String name, boolean[] validSlots, MuseIcon icon, String category) {
+	public PowerModule(String name, List<IModularItem> validItems, MuseIcon icon, String category) {
 		this.name = name;
-		this.validSlots = validSlots;
+		this.validItems = validItems;
 		this.icon = icon;
 		this.category = category;
 		this.tweaks = new HashSet();
@@ -123,8 +124,12 @@ public class PowerModule implements IPowerModule {
 		return (NBTTagCompound) defaultTag.copy();
 	}
 
-	public boolean isValidForSlot(int i) {
-		return validSlots[i];
+	public boolean isValidForItem(ItemStack stack) {
+		if (this.validItems.contains(stack.getItem())) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public Set<String> getTweaks() {
