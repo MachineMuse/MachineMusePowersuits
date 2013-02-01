@@ -24,8 +24,8 @@ public class KeyConfigGui extends MuseGui {
 	public void initGui() {
 		super.initGui();
 		frame = new KeybindConfigFrame(this,
-				new MusePoint2D(absX(-0.95F), absY(-0.95F)),
-				new MusePoint2D(absX(0.95F), absY(0.95F)), player);
+				new MusePoint2D(absX(-0.95), absY(-0.95)),
+				new MusePoint2D(absX(0.95), absY(0.95)), player);
 		frames.add(frame);
 	}
 

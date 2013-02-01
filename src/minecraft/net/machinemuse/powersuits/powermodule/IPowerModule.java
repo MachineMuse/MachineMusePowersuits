@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import net.machinemuse.general.gui.MuseIcon;
-import net.machinemuse.powersuits.powermodule.property.IPropertyModifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 

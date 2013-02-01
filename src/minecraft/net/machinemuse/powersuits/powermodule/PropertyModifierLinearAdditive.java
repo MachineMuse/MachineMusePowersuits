@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.powermodule.property;
+package net.machinemuse.powersuits.powermodule;
 
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.minecraft.nbt.NBTTagCompound;

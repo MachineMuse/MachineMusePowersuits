@@ -88,7 +88,10 @@ public class ModCompatability {
 	}
 
 	public static void registerModSpecificModules() {
+		// Make the IC2 energy ratio show up in config file
 		getIC2Ratio();
+
+		// Add thaumgoggles module
 		if (ModCompatability.isThaumCraftLoaded() && ModCompatability.enableThaumGogglesModule()) {
 			Class tcItems;
 			ItemStack gogglesStack = null;

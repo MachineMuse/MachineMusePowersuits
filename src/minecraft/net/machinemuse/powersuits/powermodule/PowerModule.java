@@ -11,9 +11,6 @@ import java.util.Set;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemUtils;
-import net.machinemuse.powersuits.powermodule.property.IPropertyModifier;
-import net.machinemuse.powersuits.powermodule.property.PropertyModifierFlatAdditive;
-import net.machinemuse.powersuits.powermodule.property.PropertyModifierLinearAdditive;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
