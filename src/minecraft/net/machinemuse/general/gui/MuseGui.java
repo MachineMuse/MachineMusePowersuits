@@ -10,8 +10,6 @@ import net.machinemuse.general.geometry.DrawableMuseRect;
 import net.machinemuse.general.gui.clickable.Clickable;
 import net.machinemuse.general.gui.frame.IGuiFrame;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderItem;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -26,8 +24,6 @@ import org.lwjgl.input.Mouse;
  * 
  */
 public class MuseGui extends GuiScreen {
-	protected static RenderItem renderItem;
-	protected static final Tessellator tesselator = Tessellator.instance;
 	protected long creationTime;
 	protected int xSize;
 	protected int ySize;
