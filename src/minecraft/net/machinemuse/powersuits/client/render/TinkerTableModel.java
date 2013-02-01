@@ -12,8 +12,7 @@ import org.lwjgl.opengl.GL11;
 public class TinkerTableModel extends ModelBase {
 	// public float onGround;
 	// public boolean isRiding = false;
-	protected ModelBase model = new ModelBase() {
-	};
+	protected ModelBase model = new ModelBase() {};
 
 	private static final Random random = new Random();
 	/**
@@ -233,6 +232,7 @@ public class TinkerTableModel extends ModelBase {
 		// }
 		// }
 		// GL11.glPopMatrix();
+		MuseRenderer.glowOff();
 		MuseRenderer.smoothingOff();
 	}
 

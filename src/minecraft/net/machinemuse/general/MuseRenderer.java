@@ -37,8 +37,15 @@ public abstract class MuseRenderer {
 
 	protected static RenderItem renderItem;
 
-	public static void drawCircleAround(double xoffset, double yoffset,
-			double radius) {
+	/**
+	 * Does the rotating green circle around the selection, e.g. in GUI.
+	 * 
+	 * @param xoffset
+	 * @param yoffset
+	 * @param radius
+	 */
+	public static void drawCircleAround(double xoffset, double yoffset, double radius) {
+		// TODO: Do some caching to make this faster
 		int start = (int) (System.currentTimeMillis() / 4 % 360);
 		double startangle = 2.0 * Math.PI * start / 360.0;
 		double endangle = startangle + 2.0 * Math.PI;
@@ -89,6 +96,14 @@ public abstract class MuseRenderer {
 		return points;
 	}
 
+	/**
+	 * Returns a DoubleBuffer full of colours that are gradually interpolated
+	 * 
+	 * @param c1
+	 * @param c2
+	 * @param numsegments
+	 * @return
+	 */
 	public static DoubleBuffer getColourGradient(Colour c1, Colour c2,
 			int numsegments) {
 		DoubleBuffer buffer = BufferUtils.createDoubleBuffer(numsegments * 4);
@@ -159,8 +174,7 @@ public abstract class MuseRenderer {
 	}
 
 	/**
-	 * Draws a swirly green circle at the specified coordinates in the current
-	 * reference frame.
+	 * Draws the arrays passed in.
 	 * 
 	 * @param xoffset
 	 * @param yoffset
@@ -327,6 +341,9 @@ public abstract class MuseRenderer {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 	}
 
+	/**
+	 * Call before doing anything with alpha blending
+	 */
 	public static void smoothingOn() {
 		if (Minecraft.getMinecraft().isFancyGraphicsEnabled()) {
 			GL11.glShadeModel(GL11.GL_SMOOTH);
@@ -337,6 +354,9 @@ public abstract class MuseRenderer {
 		}
 	}
 
+	/**
+	 * Call after doing anything with alpha blending
+	 */
 	public static void smoothingOff() {
 		GL11.glShadeModel(GL11.GL_FLAT);
 		GL11.glDisable(GL11.GL_LINE_SMOOTH);
@@ -441,36 +461,10 @@ public abstract class MuseRenderer {
 		texturelessOff();
 	}
 
-	public static void drawFrameRect(MusePoint2D topleft, MusePoint2D bottomright,
-			Colour borderColour, Colour insideColour, double zLevel,
-			double cornerRadius) {
-		drawFrameRect(topleft.x(), topleft.y(), bottomright.x(),
-				bottomright.y(), borderColour,
-				insideColour, zLevel, cornerRadius);
-	}
-
-	public static void drawGradientRect3D(Vec3 origin, Vec3 size, Colour c1,
-			Colour c2)
-	{
-		texturelessOn();
-		GL11.glBegin(GL11.GL_QUADS);
-		c1.doGL();
-		GL11.glVertex3d(origin.xCoord, origin.yCoord,
-				origin.zCoord);
-		GL11.glVertex3d(origin.xCoord + size.xCoord, origin.yCoord,
-				origin.zCoord);
-
-		c2.doGL();
-		GL11.glVertex3d(origin.xCoord + size.xCoord, origin.yCoord
-				+ size.yCoord,
-				origin.zCoord + size.zCoord);
-		GL11.glVertex3d(origin.xCoord, origin.yCoord + size.yCoord,
-				origin.zCoord + size.zCoord);
-
-		GL11.glEnd();
-		texturelessOff();
-	}
-
+	/**
+	 * Makes the appropriate openGL calls and draws an item and overlay using
+	 * the default icon
+	 */
 	public static void drawItemAt(double x, double y, ItemStack item) {
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		// GL11.glDepthFunc(GL11.GL_GREATER);
@@ -486,6 +480,14 @@ public abstract class MuseRenderer {
 		GL11.glEnable(GL11.GL_LIGHTING);
 	}
 
+	/**
+	 * Draws a MuseIcon
+	 * 
+	 * @param x
+	 * @param y
+	 * @param icon
+	 * @param colour
+	 */
 	public static void drawIconAt(double x, double y,
 			MuseIcon icon, Colour colour) {
 		GL11.glPushMatrix();
@@ -530,7 +532,8 @@ public abstract class MuseRenderer {
 	}
 
 	/**
-	 * 
+	 * Switches to relative coordinate frame (where -1,-1 is top left of the
+	 * working area, and 1,1 is the bottom right)
 	 */
 	public static void relativeCoords(MuseGui gui) {
 		GL11.glPushMatrix();
@@ -539,18 +542,19 @@ public abstract class MuseRenderer {
 	}
 
 	/**
-	 * 
+	 * Does the necessary openGL calls and calls the Minecraft font renderer to
+	 * draw a string at the specified coords
 	 */
-	public static void popMatrix() {
-		GL11.glPopMatrix();
-	}
-
 	public static void drawString(String s, double x, double y) {
 		RenderHelper.disableStandardItemLighting();
 		getFontRenderer().drawStringWithShadow(s, (int) x, (int) y,
 				new Colour(1, 1, 1, 1).getInt());
 	}
 
+	/**
+	 * Does the necessary openGL calls and calls the Minecraft font renderer to
+	 * draw a string such that the xcoord is halfway through the string
+	 */
 	public static void drawCenteredString(String s, double x, double y) {
 		double xradius = getFontRenderer().getStringWidth(s) / 2;
 		drawString(s, x - xradius, y);
@@ -707,6 +711,11 @@ public abstract class MuseRenderer {
 
 		RenderHelper.disableStandardItemLighting();
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);
+	}
+
+	public static void glowOff() {
+
+		RenderHelper.enableStandardItemLighting();
 	}
 
 	/**
