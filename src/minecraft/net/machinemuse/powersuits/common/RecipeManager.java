@@ -164,14 +164,6 @@ public class RecipeManager {
 					'S', ItemComponent.solenoid,
 					'E', enderPearl));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.controlCircuit, true,
-					"WGW",
-					"LWL",
-					"WGW",
-					'W', ItemComponent.wiring,
-					'G', glass,
-					'L', lapis));
-
 			GameRegistry.addRecipe(ItemComponent.ionThruster,
 					" FE",
 					"IG ",
