@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 import net.machinemuse.general.MuseMathUtils;
+import net.machinemuse.powersuits.powermodule.IPowerModule;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
-import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -21,10 +21,10 @@ public class ItemUtils {
 	public static final String NBTPREFIX = "mmmpsmod";
 	public static final String ACTIVE = "Active";
 
-	public static List<PowerModule> getValidModulesForItem(
+	public static List<IPowerModule> getValidModulesForItem(
 			EntityPlayer player, ItemStack stack) {
-		List<PowerModule> validModules = new ArrayList();
-		for (PowerModule module : ModuleManager.getAllModules()) {
+		List<IPowerModule> validModules = new ArrayList();
+		for (IPowerModule module : ModuleManager.getAllModules()) {
 			if (module.isValidForSlot(getAsModular(stack.getItem())
 					.getItemType().ordinal())) {
 				validModules.add(module);
@@ -61,12 +61,12 @@ public class ItemUtils {
 		return tagHasModule(getMuseItemTag(stack), moduleName);
 	}
 
-	public static void tagAddModule(NBTTagCompound tag, PowerModule module) {
+	public static void tagAddModule(NBTTagCompound tag, IPowerModule module) {
 		tag.setCompoundTag(module.getName(), module.getNewTag());
 	}
 
-	public static void itemAddModule(ItemStack stack, PowerModule module) {
-		tagAddModule(getMuseItemTag(stack), module);
+	public static void itemAddModule(ItemStack stack, IPowerModule moduleType) {
+		tagAddModule(getMuseItemTag(stack), moduleType);
 	}
 
 	public static boolean removeModule(NBTTagCompound tag, String moduleName) {
@@ -485,11 +485,11 @@ public class ItemUtils {
 		}
 	}
 
-	public static List<PowerModule> getPlayerInstalledModules(EntityPlayer player) {
-		List<PowerModule> installedModules = new ArrayList();
+	public static List<IPowerModule> getPlayerInstalledModules(EntityPlayer player) {
+		List<IPowerModule> installedModules = new ArrayList();
 		for (ItemStack stack : ItemUtils.modularItemsEquipped(player)) {
 			NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
-			for (PowerModule module : ItemUtils.getValidModulesForItem(player, stack)) {
+			for (IPowerModule module : ItemUtils.getValidModulesForItem(player, stack)) {
 				if (tagHasModule(itemTag, module.getName())) {
 					installedModules.add(module);
 				}

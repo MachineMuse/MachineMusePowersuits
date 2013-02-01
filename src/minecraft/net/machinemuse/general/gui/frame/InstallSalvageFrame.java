@@ -12,7 +12,7 @@ import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.machinemuse.powersuits.network.packets.MusePacketInstallModuleRequest;
 import net.machinemuse.powersuits.network.packets.MusePacketSalvageModuleRequest;
-import net.machinemuse.powersuits.powermodule.PowerModule;
+import net.machinemuse.powersuits.powermodule.IPowerModule;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.network.Player;
@@ -56,7 +56,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 		if (targetItem.getSelectedItem() != null
 				&& targetModule.getSelectedModule() != null) {
 			ItemStack stack = targetItem.getSelectedItem().getItem();
-			PowerModule module = targetModule.getSelectedModule().getModule();
+			IPowerModule module = targetModule.getSelectedModule().getModule();
 			List<ItemStack> itemsToCheck = module.getInstallCost();
 			double yoffset;
 			if (!ItemUtils.itemHasModule(stack, module.getName())) {
@@ -94,7 +94,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 
 	private void drawItems() {
 		ItemStack stack = targetItem.getSelectedItem().getItem();
-		PowerModule module = targetModule.getSelectedModule().getModule();
+		IPowerModule module = targetModule.getSelectedModule().getModule();
 		List<ItemStack> itemsToDraw = module.getInstallCost();
 		double yoffset;
 		if (!ItemUtils.itemHasModule(stack, module.getName())) {
@@ -115,7 +115,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 
 	private void drawButtons() {
 		ItemStack stack = targetItem.getSelectedItem().getItem();
-		PowerModule module = targetModule.getSelectedModule().getModule();
+		IPowerModule module = targetModule.getSelectedModule().getModule();
 		if (!ItemUtils.itemHasModule(stack, module.getName())) {
 
 			installButton.setEnabled(player.capabilities.isCreativeMode || ItemUtils.hasInInventory(
@@ -132,7 +132,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 		ClickableModule selModule = targetModule.getSelectedModule();
 		if (selItem != null && selModule != null) {
 			ItemStack stack = selItem.getItem();
-			PowerModule module = selModule.getModule();
+			IPowerModule module = selModule.getModule();
 
 			if (!ItemUtils.itemHasModule(stack, module.getName())) {
 				if (installButton.hitBox(x, y)) {
@@ -147,7 +147,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 	}
 
 	private void doSalvage() {
-		PowerModule module = targetModule.getSelectedModule().getModule();
+		IPowerModule module = targetModule.getSelectedModule().getModule();
 		MusePacket newpacket = new MusePacketSalvageModuleRequest(
 				(Player) player,
 				targetItem.getSelectedItem().inventorySlot,
@@ -161,7 +161,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 	 */
 	private void doInstall() {
 		ItemStack stack = targetItem.getSelectedItem().getItem();
-		PowerModule module = targetModule.getSelectedModule().getModule();
+		IPowerModule module = targetModule.getSelectedModule().getModule();
 		if (player.capabilities.isCreativeMode) {
 			ItemUtils.itemAddModule(stack, module);
 			MusePacket newpacket = new MusePacketInstallModuleRequest(

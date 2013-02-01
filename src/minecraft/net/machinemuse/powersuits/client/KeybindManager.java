@@ -14,8 +14,8 @@ import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.item.ItemUtils;
+import net.machinemuse.powersuits.powermodule.IPowerModule;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
-import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 
@@ -62,7 +62,7 @@ public class KeybindManager {
 				file.createNewFile();
 			}
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-			List<PowerModule> modulesToWrite = ItemUtils.getPlayerInstalledModules(Minecraft.getMinecraft().thePlayer);
+			List<IPowerModule> modulesToWrite = ItemUtils.getPlayerInstalledModules(Minecraft.getMinecraft().thePlayer);
 			for (ClickableKeybinding keybinding : getInstance().keybindings) {
 				writer.write(keybinding.getKeyBinding().keyCode + ":" + keybinding.getPosition().x() + ":" + keybinding.getPosition().y() + "\n");
 				for (ClickableModule module : keybinding.getBoundModules()) {
@@ -101,7 +101,7 @@ public class KeybindManager {
 				} else if (line.contains("~") && workingKeybinding != null) {
 					String[] exploded = line.split("~");
 					MusePoint2D position = new MusePoint2D(Double.parseDouble(exploded[1]), Double.parseDouble(exploded[2]));
-					PowerModule module = ModuleManager.getModule(exploded[0]);
+					IPowerModule module = ModuleManager.getModule(exploded[0]);
 					ClickableModule cmodule = new ClickableModule(module, position);
 					workingKeybinding.bindModule(cmodule);
 

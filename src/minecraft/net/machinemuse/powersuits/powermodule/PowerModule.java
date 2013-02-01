@@ -16,7 +16,7 @@ import net.machinemuse.powersuits.powermodule.property.PropertyModifierLinearAdd
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class PowerModule {
+public class PowerModule implements IPowerModule {
 	protected String name;
 	protected String description;
 	protected String category;
@@ -53,7 +53,8 @@ public class PowerModule {
 		return category;
 	}
 
-	public MuseIcon getIcon() {
+	@Override
+	public MuseIcon getIcon(ItemStack item) {
 		return icon;
 	}
 
@@ -172,4 +173,16 @@ public class PowerModule {
 	public boolean equals(PowerModule other) {
 		return other != null && other.name == this.name;
 	}
+
+	public PowerModule addSimpleTradeoff(
+			IPowerModule module, String tradeoffName,
+			String firstPropertyName, String firstUnits, double firstPropertyBase, double firstPropertyMultiplier,
+			String secondPropertyName, String secondUnits, double secondPropertyBase, double secondPropertyMultiplier) {
+		this.addBaseProperty(firstPropertyName, firstPropertyBase, firstUnits);
+		this.addTradeoffProperty(tradeoffName, firstPropertyName, firstPropertyMultiplier);
+		this.addBaseProperty(secondPropertyName, secondPropertyBase, secondUnits);
+		this.addTradeoffProperty(tradeoffName, secondPropertyName, secondPropertyMultiplier);
+		return this;
+	}
+
 }

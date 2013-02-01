@@ -12,8 +12,8 @@ import java.util.Set;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.network.MusePacket;
+import net.machinemuse.powersuits.powermodule.IPowerModule;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
-import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -76,7 +76,7 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
 		if (moduleName != null) {
 			InventoryPlayer inventory = playerEntity.inventory;
 			int entityId = playerEntity.entityId;
-			PowerModule moduleType = ModuleManager.getModule(moduleName);
+			IPowerModule moduleType = ModuleManager.getModule(moduleName);
 			List<ItemStack> refund = moduleType.getInstallCost();
 
 			if (ItemUtils.itemHasModule(stack, moduleName)) {

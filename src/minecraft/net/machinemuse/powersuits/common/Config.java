@@ -301,40 +301,40 @@ public class Config {
 		module = new PowerModule(ModularCommon.MODULE_SPRINT_ASSIST, LEGSONLY, MuseIcon.SPRINT_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("A set of servo motors to help you sprint (double-tap forward) faster.")
 				.setToggleable(true)
-				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 4));
-		ModuleManager.addSimpleTradeoff(
-				module, "Power",
-				ModularCommon.SPRINT_ENERGY_CONSUMPTION, "J", 0, 10,
-				ModularCommon.SPRINT_SPEED_MULTIPLIER, "%", 1, 2);
-		ModuleManager.addSimpleTradeoff(
-				module, "Compensation",
-				ModularCommon.SPRINT_ENERGY_CONSUMPTION, "J", 0, 2,
-				ModularCommon.SPRINT_FOOD_COMPENSATION, "%", 0, 1);
+				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 4))
+				.addSimpleTradeoff(
+						module, "Power",
+						ModularCommon.SPRINT_ENERGY_CONSUMPTION, "J", 0, 10,
+						ModularCommon.SPRINT_SPEED_MULTIPLIER, "%", 1, 2)
+				.addSimpleTradeoff(
+						module, "Compensation",
+						ModularCommon.SPRINT_ENERGY_CONSUMPTION, "J", 0, 2,
+						ModularCommon.SPRINT_FOOD_COMPENSATION, "%", 0, 1);
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_JUMP_ASSIST, LEGSONLY, MuseIcon.JUMP_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("Another set of servo motors to help you jump higher.")
 				.setToggleable(true)
-				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 4));
-		ModuleManager.addSimpleTradeoff(
-				module, "Power",
-				ModularCommon.JUMP_ENERGY_CONSUMPTION, "J", 0, 25,
-				ModularCommon.JUMP_MULTIPLIER, "%", 1, 4);
-		ModuleManager.addSimpleTradeoff(
-				module, "Compensation",
-				ModularCommon.JUMP_ENERGY_CONSUMPTION, "J", 0, 5,
-				ModularCommon.JUMP_FOOD_COMPENSATION, "%", 0, 1);
+				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 4))
+				.addSimpleTradeoff(
+						module, "Power",
+						ModularCommon.JUMP_ENERGY_CONSUMPTION, "J", 0, 25,
+						ModularCommon.JUMP_MULTIPLIER, "%", 1, 4)
+				.addSimpleTradeoff(
+						module, "Compensation",
+						ModularCommon.JUMP_ENERGY_CONSUMPTION, "J", 0, 5,
+						ModularCommon.JUMP_FOOD_COMPENSATION, "%", 0, 1);
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_SHOCK_ABSORBER, FEETONLY, MuseIcon.SHOCK_ABSORBER, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("With some servos, springs, and padding, you should be able to negate a portion of fall damage.")
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
 				.setToggleable(true)
-				.addInstallCost(new ItemStack(Block.cloth, 2));
-		ModuleManager.addSimpleTradeoff(
-				module, "Power",
-				ModularCommon.SHOCK_ABSORB_ENERGY_CONSUMPTION, "J/m", 0, 10,
-				ModularCommon.SHOCK_ABSORB_MULTIPLIER, "%", 0, 1);
+				.addInstallCost(new ItemStack(Block.cloth, 2))
+				.addSimpleTradeoff(
+						module, "Power",
+						ModularCommon.SHOCK_ABSORB_ENERGY_CONSUMPTION, "J/m", 0, 10,
+						ModularCommon.SHOCK_ABSORB_MULTIPLIER, "%", 0, 1);
 		ModuleManager.addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_GLIDER, TORSOONLY, MuseIcon.GLIDER, ModularCommon.CATEGORY_MOVEMENT)

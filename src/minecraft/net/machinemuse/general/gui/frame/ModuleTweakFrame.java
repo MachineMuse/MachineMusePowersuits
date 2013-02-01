@@ -17,6 +17,7 @@ import net.machinemuse.general.gui.clickable.ClickableSlider;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.machinemuse.powersuits.network.packets.MusePacketTweakRequest;
+import net.machinemuse.powersuits.powermodule.IPowerModule;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.machinemuse.powersuits.powermodule.property.IPropertyModifier;
 import net.machinemuse.powersuits.powermodule.property.PropertyModifierLinearAdditive;
@@ -54,7 +55,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
 		mousey /= SCALERATIO;
 		if (itemTarget.getSelectedItem() != null && moduleTarget.getSelectedModule() != null) {
 			ItemStack stack = itemTarget.getSelectedItem().getItem();
-			PowerModule module = moduleTarget.getSelectedModule().getModule();
+			IPowerModule module = moduleTarget.getSelectedModule().getModule();
 			if (ItemUtils.itemHasModule(itemTarget.getSelectedItem().getItem(), moduleTarget.getSelectedModule().getModule().getName())) {
 				loadTweaks(stack, module);
 			} else {
@@ -93,7 +94,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
 		}
 	}
 
-	private void loadTweaks(ItemStack stack, PowerModule module) {
+	private void loadTweaks(ItemStack stack, IPowerModule module) {
 		NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
 		NBTTagCompound moduleTag = itemTag.getCompoundTag(module.getName());
 
@@ -144,7 +145,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
 	public void onMouseUp(double x, double y, int button) {
 		if (selectedSlider != null && itemTarget.getSelectedItem() != null && moduleTarget.getSelectedModule() != null) {
 			ClickableItem item = itemTarget.getSelectedItem();
-			PowerModule module = moduleTarget.getSelectedModule().getModule();
+			IPowerModule module = moduleTarget.getSelectedModule().getModule();
 			MusePacket tweakRequest = new MusePacketTweakRequest((Player) player, item.inventorySlot, module.getName(), selectedSlider.getName(),
 					selectedSlider.getValue());
 			player.sendQueue.addToSendQueue(tweakRequest.getPacket250());

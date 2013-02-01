@@ -7,8 +7,8 @@ import java.util.List;
 
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.powermodule.IPowerModule;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
-import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -224,7 +224,7 @@ public abstract class ModularCommon {
 	public static List<String> getItemInstalledModules(EntityPlayer player, ItemStack stack) {
 		NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
 		List<String> modules = new LinkedList();
-		for (PowerModule module : ItemUtils.getValidModulesForItem(player, stack)) {
+		for (IPowerModule module : ItemUtils.getValidModulesForItem(player, stack)) {
 			if (ItemUtils.tagHasModule(itemTag, module.getName())) {
 				modules.add(module.getName());
 			}

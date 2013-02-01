@@ -12,14 +12,14 @@ import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.powersuits.item.ItemUtils;
-import net.machinemuse.powersuits.powermodule.PowerModule;
+import net.machinemuse.powersuits.powermodule.IPowerModule;
 
 public class ModuleSelectionFrame extends ScrollableFrame {
 	protected ItemSelectionFrame target;
 	protected Map<String, ModuleSelectionSubFrame> categories;
 	protected List<ClickableModule> moduleButtons;
 	protected int selectedModule = -1;
-	protected PowerModule prevSelection;
+	protected IPowerModule prevSelection;
 
 	public ModuleSelectionFrame(MusePoint2D topleft, MusePoint2D bottomright,
 			Colour borderColour, Colour insideColour, ItemSelectionFrame target) {
@@ -85,7 +85,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 			moduleButtons = new ArrayList();
 			categories = new HashMap();
 
-			List<PowerModule> workingModules = ItemUtils.getValidModulesForItem(null, selectedItem.getItem());
+			List<IPowerModule> workingModules = ItemUtils.getValidModulesForItem(null, selectedItem.getItem());
 			if (workingModules.size() > 0) {
 				List<MusePoint2D> points = MuseRenderer.pointsInLine(
 						workingModules.size(),
@@ -93,7 +93,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 						new MusePoint2D(centerx, bottomright.y()));
 				this.selectedModule = -1;
 				Iterator<MusePoint2D> pointiter = points.iterator();
-				for (PowerModule module : workingModules) {
+				for (IPowerModule module : workingModules) {
 					ModuleSelectionSubFrame frame = getOrCreateCategory(module.getCategory());
 					ClickableModule moduleClickable = frame.addModule(module);
 					if (moduleClickable.getModule().equals(this.prevSelection)) {

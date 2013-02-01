@@ -16,7 +16,7 @@ import net.machinemuse.general.gui.clickable.IClickable;
 import net.machinemuse.powersuits.client.KeybindManager;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemUtils;
-import net.machinemuse.powersuits.powermodule.PowerModule;
+import net.machinemuse.powersuits.powermodule.IPowerModule;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -75,13 +75,13 @@ public class KeybindConfigFrame implements IGuiFrame {
 	}
 
 	public void refreshModules() {
-		List<PowerModule> installedModules = ItemUtils.getPlayerInstalledModules(player);
+		List<IPowerModule> installedModules = ItemUtils.getPlayerInstalledModules(player);
 		List<MusePoint2D> points = MuseRenderer.pointsInLine(
 				installedModules.size(),
 				new MusePoint2D(ul.x() + 10, ul.y() + 10),
 				new MusePoint2D(ul.x() + 10, br.y() - 10));
 		Iterator<MusePoint2D> pointIterator = points.iterator();
-		for (PowerModule module : installedModules) {
+		for (IPowerModule module : installedModules) {
 			if (module.isToggleable() && !alreadyAdded(module)) {
 				ClickableModule clickie = new ClickableModule(module, pointIterator.next());
 				modules.add(clickie);
@@ -89,7 +89,7 @@ public class KeybindConfigFrame implements IGuiFrame {
 		}
 	}
 
-	public boolean alreadyAdded(PowerModule module) {
+	public boolean alreadyAdded(IPowerModule module) {
 		for (ClickableModule clickie : modules) {
 			if (clickie.getModule().getName().equals(module.getName())) {
 				return true;
@@ -198,14 +198,14 @@ public class KeybindConfigFrame implements IGuiFrame {
 	public void draw() {
 		MusePoint2D center = ul.plus(br).times(0.5);
 		if (selecting) {
-			MuseRenderer.drawCenteredString("Press Key", center.x(),center.y());
+			MuseRenderer.drawCenteredString("Press Key", center.x(), center.y());
 			return;
 		}
 		newKeybindButton.draw();
 		trashKeybindButton.draw();
-		MuseRenderer.drawCenteredString("Use 'new' to bind new keys.", center.x(), center.y()+40);
-		MuseRenderer.drawCenteredString("Drag and drop modules to bind them to keys.", center.x(), center.y()+50);
-		MuseRenderer.drawCenteredString("Drop keys on 'trash' to unbind them.", center.x(), center.y()+60);
+		MuseRenderer.drawCenteredString("Use 'new' to bind new keys.", center.x(), center.y() + 40);
+		MuseRenderer.drawCenteredString("Drag and drop modules to bind them to keys.", center.x(), center.y() + 50);
+		MuseRenderer.drawCenteredString("Drop keys on 'trash' to unbind them.", center.x(), center.y() + 60);
 		if (takenTime + 1000 > System.currentTimeMillis()) {
 			MusePoint2D pos = newKeybindButton.getPosition().plus(new MusePoint2D(0, -20));
 			MuseRenderer.drawCenteredString("Taken!", pos.x(), pos.y());

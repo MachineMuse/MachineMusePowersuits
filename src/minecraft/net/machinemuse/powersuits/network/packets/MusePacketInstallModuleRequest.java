@@ -11,8 +11,8 @@ import java.util.List;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.network.MusePacket;
+import net.machinemuse.powersuits.powermodule.IPowerModule;
 import net.machinemuse.powersuits.powermodule.ModuleManager;
-import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -74,7 +74,7 @@ public class MusePacketInstallModuleRequest extends MusePacket {
 	public void handleServer(EntityPlayerMP playerEntity) {
 		if (moduleName != null) {
 			InventoryPlayer inventory = playerEntity.inventory;
-			PowerModule moduleType = ModuleManager.getModule(moduleName);
+			IPowerModule moduleType = ModuleManager.getModule(moduleName);
 			List<ItemStack> cost = moduleType.getInstallCost();
 
 			if (ItemUtils.hasInInventory(cost, playerEntity.inventory) || playerEntity.capabilities.isCreativeMode) {

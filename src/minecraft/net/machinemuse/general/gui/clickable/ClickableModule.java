@@ -7,7 +7,7 @@ import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
-import net.machinemuse.powersuits.powermodule.PowerModule;
+import net.machinemuse.powersuits.powermodule.IPowerModule;
 
 /**
  * Extends the Clickable class to make a clickable Augmentation; note that this
@@ -16,14 +16,14 @@ import net.machinemuse.powersuits.powermodule.PowerModule;
  * @author MachineMuse
  */
 public class ClickableModule extends Clickable {
-	protected PowerModule module;
+	protected IPowerModule module;
 
 	/**
 	 * @param vaug
 	 */
-	public ClickableModule(PowerModule module, MusePoint2D position) {
+	public ClickableModule(IPowerModule module2, MusePoint2D position) {
 		super(position);
-		this.setModule(module);
+		this.setModule(module2);
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class ClickableModule extends Clickable {
 
 		Colour.getGreyscale(1.0f, 1.0f).doGL();
 		MuseRenderer.drawIconAt(getPosition().x() - 8, getPosition().y() - 8,
-				getModule().getIcon(), null);
+				getModule().getIcon(null), null);
 
 	}
 
@@ -54,12 +54,12 @@ public class ClickableModule extends Clickable {
 		return hitx && hity;
 	}
 
-	public PowerModule getModule() {
+	public IPowerModule getModule() {
 		return module;
 	}
 
-	public ClickableModule setModule(PowerModule module) {
-		this.module = module;
+	public ClickableModule setModule(IPowerModule module2) {
+		this.module = module2;
 		return this;
 	}
 
