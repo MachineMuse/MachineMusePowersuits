@@ -112,10 +112,14 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			totalEnergyDrain += 5;
 		} else {
 			Collection<PotionEffect> effects = player.getActivePotionEffects();
+			boolean found = false;
 			for (PotionEffect effect : effects) {
 				if (effect.getAmplifier() == -337 && effect.getPotionID() == Potion.nightVision.id) {
-					player.removePotionEffectClient(Potion.nightVision.id);
+					found = true;
 				}
+			}
+			if (found) {
+				player.removePotionEffectClient(Potion.nightVision.id);
 			}
 		}
 
@@ -124,10 +128,14 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			totalEnergyDrain += 50;
 		} else {
 			Collection<PotionEffect> effects = player.getActivePotionEffects();
+			boolean found = false;
 			for (PotionEffect effect : effects) {
 				if (effect.getAmplifier() == 81 && effect.getPotionID() == Potion.invisibility.id) {
-					player.removePotionEffectClient(Potion.invisibility.id);
+					found = true;
 				}
+			}
+			if (found) {
+				player.removePotionEffectClient(Potion.invisibility.id);
 			}
 		}
 		if (player.isInWater()) {
