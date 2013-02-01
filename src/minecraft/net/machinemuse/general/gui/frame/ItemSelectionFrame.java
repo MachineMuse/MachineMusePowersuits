@@ -29,12 +29,12 @@ public class ItemSelectionFrame extends ScrollableFrame {
 	}
 
 	private void loadPoints(int num) {
-		double centerx = (topleft.x() + bottomright.x()) / 2;
-		double centery = (topleft.y() + bottomright.y()) / 2;
+		double centerx = (border.left() + border.right()) / 2;
+		double centery = (border.top() + border.bottom()) / 2;
 		itemPoints = new ArrayList();
 		List<MusePoint2D> targetPoints = MuseRenderer.pointsInLine(num,
-				new MusePoint2D(centerx, bottomright.y()),
-				new MusePoint2D(centerx, topleft.y()));
+				new MusePoint2D(centerx, border.bottom()),
+				new MusePoint2D(centerx, border.top()));
 		for (MusePoint2D point : targetPoints) {
 			// Fly from middle over 200 ms
 			itemPoints.add(new FlyFromPointToPoint2D(
@@ -46,8 +46,8 @@ public class ItemSelectionFrame extends ScrollableFrame {
 	private void loadItems() {
 		if (player != null) {
 			itemButtons = new ArrayList<ClickableItem>();
-			double centerx = (topleft.x() + bottomright.x()) / 2;
-			double centery = (topleft.y() + bottomright.y()) / 2;
+			double centerx = (border.left() + border.right()) / 2;
+			double centery = (border.top() + border.bottom()) / 2;
 			List<Integer> slots = ItemUtils
 					.getModularItemSlotsInInventory(player.inventory);
 			if (slots.size() > itemPoints.size()) {
@@ -80,8 +80,7 @@ public class ItemSelectionFrame extends ScrollableFrame {
 	}
 
 	private void drawBackground() {
-		MuseRenderer.drawFrameRect(topleft, bottomright, borderColour,
-				insideColour, 0, 4);
+		super.draw();
 	}
 
 	private void drawItems() {

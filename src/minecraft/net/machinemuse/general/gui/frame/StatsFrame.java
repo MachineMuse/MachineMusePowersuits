@@ -17,7 +17,7 @@ public class StatsFrame extends ScrollableFrame {
 	protected NBTTagCompound properties;
 	protected ItemStack stack;
 	protected Set<String> propertiesToList;
-	
+
 	public StatsFrame(MusePoint2D topleft, MusePoint2D bottomright,
 			Colour borderColour, Colour insideColour, ItemStack stack) {
 		super(topleft, bottomright, borderColour, insideColour);
@@ -25,11 +25,11 @@ public class StatsFrame extends ScrollableFrame {
 		this.properties = ItemUtils.getMuseItemTag(stack);
 		this.propertiesToList = NBTTagAccessor.getMap(properties).keySet();
 	}
-	
-	@Override public void draw() {
+
+	@Override
+	public void draw() {
 		GL11.glPushMatrix();
-		MuseRenderer.drawFrameRect(topleft, bottomright, borderColour,
-				insideColour, 0, 8);
+		super.draw();
 		int xoffset = 8;
 		int yoffset = 8;
 		int i = 0;
@@ -38,28 +38,31 @@ public class StatsFrame extends ScrollableFrame {
 			String propValueString = String.format("%.2f", propValue);
 			int strlen = MuseRenderer.getFontRenderer().getStringWidth(
 					propValueString);
-			MuseRenderer.drawString(propName, topleft.x() + xoffset,
-					topleft.y() + yoffset + i * 10);
-			MuseRenderer.drawString(propValueString, bottomright.x() - xoffset
+			MuseRenderer.drawString(propName, border.left() + xoffset,
+					border.top() + yoffset + i * 10);
+			MuseRenderer.drawString(propValueString, border.bottom() - xoffset
 					- strlen - 40,
-					topleft.y() + yoffset + i * 10);
+					border.top() + yoffset + i * 10);
 			i++;
 		}
 		GL11.glPopMatrix();
-		
+
 	}
-	
-	@Override public void onMouseDown(double x, double y, int button) {
+
+	@Override
+	public void onMouseDown(double x, double y, int button) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	@Override public void onMouseUp(double x, double y, int button) {
+
+	@Override
+	public void onMouseUp(double x, double y, int button) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	@Override public List<String> getToolTip(int x, int y) {
+
+	@Override
+	public List<String> getToolTip(int x, int y) {
 		// TODO Auto-generated method stub
 		return null;
 	}

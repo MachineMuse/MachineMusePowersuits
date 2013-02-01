@@ -46,8 +46,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 	}
 
 	private void drawBackground() {
-		MuseRenderer.drawFrameRect(topleft, bottomright, borderColour,
-				insideColour, 0, 4);
+		super.draw();
 	}
 
 	private void drawItems() {
@@ -79,8 +78,8 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 	public void loadModules() {
 		ClickableItem selectedItem = target.getSelectedItem();
 		if (selectedItem != null) {
-			double centerx = (topleft.x() + bottomright.x()) / 2;
-			double centery = (topleft.y() + bottomright.y()) / 2;
+			double centerx = (border.left() + border.right()) / 2;
+			double centery = (border.top() + border.bottom()) / 2;
 
 			moduleButtons = new ArrayList();
 			categories = new HashMap();
@@ -89,8 +88,8 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 			if (workingModules.size() > 0) {
 				List<MusePoint2D> points = MuseRenderer.pointsInLine(
 						workingModules.size(),
-						new MusePoint2D(centerx, topleft.y()),
-						new MusePoint2D(centerx, bottomright.y()));
+						new MusePoint2D(centerx, border.top()),
+						new MusePoint2D(centerx, border.bottom()));
 				this.selectedModule = -1;
 				Iterator<MusePoint2D> pointiter = points.iterator();
 				for (IPowerModule module : workingModules) {
@@ -111,8 +110,8 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 		} else {
 			ModuleSelectionSubFrame frame = new ModuleSelectionSubFrame(
 					category,
-					new MusePoint2D(topleft.x() + 4, topleft.y() + 4 + 30 * categories.size()),
-					new MusePoint2D(bottomright.x() - 4, bottomright.y() + 34 + 30 * categories.size()));
+					new MusePoint2D(border.left() + 4, border.top() + 4 + 30 * categories.size()),
+					new MusePoint2D(border.right() - 4, border.bottom() + 34 + 30 * categories.size()));
 
 			categories.put(category, frame);
 			return frame;

@@ -6,8 +6,7 @@ import java.util.List;
 
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.general.geometry.FlyFromPointToPoint2D;
-import net.machinemuse.general.geometry.MusePoint2D;
+import net.machinemuse.general.geometry.DrawableMuseRect;
 import net.machinemuse.general.gui.clickable.Clickable;
 import net.machinemuse.general.gui.frame.IGuiFrame;
 import net.minecraft.client.gui.GuiScreen;
@@ -28,12 +27,11 @@ import org.lwjgl.input.Mouse;
  */
 public class MuseGui extends GuiScreen {
 	protected static RenderItem renderItem;
-	protected final boolean usePretty = true;
 	protected static final Tessellator tesselator = Tessellator.instance;
-	protected MusePoint2D ul, br;
 	protected long creationTime;
 	protected int xSize;
 	protected int ySize;
+	protected DrawableMuseRect backgroundRect;
 
 	protected List<IGuiFrame> frames;
 
@@ -54,21 +52,17 @@ public class MuseGui extends GuiScreen {
 
 		int xpadding = (width - getxSize()) / 2;
 		int ypadding = (height - ySize) / 2;
-		ul = new FlyFromPointToPoint2D(absX(0), absY(0), absX(-1), absY(-1),
-				150);
-		br = new FlyFromPointToPoint2D(absX(0), absY(0), absX(1), absY(1), 150);
+		backgroundRect = new DrawableMuseRect(
+				absX(-1), absY(-1), absX(1), absY(1), true,
+				new Colour(0.1F, 0.9F, 0.1F, 0.8F),
+				new Colour(0.0F, 0.2F, 0.0F, 0.8F));
 	}
 
 	/**
 	 * Draws the gradient-rectangle background you see in the TinkerTable gui.
 	 */
 	public void drawRectangularBackground() {
-		MuseRenderer.drawFrameRect(
-				ul.x(), ul.y(),
-				br.x(), br.y(),
-				new Colour(0.1F, 0.9F, 0.1F, 0.8F),
-				new Colour(0.0F, 0.2F, 0.0F, 0.8F),
-				this.zLevel, 8f);
+		backgroundRect.draw();
 	}
 
 	/**

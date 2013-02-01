@@ -2,8 +2,8 @@ package net.machinemuse.general.gui.frame;
 
 import java.util.List;
 
-import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
+import net.machinemuse.general.geometry.DrawableMuseRect;
 import net.machinemuse.general.geometry.MusePoint2D;
 
 public class ScrollableFrame implements IGuiFrame {
@@ -14,17 +14,11 @@ public class ScrollableFrame implements IGuiFrame {
 	protected boolean scrolldownPicked = false;
 	protected boolean scrollupPicked = false;
 
-	protected MusePoint2D topleft;
-	protected MusePoint2D bottomright;
-	protected Colour borderColour;
-	protected Colour insideColour;
+	protected DrawableMuseRect border;
 
 	public ScrollableFrame(MusePoint2D topleft, MusePoint2D bottomright,
 			Colour borderColour, Colour insideColour) {
-		this.topleft = topleft;
-		this.bottomright = bottomright;
-		this.borderColour = borderColour;
-		this.insideColour = insideColour;
+		border = new DrawableMuseRect(topleft, bottomright, borderColour, insideColour);
 	}
 
 	protected double getScrollAmount() {
@@ -39,8 +33,7 @@ public class ScrollableFrame implements IGuiFrame {
 
 	@Override
 	public void draw() {
-		MuseRenderer.drawFrameRect(topleft, bottomright, borderColour,
-				insideColour, 0, 8);
+		border.draw();
 	}
 
 	// @Override

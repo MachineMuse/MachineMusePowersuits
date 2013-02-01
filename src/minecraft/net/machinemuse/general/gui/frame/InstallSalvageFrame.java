@@ -32,15 +32,15 @@ public class InstallSalvageFrame extends ScrollableFrame {
 		this.player = player;
 		this.targetItem = targetItem;
 		this.targetModule = targetModule;
-		double sizex = bottomright.x() - topleft.x();
-		double sizey = bottomright.y() - topleft.y();
+		double sizex = border.right() - border.left();
+		double sizey = border.bottom() - border.top();
 
 		this.installButton = new ClickableButton("Install", new MusePoint2D(
-				bottomright.x() - sizex / 2.0, bottomright.y() - sizey
+				border.right() - sizex / 2.0, border.bottom() - sizey
 						/ 4.0),
 				true);
 		this.salvageButton = new ClickableButton("Salvage", new MusePoint2D(
-				topleft.x() + sizex / 2.0, topleft.y() + sizey / 4.0),
+				border.left() + sizex / 2.0, border.top() + sizey / 4.0),
 				true);
 
 	}
@@ -60,13 +60,13 @@ public class InstallSalvageFrame extends ScrollableFrame {
 			List<ItemStack> itemsToCheck = module.getInstallCost();
 			double yoffset;
 			if (!ItemUtils.itemHasModule(stack, module.getName())) {
-				yoffset = topleft.y() + 4;
+				yoffset = border.top() + 4;
 			} else {
-				yoffset = bottomright.y() - 20;
+				yoffset = border.bottom() - 20;
 			}
 			if (yoffset + 16 > y && yoffset < y) {
 				double xoffset = -8.0 * itemsToCheck.size()
-						+ (topleft.x() + bottomright.x()) / 2;
+						+ (border.left() + border.right()) / 2;
 				if (xoffset + 16 * itemsToCheck.size() > x && xoffset < x) {
 					int index = (int) (x - xoffset) / 16;
 					List<String> tip = itemsToCheck.get(index).getTooltip(player, false);
@@ -88,8 +88,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 	}
 
 	private void drawBackground() {
-		MuseRenderer.drawFrameRect(topleft, bottomright, borderColour,
-				insideColour, 0, 4);
+		super.draw();
 	}
 
 	private void drawItems() {
@@ -98,12 +97,12 @@ public class InstallSalvageFrame extends ScrollableFrame {
 		List<ItemStack> itemsToDraw = module.getInstallCost();
 		double yoffset;
 		if (!ItemUtils.itemHasModule(stack, module.getName())) {
-			yoffset = topleft.y() + 4;
+			yoffset = border.top() + 4;
 		} else {
-			yoffset = bottomright.y() - 20;
+			yoffset = border.bottom() - 20;
 		}
 		double xoffset = -8.0 * itemsToDraw.size()
-				+ (topleft.x() + bottomright.x()) / 2;
+				+ (border.left() + border.right()) / 2;
 		int i = 0;
 		for (ItemStack costItem : itemsToDraw) {
 			MuseRenderer.drawItemAt(

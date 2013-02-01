@@ -39,19 +39,23 @@ public class MusePoint2D {
 	}
 
 	public MusePoint2D plus(MusePoint2D b) {
-		return new MusePoint2D(x + b.x, y + b.y);
+		return new MusePoint2D(x() + b.x(), y() + b.y());
 	}
 
 	public MusePoint2D minus(MusePoint2D b) {
-		return new MusePoint2D(x - b.x, y - b.y);
+		return new MusePoint2D(x() - b.x(), y() - b.y());
 	}
 
 	public MusePoint2D times(double scalefactor) {
-		return new MusePoint2D(x * scalefactor, y * scalefactor);
+		return new MusePoint2D(x() * scalefactor, y() * scalefactor);
+	}
+
+	public boolean equals(MusePoint2D other) {
+		return this.x() == other.x() && this.y() == other.y();
 	}
 
 	public double distance() {
-		return Math.sqrt(x * x + y * y);
+		return Math.sqrt(x() * x() + y() * y());
 	}
 
 	public double distanceTo(MusePoint2D position) {
@@ -59,21 +63,21 @@ public class MusePoint2D {
 	}
 
 	public double distanceSq(MusePoint2D position) {
-		double xdist = position.x - this.x;
-		double ydist = position.y - this.y;
+		double xdist = position.x() - this.x();
+		double ydist = position.y() - this.y();
 		return xdist * xdist + ydist * ydist;
 	}
 
 	public MusePoint2D normalize() {
 		double distance = distance();
-		return new MusePoint2D(x / distance, y / distance);
+		return new MusePoint2D(x() / distance, y() / distance);
 	}
 
 	public MusePoint2D midpoint(MusePoint2D target) {
-		return new MusePoint2D((this.x + target.x) / 2, (this.y + target.y) / 2);
+		return new MusePoint2D((this.x() + target.x()) / 2, (this.y() + target.y()) / 2);
 	}
 
 	public MusePoint2D copy() {
-		return new MusePoint2D(this.x, this.y);
+		return new MusePoint2D(this.x(), this.y());
 	}
 }

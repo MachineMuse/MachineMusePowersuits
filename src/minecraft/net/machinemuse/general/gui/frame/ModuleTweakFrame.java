@@ -75,19 +75,19 @@ public class ModuleTweakFrame extends ScrollableFrame {
 	@Override
 	public void draw() {
 		if (sliders != null) {
-			MuseRenderer.drawFrameRect(topleft.times(SCALERATIO), bottomright.times(SCALERATIO), borderColour, insideColour, 0, 2);
-			MuseRenderer.drawCenteredString("Tinker", (topleft.x() + bottomright.x()) / 4, topleft.y() / 2 + 2);
+			MuseRenderer.drawCenteredString("Tinker", (border.left() + border.right()) / 4, border.top() / 2 + 2);
 			GL11.glPushMatrix();
 			GL11.glScaled(SCALERATIO, SCALERATIO, SCALERATIO);
+			super.draw();
 			for (ClickableSlider slider : sliders) {
 				slider.draw();
 			}
-			int nexty = (int) (sliders.size() * 24 + topleft.y() + 24);
+			int nexty = (int) (sliders.size() * 24 + border.top() + 24);
 			for (Map.Entry<String, Double> property : propertyStrings.entrySet()) {
 				nexty += 8;
 				String[] str = { property.getKey() + ":",
 						MuseStringUtils.formatNumberFromUnits(property.getValue(), PowerModule.getUnit(property.getKey())) };
-				MuseRenderer.drawStringsJustified(Arrays.asList(str), topleft.x() + 4, bottomright.x() - 4, nexty);
+				MuseRenderer.drawStringsJustified(Arrays.asList(str), border.left() + 4, border.right() - 4, nexty);
 
 			}
 			GL11.glPopMatrix();
@@ -119,8 +119,8 @@ public class ModuleTweakFrame extends ScrollableFrame {
 		for (String tweak : tweaks) {
 			y += 24;
 			ClickableSlider slider = new ClickableSlider(
-					new MusePoint2D((topleft.x() + bottomright.x()) / 2, topleft.y() + y),
-					bottomright.x() - topleft.x() - 8,
+					new MusePoint2D((border.left() + border.right()) / 2, border.top() + y),
+					border.right() - border.left() - 8,
 					moduleTag, tweak);
 			sliders.add(slider);
 		}

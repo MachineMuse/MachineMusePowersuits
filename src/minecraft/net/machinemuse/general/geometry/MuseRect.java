@@ -38,4 +38,8 @@ public class MuseRect {
 	public double bottom() {
 		return br.y();
 	}
+
+	public boolean equals(MuseRect other) {
+		return ul.equals(other.ul) && br.equals(other.br);
+	}
 }
