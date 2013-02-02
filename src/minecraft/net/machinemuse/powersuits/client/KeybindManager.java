@@ -21,6 +21,8 @@ import net.minecraft.client.settings.KeyBinding;
 
 import org.lwjgl.input.Keyboard;
 
+import cpw.mods.fml.common.Loader;
+
 public class KeybindManager {
 	// only stores keybindings relevant to us!!
 	protected Set<ClickableKeybinding> keybindings;
@@ -57,7 +59,7 @@ public class KeybindManager {
 
 	public static void writeOutKeybinds() {
 		try {
-			File file = new File("config/powersuits-keybinds.cfg");
+			File file = new File(Loader.instance().getConfigDir(), "powersuits-keybinds.cfg");
 			if (!file.exists()) {
 				file.createNewFile();
 			}
@@ -78,7 +80,7 @@ public class KeybindManager {
 
 	public static void readInKeybinds() {
 		try {
-			File file = new File("config/powersuits-keybinds.cfg");
+			File file = new File(Loader.instance().getConfigDir(), "powersuits-keybinds.cfg");
 			if (!file.exists()) {
 				MuseLogger.logError("No powersuits keybind file found.");
 				return;
