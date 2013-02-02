@@ -6,8 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.entity.Entity;
@@ -56,6 +56,8 @@ public abstract class ModularCommon {
 	public static final String PUNCH_ENERGY = "Punch Energy Consumption";
 	public static final String PUNCH_DAMAGE = "Melee Damage";
 	public static final String PUNCH_KNOCKBACK = "Melee Knockback";
+	public static final String WALKING_ENERGY_CONSUMPTION = "Walking Energy Consumption";
+	public static final String WALKING_SPEED_MULTIPLIER = "Walking Speed Multiplier";
 
 	/**
 	 * Module names

@@ -7,8 +7,8 @@ import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
 
-import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.IModularItem;
@@ -231,19 +231,30 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			}
 
 			// Sprint assist
-			if (hasSprintAssist && player.isSprinting()) {
-				double horzMovement = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ);
-				double exhaustion = Math.round(horzMovement * 100.0F) * 0.01;
+			if (hasSprintAssist) {
+				if (player.isSprinting()) {
+					double horzMovement = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ);
+					double exhaustion = Math.round(horzMovement * 100.0F) * 0.01;
 
-				double sprintCost = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_ENERGY_CONSUMPTION);
-				if (sprintCost + totalEnergyDrain < totalEnergy) {
-					double sprintMultiplier = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_SPEED_MULTIPLIER);
-					double exhaustionComp = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_FOOD_COMPENSATION);
-					totalEnergyDrain += sprintCost;
-					player.landMovementFactor *= sprintMultiplier;
+					double sprintCost = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_ENERGY_CONSUMPTION);
+					if (sprintCost + totalEnergyDrain < totalEnergy) {
+						double sprintMultiplier = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_SPEED_MULTIPLIER);
+						double exhaustionComp = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_FOOD_COMPENSATION);
+						totalEnergyDrain += sprintCost;
+						player.landMovementFactor *= sprintMultiplier;
 
-					foodAdjustment += 0.01 * exhaustion * exhaustionComp;
-					player.jumpMovementFactor = player.landMovementFactor * .5f;
+						foodAdjustment += 0.01 * exhaustion * exhaustionComp;
+						player.jumpMovementFactor = player.landMovementFactor * .5f;
+					}
+				} else {
+					double cost = ModuleManager.computeModularProperty(pants, ModularCommon.WALKING_ENERGY_CONSUMPTION);
+					if (cost + totalEnergyDrain < totalEnergy) {
+						double walkMultiplier = ModuleManager.computeModularProperty(pants, ModularCommon.WALKING_SPEED_MULTIPLIER);
+						totalEnergyDrain += cost;
+						player.landMovementFactor *= walkMultiplier;
+						player.jumpMovementFactor = player.landMovementFactor * .5f;
+					}
+
 				}
 			}
 		}

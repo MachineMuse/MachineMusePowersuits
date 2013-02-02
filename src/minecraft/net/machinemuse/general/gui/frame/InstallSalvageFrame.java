@@ -16,7 +16,10 @@ import net.machinemuse.powersuits.network.packets.MusePacketSalvageModuleRequest
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.network.Player;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT)
 public class InstallSalvageFrame extends ScrollableFrame {
 	protected ItemSelectionFrame targetItem;
 	protected ModuleSelectionFrame targetModule;

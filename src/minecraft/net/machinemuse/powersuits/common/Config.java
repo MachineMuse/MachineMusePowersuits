@@ -317,7 +317,7 @@ public class Config {
 		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_SPRINT_ASSIST, LEGSONLY, MuseIcon.SPRINT_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
-				.setDescription("A set of servo motors to help you sprint (double-tap forward) faster.")
+				.setDescription("A set of servo motors to help you sprint (double-tap forward) and walk faster.")
 				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 4))
 				.addSimpleTradeoff(
@@ -327,7 +327,11 @@ public class Config {
 				.addSimpleTradeoff(
 						module, "Compensation",
 						ModularCommon.SPRINT_ENERGY_CONSUMPTION, "J", 0, 2,
-						ModularCommon.SPRINT_FOOD_COMPENSATION, "%", 0, 1);
+						ModularCommon.SPRINT_FOOD_COMPENSATION, "%", 0, 1)
+				.addSimpleTradeoff(
+						module, "Walking Assist",
+						ModularCommon.WALKING_ENERGY_CONSUMPTION, "J", 0, 10,
+						ModularCommon.WALKING_SPEED_MULTIPLIER, "%", 1, 1);
 		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_JUMP_ASSIST, LEGSONLY, MuseIcon.JUMP_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
