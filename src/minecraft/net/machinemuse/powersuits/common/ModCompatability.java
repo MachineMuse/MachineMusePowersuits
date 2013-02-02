@@ -3,11 +3,11 @@ package net.machinemuse.powersuits.common;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
+import net.machinemuse.api.ModularCommon;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.machinemuse.powersuits.item.ModularCommon;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -66,11 +66,11 @@ public class ModCompatability {
 	}
 
 	public static double getIC2Ratio() {
-		return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Joules per IC2 EU", 50.0).getDouble(50.0);
+		return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Joules per IC2 EU", 0.4).getDouble(0.4);
 	}
 
 	public static double getBCRatio() {
-		return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Joules per MJ", 500.0).getDouble(500.0);
+		return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Joules per MJ", 1.0).getDouble(1.0);
 	}
 
 	public static ItemStack getIC2Item(String name) {

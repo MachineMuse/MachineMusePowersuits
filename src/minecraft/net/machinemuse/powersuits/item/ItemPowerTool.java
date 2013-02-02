@@ -5,6 +5,7 @@ import icbm.api.IExplosive;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.machinemuse.api.ModularCommon;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.MuseStringUtils;

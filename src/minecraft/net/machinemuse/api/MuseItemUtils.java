@@ -9,7 +9,6 @@ import java.util.Set;
 import net.machinemuse.general.MuseMathUtils;
 import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.machinemuse.powersuits.item.ModularCommon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
@@ -25,7 +24,7 @@ public class MuseItemUtils {
 			EntityPlayer player, ItemStack stack) {
 		List<IPowerModule> validModules = new ArrayList();
 		for (IPowerModule module : ModuleManager.getAllModules()) {
-			if (module.isValidForItem(stack)) {
+			if (module.isValidForItem(stack, player)) {
 				validModules.add(module);
 			}
 		}

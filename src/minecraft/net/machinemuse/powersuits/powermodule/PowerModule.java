@@ -14,6 +14,7 @@ import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.IModularItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -130,7 +131,7 @@ public class PowerModule implements IPowerModule {
 		return (NBTTagCompound) defaultTag.copy();
 	}
 
-	public boolean isValidForItem(ItemStack stack) {
+	public boolean isValidForItem(ItemStack stack, EntityPlayer player) {
 		if (this.validItems.contains(stack.getItem())) {
 			return true;
 		} else {

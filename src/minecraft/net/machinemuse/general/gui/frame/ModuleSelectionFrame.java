@@ -11,6 +11,7 @@ import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
+import net.machinemuse.general.geometry.MuseRect;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableModule;
 
@@ -110,8 +111,11 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 		} else {
 			ModuleSelectionSubFrame frame = new ModuleSelectionSubFrame(
 					category,
-					new MusePoint2D(border.left() + 4, border.top() + 4 + 30 * categories.size()),
-					new MusePoint2D(border.right() - 4, border.bottom() + 34 + 30 * categories.size()));
+					new MuseRect(
+							border.left() + 4,
+							border.top() + 4 + 30 * categories.size(),
+							border.right() - 4,
+							border.bottom() + 34 + 30 * categories.size()));
 
 			categories.put(category, frame);
 			return frame;

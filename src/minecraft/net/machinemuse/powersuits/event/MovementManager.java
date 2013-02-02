@@ -3,10 +3,10 @@ package net.machinemuse.powersuits.event;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.machinemuse.api.ModularCommon;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.powersuits.item.ItemPowerArmor;
-import net.machinemuse.powersuits.item.ModularCommon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.ForgeSubscribe;

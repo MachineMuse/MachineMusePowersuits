@@ -4,12 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.machinemuse.api.IPowerModule;
+import net.machinemuse.api.ModularCommon;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.machinemuse.powersuits.item.ModularCommon;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -414,7 +414,7 @@ public class Config {
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2));
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_TINT, ARMORONLY, MuseIcon.NETHERSTAR, ModularCommon.CATEGORY_COSMETIC)
+		module = new PowerModule(ModularCommon.MODULE_TINT, ALLITEMS, MuseIcon.NETHERSTAR, ModularCommon.CATEGORY_COSMETIC)
 				.setDescription("Give your armor some coloured tinting to customize your armor's appearance.")
 				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1))
 				.setToggleable(true)

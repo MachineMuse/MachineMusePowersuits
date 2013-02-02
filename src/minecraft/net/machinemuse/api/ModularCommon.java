@@ -1,15 +1,13 @@
-package net.machinemuse.powersuits.item;
+package net.machinemuse.api;
 
 import icbm.api.IExplosive;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.item.ItemPowerTool;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.machinemuse.general.gui.MuseIcon;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -14,7 +15,7 @@ public interface IPowerModule {
 
 	public abstract String getCategory();
 
-	public abstract boolean isValidForItem(ItemStack stack);
+	public abstract boolean isValidForItem(ItemStack stack, EntityPlayer player);
 
 	public abstract String getName();
 
