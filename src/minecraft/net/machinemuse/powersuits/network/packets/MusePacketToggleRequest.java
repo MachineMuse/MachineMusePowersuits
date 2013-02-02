@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.network.packets;
 
 import java.io.DataInputStream;
 
-import net.machinemuse.powersuits.item.ItemUtils;
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -32,7 +32,7 @@ public class MusePacketToggleRequest extends MusePacket {
 
 	@Override
 	public void handleServer(EntityPlayerMP player) {
-		ItemUtils.toggleModuleForPlayer(player, module, value);
+		MuseItemUtils.toggleModuleForPlayer(player, module, value);
 	}
 
 }

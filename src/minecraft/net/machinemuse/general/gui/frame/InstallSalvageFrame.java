@@ -2,17 +2,17 @@ package net.machinemuse.general.gui.frame;
 
 import java.util.List;
 
+import net.machinemuse.api.IPowerModule;
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableButton;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableModule;
-import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.machinemuse.powersuits.network.packets.MusePacketInstallModuleRequest;
 import net.machinemuse.powersuits.network.packets.MusePacketSalvageModuleRequest;
-import net.machinemuse.powersuits.powermodule.IPowerModule;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.network.Player;
@@ -59,7 +59,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 			IPowerModule module = targetModule.getSelectedModule().getModule();
 			List<ItemStack> itemsToCheck = module.getInstallCost();
 			double yoffset;
-			if (!ItemUtils.itemHasModule(stack, module.getName())) {
+			if (!MuseItemUtils.itemHasModule(stack, module.getName())) {
 				yoffset = border.top() + 4;
 			} else {
 				yoffset = border.bottom() - 20;
@@ -96,7 +96,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 		IPowerModule module = targetModule.getSelectedModule().getModule();
 		List<ItemStack> itemsToDraw = module.getInstallCost();
 		double yoffset;
-		if (!ItemUtils.itemHasModule(stack, module.getName())) {
+		if (!MuseItemUtils.itemHasModule(stack, module.getName())) {
 			yoffset = border.top() + 4;
 		} else {
 			yoffset = border.bottom() - 20;
@@ -115,9 +115,9 @@ public class InstallSalvageFrame extends ScrollableFrame {
 	private void drawButtons() {
 		ItemStack stack = targetItem.getSelectedItem().getItem();
 		IPowerModule module = targetModule.getSelectedModule().getModule();
-		if (!ItemUtils.itemHasModule(stack, module.getName())) {
+		if (!MuseItemUtils.itemHasModule(stack, module.getName())) {
 
-			installButton.setEnabled(player.capabilities.isCreativeMode || ItemUtils.hasInInventory(
+			installButton.setEnabled(player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(
 					module.getInstallCost(), player.inventory));
 			installButton.draw();
 		} else {
@@ -133,7 +133,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 			ItemStack stack = selItem.getItem();
 			IPowerModule module = selModule.getModule();
 
-			if (!ItemUtils.itemHasModule(stack, module.getName())) {
+			if (!MuseItemUtils.itemHasModule(stack, module.getName())) {
 				if (installButton.hitBox(x, y)) {
 					doInstall();
 				}
@@ -162,17 +162,17 @@ public class InstallSalvageFrame extends ScrollableFrame {
 		ItemStack stack = targetItem.getSelectedItem().getItem();
 		IPowerModule module = targetModule.getSelectedModule().getModule();
 		if (player.capabilities.isCreativeMode) {
-			ItemUtils.itemAddModule(stack, module);
+			MuseItemUtils.itemAddModule(stack, module);
 			MusePacket newpacket = new MusePacketInstallModuleRequest(
 					(Player) player,
 					targetItem.getSelectedItem().inventorySlot,
 					module.getName());
 			player.sendQueue.addToSendQueue(newpacket.getPacket250());
-		} else if (ItemUtils.hasInInventory(module.getInstallCost(), player.inventory)) {
+		} else if (MuseItemUtils.hasInInventory(module.getInstallCost(), player.inventory)) {
 			// Doing it client-side first in case of lag
-			ItemUtils.deleteFromInventory(module.getInstallCost(),
+			MuseItemUtils.deleteFromInventory(module.getInstallCost(),
 					player.inventory);
-			ItemUtils.itemAddModule(stack, module);
+			MuseItemUtils.itemAddModule(stack, module);
 			// Now send request to server to make it legit
 			MusePacket newpacket = new MusePacketInstallModuleRequest(
 					(Player) player,

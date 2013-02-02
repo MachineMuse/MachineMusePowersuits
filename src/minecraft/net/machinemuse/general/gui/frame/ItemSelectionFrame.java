@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.FlyFromPointToPoint2D;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableItem;
-import net.machinemuse.powersuits.item.ItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ItemSelectionFrame extends ScrollableFrame {
@@ -22,7 +22,7 @@ public class ItemSelectionFrame extends ScrollableFrame {
 			Colour borderColour, Colour insideColour, EntityPlayer player) {
 		super(topleft, bottomright, borderColour, insideColour);
 		this.player = player;
-		List<Integer> slots = ItemUtils
+		List<Integer> slots = MuseItemUtils
 				.getModularItemSlotsInInventory(player.inventory);
 		loadPoints(slots.size());
 		loadItems();
@@ -48,7 +48,7 @@ public class ItemSelectionFrame extends ScrollableFrame {
 			itemButtons = new ArrayList<ClickableItem>();
 			double centerx = (border.left() + border.right()) / 2;
 			double centery = (border.top() + border.bottom()) / 2;
-			List<Integer> slots = ItemUtils
+			List<Integer> slots = MuseItemUtils
 					.getModularItemSlotsInInventory(player.inventory);
 			if (slots.size() > itemPoints.size()) {
 				loadPoints(slots.size());

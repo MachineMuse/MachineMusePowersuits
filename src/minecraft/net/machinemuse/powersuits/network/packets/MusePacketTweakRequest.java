@@ -6,7 +6,7 @@ package net.machinemuse.powersuits.network.packets;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-import net.machinemuse.powersuits.item.ItemUtils;
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -75,8 +75,8 @@ public class MusePacketTweakRequest extends MusePacket {
 		if (moduleName != null && tweakName != null) {
 			InventoryPlayer inventory = playerEntity.inventory;
 			int entityId = playerEntity.entityId;
-			NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
-			if (ItemUtils.tagHasModule(itemTag, moduleName)) {
+			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+			if (MuseItemUtils.tagHasModule(itemTag, moduleName)) {
 				NBTTagCompound moduleTag = itemTag.getCompoundTag(moduleName);
 				tweakValue = Math.min(1, Math.max(0, tweakValue));
 				moduleTag.setDouble(tweakName, tweakValue);

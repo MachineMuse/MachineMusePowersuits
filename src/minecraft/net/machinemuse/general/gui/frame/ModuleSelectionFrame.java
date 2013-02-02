@@ -6,13 +6,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import net.machinemuse.api.IPowerModule;
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableModule;
-import net.machinemuse.powersuits.item.ItemUtils;
-import net.machinemuse.powersuits.powermodule.IPowerModule;
 
 public class ModuleSelectionFrame extends ScrollableFrame {
 	protected ItemSelectionFrame target;
@@ -84,7 +84,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 			moduleButtons = new ArrayList();
 			categories = new HashMap();
 
-			List<IPowerModule> workingModules = ItemUtils.getValidModulesForItem(null, selectedItem.getItem());
+			List<IPowerModule> workingModules = MuseItemUtils.getValidModulesForItem(null, selectedItem.getItem());
 			if (workingModules.size() > 0) {
 				List<MusePoint2D> points = MuseRenderer.pointsInLine(
 						workingModules.size(),

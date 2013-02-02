@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import net.machinemuse.api.IPowerModule;
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
@@ -15,8 +17,6 @@ import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.general.gui.clickable.IClickable;
 import net.machinemuse.powersuits.client.KeybindManager;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.item.ItemUtils;
-import net.machinemuse.powersuits.powermodule.IPowerModule;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -75,7 +75,7 @@ public class KeybindConfigFrame implements IGuiFrame {
 	}
 
 	public void refreshModules() {
-		List<IPowerModule> installedModules = ItemUtils.getPlayerInstalledModules(player);
+		List<IPowerModule> installedModules = MuseItemUtils.getPlayerInstalledModules(player);
 		List<MusePoint2D> points = MuseRenderer.pointsInLine(
 				installedModules.size(),
 				new MusePoint2D(ul.x() + 10, ul.y() + 10),

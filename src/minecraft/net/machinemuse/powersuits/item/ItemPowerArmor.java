@@ -5,13 +5,14 @@ import icbm.api.IExplosive;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.Config.Items;
 import net.machinemuse.powersuits.common.ModCompatability;
-import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -56,13 +57,13 @@ public abstract class ItemPowerArmor extends ItemArmor
 	@Override
 	public String getArmorTextureFile(ItemStack itemstack) {
 		if (itemstack != null) {
-			NBTTagCompound itemTag = ItemUtils.getMuseItemTag(itemstack);
+			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(itemstack);
 			if (itemTag.hasKey("didColour")) {
 
 				itemTag.removeTag("didColour");
 				return Config.BLANK_ARMOR_MODEL_PATH;
 			} else {
-				if (ItemUtils.itemHasActiveModule(itemstack, ModularCommon.MODULE_TRANSPARENT_ARMOR)) {
+				if (MuseItemUtils.itemHasActiveModule(itemstack, ModularCommon.MODULE_TRANSPARENT_ARMOR)) {
 					return Config.BLANK_ARMOR_MODEL_PATH;
 				} else if (itemstack.getItem() instanceof ItemPowerArmorLegs) {
 					return Config.SEBK_ARMORPANTS_PATH;
@@ -144,7 +145,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 	@Override
 	public int getColor(ItemStack stack) {
 
-		NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
+		NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
 		itemTag.setString("didColour", "yes");
 		Colour c = getColorFromItemStack(stack);
 		return c.getInt();
@@ -161,10 +162,10 @@ public abstract class ItemPowerArmor extends ItemArmor
 	 */
 	public boolean hasColor(ItemStack stack)
 	{
-		NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
-		if (ItemUtils.tagHasModule(itemTag, ModularCommon.RED_TINT)
-				|| ItemUtils.tagHasModule(itemTag, ModularCommon.GREEN_TINT)
-				|| ItemUtils.tagHasModule(itemTag, ModularCommon.BLUE_TINT)) {
+		NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+		if (MuseItemUtils.tagHasModule(itemTag, ModularCommon.RED_TINT)
+				|| MuseItemUtils.tagHasModule(itemTag, ModularCommon.GREEN_TINT)
+				|| MuseItemUtils.tagHasModule(itemTag, ModularCommon.BLUE_TINT)) {
 			return true;
 		} else {
 			return false;
@@ -182,9 +183,9 @@ public abstract class ItemPowerArmor extends ItemArmor
 
 	public double getArmorDouble(EntityPlayer player, ItemStack stack) {
 		double totalArmor = 0;
-		NBTTagCompound props = ItemUtils.getMuseItemTag(stack);
+		NBTTagCompound props = MuseItemUtils.getMuseItemTag(stack);
 
-		double energy = ItemUtils.getPlayerEnergy(player);
+		double energy = MuseItemUtils.getPlayerEnergy(player);
 		double physArmor = ModuleManager.computeModularProperty(stack, ModularCommon.ARMOR_VALUE_PHYSICAL);
 		double enerArmor = ModuleManager.computeModularProperty(stack, ModularCommon.ARMOR_VALUE_ENERGY);
 		double enerConsum = ModuleManager.computeModularProperty(stack, ModularCommon.ARMOR_ENERGY_CONSUMPTION);
@@ -206,11 +207,11 @@ public abstract class ItemPowerArmor extends ItemArmor
 	@Override
 	public void damageArmor(EntityLiving entity, ItemStack stack,
 			DamageSource source, int damage, int slot) {
-		NBTTagCompound itemProperties = ItemUtils.getMuseItemTag(stack);
+		NBTTagCompound itemProperties = MuseItemUtils.getMuseItemTag(stack);
 		double enerConsum = ModuleManager.computeModularProperty(stack, ModularCommon.ARMOR_ENERGY_CONSUMPTION);
 		double drain = enerConsum * damage;
 		if (entity instanceof EntityPlayer) {
-			ItemUtils.drainPlayerEnergy((EntityPlayer) entity, drain);
+			MuseItemUtils.drainPlayerEnergy((EntityPlayer) entity, drain);
 		} else {
 			onUse(drain, stack);
 		}
@@ -250,7 +251,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 	@Override
 	public List<String> getLongInfo(EntityPlayer player, ItemStack stack) {
 		List<String> info = new ArrayList();
-		NBTTagCompound itemProperties = ItemUtils
+		NBTTagCompound itemProperties = MuseItemUtils
 				.getMuseItemTag(stack);
 		info.add("Detailed Summary");
 		info.add(formatInfo("Armor", getArmorDouble(player, stack)));

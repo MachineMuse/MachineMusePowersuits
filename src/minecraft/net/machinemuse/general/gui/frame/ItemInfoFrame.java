@@ -3,12 +3,12 @@ package net.machinemuse.general.gui.frame;
 import java.util.Arrays;
 import java.util.List;
 
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.powersuits.item.IModularItem;
-import net.machinemuse.powersuits.item.ItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 
 import org.lwjgl.opengl.GL11;
@@ -31,7 +31,7 @@ public class ItemInfoFrame extends ScrollableFrame {
 	public void update(double mousex, double mousey) {
 		ClickableItem selected = target.getSelectedItem();
 		if (selected != null) {
-			IModularItem item = ItemUtils.getAsModular(selected.getItem().getItem());
+			IModularItem item = MuseItemUtils.getAsModular(selected.getItem().getItem());
 			info = item.getLongInfo(player, selected.getItem());
 		} else {
 			info = null;

@@ -5,6 +5,8 @@ import icbm.api.IExplosive;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
@@ -12,7 +14,6 @@ import net.machinemuse.powersuits.common.Config.Items;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
-import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -90,7 +91,7 @@ public class ItemPowerTool extends ItemTool
 
 	public static boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
 		if (player != null) {
-			double energy = ItemUtils.getPlayerEnergy(player);
+			double energy = MuseItemUtils.getPlayerEnergy(player);
 			if (useIronPickaxe(stack, block, meta)
 					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_ENERGY_CONSUMPTION)) {
 				return true;
@@ -122,11 +123,11 @@ public class ItemPowerTool extends ItemTool
 	 */
 	@Override
 	public boolean hitEntity(ItemStack stack, EntityLiving entityBeingHit, EntityLiving entityDoingHitting) {
-		if (entityDoingHitting instanceof EntityPlayer && ItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_MELEE_ASSIST)) {
+		if (entityDoingHitting instanceof EntityPlayer && MuseItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_MELEE_ASSIST)) {
 			EntityPlayer player = (EntityPlayer) entityDoingHitting;
 			double drain = ModuleManager.computeModularProperty(stack, ModularCommon.PUNCH_ENERGY);
-			if (ItemUtils.getPlayerEnergy(player) > drain) {
-				ItemUtils.drainPlayerEnergy(player, drain);
+			if (MuseItemUtils.getPlayerEnergy(player) > drain) {
+				MuseItemUtils.drainPlayerEnergy(player, drain);
 				double damage = ModuleManager.computeModularProperty(stack, ModularCommon.PUNCH_DAMAGE);
 				double knockback = ModuleManager.computeModularProperty(stack, ModularCommon.PUNCH_KNOCKBACK);
 				DamageSource damageSource = DamageSource.causePlayerDamage(player);
@@ -162,12 +163,12 @@ public class ItemPowerTool extends ItemTool
 		}
 
 		if (drain > 0 && entity.isInsideOfMaterial(Material.water)
-				&& ItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_AQUA_AFFINITY)) {
+				&& MuseItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_AQUA_AFFINITY)) {
 			drain += ModuleManager.computeModularProperty(stack, ModularCommon.AQUA_AFFINITY_ENERGY_CONSUMPTION);
 		}
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
-			ItemUtils.drainPlayerEnergy(player, drain);
+			MuseItemUtils.drainPlayerEnergy(player, drain);
 		} else {
 			onUse(drain, stack);
 		}
@@ -175,7 +176,7 @@ public class ItemPowerTool extends ItemTool
 	}
 
 	public static boolean useIronPickaxe(ItemStack stack, Block block, int meta) {
-		if (ItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_PICKAXE)) {
+		if (MuseItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_PICKAXE)) {
 			if (ForgeHooks.isToolEffective(ironPickaxe, block, meta)) {
 				return true;
 			} else if ((!ForgeHooks.isToolEffective(diamondPick, block, meta)) && (block.blockMaterial == Material.iron
@@ -188,7 +189,7 @@ public class ItemPowerTool extends ItemTool
 	}
 
 	public static boolean useIronShovel(ItemStack stack, Block block, int meta) {
-		if (ItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_SHOVEL)) {
+		if (MuseItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_SHOVEL)) {
 			if (ForgeHooks.isToolEffective(ironShovel, block, meta)) {
 				return true;
 			} else if (block.blockMaterial == Material.snow) {
@@ -199,7 +200,7 @@ public class ItemPowerTool extends ItemTool
 	}
 
 	public static boolean useIronAxe(ItemStack stack, Block block, int meta) {
-		if (ItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_AXE)) {
+		if (MuseItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_AXE)) {
 			if (ForgeHooks.isToolEffective(ironAxe, block, meta)) {
 				return true;
 			} else if (block.blockMaterial == Material.wood
@@ -212,7 +213,7 @@ public class ItemPowerTool extends ItemTool
 	}
 
 	public static boolean useDiamondPickaxe(ItemStack stack, Block block, int meta) {
-		if (ItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_DIAMOND_PICK_UPGRADE)) {
+		if (MuseItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_DIAMOND_PICK_UPGRADE)) {
 			if (ForgeHooks.isToolEffective(diamondPick, block, meta)) {
 				return true;
 			} else if (block.blockMaterial == Material.iron
@@ -274,7 +275,7 @@ public class ItemPowerTool extends ItemTool
 	@Override
 	public List<String> getLongInfo(EntityPlayer player, ItemStack stack) {
 		List<String> info = new ArrayList();
-		NBTTagCompound itemProperties = ItemUtils
+		NBTTagCompound itemProperties = MuseItemUtils
 				.getMuseItemTag(stack);
 		info.add("Detailed Summary");
 		info.add(formatInfo("Energy Storage", getMaxJoules(stack)) + "J");
@@ -325,7 +326,7 @@ public class ItemPowerTool extends ItemTool
 	 */
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
 	{
-		if (ItemUtils.itemHasActiveModule(itemStack, ModularCommon.MODULE_PLASMA_CANNON)) {
+		if (MuseItemUtils.itemHasActiveModule(itemStack, ModularCommon.MODULE_PLASMA_CANNON)) {
 			// if ( /*||
 			// par3EntityPlayer.inventory.hasItem(Item.arrow.itemID)*/)
 			// {
@@ -356,8 +357,8 @@ public class ItemPowerTool extends ItemTool
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
 		{
 			double energyConsumption = ModuleManager.computeModularProperty(itemStack, ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK) * chargeTicks;
-			if (ItemUtils.getPlayerEnergy(player) > energyConsumption) {
-				ItemUtils.drainPlayerEnergy(player, energyConsumption);
+			if (MuseItemUtils.getPlayerEnergy(player) > energyConsumption) {
+				MuseItemUtils.drainPlayerEnergy(player, energyConsumption);
 				double explosiveness = ModuleManager.computeModularProperty(itemStack, ModularCommon.PLASMA_CANNON_EXPLOSIVENESS);
 				double damagingness = ModuleManager.computeModularProperty(itemStack, ModularCommon.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE);
 

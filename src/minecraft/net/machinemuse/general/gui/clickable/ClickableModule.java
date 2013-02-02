@@ -3,11 +3,11 @@ package net.machinemuse.general.gui.clickable;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.machinemuse.api.IPowerModule;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
-import net.machinemuse.powersuits.powermodule.IPowerModule;
 
 /**
  * Extends the Clickable class to make a clickable Augmentation; note that this

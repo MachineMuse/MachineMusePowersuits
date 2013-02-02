@@ -6,9 +6,9 @@ package net.machinemuse.powersuits.tick;
 import java.util.Collection;
 import java.util.EnumSet;
 
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.item.IModularItem;
-import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.item.ModularCommon;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
@@ -267,12 +267,12 @@ public class PlayerTickHandlerServer implements ITickHandler {
 		boolean hasNightVision = false;
 		boolean hasInvis = false;
 		if (helmet != null && helmet.getItem() instanceof IModularItem) {
-			hasNightVision = ItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_NIGHT_VISION);
+			hasNightVision = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_NIGHT_VISION);
 		}
 		if (torso != null && torso.getItem() instanceof IModularItem) {
-			hasInvis = ItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_ACTIVE_CAMOUFLAGE);
+			hasInvis = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_ACTIVE_CAMOUFLAGE);
 		}
-		if (hasNightVision && 5 < ItemUtils.getPlayerEnergy(player)) {
+		if (hasNightVision && 5 < MuseItemUtils.getPlayerEnergy(player)) {
 			player.addPotionEffect(new PotionEffect(16, 500, -337));
 		} else {
 			Collection<PotionEffect> effects = player.getActivePotionEffects();
@@ -283,7 +283,7 @@ public class PlayerTickHandlerServer implements ITickHandler {
 			}
 		}
 
-		if (hasInvis && 50 < ItemUtils.getPlayerEnergy(player)) {
+		if (hasInvis && 50 < MuseItemUtils.getPlayerEnergy(player)) {
 			player.addPotionEffect(new PotionEffect(Potion.invisibility.id, 500, 81));
 		} else {
 			Collection<PotionEffect> effects = player.getActivePotionEffects();

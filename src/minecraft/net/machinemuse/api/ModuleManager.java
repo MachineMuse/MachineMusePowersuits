@@ -1,11 +1,10 @@
-package net.machinemuse.powersuits.powermodule;
+package net.machinemuse.api;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.machinemuse.powersuits.item.ItemUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -29,9 +28,9 @@ public class ModuleManager {
 
 	public static double computeModularProperty(ItemStack stack, String propertyName) {
 		double propertyValue = 0;
-		NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
+		NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
 		for (IPowerModule module : moduleList) {
-			if (ItemUtils.isModuleActive(itemTag, module.getName())) {
+			if (MuseItemUtils.isModuleActive(itemTag, module.getName())) {
 				propertyValue = module.applyPropertyModifiers(itemTag, propertyName, propertyValue);
 			}
 		}

@@ -5,10 +5,11 @@ import icbm.api.IExplosive;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.machinemuse.api.IPowerModule;
+import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.powermodule.IPowerModule;
-import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -119,7 +120,7 @@ public abstract class ModularCommon {
 	public static void addInformation(ItemStack stack,
 			EntityPlayer player, List currentTipList, boolean advancedToolTips) {
 		if (stack.getItem() instanceof ItemPowerTool) {
-			String mode = ItemUtils.getStringOrNull(stack, "Tool Mode");
+			String mode = MuseItemUtils.getStringOrNull(stack, "Tool Mode");
 			if (mode != null) {
 				currentTipList.add("Mode:" + MuseStringUtils.wrapFormatTags(mode, MuseStringUtils.FormatCodes.Red));
 			}
@@ -175,7 +176,7 @@ public abstract class ModularCommon {
 	 * @return Amount of joules provided by the item.
 	 */
 	public static double discharge(double joulesNeeded, ItemStack itemStack) {
-		NBTTagCompound itemProperties = ItemUtils.getMuseItemTag(itemStack);
+		NBTTagCompound itemProperties = MuseItemUtils.getMuseItemTag(itemStack);
 
 		double joulesAvail = getJoules(itemStack);
 		double joulesProvided = Math.min(joulesAvail, joulesNeeded);
@@ -185,7 +186,7 @@ public abstract class ModularCommon {
 	}
 
 	public static double getJoules(ItemStack stack) {
-		double joules = ItemUtils.getDoubleOrZero(stack, CURRENT_ENERGY);
+		double joules = MuseItemUtils.getDoubleOrZero(stack, CURRENT_ENERGY);
 		double maxJoules = getMaxJoules(stack);
 		if (joules > maxJoules) {
 			joules = maxJoules;
@@ -195,7 +196,7 @@ public abstract class ModularCommon {
 	}
 
 	public static void setJoules(double joules, ItemStack stack) {
-		ItemUtils.setDoubleOrRemove(stack, CURRENT_ENERGY, joules);
+		MuseItemUtils.setDoubleOrRemove(stack, CURRENT_ENERGY, joules);
 	}
 
 	public static double getMaxJoules(ItemStack stack) {
@@ -222,10 +223,10 @@ public abstract class ModularCommon {
 	}
 
 	public static List<String> getItemInstalledModules(EntityPlayer player, ItemStack stack) {
-		NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
+		NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
 		List<String> modules = new LinkedList();
-		for (IPowerModule module : ItemUtils.getValidModulesForItem(player, stack)) {
-			if (ItemUtils.tagHasModule(itemTag, module.getName())) {
+		for (IPowerModule module : MuseItemUtils.getValidModulesForItem(player, stack)) {
+			if (MuseItemUtils.tagHasModule(itemTag, module.getName())) {
 				modules.add(module.getName());
 			}
 		}

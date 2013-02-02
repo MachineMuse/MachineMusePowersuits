@@ -3,11 +3,11 @@ package net.machinemuse.powersuits.common;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.ModularCommon;
-import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.powermodule;
 
+import net.machinemuse.api.IPropertyModifier;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class PropertyModifierFlatAdditive implements IPropertyModifier {

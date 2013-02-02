@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.event;
 
+import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemPowerTool;
-import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.item.ModularCommon;
-import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,7 +29,7 @@ public class EventHandler {
 		Block block = event.block;
 		EntityPlayer player = event.entityPlayer;
 		double harvestSpeed = event.newSpeed;
-		double energy = ItemUtils.getPlayerEnergy(player);
+		double energy = MuseItemUtils.getPlayerEnergy(player);
 		int meta = event.metadata;
 		ItemStack stack = player.getCurrentEquippedItem();
 		if (stack != null && stack.getItem() instanceof ItemPowerTool) {
@@ -60,7 +60,7 @@ public class EventHandler {
 			}
 			if (harvestSpeed > 1
 					&& player.isInsideOfMaterial(Material.water)
-					&& ItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_AQUA_AFFINITY)
+					&& MuseItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_AQUA_AFFINITY)
 					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.AQUA_AFFINITY_ENERGY_CONSUMPTION)) {
 				harvestSpeed *= 5 * ModuleManager.computeModularProperty(stack, ModularCommon.UNDERWATER_HARVEST_SPEED);
 			}
@@ -75,17 +75,17 @@ public class EventHandler {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 			ItemStack helmet = player.getCurrentArmor(3);
 			if (helmet != null && helmet.getItem() instanceof IModularItem
-					&& ItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_WATER_ELECTROLYZER)) {
-				double energy = ItemUtils.getPlayerEnergy(player);
+					&& MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_WATER_ELECTROLYZER)) {
+				double energy = MuseItemUtils.getPlayerEnergy(player);
 				double energyConsumption = ModuleManager.computeModularProperty(helmet, ModularCommon.WATERBREATHING_ENERGY_CONSUMPTION);
 				if (energy > energyConsumption && player.getAir() < 10) {
-					ItemUtils.drainPlayerEnergy(player, energyConsumption);
+					MuseItemUtils.drainPlayerEnergy(player, energyConsumption);
 					player.setAir(300);
 				}
 			}
 			ItemStack legs = player.getCurrentArmor(1);
 			if (legs != null && legs.getItem() instanceof IModularItem
-					&& ItemUtils.itemHasActiveModule(legs,
+					&& MuseItemUtils.itemHasActiveModule(legs,
 							ModularCommon.MODULE_CLIMB_ASSIST)) {
 				player.stepHeight = 1.01F;
 			} else if (player.stepHeight == 1.01F) {

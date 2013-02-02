@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule;
 
-import net.machinemuse.powersuits.item.ItemUtils;
+import net.machinemuse.api.IPropertyModifier;
+import net.machinemuse.api.MuseItemUtils;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class PropertyModifierLinearAdditive implements IPropertyModifier {
@@ -14,7 +15,7 @@ public class PropertyModifierLinearAdditive implements IPropertyModifier {
 
 	@Override
 	public double applyModifier(NBTTagCompound moduleTag, double value) {
-		return value + multiplier * ItemUtils.getDoubleOrZero(moduleTag, tradeoffName);
+		return value + multiplier * MuseItemUtils.getDoubleOrZero(moduleTag, tradeoffName);
 	}
 
 	public String getTradeoffName() {

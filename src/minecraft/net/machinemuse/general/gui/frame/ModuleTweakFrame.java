@@ -8,17 +8,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import net.machinemuse.api.IPowerModule;
+import net.machinemuse.api.IPropertyModifier;
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableSlider;
-import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.machinemuse.powersuits.network.packets.MusePacketTweakRequest;
-import net.machinemuse.powersuits.powermodule.IPowerModule;
-import net.machinemuse.powersuits.powermodule.IPropertyModifier;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.machinemuse.powersuits.powermodule.PropertyModifierLinearAdditive;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -56,7 +56,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
 		if (itemTarget.getSelectedItem() != null && moduleTarget.getSelectedModule() != null) {
 			ItemStack stack = itemTarget.getSelectedItem().getItem();
 			IPowerModule module = moduleTarget.getSelectedModule().getModule();
-			if (ItemUtils.itemHasModule(itemTarget.getSelectedItem().getItem(), moduleTarget.getSelectedModule().getModule().getName())) {
+			if (MuseItemUtils.itemHasModule(itemTarget.getSelectedItem().getItem(), moduleTarget.getSelectedModule().getModule().getName())) {
 				loadTweaks(stack, module);
 			} else {
 				sliders = null;
@@ -95,7 +95,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
 	}
 
 	private void loadTweaks(ItemStack stack, IPowerModule module) {
-		NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
+		NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
 		NBTTagCompound moduleTag = itemTag.getCompoundTag(module.getName());
 
 		propertyStrings = new HashMap();

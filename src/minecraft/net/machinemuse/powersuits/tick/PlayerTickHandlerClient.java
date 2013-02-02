@@ -7,14 +7,14 @@ import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
 
+import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.IModularItem;
-import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.item.ModularCommon;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
-import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -60,8 +60,8 @@ public class PlayerTickHandlerClient implements ITickHandler {
 		ItemStack boots = player.getCurrentArmor(0);
 		ItemStack tool = player.getCurrentEquippedItem();
 
-		double totalEnergy = ItemUtils.getPlayerEnergy(player);
-		double totalWeight = ItemUtils.getPlayerWeight(player);
+		double totalEnergy = MuseItemUtils.getPlayerEnergy(player);
+		double totalWeight = MuseItemUtils.getPlayerWeight(player);
 		double weightCapacity = 25000;
 
 		double totalEnergyDrain = 0;
@@ -90,21 +90,21 @@ public class PlayerTickHandlerClient implements ITickHandler {
 		boolean hasInvis = false;
 
 		if (helmet != null && helmet.getItem() instanceof IModularItem) {
-			hasNightVision = ItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_NIGHT_VISION);
+			hasNightVision = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_NIGHT_VISION);
 		}
 		if (pants != null && pants.getItem() instanceof IModularItem) {
-			hasSprintAssist = ItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_SPRINT_ASSIST);
-			hasJumpAssist = ItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_JUMP_ASSIST);
-			hasSwimAssist = ItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_SWIM_BOOST);
+			hasSprintAssist = MuseItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_SPRINT_ASSIST);
+			hasJumpAssist = MuseItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_JUMP_ASSIST);
+			hasSwimAssist = MuseItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_SWIM_BOOST);
 		}
 		if (boots != null && boots.getItem() instanceof IModularItem) {
-			hasJetboots = ItemUtils.itemHasActiveModule(boots, ModularCommon.MODULE_JETBOOTS);
+			hasJetboots = MuseItemUtils.itemHasActiveModule(boots, ModularCommon.MODULE_JETBOOTS);
 		}
 		if (torso != null && torso.getItem() instanceof IModularItem) {
-			hasInvis = ItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_ACTIVE_CAMOUFLAGE);
-			hasJetpack = ItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_JETPACK);
-			hasGlider = ItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_GLIDER);
-			hasParachute = ItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_PARACHUTE);
+			hasInvis = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_ACTIVE_CAMOUFLAGE);
+			hasJetpack = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_JETPACK);
+			hasGlider = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_GLIDER);
+			hasParachute = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_PARACHUTE);
 		}
 
 		if (hasNightVision && totalEnergyDrain + 5 < totalEnergy) {
@@ -253,9 +253,9 @@ public class PlayerTickHandlerClient implements ITickHandler {
 		player.fallDistance = (float) MovementManager.computeFallHeightFromVelocity(player.motionY);
 
 		if (totalEnergyDrain > 0) {
-			ItemUtils.drainPlayerEnergy(player, totalEnergyDrain);
+			MuseItemUtils.drainPlayerEnergy(player, totalEnergyDrain);
 		} else {
-			ItemUtils.givePlayerEnergy(player, -totalEnergyDrain);
+			MuseItemUtils.givePlayerEnergy(player, -totalEnergyDrain);
 		}
 
 		player.getFoodStats().addExhaustion((float) (-foodAdjustment));
@@ -285,7 +285,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		EntityPlayer player = toPlayer(tickData[0]);
-		List<ItemStack> stacks = ItemUtils
+		List<ItemStack> stacks = MuseItemUtils
 				.getModularItemsInInventory(player.inventory);
 
 	}

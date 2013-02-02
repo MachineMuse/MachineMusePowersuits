@@ -9,11 +9,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import net.machinemuse.api.IPowerModule;
+import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.network.MusePacket;
-import net.machinemuse.powersuits.powermodule.IPowerModule;
-import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -79,11 +79,11 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
 			IPowerModule moduleType = ModuleManager.getModule(moduleName);
 			List<ItemStack> refund = moduleType.getInstallCost();
 
-			if (ItemUtils.itemHasModule(stack, moduleName)) {
+			if (MuseItemUtils.itemHasModule(stack, moduleName)) {
 				Set<Integer> slots = new HashSet<Integer>();
-				ItemUtils.removeModule(stack, moduleName);
+				MuseItemUtils.removeModule(stack, moduleName);
 				for (ItemStack refundItem : refund) {
-					slots.addAll(ItemUtils.giveOrDropItemWithChance(refundItem.copy(), playerEntity, Config.getSalvageChance()));
+					slots.addAll(MuseItemUtils.giveOrDropItemWithChance(refundItem.copy(), playerEntity, Config.getSalvageChance()));
 				}
 				slots.add(this.itemSlot);
 				for (Integer slotiter : slots) {

@@ -2,8 +2,8 @@ package net.machinemuse.powersuits.network.packets;
 
 import java.io.DataInputStream;
 
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.powersuits.event.MovementManager;
-import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
@@ -46,10 +46,10 @@ public class MusePacketPlayerUpdate extends MusePacket {
 	@Override
 	public void handleServer(EntityPlayerMP player) {
 		if (energyAdjustment < 0) {
-			ItemUtils.drainPlayerEnergy(player, -energyAdjustment);
+			MuseItemUtils.drainPlayerEnergy(player, -energyAdjustment);
 		}
 		if (energyAdjustment > 0) {
-			ItemUtils.givePlayerEnergy(player, energyAdjustment);
+			MuseItemUtils.givePlayerEnergy(player, energyAdjustment);
 		}
 		if (exhaustionAdjustment != 0) {
 			player.addExhaustion((float) exhaustionAdjustment);

@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.item;
+package net.machinemuse.api;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -7,17 +7,17 @@ import java.util.List;
 import java.util.Set;
 
 import net.machinemuse.general.MuseMathUtils;
-import net.machinemuse.powersuits.powermodule.IPowerModule;
-import net.machinemuse.powersuits.powermodule.ModuleManager;
+import net.machinemuse.powersuits.item.IModularItem;
+import net.machinemuse.powersuits.item.ItemComponent;
+import net.machinemuse.powersuits.item.ModularCommon;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class ItemUtils {
+public class MuseItemUtils {
 	public static final String NBTPREFIX = "mmmpsmod";
 	public static final String ACTIVE = "Active";
 
@@ -41,16 +41,16 @@ public class ItemUtils {
 	}
 
 	public static boolean isModuleActive(NBTTagCompound itemTag, String moduleName) {
-		if (ItemUtils.tagHasModule(itemTag, moduleName) && !itemTag.getCompoundTag(moduleName).hasKey(ACTIVE)) {
+		if (MuseItemUtils.tagHasModule(itemTag, moduleName) && !itemTag.getCompoundTag(moduleName).hasKey(ACTIVE)) {
 			return true;
-		} else if (ItemUtils.tagHasModule(itemTag, moduleName) && itemTag.getCompoundTag(moduleName).getBoolean(ACTIVE)) {
+		} else if (MuseItemUtils.tagHasModule(itemTag, moduleName) && itemTag.getCompoundTag(moduleName).getBoolean(ACTIVE)) {
 			return true;
 		}
 		return false;
 	}
 
 	public static void toggleModule(NBTTagCompound itemTag, String name, boolean toggleval) {
-		if (ItemUtils.tagHasModule(itemTag, name)) {
+		if (MuseItemUtils.tagHasModule(itemTag, name)) {
 			NBTTagCompound moduleTag = itemTag.getCompoundTag(name);
 			moduleTag.setBoolean(ACTIVE, toggleval);
 		}
@@ -389,15 +389,15 @@ public class ItemUtils {
 
 	public static void transferStackWithChance(ItemStack itemsToGive,
 			ItemStack destinationStack, double chanceOfSuccess) {
-		if (ItemUtils.isSameItem(itemsToGive, ItemComponent.lvcapacitor)) {
+		if (MuseItemUtils.isSameItem(itemsToGive, ItemComponent.lvcapacitor)) {
 			itemsToGive.stackSize = 0;
 			return;
 		}
-		if (ItemUtils.isSameItem(itemsToGive, ItemComponent.mvcapacitor)) {
+		if (MuseItemUtils.isSameItem(itemsToGive, ItemComponent.mvcapacitor)) {
 			itemsToGive.stackSize = 0;
 			return;
 		}
-		if (ItemUtils.isSameItem(itemsToGive, ItemComponent.hvcapacitor)) {
+		if (MuseItemUtils.isSameItem(itemsToGive, ItemComponent.hvcapacitor)) {
 			itemsToGive.stackSize = 0;
 			return;
 		}
@@ -413,12 +413,12 @@ public class ItemUtils {
 	}
 
 	public static Set<Integer> giveOrDropItems(ItemStack itemsToGive,
-			EntityPlayerMP player) {
+			EntityPlayer player) {
 		return giveOrDropItemWithChance(itemsToGive, player, 1.0);
 	}
 
 	public static Set<Integer> giveOrDropItemWithChance(ItemStack itemsToGive,
-			EntityPlayerMP player, double chanceOfSuccess) {
+			EntityPlayer player, double chanceOfSuccess) {
 		Set<Integer> slots = new HashSet<Integer>();
 
 		// First try to add the items to existing stacks
@@ -486,9 +486,9 @@ public class ItemUtils {
 
 	public static List<IPowerModule> getPlayerInstalledModules(EntityPlayer player) {
 		List<IPowerModule> installedModules = new ArrayList();
-		for (ItemStack stack : ItemUtils.modularItemsEquipped(player)) {
-			NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
-			for (IPowerModule module : ItemUtils.getValidModulesForItem(player, stack)) {
+		for (ItemStack stack : MuseItemUtils.modularItemsEquipped(player)) {
+			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+			for (IPowerModule module : MuseItemUtils.getValidModulesForItem(player, stack)) {
 				if (tagHasModule(itemTag, module.getName())) {
 					installedModules.add(module);
 				}
@@ -498,8 +498,8 @@ public class ItemUtils {
 	}
 
 	public static void toggleModuleForPlayer(EntityPlayer player, String name, boolean toggleval) {
-		for (ItemStack stack : ItemUtils.modularItemsEquipped(player)) {
-			NBTTagCompound itemTag = ItemUtils.getMuseItemTag(stack);
+		for (ItemStack stack : MuseItemUtils.modularItemsEquipped(player)) {
+			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
 			toggleModule(itemTag, name, toggleval);
 		}
 

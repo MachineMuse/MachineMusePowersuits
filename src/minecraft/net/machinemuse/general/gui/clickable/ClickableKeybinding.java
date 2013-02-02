@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
-import net.machinemuse.powersuits.item.ItemUtils;
 import net.machinemuse.powersuits.network.packets.MusePacketToggleRequest;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -57,7 +57,7 @@ public class ClickableKeybinding extends ClickableButton {
 			if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
 				player.sendChatToPlayer("Toggled " + module.getModule().getName() + valstring);
 			}
-			ItemUtils.toggleModuleForPlayer(player, module.getModule().getName(), toggleval);
+			MuseItemUtils.toggleModuleForPlayer(player, module.getModule().getName(), toggleval);
 			MusePacketToggleRequest toggleRequest = new MusePacketToggleRequest((Player) player, module.getModule().getName(), toggleval);
 			player.sendQueue.addToSendQueue(toggleRequest.getPacket250());
 		}

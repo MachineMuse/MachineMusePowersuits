@@ -3,11 +3,11 @@ package net.machinemuse.general.gui.frame;
 import java.util.List;
 import java.util.Set;
 
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.NBTTagAccessor;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
-import net.machinemuse.powersuits.item.ItemUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -22,7 +22,7 @@ public class StatsFrame extends ScrollableFrame {
 			Colour borderColour, Colour insideColour, ItemStack stack) {
 		super(topleft, bottomright, borderColour, insideColour);
 		this.stack = stack;
-		this.properties = ItemUtils.getMuseItemTag(stack);
+		this.properties = MuseItemUtils.getMuseItemTag(stack);
 		this.propertiesToList = NBTTagAccessor.getMap(properties).keySet();
 	}
 
@@ -34,7 +34,7 @@ public class StatsFrame extends ScrollableFrame {
 		int yoffset = 8;
 		int i = 0;
 		for (String propName : propertiesToList) {
-			double propValue = ItemUtils.getDoubleOrZero(properties, propName);
+			double propValue = MuseItemUtils.getDoubleOrZero(properties, propName);
 			String propValueString = String.format("%.2f", propValue);
 			int strlen = MuseRenderer.getFontRenderer().getStringWidth(
 					propValueString);

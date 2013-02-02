@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.powermodule;
+package net.machinemuse.api;
 
 import java.util.List;
 import java.util.Map;

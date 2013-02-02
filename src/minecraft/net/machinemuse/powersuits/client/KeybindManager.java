@@ -9,13 +9,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import net.machinemuse.api.IPowerModule;
+import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.powersuits.common.MuseLogger;
-import net.machinemuse.powersuits.item.ItemUtils;
-import net.machinemuse.powersuits.powermodule.IPowerModule;
-import net.machinemuse.powersuits.powermodule.ModuleManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 
@@ -62,7 +62,7 @@ public class KeybindManager {
 				file.createNewFile();
 			}
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-			List<IPowerModule> modulesToWrite = ItemUtils.getPlayerInstalledModules(Minecraft.getMinecraft().thePlayer);
+			List<IPowerModule> modulesToWrite = MuseItemUtils.getPlayerInstalledModules(Minecraft.getMinecraft().thePlayer);
 			for (ClickableKeybinding keybinding : getInstance().keybindings) {
 				writer.write(keybinding.getKeyBinding().keyCode + ":" + keybinding.getPosition().x() + ":" + keybinding.getPosition().y() + "\n");
 				for (ClickableModule module : keybinding.getBoundModules()) {
