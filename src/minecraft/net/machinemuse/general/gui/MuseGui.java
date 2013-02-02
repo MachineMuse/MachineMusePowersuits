@@ -7,7 +7,7 @@ import java.util.List;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.DrawableMuseRect;
-import net.machinemuse.general.gui.clickable.Clickable;
+import net.machinemuse.general.gui.clickable.IClickable;
 import net.machinemuse.general.gui.frame.IGuiFrame;
 import net.minecraft.client.gui.GuiScreen;
 
@@ -73,12 +73,12 @@ public class MuseGui extends GuiScreen {
 	/**
 	 * Draws all clickables in a list!
 	 */
-	public void drawClickables(List<? extends Clickable> list) {
+	public void drawClickables(List<? extends IClickable> list) {
 		if (list == null) {
 			return;
 		}
-		Iterator<? extends Clickable> iter = list.iterator();
-		Clickable clickie;
+		Iterator<? extends IClickable> iter = list.iterator();
+		IClickable clickie;
 		while (iter.hasNext())
 		{
 			clickie = iter.next();
@@ -123,11 +123,11 @@ public class MuseGui extends GuiScreen {
 	 * @return
 	 */
 	public int hitboxClickables(int x, int y,
-			List<? extends Clickable> list) {
+			List<? extends IClickable> list) {
 		if (list == null) {
 			return -1;
 		}
-		Clickable clickie;
+		IClickable clickie;
 		for (int i = 0; i < list.size(); i++)
 		{
 			clickie = list.get(i);

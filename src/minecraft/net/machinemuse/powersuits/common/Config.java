@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.common;
 import java.util.Arrays;
 import java.util.List;
 
+import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.gui.MuseIcon;
@@ -152,6 +153,13 @@ public class Config {
 		return copy;
 	}
 
+	public static void addModule(IPowerModule module) {
+		boolean isModuleEnabled = config.get("Modules", module.getName(), true).getBoolean(true);
+		if (isModuleEnabled) {
+			ModuleManager.addModule(module);
+		}
+	}
+
 	/**
 	 * Load all the modules in the config file into memory. Eventually. For now,
 	 * they are hardcoded.
@@ -161,20 +169,15 @@ public class Config {
 		List<IModularItem> ARMORONLY = Arrays.asList((IModularItem)
 				ModularPowersuits.powerArmorHead, ModularPowersuits.powerArmorTorso,
 				ModularPowersuits.powerArmorLegs, ModularPowersuits.powerArmorFeet);
-		List<IModularItem> HEADONLY = Arrays.asList((IModularItem)
-				ModularPowersuits.powerArmorHead);
-		List<IModularItem> TORSOONLY = Arrays.asList((IModularItem)
-				ModularPowersuits.powerArmorTorso);
-		List<IModularItem> LEGSONLY = Arrays.asList((IModularItem)
-				ModularPowersuits.powerArmorLegs);
-		List<IModularItem> FEETONLY = Arrays.asList((IModularItem)
-				ModularPowersuits.powerArmorFeet);
-		List<IModularItem> TOOLONLY = Arrays.asList((IModularItem)
-				ModularPowersuits.powerTool);
 		List<IModularItem> ALLITEMS = Arrays.asList((IModularItem)
 				ModularPowersuits.powerArmorHead, ModularPowersuits.powerArmorTorso,
 				ModularPowersuits.powerArmorLegs, ModularPowersuits.powerArmorFeet,
 				ModularPowersuits.powerTool);
+		List<IModularItem> HEADONLY = Arrays.asList((IModularItem) ModularPowersuits.powerArmorHead);
+		List<IModularItem> TORSOONLY = Arrays.asList((IModularItem) ModularPowersuits.powerArmorTorso);
+		List<IModularItem> LEGSONLY = Arrays.asList((IModularItem) ModularPowersuits.powerArmorLegs);
+		List<IModularItem> FEETONLY = Arrays.asList((IModularItem) ModularPowersuits.powerArmorFeet);
+		List<IModularItem> TOOLONLY = Arrays.asList((IModularItem) ModularPowersuits.powerTool);
 
 		PowerModule module;
 
@@ -183,7 +186,7 @@ public class Config {
 				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1))
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_ACTIVE_CAMOUFLAGE, TORSOONLY, MuseIcon.ORB_1_BLUE, ModularCommon.CATEGORY_SPECIAL)
 				.setDescription("Emit a hologram of your surroundings to make yourself almost imperceptible.")
@@ -191,7 +194,7 @@ public class Config {
 				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 4))
 				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2))
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 2));
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_PLASMA_CANNON, TOOLONLY, MuseIcon.WEAPON_ELECTRIC, ModularCommon.CATEGORY_WEAPON)
 				.setDescription("Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.")
@@ -204,7 +207,7 @@ public class Config {
 				.addTradeoffProperty("Voltage", ModularCommon.PLASMA_CANNON_EXPLOSIVENESS, 0.5, "Creeper")
 				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2))
 				.addInstallCost(copyAndResize(ItemComponent.hvcapacitor, 2));
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_MELEE_ASSIST, TOOLONLY, MuseIcon.PUNCHY, ModularCommon.CATEGORY_WEAPON)
 				.setDescription("A much simpler addon, makes your powertool punches hit harder.")
@@ -217,28 +220,28 @@ public class Config {
 				.addTradeoffProperty("Carry-through", ModularCommon.PUNCH_KNOCKBACK, 1, "P")
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1));
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_BASIC_PLATING, ARMORONLY, MuseIcon.MODULE_IRON_PLATING, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Basic plating is heavy but protective.")
 				.addInstallCost(copyAndResize(ItemComponent.basicPlating, 1))
 				.addTradeoffProperty("Plating Thickness", ModularCommon.ARMOR_VALUE_PHYSICAL, 5, " Points")
 				.addTradeoffProperty("Plating Thickness", ModularCommon.WEIGHT, 10000, "g");
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_DIAMOND_PLATING, ARMORONLY, MuseIcon.MODULE_DIAMOND_PLATING, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Advanced plating is lighter, harder, and more protective than Basic but much harder to make.")
 				.addInstallCost(copyAndResize(ItemComponent.advancedPlating, 1))
 				.addTradeoffProperty("Plating Thickness", ModularCommon.ARMOR_VALUE_PHYSICAL, 6, " Points")
 				.addTradeoffProperty("Plating Thickness", ModularCommon.WEIGHT, 6000, "g");
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_ENERGY_SHIELD, ARMORONLY, MuseIcon.ENERGY_SHIELD, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Energy shields are much lighter than plating, but consume energy.")
 				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2))
 				.addTradeoffProperty("Field Strength", ModularCommon.ARMOR_VALUE_ENERGY, 6, " Points")
 				.addTradeoffProperty("Field Strength", ModularCommon.ARMOR_ENERGY_CONSUMPTION, 500, "J");
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_SHOVEL, TOOLONLY, MuseIcon.TOOL_SHOVEL, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Shovels are good for soft materials like dirt and sand.")
@@ -248,7 +251,7 @@ public class Config {
 				.addBaseProperty(ModularCommon.SHOVEL_HARVEST_SPEED, 8, "x")
 				.addTradeoffProperty("Overclock", ModularCommon.SHOVEL_ENERGY_CONSUMPTION, 900)
 				.addTradeoffProperty("Overclock", ModularCommon.SHOVEL_HARVEST_SPEED, 17);
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_AXE, TOOLONLY, MuseIcon.TOOL_AXE, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Axes are mostly for chopping trees.")
@@ -258,7 +261,7 @@ public class Config {
 				.addBaseProperty(ModularCommon.AXE_HARVEST_SPEED, 8, "x")
 				.addTradeoffProperty("Overclock", ModularCommon.AXE_ENERGY_CONSUMPTION, 900)
 				.addTradeoffProperty("Overclock", ModularCommon.AXE_HARVEST_SPEED, 17);
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_PICKAXE, TOOLONLY, MuseIcon.TOOL_PICK, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Picks are good for harder materials like stone and ore.")
@@ -268,13 +271,13 @@ public class Config {
 				.addBaseProperty(ModularCommon.PICKAXE_HARVEST_SPEED, 8, "x")
 				.addTradeoffProperty("Overclock", ModularCommon.PICKAXE_ENERGY_CONSUMPTION, 900)
 				.addTradeoffProperty("Overclock", ModularCommon.PICKAXE_HARVEST_SPEED, 17);
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_DIAMOND_PICK_UPGRADE, TOOLONLY, MuseIcon.DIAMOND_PICK, ModularCommon.CATEGORY_SPECIAL)
 				.setDescription("Add diamonds to allow your pickaxe module to mine Obsidian. *REQUIRES PICKAXE MODULE TO WORK*")
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
 				.addInstallCost(new ItemStack(Item.diamond, 3));
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_AQUA_AFFINITY, TOOLONLY, MuseIcon.AQUA_AFFINITY, ModularCommon.CATEGORY_SPECIAL)
 				.setDescription("Reduces the speed penalty for using your tool underwater.")
@@ -284,7 +287,7 @@ public class Config {
 				.addBaseProperty(ModularCommon.UNDERWATER_HARVEST_SPEED, 0.2, "%")
 				.addTradeoffProperty("Power", ModularCommon.AQUA_AFFINITY_ENERGY_CONSUMPTION, 100)
 				.addTradeoffProperty("Power", ModularCommon.UNDERWATER_HARVEST_SPEED, 0.8);
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_BATTERY_BASIC, ALLITEMS, MuseIcon.BATTERY1, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Integrate a battery to allow the item to store energy.")
@@ -293,7 +296,7 @@ public class Config {
 				.addBaseProperty(ModularCommon.WEIGHT, 2000, "g")
 				.addTradeoffProperty("Battery Size", ModularCommon.MAXIMUM_ENERGY, 80000)
 				.addTradeoffProperty("Battery Size", ModularCommon.WEIGHT, 8000);
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_BATTERY_ADVANCED, ALLITEMS, MuseIcon.BATTERY2, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Integrate a more advanced battery to store more energy.")
@@ -302,7 +305,7 @@ public class Config {
 				.addBaseProperty(ModularCommon.WEIGHT, 2000, "g")
 				.addTradeoffProperty("Battery Size", ModularCommon.MAXIMUM_ENERGY, 400000)
 				.addTradeoffProperty("Battery Size", ModularCommon.WEIGHT, 8000);
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_BATTERY_ELITE, ALLITEMS, MuseIcon.BATTERYCRYSTAL, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Integrate a the most advanced battery to store an extensive amount of energy.")
@@ -311,7 +314,7 @@ public class Config {
 				.addBaseProperty(ModularCommon.WEIGHT, 2000, "g")
 				.addTradeoffProperty("Battery Size", ModularCommon.MAXIMUM_ENERGY, 4250000)
 				.addTradeoffProperty("Battery Size", ModularCommon.WEIGHT, 8000);
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_SPRINT_ASSIST, LEGSONLY, MuseIcon.SPRINT_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("A set of servo motors to help you sprint (double-tap forward) faster.")
@@ -325,7 +328,7 @@ public class Config {
 						module, "Compensation",
 						ModularCommon.SPRINT_ENERGY_CONSUMPTION, "J", 0, 2,
 						ModularCommon.SPRINT_FOOD_COMPENSATION, "%", 0, 1);
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_JUMP_ASSIST, LEGSONLY, MuseIcon.JUMP_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("Another set of servo motors to help you jump higher.")
@@ -339,7 +342,7 @@ public class Config {
 						module, "Compensation",
 						ModularCommon.JUMP_ENERGY_CONSUMPTION, "J", 0, 5,
 						ModularCommon.JUMP_FOOD_COMPENSATION, "%", 0, 1);
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_SHOCK_ABSORBER, FEETONLY, MuseIcon.SHOCK_ABSORBER, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("With some servos, springs, and padding, you should be able to negate a portion of fall damage.")
@@ -350,19 +353,19 @@ public class Config {
 						module, "Power",
 						ModularCommon.SHOCK_ABSORB_ENERGY_CONSUMPTION, "J/m", 0, 10,
 						ModularCommon.SHOCK_ABSORB_MULTIPLIER, "%", 0, 1);
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_GLIDER, TORSOONLY, MuseIcon.GLIDER, ModularCommon.CATEGORY_MOVEMENT)
 				.setToggleable(true)
 				.setDescription(
 						"Tack on some wings to turn downward into forward momentum. Press sneak+forward while falling to activate.")
 				.addInstallCost(copyAndResize(ItemComponent.gliderWing, 2));
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_PARACHUTE, TORSOONLY, MuseIcon.PARACHUTE_MODULE, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("Add a parachute to slow your descent. Activate by pressing sneak (defaults to Shift) in midair.")
 				.addInstallCost(copyAndResize(ItemComponent.parachute, 2));
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_JETPACK, TORSOONLY, MuseIcon.JETPACK, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("A jetpack should allow you to jump indefinitely, or at least until you run out of power.")
@@ -372,7 +375,7 @@ public class Config {
 				.addBaseProperty(ModularCommon.JET_THRUST, 0, "N")
 				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 150)
 				.addTradeoffProperty("Thrust", ModularCommon.JET_THRUST, 0.16);
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_JETBOOTS, FEETONLY, MuseIcon.JETBOOTS, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("Jet boots are not as strong as a jetpack, but they should at least be strong enough to counteract gravity.")
@@ -382,14 +385,14 @@ public class Config {
 				.addBaseProperty(ModularCommon.JET_THRUST, 0)
 				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 75)
 				.addTradeoffProperty("Thrust", ModularCommon.JET_THRUST, 0.08);
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_WATER_ELECTROLYZER, HEADONLY, MuseIcon.WATER_ELECTROLYZER, ModularCommon.CATEGORY_ENVIRONMENTAL)
 				.setDescription("When you run out of air, this module will jolt the water around you, electrolyzing a small bubble to breathe from.")
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1))
 				.setToggleable(true)
 				.addBaseProperty(ModularCommon.WATERBREATHING_ENERGY_CONSUMPTION, 1000, "J");
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_SWIM_BOOST, LEGSONLY, MuseIcon.SWIM_BOOST, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription(
@@ -399,13 +402,13 @@ public class Config {
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 2))
 				.addTradeoffProperty("Thrust", ModularCommon.SWIM_BOOST_ENERGY_CONSUMPTION, 100, "J")
 				.addTradeoffProperty("Thrust", ModularCommon.SWIM_BOOST_AMOUNT, 1, "m/s");
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_CLIMB_ASSIST, LEGSONLY, MuseIcon.STEP_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("A pair of dedicated servos allow you to effortlessly step up 1m-high ledges.")
 				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2));
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_TINT, ARMORONLY, MuseIcon.NETHERSTAR, ModularCommon.CATEGORY_COSMETIC)
 				.setDescription("Give your armor some coloured tinting to customize your armor's appearance.")
@@ -414,13 +417,13 @@ public class Config {
 				.addTradeoffProperty("Red Intensity", ModularCommon.RED_TINT, 1, "%")
 				.addTradeoffProperty("Green Intensity", ModularCommon.GREEN_TINT, 1, "%")
 				.addTradeoffProperty("Blue Intensity", ModularCommon.BLUE_TINT, 1, "%");
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_TRANSPARENT_ARMOR, ARMORONLY, MuseIcon.TRANSPARENT_ARMOR, ModularCommon.CATEGORY_COSMETIC)
 				.setDescription("Make the item transparent, so you can show off your skin without losing armor.")
 				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1));
-		ModuleManager.addModule(module);
+		addModule(module);
 
 		// red = 1, green = 2, blue = 4
 	}

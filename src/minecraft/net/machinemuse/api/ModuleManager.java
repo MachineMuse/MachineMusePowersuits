@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.machinemuse.powersuits.common.Config;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -23,12 +22,9 @@ public class ModuleManager {
 	}
 
 	public static void addModule(IPowerModule module) {
-		boolean isModuleEnabled = Config.getConfig().get("Modules", module.getName(), true)
-				.getBoolean(true);
-		if (isModuleEnabled) {
-			moduleMap.put(module.getName(), module);
-			moduleList.add(module);
-		}
+
+		moduleMap.put(module.getName(), module);
+		moduleList.add(module);
 	}
 
 	public static double computeModularProperty(ItemStack stack, String propertyName) {
