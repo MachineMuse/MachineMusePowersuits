@@ -79,11 +79,8 @@ public class Colour {
 
 	public Colour interpolate(Colour target, double d) {
 		double complement = 1 - d;
-		return new Colour(
-				this.r * complement + target.r * d,
-				this.g * complement + target.g * d,
-				this.b * complement + target.b * d,
-				this.a * complement + target.a * d);
+		return new Colour(this.r * complement + target.r * d, this.g * complement + target.g * d, this.b * complement + target.b * d, this.a
+				* complement + target.a * d);
 	}
 
 	public void doGL() {
@@ -92,5 +89,9 @@ public class Colour {
 
 	public Colour withAlpha(double newalpha) {
 		return new Colour(this.r, this.g, this.b, newalpha);
+	}
+
+	public double[] asArray() {
+		return new double[] { r, g, b, a };
 	}
 }

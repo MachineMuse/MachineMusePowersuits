@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.client.render;
 
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
+import net.machinemuse.general.geometry.DrawableMuseCircle;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
@@ -10,7 +11,19 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 public class RenderPlasmaBolt extends Render {
+	protected static DrawableMuseCircle circle1;
+	protected static DrawableMuseCircle circle2;
+	protected static DrawableMuseCircle circle3;
+	protected static DrawableMuseCircle circle4;
+
 	public RenderPlasmaBolt() {
+		Colour c1 = new Colour(.3, .3, 1, 0.3);
+		circle1 = new DrawableMuseCircle(c1, c1);
+		c1 = new Colour(.3, .3, 1, 0.6);
+		circle2 = new DrawableMuseCircle(c1, c1);
+		c1 = new Colour(.3, .3, 1, 1);
+		circle3 = new DrawableMuseCircle(c1, c1);
+		circle4 = new DrawableMuseCircle(c1, new Colour(1, 1, 1, 1));
 	}
 
 	/**
@@ -43,16 +56,13 @@ public class RenderPlasmaBolt extends Render {
 		int millisPerCycle = 500;
 		double timeScale = Math.cos((System.currentTimeMillis() % millisPerCycle) * 2.0 / millisPerCycle - 1.0);
 		MuseRenderer.glowOn();
-		Colour c1 = new Colour(.3, .3, 1, 0.3);
-		MuseRenderer.drawSolidCircle(4, c1, c1);
-		c1 = new Colour(.3, .3, 1, 0.6);
+		circle1.draw(4, 0, 0);
 		GL11.glTranslated(0, 0, 0.001);
-		MuseRenderer.drawSolidCircle(3 + timeScale / 2, c1, c1);
-		c1 = new Colour(.3, .3, 1, 1);
+		circle2.draw(3 + timeScale / 2, 0, 0);
 		GL11.glTranslated(0, 0, 0.001);
-		MuseRenderer.drawSolidCircle(2 + timeScale, c1, c1);
+		circle3.draw(2 + timeScale, 0, 0);
 		GL11.glTranslated(0, 0, 0.001);
-		MuseRenderer.drawSolidCircle(1 + timeScale, c1, new Colour(1, 1, 1, 1));
+		circle4.draw(1 + timeScale, 0, 0);
 		for (int i = 0; i < 3; i++) {
 			double angle1 = (Math.random() * 2 * Math.PI);
 			double angle2 = (Math.random() * 2 * Math.PI);
