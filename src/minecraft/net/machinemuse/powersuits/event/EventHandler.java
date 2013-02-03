@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.event;
 
 import net.machinemuse.api.ModularCommon;
-import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemPowerTool;
 import net.minecraft.block.Block;
@@ -58,8 +58,7 @@ public class EventHandler {
 				harvestSpeed = 1;
 
 			}
-			if (harvestSpeed > 1
-					&& player.isInsideOfMaterial(Material.water)
+			if (harvestSpeed > 1 && player.isInsideOfMaterial(Material.water)
 					&& MuseItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_AQUA_AFFINITY)
 					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.AQUA_AFFINITY_ENERGY_CONSUMPTION)) {
 				harvestSpeed *= 5 * ModuleManager.computeModularProperty(stack, ModularCommon.UNDERWATER_HARVEST_SPEED);
@@ -84,12 +83,10 @@ public class EventHandler {
 				}
 			}
 			ItemStack legs = player.getCurrentArmor(1);
-			if (legs != null && legs.getItem() instanceof IModularItem
-					&& MuseItemUtils.itemHasActiveModule(legs,
-							ModularCommon.MODULE_CLIMB_ASSIST)) {
-				player.stepHeight = 1.01F;
-			} else if (player.stepHeight == 1.01F) {
-				player.stepHeight = 0F;
+			if (legs != null && legs.getItem() instanceof IModularItem && MuseItemUtils.itemHasActiveModule(legs, ModularCommon.MODULE_CLIMB_ASSIST)) {
+				player.stepHeight = 1.001F;
+			} else if (player.stepHeight == 1.001F) {
+				player.stepHeight = 0.5001F;
 			}
 		}
 	}
