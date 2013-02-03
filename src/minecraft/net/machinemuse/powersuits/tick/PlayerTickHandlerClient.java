@@ -112,14 +112,11 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			totalEnergyDrain += 5;
 		} else {
 			Collection<PotionEffect> effects = player.getActivePotionEffects();
-			boolean found = false;
 			for (PotionEffect effect : effects) {
 				if (effect.getAmplifier() == -337 && effect.getPotionID() == Potion.nightVision.id) {
-					found = true;
+					player.removePotionEffectClient(effect.getPotionID());
+					break;
 				}
-			}
-			if (found) {
-				player.removePotionEffectClient(Potion.nightVision.id);
 			}
 		}
 
@@ -128,14 +125,11 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			totalEnergyDrain += 50;
 		} else {
 			Collection<PotionEffect> effects = player.getActivePotionEffects();
-			boolean found = false;
 			for (PotionEffect effect : effects) {
 				if (effect.getAmplifier() == 81 && effect.getPotionID() == Potion.invisibility.id) {
-					found = true;
+					player.removePotionEffectClient(effect.getPotionID());
+					break;
 				}
-			}
-			if (found) {
-				player.removePotionEffectClient(Potion.invisibility.id);
 			}
 		}
 		if (player.isInWater()) {
@@ -296,8 +290,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		EntityPlayer player = toPlayer(tickData[0]);
-		List<ItemStack> stacks = MuseItemUtils
-				.getModularItemsInInventory(player.inventory);
+		List<ItemStack> stacks = MuseItemUtils.getModularItemsInInventory(player.inventory);
 
 	}
 
