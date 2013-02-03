@@ -33,7 +33,7 @@ public class Config {
 	public static final String SEBK_ICON_PATH = "/resources/machinemuse/sebkicons.png";
 	public static final String SEBK_ARMOR_PATH = "/resources/machinemuse/sebkarmor.png";
 	public static final String SEBK_ARMORPANTS_PATH = "/resources/machinemuse/sebkarmorpants.png";
-	public static final String WC_ICON_PATH = "/resourcs/machinemuse/watericons.png";
+	public static final String WC_ICON_PATH = "/resources/machinemuse/watericons.png";
 	public static final String TINKERTABLE_TEXTURE_PATH = "/resources/machinemuse/tinkertable_tx.png";
 	public static final String BLANK_ARMOR_MODEL_PATH = "/resources/machinemuse/blankarmor.png";
 	public static final String MUSE_ICON_PATH = "/resources/machinemuse/museicons.png";
