@@ -319,7 +319,7 @@ public class ToolModel extends ModelBase
 		child.rotateAngleZ -= parent.rotateAngleZ;
 	}
 
-	public void render(Entity entity, float scale, boolean isFirstPerson)
+	public void render(Entity entity, float scale, boolean renderTypeIsFirstPerson)
 	{
 		// super.render(entity, f, f1, f2, f3, f4, f5);
 		int numsegments = 16;
@@ -378,10 +378,10 @@ public class ToolModel extends ModelBase
 
 		double scale1 = 1.0 / 16.0;
 		boolean isThisEntity = entity == Minecraft.getMinecraft().renderViewEntity;
-		isFirstPerson = (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0);
+		boolean gameIsFirstPerson = (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0);
 		boolean isInInventoryGui = Minecraft.getMinecraft().currentScreen instanceof GuiInventory
 				|| Minecraft.getMinecraft().currentScreen instanceof GuiContainerCreative;
-		boolean doFirstPersonRender = isThisEntity && isFirstPerson && !isInInventoryGui;
+		boolean doFirstPersonRender = isThisEntity && gameIsFirstPerson && (renderTypeIsFirstPerson || !isInInventoryGui);
 		if (doFirstPersonRender) {
 			// if (entity instanceof EntityPlayer) {
 			// EntityPlayer player = (EntityPlayer) entity;

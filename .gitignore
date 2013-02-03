@@ -1,5 +1,6 @@
 /*
 !/resource
+!/resources
 !/src
 !/mcmod.info
 !/build.xml
@@ -9,3 +10,6 @@ src/minecraft/*
 
 src/minecraft/net/*
 !src/minecraft/net/machinemuse
+
+resources/*
+!resources/machinemuse
