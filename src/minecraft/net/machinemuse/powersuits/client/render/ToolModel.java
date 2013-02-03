@@ -7,6 +7,7 @@
 package net.machinemuse.powersuits.client.render;
 
 import net.machinemuse.general.MuseRenderer;
+import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MuseLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
@@ -23,7 +24,6 @@ import org.lwjgl.opengl.GL11;
 
 public class ToolModel extends ModelBase
 {
-	public final static String TEXTUREPATH = "/resource/tool.png";
 	public int boltSize;
 
 	// fields
@@ -374,7 +374,7 @@ public class ToolModel extends ModelBase
 		}
 		GL11.glPushMatrix();
 
-		ForgeHooksClient.bindTexture(TEXTUREPATH, 0);
+		ForgeHooksClient.bindTexture(Config.SEBK_TOOL_TEXTURE, 0);
 
 		double scale1 = 1.0 / 16.0;
 		boolean isThisEntity = entity == Minecraft.getMinecraft().renderViewEntity;
