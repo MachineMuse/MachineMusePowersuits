@@ -226,15 +226,15 @@ public class PlayerTickHandlerClient implements ITickHandler {
 
 			// Sprint assist
 			if (hasSprintAssist) {
+				double horzMovement = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ);
 				if (player.isSprinting()) {
-					double horzMovement = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ);
 					double exhaustion = Math.round(horzMovement * 100.0F) * 0.01;
 
 					double sprintCost = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_ENERGY_CONSUMPTION);
 					if (sprintCost + totalEnergyDrain < totalEnergy) {
 						double sprintMultiplier = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_SPEED_MULTIPLIER);
 						double exhaustionComp = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_FOOD_COMPENSATION);
-						totalEnergyDrain += sprintCost;
+						totalEnergyDrain += sprintCost * horzMovement * 5;
 						player.landMovementFactor *= sprintMultiplier;
 
 						foodAdjustment += 0.01 * exhaustion * exhaustionComp;
@@ -244,7 +244,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 					double cost = ModuleManager.computeModularProperty(pants, ModularCommon.WALKING_ENERGY_CONSUMPTION);
 					if (cost + totalEnergyDrain < totalEnergy) {
 						double walkMultiplier = ModuleManager.computeModularProperty(pants, ModularCommon.WALKING_SPEED_MULTIPLIER);
-						totalEnergyDrain += cost;
+						totalEnergyDrain += cost * horzMovement * 5;
 						player.landMovementFactor *= walkMultiplier;
 						player.jumpMovementFactor = player.landMovementFactor * .5f;
 					}
