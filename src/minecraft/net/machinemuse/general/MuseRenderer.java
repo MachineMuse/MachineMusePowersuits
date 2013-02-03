@@ -173,104 +173,6 @@ public abstract class MuseRenderer {
 		return buffer;
 	}
 
-	/**
-	 * Draws the arrays passed in.
-	 * 
-	 * @param xoffset
-	 * @param yoffset
-	 * @param radius
-	 */
-	public static void drawTriangles2D(float[] v, float[] c,
-			int[] i) {
-		arraysOnC();
-		texturelessOn();
-		smoothingOn();
-		on2D();
-
-		// float subdivisions = 5f;
-		// float radius = 0.5f;
-
-		// GL11.glPushMatrix();
-		// GL11.glTranslatef(-radius, -radius, 0);
-		// for (int i1 = 0; i1 <= subdivisions * 2; i1++) {
-		// for (int i2 = 0; i2 <= subdivisions * 2; i2++) {
-		FloatBuffer vertices = BufferUtils.createFloatBuffer(v.length);
-		vertices.put(v);
-		vertices.flip();
-
-		FloatBuffer colours = BufferUtils.createFloatBuffer(c.length);
-		colours.put(c);
-		colours.flip();
-
-		IntBuffer indices = BufferUtils.createIntBuffer(i.length);
-		indices.put(i);
-		indices.flip();
-
-		// GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
-
-		GL11.glVertexPointer(3, 0, vertices);
-		GL11.glColorPointer(4, 0, colours);
-
-		GL11.glDrawElements(GL11.GL_TRIANGLES, indices);
-
-		// GL11.glTranslatef(0, radius / subdivisions, 0);
-		// }
-		// GL11.glTranslatef(radius / subdivisions, -radius * 2, 0);
-		// }
-		// GL11.glPopMatrix();
-
-		off2D();
-		texturelessOff();
-		arraysOff();
-
-	}
-
-	/**
-	 * Draws the given vertex arrays (textureless)
-	 * 
-	 */
-	public static void drawTriangles3DR(float[] v, float[] c,
-			int[] i) {
-		arraysOnC();
-		texturelessOn();
-		smoothingOn();
-
-		// float subdivisions = 5f;
-		// float radius = 0.5f;
-
-		// GL11.glPushMatrix();
-		// GL11.glTranslatef(-radius, -radius, 0);
-		// for (int i1 = 0; i1 <= subdivisions * 2; i1++) {
-		// for (int i2 = 0; i2 <= subdivisions * 2; i2++) {
-		FloatBuffer vertices = BufferUtils.createFloatBuffer(v.length);
-		vertices.put(v);
-		vertices.flip();
-
-		FloatBuffer colours = BufferUtils.createFloatBuffer(c.length);
-		colours.put(c);
-		colours.flip();
-
-		IntBuffer indices = BufferUtils.createIntBuffer(i.length);
-		indices.put(i);
-		indices.flip();
-
-		// GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
-
-		GL11.glVertexPointer(3, 0, vertices);
-		GL11.glColorPointer(4, 0, colours);
-
-		GL11.glDrawElements(GL11.GL_TRIANGLES, indices);
-
-		// GL11.glTranslatef(0, radius / subdivisions, 0);
-		// }
-		// GL11.glTranslatef(radius / subdivisions, -radius * 2, 0);
-		// }
-		// GL11.glPopMatrix();
-
-		texturelessOff();
-		arraysOff();
-
-	}
 
 	/**
 	 * 2D rendering mode on/off
@@ -365,101 +267,7 @@ public abstract class MuseRenderer {
 		// GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 	}
 
-	/**
-	 * Draws a rectangle with a vertical gradient between the specified colors.
-	 */
-	public static void drawGradientRect(float left, float top, float right,
-			float bottom, Colour c1, Colour c2, double zLevel)
-	{
-		texturelessOn();
-		smoothingOn();
-		on2D();
 
-		Tessellator tessellator = Tessellator.instance;
-
-		tessellator.startDrawingQuads();
-		tessellator.setColorRGBA_F((float) c1.r, (float) c1.g, (float) c1.b,
-				(float) c1.a);
-		tessellator.addVertex(right, top,
-				zLevel);
-		tessellator
-				.addVertex(left, top, zLevel);
-
-		tessellator.setColorRGBA_F((float) c2.r, (float) c2.g, (float) c2.b,
-				(float) c2.a);
-		tessellator.addVertex(left, bottom,
-				zLevel);
-		tessellator.addVertex(right, bottom,
-				zLevel);
-		tessellator.draw();
-
-		off2D();
-		texturelessOff();
-	}
-
-	/**
-	 * Draws a rectangle with a vertical gradient between the specified colors.
-	 */
-	public static void drawFrameRect(double left, double top, double right,
-			double bottom, Colour borderColour, Colour insideColour,
-			double zLevel, double cornerradius)
-	{
-		texturelessOn();
-		smoothingOn();
-		on2D();
-
-		arraysOnC();
-
-		DoubleBuffer corner = getArcPoints(
-				Math.PI, 3.0 * Math.PI / 2.0,
-				cornerradius, left + cornerradius, top + cornerradius, zLevel);
-
-		DoubleBuffer allVertices = BufferUtils.createDoubleBuffer(corner
-				.limit() * 4);
-		allVertices.put(corner);
-		corner = getArcPoints(
-				3.0 * Math.PI / 2.0, 2.0 * Math.PI,
-				cornerradius, left + cornerradius, bottom - cornerradius,
-				zLevel);
-		allVertices.put(corner);
-		corner = getArcPoints(
-				0, Math.PI / 2.0,
-				cornerradius, right - cornerradius, bottom - cornerradius,
-				zLevel);
-		allVertices.put(corner);
-		corner = getArcPoints(
-				Math.PI / 2.0, Math.PI,
-				cornerradius, right - cornerradius, top + cornerradius,
-				zLevel);
-		allVertices.put(corner);
-		allVertices.flip();
-		DoubleBuffer colours = getColourGradient(
-				borderColour, borderColour,
-				allVertices.limit() * 4 / 3 + 8);
-
-		GL11.glColorPointer(4, 0, colours);
-		GL11.glVertexPointer(3, 0, allVertices);
-		GL11.glDrawArrays(GL11.GL_LINE_LOOP, 0, allVertices.limit() / 3);
-
-		DoubleBuffer triFanVertices = BufferUtils
-				.createDoubleBuffer(allVertices.limit());
-
-		// allVertices.flip();
-		triFanVertices.put(allVertices);
-		triFanVertices.flip();
-
-		colours = getColourGradient(
-				insideColour, insideColour,
-				allVertices.limit() * 4 / 3 + 8);
-
-		GL11.glColorPointer(4, 0, colours);
-		GL11.glVertexPointer(3, 0, triFanVertices);
-		GL11.glDrawArrays(GL11.GL_TRIANGLE_FAN, 0, triFanVertices.limit() / 3);
-
-		arraysOff();
-		off2D();
-		texturelessOff();
-	}
 
 	/**
 	 * Makes the appropriate openGL calls and draws an item and overlay using
@@ -549,6 +357,7 @@ public abstract class MuseRenderer {
 		RenderHelper.disableStandardItemLighting();
 		getFontRenderer().drawStringWithShadow(s, (int) x, (int) y,
 				new Colour(1, 1, 1, 1).getInt());
+		RenderHelper.enableStandardItemLighting();
 	}
 
 	/**

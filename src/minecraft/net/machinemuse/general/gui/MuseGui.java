@@ -28,6 +28,7 @@ public class MuseGui extends GuiScreen {
 	protected int xSize;
 	protected int ySize;
 	protected DrawableMuseRect backgroundRect;
+	protected DrawableMuseRect tooltipRect;
 
 	protected List<IGuiFrame> frames;
 
@@ -52,6 +53,11 @@ public class MuseGui extends GuiScreen {
 				absX(-1), absY(-1), absX(1), absY(1), true,
 				new Colour(0.1F, 0.9F, 0.1F, 0.8F),
 				new Colour(0.0F, 0.2F, 0.0F, 0.8F));
+		tooltipRect = new DrawableMuseRect(
+				0,0,0,0,
+				false,
+				new Colour(0.2F, 0.6F, 0.9F, 0.7F),
+				new Colour(0.1F, 0.3F, 0.4F, 0.7F));
 	}
 
 	/**
@@ -284,12 +290,11 @@ public class MuseGui extends GuiScreen {
 				right = x + 12 + strwidth;
 			}
 
-			MuseRenderer.drawFrameRect(
-					left, top,
-					right, bottom,
-					new Colour(0.2F, 0.6F, 0.9F, 0.7F),
-					new Colour(0.1F, 0.3F, 0.4F, 0.7F),
-					0.0F, 4f);
+			tooltipRect.setLeft(left);
+			tooltipRect.setRight(right);
+			tooltipRect.setBottom(bottom);
+			tooltipRect.setTop(top);
+			tooltipRect.draw();
 			for (int i = 0; i < tooltip.size(); i++) {
 				MuseRenderer.drawString(tooltip.get(i),
 						left + 4,

@@ -38,7 +38,25 @@ public class MuseRect {
 	public double bottom() {
 		return br.y();
 	}
+	public MuseRect setLeft(double value) {
+		ul.x = value;
+		return this;
+	}
 
+	public MuseRect setRight(double value) {
+		br.x = value;
+		return this;
+	}
+
+	public MuseRect setTop(double value) {
+		ul.y = value;
+		return this;
+	}
+
+	public MuseRect setBottom(double value) {
+		br.y = value;
+		return this;
+	}
 	public boolean equals(MuseRect other) {
 		return ul.equals(other.ul) && br.equals(other.br);
 	}

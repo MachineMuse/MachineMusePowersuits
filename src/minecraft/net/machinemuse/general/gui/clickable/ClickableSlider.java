@@ -5,6 +5,7 @@ import java.util.List;
 import net.machinemuse.api.ModularCommon;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
+import net.machinemuse.general.geometry.DrawableMuseRect;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -13,26 +14,35 @@ public class ClickableSlider extends Clickable {
 	protected String name;
 	protected double width;
 	protected static final int cornersize = 2;
+	protected DrawableMuseRect insideRect;
+	protected DrawableMuseRect outsideRect;
 	
 	public ClickableSlider(MusePoint2D topmiddle, double width, NBTTagCompound moduleTag, String name) {
 		this.moduleTag = moduleTag;
 		this.name = name;
 		this.position = topmiddle;
 		this.width = width;
+		this.outsideRect = new DrawableMuseRect(
+				position.x() - width / 2.0 - cornersize,
+				position.y() + 10,
+				position.x() + width / 2.0 + cornersize,
+				position.y() + 24,
+				Colour.LIGHTBLUE, Colour.DARKBLUE);
+		
+		this.insideRect = new DrawableMuseRect(
+				position.x() - width / 2.0 - cornersize,
+				position.y() + 10,
+				0,
+				position.y() + 24,
+				Colour.LIGHTBLUE, Colour.ORANGE);
 	}
 	
 	@Override public void draw() {
 		MuseRenderer.drawCenteredString(name, position.x(), position.y());
-		MuseRenderer.drawFrameRect(
-				position.x() - width / 2.0 - cornersize, position.y() + 10,
-				position.x() + width / 2.0 + cornersize, position.y() + 24,
-				Colour.LIGHTBLUE, Colour.DARKBLUE, 1, cornersize);
 		double value = ModularCommon.getOrSetModuleProperty(moduleTag, name, 0);
-		
-		MuseRenderer.drawFrameRect(
-				position.x() - width / 2.0 - cornersize, position.y() + 10,
-				position.x() + width * (value - 0.5) + cornersize, position.y() + 24,
-				Colour.LIGHTBLUE, Colour.ORANGE, 1, cornersize);
+		this.insideRect.setRight(position.x() + width * (value - 0.5) + cornersize);
+		this.outsideRect.draw();
+		this.insideRect.draw();
 	}
 	
 	@Override public boolean hitBox(double x, double y) {

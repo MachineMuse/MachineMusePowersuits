@@ -15,7 +15,9 @@ public class DrawableMuseRect extends MuseRect {
 	DoubleBuffer coloursInside;
 	DoubleBuffer coloursOutside;
 
-	public DrawableMuseRect(double left, double top, double right, double bottom, boolean growFromMiddle, Colour insideColour, Colour outsideColour) {
+	public DrawableMuseRect(double left, double top, double right,
+			double bottom, boolean growFromMiddle, Colour insideColour,
+			Colour outsideColour) {
 		super(left, top, right, bottom, growFromMiddle);
 		this.insideColour = insideColour;
 		this.outsideColour = outsideColour;
@@ -25,53 +27,49 @@ public class DrawableMuseRect extends MuseRect {
 
 	}
 
-	public DrawableMuseRect(double left, double top, double right, double bottom, Colour insideColour, Colour outsideColour) {
+	public DrawableMuseRect(double left, double top, double right,
+			double bottom, Colour insideColour, Colour outsideColour) {
 		super(left, top, right, bottom, false);
 		this.insideColour = insideColour;
 		this.outsideColour = outsideColour;
 	}
 
-	public DrawableMuseRect(MusePoint2D ul, MusePoint2D br, Colour insideColour, Colour outsideColour) {
+	public DrawableMuseRect(MusePoint2D ul, MusePoint2D br,
+			Colour insideColour, Colour outsideColour) {
 		super(ul, br);
 		this.insideColour = insideColour;
 		this.outsideColour = outsideColour;
 	}
 
 	public void draw() {
-		if (vertices == null || coloursInside == null || coloursOutside == null || (lastRect != null && !lastRect.equals(this))) {
+		if (vertices == null || coloursInside == null || coloursOutside == null
+				|| (lastRect != null && !lastRect.equals(this))) {
 			this.lastRect = new MuseRect(left(), top(), right(), bottom());
 			double cornerradius = 4;
 			double zLevel = 1;
 
-			DoubleBuffer corner = MuseRenderer.getArcPoints(
-					Math.PI, 3.0 * Math.PI / 2.0,
-					cornerradius, left() + cornerradius, top() + cornerradius, zLevel);
+			DoubleBuffer corner = MuseRenderer.getArcPoints(Math.PI,
+					3.0 * Math.PI / 2.0, cornerradius, left() + cornerradius,
+					top() + cornerradius, zLevel);
 
-			vertices = BufferUtils.createDoubleBuffer(corner
-					.limit() * 4);
+			vertices = BufferUtils.createDoubleBuffer(corner.limit() * 4);
 			vertices.put(corner);
-			corner = MuseRenderer.getArcPoints(
-					3.0 * Math.PI / 2.0, 2.0 * Math.PI,
-					cornerradius, left() + cornerradius, bottom() - cornerradius,
-					zLevel);
+			corner = MuseRenderer.getArcPoints(3.0 * Math.PI / 2.0,
+					2.0 * Math.PI, cornerradius, left() + cornerradius,
+					bottom() - cornerradius, zLevel);
 			vertices.put(corner);
-			corner = MuseRenderer.getArcPoints(
-					0, Math.PI / 2.0,
-					cornerradius, right() - cornerradius, bottom() - cornerradius,
-					zLevel);
+			corner = MuseRenderer.getArcPoints(0, Math.PI / 2.0, cornerradius,
+					right() - cornerradius, bottom() - cornerradius, zLevel);
 			vertices.put(corner);
-			corner = MuseRenderer.getArcPoints(
-					Math.PI / 2.0, Math.PI,
+			corner = MuseRenderer.getArcPoints(Math.PI / 2.0, Math.PI,
 					cornerradius, right() - cornerradius, top() + cornerradius,
 					zLevel);
 			vertices.put(corner);
 			vertices.flip();
-			coloursInside = MuseRenderer.getColourGradient(
-					outsideColour, outsideColour,
-					vertices.limit() * 4 / 3 + 8);
-			coloursOutside = MuseRenderer.getColourGradient(
-					insideColour, insideColour,
-					vertices.limit() * 4 / 3 + 8);
+			coloursInside = MuseRenderer.getColourGradient(outsideColour,
+					outsideColour, vertices.limit() * 4 / 3 + 8);
+			coloursOutside = MuseRenderer.getColourGradient(insideColour,
+					insideColour, vertices.limit() * 4 / 3 + 8);
 
 		}
 
@@ -99,4 +97,14 @@ public class DrawableMuseRect extends MuseRect {
 		MuseRenderer.arraysOff();
 	}
 
+	public DrawableMuseRect setInsideColour(Colour insideColour) {
+		this.insideColour = insideColour;
+		return this;
+	}
+
+	public DrawableMuseRect setOutsideColour(Colour outsideColour) {
+		this.outsideColour = outsideColour;
+		return this;
+
+	}
 }

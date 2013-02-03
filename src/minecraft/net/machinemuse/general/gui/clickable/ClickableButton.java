@@ -7,6 +7,7 @@ import java.util.List;
 
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
+import net.machinemuse.general.geometry.DrawableMuseRect;
 import net.machinemuse.general.geometry.MusePoint2D;
 
 /**
@@ -16,12 +17,21 @@ import net.machinemuse.general.geometry.MusePoint2D;
 public class ClickableButton extends Clickable {
 	protected String label;
 	protected MusePoint2D radius;
+	protected DrawableMuseRect rect;
 	protected boolean enabled;
 
 	public ClickableButton(String label, MusePoint2D position, boolean enabled) {
 		this.label = label;
 		this.position = position;
 		this.radius = new MusePoint2D(MuseRenderer.getFontRenderer().getStringWidth(label) / 2 + 2, 6);
+		this.rect = new DrawableMuseRect(
+				position.x() - radius.x(),
+				position.y() - radius.y(),
+				position.x() + radius.x(),
+				position.y() + radius.y(),
+				new Colour(0.5F, 0.6F, 0.8F, 1),
+				new Colour(0.3F, 0.3F, 0.3F, 1)			
+				);
 		this.setEnabled(enabled);
 	}
 
@@ -40,20 +50,13 @@ public class ClickableButton extends Clickable {
 		if (isEnabled()) {
 			topcolour = new Colour(0.5F, 0.6F, 0.8F, 1);
 			bottomcolour = new Colour(0.3F, 0.3F, 0.3F, 1);
-			fontcolour = new Colour(0.9F, 0.9F, 0.9F, 1);
 		} else {
 			topcolour = new Colour(0.3F, 0.3F, 0.3F, 1);
 			bottomcolour = new Colour(0.5F, 0.6F, 0.8F, 1);
-			fontcolour = new Colour(0.4F, 0.4F, 0.4F, 1);
 		}
-		MuseRenderer.drawFrameRect(
-				position.x() - radius.x(),
-				position.y() - radius.y(),
-				position.x() + radius.x(),
-				position.y() + radius.y(),
-				bottomcolour,
-				topcolour,
-				0.0F, 4);
+		this.rect.setOutsideColour(topcolour);
+		this.rect.setInsideColour(bottomcolour);
+		this.rect.draw();
 		MuseRenderer.drawCenteredString(this.label, position.x(),
 				position.y() - 4);
 	}
@@ -66,9 +69,6 @@ public class ClickableButton extends Clickable {
 	 */
 	@Override
 	public boolean hitBox(double x, double y) {
-		/**
-		 * Todo: Fix!
-		 */
 		boolean hitx = Math.abs(position.x() - x) < radius.x();
 		boolean hity = Math.abs(position.y() - y) < radius.y();
 		return hitx && hity;
