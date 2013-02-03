@@ -279,6 +279,7 @@ public class PlayerTickHandlerServer implements ITickHandler {
 			for (PotionEffect effect : effects) {
 				if (effect.getAmplifier() == -337 && effect.getPotionID() == 16) {
 					player.removePotionEffect(16);
+					break;
 				}
 			}
 		}
@@ -290,6 +291,7 @@ public class PlayerTickHandlerServer implements ITickHandler {
 			for (PotionEffect effect : effects) {
 				if (effect.getAmplifier() == 81 && effect.getPotionID() == Potion.invisibility.id) {
 					player.removePotionEffectClient(Potion.invisibility.id);
+					break;
 				}
 			}
 		}
