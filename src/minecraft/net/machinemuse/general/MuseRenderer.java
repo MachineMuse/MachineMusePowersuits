@@ -8,6 +8,7 @@ import java.util.List;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
+import net.machinemuse.general.geometry.SwirlyMuseCircle;
 import net.machinemuse.general.gui.MuseGui;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.general.gui.clickable.IClickable;
@@ -37,6 +38,8 @@ public abstract class MuseRenderer {
 
 	protected static RenderItem renderItem;
 
+	protected static SwirlyMuseCircle selectionCircle;
+
 	/**
 	 * Does the rotating green circle around the selection, e.g. in GUI.
 	 * 
@@ -45,33 +48,34 @@ public abstract class MuseRenderer {
 	 * @param radius
 	 */
 	public static void drawCircleAround(double xoffset, double yoffset, double radius) {
+		if (selectionCircle == null) {
+			selectionCircle = new SwirlyMuseCircle(new Colour(0.0f, 1.0f, 0.0f, 0.0f), new Colour(0.8f, 1.0f, 0.8f, 1.0f));
+		}
+		selectionCircle.draw(radius, xoffset, yoffset);
 		// TODO: Do some caching to make this faster
-		int start = (int) (System.currentTimeMillis() / 4 % 360);
-		double startangle = 2.0 * Math.PI * start / 360.0;
-		double endangle = startangle + 2.0 * Math.PI;
-
-		DoubleBuffer vertices = getArcPoints(startangle, endangle,
-				radius, xoffset, yoffset, 0);
-		int numvertices = vertices.limit() / 3;
-		DoubleBuffer colours = getColourGradient(
-				new Colour(0.0f, 1.0f, 0.0f, 0.0f),
-				new Colour(0.8f, 1.0f, 0.8f, 1.0f),
-				numvertices);
-		arraysOnC();
-		texturelessOn();
-		smoothingOn();
-		on2D();
-		GL11.glPushMatrix();
-
-		GL11.glColorPointer(4, 0, colours);
-		GL11.glVertexPointer(3, 0, vertices);
-
-		GL11.glDrawArrays(GL11.GL_LINE_STRIP, 0, numvertices);
-
-		GL11.glPopMatrix();
-		off2D();
-		texturelessOff();
-		arraysOff();
+		// int start = (int) (System.currentTimeMillis() / 4 % 360);
+		// double startangle = 2.0 * Math.PI * start / 360.0;
+		// double endangle = startangle + 2.0 * Math.PI;
+		//
+		// DoubleBuffer vertices = getArcPoints(startangle, endangle, radius,
+		// xoffset, yoffset, 0);
+		// int numvertices = vertices.limit() / 3;
+		// DoubleBuffer colours = getColourGradient(, , numvertices);
+		// arraysOnC();
+		// texturelessOn();
+		// smoothingOn();
+		// on2D();
+		// GL11.glPushMatrix();
+		//
+		// GL11.glColorPointer(4, 0, colours);
+		// GL11.glVertexPointer(3, 0, vertices);
+		//
+		// GL11.glDrawArrays(GL11.GL_LINE_STRIP, 0, numvertices);
+		//
+		// GL11.glPopMatrix();
+		// off2D();
+		// texturelessOff();
+		// arraysOff();
 	}
 
 	/**
@@ -104,8 +108,7 @@ public abstract class MuseRenderer {
 	 * @param numsegments
 	 * @return
 	 */
-	public static DoubleBuffer getColourGradient(Colour c1, Colour c2,
-			int numsegments) {
+	public static DoubleBuffer getColourGradient(Colour c1, Colour c2, int numsegments) {
 		DoubleBuffer buffer = BufferUtils.createDoubleBuffer(numsegments * 4);
 		for (double i = 0; i < numsegments; i++) {
 			Colour c3 = c1.interpolate(c2, i / numsegments);
@@ -136,16 +139,12 @@ public abstract class MuseRenderer {
 	 *            Convenience parameter, added to every vertex
 	 * @return
 	 */
-	public static DoubleBuffer getArcPoints(double startangle,
-			double endangle, double radius, double xoffset, double yoffset,
-			double zoffset) {
+	public static DoubleBuffer getArcPoints(double startangle, double endangle, double radius, double xoffset, double yoffset, double zoffset) {
 		// roughly 8 vertices per Minecraft 'pixel' - should result in at least
 		// 2 vertices per real pixel on the screen.
-		int numVertices = (int) Math.ceil(Math.abs((endangle - startangle) * 16
-				* Math.PI));
+		int numVertices = (int) Math.ceil(Math.abs((endangle - startangle) * 16 * Math.PI));
 		double theta = (endangle - startangle) / numVertices;
-		DoubleBuffer buffer = BufferUtils
-				.createDoubleBuffer(numVertices * 3);
+		DoubleBuffer buffer = BufferUtils.createDoubleBuffer(numVertices * 3);
 
 		double x = radius * Math.sin(startangle);
 		double y = radius * Math.cos(startangle);
@@ -172,7 +171,6 @@ public abstract class MuseRenderer {
 		buffer.flip();
 		return buffer;
 	}
-
 
 	/**
 	 * 2D rendering mode on/off
@@ -267,8 +265,6 @@ public abstract class MuseRenderer {
 		// GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 	}
 
-
-
 	/**
 	 * Makes the appropriate openGL calls and draws an item and overlay using
 	 * the default icon
@@ -278,10 +274,8 @@ public abstract class MuseRenderer {
 		// GL11.glDepthFunc(GL11.GL_GREATER);
 		GL11.glDisable(GL11.GL_LIGHTING);
 
-		getRenderItem().renderItemAndEffectIntoGUI(
-				getFontRenderer(), getRenderEngine(), item, (int) x, (int) y);
-		getRenderItem().renderItemOverlayIntoGUI(getFontRenderer(),
-				getRenderEngine(), item, (int) x, (int) y);
+		getRenderItem().renderItemAndEffectIntoGUI(getFontRenderer(), getRenderEngine(), item, (int) x, (int) y);
+		getRenderItem().renderItemOverlayIntoGUI(getFontRenderer(), getRenderEngine(), item, (int) x, (int) y);
 
 		// GL11.glDepthFunc(GL11.GL_LEQUAL);
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
@@ -296,8 +290,7 @@ public abstract class MuseRenderer {
 	 * @param icon
 	 * @param colour
 	 */
-	public static void drawIconAt(double x, double y,
-			MuseIcon icon, Colour colour) {
+	public static void drawIconAt(double x, double y, MuseIcon icon, Colour colour) {
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glDisable(GL11.GL_CULL_FACE);
@@ -307,8 +300,7 @@ public abstract class MuseRenderer {
 
 		ForgeHooksClient.bindTexture(icon.getTexturefile(), 0);
 
-		if (colour != null)
-		{
+		if (colour != null) {
 			colour.doGL();
 		}
 
@@ -317,18 +309,10 @@ public abstract class MuseRenderer {
 		float r = 0.0625f;
 		float u = (icon.getIconIndex() % 16) * r;
 		float v = (icon.getIconIndex() / 16) * r;
-		tess.addVertexWithUV(
-				x, y, 0,
-				u, v);
-		tess.addVertexWithUV(
-				x, y + 16, 0,
-				u, v + r);
-		tess.addVertexWithUV(
-				x + 16, y + 16, 0,
-				u + r, v + r);
-		tess.addVertexWithUV(
-				x + 16, y, 0,
-				u + r, v);
+		tess.addVertexWithUV(x, y, 0, u, v);
+		tess.addVertexWithUV(x, y + 16, 0, u, v + r);
+		tess.addVertexWithUV(x + 16, y + 16, 0, u + r, v + r);
+		tess.addVertexWithUV(x + 16, y, 0, u + r, v);
 		tess.draw();
 
 		MuseRenderer.smoothingOff();
@@ -355,8 +339,7 @@ public abstract class MuseRenderer {
 	 */
 	public static void drawString(String s, double x, double y) {
 		RenderHelper.disableStandardItemLighting();
-		getFontRenderer().drawStringWithShadow(s, (int) x, (int) y,
-				new Colour(1, 1, 1, 1).getInt());
+		getFontRenderer().drawStringWithShadow(s, (int) x, (int) y, new Colour(1, 1, 1, 1).getInt());
 		RenderHelper.enableStandardItemLighting();
 	}
 
@@ -372,66 +355,45 @@ public abstract class MuseRenderer {
 	/**
 	 * Draws a rectangular prism (cube or otherwise orthogonal)
 	 */
-	public static void drawRectPrism(double x, double d, double e,
-			double f, double z, double g,
-			float texturex, float texturey,
-			float texturex2, float texturey2) {
+	public static void drawRectPrism(double x, double d, double e, double f, double z, double g, float texturex, float texturey, float texturex2,
+			float texturey2) {
 		arraysOnT();
 		texturelessOff();
-		Vec3[] points = {
-				Vec3.createVectorHelper(x, e, z),
-				Vec3.createVectorHelper(d, e, z),
-				Vec3.createVectorHelper(x, f, z),
-				Vec3.createVectorHelper(d, f, z),
-				Vec3.createVectorHelper(x, e, g),
-				Vec3.createVectorHelper(d, e, g),
-				Vec3.createVectorHelper(x, f, g),
-				Vec3.createVectorHelper(d, f, g)
-		};
-		PositionTextureVertex[] va1 = {
-				new PositionTextureVertex(points[0], texturex, texturey2),
-				new PositionTextureVertex(points[2], texturex2, texturey2),
-				new PositionTextureVertex(points[3], texturex2, texturey),
+		Vec3[] points = { Vec3.createVectorHelper(x, e, z), Vec3.createVectorHelper(d, e, z), Vec3.createVectorHelper(x, f, z),
+				Vec3.createVectorHelper(d, f, z), Vec3.createVectorHelper(x, e, g), Vec3.createVectorHelper(d, e, g),
+				Vec3.createVectorHelper(x, f, g), Vec3.createVectorHelper(d, f, g) };
+		PositionTextureVertex[] va1 = { new PositionTextureVertex(points[0], texturex, texturey2),
+				new PositionTextureVertex(points[2], texturex2, texturey2), new PositionTextureVertex(points[3], texturex2, texturey),
 				new PositionTextureVertex(points[1], texturex, texturey)
 
 		};
 		new TexturedQuad(va1).draw(Tessellator.instance, 1.0F);
-		PositionTextureVertex[] va2 = {
-				new PositionTextureVertex(points[2], texturex, texturey2),
-				new PositionTextureVertex(points[6], texturex2, texturey2),
-				new PositionTextureVertex(points[7], texturex2, texturey),
+		PositionTextureVertex[] va2 = { new PositionTextureVertex(points[2], texturex, texturey2),
+				new PositionTextureVertex(points[6], texturex2, texturey2), new PositionTextureVertex(points[7], texturex2, texturey),
 				new PositionTextureVertex(points[3], texturex, texturey)
 
 		};
 		new TexturedQuad(va2).draw(Tessellator.instance, 1.0F);
-		PositionTextureVertex[] va3 = {
-				new PositionTextureVertex(points[6], texturex, texturey2),
-				new PositionTextureVertex(points[4], texturex2, texturey2),
-				new PositionTextureVertex(points[5], texturex2, texturey),
+		PositionTextureVertex[] va3 = { new PositionTextureVertex(points[6], texturex, texturey2),
+				new PositionTextureVertex(points[4], texturex2, texturey2), new PositionTextureVertex(points[5], texturex2, texturey),
 				new PositionTextureVertex(points[7], texturex, texturey)
 
 		};
 		new TexturedQuad(va3).draw(Tessellator.instance, 1.0F);
-		PositionTextureVertex[] va4 = {
-				new PositionTextureVertex(points[4], texturex, texturey2),
-				new PositionTextureVertex(points[0], texturex2, texturey2),
-				new PositionTextureVertex(points[1], texturex2, texturey),
+		PositionTextureVertex[] va4 = { new PositionTextureVertex(points[4], texturex, texturey2),
+				new PositionTextureVertex(points[0], texturex2, texturey2), new PositionTextureVertex(points[1], texturex2, texturey),
 				new PositionTextureVertex(points[5], texturex, texturey)
 
 		};
 		new TexturedQuad(va4).draw(Tessellator.instance, 1.0F);
-		PositionTextureVertex[] va5 = {
-				new PositionTextureVertex(points[1], texturex, texturey2),
-				new PositionTextureVertex(points[3], texturex2, texturey2),
-				new PositionTextureVertex(points[7], texturex2, texturey),
+		PositionTextureVertex[] va5 = { new PositionTextureVertex(points[1], texturex, texturey2),
+				new PositionTextureVertex(points[3], texturex2, texturey2), new PositionTextureVertex(points[7], texturex2, texturey),
 				new PositionTextureVertex(points[5], texturex, texturey)
 
 		};
 		new TexturedQuad(va5).draw(Tessellator.instance, 1.0F);
-		PositionTextureVertex[] va6 = {
-				new PositionTextureVertex(points[0], texturex, texturey2),
-				new PositionTextureVertex(points[4], texturex2, texturey2),
-				new PositionTextureVertex(points[6], texturex2, texturey),
+		PositionTextureVertex[] va6 = { new PositionTextureVertex(points[0], texturex, texturey2),
+				new PositionTextureVertex(points[4], texturex2, texturey2), new PositionTextureVertex(points[6], texturex2, texturey),
 				new PositionTextureVertex(points[2], texturex, texturey)
 
 		};
@@ -455,8 +417,7 @@ public abstract class MuseRenderer {
 		arraysOff();
 	}
 
-	private static void drawTriangles3DT(float[] v, float[] textures2,
-			int[] i) {
+	private static void drawTriangles3DT(float[] v, float[] textures2, int[] i) {
 		arraysOnT();
 		texturelessOff();
 
@@ -497,12 +458,10 @@ public abstract class MuseRenderer {
 
 	}
 
-	public static void drawStringsJustified(List<String> words, double x1,
-			double x2, double y) {
+	public static void drawStringsJustified(List<String> words, double x1, double x2, double y) {
 		int totalwidth = 0;
 		for (String word : words) {
-			totalwidth += getFontRenderer().getStringWidth(
-					word);
+			totalwidth += getFontRenderer().getStringWidth(word);
 		}
 
 		double spacing = (x2 - x1 - totalwidth) / (words.size() - 1);
@@ -510,8 +469,7 @@ public abstract class MuseRenderer {
 		double currentwidth = 0;
 		for (String word : words) {
 			MuseRenderer.drawString(word, x1 + currentwidth, y);
-			currentwidth += getFontRenderer().getStringWidth(
-					word) + spacing;
+			currentwidth += getFontRenderer().getStringWidth(word) + spacing;
 		}
 
 	}
@@ -584,35 +542,6 @@ public abstract class MuseRenderer {
 		GL11.glEnd();
 
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
-	}
-
-	public static void drawSolidCircle(double radius, Colour colour1, Colour colour2) {
-		DoubleBuffer points = getArcPoints(0, Math.PI * 2, radius, 0, 0, 0);
-		DoubleBuffer pointsToDraw = BufferUtils.createDoubleBuffer(points.remaining() + 6);
-		pointsToDraw.put(new double[] { 0, 0, 0 });
-		pointsToDraw.put(points);
-		pointsToDraw.put(new double[] { 0, radius, 0 });
-		pointsToDraw.flip();
-		DoubleBuffer colourArray = getColourGradient(colour1, colour1, pointsToDraw.limit() / 3 - 1);
-		DoubleBuffer coloursToDraw = BufferUtils.createDoubleBuffer(pointsToDraw.limit() * 4 / 3);
-		coloursToDraw.put(new double[] { colour2.r, colour2.g, colour2.b, colour2.a });
-		coloursToDraw.put(colourArray);
-		coloursToDraw.flip();
-		arraysOnC();
-		texturelessOn();
-		smoothingOn();
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_CULL_FACE);
-		GL11.glPushMatrix();
-
-		GL11.glVertexPointer(3, 0, pointsToDraw);
-		GL11.glColorPointer(4, 0, coloursToDraw);
-		GL11.glDrawArrays(GL11.GL_TRIANGLE_FAN, 0, pointsToDraw.limit() / 3);
-		GL11.glPopMatrix();
-		GL11.glEnable(GL11.GL_LIGHTING);
-		GL11.glEnable(GL11.GL_CULL_FACE);
-		arraysOff();
-		texturelessOff();
 	}
 
 	public static void drawLightning(double x1, double y1, double z1, double x2, double y2, double z2, Colour colour) {

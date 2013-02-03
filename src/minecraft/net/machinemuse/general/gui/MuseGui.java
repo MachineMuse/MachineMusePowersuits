@@ -43,21 +43,16 @@ public class MuseGui extends GuiScreen {
 	@Override
 	public void initGui() {
 		super.initGui();
+		this.frames.clear();
 		this.controlList.clear();
 		Keyboard.enableRepeatEvents(true);
 		creationTime = System.currentTimeMillis();
 
 		int xpadding = (width - getxSize()) / 2;
 		int ypadding = (height - ySize) / 2;
-		backgroundRect = new DrawableMuseRect(
-				absX(-1), absY(-1), absX(1), absY(1), true,
-				new Colour(0.1F, 0.9F, 0.1F, 0.8F),
-				new Colour(0.0F, 0.2F, 0.0F, 0.8F));
-		tooltipRect = new DrawableMuseRect(
-				0,0,0,0,
-				false,
-				new Colour(0.2F, 0.6F, 0.9F, 0.7F),
-				new Colour(0.1F, 0.3F, 0.4F, 0.7F));
+		backgroundRect = new DrawableMuseRect(absX(-1), absY(-1), absX(1), absY(1), true, new Colour(0.1F, 0.9F, 0.1F, 0.8F), new Colour(0.0F, 0.2F,
+				0.0F, 0.8F));
+		tooltipRect = new DrawableMuseRect(0, 0, 0, 0, false, new Colour(0.2F, 0.6F, 0.9F, 0.7F), new Colour(0.1F, 0.3F, 0.4F, 0.7F));
 	}
 
 	/**
@@ -85,8 +80,7 @@ public class MuseGui extends GuiScreen {
 		}
 		Iterator<? extends IClickable> iter = list.iterator();
 		IClickable clickie;
-		while (iter.hasNext())
-		{
+		while (iter.hasNext()) {
 			clickie = iter.next();
 			clickie.draw();
 		}
@@ -116,8 +110,7 @@ public class MuseGui extends GuiScreen {
 
 	public void update() {
 		double x = Mouse.getEventX() * this.width / (double) this.mc.displayWidth;
-		double y = this.height - Mouse.getEventY() * this.height
-				/ (double) this.mc.displayHeight - 1;
+		double y = this.height - Mouse.getEventY() * this.height / (double) this.mc.displayHeight - 1;
 		for (IGuiFrame frame : frames) {
 			frame.update(x, y);
 		}
@@ -128,14 +121,12 @@ public class MuseGui extends GuiScreen {
 	 * 
 	 * @return
 	 */
-	public int hitboxClickables(int x, int y,
-			List<? extends IClickable> list) {
+	public int hitboxClickables(int x, int y, List<? extends IClickable> list) {
 		if (list == null) {
 			return -1;
 		}
 		IClickable clickie;
-		for (int i = 0; i < list.size(); i++)
-		{
+		for (int i = 0; i < list.size(); i++) {
 			clickie = list.get(i);
 			if (clickie.hitBox(x, y)) {
 				// MuseLogger.logDebug("Hit!");
@@ -149,8 +140,7 @@ public class MuseGui extends GuiScreen {
 	 * Whether or not this gui pauses the game in single player.
 	 */
 	@Override
-	public boolean doesGuiPauseGame()
-	{
+	public boolean doesGuiPauseGame() {
 		return false;
 	}
 
@@ -238,8 +228,7 @@ public class MuseGui extends GuiScreen {
 	 * Called when the mouse is clicked.
 	 */
 	@Override
-	protected void mouseClicked(int x, int y, int button)
-	{
+	protected void mouseClicked(int x, int y, int button) {
 		for (IGuiFrame frame : frames) {
 			frame.onMouseDown(x, y, button);
 		}
@@ -251,8 +240,7 @@ public class MuseGui extends GuiScreen {
 	 * mouseUp
 	 */
 	@Override
-	protected void mouseMovedOrUp(int x, int y, int which)
-	{
+	protected void mouseMovedOrUp(int x, int y, int which) {
 		for (IGuiFrame frame : frames) {
 			frame.onMouseUp(x, y, which);
 		}
@@ -264,14 +252,12 @@ public class MuseGui extends GuiScreen {
 	 */
 	protected void drawToolTip() {
 		int x = Mouse.getEventX() * this.width / this.mc.displayWidth;
-		int y = this.height - Mouse.getEventY() * this.height
-				/ this.mc.displayHeight - 1;
+		int y = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
 		List<String> tooltip = getToolTip(x, y);
 		if (tooltip != null) {
 			int strwidth = 0;
 			for (String s : tooltip) {
-				int currstrwidth = MuseRenderer.getFontRenderer()
-						.getStringWidth(s);
+				int currstrwidth = MuseRenderer.getFontRenderer().getStringWidth(s);
 				if (currstrwidth > strwidth) {
 					strwidth = currstrwidth;
 				}
@@ -296,9 +282,7 @@ public class MuseGui extends GuiScreen {
 			tooltipRect.setTop(top);
 			tooltipRect.draw();
 			for (int i = 0; i < tooltip.size(); i++) {
-				MuseRenderer.drawString(tooltip.get(i),
-						left + 4,
-						bottom - 10 * (tooltip.size() - i) - 4);
+				MuseRenderer.drawString(tooltip.get(i), left + 4, bottom - 10 * (tooltip.size() - i) - 4);
 			}
 		}
 	}
