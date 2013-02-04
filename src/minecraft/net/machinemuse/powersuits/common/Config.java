@@ -181,7 +181,7 @@ public class Config {
 
 		PowerModule module;
 
-		module = new PowerModule(ModularCommon.MODULE_NIGHT_VISION, HEADONLY, MuseIcon.SCANNER, ModularCommon.CATEGORY_VISION)
+		module = new PowerModule(ModularCommon.MODULE_NIGHT_VISION, HEADONLY, MuseIcon.SCANNER, ModularCommon.CATEGORY_SPECIAL)
 				.setDescription("A pair of augmented vision goggles to help you see at night and underwater.")
 				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1))
