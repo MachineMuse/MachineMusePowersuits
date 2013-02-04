@@ -54,6 +54,10 @@ public class ClickableButton extends Clickable {
 			topcolour = new Colour(0.3F, 0.3F, 0.3F, 1);
 			bottomcolour = new Colour(0.5F, 0.6F, 0.8F, 1);
 		}
+		this.rect.setLeft(position.x() - radius.x());
+		this.rect.setTop(position.y() - radius.y());
+		this.rect.setRight(position.x() + radius.x());
+		this.rect.setBottom(position.y() + radius.y());
 		this.rect.setOutsideColour(topcolour);
 		this.rect.setInsideColour(bottomcolour);
 		this.rect.draw();
