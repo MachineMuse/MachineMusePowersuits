@@ -293,7 +293,7 @@ public class PlayerTickHandlerServer implements ITickHandler {
 			}
 		} else {
 			if (nightVision != null) {
-				player.removePotionEffectClient(Potion.nightVision.id);
+				player.removePotionEffect(Potion.nightVision.id);
 			}
 		}
 
@@ -304,7 +304,7 @@ public class PlayerTickHandlerServer implements ITickHandler {
 			}
 		} else {
 			if (invis != null) {
-				player.removePotionEffectClient(Potion.invisibility.id);
+				player.removePotionEffect(Potion.invisibility.id);
 			}
 		}
 	}
