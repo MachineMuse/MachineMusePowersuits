@@ -113,31 +113,41 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			hasParachute = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_PARACHUTE);
 		}
 
+		PotionEffect nightVision = null;
+		PotionEffect invis = null;
+		Collection<PotionEffect> effects = player.getActivePotionEffects();
+		for (PotionEffect effect : effects) {
+			if (effect.getAmplifier() == -337 && effect.getPotionID() == Potion.nightVision.id) {
+				nightVision = effect;
+				break;
+			}
+			if (effect.getAmplifier() == 81 && effect.getPotionID() == Potion.invisibility.id) {
+				invis = effect;
+				break;
+			}
+		}
 		if (hasNightVision && totalEnergyDrain + 5 < totalEnergy) {
-			player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 500, -337));
-			totalEnergyDrain += 5;
+			if (nightVision == null || nightVision.getDuration() < 210) {
+				player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 500, -337));
+				totalEnergyDrain += 5;
+			}
 		} else {
-			Collection<PotionEffect> effects = player.getActivePotionEffects();
-			for (PotionEffect effect : effects) {
-				if (effect.getAmplifier() == -337 && effect.getPotionID() == Potion.nightVision.id) {
-					player.removePotionEffectClient(effect.getPotionID());
-					break;
-				}
+			if (nightVision != null) {
+				player.removePotionEffectClient(Potion.nightVision.id);
 			}
 		}
 
 		if (hasInvis && totalEnergyDrain + 50 < totalEnergy) {
-			player.addPotionEffect(new PotionEffect(Potion.invisibility.id, 500, 81));
-			totalEnergyDrain += 50;
+			if (invis == null || invis.getDuration() < 210) {
+				player.addPotionEffect(new PotionEffect(Potion.invisibility.id, 500, 81));
+				totalEnergyDrain += 50;
+			}
 		} else {
-			Collection<PotionEffect> effects = player.getActivePotionEffects();
-			for (PotionEffect effect : effects) {
-				if (effect.getAmplifier() == 81 && effect.getPotionID() == Potion.invisibility.id) {
-					player.removePotionEffectClient(effect.getPotionID());
-					break;
-				}
+			if (invis != null) {
+				player.removePotionEffectClient(Potion.invisibility.id);
 			}
 		}
+
 		if (player.isInWater()) {
 			if (hasSwimAssist && (forwardkey != 0 || strafekey != 0 || jumpkey || sneakkey)) {
 				double moveRatio = 0;

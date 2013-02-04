@@ -272,27 +272,39 @@ public class PlayerTickHandlerServer implements ITickHandler {
 		if (torso != null && torso.getItem() instanceof IModularItem) {
 			hasInvis = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_ACTIVE_CAMOUFLAGE);
 		}
+
+		PotionEffect nightVision = null;
+		PotionEffect invis = null;
+		Collection<PotionEffect> effects = player.getActivePotionEffects();
+		for (PotionEffect effect : effects) {
+			if (effect.getAmplifier() == -337 && effect.getPotionID() == Potion.nightVision.id) {
+				nightVision = effect;
+				break;
+			}
+			if (effect.getAmplifier() == 81 && effect.getPotionID() == Potion.invisibility.id) {
+				invis = effect;
+				break;
+			}
+		}
 		if (hasNightVision && 5 < MuseItemUtils.getPlayerEnergy(player)) {
-			player.addPotionEffect(new PotionEffect(16, 500, -337));
+			if (nightVision == null || nightVision.getDuration() < 210) {
+				player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 500, -337));
+				MuseItemUtils.drainPlayerEnergy(player, 5);
+			}
 		} else {
-			Collection<PotionEffect> effects = player.getActivePotionEffects();
-			for (PotionEffect effect : effects) {
-				if (effect.getAmplifier() == -337 && effect.getPotionID() == 16) {
-					player.removePotionEffect(16);
-					break;
-				}
+			if (nightVision != null) {
+				player.removePotionEffectClient(Potion.nightVision.id);
 			}
 		}
 
 		if (hasInvis && 50 < MuseItemUtils.getPlayerEnergy(player)) {
-			player.addPotionEffect(new PotionEffect(Potion.invisibility.id, 500, 81));
+			if (invis == null || invis.getDuration() < 210) {
+				player.addPotionEffect(new PotionEffect(Potion.invisibility.id, 500, 81));
+				MuseItemUtils.drainPlayerEnergy(player, 50);
+			}
 		} else {
-			Collection<PotionEffect> effects = player.getActivePotionEffects();
-			for (PotionEffect effect : effects) {
-				if (effect.getAmplifier() == 81 && effect.getPotionID() == Potion.invisibility.id) {
-					player.removePotionEffectClient(Potion.invisibility.id);
-					break;
-				}
+			if (invis != null) {
+				player.removePotionEffectClient(Potion.invisibility.id);
 			}
 		}
 	}
