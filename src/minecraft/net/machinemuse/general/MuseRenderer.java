@@ -340,7 +340,6 @@ public abstract class MuseRenderer {
 	public static void drawString(String s, double x, double y) {
 		RenderHelper.disableStandardItemLighting();
 		getFontRenderer().drawStringWithShadow(s, (int) x, (int) y, new Colour(1, 1, 1, 1).getInt());
-		RenderHelper.enableStandardItemLighting();
 	}
 
 	/**
