@@ -22,6 +22,8 @@ import org.lwjgl.input.Keyboard;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 
+//This is a junk comment from Pixotic to test github fork/pull functionality. Hello Claire!
+
 /**
  * Initial attempt at storing all tweakable/configurable values in one class.
  * This got really messy really fast so it's in the process of being reworked.
