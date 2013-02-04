@@ -196,6 +196,12 @@ public class Config {
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 2));
 		addModule(module);
 
+		module = new PowerModule(ModularCommon.MODULE_FLIGHT_CONTROL, HEADONLY, MuseIcon.INDICATOR_1_GREEN, ModularCommon.CATEGORY_SPECIAL)
+				.setDescription("An integrated control circuit to help you fly better.")
+				.setToggleable(true)
+				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
+		addModule(module);
+		
 		module = new PowerModule(ModularCommon.MODULE_PLASMA_CANNON, TOOLONLY, MuseIcon.WEAPON_ELECTRIC, ModularCommon.CATEGORY_WEAPON)
 				.setDescription("Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.")
 				.setToggleable(true)

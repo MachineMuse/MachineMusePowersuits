@@ -88,6 +88,7 @@ public abstract class ModularCommon {
 	public static final String MODULE_MELEE_ASSIST = "Melee Assist";
 	public static final String MODULE_NIGHT_VISION = "Night Vision";
 	public static final String MODULE_ACTIVE_CAMOUFLAGE = "Active Camouflage";
+	public static final String MODULE_FLIGHT_CONTROL = "Flight Control";
 
 	/**
 	 * Categories for modules
@@ -117,8 +118,7 @@ public abstract class ModularCommon {
 	 *            Whether or not the player has 'advanced tooltips' turned on in
 	 *            their settings.
 	 */
-	public static void addInformation(ItemStack stack,
-			EntityPlayer player, List currentTipList, boolean advancedToolTips) {
+	public static void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
 		if (stack.getItem() instanceof ItemPowerTool) {
 			String mode = MuseItemUtils.getStringOrNull(stack, "Tool Mode");
 			if (mode != null) {
@@ -127,9 +127,8 @@ public abstract class ModularCommon {
 		}
 		String energyinfo = "Energy: " + MuseStringUtils.formatNumberShort(getJoules(stack)) + "/"
 				+ MuseStringUtils.formatNumberShort(getMaxJoules(stack));
-		currentTipList.add(
-				MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character, MuseStringUtils.FormatCodes.Grey)
-				);
+		currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character,
+				MuseStringUtils.FormatCodes.Grey));
 		if (Config.doAdditionalInfo()) {
 			List<String> installed = ModularCommon.getItemInstalledModules(player, stack);
 			if (installed.size() == 0) {

@@ -23,6 +23,9 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+
+import org.lwjgl.input.Keyboard;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
@@ -78,6 +81,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 		float forwardkey = player.movementInput.moveForward;
 		float strafekey = player.movementInput.moveStrafe;
 		boolean sneakkey = player.movementInput.sneak;
+		boolean downkey = Keyboard.isKeyDown(Keyboard.KEY_Z);
 
 		boolean hasSprintAssist = false;
 		boolean hasGlider = false;
@@ -88,9 +92,11 @@ public class PlayerTickHandlerClient implements ITickHandler {
 		boolean hasSwimAssist = false;
 		boolean hasNightVision = false;
 		boolean hasInvis = false;
+		boolean hasFlightControl = false;
 
 		if (helmet != null && helmet.getItem() instanceof IModularItem) {
 			hasNightVision = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_NIGHT_VISION);
+			hasFlightControl = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_FLIGHT_CONTROL);
 		}
 		if (pants != null && pants.getItem() instanceof IModularItem) {
 			hasSprintAssist = MuseItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_SPRINT_ASSIST);
@@ -175,7 +181,7 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			}
 
 			// Jetpack & jetboots
-			if ((hasJetpack || hasJetboots) && jumpkey && player.motionY < 0.5) {
+			if (hasJetpack || hasJetboots) {
 				double jetEnergy = 0;
 				double thrust = 0;
 				if (hasJetpack) {
@@ -187,14 +193,87 @@ public class PlayerTickHandlerClient implements ITickHandler {
 					thrust += ModuleManager.computeModularProperty(boots, ModularCommon.JET_THRUST);
 				}
 				if (jetEnergy + totalEnergyDrain < totalEnergy) {
-					totalEnergyDrain += jetEnergy;
 					thrust *= getWeightPenaltyRatio(totalWeight, weightCapacity);
-					if (forwardkey == 0) {
-						player.motionY += thrust;
-					} else {
-						player.motionY += thrust / 2;
-						player.motionX += playerHorzFacing.xCoord * thrust / 2 * Math.signum(forwardkey);
-						player.motionZ += playerHorzFacing.zCoord * thrust / 2 * Math.signum(forwardkey);
+					if (hasFlightControl && thrust > 0) {
+						Vec3 desiredDirection = player.getLookVec().normalize();
+						double strafeX = desiredDirection.zCoord;
+						double strafeZ = -desiredDirection.xCoord;
+						double scaleStrafe = (strafeX * strafeX + strafeZ * strafeZ);
+						desiredDirection.xCoord = desiredDirection.xCoord * Math.signum(forwardkey) + strafeX * Math.signum(strafekey);
+						desiredDirection.yCoord = desiredDirection.yCoord * Math.signum(forwardkey) + (jumpkey ? 1 : 0) - (downkey ? 1 : 0);
+						desiredDirection.zCoord = desiredDirection.zCoord * Math.signum(forwardkey) + strafeZ * Math.signum(strafekey);
+
+						desiredDirection = desiredDirection.normalize();
+
+						// Gave up on this... I suck at math apparently
+						// double ux = player.motionX / thrust;
+						// double uy = player.motionY / thrust;
+						// double uz = player.motionZ / thrust;
+						// double vx = desiredDirection.xCoord;
+						// double vy = desiredDirection.yCoord;
+						// double vz = desiredDirection.zCoord;
+						// double b = (2 * ux * vx + 2 * uy * vy + 2 * uz * vz);
+						// double c = (ux * ux + uy * uy + uz * uz - 1);
+						//
+						// double actualThrust = (-b + Math.sqrt(b * b - 4 * c))
+						// / (2);
+						//
+						// player.motionX = desiredDirection.xCoord *
+						// actualThrust;
+						// player.motionY = desiredDirection.yCoord *
+						// actualThrust;
+						// player.motionZ = desiredDirection.zCoord *
+						// actualThrust;
+
+						if (player.motionY < 0 && desiredDirection.yCoord >= 0) {
+							if (-player.motionY > thrust) {
+								player.motionY += thrust;
+								thrust = 0;
+							} else {
+								thrust -= player.motionY;
+								player.motionY = 0;
+							}
+						}
+						if (player.motionY < -1) {
+							thrust = thrust + 1 + player.motionY;
+							player.motionY = -1;
+						}
+						if (player.motionX < 0 && desiredDirection.xCoord == 0) {
+							if (-player.motionX > thrust) {
+								player.motionX += thrust;
+								thrust = 0;
+							} else {
+								thrust -= player.motionX;
+								player.motionX = 0;
+							}
+						}
+						if (player.motionZ < 0 && desiredDirection.zCoord >= 0) {
+							if (-player.motionZ > thrust) {
+								player.motionZ += thrust;
+								thrust = 0;
+							} else {
+								thrust -= player.motionZ;
+								player.motionZ = 0;
+							}
+						}
+						double vx = thrust * desiredDirection.xCoord;
+						double vy = thrust * desiredDirection.yCoord;
+						double vz = thrust * desiredDirection.zCoord;
+						player.motionX += vx;
+						player.motionY += vy;
+						player.motionZ += vz;
+
+						totalEnergyDrain += jetEnergy * (vx * vx + vy * vy + vz * vz);
+
+					} else if (jumpkey && player.motionY < 0.5) {
+						totalEnergyDrain += jetEnergy;
+						if (forwardkey == 0) {
+							player.motionY += thrust;
+						} else {
+							player.motionY += thrust / 2;
+							player.motionX += playerHorzFacing.xCoord * thrust / 2 * Math.signum(forwardkey);
+							player.motionZ += playerHorzFacing.zCoord * thrust / 2 * Math.signum(forwardkey);
+						}
 					}
 				}
 
