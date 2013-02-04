@@ -274,6 +274,8 @@ public class PlayerTickHandlerClient implements ITickHandler {
 								player.motionZ = 0;
 							}
 						}
+
+						// Thrusting, finally :V
 						double vx = thrust * desiredDirection.xCoord;
 						double vy = thrust * desiredDirection.yCoord;
 						double vz = thrust * desiredDirection.zCoord;
