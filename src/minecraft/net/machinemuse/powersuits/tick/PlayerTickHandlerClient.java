@@ -235,34 +235,42 @@ public class PlayerTickHandlerClient implements ITickHandler {
 						// player.motionZ = desiredDirection.zCoord *
 						// actualThrust;
 
+						// Brakes
 						if (player.motionY < 0 && desiredDirection.yCoord >= 0) {
 							if (-player.motionY > thrust) {
+								totalEnergyDrain += jetEnergy * thrust;
 								player.motionY += thrust;
 								thrust = 0;
 							} else {
+								totalEnergyDrain += jetEnergy * Math.abs(player.motionY);
 								thrust -= player.motionY;
 								player.motionY = 0;
 							}
 						}
 						if (player.motionY < -1) {
-							thrust = thrust + 1 + player.motionY;
+							totalEnergyDrain += jetEnergy * Math.abs(1 + player.motionY);
+							thrust += 1 + player.motionY;
 							player.motionY = -1;
 						}
-						if (player.motionX < 0 && desiredDirection.xCoord == 0) {
-							if (-player.motionX > thrust) {
-								player.motionX += thrust;
+						if (Math.abs(player.motionX) > 0 && desiredDirection.lengthVector() == 0) {
+							if (Math.abs(player.motionX) > thrust) {
+								totalEnergyDrain += jetEnergy * thrust;
+								player.motionX -= Math.signum(player.motionX) * thrust;
 								thrust = 0;
 							} else {
-								thrust -= player.motionX;
+								totalEnergyDrain += jetEnergy * Math.abs(player.motionX);
+								thrust -= Math.abs(player.motionX);
 								player.motionX = 0;
 							}
 						}
-						if (player.motionZ < 0 && desiredDirection.zCoord >= 0) {
-							if (-player.motionZ > thrust) {
-								player.motionZ += thrust;
+						if (Math.abs(player.motionZ) > 0 && desiredDirection.lengthVector() == 0) {
+							if (Math.abs(player.motionZ) > thrust) {
+								totalEnergyDrain += jetEnergy * thrust;
+								player.motionZ -= Math.signum(player.motionZ) * thrust;
 								thrust = 0;
 							} else {
-								thrust -= player.motionZ;
+								totalEnergyDrain += jetEnergy * Math.abs(player.motionZ);
+								thrust -= Math.abs(player.motionZ);
 								player.motionZ = 0;
 							}
 						}
