@@ -226,7 +226,6 @@ public class PlayerTickHandlerClient implements ITickHandler {
 						desiredDirection.zCoord = desiredDirection.zCoord * Math.signum(forwardkey) + strafeZ * Math.signum(strafekey);
 
 						desiredDirection = desiredDirection.normalize();
-
 						// Gave up on this... I suck at math apparently
 						// double ux = player.motionX / thrust;
 						// double uy = player.motionY / thrust;

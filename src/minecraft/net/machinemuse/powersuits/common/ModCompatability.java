@@ -118,7 +118,7 @@ public class ModCompatability {
 				Item goggles = (Item) itemGoggles.get(itemGoggles);
 				gogglesStack = new ItemStack(goggles);
 				PowerModule module = new PowerModule("Aurameter", Arrays.asList((IModularItem) ModularPowersuits.powerArmorHead), new MuseIcon(
-						"/thaumcraft/resources/ss_core.png", 144), ModularCommon.CATEGORY_VISION)
+						"/thaumcraft/resources/ss_core.png", 144), ModularCommon.CATEGORY_SPECIAL)
 						.setDescription(
 								"Connect up some Thaumic goggles to show the nearby aura values. (Does not reveal aura nodes, only shows the HUD)")
 						.addInstallCost(ItemComponent.laserHologram.copy())
