@@ -264,15 +264,47 @@ public class PlayerTickHandlerServer implements ITickHandler {
 		ItemStack pants = player.getCurrentArmor(1);
 		ItemStack boots = player.getCurrentArmor(0);
 		ItemStack tool = player.getCurrentEquippedItem();
+		boolean hasSprintAssist = false;
+		boolean hasGlider = false;
+		boolean hasParachute = false;
+		boolean hasJetpack = false;
+		boolean hasJetboots = false;
+		boolean hasJumpAssist = false;
+		boolean hasSwimAssist = false;
 		boolean hasNightVision = false;
 		boolean hasInvis = false;
+		boolean hasFlightControl = false;
+
 		if (helmet != null && helmet.getItem() instanceof IModularItem) {
 			hasNightVision = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_NIGHT_VISION);
+			hasFlightControl = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_FLIGHT_CONTROL);
+			if (helmet.getTagCompound().hasKey("ench")) {
+				helmet.getTagCompound().removeTag("ench");
+			}
+		}
+		if (pants != null && pants.getItem() instanceof IModularItem) {
+			hasSprintAssist = MuseItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_SPRINT_ASSIST);
+			hasJumpAssist = MuseItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_JUMP_ASSIST);
+			hasSwimAssist = MuseItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_SWIM_BOOST);
+			if (pants.getTagCompound().hasKey("ench")) {
+				pants.getTagCompound().removeTag("ench");
+			}
+		}
+		if (boots != null && boots.getItem() instanceof IModularItem) {
+			hasJetboots = MuseItemUtils.itemHasActiveModule(boots, ModularCommon.MODULE_JETBOOTS);
+			if (boots.getTagCompound().hasKey("ench")) {
+				boots.getTagCompound().removeTag("ench");
+			}
 		}
 		if (torso != null && torso.getItem() instanceof IModularItem) {
 			hasInvis = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_ACTIVE_CAMOUFLAGE);
+			hasJetpack = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_JETPACK);
+			hasGlider = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_GLIDER);
+			hasParachute = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_PARACHUTE);
+			if (torso.getTagCompound().hasKey("ench")) {
+				torso.getTagCompound().removeTag("ench");
+			}
 		}
-
 		PotionEffect nightVision = null;
 		PotionEffect invis = null;
 		Collection<PotionEffect> effects = player.getActivePotionEffects();

@@ -97,20 +97,32 @@ public class PlayerTickHandlerClient implements ITickHandler {
 		if (helmet != null && helmet.getItem() instanceof IModularItem) {
 			hasNightVision = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_NIGHT_VISION);
 			hasFlightControl = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_FLIGHT_CONTROL);
+			if (helmet.getTagCompound().hasKey("ench")) {
+				helmet.getTagCompound().removeTag("ench");
+			}
 		}
 		if (pants != null && pants.getItem() instanceof IModularItem) {
 			hasSprintAssist = MuseItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_SPRINT_ASSIST);
 			hasJumpAssist = MuseItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_JUMP_ASSIST);
 			hasSwimAssist = MuseItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_SWIM_BOOST);
+			if (pants.getTagCompound().hasKey("ench")) {
+				pants.getTagCompound().removeTag("ench");
+			}
 		}
 		if (boots != null && boots.getItem() instanceof IModularItem) {
 			hasJetboots = MuseItemUtils.itemHasActiveModule(boots, ModularCommon.MODULE_JETBOOTS);
+			if (boots.getTagCompound().hasKey("ench")) {
+				boots.getTagCompound().removeTag("ench");
+			}
 		}
 		if (torso != null && torso.getItem() instanceof IModularItem) {
 			hasInvis = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_ACTIVE_CAMOUFLAGE);
 			hasJetpack = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_JETPACK);
 			hasGlider = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_GLIDER);
 			hasParachute = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_PARACHUTE);
+			if (torso.getTagCompound().hasKey("ench")) {
+				torso.getTagCompound().removeTag("ench");
+			}
 		}
 
 		PotionEffect nightVision = null;
