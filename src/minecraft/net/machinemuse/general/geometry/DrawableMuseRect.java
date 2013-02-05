@@ -74,7 +74,7 @@ public class DrawableMuseRect extends MuseRect {
 		}
 
 		MuseRenderer.texturelessOn();
-		MuseRenderer.smoothingOn();
+		MuseRenderer.blendingOn();
 		MuseRenderer.on2D();
 
 		MuseRenderer.arraysOnC();

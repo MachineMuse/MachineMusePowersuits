@@ -244,7 +244,7 @@ public abstract class MuseRenderer {
 	/**
 	 * Call before doing anything with alpha blending
 	 */
-	public static void smoothingOn() {
+	public static void blendingOn() {
 		if (Minecraft.getMinecraft().isFancyGraphicsEnabled()) {
 			GL11.glShadeModel(GL11.GL_SMOOTH);
 			// GL11.glEnable(GL11.GL_LINE_SMOOTH);
@@ -257,7 +257,7 @@ public abstract class MuseRenderer {
 	/**
 	 * Call after doing anything with alpha blending
 	 */
-	public static void smoothingOff() {
+	public static void blendingOff() {
 		GL11.glShadeModel(GL11.GL_FLAT);
 		GL11.glDisable(GL11.GL_LINE_SMOOTH);
 		GL11.glDisable(GL11.GL_POLYGON_SMOOTH);
@@ -296,7 +296,7 @@ public abstract class MuseRenderer {
 		GL11.glDisable(GL11.GL_CULL_FACE);
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		texturelessOff();
-		smoothingOn();
+		blendingOn();
 
 		ForgeHooksClient.bindTexture(icon.getTexturefile(), 0);
 
@@ -315,7 +315,48 @@ public abstract class MuseRenderer {
 		tess.addVertexWithUV(x + 16, y, 0, u + r, v);
 		tess.draw();
 
-		MuseRenderer.smoothingOff();
+		MuseRenderer.blendingOff();
+		GL11.glEnable(GL11.GL_CULL_FACE);
+		// GL11.glDepthFunc(GL11.GL_LEQUAL);
+		GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glPopMatrix();
+	}
+
+	/**
+	 * Draws a MuseIcon
+	 * 
+	 * @param x
+	 * @param y
+	 * @param icon
+	 * @param colour
+	 */
+	public static void drawIconPartial(double x, double y, MuseIcon icon, Colour colour, double left, double top, double right, double bottom) {
+		GL11.glPushMatrix();
+		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glDisable(GL11.GL_CULL_FACE);
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		texturelessOff();
+		blendingOn();
+
+		ForgeHooksClient.bindTexture(icon.getTexturefile(), 0);
+
+		if (colour != null) {
+			colour.doGL();
+		}
+
+		Tessellator tess = Tessellator.instance;
+		tess.startDrawingQuads();
+		double r = 0.0625;
+		double u = (icon.getIconIndex() % 16) * r;
+		double v = (icon.getIconIndex() / 16) * r;
+		tess.addVertexWithUV(x + left, y + top, 0, u + r * r * left, v + r * r * top);
+		tess.addVertexWithUV(x + left, y + bottom, 0, u + r * r * left, v + r * r * bottom);
+		tess.addVertexWithUV(x + right, y + bottom, 0, u + r * r * right, v + r * r * bottom);
+		tess.addVertexWithUV(x + right, y + top, 0, u + r * r * right, v + r * r * top);
+		tess.draw();
+
+		MuseRenderer.blendingOff();
 		GL11.glEnable(GL11.GL_CULL_FACE);
 		// GL11.glDepthFunc(GL11.GL_LEQUAL);
 		GL11.glEnable(GL11.GL_LIGHTING);
@@ -547,7 +588,7 @@ public abstract class MuseRenderer {
 		double tx = x2 - x1, ty = y2 - y1, tz = z2 - z1, cx = 0, cy = 0, cz = 0;
 		double jagfactor = 0.3;
 		texturelessOn();
-		smoothingOn();
+		blendingOn();
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glDisable(GL11.GL_CULL_FACE);
 		GL11.glBegin(GL11.GL_LINE_STRIP);

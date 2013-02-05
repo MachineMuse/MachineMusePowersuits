@@ -176,7 +176,7 @@ public class TinkerTableModel extends ModelBase {
 	public void doRender(Entity entity, double x, double y, double z, float f,
 			float f1) {
 		f = 0.0625f;
-		MuseRenderer.smoothingOn();
+		MuseRenderer.blendingOn();
 		int timestep = (int) ((System.currentTimeMillis()) % 10000);
 		double angle = timestep * Math.PI / 5000.0;
 		GL11.glPushMatrix();
@@ -199,7 +199,7 @@ public class TinkerTableModel extends ModelBase {
 		Wirelong1.render(f);
 
 		MuseRenderer.glowOn();
-		MuseRenderer.smoothingOn();
+		MuseRenderer.blendingOn();
 		GL11.glPopMatrix();
 		GL11.glPushMatrix();
 		GL11.glTranslated(0.5f, 1.05f, 0.5f);
@@ -233,7 +233,7 @@ public class TinkerTableModel extends ModelBase {
 		// }
 		// GL11.glPopMatrix();
 		MuseRenderer.glowOff();
-		MuseRenderer.smoothingOff();
+		MuseRenderer.blendingOff();
 	}
 
 	private void drawScanLine(double angle) {

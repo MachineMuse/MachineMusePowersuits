@@ -41,7 +41,7 @@ public class DrawableMuseCircle {
 		GL11.glDisable(GL11.GL_CULL_FACE);
 		MuseRenderer.arraysOnC();
 		MuseRenderer.texturelessOn();
-		MuseRenderer.smoothingOn();
+		MuseRenderer.blendingOn();
 		GL11.glColorPointer(4, 0, colour);
 		GL11.glVertexPointer(3, 0, points);
 		GL11.glDrawArrays(GL11.GL_TRIANGLE_FAN, 0, points.limit() / 3);

@@ -30,6 +30,7 @@ public class PowerModule implements IPowerModule {
 	protected static Map<String, String> units = new HashMap();
 	protected boolean toggleable = false;
 	protected List<IModularItem> validItems;
+	protected boolean isActive = false;
 
 	public PowerModule(String name, List<IModularItem> validItems, MuseIcon icon, String category) {
 		this.name = name;
@@ -40,7 +41,7 @@ public class PowerModule implements IPowerModule {
 		this.propertyModifiers = new HashMap();
 		this.installCost = new ArrayList();
 		this.defaultTag = new NBTTagCompound();
-		this.defaultTag.setBoolean(MuseItemUtils.ACTIVE, true);
+		this.defaultTag.setBoolean(MuseItemUtils.ONLINE, true);
 	}
 
 	public String getName() {
@@ -195,6 +196,16 @@ public class PowerModule implements IPowerModule {
 		this.addBaseProperty(secondPropertyName, secondPropertyBase, secondUnits);
 		this.addTradeoffProperty(tradeoffName, secondPropertyName, secondPropertyMultiplier);
 		return this;
+	}
+
+	public PowerModule setIsActive(boolean value) {
+		this.isActive = value;
+		return this;
+	}
+
+	@Override
+	public boolean isActive() {
+		return this.isActive;
 	}
 
 }

@@ -18,7 +18,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class MuseItemUtils {
 	public static final String NBTPREFIX = "mmmpsmod";
-	public static final String ACTIVE = "Active";
+	public static final String ONLINE = "Active";
 
 	public static List<IPowerModule> getValidModulesForItem(
 			EntityPlayer player, ItemStack stack) {
@@ -40,9 +40,9 @@ public class MuseItemUtils {
 	}
 
 	public static boolean isModuleActive(NBTTagCompound itemTag, String moduleName) {
-		if (MuseItemUtils.tagHasModule(itemTag, moduleName) && !itemTag.getCompoundTag(moduleName).hasKey(ACTIVE)) {
+		if (MuseItemUtils.tagHasModule(itemTag, moduleName) && !itemTag.getCompoundTag(moduleName).hasKey(ONLINE)) {
 			return true;
-		} else if (MuseItemUtils.tagHasModule(itemTag, moduleName) && itemTag.getCompoundTag(moduleName).getBoolean(ACTIVE)) {
+		} else if (MuseItemUtils.tagHasModule(itemTag, moduleName) && itemTag.getCompoundTag(moduleName).getBoolean(ONLINE)) {
 			return true;
 		}
 		return false;
@@ -51,7 +51,7 @@ public class MuseItemUtils {
 	public static void toggleModule(NBTTagCompound itemTag, String name, boolean toggleval) {
 		if (MuseItemUtils.tagHasModule(itemTag, name)) {
 			NBTTagCompound moduleTag = itemTag.getCompoundTag(name);
-			moduleTag.setBoolean(ACTIVE, toggleval);
+			moduleTag.setBoolean(ONLINE, toggleval);
 		}
 	}
 

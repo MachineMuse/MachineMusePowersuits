@@ -1,17 +1,18 @@
 package net.machinemuse.powersuits.tick;
 
-import java.lang.reflect.Method;
 import java.util.EnumSet;
 
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.MuseStringUtils;
-import net.machinemuse.powersuits.common.ModCompatability;
-import net.machinemuse.powersuits.common.MuseLogger;
+import net.machinemuse.general.geometry.Colour;
+import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.powersuits.item.IModularItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
@@ -41,8 +42,32 @@ public class RenderTickHandler implements ITickHandler {
 				MuseRenderer.drawString(currStr + "/" + maxStr + " J", 1, 1);
 			}
 		}
-	}
+		if (Minecraft.getMinecraft().currentScreen == null) {
+			for (int i = 0; i < 9; i++) {
+				Minecraft mc = Minecraft.getMinecraft();
+				ScaledResolution screen = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+				ItemStack stack = player.inventory.mainInventory[i];
+				if (stack != null && stack.getItem() instanceof IModularItem) {
+					MuseRenderer.blendingOn();
+					NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+					// if (itemTag.hasKey("Mode")) {
+					// String mode = itemTag.getString("Mode");
+					// IPowerModule module = ModuleManager.getModule(mode);
+					MuseIcon currentMode = MuseIcon.WEAPON_ELECTRIC;
+					MuseIcon nextMode = MuseIcon.WEAPON_FIRE;
+					MuseIcon prevMode = MuseIcon.WEAPON_GRAVITY;
 
+					MuseRenderer.drawIconPartial(screen.getScaledWidth_double() / 2.0 - 105.0 + 20.0 * i, screen.getScaledHeight_double() - 30,
+							prevMode, Colour.WHITE.withAlpha(0.4), 0, 0, 16, 8);
+					MuseRenderer.drawIconAt(screen.getScaledWidth_double() / 2.0 - 89.0 + 20.0 * i, screen.getScaledHeight_double() - 40,
+							currentMode, Colour.WHITE.withAlpha(0.7));
+					MuseRenderer.drawIconPartial(screen.getScaledWidth_double() / 2.0 - 73.0 + 20.0 * i, screen.getScaledHeight_double() - 30,
+							nextMode, Colour.WHITE.withAlpha(0.4), 0, 0, 16, 8);
+					// }
+				}
+			}
+		}
+	}
 
 	@Override
 	public EnumSet<TickType> ticks() {

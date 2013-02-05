@@ -203,10 +203,11 @@ public class Config {
 				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
 		addModule(module);
-		
+
 		module = new PowerModule(ModularCommon.MODULE_PLASMA_CANNON, TOOLONLY, MuseIcon.WEAPON_ELECTRIC, ModularCommon.CATEGORY_WEAPON)
 				.setDescription("Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.")
 				.setToggleable(true)
+				.setIsActive(true)
 				.addBaseProperty(ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 10, "J")
 				.addBaseProperty(ModularCommon.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 2, "pt")
 				.addTradeoffProperty("Amperage", ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 150, "J")
