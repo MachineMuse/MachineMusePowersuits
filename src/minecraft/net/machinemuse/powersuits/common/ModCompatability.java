@@ -73,8 +73,25 @@ public class ModCompatability {
 		return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Joules per MJ", 1.0).getDouble(1.0);
 	}
 
+	// These 2 elements are basically copied from IC2 api
+	private static Class Ic2Items;
 	public static ItemStack getIC2Item(String name) {
-		return ic2.api.Items.getItem(name);
+		try {
+			if (Ic2Items == null)
+				Ic2Items = Class.forName("ic2.core.Ic2Items");
+
+			Object ret = Ic2Items.getField(name).get(null);
+
+			if (ret instanceof ItemStack) {
+				return (ItemStack) ret;
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			System.out.println("IC2 API: Call getItem failed for " + name);
+
+			return null;
+		}
 	}
 
 	public static ItemStack getGregtechItem(int aIndex, int aAmount, int aMeta) {
