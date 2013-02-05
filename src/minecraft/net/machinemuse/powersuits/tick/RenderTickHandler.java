@@ -2,6 +2,8 @@ package net.machinemuse.powersuits.tick;
 
 import java.util.EnumSet;
 
+import net.machinemuse.api.IPowerModule;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.MuseStringUtils;
@@ -50,20 +52,21 @@ public class RenderTickHandler implements ITickHandler {
 				if (stack != null && stack.getItem() instanceof IModularItem) {
 					MuseRenderer.blendingOn();
 					NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-					// if (itemTag.hasKey("Mode")) {
-					// String mode = itemTag.getString("Mode");
-					// IPowerModule module = ModuleManager.getModule(mode);
-					MuseIcon currentMode = MuseIcon.WEAPON_ELECTRIC;
-					MuseIcon nextMode = MuseIcon.WEAPON_FIRE;
-					MuseIcon prevMode = MuseIcon.WEAPON_GRAVITY;
+					if (itemTag.hasKey("Mode")) {
+						String mode = itemTag.getString("Mode");
+						IPowerModule module = ModuleManager.getModule(mode);
+						MuseIcon currentMode = MuseIcon.WEAPON_ELECTRIC;
+						MuseIcon nextMode = MuseIcon.WEAPON_FIRE;
+						MuseIcon prevMode = MuseIcon.WEAPON_GRAVITY;
 
-					MuseRenderer.drawIconPartial(screen.getScaledWidth_double() / 2.0 - 105.0 + 20.0 * i, screen.getScaledHeight_double() - 30,
-							prevMode, Colour.WHITE.withAlpha(0.4), 0, 0, 16, 8);
-					MuseRenderer.drawIconAt(screen.getScaledWidth_double() / 2.0 - 89.0 + 20.0 * i, screen.getScaledHeight_double() - 40,
-							currentMode, Colour.WHITE.withAlpha(0.7));
-					MuseRenderer.drawIconPartial(screen.getScaledWidth_double() / 2.0 - 73.0 + 20.0 * i, screen.getScaledHeight_double() - 30,
-							nextMode, Colour.WHITE.withAlpha(0.4), 0, 0, 16, 8);
-					// }
+						MuseRenderer.drawIconPartial(screen.getScaledWidth_double() / 2.0 - 105.0 + 20.0 * i, screen.getScaledHeight_double() - 30,
+								prevMode, Colour.WHITE.withAlpha(0.4), 0, 0, 16, 8);
+						MuseRenderer.drawIconAt(screen.getScaledWidth_double() / 2.0 - 89.0 + 20.0 * i, screen.getScaledHeight_double() - 40,
+								currentMode, Colour.WHITE.withAlpha(0.7));
+						MuseRenderer.drawIconPartial(screen.getScaledWidth_double() / 2.0 - 73.0 + 20.0 * i, screen.getScaledHeight_double() - 30,
+								nextMode, Colour.WHITE.withAlpha(0.4), 0, 0, 16, 8);
+						MuseRenderer.blendingOff();
+					}
 				}
 			}
 		}

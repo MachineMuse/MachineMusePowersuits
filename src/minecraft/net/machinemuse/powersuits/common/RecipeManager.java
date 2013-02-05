@@ -320,7 +320,6 @@ public class RecipeManager {
 			String copper = "ingotCopper";
 			ItemStack reBattery = ModCompatability.getIC2Item("reBattery").copy();
 			ItemStack fullBattery = ModCompatability.getIC2Item("chargedReBattery").copy();
-			ItemStack suBattery = ModCompatability.getIC2Item("suBattery").copy();
 			ItemStack energyCrystal = ModCompatability.getIC2Item("energyCrystal").copy();
 			ItemStack lapotronCrystal = ModCompatability.getIC2Item("lapotronCrystal").copy();
 			ItemStack iridiumOre = ModCompatability.getIC2Item("iridiumOre").copy();
@@ -422,10 +421,6 @@ public class RecipeManager {
 					"WBW",
 					'W', ItemComponent.wiring.copy(),
 					'B', fullBattery);
-			Ic2Recipes.addCraftingRecipe(ItemComponent.lvcapacitor,
-					"WBW",
-					'W', ItemComponent.wiring.copy(),
-					'B', suBattery);
 
 			Ic2Recipes.addCraftingRecipe(ItemComponent.mvcapacitor,
 					"WBW",
