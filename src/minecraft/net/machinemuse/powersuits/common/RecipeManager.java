@@ -312,20 +312,20 @@ public class RecipeManager {
 					'F', ItemComponent.fieldEmitter));
 		}
 		if (ModCompatability.IC2RecipesEnabled() && ModCompatability.isIndustrialCraftLoaded()) {
-			circuit = ModCompatability.getIC2Item("electronicCircuit").copy();
-			ItemStack advCircuit = ModCompatability.getIC2Item("advancedCircuit").copy();
-			goldNugget = ModCompatability.getIC2Item("goldCableItem").copy();
+			circuit = ModCompatability.getIC2Item("electronicCircuit");
+			ItemStack advCircuit = ModCompatability.getIC2Item("advancedCircuit");
+			goldNugget = ModCompatability.getIC2Item("goldCableItem");
 			String refIron = "ingotRefinedIron";
 			String tin = "ingotTin";
 			String copper = "ingotCopper";
-			ItemStack reBattery = ModCompatability.getIC2Item("reBattery").copy();
-			ItemStack fullBattery = ModCompatability.getIC2Item("chargedReBattery").copy();
-			ItemStack energyCrystal = ModCompatability.getIC2Item("energyCrystal").copy();
-			ItemStack lapotronCrystal = ModCompatability.getIC2Item("lapotronCrystal").copy();
-			ItemStack iridiumOre = ModCompatability.getIC2Item("iridiumOre").copy();
-			ItemStack carbonPlate = ModCompatability.getIC2Item("carbonPlate").copy();
-			ItemStack machine = ModCompatability.getIC2Item("machine").copy();
-			ItemStack advMachine = ModCompatability.getIC2Item("advancedMachine").copy();
+			ItemStack reBattery = ModCompatability.getIC2Item("reBattery");
+			ItemStack fullBattery = ModCompatability.getIC2Item("chargedReBattery");
+			ItemStack energyCrystal = ModCompatability.getIC2Item("energyCrystal");
+			ItemStack lapotronCrystal = ModCompatability.getIC2Item("lapotronCrystal");
+			ItemStack iridiumOre = ModCompatability.getIC2Item("iridiumOre");
+			ItemStack carbonPlate = ModCompatability.getIC2Item("carbonPlate");
+			ItemStack machine = ModCompatability.getIC2Item("machine");
+			ItemStack advMachine = ModCompatability.getIC2Item("advancedMachine");
 
 			try {
 				ItemStack refinedIron = OreDictionary.getOres("ingotRefinedIron").get(0);
@@ -484,9 +484,9 @@ public class RecipeManager {
 			String nitrogen = "molecule_1n";
 			ItemStack neutronReflector = ModCompatability.getGregtechItem(40, 1, 0);
 			String advancedHeatVent = "item.reactorVentDiamond";
-			ItemStack carbonPlate = ModCompatability.getIC2Item("carbonPlate").copy();
-			ItemStack uninsulatedCopper = ModCompatability.getIC2Item("copperCableItem").copy();
-			ItemStack luminator = ModCompatability.getIC2Item("luminator").copy();
+			ItemStack carbonPlate = ModCompatability.getIC2Item("carbonPlate");
+			ItemStack uninsulatedCopper = ModCompatability.getIC2Item("copperCableItem");
+			ItemStack luminator = ModCompatability.getIC2Item("luminator");
 
 			try {
 				ItemStack titanium = OreDictionary.getOres("ingotTitanium").get(0);

@@ -75,6 +75,7 @@ public class ModCompatability {
 
 	// These 2 elements are basically copied from IC2 api
 	private static Class Ic2Items;
+
 	public static ItemStack getIC2Item(String name) {
 		try {
 			if (Ic2Items == null)
@@ -83,7 +84,7 @@ public class ModCompatability {
 			Object ret = Ic2Items.getField(name).get(null);
 
 			if (ret instanceof ItemStack) {
-				return (ItemStack) ret;
+				return ((ItemStack) ret).copy();
 			} else {
 				return null;
 			}
@@ -99,8 +100,7 @@ public class ModCompatability {
 			return (ItemStack) Class.forName("gregtechmod.GT_Mod")
 					.getMethod("getGregTechItem", new Class[] { Integer.TYPE, Integer.TYPE, Integer.TYPE })
 					.invoke(null, new Object[] { Integer.valueOf(aIndex), Integer.valueOf(aAmount), Integer.valueOf(aMeta) });
-		} catch (Exception e) {
-		}
+		} catch (Exception e) {}
 		return null;
 	}
 
