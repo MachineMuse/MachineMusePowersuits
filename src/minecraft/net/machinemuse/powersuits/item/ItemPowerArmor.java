@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.machinemuse.api.ModularCommon;
-import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.gui.MuseIcon;
@@ -104,11 +104,10 @@ public abstract class ItemPowerArmor extends ItemArmor
 		// Maximum damage absorbed by this piece. Actual damage to this item
 		// will be clamped between (damage * absorbRatio) and (absorbMax). Note
 		// that a player has 20 hp (1hp = 1 half-heart)
-		int absorbMax = (int) armorDouble * 25; // Not sure why this is
+		int absorbMax = (int) armorDouble * 75; // Not sure why this is
 												// necessary but oh well
 
-		return new ArmorProperties(priority, absorbRatio,
-				absorbMax);
+		return new ArmorProperties(priority, absorbRatio, absorbMax);
 	}
 
 	public static double clampDouble(double value, double min, double max) {
