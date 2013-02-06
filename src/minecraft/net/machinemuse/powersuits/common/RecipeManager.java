@@ -460,11 +460,12 @@ public class RecipeManager {
 					'C', advCircuit));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true,
-					" EE",
+					" FE",
 					"MG ",
-					"CEE",
+					"CFE",
 					'I', iron,
 					'E', ItemComponent.solenoid,
+					'F', ItemComponent.fieldEmitter,
 					'G', glowstone,
 					'C', advCircuit.copy(),
 					'M', advMachine.copy()));
