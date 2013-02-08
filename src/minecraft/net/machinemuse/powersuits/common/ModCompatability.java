@@ -9,7 +9,6 @@ import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModule;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
@@ -144,13 +143,9 @@ public class ModCompatability {
 	public static ItemStack getThermexItem(String string, int quantity) {
 		try {
 			return thermalexpansion.api.core.ItemRegistry.getItem(string, quantity);
-		} catch (Exception e) {}
-		try {
-			Class thermexFactory = Class.forName("thermalexpansion.ThermalExpansionFactory");
-			Field field = thermexFactory.getField(string);
-			Block block = (Block) field.get(field);
-			return new ItemStack(block, quantity);
-		} catch (Exception e) {}
+		} catch (Exception e) {
+			thermalexpansion.api.core.ItemRegistry.printItemNames();
+		}
 		MuseLogger.logError("Failed to get Thermal Expansion item " + string);
 		return null;
 	}
