@@ -146,9 +146,8 @@ public class ModCompatability {
 			if (item != null) {
 				return item;
 			}
-		} catch (Exception e) {
-			thermalexpansion.api.core.ItemRegistry.printItemNames();
-		}
+		} catch (Exception e) {}
+		thermalexpansion.api.core.ItemRegistry.printItemNames();
 		MuseLogger.logError("Failed to get Thermal Expansion item " + string);
 		return null;
 	}
