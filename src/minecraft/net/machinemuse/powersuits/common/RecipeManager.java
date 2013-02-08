@@ -680,7 +680,6 @@ public class RecipeManager {
 			ItemStack gearTin = ModCompatability.getThermexItem("gearTin", 1);
 			ItemStack gearInvar = ModCompatability.getThermexItem("gearInvar", 1);
 			ItemStack compressedSawdust = ModCompatability.getThermexItem("sawdustCompressed", 1);
-			ItemStack rockWool = ModCompatability.getThermexItem("blockRockwool", 1);
 			ItemStack energyFrameFull = ModCompatability.getThermexItem("energyFrameFull", 1);
 			ItemStack conduitEnergy = ModCompatability.getThermexItem("energyConduit", 1);
 			ItemStack teleportFrameFull = ModCompatability.getThermexItem("teleportBase", 1);
@@ -842,13 +841,13 @@ public class RecipeManager {
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.fieldEmitter, true,
 					" W ",
 					"OUO",
-					" W",
+					" W ",
 					'W', ItemComponent.wiring,
 					'O', ItemComponent.solenoid,
 					'U', teleportFrameFull));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true,
-					" FI ",
+					" FI",
 					"IG ",
 					"WFI",
 					'I', "ingotInvar",
