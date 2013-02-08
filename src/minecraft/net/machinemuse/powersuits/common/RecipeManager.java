@@ -682,8 +682,8 @@ public class RecipeManager {
 			ItemStack hardenedGlass = ModCompatability.getThermexItem("blockGlass", 1);
 			ItemStack rockWool = ModCompatability.getThermexItem("blockRockwool", 1);
 			ItemStack energyFrameFull = ModCompatability.getThermexItem("energyFrameFull", 1);
-			ItemStack conduitEnergy = ModCompatability.getThermexItem("conduitEnergy", 1);
-			ItemStack teleportFrameFull = ModCompatability.getThermexItem("teleportFrameFull", 1);
+			ItemStack conduitEnergy = ModCompatability.getThermexItem("energyConduit", 1);
+			ItemStack teleportFrameFull = ModCompatability.getThermexItem("teleportBase", 1);
 			// ItemStack hardenedGlass =
 			// ModCompatability.getThermexItem("blockGlass", 1);
 			// ItemStack hardenedGlass =
