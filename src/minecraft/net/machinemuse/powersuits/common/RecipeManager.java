@@ -671,7 +671,189 @@ public class RecipeManager {
 					'F', ItemComponent.fieldEmitter));
 		}
 		if (ModCompatability.ThermalExpansionRecipesEnabled() && ModCompatability.isThermalExpansionLoaded()) {
+			ItemStack pneumaticServo = ModCompatability.getThermexItem("pneumaticServo", 1);
+			ItemStack machineFrame = ModCompatability.getThermexItem("machineFrame", 1);
+			ItemStack powerCoilGold = ModCompatability.getThermexItem("powerCoilGold", 1);
+			ItemStack powerCoilSilver = ModCompatability.getThermexItem("powerCoilSilver", 1);
+			ItemStack powerCoilElectrum = ModCompatability.getThermexItem("powerCoilElectrum", 1);
+			ItemStack gearCopper = ModCompatability.getThermexItem("gearCopper", 1);
+			ItemStack gearTin = ModCompatability.getThermexItem("gearTin", 1);
+			ItemStack gearInvar = ModCompatability.getThermexItem("gearInvar", 1);
+			ItemStack hardenedGlass = ModCompatability.getThermexItem("blockGlass", 1);
+			ItemStack rockWool = ModCompatability.getThermexItem("blockRockwool", 1);
+			ItemStack energyFrameFull = ModCompatability.getThermexItem("energyFrameFull", 1);
+			ItemStack conduitEnergy = ModCompatability.getThermexItem("conduitEnergy", 1);
+			ItemStack teleportFrameFull = ModCompatability.getThermexItem("teleportFrameFull", 1);
+			// ItemStack hardenedGlass =
+			// ModCompatability.getThermexItem("blockGlass", 1);
+			// ItemStack hardenedGlass =
+			// ModCompatability.getThermexItem("blockGlass", 1);
+			// Unmake the armor platings
+			// try {
+			// ItemStack titanium =
+			// OreDictionary.getOres("ingotTitanium").get(0);
+			// GameRegistry.addRecipe(new
+			// ShapedOreRecipe(copyAndResize(titanium, 5), true,
+			// "P", 'P', ItemComponent.basicPlating));
+			// } catch (Exception e) {
+			// MuseLogger.logError("Unable to load Titanium");
+			// }
+			// try {
+			// ItemStack iridium = OreDictionary.getOres("plateIridium").get(0);
+			// GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(iridium,
+			// 5), true,
+			// "P", 'P', ItemComponent.advancedPlating));
+			// } catch (Exception e) {
+			// MuseLogger.logError("Unable to load Iridium Plate");
+			// }
 
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.controlCircuit, true,
+					"EGW",
+					"RWG",
+					"WRE",
+					'E', "ingotElectrum",
+					'W', ItemComponent.wiring,
+					'G', glowstone,
+					'R', redstone));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.laserHologram, true,
+					"RGB",
+					" H ",
+					" L ",
+					'L', powerCoilGold,
+					'H', hardenedGlass,
+					'R', rosered,
+					'G', cactusgreen,
+					'B', lapis));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.basicPlating, true,
+					"II",
+					"CI",
+					"II",
+					'C', gearTin,
+					'I', iron));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true,
+					"II",
+					"CI",
+					"II",
+					'C', gearInvar,
+					'I', diamond));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.tinkerTable), true,
+					" E ",
+					"IMI",
+					" R ",
+					'R', powerCoilSilver,
+					'M', machineFrame,
+					'E', emerald,
+					'I', "ingotElectrum"));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorHead), true,
+					"III",
+					"W W",
+					'I', iron,
+					'W', ItemComponent.wiring));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorTorso), true,
+					"I I",
+					"WIW",
+					"III",
+					'I', iron,
+					'W', ItemComponent.wiring));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorLegs), true,
+					"III",
+					"W W",
+					"I I",
+					'I', iron,
+					'W', ItemComponent.wiring));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorFeet), true,
+					"W W",
+					"I I",
+					'I', iron,
+					'W', ItemComponent.wiring));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerTool), true,
+					" I ",
+					"IEI",
+					" W ",
+					'W', ItemComponent.wiring,
+					'E', "ingotElectrum",
+					'I', iron));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(ItemComponent.wiring, 8), true,
+					"CCC",
+					"SSS",
+					"CCC",
+					'C', "ingotCopper",
+					'S', "ingotSilver"));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.parachute, true,
+					"WWW",
+					"S S",
+					" O ",
+					'W', wool,
+					'S', string,
+					'O', pneumaticServo));
+
+			Ic2Recipes.addCraftingRecipe(ItemComponent.lvcapacitor,
+					"CPT",
+					"W W",
+					'W', ItemComponent.wiring,
+					'C', "ingotSilver",
+					'T', "ingotGold",
+					'P', paper);
+
+			Ic2Recipes.addCraftingRecipe(ItemComponent.mvcapacitor,
+					"WRW",
+					'W', ItemComponent.wiring,
+					'R', conduitEnergy);
+
+			Ic2Recipes.addCraftingRecipe(ItemComponent.hvcapacitor,
+					"WRW",
+					'W', ItemComponent.wiring,
+					'R', energyFrameFull);
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solenoid, true,
+					"WSW",
+					"WSW",
+					"WSW",
+					'W', ItemComponent.wiring,
+					'S', iron));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.gliderWing, true,
+					" GG",
+					"GGI",
+					"G  ",
+					'G', hardenedGlass,
+					'I', ItemComponent.solenoid));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.servoMotor, true,
+					" O ",
+					"WSW",
+					" O ",
+					'O', ItemComponent.solenoid,
+					'S', pneumaticServo,
+					'W', ItemComponent.wiring));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.fieldEmitter, true,
+					" W ",
+					"OUO",
+					" W",
+					'W', ItemComponent.wiring,
+					'O', ItemComponent.solenoid,
+					'U', teleportFrameFull));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true,
+					" FI ",
+					"IG ",
+					"WFI",
+					'I', "ingotInvar",
+					'G', glowstone,
+					'W', ItemComponent.wiring,
+					'F', ItemComponent.fieldEmitter));
 		}
 	}
 }

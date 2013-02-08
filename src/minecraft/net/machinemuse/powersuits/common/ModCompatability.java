@@ -33,7 +33,7 @@ public class ModCompatability {
 	}
 
 	public static boolean isThermalExpansionLoaded() {
-		return Loader.isModLoaded("Thermal Expansion");
+		return Loader.isModLoaded("ThermalExpansion");
 	}
 
 	public static boolean enableThaumGogglesModule() {
@@ -138,5 +138,14 @@ public class ModCompatability {
 			}
 
 		}
+	}
+
+	public static ItemStack getThermexItem(String string, int quantity) {
+		try {
+			return thermalexpansion.api.core.ItemRegistry.getItem(string, quantity);
+		} catch (Exception e) {
+			MuseLogger.logError("Failed to get Thermal Expansion item " + string);
+		}
+		return null;
 	}
 }
