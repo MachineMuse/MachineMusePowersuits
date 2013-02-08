@@ -679,7 +679,7 @@ public class RecipeManager {
 			ItemStack gearCopper = ModCompatability.getThermexItem("gearCopper", 1);
 			ItemStack gearTin = ModCompatability.getThermexItem("gearTin", 1);
 			ItemStack gearInvar = ModCompatability.getThermexItem("gearInvar", 1);
-			ItemStack hardenedGlass = ModCompatability.getThermexItem("blockGlass", 1);
+			ItemStack compressedSawdust = ModCompatability.getThermexItem("sawdustCompressed", 1);
 			ItemStack rockWool = ModCompatability.getThermexItem("blockRockwool", 1);
 			ItemStack energyFrameFull = ModCompatability.getThermexItem("energyFrameFull", 1);
 			ItemStack conduitEnergy = ModCompatability.getThermexItem("energyConduit", 1);
@@ -719,9 +719,10 @@ public class RecipeManager {
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.laserHologram, true,
 					"RGB",
 					" H ",
-					" L ",
+					"WLW",
+					'W', ItemComponent.wiring,
 					'L', powerCoilGold,
-					'H', hardenedGlass,
+					'H', glass,
 					'R', rosered,
 					'G', cactusgreen,
 					'B', lapis));
@@ -827,7 +828,7 @@ public class RecipeManager {
 					" GG",
 					"GGI",
 					"G  ",
-					'G', hardenedGlass,
+					'G', compressedSawdust,
 					'I', ItemComponent.solenoid));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.servoMotor, true,
