@@ -10,7 +10,8 @@
 	<property name="forge.version" value="1.4.7-6.6.0.497" />
 	<property name="ic2api.version" value="1.112.198-lf" />
 	<property name="ueapi.version" value="1.2.4.334" />
-    <property name="icbmapi.version" value="1.0.4.135" />
+	<property name="icbmapi.version" value="1.0.4.135" />
+	<property name="thermexapi.version" value="2.2.0" />
 
 
 	<!-- Directories -->
@@ -71,6 +72,9 @@
 
 		<echo message="Downloading ICBM API..." />
 		<get src="https://dl.dropbox.com/s/504m5qsei34v58a/ICBM_v${icbmapi.version}_api.zip" dest="${download.dir}/ICBM_v${icbmapi.version}_api.zip" />
+
+		<echo message="Downloading ThermEx API..." />
+		<get src="https://machinemuse.net/ThermalExpansion-API-${thermexapi.version}.zip" dest="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" />
 	</target>
 
 	<!-- Dependencies -->
@@ -107,9 +111,15 @@
 		<mkdir dir="${mcpsrc.dir}/icbm" />
 		<mkdir dir="${mcpsrc.dir}/icbm/api" />
 		<move file="${download.dir}/ue/minecraft/icbm/api/IExplosive.java" todir="${mcpsrc.dir}/icbm/api/IExplosive.java" />
-        <move file="${download.dir}/ue/minecraft/icbm/api/IEMPItem.java" todir="${mcpsrc.dir}/icbm/api/IEMPItem.java" />
-		
-		<delete dir="${download.dir}/ue" />
+		<move file="${download.dir}/ue/minecraft/icbm/api/IEMPItem.java" todir="${mcpsrc.dir}/icbm/api/IEMPItem.java" />
+
+		<echo message="Extracting ThermalExpansion API... " />
+		<unzip src="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" dest="${download.dir}" />
+		<mkdir dir="${mcpsrc.dir}/thermalexpansion" />
+		<mkdir dir="${mcpsrc.dir}/thermalexpansion/api" />
+		<mkdir dir="${mcpsrc.dir}/thermalexpansion/api/core" />
+		<move file="${download.dir}/thermalexpansion/api/core/ItemRegistry.java" todir="${mcpsrc.dir}/thermalexpansion/api/core/ItemRegistry.java" />
+		<delete dir="${download.dir}/thermalexpansion" />
 	</target>
 
 	<target name="install" depends="build">
@@ -151,7 +161,7 @@
 			<fileset dir="${mcp.dir}/reobf/minecraft" />
 		</copy>
 		<mkdir dir="${classes.dir}/resources" />
-        <mkdir dir="${classes.dir}/resources/machinemuse" />
+		<mkdir dir="${classes.dir}/resources/machinemuse" />
 		<copy todir="${classes.dir}/resources/machinemuse">
 			<fileset dir="${resources.dir}" />
 		</copy>
