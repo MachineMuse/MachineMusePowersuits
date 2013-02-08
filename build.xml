@@ -75,7 +75,7 @@
 		<get src="https://dl.dropbox.com/s/504m5qsei34v58a/ICBM_v${icbmapi.version}_api.zip" dest="${download.dir}/ICBM_v${icbmapi.version}_api.zip" />
 
 		<echo message="Downloading ThermEx API..." />
-		<get src="https://machinemuse.net/ThermalExpansion-API-${thermexapi.version}.zip" dest="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" />
+		<get src="http://machinemuse.net/ThermalExpansion-API-${thermexapi.version}.zip" dest="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" />
 	</target>
 
 	<!-- Dependencies -->
