@@ -670,5 +670,8 @@ public class RecipeManager {
 					'C', ItemComponent.hvcapacitor,
 					'F', ItemComponent.fieldEmitter));
 		}
+		if (ModCompatability.ThermalExpansionRecipesEnabled() && ModCompatability.isThermalExpansionLoaded()) {
+
+		}
 	}
 }

@@ -32,6 +32,10 @@ public class ModCompatability {
 		return Loader.isModLoaded("Thaumcraft");
 	}
 
+	public static boolean isThermalExpansionLoaded() {
+		return Loader.isModLoaded("Thermal Expansion");
+	}
+
 	public static boolean enableThaumGogglesModule() {
 		boolean defaultval = isThaumCraftLoaded();
 		return Config.getConfig().get("Special Modules", "Thaumcraft Goggles Module", defaultval).getBoolean(defaultval);
@@ -55,6 +59,11 @@ public class ModCompatability {
 	public static boolean GregTechRecipesEnabled() {
 		boolean defaultval = isGregTechLoaded();
 		return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Gregtech Recipes", defaultval).getBoolean(defaultval);
+	}
+
+	public static boolean ThermalExpansionRecipesEnabled() {
+		boolean defaultval = isThermalExpansionLoaded();
+		return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Thermal Expansion Recipes", defaultval).getBoolean(defaultval);
 	}
 
 	public static int joulesToEU(double joules) {
