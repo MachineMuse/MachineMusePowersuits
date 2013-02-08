@@ -142,7 +142,10 @@ public class ModCompatability {
 
 	public static ItemStack getThermexItem(String string, int quantity) {
 		try {
-			return thermalexpansion.api.core.ItemRegistry.getItem(string, quantity);
+			ItemStack item = thermalexpansion.api.core.ItemRegistry.getItem(string, quantity);
+			if (item != null) {
+				return item;
+			}
 		} catch (Exception e) {
 			thermalexpansion.api.core.ItemRegistry.printItemNames();
 		}
