@@ -60,6 +60,7 @@
 			<available file="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" />
 			<available file="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" />
 			<available file="${download.dir}/ICBM_v${icbmapi.version}_api.zip" />
+            <available file="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" />
 		</and>
 	</condition>
 
