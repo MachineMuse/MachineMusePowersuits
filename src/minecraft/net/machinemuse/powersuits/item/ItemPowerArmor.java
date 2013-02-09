@@ -59,6 +59,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 	public String getArmorTextureFile(ItemStack itemstack) {
 		if (itemstack != null) {
 			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(itemstack);
+			// MinecraftForgeClient.getRenderPass()? nope
 			if (itemTag.hasKey("didColour")) {
 
 				itemTag.removeTag("didColour");
