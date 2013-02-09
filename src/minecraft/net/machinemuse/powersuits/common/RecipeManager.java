@@ -798,23 +798,23 @@ public class RecipeManager {
 					'S', string,
 					'O', pneumaticServo));
 
-			Ic2Recipes.addCraftingRecipe(ItemComponent.lvcapacitor,
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.lvcapacitor,
 					"CPT",
 					"W W",
 					'W', ItemComponent.wiring,
 					'C', "ingotSilver",
 					'T', "ingotGold",
-					'P', paper);
+					'P', paper));
 
-			Ic2Recipes.addCraftingRecipe(ItemComponent.mvcapacitor,
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.mvcapacitor,
 					"WRW",
 					'W', ItemComponent.wiring,
-					'R', conduitEnergy);
+					'R', conduitEnergy));
 
-			Ic2Recipes.addCraftingRecipe(ItemComponent.hvcapacitor,
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.hvcapacitor,
 					"WRW",
 					'W', ItemComponent.wiring,
-					'R', energyFrameFull);
+					'R', energyFrameFull));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solenoid, true,
 					"WSW",
