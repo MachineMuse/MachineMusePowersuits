@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.tick;
 import java.util.EnumSet;
 import java.util.List;
 
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemUtils;
@@ -10,7 +11,6 @@ import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.gui.MuseIcon;
-import net.machinemuse.powersuits.item.IModularItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.ScaledResolution;

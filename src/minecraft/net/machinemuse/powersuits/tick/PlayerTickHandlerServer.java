@@ -6,10 +6,10 @@ package net.machinemuse.powersuits.tick;
 import java.util.Collection;
 import java.util.EnumSet;
 
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModularCommon;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.powersuits.common.MuseLogger;
-import net.machinemuse.powersuits.item.IModularItem;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

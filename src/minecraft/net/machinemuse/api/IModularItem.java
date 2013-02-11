@@ -1,15 +1,10 @@
-package net.machinemuse.powersuits.item;
-
-import ic2.api.ICustomElectricItem;
-import icbm.api.IEMPItem;
+package net.machinemuse.api;
 
 import java.util.List;
 
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import thermalexpansion.api.core.IChargeableItem;
-import universalelectricity.core.implement.IItemElectric;
 
 /**
  * Interface for ItemPowerArmor and ItemPowerTool to share.
@@ -17,10 +12,6 @@ import universalelectricity.core.implement.IItemElectric;
  * @author MachineMuse
  */
 public interface IModularItem
-		extends
-		IItemElectric, // Universal Electricity
-		ICustomElectricItem, // Industrial Craft 2
-		IEMPItem // for ICBM EMP interfacing
 {
 
 	/**

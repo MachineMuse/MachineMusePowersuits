@@ -3,10 +3,10 @@ package net.machinemuse.powersuits.tick;
 import java.util.EnumSet;
 import java.util.List;
 
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.client.KeybindManager;
-import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.machinemuse.powersuits.network.packets.MusePacketModeChangeRequest;
 import net.minecraft.client.Minecraft;

@@ -1,10 +1,13 @@
 package net.machinemuse.powersuits.item;
 
+import ic2.api.ICustomElectricItem;
+import icbm.api.IEMPItem;
 import icbm.api.IExplosive;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModularCommon;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemUtils;
@@ -28,6 +31,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import universalelectricity.core.electricity.ElectricInfo;
+import universalelectricity.core.implement.IItemElectric;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
@@ -42,7 +46,11 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public class ItemPowerTool extends ItemTool
 		implements
-		IModularItem {
+		IModularItem,
+		IItemElectric, // Universal Electricity
+		ICustomElectricItem, // Industrial Craft 2
+		IEMPItem // for ICBM EMP interfacing
+{
 	public static final ItemStack ironPickaxe = new ItemStack(Item.pickaxeSteel);
 	public static final ItemStack ironAxe = new ItemStack(Item.axeSteel);
 	public static final ItemStack ironShovel = new ItemStack(Item.shovelSteel);

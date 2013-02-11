@@ -9,14 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
+import universalelectricity.core.implement.IItemElectric;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
@@ -81,15 +82,18 @@ public class MusePacketInstallModuleRequest extends MusePacket {
 				MuseItemUtils.itemAddModule(stack, moduleType);
 
 				for (ItemStack itemCost : cost) {
-					double joules = MuseItemUtils.getAsModular(stack.getItem()).getJoules(stack);
+					if (stack.getItem() instanceof IItemElectric) {
+						IItemElectric elecItem = (IItemElectric) stack.getItem();
+						double joules = elecItem.getJoules(stack);
 					if (MuseItemUtils.isSameItem(itemCost, ItemComponent.lvcapacitor)) {
-						MuseItemUtils.getAsModular(stack.getItem()).setJoules(joules + 20000, stack);
+							elecItem.setJoules(joules + 20000, stack);
 					}
 					if (MuseItemUtils.isSameItem(itemCost, ItemComponent.mvcapacitor)) {
-						MuseItemUtils.getAsModular(stack.getItem()).setJoules(joules + 100000, stack);
+							elecItem.setJoules(joules + 100000, stack);
 					}
 					if (MuseItemUtils.isSameItem(itemCost, ItemComponent.hvcapacitor)) {
-						MuseItemUtils.getAsModular(stack.getItem()).setJoules(joules + 750000, stack);
+							elecItem.setJoules(joules + 750000, stack);
+					}
 					}
 				}
 				List<Integer> slotsToUpdate = new ArrayList();

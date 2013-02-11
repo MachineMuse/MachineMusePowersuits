@@ -1,10 +1,13 @@
 package net.machinemuse.powersuits.item;
 
+import ic2.api.ICustomElectricItem;
+import icbm.api.IEMPItem;
 import icbm.api.IExplosive;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModularCommon;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemUtils;
@@ -25,6 +28,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.IArmorTextureProvider;
 import net.minecraftforge.common.ISpecialArmor;
 import universalelectricity.core.electricity.ElectricInfo;
+import universalelectricity.core.implement.IItemElectric;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -37,7 +41,11 @@ public abstract class ItemPowerArmor extends ItemArmor
 		implements
 		ISpecialArmor, //
 		IModularItem,
-		IArmorTextureProvider {
+		IArmorTextureProvider,
+		IItemElectric, // Universal Electricity
+		ICustomElectricItem, // Industrial Craft 2
+		IEMPItem // for ICBM EMP interfacing
+{
 	Config.Items itemType;
 
 	/**

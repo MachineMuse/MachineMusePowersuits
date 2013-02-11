@@ -3,7 +3,6 @@ package net.machinemuse.api;
 import java.util.*;
 
 import net.machinemuse.general.MuseMathUtils;
-import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -11,6 +10,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import universalelectricity.core.implement.IItemElectric;
 
 public class MuseItemUtils {
 	public static final String NBTPREFIX = "mmmpsmod";
@@ -329,10 +329,21 @@ public class MuseItemUtils {
 
 	public static double getPlayerEnergy(EntityPlayer player) {
 		double avail = 0;
-		for (ItemStack stack : modularItemsEquipped(player)) {
-			avail += ((IModularItem) stack.getItem()).getJoules(stack);
+		for (ItemStack stack : electricItemsEquipped(player)) {
+			avail += ((IItemElectric) stack.getItem()).getJoules(stack);
 		}
 		return avail;
+	}
+
+	private static List<ItemStack> electricItemsEquipped(EntityPlayer player) {
+		List<ItemStack> electrics = new ArrayList(5);
+		ItemStack[] equipped = itemsEquipped(player);
+		for (ItemStack stack : equipped) {
+			if (stack != null && stack.getItem() instanceof IItemElectric) {
+				electrics.add(stack);
+			}
+		}
+		return electrics;
 	}
 
 	public static List<ItemStack> modularItemsEquipped(EntityPlayer player) {
@@ -357,9 +368,9 @@ public class MuseItemUtils {
 	}
 
 	public static void drainPlayerEnergy(EntityPlayer player, double drainAmount) {
-		for (ItemStack stack : modularItemsEquipped(player)) {
+		for (ItemStack stack : electricItemsEquipped(player)) {
 			if (stack != null) {
-				IModularItem item = getAsModular(stack.getItem());
+				IItemElectric item = (IItemElectric) (stack.getItem());
 				double joules = item.getJoules(stack);
 				if (joules > drainAmount) {
 					item.onUse(drainAmount, stack);
@@ -374,8 +385,8 @@ public class MuseItemUtils {
 
 	public static double getMaxEnergy(EntityPlayer player) {
 		double max = 0;
-		for (ItemStack stack : modularItemsEquipped(player)) {
-			max += ((IModularItem) stack.getItem()).getMaxJoules(stack);
+		for (ItemStack stack : electricItemsEquipped(player)) {
+			max += ((IItemElectric) stack.getItem()).getMaxJoules(stack);
 		}
 		return max;
 	}
@@ -487,9 +498,9 @@ public class MuseItemUtils {
 	}
 
 	public static void givePlayerEnergy(EntityPlayer player, double joulesToGive) {
-		for (ItemStack stack : modularItemsEquipped(player)) {
+		for (ItemStack stack : electricItemsEquipped(player)) {
 			if (stack != null) {
-				IModularItem item = getAsModular(stack.getItem());
+				IItemElectric item = (IItemElectric) (stack.getItem());
 				double missingjoules = item.getMaxJoules(stack) - item.getJoules(stack);
 				if (missingjoules > joulesToGive) {
 					item.onUse(-joulesToGive, stack);

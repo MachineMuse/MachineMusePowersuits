@@ -7,12 +7,12 @@ import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
 
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModularCommon;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.event.MovementManager;
-import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
 import net.minecraft.client.entity.EntityClientPlayerMP;

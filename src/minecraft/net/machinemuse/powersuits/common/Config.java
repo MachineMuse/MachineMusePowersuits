@@ -3,12 +3,12 @@ package net.machinemuse.powersuits.common;
 import java.util.Arrays;
 import java.util.List;
 
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModularCommon;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.gui.MuseIcon;
-import net.machinemuse.powersuits.item.IModularItem;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.block.Block;
