@@ -4,51 +4,63 @@
 package net.machinemuse.powersuits.network.packets;
 
 import java.io.DataInputStream;
+import java.util.List;
 
+import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import cpw.mods.fml.common.network.Player;
 
 /**
  * @author Claire
- *
+ * 
  */
 public class MusePacketModeChangeRequest extends MusePacket {
+	protected String mode;
+	protected int slot;
 
 	/**
-	 * @param player
 	 */
-	public MusePacketModeChangeRequest(Player player) {
+	public MusePacketModeChangeRequest(Player player, String mode, int slot) {
 		super(player);
-		// TODO Auto-generated constructor stub
+		writeInt(slot);
+		writeString(mode);
 	}
 
 	/**
 	 * @param player
 	 * @param data
 	 */
-	public MusePacketModeChangeRequest(Player player, DataInputStream data) {
+	public MusePacketModeChangeRequest(DataInputStream data, Player player) {
 		super(data, player);
-		// TODO Auto-generated constructor stub
+		slot = readInt();
+		mode = readString(64);
 	}
 
-	/* (non-Javadoc)
-	 * @see net.machinemuse.powersuits.network.MusePacket#handleClient(net.minecraft.client.entity.EntityClientPlayerMP)
-	 */
 	@Override
 	public void handleClient(EntityClientPlayerMP player) {
-		// TODO Auto-generated method stub
 
 	}
 
-	/* (non-Javadoc)
-	 * @see net.machinemuse.powersuits.network.MusePacket#handleServer(net.minecraft.entity.player.EntityPlayerMP)
-	 */
 	@Override
 	public void handleServer(EntityPlayerMP player) {
-		// TODO Auto-generated method stub
+		ItemStack stack = null;
+		if (slot > -1 && slot < 9) {
+			stack = player.inventory.mainInventory[slot];
+		}
 
+		if (stack == null) {
+			return;
+		}
+		List<String> modes = MuseItemUtils.getModes(stack, player);
+		if (modes.contains(mode)) {
+			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+			itemTag.setString("Mode", mode);
+		}
 	}
 
 }

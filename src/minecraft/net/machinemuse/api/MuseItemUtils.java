@@ -1,10 +1,6 @@
 package net.machinemuse.api;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import net.machinemuse.general.MuseMathUtils;
 import net.machinemuse.powersuits.item.IModularItem;
@@ -39,7 +35,30 @@ public class MuseItemUtils {
 		}
 	}
 
-	public static boolean isModuleActive(NBTTagCompound itemTag, String moduleName) {
+	public static List<String> getValidModes(ItemStack stack, EntityPlayer player) {
+		List<String> modes = new ArrayList();
+		if (stack.getItem() instanceof IModularItem) {
+			for (IPowerModule module : ModuleManager.getAllModules()) {
+				if (module.isValidForItem(stack, player) && module.isActive()) {
+					modes.add(module.getName());
+				}
+			}
+		}
+		return modes;
+	}
+
+	public static List<String> getModes(ItemStack stack, EntityPlayer player) {
+		List<String> modes = new ArrayList();
+		if (stack.getItem() instanceof IModularItem) {
+			for (IPowerModule module : ModuleManager.getAllModules()) {
+				if (module.isValidForItem(stack, player) && module.isActive() && itemHasModule(stack, module.getName())) {
+					modes.add(module.getName());
+				}
+			}
+		}
+		return modes;
+	}
+	public static boolean isModuleOnline(NBTTagCompound itemTag, String moduleName) {
 		if (MuseItemUtils.tagHasModule(itemTag, moduleName) && !itemTag.getCompoundTag(moduleName).hasKey(ONLINE)) {
 			return true;
 		} else if (MuseItemUtils.tagHasModule(itemTag, moduleName) && itemTag.getCompoundTag(moduleName).getBoolean(ONLINE)) {
@@ -505,7 +524,18 @@ public class MuseItemUtils {
 	}
 
 	public static boolean itemHasActiveModule(ItemStack itemStack, String moduleName) {
-		return isModuleActive(getMuseItemTag(itemStack), moduleName);
+		if (ModuleManager.getModule(moduleName).isActive()) {
+			// MuseLogger.logDebug("Module: " + moduleName + " vs Mode: " +
+			// MuseItemUtils.getActiveMode(itemStack));
+
+			return moduleName.equals(MuseItemUtils.getActiveMode(itemStack));
+		} else {
+			return isModuleOnline(getMuseItemTag(itemStack), moduleName);
+		}
+	}
+
+	public static String getActiveMode(ItemStack itemStack) {
+		return getMuseItemTag(itemStack).getString("Mode");
 	}
 
 }

@@ -209,7 +209,7 @@ public class RecipeManager {
 					"CI",
 					"II",
 					'C', ItemComponent.wiring,
-					'I', "plateSteel"));
+					'I', "ingotSteel"));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true,
 					"II",
@@ -490,18 +490,18 @@ public class RecipeManager {
 			ItemStack luminator = ModCompatability.getIC2Item("luminator");
 
 			try {
-				ItemStack titanium = OreDictionary.getOres("ingotTitanium").get(0);
+				ItemStack titanium = OreDictionary.getOres("ingotSteel").get(0);
 				GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(titanium, 5), true,
 						"P", 'P', ItemComponent.basicPlating));
 			} catch (Exception e) {
-				MuseLogger.logError("Unable to load Titanium");
+				MuseLogger.logError("Unable to load ingotSteel");
 			}
 			try {
-				ItemStack iridium = OreDictionary.getOres("plateIridium").get(0);
+				ItemStack iridium = OreDictionary.getOres("ingotTitanium").get(0);
 				GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(iridium, 5), true,
 						"P", 'P', ItemComponent.advancedPlating));
 			} catch (Exception e) {
-				MuseLogger.logError("Unable to load Iridium Plate");
+				MuseLogger.logError("Unable to load ingotTitanium");
 			}
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.controlCircuit, true,
@@ -528,14 +528,14 @@ public class RecipeManager {
 					"CI",
 					"II",
 					'C', "circuitTier02",
-					'I', "ingotTitanium"));
+					'I', "ingotSteel"));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true,
 					"II",
 					"CI",
 					"II",
 					'C', "circuitTier04",
-					'I', "plateIridium"));
+					'I', "ingotTitanium"));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.tinkerTable), true,
 					"CVC",

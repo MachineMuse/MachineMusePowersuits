@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.common;
 import java.util.logging.Logger;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.Side;
 
 /**
@@ -12,15 +13,14 @@ import cpw.mods.fml.relauncher.Side;
  * 
  */
 public abstract class MuseLogger {
-	protected final static String DEBUGPREFIX = "MMMPS - DEBUG - ";
-
-	protected final static String ERRORPREFIX = "MMMPS - ERROR - ";
+	public static final Logger logger = Logger.getLogger("MMMPS");
+	static {
+		logger.setParent(FMLLog.getLogger());
+	}
 
 	public static void logDebug(String string) {
-		if (Config.isDebugging()) {
 			Side side1 = FMLCommonHandler.instance().getEffectiveSide();
-			Logger.getLogger("STDOUT").info(DEBUGPREFIX + side1 + ": " + string);
-		}
+			logger.info(side1 + ": " + string);
 	}
 
 	/**
@@ -28,7 +28,7 @@ public abstract class MuseLogger {
 	 */
 	public static void logError(String string) {
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
-		Logger.getLogger("STDERR").info(ERRORPREFIX + side + ": " + string);
+		logger.warning(side + ": " + string);
 
 	}
 }

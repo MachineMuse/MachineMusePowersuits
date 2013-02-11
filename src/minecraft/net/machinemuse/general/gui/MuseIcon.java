@@ -12,6 +12,8 @@ public class MuseIcon {
 	public static final String SEBK_ICON_PATH = Config.SEBK_ICON_PATH;
 	public static final String WC_ICON_PATH = Config.WC_ICON_PATH;
 	public static final String MUSE_ICON_PATH = Config.MUSE_ICON_PATH;
+
+	// Placeholder icons
 	public static final MuseIcon ORB_1_GREEN = new MuseIcon(SEBK_ICON_PATH, 0);
 	public static final MuseIcon ORB_1_RED = new MuseIcon(SEBK_ICON_PATH, 1);
 	public static final MuseIcon ORB_1_BLUE = new MuseIcon(SEBK_ICON_PATH, 2);

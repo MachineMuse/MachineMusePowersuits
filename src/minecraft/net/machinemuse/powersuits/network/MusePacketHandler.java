@@ -11,14 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MuseLogger;
-import net.machinemuse.powersuits.network.packets.MusePacketFallDistance;
-import net.machinemuse.powersuits.network.packets.MusePacketInstallModuleRequest;
-import net.machinemuse.powersuits.network.packets.MusePacketInventoryRefresh;
-import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
-import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
-import net.machinemuse.powersuits.network.packets.MusePacketSalvageModuleRequest;
-import net.machinemuse.powersuits.network.packets.MusePacketToggleRequest;
-import net.machinemuse.powersuits.network.packets.MusePacketTweakRequest;
+import net.machinemuse.powersuits.network.packets.*;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -48,6 +41,7 @@ public class MusePacketHandler implements IPacketHandler {
 		addPacketType(6, MusePacketPlayerUpdate.class);
 		addPacketType(7, MusePacketToggleRequest.class);
 		addPacketType(8, MusePacketPlasmaBolt.class);
+		addPacketType(9, MusePacketModeChangeRequest.class);
 
 		NetworkRegistry.instance().registerChannel(this,
 				Config.getNetworkChannelName());

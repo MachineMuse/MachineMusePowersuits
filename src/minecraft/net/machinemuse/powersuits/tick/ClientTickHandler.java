@@ -1,14 +1,24 @@
 package net.machinemuse.powersuits.tick;
 
 import java.util.EnumSet;
+import java.util.List;
 
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.client.KeybindManager;
 import net.machinemuse.powersuits.item.IModularItem;
+import net.machinemuse.powersuits.network.MusePacket;
+import net.machinemuse.powersuits.network.packets.MusePacketModeChangeRequest;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+
+import org.lwjgl.input.Mouse;
+
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
+import cpw.mods.fml.common.network.Player;
 
 /**
  * This handler is called before/after the game processes input events and
@@ -18,6 +28,7 @@ import cpw.mods.fml.common.TickType;
  */
 public class ClientTickHandler implements ITickHandler {
 	protected int slotSelected = -1;
+	protected int dWheel;
 
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
@@ -25,13 +36,13 @@ public class ClientTickHandler implements ITickHandler {
 			kb.doToggleTick();
 		}
 		try {
-			// int dWheel = Mouse.getDWheel() / 120;
 			EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
 			// if (dWheel != 0) {
 			// MuseLogger.logDebug("dWheel: " + dWheel);
 			// }
 			if (player.getCurrentEquippedItem().getItem() instanceof IModularItem && player.isSneaking()) {
 				slotSelected = player.inventory.currentItem;
+				dWheel = Mouse.getDWheel() / 120;
 			} else {
 				slotSelected = -1;
 			}
@@ -43,14 +54,30 @@ public class ClientTickHandler implements ITickHandler {
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		try {
+
+			EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
 			if (slotSelected > -1) {
-				EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
 				player.inventory.currentItem = slotSelected;
 				slotSelected = -1;
 			}
+			ItemStack stack = player.inventory.getCurrentItem();
+			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+			String mode = itemTag.getString("Mode");
+			List<String> modes = MuseItemUtils.getModes(stack, player);
+			if (mode == "" && modes.size() > 0) {
+				mode = modes.get(0);
+			}
+			if (modes.size() > 0 && dWheel != 0) {
+				int modeIndex = modes.indexOf(mode);
+				String newMode = modes.get((modeIndex + modes.size() + dWheel) % modes.size());
+				itemTag.setString("Mode", newMode);
+				RenderTickHandler.lastSwapTime = System.currentTimeMillis();
+				RenderTickHandler.lastSwapDirection = (int) Math.signum(dWheel);
+				MusePacket modeChangePacket = new MusePacketModeChangeRequest((Player) player, newMode, player.inventory.currentItem);
+				player.sendQueue.addToSendQueue(modeChangePacket.getPacket250());
+			}
 
 		} catch (NullPointerException e) {
-
 		}
 	}
 

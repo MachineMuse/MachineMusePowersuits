@@ -37,10 +37,10 @@ public class EntityPlasmaBolt extends EntityThrowable {
 		this.motionX = direction.xCoord * scale;
 		this.motionY = direction.yCoord * scale;
 		this.motionZ = direction.zCoord * scale;
-		double r = this.size / 50.0;
+		double r = this.size / 50.0 - direction.yCoord * Math.max(shootingEntity.getEyeHeight(), 0);
 		double xoffset = 1.3f + r;
-		double yoffset = -.4;
-		double zoffset = 0.6f;
+		double yoffset = -.2;
+		double zoffset = 0.3f;
 		Vec3 horzdir = direction.normalize();
 		horzdir.yCoord = 0;
 		horzdir = horzdir.normalize();

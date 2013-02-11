@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.machinemuse.api.ModularCommon;
-import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
@@ -501,7 +501,7 @@ public class ItemPowerTool extends ItemTool
 	}
 
 	public static MuseIcon getCurrentIconFor(ItemStack itemStack) {
-		return MuseIcon.TOOL_PICK;
+		return MuseIcon.PUNCHY;
 	}
 
 	@Override

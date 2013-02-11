@@ -8,6 +8,7 @@ import java.util.List;
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import thermalexpansion.api.core.IChargeableItem;
 import universalelectricity.core.implement.IItemElectric;
 
 /**

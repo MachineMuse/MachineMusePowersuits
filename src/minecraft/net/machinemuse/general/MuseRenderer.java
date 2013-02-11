@@ -291,6 +291,9 @@ public abstract class MuseRenderer {
 	 * @param colour
 	 */
 	public static void drawIconAt(double x, double y, MuseIcon icon, Colour colour) {
+		if (icon == null) {
+			return;
+		}
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glDisable(GL11.GL_CULL_FACE);
@@ -332,6 +335,9 @@ public abstract class MuseRenderer {
 	 * @param colour
 	 */
 	public static void drawIconPartial(double x, double y, MuseIcon icon, Colour colour, double left, double top, double right, double bottom) {
+		if (icon == null) {
+			return;
+		}
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glDisable(GL11.GL_CULL_FACE);

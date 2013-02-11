@@ -221,6 +221,7 @@ public class Config {
 		module = new PowerModule(ModularCommon.MODULE_MELEE_ASSIST, TOOLONLY, MuseIcon.PUNCHY, ModularCommon.CATEGORY_WEAPON)
 				.setDescription("A much simpler addon, makes your powertool punches hit harder.")
 				.setToggleable(true)
+				.setIsActive(true)
 				.addBaseProperty(ModularCommon.PUNCH_ENERGY, 10, "J")
 				.addBaseProperty(ModularCommon.PUNCH_DAMAGE, 2, "pt")
 				.addTradeoffProperty("Impact", ModularCommon.PUNCH_ENERGY, 100, "J")
@@ -254,6 +255,7 @@ public class Config {
 
 		module = new PowerModule(ModularCommon.MODULE_SHOVEL, TOOLONLY, MuseIcon.TOOL_SHOVEL, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Shovels are good for soft materials like dirt and sand.")
+				.setIsActive(true)
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
 				.addBaseProperty(ModularCommon.SHOVEL_ENERGY_CONSUMPTION, 100, "J")
@@ -263,6 +265,7 @@ public class Config {
 		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_AXE, TOOLONLY, MuseIcon.TOOL_AXE, ModularCommon.CATEGORY_TOOL)
+				.setIsActive(true)
 				.setDescription("Axes are mostly for chopping trees.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
@@ -273,6 +276,7 @@ public class Config {
 		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_PICKAXE, TOOLONLY, MuseIcon.TOOL_PICK, ModularCommon.CATEGORY_TOOL)
+				.setIsActive(true)
 				.setDescription("Picks are good for harder materials like stone and ore.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))

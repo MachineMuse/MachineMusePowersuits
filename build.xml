@@ -11,7 +11,7 @@
 	<property name="ic2api.version" value="1.112.198-lf" />
 	<property name="ueapi.version" value="1.2.4.334" />
 	<property name="icbmapi.version" value="1.0.4.135" />
-	<property name="thermexapi.version" value="2.2.0" />
+	<property name="thermexapi.version" value="2.2.1" />
 
 
 	<!-- Directories -->
