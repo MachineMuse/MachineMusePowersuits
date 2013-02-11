@@ -7,6 +7,7 @@
 package net.machinemuse.powersuits.client.render;
 
 import net.machinemuse.general.MuseRenderer;
+import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MuseLogger;
 import net.minecraft.client.Minecraft;
@@ -319,7 +320,7 @@ public class ToolModel extends ModelBase
 		child.rotateAngleZ -= parent.rotateAngleZ;
 	}
 
-	public void render(Entity entity, float scale, boolean renderTypeIsFirstPerson)
+	public void render(Entity entity, float scale, boolean renderTypeIsFirstPerson, Colour c1)
 	{
 		// super.render(entity, f, f1, f2, f3, f4, f5);
 		int numsegments = 16;
@@ -376,6 +377,9 @@ public class ToolModel extends ModelBase
 
 		ForgeHooksClient.bindTexture(Config.SEBK_TOOL_TEXTURE, 0);
 
+		if (c1 != null) {
+			c1.doGL();
+		}
 		double scale1 = 1.0 / 16.0;
 		boolean isThisEntity = entity == Minecraft.getMinecraft().renderViewEntity;
 		boolean gameIsFirstPerson = (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0);
@@ -452,7 +456,7 @@ public class ToolModel extends ModelBase
 		supportleft3.render(scale);
 		supportleft4.render(scale);
 		supportleft5.render(scale);
-
+		Colour.WHITE.doGL();
 		MuseRenderer.glowOn();
 		crystal.render(scale);
 

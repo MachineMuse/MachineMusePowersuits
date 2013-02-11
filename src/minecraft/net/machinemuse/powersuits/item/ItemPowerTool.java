@@ -9,6 +9,7 @@ import net.machinemuse.api.ModularCommon;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseStringUtils;
+import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.Config.Items;
@@ -20,11 +21,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
-import net.minecraft.item.EnumToolMaterial;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Vec3;
@@ -88,6 +85,26 @@ public class ItemPowerTool extends ItemTool
 	public float getStrVsBlock(ItemStack stack, Block block) {
 		// TODO: Make sure this is right
 		return getStrVsBlock(stack, block, 0);
+	}
+
+	public static Colour getColorFromItemStack(ItemStack stack) {
+		double computedred = ModuleManager.computeModularProperty(stack, ModularCommon.RED_TINT);
+		double computedgreen = ModuleManager.computeModularProperty(stack, ModularCommon.GREEN_TINT);
+		double computedblue = ModuleManager.computeModularProperty(stack, ModularCommon.BLUE_TINT);
+		Colour colour = new Colour(
+				clampDouble(1 + computedred - (computedblue + computedgreen), 0, 1),
+				clampDouble(1 + computedgreen - (computedblue + computedred), 0, 1),
+				clampDouble(1 + computedblue - (computedred + computedgreen), 0, 1),
+				1.0F);
+		return colour;
+	}
+
+	public static double clampDouble(double value, double min, double max) {
+		if (value < min)
+			return min;
+		if (value > max)
+			return max;
+		return value;
 	}
 
 	public static boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {

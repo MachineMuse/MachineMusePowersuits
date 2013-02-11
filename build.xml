@@ -120,6 +120,7 @@
 		<mkdir dir="${mcpsrc.dir}/thermalexpansion/api" />
 		<mkdir dir="${mcpsrc.dir}/thermalexpansion/api/core" />
 		<move file="${download.dir}/thermalexpansion/api/core/ItemRegistry.java" todir="${mcpsrc.dir}/thermalexpansion/api/core/ItemRegistry.java" />
+        <move file="${download.dir}/thermalexpansion/api/core/IChargeableItem.java" todir="${mcpsrc.dir}/thermalexpansion/api/core/IChargeableItem.java" />
 		<delete dir="${download.dir}/thermalexpansion" />
 	</target>
 
