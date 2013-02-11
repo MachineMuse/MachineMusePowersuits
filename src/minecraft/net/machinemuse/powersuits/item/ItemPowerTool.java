@@ -370,7 +370,7 @@ public class ItemPowerTool extends ItemTool
 	 */
 	public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4)
 	{
-		int chargeTicks = this.getMaxItemUseDuration(itemStack) - par4;
+		int chargeTicks = Math.min(this.getMaxItemUseDuration(itemStack) - par4, 10);
 
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
 		{
