@@ -133,7 +133,7 @@ public class RenderTickHandler implements ITickHandler {
 
 					}
 				}
-				MuseRenderer.blendingOff();
+				// MuseRenderer.blendingOff();
 				Colour.WHITE.doGL();
 			}
 
