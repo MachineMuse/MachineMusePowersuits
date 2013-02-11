@@ -16,6 +16,7 @@ import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.ForgeHooks;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
@@ -86,6 +87,9 @@ public class RenderTickHandler implements ITickHandler {
 				double baroffset = -40;
 				if (!player.capabilities.isCreativeMode) {
 					baroffset -= 16;
+					if (ForgeHooks.getTotalArmorValue(player) > 0) {
+						baroffset -= 8;
+					}
 				}
 
 				prevX = sw / 2.0 - 105.0 + 20.0 * i;
