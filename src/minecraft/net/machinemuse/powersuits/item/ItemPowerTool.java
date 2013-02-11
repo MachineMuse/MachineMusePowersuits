@@ -518,7 +518,7 @@ public class ItemPowerTool extends ItemTool
 	}
 
 	public static MuseIcon getCurrentIconFor(ItemStack itemStack) {
-		return MuseIcon.PUNCHY;
+		return MuseIcon.POWERTOOL;
 	}
 
 	@Override
