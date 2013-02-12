@@ -22,7 +22,8 @@ import cpw.mods.fml.common.network.Player;
 
 /**
  * This handler is called before/after the game processes input events and
- * updates the gui state mainly. *Before rendering*
+ * updates the gui state mainly. *independent of rendering, so sometimes there
+ * might be visual artifacts* -is also the parent class of KeyBindingHandler
  * 
  * @author MachineMuse
  */
@@ -51,6 +52,14 @@ public class ClientTickHandler implements ITickHandler {
 		}
 	}
 
+	public int clampMode(int selection, int modesSize) {
+		if (selection > 0) {
+			return selection % modesSize;
+		} else {
+			return (selection + modesSize * (-selection)) % modesSize;
+		}
+	}
+
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		try {
@@ -69,7 +78,7 @@ public class ClientTickHandler implements ITickHandler {
 			}
 			if (modes.size() > 0 && dWheel != 0) {
 				int modeIndex = modes.indexOf(mode);
-				String newMode = modes.get((modeIndex + modes.size() + dWheel) % modes.size());
+				String newMode = modes.get(clampMode(modeIndex + dWheel, modes.size()));
 				itemTag.setString("Mode", newMode);
 				RenderTickHandler.lastSwapTime = System.currentTimeMillis();
 				RenderTickHandler.lastSwapDirection = (int) Math.signum(dWheel);
@@ -77,8 +86,7 @@ public class ClientTickHandler implements ITickHandler {
 				player.sendQueue.addToSendQueue(modeChangePacket.getPacket250());
 			}
 
-		} catch (NullPointerException e) {
-		}
+		} catch (NullPointerException e) {}
 	}
 
 	@Override

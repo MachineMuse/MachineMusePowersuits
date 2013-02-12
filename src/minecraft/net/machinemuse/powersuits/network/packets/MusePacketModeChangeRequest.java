@@ -7,7 +7,6 @@ import java.io.DataInputStream;
 import java.util.List;
 
 import net.machinemuse.api.MuseItemUtils;
-import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -50,6 +49,7 @@ public class MusePacketModeChangeRequest extends MusePacket {
 	public void handleServer(EntityPlayerMP player) {
 		ItemStack stack = null;
 		if (slot > -1 && slot < 9) {
+			player.inventory.currentItem = slot;
 			stack = player.inventory.mainInventory[slot];
 		}
 
