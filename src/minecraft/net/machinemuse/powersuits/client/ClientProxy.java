@@ -61,12 +61,14 @@ public class ClientProxy extends CommonProxy {
 	 */
 	@Override
 	public void registerHandlers() {
+		super.registerHandlers();
 		keybindHandler = new KeybindKeyHandler();
 		KeyBindingRegistry.registerKeyBinding(keybindHandler);
 		KeybindManager.readInKeybinds();
 
 		playerTickHandler = new PlayerTickHandler();
 		TickRegistry.registerTickHandler(playerTickHandler, Side.CLIENT);
+		// TickRegistry.registerTickHandler(playerTickHandler, Side.SERVER);
 
 		renderTickHandler = new RenderTickHandler();
 		TickRegistry.registerTickHandler(renderTickHandler, Side.CLIENT);
