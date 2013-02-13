@@ -40,6 +40,8 @@ public class Config {
 	public static final String BLANK_ARMOR_MODEL_PATH = "/resources/machinemuse/blankarmor.png";
 	public static final String MUSE_ICON_PATH = "/resources/machinemuse/museicons.png";
 	public static final String SEBK_TOOL_TEXTURE = "/resources/machinemuse/tool.png";
+	public static final String CITIZENJOE_ARMOR_PATH = "/resources/machinemuse/joearmor.png";
+	public static final String CITIZENJOE_ARMORPANTS_PATH = "/resources/machinemuse/joearmorpants.png";
 
 	private static final int[] assignedItemIDs = new int[Items.values().length];
 	private static final int[] assignedBlockIDs = new int[Blocks.values().length];
@@ -439,7 +441,10 @@ public class Config {
 				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1));
 		addModule(module);
+		module = new PowerModule(ModularCommon.CITIZEN_JOE_STYLE, ARMORONLY, MuseIcon.ORB_1_GREEN, ModularCommon.CATEGORY_COSMETIC)
+				.setDescription("An alternative armor texture, c/o CitizenJoe of IC2 forums.");
 
+		addModule(module);
 		// red = 1, green = 2, blue = 4
 	}
 

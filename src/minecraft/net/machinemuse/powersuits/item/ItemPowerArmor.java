@@ -76,8 +76,15 @@ public abstract class ItemPowerArmor extends ItemArmor
 				if (MuseItemUtils.itemHasActiveModule(itemstack, ModularCommon.MODULE_TRANSPARENT_ARMOR)) {
 					return Config.BLANK_ARMOR_MODEL_PATH;
 				} else if (itemstack.getItem() instanceof ItemPowerArmorLegs) {
+					if (MuseItemUtils.itemHasModule(itemstack, ModularCommon.CITIZEN_JOE_STYLE)) {
+						return Config.CITIZENJOE_ARMORPANTS_PATH;
+					}
+
 					return Config.SEBK_ARMORPANTS_PATH;
 				} else {
+					if (MuseItemUtils.itemHasModule(itemstack, ModularCommon.CITIZEN_JOE_STYLE)) {
+						return Config.CITIZENJOE_ARMOR_PATH;
+					}
 					return Config.SEBK_ARMOR_PATH;
 				}
 			}

@@ -89,6 +89,7 @@ public abstract class ModularCommon {
 	public static final String MODULE_NIGHT_VISION = "Night Vision";
 	public static final String MODULE_ACTIVE_CAMOUFLAGE = "Active Camouflage";
 	public static final String MODULE_FLIGHT_CONTROL = "Flight Control";
+	public static final String CITIZEN_JOE_STYLE = "Citizen Joe Style";
 
 	/**
 	 * Categories for modules
