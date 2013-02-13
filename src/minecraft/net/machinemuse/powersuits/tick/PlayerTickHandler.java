@@ -22,8 +22,6 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * Tick handler for Player update step. tickStart() is queued before the entity
@@ -35,7 +33,6 @@ import cpw.mods.fml.relauncher.SideOnly;
  * 
  * @author MachineMuse
  */
-@SideOnly(Side.CLIENT)
 public class PlayerTickHandler implements ITickHandler {
 
 	@Override

@@ -7,13 +7,16 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.client.KeybindManager;
+import net.machinemuse.powersuits.common.PlayerInputMap;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.machinemuse.powersuits.network.packets.MusePacketModeChangeRequest;
+import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import cpw.mods.fml.common.ITickHandler;
@@ -63,8 +66,8 @@ public class ClientTickHandler implements ITickHandler {
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		try {
-
 			EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
+
 			if (slotSelected > -1) {
 				player.inventory.currentItem = slotSelected;
 				slotSelected = -1;
@@ -85,8 +88,18 @@ public class ClientTickHandler implements ITickHandler {
 				MusePacket modeChangePacket = new MusePacketModeChangeRequest((Player) player, newMode, player.inventory.currentItem);
 				player.sendQueue.addToSendQueue(modeChangePacket.getPacket250());
 			}
+			PlayerInputMap inputmap = PlayerInputMap.getInputMapFor(player.username);
+			inputmap.downKey = Keyboard.isKeyDown(Keyboard.KEY_Z);
+			inputmap.forwardKey = player.movementInput.moveForward;
+			inputmap.strafeKey = player.movementInput.moveStrafe;
+			inputmap.jumpKey = player.movementInput.jump;
+			inputmap.sneakKey = player.movementInput.sneak;
 
-		} catch (NullPointerException e) {}
+			MusePacket inputPacket = new MusePacketPlayerUpdate(player, inputmap);
+			player.sendQueue.addToSendQueue(inputPacket.getPacket250());
+		} catch (NullPointerException e) {
+		}
+
 	}
 
 	@Override

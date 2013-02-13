@@ -20,8 +20,8 @@ public class MusePacketPlayerUpdate extends MusePacket {
 
 	public MusePacketPlayerUpdate(DataInputStream data, Player player) {
 		super(data, player);
-		PlayerInputMap map = PlayerInputMap.getInputMapFor(((EntityPlayer) player).username);
-		map.readFromStream(datain);
+		inputMap = PlayerInputMap.getInputMapFor(((EntityPlayer) player).username);
+		inputMap.readFromStream(datain);
 	}
 
 	@Override
