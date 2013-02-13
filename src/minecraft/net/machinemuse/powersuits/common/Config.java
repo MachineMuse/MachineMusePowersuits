@@ -199,7 +199,7 @@ public class Config {
 		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_FLIGHT_CONTROL, HEADONLY, MuseIcon.INDICATOR_1_GREEN, ModularCommon.CATEGORY_SPECIAL)
-				.setDescription("An integrated control circuit to help you fly better.")
+				.setDescription("An integrated control circuit to help you fly better. Press Z to go down.")
 				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
 		addModule(module);
