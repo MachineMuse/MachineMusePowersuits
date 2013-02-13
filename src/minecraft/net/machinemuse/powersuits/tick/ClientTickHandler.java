@@ -95,6 +95,7 @@ public class ClientTickHandler implements ITickHandler {
 			inputmap.strafeKey = player.movementInput.moveStrafe;
 			inputmap.jumpKey = player.movementInput.jump;
 			inputmap.sneakKey = player.movementInput.sneak;
+			inputmap.selectedItem = player.inventory.currentItem;
 
 			MusePacket inputPacket = new MusePacketPlayerUpdate(player, inputmap);
 			player.sendQueue.addToSendQueue(inputPacket.getPacket250());

@@ -22,6 +22,7 @@ public class PlayerInputMap {
 	public boolean jumpKey;
 	public boolean sneakKey;
 	public boolean downKey;
+	public int selectedItem;
 
 	public PlayerInputMap(String playerName) {
 		playerInputs.put(playerName, this);
@@ -34,6 +35,7 @@ public class PlayerInputMap {
 			stream.writeBoolean(jumpKey);
 			stream.writeBoolean(sneakKey);
 			stream.writeBoolean(downKey);
+			stream.writeInt(selectedItem);
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -48,6 +50,7 @@ public class PlayerInputMap {
 			jumpKey = stream.readBoolean();
 			sneakKey = stream.readBoolean();
 			downKey = stream.readBoolean();
+			selectedItem = stream.readInt();
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
