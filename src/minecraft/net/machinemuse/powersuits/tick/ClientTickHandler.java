@@ -87,6 +87,7 @@ public class ClientTickHandler implements ITickHandler {
 				RenderTickHandler.lastSwapDirection = (int) Math.signum(dWheel);
 				MusePacket modeChangePacket = new MusePacketModeChangeRequest((Player) player, newMode, player.inventory.currentItem);
 				player.sendQueue.addToSendQueue(modeChangePacket.getPacket250());
+				dWheel = 0;
 			}
 			PlayerInputMap inputmap = PlayerInputMap.getInputMapFor(player.username);
 			inputmap.downKey = Keyboard.isKeyDown(Keyboard.KEY_Z);
