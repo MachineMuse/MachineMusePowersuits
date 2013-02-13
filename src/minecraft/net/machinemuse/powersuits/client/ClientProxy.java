@@ -12,7 +12,7 @@ import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.event.ThaumRenderEventHandler;
 import net.machinemuse.powersuits.network.MusePacketHandler;
 import net.machinemuse.powersuits.tick.ClientTickHandler;
-import net.machinemuse.powersuits.tick.PlayerTickHandlerClient;
+import net.machinemuse.powersuits.tick.PlayerTickHandler;
 import net.machinemuse.powersuits.tick.RenderTickHandler;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
@@ -33,7 +33,7 @@ public class ClientProxy extends CommonProxy {
 	private static ToolRenderer toolRenderer = new ToolRenderer();
 	private static ClientTickHandler clientTickHandler;
 	private static RenderTickHandler renderTickHandler;
-	private static PlayerTickHandlerClient playerTickHandler;
+	private static PlayerTickHandler playerTickHandler;
 	public static KeybindKeyHandler keybindHandler;
 
 	/**
@@ -65,7 +65,7 @@ public class ClientProxy extends CommonProxy {
 		KeyBindingRegistry.registerKeyBinding(keybindHandler);
 		KeybindManager.readInKeybinds();
 
-		playerTickHandler = new PlayerTickHandlerClient();
+		playerTickHandler = new PlayerTickHandler();
 		TickRegistry.registerTickHandler(playerTickHandler, Side.CLIENT);
 
 		renderTickHandler = new RenderTickHandler();

@@ -12,21 +12,14 @@ import net.machinemuse.api.ModularCommon;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.powersuits.common.MuseLogger;
+import net.machinemuse.powersuits.common.PlayerInputMap;
 import net.machinemuse.powersuits.event.MovementManager;
-import net.machinemuse.powersuits.network.MusePacket;
-import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
-import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-
-import org.lwjgl.input.Keyboard;
-
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.relauncher.Side;
@@ -43,20 +36,16 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @author MachineMuse
  */
 @SideOnly(Side.CLIENT)
-public class PlayerTickHandlerClient implements ITickHandler {
+public class PlayerTickHandler implements ITickHandler {
 
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
-		EntityPlayer rawPlayer = toPlayer(tickData[0]);
-		Side side = FMLCommonHandler.instance().getEffectiveSide();
-		if (rawPlayer instanceof EntityClientPlayerMP) {
-			EntityClientPlayerMP player = (EntityClientPlayerMP) rawPlayer;
-			handleClient(player);
-		}
+		EntityPlayer player = toPlayer(tickData[0]);
+		handle(player);
 
 	}
 
-	public void handleClient(EntityClientPlayerMP player) {
+	public void handle(EntityPlayer player) {
 		ItemStack helmet = player.getCurrentArmor(3);
 		ItemStack torso = player.getCurrentArmor(2);
 		ItemStack pants = player.getCurrentArmor(1);
@@ -77,11 +66,12 @@ public class PlayerTickHandlerClient implements ITickHandler {
 		playerHorzFacing.yCoord = 0;
 		playerHorzFacing.normalize();
 
-		boolean jumpkey = player.movementInput.jump;
-		float forwardkey = player.movementInput.moveForward;
-		float strafekey = player.movementInput.moveStrafe;
-		boolean sneakkey = player.movementInput.sneak;
-		boolean downkey = Keyboard.isKeyDown(Keyboard.KEY_Z);
+		PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.username);
+		boolean jumpkey = movementInput.jumpKey;
+		float forwardkey = movementInput.forwardKey;
+		float strafekey = movementInput.strafeKey;
+		boolean sneakkey = movementInput.sneakKey;
+		boolean downkey = movementInput.downKey;
 
 		boolean hasSprintAssist = false;
 		boolean hasGlider = false;
@@ -381,12 +371,6 @@ public class PlayerTickHandlerClient implements ITickHandler {
 			player.motionZ *= weightCapacity / totalWeight;
 		}
 
-		MusePacket packet = new MusePacketPlayerUpdate(player, -totalEnergyDrain, -foodAdjustment);
-		player.sendQueue.addToSendQueue(packet.getPacket250());
-
-	}
-
-	public void handleServer(EntityPlayerMP player) {
 	}
 
 	public static double getWeightPenaltyRatio(double currentWeight, double capacity) {

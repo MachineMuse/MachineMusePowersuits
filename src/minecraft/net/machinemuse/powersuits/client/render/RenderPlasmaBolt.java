@@ -1,5 +1,7 @@
 package net.machinemuse.powersuits.client.render;
 
+import java.nio.DoubleBuffer;
+
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.DrawableMuseCircle;
@@ -7,6 +9,7 @@ import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -42,15 +45,38 @@ public class RenderPlasmaBolt extends Render {
 		GL11.glTranslated(x, y, z);
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glScalef(0.5F, 0.5F, 0.5F);
-		GL11.glRotatef(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-		GL11.glRotatef(-this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+		// GL11.glRotatef(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F,
+		// 0.0F);
+		// GL11.glRotatef(-this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
 		doRender(size);
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 		GL11.glPopMatrix();
 	}
 
-	public static void doRender(double size) {
+	public static DoubleBuffer unrotatebuffer;
 
+	public static DoubleBuffer getUnrotateBuffer() {
+		if (unrotatebuffer == null) {
+			unrotatebuffer = BufferUtils.createDoubleBuffer(16);
+			unrotatebuffer.put(new double[] {
+					0, 0, 0, 0,
+					0, 0, 0, 0,
+					0, 0, 0, 0,
+					0, 0, 0, 1
+			});
+			unrotatebuffer.flip();
+		}
+		unrotatebuffer.rewind();
+		return unrotatebuffer;
+	}
+
+	public static void unRotate() {
+		GL11.glMultMatrix(getUnrotateBuffer());
+	}
+
+	public static void doRender(double size) {
+		GL11.glPushMatrix();
+		unRotate();
 		double scale = size / 16.0;
 		GL11.glScaled(scale, scale, scale);
 		int millisPerCycle = 500;
@@ -69,5 +95,6 @@ public class RenderPlasmaBolt extends Render {
 			MuseRenderer.drawLightning(Math.cos(angle1) * 5, Math.sin(angle1) * 5, 2, Math.cos(angle2) * 5, Math.sin(angle2) * 5, 3, new Colour(1, 1,
 					1, 1));
 		}
+		GL11.glPopMatrix();
 	}
 }
