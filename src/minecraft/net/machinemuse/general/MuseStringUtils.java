@@ -33,11 +33,13 @@ public abstract class MuseStringUtils {
 				retval = retval.substring(0, 4);
 			}
 		}
-		int exponent = Integer.parseInt(exploded[1]);
-		if (exponent > 0) {
-			retval += bigSuffixes[exponent / 3 - 1];
-		} else if (exponent < 0) {
-			retval += smallSuffixes[exponent / -3 - 1];
+		if (exploded.length > 1) {
+			int exponent = Integer.parseInt(exploded[1]);
+			if (exponent > 0) {
+				retval += bigSuffixes[exponent / 3 - 1];
+			} else if (exponent < 0) {
+				retval += smallSuffixes[exponent / -3 - 1];
+			}
 		}
 		return retval;
 	}
