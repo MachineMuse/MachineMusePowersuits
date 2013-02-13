@@ -8,9 +8,9 @@
 	<property name="fullversion" value="${build.ver}-${env.BUILD_NUMBER}" />
 	<property name="mcp.version" value="723" />
 	<property name="forge.version" value="1.4.7-6.6.1.524" />
-	<property name="ic2api.version" value="1.112.198-lf" />
-	<property name="ueapi.version" value="1.2.4.334" />
-	<property name="icbmapi.version" value="1.0.4.135" />
+	<property name="ic2api.version" value="1.115.218-lf" />
+	<property name="ueapi.version" value="1.2.5.337" />
+	<property name="icbmapi.version" value="1.0.4.140" />
 	<property name="thermexapi.version" value="2.2.1" />
 
 
@@ -66,13 +66,13 @@
 
 	<target name="download-apis" unless="${have-apis}">
 		<echo message="Downloading IC2 API... " />
-		<get src="https://dl.dropbox.com/s/u7adzz0rbftlufu/industrialcraft-2-api_${ic2api.version}.zip" dest="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" />
+		<get src="http://machinemuse.net/industrialcraft-2-api_${ic2api.version}.zip" dest="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" />
 
 		<echo message="Downloading Universal Electricity API..." />
-		<get src="https://dl.dropbox.com/s/7e2eox36v3mgyin/UniversalElectricity_v${ueapi.version}_api.zip" dest="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" />
+		<get src="http://machinemuse.net/UniversalElectricity_v${ueapi.version}_api.zip" dest="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" />
 
 		<echo message="Downloading ICBM API..." />
-		<get src="https://dl.dropbox.com/s/504m5qsei34v58a/ICBM_v${icbmapi.version}_api.zip" dest="${download.dir}/ICBM_v${icbmapi.version}_api.zip" />
+		<get src="http://machinemuse.net/ICBM_v${icbmapi.version}_api.zip" dest="${download.dir}/ICBM_v${icbmapi.version}_api.zip" />
 
 		<echo message="Downloading ThermEx API..." />
 		<get src="http://machinemuse.net/ThermalExpansion-API-${thermexapi.version}.zip" dest="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" />
