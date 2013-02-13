@@ -49,7 +49,7 @@ public class MusePacketModeChangeRequest extends MusePacket {
 	public void handleServer(EntityPlayerMP player) {
 		ItemStack stack = null;
 		if (slot > -1 && slot < 9) {
-			player.inventory.currentItem = slot;
+			// player.inventory.currentItem = slot;
 			stack = player.inventory.mainInventory[slot];
 		}
 
