@@ -12,15 +12,18 @@ import cpw.mods.fml.common.network.Player;
 
 public class MusePacketPlayerUpdate extends MusePacket {
 	protected PlayerInputMap inputMap;
+	protected String username;
 
 	public MusePacketPlayerUpdate(EntityPlayer player, PlayerInputMap playerInput) {
 		super((Player) player);
+		writeString(player.username);
 		playerInput.writeToStream(dataout);
 	}
 
 	public MusePacketPlayerUpdate(DataInputStream data, Player player) {
 		super(data, player);
-		inputMap = PlayerInputMap.getInputMapFor(((EntityPlayer) player).username);
+		username = readString(64);
+		inputMap = PlayerInputMap.getInputMapFor(username);
 		inputMap.readFromStream(datain);
 	}
 
@@ -33,6 +36,7 @@ public class MusePacketPlayerUpdate extends MusePacket {
 	@Override
 	public void handleServer(EntityPlayerMP player) {
 		MusePacketPlayerUpdate updatePacket = new MusePacketPlayerUpdate(player, inputMap);
+		updatePacket.username = this.username;
 		PacketDispatcher.sendPacketToAllPlayers(updatePacket.getPacket250());
 		player.inventory.currentItem = inputMap.selectedItem;
 	}
