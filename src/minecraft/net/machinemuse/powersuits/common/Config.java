@@ -22,8 +22,6 @@ import org.lwjgl.input.Keyboard;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 
-//This is a junk comment from Pixotic to test github fork/pull functionality. Hello Claire!
-
 /**
  * Initial attempt at storing all tweakable/configurable values in one class.
  * This got really messy really fast so it's in the process of being reworked.
@@ -231,6 +229,19 @@ public class Config {
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1));
 		addModule(module);
+		
+		//Pix make blink drive. No blame pix if blink drive tear rift in universe. Some things man not meant control.
+		//Should probably replace the icon with something else once we have the asset for it.
+		module = new PowerModule(ModularCommon.MODULE_BLINK_DRIVE, TOOLONLY, MuseIcon.CRYSTAL_BUBBLE, ModularCommon.CATEGORY_MOVEMENT)
+				.setDescription("Get from point A to point C via point B, where point B is a fold in space & time.")
+				.setIsActive(true)
+				.setToggleable(true)
+				.addBaseProperty(ModularCommon.BLINK_DRIVE_ENERGY_CONSUMPTION, 1000, "J")
+				//Todo: Adjustable range for higher energy consumption?
+				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 1))
+				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2));
+		addModule(module);
+			
 
 		module = new PowerModule(ModularCommon.MODULE_BASIC_PLATING, ARMORONLY, MuseIcon.MODULE_IRON_PLATING, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Basic plating is heavy but protective.")
@@ -301,7 +312,7 @@ public class Config {
 				.addTradeoffProperty("Power", ModularCommon.AQUA_AFFINITY_ENERGY_CONSUMPTION, 100)
 				.addTradeoffProperty("Power", ModularCommon.UNDERWATER_HARVEST_SPEED, 0.8);
 		addModule(module);
-
+		
 		module = new PowerModule(ModularCommon.MODULE_BATTERY_BASIC, ALLITEMS, MuseIcon.BATTERY1, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Integrate a battery to allow the item to store energy.")
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1))

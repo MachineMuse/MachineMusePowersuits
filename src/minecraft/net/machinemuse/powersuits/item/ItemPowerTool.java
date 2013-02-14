@@ -18,11 +18,14 @@ import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.Config.Items;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
+import net.machinemuse.powersuits.entity.EntityBlinkDriveBolt;
 import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
+import net.machinemuse.powersuits.network.packets.MusePacketBlinkDriveBolt;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.item.EntityEnderPearl;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
@@ -359,6 +362,41 @@ public class ItemPowerTool extends ItemTool
 			player.setItemInUse(itemStack, 72000);
 			// }
 
+		}
+		
+		//Pix note: Not quite sure how the logic here should work i/r/t having 
+		//plasma cannon and BD installed simultaneously. Pls fix.
+		
+		if (MuseItemUtils.itemHasModule(itemStack, ModularCommon.MODULE_BLINK_DRIVE)) {
+			
+			if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+			{
+				double energyConsumption = ModuleManager.computeModularProperty(itemStack, ModularCommon.BLINK_DRIVE_ENERGY_CONSUMPTION);
+				if (MuseItemUtils.getPlayerEnergy(player) > energyConsumption) {
+					MuseItemUtils.drainPlayerEnergy(player, energyConsumption);
+
+					world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+
+		            if (!world.isRemote)
+		            {
+		                //world.spawnEntityInWorld(new EntityEnderPearl(world, player));
+		            	EntityBlinkDriveBolt blinkDriveBolt = new EntityBlinkDriveBolt(world, player);
+		            	world.spawnEntityInWorld(blinkDriveBolt);
+						MusePacketBlinkDriveBolt packet = new MusePacketBlinkDriveBolt((Player) player, blinkDriveBolt.entityId,
+								blinkDriveBolt.size);
+						PacketDispatcher.sendPacketToAllPlayers(packet.getPacket250());
+		            }
+
+		            return itemStack;
+					
+					/*EntityPlasmaBolt plasmaBolt = new EntityPlasmaBolt(world, player, explosiveness, damagingness, chargeTicks);
+					world.spawnEntityInWorld(plasmaBolt);
+					MusePacketPlasmaBolt packet = new MusePacketPlasmaBolt((Player) player, plasmaBolt.entityId,
+							plasmaBolt.size);
+					PacketDispatcher.sendPacketToAllPlayers(packet.getPacket250());
+					*/
+				}
+			}
 		}
 
 		return itemStack;
