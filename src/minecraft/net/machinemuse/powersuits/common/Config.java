@@ -313,22 +313,12 @@ public class Config {
 				.addTradeoffProperty("Power", ModularCommon.UNDERWATER_HARVEST_SPEED, 0.8);
 		addModule(module);
 		
-		//Pix note: UE battery storage amounts changed, according to the Plus* folks it's 1m 2m and 3mj
-		//Updated base capacity for battery modules accordingly. Scaled up the tradeoff max vals as well.
-		//Might need to look at how much it scales. Taking basic battery as example, same scaling gives 
-		//4megaj max with new vals. Hm...
-		
-		//Hope this doesn't compromise your ~vision~ :)
-		
-		//e: never mind, the changes here don't seem to have taken. Commented it all out... For now...
 		module = new PowerModule(ModularCommon.MODULE_BATTERY_BASIC, ALLITEMS, MuseIcon.BATTERY1, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Integrate a battery to allow the item to store energy.")
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1))
 				.addBaseProperty(ModularCommon.MAXIMUM_ENERGY, 20000, "J")
-				//.addBaseProperty(ModularCommon.MAXIMUM_ENERGY, 1000000, "J")
 				.addBaseProperty(ModularCommon.WEIGHT, 2000, "g")
 				.addTradeoffProperty("Battery Size", ModularCommon.MAXIMUM_ENERGY, 80000)
-				//.addTradeoffProperty("Battery Size", ModularCommon.MAXIMUM_ENERGY, 4000000)
 				.addTradeoffProperty("Battery Size", ModularCommon.WEIGHT, 8000);
 		addModule(module);
 
@@ -336,10 +326,8 @@ public class Config {
 				.setDescription("Integrate a more advanced battery to store more energy.")
 				.addInstallCost(copyAndResize(ItemComponent.mvcapacitor, 1))
 				.addBaseProperty(ModularCommon.MAXIMUM_ENERGY, 100000, "J")
-				//.addBaseProperty(ModularCommon.MAXIMUM_ENERGY, 2000000, "J")
 				.addBaseProperty(ModularCommon.WEIGHT, 2000, "g")
 				.addTradeoffProperty("Battery Size", ModularCommon.MAXIMUM_ENERGY, 400000)
-				//.addTradeoffProperty("Battery Size", ModularCommon.MAXIMUM_ENERGY, 8000000)
 				.addTradeoffProperty("Battery Size", ModularCommon.WEIGHT, 8000);
 		addModule(module);
 
@@ -347,11 +335,8 @@ public class Config {
 				.setDescription("Integrate a the most advanced battery to store an extensive amount of energy.")
 				.addInstallCost(copyAndResize(ItemComponent.hvcapacitor, 1))
 				.addBaseProperty(ModularCommon.MAXIMUM_ENERGY, 750000, "J")
-				//.addBaseProperty(ModularCommon.MAXIMUM_ENERGY, 3000000, "J")
 				.addBaseProperty(ModularCommon.WEIGHT, 2000, "g")
 				.addTradeoffProperty("Battery Size", ModularCommon.MAXIMUM_ENERGY, 4250000)
-				//Oh god what am I doing. Scaled this at 4x instead of original 5.6~ because damn.
-				//.addTradeoffProperty("Battery Size", ModularCommon.MAXIMUM_ENERGY, 12000000)
 				.addTradeoffProperty("Battery Size", ModularCommon.WEIGHT, 8000);
 		addModule(module);
 
