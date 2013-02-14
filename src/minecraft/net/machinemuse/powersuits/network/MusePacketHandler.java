@@ -42,6 +42,7 @@ public class MusePacketHandler implements IPacketHandler {
 		addPacketType(7, MusePacketToggleRequest.class);
 		addPacketType(8, MusePacketPlasmaBolt.class);
 		addPacketType(9, MusePacketModeChangeRequest.class);
+		addPacketType(10, MusePacketBlinkDriveBolt.class);
 
 		NetworkRegistry.instance().registerChannel(this,
 				Config.getNetworkChannelName());

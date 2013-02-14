@@ -29,6 +29,7 @@ public abstract class ModularCommon {
 	public static final String SHOVEL_ENERGY_CONSUMPTION = "Shovel Energy Consumption";
 	public static final String AXE_ENERGY_CONSUMPTION = "Axe Energy Consumption";
 	public static final String PICKAXE_ENERGY_CONSUMPTION = "Pickaxe Energy Consumption";
+	public static final String BLINK_DRIVE_ENERGY_CONSUMPTION = "Blink Drive Energy Consuption";
 	public static final String BATTERY_WEIGHT = "Battery Weight";
 	public static final String SPRINT_ENERGY_CONSUMPTION = "Sprint Energy Consumption";
 	public static final String SPRINT_SPEED_MULTIPLIER = "Sprint Speed Multiplier";
@@ -67,6 +68,7 @@ public abstract class ModularCommon {
 	public static final String MODULE_BATTERY_ADVANCED = "Advanced Battery";
 	public static final String MODULE_BATTERY_ELITE = "Elite Battery";
 	public static final String MODULE_BASIC_PLATING = "Iron Plating";
+	public static final String MODULE_BLINK_DRIVE = "Blink Drive";
 	public static final String MODULE_DIAMOND_PLATING = "Diamond Plating";
 	public static final String MODULE_ENERGY_SHIELD = "Energy Shield";
 	public static final String MODULE_DIAMOND_PICK_UPGRADE = "Diamond Drill Upgrade";
