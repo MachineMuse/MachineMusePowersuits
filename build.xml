@@ -7,6 +7,7 @@
 	<property name="build.ver" value="0.2.1" />
 	<property name="fullversion" value="${build.ver}-${env.BUILD_NUMBER}" />
 	<property name="mcp.version" value="723" />
+    <property name="forgebuild" value="524" />
 	<property name="forge.version" value="1.4.7-6.6.1.524" />
 	<property name="ic2api.version" value="1.115.218-lf" />
 	<property name="ueapi.version" value="1.2.5.337" />
@@ -39,7 +40,7 @@
 
 	<property file="${forge.dir}/forgeversion.properties" />
 	<condition property="forge.already.installed">
-		<equals arg1="${forge.build.number}" arg2="497" />
+		<equals arg1="${forge.build.number}" arg2="${forgebuild}" />
 	</condition>
 	<available property="forge-exists" file="${download.dir}/minecraftforge-src-${forge.version}.zip" />
 	<available property="already-compiled" file="${classes.dir}/net/machinemuse" />

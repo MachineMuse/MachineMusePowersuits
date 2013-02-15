@@ -38,6 +38,5 @@ public class MusePacketPlayerUpdate extends MusePacket {
 		MusePacketPlayerUpdate updatePacket = new MusePacketPlayerUpdate(player, inputMap);
 		updatePacket.username = this.username;
 		PacketDispatcher.sendPacketToAllPlayers(updatePacket.getPacket250());
-		player.inventory.currentItem = inputMap.selectedItem;
 	}
 }

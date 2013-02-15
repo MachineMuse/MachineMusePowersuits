@@ -206,7 +206,7 @@ public class Config {
 
 		module = new PowerModule(ModularCommon.MODULE_PLASMA_CANNON, TOOLONLY, MuseIcon.WEAPON_ELECTRIC, ModularCommon.CATEGORY_WEAPON)
 				.setDescription("Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.")
-				.setIsActive(true)
+				.setToggleable(true)
 				.addBaseProperty(ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 10, "J")
 				.addBaseProperty(ModularCommon.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 2, "pt")
 				.addTradeoffProperty("Amperage", ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 150, "J")
@@ -219,7 +219,7 @@ public class Config {
 
 		module = new PowerModule(ModularCommon.MODULE_MELEE_ASSIST, TOOLONLY, MuseIcon.PUNCHY, ModularCommon.CATEGORY_WEAPON)
 				.setDescription("A much simpler addon, makes your powertool punches hit harder.")
-				.setIsActive(true)
+				.setToggleable(true)
 				.addBaseProperty(ModularCommon.PUNCH_ENERGY, 10, "J")
 				.addBaseProperty(ModularCommon.PUNCH_DAMAGE, 2, "pt")
 				.addTradeoffProperty("Impact", ModularCommon.PUNCH_ENERGY, 100, "J")
@@ -229,19 +229,19 @@ public class Config {
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1));
 		addModule(module);
-		
-		//Pix make blink drive. No blame pix if blink drive tear rift in universe. Some things man not meant control.
-		//Should probably replace the icon with something else once we have the asset for it.
+
+		// Pix make blink drive. No blame pix if blink drive tear rift in
+		// universe. Some things man not meant control.
+		// Should probably replace the icon with something else once we have the
+		// asset for it.
 		module = new PowerModule(ModularCommon.MODULE_BLINK_DRIVE, TOOLONLY, MuseIcon.CRYSTAL_BUBBLE, ModularCommon.CATEGORY_MOVEMENT)
 				.setDescription("Get from point A to point C via point B, where point B is a fold in space & time.")
-				.setIsActive(true)
 				.setToggleable(true)
 				.addBaseProperty(ModularCommon.BLINK_DRIVE_ENERGY_CONSUMPTION, 1000, "J")
-				//Todo: Adjustable range for higher energy consumption?
+				// Todo: Adjustable range for higher energy consumption?
 				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 1))
 				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2));
 		addModule(module);
-			
 
 		module = new PowerModule(ModularCommon.MODULE_BASIC_PLATING, ARMORONLY, MuseIcon.MODULE_IRON_PLATING, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Basic plating is heavy but protective.")
@@ -266,7 +266,7 @@ public class Config {
 
 		module = new PowerModule(ModularCommon.MODULE_SHOVEL, TOOLONLY, MuseIcon.TOOL_SHOVEL, ModularCommon.CATEGORY_TOOL)
 				.setDescription("Shovels are good for soft materials like dirt and sand.")
-				.setIsActive(true)
+				.setToggleable(true)
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
 				.addBaseProperty(ModularCommon.SHOVEL_ENERGY_CONSUMPTION, 100, "J")
@@ -276,7 +276,7 @@ public class Config {
 		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_PICKAXE, TOOLONLY, MuseIcon.TOOL_PICK, ModularCommon.CATEGORY_TOOL)
-				.setIsActive(true)
+				.setToggleable(true)
 				.setDescription("Picks are good for harder materials like stone and ore.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
@@ -287,7 +287,7 @@ public class Config {
 		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_AXE, TOOLONLY, MuseIcon.TOOL_AXE, ModularCommon.CATEGORY_TOOL)
-				.setIsActive(true)
+				.setToggleable(true)
 				.setDescription("Axes are mostly for chopping trees.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
@@ -312,7 +312,7 @@ public class Config {
 				.addTradeoffProperty("Power", ModularCommon.AQUA_AFFINITY_ENERGY_CONSUMPTION, 100)
 				.addTradeoffProperty("Power", ModularCommon.UNDERWATER_HARVEST_SPEED, 0.8);
 		addModule(module);
-		
+
 		module = new PowerModule(ModularCommon.MODULE_BATTERY_BASIC, ALLITEMS, MuseIcon.BATTERY1, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Integrate a battery to allow the item to store energy.")
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1))
