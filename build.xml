@@ -109,7 +109,7 @@
 		<move file="${ue.download.dir}/prefab/potion/CustomPotionEffect.java" todir="${mcpsrc.dir}/universalelectricity/prefab/potion/CustomPotionEffect.java" />
 
 		<echo message="Extracting ICBM API... " />
-		<unzip src="${download.dir}/ICBM_v1.0.4.135_api.zip" dest="${download.dir}/ue" />
+		<unzip src="${download.dir}/ICBM_v${icbmapi.version}_api.zip" dest="${download.dir}/ue" />
 		<mkdir dir="${mcpsrc.dir}/icbm" />
 		<mkdir dir="${mcpsrc.dir}/icbm/api" />
 		<move file="${download.dir}/ue/minecraft/icbm/api/IExplosive.java" todir="${mcpsrc.dir}/icbm/api/IExplosive.java" />
