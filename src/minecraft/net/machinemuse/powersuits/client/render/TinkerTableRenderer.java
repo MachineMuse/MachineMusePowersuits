@@ -56,7 +56,7 @@ public class TinkerTableRenderer extends TileEntitySpecialRenderer implements
 			RenderBlocks renderer) {
 		ForgeHooksClient.bindTexture(Config.TINKERTABLE_TEXTURE_PATH, 0);
 		GL11.glPushMatrix();
-		GL11.glTranslated(0, -1.0 / 16.0, 0);
+		GL11.glTranslated(-0.5, -0.5 + -1.0 / 16.0, -0.5);
 		model.doRender(null, 0, 0, 0, 0, 0);
 		GL11.glPopMatrix();
 
