@@ -234,14 +234,16 @@ public class Config {
 		// universe. Some things man not meant control.
 		// Should probably replace the icon with something else once we have the
 		// asset for it.
-		module = new PowerModule(ModularCommon.MODULE_BLINK_DRIVE, TOOLONLY, MuseIcon.CRYSTAL_BUBBLE, ModularCommon.CATEGORY_SPECIAL)
-				.setDescription("Get from point A to point C via point B, where point B is a fold in space & time.")
-				.setToggleable(true)
-				.addBaseProperty(ModularCommon.BLINK_DRIVE_ENERGY_CONSUMPTION, 1000, "J")
-				// Todo: Adjustable range for higher energy consumption?
-				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 1))
-				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2));
-		addModule(module);
+		// module = new PowerModule(ModularCommon.MODULE_BLINK_DRIVE, TOOLONLY,
+		// MuseIcon.CRYSTAL_BUBBLE, ModularCommon.CATEGORY_SPECIAL)
+		// .setDescription("Get from point A to point C via point B, where point B is a fold in space & time.")
+		// .setToggleable(true)
+		// .addBaseProperty(ModularCommon.BLINK_DRIVE_ENERGY_CONSUMPTION, 1000,
+		// "J")
+		// // Todo: Adjustable range for higher energy consumption?
+		// .addInstallCost(copyAndResize(ItemComponent.ionThruster, 1))
+		// .addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2));
+		// addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_BASIC_PLATING, ARMORONLY, MuseIcon.MODULE_IRON_PLATING, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Basic plating is heavy but protective.")

@@ -1,6 +1,10 @@
 package net.machinemuse.api;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 import net.machinemuse.general.MuseMathUtils;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -58,6 +62,7 @@ public class MuseItemUtils {
 		}
 		return modes;
 	}
+
 	public static boolean isModuleOnline(NBTTagCompound itemTag, String moduleName) {
 		if (MuseItemUtils.tagHasModule(itemTag, moduleName) && !itemTag.getCompoundTag(moduleName).hasKey(ONLINE)) {
 			return true;
@@ -535,7 +540,8 @@ public class MuseItemUtils {
 	}
 
 	public static boolean itemHasActiveModule(ItemStack itemStack, String moduleName) {
-		if (ModuleManager.getModule(moduleName).isActive()) {
+		IPowerModule module = ModuleManager.getModule(moduleName);
+		if (module != null && module.isActive()) {
 			// MuseLogger.logDebug("Module: " + moduleName + " vs Mode: " +
 			// MuseItemUtils.getActiveMode(itemStack));
 

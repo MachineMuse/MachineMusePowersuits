@@ -152,7 +152,7 @@ public class PlayerTickHandler implements ITickHandler {
 				double moveRatio = 0;
 				if (forwardkey != 0) {
 					moveRatio += forwardkey * forwardkey;
-				}
+				} 
 				if (strafekey != 0) {
 					moveRatio += strafekey * strafekey;
 				}
