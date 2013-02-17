@@ -655,7 +655,7 @@ public class RecipeManager {
 					"ISI",
 					"CUC",
 					"ISI",
-					'I', "plateIridium",
+					'I', "ingotTungstenSteel",
 					'S', ItemComponent.solenoid,
 					'U', energyFlowCircuit,
 					'C', "itemSuperconductor"));
