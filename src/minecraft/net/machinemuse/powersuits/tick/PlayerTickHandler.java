@@ -69,6 +69,7 @@ public class PlayerTickHandler implements ITickHandler {
 		float strafekey = movementInput.strafeKey;
 		boolean sneakkey = movementInput.sneakKey;
 		boolean downkey = movementInput.downKey;
+		player.fallDistance = (float) movementInput.fallDistance;
 
 		boolean hasSprintAssist = false;
 		boolean hasGlider = false;
@@ -152,7 +153,7 @@ public class PlayerTickHandler implements ITickHandler {
 				double moveRatio = 0;
 				if (forwardkey != 0) {
 					moveRatio += forwardkey * forwardkey;
-				} 
+				}
 				if (strafekey != 0) {
 					moveRatio += strafekey * strafekey;
 				}
@@ -352,7 +353,6 @@ public class PlayerTickHandler implements ITickHandler {
 
 		// Update fall distance for damage, energy drain, and
 		// exhaustion this tick
-		player.fallDistance = (float) MovementManager.computeFallHeightFromVelocity(player.motionY);
 
 		if (totalEnergyDrain > 0) {
 			MuseItemUtils.drainPlayerEnergy(player, totalEnergyDrain);

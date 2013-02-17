@@ -95,7 +95,6 @@ public class ItemPowerTool extends ItemTool
 	 */
 	@Override
 	public float getStrVsBlock(ItemStack stack, Block block) {
-		// TODO: Make sure this is right
 		return getStrVsBlock(stack, block, 0);
 	}
 
