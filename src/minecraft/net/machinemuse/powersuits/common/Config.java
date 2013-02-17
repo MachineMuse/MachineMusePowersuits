@@ -244,6 +244,11 @@ public class Config {
 		// .addInstallCost(copyAndResize(ItemComponent.ionThruster, 1))
 		// .addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2));
 		// addModule(module);
+		
+		module = new PowerModule(ModularCommon.MODULE_EATER, HEADONLY, MuseIcon.JETPACK, ModularCommon.CATEGORY_ENVIRONMENTAL)
+				.setDescription("Why eat when your armor can do it for you.")
+				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2));
+		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_BASIC_PLATING, ARMORONLY, MuseIcon.MODULE_IRON_PLATING, ModularCommon.CATEGORY_ARMOR)
 				.setDescription("Basic plating is heavy but protective.")
