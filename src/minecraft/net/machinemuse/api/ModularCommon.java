@@ -57,7 +57,7 @@ public abstract class ModularCommon {
 	public static final String PUNCH_KNOCKBACK = "Melee Knockback";
 	public static final String WALKING_ENERGY_CONSUMPTION = "Walking Energy Consumption";
 	public static final String WALKING_SPEED_MULTIPLIER = "Walking Speed Multiplier";
-	public static final String EAT_ENERGY_CONSUMPTION = "Eating Energy Consumption";
+	public static final String FEED_ENERGY_CONSUMPTION = "Feeding Energy Consumption";
 
 	/**
 	 * Module names
@@ -92,7 +92,7 @@ public abstract class ModularCommon {
 	public static final String MODULE_NIGHT_VISION = "Night Vision";
 	public static final String MODULE_ACTIVE_CAMOUFLAGE = "Active Camouflage";
 	public static final String MODULE_FLIGHT_CONTROL = "Flight Control";
-	public static final String MODULE_EATER = "Eater";
+	public static final String MODULE_FEEDER = "Feeder";
 	public static final String CITIZEN_JOE_STYLE = "Citizen Joe Style";
 	/**
 	 * Categories for modules
