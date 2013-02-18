@@ -392,9 +392,14 @@ public class PlayerTickHandler implements ITickHandler {
 			}
 			isRaining = canRain && (world.isRaining() || world.isThundering()); //Make sure you're not in desert - Thanks cpw :P
 	        boolean sunVisible = world.isDaytime() && !isRaining && world.canBlockSeeTheSky(xCoord, MathHelper.floor_double(player.posY) + 1, zCoord);
-			if (!world.isRemote && !world.provider.hasNoSky && sunVisible && (world.getTotalWorldTime() % 100) == 0) {
-				MuseItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(helmet, ModularCommon.SOLAR_ENERGY_GENERATION));
-				player.sendChatToPlayer("Charging 1 J");
+	        boolean moonVisible = !world.isDaytime() && !isRaining && world.canBlockSeeTheSky(xCoord, MathHelper.floor_double(player.posY) + 1, zCoord);
+			if (!world.isRemote && !world.provider.hasNoSky && (world.getTotalWorldTime() % 100) == 0) {
+				if (sunVisible) {
+					MuseItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(helmet, ModularCommon.SOLAR_ENERGY_GENERATION_DAY));
+				}
+				else if (moonVisible) {
+					MuseItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(helmet, ModularCommon.SOLAR_ENERGY_GENERATION_NIGHT));
+				}
 			}
 		}
 

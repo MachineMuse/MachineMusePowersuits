@@ -247,7 +247,8 @@ public class Config {
 		
 		module = new PowerModule(ModularCommon.MODULE_SOLAR_GENERATOR, HEADONLY, MuseIcon.NEXUS_1_GREEN, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Let the sun power your adventures.")
-				.addBaseProperty(ModularCommon.SOLAR_ENERGY_GENERATION, 1)
+				.addBaseProperty(ModularCommon.SOLAR_ENERGY_GENERATION_DAY, 100)
+				.addBaseProperty(ModularCommon.SOLAR_ENERGY_GENERATION_NIGHT, 10)
 				.addInstallCost(copyAndResize(ItemComponent.solarPanel, 1))
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 2));
 		addModule(module);
