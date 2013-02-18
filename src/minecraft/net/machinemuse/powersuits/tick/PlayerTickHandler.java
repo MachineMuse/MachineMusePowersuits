@@ -372,7 +372,7 @@ public class PlayerTickHandler implements ITickHandler {
 			double eatingEnergyConsumption = ModuleManager.computeModularProperty(helmet, ModularCommon.EATING_ENERGY_CONSUMPTION);
 			FoodStats foodStats = player.getFoodStats();
 			int foodNeeded = 20 - foodStats.getFoodLevel();
-			if (foodNeeded > 0) {
+			if (foodNeeded > 0 && ((eatingEnergyConsumption*foodNeeded) + totalEnergyDrain) < totalEnergy) {
 				foodStats.addStats(foodNeeded, 0.0F);
 				MuseItemUtils.setFoodLevel(helmet, MuseItemUtils.getFoodLevel(helmet) - foodNeeded);
 				totalEnergyDrain += eatingEnergyConsumption*foodNeeded;
