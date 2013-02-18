@@ -423,7 +423,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 	 * Set the item's tier, lower tiers can't send energy to higher ones.
 	 * Batteries are Tier 1, Energy Crystals are Tier 2, Lapotron Crystals are Tier 3.
 	 * 
-	 * @see http://ic2api.player.to/ic2api/html/interfaceic2_1_1api_1_1_i_electric_item.html#a953def30e7b4179b372b3362afadf518 
+	 * @see <a href="http://ic2api.player.to/ic2api/html/interfaceic2_1_1api_1_1_i_electric_item.html#a953def30e7b4179b372b3362afadf518">int ic2.api.IElectricItem.getTier()</a> 
 	 * 
 	 * @param ic2ChargeTier
 	 */

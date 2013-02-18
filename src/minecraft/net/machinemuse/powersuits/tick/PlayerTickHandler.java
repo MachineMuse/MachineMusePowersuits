@@ -15,8 +15,6 @@ import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.common.PlayerInputMap;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.ItemPowerArmor;
-import net.machinemuse.powersuits.item.ItemPowerArmorHead;
-import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemFood;
@@ -128,29 +126,29 @@ public class PlayerTickHandler implements ITickHandler {
 		
 		// check for lapPack and update all of the non-null armor items to be the correct tier
 		if (hasLapPack) {
-			if (helmet != null) {
+			if (helmet != null && helmet.getItem() instanceof ItemPowerArmor) {
 				((ItemPowerArmor) helmet.getItem()).setTier(3);
 			}
-			if (pants != null) {
+			if (pants != null && pants.getItem() instanceof ItemPowerArmor) {
 				((ItemPowerArmor) pants.getItem()).setTier(3);
 			}
-			if (boots != null) {
+			if (boots != null && boots.getItem() instanceof ItemPowerArmor) {
 				((ItemPowerArmor) boots.getItem()).setTier(3);
 			}
-			if (torso != null) {
+			if (torso != null && torso.getItem() instanceof ItemPowerArmor) {
 				((ItemPowerArmor) torso.getItem()).setTier(3);
 			}
 		} else {
-			if (helmet != null) {
+			if (helmet != null && helmet.getItem() instanceof ItemPowerArmor) {
 				((ItemPowerArmor) helmet.getItem()).setTier(1);
 			}
-			if (pants != null) {
+			if (pants != null && pants.getItem() instanceof ItemPowerArmor) {
 				((ItemPowerArmor) pants.getItem()).setTier(1);
 			}
-			if (boots != null) {
+			if (boots != null && boots.getItem() instanceof ItemPowerArmor) {
 				((ItemPowerArmor) boots.getItem()).setTier(1);
 			}
-			if (torso != null) {
+			if (torso != null && torso.getItem() instanceof ItemPowerArmor) {
 				((ItemPowerArmor) torso.getItem()).setTier(1);
 			}
 		}
