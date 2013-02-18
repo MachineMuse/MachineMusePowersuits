@@ -88,7 +88,7 @@ public class ClientTickHandler implements ITickHandler {
 			// dWheel = 0;
 			// }
 			PlayerInputMap inputmap = PlayerInputMap.getInputMapFor(player.username);
-			inputmap.downKey = Keyboard.isKeyDown(Keyboard.KEY_Z);
+			inputmap.downKey = Keyboard.isKeyDown(Keyboard.KEY_Z) && Minecraft.getMinecraft().inGameHasFocus;
 			inputmap.forwardKey = player.movementInput.moveForward;
 			inputmap.strafeKey = player.movementInput.moveStrafe;
 			inputmap.jumpKey = player.movementInput.jump;
