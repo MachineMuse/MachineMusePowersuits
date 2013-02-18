@@ -1,0 +1,12 @@
+Icons for stuff which will likely be added soon
+============
+Laser/hologram projector (to be used as a component in the cosmetic as well as HUD upgrades...currently using that nether star design because it's pretty and multicoloured)
+Carbon Myofibers (artificial muscles)
+Glycerol (transparent goop)
+Carbon fiber strands
+
+Cooling systems
+
+Icons for stuff that will be added eventually
+============
+Generators of various types (kinetic, coal, uranium, fusion...)
