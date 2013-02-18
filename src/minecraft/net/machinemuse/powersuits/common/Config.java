@@ -245,6 +245,13 @@ public class Config {
 		// .addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2));
 		// addModule(module);
 		
+		module = new PowerModule(ModularCommon.MODULE_SOLAR_GENERATOR, HEADONLY, MuseIcon.NEXUS_1_GREEN, ModularCommon.CATEGORY_ENERGY)
+				.setDescription("Let the sun power your adventures.")
+				.addBaseProperty(ModularCommon.SOLAR_ENERGY_GENERATION, 1)
+				.addInstallCost(copyAndResize(ItemComponent.solarPanel, 1))
+				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 2));
+		addModule(module);
+		
 		module = new PowerModule(ModularCommon.MODULE_AUTO_FEEDER, HEADONLY, MuseIcon.NEXUS_1_BLUE, ModularCommon.CATEGORY_ENVIRONMENTAL)
 				.setDescription("Why eat when your armor can do it for you.")
 				.setToggleable(true)

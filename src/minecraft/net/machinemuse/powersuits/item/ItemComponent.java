@@ -36,6 +36,7 @@ public class ItemComponent extends Item {
 	public static ItemStack controlCircuit;
 	public static ItemStack myofiberGel;
 	public static ItemStack artificialMuscle;
+	public static ItemStack solarPanel;
 
 	public ItemComponent() {
 		super(Config.getAssignedItemID(Config.Items.PowerArmorComponent));
@@ -113,6 +114,8 @@ public class ItemComponent extends Item {
 		artificialMuscle = addComponent("componentArtificialMuscle", "Artificial Muscle",
 				"An electrical, artificial muscle, with less range of movement than human muscle but orders of magnitude more strength.",
 				MuseIcon.ARTIFICIAL_MUSCLE);
+		solarPanel = addComponent("componentSolarPanel", "Solar Panel",
+				"A light sensitive device that will generate electricity from the sun.", MuseIcon.INDICATOR_1_BLUE);
 	}
 
 	/**

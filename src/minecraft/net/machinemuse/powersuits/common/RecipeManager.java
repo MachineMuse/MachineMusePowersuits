@@ -35,6 +35,7 @@ public class RecipeManager {
 		ItemStack rosered = new ItemStack(Item.dyePowder, 1, 1);
 		ItemStack cactusgreen = new ItemStack(Item.dyePowder, 1, 2);
 		ItemStack enderPearl = new ItemStack(Item.enderPearl);
+		ItemStack stone = new ItemStack(Block.stone);
 
 		if (ModCompatability.vanillaRecipesEnabled()) {
 			GameRegistry.addRecipe(ItemComponent.basicPlating,
@@ -172,6 +173,13 @@ public class RecipeManager {
 					'E', ItemComponent.solenoid,
 					'G', glowstone,
 					'F', ItemComponent.fieldEmitter);
+			GameRegistry.addRecipe(ItemComponent.solarPanel, 
+					"GGG",
+					"BBB",
+					"SSS",
+					'G', glass,
+					'B', lapis,
+					'S', stone);
 
 		}
 		if (ModCompatability.UERecipesEnabled() && ModCompatability.isBasicComponentsLoaded()) {
