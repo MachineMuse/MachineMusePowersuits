@@ -88,7 +88,7 @@ public class PlayerTickHandler implements ITickHandler {
 		if (helmet != null && helmet.getItem() instanceof IModularItem) {
 			hasNightVision = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_NIGHT_VISION);
 			hasFlightControl = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_FLIGHT_CONTROL);
-			hasFeeder = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_FEEDER);
+			hasFeeder = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_AUTO_FEEDER);
 			if (helmet.getTagCompound().hasKey("ench")) {
 				helmet.getTagCompound().removeTag("ench");
 			}
@@ -374,6 +374,7 @@ public class PlayerTickHandler implements ITickHandler {
 			if (foodNeeded > 0) {
 				foodStats.addStats(foodNeeded, 0.0F);
 				MuseItemUtils.setFoodLevel(helmet, MuseItemUtils.getFoodLevel(helmet) - foodNeeded);
+				totalEnergyDrain += 100*foodNeeded;
 			}
 		}
 

@@ -245,8 +245,9 @@ public class Config {
 		// .addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2));
 		// addModule(module);
 		
-		module = new PowerModule(ModularCommon.MODULE_FEEDER, HEADONLY, MuseIcon.PLATE_1_GREEN, ModularCommon.CATEGORY_ENVIRONMENTAL)
+		module = new PowerModule(ModularCommon.MODULE_AUTO_FEEDER, HEADONLY, MuseIcon.PLATE_1_GREEN, ModularCommon.CATEGORY_ENVIRONMENTAL)
 				.setDescription("Why eat when your armor can do it for you.")
+				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
 		addModule(module);

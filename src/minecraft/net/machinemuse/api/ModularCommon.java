@@ -58,7 +58,6 @@ public abstract class ModularCommon {
 	public static final String PUNCH_KNOCKBACK = "Melee Knockback";
 	public static final String WALKING_ENERGY_CONSUMPTION = "Walking Energy Consumption";
 	public static final String WALKING_SPEED_MULTIPLIER = "Walking Speed Multiplier";
-	public static final String FEED_ENERGY_CONSUMPTION = "Feeding Energy Consumption";
 
 	/**
 	 * Module names
@@ -93,7 +92,7 @@ public abstract class ModularCommon {
 	public static final String MODULE_NIGHT_VISION = "Night Vision";
 	public static final String MODULE_ACTIVE_CAMOUFLAGE = "Active Camouflage";
 	public static final String MODULE_FLIGHT_CONTROL = "Flight Control";
-	public static final String MODULE_FEEDER = "Feeder";
+	public static final String MODULE_AUTO_FEEDER = "Auto-Feeder";
 	public static final String CITIZEN_JOE_STYLE = "Citizen Joe Style";
 	/**
 	 * Categories for modules
@@ -134,8 +133,7 @@ public abstract class ModularCommon {
 				+ MuseStringUtils.formatNumberShort(getMaxJoules(stack));
 		currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character,
 				MuseStringUtils.FormatCodes.Grey));
-		ItemStack helmet = player.getCurrentArmor(3);
-		if (stack.getItem() instanceof ItemPowerArmorHead && MuseItemUtils.getFoodLevel(helmet) > 0 && MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_FEEDER)); {
+		if (stack.getItem() instanceof ItemPowerArmorHead && MuseItemUtils.getFoodLevel(stack) > 0 && MuseItemUtils.itemHasModule(stack, ModularCommon.MODULE_AUTO_FEEDER)) {
 			currentTipList.add(MuseStringUtils.wrapMultipleFormatTags("Food level: "+MuseItemUtils.getFoodLevel(stack) , MuseStringUtils.FormatCodes.Italic.character,
 					MuseStringUtils.FormatCodes.Grey));
 		}
