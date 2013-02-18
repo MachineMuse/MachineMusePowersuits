@@ -115,7 +115,7 @@ public class ItemComponent extends Item {
 				"An electrical, artificial muscle, with less range of movement than human muscle but orders of magnitude more strength.",
 				MuseIcon.ARTIFICIAL_MUSCLE);
 		solarPanel = addComponent("componentSolarPanel", "Solar Panel",
-				"A light sensitive device that will generate electricity from the sun.", MuseIcon.INDICATOR_1_BLUE);
+				"A light sensitive device that will generate electricity from the sun.", new MuseIcon(MuseIcon.WC_ICON_PATH, 229));
 	}
 
 	/**
