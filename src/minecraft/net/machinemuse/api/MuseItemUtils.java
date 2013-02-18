@@ -331,6 +331,17 @@ public class MuseItemUtils {
 		setStringOrNull(getMuseItemTag(stack),
 				key, value);
 	}
+	
+	public static int getFoodLevel(EntityPlayer player) {
+		NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(player.inventory.armorInventory[0]);
+		int foodLevel = itemTag.getInteger("Food");
+		return foodLevel;
+	}
+	
+	public static void setFoodLevel(EntityPlayer player, int i) {
+		NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(player.inventory.armorInventory[0]);
+		itemTag.setInteger("Food", i);
+	}
 
 	public static double getPlayerEnergy(EntityPlayer player) {
 		double avail = 0;

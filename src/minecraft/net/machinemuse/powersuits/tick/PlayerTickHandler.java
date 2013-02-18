@@ -14,7 +14,11 @@ import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.common.PlayerInputMap;
 import net.machinemuse.powersuits.event.MovementManager;
+import net.machinemuse.powersuits.item.ItemPowerArmorHead;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -80,10 +84,12 @@ public class PlayerTickHandler implements ITickHandler {
 		boolean hasNightVision = false;
 		boolean hasInvis = false;
 		boolean hasFlightControl = false;
+		boolean hasFeeder = false;
 
 		if (helmet != null && helmet.getItem() instanceof IModularItem) {
 			hasNightVision = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_NIGHT_VISION);
 			hasFlightControl = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_FLIGHT_CONTROL);
+			hasFeeder = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_FEEDER);
 			if (helmet.getTagCompound().hasKey("ench")) {
 				helmet.getTagCompound().removeTag("ench");
 			}
@@ -346,6 +352,23 @@ public class PlayerTickHandler implements ITickHandler {
 						player.jumpMovementFactor = player.landMovementFactor * .5f;
 					}
 
+				}
+			}
+		}
+		if (hasFeeder) { 
+			IInventory inv = player.inventory;
+			int foodLevel = MuseItemUtils.getFoodLevel(player);
+			for (int i = 0; i < inv.getSizeInventory(); i++) {
+				ItemStack stack = inv.getStackInSlot(i);
+				if (stack != null && stack.getItem() instanceof ItemFood) {
+					player.sendChatToPlayer("Found food stack. Food level: "+foodLevel);
+					ItemFood food = (ItemFood) stack.getItem();
+					for (int a = 0; a < stack.stackSize; a++) {
+						foodLevel += food.getHealAmount();
+					}
+					MuseItemUtils.setFoodLevel(player, foodLevel);
+					player.inventory.setInventorySlotContents(i, null);
+					player.sendChatToPlayer("Food consumed. Food level: "+foodLevel);
 				}
 			}
 		}

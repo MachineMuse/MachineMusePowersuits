@@ -4,6 +4,7 @@ import net.machinemuse.powersuits.common.Config;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class ItemPowerArmorHead extends ItemPowerArmor {
+	int foodLevel = 0;
 	public ItemPowerArmorHead() {
 		super(Config.getAssignedItemID(Config.Items.PowerArmorHead), // itemID
 				0, // Texture index for rendering armor on the player
@@ -14,4 +15,11 @@ public class ItemPowerArmorHead extends ItemPowerArmor {
 		LanguageRegistry.addName(this, itemType.englishName);
 	}
 
+	public int getFoodLevel() {
+		return foodLevel;
+	}
+	
+	public void setFoodLevel(int i) {
+		foodLevel = i;
+	}
 }

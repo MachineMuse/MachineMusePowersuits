@@ -247,7 +247,8 @@ public class Config {
 		
 		module = new PowerModule(ModularCommon.MODULE_FEEDER, HEADONLY, MuseIcon.PLATE_1_GREEN, ModularCommon.CATEGORY_ENVIRONMENTAL)
 				.setDescription("Why eat when your armor can do it for you.")
-				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2));
+				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
+				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
 		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_BASIC_PLATING, ARMORONLY, MuseIcon.MODULE_IRON_PLATING, ModularCommon.CATEGORY_ARMOR)
