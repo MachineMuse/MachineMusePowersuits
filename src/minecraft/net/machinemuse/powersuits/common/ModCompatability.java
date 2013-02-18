@@ -40,6 +40,11 @@ public class ModCompatability {
 		boolean defaultval = isThaumCraftLoaded();
 		return Config.getConfig().get("Special Modules", "Thaumcraft Goggles Module", defaultval).getBoolean(defaultval);
 	}
+	
+	public static boolean enableLapPackModule() {
+		boolean defaultval = isIndustrialCraftLoaded();
+		return Config.getConfig().get("Special Modules", "LapPack Transformer", defaultval).getBoolean(defaultval);
+	}
 
 	public static boolean vanillaRecipesEnabled() {
 		boolean defaultval = (!isBasicComponentsLoaded()) && (!isIndustrialCraftLoaded());
@@ -137,6 +142,23 @@ public class ModCompatability {
 				e.printStackTrace();
 			}
 
+		}
+		
+		// Add LapPack transformer
+		if (ModCompatability.isIndustrialCraftLoaded() && ModCompatability.enableLapPackModule()) {
+			try {
+				ItemStack lapPack = getIC2Item("lapPack");
+				PowerModule lapPackModule = new PowerModule(ModularCommon.MODULE_LAPPACK_TRANSFORMER, Arrays.asList((IModularItem) ModularPowersuits.powerArmorTorso), new MuseIcon(
+						"/ic2/sprites/item_0.png", 150), ModularCommon.CATEGORY_SPECIAL)
+						.setDescription(
+								"Enable Lapotron tier IC2 tools to be charged from the armor.")
+						.setToggleable(true)
+						.addInstallCost(Config.copyAndResize(ItemComponent.wiring, 2))
+						.addInstallCost(lapPack);
+				ModuleManager.addModule(lapPackModule);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

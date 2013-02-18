@@ -14,6 +14,9 @@ import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.common.PlayerInputMap;
 import net.machinemuse.powersuits.event.MovementManager;
+import net.machinemuse.powersuits.item.ItemPowerArmor;
+import net.machinemuse.powersuits.item.ItemPowerArmorHead;
+import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemFood;
@@ -87,6 +90,7 @@ public class PlayerTickHandler implements ITickHandler {
 		boolean hasFlightControl = false;
 		boolean hasFeeder = false;
 		boolean hasSolarGeneration = false;
+		boolean hasLapPack = false;
 
 		if (helmet != null && helmet.getItem() instanceof IModularItem) {
 			hasNightVision = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_NIGHT_VISION);
@@ -116,8 +120,38 @@ public class PlayerTickHandler implements ITickHandler {
 			hasJetpack = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_JETPACK);
 			hasGlider = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_GLIDER);
 			hasParachute = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_PARACHUTE);
+			hasLapPack = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_LAPPACK_TRANSFORMER);
 			if (torso.getTagCompound().hasKey("ench")) {
 				torso.getTagCompound().removeTag("ench");
+			}
+		}
+		
+		// check for lapPack and update all of the non-null armor items to be the correct tier
+		if (hasLapPack) {
+			if (helmet != null) {
+				((ItemPowerArmor) helmet.getItem()).setTier(3);
+			}
+			if (pants != null) {
+				((ItemPowerArmor) pants.getItem()).setTier(3);
+			}
+			if (boots != null) {
+				((ItemPowerArmor) boots.getItem()).setTier(3);
+			}
+			if (torso != null) {
+				((ItemPowerArmor) torso.getItem()).setTier(3);
+			}
+		} else {
+			if (helmet != null) {
+				((ItemPowerArmor) helmet.getItem()).setTier(1);
+			}
+			if (pants != null) {
+				((ItemPowerArmor) pants.getItem()).setTier(1);
+			}
+			if (boots != null) {
+				((ItemPowerArmor) boots.getItem()).setTier(1);
+			}
+			if (torso != null) {
+				((ItemPowerArmor) torso.getItem()).setTier(1);
 			}
 		}
 

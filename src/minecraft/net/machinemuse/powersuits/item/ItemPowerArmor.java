@@ -47,6 +47,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 		IEMPItem // for ICBM EMP interfacing
 {
 	Config.Items itemType;
+	int ic2ChargeTier = 1;
 
 	/**
 	 * @param id
@@ -404,7 +405,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 
 	@Override
 	public int getTier() {
-		return 1;
+		return ic2ChargeTier;
 	}
 
 	@Override
@@ -415,6 +416,19 @@ public abstract class ItemPowerArmor extends ItemArmor
 	@Override
 	public void onEMP(ItemStack itemStack, Entity entity, IExplosive empExplosive) {
 		ModularCommon.onEMP(itemStack, entity, empExplosive);
+	}
+	
+	
+	/**
+	 * Set the item's tier, lower tiers can't send energy to higher ones.
+	 * Batteries are Tier 1, Energy Crystals are Tier 2, Lapotron Crystals are Tier 3.
+	 * 
+	 * @see http://ic2api.player.to/ic2api/html/interfaceic2_1_1api_1_1_i_electric_item.html#a953def30e7b4179b372b3362afadf518 
+	 * 
+	 * @param ic2ChargeTier
+	 */
+	public void setTier(int ic2ChargeTier) {
+		this.ic2ChargeTier = ic2ChargeTier;
 	}
 
 }

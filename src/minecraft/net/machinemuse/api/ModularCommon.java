@@ -98,6 +98,7 @@ public abstract class ModularCommon {
 	public static final String MODULE_AUTO_FEEDER = "Auto-Feeder";
 	public static final String MODULE_SOLAR_GENERATOR = "Solar Generator";
 	public static final String CITIZEN_JOE_STYLE = "Citizen Joe Style";
+	public static final String MODULE_LAPPACK_TRANSFORMER = "LapPack Transformer";
 	/**
 	 * Categories for modules
 	 */
