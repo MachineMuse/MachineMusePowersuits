@@ -248,6 +248,7 @@ public class Config {
 		module = new PowerModule(ModularCommon.MODULE_AUTO_FEEDER, HEADONLY, MuseIcon.NEXUS_1_BLUE, ModularCommon.CATEGORY_ENVIRONMENTAL)
 				.setDescription("Why eat when your armor can do it for you.")
 				.setToggleable(true)
+				.addBaseProperty(ModularCommon.EATING_ENERGY_CONSUMPTION, 100)
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
 		addModule(module);
