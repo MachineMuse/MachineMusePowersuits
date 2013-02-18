@@ -47,7 +47,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 		IEMPItem // for ICBM EMP interfacing
 {
 	Config.Items itemType;
-	int ic2ChargeTier = 1;
+	private int ic2ChargeTier = 1;
 
 	/**
 	 * @param id
