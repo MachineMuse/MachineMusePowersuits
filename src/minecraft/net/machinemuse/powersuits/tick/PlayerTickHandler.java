@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.FoodStats;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.ITickHandler;
@@ -85,11 +86,13 @@ public class PlayerTickHandler implements ITickHandler {
 		boolean hasInvis = false;
 		boolean hasFlightControl = false;
 		boolean hasFeeder = false;
+		boolean hasSolarGeneration = false;
 
 		if (helmet != null && helmet.getItem() instanceof IModularItem) {
 			hasNightVision = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_NIGHT_VISION);
 			hasFlightControl = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_FLIGHT_CONTROL);
 			hasFeeder = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_AUTO_FEEDER);
+			hasSolarGeneration = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_SOLAR_GENERATOR);
 			if (helmet.getTagCompound().hasKey("ench")) {
 				helmet.getTagCompound().removeTag("ench");
 			}
@@ -373,10 +376,31 @@ public class PlayerTickHandler implements ITickHandler {
 			double eatingEnergyConsumption = ModuleManager.computeModularProperty(helmet, ModularCommon.EATING_ENERGY_CONSUMPTION);
 			FoodStats foodStats = player.getFoodStats();
 			int foodNeeded = 20 - foodStats.getFoodLevel();
-			if (foodNeeded > 0) {
+			if (foodNeeded > 0 && ((eatingEnergyConsumption*foodNeeded) + totalEnergyDrain) < totalEnergy) {
 				foodStats.addStats(foodNeeded, 0.0F);
 				MuseItemUtils.setFoodLevel(helmet, MuseItemUtils.getFoodLevel(helmet) - foodNeeded);
 				totalEnergyDrain += eatingEnergyConsumption*foodNeeded;
+			}
+		}
+		//Solar Generator
+		if (hasSolarGeneration) {
+			World world = player.worldObj;
+			int xCoord = MathHelper.floor_double(player.posX);
+	        int zCoord = MathHelper.floor_double(player.posZ);
+			boolean isRaining = false, canRain = true;
+			if (world.getTotalWorldTime() % 20 == 0) {
+				canRain = world.getWorldChunkManager().getBiomeGenAt(xCoord, zCoord).getIntRainfall() > 0;
+			}
+			isRaining = canRain && (world.isRaining() || world.isThundering()); //Make sure you're not in desert - Thanks cpw :P
+	        boolean sunVisible = world.isDaytime() && !isRaining && world.canBlockSeeTheSky(xCoord, MathHelper.floor_double(player.posY) + 1, zCoord);
+	        boolean moonVisible = !world.isDaytime() && !isRaining && world.canBlockSeeTheSky(xCoord, MathHelper.floor_double(player.posY) + 1, zCoord);
+			if (!world.isRemote && !world.provider.hasNoSky && (world.getTotalWorldTime() % 100) == 0) {
+				if (sunVisible) {
+					MuseItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(helmet, ModularCommon.SOLAR_ENERGY_GENERATION_DAY));
+				}
+				else if (moonVisible) {
+					MuseItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(helmet, ModularCommon.SOLAR_ENERGY_GENERATION_NIGHT));
+				}
 			}
 		}
 
