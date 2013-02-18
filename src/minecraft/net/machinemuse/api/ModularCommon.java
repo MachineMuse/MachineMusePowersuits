@@ -58,6 +58,7 @@ public abstract class ModularCommon {
 	public static final String PUNCH_KNOCKBACK = "Melee Knockback";
 	public static final String WALKING_ENERGY_CONSUMPTION = "Walking Energy Consumption";
 	public static final String WALKING_SPEED_MULTIPLIER = "Walking Speed Multiplier";
+	public static final String EATING_ENERGY_CONSUMPTION = "Eating Energy Consumption";
 
 	/**
 	 * Module names
