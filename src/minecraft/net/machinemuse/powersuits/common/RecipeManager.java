@@ -28,6 +28,7 @@ public class RecipeManager {
 		ItemStack string = new ItemStack(Item.silk);
 		ItemStack paper = new ItemStack(Item.paper);
 		ItemStack glass = new ItemStack(Block.glass);
+		ItemStack glassPane = new ItemStack(Block.thinGlass);
 		ItemStack glowstone = new ItemStack(Item.lightStoneDust);
 		ItemStack emerald = new ItemStack(Item.emerald);
 		ItemStack diamond = new ItemStack(Item.diamond);
@@ -35,6 +36,7 @@ public class RecipeManager {
 		ItemStack rosered = new ItemStack(Item.dyePowder, 1, 1);
 		ItemStack cactusgreen = new ItemStack(Item.dyePowder, 1, 2);
 		ItemStack enderPearl = new ItemStack(Item.enderPearl);
+		ItemStack stone = new ItemStack(Block.stone);
 
 		if (ModCompatability.vanillaRecipesEnabled()) {
 			GameRegistry.addRecipe(ItemComponent.basicPlating,
@@ -172,6 +174,12 @@ public class RecipeManager {
 					'E', ItemComponent.solenoid,
 					'G', glowstone,
 					'F', ItemComponent.fieldEmitter);
+			GameRegistry.addRecipe(new ShapedOreRecipe (ItemComponent.solarPanel, 
+					"PPP",
+					"PLP",
+					"PPP",
+					'P', glassPane,
+					'L', lapis));
 
 		}
 		if (ModCompatability.UERecipesEnabled() && ModCompatability.isBasicComponentsLoaded()) {
@@ -310,6 +318,15 @@ public class RecipeManager {
 					'G', glowstone,
 					'C', "advancedCircuit",
 					'F', ItemComponent.fieldEmitter));
+			
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solarPanel, true, 
+					"GGG",
+					"CLC",
+					"SSS",
+					'G', glass,
+					'C', basicCircuit,
+					'L', lapisBlock,
+					'S', "plateSteel"));
 		}
 		if (ModCompatability.IC2RecipesEnabled() && ModCompatability.isIndustrialCraftLoaded()) {
 			circuit = ModCompatability.getIC2Item("electronicCircuit");
@@ -326,6 +343,7 @@ public class RecipeManager {
 			ItemStack carbonPlate = ModCompatability.getIC2Item("carbonPlate");
 			ItemStack machine = ModCompatability.getIC2Item("machine");
 			ItemStack advMachine = ModCompatability.getIC2Item("advancedMachine");
+			ItemStack gen = ModCompatability.getIC2Item("generator");
 
 			try {
 				ItemStack refinedIron = OreDictionary.getOres("ingotRefinedIron").get(0);
@@ -469,6 +487,15 @@ public class RecipeManager {
 					'G', glowstone,
 					'C', advCircuit.copy(),
 					'M', advMachine.copy()));
+			
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solarPanel, true,
+					"LGL",
+					"GLG",
+					"CBC",
+					'L', lapis,
+					'G', glass,
+					'C', circuit,
+					'B', gen));
 		}
 		if (ModCompatability.GregTechRecipesEnabled() && ModCompatability.isIndustrialCraftLoaded() && ModCompatability.isGregTechLoaded()) {
 			// This means Gregtech is installed, and GregoriusT in his infinite
@@ -488,6 +515,7 @@ public class RecipeManager {
 			ItemStack carbonPlate = ModCompatability.getIC2Item("carbonPlate");
 			ItemStack uninsulatedCopper = ModCompatability.getIC2Item("copperCableItem");
 			ItemStack luminator = ModCompatability.getIC2Item("luminator");
+			ItemStack reinforcedGlass = ModCompatability.getIC2Item("reinforcedGlass");
 
 			try {
 				ItemStack titanium = OreDictionary.getOres("ingotSteel").get(0);
@@ -669,6 +697,13 @@ public class RecipeManager {
 					'N', neutronReflector,
 					'C', ItemComponent.hvcapacitor,
 					'F', ItemComponent.fieldEmitter));
+			
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solarPanel, true, 
+					"GGG",
+					"PCP",
+					'G', reinforcedGlass,
+					'P', "plateIridium",
+					'C', energyFlowCircuit));
 		}
 		if (ModCompatability.ThermalExpansionRecipesEnabled() && ModCompatability.isThermalExpansionLoaded()) {
 			ItemStack pneumaticServo = ModCompatability.getThermexItem("pneumaticServo", 1);

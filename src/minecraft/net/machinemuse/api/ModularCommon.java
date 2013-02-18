@@ -59,7 +59,9 @@ public abstract class ModularCommon {
 	public static final String WALKING_ENERGY_CONSUMPTION = "Walking Energy Consumption";
 	public static final String WALKING_SPEED_MULTIPLIER = "Walking Speed Multiplier";
 	public static final String EATING_ENERGY_CONSUMPTION = "Eating Energy Consumption";
-
+	public static final String SOLAR_ENERGY_GENERATION_DAY = "Daytime Solar Energy Generation";
+	public static final String SOLAR_ENERGY_GENERATION_NIGHT = "Nighttime Solar Energy Generation";
+	
 	/**
 	 * Module names
 	 */
@@ -94,6 +96,7 @@ public abstract class ModularCommon {
 	public static final String MODULE_ACTIVE_CAMOUFLAGE = "Active Camouflage";
 	public static final String MODULE_FLIGHT_CONTROL = "Flight Control";
 	public static final String MODULE_AUTO_FEEDER = "Auto-Feeder";
+	public static final String MODULE_SOLAR_GENERATOR = "Solar Generator";
 	public static final String CITIZEN_JOE_STYLE = "Citizen Joe Style";
 	/**
 	 * Categories for modules
