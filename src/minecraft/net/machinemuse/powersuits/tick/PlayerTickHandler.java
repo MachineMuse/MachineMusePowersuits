@@ -15,9 +15,12 @@ import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.common.PlayerInputMap;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.FoodStats;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.ITickHandler;
@@ -81,10 +84,12 @@ public class PlayerTickHandler implements ITickHandler {
 		boolean hasNightVision = false;
 		boolean hasInvis = false;
 		boolean hasFlightControl = false;
+		boolean hasFeeder = false;
 
 		if (helmet != null && helmet.getItem() instanceof IModularItem) {
 			hasNightVision = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_NIGHT_VISION);
 			hasFlightControl = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_FLIGHT_CONTROL);
+			hasFeeder = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_AUTO_FEEDER);
 			if (helmet.getTagCompound().hasKey("ench")) {
 				helmet.getTagCompound().removeTag("ench");
 			}
@@ -348,6 +353,29 @@ public class PlayerTickHandler implements ITickHandler {
 					}
 
 				}
+			}
+		}
+		//Food Module
+		if (hasFeeder) { 
+			IInventory inv = player.inventory;
+			int foodLevel = MuseItemUtils.getFoodLevel(helmet);
+			for (int i = 0; i < inv.getSizeInventory(); i++) {
+				ItemStack stack = inv.getStackInSlot(i);
+				if (stack != null && stack.getItem() instanceof ItemFood) {
+					ItemFood food = (ItemFood) stack.getItem();
+					for (int a = 0; a < stack.stackSize; a++) {
+						foodLevel += food.getHealAmount();
+					}
+					MuseItemUtils.setFoodLevel(helmet, foodLevel);
+					player.inventory.setInventorySlotContents(i, null);
+				}
+			}
+			FoodStats foodStats = player.getFoodStats();
+			int foodNeeded = 20 - foodStats.getFoodLevel();
+			if (foodNeeded > 0) {
+				foodStats.addStats(foodNeeded, 0.0F);
+				MuseItemUtils.setFoodLevel(helmet, MuseItemUtils.getFoodLevel(helmet) - foodNeeded);
+				totalEnergyDrain += 100*foodNeeded;
 			}
 		}
 
