@@ -354,6 +354,7 @@ public class PlayerTickHandler implements ITickHandler {
 				}
 			}
 		}
+		//Food Module
 		if (hasFeeder) { 
 			IInventory inv = player.inventory;
 			int foodLevel = MuseItemUtils.getFoodLevel(helmet);

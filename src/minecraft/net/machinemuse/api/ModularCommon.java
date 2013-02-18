@@ -7,6 +7,7 @@ import java.util.List;
 
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.item.ItemPowerArmorHead;
 import net.machinemuse.powersuits.item.ItemPowerTool;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -133,6 +134,11 @@ public abstract class ModularCommon {
 				+ MuseStringUtils.formatNumberShort(getMaxJoules(stack));
 		currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character,
 				MuseStringUtils.FormatCodes.Grey));
+		ItemStack helmet = player.getCurrentArmor(3);
+		if (stack.getItem() instanceof ItemPowerArmorHead && MuseItemUtils.getFoodLevel(helmet) > 0 && MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_FEEDER)); {
+			currentTipList.add(MuseStringUtils.wrapMultipleFormatTags("Food level: "+MuseItemUtils.getFoodLevel(stack) , MuseStringUtils.FormatCodes.Italic.character,
+					MuseStringUtils.FormatCodes.Grey));
+		}
 		if (Config.doAdditionalInfo()) {
 			List<String> installed = ModularCommon.getItemInstalledModules(player, stack);
 			if (installed.size() == 0) {
