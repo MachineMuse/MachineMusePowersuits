@@ -333,14 +333,24 @@ public class MuseItemUtils {
 	}
 	
 	public static int getFoodLevel(EntityPlayer player) {
-		NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(player.inventory.armorInventory[0]);
-		int foodLevel = itemTag.getInteger("Food");
-		return foodLevel;
+		ItemStack stack = player.inventory.armorInventory[3];
+		if (stack != null && stack.getItem() instanceof IModularItem) {
+			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+			Integer foodLevel = itemTag.getInteger("Food");
+			if (foodLevel != null) {
+				player.sendChatToPlayer("Food level being gotten: "+foodLevel.intValue());
+				return foodLevel.intValue();
+			}
+		}
+		return 0;
 	}
 	
 	public static void setFoodLevel(EntityPlayer player, int i) {
-		NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(player.inventory.armorInventory[0]);
-		itemTag.setInteger("Food", i);
+		ItemStack stack = player.inventory.armorInventory[0];
+		if (stack != null && stack.getItem() instanceof IModularItem) {
+			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+			itemTag.setInteger("Food", i);
+		}
 	}
 
 	public static double getPlayerEnergy(EntityPlayer player) {
