@@ -20,6 +20,7 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.FoodStats;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.ITickHandler;
@@ -366,6 +367,12 @@ public class PlayerTickHandler implements ITickHandler {
 					MuseItemUtils.setFoodLevel(helmet, foodLevel);
 					player.inventory.setInventorySlotContents(i, null);
 				}
+			}
+			FoodStats foodStats = player.getFoodStats();
+			int foodNeeded = 20 - foodStats.getFoodLevel();
+			if (foodNeeded > 0) {
+				foodStats.addStats(foodNeeded, 0.0F);
+				MuseItemUtils.setFoodLevel(helmet, MuseItemUtils.getFoodLevel(helmet) - foodNeeded);
 			}
 		}
 
