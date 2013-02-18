@@ -13,5 +13,4 @@ public class ItemPowerArmorHead extends ItemPowerArmor {
 		setIconIndex(15);
 		LanguageRegistry.addName(this, itemType.englishName);
 	}
-
 }

@@ -331,6 +331,24 @@ public class MuseItemUtils {
 		setStringOrNull(getMuseItemTag(stack),
 				key, value);
 	}
+	
+	public static int getFoodLevel(ItemStack stack) {
+		if (stack != null && stack.getItem() instanceof IModularItem) {
+			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+			Integer foodLevel = itemTag.getInteger("Food");
+			if (foodLevel != null) {
+				return foodLevel.intValue();
+			}
+		}
+		return 0;
+	}
+	
+	public static void setFoodLevel(ItemStack stack, int i) {
+		if (stack != null && stack.getItem() instanceof IModularItem) {
+			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+			itemTag.setInteger("Food", i);
+		}
+	}
 
 	public static double getPlayerEnergy(EntityPlayer player) {
 		double avail = 0;

@@ -7,6 +7,7 @@ import java.util.List;
 
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.item.ItemPowerArmorHead;
 import net.machinemuse.powersuits.item.ItemPowerTool;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -91,8 +92,8 @@ public abstract class ModularCommon {
 	public static final String MODULE_NIGHT_VISION = "Night Vision";
 	public static final String MODULE_ACTIVE_CAMOUFLAGE = "Active Camouflage";
 	public static final String MODULE_FLIGHT_CONTROL = "Flight Control";
+	public static final String MODULE_AUTO_FEEDER = "Auto-Feeder";
 	public static final String CITIZEN_JOE_STYLE = "Citizen Joe Style";
-
 	/**
 	 * Categories for modules
 	 */
@@ -132,6 +133,10 @@ public abstract class ModularCommon {
 				+ MuseStringUtils.formatNumberShort(getMaxJoules(stack));
 		currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character,
 				MuseStringUtils.FormatCodes.Grey));
+		if (stack.getItem() instanceof ItemPowerArmorHead && MuseItemUtils.getFoodLevel(stack) > 0 && MuseItemUtils.itemHasModule(stack, ModularCommon.MODULE_AUTO_FEEDER)) {
+			currentTipList.add(MuseStringUtils.wrapMultipleFormatTags("Food level: "+MuseItemUtils.getFoodLevel(stack) , MuseStringUtils.FormatCodes.Italic.character,
+					MuseStringUtils.FormatCodes.Grey));
+		}
 		if (Config.doAdditionalInfo()) {
 			List<String> installed = ModularCommon.getItemInstalledModules(player, stack);
 			if (installed.size() == 0) {
