@@ -355,18 +355,16 @@ public class PlayerTickHandler implements ITickHandler {
 		}
 		if (hasFeeder) { 
 			IInventory inv = player.inventory;
-			int foodLevel = MuseItemUtils.getFoodLevel(player);
+			int foodLevel = MuseItemUtils.getFoodLevel(helmet);
 			for (int i = 0; i < inv.getSizeInventory(); i++) {
 				ItemStack stack = inv.getStackInSlot(i);
 				if (stack != null && stack.getItem() instanceof ItemFood) {
-					player.sendChatToPlayer("Found food stack. Food level: "+foodLevel);
 					ItemFood food = (ItemFood) stack.getItem();
 					for (int a = 0; a < stack.stackSize; a++) {
 						foodLevel += food.getHealAmount();
 					}
-					MuseItemUtils.setFoodLevel(player, foodLevel);
+					MuseItemUtils.setFoodLevel(helmet, foodLevel);
 					player.inventory.setInventorySlotContents(i, null);
-					player.sendChatToPlayer("Food consumed. Food level: "+foodLevel);
 				}
 			}
 		}
