@@ -379,7 +379,7 @@ public class PlayerTickHandler implements ITickHandler {
 			double eatingEnergyConsumption = ModuleManager.computeModularProperty(helmet, ModularCommon.EATING_ENERGY_CONSUMPTION);
 			FoodStats foodStats = player.getFoodStats();
 			int foodNeeded = 20 - foodStats.getFoodLevel();
-			if (foodNeeded > 0 && ((eatingEnergyConsumption * foodNeeded) + totalEnergyDrain) < totalEnergy) {
+			if (foodNeeded > 0 && ((eatingEnergyConsumption * foodNeeded) + totalEnergyDrain) < totalEnergy && MuseItemUtils.getFoodLevel(helmet) > 0) {
 				foodStats.addStats(foodNeeded, 0.0F);
 				MuseItemUtils.setFoodLevel(helmet, MuseItemUtils.getFoodLevel(helmet) - foodNeeded);
 				totalEnergyDrain += eatingEnergyConsumption * foodNeeded;
@@ -394,16 +394,9 @@ public class PlayerTickHandler implements ITickHandler {
 			if (world.getTotalWorldTime() % 20 == 0) {
 				canRain = world.getWorldChunkManager().getBiomeGenAt(xCoord, zCoord).getIntRainfall() > 0;
 			}
-			isRaining = canRain && (world.isRaining() || world.isThundering()); // Make
-																				// sure
-																				// you're
-																				// not
-																				// in
-																				// desert
-																				// -
-																				// Thanks
-																				// cpw
-																				// :P
+
+			isRaining = canRain && (world.isRaining() || world.isThundering());
+			// Make sure you're not in desert - Thanks cpw :P
 			boolean sunVisible = world.isDaytime() && !isRaining && world.canBlockSeeTheSky(xCoord, MathHelper.floor_double(player.posY) + 1, zCoord);
 			boolean moonVisible = !world.isDaytime() && !isRaining
 					&& world.canBlockSeeTheSky(xCoord, MathHelper.floor_double(player.posY) + 1, zCoord);
