@@ -2,11 +2,9 @@ package net.machinemuse.powersuits.tick;
 
 import java.util.EnumSet;
 
-import net.machinemuse.general.MuseMathUtils;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.client.KeybindManager;
 import net.machinemuse.powersuits.common.PlayerInputMap;
-import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
 import net.minecraft.client.Minecraft;
@@ -88,12 +86,14 @@ public class ClientTickHandler implements ITickHandler {
 			// dWheel = 0;
 			// }
 			PlayerInputMap inputmap = PlayerInputMap.getInputMapFor(player.username);
-			inputmap.downKey = Keyboard.isKeyDown(Keyboard.KEY_Z);
+			inputmap.downKey = Keyboard.isKeyDown(Keyboard.KEY_Z) && Minecraft.getMinecraft().inGameHasFocus;
 			inputmap.forwardKey = player.movementInput.moveForward;
 			inputmap.strafeKey = player.movementInput.moveStrafe;
 			inputmap.jumpKey = player.movementInput.jump;
 			inputmap.sneakKey = player.movementInput.sneak;
-			inputmap.fallDistance = MovementManager.computeFallHeightFromVelocity(MuseMathUtils.clampDouble(player.motionY, -1000.0, 0.0));
+			inputmap.motionX = player.motionX;
+			inputmap.motionY = player.motionY;
+			inputmap.motionZ = player.motionZ;
 
 			MusePacket inputPacket = new MusePacketPlayerUpdate(player, inputmap);
 			player.sendQueue.addToSendQueue(inputPacket.getPacket250());

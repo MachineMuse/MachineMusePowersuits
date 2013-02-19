@@ -37,6 +37,9 @@ public class MusePacketPlayerUpdate extends MusePacket {
 	public void handleServer(EntityPlayerMP player) {
 		MusePacketPlayerUpdate updatePacket = new MusePacketPlayerUpdate(player, inputMap);
 		updatePacket.username = this.username;
+		player.motionX = inputMap.motionX;
+		player.motionY = inputMap.motionY;
+		player.motionZ = inputMap.motionZ;
 		PacketDispatcher.sendPacketToAllPlayers(updatePacket.getPacket250());
 	}
 }
