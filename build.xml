@@ -101,6 +101,7 @@
         <move file="${ue.download.dir}/core/electricity/ElectricityPack.java" todir="${mcpsrc.dir}/universalelectricity/core/electricity/ElectricityPack.java" />
 		<mkdir dir="${mcpsrc.dir}/universalelectricity/core/implement" />
 		<move file="${ue.download.dir}/core/implement/IItemElectric.java" todir="${mcpsrc.dir}/universalelectricity/core/implement/IItemElectric.java" />
+        <move file="${ue.download.dir}/core/implement/IConductor.java" todir="${mcpsrc.dir}/universalelectricity/core/implement/IConductor.java" />
 		<move file="${ue.download.dir}/core/implement/IJouleStorage.java" todir="${mcpsrc.dir}/universalelectricity/core/implement/IJouleStorage.java" />
 		<move file="${ue.download.dir}/core/implement/IVoltage.java" todir="${mcpsrc.dir}/universalelectricity/core/implement/IVoltage.java" />
 		<mkdir dir="${mcpsrc.dir}/universalelectricity/prefab" />
