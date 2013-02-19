@@ -98,6 +98,7 @@
 		<mkdir dir="${mcpsrc.dir}/universalelectricity/core" />
 		<mkdir dir="${mcpsrc.dir}/universalelectricity/core/electricity" />
 		<move file="${ue.download.dir}/core/electricity/ElectricInfo.java" todir="${mcpsrc.dir}/universalelectricity/core/electricity/ElectricInfo.java" />
+        <move file="${ue.download.dir}/core/electricity/ElectricityPack.java" todir="${mcpsrc.dir}/universalelectricity/core/electricity/ElectricityPack.java" />
 		<mkdir dir="${mcpsrc.dir}/universalelectricity/core/implement" />
 		<move file="${ue.download.dir}/core/implement/IItemElectric.java" todir="${mcpsrc.dir}/universalelectricity/core/implement/IItemElectric.java" />
 		<move file="${ue.download.dir}/core/implement/IJouleStorage.java" todir="${mcpsrc.dir}/universalelectricity/core/implement/IJouleStorage.java" />
