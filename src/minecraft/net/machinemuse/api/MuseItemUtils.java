@@ -332,21 +332,39 @@ public class MuseItemUtils {
 				key, value);
 	}
 	
-	public static int getFoodLevel(ItemStack stack) {
+	public static double getFoodLevel(ItemStack stack) {
 		if (stack != null && stack.getItem() instanceof IModularItem) {
 			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-			Integer foodLevel = itemTag.getInteger("Food");
+			Double foodLevel = itemTag.getDouble("Food");
 			if (foodLevel != null) {
-				return foodLevel.intValue();
+				return foodLevel;
 			}
 		}
-		return 0;
+		return 0.0;
 	}
 	
-	public static void setFoodLevel(ItemStack stack, int i) {
+	public static void setFoodLevel(ItemStack stack, double d) {
 		if (stack != null && stack.getItem() instanceof IModularItem) {
 			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-			itemTag.setInteger("Food", i);
+			itemTag.setDouble("Food", d);
+		}
+	}
+	
+	public static double getSaturationLevel(ItemStack stack) {
+		if (stack != null && stack.getItem() instanceof IModularItem) {
+			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+			Double saturationLevel = itemTag.getDouble("Saturation");
+			if (saturationLevel != null) {
+				return saturationLevel;
+			}
+		}
+		return 0.0F;
+	}
+	
+	public static void setSaturationLevel(ItemStack stack, double d) {
+		if (stack != null && stack.getItem() instanceof IModularItem) {
+			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+			itemTag.setDouble("Saturation", d);
 		}
 	}
 
