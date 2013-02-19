@@ -22,7 +22,9 @@ public class PlayerInputMap {
 	public boolean jumpKey;
 	public boolean sneakKey;
 	public boolean downKey;
-	public double fallDistance;
+	public double motionX;
+	public double motionY;
+	public double motionZ;
 
 	public PlayerInputMap(String playerName) {
 		playerInputs.put(playerName, this);
@@ -35,7 +37,9 @@ public class PlayerInputMap {
 			stream.writeBoolean(jumpKey);
 			stream.writeBoolean(sneakKey);
 			stream.writeBoolean(downKey);
-			stream.writeDouble(fallDistance);
+			stream.writeDouble(motionX);
+			stream.writeDouble(motionY);
+			stream.writeDouble(motionZ);
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -50,7 +54,9 @@ public class PlayerInputMap {
 			jumpKey = stream.readBoolean();
 			sneakKey = stream.readBoolean();
 			downKey = stream.readBoolean();
-			fallDistance = stream.readDouble();
+			motionX = stream.readDouble();
+			motionY = stream.readDouble();
+			motionZ = stream.readDouble();
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -11,6 +11,7 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModularCommon;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.general.MuseMathUtils;
 import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.common.PlayerInputMap;
 import net.machinemuse.powersuits.event.MovementManager;
@@ -74,7 +75,6 @@ public class PlayerTickHandler implements ITickHandler {
 		float strafekey = movementInput.strafeKey;
 		boolean sneakkey = movementInput.sneakKey;
 		boolean downkey = movementInput.downKey;
-		player.fallDistance = (float) movementInput.fallDistance;
 
 		boolean hasSprintAssist = false;
 		boolean hasGlider = false;
@@ -361,8 +361,8 @@ public class PlayerTickHandler implements ITickHandler {
 				}
 			}
 		}
-		//Food Module
-		if (hasFeeder) { 
+		// Food Module
+		if (hasFeeder) {
 			IInventory inv = player.inventory;
 			int foodLevel = MuseItemUtils.getFoodLevel(helmet);
 			for (int i = 0; i < inv.getSizeInventory(); i++) {
@@ -379,24 +379,34 @@ public class PlayerTickHandler implements ITickHandler {
 			double eatingEnergyConsumption = ModuleManager.computeModularProperty(helmet, ModularCommon.EATING_ENERGY_CONSUMPTION);
 			FoodStats foodStats = player.getFoodStats();
 			int foodNeeded = 20 - foodStats.getFoodLevel();
-			if (foodNeeded > 0 && ((eatingEnergyConsumption*foodNeeded) + totalEnergyDrain) < totalEnergy) {
+			if (foodNeeded > 0 && ((eatingEnergyConsumption * foodNeeded) + totalEnergyDrain) < totalEnergy) {
 				foodStats.addStats(foodNeeded, 0.0F);
 				MuseItemUtils.setFoodLevel(helmet, MuseItemUtils.getFoodLevel(helmet) - foodNeeded);
-				totalEnergyDrain += eatingEnergyConsumption*foodNeeded;
+				totalEnergyDrain += eatingEnergyConsumption * foodNeeded;
 			}
 		}
-		//Solar Generator
+		// Solar Generator
 		if (hasSolarGeneration) {
 			World world = player.worldObj;
 			int xCoord = MathHelper.floor_double(player.posX);
-	        int zCoord = MathHelper.floor_double(player.posZ);
+			int zCoord = MathHelper.floor_double(player.posZ);
 			boolean isRaining = false, canRain = true;
 			if (world.getTotalWorldTime() % 20 == 0) {
 				canRain = world.getWorldChunkManager().getBiomeGenAt(xCoord, zCoord).getIntRainfall() > 0;
 			}
-			isRaining = canRain && (world.isRaining() || world.isThundering()); //Make sure you're not in desert - Thanks cpw :P
-	        boolean sunVisible = world.isDaytime() && !isRaining && world.canBlockSeeTheSky(xCoord, MathHelper.floor_double(player.posY) + 1, zCoord);
-	        boolean moonVisible = !world.isDaytime() && !isRaining && world.canBlockSeeTheSky(xCoord, MathHelper.floor_double(player.posY) + 1, zCoord);
+			isRaining = canRain && (world.isRaining() || world.isThundering()); // Make
+																				// sure
+																				// you're
+																				// not
+																				// in
+																				// desert
+																				// -
+																				// Thanks
+																				// cpw
+																				// :P
+			boolean sunVisible = world.isDaytime() && !isRaining && world.canBlockSeeTheSky(xCoord, MathHelper.floor_double(player.posY) + 1, zCoord);
+			boolean moonVisible = !world.isDaytime() && !isRaining
+					&& world.canBlockSeeTheSky(xCoord, MathHelper.floor_double(player.posY) + 1, zCoord);
 			if (!world.isRemote && !world.provider.hasNoSky && (world.getTotalWorldTime() % 80) == 0) {
 				if (sunVisible) {
 					MuseItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(helmet, ModularCommon.SOLAR_ENERGY_GENERATION_DAY));
@@ -406,18 +416,21 @@ public class PlayerTickHandler implements ITickHandler {
 				}
 			}
 		}
-		//Static Generator
+		// Static Generator
 		if (hasStaticGeneration) {
 			NBTTagCompound tag = MuseItemUtils.getMuseItemTag(pants);
 			boolean isNotWalking = (player.ridingEntity != null) || (player.isInWater());
-		    if ((!tag.hasKey("x")) || (isNotWalking)) tag.setInteger("x", (int)player.posX);
-		    if ((!tag.hasKey("z")) || (isNotWalking)) tag.setInteger("z", (int)player.posZ);
-		    double distance = Math.sqrt((tag.getInteger("x") - (int)player.posX) * (tag.getInteger("x") - (int)player.posX) + (tag.getInteger("z") - (int)player.posZ) * (tag.getInteger("z") - (int)player.posZ));
-		    if (distance >= 5.0D) {
-		      tag.setInteger("x", (int)player.posX);
-		      tag.setInteger("z", (int)player.posZ);
-		      MuseItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(pants, ModularCommon.STATIC_ENERGY_GENERATION));
-		    }
+			if ((!tag.hasKey("x")) || (isNotWalking))
+				tag.setInteger("x", (int) player.posX);
+			if ((!tag.hasKey("z")) || (isNotWalking))
+				tag.setInteger("z", (int) player.posZ);
+			double distance = Math.sqrt((tag.getInteger("x") - (int) player.posX) * (tag.getInteger("x") - (int) player.posX)
+					+ (tag.getInteger("z") - (int) player.posZ) * (tag.getInteger("z") - (int) player.posZ));
+			if (distance >= 5.0D) {
+				tag.setInteger("x", (int) player.posX);
+				tag.setInteger("z", (int) player.posZ);
+				MuseItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(pants, ModularCommon.STATIC_ENERGY_GENERATION));
+			}
 		}
 
 		// Update fall distance for damage, energy drain, and
@@ -430,6 +443,7 @@ public class PlayerTickHandler implements ITickHandler {
 		}
 
 		player.getFoodStats().addExhaustion((float) (-foodAdjustment));
+		player.fallDistance = (float) MovementManager.computeFallHeightFromVelocity(MuseMathUtils.clampDouble(player.motionY, -1000.0, 0.0));
 
 		// Weight movement penalty
 		if (totalWeight > weightCapacity) {
