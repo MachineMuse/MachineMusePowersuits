@@ -93,11 +93,11 @@
 
 		<echo message="Extracting UE API... " />
 		<mkdir dir="${download.dir}/ue" />
-		<unzip src="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" dest="${download.dir}/ue" />
-		<mkdir dir="${mcpsrc.dir}/universalelectricity" />
-        <mkdir dir="${mcpsrc.dir}/universalelectricity/core" />
+		<unzip src="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" dest="${download.dir}/ue/" />
+		<mkdir dir="${mcpsrc.dir}/universalelectricity/" />
+        <mkdir dir="${mcpsrc.dir}/universalelectricity/core/" />
 		<move todir="${mcpsrc.dir}/universalelectricity/core/">
-			<fileset dir="${ue.download.dir}/core" />
+			<fileset dir="${ue.download.dir}/core/" />
 		</move>
 		<mkdir dir="${mcpsrc.dir}/universalelectricity/prefab" />
 		<move file="${ue.download.dir}/prefab/UEDamageSource.java" todir="${mcpsrc.dir}/universalelectricity/prefab/UEDamageSource.java" />
