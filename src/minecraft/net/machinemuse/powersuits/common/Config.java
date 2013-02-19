@@ -245,10 +245,20 @@ public class Config {
 		// .addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2));
 		// addModule(module);
 		
+		module = new PowerModule(ModularCommon.MODULE_STATIC_GENERATOR, LEGSONLY, MuseIcon.NEXUS_1_RED, ModularCommon.CATEGORY_ENERGY)
+				.setDescription("Generate power with your movement.")
+				.addBaseProperty(ModularCommon.WEIGHT, 1000)
+				.addBaseProperty(ModularCommon.STATIC_ENERGY_GENERATION, 250)
+				.addTradeoffProperty("Energy Generated", ModularCommon.STATIC_ENERGY_GENERATION, 750, " Joules")
+				.addTradeoffProperty("Energy Generated", ModularCommon.WEIGHT, 3000, "g")
+				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
+				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
+		addModule(module);
+		
 		module = new PowerModule(ModularCommon.MODULE_SOLAR_GENERATOR, HEADONLY, MuseIcon.NEXUS_1_GREEN, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Let the sun power your adventures.")
-				.addBaseProperty(ModularCommon.SOLAR_ENERGY_GENERATION_DAY, 100)
-				.addBaseProperty(ModularCommon.SOLAR_ENERGY_GENERATION_NIGHT, 10)
+				.addBaseProperty(ModularCommon.SOLAR_ENERGY_GENERATION_DAY, 2000)
+				.addBaseProperty(ModularCommon.SOLAR_ENERGY_GENERATION_NIGHT, 200)
 				.addInstallCost(copyAndResize(ItemComponent.solarPanel, 1))
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 2));
 		addModule(module);
