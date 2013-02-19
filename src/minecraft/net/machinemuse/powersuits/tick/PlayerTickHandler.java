@@ -18,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.FoodStats;
@@ -87,6 +88,7 @@ public class PlayerTickHandler implements ITickHandler {
 		boolean hasFlightControl = false;
 		boolean hasFeeder = false;
 		boolean hasSolarGeneration = false;
+		boolean hasStaticGeneration = false;
 
 		if (helmet != null && helmet.getItem() instanceof IModularItem) {
 			hasNightVision = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_NIGHT_VISION);
@@ -101,6 +103,7 @@ public class PlayerTickHandler implements ITickHandler {
 			hasSprintAssist = MuseItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_SPRINT_ASSIST);
 			hasJumpAssist = MuseItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_JUMP_ASSIST);
 			hasSwimAssist = MuseItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_SWIM_BOOST);
+			hasStaticGeneration = MuseItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_STATIC_GENERATOR);
 			if (pants.getTagCompound().hasKey("ench")) {
 				pants.getTagCompound().removeTag("ench");
 			}
@@ -394,7 +397,7 @@ public class PlayerTickHandler implements ITickHandler {
 			isRaining = canRain && (world.isRaining() || world.isThundering()); //Make sure you're not in desert - Thanks cpw :P
 	        boolean sunVisible = world.isDaytime() && !isRaining && world.canBlockSeeTheSky(xCoord, MathHelper.floor_double(player.posY) + 1, zCoord);
 	        boolean moonVisible = !world.isDaytime() && !isRaining && world.canBlockSeeTheSky(xCoord, MathHelper.floor_double(player.posY) + 1, zCoord);
-			if (!world.isRemote && !world.provider.hasNoSky && (world.getTotalWorldTime() % 100) == 0) {
+			if (!world.isRemote && !world.provider.hasNoSky && (world.getTotalWorldTime() % 80) == 0) {
 				if (sunVisible) {
 					MuseItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(helmet, ModularCommon.SOLAR_ENERGY_GENERATION_DAY));
 				}
@@ -402,6 +405,19 @@ public class PlayerTickHandler implements ITickHandler {
 					MuseItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(helmet, ModularCommon.SOLAR_ENERGY_GENERATION_NIGHT));
 				}
 			}
+		}
+		//Static Generator
+		if (hasStaticGeneration) {
+			NBTTagCompound tag = MuseItemUtils.getMuseItemTag(pants);
+			boolean isNotWalking = (player.ridingEntity != null) || (player.isInWater());
+		    if ((!tag.hasKey("x")) || (isNotWalking)) tag.setInteger("x", (int)player.posX);
+		    if ((!tag.hasKey("z")) || (isNotWalking)) tag.setInteger("z", (int)player.posZ);
+		    double distance = Math.sqrt((tag.getInteger("x") - (int)player.posX) * (tag.getInteger("x") - (int)player.posX) + (tag.getInteger("z") - (int)player.posZ) * (tag.getInteger("z") - (int)player.posZ));
+		    if (distance >= 5.0D) {
+		      tag.setInteger("x", (int)player.posX);
+		      tag.setInteger("z", (int)player.posZ);
+		      MuseItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(pants, ModularCommon.STATIC_ENERGY_GENERATION));
+		    }
 		}
 
 		// Update fall distance for damage, energy drain, and
