@@ -95,7 +95,9 @@
 		<mkdir dir="${download.dir}/ue" />
 		<unzip src="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" dest="${download.dir}/ue" />
 		<mkdir dir="${mcpsrc.dir}/universalelectricity" />
-		<move dir="${ue.download.dir}/core" todir="${mcpsrc.dir}/universalelectricity/" />
+		<move todir="${mcpsrc.dir}/universalelectricity/">
+			<fileset dir="${ue.download.dir}/core" />
+		</move>
 		<mkdir dir="${mcpsrc.dir}/universalelectricity/prefab" />
 		<move file="${ue.download.dir}/prefab/UEDamageSource.java" todir="${mcpsrc.dir}/universalelectricity/prefab/UEDamageSource.java" />
 		<mkdir dir="${mcpsrc.dir}/universalelectricity/prefab/potion" />
