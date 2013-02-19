@@ -95,15 +95,8 @@
 		<mkdir dir="${download.dir}/ue" />
 		<unzip src="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" dest="${download.dir}/ue" />
 		<mkdir dir="${mcpsrc.dir}/universalelectricity" />
-		<mkdir dir="${mcpsrc.dir}/universalelectricity/core" />
-		<mkdir dir="${mcpsrc.dir}/universalelectricity/core/electricity" />
-		<move file="${ue.download.dir}/core/electricity/ElectricInfo.java" todir="${mcpsrc.dir}/universalelectricity/core/electricity/ElectricInfo.java" />
-        <move file="${ue.download.dir}/core/electricity/ElectricityPack.java" todir="${mcpsrc.dir}/universalelectricity/core/electricity/ElectricityPack.java" />
-		<mkdir dir="${mcpsrc.dir}/universalelectricity/core/implement" />
-		<move file="${ue.download.dir}/core/implement/IItemElectric.java" todir="${mcpsrc.dir}/universalelectricity/core/implement/IItemElectric.java" />
-        <move file="${ue.download.dir}/core/implement/IConductor.java" todir="${mcpsrc.dir}/universalelectricity/core/implement/IConductor.java" />
-		<move file="${ue.download.dir}/core/implement/IJouleStorage.java" todir="${mcpsrc.dir}/universalelectricity/core/implement/IJouleStorage.java" />
-		<move file="${ue.download.dir}/core/implement/IVoltage.java" todir="${mcpsrc.dir}/universalelectricity/core/implement/IVoltage.java" />
+		<mkdir dir="${mcpsrc.dir}/universalelectricity" />
+		<move file="${ue.download.dir}/core" todir="${mcpsrc.dir}/universalelectricity/" />
 		<mkdir dir="${mcpsrc.dir}/universalelectricity/prefab" />
 		<move file="${ue.download.dir}/prefab/UEDamageSource.java" todir="${mcpsrc.dir}/universalelectricity/prefab/UEDamageSource.java" />
 		<mkdir dir="${mcpsrc.dir}/universalelectricity/prefab/potion" />
