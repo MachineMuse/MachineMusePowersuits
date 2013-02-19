@@ -59,6 +59,7 @@ public abstract class ModularCommon {
 	public static final String WALKING_ENERGY_CONSUMPTION = "Walking Energy Consumption";
 	public static final String WALKING_SPEED_MULTIPLIER = "Walking Speed Multiplier";
 	public static final String EATING_ENERGY_CONSUMPTION = "Eating Energy Consumption";
+	public static final String EATING_EFFICIENCY = "Auto-Feeder Efficiency";
 	public static final String SOLAR_ENERGY_GENERATION_DAY = "Daytime Solar Energy Generation";
 	public static final String SOLAR_ENERGY_GENERATION_NIGHT = "Nighttime Solar Energy Generation";
 	public static final String STATIC_ENERGY_GENERATION = "Energy Generation Per 5 Blocks";

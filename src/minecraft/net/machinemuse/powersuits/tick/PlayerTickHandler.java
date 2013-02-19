@@ -364,23 +364,35 @@ public class PlayerTickHandler implements ITickHandler {
 		// Food Module
 		if (hasFeeder) {
 			IInventory inv = player.inventory;
-			int foodLevel = MuseItemUtils.getFoodLevel(helmet);
+			double foodLevel = (double)MuseItemUtils.getFoodLevel(helmet);
+			double saturationLevel = MuseItemUtils.getSaturationLevel(helmet);
+			double efficiency = ModuleManager.computeModularProperty(helmet, ModularCommon.EATING_EFFICIENCY);
 			for (int i = 0; i < inv.getSizeInventory(); i++) {
 				ItemStack stack = inv.getStackInSlot(i);
 				if (stack != null && stack.getItem() instanceof ItemFood) {
 					ItemFood food = (ItemFood) stack.getItem();
 					for (int a = 0; a < stack.stackSize; a++) {
 						foodLevel += food.getHealAmount();
+						saturationLevel += food.getSaturationModifier();
 					}
+					foodLevel = foodLevel * efficiency / 100.0;
+					saturationLevel = saturationLevel * efficiency / 100.0;
 					MuseItemUtils.setFoodLevel(helmet, foodLevel);
+					MuseItemUtils.setSaturationLevel(helmet, saturationLevel);
 					player.inventory.setInventorySlotContents(i, null);
 				}
 			}
 			double eatingEnergyConsumption = ModuleManager.computeModularProperty(helmet, ModularCommon.EATING_ENERGY_CONSUMPTION);
 			FoodStats foodStats = player.getFoodStats();
 			int foodNeeded = 20 - foodStats.getFoodLevel();
-			if (foodNeeded > 0 && ((eatingEnergyConsumption * foodNeeded) + totalEnergyDrain) < totalEnergy && MuseItemUtils.getFoodLevel(helmet) > 0) {
-				foodStats.addStats(foodNeeded, 0.0F);
+			if (foodNeeded > 0 && ((eatingEnergyConsumption * foodNeeded) + totalEnergyDrain) < totalEnergy && MuseItemUtils.getFoodLevel(helmet) > foodNeeded) {
+				if (MuseItemUtils.getSaturationLevel(helmet) >= 1.0F) {
+					foodStats.addStats(foodNeeded, 1.0F);
+					MuseItemUtils.setSaturationLevel(helmet, MuseItemUtils.getSaturationLevel(helmet) - 1.0F);
+				}
+				else {
+					foodStats.addStats(foodNeeded, 0.0F);
+				}
 				MuseItemUtils.setFoodLevel(helmet, MuseItemUtils.getFoodLevel(helmet) - foodNeeded);
 				totalEnergyDrain += eatingEnergyConsumption * foodNeeded;
 			}
