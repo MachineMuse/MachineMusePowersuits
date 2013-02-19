@@ -274,6 +274,9 @@ addModule(module);
 				.setDescription("Why eat when your armor can do it for you.")
 				.setToggleable(true)
 				.addBaseProperty(ModularCommon.EATING_ENERGY_CONSUMPTION, 100)
+				.addBaseProperty(ModularCommon.EATING_EFFICIENCY, 50)
+				.addTradeoffProperty("Efficiency", ModularCommon.EATING_ENERGY_CONSUMPTION, 100)
+				.addTradeoffProperty("Efficiency", ModularCommon.EATING_EFFICIENCY, 50)
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
 		addModule(module);
