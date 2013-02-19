@@ -7,7 +7,7 @@
 	<property name="build.ver" value="0.2.2" />
 	<property name="fullversion" value="${build.ver}-${env.BUILD_NUMBER}" />
 	<property name="mcp.version" value="723" />
-    <property name="forgebuild" value="524" />
+	<property name="forgebuild" value="524" />
 	<property name="forge.version" value="1.4.7-6.6.1.524" />
 	<property name="ic2api.version" value="1.115.218-lf" />
 	<property name="ueapi.version" value="1.2.5.337" />
@@ -61,7 +61,7 @@
 			<available file="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" />
 			<available file="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" />
 			<available file="${download.dir}/ICBM_v${icbmapi.version}_api.zip" />
-            <available file="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" />
+			<available file="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" />
 		</and>
 	</condition>
 
@@ -95,8 +95,7 @@
 		<mkdir dir="${download.dir}/ue" />
 		<unzip src="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" dest="${download.dir}/ue" />
 		<mkdir dir="${mcpsrc.dir}/universalelectricity" />
-		<mkdir dir="${mcpsrc.dir}/universalelectricity" />
-		<move file="${ue.download.dir}/core" todir="${mcpsrc.dir}/universalelectricity/" />
+		<move dir="${ue.download.dir}/core" todir="${mcpsrc.dir}/universalelectricity/" />
 		<mkdir dir="${mcpsrc.dir}/universalelectricity/prefab" />
 		<move file="${ue.download.dir}/prefab/UEDamageSource.java" todir="${mcpsrc.dir}/universalelectricity/prefab/UEDamageSource.java" />
 		<mkdir dir="${mcpsrc.dir}/universalelectricity/prefab/potion" />
@@ -116,7 +115,7 @@
 		<mkdir dir="${mcpsrc.dir}/thermalexpansion/api" />
 		<mkdir dir="${mcpsrc.dir}/thermalexpansion/api/core" />
 		<move file="${download.dir}/thermalexpansion/api/core/ItemRegistry.java" todir="${mcpsrc.dir}/thermalexpansion/api/core/ItemRegistry.java" />
-        <move file="${download.dir}/thermalexpansion/api/core/IChargeableItem.java" todir="${mcpsrc.dir}/thermalexpansion/api/core/IChargeableItem.java" />
+		<move file="${download.dir}/thermalexpansion/api/core/IChargeableItem.java" todir="${mcpsrc.dir}/thermalexpansion/api/core/IChargeableItem.java" />
 		<delete dir="${download.dir}/thermalexpansion" />
 	</target>
 
