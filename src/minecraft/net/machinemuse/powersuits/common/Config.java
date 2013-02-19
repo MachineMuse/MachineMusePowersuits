@@ -229,6 +229,13 @@ public class Config {
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1));
 		addModule(module);
+		
+		module = new PowerModule(ModularCommon.MODULE_MULTIMETER, TOOLONLY, MuseIcon.PLATE_2_RED, ModularCommon.CATEGORY_TOOL)
+		.setDescription("A tool addon that reads the Universal Electricity power generation in a wire.")
+		.setToggleable(true)
+		.addInstallCost(copyAndResize(ItemComponent.wiring, 2))
+		.addInstallCost(copyAndResize(ItemComponent.solenoid, 1));
+addModule(module);
 
 		// Pix make blink drive. No blame pix if blink drive tear rift in
 		// universe. Some things man not meant control.

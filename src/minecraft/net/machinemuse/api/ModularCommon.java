@@ -63,6 +63,7 @@ public abstract class ModularCommon {
 	public static final String SOLAR_ENERGY_GENERATION_DAY = "Daytime Solar Energy Generation";
 	public static final String SOLAR_ENERGY_GENERATION_NIGHT = "Nighttime Solar Energy Generation";
 	public static final String STATIC_ENERGY_GENERATION = "Energy Generation Per 5 Blocks";
+
 	
 	/**
 	 * Module names
@@ -102,6 +103,8 @@ public abstract class ModularCommon {
 	public static final String MODULE_STATIC_GENERATOR = "Static Generator";
 	//public static final String MODULE_PORTABLE_CRAFTING = "Portable Crafting Table";
 	public static final String CITIZEN_JOE_STYLE = "Citizen Joe Style";
+	public static final String MODULE_MULTIMETER = "Multimeter";
+
 	/**
 	 * Categories for modules
 	 */
