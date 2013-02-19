@@ -30,12 +30,18 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import universalelectricity.core.electricity.ElectricInfo;
+import universalelectricity.core.electricity.ElectricInfo.ElectricUnit;
+import universalelectricity.core.electricity.ElectricityPack;
+import universalelectricity.core.implement.IConductor;
 import universalelectricity.core.implement.IItemElectric;
+import universalelectricity.core.implement.IJouleStorage;
+import universalelectricity.core.implement.IVoltage;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
@@ -581,6 +587,23 @@ public class ItemPowerTool extends ItemTool
 	@Override
 	public void onEMP(ItemStack itemStack, Entity entity, IExplosive empExplosive) {
 		ModularCommon.onEMP(itemStack, entity, empExplosive);
+	}
+	
+	@Override
+	public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World worldObj, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+		
+		if (MuseItemUtils.itemHasActiveModule(itemStack, ModularCommon.MODULE_MULTIMETER)) {
+			if (!worldObj.isRemote) {
+				TileEntity tileEntity = worldObj.getBlockTileEntity(x, y, z);
+					if (tileEntity instanceof IConductor) {
+						IConductor wireTile = (IConductor) tileEntity;
+						ElectricityPack getProduced = wireTile.getNetwork().getProduced();
+						player.addChatMessage("Reading: " + ElectricInfo.getDisplay(getProduced.amperes, ElectricUnit.AMPERE) + ", " + ElectricInfo.getDisplay(getProduced.voltage, ElectricUnit.VOLTAGE) + ", " + ElectricInfo.getDisplay(getProduced.getWatts() * 20, ElectricUnit.WATT));
+						return true;
+					}
+				}
+			}
+		return false;
 	}
 
 }
