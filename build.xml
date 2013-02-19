@@ -95,7 +95,8 @@
 		<mkdir dir="${download.dir}/ue" />
 		<unzip src="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" dest="${download.dir}/ue" />
 		<mkdir dir="${mcpsrc.dir}/universalelectricity" />
-		<move todir="${mcpsrc.dir}/universalelectricity/">
+        <mkdir dir="${mcpsrc.dir}/universalelectricity/core" />
+		<move todir="${mcpsrc.dir}/universalelectricity/core/">
 			<fileset dir="${ue.download.dir}/core" />
 		</move>
 		<mkdir dir="${mcpsrc.dir}/universalelectricity/prefab" />
