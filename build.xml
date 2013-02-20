@@ -1,6 +1,6 @@
 <project name="ModularPowersuits" default="install" basedir=".">
 
-	<property environment="env" />
+	<property environment="env"/>
 
 
 	<!-- Versions -->
