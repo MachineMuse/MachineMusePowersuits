@@ -558,7 +558,8 @@ public class Config {
 	 */
 	public static enum Guis {
 		GuiTinkerTable,
-		GuiSuitManager;
+		GuiSuitManager,
+		GuiPortableCrafting;
 	}
 
 	public static Configuration getConfig() {

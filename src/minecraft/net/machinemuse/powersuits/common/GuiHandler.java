@@ -1,7 +1,9 @@
 package net.machinemuse.powersuits.common;
 
 import net.machinemuse.general.gui.KeyConfigGui;
+import net.machinemuse.general.gui.PortableCraftingGui;
 import net.machinemuse.powersuits.block.GuiTinkerTable;
+import net.machinemuse.powersuits.container.PortableCraftingContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +23,12 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
 			int x, int y, int z) {
-		return null;
+		switch (ID) {
+		case 2:
+			return new PortableCraftingContainer(player.inventory, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posZ);
+		default:
+			return null;
+		}
 	}
 
 	@Override
@@ -34,6 +41,8 @@ public class GuiHandler implements IGuiHandler {
 			return new GuiTinkerTable((EntityClientPlayerMP) player);
 		case 1:
 			return new KeyConfigGui(player);
+		case 2:
+			return new PortableCraftingGui(player, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posZ);
 		default:
 			return null;
 		}
