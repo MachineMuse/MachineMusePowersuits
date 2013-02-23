@@ -101,6 +101,7 @@ public abstract class ModularCommon {
 	public static final String MODULE_AUTO_FEEDER = "Auto-Feeder";
 	public static final String MODULE_SOLAR_GENERATOR = "Solar Generator";
 	public static final String MODULE_STATIC_GENERATOR = "Static Generator";
+	//public static final String MODULE_PORTABLE_CRAFTING = "Portable Crafting Table";
 	public static final String CITIZEN_JOE_STYLE = "Citizen Joe Style";
 	public static final String MODULE_MULTIMETER = "Multimeter";
 
@@ -116,6 +117,30 @@ public abstract class ModularCommon {
 	public static final String CATEGORY_VISION = "Vision";
 	public static final String CATEGORY_ENVIRONMENTAL = "Environment";
 	public static final String CATEGORY_SPECIAL = "Special";
+	
+	/**
+	 * Sounds
+	 */
+	private static final String SOUND_RESOURCE_LOCATION = "resources/machinemuse/sound/";
+    private static final String SOUND_PREFIX = "resources.machinemuse.sound.";
+
+    public static String[] soundFiles = {
+            SOUND_RESOURCE_LOCATION + "Glider.ogg", 
+            SOUND_RESOURCE_LOCATION + "GUIInstall.ogg",
+            SOUND_RESOURCE_LOCATION + "GUISelect.ogg",
+            SOUND_RESOURCE_LOCATION + "JetBoots.ogg",
+            SOUND_RESOURCE_LOCATION + "Jetpack.ogg",
+            SOUND_RESOURCE_LOCATION + "JumpAssist.ogg",
+            SOUND_RESOURCE_LOCATION + "SwimAssist.ogg",
+            SOUND_RESOURCE_LOCATION + "WaterElectrolyzer.ogg",};
+    public static final String SOUND_GLIDER = SOUND_PREFIX + "Glider";
+    public static final String SOUND_GUI_INSTALL = SOUND_PREFIX + "GUIInstall";
+    public static final String SOUND_GUI_SELECT = SOUND_PREFIX + "GUISelect";
+    public static final String SOUND_JET_BOOTS = SOUND_PREFIX + "JetBoots";
+    public static final String SOUND_JETPACK = SOUND_PREFIX + "Jetpack";
+    public static final String SOUND_JUMP_ASSIST = SOUND_PREFIX + "JumpAssist";
+    public static final String SOUND_SWIM_ASSIST = SOUND_PREFIX + "SwimAssist";
+    public static final String SOUND_WATER_ELECTROLYZER = SOUND_PREFIX + "WaterElectrolyzer";
 
 	/**
 	 * Adds information to the item's tooltip when 'getting' it.
