@@ -38,17 +38,6 @@ public class PortableCraftingGui extends GuiContainer {
     }
 
     public void onGuiClosed() {
-
         super.onGuiClosed();
-
-        /*if (this.mc.thePlayer != null) {
-            for (ItemStack itemStack : this.mc.thePlayer.inventory.mainInventory) {
-                if (itemStack != null) {
-                    if (NBTHelper.hasTag(itemStack, Strings.NBT_ITEM_CRAFTING_GUI_OPEN)) {
-                        NBTHelper.removeTag(itemStack, Strings.NBT_ITEM_CRAFTING_GUI_OPEN);
-                    }
-                }
-            }
-        }*/
     }
 }

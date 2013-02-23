@@ -20,15 +20,5 @@ public class PortableCraftingContainer extends ContainerWorkbench {
 	 @Override
 	 public void onCraftGuiClosed(EntityPlayer player) {
 		 super.onCraftGuiClosed(player);
-		 /*if (!player.worldObj.isRemote) {
-			 InventoryPlayer inv = player.inventory;
-	         for (ItemStack itemStack : inv.mainInventory) {
-	            if (itemStack != null) {
-	               if (MuseItemUtils.hasTag(itemStack, "derp")) {
-	                   MuseItemUtils.removeTag(itemStack, "derp");
-	               }
-	            }
-	         }
-	     }*/
 	 }
 }

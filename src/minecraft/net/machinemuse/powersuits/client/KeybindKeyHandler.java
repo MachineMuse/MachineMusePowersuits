@@ -18,10 +18,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class KeybindKeyHandler extends KeyHandler {
 	public static KeyBinding openKeybindGUI = new KeyBinding("Open Muse Keybind GUI", Keyboard.KEY_K);
-	public static KeyBinding openPortableCraftingGUI = new KeyBinding("Open Portable Crafting GUI", Keyboard.KEY_U);
 
 	public KeybindKeyHandler() {
-		super(new KeyBinding[] { openKeybindGUI, openPortableCraftingGUI }, new boolean[] { false, false });
+		super(new KeyBinding[] { openKeybindGUI }, new boolean[] { false });
 	}
 
 	@Override
@@ -36,13 +35,6 @@ public class KeybindKeyHandler extends KeyHandler {
 			World world = Minecraft.getMinecraft().theWorld;
 			if (Minecraft.getMinecraft().inGameHasFocus) {
 				player.openGui(ModularPowersuits.instance, 1, world, 0, 0, 0);
-			}
-		}
-		if (kb.equals(openPortableCraftingGUI)) {
-			EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
-			World world = Minecraft.getMinecraft().theWorld;
-			if (Minecraft.getMinecraft().inGameHasFocus) {
-				player.openGui(ModularPowersuits.instance, 2, world, (int)player.posX, (int)player.posY, (int)player.posZ);
 			}
 		}
 	}
