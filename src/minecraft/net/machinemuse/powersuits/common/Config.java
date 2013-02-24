@@ -262,9 +262,9 @@ public class Config {
 
 		module = new PowerModule(MuseCommonStrings.MODULE_KINETIC_GENERATOR, LEGSONLY, MuseIcon.NEXUS_1_RED, MuseCommonStrings.CATEGORY_ENERGY)
 				.setDescription("Generate power with your movement.")
-				.addBaseProperty(MuseCommonStrings.WEIGHT, 1000)
-				.addBaseProperty(MuseCommonStrings.KINETIC_ENERGY_GENERATION, 250)
-				.addTradeoffProperty("Energy Generated", MuseCommonStrings.KINETIC_ENERGY_GENERATION, 750, " Joules")
+				.addBaseProperty(MuseCommonStrings.WEIGHT, 1000, "g")
+				.addBaseProperty(MuseCommonStrings.KINETIC_ENERGY_GENERATION, 250, "J")
+				.addTradeoffProperty("Energy Generated", MuseCommonStrings.KINETIC_ENERGY_GENERATION, 750, "J")
 				.addTradeoffProperty("Energy Generated", MuseCommonStrings.WEIGHT, 3000, "g")
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
@@ -272,8 +272,8 @@ public class Config {
 
 		module = new PowerModule(MuseCommonStrings.MODULE_SOLAR_GENERATOR, HEADONLY, MuseIcon.NEXUS_1_GREEN, MuseCommonStrings.CATEGORY_ENERGY)
 				.setDescription("Let the sun power your adventures.")
-				.addBaseProperty(MuseCommonStrings.SOLAR_ENERGY_GENERATION_DAY, 2000)
-				.addBaseProperty(MuseCommonStrings.SOLAR_ENERGY_GENERATION_NIGHT, 200)
+				.addBaseProperty(MuseCommonStrings.SOLAR_ENERGY_GENERATION_DAY, 2000, "J")
+				.addBaseProperty(MuseCommonStrings.SOLAR_ENERGY_GENERATION_NIGHT, 200, "J")
 				.addInstallCost(copyAndResize(ItemComponent.solarPanel, 1))
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 2));
 		addModule(module);
@@ -281,10 +281,10 @@ public class Config {
 		module = new PowerModule(MuseCommonStrings.MODULE_AUTO_FEEDER, HEADONLY, MuseIcon.NEXUS_1_BLUE, MuseCommonStrings.CATEGORY_ENVIRONMENTAL)
 				.setDescription("Why eat when your armor can do it for you.")
 				.setToggleable(true)
-				.addBaseProperty(MuseCommonStrings.EATING_ENERGY_CONSUMPTION, 100)
-				.addBaseProperty(MuseCommonStrings.EATING_EFFICIENCY, 50)
-				.addTradeoffProperty("Efficiency", MuseCommonStrings.EATING_ENERGY_CONSUMPTION, 100)
-				.addTradeoffProperty("Efficiency", MuseCommonStrings.EATING_EFFICIENCY, 50)
+				.addBaseProperty(MuseCommonStrings.EATING_ENERGY_CONSUMPTION, 100, "J")
+				.addBaseProperty(MuseCommonStrings.EATING_EFFICIENCY, 0.5, "%")
+				.addTradeoffProperty("Efficiency", MuseCommonStrings.EATING_ENERGY_CONSUMPTION, 100, "J")
+				.addTradeoffProperty("Efficiency", MuseCommonStrings.EATING_EFFICIENCY, 0.5, "%")
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
 		addModule(module);
