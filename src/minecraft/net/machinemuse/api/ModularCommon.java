@@ -1,7 +1,5 @@
 package net.machinemuse.api;
 
-import icbm.api.IExplosive;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,7 +7,6 @@ import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemPowerArmorHead;
 import net.machinemuse.powersuits.item.ItemPowerTool;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,8 +15,6 @@ public abstract class ModularCommon {
 	/**
 	 * String literals as constants to eliminate case sensitivity issues etc.
 	 */
-	public static final String MAXIMUM_ENERGY = "Maximum Energy";
-	public static final String CURRENT_ENERGY = "Current Energy";
 	public static final String ARMOR_VALUE_PHYSICAL = "Armor (Physical)";
 	public static final String ARMOR_VALUE_ENERGY = "Armor (Energy)";
 	public static final String ARMOR_ENERGY_CONSUMPTION = "Energy Per Damage";
@@ -64,7 +59,6 @@ public abstract class ModularCommon {
 	public static final String SOLAR_ENERGY_GENERATION_NIGHT = "Nighttime Solar Energy Generation";
 	public static final String STATIC_ENERGY_GENERATION = "Energy Generation Per 5 Blocks";
 
-	
 	/**
 	 * Module names
 	 */
@@ -101,7 +95,8 @@ public abstract class ModularCommon {
 	public static final String MODULE_AUTO_FEEDER = "Auto-Feeder";
 	public static final String MODULE_SOLAR_GENERATOR = "Solar Generator";
 	public static final String MODULE_STATIC_GENERATOR = "Static Generator";
-	//public static final String MODULE_PORTABLE_CRAFTING = "Portable Crafting Table";
+	// public static final String MODULE_PORTABLE_CRAFTING =
+	// "Portable Crafting Table";
 	public static final String CITIZEN_JOE_STYLE = "Citizen Joe Style";
 	public static final String MODULE_MULTIMETER = "Multimeter";
 
@@ -117,30 +112,30 @@ public abstract class ModularCommon {
 	public static final String CATEGORY_VISION = "Vision";
 	public static final String CATEGORY_ENVIRONMENTAL = "Environment";
 	public static final String CATEGORY_SPECIAL = "Special";
-	
+
 	/**
 	 * Sounds
 	 */
 	private static final String SOUND_RESOURCE_LOCATION = "resources/machinemuse/sound/";
-    private static final String SOUND_PREFIX = "resources.machinemuse.sound.";
+	private static final String SOUND_PREFIX = "resources.machinemuse.sound.";
 
-    public static String[] soundFiles = {
-            SOUND_RESOURCE_LOCATION + "Glider.ogg", 
-            SOUND_RESOURCE_LOCATION + "GUIInstall.ogg",
-            SOUND_RESOURCE_LOCATION + "GUISelect.ogg",
-            SOUND_RESOURCE_LOCATION + "JetBoots.ogg",
-            SOUND_RESOURCE_LOCATION + "Jetpack.ogg",
-            SOUND_RESOURCE_LOCATION + "JumpAssist.ogg",
-            SOUND_RESOURCE_LOCATION + "SwimAssist.ogg",
-            SOUND_RESOURCE_LOCATION + "WaterElectrolyzer.ogg",};
-    public static final String SOUND_GLIDER = SOUND_PREFIX + "Glider";
-    public static final String SOUND_GUI_INSTALL = SOUND_PREFIX + "GUIInstall";
-    public static final String SOUND_GUI_SELECT = SOUND_PREFIX + "GUISelect";
-    public static final String SOUND_JET_BOOTS = SOUND_PREFIX + "JetBoots";
-    public static final String SOUND_JETPACK = SOUND_PREFIX + "Jetpack";
-    public static final String SOUND_JUMP_ASSIST = SOUND_PREFIX + "JumpAssist";
-    public static final String SOUND_SWIM_ASSIST = SOUND_PREFIX + "SwimAssist";
-    public static final String SOUND_WATER_ELECTROLYZER = SOUND_PREFIX + "WaterElectrolyzer";
+	public static String[] soundFiles = {
+			SOUND_RESOURCE_LOCATION + "Glider.ogg",
+			SOUND_RESOURCE_LOCATION + "GUIInstall.ogg",
+			SOUND_RESOURCE_LOCATION + "GUISelect.ogg",
+			SOUND_RESOURCE_LOCATION + "JetBoots.ogg",
+			SOUND_RESOURCE_LOCATION + "Jetpack.ogg",
+			SOUND_RESOURCE_LOCATION + "JumpAssist.ogg",
+			SOUND_RESOURCE_LOCATION + "SwimAssist.ogg",
+			SOUND_RESOURCE_LOCATION + "WaterElectrolyzer.ogg", };
+	public static final String SOUND_GLIDER = SOUND_PREFIX + "Glider";
+	public static final String SOUND_GUI_INSTALL = SOUND_PREFIX + "GUIInstall";
+	public static final String SOUND_GUI_SELECT = SOUND_PREFIX + "GUISelect";
+	public static final String SOUND_JET_BOOTS = SOUND_PREFIX + "JetBoots";
+	public static final String SOUND_JETPACK = SOUND_PREFIX + "Jetpack";
+	public static final String SOUND_JUMP_ASSIST = SOUND_PREFIX + "JumpAssist";
+	public static final String SOUND_SWIM_ASSIST = SOUND_PREFIX + "SwimAssist";
+	public static final String SOUND_WATER_ELECTROLYZER = SOUND_PREFIX + "WaterElectrolyzer";
 
 	/**
 	 * Adds information to the item's tooltip when 'getting' it.
@@ -164,12 +159,14 @@ public abstract class ModularCommon {
 				currentTipList.add("Mode:" + MuseStringUtils.wrapFormatTags(mode, MuseStringUtils.FormatCodes.Red));
 			}
 		}
-		String energyinfo = "Energy: " + MuseStringUtils.formatNumberShort(getJoules(stack)) + "/"
-				+ MuseStringUtils.formatNumberShort(getMaxJoules(stack));
+		String energyinfo = "Energy: " + MuseStringUtils.formatNumberShort(ElectricItemUtils.getJoules(stack)) + "/"
+				+ MuseStringUtils.formatNumberShort(ElectricItemUtils.getMaxJoules(stack));
 		currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character,
 				MuseStringUtils.FormatCodes.Grey));
-		if (stack.getItem() instanceof ItemPowerArmorHead && MuseItemUtils.getFoodLevel(stack) > 0 && MuseItemUtils.itemHasModule(stack, ModularCommon.MODULE_AUTO_FEEDER)) {
-			currentTipList.add(MuseStringUtils.wrapMultipleFormatTags("Food level: "+MuseItemUtils.getFoodLevel(stack) , MuseStringUtils.FormatCodes.Italic.character,
+		if (stack.getItem() instanceof ItemPowerArmorHead && MuseItemUtils.getFoodLevel(stack) > 0
+				&& MuseItemUtils.itemHasModule(stack, ModularCommon.MODULE_AUTO_FEEDER)) {
+			currentTipList.add(MuseStringUtils.wrapMultipleFormatTags("Food level: " + MuseItemUtils.getFoodLevel(stack),
+					MuseStringUtils.FormatCodes.Italic.character,
 					MuseStringUtils.FormatCodes.Grey));
 		}
 		if (Config.doAdditionalInfo()) {
@@ -184,70 +181,6 @@ public abstract class ModularCommon {
 		} else {
 			currentTipList.add(Config.additionalInfoInstructions());
 		}
-	}
-
-	// ///////////////////////////// //
-	// --- UNIVERSAL ELECTRICITY --- //
-	// ///////////////////////////// //
-
-	/**
-	 * Provide energy to an item.
-	 * 
-	 * @param joulesNeeded
-	 *            Amount to request (in UE Joules).
-	 * @param itemStack
-	 *            Itemstack to request the energy from.
-	 * @return Amount of joules provided by the item.
-	 */
-	public static double charge(double amount, ItemStack itemStack) {
-		double stored = getJoules(itemStack);
-		double capacity = getMaxJoules(itemStack) - stored;
-		double taken = Math.min(amount, capacity);
-		double surplus = amount - taken;
-		setJoules(stored + taken, itemStack);
-		return surplus;
-	}
-
-	/**
-	 * Request energy from this item.
-	 * 
-	 * @param joulesNeeded
-	 *            Amount to request (in UE Joules).
-	 * @param itemStack
-	 *            Itemstack to request the energy from.
-	 * @return Amount of joules provided by the item.
-	 */
-	public static double discharge(double joulesNeeded, ItemStack itemStack) {
-		NBTTagCompound itemProperties = MuseItemUtils.getMuseItemTag(itemStack);
-
-		double joulesAvail = getJoules(itemStack);
-		double joulesProvided = Math.min(joulesAvail, joulesNeeded);
-
-		setJoules(joulesAvail - joulesProvided, itemStack);
-		return joulesProvided;
-	}
-
-	public static double getJoules(ItemStack stack) {
-		double joules = MuseItemUtils.getDoubleOrZero(stack, CURRENT_ENERGY);
-		double maxJoules = getMaxJoules(stack);
-		if (joules > maxJoules) {
-			joules = maxJoules;
-			setJoules(joules, stack);
-		}
-		return joules;
-	}
-
-	public static void setJoules(double joules, ItemStack stack) {
-		MuseItemUtils.setDoubleOrRemove(stack, CURRENT_ENERGY, joules);
-	}
-
-	public static double getMaxJoules(ItemStack stack) {
-		double maxJoules = ModuleManager.computeModularProperty(stack, ModularCommon.MAXIMUM_ENERGY);
-		return maxJoules;
-	}
-
-	public static double getVoltage(ItemStack itemStack) {
-		return 120;
 	}
 
 	// //////////////////////// //
@@ -275,7 +208,4 @@ public abstract class ModularCommon {
 		return modules;
 	}
 
-	public static void onEMP(ItemStack itemStack, Entity entity, IExplosive empExplosive) {
-		setJoules(0, itemStack);
-	}
 }

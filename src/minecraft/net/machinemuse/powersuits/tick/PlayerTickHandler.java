@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
 
+import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModularCommon;
 import net.machinemuse.api.ModuleManager;
@@ -47,7 +48,9 @@ public class PlayerTickHandler implements ITickHandler {
 		handle(player);
 
 	}
+
 	int gliderTicker = 0, swimTicker = 0;
+
 	public void handle(EntityPlayer player) {
 		ItemStack helmet = player.getCurrentArmor(3);
 		ItemStack torso = player.getCurrentArmor(2);
@@ -55,13 +58,13 @@ public class PlayerTickHandler implements ITickHandler {
 		ItemStack boots = player.getCurrentArmor(0);
 		ItemStack tool = player.getCurrentEquippedItem();
 
-		double totalEnergy = MuseItemUtils.getPlayerEnergy(player);
+		double totalEnergy = ElectricItemUtils.getPlayerEnergy(player);
 		double totalWeight = MuseItemUtils.getPlayerWeight(player);
 		double weightCapacity = 25000;
 
 		double totalEnergyDrain = 0;
 		double foodAdjustment = 0;
-		
+
 		World world = player.worldObj;
 
 		double landMovementFactor = 0.1;
@@ -177,7 +180,7 @@ public class PlayerTickHandler implements ITickHandler {
 				double swimEnergyConsumption = ModuleManager.computeModularProperty(pants, ModularCommon.SWIM_BOOST_ENERGY_CONSUMPTION);
 				if (swimEnergyConsumption + totalEnergyDrain < totalEnergy) {
 					totalEnergyDrain += swimEnergyConsumption;
-					
+
 					if (swimTicker == 0) {
 						world.playSoundAtEntity(player, ModularCommon.SOUND_SWIM_ASSIST, 2.0F, 1.0F);
 						swimTicker++;
@@ -332,7 +335,7 @@ public class PlayerTickHandler implements ITickHandler {
 
 					// sprinting speed
 					player.jumpMovementFactor += 0.03f;
-					
+
 					if (gliderTicker == 0) {
 						world.playSoundAtEntity(player, ModularCommon.SOUND_GLIDER, 5.0F, 1.0F);
 						gliderTicker++;
@@ -388,7 +391,7 @@ public class PlayerTickHandler implements ITickHandler {
 		// Food Module
 		if (hasFeeder) {
 			IInventory inv = player.inventory;
-			double foodLevel = (double)MuseItemUtils.getFoodLevel(helmet);
+			double foodLevel = (double) MuseItemUtils.getFoodLevel(helmet);
 			double saturationLevel = MuseItemUtils.getSaturationLevel(helmet);
 			double efficiency = ModuleManager.computeModularProperty(helmet, ModularCommon.EATING_EFFICIENCY);
 			for (int i = 0; i < inv.getSizeInventory(); i++) {
@@ -409,7 +412,8 @@ public class PlayerTickHandler implements ITickHandler {
 			double eatingEnergyConsumption = ModuleManager.computeModularProperty(helmet, ModularCommon.EATING_ENERGY_CONSUMPTION);
 			FoodStats foodStats = player.getFoodStats();
 			int foodNeeded = 20 - foodStats.getFoodLevel();
-			if (foodNeeded > 0 && ((eatingEnergyConsumption * foodNeeded) + totalEnergyDrain) < totalEnergy && MuseItemUtils.getFoodLevel(helmet) > foodNeeded) {
+			if (foodNeeded > 0 && ((eatingEnergyConsumption * foodNeeded) + totalEnergyDrain) < totalEnergy
+					&& MuseItemUtils.getFoodLevel(helmet) > foodNeeded) {
 				if (MuseItemUtils.getSaturationLevel(helmet) >= 1.0F) {
 					foodStats.addStats(foodNeeded, 1.0F);
 					MuseItemUtils.setSaturationLevel(helmet, MuseItemUtils.getSaturationLevel(helmet) - 1.0F);
@@ -437,10 +441,12 @@ public class PlayerTickHandler implements ITickHandler {
 					&& world.canBlockSeeTheSky(xCoord, MathHelper.floor_double(player.posY) + 1, zCoord);
 			if (!world.isRemote && !world.provider.hasNoSky && (world.getTotalWorldTime() % 80) == 0) {
 				if (sunVisible) {
-					MuseItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(helmet, ModularCommon.SOLAR_ENERGY_GENERATION_DAY));
+					ElectricItemUtils.givePlayerEnergy(player,
+							ModuleManager.computeModularProperty(helmet, ModularCommon.SOLAR_ENERGY_GENERATION_DAY));
 				}
 				else if (moonVisible) {
-					MuseItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(helmet, ModularCommon.SOLAR_ENERGY_GENERATION_NIGHT));
+					ElectricItemUtils.givePlayerEnergy(player,
+							ModuleManager.computeModularProperty(helmet, ModularCommon.SOLAR_ENERGY_GENERATION_NIGHT));
 				}
 			}
 		}
@@ -457,7 +463,7 @@ public class PlayerTickHandler implements ITickHandler {
 			if (distance >= 5.0D) {
 				tag.setInteger("x", (int) player.posX);
 				tag.setInteger("z", (int) player.posZ);
-				MuseItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(pants, ModularCommon.STATIC_ENERGY_GENERATION));
+				ElectricItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(pants, ModularCommon.STATIC_ENERGY_GENERATION));
 			}
 		}
 
@@ -465,9 +471,9 @@ public class PlayerTickHandler implements ITickHandler {
 		// exhaustion this tick
 
 		if (totalEnergyDrain > 0) {
-			MuseItemUtils.drainPlayerEnergy(player, totalEnergyDrain);
+			ElectricItemUtils.drainPlayerEnergy(player, totalEnergyDrain);
 		} else {
-			MuseItemUtils.givePlayerEnergy(player, -totalEnergyDrain);
+			ElectricItemUtils.givePlayerEnergy(player, -totalEnergyDrain);
 		}
 
 		player.getFoodStats().addExhaustion((float) (-foodAdjustment));

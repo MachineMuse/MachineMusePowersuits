@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.common;
 import java.util.Arrays;
 import java.util.List;
 
+import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModularCommon;
@@ -229,13 +230,13 @@ public class Config {
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1));
 		addModule(module);
-		
+
 		module = new PowerModule(ModularCommon.MODULE_MULTIMETER, TOOLONLY, MuseIcon.PLATE_2_RED, ModularCommon.CATEGORY_TOOL)
-		.setDescription("A tool addon that reads the Universal Electricity power generation in a wire.")
-		.setToggleable(true)
-		.addInstallCost(copyAndResize(ItemComponent.wiring, 2))
-		.addInstallCost(copyAndResize(ItemComponent.solenoid, 1));
-addModule(module);
+				.setDescription("A tool addon that reads the Universal Electricity power generation in a wire.")
+				.setToggleable(true)
+				.addInstallCost(copyAndResize(ItemComponent.wiring, 2))
+				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1));
+		addModule(module);
 
 		// Pix make blink drive. No blame pix if blink drive tear rift in
 		// universe. Some things man not meant control.
@@ -251,14 +252,18 @@ addModule(module);
 		// .addInstallCost(copyAndResize(ItemComponent.ionThruster, 1))
 		// .addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2));
 		// addModule(module);
-		
-		/*module = new PowerModule(ModularCommon.MODULE_PORTABLE_CRAFTING, TOOLONLY, MuseIcon.INDICATOR_1_GREEN, ModularCommon.CATEGORY_SPECIAL)
-				.setDescription("This module needs a keybinding! Press k to set one.")
-				.setToggleable(true)
-				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1))
-				.addInstallCost(new ItemStack(Block.workbench, 1));
-		addModule(module);*/
-		
+
+		/*
+		 * module = new PowerModule(ModularCommon.MODULE_PORTABLE_CRAFTING,
+		 * TOOLONLY, MuseIcon.INDICATOR_1_GREEN, ModularCommon.CATEGORY_SPECIAL)
+		 * .
+		 * setDescription("This module needs a keybinding! Press k to set one.")
+		 * .setToggleable(true)
+		 * .addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1))
+		 * .addInstallCost(new ItemStack(Block.workbench, 1));
+		 * addModule(module);
+		 */
+
 		module = new PowerModule(ModularCommon.MODULE_STATIC_GENERATOR, LEGSONLY, MuseIcon.NEXUS_1_RED, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Generate power with your movement.")
 				.addBaseProperty(ModularCommon.WEIGHT, 1000)
@@ -268,7 +273,7 @@ addModule(module);
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
 		addModule(module);
-		
+
 		module = new PowerModule(ModularCommon.MODULE_SOLAR_GENERATOR, HEADONLY, MuseIcon.NEXUS_1_GREEN, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Let the sun power your adventures.")
 				.addBaseProperty(ModularCommon.SOLAR_ENERGY_GENERATION_DAY, 2000)
@@ -276,7 +281,7 @@ addModule(module);
 				.addInstallCost(copyAndResize(ItemComponent.solarPanel, 1))
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 2));
 		addModule(module);
-		
+
 		module = new PowerModule(ModularCommon.MODULE_AUTO_FEEDER, HEADONLY, MuseIcon.NEXUS_1_BLUE, ModularCommon.CATEGORY_ENVIRONMENTAL)
 				.setDescription("Why eat when your armor can do it for you.")
 				.setToggleable(true)
@@ -361,27 +366,27 @@ addModule(module);
 		module = new PowerModule(ModularCommon.MODULE_BATTERY_BASIC, ALLITEMS, MuseIcon.BATTERY1, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Integrate a battery to allow the item to store energy.")
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1))
-				.addBaseProperty(ModularCommon.MAXIMUM_ENERGY, 20000, "J")
+				.addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 20000, "J")
 				.addBaseProperty(ModularCommon.WEIGHT, 2000, "g")
-				.addTradeoffProperty("Battery Size", ModularCommon.MAXIMUM_ENERGY, 80000)
+				.addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 80000)
 				.addTradeoffProperty("Battery Size", ModularCommon.WEIGHT, 8000);
 		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_BATTERY_ADVANCED, ALLITEMS, MuseIcon.BATTERY2, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Integrate a more advanced battery to store more energy.")
 				.addInstallCost(copyAndResize(ItemComponent.mvcapacitor, 1))
-				.addBaseProperty(ModularCommon.MAXIMUM_ENERGY, 100000, "J")
+				.addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 100000, "J")
 				.addBaseProperty(ModularCommon.WEIGHT, 2000, "g")
-				.addTradeoffProperty("Battery Size", ModularCommon.MAXIMUM_ENERGY, 400000)
+				.addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 400000)
 				.addTradeoffProperty("Battery Size", ModularCommon.WEIGHT, 8000);
 		addModule(module);
 
 		module = new PowerModule(ModularCommon.MODULE_BATTERY_ELITE, ALLITEMS, MuseIcon.BATTERYCRYSTAL, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Integrate a the most advanced battery to store an extensive amount of energy.")
 				.addInstallCost(copyAndResize(ItemComponent.hvcapacitor, 1))
-				.addBaseProperty(ModularCommon.MAXIMUM_ENERGY, 750000, "J")
+				.addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 750000, "J")
 				.addBaseProperty(ModularCommon.WEIGHT, 2000, "g")
-				.addTradeoffProperty("Battery Size", ModularCommon.MAXIMUM_ENERGY, 4250000)
+				.addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 4250000)
 				.addTradeoffProperty("Battery Size", ModularCommon.WEIGHT, 8000);
 		addModule(module);
 

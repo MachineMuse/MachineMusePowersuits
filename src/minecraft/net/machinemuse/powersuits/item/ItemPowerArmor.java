@@ -7,6 +7,7 @@ import icbm.api.IExplosive;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModularCommon;
 import net.machinemuse.api.ModuleManager;
@@ -201,7 +202,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 		double totalArmor = 0;
 		NBTTagCompound props = MuseItemUtils.getMuseItemTag(stack);
 
-		double energy = MuseItemUtils.getPlayerEnergy(player);
+		double energy = ElectricItemUtils.getPlayerEnergy(player);
 		double physArmor = ModuleManager.computeModularProperty(stack, ModularCommon.ARMOR_VALUE_PHYSICAL);
 		double enerArmor = ModuleManager.computeModularProperty(stack, ModularCommon.ARMOR_VALUE_ENERGY);
 		double enerConsum = ModuleManager.computeModularProperty(stack, ModularCommon.ARMOR_ENERGY_CONSUMPTION);
@@ -227,7 +228,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 		double enerConsum = ModuleManager.computeModularProperty(stack, ModularCommon.ARMOR_ENERGY_CONSUMPTION);
 		double drain = enerConsum * damage;
 		if (entity instanceof EntityPlayer) {
-			MuseItemUtils.drainPlayerEnergy((EntityPlayer) entity, drain);
+			ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entity, drain);
 		} else {
 			onUse(drain, stack);
 		}
@@ -282,32 +283,32 @@ public abstract class ItemPowerArmor extends ItemArmor
 	@Override
 	public double onReceive(double amps, double voltage, ItemStack itemStack) {
 		double amount = ElectricInfo.getJoules(amps, voltage, 1);
-		return ModularCommon.charge(amount, itemStack);
+		return ElectricItemUtils.charge(amount, itemStack);
 	}
 
 	@Override
 	public double onUse(double joulesNeeded, ItemStack itemStack) {
-		return ModularCommon.discharge(joulesNeeded, itemStack);
+		return ElectricItemUtils.discharge(joulesNeeded, itemStack);
 	}
 
 	@Override
 	public double getJoules(Object... data) {
-		return ModularCommon.getJoules(getAsStack(data));
+		return ElectricItemUtils.getJoules(getAsStack(data));
 	}
 
 	@Override
 	public void setJoules(double joules, Object... data) {
-		ModularCommon.setJoules(joules, getAsStack(data));
+		ElectricItemUtils.setJoules(joules, getAsStack(data));
 	}
 
 	@Override
 	public double getMaxJoules(Object... data) {
-		return ModularCommon.getMaxJoules(getAsStack(data));
+		return ElectricItemUtils.getMaxJoules(getAsStack(data));
 	}
 
 	@Override
 	public double getVoltage(Object... data) {
-		return ModularCommon.getVoltage(getAsStack(data));
+		return ElectricItemUtils.getVoltage(getAsStack(data));
 	}
 
 	@Override
@@ -338,14 +339,14 @@ public abstract class ItemPowerArmor extends ItemArmor
 	@Override
 	public int charge(ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
 		double joulesProvided = ModCompatability.joulesFromEU(amount);
-		double maxJoules = ModularCommon.getMaxJoules(stack);
+		double maxJoules = ElectricItemUtils.getMaxJoules(stack);
 		if (!ignoreTransferLimit && (joulesProvided > maxJoules / 200.0)) {
 			joulesProvided = maxJoules / 200.0;
 		}
-		double currentJoules = ModularCommon.getJoules(stack);
-		double surplus = ModularCommon.charge(joulesProvided, stack);
+		double currentJoules = ElectricItemUtils.getJoules(stack);
+		double surplus = ElectricItemUtils.charge(joulesProvided, stack);
 		if (simulate) {
-			ModularCommon.setJoules(currentJoules, stack);
+			ElectricItemUtils.setJoules(currentJoules, stack);
 		}
 
 		return ModCompatability.joulesToEU(joulesProvided - surplus);
@@ -354,14 +355,14 @@ public abstract class ItemPowerArmor extends ItemArmor
 	@Override
 	public int discharge(ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
 		double joulesRequested = ModCompatability.joulesFromEU(amount);
-		double maxJoules = ModularCommon.getMaxJoules(stack);
+		double maxJoules = ElectricItemUtils.getMaxJoules(stack);
 		if (!ignoreTransferLimit && (joulesRequested > maxJoules / 200.0)) {
 			joulesRequested = maxJoules / 200.0;
 		}
-		double currentJoules = ModularCommon.getJoules(stack);
-		double givenJoules = ModularCommon.discharge(joulesRequested, stack);
+		double currentJoules = ElectricItemUtils.getJoules(stack);
+		double givenJoules = ElectricItemUtils.discharge(joulesRequested, stack);
 		if (simulate) {
-			ModularCommon.setJoules(currentJoules, stack);
+			ElectricItemUtils.setJoules(currentJoules, stack);
 		}
 		return ModCompatability.joulesToEU(givenJoules);
 	}
@@ -369,7 +370,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 	@Override
 	public boolean canUse(ItemStack stack, int amount) {
 		double joulesRequested = ModCompatability.joulesFromEU(amount);
-		double currentJoules = ModularCommon.getJoules(stack);
+		double currentJoules = ElectricItemUtils.getJoules(stack);
 		if (currentJoules > joulesRequested) {
 			return true;
 		} else {
@@ -414,7 +415,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 
 	@Override
 	public void onEMP(ItemStack itemStack, Entity entity, IExplosive empExplosive) {
-		ModularCommon.onEMP(itemStack, entity, empExplosive);
+		ElectricItemUtils.onEMP(itemStack, entity, empExplosive);
 	}
 
 }
