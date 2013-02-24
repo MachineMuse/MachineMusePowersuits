@@ -9,7 +9,7 @@ import java.util.List;
 
 import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModularCommon;
+import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseMathUtils;
@@ -96,34 +96,34 @@ public class PlayerTickHandler implements ITickHandler {
 		boolean hasStaticGeneration = false;
 
 		if (helmet != null && helmet.getItem() instanceof IModularItem) {
-			hasNightVision = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_NIGHT_VISION);
-			hasFlightControl = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_FLIGHT_CONTROL);
-			hasFeeder = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_AUTO_FEEDER);
-			hasSolarGeneration = MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_SOLAR_GENERATOR);
+			hasNightVision = MuseItemUtils.itemHasActiveModule(helmet, MuseCommonStrings.MODULE_NIGHT_VISION);
+			hasFlightControl = MuseItemUtils.itemHasActiveModule(helmet, MuseCommonStrings.MODULE_FLIGHT_CONTROL);
+			hasFeeder = MuseItemUtils.itemHasActiveModule(helmet, MuseCommonStrings.MODULE_AUTO_FEEDER);
+			hasSolarGeneration = MuseItemUtils.itemHasActiveModule(helmet, MuseCommonStrings.MODULE_SOLAR_GENERATOR);
 			if (helmet.getTagCompound().hasKey("ench")) {
 				helmet.getTagCompound().removeTag("ench");
 			}
 		}
 		if (pants != null && pants.getItem() instanceof IModularItem) {
-			hasSprintAssist = MuseItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_SPRINT_ASSIST);
-			hasJumpAssist = MuseItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_JUMP_ASSIST);
-			hasSwimAssist = MuseItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_SWIM_BOOST);
-			hasStaticGeneration = MuseItemUtils.itemHasActiveModule(pants, ModularCommon.MODULE_STATIC_GENERATOR);
+			hasSprintAssist = MuseItemUtils.itemHasActiveModule(pants, MuseCommonStrings.MODULE_SPRINT_ASSIST);
+			hasJumpAssist = MuseItemUtils.itemHasActiveModule(pants, MuseCommonStrings.MODULE_JUMP_ASSIST);
+			hasSwimAssist = MuseItemUtils.itemHasActiveModule(pants, MuseCommonStrings.MODULE_SWIM_BOOST);
+			hasStaticGeneration = MuseItemUtils.itemHasActiveModule(pants, MuseCommonStrings.MODULE_KINETIC_GENERATOR);
 			if (pants.getTagCompound().hasKey("ench")) {
 				pants.getTagCompound().removeTag("ench");
 			}
 		}
 		if (boots != null && boots.getItem() instanceof IModularItem) {
-			hasJetboots = MuseItemUtils.itemHasActiveModule(boots, ModularCommon.MODULE_JETBOOTS);
+			hasJetboots = MuseItemUtils.itemHasActiveModule(boots, MuseCommonStrings.MODULE_JETBOOTS);
 			if (boots.getTagCompound().hasKey("ench")) {
 				boots.getTagCompound().removeTag("ench");
 			}
 		}
 		if (torso != null && torso.getItem() instanceof IModularItem) {
-			hasInvis = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_ACTIVE_CAMOUFLAGE);
-			hasJetpack = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_JETPACK);
-			hasGlider = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_GLIDER);
-			hasParachute = MuseItemUtils.itemHasActiveModule(torso, ModularCommon.MODULE_PARACHUTE);
+			hasInvis = MuseItemUtils.itemHasActiveModule(torso, MuseCommonStrings.MODULE_ACTIVE_CAMOUFLAGE);
+			hasJetpack = MuseItemUtils.itemHasActiveModule(torso, MuseCommonStrings.MODULE_JETPACK);
+			hasGlider = MuseItemUtils.itemHasActiveModule(torso, MuseCommonStrings.MODULE_GLIDER);
+			hasParachute = MuseItemUtils.itemHasActiveModule(torso, MuseCommonStrings.MODULE_PARACHUTE);
 			if (torso.getTagCompound().hasKey("ench")) {
 				torso.getTagCompound().removeTag("ench");
 			}
@@ -176,13 +176,13 @@ public class PlayerTickHandler implements ITickHandler {
 				if (jumpkey || sneakkey) {
 					moveRatio += 0.2 * 0.2;
 				}
-				double swimAssistRate = ModuleManager.computeModularProperty(pants, ModularCommon.SWIM_BOOST_AMOUNT) * 0.05;
-				double swimEnergyConsumption = ModuleManager.computeModularProperty(pants, ModularCommon.SWIM_BOOST_ENERGY_CONSUMPTION);
+				double swimAssistRate = ModuleManager.computeModularProperty(pants, MuseCommonStrings.SWIM_BOOST_AMOUNT) * 0.05;
+				double swimEnergyConsumption = ModuleManager.computeModularProperty(pants, MuseCommonStrings.SWIM_BOOST_ENERGY_CONSUMPTION);
 				if (swimEnergyConsumption + totalEnergyDrain < totalEnergy) {
 					totalEnergyDrain += swimEnergyConsumption;
 
 					if (swimTicker == 0) {
-						world.playSoundAtEntity(player, ModularCommon.SOUND_SWIM_ASSIST, 2.0F, 1.0F);
+						world.playSoundAtEntity(player, MuseCommonStrings.SOUND_SWIM_ASSIST, 2.0F, 1.0F);
 						swimTicker++;
 					}
 					else {
@@ -222,12 +222,12 @@ public class PlayerTickHandler implements ITickHandler {
 				double jetEnergy = 0;
 				double thrust = 0;
 				if (hasJetpack) {
-					jetEnergy += ModuleManager.computeModularProperty(torso, ModularCommon.JET_ENERGY_CONSUMPTION);
-					thrust += ModuleManager.computeModularProperty(torso, ModularCommon.JET_THRUST);
+					jetEnergy += ModuleManager.computeModularProperty(torso, MuseCommonStrings.JET_ENERGY_CONSUMPTION);
+					thrust += ModuleManager.computeModularProperty(torso, MuseCommonStrings.JET_THRUST);
 				}
 				if (hasJetboots) {
-					jetEnergy += ModuleManager.computeModularProperty(boots, ModularCommon.JET_ENERGY_CONSUMPTION);
-					thrust += ModuleManager.computeModularProperty(boots, ModularCommon.JET_THRUST);
+					jetEnergy += ModuleManager.computeModularProperty(boots, MuseCommonStrings.JET_ENERGY_CONSUMPTION);
+					thrust += ModuleManager.computeModularProperty(boots, MuseCommonStrings.JET_THRUST);
 				}
 				if (jetEnergy + totalEnergyDrain < totalEnergy) {
 					thrust *= getWeightPenaltyRatio(totalWeight, weightCapacity);
@@ -337,7 +337,7 @@ public class PlayerTickHandler implements ITickHandler {
 					player.jumpMovementFactor += 0.03f;
 
 					if (gliderTicker == 0) {
-						world.playSoundAtEntity(player, ModularCommon.SOUND_GLIDER, 5.0F, 1.0F);
+						world.playSoundAtEntity(player, MuseCommonStrings.SOUND_GLIDER, 5.0F, 1.0F);
 						gliderTicker++;
 					}
 					else {
@@ -366,10 +366,10 @@ public class PlayerTickHandler implements ITickHandler {
 				if (player.isSprinting()) {
 					double exhaustion = Math.round(horzMovement * 100.0F) * 0.01;
 
-					double sprintCost = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_ENERGY_CONSUMPTION);
+					double sprintCost = ModuleManager.computeModularProperty(pants, MuseCommonStrings.SPRINT_ENERGY_CONSUMPTION);
 					if (sprintCost + totalEnergyDrain < totalEnergy) {
-						double sprintMultiplier = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_SPEED_MULTIPLIER);
-						double exhaustionComp = ModuleManager.computeModularProperty(pants, ModularCommon.SPRINT_FOOD_COMPENSATION);
+						double sprintMultiplier = ModuleManager.computeModularProperty(pants, MuseCommonStrings.SPRINT_SPEED_MULTIPLIER);
+						double exhaustionComp = ModuleManager.computeModularProperty(pants, MuseCommonStrings.SPRINT_FOOD_COMPENSATION);
 						totalEnergyDrain += sprintCost * horzMovement * 5;
 						player.landMovementFactor *= sprintMultiplier;
 
@@ -377,9 +377,9 @@ public class PlayerTickHandler implements ITickHandler {
 						player.jumpMovementFactor = player.landMovementFactor * .5f;
 					}
 				} else {
-					double cost = ModuleManager.computeModularProperty(pants, ModularCommon.WALKING_ENERGY_CONSUMPTION);
+					double cost = ModuleManager.computeModularProperty(pants, MuseCommonStrings.WALKING_ENERGY_CONSUMPTION);
 					if (cost + totalEnergyDrain < totalEnergy) {
-						double walkMultiplier = ModuleManager.computeModularProperty(pants, ModularCommon.WALKING_SPEED_MULTIPLIER);
+						double walkMultiplier = ModuleManager.computeModularProperty(pants, MuseCommonStrings.WALKING_SPEED_MULTIPLIER);
 						totalEnergyDrain += cost * horzMovement * 5;
 						player.landMovementFactor *= walkMultiplier;
 						player.jumpMovementFactor = player.landMovementFactor * .5f;
@@ -393,7 +393,7 @@ public class PlayerTickHandler implements ITickHandler {
 			IInventory inv = player.inventory;
 			double foodLevel = (double) MuseItemUtils.getFoodLevel(helmet);
 			double saturationLevel = MuseItemUtils.getSaturationLevel(helmet);
-			double efficiency = ModuleManager.computeModularProperty(helmet, ModularCommon.EATING_EFFICIENCY);
+			double efficiency = ModuleManager.computeModularProperty(helmet, MuseCommonStrings.EATING_EFFICIENCY);
 			for (int i = 0; i < inv.getSizeInventory(); i++) {
 				ItemStack stack = inv.getStackInSlot(i);
 				if (stack != null && stack.getItem() instanceof ItemFood) {
@@ -409,7 +409,7 @@ public class PlayerTickHandler implements ITickHandler {
 					player.inventory.setInventorySlotContents(i, null);
 				}
 			}
-			double eatingEnergyConsumption = ModuleManager.computeModularProperty(helmet, ModularCommon.EATING_ENERGY_CONSUMPTION);
+			double eatingEnergyConsumption = ModuleManager.computeModularProperty(helmet, MuseCommonStrings.EATING_ENERGY_CONSUMPTION);
 			FoodStats foodStats = player.getFoodStats();
 			int foodNeeded = 20 - foodStats.getFoodLevel();
 			if (foodNeeded > 0 && ((eatingEnergyConsumption * foodNeeded) + totalEnergyDrain) < totalEnergy
@@ -442,11 +442,11 @@ public class PlayerTickHandler implements ITickHandler {
 			if (!world.isRemote && !world.provider.hasNoSky && (world.getTotalWorldTime() % 80) == 0) {
 				if (sunVisible) {
 					ElectricItemUtils.givePlayerEnergy(player,
-							ModuleManager.computeModularProperty(helmet, ModularCommon.SOLAR_ENERGY_GENERATION_DAY));
+							ModuleManager.computeModularProperty(helmet, MuseCommonStrings.SOLAR_ENERGY_GENERATION_DAY));
 				}
 				else if (moonVisible) {
 					ElectricItemUtils.givePlayerEnergy(player,
-							ModuleManager.computeModularProperty(helmet, ModularCommon.SOLAR_ENERGY_GENERATION_NIGHT));
+							ModuleManager.computeModularProperty(helmet, MuseCommonStrings.SOLAR_ENERGY_GENERATION_NIGHT));
 				}
 			}
 		}
@@ -463,7 +463,7 @@ public class PlayerTickHandler implements ITickHandler {
 			if (distance >= 5.0D) {
 				tag.setInteger("x", (int) player.posX);
 				tag.setInteger("z", (int) player.posZ);
-				ElectricItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(pants, ModularCommon.STATIC_ENERGY_GENERATION));
+				ElectricItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(pants, MuseCommonStrings.KINETIC_ENERGY_GENERATION));
 			}
 		}
 

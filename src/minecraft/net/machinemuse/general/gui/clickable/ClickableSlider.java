@@ -2,7 +2,7 @@ package net.machinemuse.general.gui.clickable;
 
 import java.util.List;
 
-import net.machinemuse.api.ModularCommon;
+import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.DrawableMuseRect;
@@ -39,7 +39,7 @@ public class ClickableSlider extends Clickable {
 	
 	@Override public void draw() {
 		MuseRenderer.drawCenteredString(name, position.x(), position.y());
-		double value = ModularCommon.getOrSetModuleProperty(moduleTag, name, 0);
+		double value = MuseCommonStrings.getOrSetModuleProperty(moduleTag, name, 0);
 		this.insideRect.setRight(position.x() + width * (value - 0.5) + cornersize);
 		this.outsideRect.draw();
 		this.insideRect.draw();

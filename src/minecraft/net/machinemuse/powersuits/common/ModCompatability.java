@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModularCommon;
+import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -127,7 +127,7 @@ public class ModCompatability {
 				Item goggles = (Item) itemGoggles.get(itemGoggles);
 				gogglesStack = new ItemStack(goggles);
 				PowerModule module = new PowerModule("Aurameter", Arrays.asList((IModularItem) ModularPowersuits.powerArmorHead), new MuseIcon(
-						"/thaumcraft/resources/ss_core.png", 144), ModularCommon.CATEGORY_SPECIAL)
+						"/thaumcraft/resources/ss_core.png", 144), MuseCommonStrings.CATEGORY_SPECIAL)
 						.setDescription(
 								"Connect up some Thaumic goggles to show the nearby aura values. (Does not reveal aura nodes, only shows the HUD)")
 						.addInstallCost(ItemComponent.laserHologram.copy())

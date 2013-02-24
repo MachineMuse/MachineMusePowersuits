@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.event;
 
 import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModularCommon;
+import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.powersuits.item.ItemPowerTool;
@@ -35,24 +35,24 @@ public class EventHandler {
 		ItemStack stack = player.getCurrentEquippedItem();
 		if (stack != null && stack.getItem() instanceof ItemPowerTool) {
 			if (ItemPowerTool.useIronPickaxe(stack, block, meta)
-					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_ENERGY_CONSUMPTION)) {
+					&& energy > ModuleManager.computeModularProperty(stack, MuseCommonStrings.PICKAXE_ENERGY_CONSUMPTION)) {
 
-				harvestSpeed *= ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_HARVEST_SPEED);
+				harvestSpeed *= ModuleManager.computeModularProperty(stack, MuseCommonStrings.PICKAXE_HARVEST_SPEED);
 
 			} else if (ItemPowerTool.useIronShovel(stack, block, meta)
-					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.SHOVEL_ENERGY_CONSUMPTION)) {
+					&& energy > ModuleManager.computeModularProperty(stack, MuseCommonStrings.SHOVEL_ENERGY_CONSUMPTION)) {
 
-				harvestSpeed *= ModuleManager.computeModularProperty(stack, ModularCommon.SHOVEL_HARVEST_SPEED);
+				harvestSpeed *= ModuleManager.computeModularProperty(stack, MuseCommonStrings.SHOVEL_HARVEST_SPEED);
 
 			} else if (ItemPowerTool.useIronAxe(stack, block, meta)
-					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.AXE_ENERGY_CONSUMPTION)) {
+					&& energy > ModuleManager.computeModularProperty(stack, MuseCommonStrings.AXE_ENERGY_CONSUMPTION)) {
 
-				harvestSpeed *= ModuleManager.computeModularProperty(stack, ModularCommon.AXE_HARVEST_SPEED);
+				harvestSpeed *= ModuleManager.computeModularProperty(stack, MuseCommonStrings.AXE_HARVEST_SPEED);
 
 			} else if (ItemPowerTool.useDiamondPickaxe(stack, block, meta)
-					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_ENERGY_CONSUMPTION)) {
+					&& energy > ModuleManager.computeModularProperty(stack, MuseCommonStrings.PICKAXE_ENERGY_CONSUMPTION)) {
 
-				harvestSpeed *= ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_HARVEST_SPEED);
+				harvestSpeed *= ModuleManager.computeModularProperty(stack, MuseCommonStrings.PICKAXE_HARVEST_SPEED);
 
 			} else {
 
@@ -60,9 +60,9 @@ public class EventHandler {
 
 			}
 			if (harvestSpeed > 1 && player.isInsideOfMaterial(Material.water)
-					&& MuseItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_AQUA_AFFINITY)
-					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.AQUA_AFFINITY_ENERGY_CONSUMPTION)) {
-				harvestSpeed *= 5 * ModuleManager.computeModularProperty(stack, ModularCommon.UNDERWATER_HARVEST_SPEED);
+					&& MuseItemUtils.itemHasActiveModule(stack, MuseCommonStrings.MODULE_AQUA_AFFINITY)
+					&& energy > ModuleManager.computeModularProperty(stack, MuseCommonStrings.AQUA_AFFINITY_ENERGY_CONSUMPTION)) {
+				harvestSpeed *= 5 * ModuleManager.computeModularProperty(stack, MuseCommonStrings.UNDERWATER_HARVEST_SPEED);
 			}
 			event.newSpeed = (float) harvestSpeed;
 		}
@@ -75,16 +75,16 @@ public class EventHandler {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 			ItemStack helmet = player.getCurrentArmor(3);
 			if (helmet != null && helmet.getItem() instanceof IModularItem
-					&& MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_WATER_ELECTROLYZER)) {
+					&& MuseItemUtils.itemHasActiveModule(helmet, MuseCommonStrings.MODULE_WATER_ELECTROLYZER)) {
 				double energy = ElectricItemUtils.getPlayerEnergy(player);
-				double energyConsumption = ModuleManager.computeModularProperty(helmet, ModularCommon.WATERBREATHING_ENERGY_CONSUMPTION);
+				double energyConsumption = ModuleManager.computeModularProperty(helmet, MuseCommonStrings.WATERBREATHING_ENERGY_CONSUMPTION);
 				if (energy > energyConsumption && player.getAir() < 10) {
 					ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
 					player.setAir(300);
 				}
 			}
 			ItemStack legs = player.getCurrentArmor(1);
-			if (legs != null && legs.getItem() instanceof IModularItem && MuseItemUtils.itemHasActiveModule(legs, ModularCommon.MODULE_CLIMB_ASSIST)) {
+			if (legs != null && legs.getItem() instanceof IModularItem && MuseItemUtils.itemHasActiveModule(legs, MuseCommonStrings.MODULE_CLIMB_ASSIST)) {
 				player.stepHeight = 1.001F;
 			} else if (player.stepHeight == 1.001F) {
 				player.stepHeight = 0.5001F;

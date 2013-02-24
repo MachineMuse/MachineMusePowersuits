@@ -29,8 +29,6 @@ public class MusePacketPlayerUpdate extends MusePacket {
 
 	@Override
 	public void handleClient(EntityClientPlayerMP player) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

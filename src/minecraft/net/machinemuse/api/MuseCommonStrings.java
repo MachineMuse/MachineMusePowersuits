@@ -10,7 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public abstract class ModularCommon {
+public abstract class MuseCommonStrings {
 	/**
 	 * String literals as constants to eliminate case sensitivity issues etc.
 	 */
@@ -56,7 +56,7 @@ public abstract class ModularCommon {
 	public static final String EATING_EFFICIENCY = "Auto-Feeder Efficiency";
 	public static final String SOLAR_ENERGY_GENERATION_DAY = "Daytime Solar Energy Generation";
 	public static final String SOLAR_ENERGY_GENERATION_NIGHT = "Nighttime Solar Energy Generation";
-	public static final String STATIC_ENERGY_GENERATION = "Energy Generation Per 5 Blocks";
+	public static final String KINETIC_ENERGY_GENERATION = "Energy Generation Per 5 Blocks";
 
 	/**
 	 * Module names
@@ -93,7 +93,7 @@ public abstract class ModularCommon {
 	public static final String MODULE_FLIGHT_CONTROL = "Flight Control";
 	public static final String MODULE_AUTO_FEEDER = "Auto-Feeder";
 	public static final String MODULE_SOLAR_GENERATOR = "Solar Generator";
-	public static final String MODULE_STATIC_GENERATOR = "Static Generator";
+	public static final String MODULE_KINETIC_GENERATOR = "Kinetic Generator";
 	// public static final String MODULE_PORTABLE_CRAFTING =
 	// "Portable Crafting Table";
 	public static final String CITIZEN_JOE_STYLE = "Citizen Joe Style";
@@ -172,7 +172,7 @@ public abstract class ModularCommon {
 		// MuseStringUtils.FormatCodes.Grey));
 		// }
 		if (Config.doAdditionalInfo()) {
-			List<String> installed = ModularCommon.getItemInstalledModules(player, stack);
+			List<String> installed = MuseCommonStrings.getItemInstalledModules(player, stack);
 			if (installed.size() == 0) {
 				String message = "No installed modules! This item is useless until you add some modules at a Tinker Table.";
 				currentTipList.addAll(MuseStringUtils.wrapStringToLength(message, 30));
@@ -196,7 +196,7 @@ public abstract class ModularCommon {
 	}
 
 	public static double getTotalWeight(ItemStack stack) {
-		return ModuleManager.computeModularProperty(stack, ModularCommon.WEIGHT);
+		return ModuleManager.computeModularProperty(stack, MuseCommonStrings.WEIGHT);
 	}
 
 	public static List<String> getItemInstalledModules(EntityPlayer player, ItemStack stack) {

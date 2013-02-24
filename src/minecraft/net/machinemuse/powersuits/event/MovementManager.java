@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.machinemuse.api.ElectricItemUtils;
-import net.machinemuse.api.ModularCommon;
+import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.powersuits.item.ItemPowerArmor;
@@ -35,14 +35,14 @@ public class MovementManager {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 			ItemStack stack = player.getCurrentArmor(1);
 			if (stack != null && stack.getItem() instanceof ItemPowerArmor
-					&& MuseItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_JUMP_ASSIST)) {
-				double jumpAssist = ModuleManager.computeModularProperty(stack, ModularCommon.JUMP_MULTIPLIER) * 2;
-				double drain = ModuleManager.computeModularProperty(stack, ModularCommon.JUMP_ENERGY_CONSUMPTION);
+					&& MuseItemUtils.itemHasActiveModule(stack, MuseCommonStrings.MODULE_JUMP_ASSIST)) {
+				double jumpAssist = ModuleManager.computeModularProperty(stack, MuseCommonStrings.JUMP_MULTIPLIER) * 2;
+				double drain = ModuleManager.computeModularProperty(stack, MuseCommonStrings.JUMP_ENERGY_CONSUMPTION);
 				double avail = ElectricItemUtils.getPlayerEnergy(player);
 				if (drain < avail) {
 					ElectricItemUtils.drainPlayerEnergy(player, drain);
 					setPlayerJumpTicks(player, jumpAssist);
-					double jumpCompensationRatio = ModuleManager.computeModularProperty(stack, ModularCommon.JUMP_FOOD_COMPENSATION);
+					double jumpCompensationRatio = ModuleManager.computeModularProperty(stack, MuseCommonStrings.JUMP_FOOD_COMPENSATION);
 					if (player.isSprinting()) {
 						player.getFoodStats().addExhaustion((float) (-0.8 * jumpCompensationRatio));
 					} else {
@@ -61,10 +61,10 @@ public class MovementManager {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 			ItemStack boots = player.getCurrentArmor(0);
 			if (boots != null) {
-				if (MuseItemUtils.itemHasActiveModule(boots, ModularCommon.MODULE_SHOCK_ABSORBER) && event.distance > 3) {
-					double distanceAbsorb = event.distance * ModuleManager.computeModularProperty(boots, ModularCommon.SHOCK_ABSORB_MULTIPLIER);
+				if (MuseItemUtils.itemHasActiveModule(boots, MuseCommonStrings.MODULE_SHOCK_ABSORBER) && event.distance > 3) {
+					double distanceAbsorb = event.distance * ModuleManager.computeModularProperty(boots, MuseCommonStrings.SHOCK_ABSORB_MULTIPLIER);
 
-					double drain = distanceAbsorb * ModuleManager.computeModularProperty(boots, ModularCommon.SHOCK_ABSORB_ENERGY_CONSUMPTION);
+					double drain = distanceAbsorb * ModuleManager.computeModularProperty(boots, MuseCommonStrings.SHOCK_ABSORB_ENERGY_CONSUMPTION);
 					double avail = ElectricItemUtils.getPlayerEnergy(player);
 					if (drain < avail) {
 						ElectricItemUtils.drainPlayerEnergy(player, drain);

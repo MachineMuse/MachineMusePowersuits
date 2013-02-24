@@ -30,7 +30,7 @@ public class EntityBlinkDriveBolt extends EntityThrowable {
 		this.shootingEntity = shootingEntity;
 		this.size = 12;
 		Vec3 direction = shootingEntity.getLookVec().normalize();
-		double scale = 1.0;
+		double scale = 4.0;
 		this.motionX = direction.xCoord * scale;
 		this.motionY = direction.yCoord * scale;
 		this.motionZ = direction.zCoord * scale;
@@ -132,19 +132,19 @@ public class EntityBlinkDriveBolt extends EntityThrowable {
 		default:
 			break;
 		}
-		
-		if (this.shootingEntity != null && this.shootingEntity instanceof EntityPlayerMP)
-        {
-            EntityPlayerMP var3 = (EntityPlayerMP)this.shootingEntity;
 
-            if (!var3.playerNetServerHandler.connectionClosed && var3.worldObj == this.worldObj)
-            {
-                var3.setPositionAndUpdate(this.posX, this.posY, this.posZ);
-                var3.fallDistance = 0.0F;
-                //this.getThrower().attackEntityFrom(DamageSource.fall, 5);
-            }
-        }
-		
+		if (this.shootingEntity != null && this.shootingEntity instanceof EntityPlayerMP)
+		{
+			EntityPlayerMP var3 = (EntityPlayerMP) this.shootingEntity;
+
+			if (!var3.playerNetServerHandler.connectionClosed && var3.worldObj == this.worldObj)
+			{
+				var3.setPositionAndUpdate(this.posX, this.posY, this.posZ);
+				var3.fallDistance = 0.0F;
+				// this.getThrower().attackEntityFrom(DamageSource.fall, 5);
+			}
+		}
+
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
 		{
 			this.setDead();
