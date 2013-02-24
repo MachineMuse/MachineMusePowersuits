@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.relauncher.Side;
 
 /**
  * Logger access class. May become more fleshed out in the future.
@@ -13,22 +12,20 @@ import cpw.mods.fml.relauncher.Side;
  * 
  */
 public abstract class MuseLogger {
-	public static final Logger logger = Logger.getLogger("MMMPS");
+	public static final Logger logger = Logger.getLogger("MMMPS-" + FMLCommonHandler.instance().getEffectiveSide());
 	static {
 		logger.setParent(FMLLog.getLogger());
 	}
 
 	public static void logDebug(String string) {
-			Side side1 = FMLCommonHandler.instance().getEffectiveSide();
-			logger.info(side1 + ": " + string);
+		logger.info(string);
 	}
 
 	/**
 	 * @param string
 	 */
 	public static void logError(String string) {
-		Side side = FMLCommonHandler.instance().getEffectiveSide();
-		logger.warning(side + ": " + string);
+		logger.warning(string);
 
 	}
 }
