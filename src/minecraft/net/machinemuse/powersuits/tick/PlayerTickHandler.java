@@ -47,7 +47,7 @@ public class PlayerTickHandler implements ITickHandler {
 		handle(player);
 
 	}
-
+	int gliderTicker = 0, swimTicker = 0;
 	public void handle(EntityPlayer player) {
 		ItemStack helmet = player.getCurrentArmor(3);
 		ItemStack torso = player.getCurrentArmor(2);
@@ -61,6 +61,8 @@ public class PlayerTickHandler implements ITickHandler {
 
 		double totalEnergyDrain = 0;
 		double foodAdjustment = 0;
+		
+		World world = player.worldObj;
 
 		double landMovementFactor = 0.1;
 		double jumpMovementFactor = 0.02;
@@ -175,6 +177,17 @@ public class PlayerTickHandler implements ITickHandler {
 				double swimEnergyConsumption = ModuleManager.computeModularProperty(pants, ModularCommon.SWIM_BOOST_ENERGY_CONSUMPTION);
 				if (swimEnergyConsumption + totalEnergyDrain < totalEnergy) {
 					totalEnergyDrain += swimEnergyConsumption;
+					
+					if (swimTicker == 0) {
+						world.playSoundAtEntity(player, ModularCommon.SOUND_SWIM_ASSIST, 2.0F, 1.0F);
+						swimTicker++;
+					}
+					else {
+						swimTicker++;
+						if (swimTicker >= 60) {
+							swimTicker = 0;
+						}
+					}
 					// Forward/backward movement
 					player.motionX += player.getLookVec().xCoord * swimAssistRate * forwardkey / moveRatio;
 					player.motionY += player.getLookVec().yCoord * swimAssistRate * forwardkey / moveRatio;
@@ -319,6 +332,17 @@ public class PlayerTickHandler implements ITickHandler {
 
 					// sprinting speed
 					player.jumpMovementFactor += 0.03f;
+					
+					if (gliderTicker == 0) {
+						world.playSoundAtEntity(player, ModularCommon.SOUND_GLIDER, 5.0F, 1.0F);
+						gliderTicker++;
+					}
+					else {
+						gliderTicker++;
+						if (gliderTicker >= 35) {
+							gliderTicker = 0;
+						}
+					}
 				}
 			}
 
@@ -399,7 +423,6 @@ public class PlayerTickHandler implements ITickHandler {
 		}
 		// Solar Generator
 		if (hasSolarGeneration) {
-			World world = player.worldObj;
 			int xCoord = MathHelper.floor_double(player.posX);
 			int zCoord = MathHelper.floor_double(player.posZ);
 			boolean isRaining = false, canRain = true;
@@ -455,7 +478,6 @@ public class PlayerTickHandler implements ITickHandler {
 			player.motionX *= weightCapacity / totalWeight;
 			player.motionZ *= weightCapacity / totalWeight;
 		}
-
 	}
 
 	public static double getWeightPenaltyRatio(double currentWeight, double capacity) {

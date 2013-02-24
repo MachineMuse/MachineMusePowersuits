@@ -252,6 +252,13 @@ addModule(module);
 		// .addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2));
 		// addModule(module);
 		
+		/*module = new PowerModule(ModularCommon.MODULE_PORTABLE_CRAFTING, TOOLONLY, MuseIcon.INDICATOR_1_GREEN, ModularCommon.CATEGORY_SPECIAL)
+				.setDescription("This module needs a keybinding! Press k to set one.")
+				.setToggleable(true)
+				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1))
+				.addInstallCost(new ItemStack(Block.workbench, 1));
+		addModule(module);*/
+		
 		module = new PowerModule(ModularCommon.MODULE_STATIC_GENERATOR, LEGSONLY, MuseIcon.NEXUS_1_RED, ModularCommon.CATEGORY_ENERGY)
 				.setDescription("Generate power with your movement.")
 				.addBaseProperty(ModularCommon.WEIGHT, 1000)
@@ -565,7 +572,8 @@ addModule(module);
 	 */
 	public static enum Guis {
 		GuiTinkerTable,
-		GuiSuitManager;
+		GuiSuitManager,
+		GuiPortableCrafting;
 	}
 
 	public static Configuration getConfig() {
