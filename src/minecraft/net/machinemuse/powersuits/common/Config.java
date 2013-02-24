@@ -207,7 +207,7 @@ public class Config {
 
 		module = new PowerModule(ModularCommon.MODULE_PLASMA_CANNON, TOOLONLY, MuseIcon.WEAPON_ELECTRIC, ModularCommon.CATEGORY_WEAPON)
 				.setDescription("Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.")
-				.setToggleable(true)
+				.setIsActive(true)
 				.addBaseProperty(ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 10, "J")
 				.addBaseProperty(ModularCommon.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 2, "pt")
 				.addTradeoffProperty("Amperage", ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 150, "J")
@@ -242,16 +242,16 @@ public class Config {
 		// universe. Some things man not meant control.
 		// Should probably replace the icon with something else once we have the
 		// asset for it.
-		// module = new PowerModule(ModularCommon.MODULE_BLINK_DRIVE, TOOLONLY,
-		// MuseIcon.CRYSTAL_BUBBLE, ModularCommon.CATEGORY_SPECIAL)
-		// .setDescription("Get from point A to point C via point B, where point B is a fold in space & time.")
-		// .setToggleable(true)
-		// .addBaseProperty(ModularCommon.BLINK_DRIVE_ENERGY_CONSUMPTION, 1000,
-		// "J")
-		// // Todo: Adjustable range for higher energy consumption?
-		// .addInstallCost(copyAndResize(ItemComponent.ionThruster, 1))
-		// .addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2));
-		// addModule(module);
+		module = new PowerModule(ModularCommon.MODULE_BLINK_DRIVE, TOOLONLY,
+				MuseIcon.CRYSTAL_BUBBLE, ModularCommon.CATEGORY_SPECIAL)
+				.setDescription("Get from point A to point C via point B, where point B is a fold in space & time.")
+				.setIsActive(true)
+				.addBaseProperty(ModularCommon.BLINK_DRIVE_ENERGY_CONSUMPTION, 1000,
+						"J")
+				// Todo: Adjustable range for higher energy consumption?
+				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 1))
+				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2));
+		addModule(module);
 
 		/*
 		 * module = new PowerModule(ModularCommon.MODULE_PORTABLE_CRAFTING,
