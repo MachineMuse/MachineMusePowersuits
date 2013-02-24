@@ -109,7 +109,8 @@
 		<unzip src="${download.dir}/ICBM_v${icbmapi.version}_api.zip" dest="${download.dir}/ue" />
 		<mkdir dir="${mcpsrc.dir}/icbm" />
 		<mkdir dir="${mcpsrc.dir}/icbm/api" />
-		<move file="${download.dir}/ue/minecraft/icbm/api/IExplosive.java" todir="${mcpsrc.dir}/icbm/api/explosion/IExplosive.java" />
+        <mkdir dir="${mcpsrc.dir}/icbm/api/explosion" />
+		<move file="${download.dir}/ue/minecraft/icbm/api/explosion/IExplosive.java" todir="${mcpsrc.dir}/icbm/api/explosion/IExplosive.java" />
 		<move file="${download.dir}/ue/minecraft/icbm/api/IEMPItem.java" todir="${mcpsrc.dir}/icbm/api/IEMPItem.java" />
 
 		<echo message="Extracting ThermalExpansion API... " />
