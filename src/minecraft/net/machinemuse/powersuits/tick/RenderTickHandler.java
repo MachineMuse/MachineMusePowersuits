@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.tick;
 
 import java.util.EnumSet;
 
-import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.MuseStringUtils;
 import net.minecraft.client.Minecraft;
@@ -32,8 +32,8 @@ public class RenderTickHandler implements ITickHandler {
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
 		if (player != null) {
-			double currEnergy = MuseItemUtils.getPlayerEnergy(player);
-			double maxEnergy = MuseItemUtils.getMaxEnergy(player);
+			double currEnergy = ElectricItemUtils.getPlayerEnergy(player);
+			double maxEnergy = ElectricItemUtils.getMaxEnergy(player);
 			if (maxEnergy > 0) {
 				String currStr = MuseStringUtils.formatNumberShort(currEnergy);
 				String maxStr = MuseStringUtils.formatNumberShort(maxEnergy);

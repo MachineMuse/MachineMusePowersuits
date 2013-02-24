@@ -14,7 +14,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import universalelectricity.core.implement.IItemElectric;
 
 public class MuseItemUtils {
 	public static final String NBTPREFIX = "mmmpsmod";
@@ -331,7 +330,7 @@ public class MuseItemUtils {
 		setStringOrNull(getMuseItemTag(stack),
 				key, value);
 	}
-	
+
 	public static double getFoodLevel(ItemStack stack) {
 		if (stack != null && stack.getItem() instanceof IModularItem) {
 			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
@@ -342,14 +341,14 @@ public class MuseItemUtils {
 		}
 		return 0.0;
 	}
-	
+
 	public static void setFoodLevel(ItemStack stack, double d) {
 		if (stack != null && stack.getItem() instanceof IModularItem) {
 			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
 			itemTag.setDouble("Food", d);
 		}
 	}
-	
+
 	public static double getSaturationLevel(ItemStack stack) {
 		if (stack != null && stack.getItem() instanceof IModularItem) {
 			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
@@ -360,31 +359,12 @@ public class MuseItemUtils {
 		}
 		return 0.0F;
 	}
-	
+
 	public static void setSaturationLevel(ItemStack stack, double d) {
 		if (stack != null && stack.getItem() instanceof IModularItem) {
 			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
 			itemTag.setDouble("Saturation", d);
 		}
-	}
-
-	public static double getPlayerEnergy(EntityPlayer player) {
-		double avail = 0;
-		for (ItemStack stack : electricItemsEquipped(player)) {
-			avail += ((IItemElectric) stack.getItem()).getJoules(stack);
-		}
-		return avail;
-	}
-
-	private static List<ItemStack> electricItemsEquipped(EntityPlayer player) {
-		List<ItemStack> electrics = new ArrayList(5);
-		ItemStack[] equipped = itemsEquipped(player);
-		for (ItemStack stack : equipped) {
-			if (stack != null && stack.getItem() instanceof IItemElectric) {
-				electrics.add(stack);
-			}
-		}
-		return electrics;
 	}
 
 	public static List<ItemStack> modularItemsEquipped(EntityPlayer player) {
@@ -406,30 +386,6 @@ public class MuseItemUtils {
 				player.inventory.armorInventory[3],
 				player.inventory.getCurrentItem() };
 		return equipped;
-	}
-
-	public static void drainPlayerEnergy(EntityPlayer player, double drainAmount) {
-		for (ItemStack stack : electricItemsEquipped(player)) {
-			if (stack != null) {
-				IItemElectric item = (IItemElectric) (stack.getItem());
-				double joules = item.getJoules(stack);
-				if (joules > drainAmount) {
-					item.onUse(drainAmount, stack);
-					break;
-				} else {
-					drainAmount -= joules;
-					item.onUse(joules, stack);
-				}
-			}
-		}
-	}
-
-	public static double getMaxEnergy(EntityPlayer player) {
-		double max = 0;
-		for (ItemStack stack : electricItemsEquipped(player)) {
-			max += ((IItemElectric) stack.getItem()).getMaxJoules(stack);
-		}
-		return max;
 	}
 
 	public static boolean canStackTogether(ItemStack stack1, ItemStack stack2) {
@@ -536,22 +492,6 @@ public class MuseItemUtils {
 			weight += ModuleManager.computeModularProperty(stack, ModularCommon.WEIGHT);
 		}
 		return weight;
-	}
-
-	public static void givePlayerEnergy(EntityPlayer player, double joulesToGive) {
-		for (ItemStack stack : electricItemsEquipped(player)) {
-			if (stack != null) {
-				IItemElectric item = (IItemElectric) (stack.getItem());
-				double missingjoules = item.getMaxJoules(stack) - item.getJoules(stack);
-				if (missingjoules > joulesToGive) {
-					item.onUse(-joulesToGive, stack);
-					break;
-				} else {
-					joulesToGive -= missingjoules;
-					item.onUse(-missingjoules, stack);
-				}
-			}
-		}
 	}
 
 	public static List<IPowerModule> getPlayerInstalledModules(EntityPlayer player) {

@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.event;
 
+import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModularCommon;
 import net.machinemuse.api.ModuleManager;
@@ -29,7 +30,7 @@ public class EventHandler {
 		Block block = event.block;
 		EntityPlayer player = event.entityPlayer;
 		double harvestSpeed = event.newSpeed;
-		double energy = MuseItemUtils.getPlayerEnergy(player);
+		double energy = ElectricItemUtils.getPlayerEnergy(player);
 		int meta = event.metadata;
 		ItemStack stack = player.getCurrentEquippedItem();
 		if (stack != null && stack.getItem() instanceof ItemPowerTool) {
@@ -75,10 +76,10 @@ public class EventHandler {
 			ItemStack helmet = player.getCurrentArmor(3);
 			if (helmet != null && helmet.getItem() instanceof IModularItem
 					&& MuseItemUtils.itemHasActiveModule(helmet, ModularCommon.MODULE_WATER_ELECTROLYZER)) {
-				double energy = MuseItemUtils.getPlayerEnergy(player);
+				double energy = ElectricItemUtils.getPlayerEnergy(player);
 				double energyConsumption = ModuleManager.computeModularProperty(helmet, ModularCommon.WATERBREATHING_ENERGY_CONSUMPTION);
 				if (energy > energyConsumption && player.getAir() < 10) {
-					MuseItemUtils.drainPlayerEnergy(player, energyConsumption);
+					ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
 					player.setAir(300);
 				}
 			}

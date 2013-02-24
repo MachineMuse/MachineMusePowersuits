@@ -7,6 +7,7 @@ import icbm.api.IExplosive;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModularCommon;
 import net.machinemuse.api.ModuleManager;
@@ -40,8 +41,6 @@ import universalelectricity.core.electricity.ElectricInfo.ElectricUnit;
 import universalelectricity.core.electricity.ElectricityPack;
 import universalelectricity.core.implement.IConductor;
 import universalelectricity.core.implement.IItemElectric;
-import universalelectricity.core.implement.IJouleStorage;
-import universalelectricity.core.implement.IVoltage;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
@@ -126,7 +125,7 @@ public class ItemPowerTool extends ItemTool
 
 	public static boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
 		if (player != null) {
-			double energy = MuseItemUtils.getPlayerEnergy(player);
+			double energy = ElectricItemUtils.getPlayerEnergy(player);
 			if (useIronPickaxe(stack, block, meta)
 					&& energy > ModuleManager.computeModularProperty(stack, ModularCommon.PICKAXE_ENERGY_CONSUMPTION)) {
 				return true;
@@ -161,8 +160,8 @@ public class ItemPowerTool extends ItemTool
 		if (entityDoingHitting instanceof EntityPlayer && MuseItemUtils.itemHasActiveModule(stack, ModularCommon.MODULE_MELEE_ASSIST)) {
 			EntityPlayer player = (EntityPlayer) entityDoingHitting;
 			double drain = ModuleManager.computeModularProperty(stack, ModularCommon.PUNCH_ENERGY);
-			if (MuseItemUtils.getPlayerEnergy(player) > drain) {
-				MuseItemUtils.drainPlayerEnergy(player, drain);
+			if (ElectricItemUtils.getPlayerEnergy(player) > drain) {
+				ElectricItemUtils.drainPlayerEnergy(player, drain);
 				double damage = ModuleManager.computeModularProperty(stack, ModularCommon.PUNCH_DAMAGE);
 				double knockback = ModuleManager.computeModularProperty(stack, ModularCommon.PUNCH_KNOCKBACK);
 				DamageSource damageSource = DamageSource.causePlayerDamage(player);
@@ -203,7 +202,7 @@ public class ItemPowerTool extends ItemTool
 		}
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
-			MuseItemUtils.drainPlayerEnergy(player, drain);
+			ElectricItemUtils.drainPlayerEnergy(player, drain);
 		} else {
 			onUse(drain, stack);
 		}
@@ -438,8 +437,8 @@ public class ItemPowerTool extends ItemTool
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
 		{
 			double energyConsumption = ModuleManager.computeModularProperty(itemStack, ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK) * chargeTicks;
-			if (MuseItemUtils.getPlayerEnergy(player) > energyConsumption) {
-				MuseItemUtils.drainPlayerEnergy(player, energyConsumption);
+			if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
+				ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
 				double explosiveness = ModuleManager.computeModularProperty(itemStack, ModularCommon.PLASMA_CANNON_EXPLOSIVENESS);
 				double damagingness = ModuleManager.computeModularProperty(itemStack, ModularCommon.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE);
 
@@ -458,32 +457,32 @@ public class ItemPowerTool extends ItemTool
 	@Override
 	public double onReceive(double amps, double voltage, ItemStack itemStack) {
 		double amount = ElectricInfo.getJoules(amps, voltage, 1);
-		return ModularCommon.charge(amount, itemStack);
+		return ElectricItemUtils.charge(amount, itemStack);
 	}
 
 	@Override
 	public double onUse(double joulesNeeded, ItemStack itemStack) {
-		return ModularCommon.discharge(joulesNeeded, itemStack);
+		return ElectricItemUtils.discharge(joulesNeeded, itemStack);
 	}
 
 	@Override
 	public double getJoules(Object... data) {
-		return ModularCommon.getJoules(getAsStack(data));
+		return ElectricItemUtils.getJoules(getAsStack(data));
 	}
 
 	@Override
 	public void setJoules(double joules, Object... data) {
-		ModularCommon.setJoules(joules, getAsStack(data));
+		ElectricItemUtils.setJoules(joules, getAsStack(data));
 	}
 
 	@Override
 	public double getMaxJoules(Object... data) {
-		return ModularCommon.getMaxJoules(getAsStack(data));
+		return ElectricItemUtils.getMaxJoules(getAsStack(data));
 	}
 
 	@Override
 	public double getVoltage(Object... data) {
-		return ModularCommon.getVoltage(getAsStack(data));
+		return ElectricItemUtils.getVoltage(getAsStack(data));
 	}
 
 	@Override
@@ -514,10 +513,10 @@ public class ItemPowerTool extends ItemTool
 	@Override
 	public int charge(ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
 		double joulesProvided = ModCompatability.joulesFromEU(amount);
-		double currentJoules = ModularCommon.getJoules(stack);
-		double surplus = ModularCommon.charge(joulesProvided, stack);
+		double currentJoules = ElectricItemUtils.getJoules(stack);
+		double surplus = ElectricItemUtils.charge(joulesProvided, stack);
 		if (simulate) {
-			ModularCommon.setJoules(currentJoules, stack);
+			ElectricItemUtils.setJoules(currentJoules, stack);
 		}
 		return ModCompatability.joulesToEU(joulesProvided - surplus);
 	}
@@ -526,10 +525,10 @@ public class ItemPowerTool extends ItemTool
 	public int discharge(ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
 
 		double joulesRequested = ModCompatability.joulesFromEU(amount);
-		double currentJoules = ModularCommon.getJoules(stack);
-		double givenJoules = ModularCommon.discharge(joulesRequested, stack);
+		double currentJoules = ElectricItemUtils.getJoules(stack);
+		double givenJoules = ElectricItemUtils.discharge(joulesRequested, stack);
 		if (simulate) {
-			ModularCommon.setJoules(currentJoules, stack);
+			ElectricItemUtils.setJoules(currentJoules, stack);
 		}
 		return ModCompatability.joulesToEU(givenJoules);
 	}
@@ -537,7 +536,7 @@ public class ItemPowerTool extends ItemTool
 	@Override
 	public boolean canUse(ItemStack stack, int amount) {
 		double joulesRequested = ModCompatability.joulesFromEU(amount);
-		double currentJoules = ModularCommon.getJoules(stack);
+		double currentJoules = ElectricItemUtils.getJoules(stack);
 		if (currentJoules > joulesRequested) {
 			return true;
 		} else {
@@ -586,23 +585,26 @@ public class ItemPowerTool extends ItemTool
 
 	@Override
 	public void onEMP(ItemStack itemStack, Entity entity, IExplosive empExplosive) {
-		ModularCommon.onEMP(itemStack, entity, empExplosive);
+		ElectricItemUtils.onEMP(itemStack, entity, empExplosive);
 	}
-	
+
 	@Override
-	public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World worldObj, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-		
+	public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World worldObj, int x, int y, int z, int side, float hitX, float hitY,
+			float hitZ) {
+
 		if (MuseItemUtils.itemHasActiveModule(itemStack, ModularCommon.MODULE_MULTIMETER)) {
 			if (!worldObj.isRemote) {
 				TileEntity tileEntity = worldObj.getBlockTileEntity(x, y, z);
-					if (tileEntity instanceof IConductor) {
-						IConductor wireTile = (IConductor) tileEntity;
-						ElectricityPack getProduced = wireTile.getNetwork().getProduced();
-						player.addChatMessage("Reading: " + ElectricInfo.getDisplay(getProduced.amperes, ElectricUnit.AMPERE) + ", " + ElectricInfo.getDisplay(getProduced.voltage, ElectricUnit.VOLTAGE) + ", " + ElectricInfo.getDisplay(getProduced.getWatts() * 20, ElectricUnit.WATT));
-						return true;
-					}
+				if (tileEntity instanceof IConductor) {
+					IConductor wireTile = (IConductor) tileEntity;
+					ElectricityPack getProduced = wireTile.getNetwork().getProduced();
+					player.addChatMessage("Reading: " + ElectricInfo.getDisplay(getProduced.amperes, ElectricUnit.AMPERE) + ", "
+							+ ElectricInfo.getDisplay(getProduced.voltage, ElectricUnit.VOLTAGE) + ", "
+							+ ElectricInfo.getDisplay(getProduced.getWatts() * 20, ElectricUnit.WATT));
+					return true;
 				}
 			}
+		}
 		return false;
 	}
 
