@@ -489,7 +489,7 @@ public class MuseItemUtils {
 	public static double getPlayerWeight(EntityPlayer player) {
 		double weight = 0;
 		for (ItemStack stack : modularItemsEquipped(player)) {
-			weight += ModuleManager.computeModularProperty(stack, ModularCommon.WEIGHT);
+			weight += ModuleManager.computeModularProperty(stack, MuseCommonStrings.WEIGHT);
 		}
 		return weight;
 	}

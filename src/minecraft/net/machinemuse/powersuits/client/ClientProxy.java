@@ -8,12 +8,15 @@ import net.machinemuse.powersuits.common.CommonProxy;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.common.ModularPowersuits;
+import net.machinemuse.powersuits.entity.EntityBlinkDriveBolt;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.event.ThaumRenderEventHandler;
 import net.machinemuse.powersuits.network.MusePacketHandler;
 import net.machinemuse.powersuits.tick.ClientTickHandler;
 import net.machinemuse.powersuits.tick.PlayerTickHandler;
 import net.machinemuse.powersuits.tick.RenderTickHandler;
+import net.minecraft.client.renderer.entity.RenderSnowball;
+import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -48,6 +51,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinkerTable.class, tinkTableRenderer);
 		RenderingRegistry.registerBlockHandler(tinkTableRenderer);
 		RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, new RenderPlasmaBolt());
+		RenderingRegistry.registerEntityRenderingHandler(EntityBlinkDriveBolt.class, new RenderSnowball(Item.enderPearl.getIconFromDamage(0)));
 
 		MinecraftForgeClient.preloadTexture(Config.SEBK_ICON_PATH);
 		MinecraftForgeClient.preloadTexture(Config.WC_ICON_PATH);

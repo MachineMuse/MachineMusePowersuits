@@ -9,7 +9,7 @@ import java.util.List;
 
 import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModularCommon;
+import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseStringUtils;
@@ -74,16 +74,16 @@ public abstract class ItemPowerArmor extends ItemArmor
 				itemTag.removeTag("didColour");
 				return Config.BLANK_ARMOR_MODEL_PATH;
 			} else {
-				if (MuseItemUtils.itemHasActiveModule(itemstack, ModularCommon.MODULE_TRANSPARENT_ARMOR)) {
+				if (MuseItemUtils.itemHasActiveModule(itemstack, MuseCommonStrings.MODULE_TRANSPARENT_ARMOR)) {
 					return Config.BLANK_ARMOR_MODEL_PATH;
 				} else if (itemstack.getItem() instanceof ItemPowerArmorLegs) {
-					if (MuseItemUtils.itemHasModule(itemstack, ModularCommon.CITIZEN_JOE_STYLE)) {
+					if (MuseItemUtils.itemHasModule(itemstack, MuseCommonStrings.CITIZEN_JOE_STYLE)) {
 						return Config.CITIZENJOE_ARMORPANTS_PATH;
 					}
 
 					return Config.SEBK_ARMORPANTS_PATH;
 				} else {
-					if (MuseItemUtils.itemHasModule(itemstack, ModularCommon.CITIZEN_JOE_STYLE)) {
+					if (MuseItemUtils.itemHasModule(itemstack, MuseCommonStrings.CITIZEN_JOE_STYLE)) {
 						return Config.CITIZENJOE_ARMOR_PATH;
 					}
 					return Config.SEBK_ARMOR_PATH;
@@ -141,9 +141,9 @@ public abstract class ItemPowerArmor extends ItemArmor
 	}
 
 	public Colour getColorFromItemStack(ItemStack stack) {
-		double computedred = ModuleManager.computeModularProperty(stack, ModularCommon.RED_TINT);
-		double computedgreen = ModuleManager.computeModularProperty(stack, ModularCommon.GREEN_TINT);
-		double computedblue = ModuleManager.computeModularProperty(stack, ModularCommon.BLUE_TINT);
+		double computedred = ModuleManager.computeModularProperty(stack, MuseCommonStrings.RED_TINT);
+		double computedgreen = ModuleManager.computeModularProperty(stack, MuseCommonStrings.GREEN_TINT);
+		double computedblue = ModuleManager.computeModularProperty(stack, MuseCommonStrings.BLUE_TINT);
 		Colour colour = new Colour(
 				clampDouble(1 + computedred - (computedblue + computedgreen), 0, 1),
 				clampDouble(1 + computedgreen - (computedblue + computedred), 0, 1),
@@ -180,9 +180,9 @@ public abstract class ItemPowerArmor extends ItemArmor
 	public boolean hasColor(ItemStack stack)
 	{
 		NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-		if (MuseItemUtils.tagHasModule(itemTag, ModularCommon.RED_TINT)
-				|| MuseItemUtils.tagHasModule(itemTag, ModularCommon.GREEN_TINT)
-				|| MuseItemUtils.tagHasModule(itemTag, ModularCommon.BLUE_TINT)) {
+		if (MuseItemUtils.tagHasModule(itemTag, MuseCommonStrings.RED_TINT)
+				|| MuseItemUtils.tagHasModule(itemTag, MuseCommonStrings.GREEN_TINT)
+				|| MuseItemUtils.tagHasModule(itemTag, MuseCommonStrings.BLUE_TINT)) {
 			return true;
 		} else {
 			return false;
@@ -203,9 +203,9 @@ public abstract class ItemPowerArmor extends ItemArmor
 		NBTTagCompound props = MuseItemUtils.getMuseItemTag(stack);
 
 		double energy = ElectricItemUtils.getPlayerEnergy(player);
-		double physArmor = ModuleManager.computeModularProperty(stack, ModularCommon.ARMOR_VALUE_PHYSICAL);
-		double enerArmor = ModuleManager.computeModularProperty(stack, ModularCommon.ARMOR_VALUE_ENERGY);
-		double enerConsum = ModuleManager.computeModularProperty(stack, ModularCommon.ARMOR_ENERGY_CONSUMPTION);
+		double physArmor = ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_VALUE_PHYSICAL);
+		double enerArmor = ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_VALUE_ENERGY);
+		double enerConsum = ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION);
 
 		totalArmor += physArmor;
 
@@ -225,7 +225,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 	public void damageArmor(EntityLiving entity, ItemStack stack,
 			DamageSource source, int damage, int slot) {
 		NBTTagCompound itemProperties = MuseItemUtils.getMuseItemTag(stack);
-		double enerConsum = ModuleManager.computeModularProperty(stack, ModularCommon.ARMOR_ENERGY_CONSUMPTION);
+		double enerConsum = ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION);
 		double drain = enerConsum * damage;
 		if (entity instanceof EntityPlayer) {
 			ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entity, drain);
@@ -257,7 +257,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 	@Override
 	public void addInformation(ItemStack stack,
 			EntityPlayer player, List currentTipList, boolean advancedToolTips) {
-		ModularCommon.addInformation(stack, player, currentTipList,
+		MuseCommonStrings.addInformation(stack, player, currentTipList,
 				advancedToolTips);
 	}
 
@@ -273,7 +273,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 		info.add("Detailed Summary");
 		info.add(formatInfo("Armor", getArmorDouble(player, stack)));
 		info.add(formatInfo("Energy Storage", getMaxJoules(stack)) + "J");
-		info.add(formatInfo("Weight", ModularCommon.getTotalWeight(stack)) + "g");
+		info.add(formatInfo("Weight", MuseCommonStrings.getTotalWeight(stack)) + "g");
 		return info;
 	}
 

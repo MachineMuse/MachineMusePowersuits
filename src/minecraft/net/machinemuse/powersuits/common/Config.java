@@ -6,8 +6,8 @@ import java.util.List;
 import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.ModularCommon;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -184,14 +184,14 @@ public class Config {
 
 		PowerModule module;
 
-		module = new PowerModule(ModularCommon.MODULE_NIGHT_VISION, HEADONLY, MuseIcon.SCANNER, ModularCommon.CATEGORY_SPECIAL)
+		module = new PowerModule(MuseCommonStrings.MODULE_NIGHT_VISION, HEADONLY, MuseIcon.SCANNER, MuseCommonStrings.CATEGORY_SPECIAL)
 				.setDescription("A pair of augmented vision goggles to help you see at night and underwater.")
 				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1))
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_ACTIVE_CAMOUFLAGE, TORSOONLY, MuseIcon.ORB_1_BLUE, ModularCommon.CATEGORY_SPECIAL)
+		module = new PowerModule(MuseCommonStrings.MODULE_ACTIVE_CAMOUFLAGE, TORSOONLY, MuseIcon.ORB_1_BLUE, MuseCommonStrings.CATEGORY_SPECIAL)
 				.setDescription("Emit a hologram of your surroundings to make yourself almost imperceptible.")
 				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 4))
@@ -199,39 +199,39 @@ public class Config {
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 2));
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_FLIGHT_CONTROL, HEADONLY, MuseIcon.INDICATOR_1_GREEN, ModularCommon.CATEGORY_SPECIAL)
+		module = new PowerModule(MuseCommonStrings.MODULE_FLIGHT_CONTROL, HEADONLY, MuseIcon.INDICATOR_1_GREEN, MuseCommonStrings.CATEGORY_SPECIAL)
 				.setDescription("An integrated control circuit to help you fly better. Press Z to go down.")
 				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_PLASMA_CANNON, TOOLONLY, MuseIcon.WEAPON_ELECTRIC, ModularCommon.CATEGORY_WEAPON)
+		module = new PowerModule(MuseCommonStrings.MODULE_PLASMA_CANNON, TOOLONLY, MuseIcon.WEAPON_ELECTRIC, MuseCommonStrings.CATEGORY_WEAPON)
 				.setDescription("Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.")
 				.setIsActive(true)
-				.addBaseProperty(ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 10, "J")
-				.addBaseProperty(ModularCommon.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 2, "pt")
-				.addTradeoffProperty("Amperage", ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 150, "J")
-				.addTradeoffProperty("Amperage", ModularCommon.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 18, "pt")
-				.addTradeoffProperty("Voltage", ModularCommon.PLASMA_CANNON_ENERGY_PER_TICK, 50, "J")
-				.addTradeoffProperty("Voltage", ModularCommon.PLASMA_CANNON_EXPLOSIVENESS, 0.5, "Creeper")
+				.addBaseProperty(MuseCommonStrings.PLASMA_CANNON_ENERGY_PER_TICK, 10, "J")
+				.addBaseProperty(MuseCommonStrings.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 2, "pt")
+				.addTradeoffProperty("Amperage", MuseCommonStrings.PLASMA_CANNON_ENERGY_PER_TICK, 150, "J")
+				.addTradeoffProperty("Amperage", MuseCommonStrings.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 18, "pt")
+				.addTradeoffProperty("Voltage", MuseCommonStrings.PLASMA_CANNON_ENERGY_PER_TICK, 50, "J")
+				.addTradeoffProperty("Voltage", MuseCommonStrings.PLASMA_CANNON_EXPLOSIVENESS, 0.5, "Creeper")
 				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2))
 				.addInstallCost(copyAndResize(ItemComponent.hvcapacitor, 2));
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_MELEE_ASSIST, TOOLONLY, MuseIcon.PUNCHY, ModularCommon.CATEGORY_WEAPON)
+		module = new PowerModule(MuseCommonStrings.MODULE_MELEE_ASSIST, TOOLONLY, MuseIcon.PUNCHY, MuseCommonStrings.CATEGORY_WEAPON)
 				.setDescription("A much simpler addon, makes your powertool punches hit harder.")
 				.setToggleable(true)
-				.addBaseProperty(ModularCommon.PUNCH_ENERGY, 10, "J")
-				.addBaseProperty(ModularCommon.PUNCH_DAMAGE, 2, "pt")
-				.addTradeoffProperty("Impact", ModularCommon.PUNCH_ENERGY, 100, "J")
-				.addTradeoffProperty("Impact", ModularCommon.PUNCH_DAMAGE, 8, "pt")
-				.addTradeoffProperty("Carry-through", ModularCommon.PUNCH_ENERGY, 20, "J")
-				.addTradeoffProperty("Carry-through", ModularCommon.PUNCH_KNOCKBACK, 1, "P")
+				.addBaseProperty(MuseCommonStrings.PUNCH_ENERGY, 10, "J")
+				.addBaseProperty(MuseCommonStrings.PUNCH_DAMAGE, 2, "pt")
+				.addTradeoffProperty("Impact", MuseCommonStrings.PUNCH_ENERGY, 100, "J")
+				.addTradeoffProperty("Impact", MuseCommonStrings.PUNCH_DAMAGE, 8, "pt")
+				.addTradeoffProperty("Carry-through", MuseCommonStrings.PUNCH_ENERGY, 20, "J")
+				.addTradeoffProperty("Carry-through", MuseCommonStrings.PUNCH_KNOCKBACK, 1, "P")
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1));
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_MULTIMETER, TOOLONLY, MuseIcon.PLATE_2_RED, ModularCommon.CATEGORY_TOOL)
+		module = new PowerModule(MuseCommonStrings.MODULE_MULTIMETER, TOOLONLY, MuseIcon.PLATE_2_RED, MuseCommonStrings.CATEGORY_TOOL)
 				.setDescription("A tool addon that reads the Universal Electricity power generation in a wire.")
 				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.wiring, 2))
@@ -242,13 +242,13 @@ public class Config {
 		// universe. Some things man not meant control.
 		// Should probably replace the icon with something else once we have the
 		// asset for it.
-		module = new PowerModule(ModularCommon.MODULE_BLINK_DRIVE, TOOLONLY,
-				MuseIcon.CRYSTAL_BUBBLE, ModularCommon.CATEGORY_SPECIAL)
+		module = new PowerModule(MuseCommonStrings.MODULE_BLINK_DRIVE, TOOLONLY,
+				MuseIcon.CRYSTAL_BUBBLE, MuseCommonStrings.CATEGORY_SPECIAL)
 				.setDescription("Get from point A to point C via point B, where point B is a fold in space & time.")
 				.setIsActive(true)
-				.addBaseProperty(ModularCommon.BLINK_DRIVE_ENERGY_CONSUMPTION, 1000,
+				.addBaseProperty(MuseCommonStrings.BLINK_DRIVE_ENERGY_CONSUMPTION, 1000,
 						"J")
-				// Todo: Adjustable range for higher energy consumption?
+				// TODO: Adjustable range for higher energy consumption?
 				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 1))
 				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2));
 		addModule(module);
@@ -264,245 +264,248 @@ public class Config {
 		 * addModule(module);
 		 */
 
-		module = new PowerModule(ModularCommon.MODULE_STATIC_GENERATOR, LEGSONLY, MuseIcon.NEXUS_1_RED, ModularCommon.CATEGORY_ENERGY)
+		module = new PowerModule(MuseCommonStrings.MODULE_KINETIC_GENERATOR, LEGSONLY, MuseIcon.NEXUS_1_RED, MuseCommonStrings.CATEGORY_ENERGY)
 				.setDescription("Generate power with your movement.")
-				.addBaseProperty(ModularCommon.WEIGHT, 1000)
-				.addBaseProperty(ModularCommon.STATIC_ENERGY_GENERATION, 250)
-				.addTradeoffProperty("Energy Generated", ModularCommon.STATIC_ENERGY_GENERATION, 750, " Joules")
-				.addTradeoffProperty("Energy Generated", ModularCommon.WEIGHT, 3000, "g")
+				.addBaseProperty(MuseCommonStrings.WEIGHT, 1000)
+				.addBaseProperty(MuseCommonStrings.KINETIC_ENERGY_GENERATION, 250)
+				.addTradeoffProperty("Energy Generated", MuseCommonStrings.KINETIC_ENERGY_GENERATION, 750, " Joules")
+				.addTradeoffProperty("Energy Generated", MuseCommonStrings.WEIGHT, 3000, "g")
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_SOLAR_GENERATOR, HEADONLY, MuseIcon.NEXUS_1_GREEN, ModularCommon.CATEGORY_ENERGY)
+		module = new PowerModule(MuseCommonStrings.MODULE_SOLAR_GENERATOR, HEADONLY, MuseIcon.NEXUS_1_GREEN, MuseCommonStrings.CATEGORY_ENERGY)
 				.setDescription("Let the sun power your adventures.")
-				.addBaseProperty(ModularCommon.SOLAR_ENERGY_GENERATION_DAY, 2000)
-				.addBaseProperty(ModularCommon.SOLAR_ENERGY_GENERATION_NIGHT, 200)
+				.addBaseProperty(MuseCommonStrings.SOLAR_ENERGY_GENERATION_DAY, 2000)
+				.addBaseProperty(MuseCommonStrings.SOLAR_ENERGY_GENERATION_NIGHT, 200)
 				.addInstallCost(copyAndResize(ItemComponent.solarPanel, 1))
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 2));
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_AUTO_FEEDER, HEADONLY, MuseIcon.NEXUS_1_BLUE, ModularCommon.CATEGORY_ENVIRONMENTAL)
+		module = new PowerModule(MuseCommonStrings.MODULE_AUTO_FEEDER, HEADONLY, MuseIcon.NEXUS_1_BLUE, MuseCommonStrings.CATEGORY_ENVIRONMENTAL)
 				.setDescription("Why eat when your armor can do it for you.")
 				.setToggleable(true)
-				.addBaseProperty(ModularCommon.EATING_ENERGY_CONSUMPTION, 100)
-				.addBaseProperty(ModularCommon.EATING_EFFICIENCY, 50)
-				.addTradeoffProperty("Efficiency", ModularCommon.EATING_ENERGY_CONSUMPTION, 100)
-				.addTradeoffProperty("Efficiency", ModularCommon.EATING_EFFICIENCY, 50)
+				.addBaseProperty(MuseCommonStrings.EATING_ENERGY_CONSUMPTION, 100)
+				.addBaseProperty(MuseCommonStrings.EATING_EFFICIENCY, 50)
+				.addTradeoffProperty("Efficiency", MuseCommonStrings.EATING_ENERGY_CONSUMPTION, 100)
+				.addTradeoffProperty("Efficiency", MuseCommonStrings.EATING_EFFICIENCY, 50)
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_BASIC_PLATING, ARMORONLY, MuseIcon.MODULE_IRON_PLATING, ModularCommon.CATEGORY_ARMOR)
+		module = new PowerModule(MuseCommonStrings.MODULE_BASIC_PLATING, ARMORONLY, MuseIcon.MODULE_IRON_PLATING, MuseCommonStrings.CATEGORY_ARMOR)
 				.setDescription("Basic plating is heavy but protective.")
 				.addInstallCost(copyAndResize(ItemComponent.basicPlating, 1))
-				.addTradeoffProperty("Plating Thickness", ModularCommon.ARMOR_VALUE_PHYSICAL, 5, " Points")
-				.addTradeoffProperty("Plating Thickness", ModularCommon.WEIGHT, 10000, "g");
+				.addTradeoffProperty("Plating Thickness", MuseCommonStrings.ARMOR_VALUE_PHYSICAL, 5, " Points")
+				.addTradeoffProperty("Plating Thickness", MuseCommonStrings.WEIGHT, 10000, "g");
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_DIAMOND_PLATING, ARMORONLY, MuseIcon.MODULE_DIAMOND_PLATING, ModularCommon.CATEGORY_ARMOR)
+		module = new PowerModule(MuseCommonStrings.MODULE_DIAMOND_PLATING, ARMORONLY, MuseIcon.MODULE_DIAMOND_PLATING,
+				MuseCommonStrings.CATEGORY_ARMOR)
 				.setDescription("Advanced plating is lighter, harder, and more protective than Basic but much harder to make.")
 				.addInstallCost(copyAndResize(ItemComponent.advancedPlating, 1))
-				.addTradeoffProperty("Plating Thickness", ModularCommon.ARMOR_VALUE_PHYSICAL, 6, " Points")
-				.addTradeoffProperty("Plating Thickness", ModularCommon.WEIGHT, 6000, "g");
+				.addTradeoffProperty("Plating Thickness", MuseCommonStrings.ARMOR_VALUE_PHYSICAL, 6, " Points")
+				.addTradeoffProperty("Plating Thickness", MuseCommonStrings.WEIGHT, 6000, "g");
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_ENERGY_SHIELD, ARMORONLY, MuseIcon.ENERGY_SHIELD, ModularCommon.CATEGORY_ARMOR)
+		module = new PowerModule(MuseCommonStrings.MODULE_ENERGY_SHIELD, ARMORONLY, MuseIcon.ENERGY_SHIELD, MuseCommonStrings.CATEGORY_ARMOR)
 				.setDescription("Energy shields are much lighter than plating, but consume energy.")
 				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2))
-				.addTradeoffProperty("Field Strength", ModularCommon.ARMOR_VALUE_ENERGY, 6, " Points")
-				.addTradeoffProperty("Field Strength", ModularCommon.ARMOR_ENERGY_CONSUMPTION, 500, "J");
+				.addTradeoffProperty("Field Strength", MuseCommonStrings.ARMOR_VALUE_ENERGY, 6, " Points")
+				.addTradeoffProperty("Field Strength", MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION, 500, "J");
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_SHOVEL, TOOLONLY, MuseIcon.TOOL_SHOVEL, ModularCommon.CATEGORY_TOOL)
+		module = new PowerModule(MuseCommonStrings.MODULE_SHOVEL, TOOLONLY, MuseIcon.TOOL_SHOVEL, MuseCommonStrings.CATEGORY_TOOL)
 				.setDescription("Shovels are good for soft materials like dirt and sand.")
 				.setToggleable(true)
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
-				.addBaseProperty(ModularCommon.SHOVEL_ENERGY_CONSUMPTION, 100, "J")
-				.addBaseProperty(ModularCommon.SHOVEL_HARVEST_SPEED, 8, "x")
-				.addTradeoffProperty("Overclock", ModularCommon.SHOVEL_ENERGY_CONSUMPTION, 900)
-				.addTradeoffProperty("Overclock", ModularCommon.SHOVEL_HARVEST_SPEED, 17);
+				.addBaseProperty(MuseCommonStrings.SHOVEL_ENERGY_CONSUMPTION, 100, "J")
+				.addBaseProperty(MuseCommonStrings.SHOVEL_HARVEST_SPEED, 8, "x")
+				.addTradeoffProperty("Overclock", MuseCommonStrings.SHOVEL_ENERGY_CONSUMPTION, 900)
+				.addTradeoffProperty("Overclock", MuseCommonStrings.SHOVEL_HARVEST_SPEED, 17);
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_PICKAXE, TOOLONLY, MuseIcon.TOOL_PICK, ModularCommon.CATEGORY_TOOL)
+		module = new PowerModule(MuseCommonStrings.MODULE_PICKAXE, TOOLONLY, MuseIcon.TOOL_PICK, MuseCommonStrings.CATEGORY_TOOL)
 				.setToggleable(true)
 				.setDescription("Picks are good for harder materials like stone and ore.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
-				.addBaseProperty(ModularCommon.PICKAXE_ENERGY_CONSUMPTION, 100, "J")
-				.addBaseProperty(ModularCommon.PICKAXE_HARVEST_SPEED, 8, "x")
-				.addTradeoffProperty("Overclock", ModularCommon.PICKAXE_ENERGY_CONSUMPTION, 900)
-				.addTradeoffProperty("Overclock", ModularCommon.PICKAXE_HARVEST_SPEED, 17);
+				.addBaseProperty(MuseCommonStrings.PICKAXE_ENERGY_CONSUMPTION, 100, "J")
+				.addBaseProperty(MuseCommonStrings.PICKAXE_HARVEST_SPEED, 8, "x")
+				.addTradeoffProperty("Overclock", MuseCommonStrings.PICKAXE_ENERGY_CONSUMPTION, 900)
+				.addTradeoffProperty("Overclock", MuseCommonStrings.PICKAXE_HARVEST_SPEED, 17);
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_AXE, TOOLONLY, MuseIcon.TOOL_AXE, ModularCommon.CATEGORY_TOOL)
+		module = new PowerModule(MuseCommonStrings.MODULE_AXE, TOOLONLY, MuseIcon.TOOL_AXE, MuseCommonStrings.CATEGORY_TOOL)
 				.setToggleable(true)
 				.setDescription("Axes are mostly for chopping trees.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
-				.addBaseProperty(ModularCommon.AXE_ENERGY_CONSUMPTION, 100, "J")
-				.addBaseProperty(ModularCommon.AXE_HARVEST_SPEED, 8, "x")
-				.addTradeoffProperty("Overclock", ModularCommon.AXE_ENERGY_CONSUMPTION, 900)
-				.addTradeoffProperty("Overclock", ModularCommon.AXE_HARVEST_SPEED, 17);
+				.addBaseProperty(MuseCommonStrings.AXE_ENERGY_CONSUMPTION, 100, "J")
+				.addBaseProperty(MuseCommonStrings.AXE_HARVEST_SPEED, 8, "x")
+				.addTradeoffProperty("Overclock", MuseCommonStrings.AXE_ENERGY_CONSUMPTION, 900)
+				.addTradeoffProperty("Overclock", MuseCommonStrings.AXE_HARVEST_SPEED, 17);
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_DIAMOND_PICK_UPGRADE, TOOLONLY, MuseIcon.DIAMOND_PICK, ModularCommon.CATEGORY_SPECIAL)
+		module = new PowerModule(MuseCommonStrings.MODULE_DIAMOND_PICK_UPGRADE, TOOLONLY, MuseIcon.DIAMOND_PICK, MuseCommonStrings.CATEGORY_SPECIAL)
 				.setDescription("Add diamonds to allow your pickaxe module to mine Obsidian. *REQUIRES PICKAXE MODULE TO WORK*")
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
 				.addInstallCost(new ItemStack(Item.diamond, 3));
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_AQUA_AFFINITY, TOOLONLY, MuseIcon.AQUA_AFFINITY, ModularCommon.CATEGORY_SPECIAL)
+		module = new PowerModule(MuseCommonStrings.MODULE_AQUA_AFFINITY, TOOLONLY, MuseIcon.AQUA_AFFINITY, MuseCommonStrings.CATEGORY_SPECIAL)
 				.setDescription("Reduces the speed penalty for using your tool underwater.")
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 1))
 				.setToggleable(true)
-				.addBaseProperty(ModularCommon.AQUA_AFFINITY_ENERGY_CONSUMPTION, 0, "J")
-				.addBaseProperty(ModularCommon.UNDERWATER_HARVEST_SPEED, 0.2, "%")
-				.addTradeoffProperty("Power", ModularCommon.AQUA_AFFINITY_ENERGY_CONSUMPTION, 100)
-				.addTradeoffProperty("Power", ModularCommon.UNDERWATER_HARVEST_SPEED, 0.8);
+				.addBaseProperty(MuseCommonStrings.AQUA_AFFINITY_ENERGY_CONSUMPTION, 0, "J")
+				.addBaseProperty(MuseCommonStrings.UNDERWATER_HARVEST_SPEED, 0.2, "%")
+				.addTradeoffProperty("Power", MuseCommonStrings.AQUA_AFFINITY_ENERGY_CONSUMPTION, 100)
+				.addTradeoffProperty("Power", MuseCommonStrings.UNDERWATER_HARVEST_SPEED, 0.8);
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_BATTERY_BASIC, ALLITEMS, MuseIcon.BATTERY1, ModularCommon.CATEGORY_ENERGY)
+		module = new PowerModule(MuseCommonStrings.MODULE_BATTERY_BASIC, ALLITEMS, MuseIcon.BATTERY1, MuseCommonStrings.CATEGORY_ENERGY)
 				.setDescription("Integrate a battery to allow the item to store energy.")
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1))
 				.addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 20000, "J")
-				.addBaseProperty(ModularCommon.WEIGHT, 2000, "g")
+				.addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g")
 				.addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 80000)
-				.addTradeoffProperty("Battery Size", ModularCommon.WEIGHT, 8000);
+				.addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000);
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_BATTERY_ADVANCED, ALLITEMS, MuseIcon.BATTERY2, ModularCommon.CATEGORY_ENERGY)
+		module = new PowerModule(MuseCommonStrings.MODULE_BATTERY_ADVANCED, ALLITEMS, MuseIcon.BATTERY2, MuseCommonStrings.CATEGORY_ENERGY)
 				.setDescription("Integrate a more advanced battery to store more energy.")
 				.addInstallCost(copyAndResize(ItemComponent.mvcapacitor, 1))
 				.addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 100000, "J")
-				.addBaseProperty(ModularCommon.WEIGHT, 2000, "g")
+				.addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g")
 				.addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 400000)
-				.addTradeoffProperty("Battery Size", ModularCommon.WEIGHT, 8000);
+				.addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000);
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_BATTERY_ELITE, ALLITEMS, MuseIcon.BATTERYCRYSTAL, ModularCommon.CATEGORY_ENERGY)
+		module = new PowerModule(MuseCommonStrings.MODULE_BATTERY_ELITE, ALLITEMS, MuseIcon.BATTERYCRYSTAL, MuseCommonStrings.CATEGORY_ENERGY)
 				.setDescription("Integrate a the most advanced battery to store an extensive amount of energy.")
 				.addInstallCost(copyAndResize(ItemComponent.hvcapacitor, 1))
 				.addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 750000, "J")
-				.addBaseProperty(ModularCommon.WEIGHT, 2000, "g")
+				.addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g")
 				.addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 4250000)
-				.addTradeoffProperty("Battery Size", ModularCommon.WEIGHT, 8000);
+				.addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000);
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_SPRINT_ASSIST, LEGSONLY, MuseIcon.SPRINT_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
+		module = new PowerModule(MuseCommonStrings.MODULE_SPRINT_ASSIST, LEGSONLY, MuseIcon.SPRINT_ASSIST, MuseCommonStrings.CATEGORY_MOVEMENT)
 				.setDescription("A set of servo motors to help you sprint (double-tap forward) and walk faster.")
 				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 4))
 				.addSimpleTradeoff(
 						module, "Power",
-						ModularCommon.SPRINT_ENERGY_CONSUMPTION, "J", 0, 10,
-						ModularCommon.SPRINT_SPEED_MULTIPLIER, "%", 1, 2)
+						MuseCommonStrings.SPRINT_ENERGY_CONSUMPTION, "J", 0, 10,
+						MuseCommonStrings.SPRINT_SPEED_MULTIPLIER, "%", 1, 2)
 				.addSimpleTradeoff(
 						module, "Compensation",
-						ModularCommon.SPRINT_ENERGY_CONSUMPTION, "J", 0, 2,
-						ModularCommon.SPRINT_FOOD_COMPENSATION, "%", 0, 1)
+						MuseCommonStrings.SPRINT_ENERGY_CONSUMPTION, "J", 0, 2,
+						MuseCommonStrings.SPRINT_FOOD_COMPENSATION, "%", 0, 1)
 				.addSimpleTradeoff(
 						module, "Walking Assist",
-						ModularCommon.WALKING_ENERGY_CONSUMPTION, "J", 0, 10,
-						ModularCommon.WALKING_SPEED_MULTIPLIER, "%", 1, 1);
+						MuseCommonStrings.WALKING_ENERGY_CONSUMPTION, "J", 0, 10,
+						MuseCommonStrings.WALKING_SPEED_MULTIPLIER, "%", 1, 1);
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_JUMP_ASSIST, LEGSONLY, MuseIcon.JUMP_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
+		module = new PowerModule(MuseCommonStrings.MODULE_JUMP_ASSIST, LEGSONLY, MuseIcon.JUMP_ASSIST, MuseCommonStrings.CATEGORY_MOVEMENT)
 				.setDescription("Another set of servo motors to help you jump higher.")
 				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 4))
 				.addSimpleTradeoff(
 						module, "Power",
-						ModularCommon.JUMP_ENERGY_CONSUMPTION, "J", 0, 25,
-						ModularCommon.JUMP_MULTIPLIER, "%", 1, 4)
+						MuseCommonStrings.JUMP_ENERGY_CONSUMPTION, "J", 0, 25,
+						MuseCommonStrings.JUMP_MULTIPLIER, "%", 1, 4)
 				.addSimpleTradeoff(
 						module, "Compensation",
-						ModularCommon.JUMP_ENERGY_CONSUMPTION, "J", 0, 5,
-						ModularCommon.JUMP_FOOD_COMPENSATION, "%", 0, 1);
+						MuseCommonStrings.JUMP_ENERGY_CONSUMPTION, "J", 0, 5,
+						MuseCommonStrings.JUMP_FOOD_COMPENSATION, "%", 0, 1);
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_SHOCK_ABSORBER, FEETONLY, MuseIcon.SHOCK_ABSORBER, ModularCommon.CATEGORY_MOVEMENT)
+		module = new PowerModule(MuseCommonStrings.MODULE_SHOCK_ABSORBER, FEETONLY, MuseIcon.SHOCK_ABSORBER, MuseCommonStrings.CATEGORY_MOVEMENT)
 				.setDescription("With some servos, springs, and padding, you should be able to negate a portion of fall damage.")
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
 				.setToggleable(true)
 				.addInstallCost(new ItemStack(Block.cloth, 2))
 				.addSimpleTradeoff(
 						module, "Power",
-						ModularCommon.SHOCK_ABSORB_ENERGY_CONSUMPTION, "J/m", 0, 10,
-						ModularCommon.SHOCK_ABSORB_MULTIPLIER, "%", 0, 1);
+						MuseCommonStrings.SHOCK_ABSORB_ENERGY_CONSUMPTION, "J/m", 0, 10,
+						MuseCommonStrings.SHOCK_ABSORB_MULTIPLIER, "%", 0, 1);
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_GLIDER, TORSOONLY, MuseIcon.GLIDER, ModularCommon.CATEGORY_MOVEMENT)
+		module = new PowerModule(MuseCommonStrings.MODULE_GLIDER, TORSOONLY, MuseIcon.GLIDER, MuseCommonStrings.CATEGORY_MOVEMENT)
 				.setToggleable(true)
 				.setDescription(
 						"Tack on some wings to turn downward into forward momentum. Press sneak+forward while falling to activate.")
 				.addInstallCost(copyAndResize(ItemComponent.gliderWing, 2));
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_PARACHUTE, TORSOONLY, MuseIcon.PARACHUTE_MODULE, ModularCommon.CATEGORY_MOVEMENT)
+		module = new PowerModule(MuseCommonStrings.MODULE_PARACHUTE, TORSOONLY, MuseIcon.PARACHUTE_MODULE, MuseCommonStrings.CATEGORY_MOVEMENT)
 				.setDescription("Add a parachute to slow your descent. Activate by pressing sneak (defaults to Shift) in midair.")
 				.addInstallCost(copyAndResize(ItemComponent.parachute, 2));
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_JETPACK, TORSOONLY, MuseIcon.JETPACK, ModularCommon.CATEGORY_MOVEMENT)
+		module = new PowerModule(MuseCommonStrings.MODULE_JETPACK, TORSOONLY, MuseIcon.JETPACK, MuseCommonStrings.CATEGORY_MOVEMENT)
 				.setDescription("A jetpack should allow you to jump indefinitely, or at least until you run out of power.")
 				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 4))
-				.addBaseProperty(ModularCommon.JET_ENERGY_CONSUMPTION, 0, "J/t")
-				.addBaseProperty(ModularCommon.JET_THRUST, 0, "N")
-				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 150)
-				.addTradeoffProperty("Thrust", ModularCommon.JET_THRUST, 0.16);
+				.addBaseProperty(MuseCommonStrings.JET_ENERGY_CONSUMPTION, 0, "J/t")
+				.addBaseProperty(MuseCommonStrings.JET_THRUST, 0, "N")
+				.addTradeoffProperty("Thrust", MuseCommonStrings.JET_ENERGY_CONSUMPTION, 150)
+				.addTradeoffProperty("Thrust", MuseCommonStrings.JET_THRUST, 0.16);
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_JETBOOTS, FEETONLY, MuseIcon.JETBOOTS, ModularCommon.CATEGORY_MOVEMENT)
+		module = new PowerModule(MuseCommonStrings.MODULE_JETBOOTS, FEETONLY, MuseIcon.JETBOOTS, MuseCommonStrings.CATEGORY_MOVEMENT)
 				.setDescription("Jet boots are not as strong as a jetpack, but they should at least be strong enough to counteract gravity.")
 				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 2))
-				.addBaseProperty(ModularCommon.JET_ENERGY_CONSUMPTION, 0)
-				.addBaseProperty(ModularCommon.JET_THRUST, 0)
-				.addTradeoffProperty("Thrust", ModularCommon.JET_ENERGY_CONSUMPTION, 75)
-				.addTradeoffProperty("Thrust", ModularCommon.JET_THRUST, 0.08);
+				.addBaseProperty(MuseCommonStrings.JET_ENERGY_CONSUMPTION, 0)
+				.addBaseProperty(MuseCommonStrings.JET_THRUST, 0)
+				.addTradeoffProperty("Thrust", MuseCommonStrings.JET_ENERGY_CONSUMPTION, 75)
+				.addTradeoffProperty("Thrust", MuseCommonStrings.JET_THRUST, 0.08);
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_WATER_ELECTROLYZER, HEADONLY, MuseIcon.WATER_ELECTROLYZER, ModularCommon.CATEGORY_ENVIRONMENTAL)
+		module = new PowerModule(MuseCommonStrings.MODULE_WATER_ELECTROLYZER, HEADONLY, MuseIcon.WATER_ELECTROLYZER,
+				MuseCommonStrings.CATEGORY_ENVIRONMENTAL)
 				.setDescription("When you run out of air, this module will jolt the water around you, electrolyzing a small bubble to breathe from.")
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1))
 				.setToggleable(true)
-				.addBaseProperty(ModularCommon.WATERBREATHING_ENERGY_CONSUMPTION, 1000, "J");
+				.addBaseProperty(MuseCommonStrings.WATERBREATHING_ENERGY_CONSUMPTION, 1000, "J");
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_SWIM_BOOST, LEGSONLY, MuseIcon.SWIM_BOOST, ModularCommon.CATEGORY_MOVEMENT)
+		module = new PowerModule(MuseCommonStrings.MODULE_SWIM_BOOST, LEGSONLY, MuseIcon.SWIM_BOOST, MuseCommonStrings.CATEGORY_MOVEMENT)
 				.setDescription(
 						"By refitting an ion thruster for underwater use, you may be able to add extra forward (or backward) thrust when underwater.")
 				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 1))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 2))
-				.addTradeoffProperty("Thrust", ModularCommon.SWIM_BOOST_ENERGY_CONSUMPTION, 100, "J")
-				.addTradeoffProperty("Thrust", ModularCommon.SWIM_BOOST_AMOUNT, 1, "m/s");
+				.addTradeoffProperty("Thrust", MuseCommonStrings.SWIM_BOOST_ENERGY_CONSUMPTION, 100, "J")
+				.addTradeoffProperty("Thrust", MuseCommonStrings.SWIM_BOOST_AMOUNT, 1, "m/s");
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_CLIMB_ASSIST, LEGSONLY, MuseIcon.STEP_ASSIST, ModularCommon.CATEGORY_MOVEMENT)
+		module = new PowerModule(MuseCommonStrings.MODULE_CLIMB_ASSIST, LEGSONLY, MuseIcon.STEP_ASSIST, MuseCommonStrings.CATEGORY_MOVEMENT)
 				.setDescription("A pair of dedicated servos allow you to effortlessly step up 1m-high ledges.")
 				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2));
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_TINT, ALLITEMS, MuseIcon.NETHERSTAR, ModularCommon.CATEGORY_COSMETIC)
+		module = new PowerModule(MuseCommonStrings.MODULE_TINT, ALLITEMS, MuseIcon.NETHERSTAR, MuseCommonStrings.CATEGORY_COSMETIC)
 				.setDescription("Give your armor some coloured tinting to customize your armor's appearance.")
 				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1))
 				.setToggleable(true)
-				.addTradeoffProperty("Red Intensity", ModularCommon.RED_TINT, 1, "%")
-				.addTradeoffProperty("Green Intensity", ModularCommon.GREEN_TINT, 1, "%")
-				.addTradeoffProperty("Blue Intensity", ModularCommon.BLUE_TINT, 1, "%");
+				.addTradeoffProperty("Red Intensity", MuseCommonStrings.RED_TINT, 1, "%")
+				.addTradeoffProperty("Green Intensity", MuseCommonStrings.GREEN_TINT, 1, "%")
+				.addTradeoffProperty("Blue Intensity", MuseCommonStrings.BLUE_TINT, 1, "%");
 		addModule(module);
 
-		module = new PowerModule(ModularCommon.MODULE_TRANSPARENT_ARMOR, ARMORONLY, MuseIcon.TRANSPARENT_ARMOR, ModularCommon.CATEGORY_COSMETIC)
+		module = new PowerModule(MuseCommonStrings.MODULE_TRANSPARENT_ARMOR, ARMORONLY, MuseIcon.TRANSPARENT_ARMOR,
+				MuseCommonStrings.CATEGORY_COSMETIC)
 				.setDescription("Make the item transparent, so you can show off your skin without losing armor.")
 				.setToggleable(true)
 				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1));
 		addModule(module);
-		module = new PowerModule(ModularCommon.CITIZEN_JOE_STYLE, ARMORONLY, MuseIcon.ORB_1_GREEN, ModularCommon.CATEGORY_COSMETIC)
+		module = new PowerModule(MuseCommonStrings.CITIZEN_JOE_STYLE, ARMORONLY, MuseIcon.ORB_1_GREEN, MuseCommonStrings.CATEGORY_COSMETIC)
 				.setDescription("An alternative armor texture, c/o CitizenJoe of IC2 forums.");
 
 		addModule(module);
