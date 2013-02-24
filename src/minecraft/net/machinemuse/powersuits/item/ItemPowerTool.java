@@ -18,7 +18,9 @@ import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.Config.Items;
 import net.machinemuse.powersuits.common.ModCompatability;
+import net.machinemuse.powersuits.entity.EntityBlinkDriveBolt;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
+import net.machinemuse.powersuits.network.packets.MusePacketBlinkDriveBolt;
 import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -372,48 +374,48 @@ public class ItemPowerTool extends ItemTool
 		// Pix note: Not quite sure how the logic here should work i/r/t having
 		// plasma cannon and BD installed simultaneously. Pls fix.
 
-		// if (MuseItemUtils.itemHasActiveModule(itemStack,
-		// ModularCommon.MODULE_BLINK_DRIVE)) {
-		//
-		// if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
-		// {
-		// double energyConsumption =
-		// ModuleManager.computeModularProperty(itemStack,
-		// ModularCommon.BLINK_DRIVE_ENERGY_CONSUMPTION);
-		// if (MuseItemUtils.getPlayerEnergy(player) > energyConsumption) {
-		// MuseItemUtils.drainPlayerEnergy(player, energyConsumption);
-		//
-		// world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F /
-		// (itemRand.nextFloat() * 0.4F + 0.8F));
-		//
-		// if (!world.isRemote)
-		// {
-		// // world.spawnEntityInWorld(new EntityEnderPearl(world,
-		// // player));
-		// EntityBlinkDriveBolt blinkDriveBolt = new EntityBlinkDriveBolt(world,
-		// player);
-		// world.spawnEntityInWorld(blinkDriveBolt);
-		// MusePacketBlinkDriveBolt packet = new
-		// MusePacketBlinkDriveBolt((Player) player, blinkDriveBolt.entityId,
-		// blinkDriveBolt.size);
-		// PacketDispatcher.sendPacketToAllPlayers(packet.getPacket250());
-		// }
-		//
-		// return itemStack;
-		//
-		// /*
-		// * EntityPlasmaBolt plasmaBolt = new EntityPlasmaBolt(world,
-		// * player, explosiveness, damagingness, chargeTicks);
-		// * world.spawnEntityInWorld(plasmaBolt);
-		// * MusePacketPlasmaBolt packet = new
-		// * MusePacketPlasmaBolt((Player) player,
-		// * plasmaBolt.entityId, plasmaBolt.size);
-		// * PacketDispatcher.sendPacketToAllPlayers
-		// * (packet.getPacket250());
-		// */
-		// }
-		// }
-		// }
+		if (MuseItemUtils.itemHasActiveModule(itemStack,
+				ModularCommon.MODULE_BLINK_DRIVE)) {
+
+			if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+			{
+				double energyConsumption =
+						ModuleManager.computeModularProperty(itemStack,
+								ModularCommon.BLINK_DRIVE_ENERGY_CONSUMPTION);
+				if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
+					ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
+
+					world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F /
+							(itemRand.nextFloat() * 0.4F + 0.8F));
+
+					if (!world.isRemote)
+					{
+						// world.spawnEntityInWorld(new EntityEnderPearl(world,
+						// player));
+						EntityBlinkDriveBolt blinkDriveBolt = new EntityBlinkDriveBolt(world,
+								player);
+						world.spawnEntityInWorld(blinkDriveBolt);
+						MusePacketBlinkDriveBolt packet = new
+								MusePacketBlinkDriveBolt((Player) player, blinkDriveBolt.entityId,
+										blinkDriveBolt.size);
+						PacketDispatcher.sendPacketToAllPlayers(packet.getPacket250());
+					}
+
+					return itemStack;
+
+					/*
+					 * EntityPlasmaBolt plasmaBolt = new EntityPlasmaBolt(world,
+					 * player, explosiveness, damagingness, chargeTicks);
+					 * world.spawnEntityInWorld(plasmaBolt);
+					 * MusePacketPlasmaBolt packet = new
+					 * MusePacketPlasmaBolt((Player) player,
+					 * plasmaBolt.entityId, plasmaBolt.size);
+					 * PacketDispatcher.sendPacketToAllPlayers
+					 * (packet.getPacket250());
+					 */
+				}
+			}
+		}
 
 		return itemStack;
 	}
