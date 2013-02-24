@@ -1,16 +1,16 @@
 package net.machinemuse.powersuits.item;
 
 import ic2.api.ICustomElectricItem;
-import icbm.api.IEMPItem;
-import icbm.api.IExplosive;
+import icbm.api.explosion.IEMPItem;
+import icbm.api.explosion.IExplosive;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
