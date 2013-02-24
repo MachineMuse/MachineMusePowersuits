@@ -85,15 +85,15 @@ public class MusePacketInstallModuleRequest extends MusePacket {
 					if (stack.getItem() instanceof IItemElectric) {
 						IItemElectric elecItem = (IItemElectric) stack.getItem();
 						double joules = elecItem.getJoules(stack);
-					if (MuseItemUtils.isSameItem(itemCost, ItemComponent.lvcapacitor)) {
+						if (MuseItemUtils.isSameItem(itemCost, ItemComponent.lvcapacitor)) {
 							elecItem.setJoules(joules + 20000, stack);
-					}
-					if (MuseItemUtils.isSameItem(itemCost, ItemComponent.mvcapacitor)) {
+						}
+						if (MuseItemUtils.isSameItem(itemCost, ItemComponent.mvcapacitor)) {
 							elecItem.setJoules(joules + 100000, stack);
-					}
-					if (MuseItemUtils.isSameItem(itemCost, ItemComponent.hvcapacitor)) {
+						}
+						if (MuseItemUtils.isSameItem(itemCost, ItemComponent.hvcapacitor)) {
 							elecItem.setJoules(joules + 750000, stack);
-					}
+						}
 					}
 				}
 				List<Integer> slotsToUpdate = new ArrayList();
