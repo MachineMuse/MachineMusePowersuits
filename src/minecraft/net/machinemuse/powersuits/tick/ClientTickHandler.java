@@ -69,10 +69,11 @@ public class ClientTickHandler implements ITickHandler {
 		EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
 
 		if (player != null) {
-			if (slotSelected > -1) {
-				player.inventory.currentItem = slotSelected;
-				slotSelected = -1;
-			}
+			// if (slotSelected > -1) {
+			// player.inventory.currentItem = slotSelected;
+			// slotSelected = -1;
+			// Minecraft.getMinecraft().playerController.updateController();
+			// }
 			ItemStack stack = player.inventory.getCurrentItem();
 			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
 			String mode = itemTag.getString("Mode");
@@ -105,7 +106,6 @@ public class ClientTickHandler implements ITickHandler {
 
 			MusePacket inputPacket = new MusePacketPlayerUpdate(player, inputmap);
 			player.sendQueue.addToSendQueue(inputPacket.getPacket250());
-			Minecraft.getMinecraft().playerController.updateController();
 		}
 	}
 
