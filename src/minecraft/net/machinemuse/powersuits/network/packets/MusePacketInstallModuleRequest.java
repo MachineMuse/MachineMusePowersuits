@@ -78,7 +78,8 @@ public class MusePacketInstallModuleRequest extends MusePacket {
 			IPowerModule moduleType = ModuleManager.getModule(moduleName);
 			List<ItemStack> cost = moduleType.getInstallCost();
 
-			if (MuseItemUtils.hasInInventory(cost, playerEntity.inventory) || playerEntity.capabilities.isCreativeMode) {
+			if ((!MuseItemUtils.itemHasModule(stack, moduleName) && MuseItemUtils.hasInInventory(cost, playerEntity.inventory))
+					|| playerEntity.capabilities.isCreativeMode) {
 				MuseItemUtils.itemAddModule(stack, moduleType);
 
 				for (ItemStack itemCost : cost) {
