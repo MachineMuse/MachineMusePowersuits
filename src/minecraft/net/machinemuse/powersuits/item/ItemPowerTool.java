@@ -9,8 +9,8 @@ import java.util.List;
 
 import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
@@ -18,6 +18,7 @@ import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.Config.Items;
 import net.machinemuse.powersuits.common.ModCompatability;
+import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.entity.EntityBlinkDriveBolt;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.network.packets.MusePacketBlinkDriveBolt;
@@ -362,13 +363,16 @@ public class ItemPowerTool extends ItemTool
 	 */
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
 	{
-		if (MuseItemUtils.itemHasActiveModule(itemStack, MuseCommonStrings.MODULE_PLASMA_CANNON)) {
+		if (MuseItemUtils.itemHasActiveModule(itemStack, MuseCommonStrings.MODULE_PLASMA_CANNON) && ElectricItemUtils.getPlayerEnergy(player) > 500) {
 			// if ( /*||
 			// par3EntityPlayer.inventory.hasItem(Item.arrow.itemID)*/)
 			// {
 			player.setItemInUse(itemStack, 72000);
 			// }
 
+		}
+		if (MuseItemUtils.itemHasActiveModule(itemStack, MuseCommonStrings.MODULE_PORTABLE_CRAFTING)) {
+			player.openGui(ModularPowersuits.instance, 2, player.worldObj, 0, 0, 0);
 		}
 
 		// Pix note: Not quite sure how the logic here should work i/r/t having

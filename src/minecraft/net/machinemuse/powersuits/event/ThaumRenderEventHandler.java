@@ -28,9 +28,9 @@ public class ThaumRenderEventHandler {
 	@ForgeSubscribe
 	public void renderLast(RenderWorldLastEvent event) {
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-		if(player != null && player.inventory.armorItemInSlot(3) != null && player.inventory.armorItemInSlot(3).getItem() instanceof IModularItem) {
+		if (player != null && player.inventory.armorItemInSlot(3) != null && player.inventory.armorItemInSlot(3).getItem() instanceof IModularItem) {
 			ItemStack stack = player.inventory.armorItemInSlot(3);
-			if(MuseItemUtils.itemHasModule(stack, "Aurameter")) {
+			if (MuseItemUtils.itemHasModule(stack, "Aurameter")) {
 				renderThaumGui(event, event.partialTicks, player, Minecraft.getMinecraft().theWorld.getWorldTime());
 			}
 		}

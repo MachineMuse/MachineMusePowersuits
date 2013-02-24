@@ -233,7 +233,7 @@ public class Config {
 
 		module = new PowerModule(MuseCommonStrings.MODULE_MULTIMETER, TOOLONLY, MuseIcon.PLATE_2_RED, MuseCommonStrings.CATEGORY_TOOL)
 				.setDescription("A tool addon that reads the Universal Electricity power generation in a wire.")
-				.setToggleable(true)
+				.setIsActive(true)
 				.addInstallCost(copyAndResize(ItemComponent.wiring, 2))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1));
 		addModule(module);
@@ -246,23 +246,19 @@ public class Config {
 				MuseIcon.CRYSTAL_BUBBLE, MuseCommonStrings.CATEGORY_SPECIAL)
 				.setDescription("Get from point A to point C via point B, where point B is a fold in space & time.")
 				.setIsActive(true)
-				.addBaseProperty(MuseCommonStrings.BLINK_DRIVE_ENERGY_CONSUMPTION, 1000,
-						"J")
+				.addBaseProperty(MuseCommonStrings.BLINK_DRIVE_ENERGY_CONSUMPTION, 1000, "J")
 				// TODO: Adjustable range for higher energy consumption?
 				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 1))
 				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2));
 		addModule(module);
 
-		/*
-		 * module = new PowerModule(ModularCommon.MODULE_PORTABLE_CRAFTING,
-		 * TOOLONLY, MuseIcon.INDICATOR_1_GREEN, ModularCommon.CATEGORY_SPECIAL)
-		 * .
-		 * setDescription("This module needs a keybinding! Press k to set one.")
-		 * .setToggleable(true)
-		 * .addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1))
-		 * .addInstallCost(new ItemStack(Block.workbench, 1));
-		 * addModule(module);
-		 */
+		module = new PowerModule(MuseCommonStrings.MODULE_PORTABLE_CRAFTING, TOOLONLY, new MuseIcon(Block.workbench.getTextureFile(), 60),
+				MuseCommonStrings.CATEGORY_SPECIAL)
+				.setDescription("A larger crafting grid, on the go.")
+				.setIsActive(true)
+				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1))
+				.addInstallCost(new ItemStack(Block.workbench, 1));
+		addModule(module);
 
 		module = new PowerModule(MuseCommonStrings.MODULE_KINETIC_GENERATOR, LEGSONLY, MuseIcon.NEXUS_1_RED, MuseCommonStrings.CATEGORY_ENERGY)
 				.setDescription("Generate power with your movement.")
