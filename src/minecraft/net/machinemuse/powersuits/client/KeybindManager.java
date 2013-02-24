@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.general.gui.clickable.ClickableModule;
@@ -104,8 +104,10 @@ public class KeybindManager {
 					String[] exploded = line.split("~");
 					MusePoint2D position = new MusePoint2D(Double.parseDouble(exploded[1]), Double.parseDouble(exploded[2]));
 					IPowerModule module = ModuleManager.getModule(exploded[0]);
-					ClickableModule cmodule = new ClickableModule(module, position);
-					workingKeybinding.bindModule(cmodule);
+					if (module != null) {
+						ClickableModule cmodule = new ClickableModule(module, position);
+						workingKeybinding.bindModule(cmodule);
+					}
 
 				}
 			}
