@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.item;
 
 import ic2.api.ICustomElectricItem;
-import icbm.api.IEMPItem;
-import icbm.api.IExplosive;
+import icbm.api.explosion.IEMPItem;
+import icbm.api.explosion.IExplosive;
 
 import java.util.ArrayList;
 import java.util.List;

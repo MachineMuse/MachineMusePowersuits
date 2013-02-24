@@ -1,6 +1,6 @@
 package net.machinemuse.api;
 
-import icbm.api.IExplosive;
+import icbm.api.explosion.IExplosive;
 
 import java.util.ArrayList;
 import java.util.List;
