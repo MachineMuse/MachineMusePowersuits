@@ -164,18 +164,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 	private void doInstall() {
 		ItemStack stack = targetItem.getSelectedItem().getItem();
 		IPowerModule module = targetModule.getSelectedModule().getModule();
-		if (player.capabilities.isCreativeMode) {
-			MuseItemUtils.itemAddModule(stack, module);
-			MusePacket newpacket = new MusePacketInstallModuleRequest(
-					(Player) player,
-					targetItem.getSelectedItem().inventorySlot,
-					module.getName());
-			player.sendQueue.addToSendQueue(newpacket.getPacket250());
-		} else if (MuseItemUtils.hasInInventory(module.getInstallCost(), player.inventory)) {
-			// Doing it client-side first in case of lag
-			MuseItemUtils.deleteFromInventory(module.getInstallCost(),
-					player.inventory);
-			MuseItemUtils.itemAddModule(stack, module);
+		if (player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(module.getInstallCost(), player.inventory)) {
 			// Now send request to server to make it legit
 			MusePacket newpacket = new MusePacketInstallModuleRequest(
 					(Player) player,

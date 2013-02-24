@@ -9,8 +9,8 @@ import java.util.List;
 
 import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseMathUtils;
 import net.machinemuse.powersuits.common.MuseLogger;
@@ -49,7 +49,7 @@ public class PlayerTickHandler implements ITickHandler {
 
 	}
 
-	int gliderTicker = 0, swimTicker = 0;
+	// int gliderTicker = 0, swimTicker = 0;
 
 	public void handle(EntityPlayer player) {
 		ItemStack helmet = player.getCurrentArmor(3);
@@ -181,16 +181,17 @@ public class PlayerTickHandler implements ITickHandler {
 				if (swimEnergyConsumption + totalEnergyDrain < totalEnergy) {
 					totalEnergyDrain += swimEnergyConsumption;
 
-					if (swimTicker == 0) {
-						world.playSoundAtEntity(player, MuseCommonStrings.SOUND_SWIM_ASSIST, 2.0F, 1.0F);
-						swimTicker++;
-					}
-					else {
-						swimTicker++;
-						if (swimTicker >= 60) {
-							swimTicker = 0;
-						}
-					}
+					// if (swimTicker == 0) {
+					// world.playSoundAtEntity(player,
+					// MuseCommonStrings.SOUND_SWIM_ASSIST, 2.0F, 1.0F);
+					// swimTicker++;
+					// }
+					// else {
+					// swimTicker++;
+					// if (swimTicker >= 60) {
+					// swimTicker = 0;
+					// }
+					// }
 					// Forward/backward movement
 					player.motionX += player.getLookVec().xCoord * swimAssistRate * forwardkey / moveRatio;
 					player.motionY += player.getLookVec().yCoord * swimAssistRate * forwardkey / moveRatio;
@@ -336,16 +337,17 @@ public class PlayerTickHandler implements ITickHandler {
 					// sprinting speed
 					player.jumpMovementFactor += 0.03f;
 
-					if (gliderTicker == 0) {
-						world.playSoundAtEntity(player, MuseCommonStrings.SOUND_GLIDER, 5.0F, 1.0F);
-						gliderTicker++;
-					}
-					else {
-						gliderTicker++;
-						if (gliderTicker >= 35) {
-							gliderTicker = 0;
-						}
-					}
+					// if (gliderTicker == 0) {
+					// world.playSoundAtEntity(player,
+					// MuseCommonStrings.SOUND_GLIDER, 5.0F, 1.0F);
+					// gliderTicker++;
+					// }
+					// else {
+					// gliderTicker++;
+					// if (gliderTicker >= 35) {
+					// gliderTicker = 0;
+					// }
+					// }
 				}
 			}
 

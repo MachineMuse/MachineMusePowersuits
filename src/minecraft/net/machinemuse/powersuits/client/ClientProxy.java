@@ -10,6 +10,7 @@ import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.entity.EntityBlinkDriveBolt;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
+import net.machinemuse.powersuits.event.SoundEventHandler;
 import net.machinemuse.powersuits.event.ThaumRenderEventHandler;
 import net.machinemuse.powersuits.network.MusePacketHandler;
 import net.machinemuse.powersuits.tick.ClientTickHandler;
@@ -79,6 +80,8 @@ public class ClientProxy extends CommonProxy {
 
 		clientTickHandler = new ClientTickHandler();
 		TickRegistry.registerTickHandler(clientTickHandler, Side.CLIENT);
+
+		MinecraftForge.EVENT_BUS.register(new SoundEventHandler());
 
 		if (ModCompatability.isThaumCraftLoaded() && ModCompatability.enableThaumGogglesModule()) {
 			MinecraftForge.EVENT_BUS.register(new ThaumRenderEventHandler());

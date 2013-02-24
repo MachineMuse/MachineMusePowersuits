@@ -5,7 +5,6 @@ import net.machinemuse.powersuits.entity.EntityBlinkDriveBolt;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.event.EventHandler;
 import net.machinemuse.powersuits.event.MovementManager;
-import net.machinemuse.powersuits.event.SoundEventHandler;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.ItemPowerArmorFeet;
 import net.machinemuse.powersuits.item.ItemPowerArmorHead;
@@ -96,7 +95,6 @@ public class ModularPowersuits {
 		Config.init(new Configuration(event.getSuggestedConfigurationFile()));
 		MinecraftForge.EVENT_BUS.register(new EventHandler());
 		MinecraftForge.EVENT_BUS.register(new MovementManager());
-		MinecraftForge.EVENT_BUS.register(new SoundEventHandler());
 	}
 
 	public static Config config;
