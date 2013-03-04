@@ -152,9 +152,11 @@ public abstract class MuseCommonStrings {
 	 */
 	public static void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
 		if (stack.getItem() instanceof ItemPowerTool) {
-			String mode = MuseItemUtils.getStringOrNull(stack, "Tool Mode");
+			String mode = MuseItemUtils.getStringOrNull(stack, "Mode");
 			if (mode != null) {
 				currentTipList.add("Mode:" + MuseStringUtils.wrapFormatTags(mode, MuseStringUtils.FormatCodes.Red));
+			} else {
+				currentTipList.add("Hold sneak and scrollwheel to change modes.");
 			}
 		}
 		String energyinfo = "Energy: " + MuseStringUtils.formatNumberShort(ElectricItemUtils.getJoules(stack)) + "/"
