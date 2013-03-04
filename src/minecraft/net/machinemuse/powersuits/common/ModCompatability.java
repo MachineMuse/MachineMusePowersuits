@@ -4,8 +4,8 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModule;
@@ -137,6 +137,17 @@ public class ModCompatability {
 				e.printStackTrace();
 			}
 
+		}
+
+		// Add UE multimeter module
+		if (ModCompatability.isBasicComponentsLoaded()) {
+			PowerModule module = new PowerModule(MuseCommonStrings.MODULE_MULTIMETER, Arrays.asList((IModularItem) ModularPowersuits.powerTool),
+					MuseIcon.PLATE_2_RED, MuseCommonStrings.CATEGORY_TOOL)
+					.setDescription("A tool addon that reads the Universal Electricity power generation in a wire.")
+					.setIsActive(true)
+					.addInstallCost(Config.copyAndResize(ItemComponent.wiring, 2))
+					.addInstallCost(Config.copyAndResize(ItemComponent.solenoid, 1));
+			ModuleManager.addModule(module);
 		}
 	}
 

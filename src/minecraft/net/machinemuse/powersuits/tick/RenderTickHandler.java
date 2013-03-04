@@ -98,7 +98,7 @@ public class RenderTickHandler implements ITickHandler {
 						baroffset -= 8;
 					}
 				}
-
+				// Root locations of the mode list
 				prevX = sw / 2.0 - 105.0 + 20.0 * i;
 				prevY = sh + baroffset + 10;
 				currX = sw / 2.0 - 89.0 + 20.0 * i;
@@ -129,26 +129,28 @@ public class RenderTickHandler implements ITickHandler {
 						nextY = (currY * r1 + nextY * r2);
 						currX = (prevX * r1 + currX * r2);
 						currY = (prevY * r1 + currY * r2);
-						MuseRenderer.drawIconPartial(currX, currY, currentMode,
-								Colour.WHITE.withAlpha(currAlpha), 0, 0, 16, sh + baroffset - currY
-										+ 16);
-						MuseRenderer
-								.drawIconPartial(nextX, nextY, nextMode,
-										Colour.WHITE.withAlpha(nextAlpha), 0, 0, 16, sh + baroffset - nextY +
-												16);
+						MuseRenderer.drawIconPartial(
+								currX, currY, currentMode,
+								Colour.WHITE.withAlpha(currAlpha),
+								0, 0, 16, sh + baroffset - currY + 16);
+						MuseRenderer.drawIconPartial(
+								nextX, nextY, nextMode,
+								Colour.WHITE.withAlpha(nextAlpha),
+								0, 0, 16, sh + baroffset - nextY + 16);
 
 					} else {
 						prevX = (currX * r1 + prevX * r2);
 						prevY = (currY * r1 + prevY * r2);
 						currX = (nextX * r1 + currX * r2);
 						currY = (nextY * r1 + currY * r2);
-						MuseRenderer
-								.drawIconPartial(prevX, prevY, prevMode,
-										Colour.WHITE.withAlpha(prevAlpha), 0, 0, 16, sh + baroffset - prevY +
-												16);
-						MuseRenderer.drawIconPartial(currX, currY, currentMode,
-								Colour.WHITE.withAlpha(currAlpha), 0, 0, 16, sh + baroffset - currY
-										+ 16);
+						MuseRenderer.drawIconPartial(
+								prevX, prevY, prevMode,
+								Colour.WHITE.withAlpha(prevAlpha),
+								0, 0, 16, sh + baroffset - prevY + 16);
+						MuseRenderer.drawIconPartial(
+								currX, currY, currentMode,
+								Colour.WHITE.withAlpha(currAlpha),
+								0, 0, 16, sh + baroffset - currY + 16);
 
 					}
 				}

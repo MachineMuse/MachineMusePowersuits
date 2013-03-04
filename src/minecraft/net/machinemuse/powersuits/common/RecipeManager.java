@@ -188,8 +188,8 @@ public class RecipeManager {
 			String eliteCircuit = "eliteCircuit";
 			ItemStack lapisBlock = new ItemStack(Block.blockLapis);
 			try {
-				ItemStack steelPlate = OreDictionary.getOres("plateSteel").get(0);
-				GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(steelPlate, 5), true,
+				ItemStack steelIngot = OreDictionary.getOres("ingotSteel").get(0);
+				GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(steelIngot, 5), true,
 						"P", 'P', ItemComponent.basicPlating));
 			} catch (Exception e) {
 				MuseLogger.logError("Unable to load steel plate");

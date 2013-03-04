@@ -598,7 +598,7 @@ public class ItemPowerTool extends ItemTool
 	public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World worldObj, int x, int y, int z, int side, float hitX, float hitY,
 			float hitZ) {
 
-		if (MuseItemUtils.itemHasActiveModule(itemStack, MuseCommonStrings.MODULE_MULTIMETER)) {
+		if (ModCompatability.isBasicComponentsLoaded() && MuseItemUtils.itemHasActiveModule(itemStack, MuseCommonStrings.MODULE_MULTIMETER)) {
 			if (!worldObj.isRemote) {
 				TileEntity tileEntity = worldObj.getBlockTileEntity(x, y, z);
 				if (tileEntity instanceof IConductor) {
@@ -611,6 +611,7 @@ public class ItemPowerTool extends ItemTool
 				}
 			}
 		}
+
 		return false;
 	}
 

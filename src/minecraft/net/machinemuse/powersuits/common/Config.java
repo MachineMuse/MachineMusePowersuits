@@ -231,13 +231,6 @@ public class Config {
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1));
 		addModule(module);
 
-		module = new PowerModule(MuseCommonStrings.MODULE_MULTIMETER, TOOLONLY, MuseIcon.PLATE_2_RED, MuseCommonStrings.CATEGORY_TOOL)
-				.setDescription("A tool addon that reads the Universal Electricity power generation in a wire.")
-				.setIsActive(true)
-				.addInstallCost(copyAndResize(ItemComponent.wiring, 2))
-				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1));
-		addModule(module);
-
 		// Pix make blink drive. No blame pix if blink drive tear rift in
 		// universe. Some things man not meant control.
 		// Should probably replace the icon with something else once we have the
