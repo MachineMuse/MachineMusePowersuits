@@ -517,6 +517,10 @@ public class MuseItemUtils {
 
 	public static boolean itemHasActiveModule(ItemStack itemStack, String moduleName) {
 		IPowerModule module = ModuleManager.getModule(moduleName);
+		if (module == null || !module.isAllowed()) {
+			// playerEntity.sendChatToPlayer("Server has disallowed this module. Sorry!");
+			return false;
+		}
 		if (module != null && module.isActive()) {
 			// MuseLogger.logDebug("Module: " + moduleName + " vs Mode: " +
 			// MuseItemUtils.getActiveMode(itemStack));

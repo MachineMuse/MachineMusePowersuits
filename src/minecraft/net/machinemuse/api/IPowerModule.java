@@ -30,4 +30,6 @@ public interface IPowerModule {
 	public abstract boolean isActive();
 
 	public abstract Map<String, List<IPropertyModifier>> getPropertyModifiers();
+
+	public abstract boolean isAllowed();
 }

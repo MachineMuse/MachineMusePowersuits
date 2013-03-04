@@ -31,6 +31,7 @@ public class PowerModule implements IPowerModule {
 	protected boolean toggleable = false;
 	protected List<IModularItem> validItems;
 	protected boolean isActive = false;
+	protected boolean isAllowed;
 
 	public PowerModule(String name, List<IModularItem> validItems, MuseIcon icon, String category) {
 		this.name = name;
@@ -42,6 +43,8 @@ public class PowerModule implements IPowerModule {
 		this.installCost = new ArrayList();
 		this.defaultTag = new NBTTagCompound();
 		this.defaultTag.setBoolean(MuseItemUtils.ONLINE, true);
+		boolean isModuleEnabled = Config.getConfig().get("Modules", name, true).getBoolean(true);
+		this.isAllowed = isModuleEnabled;
 	}
 
 	public String getName() {
@@ -206,6 +209,11 @@ public class PowerModule implements IPowerModule {
 	@Override
 	public boolean isActive() {
 		return this.isActive;
+	}
+
+	@Override
+	public boolean isAllowed() {
+		return this.isAllowed;
 	}
 
 }

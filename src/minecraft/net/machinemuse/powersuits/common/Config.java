@@ -157,10 +157,7 @@ public class Config {
 	}
 
 	public static void addModule(IPowerModule module) {
-		boolean isModuleEnabled = config.get("Modules", module.getName(), true).getBoolean(true);
-		if (isModuleEnabled) {
-			ModuleManager.addModule(module);
-		}
+		ModuleManager.addModule(module);
 	}
 
 	/**
