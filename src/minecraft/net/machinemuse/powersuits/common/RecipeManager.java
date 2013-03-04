@@ -174,7 +174,7 @@ public class RecipeManager {
 					'E', ItemComponent.solenoid,
 					'G', glowstone,
 					'F', ItemComponent.fieldEmitter);
-			GameRegistry.addRecipe(new ShapedOreRecipe (ItemComponent.solarPanel, 
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solarPanel,
 					"PPP",
 					"PLP",
 					"PPP",
@@ -318,8 +318,8 @@ public class RecipeManager {
 					'G', glowstone,
 					'C', "advancedCircuit",
 					'F', ItemComponent.fieldEmitter));
-			
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solarPanel, true, 
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solarPanel, true,
 					"GGG",
 					"CLC",
 					"SSS",
@@ -487,7 +487,7 @@ public class RecipeManager {
 					'G', glowstone,
 					'C', advCircuit.copy(),
 					'M', advMachine.copy()));
-			
+
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solarPanel, true,
 					"LGL",
 					"GLG",
@@ -697,8 +697,8 @@ public class RecipeManager {
 					'N', neutronReflector,
 					'C', ItemComponent.hvcapacitor,
 					'F', ItemComponent.fieldEmitter));
-			
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solarPanel, true, 
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solarPanel, true,
 					"GGG",
 					"PCP",
 					'G', reinforcedGlass,
@@ -889,6 +889,15 @@ public class RecipeManager {
 					'G', glowstone,
 					'W', ItemComponent.wiring,
 					'F', ItemComponent.fieldEmitter));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solarPanel, true,
+					"GGG",
+					"CLC",
+					" E ",
+					'G', glass,
+					'L', new ItemStack(Block.blockLapis),
+					'C', conduitEnergy,
+					'E', powerCoilSilver));
 		}
 	}
 }
