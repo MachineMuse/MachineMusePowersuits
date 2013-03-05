@@ -396,36 +396,37 @@ public class PlayerTickHandler implements ITickHandler {
 			double foodLevel = (double) MuseItemUtils.getFoodLevel(helmet);
 			double saturationLevel = MuseItemUtils.getSaturationLevel(helmet);
 			double efficiency = ModuleManager.computeModularProperty(helmet, MuseCommonStrings.EATING_EFFICIENCY);
-			for (int i = 0; i < inv.getSizeInventory(); i++) {
+			FoodStats foodStats = player.getFoodStats();
+			int foodNeeded = 20 - foodStats.getFoodLevel();
+			double eatingEnergyConsumption = foodNeeded * ModuleManager.computeModularProperty(helmet, MuseCommonStrings.EATING_ENERGY_CONSUMPTION);
+			for (int i = 0; i < inv.getSizeInventory() && foodNeeded > foodLevel; i++) {
 				ItemStack stack = inv.getStackInSlot(i);
 				if (stack != null && stack.getItem() instanceof ItemFood) {
 					ItemFood food = (ItemFood) stack.getItem();
-					for (int a = 0; a < stack.stackSize; a++) {
-						foodLevel += food.getHealAmount();
-						saturationLevel += food.getSaturationModifier();
+					for (; stack.stackSize > 0 && foodNeeded > foodLevel; stack.stackSize--) {
+						foodLevel += food.getHealAmount() * efficiency / 100.0;
+						saturationLevel += food.getSaturationModifier() * efficiency / 100.0;
+						player.sendChatToPlayer("Feeder module: Ate a " + food.getItemNameIS(stack));
 					}
-					foodLevel = foodLevel * efficiency / 100.0;
-					saturationLevel = saturationLevel * efficiency / 100.0;
-					MuseItemUtils.setFoodLevel(helmet, foodLevel);
-					MuseItemUtils.setSaturationLevel(helmet, saturationLevel);
-					player.inventory.setInventorySlotContents(i, null);
+					if (stack.stackSize == 0) {
+						player.inventory.setInventorySlotContents(i, null);
+					}
 				}
 			}
-			double eatingEnergyConsumption = ModuleManager.computeModularProperty(helmet, MuseCommonStrings.EATING_ENERGY_CONSUMPTION);
-			FoodStats foodStats = player.getFoodStats();
-			int foodNeeded = 20 - foodStats.getFoodLevel();
-			if (foodNeeded > 0 && ((eatingEnergyConsumption * foodNeeded) + totalEnergyDrain) < totalEnergy
-					&& MuseItemUtils.getFoodLevel(helmet) > foodNeeded) {
-				if (MuseItemUtils.getSaturationLevel(helmet) >= 1.0F) {
-					foodStats.addStats(foodNeeded, 1.0F);
-					MuseItemUtils.setSaturationLevel(helmet, MuseItemUtils.getSaturationLevel(helmet) - 1.0F);
+			int foodConsumed = (int) Math.min(foodNeeded, Math.min(foodLevel, eatingEnergyConsumption * (totalEnergy - totalEnergyDrain)));
+			if (foodConsumed > 0) {
+				if (saturationLevel >= 1.0F) {
+					foodStats.addStats(foodConsumed, 1.0F);
+					saturationLevel -= 1.0F;
 				}
 				else {
-					foodStats.addStats(foodNeeded, 0.0F);
+					foodStats.addStats(foodConsumed, 0.0F);
 				}
-				MuseItemUtils.setFoodLevel(helmet, MuseItemUtils.getFoodLevel(helmet) - foodNeeded);
-				totalEnergyDrain += eatingEnergyConsumption * foodNeeded;
+				foodLevel -= foodConsumed;
+				totalEnergyDrain += eatingEnergyConsumption * foodConsumed;
 			}
+			MuseItemUtils.setFoodLevel(helmet, foodLevel);
+			MuseItemUtils.setSaturationLevel(helmet, saturationLevel);
 		}
 		// Solar Generator
 		if (hasSolarGeneration) {
