@@ -46,6 +46,10 @@ public class ModCompatability {
 		return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Vanilla Recipes", defaultval).getBoolean(defaultval);
 	}
 
+	private static boolean isAtomicScienceLoaded() {
+		return Loader.isModLoaded("AtomicScience");
+	}
+
 	public static boolean UERecipesEnabled() {
 		boolean defaultval = isBasicComponentsLoaded();
 		return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Universal Electricity Recipes", defaultval).getBoolean(defaultval);
@@ -109,7 +113,8 @@ public class ModCompatability {
 			return (ItemStack) Class.forName("gregtechmod.GT_Mod")
 					.getMethod("getGregTechItem", new Class[] { Integer.TYPE, Integer.TYPE, Integer.TYPE })
 					.invoke(null, new Object[] { Integer.valueOf(aIndex), Integer.valueOf(aAmount), Integer.valueOf(aMeta) });
-		} catch (Exception e) {}
+		} catch (Exception e) {
+		}
 		return null;
 	}
 
@@ -149,6 +154,20 @@ public class ModCompatability {
 					.addInstallCost(Config.copyAndResize(ItemComponent.solenoid, 1));
 			ModuleManager.addModule(module);
 		}
+
+		if (ModCompatability.isAtomicScienceLoaded()) {
+
+			PowerModule module = new PowerModule(MuseCommonStrings.MODULE_HAZMAT,
+					Arrays.asList((IModularItem) ModularPowersuits.powerArmorHead, (IModularItem) ModularPowersuits.powerArmorTorso,
+							(IModularItem) ModularPowersuits.powerArmorLegs, (IModularItem) ModularPowersuits.powerArmorFeet),
+					MuseIcon.FIELD_EMITTER_GREEN, MuseCommonStrings.CATEGORY_ARMOR)
+					.setDescription("Protect yourself from that pesky radiation poisoning.")
+					.setToggleable(true)
+					.addBaseProperty(MuseCommonStrings.WEIGHT, 0.5)
+					.addInstallCost(Config.copyAndResize(ItemComponent.basicPlating, 3));
+			ModuleManager.addModule(module);
+		}
+
 	}
 
 	public static ItemStack getThermexItem(String string, int quantity) {
@@ -157,7 +176,8 @@ public class ModCompatability {
 			if (item != null) {
 				return item;
 			}
-		} catch (Exception e) {}
+		} catch (Exception e) {
+		}
 		thermalexpansion.api.core.ItemRegistry.printItemNames();
 		MuseLogger.logError("Failed to get Thermal Expansion item " + string);
 		return null;

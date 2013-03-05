@@ -269,7 +269,8 @@ public class Config {
 		addModule(module);
 
 		module = new PowerModule(MuseCommonStrings.MODULE_AUTO_FEEDER, HEADONLY, MuseIcon.NEXUS_1_BLUE, MuseCommonStrings.CATEGORY_ENVIRONMENTAL)
-				.setDescription("Why eat when your armor can do it for you.")
+				.setDescription(
+						"Whenever you're hungry, this module will grab the bottom-left-most food item from your inventory and feed it to you, storing the rest for later.")
 				.setToggleable(true)
 				.addBaseProperty(MuseCommonStrings.EATING_ENERGY_CONSUMPTION, 100)
 				.addBaseProperty(MuseCommonStrings.EATING_EFFICIENCY, 50)

@@ -98,6 +98,7 @@ public abstract class MuseCommonStrings {
 	public static final String MODULE_PORTABLE_CRAFTING = "In-Place Assembler";
 	public static final String CITIZEN_JOE_STYLE = "Citizen Joe Style";
 	public static final String MODULE_MULTIMETER = "Multimeter";
+	public static final String MODULE_HAZMAT = "Radiation Shielding";
 
 	/**
 	 * Categories for modules

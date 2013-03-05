@@ -31,6 +31,8 @@ import net.minecraftforge.common.ISpecialArmor;
 import thermalexpansion.api.core.IChargeableItem;
 import universalelectricity.core.electricity.ElectricInfo;
 import universalelectricity.core.implement.IItemElectric;
+import atomicscience.api.IAntiPoisonArmor;
+import atomicscience.api.Poison;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -47,6 +49,7 @@ public abstract class ItemPowerArmor extends ItemArmor
 		IItemElectric, // Universal Electricity
 		ICustomElectricItem, // Industrial Craft 2
 		IEMPItem, // for ICBM EMP interfacing
+		IAntiPoisonArmor, // for atomic science hazmat suits
 		IChargeableItem // for Thermal Expansion
 {
 	Config.Items itemType;
@@ -421,6 +424,18 @@ public abstract class ItemPowerArmor extends ItemArmor
 	@Override
 	public void onEMP(ItemStack itemStack, Entity entity, IExplosive empExplosive) {
 		ElectricItemUtils.onEMP(itemStack, entity, empExplosive);
+	}
+
+	// ////////////////////// //
+	// --- Atomic Science --- //
+	// ////////////////////// //
+	@Override
+	public boolean isProtectedFromPoison(ItemStack itemStack, EntityLiving entityLiving, Poison type) {
+		return MuseItemUtils.itemHasModule(itemStack, MuseCommonStrings.MODULE_HAZMAT);
+	}
+
+	@Override
+	public void onProtectFromPoison(ItemStack itemStack, EntityLiving entityLiving, Poison type) {
 	}
 
 	// ///////////////////////// //

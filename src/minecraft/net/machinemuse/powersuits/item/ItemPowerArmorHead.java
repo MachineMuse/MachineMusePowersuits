@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.item;
 
 import net.machinemuse.powersuits.common.Config;
+import atomicscience.api.Poison.ArmorType;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class ItemPowerArmorHead extends ItemPowerArmor {
@@ -12,5 +13,10 @@ public class ItemPowerArmorHead extends ItemPowerArmor {
 		setItemName(itemType.idName);
 		setIconIndex(15);
 		LanguageRegistry.addName(this, itemType.englishName);
+	}
+
+	@Override
+	public ArmorType getArmorType() {
+		return ArmorType.HELM;
 	}
 }

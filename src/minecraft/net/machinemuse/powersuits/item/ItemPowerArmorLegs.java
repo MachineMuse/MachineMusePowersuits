@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.item;
 
 import net.machinemuse.powersuits.common.Config;
+import atomicscience.api.Poison.ArmorType;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class ItemPowerArmorLegs extends ItemPowerArmor {
@@ -14,4 +15,8 @@ public class ItemPowerArmorLegs extends ItemPowerArmor {
 		LanguageRegistry.addName(this, itemType.englishName);
 	}
 
+	@Override
+	public ArmorType getArmorType() {
+		return ArmorType.LEGGINGS;
+	}
 }
