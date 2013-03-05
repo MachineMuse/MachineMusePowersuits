@@ -307,10 +307,10 @@ public class Config {
 				.setToggleable(true)
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
-				.addBaseProperty(MuseCommonStrings.SHOVEL_ENERGY_CONSUMPTION, 100, "J")
+				.addBaseProperty(MuseCommonStrings.SHOVEL_ENERGY_CONSUMPTION, 50, "J")
 				.addBaseProperty(MuseCommonStrings.SHOVEL_HARVEST_SPEED, 8, "x")
-				.addTradeoffProperty("Overclock", MuseCommonStrings.SHOVEL_ENERGY_CONSUMPTION, 900)
-				.addTradeoffProperty("Overclock", MuseCommonStrings.SHOVEL_HARVEST_SPEED, 17);
+				.addTradeoffProperty("Overclock", MuseCommonStrings.SHOVEL_ENERGY_CONSUMPTION, 950)
+				.addTradeoffProperty("Overclock", MuseCommonStrings.SHOVEL_HARVEST_SPEED, 22);
 		addModule(module);
 
 		module = new PowerModule(MuseCommonStrings.MODULE_PICKAXE, TOOLONLY, MuseIcon.TOOL_PICK, MuseCommonStrings.CATEGORY_TOOL)
@@ -318,10 +318,10 @@ public class Config {
 				.setDescription("Picks are good for harder materials like stone and ore.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
-				.addBaseProperty(MuseCommonStrings.PICKAXE_ENERGY_CONSUMPTION, 100, "J")
+				.addBaseProperty(MuseCommonStrings.PICKAXE_ENERGY_CONSUMPTION, 50, "J")
 				.addBaseProperty(MuseCommonStrings.PICKAXE_HARVEST_SPEED, 8, "x")
-				.addTradeoffProperty("Overclock", MuseCommonStrings.PICKAXE_ENERGY_CONSUMPTION, 900)
-				.addTradeoffProperty("Overclock", MuseCommonStrings.PICKAXE_HARVEST_SPEED, 17);
+				.addTradeoffProperty("Overclock", MuseCommonStrings.PICKAXE_ENERGY_CONSUMPTION, 950)
+				.addTradeoffProperty("Overclock", MuseCommonStrings.PICKAXE_HARVEST_SPEED, 22);
 		addModule(module);
 
 		module = new PowerModule(MuseCommonStrings.MODULE_AXE, TOOLONLY, MuseIcon.TOOL_AXE, MuseCommonStrings.CATEGORY_TOOL)
@@ -329,10 +329,10 @@ public class Config {
 				.setDescription("Axes are mostly for chopping trees.")
 				.addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1))
-				.addBaseProperty(MuseCommonStrings.AXE_ENERGY_CONSUMPTION, 100, "J")
+				.addBaseProperty(MuseCommonStrings.AXE_ENERGY_CONSUMPTION, 50, "J")
 				.addBaseProperty(MuseCommonStrings.AXE_HARVEST_SPEED, 8, "x")
-				.addTradeoffProperty("Overclock", MuseCommonStrings.AXE_ENERGY_CONSUMPTION, 900)
-				.addTradeoffProperty("Overclock", MuseCommonStrings.AXE_HARVEST_SPEED, 17);
+				.addTradeoffProperty("Overclock", MuseCommonStrings.AXE_ENERGY_CONSUMPTION, 950)
+				.addTradeoffProperty("Overclock", MuseCommonStrings.AXE_HARVEST_SPEED, 22);
 		addModule(module);
 
 		module = new PowerModule(MuseCommonStrings.MODULE_DIAMOND_PICK_UPGRADE, TOOLONLY, MuseIcon.DIAMOND_PICK, MuseCommonStrings.CATEGORY_SPECIAL)
