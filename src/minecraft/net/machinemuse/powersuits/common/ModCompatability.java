@@ -161,7 +161,7 @@ public class ModCompatability {
 					Arrays.asList((IModularItem) ModularPowersuits.powerArmorHead, (IModularItem) ModularPowersuits.powerArmorTorso,
 							(IModularItem) ModularPowersuits.powerArmorLegs, (IModularItem) ModularPowersuits.powerArmorFeet),
 					MuseIcon.FIELD_EMITTER_GREEN, MuseCommonStrings.CATEGORY_ARMOR)
-					.setDescription("Protect yourself from that pesky radiation poisoning.")
+					.setDescription("Protect yourself from that pesky radiation poisoning. *Must be on every piece*")
 					.setToggleable(true)
 					.addBaseProperty(MuseCommonStrings.WEIGHT, 0.5)
 					.addInstallCost(Config.copyAndResize(ItemComponent.basicPlating, 3));
