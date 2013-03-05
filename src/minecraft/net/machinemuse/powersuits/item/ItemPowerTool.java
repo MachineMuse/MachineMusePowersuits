@@ -39,6 +39,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import thermalexpansion.api.core.IChargeableItem;
 import universalelectricity.core.electricity.ElectricInfo;
 import universalelectricity.core.electricity.ElectricInfo.ElectricUnit;
 import universalelectricity.core.electricity.ElectricityPack;
@@ -61,7 +62,8 @@ public class ItemPowerTool extends ItemTool
 		IModularItem,
 		IItemElectric, // Universal Electricity
 		ICustomElectricItem, // Industrial Craft 2
-		IEMPItem // for ICBM EMP interfacing
+		IEMPItem, // for ICBM EMP interfacing
+		IChargeableItem // for Thermal Expansion
 {
 	public static final ItemStack ironPickaxe = new ItemStack(Item.pickaxeSteel);
 	public static final ItemStack ironAxe = new ItemStack(Item.axeSteel);
@@ -590,11 +592,6 @@ public class ItemPowerTool extends ItemTool
 	}
 
 	@Override
-	public void onEMP(ItemStack itemStack, Entity entity, IExplosive empExplosive) {
-		ElectricItemUtils.onEMP(itemStack, entity, empExplosive);
-	}
-
-	@Override
 	public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World worldObj, int x, int y, int z, int side, float hitX, float hitY,
 			float hitZ) {
 
@@ -613,6 +610,73 @@ public class ItemPowerTool extends ItemTool
 		}
 
 		return false;
+	}
+
+	// //////////// //
+	// --- ICBM --- //
+	// //////////// //
+	@Override
+	public void onEMP(ItemStack itemStack, Entity entity, IExplosive empExplosive) {
+		ElectricItemUtils.onEMP(itemStack, entity, empExplosive);
+	}
+
+	// ///////////////////////// //
+	// --- Thermal Expansion --- //
+	// ///////////////////////// //
+
+	/**
+	 * Adds energy to an item. Returns the quantity of energy that was accepted.
+	 * This should always return 0 if the item cannot be externally charged.
+	 * 
+	 * @param theItem
+	 *            ItemStack to be charged.
+	 * @param energy
+	 *            Maximum amount of energy to be sent into the item.
+	 * @param doReceive
+	 *            If false, the charge will only be simulated.
+	 * @return Amount of energy that was accepted by the item.
+	 */
+	public float receiveEnergy(ItemStack stack, float energy, boolean doReceive) {
+		double offeredJoules = energy * ModCompatability.getBCRatio();
+		double missingJoules = ElectricItemUtils.getMaxJoules(stack) - ElectricItemUtils.getJoules(stack);
+		double transferredJoules = Math.min(offeredJoules, missingJoules);
+		ElectricItemUtils.charge(transferredJoules, stack);
+		return (float) (transferredJoules / ModCompatability.getBCRatio());
+	}
+
+	/**
+	 * Removes energy from an item. Returns the quantity of energy that was
+	 * removed. This should always return 0 if the item cannot be externally
+	 * discharged.
+	 * 
+	 * @param theItem
+	 *            ItemStack to be discharged.
+	 * @param energy
+	 *            Maximum amount of energy to be removed from the item.
+	 * @param doTransfer
+	 *            If false, the discharge will only be simulated.
+	 * @return Amount of energy that was removed from the item.
+	 */
+	public float transferEnergy(ItemStack stack, float energy, boolean doTransfer) {
+		double requestedJoules = energy * ModCompatability.getBCRatio();
+		double availableJoules = ElectricItemUtils.getJoules(stack);
+		double transferredJoules = Math.min(requestedJoules, availableJoules);
+		ElectricItemUtils.discharge(transferredJoules, stack);
+		return (float) (transferredJoules / ModCompatability.getBCRatio());
+	}
+
+	/**
+	 * Get the amount of energy currently stored in the item.
+	 */
+	public float getEnergyStored(ItemStack stack) {
+		return (float) (ModCompatability.getBCRatio() * ElectricItemUtils.getJoules(stack));
+	}
+
+	/**
+	 * Get the max amount of energy that can be stored in the item.
+	 */
+	public float getMaxEnergyStored(ItemStack stack) {
+		return (float) (ModCompatability.getBCRatio() * ElectricItemUtils.getMaxJoules(stack));
 	}
 
 }

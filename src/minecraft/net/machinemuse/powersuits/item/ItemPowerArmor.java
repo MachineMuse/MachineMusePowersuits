@@ -28,6 +28,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.IArmorTextureProvider;
 import net.minecraftforge.common.ISpecialArmor;
+import thermalexpansion.api.core.IChargeableItem;
 import universalelectricity.core.electricity.ElectricInfo;
 import universalelectricity.core.implement.IItemElectric;
 import cpw.mods.fml.relauncher.Side;
@@ -45,7 +46,8 @@ public abstract class ItemPowerArmor extends ItemArmor
 		IArmorTextureProvider,
 		IItemElectric, // Universal Electricity
 		ICustomElectricItem, // Industrial Craft 2
-		IEMPItem // for ICBM EMP interfacing
+		IEMPItem, // for ICBM EMP interfacing
+		IChargeableItem // for Thermal Expansion
 {
 	Config.Items itemType;
 
@@ -413,9 +415,38 @@ public abstract class ItemPowerArmor extends ItemArmor
 		return 0;
 	}
 
+	// //////////// //
+	// --- ICBM --- //
+	// //////////// //
 	@Override
 	public void onEMP(ItemStack itemStack, Entity entity, IExplosive empExplosive) {
 		ElectricItemUtils.onEMP(itemStack, entity, empExplosive);
 	}
 
+	// ///////////////////////// //
+	// --- Thermal Expansion --- //
+	// ///////////////////////// //
+	@Override
+	public float receiveEnergy(ItemStack theItem, float energy, boolean doReceive) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public float transferEnergy(ItemStack theItem, float energy, boolean doTransfer) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public float getEnergyStored(ItemStack theItem) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public float getMaxEnergyStored(ItemStack theItem) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
