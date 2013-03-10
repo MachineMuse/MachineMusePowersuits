@@ -159,7 +159,7 @@ public abstract class MuseCommonStrings {
 			if (mode != null) {
 				currentTipList.add("Mode:" + MuseStringUtils.wrapFormatTags(mode, MuseStringUtils.FormatCodes.Red));
 			} else {
-				currentTipList.add("Hold sneak and scrollwheel to change modes.");
+				currentTipList.add("Change modes: Sneak+mousewheel.");
 			}
 		}
 		String energyinfo = "Energy: " + MuseStringUtils.formatNumberShort(ElectricItemUtils.getJoules(stack)) + "/"
