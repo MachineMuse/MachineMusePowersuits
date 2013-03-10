@@ -12,9 +12,14 @@ public class ModuleManager {
 
 	protected static final Map<String, IPowerModule> moduleMap = new HashMap();
 	protected static final List<IPowerModule> moduleList = new ArrayList();
+	protected static final List<IPlayerTickModule> playerTickModules = new ArrayList();
 
 	public static List<IPowerModule> getAllModules() {
 		return moduleList;
+	}
+
+	public static List<IPlayerTickModule> getPlayerTickModules() {
+		return playerTickModules;
 	}
 
 	public static IPowerModule getModule(String key) {
@@ -25,6 +30,9 @@ public class ModuleManager {
 
 		moduleMap.put(module.getName(), module);
 		moduleList.add(module);
+		if (module instanceof IPlayerTickModule) {
+			playerTickModules.add((IPlayerTickModule) module);
+		}
 	}
 
 	public static double computeModularProperty(ItemStack stack, String propertyName) {

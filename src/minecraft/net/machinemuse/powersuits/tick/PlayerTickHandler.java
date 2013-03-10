@@ -9,6 +9,7 @@ import java.util.List;
 
 import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
+import net.machinemuse.api.IPlayerTickModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
@@ -52,6 +53,7 @@ public class PlayerTickHandler implements ITickHandler {
 	// int gliderTicker = 0, swimTicker = 0;
 
 	public void handle(EntityPlayer player) {
+		List<ItemStack> modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player);
 		ItemStack helmet = player.getCurrentArmor(3);
 		ItemStack torso = player.getCurrentArmor(2);
 		ItemStack pants = player.getCurrentArmor(1);
@@ -95,7 +97,16 @@ public class PlayerTickHandler implements ITickHandler {
 		boolean hasSolarGeneration = false;
 		boolean hasKineticGeneration = false;
 
+		for (IPlayerTickModule module : ModuleManager.getPlayerTickModules()) {
+			for (ItemStack itemStack : modularItemsEquipped) {
+				if (module.isValidForItem(itemStack, player) && MuseItemUtils.itemHasModule(itemStack, module.getName())) {
+					((IPlayerTickModule) module).onPlayerTick(player, itemStack);
+				}
+			}
+		}
 		if (helmet != null && helmet.getItem() instanceof IModularItem) {
+			IModularItem modular = (IModularItem) helmet.getItem();
+
 			hasNightVision = MuseItemUtils.itemHasActiveModule(helmet, MuseCommonStrings.MODULE_NIGHT_VISION);
 			hasFlightControl = MuseItemUtils.itemHasActiveModule(helmet, MuseCommonStrings.MODULE_FLIGHT_CONTROL);
 			hasFeeder = MuseItemUtils.itemHasActiveModule(helmet, MuseCommonStrings.MODULE_AUTO_FEEDER);
