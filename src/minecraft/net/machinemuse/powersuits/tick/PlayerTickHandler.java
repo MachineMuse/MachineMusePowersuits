@@ -93,7 +93,7 @@ public class PlayerTickHandler implements ITickHandler {
 		boolean hasFlightControl = false;
 		boolean hasFeeder = false;
 		boolean hasSolarGeneration = false;
-		boolean hasStaticGeneration = false;
+		boolean hasKineticGeneration = false;
 
 		if (helmet != null && helmet.getItem() instanceof IModularItem) {
 			hasNightVision = MuseItemUtils.itemHasActiveModule(helmet, MuseCommonStrings.MODULE_NIGHT_VISION);
@@ -108,7 +108,7 @@ public class PlayerTickHandler implements ITickHandler {
 			hasSprintAssist = MuseItemUtils.itemHasActiveModule(pants, MuseCommonStrings.MODULE_SPRINT_ASSIST);
 			hasJumpAssist = MuseItemUtils.itemHasActiveModule(pants, MuseCommonStrings.MODULE_JUMP_ASSIST);
 			hasSwimAssist = MuseItemUtils.itemHasActiveModule(pants, MuseCommonStrings.MODULE_SWIM_BOOST);
-			hasStaticGeneration = MuseItemUtils.itemHasActiveModule(pants, MuseCommonStrings.MODULE_KINETIC_GENERATOR);
+			hasKineticGeneration = MuseItemUtils.itemHasActiveModule(pants, MuseCommonStrings.MODULE_KINETIC_GENERATOR);
 			if (pants.getTagCompound().hasKey("ench")) {
 				pants.getTagCompound().removeTag("ench");
 			}
@@ -454,7 +454,7 @@ public class PlayerTickHandler implements ITickHandler {
 			}
 		}
 		// Static Generator
-		if (hasStaticGeneration) {
+		if (hasKineticGeneration && !player.isAirBorne) {
 			NBTTagCompound tag = MuseItemUtils.getMuseItemTag(pants);
 			boolean isNotWalking = (player.ridingEntity != null) || (player.isInWater());
 			if ((!tag.hasKey("x")) || (isNotWalking))
