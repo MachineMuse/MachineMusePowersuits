@@ -19,9 +19,7 @@ import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.Config.Items;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.common.ModularPowersuits;
-import net.machinemuse.powersuits.entity.EntityBlinkDriveBolt;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
-import net.machinemuse.powersuits.network.packets.MusePacketBlinkDriveBolt;
 import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -36,6 +34,8 @@ import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
@@ -264,6 +264,26 @@ public class ItemPowerTool extends ItemTool
 		return false;
 	}
 
+	protected MovingObjectPosition doCustomRayTrace(World World, EntityPlayer player, boolean collisionFlag, double reachDistance)
+	{
+		float one = 1.0F;
+		float pitch = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * one;
+		float yaw = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * one;
+		double posx = player.prevPosX + (player.posX - player.prevPosX) * (double) one;
+		double posy = player.prevPosY + (player.posY - player.prevPosY) * (double) one + 1.62D - (double) player.yOffset;
+		double posz = player.prevPosZ + (player.posZ - player.prevPosZ) * (double) one;
+		Vec3 posVector = World.getWorldVec3Pool().getVecFromPool(posx, posy, posz);
+		float yawz = MathHelper.cos(-yaw * 0.017453292F - (float) Math.PI);
+		float yawx = MathHelper.sin(-yaw * 0.017453292F - (float) Math.PI);
+		float pitchhorizontal = -MathHelper.cos(-pitch * 0.017453292F);
+		float pitchvertical = MathHelper.sin(-pitch * 0.017453292F);
+		float directionx = yawx * pitchhorizontal;
+		float directionz = yawz * pitchhorizontal;
+		Vec3 rayToCheck = posVector.addVector((double) directionx * reachDistance, (double) pitchvertical * reachDistance, (double) directionz
+				* reachDistance);
+		return World.rayTraceBlocks_do_do(posVector, rayToCheck, collisionFlag, !collisionFlag);
+	}
+
 	/**
 	 * Returns the damage against a given entity.
 	 */
@@ -377,49 +397,22 @@ public class ItemPowerTool extends ItemTool
 			player.openGui(ModularPowersuits.instance, 2, player.worldObj, 0, 0, 0);
 		}
 
-		// Pix note: Not quite sure how the logic here should work i/r/t having
-		// plasma cannon and BD installed simultaneously. Pls fix.
+		if (MuseItemUtils.itemHasActiveModule(itemStack, MuseCommonStrings.MODULE_BLINK_DRIVE)) {
 
-		if (MuseItemUtils.itemHasActiveModule(itemStack,
-				MuseCommonStrings.MODULE_BLINK_DRIVE)) {
+			double range = ModuleManager.computeModularProperty(itemStack, MuseCommonStrings.BLINK_DRIVE_RANGE);
+			double energyConsumption = ModuleManager.computeModularProperty(itemStack, MuseCommonStrings.BLINK_DRIVE_ENERGY_CONSUMPTION);
+			if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
+				ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
 
-			if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
-			{
-				double energyConsumption =
-						ModuleManager.computeModularProperty(itemStack,
-								MuseCommonStrings.BLINK_DRIVE_ENERGY_CONSUMPTION);
-				if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
-					ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
+				world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
-					world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F /
-							(itemRand.nextFloat() * 0.4F + 0.8F));
+				MovingObjectPosition hitMOP = this.doCustomRayTrace(player.worldObj, player, true, range);
 
-					if (!world.isRemote)
-					{
-						// world.spawnEntityInWorld(new EntityEnderPearl(world,
-						// player));
-						EntityBlinkDriveBolt blinkDriveBolt = new EntityBlinkDriveBolt(world,
-								player);
-						world.spawnEntityInWorld(blinkDriveBolt);
-						MusePacketBlinkDriveBolt packet = new
-								MusePacketBlinkDriveBolt((Player) player, blinkDriveBolt.entityId,
-										blinkDriveBolt.size);
-						PacketDispatcher.sendPacketToAllPlayers(packet.getPacket250());
-					}
+				ModularPowersuits.proxy.teleportEntity(player, hitMOP);
 
-					return itemStack;
+				world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
-					/*
-					 * EntityPlasmaBolt plasmaBolt = new EntityPlasmaBolt(world,
-					 * player, explosiveness, damagingness, chargeTicks);
-					 * world.spawnEntityInWorld(plasmaBolt);
-					 * MusePacketPlasmaBolt packet = new
-					 * MusePacketPlasmaBolt((Player) player,
-					 * plasmaBolt.entityId, plasmaBolt.size);
-					 * PacketDispatcher.sendPacketToAllPlayers
-					 * (packet.getPacket250());
-					 */
-				}
+				return itemStack;
 			}
 		}
 

@@ -237,6 +237,9 @@ public class Config {
 				.setDescription("Get from point A to point C via point B, where point B is a fold in space & time.")
 				.setIsActive(true)
 				.addBaseProperty(MuseCommonStrings.BLINK_DRIVE_ENERGY_CONSUMPTION, 1000, "J")
+				.addBaseProperty(MuseCommonStrings.BLINK_DRIVE_RANGE, 5, "m")
+				.addTradeoffProperty("Range", MuseCommonStrings.BLINK_DRIVE_ENERGY_CONSUMPTION, 3000)
+				.addTradeoffProperty("Range", MuseCommonStrings.BLINK_DRIVE_RANGE, 59)
 				// TODO: Adjustable range for higher energy consumption?
 				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 1))
 				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2));

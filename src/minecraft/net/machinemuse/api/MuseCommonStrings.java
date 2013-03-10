@@ -58,6 +58,7 @@ public abstract class MuseCommonStrings {
 	public static final String SOLAR_ENERGY_GENERATION_DAY = "Daytime Solar Energy Generation";
 	public static final String SOLAR_ENERGY_GENERATION_NIGHT = "Nighttime Solar Energy Generation";
 	public static final String KINETIC_ENERGY_GENERATION = "Energy Generation Per 5 Blocks";
+	public static final String BLINK_DRIVE_RANGE = "Blink Drive Range";
 
 	/**
 	 * Module names
