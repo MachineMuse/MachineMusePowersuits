@@ -42,7 +42,7 @@ public class MuseItemUtils {
 		List<String> modes = new ArrayList();
 		if (stack.getItem() instanceof IModularItem) {
 			for (IPowerModule module : ModuleManager.getAllModules()) {
-				if (module.isValidForItem(stack, player) && module.isActive()) {
+				if (module.isValidForItem(stack, player) && module instanceof IRightClickModule) {
 					modes.add(module.getName());
 				}
 			}
@@ -54,7 +54,7 @@ public class MuseItemUtils {
 		List<String> modes = new ArrayList();
 		if (stack.getItem() instanceof IModularItem) {
 			for (IPowerModule module : ModuleManager.getAllModules()) {
-				if (module.isValidForItem(stack, player) && module.isActive() && itemHasModule(stack, module.getName())) {
+				if (module.isValidForItem(stack, player) && module instanceof IRightClickModule && itemHasModule(stack, module.getName())) {
 					modes.add(module.getName());
 				}
 			}
@@ -521,7 +521,7 @@ public class MuseItemUtils {
 			// playerEntity.sendChatToPlayer("Server has disallowed this module. Sorry!");
 			return false;
 		}
-		if (module != null && module.isActive()) {
+		if (module != null && module instanceof IRightClickModule) {
 			// MuseLogger.logDebug("Module: " + moduleName + " vs Mode: " +
 			// MuseItemUtils.getActiveMode(itemStack));
 

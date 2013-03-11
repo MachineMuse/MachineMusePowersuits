@@ -4,11 +4,14 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 
 import net.machinemuse.api.IModularItem;
+import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModule;
+import net.machinemuse.powersuits.powermodule.RightClickPowerModule;
+import net.machinemuse.powersuits.powermodule.ToggleablePowerModule;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
@@ -113,8 +116,7 @@ public class ModCompatability {
 			return (ItemStack) Class.forName("gregtechmod.GT_Mod")
 					.getMethod("getGregTechItem", new Class[] { Integer.TYPE, Integer.TYPE, Integer.TYPE })
 					.invoke(null, new Object[] { Integer.valueOf(aIndex), Integer.valueOf(aAmount), Integer.valueOf(aMeta) });
-		} catch (Exception e) {
-		}
+		} catch (Exception e) {}
 		return null;
 	}
 
@@ -131,7 +133,7 @@ public class ModCompatability {
 				Field itemGoggles = tcItems.getField("itemGoggles");
 				Item goggles = (Item) itemGoggles.get(itemGoggles);
 				gogglesStack = new ItemStack(goggles);
-				PowerModule module = new PowerModule("Aurameter", Arrays.asList((IModularItem) ModularPowersuits.powerArmorHead), new MuseIcon(
+				IPowerModule module = new PowerModule("Aurameter", Arrays.asList((IModularItem) ModularPowersuits.powerArmorHead), new MuseIcon(
 						"/thaumcraft/resources/ss_core.png", 144), MuseCommonStrings.CATEGORY_SPECIAL)
 						.setDescription(
 								"Connect up some Thaumic goggles to show the nearby aura values. (Does not reveal aura nodes, only shows the HUD)")
@@ -146,10 +148,10 @@ public class ModCompatability {
 
 		// Add UE multimeter module
 		if (ModCompatability.isBasicComponentsLoaded()) {
-			PowerModule module = new PowerModule(MuseCommonStrings.MODULE_MULTIMETER, Arrays.asList((IModularItem) ModularPowersuits.powerTool),
+			IPowerModule module = new RightClickPowerModule(MuseCommonStrings.MODULE_MULTIMETER,
+					Arrays.asList((IModularItem) ModularPowersuits.powerTool),
 					MuseIcon.PLATE_2_RED, MuseCommonStrings.CATEGORY_TOOL)
 					.setDescription("A tool addon that reads the Universal Electricity power generation in a wire.")
-					.setIsActive(true)
 					.addInstallCost(Config.copyAndResize(ItemComponent.wiring, 2))
 					.addInstallCost(Config.copyAndResize(ItemComponent.solenoid, 1));
 			ModuleManager.addModule(module);
@@ -157,14 +159,13 @@ public class ModCompatability {
 
 		if (ModCompatability.isAtomicScienceLoaded()) {
 
-			PowerModule module = new PowerModule(MuseCommonStrings.MODULE_HAZMAT,
+			IPowerModule module = new ToggleablePowerModule(MuseCommonStrings.MODULE_HAZMAT,
 					Arrays.asList((IModularItem) ModularPowersuits.powerArmorHead, (IModularItem) ModularPowersuits.powerArmorTorso,
 							(IModularItem) ModularPowersuits.powerArmorLegs, (IModularItem) ModularPowersuits.powerArmorFeet),
 					MuseIcon.FIELD_EMITTER_GREEN, MuseCommonStrings.CATEGORY_ARMOR)
 					.setDescription("Protect yourself from that pesky radiation poisoning. *Must be on every piece*")
-					.setToggleable(true)
-					.addBaseProperty(MuseCommonStrings.WEIGHT, 0.5)
-					.addInstallCost(Config.copyAndResize(ItemComponent.basicPlating, 3));
+					.addInstallCost(Config.copyAndResize(ItemComponent.basicPlating, 3))
+					.addBaseProperty(MuseCommonStrings.WEIGHT, 0.5);
 			ModuleManager.addModule(module);
 		}
 
@@ -176,8 +177,7 @@ public class ModCompatability {
 			if (item != null) {
 				return item;
 			}
-		} catch (Exception e) {
-		}
+		} catch (Exception e) {}
 		thermalexpansion.api.core.ItemRegistry.printItemNames();
 		MuseLogger.logError("Failed to get Thermal Expansion item " + string);
 		return null;

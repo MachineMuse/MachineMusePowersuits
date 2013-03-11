@@ -374,32 +374,7 @@ public class PlayerTickHandler implements ITickHandler {
 			}
 
 			// Sprint assist
-			if (hasSprintAssist) {
-				double horzMovement = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ);
-				if (player.isSprinting()) {
-					double exhaustion = Math.round(horzMovement * 100.0F) * 0.01;
-
-					double sprintCost = ModuleManager.computeModularProperty(pants, MuseCommonStrings.SPRINT_ENERGY_CONSUMPTION);
-					if (sprintCost + totalEnergyDrain < totalEnergy) {
-						double sprintMultiplier = ModuleManager.computeModularProperty(pants, MuseCommonStrings.SPRINT_SPEED_MULTIPLIER);
-						double exhaustionComp = ModuleManager.computeModularProperty(pants, MuseCommonStrings.SPRINT_FOOD_COMPENSATION);
-						totalEnergyDrain += sprintCost * horzMovement * 5;
-						player.landMovementFactor *= sprintMultiplier;
-
-						foodAdjustment += 0.01 * exhaustion * exhaustionComp;
-						player.jumpMovementFactor = player.landMovementFactor * .5f;
-					}
-				} else {
-					double cost = ModuleManager.computeModularProperty(pants, MuseCommonStrings.WALKING_ENERGY_CONSUMPTION);
-					if (cost + totalEnergyDrain < totalEnergy) {
-						double walkMultiplier = ModuleManager.computeModularProperty(pants, MuseCommonStrings.WALKING_SPEED_MULTIPLIER);
-						totalEnergyDrain += cost * horzMovement * 5;
-						player.landMovementFactor *= walkMultiplier;
-						player.jumpMovementFactor = player.landMovementFactor * .5f;
-					}
-
-				}
-			}
+			if (hasSprintAssist) {}
 		}
 		// Food Module
 		if (hasFeeder) {

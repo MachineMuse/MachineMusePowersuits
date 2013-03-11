@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import net.machinemuse.api.IPowerModule;
+import net.machinemuse.api.IToggleableModule;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
@@ -82,7 +83,7 @@ public class KeybindConfigFrame implements IGuiFrame {
 				new MusePoint2D(ul.x() + 10, br.y() - 10));
 		Iterator<MusePoint2D> pointIterator = points.iterator();
 		for (IPowerModule module : installedModules) {
-			if (module.isToggleable() && !alreadyAdded(module)) {
+			if (module instanceof IToggleableModule && !alreadyAdded(module)) {
 				ClickableModule clickie = new ClickableModule(module, pointIterator.next());
 				modules.add(clickie);
 			}
