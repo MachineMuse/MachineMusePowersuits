@@ -20,7 +20,7 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
 		addBaseProperty(MuseCommonStrings.PLASMA_CANNON_ENERGY_PER_TICK, 10, "J");
 		addBaseProperty(MuseCommonStrings.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 2, "pt");
 		addTradeoffProperty("Amperage", MuseCommonStrings.PLASMA_CANNON_ENERGY_PER_TICK, 150, "J");
-		addTradeoffProperty("Amperage", MuseCommonStrings.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 18, "pt");
+		addTradeoffProperty("Amperage", MuseCommonStrings.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 38, "pt");
 		addTradeoffProperty("Voltage", MuseCommonStrings.PLASMA_CANNON_ENERGY_PER_TICK, 50, "J");
 		addTradeoffProperty("Voltage", MuseCommonStrings.PLASMA_CANNON_EXPLOSIVENESS, 0.5, "Creeper");
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));

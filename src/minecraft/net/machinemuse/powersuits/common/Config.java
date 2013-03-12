@@ -16,6 +16,7 @@ import net.machinemuse.powersuits.powermodule.ToggleablePowerModule;
 import net.machinemuse.powersuits.powermodule.modules.BlinkDriveModule;
 import net.machinemuse.powersuits.powermodule.modules.InPlaceAssemblerModule;
 import net.machinemuse.powersuits.powermodule.modules.PlasmaCannonModule;
+import net.machinemuse.powersuits.powermodule.modules.RailgunModule;
 import net.machinemuse.powersuits.powermodule.modules.SprintAssistModule;
 import net.machinemuse.powersuits.powermodule.modules.StepAssistModule;
 import net.minecraft.block.Block;
@@ -221,6 +222,7 @@ public class Config {
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1));
 		addModule(module);
 
+		addModule(new RailgunModule(TOOLONLY));
 		addModule(new InPlaceAssemblerModule(TOOLONLY));
 
 		addModule(new BlinkDriveModule(TOOLONLY));

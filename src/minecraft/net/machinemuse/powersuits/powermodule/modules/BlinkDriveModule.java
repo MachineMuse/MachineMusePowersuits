@@ -54,10 +54,10 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
 		double energyConsumption = ModuleManager.computeModularProperty(itemStack, MuseCommonStrings.BLINK_DRIVE_ENERGY_CONSUMPTION);
 		if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
 			ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
-			world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
+			world.playSoundAtEntity(player, "mob.endermen.portal", 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
 			MovingObjectPosition hitMOP = MusePlayerUtils.doCustomRayTrace(player.worldObj, player, true, range);
 			MusePlayerUtils.teleportEntity(player, hitMOP);
-			world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
+			world.playSoundAtEntity(player, "mob.endermen.portal", 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
 		}
 
 	}
