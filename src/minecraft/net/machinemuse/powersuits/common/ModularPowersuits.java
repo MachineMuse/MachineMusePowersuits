@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.common;
 
 import net.machinemuse.powersuits.block.BlockTinkerTable;
-import net.machinemuse.powersuits.entity.EntityBlinkDriveBolt;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.event.EventHandler;
 import net.machinemuse.powersuits.event.MovementManager;
@@ -125,7 +124,6 @@ public class ModularPowersuits {
 		Config.loadPowerModules();
 
 		EntityRegistry.registerModEntity(EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, this, 64, 20, true);
-		EntityRegistry.registerModEntity(EntityBlinkDriveBolt.class, "entityBlinkDriveBolt", 2478, this, 64, 20, true);
 		proxy.registerHandlers();
 		proxy.registerRenderers();
 		NetworkRegistry.instance().registerGuiHandler(this, guiHandler);

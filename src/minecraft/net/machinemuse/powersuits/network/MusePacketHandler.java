@@ -11,7 +11,15 @@ import java.lang.reflect.InvocationTargetException;
 
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MuseLogger;
-import net.machinemuse.powersuits.network.packets.*;
+import net.machinemuse.powersuits.network.packets.MusePacketFallDistance;
+import net.machinemuse.powersuits.network.packets.MusePacketInstallModuleRequest;
+import net.machinemuse.powersuits.network.packets.MusePacketInventoryRefresh;
+import net.machinemuse.powersuits.network.packets.MusePacketModeChangeRequest;
+import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
+import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
+import net.machinemuse.powersuits.network.packets.MusePacketSalvageModuleRequest;
+import net.machinemuse.powersuits.network.packets.MusePacketToggleRequest;
+import net.machinemuse.powersuits.network.packets.MusePacketTweakRequest;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -42,7 +50,6 @@ public class MusePacketHandler implements IPacketHandler {
 		addPacketType(7, MusePacketToggleRequest.class);
 		addPacketType(8, MusePacketPlasmaBolt.class);
 		addPacketType(9, MusePacketModeChangeRequest.class);
-		addPacketType(10, MusePacketBlinkDriveBolt.class);
 
 		NetworkRegistry.instance().registerChannel(this,
 				Config.getNetworkChannelName());
@@ -53,17 +60,11 @@ public class MusePacketHandler implements IPacketHandler {
 			.create();
 
 	@Override
-	public void onPacketData(INetworkManager manager,
-			Packet250CustomPayload payload, Player player) {
-
+	public void onPacketData(INetworkManager manager, Packet250CustomPayload payload, Player player) {
 		if (payload.channel.equals(Config.getNetworkChannelName())) {
-
 			MusePacket repackaged = repackage(payload, player);
-
 			if (repackaged != null) {
-
 				Side side = FMLCommonHandler.instance().getEffectiveSide();
-
 				if (side == Side.CLIENT) {
 					repackaged.handleClient((EntityClientPlayerMP) player);
 				} else if (side == Side.SERVER) {
@@ -82,17 +83,13 @@ public class MusePacketHandler implements IPacketHandler {
 		EntityPlayer target = (EntityPlayer) player;
 		int packetType;
 		try {
-
 			packetType = data.readInt();
-			repackaged = useConstructor(packetConstructors.get(packetType),
-					data, player);
-
+			repackaged = useConstructor(packetConstructors.get(packetType), data, player);
 		} catch (IOException e) {
 			MuseLogger.logError("PROBLEM READING PACKET TYPE D:");
 			e.printStackTrace();
 			return null;
 		}
-
 		return repackaged;
 	}
 

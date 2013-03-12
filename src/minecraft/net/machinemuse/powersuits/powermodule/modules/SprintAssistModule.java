@@ -36,7 +36,6 @@ public class SprintAssistModule extends PowerModule implements IPowerModule, IPl
 				this, "Walking Assist",
 				MuseCommonStrings.WALKING_ENERGY_CONSUMPTION, "J", 0, 10,
 				MuseCommonStrings.WALKING_SPEED_MULTIPLIER, "%", 1, 1);
-
 	}
 
 	@Override
