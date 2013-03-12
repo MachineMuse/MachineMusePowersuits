@@ -112,6 +112,17 @@ public abstract class PowerModuleBase implements IPowerModule {
 		return this;
 	}
 
+	public PowerModuleBase addSimpleTradeoff(
+			IPowerModule module, String tradeoffName,
+			String firstPropertyName, String firstUnits, double firstPropertyBase, double firstPropertyMultiplier,
+			String secondPropertyName, String secondUnits, double secondPropertyBase, double secondPropertyMultiplier) {
+		this.addBaseProperty(firstPropertyName, firstPropertyBase, firstUnits);
+		this.addTradeoffProperty(tradeoffName, firstPropertyName, firstPropertyMultiplier);
+		this.addBaseProperty(secondPropertyName, secondPropertyBase, secondUnits);
+		this.addTradeoffProperty(tradeoffName, secondPropertyName, secondPropertyMultiplier);
+		return this;
+	}
+
 	public PowerModuleBase addBaseProperty(String propertyName, double baseVal) {
 		double propFromConfig = Config.getConfig().get("Properties", getName() + "." + propertyName + ".base", baseVal).getDouble(baseVal);
 		return addPropertyModifier(propertyName, new PropertyModifierFlatAdditive(propFromConfig));

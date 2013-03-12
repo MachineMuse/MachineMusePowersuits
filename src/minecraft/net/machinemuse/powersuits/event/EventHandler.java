@@ -2,8 +2,8 @@ package net.machinemuse.powersuits.event;
 
 import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.powersuits.item.ItemPowerTool;
 import net.minecraft.block.Block;
@@ -82,12 +82,6 @@ public class EventHandler {
 					ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
 					player.setAir(300);
 				}
-			}
-			ItemStack legs = player.getCurrentArmor(1);
-			if (legs != null && legs.getItem() instanceof IModularItem && MuseItemUtils.itemHasActiveModule(legs, MuseCommonStrings.MODULE_CLIMB_ASSIST)) {
-				player.stepHeight = 1.001F;
-			} else if (player.stepHeight == 1.001F) {
-				player.stepHeight = 0.5001F;
 			}
 		}
 	}

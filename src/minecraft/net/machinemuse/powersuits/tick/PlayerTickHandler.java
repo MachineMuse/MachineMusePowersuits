@@ -99,8 +99,12 @@ public class PlayerTickHandler implements ITickHandler {
 
 		for (IPlayerTickModule module : ModuleManager.getPlayerTickModules()) {
 			for (ItemStack itemStack : modularItemsEquipped) {
-				if (module.isValidForItem(itemStack, player) && MuseItemUtils.itemHasModule(itemStack, module.getName())) {
-					((IPlayerTickModule) module).onPlayerTick(player, itemStack);
+				if (module.isValidForItem(itemStack, player)) {
+					if (MuseItemUtils.itemHasActiveModule(itemStack, module.getName())) {
+						((IPlayerTickModule) module).onPlayerTickActive(player, itemStack);
+					} else {
+						((IPlayerTickModule) module).onPlayerTickInactive(player, itemStack);
+					}
 				}
 			}
 		}

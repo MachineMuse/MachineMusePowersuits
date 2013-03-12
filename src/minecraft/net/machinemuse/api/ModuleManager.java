@@ -13,6 +13,8 @@ public class ModuleManager {
 	protected static final Map<String, IPowerModule> moduleMap = new HashMap();
 	protected static final List<IPowerModule> moduleList = new ArrayList();
 	protected static final List<IPlayerTickModule> playerTickModules = new ArrayList();
+	protected static final List<IRightClickModule> rightClickModules = new ArrayList();
+	protected static final List<IToggleableModule> toggleableModules = new ArrayList();
 
 	public static List<IPowerModule> getAllModules() {
 		return moduleList;
@@ -33,6 +35,12 @@ public class ModuleManager {
 		if (module instanceof IPlayerTickModule) {
 			playerTickModules.add((IPlayerTickModule) module);
 		}
+		if (module instanceof IRightClickModule) {
+			rightClickModules.add((IRightClickModule) module);
+		}
+		if (module instanceof IToggleableModule) {
+			toggleableModules.add((IToggleableModule) module);
+		}
 	}
 
 	public static double computeModularProperty(ItemStack stack, String propertyName) {
@@ -46,4 +54,11 @@ public class ModuleManager {
 		return propertyValue;
 	}
 
+	public static List<IRightClickModule> getRightClickModules() {
+		return rightClickModules;
+	}
+
+	public static List<IToggleableModule> getToggleableModules() {
+		return toggleableModules;
+	}
 }

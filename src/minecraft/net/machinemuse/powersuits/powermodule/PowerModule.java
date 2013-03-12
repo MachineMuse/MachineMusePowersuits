@@ -3,7 +3,6 @@ package net.machinemuse.powersuits.powermodule;
 import java.util.List;
 
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.IPowerModule;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.powermodule.modules.PowerModuleBase;
 import net.minecraft.item.ItemStack;
@@ -68,17 +67,6 @@ public class PowerModule extends PowerModuleBase {
 
 	public PowerModule setDefaultDouble(String key, double value) {
 		this.defaultTag.setDouble(key, value);
-		return this;
-	}
-
-	public PowerModule addSimpleTradeoff(
-			IPowerModule module, String tradeoffName,
-			String firstPropertyName, String firstUnits, double firstPropertyBase, double firstPropertyMultiplier,
-			String secondPropertyName, String secondUnits, double secondPropertyBase, double secondPropertyMultiplier) {
-		this.addBaseProperty(firstPropertyName, firstPropertyBase, firstUnits);
-		this.addTradeoffProperty(tradeoffName, firstPropertyName, firstPropertyMultiplier);
-		this.addBaseProperty(secondPropertyName, secondPropertyBase, secondUnits);
-		this.addTradeoffProperty(tradeoffName, secondPropertyName, secondPropertyMultiplier);
 		return this;
 	}
 

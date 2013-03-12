@@ -535,4 +535,20 @@ public class MuseItemUtils {
 		return getMuseItemTag(itemStack).getString("Mode");
 	}
 
+	/**
+	 * Helper function for making recipes. Returns a copy of the itemstack with
+	 * the specified stacksize.
+	 * 
+	 * @param stack
+	 *            Itemstack to copy
+	 * @param number
+	 *            New Stacksize
+	 * @return A new itemstack with the specified properties
+	 */
+	public static ItemStack copyAndResize(ItemStack stack, int number) {
+		ItemStack copy = stack.copy();
+		copy.stackSize = number;
+		return copy;
+	}
+
 }

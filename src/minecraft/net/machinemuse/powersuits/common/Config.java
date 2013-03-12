@@ -12,9 +12,12 @@ import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModule;
-import net.machinemuse.powersuits.powermodule.RightClickPowerModule;
 import net.machinemuse.powersuits.powermodule.ToggleablePowerModule;
+import net.machinemuse.powersuits.powermodule.modules.BlinkDriveModule;
+import net.machinemuse.powersuits.powermodule.modules.InPlaceAssemblerModule;
+import net.machinemuse.powersuits.powermodule.modules.PlasmaCannonModule;
 import net.machinemuse.powersuits.powermodule.modules.SprintAssistModule;
+import net.machinemuse.powersuits.powermodule.modules.StepAssistModule;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -204,18 +207,7 @@ public class Config {
 				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
 		addModule(module);
 
-		module = new RightClickPowerModule(MuseCommonStrings.MODULE_PLASMA_CANNON, TOOLONLY, MuseIcon.WEAPON_ELECTRIC,
-				MuseCommonStrings.CATEGORY_WEAPON)
-				.setDescription("Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.")
-				.addBaseProperty(MuseCommonStrings.PLASMA_CANNON_ENERGY_PER_TICK, 10, "J")
-				.addBaseProperty(MuseCommonStrings.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 2, "pt")
-				.addTradeoffProperty("Amperage", MuseCommonStrings.PLASMA_CANNON_ENERGY_PER_TICK, 150, "J")
-				.addTradeoffProperty("Amperage", MuseCommonStrings.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 18, "pt")
-				.addTradeoffProperty("Voltage", MuseCommonStrings.PLASMA_CANNON_ENERGY_PER_TICK, 50, "J")
-				.addTradeoffProperty("Voltage", MuseCommonStrings.PLASMA_CANNON_EXPLOSIVENESS, 0.5, "Creeper")
-				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2))
-				.addInstallCost(copyAndResize(ItemComponent.hvcapacitor, 2));
-		addModule(module);
+		addModule(new PlasmaCannonModule(TOOLONLY));
 
 		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_MELEE_ASSIST, TOOLONLY, MuseIcon.PUNCHY, MuseCommonStrings.CATEGORY_WEAPON)
 				.setDescription("A much simpler addon, makes your powertool punches hit harder.")
@@ -229,28 +221,9 @@ public class Config {
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1));
 		addModule(module);
 
-		// Pix make blink drive. No blame pix if blink drive tear rift in
-		// universe. Some things man not meant control.
-		// Should probably replace the icon with something else once we have the
-		// asset for it.
-		module = new RightClickPowerModule(MuseCommonStrings.MODULE_BLINK_DRIVE, TOOLONLY,
-				MuseIcon.CRYSTAL_BUBBLE, MuseCommonStrings.CATEGORY_SPECIAL)
-				.setDescription("Get from point A to point C via point B, where point B is a fold in space & time.")
-				.addBaseProperty(MuseCommonStrings.BLINK_DRIVE_ENERGY_CONSUMPTION, 1000, "J")
-				.addBaseProperty(MuseCommonStrings.BLINK_DRIVE_RANGE, 5, "m")
-				.addTradeoffProperty("Range", MuseCommonStrings.BLINK_DRIVE_ENERGY_CONSUMPTION, 3000)
-				.addTradeoffProperty("Range", MuseCommonStrings.BLINK_DRIVE_RANGE, 59)
-				// TODO: Adjustable range for higher energy consumption?
-				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 1))
-				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2));
-		addModule(module);
+		addModule(new InPlaceAssemblerModule(TOOLONLY));
 
-		module = new RightClickPowerModule(MuseCommonStrings.MODULE_PORTABLE_CRAFTING, TOOLONLY, new MuseIcon(Block.workbench.getTextureFile(), 60),
-				MuseCommonStrings.CATEGORY_SPECIAL)
-				.setDescription("A larger crafting grid, on the go.")
-				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1))
-				.addInstallCost(new ItemStack(Block.workbench, 1));
-		addModule(module);
+		addModule(new BlinkDriveModule(TOOLONLY));
 
 		module = new PowerModule(MuseCommonStrings.MODULE_KINETIC_GENERATOR, LEGSONLY, MuseIcon.NEXUS_1_RED, MuseCommonStrings.CATEGORY_ENERGY)
 				.setDescription("Generate power with your movement.")
@@ -448,10 +421,7 @@ public class Config {
 				.addTradeoffProperty("Thrust", MuseCommonStrings.SWIM_BOOST_AMOUNT, 1, "m/s");
 		addModule(module);
 
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_CLIMB_ASSIST, LEGSONLY, MuseIcon.STEP_ASSIST, MuseCommonStrings.CATEGORY_MOVEMENT)
-				.setDescription("A pair of dedicated servos allow you to effortlessly step up 1m-high ledges.")
-				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2));
-		addModule(module);
+		addModule(new StepAssistModule(LEGSONLY));
 
 		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_TINT, ALLITEMS, MuseIcon.NETHERSTAR, MuseCommonStrings.CATEGORY_COSMETIC)
 				.setDescription("Give your armor some coloured tinting to customize your armor's appearance.")

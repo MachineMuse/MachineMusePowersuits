@@ -5,24 +5,20 @@ import java.util.Arrays;
 import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPlayerTickModule;
-import net.machinemuse.api.IPowerModule;
+import net.machinemuse.api.IToggleableModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-public class SprintAssistModule extends PowerModule implements IPowerModule, IPlayerTickModule {
+public class SprintAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
 
 	public SprintAssistModule() {
-		super(MuseCommonStrings.MODULE_SPRINT_ASSIST,
-				Arrays.asList((IModularItem) ModularPowersuits.powerArmorLegs),
-				MuseIcon.SPRINT_ASSIST,
-				MuseCommonStrings.CATEGORY_MOVEMENT);
+		super(Arrays.asList((IModularItem) ModularPowersuits.powerArmorLegs));
 		addInstallCost(Config.copyAndResize(ItemComponent.servoMotor, 4));
 		addSimpleTradeoff(
 				this, "Power",
@@ -59,7 +55,7 @@ public class SprintAssistModule extends PowerModule implements IPowerModule, IPl
 	}
 
 	@Override
-	public void onPlayerTick(EntityPlayer player, ItemStack item) {
+	public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
 		double horzMovement = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ);
 		double totalEnergy = ElectricItemUtils.getPlayerEnergy(player);
 		if (player.isSprinting()) {
@@ -85,6 +81,12 @@ public class SprintAssistModule extends PowerModule implements IPowerModule, IPl
 			}
 
 		}
+	}
+
+	@Override
+	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
