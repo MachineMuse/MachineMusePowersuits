@@ -89,7 +89,9 @@ public class ClickableKeybinding extends ClickableButton {
 	}
 
 	public void bindModule(ClickableModule module) {
-		boundModules.add(module);
+		if (!boundModules.contains(module)) {
+			boundModules.add(module);
+		}
 	}
 
 	public void unbindModule(ClickableModule module) {
