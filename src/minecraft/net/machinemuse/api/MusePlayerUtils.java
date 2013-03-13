@@ -2,6 +2,7 @@ package net.machinemuse.api;
 
 import java.util.List;
 
+import net.machinemuse.powersuits.common.MuseLogger;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -14,13 +15,17 @@ public class MusePlayerUtils {
 
 	public static MovingObjectPosition doCustomRayTrace(World world, EntityPlayer player, boolean collisionFlag, double reachDistance)
 	{
-		MovingObjectPosition pickedItem = null;
-		Vec3 playerPosition = player.getPosition(0);
-		playerPosition.yCoord += player.getEyeHeight();
-		Vec3 playerLook = player.getLook(0);
+		MovingObjectPosition pickedEntity = null;
+		Vec3 playerPosition = Vec3.createVectorHelper(player.posX, player.posY + player.getEyeHeight(), player.posZ);
+		Vec3 playerLook = player.getLookVec();
+		MuseLogger.logDebug("Pos: " + playerPosition);
+		MuseLogger.logDebug("Look: " + playerLook);
 
-		Vec3 playerViewOffset = playerPosition.addVector(playerLook.xCoord * reachDistance, playerLook.yCoord * reachDistance, playerLook.zCoord
-				* reachDistance);
+		Vec3 playerViewOffset = Vec3.createVectorHelper(
+				playerPosition.xCoord + playerLook.xCoord * reachDistance,
+				playerPosition.yCoord + playerLook.yCoord * reachDistance,
+				playerPosition.zCoord + playerLook.zCoord * reachDistance);
+		MuseLogger.logDebug("Ray: " + playerViewOffset);
 
 		double playerBorder = 1.1 * reachDistance;
 
@@ -32,7 +37,7 @@ public class MusePlayerUtils {
 		{
 			Entity entityHit = (Entity) entitiesHit.get(i);
 
-			if (entityHit.canBeCollidedWith())
+			if (entityHit.canBeCollidedWith() && !entityHit.equals(player))
 			{
 				float border = entityHit.getCollisionBorderSize();
 				AxisAlignedBB aabb = entityHit.boundingBox.expand((double) border, (double) border, (double) border);
@@ -42,7 +47,7 @@ public class MusePlayerUtils {
 				{
 					if (0.0D < closestDistance || closestDistance == 0.0D)
 					{
-						pickedItem = new MovingObjectPosition(entityHit);
+						pickedEntity = new MovingObjectPosition(entityHit);
 						closestDistance = 0.0D;
 					}
 				}
@@ -52,16 +57,21 @@ public class MusePlayerUtils {
 
 					if (distance < closestDistance || closestDistance == 0.0D)
 					{
-						pickedItem = new MovingObjectPosition(entityHit);
+						pickedEntity = new MovingObjectPosition(entityHit);
 						closestDistance = distance;
 					}
 				}
 			}
 		}
-		if (pickedItem != null) {
-			return pickedItem;
+		MovingObjectPosition pickedBlock = world.rayTraceBlocks_do_do(playerPosition, playerViewOffset, collisionFlag, !collisionFlag);
+		if (pickedBlock == null) {
+			return pickedEntity;
+		} else if (pickedEntity == null) {
+			return pickedBlock;
+		} else if (pickedEntity.hitVec.distanceTo(playerPosition) > pickedBlock.hitVec.distanceTo(playerPosition) + 1) {
+			return pickedBlock;
 		} else {
-			return player.rayTrace(reachDistance, 0);
+			return pickedEntity;
 		}
 
 		// float one = 1.0F;
@@ -97,33 +107,33 @@ public class MusePlayerUtils {
 			if (!player.playerNetServerHandler.connectionClosed) {
 				switch (hitMOP.typeOfHit) {
 				case ENTITY:
-					player.setPositionAndUpdate(hitMOP.entityHit.posX, hitMOP.entityHit.posY, hitMOP.entityHit.posZ);
+					player.setPositionAndUpdate(hitMOP.hitVec.xCoord, hitMOP.hitVec.yCoord, hitMOP.hitVec.zCoord);
 					break;
 				case TILE:
-					int hitx = hitMOP.blockX;
-					int hity = hitMOP.blockY;
-					int hitz = hitMOP.blockZ;
+					double hitx = hitMOP.hitVec.xCoord;
+					double hity = hitMOP.hitVec.yCoord;
+					double hitz = hitMOP.hitVec.zCoord;
 					switch (hitMOP.sideHit) {
 					case 0: // Bottom
 						hity -= 2;
 						break;
 					case 1: // Top
-						hity += 1;
+						// hity += 1;
 						break;
 					case 2: // East
-						hitz -= 1;
+						hitz -= 0.5;
 						break;
 					case 3: // West
-						hitz += 1;
+						hitz += 0.5;
 						break;
 					case 4: // North
-						hitx -= 1;
+						hitx -= 0.5;
 						break;
 					case 5: // South
-						hitx += 1;
+						hitx += 0.5;
 						break;
 					}
-					player.setPositionAndUpdate(hitx + 0.5, hity, hitz + 0.5);
+					player.setPositionAndUpdate(hitx, hity, hitz);
 					break;
 				default:
 					break;
