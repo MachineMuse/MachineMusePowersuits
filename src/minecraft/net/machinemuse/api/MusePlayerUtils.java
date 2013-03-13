@@ -68,13 +68,13 @@ public class MusePlayerUtils {
 		// Somehow this destroys the playerPosition vector -.-
 		MovingObjectPosition pickedBlock = world.rayTraceBlocks_do_do(playerPosition, playerViewOffset, collisionFlag, !collisionFlag);
 
-		playerPosition = Vec3.createVectorHelper(player.posX, player.posY + player.getEyeHeight(), player.posZ);
 		if (pickedBlock == null) {
 			return pickedEntity;
 		} else if (pickedEntity == null) {
 			return pickedBlock;
 		} else {
-			double dBlock = pickedBlock.hitVec.subtract(playerPosition).lengthVector();
+			playerPosition = Vec3.createVectorHelper(player.posX, player.posY + player.getEyeHeight(), player.posZ);
+			double dBlock = pickedBlock.hitVec.distanceTo(playerPosition);
 			if (closestEntity < dBlock) {
 				return pickedEntity;
 			} else {
