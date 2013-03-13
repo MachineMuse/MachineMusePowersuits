@@ -116,12 +116,14 @@ public class ModCompatability {
 			return (ItemStack) Class.forName("gregtechmod.GT_Mod")
 					.getMethod("getGregTechItem", new Class[] { Integer.TYPE, Integer.TYPE, Integer.TYPE })
 					.invoke(null, new Object[] { Integer.valueOf(aIndex), Integer.valueOf(aAmount), Integer.valueOf(aMeta) });
-		} catch (Exception e) {}
+		} catch (Exception e) {
+		}
 		return null;
 	}
 
 	public static void registerModSpecificModules() {
 		// Make the IC2 energy ratio show up in config file
+		getBCRatio();
 		getIC2Ratio();
 
 		// Add thaumgoggles module
@@ -177,7 +179,8 @@ public class ModCompatability {
 			if (item != null) {
 				return item;
 			}
-		} catch (Exception e) {}
+		} catch (Exception e) {
+		}
 		thermalexpansion.api.core.ItemRegistry.printItemNames();
 		MuseLogger.logError("Failed to get Thermal Expansion item " + string);
 		return null;
