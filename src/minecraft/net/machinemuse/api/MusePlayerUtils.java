@@ -2,7 +2,6 @@ package net.machinemuse.api;
 
 import java.util.List;
 
-import net.machinemuse.powersuits.common.MuseLogger;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -18,26 +17,27 @@ public class MusePlayerUtils {
 		MovingObjectPosition pickedEntity = null;
 		Vec3 playerPosition = Vec3.createVectorHelper(player.posX, player.posY + player.getEyeHeight(), player.posZ);
 		Vec3 playerLook = player.getLookVec();
-		MuseLogger.logDebug("Pos: " + playerPosition);
-		MuseLogger.logDebug("Look: " + playerLook);
 
 		Vec3 playerViewOffset = Vec3.createVectorHelper(
 				playerPosition.xCoord + playerLook.xCoord * reachDistance,
 				playerPosition.yCoord + playerLook.yCoord * reachDistance,
 				playerPosition.zCoord + playerLook.zCoord * reachDistance);
-		MuseLogger.logDebug("Ray: " + playerViewOffset);
 
 		double playerBorder = 1.1 * reachDistance;
+		AxisAlignedBB boxToScan = player.boundingBox.expand(playerBorder, playerBorder, playerBorder);
+		// AxisAlignedBB boxToScan =
+		// player.boundingBox.addCoord(playerLook.xCoord * reachDistance,
+		// playerLook.yCoord * reachDistance, playerLook.zCoord
+		// * reachDistance);
 
-		List entitiesHit = world.getEntitiesWithinAABBExcludingEntity(player,
-				player.boundingBox.expand(playerBorder, playerBorder, playerBorder));
-		double closestDistance = reachDistance;
+		List entitiesHit = world.getEntitiesWithinAABBExcludingEntity(player, boxToScan);
+		double closestEntity = reachDistance;
 
 		for (int i = 0; i < entitiesHit.size(); ++i)
 		{
 			Entity entityHit = (Entity) entitiesHit.get(i);
 
-			if (entityHit.canBeCollidedWith() && !entityHit.equals(player))
+			if (entityHit.canBeCollidedWith())
 			{
 				float border = entityHit.getCollisionBorderSize();
 				AxisAlignedBB aabb = entityHit.boundingBox.expand((double) border, (double) border, (double) border);
@@ -45,33 +45,41 @@ public class MusePlayerUtils {
 
 				if (aabb.isVecInside(playerPosition))
 				{
-					if (0.0D < closestDistance || closestDistance == 0.0D)
+					if (0.0D < closestEntity || closestEntity == 0.0D)
 					{
 						pickedEntity = new MovingObjectPosition(entityHit);
-						closestDistance = 0.0D;
+						pickedEntity.hitVec = hitMOP.hitVec;
+						closestEntity = 0.0D;
 					}
 				}
 				else if (hitMOP != null)
 				{
 					double distance = playerPosition.distanceTo(hitMOP.hitVec);
 
-					if (distance < closestDistance || closestDistance == 0.0D)
+					if (distance < closestEntity || closestEntity == 0.0D)
 					{
 						pickedEntity = new MovingObjectPosition(entityHit);
-						closestDistance = distance;
+						pickedEntity.hitVec = hitMOP.hitVec;
+						closestEntity = distance;
 					}
 				}
 			}
 		}
+		// Somehow this destroys the playerPosition vector -.-
 		MovingObjectPosition pickedBlock = world.rayTraceBlocks_do_do(playerPosition, playerViewOffset, collisionFlag, !collisionFlag);
+
+		playerPosition = Vec3.createVectorHelper(player.posX, player.posY + player.getEyeHeight(), player.posZ);
 		if (pickedBlock == null) {
 			return pickedEntity;
 		} else if (pickedEntity == null) {
 			return pickedBlock;
-		} else if (pickedEntity.hitVec.distanceTo(playerPosition) > pickedBlock.hitVec.distanceTo(playerPosition) + 1) {
-			return pickedBlock;
 		} else {
-			return pickedEntity;
+			double dBlock = pickedBlock.hitVec.subtract(playerPosition).lengthVector();
+			if (closestEntity < dBlock) {
+				return pickedEntity;
+			} else {
+				return pickedBlock;
+			}
 		}
 
 		// float one = 1.0F;
