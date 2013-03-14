@@ -18,22 +18,16 @@ import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.common.PlayerInputMap;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.FoodStats;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
 /**
- * Tick handler for Player update step. tickStart() is queued before the entity
- * is updated, and tickEnd() is queued afterwards.
+ * Tick handler for Player update step. tickStart() is queued before the entity is updated, and tickEnd() is queued afterwards.
  * 
  * Player update step: "Called to update the entity's position/logic."
  * 
@@ -67,8 +61,6 @@ public class PlayerTickHandler implements ITickHandler {
 		double totalEnergyDrain = 0;
 		double foodAdjustment = 0;
 
-		World world = player.worldObj;
-
 		double landMovementFactor = 0.1;
 		double jumpMovementFactor = 0.02;
 
@@ -93,9 +85,6 @@ public class PlayerTickHandler implements ITickHandler {
 		boolean hasNightVision = false;
 		boolean hasInvis = false;
 		boolean hasFlightControl = false;
-		boolean hasFeeder = false;
-		boolean hasSolarGeneration = false;
-		boolean hasKineticGeneration = false;
 
 		for (IPlayerTickModule module : ModuleManager.getPlayerTickModules()) {
 			for (ItemStack itemStack : modularItemsEquipped) {
@@ -113,8 +102,6 @@ public class PlayerTickHandler implements ITickHandler {
 
 			hasNightVision = MuseItemUtils.itemHasActiveModule(helmet, MuseCommonStrings.MODULE_NIGHT_VISION);
 			hasFlightControl = MuseItemUtils.itemHasActiveModule(helmet, MuseCommonStrings.MODULE_FLIGHT_CONTROL);
-			hasFeeder = MuseItemUtils.itemHasActiveModule(helmet, MuseCommonStrings.MODULE_AUTO_FEEDER);
-			hasSolarGeneration = MuseItemUtils.itemHasActiveModule(helmet, MuseCommonStrings.MODULE_SOLAR_GENERATOR);
 			if (helmet.getTagCompound().hasKey("ench")) {
 				helmet.getTagCompound().removeTag("ench");
 			}
@@ -123,7 +110,6 @@ public class PlayerTickHandler implements ITickHandler {
 			hasSprintAssist = MuseItemUtils.itemHasActiveModule(pants, MuseCommonStrings.MODULE_SPRINT_ASSIST);
 			hasJumpAssist = MuseItemUtils.itemHasActiveModule(pants, MuseCommonStrings.MODULE_JUMP_ASSIST);
 			hasSwimAssist = MuseItemUtils.itemHasActiveModule(pants, MuseCommonStrings.MODULE_SWIM_BOOST);
-			hasKineticGeneration = MuseItemUtils.itemHasActiveModule(pants, MuseCommonStrings.MODULE_KINETIC_GENERATOR);
 			if (pants.getTagCompound().hasKey("ench")) {
 				pants.getTagCompound().removeTag("ench");
 			}
@@ -378,85 +364,7 @@ public class PlayerTickHandler implements ITickHandler {
 			}
 
 			// Sprint assist
-			if (hasSprintAssist) {}
-		}
-		// Food Module
-		if (hasFeeder) {
-			IInventory inv = player.inventory;
-			double foodLevel = (double) MuseItemUtils.getFoodLevel(helmet);
-			double saturationLevel = MuseItemUtils.getSaturationLevel(helmet);
-			double efficiency = ModuleManager.computeModularProperty(helmet, MuseCommonStrings.EATING_EFFICIENCY);
-			FoodStats foodStats = player.getFoodStats();
-			int foodNeeded = 20 - foodStats.getFoodLevel();
-			double eatingEnergyConsumption = foodNeeded * ModuleManager.computeModularProperty(helmet, MuseCommonStrings.EATING_ENERGY_CONSUMPTION);
-			for (int i = 0; i < inv.getSizeInventory() && foodNeeded > foodLevel; i++) {
-				ItemStack stack = inv.getStackInSlot(i);
-				if (stack != null && stack.getItem() instanceof ItemFood) {
-					ItemFood food = (ItemFood) stack.getItem();
-					for (; stack.stackSize > 0 && foodNeeded > foodLevel; stack.stackSize--) {
-						foodLevel += food.getHealAmount() * efficiency / 100.0;
-						saturationLevel += food.getSaturationModifier() * efficiency / 100.0;
-						player.sendChatToPlayer("Feeder module: Ate a " + food.getItemDisplayName(stack));
-					}
-					if (stack.stackSize == 0) {
-						player.inventory.setInventorySlotContents(i, null);
-					}
-				}
-			}
-			int foodConsumed = (int) Math.min(foodNeeded, Math.min(foodLevel, eatingEnergyConsumption * (totalEnergy - totalEnergyDrain)));
-			if (foodConsumed > 0) {
-				if (saturationLevel >= 1.0F) {
-					foodStats.addStats(foodConsumed, 1.0F);
-					saturationLevel -= 1.0F;
-				}
-				else {
-					foodStats.addStats(foodConsumed, 0.0F);
-				}
-				foodLevel -= foodConsumed;
-				totalEnergyDrain += eatingEnergyConsumption * foodConsumed;
-			}
-			MuseItemUtils.setFoodLevel(helmet, foodLevel);
-			MuseItemUtils.setSaturationLevel(helmet, saturationLevel);
-		}
-		// Solar Generator
-		if (hasSolarGeneration) {
-			int xCoord = MathHelper.floor_double(player.posX);
-			int zCoord = MathHelper.floor_double(player.posZ);
-			boolean isRaining = false, canRain = true;
-			if (world.getTotalWorldTime() % 20 == 0) {
-				canRain = world.getWorldChunkManager().getBiomeGenAt(xCoord, zCoord).getIntRainfall() > 0;
-			}
-
-			isRaining = canRain && (world.isRaining() || world.isThundering());
-			// Make sure you're not in desert - Thanks cpw :P
-			boolean sunVisible = world.isDaytime() && !isRaining && world.canBlockSeeTheSky(xCoord, MathHelper.floor_double(player.posY) + 1, zCoord);
-			boolean moonVisible = !world.isDaytime() && !isRaining
-					&& world.canBlockSeeTheSky(xCoord, MathHelper.floor_double(player.posY) + 1, zCoord);
-			if (!world.isRemote && !world.provider.hasNoSky && (world.getTotalWorldTime() % 80) == 0) {
-				if (sunVisible) {
-					ElectricItemUtils.givePlayerEnergy(player,
-							ModuleManager.computeModularProperty(helmet, MuseCommonStrings.SOLAR_ENERGY_GENERATION_DAY));
-				}
-				else if (moonVisible) {
-					ElectricItemUtils.givePlayerEnergy(player,
-							ModuleManager.computeModularProperty(helmet, MuseCommonStrings.SOLAR_ENERGY_GENERATION_NIGHT));
-				}
-			}
-		}
-		// Static Generator
-		if (hasKineticGeneration && !player.isAirBorne) {
-			NBTTagCompound tag = MuseItemUtils.getMuseItemTag(pants);
-			boolean isNotWalking = (player.ridingEntity != null) || (player.isInWater());
-			if ((!tag.hasKey("x")) || (isNotWalking))
-				tag.setInteger("x", (int) player.posX);
-			if ((!tag.hasKey("z")) || (isNotWalking))
-				tag.setInteger("z", (int) player.posZ);
-			double distance = Math.sqrt((tag.getInteger("x") - (int) player.posX) * (tag.getInteger("x") - (int) player.posX)
-					+ (tag.getInteger("z") - (int) player.posZ) * (tag.getInteger("z") - (int) player.posZ));
-			if (distance >= 5.0D) {
-				tag.setInteger("x", (int) player.posX);
-				tag.setInteger("z", (int) player.posZ);
-				ElectricItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(pants, MuseCommonStrings.KINETIC_ENERGY_GENERATION));
+			if (hasSprintAssist) {
 			}
 		}
 

@@ -14,7 +14,6 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.machinemuse.powersuits.powermodule.ToggleablePowerModule;
 import net.machinemuse.powersuits.powermodule.modules.BlinkDriveModule;
-import net.machinemuse.powersuits.powermodule.modules.InPlaceAssemblerModule;
 import net.machinemuse.powersuits.powermodule.modules.PlasmaCannonModule;
 import net.machinemuse.powersuits.powermodule.modules.RailgunModule;
 import net.machinemuse.powersuits.powermodule.modules.SprintAssistModule;
@@ -218,33 +217,8 @@ public class Config {
 		addModule(module);
 
 		addModule(new RailgunModule(TOOLONLY));
-		addModule(new InPlaceAssemblerModule(TOOLONLY));
 
 		addModule(new BlinkDriveModule(TOOLONLY));
-
-		module = new PowerModule(MuseCommonStrings.MODULE_KINETIC_GENERATOR, LEGSONLY, MuseIcon.NEXUS_1_RED, MuseCommonStrings.CATEGORY_ENERGY)
-				.setDescription("Generate power with your movement.").addBaseProperty(MuseCommonStrings.WEIGHT, 1000)
-				.addBaseProperty(MuseCommonStrings.KINETIC_ENERGY_GENERATION, 250)
-				.addTradeoffProperty("Energy Generated", MuseCommonStrings.KINETIC_ENERGY_GENERATION, 750, " Joules")
-				.addTradeoffProperty("Energy Generated", MuseCommonStrings.WEIGHT, 3000, "g")
-				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2)).addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
-		addModule(module);
-
-		module = new PowerModule(MuseCommonStrings.MODULE_SOLAR_GENERATOR, HEADONLY, MuseIcon.NEXUS_1_GREEN, MuseCommonStrings.CATEGORY_ENERGY)
-				.setDescription("Let the sun power your adventures.").addBaseProperty(MuseCommonStrings.SOLAR_ENERGY_GENERATION_DAY, 2000)
-				.addBaseProperty(MuseCommonStrings.SOLAR_ENERGY_GENERATION_NIGHT, 200).addInstallCost(copyAndResize(ItemComponent.solarPanel, 1))
-				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 2));
-		addModule(module);
-
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_AUTO_FEEDER, HEADONLY, MuseIcon.NEXUS_1_BLUE,
-				MuseCommonStrings.CATEGORY_ENVIRONMENTAL)
-				.setDescription(
-						"Whenever you're hungry, this module will grab the bottom-left-most food item from your inventory and feed it to you, storing the rest for later.")
-				.addBaseProperty(MuseCommonStrings.EATING_ENERGY_CONSUMPTION, 100).addBaseProperty(MuseCommonStrings.EATING_EFFICIENCY, 50)
-				.addTradeoffProperty("Efficiency", MuseCommonStrings.EATING_ENERGY_CONSUMPTION, 100)
-				.addTradeoffProperty("Efficiency", MuseCommonStrings.EATING_EFFICIENCY, 50)
-				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2)).addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
-		addModule(module);
 
 		module = new PowerModule(MuseCommonStrings.MODULE_BASIC_PLATING, ARMORONLY, MuseIcon.MODULE_IRON_PLATING, MuseCommonStrings.CATEGORY_ARMOR)
 				.setDescription("Basic plating is heavy but protective.").addInstallCost(copyAndResize(ItemComponent.basicPlating, 1))
