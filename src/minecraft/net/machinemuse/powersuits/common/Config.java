@@ -109,6 +109,18 @@ public class Config {
 	public static double getSalvageChance() {
 		return config.get(Configuration.CATEGORY_GENERAL, "Salvage Ratio", 0.9).getDouble(0.9);
 	}
+	
+	/**
+	 * The maximum amount of armor contribution allowed per armor piece. Total
+	 * armor when the full set is worn can never exceed 4 times this amount.
+	 * 
+	 * @return
+	 */
+	public static double getMaximumArmorPerPiece() {
+		// Clamp this value between 0 and 6 armor points.
+		// The default of 6 will allow 24% reduction per piece.
+		return Math.min(6.0, Math.max(0.0, config.get(Configuration.CATEGORY_GENERAL, "Maximum Armor per Piece", 6.0).getDouble(6.0)));
+	}
 
 	/**
 	 * Whether or not to print debugging info.
@@ -442,6 +454,10 @@ public class Config {
 				.setDescription("An alternative armor texture, c/o CitizenJoe of IC2 forums.");
 
 		addModule(module);
+		
+		// Make the maximum armor per piece value show up in config file
+		getMaximumArmorPerPiece();
+		
 		// red = 1, green = 2, blue = 4
 	}
 

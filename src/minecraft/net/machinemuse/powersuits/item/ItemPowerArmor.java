@@ -217,8 +217,9 @@ public abstract class ItemPowerArmor extends ItemArmor
 		if (energy > enerConsum) {
 			totalArmor += enerArmor;
 		}
-		// Make it so each armor piece can only contribute 24% reduction
-		totalArmor = Math.min(6, totalArmor);
+		// Make it so each armor piece can only contribute reduction up to the configured amount.
+		// Defaults to 6 armor points, or 24% reduction.
+		totalArmor = Math.min(Config.getMaximumArmorPerPiece(), totalArmor);
 		return totalArmor;
 	}
 
