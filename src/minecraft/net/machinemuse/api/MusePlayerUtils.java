@@ -11,9 +11,8 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class MusePlayerUtils {
+	public static MovingObjectPosition raytraceEntities(World world, EntityPlayer player, boolean collisionFlag, double reachDistance) {
 
-	public static MovingObjectPosition doCustomRayTrace(World world, EntityPlayer player, boolean collisionFlag, double reachDistance)
-	{
 		MovingObjectPosition pickedEntity = null;
 		Vec3 playerPosition = Vec3.createVectorHelper(player.posX, player.posY + player.getEyeHeight(), player.posZ);
 		Vec3 playerLook = player.getLookVec();
@@ -65,17 +64,35 @@ public class MusePlayerUtils {
 				}
 			}
 		}
+		return pickedEntity;
+	}
+
+	public static MovingObjectPosition raytraceBlocks(World world, EntityPlayer player, boolean collisionFlag, double reachDistance) {
+		Vec3 playerPosition = Vec3.createVectorHelper(player.posX, player.posY + player.getEyeHeight(), player.posZ);
+		Vec3 playerLook = player.getLookVec();
+
+		Vec3 playerViewOffset = Vec3.createVectorHelper(
+				playerPosition.xCoord + playerLook.xCoord * reachDistance,
+				playerPosition.yCoord + playerLook.yCoord * reachDistance,
+				playerPosition.zCoord + playerLook.zCoord * reachDistance);
+		return world.rayTraceBlocks_do_do(playerPosition, playerViewOffset, collisionFlag, !collisionFlag);
+	}
+
+	public static MovingObjectPosition doCustomRayTrace(World world, EntityPlayer player, boolean collisionFlag, double reachDistance)
+	{
 		// Somehow this destroys the playerPosition vector -.-
-		MovingObjectPosition pickedBlock = world.rayTraceBlocks_do_do(playerPosition, playerViewOffset, collisionFlag, !collisionFlag);
+		MovingObjectPosition pickedBlock = raytraceBlocks(world, player, collisionFlag, reachDistance);
+		MovingObjectPosition pickedEntity = raytraceEntities(world, player, collisionFlag, reachDistance);
 
 		if (pickedBlock == null) {
 			return pickedEntity;
 		} else if (pickedEntity == null) {
 			return pickedBlock;
 		} else {
-			playerPosition = Vec3.createVectorHelper(player.posX, player.posY + player.getEyeHeight(), player.posZ);
+			Vec3 playerPosition = Vec3.createVectorHelper(player.posX, player.posY + player.getEyeHeight(), player.posZ);
 			double dBlock = pickedBlock.hitVec.distanceTo(playerPosition);
-			if (closestEntity < dBlock) {
+			double dEntity = pickedEntity.hitVec.distanceTo(playerPosition);
+			if (dEntity < dBlock) {
 				return pickedEntity;
 			} else {
 				return pickedBlock;
