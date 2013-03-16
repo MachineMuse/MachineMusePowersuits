@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.modules;
 
 import java.util.Arrays;
+import java.util.List;
 
 import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
@@ -19,13 +20,15 @@ import net.minecraft.item.ItemStack;
 
 public class JetPackModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
 	public static final String MODULE_JETPACK = "Jetpack";
-	public JetPackModule() {
-		super(Arrays.asList((IModularItem) ModularPowersuits.powerArmorTorso));
+	public static final String JET_ENERGY_CONSUMPTION = "Jet Energy Consumption";
+	public static final String JET_THRUST = "Jet Thrust";
+	public JetPackModule(List<IModularItem> validItems) {
+		super(validItems);
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 4));
-		addBaseProperty(MuseCommonStrings.JET_ENERGY_CONSUMPTION, 0, "J/t");
-		addBaseProperty(MuseCommonStrings.JET_THRUST, 0, "N");
-		addTradeoffProperty("Thrust", MuseCommonStrings.JET_ENERGY_CONSUMPTION, 150);
-		addTradeoffProperty("Thrust", MuseCommonStrings.JET_THRUST, 0.16);
+		addBaseProperty(JET_ENERGY_CONSUMPTION, 0, "J/t");
+		addBaseProperty(JET_THRUST, 0, "N");
+		addTradeoffProperty("Thrust", JET_ENERGY_CONSUMPTION, 150);
+		addTradeoffProperty("Thrust", JET_THRUST, 0.16);
 	}
 
 	@Override
@@ -56,12 +59,12 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
 		ItemStack torso = player.getCurrentArmor(2);
 		boolean hasFlightControl = false;
 		if (helmet != null && helmet.getItem() instanceof IModularItem) {
-			hasFlightControl = MuseItemUtils.itemHasActiveModule(helmet, MuseCommonStrings.MODULE_FLIGHT_CONTROL);
+			hasFlightControl = MuseItemUtils.itemHasActiveModule(helmet, FlightControlModule.MODULE_FLIGHT_CONTROL);
 		}
 		double jetEnergy = 0;
 		double thrust = 0;
-		jetEnergy += ModuleManager.computeModularProperty(torso, MuseCommonStrings.JET_ENERGY_CONSUMPTION);
-		thrust += ModuleManager.computeModularProperty(torso, MuseCommonStrings.JET_THRUST);
+		jetEnergy += ModuleManager.computeModularProperty(torso, JET_ENERGY_CONSUMPTION);
+		thrust += ModuleManager.computeModularProperty(torso, JET_THRUST);
 		
 		if (jetEnergy < ElectricItemUtils.getPlayerEnergy(player)) {
 			thrust *= PlayerTickHandler.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);

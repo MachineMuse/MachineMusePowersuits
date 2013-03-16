@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.powermodule.modules;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
@@ -19,8 +20,8 @@ import net.minecraft.potion.PotionEffect;
 
 public class NightVisionModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
 	public static final String MODULE_NIGHT_VISION = "Night Vision";
-	public NightVisionModule() {
-		super(Arrays.asList((IModularItem) ModularPowersuits.powerArmorHead));
+	public NightVisionModule(List<IModularItem> validItems) {
+		super(validItems);
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.laserHologram, 1));
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
 	}

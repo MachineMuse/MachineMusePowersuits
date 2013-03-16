@@ -38,6 +38,10 @@ public class ModCompatability {
 	public static boolean isThermalExpansionLoaded() {
 		return Loader.isModLoaded("ThermalExpansion");
 	}
+	
+	public static boolean isAndrewAddonsLoaded() {
+		return Loader.isModLoaded("powersuitAddons");
+	}
 
 	public static boolean enableThaumGogglesModule() {
 		boolean defaultval = isThaumCraftLoaded();

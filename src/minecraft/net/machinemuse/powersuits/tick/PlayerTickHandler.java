@@ -54,22 +54,22 @@ public class PlayerTickHandler implements ITickHandler {
 		double totalWeight = MuseItemUtils.getPlayerWeight(player);
 		double weightCapacity = 25000;
 
-		double totalEnergyDrain = 0;
+		//double totalEnergyDrain = 0;
 		double foodAdjustment = 0;
 
-		double landMovementFactor = 0.1;
-		double jumpMovementFactor = 0.02;
+		//double landMovementFactor = 0.1;
+		//double jumpMovementFactor = 0.02;
 
-		Vec3 playerHorzFacing = player.getLookVec();
-		playerHorzFacing.yCoord = 0;
-		playerHorzFacing.normalize();
+		//Vec3 playerHorzFacing = player.getLookVec();
+		//playerHorzFacing.yCoord = 0;
+		//playerHorzFacing.normalize();
 
-		PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.username);
-		boolean jumpkey = movementInput.jumpKey;
-		float forwardkey = movementInput.forwardKey;
-		float strafekey = movementInput.strafeKey;
-		boolean sneakkey = movementInput.sneakKey;
-		boolean downkey = movementInput.downKey;
+		//PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.username);
+		//boolean jumpkey = movementInput.jumpKey;
+		//float forwardkey = movementInput.forwardKey;
+		//float strafekey = movementInput.strafeKey;
+		//boolean sneakkey = movementInput.sneakKey;
+		//boolean downkey = movementInput.downKey;
 
 		for (IPlayerTickModule module : ModuleManager.getPlayerTickModules()) {
 			for (ItemStack itemStack : modularItemsEquipped) {
@@ -106,11 +106,11 @@ public class PlayerTickHandler implements ITickHandler {
 		// Update fall distance for damage, energy drain, and
 		// exhaustion this tick
 
-		if (totalEnergyDrain > 0) {
-			ElectricItemUtils.drainPlayerEnergy(player, totalEnergyDrain);
-		} else {
-			ElectricItemUtils.givePlayerEnergy(player, -totalEnergyDrain);
-		}
+//		if (totalEnergyDrain > 0) {
+//			ElectricItemUtils.drainPlayerEnergy(player, totalEnergyDrain);
+//		} else {
+//			ElectricItemUtils.givePlayerEnergy(player, -totalEnergyDrain);
+//		}
 
 		player.getFoodStats().addExhaustion((float) (-foodAdjustment));
 		player.fallDistance = (float) MovementManager.computeFallHeightFromVelocity(MuseMathUtils.clampDouble(player.motionY, -1000.0, 0.0));

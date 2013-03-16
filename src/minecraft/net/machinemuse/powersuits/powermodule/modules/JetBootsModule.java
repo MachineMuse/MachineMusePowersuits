@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.modules;
 
 import java.util.Arrays;
+import java.util.List;
 
 import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
@@ -19,13 +20,15 @@ import net.minecraft.item.ItemStack;
 
 public class JetBootsModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
 	public static final String MODULE_JETBOOTS = "Jet Boots";
-	public JetBootsModule() {
-		super(Arrays.asList((IModularItem) ModularPowersuits.powerArmorFeet));
+	public static final String JET_ENERGY_CONSUMPTION = "Jet Energy Consumption";
+	public static final String JET_THRUST = "Jet Thrust";
+	public JetBootsModule(List<IModularItem> validItems) {
+		super(validItems);
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 2));
-		addBaseProperty(MuseCommonStrings.JET_ENERGY_CONSUMPTION, 0);
-		addBaseProperty(MuseCommonStrings.JET_THRUST, 0);
-		addTradeoffProperty("Thrust", MuseCommonStrings.JET_ENERGY_CONSUMPTION, 75);
-		addTradeoffProperty("Thrust", MuseCommonStrings.JET_THRUST, 0.08);
+		addBaseProperty(JET_ENERGY_CONSUMPTION, 0);
+		addBaseProperty(JET_THRUST, 0);
+		addTradeoffProperty("Thrust", JET_ENERGY_CONSUMPTION, 75);
+		addTradeoffProperty("Thrust", JET_THRUST, 0.08);
 	}
 
 	@Override
@@ -56,12 +59,12 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
 		ItemStack boots = player.getCurrentArmor(0);
 		boolean hasFlightControl = false;
 		if (helmet != null && helmet.getItem() instanceof IModularItem) {
-			hasFlightControl = MuseItemUtils.itemHasActiveModule(helmet, MuseCommonStrings.MODULE_FLIGHT_CONTROL);
+			hasFlightControl = MuseItemUtils.itemHasActiveModule(helmet, FlightControlModule.MODULE_FLIGHT_CONTROL);
 		}
 		double jetEnergy = 0;
 		double thrust = 0;
-		jetEnergy += ModuleManager.computeModularProperty(boots, MuseCommonStrings.JET_ENERGY_CONSUMPTION);
-		thrust += ModuleManager.computeModularProperty(boots, MuseCommonStrings.JET_THRUST);
+		jetEnergy += ModuleManager.computeModularProperty(boots, JET_ENERGY_CONSUMPTION);
+		thrust += ModuleManager.computeModularProperty(boots, JET_THRUST);
 		
 		if (jetEnergy < ElectricItemUtils.getPlayerEnergy(player)) {
 			thrust *= PlayerTickHandler.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);

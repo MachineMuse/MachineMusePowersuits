@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.modules;
 
 import java.util.Arrays;
+import java.util.List;
 
 import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
@@ -18,9 +19,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 public class FlightControlModule extends PowerModuleBase implements IToggleableModule {
-
-	public FlightControlModule() {
-		super(Arrays.asList((IModularItem) ModularPowersuits.powerArmorHead));
+	public static final String MODULE_FLIGHT_CONTROL = "Flight Control";
+	public FlightControlModule(List<IModularItem> validItems) {
+		super(validItems);
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
 	}
 
@@ -36,7 +37,7 @@ public class FlightControlModule extends PowerModuleBase implements IToggleableM
 
 	@Override
 	public String getName() {
-		return MuseCommonStrings.MODULE_FLIGHT_CONTROL;
+		return MODULE_FLIGHT_CONTROL;
 	}
 
 	@Override

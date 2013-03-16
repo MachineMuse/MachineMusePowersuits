@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.item.ItemPowerArmorHead;
 import net.machinemuse.powersuits.item.ItemPowerTool;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,40 +26,21 @@ public abstract class MuseCommonStrings {
 	public static final String SHOVEL_ENERGY_CONSUMPTION = "Shovel Energy Consumption";
 	public static final String AXE_ENERGY_CONSUMPTION = "Axe Energy Consumption";
 	public static final String PICKAXE_ENERGY_CONSUMPTION = "Pickaxe Energy Consumption";
-	public static final String BLINK_DRIVE_ENERGY_CONSUMPTION = "Blink Drive Energy Consuption";
 	public static final String BATTERY_WEIGHT = "Battery Weight";
-	public static final String SPRINT_ENERGY_CONSUMPTION = "Sprint Energy Consumption";
-	public static final String SPRINT_SPEED_MULTIPLIER = "Sprint Speed Multiplier";
-	public static final String SPRINT_FOOD_COMPENSATION = "Sprint Exhaustion Compensation";
-	public static final String JUMP_ENERGY_CONSUMPTION = "Jump Energy Consumption";
-	public static final String JUMP_MULTIPLIER = "Jump Boost";
-	public static final String JUMP_FOOD_COMPENSATION = "Jump Exhaustion Compensation";
-	public static final String SHOCK_ABSORB_MULTIPLIER = "Distance Reduction";
-	public static final String SHOCK_ABSORB_ENERGY_CONSUMPTION = "Impact Energy consumption";
-	public static final String JET_ENERGY_CONSUMPTION = "Jet Energy Consumption";
-	public static final String JET_THRUST = "Jet Thrust";
 	public static final String WATERBREATHING_ENERGY_CONSUMPTION = "Jolt Energy";
 	public static final String AQUA_AFFINITY_ENERGY_CONSUMPTION = "Underwater Energy Consumption";
 	public static final String UNDERWATER_HARVEST_SPEED = "Underwater Harvest Speed";
-	public static final String SWIM_BOOST_AMOUNT = "Underwater Movement Boost";
-	public static final String SWIM_BOOST_ENERGY_CONSUMPTION = "Swim Boost Energy Consumption";
 	public static final String RED_TINT = "Red Tint";
 	public static final String GREEN_TINT = "Green Tint";
 	public static final String BLUE_TINT = "Blue Tint";
-	public static final String PLASMA_CANNON_ENERGY_PER_TICK = "Plasma Energy Per Tick";
-	public static final String PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE = "Plasma Damage At Full Charge";
-	public static final String PLASMA_CANNON_EXPLOSIVENESS = "Plasma Explosiveness";
 	public static final String PUNCH_ENERGY = "Punch Energy Consumption";
 	public static final String PUNCH_DAMAGE = "Melee Damage";
 	public static final String PUNCH_KNOCKBACK = "Melee Knockback";
-	public static final String WALKING_ENERGY_CONSUMPTION = "Walking Energy Consumption";
-	public static final String WALKING_SPEED_MULTIPLIER = "Walking Speed Multiplier";
 	public static final String EATING_ENERGY_CONSUMPTION = "Eating Energy Consumption";
 	public static final String EATING_EFFICIENCY = "Auto-Feeder Efficiency";
 	public static final String SOLAR_ENERGY_GENERATION_DAY = "Daytime Solar Energy Generation";
 	public static final String SOLAR_ENERGY_GENERATION_NIGHT = "Nighttime Solar Energy Generation";
 	public static final String KINETIC_ENERGY_GENERATION = "Energy Generation Per 5 Blocks";
-	public static final String BLINK_DRIVE_RANGE = "Blink Drive Range";
 
 	/**
 	 * Module names
@@ -73,14 +55,12 @@ public abstract class MuseCommonStrings {
 	public static final String MODULE_DIAMOND_PLATING = "Diamond Plating";
 	public static final String MODULE_ENERGY_SHIELD = "Energy Shield";
 	public static final String MODULE_DIAMOND_PICK_UPGRADE = "Diamond Drill Upgrade";
-	public static final String MODULE_SHOCK_ABSORBER = "Shock Absorber";
 	public static final String MODULE_TRANSPARENT_ARMOR = "Transparent Armor";
 	public static final String MODULE_ANTIGRAVITY = "Antigravity Drive";
 	public static final String MODULE_WATER_ELECTROLYZER = "Water Electrolyzer";
 	public static final String MODULE_AQUA_AFFINITY = "Aqua Affinity";
 	public static final String MODULE_TINT = "Custom Colour Module";
 	public static final String MODULE_MELEE_ASSIST = "Melee Assist";
-	public static final String MODULE_FLIGHT_CONTROL = "Flight Control";
 	public static final String MODULE_AUTO_FEEDER = "Auto-Feeder";
 	public static final String MODULE_SOLAR_GENERATOR = "Solar Generator";
 	public static final String MODULE_KINETIC_GENERATOR = "Kinetic Generator";
@@ -155,17 +135,10 @@ public abstract class MuseCommonStrings {
 		currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character,
 				MuseStringUtils.FormatCodes.Grey));
 		try {
-			if (stack.getItem() instanceof ItemPowerArmorHead &&
-					MuseItemUtils.getFoodLevel(stack) > 0
-					&& MuseItemUtils.itemHasModule(stack,
-							MuseCommonStrings.MODULE_AUTO_FEEDER)) {
-				currentTipList.add(MuseStringUtils.wrapMultipleFormatTags("Food level: "
-						+ MuseItemUtils.getFoodLevel(stack),
-						MuseStringUtils.FormatCodes.Italic.character,
-						MuseStringUtils.FormatCodes.Grey));
+			if (ModCompatability.isAndrewAddonsLoaded() && stack.getItem() instanceof ItemPowerArmorHead && MuseItemUtils.getFoodLevel(stack) > 0 && MuseItemUtils.itemHasModule(stack, MuseCommonStrings.MODULE_AUTO_FEEDER)) {
+				currentTipList.add(MuseStringUtils.wrapMultipleFormatTags("Food level: " + MuseItemUtils.getFoodLevel(stack), MuseStringUtils.FormatCodes.Italic.character, MuseStringUtils.FormatCodes.Grey));
 			}
-		} catch (Exception e) {
-		}
+		} catch (Exception e) {}
 		if (Config.doAdditionalInfo()) {
 			List<String> installed = MuseCommonStrings.getItemInstalledModules(player, stack);
 			if (installed.size() == 0) {

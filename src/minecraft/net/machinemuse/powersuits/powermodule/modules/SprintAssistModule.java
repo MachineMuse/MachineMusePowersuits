@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.modules;
 
 import java.util.Arrays;
+import java.util.List;
 
 import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
@@ -17,21 +18,17 @@ import net.minecraft.item.ItemStack;
 
 public class SprintAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
 	public static final String MODULE_SPRINT_ASSIST = "Sprint Assist";
-	public SprintAssistModule() {
-		super(Arrays.asList((IModularItem) ModularPowersuits.powerArmorLegs));
+	public static final String SPRINT_ENERGY_CONSUMPTION = "Sprint Energy Consumption";
+	public static final String SPRINT_SPEED_MULTIPLIER = "Sprint Speed Multiplier";
+	public static final String SPRINT_FOOD_COMPENSATION = "Sprint Exhaustion Compensation";
+	public static final String WALKING_ENERGY_CONSUMPTION = "Walking Energy Consumption";
+	public static final String WALKING_SPEED_MULTIPLIER = "Walking Speed Multiplier";
+	public SprintAssistModule(List<IModularItem> validItems) {
+		super(validItems);
 		addInstallCost(Config.copyAndResize(ItemComponent.servoMotor, 4));
-		addSimpleTradeoff(
-				this, "Power",
-				MuseCommonStrings.SPRINT_ENERGY_CONSUMPTION, "J", 0, 10,
-				MuseCommonStrings.SPRINT_SPEED_MULTIPLIER, "%", 1, 2);
-		addSimpleTradeoff(
-				this, "Compensation",
-				MuseCommonStrings.SPRINT_ENERGY_CONSUMPTION, "J", 0, 2,
-				MuseCommonStrings.SPRINT_FOOD_COMPENSATION, "%", 0, 1);
-		addSimpleTradeoff(
-				this, "Walking Assist",
-				MuseCommonStrings.WALKING_ENERGY_CONSUMPTION, "J", 0, 10,
-				MuseCommonStrings.WALKING_SPEED_MULTIPLIER, "%", 1, 1);
+		addSimpleTradeoff(this, "Power", SPRINT_ENERGY_CONSUMPTION, "J", 0, 10, SPRINT_SPEED_MULTIPLIER, "%", 1, 2);
+		addSimpleTradeoff(this, "Compensation", SPRINT_ENERGY_CONSUMPTION, "J", 0, 2, SPRINT_FOOD_COMPENSATION, "%", 0, 1);
+		addSimpleTradeoff(this, "Walking Assist", WALKING_ENERGY_CONSUMPTION, "J", 0, 10, WALKING_SPEED_MULTIPLIER, "%", 1, 1);
 	}
 
 	@Override
@@ -61,10 +58,10 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
 		if (player.isSprinting()) {
 			double exhaustion = Math.round(horzMovement * 100.0F) * 0.01;
 
-			double sprintCost = ModuleManager.computeModularProperty(item, MuseCommonStrings.SPRINT_ENERGY_CONSUMPTION);
+			double sprintCost = ModuleManager.computeModularProperty(item, SPRINT_ENERGY_CONSUMPTION);
 			if (sprintCost < totalEnergy) {
-				double sprintMultiplier = ModuleManager.computeModularProperty(item, MuseCommonStrings.SPRINT_SPEED_MULTIPLIER);
-				double exhaustionComp = ModuleManager.computeModularProperty(item, MuseCommonStrings.SPRINT_FOOD_COMPENSATION);
+				double sprintMultiplier = ModuleManager.computeModularProperty(item, SPRINT_SPEED_MULTIPLIER);
+				double exhaustionComp = ModuleManager.computeModularProperty(item, SPRINT_FOOD_COMPENSATION);
 				ElectricItemUtils.drainPlayerEnergy(player, sprintCost * horzMovement * 5);
 				player.landMovementFactor *= sprintMultiplier;
 
@@ -72,9 +69,9 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
 				player.jumpMovementFactor = player.landMovementFactor * .5f;
 			}
 		} else {
-			double cost = ModuleManager.computeModularProperty(item, MuseCommonStrings.WALKING_ENERGY_CONSUMPTION);
+			double cost = ModuleManager.computeModularProperty(item, WALKING_ENERGY_CONSUMPTION);
 			if (cost < totalEnergy) {
-				double walkMultiplier = ModuleManager.computeModularProperty(item, MuseCommonStrings.WALKING_SPEED_MULTIPLIER);
+				double walkMultiplier = ModuleManager.computeModularProperty(item, WALKING_SPEED_MULTIPLIER);
 				ElectricItemUtils.drainPlayerEnergy(player, cost * horzMovement * 5);
 				player.landMovementFactor *= walkMultiplier;
 				player.jumpMovementFactor = player.landMovementFactor * .5f;

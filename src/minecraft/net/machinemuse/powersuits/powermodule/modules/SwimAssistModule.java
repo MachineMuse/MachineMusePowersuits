@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.modules;
 
 import java.util.Arrays;
+import java.util.List;
 
 import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
@@ -19,12 +20,14 @@ import net.minecraft.item.ItemStack;
 
 public class SwimAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
 	public static final String MODULE_SWIM_BOOST = "Swim Boost";
-	public SwimAssistModule() {
-		super(Arrays.asList((IModularItem) ModularPowersuits.powerArmorLegs));
+	public static final String SWIM_BOOST_AMOUNT = "Underwater Movement Boost";
+	public static final String SWIM_BOOST_ENERGY_CONSUMPTION = "Swim Boost Energy Consumption";
+	public SwimAssistModule(List<IModularItem> validItems) {
+		super(validItems);
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 1));
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 2));
-		addTradeoffProperty("Thrust", MuseCommonStrings.SWIM_BOOST_ENERGY_CONSUMPTION, 100, "J");
-		addTradeoffProperty("Thrust", MuseCommonStrings.SWIM_BOOST_AMOUNT, 1, "m/s");
+		addTradeoffProperty("Thrust", SWIM_BOOST_ENERGY_CONSUMPTION, 100, "J");
+		addTradeoffProperty("Thrust", SWIM_BOOST_AMOUNT, 1, "m/s");
 	}
 
 	@Override
@@ -67,8 +70,8 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
 				if (jumpkey || sneakkey) {
 					moveRatio += 0.2 * 0.2;
 				}
-				double swimAssistRate = ModuleManager.computeModularProperty(pants, MuseCommonStrings.SWIM_BOOST_AMOUNT) * 0.05;
-				double swimEnergyConsumption = ModuleManager.computeModularProperty(pants, MuseCommonStrings.SWIM_BOOST_ENERGY_CONSUMPTION);
+				double swimAssistRate = ModuleManager.computeModularProperty(pants, SWIM_BOOST_AMOUNT) * 0.05;
+				double swimEnergyConsumption = ModuleManager.computeModularProperty(pants, SWIM_BOOST_ENERGY_CONSUMPTION);
 				if (swimEnergyConsumption < ElectricItemUtils.getPlayerEnergy(player)) {
 
 					// if (swimTicker == 0) {

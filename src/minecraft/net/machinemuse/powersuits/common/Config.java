@@ -24,10 +24,10 @@ import net.machinemuse.powersuits.powermodule.modules.NightVisionModule;
 import net.machinemuse.powersuits.powermodule.modules.ParachuteModule;
 import net.machinemuse.powersuits.powermodule.modules.PlasmaCannonModule;
 import net.machinemuse.powersuits.powermodule.modules.RailgunModule;
+import net.machinemuse.powersuits.powermodule.modules.ShockAbsorberModule;
 import net.machinemuse.powersuits.powermodule.modules.SprintAssistModule;
 import net.machinemuse.powersuits.powermodule.modules.StepAssistModule;
 import net.machinemuse.powersuits.powermodule.modules.SwimAssistModule;
-import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -197,8 +197,6 @@ public class Config {
 
 		IPowerModule module;
 
-		addModule(new PlasmaCannonModule(TOOLONLY));
-
 		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_MELEE_ASSIST, TOOLONLY, MuseIcon.PUNCHY, MuseCommonStrings.CATEGORY_WEAPON)
 				.setDescription("A much simpler addon, makes your powertool punches hit harder.")
 				.addBaseProperty(MuseCommonStrings.PUNCH_ENERGY, 10, "J").addBaseProperty(MuseCommonStrings.PUNCH_DAMAGE, 2, "pt")
@@ -208,10 +206,6 @@ public class Config {
 				.addTradeoffProperty("Carry-through", MuseCommonStrings.PUNCH_KNOCKBACK, 1, "P")
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2)).addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1));
 		addModule(module);
-
-		addModule(new RailgunModule(TOOLONLY));
-
-		addModule(new BlinkDriveModule(TOOLONLY));
 
 		module = new PowerModule(MuseCommonStrings.MODULE_BASIC_PLATING, ARMORONLY, MuseIcon.MODULE_IRON_PLATING, MuseCommonStrings.CATEGORY_ARMOR)
 				.setDescription("Basic plating is heavy but protective.").addInstallCost(copyAndResize(ItemComponent.basicPlating, 1))
@@ -293,26 +287,6 @@ public class Config {
 				.addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000);
 		addModule(module);
 
-		addModule(new SprintAssistModule());
-		addModule(new JumpAssistModule());
-		addModule(new SwimAssistModule());
-		addModule(new StepAssistModule());
-		addModule(new NightVisionModule());
-		addModule(new InvisibilityModule());
-		addModule(new ParachuteModule());
-		addModule(new GliderModule());
-		addModule(new JetBootsModule());
-		addModule(new JetPackModule());
-		addModule(new FlightControlModule());
-
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_SHOCK_ABSORBER, FEETONLY, MuseIcon.SHOCK_ABSORBER,
-				MuseCommonStrings.CATEGORY_MOVEMENT)
-				.setDescription("With some servos, springs, and padding, you should be able to negate a portion of fall damage.")
-				.addSimpleTradeoff(module, "Power", MuseCommonStrings.SHOCK_ABSORB_ENERGY_CONSUMPTION, "J/m", 0, 10,
-						MuseCommonStrings.SHOCK_ABSORB_MULTIPLIER, "%", 0, 1).addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
-				.addInstallCost(new ItemStack(Block.cloth, 2));
-		addModule(module);
-
 		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_WATER_ELECTROLYZER, HEADONLY, MuseIcon.WATER_ELECTROLYZER,
 				MuseCommonStrings.CATEGORY_ENVIRONMENTAL)
 				.setDescription("When you run out of air, this module will jolt the water around you, electrolyzing a small bubble to breathe from.")
@@ -341,6 +315,34 @@ public class Config {
 		getMaximumArmorPerPiece();
 
 		// red = 1, green = 2, blue = 4
+
+		// Head ======================================
+		addModule(new NightVisionModule(HEADONLY));
+		addModule(new FlightControlModule(HEADONLY));
+
+		// Torso =====================================
+		addModule(new InvisibilityModule(TORSOONLY));
+		addModule(new ParachuteModule(TORSOONLY));
+		addModule(new GliderModule(TORSOONLY));
+		addModule(new JetPackModule(TORSOONLY));
+
+		// Legs =======================================
+		addModule(new SprintAssistModule(LEGSONLY));
+		addModule(new JumpAssistModule(LEGSONLY));
+		addModule(new SwimAssistModule(LEGSONLY));
+		addModule(new StepAssistModule(LEGSONLY));
+
+		// Feet =======================================
+		addModule(new JetBootsModule(FEETONLY));
+		addModule(new ShockAbsorberModule(FEETONLY));
+
+		// Tool =======================================
+		addModule(new PlasmaCannonModule(TOOLONLY));
+		addModule(new RailgunModule(TOOLONLY));
+		addModule(new BlinkDriveModule(TOOLONLY));
+
+		// All ========================================
+
 	}
 
 	/**

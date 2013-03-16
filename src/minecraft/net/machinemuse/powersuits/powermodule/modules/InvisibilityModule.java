@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.powermodule.modules;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
@@ -19,8 +20,8 @@ import net.minecraft.potion.PotionEffect;
 
 public class InvisibilityModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
 	public static final String MODULE_ACTIVE_CAMOUFLAGE = "Active Camouflage";
-	public InvisibilityModule() {
-		super(Arrays.asList((IModularItem) ModularPowersuits.powerArmorTorso));
+	public InvisibilityModule(List<IModularItem> validItems) {
+		super(validItems);
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.laserHologram, 4));
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 2));
