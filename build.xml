@@ -8,7 +8,7 @@
 	<property name="fullversion" value="${build.ver}-${env.BUILD_NUMBER}" />
 	<property name="mcp.version" value="742" />
 	<property name="forgebuild" value="586" />
-	<property name="forge.version" value="1.5.0-7.7.0.586" />
+	<property name="forge.version" value="1.5-7.7.0.586" />
 	<property name="ic2api.version" value="1.115.218-lf" />
 	<property name="ueapi.version" value="1.3.0.350" />
     <property name="asapi.version" value="0.5.0.166" />
@@ -240,7 +240,9 @@
 			</classpath>
 		</taskdef>
 		<echo message="Downloading forge... " />
-		<get src="http://machinemuse.net/minecraftforge-src-${forge.version}.zip" dest="${download.dir}/minecraftforge-src-${forge.version}.zip"/>
+		<getMethod url="http://files.minecraftforge.net/minecraftforge-src-${forge.version}.zip" responseDataFile="${download.dir}/minecraftforge-src-${forge.version}.zip">
+			<header name="User-Agent" value="Ant-${ant.version}/${ant.java.version}" />
+		</getMethod>
 	</target>
 
 	<target name="download-ant-contrib" unless="should-download-ant-contrib">
