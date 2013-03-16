@@ -168,7 +168,7 @@
 		</exec>
 
 		<exec dir="${mcp.dir}" executable="sh" osfamily="unix" failonerror="true">
-			<arg value="recompile.sh" />
+			<arg value="yes | recompile.sh" />
 		</exec>
 
 		<!-- Reobf -->
