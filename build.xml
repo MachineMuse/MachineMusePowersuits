@@ -60,7 +60,7 @@
 	<condition property="have-apis">
 		<and>
 			<available file="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" />
-			<available file="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" />
+			<available file="${download.dir}/UniversalElectricity_v${ueapi.version}.zip" />
 			<available file="${download.dir}/ICBM_v${icbmapi.version}_api.zip" />
 			<available file="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" />
             <available file="${download.dir}/AtomicScience_v${asapi.version}.zip" />
@@ -72,7 +72,7 @@
 		<get src="http://machinemuse.net/industrialcraft-2-api_${ic2api.version}.zip" dest="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" />
 
 		<echo message="Downloading Universal Electricity API..." />
-		<get src="http://machinemuse.net/UniversalElectricity_v${ueapi.version}_api.zip" dest="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" />
+		<get src="http://machinemuse.net/UniversalElectricity_v${ueapi.version}.zip" dest="${download.dir}/UniversalElectricity_v${ueapi.version}.zip" />
 
 		<echo message="Downloading ICBM API..." />
 		<get src="http://machinemuse.net/ICBM_v${icbmapi.version}_api.zip" dest="${download.dir}/ICBM_v${icbmapi.version}_api.zip" />
@@ -98,7 +98,7 @@
 
 		<echo message="Extracting UE API... " />
 		<mkdir dir="${download.dir}/ue" />
-		<unzip src="${download.dir}/UniversalElectricity_v${ueapi.version}_api.zip" dest="${download.dir}/ue/" />
+		<unzip src="${download.dir}/UniversalElectricity_v${ueapi.version}.zip" dest="${download.dir}/ue/" />
 		<mkdir dir="${mcpsrc.dir}/universalelectricity/" />
         <mkdir dir="${mcpsrc.dir}/universalelectricity/core/" />
 		<move todir="${mcpsrc.dir}/universalelectricity/core/">
