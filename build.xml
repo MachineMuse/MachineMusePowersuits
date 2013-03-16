@@ -141,7 +141,7 @@
 
 		<exec dir="${mcp.dir}" executable="bash" osfamily="unix" failonerror="true">
 			<arg value="-c"/>
-			<arg value="Yes | ./updatenames.sh" />
+			<arg value="echo Yes | ./updatenames.sh" />
 		</exec>
 	</target>
 
