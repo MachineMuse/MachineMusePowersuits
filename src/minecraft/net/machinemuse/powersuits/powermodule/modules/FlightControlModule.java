@@ -1,29 +1,32 @@
 package net.machinemuse.powersuits.powermodule.modules;
 
-import java.util.List;
+import java.util.Arrays;
 
+import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.IRightClickModule;
+import net.machinemuse.api.IPlayerTickModule;
+import net.machinemuse.api.IToggleableModule;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.ModularPowersuits;
+import net.machinemuse.powersuits.common.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.minecraft.block.Block;
+import net.machinemuse.powersuits.tick.PlayerTickHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
-public class InPlaceAssemblerModule extends PowerModuleBase implements IRightClickModule {
-	public InPlaceAssemblerModule(List<IModularItem> validItems) {
-		super(validItems);
+public class FlightControlModule extends PowerModuleBase implements IToggleableModule {
+
+	public FlightControlModule() {
+		super(Arrays.asList((IModularItem) ModularPowersuits.powerArmorHead));
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
-		addInstallCost(new ItemStack(Block.workbench, 1));
 	}
 
 	@Override
 	public MuseIcon getIcon(ItemStack item) {
-		return new MuseIcon(Block.workbench.getTextureFile(), 60);
+		return MuseIcon.INDICATOR_1_GREEN;
 	}
 
 	@Override
@@ -33,17 +36,12 @@ public class InPlaceAssemblerModule extends PowerModuleBase implements IRightCli
 
 	@Override
 	public String getName() {
-		return MuseCommonStrings.MODULE_PORTABLE_CRAFTING;
+		return MuseCommonStrings.MODULE_FLIGHT_CONTROL;
 	}
 
 	@Override
 	public String getDescription() {
-		return "A larger crafting grid, on the go.";
-	}
-
-	@Override
-	public void onRightClick(EntityPlayer player, World world, ItemStack item) {
-		player.openGui(ModularPowersuits.instance, 2, world, 0, 0, 0);
+		return "An integrated control circuit to help you fly better. Press Z to go down.";
 	}
 
 }

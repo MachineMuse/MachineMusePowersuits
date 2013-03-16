@@ -84,9 +84,6 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
 	}
 
 	@Override
-	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-		// TODO Auto-generated method stub
-
-	}
+	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {}
 
 }
