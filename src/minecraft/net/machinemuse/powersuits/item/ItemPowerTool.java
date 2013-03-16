@@ -21,6 +21,7 @@ import net.machinemuse.powersuits.common.Config.Items;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
+import net.machinemuse.powersuits.powermodule.modules.PlasmaCannonModule;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -389,11 +390,11 @@ public class ItemPowerTool extends ItemTool
 
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
 		{
-			double energyConsumption = ModuleManager.computeModularProperty(itemStack, MuseCommonStrings.PLASMA_CANNON_ENERGY_PER_TICK) * chargeTicks;
+			double energyConsumption = ModuleManager.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_ENERGY_PER_TICK) * chargeTicks;
 			if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
 				ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
-				double explosiveness = ModuleManager.computeModularProperty(itemStack, MuseCommonStrings.PLASMA_CANNON_EXPLOSIVENESS);
-				double damagingness = ModuleManager.computeModularProperty(itemStack, MuseCommonStrings.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE);
+				double explosiveness = ModuleManager.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_EXPLOSIVENESS);
+				double damagingness = ModuleManager.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE);
 
 				EntityPlasmaBolt plasmaBolt = new EntityPlasmaBolt(world, player, explosiveness, damagingness, chargeTicks);
 				world.spawnEntityInWorld(plasmaBolt);

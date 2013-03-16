@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.powermodule.modules;
 
+import java.util.Arrays;
 import java.util.List;
 
 import net.machinemuse.api.ElectricItemUtils;
@@ -8,6 +9,7 @@ import net.machinemuse.api.IRightClickModule;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -15,14 +17,17 @@ import net.minecraft.world.World;
 
 public class PlasmaCannonModule extends PowerModuleBase implements IRightClickModule {
 	public static final String MODULE_PLASMA_CANNON = "Plasma Cannon";
+	public static final String PLASMA_CANNON_ENERGY_PER_TICK = "Plasma Energy Per Tick";
+	public static final String PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE = "Plasma Damage At Full Charge";
+	public static final String PLASMA_CANNON_EXPLOSIVENESS = "Plasma Explosiveness";
 	public PlasmaCannonModule(List<IModularItem> validItems) {
 		super(validItems);
-		addBaseProperty(MuseCommonStrings.PLASMA_CANNON_ENERGY_PER_TICK, 10, "J");
-		addBaseProperty(MuseCommonStrings.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 2, "pt");
-		addTradeoffProperty("Amperage", MuseCommonStrings.PLASMA_CANNON_ENERGY_PER_TICK, 150, "J");
-		addTradeoffProperty("Amperage", MuseCommonStrings.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 38, "pt");
-		addTradeoffProperty("Voltage", MuseCommonStrings.PLASMA_CANNON_ENERGY_PER_TICK, 50, "J");
-		addTradeoffProperty("Voltage", MuseCommonStrings.PLASMA_CANNON_EXPLOSIVENESS, 0.5, "Creeper");
+		addBaseProperty(PLASMA_CANNON_ENERGY_PER_TICK, 10, "J");
+		addBaseProperty(PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 2, "pt");
+		addTradeoffProperty("Amperage", PLASMA_CANNON_ENERGY_PER_TICK, 150, "J");
+		addTradeoffProperty("Amperage", PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 38, "pt");
+		addTradeoffProperty("Voltage", PLASMA_CANNON_ENERGY_PER_TICK, 50, "J");
+		addTradeoffProperty("Voltage", PLASMA_CANNON_EXPLOSIVENESS, 0.5, "Creeper");
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 2));
 	}

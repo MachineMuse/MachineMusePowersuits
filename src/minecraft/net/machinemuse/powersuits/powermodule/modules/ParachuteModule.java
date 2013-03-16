@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.modules;
 
 import java.util.Arrays;
+import java.util.List;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPlayerTickModule;
@@ -17,8 +18,8 @@ import net.minecraft.item.ItemStack;
 
 public class ParachuteModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
 	public static final String MODULE_PARACHUTE = "Parachute";
-	public ParachuteModule() {
-		super(Arrays.asList((IModularItem) ModularPowersuits.powerArmorTorso));
+	public ParachuteModule(List<IModularItem> validItems) {
+		super(validItems);
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.parachute, 2));
 	}
 

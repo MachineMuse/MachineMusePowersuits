@@ -4,26 +4,29 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.IPlayerTickModule;
 import net.machinemuse.api.IToggleableModule;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
-public class StepAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-	public static final String MODULE_CLIMB_ASSIST = "Uphill Step Assist";
-	public StepAssistModule(List<IModularItem> validItems) {
+public class ShockAbsorberModule extends PowerModuleBase implements IToggleableModule {
+	public static final String MODULE_SHOCK_ABSORBER = "Shock Absorber";
+	public static final String SHOCK_ABSORB_MULTIPLIER = "Distance Reduction";
+	public static final String SHOCK_ABSORB_ENERGY_CONSUMPTION = "Impact Energy consumption";
+	public ShockAbsorberModule (List<IModularItem> validItems) {
 		super(validItems);
+		addSimpleTradeoff(this, "Power", SHOCK_ABSORB_ENERGY_CONSUMPTION, "J/m", 0, 10, SHOCK_ABSORB_MULTIPLIER, "%", 0, 1);
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
+		addInstallCost(new ItemStack(Block.cloth, 2));
 	}
 
 	@Override
 	public MuseIcon getIcon(ItemStack item) {
-		return MuseIcon.STEP_ASSIST;
+		return MuseIcon.SHOCK_ABSORBER;
 	}
 
 	@Override
@@ -33,24 +36,11 @@ public class StepAssistModule extends PowerModuleBase implements IToggleableModu
 
 	@Override
 	public String getName() {
-		return MODULE_CLIMB_ASSIST;
+		return MODULE_SHOCK_ABSORBER;
 	}
 
 	@Override
 	public String getDescription() {
-		return "A pair of dedicated servos allow you to effortlessly step up 1m-high ledges.";
+		return "With some servos, springs, and padding, you should be able to negate a portion of fall damage.";
 	}
-
-	@Override
-	public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-		player.stepHeight = 1.001F;
-	}
-
-	@Override
-	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-		if (player.stepHeight == 1.001F) {
-			player.stepHeight = 0.5001F;
-		}
-	}
-
 }

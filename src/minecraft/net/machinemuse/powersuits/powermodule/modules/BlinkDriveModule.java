@@ -19,12 +19,14 @@ import net.minecraft.world.World;
 
 public class BlinkDriveModule extends PowerModuleBase implements IRightClickModule {
 	public static final String MODULE_BLINK_DRIVE = "Blink Drive";
+	public static final String BLINK_DRIVE_ENERGY_CONSUMPTION = "Blink Drive Energy Consuption";
+	public static final String BLINK_DRIVE_RANGE = "Blink Drive Range";
 	public BlinkDriveModule(List<IModularItem> validItems) {
 		super(validItems);
-		addBaseProperty(MuseCommonStrings.BLINK_DRIVE_ENERGY_CONSUMPTION, 1000, "J");
-		addBaseProperty(MuseCommonStrings.BLINK_DRIVE_RANGE, 5, "m");
-		addTradeoffProperty("Range", MuseCommonStrings.BLINK_DRIVE_ENERGY_CONSUMPTION, 3000);
-		addTradeoffProperty("Range", MuseCommonStrings.BLINK_DRIVE_RANGE, 59);
+		addBaseProperty(BLINK_DRIVE_ENERGY_CONSUMPTION, 1000, "J");
+		addBaseProperty(BLINK_DRIVE_RANGE, 5, "m");
+		addTradeoffProperty("Range", BLINK_DRIVE_ENERGY_CONSUMPTION, 3000);
+		addTradeoffProperty("Range", BLINK_DRIVE_RANGE, 59);
 		addInstallCost(Config.copyAndResize(ItemComponent.ionThruster, 1));
 		addInstallCost(Config.copyAndResize(ItemComponent.fieldEmitter, 2));
 	}
@@ -51,8 +53,8 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
 
 	@Override
 	public void onRightClick(EntityPlayer player, World world, ItemStack itemStack) {
-		double range = ModuleManager.computeModularProperty(itemStack, MuseCommonStrings.BLINK_DRIVE_RANGE);
-		double energyConsumption = ModuleManager.computeModularProperty(itemStack, MuseCommonStrings.BLINK_DRIVE_ENERGY_CONSUMPTION);
+		double range = ModuleManager.computeModularProperty(itemStack, BLINK_DRIVE_RANGE);
+		double energyConsumption = ModuleManager.computeModularProperty(itemStack, BLINK_DRIVE_ENERGY_CONSUMPTION);
 		if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
 			ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
 			world.playSoundAtEntity(player, "mob.endermen.portal", 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));

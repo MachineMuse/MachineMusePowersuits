@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.modules;
 
 import java.util.Arrays;
+import java.util.List;
 
 import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
@@ -20,8 +21,8 @@ import net.minecraft.util.Vec3;
 
 public class GliderModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
 	public static final String MODULE_GLIDER = "Glider";
-	public GliderModule() {
-		super(Arrays.asList((IModularItem) ModularPowersuits.powerArmorTorso));
+	public GliderModule(List<IModularItem> validItems) {
+		super(validItems);
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.gliderWing, 2));
 	}
 
