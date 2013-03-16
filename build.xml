@@ -139,8 +139,8 @@
 			<arg line="/c updatenames.bat" />
 		</exec>
 
-		<exec dir="${mcp.dir}" executable="sh" osfamily="unix" failonerror="true">
-			<arg value="yes | updatenames.sh" />
+		<exec dir="${mcp.dir}" executable="bash" osfamily="unix" failonerror="true">
+			<arg value="-c 'yes | updatenames.sh'" />
 		</exec>
 	</target>
 
