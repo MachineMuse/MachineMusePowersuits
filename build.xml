@@ -140,7 +140,7 @@
 		</exec>
 
 		<exec dir="${mcp.dir}" executable="sh" osfamily="unix" failonerror="true">
-			<arg value="updatenames.sh" />
+			<arg value="yes | updatenames.sh" />
 		</exec>
 	</target>
 
@@ -168,7 +168,7 @@
 		</exec>
 
 		<exec dir="${mcp.dir}" executable="sh" osfamily="unix" failonerror="true">
-			<arg value="yes | recompile.sh" />
+			<arg value="recompile.sh" />
 		</exec>
 
 		<!-- Reobf -->
