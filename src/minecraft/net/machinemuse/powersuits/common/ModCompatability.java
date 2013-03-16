@@ -136,11 +136,10 @@ public class ModCompatability {
 				Item goggles = (Item) itemGoggles.get(itemGoggles);
 				gogglesStack = new ItemStack(goggles);
 				IPowerModule module = new PowerModule("Aurameter", Arrays.asList((IModularItem) ModularPowersuits.powerArmorHead), new MuseIcon(
-						"/thaumcraft/resources/ss_core.png", 144), MuseCommonStrings.CATEGORY_SPECIAL)
+						"thaumcraft:ss_core"), MuseCommonStrings.CATEGORY_SPECIAL)
 						.setDescription(
 								"Connect up some Thaumic goggles to show the nearby aura values. (Does not reveal aura nodes, only shows the HUD)")
-						.addInstallCost(ItemComponent.laserHologram.copy())
-						.addInstallCost(gogglesStack);
+						.addInstallCost(ItemComponent.laserHologram.copy()).addInstallCost(gogglesStack);
 				ModuleManager.addModule(module);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -151,38 +150,35 @@ public class ModCompatability {
 		// Add UE multimeter module
 		if (ModCompatability.isBasicComponentsLoaded()) {
 			IPowerModule module = new RightClickPowerModule(MuseCommonStrings.MODULE_MULTIMETER,
-					Arrays.asList((IModularItem) ModularPowersuits.powerTool),
-					MuseIcon.PLATE_2_RED, MuseCommonStrings.CATEGORY_TOOL)
+					Arrays.asList((IModularItem) ModularPowersuits.powerTool), MuseIcon.PLATE_2_RED, MuseCommonStrings.CATEGORY_TOOL)
 					.setDescription("A tool addon that reads the Universal Electricity power generation in a wire.")
-					.addInstallCost(Config.copyAndResize(ItemComponent.wiring, 2))
-					.addInstallCost(Config.copyAndResize(ItemComponent.solenoid, 1));
+					.addInstallCost(Config.copyAndResize(ItemComponent.wiring, 2)).addInstallCost(Config.copyAndResize(ItemComponent.solenoid, 1));
 			ModuleManager.addModule(module);
 		}
 
 		if (ModCompatability.isAtomicScienceLoaded()) {
 
-			IPowerModule module = new ToggleablePowerModule(MuseCommonStrings.MODULE_HAZMAT,
-					Arrays.asList((IModularItem) ModularPowersuits.powerArmorHead, (IModularItem) ModularPowersuits.powerArmorTorso,
-							(IModularItem) ModularPowersuits.powerArmorLegs, (IModularItem) ModularPowersuits.powerArmorFeet),
-					MuseIcon.FIELD_EMITTER_GREEN, MuseCommonStrings.CATEGORY_ARMOR)
+			IPowerModule module = new ToggleablePowerModule(MuseCommonStrings.MODULE_HAZMAT, Arrays.asList(
+					(IModularItem) ModularPowersuits.powerArmorHead, (IModularItem) ModularPowersuits.powerArmorTorso,
+					(IModularItem) ModularPowersuits.powerArmorLegs, (IModularItem) ModularPowersuits.powerArmorFeet), MuseIcon.FIELD_EMITTER_GREEN,
+					MuseCommonStrings.CATEGORY_ARMOR)
 					.setDescription("Protect yourself from that pesky radiation poisoning. *Must be on every piece*")
-					.addInstallCost(Config.copyAndResize(ItemComponent.basicPlating, 3))
-					.addBaseProperty(MuseCommonStrings.WEIGHT, 0.5);
+					.addInstallCost(Config.copyAndResize(ItemComponent.basicPlating, 3)).addBaseProperty(MuseCommonStrings.WEIGHT, 0.5);
 			ModuleManager.addModule(module);
 		}
 
 	}
 
 	public static ItemStack getThermexItem(String string, int quantity) {
-		try {
-			ItemStack item = thermalexpansion.api.core.ItemRegistry.getItem(string, quantity);
-			if (item != null) {
-				return item;
-			}
-		} catch (Exception e) {
-		}
-		thermalexpansion.api.core.ItemRegistry.printItemNames();
-		MuseLogger.logError("Failed to get Thermal Expansion item " + string);
+		// try {
+		// ItemStack item = thermalexpansion.api.core.ItemRegistry.getItem(string, quantity);
+		// if (item != null) {
+		// return item;
+		// }
+		// } catch (Exception e) {
+		// }
+		// thermalexpansion.api.core.ItemRegistry.printItemNames();
+		// MuseLogger.logError("Failed to get Thermal Expansion item " + string);
 		return null;
 	}
 }

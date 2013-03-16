@@ -7,6 +7,7 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.client.KeybindManager;
+import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.common.PlayerInputMap;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.machinemuse.powersuits.network.packets.MusePacketModeChangeRequest;
@@ -24,8 +25,7 @@ import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.network.Player;
 
 /**
- * This handler is called before/after the game processes input events and
- * updates the gui state mainly. *independent of rendering, so sometimes there
+ * This handler is called before/after the game processes input events and updates the gui state mainly. *independent of rendering, so sometimes there
  * might be visual artifacts* -is also the parent class of KeyBindingHandler
  * 
  * @author MachineMuse
@@ -33,19 +33,19 @@ import cpw.mods.fml.common.network.Player;
 public class ClientTickHandler implements ITickHandler {
 	protected int slotSelected = -1;
 	protected int dWheel;
+	public static long lastTickTime = System.currentTimeMillis();
 
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
+
+		MuseLogger.logDebug("Tick time: " + (System.currentTimeMillis() - lastTickTime));
+		lastTickTime = System.currentTimeMillis();
 		for (ClickableKeybinding kb : KeybindManager.getKeybindings()) {
 			kb.doToggleTick();
 		}
 		try {
 			EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
-			// if (dWheel != 0) {
-			// MuseLogger.logDebug("dWheel: " + dWheel);
-			// }
-			if (player.getCurrentEquippedItem().getItem() instanceof IModularItem
-					&& player.isSneaking()) {
+			if (player.getCurrentEquippedItem().getItem() instanceof IModularItem && player.isSneaking()) {
 				slotSelected = player.inventory.currentItem;
 				dWheel = Mouse.getDWheel() / 120;
 			} else {
@@ -82,14 +82,11 @@ public class ClientTickHandler implements ITickHandler {
 					}
 					if (modes.size() > 0 && dWheel != 0) {
 						int modeIndex = modes.indexOf(mode);
-						String newMode = modes.get(clampMode(modeIndex + dWheel,
-								modes.size()));
+						String newMode = modes.get(clampMode(modeIndex + dWheel, modes.size()));
 						itemTag.setString("Mode", newMode);
 						RenderTickHandler.lastSwapTime = System.currentTimeMillis();
 						RenderTickHandler.lastSwapDirection = (int) Math.signum(dWheel);
-						MusePacket modeChangePacket = new
-								MusePacketModeChangeRequest((Player) player, newMode,
-										player.inventory.currentItem);
+						MusePacket modeChangePacket = new MusePacketModeChangeRequest((Player) player, newMode, player.inventory.currentItem);
 						player.sendQueue.addToSendQueue(modeChangePacket.getPacket250());
 						dWheel = 0;
 					}

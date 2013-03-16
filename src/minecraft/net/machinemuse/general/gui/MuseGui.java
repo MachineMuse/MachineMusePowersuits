@@ -44,7 +44,7 @@ public class MuseGui extends GuiScreen {
 	public void initGui() {
 		super.initGui();
 		this.frames.clear();
-		this.controlList.clear();
+		//this.controlList.clear();
 		Keyboard.enableRepeatEvents(true);
 		creationTime = System.currentTimeMillis();
 

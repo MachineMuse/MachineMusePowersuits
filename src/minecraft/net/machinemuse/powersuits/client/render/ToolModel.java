@@ -18,13 +18,11 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-public class ToolModel extends ModelBase
-{
+public class ToolModel extends ModelBase {
 	public int boltSize;
 
 	// fields
@@ -64,8 +62,7 @@ public class ToolModel extends ModelBase
 	ModelRenderer supportleft4;
 	ModelRenderer supportleft5;
 
-	public ToolModel()
-	{
+	public ToolModel() {
 		textureWidth = 64;
 		textureHeight = 32;
 
@@ -320,8 +317,7 @@ public class ToolModel extends ModelBase
 		child.rotateAngleZ -= parent.rotateAngleZ;
 	}
 
-	public void render(Entity entity, float scale, boolean renderTypeIsFirstPerson, Colour c1)
-	{
+	public void render(Entity entity, float scale, boolean renderTypeIsFirstPerson, Colour c1) {
 		// super.render(entity, f, f1, f2, f3, f4, f5);
 		int numsegments = 16;
 		if (!tap) {
@@ -360,13 +356,9 @@ public class ToolModel extends ModelBase
 				tap = true;
 			}
 		} else {
-			if (!Keyboard.isKeyDown(Keyboard.KEY_NUMPAD0)
-					&& !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD1)
-					&& !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD2)
-					&& !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD3)
-					&& !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD4)
-					&& !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD5)
-					&& !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD6)) {
+			if (!Keyboard.isKeyDown(Keyboard.KEY_NUMPAD0) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD1) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD2)
+					&& !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD3) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD4)
+					&& !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD5) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD6)) {
 				tap = false;
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
@@ -375,7 +367,7 @@ public class ToolModel extends ModelBase
 		}
 		GL11.glPushMatrix();
 
-		ForgeHooksClient.bindTexture(Config.SEBK_TOOL_TEXTURE, 0);
+		Minecraft.getMinecraft().renderEngine.bindTexture(Config.SEBK_TOOL_TEXTURE);
 
 		if (c1 != null) {
 			c1.doGL();
@@ -491,18 +483,15 @@ public class ToolModel extends ModelBase
 		GL11.glPopMatrix();
 	}
 
-	private void setRotation(ModelRenderer model, float x, float y, float z)
-	{
+	private void setRotation(ModelRenderer model, float x, float y, float z) {
 		model.rotateAngleX = x;
 		model.rotateAngleY = y;
 		model.rotateAngleZ = z;
 	}
 
 	/**
-	 * Sets the model's various rotation angles. For bipeds, par1 and par2 are
-	 * used for animating the movement of arms and legs, where par1 represents
-	 * the time(so that arms and legs swing back and forth) and par2 represents
-	 * how "far" arms and legs can swing at most.
+	 * Sets the model's various rotation angles. For bipeds, par1 and par2 are used for animating the movement of arms and legs, where par1 represents
+	 * the time(so that arms and legs swing back and forth) and par2 represents how "far" arms and legs can swing at most.
 	 */
 	public void setPose(float indexOpen, float indexFlex, float thumbOpen, float thumbFlex, float otherFingersOpen, float otherFingersFlex) {
 		index1.rotateAngleX = indexOpen;

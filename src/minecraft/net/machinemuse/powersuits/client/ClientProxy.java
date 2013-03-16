@@ -24,8 +24,7 @@ import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
 /**
- * The Client Proxy does all the things that should only be done client-side,
- * like registering client-side handlers and renderers.
+ * The Client Proxy does all the things that should only be done client-side, like registering client-side handlers and renderers.
  * 
  * @author MachineMuse
  * 
@@ -50,15 +49,17 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerBlockHandler(tinkTableRenderer);
 		RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, new RenderPlasmaBolt());
 
-		MinecraftForgeClient.preloadTexture(Config.SEBK_ICON_PATH);
-		MinecraftForgeClient.preloadTexture(Config.WC_ICON_PATH);
 		MinecraftForgeClient.preloadTexture(Config.TINKERTABLE_TEXTURE_PATH);
 		MinecraftForgeClient.preloadTexture(Config.BLANK_ARMOR_MODEL_PATH);
+		MinecraftForgeClient.preloadTexture(Config.SEBK_ARMOR_PATH);
+		MinecraftForgeClient.preloadTexture(Config.SEBK_ARMORPANTS_PATH);
+		MinecraftForgeClient.preloadTexture(Config.CITIZENJOE_ARMOR_PATH);
+		MinecraftForgeClient.preloadTexture(Config.CITIZENJOE_ARMORPANTS_PATH);
+		MinecraftForgeClient.preloadTexture(Config.SEBK_TOOL_TEXTURE);
 	}
 
 	/**
-	 * Register the tick handler (for on-tick behaviour) and packet handler (for
-	 * network synchronization and permission stuff).
+	 * Register the tick handler (for on-tick behaviour) and packet handler (for network synchronization and permission stuff).
 	 */
 	@Override
 	public void registerHandlers() {

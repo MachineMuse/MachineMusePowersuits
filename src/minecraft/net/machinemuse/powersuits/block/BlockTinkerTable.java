@@ -1,24 +1,23 @@
 package net.machinemuse.powersuits.block;
 
-import java.util.List;
-
-import net.machinemuse.general.MuseStringUtils;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
- * This is the tinkertable block. It doesn't do much except look pretty
- * (eventually) and provide a way for the player to access the TinkerTable GUI.
+ * This is the tinkertable block. It doesn't do much except look pretty (eventually) and provide a way for the player to access the TinkerTable GUI.
  * 
  * @author MachineMuse
  * 
@@ -37,17 +36,15 @@ public class BlockTinkerTable extends Block {
 	public BlockTinkerTable() {
 		// Block constructor call
 		super(
-				// Block ID
+		// Block ID
 				Config.getAssignedBlockID(Config.Blocks.TinkerTable),
-				// Texture index (not used since we have a custom renderer)
-				Config.Blocks.TinkerTable.textureIndex,
 				// Material (used for various things like whether it can burn,
 				// whether it requires a tool, and whether it can be moved by a
 				// piston
 				Material.iron);
 
 		// Block's internal/ID name
-		setBlockName(Config.Blocks.TinkerTable.idName);
+		// setBlockName(Config.Blocks.TinkerTable.idName);
 
 		// Block's creative tab
 		setCreativeTab(Config.getCreativeTab());
@@ -83,37 +80,36 @@ public class BlockTinkerTable extends Block {
 
 		// Register the tile entity, which is only used for rendering at the
 		// moment
-		GameRegistry.registerTileEntity(TileEntityTinkerTable.class,
-				Config.Blocks.TinkerTable.idName);
+		GameRegistry.registerTileEntity(TileEntityTinkerTable.class, Config.Blocks.TinkerTable.idName);
 
 		// Finally, register the block so that it appears in the game. New
 		// standard requires a name to be passed.
 		GameRegistry.registerBlock(this, Config.Blocks.TinkerTable.idName);
 
 	}
-	
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerIcons(IconRegister iconRegister) {
+		MuseIcon.PLATE_1_GREEN.register(iconRegister);
+		this.blockIcon = MuseIcon.PLATE_1_GREEN.getIconRegistration();
+	}
+
 	/**
 	 * Called upon block activation (right click on the block.)
 	 */
 	@Override
-	public boolean onBlockActivated(World world, int x, int y,
-			int z, EntityPlayer player, int par6, float par7,
-			float par8, float par9)
-	{
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
 		if (player.isSneaking()) {
 			return false;
 		}
-		player.openGui(ModularPowersuits.instance,
-				Config.Guis.GuiTinkerTable.ordinal(),
-				world, x, y, z);
+		player.openGui(ModularPowersuits.instance, Config.Guis.GuiTinkerTable.ordinal(), world, x, y, z);
 		return true;
 	}
 
 	/**
-	 * returns some value from 0 to 30 or so for different models. Since we're
-	 * using a custom renderer, we pass in a completely different ID: the
-	 * assigned block ID. It won't conflict with other mods, since Forge looks
-	 * it up in a table anyway, but it's still best to have different internal
+	 * returns some value from 0 to 30 or so for different models. Since we're using a custom renderer, we pass in a completely different ID: the
+	 * assigned block ID. It won't conflict with other mods, since Forge looks it up in a table anyway, but it's still best to have different internal
 	 * IDs.
 	 */
 	@Override
@@ -122,8 +118,7 @@ public class BlockTinkerTable extends Block {
 	}
 
 	/**
-	 * This method is called on a block after all other blocks gets already
-	 * created. You can use it to reference and configure something on the block
+	 * This method is called on a block after all other blocks gets already created. You can use it to reference and configure something on the block
 	 * that needs the others ones.
 	 */
 	@Override
@@ -131,12 +126,10 @@ public class BlockTinkerTable extends Block {
 	}
 
 	/**
-	 * If this block doesn't render as an ordinary block it will return False
-	 * (examples: signs, buttons, stairs, etc)
+	 * If this block doesn't render as an ordinary block it will return False (examples: signs, buttons, stairs, etc)
 	 */
 	@Override
-	public boolean renderAsNormalBlock()
-	{
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
@@ -250,14 +243,11 @@ public class BlockTinkerTable extends Block {
 	// }
 
 	/**
-	 * Returns Returns true if the given side of this block type should be
-	 * rendered (if it's solid or not), if the adjacent block is at the given
+	 * Returns Returns true if the given side of this block type should be rendered (if it's solid or not), if the adjacent block is at the given
 	 * coordinates. Args: blockAccess, x, y, z, side
 	 */
 	@Override
-	public boolean isBlockSolid(IBlockAccess par1IBlockAccess, int par2, int
-			par3, int par4, int par5)
-	{
+	public boolean isBlockSolid(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5) {
 		return true;
 	}
 
@@ -339,13 +329,11 @@ public class BlockTinkerTable extends Block {
 	// }
 	//
 	/**
-	 * Is this block (a) opaque and (b) a full 1m cube? This determines whether
-	 * or not to render the shared face of two adjacent blocks and also whether
-	 * the player can attach torches, redstone wire, etc to this block.
+	 * Is this block (a) opaque and (b) a full 1m cube? This determines whether or not to render the shared face of two adjacent blocks and also
+	 * whether the player can attach torches, redstone wire, etc to this block.
 	 */
 	@Override
-	public boolean isOpaqueCube()
-	{
+	public boolean isOpaqueCube() {
 		return false;
 	}
 
@@ -1576,10 +1564,8 @@ public class BlockTinkerTable extends Block {
 	// }
 
 	/**
-	 * Called throughout the code as a replacement for block instanceof
-	 * BlockContainer Moving this to the Block base class allows for mods that
-	 * wish to extend vinella blocks, and also want to have a tile entity on
-	 * that block, may.
+	 * Called throughout the code as a replacement for block instanceof BlockContainer Moving this to the Block base class allows for mods that wish
+	 * to extend vinella blocks, and also want to have a tile entity on that block, may.
 	 * 
 	 * Return true from this function to specify this block has a tile entity.
 	 * 
@@ -1588,24 +1574,20 @@ public class BlockTinkerTable extends Block {
 	 * @return True if block has a tile entity, false otherwise
 	 */
 	@Override
-	public boolean hasTileEntity(int metadata)
-	{
+	public boolean hasTileEntity(int metadata) {
 		return true;
 	}
 
 	/**
-	 * Called throughout the code as a replacement for
-	 * BlockContainer.getBlockEntity Return the same thing you would from that
-	 * function. This will fall back to BlockContainer.getBlockEntity if this
-	 * block is a BlockContainer.
+	 * Called throughout the code as a replacement for BlockContainer.getBlockEntity Return the same thing you would from that function. This will
+	 * fall back to BlockContainer.getBlockEntity if this block is a BlockContainer.
 	 * 
 	 * @param metadata
 	 *            The Metadata of the current block
 	 * @return A instance of a class extending TileEntity
 	 */
 	@Override
-	public TileEntity createTileEntity(World world, int metadata)
-	{
+	public TileEntity createTileEntity(World world, int metadata) {
 		return new TileEntityTinkerTable();
 
 	}
@@ -2108,12 +2090,10 @@ public class BlockTinkerTable extends Block {
 	// }
 	//
 	/**
-	 * Location aware and overrideable version of the lightOpacity array, return
-	 * the number to subtract from the light value when it passes through this
-	 * block.
+	 * Location aware and overrideable version of the lightOpacity array, return the number to subtract from the light value when it passes through
+	 * this block.
 	 * 
-	 * This is not guaranteed to have the tile entity in place before this is
-	 * called, so it is Recommended that you have your tile entity call relight
+	 * This is not guaranteed to have the tile entity in place before this is called, so it is Recommended that you have your tile entity call relight
 	 * after being placed if you rely on it for light info.
 	 * 
 	 * @param world
@@ -2127,8 +2107,7 @@ public class BlockTinkerTable extends Block {
 	 * @return The amount of light to block, 0 for air, 255 for fully opaque.
 	 */
 	@Override
-	public int getLightOpacity(World world, int x, int y, int z)
-	{
+	public int getLightOpacity(World world, int x, int y, int z) {
 		return 0;
 	}
 }

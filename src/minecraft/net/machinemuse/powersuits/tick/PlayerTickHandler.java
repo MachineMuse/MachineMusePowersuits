@@ -396,7 +396,7 @@ public class PlayerTickHandler implements ITickHandler {
 					for (; stack.stackSize > 0 && foodNeeded > foodLevel; stack.stackSize--) {
 						foodLevel += food.getHealAmount() * efficiency / 100.0;
 						saturationLevel += food.getSaturationModifier() * efficiency / 100.0;
-						player.sendChatToPlayer("Feeder module: Ate a " + food.getItemNameIS(stack));
+						player.sendChatToPlayer("Feeder module: Ate a " + food.getItemDisplayName(stack));
 					}
 					if (stack.stackSize == 0) {
 						player.inventory.setInventorySlotContents(i, null);

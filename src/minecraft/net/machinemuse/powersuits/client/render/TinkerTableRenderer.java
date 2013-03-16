@@ -5,11 +5,11 @@ package net.machinemuse.powersuits.client.render;
 
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.opengl.GL11;
 
@@ -20,8 +20,7 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
  * 
  * @author MachineMuse
  */
-public class TinkerTableRenderer extends TileEntitySpecialRenderer implements
-		ISimpleBlockRenderingHandler {
+public class TinkerTableRenderer extends TileEntitySpecialRenderer implements ISimpleBlockRenderingHandler {
 	protected TinkerTableModel model;
 	protected int renderId;
 
@@ -31,9 +30,8 @@ public class TinkerTableRenderer extends TileEntitySpecialRenderer implements
 	}
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileEntity, double x, double y,
-			double z, float partialTickTime) {
-		ForgeHooksClient.bindTexture(Config.TINKERTABLE_TEXTURE_PATH, 0);
+	public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float partialTickTime) {
+		Minecraft.getMinecraft().renderEngine.bindTexture(Config.TINKERTABLE_TEXTURE_PATH);
 		GL11.glPushMatrix();
 		GL11.glTranslated(x, y, z);
 		model.doRender(null, x, y, z, partialTickTime, partialTickTime);
@@ -52,9 +50,9 @@ public class TinkerTableRenderer extends TileEntitySpecialRenderer implements
 	}
 
 	@Override
-	public void renderInventoryBlock(Block block, int metadata, int modelID,
-			RenderBlocks renderer) {
-		ForgeHooksClient.bindTexture(Config.TINKERTABLE_TEXTURE_PATH, 0);
+	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+		Minecraft.getMinecraft().renderEngine.bindTexture(Config.TINKERTABLE_TEXTURE_PATH);
+
 		GL11.glPushMatrix();
 		GL11.glTranslated(-0.5, -0.5 + -1.0 / 16.0, -0.5);
 		model.doRender(null, 0, 0, 0, 0, 0);
@@ -65,8 +63,7 @@ public class TinkerTableRenderer extends TileEntitySpecialRenderer implements
 	// Should do nothing since the tile entity handles all the rendering of the
 	// world block
 	@Override
-	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z,
-			Block block, int modelId, RenderBlocks renderer) {
+	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
 		return true;
 	}
 

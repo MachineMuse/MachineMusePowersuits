@@ -1,8 +1,6 @@
 package net.machinemuse.general;
 
 import java.nio.DoubleBuffer;
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +21,6 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Vec3;
-import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
@@ -79,8 +76,7 @@ public abstract class MuseRenderer {
 	}
 
 	/**
-	 * Creates a list of points linearly interpolated between points a and b
-	 * noninclusive.
+	 * Creates a list of points linearly interpolated between points a and b noninclusive.
 	 * 
 	 * @return A list of num points
 	 */
@@ -129,8 +125,7 @@ public abstract class MuseRenderer {
 	 * @param endangle
 	 *            End angle in radians
 	 * @param radius
-	 *            Radius of the circle (used in calculating number of segments
-	 *            to draw as well as size of the arc)
+	 *            Radius of the circle (used in calculating number of segments to draw as well as size of the arc)
 	 * @param xoffset
 	 *            Convenience parameter, added to every vertex
 	 * @param yoffset
@@ -225,8 +220,7 @@ public abstract class MuseRenderer {
 	}
 
 	/**
-	 * Call before doing any pure geometry (ie. with colours rather than
-	 * textures).
+	 * Call before doing any pure geometry (ie. with colours rather than textures).
 	 */
 	public static void texturelessOn() {
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
@@ -234,8 +228,7 @@ public abstract class MuseRenderer {
 	}
 
 	/**
-	 * Call after doing pure geometry (ie. with colours) to go back to the
-	 * texture mode (default).
+	 * Call after doing pure geometry (ie. with colours) to go back to the texture mode (default).
 	 */
 	public static void texturelessOff() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -266,8 +259,7 @@ public abstract class MuseRenderer {
 	}
 
 	/**
-	 * Makes the appropriate openGL calls and draws an item and overlay using
-	 * the default icon
+	 * Makes the appropriate openGL calls and draws an item and overlay using the default icon
 	 */
 	public static void drawItemAt(double x, double y, ItemStack item) {
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
@@ -301,21 +293,20 @@ public abstract class MuseRenderer {
 		texturelessOff();
 		blendingOn();
 
-		ForgeHooksClient.bindTexture(icon.getTexturefile(), 0);
-
 		if (colour != null) {
 			colour.doGL();
 		}
 
 		Tessellator tess = Tessellator.instance;
 		tess.startDrawingQuads();
-		float r = 0.0625f;
-		float u = (icon.getIconIndex() % 16) * r;
-		float v = (icon.getIconIndex() / 16) * r;
-		tess.addVertexWithUV(x, y, 0, u, v);
-		tess.addVertexWithUV(x, y + 16, 0, u, v + r);
-		tess.addVertexWithUV(x + 16, y + 16, 0, u + r, v + r);
-		tess.addVertexWithUV(x + 16, y, 0, u + r, v);
+		float u1 = icon.getIconRegistration().getU1();
+		float v1 = icon.getIconRegistration().getV1();
+		float u2 = icon.getIconRegistration().getU2();
+		float v2 = icon.getIconRegistration().getV2();
+		tess.addVertexWithUV(x, y, 0, u1, v1);
+		tess.addVertexWithUV(x, y + 16, 0, u1, v2);
+		tess.addVertexWithUV(x + 16, y + 16, 0, u2, v2);
+		tess.addVertexWithUV(x + 16, y, 0, u2, v1);
 		tess.draw();
 
 		MuseRenderer.blendingOff();
@@ -345,21 +336,25 @@ public abstract class MuseRenderer {
 		texturelessOff();
 		blendingOn();
 
-		ForgeHooksClient.bindTexture(icon.getTexturefile(), 0);
-
 		if (colour != null) {
 			colour.doGL();
 		}
 
 		Tessellator tess = Tessellator.instance;
 		tess.startDrawingQuads();
-		double r = 0.0625;
-		double u = (icon.getIconIndex() % 16) * r;
-		double v = (icon.getIconIndex() / 16) * r;
-		tess.addVertexWithUV(x + left, y + top, 0, u + r * r * left, v + r * r * top);
-		tess.addVertexWithUV(x + left, y + bottom, 0, u + r * r * left, v + r * r * bottom);
-		tess.addVertexWithUV(x + right, y + bottom, 0, u + r * r * right, v + r * r * bottom);
-		tess.addVertexWithUV(x + right, y + top, 0, u + r * r * right, v + r * r * top);
+		float u1 = icon.getIconRegistration().getU1();
+		float v1 = icon.getIconRegistration().getV1();
+		float u2 = icon.getIconRegistration().getU2();
+		float v2 = icon.getIconRegistration().getV2();
+		double xoffset1 = left * (u2 - u1) / 16.0f;
+		double yoffset1 = top * (v2 - v1) / 16.0f;
+		double xoffset2 = right * (u2 - u1) / 16.0f;
+		double yoffset2 = bottom * (v2 - v1) / 16.0f;
+
+		tess.addVertexWithUV(x + left, y + top, 0, u1 + xoffset1, v1 + yoffset1);
+		tess.addVertexWithUV(x + left, y + bottom, 0, u1 + xoffset1, v2 + yoffset2);
+		tess.addVertexWithUV(x + right, y + bottom, 0, u1 + xoffset2, v2 + yoffset2);
+		tess.addVertexWithUV(x + right, y + top, 0, u1 + xoffset2, v1 + yoffset1);
 		tess.draw();
 
 		MuseRenderer.blendingOff();
@@ -371,8 +366,7 @@ public abstract class MuseRenderer {
 	}
 
 	/**
-	 * Switches to relative coordinate frame (where -1,-1 is top left of the
-	 * working area, and 1,1 is the bottom right)
+	 * Switches to relative coordinate frame (where -1,-1 is top left of the working area, and 1,1 is the bottom right)
 	 */
 	public static void relativeCoords(MuseGui gui) {
 		GL11.glPushMatrix();
@@ -381,8 +375,7 @@ public abstract class MuseRenderer {
 	}
 
 	/**
-	 * Does the necessary openGL calls and calls the Minecraft font renderer to
-	 * draw a string at the specified coords
+	 * Does the necessary openGL calls and calls the Minecraft font renderer to draw a string at the specified coords
 	 */
 	public static void drawString(String s, double x, double y) {
 		RenderHelper.disableStandardItemLighting();
@@ -390,8 +383,7 @@ public abstract class MuseRenderer {
 	}
 
 	/**
-	 * Does the necessary openGL calls and calls the Minecraft font renderer to
-	 * draw a string such that the xcoord is halfway through the string
+	 * Does the necessary openGL calls and calls the Minecraft font renderer to draw a string such that the xcoord is halfway through the string
 	 */
 	public static void drawCenteredString(String s, double x, double y) {
 		double xradius = getFontRenderer().getStringWidth(s) / 2;
@@ -461,47 +453,6 @@ public abstract class MuseRenderer {
 		// drawTriangles3DT(points, textures, indices);
 		texturelessOff();
 		arraysOff();
-	}
-
-	private static void drawTriangles3DT(float[] v, float[] textures2, int[] i) {
-		arraysOnT();
-		texturelessOff();
-
-		// float subdivisions = 5f;
-		// float radius = 0.5f;
-
-		// GL11.glPushMatrix();
-		// GL11.glTranslatef(-radius, -radius, 0);
-		// for (int i1 = 0; i1 <= subdivisions * 2; i1++) {
-		// for (int i2 = 0; i2 <= subdivisions * 2; i2++) {
-		FloatBuffer vertices = BufferUtils.createFloatBuffer(v.length);
-		vertices.put(v);
-		vertices.flip();
-
-		FloatBuffer textures = BufferUtils.createFloatBuffer(textures2.length);
-		textures.put(textures2);
-		textures.flip();
-
-		IntBuffer indices = BufferUtils.createIntBuffer(i.length);
-		indices.put(i);
-		indices.flip();
-
-		// GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
-
-		GL11.glVertexPointer(3, 0, vertices);
-		GL11.glTexCoordPointer(2, 0, textures);
-
-		GL11.glDrawElements(GL11.GL_TRIANGLES, indices);
-
-		// GL11.glTranslatef(0, radius / subdivisions, 0);
-		// }
-		// GL11.glTranslatef(radius / subdivisions, -radius * 2, 0);
-		// }
-		// GL11.glPopMatrix();
-
-		texturelessOff();
-		arraysOff();
-
 	}
 
 	public static void drawStringsJustified(List<String> words, double x1, double x2, double y) {

@@ -9,7 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import universalelectricity.core.implement.IItemElectric;
+import universalelectricity.core.item.IItemElectric;
 
 public class ElectricItemUtils {
 
@@ -41,11 +41,11 @@ public class ElectricItemUtils {
 				IItemElectric item = (IItemElectric) (stack.getItem());
 				double joules = item.getJoules(stack);
 				if (joules > drainAmount) {
-					item.onUse(drainAmount, stack);
+					// item.onUse(drainAmount, stack);
 					break;
 				} else {
 					drainAmount -= joules;
-					item.onUse(joules, stack);
+					// item.onUse(joules, stack);
 				}
 			}
 		}
@@ -65,11 +65,11 @@ public class ElectricItemUtils {
 				IItemElectric item = (IItemElectric) (stack.getItem());
 				double missingjoules = item.getMaxJoules(stack) - item.getJoules(stack);
 				if (missingjoules > joulesToGive) {
-					item.onUse(-joulesToGive, stack);
+					// item.onUse(-joulesToGive, stack);
 					break;
 				} else {
 					joulesToGive -= missingjoules;
-					item.onUse(-missingjoules, stack);
+					// item.onUse(-missingjoules, stack);
 				}
 			}
 		}

@@ -25,8 +25,7 @@ import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
 /**
- * Called before and after the 3D world is rendered (tickEnd is called BEFORE
- * the 2D gui is drawn... I think?).
+ * Called before and after the 3D world is rendered (tickEnd is called BEFORE the 2D gui is drawn... I think?).
  * 
  * @param float tickData[0] the amount of time (0.0f-1.0f) since the last tick.
  * 
@@ -56,15 +55,13 @@ public class RenderTickHandler implements ITickHandler {
 		}
 		if (Minecraft.getMinecraft().currentScreen == null) {
 			Minecraft mc = Minecraft.getMinecraft();
-			ScaledResolution screen = new ScaledResolution(mc.gameSettings,
-					mc.displayWidth, mc.displayHeight);
+			ScaledResolution screen = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
 			int i = player.inventory.currentItem;
 			ItemStack stack = player.inventory.mainInventory[i];
 			if (stack != null && stack.getItem() instanceof IModularItem) {
 				MuseRenderer.blendingOn();
 				NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-				int swapTime = (int) Math.min(System.currentTimeMillis() -
-						lastSwapTime, SWAPTIME);
+				int swapTime = (int) Math.min(System.currentTimeMillis() - lastSwapTime, SWAPTIME);
 				MuseIcon currentMode = null;
 				MuseIcon nextMode = null;
 				MuseIcon prevMode = null;
@@ -72,8 +69,7 @@ public class RenderTickHandler implements ITickHandler {
 				String mode = itemTag.getString("Mode");
 				int modeIndex = modes.indexOf(mode);
 				if (modeIndex > -1) {
-					String prevModeName = modes.get((modeIndex + modes.size() - 1) %
-							modes.size());
+					String prevModeName = modes.get((modeIndex + modes.size() - 1) % modes.size());
 					String nextModeName = modes.get((modeIndex + 1) % modes.size());
 					IPowerModule module = ModuleManager.getModule(mode);
 					IPowerModule nextModule = ModuleManager.getModule(nextModeName);
@@ -109,15 +105,9 @@ public class RenderTickHandler implements ITickHandler {
 					prevAlpha = 0.4;
 					currAlpha = 0.8;
 					nextAlpha = 0.4;
-					MuseRenderer.drawIconPartial(prevX, prevY, prevMode,
-							Colour.WHITE.withAlpha(prevAlpha), 0, 0, 16, sh + baroffset - prevY +
-									16);
-					MuseRenderer.drawIconPartial(currX, currY, currentMode,
-							Colour.WHITE.withAlpha(currAlpha), 0, 0, 16, sh + baroffset - currY +
-									16);
-					MuseRenderer.drawIconPartial(nextX, nextY, nextMode,
-							Colour.WHITE.withAlpha(nextAlpha), 0, 0, 16, sh + baroffset - nextY +
-									16);
+					MuseRenderer.drawIconPartial(prevX, prevY, prevMode, Colour.WHITE.withAlpha(prevAlpha), 0, 0, 16, sh + baroffset - prevY + 16);
+					MuseRenderer.drawIconPartial(currX, currY, currentMode, Colour.WHITE.withAlpha(currAlpha), 0, 0, 16, sh + baroffset - currY + 16);
+					MuseRenderer.drawIconPartial(nextX, nextY, nextMode, Colour.WHITE.withAlpha(nextAlpha), 0, 0, 16, sh + baroffset - nextY + 16);
 				} else {
 					prevAlpha = 0.8;
 					currAlpha = 0.8;
@@ -129,28 +119,20 @@ public class RenderTickHandler implements ITickHandler {
 						nextY = (currY * r1 + nextY * r2);
 						currX = (prevX * r1 + currX * r2);
 						currY = (prevY * r1 + currY * r2);
-						MuseRenderer.drawIconPartial(
-								currX, currY, currentMode,
-								Colour.WHITE.withAlpha(currAlpha),
-								0, 0, 16, sh + baroffset - currY + 16);
-						MuseRenderer.drawIconPartial(
-								nextX, nextY, nextMode,
-								Colour.WHITE.withAlpha(nextAlpha),
-								0, 0, 16, sh + baroffset - nextY + 16);
+						MuseRenderer.drawIconPartial(currX, currY, currentMode, Colour.WHITE.withAlpha(currAlpha), 0, 0, 16, sh + baroffset - currY
+								+ 16);
+						MuseRenderer
+								.drawIconPartial(nextX, nextY, nextMode, Colour.WHITE.withAlpha(nextAlpha), 0, 0, 16, sh + baroffset - nextY + 16);
 
 					} else {
 						prevX = (currX * r1 + prevX * r2);
 						prevY = (currY * r1 + prevY * r2);
 						currX = (nextX * r1 + currX * r2);
 						currY = (nextY * r1 + currY * r2);
-						MuseRenderer.drawIconPartial(
-								prevX, prevY, prevMode,
-								Colour.WHITE.withAlpha(prevAlpha),
-								0, 0, 16, sh + baroffset - prevY + 16);
-						MuseRenderer.drawIconPartial(
-								currX, currY, currentMode,
-								Colour.WHITE.withAlpha(currAlpha),
-								0, 0, 16, sh + baroffset - currY + 16);
+						MuseRenderer
+								.drawIconPartial(prevX, prevY, prevMode, Colour.WHITE.withAlpha(prevAlpha), 0, 0, 16, sh + baroffset - prevY + 16);
+						MuseRenderer.drawIconPartial(currX, currY, currentMode, Colour.WHITE.withAlpha(currAlpha), 0, 0, 16, sh + baroffset - currY
+								+ 16);
 
 					}
 				}

@@ -1,9 +1,5 @@
 package net.machinemuse.powersuits.item;
 
-import ic2.api.ICustomElectricItem;
-import icbm.api.explosion.IEMPItem;
-import icbm.api.explosion.IExplosive;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +14,11 @@ import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.Config.Items;
-import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,19 +26,11 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
-import thermalexpansion.api.core.IChargeableItem;
-import universalelectricity.core.electricity.ElectricInfo;
-import universalelectricity.core.electricity.ElectricInfo.ElectricUnit;
-import universalelectricity.core.electricity.ElectricityPack;
-import universalelectricity.core.implement.IConductor;
-import universalelectricity.core.implement.IItemElectric;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
@@ -55,14 +43,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  * 
  * @author MachineMuse
  */
-public class ItemPowerTool extends ItemTool
-		implements
-		IModularItem,
-		IItemElectric, // Universal Electricity
-		ICustomElectricItem, // Industrial Craft 2
-		IEMPItem, // for ICBM EMP interfacing
-		IChargeableItem // for Thermal Expansion
-{
+public class ItemPowerTool extends ItemElectricTool implements IModularItem {
 	public static final ItemStack ironPickaxe = new ItemStack(Item.pickaxeSteel);
 	public static final ItemStack ironAxe = new ItemStack(Item.axeSteel);
 	public static final ItemStack ironShovel = new ItemStack(Item.shovelSteel);
@@ -86,10 +67,14 @@ public class ItemPowerTool extends ItemTool
 		setMaxDamage(0);
 		this.damageVsEntity = 1;
 		setCreativeTab(Config.getCreativeTab());
-		setIconIndex(59);
-		setTextureFile(MuseIcon.WC_ICON_PATH);
-		setItemName(Config.Items.PowerTool.idName);
 		LanguageRegistry.addName(this, Config.Items.PowerTool.englishName);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void updateIcons(IconRegister iconRegister) {
+		MuseIcon.POWERTOOL.register(iconRegister);
+		iconIndex = MuseIcon.POWERTOOL.getIconRegistration();
 	}
 
 	@Override
@@ -98,8 +83,7 @@ public class ItemPowerTool extends ItemTool
 	}
 
 	/**
-	 * Returns the strength of the stack against a given block. 1.0F base,
-	 * (Quality+1)*2 if correct blocktype, 1.5F if sword
+	 * Returns the strength of the stack against a given block. 1.0F base, (Quality+1)*2 if correct blocktype, 1.5F if sword
 	 */
 	@Override
 	public float getStrVsBlock(ItemStack stack, Block block) {
@@ -110,11 +94,8 @@ public class ItemPowerTool extends ItemTool
 		double computedred = ModuleManager.computeModularProperty(stack, MuseCommonStrings.RED_TINT);
 		double computedgreen = ModuleManager.computeModularProperty(stack, MuseCommonStrings.GREEN_TINT);
 		double computedblue = ModuleManager.computeModularProperty(stack, MuseCommonStrings.BLUE_TINT);
-		Colour colour = new Colour(
-				clampDouble(1 + computedred - (computedblue + computedgreen), 0, 1),
-				clampDouble(1 + computedgreen - (computedblue + computedred), 0, 1),
-				clampDouble(1 + computedblue - (computedred + computedgreen), 0, 1),
-				1.0F);
+		Colour colour = new Colour(clampDouble(1 + computedred - (computedblue + computedgreen), 0, 1), clampDouble(1 + computedgreen
+				- (computedblue + computedred), 0, 1), clampDouble(1 + computedblue - (computedred + computedgreen), 0, 1), 1.0F);
 		return colour;
 	}
 
@@ -155,8 +136,7 @@ public class ItemPowerTool extends ItemTool
 	}
 
 	/**
-	 * Current implementations of this method in child classes do not use the
-	 * entry argument beside stack. They just raise the damage on the stack.
+	 * Current implementations of this method in child classes do not use the entry argument beside stack. They just raise the damage on the stack.
 	 */
 	@Override
 	public boolean hitEntity(ItemStack stack, EntityLiving entityBeingHit, EntityLiving entityDoingHitting) {
@@ -181,9 +161,7 @@ public class ItemPowerTool extends ItemTool
 	 * Called when a block is destroyed using this tool.
 	 */
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World world,
-			int blockID, int x, int y, int z,
-			EntityLiving entity) {
+	public boolean onBlockDestroyed(ItemStack stack, World world, int blockID, int x, int y, int z, EntityLiving entity) {
 		double drain = 1;
 		Block block = Block.blocksList[blockID];
 		int meta = 0;
@@ -207,7 +185,7 @@ public class ItemPowerTool extends ItemTool
 			EntityPlayer player = (EntityPlayer) entity;
 			ElectricItemUtils.drainPlayerEnergy(player, drain);
 		} else {
-			onUse(drain, stack);
+			// onUse(drain, stack);
 		}
 		return true;
 	}
@@ -216,9 +194,8 @@ public class ItemPowerTool extends ItemTool
 		if (MuseItemUtils.itemHasActiveModule(stack, MuseCommonStrings.MODULE_PICKAXE)) {
 			if (ForgeHooks.isToolEffective(ironPickaxe, block, meta)) {
 				return true;
-			} else if ((!ForgeHooks.isToolEffective(diamondPick, block, meta)) && (block.blockMaterial == Material.iron
-					|| block.blockMaterial == Material.anvil
-					|| block.blockMaterial == Material.rock)) {
+			} else if ((!ForgeHooks.isToolEffective(diamondPick, block, meta))
+					&& (block.blockMaterial == Material.iron || block.blockMaterial == Material.anvil || block.blockMaterial == Material.rock)) {
 				return true;
 			}
 		}
@@ -240,9 +217,7 @@ public class ItemPowerTool extends ItemTool
 		if (MuseItemUtils.itemHasActiveModule(stack, MuseCommonStrings.MODULE_AXE)) {
 			if (ForgeHooks.isToolEffective(ironAxe, block, meta)) {
 				return true;
-			} else if (block.blockMaterial == Material.wood
-					|| block.blockMaterial == Material.plants
-					|| block.blockMaterial == Material.vine) {
+			} else if (block.blockMaterial == Material.wood || block.blockMaterial == Material.plants || block.blockMaterial == Material.vine) {
 				return true;
 			}
 		}
@@ -253,9 +228,7 @@ public class ItemPowerTool extends ItemTool
 		if (MuseItemUtils.itemHasActiveModule(stack, MuseCommonStrings.MODULE_DIAMOND_PICK_UPGRADE)) {
 			if (ForgeHooks.isToolEffective(diamondPick, block, meta)) {
 				return true;
-			} else if (block.blockMaterial == Material.iron
-					|| block.blockMaterial == Material.anvil
-					|| block.blockMaterial == Material.rock) {
+			} else if (block.blockMaterial == Material.iron || block.blockMaterial == Material.anvil || block.blockMaterial == Material.rock) {
 				return true;
 			}
 		}
@@ -280,8 +253,7 @@ public class ItemPowerTool extends ItemTool
 	}
 
 	/**
-	 * Return the enchantability factor of the item. In this case, 0. Might add
-	 * an enchantability module later :P
+	 * Return the enchantability factor of the item. In this case, 0. Might add an enchantability module later :P
 	 */
 	@Override
 	public int getItemEnchantability() {
@@ -300,8 +272,7 @@ public class ItemPowerTool extends ItemTool
 	 * Return whether this item is repairable in an anvil.
 	 */
 	@Override
-	public boolean getIsRepairable(ItemStack par1ItemStack,
-			ItemStack par2ItemStack) {
+	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
 		return false;
 	}
 
@@ -312,8 +283,7 @@ public class ItemPowerTool extends ItemTool
 	@Override
 	public List<String> getLongInfo(EntityPlayer player, ItemStack stack) {
 		List<String> info = new ArrayList();
-		NBTTagCompound itemProperties = MuseItemUtils
-				.getMuseItemTag(stack);
+		NBTTagCompound itemProperties = MuseItemUtils.getMuseItemTag(stack);
 		info.add("Detailed Summary");
 		info.add(formatInfo("Energy Storage", getMaxJoules(stack)) + "J");
 		info.add(formatInfo("Weight", MuseCommonStrings.getTotalWeight(stack)) + "g");
@@ -328,41 +298,34 @@ public class ItemPowerTool extends ItemTool
 	 * @param player
 	 *            The player (client) viewing the tooltip
 	 * @param currentTipList
-	 *            A list of strings containing the existing tooltip. When
-	 *            passed, it will just contain the name of the item;
-	 *            enchantments and lore are appended afterwards.
+	 *            A list of strings containing the existing tooltip. When passed, it will just contain the name of the item; enchantments and lore are
+	 *            appended afterwards.
 	 * @param advancedToolTips
-	 *            Whether or not the player has 'advanced tooltips' turned on in
-	 *            their settings.
+	 *            Whether or not the player has 'advanced tooltips' turned on in their settings.
 	 */
 	@Override
-	public void addInformation(ItemStack stack,
-			EntityPlayer player, List currentTipList, boolean advancedToolTips) {
-		MuseCommonStrings.addInformation(stack, player, currentTipList,
-				advancedToolTips);
+	public void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
+		MuseCommonStrings.addInformation(stack, player, currentTipList, advancedToolTips);
 	}
 
 	/**
 	 * How long it takes to use or consume an item
 	 */
-	public int getMaxItemUseDuration(ItemStack par1ItemStack)
-	{
+	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
 		return 72000;
 	}
 
 	/**
 	 * What happens when the duration runs out
 	 */
-	public ItemStack onFoodEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
-	{
+	public ItemStack onFoodEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 		return par1ItemStack;
 	}
 
 	/**
 	 * Called when the right click button is pressed
 	 */
-	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
-	{
+	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
 		for (IRightClickModule module : ModuleManager.getRightClickModules()) {
 			if (module.isValidForItem(itemStack, player) && MuseItemUtils.itemHasActiveModule(itemStack, module.getName())) {
 				((IRightClickModule) module).onRightClick(player, world, itemStack);
@@ -372,23 +335,19 @@ public class ItemPowerTool extends ItemTool
 	}
 
 	/**
-	 * returns the action that specifies what animation to play when the items
-	 * is being used
+	 * returns the action that specifies what animation to play when the items is being used
 	 */
-	public EnumAction getItemUseAction(ItemStack stack)
-	{
+	public EnumAction getItemUseAction(ItemStack stack) {
 		return EnumAction.bow;
 	}
 
 	/**
 	 * Called when the right click button is released
 	 */
-	public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4)
-	{
+	public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
 		int chargeTicks = Math.max(this.getMaxItemUseDuration(itemStack) - par4, 10);
 
-		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
-		{
+		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
 			double energyConsumption = ModuleManager.computeModularProperty(itemStack, MuseCommonStrings.PLASMA_CANNON_ENERGY_PER_TICK) * chargeTicks;
 			if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
 				ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
@@ -397,231 +356,35 @@ public class ItemPowerTool extends ItemTool
 
 				EntityPlasmaBolt plasmaBolt = new EntityPlasmaBolt(world, player, explosiveness, damagingness, chargeTicks);
 				world.spawnEntityInWorld(plasmaBolt);
-				MusePacketPlasmaBolt packet = new MusePacketPlasmaBolt((Player) player, plasmaBolt.entityId,
-						plasmaBolt.size);
+				MusePacketPlasmaBolt packet = new MusePacketPlasmaBolt((Player) player, plasmaBolt.entityId, plasmaBolt.size);
 				PacketDispatcher.sendPacketToAllPlayers(packet.getPacket250());
 			}
 		}
-	}
-
-	// /////////////////////////////////////////// //
-	// --- UNIVERSAL ELECTRICITY COMPATABILITY --- //
-	// /////////////////////////////////////////// //
-	@Override
-	public double onReceive(double amps, double voltage, ItemStack itemStack) {
-		double amount = ElectricInfo.getJoules(amps, voltage, 1);
-		return ElectricItemUtils.charge(amount, itemStack);
-	}
-
-	@Override
-	public double onUse(double joulesNeeded, ItemStack itemStack) {
-		return ElectricItemUtils.discharge(joulesNeeded, itemStack);
-	}
-
-	@Override
-	public double getJoules(Object... data) {
-		return ElectricItemUtils.getJoules(getAsStack(data));
-	}
-
-	@Override
-	public void setJoules(double joules, Object... data) {
-		ElectricItemUtils.setJoules(joules, getAsStack(data));
-	}
-
-	@Override
-	public double getMaxJoules(Object... data) {
-		return ElectricItemUtils.getMaxJoules(getAsStack(data));
-	}
-
-	@Override
-	public double getVoltage(Object... data) {
-		return ElectricItemUtils.getVoltage(getAsStack(data));
-	}
-
-	@Override
-	public boolean canReceiveElectricity() {
-		return true;
-	}
-
-	@Override
-	public boolean canProduceElectricity() {
-		return true;
-	}
-
-	/**
-	 * Helper function to deal with UE's use of varargs
-	 */
-	private ItemStack getAsStack(Object[] data) {
-		if (data[0] instanceof ItemStack) {
-			return (ItemStack) data[0];
-		} else {
-			throw new IllegalArgumentException(
-					"MusePowerSuits: Invalid ItemStack passed via UE interface");
-		}
-	}
-
-	// //////////////////////////////////////// //
-	// --- INDUSTRIAL CRAFT 2 COMPATABILITY --- //
-	// //////////////////////////////////////// //
-	@Override
-	public int charge(ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
-		double joulesProvided = ModCompatability.joulesFromEU(amount);
-		double currentJoules = ElectricItemUtils.getJoules(stack);
-		double surplus = ElectricItemUtils.charge(joulesProvided, stack);
-		if (simulate) {
-			ElectricItemUtils.setJoules(currentJoules, stack);
-		}
-		return ModCompatability.joulesToEU(joulesProvided - surplus);
-	}
-
-	@Override
-	public int discharge(ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
-
-		double joulesRequested = ModCompatability.joulesFromEU(amount);
-		double currentJoules = ElectricItemUtils.getJoules(stack);
-		double givenJoules = ElectricItemUtils.discharge(joulesRequested, stack);
-		if (simulate) {
-			ElectricItemUtils.setJoules(currentJoules, stack);
-		}
-		return ModCompatability.joulesToEU(givenJoules);
-	}
-
-	@Override
-	public boolean canUse(ItemStack stack, int amount) {
-		double joulesRequested = ModCompatability.joulesFromEU(amount);
-		double currentJoules = ElectricItemUtils.getJoules(stack);
-		if (currentJoules > joulesRequested) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	@Override
-	public boolean canShowChargeToolTip(ItemStack itemStack) {
-		return false;
-	}
-
-	@Override
-	public boolean canProvideEnergy() {
-		return true;
-	}
-
-	@Override
-	public int getChargedItemId() {
-		return this.itemID;
-	}
-
-	@Override
-	public int getEmptyItemId() {
-		return this.itemID;
-	}
-
-	@Override
-	public int getMaxCharge() {
-		return 1;
-	}
-
-	@Override
-	public int getTier() {
-		return 1;
-	}
-
-	@Override
-	public int getTransferLimit() {
-		return 0;
 	}
 
 	public static MuseIcon getCurrentIconFor(ItemStack itemStack) {
 		return MuseIcon.POWERTOOL;
 	}
 
-	@Override
-	public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World worldObj, int x, int y, int z, int side, float hitX, float hitY,
-			float hitZ) {
-
-		if (ModCompatability.isBasicComponentsLoaded() && MuseItemUtils.itemHasActiveModule(itemStack, MuseCommonStrings.MODULE_MULTIMETER)) {
-			if (!worldObj.isRemote) {
-				TileEntity tileEntity = worldObj.getBlockTileEntity(x, y, z);
-				if (tileEntity instanceof IConductor) {
-					IConductor wireTile = (IConductor) tileEntity;
-					ElectricityPack getProduced = wireTile.getNetwork().getProduced();
-					player.addChatMessage("Reading: " + ElectricInfo.getDisplay(getProduced.amperes, ElectricUnit.AMPERE) + ", "
-							+ ElectricInfo.getDisplay(getProduced.voltage, ElectricUnit.VOLTAGE) + ", "
-							+ ElectricInfo.getDisplay(getProduced.getWatts() * 20, ElectricUnit.WATT));
-					return true;
-				}
-			}
-		}
-
-		return false;
-	}
-
-	// //////////// //
-	// --- ICBM --- //
-	// //////////// //
-	@Override
-	public void onEMP(ItemStack itemStack, Entity entity, IExplosive empExplosive) {
-		ElectricItemUtils.onEMP(itemStack, entity, empExplosive);
-	}
-
-	// ///////////////////////// //
-	// --- Thermal Expansion --- //
-	// ///////////////////////// //
-
-	/**
-	 * Adds energy to an item. Returns the quantity of energy that was accepted.
-	 * This should always return 0 if the item cannot be externally charged.
-	 * 
-	 * @param theItem
-	 *            ItemStack to be charged.
-	 * @param energy
-	 *            Maximum amount of energy to be sent into the item.
-	 * @param doReceive
-	 *            If false, the charge will only be simulated.
-	 * @return Amount of energy that was accepted by the item.
-	 */
-	public float receiveEnergy(ItemStack stack, float energy, boolean doReceive) {
-		double offeredJoules = energy * ModCompatability.getBCRatio();
-		double missingJoules = ElectricItemUtils.getMaxJoules(stack) - ElectricItemUtils.getJoules(stack);
-		double transferredJoules = Math.min(offeredJoules, missingJoules);
-		ElectricItemUtils.charge(transferredJoules, stack);
-		return (float) (transferredJoules / ModCompatability.getBCRatio());
-	}
-
-	/**
-	 * Removes energy from an item. Returns the quantity of energy that was
-	 * removed. This should always return 0 if the item cannot be externally
-	 * discharged.
-	 * 
-	 * @param theItem
-	 *            ItemStack to be discharged.
-	 * @param energy
-	 *            Maximum amount of energy to be removed from the item.
-	 * @param doTransfer
-	 *            If false, the discharge will only be simulated.
-	 * @return Amount of energy that was removed from the item.
-	 */
-	public float transferEnergy(ItemStack stack, float energy, boolean doTransfer) {
-		double requestedJoules = energy * ModCompatability.getBCRatio();
-		double availableJoules = ElectricItemUtils.getJoules(stack);
-		double transferredJoules = Math.min(requestedJoules, availableJoules);
-		ElectricItemUtils.discharge(transferredJoules, stack);
-		return (float) (transferredJoules / ModCompatability.getBCRatio());
-	}
-
-	/**
-	 * Get the amount of energy currently stored in the item.
-	 */
-	public float getEnergyStored(ItemStack stack) {
-		return (float) (ModCompatability.getBCRatio() * ElectricItemUtils.getJoules(stack));
-	}
-
-	/**
-	 * Get the max amount of energy that can be stored in the item.
-	 */
-	public float getMaxEnergyStored(ItemStack stack) {
-		return (float) (ModCompatability.getBCRatio() * ElectricItemUtils.getMaxJoules(stack));
-	}
+	// @Override
+	// public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World worldObj, int x, int y, int z, int side, float hitX, float hitY,
+	// float hitZ) {
+	//
+	// if (ModCompatability.isBasicComponentsLoaded() && MuseItemUtils.itemHasActiveModule(itemStack, MuseCommonStrings.MODULE_MULTIMETER)) {
+	// if (!worldObj.isRemote) {
+	// TileEntity tileEntity = worldObj.getBlockTileEntity(x, y, z);
+	// if (tileEntity instanceof IConductor) {
+	// IConductor wireTile = (IConductor) tileEntity;
+	// ElectricityPack getProduced = wireTile.getNetwork().getProduced();
+	// player.addChatMessage("Reading: " + ElectricInfo.getDisplay(getProduced.amperes, ElectricUnit.AMPERE) + ", "
+	// + ElectricInfo.getDisplay(getProduced.voltage, ElectricUnit.VOLTAGE) + ", "
+	// + ElectricInfo.getDisplay(getProduced.getWatts() * 20, ElectricUnit.WATT));
+	// return true;
+	// }
+	// }
+	// }
+	//
+	// return false;
+	// }
 
 }

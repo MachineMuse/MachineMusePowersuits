@@ -6,15 +6,19 @@ import java.util.List;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemComponent extends Item {
-	public static List<Integer> icons;
+	public static List<MuseIcon> icons;
 	public static List<String> names;
 	public static List<String> descriptions;
 
@@ -43,16 +47,15 @@ public class ItemComponent extends Item {
 		this.setHasSubtypes(true);
 		this.setMaxDamage(0);
 		this.setCreativeTab(Config.getCreativeTab());
-		icons = new ArrayList();
-		names = new ArrayList();
-		descriptions = new ArrayList();
+		icons = new ArrayList<MuseIcon>();
+		names = new ArrayList<String>();
+		descriptions = new ArrayList<String>();
 	}
 
 	public ItemStack addComponent(String oredictName, String englishName, String description, MuseIcon icon) {
 		names.add(oredictName);
-		icons.add(icon.getIconIndex());
+		icons.add(icon);
 		descriptions.add(description);
-		this.setTextureFile(icon.getTexturefile());
 		ItemStack stack = new ItemStack(this, 1, names.size() - 1);
 		LanguageRegistry.addName(stack, englishName);
 		return stack;
@@ -61,10 +64,7 @@ public class ItemComponent extends Item {
 	public void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
 		if (Config.doAdditionalInfo()) {
 			String message = "For use in Tinker Table.";
-			message = MuseStringUtils.wrapMultipleFormatTags(
-					message,
-					MuseStringUtils.FormatCodes.Grey,
-					MuseStringUtils.FormatCodes.Italic);
+			message = MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic);
 			currentTipList.add(message);
 			int damage = stack.getItemDamage();
 			if (damage < descriptions.size()) {
@@ -114,32 +114,35 @@ public class ItemComponent extends Item {
 		artificialMuscle = addComponent("componentArtificialMuscle", "Artificial Muscle",
 				"An electrical, artificial muscle, with less range of movement than human muscle but orders of magnitude more strength.",
 				MuseIcon.ARTIFICIAL_MUSCLE);
-		solarPanel = addComponent("componentSolarPanel", "Solar Panel",
-				"A light sensitive device that will generate electricity from the sun.", new MuseIcon(MuseIcon.WC_ICON_PATH, 229));
+		solarPanel = addComponent("componentSolarPanel", "Solar Panel", "A light sensitive device that will generate electricity from the sun.",
+				new MuseIcon("blueplate"));
 	}
 
 	/**
 	 * Gets an icon index based on an item's damage value
 	 */
-	public int getIconFromDamage(int index)
-	{
-		return icons.get(index);
+	public Icon getIconFromDamage(int index) {
+		return icons.get(index).getIconRegistration();
 	}
 
-	public String getItemNameIS(ItemStack par1ItemStack)
-	{
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void updateIcons(IconRegister iconRegister) {
+		for (MuseIcon icon : icons) {
+			icon.register(iconRegister);
+		}
+	}
+
+	public String getItemNameIS(ItemStack par1ItemStack) {
 		int index = MathHelper.clamp_int(par1ItemStack.getItemDamage(), 0, names.size() - 1);
 		return "powerArmorComponent." + names.get(index).replaceAll("\\s", "");
 	}
 
 	/**
-	 * returns a list of items with the same ID, but different meta (eg: dye
-	 * returns 16 items). For creative tab.
+	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items). For creative tab.
 	 */
-	public void getSubItems(int itemID, CreativeTabs tab, List listToAddTo)
-	{
-		for (int i = 0; i < names.size(); ++i)
-		{
+	public void getSubItems(int itemID, CreativeTabs tab, List listToAddTo) {
+		for (int i = 0; i < names.size(); ++i) {
 			listToAddTo.add(new ItemStack(itemID, 1, i));
 		}
 	}
