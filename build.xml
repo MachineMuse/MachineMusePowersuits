@@ -1,4 +1,4 @@
-<project name="ModularPowersuits" default="install" basedir=".">
+<project name="ModularPowersuits" default="clean" basedir=".">
 
 	<property environment="env"/>
 
@@ -185,7 +185,7 @@
 		</copy>
 	</target>
 
-	<target name="setup-forge" depends="download-forge" unless="forge.already.installed">
+	<target name="setup-forge" depends="download-forge" unless="forge-exists">
 
 		<unzip dest="${build.dir}">
 			<fileset dir="${download.dir}">
@@ -267,6 +267,7 @@
 
 	<target name="clean">
 		<delete dir="${build.dir}" />
+		<delete dir="${download.dir}" />
 	</target>
 
 
