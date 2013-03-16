@@ -19,7 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Vec3;
 
 public class GliderModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-
+	public static final String MODULE_GLIDER = "Glider";
 	public GliderModule() {
 		super(Arrays.asList((IModularItem) ModularPowersuits.powerArmorTorso));
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.gliderWing, 2));
@@ -37,7 +37,7 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
 
 	@Override
 	public String getName() {
-		return MuseCommonStrings.MODULE_GLIDER;
+		return MODULE_GLIDER;
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
 		ItemStack torso = player.getCurrentArmor(2);
 		boolean hasParachute = false;
 		if (torso != null && torso.getItem() instanceof IModularItem) {
-			hasParachute = MuseItemUtils.itemHasActiveModule(torso, MuseCommonStrings.MODULE_PARACHUTE);
+			hasParachute = MuseItemUtils.itemHasActiveModule(torso, ParachuteModule.MODULE_PARACHUTE);
 		}
 		if (sneakkey && player.motionY < -0.1 && (!hasParachute || forwardkey > 0)) {
 			if (player.motionY < -0.1) {

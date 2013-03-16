@@ -15,6 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 public class StepAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
+	public static final String MODULE_CLIMB_ASSIST = "Uphill Step Assist";
 	public StepAssistModule() {
 		super(Arrays.asList((IModularItem) ModularPowersuits.powerArmorLegs));
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
@@ -32,7 +33,7 @@ public class StepAssistModule extends PowerModuleBase implements IToggleableModu
 
 	@Override
 	public String getName() {
-		return MuseCommonStrings.MODULE_CLIMB_ASSIST;
+		return MODULE_CLIMB_ASSIST;
 	}
 
 	@Override

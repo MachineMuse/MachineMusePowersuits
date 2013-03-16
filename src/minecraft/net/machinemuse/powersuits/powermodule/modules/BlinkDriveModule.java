@@ -18,7 +18,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 public class BlinkDriveModule extends PowerModuleBase implements IRightClickModule {
-
+	public static final String MODULE_BLINK_DRIVE = "Blink Drive";
 	public BlinkDriveModule(List<IModularItem> validItems) {
 		super(validItems);
 		addBaseProperty(MuseCommonStrings.BLINK_DRIVE_ENERGY_CONSUMPTION, 1000, "J");
@@ -41,7 +41,7 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
 
 	@Override
 	public String getName() {
-		return MuseCommonStrings.MODULE_BLINK_DRIVE;
+		return MODULE_BLINK_DRIVE;
 	}
 
 	@Override

@@ -17,7 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 public class JumpAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-
+	public static final String MODULE_JUMP_ASSIST = "Jump Assist";
 	public JumpAssistModule() {
 		super(Arrays.asList((IModularItem) ModularPowersuits.powerArmorLegs));
 		addSimpleTradeoff(this, "Power", MuseCommonStrings.JUMP_ENERGY_CONSUMPTION, "J", 0, 25, MuseCommonStrings.JUMP_MULTIPLIER, "%", 1, 4);
@@ -37,7 +37,7 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
 
 	@Override
 	public String getName() {
-		return MuseCommonStrings.MODULE_JUMP_ASSIST;
+		return MODULE_JUMP_ASSIST;
 	}
 
 	@Override

@@ -18,6 +18,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
 public class InvisibilityModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
+	public static final String MODULE_ACTIVE_CAMOUFLAGE = "Active Camouflage";
 	public InvisibilityModule() {
 		super(Arrays.asList((IModularItem) ModularPowersuits.powerArmorTorso));
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.laserHologram, 4));
@@ -37,7 +38,7 @@ public class InvisibilityModule extends PowerModuleBase implements IPlayerTickMo
 
 	@Override
 	public String getName() {
-		return MuseCommonStrings.MODULE_ACTIVE_CAMOUFLAGE;
+		return MODULE_ACTIVE_CAMOUFLAGE;
 	}
 
 	@Override

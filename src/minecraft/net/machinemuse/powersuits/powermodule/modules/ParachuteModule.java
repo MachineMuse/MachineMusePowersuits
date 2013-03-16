@@ -16,7 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 public class ParachuteModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-
+	public static final String MODULE_PARACHUTE = "Parachute";
 	public ParachuteModule() {
 		super(Arrays.asList((IModularItem) ModularPowersuits.powerArmorTorso));
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.parachute, 2));
@@ -34,7 +34,7 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
 
 	@Override
 	public String getName() {
-		return MuseCommonStrings.MODULE_PARACHUTE;
+		return MODULE_PARACHUTE;
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
 		ItemStack torso = player.getCurrentArmor(2);
 		boolean hasGlider = false;
 		if (torso != null && torso.getItem() instanceof IModularItem) {
-			hasGlider = MuseItemUtils.itemHasActiveModule(torso, MuseCommonStrings.MODULE_GLIDER);
+			hasGlider = MuseItemUtils.itemHasActiveModule(torso, GliderModule.MODULE_GLIDER);
 		}
 		if (sneakkey && player.motionY < -0.1 && (!hasGlider || forwardkey <= 0)) {
 			double totalVelocity = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ + player.motionY * player.motionY)
