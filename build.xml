@@ -104,12 +104,7 @@
 		<move todir="${mcpsrc.dir}/universalelectricity/core/">
 			<fileset dir="${ue.download.dir}/core/" />
 		</move>
-		<mkdir dir="${mcpsrc.dir}/universalelectricity/prefab" />
-		<move file="${ue.download.dir}/prefab/UEDamageSource.java" todir="${mcpsrc.dir}/universalelectricity/prefab/UEDamageSource.java" />
-		<mkdir dir="${mcpsrc.dir}/universalelectricity/prefab/potion" />
-		<move file="${ue.download.dir}/prefab/potion/CustomPotion.java" todir="${mcpsrc.dir}/universalelectricity/prefab/potion/CustomPotion.java" />
-		<move file="${ue.download.dir}/prefab/potion/CustomPotionEffect.java" todir="${mcpsrc.dir}/universalelectricity/prefab/potion/CustomPotionEffect.java" />
-
+		
 		<echo message="Extracting ICBM API... " />
 		<unzip src="${download.dir}/ICBM_v${icbmapi.version}_api.zip" dest="${download.dir}/ue" />
 		<mkdir dir="${mcpsrc.dir}/icbm" />
