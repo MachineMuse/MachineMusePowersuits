@@ -18,7 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 public class JetBootsModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-
+	public static final String MODULE_JETBOOTS = "Jet Boots";
 	public JetBootsModule() {
 		super(Arrays.asList((IModularItem) ModularPowersuits.powerArmorFeet));
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 2));
@@ -40,7 +40,7 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
 
 	@Override
 	public String getName() {
-		return MuseCommonStrings.MODULE_JETBOOTS;
+		return MODULE_JETBOOTS;
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.powersuits.item.ItemPowerArmor;
+import net.machinemuse.powersuits.powermodule.modules.JumpAssistModule;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.ForgeSubscribe;
@@ -35,7 +36,7 @@ public class MovementManager {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 			ItemStack stack = player.getCurrentArmor(1);
 			if (stack != null && stack.getItem() instanceof ItemPowerArmor
-					&& MuseItemUtils.itemHasActiveModule(stack, MuseCommonStrings.MODULE_JUMP_ASSIST)) {
+					&& MuseItemUtils.itemHasActiveModule(stack, JumpAssistModule.MODULE_JUMP_ASSIST)) {
 				double jumpAssist = ModuleManager.computeModularProperty(stack, MuseCommonStrings.JUMP_MULTIPLIER) * 2;
 				double drain = ModuleManager.computeModularProperty(stack, MuseCommonStrings.JUMP_ENERGY_CONSUMPTION);
 				double avail = ElectricItemUtils.getPlayerEnergy(player);

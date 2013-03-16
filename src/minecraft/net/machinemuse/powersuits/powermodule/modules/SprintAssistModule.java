@@ -16,7 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 public class SprintAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-
+	public static final String MODULE_SPRINT_ASSIST = "Sprint Assist";
 	public SprintAssistModule() {
 		super(Arrays.asList((IModularItem) ModularPowersuits.powerArmorLegs));
 		addInstallCost(Config.copyAndResize(ItemComponent.servoMotor, 4));
@@ -46,7 +46,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
 
 	@Override
 	public String getName() {
-		return MuseCommonStrings.MODULE_SPRINT_ASSIST;
+		return MODULE_SPRINT_ASSIST;
 	}
 
 	@Override

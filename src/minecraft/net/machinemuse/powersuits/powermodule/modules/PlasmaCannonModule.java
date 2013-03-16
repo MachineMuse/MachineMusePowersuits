@@ -14,7 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class PlasmaCannonModule extends PowerModuleBase implements IRightClickModule {
-
+	public static final String MODULE_PLASMA_CANNON = "Plasma Cannon";
 	public PlasmaCannonModule(List<IModularItem> validItems) {
 		super(validItems);
 		addBaseProperty(MuseCommonStrings.PLASMA_CANNON_ENERGY_PER_TICK, 10, "J");
@@ -39,7 +39,7 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
 
 	@Override
 	public String getName() {
-		return MuseCommonStrings.MODULE_PLASMA_CANNON;
+		return MODULE_PLASMA_CANNON;
 	}
 
 	@Override

@@ -21,6 +21,7 @@ import net.minecraft.world.World;
 public class RailgunModule extends PowerModuleBase implements IRightClickModule {
 	// private List<String> particles;
 	// private Iterator<String> iterator;
+	public static final String MODULE_RAILGUN = "Railgun";
 	private static String IMPULSE = "Railgun Total Impulse";
 	private static String ENERGY = "Railgun Energy Cost";
 
@@ -52,7 +53,7 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule 
 
 	@Override
 	public String getName() {
-		return "Railgun";
+		return MODULE_RAILGUN;
 	}
 
 	@Override

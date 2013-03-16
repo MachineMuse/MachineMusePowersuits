@@ -18,6 +18,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
 public class NightVisionModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
+	public static final String MODULE_NIGHT_VISION = "Night Vision";
 	public NightVisionModule() {
 		super(Arrays.asList((IModularItem) ModularPowersuits.powerArmorHead));
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.laserHologram, 1));
@@ -36,7 +37,7 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
 
 	@Override
 	public String getName() {
-		return MuseCommonStrings.MODULE_NIGHT_VISION;
+		return MODULE_NIGHT_VISION;
 	}
 
 	@Override

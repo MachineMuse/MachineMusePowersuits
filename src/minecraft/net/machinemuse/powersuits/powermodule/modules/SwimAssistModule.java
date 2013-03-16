@@ -18,7 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 public class SwimAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-
+	public static final String MODULE_SWIM_BOOST = "Swim Boost";
 	public SwimAssistModule() {
 		super(Arrays.asList((IModularItem) ModularPowersuits.powerArmorLegs));
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 1));
@@ -39,7 +39,7 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
 
 	@Override
 	public String getName() {
-		return MuseCommonStrings.MODULE_SWIM_BOOST;
+		return MODULE_SWIM_BOOST;
 	}
 
 	@Override
