@@ -117,7 +117,8 @@
         <unzip src="${download.dir}/AtomicScience_v${asapi.version}_api.zip" dest="${download.dir}/ue" />
         <mkdir dir="${mcpsrc.dir}/atomicscience" />
         <mkdir dir="${mcpsrc.dir}/atomicscience/api" />
-        <move file="${download.dir}/ue/minecraft/atomicscience/api/Poison.java" todir="${mcpsrc.dir}/icbm/api/Poison.java" />
+        <mkdir dir="${mcpsrc.dir}/atomicscience/api/poison" />
+        <move file="${download.dir}/ue/minecraft/atomicscience/api/poison/Poison.java" todir="${mcpsrc.dir}/icbm/api/poison/Poison.java" />
         <move file="${download.dir}/ue/minecraft/atomicscience/api/IAntiPoisonArmor.java" todir="${mcpsrc.dir}/icbm/api/IAntiPoisonArmor.java" />
 
 		<echo message="Extracting ThermalExpansion API... " />
