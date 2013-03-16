@@ -140,7 +140,8 @@
 		</exec>
 
 		<exec dir="${mcp.dir}" executable="bash" osfamily="unix" failonerror="true">
-			<arg value="-c 'yes | updatenames.sh'" />
+			<arg value="-c"/>
+			<arg value="yes | updatenames.sh" />
 		</exec>
 	</target>
 
