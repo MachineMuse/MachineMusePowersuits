@@ -1,4 +1,4 @@
-<project name="ModularPowersuits" default="install" basedir=".">
+<project name="ModularPowersuits" default="clean" basedir=".">
 
 	<property environment="env"/>
 
@@ -240,9 +240,7 @@
 			</classpath>
 		</taskdef>
 		<echo message="Downloading forge... " />
-		<getMethod url="http://files.minecraftforge.net/minecraftforge-src-${forge.version}.zip" responseDataFile="${download.dir}/minecraftforge-src-${forge.version}.zip">
-			<header name="User-Agent" value="Ant-${ant.version}/${ant.java.version}" />
-		</getMethod>
+		<get src="http://machinemuse.net/minecraftforge-src-${forge.version}.zip" dest="${download.dir}/minecraftforge-src-${forge.version}.zip"/>
 	</target>
 
 	<target name="download-ant-contrib" unless="should-download-ant-contrib">
