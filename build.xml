@@ -1,4 +1,4 @@
-<project name="ModularPowersuits" default="clean" basedir=".">
+<project name="ModularPowersuits" default="install" basedir=".">
 
 	<property environment="env"/>
 
