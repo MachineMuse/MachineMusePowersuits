@@ -36,11 +36,6 @@ public abstract class MuseCommonStrings {
 	public static final String PUNCH_ENERGY = "Punch Energy Consumption";
 	public static final String PUNCH_DAMAGE = "Melee Damage";
 	public static final String PUNCH_KNOCKBACK = "Melee Knockback";
-	public static final String EATING_ENERGY_CONSUMPTION = "Eating Energy Consumption";
-	public static final String EATING_EFFICIENCY = "Auto-Feeder Efficiency";
-	public static final String SOLAR_ENERGY_GENERATION_DAY = "Daytime Solar Energy Generation";
-	public static final String SOLAR_ENERGY_GENERATION_NIGHT = "Nighttime Solar Energy Generation";
-	public static final String KINETIC_ENERGY_GENERATION = "Energy Generation Per 5 Blocks";
 
 	/**
 	 * Module names
@@ -61,10 +56,6 @@ public abstract class MuseCommonStrings {
 	public static final String MODULE_AQUA_AFFINITY = "Aqua Affinity";
 	public static final String MODULE_TINT = "Custom Colour Module";
 	public static final String MODULE_MELEE_ASSIST = "Melee Assist";
-	public static final String MODULE_AUTO_FEEDER = "Auto-Feeder";
-	public static final String MODULE_SOLAR_GENERATOR = "Solar Generator";
-	public static final String MODULE_KINETIC_GENERATOR = "Kinetic Generator";
-	public static final String MODULE_PORTABLE_CRAFTING = "In-Place Assembler";
 	public static final String CITIZEN_JOE_STYLE = "Citizen Joe Style";
 	public static final String MODULE_MULTIMETER = "Multimeter";
 	public static final String MODULE_HAZMAT = "Radiation Shielding";
@@ -135,7 +126,7 @@ public abstract class MuseCommonStrings {
 		currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character,
 				MuseStringUtils.FormatCodes.Grey));
 		try {
-			if (ModCompatability.isAndrewAddonsLoaded() && stack.getItem() instanceof ItemPowerArmorHead && MuseItemUtils.getFoodLevel(stack) > 0 && MuseItemUtils.itemHasModule(stack, MuseCommonStrings.MODULE_AUTO_FEEDER)) {
+			if (ModCompatability.isAndrewAddonsLoaded() && stack.getItem() instanceof ItemPowerArmorHead && MuseItemUtils.getFoodLevel(stack) > 0 && MuseItemUtils.itemHasModule(stack, "Auto-Feeder")) {
 				currentTipList.add(MuseStringUtils.wrapMultipleFormatTags("Food level: " + MuseItemUtils.getFoodLevel(stack), MuseStringUtils.FormatCodes.Italic.character, MuseStringUtils.FormatCodes.Grey));
 			}
 		} catch (Exception e) {}
