@@ -11,14 +11,8 @@ import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.machinemuse.powersuits.powermodule.PowerModule;
-import net.machinemuse.powersuits.powermodule.ToggleablePowerModule;
-import net.machinemuse.powersuits.powermodule.modules.BlinkDriveModule;
-import net.machinemuse.powersuits.powermodule.modules.InPlaceAssemblerModule;
-import net.machinemuse.powersuits.powermodule.modules.PlasmaCannonModule;
-import net.machinemuse.powersuits.powermodule.modules.RailgunModule;
-import net.machinemuse.powersuits.powermodule.modules.SprintAssistModule;
-import net.machinemuse.powersuits.powermodule.modules.StepAssistModule;
+import net.machinemuse.powersuits.powermodule.*;
+import net.machinemuse.powersuits.powermodule.modules.*;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -188,25 +182,25 @@ public class Config {
 
 		IPowerModule module;
 
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_NIGHT_VISION, HEADONLY, MuseIcon.SCANNER, MuseCommonStrings.CATEGORY_SPECIAL)
-				.setDescription("A pair of augmented vision goggles to help you see at night and underwater.")
-				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1))
-				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
-		addModule(module);
+//		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_NIGHT_VISION, HEADONLY, MuseIcon.SCANNER, MuseCommonStrings.CATEGORY_SPECIAL)
+//				.setDescription("A pair of augmented vision goggles to help you see at night and underwater.")
+//				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1))
+//				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
+//		addModule(module);
 
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_ACTIVE_CAMOUFLAGE, TORSOONLY, MuseIcon.ORB_1_BLUE,
-				MuseCommonStrings.CATEGORY_SPECIAL)
-				.setDescription("Emit a hologram of your surroundings to make yourself almost imperceptible.")
-				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 4))
-				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2))
-				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 2));
-		addModule(module);
+//		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_ACTIVE_CAMOUFLAGE, TORSOONLY, MuseIcon.ORB_1_BLUE,
+//				MuseCommonStrings.CATEGORY_SPECIAL)
+//				.setDescription("Emit a hologram of your surroundings to make yourself almost imperceptible.")
+//				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 4))
+//				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2))
+//				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 2));
+//		addModule(module);
 
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_FLIGHT_CONTROL, HEADONLY, MuseIcon.INDICATOR_1_GREEN,
-				MuseCommonStrings.CATEGORY_SPECIAL)
-				.setDescription("An integrated control circuit to help you fly better. Press Z to go down.")
-				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
-		addModule(module);
+//		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_FLIGHT_CONTROL, HEADONLY, MuseIcon.INDICATOR_1_GREEN,
+//				MuseCommonStrings.CATEGORY_SPECIAL)
+//				.setDescription("An integrated control circuit to help you fly better. Press Z to go down.")
+//				.addInstallCost(copyAndResize(ItemComponent.controlCircuit, 1));
+//		addModule(module);
 
 		addModule(new PlasmaCannonModule(TOOLONLY));
 
@@ -322,19 +316,28 @@ public class Config {
 		addModule(module);
 
 		addModule(new SprintAssistModule());
-
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_JUMP_ASSIST, LEGSONLY, MuseIcon.JUMP_ASSIST, MuseCommonStrings.CATEGORY_MOVEMENT)
-				.setDescription("Another set of servo motors to help you jump higher.")
-				.addSimpleTradeoff(
-						module, "Power",
-						MuseCommonStrings.JUMP_ENERGY_CONSUMPTION, "J", 0, 25,
-						MuseCommonStrings.JUMP_MULTIPLIER, "%", 1, 4)
-				.addSimpleTradeoff(
-						module, "Compensation",
-						MuseCommonStrings.JUMP_ENERGY_CONSUMPTION, "J", 0, 5,
-						MuseCommonStrings.JUMP_FOOD_COMPENSATION, "%", 0, 1)
-				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 4));
-		addModule(module);
+		addModule(new JumpAssistModule());
+		addModule(new SwimAssistModule());
+		addModule(new StepAssistModule());
+		addModule(new NightVisionModule());
+		addModule(new InvisibilityModule());
+		addModule(new ParachuteModule());
+		addModule(new GliderModule());
+		addModule(new JetBootsModule());
+		addModule(new JetPackModule());
+		addModule(new FlightControlModule());
+//		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_JUMP_ASSIST, LEGSONLY, MuseIcon.JUMP_ASSIST, MuseCommonStrings.CATEGORY_MOVEMENT)
+//				.setDescription("Another set of servo motors to help you jump higher.")
+//				.addSimpleTradeoff(
+//						module, "Power",
+//						MuseCommonStrings.JUMP_ENERGY_CONSUMPTION, "J", 0, 25,
+//						MuseCommonStrings.JUMP_MULTIPLIER, "%", 1, 4)
+//				.addSimpleTradeoff(
+//						module, "Compensation",
+//						MuseCommonStrings.JUMP_ENERGY_CONSUMPTION, "J", 0, 5,
+//						MuseCommonStrings.JUMP_FOOD_COMPENSATION, "%", 0, 1)
+//				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 4));
+//		addModule(module);
 
 		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_SHOCK_ABSORBER, FEETONLY, MuseIcon.SHOCK_ABSORBER,
 				MuseCommonStrings.CATEGORY_MOVEMENT)
@@ -347,34 +350,34 @@ public class Config {
 				.addInstallCost(new ItemStack(Block.cloth, 2));
 		addModule(module);
 
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_GLIDER, TORSOONLY, MuseIcon.GLIDER, MuseCommonStrings.CATEGORY_MOVEMENT)
-				.setDescription(
-						"Tack on some wings to turn downward into forward momentum. Press sneak+forward while falling to activate.")
-				.addInstallCost(copyAndResize(ItemComponent.gliderWing, 2));
-		addModule(module);
+//		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_GLIDER, TORSOONLY, MuseIcon.GLIDER, MuseCommonStrings.CATEGORY_MOVEMENT)
+//				.setDescription(
+//						"Tack on some wings to turn downward into forward momentum. Press sneak+forward while falling to activate.")
+//				.addInstallCost(copyAndResize(ItemComponent.gliderWing, 2));
+//		addModule(module);
 
-		module = new PowerModule(MuseCommonStrings.MODULE_PARACHUTE, TORSOONLY, MuseIcon.PARACHUTE_MODULE, MuseCommonStrings.CATEGORY_MOVEMENT)
-				.setDescription("Add a parachute to slow your descent. Activate by pressing sneak (defaults to Shift) in midair.")
-				.addInstallCost(copyAndResize(ItemComponent.parachute, 2));
-		addModule(module);
+//		module = new PowerModule(MuseCommonStrings.MODULE_PARACHUTE, TORSOONLY, MuseIcon.PARACHUTE_MODULE, MuseCommonStrings.CATEGORY_MOVEMENT)
+//				.setDescription("Add a parachute to slow your descent. Activate by pressing sneak (defaults to Shift) in midair.")
+//				.addInstallCost(copyAndResize(ItemComponent.parachute, 2));
+//		addModule(module);
 
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_JETPACK, TORSOONLY, MuseIcon.JETPACK, MuseCommonStrings.CATEGORY_MOVEMENT)
-				.setDescription("A jetpack should allow you to jump indefinitely, or at least until you run out of power.")
-				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 4))
-				.addBaseProperty(MuseCommonStrings.JET_ENERGY_CONSUMPTION, 0, "J/t")
-				.addBaseProperty(MuseCommonStrings.JET_THRUST, 0, "N")
-				.addTradeoffProperty("Thrust", MuseCommonStrings.JET_ENERGY_CONSUMPTION, 150)
-				.addTradeoffProperty("Thrust", MuseCommonStrings.JET_THRUST, 0.16);
-		addModule(module);
+//		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_JETPACK, TORSOONLY, MuseIcon.JETPACK, MuseCommonStrings.CATEGORY_MOVEMENT)
+//				.setDescription("A jetpack should allow you to jump indefinitely, or at least until you run out of power.")
+//				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 4))
+//				.addBaseProperty(MuseCommonStrings.JET_ENERGY_CONSUMPTION, 0, "J/t")
+//				.addBaseProperty(MuseCommonStrings.JET_THRUST, 0, "N")
+//				.addTradeoffProperty("Thrust", MuseCommonStrings.JET_ENERGY_CONSUMPTION, 150)
+//				.addTradeoffProperty("Thrust", MuseCommonStrings.JET_THRUST, 0.16);
+//		addModule(module);
 
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_JETBOOTS, FEETONLY, MuseIcon.JETBOOTS, MuseCommonStrings.CATEGORY_MOVEMENT)
-				.setDescription("Jet boots are not as strong as a jetpack, but they should at least be strong enough to counteract gravity.")
-				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 2))
-				.addBaseProperty(MuseCommonStrings.JET_ENERGY_CONSUMPTION, 0)
-				.addBaseProperty(MuseCommonStrings.JET_THRUST, 0)
-				.addTradeoffProperty("Thrust", MuseCommonStrings.JET_ENERGY_CONSUMPTION, 75)
-				.addTradeoffProperty("Thrust", MuseCommonStrings.JET_THRUST, 0.08);
-		addModule(module);
+//		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_JETBOOTS, FEETONLY, MuseIcon.JETBOOTS, MuseCommonStrings.CATEGORY_MOVEMENT)
+//				.setDescription("Jet boots are not as strong as a jetpack, but they should at least be strong enough to counteract gravity.")
+//				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 2))
+//				.addBaseProperty(MuseCommonStrings.JET_ENERGY_CONSUMPTION, 0)
+//				.addBaseProperty(MuseCommonStrings.JET_THRUST, 0)
+//				.addTradeoffProperty("Thrust", MuseCommonStrings.JET_ENERGY_CONSUMPTION, 75)
+//				.addTradeoffProperty("Thrust", MuseCommonStrings.JET_THRUST, 0.08);
+//		addModule(module);
 
 		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_WATER_ELECTROLYZER, HEADONLY, MuseIcon.WATER_ELECTROLYZER,
 				MuseCommonStrings.CATEGORY_ENVIRONMENTAL)
@@ -383,16 +386,14 @@ public class Config {
 				.addBaseProperty(MuseCommonStrings.WATERBREATHING_ENERGY_CONSUMPTION, 1000, "J");
 		addModule(module);
 
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_SWIM_BOOST, LEGSONLY, MuseIcon.SWIM_BOOST, MuseCommonStrings.CATEGORY_MOVEMENT)
-				.setDescription(
-						"By refitting an ion thruster for underwater use, you may be able to add extra forward (or backward) thrust when underwater.")
-				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 1))
-				.addInstallCost(copyAndResize(ItemComponent.solenoid, 2))
-				.addTradeoffProperty("Thrust", MuseCommonStrings.SWIM_BOOST_ENERGY_CONSUMPTION, 100, "J")
-				.addTradeoffProperty("Thrust", MuseCommonStrings.SWIM_BOOST_AMOUNT, 1, "m/s");
-		addModule(module);
-
-		addModule(new StepAssistModule(LEGSONLY));
+//		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_SWIM_BOOST, LEGSONLY, MuseIcon.SWIM_BOOST, MuseCommonStrings.CATEGORY_MOVEMENT)
+//				.setDescription(
+//						"By refitting an ion thruster for underwater use, you may be able to add extra forward (or backward) thrust when underwater.")
+//				.addInstallCost(copyAndResize(ItemComponent.ionThruster, 1))
+//				.addInstallCost(copyAndResize(ItemComponent.solenoid, 2))
+//				.addTradeoffProperty("Thrust", MuseCommonStrings.SWIM_BOOST_ENERGY_CONSUMPTION, 100, "J")
+//				.addTradeoffProperty("Thrust", MuseCommonStrings.SWIM_BOOST_AMOUNT, 1, "m/s");
+//		addModule(module);
 
 		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_TINT, ALLITEMS, MuseIcon.NETHERSTAR, MuseCommonStrings.CATEGORY_COSMETIC)
 				.setDescription("Give your armor some coloured tinting to customize your armor's appearance.")
