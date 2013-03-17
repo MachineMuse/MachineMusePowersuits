@@ -299,10 +299,10 @@ public abstract class MuseRenderer {
 
 		Tessellator tess = Tessellator.instance;
 		tess.startDrawingQuads();
-		float u1 = icon.getIconRegistration().getU1();
-		float v1 = icon.getIconRegistration().getV1();
-		float u2 = icon.getIconRegistration().getU2();
-		float v2 = icon.getIconRegistration().getV2();
+		float u1 = icon.getIconRegistration().getMinU();
+		float v1 = icon.getIconRegistration().getMinV();
+		float u2 = icon.getIconRegistration().getMaxU();
+		float v2 = icon.getIconRegistration().getMaxV();
 		tess.addVertexWithUV(x, y, 0, u1, v1);
 		tess.addVertexWithUV(x, y + 16, 0, u1, v2);
 		tess.addVertexWithUV(x + 16, y + 16, 0, u2, v2);
@@ -342,10 +342,10 @@ public abstract class MuseRenderer {
 
 		Tessellator tess = Tessellator.instance;
 		tess.startDrawingQuads();
-		float u1 = icon.getIconRegistration().getU1();
-		float v1 = icon.getIconRegistration().getV1();
-		float u2 = icon.getIconRegistration().getU2();
-		float v2 = icon.getIconRegistration().getV2();
+		float u1 = icon.getIconRegistration().getMinU();
+		float v1 = icon.getIconRegistration().getMinV();
+		float u2 = icon.getIconRegistration().getMaxU();
+		float v2 = icon.getIconRegistration().getMaxV();
 		double xoffset1 = left * (u2 - u1) / 16.0f;
 		double yoffset1 = top * (v2 - v1) / 16.0f;
 		double xoffset2 = right * (u2 - u1) / 16.0f;
