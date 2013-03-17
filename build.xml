@@ -131,16 +131,16 @@
 		<delete dir="${download.dir}/thermalexpansion" />
 	</target>
 
-	<target name="update-names">
+	<target name="update-names" depends="copy-source">
 		<get src="http://mcp.ocean-labs.de/files/mcptest/methods.csv" dest="${mcp.dir}/conf/methods.csv" />
 		<get src="http://mcp.ocean-labs.de/files/mcptest/fields.csv" dest="${mcp.dir}/conf/fields.csv" />
-		
+
 		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows" failonerror="true">
 			<arg line="/c updatenames.bat" />
 		</exec>
 
 		<exec dir="${mcp.dir}" executable="bash" osfamily="unix" failonerror="true">
-			<arg value="-c"/>
+			<arg value="-c" />
 			<arg value="echo Yes | ./updatenames.sh" />
 		</exec>
 	</target>
@@ -153,15 +153,16 @@
 	<target name="forgeinstalled.check">
 	</target>
 
-
-	<target name="build" depends="extract-apis" unless="already-compiled">
-		<!-- Copy source -->
+	<target name="copy-source">
 		<copy todir="${mcpsrc.dir}/net/machinemuse">
 			<fileset dir="${src.dir}/minecraft/net/machinemuse" />
 			<filterset>
 				<filter token="MOD_VERSION" value="${fullversion}" />
 			</filterset>
 		</copy>
+	</target>
+
+	<target name="build" depends="extract-apis,update-names" unless="already-compiled">
 
 		<!-- Recompile -->
 		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows" failonerror="true">
