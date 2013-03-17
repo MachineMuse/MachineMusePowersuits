@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.powermodule.modules;
 
-import java.util.Arrays;
 import java.util.List;
 
 import net.machinemuse.api.ElectricItemUtils;
@@ -11,8 +10,6 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.gui.MuseIcon;
-import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.common.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,6 +19,7 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
 	public static final String MODULE_SWIM_BOOST = "Swim Boost";
 	public static final String SWIM_BOOST_AMOUNT = "Underwater Movement Boost";
 	public static final String SWIM_BOOST_ENERGY_CONSUMPTION = "Swim Boost Energy Consumption";
+
 	public SwimAssistModule(List<IModularItem> validItems) {
 		super(validItems);
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 1));
@@ -104,6 +102,7 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
 	}
 
 	@Override
-	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {}
+	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+	}
 
 }

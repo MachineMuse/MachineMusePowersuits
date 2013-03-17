@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.powermodule.modules;
 
-import java.util.Arrays;
 import java.util.List;
 
 import net.machinemuse.api.ElectricItemUtils;
@@ -9,7 +8,6 @@ import net.machinemuse.api.IRightClickModule;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.gui.MuseIcon;
-import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -20,6 +18,7 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
 	public static final String PLASMA_CANNON_ENERGY_PER_TICK = "Plasma Energy Per Tick";
 	public static final String PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE = "Plasma Damage At Full Charge";
 	public static final String PLASMA_CANNON_EXPLOSIVENESS = "Plasma Explosiveness";
+
 	public PlasmaCannonModule(List<IModularItem> validItems) {
 		super(validItems);
 		addBaseProperty(PLASMA_CANNON_ENERGY_PER_TICK, 10, "J");

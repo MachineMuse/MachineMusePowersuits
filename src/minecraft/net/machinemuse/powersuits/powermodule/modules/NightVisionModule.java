@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.powermodule.modules;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -11,7 +10,6 @@ import net.machinemuse.api.IToggleableModule;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.gui.MuseIcon;
-import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -20,6 +18,7 @@ import net.minecraft.potion.PotionEffect;
 
 public class NightVisionModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
 	public static final String MODULE_NIGHT_VISION = "Night Vision";
+
 	public NightVisionModule(List<IModularItem> validItems) {
 		super(validItems);
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.laserHologram, 1));
@@ -70,5 +69,6 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
 	}
 
 	@Override
-	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {}
+	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+	}
 }

@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.powermodule.modules;
 
-import java.util.Arrays;
 import java.util.List;
 
 import net.machinemuse.api.ElectricItemUtils;
@@ -11,7 +10,6 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.gui.MuseIcon;
-import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.common.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.tick.PlayerTickHandler;
@@ -22,6 +20,7 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
 	public static final String MODULE_JETBOOTS = "Jet Boots";
 	public static final String JET_ENERGY_CONSUMPTION = "Jet Energy Consumption";
 	public static final String JET_THRUST = "Jet Thrust";
+
 	public JetBootsModule(List<IModularItem> validItems) {
 		super(validItems);
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 2));
@@ -65,7 +64,7 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
 		double thrust = 0;
 		jetEnergy += ModuleManager.computeModularProperty(boots, JET_ENERGY_CONSUMPTION);
 		thrust += ModuleManager.computeModularProperty(boots, JET_THRUST);
-		
+
 		if (jetEnergy < ElectricItemUtils.getPlayerEnergy(player)) {
 			thrust *= PlayerTickHandler.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
 			if (hasFlightControl && thrust > 0) {
@@ -77,6 +76,7 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
 	}
 
 	@Override
-	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {}
+	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+	}
 
 }

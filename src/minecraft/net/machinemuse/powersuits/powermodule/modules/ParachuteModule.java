@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.powermodule.modules;
 
-import java.util.Arrays;
 import java.util.List;
 
 import net.machinemuse.api.IModularItem;
@@ -9,7 +8,6 @@ import net.machinemuse.api.IToggleableModule;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.gui.MuseIcon;
-import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.common.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.tick.PlayerTickHandler;
@@ -18,6 +16,7 @@ import net.minecraft.item.ItemStack;
 
 public class ParachuteModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
 	public static final String MODULE_PARACHUTE = "Parachute";
+
 	public ParachuteModule(List<IModularItem> validItems) {
 		super(validItems);
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.parachute, 2));
@@ -65,6 +64,7 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
 	}
 
 	@Override
-	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {}
+	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+	}
 
 }

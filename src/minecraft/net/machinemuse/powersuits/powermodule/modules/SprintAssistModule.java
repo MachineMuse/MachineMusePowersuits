@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.powermodule.modules;
 
-import java.util.Arrays;
 import java.util.List;
 
 import net.machinemuse.api.ElectricItemUtils;
@@ -11,7 +10,6 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -23,6 +21,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
 	public static final String SPRINT_FOOD_COMPENSATION = "Sprint Exhaustion Compensation";
 	public static final String WALKING_ENERGY_CONSUMPTION = "Walking Energy Consumption";
 	public static final String WALKING_SPEED_MULTIPLIER = "Walking Speed Multiplier";
+
 	public SprintAssistModule(List<IModularItem> validItems) {
 		super(validItems);
 		addInstallCost(Config.copyAndResize(ItemComponent.servoMotor, 4));
@@ -81,6 +80,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
 	}
 
 	@Override
-	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {}
+	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+	}
 
 }

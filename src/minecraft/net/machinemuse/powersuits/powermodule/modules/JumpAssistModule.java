@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.powermodule.modules;
 
-import java.util.Arrays;
 import java.util.List;
 
 import net.machinemuse.api.IModularItem;
@@ -9,7 +8,6 @@ import net.machinemuse.api.IToggleableModule;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.gui.MuseIcon;
-import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.common.PlayerInputMap;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -22,6 +20,7 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
 	public static final String JUMP_ENERGY_CONSUMPTION = "Jump Energy Consumption";
 	public static final String JUMP_MULTIPLIER = "Jump Boost";
 	public static final String JUMP_FOOD_COMPENSATION = "Jump Exhaustion Compensation";
+
 	public JumpAssistModule(List<IModularItem> validItems) {
 		super(validItems);
 		addSimpleTradeoff(this, "Power", JUMP_ENERGY_CONSUMPTION, "J", 0, 25, JUMP_MULTIPLIER, "%", 1, 4);
@@ -56,7 +55,8 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
 		if (jumpkey) {
 			double multiplier = MovementManager.getPlayerJumpMultiplier(player);
 			if (multiplier > 0) {
-				player.motionY += 0.15 * Math.min(multiplier, 1) * PlayerTickHandler.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
+				player.motionY += 0.15 * Math.min(multiplier, 1)
+						* PlayerTickHandler.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
 				MovementManager.setPlayerJumpTicks(player, multiplier - 1);
 			}
 			player.jumpMovementFactor = player.landMovementFactor * .7f;
@@ -66,6 +66,7 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
 	}
 
 	@Override
-	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {}
+	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+	}
 
 }
