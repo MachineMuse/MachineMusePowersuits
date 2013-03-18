@@ -84,7 +84,6 @@ public class RecipeManager {
 
 			GameRegistry.addRecipe(ItemComponent.ionThruster, " FE", "IG ", "IFE", 'I', iron, 'E', ItemComponent.solenoid, 'G', glowstone, 'F',
 					ItemComponent.fieldEmitter);
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solarPanel, "PPP", "PLP", "PPP", 'P', glassPane, 'L', lapis));
 
 		}
 		if (ModCompatability.UERecipesEnabled() && ModCompatability.isBasicComponentsLoaded()) {
@@ -150,8 +149,6 @@ public class RecipeManager {
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true, " FE", "CG ", "IFE", 'I', "plateSteel", 'E',
 					ItemComponent.solenoid, 'G', glowstone, 'C', "advancedCircuit", 'F', ItemComponent.fieldEmitter));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solarPanel, true, "GGG", "CLC", "SSS", 'G', glass, 'C', basicCircuit, 'L',
-					lapisBlock, 'S', "plateSteel"));
 		}
 		if (ModCompatability.IC2RecipesEnabled() && ModCompatability.isIndustrialCraftLoaded()) {
 			circuit = ModCompatability.getIC2Item("electronicCircuit");
@@ -232,8 +229,6 @@ public class RecipeManager {
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true, " FE", "MG ", "CFE", 'I', iron, 'E', ItemComponent.solenoid,
 					'F', ItemComponent.fieldEmitter, 'G', glowstone, 'C', advCircuit.copy(), 'M', advMachine.copy()));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solarPanel, true, "LGL", "GLG", "CBC", 'L', lapis, 'G', glass, 'C', circuit,
-					'B', gen));
 		}
 		if (ModCompatability.GregTechRecipesEnabled() && ModCompatability.isIndustrialCraftLoaded() && ModCompatability.isGregTechLoaded()) {
 			// This means Gregtech is installed, and GregoriusT in his infinite
@@ -342,8 +337,6 @@ public class RecipeManager {
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true, "ISI", "FCF", "N N", 'I', "plateIridium", 'S',
 					"itemSuperconductor", 'N', neutronReflector, 'C', ItemComponent.hvcapacitor, 'F', ItemComponent.fieldEmitter));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solarPanel, true, "GGG", "PCP", 'G', reinforcedGlass, 'P', "plateIridium", 'C',
-					energyFlowCircuit));
 		}
 		if (ModCompatability.ThermalExpansionRecipesEnabled() && ModCompatability.isThermalExpansionLoaded()) {
 			ItemStack pneumaticServo = ModCompatability.getThermexItem("pneumaticServo", 1);
@@ -436,8 +429,6 @@ public class RecipeManager {
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true, " FI", "IG ", "WFI", 'I', "ingotInvar", 'G', glowstone, 'W',
 					ItemComponent.wiring, 'F', ItemComponent.fieldEmitter));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solarPanel, true, "GGG", "CLC", " E ", 'G', glass, 'L', new ItemStack(
-					Block.blockLapis), 'C', conduitEnergy, 'E', powerCoilSilver));
 		}
 	}
 }
