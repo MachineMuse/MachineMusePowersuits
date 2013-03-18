@@ -49,30 +49,6 @@ public abstract class MuseRenderer {
 			selectionCircle = new SwirlyMuseCircle(new Colour(0.0f, 1.0f, 0.0f, 0.0f), new Colour(0.8f, 1.0f, 0.8f, 1.0f));
 		}
 		selectionCircle.draw(radius, xoffset, yoffset);
-		// TODO: Do some caching to make this faster
-		// int start = (int) (System.currentTimeMillis() / 4 % 360);
-		// double startangle = 2.0 * Math.PI * start / 360.0;
-		// double endangle = startangle + 2.0 * Math.PI;
-		//
-		// DoubleBuffer vertices = getArcPoints(startangle, endangle, radius,
-		// xoffset, yoffset, 0);
-		// int numvertices = vertices.limit() / 3;
-		// DoubleBuffer colours = getColourGradient(, , numvertices);
-		// arraysOnC();
-		// texturelessOn();
-		// smoothingOn();
-		// on2D();
-		// GL11.glPushMatrix();
-		//
-		// GL11.glColorPointer(4, 0, colours);
-		// GL11.glVertexPointer(3, 0, vertices);
-		//
-		// GL11.glDrawArrays(GL11.GL_LINE_STRIP, 0, numvertices);
-		//
-		// GL11.glPopMatrix();
-		// off2D();
-		// texturelessOff();
-		// arraysOff();
 	}
 
 	/**
@@ -208,15 +184,12 @@ public abstract class MuseRenderer {
 	public static void arraysOnT() {
 		GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
 		GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
-		// GL11.glEnableClientState(GL11.GL_INDEX_ARRAY);
 	}
 
 	public static void arraysOff() {
 		GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
 		GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
 		GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
-		// GL11.glDisableClientState(GL11.GL_INDEX_ARRAY);
-
 	}
 
 	/**
@@ -224,7 +197,6 @@ public abstract class MuseRenderer {
 	 */
 	public static void texturelessOn() {
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
-
 	}
 
 	/**
@@ -238,7 +210,7 @@ public abstract class MuseRenderer {
 	 * Call before doing anything with alpha blending
 	 */
 	public static void blendingOn() {
-		if (Minecraft.getMinecraft().isFancyGraphicsEnabled()) {
+		if (Minecraft.isFancyGraphicsEnabled()) {
 			GL11.glShadeModel(GL11.GL_SMOOTH);
 			// GL11.glEnable(GL11.GL_LINE_SMOOTH);
 			// GL11.glEnable(GL11.GL_POLYGON_SMOOTH);
