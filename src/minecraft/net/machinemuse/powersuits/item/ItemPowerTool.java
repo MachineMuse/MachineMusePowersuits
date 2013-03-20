@@ -3,12 +3,12 @@ package net.machinemuse.powersuits.item;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IRightClickModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.gui.MuseIcon;

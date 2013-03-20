@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.event;
 
-import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.powersuits.item.ItemPowerTool;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

@@ -1,7 +1,9 @@
 package net.machinemuse.powersuits.item;
 
-import net.machinemuse.api.ElectricItemUtils;
-import net.machinemuse.powersuits.common.ModCompatability;
+import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.electricity.ElectricItemUtils;
+import net.machinemuse.api.electricity.UEElectricAdapter;
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemStack;
@@ -24,209 +26,125 @@ implements IItemElectric // Universal Electricity
 		super(par1, par2, par3EnumToolMaterial, par4ArrayOfBlock);
 	}
 
-	// //////////// //
-	// --- ICBM --- //
-	// //////////// //
-	// @Override
-	// public void onEMP(ItemStack itemStack, Entity entity, IExplosive empExplosive) {
-	// ElectricItemUtils.onEMP(itemStack, entity, empExplosive);
-	// }
-
-	// ///////////////////////// //
-	// --- Thermal Expansion --- //
-	// ///////////////////////// //
-
 	/**
-	 * Adds energy to an item. Returns the quantity of energy that was accepted. This should always return 0 if the item cannot be externally charged.
+	 * Call to get the energy of an item
 	 * 
-	 * @param theItem
-	 *            ItemStack to be charged.
-	 * @param energy
-	 *            Maximum amount of energy to be sent into the item.
-	 * @param doReceive
-	 *            If false, the charge will only be simulated.
-	 * @return Amount of energy that was accepted by the item.
+	 * @param stack
+	 *            ItemStack to set
+	 * @return Current energy level
 	 */
-	public float receiveEnergy(ItemStack stack, float energy, boolean doReceive) {
-		double offeredJoules = energy * ModCompatability.getBCRatio();
-		double missingJoules = ElectricItemUtils.getMaxJoules(stack) - ElectricItemUtils.getJoules(stack);
-		double transferredJoules = Math.min(offeredJoules, missingJoules);
-		ElectricItemUtils.charge(transferredJoules, stack);
-		return (float) (transferredJoules / ModCompatability.getBCRatio());
+	public double getCurrentEnergy(ItemStack stack) {
+		return MuseItemUtils.getDoubleOrZero(stack, ElectricItemUtils.CURRENT_ENERGY);
 	}
 
 	/**
-	 * Removes energy from an item. Returns the quantity of energy that was removed. This should always return 0 if the item cannot be externally
-	 * discharged.
+	 * Call to set the energy of an item
 	 * 
-	 * @param theItem
-	 *            ItemStack to be discharged.
+	 * @param stack
+	 *            ItemStack to set
+	 * @return Maximum energy level
+	 */
+	public double getMaxEnergy(ItemStack stack) {
+		return ModuleManager.computeModularProperty(stack, ElectricItemUtils.MAXIMUM_ENERGY);
+	}
+
+	/**
+	 * Call to set the energy of an item
+	 * 
+	 * @param stack
+	 *            ItemStack to set
 	 * @param energy
-	 *            Maximum amount of energy to be removed from the item.
-	 * @param doTransfer
-	 *            If false, the discharge will only be simulated.
-	 * @return Amount of energy that was removed from the item.
+	 *            Level to set it to
 	 */
-	public float transferEnergy(ItemStack stack, float energy, boolean doTransfer) {
-		double requestedJoules = energy * ModCompatability.getBCRatio();
-		double availableJoules = ElectricItemUtils.getJoules(stack);
-		double transferredJoules = Math.min(requestedJoules, availableJoules);
-		ElectricItemUtils.discharge(transferredJoules, stack);
-		return (float) (transferredJoules / ModCompatability.getBCRatio());
+	public void setCurrentEnergy(ItemStack stack, double energy) {
+		MuseItemUtils.setDoubleOrRemove(stack, ElectricItemUtils.CURRENT_ENERGY, energy);
 	}
 
 	/**
-	 * Get the amount of energy currently stored in the item.
+	 * Call to drain energy from an item
+	 * 
+	 * @param stack
+	 *            ItemStack being requested for energy
+	 * @param requested
+	 *            Amount of energy to drain
+	 * @return Amount of energy successfully drained
 	 */
-	public float getEnergyStored(ItemStack stack) {
-		return (float) (ModCompatability.getBCRatio() * ElectricItemUtils.getJoules(stack));
-	}
-
-	/**
-	 * Get the max amount of energy that can be stored in the item.
-	 */
-	public float getMaxEnergyStored(ItemStack stack) {
-		return (float) (ModCompatability.getBCRatio() * ElectricItemUtils.getMaxJoules(stack));
-	}
-
-	// //////////////////////////////////////// //
-	// --- INDUSTRIAL CRAFT 2 COMPATABILITY --- //
-	// //////////////////////////////////////// //
-	public int charge(ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
-		double joulesProvided = ModCompatability.joulesFromEU(amount);
-		double currentJoules = ElectricItemUtils.getJoules(stack);
-		double surplus = ElectricItemUtils.charge(joulesProvided, stack);
-		if (simulate) {
-			ElectricItemUtils.setJoules(currentJoules, stack);
-		}
-		return ModCompatability.joulesToEU(joulesProvided - surplus);
-	}
-
-	public int discharge(ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
-
-		double joulesRequested = ModCompatability.joulesFromEU(amount);
-		double currentJoules = ElectricItemUtils.getJoules(stack);
-		double givenJoules = ElectricItemUtils.discharge(joulesRequested, stack);
-		if (simulate) {
-			ElectricItemUtils.setJoules(currentJoules, stack);
-		}
-		return ModCompatability.joulesToEU(givenJoules);
-	}
-
-	public boolean canUse(ItemStack stack, int amount) {
-		double joulesRequested = ModCompatability.joulesFromEU(amount);
-		double currentJoules = ElectricItemUtils.getJoules(stack);
-		if (currentJoules > joulesRequested) {
-			return true;
+	public double drainEnergyFrom(ItemStack stack, double requested) {
+		double available = getCurrentEnergy(stack);
+		if (available > requested) {
+			setCurrentEnergy(stack, available - requested);
+			return requested;
 		} else {
-			return false;
+			setCurrentEnergy(stack, 0);
+			return available;
 		}
 	}
 
-	public boolean canShowChargeToolTip(ItemStack itemStack) {
-		return false;
-	}
-
-	public boolean canProvideEnergy() {
-		return true;
-	}
-
-	public int getChargedItemId() {
-		return this.itemID;
-	}
-
-	public int getEmptyItemId() {
-		return this.itemID;
-	}
-
-	public int getMaxCharge() {
-		return 1;
-	}
-
-	public int getTier() {
-		return 1;
-	}
-
-	public int getTransferLimit() {
-		return 0;
-	}
-
-	// /////////////////////////////////////////// //
-	// --- UNIVERSAL ELECTRICITY COMPATABILITY --- //
-	// /////////////////////////////////////////// //
 	/**
-	 * Called when this item receives electricity; being charged.
+	 * Call to give energy to an item
 	 * 
-	 * @return The amount of electricity that was added to the electric item.
+	 * @param stack
+	 *            ItemStack being requested for energy
+	 * @param provided
+	 *            Amount of energy to drain
+	 * @return Amount of energy used
 	 */
-	public ElectricityPack onReceive(ElectricityPack electricityPack, ItemStack itemStack) {
-		return null;
-	}
-
-	/**
-	 * Called when something requests electricity from this item; being decharged.
-	 * 
-	 * @return - The amount of electricity that was removed from the electric item.
-	 */
-	public ElectricityPack onProvide(ElectricityPack ep, ItemStack itemStack) {
-		return null;
-	}
-
-	/**
-	 * @return How much electricity does this item want to receive/take? This will affect the speed in which items get charged per tick.
-	 */
-	public ElectricityPack getReceiveRequest(ItemStack itemStack) {
-		return new ElectricityPack(Math.sqrt(getMaxJoules(itemStack)), getVoltage(itemStack));
-	}
-
-	/**
-	 * 
-	 * @return How much electricity does this item want to provide/give out? This will affect the speed in which items get decharged per tick.
-	 */
-	public ElectricityPack getProvideRequest(ItemStack itemStack) {
-		return new ElectricityPack(Math.sqrt(getMaxJoules(itemStack)), getVoltage(itemStack));
+	public double giveEnergyTo(ItemStack stack, double provided) {
+		double available = getCurrentEnergy(stack);
+		double max = getMaxEnergy(stack);
+		if (available + provided < max) {
+			setCurrentEnergy(stack, available + provided);
+			return provided;
+		} else {
+			setCurrentEnergy(stack, max);
+			return max - available;
+		}
 	}
 
 	@Override
 	public double getJoules(ItemStack itemStack) {
-		return ElectricItemUtils.getJoules(itemStack);
+		return UEElectricAdapter.museEnergyToJoules(getCurrentEnergy(itemStack));
 	}
 
 	@Override
 	public void setJoules(double joules, ItemStack itemStack) {
-		ElectricItemUtils.setJoules(joules, itemStack);
+		setCurrentEnergy(itemStack, UEElectricAdapter.museEnergyFromJoules(joules));
 	}
 
 	@Override
 	public double getMaxJoules(ItemStack itemStack) {
-		return ElectricItemUtils.getMaxJoules(itemStack);
+		return UEElectricAdapter.museEnergyToJoules(getMaxEnergy(itemStack));
 	}
 
 	@Override
 	public double getVoltage(ItemStack itemStack) {
-		return ElectricItemUtils.getVoltage(itemStack);
+		return 120;
 	}
 
-	public void setJoules(double joules, Object... data) {
+	@Override
+	public ElectricityPack onReceive(ElectricityPack electricityPack, ItemStack itemStack) {
+		double energyReceiving = UEElectricAdapter.museEnergyFromElectricityPack(electricityPack);
+		double energyConsumed = giveEnergyTo(itemStack, energyReceiving);
+		ElectricityPack packConsumed = UEElectricAdapter.museEnergyToElectricityPack(energyConsumed, getVoltage(itemStack));
+		return packConsumed;
 	}
 
-	// public boolean canReceiveElectricity() {
-	// return true;
-	// }
-	//
-	// public boolean canProduceElectricity() {
-	// return true;
-	// }
+	@Override
+	public ElectricityPack onProvide(ElectricityPack electricityPack, ItemStack itemStack) {
+		double energyRequested = UEElectricAdapter.museEnergyFromElectricityPack(electricityPack);
+		double energyGiven = drainEnergyFrom(itemStack, energyRequested);
+		ElectricityPack packGiven = UEElectricAdapter.museEnergyToElectricityPack(energyGiven, getVoltage(itemStack));
+		return packGiven;
+	}
 
-	/**
-	 * Helper function to deal with UE's use of varargs
-	 */
-	private ItemStack getAsStack(Object[] data) {
-		if (data[0] instanceof ItemStack) {
-			return (ItemStack) data[0];
-		} else {
-			throw new IllegalArgumentException("MusePowerSuits: Invalid ItemStack passed via UE interface");
-		}
+	@Override
+	public ElectricityPack getReceiveRequest(ItemStack itemStack) {
+		return UEElectricAdapter.museEnergyToElectricityPack(getMaxEnergy(itemStack) - getCurrentEnergy(itemStack), getVoltage(itemStack));
+	}
+
+	@Override
+	public ElectricityPack getProvideRequest(ItemStack itemStack) {
+		return UEElectricAdapter.museEnergyToElectricityPack(getMaxEnergy(itemStack) - getCurrentEnergy(itemStack), getVoltage(itemStack));
 	}
 
 }

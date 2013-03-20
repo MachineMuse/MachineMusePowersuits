@@ -84,12 +84,16 @@ public class ModCompatability {
 		return getIC2Ratio() * eu;
 	}
 
+	public static double getUERatio() {
+		return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per UEJ", 1.0).getDouble(1.0);
+	}
+
 	public static double getIC2Ratio() {
-		return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Joules per IC2 EU", 0.4).getDouble(0.4);
+		return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per IC2 EU", 0.4).getDouble(0.4);
 	}
 
 	public static double getBCRatio() {
-		return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Joules per MJ", 1.0).getDouble(1.0);
+		return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per MJ", 1.0).getDouble(1.0);
 	}
 
 	// These 2 elements are basically copied from IC2 api
