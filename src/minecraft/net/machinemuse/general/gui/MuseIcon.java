@@ -1,7 +1,5 @@
 package net.machinemuse.general.gui;
 
-import java.lang.reflect.Field;
-
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.util.Icon;
 
@@ -106,17 +104,6 @@ public class MuseIcon {
 
 	protected String texturename;
 	protected Icon icon;
-
-	public static void registerAllIcons(IconRegister register) {
-		try {
-			for (Field field : MuseIcon.class.getFields()) {
-				if (field.get(null) instanceof MuseIcon) {
-					((MuseIcon) field.get(null)).register(register);
-				}
-			}
-		} catch (IllegalArgumentException | IllegalAccessException e) {
-		}
-	}
 
 	public MuseIcon(String texturename) {
 		super();

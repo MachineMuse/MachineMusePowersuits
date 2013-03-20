@@ -9,7 +9,6 @@ import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MusePlayerUtils;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -59,9 +58,9 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
 		if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
 			ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
 			world.playSoundAtEntity(player, "mob.endermen.portal", 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
-			MuseLogger.logDebug("Range: " + range);
+			// MuseLogger.logDebug("Range: " + range);
 			MovingObjectPosition hitMOP = MusePlayerUtils.doCustomRayTrace(player.worldObj, player, true, range);
-			MuseLogger.logDebug("Hit:" + hitMOP);
+			// MuseLogger.logDebug("Hit:" + hitMOP);
 			MusePlayerUtils.teleportEntity(player, hitMOP);
 			world.playSoundAtEntity(player, "mob.endermen.portal", 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
 		}
