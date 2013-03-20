@@ -6,12 +6,13 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IToggleableModule;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.minecraft.item.ItemStack;
+import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 
 public class FlightControlModule extends PowerModuleBase implements IToggleableModule {
 	public static final String MODULE_FLIGHT_CONTROL = "Flight Control";
+
+	public static final String TEXTURE_FILE = "bluephaser";
 
 	public FlightControlModule(List<IModularItem> validItems) {
 		super(validItems);
@@ -19,13 +20,13 @@ public class FlightControlModule extends PowerModuleBase implements IToggleableM
 	}
 
 	@Override
-	public MuseIcon getIcon(ItemStack item) {
-		return MuseIcon.INDICATOR_1_GREEN;
+	public String getCategory() {
+		return MuseCommonStrings.CATEGORY_SPECIAL;
 	}
 
 	@Override
-	public String getCategory() {
-		return MuseCommonStrings.CATEGORY_SPECIAL;
+	public String getTextureFile() {
+		return "bluephaser";
 	}
 
 	@Override

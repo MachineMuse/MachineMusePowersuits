@@ -9,9 +9,9 @@ import net.machinemuse.api.IToggleableModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
+import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -26,11 +26,6 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 2));
 		addTradeoffProperty("Thrust", SWIM_BOOST_ENERGY_CONSUMPTION, 100, "J");
 		addTradeoffProperty("Thrust", SWIM_BOOST_AMOUNT, 1, "m/s");
-	}
-
-	@Override
-	public MuseIcon getIcon(ItemStack item) {
-		return MuseIcon.SWIM_BOOST;
 	}
 
 	@Override
@@ -103,6 +98,11 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
 
 	@Override
 	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+	}
+
+	@Override
+	public String getTextureFile() {
+		return "swimboost";
 	}
 
 }

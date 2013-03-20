@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.client.render;
 
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
+import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.item.ItemPowerTool;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.RenderEngine;
@@ -15,9 +16,8 @@ import net.minecraft.world.storage.MapData;
 import net.minecraftforge.client.IItemRenderer;
 
 /**
- * Custom renderer for the power armor and tools. Note - this only renders the
- * item as held in hand, in an inventory slot, or sitting on the ground. To
- * render the player's armor is a different interface (not sure yet).
+ * Custom renderer for the power armor and tools. Note - this only renders the item as held in hand, in an inventory slot, or sitting on the ground.
+ * To render the player's armor is a different interface (not sure yet).
  * 
  * @author MachineMuse
  * 
@@ -26,13 +26,11 @@ public class ToolRenderer extends Render implements IItemRenderer {
 	public ToolModel model = new ToolModel();
 
 	/**
-	 * Forge checks this to see if our custom renderer will handle a certain
-	 * type of rendering.
+	 * Forge checks this to see if our custom renderer will handle a certain type of rendering.
 	 * 
 	 * type can be:
 	 * 
-	 * ENTITY - When the item is floating in the world, e.g. after being tossed
-	 * or dropped by a mob.
+	 * ENTITY - When the item is floating in the world, e.g. after being tossed or dropped by a mob.
 	 * 
 	 * INVENTORY - Drawing it on an inventory slot.
 	 * 
@@ -46,13 +44,11 @@ public class ToolRenderer extends Render implements IItemRenderer {
 	}
 
 	/**
-	 * Called to actually render the item. type is as above, item is the item to
-	 * render, and data is some extra data depending on the type.
+	 * Called to actually render the item. type is as above, item is the item to render, and data is some extra data depending on the type.
 	 * 
 	 */
 	@Override
-	public void renderItem(ItemRenderType type, ItemStack itemStack,
-			Object... data) {
+	public void renderItem(ItemRenderType type, ItemStack itemStack, Object... data) {
 		boolean drawIcon = false;
 
 		Colour colour = ItemPowerTool.getColorFromItemStack(itemStack);
@@ -66,7 +62,7 @@ public class ToolRenderer extends Render implements IItemRenderer {
 			break;
 		case INVENTORY:
 			RenderBlocks renderInventory = (RenderBlocks) data[0];
-			MuseRenderer.drawIconAt(0, 0, ItemPowerTool.getCurrentIconFor(itemStack), colour);
+			MuseRenderer.drawIconAt(0, 0, ModularPowersuits.powerTool.getIconIndex(itemStack), colour);
 			break;
 		case EQUIPPED:
 			RenderBlocks renderEquipped = (RenderBlocks) data[0];
@@ -99,18 +95,14 @@ public class ToolRenderer extends Render implements IItemRenderer {
 	 * 
 	 * ENTITY_BOBBING - Up-and-down bobbing effect for EntityItem
 	 * 
-	 * EQUIPPED_BLOCK - Determines if the currently equipped item should be
-	 * rendered as a 3D block or as a 2D texture.
+	 * EQUIPPED_BLOCK - Determines if the currently equipped item should be rendered as a 3D block or as a 2D texture.
 	 * 
-	 * BLOCK_3D - Determines if the item should equate to a block that has
-	 * RenderBlocks.renderItemIn3d return true
+	 * BLOCK_3D - Determines if the item should equate to a block that has RenderBlocks.renderItemIn3d return true
 	 * 
-	 * INVENTORY_BLOCK - Determines if the item should be rendered in GUI
-	 * inventory slots as a 3D block or as a 2D texture.
+	 * INVENTORY_BLOCK - Determines if the item should be rendered in GUI inventory slots as a 3D block or as a 2D texture.
 	 */
 	@Override
-	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item,
-			ItemRendererHelper helper) {
+	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper) {
 		if (type == ItemRenderType.ENTITY) {
 			return true;
 		} else {

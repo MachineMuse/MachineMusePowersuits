@@ -3,15 +3,18 @@ package net.machinemuse.api;
 import java.util.List;
 import java.util.Map;
 
-import net.machinemuse.general.gui.MuseIcon;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.Icon;
 
 public interface IPowerModule {
 	public abstract List<ItemStack> getInstallCost();
 
-	public abstract MuseIcon getIcon(ItemStack item);
+	public abstract Icon getIcon(ItemStack item);
+
+	public abstract void registerIcon(IconRegister registry);
 
 	public abstract String getCategory();
 

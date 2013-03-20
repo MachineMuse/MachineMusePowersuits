@@ -8,10 +8,10 @@ import net.machinemuse.api.IRightClickModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MusePlayerUtils;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.item.ItemComponent;
+import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
@@ -21,6 +21,7 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
 	public static final String MODULE_BLINK_DRIVE = "Blink Drive";
 	public static final String BLINK_DRIVE_ENERGY_CONSUMPTION = "Blink Drive Energy Consuption";
 	public static final String BLINK_DRIVE_RANGE = "Blink Drive Range";
+
 	public BlinkDriveModule(List<IModularItem> validItems) {
 		super(validItems);
 		addBaseProperty(BLINK_DRIVE_ENERGY_CONSUMPTION, 1000, "J");
@@ -32,8 +33,8 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
 	}
 
 	@Override
-	public MuseIcon getIcon(ItemStack item) {
-		return MuseIcon.CRYSTAL_BUBBLE;
+	public String getTextureFile() {
+		return "alien";
 	}
 
 	@Override
@@ -66,5 +67,4 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
 		}
 
 	}
-
 }

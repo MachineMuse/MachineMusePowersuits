@@ -8,9 +8,9 @@ import net.machinemuse.api.IPlayerTickModule;
 import net.machinemuse.api.IToggleableModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemComponent;
+import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -28,11 +28,6 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
 		addSimpleTradeoff(this, "Power", SPRINT_ENERGY_CONSUMPTION, "J", 0, 10, SPRINT_SPEED_MULTIPLIER, "%", 1, 2);
 		addSimpleTradeoff(this, "Compensation", SPRINT_ENERGY_CONSUMPTION, "J", 0, 2, SPRINT_FOOD_COMPENSATION, "%", 0, 1);
 		addSimpleTradeoff(this, "Walking Assist", WALKING_ENERGY_CONSUMPTION, "J", 0, 10, WALKING_SPEED_MULTIPLIER, "%", 1, 1);
-	}
-
-	@Override
-	public MuseIcon getIcon(ItemStack item) {
-		return MuseIcon.SPRINT_ASSIST;
 	}
 
 	@Override
@@ -81,6 +76,11 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
 
 	@Override
 	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+	}
+
+	@Override
+	public String getTextureFile() {
+		return "sprintassist";
 	}
 
 }

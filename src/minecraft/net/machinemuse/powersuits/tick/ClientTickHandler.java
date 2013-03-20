@@ -7,7 +7,6 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.client.KeybindManager;
-import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.common.PlayerInputMap;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.machinemuse.powersuits.network.packets.MusePacketModeChangeRequest;
@@ -33,13 +32,9 @@ import cpw.mods.fml.common.network.Player;
 public class ClientTickHandler implements ITickHandler {
 	protected int slotSelected = -1;
 	protected int dWheel;
-	public static long lastTickTime = System.currentTimeMillis();
 
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
-
-		MuseLogger.logDebug("Tick time: " + (System.currentTimeMillis() - lastTickTime));
-		lastTickTime = System.currentTimeMillis();
 		for (ClickableKeybinding kb : KeybindManager.getKeybindings()) {
 			kb.doToggleTick();
 		}

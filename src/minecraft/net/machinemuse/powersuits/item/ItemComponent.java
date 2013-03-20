@@ -3,6 +3,8 @@ package net.machinemuse.powersuits.item;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.machinemuse.api.IPowerModule;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
@@ -18,7 +20,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemComponent extends Item {
-	public static List<MuseIcon> icons;
+	public static List<Icon> icons;
+	public static List<String> iconNames;
 	public static List<String> names;
 	public static List<String> descriptions;
 
@@ -46,14 +49,15 @@ public class ItemComponent extends Item {
 		this.setHasSubtypes(true);
 		this.setMaxDamage(0);
 		this.setCreativeTab(Config.getCreativeTab());
-		icons = new ArrayList<MuseIcon>();
+		icons = new ArrayList<Icon>();
+		iconNames = new ArrayList<String>();
 		names = new ArrayList<String>();
 		descriptions = new ArrayList<String>();
 	}
 
-	public ItemStack addComponent(String oredictName, String englishName, String description, MuseIcon icon) {
+	public ItemStack addComponent(String oredictName, String englishName, String description, String iconName) {
 		names.add(oredictName);
-		icons.add(icon);
+		iconNames.add(iconName);
 		descriptions.add(description);
 		ItemStack stack = new ItemStack(this, 1, names.size() - 1);
 		LanguageRegistry.addName(stack, englishName);
@@ -79,58 +83,62 @@ public class ItemComponent extends Item {
 		// NOTE: Only add to end otherwise people's IDs will get screwed up n.n'
 		wiring = addComponent("componentWiring", "Wiring",
 				"A special type of wiring with high voltaic capacity and precision, necessary for the sensitive electronics in power armor.",
-				MuseIcon.WIRING);
+				"wiring");
 		solenoid = addComponent("componentSolenoid", "Solenoid", "Wires wound around a ferromagnetic core produces a basic electromagnet.",
-				MuseIcon.SOLENOID);
+				"solenoid");
 		servoMotor = addComponent("componentServo", "Servo Motor",
-				"A special type of motor which uses a pulse-modulated signal to enact very precise movements.", MuseIcon.SERVOMOTOR);
+				"A special type of motor which uses a pulse-modulated signal to enact very precise movements.", "servo");
 		gliderWing = addComponent("componentGliderWing", "Glider Wing",
-				"A lightweight aerodynamic wing with an electromagnet for quick deployment and retraction.", MuseIcon.GLIDERWING);
+				"A lightweight aerodynamic wing with an electromagnet for quick deployment and retraction.", "gliderwing");
 		ionThruster = addComponent("componentIonThruster", "Ion Thruster",
-				"Essentially a miniature particle accelerator. Accelerates ions to near-light speed to produce thrust.", MuseIcon.IONTHRUSTER);
+				"Essentially a miniature particle accelerator. Accelerates ions to near-light speed to produce thrust.", "ionthruster");
 		lvcapacitor = addComponent("componentLVCapacitor", "LV Capacitor",
-				"A simple capacitor can store and discharge small amounts of energy rapidly.", MuseIcon.LVCAPACITOR);
+				"A simple capacitor can store and discharge small amounts of energy rapidly.", "lvcapacitor");
 		mvcapacitor = addComponent("componentMVCapacitor", "MV Capacitor",
-				"A more advanced capacitor which can store more energy at higher voltages.", MuseIcon.MVCAPACITOR);
+				"A more advanced capacitor which can store more energy at higher voltages.", "mvcapacitor");
 		hvcapacitor = addComponent("componentHVCapacitor", "HV Capacitor",
-				"A synthetic crystal device which can store and release massive amounts of energy.", MuseIcon.HVCAPACITOR);
+				"A synthetic crystal device which can store and release massive amounts of energy.", "hvcapacitor");
 		parachute = addComponent("componentParachute", "Parachute", "A simple reusable parachute which can be deployed and recovered in midair.",
-				MuseIcon.PARACHUTE);
-		basicPlating = addComponent("componentPlatingBasic", "Basic Plating", "Some carefully-arranged metal armor plates.",
-				MuseIcon.ITEM_IRON_PLATING);
+				"parachuteitem");
+		basicPlating = addComponent("componentPlatingBasic", "Basic Plating", "Some carefully-arranged metal armor plates.", "basicplating1");
 		advancedPlating = addComponent("componentPlatingAdvanced", "Advanced Plating",
-				"Some carefully-arranged armor plates of a rare and stronger material", MuseIcon.ITEM_DIAMOND_PLATING);
+				"Some carefully-arranged armor plates of a rare and stronger material", "advancedplating1");
 		fieldEmitter = addComponent("componentFieldEmitter", "Force Field Emitter",
-				"An advanced device which directly manipulates electromagnetic and gravitational fields in an area.", MuseIcon.FIELD_GENERATOR);
+				"An advanced device which directly manipulates electromagnetic and gravitational fields in an area.", "fieldemitter");
 		laserHologram = addComponent("componentLaserEmitter", "Hologram Emitter",
-				"A multicoloured laser array which can cheaply alter the appearance of something.", MuseIcon.HOLOGRAM_EMITTER);
+				"A multicoloured laser array which can cheaply alter the appearance of something.", "hologramemitter");
 		carbonMyofiber = addComponent("componentCarbonMyofiber", "Carbon Myofiber",
-				"A small bundle of carbon fibers, refined for use in artificial muscles.", MuseIcon.CARBON_MYOFIBER);
+				"A small bundle of carbon fibers, refined for use in artificial muscles.", "myofiber");
 		controlCircuit = addComponent("componentControlCircuit", "Control Circuit",
-				"A simple networkable microcontroller for coordinating an individual component.", MuseIcon.CIRCUIT);
+				"A simple networkable microcontroller for coordinating an individual component.", "controlcircuit");
 		myofiberGel = addComponent("componentMyofiberGel", "Myofiber Gel",
-				"A thick, conductive paste, perfect for fitting between myofibers in an artificial muscle.", MuseIcon.MYOFIBER_PASTE);
+				"A thick, conductive paste, perfect for fitting between myofibers in an artificial muscle.", "paste");
 		artificialMuscle = addComponent("componentArtificialMuscle", "Artificial Muscle",
 				"An electrical, artificial muscle, with less range of movement than human muscle but orders of magnitude more strength.",
-				MuseIcon.ARTIFICIAL_MUSCLE);
+				"artificialmuscle");
 	}
 
 	/**
 	 * Gets an icon index based on an item's damage value
 	 */
 	public Icon getIconFromDamage(int index) {
-		return icons.get(index).getIconRegistration();
+		return icons.get(index);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void updateIcons(IconRegister iconRegister) {
-		for (MuseIcon icon : icons) {
-			icon.register(iconRegister);
+		for (String iconName : iconNames) {
+			icons.add(iconRegister.registerIcon(MuseIcon.ICON_PREFIX + iconName));
+		}
+
+		for (IPowerModule module : ModuleManager.getAllModules()) {
+			module.registerIcon(iconRegister);
 		}
 	}
 
-	public String getItemNameIS(ItemStack par1ItemStack) {
+	@Override
+	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		int index = MathHelper.clamp_int(par1ItemStack.getItemDamage(), 0, names.size() - 1);
 		return "powerArmorComponent." + names.get(index).replaceAll("\\s", "");
 	}

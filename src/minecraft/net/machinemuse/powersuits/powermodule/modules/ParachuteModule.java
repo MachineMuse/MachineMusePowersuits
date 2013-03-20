@@ -7,9 +7,9 @@ import net.machinemuse.api.IPlayerTickModule;
 import net.machinemuse.api.IToggleableModule;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
+import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.tick.PlayerTickHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -20,11 +20,6 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
 	public ParachuteModule(List<IModularItem> validItems) {
 		super(validItems);
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.parachute, 2));
-	}
-
-	@Override
-	public MuseIcon getIcon(ItemStack item) {
-		return MuseIcon.PARACHUTE_MODULE;
 	}
 
 	@Override
@@ -65,6 +60,11 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
 
 	@Override
 	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+	}
+
+	@Override
+	public String getTextureFile() {
+		return "parachute";
 	}
 
 }

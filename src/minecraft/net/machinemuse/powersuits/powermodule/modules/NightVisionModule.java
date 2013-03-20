@@ -9,8 +9,8 @@ import net.machinemuse.api.IPlayerTickModule;
 import net.machinemuse.api.IToggleableModule;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
+import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -23,11 +23,6 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
 		super(validItems);
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.laserHologram, 1));
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
-	}
-
-	@Override
-	public MuseIcon getIcon(ItemStack item) {
-		return MuseIcon.SCANNER;
 	}
 
 	@Override
@@ -70,5 +65,10 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
 
 	@Override
 	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+	}
+
+	@Override
+	public String getTextureFile() {
+		return "nightvision";
 	}
 }

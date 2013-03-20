@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.powermodule.modules;
+package net.machinemuse.powersuits.powermodule;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,13 +10,13 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.IPropertyModifier;
 import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.powermodule.PowerModule;
-import net.machinemuse.powersuits.powermodule.PropertyModifierFlatAdditive;
-import net.machinemuse.powersuits.powermodule.PropertyModifierLinearAdditive;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.Icon;
 
 public abstract class PowerModuleBase implements IPowerModule {
 	protected List<ItemStack> installCost;
@@ -25,6 +25,7 @@ public abstract class PowerModuleBase implements IPowerModule {
 	protected static Map<String, String> units = new HashMap();
 	protected NBTTagCompound defaultTag;
 	protected boolean isAllowed;
+	protected Icon icon;
 
 	public PowerModuleBase(String name, List<IModularItem> validItems) {
 		this.validItems = validItems;
@@ -43,6 +44,18 @@ public abstract class PowerModuleBase implements IPowerModule {
 		this.defaultTag.setBoolean(MuseItemUtils.ONLINE, true);
 		this.isAllowed = Config.getConfig().get("Modules", getName(), true).getBoolean(true);
 	}
+
+	@Override
+	public Icon getIcon(ItemStack item) {
+		return icon;
+	}
+
+	@Override
+	public void registerIcon(IconRegister register) {
+		this.icon = register.registerIcon(MuseIcon.ICON_PREFIX + getTextureFile());
+	}
+
+	public abstract String getTextureFile();
 
 	@Override
 	public List<ItemStack> getInstallCost() {
@@ -112,10 +125,9 @@ public abstract class PowerModuleBase implements IPowerModule {
 		return this;
 	}
 
-	public PowerModuleBase addSimpleTradeoff(
-			IPowerModule module, String tradeoffName,
-			String firstPropertyName, String firstUnits, double firstPropertyBase, double firstPropertyMultiplier,
-			String secondPropertyName, String secondUnits, double secondPropertyBase, double secondPropertyMultiplier) {
+	public PowerModuleBase addSimpleTradeoff(IPowerModule module, String tradeoffName, String firstPropertyName, String firstUnits,
+			double firstPropertyBase, double firstPropertyMultiplier, String secondPropertyName, String secondUnits, double secondPropertyBase,
+			double secondPropertyMultiplier) {
 		this.addBaseProperty(firstPropertyName, firstPropertyBase, firstUnits);
 		this.addTradeoffProperty(tradeoffName, firstPropertyName, firstPropertyMultiplier);
 		this.addBaseProperty(secondPropertyName, secondPropertyBase, secondUnits);

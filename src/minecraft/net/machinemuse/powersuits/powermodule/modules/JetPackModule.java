@@ -9,9 +9,9 @@ import net.machinemuse.api.IToggleableModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
+import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.tick.PlayerTickHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -28,11 +28,6 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
 		addBaseProperty(JET_THRUST, 0, "N");
 		addTradeoffProperty("Thrust", JET_ENERGY_CONSUMPTION, 150);
 		addTradeoffProperty("Thrust", JET_THRUST, 0.16);
-	}
-
-	@Override
-	public MuseIcon getIcon(ItemStack item) {
-		return MuseIcon.JETPACK;
 	}
 
 	@Override
@@ -77,6 +72,11 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
 
 	@Override
 	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+	}
+
+	@Override
+	public String getTextureFile() {
+		return "jetpack";
 	}
 
 }
