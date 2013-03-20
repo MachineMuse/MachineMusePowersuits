@@ -7,7 +7,6 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.machinemuse.powersuits.powermodule.RightClickPowerModule;
@@ -38,7 +37,7 @@ public class ModCompatability {
 	public static boolean isThermalExpansionLoaded() {
 		return Loader.isModLoaded("ThermalExpansion");
 	}
-	
+
 	public static boolean isAndrewAddonsLoaded() {
 		return Loader.isModLoaded("AndrewPowersuitAddons");
 	}
@@ -139,8 +138,8 @@ public class ModCompatability {
 				Field itemGoggles = tcItems.getField("itemGoggles");
 				Item goggles = (Item) itemGoggles.get(itemGoggles);
 				gogglesStack = new ItemStack(goggles);
-				IPowerModule module = new PowerModule("Aurameter", Arrays.asList((IModularItem) ModularPowersuits.powerArmorHead), new MuseIcon(
-						"thaumcraft:ss_core"), MuseCommonStrings.CATEGORY_SPECIAL)
+				IPowerModule module = new PowerModule("Aurameter", Arrays.asList((IModularItem) ModularPowersuits.powerArmorHead), "bluestar",
+						MuseCommonStrings.CATEGORY_SPECIAL)
 						.setDescription(
 								"Connect up some Thaumic goggles to show the nearby aura values. (Does not reveal aura nodes, only shows the HUD)")
 						.addInstallCost(ItemComponent.laserHologram.copy()).addInstallCost(gogglesStack);
@@ -154,7 +153,7 @@ public class ModCompatability {
 		// Add UE multimeter module
 		if (ModCompatability.isBasicComponentsLoaded()) {
 			IPowerModule module = new RightClickPowerModule(MuseCommonStrings.MODULE_MULTIMETER,
-					Arrays.asList((IModularItem) ModularPowersuits.powerTool), MuseIcon.PLATE_2_RED, MuseCommonStrings.CATEGORY_TOOL)
+					Arrays.asList((IModularItem) ModularPowersuits.powerTool), "redplate", MuseCommonStrings.CATEGORY_TOOL)
 					.setDescription("A tool addon that reads the Universal Electricity power generation in a wire.")
 					.addInstallCost(Config.copyAndResize(ItemComponent.wiring, 2)).addInstallCost(Config.copyAndResize(ItemComponent.solenoid, 1));
 			ModuleManager.addModule(module);
@@ -164,7 +163,7 @@ public class ModCompatability {
 
 			IPowerModule module = new ToggleablePowerModule(MuseCommonStrings.MODULE_HAZMAT, Arrays.asList(
 					(IModularItem) ModularPowersuits.powerArmorHead, (IModularItem) ModularPowersuits.powerArmorTorso,
-					(IModularItem) ModularPowersuits.powerArmorLegs, (IModularItem) ModularPowersuits.powerArmorFeet), MuseIcon.FIELD_EMITTER_GREEN,
+					(IModularItem) ModularPowersuits.powerArmorLegs, (IModularItem) ModularPowersuits.powerArmorFeet), "greenstar",
 					MuseCommonStrings.CATEGORY_ARMOR)
 					.setDescription("Protect yourself from that pesky radiation poisoning. *Must be on every piece*")
 					.addInstallCost(Config.copyAndResize(ItemComponent.basicPlating, 3)).addBaseProperty(MuseCommonStrings.WEIGHT, 0.5);

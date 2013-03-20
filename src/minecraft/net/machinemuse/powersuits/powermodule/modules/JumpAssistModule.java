@@ -7,10 +7,10 @@ import net.machinemuse.api.IPlayerTickModule;
 import net.machinemuse.api.IToggleableModule;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.PlayerInputMap;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.ItemComponent;
+import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.tick.PlayerTickHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -26,11 +26,6 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
 		addSimpleTradeoff(this, "Power", JUMP_ENERGY_CONSUMPTION, "J", 0, 25, JUMP_MULTIPLIER, "%", 1, 4);
 		addSimpleTradeoff(this, "Compensation", JUMP_ENERGY_CONSUMPTION, "J", 0, 5, JUMP_FOOD_COMPENSATION, "%", 0, 1);
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 4));
-	}
-
-	@Override
-	public MuseIcon getIcon(ItemStack item) {
-		return MuseIcon.JUMP_ASSIST;
 	}
 
 	@Override
@@ -67,6 +62,11 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
 
 	@Override
 	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+	}
+
+	@Override
+	public String getTextureFile() {
+		return "jumpassist";
 	}
 
 }

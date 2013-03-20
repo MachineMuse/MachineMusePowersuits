@@ -10,6 +10,7 @@ import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.event.SoundEventHandler;
+import net.machinemuse.powersuits.event.TextureStitchHandler;
 import net.machinemuse.powersuits.event.ThaumRenderEventHandler;
 import net.machinemuse.powersuits.network.MusePacketHandler;
 import net.machinemuse.powersuits.tick.ClientTickHandler;
@@ -48,6 +49,8 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinkerTable.class, tinkTableRenderer);
 		RenderingRegistry.registerBlockHandler(tinkTableRenderer);
 		RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, new RenderPlasmaBolt());
+
+		MinecraftForge.EVENT_BUS.register(new TextureStitchHandler());
 
 		MinecraftForgeClient.preloadTexture(Config.TINKERTABLE_TEXTURE_PATH);
 		MinecraftForgeClient.preloadTexture(Config.BLANK_ARMOR_MODEL_PATH);

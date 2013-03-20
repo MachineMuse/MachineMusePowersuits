@@ -9,8 +9,8 @@ import net.machinemuse.api.IPlayerTickModule;
 import net.machinemuse.api.IToggleableModule;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
+import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -24,11 +24,6 @@ public class InvisibilityModule extends PowerModuleBase implements IPlayerTickMo
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.laserHologram, 4));
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 2));
-	}
-
-	@Override
-	public MuseIcon getIcon(ItemStack item) {
-		return MuseIcon.ORB_1_BLUE;
 	}
 
 	@Override
@@ -71,5 +66,10 @@ public class InvisibilityModule extends PowerModuleBase implements IPlayerTickMo
 
 	@Override
 	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+	}
+
+	@Override
+	public String getTextureFile() {
+		return "bluedrone";
 	}
 }

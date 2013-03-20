@@ -8,7 +8,6 @@ import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.geometry.SwirlyMuseCircle;
 import net.machinemuse.general.gui.MuseGui;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.general.gui.clickable.IClickable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -20,6 +19,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Icon;
 import net.minecraft.util.Vec3;
 
 import org.lwjgl.BufferUtils;
@@ -254,7 +254,7 @@ public abstract class MuseRenderer {
 	 * @param icon
 	 * @param colour
 	 */
-	public static void drawIconAt(double x, double y, MuseIcon icon, Colour colour) {
+	public static void drawIconAt(double x, double y, Icon icon, Colour colour) {
 		if (icon == null) {
 			return;
 		}
@@ -269,12 +269,13 @@ public abstract class MuseRenderer {
 			colour.doGL();
 		}
 
+		getRenderEngine().bindTexture("/gui/items.png");
 		Tessellator tess = Tessellator.instance;
 		tess.startDrawingQuads();
-		float u1 = icon.getIconRegistration().getMinU();
-		float v1 = icon.getIconRegistration().getMinV();
-		float u2 = icon.getIconRegistration().getMaxU();
-		float v2 = icon.getIconRegistration().getMaxV();
+		float u1 = icon.getMinU();
+		float v1 = icon.getMinV();
+		float u2 = icon.getMaxU();
+		float v2 = icon.getMaxV();
 		tess.addVertexWithUV(x, y, 0, u1, v1);
 		tess.addVertexWithUV(x, y + 16, 0, u1, v2);
 		tess.addVertexWithUV(x + 16, y + 16, 0, u2, v2);
@@ -297,7 +298,7 @@ public abstract class MuseRenderer {
 	 * @param icon
 	 * @param colour
 	 */
-	public static void drawIconPartial(double x, double y, MuseIcon icon, Colour colour, double left, double top, double right, double bottom) {
+	public static void drawIconPartial(double x, double y, Icon icon, Colour colour, double left, double top, double right, double bottom) {
 		if (icon == null) {
 			return;
 		}
@@ -312,20 +313,21 @@ public abstract class MuseRenderer {
 			colour.doGL();
 		}
 
+		getRenderEngine().bindTexture("/gui/items.png");
 		Tessellator tess = Tessellator.instance;
 		tess.startDrawingQuads();
-		float u1 = icon.getIconRegistration().getMinU();
-		float v1 = icon.getIconRegistration().getMinV();
-		float u2 = icon.getIconRegistration().getMaxU();
-		float v2 = icon.getIconRegistration().getMaxV();
+		float u1 = icon.getMinU();
+		float v1 = icon.getMinV();
+		float u2 = icon.getMaxU();
+		float v2 = icon.getMaxV();
 		double xoffset1 = left * (u2 - u1) / 16.0f;
 		double yoffset1 = top * (v2 - v1) / 16.0f;
 		double xoffset2 = right * (u2 - u1) / 16.0f;
 		double yoffset2 = bottom * (v2 - v1) / 16.0f;
 
 		tess.addVertexWithUV(x + left, y + top, 0, u1 + xoffset1, v1 + yoffset1);
-		tess.addVertexWithUV(x + left, y + bottom, 0, u1 + xoffset1, v2 + yoffset2);
-		tess.addVertexWithUV(x + right, y + bottom, 0, u1 + xoffset2, v2 + yoffset2);
+		tess.addVertexWithUV(x + left, y + bottom, 0, u1 + xoffset1, v1 + yoffset2);
+		tess.addVertexWithUV(x + right, y + bottom, 0, u1 + xoffset2, v1 + yoffset2);
 		tess.addVertexWithUV(x + right, y + top, 0, u1 + xoffset2, v1 + yoffset1);
 		tess.draw();
 

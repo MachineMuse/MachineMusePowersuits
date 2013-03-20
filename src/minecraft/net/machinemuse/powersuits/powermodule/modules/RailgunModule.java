@@ -9,8 +9,8 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.MusePlayerUtils;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
+import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -39,11 +39,6 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule 
 		addBaseProperty(ENERGY, 500, "J");
 		addTradeoffProperty("Voltage", IMPULSE, 2500);
 		addTradeoffProperty("Voltage", ENERGY, 2500);
-	}
-
-	@Override
-	public MuseIcon getIcon(ItemStack item) {
-		return MuseIcon.CLAW_LASER;
 	}
 
 	@Override
@@ -120,6 +115,11 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule 
 				world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
 			}
 		}
+	}
+
+	@Override
+	public String getTextureFile() {
+		return "electricweapon";
 	}
 
 }

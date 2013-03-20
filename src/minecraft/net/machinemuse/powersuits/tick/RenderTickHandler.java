@@ -11,12 +11,12 @@ import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.general.gui.MuseIcon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.Icon;
 import net.minecraftforge.common.ForgeHooks;
 
 import org.lwjgl.opengl.GL11;
@@ -62,9 +62,9 @@ public class RenderTickHandler implements ITickHandler {
 				MuseRenderer.blendingOn();
 				NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
 				int swapTime = (int) Math.min(System.currentTimeMillis() - lastSwapTime, SWAPTIME);
-				MuseIcon currentMode = null;
-				MuseIcon nextMode = null;
-				MuseIcon prevMode = null;
+				Icon currentMode = null;
+				Icon nextMode = null;
+				Icon prevMode = null;
 				List<String> modes = MuseItemUtils.getModes(stack, player);
 				String mode = itemTag.getString("Mode");
 				int modeIndex = modes.indexOf(mode);

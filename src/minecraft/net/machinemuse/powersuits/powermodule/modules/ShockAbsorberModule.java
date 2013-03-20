@@ -6,8 +6,8 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IToggleableModule;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
+import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
@@ -24,11 +24,6 @@ public class ShockAbsorberModule extends PowerModuleBase implements IToggleableM
 	}
 
 	@Override
-	public MuseIcon getIcon(ItemStack item) {
-		return MuseIcon.SHOCK_ABSORBER;
-	}
-
-	@Override
 	public String getCategory() {
 		return MuseCommonStrings.CATEGORY_MOVEMENT;
 	}
@@ -41,5 +36,10 @@ public class ShockAbsorberModule extends PowerModuleBase implements IToggleableM
 	@Override
 	public String getDescription() {
 		return "With some servos, springs, and padding, you should be able to negate a portion of fall damage.";
+	}
+
+	@Override
+	public String getTextureFile() {
+		return "shockabsorber";
 	}
 }

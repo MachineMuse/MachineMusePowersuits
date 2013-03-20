@@ -2,7 +2,8 @@ package net.machinemuse.general.gui;
 
 import java.lang.reflect.Field;
 
-import javax.swing.Icon;
+import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.util.Icon;
 
 /**
  * MuseIcon is just a helper class to make it more convenient to have multiple sprite sheets and to keep all the icon indices in one place.
@@ -31,9 +32,9 @@ public class MuseIcon {
 
 	// Item icons
 	public static final MuseIcon ARMOR_HEAD = new MuseIcon("armorhead");
-	public static final MuseIcon ARMOR_TORSO = new MuseIcon("armorhead");
-	public static final MuseIcon ARMOR_LEGS = new MuseIcon("armorhead");
-	public static final MuseIcon ARMOR_FEET = new MuseIcon("armorhead");
+	public static final MuseIcon ARMOR_TORSO = new MuseIcon("armortorso");
+	public static final MuseIcon ARMOR_LEGS = new MuseIcon("armorlegs");
+	public static final MuseIcon ARMOR_FEET = new MuseIcon("armorfeet");
 	public static final MuseIcon TOOL_AXE = new MuseIcon("toolaxe");
 	public static final MuseIcon TOOL_PICK = new MuseIcon("toolaxe");
 	public static final MuseIcon TOOL_SHOVEL = new MuseIcon("toolaxe");
@@ -87,7 +88,7 @@ public class MuseIcon {
 	public static final MuseIcon COOLING_SYSTEM = new MuseIcon("jetboots");
 	public static final MuseIcon MVCAPACITOR = new MuseIcon("jetboots");
 	public static final MuseIcon SCANNER = new MuseIcon("jetboots");
-	public static final MuseIcon POWERTOOL = new MuseIcon("jetboots");
+	public static final MuseIcon POWERTOOL = new MuseIcon("handitem");
 	public static final MuseIcon WEAPON_GRAVITY = new MuseIcon("jetboots");
 	public static final MuseIcon BATTERYCRYSTAL = new MuseIcon("jetboots");
 	public static final MuseIcon FLOATING_CRYSTAL = new MuseIcon("jetboots");
@@ -107,10 +108,13 @@ public class MuseIcon {
 	protected Icon icon;
 
 	public static void registerAllIcons(IconRegister register) {
-		for (Field field : MuseIcon.class.getFields()) {
-			if (field.get(null) instanceof MuseIcon) {
-				field.register(register);
+		try {
+			for (Field field : MuseIcon.class.getFields()) {
+				if (field.get(null) instanceof MuseIcon) {
+					((MuseIcon) field.get(null)).register(register);
+				}
 			}
+		} catch (IllegalArgumentException | IllegalAccessException e) {
 		}
 	}
 

@@ -7,8 +7,8 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IRightClickModule;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
+import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -32,11 +32,6 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
 	}
 
 	@Override
-	public MuseIcon getIcon(ItemStack item) {
-		return MuseIcon.WEAPON_ELECTRIC;
-	}
-
-	@Override
 	public String getCategory() {
 		return MuseCommonStrings.CATEGORY_WEAPON;
 	}
@@ -56,6 +51,11 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
 		if (ElectricItemUtils.getPlayerEnergy(player) > 500) {
 			player.setItemInUse(item, 72000);
 		}
+	}
+
+	@Override
+	public String getTextureFile() {
+		return "gravityweapon";
 	}
 
 }

@@ -9,7 +9,6 @@ import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.general.MuseStringUtils;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.machinemuse.powersuits.powermodule.ToggleablePowerModule;
@@ -197,7 +196,7 @@ public class Config {
 
 		IPowerModule module;
 
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_MELEE_ASSIST, TOOLONLY, MuseIcon.PUNCHY, MuseCommonStrings.CATEGORY_WEAPON)
+		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_MELEE_ASSIST, TOOLONLY, "toolfist", MuseCommonStrings.CATEGORY_WEAPON)
 				.setDescription("A much simpler addon, makes your powertool punches hit harder.")
 				.addBaseProperty(MuseCommonStrings.PUNCH_ENERGY, 10, "J").addBaseProperty(MuseCommonStrings.PUNCH_DAMAGE, 2, "pt")
 				.addTradeoffProperty("Impact", MuseCommonStrings.PUNCH_ENERGY, 100, "J")
@@ -207,28 +206,27 @@ public class Config {
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2)).addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1));
 		addModule(module);
 
-		module = new PowerModule(MuseCommonStrings.MODULE_BASIC_PLATING, ARMORONLY, MuseIcon.MODULE_IRON_PLATING, MuseCommonStrings.CATEGORY_ARMOR)
+		module = new PowerModule(MuseCommonStrings.MODULE_BASIC_PLATING, ARMORONLY, "basicplating2", MuseCommonStrings.CATEGORY_ARMOR)
 				.setDescription("Basic plating is heavy but protective.").addInstallCost(copyAndResize(ItemComponent.basicPlating, 1))
 				.addTradeoffProperty("Plating Thickness", MuseCommonStrings.ARMOR_VALUE_PHYSICAL, 5, " Points")
 				.addTradeoffProperty("Plating Thickness", MuseCommonStrings.WEIGHT, 10000, "g");
 		addModule(module);
 
-		module = new PowerModule(MuseCommonStrings.MODULE_DIAMOND_PLATING, ARMORONLY, MuseIcon.MODULE_DIAMOND_PLATING,
-				MuseCommonStrings.CATEGORY_ARMOR)
+		module = new PowerModule(MuseCommonStrings.MODULE_DIAMOND_PLATING, ARMORONLY, "advancedplating2", MuseCommonStrings.CATEGORY_ARMOR)
 				.setDescription("Advanced plating is lighter, harder, and more protective than Basic but much harder to make.")
 				.addInstallCost(copyAndResize(ItemComponent.advancedPlating, 1))
 				.addTradeoffProperty("Plating Thickness", MuseCommonStrings.ARMOR_VALUE_PHYSICAL, 6, " Points")
 				.addTradeoffProperty("Plating Thickness", MuseCommonStrings.WEIGHT, 6000, "g");
 		addModule(module);
 
-		module = new PowerModule(MuseCommonStrings.MODULE_ENERGY_SHIELD, ARMORONLY, MuseIcon.ENERGY_SHIELD, MuseCommonStrings.CATEGORY_ARMOR)
+		module = new PowerModule(MuseCommonStrings.MODULE_ENERGY_SHIELD, ARMORONLY, "energyshield", MuseCommonStrings.CATEGORY_ARMOR)
 				.setDescription("Energy shields are much lighter than plating, but consume energy.")
 				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2))
 				.addTradeoffProperty("Field Strength", MuseCommonStrings.ARMOR_VALUE_ENERGY, 6, " Points")
 				.addTradeoffProperty("Field Strength", MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION, 500, "J");
 		addModule(module);
 
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_SHOVEL, TOOLONLY, MuseIcon.TOOL_SHOVEL, MuseCommonStrings.CATEGORY_TOOL)
+		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_SHOVEL, TOOLONLY, "toolshovel", MuseCommonStrings.CATEGORY_TOOL)
 				.setDescription("Shovels are good for soft materials like dirt and sand.").addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1)).addBaseProperty(MuseCommonStrings.SHOVEL_ENERGY_CONSUMPTION, 50, "J")
 				.addBaseProperty(MuseCommonStrings.SHOVEL_HARVEST_SPEED, 8, "x")
@@ -236,7 +234,7 @@ public class Config {
 				.addTradeoffProperty("Overclock", MuseCommonStrings.SHOVEL_HARVEST_SPEED, 22);
 		addModule(module);
 
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_PICKAXE, TOOLONLY, MuseIcon.TOOL_PICK, MuseCommonStrings.CATEGORY_TOOL)
+		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_PICKAXE, TOOLONLY, "toolpick", MuseCommonStrings.CATEGORY_TOOL)
 				.setDescription("Picks are good for harder materials like stone and ore.").addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1)).addBaseProperty(MuseCommonStrings.PICKAXE_ENERGY_CONSUMPTION, 50, "J")
 				.addBaseProperty(MuseCommonStrings.PICKAXE_HARVEST_SPEED, 8, "x")
@@ -244,7 +242,7 @@ public class Config {
 				.addTradeoffProperty("Overclock", MuseCommonStrings.PICKAXE_HARVEST_SPEED, 22);
 		addModule(module);
 
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_AXE, TOOLONLY, MuseIcon.TOOL_AXE, MuseCommonStrings.CATEGORY_TOOL)
+		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_AXE, TOOLONLY, "toolaxe", MuseCommonStrings.CATEGORY_TOOL)
 				.setDescription("Axes are mostly for chopping trees.").addInstallCost(new ItemStack(Item.ingotIron, 3))
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1)).addBaseProperty(MuseCommonStrings.AXE_ENERGY_CONSUMPTION, 50, "J")
 				.addBaseProperty(MuseCommonStrings.AXE_HARVEST_SPEED, 8, "x")
@@ -252,13 +250,13 @@ public class Config {
 				.addTradeoffProperty("Overclock", MuseCommonStrings.AXE_HARVEST_SPEED, 22);
 		addModule(module);
 
-		module = new PowerModule(MuseCommonStrings.MODULE_DIAMOND_PICK_UPGRADE, TOOLONLY, MuseIcon.DIAMOND_PICK, MuseCommonStrings.CATEGORY_SPECIAL)
+		module = new PowerModule(MuseCommonStrings.MODULE_DIAMOND_PICK_UPGRADE, TOOLONLY, "diamondupgrade", MuseCommonStrings.CATEGORY_SPECIAL)
 				.setDescription("Add diamonds to allow your pickaxe module to mine Obsidian. *REQUIRES PICKAXE MODULE TO WORK*")
 				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1)).addInstallCost(new ItemStack(Item.diamond, 3));
 		addModule(module);
 
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_AQUA_AFFINITY, TOOLONLY, MuseIcon.AQUA_AFFINITY,
-				MuseCommonStrings.CATEGORY_SPECIAL).setDescription("Reduces the speed penalty for using your tool underwater.")
+		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_AQUA_AFFINITY, TOOLONLY, "aquaaffinity", MuseCommonStrings.CATEGORY_SPECIAL)
+				.setDescription("Reduces the speed penalty for using your tool underwater.")
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 1))
 				.addBaseProperty(MuseCommonStrings.AQUA_AFFINITY_ENERGY_CONSUMPTION, 0, "J")
 				.addBaseProperty(MuseCommonStrings.UNDERWATER_HARVEST_SPEED, 0.2, "%")
@@ -266,35 +264,35 @@ public class Config {
 				.addTradeoffProperty("Power", MuseCommonStrings.UNDERWATER_HARVEST_SPEED, 0.8);
 		addModule(module);
 
-		module = new PowerModule(MuseCommonStrings.MODULE_BATTERY_BASIC, ALLITEMS, MuseIcon.BATTERY1, MuseCommonStrings.CATEGORY_ENERGY)
+		module = new PowerModule(MuseCommonStrings.MODULE_BATTERY_BASIC, ALLITEMS, "lvbattery", MuseCommonStrings.CATEGORY_ENERGY)
 				.setDescription("Integrate a battery to allow the item to store energy.").addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1))
 				.addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 20000, "J").addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g")
 				.addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 80000)
 				.addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000);
 		addModule(module);
 
-		module = new PowerModule(MuseCommonStrings.MODULE_BATTERY_ADVANCED, ALLITEMS, MuseIcon.BATTERY2, MuseCommonStrings.CATEGORY_ENERGY)
+		module = new PowerModule(MuseCommonStrings.MODULE_BATTERY_ADVANCED, ALLITEMS, "mvbattery", MuseCommonStrings.CATEGORY_ENERGY)
 				.setDescription("Integrate a more advanced battery to store more energy.")
 				.addInstallCost(copyAndResize(ItemComponent.mvcapacitor, 1)).addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 100000, "J")
 				.addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g").addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 400000)
 				.addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000);
 		addModule(module);
 
-		module = new PowerModule(MuseCommonStrings.MODULE_BATTERY_ELITE, ALLITEMS, MuseIcon.BATTERYCRYSTAL, MuseCommonStrings.CATEGORY_ENERGY)
+		module = new PowerModule(MuseCommonStrings.MODULE_BATTERY_ELITE, ALLITEMS, "crystalcapacitor", MuseCommonStrings.CATEGORY_ENERGY)
 				.setDescription("Integrate a the most advanced battery to store an extensive amount of energy.")
 				.addInstallCost(copyAndResize(ItemComponent.hvcapacitor, 1)).addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 750000, "J")
 				.addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g").addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 4250000)
 				.addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000);
 		addModule(module);
 
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_WATER_ELECTROLYZER, HEADONLY, MuseIcon.WATER_ELECTROLYZER,
+		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_WATER_ELECTROLYZER, HEADONLY, "waterelectrolyzer",
 				MuseCommonStrings.CATEGORY_ENVIRONMENTAL)
 				.setDescription("When you run out of air, this module will jolt the water around you, electrolyzing a small bubble to breathe from.")
 				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1))
 				.addBaseProperty(MuseCommonStrings.WATERBREATHING_ENERGY_CONSUMPTION, 1000, "J");
 		addModule(module);
 
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_TINT, ALLITEMS, MuseIcon.NETHERSTAR, MuseCommonStrings.CATEGORY_COSMETIC)
+		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_TINT, ALLITEMS, "netherstar", MuseCommonStrings.CATEGORY_COSMETIC)
 				.setDescription("Give your armor some coloured tinting to customize your armor's appearance.")
 				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1))
 				.addTradeoffProperty("Red Intensity", MuseCommonStrings.RED_TINT, 1, "%")
@@ -302,11 +300,11 @@ public class Config {
 				.addTradeoffProperty("Blue Intensity", MuseCommonStrings.BLUE_TINT, 1, "%");
 		addModule(module);
 
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_TRANSPARENT_ARMOR, ARMORONLY, MuseIcon.TRANSPARENT_ARMOR,
+		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_TRANSPARENT_ARMOR, ARMORONLY, "transparentarmor",
 				MuseCommonStrings.CATEGORY_COSMETIC).setDescription("Make the item transparent, so you can show off your skin without losing armor.")
 				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1));
 		addModule(module);
-		module = new PowerModule(MuseCommonStrings.CITIZEN_JOE_STYLE, ARMORONLY, MuseIcon.ORB_1_GREEN, MuseCommonStrings.CATEGORY_COSMETIC)
+		module = new PowerModule(MuseCommonStrings.CITIZEN_JOE_STYLE, ARMORONLY, "greendrone", MuseCommonStrings.CATEGORY_COSMETIC)
 				.setDescription("An alternative armor texture, c/o CitizenJoe of IC2 forums.");
 
 		addModule(module);

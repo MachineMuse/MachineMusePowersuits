@@ -7,9 +7,9 @@ import net.machinemuse.api.IPlayerTickModule;
 import net.machinemuse.api.IToggleableModule;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
+import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Vec3;
@@ -17,14 +17,13 @@ import net.minecraft.util.Vec3;
 public class GliderModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
 	public static final String MODULE_GLIDER = "Glider";
 
+	public String getTextureFile() {
+		return "glider";
+	}
+
 	public GliderModule(List<IModularItem> validItems) {
 		super(validItems);
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.gliderWing, 2));
-	}
-
-	@Override
-	public MuseIcon getIcon(ItemStack item) {
-		return MuseIcon.GLIDER;
 	}
 
 	@Override
