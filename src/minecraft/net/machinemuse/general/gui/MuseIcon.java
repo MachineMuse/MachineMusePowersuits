@@ -1,7 +1,8 @@
 package net.machinemuse.general.gui;
 
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.util.Icon;
+import java.lang.reflect.Field;
+
+import javax.swing.Icon;
 
 /**
  * MuseIcon is just a helper class to make it more convenient to have multiple sprite sheets and to keep all the icon indices in one place.
@@ -102,8 +103,16 @@ public class MuseIcon {
 	public static final MuseIcon ARCREACTOR = new MuseIcon("jetboots");
 	public static final MuseIcon PUNCHY = new MuseIcon("jetboots");
 
-	String texturename;
-	Icon icon;
+	protected String texturename;
+	protected Icon icon;
+
+	public static void registerAllIcons(IconRegister register) {
+		for (Field field : MuseIcon.class.getFields()) {
+			if (field.get(null) instanceof MuseIcon) {
+				field.register(register);
+			}
+		}
+	}
 
 	public MuseIcon(String texturename) {
 		super();
