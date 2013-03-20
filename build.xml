@@ -185,7 +185,7 @@
 			<fileset dir="${mcp.dir}/reobf/minecraft" />
 		</copy>
 		<mkdir dir="${classes.dir}/mods" />
-		<copy todir="${classes.dir}/mods">
+		<copy todir="${classes.dir}/mods/mmmPowersuits">
 			<fileset dir="${resources.dir}" />
 		</copy>
 		<copy todir="${classes.dir}" file="mcmod.info">
