@@ -7,7 +7,7 @@
 	<property name="build.ver" value="0.3.3" />
 	<property name="fullversion" value="${build.ver}-${env.BUILD_NUMBER}" />
 	<property name="mcp.version" value="742" />
-	<property name="forgebuild" value="589" />
+	<property name="forgebuild" value="595" />
 	<property name="forge.version" value="1.5-7.7.0.${forgebuild}" />
 	<property name="ic2api.version" value="1.115.218-lf" />
 	<property name="ueapi.version" value="1.3.0.350" />
@@ -40,7 +40,7 @@
 	<!-- Version Checking -->
 
 	<property file="${forge.dir}/forgeversion.properties" />
-	<condition property="forge.already.installed">
+	<condition property="forge-already-installed">
 		<equals arg1="${forge.build.number}" arg2="${forgebuild}" />
 	</condition>
 	<available property="forge-exists" file="${download.dir}/minecraftforge-src-${forge.version}.zip" />
@@ -110,24 +110,24 @@
 		<mkdir dir="${mcpsrc.dir}/icbm" />
 		<mkdir dir="${mcpsrc.dir}/icbm/api" />
 		<mkdir dir="${mcpsrc.dir}/icbm/api/explosion" />
-		<move file="${download.dir}/ue/minecraft/icbm/api/explosion/IExplosive.java" todir="${mcpsrc.dir}/icbm/api/explosion/IExplosive.java" />
-		<move file="${download.dir}/ue/minecraft/icbm/api/explosion/IEMPItem.java" todir="${mcpsrc.dir}/icbm/api/explosion/IEMPItem.java" />
+		<move file="${download.dir}/ue/minecraft/icbm/api/explosion/IExplosive.java" todir="${mcpsrc.dir}/icbm/api/explosion/" />
+		<move file="${download.dir}/ue/minecraft/icbm/api/explosion/IEMPItem.java" todir="${mcpsrc.dir}/icbm/api/explosion/" />
 
 		<echo message="Extracting Atomic Science API... " />
 		<unzip src="${download.dir}/AtomicScience_v${asapi.version}_api.zip" dest="${download.dir}/ue" />
 		<mkdir dir="${mcpsrc.dir}/atomicscience" />
 		<mkdir dir="${mcpsrc.dir}/atomicscience/api" />
 		<mkdir dir="${mcpsrc.dir}/atomicscience/api/poison" />
-		<move file="${download.dir}/ue/minecraft/atomicscience/api/poison/Poison.java" todir="${mcpsrc.dir}/icbm/api/poison/Poison.java" />
-		<move file="${download.dir}/ue/minecraft/atomicscience/api/IAntiPoisonArmor.java" todir="${mcpsrc.dir}/icbm/api/IAntiPoisonArmor.java" />
+		<move file="${download.dir}/ue/minecraft/atomicscience/api/poison/Poison.java" todir="${mcpsrc.dir}/icbm/api/poison/" />
+		<move file="${download.dir}/ue/minecraft/atomicscience/api/IAntiPoisonArmor.java" todir="${mcpsrc.dir}/icbm/api/" />
 
 		<echo message="Extracting ThermalExpansion API... " />
 		<unzip src="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" dest="${download.dir}" />
 		<mkdir dir="${mcpsrc.dir}/thermalexpansion" />
 		<mkdir dir="${mcpsrc.dir}/thermalexpansion/api" />
 		<mkdir dir="${mcpsrc.dir}/thermalexpansion/api/core" />
-		<move file="${download.dir}/thermalexpansion/api/core/ItemRegistry.java" todir="${mcpsrc.dir}/thermalexpansion/api/core/ItemRegistry.java" />
-		<move file="${download.dir}/thermalexpansion/api/core/IChargeableItem.java" todir="${mcpsrc.dir}/thermalexpansion/api/core/IChargeableItem.java" />
+		<move file="${download.dir}/thermalexpansion/api/core/ItemRegistry.java" todir="${mcpsrc.dir}/thermalexpansion/api/core/" />
+		<move file="${download.dir}/thermalexpansion/api/core/IChargeableItem.java" todir="${mcpsrc.dir}/thermalexpansion/api/core/" />
 		<delete dir="${download.dir}/thermalexpansion" />
 	</target>
 
@@ -195,7 +195,7 @@
 		</copy>
 	</target>
 
-	<target name="setup-forge" depends="download-forge" unless="forge-exists">
+	<target name="setup-forge" depends="download-forge" unless="forge-already-installed">
 
 		<unzip dest="${build.dir}">
 			<fileset dir="${download.dir}">
