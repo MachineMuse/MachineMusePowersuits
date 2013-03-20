@@ -11,6 +11,7 @@ import java.util.List;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -81,6 +82,9 @@ public class MusePacketInstallModuleRequest extends MusePacket {
 			if ((!MuseItemUtils.itemHasModule(stack, moduleName) && MuseItemUtils.hasInInventory(cost, playerEntity.inventory))
 					|| playerEntity.capabilities.isCreativeMode) {
 				MuseItemUtils.itemAddModule(stack, moduleType);
+				for (ItemStack stackInCost : cost) {
+					ElectricItemUtils.givePlayerEnergy(playerEntity, ElectricItemUtils.jouleValueOfComponent(stackInCost));
+				}
 
 				List<Integer> slotsToUpdate = new ArrayList();
 				if (!playerEntity.capabilities.isCreativeMode) {

@@ -3,10 +3,10 @@ package net.machinemuse.powersuits.event;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.machinemuse.api.ElectricItemUtils;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.powersuits.item.ItemPowerArmor;
 import net.machinemuse.powersuits.powermodule.modules.JumpAssistModule;
 import net.machinemuse.powersuits.powermodule.modules.ShockAbsorberModule;

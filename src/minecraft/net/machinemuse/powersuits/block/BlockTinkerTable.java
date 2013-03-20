@@ -91,8 +91,7 @@ public class BlockTinkerTable extends Block {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister) {
-		MuseIcon.PLATE_1_GREEN.register(iconRegister);
-		this.blockIcon = MuseIcon.PLATE_1_GREEN.getIconRegistration();
+		this.blockIcon = iconRegister.registerIcon(MuseIcon.ICON_PREFIX + "heatresistantplating");
 	}
 
 	/**

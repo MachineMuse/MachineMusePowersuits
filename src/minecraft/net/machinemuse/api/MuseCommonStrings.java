@@ -3,6 +3,7 @@ package net.machinemuse.api;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.machinemuse.api.electricity.ElectricAdapter;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModCompatability;
@@ -79,14 +80,9 @@ public abstract class MuseCommonStrings {
 	private static final String SOUND_RESOURCE_LOCATION = "resources/machinemuse/sound/";
 	private static final String SOUND_PREFIX = "resources.machinemuse.sound.";
 
-	public static String[] soundFiles = {
-			SOUND_RESOURCE_LOCATION + "Glider.ogg",
-			SOUND_RESOURCE_LOCATION + "GUIInstall.ogg",
-			SOUND_RESOURCE_LOCATION + "GUISelect.ogg",
-			SOUND_RESOURCE_LOCATION + "JetBoots.ogg",
-			SOUND_RESOURCE_LOCATION + "Jetpack.ogg",
-			SOUND_RESOURCE_LOCATION + "JumpAssist.ogg",
-			SOUND_RESOURCE_LOCATION + "SwimAssist.ogg",
+	public static String[] soundFiles = { SOUND_RESOURCE_LOCATION + "Glider.ogg", SOUND_RESOURCE_LOCATION + "GUIInstall.ogg",
+			SOUND_RESOURCE_LOCATION + "GUISelect.ogg", SOUND_RESOURCE_LOCATION + "JetBoots.ogg", SOUND_RESOURCE_LOCATION + "Jetpack.ogg",
+			SOUND_RESOURCE_LOCATION + "JumpAssist.ogg", SOUND_RESOURCE_LOCATION + "SwimAssist.ogg",
 			SOUND_RESOURCE_LOCATION + "WaterElectrolyzer.ogg", };
 	public static final String SOUND_GLIDER = SOUND_PREFIX + "Glider";
 	public static final String SOUND_GUI_INSTALL = SOUND_PREFIX + "GUIInstall";
@@ -105,12 +101,10 @@ public abstract class MuseCommonStrings {
 	 * @param player
 	 *            The player (client) viewing the tooltip
 	 * @param currentTipList
-	 *            A list of strings containing the existing tooltip. When
-	 *            passed, it will just contain the name of the item;
-	 *            enchantments and lore are appended afterwards.
+	 *            A list of strings containing the existing tooltip. When passed, it will just contain the name of the item; enchantments and lore are
+	 *            appended afterwards.
 	 * @param advancedToolTips
-	 *            Whether or not the player has 'advanced tooltips' turned on in
-	 *            their settings.
+	 *            Whether or not the player has 'advanced tooltips' turned on in their settings.
 	 */
 	public static void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
 		if (stack.getItem() instanceof ItemPowerTool) {
@@ -121,15 +115,21 @@ public abstract class MuseCommonStrings {
 				currentTipList.add("Change modes: Sneak+mousewheel.");
 			}
 		}
-		String energyinfo = "Energy: " + MuseStringUtils.formatNumberShort(ElectricItemUtils.getJoules(stack)) + "/"
-				+ MuseStringUtils.formatNumberShort(ElectricItemUtils.getMaxJoules(stack));
-		currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character,
-				MuseStringUtils.FormatCodes.Grey));
+		ElectricAdapter adapter = ElectricAdapter.wrap(stack);
+		if (adapter != null) {
+			String energyinfo = "Energy: " + MuseStringUtils.formatNumberShort(adapter.getCurrentEnergy()) + "/"
+					+ MuseStringUtils.formatNumberShort(adapter.getMaxEnergy());
+			currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character,
+					MuseStringUtils.FormatCodes.Grey));
+		}
 		try {
-			if (ModCompatability.isAndrewAddonsLoaded() && stack.getItem() instanceof ItemPowerArmorHead && MuseItemUtils.getFoodLevel(stack) > 0 && MuseItemUtils.itemHasModule(stack, "Auto-Feeder")) {
-				currentTipList.add(MuseStringUtils.wrapMultipleFormatTags("Food level: " + MuseItemUtils.getFoodLevel(stack), MuseStringUtils.FormatCodes.Italic.character, MuseStringUtils.FormatCodes.Grey));
+			if (ModCompatability.isAndrewAddonsLoaded() && stack.getItem() instanceof ItemPowerArmorHead && MuseItemUtils.getFoodLevel(stack) > 0
+					&& MuseItemUtils.itemHasModule(stack, "Auto-Feeder")) {
+				currentTipList.add(MuseStringUtils.wrapMultipleFormatTags("Food level: " + MuseItemUtils.getFoodLevel(stack),
+						MuseStringUtils.FormatCodes.Italic.character, MuseStringUtils.FormatCodes.Grey));
 			}
-		} catch (Exception e) {}
+		} catch (Exception e) {
+		}
 		if (Config.doAdditionalInfo()) {
 			List<String> installed = MuseCommonStrings.getItemInstalledModules(player, stack);
 			if (installed.size() == 0) {

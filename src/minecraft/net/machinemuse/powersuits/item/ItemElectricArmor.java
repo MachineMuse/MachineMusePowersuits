@@ -1,12 +1,16 @@
 package net.machinemuse.powersuits.item;
 
-import net.machinemuse.api.ElectricItemUtils;
-import net.machinemuse.powersuits.common.ModCompatability;
+import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.electricity.ElectricItemUtils;
+import net.machinemuse.api.electricity.UEElectricAdapter;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import universalelectricity.core.electricity.ElectricityPack;
+import universalelectricity.core.item.IItemElectric;
 
-public class ItemElectricArmor extends ItemArmor
+public class ItemElectricArmor extends ItemArmor implements IItemElectric
 /**
  * implements IItemElectric, // Universal Electricity ICustomElectricItem, // Industrial Craft 2 IEMPItem, // for ICBM EMP interfacing
  * IAntiPoisonArmor, // for atomic science hazmat suits IChargeableItem // for Thermal Expansion
@@ -17,160 +21,125 @@ public class ItemElectricArmor extends ItemArmor
 		super(par1, par2EnumArmorMaterial, par3, par4);
 	}
 
-	// //////////////////////////////////////////////
-	// --- UNIVERSAL ELECTRICITY COMPATABILITY ---//
-	// //////////////////////////////////////////////
-	public double onReceive(double amps, double voltage, ItemStack itemStack) {
-		double amount = 1;// ElectricInfo.getJoules(amps, voltage, 1);
-		return ElectricItemUtils.charge(amount, itemStack);
-	}
-
-	public double onUse(double joulesNeeded, ItemStack itemStack) {
-		return ElectricItemUtils.discharge(joulesNeeded, itemStack);
-	}
-
-	public double getJoules(Object... data) {
-		return ElectricItemUtils.getJoules(getAsStack(data));
-	}
-
-	public void setJoules(double joules, Object... data) {
-		ElectricItemUtils.setJoules(joules, getAsStack(data));
-	}
-
-	public double getMaxJoules(Object... data) {
-		return ElectricItemUtils.getMaxJoules(getAsStack(data));
-	}
-
-	public double getVoltage(Object... data) {
-		return ElectricItemUtils.getVoltage(getAsStack(data));
-	}
-
-	public boolean canReceiveElectricity() {
-		return true;
-	}
-
-	public boolean canProduceElectricity() {
-		return true;
+	/**
+	 * Call to get the energy of an item
+	 * 
+	 * @param stack
+	 *            ItemStack to set
+	 * @return Current energy level
+	 */
+	public double getCurrentEnergy(ItemStack stack) {
+		return MuseItemUtils.getDoubleOrZero(stack, ElectricItemUtils.CURRENT_ENERGY);
 	}
 
 	/**
-	 * Helper function to deal with UE's use of varargs
+	 * Call to set the energy of an item
+	 * 
+	 * @param stack
+	 *            ItemStack to set
+	 * @return Maximum energy level
 	 */
-	private ItemStack getAsStack(Object[] data) {
-		if (data[0] instanceof ItemStack) {
-			return (ItemStack) data[0];
+	public double getMaxEnergy(ItemStack stack) {
+		return ModuleManager.computeModularProperty(stack, ElectricItemUtils.MAXIMUM_ENERGY);
+	}
+
+	/**
+	 * Call to set the energy of an item
+	 * 
+	 * @param stack
+	 *            ItemStack to set
+	 * @param energy
+	 *            Level to set it to
+	 */
+	public void setCurrentEnergy(ItemStack stack, double energy) {
+		MuseItemUtils.setDoubleOrRemove(stack, ElectricItemUtils.CURRENT_ENERGY, energy);
+	}
+
+	/**
+	 * Call to drain energy from an item
+	 * 
+	 * @param stack
+	 *            ItemStack being requested for energy
+	 * @param requested
+	 *            Amount of energy to drain
+	 * @return Amount of energy successfully drained
+	 */
+	public double drainEnergyFrom(ItemStack stack, double requested) {
+		double available = getCurrentEnergy(stack);
+		if (available > requested) {
+			setCurrentEnergy(stack, available - requested);
+			return requested;
 		} else {
-			throw new IllegalArgumentException("MusePowerSuits: Invalid ItemStack passed via UE interface");
+			setCurrentEnergy(stack, 0);
+			return available;
 		}
 	}
 
-	// //////////////////////////////////////// //
-	// --- INDUSTRIAL CRAFT 2 COMPATABILITY --- //
-	// //////////////////////////////////////// //
-	public int charge(ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
-		double joulesProvided = ModCompatability.joulesFromEU(amount);
-		double maxJoules = ElectricItemUtils.getMaxJoules(stack);
-		if (!ignoreTransferLimit && (joulesProvided > maxJoules / 200.0)) {
-			joulesProvided = maxJoules / 200.0;
-		}
-		double currentJoules = ElectricItemUtils.getJoules(stack);
-		double surplus = ElectricItemUtils.charge(joulesProvided, stack);
-		if (simulate) {
-			ElectricItemUtils.setJoules(currentJoules, stack);
-		}
-
-		return ModCompatability.joulesToEU(joulesProvided - surplus);
-	}
-
-	public int discharge(ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
-		double joulesRequested = ModCompatability.joulesFromEU(amount);
-		double maxJoules = ElectricItemUtils.getMaxJoules(stack);
-		if (!ignoreTransferLimit && (joulesRequested > maxJoules / 200.0)) {
-			joulesRequested = maxJoules / 200.0;
-		}
-		double currentJoules = ElectricItemUtils.getJoules(stack);
-		double givenJoules = ElectricItemUtils.discharge(joulesRequested, stack);
-		if (simulate) {
-			ElectricItemUtils.setJoules(currentJoules, stack);
-		}
-		return ModCompatability.joulesToEU(givenJoules);
-	}
-
-	public boolean canUse(ItemStack stack, int amount) {
-		double joulesRequested = ModCompatability.joulesFromEU(amount);
-		double currentJoules = ElectricItemUtils.getJoules(stack);
-		if (currentJoules > joulesRequested) {
-			return true;
+	/**
+	 * Call to give energy to an item
+	 * 
+	 * @param stack
+	 *            ItemStack being requested for energy
+	 * @param provided
+	 *            Amount of energy to drain
+	 * @return Amount of energy used
+	 */
+	public double giveEnergyTo(ItemStack stack, double provided) {
+		double available = getCurrentEnergy(stack);
+		double max = getMaxEnergy(stack);
+		if (available + provided < max) {
+			setCurrentEnergy(stack, available + provided);
+			return provided;
 		} else {
-			return false;
+			setCurrentEnergy(stack, max);
+			return max - available;
 		}
 	}
 
-	public boolean canShowChargeToolTip(ItemStack itemStack) {
-		return false;
+	@Override
+	public double getJoules(ItemStack itemStack) {
+		return UEElectricAdapter.museEnergyToJoules(getCurrentEnergy(itemStack));
 	}
 
-	public boolean canProvideEnergy() {
-		return true;
+	@Override
+	public void setJoules(double joules, ItemStack itemStack) {
+		setCurrentEnergy(itemStack, UEElectricAdapter.museEnergyFromJoules(joules));
 	}
 
-	public int getChargedItemId() {
-		return this.itemID;
+	@Override
+	public double getMaxJoules(ItemStack itemStack) {
+		return UEElectricAdapter.museEnergyToJoules(getMaxEnergy(itemStack));
 	}
 
-	public int getEmptyItemId() {
-		return this.itemID;
+	@Override
+	public double getVoltage(ItemStack itemStack) {
+		return 120;
 	}
 
-	public int getMaxCharge() {
-		return 1;
+	@Override
+	public ElectricityPack onReceive(ElectricityPack electricityPack, ItemStack itemStack) {
+		double energyReceiving = UEElectricAdapter.museEnergyFromElectricityPack(electricityPack);
+		double energyConsumed = giveEnergyTo(itemStack, energyReceiving);
+		ElectricityPack packConsumed = UEElectricAdapter.museEnergyToElectricityPack(energyConsumed, getVoltage(itemStack));
+		return packConsumed;
 	}
 
-	public int getTier() {
-		return 1;
+	@Override
+	public ElectricityPack onProvide(ElectricityPack electricityPack, ItemStack itemStack) {
+		double energyRequested = UEElectricAdapter.museEnergyFromElectricityPack(electricityPack);
+		double energyGiven = drainEnergyFrom(itemStack, energyRequested);
+		ElectricityPack packGiven = UEElectricAdapter.museEnergyToElectricityPack(energyGiven, getVoltage(itemStack));
+		return packGiven;
 	}
 
-	public int getTransferLimit() {
-		return 0;
+	@Override
+	public ElectricityPack getReceiveRequest(ItemStack itemStack) {
+		return UEElectricAdapter.museEnergyToElectricityPack(getMaxEnergy(itemStack) - getCurrentEnergy(itemStack), getVoltage(itemStack));
 	}
 
-	// //////////// //
-	// --- ICBM --- //
-	// //////////// //
-	// public void onEMP(ItemStack itemStack, Entity entity, IExplosive empExplosive) {
-	// ElectricItemUtils.onEMP(itemStack, entity, empExplosive);
-	// }
-
-	// ////////////////////// //
-	// --- Atomic Science --- //
-	// ////////////////////// //
-	// public boolean isProtectedFromPoison(ItemStack itemStack, EntityLiving entityLiving, Poison type) {
-	// return MuseItemUtils.itemHasModule(itemStack, MuseCommonStrings.MODULE_HAZMAT);
-	// }
-
-	// public void onProtectFromPoison(ItemStack itemStack, EntityLiving entityLiving, Poison type) {
-	// }
-
-	// ///////////////////////// //
-	// --- Thermal Expansion --- //
-	// ///////////////////////// //
-	public float receiveEnergy(ItemStack theItem, float energy, boolean doReceive) {
-		// TODO Auto-generated method stub
-		return 0;
+	@Override
+	public ElectricityPack getProvideRequest(ItemStack itemStack) {
+		return UEElectricAdapter.museEnergyToElectricityPack(getMaxEnergy(itemStack) - getCurrentEnergy(itemStack), getVoltage(itemStack));
 	}
 
-	public float transferEnergy(ItemStack theItem, float energy, boolean doTransfer) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public float getEnergyStored(ItemStack theItem) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public float getMaxEnergyStored(ItemStack theItem) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }
