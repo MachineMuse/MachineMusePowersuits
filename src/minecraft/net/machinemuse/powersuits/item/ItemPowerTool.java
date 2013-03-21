@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.IRightClickModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.electricity.ElectricItemUtils;
+import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.gui.MuseIcon;
@@ -368,25 +368,11 @@ public class ItemPowerTool extends ItemElectricTool implements IModularItem {
 		return MuseIcon.POWERTOOL;
 	}
 
-	// @Override
-	// public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World worldObj, int x, int y, int z, int side, float hitX, float hitY,
-	// float hitZ) {
-	//
-	// if (ModCompatability.isBasicComponentsLoaded() && MuseItemUtils.itemHasActiveModule(itemStack, MuseCommonStrings.MODULE_MULTIMETER)) {
-	// if (!worldObj.isRemote) {
-	// TileEntity tileEntity = worldObj.getBlockTileEntity(x, y, z);
-	// if (tileEntity instanceof IConductor) {
-	// IConductor wireTile = (IConductor) tileEntity;
-	// ElectricityPack getProduced = wireTile.getNetwork().getProduced();
-	// player.addChatMessage("Reading: " + ElectricInfo.getDisplay(getProduced.amperes, ElectricUnit.AMPERE) + ", "
-	// + ElectricInfo.getDisplay(getProduced.voltage, ElectricUnit.VOLTAGE) + ", "
-	// + ElectricInfo.getDisplay(getProduced.getWatts() * 20, ElectricUnit.WATT));
-	// return true;
-	// }
-	// }
-	// }
-	//
-	// return false;
-	// }
+	@Override
+	public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World worldObj, int x, int y, int z, int side, float hitX, float hitY,
+			float hitZ) {
+
+		return false;
+	}
 
 }

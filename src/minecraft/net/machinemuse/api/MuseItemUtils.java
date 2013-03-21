@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.general.MuseMathUtils;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.entity.player.EntityPlayer;

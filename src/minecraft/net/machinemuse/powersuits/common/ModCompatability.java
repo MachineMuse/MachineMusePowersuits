@@ -9,8 +9,8 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModule;
-import net.machinemuse.powersuits.powermodule.RightClickPowerModule;
 import net.machinemuse.powersuits.powermodule.ToggleablePowerModule;
+import net.machinemuse.powersuits.powermodule.modules.MultimeterModule;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
@@ -154,18 +154,11 @@ public class ModCompatability {
 
 		}
 
-		// Add UE multimeter module
-		if (ModCompatability.isBasicComponentsLoaded()) {
-			IPowerModule module = new RightClickPowerModule(MuseCommonStrings.MODULE_MULTIMETER,
-					Arrays.asList((IModularItem) ModularPowersuits.powerTool), "redplate", MuseCommonStrings.CATEGORY_TOOL)
-					.setDescription("A tool addon that reads the Universal Electricity power generation in a wire.")
-					.addInstallCost(Config.copyAndResize(ItemComponent.wiring, 2)).addInstallCost(Config.copyAndResize(ItemComponent.solenoid, 1));
-			ModuleManager.addModule(module);
-		}
+		IPowerModule module = new MultimeterModule(Arrays.asList((IModularItem) ModularPowersuits.powerTool));
 
 		if (ModCompatability.isAtomicScienceLoaded()) {
 
-			IPowerModule module = new ToggleablePowerModule(MuseCommonStrings.MODULE_HAZMAT, Arrays.asList(
+			module = new ToggleablePowerModule(MuseCommonStrings.MODULE_HAZMAT, Arrays.asList(
 					(IModularItem) ModularPowersuits.powerArmorHead, (IModularItem) ModularPowersuits.powerArmorTorso,
 					(IModularItem) ModularPowersuits.powerArmorLegs, (IModularItem) ModularPowersuits.powerArmorFeet), "greenstar",
 					MuseCommonStrings.CATEGORY_ARMOR)
