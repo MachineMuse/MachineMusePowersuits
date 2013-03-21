@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Set;
 
 import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.IToggleableModule;
 import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;

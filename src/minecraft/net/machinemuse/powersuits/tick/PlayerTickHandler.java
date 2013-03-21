@@ -7,10 +7,10 @@ import java.util.EnumSet;
 import java.util.List;
 
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.IPlayerTickModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.electricity.ElectricItemUtils;
+import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.general.MuseMathUtils;
 import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.common.PlayerInputMap;

@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.powermodule;
 import java.util.List;
 
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.IToggleableModule;
+import net.machinemuse.api.moduletrigger.IToggleableModule;
 
 public class ToggleablePowerModule extends PowerModule implements IToggleableModule {
 

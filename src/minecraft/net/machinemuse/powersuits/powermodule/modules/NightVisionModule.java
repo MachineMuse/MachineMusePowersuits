@@ -4,11 +4,11 @@ import java.util.Collection;
 import java.util.List;
 
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.IPlayerTickModule;
-import net.machinemuse.api.IToggleableModule;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.electricity.ElectricItemUtils;
+import net.machinemuse.api.moduletrigger.IPlayerTickModule;
+import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.entity.player.EntityPlayer;

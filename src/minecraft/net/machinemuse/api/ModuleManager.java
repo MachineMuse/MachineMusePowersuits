@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.machinemuse.api.moduletrigger.IPlayerTickModule;
+import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 

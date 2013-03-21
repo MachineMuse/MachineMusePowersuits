@@ -58,7 +58,6 @@ public abstract class MuseCommonStrings {
 	public static final String MODULE_TINT = "Custom Colour Module";
 	public static final String MODULE_MELEE_ASSIST = "Melee Assist";
 	public static final String CITIZEN_JOE_STYLE = "Citizen Joe Style";
-	public static final String MODULE_MULTIMETER = "Multimeter";
 	public static final String MODULE_HAZMAT = "Radiation Shielding";
 
 	/**
