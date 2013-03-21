@@ -66,10 +66,8 @@ public class GuiTinkerTable extends MuseGui {
 		if (itemSelectFrame.hasNoItems()) {
 			double centerx = absX(0);
 			double centery = absY(0);
-			MuseRenderer.drawCenteredString("No modular powersuit items", centerx, centery - 15);
-			MuseRenderer.drawCenteredString("found in inventory. Make some!", centerx, centery - 5);
-			MuseRenderer.drawCenteredString("We recommend experimenting", centerx, centery + 5);
-			MuseRenderer.drawCenteredString("with steel plates and basic circuits.", centerx, centery + 15);
+			MuseRenderer.drawCenteredString("No modular powersuit items", centerx, centery - 5);
+			MuseRenderer.drawCenteredString("found in inventory. Make some!", centerx, centery + 5);
 		}
 	}
 }
