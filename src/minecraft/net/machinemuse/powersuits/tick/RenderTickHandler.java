@@ -77,17 +77,15 @@ public class RenderTickHandler implements ITickHandler {
 
 					if (module != null) {
 						currentMode = module.getIcon(stack);
-						if (nextModeName != mode) {
+						if (!nextModeName.equals(mode)) {
 							nextMode = nextModule.getIcon(stack);
 							prevMode = prevModule.getIcon(stack);
 						}
 					}
 				}
-
-				double prevX, prevY, currX, currY, nextX, nextY, prevAlpha, currAlpha, nextAlpha;
+				double prevX, prevY, currX, currY, nextX, nextY;
 				double sw = screen.getScaledWidth_double();
-				double sh = screen.getScaledHeight_double();
-				double baroffset = -40;
+				double baroffset = screen.getScaledHeight_double() - 40;
 				if (!player.capabilities.isCreativeMode) {
 					baroffset -= 16;
 					if (ForgeHooks.getTotalArmorValue(player) > 0) {
@@ -96,22 +94,16 @@ public class RenderTickHandler implements ITickHandler {
 				}
 				// Root locations of the mode list
 				prevX = sw / 2.0 - 105.0 + 20.0 * i;
-				prevY = sh + baroffset + 10;
+				prevY = baroffset + 10;
 				currX = sw / 2.0 - 89.0 + 20.0 * i;
-				currY = sh + baroffset;
+				currY = baroffset;
 				nextX = sw / 2.0 - 73.0 + 20.0 * i;
-				nextY = sh + baroffset + 10;
+				nextY = baroffset + 10;
 				if (swapTime == SWAPTIME || lastSwapDirection == 0) {
-					prevAlpha = 0.4;
-					currAlpha = 0.8;
-					nextAlpha = 0.4;
-					MuseRenderer.drawIconPartial(prevX, prevY, prevMode, Colour.WHITE.withAlpha(prevAlpha), 0, 0, 16, sh + baroffset - prevY + 16);
-					MuseRenderer.drawIconPartial(currX, currY, currentMode, Colour.WHITE.withAlpha(currAlpha), 0, 0, 16, sh + baroffset - currY + 16);
-					MuseRenderer.drawIconPartial(nextX, nextY, nextMode, Colour.WHITE.withAlpha(nextAlpha), 0, 0, 16, sh + baroffset - nextY + 16);
+					drawIcon(prevX, prevY, prevMode, 0.4, 0, 0, 16, baroffset - prevY + 16);
+					drawIcon(currX, currY, currentMode, 0.8, 0, 0, 16, baroffset - currY + 16);
+					drawIcon(nextX, nextY, nextMode, 0.4, 0, 0, 16, baroffset - nextY + 16);
 				} else {
-					prevAlpha = 0.8;
-					currAlpha = 0.8;
-					nextAlpha = 0.8;
 					double r1 = 1 - swapTime / (double) SWAPTIME;
 					double r2 = swapTime / (double) SWAPTIME;
 					if (lastSwapDirection == -1) {
@@ -119,20 +111,17 @@ public class RenderTickHandler implements ITickHandler {
 						nextY = (currY * r1 + nextY * r2);
 						currX = (prevX * r1 + currX * r2);
 						currY = (prevY * r1 + currY * r2);
-						MuseRenderer.drawIconPartial(currX, currY, currentMode, Colour.WHITE.withAlpha(currAlpha), 0, 0, 16, sh + baroffset - currY
-								+ 16);
-						MuseRenderer
-								.drawIconPartial(nextX, nextY, nextMode, Colour.WHITE.withAlpha(nextAlpha), 0, 0, 16, sh + baroffset - nextY + 16);
+						drawIcon(currX, currY, currentMode, 0.8, 0, 0, 16, baroffset - currY + 16);
+						drawIcon(nextX, nextY, nextMode, 0.8, 0, 0, 16, baroffset - nextY + 16);
 
 					} else {
 						prevX = (currX * r1 + prevX * r2);
 						prevY = (currY * r1 + prevY * r2);
 						currX = (nextX * r1 + currX * r2);
 						currY = (nextY * r1 + currY * r2);
-						MuseRenderer
-								.drawIconPartial(prevX, prevY, prevMode, Colour.WHITE.withAlpha(prevAlpha), 0, 0, 16, sh + baroffset - prevY + 16);
-						MuseRenderer.drawIconPartial(currX, currY, currentMode, Colour.WHITE.withAlpha(currAlpha), 0, 0, 16, sh + baroffset - currY
-								+ 16);
+						// MuseRenderer
+						drawIcon(prevX, prevY, prevMode, 0.8, 0, 0, 16, baroffset - prevY + 16);
+						drawIcon(currX, currY, currentMode, 0.8, 0, 0, 16, baroffset - currY + 16);
 
 					}
 				}
@@ -142,6 +131,11 @@ public class RenderTickHandler implements ITickHandler {
 			}
 
 		}
+
+	}
+
+	private void drawIcon(double x, double y, Icon icon, double alpha, int u1, int v1, int u2, double v2) {
+		MuseRenderer.drawIconPartial(x, y, icon, Colour.WHITE.withAlpha(alpha), u1, v1, u2, v2);
 
 	}
 
