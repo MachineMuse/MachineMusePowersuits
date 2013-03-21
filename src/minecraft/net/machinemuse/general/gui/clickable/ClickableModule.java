@@ -42,8 +42,8 @@ public class ClickableModule extends Clickable {
 		Colour c2 = new Colour(0.6F, 0.2F, 1.0F, 1.0F);
 
 		Colour.getGreyscale(1.0f, 1.0f).doGL();
-		MuseRenderer.drawIconAt(getPosition().x() - 8, getPosition().y() - 8,
-				getModule().getIcon(null), null);
+		MuseRenderer.TEXTURE_MAP = getModule().getStitchedTexture(null);
+		MuseRenderer.drawIconAt(getPosition().x() - 8, getPosition().y() - 8, getModule().getIcon(null), null);
 
 	}
 

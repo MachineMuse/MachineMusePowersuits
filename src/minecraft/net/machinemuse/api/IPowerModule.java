@@ -14,6 +14,8 @@ public interface IPowerModule {
 
 	public abstract Icon getIcon(ItemStack item);
 
+	public abstract String getStitchedTexture(ItemStack item);
+
 	public abstract void registerIcon(IconRegister registry);
 
 	public abstract String getCategory();
