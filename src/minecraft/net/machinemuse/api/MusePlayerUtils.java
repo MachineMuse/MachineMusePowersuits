@@ -17,10 +17,8 @@ public class MusePlayerUtils {
 		Vec3 playerPosition = Vec3.createVectorHelper(player.posX, player.posY + player.getEyeHeight(), player.posZ);
 		Vec3 playerLook = player.getLookVec();
 
-		Vec3 playerViewOffset = Vec3.createVectorHelper(
-				playerPosition.xCoord + playerLook.xCoord * reachDistance,
-				playerPosition.yCoord + playerLook.yCoord * reachDistance,
-				playerPosition.zCoord + playerLook.zCoord * reachDistance);
+		Vec3 playerViewOffset = Vec3.createVectorHelper(playerPosition.xCoord + playerLook.xCoord * reachDistance, playerPosition.yCoord
+				+ playerLook.yCoord * reachDistance, playerPosition.zCoord + playerLook.zCoord * reachDistance);
 
 		double playerBorder = 1.1 * reachDistance;
 		AxisAlignedBB boxToScan = player.boundingBox.expand(playerBorder, playerBorder, playerBorder);
@@ -32,31 +30,24 @@ public class MusePlayerUtils {
 		List entitiesHit = world.getEntitiesWithinAABBExcludingEntity(player, boxToScan);
 		double closestEntity = reachDistance;
 
-		for (int i = 0; i < entitiesHit.size(); ++i)
-		{
+		for (int i = 0; i < entitiesHit.size(); ++i) {
 			Entity entityHit = (Entity) entitiesHit.get(i);
 
-			if (entityHit.canBeCollidedWith())
-			{
+			if (entityHit != null && entityHit.canBeCollidedWith()) {
 				float border = entityHit.getCollisionBorderSize();
 				AxisAlignedBB aabb = entityHit.boundingBox.expand((double) border, (double) border, (double) border);
 				MovingObjectPosition hitMOP = aabb.calculateIntercept(playerPosition, playerViewOffset);
 
-				if (aabb.isVecInside(playerPosition))
-				{
-					if (0.0D < closestEntity || closestEntity == 0.0D)
-					{
+				if (aabb.isVecInside(playerPosition)) {
+					if (0.0D < closestEntity || closestEntity == 0.0D) {
 						pickedEntity = new MovingObjectPosition(entityHit);
 						pickedEntity.hitVec = hitMOP.hitVec;
 						closestEntity = 0.0D;
 					}
-				}
-				else if (hitMOP != null)
-				{
+				} else if (hitMOP != null) {
 					double distance = playerPosition.distanceTo(hitMOP.hitVec);
 
-					if (distance < closestEntity || closestEntity == 0.0D)
-					{
+					if (distance < closestEntity || closestEntity == 0.0D) {
 						pickedEntity = new MovingObjectPosition(entityHit);
 						pickedEntity.hitVec = hitMOP.hitVec;
 						closestEntity = distance;
@@ -71,15 +62,12 @@ public class MusePlayerUtils {
 		Vec3 playerPosition = Vec3.createVectorHelper(player.posX, player.posY + player.getEyeHeight(), player.posZ);
 		Vec3 playerLook = player.getLookVec();
 
-		Vec3 playerViewOffset = Vec3.createVectorHelper(
-				playerPosition.xCoord + playerLook.xCoord * reachDistance,
-				playerPosition.yCoord + playerLook.yCoord * reachDistance,
-				playerPosition.zCoord + playerLook.zCoord * reachDistance);
+		Vec3 playerViewOffset = Vec3.createVectorHelper(playerPosition.xCoord + playerLook.xCoord * reachDistance, playerPosition.yCoord
+				+ playerLook.yCoord * reachDistance, playerPosition.zCoord + playerLook.zCoord * reachDistance);
 		return world.rayTraceBlocks_do_do(playerPosition, playerViewOffset, collisionFlag, !collisionFlag);
 	}
 
-	public static MovingObjectPosition doCustomRayTrace(World world, EntityPlayer player, boolean collisionFlag, double reachDistance)
-	{
+	public static MovingObjectPosition doCustomRayTrace(World world, EntityPlayer player, boolean collisionFlag, double reachDistance) {
 		// Somehow this destroys the playerPosition vector -.-
 		MovingObjectPosition pickedBlock = raytraceBlocks(world, player, collisionFlag, reachDistance);
 		MovingObjectPosition pickedEntity = raytraceEntities(world, player, collisionFlag, reachDistance);
