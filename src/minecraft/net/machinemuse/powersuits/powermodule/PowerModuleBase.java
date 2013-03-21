@@ -149,4 +149,12 @@ public abstract class PowerModuleBase implements IPowerModule {
 	public boolean equals(PowerModule other) {
 		return other != null && other.getName() == this.getName();
 	}
+
+	@Override
+	public String getStitchedTexture(ItemStack item) {
+		return "/gui/items.png";
+		// alternatively
+		// return "/terrain.png";
+	}
+
 }

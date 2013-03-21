@@ -37,6 +37,8 @@ public abstract class MuseRenderer {
 
 	protected static SwirlyMuseCircle selectionCircle;
 
+	public static String TEXTURE_MAP = "/gui/items.png";
+
 	/**
 	 * Does the rotating green circle around the selection, e.g. in GUI.
 	 * 
@@ -255,39 +257,7 @@ public abstract class MuseRenderer {
 	 * @param colour
 	 */
 	public static void drawIconAt(double x, double y, Icon icon, Colour colour) {
-		if (icon == null) {
-			return;
-		}
-		GL11.glPushMatrix();
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_CULL_FACE);
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
-		texturelessOff();
-		blendingOn();
-
-		if (colour != null) {
-			colour.doGL();
-		}
-
-		getRenderEngine().bindTexture("/gui/items.png");
-		Tessellator tess = Tessellator.instance;
-		tess.startDrawingQuads();
-		float u1 = icon.getMinU();
-		float v1 = icon.getMinV();
-		float u2 = icon.getMaxU();
-		float v2 = icon.getMaxV();
-		tess.addVertexWithUV(x, y, 0, u1, v1);
-		tess.addVertexWithUV(x, y + 16, 0, u1, v2);
-		tess.addVertexWithUV(x + 16, y + 16, 0, u2, v2);
-		tess.addVertexWithUV(x + 16, y, 0, u2, v1);
-		tess.draw();
-
-		MuseRenderer.blendingOff();
-		GL11.glEnable(GL11.GL_CULL_FACE);
-		// GL11.glDepthFunc(GL11.GL_LEQUAL);
-		GL11.glEnable(GL11.GL_LIGHTING);
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		GL11.glPopMatrix();
+		drawIconPartial(x, y, icon, colour, 0, 0, 16, 16);
 	}
 
 	/**
@@ -312,8 +282,7 @@ public abstract class MuseRenderer {
 		if (colour != null) {
 			colour.doGL();
 		}
-
-		getRenderEngine().bindTexture("/gui/items.png");
+		getRenderEngine().bindTexture(TEXTURE_MAP);
 		Tessellator tess = Tessellator.instance;
 		tess.startDrawingQuads();
 		float u1 = icon.getMinU();
