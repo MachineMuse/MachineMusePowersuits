@@ -3,7 +3,6 @@ package net.machinemuse.powersuits.event;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.electricity.ElectricItemUtils;
@@ -17,18 +16,19 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 
 public class MovementManager {
-	public static Map<EntityPlayer, Double> playerJumpMultipliers = new HashMap();
+	public static Map<String, Double> playerJumpMultipliers = new HashMap();
 
 	public static double getPlayerJumpMultiplier(EntityPlayer player) {
-		if (playerJumpMultipliers.containsKey(player)) {
-			return playerJumpMultipliers.get(player);
+
+		if (playerJumpMultipliers.containsKey(player.username)) {
+			return playerJumpMultipliers.get(player.username);
 		} else {
 			return 0;
 		}
 	}
 
 	public static void setPlayerJumpTicks(EntityPlayer player, double number) {
-		playerJumpMultipliers.put(player, number);
+		playerJumpMultipliers.put(player.username, number);
 	}
 
 	@ForgeSubscribe
