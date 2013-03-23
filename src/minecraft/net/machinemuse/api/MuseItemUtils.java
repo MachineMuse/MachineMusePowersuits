@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import net.machinemuse.api.moduletrigger.IOnItemUseModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.general.MuseMathUtils;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -43,7 +44,7 @@ public class MuseItemUtils {
 		List<String> modes = new ArrayList();
 		if (stack.getItem() instanceof IModularItem) {
 			for (IPowerModule module : ModuleManager.getAllModules()) {
-				if (module.isValidForItem(stack, player) && module instanceof IRightClickModule) {
+				if (module.isValidForItem(stack, player) && (module instanceof IRightClickModule || module instanceof IOnItemUseModule)) {
 					modes.add(module.getName());
 				}
 			}
@@ -55,7 +56,7 @@ public class MuseItemUtils {
 		List<String> modes = new ArrayList();
 		if (stack.getItem() instanceof IModularItem) {
 			for (IPowerModule module : ModuleManager.getAllModules()) {
-				if (module.isValidForItem(stack, player) && module instanceof IRightClickModule && itemHasModule(stack, module.getName())) {
+				if (module.isValidForItem(stack, player) && (module instanceof IRightClickModule || module instanceof IOnItemUseModule) && itemHasModule(stack, module.getName())) {
 					modes.add(module.getName());
 				}
 			}
@@ -486,7 +487,7 @@ public class MuseItemUtils {
 			// playerEntity.sendChatToPlayer("Server has disallowed this module. Sorry!");
 			return false;
 		}
-		if (module != null && module instanceof IRightClickModule) {
+		if (module != null && (module instanceof IRightClickModule || module instanceof IOnItemUseModule)) {
 			// MuseLogger.logDebug("Module: " + moduleName + " vs Mode: " +
 			// MuseItemUtils.getActiveMode(itemStack));
 
