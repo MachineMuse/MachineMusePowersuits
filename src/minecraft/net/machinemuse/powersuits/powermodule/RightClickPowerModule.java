@@ -17,4 +17,9 @@ public class RightClickPowerModule extends PowerModule implements IRightClickMod
 	public void onRightClick(EntityPlayer playerClicking, World world, ItemStack item) {
 	}
 
+	@Override
+	public void onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+		
+	}
+
 }
