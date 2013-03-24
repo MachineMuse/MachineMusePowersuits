@@ -18,25 +18,27 @@ import net.machinemuse.powersuits.item.ItemPowerArmorLeggings;
 import net.machinemuse.powersuits.item.ItemPowerGauntlet;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.machinemuse.powersuits.powermodule.ToggleablePowerModule;
-import net.machinemuse.powersuits.powermodule.modules.AxeModule;
-import net.machinemuse.powersuits.powermodule.modules.BlinkDriveModule;
-import net.machinemuse.powersuits.powermodule.modules.DiamondPickUpgradeModule;
-import net.machinemuse.powersuits.powermodule.modules.FlightControlModule;
-import net.machinemuse.powersuits.powermodule.modules.GliderModule;
-import net.machinemuse.powersuits.powermodule.modules.InvisibilityModule;
-import net.machinemuse.powersuits.powermodule.modules.JetBootsModule;
-import net.machinemuse.powersuits.powermodule.modules.JetPackModule;
-import net.machinemuse.powersuits.powermodule.modules.JumpAssistModule;
-import net.machinemuse.powersuits.powermodule.modules.NightVisionModule;
-import net.machinemuse.powersuits.powermodule.modules.ParachuteModule;
-import net.machinemuse.powersuits.powermodule.modules.PickaxeModule;
-import net.machinemuse.powersuits.powermodule.modules.PlasmaCannonModule;
-import net.machinemuse.powersuits.powermodule.modules.RailgunModule;
-import net.machinemuse.powersuits.powermodule.modules.ShockAbsorberModule;
-import net.machinemuse.powersuits.powermodule.modules.ShovelModule;
-import net.machinemuse.powersuits.powermodule.modules.SprintAssistModule;
-import net.machinemuse.powersuits.powermodule.modules.StepAssistModule;
-import net.machinemuse.powersuits.powermodule.modules.SwimAssistModule;
+import net.machinemuse.powersuits.powermodule.misc.InvisibilityModule;
+import net.machinemuse.powersuits.powermodule.misc.NightVisionModule;
+import net.machinemuse.powersuits.powermodule.misc.WaterElectrolyzerModule;
+import net.machinemuse.powersuits.powermodule.movement.BlinkDriveModule;
+import net.machinemuse.powersuits.powermodule.movement.FlightControlModule;
+import net.machinemuse.powersuits.powermodule.movement.GliderModule;
+import net.machinemuse.powersuits.powermodule.movement.JetBootsModule;
+import net.machinemuse.powersuits.powermodule.movement.JetPackModule;
+import net.machinemuse.powersuits.powermodule.movement.JumpAssistModule;
+import net.machinemuse.powersuits.powermodule.movement.ParachuteModule;
+import net.machinemuse.powersuits.powermodule.movement.ShockAbsorberModule;
+import net.machinemuse.powersuits.powermodule.movement.SprintAssistModule;
+import net.machinemuse.powersuits.powermodule.movement.StepAssistModule;
+import net.machinemuse.powersuits.powermodule.movement.SwimAssistModule;
+import net.machinemuse.powersuits.powermodule.tool.AquaAffinityModule;
+import net.machinemuse.powersuits.powermodule.tool.AxeModule;
+import net.machinemuse.powersuits.powermodule.tool.DiamondPickUpgradeModule;
+import net.machinemuse.powersuits.powermodule.tool.PickaxeModule;
+import net.machinemuse.powersuits.powermodule.tool.ShovelModule;
+import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
+import net.machinemuse.powersuits.powermodule.weapon.RailgunModule;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
@@ -206,15 +208,6 @@ public class Config {
 				.addTradeoffProperty("Field Strength", MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION, 500, "J");
 		addModule(module);
 
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_AQUA_AFFINITY, TOOLONLY, "aquaaffinity", MuseCommonStrings.CATEGORY_SPECIAL)
-				.setDescription("Reduces the speed penalty for using your tool underwater.")
-				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 1))
-				.addBaseProperty(MuseCommonStrings.AQUA_AFFINITY_ENERGY_CONSUMPTION, 0, "J")
-				.addBaseProperty(MuseCommonStrings.UNDERWATER_HARVEST_SPEED, 0.2, "%")
-				.addTradeoffProperty("Power", MuseCommonStrings.AQUA_AFFINITY_ENERGY_CONSUMPTION, 100)
-				.addTradeoffProperty("Power", MuseCommonStrings.UNDERWATER_HARVEST_SPEED, 0.8);
-		addModule(module);
-
 		module = new PowerModule(MuseCommonStrings.MODULE_BATTERY_BASIC, ALLITEMS, "lvbattery", MuseCommonStrings.CATEGORY_ENERGY)
 				.setDescription("Integrate a battery to allow the item to store energy.").addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1))
 				.addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 20000, "J").addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g")
@@ -234,13 +227,6 @@ public class Config {
 				.addInstallCost(copyAndResize(ItemComponent.hvcapacitor, 1)).addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 750000, "J")
 				.addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g").addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 4250000)
 				.addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000);
-		addModule(module);
-
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_WATER_ELECTROLYZER, HEADONLY, "waterelectrolyzer",
-				MuseCommonStrings.CATEGORY_ENVIRONMENTAL)
-				.setDescription("When you run out of air, this module will jolt the water around you, electrolyzing a small bubble to breathe from.")
-				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1))
-				.addBaseProperty(MuseCommonStrings.WATERBREATHING_ENERGY_CONSUMPTION, 1000, "J");
 		addModule(module);
 
 		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_TINT, ALLITEMS, "netherstar", MuseCommonStrings.CATEGORY_COSMETIC)
@@ -268,6 +254,7 @@ public class Config {
 		// Head ======================================
 		addModule(new NightVisionModule(HEADONLY));
 		addModule(new FlightControlModule(HEADONLY));
+		addModule(new WaterElectrolyzerModule(HEADONLY));
 
 		// Torso =====================================
 		addModule(new InvisibilityModule(TORSOONLY));
@@ -293,6 +280,7 @@ public class Config {
 		addModule(new PickaxeModule(TOOLONLY));
 		addModule(new ShovelModule(TOOLONLY));
 		addModule(new DiamondPickUpgradeModule(TOOLONLY));
+		addModule(new AquaAffinityModule(TOOLONLY));
 
 		// All ========================================
 

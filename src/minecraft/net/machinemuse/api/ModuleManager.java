@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
@@ -18,6 +19,7 @@ public class ModuleManager {
 	protected static final List<IPlayerTickModule> playerTickModules = new ArrayList();
 	protected static final List<IRightClickModule> rightClickModules = new ArrayList();
 	protected static final List<IToggleableModule> toggleableModules = new ArrayList();
+	protected static final List<IBlockBreakingModule> blockBreakingModules = new ArrayList();
 
 	public static List<IPowerModule> getAllModules() {
 		return moduleList;
@@ -44,6 +46,9 @@ public class ModuleManager {
 		if (module instanceof IToggleableModule) {
 			toggleableModules.add((IToggleableModule) module);
 		}
+		if (module instanceof IBlockBreakingModule) {
+			blockBreakingModules.add((IBlockBreakingModule) module);
+		}
 	}
 
 	public static double computeModularProperty(ItemStack stack, String propertyName) {
@@ -63,5 +68,9 @@ public class ModuleManager {
 
 	public static List<IToggleableModule> getToggleableModules() {
 		return toggleableModules;
+	}
+
+	public static List<IBlockBreakingModule> getBlockBreakingModules() {
+		return blockBreakingModules;
 	}
 }

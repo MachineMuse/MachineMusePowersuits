@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.powermodule.modules;
+package net.machinemuse.powersuits.powermodule.misc;
 
 import java.util.Collection;
 import java.util.List;

@@ -10,7 +10,7 @@ import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.machinemuse.powersuits.powermodule.ToggleablePowerModule;
-import net.machinemuse.powersuits.powermodule.modules.MultimeterModule;
+import net.machinemuse.powersuits.powermodule.tool.MultimeterModule;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;

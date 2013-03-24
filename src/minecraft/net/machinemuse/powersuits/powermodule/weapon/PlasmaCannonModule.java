@@ -1,17 +1,24 @@
-package net.machinemuse.powersuits.powermodule.modules;
+package net.machinemuse.powersuits.powermodule.weapon;
 
 import java.util.List;
 
 import net.machinemuse.api.IModularItem;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.item.ItemComponent;
+import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.common.network.Player;
+import cpw.mods.fml.relauncher.Side;
 
 public class PlasmaCannonModule extends PowerModuleBase implements IRightClickModule {
 	public static final String MODULE_PLASMA_CANNON = "Plasma Cannon";
@@ -71,7 +78,22 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
 
 	@Override
 	public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
+		int chargeTicks = Math.max(itemStack.getMaxItemUseDuration() - par4, 10);
 
+		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
+			double energyConsumption = ModuleManager.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_ENERGY_PER_TICK)
+					* chargeTicks;
+			if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
+				ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
+				double explosiveness = ModuleManager.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_EXPLOSIVENESS);
+				double damagingness = ModuleManager.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE);
+
+				EntityPlasmaBolt plasmaBolt = new EntityPlasmaBolt(world, player, explosiveness, damagingness, chargeTicks);
+				world.spawnEntityInWorld(plasmaBolt);
+				MusePacketPlasmaBolt packet = new MusePacketPlasmaBolt((Player) player, plasmaBolt.entityId, plasmaBolt.size);
+				PacketDispatcher.sendPacketToAllPlayers(packet.getPacket250());
+			}
+		}
 	}
 
 }

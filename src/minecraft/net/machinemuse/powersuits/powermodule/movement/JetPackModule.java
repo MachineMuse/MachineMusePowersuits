@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.powermodule.modules;
+package net.machinemuse.powersuits.powermodule.movement;
 
 import java.util.List;
 
@@ -16,18 +16,18 @@ import net.machinemuse.powersuits.tick.PlayerTickHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-public class JetBootsModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-	public static final String MODULE_JETBOOTS = "Jet Boots";
+public class JetPackModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
+	public static final String MODULE_JETPACK = "Jetpack";
 	public static final String JET_ENERGY_CONSUMPTION = "Jet Energy Consumption";
 	public static final String JET_THRUST = "Jet Thrust";
 
-	public JetBootsModule(List<IModularItem> validItems) {
+	public JetPackModule(List<IModularItem> validItems) {
 		super(validItems);
-		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 2));
-		addBaseProperty(JET_ENERGY_CONSUMPTION, 0);
-		addBaseProperty(JET_THRUST, 0);
-		addTradeoffProperty("Thrust", JET_ENERGY_CONSUMPTION, 75);
-		addTradeoffProperty("Thrust", JET_THRUST, 0.08);
+		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 4));
+		addBaseProperty(JET_ENERGY_CONSUMPTION, 0, "J/t");
+		addBaseProperty(JET_THRUST, 0, "N");
+		addTradeoffProperty("Thrust", JET_ENERGY_CONSUMPTION, 150);
+		addTradeoffProperty("Thrust", JET_THRUST, 0.16);
 	}
 
 	@Override
@@ -37,12 +37,12 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
 
 	@Override
 	public String getName() {
-		return MODULE_JETBOOTS;
+		return MODULE_JETPACK;
 	}
 
 	@Override
 	public String getDescription() {
-		return "Jet boots are not as strong as a jetpack, but they should at least be strong enough to counteract gravity.";
+		return "A jetpack should allow you to jump indefinitely, or at least until you run out of power.";
 	}
 
 	@Override
@@ -50,15 +50,15 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
 		PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.username);
 		boolean jumpkey = movementInput.jumpKey;
 		ItemStack helmet = player.getCurrentArmor(3);
-		ItemStack boots = player.getCurrentArmor(0);
+		ItemStack torso = player.getCurrentArmor(2);
 		boolean hasFlightControl = false;
 		if (helmet != null && helmet.getItem() instanceof IModularItem) {
 			hasFlightControl = MuseItemUtils.itemHasActiveModule(helmet, FlightControlModule.MODULE_FLIGHT_CONTROL);
 		}
 		double jetEnergy = 0;
 		double thrust = 0;
-		jetEnergy += ModuleManager.computeModularProperty(boots, JET_ENERGY_CONSUMPTION);
-		thrust += ModuleManager.computeModularProperty(boots, JET_THRUST);
+		jetEnergy += ModuleManager.computeModularProperty(torso, JET_ENERGY_CONSUMPTION);
+		thrust += ModuleManager.computeModularProperty(torso, JET_THRUST);
 
 		if (jetEnergy < ElectricItemUtils.getPlayerEnergy(player)) {
 			thrust *= PlayerTickHandler.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
@@ -76,7 +76,7 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
 
 	@Override
 	public String getTextureFile() {
-		return "jetboots";
+		return "jetpack";
 	}
 
 }

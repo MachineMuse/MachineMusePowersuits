@@ -6,8 +6,6 @@ import java.util.List;
 import net.machinemuse.api.electricity.ElectricAdapter;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.common.ModCompatability;
-import net.machinemuse.powersuits.item.ItemPowerArmorHelmet;
 import net.machinemuse.powersuits.item.ItemPowerGauntlet;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -21,16 +19,6 @@ public abstract class MuseCommonStrings {
 	public static final String ARMOR_VALUE_ENERGY = "Armor (Energy)";
 	public static final String ARMOR_ENERGY_CONSUMPTION = "Energy Per Damage";
 	public static final String WEIGHT = "Weight";
-	public static final String SHOVEL_HARVEST_SPEED = "Shovel Harvest Speed";
-	public static final String AXE_HARVEST_SPEED = "Axe Harvest Speed";
-	public static final String PICKAXE_HARVEST_SPEED = "Pickaxe Harvest Speed";
-	public static final String SHOVEL_ENERGY_CONSUMPTION = "Shovel Energy Consumption";
-	public static final String AXE_ENERGY_CONSUMPTION = "Axe Energy Consumption";
-	public static final String PICKAXE_ENERGY_CONSUMPTION = "Pickaxe Energy Consumption";
-	public static final String BATTERY_WEIGHT = "Battery Weight";
-	public static final String WATERBREATHING_ENERGY_CONSUMPTION = "Jolt Energy";
-	public static final String AQUA_AFFINITY_ENERGY_CONSUMPTION = "Underwater Energy Consumption";
-	public static final String UNDERWATER_HARVEST_SPEED = "Underwater Harvest Speed";
 	public static final String RED_TINT = "Red Tint";
 	public static final String GREEN_TINT = "Green Tint";
 	public static final String BLUE_TINT = "Blue Tint";
@@ -41,20 +29,14 @@ public abstract class MuseCommonStrings {
 	/**
 	 * Module names
 	 */
-	public static final String MODULE_SHOVEL = "Shovel";
-	public static final String MODULE_AXE = "Axe";
-	public static final String MODULE_PICKAXE = "Pickaxe";
 	public static final String MODULE_BATTERY_BASIC = "Basic Battery";
 	public static final String MODULE_BATTERY_ADVANCED = "Advanced Battery";
 	public static final String MODULE_BATTERY_ELITE = "Elite Battery";
 	public static final String MODULE_BASIC_PLATING = "Iron Plating";
 	public static final String MODULE_DIAMOND_PLATING = "Diamond Plating";
 	public static final String MODULE_ENERGY_SHIELD = "Energy Shield";
-	public static final String MODULE_DIAMOND_PICK_UPGRADE = "Diamond Drill Upgrade";
 	public static final String MODULE_TRANSPARENT_ARMOR = "Transparent Armor";
 	public static final String MODULE_ANTIGRAVITY = "Antigravity Drive";
-	public static final String MODULE_WATER_ELECTROLYZER = "Water Electrolyzer";
-	public static final String MODULE_AQUA_AFFINITY = "Aqua Affinity";
 	public static final String MODULE_TINT = "Custom Colour Module";
 	public static final String MODULE_MELEE_ASSIST = "Melee Assist";
 	public static final String CITIZEN_JOE_STYLE = "Citizen Joe Style";
@@ -121,14 +103,14 @@ public abstract class MuseCommonStrings {
 			currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character,
 					MuseStringUtils.FormatCodes.Grey));
 		}
-//		try {
-//			if (ModCompatability.isAndrewAddonsLoaded() && stack.getItem() instanceof ItemPowerArmorHead && MuseItemUtils.getFoodLevel(stack) > 0
-//					&& MuseItemUtils.itemHasModule(stack, "Auto-Feeder")) {
-//				currentTipList.add(MuseStringUtils.wrapMultipleFormatTags("Food level: " + MuseItemUtils.getFoodLevel(stack),
-//						MuseStringUtils.FormatCodes.Italic.character, MuseStringUtils.FormatCodes.Grey));
-//			}
-//		} catch (Exception e) {
-//		}
+		// try {
+		// if (ModCompatability.isAndrewAddonsLoaded() && stack.getItem() instanceof ItemPowerArmorHead && MuseItemUtils.getFoodLevel(stack) > 0
+		// && MuseItemUtils.itemHasModule(stack, "Auto-Feeder")) {
+		// currentTipList.add(MuseStringUtils.wrapMultipleFormatTags("Food level: " + MuseItemUtils.getFoodLevel(stack),
+		// MuseStringUtils.FormatCodes.Italic.character, MuseStringUtils.FormatCodes.Grey));
+		// }
+		// } catch (Exception e) {
+		// }
 		if (Config.doAdditionalInfo()) {
 			List<String> installed = MuseCommonStrings.getItemInstalledModules(player, stack);
 			if (installed.size() == 0) {

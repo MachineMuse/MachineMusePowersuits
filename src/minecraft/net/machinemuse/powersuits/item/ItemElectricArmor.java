@@ -10,7 +10,8 @@ import net.minecraft.item.ItemStack;
 import universalelectricity.core.electricity.ElectricityPack;
 import universalelectricity.core.item.IItemElectric;
 
-public class ItemElectricArmor extends ItemArmor implements IItemElectric
+public class ItemElectricArmor extends ItemArmor
+		implements IItemElectric
 /**
  * implements IItemElectric, // Universal Electricity ICustomElectricItem, // Industrial Craft 2 IEMPItem, // for ICBM EMP interfacing
  * IAntiPoisonArmor, // for atomic science hazmat suits IChargeableItem // for Thermal Expansion

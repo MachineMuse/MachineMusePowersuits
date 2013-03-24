@@ -9,32 +9,24 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.electricity.ElectricItemUtils;
+import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
-import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
-import net.machinemuse.powersuits.powermodule.modules.PlasmaCannonModule;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.EnumToolMaterial;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeHooks;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -46,11 +38,6 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem {
 	public static int assignedItemID;
-
-	public static final ItemStack ironPickaxe = new ItemStack(Item.pickaxeSteel);
-	public static final ItemStack ironAxe = new ItemStack(Item.axeSteel);
-	public static final ItemStack ironShovel = new ItemStack(Item.shovelSteel);
-	public static final ItemStack diamondPick = new ItemStack(Item.pickaxeDiamond);
 
 	/**
 	 * Constructor. Takes information from the Config.Items enum.
@@ -112,26 +99,16 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 	/** FORGE: Overridden to allow custom tool effectiveness */
 	@Override
 	public float getStrVsBlock(ItemStack stack, Block block, int meta) {
-		return 1;
+		return 0;
 	}
 
 	public static boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
-		if (player != null) {
-			double energy = ElectricItemUtils.getPlayerEnergy(player);
-			if (useIronPickaxe(stack, block, meta)
-					&& energy > ModuleManager.computeModularProperty(stack, MuseCommonStrings.PICKAXE_ENERGY_CONSUMPTION)) {
+		if (block.blockMaterial.isToolNotRequired()) {
+			return true;
+		}
+		for (IBlockBreakingModule module : ModuleManager.getBlockBreakingModules()) {
+			if (MuseItemUtils.itemHasActiveModule(stack, module.getName()) && module.canHarvestBlock(stack, block, meta, player)) {
 				return true;
-			} else if (useIronShovel(stack, block, meta)
-					&& energy > ModuleManager.computeModularProperty(stack, MuseCommonStrings.SHOVEL_ENERGY_CONSUMPTION)) {
-				return true;
-			} else if (useIronAxe(stack, block, meta)
-					&& energy > ModuleManager.computeModularProperty(stack, MuseCommonStrings.AXE_ENERGY_CONSUMPTION)) {
-				return true;
-			} else if (useDiamondPickaxe(stack, block, meta)
-					&& energy > ModuleManager.computeModularProperty(stack, MuseCommonStrings.PICKAXE_ENERGY_CONSUMPTION)) {
-				return true;
-			} else {
-				return false;
 			}
 		}
 		return false;
@@ -161,88 +138,35 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 
 	/**
 	 * Called when a block is destroyed using this tool.
+	 * 
+	 * Returns: Whether to increment player use stats with this item
 	 */
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World world, int blockID, int x, int y, int z, EntityLiving entity) {
-		double drain = 1;
-		Block block = Block.blocksList[blockID];
-		int meta = 0;
-		if (useIronPickaxe(stack, block, meta)) {
-			drain = ModuleManager.computeModularProperty(stack, MuseCommonStrings.PICKAXE_ENERGY_CONSUMPTION);
-		} else if (useIronShovel(stack, block, meta)) {
-			drain = ModuleManager.computeModularProperty(stack, MuseCommonStrings.SHOVEL_ENERGY_CONSUMPTION);
-		} else if (useIronAxe(stack, block, meta)) {
-			drain = ModuleManager.computeModularProperty(stack, MuseCommonStrings.AXE_ENERGY_CONSUMPTION);
-		} else if (useDiamondPickaxe(stack, block, meta)) {
-			drain = ModuleManager.computeModularProperty(stack, MuseCommonStrings.PICKAXE_ENERGY_CONSUMPTION);
-		} else {
-			drain = 0;
-		}
-
-		if (drain > 0 && entity.isInsideOfMaterial(Material.water)
-				&& MuseItemUtils.itemHasActiveModule(stack, MuseCommonStrings.MODULE_AQUA_AFFINITY)) {
-			drain += ModuleManager.computeModularProperty(stack, MuseCommonStrings.AQUA_AFFINITY_ENERGY_CONSUMPTION);
-		}
-		if (entity instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) entity;
-			ElectricItemUtils.drainPlayerEnergy(player, drain);
-		} else {
-			// onUse(drain, stack);
+		for (IBlockBreakingModule module : ModuleManager.getBlockBreakingModules()) {
+			if (MuseItemUtils.itemHasActiveModule(stack, module.getName())) {
+				if (module.onBlockDestroyed(stack, world, blockID, x, y, z, entity)) {
+					return true;
+				}
+			}
 		}
 		return true;
-	}
 
-	public static boolean useIronPickaxe(ItemStack stack, Block block, int meta) {
-		if (MuseItemUtils.itemHasActiveModule(stack, MuseCommonStrings.MODULE_PICKAXE)) {
-			if (ForgeHooks.isToolEffective(ironPickaxe, block, meta)) {
-				return true;
-			} else if ((!ForgeHooks.isToolEffective(diamondPick, block, meta))
-					&& (block.blockMaterial == Material.iron || block.blockMaterial == Material.anvil || block.blockMaterial == Material.rock)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public static boolean useIronShovel(ItemStack stack, Block block, int meta) {
-		if (MuseItemUtils.itemHasActiveModule(stack, MuseCommonStrings.MODULE_SHOVEL)) {
-			if (ForgeHooks.isToolEffective(ironShovel, block, meta)) {
-				return true;
-			} else if (block.blockMaterial == Material.snow) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public static boolean useIronAxe(ItemStack stack, Block block, int meta) {
-		if (MuseItemUtils.itemHasActiveModule(stack, MuseCommonStrings.MODULE_AXE)) {
-			if (ForgeHooks.isToolEffective(ironAxe, block, meta)) {
-				return true;
-			} else if (block.blockMaterial == Material.wood || block.blockMaterial == Material.plants || block.blockMaterial == Material.vine) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public static boolean useDiamondPickaxe(ItemStack stack, Block block, int meta) {
-		if (MuseItemUtils.itemHasActiveModule(stack, MuseCommonStrings.MODULE_DIAMOND_PICK_UPGRADE)) {
-			if (ForgeHooks.isToolEffective(diamondPick, block, meta)) {
-				return true;
-			} else if (block.blockMaterial == Material.iron || block.blockMaterial == Material.anvil || block.blockMaterial == Material.rock) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	/**
-	 * Returns the damage against a given entity.
+	 * An itemstack sensitive version of getDamageVsEntity - allows items to handle damage based on
+	 * itemstack data, like tags. Falls back to getDamageVsEntity.
+	 * 
+	 * @param par1Entity
+	 *            The entity being attacked (or the attacking mob, if it's a mob - vanilla bug?)
+	 * @param itemStack
+	 *            The itemstack
+	 * @return the damage
 	 */
-	@Override
-	public int getDamageVsEntity(Entity par1Entity) {
-		return 1;
+	public int getDamageVsEntity(Entity par1Entity, ItemStack itemStack)
+	{
+		return (int) ModuleManager.computeModularProperty(itemStack, MuseCommonStrings.PUNCH_DAMAGE);
 	}
 
 	@Override
@@ -347,21 +271,10 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 	 * Called when the right click button is released
 	 */
 	public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
-		int chargeTicks = Math.max(this.getMaxItemUseDuration(itemStack) - par4, 10);
-
-		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
-			double energyConsumption = ModuleManager.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_ENERGY_PER_TICK)
-					* chargeTicks;
-			if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
-				ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
-				double explosiveness = ModuleManager.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_EXPLOSIVENESS);
-				double damagingness = ModuleManager.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE);
-
-				EntityPlasmaBolt plasmaBolt = new EntityPlasmaBolt(world, player, explosiveness, damagingness, chargeTicks);
-				world.spawnEntityInWorld(plasmaBolt);
-				MusePacketPlasmaBolt packet = new MusePacketPlasmaBolt((Player) player, plasmaBolt.entityId, plasmaBolt.size);
-				PacketDispatcher.sendPacketToAllPlayers(packet.getPacket250());
-			}
+		String mode = MuseItemUtils.getActiveMode(itemStack);
+		IPowerModule module = ModuleManager.getModule(mode);
+		if (module instanceof IRightClickModule) {
+			((IRightClickModule) module).onPlayerStoppedUsing(itemStack, world, player, par4);
 		}
 	}
 

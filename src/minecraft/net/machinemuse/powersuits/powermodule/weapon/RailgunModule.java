@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.powermodule.modules;
+package net.machinemuse.powersuits.powermodule.weapon;
 
 import java.util.List;
 
