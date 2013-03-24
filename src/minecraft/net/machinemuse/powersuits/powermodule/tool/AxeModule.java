@@ -75,19 +75,37 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
 			EntityPlayerMP playerMP = (EntityPlayerMP) player;
 			boolean found = true;
 			double radius = ModuleManager.computeModularProperty(stack, AXE_SEARCH_RADIUS);
+			int minx = (int) Math.floor(x - radius);
+			int maxx = (int) Math.ceil(x + radius);
+			int minz = (int) Math.floor(z - radius);
+			int maxz = (int) Math.ceil(z + radius);
+			int newminx, newmaxx, newminz, newmaxz;
 			while (found) {
 				y++;
 				found = false;
-				for (int i = (int) Math.floor(-radius); i < radius; i++) {
-					for (int j = (int) Math.floor(-radius); j < radius; j++) {
-						int id = world.getBlockId(x + i, y, z + j);
-						if (canHarvestBlock(stack, Block.blocksList[id], world.getBlockMetadata(x + i, y, z + j), player)) {
+				newminx = (minx + maxx) / 2;
+				newmaxx = newminx;
+				newminz = (minz + maxz) / 2;
+				newmaxz = newminz;
+
+				for (int i = minx; i < maxx; i++) {
+					for (int j = minz; j < maxz; j++) {
+						int id = world.getBlockId(i, y, j);
+						if (canHarvestBlock(stack, Block.blocksList[id], world.getBlockMetadata(i, y, j), player)) {
 							found = true;
-							playerMP.theItemInWorldManager.tryHarvestBlock(x + i, y, z + j);
+							newminx = (int) Math.min(newminx, i - radius);
+							newmaxx = (int) Math.max(newmaxx, i + radius);
+							newminz = (int) Math.min(newminz, j - radius);
+							newmaxz = (int) Math.max(newmaxz, j + radius);
+							playerMP.theItemInWorldManager.tryHarvestBlock(i, y, j);
 							ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION));
 						}
 					}
 				}
+				minx = newminx;
+				maxx = newmaxx;
+				minz = newminz;
+				maxz = newmaxz;
 			}
 			ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION));
 			return true;
