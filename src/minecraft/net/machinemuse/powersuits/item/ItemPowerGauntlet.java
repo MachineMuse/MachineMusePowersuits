@@ -143,10 +143,12 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 	 */
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World world, int blockID, int x, int y, int z, EntityLiving entity) {
-		for (IBlockBreakingModule module : ModuleManager.getBlockBreakingModules()) {
-			if (MuseItemUtils.itemHasActiveModule(stack, module.getName())) {
-				if (module.onBlockDestroyed(stack, world, blockID, x, y, z, entity)) {
-					return true;
+		if (entity instanceof EntityPlayer) {
+			for (IBlockBreakingModule module : ModuleManager.getBlockBreakingModules()) {
+				if (MuseItemUtils.itemHasActiveModule(stack, module.getName())) {
+					if (module.onBlockDestroyed(stack, world, blockID, x, y, z, (EntityPlayer) entity)) {
+						return true;
+					}
 				}
 			}
 		}

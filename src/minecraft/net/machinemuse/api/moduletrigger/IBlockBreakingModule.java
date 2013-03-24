@@ -2,7 +2,6 @@ package net.machinemuse.api.moduletrigger;
 
 import net.machinemuse.api.IPowerModule;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -24,7 +23,7 @@ public interface IBlockBreakingModule extends IPowerModule {
 	 */
 	boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player);
 
-	public boolean onBlockDestroyed(ItemStack stack, World world, int blockID, int x, int y, int z, EntityLiving entity);
+	public boolean onBlockDestroyed(ItemStack stack, World world, int blockID, int x, int y, int z, EntityPlayer player);
 
 	public void handleBreakSpeed(PlayerEvent.BreakSpeed event);
 }

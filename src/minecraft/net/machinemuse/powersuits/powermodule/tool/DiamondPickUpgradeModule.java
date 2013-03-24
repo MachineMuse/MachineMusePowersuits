@@ -12,7 +12,6 @@ import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -63,10 +62,9 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
 	}
 
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World world, int blockID, int x, int y, int z, EntityLiving entity) {
+	public boolean onBlockDestroyed(ItemStack stack, World world, int blockID, int x, int y, int z, EntityPlayer player) {
 		Block block = Block.blocksList[blockID];
-		if (entity instanceof EntityPlayer && !PickaxeModule.ironPickaxe.canHarvestBlock(block)) {
-			EntityPlayer player = (EntityPlayer) entity;
+		if (!PickaxeModule.ironPickaxe.canHarvestBlock(block)) {
 			ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, PickaxeModule.PICKAXE_ENERGY_CONSUMPTION));
 			return true;
 		}

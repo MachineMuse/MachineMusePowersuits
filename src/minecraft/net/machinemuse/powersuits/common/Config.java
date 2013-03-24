@@ -36,6 +36,7 @@ import net.machinemuse.powersuits.powermodule.tool.AquaAffinityModule;
 import net.machinemuse.powersuits.powermodule.tool.AxeModule;
 import net.machinemuse.powersuits.powermodule.tool.DiamondPickUpgradeModule;
 import net.machinemuse.powersuits.powermodule.tool.PickaxeModule;
+import net.machinemuse.powersuits.powermodule.tool.ShearsModule;
 import net.machinemuse.powersuits.powermodule.tool.ShovelModule;
 import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
 import net.machinemuse.powersuits.powermodule.weapon.RailgunModule;
@@ -281,6 +282,7 @@ public class Config {
 		addModule(new ShovelModule(TOOLONLY));
 		addModule(new DiamondPickUpgradeModule(TOOLONLY));
 		addModule(new AquaAffinityModule(TOOLONLY));
+		addModule(new ShearsModule(TOOLONLY));
 
 		// All ========================================
 

@@ -13,7 +13,6 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -54,13 +53,10 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
 	}
 
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World world, int blockID, int x, int y, int z, EntityLiving entity) {
-		if (entity instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) entity;
-			if (entity.isInsideOfMaterial(Material.water) || !player.onGround) {
-				ElectricItemUtils.drainPlayerEnergy(player,
-						ModuleManager.computeModularProperty(stack, AQUA_AFFINITY_ENERGY_CONSUMPTION));
-			}
+	public boolean onBlockDestroyed(ItemStack stack, World world, int blockID, int x, int y, int z, EntityPlayer player) {
+		if (player.isInsideOfMaterial(Material.water) || !player.onGround) {
+			ElectricItemUtils.drainPlayerEnergy(player,
+					ModuleManager.computeModularProperty(stack, AQUA_AFFINITY_ENERGY_CONSUMPTION));
 		}
 		return true;
 	}
