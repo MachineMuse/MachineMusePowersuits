@@ -175,7 +175,7 @@
 
 		<!-- Reobf -->
 		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows">
-			<arg line="/c reobfuscate.bat" />
+			<arg line="/c reobfuscate-srg.bat" />
 		</exec>
 
 		<exec dir="${mcp.dir}" executable="sh" osfamily="unix">
