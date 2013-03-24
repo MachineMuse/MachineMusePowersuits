@@ -12,10 +12,10 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-public class StepAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
+public class ClimbAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
 	public static final String MODULE_CLIMB_ASSIST = "Uphill Step Assist";
 
-	public StepAssistModule(List<IModularItem> validItems) {
+	public ClimbAssistModule(List<IModularItem> validItems) {
 		super(validItems);
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
 	}

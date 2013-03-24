@@ -22,6 +22,7 @@ import net.machinemuse.powersuits.powermodule.misc.InvisibilityModule;
 import net.machinemuse.powersuits.powermodule.misc.NightVisionModule;
 import net.machinemuse.powersuits.powermodule.misc.WaterElectrolyzerModule;
 import net.machinemuse.powersuits.powermodule.movement.BlinkDriveModule;
+import net.machinemuse.powersuits.powermodule.movement.ClimbAssistModule;
 import net.machinemuse.powersuits.powermodule.movement.FlightControlModule;
 import net.machinemuse.powersuits.powermodule.movement.GliderModule;
 import net.machinemuse.powersuits.powermodule.movement.JetBootsModule;
@@ -30,7 +31,6 @@ import net.machinemuse.powersuits.powermodule.movement.JumpAssistModule;
 import net.machinemuse.powersuits.powermodule.movement.ParachuteModule;
 import net.machinemuse.powersuits.powermodule.movement.ShockAbsorberModule;
 import net.machinemuse.powersuits.powermodule.movement.SprintAssistModule;
-import net.machinemuse.powersuits.powermodule.movement.StepAssistModule;
 import net.machinemuse.powersuits.powermodule.movement.SwimAssistModule;
 import net.machinemuse.powersuits.powermodule.tool.AquaAffinityModule;
 import net.machinemuse.powersuits.powermodule.tool.AxeModule;
@@ -179,16 +179,7 @@ public class Config {
 
 		IPowerModule module;
 
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_MELEE_ASSIST, TOOLONLY, "toolfist", MuseCommonStrings.CATEGORY_WEAPON)
-				.setDescription("A much simpler addon, makes your powertool punches hit harder.")
-				.addBaseProperty(MuseCommonStrings.PUNCH_ENERGY, 10, "J").addBaseProperty(MuseCommonStrings.PUNCH_DAMAGE, 2, "pt")
-				.addTradeoffProperty("Impact", MuseCommonStrings.PUNCH_ENERGY, 100, "J")
-				.addTradeoffProperty("Impact", MuseCommonStrings.PUNCH_DAMAGE, 8, "pt")
-				.addTradeoffProperty("Carry-through", MuseCommonStrings.PUNCH_ENERGY, 20, "J")
-				.addTradeoffProperty("Carry-through", MuseCommonStrings.PUNCH_KNOCKBACK, 1, "P")
-				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2)).addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1));
-		addModule(module);
-
+		// Armor
 		module = new PowerModule(MuseCommonStrings.MODULE_BASIC_PLATING, ARMORONLY, "basicplating2", MuseCommonStrings.CATEGORY_ARMOR)
 				.setDescription("Basic plating is heavy but protective.").addInstallCost(copyAndResize(ItemComponent.basicPlating, 1))
 				.addTradeoffProperty("Plating Thickness", MuseCommonStrings.ARMOR_VALUE_PHYSICAL, 5, " Points")
@@ -209,6 +200,26 @@ public class Config {
 				.addTradeoffProperty("Field Strength", MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION, 500, "J");
 		addModule(module);
 
+		// Tool
+		addModule(new AxeModule(TOOLONLY));
+		addModule(new PickaxeModule(TOOLONLY));
+		addModule(new ShovelModule(TOOLONLY));
+		addModule(new ShearsModule(TOOLONLY));
+
+		// Weapon
+		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_MELEE_ASSIST, TOOLONLY, "toolfist", MuseCommonStrings.CATEGORY_WEAPON)
+				.setDescription("A much simpler addon, makes your powertool punches hit harder.")
+				.addBaseProperty(MuseCommonStrings.PUNCH_ENERGY, 10, "J").addBaseProperty(MuseCommonStrings.PUNCH_DAMAGE, 2, "pt")
+				.addTradeoffProperty("Impact", MuseCommonStrings.PUNCH_ENERGY, 100, "J")
+				.addTradeoffProperty("Impact", MuseCommonStrings.PUNCH_DAMAGE, 8, "pt")
+				.addTradeoffProperty("Carry-through", MuseCommonStrings.PUNCH_ENERGY, 20, "J")
+				.addTradeoffProperty("Carry-through", MuseCommonStrings.PUNCH_KNOCKBACK, 1, "P")
+				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2)).addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1));
+		addModule(module);
+		addModule(new PlasmaCannonModule(TOOLONLY));
+		addModule(new RailgunModule(TOOLONLY));
+
+		// Energy
 		module = new PowerModule(MuseCommonStrings.MODULE_BATTERY_BASIC, ALLITEMS, "lvbattery", MuseCommonStrings.CATEGORY_ENERGY)
 				.setDescription("Integrate a battery to allow the item to store energy.").addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1))
 				.addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 20000, "J").addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g")
@@ -230,6 +241,27 @@ public class Config {
 				.addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000);
 		addModule(module);
 
+		// Movement
+		addModule(new ParachuteModule(TORSOONLY));
+		addModule(new GliderModule(TORSOONLY));
+		addModule(new JetPackModule(TORSOONLY));
+		addModule(new SprintAssistModule(LEGSONLY));
+		addModule(new JumpAssistModule(LEGSONLY));
+		addModule(new SwimAssistModule(LEGSONLY));
+		addModule(new ClimbAssistModule(LEGSONLY));
+		addModule(new JetBootsModule(FEETONLY));
+		addModule(new ShockAbsorberModule(FEETONLY));
+		addModule(new WaterElectrolyzerModule(HEADONLY));
+
+		// Special
+		addModule(new NightVisionModule(HEADONLY));
+		addModule(new FlightControlModule(HEADONLY));
+		addModule(new InvisibilityModule(TORSOONLY));
+		addModule(new BlinkDriveModule(TOOLONLY));
+		addModule(new DiamondPickUpgradeModule(TOOLONLY));
+		addModule(new AquaAffinityModule(TOOLONLY));
+
+		// Cosmetic
 		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_TINT, ALLITEMS, "netherstar", MuseCommonStrings.CATEGORY_COSMETIC)
 				.setDescription("Give your armor some coloured tinting to customize your armor's appearance.")
 				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1))
@@ -244,48 +276,10 @@ public class Config {
 		addModule(module);
 		module = new PowerModule(MuseCommonStrings.CITIZEN_JOE_STYLE, ARMORONLY, "greendrone", MuseCommonStrings.CATEGORY_COSMETIC)
 				.setDescription("An alternative armor texture, c/o CitizenJoe of IC2 forums.");
-
 		addModule(module);
 
 		// Make the maximum armor per piece value show up in config file
 		getMaximumArmorPerPiece();
-
-		// red = 1, green = 2, blue = 4
-
-		// Head ======================================
-		addModule(new NightVisionModule(HEADONLY));
-		addModule(new FlightControlModule(HEADONLY));
-		addModule(new WaterElectrolyzerModule(HEADONLY));
-
-		// Torso =====================================
-		addModule(new InvisibilityModule(TORSOONLY));
-		addModule(new ParachuteModule(TORSOONLY));
-		addModule(new GliderModule(TORSOONLY));
-		addModule(new JetPackModule(TORSOONLY));
-
-		// Legs =======================================
-		addModule(new SprintAssistModule(LEGSONLY));
-		addModule(new JumpAssistModule(LEGSONLY));
-		addModule(new SwimAssistModule(LEGSONLY));
-		addModule(new StepAssistModule(LEGSONLY));
-
-		// Feet =======================================
-		addModule(new JetBootsModule(FEETONLY));
-		addModule(new ShockAbsorberModule(FEETONLY));
-
-		// Tool =======================================
-		addModule(new PlasmaCannonModule(TOOLONLY));
-		addModule(new RailgunModule(TOOLONLY));
-		addModule(new BlinkDriveModule(TOOLONLY));
-		addModule(new AxeModule(TOOLONLY));
-		addModule(new PickaxeModule(TOOLONLY));
-		addModule(new ShovelModule(TOOLONLY));
-		addModule(new DiamondPickUpgradeModule(TOOLONLY));
-		addModule(new AquaAffinityModule(TOOLONLY));
-		addModule(new ShearsModule(TOOLONLY));
-
-		// All ========================================
-
 	}
 
 	/**
