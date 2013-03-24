@@ -48,11 +48,7 @@ public class ClickableSlider extends Clickable {
 	@Override public boolean hitBox(double x, double y) {
 		double xval = position.x() - x;
 		double yval = position.y() + 17 - y;
-		if (Math.abs(xval) < width / 2 && Math.abs(yval) < 7) {
-			return true;
-		} else {
-			return false;
-		}
+		return Math.abs(xval) < width / 2 && Math.abs(yval) < 7;
 	}
 	public String getName() {
 		return name;

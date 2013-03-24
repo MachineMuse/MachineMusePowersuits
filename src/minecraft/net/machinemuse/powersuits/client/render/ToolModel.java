@@ -322,27 +322,27 @@ public class ToolModel extends ModelBase {
 		int numsegments = 16;
 		if (!tap) {
 			if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD1)) {
-				xtap = (xtap + 1);
+				xtap += 1;
 				tap = true;
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD2)) {
-				ytap = (ytap + 1);
+				ytap += 1;
 				tap = true;
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD3)) {
-				ztap = (ztap + 1);
+				ztap += 1;
 				tap = true;
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD4)) {
-				xtap = (xtap - 1);
+				xtap -= 1;
 				tap = true;
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD5)) {
-				ytap = (ytap - 1);
+				ytap -= 1;
 				tap = true;
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD6)) {
-				ztap = (ztap - 1);
+				ztap -= 1;
 				tap = true;
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD8)) {

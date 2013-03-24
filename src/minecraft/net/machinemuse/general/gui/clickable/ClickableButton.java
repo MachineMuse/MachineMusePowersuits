@@ -46,7 +46,6 @@ public class ClickableButton extends Clickable {
 	public void draw() {
 		Colour topcolour;
 		Colour bottomcolour;
-		Colour fontcolour;
 		if (isEnabled()) {
 			topcolour = new Colour(0.5F, 0.6F, 0.8F, 1);
 			bottomcolour = new Colour(0.3F, 0.3F, 0.3F, 1);

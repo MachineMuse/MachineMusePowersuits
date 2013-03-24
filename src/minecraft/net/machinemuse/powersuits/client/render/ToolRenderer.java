@@ -103,11 +103,7 @@ public class ToolRenderer extends Render implements IItemRenderer {
 	 */
 	@Override
 	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper) {
-		if (type == ItemRenderType.ENTITY) {
-			return true;
-		} else {
-			return false;
-		}
+		return type == ItemRenderType.ENTITY;
 	}
 
 	@Override

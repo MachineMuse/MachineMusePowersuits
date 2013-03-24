@@ -164,6 +164,7 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 	 *            The itemstack
 	 * @return the damage
 	 */
+	@Override
 	public int getDamageVsEntity(Entity par1Entity, ItemStack itemStack)
 	{
 		return (int) ModuleManager.computeModularProperty(itemStack, MuseCommonStrings.PUNCH_DAMAGE);
@@ -203,7 +204,7 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 	}
 
 	public static String formatInfo(String string, double value) {
-		return string + "\t" + MuseStringUtils.formatNumberShort(value);
+		return string + '\t' + MuseStringUtils.formatNumberShort(value);
 	}
 
 	@Override
@@ -211,8 +212,8 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 		List<String> info = new ArrayList();
 		NBTTagCompound itemProperties = MuseItemUtils.getMuseItemTag(stack);
 		info.add("Detailed Summary");
-		info.add(formatInfo("Energy Storage", getMaxJoules(stack)) + "J");
-		info.add(formatInfo("Weight", MuseCommonStrings.getTotalWeight(stack)) + "g");
+		info.add(formatInfo("Energy Storage", getMaxJoules(stack)) + 'J');
+		info.add(formatInfo("Weight", MuseCommonStrings.getTotalWeight(stack)) + 'g');
 		return info;
 	}
 
@@ -237,6 +238,7 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 	/**
 	 * How long it takes to use or consume an item
 	 */
+	@Override
 	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
 		return 72000;
 	}
@@ -251,10 +253,11 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 	/**
 	 * Called when the right click button is pressed
 	 */
+	@Override
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
 		for (IRightClickModule module : ModuleManager.getRightClickModules()) {
 			if (module.isValidForItem(itemStack, player) && MuseItemUtils.itemHasActiveModule(itemStack, module.getName())) {
-				((IRightClickModule) module).onRightClick(player, world, itemStack);
+				module.onRightClick(player, world, itemStack);
 			}
 		}
 		return itemStack;
@@ -263,6 +266,7 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 	/**
 	 * returns the action that specifies what animation to play when the items is being used
 	 */
+	@Override
 	public EnumAction getItemUseAction(ItemStack stack) {
 		return EnumAction.bow;
 	}
@@ -270,6 +274,7 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 	/**
 	 * Called when the right click button is released
 	 */
+	@Override
 	public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
 		String mode = MuseItemUtils.getActiveMode(itemStack);
 		IPowerModule module = ModuleManager.getModule(mode);

@@ -98,7 +98,7 @@ public abstract class MuseCommonStrings {
 		}
 		ElectricAdapter adapter = ElectricAdapter.wrap(stack);
 		if (adapter != null) {
-			String energyinfo = "Energy: " + MuseStringUtils.formatNumberShort(adapter.getCurrentEnergy()) + "/"
+			String energyinfo = "Energy: " + MuseStringUtils.formatNumberShort(adapter.getCurrentEnergy()) + '/'
 					+ MuseStringUtils.formatNumberShort(adapter.getMaxEnergy());
 			currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character,
 					MuseStringUtils.FormatCodes.Grey));

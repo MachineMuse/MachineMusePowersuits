@@ -32,11 +32,7 @@ public class MuseItemUtils {
 	}
 
 	public static boolean tagHasModule(NBTTagCompound tag, String moduleName) {
-		if (tag.hasKey(moduleName)) {
-			return true;
-		} else {
-			return false;
-		}
+		return tag.hasKey(moduleName);
 	}
 
 	public static List<String> getValidModes(ItemStack stack, EntityPlayer player) {
@@ -319,7 +315,7 @@ public class MuseItemUtils {
 	public static void setStringOrNull(NBTTagCompound itemProperties,
 			String key, String value) {
 		if (itemProperties != null) {
-			if (value.equals("")) {
+			if (value.isEmpty()) {
 				itemProperties.removeTag(key);
 			} else {
 				itemProperties.setString(key, value);
@@ -358,11 +354,8 @@ public class MuseItemUtils {
 			return false;
 		} else if (!stack1.isStackable()) {
 			return false;
-		} else if (stack1.stackSize >= stack1.getMaxStackSize()) {
-			return false;
-		} else {
-			return true;
-		}
+		} else
+			return stack1.stackSize < stack1.getMaxStackSize();
 	}
 
 	public static boolean isSameItem(ItemStack stack1, ItemStack stack2) {
@@ -370,12 +363,9 @@ public class MuseItemUtils {
 			return false;
 		} else if (stack1.itemID != stack2.itemID) {
 			return false;
-		} else if ((!stack1.isItemStackDamageable())
-				&& (stack1.getItemDamage() != stack2.getItemDamage())) {
-			return false;
-		} else {
-			return true;
-		}
+		} else
+			return !((!stack1.isItemStackDamageable())
+					&& (stack1.getItemDamage() != stack2.getItemDamage()));
 	}
 
 	public static void transferStackWithChance(ItemStack itemsToGive,
@@ -486,7 +476,7 @@ public class MuseItemUtils {
 			// playerEntity.sendChatToPlayer("Server has disallowed this module. Sorry!");
 			return false;
 		}
-		if (module != null && module instanceof IRightClickModule) {
+		if (module instanceof IRightClickModule) {
 			// MuseLogger.logDebug("Module: " + moduleName + " vs Mode: " +
 			// MuseItemUtils.getActiveMode(itemStack));
 
