@@ -13,6 +13,7 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -24,6 +25,7 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
 	public static final ItemStack ironAxe = new ItemStack(Item.axeSteel);
 	public static final String AXE_ENERGY_CONSUMPTION = "Axe Energy Consumption";
 	public static final String AXE_HARVEST_SPEED = "Axe Harvest Speed";
+	public static final String AXE_SEARCH_RADIUS = "Axe Search Radius";
 
 	public AxeModule(List<IModularItem> validItems) {
 		super(validItems);
@@ -33,6 +35,8 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
 		addBaseProperty(AXE_HARVEST_SPEED, 8, "x");
 		addTradeoffProperty("Overclock", AXE_ENERGY_CONSUMPTION, 950);
 		addTradeoffProperty("Overclock", AXE_HARVEST_SPEED, 22);
+		addTradeoffProperty("Radius", AXE_ENERGY_CONSUMPTION, 1000);
+		addTradeoffProperty("Radius", AXE_SEARCH_RADIUS, 3);
 	}
 
 	@Override
@@ -67,8 +71,28 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
 
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World world, int blockID, int x, int y, int z, EntityPlayer player) {
-		ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION));
-		return true;
+		if (player instanceof EntityPlayerMP) {
+			EntityPlayerMP playerMP = (EntityPlayerMP) player;
+			boolean found = true;
+			double radius = ModuleManager.computeModularProperty(stack, AXE_SEARCH_RADIUS);
+			while (found) {
+				y++;
+				found = false;
+				for (int i = (int) Math.floor(-radius); i < radius; i++) {
+					for (int j = (int) Math.floor(-radius); j < radius; j++) {
+						int id = world.getBlockId(x + i, y, z + j);
+						if (canHarvestBlock(stack, Block.blocksList[id], world.getBlockMetadata(x + i, y, z + j), player)) {
+							found = true;
+							playerMP.theItemInWorldManager.tryHarvestBlock(x + i, y, z + j);
+							ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION));
+						}
+					}
+				}
+			}
+			ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION));
+			return true;
+		}
+		return false;
 	}
 
 	@Override
