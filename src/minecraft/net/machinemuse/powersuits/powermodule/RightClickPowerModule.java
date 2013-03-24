@@ -19,7 +19,17 @@ public class RightClickPowerModule extends PowerModule implements IRightClickMod
 
 	@Override
 	public void onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-		
+
+	}
+
+	@Override
+	public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY,
+			float hitZ) {
+		return false;
+	}
+
+	@Override
+	public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
 	}
 
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.MuseCommonStrings;
-import net.machinemuse.api.moduletrigger.IRightClickFirstModule;
+import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -18,7 +18,7 @@ import universalelectricity.core.electricity.ElectricityDisplay;
 import universalelectricity.core.electricity.ElectricityDisplay.ElectricUnit;
 import universalelectricity.core.electricity.ElectricityPack;
 
-public class MultimeterModule extends PowerModuleBase implements IRightClickFirstModule {
+public class MultimeterModule extends PowerModuleBase implements IRightClickModule {
 	public static final String MODULE_MULTIMETER = "Multimeter";
 
 	public MultimeterModule(String name, List<IModularItem> validItems) {
@@ -68,6 +68,18 @@ public class MultimeterModule extends PowerModuleBase implements IRightClickFirs
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void onRightClick(EntityPlayer playerClicking, World world, ItemStack item) {
+	}
+
+	@Override
+	public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+	}
+
+	@Override
+	public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
 	}
 
 }
