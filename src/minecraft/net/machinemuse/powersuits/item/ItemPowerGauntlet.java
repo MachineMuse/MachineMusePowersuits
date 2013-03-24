@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.machinemuse.api.IModularItem;
+import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
@@ -13,7 +14,6 @@ import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.common.Config.Items;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
 import net.machinemuse.powersuits.powermodule.modules.PlasmaCannonModule;
@@ -44,7 +44,9 @@ import cpw.mods.fml.relauncher.SideOnly;
  * 
  * @author MachineMuse
  */
-public class ItemPowerTool extends ItemElectricTool implements IModularItem {
+public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem {
+	public static int assignedItemID;
+
 	public static final ItemStack ironPickaxe = new ItemStack(Item.pickaxeSteel);
 	public static final ItemStack ironAxe = new ItemStack(Item.axeSteel);
 	public static final ItemStack ironShovel = new ItemStack(Item.shovelSteel);
@@ -53,9 +55,9 @@ public class ItemPowerTool extends ItemElectricTool implements IModularItem {
 	/**
 	 * Constructor. Takes information from the Config.Items enum.
 	 */
-	public ItemPowerTool() {
+	public ItemPowerGauntlet() {
 		super( // ID
-				Config.getAssignedItemID(Config.Items.PowerTool),
+				assignedItemID,
 				// Damage bonus, added to the material's damage
 				0,
 				// Tool material, can be changed if necessary
@@ -68,7 +70,7 @@ public class ItemPowerTool extends ItemElectricTool implements IModularItem {
 		setMaxDamage(0);
 		this.damageVsEntity = 1;
 		setCreativeTab(Config.getCreativeTab());
-		LanguageRegistry.addName(this, Config.Items.PowerTool.englishName);
+		LanguageRegistry.addName(this, "Power Gauntlet");
 	}
 
 	@Override
@@ -78,17 +80,8 @@ public class ItemPowerTool extends ItemElectricTool implements IModularItem {
 		iconIndex = MuseIcon.POWERTOOL.getIconRegistration();
 	}
 
-	@Override
-	public Items getItemType() {
-		return Config.Items.PowerTool;
-	}
-
-	/**
-	 * Returns the strength of the stack against a given block. 1.0F base, (Quality+1)*2 if correct blocktype, 1.5F if sword
-	 */
-	@Override
-	public float getStrVsBlock(ItemStack stack, Block block) {
-		return getStrVsBlock(stack, block, 0);
+	public static MuseIcon getCurrentIconFor(ItemStack itemStack) {
+		return MuseIcon.POWERTOOL;
 	}
 
 	public static Colour getColorFromItemStack(ItemStack stack) {
@@ -106,6 +99,20 @@ public class ItemPowerTool extends ItemElectricTool implements IModularItem {
 		if (value > max)
 			return max;
 		return value;
+	}
+
+	/**
+	 * Returns the strength of the stack against a given block. 1.0F base, (Quality+1)*2 if correct blocktype, 1.5F if sword
+	 */
+	@Override
+	public float getStrVsBlock(ItemStack stack, Block block) {
+		return getStrVsBlock(stack, block, 0);
+	}
+
+	/** FORGE: Overridden to allow custom tool effectiveness */
+	@Override
+	public float getStrVsBlock(ItemStack stack, Block block, int meta) {
+		return 1;
 	}
 
 	public static boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
@@ -128,12 +135,6 @@ public class ItemPowerTool extends ItemElectricTool implements IModularItem {
 			}
 		}
 		return false;
-	}
-
-	/** FORGE: Overridden to allow custom tool effectiveness */
-	@Override
-	public float getStrVsBlock(ItemStack stack, Block block, int meta) {
-		return 1;
 	}
 
 	/**
@@ -364,23 +365,25 @@ public class ItemPowerTool extends ItemElectricTool implements IModularItem {
 		}
 	}
 
-	public static MuseIcon getCurrentIconFor(ItemStack itemStack) {
-		return MuseIcon.POWERTOOL;
-	}
-
 	@Override
-	public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World worldObj, int x, int y, int z, int side, float hitX, float hitY,
+	public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY,
 			float hitZ) {
-
+		String mode = MuseItemUtils.getActiveMode(itemStack);
+		IPowerModule module = ModuleManager.getModule(mode);
+		if (module instanceof IRightClickModule) {
+			((IRightClickModule) module).onItemUseFirst(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+			return false;
+		}
 		return false;
 	}
-	
+
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-		for (IRightClickModule module : ModuleManager.getRightClickModules()) {
-			if (module.isValidForItem(stack, player) && MuseItemUtils.itemHasActiveModule(stack, module.getName())) {
-				((IRightClickModule) module).onItemUse(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
-			}
+	public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+		String mode = MuseItemUtils.getActiveMode(itemStack);
+		IPowerModule module = ModuleManager.getModule(mode);
+		if (module instanceof IRightClickModule) {
+			((IRightClickModule) module).onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+			return false;
 		}
 		return false;
 	}

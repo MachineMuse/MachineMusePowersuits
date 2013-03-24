@@ -1,19 +1,19 @@
 package net.machinemuse.powersuits.item;
 
 import net.machinemuse.general.gui.MuseIcon;
-import net.machinemuse.powersuits.common.Config;
 import net.minecraft.client.renderer.texture.IconRegister;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemPowerArmorHead extends ItemPowerArmor {
-	public ItemPowerArmorHead() {
-		super(Config.getAssignedItemID(Config.Items.PowerArmorHead), // itemID
+public class ItemPowerArmorHelmet extends ItemPowerArmor {
+	public static int assignedItemID;
+
+	public ItemPowerArmorHelmet() {
+		super(assignedItemID, // itemID
 				0, // Texture index for rendering armor on the player
 				0); // armor type. 0=head, 1=torso, 2=legs, 3=feet
-		itemType = Config.Items.PowerArmorHead;
-		LanguageRegistry.addName(this, itemType.englishName);
+		LanguageRegistry.addName(this, "Power Armor Helmet");
 	}
 
 	@Override

@@ -5,7 +5,7 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.electricity.ElectricItemUtils;
-import net.machinemuse.powersuits.item.ItemPowerTool;
+import net.machinemuse.powersuits.item.ItemPowerGauntlet;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,7 +20,7 @@ public class EventHandler {
 		EntityPlayer player = event.entityPlayer;
 		Block block = event.block;
 		ItemStack stack = player.inventory.getCurrentItem();
-		if (stack != null && stack.getItem() instanceof ItemPowerTool && ItemPowerTool.canHarvestBlock(stack, block, 0, player)) {
+		if (stack != null && stack.getItem() instanceof ItemPowerGauntlet && ItemPowerGauntlet.canHarvestBlock(stack, block, 0, player)) {
 			event.success = true;
 		}
 	}
@@ -33,23 +33,23 @@ public class EventHandler {
 		double energy = ElectricItemUtils.getPlayerEnergy(player);
 		int meta = event.metadata;
 		ItemStack stack = player.getCurrentEquippedItem();
-		if (stack != null && stack.getItem() instanceof ItemPowerTool) {
-			if (ItemPowerTool.useIronPickaxe(stack, block, meta)
+		if (stack != null && stack.getItem() instanceof ItemPowerGauntlet) {
+			if (ItemPowerGauntlet.useIronPickaxe(stack, block, meta)
 					&& energy > ModuleManager.computeModularProperty(stack, MuseCommonStrings.PICKAXE_ENERGY_CONSUMPTION)) {
 
 				harvestSpeed *= ModuleManager.computeModularProperty(stack, MuseCommonStrings.PICKAXE_HARVEST_SPEED);
 
-			} else if (ItemPowerTool.useIronShovel(stack, block, meta)
+			} else if (ItemPowerGauntlet.useIronShovel(stack, block, meta)
 					&& energy > ModuleManager.computeModularProperty(stack, MuseCommonStrings.SHOVEL_ENERGY_CONSUMPTION)) {
 
 				harvestSpeed *= ModuleManager.computeModularProperty(stack, MuseCommonStrings.SHOVEL_HARVEST_SPEED);
 
-			} else if (ItemPowerTool.useIronAxe(stack, block, meta)
+			} else if (ItemPowerGauntlet.useIronAxe(stack, block, meta)
 					&& energy > ModuleManager.computeModularProperty(stack, MuseCommonStrings.AXE_ENERGY_CONSUMPTION)) {
 
 				harvestSpeed *= ModuleManager.computeModularProperty(stack, MuseCommonStrings.AXE_HARVEST_SPEED);
 
-			} else if (ItemPowerTool.useDiamondPickaxe(stack, block, meta)
+			} else if (ItemPowerGauntlet.useDiamondPickaxe(stack, block, meta)
 					&& energy > ModuleManager.computeModularProperty(stack, MuseCommonStrings.PICKAXE_ENERGY_CONSUMPTION)) {
 
 				harvestSpeed *= ModuleManager.computeModularProperty(stack, MuseCommonStrings.PICKAXE_HARVEST_SPEED);
