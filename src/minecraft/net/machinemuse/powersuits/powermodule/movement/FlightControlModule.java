@@ -14,9 +14,12 @@ public class FlightControlModule extends PowerModuleBase implements IToggleableM
 
 	public static final String TEXTURE_FILE = "bluephaser";
 
+	public static final String FLIGHT_VERTICALITY = "Y-look ratio";
+
 	public FlightControlModule(List<IModularItem> validItems) {
 		super(validItems);
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
+		addTradeoffProperty("Verticality", FLIGHT_VERTICALITY, 1.0, "%");
 	}
 
 	@Override

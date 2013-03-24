@@ -6,9 +6,9 @@ import net.machinemuse.powersuits.event.EventHandler;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.ItemPowerArmorBoots;
+import net.machinemuse.powersuits.item.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.ItemPowerArmorHelmet;
 import net.machinemuse.powersuits.item.ItemPowerArmorLeggings;
-import net.machinemuse.powersuits.item.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.ItemPowerGauntlet;
 import net.machinemuse.powersuits.network.MusePacketHandler;
 import net.minecraftforge.common.Configuration;
@@ -122,6 +122,10 @@ public class ModularPowersuits {
 		components.populate();
 
 		Config.loadPowerModules();
+
+		// Make the maximum armor per piece and maximum flight speed values show up in config file
+		Config.getMaximumArmorPerPiece();
+		Config.getMaximumFlyingSpeedmps();
 
 		EntityRegistry.registerModEntity(EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, this, 64, 20, true);
 		proxy.registerHandlers();

@@ -131,7 +131,11 @@ public class Config {
 	public static double getMaximumArmorPerPiece() {
 		// Clamp this value between 0 and 6 armor points.
 		// The default of 6 will allow 24% reduction per piece.
-		return Math.min(6.0, Math.max(0.0, config.get(Configuration.CATEGORY_GENERAL, "Maximum Armor per Piece", 6.0).getDouble(6.0)));
+		return Math.max(0.0, config.get(Configuration.CATEGORY_GENERAL, "Maximum Armor per Piece", 6.0).getDouble(6.0));
+	}
+
+	public static double getMaximumFlyingSpeedmps() {
+		return config.get(Configuration.CATEGORY_GENERAL, "Maximum flight speed (in m/s)", 25.0).getDouble(25.0);
 	}
 
 	/**
@@ -278,8 +282,6 @@ public class Config {
 				.setDescription("An alternative armor texture, c/o CitizenJoe of IC2 forums.");
 		addModule(module);
 
-		// Make the maximum armor per piece value show up in config file
-		getMaximumArmorPerPiece();
 	}
 
 	/**

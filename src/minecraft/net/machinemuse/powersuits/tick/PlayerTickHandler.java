@@ -12,9 +12,11 @@ import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.general.MuseMathUtils;
+import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.common.PlayerInputMap;
 import net.machinemuse.powersuits.event.MovementManager;
+import net.machinemuse.powersuits.powermodule.movement.FlightControlModule;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Vec3;
@@ -32,6 +34,8 @@ import cpw.mods.fml.common.TickType;
  * @author MachineMuse
  */
 public class PlayerTickHandler implements ITickHandler {
+
+	static final double root2 = Math.sqrt(2);
 
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
@@ -111,8 +115,13 @@ public class PlayerTickHandler implements ITickHandler {
 			double strafeX = desiredDirection.zCoord;
 			double strafeZ = -desiredDirection.xCoord;
 			double scaleStrafe = (strafeX * strafeX + strafeZ * strafeZ);
+			double flightVerticality = 0;
+			ItemStack helm = player.getCurrentArmor(3);
+			if (helm.getItem() != null && helm.getItem() instanceof IModularItem) {
+				flightVerticality = ModuleManager.computeModularProperty(helm, FlightControlModule.FLIGHT_VERTICALITY);
+			}
 			desiredDirection.xCoord = desiredDirection.xCoord * Math.signum(forwardkey) + strafeX * Math.signum(strafekey);
-			desiredDirection.yCoord = desiredDirection.yCoord * Math.signum(forwardkey) + (jumpkey ? 1 : 0) - (downkey ? 1 : 0);
+			desiredDirection.yCoord = flightVerticality * desiredDirection.yCoord * Math.signum(forwardkey) + (jumpkey ? 1 : 0) - (downkey ? 1 : 0);
 			desiredDirection.zCoord = desiredDirection.zCoord * Math.signum(forwardkey) + strafeZ * Math.signum(strafekey);
 
 			desiredDirection = desiredDirection.normalize();
@@ -175,6 +184,7 @@ public class PlayerTickHandler implements ITickHandler {
 					player.motionZ = 0;
 				}
 			}
+			// Slow the player if they are going too fast
 
 			// Thrusting, finally :V
 			double vx = thrust * desiredDirection.xCoord;
@@ -194,10 +204,22 @@ public class PlayerTickHandler implements ITickHandler {
 			if (forwardkey == 0) {
 				player.motionY += thrust;
 			} else {
-				player.motionY += thrust / 2;
-				player.motionX += playerHorzFacing.xCoord * thrust / 2 * Math.signum(forwardkey);
-				player.motionZ += playerHorzFacing.zCoord * thrust / 2 * Math.signum(forwardkey);
+				player.motionY += thrust / root2;
+				player.motionX += playerHorzFacing.xCoord * thrust / root2 * Math.signum(forwardkey);
+				player.motionZ += playerHorzFacing.zCoord * thrust / root2 * Math.signum(forwardkey);
 			}
+		}
+
+		double horzm2 = player.motionX * player.motionX + player.motionZ * player.motionZ;
+		double horzmlim = Config.getMaximumFlyingSpeedmps() * Config.getMaximumFlyingSpeedmps() / 400;
+		if (sneakkey && horzmlim > 0.05) {
+			horzmlim = 0.05;
+		}
+
+		if (horzm2 > horzmlim) {
+			double ratio = Math.sqrt(horzmlim / horzm2);
+			player.motionX *= ratio;
+			player.motionZ *= ratio;
 		}
 	}
 
