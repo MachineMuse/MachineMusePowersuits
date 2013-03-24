@@ -11,7 +11,6 @@ import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.common.Config.Items;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumArmorMaterial;
@@ -30,7 +29,6 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpecialArmor, //
 		IModularItem, IArmorTextureProvider {
-	Config.Items itemType;
 
 	/**
 	 * @param id
@@ -57,7 +55,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 			} else {
 				if (MuseItemUtils.itemHasActiveModule(itemstack, MuseCommonStrings.MODULE_TRANSPARENT_ARMOR)) {
 					return Config.BLANK_ARMOR_MODEL_PATH;
-				} else if (itemstack.getItem() instanceof ItemPowerArmorLegs) {
+				} else if (itemstack.getItem() instanceof ItemPowerArmorLeggings) {
 					if (MuseItemUtils.itemHasModule(itemstack, MuseCommonStrings.CITIZEN_JOE_STYLE)) {
 						return Config.CITIZENJOE_ARMORPANTS_PATH;
 					}
@@ -201,11 +199,6 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 		} else {
 			drainEnergyFrom(stack, drain);
 		}
-	}
-
-	@Override
-	public Items getItemType() {
-		return itemType;
 	}
 
 	/**

@@ -20,6 +20,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemComponent extends Item {
+	public static int assignedItemID;
+
 	public static List<Icon> icons;
 	public static List<String> iconNames;
 	public static List<String> names;
@@ -45,7 +47,7 @@ public class ItemComponent extends Item {
 	public static ItemStack artificialMuscle;
 
 	public ItemComponent() {
-		super(Config.getAssignedItemID(Config.Items.PowerArmorComponent));
+		super(assignedItemID);
 		this.setHasSubtypes(true);
 		this.setMaxDamage(0);
 		this.setCreativeTab(Config.getCreativeTab());

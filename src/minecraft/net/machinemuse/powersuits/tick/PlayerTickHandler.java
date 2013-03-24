@@ -104,6 +104,7 @@ public class PlayerTickHandler implements ITickHandler {
 		float forwardkey = movementInput.forwardKey;
 		float strafekey = movementInput.strafeKey;
 		boolean downkey = movementInput.downKey;
+		boolean sneakkey = movementInput.sneakKey;
 		double totalEnergyDrain = 0;
 		if (flightControl) {
 			Vec3 desiredDirection = player.getLookVec().normalize();

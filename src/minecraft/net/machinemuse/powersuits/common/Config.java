@@ -12,13 +12,15 @@ import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.ItemPowerArmorBoots;
+import net.machinemuse.powersuits.item.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.ItemPowerArmorHelmet;
 import net.machinemuse.powersuits.item.ItemPowerArmorLeggings;
-import net.machinemuse.powersuits.item.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.ItemPowerGauntlet;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.machinemuse.powersuits.powermodule.ToggleablePowerModule;
+import net.machinemuse.powersuits.powermodule.modules.AxeModule;
 import net.machinemuse.powersuits.powermodule.modules.BlinkDriveModule;
+import net.machinemuse.powersuits.powermodule.modules.DiamondPickUpgradeModule;
 import net.machinemuse.powersuits.powermodule.modules.FlightControlModule;
 import net.machinemuse.powersuits.powermodule.modules.GliderModule;
 import net.machinemuse.powersuits.powermodule.modules.InvisibilityModule;
@@ -27,14 +29,15 @@ import net.machinemuse.powersuits.powermodule.modules.JetPackModule;
 import net.machinemuse.powersuits.powermodule.modules.JumpAssistModule;
 import net.machinemuse.powersuits.powermodule.modules.NightVisionModule;
 import net.machinemuse.powersuits.powermodule.modules.ParachuteModule;
+import net.machinemuse.powersuits.powermodule.modules.PickaxeModule;
 import net.machinemuse.powersuits.powermodule.modules.PlasmaCannonModule;
 import net.machinemuse.powersuits.powermodule.modules.RailgunModule;
 import net.machinemuse.powersuits.powermodule.modules.ShockAbsorberModule;
+import net.machinemuse.powersuits.powermodule.modules.ShovelModule;
 import net.machinemuse.powersuits.powermodule.modules.SprintAssistModule;
 import net.machinemuse.powersuits.powermodule.modules.StepAssistModule;
 import net.machinemuse.powersuits.powermodule.modules.SwimAssistModule;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 
@@ -203,35 +206,6 @@ public class Config {
 				.addTradeoffProperty("Field Strength", MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION, 500, "J");
 		addModule(module);
 
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_SHOVEL, TOOLONLY, "toolshovel", MuseCommonStrings.CATEGORY_TOOL)
-				.setDescription("Shovels are good for soft materials like dirt and sand.").addInstallCost(new ItemStack(Item.ingotIron, 3))
-				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1)).addBaseProperty(MuseCommonStrings.SHOVEL_ENERGY_CONSUMPTION, 50, "J")
-				.addBaseProperty(MuseCommonStrings.SHOVEL_HARVEST_SPEED, 8, "x")
-				.addTradeoffProperty("Overclock", MuseCommonStrings.SHOVEL_ENERGY_CONSUMPTION, 950)
-				.addTradeoffProperty("Overclock", MuseCommonStrings.SHOVEL_HARVEST_SPEED, 22);
-		addModule(module);
-
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_PICKAXE, TOOLONLY, "toolpick", MuseCommonStrings.CATEGORY_TOOL)
-				.setDescription("Picks are good for harder materials like stone and ore.").addInstallCost(new ItemStack(Item.ingotIron, 3))
-				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1)).addBaseProperty(MuseCommonStrings.PICKAXE_ENERGY_CONSUMPTION, 50, "J")
-				.addBaseProperty(MuseCommonStrings.PICKAXE_HARVEST_SPEED, 8, "x")
-				.addTradeoffProperty("Overclock", MuseCommonStrings.PICKAXE_ENERGY_CONSUMPTION, 950)
-				.addTradeoffProperty("Overclock", MuseCommonStrings.PICKAXE_HARVEST_SPEED, 22);
-		addModule(module);
-
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_AXE, TOOLONLY, "toolaxe", MuseCommonStrings.CATEGORY_TOOL)
-				.setDescription("Axes are mostly for chopping trees.").addInstallCost(new ItemStack(Item.ingotIron, 3))
-				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1)).addBaseProperty(MuseCommonStrings.AXE_ENERGY_CONSUMPTION, 50, "J")
-				.addBaseProperty(MuseCommonStrings.AXE_HARVEST_SPEED, 8, "x")
-				.addTradeoffProperty("Overclock", MuseCommonStrings.AXE_ENERGY_CONSUMPTION, 950)
-				.addTradeoffProperty("Overclock", MuseCommonStrings.AXE_HARVEST_SPEED, 22);
-		addModule(module);
-
-		module = new PowerModule(MuseCommonStrings.MODULE_DIAMOND_PICK_UPGRADE, TOOLONLY, "diamondupgrade", MuseCommonStrings.CATEGORY_SPECIAL)
-				.setDescription("Add diamonds to allow your pickaxe module to mine Obsidian. *REQUIRES PICKAXE MODULE TO WORK*")
-				.addInstallCost(copyAndResize(ItemComponent.solenoid, 1)).addInstallCost(new ItemStack(Item.diamond, 3));
-		addModule(module);
-
 		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_AQUA_AFFINITY, TOOLONLY, "aquaaffinity", MuseCommonStrings.CATEGORY_SPECIAL)
 				.setDescription("Reduces the speed penalty for using your tool underwater.")
 				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 1))
@@ -315,6 +289,10 @@ public class Config {
 		addModule(new PlasmaCannonModule(TOOLONLY));
 		addModule(new RailgunModule(TOOLONLY));
 		addModule(new BlinkDriveModule(TOOLONLY));
+		addModule(new AxeModule(TOOLONLY));
+		addModule(new PickaxeModule(TOOLONLY));
+		addModule(new ShovelModule(TOOLONLY));
+		addModule(new DiamondPickUpgradeModule(TOOLONLY));
 
 		// All ========================================
 

@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.client.render;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.powersuits.common.ModularPowersuits;
-import net.machinemuse.powersuits.item.ItemPowerTool;
+import net.machinemuse.powersuits.item.ItemPowerGauntlet;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.client.renderer.entity.Render;
@@ -51,7 +51,7 @@ public class ToolRenderer extends Render implements IItemRenderer {
 	public void renderItem(ItemRenderType type, ItemStack itemStack, Object... data) {
 		boolean drawIcon = false;
 
-		Colour colour = ItemPowerTool.getColorFromItemStack(itemStack);
+		Colour colour = ItemPowerGauntlet.getColorFromItemStack(itemStack);
 		switch (type) {
 		case ENTITY:
 			RenderBlocks renderEntity = (RenderBlocks) data[0];
