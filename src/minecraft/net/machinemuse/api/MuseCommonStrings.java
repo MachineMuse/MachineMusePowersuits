@@ -7,8 +7,8 @@ import net.machinemuse.api.electricity.ElectricAdapter;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModCompatability;
-import net.machinemuse.powersuits.item.ItemPowerArmorHead;
-import net.machinemuse.powersuits.item.ItemPowerTool;
+import net.machinemuse.powersuits.item.ItemPowerArmorHelmet;
+import net.machinemuse.powersuits.item.ItemPowerGauntlet;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -106,7 +106,7 @@ public abstract class MuseCommonStrings {
 	 *            Whether or not the player has 'advanced tooltips' turned on in their settings.
 	 */
 	public static void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
-		if (stack.getItem() instanceof ItemPowerTool) {
+		if (stack.getItem() instanceof ItemPowerGauntlet) {
 			String mode = MuseItemUtils.getStringOrNull(stack, "Mode");
 			if (mode != null) {
 				currentTipList.add("Mode:" + MuseStringUtils.wrapFormatTags(mode, MuseStringUtils.FormatCodes.Red));

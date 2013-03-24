@@ -5,11 +5,11 @@ import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.event.EventHandler;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.machinemuse.powersuits.item.ItemPowerArmorFeet;
-import net.machinemuse.powersuits.item.ItemPowerArmorHead;
-import net.machinemuse.powersuits.item.ItemPowerArmorLegs;
-import net.machinemuse.powersuits.item.ItemPowerArmorTorso;
-import net.machinemuse.powersuits.item.ItemPowerTool;
+import net.machinemuse.powersuits.item.ItemPowerArmorBoots;
+import net.machinemuse.powersuits.item.ItemPowerArmorHelmet;
+import net.machinemuse.powersuits.item.ItemPowerArmorLeggings;
+import net.machinemuse.powersuits.item.ItemPowerArmorChestplate;
+import net.machinemuse.powersuits.item.ItemPowerGauntlet;
 import net.machinemuse.powersuits.network.MusePacketHandler;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
@@ -55,11 +55,11 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 		@SidedPacketHandler(channels = { "mmmPowersuits" }, packetHandler = MusePacketHandler.class))
 public class ModularPowersuits {
 
-	public static ItemPowerArmorHead powerArmorHead;
-	public static ItemPowerArmorTorso powerArmorTorso;
-	public static ItemPowerArmorLegs powerArmorLegs;
-	public static ItemPowerArmorFeet powerArmorFeet;
-	public static ItemPowerTool powerTool;
+	public static ItemPowerArmorHelmet powerArmorHead;
+	public static ItemPowerArmorChestplate powerArmorTorso;
+	public static ItemPowerArmorLeggings powerArmorLegs;
+	public static ItemPowerArmorBoots powerArmorFeet;
+	public static ItemPowerGauntlet powerTool;
 	public static ItemComponent components;
 	public static BlockTinkerTable tinkerTable;
 
@@ -112,11 +112,11 @@ public class ModularPowersuits {
 	 */
 	@Init
 	public void load(FMLInitializationEvent event) {
-		powerArmorHead = new ItemPowerArmorHead();
-		powerArmorTorso = new ItemPowerArmorTorso();
-		powerArmorLegs = new ItemPowerArmorLegs();
-		powerArmorFeet = new ItemPowerArmorFeet();
-		powerTool = new ItemPowerTool();
+		powerArmorHead = new ItemPowerArmorHelmet();
+		powerArmorTorso = new ItemPowerArmorChestplate();
+		powerArmorLegs = new ItemPowerArmorLeggings();
+		powerArmorFeet = new ItemPowerArmorBoots();
+		powerTool = new ItemPowerGauntlet();
 		tinkerTable = new BlockTinkerTable();
 		components = new ItemComponent();
 		components.populate();
