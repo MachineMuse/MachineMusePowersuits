@@ -24,6 +24,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public class BlockTinkerTable extends Block {
 	protected int renderType;
+	public static int assignedBlockID;
 
 	public BlockTinkerTable setRenderType(int id) {
 		this.renderType = id;
@@ -36,8 +37,8 @@ public class BlockTinkerTable extends Block {
 	public BlockTinkerTable() {
 		// Block constructor call
 		super(
-		// Block ID
-				Config.getAssignedBlockID(Config.Blocks.TinkerTable),
+				// Block ID
+				assignedBlockID,
 				// Material (used for various things like whether it can burn,
 				// whether it requires a tool, and whether it can be moved by a
 				// piston
@@ -70,7 +71,7 @@ public class BlockTinkerTable extends Block {
 		// Whether to receive random ticks e.g. plants
 		setTickRandomly(false);
 
-		LanguageRegistry.addName(this, Config.Blocks.TinkerTable.englishName);
+		LanguageRegistry.addName(this, "Power Armor Tinker Table");
 
 		// Harvest level for this block. par2 can be pickaxe, axe, or shovel, or
 		// a different toolclass. par3 is the minimum level of item required to
@@ -80,11 +81,11 @@ public class BlockTinkerTable extends Block {
 
 		// Register the tile entity, which is only used for rendering at the
 		// moment
-		GameRegistry.registerTileEntity(TileEntityTinkerTable.class, Config.Blocks.TinkerTable.idName);
+		GameRegistry.registerTileEntity(TileEntityTinkerTable.class, "tinkerTable");
 
 		// Finally, register the block so that it appears in the game. New
 		// standard requires a name to be passed.
-		GameRegistry.registerBlock(this, Config.Blocks.TinkerTable.idName);
+		GameRegistry.registerBlock(this, "tinkerTable");
 
 	}
 

@@ -9,7 +9,13 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.general.MuseStringUtils;
+import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.item.ItemComponent;
+import net.machinemuse.powersuits.item.ItemPowerArmorBoots;
+import net.machinemuse.powersuits.item.ItemPowerArmorHelmet;
+import net.machinemuse.powersuits.item.ItemPowerArmorLeggings;
+import net.machinemuse.powersuits.item.ItemPowerArmorChestplate;
+import net.machinemuse.powersuits.item.ItemPowerGauntlet;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.machinemuse.powersuits.powermodule.ToggleablePowerModule;
 import net.machinemuse.powersuits.powermodule.modules.BlinkDriveModule;
@@ -59,9 +65,6 @@ public class Config {
 	public static final String CITIZENJOE_ARMOR_PATH = TEXTURE_PREFIX + "models/joearmor.png";
 	public static final String CITIZENJOE_ARMORPANTS_PATH = TEXTURE_PREFIX + "models/joearmorpants.png";
 
-	private static final int[] assignedItemIDs = new int[Items.values().length];
-	private static final int[] assignedBlockIDs = new int[Blocks.values().length];
-
 	private static Configuration config;
 
 	/**
@@ -74,15 +77,15 @@ public class Config {
 		Config.config = config;
 		config.load();
 
-		// Request block IDs
-		for (Blocks b : Blocks.values()) {
-			assignedBlockIDs[b.ordinal()] = config.getBlock(b.englishName, b.defaultBlockId).getInt();
-		}
+		BlockTinkerTable.assignedBlockID = config.getBlock("Power Armor Tinker Table", 2477).getInt();
 
-		// Request item IDs
-		for (Items i : Items.values()) {
-			assignedItemIDs[i.ordinal()] = config.getItem(i.englishName, i.defaultItemID).getInt();
-		}
+		ItemComponent.assignedItemID = config.getItem("Power Armor Component", 24770).getInt();
+		ItemPowerArmorHelmet.assignedItemID = config.getItem("Power Armor Head", 24771).getInt();
+		ItemPowerArmorChestplate.assignedItemID = config.getItem("Power Armor Torso", 24772).getInt();
+		ItemPowerArmorLeggings.assignedItemID = config.getItem("Power Armor Legs", 24773).getInt();
+		ItemPowerArmorBoots.assignedItemID = config.getItem("Power Armor Feet", 24774).getInt();
+		ItemPowerGauntlet.assignedItemID = config.getItem("Power Tool", 24775).getInt();
+
 		config.save();
 	}
 
@@ -132,32 +135,6 @@ public class Config {
 	 */
 	public static boolean isDebugging() {
 		return config.get(Configuration.CATEGORY_GENERAL, "Debugging info", false).getBoolean(false);
-	}
-
-	/**
-	 * Once Forge has assigned IDs for all our items, this function will tell us what was actually assigned.
-	 * 
-	 * @param item
-	 * @return
-	 */
-	public static int getAssignedItemID(Items item) {
-		if (assignedItemIDs[item.ordinal()] == 0) {
-			assignedItemIDs[item.ordinal()] = config.getItem(item.englishName, item.defaultItemID).getInt();
-		}
-		return assignedItemIDs[item.ordinal()];
-	}
-
-	/**
-	 * Once Forge has assigned IDs for all our blocks, this function will tell us what was actually assigned.
-	 * 
-	 * @param item
-	 * @return
-	 */
-	public static int getAssignedBlockID(Blocks block) {
-		if (assignedBlockIDs[block.ordinal()] == 0) {
-			assignedBlockIDs[block.ordinal()] = config.getBlock(block.englishName, block.defaultBlockId).getInt();
-		}
-		return assignedBlockIDs[block.ordinal()];
 	}
 
 	/**
@@ -340,57 +317,6 @@ public class Config {
 		addModule(new BlinkDriveModule(TOOLONLY));
 
 		// All ========================================
-
-	}
-
-	/**
-	 * An enum listing all the blocks that this mod adds. Used for assigning IDs and various other things.
-	 * 
-	 * @author MachineMuse
-	 * 
-	 */
-	public static enum Blocks {
-		TinkerTable(2477, 0, "tinkerTable", "Power Armor Tinker Table");
-
-		public final int defaultBlockId;
-		public final int textureIndex;
-		public final String idName;
-		public final String englishName;
-
-		private Blocks(int defaultBlockId, int textureIndex, String idName, String englishName) {
-			this.defaultBlockId = defaultBlockId;
-			this.textureIndex = textureIndex;
-			this.idName = idName;
-			this.englishName = englishName;
-		}
-
-	}
-
-	/**
-	 * An enum listing all the items that this mod adds. Used for assigning IDs and various other things.
-	 * 
-	 * @author MachineMuse
-	 * 
-	 */
-	public static enum Items {
-		// Icon index, ID name, English name, Armor Type
-		PowerArmorHead(24770, 0, "powerArmorHead", "Power Armor Head"), PowerArmorTorso(24771, 1, "powerArmorTorso", "Power Armor Torso"), PowerArmorLegs(
-				24772, 2, "powerArmorLegs", "Power Armor Legs"), PowerArmorFeet(24773, 3, "powerArmorFeet", "Power Armor Feet"), PowerTool(24774, 4,
-				"powerTool", "Power Tool"), PowerArmorComponent(24775, 5, "powerArmorComponent", "Power Armor Component"),
-
-		;
-
-		public final int defaultItemID;
-		public final int iconIndex;
-		public final String idName;
-		public final String englishName;
-
-		Items(int defaultItemID, int iconIndex, String idName, String englishName) {
-			this.defaultItemID = defaultItemID;
-			this.iconIndex = iconIndex;
-			this.idName = idName;
-			this.englishName = englishName;
-		}
 
 	}
 
