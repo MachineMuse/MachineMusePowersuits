@@ -8,7 +8,7 @@
 	<property name="fullversion" value="${build.ver}-${env.BUILD_NUMBER}" />
 	<property name="mcp.version" value="742" />
 	<property name="forgebuild" value="605" />
-	<property name="forge.version" value="1.5-7.7.0.${forgebuild}" />
+	<property name="forge.version" value="1.5.1-7.7.0.${forgebuild}" />
 	<property name="ic2api.version" value="1.115.218-lf" />
 	<property name="ueapi.version" value="1.3.0.352" />
 	<property name="asapi.version" value="0.5.0.166" />
