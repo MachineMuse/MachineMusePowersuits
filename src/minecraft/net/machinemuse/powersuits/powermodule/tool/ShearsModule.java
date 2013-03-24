@@ -106,7 +106,7 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
 
 	@Override
 	public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
-		if (shears.canHarvestBlock(block) || ForgeHooks.canToolHarvestBlock(block, meta, shears)) {
+		if (shears.canHarvestBlock(block) || ForgeHooks.canToolHarvestBlock(block, meta, shears) || shears.getStrVsBlock(block) > 1) {
 			if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SHEARING_ENERGY_CONSUMPTION)) {
 				return true;
 			}
@@ -150,7 +150,9 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
 
 	@Override
 	public void handleBreakSpeed(BreakSpeed event) {
-		event.newSpeed *= ModuleManager.computeModularProperty(event.entityPlayer.getCurrentEquippedItem(), SHEARING_HARVEST_SPEED);
+		float defaultEffectiveness = shears.getStrVsBlock(event.block);
+		double ourEffectiveness = ModuleManager.computeModularProperty(event.entityPlayer.getCurrentEquippedItem(), SHEARING_HARVEST_SPEED);
+		event.newSpeed *= Math.max(defaultEffectiveness, ourEffectiveness);
 
 	}
 

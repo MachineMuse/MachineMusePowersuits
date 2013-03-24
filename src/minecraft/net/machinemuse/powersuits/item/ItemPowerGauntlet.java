@@ -99,7 +99,7 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 	/** FORGE: Overridden to allow custom tool effectiveness */
 	@Override
 	public float getStrVsBlock(ItemStack stack, Block block, int meta) {
-		return 0;
+		return 1;
 	}
 
 	public static boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
@@ -146,9 +146,7 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 		if (entity instanceof EntityPlayer) {
 			for (IBlockBreakingModule module : ModuleManager.getBlockBreakingModules()) {
 				if (MuseItemUtils.itemHasActiveModule(stack, module.getName())) {
-					if (module.onBlockDestroyed(stack, world, blockID, x, y, z, (EntityPlayer) entity)) {
-						return true;
-					}
+					module.onBlockDestroyed(stack, world, blockID, x, y, z, (EntityPlayer) entity);
 				}
 			}
 		}
