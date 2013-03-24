@@ -35,6 +35,7 @@ import net.machinemuse.powersuits.powermodule.movement.SwimAssistModule;
 import net.machinemuse.powersuits.powermodule.tool.AquaAffinityModule;
 import net.machinemuse.powersuits.powermodule.tool.AxeModule;
 import net.machinemuse.powersuits.powermodule.tool.DiamondPickUpgradeModule;
+import net.machinemuse.powersuits.powermodule.tool.HoeModule;
 import net.machinemuse.powersuits.powermodule.tool.PickaxeModule;
 import net.machinemuse.powersuits.powermodule.tool.ShearsModule;
 import net.machinemuse.powersuits.powermodule.tool.ShovelModule;
@@ -209,6 +210,7 @@ public class Config {
 		addModule(new PickaxeModule(TOOLONLY));
 		addModule(new ShovelModule(TOOLONLY));
 		addModule(new ShearsModule(TOOLONLY));
+		addModule(new HoeModule(TOOLONLY));
 
 		// Weapon
 		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_MELEE_ASSIST, TOOLONLY, "toolfist", MuseCommonStrings.CATEGORY_WEAPON)

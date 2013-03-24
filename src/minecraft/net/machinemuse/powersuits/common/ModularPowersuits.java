@@ -49,10 +49,8 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 // things that add new blocks/items, false for things like Rei's Minimap or
 // Inventory Tweaks.
 @NetworkMod(clientSideRequired = true, serverSideRequired = true,
-		clientPacketHandlerSpec =
-		@SidedPacketHandler(channels = { "mmmPowersuits" }, packetHandler = MusePacketHandler.class),
-		serverPacketHandlerSpec =
-		@SidedPacketHandler(channels = { "mmmPowersuits" }, packetHandler = MusePacketHandler.class))
+		clientPacketHandlerSpec = @SidedPacketHandler(channels = { "mmmPowersuits" }, packetHandler = MusePacketHandler.class),
+		serverPacketHandlerSpec = @SidedPacketHandler(channels = { "mmmPowersuits" }, packetHandler = MusePacketHandler.class))
 public class ModularPowersuits {
 
 	public static ItemPowerArmorHelmet powerArmorHead;
@@ -75,7 +73,9 @@ public class ModularPowersuits {
 	 * execute side-specific code like registering renderers (for the client) or
 	 * different tick handlers (for the server).
 	 */
-	@SidedProxy(clientSide = "net.machinemuse.powersuits.client.ClientProxy", serverSide = "net.machinemuse.powersuits.common.CommonProxy")
+	@SidedProxy(
+			clientSide = "net.machinemuse.powersuits.client.ClientProxy",
+			serverSide = "net.machinemuse.powersuits.common.CommonProxy")
 	public static CommonProxy proxy;
 
 	/**
