@@ -23,6 +23,7 @@ import net.minecraftforge.event.entity.player.UseHoeEvent;
 
 public class HoeModule extends PowerModuleBase implements IPowerModule, IRightClickModule {
 	public static final String HOE_ENERGY_CONSUMPTION = "Hoe Energy Consumption";
+	public static final String HOE_SEARCH_RADIUS = "Hoe Search Radius";
 
 	public HoeModule(List<IModularItem> validItems) {
 		super(validItems);
@@ -30,6 +31,8 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
 
 		addBaseProperty(HOE_ENERGY_CONSUMPTION, 50);
+		addTradeoffProperty("Search Radius", HOE_ENERGY_CONSUMPTION, 950);
+		addTradeoffProperty("Search Radius", HOE_SEARCH_RADIUS, 8, "m");
 	}
 
 	@Override
@@ -45,41 +48,37 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
 		else
 		{
 			UseHoeEvent event = new UseHoeEvent(player, itemStack, world, x, y, z);
-			if (MinecraftForge.EVENT_BUS.post(event))
-			{
+			if (MinecraftForge.EVENT_BUS.post(event)) {
 				return;
 			}
 
-			if (event.getResult() == Result.ALLOW)
-			{
+			if (event.getResult() == Result.ALLOW) {
 				ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemStack, HOE_ENERGY_CONSUMPTION));
 				return;
 			}
 
-			int i1 = world.getBlockId(x, y, z);
-			int j1 = world.getBlockId(x, y + 1, z);
-
-			if ((side == 0 || j1 != 0 || i1 != Block.grass.blockID) && i1 != Block.dirt.blockID)
+			if (world.isRemote)
 			{
 				return;
 			}
-			else
-			{
-				Block block = Block.tilledField;
-				world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F),
-						block.stepSound.getStepSound(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
-
-				if (world.isRemote)
-				{
-					return;
-				}
-				else
-				{
-					world.setBlock(x, y, z, block.blockID);
-					ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemStack, HOE_ENERGY_CONSUMPTION));
-					return;
+			int i1 = world.getBlockId(x, y, z);
+			int j1 = world.getBlockId(x, y + 1, z);
+			double radius = (int) ModuleManager.computeModularProperty(itemStack, HOE_SEARCH_RADIUS);
+			for (int i = (int) Math.floor(-radius); i < radius; i++) {
+				for (int j = (int) Math.floor(-radius); j < radius; j++) {
+					if (i * i + j * j < radius * radius) {
+						int id = world.getBlockId(x + i, y, z + j);
+						if (id == Block.grass.blockID || id == Block.dirt.blockID) {
+							world.setBlock(x + i, y, z + j, Block.tilledField.blockID);
+							ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemStack, HOE_ENERGY_CONSUMPTION));
+						}
+					}
 				}
 			}
+			world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F),
+					Block.tilledField.stepSound.getStepSound(), (Block.tilledField.stepSound.getVolume() + 1.0F) / 2.0F,
+					Block.tilledField.stepSound.getPitch() * 0.8F);
+
 		}
 	}
 
