@@ -8,7 +8,6 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.electricity.ElectricItemUtils;
-import net.machinemuse.api.moduletrigger.IOnItemUseModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
@@ -378,9 +377,9 @@ public class ItemPowerTool extends ItemElectricTool implements IModularItem {
 	
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-		for (IOnItemUseModule module : ModuleManager.getOnItemUseModules()) {
+		for (IRightClickModule module : ModuleManager.getRightClickModules()) {
 			if (module.isValidForItem(stack, player) && MuseItemUtils.itemHasActiveModule(stack, module.getName())) {
-				((IOnItemUseModule) module).onItemUse(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
+				((IRightClickModule) module).onItemUse(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
 			}
 		}
 		return false;
