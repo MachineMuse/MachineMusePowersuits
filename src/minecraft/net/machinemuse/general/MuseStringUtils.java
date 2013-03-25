@@ -69,7 +69,7 @@ public abstract class MuseStringUtils {
 	 */
 	public static String formatNumberFromUnits(double number, String units) {
 		if (units.equals("%")) {
-			return formatNumberPercent(number) + "%";
+			return formatNumberPercent(number) + '%';
 		} else {
 			return formatNumberShort(number) + units;
 		}
@@ -160,9 +160,9 @@ public abstract class MuseStringUtils {
 
 		int i = 0;
 		while (i + length < str.length()) {
-			int j = str.lastIndexOf(" ", i + length);
+			int j = str.lastIndexOf(' ', i + length);
 			if (j == -1) {
-				j = str.indexOf(" ", i + length);
+				j = str.indexOf(' ', i + length);
 			}
 			if (j == -1) {
 				break;

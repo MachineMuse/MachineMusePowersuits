@@ -53,7 +53,7 @@ public class MusePacketInventoryRefresh extends MusePacket {
 		IInventory inventory = player.inventory;
 		inventory.setInventorySlotContents(slot, stack);
 		GuiScreen playerscreen = Minecraft.getMinecraft().currentScreen;
-		if (playerscreen != null && playerscreen instanceof MuseGui) {
+		if (playerscreen instanceof MuseGui) {
 			((MuseGui) playerscreen).refresh();
 		}
 

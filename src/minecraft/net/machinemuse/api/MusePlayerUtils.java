@@ -30,9 +30,7 @@ public class MusePlayerUtils {
 		List entitiesHit = world.getEntitiesWithinAABBExcludingEntity(player, boxToScan);
 		double closestEntity = reachDistance;
 
-		for (int i = 0; i < entitiesHit.size(); ++i) {
-			Entity entityHit = (Entity) entitiesHit.get(i);
-
+		for (Entity entityHit : (Iterable<Entity>) entitiesHit) {
 			if (entityHit != null && entityHit.canBeCollidedWith()) {
 				float border = entityHit.getCollisionBorderSize();
 				AxisAlignedBB aabb = entityHit.boundingBox.expand((double) border, (double) border, (double) border);

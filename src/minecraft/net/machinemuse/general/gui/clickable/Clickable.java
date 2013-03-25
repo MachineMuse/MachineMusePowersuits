@@ -18,6 +18,7 @@ public abstract class Clickable implements IClickable {
 		position = point;
 	}
 
+	@Override
 	public MusePoint2D getPosition() {
 		return position;
 	}
@@ -25,6 +26,7 @@ public abstract class Clickable implements IClickable {
 	public void setPosition(MusePoint2D position) {
 		this.position = position;
 	}
+	@Override
 	public void move(double x, double y) {
 		this.position.setX(x);
 		this.position.setY(y);

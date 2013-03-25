@@ -50,7 +50,7 @@ public class RenderTickHandler implements ITickHandler {
 			if (maxEnergy > 0) {
 				String currStr = MuseStringUtils.formatNumberShort(currEnergy);
 				String maxStr = MuseStringUtils.formatNumberShort(maxEnergy);
-				MuseRenderer.drawString(currStr + "/" + maxStr + " J", 1, 1);
+				MuseRenderer.drawString(currStr + '/' + maxStr + " J", 1, 1);
 			}
 		}
 		if (Minecraft.getMinecraft().currentScreen == null) {

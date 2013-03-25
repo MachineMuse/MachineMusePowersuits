@@ -64,10 +64,7 @@ public class ClickableModule extends Clickable {
 	}
 
 	public boolean equals(ClickableModule other) {
-		if (this.module.equals(other.module)) {
-			return true;
-		}
-		return false;
+		return this.module.equals(other.module);
 	}
 
 }

@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.common;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import net.machinemuse.api.IModularItem;
@@ -177,11 +178,11 @@ public class Config {
 				ModularPowersuits.powerArmorLegs, ModularPowersuits.powerArmorFeet);
 		List<IModularItem> ALLITEMS = Arrays.asList((IModularItem) ModularPowersuits.powerArmorHead, ModularPowersuits.powerArmorTorso,
 				ModularPowersuits.powerArmorLegs, ModularPowersuits.powerArmorFeet, ModularPowersuits.powerTool);
-		List<IModularItem> HEADONLY = Arrays.asList((IModularItem) ModularPowersuits.powerArmorHead);
-		List<IModularItem> TORSOONLY = Arrays.asList((IModularItem) ModularPowersuits.powerArmorTorso);
-		List<IModularItem> LEGSONLY = Arrays.asList((IModularItem) ModularPowersuits.powerArmorLegs);
-		List<IModularItem> FEETONLY = Arrays.asList((IModularItem) ModularPowersuits.powerArmorFeet);
-		List<IModularItem> TOOLONLY = Arrays.asList((IModularItem) ModularPowersuits.powerTool);
+		List<IModularItem> HEADONLY = Collections.singletonList((IModularItem) ModularPowersuits.powerArmorHead);
+		List<IModularItem> TORSOONLY = Collections.singletonList((IModularItem) ModularPowersuits.powerArmorTorso);
+		List<IModularItem> LEGSONLY = Collections.singletonList((IModularItem) ModularPowersuits.powerArmorLegs);
+		List<IModularItem> FEETONLY = Collections.singletonList((IModularItem) ModularPowersuits.powerArmorFeet);
+		List<IModularItem> TOOLONLY = Collections.singletonList((IModularItem) ModularPowersuits.powerTool);
 
 		IPowerModule module;
 

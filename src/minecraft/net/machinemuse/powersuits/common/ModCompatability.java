@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.common;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Collections;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
@@ -112,7 +113,7 @@ public class ModCompatability {
 				return null;
 			}
 		} catch (Exception e) {
-			System.out.println("IC2 API: Call getItem failed for " + name);
+			MuseLogger.logError("IC2 API: Call getItem failed for " + name);
 
 			return null;
 		}
@@ -122,7 +123,7 @@ public class ModCompatability {
 		try {
 			return (ItemStack) Class.forName("gregtechmod.GT_Mod")
 					.getMethod("getGregTechItem", new Class[] { Integer.TYPE, Integer.TYPE, Integer.TYPE })
-					.invoke(null, new Object[] { Integer.valueOf(aIndex), Integer.valueOf(aAmount), Integer.valueOf(aMeta) });
+					.invoke(null, Integer.valueOf(aIndex), Integer.valueOf(aAmount), Integer.valueOf(aMeta));
 		} catch (Exception e) {
 		}
 		return null;
@@ -142,7 +143,7 @@ public class ModCompatability {
 				Field itemGoggles = tcItems.getField("itemGoggles");
 				Item goggles = (Item) itemGoggles.get(itemGoggles);
 				gogglesStack = new ItemStack(goggles);
-				IPowerModule module = new PowerModule("Aurameter", Arrays.asList((IModularItem) ModularPowersuits.powerArmorHead), "bluestar",
+				IPowerModule module = new PowerModule("Aurameter", Collections.singletonList((IModularItem) ModularPowersuits.powerArmorHead), "bluestar",
 						MuseCommonStrings.CATEGORY_SPECIAL)
 						.setDescription(
 								"Connect up some Thaumic goggles to show the nearby aura values. (Does not reveal aura nodes, only shows the HUD)")
@@ -154,13 +155,13 @@ public class ModCompatability {
 
 		}
 
-		IPowerModule module = new MultimeterModule(Arrays.asList((IModularItem) ModularPowersuits.powerTool));
+		IPowerModule module = new MultimeterModule(Collections.singletonList((IModularItem) ModularPowersuits.powerTool));
 
 		if (ModCompatability.isAtomicScienceLoaded()) {
 
-			module = new ToggleablePowerModule(MuseCommonStrings.MODULE_HAZMAT, Arrays.asList(
-					(IModularItem) ModularPowersuits.powerArmorHead, (IModularItem) ModularPowersuits.powerArmorTorso,
-					(IModularItem) ModularPowersuits.powerArmorLegs, (IModularItem) ModularPowersuits.powerArmorFeet), "greenstar",
+			module = new ToggleablePowerModule(MuseCommonStrings.MODULE_HAZMAT, Arrays.<IModularItem>asList(
+					ModularPowersuits.powerArmorHead, ModularPowersuits.powerArmorTorso,
+					ModularPowersuits.powerArmorLegs, ModularPowersuits.powerArmorFeet), "greenstar",
 					MuseCommonStrings.CATEGORY_ARMOR)
 					.setDescription("Protect yourself from that pesky radiation poisoning. *Must be on every piece*")
 					.addInstallCost(Config.copyAndResize(ItemComponent.basicPlating, 3)).addBaseProperty(MuseCommonStrings.WEIGHT, 0.5);

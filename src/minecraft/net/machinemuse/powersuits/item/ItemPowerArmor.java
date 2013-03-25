@@ -112,6 +112,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 		return value;
 	}
 
+	@Override
 	public int getItemEnchantability() {
 		return 0;
 	}
@@ -125,6 +126,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 		return colour;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public int getColorFromItemStack(ItemStack stack, int par2) {
 		Colour c = getColorFromItemStack(stack);
@@ -140,6 +142,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 		return c.getInt();
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean requiresMultipleRenderPasses() {
 		return false;
@@ -148,14 +151,11 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 	/**
 	 * Return whether the specified armor ItemStack has a color.
 	 */
+	@Override
 	public boolean hasColor(ItemStack stack) {
 		NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-		if (MuseItemUtils.tagHasModule(itemTag, MuseCommonStrings.RED_TINT) || MuseItemUtils.tagHasModule(itemTag, MuseCommonStrings.GREEN_TINT)
-				|| MuseItemUtils.tagHasModule(itemTag, MuseCommonStrings.BLUE_TINT)) {
-			return true;
-		} else {
-			return false;
-		}
+		return MuseItemUtils.tagHasModule(itemTag, MuseCommonStrings.RED_TINT) || MuseItemUtils.tagHasModule(itemTag, MuseCommonStrings.GREEN_TINT)
+				|| MuseItemUtils.tagHasModule(itemTag, MuseCommonStrings.BLUE_TINT);
 	}
 
 	/**
@@ -220,7 +220,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 	}
 
 	public static String formatInfo(String string, double value) {
-		return string + "\t" + MuseStringUtils.formatNumberShort(value);
+		return string + '\t' + MuseStringUtils.formatNumberShort(value);
 	}
 
 	@Override
@@ -229,8 +229,8 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 		NBTTagCompound itemProperties = MuseItemUtils.getMuseItemTag(stack);
 		info.add("Detailed Summary");
 		info.add(formatInfo("Armor", getArmorDouble(player, stack)));
-		info.add(formatInfo("Energy Storage", getMaxJoules(stack)) + "J");
-		info.add(formatInfo("Weight", MuseCommonStrings.getTotalWeight(stack)) + "g");
+		info.add(formatInfo("Energy Storage", getMaxJoules(stack)) + 'J');
+		info.add(formatInfo("Weight", MuseCommonStrings.getTotalWeight(stack)) + 'g');
 		return info;
 	}
 

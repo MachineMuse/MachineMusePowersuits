@@ -13,29 +13,28 @@ public class PowerModule extends PowerModuleBase {
 	public PowerModule(String name, List<IModularItem> validItems, String textureFile, String category) {
 		super(name, validItems);
 		this.name = name;
-		this.icon = icon;
 		this.category = category;
 		this.textureFile = textureFile;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public String getDescription() {
 		return description;
 	}
 
+	@Override
 	public String getCategory() {
 		return category;
 	}
 
 	public static String getUnit(String propertyName) {
-		if (units.containsKey(propertyName)) {
-			return units.get(propertyName);
-		} else {
-			return "";
-		}
+		String unit = units.get(propertyName);
+		return unit == null ? "" : unit;
 	}
 
 	public PowerModule setDescription(String description) {

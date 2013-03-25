@@ -66,6 +66,7 @@ public class ItemComponent extends Item {
 		return stack;
 	}
 
+	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
 		if (Config.doAdditionalInfo()) {
 			String message = "For use in Tinker Table.";
@@ -123,6 +124,7 @@ public class ItemComponent extends Item {
 	/**
 	 * Gets an icon index based on an item's damage value
 	 */
+	@Override
 	public Icon getIconFromDamage(int index) {
 		return icons.get(index);
 	}
@@ -148,6 +150,7 @@ public class ItemComponent extends Item {
 	/**
 	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items). For creative tab.
 	 */
+	@Override
 	public void getSubItems(int itemID, CreativeTabs tab, List listToAddTo) {
 		for (int i = 0; i < names.size(); ++i) {
 			listToAddTo.add(new ItemStack(itemID, 1, i));

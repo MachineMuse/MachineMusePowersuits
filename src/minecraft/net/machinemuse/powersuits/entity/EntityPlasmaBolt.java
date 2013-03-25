@@ -23,7 +23,7 @@ public class EntityPlasmaBolt extends EntityThrowable {
 	public EntityPlasmaBolt(World world)
 	{
 		super(world);
-		dataWatcher.addObject(SIZE, Byte.valueOf((byte) this.size));
+		dataWatcher.addObject(SIZE, (byte) this.size);
 	}
 
 	public EntityPlasmaBolt(World world, EntityLiving shootingEntity, double explosiveness, double damagingness, int chargeTicks) {
@@ -48,7 +48,7 @@ public class EntityPlasmaBolt extends EntityThrowable {
 		this.posY = shootingEntity.posY + shootingEntity.getEyeHeight() + direction.yCoord * xoffset + (1 - Math.abs(direction.yCoord)) * yoffset;
 		this.posZ = shootingEntity.posZ + direction.zCoord * xoffset - direction.yCoord * horzdir.zCoord * yoffset + horzdir.xCoord * zoffset;
 		this.boundingBox.setBounds(posX - r, posY - r, posZ - r, posX + r, posY + r, posZ + r);
-		dataWatcher.addObject(SIZE, Byte.valueOf((byte) this.size));
+		dataWatcher.addObject(SIZE, (byte) this.size);
 	}
 
 	@Override
@@ -79,6 +79,7 @@ public class EntityPlasmaBolt extends EntityThrowable {
 	 * returns if this entity triggers Block.onEntityWalking on the blocks they
 	 * walk on. used for spiders and wolves to prevent them from trampling crops
 	 */
+	@Override
 	protected boolean canTriggerWalking()
 	{
 		return false;
@@ -88,11 +89,13 @@ public class EntityPlasmaBolt extends EntityThrowable {
 	 * If returns false, the item will not inflict any damage against entities.
 	 * (damage is computed separately in the onDamage function)
 	 */
+	@Override
 	public boolean canAttackWithItem()
 	{
 		return false;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public float getShadowSize()
 	{
@@ -116,6 +119,7 @@ public class EntityPlasmaBolt extends EntityThrowable {
 	/**
 	 * Gets the amount of gravity to apply to the thrown entity with each tick.
 	 */
+	@Override
 	protected float getGravityVelocity()
 	{
 		return 0;
