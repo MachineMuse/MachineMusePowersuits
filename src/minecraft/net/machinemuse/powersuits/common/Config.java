@@ -8,6 +8,7 @@ import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.electricity.ElectricItemUtils;
+import net.machinemuse.api.electricity.IC2ElectricAdapter;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -186,7 +187,8 @@ public class Config {
 
 		// Armor
 		module = new PowerModule(MuseCommonStrings.MODULE_BASIC_PLATING, ARMORONLY, "basicplating2", MuseCommonStrings.CATEGORY_ARMOR)
-				.setDescription("Basic plating is heavy but protective.").addInstallCost(copyAndResize(ItemComponent.basicPlating, 1))
+				.setDescription("Basic plating is heavy but protective.")
+				.addInstallCost(copyAndResize(ItemComponent.basicPlating, 1))
 				.addTradeoffProperty("Plating Thickness", MuseCommonStrings.ARMOR_VALUE_PHYSICAL, 5, " Points")
 				.addTradeoffProperty("Plating Thickness", MuseCommonStrings.WEIGHT, 10000, "g");
 		addModule(module);
@@ -215,12 +217,14 @@ public class Config {
 		// Weapon
 		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_MELEE_ASSIST, TOOLONLY, "toolfist", MuseCommonStrings.CATEGORY_WEAPON)
 				.setDescription("A much simpler addon, makes your powertool punches hit harder.")
-				.addBaseProperty(MuseCommonStrings.PUNCH_ENERGY, 10, "J").addBaseProperty(MuseCommonStrings.PUNCH_DAMAGE, 2, "pt")
+				.addBaseProperty(MuseCommonStrings.PUNCH_ENERGY, 10, "J")
+				.addBaseProperty(MuseCommonStrings.PUNCH_DAMAGE, 2, "pt")
 				.addTradeoffProperty("Impact", MuseCommonStrings.PUNCH_ENERGY, 100, "J")
 				.addTradeoffProperty("Impact", MuseCommonStrings.PUNCH_DAMAGE, 8, "pt")
 				.addTradeoffProperty("Carry-through", MuseCommonStrings.PUNCH_ENERGY, 20, "J")
 				.addTradeoffProperty("Carry-through", MuseCommonStrings.PUNCH_KNOCKBACK, 1, "P")
-				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2)).addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1));
+				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
+				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1));
 		addModule(module);
 		addModule(new PlasmaCannonModule(TOOLONLY));
 		addModule(new RailgunModule(TOOLONLY));
@@ -228,23 +232,34 @@ public class Config {
 		// Energy
 		module = new PowerModule(MuseCommonStrings.MODULE_BATTERY_BASIC, ALLITEMS, "lvbattery", MuseCommonStrings.CATEGORY_ENERGY)
 				.setDescription("Integrate a battery to allow the item to store energy.").addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1))
-				.addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 20000, "J").addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g")
+				.addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 20000, "J")
+				.addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g")
 				.addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 80000)
-				.addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000);
+				.addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000)
+				.addBaseProperty(IC2ElectricAdapter.IC2_TIER, 1)
+				.addTradeoffProperty("IC2 Tier", IC2ElectricAdapter.IC2_TIER, 2);
 		addModule(module);
 
 		module = new PowerModule(MuseCommonStrings.MODULE_BATTERY_ADVANCED, ALLITEMS, "mvbattery", MuseCommonStrings.CATEGORY_ENERGY)
 				.setDescription("Integrate a more advanced battery to store more energy.")
-				.addInstallCost(copyAndResize(ItemComponent.mvcapacitor, 1)).addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 100000, "J")
-				.addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g").addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 400000)
-				.addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000);
+				.addInstallCost(copyAndResize(ItemComponent.mvcapacitor, 1))
+				.addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 100000, "J")
+				.addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g")
+				.addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 400000)
+				.addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000)
+				.addBaseProperty(IC2ElectricAdapter.IC2_TIER, 1)
+				.addTradeoffProperty("IC2 Tier", IC2ElectricAdapter.IC2_TIER, 2);
 		addModule(module);
 
 		module = new PowerModule(MuseCommonStrings.MODULE_BATTERY_ELITE, ALLITEMS, "crystalcapacitor", MuseCommonStrings.CATEGORY_ENERGY)
 				.setDescription("Integrate a the most advanced battery to store an extensive amount of energy.")
-				.addInstallCost(copyAndResize(ItemComponent.hvcapacitor, 1)).addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 750000, "J")
-				.addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g").addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 4250000)
-				.addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000);
+				.addInstallCost(copyAndResize(ItemComponent.hvcapacitor, 1))
+				.addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 750000, "J")
+				.addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g")
+				.addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 4250000)
+				.addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000)
+				.addBaseProperty(IC2ElectricAdapter.IC2_TIER, 1)
+				.addTradeoffProperty("IC2 Tier", IC2ElectricAdapter.IC2_TIER, 2);
 		addModule(module);
 
 		// Movement

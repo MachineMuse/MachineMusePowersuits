@@ -1,8 +1,10 @@
 package net.machinemuse.powersuits.item;
 
+import ic2.api.ICustomElectricItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.electricity.ElectricItemUtils;
+import net.machinemuse.api.electricity.IC2ElectricAdapter;
 import net.machinemuse.api.electricity.UEElectricAdapter;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemArmor;
@@ -11,7 +13,9 @@ import universalelectricity.core.electricity.ElectricityPack;
 import universalelectricity.core.item.IItemElectric;
 
 public class ItemElectricArmor extends ItemArmor
-		implements IItemElectric
+		implements
+		IItemElectric,
+		ICustomElectricItem
 /**
  * implements IItemElectric, // Universal Electricity ICustomElectricItem, // Industrial Craft 2 IEMPItem, // for ICBM EMP interfacing
  * IAntiPoisonArmor, // for atomic science hazmat suits IChargeableItem // for Thermal Expansion
@@ -141,6 +145,67 @@ public class ItemElectricArmor extends ItemArmor
 	@Override
 	public ElectricityPack getProvideRequest(ItemStack itemStack) {
 		return UEElectricAdapter.museEnergyToElectricityPack(getMaxEnergy(itemStack) - getCurrentEnergy(itemStack), getVoltage(itemStack));
+	}
+
+	@Override
+	public boolean canProvideEnergy(ItemStack itemStack) {
+		return true;
+	}
+
+	@Override
+	public int getChargedItemId(ItemStack itemStack) {
+		return itemStack.itemID;
+	}
+
+	@Override
+	public int getEmptyItemId(ItemStack itemStack) {
+		return itemStack.itemID;
+	}
+
+	@Override
+	public int getMaxCharge(ItemStack itemStack) {
+		return (int) IC2ElectricAdapter.museEnergyToEU(getCurrentEnergy(itemStack));
+	}
+
+	@Override
+	public int getTier(ItemStack itemStack) {
+		return IC2ElectricAdapter.getTier(itemStack);
+	}
+
+	@Override
+	public int getTransferLimit(ItemStack itemStack) {
+		return (int) IC2ElectricAdapter.museEnergyToEU(Math.sqrt(getMaxEnergy(itemStack)));
+	}
+
+	@Override
+	public int charge(ItemStack itemStack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
+		double current = getCurrentEnergy(itemStack);
+		double given = giveEnergyTo(itemStack, IC2ElectricAdapter.museEnergyFromEU(amount));
+		if (simulate) {
+			setCurrentEnergy(itemStack, current);
+		}
+		return (int) IC2ElectricAdapter.museEnergyToEU(given);
+	}
+
+	@Override
+	public int discharge(ItemStack itemStack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
+		double current = getCurrentEnergy(itemStack);
+		double taken = drainEnergyFrom(itemStack, IC2ElectricAdapter.museEnergyFromEU(amount));
+		if (simulate) {
+			setCurrentEnergy(itemStack, current);
+		}
+		return (int) IC2ElectricAdapter.museEnergyToEU(taken);
+	}
+
+	@Override
+	public boolean canUse(ItemStack itemStack, int amount) {
+		double requested = IC2ElectricAdapter.museEnergyFromEU(amount);
+		return requested < getCurrentEnergy(itemStack);
+	}
+
+	@Override
+	public boolean canShowChargeToolTip(ItemStack itemStack) {
+		return false;
 	}
 
 }

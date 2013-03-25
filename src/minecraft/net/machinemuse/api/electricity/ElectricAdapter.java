@@ -1,5 +1,6 @@
 package net.machinemuse.api.electricity;
 
+import ic2.api.IElectricItem;
 import net.minecraft.item.ItemStack;
 import universalelectricity.core.item.IItemElectric;
 
@@ -10,8 +11,8 @@ public abstract class ElectricAdapter {
 		}
 		if (stack.getItem() instanceof IItemElectric) {
 			return new UEElectricAdapter(stack);
-			// } else if (stack.getItem() instanceof IElectricItem) {
-			// return new IC2ElectricAdapter(stack);
+		} else if (stack.getItem() instanceof IElectricItem) {
+			return new IC2ElectricAdapter(stack);
 			// } else if (stack.getItem() instanceof IChargeableItem) {
 			// return new TEElectricAdapter(stack);
 			// } else if (stack.getItem() instanceof IXynergyItem) {
