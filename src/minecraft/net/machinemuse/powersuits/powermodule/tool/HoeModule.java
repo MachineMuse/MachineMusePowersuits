@@ -41,11 +41,7 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
 
 	@Override
 	public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-		if (!player.canPlayerEdit(x, y, z, side, itemStack))
-		{
-			return;
-		}
-		else
+		if (player.canPlayerEdit(x, y, z, side, itemStack))
 		{
 			UseHoeEvent event = new UseHoeEvent(player, itemStack, world, x, y, z);
 			if (MinecraftForge.EVENT_BUS.post(event)) {

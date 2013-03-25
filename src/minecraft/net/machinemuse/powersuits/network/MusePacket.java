@@ -54,7 +54,6 @@ public abstract class MusePacket {
 	 * @return Packet250CustomPayload
 	 */
 	public Packet250CustomPayload getPacket250() {
-		byte[] output = bytes.toByteArray();
 		return new Packet250CustomPayload(Config.getNetworkChannelName(),
 				bytes.toByteArray());
 	}
@@ -62,7 +61,7 @@ public abstract class MusePacket {
 	/**
 	 * Called by the network manager since it does all the packet mapping
 	 * 
-	 * @param player2
+	 * @param player
 	 */
 	public abstract void handleClient(EntityClientPlayerMP player);
 
@@ -246,7 +245,7 @@ public abstract class MusePacket {
 			{
 				throw new IOException(
 						"Received string length longer than maximum allowed ("
-								+ length + " > " + maxlength + ")");
+								+ length + " > " + maxlength + ')');
 			}
 			else if (length < 0)
 			{

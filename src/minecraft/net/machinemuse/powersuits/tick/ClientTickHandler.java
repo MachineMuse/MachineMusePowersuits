@@ -72,7 +72,7 @@ public class ClientTickHandler implements ITickHandler {
 					NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
 					String mode = itemTag.getString("Mode");
 					List<String> modes = MuseItemUtils.getModes(stack, player);
-					if (mode == "" && modes.size() > 0) {
+					if (mode.isEmpty() && modes.size() > 0) {
 						mode = modes.get(0);
 					}
 					if (modes.size() > 0 && dWheel != 0) {

@@ -17,6 +17,7 @@ import net.minecraft.util.Vec3;
 public class GliderModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
 	public static final String MODULE_GLIDER = "Glider";
 
+	@Override
 	public String getTextureFile() {
 		return "glider";
 	}
