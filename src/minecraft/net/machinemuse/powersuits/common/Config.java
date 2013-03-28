@@ -7,7 +7,6 @@ import java.util.List;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -16,7 +15,9 @@ import net.machinemuse.powersuits.item.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.ItemPowerArmorHelmet;
 import net.machinemuse.powersuits.item.ItemPowerArmorLeggings;
 import net.machinemuse.powersuits.item.ItemPowerGauntlet;
-import net.machinemuse.powersuits.powermodule.PowerModule;
+import net.machinemuse.powersuits.powermodule.armor.BasicPlatingModule;
+import net.machinemuse.powersuits.powermodule.armor.DiamondPlatingModule;
+import net.machinemuse.powersuits.powermodule.armor.EnergyShieldModule;
 import net.machinemuse.powersuits.powermodule.energy.AdvancedBatteryModule;
 import net.machinemuse.powersuits.powermodule.energy.BasicBatteryModule;
 import net.machinemuse.powersuits.powermodule.energy.EliteBatteryModule;
@@ -191,26 +192,9 @@ public class Config {
 		IPowerModule module;
 
 		// Armor
-		module = new PowerModule(MuseCommonStrings.MODULE_BASIC_PLATING, ARMORONLY, "basicplating2", MuseCommonStrings.CATEGORY_ARMOR)
-				.setDescription("Basic plating is heavy but protective.")
-				.addInstallCost(copyAndResize(ItemComponent.basicPlating, 1))
-				.addTradeoffProperty("Plating Thickness", MuseCommonStrings.ARMOR_VALUE_PHYSICAL, 5, " Points")
-				.addTradeoffProperty("Plating Thickness", MuseCommonStrings.WEIGHT, 10000, "g");
-		addModule(module);
-
-		module = new PowerModule(MuseCommonStrings.MODULE_DIAMOND_PLATING, ARMORONLY, "advancedplating2", MuseCommonStrings.CATEGORY_ARMOR)
-				.setDescription("Advanced plating is lighter, harder, and more protective than Basic but much harder to make.")
-				.addInstallCost(copyAndResize(ItemComponent.advancedPlating, 1))
-				.addTradeoffProperty("Plating Thickness", MuseCommonStrings.ARMOR_VALUE_PHYSICAL, 6, " Points")
-				.addTradeoffProperty("Plating Thickness", MuseCommonStrings.WEIGHT, 6000, "g");
-		addModule(module);
-
-		module = new PowerModule(MuseCommonStrings.MODULE_ENERGY_SHIELD, ARMORONLY, "energyshield", MuseCommonStrings.CATEGORY_ARMOR)
-				.setDescription("Energy shields are much lighter than plating, but consume energy.")
-				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2))
-				.addTradeoffProperty("Field Strength", MuseCommonStrings.ARMOR_VALUE_ENERGY, 6, " Points")
-				.addTradeoffProperty("Field Strength", MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION, 500, "J");
-		addModule(module);
+		addModule(new BasicPlatingModule(ARMORONLY));
+		addModule(new DiamondPlatingModule(ARMORONLY));
+		addModule(new EnergyShieldModule(ARMORONLY));
 
 		// Tool
 		addModule(new AxeModule(TOOLONLY));

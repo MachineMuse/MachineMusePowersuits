@@ -23,9 +23,6 @@ public abstract class MuseCommonStrings {
 	/**
 	 * Module names
 	 */
-	public static final String MODULE_BASIC_PLATING = "Iron Plating";
-	public static final String MODULE_DIAMOND_PLATING = "Diamond Plating";
-	public static final String MODULE_ENERGY_SHIELD = "Energy Shield";
 	public static final String MODULE_ANTIGRAVITY = "Antigravity Drive";
 	public static final String MODULE_HAZMAT = "Radiation Shielding";
 

@@ -166,7 +166,7 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 	 *            The itemstack
 	 * @return the damage
 	 */
-	//@Override
+	@Override
 	public int getDamageVsEntity(Entity par1Entity, ItemStack itemStack)
 	{
 		return (int) ModuleManager.computeModularProperty(itemStack, MeleeAssistModule.PUNCH_DAMAGE);
