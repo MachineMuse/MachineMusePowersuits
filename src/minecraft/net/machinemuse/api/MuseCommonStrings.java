@@ -19,27 +19,14 @@ public abstract class MuseCommonStrings {
 	public static final String ARMOR_VALUE_ENERGY = "Armor (Energy)";
 	public static final String ARMOR_ENERGY_CONSUMPTION = "Energy Per Damage";
 	public static final String WEIGHT = "Weight";
-	public static final String RED_TINT = "Red Tint";
-	public static final String GREEN_TINT = "Green Tint";
-	public static final String BLUE_TINT = "Blue Tint";
-	public static final String PUNCH_ENERGY = "Punch Energy Consumption";
-	public static final String PUNCH_DAMAGE = "Melee Damage";
-	public static final String PUNCH_KNOCKBACK = "Melee Knockback";
 
 	/**
 	 * Module names
 	 */
-	public static final String MODULE_BATTERY_BASIC = "Basic Battery";
-	public static final String MODULE_BATTERY_ADVANCED = "Advanced Battery";
-	public static final String MODULE_BATTERY_ELITE = "Elite Battery";
 	public static final String MODULE_BASIC_PLATING = "Iron Plating";
 	public static final String MODULE_DIAMOND_PLATING = "Diamond Plating";
 	public static final String MODULE_ENERGY_SHIELD = "Energy Shield";
-	public static final String MODULE_TRANSPARENT_ARMOR = "Transparent Armor";
 	public static final String MODULE_ANTIGRAVITY = "Antigravity Drive";
-	public static final String MODULE_TINT = "Custom Colour Module";
-	public static final String MODULE_MELEE_ASSIST = "Melee Assist";
-	public static final String CITIZEN_JOE_STYLE = "Citizen Joe Style";
 	public static final String MODULE_HAZMAT = "Radiation Shielding";
 
 	/**
