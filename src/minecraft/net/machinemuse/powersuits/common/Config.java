@@ -7,9 +7,6 @@ import java.util.List;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.MuseCommonStrings;
-import net.machinemuse.api.electricity.ElectricItemUtils;
-import net.machinemuse.api.electricity.IC2ElectricAdapter;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -18,10 +15,17 @@ import net.machinemuse.powersuits.item.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.ItemPowerArmorHelmet;
 import net.machinemuse.powersuits.item.ItemPowerArmorLeggings;
 import net.machinemuse.powersuits.item.ItemPowerGauntlet;
-import net.machinemuse.powersuits.powermodule.PowerModule;
-import net.machinemuse.powersuits.powermodule.ToggleablePowerModule;
+import net.machinemuse.powersuits.powermodule.armor.BasicPlatingModule;
+import net.machinemuse.powersuits.powermodule.armor.DiamondPlatingModule;
+import net.machinemuse.powersuits.powermodule.armor.EnergyShieldModule;
+import net.machinemuse.powersuits.powermodule.energy.AdvancedBatteryModule;
+import net.machinemuse.powersuits.powermodule.energy.BasicBatteryModule;
+import net.machinemuse.powersuits.powermodule.energy.EliteBatteryModule;
+import net.machinemuse.powersuits.powermodule.misc.CitizenJoeStyle;
 import net.machinemuse.powersuits.powermodule.misc.InvisibilityModule;
 import net.machinemuse.powersuits.powermodule.misc.NightVisionModule;
+import net.machinemuse.powersuits.powermodule.misc.TintModule;
+import net.machinemuse.powersuits.powermodule.misc.TransparentArmorModule;
 import net.machinemuse.powersuits.powermodule.misc.WaterElectrolyzerModule;
 import net.machinemuse.powersuits.powermodule.movement.BlinkDriveModule;
 import net.machinemuse.powersuits.powermodule.movement.ClimbAssistModule;
@@ -41,6 +45,7 @@ import net.machinemuse.powersuits.powermodule.tool.HoeModule;
 import net.machinemuse.powersuits.powermodule.tool.PickaxeModule;
 import net.machinemuse.powersuits.powermodule.tool.ShearsModule;
 import net.machinemuse.powersuits.powermodule.tool.ShovelModule;
+import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule;
 import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
 import net.machinemuse.powersuits.powermodule.weapon.RailgunModule;
 import net.minecraft.creativetab.CreativeTabs;
@@ -187,26 +192,9 @@ public class Config {
 		IPowerModule module;
 
 		// Armor
-		module = new PowerModule(MuseCommonStrings.MODULE_BASIC_PLATING, ARMORONLY, "basicplating2", MuseCommonStrings.CATEGORY_ARMOR)
-				.setDescription("Basic plating is heavy but protective.")
-				.addInstallCost(copyAndResize(ItemComponent.basicPlating, 1))
-				.addTradeoffProperty("Plating Thickness", MuseCommonStrings.ARMOR_VALUE_PHYSICAL, 5, " Points")
-				.addTradeoffProperty("Plating Thickness", MuseCommonStrings.WEIGHT, 10000, "g");
-		addModule(module);
-
-		module = new PowerModule(MuseCommonStrings.MODULE_DIAMOND_PLATING, ARMORONLY, "advancedplating2", MuseCommonStrings.CATEGORY_ARMOR)
-				.setDescription("Advanced plating is lighter, harder, and more protective than Basic but much harder to make.")
-				.addInstallCost(copyAndResize(ItemComponent.advancedPlating, 1))
-				.addTradeoffProperty("Plating Thickness", MuseCommonStrings.ARMOR_VALUE_PHYSICAL, 6, " Points")
-				.addTradeoffProperty("Plating Thickness", MuseCommonStrings.WEIGHT, 6000, "g");
-		addModule(module);
-
-		module = new PowerModule(MuseCommonStrings.MODULE_ENERGY_SHIELD, ARMORONLY, "energyshield", MuseCommonStrings.CATEGORY_ARMOR)
-				.setDescription("Energy shields are much lighter than plating, but consume energy.")
-				.addInstallCost(copyAndResize(ItemComponent.fieldEmitter, 2))
-				.addTradeoffProperty("Field Strength", MuseCommonStrings.ARMOR_VALUE_ENERGY, 6, " Points")
-				.addTradeoffProperty("Field Strength", MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION, 500, "J");
-		addModule(module);
+		addModule(new BasicPlatingModule(ARMORONLY));
+		addModule(new DiamondPlatingModule(ARMORONLY));
+		addModule(new EnergyShieldModule(ARMORONLY));
 
 		// Tool
 		addModule(new AxeModule(TOOLONLY));
@@ -216,52 +204,14 @@ public class Config {
 		addModule(new HoeModule(TOOLONLY));
 
 		// Weapon
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_MELEE_ASSIST, TOOLONLY, "toolfist", MuseCommonStrings.CATEGORY_WEAPON)
-				.setDescription("A much simpler addon, makes your powertool punches hit harder.")
-				.addBaseProperty(MuseCommonStrings.PUNCH_ENERGY, 10, "J")
-				.addBaseProperty(MuseCommonStrings.PUNCH_DAMAGE, 2, "pt")
-				.addTradeoffProperty("Impact", MuseCommonStrings.PUNCH_ENERGY, 100, "J")
-				.addTradeoffProperty("Impact", MuseCommonStrings.PUNCH_DAMAGE, 8, "pt")
-				.addTradeoffProperty("Carry-through", MuseCommonStrings.PUNCH_ENERGY, 20, "J")
-				.addTradeoffProperty("Carry-through", MuseCommonStrings.PUNCH_KNOCKBACK, 1, "P")
-				.addInstallCost(copyAndResize(ItemComponent.servoMotor, 2))
-				.addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1));
-		addModule(module);
+		addModule(new MeleeAssistModule(TOOLONLY));
 		addModule(new PlasmaCannonModule(TOOLONLY));
 		addModule(new RailgunModule(TOOLONLY));
 
 		// Energy
-		module = new PowerModule(MuseCommonStrings.MODULE_BATTERY_BASIC, ALLITEMS, "lvbattery", MuseCommonStrings.CATEGORY_ENERGY)
-				.setDescription("Integrate a battery to allow the item to store energy.").addInstallCost(copyAndResize(ItemComponent.lvcapacitor, 1))
-				.addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 20000, "J")
-				.addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g")
-				.addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 80000)
-				.addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000)
-				.addBaseProperty(IC2ElectricAdapter.IC2_TIER, 1)
-				.addTradeoffProperty("IC2 Tier", IC2ElectricAdapter.IC2_TIER, 2);
-		addModule(module);
-
-		module = new PowerModule(MuseCommonStrings.MODULE_BATTERY_ADVANCED, ALLITEMS, "mvbattery", MuseCommonStrings.CATEGORY_ENERGY)
-				.setDescription("Integrate a more advanced battery to store more energy.")
-				.addInstallCost(copyAndResize(ItemComponent.mvcapacitor, 1))
-				.addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 100000, "J")
-				.addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g")
-				.addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 400000)
-				.addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000)
-				.addBaseProperty(IC2ElectricAdapter.IC2_TIER, 1)
-				.addTradeoffProperty("IC2 Tier", IC2ElectricAdapter.IC2_TIER, 2);
-		addModule(module);
-
-		module = new PowerModule(MuseCommonStrings.MODULE_BATTERY_ELITE, ALLITEMS, "crystalcapacitor", MuseCommonStrings.CATEGORY_ENERGY)
-				.setDescription("Integrate a the most advanced battery to store an extensive amount of energy.")
-				.addInstallCost(copyAndResize(ItemComponent.hvcapacitor, 1))
-				.addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 750000, "J")
-				.addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g")
-				.addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 4250000)
-				.addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000)
-				.addBaseProperty(IC2ElectricAdapter.IC2_TIER, 1)
-				.addTradeoffProperty("IC2 Tier", IC2ElectricAdapter.IC2_TIER, 2);
-		addModule(module);
+		addModule(new BasicBatteryModule(ALLITEMS));
+		addModule(new AdvancedBatteryModule(ALLITEMS));
+		addModule(new EliteBatteryModule(ALLITEMS));
 
 		// Movement
 		addModule(new ParachuteModule(TORSOONLY));
@@ -284,21 +234,9 @@ public class Config {
 		addModule(new AquaAffinityModule(TOOLONLY));
 
 		// Cosmetic
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_TINT, ALLITEMS, "netherstar", MuseCommonStrings.CATEGORY_COSMETIC)
-				.setDescription("Give your armor some coloured tinting to customize your armor's appearance.")
-				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1))
-				.addTradeoffProperty("Red Intensity", MuseCommonStrings.RED_TINT, 1, "%")
-				.addTradeoffProperty("Green Intensity", MuseCommonStrings.GREEN_TINT, 1, "%")
-				.addTradeoffProperty("Blue Intensity", MuseCommonStrings.BLUE_TINT, 1, "%");
-		addModule(module);
-
-		module = new ToggleablePowerModule(MuseCommonStrings.MODULE_TRANSPARENT_ARMOR, ARMORONLY, "transparentarmor",
-				MuseCommonStrings.CATEGORY_COSMETIC).setDescription("Make the item transparent, so you can show off your skin without losing armor.")
-				.addInstallCost(copyAndResize(ItemComponent.laserHologram, 1));
-		addModule(module);
-		module = new PowerModule(MuseCommonStrings.CITIZEN_JOE_STYLE, ARMORONLY, "greendrone", MuseCommonStrings.CATEGORY_COSMETIC)
-				.setDescription("An alternative armor texture, c/o CitizenJoe of IC2 forums.");
-		addModule(module);
+		addModule(new TintModule(ALLITEMS));
+		addModule(new TransparentArmorModule(ARMORONLY));
+		addModule(new CitizenJoeStyle(ARMORONLY));
 
 	}
 

@@ -15,6 +15,8 @@ import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.powermodule.misc.TintModule;
+import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
@@ -72,9 +74,9 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 	}
 
 	public static Colour getColorFromItemStack(ItemStack stack) {
-		double computedred = ModuleManager.computeModularProperty(stack, MuseCommonStrings.RED_TINT);
-		double computedgreen = ModuleManager.computeModularProperty(stack, MuseCommonStrings.GREEN_TINT);
-		double computedblue = ModuleManager.computeModularProperty(stack, MuseCommonStrings.BLUE_TINT);
+		double computedred = ModuleManager.computeModularProperty(stack, TintModule.RED_TINT);
+		double computedgreen = ModuleManager.computeModularProperty(stack, TintModule.GREEN_TINT);
+		double computedblue = ModuleManager.computeModularProperty(stack, TintModule.BLUE_TINT);
 		Colour colour = new Colour(clampDouble(1 + computedred - (computedblue + computedgreen), 0, 1), clampDouble(1 + computedgreen
 				- (computedblue + computedred), 0, 1), clampDouble(1 + computedblue - (computedred + computedgreen), 0, 1), 1.0F);
 		return colour;
@@ -119,13 +121,13 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 	 */
 	@Override
 	public boolean hitEntity(ItemStack stack, EntityLiving entityBeingHit, EntityLiving entityDoingHitting) {
-		if (entityDoingHitting instanceof EntityPlayer && MuseItemUtils.itemHasActiveModule(stack, MuseCommonStrings.MODULE_MELEE_ASSIST)) {
+		if (entityDoingHitting instanceof EntityPlayer && MuseItemUtils.itemHasActiveModule(stack, MeleeAssistModule.MODULE_MELEE_ASSIST)) {
 			EntityPlayer player = (EntityPlayer) entityDoingHitting;
-			double drain = ModuleManager.computeModularProperty(stack, MuseCommonStrings.PUNCH_ENERGY);
+			double drain = ModuleManager.computeModularProperty(stack, MeleeAssistModule.PUNCH_ENERGY);
 			if (ElectricItemUtils.getPlayerEnergy(player) > drain) {
 				ElectricItemUtils.drainPlayerEnergy(player, drain);
-				double damage = ModuleManager.computeModularProperty(stack, MuseCommonStrings.PUNCH_DAMAGE);
-				double knockback = ModuleManager.computeModularProperty(stack, MuseCommonStrings.PUNCH_KNOCKBACK);
+				double damage = ModuleManager.computeModularProperty(stack, MeleeAssistModule.PUNCH_DAMAGE);
+				double knockback = ModuleManager.computeModularProperty(stack, MeleeAssistModule.PUNCH_KNOCKBACK);
 				DamageSource damageSource = DamageSource.causePlayerDamage(player);
 				if (entityBeingHit.attackEntityFrom(damageSource, (int) damage)) {
 					Vec3 lookVec = player.getLookVec();
@@ -167,7 +169,7 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 	@Override
 	public int getDamageVsEntity(Entity par1Entity, ItemStack itemStack)
 	{
-		return (int) ModuleManager.computeModularProperty(itemStack, MuseCommonStrings.PUNCH_DAMAGE);
+		return (int) ModuleManager.computeModularProperty(itemStack, MeleeAssistModule.PUNCH_DAMAGE);
 	}
 
 	@Override

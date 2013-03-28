@@ -11,6 +11,9 @@ import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.powermodule.misc.CitizenJoeStyle;
+import net.machinemuse.powersuits.powermodule.misc.TintModule;
+import net.machinemuse.powersuits.powermodule.misc.TransparentArmorModule;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumArmorMaterial;
@@ -53,16 +56,16 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 				itemTag.removeTag("didColour");
 				return Config.BLANK_ARMOR_MODEL_PATH;
 			} else {
-				if (MuseItemUtils.itemHasActiveModule(itemstack, MuseCommonStrings.MODULE_TRANSPARENT_ARMOR)) {
+				if (MuseItemUtils.itemHasActiveModule(itemstack, TransparentArmorModule.MODULE_TRANSPARENT_ARMOR)) {
 					return Config.BLANK_ARMOR_MODEL_PATH;
 				} else if (itemstack.getItem() instanceof ItemPowerArmorLeggings) {
-					if (MuseItemUtils.itemHasModule(itemstack, MuseCommonStrings.CITIZEN_JOE_STYLE)) {
+					if (MuseItemUtils.itemHasModule(itemstack, CitizenJoeStyle.CITIZEN_JOE_STYLE)) {
 						return Config.CITIZENJOE_ARMORPANTS_PATH;
 					}
 
 					return Config.SEBK_ARMORPANTS_PATH;
 				} else {
-					if (MuseItemUtils.itemHasModule(itemstack, MuseCommonStrings.CITIZEN_JOE_STYLE)) {
+					if (MuseItemUtils.itemHasModule(itemstack, CitizenJoeStyle.CITIZEN_JOE_STYLE)) {
 						return Config.CITIZENJOE_ARMOR_PATH;
 					}
 					return Config.SEBK_ARMOR_PATH;
@@ -118,9 +121,9 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 	}
 
 	public Colour getColorFromItemStack(ItemStack stack) {
-		double computedred = ModuleManager.computeModularProperty(stack, MuseCommonStrings.RED_TINT);
-		double computedgreen = ModuleManager.computeModularProperty(stack, MuseCommonStrings.GREEN_TINT);
-		double computedblue = ModuleManager.computeModularProperty(stack, MuseCommonStrings.BLUE_TINT);
+		double computedred = ModuleManager.computeModularProperty(stack, TintModule.RED_TINT);
+		double computedgreen = ModuleManager.computeModularProperty(stack, TintModule.GREEN_TINT);
+		double computedblue = ModuleManager.computeModularProperty(stack, TintModule.BLUE_TINT);
 		Colour colour = new Colour(clampDouble(1 + computedred - (computedblue + computedgreen), 0, 1), clampDouble(1 + computedgreen
 				- (computedblue + computedred), 0, 1), clampDouble(1 + computedblue - (computedred + computedgreen), 0, 1), 1.0F);
 		return colour;
@@ -154,8 +157,8 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 	@Override
 	public boolean hasColor(ItemStack stack) {
 		NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-		return MuseItemUtils.tagHasModule(itemTag, MuseCommonStrings.RED_TINT) || MuseItemUtils.tagHasModule(itemTag, MuseCommonStrings.GREEN_TINT)
-				|| MuseItemUtils.tagHasModule(itemTag, MuseCommonStrings.BLUE_TINT);
+		return MuseItemUtils.tagHasModule(itemTag, TintModule.RED_TINT) || MuseItemUtils.tagHasModule(itemTag, TintModule.GREEN_TINT)
+				|| MuseItemUtils.tagHasModule(itemTag, TintModule.BLUE_TINT);
 	}
 
 	/**
