@@ -40,7 +40,7 @@ public class ModCompatability {
 	}
 
 	public static boolean isAndrewAddonsLoaded() {
-		return Loader.isModLoaded("AndrewPowersuitAddons");
+		return Loader.isModLoaded("PowersuitAddons");
 	}
 
 	public static boolean enableThaumGogglesModule() {
