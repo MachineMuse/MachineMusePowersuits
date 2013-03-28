@@ -79,15 +79,10 @@ public class DrawableMuseRect extends MuseRect {
 
 		MuseRenderer.arraysOnC();
 
-		vertices.rewind();
-		coloursOutside.rewind();
-
 		GL11.glColorPointer(4, 0, coloursOutside);
 		GL11.glVertexPointer(3, 0, vertices);
 		GL11.glDrawArrays(GL11.GL_LINE_LOOP, 0, vertices.limit() / 3);
 
-		vertices.rewind();
-		coloursInside.rewind();
 		GL11.glColorPointer(4, 0, coloursInside);
 		GL11.glVertexPointer(3, 0, vertices);
 		GL11.glDrawArrays(GL11.GL_TRIANGLE_FAN, 0, vertices.limit() / 3);

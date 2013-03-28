@@ -9,6 +9,7 @@ import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.geometry.SwirlyMuseCircle;
 import net.machinemuse.general.gui.MuseGui;
 import net.machinemuse.general.gui.clickable.IClickable;
+import net.machinemuse.powersuits.common.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.PositionTextureVertex;
@@ -38,6 +39,9 @@ public abstract class MuseRenderer {
 	protected static SwirlyMuseCircle selectionCircle;
 
 	public static String TEXTURE_MAP = "/gui/items.png";
+
+	public static final String ITEM_TEXTURE_QUILT = "/gui/items.png";
+	public static final String BLOCK_TEXTURE_QUILT = "/terrain.png";
 
 	/**
 	 * Does the rotating green circle around the selection, e.g. in GUI.
@@ -485,6 +489,74 @@ public abstract class MuseRenderer {
 	}
 
 	public static void drawLightning(double x1, double y1, double z1, double x2, double y2, double z2, Colour colour) {
+		drawLightningTextured(x1, y1, z1, x2, y2, z2, colour);
+	}
+
+	public static void drawLightningTextured(double x1, double y1, double z1, double x2, double y2, double z2, Colour colour) {
+		double tx = x2 - x1, ty = y2 - y1, tz = z2 - z1;
+
+		double ax = 0, ay = 0, az = 0;
+		double bx = 0, by = 0, bz = 0;
+		double cx = 0, cy = 0, cz = 0;
+
+		double jagfactor = 0.3;
+		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glDisable(GL11.GL_CULL_FACE);
+		getRenderEngine().bindTexture(Config.LIGHTNING_TEXTURE);
+		blendingOn();
+		colour.doGL();
+		GL11.glBegin(GL11.GL_QUADS);
+		while (Math.abs(cx) < Math.abs(tx) && Math.abs(cy) < Math.abs(ty) && Math.abs(cz) < Math.abs(tz)) {
+			ax = x1 + cx;
+			ay = y1 + cy;
+			az = z1 + cz;
+			cx += Math.random() * tx * jagfactor - 0.1 * tx;
+			cy += Math.random() * ty * jagfactor - 0.1 * ty;
+			cz += Math.random() * tz * jagfactor - 0.1 * tz;
+			bx = x1 + cx;
+			by = y1 + cy;
+			bz = z1 + cz;
+
+			int index = (int) Math.random() * 50;
+
+			drawLightningBetweenPointsFast(ax, ay, az, bx, by, bz, index);
+		}
+		GL11.glEnd();
+	}
+
+	public static void drawLightningBetweenPoints(double x1, double y1, double z1, double x2, double y2, double z2, int index) {
+		getRenderEngine().bindTexture(Config.LIGHTNING_TEXTURE);
+		double u1 = index / 50.0;
+		double u2 = u1 + 0.02;
+		double px = (y1 - y2) * 0.125;
+		double py = (x2 - x1) * 0.125;
+		GL11.glTexCoord2d(u1, 0);
+		GL11.glVertex3d(x1 - px, y1 - py, z1);
+		GL11.glTexCoord2d(u2, 0);
+		GL11.glVertex3d(x1 + px, y1 + py, z1);
+		GL11.glTexCoord2d(u1, 1);
+		GL11.glVertex3d(x2 - px, y2 - py, z2);
+		GL11.glTexCoord2d(u2, 1);
+		GL11.glVertex3d(x2 + px, y2 + py, z2);
+	}
+
+	public static void drawLightningBetweenPointsFast(double x1, double y1, double z1, double x2, double y2, double z2, int index) {
+
+		double u1 = index / 50.0;
+		double u2 = u1 + 0.02;
+		double px = (y1 - y2) * 0.125;
+		double py = (x2 - x1) * 0.125;
+		GL11.glTexCoord2d(u1, 0);
+		GL11.glVertex3d(x1 - px, y1 - py, z1);
+		GL11.glTexCoord2d(u2, 0);
+		GL11.glVertex3d(x1 + px, y1 + py, z1);
+		GL11.glTexCoord2d(u1, 1);
+		GL11.glVertex3d(x2 - px, y2 - py, z2);
+		GL11.glTexCoord2d(u2, 1);
+		GL11.glVertex3d(x2 + px, y2 + py, z2);
+	}
+
+	public static void drawLightningLines(double x1, double y1, double z1, double x2, double y2, double z2, Colour colour) {
 		double tx = x2 - x1, ty = y2 - y1, tz = z2 - z1, cx = 0, cy = 0, cz = 0;
 		double jagfactor = 0.3;
 		texturelessOn();
@@ -495,9 +567,6 @@ public abstract class MuseRenderer {
 		while (Math.abs(cx) < Math.abs(tx) && Math.abs(cy) < Math.abs(ty) && Math.abs(cz) < Math.abs(tz)) {
 			colour.doGL();
 			// GL11.glLineWidth(1);
-			double ox = x1 + cx;
-			double oy = y1 + cy;
-			double oz = z1 + cz;
 			cx += Math.random() * tx * jagfactor - 0.1 * tx;
 			cy += Math.random() * ty * jagfactor - 0.1 * ty;
 			cz += Math.random() * tz * jagfactor - 0.1 * tz;

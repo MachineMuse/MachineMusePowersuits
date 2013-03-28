@@ -59,6 +59,7 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.preloadTexture(Config.CITIZENJOE_ARMOR_PATH);
 		MinecraftForgeClient.preloadTexture(Config.CITIZENJOE_ARMORPANTS_PATH);
 		MinecraftForgeClient.preloadTexture(Config.SEBK_TOOL_TEXTURE);
+		MinecraftForgeClient.preloadTexture(Config.LIGHTNING_TEXTURE);
 	}
 
 	/**

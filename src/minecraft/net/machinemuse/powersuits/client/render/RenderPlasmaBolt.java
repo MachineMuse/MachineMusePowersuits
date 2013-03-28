@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.client.render;
 
 import java.nio.DoubleBuffer;
+import java.nio.FloatBuffer;
 
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
@@ -70,13 +71,28 @@ public class RenderPlasmaBolt extends Render {
 		return unrotatebuffer;
 	}
 
+	private static float pythag(float x, float y, float z) {
+		return (float) Math.sqrt(x * x + y * y + z * z);
+	}
+
 	public static void unRotate() {
-		GL11.glMultMatrix(getUnrotateBuffer());
+		FloatBuffer matrix = BufferUtils.createFloatBuffer(16);
+		GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, matrix);
+		float scalex = pythag(matrix.get(0), matrix.get(1), matrix.get(2));
+		float scaley = pythag(matrix.get(4), matrix.get(5), matrix.get(6));
+		float scalez = pythag(matrix.get(8), matrix.get(9), matrix.get(10));
+		for (int i = 0; i < 12; i++) {
+			matrix.put(i, 0);
+		}
+		matrix.put(0, scalex);
+		matrix.put(5, scaley);
+		matrix.put(10, scalez);
+		GL11.glLoadMatrix(matrix);
 	}
 
 	public static void doRender(double size) {
 		GL11.glPushMatrix();
-		// unRotate();
+		unRotate();
 		double scale = size / 16.0;
 		GL11.glScaled(scale, scale, scale);
 		int millisPerCycle = 500;
@@ -92,8 +108,8 @@ public class RenderPlasmaBolt extends Render {
 		for (int i = 0; i < 3; i++) {
 			double angle1 = (Math.random() * 2 * Math.PI);
 			double angle2 = (Math.random() * 2 * Math.PI);
-			MuseRenderer.drawLightning(Math.cos(angle1) * 5, Math.sin(angle1) * 5, 2, Math.cos(angle2) * 5, Math.sin(angle2) * 5, 3, new Colour(1, 1,
-					1, 1));
+			MuseRenderer.drawLightning(0, 0, 0, Math.cos(angle2) * 4, Math.sin(angle2) * 4, 1,
+					new Colour(1, 1, 1, 0.9));
 		}
 		GL11.glPopMatrix();
 	}

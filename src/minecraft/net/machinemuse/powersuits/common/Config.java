@@ -76,6 +76,7 @@ public class Config {
 	public static final String BLANK_ARMOR_MODEL_PATH = TEXTURE_PREFIX + "models/blankarmor.png";
 	// public static final String MUSE_ICON_PATH = "/resources/machinemuse/museicons.png";
 	public static final String SEBK_TOOL_TEXTURE = TEXTURE_PREFIX + "models/tool.png";
+	public static final String LIGHTNING_TEXTURE = TEXTURE_PREFIX + "gui/lightning-medium.png";
 	public static final String CITIZENJOE_ARMOR_PATH = TEXTURE_PREFIX + "models/joearmor.png";
 	public static final String CITIZENJOE_ARMORPANTS_PATH = TEXTURE_PREFIX + "models/joearmorpants.png";
 

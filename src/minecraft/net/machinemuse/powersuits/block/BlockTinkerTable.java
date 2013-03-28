@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -25,6 +26,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockTinkerTable extends Block {
 	protected int renderType;
 	public static int assignedBlockID;
+	public static Icon energyIcon;
 
 	public BlockTinkerTable setRenderType(int id) {
 		this.renderType = id;
@@ -92,7 +94,8 @@ public class BlockTinkerTable extends Block {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister) {
-		this.blockIcon = iconRegister.registerIcon(MuseIcon.ICON_PREFIX + "heatresistantplating");
+		this.blockIcon = iconRegister.registerIcon(MuseIcon.ICON_PREFIX + "energy");
+		energyIcon = blockIcon;
 	}
 
 	/**

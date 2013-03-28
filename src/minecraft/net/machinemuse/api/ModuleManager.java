@@ -14,12 +14,12 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class ModuleManager {
 
-	protected static final Map<String, IPowerModule> moduleMap = new HashMap();
-	protected static final List<IPowerModule> moduleList = new ArrayList();
-	protected static final List<IPlayerTickModule> playerTickModules = new ArrayList();
-	protected static final List<IRightClickModule> rightClickModules = new ArrayList();
-	protected static final List<IToggleableModule> toggleableModules = new ArrayList();
-	protected static final List<IBlockBreakingModule> blockBreakingModules = new ArrayList();
+	protected static final Map<String, IPowerModule> moduleMap = new HashMap<String, IPowerModule>();
+	protected static final List<IPowerModule> moduleList = new ArrayList<IPowerModule>();
+	protected static final List<IPlayerTickModule> playerTickModules = new ArrayList<IPlayerTickModule>();
+	protected static final List<IRightClickModule> rightClickModules = new ArrayList<IRightClickModule>();
+	protected static final List<IToggleableModule> toggleableModules = new ArrayList<IToggleableModule>();
+	protected static final List<IBlockBreakingModule> blockBreakingModules = new ArrayList<IBlockBreakingModule>();
 
 	public static List<IPowerModule> getAllModules() {
 		return moduleList;

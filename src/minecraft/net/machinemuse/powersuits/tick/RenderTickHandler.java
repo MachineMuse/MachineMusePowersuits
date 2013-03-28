@@ -11,6 +11,9 @@ import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
+import net.machinemuse.general.geometry.RadialIndicator;
+import net.machinemuse.powersuits.block.BlockTinkerTable;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.ScaledResolution;
@@ -35,6 +38,9 @@ public class RenderTickHandler implements ITickHandler {
 	private final static int SWAPTIME = 200;
 	public static long lastSwapTime = 0;
 	public static int lastSwapDirection = 0;
+	protected static RadialIndicator heat;
+	protected static RadialIndicator energy;
+	private int lightningCounter = 0;
 
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
@@ -52,8 +58,22 @@ public class RenderTickHandler implements ITickHandler {
 				String maxStr = MuseStringUtils.formatNumberShort(maxEnergy);
 				MuseRenderer.drawString(currStr + '/' + maxStr + " J", 1, 1);
 			}
+			if (BlockTinkerTable.energyIcon != null) {
+				if (energy == null) {
+					energy = new RadialIndicator(8, 16, 15 * Math.PI / 8, 9 * Math.PI / 8,
+							Colour.BLACK, new Colour(0.2, 0.8, 1.0, 1.0), BlockTinkerTable.energyIcon, MuseRenderer.BLOCK_TEXTURE_QUILT);
+					heat = new RadialIndicator(8, 16, 1 * Math.PI / 8, 7 * Math.PI / 8,
+							Colour.BLACK, Colour.WHITE, Block.lavaMoving.getBlockTextureFromSide(1), MuseRenderer.BLOCK_TEXTURE_QUILT);
+				}
+				heat.draw(50, 50, 0.6);
+				energy.draw(50, 50, 0.6);
+				MuseRenderer.drawLightningBetweenPoints(50.0, 50.0, 1.0, 50.0, 100.0, 1.0, lightningCounter);
+				lightningCounter = (lightningCounter + 1) % 50;
+
+			}
 		}
 		if (Minecraft.getMinecraft().currentScreen == null) {
+			MuseRenderer.TEXTURE_MAP = MuseRenderer.ITEM_TEXTURE_QUILT;
 			Minecraft mc = Minecraft.getMinecraft();
 			ScaledResolution screen = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
 			int i = player.inventory.currentItem;
