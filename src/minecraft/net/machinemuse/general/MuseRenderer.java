@@ -1,6 +1,7 @@
 package net.machinemuse.general;
 
 import java.nio.DoubleBuffer;
+import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -585,5 +586,24 @@ public abstract class MuseRenderer {
 		GL11.glEnable(GL11.GL_CULL_FACE);
 		texturelessOff();
 
+	}
+
+	private static float pythag(float x, float y, float z) {
+		return (float) Math.sqrt(x * x + y * y + z * z);
+	}
+
+	public static void unRotate() {
+		FloatBuffer matrix = BufferUtils.createFloatBuffer(16);
+		GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, matrix);
+		float scalex = pythag(matrix.get(0), matrix.get(1), matrix.get(2));
+		float scaley = pythag(matrix.get(4), matrix.get(5), matrix.get(6));
+		float scalez = pythag(matrix.get(8), matrix.get(9), matrix.get(10));
+		for (int i = 0; i < 12; i++) {
+			matrix.put(i, 0);
+		}
+		matrix.put(0, scalex);
+		matrix.put(5, scaley);
+		matrix.put(10, scalez);
+		GL11.glLoadMatrix(matrix);
 	}
 }
