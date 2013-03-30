@@ -5,37 +5,20 @@ import java.util.List;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
-import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
-import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
-import net.machinemuse.powersuits.item.ItemComponent;
-import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
+import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 
-public class PlasmaCannonModule extends PowerModuleBase implements IRightClickModule {
-	public static final String MODULE_PLASMA_CANNON = "Plasma Cannon";
-	public static final String PLASMA_CANNON_ENERGY_PER_TICK = "Plasma Energy Per Tick";
-	public static final String PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE = "Plasma Damage At Full Charge";
-	public static final String PLASMA_CANNON_EXPLOSIVENESS = "Plasma Explosiveness";
+public class BladeLauncherModule extends PowerModuleBase implements IRightClickModule {
 
-	public PlasmaCannonModule(List<IModularItem> validItems) {
+	public BladeLauncherModule(List<IModularItem> validItems) {
 		super(validItems);
-		addBaseProperty(PLASMA_CANNON_ENERGY_PER_TICK, 10, "J");
-		addBaseProperty(PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 2, "pt");
-		addTradeoffProperty("Amperage", PLASMA_CANNON_ENERGY_PER_TICK, 150, "J");
-		addTradeoffProperty("Amperage", PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 38, "pt");
-		addTradeoffProperty("Voltage", PLASMA_CANNON_ENERGY_PER_TICK, 50, "J");
-		addTradeoffProperty("Voltage", PLASMA_CANNON_EXPLOSIVENESS, 0.5, "Creeper");
-		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
-		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 2));
 	}
 
 	@Override
@@ -45,17 +28,17 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
 
 	@Override
 	public String getName() {
-		return MODULE_PLASMA_CANNON;
+		return "Blade Launcher";
 	}
 
 	@Override
 	public String getDescription() {
-		return "Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.";
+		return "Launches a spinning blade of death (or shearing; no damage to sheep).";
 	}
 
 	@Override
 	public String getTextureFile() {
-		return "gravityweapon";
+		return "clawclosed";
 	}
 
 	@Override
@@ -88,10 +71,8 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
 				double explosiveness = ModuleManager.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_EXPLOSIVENESS);
 				double damagingness = ModuleManager.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE);
 
-				EntityPlasmaBolt plasmaBolt = new EntityPlasmaBolt(world, player, explosiveness, damagingness, chargeTicks);
-				world.spawnEntityInWorld(plasmaBolt);
-				MusePacketPlasmaBolt packet = new MusePacketPlasmaBolt((Player) player, plasmaBolt.entityId, plasmaBolt.size);
-				PacketDispatcher.sendPacketToAllPlayers(packet.getPacket250());
+				EntitySpinningBlade blade = new EntitySpinningBlade(world, player);
+				world.spawnEntityInWorld(blade);
 			}
 		}
 	}

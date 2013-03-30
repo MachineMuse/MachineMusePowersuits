@@ -52,12 +52,12 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
 
 	@Override
 	public String getName() {
-		return "Retractable Blades";
+		return "Spinning Blades";
 	}
 
 	@Override
 	public String getDescription() {
-		return "A pair of retractable razor blades for cutting through stringy things.";
+		return "Launches a spinning blade of death (or shearing; no damage to sheep).";
 	}
 
 	@Override
@@ -133,10 +133,10 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
 				for (ItemStack stack : drops)
 				{
 					float f = 0.7F;
-					double d = (double) (rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-					double d1 = (double) (rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-					double d2 = (double) (rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-					EntityItem entityitem = new EntityItem(player.worldObj, (double) x + d, (double) y + d1, (double) z + d2, stack);
+					double d = rand.nextFloat() * f + (1.0F - f) * 0.5D;
+					double d1 = rand.nextFloat() * f + (1.0F - f) * 0.5D;
+					double d2 = rand.nextFloat() * f + (1.0F - f) * 0.5D;
+					EntityItem entityitem = new EntityItem(player.worldObj, x + d, y + d1, z + d2, stack);
 					entityitem.delayBeforeCanPickup = 10;
 					player.worldObj.spawnEntityInWorld(entityitem);
 				}
