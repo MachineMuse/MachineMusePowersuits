@@ -50,15 +50,12 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
 		PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.username);
 		boolean jumpkey = movementInput.jumpKey;
 		ItemStack helmet = player.getCurrentArmor(3);
-		ItemStack torso = player.getCurrentArmor(2);
-		boolean hasFlightControl = false;
-		if (helmet != null && helmet.getItem() instanceof IModularItem) {
-			hasFlightControl = MuseItemUtils.itemHasActiveModule(helmet, FlightControlModule.MODULE_FLIGHT_CONTROL);
-		}
+		boolean hasFlightControl = helmet != null && helmet.getItem() instanceof IModularItem
+				&& MuseItemUtils.itemHasActiveModule(helmet, FlightControlModule.MODULE_FLIGHT_CONTROL);
 		double jetEnergy = 0;
 		double thrust = 0;
-		jetEnergy += ModuleManager.computeModularProperty(torso, JET_ENERGY_CONSUMPTION);
-		thrust += ModuleManager.computeModularProperty(torso, JET_THRUST);
+		jetEnergy += ModuleManager.computeModularProperty(item, JET_ENERGY_CONSUMPTION);
+		thrust += ModuleManager.computeModularProperty(item, JET_THRUST);
 
 		if (jetEnergy < ElectricItemUtils.getPlayerEnergy(player)) {
 			thrust *= PlayerTickHandler.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
