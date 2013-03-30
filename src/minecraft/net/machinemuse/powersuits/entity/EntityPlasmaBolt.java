@@ -13,7 +13,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityPlasmaBolt extends EntityThrowable {
-	public int lifespan;
 	public double size;
 	public static final int SIZE = 24;
 	public double damagingness;
