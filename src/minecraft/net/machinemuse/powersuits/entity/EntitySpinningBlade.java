@@ -27,6 +27,11 @@ public class EntitySpinningBlade extends EntityThrowable {
 	public Entity shootingEntity;
 	public ItemStack shootingItem;
 
+	public EntitySpinningBlade(World world)
+	{
+		super(world);
+	}
+
 	public EntitySpinningBlade(World par1World, EntityLiving shootingEntity) {
 		super(par1World, shootingEntity);
 		this.shootingEntity = shootingEntity;
@@ -35,27 +40,30 @@ public class EntitySpinningBlade extends EntityThrowable {
 		}
 		this.damage = damage;
 		Vec3 direction = shootingEntity.getLookVec().normalize();
-		double scale = 1.0;
-		this.motionX = direction.xCoord * scale;
-		this.motionY = direction.yCoord * scale;
-		this.motionZ = direction.zCoord * scale;
-		double r = SIZE / 50.0 - direction.yCoord * shootingEntity.getEyeHeight();
-		double xoffset = 1.3f + r;
-		double yoffset = -.2;
-		double zoffset = 0.3f;
-		Vec3 horzdir = direction.normalize();
-		horzdir.yCoord = 0;
-		horzdir = horzdir.normalize();
-		this.posX = shootingEntity.posX + direction.xCoord * xoffset - direction.yCoord * horzdir.xCoord * yoffset - horzdir.zCoord * zoffset;
-		this.posY = shootingEntity.posY + shootingEntity.getEyeHeight() + direction.yCoord * xoffset + (1 - Math.abs(direction.yCoord)) * yoffset;
-		this.posZ = shootingEntity.posZ + direction.zCoord * xoffset - direction.yCoord * horzdir.zCoord * yoffset + horzdir.xCoord * zoffset;
-		this.boundingBox.setBounds(posX - r, posY - r, posZ - r, posX + r, posY + r, posZ + r);
+		double speed = 1.0;
+		double scale = 0.1;
+		this.motionX = direction.xCoord * speed;
+		this.motionY = direction.yCoord * speed;
+		this.motionZ = direction.zCoord * speed;
+		this.boundingBox.setBounds(posX - scale, posY - scale, posZ - scale, posX + scale, posY + scale, posZ + scale);
+	}
+
+	/**
+	 * Gets the amount of gravity to apply to the thrown entity with each tick.
+	 */
+	@Override
+	protected float getGravityVelocity()
+	{
+		return 0;
 	}
 
 	@Override
 	protected void onImpact(MovingObjectPosition hitMOP) {
 		if (hitMOP.typeOfHit == EnumMovingObjectType.TILE) {
 			World world = WorldProvider.getProviderForDimension(this.dimension).worldObj;
+			if (world == null) {
+				return;
+			}
 			int id = world.getBlockId(hitMOP.blockX, hitMOP.blockY, hitMOP.blockZ);
 			Block block = Block.blocksList[id];
 			if (block instanceof IShearable) {

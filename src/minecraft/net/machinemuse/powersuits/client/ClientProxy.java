@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.client;
 
 import net.machinemuse.powersuits.block.TileEntityTinkerTable;
 import net.machinemuse.powersuits.client.render.RenderPlasmaBolt;
+import net.machinemuse.powersuits.client.render.RenderSpinningBlade;
 import net.machinemuse.powersuits.client.render.TinkerTableRenderer;
 import net.machinemuse.powersuits.client.render.ToolRenderer;
 import net.machinemuse.powersuits.common.CommonProxy;
@@ -9,6 +10,7 @@ import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
+import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.event.SoundEventHandler;
 import net.machinemuse.powersuits.event.TextureStitchHandler;
 import net.machinemuse.powersuits.event.ThaumRenderEventHandler;
@@ -49,6 +51,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinkerTable.class, tinkTableRenderer);
 		RenderingRegistry.registerBlockHandler(tinkTableRenderer);
 		RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, new RenderPlasmaBolt());
+		RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, new RenderSpinningBlade());
 
 		MinecraftForge.EVENT_BUS.register(new TextureStitchHandler());
 

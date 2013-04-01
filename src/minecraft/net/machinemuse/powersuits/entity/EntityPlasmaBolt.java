@@ -22,7 +22,6 @@ public class EntityPlasmaBolt extends EntityThrowable {
 	public EntityPlasmaBolt(World world)
 	{
 		super(world);
-		dataWatcher.addObject(SIZE, (byte) this.size);
 	}
 
 	public EntityPlasmaBolt(World world, EntityLiving shootingEntity, double explosiveness, double damagingness, int chargeTicks) {
