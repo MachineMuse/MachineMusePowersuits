@@ -29,13 +29,14 @@ import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
 /**
- * The Client Proxy does all the things that should only be done client-side, like registering client-side handlers and renderers.
+ * The Client Proxy does all the things that should only be done client-side,
+ * like registering client-side handlers and renderers.
  * 
  * @author MachineMuse
  * 
  */
 public class ClientProxy extends CommonProxy {
-	private static ToolRenderer toolRenderer = new ToolRenderer();
+	private static ToolRenderer toolRenderer;
 	private static ClientTickHandler clientTickHandler;
 	private static RenderTickHandler renderTickHandler;
 	private static PlayerTickHandler playerTickHandler;
@@ -46,12 +47,15 @@ public class ClientProxy extends CommonProxy {
 	 */
 	@Override
 	public void registerRenderers() {
+		toolRenderer = new ToolRenderer();
 		MinecraftForgeClient.registerItemRenderer(ModularPowersuits.powerTool.itemID, toolRenderer);
+
 		int tinkTableRenderID = RenderingRegistry.getNextAvailableRenderId();
 		TinkerTableRenderer tinkTableRenderer = new TinkerTableRenderer(tinkTableRenderID);
 		ModularPowersuits.tinkerTable.setRenderType(tinkTableRenderID);
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinkerTable.class, tinkTableRenderer);
 		RenderingRegistry.registerBlockHandler(tinkTableRenderer);
+
 		RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, new RenderPlasmaBolt());
 		RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, new RenderSpinningBlade());
 
@@ -68,7 +72,8 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	/**
-	 * Register the tick handler (for on-tick behaviour) and packet handler (for network synchronization and permission stuff).
+	 * Register the tick handler (for on-tick behaviour) and packet handler (for
+	 * network synchronization and permission stuff).
 	 */
 	@Override
 	public void registerHandlers() {

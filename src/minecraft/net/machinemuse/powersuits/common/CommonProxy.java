@@ -23,7 +23,8 @@ public class CommonProxy {
 	/**
 	 * Only the client needs to register renderers.
 	 */
-	public void registerRenderers() {}
+	public void registerRenderers() {
+	}
 
 	/**
 	 * Register the server-side tickhandler and packethandler.
@@ -37,7 +38,6 @@ public class CommonProxy {
 	}
 
 	public void postInit() {
-		// TODO Auto-generated method stub
 
 	}
 

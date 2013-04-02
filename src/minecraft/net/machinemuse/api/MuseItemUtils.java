@@ -9,12 +9,19 @@ import java.util.Set;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.general.MuseMathUtils;
 import net.machinemuse.powersuits.item.ItemComponent;
+import net.machinemuse.powersuits.network.MusePacket;
+import net.machinemuse.powersuits.network.packets.MusePacketModeChangeRequest;
+import net.machinemuse.powersuits.tick.RenderTickHandler;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import cpw.mods.fml.common.network.Player;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class MuseItemUtils {
 	public static final String NBTPREFIX = "mmmpsmod";
@@ -29,6 +36,35 @@ public class MuseItemUtils {
 			}
 		}
 		return validModules;
+	}
+
+	private static int clampMode(int selection, int modesSize) {
+		if (selection > 0) {
+			return selection % modesSize;
+		} else {
+			return (selection + modesSize * (-selection)) % modesSize;
+		}
+	}
+
+	@SideOnly(Side.CLIENT)
+	public static void cycleMode(ItemStack stack, EntityClientPlayerMP player, int dMode) {
+		if (stack != null && stack.getItem() instanceof IModularItem) {
+			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+			String mode = itemTag.getString("Mode");
+			List<String> modes = MuseItemUtils.getModes(stack, player);
+			if (mode.isEmpty() && modes.size() > 0) {
+				mode = modes.get(0);
+			}
+			if (modes.size() > 0 && dMode != 0) {
+				int modeIndex = modes.indexOf(mode);
+				String newMode = modes.get(clampMode(modeIndex + dMode, modes.size()));
+				itemTag.setString("Mode", newMode);
+				RenderTickHandler.lastSwapTime = System.currentTimeMillis();
+				RenderTickHandler.lastSwapDirection = (int) Math.signum(dMode);
+				MusePacket modeChangePacket = new MusePacketModeChangeRequest((Player) player, newMode, player.inventory.currentItem);
+				player.sendQueue.addToSendQueue(modeChangePacket.getPacket250());
+			}
+		}
 	}
 
 	public static boolean tagHasModule(NBTTagCompound tag, String moduleName) {
@@ -365,7 +401,7 @@ public class MuseItemUtils {
 			return false;
 		} else
 			return !((!stack1.isItemStackDamageable())
-					&& (stack1.getItemDamage() != stack2.getItemDamage()));
+			&& (stack1.getItemDamage() != stack2.getItemDamage()));
 	}
 
 	public static void transferStackWithChance(ItemStack itemsToGive,

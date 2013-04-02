@@ -156,6 +156,10 @@ public class Config {
 		return config.get(Configuration.CATEGORY_GENERAL, "Maximum flight speed (in m/s)", 25.0).getDouble(25.0);
 	}
 
+	public static boolean useMouseWheel() {
+		return config.get(Configuration.CATEGORY_GENERAL, "Use Mousewheel to change modes", true).getBoolean(true);
+	}
+
 	/**
 	 * Whether or not to print debugging info.
 	 * 
@@ -285,4 +289,5 @@ public class Config {
 		message = MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic);
 		return message;
 	}
+
 }

@@ -46,7 +46,6 @@ public class EntityPlasmaBolt extends EntityThrowable {
 		this.posY = shootingEntity.posY + shootingEntity.getEyeHeight() + direction.yCoord * xoffset + (1 - Math.abs(direction.yCoord)) * yoffset;
 		this.posZ = shootingEntity.posZ + direction.zCoord * xoffset - direction.yCoord * horzdir.zCoord * yoffset + horzdir.xCoord * zoffset;
 		this.boundingBox.setBounds(posX - r, posY - r, posZ - r, posX + r, posY + r, posZ + r);
-		dataWatcher.addObject(SIZE, (byte) this.size);
 	}
 
 	@Override
@@ -55,7 +54,6 @@ public class EntityPlasmaBolt extends EntityThrowable {
 		if (this.ticksExisted > this.getMaxLifetime()) {
 			this.setDead();
 		}
-		this.size = dataWatcher.getWatchableObjectByte(SIZE);
 		if (this.isInWater()) {
 			this.setDead();
 			for (int var3 = 0; var3 < this.size; ++var3)

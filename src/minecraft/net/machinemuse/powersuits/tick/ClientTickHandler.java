@@ -1,26 +1,23 @@
 package net.machinemuse.powersuits.tick;
 
 import java.util.EnumSet;
-import java.util.List;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
+import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.network.MusePacket;
-import net.machinemuse.powersuits.network.packets.MusePacketModeChangeRequest;
 import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 import org.lwjgl.input.Mouse;
 
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
-import cpw.mods.fml.common.network.Player;
 
 /**
  * This handler is called before/after the game processes input events and
@@ -38,24 +35,18 @@ public class ClientTickHandler implements ITickHandler {
 		for (ClickableKeybinding kb : KeybindManager.getKeybindings()) {
 			kb.doToggleTick();
 		}
-		try {
-			EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
-			if (player.getCurrentEquippedItem().getItem() instanceof IModularItem && player.isSneaking()) {
-				slotSelected = player.inventory.currentItem;
-				dWheel = Mouse.getDWheel() / 120;
-			} else {
-				slotSelected = -1;
+		if (Config.useMouseWheel()) {
+			try {
+				EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
+				if (player.getCurrentEquippedItem().getItem() instanceof IModularItem && player.isSneaking()) {
+					slotSelected = player.inventory.currentItem;
+					dWheel = Mouse.getDWheel() / 120;
+				} else {
+					slotSelected = -1;
+				}
+			} catch (NullPointerException e) {
+
 			}
-		} catch (NullPointerException e) {
-
-		}
-	}
-
-	public int clampMode(int selection, int modesSize) {
-		if (selection > 0) {
-			return selection % modesSize;
-		} else {
-			return (selection + modesSize * (-selection)) % modesSize;
 		}
 	}
 
@@ -68,24 +59,8 @@ public class ClientTickHandler implements ITickHandler {
 				player.inventory.currentItem = slotSelected;
 				Minecraft.getMinecraft().playerController.updateController();
 				ItemStack stack = player.inventory.getStackInSlot(slotSelected);
-				if (stack != null && stack.getItem() instanceof IModularItem) {
-					NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-					String mode = itemTag.getString("Mode");
-					List<String> modes = MuseItemUtils.getModes(stack, player);
-					if (mode.isEmpty() && modes.size() > 0) {
-						mode = modes.get(0);
-					}
-					if (modes.size() > 0 && dWheel != 0) {
-						int modeIndex = modes.indexOf(mode);
-						String newMode = modes.get(clampMode(modeIndex + dWheel, modes.size()));
-						itemTag.setString("Mode", newMode);
-						RenderTickHandler.lastSwapTime = System.currentTimeMillis();
-						RenderTickHandler.lastSwapDirection = (int) Math.signum(dWheel);
-						MusePacket modeChangePacket = new MusePacketModeChangeRequest((Player) player, newMode, player.inventory.currentItem);
-						player.sendQueue.addToSendQueue(modeChangePacket.getPacket250());
-						dWheel = 0;
-					}
-				}
+				MuseItemUtils.cycleMode(stack, player, dWheel);
+				dWheel = 0;
 				slotSelected = -1;
 			}
 			PlayerInputMap inputmap = PlayerInputMap.getInputMapFor(player.username);
@@ -98,9 +73,9 @@ public class ClientTickHandler implements ITickHandler {
 			inputmap.motionZ = player.motionZ;
 
 			if (inputmap.hasChanged()) {
+				inputmap.refresh();
 				MusePacket inputPacket = new MusePacketPlayerUpdate(player, inputmap);
 				player.sendQueue.addToSendQueue(inputPacket.getPacket250());
-				inputmap.refresh();
 			}
 		}
 	}
