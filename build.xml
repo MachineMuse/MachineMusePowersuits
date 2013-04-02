@@ -14,6 +14,7 @@
 	<property name="asapi.version" value="0.5.0.166" />
 	<property name="icbmapi.version" value="1.1.0.178" />
 	<property name="thermexapi.version" value="2.2.2" />
+	<property name="galacticraftapi.version" value="1" />
 
 
 	<!-- Directories -->
@@ -64,6 +65,7 @@
 			<available file="${download.dir}/ICBM_v${icbmapi.version}_api.zip" />
 			<available file="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" />
 			<available file="${download.dir}/AtomicScience_v${asapi.version}.zip" />
+			<available file="${download.dir}/Galacticraft API.zip" />
 		</and>
 	</condition>
 
@@ -82,13 +84,15 @@
 
 		<echo message="Downloading ThermEx API..." />
 		<get src="http://machinemuse.net/ThermalExpansion-API-${thermexapi.version}.zip" dest="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" />
+
+		<echo message="Downloading Galacticraft API..." />
+		<get src="http://machinemuse.net/Galacticraft API.zip" dest="${download.dir}/Galacticraft API.zip" />
 	</target>
 
 	<!-- Dependencies -->
 	<target name="extract-apis" depends="setup-forge,download-apis">
 		<echo message="Extracting IC2 API... " />
 		<unzip src="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" dest="${download.dir}" />
-		<mkdir dir="${mcpsrc.dir}/ic2" />
 		<mkdir dir="${mcpsrc.dir}/ic2/api" />
 		<move file="${download.dir}/ic2/api/Ic2Recipes.java" todir="${mcpsrc.dir}/ic2/api/" />
 		<move file="${download.dir}/ic2/api/ICustomElectricItem.java" todir="${mcpsrc.dir}/ic2/api/" />
@@ -100,7 +104,6 @@
 		<echo message="Extracting UE API... " />
 		<mkdir dir="${download.dir}/ue" />
 		<unzip src="${download.dir}/UniversalElectricity_v${ueapi.version}.zip" dest="${download.dir}/ue/" />
-		<mkdir dir="${mcpsrc.dir}/universalelectricity/" />
 		<mkdir dir="${mcpsrc.dir}/universalelectricity/core/" />
 		<move todir="${mcpsrc.dir}/universalelectricity/core/">
 			<fileset dir="${ue.download.dir}/core/" />
@@ -108,28 +111,28 @@
 
 		<echo message="Extracting ICBM API... " />
 		<unzip src="${download.dir}/ICBM_v${icbmapi.version}_api.zip" dest="${download.dir}/ue" />
-		<mkdir dir="${mcpsrc.dir}/icbm" />
-		<mkdir dir="${mcpsrc.dir}/icbm/api" />
 		<mkdir dir="${mcpsrc.dir}/icbm/api/explosion" />
 		<move file="${download.dir}/ue/minecraft/icbm/api/explosion/IExplosive.java" todir="${mcpsrc.dir}/icbm/api/explosion/" />
 		<move file="${download.dir}/ue/minecraft/icbm/api/explosion/IEMPItem.java" todir="${mcpsrc.dir}/icbm/api/explosion/" />
 
 		<echo message="Extracting Atomic Science API... " />
 		<unzip src="${download.dir}/AtomicScience_v${asapi.version}_api.zip" dest="${download.dir}/ue" />
-		<mkdir dir="${mcpsrc.dir}/atomicscience" />
-		<mkdir dir="${mcpsrc.dir}/atomicscience/api" />
 		<mkdir dir="${mcpsrc.dir}/atomicscience/api/poison" />
 		<move file="${download.dir}/ue/minecraft/atomicscience/api/poison/Poison.java" todir="${mcpsrc.dir}/atomicscience/api/poison/" />
 		<move file="${download.dir}/ue/minecraft/atomicscience/api/IAntiPoisonArmor.java" todir="${mcpsrc.dir}/atomicscience/api/" />
 
 		<echo message="Extracting ThermalExpansion API... " />
 		<unzip src="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" dest="${download.dir}" />
-		<mkdir dir="${mcpsrc.dir}/thermalexpansion" />
-		<mkdir dir="${mcpsrc.dir}/thermalexpansion/api" />
 		<mkdir dir="${mcpsrc.dir}/thermalexpansion/api/core" />
 		<move file="${download.dir}/thermalexpansion/api/core/ItemRegistry.java" todir="${mcpsrc.dir}/thermalexpansion/api/core/" />
 		<move file="${download.dir}/thermalexpansion/api/core/IChargeableItem.java" todir="${mcpsrc.dir}/thermalexpansion/api/core/" />
-		<delete dir="${download.dir}/thermalexpansion" />
+
+		<echo message="Extracting Galacticraft API... " />
+		<unzip src="${download.dir}/Galacticraft API.zip" dest="${download.dir}" />
+		<mkdir dir="${mcpsrc.dir}/micdoodle8/mods/galacticraft/API" />
+		<move file="${download.dir}/micdoodle8/mods/galacticraft/API/EnumGearType.java" todir="${mcpsrc.dir}/micdoodle8/mods/galacticraft/API" />
+		<move file="${download.dir}/micdoodle8/mods/galacticraft/API/IBreathableArmor.java" todir="${mcpsrc.dir}/micdoodle8/mods/galacticraft/API" />
+
 	</target>
 
 	<target name="update-names" depends="copy-source">

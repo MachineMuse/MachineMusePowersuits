@@ -11,6 +11,7 @@ import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.machinemuse.powersuits.powermodule.ToggleablePowerModule;
+import net.machinemuse.powersuits.powermodule.misc.AirtightSealModule;
 import net.machinemuse.powersuits.powermodule.tool.MultimeterModule;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -41,6 +42,10 @@ public class ModCompatability {
 
 	public static boolean isAndrewAddonsLoaded() {
 		return Loader.isModLoaded("PowersuitAddons");
+	}
+
+	public static boolean isGalacticraftLoaded() {
+		return Loader.isModLoaded("GalacticraftCore");
 	}
 
 	public static boolean enableThaumGogglesModule() {
@@ -143,7 +148,8 @@ public class ModCompatability {
 				Field itemGoggles = tcItems.getField("itemGoggles");
 				Item goggles = (Item) itemGoggles.get(itemGoggles);
 				gogglesStack = new ItemStack(goggles);
-				IPowerModule module = new PowerModule("Aurameter", Collections.singletonList((IModularItem) ModularPowersuits.powerArmorHead), "bluestar",
+				IPowerModule module = new PowerModule("Aurameter", Collections.singletonList((IModularItem) ModularPowersuits.powerArmorHead),
+						"bluestar",
 						MuseCommonStrings.CATEGORY_SPECIAL)
 						.setDescription(
 								"Connect up some Thaumic goggles to show the nearby aura values. (Does not reveal aura nodes, only shows the HUD)")
@@ -159,7 +165,7 @@ public class ModCompatability {
 
 		if (ModCompatability.isAtomicScienceLoaded()) {
 
-			module = new ToggleablePowerModule(MuseCommonStrings.MODULE_HAZMAT, Arrays.<IModularItem>asList(
+			module = new ToggleablePowerModule(MuseCommonStrings.MODULE_HAZMAT, Arrays.<IModularItem> asList(
 					ModularPowersuits.powerArmorHead, ModularPowersuits.powerArmorTorso,
 					ModularPowersuits.powerArmorLegs, ModularPowersuits.powerArmorFeet), "greenstar",
 					MuseCommonStrings.CATEGORY_ARMOR)
@@ -167,19 +173,24 @@ public class ModCompatability {
 					.addInstallCost(Config.copyAndResize(ItemComponent.basicPlating, 3)).addBaseProperty(MuseCommonStrings.WEIGHT, 0.5);
 			ModuleManager.addModule(module);
 		}
-
+		if (ModCompatability.isGalacticraftLoaded()) {
+			module = new AirtightSealModule(Collections.singletonList((IModularItem) ModularPowersuits.powerArmorHead));
+			ModuleManager.addModule(module);
+		}
 	}
 
 	public static ItemStack getThermexItem(String string, int quantity) {
 		// try {
-		// ItemStack item = thermalexpansion.api.core.ItemRegistry.getItem(string, quantity);
+		// ItemStack item =
+		// thermalexpansion.api.core.ItemRegistry.getItem(string, quantity);
 		// if (item != null) {
 		// return item;
 		// }
 		// } catch (Exception e) {
 		// }
 		// thermalexpansion.api.core.ItemRegistry.printItemNames();
-		// MuseLogger.logError("Failed to get Thermal Expansion item " + string);
+		// MuseLogger.logError("Failed to get Thermal Expansion item " +
+		// string);
 		return null;
 	}
 }
