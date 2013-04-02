@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.client;
+package net.machinemuse.powersuits.control;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

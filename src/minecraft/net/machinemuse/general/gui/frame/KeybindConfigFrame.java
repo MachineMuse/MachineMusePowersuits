@@ -16,8 +16,8 @@ import net.machinemuse.general.gui.clickable.ClickableButton;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.general.gui.clickable.IClickable;
-import net.machinemuse.powersuits.client.KeybindManager;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.control.KeybindManager;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 

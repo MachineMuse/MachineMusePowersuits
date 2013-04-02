@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.common;
+package net.machinemuse.powersuits.control;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -17,6 +17,8 @@ public class PlayerInputMap {
 		return map;
 	}
 
+	public PlayerInputMap lastSentMap;
+
 	public float forwardKey;
 	public float strafeKey;
 	public boolean jumpKey;
@@ -26,8 +28,13 @@ public class PlayerInputMap {
 	public double motionY;
 	public double motionZ;
 
+	public PlayerInputMap(PlayerInputMap master) {
+		this.setTo(master);
+	}
+
 	public PlayerInputMap(String playerName) {
 		playerInputs.put(playerName, this);
+		lastSentMap = new PlayerInputMap(this);
 	}
 
 	public boolean writeToStream(DataOutputStream stream) {
@@ -62,5 +69,41 @@ public class PlayerInputMap {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		try {
+			PlayerInputMap other = (PlayerInputMap) obj;
+			return other.forwardKey == forwardKey
+					&& other.strafeKey == this.strafeKey
+					&& other.jumpKey == this.jumpKey
+					&& other.sneakKey == this.sneakKey
+					&& other.downKey == this.downKey
+					&& other.motionX == this.motionX
+					&& other.motionY == this.motionY
+					&& other.motionZ == this.motionZ;
+		} catch (ClassCastException e) {
+		}
+		return false;
+	}
+
+	public void setTo(PlayerInputMap master) {
+		forwardKey = master.forwardKey;
+		strafeKey = master.strafeKey;
+		jumpKey = master.jumpKey;
+		sneakKey = master.sneakKey;
+		downKey = master.downKey;
+		motionX = master.motionX;
+		motionY = master.motionY;
+		motionZ = master.motionZ;
+	}
+
+	public boolean hasChanged() {
+		return this.equals(lastSentMap);
+	}
+
+	public void refresh() {
+		this.lastSentMap.setTo(this);
 	}
 }
