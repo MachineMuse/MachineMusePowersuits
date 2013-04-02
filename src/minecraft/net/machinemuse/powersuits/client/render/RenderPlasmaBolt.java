@@ -88,7 +88,7 @@ public class RenderPlasmaBolt extends Render {
 		for (int i = 0; i < 3; i++) {
 			double angle1 = (Math.random() * 2 * Math.PI);
 			double angle2 = (Math.random() * 2 * Math.PI);
-			MuseRenderer.drawLightning(0, 0, 0, Math.cos(angle2) * 4, Math.sin(angle2) * 4, 1,
+			MuseRenderer.drawLightning(Math.cos(angle1) * 0.5, Math.sin(angle1) * 0.5, 0, Math.cos(angle2) * 5, Math.sin(angle2) * 5, 1,
 					new Colour(1, 1, 1, 0.9));
 		}
 		GL11.glPopMatrix();

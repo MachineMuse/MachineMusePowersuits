@@ -9,6 +9,8 @@ import net.machinemuse.powersuits.common.CommonProxy;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.common.ModularPowersuits;
+import net.machinemuse.powersuits.control.KeybindKeyHandler;
+import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.event.SoundEventHandler;
