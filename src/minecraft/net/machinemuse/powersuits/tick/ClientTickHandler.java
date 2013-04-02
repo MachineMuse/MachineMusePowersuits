@@ -6,8 +6,8 @@ import java.util.List;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
-import net.machinemuse.powersuits.client.KeybindManager;
-import net.machinemuse.powersuits.common.PlayerInputMap;
+import net.machinemuse.powersuits.control.KeybindManager;
+import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.machinemuse.powersuits.network.packets.MusePacketModeChangeRequest;
 import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
@@ -16,7 +16,6 @@ import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import cpw.mods.fml.common.ITickHandler;
@@ -24,7 +23,8 @@ import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.network.Player;
 
 /**
- * This handler is called before/after the game processes input events and updates the gui state mainly. *independent of rendering, so sometimes there
+ * This handler is called before/after the game processes input events and
+ * updates the gui state mainly. *independent of rendering, so sometimes there
  * might be visual artifacts* -is also the parent class of KeyBindingHandler
  * 
  * @author MachineMuse
@@ -89,17 +89,19 @@ public class ClientTickHandler implements ITickHandler {
 				slotSelected = -1;
 			}
 			PlayerInputMap inputmap = PlayerInputMap.getInputMapFor(player.username);
-			inputmap.downKey = Keyboard.isKeyDown(Keyboard.KEY_Z) && Minecraft.getMinecraft().inGameHasFocus;
-			inputmap.forwardKey = player.movementInput.moveForward;
-			inputmap.strafeKey = player.movementInput.moveStrafe;
+			inputmap.forwardKey = Math.signum(player.movementInput.moveForward);
+			inputmap.strafeKey = Math.signum(player.movementInput.moveStrafe);
 			inputmap.jumpKey = player.movementInput.jump;
 			inputmap.sneakKey = player.movementInput.sneak;
 			inputmap.motionX = player.motionX;
 			inputmap.motionY = player.motionY;
 			inputmap.motionZ = player.motionZ;
 
-			MusePacket inputPacket = new MusePacketPlayerUpdate(player, inputmap);
-			player.sendQueue.addToSendQueue(inputPacket.getPacket250());
+			if (inputmap.hasChanged()) {
+				MusePacket inputPacket = new MusePacketPlayerUpdate(player, inputmap);
+				player.sendQueue.addToSendQueue(inputPacket.getPacket250());
+				inputmap.refresh();
+			}
 		}
 	}
 
