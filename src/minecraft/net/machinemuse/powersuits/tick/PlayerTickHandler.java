@@ -14,7 +14,7 @@ import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.general.MuseMathUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MuseLogger;
-import net.machinemuse.powersuits.common.PlayerInputMap;
+import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.powermodule.movement.FlightControlModule;
 import net.minecraft.entity.player.EntityPlayer;
