@@ -45,11 +45,9 @@ import net.machinemuse.powersuits.powermodule.tool.HoeModule;
 import net.machinemuse.powersuits.powermodule.tool.PickaxeModule;
 import net.machinemuse.powersuits.powermodule.tool.ShearsModule;
 import net.machinemuse.powersuits.powermodule.tool.ShovelModule;
-import net.machinemuse.powersuits.powermodule.weapon.BladeLauncherModule;
 import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule;
 import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
 import net.machinemuse.powersuits.powermodule.weapon.RailgunModule;
-import net.machinemuse.powersuits.powermodule.weapon.SonicWeaponModule;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
@@ -221,8 +219,8 @@ public class Config {
 		addModule(new MeleeAssistModule(TOOLONLY));
 		addModule(new PlasmaCannonModule(TOOLONLY));
 		addModule(new RailgunModule(TOOLONLY));
-		addModule(new SonicWeaponModule(TOOLONLY));
-		addModule(new BladeLauncherModule(TOOLONLY));
+		// addModule(new SonicWeaponModule(TOOLONLY));
+		// addModule(new BladeLauncherModule(TOOLONLY));
 
 		// Energy
 		addModule(new BasicBatteryModule(ALLITEMS));
