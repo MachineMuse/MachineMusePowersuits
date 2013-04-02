@@ -28,7 +28,8 @@ import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
 /**
- * Called before and after the 3D world is rendered (tickEnd is called BEFORE the 2D gui is drawn... I think?).
+ * Called before and after the 3D world is rendered (tickEnd is called BEFORE
+ * the 2D gui is drawn... I think?).
  * 
  * @param float tickData[0] the amount of time (0.0f-1.0f) since the last tick.
  * 
@@ -65,10 +66,11 @@ public class RenderTickHandler implements ITickHandler {
 					heat = new RadialIndicator(8, 16, 1 * Math.PI / 8, 7 * Math.PI / 8,
 							Colour.BLACK, Colour.WHITE, Block.lavaMoving.getBlockTextureFromSide(1), MuseRenderer.BLOCK_TEXTURE_QUILT);
 				}
-				heat.draw(50, 50, 0.6);
-				energy.draw(50, 50, 0.6);
-				MuseRenderer.drawLightningBetweenPoints(50.0, 50.0, 1.0, 50.0, 100.0, 1.0, lightningCounter);
-				lightningCounter = (lightningCounter + 1) % 50;
+				// heat.draw(50, 50, 0.6);
+				// energy.draw(50, 50, 0.6);
+				// MuseRenderer.drawLightningBetweenPoints(50.0, 50.0, 1.0,
+				// 50.0, 100.0, 1.0, lightningCounter);
+				// lightningCounter = (lightningCounter + 1) % 50;
 
 			}
 		}
