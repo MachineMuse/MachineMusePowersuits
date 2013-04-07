@@ -11,7 +11,7 @@ public abstract class ElectricAdapter {
 		}
 		if (stack.getItem() instanceof IItemElectric) {
 			return new UEElectricAdapter(stack);
-		} else if (stack.getItem() instanceof IElectricItem) {
+		} else if (stack.getItem() instanceof IElectricItem && Config.isIC2Loaded()) {
 			return new IC2ElectricAdapter(stack);
 			// } else if (stack.getItem() instanceof IChargeableItem) {
 			// return new TEElectricAdapter(stack);
