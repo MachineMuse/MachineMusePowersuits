@@ -86,6 +86,18 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 			categories = new HashMap();
 
 			List<IPowerModule> workingModules = MuseItemUtils.getValidModulesForItem(null, selectedItem.getItem());
+
+			// Prune the list of disallowed modules that are not installed.
+			// That way we don't show modules that can't be installed anyway.
+			// A disallowed module that's installed will still be shown so it can be salvaged.
+			for (Iterator<IPowerModule> it = workingModules.iterator(); it.hasNext();) {
+				IPowerModule module = it.next();
+				if (module.isAllowed() == false &&
+						MuseItemUtils.itemHasModule(selectedItem.getItem(), module.getName()) == false) {
+					it.remove();
+				}
+			}
+
 			if (workingModules.size() > 0) {
 				List<MusePoint2D> points = MuseRenderer.pointsInLine(
 						workingModules.size(),
