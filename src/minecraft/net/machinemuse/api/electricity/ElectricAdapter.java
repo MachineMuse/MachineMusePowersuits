@@ -3,6 +3,7 @@ package net.machinemuse.api.electricity;
 import ic2.api.IElectricItem;
 import net.minecraft.item.ItemStack;
 import universalelectricity.core.item.IItemElectric;
+import cpw.mods.fml.common.Loader;
 
 public abstract class ElectricAdapter {
 	public static ElectricAdapter wrap(ItemStack stack) {
@@ -11,7 +12,7 @@ public abstract class ElectricAdapter {
 		}
 		if (stack.getItem() instanceof IItemElectric) {
 			return new UEElectricAdapter(stack);
-		} else if (stack.getItem() instanceof IElectricItem && Config.isIC2Loaded()) {
+		} else if (stack.getItem() instanceof IElectricItem && Loader.isModLoaded("IC2")) {
 			return new IC2ElectricAdapter(stack);
 			// } else if (stack.getItem() instanceof IChargeableItem) {
 			// return new TEElectricAdapter(stack);
