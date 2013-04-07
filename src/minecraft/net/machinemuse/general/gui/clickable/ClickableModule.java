@@ -17,6 +17,8 @@ import net.machinemuse.general.geometry.MusePoint2D;
  */
 public class ClickableModule extends Clickable {
 	protected IPowerModule module;
+	protected boolean allowed = true;
+	protected boolean installed = false;
 
 	/**
 	 * @param vaug
@@ -38,13 +40,17 @@ public class ClickableModule extends Clickable {
 
 	@Override
 	public void draw() {
-		Colour c1 = new Colour(1.0F, 0.2F, 0.6F, 1.0F);
-		Colour c2 = new Colour(0.6F, 0.2F, 1.0F, 1.0F);
-
 		Colour.getGreyscale(1.0f, 1.0f).doGL();
 		MuseRenderer.TEXTURE_MAP = getModule().getStitchedTexture(null);
 		MuseRenderer.drawIconAt(getPosition().x() - 8, getPosition().y() - 8, getModule().getIcon(null), null);
-
+		
+		// Draw the status indicators slightly lower and to the right so they stand out a little more.
+		if (! allowed) {
+			String string = MuseStringUtils.wrapFormatTags("x", MuseStringUtils.FormatCodes.DarkRed);
+			MuseRenderer.drawString(string, getPosition().x() + 3, getPosition().y() + 1);
+		} else if (installed) {
+			MuseRenderer.drawCheckmark(getPosition().x() - 8 + 1, getPosition().y() - 8 + 1, new Colour(0.0F, 0.667F, 0.0F, 1.0F));
+		}
 	}
 
 	@Override
@@ -65,6 +71,14 @@ public class ClickableModule extends Clickable {
 
 	public boolean equals(ClickableModule other) {
 		return this.module.equals(other.module);
+	}
+
+	public void setAllowed(boolean allowed) {
+		this.allowed = allowed;
+	}
+
+	public void setInstalled(boolean installed) {
+		this.installed = installed;
 	}
 
 }

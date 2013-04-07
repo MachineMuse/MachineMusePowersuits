@@ -606,4 +606,32 @@ public abstract class MuseRenderer {
 		matrix.put(10, scalez);
 		GL11.glLoadMatrix(matrix);
 	}
+	
+	public static void drawCheckmark(double x, double y, Colour colour) {
+		GL11.glPushMatrix();
+		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glDisable(GL11.GL_CULL_FACE);
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		texturelessOff();
+		blendingOn();
+
+		if (colour != null) {
+			colour.doGL();
+		}
+		getRenderEngine().bindTexture("/mods/mmmPowersuits/textures/gui/checkmark.png");
+		Tessellator tess = Tessellator.instance;
+		tess.startDrawingQuads();
+
+		tess.addVertexWithUV(x, y, 0.0F, 0.0F, 0.0F);
+		tess.addVertexWithUV(x, y + 16, 0.0F, 0.0F, 1.0F);
+		tess.addVertexWithUV(x + 16, y + 16, 0.0F, 1.0F, 1.0F);
+		tess.addVertexWithUV(x + 16, y, 0.0F, 1.0F, 0.0F);
+		tess.draw();
+
+		MuseRenderer.blendingOff();
+		GL11.glEnable(GL11.GL_CULL_FACE);
+		GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glPopMatrix();
+	}
 }
