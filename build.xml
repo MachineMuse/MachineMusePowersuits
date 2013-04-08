@@ -118,14 +118,14 @@
 		<echo message="Extracting Atomic Science API... " />
 		<unzip src="${download.dir}/AtomicScience_v${asapi.version}_api.zip" dest="${download.dir}/ue" />
 		<mkdir dir="${mcpsrc.dir}/atomicscience/api/poison" />
-		<move file="${download.dir}/ue/src/minecraft/atomicscience/api/poison/Poison.java" todir="${mcpsrc.dir}/atomicscience/api/poison/" />
-		<move file="${download.dir}/ue/src/minecraft/atomicscience/api/IAntiPoisonArmor.java" todir="${mcpsrc.dir}/atomicscience/api/" />
+		<move file="${download.dir}/ue/src/minecraft/atomicscience/api/poison/Poison.java" todir="${mcpsrc.dir}/atomicscience/api/poison" />
+		<move file="${download.dir}/ue/src/minecraft/atomicscience/api/IAntiPoisonArmor.java" todir="${mcpsrc.dir}/atomicscience/api" />
 
 		<echo message="Extracting ThermalExpansion API... " />
 		<unzip src="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" dest="${download.dir}" />
 		<mkdir dir="${mcpsrc.dir}/thermalexpansion/api/core" />
-		<move file="${download.dir}/thermalexpansion/api/core/ItemRegistry.java" todir="${mcpsrc.dir}/thermalexpansion/api/core/" />
-		<move file="${download.dir}/thermalexpansion/api/core/IChargeableItem.java" todir="${mcpsrc.dir}/thermalexpansion/api/core/" />
+		<move file="${download.dir}	/thermalexpansion/api/item/ItemRegistry.java" todir="${mcpsrc.dir}/thermalexpansion/api/item" />
+		<move file="${download.dir}/thermalexpansion/api/item/IChargeableItem.java" todir="${mcpsrc.dir}/thermalexpansion/api/item" />
 
 		<echo message="Extracting Galacticraft API... " />
 		<unzip src="${download.dir}/Galacticraft API.zip" dest="${download.dir}" />
