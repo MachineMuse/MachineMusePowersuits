@@ -112,14 +112,14 @@
 		<echo message="Extracting ICBM API... " />
 		<unzip src="${download.dir}/ICBM_API_v${icbmapi.version}.zip" dest="${download.dir}/ue" />
 		<mkdir dir="${mcpsrc.dir}/icbm/api/explosion" />
-		<move file="${download.dir}/ue/minecraft/icbm/api/explosion/IExplosive.java" todir="${mcpsrc.dir}/icbm/api/explosion/" />
-		<move file="${download.dir}/ue/minecraft/icbm/api/explosion/IEMPItem.java" todir="${mcpsrc.dir}/icbm/api/explosion/" />
+		<move file="${download.dir}/ue/src/minecraft/icbm/api/explosion/IExplosive.java" todir="${mcpsrc.dir}/icbm/api/explosion/" />
+		<move file="${download.dir}/ue/src/minecraft/icbm/api/explosion/IEMPItem.java" todir="${mcpsrc.dir}/icbm/api/explosion/" />
 
 		<echo message="Extracting Atomic Science API... " />
 		<unzip src="${download.dir}/AtomicScience_v${asapi.version}_api.zip" dest="${download.dir}/ue" />
 		<mkdir dir="${mcpsrc.dir}/atomicscience/api/poison" />
-		<move file="${download.dir}/ue/minecraft/atomicscience/api/poison/Poison.java" todir="${mcpsrc.dir}/atomicscience/api/poison/" />
-		<move file="${download.dir}/ue/minecraft/atomicscience/api/IAntiPoisonArmor.java" todir="${mcpsrc.dir}/atomicscience/api/" />
+		<move file="${download.dir}/ue/src/minecraft/atomicscience/api/poison/Poison.java" todir="${mcpsrc.dir}/atomicscience/api/poison/" />
+		<move file="${download.dir}/ue/src/minecraft/atomicscience/api/IAntiPoisonArmor.java" todir="${mcpsrc.dir}/atomicscience/api/" />
 
 		<echo message="Extracting ThermalExpansion API... " />
 		<unzip src="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" dest="${download.dir}" />
