@@ -124,7 +124,7 @@
 		<echo message="Extracting ThermalExpansion API... " />
 		<unzip src="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" dest="${download.dir}" />
 		<mkdir dir="${mcpsrc.dir}/thermalexpansion/api/core" />
-		<move file="${download.dir}	/thermalexpansion/api/item/ItemRegistry.java" todir="${mcpsrc.dir}/thermalexpansion/api/item" />
+		<move file="${download.dir}/thermalexpansion/api/item/ItemRegistry.java" todir="${mcpsrc.dir}/thermalexpansion/api/item" />
 		<move file="${download.dir}/thermalexpansion/api/item/IChargeableItem.java" todir="${mcpsrc.dir}/thermalexpansion/api/item" />
 
 		<echo message="Extracting Galacticraft API... " />
