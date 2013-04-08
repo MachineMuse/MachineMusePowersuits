@@ -14,14 +14,16 @@ import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.misc.CitizenJoeStyle;
 import net.machinemuse.powersuits.powermodule.misc.TintModule;
 import net.machinemuse.powersuits.powermodule.misc.TransparentArmorModule;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
-import net.minecraftforge.common.IArmorTextureProvider;
 import net.minecraftforge.common.ISpecialArmor;
+import atomicscience.api.IAntiPoisonArmor;
+import atomicscience.api.poison.Poison;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -30,8 +32,11 @@ import cpw.mods.fml.relauncher.SideOnly;
  * 
  * @author MachineMuse
  */
-public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpecialArmor, //
-		IModularItem, IArmorTextureProvider {
+public abstract class ItemPowerArmor extends ItemElectricArmor
+		implements
+		ISpecialArmor,
+		IAntiPoisonArmor,
+		IModularItem {
 
 	/**
 	 * @param id
@@ -47,7 +52,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 	}
 
 	@Override
-	public String getArmorTextureFile(ItemStack itemstack) {
+	public String getArmorTexture(ItemStack itemstack, Entity entity, int slot, int layer) {
 		if (itemstack != null) {
 			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(itemstack);
 			// MinecraftForgeClient.getRenderPass()? nope
@@ -76,7 +81,8 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 	}
 
 	/**
-	 * Inherited from ISpecialArmor, allows significant customization of damage calculations.
+	 * Inherited from ISpecialArmor, allows significant customization of damage
+	 * calculations.
 	 */
 	@Override
 	public ArmorProperties getProperties(EntityLiving player, ItemStack armor, DamageSource source, double damage, int slot) {
@@ -162,7 +168,8 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 	}
 
 	/**
-	 * Inherited from ISpecialArmor, allows us to customize the calculations for how much armor will display on the player's HUD.
+	 * Inherited from ISpecialArmor, allows us to customize the calculations for
+	 * how much armor will display on the player's HUD.
 	 */
 	@Override
 	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
@@ -183,14 +190,16 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 		if (energy > enerConsum) {
 			totalArmor += enerArmor;
 		}
-		// Make it so each armor piece can only contribute reduction up to the configured amount.
+		// Make it so each armor piece can only contribute reduction up to the
+		// configured amount.
 		// Defaults to 6 armor points, or 24% reduction.
 		totalArmor = Math.min(Config.getMaximumArmorPerPiece(), totalArmor);
 		return totalArmor;
 	}
 
 	/**
-	 * Inherited from ISpecialArmor, allows us to customize how the armor handles being damaged.
+	 * Inherited from ISpecialArmor, allows us to customize how the armor
+	 * handles being damaged.
 	 */
 	@Override
 	public void damageArmor(EntityLiving entity, ItemStack stack, DamageSource source, int damage, int slot) {
@@ -212,10 +221,13 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 	 * @param player
 	 *            The player (client) viewing the tooltip
 	 * @param currentTipList
-	 *            A list of strings containing the existing tooltip. When passed, it will just contain the name of the item; enchantments and lore are
+	 *            A list of strings containing the existing tooltip. When
+	 *            passed, it will just contain the name of the item;
+	 *            enchantments and lore are
 	 *            appended afterwards.
 	 * @param advancedToolTips
-	 *            Whether or not the player has 'advanced tooltips' turned on in their settings.
+	 *            Whether or not the player has 'advanced tooltips' turned on in
+	 *            their settings.
 	 */
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
@@ -235,6 +247,15 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 		info.add(formatInfo("Energy Storage", getMaxJoules(stack)) + 'J');
 		info.add(formatInfo("Weight", MuseCommonStrings.getTotalWeight(stack)) + 'g');
 		return info;
+	}
+
+	@Override
+	public boolean isProtectedFromPoison(ItemStack itemStack, EntityLiving entityLiving, Poison type) {
+		return MuseItemUtils.itemHasActiveModule(itemStack, MuseCommonStrings.MODULE_HAZMAT);
+	}
+
+	@Override
+	public void onProtectFromPoison(ItemStack itemStack, EntityLiving entityLiving, Poison type) {
 	}
 
 }

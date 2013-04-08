@@ -5,6 +5,7 @@ package net.machinemuse.powersuits.item;
 
 import net.machinemuse.general.gui.MuseIcon;
 import net.minecraft.client.renderer.texture.IconRegister;
+import atomicscience.api.poison.Poison.ArmorType;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -31,6 +32,11 @@ public class ItemPowerArmorBoots extends ItemPowerArmor {
 	public void updateIcons(IconRegister iconRegister) {
 		MuseIcon.ARMOR_FEET.register(iconRegister);
 		iconIndex = MuseIcon.ARMOR_FEET.getIconRegistration();
+	}
+
+	@Override
+	public ArmorType getArmorType() {
+		return ArmorType.BOOTS;
 	}
 
 }

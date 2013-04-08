@@ -8,6 +8,7 @@ import net.machinemuse.powersuits.powermodule.misc.AirtightSealModule;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import atomicscience.api.poison.Poison.ArmorType;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -33,4 +34,10 @@ public class ItemPowerArmorHelmet extends ItemPowerArmor implements IBreathableA
 	public boolean canBreathe(ItemStack helmetInSlot, EntityPlayer playerWearing, EnumGearType type) {
 		return MuseItemUtils.itemHasActiveModule(helmetInSlot, AirtightSealModule.AIRTIGHT_SEAL_MODULE);
 	}
+
+	@Override
+	public ArmorType getArmorType() {
+		return ArmorType.HELM;
+	}
+
 }

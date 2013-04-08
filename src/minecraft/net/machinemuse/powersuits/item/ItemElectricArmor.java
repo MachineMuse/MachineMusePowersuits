@@ -1,25 +1,28 @@
 package net.machinemuse.powersuits.item;
 
 import ic2.api.ICustomElectricItem;
+import icbm.api.explosion.IEMPItem;
+import icbm.api.explosion.IExplosive;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.api.electricity.IC2ElectricAdapter;
+import net.machinemuse.api.electricity.TEElectricAdapter;
 import net.machinemuse.api.electricity.UEElectricAdapter;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import thermalexpansion.api.item.IChargeableItem;
 import universalelectricity.core.electricity.ElectricityPack;
 import universalelectricity.core.item.IItemElectric;
 
-public class ItemElectricArmor extends ItemArmor
+public abstract class ItemElectricArmor extends ItemArmor
 		implements
 		IItemElectric,
-		ICustomElectricItem
-/**
- * implements IItemElectric, // Universal Electricity ICustomElectricItem, // Industrial Craft 2 IEMPItem, // for ICBM EMP interfacing
- * IAntiPoisonArmor, // for atomic science hazmat suits IChargeableItem // for Thermal Expansion
- **/
+		ICustomElectricItem,
+		IEMPItem,
+		IChargeableItem
 
 {
 	public ItemElectricArmor(int par1, EnumArmorMaterial par2EnumArmorMaterial, int par3, int par4) {
@@ -84,10 +87,10 @@ public class ItemElectricArmor extends ItemArmor
 	 * Call to give energy to an item
 	 * 
 	 * @param stack
-	 *            ItemStack being requested for energy
+	 *            ItemStack being provided with energy
 	 * @param provided
-	 *            Amount of energy to drain
-	 * @return Amount of energy used
+	 *            Amount of energy to add
+	 * @return Amount of energy added
 	 */
 	public double giveEnergyTo(ItemStack stack, double provided) {
 		double available = getCurrentEnergy(stack);
@@ -206,6 +209,34 @@ public class ItemElectricArmor extends ItemArmor
 	@Override
 	public boolean canShowChargeToolTip(ItemStack itemStack) {
 		return false;
+	}
+
+	@Override
+	public float receiveEnergy(ItemStack theItem, float energy, boolean doReceive) {
+		double receivedME = TEElectricAdapter.museEnergyFromMJ(energy);
+		double eatenME = giveEnergyTo(theItem, receivedME);
+		return (float) TEElectricAdapter.museEnergyToMJ(eatenME);
+	}
+
+	@Override
+	public float transferEnergy(ItemStack theItem, float energy, boolean doTransfer) {
+		double requesteddME = TEElectricAdapter.museEnergyFromMJ(energy);
+		double takenME = drainEnergyFrom(theItem, requesteddME);
+		return (float) TEElectricAdapter.museEnergyToMJ(takenME);
+	}
+
+	@Override
+	public float getEnergyStored(ItemStack theItem) {
+		return (float) TEElectricAdapter.museEnergyToMJ(getCurrentEnergy(theItem));
+	}
+
+	@Override
+	public float getMaxEnergyStored(ItemStack theItem) {
+		return (float) TEElectricAdapter.museEnergyToMJ(getMaxEnergy(theItem));
+	}
+
+	@Override
+	public void onEMP(ItemStack itemStack, Entity entity, IExplosive empExplosive) {
 	}
 
 }

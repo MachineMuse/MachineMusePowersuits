@@ -2,6 +2,7 @@ package net.machinemuse.api.electricity;
 
 import ic2.api.IElectricItem;
 import net.minecraft.item.ItemStack;
+import thermalexpansion.api.item.IChargeableItem;
 import universalelectricity.core.item.IItemElectric;
 import cpw.mods.fml.common.Loader;
 
@@ -14,8 +15,8 @@ public abstract class ElectricAdapter {
 			return new UEElectricAdapter(stack);
 		} else if (stack.getItem() instanceof IElectricItem && Loader.isModLoaded("IC2")) {
 			return new IC2ElectricAdapter(stack);
-			// } else if (stack.getItem() instanceof IChargeableItem) {
-			// return new TEElectricAdapter(stack);
+		} else if (stack.getItem() instanceof IChargeableItem) {
+			return new TEElectricAdapter(stack);
 			// } else if (stack.getItem() instanceof IXynergyItem) {
 			// return new XyElectricAdapter(stack);
 		} else {

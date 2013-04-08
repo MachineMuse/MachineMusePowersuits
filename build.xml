@@ -7,13 +7,13 @@
 	<property name="build.ver" value="0.4.1" />
 	<property name="fullversion" value="${build.ver}-${env.BUILD_NUMBER}" />
 	<property name="mcp.version" value="742" />
-	<property name="forgebuild" value="608" />
+	<property name="forgebuild" value="640" />
 	<property name="forge.version" value="1.5.1-7.7.0.${forgebuild}" />
-	<property name="ic2api.version" value="1.115.258-lf" />
-	<property name="ueapi.version" value="1.3.1.354" />
-	<property name="asapi.version" value="0.5.0.166" />
-	<property name="icbmapi.version" value="1.1.0.178" />
-	<property name="thermexapi.version" value="2.2.2" />
+	<property name="ic2api.version" value="1.115.280-lf" />
+	<property name="ueapi.version" value="1.3.1.56" />
+	<property name="asapi.version" value="0.5.1.3" />
+	<property name="icbmapi.version" value="1.1.1.26" />
+	<property name="thermexapi.version" value="2.3.0" />
 	<property name="galacticraftapi.version" value="1" />
 
 
@@ -62,7 +62,7 @@
 		<and>
 			<available file="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" />
 			<available file="${download.dir}/UniversalElectricity_v${ueapi.version}.zip" />
-			<available file="${download.dir}/ICBM_v${icbmapi.version}_api.zip" />
+			<available file="${download.dir}/ICBM_API_v${icbmapi.version}.zip" />
 			<available file="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" />
 			<available file="${download.dir}/AtomicScience_v${asapi.version}.zip" />
 			<available file="${download.dir}/Galacticraft API.zip" />
@@ -77,7 +77,7 @@
 		<get src="http://machinemuse.net/UniversalElectricity_v${ueapi.version}.zip" dest="${download.dir}/UniversalElectricity_v${ueapi.version}.zip" />
 
 		<echo message="Downloading ICBM API..." />
-		<get src="http://machinemuse.net/ICBM_v${icbmapi.version}_api.zip" dest="${download.dir}/ICBM_v${icbmapi.version}_api.zip" />
+		<get src="http://machinemuse.net/ICBM_API_v${icbmapi.version}.zip" dest="${download.dir}/ICBM_API_v${icbmapi.version}.zip" />
 
 		<echo message="Downloading Atomic Science API..." />
 		<get src="http://machinemuse.net/AtomicScience_v${asapi.version}_api.zip" dest="${download.dir}/AtomicScience_v${asapi.version}_api.zip" />
@@ -110,7 +110,7 @@
 		</move>
 
 		<echo message="Extracting ICBM API... " />
-		<unzip src="${download.dir}/ICBM_v${icbmapi.version}_api.zip" dest="${download.dir}/ue" />
+		<unzip src="${download.dir}/ICBM_API_v${icbmapi.version}.zip" dest="${download.dir}/ue" />
 		<mkdir dir="${mcpsrc.dir}/icbm/api/explosion" />
 		<move file="${download.dir}/ue/minecraft/icbm/api/explosion/IExplosive.java" todir="${mcpsrc.dir}/icbm/api/explosion/" />
 		<move file="${download.dir}/ue/minecraft/icbm/api/explosion/IEMPItem.java" todir="${mcpsrc.dir}/icbm/api/explosion/" />
