@@ -334,7 +334,7 @@ public class RecipeManager {
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.fieldEmitter, true, "ISI", "CUC", "ISI", 'I', "ingotTungstenSteel", 'S',
 					ItemComponent.solenoid, 'U', energyFlowCircuit, 'C', "itemSuperconductor"));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true, "ISI", "FCF", "N N", 'I', "plateIridium", 'S',
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true, "ISI", "FCF", "N N", 'I', "plateIridiumAlloy", 'S',
 					"itemSuperconductor", 'N', neutronReflector, 'C', ItemComponent.hvcapacitor, 'F', ItemComponent.fieldEmitter));
 
 		}
