@@ -14,6 +14,7 @@ public class ItemPowerArmorLeggings extends ItemPowerArmor {
 		super(assignedItemID, // itemID
 				0, // Texture index for rendering armor on the player
 				2); // armor type. 0=head, 1=torso, 2=legs, 3=feet
+		setUnlocalizedName("powerArmorLeggings");
 		LanguageRegistry.addName(this, "Power Armor Leggings");
 	}
 
