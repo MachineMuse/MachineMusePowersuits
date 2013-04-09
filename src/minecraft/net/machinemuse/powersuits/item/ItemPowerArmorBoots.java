@@ -24,6 +24,7 @@ public class ItemPowerArmorBoots extends ItemPowerArmor {
 		super(assignedItemID, // itemID
 				0, // Texture index for rendering armor on the player
 				3); // armor type. 0=head, 1=torso, 2=legs, 3=feet
+		setUnlocalizedName("powerArmorBoots");
 		LanguageRegistry.addName(this, "Power Armor Boots");
 	}
 

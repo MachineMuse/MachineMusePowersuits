@@ -14,6 +14,7 @@ public class ItemPowerArmorChestplate extends ItemPowerArmor {
 		super(assignedItemID, // itemID
 				0, // Texture index for rendering armor on the player
 				1); // armor type. 0=head, 1=torso, 2=legs, 3=feet
+		setUnlocalizedName("powerArmorChestplate");
 		LanguageRegistry.addName(this, "Power Armor Chestplate");
 	}
 
