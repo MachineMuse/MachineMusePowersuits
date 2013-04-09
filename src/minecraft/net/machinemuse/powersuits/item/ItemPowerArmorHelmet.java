@@ -20,6 +20,7 @@ public class ItemPowerArmorHelmet extends ItemPowerArmor implements IBreathableA
 		super(assignedItemID, // itemID
 				0, // Texture index for rendering armor on the player
 				0); // armor type. 0=head, 1=torso, 2=legs, 3=feet
+		setUnlocalizedName("powerArmorHelmet");
 		LanguageRegistry.addName(this, "Power Armor Helmet");
 	}
 

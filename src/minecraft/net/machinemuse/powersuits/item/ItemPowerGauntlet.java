@@ -59,6 +59,7 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 		setMaxDamage(0);
 		this.damageVsEntity = 1;
 		setCreativeTab(Config.getCreativeTab());
+		setUnlocalizedName("powerGauntlet");
 		LanguageRegistry.addName(this, "Power Gauntlet");
 	}
 
