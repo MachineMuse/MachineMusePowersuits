@@ -353,11 +353,8 @@ public class RecipeManager {
 			ItemStack gearInvar = ModCompatability.getThermexItem("gearInvar", 1);
 			ItemStack compressedSawdust = ModCompatability.getThermexItem("hardenedGlass", 1);
 			ItemStack energyFrameFull = ModCompatability.getThermexItem("energyCellFrameFull", 1);
-			// ItemStack conduitEnergy =
-			// ModCompatability.getThermexItem("energyConduit", 1);
+			ItemStack conduitEnergy = ModCompatability.getThermexItem("energyConduitEmpty", 1);
 			ItemStack teleportFrameFull = ModCompatability.getThermexItem("tesseractFrameFull", 1);
-			// ItemStack hardenedGlass =
-			// ModCompatability.getThermexItem("blockGlass", 1);
 			// ItemStack hardenedGlass =
 			// ModCompatability.getThermexItem("blockGlass", 1);
 			// Unmake the armor platings
@@ -369,14 +366,6 @@ public class RecipeManager {
 			// "P", 'P', ItemComponent.basicPlating));
 			// } catch (Exception e) {
 			// MuseLogger.logError("Unable to load Titanium");
-			// }
-			// try {
-			// ItemStack iridium = OreDictionary.getOres("plateIridium").get(0);
-			// GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(iridium,
-			// 5), true,
-			// "P", 'P', ItemComponent.advancedPlating));
-			// } catch (Exception e) {
-			// MuseLogger.logError("Unable to load Iridium Plate");
 			// }
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.controlCircuit, true, "EGW", "RWG", "WRE", 'E', "ingotElectrum", 'W',
@@ -416,9 +405,7 @@ public class RecipeManager {
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.lvcapacitor, "CPT", "W W", 'W', ItemComponent.wiring, 'C', "ingotSilver", 'T',
 					"ingotGold", 'P', paper));
 
-			// GameRegistry.addRecipe(new
-			// ShapedOreRecipe(ItemComponent.mvcapacitor, "WRW", 'W',
-			// ItemComponent.wiring, 'R', conduitEnergy));
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.mvcapacitor, "WRW", 'W', ItemComponent.wiring, 'R', conduitEnergy));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.hvcapacitor, "WRW", 'W', ItemComponent.wiring, 'R', energyFrameFull));
 
