@@ -179,11 +179,11 @@
 
 		<!-- Reobf -->
 		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows">
-			<arg line="/c reobfuscate-srg.bat" />
+			<arg line="/c reobfuscate_srg.bat" />
 		</exec>
 
 		<exec dir="${mcp.dir}" executable="sh" osfamily="unix">
-			<arg value="reobfuscate.sh" />
+			<arg value="reobfuscate_srg.sh" />
 		</exec>
 		<copy todir="${classes.dir}">
 			<fileset dir="${mcp.dir}/reobf/minecraft" />
