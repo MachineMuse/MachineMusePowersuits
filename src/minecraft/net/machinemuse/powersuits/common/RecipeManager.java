@@ -353,7 +353,8 @@ public class RecipeManager {
 			ItemStack gearInvar = ModCompatability.getThermexItem("gearInvar", 1);
 			ItemStack compressedSawdust = ModCompatability.getThermexItem("hardenedGlass", 1);
 			ItemStack energyFrameFull = ModCompatability.getThermexItem("energyCellFrameFull", 1);
-			ItemStack conduitEnergy = ModCompatability.getThermexItem("energyConduit", 1);
+			// ItemStack conduitEnergy =
+			// ModCompatability.getThermexItem("energyConduit", 1);
 			ItemStack teleportFrameFull = ModCompatability.getThermexItem("tesseractFrameFull", 1);
 			// ItemStack hardenedGlass =
 			// ModCompatability.getThermexItem("blockGlass", 1);
@@ -415,7 +416,9 @@ public class RecipeManager {
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.lvcapacitor, "CPT", "W W", 'W', ItemComponent.wiring, 'C', "ingotSilver", 'T',
 					"ingotGold", 'P', paper));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.mvcapacitor, "WRW", 'W', ItemComponent.wiring, 'R', conduitEnergy));
+			// GameRegistry.addRecipe(new
+			// ShapedOreRecipe(ItemComponent.mvcapacitor, "WRW", 'W',
+			// ItemComponent.wiring, 'R', conduitEnergy));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.hvcapacitor, "WRW", 'W', ItemComponent.wiring, 'R', energyFrameFull));
 
