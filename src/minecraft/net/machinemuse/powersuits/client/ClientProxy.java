@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.client;
 
+import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.powersuits.block.TileEntityTinkerTable;
 import net.machinemuse.powersuits.client.render.RenderPlasmaBolt;
 import net.machinemuse.powersuits.client.render.RenderSpinningBlade;
@@ -13,7 +14,6 @@ import net.machinemuse.powersuits.control.KeybindKeyHandler;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
-import net.machinemuse.powersuits.event.SoundEventHandler;
 import net.machinemuse.powersuits.event.TextureStitchHandler;
 import net.machinemuse.powersuits.event.ThaumRenderEventHandler;
 import net.machinemuse.powersuits.network.MusePacketHandler;
@@ -41,6 +41,11 @@ public class ClientProxy extends CommonProxy {
 	private static RenderTickHandler renderTickHandler;
 	private static PlayerTickHandler playerTickHandler;
 	public static KeybindKeyHandler keybindHandler;
+
+	@Override
+	public void registerSounds() {
+		MinecraftForge.EVENT_BUS.register(new SoundLoader());
+	}
 
 	/**
 	 * Register all the custom renderers for this mod.
@@ -92,7 +97,7 @@ public class ClientProxy extends CommonProxy {
 		clientTickHandler = new ClientTickHandler();
 		TickRegistry.registerTickHandler(clientTickHandler, Side.CLIENT);
 
-		MinecraftForge.EVENT_BUS.register(new SoundEventHandler());
+		MinecraftForge.EVENT_BUS.register(new SoundLoader());
 
 		if (ModCompatability.isThaumCraftLoaded() && ModCompatability.enableThaumGogglesModule()) {
 			MinecraftForge.EVENT_BUS.register(new ThaumRenderEventHandler());

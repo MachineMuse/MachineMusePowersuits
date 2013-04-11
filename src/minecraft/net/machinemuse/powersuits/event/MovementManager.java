@@ -6,6 +6,8 @@ import java.util.Map;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.electricity.ElectricItemUtils;
+import net.machinemuse.general.sound.Musique;
+import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.powersuits.item.ItemPowerArmor;
 import net.machinemuse.powersuits.powermodule.movement.JumpAssistModule;
 import net.machinemuse.powersuits.powermodule.movement.ShockAbsorberModule;
@@ -41,6 +43,7 @@ public class MovementManager {
 				double jumpAssist = ModuleManager.computeModularProperty(stack, JumpAssistModule.JUMP_MULTIPLIER) * 2;
 				double drain = ModuleManager.computeModularProperty(stack, JumpAssistModule.JUMP_ENERGY_CONSUMPTION);
 				double avail = ElectricItemUtils.getPlayerEnergy(player);
+				Musique.playOneshotSound(player, SoundLoader.SOUND_JUMP_ASSIST, 1);
 				if (drain < avail) {
 					ElectricItemUtils.drainPlayerEnergy(player, drain);
 					setPlayerJumpTicks(player, jumpAssist);

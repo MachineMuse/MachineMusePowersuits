@@ -20,6 +20,9 @@ public class CommonProxy {
 	public static MusePacketHandler packetHandler;
 	public static PlayerTickHandler playerTickHandler;
 
+	public void registerSounds() {
+	}
+
 	/**
 	 * Only the client needs to register renderers.
 	 */

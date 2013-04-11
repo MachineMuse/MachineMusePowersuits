@@ -53,7 +53,9 @@ public abstract class PowerModuleBase implements IPowerModule {
 
 	@Override
 	public void registerIcon(IconRegister register) {
-		this.icon = register.registerIcon(MuseIcon.ICON_PREFIX + getTextureFile());
+		if (getTextureFile() != null) {
+			this.icon = register.registerIcon(MuseIcon.ICON_PREFIX + getTextureFile());
+		}
 	}
 
 	public abstract String getTextureFile();

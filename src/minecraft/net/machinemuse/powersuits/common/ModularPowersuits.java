@@ -95,6 +95,7 @@ public class ModularPowersuits {
 		Config.init(new Configuration(event.getSuggestedConfigurationFile()));
 		MinecraftForge.EVENT_BUS.register(new EventHandler());
 		MinecraftForge.EVENT_BUS.register(new MovementManager());
+		proxy.registerSounds();
 	}
 
 	public static Config config;

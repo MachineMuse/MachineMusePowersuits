@@ -40,25 +40,6 @@ public abstract class MuseCommonStrings {
 	public static final String CATEGORY_SPECIAL = "Special";
 
 	/**
-	 * Sounds
-	 */
-	private static final String SOUND_RESOURCE_LOCATION = "resources/machinemuse/sound/";
-	private static final String SOUND_PREFIX = "resources.machinemuse.sound.";
-
-	public static String[] soundFiles = { SOUND_RESOURCE_LOCATION + "Glider.ogg", SOUND_RESOURCE_LOCATION + "GUIInstall.ogg",
-			SOUND_RESOURCE_LOCATION + "GUISelect.ogg", SOUND_RESOURCE_LOCATION + "JetBoots.ogg", SOUND_RESOURCE_LOCATION + "Jetpack.ogg",
-			SOUND_RESOURCE_LOCATION + "JumpAssist.ogg", SOUND_RESOURCE_LOCATION + "SwimAssist.ogg",
-			SOUND_RESOURCE_LOCATION + "WaterElectrolyzer.ogg", };
-	public static final String SOUND_GLIDER = SOUND_PREFIX + "Glider";
-	public static final String SOUND_GUI_INSTALL = SOUND_PREFIX + "GUIInstall";
-	public static final String SOUND_GUI_SELECT = SOUND_PREFIX + "GUISelect";
-	public static final String SOUND_JET_BOOTS = SOUND_PREFIX + "JetBoots";
-	public static final String SOUND_JETPACK = SOUND_PREFIX + "Jetpack";
-	public static final String SOUND_JUMP_ASSIST = SOUND_PREFIX + "JumpAssist";
-	public static final String SOUND_SWIM_ASSIST = SOUND_PREFIX + "SwimAssist";
-	public static final String SOUND_WATER_ELECTROLYZER = SOUND_PREFIX + "WaterElectrolyzer";
-
-	/**
 	 * Adds information to the item's tooltip when 'getting' it.
 	 * 
 	 * @param stack
@@ -66,10 +47,13 @@ public abstract class MuseCommonStrings {
 	 * @param player
 	 *            The player (client) viewing the tooltip
 	 * @param currentTipList
-	 *            A list of strings containing the existing tooltip. When passed, it will just contain the name of the item; enchantments and lore are
+	 *            A list of strings containing the existing tooltip. When
+	 *            passed, it will just contain the name of the item;
+	 *            enchantments and lore are
 	 *            appended afterwards.
 	 * @param advancedToolTips
-	 *            Whether or not the player has 'advanced tooltips' turned on in their settings.
+	 *            Whether or not the player has 'advanced tooltips' turned on in
+	 *            their settings.
 	 */
 	public static void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
 		if (stack.getItem() instanceof ItemPowerGauntlet) {
@@ -88,10 +72,14 @@ public abstract class MuseCommonStrings {
 					MuseStringUtils.FormatCodes.Grey));
 		}
 		// try {
-		// if (ModCompatability.isAndrewAddonsLoaded() && stack.getItem() instanceof ItemPowerArmorHead && MuseItemUtils.getFoodLevel(stack) > 0
+		// if (ModCompatability.isAndrewAddonsLoaded() && stack.getItem()
+		// instanceof ItemPowerArmorHead && MuseItemUtils.getFoodLevel(stack) >
+		// 0
 		// && MuseItemUtils.itemHasModule(stack, "Auto-Feeder")) {
-		// currentTipList.add(MuseStringUtils.wrapMultipleFormatTags("Food level: " + MuseItemUtils.getFoodLevel(stack),
-		// MuseStringUtils.FormatCodes.Italic.character, MuseStringUtils.FormatCodes.Grey));
+		// currentTipList.add(MuseStringUtils.wrapMultipleFormatTags("Food level: "
+		// + MuseItemUtils.getFoodLevel(stack),
+		// MuseStringUtils.FormatCodes.Italic.character,
+		// MuseStringUtils.FormatCodes.Grey));
 		// }
 		// } catch (Exception e) {
 		// }
