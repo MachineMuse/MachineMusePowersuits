@@ -207,13 +207,17 @@ public class RecipeManager {
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.parachute, true, "WWW", "S S", 'W', wool, 'S', string));
 			//
-			// Ic2Recipes.addCraftingRecipe(ItemComponent.lvcapacitor, "WBW", 'W', ItemComponent.wiring.copy(), 'B', reBattery);
+			// Ic2Recipes.addCraftingRecipe(ItemComponent.lvcapacitor, "WBW",
+			// 'W', ItemComponent.wiring.copy(), 'B', reBattery);
 			//
-			// Ic2Recipes.addCraftingRecipe(ItemComponent.lvcapacitor, "WBW", 'W', ItemComponent.wiring.copy(), 'B', fullBattery);
+			// Ic2Recipes.addCraftingRecipe(ItemComponent.lvcapacitor, "WBW",
+			// 'W', ItemComponent.wiring.copy(), 'B', fullBattery);
 			//
-			// Ic2Recipes.addCraftingRecipe(ItemComponent.mvcapacitor, "WBW", 'W', ItemComponent.wiring.copy(), 'B', energyCrystal);
+			// Ic2Recipes.addCraftingRecipe(ItemComponent.mvcapacitor, "WBW",
+			// 'W', ItemComponent.wiring.copy(), 'B', energyCrystal);
 			//
-			// Ic2Recipes.addCraftingRecipe(ItemComponent.hvcapacitor, "WBW", 'W', ItemComponent.wiring.copy(), 'B', lapotronCrystal);
+			// Ic2Recipes.addCraftingRecipe(ItemComponent.hvcapacitor, "WBW",
+			// 'W', ItemComponent.wiring.copy(), 'B', lapotronCrystal);
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solenoid, true, " W ", "WIW", " W ", 'W', ItemComponent.wiring, 'I', machine));
 
@@ -347,10 +351,10 @@ public class RecipeManager {
 			ItemStack gearCopper = ModCompatability.getThermexItem("gearCopper", 1);
 			ItemStack gearTin = ModCompatability.getThermexItem("gearTin", 1);
 			ItemStack gearInvar = ModCompatability.getThermexItem("gearInvar", 1);
-			ItemStack compressedSawdust = ModCompatability.getThermexItem("sawdustCompressed", 1);
-			ItemStack energyFrameFull = ModCompatability.getThermexItem("energyFrameFull", 1);
+			ItemStack compressedSawdust = ModCompatability.getThermexItem("hardenedGlass", 1);
+			ItemStack energyFrameFull = ModCompatability.getThermexItem("energyCellFrameFull", 1);
 			ItemStack conduitEnergy = ModCompatability.getThermexItem("energyConduit", 1);
-			ItemStack teleportFrameFull = ModCompatability.getThermexItem("teleportBase", 1);
+			ItemStack teleportFrameFull = ModCompatability.getThermexItem("tesseractFrameFull", 1);
 			// ItemStack hardenedGlass =
 			// ModCompatability.getThermexItem("blockGlass", 1);
 			// ItemStack hardenedGlass =

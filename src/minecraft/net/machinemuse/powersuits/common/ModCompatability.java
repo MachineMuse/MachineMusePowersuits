@@ -180,17 +180,16 @@ public class ModCompatability {
 	}
 
 	public static ItemStack getThermexItem(String string, int quantity) {
-		// try {
-		// ItemStack item =
-		// thermalexpansion.api.core.ItemRegistry.getItem(string, quantity);
-		// if (item != null) {
-		// return item;
-		// }
-		// } catch (Exception e) {
-		// }
-		// thermalexpansion.api.core.ItemRegistry.printItemNames();
-		// MuseLogger.logError("Failed to get Thermal Expansion item " +
-		// string);
+		try {
+			ItemStack item =
+					thermalexpansion.api.item.ItemRegistry.getItem(string, quantity);
+			if (item != null) {
+				return item;
+			}
+		} catch (Exception e) {
+		}
+		// thermalexpansion.api.item.ItemRegistry.printItemNames();
+		MuseLogger.logError("Failed to get Thermal Expansion item " + string);
 		return null;
 	}
 }
