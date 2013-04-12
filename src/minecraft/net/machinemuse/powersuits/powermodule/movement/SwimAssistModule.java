@@ -12,6 +12,7 @@ import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
+import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -45,7 +46,7 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
 
 	@Override
 	public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-		if (player.isInWater()) {
+		if (player.isInWater() && !(player.isRiding())) {
 			ItemStack pants = player.getCurrentArmor(1);
 			PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.username);
 			boolean jumpkey = movementInput.jumpKey;
