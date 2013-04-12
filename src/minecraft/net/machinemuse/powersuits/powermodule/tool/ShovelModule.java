@@ -21,7 +21,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 public class ShovelModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
 	public static final String MODULE_SHOVEL = "Shovel";
-	public static final ItemStack ironShovel = new ItemStack(Item.shovelSteel);
+	public static final ItemStack ironShovel = new ItemStack(Item.shovelIron);
 	public static final String SHOVEL_HARVEST_SPEED = "Shovel Harvest Speed";
 	public static final String SHOVEL_ENERGY_CONSUMPTION = "Shovel Energy Consumption";
 

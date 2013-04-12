@@ -3,11 +3,7 @@ package net.machinemuse.powersuits.item;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.MuseCommonStrings;
-import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.*;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
@@ -65,9 +61,9 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void updateIcons(IconRegister iconRegister) {
+	public void registerIcons(IconRegister iconRegister) {
 		MuseIcon.POWERTOOL.register(iconRegister);
-		iconIndex = MuseIcon.POWERTOOL.getIconRegistration();
+		itemIcon = MuseIcon.POWERTOOL.getIconRegistration();
 	}
 
 	public static MuseIcon getCurrentIconFor(ItemStack itemStack) {
@@ -92,7 +88,8 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 	}
 
 	/**
-	 * Returns the strength of the stack against a given block. 1.0F base, (Quality+1)*2 if correct blocktype, 1.5F if sword
+	 * Returns the strength of the stack against a given block. 1.0F base,
+	 * (Quality+1)*2 if correct blocktype, 1.5F if sword
 	 */
 	@Override
 	public float getStrVsBlock(ItemStack stack, Block block) {
@@ -118,7 +115,8 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 	}
 
 	/**
-	 * Current implementations of this method in child classes do not use the entry argument beside stack. They just raise the damage on the stack.
+	 * Current implementations of this method in child classes do not use the
+	 * entry argument beside stack. They just raise the damage on the stack.
 	 */
 	@Override
 	public boolean hitEntity(ItemStack stack, EntityLiving entityBeingHit, EntityLiving entityDoingHitting) {
@@ -158,11 +156,13 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 	}
 
 	/**
-	 * An itemstack sensitive version of getDamageVsEntity - allows items to handle damage based on
+	 * An itemstack sensitive version of getDamageVsEntity - allows items to
+	 * handle damage based on
 	 * itemstack data, like tags. Falls back to getDamageVsEntity.
 	 * 
 	 * @param par1Entity
-	 *            The entity being attacked (or the attacking mob, if it's a mob - vanilla bug?)
+	 *            The entity being attacked (or the attacking mob, if it's a mob
+	 *            - vanilla bug?)
 	 * @param itemStack
 	 *            The itemstack
 	 * @return the damage
@@ -183,7 +183,8 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 	}
 
 	/**
-	 * Return the enchantability factor of the item. In this case, 0. Might add an enchantability module later :P
+	 * Return the enchantability factor of the item. In this case, 0. Might add
+	 * an enchantability module later :P
 	 */
 	@Override
 	public int getItemEnchantability() {
@@ -228,10 +229,13 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 	 * @param player
 	 *            The player (client) viewing the tooltip
 	 * @param currentTipList
-	 *            A list of strings containing the existing tooltip. When passed, it will just contain the name of the item; enchantments and lore are
+	 *            A list of strings containing the existing tooltip. When
+	 *            passed, it will just contain the name of the item;
+	 *            enchantments and lore are
 	 *            appended afterwards.
 	 * @param advancedToolTips
-	 *            Whether or not the player has 'advanced tooltips' turned on in their settings.
+	 *            Whether or not the player has 'advanced tooltips' turned on in
+	 *            their settings.
 	 */
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
@@ -267,7 +271,8 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 	}
 
 	/**
-	 * returns the action that specifies what animation to play when the items is being used
+	 * returns the action that specifies what animation to play when the items
+	 * is being used
 	 */
 	@Override
 	public EnumAction getItemUseAction(ItemStack stack) {

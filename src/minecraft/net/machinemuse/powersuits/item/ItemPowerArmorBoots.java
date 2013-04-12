@@ -30,9 +30,9 @@ public class ItemPowerArmorBoots extends ItemPowerArmor {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void updateIcons(IconRegister iconRegister) {
+	public void registerIcons(IconRegister iconRegister) {
 		MuseIcon.ARMOR_FEET.register(iconRegister);
-		iconIndex = MuseIcon.ARMOR_FEET.getIconRegistration();
+		itemIcon = MuseIcon.ARMOR_FEET.getIconRegistration();
 	}
 
 	@Override

@@ -20,9 +20,9 @@ public class ItemPowerArmorLeggings extends ItemPowerArmor {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void updateIcons(IconRegister iconRegister) {
+	public void registerIcons(IconRegister iconRegister) {
 		MuseIcon.ARMOR_LEGS.register(iconRegister);
-		iconIndex = MuseIcon.ARMOR_LEGS.getIconRegistration();
+		itemIcon = MuseIcon.ARMOR_LEGS.getIconRegistration();
 	}
 
 	@Override
