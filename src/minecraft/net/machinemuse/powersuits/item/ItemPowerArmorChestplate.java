@@ -20,9 +20,9 @@ public class ItemPowerArmorChestplate extends ItemPowerArmor {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void updateIcons(IconRegister iconRegister) {
+	public void registerIcons(IconRegister iconRegister) {
 		MuseIcon.ARMOR_TORSO.register(iconRegister);
-		iconIndex = MuseIcon.ARMOR_TORSO.getIconRegistration();
+		itemIcon = MuseIcon.ARMOR_TORSO.getIconRegistration();
 	}
 
 	@Override

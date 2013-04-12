@@ -26,9 +26,9 @@ public class ItemPowerArmorHelmet extends ItemPowerArmor implements IBreathableA
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void updateIcons(IconRegister iconRegister) {
+	public void registerIcons(IconRegister iconRegister) {
 		MuseIcon.ARMOR_HEAD.register(iconRegister);
-		iconIndex = MuseIcon.ARMOR_HEAD.getIconRegistration();
+		itemIcon = MuseIcon.ARMOR_HEAD.getIconRegistration();
 	}
 
 	@Override

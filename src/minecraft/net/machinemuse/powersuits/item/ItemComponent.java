@@ -131,7 +131,7 @@ public class ItemComponent extends Item {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void updateIcons(IconRegister iconRegister) {
+	public void registerIcons(IconRegister iconRegister) {
 		for (String iconName : iconNames) {
 			icons.add(iconRegister.registerIcon(MuseIcon.ICON_PREFIX + iconName));
 		}
@@ -148,7 +148,8 @@ public class ItemComponent extends Item {
 	}
 
 	/**
-	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items). For creative tab.
+	 * returns a list of items with the same ID, but different meta (eg: dye
+	 * returns 16 items). For creative tab.
 	 */
 	@Override
 	public void getSubItems(int itemID, CreativeTabs tab, List listToAddTo) {

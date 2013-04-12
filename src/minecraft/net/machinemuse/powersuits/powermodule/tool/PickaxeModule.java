@@ -21,7 +21,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
 	public static final String MODULE_PICKAXE = "Pickaxe";
-	public static final ItemStack ironPickaxe = new ItemStack(Item.pickaxeSteel);
+	public static final ItemStack ironPickaxe = new ItemStack(Item.pickaxeIron);
 	public static final String PICKAXE_HARVEST_SPEED = "Pickaxe Harvest Speed";
 	public static final String PICKAXE_ENERGY_CONSUMPTION = "Pickaxe Energy Consumption";
 
