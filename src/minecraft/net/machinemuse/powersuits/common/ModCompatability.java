@@ -12,6 +12,8 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.machinemuse.powersuits.powermodule.ToggleablePowerModule;
 import net.machinemuse.powersuits.powermodule.misc.AirtightSealModule;
+import net.machinemuse.powersuits.powermodule.misc.HazmatModule;
+import net.machinemuse.powersuits.powermodule.misc.ThaumGogglesModule;
 import net.machinemuse.powersuits.powermodule.tool.MultimeterModule;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -139,43 +141,21 @@ public class ModCompatability {
 		getBCRatio();
 		getIC2Ratio();
 
-		// Add thaumgoggles module
+		// Thaumcraft
 		if (ModCompatability.isThaumCraftLoaded() && ModCompatability.enableThaumGogglesModule()) {
-			Class tcItems;
-			ItemStack gogglesStack = null;
-			try {
-				tcItems = Class.forName("thaumcraft.common.Config");
-				Field itemGoggles = tcItems.getField("itemGoggles");
-				Item goggles = (Item) itemGoggles.get(itemGoggles);
-				gogglesStack = new ItemStack(goggles);
-				IPowerModule module = new PowerModule("Aurameter", Collections.singletonList((IModularItem) ModularPowersuits.powerArmorHead),
-						"bluestar",
-						MuseCommonStrings.CATEGORY_SPECIAL)
-						.setDescription(
-								"Connect up some Thaumic goggles to show the nearby aura values. (Does not reveal aura nodes, only shows the HUD)")
-						.addInstallCost(ItemComponent.laserHologram.copy()).addInstallCost(gogglesStack);
-				ModuleManager.addModule(module);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
+			ModuleManager.addModule(new ThaumGogglesModule(Collections.singletonList((IModularItem) ModularPowersuits.powerArmorHead)));
 		}
 
 		IPowerModule module = new MultimeterModule(Collections.singletonList((IModularItem) ModularPowersuits.powerTool));
 
+		// Atomic Science
 		if (ModCompatability.isAtomicScienceLoaded()) {
-
-			module = new ToggleablePowerModule(MuseCommonStrings.MODULE_HAZMAT, Arrays.<IModularItem> asList(
-					ModularPowersuits.powerArmorHead, ModularPowersuits.powerArmorTorso,
-					ModularPowersuits.powerArmorLegs, ModularPowersuits.powerArmorFeet), "greenstar",
-					MuseCommonStrings.CATEGORY_ARMOR)
-					.setDescription("Protect yourself from that pesky radiation poisoning. *Must be on every piece*")
-					.addInstallCost(Config.copyAndResize(ItemComponent.basicPlating, 3)).addBaseProperty(MuseCommonStrings.WEIGHT, 0.5);
-			ModuleManager.addModule(module);
+			ModuleManager.addModule(new HazmatModule(Arrays.<IModularItem> asList(ModularPowersuits.powerArmorHead, ModularPowersuits.powerArmorTorso, ModularPowersuits.powerArmorLegs, ModularPowersuits.powerArmorFeet)));
 		}
+		
+		// Galacticraft
 		if (ModCompatability.isGalacticraftLoaded()) {
-			module = new AirtightSealModule(Collections.singletonList((IModularItem) ModularPowersuits.powerArmorHead));
-			ModuleManager.addModule(module);
+			ModuleManager.addModule(new AirtightSealModule(Collections.singletonList((IModularItem) ModularPowersuits.powerArmorHead)));
 		}
 	}
 
