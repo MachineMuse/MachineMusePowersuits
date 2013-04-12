@@ -24,7 +24,6 @@ public abstract class MuseCommonStrings {
 	 * Module names
 	 */
 	public static final String MODULE_ANTIGRAVITY = "Antigravity Drive";
-	public static final String MODULE_HAZMAT = "Radiation Shielding";
 
 	/**
 	 * Categories for modules
@@ -71,18 +70,6 @@ public abstract class MuseCommonStrings {
 			currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character,
 					MuseStringUtils.FormatCodes.Grey));
 		}
-		// try {
-		// if (ModCompatability.isAndrewAddonsLoaded() && stack.getItem()
-		// instanceof ItemPowerArmorHead && MuseItemUtils.getFoodLevel(stack) >
-		// 0
-		// && MuseItemUtils.itemHasModule(stack, "Auto-Feeder")) {
-		// currentTipList.add(MuseStringUtils.wrapMultipleFormatTags("Food level: "
-		// + MuseItemUtils.getFoodLevel(stack),
-		// MuseStringUtils.FormatCodes.Italic.character,
-		// MuseStringUtils.FormatCodes.Grey));
-		// }
-		// } catch (Exception e) {
-		// }
 		if (Config.doAdditionalInfo()) {
 			List<String> installed = MuseCommonStrings.getItemInstalledModules(player, stack);
 			if (installed.size() == 0) {
