@@ -46,7 +46,7 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
 
 	@Override
 	public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-		if (player.isInWater() && !(player.ridingEntity instanceof EntityBoat)) {
+		if (player.isInWater() && !(player.isRiding())) {
 			ItemStack pants = player.getCurrentArmor(1);
 			PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.username);
 			boolean jumpkey = movementInput.jumpKey;
