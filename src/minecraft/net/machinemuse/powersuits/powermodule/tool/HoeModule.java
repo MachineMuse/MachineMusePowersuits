@@ -2,11 +2,7 @@ package net.machinemuse.powersuits.powermodule.tool;
 
 import java.util.List;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.MuseCommonStrings;
-import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.*;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -57,8 +53,6 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
 			{
 				return;
 			}
-			int i1 = world.getBlockId(x, y, z);
-			int j1 = world.getBlockId(x, y + 1, z);
 			double radius = (int) ModuleManager.computeModularProperty(itemStack, HOE_SEARCH_RADIUS);
 			for (int i = (int) Math.floor(-radius); i < radius; i++) {
 				for (int j = (int) Math.floor(-radius); j < radius; j++) {
