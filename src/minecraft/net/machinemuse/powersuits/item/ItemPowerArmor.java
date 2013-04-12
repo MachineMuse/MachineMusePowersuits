@@ -12,6 +12,7 @@ import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.misc.CitizenJoeStyle;
+import net.machinemuse.powersuits.powermodule.misc.HazmatModule;
 import net.machinemuse.powersuits.powermodule.misc.TintModule;
 import net.machinemuse.powersuits.powermodule.misc.TransparentArmorModule;
 import net.minecraft.entity.Entity;
@@ -251,7 +252,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor
 
 	@Override
 	public boolean isProtectedFromPoison(ItemStack itemStack, EntityLiving entityLiving, Poison type) {
-		return MuseItemUtils.itemHasActiveModule(itemStack, MuseCommonStrings.MODULE_HAZMAT);
+		return MuseItemUtils.itemHasActiveModule(itemStack, HazmatModule.MODULE_HAZMAT);
 	}
 
 	@Override
