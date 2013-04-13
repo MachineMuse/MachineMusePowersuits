@@ -6,6 +6,8 @@ import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.DrawableMuseRect;
 import net.machinemuse.general.geometry.MusePoint2D;
 
+import org.lwjgl.input.Mouse;
+
 public class ScrollableFrame implements IGuiFrame {
 	protected int totalsize;
 	protected int currentscrollpixels;
@@ -26,41 +28,32 @@ public class ScrollableFrame implements IGuiFrame {
 	}
 
 	@Override
-	public void update(double mousex, double mousey) {
-		// TODO Auto-generated method stub
-
+	public void update(double x, double y) {
+		if (Mouse.isButtonDown(0) && x > border.left() && x < border.right() && y > border.top() && y < border.bottom()) {
+			if ((y - border.top()) < buttonsize && currentscrollpixels > 0) {
+				currentscrollpixels -= getScrollAmount();
+			} else if ((border.bottom() - y) < buttonsize
+					&& currentscrollpixels + border.bottom() - border.top() < totalsize) {
+				currentscrollpixels += getScrollAmount();
+			}
+		}
 	}
 
 	@Override
 	public void draw() {
 		border.draw();
-	}
+		if (currentscrollpixels < totalsize) {
 
-	// @Override
-	// public boolean hitBox(int x, int y) {
-	// if (x > left && x < right && y > top && y < bottom) {
-	// if ((y - top) < buttonsize && currentscrollpixels > 0) {
-	// currentscrollpixels -= getScrollAmount();
-	// } else if ((bottom - y) < buttonsize
-	// && currentscrollpixels + bottom - top < totalsize) {
-	// currentscrollpixels += getScrollAmount();
-	// }
-	//
-	// return true;
-	// } else {
-	// return false;
-	// }
-	// }
+		}
+	}
 
 	@Override
 	public void onMouseDown(double x, double y, int button) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void onMouseUp(double x, double y, int button) {
-		// TODO Auto-generated method stub
 
 	}
 

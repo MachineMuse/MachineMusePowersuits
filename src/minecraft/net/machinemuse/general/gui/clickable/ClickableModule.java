@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.machinemuse.api.IPowerModule;
+import net.machinemuse.general.MuseMathUtils;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
@@ -40,12 +41,39 @@ public class ClickableModule extends Clickable {
 
 	@Override
 	public void draw() {
-		Colour.getGreyscale(1.0f, 1.0f).doGL();
+		double k = Integer.MAX_VALUE;
+		drawPartial(0, 0, 16, 16);
+		// Colour.WHITE.doGL();
+		// MuseRenderer.TEXTURE_MAP = getModule().getStitchedTexture(null);
+		// MuseRenderer.drawIconAt(getPosition().x() - 8, getPosition().y() - 8,
+		// getModule().getIcon(null), null);
+		//
+		// // Draw the status indicators slightly lower and to the right so they
+		// // stand out a little more.
+		// if (!allowed) {
+		// String string = MuseStringUtils.wrapFormatTags("x",
+		// MuseStringUtils.FormatCodes.DarkRed);
+		// MuseRenderer.drawString(string, getPosition().x() + 3,
+		// getPosition().y() + 1);
+		// } else if (installed) {
+		// MuseRenderer.drawCheckmark(getPosition().x() - 8 + 1,
+		// getPosition().y() - 8 + 1, new Colour(0.0F, 0.667F, 0.0F, 1.0F));
+		// }
+	}
+
+	public void drawPartial(double xmin, double ymin, double xmax, double ymax) {
 		MuseRenderer.TEXTURE_MAP = getModule().getStitchedTexture(null);
-		MuseRenderer.drawIconAt(getPosition().x() - 8, getPosition().y() - 8, getModule().getIcon(null), null);
-		
-		// Draw the status indicators slightly lower and to the right so they stand out a little more.
-		if (! allowed) {
+		double left = getPosition().x() - 8;
+		double top = getPosition().y() - 8;
+		xmin = MuseMathUtils.clampDouble(xmin - left, 0, 16);
+		ymin = MuseMathUtils.clampDouble(ymin - top, 0, 16);
+		xmax = MuseMathUtils.clampDouble(xmax - left, 0, 16);
+		ymax = MuseMathUtils.clampDouble(ymax - top, 0, 16);
+		MuseRenderer.drawIconPartial(left, top, getModule().getIcon(null), Colour.WHITE, xmin, ymin, xmax, ymax);
+
+		// Draw the status indicators slightly lower and to the right so they
+		// stand out a little more.
+		if (!allowed) {
 			String string = MuseStringUtils.wrapFormatTags("x", MuseStringUtils.FormatCodes.DarkRed);
 			MuseRenderer.drawString(string, getPosition().x() + 3, getPosition().y() + 1);
 		} else if (installed) {

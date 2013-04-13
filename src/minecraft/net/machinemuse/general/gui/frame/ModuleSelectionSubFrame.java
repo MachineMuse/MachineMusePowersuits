@@ -28,11 +28,25 @@ public class ModuleSelectionSubFrame {
 	}
 
 	public ClickableModule addModule(IPowerModule module) {
-		double x = border.left() + 8 + 16 * moduleButtons.size();
-		double y = border.top() + 16;
+		double x = border.left() + 8 + 16 * (moduleButtons.size() % 5);
+		double y = border.top() + 16 + 16 * (moduleButtons.size() / 5);
+		border.setBottom(border.top() + 28 + 16 * (moduleButtons.size() / 5));
 		ClickableModule clickie = new ClickableModule(module, new MusePoint2D(x, y));
 		this.moduleButtons.add(clickie);
 		return clickie;
 
+	}
+
+	public void drawPartial(int min, int max) {
+		if (min < border.top() + 4 && max > border.top() - 4) {
+			MuseRenderer.drawString(this.category, border.left(), border.top());
+		}
+		for (ClickableModule clickie : moduleButtons) {
+			clickie.drawPartial(border.left(), min, border.right(), max);
+		}
+	}
+
+	public MuseRect getBorder() {
+		return border;
 	}
 }

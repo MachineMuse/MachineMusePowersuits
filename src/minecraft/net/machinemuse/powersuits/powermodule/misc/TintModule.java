@@ -1,18 +1,11 @@
 package net.machinemuse.powersuits.powermodule.misc;
 
-import java.util.Collection;
 import java.util.List;
 
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
-import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 
 public class TintModule extends PowerModuleBase {
 	public static final String MODULE_TINT = "Custom Colour Module";
@@ -27,7 +20,7 @@ public class TintModule extends PowerModuleBase {
 		addTradeoffProperty("Green Intensity", GREEN_TINT, 1, "%");
 		addTradeoffProperty("Blue Intensity", BLUE_TINT, 1, "%");
 	}
-	
+
 	@Override
 	public String getTextureFile() {
 		return "netherstar";
@@ -35,7 +28,8 @@ public class TintModule extends PowerModuleBase {
 
 	@Override
 	public String getCategory() {
-		return MuseCommonStrings.CATEGORY_COSMETIC;
+		return "Blah";
+		// return MuseCommonStrings.CATEGORY_COSMETIC;
 	}
 
 	@Override

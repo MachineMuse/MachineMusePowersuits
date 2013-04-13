@@ -1,10 +1,6 @@
 package net.machinemuse.general.gui.frame;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.MuseItemUtils;
@@ -12,8 +8,11 @@ import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.geometry.MuseRect;
+import net.machinemuse.general.geometry.MuseRelativeRect;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableModule;
+
+import org.lwjgl.opengl.GL11;
 
 public class ModuleSelectionFrame extends ScrollableFrame {
 	protected ItemSelectionFrame target;
@@ -21,6 +20,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 	protected List<ClickableModule> moduleButtons;
 	protected int selectedModule = -1;
 	protected IPowerModule prevSelection;
+	protected MuseRect lastPosition;
 
 	public ModuleSelectionFrame(MusePoint2D topleft, MusePoint2D bottomright,
 			Colour borderColour, Colour insideColour, ItemSelectionFrame target) {
@@ -33,16 +33,22 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 
 	@Override
 	public void update(double mousex, double mousey) {
-
+		super.update(mousex, mousey);
 	}
 
 	@Override
 	public void draw() {
 		if (target.getSelectedItem() != null) {
 			loadModules();
+			for (ModuleSelectionSubFrame frame : categories.values()) {
+				totalsize = (int) Math.max(frame.border.bottom() - this.border.top(), totalsize);
+			}
 			drawBackground();
+			GL11.glPushMatrix();
+			GL11.glTranslatef(0, -currentscrollpixels, 0);
 			drawItems();
 			drawSelection();
+			GL11.glPopMatrix();
 		}
 	}
 
@@ -52,7 +58,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 
 	private void drawItems() {
 		for (ModuleSelectionSubFrame frame : categories.values()) {
-			frame.draw();
+			frame.drawPartial((int) (this.currentscrollpixels + border.top()), (int) (this.currentscrollpixels + border.top() + border.height()));
 		}
 	}
 
@@ -77,6 +83,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 	}
 
 	public void loadModules() {
+		this.lastPosition = null;
 		ClickableItem selectedItem = target.getSelectedItem();
 		if (selectedItem != null) {
 			double centerx = (border.left() + border.right()) / 2;
@@ -87,12 +94,13 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 
 			List<IPowerModule> workingModules = MuseItemUtils.getValidModulesForItem(null, selectedItem.getItem());
 
-			// Prune the list of disallowed modules, if not installed on this item.
+			// Prune the list of disallowed modules, if not installed on this
+			// item.
 			for (Iterator<IPowerModule> it = workingModules.iterator(); it.hasNext();) {
 				IPowerModule module = it.next();
 				if (module.isAllowed() == false &&
 						MuseItemUtils.itemHasModule(selectedItem.getItem(), module.getName()) == false) {
-					it.remove();					
+					it.remove();
 				}
 			}
 
@@ -108,7 +116,8 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 					ClickableModule moduleClickable = frame.addModule(module);
 					// Indicate installed modules
 					if (module.isAllowed() == false) {
-						// If a disallowed module made it to the list, indicate it as disallowed
+						// If a disallowed module made it to the list, indicate
+						// it as disallowed
 						moduleClickable.setAllowed(false);
 					} else if (MuseItemUtils.itemHasModule(selectedItem.getItem(), module.getName())) {
 						moduleClickable.setInstalled(true);
@@ -126,13 +135,19 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 		if (categories.containsKey(category)) {
 			return categories.get(category);
 		} else {
+			MuseRelativeRect position = new MuseRelativeRect(
+					border.left() + 4,
+					border.top() + 4 + 30 * categories.size(),
+					border.right() - 4,
+					border.top() + 34 + 30 * categories.size());
+			if (!categories.isEmpty()) {
+				position.setBelow(lastPosition);
+				lastPosition = position;
+			}
+
 			ModuleSelectionSubFrame frame = new ModuleSelectionSubFrame(
 					category,
-					new MuseRect(
-							border.left() + 4,
-							border.top() + 4 + 30 * categories.size(),
-							border.right() - 4,
-							border.bottom() + 34 + 30 * categories.size()));
+					position);
 
 			categories.put(category, frame);
 			return frame;
@@ -141,40 +156,43 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 
 	@Override
 	public void onMouseDown(double x, double y, int button) {
-		loadModules();
-		int i = 0;
-		for (ClickableModule module : moduleButtons) {
-			if (module.hitBox(x, y)) {
-				selectedModule = i;
-				prevSelection = module.getModule();
-				break;
-			} else {
-				i++;
+		if (border.left() < x && border.right() > x && border.top() < y && border.bottom() > y) {
+			loadModules();
+			int i = 0;
+			for (ClickableModule module : moduleButtons) {
+				if (module.hitBox(x, y)) {
+					selectedModule = i;
+					prevSelection = module.getModule();
+					break;
+				} else {
+					i++;
+				}
 			}
 		}
 	}
 
 	@Override
 	public List<String> getToolTip(int x, int y) {
-		if (moduleButtons != null) {
-			int moduleHover = -1;
-			int i = 0;
-			for (ClickableModule module : moduleButtons) {
-				if (module.hitBox(x, y)) {
-					moduleHover = i;
-					break;
+		if (border.left() < x && border.right() > x && border.top() < y && border.bottom() > y) {
+			if (moduleButtons != null) {
+				int moduleHover = -1;
+				int i = 0;
+				for (ClickableModule module : moduleButtons) {
+					if (module.hitBox(x, y)) {
+						moduleHover = i;
+						break;
+					} else {
+						i++;
+					}
+				}
+				if (moduleHover > -1) {
+					return moduleButtons.get(moduleHover).getToolTip();
 				} else {
-					i++;
+					return null;
 				}
 			}
-			if (moduleHover > -1) {
-				return moduleButtons.get(moduleHover).getToolTip();
-			} else {
-				return null;
-			}
-		} else {
-			return null;
 		}
+		return null;
 	}
 
 }
