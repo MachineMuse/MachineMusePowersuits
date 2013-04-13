@@ -5,8 +5,10 @@ import java.util.List;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.DrawableMuseRect;
 import net.machinemuse.general.geometry.MusePoint2D;
+import net.minecraft.client.renderer.RenderHelper;
 
 import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
 
 public class ScrollableFrame implements IGuiFrame {
 	protected int totalsize;
@@ -42,9 +44,24 @@ public class ScrollableFrame implements IGuiFrame {
 	@Override
 	public void draw() {
 		border.draw();
-		if (currentscrollpixels < totalsize) {
-
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		RenderHelper.disableStandardItemLighting();
+		GL11.glBegin(GL11.GL_TRIANGLES);
+		Colour.LIGHTBLUE.doGL();
+		// Can scroll down
+		if (currentscrollpixels + border.height() < totalsize) {
+			GL11.glVertex3d(border.left() + border.width() / 2, border.bottom(), 1);
+			GL11.glVertex3d(border.left() + border.width() / 2 + 2, border.bottom() - 4, 1);
+			GL11.glVertex3d(border.left() + border.width() / 2 - 2, border.bottom() - 4, 1);
 		}
+		if (currentscrollpixels > 0) {
+			GL11.glVertex3d(border.left() + border.width() / 2, border.top(), 1);
+			GL11.glVertex3d(border.left() + border.width() / 2 + 2, border.top() + 4, 1);
+			GL11.glVertex3d(border.left() + border.width() / 2 - 2, border.top() + 4, 1);
+		}
+		Colour.WHITE.doGL();
+		GL11.glEnd();
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
 	}
 
 	@Override
