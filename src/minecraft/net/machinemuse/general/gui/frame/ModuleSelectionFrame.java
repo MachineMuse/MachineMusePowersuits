@@ -20,6 +20,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 	protected List<ClickableModule> moduleButtons;
 	protected int selectedModule = -1;
 	protected IPowerModule prevSelection;
+	protected ClickableItem lastItem;
 	protected MuseRect lastPosition;
 
 	public ModuleSelectionFrame(MusePoint2D topleft, MusePoint2D bottomright,
@@ -27,8 +28,8 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 		super(topleft, bottomright, borderColour, insideColour);
 		this.target = target;
 
-		moduleButtons = new ArrayList();
-		categories = new HashMap();
+		moduleButtons = new ArrayList<ClickableModule>();
+		categories = new HashMap<String, ModuleSelectionSubFrame>();
 	}
 
 	@Override
@@ -38,8 +39,13 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 
 	@Override
 	public void draw() {
+		for (ModuleSelectionSubFrame frame : categories.values()) {
+			frame.refreshButtonPositions();
+		}
 		if (target.getSelectedItem() != null) {
-			loadModules();
+			if (lastItem != target.getSelectedItem()) {
+				loadModules();
+			}
 			for (ModuleSelectionSubFrame frame : categories.values()) {
 				totalsize = (int) Math.max(frame.border.bottom() - this.border.top(), totalsize);
 			}
@@ -86,11 +92,8 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 		this.lastPosition = null;
 		ClickableItem selectedItem = target.getSelectedItem();
 		if (selectedItem != null) {
-			double centerx = (border.left() + border.right()) / 2;
-			double centery = (border.top() + border.bottom()) / 2;
-
-			moduleButtons = new ArrayList();
-			categories = new HashMap();
+			moduleButtons = new ArrayList<ClickableModule>();
+			categories = new HashMap<String, ModuleSelectionSubFrame>();
 
 			List<IPowerModule> workingModules = MuseItemUtils.getValidModulesForItem(null, selectedItem.getItem());
 
@@ -105,17 +108,12 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 			}
 
 			if (workingModules.size() > 0) {
-				List<MusePoint2D> points = MuseRenderer.pointsInLine(
-						workingModules.size(),
-						new MusePoint2D(centerx, border.top()),
-						new MusePoint2D(centerx, border.bottom()));
 				this.selectedModule = -1;
-				Iterator<MusePoint2D> pointiter = points.iterator();
 				for (IPowerModule module : workingModules) {
 					ModuleSelectionSubFrame frame = getOrCreateCategory(module.getCategory());
 					ClickableModule moduleClickable = frame.addModule(module);
 					// Indicate installed modules
-					if (module.isAllowed() == false) {
+					if (!module.isAllowed()) {
 						// If a disallowed module made it to the list, indicate
 						// it as disallowed
 						moduleClickable.setAllowed(false);
@@ -128,6 +126,9 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 					moduleButtons.add(moduleClickable);
 				}
 			}
+			for (ModuleSelectionSubFrame frame : categories.values()) {
+				frame.refreshButtonPositions();
+			}
 		}
 	}
 
@@ -137,14 +138,11 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 		} else {
 			MuseRelativeRect position = new MuseRelativeRect(
 					border.left() + 4,
-					border.top() + 4 + 30 * categories.size(),
+					border.top() + 4,
 					border.right() - 4,
-					border.top() + 34 + 30 * categories.size());
-			if (!categories.isEmpty()) {
-				position.setBelow(lastPosition);
-				lastPosition = position;
-			}
-
+					border.top() + 32);
+			position.setBelow(lastPosition);
+			lastPosition = position;
 			ModuleSelectionSubFrame frame = new ModuleSelectionSubFrame(
 					category,
 					position);
