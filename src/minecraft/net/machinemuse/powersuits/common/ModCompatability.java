@@ -49,6 +49,10 @@ public class ModCompatability {
 	public static boolean isGalacticraftLoaded() {
 		return Loader.isModLoaded("GalacticraftCore");
 	}
+	
+	public static boolean isForestryLoaded() {
+		return Loader.isModLoaded("Forestry");
+	}
 
 	public static boolean enableThaumGogglesModule() {
 		boolean defaultval = isThaumCraftLoaded();
