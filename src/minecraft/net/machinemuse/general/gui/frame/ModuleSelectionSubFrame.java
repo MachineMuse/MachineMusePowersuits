@@ -38,7 +38,7 @@ public class ModuleSelectionSubFrame {
 	}
 
 	public void drawPartial(int min, int max) {
-		if (min < border.top() + 4 && max > border.top() - 4) {
+		if (min < border.top() + 2 && max > border.top() - 2) {
 			MuseRenderer.drawString(this.category, border.left(), border.top());
 		}
 		for (ClickableModule clickie : moduleButtons) {

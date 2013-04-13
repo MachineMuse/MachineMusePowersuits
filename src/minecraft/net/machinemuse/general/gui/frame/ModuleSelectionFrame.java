@@ -157,6 +157,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 	@Override
 	public void onMouseDown(double x, double y, int button) {
 		if (border.left() < x && border.right() > x && border.top() < y && border.bottom() > y) {
+			y += currentscrollpixels;
 			loadModules();
 			int i = 0;
 			for (ClickableModule module : moduleButtons) {
@@ -174,6 +175,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 	@Override
 	public List<String> getToolTip(int x, int y) {
 		if (border.left() < x && border.right() > x && border.top() < y && border.bottom() > y) {
+			y += currentscrollpixels;
 			if (moduleButtons != null) {
 				int moduleHover = -1;
 				int i = 0;
