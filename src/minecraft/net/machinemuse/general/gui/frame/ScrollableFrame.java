@@ -54,6 +54,7 @@ public class ScrollableFrame implements IGuiFrame {
 			GL11.glVertex3d(border.left() + border.width() / 2 + 2, border.bottom() - 4, 1);
 			GL11.glVertex3d(border.left() + border.width() / 2 - 2, border.bottom() - 4, 1);
 		}
+		// Can scroll up
 		if (currentscrollpixels > 0) {
 			GL11.glVertex3d(border.left() + border.width() / 2, border.top(), 1);
 			GL11.glVertex3d(border.left() + border.width() / 2 + 2, border.top() + 4, 1);

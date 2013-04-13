@@ -44,7 +44,7 @@ public class MuseGui extends GuiScreen {
 	public void initGui() {
 		super.initGui();
 		this.frames.clear();
-		//this.controlList.clear();
+		// this.controlList.clear();
 		Keyboard.enableRepeatEvents(true);
 		creationTime = System.currentTimeMillis();
 
@@ -276,10 +276,10 @@ public class MuseGui extends GuiScreen {
 				right = x + 12 + strwidth;
 			}
 
+			tooltipRect.setTop(top);
 			tooltipRect.setLeft(left);
 			tooltipRect.setRight(right);
 			tooltipRect.setBottom(bottom);
-			tooltipRect.setTop(top);
 			tooltipRect.draw();
 			for (int i = 0; i < tooltip.size(); i++) {
 				MuseRenderer.drawString(tooltip.get(i), left + 4, bottom - 10 * (tooltip.size() - i) - 4);
