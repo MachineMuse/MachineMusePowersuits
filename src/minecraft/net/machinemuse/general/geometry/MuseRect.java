@@ -2,15 +2,15 @@ package net.machinemuse.general.geometry;
 
 public class MuseRect {
 	MusePoint2D ul;
-	MusePoint2D br;
+	MusePoint2D wh;
 
 	public MuseRect(double left, double top, double right, double bottom, boolean growFromMiddle) {
 		ul = new MusePoint2D(left, top);
-		br = new MusePoint2D(right, bottom);
+		wh = new MusePoint2D(right - left, bottom - top);
 		if (growFromMiddle) {
-			MusePoint2D center = ul.plus(br).times(0.5);
+			MusePoint2D center = ul.plus(wh.times(0.5));
 			this.ul = new FlyFromPointToPoint2D(center, ul, 200);
-			this.br = new FlyFromPointToPoint2D(center, br, 200);
+			this.wh = new FlyFromPointToPoint2D(new MusePoint2D(0, 0), wh, 200);
 		}
 	}
 
@@ -20,7 +20,7 @@ public class MuseRect {
 
 	public MuseRect(MusePoint2D ul, MusePoint2D br) {
 		this.ul = ul;
-		this.br = br;
+		this.wh = br.minus(ul);
 	}
 
 	public double left() {
@@ -28,7 +28,7 @@ public class MuseRect {
 	}
 
 	public double right() {
-		return br.x();
+		return ul.x() + wh.x();
 	}
 
 	public double top() {
@@ -36,15 +36,15 @@ public class MuseRect {
 	}
 
 	public double bottom() {
-		return br.y();
+		return ul.y() + wh.y();
 	}
 
 	public double width() {
-		return br.x() - ul.x();
+		return wh.x();
 	}
 
 	public double height() {
-		return br.y() - ul.y();
+		return wh.y();
 	}
 
 	public MuseRect setLeft(double value) {
@@ -53,7 +53,7 @@ public class MuseRect {
 	}
 
 	public MuseRect setRight(double value) {
-		br.x = value;
+		wh.x = value - ul.x();
 		return this;
 	}
 
@@ -63,11 +63,21 @@ public class MuseRect {
 	}
 
 	public MuseRect setBottom(double value) {
-		br.y = value;
+		wh.y = value - ul.y();
+		return this;
+	}
+
+	public MuseRect setWidth(double value) {
+		wh.x = value;
+		return this;
+	}
+
+	public MuseRect setHeight(double value) {
+		wh.y = value;
 		return this;
 	}
 
 	public boolean equals(MuseRect other) {
-		return ul.equals(other.ul) && br.equals(other.br);
+		return ul.equals(other.ul) && wh.equals(other.wh);
 	}
 }

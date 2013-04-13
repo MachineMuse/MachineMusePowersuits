@@ -1,19 +1,12 @@
 package net.machinemuse.powersuits.powermodule.misc;
 
-import java.util.Collection;
 import java.util.List;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.MuseCommonStrings;
-import net.machinemuse.api.MuseItemUtils;
-import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 
 public class HazmatModule extends PowerModuleBase {
 	public static final String MODULE_HAZMAT = "Radiation Shielding";
@@ -25,7 +18,7 @@ public class HazmatModule extends PowerModuleBase {
 
 	@Override
 	public String getCategory() {
-		return MuseCommonStrings.CATEGORY_ARMOR;
+		return MuseCommonStrings.CATEGORY_ENVIRONMENTAL;
 	}
 
 	@Override

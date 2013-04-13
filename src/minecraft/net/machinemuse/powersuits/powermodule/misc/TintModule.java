@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.powermodule.misc;
 import java.util.List;
 
 import net.machinemuse.api.IModularItem;
+import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -28,8 +29,8 @@ public class TintModule extends PowerModuleBase {
 
 	@Override
 	public String getCategory() {
-		return "Blah";
-		// return MuseCommonStrings.CATEGORY_COSMETIC;
+		// return "Blah";
+		return MuseCommonStrings.CATEGORY_COSMETIC;
 	}
 
 	@Override

@@ -29,7 +29,7 @@ public class MuseRelativeRect extends MuseRect {
 		if (leftofme != null) {
 			return leftofme.left();
 		}
-		return br.x();
+		return left() + wh.x();
 	}
 
 	public double top() {
@@ -43,7 +43,7 @@ public class MuseRelativeRect extends MuseRect {
 		if (aboveme != null) {
 			return aboveme.top();
 		}
-		return br.y();
+		return top() + wh.y();
 	}
 
 	public MuseRelativeRect setBelow(MuseRect belowme) {
