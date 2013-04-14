@@ -10,11 +10,11 @@ import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
+import net.machinemuse.powersuits.client.render.ArmorModel;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.powermodule.misc.CitizenJoeStyle;
 import net.machinemuse.powersuits.powermodule.misc.HazmatModule;
 import net.machinemuse.powersuits.powermodule.misc.TintModule;
-import net.machinemuse.powersuits.powermodule.misc.TransparentArmorModule;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -54,31 +54,36 @@ public abstract class ItemPowerArmor extends ItemElectricArmor
 
 	@Override
 	public String getArmorTexture(ItemStack itemstack, Entity entity, int slot, int layer) {
-		if (itemstack != null) {
-			NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(itemstack);
-			// MinecraftForgeClient.getRenderPass()? nope
-			if (itemTag.hasKey("didColour")) {
 
-				itemTag.removeTag("didColour");
-				return Config.BLANK_ARMOR_MODEL_PATH;
-			} else {
-				if (MuseItemUtils.itemHasActiveModule(itemstack, TransparentArmorModule.MODULE_TRANSPARENT_ARMOR)) {
-					return Config.BLANK_ARMOR_MODEL_PATH;
-				} else if (itemstack.getItem() instanceof ItemPowerArmorLeggings) {
-					if (MuseItemUtils.itemHasModule(itemstack, CitizenJoeStyle.CITIZEN_JOE_STYLE)) {
-						return Config.CITIZENJOE_ARMORPANTS_PATH;
-					}
-
-					return Config.SEBK_ARMORPANTS_PATH;
-				} else {
-					if (MuseItemUtils.itemHasModule(itemstack, CitizenJoeStyle.CITIZEN_JOE_STYLE)) {
-						return Config.CITIZENJOE_ARMOR_PATH;
-					}
-					return Config.SEBK_ARMOR_PATH;
-				}
-			}
-		}
-		return Config.BLANK_ARMOR_MODEL_PATH;
+		return Config.ARMOR_TEXTURE_PATH;
+		// if (itemstack != null) {
+		// NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(itemstack);
+		// // MinecraftForgeClient.getRenderPass()? nope
+		// if (itemTag.hasKey("didColour")) {
+		//
+		// itemTag.removeTag("didColour");
+		// return Config.BLANK_ARMOR_MODEL_PATH;
+		// } else {
+		// if (MuseItemUtils.itemHasActiveModule(itemstack,
+		// TransparentArmorModule.MODULE_TRANSPARENT_ARMOR)) {
+		// return Config.BLANK_ARMOR_MODEL_PATH;
+		// } else if (itemstack.getItem() instanceof ItemPowerArmorLeggings) {
+		// if (MuseItemUtils.itemHasModule(itemstack,
+		// CitizenJoeStyle.CITIZEN_JOE_STYLE)) {
+		// return Config.CITIZENJOE_ARMORPANTS_PATH;
+		// }
+		//
+		// return Config.SEBK_ARMORPANTS_PATH;
+		// } else {
+		// if (MuseItemUtils.itemHasModule(itemstack,
+		// CitizenJoeStyle.CITIZEN_JOE_STYLE)) {
+		// return Config.CITIZENJOE_ARMOR_PATH;
+		// }
+		// return Config.SEBK_ARMOR_PATH;
+		// }
+		// }
+		// }
+		// return Config.BLANK_ARMOR_MODEL_PATH;
 	}
 
 	/**
@@ -257,6 +262,12 @@ public abstract class ItemPowerArmor extends ItemElectricArmor
 
 	@Override
 	public void onProtectFromPoison(ItemStack itemStack, EntityLiving entityLiving, Poison type) {
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public ModelBiped getArmorModel(EntityLiving entityLiving, ItemStack itemStack, int armorSlot) {
+		return ArmorModel.getInstance();
 	}
 
 }

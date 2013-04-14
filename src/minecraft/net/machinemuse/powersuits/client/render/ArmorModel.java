@@ -1,45 +1,48 @@
 package net.machinemuse.powersuits.client.render;
 
+import net.machinemuse.powersuits.common.MuseLogger;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
+import net.minecraftforge.client.model.obj.GroupObject;
+import net.minecraftforge.client.model.obj.WavefrontObject;
 
 import org.lwjgl.opengl.GL11;
 
 public class ArmorModel extends ModelBiped {
-	public IModelCustom armorHelmet;
-	public IModelCustom armorLeftArm;
-	public IModelCustom armorRightArm;
-	public IModelCustom armorChestplate;
-	public IModelCustom armorLeftLeg;
-	public IModelCustom armorRightLeg;
+	protected static ArmorModel instance;
 
-	public ModelRenderer bipedHead;
-	public ModelRenderer bipedHeadwear;
-	public ModelRenderer bipedBody;
-	public ModelRenderer bipedRightArm;
-	public ModelRenderer bipedLeftArm;
-	public ModelRenderer bipedRightLeg;
-	public ModelRenderer bipedLeftLeg;
+	public static ArmorModel getInstance() {
+		if (instance == null) {
+			instance = new ArmorModel();
+		}
+		return instance;
+	}
+
+	public WavefrontObject armorHelm;
+	public WavefrontObject armorArms;
+	public WavefrontObject armorChest;
+	public WavefrontObject armorLegs;
+	public WavefrontObject armorBoots;
 
 	/**
 	 * Records whether the model should be rendered holding an item in the left
 	 * hand, and if that item is a block.
 	 */
-	public int heldItemLeft;
+	// public int heldItemLeft;
 
 	/**
 	 * Records whether the model should be rendered holding an item in the right
 	 * hand, and if that item is a block.
 	 */
-	public int heldItemRight;
-	public boolean isSneak;
+	// public int heldItemRight;
+	// public boolean isSneak;
 
 	/** Records whether the model should be rendered aiming a bow. */
-	public boolean aimedBow;
+	// public boolean aimedBow;
 
 	public ArmorModel()
 	{
@@ -51,15 +54,31 @@ public class ArmorModel extends ModelBiped {
 		this(par1, 0.0F, 64, 32);
 	}
 
+	private void logModelParts(IModelCustom modelc) {
+		if (modelc instanceof WavefrontObject) {
+			WavefrontObject model = (WavefrontObject) modelc;
+			MuseLogger.logDebug(model.toString() + ":");
+			for (GroupObject group : model.groupObjects) {
+				MuseLogger.logDebug("-" + group.name);
+			}
+		}
+
+	}
+
 	public ArmorModel(float par1, float par2, int par3, int par4)
 	{
 		// New stuff
-		this.armorHelmet = AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_helm.obj");
-		this.armorLeftArm = AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_arms.obj");
-		this.armorRightArm = AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_arms.obj");
-		this.armorChestplate = AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_legs.obj");
-		this.armorLeftLeg = AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_boots.obj");
-		this.armorRightLeg = AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_boots.obj");
+		this.armorHelm = (WavefrontObject) AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_helm.obj");
+		this.armorArms = (WavefrontObject) AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_arms.obj");
+		this.armorChest = (WavefrontObject) AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_chest.obj");
+		this.armorLegs = (WavefrontObject) AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_pantaloons.obj");
+		this.armorBoots = (WavefrontObject) AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_boots.obj");
+
+		// logModelParts(armorHelm);
+		// logModelParts(armorArms);
+		// logModelParts(armorChest);
+		// logModelParts(armorLegs);
+		// logModelParts(armorBoots);
 
 		// Old stuff
 		this.heldItemLeft = 0;
@@ -103,36 +122,51 @@ public class ArmorModel extends ModelBiped {
 	public void render(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7)
 	{
 		this.setRotationAngles(par2, par3, par4, par5, par6, par7, par1Entity);
-
-		if (this.isChild)
-		{
-			float f6 = 2.0F;
-			GL11.glPushMatrix();
-			GL11.glScalef(1.5F / f6, 1.5F / f6, 1.5F / f6);
-			GL11.glTranslatef(0.0F, 16.0F * par7, 0.0F);
-			this.bipedHead.render(par7);
-			GL11.glPopMatrix();
-			GL11.glPushMatrix();
-			GL11.glScalef(1.0F / f6, 1.0F / f6, 1.0F / f6);
-			GL11.glTranslatef(0.0F, 24.0F * par7, 0.0F);
-			this.bipedBody.render(par7);
-			this.bipedRightArm.render(par7);
-			this.bipedLeftArm.render(par7);
-			this.bipedRightLeg.render(par7);
-			this.bipedLeftLeg.render(par7);
-			this.bipedHeadwear.render(par7);
-			GL11.glPopMatrix();
-		}
-		else
-		{
-			this.bipedHead.render(par7);
-			this.bipedBody.render(par7);
-			this.bipedRightArm.render(par7);
-			this.bipedLeftArm.render(par7);
-			this.bipedRightLeg.render(par7);
-			this.bipedLeftLeg.render(par7);
-			this.bipedHeadwear.render(par7);
-		}
+		GL11.glPushMatrix();
+		GL11.glTranslated(0, 1.625, 0);
+		double scale = 0.0625;
+		GL11.glScaled(scale, scale, scale);
+		GL11.glRotatef(180, 1, 0, 0);
+		this.armorChest.renderAll();
+		// this.armorHelm.renderAll();
+		this.armorLegs.renderAll();
+		this.armorArms.renderAll();
+		this.armorBoots.renderAll();
+		this.armorChest.renderPart("default");
+		this.armorHelm.renderPart("default");
+		this.armorLegs.renderPart("default");
+		this.armorArms.renderPart("default");
+		this.armorBoots.renderPart("default");
+		GL11.glPopMatrix();
+		// if (this.isChild)
+		// {
+		// float f6 = 2.0F;
+		// GL11.glPushMatrix();
+		// GL11.glScalef(1.5F / f6, 1.5F / f6, 1.5F / f6);
+		// GL11.glTranslatef(0.0F, 16.0F * par7, 0.0F);
+		// this.bipedHead.render(par7);
+		// GL11.glPopMatrix();
+		// GL11.glPushMatrix();
+		// GL11.glScalef(1.0F / f6, 1.0F / f6, 1.0F / f6);
+		// GL11.glTranslatef(0.0F, 24.0F * par7, 0.0F);
+		// this.bipedBody.render(par7);
+		// this.bipedRightArm.render(par7);
+		// this.bipedLeftArm.render(par7);
+		// this.bipedRightLeg.render(par7);
+		// this.bipedLeftLeg.render(par7);
+		// this.bipedHeadwear.render(par7);
+		// GL11.glPopMatrix();
+		// }
+		// else
+		// {
+		// this.bipedHead.render(par7);
+		// this.bipedBody.render(par7);
+		// this.bipedRightArm.render(par7);
+		// this.bipedLeftArm.render(par7);
+		// this.bipedRightLeg.render(par7);
+		// this.bipedLeftLeg.render(par7);
+		// this.bipedHeadwear.render(par7);
+		// }
 	}
 
 	/**

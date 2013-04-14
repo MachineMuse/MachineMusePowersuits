@@ -28,7 +28,7 @@ public class TinkerTableRenderer extends TileEntitySpecialRenderer implements IS
 	public TinkerTableRenderer(int renderId) {
 		model = new TinkerTableModel();
 		this.renderId = renderId;
-		// armormodel = new ArmorModel();
+		armormodel = new ArmorModel();
 	}
 
 	@Override
@@ -36,8 +36,6 @@ public class TinkerTableRenderer extends TileEntitySpecialRenderer implements IS
 		Minecraft.getMinecraft().renderEngine.bindTexture(Config.TINKERTABLE_TEXTURE_PATH);
 		GL11.glPushMatrix();
 		GL11.glTranslated(x, y, z);
-
-		// armormodel.armorChestplate.renderAll();
 
 		model.doRender(null, x, y, z, partialTickTime, partialTickTime);
 		// float texturex = 80 / 256.0f;
@@ -57,7 +55,6 @@ public class TinkerTableRenderer extends TileEntitySpecialRenderer implements IS
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
 		Minecraft.getMinecraft().renderEngine.bindTexture(Config.TINKERTABLE_TEXTURE_PATH);
-
 		GL11.glPushMatrix();
 		GL11.glTranslated(-0.5, -0.5 + -1.0 / 16.0, -0.5);
 		model.doRender(null, 0, 0, 0, 0, 0);
