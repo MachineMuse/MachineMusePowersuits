@@ -38,7 +38,7 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
 
 	@Override
 	public String getCategory() {
-		return MuseCommonStrings.CATEGORY_TOOL;
+		return MuseCommonStrings.CATEGORY_MOVEMENT;
 	}
 
 	@Override

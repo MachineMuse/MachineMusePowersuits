@@ -38,7 +38,7 @@ public class ModuleSelectionSubFrame {
 	public void drawPartial(int min, int max) {
 		refreshButtonPositions();
 		double top = border.top();
-		if (min < top + 2 && max > top - 2) {
+		if (min < top + 2 && max > top + 6) {
 			MuseRenderer.drawString(this.category, border.left(), top);
 		}
 		for (ClickableModule clickie : moduleButtons) {
@@ -49,13 +49,14 @@ public class ModuleSelectionSubFrame {
 	public void refreshButtonPositions() {
 		int i = 0, j = 0;
 		for (ClickableModule clickie : moduleButtons) {
-			double x = border.left() + 8 + 16 * i;
-			double y = border.top() + 16 + 16 * j;
-			clickie.move(x, y);
-			if (++i > 4) {
+			if (i > 4) {
 				i = 0;
 				j++;
 			}
+			double x = border.left() + 8 + 16 * i;
+			double y = border.top() + 16 + 16 * j;
+			clickie.move(x, y);
+			i++;
 		}
 		border.setHeight(28 + 16 * j);
 	}
