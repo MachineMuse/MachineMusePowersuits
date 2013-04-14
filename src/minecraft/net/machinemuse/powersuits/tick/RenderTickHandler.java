@@ -21,9 +21,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
 import net.minecraftforge.common.ForgeHooks;
-
-import org.lwjgl.opengl.GL11;
-
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
@@ -146,8 +143,7 @@ public class RenderTickHandler implements ITickHandler {
 
 						}
 					}
-					// MuseRenderer.blendingOff();
-					GL11.glDisable(GL11.GL_LIGHTING);
+					MuseRenderer.blendingOff();
 					Colour.WHITE.doGL();
 				}
 

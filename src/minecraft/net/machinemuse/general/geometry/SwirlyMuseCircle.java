@@ -38,8 +38,9 @@ public class SwirlyMuseCircle {
 		GL11.glDrawArrays(GL11.GL_LINE_LOOP, 0, length / 3);
 		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glEnable(GL11.GL_CULL_FACE);
-		MuseRenderer.arraysOff();
+		MuseRenderer.blendingOff();
 		MuseRenderer.texturelessOff();
+		MuseRenderer.arraysOff();
 		GL11.glPopMatrix();
 	}
 }

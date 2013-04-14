@@ -73,9 +73,9 @@ public class DrawableMuseRect extends MuseRect {
 
 		}
 
-		MuseRenderer.texturelessOn();
 		MuseRenderer.blendingOn();
 		MuseRenderer.on2D();
+		MuseRenderer.texturelessOn();
 
 		MuseRenderer.arraysOnC();
 
@@ -87,8 +87,9 @@ public class DrawableMuseRect extends MuseRect {
 		GL11.glVertexPointer(3, 0, vertices);
 		GL11.glDrawArrays(GL11.GL_TRIANGLE_FAN, 0, vertices.limit() / 3);
 
-		MuseRenderer.off2D();
 		MuseRenderer.texturelessOff();
+		MuseRenderer.off2D();
+		MuseRenderer.blendingOff();
 		MuseRenderer.arraysOff();
 	}
 

@@ -386,7 +386,7 @@ public class ToolModel extends ModelBase {
 			// rp.func_82441_a(player);
 			// }
 			GL11.glScaled(scale1, scale1, scale1);
-			GL11.glDisable(GL11.GL_CULL_FACE);
+			// GL11.glDisable(GL11.GL_CULL_FACE);
 			GL11.glRotatef(270, 1, 0, 0);
 			GL11.glRotatef(45, 0, 1, 0);
 			GL11.glRotatef(-90, 0, 0, 1);
@@ -462,24 +462,8 @@ public class ToolModel extends ModelBase {
 			RenderPlasmaBolt.doRender(boltSize);
 			GL11.glPopMatrix();
 		}
+		MuseRenderer.glowOff();
 		GL11.glPopMatrix();
-		// GL11.glDisable(GL11.GL_DEPTH_TEST);
-		// GL11.glBegin(GL11.GL_LINES);
-		//
-		// GL11.glColor3f(1, 0, 0);
-		// GL11.glVertex3f(-16, 0, 0);
-		// GL11.glVertex3f(16, 0, 0);
-		//
-		// GL11.glColor3f(0, 1, 0);
-		// GL11.glVertex3f(0, -16, 0);
-		// GL11.glVertex3f(0, 16, 0);
-		//
-		// GL11.glColor3f(0, 0, 1);
-		// GL11.glVertex3f(0, 0, -16);
-		// GL11.glVertex3f(0, 0, 16);
-		// GL11.glColor3f(1, 1, 1);
-		// GL11.glEnd();
-		// GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glPopMatrix();
 	}
 

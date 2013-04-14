@@ -37,18 +37,17 @@ public class DrawableMuseCircle {
 		GL11.glPushMatrix();
 		GL11.glTranslated(x, y, 0);
 		GL11.glScaled(radius / detail, radius / detail, 1.0);
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_CULL_FACE);
+		MuseRenderer.on2D();
 		MuseRenderer.arraysOnC();
 		MuseRenderer.texturelessOn();
 		MuseRenderer.blendingOn();
 		GL11.glColorPointer(4, 0, colour);
 		GL11.glVertexPointer(3, 0, points);
 		GL11.glDrawArrays(GL11.GL_TRIANGLE_FAN, 0, points.limit() / 3);
-		GL11.glEnable(GL11.GL_LIGHTING);
-		GL11.glEnable(GL11.GL_CULL_FACE);
-		MuseRenderer.arraysOff();
+		MuseRenderer.blendingOff();
 		MuseRenderer.texturelessOff();
+		MuseRenderer.arraysOff();
+		MuseRenderer.off2D();
 		GL11.glPopMatrix();
 	}
 }

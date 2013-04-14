@@ -91,6 +91,7 @@ public class RenderPlasmaBolt extends Render {
 			MuseRenderer.drawLightning(Math.cos(angle1) * 0.5, Math.sin(angle1) * 0.5, 0, Math.cos(angle2) * 5, Math.sin(angle2) * 5, 1,
 					new Colour(1, 1, 1, 0.9));
 		}
+		MuseRenderer.glowOff();
 		GL11.glPopMatrix();
 	}
 }

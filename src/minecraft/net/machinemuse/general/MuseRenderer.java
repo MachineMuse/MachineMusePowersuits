@@ -155,9 +155,10 @@ public abstract class MuseRenderer {
 	 */
 
 	public static void on2D() {
+		GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
 
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
-		// GL11.glDisable(GL11.GL_CULL_FACE);
+		GL11.glDisable(GL11.GL_CULL_FACE);
 		GL11.glDisable(GL11.GL_LIGHTING);
 
 		// attempt at fake antialiasing
@@ -174,8 +175,7 @@ public abstract class MuseRenderer {
 	}
 
 	public static void off2D() {
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glPopAttrib();
 	}
 
 	/**
@@ -218,6 +218,8 @@ public abstract class MuseRenderer {
 	 */
 	public static void blendingOn() {
 		if (Minecraft.isFancyGraphicsEnabled()) {
+			GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT);
+			GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
 			GL11.glShadeModel(GL11.GL_SMOOTH);
 			// GL11.glEnable(GL11.GL_LINE_SMOOTH);
 			// GL11.glEnable(GL11.GL_POLYGON_SMOOTH);
@@ -230,10 +232,8 @@ public abstract class MuseRenderer {
 	 * Call after doing anything with alpha blending
 	 */
 	public static void blendingOff() {
-		GL11.glShadeModel(GL11.GL_FLAT);
-		GL11.glDisable(GL11.GL_LINE_SMOOTH);
-		GL11.glDisable(GL11.GL_POLYGON_SMOOTH);
-		GL11.glDisable(GL11.GL_BLEND);
+		GL11.glPopAttrib();
+		GL11.glPopAttrib();
 		// GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 	}
 
@@ -241,16 +241,12 @@ public abstract class MuseRenderer {
 	 * Makes the appropriate openGL calls and draws an item and overlay using the default icon
 	 */
 	public static void drawItemAt(double x, double y, ItemStack item) {
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
-		// GL11.glDepthFunc(GL11.GL_GREATER);
-		GL11.glDisable(GL11.GL_LIGHTING);
+		on2D();
 
 		getRenderItem().renderItemAndEffectIntoGUI(getFontRenderer(), getRenderEngine(), item, (int) x, (int) y);
 		getRenderItem().renderItemOverlayIntoGUI(getFontRenderer(), getRenderEngine(), item, (int) x, (int) y);
 
-		// GL11.glDepthFunc(GL11.GL_LEQUAL);
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		GL11.glEnable(GL11.GL_LIGHTING);
+		off2D();
 	}
 
 	/**
@@ -278,10 +274,7 @@ public abstract class MuseRenderer {
 			return;
 		}
 		GL11.glPushMatrix();
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_CULL_FACE);
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
-		texturelessOff();
+		on2D();
 		blendingOn();
 
 		if (colour != null) {
@@ -306,10 +299,7 @@ public abstract class MuseRenderer {
 		tess.draw();
 
 		MuseRenderer.blendingOff();
-		GL11.glEnable(GL11.GL_CULL_FACE);
-		// GL11.glDepthFunc(GL11.GL_LEQUAL);
-		GL11.glEnable(GL11.GL_LIGHTING);
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		off2D();
 		GL11.glPopMatrix();
 	}
 
@@ -423,6 +413,7 @@ public abstract class MuseRenderer {
 	private static float lightmapLastY;
 
 	public static void glowOn() {
+		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
 		lightmapLastX = OpenGlHelper.lastBrightnessX;
 		lightmapLastY = OpenGlHelper.lastBrightnessY;
 		RenderHelper.disableStandardItemLighting();
@@ -430,9 +421,8 @@ public abstract class MuseRenderer {
 	}
 
 	public static void glowOff() {
-
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapLastX, lightmapLastY);
-		RenderHelper.enableStandardItemLighting();
+		GL11.glPopAttrib();
 	}
 
 	/**
@@ -506,8 +496,7 @@ public abstract class MuseRenderer {
 		double cx = 0, cy = 0, cz = 0;
 
 		double jagfactor = 0.3;
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_CULL_FACE);
+		on2D();
 		getRenderEngine().bindTexture(Config.LIGHTNING_TEXTURE);
 		blendingOn();
 		colour.doGL();
@@ -528,6 +517,8 @@ public abstract class MuseRenderer {
 			drawLightningBetweenPointsFast(ax, ay, az, bx, by, bz, index);
 		}
 		GL11.glEnd();
+		blendingOff();
+		off2D();
 	}
 
 	public static void drawLightningBetweenPoints(double x1, double y1, double z1, double x2, double y2, double z2, int index) {
@@ -567,8 +558,7 @@ public abstract class MuseRenderer {
 		double jagfactor = 0.3;
 		texturelessOn();
 		blendingOn();
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_CULL_FACE);
+		on2D();
 		GL11.glBegin(GL11.GL_LINE_STRIP);
 		while (Math.abs(cx) < Math.abs(tx) && Math.abs(cy) < Math.abs(ty) && Math.abs(cz) < Math.abs(tz)) {
 			colour.doGL();
@@ -587,8 +577,8 @@ public abstract class MuseRenderer {
 			// GL11.glVertex3d(x1 + cx, y1 + cy, z1 + cz);
 		}
 		GL11.glEnd();
-		GL11.glEnable(GL11.GL_LIGHTING);
-		GL11.glEnable(GL11.GL_CULL_FACE);
+		off2D();
+		blendingOff();
 		texturelessOff();
 
 	}
@@ -614,10 +604,7 @@ public abstract class MuseRenderer {
 
 	public static void drawCheckmark(double x, double y, Colour colour) {
 		GL11.glPushMatrix();
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_CULL_FACE);
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
-		texturelessOff();
+		on2D();
 		blendingOn();
 
 		if (colour != null) {
@@ -634,9 +621,7 @@ public abstract class MuseRenderer {
 		tess.draw();
 
 		MuseRenderer.blendingOff();
-		GL11.glEnable(GL11.GL_CULL_FACE);
-		GL11.glEnable(GL11.GL_LIGHTING);
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		off2D();
 		GL11.glPopMatrix();
 	}
 }

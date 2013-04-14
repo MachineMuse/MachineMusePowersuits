@@ -105,28 +105,21 @@ public abstract class ItemPowerArmor extends ItemElectricArmor
 		model.bipedRightLeg.showModel = armorSlot == 2 || armorSlot == 3;
 		model.bipedLeftLeg.showModel = armorSlot == 2 || armorSlot == 3;
 		if (itemstack != null) {
-			// NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(itemstack);
-			// MinecraftForgeClient.getRenderPass()? nope
 			if (MuseItemUtils.itemHasActiveModule(itemstack,
 					TransparentArmorModule.MODULE_TRANSPARENT_ARMOR)) {
 				return null;
 			}
-			if (MuseItemUtils.itemHasActiveModule(itemstack, TintModule.MODULE_TINT)) {
-				model.normalcolour = this.getColorFromItemStack(itemstack);
-			} else {
-				model.normalcolour = Colour.WHITE;
-			}
-			if (MuseItemUtils.itemHasActiveModule(itemstack, CosmeticGlowModule.MODULE_GLOW)) {
-				model.glowcolour = this.getGlowFromItemStack(itemstack);
-			} else {
-				model.glowcolour = Colour.LIGHTBLUE;
-			}
+			model.normalcolour = this.getColorFromItemStack(itemstack);
+			model.glowcolour = this.getGlowFromItemStack(itemstack);
 
 		}
 		return model;
 	}
 
 	public Colour getColorFromItemStack(ItemStack stack) {
+		if (!MuseItemUtils.itemHasActiveModule(stack, TintModule.MODULE_TINT)) {
+			return Colour.WHITE;
+		}
 		double computedred = ModuleManager.computeModularProperty(stack, TintModule.RED_TINT);
 		double computedgreen = ModuleManager.computeModularProperty(stack, TintModule.GREEN_TINT);
 		double computedblue = ModuleManager.computeModularProperty(stack, TintModule.BLUE_TINT);
@@ -135,10 +128,13 @@ public abstract class ItemPowerArmor extends ItemElectricArmor
 	}
 
 	private Colour getGlowFromItemStack(ItemStack stack) {
+		if (!MuseItemUtils.itemHasActiveModule(stack, CosmeticGlowModule.MODULE_GLOW)) {
+			return Colour.LIGHTBLUE;
+		}
 		double computedred = ModuleManager.computeModularProperty(stack, CosmeticGlowModule.RED_GLOW);
 		double computedgreen = ModuleManager.computeModularProperty(stack, CosmeticGlowModule.GREEN_GLOW);
 		double computedblue = ModuleManager.computeModularProperty(stack, CosmeticGlowModule.BLUE_GLOW);
-		Colour colour = new Colour(clampDouble(computedred, 0, 1), clampDouble(computedgreen, 0, 1), clampDouble(computedblue, 0, 1), 1.0F);
+		Colour colour = new Colour(clampDouble(computedred, 0, 1), clampDouble(computedgreen, 0, 1), clampDouble(computedblue, 0, 1), 0.8);
 		return colour;
 	}
 
@@ -197,9 +193,6 @@ public abstract class ItemPowerArmor extends ItemElectricArmor
 
 	@Override
 	public int getColor(ItemStack stack) {
-
-		NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-		itemTag.setString("didColour", "yes");
 		Colour c = getColorFromItemStack(stack);
 		return c.getInt();
 	}
