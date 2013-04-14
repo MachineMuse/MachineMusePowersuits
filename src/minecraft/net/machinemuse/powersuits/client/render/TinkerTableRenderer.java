@@ -5,7 +5,6 @@ package net.machinemuse.powersuits.client.render;
 
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
@@ -33,7 +32,7 @@ public class TinkerTableRenderer extends TileEntitySpecialRenderer implements IS
 
 	@Override
 	public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float partialTickTime) {
-		Minecraft.getMinecraft().renderEngine.bindTexture(Config.TINKERTABLE_TEXTURE_PATH);
+		this.bindTextureByName(Config.TINKERTABLE_TEXTURE_PATH);
 		GL11.glPushMatrix();
 		GL11.glTranslated(x, y, z);
 
@@ -54,7 +53,7 @@ public class TinkerTableRenderer extends TileEntitySpecialRenderer implements IS
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
-		Minecraft.getMinecraft().renderEngine.bindTexture(Config.TINKERTABLE_TEXTURE_PATH);
+		this.bindTextureByName(Config.TINKERTABLE_TEXTURE_PATH);
 		GL11.glPushMatrix();
 		GL11.glTranslated(-0.5, -0.5 + -1.0 / 16.0, -0.5);
 		model.doRender(null, 0, 0, 0, 0, 0);
