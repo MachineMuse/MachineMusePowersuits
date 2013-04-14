@@ -33,7 +33,8 @@ public class ScrollableFrame implements IGuiFrame {
 
 	@Override
 	public void update(double x, double y) {
-		int dscroll = lastdWheel - Mouse.getDWheel();
+		int dscroll = (lastdWheel - Mouse.getDWheel()) / 15;
+		lastdWheel = Mouse.getDWheel();
 		if (x > border.left() && x < border.right() && y > border.top() && y < border.bottom()) {
 			if (Mouse.isButtonDown(0)) {
 				if ((y - border.top()) < buttonsize && currentscrollpixels > 0) {
@@ -78,14 +79,6 @@ public class ScrollableFrame implements IGuiFrame {
 
 	@Override
 	public void onMouseUp(double x, double y, int button) {
-		//
-		// if (button == 3 && currentscrollpixels > 0) {
-		// currentscrollpixels -= Mouse.getDWheel();
-		// }
-		// if (button == 4 && currentscrollpixels + border.bottom() -
-		// border.top() < totalsize) {
-		// currentscrollpixels += getScrollAmount();
-		// }
 	}
 
 	public int getMaxScrollPixels() {
