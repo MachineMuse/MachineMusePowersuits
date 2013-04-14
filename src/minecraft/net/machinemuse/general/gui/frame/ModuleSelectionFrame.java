@@ -64,17 +64,18 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 
 	private void drawItems() {
 		for (ModuleSelectionSubFrame frame : categories.values()) {
-			frame.drawPartial((int) (this.currentscrollpixels + border.top()), (int) (this.currentscrollpixels + border.top() + border.height()));
+			frame.drawPartial((int) (this.currentscrollpixels + border.top() + 4),
+					(int) (this.currentscrollpixels + border.top() + border.height() - 4));
 		}
 	}
 
 	private void drawSelection() {
 		ClickableModule module = getSelectedModule();
 		if (module != null) {
-			MuseRenderer.drawCircleAround(
-					moduleButtons.get(selectedModule).getPosition().x(),
-					moduleButtons.get(selectedModule).getPosition().y(),
-					10);
+			MusePoint2D pos = moduleButtons.get(selectedModule).getPosition();
+			if (pos.y() > this.currentscrollpixels + border.top() + 4 && pos.y() < this.currentscrollpixels + border.top() + border.height() - 4) {
+				MuseRenderer.drawCircleAround(pos.x(), pos.y(), 10);
+			}
 
 		}
 
@@ -154,9 +155,10 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 
 	@Override
 	public void onMouseDown(double x, double y, int button) {
+		super.onMouseDown(x, y, button);
 		if (border.left() < x && border.right() > x && border.top() < y && border.bottom() > y) {
 			y += currentscrollpixels;
-			loadModules();
+			// loadModules();
 			int i = 0;
 			for (ClickableModule module : moduleButtons) {
 				if (module.hitBox(x, y)) {
