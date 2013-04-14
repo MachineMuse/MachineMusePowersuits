@@ -4,8 +4,6 @@ import java.util.List;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.MuseCommonStrings;
-import net.machinemuse.api.MuseItemUtils;
-import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 
 public class TintModule extends PowerModuleBase {
@@ -16,7 +14,6 @@ public class TintModule extends PowerModuleBase {
 
 	public TintModule(List<IModularItem> validItems) {
 		super(validItems);
-		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.laserHologram, 1));
 		addTradeoffProperty("Red Intensity", RED_TINT, 1, "%");
 		addTradeoffProperty("Green Intensity", GREEN_TINT, 1, "%");
 		addTradeoffProperty("Blue Intensity", BLUE_TINT, 1, "%");

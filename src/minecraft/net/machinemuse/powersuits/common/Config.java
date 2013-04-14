@@ -229,7 +229,7 @@ public class Config {
 		// Cosmetic
 		addModule(new TintModule(ALLITEMS));
 		addModule(new TransparentArmorModule(ARMORONLY));
-		addModule(new CitizenJoeStyle(ARMORONLY));
+		addModule(new CosmeticGlowModule(ARMORONLY));
 
 	}
 

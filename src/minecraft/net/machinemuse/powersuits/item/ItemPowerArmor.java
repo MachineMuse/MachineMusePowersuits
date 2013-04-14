@@ -10,10 +10,13 @@ import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
+import net.machinemuse.powersuits.client.render.ArmorBootsModel;
 import net.machinemuse.powersuits.client.render.ArmorModel;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.powermodule.misc.CosmeticGlowModule;
 import net.machinemuse.powersuits.powermodule.misc.HazmatModule;
 import net.machinemuse.powersuits.powermodule.misc.TintModule;
+import net.machinemuse.powersuits.powermodule.misc.TransparentArmorModule;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -55,14 +58,13 @@ public abstract class ItemPowerArmor extends ItemElectricArmor
 	@Override
 	public String getArmorTexture(ItemStack itemstack, Entity entity, int slot, int layer) {
 
-		return Config.ARMOR_TEXTURE_PATH;
 		// if (itemstack != null) {
 		// NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(itemstack);
 		// // MinecraftForgeClient.getRenderPass()? nope
 		// if (itemTag.hasKey("didColour")) {
 		//
 		// itemTag.removeTag("didColour");
-		// return Config.BLANK_ARMOR_MODEL_PATH;
+		return Config.BLANK_ARMOR_MODEL_PATH;
 		// } else {
 		// if (MuseItemUtils.itemHasActiveModule(itemstack,
 		// TransparentArmorModule.MODULE_TRANSPARENT_ARMOR)) {
@@ -84,6 +86,60 @@ public abstract class ItemPowerArmor extends ItemElectricArmor
 		// }
 		// }
 		// return Config.BLANK_ARMOR_MODEL_PATH;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public ModelBiped getArmorModel(EntityLiving entityLiving, ItemStack itemstack, int armorSlot) {
+		ArmorModel model;
+		if (armorSlot == 3) {
+			model = ArmorBootsModel.getInstance();
+		} else {
+			model = ArmorModel.getInstance();
+		}
+		model.bipedHead.showModel = armorSlot == 0;
+		model.bipedHeadwear.showModel = armorSlot == 0;
+		model.bipedBody.showModel = armorSlot == 1;
+		model.bipedRightArm.showModel = armorSlot == 1;
+		model.bipedLeftArm.showModel = armorSlot == 1;
+		model.bipedRightLeg.showModel = armorSlot == 2 || armorSlot == 3;
+		model.bipedLeftLeg.showModel = armorSlot == 2 || armorSlot == 3;
+		if (itemstack != null) {
+			// NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(itemstack);
+			// MinecraftForgeClient.getRenderPass()? nope
+			if (MuseItemUtils.itemHasActiveModule(itemstack,
+					TransparentArmorModule.MODULE_TRANSPARENT_ARMOR)) {
+				return null;
+			}
+			if (MuseItemUtils.itemHasActiveModule(itemstack, TintModule.MODULE_TINT)) {
+				model.normalcolour = this.getColorFromItemStack(itemstack);
+			} else {
+				model.normalcolour = Colour.WHITE;
+			}
+			if (MuseItemUtils.itemHasActiveModule(itemstack, CosmeticGlowModule.MODULE_GLOW)) {
+				model.glowcolour = this.getGlowFromItemStack(itemstack);
+			} else {
+				model.glowcolour = Colour.LIGHTBLUE;
+			}
+
+		}
+		return model;
+	}
+
+	public Colour getColorFromItemStack(ItemStack stack) {
+		double computedred = ModuleManager.computeModularProperty(stack, TintModule.RED_TINT);
+		double computedgreen = ModuleManager.computeModularProperty(stack, TintModule.GREEN_TINT);
+		double computedblue = ModuleManager.computeModularProperty(stack, TintModule.BLUE_TINT);
+		Colour colour = new Colour(clampDouble(computedred, 0, 1), clampDouble(computedgreen, 0, 1), clampDouble(computedblue, 0, 1), 1.0F);
+		return colour;
+	}
+
+	private Colour getGlowFromItemStack(ItemStack stack) {
+		double computedred = ModuleManager.computeModularProperty(stack, CosmeticGlowModule.RED_GLOW);
+		double computedgreen = ModuleManager.computeModularProperty(stack, CosmeticGlowModule.GREEN_GLOW);
+		double computedblue = ModuleManager.computeModularProperty(stack, CosmeticGlowModule.BLUE_GLOW);
+		Colour colour = new Colour(clampDouble(computedred, 0, 1), clampDouble(computedgreen, 0, 1), clampDouble(computedblue, 0, 1), 1.0F);
+		return colour;
 	}
 
 	/**
@@ -130,15 +186,6 @@ public abstract class ItemPowerArmor extends ItemElectricArmor
 	@Override
 	public int getItemEnchantability() {
 		return 0;
-	}
-
-	public Colour getColorFromItemStack(ItemStack stack) {
-		double computedred = ModuleManager.computeModularProperty(stack, TintModule.RED_TINT);
-		double computedgreen = ModuleManager.computeModularProperty(stack, TintModule.GREEN_TINT);
-		double computedblue = ModuleManager.computeModularProperty(stack, TintModule.BLUE_TINT);
-		Colour colour = new Colour(clampDouble(1 + computedred - (computedblue + computedgreen), 0, 1), clampDouble(1 + computedgreen
-				- (computedblue + computedred), 0, 1), clampDouble(1 + computedblue - (computedred + computedgreen), 0, 1), 1.0F);
-		return colour;
 	}
 
 	@Override
@@ -262,12 +309,6 @@ public abstract class ItemPowerArmor extends ItemElectricArmor
 
 	@Override
 	public void onProtectFromPoison(ItemStack itemStack, EntityLiving entityLiving, Poison type) {
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public ModelBiped getArmorModel(EntityLiving entityLiving, ItemStack itemStack, int armorSlot) {
-		return ArmorModel.getInstance();
 	}
 
 }

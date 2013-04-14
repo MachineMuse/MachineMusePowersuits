@@ -419,14 +419,19 @@ public abstract class MuseRenderer {
 
 	}
 
-	public static void glowOn() {
+	private static float lightmapLastX;
+	private static float lightmapLastY;
 
+	public static void glowOn() {
+		lightmapLastX = OpenGlHelper.lastBrightnessX;
+		lightmapLastY = OpenGlHelper.lastBrightnessY;
 		RenderHelper.disableStandardItemLighting();
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);
 	}
 
 	public static void glowOff() {
 
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapLastX, lightmapLastY);
 		RenderHelper.enableStandardItemLighting();
 	}
 
@@ -606,7 +611,7 @@ public abstract class MuseRenderer {
 		matrix.put(10, scalez);
 		GL11.glLoadMatrix(matrix);
 	}
-	
+
 	public static void drawCheckmark(double x, double y, Colour colour) {
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
