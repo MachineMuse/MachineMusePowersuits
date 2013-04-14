@@ -38,6 +38,6 @@ public class MusePacketPlayerUpdate extends MusePacket {
 		player.motionX = inputMap.motionX;
 		player.motionY = inputMap.motionY;
 		player.motionZ = inputMap.motionZ;
-		PacketDispatcher.sendPacketToAllPlayers(updatePacket.getPacket250());
+		PacketDispatcher.sendPacketToAllAround(player.posX, player.posY, player.posZ, 128, player.dimension, updatePacket.getPacket250());
 	}
 }
