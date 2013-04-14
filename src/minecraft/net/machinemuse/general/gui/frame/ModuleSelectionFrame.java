@@ -46,9 +46,11 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 			if (lastItem != target.getSelectedItem()) {
 				loadModules();
 			}
+			this.totalsize = 0;
 			for (ModuleSelectionSubFrame frame : categories.values()) {
 				totalsize = (int) Math.max(frame.border.bottom() - this.border.top(), totalsize);
 			}
+			this.currentscrollpixels = Math.min(currentscrollpixels, getMaxScrollPixels());
 			drawBackground();
 			GL11.glPushMatrix();
 			GL11.glTranslatef(0, -currentscrollpixels, 0);

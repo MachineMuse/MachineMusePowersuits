@@ -34,7 +34,7 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
 
 	@Override
 	public String getCategory() {
-		return MuseCommonStrings.CATEGORY_SPECIAL;
+		return MuseCommonStrings.CATEGORY_ENVIRONMENTAL;
 	}
 
 	@Override

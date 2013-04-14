@@ -18,6 +18,7 @@ public class ScrollableFrame implements IGuiFrame {
 	protected boolean scrollbarPicked = false;
 	protected boolean scrolldownPicked = false;
 	protected boolean scrollupPicked = false;
+	protected int lastdWheel = Mouse.getDWheel();
 
 	protected DrawableMuseRect border;
 
@@ -32,16 +33,16 @@ public class ScrollableFrame implements IGuiFrame {
 
 	@Override
 	public void update(double x, double y) {
+		int dscroll = lastdWheel - Mouse.getDWheel();
 		if (x > border.left() && x < border.right() && y > border.top() && y < border.bottom()) {
-			currentscrollpixels = (int) MuseMathUtils.clampDouble(currentscrollpixels - Mouse.getDWheel(), 0, totalsize - border.height());
 			if (Mouse.isButtonDown(0)) {
 				if ((y - border.top()) < buttonsize && currentscrollpixels > 0) {
-					currentscrollpixels -= getScrollAmount();
-				} else if ((border.bottom() - y) < buttonsize
-						&& currentscrollpixels + border.bottom() - border.top() < totalsize) {
-					currentscrollpixels += getScrollAmount();
+					dscroll -= getScrollAmount();
+				} else if ((border.bottom() - y) < buttonsize) {
+					dscroll += getScrollAmount();
 				}
 			}
+			currentscrollpixels = (int) MuseMathUtils.clampDouble(currentscrollpixels + dscroll, 0, getMaxScrollPixels());
 		} else {
 			Mouse.getDWheel();
 		}
@@ -85,6 +86,10 @@ public class ScrollableFrame implements IGuiFrame {
 		// border.top() < totalsize) {
 		// currentscrollpixels += getScrollAmount();
 		// }
+	}
+
+	public int getMaxScrollPixels() {
+		return (int) Math.max(totalsize - border.height(), 0);
 	}
 
 	@Override
