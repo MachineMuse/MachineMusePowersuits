@@ -51,7 +51,7 @@ public class RenderTickHandler implements ITickHandler {
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
-		if (player != null) {
+		if (player != null && MuseItemUtils.modularItemsEquipped(player).size() > 0) {
 			double currEnergy = ElectricItemUtils.getPlayerEnergy(player);
 			double maxEnergy = ElectricItemUtils.getMaxEnergy(player);
 			if (maxEnergy > 0) {
@@ -73,85 +73,85 @@ public class RenderTickHandler implements ITickHandler {
 				// lightningCounter = (lightningCounter + 1) % 50;
 
 			}
-		}
-		if (Minecraft.getMinecraft().currentScreen == null) {
-			MuseRenderer.TEXTURE_MAP = MuseRenderer.ITEM_TEXTURE_QUILT;
-			Minecraft mc = Minecraft.getMinecraft();
-			ScaledResolution screen = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
-			int i = player.inventory.currentItem;
-			ItemStack stack = player.inventory.mainInventory[i];
-			if (stack != null && stack.getItem() instanceof IModularItem) {
-				MuseRenderer.blendingOn();
-				NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-				int swapTime = (int) Math.min(System.currentTimeMillis() - lastSwapTime, SWAPTIME);
-				Icon currentMode = null;
-				Icon nextMode = null;
-				Icon prevMode = null;
-				List<String> modes = MuseItemUtils.getModes(stack, player);
-				String mode = itemTag.getString("Mode");
-				int modeIndex = modes.indexOf(mode);
-				if (modeIndex > -1) {
-					String prevModeName = modes.get((modeIndex + modes.size() - 1) % modes.size());
-					String nextModeName = modes.get((modeIndex + 1) % modes.size());
-					IPowerModule module = ModuleManager.getModule(mode);
-					IPowerModule nextModule = ModuleManager.getModule(nextModeName);
-					IPowerModule prevModule = ModuleManager.getModule(prevModeName);
+			if (Minecraft.getMinecraft().currentScreen == null) {
+				MuseRenderer.TEXTURE_MAP = MuseRenderer.ITEM_TEXTURE_QUILT;
+				Minecraft mc = Minecraft.getMinecraft();
+				ScaledResolution screen = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+				int i = player.inventory.currentItem;
+				ItemStack stack = player.inventory.mainInventory[i];
+				if (stack != null && stack.getItem() instanceof IModularItem) {
+					MuseRenderer.blendingOn();
+					NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+					int swapTime = (int) Math.min(System.currentTimeMillis() - lastSwapTime, SWAPTIME);
+					Icon currentMode = null;
+					Icon nextMode = null;
+					Icon prevMode = null;
+					List<String> modes = MuseItemUtils.getModes(stack, player);
+					String mode = itemTag.getString("Mode");
+					int modeIndex = modes.indexOf(mode);
+					if (modeIndex > -1) {
+						String prevModeName = modes.get((modeIndex + modes.size() - 1) % modes.size());
+						String nextModeName = modes.get((modeIndex + 1) % modes.size());
+						IPowerModule module = ModuleManager.getModule(mode);
+						IPowerModule nextModule = ModuleManager.getModule(nextModeName);
+						IPowerModule prevModule = ModuleManager.getModule(prevModeName);
 
-					if (module != null) {
-						currentMode = module.getIcon(stack);
-						if (!nextModeName.equals(mode)) {
-							nextMode = nextModule.getIcon(stack);
-							prevMode = prevModule.getIcon(stack);
+						if (module != null) {
+							currentMode = module.getIcon(stack);
+							if (!nextModeName.equals(mode)) {
+								nextMode = nextModule.getIcon(stack);
+								prevMode = prevModule.getIcon(stack);
+							}
 						}
 					}
-				}
-				double prevX, prevY, currX, currY, nextX, nextY;
-				double sw = screen.getScaledWidth_double();
-				double baroffset = screen.getScaledHeight_double() - 40;
-				if (!player.capabilities.isCreativeMode) {
-					baroffset -= 16;
-					if (ForgeHooks.getTotalArmorValue(player) > 0) {
-						baroffset -= 8;
+					double prevX, prevY, currX, currY, nextX, nextY;
+					double sw = screen.getScaledWidth_double();
+					double baroffset = screen.getScaledHeight_double() - 40;
+					if (!player.capabilities.isCreativeMode) {
+						baroffset -= 16;
+						if (ForgeHooks.getTotalArmorValue(player) > 0) {
+							baroffset -= 8;
+						}
 					}
-				}
-				// Root locations of the mode list
-				prevX = sw / 2.0 - 105.0 + 20.0 * i;
-				prevY = baroffset + 10;
-				currX = sw / 2.0 - 89.0 + 20.0 * i;
-				currY = baroffset;
-				nextX = sw / 2.0 - 73.0 + 20.0 * i;
-				nextY = baroffset + 10;
-				if (swapTime == SWAPTIME || lastSwapDirection == 0) {
-					drawIcon(prevX, prevY, prevMode, 0.4, 0, 0, 16, baroffset - prevY + 16);
-					drawIcon(currX, currY, currentMode, 0.8, 0, 0, 16, baroffset - currY + 16);
-					drawIcon(nextX, nextY, nextMode, 0.4, 0, 0, 16, baroffset - nextY + 16);
-				} else {
-					double r1 = 1 - swapTime / (double) SWAPTIME;
-					double r2 = swapTime / (double) SWAPTIME;
-					if (lastSwapDirection == -1) {
-						nextX = (currX * r1 + nextX * r2);
-						nextY = (currY * r1 + nextY * r2);
-						currX = (prevX * r1 + currX * r2);
-						currY = (prevY * r1 + currY * r2);
+					// Root locations of the mode list
+					prevX = sw / 2.0 - 105.0 + 20.0 * i;
+					prevY = baroffset + 10;
+					currX = sw / 2.0 - 89.0 + 20.0 * i;
+					currY = baroffset;
+					nextX = sw / 2.0 - 73.0 + 20.0 * i;
+					nextY = baroffset + 10;
+					if (swapTime == SWAPTIME || lastSwapDirection == 0) {
+						drawIcon(prevX, prevY, prevMode, 0.4, 0, 0, 16, baroffset - prevY + 16);
 						drawIcon(currX, currY, currentMode, 0.8, 0, 0, 16, baroffset - currY + 16);
-						drawIcon(nextX, nextY, nextMode, 0.8, 0, 0, 16, baroffset - nextY + 16);
-
+						drawIcon(nextX, nextY, nextMode, 0.4, 0, 0, 16, baroffset - nextY + 16);
 					} else {
-						prevX = (currX * r1 + prevX * r2);
-						prevY = (currY * r1 + prevY * r2);
-						currX = (nextX * r1 + currX * r2);
-						currY = (nextY * r1 + currY * r2);
-						// MuseRenderer
-						drawIcon(prevX, prevY, prevMode, 0.8, 0, 0, 16, baroffset - prevY + 16);
-						drawIcon(currX, currY, currentMode, 0.8, 0, 0, 16, baroffset - currY + 16);
+						double r1 = 1 - swapTime / (double) SWAPTIME;
+						double r2 = swapTime / (double) SWAPTIME;
+						if (lastSwapDirection == -1) {
+							nextX = (currX * r1 + nextX * r2);
+							nextY = (currY * r1 + nextY * r2);
+							currX = (prevX * r1 + currX * r2);
+							currY = (prevY * r1 + currY * r2);
+							drawIcon(currX, currY, currentMode, 0.8, 0, 0, 16, baroffset - currY + 16);
+							drawIcon(nextX, nextY, nextMode, 0.8, 0, 0, 16, baroffset - nextY + 16);
 
+						} else {
+							prevX = (currX * r1 + prevX * r2);
+							prevY = (currY * r1 + prevY * r2);
+							currX = (nextX * r1 + currX * r2);
+							currY = (nextY * r1 + currY * r2);
+							// MuseRenderer
+							drawIcon(prevX, prevY, prevMode, 0.8, 0, 0, 16, baroffset - prevY + 16);
+							drawIcon(currX, currY, currentMode, 0.8, 0, 0, 16, baroffset - currY + 16);
+
+						}
 					}
+					// MuseRenderer.blendingOff();
+					GL11.glDisable(GL11.GL_LIGHTING);
+					Colour.WHITE.doGL();
 				}
-				// MuseRenderer.blendingOff();
-				GL11.glDisable(GL11.GL_LIGHTING);
-				Colour.WHITE.doGL();
-			}
 
+			}
 		}
 
 	}

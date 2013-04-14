@@ -23,10 +23,12 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 public class TinkerTableRenderer extends TileEntitySpecialRenderer implements ISimpleBlockRenderingHandler {
 	protected TinkerTableModel model;
 	protected int renderId;
+	protected ArmorModel armormodel;
 
 	public TinkerTableRenderer(int renderId) {
 		model = new TinkerTableModel();
 		this.renderId = renderId;
+		// armormodel = new ArmorModel();
 	}
 
 	@Override
@@ -34,6 +36,9 @@ public class TinkerTableRenderer extends TileEntitySpecialRenderer implements IS
 		Minecraft.getMinecraft().renderEngine.bindTexture(Config.TINKERTABLE_TEXTURE_PATH);
 		GL11.glPushMatrix();
 		GL11.glTranslated(x, y, z);
+
+		// armormodel.armorChestplate.renderAll();
+
 		model.doRender(null, x, y, z, partialTickTime, partialTickTime);
 		// float texturex = 80 / 256.0f;
 		// float texturey = 32 / 256.0f;

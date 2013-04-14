@@ -25,7 +25,8 @@ import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
 /**
- * Tick handler for Player update step. tickStart() is queued before the entity is updated, and tickEnd() is queued afterwards.
+ * Tick handler for Player update step. tickStart() is queued before the entity
+ * is updated, and tickEnd() is queued afterwards.
  * 
  * Player update step: "Called to update the entity's position/logic."
  * 
@@ -60,8 +61,10 @@ public class PlayerTickHandler implements ITickHandler {
 		// double totalEnergyDrain = 0;
 		double foodAdjustment = 0;
 
+		boolean foundItem = false;
 		for (IPlayerTickModule module : ModuleManager.getPlayerTickModules()) {
 			for (ItemStack itemStack : modularItemsEquipped) {
+				foundItem = true;
 				if (module.isValidForItem(itemStack, player)) {
 					if (MuseItemUtils.itemHasActiveModule(itemStack, module.getName())) {
 						module.onPlayerTickActive(player, itemStack);
@@ -91,14 +94,15 @@ public class PlayerTickHandler implements ITickHandler {
 				torso.getTagCompound().removeTag("ench");
 			}
 		}
+		if (foundItem) {
+			player.getFoodStats().addExhaustion((float) (-foodAdjustment));
+			player.fallDistance = (float) MovementManager.computeFallHeightFromVelocity(MuseMathUtils.clampDouble(player.motionY, -1000.0, 0.0));
 
-		player.getFoodStats().addExhaustion((float) (-foodAdjustment));
-		player.fallDistance = (float) MovementManager.computeFallHeightFromVelocity(MuseMathUtils.clampDouble(player.motionY, -1000.0, 0.0));
-
-		// Weight movement penalty
-		if (totalWeight > weightCapacity) {
-			player.motionX *= weightCapacity / totalWeight;
-			player.motionZ *= weightCapacity / totalWeight;
+			// Weight movement penalty
+			if (totalWeight > weightCapacity) {
+				player.motionX *= weightCapacity / totalWeight;
+				player.motionZ *= weightCapacity / totalWeight;
+			}
 		}
 	}
 

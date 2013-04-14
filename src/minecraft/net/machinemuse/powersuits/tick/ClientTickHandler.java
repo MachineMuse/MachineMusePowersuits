@@ -54,7 +54,7 @@ public class ClientTickHandler implements ITickHandler {
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
 
-		if (player != null) {
+		if (player != null && MuseItemUtils.modularItemsEquipped(player).size() > 0) {
 			if (slotSelected > -1) {
 				player.inventory.currentItem = slotSelected;
 				Minecraft.getMinecraft().playerController.updateController();
