@@ -167,7 +167,10 @@ public abstract class ItemPowerArmor extends ItemElectricArmor
 		// that a player has 20 hp (1hp = 1 half-heart)
 		int absorbMax = (int) armorDouble * 75; // Not sure why this is
 												// necessary but oh well
-
+		if (source.isUnblockable()) {
+			absorbMax = 0;
+			absorbRatio = 0;
+		}
 		return new ArmorProperties(priority, absorbRatio, absorbMax);
 	}
 
