@@ -2,6 +2,7 @@ package net.machinemuse.general.gui.frame;
 
 import java.util.List;
 
+import net.machinemuse.general.MuseMathUtils;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.DrawableMuseRect;
 import net.machinemuse.general.geometry.MusePoint2D;
@@ -31,13 +32,18 @@ public class ScrollableFrame implements IGuiFrame {
 
 	@Override
 	public void update(double x, double y) {
-		if (Mouse.isButtonDown(0) && x > border.left() && x < border.right() && y > border.top() && y < border.bottom()) {
-			if ((y - border.top()) < buttonsize && currentscrollpixels > 0) {
-				currentscrollpixels -= getScrollAmount();
-			} else if ((border.bottom() - y) < buttonsize
-					&& currentscrollpixels + border.bottom() - border.top() < totalsize) {
-				currentscrollpixels += getScrollAmount();
+		if (x > border.left() && x < border.right() && y > border.top() && y < border.bottom()) {
+			currentscrollpixels = (int) MuseMathUtils.clampDouble(currentscrollpixels - Mouse.getDWheel(), 0, totalsize - border.height());
+			if (Mouse.isButtonDown(0)) {
+				if ((y - border.top()) < buttonsize && currentscrollpixels > 0) {
+					currentscrollpixels -= getScrollAmount();
+				} else if ((border.bottom() - y) < buttonsize
+						&& currentscrollpixels + border.bottom() - border.top() < totalsize) {
+					currentscrollpixels += getScrollAmount();
+				}
 			}
+		} else {
+			Mouse.getDWheel();
 		}
 	}
 
@@ -57,8 +63,8 @@ public class ScrollableFrame implements IGuiFrame {
 		// Can scroll up
 		if (currentscrollpixels > 0) {
 			GL11.glVertex3d(border.left() + border.width() / 2, border.top(), 1);
-			GL11.glVertex3d(border.left() + border.width() / 2 + 2, border.top() + 4, 1);
 			GL11.glVertex3d(border.left() + border.width() / 2 - 2, border.top() + 4, 1);
+			GL11.glVertex3d(border.left() + border.width() / 2 + 2, border.top() + 4, 1);
 		}
 		Colour.WHITE.doGL();
 		GL11.glEnd();
@@ -67,12 +73,18 @@ public class ScrollableFrame implements IGuiFrame {
 
 	@Override
 	public void onMouseDown(double x, double y, int button) {
-
 	}
 
 	@Override
 	public void onMouseUp(double x, double y, int button) {
-
+		//
+		// if (button == 3 && currentscrollpixels > 0) {
+		// currentscrollpixels -= Mouse.getDWheel();
+		// }
+		// if (button == 4 && currentscrollpixels + border.bottom() -
+		// border.top() < totalsize) {
+		// currentscrollpixels += getScrollAmount();
+		// }
 	}
 
 	@Override
