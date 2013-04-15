@@ -239,13 +239,14 @@ public class RecipeManager {
 			// wisdom has registered literally everything in the universe with
 			// the ore dictionary, so we can just use strings here :D ...once we
 			// decide what to put.
-			String computerMonitor = "monitorTier02";
-			String advancedCircuit = "circuitTier04";
+			String computerMonitor = "craftingMonitorTier02";
+			String advancedCircuit = "advancedCircuit";
+			String basicCircuit = "basicCircuit";
 			String refinedIron = "ingotRefinedIron";
-			String advancedMachine = "rawMachineTier02";
-			String dataStorageCircuit = "circuitTier05";
-			String energyFlowCircuit = "circuitTier07";
-			String machineParts = "itemMachineParts";
+			String advancedMachine = "craftingRawMachineTier02";
+			String dataStorageCircuit = "craftingCircuitTier05";
+			String energyFlowCircuit = "craftingCircuitTier07";
+			String machineParts = "craftingMachineParts";
 			String nitrogen = "molecule_1n";
 			ItemStack neutronReflector = ModCompatability.getGregtechItem(40, 1, 0);
 			String advancedHeatVent = "item.reactorVentDiamond";
@@ -273,7 +274,7 @@ public class RecipeManager {
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.laserHologram, true, "LLL", "RGB", "LLL", 'L', luminator, 'R', "gemRuby", 'G',
 					"gemGreenSapphire", 'B', "gemSapphire"));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.basicPlating, true, "II", "CI", "II", 'C', "circuitTier02", 'I', "ingotSteel"));
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.basicPlating, true, "II", "CI", "II", 'C', basicCircuit, 'I', "ingotSteel"));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true, "II", "CI", "II", 'C', "circuitTier04", 'I',
 					"ingotTitanium"));
@@ -336,10 +337,10 @@ public class RecipeManager {
 					'C', advancedCircuit, 'S', ItemComponent.solenoid));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.fieldEmitter, true, "ISI", "CUC", "ISI", 'I', "ingotTungstenSteel", 'S',
-					ItemComponent.solenoid, 'U', energyFlowCircuit, 'C', "itemSuperconductor"));
+					ItemComponent.solenoid, 'U', energyFlowCircuit, 'C', "craftingSuperconductor"));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true, "ISI", "FCF", "N N", 'I', "plateIridiumAlloy", 'S',
-					"itemSuperconductor", 'N', neutronReflector, 'C', ItemComponent.hvcapacitor, 'F', ItemComponent.fieldEmitter));
+					"craftingSuperconductor", 'N', neutronReflector, 'C', ItemComponent.hvcapacitor, 'F', ItemComponent.fieldEmitter));
 
 		}
 		if (ModCompatability.ThermalExpansionRecipesEnabled() && ModCompatability.isThermalExpansionLoaded()) {
