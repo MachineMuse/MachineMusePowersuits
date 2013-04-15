@@ -132,7 +132,7 @@
 		<mkdir dir="${mcpsrc.dir}/micdoodle8/mods/galacticraft/API" />
 		<move file="${download.dir}/micdoodle8/mods/galacticraft/API/EnumGearType.java" todir="${mcpsrc.dir}/micdoodle8/mods/galacticraft/API" />
 		<move file="${download.dir}/micdoodle8/mods/galacticraft/API/IBreathableArmor.java" todir="${mcpsrc.dir}/micdoodle8/mods/galacticraft/API" />
-
+	
 	</target>
 
 	<target name="update-names" depends="copy-source">
