@@ -457,10 +457,6 @@ public class ToolModel extends ModelBase {
 			GL11.glPushMatrix();
 			RenderPlasmaBolt.doRender(boltSize);
 			GL11.glPopMatrix();
-			GL11.glPushMatrix();
-			GL11.glRotatef(180, 0, 1, 0);
-			RenderPlasmaBolt.doRender(boltSize);
-			GL11.glPopMatrix();
 		}
 		MuseRenderer.glowOff();
 		GL11.glPopMatrix();

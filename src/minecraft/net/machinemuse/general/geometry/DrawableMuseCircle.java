@@ -38,6 +38,7 @@ public class DrawableMuseCircle {
 		GL11.glTranslated(x, y, 0);
 		GL11.glScaled(radius / detail, radius / detail, 1.0);
 		MuseRenderer.on2D();
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		MuseRenderer.arraysOnC();
 		MuseRenderer.texturelessOn();
 		MuseRenderer.blendingOn();

@@ -6,6 +6,9 @@ import net.machinemuse.powersuits.common.MuseLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 import net.minecraftforge.client.model.obj.GroupObject;
@@ -84,6 +87,16 @@ public class ArmorModel extends ModelBiped {
 	 */
 	public void render(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7)
 	{
+		try {
+			EntityLiving entity = (EntityLiving) par1Entity;
+			ItemStack stack = entity.getCurrentItemOrArmor(0);
+			this.heldItemRight = (stack != null) ? 1 : 0;
+			this.isSneak = entity.isSneaking();
+			EntityPlayer entityPlayer;
+			this.aimedBow = ((EntityPlayer) entity).getItemInUse() != null;
+			// if (entity.)
+		} catch (Exception e) {
+		}
 		this.setRotationAngles(par2, par3, par4, par5, par6, par7, par1Entity);
 		Minecraft.getMinecraft().renderEngine.bindTexture(Config.ARMOR_TEXTURE_PATH);
 		GL11.glPushMatrix();
@@ -95,5 +108,4 @@ public class ArmorModel extends ModelBiped {
 		this.bipedLeftLeg.render(par7);
 		GL11.glPopMatrix();
 	}
-
 }

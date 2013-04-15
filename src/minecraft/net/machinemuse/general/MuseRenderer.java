@@ -497,6 +497,7 @@ public abstract class MuseRenderer {
 
 		double jagfactor = 0.3;
 		on2D();
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		getRenderEngine().bindTexture(Config.LIGHTNING_TEXTURE);
 		blendingOn();
 		colour.doGL();
