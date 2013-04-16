@@ -58,6 +58,7 @@ public class Config {
 	public static final String LIGHTNING_TEXTURE = TEXTURE_PREFIX + "gui/lightning-medium.png";
 	public static final String CITIZENJOE_ARMOR_PATH = TEXTURE_PREFIX + "models/joearmor.png";
 	public static final String CITIZENJOE_ARMORPANTS_PATH = TEXTURE_PREFIX + "models/joearmorpants.png";
+	public static final String GLASS_TEXTURE = TEXTURE_PREFIX + "gui/glass.png";
 
 	private static Configuration config;
 
@@ -180,8 +181,6 @@ public class Config {
 		List<IModularItem> FEETONLY = Collections.singletonList((IModularItem) ModularPowersuits.powerArmorFeet);
 		List<IModularItem> TOOLONLY = Collections.singletonList((IModularItem) ModularPowersuits.powerTool);
 
-		IPowerModule module;
-
 		// Armor
 		addModule(new BasicPlatingModule(ARMORONLY));
 		addModule(new DiamondPlatingModule(ARMORONLY));
@@ -263,6 +262,10 @@ public class Config {
 		String message = "Press SHIFT for more information.";
 		message = MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic);
 		return message;
+	}
+
+	public static boolean useGraphicalMeters() {
+		return config.get(Configuration.CATEGORY_GENERAL, "Use Graphical Meters", true).getBoolean(true);
 	}
 
 }

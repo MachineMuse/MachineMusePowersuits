@@ -9,6 +9,12 @@ import net.minecraft.util.Icon;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 
+/**
+ * A curved indicator bar. Probably not gonna use this actually...
+ * 
+ * @author MachineMuse
+ * 
+ */
 public class RadialIndicator {
 	protected DoubleBuffer vertices;
 	protected DoubleBuffer textures;

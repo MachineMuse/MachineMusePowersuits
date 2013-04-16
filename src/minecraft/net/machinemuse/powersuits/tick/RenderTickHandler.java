@@ -11,9 +11,10 @@ import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.general.geometry.RadialIndicator;
+import net.machinemuse.general.gui.EnergyMeter;
+import net.machinemuse.general.gui.HeatMeter;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
-import net.minecraft.block.Block;
+import net.machinemuse.powersuits.common.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.ScaledResolution;
@@ -36,8 +37,8 @@ public class RenderTickHandler implements ITickHandler {
 	private final static int SWAPTIME = 200;
 	public static long lastSwapTime = 0;
 	public static int lastSwapDirection = 0;
-	protected static RadialIndicator heat;
-	protected static RadialIndicator energy;
+	protected static HeatMeter heat;
+	protected static HeatMeter energy;
 	private int lightningCounter = 0;
 
 	@Override
@@ -49,31 +50,32 @@ public class RenderTickHandler implements ITickHandler {
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
 		if (player != null && MuseItemUtils.modularItemsEquipped(player).size() > 0) {
+			Minecraft mc = Minecraft.getMinecraft();
+			ScaledResolution screen = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
 			double currEnergy = ElectricItemUtils.getPlayerEnergy(player);
 			double maxEnergy = ElectricItemUtils.getMaxEnergy(player);
-			if (maxEnergy > 0) {
-				String currStr = MuseStringUtils.formatNumberShort(currEnergy);
-				String maxStr = MuseStringUtils.formatNumberShort(maxEnergy);
-				MuseRenderer.drawString(currStr + '/' + maxStr + " J", 1, 1);
-			}
-			if (BlockTinkerTable.energyIcon != null) {
-				if (energy == null) {
-					energy = new RadialIndicator(8, 16, 15 * Math.PI / 8, 9 * Math.PI / 8,
-							Colour.BLACK, new Colour(0.2, 0.8, 1.0, 1.0), BlockTinkerTable.energyIcon, MuseRenderer.BLOCK_TEXTURE_QUILT);
-					heat = new RadialIndicator(8, 16, 1 * Math.PI / 8, 7 * Math.PI / 8,
-							Colour.BLACK, Colour.WHITE, Block.lavaMoving.getBlockTextureFromSide(1), MuseRenderer.BLOCK_TEXTURE_QUILT);
-				}
-				// heat.draw(50, 50, 0.6);
-				// energy.draw(50, 50, 0.6);
-				// MuseRenderer.drawLightningBetweenPoints(50.0, 50.0, 1.0,
-				// 50.0, 100.0, 1.0, lightningCounter);
-				// lightningCounter = (lightningCounter + 1) % 50;
+			double currHeat = ElectricItemUtils.getPlayerHeat(player);
+			double maxHeat = ElectricItemUtils.getMaxHeat(player);
+			if (maxEnergy > 0 && BlockTinkerTable.energyIcon != null) {
+				if (Config.useGraphicalMeters()) {
+					if (energy == null) {
+						energy = new EnergyMeter();
+						heat = new HeatMeter();
+					}
+					energy.draw(screen.getScaledWidth() - 20, screen.getScaledHeight() / 2.0 - 16, currEnergy / maxEnergy);
+					heat.draw(screen.getScaledWidth() - 12, screen.getScaledHeight() / 2.0 - 16, currHeat / maxHeat);
+				} else {
+					String currStr = MuseStringUtils.formatNumberShort(currEnergy);
+					String maxStr = MuseStringUtils.formatNumberShort(maxEnergy);
+					MuseRenderer.drawString(currStr + '/' + maxStr + " J", 1, 1);
+					currStr = MuseStringUtils.formatNumberShort(currHeat);
+					maxStr = MuseStringUtils.formatNumberShort(maxHeat);
+					MuseRenderer.drawString(currStr + '/' + maxStr + " C", 1, 10);
 
+				}
 			}
 			if (Minecraft.getMinecraft().currentScreen == null) {
 				MuseRenderer.TEXTURE_MAP = MuseRenderer.ITEM_TEXTURE_QUILT;
-				Minecraft mc = Minecraft.getMinecraft();
-				ScaledResolution screen = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
 				int i = player.inventory.currentItem;
 				ItemStack stack = player.inventory.mainInventory[i];
 				if (stack != null && stack.getItem() instanceof IModularItem) {

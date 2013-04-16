@@ -69,4 +69,12 @@ public class ElectricItemUtils {
 		return 0;
 	}
 
+	public static double getPlayerHeat(EntityPlayer player) {
+		return 0;
+	}
+
+	public static double getMaxHeat(EntityPlayer player) {
+		return 1;
+	}
+
 }

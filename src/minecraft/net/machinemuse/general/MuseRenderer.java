@@ -488,6 +488,26 @@ public abstract class MuseRenderer {
 		drawLightningTextured(x1, y1, z1, x2, y2, z2, colour);
 	}
 
+	public static void drawMPDLightning(double x1, double y1, double z1, double x2, double y2, double z2, Colour colour, double displacement,
+			double detail) {
+		if (displacement < detail) {
+			colour.doGL();
+			GL11.glBegin(GL11.GL_LINES);
+			GL11.glVertex3d(x1, y1, z1);
+			GL11.glVertex3d(x2, y2, z2);
+			GL11.glEnd();
+		} else {
+			double mid_x = (x1 + x2) / 2.0;
+			double mid_y = (y1 + y2) / 2.0;
+			double mid_z = (z1 + z2) / 2.0;
+			mid_x += (Math.random() - 0.5) * displacement;
+			mid_y += (Math.random() - 0.5) * displacement;
+			mid_z += (Math.random() - 0.5) * displacement;
+			drawMPDLightning(x1, y1, z1, mid_x, mid_y, mid_z, colour, displacement / 2, detail);
+			drawMPDLightning(mid_x, mid_y, mid_z, x2, y2, z2, colour, displacement / 2, detail);
+		}
+	}
+
 	public static void drawLightningTextured(double x1, double y1, double z1, double x2, double y2, double z2, Colour colour) {
 		double tx = x2 - x1, ty = y2 - y1, tz = z2 - z1;
 
