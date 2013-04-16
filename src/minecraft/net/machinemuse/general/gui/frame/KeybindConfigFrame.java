@@ -198,12 +198,15 @@ public class KeybindConfigFrame implements IGuiFrame {
 	@Override
 	public void draw() {
 		MusePoint2D center = ul.plus(br).times(0.5);
+		MuseRenderer.blendingOn();
+		MuseRenderer.on2D();
 		if (selecting) {
 			MuseRenderer.drawCenteredString("Press Key", center.x(), center.y());
 			return;
 		}
 		newKeybindButton.draw();
 		trashKeybindButton.draw();
+		MuseRenderer.TEXTURE_MAP = MuseRenderer.ITEM_TEXTURE_QUILT;
 		MuseRenderer.drawCenteredString("Use 'new' to bind new keys.", center.x(), center.y() + 40);
 		MuseRenderer.drawCenteredString("Drag and drop modules to bind them to keys.", center.x(), center.y() + 50);
 		MuseRenderer.drawCenteredString("Drop keys on 'trash' to unbind them.", center.x(), center.y() + 60);
@@ -220,6 +223,8 @@ public class KeybindConfigFrame implements IGuiFrame {
 		if (selectedClickie != null && closestKeybind != null) {
 			MuseRenderer.drawLineBetween(selectedClickie, closestKeybind, Colour.YELLOW);
 		}
+		MuseRenderer.off2D();
+		MuseRenderer.blendingOff();
 	}
 
 	@Override

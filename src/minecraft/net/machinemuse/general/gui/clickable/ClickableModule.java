@@ -42,7 +42,9 @@ public class ClickableModule extends Clickable {
 	@Override
 	public void draw() {
 		double k = Integer.MAX_VALUE;
-		drawPartial(0, 0, 16, 16);
+		double left = getPosition().x() - 8;
+		double top = getPosition().y() - 8;
+		drawPartial(left, top, left + 16, top + 16);
 		// Colour.WHITE.doGL();
 		// MuseRenderer.TEXTURE_MAP = getModule().getStitchedTexture(null);
 		// MuseRenderer.drawIconAt(getPosition().x() - 8, getPosition().y() - 8,
