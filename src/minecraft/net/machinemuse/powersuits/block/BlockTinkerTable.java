@@ -74,8 +74,6 @@ public class BlockTinkerTable extends Block {
 		// Whether to receive random ticks e.g. plants
 		setTickRandomly(false);
 
-		LanguageRegistry.addName(this, "Power Armor Tinker Table");
-
 		// Harvest level for this block. par2 can be pickaxe, axe, or shovel, or
 		// a different toolclass. par3 is the minimum level of item required to
 		// break it:
@@ -89,6 +87,10 @@ public class BlockTinkerTable extends Block {
 		// Finally, register the block so that it appears in the game. New
 		// standard requires a name to be passed.
 		GameRegistry.registerBlock(this, "tinkerTable");
+
+		setUnlocalizedName("mmmPowersuits.tinkerTable");
+
+		LanguageRegistry.addName(this, "Power Armor Tinker Table");
 
 	}
 
