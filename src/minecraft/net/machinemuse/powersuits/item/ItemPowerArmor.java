@@ -50,7 +50,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor
 	 *            0 = head; 1 = torso; 2 = legs; 3 = feet
 	 */
 	public ItemPowerArmor(int id, int renderIndex, int armorType) {
-		super(id, EnumArmorMaterial.CLOTH, renderIndex, armorType);
+		super(id, EnumArmorMaterial.IRON, renderIndex, armorType);
 		setMaxStackSize(1);
 		setCreativeTab(Config.getCreativeTab());
 	}

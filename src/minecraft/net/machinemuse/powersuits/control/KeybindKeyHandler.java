@@ -61,7 +61,7 @@ public class KeybindKeyHandler extends KeyHandler {
 
 	@Override
 	public void keyUp(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd) {
-		if (kb.equals(goDownKey)) {
+		if (Minecraft.getMinecraft().thePlayer != null && kb.equals(goDownKey)) {
 			PlayerInputMap.getInputMapFor(Minecraft.getMinecraft().thePlayer.username).downKey = false;
 		}
 	}
