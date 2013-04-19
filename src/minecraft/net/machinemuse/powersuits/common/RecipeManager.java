@@ -66,10 +66,11 @@ public class RecipeManager {
 
 			GameRegistry.addRecipe(ItemComponent.parachute, "WWW", "S S", 'W', wool, 'S', string);
 
-			GameRegistry.addRecipe(ItemComponent.lvcapacitor, "WPI", "W W", 'W', ItemComponent.wiring, 'I', iron, 'P', paper, 'L', lapis);
+			GameRegistry.addRecipe(ItemComponent.lvcapacitor, "WPI", "W W", 'W', ItemComponent.wiring, 'I', iron, 'P', new ItemStack(Item.paper),
+					'L', lapis);
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.mvcapacitor, "GPL", "W W", 'W', ItemComponent.wiring, 'G', goldNugget, 'P',
-					paper, 'L', lapis));
+					new ItemStack(Item.paper), 'L', lapis));
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.hvcapacitor, "EPG", "W W", 'W', ItemComponent.wiring, 'E', enderPearl, 'P',
 					glass, 'G', glowstone));
 
@@ -403,8 +404,8 @@ public class RecipeManager {
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.parachute, true, "WWW", "S S", " O ", 'W', wool, 'S', string, 'O',
 					pneumaticServo));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.lvcapacitor, "CPT", "W W", 'W', ItemComponent.wiring, 'C', "ingotSilver", 'T',
-					"ingotGold", 'P', paper));
+			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.lvcapacitor, false, "CPT", "W W", 'W', ItemComponent.wiring, 'C', "ingotSilver",
+					'T', "ingotGold", 'P', new ItemStack(Item.paper)));
 
 			GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.mvcapacitor, "WRW", 'W', ItemComponent.wiring, 'R', conduitEnergy));
 
