@@ -2,11 +2,7 @@ package net.machinemuse.powersuits.powermodule.weapon;
 
 import java.util.List;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.MuseCommonStrings;
-import net.machinemuse.api.MuseItemUtils;
-import net.machinemuse.api.MusePlayerUtils;
+import net.machinemuse.api.*;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -115,6 +111,7 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule 
 				world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
 			}
 		}
+		player.setItemInUse(itemStack, 10);
 	}
 
 	@Override

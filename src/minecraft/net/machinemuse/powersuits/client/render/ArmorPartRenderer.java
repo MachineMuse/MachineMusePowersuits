@@ -47,6 +47,7 @@ public class ArmorPartRenderer extends ModelRenderer {
 	{
 		if (!this.isHidden && this.showModel)
 		{
+			GL11.glTranslatef(this.field_82906_o, this.field_82908_p, this.field_82907_q);
 			GL11.glPushMatrix();
 			GL11.glTranslatef(this.rotationPointX * par1, this.rotationPointY * par1, this.rotationPointZ * par1);
 
@@ -70,7 +71,7 @@ public class ArmorPartRenderer extends ModelRenderer {
 
 			GL11.glPopMatrix();
 
-			// GL11.glTranslatef(-this.field_82906_o, -this.field_82908_p, -this.field_82907_q);
+			GL11.glTranslatef(-this.field_82906_o, -this.field_82908_p, -this.field_82907_q);
 		}
 
 	}
