@@ -7,7 +7,6 @@ import net.machinemuse.powersuits.client.render.RenderSpinningBlade;
 import net.machinemuse.powersuits.client.render.TinkerTableRenderer;
 import net.machinemuse.powersuits.client.render.ToolRenderer;
 import net.machinemuse.powersuits.common.CommonProxy;
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.control.KeybindKeyHandler;
@@ -66,14 +65,6 @@ public class ClientProxy extends CommonProxy {
 
 		MinecraftForge.EVENT_BUS.register(new TextureStitchHandler());
 
-		MinecraftForgeClient.preloadTexture(Config.TINKERTABLE_TEXTURE_PATH);
-		MinecraftForgeClient.preloadTexture(Config.BLANK_ARMOR_MODEL_PATH);
-		MinecraftForgeClient.preloadTexture(Config.SEBK_ARMOR_PATH);
-		MinecraftForgeClient.preloadTexture(Config.SEBK_ARMORPANTS_PATH);
-		MinecraftForgeClient.preloadTexture(Config.CITIZENJOE_ARMOR_PATH);
-		MinecraftForgeClient.preloadTexture(Config.CITIZENJOE_ARMORPANTS_PATH);
-		MinecraftForgeClient.preloadTexture(Config.SEBK_TOOL_TEXTURE);
-		MinecraftForgeClient.preloadTexture(Config.LIGHTNING_TEXTURE);
 	}
 
 	/**
