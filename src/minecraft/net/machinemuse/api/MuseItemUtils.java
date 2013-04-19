@@ -1,10 +1,6 @@
 package net.machinemuse.api;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.general.MuseMathUtils;
@@ -27,8 +23,7 @@ public class MuseItemUtils {
 	public static final String NBTPREFIX = "mmmpsmod";
 	public static final String ONLINE = "Active";
 
-	public static List<IPowerModule> getValidModulesForItem(
-			EntityPlayer player, ItemStack stack) {
+	public static List<IPowerModule> getValidModulesForItem(EntityPlayer player, ItemStack stack) {
 		List<IPowerModule> validModules = new ArrayList();
 		for (IPowerModule module : ModuleManager.getAllModules()) {
 			if (module.isValidForItem(stack, player)) {
@@ -157,12 +152,10 @@ public class MuseItemUtils {
 
 		NBTTagCompound properties;
 		if (stackTag.hasKey(NBTPREFIX)) {
-			properties = stackTag
-					.getCompoundTag(NBTPREFIX);
+			properties = stackTag.getCompoundTag(NBTPREFIX);
 		} else {
 			properties = new NBTTagCompound();
-			stackTag.setCompoundTag(NBTPREFIX,
-					properties);
+			stackTag.setCompoundTag(NBTPREFIX, properties);
 		}
 		return properties;
 	}
@@ -229,8 +222,7 @@ public class MuseItemUtils {
 	 * @param inventory
 	 * @return
 	 */
-	public static boolean hasInInventory(List<ItemStack> workingUpgradeCost,
-			InventoryPlayer inventory) {
+	public static boolean hasInInventory(List<ItemStack> workingUpgradeCost, InventoryPlayer inventory) {
 		for (ItemStack stackInCost : workingUpgradeCost) {
 			int found = 0;
 			for (int i = 0; i < inventory.getSizeInventory(); i++) {
@@ -250,16 +242,14 @@ public class MuseItemUtils {
 	 * @param workingUpgradeCost
 	 * @param inventory
 	 */
-	public static List<Integer> deleteFromInventory(List<ItemStack> cost,
-			InventoryPlayer inventory) {
+	public static List<Integer> deleteFromInventory(List<ItemStack> cost, InventoryPlayer inventory) {
 		List<Integer> slots = new LinkedList<Integer>();
 		for (ItemStack stackInCost : cost) {
 			int remaining = stackInCost.stackSize;
 			for (int i = 0; i < inventory.getSizeInventory() && remaining > 0; i++) {
 				ItemStack stackInInventory = inventory.getStackInSlot(i);
 				if (isSameItem(stackInInventory, stackInCost)) {
-					int numToTake = Math.min(stackInInventory.stackSize,
-							remaining);
+					int numToTake = Math.min(stackInInventory.stackSize, remaining);
 					stackInInventory.stackSize -= numToTake;
 					remaining -= numToTake;
 					if (stackInInventory.stackSize == 0) {
@@ -272,8 +262,7 @@ public class MuseItemUtils {
 		return slots;
 	}
 
-	public static List<Integer> findInInventoryForCost(List<ItemStack> workingUpgradeCost,
-			InventoryPlayer inventory) {
+	public static List<Integer> findInInventoryForCost(List<ItemStack> workingUpgradeCost, InventoryPlayer inventory) {
 		List<Integer> slots = new LinkedList<Integer>();
 		for (ItemStack stackInCost : workingUpgradeCost) {
 			int found = 0;
@@ -291,8 +280,7 @@ public class MuseItemUtils {
 	/**
 	 * Checks the given NBTTag and returns the value if it exists, otherwise 0.
 	 */
-	public static double getDoubleOrZero(NBTTagCompound itemProperties,
-			String string) {
+	public static double getDoubleOrZero(NBTTagCompound itemProperties, String string) {
 		double value = 0;
 		if (itemProperties != null) {
 			if (itemProperties.hasKey(string)) {
@@ -328,13 +316,11 @@ public class MuseItemUtils {
 	 * Sets the given itemstack's modular property, or removes it if the value
 	 * would be zero.
 	 */
-	public static void setDoubleOrRemove(ItemStack stack, String string,
-			double value) {
+	public static void setDoubleOrRemove(ItemStack stack, String string, double value) {
 		setDoubleOrRemove(getMuseItemTag(stack), string, value);
 	}
 
-	public static String getStringOrNull(NBTTagCompound itemProperties,
-			String key) {
+	public static String getStringOrNull(NBTTagCompound itemProperties, String key) {
 		String value = null;
 		if (itemProperties != null) {
 			if (itemProperties.hasKey(key)) {
@@ -348,8 +334,7 @@ public class MuseItemUtils {
 		return getStringOrNull(getMuseItemTag(stack), key);
 	}
 
-	public static void setStringOrNull(NBTTagCompound itemProperties,
-			String key, String value) {
+	public static void setStringOrNull(NBTTagCompound itemProperties, String key, String value) {
 		if (itemProperties != null) {
 			if (value.isEmpty()) {
 				itemProperties.removeTag(key);
@@ -360,8 +345,7 @@ public class MuseItemUtils {
 	}
 
 	public static void setStringOrNull(ItemStack stack, String key, String value) {
-		setStringOrNull(getMuseItemTag(stack),
-				key, value);
+		setStringOrNull(getMuseItemTag(stack), key, value);
 	}
 
 	public static List<ItemStack> modularItemsEquipped(EntityPlayer player) {
@@ -404,8 +388,7 @@ public class MuseItemUtils {
 			&& (stack1.getItemDamage() != stack2.getItemDamage()));
 	}
 
-	public static void transferStackWithChance(ItemStack itemsToGive,
-			ItemStack destinationStack, double chanceOfSuccess) {
+	public static void transferStackWithChance(ItemStack itemsToGive, ItemStack destinationStack, double chanceOfSuccess) {
 		if (MuseItemUtils.isSameItem(itemsToGive, ItemComponent.lvcapacitor)) {
 			itemsToGive.stackSize = 0;
 			return;
@@ -420,8 +403,7 @@ public class MuseItemUtils {
 		}
 
 		int maxSize = destinationStack.getMaxStackSize();
-		while (itemsToGive.stackSize > 0
-				&& destinationStack.stackSize < maxSize) {
+		while (itemsToGive.stackSize > 0 && destinationStack.stackSize < maxSize) {
 			itemsToGive.stackSize -= 1;
 			if (MuseMathUtils.nextDouble() < chanceOfSuccess) {
 				destinationStack.stackSize += 1;
@@ -429,36 +411,28 @@ public class MuseItemUtils {
 		}
 	}
 
-	public static Set<Integer> giveOrDropItems(ItemStack itemsToGive,
-			EntityPlayer player) {
+	public static Set<Integer> giveOrDropItems(ItemStack itemsToGive, EntityPlayer player) {
 		return giveOrDropItemWithChance(itemsToGive, player, 1.0);
 	}
 
-	public static Set<Integer> giveOrDropItemWithChance(ItemStack itemsToGive,
-			EntityPlayer player, double chanceOfSuccess) {
+	public static Set<Integer> giveOrDropItemWithChance(ItemStack itemsToGive, EntityPlayer player, double chanceOfSuccess) {
 		Set<Integer> slots = new HashSet<Integer>();
 
 		// First try to add the items to existing stacks
-		for (int i = 0; i < player.inventory.getSizeInventory()
-				&& itemsToGive.stackSize > 0; i++) {
+		for (int i = 0; i < player.inventory.getSizeInventory() && itemsToGive.stackSize > 0; i++) {
 			ItemStack currentStack = player.inventory.getStackInSlot(i);
 			if (canStackTogether(currentStack, itemsToGive)) {
 				slots.add(i);
-				transferStackWithChance(itemsToGive, currentStack,
-						chanceOfSuccess);
+				transferStackWithChance(itemsToGive, currentStack, chanceOfSuccess);
 			}
 		}
 		// Then try to add the items to empty slots
-		for (int i = 0; i < player.inventory.getSizeInventory()
-				&& itemsToGive.stackSize > 0; i++) {
+		for (int i = 0; i < player.inventory.getSizeInventory() && itemsToGive.stackSize > 0; i++) {
 			if (player.inventory.getStackInSlot(i) == null) {
-				ItemStack destination = new ItemStack(itemsToGive.itemID,
-						0, itemsToGive.getItemDamage());
-				transferStackWithChance(itemsToGive, destination,
-						chanceOfSuccess);
+				ItemStack destination = new ItemStack(itemsToGive.itemID, 0, itemsToGive.getItemDamage());
+				transferStackWithChance(itemsToGive, destination, chanceOfSuccess);
 				if (destination.stackSize > 0) {
-					player.inventory.setInventorySlotContents(i,
-							destination);
+					player.inventory.setInventorySlotContents(i, destination);
 					slots.add(i);
 				}
 			}
@@ -540,6 +514,14 @@ public class MuseItemUtils {
 		ItemStack copy = stack.copy();
 		copy.stackSize = number;
 		return copy;
+	}
+
+	public static double getPlayerHeat(EntityPlayer player) {
+		return 0;
+	}
+
+	public static double getMaxHeat(EntityPlayer player) {
+		return 1;
 	}
 
 }
