@@ -15,7 +15,7 @@ public class HeatSinkModule extends PowerModuleBase {
 	public HeatSinkModule(List<IModularItem> validItems) {
 		super(validItems);
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.basicPlating, 1));
-		addTradeoffProperty("Thickness", MuseCommonStrings.WEIGHT, 5, "kg");
+		addTradeoffProperty("Thickness", MuseCommonStrings.WEIGHT, 5000, "g");
 		addTradeoffProperty("Thickness", MuseHeatUtils.MAXIMUM_HEAT, 150, "°");
 	}
 
