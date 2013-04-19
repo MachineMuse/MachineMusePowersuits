@@ -18,6 +18,7 @@ import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.powermodule.movement.FlightControlModule;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Vec3;
@@ -90,13 +91,23 @@ public class PlayerTickHandler implements ITickHandler {
 				player.motionZ *= weightCapacity / totalWeight;
 			}
 		}
-
+		double coolAmount;
+		if (player.isInWater()) {
+			coolAmount = 0.5;
+		} else if (player.isInsideOfMaterial(Material.lava)) {
+			coolAmount = 0;
+		} else {
+			coolAmount = 0.1;
+		}
+		MuseHeatUtils.coolPlayer(player, coolAmount);
 		double maxHeat = MuseHeatUtils.getMaxHeat(player);
 		double currHeat = MuseHeatUtils.getPlayerHeat(player);
 		if (currHeat > maxHeat) {
 			player.attackEntityFrom(MuseHeatUtils.overheatDamage, (int) Math.sqrt(currHeat - maxHeat) / 4);
+			player.setFire(1);
+		} else {
+			player.extinguish();
 		}
-		MuseHeatUtils.coolPlayer(player, 0.1);
 	}
 
 	public static void thrust(EntityPlayer player, double thrust, double jetEnergy, boolean flightControl) {
