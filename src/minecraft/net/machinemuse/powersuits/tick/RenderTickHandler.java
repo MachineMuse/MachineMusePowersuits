@@ -54,20 +54,24 @@ public class RenderTickHandler implements ITickHandler {
 			double currHeat = MuseHeatUtils.getPlayerHeat(player);
 			double maxHeat = MuseHeatUtils.getMaxHeat(player);
 			if (maxEnergy > 0 && BlockTinkerTable.energyIcon != null) {
+				String currStr = MuseStringUtils.formatNumberShort(currEnergy);
+				String maxStr = MuseStringUtils.formatNumberShort(maxEnergy);
+				String currHeatStr = MuseStringUtils.formatNumberShort(currHeat);
+				String maxHeatStr = MuseStringUtils.formatNumberShort(maxHeat);
 				if (Config.useGraphicalMeters()) {
 					if (energy == null) {
 						energy = new EnergyMeter();
 						heat = new HeatMeter();
 					}
-					energy.draw(screen.getScaledWidth() - 20, screen.getScaledHeight() / 2.0 - 16, currEnergy / maxEnergy);
-					heat.draw(screen.getScaledWidth() - 12, screen.getScaledHeight() / 2.0 - 16, currHeat / maxHeat);
+					double left = screen.getScaledWidth() - 20;
+					double top = screen.getScaledHeight() / 2.0 - 16;
+					energy.draw(left, top, currEnergy / maxEnergy);
+					heat.draw(left + 8, top, currHeat / maxHeat);
+					MuseRenderer.drawString(currStr, left - 20, top + 10);
+					MuseRenderer.drawString(currHeatStr, left - 20, top + 20);
 				} else {
-					String currStr = MuseStringUtils.formatNumberShort(currEnergy);
-					String maxStr = MuseStringUtils.formatNumberShort(maxEnergy);
 					MuseRenderer.drawString(currStr + '/' + maxStr + " J", 1, 1);
-					currStr = MuseStringUtils.formatNumberShort(currHeat);
-					maxStr = MuseStringUtils.formatNumberShort(maxHeat);
-					MuseRenderer.drawString(currStr + '/' + maxStr + " C", 1, 10);
+					MuseRenderer.drawString(currHeatStr + '/' + maxHeatStr + " C", 1, 10);
 
 				}
 			}

@@ -22,6 +22,8 @@ public class RenderSpinningBlade extends Render {
 				motionscale), 0.0f, (float) (-entity.motionX / motionscale));
 		int time = (int) System.currentTimeMillis() % 360;
 		glRotatef(time / 2, 0, 0, 1);
+		double scale = 0.5;
+		glScaled(scale, scale, scale);
 		glBegin(GL_QUADS);
 		glTexCoord2d(0, 0);
 		glVertex3d(-1, -1, 0);

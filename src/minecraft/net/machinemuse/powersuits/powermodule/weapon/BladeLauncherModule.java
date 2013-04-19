@@ -5,9 +5,11 @@ import java.util.List;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseCommonStrings;
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
+import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -15,8 +17,15 @@ import net.minecraft.world.World;
 
 public class BladeLauncherModule extends PowerModuleBase implements IRightClickModule {
 
+	public static final String BLADE_ENERGY = "Spinning Blade Energy Consumption";
+	public static final String BLADE_DAMAGE = "Spinning Blade Damage";
+
 	public BladeLauncherModule(List<IModularItem> validItems) {
 		super(validItems);
+		addBaseProperty(BLADE_ENERGY, 500, "J");
+		addBaseProperty(BLADE_DAMAGE, 6, "pt");
+		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 1));
+		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.mvcapacitor, 1));
 	}
 
 	@Override
@@ -59,11 +68,11 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
 
 	@Override
 	public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
-		int chargeTicks = Math.max(itemStack.getMaxItemUseDuration() - par4, 10);
+		// int chargeTicks = Math.max(itemStack.getMaxItemUseDuration() - par4,
+		// 10);
 
 		if (!world.isRemote) {
-			double energyConsumption = ModuleManager.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_ENERGY_PER_TICK)
-					* chargeTicks;
+			double energyConsumption = ModuleManager.computeModularProperty(itemStack, BLADE_ENERGY);
 			if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
 				ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
 
