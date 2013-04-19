@@ -13,6 +13,7 @@ import net.machinemuse.powersuits.item.*;
 import net.machinemuse.powersuits.powermodule.armor.BasicPlatingModule;
 import net.machinemuse.powersuits.powermodule.armor.DiamondPlatingModule;
 import net.machinemuse.powersuits.powermodule.armor.EnergyShieldModule;
+import net.machinemuse.powersuits.powermodule.armor.HeatSinkModule;
 import net.machinemuse.powersuits.powermodule.energy.AdvancedBatteryModule;
 import net.machinemuse.powersuits.powermodule.energy.BasicBatteryModule;
 import net.machinemuse.powersuits.powermodule.energy.EliteBatteryModule;
@@ -186,6 +187,7 @@ public class Config {
 		addModule(new BasicPlatingModule(ARMORONLY));
 		addModule(new DiamondPlatingModule(ARMORONLY));
 		addModule(new EnergyShieldModule(ARMORONLY));
+		addModule(new HeatSinkModule(ARMORONLY));
 
 		// Tool
 		addModule(new AxeModule(TOOLONLY));
@@ -225,6 +227,7 @@ public class Config {
 		addModule(new BlinkDriveModule(TOOLONLY));
 		addModule(new DiamondPickUpgradeModule(TOOLONLY));
 		addModule(new AquaAffinityModule(TOOLONLY));
+		addModule(new CoolingSystemModule(TORSOONLY));
 
 		// Cosmetic
 		addModule(new TintModule(ALLITEMS));
