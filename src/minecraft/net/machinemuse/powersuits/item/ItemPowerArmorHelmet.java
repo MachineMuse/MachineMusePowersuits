@@ -32,6 +32,15 @@ public class ItemPowerArmorHelmet extends ItemPowerArmor implements IBreathableA
 	}
 
 	@Override
+	public boolean handleGearType(EnumGearType gearType) {
+		if (gearType == EnumGearType.HELMET) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
 	public boolean canBreathe(ItemStack helmetInSlot, EntityPlayer playerWearing, EnumGearType type) {
 		return MuseItemUtils.itemHasActiveModule(helmetInSlot, AirtightSealModule.AIRTIGHT_SEAL_MODULE);
 	}

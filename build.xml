@@ -65,7 +65,7 @@
 			<available file="${download.dir}/ICBM_API_v${icbmapi.version}.zip" />
 			<available file="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" />
 			<available file="${download.dir}/AtomicScience_v${asapi.version}.zip" />
-			<available file="${download.dir}/Galacticraft API.zip" />
+			<available file="${download.dir}/Galacticraft API B.zip" />
 		</and>
 	</condition>
 
@@ -86,7 +86,7 @@
 		<get src="http://machinemuse.net/ThermalExpansion-API-${thermexapi.version}.zip" dest="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" />
 
 		<echo message="Downloading Galacticraft API..." />
-		<get src="http://machinemuse.net/Galacticraft API.zip" dest="${download.dir}/Galacticraft API.zip" />
+		<get src="http://machinemuse.net/Galacticraft API B.zip" dest="${download.dir}/Galacticraft API B.zip" />
 	</target>
 
 	<!-- Dependencies -->
@@ -128,7 +128,7 @@
 		<move file="${download.dir}/thermalexpansion/api/item/IChargeableItem.java" todir="${mcpsrc.dir}/thermalexpansion/api/item" />
 
 		<echo message="Extracting Galacticraft API... " />
-		<unzip src="${download.dir}/Galacticraft API.zip" dest="${download.dir}" />
+		<unzip src="${download.dir}/Galacticraft API B.zip" dest="${download.dir}" />
 		<mkdir dir="${mcpsrc.dir}/micdoodle8/mods/galacticraft/API" />
 		<move file="${download.dir}/micdoodle8/mods/galacticraft/API/EnumGearType.java" todir="${mcpsrc.dir}/micdoodle8/mods/galacticraft/API" />
 		<move file="${download.dir}/micdoodle8/mods/galacticraft/API/IBreathableArmor.java" todir="${mcpsrc.dir}/micdoodle8/mods/galacticraft/API" />
