@@ -37,7 +37,8 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
 
 	@Override
 	public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-		if (player.canPlayerEdit(x, y, z, side, itemStack))
+		double energyConsumed = ModuleManager.computeModularProperty(itemStack, HOE_ENERGY_CONSUMPTION);
+		if (player.canPlayerEdit(x, y, z, side, itemStack) && ElectricItemUtils.getPlayerEnergy(player) > energyConsumed)
 		{
 			UseHoeEvent event = new UseHoeEvent(player, itemStack, world, x, y, z);
 			if (MinecraftForge.EVENT_BUS.post(event)) {
@@ -45,7 +46,7 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
 			}
 
 			if (event.getResult() == Result.ALLOW) {
-				ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemStack, HOE_ENERGY_CONSUMPTION));
+				ElectricItemUtils.drainPlayerEnergy(player, energyConsumed);
 				return;
 			}
 
