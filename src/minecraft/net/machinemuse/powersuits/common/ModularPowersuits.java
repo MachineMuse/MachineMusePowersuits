@@ -1,6 +1,8 @@
 package net.machinemuse.powersuits.common;
 
+import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
+import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.event.EventHandler;
@@ -55,6 +57,7 @@ public class ModularPowersuits {
 	public static ItemPowerGauntlet powerTool;
 	public static ItemComponent components;
 	public static BlockTinkerTable tinkerTable;
+	public static BlockLuxCapacitor luxCapacitor;
 
 	/**
 	 * The instance of the mod that Forge will access. Note that it has to be
@@ -114,6 +117,7 @@ public class ModularPowersuits {
 		powerArmorFeet = new ItemPowerArmorBoots();
 		powerTool = new ItemPowerGauntlet();
 		tinkerTable = new BlockTinkerTable();
+		luxCapacitor = new BlockLuxCapacitor();
 		components = new ItemComponent();
 		components.populate();
 
@@ -128,6 +132,8 @@ public class ModularPowersuits {
 
 		EntityRegistry.registerModEntity(EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, this, 64, 20, true);
 		EntityRegistry.registerModEntity(EntitySpinningBlade.class, "entitySpinningBlade", 2478, this, 64, 20, true);
+		EntityRegistry.registerModEntity(EntityLuxCapacitor.class, "entityLuxCapacitor", 2479, this, 64, 20, true);
+
 		proxy.registerHandlers();
 		proxy.registerRenderers();
 		NetworkRegistry.instance().registerGuiHandler(this, guiHandler);

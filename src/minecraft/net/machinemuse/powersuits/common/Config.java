@@ -8,6 +8,7 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.MuseStringUtils;
+import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.item.*;
 import net.machinemuse.powersuits.powermodule.armor.BasicPlatingModule;
@@ -77,6 +78,7 @@ public class Config {
 		config.load();
 
 		BlockTinkerTable.assignedBlockID = config.getBlock("Power Armor Tinker Table", 2477).getInt();
+		BlockLuxCapacitor.assignedBlockID = config.getBlock("Lux Capacitor", 2478).getInt();
 
 		ItemComponent.assignedItemID = config.getItem("Power Armor Component", 24770).getInt();
 		ItemPowerArmorHelmet.assignedItemID = config.getItem("Power Armor Head", 24771).getInt();
@@ -195,6 +197,7 @@ public class Config {
 		addModule(new ShovelModule(TOOLONLY));
 		addModule(new ShearsModule(TOOLONLY));
 		addModule(new HoeModule(TOOLONLY));
+		addModule(new LuxCapacitor(TOOLONLY));
 
 		// Weapon
 		addModule(new MeleeAssistModule(TOOLONLY));

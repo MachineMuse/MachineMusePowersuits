@@ -9,7 +9,6 @@ import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 
-import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -51,21 +50,6 @@ public class RenderPlasmaBolt extends Render {
 	}
 
 	public static DoubleBuffer unrotatebuffer;
-
-	public static DoubleBuffer getUnrotateBuffer() {
-		if (unrotatebuffer == null) {
-			unrotatebuffer = BufferUtils.createDoubleBuffer(16);
-			unrotatebuffer.put(new double[] {
-					0, 0, 0, 0,
-					0, 0, 0, 0,
-					0, 0, 0, 0,
-					0, 0, 0, 1
-			});
-			unrotatebuffer.flip();
-		}
-		unrotatebuffer.rewind();
-		return unrotatebuffer;
-	}
 
 	public static void doRender(double size) {
 		GL11.glPushMatrix();

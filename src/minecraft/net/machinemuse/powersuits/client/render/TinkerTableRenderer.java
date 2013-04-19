@@ -22,12 +22,10 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 public class TinkerTableRenderer extends TileEntitySpecialRenderer implements ISimpleBlockRenderingHandler {
 	protected TinkerTableModel model;
 	protected int renderId;
-	protected ArmorModel armormodel;
 
 	public TinkerTableRenderer(int renderId) {
 		model = new TinkerTableModel();
 		this.renderId = renderId;
-		armormodel = new ArmorModel();
 	}
 
 	@Override

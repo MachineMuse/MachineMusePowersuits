@@ -41,7 +41,6 @@ public class CommonProxy {
 	}
 
 	public void postInit() {
-
 	}
 
 }

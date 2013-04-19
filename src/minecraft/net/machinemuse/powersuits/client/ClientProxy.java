@@ -1,16 +1,15 @@
 package net.machinemuse.powersuits.client;
 
 import net.machinemuse.general.sound.SoundLoader;
+import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
 import net.machinemuse.powersuits.block.TileEntityTinkerTable;
-import net.machinemuse.powersuits.client.render.RenderPlasmaBolt;
-import net.machinemuse.powersuits.client.render.RenderSpinningBlade;
-import net.machinemuse.powersuits.client.render.TinkerTableRenderer;
-import net.machinemuse.powersuits.client.render.ToolRenderer;
+import net.machinemuse.powersuits.client.render.*;
 import net.machinemuse.powersuits.common.CommonProxy;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.control.KeybindKeyHandler;
 import net.machinemuse.powersuits.control.KeybindManager;
+import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.event.TextureStitchHandler;
@@ -60,8 +59,15 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinkerTable.class, tinkTableRenderer);
 		RenderingRegistry.registerBlockHandler(tinkTableRenderer);
 
+		int luxCapacitorRenderID = RenderingRegistry.getNextAvailableRenderId();
+		RenderLuxCapacitorTESR luxCapacitorRenderer = new RenderLuxCapacitorTESR(luxCapacitorRenderID);
+		ModularPowersuits.luxCapacitor.setRenderType(luxCapacitorRenderID);
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLuxCapacitor.class, luxCapacitorRenderer);
+		RenderingRegistry.registerBlockHandler(luxCapacitorRenderer);
+
 		RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, new RenderPlasmaBolt());
 		RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, new RenderSpinningBlade());
+		RenderingRegistry.registerEntityRenderingHandler(EntityLuxCapacitor.class, new RenderLuxCapacitorEntity());
 
 		MinecraftForge.EVENT_BUS.register(new TextureStitchHandler());
 
