@@ -3,10 +3,7 @@ package net.machinemuse.powersuits.tick;
 import java.util.EnumSet;
 import java.util.List;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.*;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.MuseStringUtils;
@@ -54,8 +51,8 @@ public class RenderTickHandler implements ITickHandler {
 			ScaledResolution screen = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
 			double currEnergy = ElectricItemUtils.getPlayerEnergy(player);
 			double maxEnergy = ElectricItemUtils.getMaxEnergy(player);
-			double currHeat = ElectricItemUtils.getPlayerHeat(player);
-			double maxHeat = ElectricItemUtils.getMaxHeat(player);
+			double currHeat = MuseHeatUtils.getPlayerHeat(player);
+			double maxHeat = MuseHeatUtils.getMaxHeat(player);
 			if (maxEnergy > 0 && BlockTinkerTable.energyIcon != null) {
 				if (Config.useGraphicalMeters()) {
 					if (energy == null) {

@@ -36,16 +36,13 @@ public class ClientTickHandler implements ITickHandler {
 			kb.doToggleTick();
 		}
 		if (Config.useMouseWheel()) {
-			try {
-				EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
-				if (player.getCurrentEquippedItem().getItem() instanceof IModularItem && player.isSneaking()) {
-					slotSelected = player.inventory.currentItem;
-					dWheel = Mouse.getDWheel() / 120;
-				} else {
-					slotSelected = -1;
-				}
-			} catch (NullPointerException e) {
-
+			dWheel = Mouse.getDWheel() / 120;
+			EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
+			if (player != null && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof IModularItem
+					&& player.isSneaking()) {
+				slotSelected = player.inventory.currentItem;
+			} else {
+				slotSelected = -1;
 			}
 		}
 	}
@@ -54,13 +51,13 @@ public class ClientTickHandler implements ITickHandler {
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
 
-		if (player != null && MuseItemUtils.modularItemsEquipped(player).size() > 0) {
+		if (player != null && MuseItemUtils.getModularItemsInInventory(player).size() > 0) {
 			if (slotSelected > -1) {
 				player.inventory.currentItem = slotSelected;
 				Minecraft.getMinecraft().playerController.updateController();
 				ItemStack stack = player.inventory.getStackInSlot(slotSelected);
-				MuseItemUtils.cycleMode(stack, player, dWheel);
-				dWheel = 0;
+				MuseItemUtils.cycleMode(stack, player, dWheel - Mouse.getDWheel());
+				dWheel = Mouse.getDWheel();
 				slotSelected = -1;
 			}
 			PlayerInputMap inputmap = PlayerInputMap.getInputMapFor(player.username);

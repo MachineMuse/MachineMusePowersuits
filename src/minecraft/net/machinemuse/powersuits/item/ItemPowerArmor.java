@@ -3,10 +3,7 @@ package net.machinemuse.powersuits.item;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.MuseCommonStrings;
-import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.*;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.general.MuseStringUtils;
 import net.machinemuse.general.geometry.Colour;
@@ -148,7 +145,9 @@ public abstract class ItemPowerArmor extends ItemElectricArmor
 		// items take damage first, and if none spills over, the other items
 		// take no damage.
 		int priority = 1;
-
+		if (source.isFireDamage() && !source.equals(MuseHeatUtils.overheatDamage)) {
+			return new ArmorProperties(priority, 0.25, (int) (25 * damage));
+		}
 		double armorDouble;
 
 		if (player instanceof EntityPlayer) {
@@ -225,6 +224,10 @@ public abstract class ItemPowerArmor extends ItemElectricArmor
 		return (int) getArmorDouble(player, armor);
 	}
 
+	public double getHeatResistance(EntityPlayer player, ItemStack stack) {
+		return MuseHeatUtils.getMaxHeat(stack);
+	}
+
 	public double getArmorDouble(EntityPlayer player, ItemStack stack) {
 		double totalArmor = 0;
 		NBTTagCompound props = MuseItemUtils.getMuseItemTag(stack);
@@ -253,12 +256,20 @@ public abstract class ItemPowerArmor extends ItemElectricArmor
 	@Override
 	public void damageArmor(EntityLiving entity, ItemStack stack, DamageSource source, int damage, int slot) {
 		NBTTagCompound itemProperties = MuseItemUtils.getMuseItemTag(stack);
-		double enerConsum = ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION);
-		double drain = enerConsum * damage;
 		if (entity instanceof EntityPlayer) {
-			ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entity, drain);
-		} else {
-			drainEnergyFrom(stack, drain);
+			if (source.equals(MuseHeatUtils.overheatDamage)) {
+			} else if (source.isFireDamage()) {
+				EntityPlayer player = (EntityPlayer) entity;
+				MuseHeatUtils.heatPlayer(player, damage);
+			} else {
+				double enerConsum = ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION);
+				double drain = enerConsum * damage;
+				if (entity instanceof EntityPlayer) {
+					ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entity, drain);
+				} else {
+					drainEnergyFrom(stack, drain);
+				}
+			}
 		}
 	}
 

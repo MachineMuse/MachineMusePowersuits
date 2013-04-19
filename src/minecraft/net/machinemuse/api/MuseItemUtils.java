@@ -516,12 +516,4 @@ public class MuseItemUtils {
 		return copy;
 	}
 
-	public static double getPlayerHeat(EntityPlayer player) {
-		return 0;
-	}
-
-	public static double getMaxHeat(EntityPlayer player) {
-		return 1;
-	}
-
 }

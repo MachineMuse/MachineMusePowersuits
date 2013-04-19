@@ -8,6 +8,7 @@ import java.util.List;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.MuseHeatUtils;
 import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
@@ -74,24 +75,9 @@ public class PlayerTickHandler implements ITickHandler {
 				}
 			}
 		}
-		if (helmet != null && helmet.getItem() instanceof IModularItem) {
-			if (helmet.getTagCompound().hasKey("ench")) {
-				helmet.getTagCompound().removeTag("ench");
-			}
-		}
-		if (pants != null && pants.getItem() instanceof IModularItem) {
-			if (pants.getTagCompound().hasKey("ench")) {
-				pants.getTagCompound().removeTag("ench");
-			}
-		}
-		if (boots != null && boots.getItem() instanceof IModularItem) {
-			if (boots.getTagCompound().hasKey("ench")) {
-				boots.getTagCompound().removeTag("ench");
-			}
-		}
-		if (torso != null && torso.getItem() instanceof IModularItem) {
-			if (torso.getTagCompound().hasKey("ench")) {
-				torso.getTagCompound().removeTag("ench");
+		for (ItemStack stack : modularItemsEquipped) {
+			if (stack.getTagCompound().hasKey("ench")) {
+				stack.getTagCompound().removeTag("ench");
 			}
 		}
 		if (foundItem) {
@@ -104,6 +90,13 @@ public class PlayerTickHandler implements ITickHandler {
 				player.motionZ *= weightCapacity / totalWeight;
 			}
 		}
+
+		double maxHeat = MuseHeatUtils.getMaxHeat(player);
+		double currHeat = MuseHeatUtils.getPlayerHeat(player);
+		if (currHeat > maxHeat) {
+			player.attackEntityFrom(MuseHeatUtils.overheatDamage, (int) Math.sqrt(currHeat - maxHeat) / 4);
+		}
+		MuseHeatUtils.coolPlayer(player, 0.1);
 	}
 
 	public static void thrust(EntityPlayer player, double thrust, double jetEnergy, boolean flightControl) {
