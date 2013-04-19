@@ -11,12 +11,12 @@ public abstract class ElectricAdapter {
 		if (stack == null) {
 			return null;
 		}
-		if (stack.getItem() instanceof IItemElectric) {
-			return new UEElectricAdapter(stack);
+		if (stack.getItem() instanceof IChargeableItem) {
+			return new TEElectricAdapter(stack);
 		} else if (stack.getItem() instanceof IElectricItem && Loader.isModLoaded("IC2")) {
 			return new IC2ElectricAdapter(stack);
-		} else if (stack.getItem() instanceof IChargeableItem) {
-			return new TEElectricAdapter(stack);
+		} else if (stack.getItem() instanceof IItemElectric) {
+			return new UEElectricAdapter(stack);
 			// } else if (stack.getItem() instanceof IXynergyItem) {
 			// return new XyElectricAdapter(stack);
 		} else {
