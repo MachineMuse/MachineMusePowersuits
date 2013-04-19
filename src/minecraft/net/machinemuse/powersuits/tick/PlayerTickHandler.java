@@ -199,7 +199,6 @@ public class PlayerTickHandler implements ITickHandler {
 			player.motionZ += vz;
 
 			totalEnergyDrain += jetEnergy * (vx * vx + vy * vy + vz * vz);
-			ElectricItemUtils.drainPlayerEnergy(player, totalEnergyDrain);
 		} else {
 			Vec3 playerHorzFacing = player.getLookVec();
 			playerHorzFacing.yCoord = 0;
@@ -225,6 +224,7 @@ public class PlayerTickHandler implements ITickHandler {
 			player.motionX *= ratio;
 			player.motionZ *= ratio;
 		}
+		ElectricItemUtils.drainPlayerEnergy(player, totalEnergyDrain);
 	}
 
 	public static double getWeightPenaltyRatio(double currentWeight, double capacity) {
