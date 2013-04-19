@@ -46,7 +46,7 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
 
 	@Override
 	public String getTextureFile() {
-		return "diamondupgrade";
+		return "diamondupgrade1";
 	}
 
 	@Override

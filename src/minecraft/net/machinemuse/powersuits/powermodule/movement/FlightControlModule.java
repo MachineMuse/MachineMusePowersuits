@@ -29,7 +29,7 @@ public class FlightControlModule extends PowerModuleBase implements IToggleableM
 
 	@Override
 	public String getTextureFile() {
-		return "bluephaser";
+		return "FlightControlY";
 	}
 
 	@Override
