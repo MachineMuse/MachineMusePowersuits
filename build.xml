@@ -1,4 +1,4 @@
-<project name="ModularPowersuits" default="install" basedir=".">
+<project name="ModularPowersuits" default="rebuild" basedir=".">
 
 	<property environment="env" />
 
@@ -154,6 +154,9 @@
 		<delete dir="${classes.dir}" />
 	</target>
 
+	<target name="rebuild" depends="clean,install">
+		</target>
+	
 	<target name="forgeinstalled.check">
 	</target>
 
@@ -167,6 +170,10 @@
 	</target>
 
 	<target name="build" depends="extract-apis,update-names" unless="already-compiled">
+
+		<echo message="Applying Scala patches..." />
+		<get src="http://machinemuse.net/scalapatch.zip" dest="${download.dir}/scalapatch.zip" />
+		<unzip src="${download.dir}/scalapatch.zip" dest="${mcp.dir}" />
 
 		<!-- Recompile -->
 		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows" failonerror="true">
