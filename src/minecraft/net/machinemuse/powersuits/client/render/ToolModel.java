@@ -368,7 +368,8 @@ public class ToolModel extends ModelBase {
 			}
 		}
 		GL11.glPushMatrix();
-
+		GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
+		GL11.glDisable(GL11.GL_CULL_FACE);
 		Minecraft.getMinecraft().renderEngine.bindTexture(Config.SEBK_TOOL_TEXTURE);
 
 		if (c1 != null) {
@@ -462,6 +463,7 @@ public class ToolModel extends ModelBase {
 		}
 		MuseRenderer.glowOff();
 		GL11.glPopMatrix();
+		GL11.glPopAttrib();
 		GL11.glPopMatrix();
 	}
 
