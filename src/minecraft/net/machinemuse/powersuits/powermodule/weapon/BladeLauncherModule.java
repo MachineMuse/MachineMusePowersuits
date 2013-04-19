@@ -12,8 +12,6 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 
 public class BladeLauncherModule extends PowerModuleBase implements IRightClickModule {
 
@@ -33,12 +31,12 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
 
 	@Override
 	public String getDescription() {
-		return "Launches a spinning blade of death (or shearing; no damage to sheep).";
+		return "Launches a spinning blade of death (or shearing).";
 	}
 
 	@Override
 	public String getTextureFile() {
-		return "clawclosed";
+		return "spinningblade";
 	}
 
 	@Override
@@ -63,13 +61,11 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
 	public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
 		int chargeTicks = Math.max(itemStack.getMaxItemUseDuration() - par4, 10);
 
-		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
+		if (!world.isRemote) {
 			double energyConsumption = ModuleManager.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_ENERGY_PER_TICK)
 					* chargeTicks;
 			if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
 				ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
-				double explosiveness = ModuleManager.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_EXPLOSIVENESS);
-				double damagingness = ModuleManager.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE);
 
 				EntitySpinningBlade blade = new EntitySpinningBlade(world, player);
 				world.spawnEntityInWorld(blade);

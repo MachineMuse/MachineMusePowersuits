@@ -1,6 +1,8 @@
 package net.machinemuse.powersuits.client.render;
 
 import static org.lwjgl.opengl.GL11.*;
+import net.machinemuse.general.MuseRenderer;
+import net.machinemuse.powersuits.common.Config;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 
@@ -10,20 +12,28 @@ public class RenderSpinningBlade extends Render {
 	public void doRender(Entity entity, double x, double y, double z, float yaw, float partialticktime) {
 
 		glPushMatrix();
-		glTranslated(x, y, z);
-		glRotatef(yaw, (float) -entity.motionZ, 0.0f, (float) entity.motionX);
-		glDisable(GL_TEXTURE_2D);
+		glPushAttrib(GL_ENABLE_BIT);
 		glDisable(GL_CULL_FACE);
+		MuseRenderer.getRenderEngine().bindTexture(Config.TEXTURE_PREFIX + "items/spinningblade.png");
+		glTranslated(x, y, z);
+		double motionscale = Math.sqrt(entity.motionZ * entity.motionZ + entity.motionX * entity.motionX);
+		glRotatef(90, 1, 0, 0);
+		glRotatef(-entity.rotationPitch, (float) (entity.motionZ /
+				motionscale), 0.0f, (float) (-entity.motionX / motionscale));
+		int time = (int) System.currentTimeMillis() % 360;
+		glRotatef(time / 2, 0, 0, 1);
 		glBegin(GL_QUADS);
-
-		glVertex3d(x + 1, y, z + 1);
-		glVertex3d(x + 1, y, z - 1);
-		glVertex3d(x - 1, y, z - 1);
-		glVertex3d(x - 1, y, z + 1);
+		glTexCoord2d(0, 0);
+		glVertex3d(-1, -1, 0);
+		glTexCoord2d(0, 1);
+		glVertex3d(-1, 1, 0);
+		glTexCoord2d(1, 1);
+		glVertex3d(1, 1, 0);
+		glTexCoord2d(1, 0);
+		glVertex3d(1, -1, 0);
 
 		glEnd();
-		glEnable(GL_TEXTURE_2D);
+		glPopAttrib();
 		glPopMatrix();
 	}
-
 }

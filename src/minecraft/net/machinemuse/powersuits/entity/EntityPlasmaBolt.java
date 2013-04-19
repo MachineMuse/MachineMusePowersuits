@@ -35,16 +35,16 @@ public class EntityPlasmaBolt extends EntityThrowable {
 		this.motionX = direction.xCoord * scale;
 		this.motionY = direction.yCoord * scale;
 		this.motionZ = direction.zCoord * scale;
-		double r = this.size / 50.0 - direction.yCoord * shootingEntity.getEyeHeight();
-		double xoffset = 1.3f + r;
+		double r = this.size / 50.0;
+		double xoffset = 1.3f + r - direction.yCoord * shootingEntity.getEyeHeight();
 		double yoffset = -.2;
 		double zoffset = 0.3f;
-		Vec3 horzdir = direction.normalize();
-		horzdir.yCoord = 0;
-		horzdir = horzdir.normalize();
-		this.posX = shootingEntity.posX + direction.xCoord * xoffset - direction.yCoord * horzdir.xCoord * yoffset - horzdir.zCoord * zoffset;
+		double horzScale = Math.sqrt(direction.xCoord * direction.xCoord + direction.zCoord * direction.zCoord);
+		double horzx = direction.xCoord / horzScale;
+		double horzz = direction.zCoord / horzScale;
+		this.posX = shootingEntity.posX + direction.xCoord * xoffset - direction.yCoord * horzx * yoffset - horzz * zoffset;
 		this.posY = shootingEntity.posY + shootingEntity.getEyeHeight() + direction.yCoord * xoffset + (1 - Math.abs(direction.yCoord)) * yoffset;
-		this.posZ = shootingEntity.posZ + direction.zCoord * xoffset - direction.yCoord * horzdir.zCoord * yoffset + horzdir.xCoord * zoffset;
+		this.posZ = shootingEntity.posZ + direction.zCoord * xoffset - direction.yCoord * horzz * yoffset + horzx * zoffset;
 		this.boundingBox.setBounds(posX - r, posY - r, posZ - r, posX + r, posY + r, posZ + r);
 	}
 

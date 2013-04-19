@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.entity;
 import java.util.ArrayList;
 import java.util.Random;
 
+import net.machinemuse.powersuits.common.MuseLogger;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -18,7 +19,6 @@ import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldProvider;
 import net.minecraftforge.common.IShearable;
 
 public class EntitySpinningBlade extends EntityThrowable {
@@ -41,11 +41,21 @@ public class EntitySpinningBlade extends EntityThrowable {
 		this.damage = damage;
 		Vec3 direction = shootingEntity.getLookVec().normalize();
 		double speed = 1.0;
-		double scale = 0.1;
+		double scale = 1;
 		this.motionX = direction.xCoord * speed;
 		this.motionY = direction.yCoord * speed;
 		this.motionZ = direction.zCoord * speed;
-		this.boundingBox.setBounds(posX - scale, posY - scale, posZ - scale, posX + scale, posY + scale, posZ + scale);
+		double r = 1;
+		double xoffset = 1.3f + r - direction.yCoord * shootingEntity.getEyeHeight();
+		double yoffset = -.2;
+		double zoffset = 0.3f;
+		double horzScale = Math.sqrt(direction.xCoord * direction.xCoord + direction.zCoord * direction.zCoord);
+		double horzx = direction.xCoord / horzScale;
+		double horzz = direction.zCoord / horzScale;
+		this.posX = shootingEntity.posX + direction.xCoord * xoffset - direction.yCoord * horzx * yoffset - horzz * zoffset;
+		this.posY = shootingEntity.posY + shootingEntity.getEyeHeight() + direction.yCoord * xoffset + (1 - Math.abs(direction.yCoord)) * yoffset;
+		this.posZ = shootingEntity.posZ + direction.zCoord * xoffset - direction.yCoord * horzz * yoffset + horzx * zoffset;
+		this.boundingBox.setBounds(posX - r, posY - r, posZ - r, posX + r, posY + r, posZ + r);
 	}
 
 	/**
@@ -57,25 +67,39 @@ public class EntitySpinningBlade extends EntityThrowable {
 		return 0;
 	}
 
+	public int getMaxLifetime()
+	{
+		return 200;
+	}
+
+	@Override
+	public void onUpdate() {
+		super.onUpdate();
+
+		if (this.ticksExisted > this.getMaxLifetime()) {
+			this.setDead();
+		}
+	}
+
 	@Override
 	protected void onImpact(MovingObjectPosition hitMOP) {
 		if (hitMOP.typeOfHit == EnumMovingObjectType.TILE) {
-			World world = WorldProvider.getProviderForDimension(this.dimension).worldObj;
+			World world = this.worldObj;
+			MuseLogger.logDebug("" + hitMOP.typeOfHit);
 			if (world == null) {
 				return;
 			}
 			int id = world.getBlockId(hitMOP.blockX, hitMOP.blockY, hitMOP.blockZ);
 			Block block = Block.blocksList[id];
+			MuseLogger.logDebug("" + block.getUnlocalizedName());
 			if (block instanceof IShearable) {
 				IShearable target = (IShearable) block;
-				if (target.isShearable(this.shootingItem, world, hitMOP.blockX, hitMOP.blockY, hitMOP.blockZ))
-				{
+				if (target.isShearable(this.shootingItem, world, hitMOP.blockX, hitMOP.blockY, hitMOP.blockZ)) {
 					ArrayList<ItemStack> drops = target.onSheared(this.shootingItem, world, hitMOP.blockX, hitMOP.blockY, hitMOP.blockZ,
 							EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, this.shootingItem));
 					Random rand = new Random();
 
-					for (ItemStack stack : drops)
-					{
+					for (ItemStack stack : drops) {
 						float f = 0.7F;
 						double d = rand.nextFloat() * f + (1.0F - f) * 0.5D;
 						double d1 = rand.nextFloat() * f + (1.0F - f) * 0.5D;
@@ -88,6 +112,7 @@ public class EntitySpinningBlade extends EntityThrowable {
 						((EntityPlayer) shootingEntity).addStat(StatList.mineBlockStatArray[id], 1);
 					}
 				}
+				world.destroyBlock(hitMOP.blockX, hitMOP.blockY, hitMOP.blockZ, true);
 			} else { // Block hit was not IShearable
 				this.kill();
 			}

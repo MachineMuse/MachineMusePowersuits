@@ -19,6 +19,7 @@ import net.machinemuse.powersuits.powermodule.energy.EliteBatteryModule;
 import net.machinemuse.powersuits.powermodule.misc.*;
 import net.machinemuse.powersuits.powermodule.movement.*;
 import net.machinemuse.powersuits.powermodule.tool.*;
+import net.machinemuse.powersuits.powermodule.weapon.BladeLauncherModule;
 import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule;
 import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
 import net.machinemuse.powersuits.powermodule.weapon.RailgunModule;
@@ -198,7 +199,7 @@ public class Config {
 		addModule(new PlasmaCannonModule(TOOLONLY));
 		addModule(new RailgunModule(TOOLONLY));
 		// addModule(new SonicWeaponModule(TOOLONLY));
-		// addModule(new BladeLauncherModule(TOOLONLY));
+		addModule(new BladeLauncherModule(TOOLONLY));
 
 		// Energy
 		addModule(new BasicBatteryModule(ALLITEMS));
