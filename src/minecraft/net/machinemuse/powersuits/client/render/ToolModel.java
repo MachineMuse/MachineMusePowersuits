@@ -6,10 +6,12 @@
 
 package net.machinemuse.powersuits.client.render;
 
+import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MuseLogger;
+import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.gui.inventory.GuiInventory;
@@ -470,8 +472,10 @@ public class ToolModel extends ModelBase {
 	}
 
 	/**
-	 * Sets the model's various rotation angles. For bipeds, par1 and par2 are used for animating the movement of arms and legs, where par1 represents
-	 * the time(so that arms and legs swing back and forth) and par2 represents how "far" arms and legs can swing at most.
+	 * Sets the model's various rotation angles. For bipeds, par1 and par2 are
+	 * used for animating the movement of arms and legs, where par1 represents
+	 * the time(so that arms and legs swing back and forth) and par2 represents
+	 * how "far" arms and legs can swing at most.
 	 */
 	public void setPose(float indexOpen, float indexFlex, float thumbOpen, float thumbFlex, float otherFingersOpen, float otherFingersFlex) {
 		index1.rotateAngleX = indexOpen;
@@ -488,7 +492,8 @@ public class ToolModel extends ModelBase {
 	}
 
 	public void setPoseForPlayer(EntityPlayer player, ItemStack itemStack) {
-		if (player.isUsingItem()) {
+		if (player.isUsingItem() && player.getCurrentEquippedItem() != null
+				&& MuseItemUtils.itemHasActiveModule(player.getCurrentEquippedItem(), PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
 			setPose(1.5f, -1, 1.5f, -1, 1.5f, -1);
 			this.boltSize = player.getItemInUseDuration() > 50 ? 50 : player.getItemInUseDuration();
 		} else {
