@@ -138,7 +138,8 @@ public class EntityPlasmaBolt extends EntityThrowable {
 		}
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
 		{
-			this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.size / 50.0f * 3 * this.explosiveness), true);
+			boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
+			this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.size / 50.0f * 3 * this.explosiveness), flag);
 		}
 		for (int var3 = 0; var3 < 8; ++var3)
 		{
