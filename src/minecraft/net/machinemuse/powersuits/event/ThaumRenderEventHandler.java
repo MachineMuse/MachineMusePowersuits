@@ -4,8 +4,8 @@ import java.lang.reflect.Method;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.general.MuseLogger;
 import net.machinemuse.powersuits.common.ModCompatability;
-import net.machinemuse.powersuits.common.MuseLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

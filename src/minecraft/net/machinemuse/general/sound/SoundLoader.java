@@ -1,7 +1,7 @@
 package net.machinemuse.general.sound;
 
+import net.machinemuse.general.MuseLogger;
 import net.machinemuse.powersuits.common.ModularPowersuits;
-import net.machinemuse.powersuits.common.MuseLogger;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 

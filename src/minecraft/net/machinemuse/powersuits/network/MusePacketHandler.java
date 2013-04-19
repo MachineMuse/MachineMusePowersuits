@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
+import net.machinemuse.general.MuseLogger;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.network.packets.*;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;

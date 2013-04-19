@@ -8,8 +8,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import net.machinemuse.general.MuseLogger;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.common.MuseLogger;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;

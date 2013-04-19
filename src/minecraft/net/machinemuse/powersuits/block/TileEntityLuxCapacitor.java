@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.block;
 
-import net.machinemuse.powersuits.common.MuseLogger;
+import net.machinemuse.general.MuseLogger;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;

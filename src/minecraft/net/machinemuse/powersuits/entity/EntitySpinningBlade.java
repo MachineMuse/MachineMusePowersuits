@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.powersuits.common.MuseLogger;
+import net.machinemuse.general.MuseLogger;
 import net.machinemuse.powersuits.powermodule.weapon.BladeLauncherModule;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;

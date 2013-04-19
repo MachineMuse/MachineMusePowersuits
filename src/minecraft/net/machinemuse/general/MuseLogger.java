@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.common;
+package net.machinemuse.general;
 
 import java.util.logging.Logger;
 

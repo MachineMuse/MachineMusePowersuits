@@ -6,7 +6,6 @@ package net.machinemuse.general;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import net.machinemuse.powersuits.common.MuseLogger;
 import net.minecraft.nbt.NBTTagCompound;
 
 /**

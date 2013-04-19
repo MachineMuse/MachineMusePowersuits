@@ -12,10 +12,10 @@ import java.util.Set;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.general.MuseLogger;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.general.gui.clickable.ClickableModule;
-import net.machinemuse.powersuits.common.MuseLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 

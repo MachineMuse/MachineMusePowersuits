@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.common;
 
+import net.machinemuse.general.recipe.RecipeManager;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;

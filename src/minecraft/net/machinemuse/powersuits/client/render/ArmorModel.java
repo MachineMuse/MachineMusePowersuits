@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.client.render;
 
+import net.machinemuse.general.MuseLogger;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.common.MuseLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;

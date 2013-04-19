@@ -7,10 +7,10 @@
 package net.machinemuse.powersuits.client.render;
 
 import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.general.MuseLogger;
 import net.machinemuse.general.MuseRenderer;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.common.MuseLogger;
 import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
