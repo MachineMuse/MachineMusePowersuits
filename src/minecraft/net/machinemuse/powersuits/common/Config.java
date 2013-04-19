@@ -269,4 +269,8 @@ public class Config {
 		return config.get(Configuration.CATEGORY_GENERAL, "Use Graphical Meters", true).getBoolean(true);
 	}
 
+	public static double baseMaxHeat() {
+		return config.get(Configuration.CATEGORY_GENERAL, "Base Heat Cap", 50.0).getDouble(50.0);
+	}
+
 }

@@ -2,12 +2,10 @@ package net.machinemuse.powersuits.powermodule.weapon;
 
 import java.util.List;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.MuseCommonStrings;
-import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.*;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.general.MuseMathUtils;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
@@ -76,11 +74,12 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
 
 	@Override
 	public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
-		int chargeTicks = Math.max(itemStack.getMaxItemUseDuration() - par4, 10);
+		int chargeTicks = (int) MuseMathUtils.clampDouble(itemStack.getMaxItemUseDuration() - par4, 10, 50);
 
 		if (!world.isRemote) {
 			double energyConsumption = ModuleManager.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_ENERGY_PER_TICK)
 					* chargeTicks;
+			MuseHeatUtils.heatPlayer(player, energyConsumption / 500);
 			if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
 				ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
 				double explosiveness = ModuleManager.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_EXPLOSIVENESS);

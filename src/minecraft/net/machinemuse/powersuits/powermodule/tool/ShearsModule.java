@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.MuseCommonStrings;
-import net.machinemuse.api.MuseItemUtils;
-import net.machinemuse.api.MusePlayerUtils;
+import net.machinemuse.api.*;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
@@ -150,6 +146,7 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
 
 	@Override
 	public void handleBreakSpeed(BreakSpeed event) {
+		// TOOD: MAKE NOT STUPID
 		float defaultEffectiveness = shears.getStrVsBlock(event.block);
 		double ourEffectiveness = ModuleManager.computeModularProperty(event.entityPlayer.getCurrentEquippedItem(), SHEARING_HARVEST_SPEED);
 		event.newSpeed *= Math.max(defaultEffectiveness, ourEffectiveness);

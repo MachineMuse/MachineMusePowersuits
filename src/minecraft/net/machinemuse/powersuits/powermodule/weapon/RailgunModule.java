@@ -18,8 +18,9 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule 
 	// private List<String> particles;
 	// private Iterator<String> iterator;
 	public static final String MODULE_RAILGUN = "Railgun";
-	private static String IMPULSE = "Railgun Total Impulse";
-	private static String ENERGY = "Railgun Energy Cost";
+	public static String IMPULSE = "Railgun Total Impulse";
+	public static String ENERGY = "Railgun Energy Cost";
+	public static String HEAT = "Railgun Heat Emission";
 
 	public RailgunModule(List<IModularItem> validItems) {
 		super(validItems);
@@ -33,8 +34,10 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule 
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
 		addBaseProperty(IMPULSE, 500, "Ns");
 		addBaseProperty(ENERGY, 500, "J");
+		addBaseProperty(HEAT, 5, "°");
 		addTradeoffProperty("Voltage", IMPULSE, 2500);
 		addTradeoffProperty("Voltage", ENERGY, 2500);
+		addTradeoffProperty("Voltage", HEAT, 25);
 	}
 
 	@Override
@@ -84,6 +87,7 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule 
 		double energyConsumption = ModuleManager.computeModularProperty(itemStack, ENERGY);
 		if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
 			ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
+			MuseHeatUtils.heatPlayer(player, ModuleManager.computeModularProperty(itemStack, HEAT));
 			MovingObjectPosition hitMOP = MusePlayerUtils.doCustomRayTrace(player.worldObj, player, true, range);
 			world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
 

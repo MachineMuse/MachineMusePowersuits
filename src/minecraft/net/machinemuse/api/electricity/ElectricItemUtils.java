@@ -44,6 +44,7 @@ public class ElectricItemUtils {
 		for (ElectricAdapter adapter : electricItemsEquipped(player)) {
 			double drained = adapter.drainEnergy(drainAmount);
 			drainAmount -= drained;
+
 		}
 	}
 

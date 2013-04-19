@@ -2,6 +2,7 @@ package net.machinemuse.api;
 
 import java.util.List;
 
+import net.machinemuse.powersuits.common.Config;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -13,7 +14,7 @@ public class MuseHeatUtils {
 
 	public static double getPlayerHeat(EntityPlayer player) {
 		double avail = 0;
-		for (ItemStack stack : MuseItemUtils.modularItemsEquipped(player)) {
+		for (ItemStack stack : MuseItemUtils.getModularItemsInInventory(player)) {
 			avail += getItemHeat(stack);
 		}
 		return avail;
@@ -21,10 +22,10 @@ public class MuseHeatUtils {
 
 	public static double getMaxHeat(EntityPlayer player) {
 		double avail = 0;
-		for (ItemStack stack : MuseItemUtils.modularItemsEquipped(player)) {
+		for (ItemStack stack : MuseItemUtils.getModularItemsInInventory(player)) {
 			avail += getMaxHeat(stack);
 		}
-		return avail + 100;
+		return avail + Config.baseMaxHeat();
 	}
 
 	public static double getMaxHeat(ItemStack stack) {
@@ -32,11 +33,14 @@ public class MuseHeatUtils {
 	}
 
 	public static void coolPlayer(EntityPlayer player, double coolDegrees) {
-		List<ItemStack> items = MuseItemUtils.modularItemsEquipped(player);
+		List<ItemStack> items = MuseItemUtils.getModularItemsInInventory(player);
+		if (player.isUsingItem()) {
+			items.remove(player.getCurrentEquippedItem());
+		}
 		for (ItemStack stack : items) {
 			double currHeat = getItemHeat(stack);
-			if (currHeat > 0) {
-				if (currHeat - coolDegrees > 0) {
+			if (coolDegrees > 0) {
+				if (currHeat > coolDegrees) {
 					setItemHeat(stack, currHeat - coolDegrees);
 					return;
 				} else {
@@ -46,11 +50,15 @@ public class MuseHeatUtils {
 			} else {
 				return;
 			}
+
 		}
 	}
 
 	public static void heatPlayer(EntityPlayer player, double heatDegrees) {
-		List<ItemStack> items = MuseItemUtils.modularItemsEquipped(player);
+		List<ItemStack> items = MuseItemUtils.getModularItemsInInventory(player);
+		if (player.isUsingItem()) {
+			items.remove(player.getCurrentEquippedItem());
+		}
 		for (ItemStack stack : items) {
 			double currHeat = getItemHeat(stack);
 			double maxHeat = getMaxHeat(stack);
