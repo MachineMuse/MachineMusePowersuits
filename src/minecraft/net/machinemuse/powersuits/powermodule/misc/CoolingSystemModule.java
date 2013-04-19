@@ -5,13 +5,14 @@ import java.util.List;
 import net.machinemuse.api.*;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
+import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickModule {
+public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
 	public static final String COOLING_BONUS = "Cooling Bonus";
 	public static final String ENERGY = "Cooling System Energy Consumption";
 
@@ -53,8 +54,6 @@ public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickM
 
 	@Override
 	public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-		// TODO Auto-generated method stub
-
 	}
 
 }
