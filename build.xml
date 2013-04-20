@@ -71,22 +71,22 @@
 
 	<target name="download-apis" unless="${have-apis}">
 		<echo message="Downloading IC2 API... " />
-		<get src="http://machinemuse.net/industrialcraft-2-api_${ic2api.version}.zip" dest="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" />
+		<get src="http://machinemuse.minecraftforge.net/industrialcraft-2-api_${ic2api.version}.zip" dest="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" />
 
 		<echo message="Downloading Universal Electricity API..." />
-		<get src="http://machinemuse.net/UniversalElectricity_v${ueapi.version}.zip" dest="${download.dir}/UniversalElectricity_v${ueapi.version}.zip" />
+		<get src="http://machinemuse.minecraftforge.net/UniversalElectricity_v${ueapi.version}.zip" dest="${download.dir}/UniversalElectricity_v${ueapi.version}.zip" />
 
 		<echo message="Downloading ICBM API..." />
-		<get src="http://machinemuse.net/ICBM_API_v${icbmapi.version}.zip" dest="${download.dir}/ICBM_API_v${icbmapi.version}.zip" />
+		<get src="http://machinemuse.minecraftforge.net/ICBM_API_v${icbmapi.version}.zip" dest="${download.dir}/ICBM_API_v${icbmapi.version}.zip" />
 
 		<echo message="Downloading Atomic Science API..." />
-		<get src="http://machinemuse.net/AtomicScience_v${asapi.version}_api.zip" dest="${download.dir}/AtomicScience_v${asapi.version}_api.zip" />
+		<get src="http://machinemuse.minecraftforge.net/AtomicScience_v${asapi.version}_api.zip" dest="${download.dir}/AtomicScience_v${asapi.version}_api.zip" />
 
 		<echo message="Downloading ThermEx API..." />
-		<get src="http://machinemuse.net/ThermalExpansion-API-${thermexapi.version}.zip" dest="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" />
+		<get src="http://machinemuse.minecraftforge.net/ThermalExpansion-API-${thermexapi.version}.zip" dest="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" />
 
 		<echo message="Downloading Galacticraft API..." />
-		<get src="http://machinemuse.net/Galacticraft API B.zip" dest="${download.dir}/Galacticraft API B.zip" />
+		<get src="http://machinemuse.minecraftforge.net/Galacticraft API B.zip" dest="${download.dir}/Galacticraft API B.zip" />
 	</target>
 
 	<!-- Dependencies -->
