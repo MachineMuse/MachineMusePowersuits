@@ -169,7 +169,7 @@
 		</copy>
 	</target>
 
-	<target name="build" depends="extract-apis,update-names" unless="already-compiled">
+	<target name="build" depends="extract-apis" unless="already-compiled">
 
 		<echo message="Applying Scala patches..." />
 		<get src="http://machinemuse.net/scalapatch.zip" dest="${download.dir}/scalapatch.zip" />
