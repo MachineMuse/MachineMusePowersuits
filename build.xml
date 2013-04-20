@@ -1,4 +1,4 @@
-<project name="ModularPowersuits" default="rebuild" basedir=".">
+<project name="ModularPowersuits" default="clean" basedir=".">
 
 	<property environment="env" />
 
@@ -155,7 +155,7 @@
 	</target>
 
 	<target name="rebuild" depends="clean,install">
-		</target>
+	</target>
 	
 	<target name="forgeinstalled.check">
 	</target>

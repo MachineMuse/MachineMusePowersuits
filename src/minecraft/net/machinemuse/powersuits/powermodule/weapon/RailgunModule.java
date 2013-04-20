@@ -34,7 +34,7 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule 
 		addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
 		addBaseProperty(IMPULSE, 500, "Ns");
 		addBaseProperty(ENERGY, 500, "J");
-		addBaseProperty(HEAT, 5, "°");
+		addBaseProperty(HEAT, 5, "");
 		addTradeoffProperty("Voltage", IMPULSE, 2500);
 		addTradeoffProperty("Voltage", ENERGY, 2500);
 		addTradeoffProperty("Voltage", HEAT, 25);
