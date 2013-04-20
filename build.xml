@@ -172,7 +172,7 @@
 	<target name="build" depends="extract-apis" unless="already-compiled">
 
 		<echo message="Applying Scala patches..." />
-		<get src="http://machinemuse.net/scalapatch.zip" dest="${download.dir}/scalapatch.zip" />
+		<get src="http://overminddl1.com/minecraft/mcp_update_scala3.zip" dest="${download.dir}/scalapatch.zip" />
 		<unzip src="${download.dir}/scalapatch.zip" dest="${mcp.dir}" />
 
 		<!-- Recompile -->
