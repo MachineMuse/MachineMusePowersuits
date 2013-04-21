@@ -1,9 +1,7 @@
 package net.machinemuse.powersuits.common;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
@@ -28,11 +26,11 @@ import net.machinemuse.powersuits.powermodule.weapon.RailgunModule;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
-
 import org.lwjgl.input.Keyboard;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Initial attempt at storing all tweakable/configurable values in one class.
