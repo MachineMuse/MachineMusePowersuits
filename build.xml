@@ -13,7 +13,7 @@
 	<property name="ueapi.version" value="1.3.1.56" />
 	<property name="asapi.version" value="0.5.1.3" />
 	<property name="icbmapi.version" value="1.1.1.26" />
-	<property name="thermexapi.version" value="2.3.0" />
+	<property name="thermexapi.version" value="2.3.0b" />
 	<property name="galacticraftapi.version" value="1" />
 
 
