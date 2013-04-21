@@ -16,7 +16,7 @@
 	<property name="thermexapi.version" value="2.3.0b" />
 	<property name="galacticraftapi.version" value="1" />
     <property name="mfrapi.version" value="2.4.0-478" />
-
+    <property name="forestryapi.version" value="2.1.2.19" />
 
 	<!-- Directories -->
 	<property name="download.dir" value="downloads" />
@@ -70,6 +70,7 @@
 			<available file="${download.dir}/GalacticraftAPIB.zip" />
             <available file="${download.dir}/Railcraft_API_latest.zip" />
             <available file="${download.dir}/MFR-API-${mfrapi.version}.zip" />
+            <available file="${download.dir}/forestry-api-${forestryapi.version}.zip" />
 		</and>
 	</condition>
 
@@ -100,6 +101,9 @@
 
         <echo message="Downloading MFR API..." />
         <get src="http://machinemuse.minecraftforge.net/MFR-API-${mfrapi.version}.zip" dest="${download.dir}/MFR-API-${mfrapi.version}.zip" />
+
+        <echo message="Downloading Forestry API..." />
+        <get src="http://machinemuse.minecraftforge.net/forestry-api-${forestryapi.version}.zip" dest="${download.dir}/forestry-api-${forestryapi.version}.zip" />
 	</target>
 
 	<!-- Dependencies -->
@@ -168,7 +172,15 @@
         <unzip src="${download.dir}/MFR-API-${mfrapi.version}.zip" dest="${download.dir}" />
         <mkdir dir="${mcpsrc.dir}/powercrystals/minefactoryreloaded/api" />
         <move file="${download.dir}/powercrystals/minefactoryreloaded/api/IToolHammer.java" todir="${mcpsrc.dir}/powercrystals/minefactoryreloaded/api" />
-
+		
+        <echo message="Extracting Forestry API... " />
+        <unzip src="${download.dir}/forestry-api-${forestryapi.version}.zip" dest="${download.dir}" />
+        <mkdir dir="${mcpsrc.dir}/forestry/api/apiculture" />
+        <mkdir dir="${mcpsrc.dir}/forestry/api/arboriculture" />
+        <mkdir dir="${mcpsrc.dir}/forestry/api/core" />
+        <move file="${download.dir}/forestry/api/apiculture/IArmorApiarist.java" todir="${mcpsrc.dir}/forestry/api/apiculture" />
+        <move file="${download.dir}/forestry/api/arboriculture/IToolGrafter.java" todir="${mcpsrc.dir}/forestry/api/arboriculture" />
+        <move file="${download.dir}/forestry/api/core/ItemInterface.java" todir="${mcpsrc.dir}/forestry/api/core" />
 	</target>
 
 	<target name="update-names" depends="copy-source">

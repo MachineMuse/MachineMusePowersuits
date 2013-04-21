@@ -1,25 +1,21 @@
 package net.machinemuse.powersuits.common;
 
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.Collections;
-
+import cpw.mods.fml.common.Loader;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.general.MuseLogger;
-import net.machinemuse.powersuits.item.ItemComponent;
-import net.machinemuse.powersuits.powermodule.PowerModule;
-import net.machinemuse.powersuits.powermodule.ToggleablePowerModule;
 import net.machinemuse.powersuits.powermodule.misc.AirtightSealModule;
 import net.machinemuse.powersuits.powermodule.misc.HazmatModule;
 import net.machinemuse.powersuits.powermodule.misc.ThaumGogglesModule;
+import net.machinemuse.powersuits.powermodule.tool.ApiaristArmorModule;
+import net.machinemuse.powersuits.powermodule.tool.GrafterModule;
 import net.machinemuse.powersuits.powermodule.tool.MultimeterModule;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
-import cpw.mods.fml.common.Loader;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 public class ModCompatability {
 
@@ -147,34 +143,53 @@ public class ModCompatability {
 		getIC2Ratio();
 
 		// Thaumcraft
-		if (ModCompatability.isThaumCraftLoaded() && ModCompatability.enableThaumGogglesModule()) {
+		if (isThaumCraftLoaded() && enableThaumGogglesModule()) {
 			ModuleManager.addModule(new ThaumGogglesModule(Collections.singletonList((IModularItem) ModularPowersuits.powerArmorHead)));
 		}
 
 		IPowerModule module = new MultimeterModule(Collections.singletonList((IModularItem) ModularPowersuits.powerTool));
 
 		// Atomic Science
-		if (ModCompatability.isAtomicScienceLoaded()) {
+		if (isAtomicScienceLoaded()) {
 			ModuleManager.addModule(new HazmatModule(Arrays.<IModularItem> asList(ModularPowersuits.powerArmorHead, ModularPowersuits.powerArmorTorso, ModularPowersuits.powerArmorLegs, ModularPowersuits.powerArmorFeet)));
 		}
 		
 		// Galacticraft
-		if (ModCompatability.isGalacticraftLoaded()) {
+		if (isGalacticraftLoaded()) {
 			ModuleManager.addModule(new AirtightSealModule(Collections.singletonList((IModularItem) ModularPowersuits.powerArmorHead)));
 		}
+
+        // Forestry
+        if (isForestryLoaded()) {
+            ModuleManager.addModule(new GrafterModule(Collections.singletonList((IModularItem) ModularPowersuits.powerTool)));
+            ModuleManager.addModule(new ApiaristArmorModule(Arrays.<IModularItem>asList(ModularPowersuits.powerArmorHead, ModularPowersuits.powerArmorTorso, ModularPowersuits.powerArmorLegs, ModularPowersuits.powerArmorFeet)));
+        }
 	}
 
-	public static ItemStack getThermexItem(String string, int quantity) {
+	public static ItemStack getThermexItem(String name, int quantity) {
 		try {
 			ItemStack item =
-					thermalexpansion.api.item.ItemRegistry.getItem(string, quantity);
+					thermalexpansion.api.item.ItemRegistry.getItem(name, quantity);
 			if (item != null) {
 				return item;
 			}
 		} catch (Exception e) {
 		}
 		// thermalexpansion.api.item.ItemRegistry.printItemNames();
-		MuseLogger.logError("Failed to get Thermal Expansion item " + string);
+		MuseLogger.logError("Failed to get Thermal Expansion item " + name);
 		return null;
 	}
+
+    public static ItemStack getForestryItem(String name, int quantity) {
+        try {
+            ItemStack item = forestry.api.core.ItemInterface.getItem(name);
+            if (item != null) {
+                item.stackSize = quantity;
+                return item;
+            }
+        } catch (Exception e) {
+        }
+        MuseLogger.logError("Failed to get Forestry item " + name);
+        return null;
+    }
 }
