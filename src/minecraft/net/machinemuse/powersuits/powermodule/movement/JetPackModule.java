@@ -2,10 +2,7 @@ package net.machinemuse.powersuits.powermodule.movement;
 
 import java.util.List;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.MuseCommonStrings;
-import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.*;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
@@ -47,6 +44,9 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
 
 	@Override
 	public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
+        if(player.isInWater()) {
+            return;
+        }
 		PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.username);
 		boolean jumpkey = movementInput.jumpKey;
 		ItemStack helmet = player.getCurrentArmor(3);
@@ -58,11 +58,11 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
 		thrust += ModuleManager.computeModularProperty(item, JET_THRUST);
 
 		if (jetEnergy < ElectricItemUtils.getPlayerEnergy(player)) {
-			thrust *= PlayerTickHandler.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
+			thrust *= MusePlayerUtils.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
 			if (hasFlightControl && thrust > 0) {
-				PlayerTickHandler.thrust(player, thrust, jetEnergy, true);
+				MusePlayerUtils.thrust(player, thrust, jetEnergy, true);
 			} else if (jumpkey && player.motionY < 0.5) {
-				PlayerTickHandler.thrust(player, thrust, jetEnergy, false);
+                MusePlayerUtils.thrust(player, thrust, jetEnergy, false);
 			}
 		}
 	}

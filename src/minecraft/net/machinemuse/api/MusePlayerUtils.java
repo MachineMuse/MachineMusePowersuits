@@ -1,17 +1,26 @@
 package net.machinemuse.api;
 
-import java.util.List;
-
+import net.machinemuse.api.electricity.ElectricItemUtils;
+import net.machinemuse.general.MuseLogger;
+import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.control.PlayerInputMap;
+import net.machinemuse.powersuits.powermodule.movement.FlightControlModule;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 public class MusePlayerUtils {
-	public static MovingObjectPosition raytraceEntities(World world, EntityPlayer player, boolean collisionFlag, double reachDistance) {
+    static final double root2 = Math.sqrt(2);
+
+    public static MovingObjectPosition raytraceEntities(World world, EntityPlayer player, boolean collisionFlag, double reachDistance) {
 
 		MovingObjectPosition pickedEntity = null;
 		Vec3 playerPosition = Vec3.createVectorHelper(player.posX, player.posY + player.getEyeHeight(), player.posZ);
@@ -153,4 +162,154 @@ public class MusePlayerUtils {
 			}
 		}
 	}
+
+    public static void thrust(EntityPlayer player, double thrust, double jetEnergy, boolean flightControl) {
+        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.username);
+        boolean jumpkey = movementInput.jumpKey;
+        float forwardkey = movementInput.forwardKey;
+        float strafekey = movementInput.strafeKey;
+        boolean downkey = movementInput.downKey;
+        boolean sneakkey = movementInput.sneakKey;
+        double totalEnergyDrain = 0;
+        if (flightControl) {
+            Vec3 desiredDirection = player.getLookVec().normalize();
+            double strafeX = desiredDirection.zCoord;
+            double strafeZ = -desiredDirection.xCoord;
+            double scaleStrafe = (strafeX * strafeX + strafeZ * strafeZ);
+            double flightVerticality = 0;
+            ItemStack helm = player.getCurrentArmor(3);
+            if (helm.getItem() != null && helm.getItem() instanceof IModularItem) {
+                flightVerticality = ModuleManager.computeModularProperty(helm, FlightControlModule.FLIGHT_VERTICALITY);
+            }
+            desiredDirection.xCoord = desiredDirection.xCoord * Math.signum(forwardkey) + strafeX * Math.signum(strafekey);
+            desiredDirection.yCoord = flightVerticality * desiredDirection.yCoord * Math.signum(forwardkey) + (jumpkey ? 1 : 0) - (downkey ? 1 : 0);
+            desiredDirection.zCoord = desiredDirection.zCoord * Math.signum(forwardkey) + strafeZ * Math.signum(strafekey);
+
+            desiredDirection = desiredDirection.normalize();
+            // Gave up on this... I suck at math apparently
+            // double ux = player.motionX / thrust;
+            // double uy = player.motionY / thrust;
+            // double uz = player.motionZ / thrust;
+            // double vx = desiredDirection.xCoord;
+            // double vy = desiredDirection.yCoord;
+            // double vz = desiredDirection.zCoord;
+            // double b = (2 * ux * vx + 2 * uy * vy + 2 * uz * vz);
+            // double c = (ux * ux + uy * uy + uz * uz - 1);
+            //
+            // double actualThrust = (-b + Math.sqrt(b * b - 4 * c))
+            // / (2);
+            //
+            // player.motionX = desiredDirection.xCoord *
+            // actualThrust;
+            // player.motionY = desiredDirection.yCoord *
+            // actualThrust;
+            // player.motionZ = desiredDirection.zCoord *
+            // actualThrust;
+
+            // Brakes
+            if (player.motionY < 0 && desiredDirection.yCoord >= 0) {
+                if (-player.motionY > thrust) {
+                    totalEnergyDrain += jetEnergy * thrust;
+                    player.motionY += thrust;
+                    thrust = 0;
+                } else {
+                    totalEnergyDrain += jetEnergy * Math.abs(player.motionY);
+                    thrust -= player.motionY;
+                    player.motionY = 0;
+                }
+            }
+            if (player.motionY < -1) {
+                totalEnergyDrain += jetEnergy * Math.abs(1 + player.motionY);
+                thrust += 1 + player.motionY;
+                player.motionY = -1;
+            }
+            if (Math.abs(player.motionX) > 0 && desiredDirection.lengthVector() == 0) {
+                if (Math.abs(player.motionX) > thrust) {
+                    totalEnergyDrain += jetEnergy * thrust;
+                    player.motionX -= Math.signum(player.motionX) * thrust;
+                    thrust = 0;
+                } else {
+                    totalEnergyDrain += jetEnergy * Math.abs(player.motionX);
+                    thrust -= Math.abs(player.motionX);
+                    player.motionX = 0;
+                }
+            }
+            if (Math.abs(player.motionZ) > 0 && desiredDirection.lengthVector() == 0) {
+                if (Math.abs(player.motionZ) > thrust) {
+                    totalEnergyDrain += jetEnergy * thrust;
+                    player.motionZ -= Math.signum(player.motionZ) * thrust;
+                    thrust = 0;
+                } else {
+                    totalEnergyDrain += jetEnergy * Math.abs(player.motionZ);
+                    thrust -= Math.abs(player.motionZ);
+                    player.motionZ = 0;
+                }
+            }
+            // Slow the player if they are going too fast
+
+            // Thrusting, finally :V
+            double vx = thrust * desiredDirection.xCoord;
+            double vy = thrust * desiredDirection.yCoord;
+            double vz = thrust * desiredDirection.zCoord;
+            player.motionX += vx;
+            player.motionY += vy;
+            player.motionZ += vz;
+
+            totalEnergyDrain += jetEnergy * (vx * vx + vy * vy + vz * vz);
+        } else {
+            Vec3 playerHorzFacing = player.getLookVec();
+            playerHorzFacing.yCoord = 0;
+            playerHorzFacing.normalize();
+            totalEnergyDrain += jetEnergy;
+            if (forwardkey == 0) {
+                player.motionY += thrust;
+            } else {
+                player.motionY += thrust / root2;
+                player.motionX += playerHorzFacing.xCoord * thrust / root2 * Math.signum(forwardkey);
+                player.motionZ += playerHorzFacing.zCoord * thrust / root2 * Math.signum(forwardkey);
+            }
+        }
+
+        double horzm2 = player.motionX * player.motionX + player.motionZ * player.motionZ;
+        double horzmlim = Config.getMaximumFlyingSpeedmps() * Config.getMaximumFlyingSpeedmps() / 400;
+        if (sneakkey && horzmlim > 0.05) {
+            horzmlim = 0.05;
+        }
+
+        if (horzm2 > horzmlim) {
+            double ratio = Math.sqrt(horzmlim / horzm2);
+            player.motionX *= ratio;
+            player.motionZ *= ratio;
+        }
+        ElectricItemUtils.drainPlayerEnergy(player, totalEnergyDrain);
+    }
+
+    public static double getWeightPenaltyRatio(double currentWeight, double capacity) {
+        if (currentWeight < capacity) {
+            return 1;
+        } else {
+            return capacity / currentWeight;
+        }
+    }
+
+    public static EntityPlayer toPlayer(Object data) {
+        EntityPlayer player = null;
+        try {
+            player = (EntityPlayer) data;
+        } catch (ClassCastException e) {
+            MuseLogger.logError("MMMPS: Player tick handler received invalid Player object");
+            e.printStackTrace();
+        }
+        return player;
+    }
+
+    public static double getPlayerCoolingBasedOnMaterial(EntityPlayer player) {
+        if (player.isInWater()) {
+            return 0.5;
+        } else if (player.isInsideOfMaterial(Material.lava)) {
+            return 0;
+        } else {
+            return 0.1;
+        }
+    }
 }

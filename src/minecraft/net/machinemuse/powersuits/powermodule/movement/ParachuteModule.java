@@ -5,6 +5,7 @@ import java.util.List;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.MusePlayerUtils;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.powersuits.control.PlayerInputMap;
@@ -49,7 +50,7 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
 		}
 		if (sneakkey && player.motionY < -0.1 && (!hasGlider || forwardkey <= 0)) {
 			double totalVelocity = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ + player.motionY * player.motionY)
-					* PlayerTickHandler.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
+					* MusePlayerUtils.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
 			if (totalVelocity > 0) {
 				player.motionX = player.motionX * 0.1 / totalVelocity;
 				player.motionY = player.motionY * 0.1 / totalVelocity;

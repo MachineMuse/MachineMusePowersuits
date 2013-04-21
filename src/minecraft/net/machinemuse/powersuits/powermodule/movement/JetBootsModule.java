@@ -2,10 +2,7 @@ package net.machinemuse.powersuits.powermodule.movement;
 
 import java.util.List;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.MuseCommonStrings;
-import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.*;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
@@ -47,22 +44,23 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
 
 	@Override
 	public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
+        ItemStack chest = player.getCurrentArmor(1);
+        if(MuseItemUtils.itemHasActiveModule(chest,JetPackModule.MODULE_JETPACK) || player.isInWater()) {
+            return;
+        }
 		PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.username);
 		boolean jumpkey = movementInput.jumpKey;
 		ItemStack helmet = player.getCurrentArmor(3);
-		boolean hasFlightControl = helmet != null && helmet.getItem() instanceof IModularItem
-				&& MuseItemUtils.itemHasActiveModule(helmet, FlightControlModule.MODULE_FLIGHT_CONTROL);
-		double jetEnergy = 0;
-		double thrust = 0;
-		jetEnergy += ModuleManager.computeModularProperty(item, JET_ENERGY_CONSUMPTION);
-		thrust += ModuleManager.computeModularProperty(item, JET_THRUST);
+		boolean hasFlightControl = MuseItemUtils.itemHasActiveModule(helmet, FlightControlModule.MODULE_FLIGHT_CONTROL);
+		double jetEnergy = ModuleManager.computeModularProperty(item, JET_ENERGY_CONSUMPTION);
+		double thrust = ModuleManager.computeModularProperty(item, JET_THRUST);
 
 		if (jetEnergy < ElectricItemUtils.getPlayerEnergy(player)) {
-			thrust *= PlayerTickHandler.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
+			thrust *= MusePlayerUtils.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
 			if (hasFlightControl && thrust > 0) {
-				PlayerTickHandler.thrust(player, thrust, jetEnergy, true);
+                MusePlayerUtils.thrust(player, thrust, jetEnergy, true);
 			} else if (jumpkey && player.motionY < 0.5) {
-				PlayerTickHandler.thrust(player, thrust, jetEnergy, false);
+                MusePlayerUtils.thrust(player, thrust, jetEnergy, false);
 			}
 		}
 	}

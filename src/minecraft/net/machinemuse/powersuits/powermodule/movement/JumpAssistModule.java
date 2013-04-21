@@ -1,19 +1,19 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
-import java.util.List;
-
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.MusePlayerUtils;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.powersuits.tick.PlayerTickHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+
+import java.util.List;
 
 public class JumpAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
 	public static final String MODULE_JUMP_ASSIST = "Jump Assist";
@@ -50,10 +50,10 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
 		if (jumpkey) {
 			double multiplier = MovementManager.getPlayerJumpMultiplier(player);
 			if (multiplier > 0) {
-				player.motionY += 0.15 * Math.min(multiplier, 1)
-						* PlayerTickHandler.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
+				player.motionY += 0.15 * Math.min(multiplier, 1)						* MusePlayerUtils.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
 				MovementManager.setPlayerJumpTicks(player, multiplier - 1);
 			}
+
 			player.jumpMovementFactor = player.landMovementFactor * .7f;
 		} else {
 			MovementManager.setPlayerJumpTicks(player, 0);

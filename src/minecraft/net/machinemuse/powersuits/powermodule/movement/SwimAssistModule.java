@@ -2,10 +2,7 @@ package net.machinemuse.powersuits.powermodule.movement;
 
 import java.util.List;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.MuseCommonStrings;
-import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.*;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
@@ -47,7 +44,6 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
 	@Override
 	public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
 		if (player.isInWater() && !(player.isRiding())) {
-			ItemStack pants = player.getCurrentArmor(1);
 			PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.username);
 			boolean jumpkey = movementInput.jumpKey;
 			boolean sneakkey = movementInput.sneakKey;
@@ -64,34 +60,10 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
 				if (jumpkey || sneakkey) {
 					moveRatio += 0.2 * 0.2;
 				}
-				double swimAssistRate = ModuleManager.computeModularProperty(pants, SWIM_BOOST_AMOUNT) * 0.05;
-				double swimEnergyConsumption = ModuleManager.computeModularProperty(pants, SWIM_BOOST_ENERGY_CONSUMPTION);
+				double swimAssistRate = ModuleManager.computeModularProperty(item, SWIM_BOOST_AMOUNT) * 0.05;
+				double swimEnergyConsumption = ModuleManager.computeModularProperty(item, SWIM_BOOST_ENERGY_CONSUMPTION);
 				if (swimEnergyConsumption < ElectricItemUtils.getPlayerEnergy(player)) {
-
-					// if (swimTicker == 0) {
-					// world.playSoundAtEntity(player,
-					// MuseCommonStrings.SOUND_SWIM_ASSIST, 2.0F, 1.0F);
-					// swimTicker++;
-					// }
-					// else {
-					// swimTicker++;
-					// if (swimTicker >= 60) {
-					// swimTicker = 0;
-					// }
-					// }
-					// Forward/backward movement
-					player.motionX += player.getLookVec().xCoord * swimAssistRate * forwardkey / moveRatio;
-					player.motionY += player.getLookVec().yCoord * swimAssistRate * forwardkey / moveRatio;
-					player.motionZ += player.getLookVec().zCoord * swimAssistRate * forwardkey / moveRatio;
-
-					if (jumpkey) {
-						player.motionY += swimAssistRate * 0.2 / moveRatio;
-					}
-
-					if (sneakkey) {
-						player.motionY -= swimAssistRate * 0.2 / moveRatio;
-					}
-					ElectricItemUtils.drainPlayerEnergy(player, swimEnergyConsumption);
+                    MusePlayerUtils.thrust(player, swimAssistRate, swimEnergyConsumption, true);
 				}
 			}
 		}
