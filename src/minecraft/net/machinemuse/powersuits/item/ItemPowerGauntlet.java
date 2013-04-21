@@ -1,8 +1,9 @@
 package net.machinemuse.powersuits.item;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import forestry.api.arboriculture.IToolGrafter;
 import net.machinemuse.api.*;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
@@ -12,6 +13,7 @@ import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.misc.TintModule;
+import net.machinemuse.powersuits.powermodule.tool.GrafterModule;
 import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -25,16 +27,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.registry.LanguageRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Describes the modular power tool.
  * 
  * @author MachineMuse
  */
-public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem {
+public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem, IToolGrafter {
 	public static int assignedItemID;
 
 	/**
@@ -316,4 +318,12 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 		return false;
 	}
 
+    @Override
+    public float getSaplingModifier(ItemStack stack, World world, EntityPlayer player, int x, int y, int z) {
+        if (MuseItemUtils.itemHasActiveModule(stack, GrafterModule.MODULE_GRAFTER)) {
+            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, GrafterModule.GRAFTER_ENERGY_CONSUMPTION));
+            return 100F;
+        }
+        return 0F;
+    }
 }
