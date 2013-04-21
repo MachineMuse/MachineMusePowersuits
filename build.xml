@@ -161,7 +161,7 @@
 	</target>
 
 	<target name="copy-source">
-		<delete dir="${mcpsrc.dir}/net/machinemuse">
+		<delete dir="${mcpsrc.dir}/net/machinemuse" />
 		<copy todir="${mcpsrc.dir}/net/machinemuse">
 			<fileset dir="${src.dir}/minecraft/net/machinemuse" />
 			<filterset>
