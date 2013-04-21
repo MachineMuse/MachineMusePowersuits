@@ -1,8 +1,10 @@
 package net.machinemuse.powersuits.item;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import buildcraft.api.tools.IToolWrench;
+import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import mods.railcraft.api.core.items.IToolCrowbar;
 import net.machinemuse.api.*;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
@@ -12,11 +14,13 @@ import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.misc.TintModule;
+import net.machinemuse.powersuits.powermodule.tool.OmniWrenchModule;
 import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.EnumToolMaterial;
@@ -25,16 +29,24 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.registry.LanguageRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import powercrystals.minefactoryreloaded.api.IToolHammer;
+import universalelectricity.prefab.implement.IToolConfigurator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Describes the modular power tool.
  * 
  * @author MachineMuse
  */
-public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem {
+public class ItemPowerGauntlet extends ItemElectricTool
+        implements
+        IModularItem,
+        IToolWrench,
+        IToolCrowbar,
+        IToolConfigurator,
+        IToolHammer {
 	public static int assignedItemID;
 
 	/**
@@ -315,5 +327,58 @@ public class ItemPowerGauntlet extends ItemElectricTool implements IModularItem 
 		}
 		return false;
 	}
+
+    /**
+    *
+    * OmniWrench Module stuff
+    *
+    **/
+    public boolean canWrench(EntityPlayer player, int x, int y, int z) {
+        if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof IModularItem) {
+            return MuseItemUtils.itemHasActiveModule(player.getCurrentEquippedItem(), OmniWrenchModule.MODULE_OMNI_WRENCH);
+        }
+        return false;
+    }
+
+    public void wrenchUsed(EntityPlayer player, int x, int y, int z) {
+
+    }
+
+    public boolean canWhack(EntityPlayer player, ItemStack crowbar, int x, int y, int z)  {
+        if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof IModularItem) {
+            return MuseItemUtils.itemHasActiveModule(player.getCurrentEquippedItem(), OmniWrenchModule.MODULE_OMNI_WRENCH);
+        }
+        return false;
+    }
+
+    public void onWhack(EntityPlayer player, ItemStack crowbar, int x, int y, int z) {
+        player.swingItem();
+    }
+
+    public boolean canLink(EntityPlayer player, ItemStack crowbar, EntityMinecart cart) {
+        if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof IModularItem) {
+            return MuseItemUtils.itemHasActiveModule(player.getCurrentEquippedItem(), OmniWrenchModule.MODULE_OMNI_WRENCH) && player.isSneaking();
+        }
+        return false;
+    }
+
+    public void onLink(EntityPlayer player, ItemStack crowbar, EntityMinecart cart) {
+        player.swingItem();
+    }
+
+    public boolean canBoost(EntityPlayer player, ItemStack crowbar, EntityMinecart cart) {
+        if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof IModularItem) {
+            return MuseItemUtils.itemHasActiveModule(player.getCurrentEquippedItem(), OmniWrenchModule.MODULE_OMNI_WRENCH) && player.isSneaking();
+        }
+        return false;
+    }
+
+    public void onBoost(EntityPlayer player, ItemStack crowbar, EntityMinecart cart) {
+        player.swingItem();
+    }
+
+    public boolean shouldPassSneakingClickToBlock(World world, int x, int y, int z) {
+        return true;
+    }
 
 }
