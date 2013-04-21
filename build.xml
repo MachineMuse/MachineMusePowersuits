@@ -1,4 +1,4 @@
-<project name="ModularPowersuits" default="clean" basedir=".">
+<project name="ModularPowersuits" default="install" basedir=".">
 
 	<property environment="env" />
 
@@ -161,6 +161,7 @@
 	</target>
 
 	<target name="copy-source">
+		<delete dir="${mcpsrc.dir}/net/machinemuse">
 		<copy todir="${mcpsrc.dir}/net/machinemuse">
 			<fileset dir="${src.dir}/minecraft/net/machinemuse" />
 			<filterset>
@@ -169,7 +170,7 @@
 		</copy>
 	</target>
 
-	<target name="build" depends="extract-apis" unless="already-compiled">
+	<target name="build" depends="extract-apis,copy-source" unless="already-compiled">
 
 		<echo message="Applying Scala patches..." />
 		<get src="http://overminddl1.com/minecraft/mcp_update_scala3.zip" dest="${download.dir}/scalapatch.zip" />
