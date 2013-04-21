@@ -37,11 +37,6 @@ public class EntityLuxCapacitor extends EntityThrowable {
 		this.boundingBox.setBounds(posX - r, posY - r, posZ - r, posX + r, posY + r, posZ + r);
 	}
 
-	public int getMaxLifetime()
-	{
-		return 200;
-	}
-
 	/**
 	 * Gets the amount of gravity to apply to the thrown entity with each tick.
 	 */
@@ -51,13 +46,17 @@ public class EntityLuxCapacitor extends EntityThrowable {
 		return 0;
 	}
 
-	public static final ForgeDirection[] directions = { ForgeDirection.UP, ForgeDirection.DOWN, ForgeDirection.EAST, ForgeDirection.WEST,
-			ForgeDirection.NORTH, ForgeDirection.SOUTH };
-
+    @Override
+    public void onEntityUpdate() {
+        super.onEntityUpdate();
+        if (this.ticksExisted > 400) {
+            this.setDead();
+        }
+    }
 	@Override
 	protected void onImpact(MovingObjectPosition movingobjectposition) {
 
-		if (movingobjectposition.typeOfHit == EnumMovingObjectType.TILE) {
+		if (!this.isDead && movingobjectposition.typeOfHit == EnumMovingObjectType.TILE) {
 			ForgeDirection dir = ForgeDirection.values()[movingobjectposition.sideHit].getOpposite();
 			int x = movingobjectposition.blockX - dir.offsetX;
 			int y = movingobjectposition.blockY - dir.offsetY;
