@@ -70,15 +70,15 @@ public class BlockLuxCapacitor extends Block {
 		LanguageRegistry.addName(this, "Lux Capacitor");
 	}
 
-    private double bbMin(int offset) {
+    private static double bbMin(double offset) {
         return (offset > 0 ? 13 : offset < 0 ? 0 : 1)/16.0;
     }
 
-    private double bbMax(int offset) {
+    private static double bbMax(double offset) {
         return (offset > 0 ? 16 : offset < 0 ? 3 : 15)/16.0;
     }
 
-    private AxisAlignedBB createAABBForSide(ForgeDirection dir, int x, int y, int z) {
+    public static AxisAlignedBB createAABBForSide(ForgeDirection dir, double x, double y, double z) {
         double x1 = bbMin(dir.offsetX);
         double y1 = bbMin(dir.offsetY);
         double z1 = bbMin(dir.offsetZ);

@@ -33,7 +33,7 @@ public class RenderLuxCapacitorEntity extends Render {
 	public void doRender(Entity entity, double x, double y, double z, float yaw, float partialTickTime) {
 		MuseRenderer.getRenderEngine().bindTexture(Config.TEXTURE_PREFIX + "models/thusters_uvw_2.png");
 		glPushMatrix();
-		glTranslated(x + 0.5, y + 0.5, z + 0.5);
+		glTranslated(x, y, z);
 		double scale = 0.0625;
 		glScaled(scale, scale, scale);
 		getFrameModel().renderAll();

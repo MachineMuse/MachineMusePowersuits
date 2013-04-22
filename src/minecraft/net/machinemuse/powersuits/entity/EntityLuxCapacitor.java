@@ -24,7 +24,7 @@ public class EntityLuxCapacitor extends EntityThrowable {
 		this.motionX = direction.xCoord * speed;
 		this.motionY = direction.yCoord * speed;
 		this.motionZ = direction.zCoord * speed;
-		double r = 1;
+		double r = 0.4375;
 		double xoffset = 0.1;
 		double yoffset = 0;
 		double zoffset = 0;
@@ -34,7 +34,7 @@ public class EntityLuxCapacitor extends EntityThrowable {
 		this.posX = shootingEntity.posX + direction.xCoord * xoffset - direction.yCoord * horzx * yoffset - horzz * zoffset;
 		this.posY = shootingEntity.posY + shootingEntity.getEyeHeight() + direction.yCoord * xoffset + (1 - Math.abs(direction.yCoord)) * yoffset;
 		this.posZ = shootingEntity.posZ + direction.zCoord * xoffset - direction.yCoord * horzz * yoffset + horzx * zoffset;
-		this.boundingBox.setBounds(posX - r, posY - 1, posZ - r, posX + r, posY + 1, posZ + r);
+		this.boundingBox.setBounds(posX - r, posY - 0.0625, posZ - r, posX + r, posY + 0.0625, posZ + r);
 	}
 
 	/**
