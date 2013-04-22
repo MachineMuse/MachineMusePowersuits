@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.item;
 
-<<<<<<< HEAD
 import buildcraft.api.tools.IToolWrench;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -334,7 +333,7 @@ public class ItemPowerGauntlet extends ItemElectricTool
 		}
 		return false;
 	}
-
+	
     /**
     *
     * OmniWrench Module stuff
