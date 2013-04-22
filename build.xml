@@ -130,7 +130,7 @@
 		<move todir="${mcpsrc.dir}/universalelectricity/core/">
 			<fileset dir="${ue.download.dir}/core/" />
 		</move>
-        <move file="${ue.download.dir}/universalelectricity/prefab/implement/IToolConfigurator.java" todir="${mcpsrc.dir}/universalelectricity/prefab/implement/" />
+        <move file="${ue.download.dir}/prefab/implement/IToolConfigurator.java" todir="${mcpsrc.dir}/universalelectricity/prefab/implement/" />
 
 		<echo message="Extracting ICBM API... " />
 		<unzip src="${download.dir}/ICBM_API_v${icbmapi.version}.zip" dest="${download.dir}/ue" />
