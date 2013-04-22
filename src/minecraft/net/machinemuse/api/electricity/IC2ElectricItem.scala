@@ -2,12 +2,13 @@ package net.machinemuse.api.electricity
 
 import net.minecraft.item.ItemStack
 import universalelectricity.core.item.IItemElectric
+import ic2.api.ICustomElectricItem
 
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 10:00 PM, 4/20/13
  */
-trait IC2ElectricItem extends IItemElectric with MuseElectricItem {
+trait IC2ElectricItem extends ICustomElectricItem with MuseElectricItem {
   def canProvideEnergy(itemStack: ItemStack): Boolean = true
 
   def getChargedItemId(itemStack: ItemStack): Int = itemStack.itemID
