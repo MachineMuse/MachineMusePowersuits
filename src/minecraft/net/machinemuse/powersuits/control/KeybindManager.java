@@ -45,7 +45,8 @@ public class KeybindManager {
 
 	public static KeyBinding addKeybinding(String keybindDescription, int keycode, MusePoint2D position) {
 		KeyBinding kb = new KeyBinding(keybindDescription, keycode);
-		getInstance().keybindings.add(new ClickableKeybinding(kb, position));
+        boolean free = !KeyBinding.hash.containsItem(keycode);
+		getInstance().keybindings.add(new ClickableKeybinding(kb, position, free));
 		return kb;
 	}
 
@@ -94,7 +95,8 @@ public class KeybindManager {
 					int id = Integer.parseInt(exploded[0]);
 					if (!KeyBinding.hash.containsItem(id)) {
 						MusePoint2D position = new MusePoint2D(Double.parseDouble(exploded[1]), Double.parseDouble(exploded[2]));
-						workingKeybinding = new ClickableKeybinding(new KeyBinding(Keyboard.getKeyName(id), id), position);
+                        boolean free = !KeyBinding.hash.containsItem(id);
+						workingKeybinding = new ClickableKeybinding(new KeyBinding(Keyboard.getKeyName(id), id), position, free);
 						getInstance().keybindings.add(workingKeybinding);
 					} else {
 						workingKeybinding = null;

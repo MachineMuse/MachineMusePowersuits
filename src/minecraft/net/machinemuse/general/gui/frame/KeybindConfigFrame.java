@@ -243,16 +243,22 @@ public class KeybindConfigFrame implements IGuiFrame {
 		if (selecting) {
 			if (Keyboard.getEventKeyState()) {
 				int key = Keyboard.getEventKey();
+                if(KeyBinding.hash.containsItem(key)) {
+                    takenTime = System.currentTimeMillis();
+                }
 				if (!KeyBinding.hash.containsItem(key)) {
-					KeyBinding keybind = new KeyBinding(Keyboard.getKeyName(key), key);
-					ClickableKeybinding clickie = new ClickableKeybinding(keybind, newKeybindButton.getPosition().plus(new MusePoint2D(0, -20)));
-					KeybindManager.getKeybindings().add(clickie);
-				} else {
-					takenTime = System.currentTimeMillis();
-				}
+                    addKeybind(key,true);
+				} else if(Config.allowConflictingKeybinds()) {
+                    addKeybind(key, false);
+                }
 				selecting = false;
 			}
 		}
 	}
+    private void addKeybind(int key, boolean free) {
+        KeyBinding keybind = new KeyBinding(Keyboard.getKeyName(key), key);
+        ClickableKeybinding clickie = new ClickableKeybinding(keybind, newKeybindButton.getPosition().plus(new MusePoint2D(0, -20)), free);
+        KeybindManager.getKeybindings().add(clickie);
+    }
 
 }

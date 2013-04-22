@@ -24,12 +24,14 @@ public class ClickableKeybinding extends ClickableButton {
 	protected KeyBinding keybind;
 	protected boolean toggleval;
 	protected boolean toggled;
+    protected boolean free;
 
-	public ClickableKeybinding(KeyBinding keybind, MusePoint2D position) {
+	public ClickableKeybinding(KeyBinding keybind, MusePoint2D position, boolean free) {
 		super(parseName(keybind), position, true);
 		this.keybind = keybind;
 		this.position = position;
 		this.boundModules = new ArrayList();
+        this.enabled = free;
 	}
 
 	public boolean isToggled() {
