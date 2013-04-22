@@ -15,6 +15,7 @@
 	<property name="icbmapi.version" value="1.1.1.26" />
 	<property name="thermexapi.version" value="2.3.0b" />
 	<property name="galacticraftapi.version" value="1" />
+    <property name="forestryapi.version" value="2.1.2.19" />
 
 
 	<!-- Directories -->
@@ -66,6 +67,7 @@
 			<available file="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" />
 			<available file="${download.dir}/AtomicScience_v${asapi.version}.zip" />
 			<available file="${download.dir}/GalacticraftAPIB.zip" />
+            <available file="${download.dir}/forestry-api-${forestryapi.version}.zip" />
 		</and>
 	</condition>
 
@@ -87,6 +89,10 @@
 
 		<echo message="Downloading Galacticraft API..." />
 		<get src="http://machinemuse.minecraftforge.net/GalacticraftAPIB.zip" dest="${download.dir}/GalacticraftAPIB.zip" />
+
+        <echo message="Downloading Forestry API..." />
+        <get src="http://machinemuse.minecraftforge.net/forestry-api-${forestryapi.version}.zip" dest="${download.dir}/forestry-api-${forestryapi.version}.zip" />
+
 	</target>
 
 	<!-- Dependencies -->
@@ -132,6 +138,15 @@
 		<mkdir dir="${mcpsrc.dir}/micdoodle8/mods/galacticraft/API" />
 		<move file="${download.dir}/micdoodle8/mods/galacticraft/API/EnumGearType.java" todir="${mcpsrc.dir}/micdoodle8/mods/galacticraft/API" />
 		<move file="${download.dir}/micdoodle8/mods/galacticraft/API/IBreathableArmor.java" todir="${mcpsrc.dir}/micdoodle8/mods/galacticraft/API" />
+
+        <echo message="Extracting Forestry API... " />
+        <unzip src="${download.dir}/forestry-api-${forestryapi.version}.zip" dest="${download.dir}" />
+        <mkdir dir="${mcpsrc.dir}/forestry/api/apiculture" />
+        <mkdir dir="${mcpsrc.dir}/forestry/api/arboriculture" />
+        <mkdir dir="${mcpsrc.dir}/forestry/api/core" />
+        <move file="${download.dir}/forestry/api/apiculture/IArmorApiarist.java" todir="${mcpsrc.dir}/forestry/api/apiculture" />
+        <move file="${download.dir}/forestry/api/arboriculture/IToolGrafter.java" todir="${mcpsrc.dir}/forestry/api/arboriculture" />
+        <move file="${download.dir}/forestry/api/core/ItemInterface.java" todir="${mcpsrc.dir}/forestry/api/core" />
 
 	</target>
 

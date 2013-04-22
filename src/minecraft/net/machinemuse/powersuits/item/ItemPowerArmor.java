@@ -4,6 +4,7 @@ import atomicscience.api.IAntiPoisonArmor;
 import atomicscience.api.poison.Poison;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import forestry.api.apiculture.IArmorApiarist;
 import net.machinemuse.api.*;
 import net.machinemuse.api.electricity.ElectricItemUtils;
 import net.machinemuse.general.MuseStringUtils;
@@ -15,6 +16,7 @@ import net.machinemuse.powersuits.powermodule.misc.CosmeticGlowModule;
 import net.machinemuse.powersuits.powermodule.misc.HazmatModule;
 import net.machinemuse.powersuits.powermodule.misc.TintModule;
 import net.machinemuse.powersuits.powermodule.misc.TransparentArmorModule;
+import net.machinemuse.powersuits.powermodule.tool.ApiaristArmorModule;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -37,7 +39,8 @@ public abstract class ItemPowerArmor extends ItemElectricArmor
         implements
         ISpecialArmor,
         IAntiPoisonArmor,
-        IModularItem {
+        IModularItem,
+        IArmorApiarist {
 
     /**
      * @param id
@@ -310,6 +313,15 @@ public abstract class ItemPowerArmor extends ItemElectricArmor
 
     @Override
     public void onProtectFromPoison(ItemStack itemStack, EntityLiving entityLiving, Poison type) {
+    }
+
+    @Override
+    public boolean protectPlayer(EntityPlayer player, ItemStack armor, String cause, boolean doProtect) {
+        if (MuseItemUtils.itemHasActiveModule(armor, ApiaristArmorModule.MODULE_APIARIST_ARMOR)) {
+            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(armor, ApiaristArmorModule.APIARIST_ARMOR_ENERGY_CONSUMPTION));
+            return true;
+        }
+        return false;
     }
 
 }
