@@ -6,12 +6,16 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+
+import java.util.Random;
 
 public class BlockLuxCapacitor extends Block {
 	public static int assignedBlockID;
@@ -30,7 +34,7 @@ public class BlockLuxCapacitor extends Block {
 
 		// Block's hardness (base time to harvest it with the correct tool).
 		// Sand = 0.5, Stone = 1.5, Ore = 3.0 Obsidian = 20
-		setHardness(0.5F);
+		setHardness(0.05F);
 
 		// Block's resistance to explosions. Stone = 10, obsidian = 2000
 		setResistance(10.0F);
@@ -66,7 +70,25 @@ public class BlockLuxCapacitor extends Block {
 		LanguageRegistry.addName(this, "Lux Capacitor");
 	}
 
-	@Override
+    private double bbMin(int offset) {
+        return (offset > 0 ? 13 : offset < 0 ? 0 : 1)/16.0;
+    }
+
+    private double bbMax(int offset) {
+        return (offset > 0 ? 16 : offset < 0 ? 3 : 15)/16.0;
+    }
+
+    private AxisAlignedBB createAABBForSide(ForgeDirection dir, int x, int y, int z) {
+        double x1 = bbMin(dir.offsetX);
+        double y1 = bbMin(dir.offsetY);
+        double z1 = bbMin(dir.offsetZ);
+        double x2 = bbMax(dir.offsetX);
+        double y2 = bbMax(dir.offsetY);
+        double z2 = bbMax(dir.offsetZ);
+        return AxisAlignedBB.getAABBPool().getAABB(x + x1, y+y1, z+z1, x+x2, y+y2, z+z2);
+    }
+
+    @Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister) {
 		this.blockIcon = iconRegister.registerIcon(MuseIcon.ICON_PREFIX + "bluelight");
@@ -104,5 +126,41 @@ public class BlockLuxCapacitor extends Block {
 		return new TileEntityLuxCapacitor();
 
 	}
+    @SideOnly(Side.CLIENT)
+
+    /**
+     * Returns the bounding box of the wired rectangular prism to render.
+     */
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
+    {
+        TileEntity te = world.getBlockTileEntity(x,y,z);
+        if(te instanceof TileEntityLuxCapacitor) {
+            ForgeDirection side = ((TileEntityLuxCapacitor)te).side;
+            return createAABBForSide(side,x,y,z);
+        }
+        return null;
+    }
+
+    /**
+     * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
+     * cleared to be reused)
+     */
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
+    {
+        TileEntity te = world.getBlockTileEntity(x,y,z);
+        if(te instanceof TileEntityLuxCapacitor) {
+            ForgeDirection side = ((TileEntityLuxCapacitor)te).side;
+            return createAABBForSide(side,x,y,z);
+        }
+        return null;
+    }
+
+    /**
+     * Returns the quantity of items to drop on block destruction.
+     */
+    public int quantityDropped(Random par1Random)
+    {
+        return 0;
+    }
 
 }
