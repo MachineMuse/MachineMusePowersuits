@@ -217,9 +217,9 @@ public abstract class MuseRenderer {
 	 * Call before doing anything with alpha blending
 	 */
 	public static void blendingOn() {
+        GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT);
+        GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
 		if (Minecraft.isFancyGraphicsEnabled()) {
-			GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT);
-			GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
 			GL11.glShadeModel(GL11.GL_SMOOTH);
 			// GL11.glEnable(GL11.GL_LINE_SMOOTH);
 			// GL11.glEnable(GL11.GL_POLYGON_SMOOTH);
