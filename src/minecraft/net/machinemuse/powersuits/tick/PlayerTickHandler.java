@@ -17,6 +17,7 @@ import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.powermodule.movement.FlightControlModule;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -60,17 +61,17 @@ public class PlayerTickHandler implements ITickHandler {
 
 		boolean foundItem = modularItemsEquipped.size()>0;
         if (foundItem) {
-		for (IPlayerTickModule module : ModuleManager.getPlayerTickModules()) {
-			for (ItemStack itemStack : modularItemsEquipped) {
-				if (module.isValidForItem(itemStack, player)) {
-					if (MuseItemUtils.itemHasActiveModule(itemStack, module.getName())) {
-						module.onPlayerTickActive(player, itemStack);
-					} else {
-						module.onPlayerTickInactive(player, itemStack);
-					}
-				}
-			}
-		}
+            for (IPlayerTickModule module : ModuleManager.getPlayerTickModules()) {
+                for (ItemStack itemStack : modularItemsEquipped) {
+                    if (module.isValidForItem(itemStack, player)) {
+                        if (MuseItemUtils.itemHasActiveModule(itemStack, module.getName())) {
+                            module.onPlayerTickActive(player, itemStack);
+                        } else {
+                            module.onPlayerTickInactive(player, itemStack);
+                        }
+                    }
+                }
+            }
 			player.fallDistance = (float) MovementManager.computeFallHeightFromVelocity(MuseMathUtils.clampDouble(player.motionY, -1000.0, 0.0));
 
 			// Weight movement penalty
@@ -78,15 +79,15 @@ public class PlayerTickHandler implements ITickHandler {
 				player.motionX *= weightCapacity / totalWeight;
 				player.motionZ *= weightCapacity / totalWeight;
 			}
-		MuseHeatUtils.coolPlayer(player, MusePlayerUtils.getPlayerCoolingBasedOnMaterial(player));
-		double maxHeat = MuseHeatUtils.getMaxHeat(player);
-		double currHeat = MuseHeatUtils.getPlayerHeat(player);
-		if (currHeat > maxHeat) {
-			player.attackEntityFrom(MuseHeatUtils.overheatDamage, (int) Math.sqrt(currHeat - maxHeat) / 4);
-			player.setFire(1);
-		} else {
-			player.extinguish();
-		}
+            MuseHeatUtils.coolPlayer(player, MusePlayerUtils.getPlayerCoolingBasedOnMaterial(player));
+            double maxHeat = MuseHeatUtils.getMaxHeat(player);
+            double currHeat = MuseHeatUtils.getPlayerHeat(player);
+            if (currHeat > maxHeat) {
+                player.attackEntityFrom(MuseHeatUtils.overheatDamage, (int) Math.sqrt(currHeat - maxHeat) / 4);
+                player.setFire(1);
+            } else {
+                player.extinguish();
+            }
         }
 	}
 

@@ -248,7 +248,6 @@ public class MusePlayerUtils {
                     player.motionZ = 0;
                 }
             }
-            // Slow the player if they are going too fast
 
             // Thrusting, finally :V
             double vx = thrust * desiredDirection.xCoord;
@@ -273,6 +272,7 @@ public class MusePlayerUtils {
             }
         }
 
+        // Slow the player if they are going too fast
         double horzm2 = player.motionX * player.motionX + player.motionZ * player.motionZ;
         double horzmlim = Config.getMaximumFlyingSpeedmps() * Config.getMaximumFlyingSpeedmps() / 400;
         if (sneakkey && horzmlim > 0.05) {
@@ -283,6 +283,10 @@ public class MusePlayerUtils {
             double ratio = Math.sqrt(horzmlim / horzm2);
             player.motionX *= ratio;
             player.motionZ *= ratio;
+        }
+
+        if(player instanceof EntityPlayerMP) {
+            ((EntityPlayerMP)player).playerNetServerHandler.ticksForFloatKick = 0;
         }
         ElectricItemUtils.drainPlayerEnergy(player, totalEnergyDrain);
     }
