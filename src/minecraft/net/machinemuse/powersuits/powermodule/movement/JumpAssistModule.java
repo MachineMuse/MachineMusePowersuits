@@ -53,11 +53,11 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
 				player.motionY += 0.15 * Math.min(multiplier, 1)						* MusePlayerUtils.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
 				MovementManager.setPlayerJumpTicks(player, multiplier - 1);
 			}
-
 			player.jumpMovementFactor = player.landMovementFactor * .7f;
 		} else {
 			MovementManager.setPlayerJumpTicks(player, 0);
 		}
+        MusePlayerUtils.resetFloatKickTicks(player);
 	}
 
 	@Override

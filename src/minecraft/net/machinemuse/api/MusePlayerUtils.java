@@ -284,10 +284,7 @@ public class MusePlayerUtils {
             player.motionX *= ratio;
             player.motionZ *= ratio;
         }
-
-        if(player instanceof EntityPlayerMP) {
-            ((EntityPlayerMP)player).playerNetServerHandler.ticksForFloatKick = 0;
-        }
+        resetFloatKickTicks(player);
         ElectricItemUtils.drainPlayerEnergy(player, totalEnergyDrain);
     }
 
@@ -296,6 +293,12 @@ public class MusePlayerUtils {
             return 1;
         } else {
             return capacity / currentWeight;
+        }
+    }
+
+    public static void resetFloatKickTicks(EntityPlayer player) {
+        if(player instanceof EntityPlayerMP) {
+            ((EntityPlayerMP)player).playerNetServerHandler.ticksForFloatKick = 0;
         }
     }
 

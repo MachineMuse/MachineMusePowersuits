@@ -45,6 +45,7 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
 		boolean sneakkey = movementInput.sneakKey;
 		ItemStack torso = player.getCurrentArmor(2);
 		boolean hasGlider = false;
+        MusePlayerUtils.resetFloatKickTicks(player);
 		if (torso != null && torso.getItem() instanceof IModularItem) {
 			hasGlider = MuseItemUtils.itemHasActiveModule(torso, GliderModule.MODULE_GLIDER);
 		}

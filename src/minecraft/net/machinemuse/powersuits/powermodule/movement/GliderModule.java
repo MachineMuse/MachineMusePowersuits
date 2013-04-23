@@ -5,6 +5,7 @@ import java.util.List;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.MuseCommonStrings;
 import net.machinemuse.api.MuseItemUtils;
+import net.machinemuse.api.MusePlayerUtils;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.powersuits.control.PlayerInputMap;
@@ -52,6 +53,7 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
 		float forwardkey = movementInput.forwardKey;
 		ItemStack torso = player.getCurrentArmor(2);
 		boolean hasParachute = false;
+        MusePlayerUtils.resetFloatKickTicks(player);
 		if (torso != null && torso.getItem() instanceof IModularItem) {
 			hasParachute = MuseItemUtils.itemHasActiveModule(torso, ParachuteModule.MODULE_PARACHUTE);
 		}
