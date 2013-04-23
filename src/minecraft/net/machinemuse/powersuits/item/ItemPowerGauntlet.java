@@ -317,8 +317,7 @@ public class ItemPowerGauntlet extends ItemElectricTool
 		String mode = MuseItemUtils.getActiveMode(itemStack);
 		IPowerModule module = ModuleManager.getModule(mode);
 		if (module instanceof IRightClickModule) {
-			((IRightClickModule) module).onItemUseFirst(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
-			return false;
+			return ((IRightClickModule) module).onItemUseFirst(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
 		}
 		return false;
 	}
