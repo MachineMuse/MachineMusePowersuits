@@ -1,4 +1,4 @@
-package net.machinemuse.api;
+package net.machinemuse.utils;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
@@ -9,37 +9,39 @@ import net.minecraft.world.World;
  */
 public class MuseBlockUtils {
     public static byte[] rotateType = new byte[4096];
-    public static final int[][] SIDE_COORD_MOD = { { 0, -1, 0 }, { 0, 1, 0 }, { 0, 0, -1 }, { 0, 0, 1 }, { -1, 0, 0 }, { 1, 0, 0 } };
-    public static final int[] SIDE_LEFT = { 4, 5, 5, 4, 2, 3 };
-    public static final int[] SIDE_RIGHT = { 5, 4, 4, 5, 3, 2 };
-    public static final int[] SIDE_OPPOSITE = { 1, 0, 3, 2, 5, 4 };
-    public static final int[] SIDE_UP = { 2, 3, 1, 1, 1, 1 };
-    public static final int[] SIDE_DOWN = { 3, 2, 0, 0, 0, 0 };
+    public static final int[][] SIDE_COORD_MOD = {{0, -1, 0}, {0, 1, 0}, {0, 0, -1}, {0, 0, 1}, {-1, 0, 0}, {1, 0, 0}};
+    public static final int[] SIDE_LEFT = {4, 5, 5, 4, 2, 3};
+    public static final int[] SIDE_RIGHT = {5, 4, 4, 5, 3, 2};
+    public static final int[] SIDE_OPPOSITE = {1, 0, 3, 2, 5, 4};
+    public static final int[] SIDE_UP = {2, 3, 1, 1, 1, 1};
+    public static final int[] SIDE_DOWN = {3, 2, 0, 0, 0, 0};
 
-    public static boolean canRotate(int blockId)
-    {
+    public static boolean canRotate(int blockId) {
         return rotateType[blockId] != 0;
     }
 
-    public static int rotateVanillaBlock(World world, int block, int meta, int x, int y, int z)
-    {
+    public static int rotateVanillaBlock(World world, int block, int meta, int x, int y, int z) {
         switch (rotateType[block]) {
             case 1:
                 return SIDE_LEFT[meta];
             case 2:
                 if (meta < 6) {
-                    meta++; return meta % 6;
+                    meta++;
+                    return meta % 6;
                 }
                 return meta;
             case 3:
                 if (meta < 2) {
-                    meta++; return meta % 2;
+                    meta++;
+                    return meta % 2;
                 }
                 return meta;
             case 4:
-                meta++; return meta % 4;
+                meta++;
+                return meta % 4;
             case 5:
-                meta++; return meta % 8;
+                meta++;
+                return meta % 8;
             case 6:
                 int upper = meta & 0xC;
                 int lower = meta & 0x3;
@@ -88,7 +90,8 @@ public class MuseBlockUtils {
                 return meta;
             case 3:
                 if (meta < 2) {
-                    meta++; return meta % 2;
+                    meta++;
+                    return meta % 2;
                 }
                 return meta;
             case 4:
@@ -133,7 +136,7 @@ public class MuseBlockUtils {
     }
 
     public static int[] getAdjacentCoordinatesForSide(int x, int y, int z, int side) {
-        return new int[] { x + SIDE_COORD_MOD[side][0], y + SIDE_COORD_MOD[side][1], z + SIDE_COORD_MOD[side][2] };
+        return new int[]{x + SIDE_COORD_MOD[side][0], y + SIDE_COORD_MOD[side][1], z + SIDE_COORD_MOD[side][2]};
     }
 
     static {

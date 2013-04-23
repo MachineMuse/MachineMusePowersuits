@@ -5,9 +5,8 @@ import atomicscience.api.poison.Poison;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import forestry.api.apiculture.IArmorApiarist;
-import net.machinemuse.api.*;
-import net.machinemuse.api.electricity.ElectricItemUtils;
-import net.machinemuse.general.MuseStringUtils;
+import net.machinemuse.api.IModularItem;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.powersuits.client.render.ArmorBootsModel;
 import net.machinemuse.powersuits.client.render.ArmorModel;
@@ -17,6 +16,7 @@ import net.machinemuse.powersuits.powermodule.misc.HazmatModule;
 import net.machinemuse.powersuits.powermodule.misc.TintModule;
 import net.machinemuse.powersuits.powermodule.misc.TransparentArmorModule;
 import net.machinemuse.powersuits.powermodule.tool.ApiaristArmorModule;
+import net.machinemuse.utils.*;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -141,7 +141,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor
      * calculations.
      */
     @Override
-    public ArmorProperties getProperties(EntityLiving player, ItemStack armor, DamageSource source, double damage, int slot) {
+    public ISpecialArmor.ArmorProperties getProperties(EntityLiving player, ItemStack armor, DamageSource source, double damage, int slot) {
         // Order in which this armor is assessed for damage. Higher(?) priority
         // items take damage first, and if none spills over, the other items
         // take no damage.

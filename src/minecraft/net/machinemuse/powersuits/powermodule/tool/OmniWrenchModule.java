@@ -6,12 +6,12 @@ import ic2.api.IWrenchable;
 import ic2.api.energy.tile.IEnergySink;
 import ic2.api.energy.tile.IEnergySource;
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.MuseBlockUtils;
-import net.machinemuse.api.MuseCommonStrings;
-import net.machinemuse.api.MuseItemUtils;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
+import net.machinemuse.utils.MuseBlockUtils;
+import net.machinemuse.utils.MuseCommonStrings;
+import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -86,13 +86,14 @@ public class OmniWrenchModule extends PowerModuleBase implements IRightClickModu
                 }
             }
             return !world.isRemote;
-        }if (Block.blocksList[bId].rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side))) {
+        }
+        if (Block.blocksList[bId].rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side))) {
             return !world.isRemote;
         }
 
         TileEntity tile = world.getBlockTileEntity(x, y, z);
         if ((tile instanceof IWrenchable)) {
-            IWrenchable wrenchTile = (IWrenchable)tile;
+            IWrenchable wrenchTile = (IWrenchable) tile;
 
             if (player.isSneaking()) {
                 side = OmniWrenchModule.SIDE_OPPOSITE[side];
@@ -116,22 +117,20 @@ public class OmniWrenchModule extends PowerModuleBase implements IRightClickModu
                 return !world.isRemote;
             }
 
-            if (!world.isRemote)
-            {
-                if ((side == 0) || (side == 1))
-                {
+            if (!world.isRemote) {
+                if ((side == 0) || (side == 1)) {
                     if (((wrenchTile instanceof IEnergySource)) && ((wrenchTile instanceof IEnergySink))) {
-                        wrenchTile.setFacing((short)side);
+                        wrenchTile.setFacing((short) side);
                     }
-                }
-                else {
-                    wrenchTile.setFacing((short)side);
+                } else {
+                    wrenchTile.setFacing((short) side);
                 }
             }
             return !world.isRemote;
-        }if ((tile instanceof IReconfigurableFacing)) {
+        }
+        if ((tile instanceof IReconfigurableFacing)) {
             if ((!world.isRemote) && (!player.isSneaking())) {
-                return ((IReconfigurableFacing)tile).rotateBlock();
+                return ((IReconfigurableFacing) tile).rotateBlock();
             }
             return false;
         }

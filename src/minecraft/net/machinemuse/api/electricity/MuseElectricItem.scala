@@ -1,7 +1,8 @@
 package net.machinemuse.api.electricity
 
 import net.minecraft.item.ItemStack
-import net.machinemuse.api.{ModuleManager, MuseItemUtils}
+import net.machinemuse.api.ModuleManager
+import net.machinemuse.utils.{ElectricItemUtils, MuseItemUtils}
 
 /**
  * Author: MachineMuse (Claire Semple)
