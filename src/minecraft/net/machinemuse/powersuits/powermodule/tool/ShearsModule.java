@@ -48,12 +48,12 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
 
 	@Override
 	public String getName() {
-		return "Spinning Blades";
+		return "Shears";
 	}
 
 	@Override
 	public String getDescription() {
-		return "Launches a spinning blade of death (or shearing; no damage to sheep).";
+		return "Cuts through leaves, wool, and creepers alike.";
 	}
 
 	@Override

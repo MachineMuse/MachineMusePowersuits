@@ -98,7 +98,7 @@ public class EntitySpinningBlade extends EntityThrowable {
 			MuseLogger.logDebug("" + block.getUnlocalizedName());
 			if (block instanceof IShearable) {
 				IShearable target = (IShearable) block;
-				if (target.isShearable(this.shootingItem, world, hitMOP.blockX, hitMOP.blockY, hitMOP.blockZ)) {
+				if (target.isShearable(this.shootingItem, world, hitMOP.blockX, hitMOP.blockY, hitMOP.blockZ) && !world.isRemote) {
 					ArrayList<ItemStack> drops = target.onSheared(this.shootingItem, world, hitMOP.blockX, hitMOP.blockY, hitMOP.blockZ,
 							EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, this.shootingItem));
 					Random rand = new Random();
