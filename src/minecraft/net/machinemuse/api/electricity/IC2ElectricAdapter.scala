@@ -5,12 +5,9 @@ import ic2.api.IElectricItem
 import net.machinemuse.api.electricity.PowerConversions._
 import net.minecraft.item.ItemStack
 
-class IC2ElectricAdapter extends ElectricAdapter {
-  def this(stack: ItemStack) {
-    this()
-    this.stack = stack
-    this.item = stack.getItem.asInstanceOf[IElectricItem]
-  }
+class IC2ElectricAdapter(val stack:ItemStack) extends ElectricAdapter {
+    val item = stack.getItem.asInstanceOf[IElectricItem]
+
 
   def getCurrentEnergy: Double = {
     return museEnergyFromEU(ElectricItem.discharge(stack, Integer.MAX_VALUE, getTier, true, true))
@@ -33,9 +30,6 @@ class IC2ElectricAdapter extends ElectricAdapter {
   }
 
   def getTier: Int = {
-    return getTier(stack)
+    return PowerConversions.getTier(stack)
   }
-
-  protected var stack: ItemStack = null
-  protected var item: IElectricItem = null
 }

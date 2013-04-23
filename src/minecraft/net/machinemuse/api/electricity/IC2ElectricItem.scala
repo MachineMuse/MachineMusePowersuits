@@ -2,6 +2,7 @@ package net.machinemuse.api.electricity
 
 import net.minecraft.item.ItemStack
 import universalelectricity.core.item.IItemElectric
+import net.machinemuse.api.electricity.PowerConversions._
 import ic2.api.ICustomElectricItem
 
 /**
@@ -15,34 +16,32 @@ trait IC2ElectricItem extends ICustomElectricItem with MuseElectricItem {
 
   def getEmptyItemId(itemStack: ItemStack): Int = itemStack.itemID
 
-  def getMaxCharge(itemStack: ItemStack): Int = IC2ElectricAdapter.museEnergyToEU(getCurrentEnergy(itemStack)).asInstanceOf[Int]
+  def getMaxCharge(itemStack: ItemStack): Int = museEnergyToEU(getCurrentEnergy(itemStack)).asInstanceOf[Int]
 
-  def getTier(itemStack: ItemStack): Int = IC2ElectricAdapter.getTier(itemStack)
+  def getTier(itemStack: ItemStack): Int = getTier(itemStack)
 
-  def getTransferLimit(itemStack: ItemStack): Int = IC2ElectricAdapter.museEnergyToEU(Math.sqrt(getMaxEnergy(itemStack))).asInstanceOf[Int]
+  def getTransferLimit(itemStack: ItemStack): Int = museEnergyToEU(Math.sqrt(getMaxEnergy(itemStack))).asInstanceOf[Int]
 
   def charge(itemStack: ItemStack, amount: Int, tier: Int, ignoreTransferLimit: Boolean, simulate: Boolean): Int = {
     val current: Double = getCurrentEnergy(itemStack)
-    val given: Double = giveEnergyTo(itemStack, IC2ElectricAdapter.museEnergyFromEU(amount))
+    val given: Double = giveEnergyTo(itemStack, museEnergyFromEU(amount))
     if (simulate) {
       setCurrentEnergy(itemStack, current)
     }
-    IC2ElectricAdapter.museEnergyToEU(given).asInstanceOf[Int]
+    museEnergyToEU(given).asInstanceOf[Int]
   }
 
   def discharge(itemStack: ItemStack, amount: Int, tier: Int, ignoreTransferLimit: Boolean, simulate: Boolean): Int = {
     val current: Double = getCurrentEnergy(itemStack)
-    val taken: Double = drainEnergyFrom(itemStack, IC2ElectricAdapter.museEnergyFromEU(amount))
+    val taken: Double = drainEnergyFrom(itemStack, museEnergyFromEU(amount))
     if (simulate) {
       setCurrentEnergy(itemStack, current)
     }
-    IC2ElectricAdapter.museEnergyToEU(taken).asInstanceOf[Int]
+    museEnergyToEU(taken).asInstanceOf[Int]
   }
 
-  def canUse(itemStack: ItemStack, amount: Int): Boolean = {
-    val requested: Double = IC2ElectricAdapter.museEnergyFromEU(amount)
-    requested < getCurrentEnergy(itemStack)
-  }
+  def canUse(itemStack: ItemStack, amount: Int): Boolean =       museEnergyFromEU(amount) < getCurrentEnergy(itemStack)
+
 
   def canShowChargeToolTip(itemStack: ItemStack): Boolean = false
 }
