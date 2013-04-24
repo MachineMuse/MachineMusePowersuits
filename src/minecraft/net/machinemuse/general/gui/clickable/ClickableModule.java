@@ -1,9 +1,9 @@
 package net.machinemuse.general.gui.clickable;
 
 import net.machinemuse.api.IPowerModule;
-import net.machinemuse.general.MuseMathUtils;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
+import net.machinemuse.utils.MuseMathUtils;
 import net.machinemuse.utils.MuseRenderer;
 import net.machinemuse.utils.MuseStringUtils;
 

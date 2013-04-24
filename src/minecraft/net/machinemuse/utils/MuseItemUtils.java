@@ -7,7 +7,6 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
-import net.machinemuse.general.MuseMathUtils;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.machinemuse.powersuits.network.packets.MusePacketModeChangeRequest;

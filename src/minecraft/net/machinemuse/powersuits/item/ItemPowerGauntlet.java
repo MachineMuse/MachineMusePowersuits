@@ -11,17 +11,13 @@ import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
-import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.powermodule.misc.TintModule;
 import net.machinemuse.powersuits.powermodule.tool.GrafterModule;
 import net.machinemuse.powersuits.powermodule.tool.OmniWrenchModule;
 import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule;
 import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
@@ -31,15 +27,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import powercrystals.minefactoryreloaded.api.IToolHammer;
 import universalelectricity.prefab.implement.IToolConfigurator;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Describes the modular power tool.
@@ -55,6 +47,7 @@ public class ItemPowerGauntlet extends ItemElectricTool
         IToolConfigurator,
         IToolHammer {
     public static int assignedItemID;
+    String iconpath = MuseIcon.ICON_PREFIX + "handitem";
 
     /**
      * Constructor. Takes information from the Config.Items enum.
@@ -76,34 +69,6 @@ public class ItemPowerGauntlet extends ItemElectricTool
         setCreativeTab(Config.getCreativeTab());
         setUnlocalizedName("powerGauntlet");
         LanguageRegistry.addName(this, "Power Gauntlet");
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister iconRegister) {
-        MuseIcon.POWERTOOL.register(iconRegister);
-        itemIcon = MuseIcon.POWERTOOL.getIconRegistration();
-    }
-
-    public static MuseIcon getCurrentIconFor(ItemStack itemStack) {
-        return MuseIcon.POWERTOOL;
-    }
-
-    public static Colour getColorFromItemStack(ItemStack stack) {
-        double computedred = ModuleManager.computeModularProperty(stack, TintModule.RED_TINT);
-        double computedgreen = ModuleManager.computeModularProperty(stack, TintModule.GREEN_TINT);
-        double computedblue = ModuleManager.computeModularProperty(stack, TintModule.BLUE_TINT);
-        Colour colour = new Colour(clampDouble(1 + computedred - (computedblue + computedgreen), 0, 1), clampDouble(1 + computedgreen
-                - (computedblue + computedred), 0, 1), clampDouble(1 + computedblue - (computedred + computedgreen), 0, 1), 1.0F);
-        return colour;
-    }
-
-    public static double clampDouble(double value, double min, double max) {
-        if (value < min)
-            return min;
-        if (value > max)
-            return max;
-        return value;
     }
 
     /**
@@ -133,6 +98,11 @@ public class ItemPowerGauntlet extends ItemElectricTool
             }
         }
         return false;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IconRegister iconRegister) {
+        itemIcon = iconRegister.registerIcon(iconpath);
     }
 
     /**
@@ -227,50 +197,12 @@ public class ItemPowerGauntlet extends ItemElectricTool
         return false;
     }
 
-    public static String formatInfo(String string, double value) {
-        return string + '\t' + MuseStringUtils.formatNumberShort(value);
-    }
-
-    @Override
-    public List<String> getLongInfo(EntityPlayer player, ItemStack stack) {
-        List<String> info = new ArrayList();
-        NBTTagCompound itemProperties = MuseItemUtils.getMuseItemTag(stack);
-        info.add("Detailed Summary");
-        info.add(formatInfo("Energy Storage", getMaxJoules(stack)) + 'J');
-        info.add(formatInfo("Weight", MuseCommonStrings.getTotalWeight(stack)) + 'g');
-        return info;
-    }
-
-    /**
-     * Adds information to the item's tooltip when 'getting' it.
-     *
-     * @param stack            The itemstack to get the tooltip for
-     * @param player           The player (client) viewing the tooltip
-     * @param currentTipList   A list of strings containing the existing tooltip. When
-     *                         passed, it will just contain the name of the item;
-     *                         enchantments and lore are
-     *                         appended afterwards.
-     * @param advancedToolTips Whether or not the player has 'advanced tooltips' turned on in
-     *                         their settings.
-     */
-    @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
-        MuseCommonStrings.addInformation(stack, player, currentTipList, advancedToolTips);
-    }
-
     /**
      * How long it takes to use or consume an item
      */
     @Override
     public int getMaxItemUseDuration(ItemStack par1ItemStack) {
         return 72000;
-    }
-
-    /**
-     * What happens when the duration runs out
-     */
-    public ItemStack onFoodEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-        return par1ItemStack;
     }
 
     /**
@@ -305,6 +237,11 @@ public class ItemPowerGauntlet extends ItemElectricTool
         if (module instanceof IRightClickModule) {
             ((IRightClickModule) module).onPlayerStoppedUsing(itemStack, world, player, par4);
         }
+    }
+
+    @Override
+    public boolean shouldPassSneakingClickToBlock(World world, int x, int y, int z) {
+        return true;
     }
 
     @Override
@@ -343,6 +280,8 @@ public class ItemPowerGauntlet extends ItemElectricTool
 
     }
 
+    // Railcraft
+    @Override
     public boolean canWhack(EntityPlayer player, ItemStack crowbar, int x, int y, int z) {
         if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof IModularItem) {
             return MuseItemUtils.itemHasActiveModule(player.getCurrentEquippedItem(), OmniWrenchModule.MODULE_OMNI_WRENCH);
@@ -350,10 +289,12 @@ public class ItemPowerGauntlet extends ItemElectricTool
         return false;
     }
 
+    @Override
     public void onWhack(EntityPlayer player, ItemStack crowbar, int x, int y, int z) {
         player.swingItem();
     }
 
+    @Override
     public boolean canLink(EntityPlayer player, ItemStack crowbar, EntityMinecart cart) {
         if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof IModularItem) {
             return MuseItemUtils.itemHasActiveModule(player.getCurrentEquippedItem(), OmniWrenchModule.MODULE_OMNI_WRENCH) && player.isSneaking();
@@ -361,10 +302,12 @@ public class ItemPowerGauntlet extends ItemElectricTool
         return false;
     }
 
+    @Override
     public void onLink(EntityPlayer player, ItemStack crowbar, EntityMinecart cart) {
         player.swingItem();
     }
 
+    @Override
     public boolean canBoost(EntityPlayer player, ItemStack crowbar, EntityMinecart cart) {
         if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof IModularItem) {
             return MuseItemUtils.itemHasActiveModule(player.getCurrentEquippedItem(), OmniWrenchModule.MODULE_OMNI_WRENCH) && player.isSneaking();
@@ -372,14 +315,13 @@ public class ItemPowerGauntlet extends ItemElectricTool
         return false;
     }
 
+    @Override
     public void onBoost(EntityPlayer player, ItemStack crowbar, EntityMinecart cart) {
         player.swingItem();
     }
 
-    public boolean shouldPassSneakingClickToBlock(World world, int x, int y, int z) {
-        return true;
-    }
 
+    // Forestry
     @Override
     public float getSaplingModifier(ItemStack stack, World world, EntityPlayer player, int x, int y, int z) {
         if (MuseItemUtils.itemHasActiveModule(stack, GrafterModule.MODULE_GRAFTER)) {

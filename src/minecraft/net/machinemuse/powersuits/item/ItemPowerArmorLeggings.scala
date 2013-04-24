@@ -9,16 +9,15 @@ import atomicscience.api.poison.Poison
 import net.machinemuse.utils.MuseRenderer
 
 class ItemPowerArmorLeggings(id: Int) extends ItemPowerArmor(id, 0, 2) {
-  var assignedItemID: Int = 0
   val iconpath = MuseRenderer.ICON_PREFIX + "armorlegs"
 
   setUnlocalizedName("powerArmorLeggings")
   LanguageRegistry.addName(this, "Power Armor Leggings")
 
+  def getArmorType: Poison.ArmorType = ArmorType.LEGGINGS
+
   @SideOnly(Side.CLIENT)
   override def registerIcons(iconRegister: IconRegister) {
     itemIcon = iconRegister.registerIcon(iconpath)
   }
-
-  def getArmorType: Poison.ArmorType = ArmorType.LEGGINGS
 }

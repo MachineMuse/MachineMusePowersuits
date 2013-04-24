@@ -25,7 +25,6 @@ import org.lwjgl.opengl.GL11;
 
 public class ToolModel extends ModelBase {
     public int boltSize;
-    protected Colour gemColour = Colour.WHITE;
 
     // fields
     ModelRenderer mainarm;
@@ -319,7 +318,7 @@ public class ToolModel extends ModelBase {
         child.rotateAngleZ -= parent.rotateAngleZ;
     }
 
-    public void render(Entity entity, float scale, boolean renderTypeIsFirstPerson, Colour c1) {
+    public void render(Entity entity, float scale, boolean renderTypeIsFirstPerson, Colour c1, Colour glow) {
         // super.render(entity, f, f1, f2, f3, f4, f5);
         int numsegments = 16;
         if (!tap) {
@@ -452,7 +451,7 @@ public class ToolModel extends ModelBase {
         supportleft4.render(scale);
         supportleft5.render(scale);
         MuseRenderer.glowOn();
-        getGemColour().doGL();
+        glow.doGL();
         crystal.render(scale);
         Colour.WHITE.doGL();
 
@@ -509,13 +508,5 @@ public class ToolModel extends ModelBase {
     public void setNeutralPose() {
         setPose(0.5f, -1, 0.5f, -1, 0.5f, -1);
         this.boltSize = 0;
-    }
-
-    public Colour getGemColour() {
-        return gemColour;
-    }
-
-    public void setGemColour(Colour gemColour) {
-        this.gemColour = gemColour;
     }
 }

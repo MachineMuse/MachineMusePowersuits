@@ -48,15 +48,17 @@ public class ToolRenderer extends Render implements IItemRenderer {
     @Override
     public void renderItem(ItemRenderType type, ItemStack itemStack, Object... data) {
         boolean drawIcon = false;
+        ItemPowerGauntlet item = (ItemPowerGauntlet) itemStack.getItem();
 
-        Colour colour = ItemPowerGauntlet.getColorFromItemStack(itemStack);
+        Colour colour = item.getColorFromItemStack(itemStack);
+        Colour glow = item.getColorFromItemStack(itemStack);
         switch (type) {
             case ENTITY:
                 RenderBlocks renderEntity = (RenderBlocks) data[0];
                 EntityItem entityEntity = (EntityItem) data[1];
                 model.setNeutralPose();
 
-                model.render(null, 1, false, colour);
+                model.render(null, 1, false, colour, glow);
                 break;
             case INVENTORY:
                 RenderBlocks renderInventory = (RenderBlocks) data[0];
@@ -72,7 +74,7 @@ public class ToolRenderer extends Render implements IItemRenderer {
                     model.setNeutralPose();
                 }
 
-                model.render(entityEquipped, 1, false, colour);
+                model.render(entityEquipped, 1, false, colour, glow);
                 break;
             case FIRST_PERSON_MAP:
                 EntityPlayer playerFirstPerson = (EntityPlayer) data[0];
@@ -80,7 +82,7 @@ public class ToolRenderer extends Render implements IItemRenderer {
                 MapData mapDataFirstPerson = (MapData) data[2];
                 model.setPoseForPlayer(playerFirstPerson, itemStack);
 
-                model.render(playerFirstPerson, 1, true, colour);
+                model.render(playerFirstPerson, 1, true, colour, glow);
                 break;
             default:
         }

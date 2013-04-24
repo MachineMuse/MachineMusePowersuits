@@ -2,23 +2,17 @@ package net.machinemuse.powersuits.item;
 
 import atomicscience.api.IAntiPoisonArmor;
 import atomicscience.api.poison.Poison;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import forestry.api.apiculture.IArmorApiarist;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.powersuits.client.render.ArmorBootsModel;
-import net.machinemuse.powersuits.client.render.ArmorModel;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.powermodule.misc.CosmeticGlowModule;
 import net.machinemuse.powersuits.powermodule.misc.HazmatModule;
 import net.machinemuse.powersuits.powermodule.misc.TintModule;
-import net.machinemuse.powersuits.powermodule.misc.TransparentArmorModule;
 import net.machinemuse.powersuits.powermodule.tool.ApiaristArmorModule;
-import net.machinemuse.utils.*;
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.entity.Entity;
+import net.machinemuse.utils.ElectricItemUtils;
+import net.machinemuse.utils.MuseCommonStrings;
+import net.machinemuse.utils.MuseHeatUtils;
+import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumArmorMaterial;
@@ -26,9 +20,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.
@@ -51,89 +42,6 @@ public abstract class ItemPowerArmor extends ItemElectricArmor
         super(id, EnumArmorMaterial.IRON, renderIndex, armorType);
         setMaxStackSize(1);
         setCreativeTab(Config.getCreativeTab());
-    }
-
-    @Override
-    public String getArmorTexture(ItemStack itemstack, Entity entity, int slot, int layer) {
-
-        // if (itemstack != null) {
-        // NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(itemstack);
-        // // MinecraftForgeClient.getRenderPass()? nope
-        // if (itemTag.hasKey("didColour")) {
-        //
-        // itemTag.removeTag("didColour");
-        return Config.BLANK_ARMOR_MODEL_PATH;
-        // } else {
-        // if (MuseItemUtils.itemHasActiveModule(itemstack,
-        // TransparentArmorModule.MODULE_TRANSPARENT_ARMOR)) {
-        // return Config.BLANK_ARMOR_MODEL_PATH;
-        // } else if (itemstack.getItem() instanceof ItemPowerArmorLeggings) {
-        // if (MuseItemUtils.itemHasModule(itemstack,
-        // CitizenJoeStyle.CITIZEN_JOE_STYLE)) {
-        // return Config.CITIZENJOE_ARMORPANTS_PATH;
-        // }
-        //
-        // return Config.SEBK_ARMORPANTS_PATH;
-        // } else {
-        // if (MuseItemUtils.itemHasModule(itemstack,
-        // CitizenJoeStyle.CITIZEN_JOE_STYLE)) {
-        // return Config.CITIZENJOE_ARMOR_PATH;
-        // }
-        // return Config.SEBK_ARMOR_PATH;
-        // }
-        // }
-        // }
-        // return Config.BLANK_ARMOR_MODEL_PATH;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public ModelBiped getArmorModel(EntityLiving entityLiving, ItemStack itemstack, int armorSlot) {
-        ArmorModel model;
-        if (armorSlot == 3) {
-            model = ArmorBootsModel.getInstance();
-        } else {
-            model = ArmorModel.getInstance();
-        }
-        model.bipedHead.showModel = armorSlot == 0;
-        model.bipedHeadwear.showModel = armorSlot == 0;
-        model.bipedBody.showModel = armorSlot == 1;
-        model.bipedRightArm.showModel = armorSlot == 1;
-        model.bipedLeftArm.showModel = armorSlot == 1;
-        model.bipedRightLeg.showModel = armorSlot == 2 || armorSlot == 3;
-        model.bipedLeftLeg.showModel = armorSlot == 2 || armorSlot == 3;
-        if (itemstack != null) {
-            if (MuseItemUtils.itemHasActiveModule(itemstack,
-                    TransparentArmorModule.MODULE_TRANSPARENT_ARMOR)) {
-                return null;
-            }
-            model.normalcolour = this.getColorFromItemStack(itemstack);
-            model.glowcolour = this.getGlowFromItemStack(itemstack);
-
-        }
-        return model;
-    }
-
-    public Colour getColorFromItemStack(ItemStack stack) {
-        if (!MuseItemUtils.itemHasActiveModule(stack, TintModule.MODULE_TINT)) {
-            return Colour.WHITE;
-        }
-        double computedred = ModuleManager.computeModularProperty(stack, TintModule.RED_TINT);
-        double computedgreen = ModuleManager.computeModularProperty(stack, TintModule.GREEN_TINT);
-        double computedblue = ModuleManager.computeModularProperty(stack, TintModule.BLUE_TINT);
-        Colour colour = new Colour(clampDouble(computedred, 0, 1), clampDouble(computedgreen, 0, 1), clampDouble(computedblue, 0, 1), 1.0F);
-        return colour;
-    }
-
-    private Colour getGlowFromItemStack(ItemStack stack) {
-        if (!MuseItemUtils.itemHasActiveModule(stack, CosmeticGlowModule.MODULE_GLOW)) {
-            return Colour.LIGHTBLUE;
-        }
-        double computedred = ModuleManager.computeModularProperty(stack, CosmeticGlowModule.RED_GLOW);
-        double computedgreen = ModuleManager.computeModularProperty(stack, CosmeticGlowModule.GREEN_GLOW);
-        double computedblue = ModuleManager.computeModularProperty(stack, CosmeticGlowModule.BLUE_GLOW);
-        Colour colour = new Colour(clampDouble(computedred, 0, 1), clampDouble(computedgreen, 0, 1), clampDouble(computedblue, 0, 1), 0.8);
-        return colour;
     }
 
     /**
@@ -174,37 +82,11 @@ public abstract class ItemPowerArmor extends ItemElectricArmor
         return new ArmorProperties(priority, absorbRatio, absorbMax);
     }
 
-    public static double clampDouble(double value, double min, double max) {
-        if (value < min)
-            return min;
-        if (value > max)
-            return max;
-        return value;
-    }
-
     @Override
     public int getItemEnchantability() {
         return 0;
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public int getColorFromItemStack(ItemStack stack, int par2) {
-        Colour c = getColorFromItemStack(stack);
-        return c.getInt();
-    }
-
-    @Override
-    public int getColor(ItemStack stack) {
-        Colour c = getColorFromItemStack(stack);
-        return c.getInt();
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public boolean requiresMultipleRenderPasses() {
-        return false;
-    }
 
     /**
      * Return whether the specified armor ItemStack has a color.
@@ -274,47 +156,19 @@ public abstract class ItemPowerArmor extends ItemElectricArmor
         }
     }
 
-    /**
-     * Adds information to the item's tooltip when 'getting' it.
-     *
-     * @param stack            The itemstack to get the tooltip for
-     * @param player           The player (client) viewing the tooltip
-     * @param currentTipList   A list of strings containing the existing tooltip. When
-     *                         passed, it will just contain the name of the item;
-     *                         enchantments and lore are
-     *                         appended afterwards.
-     * @param advancedToolTips Whether or not the player has 'advanced tooltips' turned on in
-     *                         their settings.
-     */
-    @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
-        MuseCommonStrings.addInformation(stack, player, currentTipList, advancedToolTips);
-    }
 
-    public static String formatInfo(String string, double value) {
-        return string + '\t' + MuseStringUtils.formatNumberShort(value);
-    }
-
-    @Override
-    public List<String> getLongInfo(EntityPlayer player, ItemStack stack) {
-        List<String> info = new ArrayList();
-        NBTTagCompound itemProperties = MuseItemUtils.getMuseItemTag(stack);
-        info.add("Detailed Summary");
-        info.add(formatInfo("Armor", getArmorDouble(player, stack)));
-        info.add(formatInfo("Energy Storage", getMaxJoules(stack)) + 'J');
-        info.add(formatInfo("Weight", MuseCommonStrings.getTotalWeight(stack)) + 'g');
-        return info;
-    }
-
+    // AtomicScience
     @Override
     public boolean isProtectedFromPoison(ItemStack itemStack, EntityLiving entityLiving, Poison type) {
         return MuseItemUtils.itemHasActiveModule(itemStack, HazmatModule.MODULE_HAZMAT);
     }
 
+    // AtomicScience
     @Override
     public void onProtectFromPoison(ItemStack itemStack, EntityLiving entityLiving, Poison type) {
     }
 
+    // Forestry
     @Override
     public boolean protectPlayer(EntityPlayer player, ItemStack armor, String cause, boolean doProtect) {
         if (MuseItemUtils.itemHasActiveModule(armor, ApiaristArmorModule.MODULE_APIARIST_ARMOR)) {
