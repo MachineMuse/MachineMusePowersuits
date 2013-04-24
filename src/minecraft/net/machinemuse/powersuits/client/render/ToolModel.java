@@ -25,6 +25,7 @@ import org.lwjgl.opengl.GL11;
 
 public class ToolModel extends ModelBase {
     public int boltSize;
+    protected Colour gemColour = Colour.WHITE;
 
     // fields
     ModelRenderer mainarm;
@@ -450,9 +451,10 @@ public class ToolModel extends ModelBase {
         supportleft3.render(scale);
         supportleft4.render(scale);
         supportleft5.render(scale);
-        Colour.WHITE.doGL();
         MuseRenderer.glowOn();
+        getGemColour().doGL();
         crystal.render(scale);
+        Colour.WHITE.doGL();
 
         if (boltSize != 0) {
             GL11.glTranslated(-1, 1, 16);
@@ -509,4 +511,11 @@ public class ToolModel extends ModelBase {
         this.boltSize = 0;
     }
 
+    public Colour getGemColour() {
+        return gemColour;
+    }
+
+    public void setGemColour(Colour gemColour) {
+        this.gemColour = gemColour;
+    }
 }
