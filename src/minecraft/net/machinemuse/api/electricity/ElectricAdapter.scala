@@ -6,7 +6,6 @@ import thermalexpansion.api.item.IChargeableItem
 import universalelectricity.core.item.IItemElectric
 import net.machinemuse.powersuits.common.ModCompatability
 
-
 object ElectricAdapter {
   implicit def wrap(stack: ItemStack): ElectricAdapter = {
     if (stack == null) return null
