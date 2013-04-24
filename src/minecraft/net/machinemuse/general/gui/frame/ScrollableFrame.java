@@ -4,7 +4,7 @@ import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.DrawableMuseRect;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.utils.MuseMathUtils;
-import net.minecraft.client.renderer.RenderHelper;
+import net.machinemuse.utils.MuseRenderer;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
@@ -51,8 +51,8 @@ public class ScrollableFrame implements IGuiFrame {
     @Override
     public void draw() {
         border.draw();
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
-        RenderHelper.disableStandardItemLighting();
+        MuseRenderer.texturelessOn();
+        MuseRenderer.glowOn();
         GL11.glBegin(GL11.GL_TRIANGLES);
         Colour.LIGHTBLUE.doGL();
         // Can scroll down
@@ -69,7 +69,8 @@ public class ScrollableFrame implements IGuiFrame {
         }
         Colour.WHITE.doGL();
         GL11.glEnd();
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        MuseRenderer.glowOff();
+        MuseRenderer.texturelessOff();
     }
 
     @Override

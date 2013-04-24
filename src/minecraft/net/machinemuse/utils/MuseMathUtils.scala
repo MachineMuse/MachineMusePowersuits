@@ -8,8 +8,8 @@ object MuseMathUtils {
   def nextDouble: Double = random.nextDouble
 
   def clampDouble(value: Double, min: Double, max: Double): Double = {
-    if (value < min) min
-    if (value > max) max
-    value
+    if (value < min) return min
+    if (value > max) return max
+    return value
   }
 }

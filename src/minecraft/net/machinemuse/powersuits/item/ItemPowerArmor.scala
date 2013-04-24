@@ -43,12 +43,9 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int) extends
     if (source.isFireDamage && !(source == MuseHeatUtils.overheatDamage)) {
       return new ISpecialArmor.ArmorProperties(priority, 0.25, (25 * damage).asInstanceOf[Int])
     }
-    var armorDouble: Double = .0
-    if (player.isInstanceOf[EntityPlayer]) {
-      armorDouble = getArmorDouble(player.asInstanceOf[EntityPlayer], armor)
-    }
-    else {
-      armorDouble = 2
+    val armorDouble = player match {
+      case player: EntityPlayer => getArmorDouble(player, armor)
+      case _ => 2.0
     }
     var absorbRatio: Double = 0.04 * armorDouble
     var absorbMax: Int = armorDouble.asInstanceOf[Int] * 75
