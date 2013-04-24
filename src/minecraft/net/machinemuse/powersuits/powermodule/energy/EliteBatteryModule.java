@@ -16,9 +16,9 @@ public class EliteBatteryModule extends PowerModuleBase {
     public EliteBatteryModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
-        addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 750000, "J");
+        addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY(), 750000, "J");
         addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g");
-        addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 4250000);
+        addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY(), 4250000);
         addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000);
         addBaseProperty(IC2PowerConversions.IC2_TIER(), 1);
         addTradeoffProperty("IC2 Tier", IC2PowerConversions.IC2_TIER(), 2);
