@@ -19,8 +19,8 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
 
     public LuxCapacitor(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(new ItemStack(Item.lightStoneDust, 0, 1));
-        addInstallCost(new ItemStack(Item.ingotIron, 0, 1));
+        addInstallCost(new ItemStack(Item.lightStoneDust, 1));
+        addInstallCost(new ItemStack(Item.ingotIron, 2));
         addBaseProperty(ENERGY, 100, "J");
     }
 

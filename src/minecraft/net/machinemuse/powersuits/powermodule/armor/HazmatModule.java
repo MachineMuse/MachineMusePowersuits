@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.powermodule.misc;
+package net.machinemuse.powersuits.powermodule.armor;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.powersuits.common.Config;

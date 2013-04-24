@@ -6,8 +6,7 @@ import forestry.api.apiculture.IArmorApiarist
 import net.machinemuse.api.IModularItem
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.powersuits.common.Config
-import net.machinemuse.powersuits.powermodule.misc.{TransparentArmorModule, HazmatModule, TintModule}
-import net.machinemuse.powersuits.powermodule.tool.ApiaristArmorModule
+import net.machinemuse.powersuits.powermodule.misc.{TransparentArmorModule, TintModule}
 import net.machinemuse.utils.ElectricItemUtils
 import net.machinemuse.utils.MuseCommonStrings
 import net.machinemuse.utils.MuseHeatUtils
@@ -24,6 +23,7 @@ import net.machinemuse.general.geometry.Colour
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.client.model.ModelBiped
 import net.machinemuse.powersuits.client.render.{ArmorModel, ArmorBootsModel}
+import net.machinemuse.powersuits.powermodule.armor.{HazmatModule, ApiaristArmorModule}
 
 /**
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.
