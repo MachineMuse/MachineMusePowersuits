@@ -20,9 +20,10 @@ public class KeybindKeyHandler extends KeyHandler {
     public static KeyBinding goDownKey = new KeyBinding("Go Down (Flight Control)", Keyboard.KEY_Z);
     public static KeyBinding cycleToolBackward = new KeyBinding("Cycle Tool Backward", -1);
     public static KeyBinding cycleToolForward = new KeyBinding("Cycle Tool Forward", -1);
+    public static KeyBinding zoom = new KeyBinding("Zoom (MPS)", Keyboard.KEY_Y);
 
     public KeybindKeyHandler() {
-        super(new KeyBinding[]{openKeybindGUI, goDownKey, cycleToolBackward, cycleToolForward}, new boolean[]{false, false, false, false});
+        super(new KeyBinding[]{openKeybindGUI, goDownKey, cycleToolBackward, cycleToolForward, zoom}, new boolean[]{false, false, false, false, false});
     }
 
     @Override
@@ -59,6 +60,7 @@ public class KeybindKeyHandler extends KeyHandler {
 
     @Override
     public void keyUp(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd) {
+        EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
         if (Minecraft.getMinecraft().thePlayer != null && kb.equals(goDownKey)) {
             PlayerInputMap.getInputMapFor(Minecraft.getMinecraft().thePlayer.username).downKey = false;
         }

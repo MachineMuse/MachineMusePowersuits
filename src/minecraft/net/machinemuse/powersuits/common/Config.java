@@ -224,8 +224,11 @@ public class Config {
         addModule(new ShockAbsorberModule(FEETONLY));
         addModule(new WaterElectrolyzerModule(HEADONLY));
 
-        // Special
+        // Vision
+        addModule(new BinocularsModule(HEADONLY));
         addModule(new NightVisionModule(HEADONLY));
+
+        // Special
         addModule(new FlightControlModule(HEADONLY));
         addModule(new InvisibilityModule(TORSOONLY));
         addModule(new BlinkDriveModule(TOOLONLY));

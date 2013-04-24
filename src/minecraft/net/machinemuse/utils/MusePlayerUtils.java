@@ -16,6 +16,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 public class MusePlayerUtils {
@@ -322,5 +323,29 @@ public class MusePlayerUtils {
         } else {
             return 0.1;
         }
+    }
+
+    public static void setFOVMult(EntityPlayer player, float fovmult) {
+        Field movementfactor = getMovementFactorField();
+        try {
+            movementfactor.set(player, fovmult);
+        } catch (IllegalAccessException e) {
+            MuseLogger.logDebug("illegalAccessException");
+        }
+    }
+
+
+    protected static Field movementfactorfieldinstance;
+
+    public static Field getMovementFactorField() {
+        if (movementfactorfieldinstance == null) {
+            try {
+                movementfactorfieldinstance = EntityPlayer.class.getDeclaredField("speedOnGround");
+                movementfactorfieldinstance.setAccessible(true);
+            } catch (NoSuchFieldException e) {
+                MuseLogger.logDebug("Getting failed");
+            }
+        }
+        return movementfactorfieldinstance;
     }
 }
