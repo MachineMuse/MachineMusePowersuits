@@ -95,8 +95,8 @@ public class ThaumRenderEventHandler {
             if (c_guiTicker == null) {
                 c_guiTicker = Class.forName("thaumcraft.client.lib.GUITicker");
             }
-            if (m_renderGogglesHUD_eventHandler == null) {
-                m_renderGogglesHUD_eventHandler = c_guiTicker.getMethod("renderGogglesHUD", Float.class, EntityPlayer.class, Long.class);
+            if (m_renderGogglesHUD_guiTicker == null) {
+                m_renderGogglesHUD_guiTicker = c_guiTicker.getMethod("renderGogglesHUD", Float.class, EntityPlayer.class, Long.class);
                 o_guiTicker = c_guiTicker.newInstance();
             }
         } catch (Exception e) {
