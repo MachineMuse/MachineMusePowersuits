@@ -2,9 +2,9 @@ package net.machinemuse.powersuits.powermodule.tool;
 
 import cofh.api.tileentity.IReconfigurableFacing;
 import cpw.mods.fml.client.FMLClientHandler;
-import ic2.api.IWrenchable;
 import ic2.api.energy.tile.IEnergySink;
 import ic2.api.energy.tile.IEnergySource;
+import ic2.api.tile.IWrenchable;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.item.ItemComponent;

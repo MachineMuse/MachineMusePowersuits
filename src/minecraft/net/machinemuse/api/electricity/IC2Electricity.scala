@@ -1,10 +1,10 @@
 package net.machinemuse.api.electricity
 
-import ic2.api.{ICustomElectricItem, ElectricItem, IElectricItem}
 import net.minecraft.item.ItemStack
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.powersuits.common.ModCompatability
 import IC2PowerConversions._
+import ic2.api.item.{ICustomElectricItem, IElectricItem, ElectricItem}
 
 class IC2ElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
   val item = stack.getItem.asInstanceOf[IElectricItem]
@@ -30,9 +30,7 @@ class IC2ElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
     return museEnergyFromEU(givenEU)
   }
 
-  def getTier: Int = {
-    return IC2PowerConversions.getTier(stack)
-  }
+  def getTier = item.getTier(stack)
 }
 
 trait IC2ElectricItem extends ICustomElectricItem with MuseElectricItem {
@@ -44,7 +42,7 @@ trait IC2ElectricItem extends ICustomElectricItem with MuseElectricItem {
 
   def getMaxCharge(itemStack: ItemStack): Int = museEnergyToEU(getCurrentEnergy(itemStack)).asInstanceOf[Int]
 
-  def getTier(itemStack: ItemStack): Int = getTier(itemStack)
+  def getTier(itemStack: ItemStack): Int = IC2PowerConversions.getTier(itemStack)
 
   def getTransferLimit(itemStack: ItemStack): Int = museEnergyToEU(Math.sqrt(getMaxEnergy(itemStack))).asInstanceOf[Int]
 

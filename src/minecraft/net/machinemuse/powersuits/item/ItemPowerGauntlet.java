@@ -245,8 +245,8 @@ public class ItemPowerGauntlet extends ItemElectricTool
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY,
-                                  float hitZ) {
+    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world,
+                                  int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         String mode = MuseItemUtils.getActiveMode(itemStack);
         IPowerModule module = ModuleManager.getModule(mode);
         if (module instanceof IRightClickModule) {
@@ -283,10 +283,7 @@ public class ItemPowerGauntlet extends ItemElectricTool
     // Railcraft
     @Override
     public boolean canWhack(EntityPlayer player, ItemStack crowbar, int x, int y, int z) {
-        if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof IModularItem) {
-            return MuseItemUtils.itemHasActiveModule(player.getCurrentEquippedItem(), OmniWrenchModule.MODULE_OMNI_WRENCH);
-        }
-        return false;
+        return MuseItemUtils.itemHasActiveModule(crowbar, OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
 
     @Override
@@ -296,10 +293,7 @@ public class ItemPowerGauntlet extends ItemElectricTool
 
     @Override
     public boolean canLink(EntityPlayer player, ItemStack crowbar, EntityMinecart cart) {
-        if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof IModularItem) {
-            return MuseItemUtils.itemHasActiveModule(player.getCurrentEquippedItem(), OmniWrenchModule.MODULE_OMNI_WRENCH) && player.isSneaking();
-        }
-        return false;
+        return MuseItemUtils.itemHasActiveModule(crowbar, OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
 
     @Override
@@ -309,10 +303,7 @@ public class ItemPowerGauntlet extends ItemElectricTool
 
     @Override
     public boolean canBoost(EntityPlayer player, ItemStack crowbar, EntityMinecart cart) {
-        if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof IModularItem) {
-            return MuseItemUtils.itemHasActiveModule(player.getCurrentEquippedItem(), OmniWrenchModule.MODULE_OMNI_WRENCH) && player.isSneaking();
-        }
-        return false;
+        return MuseItemUtils.itemHasActiveModule(crowbar, OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
 
     @Override

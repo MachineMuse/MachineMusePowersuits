@@ -1,10 +1,10 @@
 package net.machinemuse.api.electricity
 
-import ic2.api.IElectricItem
 import net.minecraft.item.ItemStack
 import thermalexpansion.api.item.IChargeableItem
 import universalelectricity.core.item.IItemElectric
 import net.machinemuse.powersuits.common.ModCompatability
+import ic2.api.item.IElectricItem
 
 object ElectricAdapter {
   implicit def wrap(stack: ItemStack): ElectricAdapter = {
