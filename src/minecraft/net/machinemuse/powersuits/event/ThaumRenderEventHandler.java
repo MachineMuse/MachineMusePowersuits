@@ -81,13 +81,13 @@ public class ThaumRenderEventHandler {
                 o_eventHandler = c_eventHandler.newInstance();
             }
             if (m_drawTagOnJar == null) {
-                m_drawTagOnJar = c_eventHandler.getDeclaredMethod("drawTagOnJar", Double.class, Double.class, Double.class, ObjectTags.class, Integer.class, ForgeDirection.class, Float.class);
+                m_drawTagOnJar = c_eventHandler.getDeclaredMethod("drawTagOnJar", Double.TYPE, Double.TYPE, Double.TYPE, ObjectTags.class, Integer.TYPE, ForgeDirection.class, Float.TYPE);
             }
             if (m_renderAuraNodes == null) {
-                m_renderAuraNodes = c_eventHandler.getDeclaredMethod("renderAuraNodes", RenderWorldLastEvent.class, Float.class, EntityPlayer.class, Long.class);
+                m_renderAuraNodes = c_eventHandler.getDeclaredMethod("renderAuraNodes", RenderWorldLastEvent.class, Float.TYPE, EntityPlayer.class, Long.TYPE);
             }
             if (m_renderGogglesHUD_eventHandler == null) {
-                m_renderGogglesHUD_eventHandler = c_eventHandler.getDeclaredMethod("renderGogglesHUD", RenderWorldLastEvent.class, Float.class, EntityPlayer.class, Long.class);
+                m_renderGogglesHUD_eventHandler = c_eventHandler.getDeclaredMethod("renderGogglesHUD", RenderWorldLastEvent.class, Float.TYPE, EntityPlayer.class, Long.TYPE);
             }
             if (f_tagscale == null) {
                 f_tagscale = c_eventHandler.getField("tagscale");
@@ -96,7 +96,7 @@ public class ThaumRenderEventHandler {
                 c_guiTicker = Class.forName("thaumcraft.client.lib.GUITicker");
             }
             if (m_renderGogglesHUD_guiTicker == null) {
-                m_renderGogglesHUD_guiTicker = c_guiTicker.getDeclaredMethod("renderGogglesHUD", Float.class, EntityPlayer.class, Long.class);
+                m_renderGogglesHUD_guiTicker = c_guiTicker.getDeclaredMethod("renderGogglesHUD", Float.TYPE, EntityPlayer.class, Long.TYPE);
                 o_guiTicker = c_guiTicker.newInstance();
             }
         } catch (Exception e) {
