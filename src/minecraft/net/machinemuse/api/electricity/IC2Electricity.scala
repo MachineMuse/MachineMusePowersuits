@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.powersuits.common.ModCompatability
 import IC2PowerConversions._
-import ic2.api.item.{ICustomElectricItem, IElectricItem, ElectricItem}
+import ic2.api.{ICustomElectricItem, ElectricItem, IElectricItem}
 
 class IC2ElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
   val item = stack.getItem.asInstanceOf[IElectricItem]
