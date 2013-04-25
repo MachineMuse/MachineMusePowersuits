@@ -1,7 +1,7 @@
 package net.machinemuse.general.recipe;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import ic2.api.Ic2Recipes;
+import ic2.api.recipe.Recipes;
 import net.machinemuse.general.MuseLogger;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.common.ModularPowersuits;
@@ -212,13 +212,13 @@ public class RecipeManager {
 
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.parachute, true, "WWW", "S S", 'W', wool, 'S', string));
 
-            Ic2Recipes.addCraftingRecipe(ItemComponent.lvcapacitor, "WBW", 'W', ItemComponent.wiring.copy(), 'B', reBattery);
+            Recipes.advRecipes.addRecipe(ItemComponent.lvcapacitor, "WBW", 'W', ItemComponent.wiring.copy(), 'B', reBattery);
 
-            Ic2Recipes.addCraftingRecipe(ItemComponent.lvcapacitor, "WBW", 'W', ItemComponent.wiring.copy(), 'B', fullBattery);
+            Recipes.advRecipes.addRecipe(ItemComponent.lvcapacitor, "WBW", 'W', ItemComponent.wiring.copy(), 'B', fullBattery);
 
-            Ic2Recipes.addCraftingRecipe(ItemComponent.mvcapacitor, "WBW", 'W', ItemComponent.wiring.copy(), 'B', energyCrystal);
+            Recipes.advRecipes.addRecipe(ItemComponent.mvcapacitor, "WBW", 'W', ItemComponent.wiring.copy(), 'B', energyCrystal);
 
-            Ic2Recipes.addCraftingRecipe(ItemComponent.hvcapacitor, "WBW", 'W', ItemComponent.wiring.copy(), 'B', lapotronCrystal);
+            Recipes.advRecipes.addRecipe(ItemComponent.hvcapacitor, "WBW", 'W', ItemComponent.wiring.copy(), 'B', lapotronCrystal);
 
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solenoid, true, " W ", "WIW", " W ", 'W', ItemComponent.wiring, 'I', machine));
 

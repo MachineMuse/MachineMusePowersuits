@@ -9,7 +9,7 @@
     <property name="mcp.version" value="742"/>
     <property name="forgebuild" value="661"/>
     <property name="forge.version" value="1.5.1-7.7.1.${forgebuild}"/>
-    <property name="ic2api.version" value="1.115.289-lf"/>
+    <property name="ic2api.version" value="1.115.304-lf"/>
     <property name="ueapi.version" value="1.3.1.56"/>
     <property name="asapi.version" value="0.5.1.3"/>
     <property name="icbmapi.version" value="1.1.1.26"/>
@@ -126,16 +126,18 @@
     <!-- Dependencies -->
     <target name="extract-apis" depends="setup-forge,download-apis">
         <echo message="Extracting IC2 API... "/>
-        <delete dir="${mcpsrc.dir}/ic2/api"/>
         <unzip src="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" dest="${download.dir}"/>
         <mkdir dir="${mcpsrc.dir}/ic2/api/energy/tile"/>
-        <move file="${download.dir}/ic2/api/Ic2Recipes.java" todir="${mcpsrc.dir}/ic2/api/"/>
-        <move file="${download.dir}/ic2/api/ICustomElectricItem.java" todir="${mcpsrc.dir}/ic2/api/"/>
-        <move file="${download.dir}/ic2/api/IElectricItem.java" todir="${mcpsrc.dir}/ic2/api/"/>
-        <move file="${download.dir}/ic2/api/ElectricItem.java" todir="${mcpsrc.dir}/ic2/api/"/>
-        <move file="${download.dir}/ic2/api/Items.java" todir="${mcpsrc.dir}/ic2/api/"/>
+        <move todir="${mcpsrc.dir}/ic2/api/">
+            <fileset dir="${download.dir}/ic2/api/recipe"/>
+        </move>
+
+        <move file="${download.dir}/ic2/api/item/ICustomElectricItem.java" todir="${mcpsrc.dir}/ic2/api/"/>
+        <move file="${download.dir}/ic2/api/item/IElectricItem.java" todir="${mcpsrc.dir}/ic2/api/"/>
+        <move file="${download.dir}/ic2/api/item/ElectricItem.java" todir="${mcpsrc.dir}/ic2/api/"/>
+        <move file="${download.dir}/ic2/api/item/Items.java" todir="${mcpsrc.dir}/ic2/api/"/>
         <move file="${download.dir}/ic2/api/Direction.java" todir="${mcpsrc.dir}/ic2/api/"/>
-        <move file="${download.dir}/ic2/api/IWrenchable.java" todir="${mcpsrc.dir}/ic2/api/"/>
+        <move file="${download.dir}/ic2/api/tile/IWrenchable.java" todir="${mcpsrc.dir}/ic2/api/"/>
         <move todir="${mcpsrc.dir}/ic2/api/energy/tile/">
             <fileset dir="${download.dir}/ic2/api/energy/tile/"/>
         </move>
