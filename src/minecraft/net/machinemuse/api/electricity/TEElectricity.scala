@@ -8,25 +8,14 @@ import TEPowerConversions._
 class TEElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
   val item = stack.getItem.asInstanceOf[IChargeableItem]
 
-  def getCurrentEnergy: Double = {
-    return museEnergyFromMJ(item.getEnergyStored(stack))
-  }
+  def getCurrentEnergy: Double = museEnergyFromMJ(item.getEnergyStored(stack))
 
-  def getMaxEnergy: Double = {
-    return museEnergyFromMJ(item.getMaxEnergyStored(stack))
-  }
+  def getMaxEnergy: Double = museEnergyFromMJ(item.getMaxEnergyStored(stack))
 
-  def drainEnergy(requested: Double): Double = {
-    val requestedMJ: Float = museEnergyToMJ(requested).asInstanceOf[Float]
-    val receivedMJ: Float = item.transferEnergy(stack, requestedMJ, true)
-    return museEnergyFromMJ(receivedMJ)
-  }
+  def drainEnergy(requested: Double): Double = museEnergyFromMJ(item.transferEnergy(stack, museEnergyToMJ(requested).toFloat, true))
 
-  def giveEnergy(provided: Double): Double = {
-    val providedMJ: Float = museEnergyToMJ(provided).asInstanceOf[Float]
-    val takenMJ: Float = item.receiveEnergy(stack, providedMJ, true)
-    return museEnergyFromMJ(takenMJ)
-  }
+  def giveEnergy(provided: Double): Double = museEnergyFromMJ(item.receiveEnergy(stack, museEnergyToMJ(provided).toFloat, true))
+
 }
 
 trait TEElectricItem extends IChargeableItem with MuseElectricItem {

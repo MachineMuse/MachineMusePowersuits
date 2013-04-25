@@ -9,26 +9,13 @@ import ic2.api.item.{ICustomElectricItem, IElectricItem, ElectricItem}
 class IC2ElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
   val item = stack.getItem.asInstanceOf[IElectricItem]
 
+  def getCurrentEnergy: Double = museEnergyFromEU(ElectricItem.discharge(stack, Integer.MAX_VALUE, getTier, true, true))
 
-  def getCurrentEnergy: Double = {
-    return museEnergyFromEU(ElectricItem.discharge(stack, Integer.MAX_VALUE, getTier, true, true))
-  }
+  def getMaxEnergy: Double = museEnergyFromEU(item.getMaxCharge(stack))
 
-  def getMaxEnergy: Double = {
-    return museEnergyFromEU(item.getMaxCharge(stack))
-  }
+  def drainEnergy(requested: Double) = museEnergyFromEU(ElectricItem.discharge(stack, museEnergyToEU(requested).toInt, getTier, true, false))
 
-  def drainEnergy(requested: Double): Double = {
-    val requestedEU: Double = museEnergyToEU(requested)
-    val drainedEU: Double = ElectricItem.discharge(stack, requestedEU.asInstanceOf[Int], getTier, true, false)
-    return museEnergyFromEU(drainedEU)
-  }
-
-  def giveEnergy(provided: Double): Double = {
-    val providedEU: Double = museEnergyToEU(provided)
-    val givenEU: Double = ElectricItem.charge(stack, providedEU.asInstanceOf[Int], getTier, true, false)
-    return museEnergyFromEU(givenEU)
-  }
+  def giveEnergy(provided: Double): Double = museEnergyFromEU(ElectricItem.charge(stack, museEnergyToEU(provided).toInt, getTier, true, false))
 
   def getTier = item.getTier(stack)
 }
