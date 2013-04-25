@@ -10,6 +10,7 @@ import net.machinemuse.general.gui.EnergyMeter;
 import net.machinemuse.general.gui.HeatMeter;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.event.ThaumRenderEventHandler;
 import net.machinemuse.utils.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -149,6 +150,7 @@ public class RenderTickHandler implements ITickHandler {
                 }
 
             }
+            ThaumRenderEventHandler.renderGogglesHUD(((Float)tickData[0]), player, mc.theWorld.getWorldTime());
         }
 
     }
