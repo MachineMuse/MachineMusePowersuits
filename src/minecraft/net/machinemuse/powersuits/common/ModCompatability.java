@@ -10,6 +10,7 @@ import net.machinemuse.powersuits.powermodule.armor.HazmatModule;
 import net.machinemuse.powersuits.powermodule.misc.AirtightSealModule;
 import net.machinemuse.powersuits.powermodule.misc.ThaumGogglesModule;
 import net.machinemuse.powersuits.powermodule.tool.GrafterModule;
+import net.machinemuse.powersuits.powermodule.tool.MFFSFieldTeleporterModule;
 import net.machinemuse.powersuits.powermodule.tool.MultimeterModule;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
@@ -49,6 +50,10 @@ public class ModCompatability {
 
     public static boolean isForestryLoaded() {
         return Loader.isModLoaded("Forestry");
+    }
+
+    public static boolean isMFFS2Loaded() {
+        return Loader.isModLoaded("ModularForceFieldSystem");
     }
 
     public static boolean enableThaumGogglesModule() {
@@ -163,6 +168,11 @@ public class ModCompatability {
         if (isForestryLoaded()) {
             ModuleManager.addModule(new GrafterModule(Collections.singletonList((IModularItem) ModularPowersuits.powerTool)));
             ModuleManager.addModule(new ApiaristArmorModule(Arrays.<IModularItem>asList(ModularPowersuits.powerArmorHead, ModularPowersuits.powerArmorTorso, ModularPowersuits.powerArmorLegs, ModularPowersuits.powerArmorFeet)));
+        }
+
+        // MFFS2
+        if (isMFFS2Loaded()) {
+            ModuleManager.addModule(new MFFSFieldTeleporterModule(Collections.singletonList((IModularItem) ModularPowersuits.powerTool)));
         }
     }
 

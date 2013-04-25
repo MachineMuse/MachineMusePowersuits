@@ -1,10 +1,12 @@
 package net.machinemuse.powersuits.item;
 
 import buildcraft.api.tools.IToolWrench;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import forestry.api.arboriculture.IToolGrafter;
+import mods.mffs.api.IFieldTeleporter;
 import mods.railcraft.api.core.items.IToolCrowbar;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
@@ -14,6 +16,7 @@ import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.tool.GrafterModule;
+import net.machinemuse.powersuits.powermodule.tool.MFFSFieldTeleporterModule;
 import net.machinemuse.powersuits.powermodule.tool.OmniWrenchModule;
 import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule;
 import net.machinemuse.utils.ElectricItemUtils;
@@ -45,7 +48,8 @@ public class ItemPowerGauntlet extends ItemElectricTool
         IToolCrowbar,
         IToolGrafter,
         IToolConfigurator,
-        IToolHammer {
+        IToolHammer,
+        IFieldTeleporter {
     public static int assignedItemID;
     String iconpath = MuseIcon.ICON_PREFIX + "handitem";
 
@@ -312,7 +316,7 @@ public class ItemPowerGauntlet extends ItemElectricTool
     }
 
 
-    // Forestry
+    // Grafter Module
     @Override
     public float getSaplingModifier(ItemStack stack, World world, EntityPlayer player, int x, int y, int z) {
         if (MuseItemUtils.itemHasActiveModule(stack, GrafterModule.MODULE_GRAFTER)) {
@@ -320,5 +324,29 @@ public class ItemPowerGauntlet extends ItemElectricTool
             return 100F;
         }
         return 0F;
+    }
+
+    /*
+    *
+    * MFFS Field Teleporter Module
+    *
+    */
+    public boolean canFieldTeleport(EntityPlayer player, ItemStack stack, int teleportCost) {
+        if (MuseItemUtils.itemHasModule(stack, MFFSFieldTeleporterModule.MODULE_FIELD_TELEPORTER)) {
+            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, MFFSFieldTeleporterModule.FIELD_TELEPORTER_ENERGY_CONSUMPTION)) {
+                return true;
+            }
+            else if (FMLCommonHandler.instance().getEffectiveSide().isServer()) {
+                player.sendChatToPlayer("[MFFS2] Could not teleport through forcefield. 10,000J is required to teleport.");
+            }
+        }
+        return false;
+    }
+
+    public void onFieldTeleportSuccess(EntityPlayer player, ItemStack stack, int teleportCost) {
+        ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, MFFSFieldTeleporterModule.FIELD_TELEPORTER_ENERGY_CONSUMPTION));
+    }
+
+    public void onFieldTeleportFailed(EntityPlayer player, ItemStack stack, int teleportCost) {
     }
 }
