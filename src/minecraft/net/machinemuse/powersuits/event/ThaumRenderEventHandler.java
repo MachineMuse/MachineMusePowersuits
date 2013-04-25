@@ -92,14 +92,15 @@ public class ThaumRenderEventHandler {
             if (f_tagscale == null) {
                 f_tagscale = c_eventHandler.getField("tagscale");
             }
-            if(c_guiTicker == null) {
+            if (c_guiTicker == null) {
                 c_guiTicker = Class.forName("thaumcraft.client.lib.GUITicker");
             }
-            if(m_renderGogglesHUD_eventHandler == null) {
+            if (m_renderGogglesHUD_eventHandler == null) {
                 m_renderGogglesHUD_eventHandler = c_guiTicker.getMethod("renderGogglesHUD", Float.class, EntityPlayer.class, Long.class);
                 o_guiTicker = c_guiTicker.newInstance();
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -126,6 +127,7 @@ public class ThaumRenderEventHandler {
         } catch (Exception e) {
         }
     }
+
     public static void renderAuraNodes(RenderWorldLastEvent event, float partialTicks, EntityPlayer player, long time) {
         populateReflections();
         GL11.glPushMatrix();
