@@ -128,7 +128,7 @@
         <echo message="Extracting IC2 API... "/>
         <unzip src="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" dest="${download.dir}"/>
         <mkdir dir="${mcpsrc.dir}/ic2/api/energy/tile"/>
-        <move file="${download.dir}/ic2/api/recipe/Ic2Recipes.java" todir="${mcpsrc.dir}/ic2/api/"/>
+        <move file="${download.dir}/ic2/api/recipe/*" todir="${mcpsrc.dir}/ic2/api/"/>
         <move file="${download.dir}/ic2/api/item/ICustomElectricItem.java" todir="${mcpsrc.dir}/ic2/api/"/>
         <move file="${download.dir}/ic2/api/item/IElectricItem.java" todir="${mcpsrc.dir}/ic2/api/"/>
         <move file="${download.dir}/ic2/api/item/ElectricItem.java" todir="${mcpsrc.dir}/ic2/api/"/>
