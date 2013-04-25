@@ -2,6 +2,8 @@ package net.machinemuse.powersuits.powermodule.tool;
 
 import cofh.api.tileentity.IReconfigurableFacing;
 import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 import ic2.api.energy.tile.IEnergySink;
 import ic2.api.energy.tile.IEnergySource;
 import ic2.api.tile.IWrenchable;
@@ -74,18 +76,18 @@ public class OmniWrenchModule extends PowerModuleBase implements IRightClickModu
         if (MuseBlockUtils.canRotate(bId)) {
             if (player.isSneaking()) {
                 world.setBlockMetadataWithNotify(x, y, z, MuseBlockUtils.rotateVanillaBlockAlt(world, bId, bMeta, x, y, z), 3);
-                if (!world.isRemote) {
+                if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
                     String soundName = Block.blocksList[bId].stepSound.getPlaceSound();
                     FMLClientHandler.instance().getClient().sndManager.playSoundFX(soundName, 1.0F, 0.6F);
                 }
             } else {
                 world.setBlockMetadataWithNotify(x, y, z, MuseBlockUtils.rotateVanillaBlock(world, bId, bMeta, x, y, z), 3);
-                if (!world.isRemote) {
+                if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
                     String soundName = Block.blocksList[bId].stepSound.getPlaceSound();
                     FMLClientHandler.instance().getClient().sndManager.playSoundFX(soundName, 1.0F, 0.8F);
                 }
             }
-            return !world.isRemote;
+            return true;
         }
         if (Block.blocksList[bId].rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side))) {
             return !world.isRemote;
