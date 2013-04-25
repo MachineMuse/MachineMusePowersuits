@@ -128,13 +128,13 @@
         <echo message="Extracting IC2 API... "/>
         <unzip src="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" dest="${download.dir}"/>
         <mkdir dir="${mcpsrc.dir}/ic2/api/energy/tile"/>
-        <move file="${download.dir}/ic2/api/Ic2Recipes.java" todir="${mcpsrc.dir}/ic2/api/"/>
-        <move file="${download.dir}/ic2/api/ICustomElectricItem.java" todir="${mcpsrc.dir}/ic2/api/"/>
-        <move file="${download.dir}/ic2/api/IElectricItem.java" todir="${mcpsrc.dir}/ic2/api/"/>
-        <move file="${download.dir}/ic2/api/ElectricItem.java" todir="${mcpsrc.dir}/ic2/api/"/>
-        <move file="${download.dir}/ic2/api/Items.java" todir="${mcpsrc.dir}/ic2/api/"/>
+        <move file="${download.dir}/ic2/api/recipe/Ic2Recipes.java" todir="${mcpsrc.dir}/ic2/api/"/>
+        <move file="${download.dir}/ic2/api/item/ICustomElectricItem.java" todir="${mcpsrc.dir}/ic2/api/"/>
+        <move file="${download.dir}/ic2/api/item/IElectricItem.java" todir="${mcpsrc.dir}/ic2/api/"/>
+        <move file="${download.dir}/ic2/api/item/ElectricItem.java" todir="${mcpsrc.dir}/ic2/api/"/>
+        <move file="${download.dir}/ic2/api/item/Items.java" todir="${mcpsrc.dir}/ic2/api/"/>
         <move file="${download.dir}/ic2/api/Direction.java" todir="${mcpsrc.dir}/ic2/api/"/>
-        <move file="${download.dir}/ic2/api/IWrenchable.java" todir="${mcpsrc.dir}/ic2/api/"/>
+        <move file="${download.dir}/ic2/api/tile/IWrenchable.java" todir="${mcpsrc.dir}/ic2/api/"/>
         <move todir="${mcpsrc.dir}/ic2/api/energy/tile/">
             <fileset dir="${download.dir}/ic2/api/energy/tile/"/>
         </move>
