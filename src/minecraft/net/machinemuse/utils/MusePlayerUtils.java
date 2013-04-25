@@ -343,7 +343,17 @@ public class MusePlayerUtils {
                 movementfactorfieldinstance = EntityPlayer.class.getDeclaredField("speedOnGround");
                 movementfactorfieldinstance.setAccessible(true);
             } catch (NoSuchFieldException e) {
-                MuseLogger.logDebug("Getting failed");
+                try {
+                    movementfactorfieldinstance = EntityPlayer.class.getDeclaredField("field_71108_cd");
+                    movementfactorfieldinstance.setAccessible(true);
+                } catch (NoSuchFieldException e1) {
+                    try {
+                        movementfactorfieldinstance = EntityPlayer.class.getDeclaredField("ci");
+                        movementfactorfieldinstance.setAccessible(true);
+                    } catch (NoSuchFieldException e2) {
+                        MuseLogger.logDebug("Getting failed");
+                    }
+                }
             }
         }
         return movementfactorfieldinstance;
