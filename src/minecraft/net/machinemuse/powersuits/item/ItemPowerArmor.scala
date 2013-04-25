@@ -93,7 +93,7 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int) extends
   }
 
   /**
-   * Return whether the specified armor ItemStack has a color.
+   * Return whether the specified armor IC2ItemTest has a color.
    */
   override def hasColor(stack: ItemStack): Boolean = {
     val itemTag: NBTTagCompound = MuseItemUtils.getMuseItemTag(stack)

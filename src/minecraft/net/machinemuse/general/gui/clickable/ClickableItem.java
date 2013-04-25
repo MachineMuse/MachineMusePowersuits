@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import java.util.List;
 
 /**
- * Extends the Clickable class to add a clickable ItemStack - note that this
+ * Extends the Clickable class to add a clickable IC2ItemTest - note that this
  * will be a button that looks like the item, not a container slot.
  *
  * @author MachineMuse

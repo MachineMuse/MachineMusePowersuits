@@ -13,7 +13,7 @@ trait MuseElectricItem {
    * Call to get the energy of an item
    *
    * @param stack
-	 * ItemStack to set
+	 * IC2ItemTest to set
    * @return Current energy level
    */
   def getCurrentEnergy(stack: ItemStack): Double = {
@@ -24,7 +24,7 @@ trait MuseElectricItem {
    * Call to set the energy of an item
    *
    * @param stack
-	 * ItemStack to set
+	 * IC2ItemTest to set
    * @return Maximum energy level
    */
   def getMaxEnergy(stack: ItemStack): Double = {
@@ -35,7 +35,7 @@ trait MuseElectricItem {
    * Call to set the energy of an item
    *
    * @param stack
-	 * ItemStack to set
+	 * IC2ItemTest to set
    * @param energy
 	 * Level to set it to
    */
@@ -47,7 +47,7 @@ trait MuseElectricItem {
    * Call to drain energy from an item
    *
    * @param stack
-	 * ItemStack being requested for energy
+	 * IC2ItemTest being requested for energy
    * @param requested
 	 * Amount of energy to drain
    * @return Amount of energy successfully drained
@@ -68,7 +68,7 @@ trait MuseElectricItem {
    * Call to give energy to an item
    *
    * @param stack
-	 * ItemStack being provided with energy
+	 * IC2ItemTest being provided with energy
    * @param provided
 	 * Amount of energy to add
    * @return Amount of energy added

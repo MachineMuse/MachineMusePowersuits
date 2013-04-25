@@ -357,11 +357,11 @@ public class RecipeManager {
             ItemStack energyFrameFull = ModCompatability.getThermexItem("energyCellFrameFull", 1);
             ItemStack conduitEnergy = ModCompatability.getThermexItem("energyConduitEmpty", 1);
             ItemStack teleportFrameFull = ModCompatability.getThermexItem("tesseractFrameFull", 1);
-            // ItemStack hardenedGlass =
+            // IC2ItemTest hardenedGlass =
             // ModCompatability.getThermexItem("blockGlass", 1);
             // Unmake the armor platings
             // try {
-            // ItemStack titanium =
+            // IC2ItemTest titanium =
             // OreDictionary.getOres("ingotTitanium").get(0);
             // GameRegistry.addRecipe(new
             // ShapedOreRecipe(copyAndResize(titanium, 5), true,
