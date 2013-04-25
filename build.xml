@@ -126,6 +126,7 @@
     <!-- Dependencies -->
     <target name="extract-apis" depends="setup-forge,download-apis">
         <echo message="Extracting IC2 API... "/>
+        <delete dir="${mcpsrc.dir}/ic2/api"/>
         <unzip src="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" dest="${download.dir}"/>
         <mkdir dir="${mcpsrc.dir}/ic2/api/energy/tile"/>
         <move file="${download.dir}/ic2/api/Ic2Recipes.java" todir="${mcpsrc.dir}/ic2/api/"/>
@@ -245,7 +246,6 @@
 
     <target name="copy-source">
         <delete dir="${mcpsrc.dir}/net/machinemuse"/>
-        <delete dir="${mcpsrc.dir}/ic2/api"/>
         <copy todir="${mcpsrc.dir}/net/machinemuse">
             <fileset dir="${src.dir}/minecraft/net/machinemuse"/>
             <filterset>
