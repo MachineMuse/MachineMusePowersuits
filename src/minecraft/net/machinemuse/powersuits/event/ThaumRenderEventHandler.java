@@ -35,6 +35,8 @@ public class ThaumRenderEventHandler {
     @SideOnly(Side.CLIENT)
     @ForgeSubscribe
     public void renderLast(RenderWorldLastEvent event) {
+        float tagscale = getTagScale();
+        if (tagscale > 0.0F) setTagScale(tagscale - 0.005F);
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
         if (player != null && player.inventory.armorItemInSlot(3) != null && player.inventory.armorItemInSlot(3).getItem() instanceof IModularItem) {
             ItemStack stack = player.inventory.armorItemInSlot(3);

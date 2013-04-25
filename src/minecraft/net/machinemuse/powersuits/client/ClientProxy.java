@@ -1,5 +1,10 @@
 package net.machinemuse.powersuits.client;
 
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.KeyBindingRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
 import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
 import net.machinemuse.powersuits.block.TileEntityTinkerTable;
@@ -20,91 +25,83 @@ import net.machinemuse.powersuits.tick.PlayerTickHandler;
 import net.machinemuse.powersuits.tick.RenderTickHandler;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.KeyBindingRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
 
 /**
  * The Client Proxy does all the things that should only be done client-side,
  * like registering client-side handlers and renderers.
- * 
+ *
  * @author MachineMuse
- * 
  */
 public class ClientProxy extends CommonProxy {
-	private static ToolRenderer toolRenderer;
-	private static ClientTickHandler clientTickHandler;
-	private static RenderTickHandler renderTickHandler;
-	private static PlayerTickHandler playerTickHandler;
-	public static KeybindKeyHandler keybindHandler;
+    private static ToolRenderer toolRenderer;
+    private static ClientTickHandler clientTickHandler;
+    private static RenderTickHandler renderTickHandler;
+    private static PlayerTickHandler playerTickHandler;
+    public static KeybindKeyHandler keybindHandler;
 
-	@Override
-	public void registerSounds() {
-		MinecraftForge.EVENT_BUS.register(new SoundLoader());
-	}
+    @Override
+    public void registerEvents() {
+        MinecraftForge.EVENT_BUS.register(new SoundLoader());
+        if (ModCompatability.isThaumCraftLoaded() && ModCompatability.enableThaumGogglesModule()) {
+            MinecraftForge.EVENT_BUS.register(new ThaumRenderEventHandler());
+        }
+    }
 
-	/**
-	 * Register all the custom renderers for this mod.
-	 */
-	@Override
-	public void registerRenderers() {
-		toolRenderer = new ToolRenderer();
-		MinecraftForgeClient.registerItemRenderer(ModularPowersuits.powerTool.itemID, toolRenderer);
+    /**
+     * Register all the custom renderers for this mod.
+     */
+    @Override
+    public void registerRenderers() {
+        toolRenderer = new ToolRenderer();
+        MinecraftForgeClient.registerItemRenderer(ModularPowersuits.powerTool.itemID, toolRenderer);
 
-		int tinkTableRenderID = RenderingRegistry.getNextAvailableRenderId();
-		TinkerTableRenderer tinkTableRenderer = new TinkerTableRenderer(tinkTableRenderID);
-		ModularPowersuits.tinkerTable.setRenderType(tinkTableRenderID);
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinkerTable.class, tinkTableRenderer);
-		RenderingRegistry.registerBlockHandler(tinkTableRenderer);
+        int tinkTableRenderID = RenderingRegistry.getNextAvailableRenderId();
+        TinkerTableRenderer tinkTableRenderer = new TinkerTableRenderer(tinkTableRenderID);
+        ModularPowersuits.tinkerTable.setRenderType(tinkTableRenderID);
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinkerTable.class, tinkTableRenderer);
+        RenderingRegistry.registerBlockHandler(tinkTableRenderer);
 
-		int luxCapacitorRenderID = RenderingRegistry.getNextAvailableRenderId();
-		RenderLuxCapacitorTESR luxCapacitorRenderer = new RenderLuxCapacitorTESR(luxCapacitorRenderID);
-		ModularPowersuits.luxCapacitor.setRenderType(luxCapacitorRenderID);
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLuxCapacitor.class, luxCapacitorRenderer);
-		RenderingRegistry.registerBlockHandler(luxCapacitorRenderer);
+        int luxCapacitorRenderID = RenderingRegistry.getNextAvailableRenderId();
+        RenderLuxCapacitorTESR luxCapacitorRenderer = new RenderLuxCapacitorTESR(luxCapacitorRenderID);
+        ModularPowersuits.luxCapacitor.setRenderType(luxCapacitorRenderID);
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLuxCapacitor.class, luxCapacitorRenderer);
+        RenderingRegistry.registerBlockHandler(luxCapacitorRenderer);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, new RenderPlasmaBolt());
-		RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, new RenderSpinningBlade());
-		RenderingRegistry.registerEntityRenderingHandler(EntityLuxCapacitor.class, new RenderLuxCapacitorEntity());
+        RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, new RenderPlasmaBolt());
+        RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, new RenderSpinningBlade());
+        RenderingRegistry.registerEntityRenderingHandler(EntityLuxCapacitor.class, new RenderLuxCapacitorEntity());
 
-		MinecraftForge.EVENT_BUS.register(new TextureStitchHandler());
+        MinecraftForge.EVENT_BUS.register(new TextureStitchHandler());
 
-	}
+    }
 
-	/**
-	 * Register the tick handler (for on-tick behaviour) and packet handler (for
-	 * network synchronization and permission stuff).
-	 */
-	@Override
-	public void registerHandlers() {
-		super.registerHandlers();
-		keybindHandler = new KeybindKeyHandler();
-		KeyBindingRegistry.registerKeyBinding(keybindHandler);
-		KeybindManager.readInKeybinds();
+    /**
+     * Register the tick handler (for on-tick behaviour) and packet handler (for
+     * network synchronization and permission stuff).
+     */
+    @Override
+    public void registerHandlers() {
+        super.registerHandlers();
+        keybindHandler = new KeybindKeyHandler();
+        KeyBindingRegistry.registerKeyBinding(keybindHandler);
+        KeybindManager.readInKeybinds();
 
-		playerTickHandler = new PlayerTickHandler();
-		TickRegistry.registerTickHandler(playerTickHandler, Side.CLIENT);
-		// TickRegistry.registerTickHandler(playerTickHandler, Side.SERVER);
+        playerTickHandler = new PlayerTickHandler();
+        TickRegistry.registerTickHandler(playerTickHandler, Side.CLIENT);
+        // TickRegistry.registerTickHandler(playerTickHandler, Side.SERVER);
 
-		renderTickHandler = new RenderTickHandler();
-		TickRegistry.registerTickHandler(renderTickHandler, Side.CLIENT);
+        renderTickHandler = new RenderTickHandler();
+        TickRegistry.registerTickHandler(renderTickHandler, Side.CLIENT);
 
-		clientTickHandler = new ClientTickHandler();
-		TickRegistry.registerTickHandler(clientTickHandler, Side.CLIENT);
+        clientTickHandler = new ClientTickHandler();
+        TickRegistry.registerTickHandler(clientTickHandler, Side.CLIENT);
 
-		MinecraftForge.EVENT_BUS.register(new SoundLoader());
 
-		if (ModCompatability.isThaumCraftLoaded() && ModCompatability.enableThaumGogglesModule()) {
-			MinecraftForge.EVENT_BUS.register(new ThaumRenderEventHandler());
-		}
+        packetHandler = new MusePacketHandler().register();
+    }
 
-		packetHandler = new MusePacketHandler().register();
-	}
+    @Override
+    public void postInit() {
 
-	@Override
-	public void postInit() {
-
-	}
+    }
 }
