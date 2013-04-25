@@ -8,6 +8,7 @@ import net.machinemuse.api.moduletrigger.IPlayerTickModule
 import net.minecraft.item.ItemStack
 import net.minecraft.entity.player.EntityPlayer
 import net.machinemuse.powersuits.control.KeybindKeyHandler
+import cpw.mods.fml.common.FMLCommonHandler
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -28,11 +29,14 @@ class BinocularsModule(list: java.util.List[IModularItem]) extends PowerModuleBa
   override def getTextureFile: String = "binoculars"
 
   override def onPlayerTickActive(player: EntityPlayer, item: ItemStack) {
-    val fov = KeybindKeyHandler.zoom.pressed match {
-      case true => ModuleManager.computeModularProperty(item, FOV_MULTIPLIER).toFloat
-      case false => 0.1f
+    if (FMLCommonHandler.instance().getEffectiveSide.isClient) {
+      val fov = KeybindKeyHandler.zoom.pressed match {
+        case true => ModuleManager.computeModularProperty(item, FOV_MULTIPLIER).toFloat
+        case false => 0.1f
+      }
+      MusePlayerUtils.setFOVMult(player, fov)
     }
-    MusePlayerUtils.setFOVMult(player, fov)
+
   }
 
   override def onPlayerTickInactive(player: EntityPlayer, item: ItemStack) {
