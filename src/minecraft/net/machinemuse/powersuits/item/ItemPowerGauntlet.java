@@ -315,7 +315,6 @@ public class ItemPowerGauntlet extends ItemElectricTool
         player.swingItem();
     }
 
-
     // Grafter Module
     @Override
     public float getSaplingModifier(ItemStack stack, World world, EntityPlayer player, int x, int y, int z) {
@@ -337,7 +336,7 @@ public class ItemPowerGauntlet extends ItemElectricTool
                 return true;
             }
             else if (FMLCommonHandler.instance().getEffectiveSide().isServer()) {
-                player.sendChatToPlayer("[MFFS2] Could not teleport through forcefield. 10,000J is required to teleport.");
+                player.sendChatToPlayer("[Field Security] Could not teleport through forcefield. 10,000J is required to teleport.");
             }
         }
         return false;

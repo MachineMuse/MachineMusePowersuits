@@ -12,6 +12,7 @@ import net.machinemuse.powersuits.powermodule.misc.ThaumGogglesModule;
 import net.machinemuse.powersuits.powermodule.tool.GrafterModule;
 import net.machinemuse.powersuits.powermodule.tool.MFFSFieldTeleporterModule;
 import net.machinemuse.powersuits.powermodule.tool.MultimeterModule;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 
@@ -200,6 +201,17 @@ public class ModCompatability {
         } catch (Exception e) {
         }
         MuseLogger.logError("Failed to get Forestry item " + name);
+        return null;
+    }
+
+    public static ItemStack getMFFSItem(String name, int quantity) {
+        try {
+            Object obj = Class.forName("mods.mffs.common.ModularForceFieldSystem").getField("MFFSitemFieldTeleporter").get(null);
+            ItemStack stack = new ItemStack((Item) obj, quantity);
+            return stack;
+        } catch (Exception e) {
+        }
+        MuseLogger.logError("Failed to get MFFS item " + name);
         return null;
     }
 }

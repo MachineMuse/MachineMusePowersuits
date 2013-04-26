@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
 import net.machinemuse.api.IModularItem;
+import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 
@@ -17,6 +18,7 @@ public class MFFSFieldTeleporterModule extends PowerModuleBase {
     public MFFSFieldTeleporterModule(List<IModularItem> validItems) {
         super(validItems);
         addBaseProperty(FIELD_TELEPORTER_ENERGY_CONSUMPTION, 10000, "J");
+        addInstallCost(ModCompatability.getMFFSItem("MFFSitemFieldTeleporter", 1));
     }
 
     @Override
