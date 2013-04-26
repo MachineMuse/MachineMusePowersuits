@@ -336,7 +336,7 @@ public class ItemPowerGauntlet extends ItemElectricTool
                 return true;
             }
             else if (FMLCommonHandler.instance().getEffectiveSide().isServer()) {
-                player.sendChatToPlayer("[Field Security] Could not teleport through forcefield. 10,000J is required to teleport.");
+                player.sendChatToPlayer("[Field Security] Could not teleport through forcefield. 20,000J is required to teleport.");
             }
         }
         return false;
