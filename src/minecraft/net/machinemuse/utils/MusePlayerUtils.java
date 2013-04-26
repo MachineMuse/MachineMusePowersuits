@@ -50,19 +50,23 @@ public class MusePlayerUtils {
                 AxisAlignedBB aabb = entityHit.boundingBox.expand((double) border, (double) border, (double) border);
                 MovingObjectPosition hitMOP = aabb.calculateIntercept(playerPosition, playerViewOffset);
 
-                if (aabb.isVecInside(playerPosition)) {
-                    if (0.0D < closestEntity || closestEntity == 0.0D) {
-                        pickedEntity = new MovingObjectPosition(entityHit);
-                        pickedEntity.hitVec = hitMOP.hitVec;
-                        closestEntity = 0.0D;
-                    }
-                } else if (hitMOP != null) {
-                    double distance = playerPosition.distanceTo(hitMOP.hitVec);
+                if (hitMOP != null) {
+                    if (aabb.isVecInside(playerPosition)) {
+                        if (0.0D < closestEntity || closestEntity == 0.0D) {
+                            pickedEntity = new MovingObjectPosition(entityHit);
+                            if (pickedEntity != null) {
+                                pickedEntity.hitVec = hitMOP.hitVec;
+                                closestEntity = 0.0D;
+                            }
+                        }
+                    } else {
+                        double distance = playerPosition.distanceTo(hitMOP.hitVec);
 
-                    if (distance < closestEntity || closestEntity == 0.0D) {
-                        pickedEntity = new MovingObjectPosition(entityHit);
-                        pickedEntity.hitVec = hitMOP.hitVec;
-                        closestEntity = distance;
+                        if (distance < closestEntity || closestEntity == 0.0D) {
+                            pickedEntity = new MovingObjectPosition(entityHit);
+                            pickedEntity.hitVec = hitMOP.hitVec;
+                            closestEntity = distance;
+                        }
                     }
                 }
             }
