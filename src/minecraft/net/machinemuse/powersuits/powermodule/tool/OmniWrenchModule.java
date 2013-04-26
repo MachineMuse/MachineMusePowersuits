@@ -7,6 +7,7 @@ import cpw.mods.fml.relauncher.Side;
 import ic2.api.energy.tile.IEnergySink;
 import ic2.api.energy.tile.IEnergySource;
 import ic2.api.tile.IWrenchable;
+import mods.mffs.api.IMFFS_Wrench;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -30,12 +31,10 @@ import java.util.List;
  */
 public class OmniWrenchModule extends PowerModuleBase implements IRightClickModule {
     public static final String MODULE_OMNI_WRENCH = "Prototype OmniWrench";
-    public static final String OMNI_WRENCH_ENERGY_CONSUMPTION = "OmniWrench Energy Consumption";
     public static final int[] SIDE_OPPOSITE = {1, 0, 3, 2, 5, 4};
 
     public OmniWrenchModule(List<IModularItem> validItems) {
         super(validItems);
-        addBaseProperty(OMNI_WRENCH_ENERGY_CONSUMPTION, 100);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
     }
@@ -100,6 +99,11 @@ public class OmniWrenchModule extends PowerModuleBase implements IRightClickModu
             if (player.isSneaking()) {
                 side = OmniWrenchModule.SIDE_OPPOSITE[side];
             }
+
+            if (((tile instanceof IMFFS_Wrench)) && (!((IMFFS_Wrench)tile).wrenchCanManipulate(player, side))) {
+                return false;
+            }
+
             if ((side == wrenchTile.getFacing()) && (wrenchTile.wrenchCanRemove(player))) {
                 ItemStack dropBlock = wrenchTile.getWrenchDrop(player);
 
