@@ -15,11 +15,13 @@ import java.util.List;
 public class GrafterModule extends PowerModuleBase {
     public static final String MODULE_GRAFTER = "Grafter";
     public static final String GRAFTER_ENERGY_CONSUMPTION = "Grafter Energy Consumption";
+    public static final String GRAFTER_HEAT_GENERATION = "Grafter Heat Generation";
 
     public GrafterModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(ModCompatability.getForestryItem("grafter", 1));
         addBaseProperty(GRAFTER_ENERGY_CONSUMPTION, 1000, "J");
+        addBaseProperty(GRAFTER_HEAT_GENERATION, 20);
     }
 
     @Override
