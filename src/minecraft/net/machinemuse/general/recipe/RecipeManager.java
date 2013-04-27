@@ -303,45 +303,74 @@ public class RecipeManager {
 
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.parachute, true, "WWW", "S S", "CNC", 'W', wool, 'S', string, 'C', carbonPlate,
                     'N', nitrogen));
-            //
-            // Ic2Recipes.addCraftingRecipe(ItemComponent.lvcapacitor,
-            // "IWI",
-            // "IBI",
-            // "IBI",
-            // 'W', ItemComponent.wiring,
-            // 'I', refinedIron,
-            // 'B', "100kEUStore"); // Lithium battery
-            //
-            // Ic2Recipes.addCraftingRecipe(ItemComponent.mvcapacitor,
-            // "IWI",
-            // "IBI",
-            // "IBI",
-            // 'W', ItemComponent.wiring,
-            // 'I', "ingotTitanium",
-            // 'B', "1kkEUStore"); // Lapotron crystal
-            //
-            // Ic2Recipes.addCraftingRecipe(ItemComponent.hvcapacitor,
-            // "IWI",
-            // "IBI",
-            // "IBI",
-            // 'W', ItemComponent.wiring,
-            // 'I', "ingotChrome",
-            // 'B', "10kkEUStore"); // Lapotronic EnergyOrb
 
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solenoid, true, "WSW", "WSW", "WSW", 'W', ItemComponent.wiring, 'S',
-                    "ingotSteel"));
+            Recipes.advRecipes.addRecipe(ItemComponent.lvcapacitor,
+                    "IWI",
+                    "IBI",
+                    "IBI",
+                    'W', ItemComponent.wiring,
+                    'I', "ingotSteel",
+                    'B', "crafting100kEUStore"); // Lithium battery
 
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.gliderWing, true, " MC", "MPI", "M  ", 'P', carbonPlate, 'M', "plateMagnalium",
-                    'I', ItemComponent.solenoid, 'C', advancedCircuit));
+            Recipes.advRecipes.addRecipe(ItemComponent.mvcapacitor,
+                    "IWI",
+                    "IBI",
+                    "IBI",
+                    'W', ItemComponent.wiring,
+                    'I', "ingotTitanium",
+                    'B', "crafting1kkEUStore"); // Lapotron crystal
 
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.servoMotor, true, "IBI", "CSC", "IBI", 'I', "ingotSteel", 'B', "ingotBrass",
-                    'C', advancedCircuit, 'S', ItemComponent.solenoid));
+            Recipes.advRecipes.addRecipe(ItemComponent.hvcapacitor,
+                    "IWI",
+                    "IBI",
+                    "IBI",
+                    'W', ItemComponent.wiring,
+                    'I', "ingotChrome",
+                    'B', "crafting10kkEUStore"); // Lapotronic EnergyOrb
 
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.fieldEmitter, true, "ISI", "CUC", "ISI", 'I', "ingotTungstenSteel", 'S',
-                    ItemComponent.solenoid, 'U', energyFlowCircuit, 'C', "craftingSuperconductor"));
+            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solenoid, true,
+                    "WSW",
+                    "WSW",
+                    "WSW",
+                    'W', ItemComponent.wiring,
+                    'S', "ingotSteel"));
 
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true, "ISI", "FCF", "N N", 'I', "plateIridiumAlloy", 'S',
-                    "craftingSuperconductor", 'N', neutronReflector, 'C', ItemComponent.hvcapacitor, 'F', ItemComponent.fieldEmitter));
+            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.gliderWing, true,
+                    " MC",
+                    "MPI",
+                    "M  ",
+                    'P', carbonPlate,
+                    'M', "plateMagnalium",
+                    'I', ItemComponent.solenoid,
+                    'C', advancedCircuit));
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.servoMotor, true,
+                    "IBI",
+                    "CSC",
+                    "IBI",
+                    'I', "ingotSteel",
+                    'B', "ingotBrass",
+                    'C', advancedCircuit,
+                    'S', ItemComponent.solenoid));
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.fieldEmitter, true,
+                    "ISI",
+                    "CUC",
+                    "ISI",
+                    'I', "ingotTungstenSteel",
+                    'S', ItemComponent.solenoid,
+                    'U', energyFlowCircuit,
+                    'C', "craftingSuperconductor"));
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true,
+                    "ISI",
+                    "FCF",
+                    "N N",
+                    'I', "plateAlloyIridium",
+                    'S', "craftingSuperconductor",
+                    'N', neutronReflector,
+                    'C', ItemComponent.hvcapacitor,
+                    'F', ItemComponent.fieldEmitter));
 
         }
         if (ModCompatability.ThermalExpansionRecipesEnabled() && ModCompatability.isThermalExpansionLoaded()) {
