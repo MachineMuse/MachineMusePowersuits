@@ -20,6 +20,7 @@ import net.machinemuse.powersuits.powermodule.tool.MFFSFieldTeleporterModule;
 import net.machinemuse.powersuits.powermodule.tool.OmniWrenchModule;
 import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule;
 import net.machinemuse.utils.ElectricItemUtils;
+import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -320,6 +321,7 @@ public class ItemPowerGauntlet extends ItemElectricTool
     public float getSaplingModifier(ItemStack stack, World world, EntityPlayer player, int x, int y, int z) {
         if (MuseItemUtils.itemHasActiveModule(stack, GrafterModule.MODULE_GRAFTER)) {
             ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, GrafterModule.GRAFTER_ENERGY_CONSUMPTION));
+            MuseHeatUtils.heatPlayer(player, ModuleManager.computeModularProperty(stack, GrafterModule.GRAFTER_HEAT_GENERATION));
             return 100F;
         }
         return 0F;
