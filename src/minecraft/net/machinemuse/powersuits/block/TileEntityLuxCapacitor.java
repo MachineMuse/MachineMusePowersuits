@@ -50,4 +50,9 @@ public class TileEntityLuxCapacitor extends TileEntity {
 	}
 
 	public ForgeDirection side;
+
+    @Override
+    public boolean canUpdate() {
+        return false;
+    }
 }

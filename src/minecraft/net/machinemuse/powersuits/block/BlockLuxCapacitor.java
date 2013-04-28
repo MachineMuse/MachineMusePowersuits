@@ -68,6 +68,7 @@ public class BlockLuxCapacitor extends Block {
 		setUnlocalizedName("mmmPowersuits.luxCapacitor");
 
 		LanguageRegistry.addName(this, "Lux Capacitor");
+
 	}
 
     private static double bbMin(double offset) {
@@ -77,6 +78,7 @@ public class BlockLuxCapacitor extends Block {
     private static double bbMax(double offset) {
         return (offset > 0 ? 16 : offset < 0 ? 3 : 15)/16.0;
     }
+
 
     public static AxisAlignedBB createAABBForSide(ForgeDirection dir, double x, double y, double z) {
         double x1 = bbMin(dir.offsetX);
