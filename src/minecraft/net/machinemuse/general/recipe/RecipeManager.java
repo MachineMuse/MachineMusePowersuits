@@ -241,14 +241,19 @@ public class RecipeManager {
             // the ore dictionary, so we can just use strings here :D ...once we
             // decide what to put.
             String computerMonitor = "craftingMonitorTier02";
-            String advancedCircuit = "advancedCircuit";
+
             String basicCircuit = "basicCircuit";
-            String refinedIron = "ingotRefinedIron";
-            String advancedMachine = "craftingRawMachineTier02";
+            String advancedCircuit = "advancedCircuit";
             String dataStorageCircuit = "craftingCircuitTier05";
             String energyFlowCircuit = "craftingCircuitTier07";
+
             String machineParts = "craftingMachineParts";
+            String advancedMachine = "craftingRawMachineTier02";
+
             String nitrogen = "molecule_1n";
+
+            String refinedIron = "ingotRefinedIron";
+
             ItemStack neutronReflector = ModCompatability.getGregtechItem(40, 1, 0);
             String advancedHeatVent = "item.reactorVentDiamond";
             ItemStack carbonPlate = ModCompatability.getIC2Item("carbonPlate");
@@ -270,7 +275,7 @@ public class RecipeManager {
             }
 
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.controlCircuit, true, "WCI", "RGC", "IRW", 'W', ItemComponent.wiring, 'C',
-                    advancedCircuit, 'G', energyFlowCircuit, 'R', dataStorageCircuit, 'I', "ingotElectrum"));
+                    "advancedCircuit", 'G', energyFlowCircuit, 'R', dataStorageCircuit, 'I', "ingotElectrum"));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.laserHologram, true, "LLL", "RGB", "LLL", 'L', luminator, 'R', "gemRuby", 'G',
                     "gemGreenSapphire", 'B', "gemSapphire"));
