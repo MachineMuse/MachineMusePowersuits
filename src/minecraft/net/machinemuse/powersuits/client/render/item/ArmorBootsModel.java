@@ -31,10 +31,10 @@ public class ArmorBootsModel extends ArmorModel {
         this.armorBoots = (WavefrontObject) AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_boots.obj");
 
         this.bipedRightLeg = new ArmorPartRenderer(this, armorBoots, "boots1", "")
-                .setInitialRotationPoints(0, 12.0F + par2, 0.0F);
+                .setInitialOffsets(0, 12.0F + par2, 0.0F);
 
         this.bipedLeftLeg = new ArmorPartRenderer(this, armorBoots, "boots2", "")
-                .setInitialRotationPoints(0, 12.0F + par2, 0.0F);
+                .setInitialOffsets(0, 12.0F + par2, 0.0F);
     }
 
     /**

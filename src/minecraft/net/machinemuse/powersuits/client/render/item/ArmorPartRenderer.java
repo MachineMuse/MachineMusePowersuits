@@ -12,7 +12,7 @@ public class ArmorPartRenderer extends ModelRenderer {
     protected String[] normalparts;
     protected String[] glowyparts;
     protected ArmorModel modelBase;
-    protected double[] initialRotationPoints;
+    protected double[] initialOffsets;
 
     public ArmorPartRenderer(ArmorModel modelBase, WavefrontObject model, String normalparts, String glowyparts) {
         super(modelBase);
@@ -22,8 +22,8 @@ public class ArmorPartRenderer extends ModelRenderer {
         this.glowyparts = glowyparts.split(";");
     }
 
-    public ArmorPartRenderer setInitialRotationPoints(double x, double y, double z) {
-        this.initialRotationPoints = new double[]{x, y, z};
+    public ArmorPartRenderer setInitialOffsets(double x, double y, double z) {
+        this.initialOffsets = new double[]{x, y, z};
         return this;
     }
 
@@ -66,9 +66,9 @@ public class ArmorPartRenderer extends ModelRenderer {
             }
 
             GL11.glTranslated(
-                    -this.initialRotationPoints[0] * par1,
-                    -this.initialRotationPoints[1] * par1,
-                    -this.initialRotationPoints[2] * par1
+                    -this.initialOffsets[0] * par1,
+                    -this.initialOffsets[1] * par1,
+                    -this.initialOffsets[2] * par1
             );
             renderParts();
 

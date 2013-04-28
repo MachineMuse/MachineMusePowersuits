@@ -61,22 +61,22 @@ public class ArmorModel extends ModelBiped {
         // logModelParts(armorBoots);
 
         this.bipedHead = new ArmorPartRenderer(this, armorHelm, "helm_main;helm_tube_entry1;helm_main;helm_tubes;helm_tube_entry2", "visor")
-                .setInitialRotationPoints(0.0F, 0.0F + par2, 0.0F);
+                .setInitialOffsets(0.0F, 0.0F + par2, 0.0F);
 
         this.bipedBody = new ArmorPartRenderer(this, armorChest, "belt;chest_main;polySurface36;backpack;chest_padding", "crystal_belt")
-                .setInitialRotationPoints(0.0F, 0.0F + par2, 0.0F);
+                .setInitialOffsets(0.0F, 0.0F + par2, 0.0F);
 
         this.bipedRightArm = new ArmorPartRenderer(this, armorArms, "arms3", "crystal_shoulder_2")
-                .setInitialRotationPoints(-5, 2.0F + par2, 0.0F);
+                .setInitialOffsets(-5, 2.0F + par2, 0.0F);
 
         this.bipedLeftArm = new ArmorPartRenderer(this, armorArms, "arms2", "crystal_shoulder_1")
-                .setInitialRotationPoints(5, 2.0F + par2, 0.0F);
+                .setInitialOffsets(5, 2.0F + par2, 0.0F);
 
         this.bipedRightLeg = new ArmorPartRenderer(this, armorLegs, "leg1", "")
-                .setInitialRotationPoints(0, 12.0F + par2, 0.0F);
+                .setInitialOffsets(0, 12.0F + par2, 0.0F);
 
         this.bipedLeftLeg = new ArmorPartRenderer(this, armorLegs, "leg2", "")
-                .setInitialRotationPoints(0, 12.0F + par2, 0.0F);
+                .setInitialOffsets(0, 12.0F + par2, 0.0F);
     }
 
     /**
