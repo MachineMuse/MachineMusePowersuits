@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
+import net.minecraftforge.client.model.ModelFormatException;
 import net.minecraftforge.client.model.obj.GroupObject;
 import net.minecraftforge.client.model.obj.WavefrontObject;
 import org.lwjgl.opengl.GL11;
@@ -49,10 +50,14 @@ public class ArmorModel extends ModelBiped {
 
     public ArmorModel(float par1, float par2, int par3, int par4) {
         // New stuff
-        this.armorHelm = (WavefrontObject) AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_helm.obj");
-        this.armorArms = (WavefrontObject) AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_arms.obj");
-        this.armorChest = (WavefrontObject) AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_chest.obj");
-        this.armorLegs = (WavefrontObject) AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_pantaloons.obj");
+        try {
+            this.armorHelm = (WavefrontObject) AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_helm.obj");
+            this.armorArms = (WavefrontObject) AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_arms.obj");
+            this.armorChest = (WavefrontObject) AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_chest.obj");
+            this.armorLegs = (WavefrontObject) AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_pantaloons.obj");
+        } catch (ModelFormatException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
 
         // logModelParts(armorHelm);
         // logModelParts(armorArms);
