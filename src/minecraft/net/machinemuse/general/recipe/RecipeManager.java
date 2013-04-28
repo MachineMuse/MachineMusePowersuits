@@ -282,7 +282,7 @@ public class RecipeManager {
 
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.basicPlating, true, "II", "CI", "II", 'C', basicCircuit, 'I', "ingotSteel"));
 
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true, "II", "CI", "II", 'C', "circuitTier04", 'I',
+            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true, "II", "CI", "II", 'C', "advancedCircuit", 'I',
                     "ingotTitanium"));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.tinkerTable), true, "CVC", "IEI", "IMI", 'C', advancedCircuit,
