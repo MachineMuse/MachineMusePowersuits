@@ -35,7 +35,10 @@ import net.minecraftforge.common.MinecraftForge;
 // Informs forge that this is a base mod class, and gives it some info for the
 // FML mod list. This is also where it looks to see if your client's version
 // matches the server's.
-@Mod(modid = "mmmPowersuits", name = "MachineMuse's Modular Powersuits", version = "@MOD_VERSION@")
+@Mod(modid = "mmmPowersuits",
+        name = "MachineMuse's Modular Powersuits",
+        version = "@MOD_VERSION@",
+        dependencies = "required-after:Forge@[7.7.1.659,)")
 // Informs forge of the requirements:
 //
 // clientSideRequired means players can't connect without it. True for things
