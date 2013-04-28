@@ -336,8 +336,7 @@ public class ItemPowerGauntlet extends ItemElectricTool
         if (MuseItemUtils.itemHasModule(stack, MFFSFieldTeleporterModule.MODULE_FIELD_TELEPORTER)) {
             if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, MFFSFieldTeleporterModule.FIELD_TELEPORTER_ENERGY_CONSUMPTION)) {
                 return true;
-            }
-            else if (FMLCommonHandler.instance().getEffectiveSide().isServer()) {
+            } else if (FMLCommonHandler.instance().getEffectiveSide().isServer()) {
                 player.sendChatToPlayer("[Field Security] Could not teleport through forcefield. 20,000J is required to teleport.");
             }
         }

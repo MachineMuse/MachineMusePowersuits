@@ -104,7 +104,7 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int) extends
    * Inherited from ISpecialArmor, allows us to customize the calculations for
    * how much armor will display on the player's HUD.
    */
-  def getArmorDisplay(player: EntityPlayer, armor: ItemStack, slot: Int): Int = {
+  override def getArmorDisplay(player: EntityPlayer, armor: ItemStack, slot: Int): Int = {
     return getArmorDouble(player, armor).asInstanceOf[Int]
   }
 
@@ -135,10 +135,11 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int) extends
     val itemProperties: NBTTagCompound = MuseItemUtils.getMuseItemTag(stack)
     if (entity.isInstanceOf[EntityPlayer]) {
       if (source == MuseHeatUtils.overheatDamage) {
-      }
-      else if (source.isFireDamage) {
+      } else if (source.isFireDamage) {
         val player: EntityPlayer = entity.asInstanceOf[EntityPlayer]
-        MuseHeatUtils.heatPlayer(player, damage)
+        if (!source.equals(DamageSource.onFire) || MuseHeatUtils.getPlayerHeat(player) < MuseHeatUtils.getMaxHeat(player)) {
+          MuseHeatUtils.heatPlayer(player, damage)
+        }
       }
       else {
         val enerConsum: Double = ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION)
