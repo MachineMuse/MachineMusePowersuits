@@ -18,7 +18,7 @@ import scala.Predef.String
 import net.machinemuse.general.geometry.Colour
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.client.model.ModelBiped
-import net.machinemuse.powersuits.client.render.item.{ArmorModel, ArmorBootsModel}
+import net.machinemuse.powersuits.client.render.item.ArmorModel
 
 /**
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.
@@ -66,17 +66,10 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int)
 
   @SideOnly(Side.CLIENT)
   override def getArmorModel(entityLiving: EntityLiving, itemstack: ItemStack, armorSlot: Int): ModelBiped = {
-    val model = armorSlot match {
-      case 3 => ArmorBootsModel.getInstance
-      case _ => ArmorModel.getInstance
-    }
-    model.bipedHead.showModel = armorSlot == 0
-    model.bipedHeadwear.showModel = armorSlot == 0
-    model.bipedBody.showModel = armorSlot == 1
-    model.bipedRightArm.showModel = armorSlot == 1
-    model.bipedLeftArm.showModel = armorSlot == 1
-    model.bipedRightLeg.showModel = armorSlot == 2 || armorSlot == 3
-    model.bipedLeftLeg.showModel = armorSlot == 2 || armorSlot == 3
+    val model = ArmorModel.getInstance
+
+    model.visible = armorSlot
+
     if (itemstack != null) {
       if (MuseItemUtils.itemHasActiveModule(itemstack, TransparentArmorModule.MODULE_TRANSPARENT_ARMOR)) {
         return null

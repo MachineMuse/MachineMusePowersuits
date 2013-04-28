@@ -2,9 +2,11 @@ package net.machinemuse.powersuits.client.render.item;
 
 import net.machinemuse.general.MuseLogger;
 import net.machinemuse.general.geometry.Colour;
+import net.machinemuse.powersuits.client.render.ModelPartSpec;
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,6 +34,9 @@ public class ArmorModel extends ModelBiped {
     public WavefrontObject armorArms;
     public WavefrontObject armorChest;
     public WavefrontObject armorLegs;
+    public WavefrontObject armorBoots;
+
+    public int visible;
 
     public ArmorModel() {
         this(0.0F, 0.0f, 64, 32);
@@ -55,6 +60,7 @@ public class ArmorModel extends ModelBiped {
             this.armorArms = (WavefrontObject) AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_arms.obj");
             this.armorChest = (WavefrontObject) AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_chest.obj");
             this.armorLegs = (WavefrontObject) AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_pantaloons.obj");
+            this.armorBoots = (WavefrontObject) AdvancedModelLoader.loadModel("/mods/mmmPowersuits/models/mps_boots.obj");
         } catch (ModelFormatException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -64,49 +70,91 @@ public class ArmorModel extends ModelBiped {
         // logModelParts(armorChest);
         // logModelParts(armorLegs);
         // logModelParts(armorBoots);
+        setInitialOffsets(bipedHead, 0.0F, 0.0F + par2, 0.0F);
+        setInitialOffsets(bipedBody, 0.0F, 0.0F + par2, 0.0F);
+        setInitialOffsets(bipedRightArm, 5, 2.0F + par2, 0.0F);
+        setInitialOffsets(bipedLeftArm, -5, 2.0F + par2, 0.0F);
+        setInitialOffsets(bipedRightLeg, 2, 12.0F + par2, 0.0F);
+        setInitialOffsets(bipedLeftLeg, -2, 12.0F + par2, 0.0F);
+    }
 
-        this.bipedHead = new ArmorPartRenderer(this, armorHelm, "helm_main;helm_tube_entry1;helm_main;helm_tubes;helm_tube_entry2", "visor")
-                .setInitialOffsets(0.0F, 0.0F + par2, 0.0F);
-
-        this.bipedBody = new ArmorPartRenderer(this, armorChest, "belt;chest_main;polySurface36;backpack;chest_padding", "crystal_belt")
-                .setInitialOffsets(0.0F, 0.0F + par2, 0.0F);
-
-        this.bipedRightArm = new ArmorPartRenderer(this, armorArms, "arms3", "crystal_shoulder_2")
-                .setInitialOffsets(-5, 2.0F + par2, 0.0F);
-
-        this.bipedLeftArm = new ArmorPartRenderer(this, armorArms, "arms2", "crystal_shoulder_1")
-                .setInitialOffsets(5, 2.0F + par2, 0.0F);
-
-        this.bipedRightLeg = new ArmorPartRenderer(this, armorLegs, "leg1", "")
-                .setInitialOffsets(0, 12.0F + par2, 0.0F);
-
-        this.bipedLeftLeg = new ArmorPartRenderer(this, armorLegs, "leg2", "")
-                .setInitialOffsets(0, 12.0F + par2, 0.0F);
+    public void setInitialOffsets(ModelRenderer r, float x, float y, float z) {
+        r.field_82906_o = x;
+        r.field_82907_q = y;
+        r.field_82908_p = z;
     }
 
     /**
      * Sets the models various rotation angles then renders the model.
      */
-    public void render(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7) {
+    public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float scale) {
         try {
-            EntityLiving entity = (EntityLiving) par1Entity;
-            ItemStack stack = entity.getCurrentItemOrArmor(0);
+            EntityLiving entLive = (EntityLiving) entity;
+            ItemStack stack = entLive.getCurrentItemOrArmor(0);
             this.heldItemRight = (stack != null) ? 1 : 0;
-            this.isSneak = entity.isSneaking();
+            this.isSneak = entLive.isSneaking();
             EntityPlayer entityPlayer;
-            this.aimedBow = ((EntityPlayer) entity).getItemInUse() != null;
+            this.aimedBow = ((EntityPlayer) entLive).getItemInUse() != null;
             // if (entity.)
         } catch (Exception e) {
         }
-        this.setRotationAngles(par2, par3, par4, par5, par6, par7, par1Entity);
+        this.setRotationAngles(par2, par3, par4, par5, par6, scale, entity);
         Minecraft.getMinecraft().renderEngine.bindTexture(Config.ARMOR_TEXTURE_PATH);
         GL11.glPushMatrix();
-        this.bipedHead.render(par7);
-        this.bipedBody.render(par7);
-        this.bipedRightArm.render(par7);
-        this.bipedLeftArm.render(par7);
-        this.bipedRightLeg.render(par7);
-        this.bipedLeftLeg.render(par7);
+        if (visible == 0) {
+            renderParts(scale, bipedHead, armorHelm, normalcolour, false, "helm_main;helm_tube_entry1;helm_main;helm_tubes;helm_tube_entry2".split(";"));
+            renderParts(scale, bipedHead, armorHelm, glowcolour, true, "visor".split(";"));
+        }
+
+        if (visible == 1) {
+            renderParts(scale, bipedBody, armorChest, normalcolour, false, "belt;chest_main;polySurface36;backpack;chest_padding".split(";"));
+            renderParts(scale, bipedBody, armorChest, glowcolour, true, "crystal_belt".split(";"));
+
+
+            renderParts(scale, bipedRightArm, armorArms, normalcolour, false, "arms3".split(";"));
+            renderParts(scale, bipedRightArm, armorArms, glowcolour, true, "crystal_shoulder_2".split(";"));
+
+            renderParts(scale, bipedLeftArm, armorArms, normalcolour, false, "arms2".split(";"));
+            renderParts(scale, bipedLeftArm, armorArms, glowcolour, true, "crystal_shoulder_1".split(";"));
+        }
+        if (visible == 2) {
+            renderParts(scale, bipedRightLeg, armorLegs, normalcolour, false, "leg1".split(";"));
+//        renderParts(scale, bipedRightLeg, armorLegs, glowcolour, true, "visor".split(";"));
+
+            renderParts(scale, bipedLeftLeg, armorLegs, normalcolour, false, "leg2".split(";"));
+//        renderParts(scale, bipedLeftLeg, armorLegs, glowcolour, true, "visor".split(";"));
+        }
+        if (visible == 3) {
+            renderParts(scale, bipedRightLeg, armorBoots, normalcolour, false, "boots1".split(";"));
+//        renderParts(scale, bipedRightLeg, armorLegs, glowcolour, true, "visor".split(";"));
+
+            renderParts(scale, bipedLeftLeg, armorBoots, normalcolour, false, "boots2".split(";"));
+//        renderParts(scale, bipedLeftLeg, armorLegs, glowcolour, true, "visor".split(";"));
+        }
+
         GL11.glPopMatrix();
+    }
+
+    public void renderParts(float scale, ModelRenderer binding, WavefrontObject model, Colour colour, boolean glow, String[] parts) {
+
+        if (!binding.isHidden && binding.showModel) {
+            GL11.glPushMatrix();
+            GL11.glTranslatef(binding.rotationPointX * scale, binding.rotationPointY * scale, binding.rotationPointZ * scale);
+            GL11.glRotatef(binding.rotateAngleZ * (180F / (float) Math.PI), 0.0F, 0.0F, 1.0F);
+            GL11.glRotatef(binding.rotateAngleY * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
+            GL11.glRotatef(binding.rotateAngleX * (180F / (float) Math.PI) + 180, 1.0F, 0.0F, 0.0F);
+
+            GL11.glTranslated(
+                    binding.field_82906_o * scale,
+                    binding.field_82907_q * scale - 1.625,
+                    binding.field_82908_p * scale
+            );
+            GL11.glScaled(scale, scale, scale);
+            new ModelPartSpec(model, parts, colour, glow, "Parts").render();
+
+            GL11.glPopMatrix();
+
+        }
+
     }
 }
