@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.client.render;
+package net.machinemuse.powersuits.client.render.entity;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.DrawableMuseCircle;

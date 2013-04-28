@@ -66,6 +66,15 @@ public class ItemComponent extends Item {
         return stack;
     }
 
+    public ItemStack addComponent(int id, String oredictName, String englishName, String description, String iconName) {
+        names.add(oredictName);
+        iconNames.add(iconName);
+        descriptions.add(description);
+        ItemStack stack = new ItemStack(this, 1, names.size() - 1);
+        LanguageRegistry.addName(stack, englishName);
+        return stack;
+    }
+
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
         if (Config.doAdditionalInfo()) {

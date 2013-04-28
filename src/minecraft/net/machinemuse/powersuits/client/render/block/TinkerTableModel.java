@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.client.render;
+package net.machinemuse.powersuits.client.render.block;
 
 import net.machinemuse.utils.MuseRenderer;
 import net.minecraft.client.model.ModelBase;

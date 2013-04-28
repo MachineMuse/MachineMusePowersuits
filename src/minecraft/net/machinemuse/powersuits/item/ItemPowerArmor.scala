@@ -1,10 +1,6 @@
 package net.machinemuse.powersuits.item
 
-import atomicscience.api.IAntiPoisonArmor
-import atomicscience.api.poison.Poison
-import forestry.api.apiculture.IArmorApiarist
-import net.machinemuse.api.IModularItem
-import net.machinemuse.api.ModuleManager
+import net.machinemuse.api.{ArmorTraits, IModularItem, ModuleManager}
 import net.machinemuse.powersuits.common.Config
 import net.machinemuse.powersuits.powermodule.misc.{TransparentArmorModule, TintModule}
 import net.machinemuse.utils.ElectricItemUtils
@@ -22,15 +18,18 @@ import scala.Predef.String
 import net.machinemuse.general.geometry.Colour
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.client.model.ModelBiped
-import net.machinemuse.powersuits.client.render.{ArmorModel, ArmorBootsModel}
-import net.machinemuse.powersuits.powermodule.armor.{HazmatModule, ApiaristArmorModule}
+import net.machinemuse.powersuits.client.render.item.{ArmorModel, ArmorBootsModel}
 
 /**
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.
  *
  * @author MachineMuse
  */
-abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int) extends ItemElectricArmor(id, EnumArmorMaterial.IRON, renderIndex, armorType) with ISpecialArmor with IAntiPoisonArmor with IModularItem with IArmorApiarist {
+abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int)
+  extends ItemElectricArmor(id, EnumArmorMaterial.IRON, renderIndex, armorType)
+  with ISpecialArmor
+  with IModularItem
+  with ArmorTraits {
   setMaxStackSize(1)
   setCreativeTab(Config.getCreativeTab)
 
@@ -152,20 +151,5 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int) extends
         }
       }
     }
-  }
-
-  def isProtectedFromPoison(itemStack: ItemStack, entityLiving: EntityLiving, `type`: Poison): Boolean = {
-    return MuseItemUtils.itemHasActiveModule(itemStack, HazmatModule.MODULE_HAZMAT)
-  }
-
-  def onProtectFromPoison(itemStack: ItemStack, entityLiving: EntityLiving, `type`: Poison) {
-  }
-
-  def protectPlayer(player: EntityPlayer, armor: ItemStack, cause: String, doProtect: Boolean): Boolean = {
-    if (MuseItemUtils.itemHasActiveModule(armor, ApiaristArmorModule.MODULE_APIARIST_ARMOR)) {
-      ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(armor, ApiaristArmorModule.APIARIST_ARMOR_ENERGY_CONSUMPTION))
-      return true
-    }
-    return false
   }
 }

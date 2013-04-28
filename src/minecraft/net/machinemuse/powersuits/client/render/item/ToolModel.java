@@ -4,10 +4,11 @@
 // Keep in mind that you still need to fill in some blanks
 // - ZeuX
 
-package net.machinemuse.powersuits.client.render;
+package net.machinemuse.powersuits.client.render.item;
 
 import net.machinemuse.general.MuseLogger;
 import net.machinemuse.general.geometry.Colour;
+import net.machinemuse.powersuits.client.render.entity.RenderPlasmaBolt;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
 import net.machinemuse.utils.MuseItemUtils;

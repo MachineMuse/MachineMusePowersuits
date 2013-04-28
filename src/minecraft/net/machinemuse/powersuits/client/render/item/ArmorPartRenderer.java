@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.client.render;
+package net.machinemuse.powersuits.client.render.item;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -12,6 +12,7 @@ public class ArmorPartRenderer extends ModelRenderer {
     protected String[] normalparts;
     protected String[] glowyparts;
     protected ArmorModel modelBase;
+    protected double[] initialRotationPoints;
 
     public ArmorPartRenderer(ArmorModel modelBase, WavefrontObject model, String normalparts, String glowyparts) {
         super(modelBase);
@@ -19,6 +20,11 @@ public class ArmorPartRenderer extends ModelRenderer {
         this.model = model;
         this.normalparts = normalparts.split(";");
         this.glowyparts = glowyparts.split(";");
+    }
+
+    public ArmorPartRenderer setInitialRotationPoints(double x, double y, double z) {
+        this.initialRotationPoints = new double[]{x, y, z};
+        return this;
     }
 
     private void renderParts() {
@@ -59,7 +65,11 @@ public class ArmorPartRenderer extends ModelRenderer {
                 GL11.glRotatef(this.rotateAngleX * (180F / (float) Math.PI), 1.0F, 0.0F, 0.0F);
             }
 
-            GL11.glTranslatef(-this.rotationPointX * par1, -this.rotationPointY * par1, -this.rotationPointZ * par1);
+            GL11.glTranslated(
+                    -this.initialRotationPoints[0] * par1,
+                    -this.initialRotationPoints[1] * par1,
+                    -this.initialRotationPoints[2] * par1
+            );
             renderParts();
 
             GL11.glPopMatrix();

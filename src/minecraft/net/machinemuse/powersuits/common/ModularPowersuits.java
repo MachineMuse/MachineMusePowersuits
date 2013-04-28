@@ -37,8 +37,9 @@ import net.minecraftforge.common.MinecraftForge;
 // matches the server's.
 @Mod(modid = "mmmPowersuits",
         name = "MachineMuse's Modular Powersuits",
-        version = "@MOD_VERSION@",
-        dependencies = "required-after:Forge@[7.7.1.659,)")
+        version = "@MOD_VERSION@"
+//        dependencies = "required-after:Forge@[7.7.1.651,)"
+)
 // Informs forge of the requirements:
 //
 // clientSideRequired means players can't connect without it. True for things

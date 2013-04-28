@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.client.render;
+package net.machinemuse.powersuits.client.render.entity;
 
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.utils.MuseRenderer;

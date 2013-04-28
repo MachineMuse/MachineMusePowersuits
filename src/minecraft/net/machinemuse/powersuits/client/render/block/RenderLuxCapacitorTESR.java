@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.client.render;
+package net.machinemuse.powersuits.client.render.block;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;

@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.client.render;
+package net.machinemuse.powersuits.client.render.item;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.powersuits.common.ModularPowersuits;
