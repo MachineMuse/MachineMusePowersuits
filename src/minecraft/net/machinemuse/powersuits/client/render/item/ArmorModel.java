@@ -67,10 +67,10 @@ public class ArmorModel extends ModelBiped {
                 .setInitialRotationPoints(0.0F, 0.0F + par2, 0.0F);
 
         this.bipedRightArm = new ArmorPartRenderer(this, armorArms, "arms3", "crystal_shoulder_2")
-                .setInitialRotationPoints(5, 2.0F + par2, 0.0F);
+                .setInitialRotationPoints(-5, 2.0F + par2, 0.0F);
 
         this.bipedLeftArm = new ArmorPartRenderer(this, armorArms, "arms2", "crystal_shoulder_1")
-                .setInitialRotationPoints(-5, 2.0F + par2, 0.0F);
+                .setInitialRotationPoints(5, 2.0F + par2, 0.0F);
 
         this.bipedRightLeg = new ArmorPartRenderer(this, armorLegs, "leg1", "")
                 .setInitialRotationPoints(0, 12.0F + par2, 0.0F);
