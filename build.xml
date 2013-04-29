@@ -15,7 +15,7 @@
     <property name="icbmapi.version" value="1.1.1.26"/>
     <property name="thermexapi.version" value="2.3.0b"/>
     <property name="galacticraftapi.version" value="1"/>
-    <property name="mfrapi.version" value="2.4.0-478"/>
+    <property name="mfrapi.version" value="2.5.2B2-642"/>
     <property name="forestryapi.version" value="2.1.2.19"/>
     <property name="scala.version" value="2.10.1"/>
     <property name="thaumcraftapi.version" value="0.0.5 for 3.0.4b"/>
@@ -76,8 +76,8 @@
             <available file="${download.dir}/MFR-API-${mfrapi.version}.zip"/>
             <available file="${download.dir}/forestry-api-${forestryapi.version}.zip"/>
             <available file="${download.dir}/scalalib-${scala.version}.zip"/>
-            <available file="${download.dir}/ThaumcraftApi ${thaumcraftapi.version}.zip" />
-            <available file="${download.dir}/MFFS2_API.zip" />
+            <available file="${download.dir}/ThaumcraftApi ${thaumcraftapi.version}.zip"/>
+            <available file="${download.dir}/MFFS2_API.zip"/>
         </and>
     </condition>
 
@@ -125,9 +125,9 @@
         <get src="http://machinemuse.minecraftforge.net/ThaumcraftApi ${thaumcraftapi.version}.zip"
              dest="${download.dir}/ThaumcraftApi ${thaumcraftapi.version}.zip"/>
 
-        <echo message="Downloading MFFS API..." />
+        <echo message="Downloading MFFS API..."/>
         <get src="http://machinemuse.minecraftforge.net/MFFS2_API.zip"
-             dest="${download.dir}/MFFS2_API.zip" />
+             dest="${download.dir}/MFFS2_API.zip"/>
 
         <echo message="Downloading Scala Libraries..."/>
         <get src="http://machinemuse.minecraftforge.net/scalalib-${scala.version}.zip"
@@ -236,11 +236,11 @@
         <move file="${download.dir}/thaumcraft/api/EnumTag.java" todir="${mcpsrc.dir}/thaumcraft/api"/>
         <move file="${download.dir}/thaumcraft/api/ThaumcraftApiHelper.java" todir="${mcpsrc.dir}/thaumcraft/api"/>
 
-        <echo message="Extracting MFFS API..." />
+        <echo message="Extracting MFFS API..."/>
         <unzip src="${download.dir}/MFFS2_API.zip" dest="${download.dir}"/>
-        <mkdir dir="${mcpsrc.dir}/mods/mffs/api" />
-        <move file="${download.dir}/mods/mffs/api/IFieldTeleporter.java" todir="${mcpsrc.dir}/mods/mffs/api" />
-        <move file="${download.dir}/mods/mffs/api/IMFFS_Wrench.java" todir="${mcpsrc.dir}/mods/mffs/api" />
+        <mkdir dir="${mcpsrc.dir}/mods/mffs/api"/>
+        <move file="${download.dir}/mods/mffs/api/IFieldTeleporter.java" todir="${mcpsrc.dir}/mods/mffs/api"/>
+        <move file="${download.dir}/mods/mffs/api/IMFFS_Wrench.java" todir="${mcpsrc.dir}/mods/mffs/api"/>
 
         <echo message="Extracting Scala Libraries..."/>
         <unzip src="${download.dir}/scalalib-${scala.version}.zip" dest="${mcp.dir}"/>
