@@ -17,7 +17,7 @@ public class EventHandler {
         EntityPlayer player = event.entityPlayer;
         Block block = event.block;
         ItemStack stack = player.inventory.getCurrentItem();
-        if (stack != null && stack.getItem() instanceof ItemPowerGauntlet && ItemPowerGauntlet.canHarvestBlock(stack, block, 0, player)) {
+        if (stack != null && stack.getItem() instanceof ItemPowerGauntlet && ((ItemPowerGauntlet) stack.getItem()).canHarvestBlock(stack, block, 0, player)) {
             event.success = true;
         }
     }

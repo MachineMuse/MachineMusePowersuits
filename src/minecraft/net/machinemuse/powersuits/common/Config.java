@@ -8,7 +8,6 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.machinemuse.powersuits.item.ItemPowerGauntlet;
 import net.machinemuse.powersuits.powermodule.armor.BasicPlatingModule;
 import net.machinemuse.powersuits.powermodule.armor.DiamondPlatingModule;
 import net.machinemuse.powersuits.powermodule.armor.EnergyShieldModule;
@@ -65,6 +64,7 @@ public class Config {
     public static int chestID;
     public static int legsID;
     public static int bootsID;
+    public static int gauntletID;
 
     private static Configuration config;
 
@@ -87,7 +87,7 @@ public class Config {
         chestID = config.getItem("Power Armor Torso", 24772).getInt();
         legsID = config.getItem("Power Armor Legs", 24773).getInt();
         bootsID = config.getItem("Power Armor Feet", 24774).getInt();
-        ItemPowerGauntlet.assignedItemID = config.getItem("Power Tool", 24775).getInt();
+        gauntletID = config.getItem("Power Tool", 24775).getInt();
 
         config.save();
     }

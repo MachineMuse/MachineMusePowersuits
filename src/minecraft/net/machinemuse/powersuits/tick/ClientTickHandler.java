@@ -48,7 +48,6 @@ public class ClientTickHandler implements ITickHandler {
     @Override
     public void tickEnd(EnumSet<TickType> type, Object... tickData) {
         EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
-
         if (player != null && MuseItemUtils.getModularItemsInInventory(player).size() > 0) {
             if (slotSelected > -1 && dWheel != Mouse.getDWheel()) {
                 player.inventory.currentItem = slotSelected;
