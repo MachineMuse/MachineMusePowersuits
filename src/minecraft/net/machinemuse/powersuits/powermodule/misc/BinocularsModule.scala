@@ -2,13 +2,13 @@ package net.machinemuse.powersuits.powermodule.misc
 
 import net.machinemuse.powersuits.powermodule.PowerModuleBase
 import net.machinemuse.utils.{MusePlayerUtils, MuseItemUtils, MuseCommonStrings}
-import net.machinemuse.api.{ModuleManager, IModularItem}
 import net.machinemuse.powersuits.item.ItemComponent
-import net.machinemuse.api.moduletrigger.IPlayerTickModule
 import net.minecraft.item.ItemStack
 import net.minecraft.entity.player.EntityPlayer
 import net.machinemuse.powersuits.control.KeybindKeyHandler
 import cpw.mods.fml.common.FMLCommonHandler
+import net.machinemuse.api.{ModuleManager, IModularItem}
+import net.machinemuse.api.moduletrigger.IPlayerTickModule
 
 /**
  * Author: MachineMuse (Claire Semple)

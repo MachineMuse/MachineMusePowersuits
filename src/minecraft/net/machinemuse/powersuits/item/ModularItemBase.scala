@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.item
 
-import net.machinemuse.api.{ModuleManager, IModularItem}
 import net.minecraft.item.{ItemStack, Item}
 import cpw.mods.fml.relauncher.{SideOnly, Side}
 import net.machinemuse.general.geometry.Colour
@@ -10,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.machinemuse.powersuits.powermodule.misc.{CosmeticGlowModule, TintModule}
 import net.machinemuse.utils.MuseMathUtils._
 import net.machinemuse.api.electricity.MuseElectricItem
+import net.machinemuse.api.{ModuleManager, IModularItem}
 
 /**
  * Author: MachineMuse (Claire Semple)

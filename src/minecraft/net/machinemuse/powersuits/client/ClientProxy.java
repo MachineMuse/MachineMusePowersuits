@@ -14,6 +14,7 @@ import net.machinemuse.powersuits.client.render.entity.RenderLuxCapacitorEntity;
 import net.machinemuse.powersuits.client.render.entity.RenderPlasmaBolt;
 import net.machinemuse.powersuits.client.render.entity.RenderSpinningBlade;
 import net.machinemuse.powersuits.client.render.item.ToolRenderer;
+import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec;
 import net.machinemuse.powersuits.common.CommonProxy;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.common.ModularPowersuits;
@@ -77,6 +78,8 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntityLuxCapacitor.class, new RenderLuxCapacitorEntity());
 
         MinecraftForge.EVENT_BUS.register(new TextureStitchHandler());
+
+        DefaultModelSpec.loadDefaultModel();
 
     }
 

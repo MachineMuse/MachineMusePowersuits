@@ -144,14 +144,14 @@ public abstract class MuseStringUtils {
      * @return a list of strings which are no longer than
      *         <p/>
      *         <pre>
-     *                 length
-     *                 </pre>
+     *                         length
+     *                         </pre>
      *
      *         unless there is a sequence of non-space characters longer than
      *
      *         <pre>
-     *                 length
-     *                 </pre>
+     *                         length
+     *                         </pre>
      */
     public static List<String> wrapStringToLength(String str, int length) {
         List<String> strlist = new ArrayList();
@@ -171,6 +171,11 @@ public abstract class MuseStringUtils {
         strlist.add(str.substring(i));
 
         return strlist;
+    }
+
+    public static String extractName(String resource) {
+        int ix = Math.max(resource.lastIndexOf('/'), resource.lastIndexOf('\\')) + 1;
+        return resource.substring(ix, resource.lastIndexOf('.'));
     }
 
     /**

@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.item
 
-import net.machinemuse.api.{ArmorTraits, IModularItem, ModuleManager}
 import net.machinemuse.powersuits.common.Config
 import net.machinemuse.powersuits.powermodule.misc.{TransparentArmorModule, TintModule}
 import net.machinemuse.utils.ElectricItemUtils
@@ -19,6 +18,8 @@ import net.machinemuse.general.geometry.Colour
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.client.model.ModelBiped
 import net.machinemuse.powersuits.client.render.item.ArmorModel
+import net.machinemuse.api.{ArmorTraits, ModuleManager, IModularItem}
+import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec
 
 /**
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.
@@ -74,8 +75,7 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int)
       if (MuseItemUtils.itemHasActiveModule(itemstack, TransparentArmorModule.MODULE_TRANSPARENT_ARMOR)) {
         return null
       }
-      model.normalcolour = this.getColorFromItemStack(itemstack)
-      model.glowcolour = this.getGlowFromItemStack(itemstack)
+      model.renderSpec = DefaultModelSpec.makeModelPrefs(itemstack, armorSlot)
     }
     return model
   }

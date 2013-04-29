@@ -1,7 +1,6 @@
 package net.machinemuse.api.electricity
 
 import net.minecraft.item.ItemStack
-import net.machinemuse.api.ModuleManager
 import net.machinemuse.utils.{ElectricItemUtils, MuseItemUtils}
 import ic2.api.item.ICustomElectricItem
 import universalelectricity.core.item.IItemElectric
@@ -10,6 +9,7 @@ import thermalexpansion.api.item.IChargeableItem
 import net.machinemuse.api.electricity.ElectricConversions._
 import icbm.api.explosion.{IExplosive, IEMPItem}
 import net.minecraft.entity.Entity
+import net.machinemuse.api.ModuleManager
 
 /**
  * Author: MachineMuse (Claire Semple)
