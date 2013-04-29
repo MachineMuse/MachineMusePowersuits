@@ -214,7 +214,7 @@
         <echo message="Extracting MFR API... "/>
         <unzip src="${download.dir}/MFR-API-${mfrapi.version}.zip" dest="${download.dir}"/>
         <mkdir dir="${mcpsrc.dir}/powercrystals/minefactoryreloaded/api"/>
-        <move file="${download.dir}/powercrystals/minefactoryreloaded/api/IToolHammer.java"
+        <move file="${download.dir}/powercrystals/minefactoryreloaded/api/IToolHammerAdvanced.java"
               todir="${mcpsrc.dir}/powercrystals/minefactoryreloaded/api"/>
 
         <echo message="Extracting Forestry API... "/>
