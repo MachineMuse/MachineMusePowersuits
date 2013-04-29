@@ -50,14 +50,14 @@ public class ClientTickHandler implements ITickHandler {
         EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
 
         if (player != null && MuseItemUtils.getModularItemsInInventory(player).size() > 0) {
-            if (slotSelected > -1) {
+            if (slotSelected > -1 && dWheel != Mouse.getDWheel()) {
                 player.inventory.currentItem = slotSelected;
                 Minecraft.getMinecraft().playerController.updateController();
                 ItemStack stack = player.inventory.getStackInSlot(slotSelected);
                 MuseItemUtils.cycleMode(stack, player, dWheel - Mouse.getDWheel());
-                dWheel = Mouse.getDWheel();
-                slotSelected = -1;
             }
+            dWheel = Mouse.getDWheel();
+            slotSelected = -1;
             PlayerInputMap inputmap = PlayerInputMap.getInputMapFor(player.username);
             inputmap.forwardKey = Math.signum(player.movementInput.moveForward);
             inputmap.strafeKey = Math.signum(player.movementInput.moveStrafe);
