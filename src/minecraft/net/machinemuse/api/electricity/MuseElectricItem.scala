@@ -106,7 +106,7 @@ trait MuseElectricItem
 
   def getMaxCharge(itemStack: ItemStack): Int = museEnergyToEU(getCurrentEnergy(itemStack)).asInstanceOf[Int]
 
-  def getTier(itemStack: ItemStack): Int = getTier(itemStack)
+  def getTier(itemStack: ItemStack): Int = ElectricConversions.getTier(itemStack)
 
   def getTransferLimit(itemStack: ItemStack): Int = museEnergyToEU(Math.sqrt(getMaxEnergy(itemStack))).asInstanceOf[Int]
 
