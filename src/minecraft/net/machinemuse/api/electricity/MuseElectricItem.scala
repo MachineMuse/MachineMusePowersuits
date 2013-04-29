@@ -51,7 +51,7 @@ trait MuseElectricItem
 	 * Level to set it to
    */
   def setCurrentEnergy(stack: ItemStack, energy: Double) {
-    MuseItemUtils.setDoubleOrRemove(stack, ElectricItemUtils.CURRENT_ENERGY, energy)
+    MuseItemUtils.setDoubleOrRemove(stack, ElectricItemUtils.CURRENT_ENERGY, Math.min(energy, getMaxEnergy(stack)))
   }
 
   /**
