@@ -117,7 +117,7 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
             return false;
         }
         int id = player.worldObj.getBlockId(x, y, z);
-        if (Block.blocksList[id] instanceof IShearable) {
+        if (Block.blocksList[id] instanceof IShearable && ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(itemstack, SHEARING_ENERGY_CONSUMPTION)) {
             IShearable target = (IShearable) Block.blocksList[id];
             if (target.isShearable(itemstack, player.worldObj, x, y, z)) {
                 ArrayList<ItemStack> drops = target.onSheared(itemstack, player.worldObj, x, y, z,

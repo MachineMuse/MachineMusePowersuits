@@ -100,7 +100,7 @@ public class OmniWrenchModule extends PowerModuleBase implements IRightClickModu
                 side = OmniWrenchModule.SIDE_OPPOSITE[side];
             }
 
-            if (((tile instanceof IMFFS_Wrench)) && (!((IMFFS_Wrench)tile).wrenchCanManipulate(player, side))) {
+            if (((tile instanceof IMFFS_Wrench)) && (!((IMFFS_Wrench) tile).wrenchCanManipulate(player, side))) {
                 return false;
             }
 
