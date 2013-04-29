@@ -5,6 +5,7 @@ import net.machinemuse.general.MuseLogger
 import net.minecraft.util.Vec3
 import net.machinemuse.general.geometry.Colour
 import java.awt.Color
+import net.machinemuse.utils.MuseStringUtils
 
 
 /**
@@ -14,7 +15,7 @@ import java.awt.Color
 object ModelSpecXMLReader {
   def parseFile(file: String) = {
     val xml = XML.loadFile(file)
-    (xml \ "model").foreach {
+    (xml \\ "model").foreach {
       modelnode =>
         parseModel(modelnode)
     }
@@ -28,8 +29,8 @@ object ModelSpecXMLReader {
 
     ModelRegistry.loadModel(file) match {
       case Some(m) => {
-        val modelspec = new ModelSpec(m, textures, offset, rotation)
-        ModelRegistry.put(file, modelspec)
+        val modelspec = new ModelSpec(m, textures, offset, rotation, file)
+        ModelRegistry.put(MuseStringUtils.extractName(file), modelspec)
         (modelnode \ "binding").foreach {
           bindingnode => parseBinding(bindingnode, modelspec)
         }

@@ -33,7 +33,8 @@ object ModelRegistry extends MuseRegistry[ModelSpec] {
 class ModelSpec(val model: WavefrontObject,
                 val textures: Array[String],
                 val offset: Option[Vec3],
-                val rotation: Option[Vec3]
+                val rotation: Option[Vec3],
+                val filename: String
                  ) extends MuseRegistry[ModelPartSpec] {
   def applyOffsetAndRotation = {
 

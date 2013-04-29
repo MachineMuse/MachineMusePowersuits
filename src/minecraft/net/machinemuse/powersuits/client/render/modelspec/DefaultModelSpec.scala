@@ -47,7 +47,7 @@ object DefaultModelSpec {
 
   def loadModel(file: String, textures: Array[String]): Option[ModelSpec] = {
     ModelRegistry.loadModel(file) match {
-      case Some(m) => Some(ModelRegistry.put(MuseStringUtils.extractName(file), new ModelSpec(m, textures, None, None)))
+      case Some(m) => Some(ModelRegistry.put(MuseStringUtils.extractName(file), new ModelSpec(m, textures, None, None, file)))
       case None => MuseLogger.logError("Model file " + file + " not found! D:")
     }
   }
