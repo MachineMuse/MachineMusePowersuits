@@ -6,6 +6,7 @@ import net.minecraft.util.Vec3
 import net.machinemuse.general.geometry.Colour
 import java.awt.Color
 import net.machinemuse.utils.MuseStringUtils
+import java.net.URL
 
 
 /**
@@ -13,8 +14,8 @@ import net.machinemuse.utils.MuseStringUtils
  * Created: 8:44 AM, 4/28/13
  */
 object ModelSpecXMLReader {
-  def parseFile(file: String) = {
-    val xml = XML.loadFile(file)
+  def parseFile(file: URL) = {
+    val xml = XML.load(file)
     (xml \\ "model").foreach {
       modelnode =>
         parseModel(modelnode)

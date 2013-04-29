@@ -33,6 +33,8 @@ import net.machinemuse.powersuits.tick.RenderTickHandler;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 
+import java.net.URL;
+
 /**
  * The Client Proxy does all the things that should only be done client-side,
  * like registering client-side handlers and renderers.
@@ -80,7 +82,10 @@ public class ClientProxy extends CommonProxy {
 
         MinecraftForge.EVENT_BUS.register(new TextureStitchHandler());
 
-        ModelSpecXMLReader.parseFile(Config.RESOURCE_PREFIX + "models/modelspec.xml");
+
+        URL resource = ClientProxy.class.getResource(Config.RESOURCE_PREFIX + "models/modelspec.xml");
+
+        ModelSpecXMLReader.parseFile(resource);
 //        DefaultModelSpec.loadDefaultModel();
 //        ModelSpecXMLWriter.writeRegistry("modelspec.xml");
 
