@@ -72,6 +72,18 @@ public class KeybindConfigFrame implements IGuiFrame {
                 selecting = true;
             }
         }
+        if (button > 2) {
+            int key = button - 100;
+            if (KeyBinding.hash.containsItem(key)) {
+                takenTime = System.currentTimeMillis();
+            }
+            if (!KeyBinding.hash.containsItem(key)) {
+                addKeybind(key, true);
+            } else if (Config.allowConflictingKeybinds()) {
+                addKeybind(key, false);
+            }
+            selecting = false;
+        }
     }
 
     public void refreshModules() {
