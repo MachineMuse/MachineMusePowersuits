@@ -384,8 +384,8 @@ public class RecipeManager {
             ItemStack powerCoilGold = ModCompatability.getThermexItem("powerCoilGold", 1);
             ItemStack powerCoilSilver = ModCompatability.getThermexItem("powerCoilSilver", 1);
             ItemStack powerCoilElectrum = ModCompatability.getThermexItem("powerCoilElectrum", 1);
-            ItemStack gearCopper = ModCompatability.getThermexItem("gearCopper", 1);
-            ItemStack gearTin = ModCompatability.getThermexItem("gearTin", 1);
+            String gearCopper = "gearCopper";
+            String gearTin = "gearTin";
             ItemStack gearInvar = ModCompatability.getThermexItem("gearInvar", 1);
             ItemStack compressedSawdust = ModCompatability.getThermexItem("hardenedGlass", 1);
             ItemStack energyFrameFull = ModCompatability.getThermexItem("energyCellFrameFull", 1);
