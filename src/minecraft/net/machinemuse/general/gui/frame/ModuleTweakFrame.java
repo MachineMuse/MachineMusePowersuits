@@ -67,7 +67,6 @@ public class ModuleTweakFrame extends ScrollableFrame {
     @Override
     public void draw() {
         if (sliders != null) {
-            MuseRenderer.drawCenteredString("Tinker", (border.left() + border.right()) / 4, border.top() / 2 + 2);
             GL11.glPushMatrix();
             GL11.glScaled(SCALERATIO, SCALERATIO, SCALERATIO);
             super.draw();
@@ -83,6 +82,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
 
             }
             GL11.glPopMatrix();
+            MuseRenderer.drawCenteredString("Tinker", (border.left() + border.right()) / 4, border.top() / 2 + 2);
         }
     }
 

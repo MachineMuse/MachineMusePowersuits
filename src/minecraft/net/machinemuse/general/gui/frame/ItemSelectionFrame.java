@@ -4,6 +4,8 @@ import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.FlyFromPointToPoint2D;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableItem;
+import net.machinemuse.general.sound.Musique;
+import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MuseRenderer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -117,6 +119,7 @@ public class ItemSelectionFrame extends ScrollableFrame {
         int i = 0;
         for (ClickableItem item : itemButtons) {
             if (item.hitBox(x, y)) {
+                Musique.playClientSound(SoundLoader.SOUND_GUI_SELECT, 1);
                 selectedItemStack = i;
                 break;
             } else {

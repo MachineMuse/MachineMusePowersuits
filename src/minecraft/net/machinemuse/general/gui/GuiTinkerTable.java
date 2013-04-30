@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.block;
+package net.machinemuse.general.gui;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;

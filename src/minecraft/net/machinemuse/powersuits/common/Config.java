@@ -199,6 +199,7 @@ public class Config {
         addModule(new HoeModule(TOOLONLY));
         addModule(new LuxCapacitor(TOOLONLY));
         addModule(new OmniWrenchModule(TOOLONLY));
+        addModule(new FieldTinkerModule(TOOLONLY));
 
         // Weapon
         addModule(new MeleeAssistModule(TOOLONLY));
