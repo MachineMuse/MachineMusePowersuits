@@ -213,6 +213,8 @@ public class KeybindConfigFrame implements IGuiFrame {
         MuseRenderer.on2D();
         if (selecting) {
             MuseRenderer.drawCenteredString("Press Key", center.x(), center.y());
+            MuseRenderer.off2D();
+            MuseRenderer.blendingOff();
             return;
         }
         newKeybindButton.draw();
