@@ -77,8 +77,8 @@ public class RenderTickHandler implements ITickHandler {
                 double top = screen.getScaledHeight() / 2.0 - 16;
                 energy.draw(left, top, currEnergy / maxEnergy);
                 heat.draw(left + 8, top, currHeat / maxHeat);
-                MuseRenderer.drawString(currStr, left - 20, top + 10);
-                MuseRenderer.drawString(currHeatStr, left - 20, top + 20);
+                MuseRenderer.drawRightAlignedString(currStr, left - 2, top + 10);
+                MuseRenderer.drawRightAlignedString(currHeatStr, left - 2, top + 20);
             } else {
                 MuseRenderer.drawString(currStr + '/' + maxStr + " J", 1, 1);
                 MuseRenderer.drawString(currHeatStr + '/' + maxHeatStr + " C", 1, 10);

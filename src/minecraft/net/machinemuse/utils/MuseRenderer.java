@@ -150,7 +150,7 @@ public abstract class MuseRenderer {
     public static void on2D() {
         GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
 
-        GL11.glDisable(GL11.GL_DEPTH_TEST);
+//        GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glDisable(GL11.GL_CULL_FACE);
         GL11.glDisable(GL11.GL_LIGHTING);
 
@@ -320,7 +320,12 @@ public abstract class MuseRenderer {
         double xradius = getFontRenderer().getStringWidth(s) / 2;
         drawString(s, x - xradius, y);
     }
-
+    /**
+     * Does the necessary openGL calls and calls the Minecraft font renderer to draw a string such that the xcoord is halfway through the string
+     */
+    public static void drawRightAlignedString(String s, double x, double y) {
+        drawString(s, x - getFontRenderer().getStringWidth(s), y);
+    }
     /**
      * Draws a rectangular prism (cube or otherwise orthogonal)
      */
@@ -461,6 +466,7 @@ public abstract class MuseRenderer {
             firstpoint = firstClickable.getPosition();
             secondpoint = secondClickable.getPosition();
         }
+        GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glBegin(GL11.GL_LINES);
         gradientColour.withAlpha(gradientRatio).doGL();
@@ -473,8 +479,7 @@ public abstract class MuseRenderer {
         Colour.WHITE.withAlpha(1.0).doGL();
         GL11.glVertex3d(midpoint.x(), midpoint.y(), 1);
         GL11.glEnd();
-
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glPopAttrib();
     }
 
     public static void drawLightning(double x1, double y1, double z1, double x2, double y2, double z2, Colour colour) {
