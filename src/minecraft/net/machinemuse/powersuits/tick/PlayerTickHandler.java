@@ -8,6 +8,8 @@ import cpw.mods.fml.common.TickType;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.general.MuseLogger;
+import net.machinemuse.general.sound.Musique;
+import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
@@ -15,6 +17,7 @@ import net.machinemuse.utils.MuseMathUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 import java.util.EnumSet;
@@ -83,6 +86,12 @@ public class PlayerTickHandler implements ITickHandler {
                 player.setFire(1);
             } else {
                 player.extinguish();
+            }
+            double velsq2 = MuseMathUtils.sumsq(player.motionX, player.motionY, player.motionZ) - 0.5;
+            if(player.isAirBorne && velsq2 > 0) {
+                Musique.playerSound(player, SoundLoader.SOUND_GLIDER, (float) (velsq2/3), 1.0f, true);
+            } else {
+                Musique.stopPlayerSound(player, SoundLoader.SOUND_GLIDER);
             }
         }
     }

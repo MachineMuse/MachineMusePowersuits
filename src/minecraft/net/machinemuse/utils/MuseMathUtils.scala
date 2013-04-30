@@ -12,4 +12,7 @@ object MuseMathUtils {
     if (value > max) return max
     return value
   }
+  def sumsq(x: Double, y: Double, z: Double) = x * x + y * y + z * z
+
+  def pythag(x: Double, y: Double, z: Double) = Math.sqrt(x * x + y * y + z * z)
 }

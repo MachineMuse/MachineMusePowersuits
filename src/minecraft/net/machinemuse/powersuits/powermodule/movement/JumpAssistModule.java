@@ -3,6 +3,8 @@ package net.machinemuse.powersuits.powermodule.movement;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.sound.Musique;
+import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.ItemComponent;

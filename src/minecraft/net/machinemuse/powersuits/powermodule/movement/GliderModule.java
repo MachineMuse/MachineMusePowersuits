@@ -3,6 +3,8 @@ package net.machinemuse.powersuits.powermodule.movement;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.sound.Musique;
+import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -57,8 +59,9 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
         if (torso != null && torso.getItem() instanceof IModularItem) {
             hasParachute = MuseItemUtils.itemHasActiveModule(torso, ParachuteModule.MODULE_PARACHUTE);
         }
-        if (sneakkey && player.motionY < -0.1 && (!hasParachute || forwardkey > 0)) {
+        if (sneakkey && player.motionY < 0 && (!hasParachute || forwardkey > 0)) {
             if (player.motionY < -0.1) {
+                float vol = (float)( player.motionX*player.motionX + player.motionZ * player.motionZ);
                 double motionYchange = Math.min(0.08, -0.1 - player.motionY);
                 player.motionY += motionYchange;
                 player.motionX += playerHorzFacing.xCoord * motionYchange;
@@ -66,19 +69,8 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
 
                 // sprinting speed
                 player.jumpMovementFactor += 0.03f;
-
-                // if (gliderTicker == 0) {
-                // world.playSoundAtEntity(player,
-                // MuseCommonStrings.SOUND_GLIDER, 5.0F, 1.0F);
-                // gliderTicker++;
-                // }
-                // else {
-                // gliderTicker++;
-                // if (gliderTicker >= 35) {
-                // gliderTicker = 0;
-                // }
-                // }
             }
+        } else {
         }
     }
 

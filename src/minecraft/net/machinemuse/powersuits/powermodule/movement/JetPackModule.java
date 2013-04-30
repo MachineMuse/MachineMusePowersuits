@@ -4,6 +4,8 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.sound.Musique;
+import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -18,8 +20,8 @@ import java.util.List;
 
 public class JetPackModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
     public static final String MODULE_JETPACK = "Jetpack";
-    public static final String JET_ENERGY_CONSUMPTION = "Jet Energy Consumption";
-    public static final String JET_THRUST = "Jet Thrust";
+    public static final String JET_ENERGY_CONSUMPTION = "Jetpack Energy Consumption";
+    public static final String JET_THRUST = "Jetpack Thrust";
 
     public JetPackModule(List<IModularItem> validItems) {
         super(validItems);
@@ -63,15 +65,24 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
         if (jetEnergy < ElectricItemUtils.getPlayerEnergy(player)) {
             thrust *= MusePlayerUtils.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
             if (hasFlightControl && thrust > 0) {
-                MusePlayerUtils.thrust(player, thrust, jetEnergy, true);
+                thrust = MusePlayerUtils.thrust(player, thrust, true);
+                Musique.playerSound(player, SoundLoader.SOUND_JETPACK, (float) (thrust*6.25), 1.0f, true);
+                ElectricItemUtils.drainPlayerEnergy(player, thrust * jetEnergy);
             } else if (jumpkey && player.motionY < 0.5) {
-                MusePlayerUtils.thrust(player, thrust, jetEnergy, false);
+                thrust = MusePlayerUtils.thrust(player, thrust, false);
+                Musique.playerSound(player, SoundLoader.SOUND_JETPACK,(float) (thrust*6.25), 1.0f, true);
+                ElectricItemUtils.drainPlayerEnergy(player, thrust * jetEnergy);
+            } else {
+                Musique.stopPlayerSound(player, SoundLoader.SOUND_JETPACK);
             }
+        } else {
+            Musique.stopPlayerSound(player, SoundLoader.SOUND_JETPACK);
         }
     }
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+        Musique.stopPlayerSound(player, SoundLoader.SOUND_JETPACK);
     }
 
     @Override

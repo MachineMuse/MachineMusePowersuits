@@ -4,6 +4,8 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.sound.Musique;
+import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
@@ -45,6 +47,7 @@ public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerT
         double energy = ElectricItemUtils.getPlayerEnergy(player);
         double energyConsumption = ModuleManager.computeModularProperty(item, WATERBREATHING_ENERGY_CONSUMPTION);
         if (energy > energyConsumption && player.getAir() < 10) {
+            Musique.playClientSound(SoundLoader.SOUND_ELECTROLYZER, 1.0f);
             ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
             player.setAir(300);
         }

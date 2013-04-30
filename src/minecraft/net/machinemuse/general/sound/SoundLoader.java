@@ -16,14 +16,21 @@ public class SoundLoader {
 			SOUND_RESOURCE_LOCATION + "GUISelect.ogg", SOUND_RESOURCE_LOCATION + "JetBoots.ogg", SOUND_RESOURCE_LOCATION + "Jetpack.ogg",
 			SOUND_RESOURCE_LOCATION + "JumpAssist.ogg", SOUND_RESOURCE_LOCATION + "SwimAssist.ogg",
 			SOUND_RESOURCE_LOCATION + "WaterElectrolyzer.ogg" };
-	public static final String SOUND_GLIDER = SOUND_PREFIX + "Glider";
 	public static final String SOUND_GUI_INSTALL = SOUND_PREFIX + "GUIInstall";
 	public static final String SOUND_GUI_SELECT = SOUND_PREFIX + "GUISelect";
-	public static final String SOUND_JET_BOOTS = SOUND_PREFIX + "JetBoots";
-	public static final String SOUND_JETPACK = SOUND_PREFIX + "Jetpack";
 	public static final String SOUND_JUMP_ASSIST = SOUND_PREFIX + "JumpAssist";
-	public static final String SOUND_SWIM_ASSIST = SOUND_PREFIX + "SwimAssist";
-	public static final String SOUND_WATER_ELECTROLYZER = SOUND_PREFIX + "WaterElectrolyzer";
+
+
+    public static final String SOUND_GLIDER = SOUND_PREFIX + "Glider";
+    public static final float GLIDER_PRIORITY = 5;
+    public static final String SOUND_JETBOOTS = SOUND_PREFIX + "JetBoots";
+    public static final float JETBOOTS_PRIORITY = 4;
+    public static final String SOUND_JETPACK = SOUND_PREFIX + "Jetpack";
+    public static final float JETPACK_PRIORITY = 3;
+	public static final String SOUND_SWIMASSIST = SOUND_PREFIX + "SwimAssist";
+    public static final float SWIMASSIST_PRIORITY = 2;
+	public static final String SOUND_ELECTROLYZER = SOUND_PREFIX + "WaterElectrolyzer";
+    public static final float ELECTROLYZER_PRIORITY = 1;
 
 	@ForgeSubscribe
 	public void onSoundLoad(SoundLoadEvent event) {

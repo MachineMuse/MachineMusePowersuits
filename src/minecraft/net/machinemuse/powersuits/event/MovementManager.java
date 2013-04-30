@@ -43,7 +43,7 @@ public class MovementManager {
                 double jumpAssist = ModuleManager.computeModularProperty(stack, JumpAssistModule.JUMP_MULTIPLIER) * 2;
                 double drain = ModuleManager.computeModularProperty(stack, JumpAssistModule.JUMP_ENERGY_CONSUMPTION);
                 double avail = ElectricItemUtils.getPlayerEnergy(player);
-                Musique.playOneshotSound(player, SoundLoader.SOUND_JUMP_ASSIST, 1);
+                Musique.playerSound(player, SoundLoader.SOUND_JUMP_ASSIST, (float) (jumpAssist/8.0), 2, false);
                 if (drain < avail) {
                     ElectricItemUtils.drainPlayerEnergy(player, drain);
                     setPlayerJumpTicks(player, jumpAssist);
@@ -68,6 +68,7 @@ public class MovementManager {
             if (boots != null) {
                 if (MuseItemUtils.itemHasActiveModule(boots, ShockAbsorberModule.MODULE_SHOCK_ABSORBER) && event.distance > 3) {
                     double distanceAbsorb = event.distance * ModuleManager.computeModularProperty(boots, ShockAbsorberModule.SHOCK_ABSORB_MULTIPLIER);
+                    Musique.playerSound(player, SoundLoader.SOUND_GUI_INSTALL, (float) (distanceAbsorb), 2, false);
 
                     double drain = distanceAbsorb * ModuleManager.computeModularProperty(boots, ShockAbsorberModule.SHOCK_ABSORB_ENERGY_CONSUMPTION);
                     double avail = ElectricItemUtils.getPlayerEnergy(player);

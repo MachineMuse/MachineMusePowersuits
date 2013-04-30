@@ -172,14 +172,14 @@ public class MusePlayerUtils {
         }
     }
 
-    public static void thrust(EntityPlayer player, double thrust, double jetEnergy, boolean flightControl) {
+    public static double thrust(EntityPlayer player, double thrust, boolean flightControl) {
         PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.username);
         boolean jumpkey = movementInput.jumpKey;
         float forwardkey = movementInput.forwardKey;
         float strafekey = movementInput.strafeKey;
         boolean downkey = movementInput.downKey;
         boolean sneakkey = movementInput.sneakKey;
-        double totalEnergyDrain = 0;
+        double thrustUsed = 0;
         if (flightControl) {
             Vec3 desiredDirection = player.getLookVec().normalize();
             double strafeX = desiredDirection.zCoord;
@@ -218,38 +218,38 @@ public class MusePlayerUtils {
             // Brakes
             if (player.motionY < 0 && desiredDirection.yCoord >= 0) {
                 if (-player.motionY > thrust) {
-                    totalEnergyDrain += jetEnergy * thrust;
                     player.motionY += thrust;
+                    thrustUsed += thrust;
                     thrust = 0;
                 } else {
-                    totalEnergyDrain += jetEnergy * Math.abs(player.motionY);
                     thrust -= player.motionY;
+                    thrustUsed += player.motionY;
                     player.motionY = 0;
                 }
             }
             if (player.motionY < -1) {
-                totalEnergyDrain += jetEnergy * Math.abs(1 + player.motionY);
                 thrust += 1 + player.motionY;
+                thrustUsed -= 1 + player.motionY;
                 player.motionY = -1;
             }
             if (Math.abs(player.motionX) > 0 && desiredDirection.lengthVector() == 0) {
                 if (Math.abs(player.motionX) > thrust) {
-                    totalEnergyDrain += jetEnergy * thrust;
                     player.motionX -= Math.signum(player.motionX) * thrust;
+                    thrustUsed += thrust;
                     thrust = 0;
                 } else {
-                    totalEnergyDrain += jetEnergy * Math.abs(player.motionX);
                     thrust -= Math.abs(player.motionX);
+                    thrustUsed += Math.abs(player.motionX);
                     player.motionX = 0;
                 }
             }
             if (Math.abs(player.motionZ) > 0 && desiredDirection.lengthVector() == 0) {
                 if (Math.abs(player.motionZ) > thrust) {
-                    totalEnergyDrain += jetEnergy * thrust;
                     player.motionZ -= Math.signum(player.motionZ) * thrust;
+                    thrustUsed += thrust;
                     thrust = 0;
                 } else {
-                    totalEnergyDrain += jetEnergy * Math.abs(player.motionZ);
+                    thrustUsed += Math.abs(player.motionZ);
                     thrust -= Math.abs(player.motionZ);
                     player.motionZ = 0;
                 }
@@ -262,13 +262,12 @@ public class MusePlayerUtils {
             player.motionX += vx;
             player.motionY += vy;
             player.motionZ += vz;
+            thrustUsed += thrust;
 
-            totalEnergyDrain += jetEnergy * (vx * vx + vy * vy + vz * vz);
         } else {
             Vec3 playerHorzFacing = player.getLookVec();
             playerHorzFacing.yCoord = 0;
             playerHorzFacing.normalize();
-            totalEnergyDrain += jetEnergy;
             if (forwardkey == 0) {
                 player.motionY += thrust;
             } else {
@@ -276,6 +275,7 @@ public class MusePlayerUtils {
                 player.motionX += playerHorzFacing.xCoord * thrust / root2 * Math.signum(forwardkey);
                 player.motionZ += playerHorzFacing.zCoord * thrust / root2 * Math.signum(forwardkey);
             }
+            thrustUsed += thrust;
         }
 
         // Slow the player if they are going too fast
@@ -291,7 +291,7 @@ public class MusePlayerUtils {
             player.motionZ *= ratio;
         }
         resetFloatKickTicks(player);
-        ElectricItemUtils.drainPlayerEnergy(player, totalEnergyDrain);
+        return thrustUsed;
     }
 
     public static double getWeightPenaltyRatio(double currentWeight, double capacity) {
