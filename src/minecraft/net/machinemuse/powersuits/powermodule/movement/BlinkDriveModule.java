@@ -8,6 +8,7 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
+import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -27,8 +28,8 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
         addBaseProperty(BLINK_DRIVE_RANGE, 5, "m");
         addTradeoffProperty("Range", BLINK_DRIVE_ENERGY_CONSUMPTION, 3000);
         addTradeoffProperty("Range", BLINK_DRIVE_RANGE, 59);
-        addInstallCost(Config.copyAndResize(ItemComponent.ionThruster, 1));
-        addInstallCost(Config.copyAndResize(ItemComponent.fieldEmitter, 2));
+        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 1));
+        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
     }
 
     @Override

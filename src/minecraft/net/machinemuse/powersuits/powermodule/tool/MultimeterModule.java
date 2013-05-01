@@ -7,6 +7,7 @@ import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
+import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -23,7 +24,7 @@ public class MultimeterModule extends PowerModuleBase implements IRightClickModu
 
     public MultimeterModule(String name, List<IModularItem> validItems) {
         super(name, validItems); // Add UE multimeter module
-        addInstallCost(Config.copyAndResize(ItemComponent.wiring, 2)).addInstallCost(Config.copyAndResize(ItemComponent.solenoid, 1));
+        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.wiring, 2)).addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
 
     }
 
