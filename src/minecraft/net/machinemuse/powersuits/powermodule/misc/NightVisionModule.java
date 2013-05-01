@@ -27,7 +27,7 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
 
     @Override
     public String getCategory() {
-        return MuseCommonStrings.CATEGORY_SPECIAL;
+        return MuseCommonStrings.CATEGORY_VISION;
     }
 
     @Override
