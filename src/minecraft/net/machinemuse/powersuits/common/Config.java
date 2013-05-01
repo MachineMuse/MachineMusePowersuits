@@ -151,20 +151,6 @@ public class Config {
         return config.get(Configuration.CATEGORY_GENERAL, "Debugging info", false).getBoolean(false);
     }
 
-    /**
-     * Helper function for making recipes. Returns a copy of the itemstack with
-     * the specified stacksize.
-     *
-     * @param stack  Itemstack to copy
-     * @param number New Stacksize
-     * @return A new itemstack with the specified properties
-     */
-    public static ItemStack copyAndResize(ItemStack stack, int number) {
-        ItemStack copy = stack.copy();
-        copy.stackSize = number;
-        return copy;
-    }
-
     public static void addModule(IPowerModule module) {
         ModuleManager.addModule(module);
     }
@@ -285,5 +271,19 @@ public class Config {
 
     public static boolean allowConflictingKeybinds() {
         return config.get(Configuration.CATEGORY_GENERAL, "Allow Conflicting Keybinds", true).getBoolean(true);
+    }
+
+    public static boolean useCustomFonts() {
+        return config.get("Font", "Use Custom Font Engine", false).getBoolean(false);
+    }
+    public static double fontDetail() {
+        return config.get("Font", "Font Detail Multiplier", 4).getDouble(4);
+    }
+    public static String fontString() {
+        return config.get("Font", "Font Name", "Times New Roman").getString();
+    }
+
+    public static boolean fontAntiAliasing() {
+        return config.get("Font", "Font Anti-Aliasing", false).getBoolean(false);
     }
 }

@@ -1,5 +1,6 @@
 package net.machinemuse.utils;
 
+import net.machinemuse.general.MuseLogger;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.geometry.SwirlyMuseCircle;
@@ -305,12 +306,26 @@ public abstract class MuseRenderer {
         GL11.glScalef(gui.getxSize(), gui.getySize(), 0);
     }
 
+    static boolean messagedAboutSlick = false;
     /**
      * Does the necessary openGL calls and calls the Minecraft font renderer to draw a string at the specified coords
      */
     public static void drawString(String s, double x, double y) {
         RenderHelper.disableStandardItemLighting();
-        getFontRenderer().drawStringWithShadow(s, (int) x, (int) y, new Colour(1, 1, 1, 1).getInt());
+        blendingOn();
+        on2D();
+        try {
+            SlickFont.apply(x, y, s, Colour.WHITE);
+        } catch (Throwable e) {
+            if(!messagedAboutSlick) {
+                MuseLogger.logError("Slick-Util failed!");
+                e.printStackTrace();
+                messagedAboutSlick = true;
+            }
+            getFontRenderer().drawStringWithShadow(s, (int) x, (int) y, Colour.WHITE.getInt());
+        }
+        off2D();
+        blendingOff();
     }
 
     /**
@@ -320,12 +335,38 @@ public abstract class MuseRenderer {
         double xradius = getFontRenderer().getStringWidth(s) / 2;
         drawString(s, x - xradius, y);
     }
+
     /**
      * Does the necessary openGL calls and calls the Minecraft font renderer to draw a string such that the xcoord is halfway through the string
      */
     public static void drawRightAlignedString(String s, double x, double y) {
         drawString(s, x - getFontRenderer().getStringWidth(s), y);
     }
+
+    public static double getStringWidth(String s) {
+        try {
+            return SlickFont.getStringWidth(s);
+        } catch (Throwable e) {
+            return getFontRenderer().getStringWidth(s);
+        }
+    }
+
+    public static void drawStringsJustified(List<String> words, double x1, double x2, double y) {
+        int totalwidth = 0;
+        for (String word : words) {
+            totalwidth += getFontRenderer().getStringWidth(word);
+        }
+
+        double spacing = (x2 - x1 - totalwidth) / (words.size() - 1);
+
+        double currentwidth = 0;
+        for (String word : words) {
+            MuseRenderer.drawString(word, x1 + currentwidth, y);
+            currentwidth += getFontRenderer().getStringWidth(word) + spacing;
+        }
+
+    }
+
     /**
      * Draws a rectangular prism (cube or otherwise orthogonal)
      */
@@ -391,21 +432,6 @@ public abstract class MuseRenderer {
         arraysOff();
     }
 
-    public static void drawStringsJustified(List<String> words, double x1, double x2, double y) {
-        int totalwidth = 0;
-        for (String word : words) {
-            totalwidth += getFontRenderer().getStringWidth(word);
-        }
-
-        double spacing = (x2 - x1 - totalwidth) / (words.size() - 1);
-
-        double currentwidth = 0;
-        for (String word : words) {
-            MuseRenderer.drawString(word, x1 + currentwidth, y);
-            currentwidth += getFontRenderer().getStringWidth(word) + spacing;
-        }
-
-    }
 
     private static float lightmapLastX;
     private static float lightmapLastY;

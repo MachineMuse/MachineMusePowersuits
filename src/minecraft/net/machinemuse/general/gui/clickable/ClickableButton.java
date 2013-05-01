@@ -22,7 +22,7 @@ public class ClickableButton extends Clickable {
     public ClickableButton(String label, MusePoint2D position, boolean enabled) {
         this.label = label;
         this.position = position;
-        this.radius = new MusePoint2D(MuseRenderer.getFontRenderer().getStringWidth(label) / 2 + 2, 6);
+        this.radius = new MusePoint2D(MuseRenderer.getStringWidth(label) / 2 + 2, 6);
         this.rect = new DrawableMuseRect(
                 position.x() - radius.x(),
                 position.y() - radius.y(),

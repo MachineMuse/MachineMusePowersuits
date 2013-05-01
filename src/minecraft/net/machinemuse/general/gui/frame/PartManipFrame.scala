@@ -5,22 +5,23 @@ import net.machinemuse.general.geometry.{Colour, MuseRect, MuseRelativeRect}
 import net.machinemuse.utils.{GuiIcons, MuseRenderer}
 import org.lwjgl.opengl.GL11._
 import net.minecraft.item.ItemStack
+import net.machinemuse.general.gui.clickable.ClickableItem
 
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 1:46 AM, 30/04/13
  */
-class ModelPartSelectionSubframe(val model: ModelSpec, val border: MuseRelativeRect, val colour: Colour, var stack: ItemStack) {
-  var specs: Iterable[ModelPartSpec] = model.apply.values.filter(spec => isValidArmor(stack, spec.slot))
+class PartManipFrame(val model: ModelSpec, val selectFrame:ItemSelectionFrame, val border: MuseRelativeRect) {
+  var specs: Iterable[ModelPartSpec] = model.apply.values.filter(spec => isValidArmor(selectFrame.getSelectedItem, spec.slot))
   var open: Boolean = true
   var mousex: Double = 0
   var mousey: Double = 0
 
   def update {
-    specs = model.apply.values.filter(spec => isValidArmor(stack, spec.slot))
+    specs = model.apply.values.filter(spec => isValidArmor(selectFrame.getSelectedItem, spec.slot))
   }
 
-  def isValidArmor(stack: ItemStack, slot: Int): Boolean = Option(stack).map(s => s.getItem().isValidArmor(stack, slot)).getOrElse(false)
+  def isValidArmor(stack: ClickableItem, slot: Int): Boolean = Option(stack).map(s => s.getItem.getItem.isValidArmor(s.getItem, slot)).getOrElse(false)
 
   def drawPartial(min: Int, max: Int) {
     ModelRegistry.getName(model).map(s => drawPartialString(s, min, max, border.left + 8, border.top))
@@ -49,7 +50,7 @@ class ModelPartSelectionSubframe(val model: ModelSpec, val border: MuseRelativeR
   }
 
   def drawOpenArrow {
-    colour.doGL()
+    Colour.LIGHTBLUE.doGL
     glBegin(GL_TRIANGLES)
     if (open) {
       glVertex2d(border.left, border.top)

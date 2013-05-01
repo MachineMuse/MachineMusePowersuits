@@ -132,6 +132,11 @@
         <echo message="Downloading Scala Libraries..."/>
         <get src="http://machinemuse.minecraftforge.net/scalalib-${scala.version}.zip"
              dest="${download.dir}/scalalib-${scala.version}.zip"/>
+
+
+        <echo message="Downloading Slick-Util..."/>
+        <get src="http://machinemuse.minecraftforge.net/slick-util.jar"
+             dest="${download.dir}/slick-util.jar"/>
     </target>
 
     <!-- Dependencies -->
@@ -261,6 +266,7 @@
     </target>
 
     <target name="install" depends="build">
+        <unzip src="${download.dir}/slick-util.jar" dest="${classes.dir}"/>
         <jar destfile="${dist.dir}/ModularPowersuits-${fullversion}.jar" basedir="${classes.dir}"/>
         <delete dir="${classes.dir}"/>
     </target>

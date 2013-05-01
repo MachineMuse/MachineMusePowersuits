@@ -247,14 +247,14 @@ public class MuseGui extends GuiScreen {
         int y = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
         List<String> tooltip = getToolTip(x, y);
         if (tooltip != null) {
-            int strwidth = 0;
+            double strwidth = 0;
             for (String s : tooltip) {
-                int currstrwidth = MuseRenderer.getFontRenderer().getStringWidth(s);
+                double currstrwidth = MuseRenderer.getStringWidth(s);
                 if (currstrwidth > strwidth) {
                     strwidth = currstrwidth;
                 }
             }
-            int top, bottom, left, right;
+            double top, bottom, left, right;
             if (y > this.height / 2) {
                 top = y - 10 * tooltip.size() - 8;
                 bottom = y;

@@ -2,6 +2,8 @@ package net.machinemuse.general.geometry;
 
 import org.lwjgl.opengl.GL11;
 
+import java.awt.*;
+
 /**
  * A class representing an RGBA colour and various helper functions. Mainly to
  * improve readability elsewhere.
@@ -105,5 +107,8 @@ public class Colour {
         int y = (int) (x * 255);
         String hexDigits = "0123456789ABCDEF";
         return hexDigits.charAt(y / 16) + "" + hexDigits.charAt(y % 16);
+    }
+    public Color awtColor() {
+        return new Color((float)r,(float)g,(float)b,(float)a);
     }
 }
