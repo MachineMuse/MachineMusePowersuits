@@ -10,6 +10,7 @@ import net.minecraft.client.entity.EntityClientPlayerMP
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.stats.AchievementList
 import net.minecraft.world.World
+import cpw.mods.fml.relauncher.{SideOnly, Side}
 
 /**
  * Gui handler for this mod. Mainly just takes an ID according to what was
@@ -18,20 +19,23 @@ import net.minecraft.world.World
  * @author MachineMuse
  */
 class GuiHandler extends IGuiHandler {
-  def getServerGuiElement(ID: Int, player: EntityPlayer, world: World, x: Int, y: Int, z: Int): AnyRef = {
+  override def getServerGuiElement(ID: Int, player: EntityPlayer, world: World, x: Int, y: Int, z: Int): AnyRef = {
     ID match {
       case _ => null
     }
   }
 
-  def getClientGuiElement(ID: Int, player: EntityPlayer, world: World, x: Int, y: Int, z: Int): AnyRef = {
+  @SideOnly(Side.CLIENT)
+  override def getClientGuiElement(ID: Int, player: EntityPlayer, world: World, x: Int, y: Int, z: Int): AnyRef = {
     Minecraft.getMinecraft.thePlayer.addStat(AchievementList.openInventory, 1)
-    ID match {
-      case 0 => new GuiTinkerTable(player)
-      case 1 => new KeyConfigGui(player)
-      case 2 => new GuiFieldTinker(player)
-      case 3 => new CosmeticGui(player)
-      case _ => null
-    }
+    val cplayer = if (player.isInstanceOf[EntityClientPlayerMP]) Some(player.asInstanceOf[EntityClientPlayerMP]) else None
+    cplayer.map(p =>
+      ID match {
+        case 0 => new GuiTinkerTable(p)
+        case 1 => new KeyConfigGui(p)
+        case 2 => new GuiFieldTinker(p)
+        case 3 => new CosmeticGui(p)
+        case _ => None
+      }) getOrElse null
   }
 }
