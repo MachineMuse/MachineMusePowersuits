@@ -5,6 +5,7 @@ import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.frame.*;
 import net.machinemuse.utils.MuseRenderer;
 import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.entity.player.EntityPlayer;
 
 /**
  * The gui class for the TinkerTable block.
@@ -21,8 +22,8 @@ public class GuiFieldTinker extends MuseGui {
      *
      * @param player
      */
-    public GuiFieldTinker(EntityClientPlayerMP player) {
-        this.player = player;
+    public GuiFieldTinker(EntityPlayer player) {
+        this.player = (EntityClientPlayerMP) player;
         this.xSize = 256;
         this.ySize = 200;
     }

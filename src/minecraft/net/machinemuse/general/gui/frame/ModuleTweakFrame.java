@@ -15,6 +15,7 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MuseRenderer;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import org.lwjgl.opengl.GL11;
@@ -70,7 +71,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
             GL11.glPushMatrix();
             GL11.glScaled(SCALERATIO, SCALERATIO, SCALERATIO);
             super.draw();
-            MuseRenderer.drawCenteredString("Tinker", (border.left() + border.right())/2, border.top() + 2);
+            MuseRenderer.drawCenteredString("Tinker", (border.left() + border.right()) / 2, border.top() + 2);
             for (ClickableSlider slider : sliders) {
                 slider.draw();
             }

@@ -27,10 +27,10 @@ class GuiHandler extends IGuiHandler {
   def getClientGuiElement(ID: Int, player: EntityPlayer, world: World, x: Int, y: Int, z: Int): AnyRef = {
     Minecraft.getMinecraft.thePlayer.addStat(AchievementList.openInventory, 1)
     ID match {
-      case 0 => new GuiTinkerTable(player.asInstanceOf[EntityClientPlayerMP])
+      case 0 => new GuiTinkerTable(player)
       case 1 => new KeyConfigGui(player)
-      case 2 => new GuiFieldTinker(player.asInstanceOf[EntityClientPlayerMP])
-      case 3 => new CosmeticGui(player.asInstanceOf[EntityClientPlayerMP])
+      case 2 => new GuiFieldTinker(player)
+      case 3 => new CosmeticGui(player)
       case _ => null
     }
   }
