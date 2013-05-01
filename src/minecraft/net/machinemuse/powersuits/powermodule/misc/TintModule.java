@@ -25,6 +25,11 @@ public class TintModule extends PowerModuleBase {
     }
 
     @Override
+    public boolean isAllowed() {
+        return false;
+    }
+
+    @Override
     public String getCategory() {
         // return "Blah";
         return MuseCommonStrings.CATEGORY_COSMETIC;

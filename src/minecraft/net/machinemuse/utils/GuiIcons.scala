@@ -13,16 +13,16 @@ object GuiIcons {
   trait GuiIcon {
     val filepath: String
 
-    def apply(x: Double, y: Double, xmin: Int = Integer.MIN_VALUE, ymin: Int = Integer.MIN_VALUE, xmax: Int = Integer.MAX_VALUE, ymax: Int = Integer.MAX_VALUE) {
+    def apply(x: Double, y: Double, c: Colour = Colour.WHITE, xmin: Double = Integer.MIN_VALUE, ymin: Double = Integer.MIN_VALUE, xmax: Double = Integer.MAX_VALUE, ymax: Double = Integer.MAX_VALUE) {
       MuseRenderer.TEXTURE_MAP = filepath
       //      glPushMatrix
       //      glScaled(0.5,0.5,0.5)
-      MuseRenderer.drawIconPartial(x, y, GuiIconDrawer, Colour.WHITE, xmin, ymin, xmax, ymax)
+      MuseRenderer.drawIconPartialOccluded(x, y, GuiIconDrawer, c, xmin, ymin, xmax, ymax)
       //      glPopMatrix
     }
   }
 
-  object Checkmark {
+  object Checkmark extends GuiIcon {
     val filepath = Config.TEXTURE_PREFIX + "gui/checkmark.png"
   }
 

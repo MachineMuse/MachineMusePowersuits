@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraftforge.client.model.obj.WavefrontObject
 import org.lwjgl.opengl.GL11
+import net.minecraft.nbt.{NBTTagList, NBTTagCompound}
 
 object ArmorModel {
   def getInstance: ArmorModel = {
@@ -24,7 +25,7 @@ object ArmorModel {
 }
 
 class ArmorModel(par1: Float, par2: Float, par3: Int, par4: Int) extends ModelBiped(0.0F, 0.0f, 64, 32) {
-  var renderSpec: Seq[ModelPartDisplayPrefs] = null
+  var renderSpec: NBTTagList = null
   var visible: Int = 0
   setInitialOffsets(bipedHead, 0.0F, 0.0F + par2, 0.0F)
   setInitialOffsets(bipedBody, 0.0F, 0.0F + par2, 0.0F)
@@ -66,10 +67,9 @@ class ArmorModel(par1: Float, par2: Float, par3: Int, par4: Int) extends ModelBi
 
     GL11.glPushMatrix
     GL11.glScaled(scale, scale, scale)
-    for (pref <- renderSpec) {
-      if (pref.partSpec.slot == this.visible) {
-        RenderPart(pref, this)
-      }
+    for (i <- 0 until renderSpec.tagCount()) {
+      val tag = renderSpec.tagAt(i)
+      if (tag.isInstanceOf[NBTTagCompound]) RenderPart(tag.asInstanceOf[NBTTagCompound], this)
     }
     GL11.glPopMatrix
   }

@@ -21,6 +21,11 @@ public class CosmeticGlowModule extends PowerModuleBase {
     }
 
     @Override
+    public boolean isAllowed() {
+        return false;
+    }
+
+    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_COSMETIC;
     }

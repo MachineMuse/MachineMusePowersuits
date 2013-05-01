@@ -5,6 +5,7 @@ import net.machinemuse.general.MuseLogger
 import net.minecraft.item.ItemStack
 import net.machinemuse.powersuits.item.ItemPowerArmor
 import net.machinemuse.utils.MuseStringUtils
+import net.minecraft.nbt.{NBTTagList, NBTTagCompound}
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -58,7 +59,7 @@ object DefaultModelSpec {
     }
   }
 
-  def makeModelPrefs(stack: ItemStack, slot: Int): Seq[ModelPartDisplayPrefs] = {
+  def makeModelPrefs(stack: ItemStack, slot: Int): NBTTagList = {
     val item = stack.getItem().asInstanceOf[ItemPowerArmor]
     val normalcolour = item.getColorFromItemStack(stack)
     val glowcolour = item.getGlowFromItemStack(stack)
@@ -81,20 +82,18 @@ object DefaultModelSpec {
       }
 
     }
-
-    list
+    (new NBTTagList() /: list) {
+      case (taglist, elem) => taglist appendTag elem; taglist
+    }
   }
 
-  def makePrefs(modelname: String, partnames: Array[String], colour: Colour, glow: Boolean): Array[ModelPartDisplayPrefs] = {
-    ModelRegistry.get(modelname).map(model => {
-      for (name <- partnames) yield {
-        makePref(model.get(name).get, Some(colour), Some(glow))
-      }
-    }).get
+  def makePrefs(modelname: String, partnames: Array[String], colour: Colour, glow: Boolean): Array[NBTTagCompound] = {
+    ModelRegistry.get(modelname).map(model =>
+      for (name <- partnames) yield makePref(model.get(name).get, Some(colour), Some(glow))
+    ) getOrElse Array.empty[NBTTagCompound]
   }
 
-  def makePref(partSpec: ModelPartSpec,
-               colour: Option[Colour],
-               glow: Option[Boolean]
-                ) = new ModelPartDisplayPrefs(partSpec, None, colour, glow)
+  def makePref(partSpec: ModelPartSpec, colour: Option[Colour], glow: Option[Boolean]): NBTTagCompound = {
+    partSpec.multiSet(new NBTTagCompound(), None, glow, colour)
+  }
 }

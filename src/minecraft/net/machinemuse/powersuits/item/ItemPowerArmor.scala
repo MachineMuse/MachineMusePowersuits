@@ -75,7 +75,11 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int)
       if (MuseItemUtils.itemHasActiveModule(itemstack, TransparentArmorModule.MODULE_TRANSPARENT_ARMOR)) {
         return null
       }
-      model.renderSpec = DefaultModelSpec.makeModelPrefs(itemstack, armorSlot)
+      val tag = MuseItemUtils.getMuseItemTag(itemstack)
+      if (!tag.hasKey("render")) {
+        tag.setTag("render", DefaultModelSpec.makeModelPrefs(itemstack, armorSlot))
+      }
+      model.renderSpec = tag.getTagList("render")
     }
     return model
   }

@@ -255,6 +255,15 @@ public abstract class MuseRenderer {
         drawIconPartial(x, y, icon, colour, 0, 0, 16, 16);
     }
 
+
+    public static void drawIconPartialOccluded(double x, double y, Icon icon, Colour colour, double left, double top, double right, double bottom) {
+        double xmin = MuseMathUtils.clampDouble(left - x, 0, 16);
+        double ymin = MuseMathUtils.clampDouble(top - y, 0, 16);
+        double xmax = MuseMathUtils.clampDouble(right - x, 0, 16);
+        double ymax = MuseMathUtils.clampDouble(bottom - y, 0, 16);
+        drawIconPartial(x, y, icon, colour, xmin, ymin, xmax, ymax);
+    }
+
     /**
      * Draws a MuseIcon
      *
@@ -309,8 +318,9 @@ public abstract class MuseRenderer {
     static boolean messagedAboutSlick = false;
 
     public static void drawString(String s, double x, double y) {
-        drawString(s,x,y,Colour.WHITE);
+        drawString(s, x, y, Colour.WHITE);
     }
+
     /**
      * Does the necessary openGL calls and calls the Minecraft font renderer to draw a string at the specified coords
      */
@@ -319,10 +329,10 @@ public abstract class MuseRenderer {
         blendingOn();
         on2D();
         try {
-            if(!Config.useCustomFonts()) throw new UnsupportedOperationException();
+            if (!Config.useCustomFonts()) throw new UnsupportedOperationException();
             SlickFont.apply(x, y, s, c);
         } catch (Throwable e) {
-            if(!messagedAboutSlick) {
+            if (!messagedAboutSlick) {
                 MuseLogger.logError("Slick-Util failed or was disabled in config!");
                 e.printStackTrace();
                 messagedAboutSlick = true;
@@ -349,7 +359,7 @@ public abstract class MuseRenderer {
 
     public static double getStringWidth(String s) {
         try {
-            if(!Config.useCustomFonts()) throw new UnsupportedOperationException();
+            if (!Config.useCustomFonts()) throw new UnsupportedOperationException();
             return SlickFont.getStringWidth(s);
         } catch (Throwable e) {
             return getStringWidth(s);
@@ -650,29 +660,6 @@ public abstract class MuseRenderer {
         matrix.put(5, scaley);
         matrix.put(10, scalez);
         GL11.glLoadMatrix(matrix);
-    }
-
-    public static void drawCheckmark(double x, double y, Colour colour) {
-        GL11.glPushMatrix();
-        on2D();
-        blendingOn();
-
-        if (colour != null) {
-            colour.doGL();
-        }
-        getRenderEngine().bindTexture("/mods/mmmPowersuits/textures/gui/checkmark.png");
-        Tessellator tess = Tessellator.instance;
-        tess.startDrawingQuads();
-
-        tess.addVertexWithUV(x, y, 0.0F, 0.0F, 0.0F);
-        tess.addVertexWithUV(x, y + 16, 0.0F, 0.0F, 1.0F);
-        tess.addVertexWithUV(x + 16, y + 16, 0.0F, 1.0F, 1.0F);
-        tess.addVertexWithUV(x + 16, y, 0.0F, 1.0F, 0.0F);
-        tess.draw();
-
-        MuseRenderer.blendingOff();
-        off2D();
-        GL11.glPopMatrix();
     }
 
 }
