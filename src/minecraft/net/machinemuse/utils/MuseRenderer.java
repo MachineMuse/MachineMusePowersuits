@@ -307,23 +307,27 @@ public abstract class MuseRenderer {
     }
 
     static boolean messagedAboutSlick = false;
+
+    public static void drawString(String s, double x, double y) {
+        drawString(s,x,y,Colour.WHITE);
+    }
     /**
      * Does the necessary openGL calls and calls the Minecraft font renderer to draw a string at the specified coords
      */
-    public static void drawString(String s, double x, double y) {
+    public static void drawString(String s, double x, double y, Colour c) {
         RenderHelper.disableStandardItemLighting();
         blendingOn();
         on2D();
         try {
             if(!Config.useCustomFonts()) throw new UnsupportedOperationException();
-            SlickFont.apply(x, y, s, Colour.WHITE);
+            SlickFont.apply(x, y, s, c);
         } catch (Throwable e) {
             if(!messagedAboutSlick) {
                 MuseLogger.logError("Slick-Util failed or was disabled in config!");
                 e.printStackTrace();
                 messagedAboutSlick = true;
             }
-            getFontRenderer().drawStringWithShadow(s, (int) x, (int) y, Colour.WHITE.getInt());
+            getFontRenderer().drawStringWithShadow(s, (int) x, (int) y, c.getInt());
         }
         off2D();
         blendingOff();
@@ -333,29 +337,29 @@ public abstract class MuseRenderer {
      * Does the necessary openGL calls and calls the Minecraft font renderer to draw a string such that the xcoord is halfway through the string
      */
     public static void drawCenteredString(String s, double x, double y) {
-        double xradius = getFontRenderer().getStringWidth(s) / 2;
-        drawString(s, x - xradius, y);
+        drawString(s, x - getStringWidth(s) / 2, y);
     }
 
     /**
      * Does the necessary openGL calls and calls the Minecraft font renderer to draw a string such that the xcoord is halfway through the string
      */
     public static void drawRightAlignedString(String s, double x, double y) {
-        drawString(s, x - getFontRenderer().getStringWidth(s), y);
+        drawString(s, x - getStringWidth(s), y);
     }
 
     public static double getStringWidth(String s) {
         try {
+            if(!Config.useCustomFonts()) throw new UnsupportedOperationException();
             return SlickFont.getStringWidth(s);
         } catch (Throwable e) {
-            return getFontRenderer().getStringWidth(s);
+            return getStringWidth(s);
         }
     }
 
     public static void drawStringsJustified(List<String> words, double x1, double x2, double y) {
         int totalwidth = 0;
         for (String word : words) {
-            totalwidth += getFontRenderer().getStringWidth(word);
+            totalwidth += getStringWidth(word);
         }
 
         double spacing = (x2 - x1 - totalwidth) / (words.size() - 1);
@@ -363,7 +367,7 @@ public abstract class MuseRenderer {
         double currentwidth = 0;
         for (String word : words) {
             MuseRenderer.drawString(word, x1 + currentwidth, y);
-            currentwidth += getFontRenderer().getStringWidth(word) + spacing;
+            currentwidth += getStringWidth(word) + spacing;
         }
 
     }

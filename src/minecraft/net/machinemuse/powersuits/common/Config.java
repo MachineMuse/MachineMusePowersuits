@@ -279,9 +279,9 @@ public class Config {
     public static double fontDetail() {
         return config.get("Font", "Font Detail Multiplier", 4).getDouble(4);
     }
-    public static String fontString() {
-        return config.get("Font", "Font Name", "Times New Roman").getString();
-    }
+//    public static String fontString() {
+//        return config.get("Font", "Font Name", "Courier New").getString();
+//    }
 
     public static boolean fontAntiAliasing() {
         return config.get("Font", "Font Anti-Aliasing", false).getBoolean(false);

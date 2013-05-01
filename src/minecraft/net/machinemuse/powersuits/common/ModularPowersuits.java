@@ -135,7 +135,7 @@ public class ModularPowersuits {
         Config.getSalvageChance();
         Config.baseMaxHeat();
         Config.allowConflictingKeybinds();
-        Config.fontString();
+//        Config.fontString();
         Config.fontDetail();
         Config.fontAntiAliasing();
         Config.useCustomFonts();

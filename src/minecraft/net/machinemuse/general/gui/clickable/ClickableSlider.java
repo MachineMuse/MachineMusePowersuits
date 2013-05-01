@@ -24,16 +24,16 @@ public class ClickableSlider extends Clickable {
         this.width = width;
         this.outsideRect = new DrawableMuseRect(
                 position.x() - width / 2.0 - cornersize,
-                position.y() + 10,
+                position.y() + 8,
                 position.x() + width / 2.0 + cornersize,
-                position.y() + 24,
+                position.y() + 18,
                 Colour.LIGHTBLUE, Colour.DARKBLUE);
 
         this.insideRect = new DrawableMuseRect(
                 position.x() - width / 2.0 - cornersize,
-                position.y() + 10,
+                position.y() + 8,
                 0,
-                position.y() + 24,
+                position.y() + 18,
                 Colour.LIGHTBLUE, Colour.ORANGE);
     }
 
@@ -49,8 +49,8 @@ public class ClickableSlider extends Clickable {
     @Override
     public boolean hitBox(double x, double y) {
         double xval = position.x() - x;
-        double yval = position.y() + 17 - y;
-        return Math.abs(xval) < width / 2 && Math.abs(yval) < 7;
+        double yval = position.y() + 13 - y;
+        return Math.abs(xval) < width / 2 && Math.abs(yval) < 5;
     }
 
     public String getName() {

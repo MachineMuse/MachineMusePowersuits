@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ItemInfoFrame extends ScrollableFrame {
-    public static final double SCALEFACTOR = 0.5;
+    public static final double SCALEFACTOR = 1;
     protected ItemSelectionFrame target;
     protected EntityPlayer player;
     protected List<String> info;

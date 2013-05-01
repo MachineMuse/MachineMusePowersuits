@@ -1,5 +1,6 @@
 package net.machinemuse.general.gui.clickable;
 
+import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.utils.MuseRenderer;
 import net.machinemuse.utils.MuseStringUtils;
@@ -54,8 +55,7 @@ public class ClickableItem extends Clickable {
                 getPosition().x() - offsetx,
                 getPosition().y() - offsety, item);
         if (inventorySlot > 35 || Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem() == item) {
-            String string = MuseStringUtils.wrapFormatTags("e", MuseStringUtils.FormatCodes.DarkGreen);
-            MuseRenderer.drawString(string, getPosition().x() + 3, getPosition().y() + 1);
+            MuseRenderer.drawString("e", getPosition().x() + 3, getPosition().y() + 1, Colour.DARKGREEN);
         }
     }
 }
