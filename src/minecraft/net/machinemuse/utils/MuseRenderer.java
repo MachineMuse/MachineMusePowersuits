@@ -315,10 +315,11 @@ public abstract class MuseRenderer {
         blendingOn();
         on2D();
         try {
+            if(!Config.useCustomFonts()) throw new UnsupportedOperationException();
             SlickFont.apply(x, y, s, Colour.WHITE);
         } catch (Throwable e) {
             if(!messagedAboutSlick) {
-                MuseLogger.logError("Slick-Util failed!");
+                MuseLogger.logError("Slick-Util failed or was disabled in config!");
                 e.printStackTrace();
                 messagedAboutSlick = true;
             }
