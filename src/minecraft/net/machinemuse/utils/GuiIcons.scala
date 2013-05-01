@@ -3,6 +3,7 @@ package net.machinemuse.utils
 import net.minecraft.util.Icon
 import net.machinemuse.general.geometry.Colour
 import net.machinemuse.powersuits.common.Config
+import org.lwjgl.opengl.GL11._
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -12,30 +13,44 @@ object GuiIcons {
 
   trait GuiIcon {
     val filepath: String
+    val size: Double
 
     def apply(x: Double, y: Double, c: Colour = Colour.WHITE, xmin: Double = Integer.MIN_VALUE, ymin: Double = Integer.MIN_VALUE, xmax: Double = Integer.MAX_VALUE, ymax: Double = Integer.MAX_VALUE) {
-      MuseRenderer.TEXTURE_MAP = filepath
-      //      glPushMatrix
-      //      glScaled(0.5,0.5,0.5)
-      MuseRenderer.drawIconPartialOccluded(x, y, GuiIconDrawer, c, xmin, ymin, xmax, ymax)
-      //      glPopMatrix
+      MuseRenderer.pushTexture(filepath)
+      glPushMatrix
+      MuseRenderer.blendingOn()
+      val s = size / 16.0
+      glScaled(s, s, s)
+      MuseRenderer.drawIconPartialOccluded(x / s, y / s, GuiIconDrawer, c, xmin / s, ymin / s, xmax / s, ymax / s)
+      MuseRenderer.blendingOff()
+      glPopMatrix
+      MuseRenderer.popTexture
     }
   }
 
   object Checkmark extends GuiIcon {
+    val size = 16.0
     val filepath = Config.TEXTURE_PREFIX + "gui/checkmark.png"
   }
 
   object TransparentArmor extends GuiIcon {
+    val size = 8.0
     val filepath = Config.TEXTURE_PREFIX + "gui/transparentarmor.png"
   }
 
   object NormalArmor extends GuiIcon {
+    val size = 8.0
     val filepath = Config.TEXTURE_PREFIX + "gui/normalarmor.png"
   }
 
   object GlowArmor extends GuiIcon {
+    val size = 8.0
     val filepath = Config.TEXTURE_PREFIX + "gui/glowarmor.png"
+  }
+
+  object SelectedArmorOverlay extends GuiIcon {
+    val size = 8.0
+    val filepath = Config.TEXTURE_PREFIX + "gui/armordisplayselect.png"
   }
 
 

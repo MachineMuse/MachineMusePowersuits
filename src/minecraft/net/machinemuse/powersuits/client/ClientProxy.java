@@ -82,10 +82,11 @@ public class ClientProxy extends CommonProxy {
 
         MinecraftForge.EVENT_BUS.register(new TextureStitchHandler());
 
-
         URL resource = ClientProxy.class.getResource(Config.RESOURCE_PREFIX + "models/modelspec.xml");
-
         ModelSpecXMLReader.parseFile(resource);
+        URL otherResource = ClientProxy.class.getResource(Config.RESOURCE_PREFIX + "models/armor2.xml");
+        ModelSpecXMLReader.parseFile(otherResource);
+
 //        DefaultModelSpec.loadDefaultModel();
 //        ModelSpecXMLWriter.writeRegistry("modelspec.xml");
 

@@ -7,6 +7,8 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.general.MuseLogger;
+import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.machinemuse.powersuits.network.packets.MusePacketModeChangeRequest;
@@ -162,6 +164,25 @@ public class MuseItemUtils {
         return properties;
     }
 
+    public static NBTTagCompound getMuseRenderTag(ItemStack stack, int armorSlot) {
+        NBTTagCompound tag = getMuseItemTag(stack);
+        if (!tag.hasKey("render") || !(tag.getTag("render") instanceof NBTTagCompound)) {
+            MuseLogger.logDebug("TAG BREACH IMMINENT, PLEASE HOLD ONTO YOUR SEATBELTS");
+            tag.removeTag("render");
+            tag.setTag("render", DefaultModelSpec.makeModelPrefs(stack, armorSlot));
+        }
+        return tag.getCompoundTag("render");
+    }
+
+    public static NBTTagCompound getMuseRenderTag(ItemStack stack) {
+        NBTTagCompound tag = getMuseItemTag(stack);
+        if (!tag.hasKey("render") || !(tag.getTag("render") instanceof NBTTagCompound)) {
+            tag.removeTag("render");
+            tag.setTag("render", new NBTTagCompound());
+        }
+        return tag.getCompoundTag("render");
+    }
+
     /**
      * Scans a specified inventory for modular items.
      *
@@ -238,10 +259,6 @@ public class MuseItemUtils {
         return true;
     }
 
-    /**
-     * @param workingUpgradeCost
-     * @param inventory
-     */
     public static List<Integer> deleteFromInventory(List<ItemStack> cost, InventoryPlayer inventory) {
         List<Integer> slots = new LinkedList<Integer>();
         for (ItemStack stackInCost : cost) {

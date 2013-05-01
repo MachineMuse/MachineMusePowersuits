@@ -40,6 +40,13 @@ object ModelRegistry extends MuseRegistry[ModelSpec] {
   def getPart(nbt: NBTTagCompound): Option[ModelPartSpec] = {
     getModel(nbt).flatMap(m => m.get(nbt getString "part"))
   }
+
+  def getSpecTag(museRenderTag: NBTTagCompound, spec: ModelPartSpec): Option[NBTTagCompound] = {
+    val name = makeName(spec)
+    if (museRenderTag.hasKey(name)) Some(museRenderTag.getCompoundTag(name)) else None
+  }
+
+  def makeName(spec: ModelPartSpec) = spec.modelSpec.getOwnName + "." + spec.partName
 }
 
 class ModelSpec(val model: WavefrontObject,
@@ -52,6 +59,9 @@ class ModelSpec(val model: WavefrontObject,
 
   }
 
+  def getOwnName = {
+    ModelRegistry.getName(this).getOrElse("")
+  }
 }
 
 class ModelPartSpec(val modelSpec: ModelSpec,

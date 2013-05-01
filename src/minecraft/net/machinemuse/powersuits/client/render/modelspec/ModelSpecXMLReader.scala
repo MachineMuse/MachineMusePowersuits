@@ -31,9 +31,9 @@ object ModelSpecXMLReader {
     ModelRegistry.loadModel(file) match {
       case Some(m) => {
         val modelspec = new ModelSpec(m, textures, offset, rotation, file)
-        ModelRegistry.put(MuseStringUtils.extractName(file), modelspec)
+        val existingspec = ModelRegistry.put(MuseStringUtils.extractName(file), modelspec)
         (modelnode \ "binding").foreach {
-          bindingnode => parseBinding(bindingnode, modelspec)
+          bindingnode => parseBinding(bindingnode, existingspec)
         }
       }
       case None => {

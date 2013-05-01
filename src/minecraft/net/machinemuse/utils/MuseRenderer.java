@@ -26,6 +26,7 @@ import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Contains a bunch of random OpenGL-related functions, accessed statically.
@@ -39,6 +40,7 @@ public abstract class MuseRenderer {
     protected static SwirlyMuseCircle selectionCircle;
 
     public static String TEXTURE_MAP = "/gui/items.png";
+    public static Stack<String> texturestack = new Stack<String>();
 
     public static final String ITEM_TEXTURE_QUILT = "/gui/items.png";
     public static final String BLOCK_TEXTURE_QUILT = "/terrain.png";
@@ -56,6 +58,15 @@ public abstract class MuseRenderer {
             selectionCircle = new SwirlyMuseCircle(new Colour(0.0f, 1.0f, 0.0f, 0.0f), new Colour(0.8f, 1.0f, 0.8f, 1.0f));
         }
         selectionCircle.draw(radius, xoffset, yoffset);
+    }
+
+    public static void pushTexture(String filename) {
+        texturestack.push(TEXTURE_MAP);
+        TEXTURE_MAP = filename;
+    }
+
+    public static void popTexture() {
+        TEXTURE_MAP = texturestack.pop();
     }
 
     /**

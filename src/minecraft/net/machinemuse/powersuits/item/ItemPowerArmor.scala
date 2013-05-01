@@ -2,10 +2,7 @@ package net.machinemuse.powersuits.item
 
 import net.machinemuse.powersuits.common.Config
 import net.machinemuse.powersuits.powermodule.misc.{TransparentArmorModule, TintModule}
-import net.machinemuse.utils.ElectricItemUtils
-import net.machinemuse.utils.MuseCommonStrings
-import net.machinemuse.utils.MuseHeatUtils
-import net.machinemuse.utils.MuseItemUtils
+import net.machinemuse.utils._
 import net.minecraft.entity.{Entity, EntityLiving}
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumArmorMaterial
@@ -19,7 +16,6 @@ import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.client.model.ModelBiped
 import net.machinemuse.powersuits.client.render.item.ArmorModel
 import net.machinemuse.api.{ArmorTraits, ModuleManager, IModularItem}
-import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec
 
 /**
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.
@@ -75,11 +71,7 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int)
       if (MuseItemUtils.itemHasActiveModule(itemstack, TransparentArmorModule.MODULE_TRANSPARENT_ARMOR)) {
         return null
       }
-      val tag = MuseItemUtils.getMuseItemTag(itemstack)
-      if (!tag.hasKey("render")) {
-        tag.setTag("render", DefaultModelSpec.makeModelPrefs(itemstack, armorSlot))
-      }
-      model.renderSpec = tag.getTagList("render")
+      model.renderSpec = MuseItemUtils.getMuseRenderTag(itemstack, armorSlot)
     }
     return model
   }

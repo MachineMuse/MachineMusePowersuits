@@ -5,7 +5,7 @@ import net.machinemuse.general.MuseLogger
 import net.minecraft.item.ItemStack
 import net.machinemuse.powersuits.item.ItemPowerArmor
 import net.machinemuse.utils.MuseStringUtils
-import net.minecraft.nbt.{NBTTagList, NBTTagCompound}
+import net.minecraft.nbt.NBTTagCompound
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -59,7 +59,7 @@ object DefaultModelSpec {
     }
   }
 
-  def makeModelPrefs(stack: ItemStack, slot: Int): NBTTagList = {
+  def makeModelPrefs(stack: ItemStack, slot: Int): NBTTagCompound = {
     val item = stack.getItem().asInstanceOf[ItemPowerArmor]
     val normalcolour = item.getColorFromItemStack(stack)
     val glowcolour = item.getGlowFromItemStack(stack)
@@ -82,8 +82,8 @@ object DefaultModelSpec {
       }
 
     }
-    (new NBTTagList() /: list) {
-      case (taglist, elem) => taglist appendTag elem; taglist
+    (new NBTTagCompound() /: list) {
+      case (taglist, elem) => taglist.setCompoundTag(elem.getString("model") + "." + elem.getString("part"), elem); taglist
     }
   }
 

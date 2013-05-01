@@ -2,47 +2,48 @@
     <model file="/mods/mmmPowersuits/models/mps_pantaloons.obj"
            textures="/mods/mmmPowersuits/textures/models/diffuse.png">
         <binding slot="2" target="LeftLeg">
-            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="leg2" name="leg2"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="leg2" name="Left Leg"/>
         </binding>
         <binding slot="2" target="RightLeg">
-            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="leg1" name="leg1"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="leg1" name="Right Leg"/>
         </binding>
     </model>
     <model file="/mods/mmmPowersuits/models/mps_boots.obj" textures="/mods/mmmPowersuits/textures/models/diffuse.png">
         <binding slot="3" target="RightLeg">
-            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="boots1" name="boots1"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="boots1" name="Right Boot"/>
         </binding>
         <binding slot="3" target="LeftLeg">
-            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="boots2" name="boots2"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="boots2" name="Left Boot"/>
         </binding>
     </model>
     <model file="/mods/mmmPowersuits/models/mps_chest.obj" textures="/mods/mmmPowersuits/textures/models/diffuse.png">
         <binding slot="1" target="Body">
-            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="backpack" name="backpack"/>
-            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="polySurface36" name="polySurface36"/>
-            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="belt" name="belt"/>
-            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="chest_padding" name="chest_padding"/>
-            <part defaultcolor="114EFF" defaultglow="true" polygroup="crystal_belt" name="crystal_belt"/>
-            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="chest_main" name="chest_main"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="backpack" name="Backpack"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="polySurface36" name="Accessory"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="belt" name="Belt"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="chest_padding" name="Chest Padding"/>
+            <part defaultcolor="114EFF" defaultglow="true" polygroup="crystal_belt" name="Belt Crystal"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="chest_main" name="Chest Plating"/>
         </binding>
     </model>
     <model file="/mods/mmmPowersuits/models/mps_arms.obj" textures="/mods/mmmPowersuits/textures/models/diffuse.png">
         <binding slot="1" target="RightArm">
-            <part defaultcolor="114EFF" defaultglow="true" polygroup="crystal_shoulder_2" name="crystal_shoulder_2"/>
-            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="arms3" name="arms3"/>
+            <part defaultcolor="114EFF" defaultglow="true" polygroup="crystal_shoulder_2"
+                  name="Right Shoulder Crystal"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="arms3" name="Right Arm"/>
         </binding>
         <binding slot="1" target="LeftArm">
-            <part defaultcolor="114EFF" defaultglow="true" polygroup="crystal_shoulder_1" name="crystal_shoulder_1"/>
-            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="arms2" name="arms2"/>
+            <part defaultcolor="114EFF" defaultglow="true" polygroup="crystal_shoulder_1" name="Left Shoulder Crystal"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="arms2" name="Left Arm"/>
         </binding>
     </model>
     <model file="/mods/mmmPowersuits/models/mps_helm.obj" textures="/mods/mmmPowersuits/textures/models/diffuse.png">
         <binding slot="0" target="Head">
-            <part defaultcolor="114EFF" defaultglow="true" polygroup="visor" name="visor"/>
-            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="helm_tubes" name="helm_tubes"/>
-            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="helm_tube_entry2" name="helm_tube_entry2"/>
-            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="helm_tube_entry1" name="helm_tube_entry1"/>
-            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="helm_main" name="helm_main"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="helm_main" name="Helmet"/>
+            <part defaultcolor="114EFF" defaultglow="true" polygroup="visor" name="Visor"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="helm_tubes" name="Tubes"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="helm_tube_entry2" name="Right Tube Entry"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="helm_tube_entry1" name="Left Tube Entry"/>
         </binding>
     </model>
 </models>

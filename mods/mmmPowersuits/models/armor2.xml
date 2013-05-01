@@ -1,0 +1,44 @@
+<models>
+    <model file="/mods/mmmPowersuits/models/armor2.obj"
+           textures="/mods/mmmPowersuits/textures/models/armor2diffuse.png">
+        <binding slot="2" target="LeftLeg">
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="leggray" name="Left Leg Base"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="legbit" name="Left Leg Protection"/>
+            <part defaultcolor="11d2ff" defaultglow="true" polygroup="legglow" name="Left Leg Light"/>
+        </binding>
+        <binding slot="2" target="RightLeg">
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="leggray1" name="Right Leg Base"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="legbit1" name="Right Leg Protection"/>
+            <part defaultcolor="11d2ff" defaultglow="true" polygroup="legglow1" name="Right Leg Light"/>
+        </binding>
+        <binding slot="3" target="RightLeg">
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="bootmain1" name="Right Boot"/>
+            <part defaultcolor="11d2ff" defaultglow="true" polygroup="bootglow1" name="Right Boot Glow"/>
+        </binding>
+        <binding slot="3" target="LeftLeg">
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="bootmain" name="Left Boot"/>
+            <part defaultcolor="11d2ff" defaultglow="true" polygroup="bootglow" name="Left Boot Glow"/>
+        </binding>
+        <binding slot="1" target="Body">
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="chestgray" name="Chest Base"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="chestmain" name="Front Chest Protection"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="chestback1" name="Back Chest Protection"/>
+            <part defaultcolor="11d2ff" defaultglow="true" polygroup="chestglowfront" name="Frontal Power Crystal"/>
+            <part defaultcolor="11d2ff" defaultglow="true" polygroup="chestglowback" name="Spinal Power Crystals"/>
+        </binding>
+        <binding slot="1" target="RightArm">
+            <part defaultcolor="11d2ff" defaultglow="true" polygroup="armglow1" name="Shoulder Light"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="armmain1" name="Arm and Shoulder Protection"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="armgray1" name="Arm Base"/>
+        </binding>
+        <binding slot="1" target="LeftArm">
+            <part defaultcolor="11d2ff" defaultglow="true" polygroup="armglow" name="Shoulder Light"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="armmain" name="Arm and Shoulder Protection"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="armgray" name="Arm Base"/>
+        </binding>
+        <binding slot="0" target="Head">
+            <part defaultcolor="11d2ff" defaultglow="true" polygroup="helmetglow1" name="Helmet Tubes and Visor"/>
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="helmetmain" name="Helmet"/>
+        </binding>
+    </model>
+</models>

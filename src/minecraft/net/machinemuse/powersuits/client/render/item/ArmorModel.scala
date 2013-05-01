@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.client.render.item
 
-import net.machinemuse.general.MuseLogger
+import net.machinemuse.general.{NBTTagAccessor, MuseLogger}
 import net.machinemuse.general.geometry.Colour
 import net.machinemuse.powersuits.client.render.modelspec._
 import net.minecraft.client.model.ModelBiped
@@ -11,7 +11,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraftforge.client.model.obj.WavefrontObject
 import org.lwjgl.opengl.GL11
-import net.minecraft.nbt.{NBTTagList, NBTTagCompound}
+import net.minecraft.nbt.NBTTagCompound
 
 object ArmorModel {
   def getInstance: ArmorModel = {
@@ -25,7 +25,7 @@ object ArmorModel {
 }
 
 class ArmorModel(par1: Float, par2: Float, par3: Int, par4: Int) extends ModelBiped(0.0F, 0.0f, 64, 32) {
-  var renderSpec: NBTTagList = null
+  var renderSpec: NBTTagCompound = null
   var visible: Int = 0
   setInitialOffsets(bipedHead, 0.0F, 0.0F + par2, 0.0F)
   setInitialOffsets(bipedBody, 0.0F, 0.0F + par2, 0.0F)
@@ -67,12 +67,13 @@ class ArmorModel(par1: Float, par2: Float, par3: Int, par4: Int) extends ModelBi
 
     GL11.glPushMatrix
     GL11.glScaled(scale, scale, scale)
-    for (i <- 0 until renderSpec.tagCount()) {
-      val tag = renderSpec.tagAt(i)
-      if (tag.isInstanceOf[NBTTagCompound]) RenderPart(tag.asInstanceOf[NBTTagCompound], this)
+    import scala.collection.JavaConverters._
+    for (tag <- NBTTagAccessor.getValues(renderSpec).asScala) {
+      RenderPart(tag, this)
     }
     GL11.glPopMatrix
   }
+
 
   def renderParts(transform: MorphTarget, model: WavefrontObject, colour: Colour, glow: Boolean, parts: Array[String]) {
   }

@@ -6,6 +6,7 @@ import net.machinemuse.general.geometry.Colour
 import net.minecraft.client.Minecraft
 import net.machinemuse.powersuits.client.render.item.ArmorModel
 import net.minecraft.nbt.NBTTagCompound
+import net.machinemuse.general.MuseLogger
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -13,6 +14,7 @@ import net.minecraft.nbt.NBTTagCompound
  */
 object RenderPart {
   def apply(nbt: NBTTagCompound, m: ArmorModel) {
+    MuseLogger.logDebug("rendering model " + nbt.getString("model") + ":" + nbt.getString("part"))
     ModelRegistry.getPart(nbt).map(part => {
 
       Minecraft.getMinecraft.renderEngine.bindTexture(part.getTexture(nbt))

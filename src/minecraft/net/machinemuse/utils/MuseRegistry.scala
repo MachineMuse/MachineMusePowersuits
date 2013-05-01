@@ -18,13 +18,14 @@ abstract class MuseRegistry[T] {
     nameMap.get(name) match {
       case Some(e) => {
         MuseLogger.logError(name + " already a member!")
+        e
       }
       case None => {
         nameMap.put(name, elem)
         elemMap.put(elem, name)
+        elem
       }
     }
-    elem
   }
 
   def put(elem: T, name: String) = {

@@ -30,7 +30,7 @@ class CosmeticGui(val player: EntityPlayer) extends MuseGui {
     val partframe = new PartManipContainer(
       itemSelect,
       new MusePoint2D(absX(-0.75F), absY(-0.95f)),
-      new MusePoint2D(absX(-0.05F), absY(0.55f)),
+      new MusePoint2D(absX(+0.25F), absY(0.25f)),
       Colour.LIGHTBLUE.withAlpha(0.8F),
       Colour.DARKBLUE.withAlpha(0.8F)
     )
