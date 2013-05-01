@@ -171,9 +171,10 @@ public class ModCompatability {
             ModuleManager.addModule(new ApiaristArmorModule(Arrays.<IModularItem>asList(ModularPowersuits.powerArmorHead, ModularPowersuits.powerArmorTorso, ModularPowersuits.powerArmorLegs, ModularPowersuits.powerArmorFeet)));
         }
 
-        // MFFS2
-        if (isMFFS2Loaded()) {
+        try {
             ModuleManager.addModule(new MFFSFieldTeleporterModule(Collections.singletonList((IModularItem) ModularPowersuits.powerTool)));
+        } catch (Throwable e) {
+            MuseLogger.logError("Failed to get MFFS item!");
         }
     }
 
@@ -204,14 +205,9 @@ public class ModCompatability {
         return null;
     }
 
-    public static ItemStack getMFFSItem(String name, int quantity) {
-        try {
+    public static ItemStack getMFFSItem(String name, int quantity) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
             Object obj = Class.forName("mods.mffs.common.ModularForceFieldSystem").getField("MFFSitemFieldTeleporter").get(null);
             ItemStack stack = new ItemStack((Item) obj, quantity);
             return stack;
-        } catch (Exception e) {
-        }
-        MuseLogger.logError("Failed to get MFFS item " + name);
-        return null;
     }
 }

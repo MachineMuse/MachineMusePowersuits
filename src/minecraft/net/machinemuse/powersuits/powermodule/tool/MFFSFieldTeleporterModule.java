@@ -17,7 +17,7 @@ public class MFFSFieldTeleporterModule extends PowerModuleBase {
     public static final String MODULE_FIELD_TELEPORTER = "MFFS Field Teleporter";
     public static final String FIELD_TELEPORTER_ENERGY_CONSUMPTION = "Field Teleporter Energy Consumption";
 
-    public MFFSFieldTeleporterModule(List<IModularItem> validItems) {
+    public MFFSFieldTeleporterModule(List<IModularItem> validItems) throws IllegalAccessException, NoSuchFieldException, ClassNotFoundException {
         super(validItems);
         addBaseProperty(FIELD_TELEPORTER_ENERGY_CONSUMPTION, 20000, "J");
         addInstallCost(ModCompatability.getMFFSItem("MFFSitemForcePowerCrystal", 1));
