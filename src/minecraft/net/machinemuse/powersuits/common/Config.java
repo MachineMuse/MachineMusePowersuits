@@ -24,7 +24,6 @@ import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
 import net.machinemuse.powersuits.powermodule.weapon.RailgunModule;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import org.lwjgl.input.Keyboard;
 
@@ -276,12 +275,19 @@ public class Config {
     public static boolean useCustomFonts() {
         return config.get("Font", "Use Custom Font Engine", true).getBoolean(true);
     }
+
     public static double fontDetail() {
         return config.get("Font", "Font Detail Multiplier", 4).getDouble(4);
     }
-//    public static String fontString() {
-//        return config.get("Font", "Font Name", "Courier New").getString();
-//    }
+
+    public static String fontURI() {
+        return config.get("Font", "Font URI", Config.RESOURCE_PREFIX + "fonts/cra.ttf").getString();
+    }
+
+    public static String fontName() {
+        return config.get("Font", "Native Font Name (Overrides URI)", "").getString();
+    }
+
 
     public static boolean fontAntiAliasing() {
         return config.get("Font", "Font Anti-Aliasing", false).getBoolean(false);
