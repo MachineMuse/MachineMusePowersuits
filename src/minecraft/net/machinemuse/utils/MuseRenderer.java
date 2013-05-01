@@ -362,7 +362,7 @@ public abstract class MuseRenderer {
             if (!Config.useCustomFonts()) throw new UnsupportedOperationException();
             return SlickFont.getStringWidth(s);
         } catch (Throwable e) {
-            return getStringWidth(s);
+            return getFontRenderer().getStringWidth(s);
         }
     }
 

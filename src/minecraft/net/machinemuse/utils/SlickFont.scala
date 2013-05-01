@@ -19,7 +19,8 @@ object SlickFont {
   val fontURI = Config.fontURI
   val awtfont = createFont(fontname, Font.BOLD, 8 * detail).getOrElse(createFont(fontURI, (8 * detail)))
   val slickfont = new TrueTypeFont(awtfont, false)
-
+  val boldfont = new TrueTypeFont(awtfont.deriveFont(Font.BOLD), false)
+  val italfont = new TrueTypeFont(awtfont.deriveFont(Font.ITALIC), false)
 
   def createFont(uri: String, size: Double) = {
     val resource = getClass.getResourceAsStream(uri)
@@ -34,15 +35,76 @@ object SlickFont {
     }
   }
 
-  def apply(x: Double, y: Double, s: String, c: Colour = Colour.WHITE) {
+  def apply(x: Double, y: Double, s: String, cm: Colour = Colour.WHITE) {
     TextureImpl.bindNone()
-
+    val basecolor = new Color(cm.r.toFloat, cm.g.toFloat, cm.b.toFloat, cm.a.toFloat)
     glPushMatrix
     glScaled(1.0 / detail, 1.0 / detail, 1.0 / detail)
-    slickfont.drawString(((x + 1) * detail).toFloat, ((y + 1) * detail).toFloat, s, Color.black)
-    slickfont.drawString((x * detail).toFloat, (y * detail).toFloat, s, new Color(c.r.toFloat, c.g.toFloat, c.b.toFloat, c.a.toFloat))
+    val segments = s.split("\u00a7")
+    ((basecolor, slickfont, x, true) /: segments) {
+      case ((pen, font, xtail, first), segment) => {
+        val (newpen, newfont, newsegment) = if (first) (pen, font, segment)
+        else
+          (switchpen(segment.charAt(0), pen, basecolor),
+            switchfont(segment.charAt(0), font),
+            segment.substring(1))
+        drawStringWithShadow(x * detail, y * detail, newsegment, newpen, newfont)
+        (newpen, newfont, xtail + newfont.getWidth(newsegment), false)
+      }
+    }
     glPopMatrix
   }
 
-  def getStringWidth(s: String) = slickfont.getWidth(s) / detail
+  private def drawStringWithShadow(x: Double, y: Double, s: String, c: Color, f: TrueTypeFont) {
+    drawStringDetailed(x + detail, y + detail, s, Color.black, f)
+    drawStringDetailed(x, y, s, c, f)
+  }
+
+  private def switchpen(s: Char, pen: Color, base: Color): Color = {
+    s match {
+      case '0' => Color.black
+      case '1' => new Color(0, 0, 0.5f, 1.0f)
+      case '2' => new Color(0, 0.5f, 0, 1.0f)
+      case '3' => new Color(0, 0.5f, 0.5f, 1.0f)
+      case '4' => new Color(0.5f, 0.0f, 0.0f, 1.0f)
+      case '5' => new Color(0.5f, 0.0f, 0.5f, 1.0f)
+      case '6' => new Color(0.5f, 0.5f, 0.0f, 1.0f)
+      case '7' => new Color(0.75f, 0.75f, 0.75f, 1.0f)
+      case '8' => new Color(0.5f, 0.5f, 0.5f, 1.0f)
+      case '9' => new Color(0.0f, 0.0f, 1.0f, 1.0f)
+      case 'a' => new Color(0.0f, 1.0f, 0.0f, 1.0f)
+      case 'b' => new Color(0.0f, 1.0f, 1.0f, 1.0f)
+      case 'c' => new Color(1.0f, 0.0f, 0.0f, 1.0f)
+      case 'd' => new Color(1.0f, 0.0f, 1.0f, 1.0f)
+      case 'e' => new Color(1.0f, 1.0f, 0.0f, 1.0f)
+      case 'f' => new Color(1.0f, 1.0f, 1.0f, 1.0f)
+      case 'r' => base
+      case _ => pen
+    }
+  }
+
+  private def switchfont(s: Char, font: TrueTypeFont): TrueTypeFont = {
+    s match {
+      case 'l' => boldfont
+      case 'm' => font // strikethrough
+      case 'n' => font // underline
+      case 'o' => italfont
+      case 'r' => slickfont
+      case _ => font
+    }
+  }
+
+  private def drawStringDetailed(x: Double, y: Double, s: String, c: Color, f: TrueTypeFont) {
+    f.drawString((x).toFloat, (y).toFloat, s, c)
+  }
+
+  def getStringWidth(s: String) = {
+    ((0, true) /: s.split("\u00a7")) {
+      case ((width, first), sub) => first match {
+        case true => (slickfont.getWidth(sub), false)
+        case false => (width + slickfont.getWidth(sub.substring(1)), false)
+      }
+
+    }._1 / detail
+  }
 }
