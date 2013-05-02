@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.client.audio.SoundManager
 import scala.Predef.String
+import net.machinemuse.powersuits.common.Config
 
 /**
  * Handles sound mechanics
@@ -21,7 +22,7 @@ object Musique {
 
 
   def playClientSound(soundname: String, volume: Float) {
-    if (FMLCommonHandler.instance.getEffectiveSide eq Side.CLIENT) {
+    if ((FMLCommonHandler.instance.getEffectiveSide eq Side.CLIENT) && (Config.useSounds())) {
       val pitch: Float = 1.0f
       mcsound.playSoundFX(soundname, volume, pitch)
     }
