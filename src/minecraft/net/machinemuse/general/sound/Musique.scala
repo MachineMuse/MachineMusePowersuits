@@ -31,6 +31,7 @@ object Musique {
   def makeSoundString(player: EntityPlayer, soundname: String): String = soundprefix + player.username + soundname
 
   def playerSound(player: EntityPlayer, soundname: String, volume: Float, pitch: Float = 1.0f, continuous: Boolean = true) {
+    try {
     if (FMLCommonHandler.instance.getEffectiveSide eq Side.CLIENT) {
       val pitch: Float = 1.0f
       val unknownflag = true
@@ -47,6 +48,9 @@ object Musique {
       soundsystem.setVolume(soundid, Math.min(volume, 1) * this.options.soundVolume)
       soundsystem.setVelocity(soundid, player.motionX.toFloat, player.motionY.toFloat, player.motionZ.toFloat)
     }
+    } catch {
+      case e: NullPointerException => MuseLogger.logDebug("No Soundsystem")
+    }
   }
 
   def stopPlayerSound(player: EntityPlayer, soundname: String) {
@@ -60,7 +64,7 @@ object Musique {
         soundsystem.stop(makeSoundString(player, soundname))
       }
     }} catch {
-      case e: NullPointerException => MuseLogger.logDebug("No Soundsystem");
+      case e: NullPointerException => MuseLogger.logDebug("No Soundsystem")
     }
   }
 

@@ -22,7 +22,7 @@ class CosmeticGui(val player: EntityPlayer) extends MuseGui {
     super.initGui
     itemSelect = new ItemSelectionFrame(
       new MusePoint2D(absX(-0.95F), absY(-0.95F)),
-      new MusePoint2D(absX(-0.78F), absY(0.95F)),
+      new MusePoint2D(absX(-0.78F), absY(-0.025F)),
       Colour.LIGHTBLUE.withAlpha(0.8F),
       Colour.DARKBLUE.withAlpha(0.8F), player
     )
@@ -30,8 +30,8 @@ class CosmeticGui(val player: EntityPlayer) extends MuseGui {
 
     val partframe = new PartManipContainer(
       itemSelect,
-      new MusePoint2D(absX(-0.75F), absY(-0.95f)),
-      new MusePoint2D(absX(+0.25F), absY(0.25f)),
+      new MusePoint2D(absX(-0.95F), absY(0.025f)),
+      new MusePoint2D(absX(+0.95F), absY(0.95f)),
       Colour.LIGHTBLUE.withAlpha(0.8F),
       Colour.DARKBLUE.withAlpha(0.8F)
     )
@@ -39,8 +39,8 @@ class CosmeticGui(val player: EntityPlayer) extends MuseGui {
 
     val renderframe = new ItemModelViewFrame(
     itemSelect,
-      new MusePoint2D(absX(0.30F), absY(-0.95f)),
-      new MusePoint2D(absX(0.95F), absY(0.25f)),
+      new MusePoint2D(absX(-0.75F), absY(-0.95f)),
+      new MusePoint2D(absX(0.15F), absY(-0.025f)),
       Colour.LIGHTBLUE.withAlpha(0.8F),
       Colour.DARKBLUE.withAlpha(0.8F)
     )
