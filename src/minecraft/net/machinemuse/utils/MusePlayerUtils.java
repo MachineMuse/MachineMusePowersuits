@@ -15,14 +15,13 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
 import java.util.List;
 
 public class MusePlayerUtils {
     static final double root2 = Math.sqrt(2);
-    private static HashMap<String, Double> biomeMap = new HashMap();
 
     public static MovingObjectPosition raytraceEntities(World world, EntityPlayer player, boolean collisionFlag, double reachDistance) {
 
@@ -328,13 +327,18 @@ public class MusePlayerUtils {
         } else if (player.isInsideOfMaterial(Material.lava)) {
             return 0;
         }
-        if (biomeMap.containsKey(player.worldObj.getWorldChunkManager().getBiomeGenAt((int)player.posX, (int)player.posZ).biomeName)) {
-            cool += biomeMap.get(player.worldObj.getWorldChunkManager().getBiomeGenAt((int)player.posX, (int)player.posZ).biomeName);
+        cool += (((getBiome(player).getFloatTemperature()*-1)+2.0)/2); // Algorithm that returns a value from 0.0 -> 1.0. Biome temperature is from 0.0 -> 2.0
+        if (player.worldObj.getActualHeight() > 128) { // If high in the air, increase cooling
+            cool += 0.5;
         }
-        else {
-            cool += 0.1;
+        if (!player.worldObj.isDaytime() && getBiome(player).biomeName.equals("desert")) { // If nighttime and in the desert, increase cooling
+            cool += 0.8;
         }
         return cool;
+    }
+
+    public static BiomeGenBase getBiome(EntityPlayer player) {
+        return player.worldObj.getWorldChunkManager().getBiomeGenAt((int)player.posX, (int)player.posZ);
     }
 
     public static void setFOVMult(EntityPlayer player, float fovmult) {
@@ -369,32 +373,5 @@ public class MusePlayerUtils {
             }
         }
         return movementfactorfieldinstance;
-    }
-
-    static {
-        biomeMap.put("ocean", 0.5);
-        biomeMap.put("plains", 0.1);
-        biomeMap.put("desert", 0.0);
-        biomeMap.put("extremeHills", 0.1);
-        biomeMap.put("forest", 0.1);
-        biomeMap.put("taiga", 0.1);
-        biomeMap.put("swampland", 0.5);
-        biomeMap.put("river", 0.1);
-        biomeMap.put("hell", 0.0);
-        biomeMap.put("sky", 0.1);
-        biomeMap.put("frozenOcean", 1.0);
-        biomeMap.put("frozenRiver", 1.0);
-        biomeMap.put("icePlains", 1.0);
-        biomeMap.put("iceMountains", 1.0);
-        biomeMap.put("mushroomIsland", 0.1);
-        biomeMap.put("mushroomIslandShore", 0.1);
-        biomeMap.put("beach", 0.1);
-        biomeMap.put("desertHills", 0.0);
-        biomeMap.put("forestHills", 0.1);
-        biomeMap.put("taigaHills", 1.0);
-        biomeMap.put("extremeHillsEdge", 0.1);
-        biomeMap.put("jungle", 0.1);
-        biomeMap.put("jungleHills", 0.1);
-
     }
 }
