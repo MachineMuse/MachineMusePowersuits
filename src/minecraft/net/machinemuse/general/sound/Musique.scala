@@ -22,9 +22,13 @@ object Musique {
 
 
   def playClientSound(soundname: String, volume: Float) {
+    try {
     if (FMLCommonHandler.instance.getEffectiveSide eq Side.CLIENT) {
       val pitch: Float = 1.0f
       mcsound.playSoundFX(soundname, volume, pitch)
+    }
+    } catch {
+      case e: NullPointerException => MuseLogger.logDebug("No Soundsystem")
     }
   }
 
