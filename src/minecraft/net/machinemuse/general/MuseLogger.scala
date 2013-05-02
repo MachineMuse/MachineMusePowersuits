@@ -5,7 +5,9 @@ package net.machinemuse.general
 import java.util.logging.Logger;
 
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.FMLLog
+import net.machinemuse.powersuits.common.Config
+;
 
 /**
  * Logger access class. May become more fleshed out in the future.
@@ -18,7 +20,7 @@ object MuseLogger {
   logger.setParent(FMLLog.getLogger());
 
   def logDebug(string: String) = {
-    logger.info(string); None
+    if(Config.isDebugging) logger.info(string); None
   }
 
   def logError(string: String) = {
