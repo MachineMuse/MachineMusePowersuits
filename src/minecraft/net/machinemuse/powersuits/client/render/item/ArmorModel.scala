@@ -14,14 +14,7 @@ import org.lwjgl.opengl.GL11
 import net.minecraft.nbt.NBTTagCompound
 
 object ArmorModel {
-  def getInstance: ArmorModel = {
-    if (instance == null) {
-      instance = new ArmorModel(0.0F, 0.0f, 64, 32)
-    }
-    return instance
-  }
-
-  protected var instance: ArmorModel = null
+  val instance = new ArmorModel(0.0F, 0.0f, 64, 32)
 }
 
 class ArmorModel(par1: Float, par2: Float, par3: Int, par4: Int) extends ModelBiped(0.0F, 0.0f, 64, 32) {

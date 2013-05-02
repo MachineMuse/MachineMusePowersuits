@@ -26,7 +26,7 @@ import java.util.EnumSet;
  */
 public class ClientTickHandler implements ITickHandler {
     protected int slotSelected = -1;
-    protected int dWheel;
+    public static int dWheel;
 
     @Override
     public void tickStart(EnumSet<TickType> type, Object... tickData) {
@@ -55,7 +55,6 @@ public class ClientTickHandler implements ITickHandler {
                 ItemStack stack = player.inventory.getStackInSlot(slotSelected);
                 MuseItemUtils.cycleMode(stack, player, dWheel - Mouse.getDWheel());
             }
-            dWheel = Mouse.getDWheel();
             slotSelected = -1;
             PlayerInputMap inputmap = PlayerInputMap.getInputMapFor(player.username);
             inputmap.forwardKey = Math.signum(player.movementInput.moveForward);

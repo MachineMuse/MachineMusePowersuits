@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.client.audio.SoundManager
 import scala.Predef.String
+import net.machinemuse.general.MuseLogger
 
 /**
  * Handles sound mechanics
@@ -49,6 +50,7 @@ object Musique {
   }
 
   def stopPlayerSound(player: EntityPlayer, soundname: String) {
+    try {
     if (FMLCommonHandler.instance.getEffectiveSide eq Side.CLIENT) {
       val soundid = makeSoundString(player, soundname)
       val vol = soundsystem.getVolume(soundid) - 0.1f
@@ -57,6 +59,8 @@ object Musique {
       } else {
         soundsystem.stop(makeSoundString(player, soundname))
       }
+    }} catch {
+      case e: NullPointerException => MuseLogger.logDebug("No Soundsystem");
     }
   }
 

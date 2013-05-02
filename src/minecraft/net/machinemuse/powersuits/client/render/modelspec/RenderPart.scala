@@ -14,7 +14,7 @@ import net.machinemuse.general.MuseLogger
  */
 object RenderPart {
   def apply(nbt: NBTTagCompound, m: ArmorModel) {
-    MuseLogger.logDebug("rendering model " + nbt.getString("model") + ":" + nbt.getString("part"))
+    //MuseLogger.logDebug("rendering model " + nbt.getString("model") + ":" + nbt.getString("part"))
     ModelRegistry.getPart(nbt).map(part => {
 
       Minecraft.getMinecraft.renderEngine.bindTexture(part.getTexture(nbt))

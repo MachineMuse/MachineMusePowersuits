@@ -63,7 +63,7 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int)
 
   @SideOnly(Side.CLIENT)
   override def getArmorModel(entityLiving: EntityLiving, itemstack: ItemStack, armorSlot: Int): ModelBiped = {
-    val model = ArmorModel.getInstance
+    val model = ArmorModel.instance
 
     model.visible = armorSlot
 
@@ -73,7 +73,7 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int)
       }
       model.renderSpec = MuseItemUtils.getMuseRenderTag(itemstack, armorSlot)
     }
-    return model
+    model
   }
 
   override def getItemEnchantability: Int = {

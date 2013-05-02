@@ -80,7 +80,7 @@ public class RenderTickHandler implements ITickHandler {
                 MuseRenderer.drawRightAlignedString(currStr, left - 2, top + 10);
                 MuseRenderer.drawRightAlignedString(currHeatStr, left - 2, top + 20);
             } else {
-                MuseRenderer.drawString(currStr + '/' + maxStr + " J", 1, 1);
+                MuseRenderer.drawString(currStr + '/' + maxStr + " \u1D60", 1, 1);
                 MuseRenderer.drawString(currHeatStr + '/' + maxHeatStr + " C", 1, 10);
 
             }

@@ -10,36 +10,34 @@ import net.machinemuse.general.MuseLogger
 import net.machinemuse.powersuits.network.packets.MusePacketCosmeticInfo
 import net.minecraft.client.Minecraft
 import cpw.mods.fml.common.network.Player
+import net.minecraft.item.ItemArmor
 
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 1:46 AM, 30/04/13
  */
-class PartManipSubFrame(val model: ModelSpec, val selectFrame: ItemSelectionFrame, val border: MuseRelativeRect) {
+class PartManipSubFrame(val model: ModelSpec, val itemSelector: ItemSelectionFrame, val border: MuseRelativeRect) {
   var specs: Array[ModelPartSpec] = model.apply.values.filter(spec => isValidArmor(getSelectedItem, spec.slot)).toArray
   var open: Boolean = true
   var mousex: Double = 0
   var mousey: Double = 0
 
-  def getSelectedItem = selectFrame.getSelectedItem
+
+  def getArmorSlot = getSelectedItem.getItem.getItem.asInstanceOf[ItemArmor].armorType
+
+  def getSelectedItem = itemSelector.getSelectedItem
+
+  def getRenderTag: NBTTagCompound = MuseItemUtils.getMuseRenderTag(getSelectedItem.getItem, getArmorSlot)
 
   def getItemTag = MuseItemUtils.getMuseItemTag(getSelectedItem.getItem)
 
   def isValidArmor(clickie: ClickableItem, slot: Int): Boolean = if (clickie == null) false else clickie.getItem.getItem.isValidArmor(clickie.getItem, slot)
 
-  def getRenderTag: NBTTagCompound = getItemTag.getCompoundTag("render")
-
-  def getOrMakeRenderTag: NBTTagCompound = if (!getItemTag.hasKey("render")) {
-    val k = new NBTTagCompound()
-    getItemTag.setCompoundTag("render", k)
-    k
-  } else getItemTag.getCompoundTag("render")
-
   def getSpecTag(spec: ModelPartSpec) = getRenderTag.getCompoundTag(ModelRegistry.makeName(spec))
 
   def getOrMakeSpecTag(spec: ModelPartSpec): NBTTagCompound = {
     val name = ModelRegistry.makeName(spec)
-    if (!getOrMakeRenderTag.hasKey(name)) {
+    if (!getRenderTag.hasKey(name)) {
       val k = new NBTTagCompound()
       spec.multiSet(k, None, None, None)
       getRenderTag.setCompoundTag(name, k)
@@ -89,7 +87,7 @@ class PartManipSubFrame(val model: ModelSpec, val selectFrame: ItemSelectionFram
 
   def drawOpenArrow(min: Double, max: Double) {
     MuseRenderer.texturelessOn()
-    Colour.LIGHTBLUE.doGL
+    Colour.LIGHTBLUE.doGL()
     glBegin(GL_TRIANGLES)
     import MuseMathUtils._
     if (open) {
@@ -101,15 +99,15 @@ class PartManipSubFrame(val model: ModelSpec, val selectFrame: ItemSelectionFram
       glVertex2d(border.left + 3, clampDouble(border.top + 7, min, max))
       glVertex2d(border.left + 7, clampDouble(border.top + 5, min, max))
     }
-    glEnd
-    Colour.WHITE.doGL
+    glEnd()
+    Colour.WHITE.doGL()
     MuseRenderer.texturelessOff()
   }
 
   def getBorder: MuseRect = {
     if (open) border.setHeight(9 + 9 * specs.size)
     else border.setHeight(9)
-    return border
+    border
   }
 
   def tryMouseClick(x: Double, y: Double): Boolean = {
@@ -125,7 +123,7 @@ class PartManipSubFrame(val model: ModelSpec, val selectFrame: ItemSelectionFram
       MuseLogger.logDebug("Line " + lineNumber + " Column " + columnNumber)
       columnNumber match {
         case 0 => {
-          val renderTag = getOrMakeRenderTag
+          val renderTag = getRenderTag
           val clickie = getSelectedItem
           val tagname = ModelRegistry.makeName(spec)
           val player = Minecraft.getMinecraft.thePlayer

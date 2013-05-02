@@ -1,7 +1,7 @@
 package net.machinemuse.general.gui
 
 import net.minecraft.entity.player.EntityPlayer
-import net.machinemuse.general.gui.frame.{PartManipContainer, ItemSelectionFrame}
+import net.machinemuse.general.gui.frame.{ItemModelViewFrame, PartManipContainer, ItemSelectionFrame}
 import net.machinemuse.general.geometry.{Colour, MusePoint2D}
 import net.minecraft.item.ItemStack
 
@@ -27,6 +27,7 @@ class CosmeticGui(val player: EntityPlayer) extends MuseGui {
       Colour.DARKBLUE.withAlpha(0.8F), player
     )
     frames.add(itemSelect)
+
     val partframe = new PartManipContainer(
       itemSelect,
       new MusePoint2D(absX(-0.75F), absY(-0.95f)),
@@ -35,6 +36,15 @@ class CosmeticGui(val player: EntityPlayer) extends MuseGui {
       Colour.DARKBLUE.withAlpha(0.8F)
     )
     frames.add(partframe)
+
+    val renderframe = new ItemModelViewFrame(
+    itemSelect,
+      new MusePoint2D(absX(0.30F), absY(-0.95f)),
+      new MusePoint2D(absX(0.95F), absY(0.25f)),
+      Colour.LIGHTBLUE.withAlpha(0.8F),
+      Colour.DARKBLUE.withAlpha(0.8F)
+    )
+    frames.add(renderframe)
   }
 
   override def update() {
