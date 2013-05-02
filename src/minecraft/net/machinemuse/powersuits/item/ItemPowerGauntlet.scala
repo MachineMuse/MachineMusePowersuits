@@ -8,7 +8,7 @@ import net.machinemuse.api.{OmniWrench, IModularItem, IPowerModule, ModuleManage
 import net.machinemuse.api.moduletrigger.IRightClickModule
 import net.machinemuse.general.gui.MuseIcon
 import net.machinemuse.powersuits.common.Config
-import net.machinemuse.powersuits.powermodule.tool.GrafterModule
+import net.machinemuse.powersuits.powermodule.tool.{OmniWrenchModule, GrafterModule}
 import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule
 import net.machinemuse.utils.ElectricItemUtils
 import net.machinemuse.utils.MuseHeatUtils
@@ -67,6 +67,10 @@ with OmniWrench {
    * entry argument beside stack. They just raise the damage on the stack.
    */
   override def hitEntity(stack: ItemStack, entityBeingHit: EntityLiving, entityDoingHitting: EntityLiving): Boolean = {
+    if (MuseItemUtils.itemHasActiveModule(stack, OmniWrenchModule.MODULE_OMNI_WRENCH)) {
+      entityBeingHit.rotationYaw += 90.0F;
+      entityBeingHit.rotationYaw %= 360.0F;
+    }
     if (entityDoingHitting.isInstanceOf[EntityPlayer] && MuseItemUtils.itemHasActiveModule(stack, MeleeAssistModule.MODULE_MELEE_ASSIST)) {
       val player: EntityPlayer = entityDoingHitting.asInstanceOf[EntityPlayer]
       val drain: Double = ModuleManager.computeModularProperty(stack, MeleeAssistModule.PUNCH_ENERGY)

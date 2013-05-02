@@ -41,10 +41,6 @@ public class ModCompatability {
         return Loader.isModLoaded("ThermalExpansion");
     }
 
-    public static boolean isAndrewAddonsLoaded() {
-        return Loader.isModLoaded("PowersuitAddons");
-    }
-
     public static boolean isGalacticraftLoaded() {
         return Loader.isModLoaded("GalacticraftCore");
     }
@@ -53,8 +49,8 @@ public class ModCompatability {
         return Loader.isModLoaded("Forestry");
     }
 
-    public static boolean isMFFS2Loaded() {
-        return Loader.isModLoaded("ModularForceFieldSystem");
+    public static boolean isOmniToolsLoaded() {
+        return Loader.isModLoaded("OmniTools");
     }
 
     public static boolean enableThaumGogglesModule() {
