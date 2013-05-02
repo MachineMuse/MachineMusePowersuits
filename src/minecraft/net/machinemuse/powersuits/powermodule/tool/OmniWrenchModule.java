@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.powermodule.tool;
 import cofh.api.tileentity.IReconfigurableFacing;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import ic2.api.energy.tile.IEnergySink;
 import ic2.api.energy.tile.IEnergySource;
@@ -10,6 +11,7 @@ import ic2.api.tile.IWrenchable;
 import mods.mffs.api.IMFFS_Wrench;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseBlockUtils;
@@ -35,8 +37,13 @@ public class OmniWrenchModule extends PowerModuleBase implements IRightClickModu
 
     public OmniWrenchModule(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
+        if (ModCompatability.isOmniToolsLoaded()) {
+            addInstallCost(GameRegistry.findItemStack("OmniTools", "OmniWrench", 1));
+        }
+        else {
+            addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
+            addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
+        }
     }
 
     @Override
