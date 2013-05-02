@@ -7,6 +7,7 @@ import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.powermodule.movement.FlightControlModule;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -16,6 +17,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.Chunk;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -328,17 +330,18 @@ public class MusePlayerUtils {
             return 0;
         }
         cool += (((getBiome(player).getFloatTemperature()*-1)+2.0)/2); // Algorithm that returns a value from 0.0 -> 1.0. Biome temperature is from 0.0 -> 2.0
-        if (player.worldObj.getActualHeight() > 128) { // If high in the air, increase cooling
+        if ((int)player.posY > 128) { // If high in the air, increase cooling
             cool += 0.5;
         }
-        if (!player.worldObj.isDaytime() && getBiome(player).biomeName.equals("desert")) { // If nighttime and in the desert, increase cooling
+        if (!player.worldObj.isDaytime() && getBiome(player).biomeName.equals("Desert")) { // If nighttime and in the desert, increase cooling
             cool += 0.8;
         }
         return cool;
     }
 
     public static BiomeGenBase getBiome(EntityPlayer player) {
-        return player.worldObj.getWorldChunkManager().getBiomeGenAt((int)player.posX, (int)player.posZ);
+        Chunk chunk = Minecraft.getMinecraft().theWorld.getChunkFromBlockCoords((int)player.posX, (int)player.posZ);
+        return chunk.getBiomeGenForWorldCoords((int)player.posX & 15, (int)player.posZ & 15, Minecraft.getMinecraft().theWorld.getWorldChunkManager());
     }
 
     public static void setFOVMult(EntityPlayer player, float fovmult) {
