@@ -31,7 +31,7 @@ object Musique {
   def makeSoundString(player: EntityPlayer, soundname: String): String = soundprefix + player.username + soundname
 
   def playerSound(player: EntityPlayer, soundname: String, volume: Float, pitch: Float = 1.0f, continuous: Boolean = true) {
-    if (FMLCommonHandler.instance.getEffectiveSide eq Side.CLIENT) {
+    if ((FMLCommonHandler.instance.getEffectiveSide eq Side.CLIENT) && (Config.useSounds())) {
       val pitch: Float = 1.0f
       val unknownflag = true
       val soundid = makeSoundString(player, soundname)
@@ -50,7 +50,7 @@ object Musique {
   }
 
   def stopPlayerSound(player: EntityPlayer, soundname: String) {
-    if (FMLCommonHandler.instance.getEffectiveSide eq Side.CLIENT) {
+    if ((FMLCommonHandler.instance.getEffectiveSide eq Side.CLIENT) && (Config.useSounds())) {
       val soundid = makeSoundString(player, soundname)
       val vol = soundsystem.getVolume(soundid) - 0.1f
       if (vol > 0) {
