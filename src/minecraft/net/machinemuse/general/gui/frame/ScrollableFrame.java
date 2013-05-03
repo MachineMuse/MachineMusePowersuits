@@ -32,9 +32,10 @@ public class ScrollableFrame implements IGuiFrame {
 
     @Override
     public void update(double x, double y) {
-        int dscroll = (lastdWheel - Mouse.getDWheel()) / 15;
-        lastdWheel = Mouse.getDWheel();
-        if (x > border.left() && x < border.right() && y > border.top() && y < border.bottom()) {
+        if (border.containsPoint(x, y)) {
+            int dscroll = (lastdWheel - Mouse.getDWheel()) / 15;
+            lastdWheel = Mouse.getDWheel();
+            currentscrollpixels = (int) MuseMathUtils.clampDouble(currentscrollpixels + dscroll, 0, getMaxScrollPixels());
             if (Mouse.isButtonDown(0)) {
                 if ((y - border.top()) < buttonsize && currentscrollpixels > 0) {
                     dscroll -= getScrollAmount();
@@ -42,9 +43,6 @@ public class ScrollableFrame implements IGuiFrame {
                     dscroll += getScrollAmount();
                 }
             }
-            currentscrollpixels = (int) MuseMathUtils.clampDouble(currentscrollpixels + dscroll, 0, getMaxScrollPixels());
-        } else {
-            Mouse.getDWheel();
         }
     }
 

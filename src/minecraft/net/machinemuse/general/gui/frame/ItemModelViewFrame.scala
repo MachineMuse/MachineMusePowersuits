@@ -6,7 +6,7 @@ import org.lwjgl.input.Mouse
 import net.machinemuse.powersuits.client.render.item.ArmorModel
 import net.minecraft.client.Minecraft
 import org.lwjgl.opengl.GL11._
-import net.machinemuse.utils.MuseItemUtils
+import net.machinemuse.utils.{MuseMathUtils, MuseItemUtils}
 import net.minecraft.nbt.NBTTagCompound
 import net.machinemuse.powersuits.item.ItemPowerArmor
 
@@ -25,7 +25,6 @@ class ItemModelViewFrame(itemSelector: ItemSelectionFrame, topleft: MusePoint2D,
 
   var rotx: Double = 0
   var roty: Double = 0
-
   var offsetx: Double = 0
   var offsety: Double = 0
   var zoom: Double = 64
@@ -50,14 +49,16 @@ class ItemModelViewFrame(itemSelector: ItemSelectionFrame, topleft: MusePoint2D,
 
   def update(mousex: Double, mousey: Double) {
     if (border.containsPoint(mousex, mousey)) {
-      zoom = zoom * Math.pow(1.1, Mouse.getEventDWheel / 120)
+      val dscroll: Double = (lastdWheel - Mouse.getDWheel) / 120
+      zoom = zoom * Math.pow(1.1, dscroll)
+      lastdWheel = Mouse.getDWheel
     }
     val dx = mousex - anchorx
     val dy = mousey - anchory
     dragging match {
       case -1 => None
       case 0 => {
-        rotx = (rotx + dy)
+        rotx = MuseMathUtils.clampDouble((rotx + dy), -90, 90)
         roty = (roty - dx)
         anchorx = mousex
         anchory = mousey
@@ -83,7 +84,7 @@ class ItemModelViewFrame(itemSelector: ItemSelectionFrame, topleft: MusePoint2D,
     glDisable(GL_CULL_FACE)
     glRotatef(rotx.toFloat, 1, 0, 0)
     glRotatef(roty.toFloat, 0, 1, 0)
-    glTranslated(0, - getArmorSlot/2.0, 0)
+    glTranslated(0, -getArmorSlot / 2.0, 0)
     ArmorModel.instance.render(Minecraft.getMinecraft.thePlayer, 0, 0, 0, 0, 0, 0.0625f)
     glPopMatrix()
   }

@@ -10,7 +10,7 @@ import net.minecraft.entity.EntityLiving
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraftforge.client.model.obj.WavefrontObject
-import org.lwjgl.opengl.GL11
+import org.lwjgl.opengl.GL11._
 import net.minecraft.nbt.NBTTagCompound
 
 object ArmorModel {
@@ -58,13 +58,13 @@ class ArmorModel(par1: Float, par2: Float, par3: Int, par4: Int) extends ModelBi
     this.setRotationAngles(par2, par3, par4, par5, par6, scale, entity)
 
 
-    GL11.glPushMatrix
-    GL11.glScaled(scale, scale, scale)
+    glPushMatrix()
+    glScaled(scale, scale, scale)
     import scala.collection.JavaConverters._
     for (tag <- NBTTagAccessor.getValues(renderSpec).asScala) {
       RenderPart(tag, this)
     }
-    GL11.glPopMatrix
+    glPopMatrix()
   }
 
 
