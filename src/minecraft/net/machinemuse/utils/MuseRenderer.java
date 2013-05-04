@@ -339,17 +339,21 @@ public abstract class MuseRenderer {
         RenderHelper.disableStandardItemLighting();
         blendingOn();
         on2D();
-        try {
-            if (!Config.useCustomFonts()) throw new UnsupportedOperationException();
-            SlickFont.apply(x, y, s, c);
-        } catch (Throwable e) {
-            if (!messagedAboutSlick) {
-                MuseLogger.logError("Slick-Util failed or was disabled in config!");
-                e.printStackTrace();
-                messagedAboutSlick = true;
+        if (!Config.useCustomFonts()) {
+            try {
+                SlickFont.apply(x, y, s, c);
+            } catch (Throwable e) {
+                if (!messagedAboutSlick) {
+                    MuseLogger.logError("Slick-Util failed or was disabled in config!");
+                    e.printStackTrace();
+                    messagedAboutSlick = true;
+                }
+                getFontRenderer().drawStringWithShadow(s, (int) x, (int) y, c.getInt());
             }
+        } else {
             getFontRenderer().drawStringWithShadow(s, (int) x, (int) y, c.getInt());
         }
+
         off2D();
         blendingOff();
     }
