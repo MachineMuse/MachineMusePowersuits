@@ -86,6 +86,33 @@ public abstract class MusePacket {
         }
     }
 
+    public int[] readIntArray() {
+        try {
+            int length = datain.readInt();
+            int[] read = new int[length];
+            for(int k=0;k<read.length;k++) {
+                read[k] = datain.readInt();
+            }
+            return read;
+        } catch (IOException e) {
+            MuseLogger.logError("PROBLEM READING INT FROM PACKET D:");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void writeIntArray(int[] i) {
+        try {
+            dataout.writeInt(i.length);
+            for(int k=0;k<i.length;k++) {
+                dataout.writeInt(i[k]);
+            }
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+    }
+
     public boolean readBoolean() {
         try {
             boolean read = datain.readBoolean();

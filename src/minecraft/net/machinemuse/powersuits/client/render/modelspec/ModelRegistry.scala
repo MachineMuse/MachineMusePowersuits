@@ -68,7 +68,7 @@ class ModelPartSpec(val modelSpec: ModelSpec,
                     val morph: MorphTarget,
                     val partName: String,
                     val slot: Int,
-                    val defaultcolour: Colour = Colour.WHITE,
+                    val defaultcolourindex: Int = 0,
                     val defaultglow: Boolean = false,
                     val displayName: String) {
 
@@ -76,32 +76,23 @@ class ModelPartSpec(val modelSpec: ModelSpec,
     if (nbt hasKey "texture") nbt getString "texture" else modelSpec.textures.head
   }
 
-  def setTexture(nbt: NBTTagCompound, s: String) = {
+  def setTexture(nbt: NBTTagCompound, s: String)  {
     if (s.equals("") || s.equalsIgnoreCase(modelSpec.textures.head)) nbt removeTag "texture" else nbt setString("texture", s)
   }
 
-  def getColour(nbt: NBTTagCompound): Colour = {
-    if (nbt hasKey "colour") new Colour(nbt getInteger "colour") else defaultcolour
+  def getColourIndex(nbt: NBTTagCompound): Int = {
+    if (nbt hasKey "colourindex") nbt getInteger "colourindex" else defaultcolourindex
   }
 
-  def getColourInt(nbt: NBTTagCompound): Int = {
-    if (nbt hasKey "colour") nbt getInteger "colour" else defaultcolour.getInt
-  }
-
-  def setColour(nbt: NBTTagCompound, c: Colour) = {
-    val cint = c.getInt
-    if (cint equals defaultcolour.getInt) nbt removeTag "colour" else nbt setInteger("colour", cint)
-  }
-
-  def setColour(nbt: NBTTagCompound, c: Int) = {
-    if (c equals defaultcolour.getInt) nbt removeTag "colour" else nbt setInteger("colour", c)
+  def setColourIndex(nbt: NBTTagCompound, c: Int)  {
+    if (c == defaultcolourindex) nbt removeTag "colourindex" else nbt setInteger("colourindex", c)
   }
 
   def getGlow(nbt: NBTTagCompound): Boolean = {
     if (nbt hasKey "glow") nbt getBoolean "glow" else defaultglow
   }
 
-  def setGlow(nbt: NBTTagCompound, g: Boolean) = {
+  def setGlow(nbt: NBTTagCompound, g: Boolean)  {
     if (g == defaultglow) nbt removeTag "glow" else nbt setBoolean("glow", g)
   }
 
@@ -120,12 +111,12 @@ class ModelPartSpec(val modelSpec: ModelSpec,
   def setPartAndModel(nbt: NBTTagCompound) {
   }
 
-  def multiSet(nbt: NBTTagCompound, tex: Option[String], glow: Option[Boolean], c: Option[Colour]): NBTTagCompound = {
+  def multiSet(nbt: NBTTagCompound, tex: Option[String], glow: Option[Boolean], c: Option[Int]): NBTTagCompound = {
     setPart(nbt)
     setModel(nbt, this.modelSpec)
     setTexture(nbt, tex.getOrElse(""))
     setGlow(nbt, glow.getOrElse(false))
-    setColour(nbt, c.getOrElse(defaultcolour))
+    setColourIndex(nbt, c.getOrElse(defaultcolourindex))
     nbt
   }
 

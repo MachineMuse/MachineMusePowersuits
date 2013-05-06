@@ -35,6 +35,12 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
 
   def getSpecTag(spec: ModelPartSpec) = getRenderTag.getCompoundTag(ModelRegistry.makeName(spec))
 
+  def getOrDontGetSpecTag(spec: ModelPartSpec): Option[NBTTagCompound] = {
+    val name = ModelRegistry.makeName(spec)
+    if (!getRenderTag.hasKey(name)) None
+    else Some(getRenderTag.getCompoundTag(name))
+  }
+
   def getOrMakeSpecTag(spec: ModelPartSpec): NBTTagCompound = {
     val name = ModelRegistry.makeName(spec)
     if (!getRenderTag.hasKey(name)) {
@@ -50,11 +56,6 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
   def updateItems {
     specs = model.apply.values.filter(spec => isValidArmor(getSelectedItem, spec.slot)).toArray
     border.setHeight(if (specs.size > 0) specs.size * 8 + 10 else 0)
-  }
-
-  def updateColours {
-
-
   }
 
   def drawPartial(min: Double, max: Double) {
@@ -75,7 +76,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
   def drawSpecPartial(x: Double, y: Double, spec: ModelPartSpec, ymino: Double, ymaxo: Double) = {
     val tag = getSpecTag(spec)
     val selcomp = if (tag.hasNoTags) 0 else if (spec.getGlow(tag)) 2 else 1
-    val selcolour = colourframe.colours.indexOf(spec.getColourInt(tag))
+    val selcolour = spec.getColourIndex(tag)
 
     GuiIcons.TransparentArmor(x, y, ymin = ymino, ymax = ymaxo)
     GuiIcons.NormalArmor(x + 8, y, ymin = ymino, ymax = ymaxo)
@@ -89,7 +90,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
     }
     GuiIcons.SelectedArmorOverlay(x + 28 + selcolour * 8, y, ymin = ymino, ymax = ymaxo)
 
-    drawPartialString(spec.displayName, ymino, ymaxo, textstartx, y)
+    drawPartialString(spec.displayName, ymino, ymaxo, textstartx + 4, y)
   }
 
   def drawPartialString(s: String, min: Double, max: Double, x: Double, y: Double) {
@@ -171,7 +172,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
       val tagname = ModelRegistry.makeName(spec)
       val player = Minecraft.getMinecraft.thePlayer
       val tagdata = getOrMakeSpecTag(spec)
-      spec.setColour(tagdata, colourframe.colours(columnNumber))
+      spec.setColourIndex(tagdata, columnNumber)
       if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, tagdata).getPacket250)
       true
     }

@@ -4,6 +4,7 @@
 package net.machinemuse.general;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagInt;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -58,6 +59,16 @@ public class NBTTagAccessor extends NBTTagCompound {
         }
         MuseLogger.logError("Unable to access nbt tag map!");
         return null;
+    }
+
+    public static List<NBTTagInt> getIntValues(NBTTagCompound nbt) {
+        ArrayList<NBTTagInt> a = new ArrayList<NBTTagInt>(nbt.getTags().size());
+        for (Object o : nbt.getTags()) {
+            if (o instanceof NBTTagInt) {
+                a.add((NBTTagInt) o);
+            }
+        }
+        return a;
     }
 
     public static List<NBTTagCompound> getValues(NBTTagCompound nbt) {

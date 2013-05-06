@@ -2,13 +2,20 @@ package net.machinemuse.general.gui.frame
 
 import java.util
 import net.machinemuse.general.gui.clickable.ClickableSlider
-import net.machinemuse.general.geometry.{Colour, DrawableMuseRect, MusePoint2D, MuseRect}
+import net.machinemuse.general.geometry._
 import net.machinemuse.general.NBTTagAccessor
-import net.machinemuse.utils.MuseItemUtils
+import net.machinemuse.utils.{MuseMathUtils, MuseItemUtils}
 import scala.collection.mutable.ArrayBuffer
 import scala.collection.immutable.HashSet
 import net.machinemuse.utils.GuiIcons._
 import scala.collection.mutable
+import scala.{Array, Some}
+import net.machinemuse.powersuits.item.ItemPowerArmor
+import net.minecraft.nbt.{NBTTagIntArray, NBTTagCompound}
+import net.machinemuse.powersuits.network.packets.{MusePacketColourInfo, MusePacketCosmeticInfo}
+import cpw.mods.fml.common.network.Player
+import net.minecraft.client.entity.EntityClientPlayerMP
+import net.minecraft.client.Minecraft
 import scala.Some
 
 /**
@@ -21,26 +28,44 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
   val gslider: ClickableSlider = new ClickableSlider(new MusePoint2D(border.centerx, border.top + 22), border.width - 10, "Green")
   val bslider: ClickableSlider = new ClickableSlider(new MusePoint2D(border.centerx, border.top + 34), border.width - 10, "Blue")
 
-  var colours = new ArrayBuffer[Int]()
+  def colours: Array[Int] = getOrCreateColourTag.map(e=>e.intArray).getOrElse(Array.empty)
 
   var selectedSlider: Option[ClickableSlider] = None
   var selectedColour: Int = 0
 
-  def refreshColours() {
-    if (itemSelector.getSelectedItem != null) {
-      import scala.collection.JavaConverters._
-      val renderSpec = MuseItemUtils.getMuseRenderTag(itemSelector.getSelectedItem.getItem)
-      val colourints: mutable.Buffer[Option[Int]] = {
-        for (tag <- NBTTagAccessor.getValues(renderSpec).asScala) yield {
-          if (tag.hasKey("colour")) Some(tag.getInteger("colour"))
-          else None
-        }
+  def getOrCreateColourTag:Option[NBTTagIntArray] = {
+    if(itemSelector.getSelectedItem == null) return None
+    val renderSpec = MuseItemUtils.getMuseRenderTag(itemSelector.getSelectedItem.getItem)
+    if (renderSpec.hasKey("colours") && renderSpec.getTag("colours").isInstanceOf[NBTTagIntArray]) Some(renderSpec.getTag("colours").asInstanceOf[NBTTagIntArray])
+    else {
+      val nbt = new NBTTagIntArray("colours")
+      if (itemSelector.getSelectedItem.getItem.getItem.isInstanceOf[ItemPowerArmor]) {
+        val itembase = itemSelector.getSelectedItem.getItem.getItem.asInstanceOf[ItemPowerArmor]
+        val intArray:Array[Int] = Array(itembase.getColorFromItemStack(itemSelector.getSelectedItem.getItem).getInt, itembase.getGlowFromItemStack(itemSelector.getSelectedItem.getItem).getInt)
+        renderSpec.setIntArray("colours", intArray)
+      } else {
+        val intArray:Array[Int] = Array.empty
+        renderSpec.setIntArray("colours", intArray)
       }
-      val colourset: HashSet[Int] = HashSet.empty ++ colours ++ colourints.flatten + Colour.WHITE.getInt
-      colours.clear()
-      for (c <- colourset) colours += c
+      val player = Minecraft.getMinecraft.thePlayer
+      if (player.worldObj.isRemote)
+        player.sendQueue.addToSendQueue(new MusePacketColourInfo(player.asInstanceOf[Player], itemSelector.getSelectedItem.inventorySlot, colours).getPacket250)
+      Some(renderSpec.getTag("colours").asInstanceOf[NBTTagIntArray])
     }
-    onSelectColour(0)
+  }
+
+  def importColours = {
+    val colours = mutable.Buffer.empty[Int]
+    colours
+  }
+
+  def refreshColours() {
+//    getOrCreateColourTag.map(coloursTag => {
+//      val colourints: Array[Int] = coloursTag.intArray
+//      val colourset: HashSet[Int] = HashSet.empty ++ colours ++ colourints
+//      val colourarray = colourset.toArray
+//      coloursTag.intArray = colourarray
+//    })
   }
 
   def onMouseUp(x: Double, y: Double, button: Int) {
@@ -50,11 +75,13 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
   def update(mousex: Double, mousey: Double) {
     selectedSlider.map(s => {
       s.setValueByX(mousex)
+      if (colours.size > selectedColour) {
+        colours(selectedColour) = Colour.getInt(rslider.value, gslider.value, bslider.value, 1.0)
+        val player = Minecraft.getMinecraft.thePlayer
+        if (player.worldObj.isRemote)
+          player.sendQueue.addToSendQueue(new MusePacketColourInfo(player.asInstanceOf[Player], itemSelector.getSelectedItem.inventorySlot, colours).getPacket250)
+      }
     })
-    if (colours.size > selectedColour) {
-      val c = new Colour(rslider.value, gslider.value, bslider.value, 1.0)
-      colours(selectedColour) = c.getInt
-    }
   }
 
   def draw() {
@@ -94,7 +121,13 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
       if (colourCol > 0 && colourCol < colours.size) {
         onSelectColour(colourCol.toInt)
       } else if (colourCol == colours.size) {
-        colours.append(Colour.WHITE.getInt)
+        getOrCreateColourTag.map( e=>{
+          e.intArray =  e.intArray :+ Colour.WHITE.getInt
+          val player = Minecraft.getMinecraft.thePlayer
+          if (player.worldObj.isRemote)
+            player.sendQueue.addToSendQueue(new MusePacketColourInfo(player.asInstanceOf[Player], itemSelector.getSelectedItem.inventorySlot, e.intArray).getPacket250)
+        })
+
       }
     }
 

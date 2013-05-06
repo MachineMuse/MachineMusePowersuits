@@ -62,7 +62,7 @@ object ModelSpecXMLReader {
     val name = (partNode \ "@name").text
     val polygroup = validatePolygroup((partNode \ "@polygroup").text, modelspec)
     polygroup.map(polygroup => {
-      val partspec = new ModelPartSpec(modelspec, target, polygroup, slot, defaultcolor.getOrElse(Colour.WHITE), defaultglow.getOrElse(false), name)
+      val partspec = new ModelPartSpec(modelspec, target, polygroup, slot, 0, defaultglow.getOrElse(false), name)
       modelspec.put(polygroup, partspec)
     })
   }

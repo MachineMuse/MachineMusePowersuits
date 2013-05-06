@@ -13,7 +13,7 @@ object ModelSpecXMLWriter {
         <model file={modelspec.filename} textures={concatList(modelspec.textures)}>
           {for ((partname, partspec) <- modelspec.apply) yield
           <binding slot={partspec.slot.toString} target={partspec.morph.name}>
-            <part defaultcolor={partspec.defaultcolour.hexColour} defaultglow={partspec.defaultglow.toString} polygroup={partspec.partName} name={partspec.displayName}/>
+            <part defaultcolor={partspec.defaultcolourindex.toString} defaultglow={partspec.defaultglow.toString} polygroup={partspec.partName} name={partspec.displayName}/>
           </binding>}
         </model>}
       </models>

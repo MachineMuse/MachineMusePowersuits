@@ -11,7 +11,20 @@ import org.lwjgl.opengl.GL11._
  */
 class PartManipContainer(val itemSelect: ItemSelectionFrame, val colourSelect: ColourPickerFrame, topleft: MusePoint2D, bottomright: MusePoint2D, borderColour: Colour, insideColour: Colour)
   extends ScrollableFrame(topleft, bottomright, borderColour, insideColour) {
-  var lastItem: Option[ItemStack] = getItem
+
+
+  def getItem = Option(itemSelect.getSelectedItem).map(e => e.getItem)
+
+  def getItemSlot = Option(itemSelect.getSelectedItem).map(e => e.inventorySlot)
+  var lastItemSlot: Option[Int] = None
+
+  def getColour = if(getItem != None && colourSelect.selectedColour < colourSelect.colours.size && colourSelect.selectedColour >= 0) colourSelect.colours(colourSelect.selectedColour) else Colour.WHITE.getInt
+  var lastColour = getColour
+
+  def getColourIndex = colourSelect.selectedColour
+  var lastColourIndex = getColourIndex
+
+
   val modelframes: Seq[PartManipSubFrame] =
     ((Seq.empty[PartManipSubFrame], None: Option[PartManipSubFrame]) /: ModelRegistry.apply.values) {
       case ((frameseq, prev), modelspec: ModelSpec) => {
@@ -39,16 +52,14 @@ class PartManipContainer(val itemSelect: ItemSelectionFrame, val colourSelect: C
   //
   override def update(mousex: Double, mousey: Double) {
     super.update(mousex, mousey)
-    if (lastItem != getItem) {
-      lastItem = getItem
+    if (lastItemSlot != getItemSlot) {
+      lastItemSlot = getItemSlot
       colourSelect.refreshColours()
       this.totalsize = (0.0 /: modelframes) {
         (acc, subframe) => subframe.updateItems; subframe.border.bottom()
       }.toInt
     }
   }
-
-  def getItem = Option(itemSelect.getSelectedItem).map(e => e.getItem)
 
 
   override def draw() {

@@ -61,8 +61,9 @@ class ArmorModel(par1: Float, par2: Float, par3: Int, par4: Int) extends ModelBi
     glPushMatrix()
     glScaled(scale, scale, scale)
     import scala.collection.JavaConverters._
+    val colours = renderSpec.getIntArray("colours")
     for (tag <- NBTTagAccessor.getValues(renderSpec).asScala) {
-      RenderPart(tag, this)
+      RenderPart(tag, colours, this)
     }
     glPopMatrix()
   }

@@ -69,6 +69,16 @@ public class Colour {
         return val;
     }
 
+    public static int getInt(double r, double g, double b, double a) {
+        int val = 0;
+        val = val | ((int) (a * 255) << 24);
+        val = val | ((int) (r * 255) << 16);
+        val = val | ((int) (g * 255) << 8);
+        val = val | ((int) (b * 255));
+
+        return val;
+    }
+
     /**
      * Returns a colour with RGB set to the same value ie. a shade of grey.
      */
@@ -89,6 +99,14 @@ public class Colour {
     }
 
     public void doGL() {
+        GL11.glColor4d(r, g, b, a);
+    }
+
+    public static void doGLByInt(int c) {
+        double a = (c >> 24 & 255) / 255.0F;
+        double r = (c >> 16 & 255) / 255.0F;
+        double g = (c >> 8 & 255) / 255.0F;
+        double b = (c & 255) / 255.0F;
         GL11.glColor4d(r, g, b, a);
     }
 
