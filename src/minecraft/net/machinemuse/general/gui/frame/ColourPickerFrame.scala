@@ -32,6 +32,7 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
 
   var selectedSlider: Option[ClickableSlider] = None
   var selectedColour: Int = 0
+  var decrAbove: Int = -1
 
   def getOrCreateColourTag:Option[NBTTagIntArray] = {
     if(itemSelector.getSelectedItem == null) return None
@@ -120,7 +121,7 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
     }
     if (y > border.bottom - 16 && y < border.bottom - 8) {
       val colourCol:Int = (x - border.left - 8.0).toInt / 8
-      if (colourCol > 0 && colourCol < colours.size) {
+      if (colourCol >= 0 && colourCol < colours.size) {
         onSelectColour(colourCol.toInt)
       } else if (colourCol == colours.size) {
         MuseLogger.logDebug("Adding")
@@ -136,6 +137,10 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
     if(y > border.bottom - 24 && y < border.bottom - 16 && x > border.left + 8 + selectedColour * 8 && x < border.left + 16 + selectedColour * 8) {
       getOrCreateColourTag.map( e=>{
         e.intArray =  e.intArray diff Array(e.intArray(selectedColour))
+        decrAbove = selectedColour
+        if(selectedColour == e.intArray.size) {
+          selectedColour = selectedColour - 1
+        }
         val player = Minecraft.getMinecraft.thePlayer
         if (player.worldObj.isRemote)
           player.sendQueue.addToSendQueue(new MusePacketColourInfo(player.asInstanceOf[Player], itemSelector.getSelectedItem.inventorySlot, e.intArray).getPacket250)

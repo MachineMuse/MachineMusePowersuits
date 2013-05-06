@@ -12,25 +12,25 @@ import net.minecraft.nbt.NBTTagCompound
  * Created: 4:16 AM, 29/04/13
  */
 object RenderPart {
-  def apply(nbt: NBTTagCompound, c: Array[Int], m: ArmorModel) {
+  def apply(nbt: NBTTagCompound, c: Array[Int], m: ArmorModel, slot: Int) {
     //MuseLogger.logDebug("rendering model " + nbt.getString("model") + ":" + nbt.getString("part"))
     ModelRegistry.getPart(nbt).map(part => {
+      if (part.slot == slot) {
+        Minecraft.getMinecraft.renderEngine.bindTexture(part.getTexture(nbt))
+        glPushMatrix
+        part.morph(m)
+        if (part.getGlow(nbt)) MuseRenderer.glowOn
+        val ix = part.getColourIndex(nbt)
+        if (ix < c.size) {
+          Colour.doGLByInt(c(ix))
+        }
+        part.modelSpec.applyOffsetAndRotation
+        part.modelSpec.model.renderPart(part.partName)
 
-      Minecraft.getMinecraft.renderEngine.bindTexture(part.getTexture(nbt))
-      glPushMatrix
-      part.morph(m)
-      if (part.getGlow(nbt)) MuseRenderer.glowOn
-      val ix = part.getColourIndex(nbt)
-      if (ix < c.size) {
-        Colour.doGLByInt(c(ix))
+        Colour.WHITE.doGL
+        if (part.getGlow(nbt)) MuseRenderer.glowOff
+        glPopMatrix
       }
-      part.modelSpec.applyOffsetAndRotation
-      part.modelSpec.model.renderPart(part.partName)
-
-      Colour.WHITE.doGL
-      if (part.getGlow(nbt)) MuseRenderer.glowOff
-      glPopMatrix
-    }
-    )
+    })
   }
 }

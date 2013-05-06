@@ -63,7 +63,7 @@ class ArmorModel(par1: Float, par2: Float, par3: Int, par4: Int) extends ModelBi
     import scala.collection.JavaConverters._
     val colours = renderSpec.getIntArray("colours")
     for (tag <- NBTTagAccessor.getValues(renderSpec).asScala) {
-      RenderPart(tag, colours, this)
+      RenderPart(tag, colours, this, visible)
     }
     glPopMatrix()
   }

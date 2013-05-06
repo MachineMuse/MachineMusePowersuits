@@ -59,7 +59,13 @@ class PartManipContainer(val itemSelect: ItemSelectionFrame, val colourSelect: C
         (acc, subframe) => subframe.updateItems; subframe.border.bottom()
       }.toInt
     }
+    if(colourSelect.decrAbove > -1) {
+      decrAbove(colourSelect.decrAbove)
+      colourSelect.decrAbove = -1
+    }
   }
+
+  def decrAbove(index:Int) {for(frame<-modelframes) frame.decrAbove(index)}
 
 
   override def draw() {

@@ -73,6 +73,22 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
     }
   }
 
+  def decrAbove(index: Int) {
+    for (spec <- specs) {
+      val tagname = ModelRegistry.makeName(spec)
+      val player = Minecraft.getMinecraft.thePlayer
+      val tagdata = getOrDontGetSpecTag(spec)
+      tagdata.map(e => {
+        val oldindex = spec.getColourIndex(e)
+        if (oldindex >= index) {
+          spec.setColourIndex(e, oldindex - 1)
+          if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, e).getPacket250)
+        }
+      })
+
+    }
+  }
+
   def drawSpecPartial(x: Double, y: Double, spec: ModelPartSpec, ymino: Double, ymaxo: Double) = {
     val tag = getSpecTag(spec)
     val selcomp = if (tag.hasNoTags) 0 else if (spec.getGlow(tag)) 2 else 1
@@ -87,7 +103,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
         GuiIcons.ArmourColourPatch(acc, y, new Colour(colour), ymin = ymino, ymax = ymaxo)
         acc + 8
     }
-    if(selcomp > 0) {
+    if (selcomp > 0) {
       GuiIcons.SelectedArmorOverlay(x + 28 + selcolour * 8, y, ymin = ymino, ymax = ymaxo)
     }
 
