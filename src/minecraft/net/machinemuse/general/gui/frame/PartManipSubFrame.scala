@@ -82,13 +82,15 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
     GuiIcons.NormalArmor(x + 8, y, ymin = ymino, ymax = ymaxo)
     GuiIcons.GlowArmor(x + 16, y, ymin = ymino, ymax = ymaxo)
     GuiIcons.SelectedArmorOverlay(x + selcomp * 8, y, ymin = ymino, ymax = ymaxo)
-
     val textstartx = ((x + 28) /: colourframe.colours) {
       case (acc, colour) =>
         GuiIcons.ArmourColourPatch(acc, y, new Colour(colour), ymin = ymino, ymax = ymaxo)
         acc + 8
     }
-    GuiIcons.SelectedArmorOverlay(x + 28 + selcolour * 8, y, ymin = ymino, ymax = ymaxo)
+    if(selcomp > 0) {
+      GuiIcons.SelectedArmorOverlay(x + 28 + selcolour * 8, y, ymin = ymino, ymax = ymaxo)
+    }
+
 
     drawPartialString(spec.displayName, ymino, ymaxo, textstartx + 4, y)
   }

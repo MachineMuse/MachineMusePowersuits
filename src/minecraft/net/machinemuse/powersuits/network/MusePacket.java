@@ -101,11 +101,11 @@ public abstract class MusePacket {
         }
     }
 
-    public void writeIntArray(int[] i) {
+    public void writeIntArray(int[] data) {
         try {
-            dataout.writeInt(i.length);
-            for(int k=0;k<i.length;k++) {
-                dataout.writeInt(i[k]);
+            dataout.writeInt(data.length);
+            for(int k=0;k<data.length;k++) {
+                dataout.writeInt(data[k]);
             }
         } catch (IOException e) {
 

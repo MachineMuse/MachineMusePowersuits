@@ -58,6 +58,16 @@ object GuiIcons {
     val filepath = Config.TEXTURE_PREFIX + "gui/colourclicker.png"
   }
 
+  object MinusSign extends GuiIcon {
+    val size = 8.0
+    val filepath = Config.TEXTURE_PREFIX + "gui/minussign.png"
+  }
+
+  object PlusSign extends GuiIcon {
+    val size = 8.0
+    val filepath = Config.TEXTURE_PREFIX + "gui/plussign.png"
+  }
+
   object GuiIconDrawer extends Icon {
     def getOriginX: Int = 0
 

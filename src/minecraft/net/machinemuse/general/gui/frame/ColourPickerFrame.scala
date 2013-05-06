@@ -3,7 +3,7 @@ package net.machinemuse.general.gui.frame
 import java.util
 import net.machinemuse.general.gui.clickable.ClickableSlider
 import net.machinemuse.general.geometry._
-import net.machinemuse.general.NBTTagAccessor
+import net.machinemuse.general.{MuseLogger, NBTTagAccessor}
 import net.machinemuse.utils.{MuseMathUtils, MuseItemUtils}
 import scala.collection.mutable.ArrayBuffer
 import scala.collection.immutable.HashSet
@@ -94,6 +94,8 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
     }
     ArmourColourPatch(border.left + 8 + colours.size * 8, border.bottom - 16, Colour.WHITE)
     SelectedArmorOverlay(border.left + 8 + selectedColour * 8, border.bottom - 16, Colour.WHITE)
+    MinusSign(border.left + 8 + selectedColour * 8, border.bottom - 24, Colour.RED)
+    PlusSign(border.left + 8 + colours.size * 8, border.bottom - 16, Colour.GREEN)
   }
 
   def getToolTip(x: Int, y: Int): util.List[String] = null
@@ -117,18 +119,28 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
       selectedSlider = None
     }
     if (y > border.bottom - 16 && y < border.bottom - 8) {
-      val colourCol = (x - border.left - 8.0) / 8.0
+      val colourCol:Int = (x - border.left - 8.0).toInt / 8
       if (colourCol > 0 && colourCol < colours.size) {
         onSelectColour(colourCol.toInt)
       } else if (colourCol == colours.size) {
+        MuseLogger.logDebug("Adding")
         getOrCreateColourTag.map( e=>{
-          e.intArray =  e.intArray :+ Colour.WHITE.getInt
+          e.intArray =  (e.intArray :+ Colour.WHITE.getInt)
           val player = Minecraft.getMinecraft.thePlayer
           if (player.worldObj.isRemote)
             player.sendQueue.addToSendQueue(new MusePacketColourInfo(player.asInstanceOf[Player], itemSelector.getSelectedItem.inventorySlot, e.intArray).getPacket250)
         })
 
       }
+    }
+    if(y > border.bottom - 24 && y < border.bottom - 16 && x > border.left + 8 + selectedColour * 8 && x < border.left + 16 + selectedColour * 8) {
+      getOrCreateColourTag.map( e=>{
+        e.intArray =  e.intArray diff Array(e.intArray(selectedColour))
+        val player = Minecraft.getMinecraft.thePlayer
+        if (player.worldObj.isRemote)
+          player.sendQueue.addToSendQueue(new MusePacketColourInfo(player.asInstanceOf[Player], itemSelector.getSelectedItem.inventorySlot, e.intArray).getPacket250)
+      })
+
     }
 
   }
