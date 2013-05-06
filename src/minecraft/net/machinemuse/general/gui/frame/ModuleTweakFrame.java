@@ -6,7 +6,7 @@ import net.machinemuse.api.IPropertyModifier;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableItem;
-import net.machinemuse.general.gui.clickable.ClickableSlider;
+import net.machinemuse.general.gui.clickable.ClickableTinkerSlider;
 import net.machinemuse.powersuits.network.MusePacket;
 import net.machinemuse.powersuits.network.packets.MusePacketTweakRequest;
 import net.machinemuse.powersuits.powermodule.PowerModule;
@@ -15,7 +15,6 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MuseRenderer;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.entity.EntityClientPlayerMP;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import org.lwjgl.opengl.GL11;
@@ -26,9 +25,9 @@ public class ModuleTweakFrame extends ScrollableFrame {
     protected static double SCALERATIO = 0.75;
     protected ItemSelectionFrame itemTarget;
     protected ModuleSelectionFrame moduleTarget;
-    protected List<ClickableSlider> sliders;
+    protected List<ClickableTinkerSlider> sliders;
     protected Map<String, Double> propertyStrings;
-    protected ClickableSlider selectedSlider;
+    protected ClickableTinkerSlider selectedSlider;
     protected EntityClientPlayerMP player;
 
     public ModuleTweakFrame(
@@ -72,7 +71,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
             GL11.glScaled(SCALERATIO, SCALERATIO, SCALERATIO);
             super.draw();
             MuseRenderer.drawCenteredString("Tinker", (border.left() + border.right()) / 2, border.top() + 2);
-            for (ClickableSlider slider : sliders) {
+            for (ClickableTinkerSlider slider : sliders) {
                 slider.draw();
             }
             int nexty = (int) (sliders.size() * 20 + border.top() + 14);
@@ -111,7 +110,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
         int y = 0;
         for (String tweak : tweaks) {
             y += 20;
-            ClickableSlider slider = new ClickableSlider(
+            ClickableTinkerSlider slider = new ClickableTinkerSlider(
                     new MusePoint2D((border.left() + border.right()) / 2, border.top() + y),
                     border.right() - border.left() - 8,
                     moduleTag, tweak);
@@ -125,7 +124,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
         y /= SCALERATIO;
         if (button == 0) {
             if (sliders != null) {
-                for (ClickableSlider slider : sliders) {
+                for (ClickableTinkerSlider slider : sliders) {
                     if (slider.hitBox(x, y)) {
                         selectedSlider = slider;
                     }
@@ -139,8 +138,8 @@ public class ModuleTweakFrame extends ScrollableFrame {
         if (selectedSlider != null && itemTarget.getSelectedItem() != null && moduleTarget.getSelectedModule() != null) {
             ClickableItem item = itemTarget.getSelectedItem();
             IPowerModule module = moduleTarget.getSelectedModule().getModule();
-            MusePacket tweakRequest = new MusePacketTweakRequest((Player) player, item.inventorySlot, module.getName(), selectedSlider.getName(),
-                    selectedSlider.getValue());
+            MusePacket tweakRequest = new MusePacketTweakRequest((Player) player, item.inventorySlot, module.getName(), selectedSlider.name(),
+                    selectedSlider.value());
             player.sendQueue.addToSendQueue(tweakRequest.getPacket250());
         }
         if (button == 0) {

@@ -16,7 +16,7 @@ import net.minecraft.item.ItemArmor
  * Author: MachineMuse (Claire Semple)
  * Created: 1:46 AM, 30/04/13
  */
-class PartManipSubFrame(val model: ModelSpec, val itemSelector: ItemSelectionFrame, val border: MuseRelativeRect) {
+class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame, val itemSelector: ItemSelectionFrame, val border: MuseRelativeRect) {
   var specs: Array[ModelPartSpec] = model.apply.values.filter(spec => isValidArmor(getSelectedItem, spec.slot)).toArray
   var open: Boolean = true
   var mousex: Double = 0
@@ -47,11 +47,15 @@ class PartManipSubFrame(val model: ModelSpec, val itemSelector: ItemSelectionFra
     }
   }
 
-  def update {
+  def updateItems {
     specs = model.apply.values.filter(spec => isValidArmor(getSelectedItem, spec.slot)).toArray
     border.setHeight(if (specs.size > 0) specs.size * 8 + 10 else 0)
   }
 
+  def updateColours {
+
+
+  }
 
   def drawPartial(min: Double, max: Double) {
     if (specs.size > 0) {
@@ -71,12 +75,21 @@ class PartManipSubFrame(val model: ModelSpec, val itemSelector: ItemSelectionFra
   def drawSpecPartial(x: Double, y: Double, spec: ModelPartSpec, ymino: Double, ymaxo: Double) = {
     val tag = getSpecTag(spec)
     val selcomp = if (tag.hasNoTags) 0 else if (spec.getGlow(tag)) 2 else 1
+    val selcolour = colourframe.colours.indexOf(spec.getColourInt(tag))
 
     GuiIcons.TransparentArmor(x, y, ymin = ymino, ymax = ymaxo)
     GuiIcons.NormalArmor(x + 8, y, ymin = ymino, ymax = ymaxo)
     GuiIcons.GlowArmor(x + 16, y, ymin = ymino, ymax = ymaxo)
     GuiIcons.SelectedArmorOverlay(x + selcomp * 8, y, ymin = ymino, ymax = ymaxo)
-    drawPartialString(spec.displayName, ymino, ymaxo, x + 28, y)
+
+    val textstartx = ((x + 28) /: colourframe.colours) {
+      case (acc, colour) =>
+        GuiIcons.ArmourColourPatch(acc, y, new Colour(colour), ymin = ymino, ymax = ymaxo)
+        acc + 8
+    }
+    GuiIcons.SelectedArmorOverlay(x + 28 + selcolour * 8, y, ymin = ymino, ymax = ymaxo)
+
+    drawPartialString(spec.displayName, ymino, ymaxo, textstartx, y)
   }
 
   def drawPartialString(s: String, min: Double, max: Double, x: Double, y: Double) {
@@ -124,36 +137,43 @@ class PartManipSubFrame(val model: ModelSpec, val itemSelector: ItemSelectionFra
       columnNumber match {
         case 0 => {
           val renderTag = getRenderTag
-          val clickie = getSelectedItem
           val tagname = ModelRegistry.makeName(spec)
           val player = Minecraft.getMinecraft.thePlayer
           renderTag.removeTag(ModelRegistry.makeName(spec))
-          if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], clickie.inventorySlot, tagname, new NBTTagCompound()).getPacket250)
-          update
+          if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, new NBTTagCompound()).getPacket250)
+          updateItems
           true
         }
         case 1 => {
-          val clickie = getSelectedItem
           val tagname = ModelRegistry.makeName(spec)
           val player = Minecraft.getMinecraft.thePlayer
           val tagdata = getOrMakeSpecTag(spec)
           spec.setGlow(tagdata, false)
-          if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], clickie.inventorySlot, tagname, tagdata).getPacket250)
-          update
+          if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, tagdata).getPacket250)
+          updateItems
           true
         }
         case 2 => {
-          val clickie = getSelectedItem
           val tagname = ModelRegistry.makeName(spec)
           val player = Minecraft.getMinecraft.thePlayer
           val tagdata = getOrMakeSpecTag(spec)
           spec.setGlow(tagdata, true)
-          if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], clickie.inventorySlot, tagname, tagdata).getPacket250)
-          update
+          if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, tagdata).getPacket250)
+          updateItems
           true
         }
         case _ => false
       }
+    } else if (x > border.left + 28 && x < border.left + 28 + colourframe.colours.size * 8) {
+      val lineNumber = ((y - border.top - 8) / 8).toInt
+      val columnNumber = ((x - border.left - 28) / 8).toInt
+      val spec = specs(lineNumber.min(specs.size - 1).max(0))
+      val tagname = ModelRegistry.makeName(spec)
+      val player = Minecraft.getMinecraft.thePlayer
+      val tagdata = getOrMakeSpecTag(spec)
+      spec.setColour(tagdata, colourframe.colours(columnNumber))
+      if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, tagdata).getPacket250)
+      true
     }
 
     else false

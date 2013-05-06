@@ -20,7 +20,7 @@ class ClickableModule(val module: IPowerModule, position: MusePoint2D) extends C
   protected var installed: Boolean = false
   val checkmarkcolour = new Colour(0.0F, 0.667F, 0.0F, 1.0F)
 
-  def getToolTip: List[String] = {
+  override def getToolTip: List[String] = {
     val toolTipText: List[String] = new ArrayList[String]
     toolTipText.add(getModule.getName)
     toolTipText.addAll(MuseStringUtils.wrapStringToLength(getModule.getDescription, 30))

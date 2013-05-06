@@ -109,7 +109,12 @@ public class Colour {
         String hexDigits = "0123456789ABCDEF";
         return hexDigits.charAt(y / 16) + "" + hexDigits.charAt(y % 16);
     }
+
     public Color awtColor() {
-        return new Color((float)r,(float)g,(float)b,(float)a);
+        return new Color((float) r, (float) g, (float) b, (float) a);
+    }
+
+    public boolean equals(Colour o) {
+        return r == o.r && g == o.g && b == o.b && a == o.a;
     }
 }

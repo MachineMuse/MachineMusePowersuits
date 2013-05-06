@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11._
  * Author: MachineMuse (Claire Semple)
  * Created: 6:39 PM, 29/04/13
  */
-class PartManipContainer(val itemSelect: ItemSelectionFrame, topleft: MusePoint2D, bottomright: MusePoint2D, borderColour: Colour, insideColour: Colour)
+class PartManipContainer(val itemSelect: ItemSelectionFrame, val colourSelect: ColourPickerFrame, topleft: MusePoint2D, bottomright: MusePoint2D, borderColour: Colour, insideColour: Colour)
   extends ScrollableFrame(topleft, bottomright, borderColour, insideColour) {
   var lastItem: Option[ItemStack] = getItem
   val modelframes: Seq[PartManipSubFrame] =
@@ -23,7 +23,7 @@ class PartManipContainer(val itemSelect: ItemSelectionFrame, topleft: MusePoint2
   def createNewFrame(modelspec: ModelSpec, prev: Option[PartManipSubFrame]) = {
     val newborder = new MuseRelativeRect(topleft.x + 4, topleft.y + 4, bottomright.x, topleft.y + 10)
     newborder.setBelow(prev.map(e => e.border) getOrElse null)
-    new PartManipSubFrame(modelspec, itemSelect, newborder)
+    new PartManipSubFrame(modelspec, colourSelect, itemSelect, newborder)
   }
 
   override def onMouseDown(x: Double, y: Double, button: Int) {
@@ -41,8 +41,9 @@ class PartManipContainer(val itemSelect: ItemSelectionFrame, topleft: MusePoint2
     super.update(mousex, mousey)
     if (lastItem != getItem) {
       lastItem = getItem
+      colourSelect.refreshColours()
       this.totalsize = (0.0 /: modelframes) {
-        (acc, subframe) => subframe.update; subframe.border.bottom()
+        (acc, subframe) => subframe.updateItems; subframe.border.bottom()
       }.toInt
     }
   }
@@ -51,13 +52,13 @@ class PartManipContainer(val itemSelect: ItemSelectionFrame, topleft: MusePoint2
 
 
   override def draw() {
-    super.draw
-    glPushMatrix
+    super.draw()
+    glPushMatrix()
     glTranslated(0, -currentscrollpixels, 0)
     for (f <- modelframes) {
       f.drawPartial(currentscrollpixels + 4 + border.top, this.currentscrollpixels + border.bottom - 4)
     }
-    glPopMatrix
+    glPopMatrix()
   }
 
   //  override def getToolTip(x: Int, y: Int): util.List[String] = ???

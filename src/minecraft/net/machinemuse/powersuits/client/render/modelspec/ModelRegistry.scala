@@ -84,9 +84,17 @@ class ModelPartSpec(val modelSpec: ModelSpec,
     if (nbt hasKey "colour") new Colour(nbt getInteger "colour") else defaultcolour
   }
 
+  def getColourInt(nbt: NBTTagCompound): Int = {
+    if (nbt hasKey "colour") nbt getInteger "colour" else defaultcolour.getInt
+  }
+
   def setColour(nbt: NBTTagCompound, c: Colour) = {
     val cint = c.getInt
     if (cint equals defaultcolour.getInt) nbt removeTag "colour" else nbt setInteger("colour", cint)
+  }
+
+  def setColour(nbt: NBTTagCompound, c: Int) = {
+    if (c equals defaultcolour.getInt) nbt removeTag "colour" else nbt setInteger("colour", c)
   }
 
   def getGlow(nbt: NBTTagCompound): Boolean = {

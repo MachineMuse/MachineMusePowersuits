@@ -40,11 +40,17 @@ public class DrawableMuseRect extends MuseRect {
         this.outsideColour = outsideColour;
     }
 
+    public DrawableMuseRect(MuseRect ref, Colour insideColour, Colour outsideColour) {
+        super(ref.left(), ref.top(), ref.right(), ref.bottom());
+        this.insideColour = insideColour;
+        this.outsideColour = outsideColour;
+    }
+
     public void draw() {
         if (vertices == null || coloursInside == null || coloursOutside == null
                 || (lastRect != null && !lastRect.equals(this))) {
             this.lastRect = new MuseRect(left(), top(), right(), bottom());
-            double cornerradius = 4;
+            double cornerradius = 3;
             double zLevel = 1;
 
             DoubleBuffer corner = MuseRenderer.getArcPoints(Math.PI,
@@ -78,13 +84,13 @@ public class DrawableMuseRect extends MuseRect {
 
         MuseRenderer.arraysOnC();
 
-        GL11.glColorPointer(4, 0, coloursOutside);
-        GL11.glVertexPointer(3, 0, vertices);
-        GL11.glDrawArrays(GL11.GL_LINE_LOOP, 0, vertices.limit() / 3);
-
         GL11.glColorPointer(4, 0, coloursInside);
         GL11.glVertexPointer(3, 0, vertices);
         GL11.glDrawArrays(GL11.GL_TRIANGLE_FAN, 0, vertices.limit() / 3);
+
+        GL11.glColorPointer(4, 0, coloursOutside);
+        GL11.glVertexPointer(3, 0, vertices);
+        GL11.glDrawArrays(GL11.GL_LINE_LOOP, 0, vertices.limit() / 3);
 
         MuseRenderer.texturelessOff();
         MuseRenderer.off2D();

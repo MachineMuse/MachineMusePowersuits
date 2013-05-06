@@ -53,6 +53,10 @@ object GuiIcons {
     val filepath = Config.TEXTURE_PREFIX + "gui/armordisplayselect.png"
   }
 
+  object ArmourColourPatch extends GuiIcon {
+    val size = 8.0
+    val filepath = Config.TEXTURE_PREFIX + "gui/colourclicker.png"
+  }
 
   object GuiIconDrawer extends Icon {
     def getOriginX: Int = 0
