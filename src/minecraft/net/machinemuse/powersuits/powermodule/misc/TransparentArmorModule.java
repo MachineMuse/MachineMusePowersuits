@@ -17,6 +17,10 @@ public class TransparentArmorModule extends PowerModuleBase {
     }
 
     @Override
+    public boolean isAllowed() {
+        return false;
+    }
+    @Override
     public String getTextureFile() {
         return "transparentarmor";
     }

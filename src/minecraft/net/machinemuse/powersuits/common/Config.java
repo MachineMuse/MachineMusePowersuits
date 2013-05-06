@@ -223,7 +223,7 @@ public class Config {
         addModule(new CoolingSystemModule(TORSOONLY));
 
         // Cosmetic
-        addModule(new TintModule(ALLITEMS));
+        addModule(new TintModule(TOOLONLY));
         addModule(new TransparentArmorModule(ARMORONLY));
         addModule(new CosmeticGlowModule(ARMORONLY));
 
