@@ -46,4 +46,11 @@
             <part defaultcolor="FFFFFF" defaultglow="false" polygroup="helm_tube_entry1" name="Left Tube Entry"/>
         </binding>
     </model>
+    <model file="/mods/mmmPowersuits/models/jetpack.obj" textures="/mods/mmmPowersuits/textures/models/jetpack.png">
+        <binding slot="1" target="Body">
+            <part defaultcolor="FFFFFF" defaultglow="false" polygroup="default" name="Main"/>
+            <part defaultcolor="114EFF" defaultglow="false" polygroup="jetpack5" name="Secondary"/>
+            <part defaultcolor="114EFF" defaultglow="true" polygroup="jetpack_glow" name="Lights"/>
+        </binding>
+    </model>
 </models>
