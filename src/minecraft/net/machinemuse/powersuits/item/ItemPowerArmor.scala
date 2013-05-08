@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.item
 
 import net.machinemuse.powersuits.common.Config
-import net.machinemuse.powersuits.powermodule.misc.{TransparentArmorModule, TintModule}
+import net.machinemuse.powersuits.powermodule.misc.{InvisibilityModule, TransparentArmorModule, TintModule}
 import net.machinemuse.utils._
 import net.minecraft.entity.{Entity, EntityLiving}
 import net.minecraft.entity.player.EntityPlayer
@@ -37,7 +37,7 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int)
   def getProperties(player: EntityLiving, armor: ItemStack, source: DamageSource, damage: Double, slot: Int): ISpecialArmor.ArmorProperties = {
     val priority: Int = 1
     if (source.isFireDamage && !(source == MuseHeatUtils.overheatDamage)) {
-      return new ISpecialArmor.ArmorProperties(priority, 0.25, (25 * damage).asInstanceOf[Int])
+      return new ISpecialArmor.ArmorProperties(priority, 0.25, (25 * damage).toInt)
     }
     val armorDouble = player match {
       case player: EntityPlayer => getArmorDouble(player, armor)
@@ -68,6 +68,10 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int)
     model.visible = armorSlot
 
     if (itemstack != null) {
+      if(entityLiving.isInstanceOf[EntityPlayer]) {
+        Option(entityLiving.asInstanceOf[EntityPlayer].getCurrentArmor(2)).map(chest=>
+          if(MuseItemUtils.itemHasActiveModule(chest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) return null)
+      }
       if (MuseItemUtils.itemHasActiveModule(itemstack, TransparentArmorModule.MODULE_TRANSPARENT_ARMOR)) {
         return null
       }

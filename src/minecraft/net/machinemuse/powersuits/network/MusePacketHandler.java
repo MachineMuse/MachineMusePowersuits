@@ -89,8 +89,7 @@ public class MusePacketHandler implements IPacketHandler {
      */
     public static int getTypeID(MusePacket packet) {
         try {
-            return packetConstructors.inverse().get(
-                    getConstructor(packet.getClass()));
+            return packetConstructors.inverse().get(getConstructor(packet.getClass()));
         } catch (NoSuchMethodException e) {
             MuseLogger.logError("INVALID PACKET CONSTRUCTOR D:");
             e.printStackTrace();

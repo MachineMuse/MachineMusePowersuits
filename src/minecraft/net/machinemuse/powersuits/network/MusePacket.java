@@ -38,8 +38,11 @@ public abstract class MusePacket {
         this.player = player;
         this.bytes = new ByteArrayOutputStream();
         this.dataout = new DataOutputStream(bytes);
+        try {
         int id = MusePacketHandler.getTypeID(this);
         writeInt(id);
+        } catch (NullPointerException e) {
+        }
     }
 
     protected MusePacket(DataInputStream data, Player player) {
