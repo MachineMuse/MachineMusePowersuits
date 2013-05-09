@@ -7,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.client.audio.SoundManager
 import scala.Predef.String
 import net.machinemuse.general.MuseLogger
+import net.machinemuse.powersuits.common.Config
 
 /**
  * Handles sound mechanics
@@ -23,8 +24,8 @@ object Musique {
 
   def playClientSound(soundname: String, volume: Float) {
     try {
-    if (FMLCommonHandler.instance.getEffectiveSide eq Side.CLIENT) {
-      val pitch: Float = 1.0f
+      if ((FMLCommonHandler.instance.getEffectiveSide eq Side.CLIENT) && (Config.useSounds())) {
+        val pitch: Float = 1.0f
       mcsound.playSoundFX(soundname, volume, pitch)
     }
     } catch {
@@ -36,8 +37,8 @@ object Musique {
 
   def playerSound(player: EntityPlayer, soundname: String, volume: Float, pitch: Float = 1.0f, continuous: Boolean = true) {
     try {
-    if (FMLCommonHandler.instance.getEffectiveSide eq Side.CLIENT) {
-      val pitch: Float = 1.0f
+      if ((FMLCommonHandler.instance.getEffectiveSide eq Side.CLIENT) && (Config.useSounds())) {
+        val pitch: Float = 1.0f
       val unknownflag = true
       val soundid = makeSoundString(player, soundname)
       if (!soundsystem.playing(soundid)) {
@@ -59,8 +60,8 @@ object Musique {
 
   def stopPlayerSound(player: EntityPlayer, soundname: String) {
     try {
-    if (FMLCommonHandler.instance.getEffectiveSide eq Side.CLIENT) {
-      val soundid = makeSoundString(player, soundname)
+      if ((FMLCommonHandler.instance.getEffectiveSide eq Side.CLIENT) && (Config.useSounds())) {
+        val soundid = makeSoundString(player, soundname)
       val vol = soundsystem.getVolume(soundid) - 0.1f
       if (vol > 0) {
         soundsystem.setVolume(soundid, vol)
