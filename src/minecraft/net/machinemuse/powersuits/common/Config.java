@@ -276,6 +276,10 @@ public class Config {
         return config.get("Font", "Use Custom Font Engine", true).getBoolean(true);
     }
 
+    public static boolean useSounds() {
+        return config.get(Configuration.CATEGORY_GENERAL, "Use Sounds", true).getBoolean(true);
+    }
+
     public static double fontDetail() {
         return config.get("Font", "Font Detail Multiplier", 4).getDouble(4);
     }
