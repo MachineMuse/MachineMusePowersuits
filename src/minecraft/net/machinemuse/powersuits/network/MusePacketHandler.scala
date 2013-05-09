@@ -14,10 +14,12 @@ import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.network.INetworkManager
 import net.minecraft.network.packet.Packet250CustomPayload
 import java.io._
-import net.machinemuse.utils.{MuseNumericRegistry, MuseBiMap, MuseRegistry}
+import net.machinemuse.utils.MuseNumericRegistry
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.{CompressedStreamTools, NBTTagCompound}
 import scala.Some
+import cpw.mods.fml.common.FMLCommonHandler
+import cpw.mods.fml.relauncher.Side
 
 /**
  * @author MachineMuse
@@ -53,7 +55,7 @@ trait MusePackager {
 }
 
 object RichInputStream {
-  implicit def toRichStream(in: DataInputStream):RichInputStream = new RichInputStream(in)
+  implicit def toRichStream(in: DataInputStream): RichInputStream = new RichInputStream(in)
 
   class RichInputStream(in: DataInputStream) {
     def readIntArray = () => {
@@ -118,9 +120,9 @@ class MusePacketHandler extends IPacketHandler {
       val repackaged = repackage(payload, player)
       repackaged map {
         packet =>
-          player match {
-            case p: EntityClientPlayerMP => packet handleClient p
-            case p: EntityPlayerMP => packet handleServer p
+          FMLCommonHandler.instance.getEffectiveSide match {
+            case Side.SERVER => packet handleServer player.asInstanceOf[EntityPlayerMP]
+            case Side.CLIENT => packet handleClient player.asInstanceOf[EntityClientPlayerMP]
           }
       }
     }
@@ -143,6 +145,7 @@ class MusePacketHandler extends IPacketHandler {
 
 abstract class MusePacket(val player: Player) {
   val packager: MusePackager
+
   def write()
 
   val bytes = new ByteArrayOutputStream
