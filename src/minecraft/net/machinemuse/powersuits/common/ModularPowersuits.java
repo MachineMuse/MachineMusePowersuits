@@ -13,6 +13,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
+import net.machinemuse.general.MuseLogger;
 import net.machinemuse.general.recipe.RecipeManager;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
@@ -25,6 +26,7 @@ import net.machinemuse.powersuits.item.*;
 import net.machinemuse.powersuits.network.MusePacketHandler;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
+import org.lwjgl.opengl.GLContext;
 
 /**
  * Main mod class. This is what Forge loads to get the mod up and running, both
@@ -37,8 +39,8 @@ import net.minecraftforge.common.MinecraftForge;
 // matches the server's.
 @Mod(modid = "mmmPowersuits",
         name = "MachineMuse's Modular Powersuits",
+        /* @DEPENDENCIES@ */
         version = "@MOD_VERSION@"
-//        dependencies = "required-after:Forge@[7.7.1.651,)"
 )
 // Informs forge of the requirements:
 //
