@@ -328,12 +328,15 @@ public class MusePlayerUtils {
         } else if (player.isInsideOfMaterial(Material.lava)) {
             return 0;
         }
-        cool += (((getBiome(player).getFloatTemperature() * -1) + 2.0) / 2); // Algorithm that returns a value from 0.0 -> 1.0. Biome temperature is from 0.0 -> 2.0
-        if ((int) player.posY > 128) { // If high in the air, increase cooling
+        cool += ((2.0 - getBiome(player).getFloatTemperature())/2); // Algorithm that returns a value from 0.0 -> 1.0. Biome temperature is from 0.0 -> 2.0
+        if ((int)player.posY > 128) { // If high in the air, increase cooling
             cool += 0.5;
         }
         if (!player.worldObj.isDaytime() && getBiome(player).biomeName.equals("Desert")) { // If nighttime and in the desert, increase cooling
             cool += 0.8;
+        }
+        if (player.worldObj.isRaining()) {
+            cool += 0.2;
         }
         return cool;
     }
