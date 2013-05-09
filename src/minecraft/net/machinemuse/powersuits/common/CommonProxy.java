@@ -36,7 +36,6 @@ public class CommonProxy {
         TickRegistry.registerTickHandler(playerTickHandler, Side.SERVER);
 
         packetHandler = new MusePacketHandler();
-        packetHandler.register();
     }
 
     public void postInit() {

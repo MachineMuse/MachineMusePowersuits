@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.client.render.modelspec
+package net.machinemuse.utils
 
 import net.minecraft.nbt.NBTTagCompound
 

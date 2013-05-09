@@ -16,8 +16,8 @@ import net.machinemuse.powersuits.common.Config
  *
  */
 object MuseLogger {
-  val logger = Logger.getLogger("MMMPS-" + FMLCommonHandler.instance().getEffectiveSide());
-  logger.setParent(FMLLog.getLogger());
+  val logger = Logger.getLogger("MMMPS-" + FMLCommonHandler.instance().getEffectiveSide)
+  logger.setParent(FMLLog.getLogger)
 
   def logDebug(string: String) = {
     if(Config.isDebugging) logger.info(string); None
@@ -25,5 +25,9 @@ object MuseLogger {
 
   def logError(string: String) = {
     logger.warning(string); None
+  }
+
+  def logException(string:String, exception:Throwable) = {
+    logger.warning(string); exception.printStackTrace(); None
   }
 }

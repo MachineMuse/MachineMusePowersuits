@@ -17,9 +17,10 @@ object RenderPart {
     ModelRegistry.getPart(nbt).map(part => {
       if (part.slot == slot) {
         Minecraft.getMinecraft.renderEngine.bindTexture(part.getTexture(nbt))
-        glPushMatrix
+        glPushMatrix()
+
         part.morph(m)
-        if (part.getGlow(nbt)) MuseRenderer.glowOn
+        if (part.getGlow(nbt)) MuseRenderer.glowOn()
         val ix = part.getColourIndex(nbt)
         if (ix < c.size) {
           Colour.doGLByInt(c(ix))
@@ -27,9 +28,9 @@ object RenderPart {
         part.modelSpec.applyOffsetAndRotation
         part.modelSpec.model.renderPart(part.partName)
 
-        Colour.WHITE.doGL
-        if (part.getGlow(nbt)) MuseRenderer.glowOff
-        glPopMatrix
+        Colour.WHITE.doGL()
+        if (part.getGlow(nbt)) MuseRenderer.glowOff()
+        glPopMatrix()
       }
     })
   }

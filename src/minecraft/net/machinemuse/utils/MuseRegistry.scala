@@ -7,14 +7,14 @@ import net.machinemuse.general.MuseLogger
  * Author: MachineMuse (Claire Semple)
  * Created: 4:30 AM, 29/04/13
  */
-abstract class MuseRegistry[T] {
+class MuseBiMap[S, T] {
 
-  val nameMap = new mutable.HashMap[String, T]
-  val elemMap = new mutable.HashMap[T, String]
+  val nameMap = new mutable.HashMap[S, T]
+  val elemMap = new mutable.HashMap[T, S]
 
-  def get(name: String): Option[T] = nameMap.get(name)
+  def get(name: S): Option[T] = nameMap.get(name)
 
-  def put(name: String, elem: T) = {
+  def putName(name: S, elem: T) = {
     nameMap.get(name) match {
       case Some(e) => {
         MuseLogger.logError(name + " already a member!")
@@ -28,7 +28,7 @@ abstract class MuseRegistry[T] {
     }
   }
 
-  def put(elem: T, name: String) = {
+  def putElem(elem: T, name: S) = {
     nameMap.get(name) match {
       case Some(e) => {
         MuseLogger.logError(name + " already a member!")
@@ -45,9 +45,9 @@ abstract class MuseRegistry[T] {
 
   def inverse = elemMap
 
-  def getName(elem: T): Option[String] = elemMap.get(elem)
+  def getName(elem: T): Option[S] = elemMap.get(elem)
 
-  def remove(elem: T) = {
+  def removeElem(elem: T) = {
     getName(elem) match {
       case Some(n) => {
         nameMap.remove(n)
@@ -58,7 +58,7 @@ abstract class MuseRegistry[T] {
     }
   }
 
-  def remove(name: String) = {
+  def removeName(name: S) = {
     get(name) match {
       case Some(e) => {
         nameMap.remove(name)
@@ -69,4 +69,16 @@ abstract class MuseRegistry[T] {
     }
   }
 
+}
+
+class MuseRegistry[T] extends MuseBiMap[String, T] {
+  def put(name: String, elem: T) = putName(name, elem)
+
+  def put(elem: T, name: String) = putElem(elem, name)
+}
+
+class MuseNumericRegistry[T] extends MuseBiMap[Int, T] {
+  def put(name: Int, elem: T) = putName(name, elem)
+
+  def put(elem: T, name: Int) = putElem(elem, name)
 }

@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.tick;
 
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
+import cpw.mods.fml.common.network.Player;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.common.Config;
@@ -67,7 +68,7 @@ public class ClientTickHandler implements ITickHandler {
 
             if (inputmap.hasChanged()) {
                 inputmap.refresh();
-                MusePacket inputPacket = new MusePacketPlayerUpdate(player, inputmap);
+                MusePacket inputPacket = new MusePacketPlayerUpdate((Player) player, inputmap);
                 player.sendQueue.addToSendQueue(inputPacket.getPacket250());
             }
         }

@@ -114,7 +114,7 @@ public class ClientProxy extends CommonProxy {
         TickRegistry.registerTickHandler(clientTickHandler, Side.CLIENT);
 
 
-        packetHandler = new MusePacketHandler().register();
+        packetHandler = new MusePacketHandler();
     }
 
     @Override
