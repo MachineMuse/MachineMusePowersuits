@@ -13,7 +13,6 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
-import net.machinemuse.general.MuseLogger;
 import net.machinemuse.general.recipe.RecipeManager;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
@@ -26,7 +25,6 @@ import net.machinemuse.powersuits.item.*;
 import net.machinemuse.powersuits.network.MusePacketHandler;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
-import org.lwjgl.opengl.GLContext;
 
 /**
  * Main mod class. This is what Forge loads to get the mod up and running, both
@@ -80,7 +78,7 @@ public class ModularPowersuits {
      */
     @SidedProxy(
             clientSide = "net.machinemuse.powersuits.client.ClientProxy",
-            serverSide = "net.machinemuse.powersuits.common.CommonProxy")
+            serverSide = "net.machinemuse.powersuits.common.ServerProxy")
     public static CommonProxy proxy;
 
     /**

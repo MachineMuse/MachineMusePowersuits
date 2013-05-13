@@ -19,7 +19,7 @@ public abstract class PowerModuleBase implements IPowerModule {
     protected List<ItemStack> installCost;
     protected List<IModularItem> validItems;
     protected Map<String, List<IPropertyModifier>> propertyModifiers;
-    protected static Map<String, String> units = new HashMap();
+    protected static Map<String, String> units = new HashMap<String, String>();
     protected NBTTagCompound defaultTag;
     protected boolean isAllowed;
     protected Icon icon;
@@ -97,6 +97,10 @@ public abstract class PowerModuleBase implements IPowerModule {
     @Override
     public boolean isAllowed() {
         return this.isAllowed;
+    }
+
+    public void setIsAllowed(boolean allowed) {
+        this.isAllowed = allowed;
     }
 
     public PowerModuleBase addTradeoffProperty(String tradeoffName, String propertyName, double multiplier) {
