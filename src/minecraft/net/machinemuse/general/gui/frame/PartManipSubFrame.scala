@@ -60,7 +60,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
 
   def drawPartial(min: Double, max: Double) {
     if (specs.size > 0) {
-      ModelRegistry.getName(model).map(s => drawPartialString(s, min, max, border.left + 8, border.top))
+      ModelRegistry.getName(model).map(s => MuseRenderer.drawString(s, border.left + 8, border.top))
       drawOpenArrow(min, max)
       if (open) {
         ((border.top + 8) /: specs) {
@@ -108,13 +108,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
     }
 
 
-    drawPartialString(spec.displayName, ymino, ymaxo, textstartx + 4, y)
-  }
-
-  def drawPartialString(s: String, min: Double, max: Double, x: Double, y: Double) {
-    if (min <= y + 2 && max >= y + 4) {
-      MuseRenderer.drawString(s, x, y)
-    }
+    MuseRenderer.drawString(spec.displayName, textstartx + 4, y)
   }
 
   def drawOpenArrow(min: Double, max: Double) {

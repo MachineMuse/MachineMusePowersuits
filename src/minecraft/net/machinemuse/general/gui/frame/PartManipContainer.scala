@@ -69,13 +69,14 @@ class PartManipContainer(val itemSelect: ItemSelectionFrame, val colourSelect: C
 
 
   override def draw() {
-    super.draw()
+    super.preDraw()
     glPushMatrix()
     glTranslated(0, -currentscrollpixels, 0)
     for (f <- modelframes) {
       f.drawPartial(currentscrollpixels + 4 + border.top, this.currentscrollpixels + border.bottom - 4)
     }
     glPopMatrix()
+    super.postDraw()
   }
 
   //  override def getToolTip(x: Int, y: Int): util.List[String] = ???

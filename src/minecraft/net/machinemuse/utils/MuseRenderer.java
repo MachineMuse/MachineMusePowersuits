@@ -243,7 +243,7 @@ public abstract class MuseRenderer {
         // GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
     }
 
-    public static void scissorsOn(int x, int y, int w, int h) {
+    public static void scissorsOn(double x, double y, double w, double h) {
 //        GL11.glPushAttrib(GL11.GL_VIEWPORT_BIT);
         GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
         GL11.glPushMatrix();
@@ -253,15 +253,15 @@ public abstract class MuseRenderer {
         int dh = mc.displayHeight;
         ScaledResolution res = new ScaledResolution(mc.gameSettings, dw, dh);
 
-        int newx = x * res.getScaleFactor();
-        int newy = dh - h * res.getScaleFactor() - y*res.getScaleFactor();
-        int neww = w * res.getScaleFactor();
-        int newh = h * res.getScaleFactor();
+        double newx = x * res.getScaleFactor();
+        double newy = dh - h * res.getScaleFactor() - y * res.getScaleFactor();
+        double neww = w * res.getScaleFactor();
+        double newh = h * res.getScaleFactor();
 
 //        GL11.glTranslated(-x, -y, 0);
 //        GL11.glScaled(dw/(double)neww, dh/(double)newh, 1);
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
-        GL11.glScissor(newx, newy, neww, newh);
+        GL11.glScissor((int) newx, (int) newy, (int) neww, (int) newh);
     }
 
     public static void scissorsOff() {

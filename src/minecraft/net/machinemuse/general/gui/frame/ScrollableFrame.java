@@ -46,11 +46,10 @@ public class ScrollableFrame implements IGuiFrame {
         }
     }
 
-    @Override
-    public void draw() {
+    public void preDraw() {
         border.draw();
-        MuseRenderer.texturelessOn();
         MuseRenderer.glowOn();
+        MuseRenderer.texturelessOn();
         GL11.glBegin(GL11.GL_TRIANGLES);
         Colour.LIGHTBLUE.doGL();
         // Can scroll down
@@ -67,8 +66,18 @@ public class ScrollableFrame implements IGuiFrame {
         }
         Colour.WHITE.doGL();
         GL11.glEnd();
-        MuseRenderer.glowOff();
         MuseRenderer.texturelessOff();
+        MuseRenderer.scissorsOn(border.left() + 4, border.top() + 4, border.width() - 8, border.height() - 8);
+    }
+    public void postDraw() {
+        MuseRenderer.scissorsOff();
+        MuseRenderer.glowOff();
+    }
+
+    @Override
+    public void draw() {
+        preDraw();
+        postDraw();
     }
 
     @Override

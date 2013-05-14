@@ -35,11 +35,11 @@ class ClickableModule(val module: IPowerModule, position: MusePoint2D) extends C
   }
 
   def drawPartial(xmino: Double, ymino: Double, xmaxo: Double, ymaxo: Double) {
-    val prevMap = MuseRenderer.TEXTURE_MAP
-    MuseRenderer.TEXTURE_MAP = getModule.getStitchedTexture(null)
     val left: Double = getPosition.x - 8
     val top: Double = getPosition.y - 8
-    MuseRenderer.drawIconPartialOccluded(left, top, getModule.getIcon(null), Colour.WHITE, xmino, ymino, xmaxo, ymaxo)
+    MuseRenderer.pushTexture(getModule.getStitchedTexture(null))
+    MuseRenderer.drawIconAt(left, top, getModule.getIcon(null), Colour.WHITE)
+    MuseRenderer.popTexture()
     if (!allowed) {
       val string: String = MuseStringUtils.wrapFormatTags("x", MuseStringUtils.FormatCodes.DarkRed)
       MuseRenderer.drawString(string, getPosition.x + 3, getPosition.y + 1)
@@ -47,7 +47,6 @@ class ClickableModule(val module: IPowerModule, position: MusePoint2D) extends C
     else if (installed) {
       Checkmark(getPosition.x - 8 + 1, getPosition.y - 8 + 1, c = checkmarkcolour, ymin = ymino, ymax = ymaxo)
     }
-    MuseRenderer.TEXTURE_MAP = prevMap
   }
 
   def hitBox(x: Double, y: Double): Boolean = {
