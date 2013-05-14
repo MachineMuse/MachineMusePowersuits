@@ -133,6 +133,12 @@ trait MusePackager {
 
   def read(datain: DataInputStream, player: Player): MusePacket
 
+  def readByte(datain: DataInputStream): Byte = safeRead(datain readByte) getOrElse (0.toByte)
+
+  def readShort(datain: DataInputStream): Short = safeRead(datain readShort) getOrElse (0.toShort)
+
+  def readLong(datain: DataInputStream): Long = safeRead(datain readLong) getOrElse 0
+
   def readInt(datain: DataInputStream): Int = safeRead(datain readInt) getOrElse READ_ERROR
 
   def readBoolean(datain: DataInputStream): Boolean = safeRead(datain readBoolean) getOrElse false
