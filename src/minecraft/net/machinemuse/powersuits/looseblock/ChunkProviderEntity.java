@@ -73,4 +73,9 @@ public class ChunkProviderEntity implements IChunkProvider {
     public void recreateStructures(int i, int j) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
+
+    @Override
+    public void func_104112_b() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

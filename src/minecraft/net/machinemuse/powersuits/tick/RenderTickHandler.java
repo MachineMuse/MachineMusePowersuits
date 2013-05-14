@@ -29,7 +29,6 @@ import java.util.List;
  * Called before and after the 3D world is rendered (tickEnd is called BEFORE
  * the 2D gui is drawn... I think?).
  *
- * @param float tickData[0] the amount of time (0.0f-1.0f) since the last tick.
  * @author MachineMuse
  */
 public class RenderTickHandler implements ITickHandler {
@@ -52,7 +51,7 @@ public class RenderTickHandler implements ITickHandler {
             ScaledResolution screen = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
             drawMeters(player, screen);
             drawGogglesHUD(player, mc, ((Float) tickData[0]));
-            drawActiveMode(player,screen);
+            drawActiveMode(player, screen);
 
         }
     }
@@ -118,25 +117,29 @@ public class RenderTickHandler implements ITickHandler {
                 }
             }
             double prevX, prevY, currX, currY, nextX, nextY;
-            double sw = screen.getScaledWidth_double();
-            double baroffset = screen.getScaledHeight_double() - 40;
+            int sw = screen.getScaledWidth();
+            int sh = screen.getScaledHeight();
+            int baroffset = 22;
             if (!player.capabilities.isCreativeMode) {
-                baroffset -= 16;
+                baroffset += 16;
                 if (ForgeHooks.getTotalArmorValue(player) > 0) {
-                    baroffset -= 8;
+                    baroffset += 8;
                 }
             }
+            MuseRenderer.scissorsOn(0, 0, sw, sh - baroffset);
+
+            baroffset = screen.getScaledHeight() - baroffset;
             // Root locations of the mode list
             prevX = sw / 2.0 - 105.0 + 20.0 * i;
-            prevY = baroffset + 10;
+            prevY = baroffset - 8;
             currX = sw / 2.0 - 89.0 + 20.0 * i;
-            currY = baroffset;
+            currY = baroffset - 18;
             nextX = sw / 2.0 - 73.0 + 20.0 * i;
-            nextY = baroffset + 10;
+            nextY = baroffset - 8;
             if (swapTime == SWAPTIME || lastSwapDirection == 0) {
-                drawIcon(prevX, prevY, prevMode, 0.4, 0, 0, 16, baroffset - prevY + 16);
-                drawIcon(currX, currY, currentMode, 0.8, 0, 0, 16, baroffset - currY + 16);
-                drawIcon(nextX, nextY, nextMode, 0.4, 0, 0, 16, baroffset - nextY + 16);
+                drawIcon(prevX, prevY, prevMode, 0.4);
+                drawIcon(currX, currY, currentMode, 0.8);
+                drawIcon(nextX, nextY, nextMode, 0.4);
             } else {
                 double r1 = 1 - swapTime / (double) SWAPTIME;
                 double r2 = swapTime / (double) SWAPTIME;
@@ -145,8 +148,8 @@ public class RenderTickHandler implements ITickHandler {
                     nextY = (currY * r1 + nextY * r2);
                     currX = (prevX * r1 + currX * r2);
                     currY = (prevY * r1 + currY * r2);
-                    drawIcon(currX, currY, currentMode, 0.8, 0, 0, 16, baroffset - currY + 16);
-                    drawIcon(nextX, nextY, nextMode, 0.8, 0, 0, 16, baroffset - nextY + 16);
+                    drawIcon(currX, currY, currentMode, 0.8);
+                    drawIcon(nextX, nextY, nextMode, 0.8);
 
                 } else {
                     prevX = (currX * r1 + prevX * r2);
@@ -154,11 +157,12 @@ public class RenderTickHandler implements ITickHandler {
                     currX = (nextX * r1 + currX * r2);
                     currY = (nextY * r1 + currY * r2);
                     // MuseRenderer
-                    drawIcon(prevX, prevY, prevMode, 0.8, 0, 0, 16, baroffset - prevY + 16);
-                    drawIcon(currX, currY, currentMode, 0.8, 0, 0, 16, baroffset - currY + 16);
+                    drawIcon(prevX, prevY, prevMode, 0.8);
+                    drawIcon(currX, currY, currentMode, 0.8);
 
                 }
             }
+            MuseRenderer.scissorsOff();
             MuseRenderer.blendingOff();
             Colour.WHITE.doGL();
         }
@@ -171,9 +175,8 @@ public class RenderTickHandler implements ITickHandler {
         }
     }
 
-    private void drawIcon(double x, double y, Icon icon, double alpha, int u1, int v1, int u2, double v2) {
-        MuseRenderer.drawIconPartial(x, y, icon, Colour.WHITE.withAlpha(alpha), u1, v1, u2, v2);
-
+    private void drawIcon(double x, double y, Icon icon, double alpha) {
+        MuseRenderer.drawIconAt(x, y, icon, Colour.WHITE.withAlpha(alpha));
     }
 
     @Override

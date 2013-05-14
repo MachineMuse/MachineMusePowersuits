@@ -9,6 +9,7 @@ import net.machinemuse.general.gui.clickable.IClickable;
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.PositionTextureVertex;
 import net.minecraft.client.model.TexturedQuad;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -240,6 +241,32 @@ public abstract class MuseRenderer {
         GL11.glPopAttrib();
         GL11.glPopAttrib();
         // GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+    }
+
+    public static void scissorsOn(int x, int y, int w, int h) {
+//        GL11.glPushAttrib(GL11.GL_VIEWPORT_BIT);
+        GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
+        GL11.glPushMatrix();
+        Minecraft mc = Minecraft.getMinecraft();
+
+        int dw = mc.displayWidth;
+        int dh = mc.displayHeight;
+        ScaledResolution res = new ScaledResolution(mc.gameSettings, dw, dh);
+
+        int newx = x * res.getScaleFactor();
+        int newy = dh - h * res.getScaleFactor() - y*res.getScaleFactor();
+        int neww = w * res.getScaleFactor();
+        int newh = h * res.getScaleFactor();
+
+//        GL11.glTranslated(-x, -y, 0);
+//        GL11.glScaled(dw/(double)neww, dh/(double)newh, 1);
+        GL11.glEnable(GL11.GL_SCISSOR_TEST);
+        GL11.glScissor(newx, newy, neww, newh);
+    }
+
+    public static void scissorsOff() {
+        GL11.glPopMatrix();
+        GL11.glPopAttrib();
     }
 
     /**

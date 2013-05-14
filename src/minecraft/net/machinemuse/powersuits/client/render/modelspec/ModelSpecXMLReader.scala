@@ -16,9 +16,8 @@ import java.net.URL
 object ModelSpecXMLReader {
   def parseFile(file: URL) = {
     val xml = XML.load(file)
-    (xml \\ "model").foreach {
-      modelnode =>
-        parseModel(modelnode)
+    (xml \\ "model") foreach {
+      modelnode => parseModel(modelnode)
     }
   }
 
@@ -36,10 +35,7 @@ object ModelSpecXMLReader {
           bindingnode => parseBinding(bindingnode, existingspec)
         }
       }
-      case None => {
-        MuseLogger.logError("Model file " + file + " not found! D:")
-        None
-      }
+      case None => MuseLogger logError "Model file " + file + " not found! D:"
     }
 
   }

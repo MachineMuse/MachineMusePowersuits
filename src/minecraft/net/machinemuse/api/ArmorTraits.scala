@@ -20,22 +20,18 @@ with RadiationArmor {
 }
 
 trait ApiaristArmor extends IArmorApiarist {
-
   def protectPlayer(player: EntityPlayer, armor: ItemStack, cause: String, doProtect: Boolean): Boolean = {
     if (MuseItemUtils.itemHasActiveModule(armor, ApiaristArmorModule.MODULE_APIARIST_ARMOR)) {
       ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(armor, ApiaristArmorModule.APIARIST_ARMOR_ENERGY_CONSUMPTION))
-      return true
-    }
-    return false
+      true
+    } else false
   }
 }
 
 trait RadiationArmor extends IAntiPoisonArmor {
   def isProtectedFromPoison(itemStack: ItemStack, entityLiving: EntityLiving, `type`: Poison): Boolean = {
-    return MuseItemUtils.itemHasActiveModule(itemStack, HazmatModule.MODULE_HAZMAT)
+    MuseItemUtils.itemHasActiveModule(itemStack, HazmatModule.MODULE_HAZMAT)
   }
 
-  def onProtectFromPoison(itemStack: ItemStack, entityLiving: EntityLiving, `type`: Poison) {
-  }
-
+  def onProtectFromPoison(itemStack: ItemStack, entityLiving: EntityLiving, `type`: Poison) {}
 }
