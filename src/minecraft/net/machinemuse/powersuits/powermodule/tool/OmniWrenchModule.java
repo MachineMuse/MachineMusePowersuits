@@ -37,10 +37,9 @@ public class OmniWrenchModule extends PowerModuleBase implements IRightClickModu
 
     public OmniWrenchModule(List<IModularItem> validItems) {
         super(validItems);
-        if (ModCompatability.isOmniToolsLoaded()) {
+        if (ModCompatability.isOmniToolsLoaded() && GameRegistry.findItemStack("OmniTools", "OmniWrench", 1) != null) {
             addInstallCost(GameRegistry.findItemStack("OmniTools", "OmniWrench", 1));
-        }
-        else {
+        } else {
             addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
             addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
         }

@@ -127,7 +127,7 @@ abstract class MusePacket(val player: Player) {
 }
 
 trait MusePackager {
-  val READ_ERROR: Int = -150
+  val READ_ERROR: Short = -150
 
   import RichInputStream._
 
@@ -135,13 +135,15 @@ trait MusePackager {
 
   def readByte(datain: DataInputStream): Byte = safeRead(datain readByte) getOrElse (0.toByte)
 
-  def readShort(datain: DataInputStream): Short = safeRead(datain readShort) getOrElse (0.toShort)
+  def readShort(datain: DataInputStream): Short = safeRead(datain readShort) getOrElse READ_ERROR
 
-  def readLong(datain: DataInputStream): Long = safeRead(datain readLong) getOrElse 0
+  def readInt(datain: DataInputStream): Int = safeRead(datain readInt) getOrElse READ_ERROR.toInt
 
-  def readInt(datain: DataInputStream): Int = safeRead(datain readInt) getOrElse READ_ERROR
+  def readLong(datain: DataInputStream): Long = safeRead(datain readLong) getOrElse READ_ERROR.toLong
 
   def readBoolean(datain: DataInputStream): Boolean = safeRead(datain readBoolean) getOrElse false
+
+  def readFloat(datain: DataInputStream): Float = safeRead(datain readFloat) getOrElse READ_ERROR.toFloat
 
   def readDouble(datain: DataInputStream): Double = safeRead(datain readDouble) getOrElse READ_ERROR.toDouble
 
