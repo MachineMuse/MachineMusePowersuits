@@ -5,20 +5,21 @@ import net.machinemuse.powersuits.item.ItemComponent
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import scala.collection.JavaConverters._
+import scala.collection.mutable.ListBuffer
 
 object ElectricItemUtils {
   final val MAXIMUM_ENERGY: String = "Maximum Energy"
   final val CURRENT_ENERGY: String = "Current Energy"
 
   def electricItemsEquipped(player: EntityPlayer): Seq[ElectricAdapter] = {
-    val electrics = new java.util.LinkedList[ElectricAdapter]()
+    val electrics = new ListBuffer[ElectricAdapter]()
     for (i <- 0 until player.inventory.getSizeInventory) {
       val adapter: ElectricAdapter = ElectricAdapter.wrap(player.inventory.getStackInSlot(i))
       if (adapter != null) {
-        electrics.add(adapter)
+        electrics.prepend(adapter)
       }
     }
-    electrics.asScala
+    electrics
   }
 
   def getPlayerEnergy(player: EntityPlayer): Double = {
