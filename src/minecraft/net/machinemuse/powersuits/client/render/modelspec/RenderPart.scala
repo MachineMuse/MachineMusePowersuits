@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.render.modelspec
 
 import org.lwjgl.opengl.GL11._
-import net.machinemuse.utils.MuseRenderer
+import net.machinemuse.utils.{GlowBuffer, MuseRenderer}
 import net.machinemuse.general.geometry.Colour
 import net.minecraft.client.Minecraft
 import net.machinemuse.powersuits.client.render.item.ArmorModel
@@ -27,7 +27,9 @@ object RenderPart {
         }
         part.modelSpec.applyOffsetAndRotation
         part.modelSpec.model.renderPart(part.partName)
-
+        if (part.getGlow(nbt)) {
+          GlowBuffer.draw(() => part.modelSpec.model.renderPart(part.partName))
+        }
         Colour.WHITE.doGL()
         if (part.getGlow(nbt)) MuseRenderer.glowOff()
         glPopMatrix()

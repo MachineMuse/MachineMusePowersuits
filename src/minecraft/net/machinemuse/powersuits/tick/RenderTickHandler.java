@@ -41,6 +41,7 @@ public class RenderTickHandler implements ITickHandler {
 
     @Override
     public void tickStart(EnumSet<TickType> type, Object... tickData) {
+        GlowBuffer.clear();
     }
 
     @Override

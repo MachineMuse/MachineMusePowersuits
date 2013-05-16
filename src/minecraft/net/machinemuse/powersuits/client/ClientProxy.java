@@ -5,6 +5,7 @@ import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
+import net.machinemuse.general.MuseLogger;
 import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
 import net.machinemuse.powersuits.block.TileEntityTinkerTable;
@@ -30,6 +31,7 @@ import net.machinemuse.powersuits.network.MusePacketHandler;
 import net.machinemuse.powersuits.tick.ClientTickHandler;
 import net.machinemuse.powersuits.tick.PlayerTickHandler;
 import net.machinemuse.powersuits.tick.RenderTickHandler;
+import net.machinemuse.utils.MuseShaders;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -87,6 +89,9 @@ public class ClientProxy extends CommonProxy {
         URL otherResource = ClientProxy.class.getResource(Config.RESOURCE_PREFIX + "models/armor2.xml");
         ModelSpecXMLReader.parseFile(otherResource);
 
+        if(MuseShaders.gaussBlurProgram().program() == 0) {
+            MuseLogger.logDebug("Hi");
+        }
 //        DefaultModelSpec.loadDefaultModel();
 //        ModelSpecXMLWriter.writeRegistry("modelspec.xml");
 
