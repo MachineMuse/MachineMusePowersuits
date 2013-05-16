@@ -1,4 +1,4 @@
-package net.machinemuse.utils
+package net.machinemuse.utils.render
 
 import java.awt.Font
 import org.newdawn.slick.{Color, TrueTypeFont}

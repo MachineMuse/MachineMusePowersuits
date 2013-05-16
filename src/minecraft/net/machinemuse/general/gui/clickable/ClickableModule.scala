@@ -3,8 +3,8 @@ package net.machinemuse.general.gui.clickable
 import net.machinemuse.api.IPowerModule
 import net.machinemuse.general.geometry.Colour
 import net.machinemuse.general.geometry.MusePoint2D
-import net.machinemuse.utils.GuiIcons.Checkmark
-import net.machinemuse.utils.MuseRenderer
+import net.machinemuse.utils.render.{MuseRenderer, GuiIcons}
+import GuiIcons.Checkmark
 import net.machinemuse.utils.MuseStringUtils
 import java.util.ArrayList
 import java.util.List

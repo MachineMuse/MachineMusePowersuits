@@ -1,7 +1,7 @@
 package net.machinemuse.general.gui;
 
 import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.utils.MuseRenderer;
+import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.block.Block;
 import net.minecraft.util.Icon;
 import org.lwjgl.opengl.GL11;

@@ -10,7 +10,7 @@ import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.general.sound.Musique;
 import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.MuseRenderer;
+import net.machinemuse.utils.render.MuseRenderer;
 import org.lwjgl.opengl.GL11;
 
 import java.util.*;

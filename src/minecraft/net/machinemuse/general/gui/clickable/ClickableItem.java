@@ -2,8 +2,7 @@ package net.machinemuse.general.gui.clickable;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
-import net.machinemuse.utils.MuseRenderer;
-import net.machinemuse.utils.MuseStringUtils;
+import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;

@@ -1,5 +1,4 @@
-package net.machinemuse.utils
-
+package net.machinemuse.utils.render
 
 /**
  * Author: MachineMuse (Claire Semple)

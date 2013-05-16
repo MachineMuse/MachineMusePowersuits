@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.event;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.machinemuse.utils.GlowBuffer;
+import net.machinemuse.utils.render.GlowBuffer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraftforge.client.event.RenderWorldLastEvent;

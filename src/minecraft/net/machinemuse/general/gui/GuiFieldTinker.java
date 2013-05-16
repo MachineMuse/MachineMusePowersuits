@@ -3,7 +3,7 @@ package net.machinemuse.general.gui;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.frame.*;
-import net.machinemuse.utils.MuseRenderer;
+import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 

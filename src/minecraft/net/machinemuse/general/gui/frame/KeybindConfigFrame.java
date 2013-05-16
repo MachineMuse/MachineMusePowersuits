@@ -12,7 +12,7 @@ import net.machinemuse.general.gui.clickable.IClickable;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.MuseRenderer;
+import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.input.Keyboard;

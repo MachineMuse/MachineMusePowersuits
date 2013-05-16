@@ -7,7 +7,7 @@ import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.powersuits.network.packets.MusePacketToggleRequest;
 import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.MuseRenderer;
+import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.settings.KeyBinding;

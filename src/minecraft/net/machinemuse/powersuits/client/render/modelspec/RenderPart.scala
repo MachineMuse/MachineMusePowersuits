@@ -1,11 +1,11 @@
 package net.machinemuse.powersuits.client.render.modelspec
 
 import org.lwjgl.opengl.GL11._
-import net.machinemuse.utils.{GlowBuffer, MuseRenderer}
 import net.machinemuse.general.geometry.Colour
 import net.minecraft.client.Minecraft
 import net.machinemuse.powersuits.client.render.item.ArmorModel
 import net.minecraft.nbt.NBTTagCompound
+import net.machinemuse.utils.render.{MuseRenderer, GlowBuffer}
 
 /**
  * Author: MachineMuse (Claire Semple)

@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.render.entity;
 
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.utils.MuseRenderer;
+import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraftforge.client.model.AdvancedModelLoader;

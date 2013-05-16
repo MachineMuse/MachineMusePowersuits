@@ -31,7 +31,7 @@ import net.machinemuse.powersuits.network.MusePacketHandler;
 import net.machinemuse.powersuits.tick.ClientTickHandler;
 import net.machinemuse.powersuits.tick.PlayerTickHandler;
 import net.machinemuse.powersuits.tick.RenderTickHandler;
-import net.machinemuse.utils.MuseShaders;
+import net.machinemuse.utils.render.MuseShaders;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -89,7 +89,7 @@ public class ClientProxy extends CommonProxy {
         URL otherResource = ClientProxy.class.getResource(Config.RESOURCE_PREFIX + "models/armor2.xml");
         ModelSpecXMLReader.parseFile(otherResource);
 
-        if(MuseShaders.gaussBlurProgram().program() == 0) {
+        if (MuseShaders.hBlurProgram().program() == 0) {
             MuseLogger.logDebug("Hi");
         }
 //        DefaultModelSpec.loadDefaultModel();

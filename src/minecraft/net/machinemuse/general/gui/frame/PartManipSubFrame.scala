@@ -2,7 +2,7 @@ package net.machinemuse.general.gui.frame
 
 import net.machinemuse.powersuits.client.render.modelspec.{ModelRegistry, ModelPartSpec, ModelSpec}
 import net.machinemuse.general.geometry.{Colour, MuseRect, MuseRelativeRect}
-import net.machinemuse.utils.{MuseItemUtils, MuseMathUtils, GuiIcons, MuseRenderer}
+import net.machinemuse.utils.{MuseItemUtils, MuseMathUtils}
 import org.lwjgl.opengl.GL11._
 import net.machinemuse.general.gui.clickable.ClickableItem
 import net.minecraft.nbt.NBTTagCompound
@@ -11,6 +11,7 @@ import net.machinemuse.powersuits.network.packets.MusePacketCosmeticInfo
 import net.minecraft.client.Minecraft
 import cpw.mods.fml.common.network.Player
 import net.minecraft.item.ItemArmor
+import net.machinemuse.utils.render.{MuseRenderer, GuiIcons}
 
 /**
  * Author: MachineMuse (Claire Semple)

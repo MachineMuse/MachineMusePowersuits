@@ -5,7 +5,7 @@ import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.geometry.MuseRect;
 import net.machinemuse.general.geometry.MuseRelativeRect;
 import net.machinemuse.general.gui.clickable.ClickableModule;
-import net.machinemuse.utils.MuseRenderer;
+import net.machinemuse.utils.render.MuseRenderer;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,7 +7,7 @@ import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.sound.Musique;
 import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.MuseRenderer;
+import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.ArrayList;

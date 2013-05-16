@@ -1,4 +1,4 @@
-package net.machinemuse.utils;
+package net.machinemuse.utils.render;
 
 import net.machinemuse.general.MuseLogger;
 import net.machinemuse.general.geometry.Colour;
@@ -7,6 +7,8 @@ import net.machinemuse.general.geometry.SwirlyMuseCircle;
 import net.machinemuse.general.gui.MuseGui;
 import net.machinemuse.general.gui.clickable.IClickable;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.utils.MuseMathUtils;
+import net.machinemuse.utils.render.SlickFont;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
@@ -223,8 +225,7 @@ public abstract class MuseRenderer {
      * Call before doing anything with alpha blending
      */
     public static void blendingOn() {
-        GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT);
-        GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
+        GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_LIGHTING_BIT);
         if (Minecraft.isFancyGraphicsEnabled()) {
             GL11.glShadeModel(GL11.GL_SMOOTH);
             // GL11.glEnable(GL11.GL_LINE_SMOOTH);
@@ -238,7 +239,6 @@ public abstract class MuseRenderer {
      * Call after doing anything with alpha blending
      */
     public static void blendingOff() {
-        GL11.glPopAttrib();
         GL11.glPopAttrib();
         // GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
     }

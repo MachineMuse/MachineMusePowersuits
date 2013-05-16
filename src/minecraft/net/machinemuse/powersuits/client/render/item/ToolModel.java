@@ -12,7 +12,7 @@ import net.machinemuse.powersuits.client.render.entity.RenderPlasmaBolt;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
 import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.MuseRenderer;
+import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.gui.inventory.GuiInventory;

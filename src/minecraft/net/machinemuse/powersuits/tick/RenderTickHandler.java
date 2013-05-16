@@ -13,6 +13,8 @@ import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.event.ThaumRenderEventHandler;
 import net.machinemuse.utils.*;
+import net.machinemuse.utils.render.GlowBuffer;
+import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.ScaledResolution;

@@ -7,7 +7,8 @@ import net.machinemuse.general.{MuseLogger, NBTTagAccessor}
 import net.machinemuse.utils.{MuseMathUtils, MuseItemUtils}
 import scala.collection.mutable.ArrayBuffer
 import scala.collection.immutable.HashSet
-import net.machinemuse.utils.GuiIcons._
+import net.machinemuse.utils.render.GuiIcons
+import GuiIcons._
 import scala.collection.mutable
 import scala.{Array, Some}
 import net.machinemuse.powersuits.item.ItemPowerArmor

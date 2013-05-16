@@ -4,7 +4,7 @@ import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.DrawableMuseRect;
 import net.machinemuse.general.gui.clickable.IClickable;
 import net.machinemuse.general.gui.frame.IGuiFrame;
-import net.machinemuse.utils.MuseRenderer;
+import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;

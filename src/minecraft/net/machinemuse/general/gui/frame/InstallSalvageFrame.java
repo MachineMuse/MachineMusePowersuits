@@ -15,7 +15,7 @@ import net.machinemuse.powersuits.network.MusePacket;
 import net.machinemuse.powersuits.network.packets.MusePacketInstallModuleRequest;
 import net.machinemuse.powersuits.network.packets.MusePacketSalvageModuleRequest;
 import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.MuseRenderer;
+import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.item.ItemStack;
 

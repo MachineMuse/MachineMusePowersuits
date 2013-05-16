@@ -2,7 +2,7 @@ package net.machinemuse.general.gui;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.utils.MuseRenderer;
+import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Icon;

@@ -1,6 +1,6 @@
 package net.machinemuse.general.geometry;
 
-import net.machinemuse.utils.MuseRenderer;
+import net.machinemuse.utils.render.MuseRenderer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 

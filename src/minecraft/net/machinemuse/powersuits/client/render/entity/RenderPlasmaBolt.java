@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.client.render.entity;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.DrawableMuseCircle;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
-import net.machinemuse.utils.MuseRenderer;
+import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import org.lwjgl.opengl.GL11;

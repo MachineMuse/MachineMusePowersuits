@@ -1,4 +1,4 @@
-package net.machinemuse.utils
+package net.machinemuse.utils.render
 
 import org.lwjgl.opengl.GL11._
 

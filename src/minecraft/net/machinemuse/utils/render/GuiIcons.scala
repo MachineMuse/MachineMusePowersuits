@@ -1,4 +1,4 @@
-package net.machinemuse.utils
+package net.machinemuse.utils.render
 
 import net.minecraft.util.Icon
 import net.machinemuse.general.geometry.Colour
@@ -17,14 +17,14 @@ object GuiIcons {
 
     def apply(x: Double, y: Double, c: Colour = Colour.WHITE, xmin: Double = Integer.MIN_VALUE, ymin: Double = Integer.MIN_VALUE, xmax: Double = Integer.MAX_VALUE, ymax: Double = Integer.MAX_VALUE) {
       MuseRenderer.pushTexture(filepath)
-      glPushMatrix
+      glPushMatrix()
       MuseRenderer.blendingOn()
       val s = size / 16.0
       glScaled(s, s, s)
       MuseRenderer.drawIconPartialOccluded(x / s, y / s, GuiIconDrawer, c, xmin / s, ymin / s, xmax / s, ymax / s)
       MuseRenderer.blendingOff()
-      glPopMatrix
-      MuseRenderer.popTexture
+      glPopMatrix()
+      MuseRenderer.popTexture()
     }
   }
 
