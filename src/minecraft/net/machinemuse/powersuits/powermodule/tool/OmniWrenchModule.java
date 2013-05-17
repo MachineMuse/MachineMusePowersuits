@@ -92,7 +92,7 @@ public class OmniWrenchModule extends PowerModuleBase implements IRightClickModu
                     FMLClientHandler.instance().getClient().sndManager.playSoundFX(soundName, 1.0F, 0.8F);
                 }
             }
-            return true;
+            return !world.isRemote;
         }
         if (Block.blocksList[bId].rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side))) {
             return !world.isRemote;
