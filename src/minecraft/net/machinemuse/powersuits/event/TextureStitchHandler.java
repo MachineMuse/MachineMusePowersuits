@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.event;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.utils.render.GlowBuffer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -16,7 +17,9 @@ public class TextureStitchHandler {
 
         Minecraft mc = Minecraft.getMinecraft();
         ScaledResolution screen = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
-        GlowBuffer.drawFullScreen(screen);
+        if (Config.useShaders() && Config.canUseShaders) {
+            GlowBuffer.drawFullScreen(screen);
+        }
     }
 
     @ForgeSubscribe

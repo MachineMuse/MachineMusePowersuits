@@ -89,8 +89,11 @@ public class ClientProxy extends CommonProxy {
         URL otherResource = ClientProxy.class.getResource(Config.RESOURCE_PREFIX + "models/armor2.xml");
         ModelSpecXMLReader.parseFile(otherResource);
 
-        if (MuseShaders.hBlurProgram().program() == 0) {
-            MuseLogger.logDebug("Hi");
+        try {
+            MuseShaders.hBlurProgram().program();
+            Config.canUseShaders = true;
+        } catch (Throwable e) {
+            MuseLogger.logException("Loading shaders failed!", e);
         }
 //        DefaultModelSpec.loadDefaultModel();
 //        ModelSpecXMLWriter.writeRegistry("modelspec.xml");

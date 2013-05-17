@@ -296,4 +296,14 @@ public class Config {
     public static boolean fontAntiAliasing() {
         return config.get("Font", "Font Anti-Aliasing", false).getBoolean(false);
     }
+
+    public static int glowMultiplier() {
+        return config.get("Graphics", "Bloom Multiplier", 1).getInt(1);
+    }
+
+    public static boolean useShaders() {
+        return config.get("Graphics", "Use Pixel/Vertex Shaders", true).getBoolean(true);
+    }
+
+    public static boolean canUseShaders = false;
 }

@@ -5,6 +5,8 @@ import net.minecraft.client.gui.ScaledResolution
 import net.machinemuse.general.geometry.Colour
 import org.lwjgl.opengl.GL13._
 import net.minecraft.client.Minecraft
+import net.machinemuse.utils.render.Render._
+import net.machinemuse.powersuits.common.Config
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -90,13 +92,32 @@ object GlowBuffer {
     glActiveTexture(GL_TEXTURE0)
     glDisable(GL_DEPTH_TEST)
 
-        // Vertical Pass
+    for(i<- 1 until Config.glowMultiplier) {
+      doBlurPasses()
+    }
+
+    //    To Main display
+    fromBuffer(secondBuffer) {
+      Render.pure {
+        drawTexSquare(texDimension)
+      }
+    }.run()
+
+
+    glPopAttrib()
+    MuseRenderer.blendingOff()
+    MuseRenderer.glowOff()
+    popDualIdentityMatrix()
+  }
+
+  def doBlurPasses() {
+    // Vertical Pass
     fromBuffer(secondBuffer) {
       toBuffer(glowBuffer) {
         withShaderProgram(MuseShaders.vBlurProgram) {
           Render pure {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-            MuseShaders.vBlurProgram.setUniform2f("u_Scale", 0, 2.0f / texDimension)
+            MuseShaders.vBlurProgram.setUniform2f("u_Scale", 0, 1.0f / texDimension)
             MuseShaders.vBlurProgram.setTexUnit("u_Texture0", 0)
             drawTexSquare(texDimension)
           }
@@ -111,55 +132,13 @@ object GlowBuffer {
         withShaderProgram(MuseShaders.hBlurProgram) {
           Render.pure {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-            MuseShaders.hBlurProgram.setUniform2f("u_Scale", 2.0f / texDimension, 0)
+            MuseShaders.hBlurProgram.setUniform2f("u_Scale", 1.0f / texDimension, 0)
             MuseShaders.hBlurProgram.setTexUnit("u_Texture0", 0)
             drawTexSquare(texDimension)
           }
         }
       }
     }.run()
-
-
-    // Vertical Pass
-    fromBuffer(secondBuffer) {
-      toBuffer(glowBuffer) {
-        withShaderProgram(MuseShaders.vBlurProgram) {
-          Render pure {
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-            MuseShaders.vBlurProgram.setUniform2f("u_Scale", 0, 2.0f / texDimension)
-            MuseShaders.vBlurProgram.setTexUnit("u_Texture0", 0)
-            drawTexSquare(texDimension)
-          }
-        }
-      }
-    }.run()
-
-
-    // Horizontal Pass
-        fromBuffer(glowBuffer) {
-          toBuffer(secondBuffer) {
-            withShaderProgram(MuseShaders.hBlurProgram) {
-              Render.pure {
-                MuseShaders.hBlurProgram.setUniform2f("u_Scale", 2.0f / texDimension, 0)
-                MuseShaders.hBlurProgram.setTexUnit("u_Texture0", 0)
-                drawTexSquare(texDimension)
-              }
-            }
-          }
-        }.run()
-
-    //    To Main display
-    fromBuffer(secondBuffer) {
-      Render.pure {
-        drawTexSquare(texDimension)
-      }
-    }.run()
-
-
-    glPopAttrib()
-    MuseRenderer.blendingOff()
-    MuseRenderer.glowOff()
-    popDualIdentityMatrix()
   }
 
   def drawTexSquare(td: Int) {
