@@ -2,15 +2,15 @@
 uniform sampler2D depth;
 uniform sampler2D occlusion;
 uniform sampler2D texture;
+varying vec2 texcoord;
 
 void main() {
-    vec2 coords = vec2(gl_TexCoord[0].x, gl_TexCoord[0].y);
-    float depth = texture(depth, coords).r - 0.001;
-    float occlusion = texture(occlusion, coords).r;
+    float depth = texture(depth, texcoord).r - 0.001;
+    float occlusion = texture(occlusion, texcoord).r;
     vec4 color = vec4(0.0);
     float writedepth = occlusion;
     if(depth <= occlusion) {
-        color = texture(texture, coords);
+        color = texture(texture, texcoord);
 //        color = vec4(1.0);
         writedepth = depth;
     }

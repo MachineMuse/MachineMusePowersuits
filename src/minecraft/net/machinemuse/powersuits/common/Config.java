@@ -298,7 +298,7 @@ public class Config {
     }
 
     public static int glowMultiplier() {
-        return config.get("Graphics", "Bloom Multiplier", 1).getInt(1);
+        return config.get("Graphics", "Bloom Multiplier", 3).getInt(3);
     }
 
     public static boolean useShaders() {

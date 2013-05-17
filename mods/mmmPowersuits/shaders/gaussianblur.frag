@@ -1,6 +1,7 @@
 #version 150
 uniform vec2 u_Scale;
 uniform sampler2D u_Texture0;
+varying vec2 texcoord;
 
 const float gaussFilter[50] = float[50](
     -12.0,             1.0/16777216.0,
@@ -37,7 +38,7 @@ void main() {
 	for( int i = 0; i < 25; i++ )
 	{
 	    vec4 pix = texture( u_Texture0,
-	        vec2(gl_TexCoord[0].x+gaussFilter[i*2]*u_Scale.x, gl_TexCoord[0].y+gaussFilter[i*2]*u_Scale.y )
+	        vec2(texcoord.x+gaussFilter[i*2]*u_Scale.x, texcoord.y+gaussFilter[i*2]*u_Scale.y )
 	    );
         wt = gaussFilter[i*2+1] * pix.w * 1.5;
         color += wt * pix;

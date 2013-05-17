@@ -141,6 +141,8 @@ public class ModularPowersuits {
         Config.fontAntiAliasing();
         Config.useCustomFonts();
         Config.useSounds();
+        Config.glowMultiplier();
+        Config.useShaders();
 
         EntityRegistry.registerModEntity(EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, this, 64, 20, true);
         EntityRegistry.registerModEntity(EntitySpinningBlade.class, "entitySpinningBlade", 2478, this, 64, 20, true);
