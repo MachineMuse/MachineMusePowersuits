@@ -43,12 +43,11 @@ class MusePacketHandler extends IPacketHandler {
     if (payload.channel == Config.getNetworkChannelName) {
       val repackaged = repackage(payload, player)
       repackaged map {
-        packet =>
-          FMLCommonHandler.instance.getEffectiveSide match {
-            case Side.SERVER => packet handleServer player.asInstanceOf[EntityPlayerMP]
-            case Side.CLIENT => packet handleClient player.asInstanceOf[EntityClientPlayerMP]
-            case Side.BUKKIT => MuseLogger.logError("Wat O.o")
-          }
+        packet => FMLCommonHandler.instance.getEffectiveSide match {
+          case Side.SERVER => packet handleServer player.asInstanceOf[EntityPlayerMP]
+          case Side.CLIENT => packet handleClient player.asInstanceOf[EntityClientPlayerMP]
+          case Side.BUKKIT => MuseLogger.logError("Wat O.o")
+        }
       }
     }
   }

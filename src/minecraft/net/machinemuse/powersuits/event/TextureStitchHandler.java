@@ -17,7 +17,7 @@ public class TextureStitchHandler {
 
         Minecraft mc = Minecraft.getMinecraft();
         ScaledResolution screen = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
-        if (Config.useShaders() && Config.canUseShaders) {
+        if (Config.useShaders() && Config.canUseShaders && Minecraft.isFancyGraphicsEnabled()) {
             GlowBuffer.drawFullScreen(screen);
         }
     }
