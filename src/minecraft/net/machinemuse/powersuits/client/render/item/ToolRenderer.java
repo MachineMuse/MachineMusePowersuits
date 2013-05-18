@@ -84,6 +84,17 @@ public class ToolRenderer extends Render implements IItemRenderer {
 
                 model.render(playerFirstPerson, 1, true, colour, glow);
                 break;
+            case EQUIPPED_FIRST_PERSON:
+                RenderBlocks renderEquFP = (RenderBlocks) data[0];
+                EntityLiving entityEquFP = (EntityLiving) data[1];
+                if (entityEquFP instanceof EntityPlayer) {
+                    model.setPoseForPlayer((EntityPlayer) entityEquFP, itemStack);
+                } else {
+                    model.setNeutralPose();
+                }
+
+                model.render(entityEquFP, 1, true, colour, glow);
+                break;
             default:
         }
     }

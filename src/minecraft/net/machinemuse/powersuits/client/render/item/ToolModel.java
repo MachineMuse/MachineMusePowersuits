@@ -14,8 +14,6 @@ import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.GuiContainerCreative;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -376,12 +374,7 @@ public class ToolModel extends ModelBase {
             c1.doGL();
         }
         double scale1 = 1.0 / 16.0;
-        boolean isThisEntity = entity == Minecraft.getMinecraft().renderViewEntity;
-        boolean gameIsFirstPerson = (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0);
-        boolean isInInventoryGui = Minecraft.getMinecraft().currentScreen instanceof GuiInventory
-                || Minecraft.getMinecraft().currentScreen instanceof GuiContainerCreative;
-        boolean doFirstPersonRender = isThisEntity && gameIsFirstPerson && (renderTypeIsFirstPerson || !isInInventoryGui);
-        if (doFirstPersonRender) {
+        if (renderTypeIsFirstPerson) {
             // if (entity instanceof EntityPlayer) {
             // EntityPlayer player = (EntityPlayer) entity;
             // RenderPlayer rp = new RenderPlayer();
@@ -403,7 +396,6 @@ public class ToolModel extends ModelBase {
             GL11.glRotatef(-90, 0, 1, 0);
             GL11.glRotatef(180, 0, 0, 1);
             GL11.glRotatef(35, 1, 0, 0);
-
             GL11.glRotatef(-5, 0, 1, 0);
             GL11.glRotatef(1.5F, 0, 0, 1);
             GL11.glTranslatef(2 / 4.0F, 3 / 4.0F, 1 / 4.0F);
@@ -415,7 +407,7 @@ public class ToolModel extends ModelBase {
         GL11.glRotatef(-15, 1, 0, 0);
         GL11.glTranslatef(3, 0, 8);
         GL11.glScalef(1 / 1.5F, 1 / 1.5F, 1 / 1.5F);
-        if (doFirstPersonRender) {
+        if (renderTypeIsFirstPerson) {
             mainarm.render(scale);
         }
         armorright.render(scale);
