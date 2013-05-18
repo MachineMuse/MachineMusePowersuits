@@ -56,7 +56,7 @@ abstract class MusePacket(val player: Player) {
       }
     } catch {
       case e: IOException => {
-        e.printStackTrace
+        e.printStackTrace()
       }
     }
   }
@@ -65,7 +65,7 @@ abstract class MusePacket(val player: Player) {
     try {
       dataout.writeBoolean(b)
     } catch {
-      case e: IOException => e.printStackTrace
+      case e: IOException => e.printStackTrace()
     }
   }
 
@@ -73,7 +73,7 @@ abstract class MusePacket(val player: Player) {
     try {
       dataout.writeDouble(i)
     } catch {
-      case e: IOException => e.printStackTrace
+      case e: IOException => e.printStackTrace()
     }
   }
 
@@ -96,7 +96,7 @@ abstract class MusePacket(val player: Player) {
         writeNBTTagCompound(nbt)
       }
     } catch {
-      case e: IOException => e.printStackTrace
+      case e: IOException => e.printStackTrace()
     }
   }
 
@@ -121,7 +121,7 @@ abstract class MusePacket(val player: Player) {
       dataout.writeShort(string.length)
       dataout.writeChars(string)
     } catch {
-      case e: IOException => e.printStackTrace
+      case e: IOException => e.printStackTrace()
     }
   }
 }
@@ -133,27 +133,27 @@ trait MusePackager {
 
   def read(datain: DataInputStream, player: Player): MusePacket
 
-  def readByte(datain: DataInputStream): Byte = safeRead(datain readByte) getOrElse (0.toByte)
+  def readByte(datain: DataInputStream): Byte = datain.readByte
 
-  def readShort(datain: DataInputStream): Short = safeRead(datain readShort) getOrElse READ_ERROR
+  def readShort(datain: DataInputStream): Short = datain.readShort
 
-  def readInt(datain: DataInputStream): Int = safeRead(datain readInt) getOrElse READ_ERROR.toInt
+  def readInt(datain: DataInputStream): Int = datain.readInt
 
-  def readLong(datain: DataInputStream): Long = safeRead(datain readLong) getOrElse READ_ERROR.toLong
+  def readLong(datain: DataInputStream): Long = datain.readLong
 
-  def readBoolean(datain: DataInputStream): Boolean = safeRead(datain readBoolean) getOrElse false
+  def readBoolean(datain: DataInputStream): Boolean = datain.readBoolean
 
-  def readFloat(datain: DataInputStream): Float = safeRead(datain readFloat) getOrElse READ_ERROR.toFloat
+  def readFloat(datain: DataInputStream): Float = datain.readFloat
 
-  def readDouble(datain: DataInputStream): Double = safeRead(datain readDouble) getOrElse READ_ERROR.toDouble
+  def readDouble(datain: DataInputStream): Double = datain.readDouble
 
-  def readIntArray(datain: DataInputStream): Array[Int] = safeRead(datain readIntArray) getOrElse Array.empty
+  def readIntArray(datain: DataInputStream): Array[Int] = datain.readIntArray
 
-  def readString(datain: DataInputStream): String = safeRead(datain readString) getOrElse ""
+  def readString(datain: DataInputStream): String = datain.readString
 
-  def readItemStack(datain: DataInputStream): ItemStack = safeRead(datain readItemStack) getOrElse null
+  def readItemStack(datain: DataInputStream): ItemStack = datain.readItemStack
 
-  def readNBTTagCompound(datain: DataInputStream): NBTTagCompound = safeRead(datain readNBTTagCompound) getOrElse null
+  def readNBTTagCompound(datain: DataInputStream): NBTTagCompound = datain.readNBTTagCompound
 
   def safeRead[T](codec: () => T): Option[T] = {
     try {

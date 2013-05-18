@@ -61,7 +61,7 @@ class MusePacketHandler extends IPacketHandler {
       MusePacketHandler.packagers.get(packetType).map(packager => packager.read(data, player))
     } catch {
       case e: IOException => {
-        MuseLogger.logException("PROBLEM READING PACKET TYPE D:", e)
+        MuseLogger.logException("PROBLEM READING PACKET D:", e)
       }
     }
   }

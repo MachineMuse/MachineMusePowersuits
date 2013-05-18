@@ -13,8 +13,8 @@ import scala.Predef._
 
 /**
  * Packet for requesting to purchase an upgrade. Player-to-server. Server
- * decides whether it is a valid upgrade or not and replies with an associated
- * inventoryrefresh packet.
+ * decides whether it is a valid upgrade or not and <strike>replies with an associated
+ * inventoryrefresh packet</strike>.
  *
  * Author: MachineMuse (Claire Semple)
  * Created: 12:28 PM, 5/6/13
@@ -43,7 +43,7 @@ class MusePacketTweakRequest(player: Player, itemSlot: Int, moduleName: String, 
     if (moduleName != null && tweakName != null) {
       val stack = playerEntity.inventory.getStackInSlot(itemSlot)
       val itemTag: NBTTagCompound = MuseItemUtils.getMuseItemTag(stack)
-      if (MuseItemUtils.tagHasModule(itemTag, moduleName)) {
+      if (itemTag != null && MuseItemUtils.tagHasModule(itemTag, moduleName)) {
         val moduleTag: NBTTagCompound = itemTag.getCompoundTag(moduleName)
         moduleTag.setDouble(tweakName, MuseMathUtils.clampDouble(tweakValue, 0, 1))
       }

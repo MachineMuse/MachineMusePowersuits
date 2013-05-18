@@ -12,26 +12,24 @@ object RichInputStream {
   implicit def toRichStream(in: DataInputStream): RichInputStream = new RichInputStream(in)
 
   class RichInputStream(in: DataInputStream) {
-    def readIntArray = () => {
-      (for (k <- 0 until in.readInt) yield in.readInt).toArray
-    }
+    def readIntArray = (for (k <- 0 until in.readInt) yield in.readInt).toArray
 
     /**
      * Reads an ItemStack from the InputStream
      */
-    def readItemStack = () => {
+    def readItemStack = {
       val itemID: Short = in.readShort
       val stackSize: Byte = in.readByte
       val damageAmount: Short = in.readShort
       val stack = new ItemStack(itemID, stackSize, damageAmount)
-      stack.stackTagCompound = readNBTTagCompound.apply()
+      stack.stackTagCompound = readNBTTagCompound
       stack
     }
 
     /**
      * Reads a compressed NBTTagCompound from the InputStream
      */
-    def readNBTTagCompound = () => {
+    def readNBTTagCompound = {
       val nbtSize = in.readShort
       nbtSize match {
         case -1 => null
@@ -46,7 +44,7 @@ object RichInputStream {
      * Reads a string from a packet
      */
 
-    def readString = () => {
+    def readString = {
       val builder: StringBuilder = StringBuilder.newBuilder
       for (i <- 0 until in.readShort) builder.append(in.readChar)
       builder.toString()
