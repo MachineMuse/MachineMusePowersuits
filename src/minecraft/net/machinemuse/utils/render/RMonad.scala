@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.{GLAllocation, RenderHelper, OpenGlHelper}
  * Library for working with rendering.
  *
  * (c) 2013 Byron Shelden
- * See COPYING for details
+ * Edited by Claire Semple
  */
 trait Render[A] {
   def run(): A
@@ -109,7 +109,6 @@ object Render {
       }
       a <- r
       a <- GlowBuffer.draw(r)
-
       _ <- Render {
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, saved._1, saved._2)
         GL11.glPopAttrib()
