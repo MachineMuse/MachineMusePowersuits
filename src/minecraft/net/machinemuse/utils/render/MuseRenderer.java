@@ -8,7 +8,6 @@ import net.machinemuse.general.gui.MuseGui;
 import net.machinemuse.general.gui.clickable.IClickable;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.utils.MuseMathUtils;
-import net.machinemuse.utils.render.SlickFont;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
@@ -42,8 +41,8 @@ public abstract class MuseRenderer {
 
     protected static SwirlyMuseCircle selectionCircle;
 
-    public static String TEXTURE_MAP = "/gui/items.png";
-    public static Stack<String> texturestack = new Stack<String>();
+    private static String TEXTURE_MAP = "/gui/items.png";
+    private static Stack<String> texturestack = new Stack<String>();
 
     public static final String ITEM_TEXTURE_QUILT = "/gui/items.png";
     public static final String BLOCK_TEXTURE_QUILT = "/terrain.png";

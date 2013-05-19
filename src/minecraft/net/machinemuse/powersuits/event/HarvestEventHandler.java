@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
-public class EventHandler {
+public class HarvestEventHandler {
     @ForgeSubscribe
     public void handleHarvestCheck(PlayerEvent.HarvestCheck event) {
         EntityPlayer player = event.entityPlayer;

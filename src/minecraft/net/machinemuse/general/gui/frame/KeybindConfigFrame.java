@@ -219,7 +219,7 @@ public class KeybindConfigFrame implements IGuiFrame {
         }
         newKeybindButton.draw();
         trashKeybindButton.draw();
-        MuseRenderer.TEXTURE_MAP = MuseRenderer.ITEM_TEXTURE_QUILT;
+        MuseRenderer.pushTexture(MuseRenderer.ITEM_TEXTURE_QUILT);
         MuseRenderer.drawCenteredString("Use 'new' to bind new keys.", center.x(), center.y() + 40);
         MuseRenderer.drawCenteredString("Drag and drop modules to bind them to keys.", center.x(), center.y() + 50);
         MuseRenderer.drawCenteredString("Drop keys on 'trash' to unbind them.", center.x(), center.y() + 60);
@@ -238,6 +238,7 @@ public class KeybindConfigFrame implements IGuiFrame {
         }
         MuseRenderer.off2D();
         MuseRenderer.blendingOff();
+        MuseRenderer.popTexture();
     }
 
     @Override

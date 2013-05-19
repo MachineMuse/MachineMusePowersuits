@@ -8,8 +8,7 @@ import org.lwjgl.opengl.GL11;
 
 public class EnergyMeter extends HeatMeter {
     public void draw(double xpos, double ypos, double value) {
-        String old = MuseRenderer.TEXTURE_MAP;
-        MuseRenderer.TEXTURE_MAP = MuseRenderer.BLOCK_TEXTURE_QUILT;
+        MuseRenderer.pushTexture(MuseRenderer.BLOCK_TEXTURE_QUILT);
         Icon icon = Block.waterStill.getIcon(0, 0);
         GL11.glLineWidth(0.5f);
         MuseRenderer.on2D();
@@ -26,6 +25,6 @@ public class EnergyMeter extends HeatMeter {
         drawGlass(xpos, ypos);
         MuseRenderer.blendingOff();
         MuseRenderer.off2D();
-        MuseRenderer.TEXTURE_MAP = old;
+        MuseRenderer.popTexture();
     }
 }

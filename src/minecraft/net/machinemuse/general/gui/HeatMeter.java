@@ -13,16 +13,15 @@ public class HeatMeter {
     int ysize = 32;
 
     public void draw(double xpos, double ypos, double value) {
-        String old = MuseRenderer.TEXTURE_MAP;
-        MuseRenderer.TEXTURE_MAP = MuseRenderer.BLOCK_TEXTURE_QUILT;
+        MuseRenderer.pushTexture(MuseRenderer.BLOCK_TEXTURE_QUILT);
         MuseRenderer.blendingOn();
         MuseRenderer.on2D();
         Icon icon = Block.lavaStill.getIcon(0, 0);
         drawFluid(xpos, ypos, value, icon);
         drawGlass(xpos, ypos);
-        MuseRenderer.TEXTURE_MAP = old;
         MuseRenderer.off2D();
         MuseRenderer.blendingOff();
+        MuseRenderer.popTexture();
     }
 
     public void drawFluid(double xpos, double ypos, double value, Icon icon) {

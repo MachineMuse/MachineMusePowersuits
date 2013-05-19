@@ -10,7 +10,7 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 
-public class TextureStitchHandler {
+public class RenderEventHandler {
     @SideOnly(Side.CLIENT)
     @ForgeSubscribe
     public void renderLast(RenderWorldLastEvent event) {

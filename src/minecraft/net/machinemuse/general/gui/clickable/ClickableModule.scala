@@ -16,15 +16,15 @@ import java.util.List
  * @author MachineMuse
  */
 class ClickableModule(val module: IPowerModule, position: MusePoint2D) extends Clickable(position) {
-  protected var allowed: Boolean = true
-  protected var installed: Boolean = false
+  var allowed: Boolean = true
+  var installed: Boolean = false
   val checkmarkcolour = new Colour(0.0F, 0.667F, 0.0F, 1.0F)
 
   override def getToolTip: List[String] = {
     val toolTipText: List[String] = new ArrayList[String]
     toolTipText.add(getModule.getName)
     toolTipText.addAll(MuseStringUtils.wrapStringToLength(getModule.getDescription, 30))
-    return toolTipText
+    toolTipText
   }
 
   def draw {
@@ -45,23 +45,20 @@ class ClickableModule(val module: IPowerModule, position: MusePoint2D) extends C
       MuseRenderer.drawString(string, getPosition.x + 3, getPosition.y + 1)
     }
     else if (installed) {
-      Checkmark(getPosition.x - 8 + 1, getPosition.y - 8 + 1, c = checkmarkcolour, ymin = ymino, ymax = ymaxo)
+      Checkmark(getPosition.x - 8 + 1, getPosition.y - 8 + 1, c = checkmarkcolour)
     }
   }
 
   def hitBox(x: Double, y: Double): Boolean = {
     val hitx: Boolean = Math.abs(x - getPosition.x) < 8
     val hity: Boolean = Math.abs(y - getPosition.y) < 8
-    return hitx && hity
+    hitx && hity
   }
 
-  def getModule: IPowerModule = {
-    return module
-  }
+  def getModule: IPowerModule = module
 
-  def equals(other: ClickableModule): Boolean = {
-    return this.module == other.getModule
-  }
+  def equals(other: ClickableModule): Boolean = this.module == other.getModule
+
 
   def setAllowed(allowed: Boolean) {
     this.allowed = allowed

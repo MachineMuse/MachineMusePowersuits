@@ -12,7 +12,10 @@ import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.event.ThaumRenderEventHandler;
-import net.machinemuse.utils.*;
+import net.machinemuse.utils.ElectricItemUtils;
+import net.machinemuse.utils.MuseHeatUtils;
+import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.utils.MuseStringUtils;
 import net.machinemuse.utils.render.GlowBuffer;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
@@ -91,10 +94,10 @@ public class RenderTickHandler implements ITickHandler {
 
     private void drawActiveMode(EntityPlayer player, ScaledResolution screen) {
 
-        MuseRenderer.TEXTURE_MAP = MuseRenderer.ITEM_TEXTURE_QUILT;
         int i = player.inventory.currentItem;
         ItemStack stack = player.inventory.mainInventory[i];
         if (stack != null && stack.getItem() instanceof IModularItem) {
+            MuseRenderer.pushTexture(MuseRenderer.ITEM_TEXTURE_QUILT);
             MuseRenderer.blendingOn();
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
             int swapTime = (int) Math.min(System.currentTimeMillis() - lastSwapTime, SWAPTIME);
@@ -168,6 +171,7 @@ public class RenderTickHandler implements ITickHandler {
             MuseRenderer.scissorsOff();
             MuseRenderer.blendingOff();
             Colour.WHITE.doGL();
+            MuseRenderer.popTexture();
         }
     }
 

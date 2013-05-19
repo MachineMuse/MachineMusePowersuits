@@ -2,8 +2,6 @@ package net.machinemuse.utils.render
 
 import org.lwjgl.opengl.GL11
 import net.minecraft.client.renderer.{GLAllocation, RenderHelper, OpenGlHelper}
-import org.lwjgl.opengl.GL11._
-import net.machinemuse.general.MuseLogger
 
 /**
  * Library for working with rendering.
@@ -47,27 +45,27 @@ object Render {
 
   def withShaderProgram[A](prog: ShaderProgram)(r: Render[A]): Render[A] = mk {
     prog.bind()
-//    MuseLogger.logDebug("Bound shader program")
+    //    MuseLogger.logDebug("Bound shader program")
     val a = r.run()
-//    MuseLogger.logDebug("Unbound shader program")
+    //    MuseLogger.logDebug("Unbound shader program")
     prog.unbind()
     a
   }
 
   def fromBuffer[A](buf: TextureBuffer)(r: Render[A]): Render[A] = mk {
     buf.bindRead()
-//    MuseLogger.logDebug("Bound buffer for reading")
+    //    MuseLogger.logDebug("Bound buffer for reading")
     val a = r.run()
-//    MuseLogger.logDebug("Unbound buffer for reading")
+    //    MuseLogger.logDebug("Unbound buffer for reading")
     buf.unbindRead()
     a
   }
 
   def toBuffer[A](buf: TextureBuffer)(r: Render[A]): Render[A] = mk {
     buf.bindWrite()
-//    MuseLogger.logDebug("Bound buffer for writing")
+    //    MuseLogger.logDebug("Bound buffer for writing")
     val a = r.run()
-//    MuseLogger.logDebug("Unbound buffer for writing")
+    //    MuseLogger.logDebug("Unbound buffer for writing")
     buf.unbindWrite()
     a
   }
@@ -78,7 +76,6 @@ object Render {
     GL11.glPopAttrib()
     a
   }
-
 
 
   /**
@@ -111,6 +108,8 @@ object Render {
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F)
       }
       a <- r
+      a <- GlowBuffer.draw(r)
+
       _ <- Render {
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, saved._1, saved._2)
         GL11.glPopAttrib()

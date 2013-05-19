@@ -25,7 +25,7 @@ import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
-import net.machinemuse.powersuits.event.TextureStitchHandler;
+import net.machinemuse.powersuits.event.RenderEventHandler;
 import net.machinemuse.powersuits.event.ThaumRenderEventHandler;
 import net.machinemuse.powersuits.network.MusePacketHandler;
 import net.machinemuse.powersuits.tick.ClientTickHandler;
@@ -82,7 +82,7 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, new RenderSpinningBlade());
         RenderingRegistry.registerEntityRenderingHandler(EntityLuxCapacitor.class, new RenderLuxCapacitorEntity());
 
-        MinecraftForge.EVENT_BUS.register(new TextureStitchHandler());
+        MinecraftForge.EVENT_BUS.register(new RenderEventHandler());
 
         URL resource = ClientProxy.class.getResource(Config.RESOURCE_PREFIX + "models/modelspec.xml");
         ModelSpecXMLReader.parseFile(resource);

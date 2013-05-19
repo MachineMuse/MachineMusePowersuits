@@ -19,7 +19,7 @@ import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
-import net.machinemuse.powersuits.event.EventHandler;
+import net.machinemuse.powersuits.event.HarvestEventHandler;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.*;
 import net.machinemuse.powersuits.network.MusePacketHandler;
@@ -94,7 +94,7 @@ public class ModularPowersuits {
     public void preInit(FMLPreInitializationEvent event) {
         instance = this;
         Config.init(new Configuration(event.getSuggestedConfigurationFile()));
-        MinecraftForge.EVENT_BUS.register(new EventHandler());
+        MinecraftForge.EVENT_BUS.register(new HarvestEventHandler());
         MinecraftForge.EVENT_BUS.register(new MovementManager());
         proxy.registerEvents();
     }

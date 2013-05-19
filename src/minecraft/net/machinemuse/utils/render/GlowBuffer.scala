@@ -20,9 +20,9 @@ object GlowBuffer {
   val secondBuffer = new TextureBuffer(texDimension)
   val depthBuffer = new TextureBuffer(texDimension)
 
-  def draw[A](f: () => A): A = {
+  def draw[A](f: Render[A]): Render[A] = Render pure {
     glowBuffer.bindWrite()
-    val a = f()
+    val a = f.run()
     glowBuffer.unbindWrite()
     a
   }
@@ -92,7 +92,7 @@ object GlowBuffer {
     glActiveTexture(GL_TEXTURE0)
     glDisable(GL_DEPTH_TEST)
 
-    for(i<- 1 until Config.glowMultiplier) {
+    for (i <- 1 until Config.glowMultiplier) {
       doBlurPasses()
     }
 
