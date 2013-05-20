@@ -242,8 +242,8 @@ public class RecipeManager {
             // decide what to put.
             String computerMonitor = "craftingMonitorTier02";
 
-            String basicCircuit = "basicCircuit";
-            String advancedCircuit = "advancedCircuit";
+            String basicCircuit = "craftingCircuitTier02";
+            String advancedCircuit = "craftingCircuitTier04";
             String dataStorageCircuit = "craftingCircuitTier05";
             String energyFlowCircuit = "craftingCircuitTier07";
 
