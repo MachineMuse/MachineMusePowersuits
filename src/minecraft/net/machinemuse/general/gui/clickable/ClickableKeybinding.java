@@ -28,7 +28,7 @@ public class ClickableKeybinding extends ClickableButton {
         super(parseName(keybind), position, true);
         this.keybind = keybind;
         this.position = position;
-        this.boundModules = new ArrayList();
+        this.boundModules = new ArrayList<ClickableModule>();
         this.enabled = free;
     }
 

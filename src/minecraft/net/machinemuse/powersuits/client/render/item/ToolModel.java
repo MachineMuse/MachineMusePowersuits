@@ -13,7 +13,6 @@ import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -368,7 +367,8 @@ public class ToolModel extends ModelBase {
         GL11.glPushMatrix();
         GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
         GL11.glDisable(GL11.GL_CULL_FACE);
-        Minecraft.getMinecraft().renderEngine.bindTexture(Config.SEBK_TOOL_TEXTURE);
+
+        MuseRenderer.pushTexture(Config.SEBK_TOOL_TEXTURE);
 
         if (c1 != null) {
             c1.doGL();
@@ -455,6 +455,7 @@ public class ToolModel extends ModelBase {
             GL11.glPopMatrix();
         }
         MuseRenderer.glowOff();
+        MuseRenderer.popTexture();
         GL11.glPopMatrix();
         GL11.glPopAttrib();
         GL11.glPopMatrix();

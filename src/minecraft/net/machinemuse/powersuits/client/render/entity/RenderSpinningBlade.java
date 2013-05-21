@@ -15,7 +15,7 @@ public class RenderSpinningBlade extends Render {
         glPushMatrix();
         glPushAttrib(GL_ENABLE_BIT);
         glDisable(GL_CULL_FACE);
-        MuseRenderer.getRenderEngine().bindTexture(Config.TEXTURE_PREFIX + "items/spinningblade.png");
+        MuseRenderer.pushTexture(Config.TEXTURE_PREFIX + "items/spinningblade.png");
         glTranslated(x, y, z);
         double motionscale = Math.sqrt(entity.motionZ * entity.motionZ + entity.motionX * entity.motionX);
         glRotatef(90, 1, 0, 0);
@@ -36,6 +36,7 @@ public class RenderSpinningBlade extends Render {
         glVertex3d(1, -1, 0);
 
         glEnd();
+        MuseRenderer.popTexture();
         glPopAttrib();
         glPopMatrix();
     }

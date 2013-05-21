@@ -40,7 +40,7 @@ public class RenderLuxCapacitorTESR extends TileEntitySpecialRenderer implements
 
     @Override
     public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float partialTickTime) {
-        MuseRenderer.getRenderEngine().bindTexture(Config.TEXTURE_PREFIX + "models/thusters_uvw_2.png");
+        this.bindTextureByName(Config.TEXTURE_PREFIX + "models/thusters_uvw_2.png");
         glPushMatrix();
         glTranslated(x + 0.5, y + 0.5, z + 0.5);
         double scale = 0.0625;
@@ -82,11 +82,10 @@ public class RenderLuxCapacitorTESR extends TileEntitySpecialRenderer implements
 
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
-        this.bindTextureByName(Config.TINKERTABLE_TEXTURE_PATH);
+        this.bindTextureByName(Config.TEXTURE_PREFIX + "models/thusters_uvw_2.png");
         GL11.glPushMatrix();
         GL11.glTranslated(-0.5, -0.5 + -1.0 / 16.0, -0.5);
 
-        MuseRenderer.getRenderEngine().bindTexture(Config.TEXTURE_PREFIX + "models/thusters_uvw_2.png");
         glPushMatrix();
         double scale = 0.0625;
         glScaled(scale, scale, scale);

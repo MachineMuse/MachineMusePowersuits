@@ -105,7 +105,7 @@ public class RadialIndicator {
         // Draw background
         GL11.glDrawArrays(GL11.GL_QUAD_STRIP, 0, textures.limit() / 2);
 
-        MuseRenderer.getRenderEngine().bindTexture(textureFile);
+        MuseRenderer.pushTexture(textureFile);
         GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
 
         GL11.glColorPointer(4, 0, foreground);
@@ -115,6 +115,7 @@ public class RadialIndicator {
 
         GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
         MuseRenderer.arraysOff();
+        MuseRenderer.popTexture();
 
         MuseRenderer.blendingOff();
         GL11.glEnable(GL11.GL_CULL_FACE);

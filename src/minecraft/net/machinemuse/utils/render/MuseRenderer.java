@@ -65,10 +65,12 @@ public abstract class MuseRenderer {
     public static void pushTexture(String filename) {
         texturestack.push(TEXTURE_MAP);
         TEXTURE_MAP = filename;
+        getRenderEngine().bindTexture(TEXTURE_MAP);
     }
 
     public static void popTexture() {
         TEXTURE_MAP = texturestack.pop();
+        getRenderEngine().bindTexture(TEXTURE_MAP);
     }
 
     /**
@@ -321,7 +323,6 @@ public abstract class MuseRenderer {
         if (colour != null) {
             colour.doGL();
         }
-        getRenderEngine().bindTexture(TEXTURE_MAP);
         Tessellator tess = Tessellator.instance;
         tess.startDrawingQuads();
         float u1 = icon.getMinU();
@@ -599,7 +600,7 @@ public abstract class MuseRenderer {
         double jagfactor = 0.3;
         on2D();
         GL11.glEnable(GL11.GL_DEPTH_TEST);
-        getRenderEngine().bindTexture(Config.LIGHTNING_TEXTURE);
+        pushTexture(Config.LIGHTNING_TEXTURE);
         blendingOn();
         colour.doGL();
         GL11.glBegin(GL11.GL_QUADS);
@@ -624,7 +625,7 @@ public abstract class MuseRenderer {
     }
 
     public static void drawLightningBetweenPoints(double x1, double y1, double z1, double x2, double y2, double z2, int index) {
-        getRenderEngine().bindTexture(Config.LIGHTNING_TEXTURE);
+        pushTexture(Config.LIGHTNING_TEXTURE);
         double u1 = index / 50.0;
         double u2 = u1 + 0.02;
         double px = (y1 - y2) * 0.125;
@@ -637,6 +638,7 @@ public abstract class MuseRenderer {
         GL11.glVertex3d(x2 - px, y2 - py, z2);
         GL11.glTexCoord2d(u2, 1);
         GL11.glVertex3d(x2 + px, y2 + py, z2);
+        popTexture();
     }
 
     public static void drawLightningBetweenPointsFast(double x1, double y1, double z1, double x2, double y2, double z2, int index) {

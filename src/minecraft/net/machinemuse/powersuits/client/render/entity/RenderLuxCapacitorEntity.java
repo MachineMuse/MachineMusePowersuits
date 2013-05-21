@@ -29,7 +29,7 @@ public class RenderLuxCapacitorEntity extends Render {
 
     @Override
     public void doRender(Entity entity, double x, double y, double z, float yaw, float partialTickTime) {
-        MuseRenderer.getRenderEngine().bindTexture(Config.TEXTURE_PREFIX + "models/thusters_uvw_2.png");
+        MuseRenderer.pushTexture(Config.TEXTURE_PREFIX + "models/thusters_uvw_2.png");
         glPushMatrix();
         glTranslated(x, y, z);
         double scale = 0.0625;
@@ -39,6 +39,7 @@ public class RenderLuxCapacitorEntity extends Render {
         getLightModel().renderAll();
         MuseRenderer.glowOff();
         glPopMatrix();
+        MuseRenderer.popTexture();
     }
 
 }

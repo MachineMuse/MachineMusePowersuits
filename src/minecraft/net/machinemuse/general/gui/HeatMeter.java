@@ -4,7 +4,6 @@ import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.util.Icon;
 import org.lwjgl.opengl.GL11;
 
@@ -39,7 +38,7 @@ public class HeatMeter {
     }
 
     public void drawGlass(double xpos, double ypos) {
-        Minecraft.getMinecraft().renderEngine.bindTexture(Config.GLASS_TEXTURE);
+        MuseRenderer.pushTexture(Config.GLASS_TEXTURE);
         GL11.glBegin(GL11.GL_QUADS);
         GL11.glTexCoord2d(0, 0);
         GL11.glVertex2d(xpos, ypos);
@@ -50,5 +49,6 @@ public class HeatMeter {
         GL11.glTexCoord2d(1, 0);
         GL11.glVertex2d(xpos + xsize, ypos);
         GL11.glEnd();
+        MuseRenderer.popTexture();
     }
 }
