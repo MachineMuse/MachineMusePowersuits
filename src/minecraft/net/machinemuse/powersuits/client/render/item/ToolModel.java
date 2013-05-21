@@ -367,6 +367,7 @@ public class ToolModel extends ModelBase {
         GL11.glPushMatrix();
         GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
         GL11.glDisable(GL11.GL_CULL_FACE);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
 
         MuseRenderer.pushTexture(Config.SEBK_TOOL_TEXTURE);
 
