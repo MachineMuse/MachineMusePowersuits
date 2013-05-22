@@ -32,6 +32,8 @@ object GlowBuffer {
     pushDualIdentityMatrix()
     MuseRenderer.glowOn()
     MuseRenderer.blendingOn()
+    glPushAttrib(GL_ENABLE_BIT)
+
     glDisable(GL_CULL_FACE)
     Colour.WHITE.doGL()
     glActiveTexture(GL_TEXTURE0)
@@ -102,6 +104,7 @@ object GlowBuffer {
     }.run()
 
 
+    glPopAttrib()
     MuseRenderer.blendingOff()
     MuseRenderer.glowOff()
     popDualIdentityMatrix()
