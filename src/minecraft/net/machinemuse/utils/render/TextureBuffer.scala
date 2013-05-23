@@ -1,10 +1,9 @@
 package net.machinemuse.utils.render
 
 import org.lwjgl.opengl.GLContext
-import java.nio.{ByteOrder, ByteBuffer}
+import java.nio.ByteBuffer
 import org.lwjgl.opengl.EXTFramebufferObject._
 import org.lwjgl.opengl.GL11._
-import org.lwjgl.opengl.GL13._
 import org.lwjgl.opengl.GL14._
 
 /**
@@ -26,11 +25,13 @@ class TextureBuffer(val texDimension: Int) {
 
   glBindTexture(GL_TEXTURE_2D, colorTextureID)
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
+  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, texDimension, texDimension, 0, GL_RGBA, GL_INT, null: ByteBuffer)
   glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, colorTextureID, 0)
 
   glBindTexture(GL_TEXTURE_2D, depthRenderBufferID)
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
+  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
   glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, texDimension, texDimension, 0, GL_DEPTH_COMPONENT, GL_INT, null: ByteBuffer)
   glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_TEXTURE_2D, depthRenderBufferID, 0)
 

@@ -4,16 +4,23 @@ import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.item.ItemPowerGauntlet;
 import net.machinemuse.utils.render.MuseRenderer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.storage.MapData;
 import net.minecraftforge.client.IItemRenderer;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 /**
  * Custom renderer for the power armor and tools. Note - this only renders the item as held in hand, in an inventory slot, or sitting on the ground.
@@ -122,4 +129,36 @@ public class ToolRenderer extends Render implements IItemRenderer {
 
     }
 
+
+    public void renderFirstPersonArm(EntityClientPlayerMP entityclientplayermp, float par1) {
+        Minecraft mc = Minecraft.getMinecraft();
+        float changeItemProgress = 0;
+
+        GL11.glPushMatrix();
+        float f4 = 0.8F;
+        float swingProgress = entityclientplayermp.getSwingProgress(par1);
+        float swingProgressx = MathHelper.sin(swingProgress * (float) Math.PI);
+        float swingProgressy = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI);
+        GL11.glTranslatef(-swingProgressy * 0.3F, MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI * 2.0F) * 0.4F, -swingProgressx * 0.4F);
+        GL11.glTranslatef(0.8F * f4, -0.75F * f4 - (1.0F - changeItemProgress) * 0.6F, -0.9F * f4);
+        GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
+        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+        swingProgress = entityclientplayermp.getSwingProgress(par1);
+        swingProgressx = MathHelper.sin(swingProgress * swingProgress * (float) Math.PI);
+        swingProgressy = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI);
+        GL11.glRotatef(swingProgressy * 70.0F, 0.0F, 1.0F, 0.0F);
+        GL11.glRotatef(-swingProgressx * 20.0F, 0.0F, 0.0F, 1.0F);
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, mc.renderEngine.getTextureForDownloadableImage(mc.thePlayer.skinUrl, mc.thePlayer.getTexture()));
+        mc.renderEngine.resetBoundTexture();
+        GL11.glTranslatef(-1.0F, 3.6F, 3.5F);
+        GL11.glRotatef(120.0F, 0.0F, 0.0F, 1.0F);
+        GL11.glRotatef(200.0F, 1.0F, 0.0F, 0.0F);
+        GL11.glRotatef(-135.0F, 0.0F, 1.0F, 0.0F);
+        GL11.glScalef(1.0F, 1.0F, 1.0F);
+        GL11.glTranslatef(5.6F, 0.0F, 0.0F);
+        Render render = RenderManager.instance.getEntityRenderObject(mc.thePlayer);
+        RenderPlayer renderplayer = (RenderPlayer) render;
+        renderplayer.renderFirstPersonArm(mc.thePlayer);
+        GL11.glPopMatrix();
+    }
 }

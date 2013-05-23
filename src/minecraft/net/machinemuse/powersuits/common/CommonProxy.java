@@ -8,9 +8,9 @@ import net.machinemuse.powersuits.tick.PlayerTickHandler;
 import java.net.URL;
 
 /**
- * Server side of the CommonProxy/ClientProxy paradigm. Provides functions which
- * the ClientProxy will override if the behaviour is different for client and
- * server.
+ * Common side of the proxy. Provides functions which
+ * the ClientProxy and ServerProxy will override if the behaviour is different for client and
+ * server, and keeps some common behaviour.
  *
  * @author MachineMuse
  */
