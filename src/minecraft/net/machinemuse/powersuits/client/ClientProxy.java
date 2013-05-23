@@ -109,7 +109,6 @@ public class ClientProxy extends CommonProxy {
         super.registerHandlers();
         keybindHandler = new KeybindKeyHandler();
         KeyBindingRegistry.registerKeyBinding(keybindHandler);
-        KeybindManager.readInKeybinds();
 
         playerTickHandler = new PlayerTickHandler();
         TickRegistry.registerTickHandler(playerTickHandler, Side.CLIENT);
@@ -127,6 +126,6 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void postInit() {
-
+        KeybindManager.readInKeybinds();
     }
 }
