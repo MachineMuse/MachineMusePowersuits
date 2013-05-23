@@ -285,6 +285,7 @@ public class Config {
     }
 
     public static String fontURI() {
+        // Chemical Reaction A -BRK-, retreived from http://www.fontpalace.com/
         return config.get("Font", "Font URI", Config.RESOURCE_PREFIX + "fonts/cra.ttf").getString();
     }
 

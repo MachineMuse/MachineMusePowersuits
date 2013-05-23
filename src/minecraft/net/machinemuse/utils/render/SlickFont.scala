@@ -6,13 +6,14 @@ import net.machinemuse.general.geometry.Colour
 import org.newdawn.slick.opengl.TextureImpl
 import org.lwjgl.opengl.GL11._
 import net.machinemuse.powersuits.common.Config
+import net.machinemuse.general.MuseLogger
 
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 7:18 PM, 4/30/13
  */
 object SlickFont {
-  // Chemical Reaction A -BRK-, retreived from http://www.fontpalace.com/
+  MuseLogger.logDebug("SlickFont creating...")
   val detail: Double = Config.fontDetail
   val antialias = Config.fontAntiAliasing
   val fontname = Config.fontName
@@ -21,6 +22,7 @@ object SlickFont {
   val slickfont = new TrueTypeFont(awtfont, false)
   val boldfont = new TrueTypeFont(awtfont.deriveFont(Font.BOLD), false)
   val italfont = new TrueTypeFont(awtfont.deriveFont(Font.ITALIC), false)
+  MuseLogger.logDebug("SlickFont created!")
 
   def createFont(uri: String, size: Double) = {
     val resource = getClass.getResourceAsStream(uri)

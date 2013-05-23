@@ -367,7 +367,7 @@ public abstract class MuseRenderer {
         RenderHelper.disableStandardItemLighting();
         blendingOn();
         on2D();
-        if (!Config.useCustomFonts()) {
+        if (Config.useCustomFonts()) {
             try {
                 SlickFont.apply(x, y, s, c);
             } catch (Throwable e) {
@@ -401,12 +401,17 @@ public abstract class MuseRenderer {
     }
 
     public static double getStringWidth(String s) {
+        double val;
+        GL11.glPushAttrib(GL11.GL_TEXTURE_BIT);
         try {
             if (!Config.useCustomFonts()) throw new UnsupportedOperationException();
-            return SlickFont.getStringWidth(s);
+            val = SlickFont.getStringWidth(s);
         } catch (Throwable e) {
-            return getFontRenderer().getStringWidth(s);
+            val = getFontRenderer().getStringWidth(s);
+        } finally {
+            GL11.glPopAttrib();
         }
+        return val;
     }
 
     public static void drawStringsJustified(List<String> words, double x1, double x2, double y) {
