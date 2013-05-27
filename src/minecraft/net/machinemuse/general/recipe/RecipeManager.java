@@ -275,14 +275,14 @@ public class RecipeManager {
             }
 
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.controlCircuit, true, "WCI", "RGC", "IRW", 'W', ItemComponent.wiring, 'C',
-                    "advancedCircuit", 'G', energyFlowCircuit, 'R', dataStorageCircuit, 'I', "ingotElectrum"));
+                    advancedCircuit, 'G', energyFlowCircuit, 'R', dataStorageCircuit, 'I', "ingotElectrum"));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.laserHologram, true, "LLL", "RGB", "LLL", 'L', luminator, 'R', "gemRuby", 'G',
                     "gemGreenSapphire", 'B', "gemSapphire"));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.basicPlating, true, "II", "CI", "II", 'C', basicCircuit, 'I', "ingotSteel"));
 
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true, "II", "CI", "II", 'C', "advancedCircuit", 'I',
+            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true, "II", "CI", "II", 'C', advancedCircuit, 'I',
                     "ingotTitanium"));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.tinkerTable), true, "CVC", "IEI", "IMI", 'C', advancedCircuit,
