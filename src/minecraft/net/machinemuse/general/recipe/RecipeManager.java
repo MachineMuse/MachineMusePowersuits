@@ -92,9 +92,9 @@ public class RecipeManager {
 
         }
         if (ModCompatability.UERecipesEnabled() && ModCompatability.isBasicComponentsLoaded()) {
-            String basicCircuit = "basicCircuit";
-            String advancedCircuit = "advancedCircuit";
-            String eliteCircuit = "eliteCircuit";
+            String basicCircuit = "circuitBasic";
+            String advancedCircuit = "circuitAdvanced";
+            String eliteCircuit = "circuitElite";
             ItemStack lapisBlock = new ItemStack(Block.blockLapis);
 
             try {
@@ -111,7 +111,7 @@ public class RecipeManager {
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.basicPlating, true, "II", "CI", "II", 'C', ItemComponent.wiring, 'I',
                     "ingotSteel"));
 
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true, "II", "CI", "II", 'C', "basicCircuit", 'I', diamond));
+            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true, "II", "CI", "II", 'C', basicCircuit, 'I', diamond));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(diamond, 5), true, "P", 'P', ItemComponent.advancedPlating));
 
@@ -119,21 +119,21 @@ public class RecipeManager {
                     'L', lapisBlock, 'E', emerald));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorHead), true, "III", "C C", 'I', "plateSteel", 'C',
-                    "basicCircuit"));
+                    basicCircuit));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorTorso), true, "I I", "CIC", "III", 'I',
-                    "plateSteel", 'C', "basicCircuit"));
+                    "plateSteel", 'C', basicCircuit));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorLegs), true, "III", "C C", "I I", 'I', "plateSteel",
-                    'C', "basicCircuit"));
+                    'C', basicCircuit));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorFeet), true, "C C", "I I", 'I', "plateSteel", 'C',
-                    "basicCircuit"));
+                    basicCircuit));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerTool), true, " C ", "CI ", " IC", 'I', "plateSteel", 'C',
-                    "basicCircuit"));
+                    basicCircuit));
 
-            GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(ItemComponent.wiring, 4), true, "GWG", 'G', goldNugget, 'W', "copperWire"));
+            GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(ItemComponent.wiring, 4), true, "GWG", 'G', goldNugget, 'W', "calclavia:WIRE"));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.parachute, true, "WWW", "S S", 'W', wool, 'S', string));
 
@@ -146,13 +146,13 @@ public class RecipeManager {
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.gliderWing, true, " SI", "SI ", "S  ", 'I', iron, 'S', "plateSteel"));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.servoMotor, true, " C ", "EIE", 'I', iron, 'E', ItemComponent.solenoid, 'C',
-                    "basicCircuit"));
+                    basicCircuit));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.fieldEmitter, true, "SES", "ECE", "SES", 'S', ItemComponent.solenoid, 'E',
-                    enderPearl, 'C', "advancedCircuit"));
+                    enderPearl, 'C', advancedCircuit));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true, " FE", "CG ", "IFE", 'I', "plateSteel", 'E',
-                    ItemComponent.solenoid, 'G', glowstone, 'C', "advancedCircuit", 'F', ItemComponent.fieldEmitter));
+                    ItemComponent.solenoid, 'G', glowstone, 'C', advancedCircuit, 'F', ItemComponent.fieldEmitter));
 
         }
         if (ModCompatability.IC2RecipesEnabled() && ModCompatability.isIndustrialCraftLoaded()) {
@@ -275,14 +275,14 @@ public class RecipeManager {
             }
 
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.controlCircuit, true, "WCI", "RGC", "IRW", 'W', ItemComponent.wiring, 'C',
-                    "advancedCircuit", 'G', energyFlowCircuit, 'R', dataStorageCircuit, 'I', "ingotElectrum"));
+                    advancedCircuit, 'G', energyFlowCircuit, 'R', dataStorageCircuit, 'I', "ingotElectrum"));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.laserHologram, true, "LLL", "RGB", "LLL", 'L', luminator, 'R', "gemRuby", 'G',
                     "gemGreenSapphire", 'B', "gemSapphire"));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.basicPlating, true, "II", "CI", "II", 'C', basicCircuit, 'I', "ingotSteel"));
 
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true, "II", "CI", "II", 'C', "advancedCircuit", 'I',
+            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true, "II", "CI", "II", 'C', advancedCircuit, 'I',
                     "ingotTitanium"));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.tinkerTable), true, "CVC", "IEI", "IMI", 'C', advancedCircuit,
