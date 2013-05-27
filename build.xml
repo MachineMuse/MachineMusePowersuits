@@ -11,7 +11,7 @@
     <property name="mcp.version" value="742"/>
     <property name="minecraft.version" value="1.5.2"/>
     <property name="forgemajor.version" value="7.8.0"/>
-    <property name="forgebuild" value="700"/>
+    <property name="forgebuild" value="712"/>
 
     <property name="forge.version" value="${minecraft.version}-${forgemajor.version}.${forgebuild}"/>
     <property name="forgeant.version" value="${forgemajor.version}.${forgebuild}"/>
@@ -256,7 +256,7 @@
         <echo message="Extracting Scala Libraries..."/>
         <unzip src="${download.dir}/scalalib-${scala.version}.zip" dest="${mcp.dir}"/>
 
-        <echo message="Importing Slick-Util..." />
+        <echo message="Importing Slick-Util..."/>
         <copy file="${download.dir}/slick-util.jar" todir="${mcp.dir}/lib"/>
     </target>
 
@@ -292,7 +292,8 @@
             <fileset dir="${src.dir}/minecraft/net/machinemuse"/>
             <filterset>
                 <filter token="MOD_VERSION" value="${fullversion}"/>
-                <filter token="DEPENDENCIES" value="*/ dependencies = &quot;required-after:Forge@[${forgeant.version},)&quot;, /*"/>
+                <filter token="DEPENDENCIES"
+                        value="*/ dependencies = &quot;required-after:Forge@[${forgeant.version},);after:IC2;after:GregTech_Addon;after:Thaumcraft;after:ThermalExpansion;after:GalacticraftCore;after:Forestry;after:OmniTools;after:AtomicScience&quot;, /*"/>
             </filterset>
         </copy>
     </target>
