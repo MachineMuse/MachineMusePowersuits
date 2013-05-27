@@ -1,5 +1,5 @@
 #version 150
-varying vec2 texcoord;
+out vec2 texcoord;
 
 void main(){
     gl_Position = gl_ModelViewProjectionMatrix*gl_Vertex;

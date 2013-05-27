@@ -1,7 +1,7 @@
 #version 150
 uniform vec2 u_Scale;
 uniform sampler2D u_Texture0;
-varying vec2 texcoord;
+in vec2 texcoord;
 
 const float gaussFilter[50] = float[50](
     -12.0,               1.0/16777216.0,
