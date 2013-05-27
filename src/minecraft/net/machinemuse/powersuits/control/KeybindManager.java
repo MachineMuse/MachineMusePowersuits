@@ -53,12 +53,13 @@ public class KeybindManager {
     }
 
     public static void writeOutKeybinds() {
+        BufferedWriter writer = null;
         try {
             File file = new File(Loader.instance().getConfigDir(), "powersuits-keybinds.cfg");
             if (!file.exists()) {
                 file.createNewFile();
             }
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            writer = new BufferedWriter(new FileWriter(file));
             List<IPowerModule> modulesToWrite = MuseItemUtils.getPlayerInstalledModules(Minecraft.getMinecraft().thePlayer);
             for (ClickableKeybinding keybinding : getInstance().keybindings) {
                 writer.write(keybinding.getKeyBinding().keyCode + ":" + keybinding.getPosition().x() + ':' + keybinding.getPosition().y() + '\n');
@@ -66,10 +67,14 @@ public class KeybindManager {
                     writer.write(module.getModule().getName() + '~' + module.getPosition().x() + '~' + module.getPosition().y() + '\n');
                 }
             }
-            writer.close();
         } catch (Exception e) {
             MuseLogger.logError("Problem writing out keyconfig :(");
             e.printStackTrace();
+        } finally {
+            try {
+                writer.close();
+            } catch (Throwable e) {
+            }
         }
     }
 
