@@ -92,9 +92,9 @@ public class RecipeManager {
 
         }
         if (ModCompatability.UERecipesEnabled() && ModCompatability.isBasicComponentsLoaded()) {
-            String basicCircuit = "basicCircuit";
-            String advancedCircuit = "advancedCircuit";
-            String eliteCircuit = "eliteCircuit";
+            String basicCircuit = "circuitBasic";
+            String advancedCircuit = "circuitAdvanced";
+            String eliteCircuit = "circuitElite";
             ItemStack lapisBlock = new ItemStack(Block.blockLapis);
 
             try {
