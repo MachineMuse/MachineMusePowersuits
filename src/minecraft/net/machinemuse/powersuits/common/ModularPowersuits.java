@@ -59,7 +59,7 @@ public class ModularPowersuits {
     public static ItemPowerArmorChestplate powerArmorTorso;
     public static ItemPowerArmorLeggings powerArmorLegs;
     public static ItemPowerArmorBoots powerArmorFeet;
-    public static ItemPowerGauntlet powerTool;
+    public static ItemPowerFist powerTool;
     public static ItemComponent components;
     public static BlockTinkerTable tinkerTable;
     public static BlockLuxCapacitor luxCapacitor;
@@ -118,7 +118,7 @@ public class ModularPowersuits {
         powerArmorTorso = new ItemPowerArmorChestplate(Config.chestID);
         powerArmorLegs = new ItemPowerArmorLeggings(Config.legsID);
         powerArmorFeet = new ItemPowerArmorBoots(Config.bootsID);
-        powerTool = new ItemPowerGauntlet();
+        powerTool = new ItemPowerFist();
         tinkerTable = new BlockTinkerTable();
         luxCapacitor = new BlockLuxCapacitor();
         components = new ItemComponent();

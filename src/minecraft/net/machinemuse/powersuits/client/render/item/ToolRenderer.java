@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.client.render.item;
 
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.powersuits.common.ModularPowersuits;
-import net.machinemuse.powersuits.item.ItemPowerGauntlet;
+import net.machinemuse.powersuits.item.ItemPowerFist;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -55,7 +55,7 @@ public class ToolRenderer extends Render implements IItemRenderer {
     @Override
     public void renderItem(ItemRenderType type, ItemStack itemStack, Object... data) {
         boolean drawIcon = false;
-        ItemPowerGauntlet item = (ItemPowerGauntlet) itemStack.getItem();
+        ItemPowerFist item = (ItemPowerFist) itemStack.getItem();
 
         Colour colour = item.getColorFromItemStack(itemStack);
         Colour glow = item.getColorFromItemStack(itemStack);

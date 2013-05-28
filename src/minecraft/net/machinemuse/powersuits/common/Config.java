@@ -63,7 +63,7 @@ public class Config {
     public static int chestID;
     public static int legsID;
     public static int bootsID;
-    public static int gauntletID;
+    public static int fistID;
 
     private static Configuration config;
 
@@ -86,7 +86,7 @@ public class Config {
         chestID = config.getItem("Power Armor Torso", 24772).getInt();
         legsID = config.getItem("Power Armor Legs", 24773).getInt();
         bootsID = config.getItem("Power Armor Feet", 24774).getInt();
-        gauntletID = config.getItem("Power Tool", 24775).getInt();
+        fistID = config.getItem("Power Tool", 24775).getInt();
 
         config.save();
     }

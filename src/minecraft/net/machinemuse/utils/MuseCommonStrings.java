@@ -4,7 +4,7 @@ import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.ElectricAdapter;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.item.ItemPowerGauntlet;
+import net.machinemuse.powersuits.item.ItemPowerFist;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -52,7 +52,7 @@ public abstract class MuseCommonStrings {
      *                         their settings.
      */
     public static void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
-        if (stack.getItem() instanceof ItemPowerGauntlet) {
+        if (stack.getItem() instanceof ItemPowerFist) {
             String mode = MuseItemUtils.getStringOrNull(stack, "Mode");
             if (mode != null) {
                 currentTipList.add("Mode:" + MuseStringUtils.wrapFormatTags(mode, MuseStringUtils.FormatCodes.Red));

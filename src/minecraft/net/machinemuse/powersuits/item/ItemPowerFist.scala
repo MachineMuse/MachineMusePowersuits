@@ -30,7 +30,7 @@ import net.minecraft.world.World
  *
  * @author MachineMuse
  */
-class ItemPowerGauntlet extends ItemElectricTool(Config.gauntletID, 0, EnumToolMaterial.EMERALD, new Array[Block](0))
+class ItemPowerFist extends ItemElectricTool(Config.fistID, 0, EnumToolMaterial.EMERALD, new Array[Block](0))
 with IModularItem
 with IToolGrafter
 with OmniWrench {
@@ -39,8 +39,8 @@ with OmniWrench {
   setMaxDamage(0)
   this.damageVsEntity = 1
   setCreativeTab(Config.getCreativeTab)
-  setUnlocalizedName("powerGauntlet")
-  LanguageRegistry.addName(this, "Power Gauntlet")
+  setUnlocalizedName("powerFist")
+  LanguageRegistry.addName(this, "Power Fist")
 
 
   /**

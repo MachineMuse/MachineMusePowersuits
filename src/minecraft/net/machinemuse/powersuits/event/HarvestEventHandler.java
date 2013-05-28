@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.event;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
-import net.machinemuse.powersuits.item.ItemPowerGauntlet;
+import net.machinemuse.powersuits.item.ItemPowerFist;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,7 +17,7 @@ public class HarvestEventHandler {
         EntityPlayer player = event.entityPlayer;
         Block block = event.block;
         ItemStack stack = player.inventory.getCurrentItem();
-        if (stack != null && stack.getItem() instanceof ItemPowerGauntlet && ((ItemPowerGauntlet) stack.getItem()).canHarvestBlock(stack, block, 0, player)) {
+        if (stack != null && stack.getItem() instanceof ItemPowerFist && ((ItemPowerFist) stack.getItem()).canHarvestBlock(stack, block, 0, player)) {
             event.success = true;
         }
     }
