@@ -92,10 +92,15 @@ public class KeybindManager {
                 if (line.contains(":")) {
                     String[] exploded = line.split(":");
                     int id = Integer.parseInt(exploded[0]);
-                    MusePoint2D position = new MusePoint2D(Double.parseDouble(exploded[1]), Double.parseDouble(exploded[2]));
-                    boolean free = !KeyBinding.hash.containsItem(id);
-                    workingKeybinding = new ClickableKeybinding(new KeyBinding(Keyboard.getKeyName(id), id), position, free);
-                    getInstance().keybindings.add(workingKeybinding);
+                    if (!KeyBinding.hash.containsItem(id)) {
+                        MusePoint2D position = new MusePoint2D(Double.parseDouble(exploded[1]), Double.parseDouble(exploded[2]));
+                        boolean free = !KeyBinding.hash.containsItem(id);
+                        workingKeybinding = new ClickableKeybinding(new KeyBinding(Keyboard.getKeyName(id), id), position, free);
+                        getInstance().keybindings.add(workingKeybinding);
+                    } else {
+                        workingKeybinding = null;
+                    }
+
                 } else if (line.contains("~") && workingKeybinding != null) {
                     String[] exploded = line.split("~");
                     MusePoint2D position = new MusePoint2D(Double.parseDouble(exploded[1]), Double.parseDouble(exploded[2]));
