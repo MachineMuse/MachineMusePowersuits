@@ -2,7 +2,7 @@
 uniform sampler2D depth;
 uniform sampler2D occlusion;
 uniform sampler2D texture;
-varying vec2 texcoord;
+in vec2 texcoord;
 
 void main() {
     float depth = texture(depth, texcoord).r - 0.001;
