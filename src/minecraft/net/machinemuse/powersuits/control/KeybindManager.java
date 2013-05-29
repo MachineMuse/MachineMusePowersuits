@@ -86,30 +86,45 @@ public class KeybindManager {
                 return;
             }
             BufferedReader reader = new BufferedReader(new FileReader(file));
-            ClickableKeybinding workingKeybinding = null;
+            ClickableKeybinding workingKeybinding[] = new ClickableKeybinding[100];
+            int i = 0;
             while (reader.ready()) {
                 String line = reader.readLine();
                 if (line.contains(":")) {
+                    int j = 0;
                     String[] exploded = line.split(":");
                     int id = Integer.parseInt(exploded[0]);
-                    if (!KeyBinding.hash.containsItem(id)) {
+                    boolean replicate = false;
+                    for (ClickableKeybinding keybinding : getInstance().keybindings) {
+                        if (keybinding.getKeyBinding().keyCode == id) {
+                            replicate = true;
+                        }
+                    }
+                    while (j<i) {
+                        if (workingKeybinding[j] != null) {
+                            if (workingKeybinding[j].getKeyBinding().keyCode == id) {
+                                replicate = true;
+                            }
+                        }
+                        j++;
+                    }
+                    if (!replicate) {
                         MusePoint2D position = new MusePoint2D(Double.parseDouble(exploded[1]), Double.parseDouble(exploded[2]));
                         boolean free = !KeyBinding.hash.containsItem(id);
-                        workingKeybinding = new ClickableKeybinding(new KeyBinding(Keyboard.getKeyName(id), id), position, free);
-                        getInstance().keybindings.add(workingKeybinding);
+                        workingKeybinding[i] = new ClickableKeybinding(new KeyBinding(Keyboard.getKeyName(id), id), position, free);
+                        getInstance().keybindings.add(workingKeybinding[i]);
                     } else {
-                        workingKeybinding = null;
+                        workingKeybinding[i] = null;
                     }
-
-                } else if (line.contains("~") && workingKeybinding != null) {
+                    i++;
+                } else if (line.contains("~") && workingKeybinding[i] != null) {
                     String[] exploded = line.split("~");
                     MusePoint2D position = new MusePoint2D(Double.parseDouble(exploded[1]), Double.parseDouble(exploded[2]));
                     IPowerModule module = ModuleManager.getModule(exploded[0]);
                     if (module != null) {
                         ClickableModule cmodule = new ClickableModule(module, position);
-                        workingKeybinding.bindModule(cmodule);
+                        workingKeybinding[i].bindModule(cmodule);
                     }
-
                 }
             }
             reader.close();
