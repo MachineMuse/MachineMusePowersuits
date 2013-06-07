@@ -10,6 +10,7 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLog;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
@@ -91,7 +92,7 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
                 for (int i = minx; i < maxx; i++) {
                     for (int j = minz; j < maxz; j++) {
                         int id = world.getBlockId(i, y, j);
-                        if (canHarvestBlock(stack, Block.blocksList[id], world.getBlockMetadata(i, y, j), player)) {
+                        if (Block.blocksList[id] instanceof BlockLog) {
                             found = true;
                             newminx = (int) Math.min(newminx, i - radius);
                             newmaxx = (int) Math.max(newmaxx, i + radius);
