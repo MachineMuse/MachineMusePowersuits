@@ -18,7 +18,6 @@ import net.machinemuse.powersuits.client.render.item.ToolRenderer;
 import net.machinemuse.powersuits.client.render.modelspec.ModelSpecXMLReader;
 import net.machinemuse.powersuits.common.CommonProxy;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.control.KeybindKeyHandler;
 import net.machinemuse.powersuits.control.KeybindManager;
@@ -26,7 +25,6 @@ import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.event.RenderEventHandler;
-import net.machinemuse.powersuits.event.ThaumRenderEventHandler;
 import net.machinemuse.powersuits.network.MusePacketHandler;
 import net.machinemuse.powersuits.tick.ClientTickHandler;
 import net.machinemuse.powersuits.tick.PlayerTickHandler;
@@ -53,9 +51,9 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerEvents() {
         MinecraftForge.EVENT_BUS.register(new SoundLoader());
-        if (ModCompatability.isThaumCraftLoaded() && ModCompatability.enableThaumGogglesModule()) {
-            MinecraftForge.EVENT_BUS.register(new ThaumRenderEventHandler());
-        }
+//        if (ModCompatability.isThaumCraftLoaded() && ModCompatability.enableThaumGogglesModule()) {
+//            MinecraftForge.EVENT_BUS.register(new ThaumRenderEventHandler());
+//        }
     }
 
     /**
