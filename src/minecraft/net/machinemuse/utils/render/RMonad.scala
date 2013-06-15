@@ -110,9 +110,11 @@ object Render {
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F)
       }
       a <- r
-      a <- if (Config.useShaders && Config.canUseShaders && Minecraft.isFancyGraphicsEnabled) {
-        GlowBuffer.draw(r)
+      _ <- Render {
+        if (Config.useShaders && Config.canUseShaders && Minecraft.isFancyGraphicsEnabled)
+          GlowBuffer.draw(r)
       }
+
       _ <- Render {
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, saved._1, saved._2)
         GL11.glPopAttrib()
