@@ -30,7 +30,7 @@ object RichInputStream {
      * Reads a compressed NBTTagCompound from the InputStream
      */
     def readNBTTagCompound = {
-      val nbtSize = in.readShort
+      val nbtSize: Short = in.readShort
       nbtSize match {
         case -1 => null
         case s =>

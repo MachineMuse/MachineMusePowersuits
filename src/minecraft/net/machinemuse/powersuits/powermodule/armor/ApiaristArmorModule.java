@@ -22,7 +22,7 @@ public class ApiaristArmorModule extends PowerModuleBase {
         ItemStack stack = ModCompatability.getForestryItem("craftingMaterial", 6);
         stack.setItemDamage(3);
         addInstallCost(stack);
-        addBaseProperty(APIARIST_ARMOR_ENERGY_CONSUMPTION, 1000, "J");
+        addBaseProperty(APIARIST_ARMOR_ENERGY_CONSUMPTION, 10, "J");
     }
 
     @Override
