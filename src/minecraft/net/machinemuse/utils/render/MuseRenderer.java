@@ -247,7 +247,7 @@ public abstract class MuseRenderer {
 
     public static void scissorsOn(double x, double y, double w, double h) {
 //        GL11.glPushAttrib(GL11.GL_VIEWPORT_BIT);
-        GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
+        GL11.glPushAttrib(GL11.GL_ENABLE_BIT | GL11.GL_SCISSOR_BIT);
         GL11.glPushMatrix();
         Minecraft mc = Minecraft.getMinecraft();
 
