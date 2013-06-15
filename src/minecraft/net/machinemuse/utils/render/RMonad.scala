@@ -2,6 +2,8 @@ package net.machinemuse.utils.render
 
 import org.lwjgl.opengl.GL11
 import net.minecraft.client.renderer.{GLAllocation, RenderHelper, OpenGlHelper}
+import net.machinemuse.powersuits.common.Config
+import net.minecraft.client.Minecraft
 
 /**
  * Library for working with rendering.
@@ -108,7 +110,9 @@ object Render {
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F)
       }
       a <- r
-      a <- GlowBuffer.draw(r)
+      a <- if (Config.useShaders && Config.canUseShaders && Minecraft.isFancyGraphicsEnabled) {
+        GlowBuffer.draw(r)
+      }
       _ <- Render {
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, saved._1, saved._2)
         GL11.glPopAttrib()
