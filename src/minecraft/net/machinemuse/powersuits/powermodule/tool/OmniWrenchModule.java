@@ -94,7 +94,7 @@ public class OmniWrenchModule extends PowerModuleBase implements IRightClickModu
             }
             return !world.isRemote;
         }
-        if (Block.blocksList[bId].rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side))) {
+        if ((Block.blocksList[bId] != null) && Block.blocksList[bId].rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side))) {
             return !world.isRemote;
         }
 

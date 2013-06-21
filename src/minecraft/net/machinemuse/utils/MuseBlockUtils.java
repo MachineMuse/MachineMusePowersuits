@@ -52,9 +52,9 @@ public class MuseBlockUtils {
                 return (meta + 8) % 16;
             case 9:
                 for (int i = 2; i < 6; i++) {
-                    int[] coords = new int[3];
+                    int[] coords;
                     coords = getAdjacentCoordinatesForSide(x, y, z, i);
-                    if (world.getBlockId(coords[0], coords[1], coords[2]) == Block.chest.blockID) {
+                    if (world.getBlockId(coords[0], coords[1], coords[2]) == block) {
                         world.setBlockMetadataWithNotify(coords[0], coords[1], coords[2], SIDE_OPPOSITE[meta], 1);
                         return SIDE_OPPOSITE[meta];
                     }
@@ -72,9 +72,12 @@ public class MuseBlockUtils {
                     return 5 + shift;
                 if (meta == 7)
                     return 0 + shift;
-                if (meta == 0)
+                if (meta == 0) {
                     return 7 + shift;
-                break;
+                }
+                return meta + shift;
+            case 11:
+                meta++; return meta % 16;
         }
         return meta;
     }
@@ -108,9 +111,9 @@ public class MuseBlockUtils {
                 return (meta + 8) % 16;
             case 9:
                 for (int i = 2; i < 6; i++) {
-                    int[] coords = new int[3];
+                    int[] coords;
                     coords = getAdjacentCoordinatesForSide(x, y, z, i);
-                    if (world.getBlockId(coords[0], coords[1], coords[2]) == Block.chest.blockID) {
+                    if (world.getBlockId(coords[0], coords[1], coords[2]) == block) {
                         world.setBlockMetadataWithNotify(coords[0], coords[1], coords[2], SIDE_OPPOSITE[meta], 1);
                         return SIDE_OPPOSITE[meta];
                     }
@@ -131,6 +134,8 @@ public class MuseBlockUtils {
                 if (meta == 0)
                     return 7 + shift;
                 break;
+            case 11:
+                meta++; return meta % 16;
         }
         return meta;
     }
@@ -141,7 +146,7 @@ public class MuseBlockUtils {
 
     static {
         rotateType[Block.wood.blockID] = 7;
-        rotateType[Block.dispenser.blockID] = 1;
+        rotateType[Block.dispenser.blockID] = 2;
         rotateType[Block.railPowered.blockID] = 3;
         rotateType[Block.railDetector.blockID] = 3;
         rotateType[Block.pistonStickyBase.blockID] = 2;
@@ -151,6 +156,7 @@ public class MuseBlockUtils {
         rotateType[Block.chest.blockID] = 9;
         rotateType[Block.furnaceIdle.blockID] = 1;
         rotateType[Block.furnaceBurning.blockID] = 1;
+        rotateType[Block.signPost.blockID] = 11;
         rotateType[Block.rail.blockID] = 3;
         rotateType[Block.stairsCobblestone.blockID] = 5;
         rotateType[Block.lever.blockID] = 10;
@@ -167,6 +173,10 @@ public class MuseBlockUtils {
         rotateType[Block.stairsWoodSpruce.blockID] = 5;
         rotateType[Block.stairsWoodBirch.blockID] = 5;
         rotateType[Block.stairsWoodJungle.blockID] = 5;
+        rotateType[Block.chestTrapped.blockID] = 9;
         rotateType[Block.stairsNetherQuartz.blockID] = 5;
+        rotateType[Block.hopperBlock.blockID] = 2;
+        rotateType[Block.railActivator.blockID] = 3;
+        rotateType[Block.dropper.blockID] = 2;
     }
 }
