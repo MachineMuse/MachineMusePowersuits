@@ -169,11 +169,13 @@ object GlowBuffer {
   }
 
   private def popDualIdentityMatrix() {
+    glMatrixMode(GL_PROJECTION)
+    glPopMatrix()
+
     glMatrixMode(GL_MODELVIEW)
     glPopMatrix()
 
     glMatrixMode(GL_PROJECTION)
-    glPopMatrix()
   }
 
 
