@@ -18,7 +18,6 @@ class ItemPowerArmorHelmet(id: Int) extends ItemPowerArmor(id, 0, 0) with IBreat
   val iconpath = MuseRenderer.ICON_PREFIX + "armorhead"
 
   setUnlocalizedName("powerArmorHelmet")
-  LanguageRegistry.addName(this, "Power Armor Helmet")
 
   def getArmorType: Poison.ArmorType = ArmorType.HELM
 

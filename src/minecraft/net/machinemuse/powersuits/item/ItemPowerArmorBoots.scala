@@ -12,7 +12,6 @@ class ItemPowerArmorBoots(id: Int) extends ItemPowerArmor(id, 0, 3) {
   val iconpath = MuseRenderer.ICON_PREFIX + "armorfeet"
 
   setUnlocalizedName("powerArmorBoots")
-  LanguageRegistry.addName(this, "Power Armor Boots")
 
   def getArmorType: Poison.ArmorType = ArmorType.BOOTS
 

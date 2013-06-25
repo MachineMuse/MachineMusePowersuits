@@ -4,6 +4,7 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * Time: 2:02 PM
  */
 public class GrafterModule extends PowerModuleBase {
-    public static final String MODULE_GRAFTER = "Grafter";
+    public static String MODULE_GRAFTER;
     public static final String GRAFTER_ENERGY_CONSUMPTION = "Grafter Energy Consumption";
     public static final String GRAFTER_HEAT_GENERATION = "Grafter Heat Generation";
 
@@ -31,6 +32,7 @@ public class GrafterModule extends PowerModuleBase {
 
     @Override
     public String getName() {
+        MODULE_GRAFTER = StatCollector.translateToLocal("module.grafter.name");
         return MODULE_GRAFTER;
     }
 

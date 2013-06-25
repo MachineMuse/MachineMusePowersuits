@@ -3,8 +3,6 @@ package net.machinemuse.powersuits.powermodule.movement;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
-import net.machinemuse.general.sound.Musique;
-import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -13,12 +11,13 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 
 import java.util.List;
 
 public class GliderModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static final String MODULE_GLIDER = "Glider";
+    public static String MODULE_GLIDER;
 
     @Override
     public String getTextureFile() {
@@ -37,6 +36,7 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
 
     @Override
     public String getName() {
+        MODULE_GLIDER = StatCollector.translateToLocal("module.glider.name");
         return MODULE_GLIDER;
     }
 

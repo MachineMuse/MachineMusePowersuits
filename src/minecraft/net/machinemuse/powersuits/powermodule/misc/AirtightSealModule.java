@@ -5,11 +5,12 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
 public class AirtightSealModule extends PowerModuleBase {
-    public static final String AIRTIGHT_SEAL_MODULE = "Airtight Seal";
+    public static String AIRTIGHT_SEAL_MODULE;
 
     public AirtightSealModule(List<IModularItem> validItems) {
         super(validItems);
@@ -23,6 +24,7 @@ public class AirtightSealModule extends PowerModuleBase {
 
     @Override
     public String getName() {
+        AIRTIGHT_SEAL_MODULE = StatCollector.translateToLocal("module.airtightSeal.name");
         return AIRTIGHT_SEAL_MODULE;
     }
 

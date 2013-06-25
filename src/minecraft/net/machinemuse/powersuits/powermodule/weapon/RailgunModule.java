@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
@@ -18,7 +19,7 @@ import java.util.List;
 public class RailgunModule extends PowerModuleBase implements IRightClickModule {
     // private List<String> particles;
     // private Iterator<String> iterator;
-    public static final String MODULE_RAILGUN = "Railgun";
+    public static String MODULE_RAILGUN;
     public static String IMPULSE = "Railgun Total Impulse";
     public static String ENERGY = "Railgun Energy Cost";
     public static String HEAT = "Railgun Heat Emission";
@@ -48,6 +49,7 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule 
 
     @Override
     public String getName() {
+        MODULE_RAILGUN = StatCollector.translateToLocal("module.railgun.name");
         return MODULE_RAILGUN;
     }
 

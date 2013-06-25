@@ -5,11 +5,12 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
 public class TransparentArmorModule extends PowerModuleBase {
-    public static final String MODULE_TRANSPARENT_ARMOR = "Transparent Armor";
+    public static String MODULE_TRANSPARENT_ARMOR;
 
     public TransparentArmorModule(List<IModularItem> validItems) {
         super(validItems);
@@ -32,6 +33,7 @@ public class TransparentArmorModule extends PowerModuleBase {
 
     @Override
     public String getName() {
+        MODULE_TRANSPARENT_ARMOR = StatCollector.translateToLocal("module.transparentArmor.name");
         return MODULE_TRANSPARENT_ARMOR;
     }
 

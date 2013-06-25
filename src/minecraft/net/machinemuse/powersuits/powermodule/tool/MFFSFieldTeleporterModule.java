@@ -7,6 +7,7 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * 7:21 PM 4/25/13
  */
 public class MFFSFieldTeleporterModule extends PowerModuleBase {
-    public static final String MODULE_FIELD_TELEPORTER = "MFFS Field Teleporter";
+    public static String MODULE_FIELD_TELEPORTER;
     public static final String FIELD_TELEPORTER_ENERGY_CONSUMPTION = "Field Teleporter Energy Consumption";
 
     public MFFSFieldTeleporterModule(List<IModularItem> validItems) throws IllegalAccessException, NoSuchFieldException, ClassNotFoundException {
@@ -36,6 +37,7 @@ public class MFFSFieldTeleporterModule extends PowerModuleBase {
 
     @Override
     public String getName() {
+        MODULE_FIELD_TELEPORTER = StatCollector.translateToLocal("module.fieldTeleporter.name");
         return MODULE_FIELD_TELEPORTER;
     }
 

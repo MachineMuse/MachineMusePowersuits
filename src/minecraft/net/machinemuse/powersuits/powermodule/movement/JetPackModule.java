@@ -15,11 +15,12 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
 public class JetPackModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static final String MODULE_JETPACK = "Jetpack";
+    public static String MODULE_JETPACK;
     public static final String JET_ENERGY_CONSUMPTION = "Jetpack Energy Consumption";
     public static final String JET_THRUST = "Jetpack Thrust";
 
@@ -39,6 +40,7 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
 
     @Override
     public String getName() {
+        MODULE_JETPACK = StatCollector.translateToLocal("module.jetpack.name");
         return MODULE_JETPACK;
     }
 

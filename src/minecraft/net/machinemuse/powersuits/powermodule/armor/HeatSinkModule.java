@@ -6,17 +6,19 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
 public class HeatSinkModule extends PowerModuleBase {
-    public static final String THICKNESS = "Heatsink Thickness";
+    public static String MODULE_HEAT_SINK;
+    public static final String THICKNESS = "Thickness";
 
     public HeatSinkModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.basicPlating, 1));
-        addTradeoffProperty("Thickness", MuseCommonStrings.WEIGHT, 5000, "g");
-        addTradeoffProperty("Thickness", MuseHeatUtils.MAXIMUM_HEAT, 150, "");
+        addTradeoffProperty(THICKNESS, MuseCommonStrings.WEIGHT, 5000, "g");
+        addTradeoffProperty(THICKNESS, MuseHeatUtils.MAXIMUM_HEAT, 150, "");
     }
 
     @Override
@@ -26,7 +28,8 @@ public class HeatSinkModule extends PowerModuleBase {
 
     @Override
     public String getName() {
-        return "Heat Sink";
+        MODULE_HEAT_SINK = StatCollector.translateToLocal("module.heatSink.name");
+        return MODULE_HEAT_SINK;
     }
 
     @Override

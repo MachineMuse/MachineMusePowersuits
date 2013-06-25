@@ -13,6 +13,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
@@ -20,7 +21,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import java.util.List;
 
 public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
-    public static final String MODULE_DIAMOND_PICK_UPGRADE = "Diamond Drill Upgrade";
+    public static String MODULE_DIAMOND_PICK_UPGRADE;
     public static final ItemStack diamondPick = new ItemStack(Item.pickaxeDiamond);
 
     public DiamondPickUpgradeModule(List<IModularItem> validItems) {
@@ -36,6 +37,7 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
 
     @Override
     public String getName() {
+        MODULE_DIAMOND_PICK_UPGRADE = StatCollector.translateToLocal("module.diamondPickUpgrade.name");
         return MODULE_DIAMOND_PICK_UPGRADE;
     }
 

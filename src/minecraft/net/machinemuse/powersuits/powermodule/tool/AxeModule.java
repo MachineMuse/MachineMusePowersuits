@@ -15,6 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
@@ -22,7 +23,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import java.util.List;
 
 public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
-    public static final String MODULE_AXE = "Axe";
+    public static String MODULE_AXE;
     public static final ItemStack ironAxe = new ItemStack(Item.axeIron);
     public static final String AXE_ENERGY_CONSUMPTION = "Axe Energy Consumption";
     public static final String AXE_HARVEST_SPEED = "Axe Harvest Speed";
@@ -47,6 +48,7 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
 
     @Override
     public String getName() {
+        MODULE_AXE = StatCollector.translateToLocal("module.axe.name");
         return MODULE_AXE;
     }
 

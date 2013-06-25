@@ -5,11 +5,12 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
 public class DiamondPlatingModule extends PowerModuleBase {
-    public static final String MODULE_DIAMOND_PLATING = "Diamond Plating";
+    public static String MODULE_DIAMOND_PLATING;
 
     public DiamondPlatingModule(List<IModularItem> validItems) {
         super(validItems);
@@ -30,6 +31,7 @@ public class DiamondPlatingModule extends PowerModuleBase {
 
     @Override
     public String getName() {
+        MODULE_DIAMOND_PLATING = StatCollector.translateToLocal("module.diamondPlating.name");
         return MODULE_DIAMOND_PLATING;
     }
 
