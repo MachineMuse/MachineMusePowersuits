@@ -10,6 +10,7 @@ import net.machinemuse.powersuits.common.ModularPowersuits
 import net.minecraftforge.common.ForgeDirection
 import net.machinemuse.api.IModularItem
 import net.machinemuse.api.moduletrigger.IRightClickModule
+import net.minecraft.util.StatCollector
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -21,7 +22,7 @@ class RedstoneLaser(list: java.util.List[IModularItem]) extends PowerModuleBase(
 
   def getCategory: String = MuseCommonStrings.CATEGORY_SPECIAL
 
-  def getName: String = "Redstone Laser"
+  def getName: String = StatCollector.translateToLocal("module.redstoneLaser.name")
 
   def getDescription: String = "No need for a lever if you're just giving it a pulse."
 

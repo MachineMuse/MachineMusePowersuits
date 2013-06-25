@@ -9,6 +9,7 @@ import net.minecraft.world.World
 import net.minecraft.item.ItemStack
 import net.machinemuse.powersuits.common.ModularPowersuits
 import net.machinemuse.powersuits.item.ItemComponent
+import net.minecraft.util.StatCollector
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,7 +23,7 @@ class FieldTinkerModule(list: java.util.List[IModularItem]) extends PowerModuleB
   addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2))
   def getCategory: String = MuseCommonStrings.CATEGORY_SPECIAL
 
-  def getName: String = "Field Tinker Module"
+  def getName: String = StatCollector.translateToLocal("module.fieldTinkerer.name")
 
   def getDescription: String = "Maybe you can't memorize the blueprints, but you should at least be able to fine tune your modules without Inspiration\u2122 Inc. LLC."
 

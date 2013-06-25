@@ -5,11 +5,12 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
 public class BasicPlatingModule extends PowerModuleBase {
-    public static final String MODULE_BASIC_PLATING = "Iron Plating";
+    public static String MODULE_BASIC_PLATING;
 
     public BasicPlatingModule(List<IModularItem> validItems) {
         super(validItems);
@@ -30,6 +31,7 @@ public class BasicPlatingModule extends PowerModuleBase {
 
     @Override
     public String getName() {
+        MODULE_BASIC_PLATING = StatCollector.translateToLocal("module.basicPlating.name");
         return MODULE_BASIC_PLATING;
     }
 

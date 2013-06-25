@@ -3,11 +3,12 @@ package net.machinemuse.powersuits.powermodule.misc;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
 public class TintModule extends PowerModuleBase {
-    public static final String MODULE_TINT = "Custom Colour Module";
+    public static String MODULE_TINT;
     public static final String RED_TINT = "Red Tint";
     public static final String GREEN_TINT = "Green Tint";
     public static final String BLUE_TINT = "Blue Tint";
@@ -31,12 +32,12 @@ public class TintModule extends PowerModuleBase {
 
     @Override
     public String getCategory() {
-        // return "Blah";
         return MuseCommonStrings.CATEGORY_COSMETIC;
     }
 
     @Override
     public String getName() {
+        MODULE_TINT = StatCollector.translateToLocal("module.tint.name");
         return MODULE_TINT;
     }
 

@@ -6,13 +6,12 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
 public class FlightControlModule extends PowerModuleBase implements IToggleableModule {
-    public static final String MODULE_FLIGHT_CONTROL = "Flight Control";
-
-    public static final String TEXTURE_FILE = "bluephaser";
+    public static String MODULE_FLIGHT_CONTROL;
 
     public static final String FLIGHT_VERTICALITY = "Y-look ratio";
 
@@ -34,6 +33,7 @@ public class FlightControlModule extends PowerModuleBase implements IToggleableM
 
     @Override
     public String getName() {
+        MODULE_FLIGHT_CONTROL = StatCollector.translateToLocal("module.flightControl.name");
         return MODULE_FLIGHT_CONTROL;
     }
 

@@ -96,7 +96,7 @@ public class ModularPowersuits {
         Config.init(new Configuration(event.getSuggestedConfigurationFile()));
         Config.setConfigFolderBase(event.getModConfigurationDirectory());
         Config.extractLang(Config.languages);
-        Config.loadLang();
+
         MinecraftForge.EVENT_BUS.register(new HarvestEventHandler());
         MinecraftForge.EVENT_BUS.register(new MovementManager());
         proxy.registerEvents();
@@ -129,6 +129,7 @@ public class ModularPowersuits {
         // new ItemSnowbutt(2323);
 
         Config.loadPowerModules();
+        Config.loadLang();
 
         // Initialize config options so they save with the file
         Config.getMaximumArmorPerPiece();

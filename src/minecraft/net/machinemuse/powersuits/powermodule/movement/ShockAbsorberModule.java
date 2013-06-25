@@ -8,11 +8,12 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
 public class ShockAbsorberModule extends PowerModuleBase implements IToggleableModule {
-    public static final String MODULE_SHOCK_ABSORBER = "Shock Absorber";
+    public static String MODULE_SHOCK_ABSORBER;
     public static final String SHOCK_ABSORB_MULTIPLIER = "Distance Reduction";
     public static final String SHOCK_ABSORB_ENERGY_CONSUMPTION = "Impact Energy consumption";
 
@@ -21,7 +22,7 @@ public class ShockAbsorberModule extends PowerModuleBase implements IToggleableM
         addSimpleTradeoff(this, "Power", SHOCK_ABSORB_ENERGY_CONSUMPTION, "J/m", 0, 10, SHOCK_ABSORB_MULTIPLIER, "%", 0, 1);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
         addInstallCost(new ItemStack(Block.cloth, 2));
-    }
+        }
 
     @Override
     public String getCategory() {
@@ -30,6 +31,7 @@ public class ShockAbsorberModule extends PowerModuleBase implements IToggleableM
 
     @Override
     public String getName() {
+        MODULE_SHOCK_ABSORBER = StatCollector.translateToLocal("module.shockAbsorber.name");
         return MODULE_SHOCK_ABSORBER;
     }
 

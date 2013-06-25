@@ -7,11 +7,12 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
 public class AdvancedBatteryModule extends PowerModuleBase {
-    public static final String MODULE_BATTERY_ADVANCED = "Advanced Battery";
+    public static String MODULE_BATTERY_ADVANCED;
 
     public AdvancedBatteryModule(List<IModularItem> validItems) {
         super(validItems);
@@ -36,6 +37,7 @@ public class AdvancedBatteryModule extends PowerModuleBase {
 
     @Override
     public String getName() {
+        MODULE_BATTERY_ADVANCED = StatCollector.translateToLocal("module.advancedBattery.name");
         return MODULE_BATTERY_ADVANCED;
     }
 

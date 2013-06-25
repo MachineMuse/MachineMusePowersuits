@@ -11,12 +11,13 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import java.util.List;
 
 public class BladeLauncherModule extends PowerModuleBase implements IRightClickModule {
-
+    public static String MODULE_BLADE_LAUNCHER;
     public static final String BLADE_ENERGY = "Spinning Blade Energy Consumption";
     public static final String BLADE_DAMAGE = "Spinning Blade Damage";
 
@@ -35,7 +36,8 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
 
     @Override
     public String getName() {
-        return "Blade Launcher";
+        MODULE_BLADE_LAUNCHER = StatCollector.translateToLocal("module.bladeLauncher.name");
+        return MODULE_BLADE_LAUNCHER;
     }
 
     @Override

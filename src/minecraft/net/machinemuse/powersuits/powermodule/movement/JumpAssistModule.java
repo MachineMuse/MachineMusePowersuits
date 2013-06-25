@@ -3,8 +3,6 @@ package net.machinemuse.powersuits.powermodule.movement;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
-import net.machinemuse.general.sound.Musique;
-import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -14,11 +12,12 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
 public class JumpAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static final String MODULE_JUMP_ASSIST = "Jump Assist";
+    public static String MODULE_JUMP_ASSIST;
     public static final String JUMP_ENERGY_CONSUMPTION = "Jump Energy Consumption";
     public static final String JUMP_MULTIPLIER = "Jump Boost";
     public static final String JUMP_FOOD_COMPENSATION = "Jump Exhaustion Compensation";
@@ -37,6 +36,7 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
 
     @Override
     public String getName() {
+        MODULE_JUMP_ASSIST = StatCollector.translateToLocal("module.jumpAssist.name");
         return MODULE_JUMP_ASSIST;
     }
 

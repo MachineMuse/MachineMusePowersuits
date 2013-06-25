@@ -5,6 +5,7 @@ import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * Time: 2:03 PM
  */
 public class ApiaristArmorModule extends PowerModuleBase {
-    public static final String MODULE_APIARIST_ARMOR = "Apiarist Armor";
+    public static String MODULE_APIARIST_ARMOR;
     public static final String APIARIST_ARMOR_ENERGY_CONSUMPTION = "Apiarist Armor Energy Consumption";
 
     public ApiaristArmorModule(List<IModularItem> validItems) {
@@ -32,6 +33,7 @@ public class ApiaristArmorModule extends PowerModuleBase {
 
     @Override
     public String getName() {
+        MODULE_APIARIST_ARMOR = StatCollector.translateToLocal("module.apiaristArmor.name");
         return MODULE_APIARIST_ARMOR;
     }
 

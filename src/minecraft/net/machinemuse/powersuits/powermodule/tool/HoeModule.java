@@ -14,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.Event.Result;
@@ -22,6 +23,7 @@ import net.minecraftforge.event.entity.player.UseHoeEvent;
 import java.util.List;
 
 public class HoeModule extends PowerModuleBase implements IPowerModule, IRightClickModule {
+    public static String MODULE_HOE;
     public static final String HOE_ENERGY_CONSUMPTION = "Hoe Energy Consumption";
     public static final String HOE_SEARCH_RADIUS = "Hoe Search Radius";
 
@@ -92,7 +94,8 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
 
     @Override
     public String getName() {
-        return "Rototiller";
+        MODULE_HOE = StatCollector.translateToLocal("module.hoe.name");
+        return MODULE_HOE;
     }
 
     @Override

@@ -2,7 +2,6 @@ package net.machinemuse.powersuits.common;
 
 import cpw.mods.fml.common.Loader;
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.MuseLogger;
 import net.machinemuse.powersuits.powermodule.armor.ApiaristArmorModule;
@@ -11,7 +10,6 @@ import net.machinemuse.powersuits.powermodule.misc.AirtightSealModule;
 import net.machinemuse.powersuits.powermodule.misc.ThaumGogglesModule;
 import net.machinemuse.powersuits.powermodule.tool.GrafterModule;
 import net.machinemuse.powersuits.powermodule.tool.MFFSFieldTeleporterModule;
-import net.machinemuse.powersuits.powermodule.tool.MultimeterModule;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
@@ -149,7 +147,7 @@ public class ModCompatability {
             ModuleManager.addModule(new ThaumGogglesModule(Collections.singletonList((IModularItem) ModularPowersuits.powerArmorHead)));
         }
 
-        IPowerModule module = new MultimeterModule(Collections.singletonList((IModularItem) ModularPowersuits.powerTool));
+        //IPowerModule module = new MultimeterModule(Collections.singletonList((IModularItem) ModularPowersuits.powerTool));
 
         // Atomic Science
         if (isAtomicScienceLoaded()) {

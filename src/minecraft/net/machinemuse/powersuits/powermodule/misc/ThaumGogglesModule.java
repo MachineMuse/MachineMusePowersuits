@@ -6,12 +6,13 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
 public class ThaumGogglesModule extends PowerModuleBase {
-    public static final String MODULE_THAUM_GOGGLES = "Aurameter";
+    public static String MODULE_THAUM_GOGGLES;
     Class tcItems;
     ItemStack gogglesStack = null;
 
@@ -35,6 +36,7 @@ public class ThaumGogglesModule extends PowerModuleBase {
 
     @Override
     public String getName() {
+        MODULE_THAUM_GOGGLES = StatCollector.translateToLocal("module.aurameter.name");
         return MODULE_THAUM_GOGGLES;
     }
 
