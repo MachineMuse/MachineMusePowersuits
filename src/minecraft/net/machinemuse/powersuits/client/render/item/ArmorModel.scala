@@ -50,9 +50,9 @@ class ArmorModel(par1: Float, par2: Float, par3: Int, par4: Int) extends ModelPl
     try {
       val entLive: EntityLiving = entity.asInstanceOf[EntityLiving]
       val stack: ItemStack = entLive.getCurrentItemOrArmor(0)
-      this.heldItemRight = if ((stack != null)) 1 else 0
+      this.heldItemRight = if (stack != null) 1 else 0
       this.isSneak = entLive.isSneaking
-      this.aimedBow = (entLive.asInstanceOf[EntityPlayer]).getItemInUse != null
+      this.aimedBow = entLive.asInstanceOf[EntityPlayer].getItemInUse != null
     } catch {
       case _: Exception =>
     }
@@ -67,9 +67,5 @@ class ArmorModel(par1: Float, par2: Float, par3: Int, par4: Int) extends ModelPl
       RenderPart(tag, colours, this, visible)
     }
     glPopMatrix()
-  }
-
-
-  def renderParts(transform: MorphTarget, model: WavefrontObject, colour: Colour, glow: Boolean, parts: Array[String]) {
   }
 }

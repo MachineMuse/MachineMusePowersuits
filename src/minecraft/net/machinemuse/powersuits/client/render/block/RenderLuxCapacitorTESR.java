@@ -1,11 +1,13 @@
 package net.machinemuse.powersuits.client.render.block;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import net.machinemuse.general.MuseLogger;
 import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
@@ -73,10 +75,14 @@ public class RenderLuxCapacitorTESR extends TileEntitySpecialRenderer implements
                 break;
 
         }
-        getFrameModel().renderAll();
-        MuseRenderer.glowOn();
-        getLightModel().renderAll();
-        MuseRenderer.glowOff();
+        if (!Tessellator.instance.isDrawing) {
+            getFrameModel().renderAll();
+            MuseRenderer.glowOn();
+            getLightModel().renderAll();
+            MuseRenderer.glowOff();
+        } else {
+            MuseLogger.logError("Error: tessellator not flushed properly when MPS got ahold of it!");
+        }
         glPopMatrix();
     }
 

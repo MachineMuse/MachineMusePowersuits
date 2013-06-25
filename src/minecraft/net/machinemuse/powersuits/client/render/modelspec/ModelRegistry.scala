@@ -56,7 +56,7 @@ class ModelSpec(val model: WavefrontObject,
                 val filename: String
                  ) extends MuseRegistry[ModelPartSpec] {
   def applyOffsetAndRotation = {
-
+    // TODO: Implement
   }
 
   def getOwnName = {
