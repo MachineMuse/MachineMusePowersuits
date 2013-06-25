@@ -94,6 +94,9 @@ public class ModularPowersuits {
     public void preInit(FMLPreInitializationEvent event) {
         instance = this;
         Config.init(new Configuration(event.getSuggestedConfigurationFile()));
+        Config.setConfigFolderBase(event.getModConfigurationDirectory());
+        Config.extractLang(Config.languages);
+        Config.loadLang();
         MinecraftForge.EVENT_BUS.register(new HarvestEventHandler());
         MinecraftForge.EVENT_BUS.register(new MovementManager());
         proxy.registerEvents();
