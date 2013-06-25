@@ -45,13 +45,13 @@ public class KeybindKeyHandler extends KeyHandler {
         if (kb.equals(openKeybindGUI)) {
             World world = Minecraft.getMinecraft().theWorld;
             if (Minecraft.getMinecraft().inGameHasFocus) {
-                player.openGui(ModularPowersuits.instance, 1, world, 0, 0, 0);
+                player.openGui(ModularPowersuits.INSTANCE, 1, world, 0, 0, 0);
             }
         }
         if (kb.equals(openCosmeticGUI)) {
             World world = Minecraft.getMinecraft().theWorld;
             if (Minecraft.getMinecraft().inGameHasFocus) {
-                player.openGui(ModularPowersuits.instance, 3, world, 0, 0, 0);
+                player.openGui(ModularPowersuits.INSTANCE, 3, world, 0, 0, 0);
             }
         }
         if (kb.equals(goDownKey)) {

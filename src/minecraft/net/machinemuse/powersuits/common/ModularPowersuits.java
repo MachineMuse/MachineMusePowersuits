@@ -69,7 +69,7 @@ public class ModularPowersuits {
      * set by hand in the preInit step.
      */
     @Instance("ModularPowersuits")
-    public static ModularPowersuits instance;
+    public static ModularPowersuits INSTANCE;
 
     /**
      * Tells Forge what classes to load for the client and server proxies. These
@@ -92,7 +92,7 @@ public class ModularPowersuits {
      */
     @PreInit
     public void preInit(FMLPreInitializationEvent event) {
-        instance = this;
+        INSTANCE = this;
         Config.init(new Configuration(event.getSuggestedConfigurationFile()));
         MinecraftForge.EVENT_BUS.register(new HarvestEventHandler());
         MinecraftForge.EVENT_BUS.register(new MovementManager());

@@ -109,7 +109,7 @@ public class BlockTinkerTable extends Block {
 		if (player.isSneaking()) {
 			return false;
 		}
-		player.openGui(ModularPowersuits.instance, Config.Guis.GuiTinkerTable.ordinal(), world, x, y, z);
+		player.openGui(ModularPowersuits.INSTANCE, Config.Guis.GuiTinkerTable.ordinal(), world, x, y, z);
 		return true;
 	}
 
