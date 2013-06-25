@@ -62,7 +62,9 @@ public class ItemComponent extends Item {
         iconNames.add(iconName);
         descriptions.add(description);
         ItemStack stack = new ItemStack(this, 1, names.size() - 1);
-        LanguageRegistry.addName(stack, englishName);
+        int index = MathHelper.clamp_int(stack.getItemDamage(), 0, names.size() - 1);
+        setUnlocalizedName("powerArmorComponent." + names.get(index).replaceAll("\\s", ""));
+        LanguageRegistry.addName(stack, getLocalizedName(stack));
         return stack;
     }
 
@@ -153,7 +155,10 @@ public class ItemComponent extends Item {
     @Override
     public String getUnlocalizedName(ItemStack par1ItemStack) {
         int index = MathHelper.clamp_int(par1ItemStack.getItemDamage(), 0, names.size() - 1);
-        return "powerArmorComponent." + names.get(index).replaceAll("\\s", "");
+        String s = "powerArmorComponent." + names.get(index).replaceAll("\\s", "");
+        //System.out.println(s);
+        return s;
+        //return "powerArmorComponent." + names.get(index).replaceAll("\\s", "");
     }
 
     /**
