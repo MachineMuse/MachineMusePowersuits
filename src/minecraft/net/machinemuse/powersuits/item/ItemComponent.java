@@ -62,9 +62,9 @@ public class ItemComponent extends Item {
         iconNames.add(iconName);
         descriptions.add(description);
         ItemStack stack = new ItemStack(this, 1, names.size() - 1);
-        int index = MathHelper.clamp_int(stack.getItemDamage(), 0, names.size() - 1);
-        setUnlocalizedName("powerArmorComponent." + names.get(index).replaceAll("\\s", ""));
-        LanguageRegistry.addName(stack, getLocalizedName(stack));
+        //int index = MathHelper.clamp_int(stack.getItemDamage(), 0, names.size() - 1);
+        //setUnlocalizedName("powerArmorComponent." + names.get(index).replaceAll("\\s", ""));
+        //LanguageRegistry.addName(stack, getLocalizedName(stack));
         return stack;
     }
 
@@ -96,8 +96,7 @@ public class ItemComponent extends Item {
     public void populate() {
         // NOTE: Only add to end otherwise people's IDs will get screwed up n.n'
         wiring = addComponent("componentWiring", "Wiring",
-                "A special type of wiring with high voltaic capacity and precision, necessary for the sensitive electronics in power armor.",
-                "wiring");
+                "A special type of wiring with high voltaic capacity and precision, necessary for the sensitive electronics in power armor.", "wiring");
         solenoid = addComponent("componentSolenoid", "Solenoid", "Wires wound around a ferromagnetic core produces a basic electromagnet.",
                 "solenoid");
         servoMotor = addComponent("componentServo", "Servo Motor",
@@ -114,7 +113,8 @@ public class ItemComponent extends Item {
                 "A synthetic crystal device which can store and release massive amounts of energy.", "hvcapacitor");
         parachute = addComponent("componentParachute", "Parachute", "A simple reusable parachute which can be deployed and recovered in midair.",
                 "parachuteitem");
-        basicPlating = addComponent("componentPlatingBasic", "Basic Plating", "Some carefully-arranged metal armor plates.", "basicplating1");
+        basicPlating = addComponent("componentPlatingBasic", "Basic Plating", "Some carefully-arranged metal armor plates.",
+                "basicplating1");
         advancedPlating = addComponent("componentPlatingAdvanced", "Advanced Plating",
                 "Some carefully-arranged armor plates of a rare and stronger material", "advancedplating1");
         fieldEmitter = addComponent("componentFieldEmitter", "Force Field Emitter",
@@ -155,10 +155,7 @@ public class ItemComponent extends Item {
     @Override
     public String getUnlocalizedName(ItemStack par1ItemStack) {
         int index = MathHelper.clamp_int(par1ItemStack.getItemDamage(), 0, names.size() - 1);
-        String s = "powerArmorComponent." + names.get(index).replaceAll("\\s", "");
-        //System.out.println(s);
-        return s;
-        //return "powerArmorComponent." + names.get(index).replaceAll("\\s", "");
+        return "powerArmorComponent." + names.get(index).replaceAll("\\s", "");
     }
 
     /**
