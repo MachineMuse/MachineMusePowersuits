@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.item;
 
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.api.IPowerModule;
@@ -57,23 +56,19 @@ public class ItemComponent extends Item {
         descriptions = new ArrayList<String>();
     }
 
-    public ItemStack addComponent(String oredictName, String englishName, String description, String iconName) {
+    public ItemStack addComponent(String oredictName, String description, String iconName) {
         names.add(oredictName);
         iconNames.add(iconName);
         descriptions.add(description);
         ItemStack stack = new ItemStack(this, 1, names.size() - 1);
-        //int index = MathHelper.clamp_int(stack.getItemDamage(), 0, names.size() - 1);
-        //setUnlocalizedName("powerArmorComponent." + names.get(index).replaceAll("\\s", ""));
-        //LanguageRegistry.addName(stack, getLocalizedName(stack));
         return stack;
     }
 
-    public ItemStack addComponent(int id, String oredictName, String englishName, String description, String iconName) {
+    public ItemStack addComponent(int id, String oredictName, String description, String iconName) {
         names.add(oredictName);
         iconNames.add(iconName);
         descriptions.add(description);
         ItemStack stack = new ItemStack(this, 1, names.size() - 1);
-        LanguageRegistry.addName(stack, englishName);
         return stack;
     }
 
@@ -95,41 +90,23 @@ public class ItemComponent extends Item {
 
     public void populate() {
         // NOTE: Only add to end otherwise people's IDs will get screwed up n.n'
-        wiring = addComponent("componentWiring", "Wiring",
-                "A special type of wiring with high voltaic capacity and precision, necessary for the sensitive electronics in power armor.", "wiring");
-        solenoid = addComponent("componentSolenoid", "Solenoid", "Wires wound around a ferromagnetic core produces a basic electromagnet.",
-                "solenoid");
-        servoMotor = addComponent("componentServo", "Servo Motor",
-                "A special type of motor which uses a pulse-modulated signal to enact very precise movements.", "servo");
-        gliderWing = addComponent("componentGliderWing", "Glider Wing",
-                "A lightweight aerodynamic wing with an electromagnet for quick deployment and retraction.", "gliderwing");
-        ionThruster = addComponent("componentIonThruster", "Ion Thruster",
-                "Essentially a miniature particle accelerator. Accelerates ions to near-light speed to produce thrust.", "ionthruster");
-        lvcapacitor = addComponent("componentLVCapacitor", "LV Capacitor",
-                "A simple capacitor can store and discharge small amounts of energy rapidly.", "lvcapacitor");
-        mvcapacitor = addComponent("componentMVCapacitor", "MV Capacitor",
-                "A more advanced capacitor which can store more energy at higher voltages.", "mvcapacitor");
-        hvcapacitor = addComponent("componentHVCapacitor", "HV Capacitor",
-                "A synthetic crystal device which can store and release massive amounts of energy.", "hvcapacitor");
-        parachute = addComponent("componentParachute", "Parachute", "A simple reusable parachute which can be deployed and recovered in midair.",
-                "parachuteitem");
-        basicPlating = addComponent("componentPlatingBasic", "Basic Plating", "Some carefully-arranged metal armor plates.",
-                "basicplating1");
-        advancedPlating = addComponent("componentPlatingAdvanced", "Advanced Plating",
-                "Some carefully-arranged armor plates of a rare and stronger material", "advancedplating1");
-        fieldEmitter = addComponent("componentFieldEmitter", "Force Field Emitter",
-                "An advanced device which directly manipulates electromagnetic and gravitational fields in an area.", "fieldemitter");
-        laserHologram = addComponent("componentLaserEmitter", "Hologram Emitter",
-                "A multicoloured laser array which can cheaply alter the appearance of something.", "hologramemitter");
-        carbonMyofiber = addComponent("componentCarbonMyofiber", "Carbon Myofiber",
-                "A small bundle of carbon fibers, refined for use in artificial muscles.", "myofiber");
-        controlCircuit = addComponent("componentControlCircuit", "Control Circuit",
-                "A simple networkable microcontroller for coordinating an individual component.", "controlcircuit");
-        myofiberGel = addComponent("componentMyofiberGel", "Myofiber Gel",
-                "A thick, conductive paste, perfect for fitting between myofibers in an artificial muscle.", "paste");
-        artificialMuscle = addComponent("componentArtificialMuscle", "Artificial Muscle",
-                "An electrical, artificial muscle, with less range of movement than human muscle but orders of magnitude more strength.",
-                "artificialmuscle");
+        wiring = addComponent("componentWiring", "A special type of wiring with high voltaic capacity and precision, necessary for the sensitive electronics in power armor.", "wiring");
+        solenoid = addComponent("componentSolenoid", "Wires wound around a ferromagnetic core produces a basic electromagnet.", "solenoid");
+        servoMotor = addComponent("componentServo", "A special type of motor which uses a pulse-modulated signal to enact very precise movements.", "servo");
+        gliderWing = addComponent("componentGliderWing", "A lightweight aerodynamic wing with an electromagnet for quick deployment and retraction.", "gliderwing");
+        ionThruster = addComponent("componentIonThruster", "Essentially a miniature particle accelerator. Accelerates ions to near-light speed to produce thrust.", "ionthruster");
+        lvcapacitor = addComponent("componentLVCapacitor", "A simple capacitor can store and discharge small amounts of energy rapidly.", "lvcapacitor");
+        mvcapacitor = addComponent("componentMVCapacitor", "A more advanced capacitor which can store more energy at higher voltages.", "mvcapacitor");
+        hvcapacitor = addComponent("componentHVCapacitor", "A synthetic crystal device which can store and release massive amounts of energy.", "hvcapacitor");
+        parachute = addComponent("componentParachute", "A simple reusable parachute which can be deployed and recovered in midair.", "parachuteitem");
+        basicPlating = addComponent("componentPlatingBasic", "Some carefully-arranged metal armor plates.", "basicplating1");
+        advancedPlating = addComponent("componentPlatingAdvanced", "Some carefully-arranged armor plates of a rare and stronger material", "advancedplating1");
+        fieldEmitter = addComponent("componentFieldEmitter", "An advanced device which directly manipulates electromagnetic and gravitational fields in an area.", "fieldemitter");
+        laserHologram = addComponent("componentLaserEmitter", "A multicoloured laser array which can cheaply alter the appearance of something.", "hologramemitter");
+        carbonMyofiber = addComponent("componentCarbonMyofiber", "A small bundle of carbon fibers, refined for use in artificial muscles.", "myofiber");
+        controlCircuit = addComponent("componentControlCircuit", "A simple networkable microcontroller for coordinating an individual component.", "controlcircuit");
+        myofiberGel = addComponent("componentMyofiberGel", "A thick, conductive paste, perfect for fitting between myofibers in an artificial muscle.", "paste");
+        artificialMuscle = addComponent("componentArtificialMuscle", "An electrical, artificial muscle, with less range of movement than human muscle but orders of magnitude more strength.", "artificialmuscle");
     }
 
     /**
@@ -155,7 +132,7 @@ public class ItemComponent extends Item {
     @Override
     public String getUnlocalizedName(ItemStack par1ItemStack) {
         int index = MathHelper.clamp_int(par1ItemStack.getItemDamage(), 0, names.size() - 1);
-        return "powerArmorComponent." + names.get(index).replaceAll("\\s", "");
+        return "item.powerArmorComponent." + names.get(index).replaceAll("\\s", "");
     }
 
     /**
