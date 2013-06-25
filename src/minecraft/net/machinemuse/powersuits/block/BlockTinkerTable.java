@@ -1,5 +1,8 @@
 package net.machinemuse.powersuits.block;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModularPowersuits;
@@ -12,10 +15,6 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * This is the tinkertable block. It doesn't do much except look pretty
@@ -88,9 +87,7 @@ public class BlockTinkerTable extends Block {
 		// standard requires a name to be passed.
 		GameRegistry.registerBlock(this, "tinkerTable");
 
-		setUnlocalizedName("mmmPowersuits.tinkerTable");
-
-		LanguageRegistry.addName(this, "Power Armor Tinker Table");
+		setUnlocalizedName("tinkerTable");
 
 	}
 

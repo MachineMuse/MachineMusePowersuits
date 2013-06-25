@@ -11,11 +11,12 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
 public class ParachuteModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static final String MODULE_PARACHUTE = "Parachute";
+    public static String MODULE_PARACHUTE;
 
     public ParachuteModule(List<IModularItem> validItems) {
         super(validItems);
@@ -29,6 +30,7 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
 
     @Override
     public String getName() {
+        MODULE_PARACHUTE = StatCollector.translateToLocal("module.parachute.name");
         return MODULE_PARACHUTE;
     }
 

@@ -9,6 +9,7 @@ import net.machinemuse.powersuits.control.KeybindKeyHandler
 import cpw.mods.fml.common.FMLCommonHandler
 import net.machinemuse.api.{ModuleManager, IModularItem}
 import net.machinemuse.api.moduletrigger.IPlayerTickModule
+import net.minecraft.util.StatCollector
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -22,7 +23,7 @@ class BinocularsModule(list: java.util.List[IModularItem]) extends PowerModuleBa
 
   override def getCategory: String = MuseCommonStrings.CATEGORY_VISION
 
-  override def getName: String = "Binoculars"
+  override def getName: String = StatCollector.translateToLocal("module.binoculars.name")
 
   override def getDescription: String = "With the problems that have been plaguing Optifine lately, you've decided to take that Zoom ability into your own hands."
 

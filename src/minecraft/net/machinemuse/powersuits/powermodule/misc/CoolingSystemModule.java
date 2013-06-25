@@ -13,10 +13,12 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
 public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
+    public static String MODULE_COOLING_SYSTEM;
     public static final String COOLING_BONUS = "Cooling Bonus";
     public static final String ENERGY = "Cooling System Energy Consumption";
 
@@ -35,7 +37,8 @@ public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickM
 
     @Override
     public String getName() {
-        return "Cooling System";
+        MODULE_COOLING_SYSTEM = StatCollector.translateToLocal("module.coolingSystem.name");
+        return MODULE_COOLING_SYSTEM;
     }
 
     @Override

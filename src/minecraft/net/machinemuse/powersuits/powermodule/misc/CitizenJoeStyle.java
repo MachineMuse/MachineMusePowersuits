@@ -3,11 +3,12 @@ package net.machinemuse.powersuits.powermodule.misc;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
 public class CitizenJoeStyle extends PowerModuleBase {
-    public static final String CITIZEN_JOE_STYLE = "Citizen Joe Style";
+    public static String CITIZEN_JOE_STYLE;
 
     public CitizenJoeStyle(List<IModularItem> validItems) {
         super(validItems);
@@ -25,6 +26,7 @@ public class CitizenJoeStyle extends PowerModuleBase {
 
     @Override
     public String getName() {
+        CITIZEN_JOE_STYLE = StatCollector.translateToLocal("module.citizenJoe.name");
         return CITIZEN_JOE_STYLE;
     }
 

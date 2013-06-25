@@ -12,12 +12,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.StatCollector;
 
 import java.util.Collection;
 import java.util.List;
 
 public class NightVisionModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
-    public static final String MODULE_NIGHT_VISION = "Night Vision";
+    public static String MODULE_NIGHT_VISION;
 
     public NightVisionModule(List<IModularItem> validItems) {
         super(validItems);
@@ -32,6 +33,7 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
 
     @Override
     public String getName() {
+        MODULE_NIGHT_VISION = StatCollector.translateToLocal("module.nightVision.name");
         return MODULE_NIGHT_VISION;
     }
 

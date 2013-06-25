@@ -13,13 +13,14 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 import java.util.List;
 
 public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
-    public static final String MODULE_AQUA_AFFINITY = "Aqua Affinity";
+    public static String MODULE_AQUA_AFFINITY;
     public static final String AQUA_AFFINITY_ENERGY_CONSUMPTION = "Underwater Energy Consumption";
     public static final String UNDERWATER_HARVEST_SPEED = "Underwater Harvest Speed";
 
@@ -39,6 +40,7 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
 
     @Override
     public String getName() {
+        MODULE_AQUA_AFFINITY = StatCollector.translateToLocal("module.aquaAffinity.name");
         return MODULE_AQUA_AFFINITY;
     }
 

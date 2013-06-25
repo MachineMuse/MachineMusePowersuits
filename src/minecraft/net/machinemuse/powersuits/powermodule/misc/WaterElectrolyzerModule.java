@@ -13,13 +13,13 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
 public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
-
     public static final String WATERBREATHING_ENERGY_CONSUMPTION = "Jolt Energy";
-    public static final String MODULE_WATER_ELECTROLYZER = "Water Electrolyzer";
+    public static String MODULE_WATER_ELECTROLYZER;
 
     public WaterElectrolyzerModule(List<IModularItem> validItems) {
         super(validItems);
@@ -34,6 +34,7 @@ public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerT
 
     @Override
     public String getName() {
+        MODULE_WATER_ELECTROLYZER = StatCollector.translateToLocal("module.waterElectrolyzer.name");
         return MODULE_WATER_ELECTROLYZER;
     }
 

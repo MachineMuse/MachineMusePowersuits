@@ -40,7 +40,6 @@ with OmniWrench {
   this.damageVsEntity = 1
   setCreativeTab(Config.getCreativeTab)
   setUnlocalizedName("powerFist")
-  LanguageRegistry.addName(this, "Power Fist")
 
 
   /**

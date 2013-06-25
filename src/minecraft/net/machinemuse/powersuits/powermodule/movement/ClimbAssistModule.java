@@ -9,11 +9,12 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
 public class ClimbAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static final String MODULE_CLIMB_ASSIST = "Uphill Step Assist";
+    public static String MODULE_CLIMB_ASSIST;
 
     public ClimbAssistModule(List<IModularItem> validItems) {
         super(validItems);
@@ -27,6 +28,7 @@ public class ClimbAssistModule extends PowerModuleBase implements IToggleableMod
 
     @Override
     public String getName() {
+        MODULE_CLIMB_ASSIST = StatCollector.translateToLocal("module.climbAssist.name");
         return MODULE_CLIMB_ASSIST;
     }
 

@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.block;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.general.gui.MuseIcon;
@@ -66,9 +65,7 @@ public class BlockLuxCapacitor extends Block {
 
         GameRegistry.registerTileEntity(TileEntityLuxCapacitor.class, "luxCapacitor");
 
-        setUnlocalizedName("mmmPowersuits.luxCapacitor");
-
-        LanguageRegistry.addName(this, "Lux Capacitor");
+        setUnlocalizedName("luxCapacitor");
 
     }
 

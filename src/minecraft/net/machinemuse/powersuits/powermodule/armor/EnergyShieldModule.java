@@ -5,11 +5,12 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
 public class EnergyShieldModule extends PowerModuleBase {
-    public static final String MODULE_ENERGY_SHIELD = "Energy Shield";
+    public static String MODULE_ENERGY_SHIELD;
 
     public EnergyShieldModule(List<IModularItem> validItems) {
         super(validItems);
@@ -30,6 +31,7 @@ public class EnergyShieldModule extends PowerModuleBase {
 
     @Override
     public String getName() {
+        MODULE_ENERGY_SHIELD = StatCollector.translateToLocal("module.energyShield.name");
         return MODULE_ENERGY_SHIELD;
     }
 
