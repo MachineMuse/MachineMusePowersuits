@@ -298,6 +298,7 @@
                         value="*/ dependencies = &quot;required-after:Forge@[${forgeant.version},)&quot;, /*"/>
             </filterset>
         </copy>
+        <copy todir="${mcpsrc.dir}/net/minecraft/src" file="${src.dir}/minecraft/net/minecraft/src/ModelPlayer.java"/>
     </target>
 
     <target name="build" depends="extract-apis,copy-source" unless="already-compiled">
@@ -323,13 +324,16 @@
         <exec dir="${mcp.dir}" executable="sh" osfamily="unix">
             <arg value="reobfuscate_srg.sh"/>
         </exec>
+
         <copy todir="${classes.dir}">
             <fileset dir="${mcp.dir}/reobf/minecraft"/>
         </copy>
+
         <mkdir dir="${classes.dir}/mods"/>
         <copy todir="${classes.dir}/mods/mmmPowersuits">
             <fileset dir="${resources.dir}"/>
         </copy>
+
         <copy todir="${classes.dir}" file="mcmod.info">
             <filterset>
                 <filter token="MOD_VERSION" value="${fullversion}"/>
