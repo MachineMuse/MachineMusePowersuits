@@ -324,7 +324,7 @@ public class Config {
 
     public static void extractLang(String[] langauges) {
         for (String lang : langauges) {
-            InputStream inputStream = ModularPowersuits.instance.getClass().getResourceAsStream(LANG_PATH + lang + ".lang");
+            InputStream inputStream = ModularPowersuits.INSTANCE.getClass().getResourceAsStream(LANG_PATH + lang + ".lang");
             try {
                 File file = new File(configFolder.getAbsolutePath() + "/lang/" + lang + ".lang");
                 if (!file.exists()) {
