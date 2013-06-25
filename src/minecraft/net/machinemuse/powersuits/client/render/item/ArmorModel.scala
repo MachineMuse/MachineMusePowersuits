@@ -12,12 +12,13 @@ import net.minecraft.item.ItemStack
 import net.minecraftforge.client.model.obj.WavefrontObject
 import org.lwjgl.opengl.GL11._
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.src.ModelPlayer
 
 object ArmorModel {
   val instance = new ArmorModel(0.0F, 0.0f, 64, 32)
 }
 
-class ArmorModel(par1: Float, par2: Float, par3: Int, par4: Int) extends ModelBiped(0.0F, 0.0f, 64, 32) {
+class ArmorModel(par1: Float, par2: Float, par3: Int, par4: Int) extends ModelPlayer(0.0F) {
   var renderSpec: NBTTagCompound = null
   var visible: Int = 0
   setInitialOffsets(bipedHead, 0.0F, 0.0F + par2, 0.0F)
