@@ -21,12 +21,25 @@ object ArmorModel {
 class ArmorModel(par1: Float, par2: Float, par3: Int, par4: Int) extends ModelPlayer(0.0F) {
   var renderSpec: NBTTagCompound = null
   var visible: Int = 0
+  bipedHeadwear.showModel = false
+  bipedHead = new RenderPart(this)
+  bipedBody = new RenderPart(this)
+  bipedRightArm = new RenderPart(this)
+  bipedLeftArm = new RenderPart(this)
+  bipedRightLeg = new RenderPart(this)
+  bipedLeftLeg = new RenderPart(this)
   setInitialOffsets(bipedHead, 0.0F, 0.0F + par2, 0.0F)
   setInitialOffsets(bipedBody, 0.0F, 0.0F + par2, 0.0F)
   setInitialOffsets(bipedRightArm, 5, 2.0F + par2, 0.0F)
   setInitialOffsets(bipedLeftArm, -5, 2.0F + par2, 0.0F)
   setInitialOffsets(bipedRightLeg, 2, 12.0F + par2, 0.0F)
   setInitialOffsets(bipedLeftLeg, -2, 12.0F + par2, 0.0F)
+  this.bipedHead.setRotationPoint(0.0F, 0.0F + par2, 0.0F)
+  this.bipedBody.setRotationPoint(0.0F, 0.0F + par2, 0.0F)
+  this.bipedRightArm.setRotationPoint(-5.0F, 2.0F + par2, 0.0F)
+  this.bipedLeftArm.setRotationPoint(5.0F, 2.0F + par2, 0.0F)
+  this.bipedRightLeg.setRotationPoint(-1.9F, 12.0F + par2, 0.0F)
+  this.bipedLeftLeg.setRotationPoint(1.9F, 12.0F + par2, 0.0F)
 
   private def logModelParts(model: WavefrontObject) {
     MuseLogger.logDebug(model.toString + ":")
@@ -56,17 +69,22 @@ class ArmorModel(par1: Float, par2: Float, par3: Int, par4: Int) extends ModelPl
     } catch {
       case _: Exception =>
     }
-    this.setRotationAngles(par2, par3, par4, par5, par6, scale, entity)
+
+    bipedHead.isHidden = false
+    bipedBody.isHidden = false
+    bipedRightArm.isHidden = false
+    bipedLeftArm.isHidden = false
+    bipedRightLeg.isHidden = false
+    bipedLeftLeg.isHidden = false
+
+    bipedHead.showModel = true
+    bipedBody.showModel = true
+    bipedRightArm.showModel = true
+    bipedLeftArm.showModel = true
+    bipedRightLeg.showModel = true
+    bipedLeftLeg.showModel = true
+
+    setRotationAngles(par2, par3, par4, par5, par6, scale, entity)
     super.render(entity, par2, par3, par4, par5, par6, scale)
-
-
-    glPushMatrix()
-    glScaled(scale, scale, scale)
-    import scala.collection.JavaConverters._
-    val colours = renderSpec.getIntArray("colours")
-    for (tag <- NBTTagAccessor.getValues(renderSpec).asScala) {
-      RenderPart(tag, colours, this, visible)
-    }
-    glPopMatrix()
   }
 }
