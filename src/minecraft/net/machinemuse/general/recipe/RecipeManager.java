@@ -91,7 +91,7 @@ public class RecipeManager {
                     ItemComponent.fieldEmitter);
 
         }
-        if (ModCompatability.UERecipesEnabled() && ModCompatability.isBasicComponentsLoaded()) {
+        if (ModCompatability.UERecipesEnabled()) {
             String basicCircuit = "circuitBasic";
             String advancedCircuit = "circuitAdvanced";
             String eliteCircuit = "circuitElite";
