@@ -57,6 +57,7 @@ class ArmorModel(par1: Float, par2: Float, par3: Int, par4: Int) extends ModelPl
       case _: Exception =>
     }
     this.setRotationAngles(par2, par3, par4, par5, par6, scale, entity)
+    super.render(entity, par2, par3, par4, par5, par6, scale)
 
 
     glPushMatrix()
