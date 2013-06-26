@@ -1,16 +1,13 @@
 package net.machinemuse.powersuits.client.render.item
 
-import net.machinemuse.general.{NBTTagAccessor, MuseLogger}
-import net.machinemuse.general.geometry.Colour
+import net.machinemuse.general.MuseLogger
 import net.machinemuse.powersuits.client.render.modelspec._
-import net.minecraft.client.model.ModelBiped
 import net.minecraft.client.model.ModelRenderer
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLiving
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraftforge.client.model.obj.WavefrontObject
-import org.lwjgl.opengl.GL11._
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.src.ModelPlayer
 
@@ -21,25 +18,24 @@ object ArmorModel {
 class ArmorModel(par1: Float, par2: Float, par3: Int, par4: Int) extends ModelPlayer(0.0F) {
   var renderSpec: NBTTagCompound = null
   var visible: Int = 0
-  bipedHeadwear.showModel = false
-  bipedHead = new RenderPart(this)
-  bipedBody = new RenderPart(this)
-  bipedRightArm = new RenderPart(this)
-  bipedLeftArm = new RenderPart(this)
-  bipedRightLeg = new RenderPart(this)
-  bipedLeftLeg = new RenderPart(this)
-  setInitialOffsets(bipedHead, 0.0F, 0.0F + par2, 0.0F)
-  setInitialOffsets(bipedBody, 0.0F, 0.0F + par2, 0.0F)
-  setInitialOffsets(bipedRightArm, 5, 2.0F + par2, 0.0F)
-  setInitialOffsets(bipedLeftArm, -5, 2.0F + par2, 0.0F)
-  setInitialOffsets(bipedRightLeg, 2, 12.0F + par2, 0.0F)
-  setInitialOffsets(bipedLeftLeg, -2, 12.0F + par2, 0.0F)
-  this.bipedHead.setRotationPoint(0.0F, 0.0F + par2, 0.0F)
-  this.bipedBody.setRotationPoint(0.0F, 0.0F + par2, 0.0F)
-  this.bipedRightArm.setRotationPoint(-5.0F, 2.0F + par2, 0.0F)
-  this.bipedLeftArm.setRotationPoint(5.0F, 2.0F + par2, 0.0F)
-  this.bipedRightLeg.setRotationPoint(-1.9F, 12.0F + par2, 0.0F)
-  this.bipedLeftLeg.setRotationPoint(1.9F, 12.0F + par2, 0.0F)
+
+  def clearAndAddChildWithInitialOffsets(mr: ModelRenderer, xo: Float, yo: Float, zo: Float) {
+    mr.cubeList.clear()
+    val rp = new RenderPart(this, mr)
+    mr.addChild(rp)
+    setInitialOffsets(rp, xo, yo, zo)
+  }
+
+  clearAndAddChildWithInitialOffsets(bipedHead, 0.0F, 0.0F + par2, 0.0F)
+  clearAndAddChildWithInitialOffsets(bipedBody, 0.0F, 0.0F + par2, 0.0F)
+  clearAndAddChildWithInitialOffsets(bipedRightArm, 5, 2.0F + par2, 0.0F)
+  clearAndAddChildWithInitialOffsets(bipedLeftArm, -5, 2.0F + par2, 0.0F)
+  clearAndAddChildWithInitialOffsets(bipedRightLeg, 2, 12.0F + par2, 0.0F)
+  clearAndAddChildWithInitialOffsets(bipedLeftLeg, -2, 12.0F + par2, 0.0F)
+
+  bipedHeadwear.cubeList.clear()
+  bipedEars.cubeList.clear()
+  bipedCloak.cubeList.clear()
 
   private def logModelParts(model: WavefrontObject) {
     MuseLogger.logDebug(model.toString + ":")

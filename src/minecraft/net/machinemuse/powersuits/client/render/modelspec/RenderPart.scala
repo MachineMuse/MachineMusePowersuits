@@ -15,7 +15,7 @@ import org.lwjgl.opengl.GL11
  * Created: 4:16 AM, 29/04/13
  */
 
-class RenderPart(base: ModelBase) extends ModelRenderer(base) {
+class RenderPart(base: ModelBase, val parent: ModelRenderer) extends ModelRenderer(base) {
   override def render(par1: Float) {
     val renderSpec = ArmorModel.instance.renderSpec
     import scala.collection.JavaConverters._
@@ -23,7 +23,7 @@ class RenderPart(base: ModelBase) extends ModelRenderer(base) {
 
     for (nbt <- NBTTagAccessor.getValues(renderSpec).asScala) {
       ModelRegistry.getPart(nbt).map(part => {
-        if (part.slot == ArmorModel.instance.visible && part.morph.apply(ArmorModel.instance) == this) {
+        if (part.slot == ArmorModel.instance.visible && part.morph.apply(ArmorModel.instance) == parent) {
           withMaybeGlow(part, nbt) {
             Render.withPushedMatrix {
               Render pure {
@@ -58,10 +58,12 @@ class RenderPart(base: ModelBase) extends ModelRenderer(base) {
   }
 
   def applyTransform {
-    glTranslatef(rotationPointX, rotationPointY, rotationPointZ)
-    glRotatef(rotateAngleZ * degrad, 0.0F, 0.0F, 1.0F)
-    glRotatef(rotateAngleY * degrad, 0.0F, 1.0F, 0.0F)
-    glRotatef(rotateAngleX * degrad + 180, 1.0F, 0.0F, 0.0F)
+    //    glTranslatef(rotationPointX, rotationPointY, rotationPointZ)
+    //    glRotatef(rotateAngleZ * degrad, 0.0F, 0.0F, 1.0F)
+    //    glRotatef(rotateAngleY * degrad, 0.0F, 1.0F, 0.0F)
+    //    glRotatef(rotateAngleX * degrad, 1.0F, 0.0F, 0.0F)
+    glRotatef(180, 1.0F, 0.0F, 0.0F)
+
     glTranslated(field_82906_o, field_82907_q - 26, field_82908_p)
 
   }
