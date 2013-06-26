@@ -4,7 +4,7 @@
 
 
     <!-- Versions -->
-    <property name="build.ver" value="0.7.0"/>
+    <property name="build.ver" value="0.7.1"/>
     <property name="fullversion" value="${build.ver}-${env.BUILD_NUMBER}"/>
     <property name="scala.version" value="2.10.1"/>
 
