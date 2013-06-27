@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
-    public static String MODULE_LUX_CAPACITOR;
+    public static final String MODULE_LUX_CAPACITOR = "Lux Capacitor";
     public static final String ENERGY = "Lux Capacitor Energy Consumption";
 
     public LuxCapacitor(List<IModularItem> validItems) {
@@ -33,8 +33,12 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
 
     @Override
     public String getName() {
-        MODULE_LUX_CAPACITOR = StatCollector.translateToLocal("module.luxCapacitor.name");
         return MODULE_LUX_CAPACITOR;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.luxCapacitor.name");
     }
 
     @Override

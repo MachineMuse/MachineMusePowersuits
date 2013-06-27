@@ -16,7 +16,7 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 public class SprintAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static String MODULE_SPRINT_ASSIST;
+    public static final String MODULE_SPRINT_ASSIST = "Sprint Assist";
     public static final String SPRINT_ENERGY_CONSUMPTION = "Sprint Energy Consumption";
     public static final String SPRINT_SPEED_MULTIPLIER = "Sprint Speed Multiplier";
     public static final String SPRINT_FOOD_COMPENSATION = "Sprint Exhaustion Compensation";
@@ -38,8 +38,12 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
 
     @Override
     public String getName() {
-        MODULE_SPRINT_ASSIST = StatCollector.translateToLocal("module.sprintAssist.name");
         return MODULE_SPRINT_ASSIST;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.sprintAssist.name");
     }
 
     @Override

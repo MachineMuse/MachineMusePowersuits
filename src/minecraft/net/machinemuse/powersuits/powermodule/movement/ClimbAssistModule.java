@@ -14,7 +14,7 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 public class ClimbAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static String MODULE_CLIMB_ASSIST;
+    public static final String MODULE_CLIMB_ASSIST = "Uphill Step Assist";
 
     public ClimbAssistModule(List<IModularItem> validItems) {
         super(validItems);
@@ -28,8 +28,12 @@ public class ClimbAssistModule extends PowerModuleBase implements IToggleableMod
 
     @Override
     public String getName() {
-        MODULE_CLIMB_ASSIST = StatCollector.translateToLocal("module.climbAssist.name");
         return MODULE_CLIMB_ASSIST;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.climbAssist.name");
     }
 
     @Override

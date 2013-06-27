@@ -18,7 +18,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class InvisibilityModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
-    public static String MODULE_ACTIVE_CAMOUFLAGE;
+    public static final String MODULE_ACTIVE_CAMOUFLAGE = "Active Camouflage";
 
     public InvisibilityModule(List<IModularItem> validItems) {
         super(validItems);
@@ -34,8 +34,12 @@ public class InvisibilityModule extends PowerModuleBase implements IPlayerTickMo
 
     @Override
     public String getName() {
-        MODULE_ACTIVE_CAMOUFLAGE = StatCollector.translateToLocal("module.invisibility.name");
         return MODULE_ACTIVE_CAMOUFLAGE;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.invisibility.name");
     }
 
     @Override

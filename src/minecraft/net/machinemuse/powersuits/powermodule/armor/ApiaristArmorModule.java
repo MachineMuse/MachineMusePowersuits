@@ -15,7 +15,7 @@ import java.util.List;
  * Time: 2:03 PM
  */
 public class ApiaristArmorModule extends PowerModuleBase {
-    public static String MODULE_APIARIST_ARMOR;
+    public static final String MODULE_APIARIST_ARMOR = "Apiarist Armor";
     public static final String APIARIST_ARMOR_ENERGY_CONSUMPTION = "Apiarist Armor Energy Consumption";
 
     public ApiaristArmorModule(List<IModularItem> validItems) {
@@ -33,8 +33,12 @@ public class ApiaristArmorModule extends PowerModuleBase {
 
     @Override
     public String getName() {
-        MODULE_APIARIST_ARMOR = StatCollector.translateToLocal("module.apiaristArmor.name");
         return MODULE_APIARIST_ARMOR;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.apiaristArmor.name");
     }
 
     @Override

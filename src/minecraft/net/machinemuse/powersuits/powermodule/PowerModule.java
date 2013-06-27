@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.powermodule;
 
-import java.util.List;
-
 import net.machinemuse.api.IModularItem;
+
+import java.util.List;
 
 public class PowerModule extends PowerModuleBase {
 	protected String name;
@@ -21,6 +21,12 @@ public class PowerModule extends PowerModuleBase {
 	public String getName() {
 		return name;
 	}
+
+    @Override
+    public String getDisplayName() {
+        return "This module did not correctly label it's name.";
+    }
+
 
 	@Override
 	public String getDescription() {

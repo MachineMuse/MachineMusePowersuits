@@ -8,7 +8,7 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 public class TintModule extends PowerModuleBase {
-    public static String MODULE_TINT;
+    public static String MODULE_TINT = "Custom Colour Module";
     public static final String RED_TINT = "Red Tint";
     public static final String GREEN_TINT = "Green Tint";
     public static final String BLUE_TINT = "Blue Tint";
@@ -37,8 +37,12 @@ public class TintModule extends PowerModuleBase {
 
     @Override
     public String getName() {
-        MODULE_TINT = StatCollector.translateToLocal("module.tint.name");
         return MODULE_TINT;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.tint.name");
     }
 
     @Override

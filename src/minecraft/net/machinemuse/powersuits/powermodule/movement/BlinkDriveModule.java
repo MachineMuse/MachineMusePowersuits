@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class BlinkDriveModule extends PowerModuleBase implements IRightClickModule {
-    public static String MODULE_BLINK_DRIVE;
+    public static final String MODULE_BLINK_DRIVE = "Blink Drive";
     public static final String BLINK_DRIVE_ENERGY_CONSUMPTION = "Blink Drive Energy Consuption";
     public static final String BLINK_DRIVE_RANGE = "Blink Drive Range";
 
@@ -44,8 +44,12 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public String getName() {
-        MODULE_BLINK_DRIVE = StatCollector.translateToLocal("module.blinkDrive.name");
         return MODULE_BLINK_DRIVE;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.blinkDrive.name");
     }
 
     @Override
