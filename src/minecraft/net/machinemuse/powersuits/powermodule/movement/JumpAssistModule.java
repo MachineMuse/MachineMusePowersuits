@@ -17,7 +17,7 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 public class JumpAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static String MODULE_JUMP_ASSIST;
+    public static final String MODULE_JUMP_ASSIST = "Jump Assist";
     public static final String JUMP_ENERGY_CONSUMPTION = "Jump Energy Consumption";
     public static final String JUMP_MULTIPLIER = "Jump Boost";
     public static final String JUMP_FOOD_COMPENSATION = "Jump Exhaustion Compensation";
@@ -36,8 +36,12 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
 
     @Override
     public String getName() {
-        MODULE_JUMP_ASSIST = StatCollector.translateToLocal("module.jumpAssist.name");
         return MODULE_JUMP_ASSIST;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.jumpAssist.name");
     }
 
     @Override

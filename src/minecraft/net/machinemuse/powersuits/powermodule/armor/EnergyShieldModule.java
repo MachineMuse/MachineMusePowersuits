@@ -10,7 +10,7 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 public class EnergyShieldModule extends PowerModuleBase {
-    public static String MODULE_ENERGY_SHIELD;
+    public static final String MODULE_ENERGY_SHIELD = "Energy Shield";
 
     public EnergyShieldModule(List<IModularItem> validItems) {
         super(validItems);
@@ -31,8 +31,12 @@ public class EnergyShieldModule extends PowerModuleBase {
 
     @Override
     public String getName() {
-        MODULE_ENERGY_SHIELD = StatCollector.translateToLocal("module.energyShield.name");
         return MODULE_ENERGY_SHIELD;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.energyShield.name");
     }
 
     @Override

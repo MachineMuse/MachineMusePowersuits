@@ -18,7 +18,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class NightVisionModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
-    public static String MODULE_NIGHT_VISION;
+    public static final String MODULE_NIGHT_VISION = "Night Vision";
 
     public NightVisionModule(List<IModularItem> validItems) {
         super(validItems);
@@ -33,8 +33,12 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
 
     @Override
     public String getName() {
-        MODULE_NIGHT_VISION = StatCollector.translateToLocal("module.nightVision.name");
         return MODULE_NIGHT_VISION;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.nightVision.name");
     }
 
     @Override

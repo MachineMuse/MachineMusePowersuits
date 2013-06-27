@@ -10,7 +10,7 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 public class TransparentArmorModule extends PowerModuleBase {
-    public static String MODULE_TRANSPARENT_ARMOR;
+    public static final String MODULE_TRANSPARENT_ARMOR = "Transparent Armor";
 
     public TransparentArmorModule(List<IModularItem> validItems) {
         super(validItems);
@@ -33,8 +33,12 @@ public class TransparentArmorModule extends PowerModuleBase {
 
     @Override
     public String getName() {
-        MODULE_TRANSPARENT_ARMOR = StatCollector.translateToLocal("module.transparentArmor.name");
         return MODULE_TRANSPARENT_ARMOR;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.transparentArmor.name");
     }
 
     @Override

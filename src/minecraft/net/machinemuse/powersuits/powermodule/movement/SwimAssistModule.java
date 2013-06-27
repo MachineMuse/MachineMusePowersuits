@@ -20,7 +20,7 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 public class SwimAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static String MODULE_SWIM_BOOST;
+    public static final String MODULE_SWIM_BOOST = "Swim Boost";
     public static final String SWIM_BOOST_AMOUNT = "Underwater Movement Boost";
     public static final String SWIM_BOOST_ENERGY_CONSUMPTION = "Swim Boost Energy Consumption";
 
@@ -39,8 +39,12 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
 
     @Override
     public String getName() {
-        MODULE_SWIM_BOOST = StatCollector.translateToLocal("module.swimAssist.name");
         return MODULE_SWIM_BOOST;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.swimAssist.name");
     }
 
     @Override

@@ -19,10 +19,10 @@ import java.util.List;
 public class RailgunModule extends PowerModuleBase implements IRightClickModule {
     // private List<String> particles;
     // private Iterator<String> iterator;
-    public static String MODULE_RAILGUN;
-    public static String IMPULSE = "Railgun Total Impulse";
-    public static String ENERGY = "Railgun Energy Cost";
-    public static String HEAT = "Railgun Heat Emission";
+    public static final String MODULE_RAILGUN = "Railgun";
+    public static final String IMPULSE = "Railgun Total Impulse";
+    public static final String ENERGY = "Railgun Energy Cost";
+    public static final String HEAT = "Railgun Heat Emission";
 
     public RailgunModule(List<IModularItem> validItems) {
         super(validItems);
@@ -49,8 +49,12 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule 
 
     @Override
     public String getName() {
-        MODULE_RAILGUN = StatCollector.translateToLocal("module.railgun.name");
         return MODULE_RAILGUN;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.railgun.name");
     }
 
     @Override

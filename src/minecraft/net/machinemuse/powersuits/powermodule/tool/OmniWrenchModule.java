@@ -33,7 +33,7 @@ import java.util.List;
  * 4:39 PM 4/21/13
  */
 public class OmniWrenchModule extends PowerModuleBase implements IRightClickModule {
-    public static String MODULE_OMNI_WRENCH;
+    public static final String MODULE_OMNI_WRENCH = "Prototype OmniWrench";
     public static final int[] SIDE_OPPOSITE = {1, 0, 3, 2, 5, 4};
 
     public OmniWrenchModule(List<IModularItem> validItems) {
@@ -58,8 +58,12 @@ public class OmniWrenchModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public String getName() {
-        MODULE_OMNI_WRENCH = StatCollector.translateToLocal("module.omniwrench.name");
         return MODULE_OMNI_WRENCH;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.omniwrench.name");
     }
 
     @Override

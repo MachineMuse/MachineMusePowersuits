@@ -18,7 +18,7 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
-    public static String MODULE_COOLING_SYSTEM;
+    public static final String MODULE_COOLING_SYSTEM = "Cooling System";
     public static final String COOLING_BONUS = "Cooling Bonus";
     public static final String ENERGY = "Cooling System Energy Consumption";
 
@@ -37,8 +37,12 @@ public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickM
 
     @Override
     public String getName() {
-        MODULE_COOLING_SYSTEM = StatCollector.translateToLocal("module.coolingSystem.name");
         return MODULE_COOLING_SYSTEM;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.coolingSystem.name");
     }
 
     @Override

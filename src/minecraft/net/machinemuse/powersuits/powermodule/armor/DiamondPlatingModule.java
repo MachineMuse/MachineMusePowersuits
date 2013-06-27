@@ -10,7 +10,7 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 public class DiamondPlatingModule extends PowerModuleBase {
-    public static String MODULE_DIAMOND_PLATING;
+    public static final String MODULE_DIAMOND_PLATING = "Diamond Plating";
 
     public DiamondPlatingModule(List<IModularItem> validItems) {
         super(validItems);
@@ -31,8 +31,12 @@ public class DiamondPlatingModule extends PowerModuleBase {
 
     @Override
     public String getName() {
-        MODULE_DIAMOND_PLATING = StatCollector.translateToLocal("module.diamondPlating.name");
         return MODULE_DIAMOND_PLATING;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.diamondPlating.name");
     }
 
     @Override

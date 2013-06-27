@@ -21,7 +21,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import java.util.List;
 
 public class ShovelModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
-    public static String MODULE_SHOVEL;
+    public static final String MODULE_SHOVEL = "Shovel";
     public static final ItemStack ironShovel = new ItemStack(Item.shovelIron);
     public static final String SHOVEL_HARVEST_SPEED = "Shovel Harvest Speed";
     public static final String SHOVEL_ENERGY_CONSUMPTION = "Shovel Energy Consumption";
@@ -43,8 +43,12 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public String getName() {
-        MODULE_SHOVEL = StatCollector.translateToLocal("module.shovel.name");
         return MODULE_SHOVEL;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.shovel.name");
     }
 
     @Override

@@ -10,7 +10,7 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 public class BasicPlatingModule extends PowerModuleBase {
-    public static String MODULE_BASIC_PLATING;
+    public static final String MODULE_BASIC_PLATING = "Iron Plating";
 
     public BasicPlatingModule(List<IModularItem> validItems) {
         super(validItems);
@@ -31,8 +31,12 @@ public class BasicPlatingModule extends PowerModuleBase {
 
     @Override
     public String getName() {
-        MODULE_BASIC_PLATING = StatCollector.translateToLocal("module.basicPlating.name");
         return MODULE_BASIC_PLATING;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.basicPlating.name");
     }
 
     @Override

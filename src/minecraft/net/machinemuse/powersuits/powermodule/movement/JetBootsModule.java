@@ -20,7 +20,7 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 public class JetBootsModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static String MODULE_JETBOOTS;
+    public static final String MODULE_JETBOOTS = "Jet Boots";
     public static final String JET_ENERGY_CONSUMPTION = "Jetboots Energy Consumption";
     public static final String JET_THRUST = "Jetboots Thrust";
 
@@ -40,8 +40,12 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
 
     @Override
     public String getName() {
-        MODULE_JETBOOTS = StatCollector.translateToLocal("module.jetBoots.name");
         return MODULE_JETBOOTS;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.jetBoots.name");
     }
 
     @Override

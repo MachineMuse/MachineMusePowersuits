@@ -16,7 +16,7 @@ import java.util.List;
  * 7:21 PM 4/25/13
  */
 public class MFFSFieldTeleporterModule extends PowerModuleBase {
-    public static String MODULE_FIELD_TELEPORTER;
+    public static final String MODULE_FIELD_TELEPORTER = "MFFS Field Teleporter";
     public static final String FIELD_TELEPORTER_ENERGY_CONSUMPTION = "Field Teleporter Energy Consumption";
 
     public MFFSFieldTeleporterModule(List<IModularItem> validItems) throws IllegalAccessException, NoSuchFieldException, ClassNotFoundException {
@@ -37,8 +37,12 @@ public class MFFSFieldTeleporterModule extends PowerModuleBase {
 
     @Override
     public String getName() {
-        MODULE_FIELD_TELEPORTER = StatCollector.translateToLocal("module.fieldTeleporter.name");
         return MODULE_FIELD_TELEPORTER;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.mffsFieldTeleporter.name");
     }
 
     @Override

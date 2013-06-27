@@ -22,7 +22,7 @@ class ClickableModule(val module: IPowerModule, position: MusePoint2D) extends C
 
   override def getToolTip: List[String] = {
     val toolTipText: List[String] = new ArrayList[String]
-    toolTipText.add(getModule.getName)
+    toolTipText.add(getModule.getDisplayName)
     toolTipText.addAll(MuseStringUtils.wrapStringToLength(getModule.getDescription, 30))
     toolTipText
   }

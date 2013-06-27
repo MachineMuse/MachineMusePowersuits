@@ -13,7 +13,7 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 public class ShockAbsorberModule extends PowerModuleBase implements IToggleableModule {
-    public static String MODULE_SHOCK_ABSORBER;
+    public static final String MODULE_SHOCK_ABSORBER = "Shock Absorber";
     public static final String SHOCK_ABSORB_MULTIPLIER = "Distance Reduction";
     public static final String SHOCK_ABSORB_ENERGY_CONSUMPTION = "Impact Energy consumption";
 
@@ -31,8 +31,12 @@ public class ShockAbsorberModule extends PowerModuleBase implements IToggleableM
 
     @Override
     public String getName() {
-        MODULE_SHOCK_ABSORBER = StatCollector.translateToLocal("module.shockAbsorber.name");
         return MODULE_SHOCK_ABSORBER;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.shockAbsorber.name");
     }
 
     @Override

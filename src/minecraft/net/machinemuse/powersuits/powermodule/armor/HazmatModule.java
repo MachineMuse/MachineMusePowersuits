@@ -10,7 +10,7 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 public class HazmatModule extends PowerModuleBase {
-    public static String MODULE_HAZMAT;
+    public static final String MODULE_HAZMAT = "Radiation Shielding";
 
     public HazmatModule(List<IModularItem> validItems) {
         super(validItems);
@@ -24,8 +24,12 @@ public class HazmatModule extends PowerModuleBase {
 
     @Override
     public String getName() {
-        MODULE_HAZMAT = StatCollector.translateToLocal("module.hazmat.name");
         return MODULE_HAZMAT;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.hazmat.name");
     }
 
     @Override
