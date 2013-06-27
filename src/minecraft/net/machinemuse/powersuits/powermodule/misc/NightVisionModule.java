@@ -14,7 +14,6 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.StatCollector;
 
-import java.util.Collection;
 import java.util.List;
 
 public class NightVisionModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
@@ -50,27 +49,33 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         double totalEnergy = ElectricItemUtils.getPlayerEnergy(player);
         PotionEffect nightVision = null;
-        Collection<PotionEffect> effects = player.getActivePotionEffects();
-        for (PotionEffect effect : effects) {
-            if (effect.getAmplifier() == -337 && effect.getPotionID() == Potion.nightVision.id) {
-                nightVision = effect;
-                break;
-            }
+        if (player.isPotionActive(Potion.nightVision.id)) {
+            nightVision = player.getActivePotionEffect(Potion.nightVision);
         }
         if (5 < totalEnergy) {
             if (nightVision == null || nightVision.getDuration() < 210) {
-                player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 500, -337));
+                player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 500, -3));
                 ElectricItemUtils.drainPlayerEnergy(player, 5);
             }
         } else {
-            if (nightVision != null) {
-                player.removePotionEffect(Potion.nightVision.id);
-            }
+            onPlayerTickInactive(player, item);
         }
+
     }
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+        PotionEffect nightVision = null;
+        if (player.isPotionActive(Potion.nightVision.id)) {
+            nightVision = player.getActivePotionEffect(Potion.nightVision);
+        }
+        if (nightVision != null && nightVision.getAmplifier() == -3) {
+            if (player.worldObj.isRemote) {
+                player.removePotionEffectClient(Potion.nightVision.id);
+            } else {
+                player.removePotionEffect(Potion.nightVision.id);
+            }
+        }
     }
 
     @Override

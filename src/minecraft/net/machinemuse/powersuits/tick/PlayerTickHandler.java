@@ -17,7 +17,6 @@ import net.machinemuse.utils.MuseMathUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 import java.util.EnumSet;
@@ -58,19 +57,23 @@ public class PlayerTickHandler implements ITickHandler {
             }
         }
 
-        boolean foundItem = modularItemsEquipped.size() > 0;
-        if (foundItem) {
-            for (IPlayerTickModule module : ModuleManager.getPlayerTickModules()) {
-                for (ItemStack itemStack : modularItemsEquipped) {
-                    if (module.isValidForItem(itemStack, player)) {
-                        if (MuseItemUtils.itemHasActiveModule(itemStack, module.getName())) {
-                            module.onPlayerTickActive(player, itemStack);
-                        } else {
-                            module.onPlayerTickInactive(player, itemStack);
-                        }
+        boolean foundItemWithModule;
+        for (IPlayerTickModule module : ModuleManager.getPlayerTickModules()) {
+            foundItemWithModule = false;
+            for (ItemStack itemStack : modularItemsEquipped) {
+                if (module.isValidForItem(itemStack, player)) {
+                    if (MuseItemUtils.itemHasActiveModule(itemStack, module.getName())) {
+                        module.onPlayerTickActive(player, itemStack);
+                        foundItemWithModule = true;
                     }
                 }
             }
+            if (!foundItemWithModule) {
+                module.onPlayerTickInactive(player, null);
+            }
+        }
+        boolean foundItem = modularItemsEquipped.size() > 0;
+        if (foundItem) {
             player.fallDistance = (float) MovementManager.computeFallHeightFromVelocity(MuseMathUtils.clampDouble(player.motionY, -1000.0, 0.0));
 
             // Weight movement penalty
@@ -88,8 +91,8 @@ public class PlayerTickHandler implements ITickHandler {
                 player.extinguish();
             }
             double velsq2 = MuseMathUtils.sumsq(player.motionX, player.motionY, player.motionZ) - 0.5;
-            if(player.isAirBorne && velsq2 > 0) {
-                Musique.playerSound(player, SoundLoader.SOUND_GLIDER, (float) (velsq2/3), 1.0f, true);
+            if (player.isAirBorne && velsq2 > 0) {
+                Musique.playerSound(player, SoundLoader.SOUND_GLIDER, (float) (velsq2 / 3), 1.0f, true);
             } else {
                 Musique.stopPlayerSound(player, SoundLoader.SOUND_GLIDER);
             }
