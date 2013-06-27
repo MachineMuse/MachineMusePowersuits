@@ -17,7 +17,7 @@ import net.minecraft.util.Vec3;
 import java.util.List;
 
 public class GliderModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static String MODULE_GLIDER;
+    public static final String MODULE_GLIDER = "Glider";
 
     @Override
     public String getTextureFile() {
@@ -36,8 +36,12 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
 
     @Override
     public String getName() {
-        MODULE_GLIDER = StatCollector.translateToLocal("module.glider.name");
         return MODULE_GLIDER;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.glider.name");
     }
 
     @Override

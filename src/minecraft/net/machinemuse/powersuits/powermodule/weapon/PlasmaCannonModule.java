@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class PlasmaCannonModule extends PowerModuleBase implements IRightClickModule {
-    public static String MODULE_PLASMA_CANNON;
+    public static final String MODULE_PLASMA_CANNON = "Plasma Cannon";
     public static final String PLASMA_CANNON_ENERGY_PER_TICK = "Plasma Energy Per Tick";
     public static final String PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE = "Plasma Damage At Full Charge";
     public static final String PLASMA_CANNON_EXPLOSIVENESS = "Plasma Explosiveness";
@@ -42,8 +42,12 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
 
     @Override
     public String getName() {
-        MODULE_PLASMA_CANNON = StatCollector.translateToLocal("module.plasmaCannon.name");
         return MODULE_PLASMA_CANNON;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.plasmaCannon.name");
     }
 
     @Override

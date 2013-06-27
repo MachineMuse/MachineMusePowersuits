@@ -12,7 +12,7 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 public class EliteBatteryModule extends PowerModuleBase {
-    public static String MODULE_BATTERY_ELITE;
+    public static final String MODULE_BATTERY_ELITE = "Elite Battery";
 
     public EliteBatteryModule(List<IModularItem> validItems) {
         super(validItems);
@@ -37,8 +37,12 @@ public class EliteBatteryModule extends PowerModuleBase {
 
     @Override
     public String getName() {
-        MODULE_BATTERY_ELITE = StatCollector.translateToLocal("module.eliteBattery.name");
         return MODULE_BATTERY_ELITE;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.eliteBattery.name");
     }
 
     @Override

@@ -11,7 +11,7 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 public class HeatSinkModule extends PowerModuleBase {
-    public static String MODULE_HEAT_SINK;
+    public static final String MODULE_HEAT_SINK = "Heat Sink";
     public static final String THICKNESS = "Thickness";
 
     public HeatSinkModule(List<IModularItem> validItems) {
@@ -28,8 +28,12 @@ public class HeatSinkModule extends PowerModuleBase {
 
     @Override
     public String getName() {
-        MODULE_HEAT_SINK = StatCollector.translateToLocal("module.heatSink.name");
         return MODULE_HEAT_SINK;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.heatSink.name");
     }
 
     @Override

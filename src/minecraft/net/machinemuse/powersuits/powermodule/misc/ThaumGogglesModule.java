@@ -12,7 +12,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 public class ThaumGogglesModule extends PowerModuleBase {
-    public static String MODULE_THAUM_GOGGLES;
+    public static final String MODULE_THAUM_GOGGLES = "Aurameter";
     Class tcItems;
     ItemStack gogglesStack = null;
 
@@ -36,8 +36,12 @@ public class ThaumGogglesModule extends PowerModuleBase {
 
     @Override
     public String getName() {
-        MODULE_THAUM_GOGGLES = StatCollector.translateToLocal("module.aurameter.name");
         return MODULE_THAUM_GOGGLES;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.aurameter.name");
     }
 
     @Override

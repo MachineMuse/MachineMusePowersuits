@@ -10,7 +10,7 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 public class MeleeAssistModule extends PowerModuleBase {
-    public static String MODULE_MELEE_ASSIST;
+    public static final String MODULE_MELEE_ASSIST = "Melee Assist";
     public static final String PUNCH_ENERGY = "Punch Energy Consumption";
     public static final String PUNCH_DAMAGE = "Melee Damage";
     public static final String PUNCH_KNOCKBACK = "Melee Knockback";
@@ -39,8 +39,12 @@ public class MeleeAssistModule extends PowerModuleBase {
 
     @Override
     public String getName() {
-        MODULE_MELEE_ASSIST = StatCollector.translateToLocal("module.meleeAssist.name");
         return MODULE_MELEE_ASSIST;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.meleeAssist.name");
     }
 
     @Override

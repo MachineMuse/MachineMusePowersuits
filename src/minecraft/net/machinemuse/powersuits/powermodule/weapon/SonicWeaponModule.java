@@ -13,7 +13,7 @@ import java.util.List;
 
 public class SonicWeaponModule extends PowerModuleBase implements IRightClickModule {
 
-    public static String MODULE_SONIC_WEAPON;
+    public static final String MODULE_SONIC_WEAPON = "Sonic Weapon";
 
     public SonicWeaponModule(List<IModularItem> validItems) {
         super(validItems);
@@ -26,8 +26,12 @@ public class SonicWeaponModule extends PowerModuleBase implements IRightClickMod
 
     @Override
     public String getName() {
-        MODULE_SONIC_WEAPON = StatCollector.translateToLocal("module.sonicWeapon.name");
         return MODULE_SONIC_WEAPON;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.sonicWeapon.name");
     }
 
     @Override

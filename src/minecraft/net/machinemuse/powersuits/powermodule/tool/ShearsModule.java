@@ -33,7 +33,7 @@ import java.util.Random;
 
 public class ShearsModule extends PowerModuleBase implements IBlockBreakingModule, IRightClickModule {
     public static final ItemStack shears = new ItemStack(Item.shears);
-    public static String MODULE_SHEARS;
+    public static final String MODULE_SHEARS = "Shears";
     private static final String SHEARING_ENERGY_CONSUMPTION = "Shearing Energy Consumption";
     private static final String SHEARING_HARVEST_SPEED = "Shearing Harvest Speed";
 
@@ -55,8 +55,12 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public String getName() {
-        MODULE_SHEARS = StatCollector.translateToLocal("module.shears.name");
         return MODULE_SHEARS;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.shears.name");
     }
 
     @Override

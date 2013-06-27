@@ -2,7 +2,6 @@ package net.machinemuse.powersuits.powermodule.tool;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -39,6 +38,11 @@ public class MultimeterModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public String getName() {
+        return MODULE_MULTIMETER;
+    }
+
+    @Override
+    public String getDisplayName() {
         return MODULE_MULTIMETER;
     }
 

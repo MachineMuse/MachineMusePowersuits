@@ -22,7 +22,9 @@ class RedstoneLaser(list: java.util.List[IModularItem]) extends PowerModuleBase(
 
   def getCategory: String = MuseCommonStrings.CATEGORY_SPECIAL
 
-  def getName: String = StatCollector.translateToLocal("module.redstoneLaser.name")
+  def getName: String = "Redstone Laser"
+
+  def getDisplayName: String = StatCollector.translateToLocal("module.redstoneLaser.name")
 
   def getDescription: String = "No need for a lever if you're just giving it a pulse."
 

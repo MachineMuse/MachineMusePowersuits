@@ -8,7 +8,7 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 public class CitizenJoeStyle extends PowerModuleBase {
-    public static String CITIZEN_JOE_STYLE;
+    public static final String CITIZEN_JOE_STYLE = "Citizen Joe Style";
 
     public CitizenJoeStyle(List<IModularItem> validItems) {
         super(validItems);
@@ -26,8 +26,12 @@ public class CitizenJoeStyle extends PowerModuleBase {
 
     @Override
     public String getName() {
-        CITIZEN_JOE_STYLE = StatCollector.translateToLocal("module.citizenJoe.name");
         return CITIZEN_JOE_STYLE;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.citizenJoe.name");
     }
 
     @Override

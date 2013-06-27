@@ -11,8 +11,7 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 public class FlightControlModule extends PowerModuleBase implements IToggleableModule {
-    public static String MODULE_FLIGHT_CONTROL;
-
+    public static final String MODULE_FLIGHT_CONTROL = "Flight Control";
     public static final String FLIGHT_VERTICALITY = "Y-look ratio";
 
     public FlightControlModule(List<IModularItem> validItems) {
@@ -33,8 +32,12 @@ public class FlightControlModule extends PowerModuleBase implements IToggleableM
 
     @Override
     public String getName() {
-        MODULE_FLIGHT_CONTROL = StatCollector.translateToLocal("module.flightControl.name");
         return MODULE_FLIGHT_CONTROL;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.flightControl.name");
     }
 
     @Override

@@ -16,7 +16,7 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 public class ParachuteModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static String MODULE_PARACHUTE;
+    public static final String MODULE_PARACHUTE = "Parachute";
 
     public ParachuteModule(List<IModularItem> validItems) {
         super(validItems);
@@ -30,8 +30,12 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
 
     @Override
     public String getName() {
-        MODULE_PARACHUTE = StatCollector.translateToLocal("module.parachute.name");
         return MODULE_PARACHUTE;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.parachute.name");
     }
 
     @Override

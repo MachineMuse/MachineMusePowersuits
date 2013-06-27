@@ -14,7 +14,7 @@ import java.util.List;
  * Time: 2:02 PM
  */
 public class GrafterModule extends PowerModuleBase {
-    public static String MODULE_GRAFTER;
+    public static final String MODULE_GRAFTER = "Grafter";
     public static final String GRAFTER_ENERGY_CONSUMPTION = "Grafter Energy Consumption";
     public static final String GRAFTER_HEAT_GENERATION = "Grafter Heat Generation";
 
@@ -32,8 +32,12 @@ public class GrafterModule extends PowerModuleBase {
 
     @Override
     public String getName() {
-        MODULE_GRAFTER = StatCollector.translateToLocal("module.grafter.name");
         return MODULE_GRAFTER;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.grafter.name");
     }
 
     @Override

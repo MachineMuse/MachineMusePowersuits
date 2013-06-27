@@ -19,7 +19,7 @@ import java.util.List;
 
 public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
     public static final String WATERBREATHING_ENERGY_CONSUMPTION = "Jolt Energy";
-    public static String MODULE_WATER_ELECTROLYZER;
+    public static final String MODULE_WATER_ELECTROLYZER = "Water Electrolyzer";
 
     public WaterElectrolyzerModule(List<IModularItem> validItems) {
         super(validItems);
@@ -34,8 +34,12 @@ public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerT
 
     @Override
     public String getName() {
-        MODULE_WATER_ELECTROLYZER = StatCollector.translateToLocal("module.waterElectrolyzer.name");
         return MODULE_WATER_ELECTROLYZER;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return StatCollector.translateToLocal("module.waterElectrolyzer.name");
     }
 
     @Override
