@@ -64,8 +64,6 @@ public class Config {
     public static final String CITIZENJOE_ARMORPANTS_PATH = TEXTURE_PREFIX + "models/joearmorpants.png";
     public static final String GLASS_TEXTURE = TEXTURE_PREFIX + "gui/glass.png";
 
-    //public static final String LANG_PATH = "/net/machinemuse/general/lang/";
-
     public static String[] languages = {"en_US"};
 
     public static File configFolder;
