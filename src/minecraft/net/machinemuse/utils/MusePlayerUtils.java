@@ -379,4 +379,8 @@ public class MusePlayerUtils {
         }
         return movementfactorfieldinstance;
     }
+
+    public static double computePlayerVelocity(EntityPlayer entityPlayer) {
+        return MuseMathUtils.pythag(entityPlayer.motionX, entityPlayer.motionY, entityPlayer.motionZ);
+    }
 }

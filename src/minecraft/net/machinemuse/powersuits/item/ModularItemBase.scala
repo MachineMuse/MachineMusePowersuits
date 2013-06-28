@@ -17,8 +17,7 @@ import net.machinemuse.api.{ModuleManager, IModularItem}
  */
 trait ModularItemBase extends Item with IModularItem with MuseElectricItem {
   @SideOnly(Side.CLIENT) override def getColorFromItemStack(stack: ItemStack, par2: Int): Int = {
-    val c: Colour = getColorFromItemStack(stack)
-    return c.getInt
+    getColorFromItemStack(stack).getInt
   }
 
   def getGlowFromItemStack(stack: ItemStack): Colour = {
@@ -29,7 +28,7 @@ trait ModularItemBase extends Item with IModularItem with MuseElectricItem {
     val computedgreen: Double = ModuleManager.computeModularProperty(stack, CosmeticGlowModule.GREEN_GLOW)
     val computedblue: Double = ModuleManager.computeModularProperty(stack, CosmeticGlowModule.BLUE_GLOW)
     val colour: Colour = new Colour(clampDouble(computedred, 0, 1), clampDouble(computedgreen, 0, 1), clampDouble(computedblue, 0, 1), 0.8)
-    return colour
+    colour
   }
 
   def getColorFromItemStack(stack: ItemStack): Colour = {
@@ -40,12 +39,10 @@ trait ModularItemBase extends Item with IModularItem with MuseElectricItem {
     val computedgreen: Double = ModuleManager.computeModularProperty(stack, TintModule.GREEN_TINT)
     val computedblue: Double = ModuleManager.computeModularProperty(stack, TintModule.BLUE_TINT)
     val colour: Colour = new Colour(clampDouble(computedred, 0, 1), clampDouble(computedgreen, 0, 1), clampDouble(computedblue, 0, 1), 1.0F)
-    return colour
+    colour
   }
 
-  @SideOnly(Side.CLIENT) override def requiresMultipleRenderPasses: Boolean = {
-    return false
-  }
+  @SideOnly(Side.CLIENT) override def requiresMultipleRenderPasses: Boolean = false
 
   /**
    * Adds information to the item's tooltip when 'getting' it.
@@ -63,16 +60,14 @@ trait ModularItemBase extends Item with IModularItem with MuseElectricItem {
     MuseCommonStrings.addInformation(stack, player, currentTipList, advancedToolTips)
   }
 
-  def formatInfo(string: String, value: Double): String = {
-    return string + '\t' + MuseStringUtils.formatNumberShort(value)
-  }
+  def formatInfo(string: String, value: Double): String = string + '\t' + MuseStringUtils.formatNumberShort(value)
 
   def getLongInfo(player: EntityPlayer, stack: ItemStack): java.util.List[String] = {
     val info = new java.util.ArrayList[String]
-    info.add("Detailed Summary")
-    info.add(formatInfo("Armor", getArmorDouble(player, stack)))
-    info.add(formatInfo("Energy Storage", getCurrentEnergy(stack)) + 'J')
-    info.add(formatInfo("Weight", MuseCommonStrings.getTotalWeight(stack)) + 'g')
+    info add "Detailed Summary"
+    info add formatInfo("Armor", getArmorDouble(player, stack))
+    info add formatInfo("Energy Storage", getCurrentEnergy(stack)) + 'J'
+    info add formatInfo("Weight", MuseCommonStrings.getTotalWeight(stack)) + 'g'
     info
   }
 

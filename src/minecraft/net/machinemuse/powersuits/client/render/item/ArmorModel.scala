@@ -12,10 +12,10 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.src.ModelPlayer
 
 object ArmorModel {
-  val instance = new ArmorModel(0.0F, 0.0f, 64, 32)
+  val instance = new ArmorModel(0.0F)
 }
 
-class ArmorModel(par1: Float, par2: Float, par3: Int, par4: Int) extends ModelPlayer(0.0F) {
+class ArmorModel(height: Float) extends ModelPlayer(0.0F) {
   var renderSpec: NBTTagCompound = null
   var visible: Int = 0
 
@@ -26,12 +26,12 @@ class ArmorModel(par1: Float, par2: Float, par3: Int, par4: Int) extends ModelPl
     setInitialOffsets(rp, xo, yo, zo)
   }
 
-  clearAndAddChildWithInitialOffsets(bipedHead, 0.0F, 0.0F + par2, 0.0F)
-  clearAndAddChildWithInitialOffsets(bipedBody, 0.0F, 0.0F + par2, 0.0F)
-  clearAndAddChildWithInitialOffsets(bipedRightArm, 5, 2.0F + par2, 0.0F)
-  clearAndAddChildWithInitialOffsets(bipedLeftArm, -5, 2.0F + par2, 0.0F)
-  clearAndAddChildWithInitialOffsets(bipedRightLeg, 2, 12.0F + par2, 0.0F)
-  clearAndAddChildWithInitialOffsets(bipedLeftLeg, -2, 12.0F + par2, 0.0F)
+  clearAndAddChildWithInitialOffsets(bipedHead, 0.0F, 0.0F + height, 0.0F)
+  clearAndAddChildWithInitialOffsets(bipedBody, 0.0F, 0.0F + height, 0.0F)
+  clearAndAddChildWithInitialOffsets(bipedRightArm, 5, 2.0F + height, 0.0F)
+  clearAndAddChildWithInitialOffsets(bipedLeftArm, -5, 2.0F + height, 0.0F)
+  clearAndAddChildWithInitialOffsets(bipedRightLeg, 2, 12.0F + height, 0.0F)
+  clearAndAddChildWithInitialOffsets(bipedLeftLeg, -2, 12.0F + height, 0.0F)
 
   bipedHeadwear.cubeList.clear()
   bipedEars.cubeList.clear()
