@@ -46,6 +46,7 @@ public class Config {
     public static final String RESOURCE_PREFIX = "/mods/mmmPowersuits/";
     public static final String TEXTURE_PREFIX = RESOURCE_PREFIX + "textures/";
     public static final String SOUND_PREFIX = RESOURCE_PREFIX + "sound/";
+    public static final String LANG_PREFIX = RESOURCE_PREFIX + "lang/";
     // public static final String SEBK_ICON_PATH =
     // "/mods/mmmPowersuits//machinemuse/sebkicons.png";
     public static final String SEBK_ARMOR_PATH = TEXTURE_PREFIX + "models/sebkarmor.png";
@@ -62,8 +63,6 @@ public class Config {
     public static final String CITIZENJOE_ARMOR_PATH = TEXTURE_PREFIX + "models/joearmor.png";
     public static final String CITIZENJOE_ARMORPANTS_PATH = TEXTURE_PREFIX + "models/joearmorpants.png";
     public static final String GLASS_TEXTURE = TEXTURE_PREFIX + "gui/glass.png";
-
-    public static final String LANG_PATH = "/net/machinemuse/general/lang/";
 
     public static String[] languages = {"en_US"};
 
@@ -319,12 +318,12 @@ public class Config {
     public static boolean canUseShaders = false;
 
     public static void setConfigFolderBase(File folder) {
-        configFolder = new File(folder.getAbsolutePath() + "/net/machinemuse/general/");
+        configFolder = new File(folder.getAbsolutePath() + "/machinemuse");
     }
 
     public static void extractLang(String[] langauges) {
         for (String lang : langauges) {
-            InputStream inputStream = ModularPowersuits.INSTANCE.getClass().getResourceAsStream(LANG_PATH + lang + ".lang");
+            InputStream inputStream = ModularPowersuits.INSTANCE.getClass().getResourceAsStream(LANG_PREFIX + lang + ".lang");
             try {
                 File file = new File(configFolder.getAbsolutePath() + "/lang/" + lang + ".lang");
                 if (!file.exists()) {

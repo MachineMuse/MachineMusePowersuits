@@ -55,7 +55,7 @@ public class KeybindManager {
     public static void writeOutKeybinds() {
         BufferedWriter writer = null;
         try {
-            File file = new File(Loader.instance().getConfigDir(), "powersuits-keybinds.cfg");
+            File file = new File(Loader.instance().getConfigDir() + "/machinemuse/", "powersuits-keybinds.cfg");
             if (!file.exists()) {
                 file.createNewFile();
             }
@@ -80,7 +80,7 @@ public class KeybindManager {
 
     public static void readInKeybinds() {
         try {
-            File file = new File(Loader.instance().getConfigDir(), "powersuits-keybinds.cfg");
+            File file = new File(Loader.instance().getConfigDir() + "/machinemuse/", "powersuits-keybinds.cfg");
             if (!file.exists()) {
                 MuseLogger.logError("No powersuits keybind file found.");
                 return;
