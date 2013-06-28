@@ -13,6 +13,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
+import net.machinemuse.general.MuseLogger;
 import net.machinemuse.general.recipe.RecipeManager;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
@@ -25,6 +26,10 @@ import net.machinemuse.powersuits.item.*;
 import net.machinemuse.powersuits.network.MusePacketHandler;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * Main mod class. This is what Forge loads to get the mod up and running, both
@@ -93,7 +98,19 @@ public class ModularPowersuits {
     @PreInit
     public void preInit(FMLPreInitializationEvent event) {
         INSTANCE = this;
-        Config.init(new Configuration(event.getSuggestedConfigurationFile()));
+        Path oldPath = event.getSuggestedConfigurationFile().toPath();
+        File newConfig = new File(event.getModConfigurationDirectory() + "/machinemuse/mmmPowersuits.cfg");
+        if (Files.exists(oldPath)) {
+            try {
+                Path newPath = newConfig.toPath();
+                Files.move(oldPath, newPath);
+                Files.deleteIfExists(oldPath);
+            } catch (Exception e) {
+                e.printStackTrace();
+                MuseLogger.logError("Error initializing MPS config.");
+            }
+        }
+        Config.init(new Configuration(newConfig));
         Config.setConfigFolderBase(event.getModConfigurationDirectory());
         Config.extractLang(Config.languages);
 
