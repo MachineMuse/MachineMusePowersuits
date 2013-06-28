@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.client.render.item
 
 import net.machinemuse.general.MuseLogger
 import net.machinemuse.powersuits.client.render.modelspec._
-import net.minecraft.client.model.ModelRenderer
+import net.minecraft.client.model.{ModelBiped, ModelRenderer}
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLiving
 import net.minecraft.entity.player.EntityPlayer
@@ -12,10 +12,18 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.src.ModelPlayer
 
 object ArmorModel {
-  val instance = new ArmorModel(0.0F)
+  val instance = try {
+    new SMovingArmorModel
+  } catch {
+    case _:Throwable => new VanillaArmorModel
+  }
 }
 
-class ArmorModel(height: Float) extends ModelPlayer(0.0F) {
+class SMovingArmorModel extends ModelPlayer(0) with ArmorModel
+
+class VanillaArmorModel extends ModelBiped(0) with ArmorModel
+
+trait ArmorModel extends ModelBiped {
   var renderSpec: NBTTagCompound = null
   var visible: Int = 0
 
@@ -26,12 +34,12 @@ class ArmorModel(height: Float) extends ModelPlayer(0.0F) {
     setInitialOffsets(rp, xo, yo, zo)
   }
 
-  clearAndAddChildWithInitialOffsets(bipedHead, 0.0F, 0.0F + height, 0.0F)
-  clearAndAddChildWithInitialOffsets(bipedBody, 0.0F, 0.0F + height, 0.0F)
-  clearAndAddChildWithInitialOffsets(bipedRightArm, 5, 2.0F + height, 0.0F)
-  clearAndAddChildWithInitialOffsets(bipedLeftArm, -5, 2.0F + height, 0.0F)
-  clearAndAddChildWithInitialOffsets(bipedRightLeg, 2, 12.0F + height, 0.0F)
-  clearAndAddChildWithInitialOffsets(bipedLeftLeg, -2, 12.0F + height, 0.0F)
+  clearAndAddChildWithInitialOffsets(bipedHead, 0.0F, 0.0F, 0.0F)
+  clearAndAddChildWithInitialOffsets(bipedBody, 0.0F, 0.0F, 0.0F)
+  clearAndAddChildWithInitialOffsets(bipedRightArm, 5, 2.0F, 0.0F)
+  clearAndAddChildWithInitialOffsets(bipedLeftArm, -5, 2.0F, 0.0F)
+  clearAndAddChildWithInitialOffsets(bipedRightLeg, 2, 12.0F, 0.0F)
+  clearAndAddChildWithInitialOffsets(bipedLeftLeg, -2, 12.0F, 0.0F)
 
   bipedHeadwear.cubeList.clear()
   bipedEars.cubeList.clear()
