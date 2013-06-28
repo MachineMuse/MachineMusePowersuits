@@ -28,8 +28,6 @@ import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 /**
  * Main mod class. This is what Forge loads to get the mod up and running, both
@@ -98,18 +96,15 @@ public class ModularPowersuits {
     @PreInit
     public void preInit(FMLPreInitializationEvent event) {
         INSTANCE = this;
-        Path oldPath = event.getSuggestedConfigurationFile().toPath();
+        File oldConfig = event.getSuggestedConfigurationFile();
         File newConfig = new File(event.getModConfigurationDirectory() + "/machinemuse/mmmPowersuits.cfg");
-        if (Files.exists(oldPath)) {
-            try {
-                Path newPath = newConfig.toPath();
-                Files.move(oldPath, newPath);
-                Files.deleteIfExists(oldPath);
-            } catch (Exception e) {
-                e.printStackTrace();
-                MuseLogger.logError("Error initializing MPS config.");
-            }
+        try {
+            Config.copyFile(oldConfig, newConfig);
+        } catch (Exception e) {
+            e.printStackTrace();
+            MuseLogger.logError("Error initializing MPS config.");
         }
+        oldConfig.delete();
         Config.init(new Configuration(newConfig));
         Config.setConfigFolderBase(event.getModConfigurationDirectory());
         Config.extractLang(Config.languages);

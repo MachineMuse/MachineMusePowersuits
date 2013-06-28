@@ -364,4 +364,26 @@ public class Config {
             }
         }
     }
+
+    public static void copyFile(File oldFile, File newFile) {
+        try {
+            InputStream input = new FileInputStream(oldFile);
+            OutputStream output = new FileOutputStream(newFile);
+
+            byte[] buffer = new byte[1024];
+            int length;
+
+            while ((length = input.read(buffer)) > 0) {
+                output.write(buffer, 0, length);
+            }
+
+            input.close();
+            output.close();
+
+            MuseLogger.logDebug("Successfully copied MPS config to new location.");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
