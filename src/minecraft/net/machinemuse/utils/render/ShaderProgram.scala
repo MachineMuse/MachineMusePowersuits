@@ -66,7 +66,7 @@ class ShaderProgram(vertSource: String, fragSource: String) {
     val resource: URL = CommonProxy.getResource(filename)
     val shader = glCreateShaderObjectARB(shaderType)
     val shaderProg = Source.fromURL(resource).mkString
-    MuseLogger.logDebug("Created shader object with ID " + shader + " and text: \n" + shaderProg)
+//    MuseLogger.logDebug("Created shader object with ID " + shader + " and text: \n" + shaderProg)
     glShaderSourceARB(shader, shaderProg)
     glCompileShaderARB(shader)
     if (ARBShaderObjects.glGetObjectParameteriARB(shader, GL_OBJECT_COMPILE_STATUS_ARB) == GL11.GL_FALSE) throw new RuntimeException("Error creating shader: " + getLogInfo(shader))

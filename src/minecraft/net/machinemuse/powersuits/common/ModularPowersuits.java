@@ -100,11 +100,11 @@ public class ModularPowersuits {
         File newConfig = new File(event.getModConfigurationDirectory() + "/machinemuse/mmmPowersuits.cfg");
         try {
             Config.copyFile(oldConfig, newConfig);
+            oldConfig.delete();
         } catch (Exception e) {
-            e.printStackTrace();
-            MuseLogger.logError("Error initializing MPS config.");
+//            e.printStackTrace();
+//            MuseLogger.logError("Error initializing MPS config.");
         }
-        oldConfig.delete();
         Config.init(new Configuration(newConfig));
         Config.setConfigFolderBase(event.getModConfigurationDirectory());
         Config.extractLang(Config.languages);
