@@ -3,10 +3,15 @@ package net.machinemuse.powersuits.event;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.utils.MusePlayerUtils;
+import net.machinemuse.powersuits.powermodule.movement.FlightControlModule;
+import net.machinemuse.powersuits.powermodule.movement.GliderModule;
+import net.machinemuse.powersuits.powermodule.movement.JetBootsModule;
+import net.machinemuse.powersuits.powermodule.movement.JetPackModule;
+import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.GlowBuffer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -30,16 +35,25 @@ public class RenderEventHandler {
     }
 
     static boolean ownFly = false;
+
     @ForgeSubscribe
     public void onPreRenderPlayer(RenderPlayerEvent.Pre event) {
-        if(!event.entityPlayer.capabilities.isFlying && !event.entityPlayer.onGround && MusePlayerUtils.computePlayerVelocity(event.entityPlayer) > 0.2) {
+        if (!event.entityPlayer.capabilities.isFlying && !event.entityPlayer.onGround && playerHasFlightOn(event.entityPlayer)) {
             event.entityPlayer.capabilities.isFlying = true;
             ownFly = true;
         }
     }
+
+    private boolean playerHasFlightOn(EntityPlayer player) {
+        return MuseItemUtils.itemHasActiveModule(player.getCurrentArmor(2), JetPackModule.MODULE_JETPACK)
+                || MuseItemUtils.itemHasActiveModule(player.getCurrentArmor(2), GliderModule.MODULE_GLIDER)
+                || MuseItemUtils.itemHasActiveModule(player.getCurrentArmor(0), JetBootsModule.MODULE_JETBOOTS)
+                || MuseItemUtils.itemHasActiveModule(player.getCurrentArmor(3), FlightControlModule.MODULE_FLIGHT_CONTROL);
+    }
+
     @ForgeSubscribe
     public void onPostRenderPlayer(RenderPlayerEvent.Post event) {
-        if(ownFly) {
+        if (ownFly) {
             ownFly = false;
             event.entityPlayer.capabilities.isFlying = false;
         }
