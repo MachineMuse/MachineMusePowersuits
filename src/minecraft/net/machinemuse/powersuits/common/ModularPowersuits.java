@@ -13,7 +13,6 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
-import net.machinemuse.general.MuseLogger;
 import net.machinemuse.general.recipe.RecipeManager;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
@@ -24,6 +23,7 @@ import net.machinemuse.powersuits.event.HarvestEventHandler;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.*;
 import net.machinemuse.powersuits.network.MusePacketHandler;
+import net.machinemuse.utils.MuseFileUtils;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -98,9 +98,9 @@ public class ModularPowersuits {
         INSTANCE = this;
         File oldConfig = event.getSuggestedConfigurationFile();
         File newConfig = new File(event.getModConfigurationDirectory() + "/machinemuse/powersuits.cfg");
-        if(oldConfig.exists()) {
+        if (oldConfig.exists()) {
             try {
-                Localization.copyFile(oldConfig, newConfig);
+                MuseFileUtils.copyFile(oldConfig, newConfig);
                 oldConfig.delete();
             } catch (Throwable e) {
             }
