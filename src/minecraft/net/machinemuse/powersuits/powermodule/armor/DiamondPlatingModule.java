@@ -30,12 +30,12 @@ public class DiamondPlatingModule extends PowerModuleBase {
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_DIAMOND_PLATING;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.diamondPlating.name");
     }
 

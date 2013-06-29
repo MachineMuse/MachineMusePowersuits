@@ -27,12 +27,12 @@ public class ClimbAssistModule extends PowerModuleBase implements IToggleableMod
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_CLIMB_ASSIST;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.climbAssist.name");
     }
 

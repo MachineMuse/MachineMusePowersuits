@@ -36,12 +36,12 @@ public class BasicBatteryModule extends PowerModuleBase {
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_BATTERY_BASIC;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.basicBattery.name");
     }
 

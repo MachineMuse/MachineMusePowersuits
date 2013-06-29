@@ -42,12 +42,12 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_PICKAXE;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.pickaxe.name");
     }
 

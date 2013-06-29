@@ -41,12 +41,12 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_PLASMA_CANNON;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.plasmaCannon.name");
     }
 

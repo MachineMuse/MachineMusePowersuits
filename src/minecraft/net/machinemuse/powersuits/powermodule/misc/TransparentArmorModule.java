@@ -32,12 +32,12 @@ public class TransparentArmorModule extends PowerModuleBase {
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_TRANSPARENT_ARMOR;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.transparentArmor.name");
     }
 

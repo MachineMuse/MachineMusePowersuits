@@ -36,12 +36,12 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_DIAMOND_PICK_UPGRADE;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.diamondPickUpgrade.name");
     }
 

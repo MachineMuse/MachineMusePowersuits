@@ -64,7 +64,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
             IPowerModule module = targetModule.getSelectedModule().getModule();
             List<ItemStack> itemsToCheck = module.getInstallCost();
             double yoffset;
-            if (!MuseItemUtils.itemHasModule(stack, module.getName())) {
+            if (!MuseItemUtils.itemHasModule(stack, module.getDataName())) {
                 yoffset = border.top() + 4;
             } else {
                 yoffset = border.bottom() - 20;
@@ -101,7 +101,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
         IPowerModule module = targetModule.getSelectedModule().getModule();
         List<ItemStack> itemsToDraw = module.getInstallCost();
         double yoffset;
-        if (!MuseItemUtils.itemHasModule(stack, module.getName())) {
+        if (!MuseItemUtils.itemHasModule(stack, module.getDataName())) {
             yoffset = border.top() + 4;
         } else {
             yoffset = border.bottom() - 20;
@@ -120,7 +120,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
     private void drawButtons() {
         ItemStack stack = targetItem.getSelectedItem().getItem();
         IPowerModule module = targetModule.getSelectedModule().getModule();
-        if (!MuseItemUtils.itemHasModule(stack, module.getName())) {
+        if (!MuseItemUtils.itemHasModule(stack, module.getDataName())) {
 
             installButton.setEnabled(player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(
                     module.getInstallCost(), player.inventory));
@@ -138,7 +138,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
             ItemStack stack = selItem.getItem();
             IPowerModule module = selModule.getModule();
 
-            if (!MuseItemUtils.itemHasModule(stack, module.getName())) {
+            if (!MuseItemUtils.itemHasModule(stack, module.getDataName())) {
                 if (installButton.hitBox(x, y)) {
                     doInstall();
                 }
@@ -155,7 +155,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
         MusePacket newpacket = new MusePacketSalvageModuleRequest(
                 (Player) player,
                 targetItem.getSelectedItem().inventorySlot,
-                module.getName());
+                module.getDataName());
         player.sendQueue.addToSendQueue(newpacket.getPacket250());
     }
 
@@ -172,7 +172,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
             MusePacket newpacket = new MusePacketInstallModuleRequest(
                     (Player) player,
                     targetItem.getSelectedItem().inventorySlot,
-                    module.getName());
+                    module.getDataName());
             player.sendQueue.addToSendQueue(newpacket.getPacket250());
         }
     }

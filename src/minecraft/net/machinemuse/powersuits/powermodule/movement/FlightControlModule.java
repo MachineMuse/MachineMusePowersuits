@@ -31,12 +31,12 @@ public class FlightControlModule extends PowerModuleBase implements IToggleableM
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_FLIGHT_CONTROL;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.flightControl.name");
     }
 

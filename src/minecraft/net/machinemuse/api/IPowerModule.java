@@ -22,9 +22,9 @@ public interface IPowerModule {
 
 	public abstract boolean isValidForItem(ItemStack stack, EntityPlayer player);
 
-	public abstract String getName();
+	public abstract String getDataName();
 
-    public abstract String getDisplayName();
+    public abstract String getLocalizedName();
 
 	public abstract double applyPropertyModifiers(NBTTagCompound itemTag, String propertyName, double propertyValue);
 

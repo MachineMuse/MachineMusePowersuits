@@ -36,12 +36,12 @@ public class EliteBatteryModule extends PowerModuleBase {
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_BATTERY_ELITE;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.eliteBattery.name");
     }
 

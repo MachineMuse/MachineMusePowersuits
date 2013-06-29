@@ -36,12 +36,12 @@ public class AdvancedBatteryModule extends PowerModuleBase {
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_BATTERY_ADVANCED;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.advancedBattery.name");
     }
 

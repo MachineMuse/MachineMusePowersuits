@@ -64,8 +64,6 @@ public class Config {
     public static final String CITIZENJOE_ARMORPANTS_PATH = TEXTURE_PREFIX + "models/joearmorpants.png";
     public static final String GLASS_TEXTURE = TEXTURE_PREFIX + "gui/glass.png";
 
-    public static String[] languages = {"en_US"};
-
     public static File configFolder;
 
     public static int helmID;
@@ -321,69 +319,4 @@ public class Config {
         configFolder = new File(folder.getAbsolutePath() + "/machinemuse");
     }
 
-    public static void extractLang(String[] langauges) {
-        for (String lang : langauges) {
-            InputStream inputStream = ModularPowersuits.INSTANCE.getClass().getResourceAsStream(LANG_PREFIX + lang + ".lang");
-            try {
-                File file = new File(configFolder.getAbsolutePath() + "/lang/" + lang + ".lang");
-                if (!file.exists()) {
-                    file.getParentFile().mkdirs();
-                }
-                OutputStream outputStream = new FileOutputStream(file);
-                byte[] buffer = new byte[1024];
-                int read;
-                while ((read = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, read);
-                }
-                inputStream.close();
-                outputStream.flush();
-                outputStream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-                MuseLogger.logError("Error initializing MPS localizations!");
-            }
-        }
-    }
-
-    public static void loadLang() {
-        File file = new File(configFolder.getAbsolutePath() + "/lang/");
-        for (File langFile : file.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.endsWith(".lang");
-            }
-        })) {
-            try {
-                Properties langPack = new Properties();
-                langPack.load(new FileInputStream(langFile));
-                String lang = langFile.getName().replace(".lang", "");
-                LanguageRegistry.instance().addStringLocalization(langPack, lang);
-            } catch (Exception e) {
-                e.printStackTrace();
-                MuseLogger.logError("Error reading MPS localizations!");
-            }
-        }
-    }
-
-    public static void copyFile(File oldFile, File newFile) {
-        try {
-            InputStream input = new FileInputStream(oldFile);
-            OutputStream output = new FileOutputStream(newFile);
-
-            byte[] buffer = new byte[1024];
-            int length;
-
-            while ((length = input.read(buffer)) > 0) {
-                output.write(buffer, 0, length);
-            }
-
-            input.close();
-            output.close();
-
-            MuseLogger.logDebug("Successfully copied MPS config to new location.");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

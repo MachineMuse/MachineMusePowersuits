@@ -33,12 +33,12 @@ public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerT
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_WATER_ELECTROLYZER;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.waterElectrolyzer.name");
     }
 

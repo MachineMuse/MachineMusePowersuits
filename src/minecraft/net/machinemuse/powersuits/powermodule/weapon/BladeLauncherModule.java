@@ -35,12 +35,12 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_BLADE_LAUNCHER;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.bladeLauncher.name");
     }
 

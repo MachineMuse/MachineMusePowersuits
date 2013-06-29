@@ -25,12 +25,12 @@ public class CitizenJoeStyle extends PowerModuleBase {
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return CITIZEN_JOE_STYLE;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.citizenJoe.name");
     }
 

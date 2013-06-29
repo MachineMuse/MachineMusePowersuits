@@ -99,8 +99,8 @@ public abstract class MuseCommonStrings {
         NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
         List<String> modules = new LinkedList();
         for (IPowerModule module : MuseItemUtils.getValidModulesForItem(player, stack)) {
-            if (MuseItemUtils.tagHasModule(itemTag, module.getName())) {
-                modules.add(module.getName());
+            if (MuseItemUtils.tagHasModule(itemTag, module.getDataName())) {
+                modules.add(module.getDataName());
             }
         }
         return modules;

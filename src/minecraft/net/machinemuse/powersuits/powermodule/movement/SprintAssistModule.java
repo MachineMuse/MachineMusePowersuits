@@ -37,12 +37,12 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_SPRINT_ASSIST;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.sprintAssist.name");
     }
 

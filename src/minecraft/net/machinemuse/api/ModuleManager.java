@@ -36,7 +36,7 @@ public class ModuleManager {
 
     public static void addModule(IPowerModule module) {
 
-        moduleMap.put(module.getName(), module);
+        moduleMap.put(module.getDataName(), module);
         moduleList.add(module);
         if (module instanceof IPlayerTickModule) {
             playerTickModules.add((IPlayerTickModule) module);
@@ -56,7 +56,7 @@ public class ModuleManager {
         double propertyValue = 0;
         NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
         for (IPowerModule module : moduleList) {
-            if (MuseItemUtils.itemHasActiveModule(stack, module.getName())) {
+            if (MuseItemUtils.itemHasActiveModule(stack, module.getDataName())) {
                 propertyValue = module.applyPropertyModifiers(itemTag, propertyName, propertyValue);
             }
         }

@@ -46,16 +46,12 @@ with OmniWrench {
    * Returns the strength of the stack against a given block. 1.0F base,
    * (Quality+1)*2 if correct blocktype, 1.5F if sword
    */
-  override def getStrVsBlock(stack: ItemStack, block: Block): Float = {
-    return getStrVsBlock(stack, block, 0)
-  }
+  override def getStrVsBlock(stack: ItemStack, block: Block): Float = getStrVsBlock(stack, block, 0)
 
   /**
    * FORGE: Overridden to allow custom tool effectiveness
    */
-  override def getStrVsBlock(stack: ItemStack, block: Block, meta: Int): Float = {
-    return 1
-  }
+  override def getStrVsBlock(stack: ItemStack, block: Block, meta: Int): Float = 1
 
   @SideOnly(Side.CLIENT) override def registerIcons(iconRegister: IconRegister) {
     itemIcon = iconRegister.registerIcon(iconpath)
@@ -96,7 +92,7 @@ with OmniWrench {
     if (entity.isInstanceOf[EntityPlayer]) {
       import scala.collection.JavaConversions._
       for (module <- ModuleManager.getBlockBreakingModules) {
-        if (MuseItemUtils.itemHasActiveModule(stack, module.getName)) {
+        if (MuseItemUtils.itemHasActiveModule(stack, module.getDataName)) {
           if (module.onBlockDestroyed(stack, world, blockID, x, y, z, entity.asInstanceOf[EntityPlayer])) {
             return true
           }
@@ -159,7 +155,7 @@ with OmniWrench {
   override def onItemRightClick(itemStack: ItemStack, world: World, player: EntityPlayer): ItemStack = {
     import scala.collection.JavaConversions._
     for (module <- ModuleManager.getRightClickModules) {
-      if (module.isValidForItem(itemStack, player) && MuseItemUtils.itemHasActiveModule(itemStack, module.getName)) {
+      if (module.isValidForItem(itemStack, player) && MuseItemUtils.itemHasActiveModule(itemStack, module.getDataName)) {
         module.onRightClick(player, world, itemStack)
       }
     }
@@ -223,7 +219,7 @@ with OmniWrench {
     }
     import scala.collection.JavaConversions._
     for (module <- ModuleManager.getBlockBreakingModules) {
-      if (MuseItemUtils.itemHasActiveModule(stack, module.getName) && module.canHarvestBlock(stack, block, meta, player)) {
+      if (MuseItemUtils.itemHasActiveModule(stack, module.getDataName) && module.canHarvestBlock(stack, block, meta, player)) {
         return true
       }
     }

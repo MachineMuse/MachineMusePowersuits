@@ -31,7 +31,7 @@ public class HarvestEventHandler {
         ItemStack stack = player.getCurrentEquippedItem();
         if (stack != null && stack.getItem() instanceof IModularItem) {
             for (IBlockBreakingModule module : ModuleManager.getBlockBreakingModules()) {
-                if (MuseItemUtils.itemHasActiveModule(stack, module.getName()) && module.canHarvestBlock(stack, block, meta, player)) {
+                if (MuseItemUtils.itemHasActiveModule(stack, module.getDataName()) && module.canHarvestBlock(stack, block, meta, player)) {
                     if (event.newSpeed == 0) {
                         event.newSpeed = 1;
                     }

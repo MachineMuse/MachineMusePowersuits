@@ -32,12 +32,12 @@ public class InvisibilityModule extends PowerModuleBase implements IPlayerTickMo
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_ACTIVE_CAMOUFLAGE;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.invisibility.name");
     }
 

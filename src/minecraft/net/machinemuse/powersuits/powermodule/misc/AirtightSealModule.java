@@ -23,12 +23,12 @@ public class AirtightSealModule extends PowerModuleBase {
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return AIRTIGHT_SEAL_MODULE;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.airtightSeal.name");
     }
 

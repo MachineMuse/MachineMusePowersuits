@@ -75,7 +75,7 @@ public class MuseItemUtils {
         if (stack.getItem() instanceof IModularItem) {
             for (IPowerModule module : ModuleManager.getAllModules()) {
                 if (module.isValidForItem(stack, player) && module instanceof IRightClickModule) {
-                    modes.add(module.getName());
+                    modes.add(module.getDataName());
                 }
             }
         }
@@ -86,8 +86,8 @@ public class MuseItemUtils {
         List<String> modes = new ArrayList();
         if (stack.getItem() instanceof IModularItem) {
             for (IPowerModule module : ModuleManager.getAllModules()) {
-                if (module.isValidForItem(stack, player) && module instanceof IRightClickModule && itemHasModule(stack, module.getName())) {
-                    modes.add(module.getName());
+                if (module.isValidForItem(stack, player) && module instanceof IRightClickModule && itemHasModule(stack, module.getDataName())) {
+                    modes.add(module.getDataName());
                 }
             }
         }
@@ -115,7 +115,7 @@ public class MuseItemUtils {
     }
 
     public static void tagAddModule(NBTTagCompound tag, IPowerModule module) {
-        tag.setCompoundTag(module.getName(), module.getNewTag());
+        tag.setCompoundTag(module.getDataName(), module.getNewTag());
     }
 
     public static void itemAddModule(ItemStack stack, IPowerModule moduleType) {
@@ -481,7 +481,7 @@ public class MuseItemUtils {
         for (ItemStack stack : MuseItemUtils.modularItemsEquipped(player)) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
             for (IPowerModule module : MuseItemUtils.getValidModulesForItem(player, stack)) {
-                if (tagHasModule(itemTag, module.getName())) {
+                if (tagHasModule(itemTag, module.getDataName())) {
                     installedModules.add(module);
                 }
             }

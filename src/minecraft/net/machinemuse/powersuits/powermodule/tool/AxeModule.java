@@ -47,12 +47,12 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_AXE;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.axe.name");
     }
 

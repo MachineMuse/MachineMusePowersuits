@@ -18,12 +18,12 @@ public class PowerModule extends PowerModuleBase {
 	}
 
 	@Override
-	public String getName() {
+	public String getDataName() {
 		return name;
 	}
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return "This module did not correctly label it's name.";
     }
 

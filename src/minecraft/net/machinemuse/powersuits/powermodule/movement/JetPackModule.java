@@ -39,12 +39,12 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_JETPACK;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.jetpack.name");
     }
 

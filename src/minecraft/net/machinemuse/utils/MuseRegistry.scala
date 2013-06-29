@@ -14,6 +14,9 @@ class MuseBiMap[S, T] {
 
   def get(name: S): Option[T] = nameMap.get(name)
 
+  def elems = nameMap.values
+  def names = elemMap.values
+
   def putName(name: S, elem: T) = {
     nameMap.get(name) match {
       case Some(e) => {

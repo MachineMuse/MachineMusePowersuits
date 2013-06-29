@@ -38,12 +38,12 @@ public class MeleeAssistModule extends PowerModuleBase {
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_MELEE_ASSIST;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.meleeAssist.name");
     }
 

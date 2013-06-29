@@ -23,7 +23,7 @@ class MusePacketPropertyModifierConfig(player: Player, data: DataInputStream) ex
     import scala.collection.JavaConverters._
     writeInt(ModuleManager.getAllModules.size())
     for (module <- ModuleManager.getAllModules.asScala) {
-      writeString(module.getName)
+      writeString(module.getDataName)
       writeBoolean(module.isAllowed)
       writeInt(module.getPropertyModifiers.size())
       for ((propname, propmodlist) <- module.getPropertyModifiers.asScala) {

@@ -31,12 +31,12 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_NIGHT_VISION;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.nightVision.name");
     }
 

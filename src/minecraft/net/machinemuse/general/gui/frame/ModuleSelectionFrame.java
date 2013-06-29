@@ -104,7 +104,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
             for (Iterator<IPowerModule> it = workingModules.iterator(); it.hasNext(); ) {
                 IPowerModule module = it.next();
                 if (module.isAllowed() == false &&
-                        MuseItemUtils.itemHasModule(selectedItem.getItem(), module.getName()) == false) {
+                        MuseItemUtils.itemHasModule(selectedItem.getItem(), module.getDataName()) == false) {
                     it.remove();
                 }
             }
@@ -119,7 +119,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
                         // If a disallowed module made it to the list, indicate
                         // it as disallowed
                         moduleClickable.setAllowed(false);
-                    } else if (MuseItemUtils.itemHasModule(selectedItem.getItem(), module.getName())) {
+                    } else if (MuseItemUtils.itemHasModule(selectedItem.getItem(), module.getDataName())) {
                         moduleClickable.setInstalled(true);
                     }
                     if (moduleClickable.getModule().equals(this.prevSelection)) {

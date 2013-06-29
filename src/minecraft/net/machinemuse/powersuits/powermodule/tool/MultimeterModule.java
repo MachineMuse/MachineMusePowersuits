@@ -37,12 +37,12 @@ public class MultimeterModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_MULTIMETER;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return MODULE_MULTIMETER;
     }
 

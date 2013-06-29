@@ -36,12 +36,12 @@ public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickM
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_COOLING_SYSTEM;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.coolingSystem.name");
     }
 

@@ -32,12 +32,12 @@ public class ApiaristArmorModule extends PowerModuleBase {
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_APIARIST_ARMOR;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.apiaristArmor.name");
     }
 

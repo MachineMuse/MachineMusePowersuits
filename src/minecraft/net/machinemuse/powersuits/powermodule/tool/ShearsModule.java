@@ -54,12 +54,12 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_SHEARS;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.shears.name");
     }
 

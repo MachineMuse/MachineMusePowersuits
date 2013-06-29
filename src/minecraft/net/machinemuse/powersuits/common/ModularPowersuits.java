@@ -97,17 +97,16 @@ public class ModularPowersuits {
     public void preInit(FMLPreInitializationEvent event) {
         INSTANCE = this;
         File oldConfig = event.getSuggestedConfigurationFile();
-        File newConfig = new File(event.getModConfigurationDirectory() + "/machinemuse/mmmPowersuits.cfg");
-        try {
-            Config.copyFile(oldConfig, newConfig);
-            oldConfig.delete();
-        } catch (Exception e) {
-//            e.printStackTrace();
-//            MuseLogger.logError("Error initializing MPS config.");
+        File newConfig = new File(event.getModConfigurationDirectory() + "/machinemuse/powersuits.cfg");
+        if(oldConfig.exists()) {
+            try {
+                Localization.copyFile(oldConfig, newConfig);
+                oldConfig.delete();
+            } catch (Throwable e) {
+            }
         }
         Config.init(new Configuration(newConfig));
         Config.setConfigFolderBase(event.getModConfigurationDirectory());
-        Config.extractLang(Config.languages);
 
         MinecraftForge.EVENT_BUS.register(new HarvestEventHandler());
         MinecraftForge.EVENT_BUS.register(new MovementManager());
@@ -139,9 +138,9 @@ public class ModularPowersuits {
         components = new ItemComponent();
         components.populate();
         // new ItemSnowbutt(2323);
+        Localization.loadCurrentLanguage();
 
         Config.loadPowerModules();
-        Config.loadLang();
 
         // Initialize config options so they save with the file
         Config.getMaximumArmorPerPiece();

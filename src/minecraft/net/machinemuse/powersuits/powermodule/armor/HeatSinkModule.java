@@ -27,12 +27,12 @@ public class HeatSinkModule extends PowerModuleBase {
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_HEAT_SINK;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.heatSink.name");
     }
 

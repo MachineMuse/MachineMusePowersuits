@@ -57,12 +57,12 @@ public class OmniWrenchModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_OMNI_WRENCH;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.omniwrench.name");
     }
 

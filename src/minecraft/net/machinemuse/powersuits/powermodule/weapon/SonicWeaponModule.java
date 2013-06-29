@@ -25,12 +25,12 @@ public class SonicWeaponModule extends PowerModuleBase implements IRightClickMod
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_SONIC_WEAPON;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.sonicWeapon.name");
     }
 

@@ -93,12 +93,12 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_HOE;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.hoe.name");
     }
 

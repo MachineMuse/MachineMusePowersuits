@@ -32,12 +32,12 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_LUX_CAPACITOR;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.luxCapacitor.name");
     }
 

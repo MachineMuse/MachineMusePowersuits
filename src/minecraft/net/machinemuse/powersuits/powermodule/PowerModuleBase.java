@@ -39,7 +39,7 @@ public abstract class PowerModuleBase implements IPowerModule {
         this.propertyModifiers = new HashMap();
         this.defaultTag = new NBTTagCompound();
         this.defaultTag.setBoolean(MuseItemUtils.ONLINE, true);
-        this.isAllowed = Config.getConfig().get("Modules", getName(), true).getBoolean(true);
+        this.isAllowed = Config.getConfig().get("Modules", getDataName(), true).getBoolean(true);
     }
 
     @Override
@@ -80,8 +80,8 @@ public abstract class PowerModuleBase implements IPowerModule {
     @Override
     public double applyPropertyModifiers(NBTTagCompound itemTag, String propertyName, double propertyValue) {
         Iterable<IPropertyModifier> propertyModifiersIterable = propertyModifiers.get(propertyName);
-        if (propertyModifiersIterable != null && itemTag.hasKey(this.getName())) {
-            NBTTagCompound moduleTag = itemTag.getCompoundTag(this.getName());
+        if (propertyModifiersIterable != null && itemTag.hasKey(this.getDataName())) {
+            NBTTagCompound moduleTag = itemTag.getCompoundTag(this.getDataName());
             for (IPropertyModifier modifier : propertyModifiersIterable) {
                 propertyValue = modifier.applyModifier(moduleTag, propertyValue);
             }
@@ -104,13 +104,13 @@ public abstract class PowerModuleBase implements IPowerModule {
     }
 
     public PowerModuleBase addTradeoffProperty(String tradeoffName, String propertyName, double multiplier) {
-        double propFromConfig = Config.getConfig().get("Properties", getName() + '.' + propertyName + '.' + tradeoffName + ".multiplier", multiplier)
+        double propFromConfig = Config.getConfig().get("Properties", getDataName() + '.' + propertyName + '.' + tradeoffName + ".multiplier", multiplier)
                 .getDouble(multiplier);
         return addPropertyModifier(propertyName, new PropertyModifierLinearAdditive(tradeoffName, propFromConfig));
     }
 
     public PowerModuleBase addTradeoffProperty(String tradeoffName, String propertyName, double multiplier, String unit) {
-        double propFromConfig = Config.getConfig().get("Properties", getName() + '.' + propertyName + '.' + tradeoffName + ".multiplier", multiplier)
+        double propFromConfig = Config.getConfig().get("Properties", getDataName() + '.' + propertyName + '.' + tradeoffName + ".multiplier", multiplier)
                 .getDouble(multiplier);
         units.put(propertyName, unit);
         return addPropertyModifier(propertyName, new PropertyModifierLinearAdditive(tradeoffName, propFromConfig));
@@ -137,18 +137,18 @@ public abstract class PowerModuleBase implements IPowerModule {
     }
 
     public PowerModuleBase addBaseProperty(String propertyName, double baseVal) {
-        double propFromConfig = Config.getConfig().get("Properties", getName() + '.' + propertyName + ".base", baseVal).getDouble(baseVal);
+        double propFromConfig = Config.getConfig().get("Properties", getDataName() + '.' + propertyName + ".base", baseVal).getDouble(baseVal);
         return addPropertyModifier(propertyName, new PropertyModifierFlatAdditive(propFromConfig));
     }
 
     public PowerModuleBase addBaseProperty(String propertyName, double baseVal, String unit) {
-        double propFromConfig = Config.getConfig().get("Properties", getName() + '.' + propertyName + ".base", baseVal).getDouble(baseVal);
+        double propFromConfig = Config.getConfig().get("Properties", getDataName() + '.' + propertyName + ".base", baseVal).getDouble(baseVal);
         units.put(propertyName, unit);
         return addPropertyModifier(propertyName, new PropertyModifierFlatAdditive(propFromConfig));
     }
 
     public boolean equals(PowerModule other) {
-        return other != null && other.getName().equals(this.getName());
+        return other != null && other.getDataName().equals(this.getDataName());
     }
 
     @Override

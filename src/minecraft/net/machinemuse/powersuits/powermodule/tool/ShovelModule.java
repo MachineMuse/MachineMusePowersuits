@@ -42,12 +42,12 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_SHOVEL;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.shovel.name");
     }
 

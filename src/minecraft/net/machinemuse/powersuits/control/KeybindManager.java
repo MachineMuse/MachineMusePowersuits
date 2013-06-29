@@ -64,7 +64,7 @@ public class KeybindManager {
             for (ClickableKeybinding keybinding : getInstance().keybindings) {
                 writer.write(keybinding.getKeyBinding().keyCode + ":" + keybinding.getPosition().x() + ':' + keybinding.getPosition().y() + '\n');
                 for (ClickableModule module : keybinding.getBoundModules()) {
-                    writer.write(module.getModule().getName() + '~' + module.getPosition().x() + '~' + module.getPosition().y() + '\n');
+                    writer.write(module.getModule().getDataName() + '~' + module.getPosition().x() + '~' + module.getPosition().y() + '\n');
                 }
             }
         } catch (Exception e) {

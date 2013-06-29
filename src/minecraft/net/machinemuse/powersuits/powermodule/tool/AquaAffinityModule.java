@@ -39,12 +39,12 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_AQUA_AFFINITY;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.aquaAffinity.name");
     }
 

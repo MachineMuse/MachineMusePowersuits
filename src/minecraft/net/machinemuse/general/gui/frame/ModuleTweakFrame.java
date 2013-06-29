@@ -48,7 +48,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
         if (itemTarget.getSelectedItem() != null && moduleTarget.getSelectedModule() != null) {
             ItemStack stack = itemTarget.getSelectedItem().getItem();
             IPowerModule module = moduleTarget.getSelectedModule().getModule();
-            if (MuseItemUtils.itemHasModule(itemTarget.getSelectedItem().getItem(), moduleTarget.getSelectedModule().getModule().getName())) {
+            if (MuseItemUtils.itemHasModule(itemTarget.getSelectedItem().getItem(), moduleTarget.getSelectedModule().getModule().getDataName())) {
                 loadTweaks(stack, module);
             } else {
                 sliders = null;
@@ -88,7 +88,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
 
     private void loadTweaks(ItemStack stack, IPowerModule module) {
         NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-        NBTTagCompound moduleTag = itemTag.getCompoundTag(module.getName());
+        NBTTagCompound moduleTag = itemTag.getCompoundTag(module.getDataName());
 
         propertyStrings = new HashMap();
         Set<String> tweaks = new HashSet<String>();
@@ -138,7 +138,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
         if (selectedSlider != null && itemTarget.getSelectedItem() != null && moduleTarget.getSelectedModule() != null) {
             ClickableItem item = itemTarget.getSelectedItem();
             IPowerModule module = moduleTarget.getSelectedModule().getModule();
-            MusePacket tweakRequest = new MusePacketTweakRequest((Player) player, item.inventorySlot, module.getName(), selectedSlider.name(),
+            MusePacket tweakRequest = new MusePacketTweakRequest((Player) player, item.inventorySlot, module.getDataName(), selectedSlider.name(),
                     selectedSlider.value());
             player.sendQueue.addToSendQueue(tweakRequest.getPacket250());
         }

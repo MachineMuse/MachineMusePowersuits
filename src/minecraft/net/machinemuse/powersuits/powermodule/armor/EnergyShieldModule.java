@@ -30,12 +30,12 @@ public class EnergyShieldModule extends PowerModuleBase {
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_ENERGY_SHIELD;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.energyShield.name");
     }
 

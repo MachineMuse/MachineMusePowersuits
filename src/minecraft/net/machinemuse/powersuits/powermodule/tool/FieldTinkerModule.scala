@@ -23,9 +23,9 @@ class FieldTinkerModule(list: java.util.List[IModularItem]) extends PowerModuleB
   addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2))
   def getCategory: String = MuseCommonStrings.CATEGORY_SPECIAL
 
-  def getName: String = "Field Tinker Module"
+  def getDataName: String = "Field Tinker Module"
 
-  def getDisplayName: String = StatCollector.translateToLocal("module.fieldTinkerer.name")
+  def getLocalizedName: String = StatCollector.translateToLocal("module.fieldTinkerer.name")
 
   def getDescription: String = "Maybe you can't memorize the blueprints, but you should at least be able to fine tune your modules without Inspiration\u2122 Inc. LLC."
 

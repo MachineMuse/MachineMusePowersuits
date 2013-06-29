@@ -23,9 +23,9 @@ class BinocularsModule(list: java.util.List[IModularItem]) extends PowerModuleBa
 
   override def getCategory: String = MuseCommonStrings.CATEGORY_VISION
 
-  override def getName: String = "Binoculars"
+  override def getDataName: String = "Binoculars"
 
-  override def getDisplayName: String = StatCollector.translateToLocal("module.binoculars.name")
+  override def getLocalizedName: String = StatCollector.translateToLocal("module.binoculars.name")
 
   override def getDescription: String = "With the problems that have been plaguing Optifine lately, you've decided to take that Zoom ability into your own hands."
 

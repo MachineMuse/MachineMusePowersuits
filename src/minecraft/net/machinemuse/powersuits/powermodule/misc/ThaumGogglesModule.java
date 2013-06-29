@@ -35,12 +35,12 @@ public class ThaumGogglesModule extends PowerModuleBase {
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_THAUM_GOGGLES;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.aurameter.name");
     }
 

@@ -30,12 +30,12 @@ public class BasicPlatingModule extends PowerModuleBase {
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_BASIC_PLATING;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.basicPlating.name");
     }
 

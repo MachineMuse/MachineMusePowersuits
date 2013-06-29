@@ -29,12 +29,12 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_PARACHUTE;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.parachute.name");
     }
 

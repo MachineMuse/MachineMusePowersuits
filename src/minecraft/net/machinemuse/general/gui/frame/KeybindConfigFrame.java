@@ -103,7 +103,7 @@ public class KeybindConfigFrame implements IGuiFrame {
 
     public boolean alreadyAdded(IPowerModule module) {
         for (ClickableModule clickie : modules) {
-            if (clickie.getModule().getName().equals(module.getName())) {
+            if (clickie.getModule().getDataName().equals(module.getDataName())) {
                 return true;
             }
         }

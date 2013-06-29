@@ -31,12 +31,12 @@ public class CosmeticGlowModule extends PowerModuleBase {
     }
 
     @Override
-    public String getName() {
+    public String getDataName() {
         return MODULE_GLOW;
     }
 
     @Override
-    public String getDisplayName() {
+    public String getLocalizedName() {
         return StatCollector.translateToLocal("module.cosmeticGlow.name");
     }
 
