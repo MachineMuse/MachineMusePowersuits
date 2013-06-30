@@ -22,30 +22,32 @@ class RenderPart(base: ModelBase, val parent: ModelRenderer) extends ModelRender
     val colours = renderSpec.getIntArray("colours")
 
     for (nbt <- NBTTagAccessor.getValues(renderSpec).asScala) {
-      ModelRegistry.getPart(nbt).map(part => {
-        if (part.slot == ArmorModel.instance.visible && part.morph.apply(ArmorModel.instance) == parent) {
-          withMaybeGlow(part, nbt) {
-            Render.withPushedMatrix {
-              Render pure {
-                GL11.glScaled(par1, par1, par1)
-                try {
-                  Minecraft.getMinecraft.renderEngine.bindTexture(part.getTexture(nbt))
-                  applyTransform
-                  val ix = part.getColourIndex(nbt)
-                  if (ix < colours.size) {
-                    Colour.doGLByInt(colours(ix))
+      ModelRegistry.getPart(nbt).map {
+        part => {
+          if (part.slot == ArmorModel.instance.visible && part.morph.apply(ArmorModel.instance) == parent) {
+            withMaybeGlow(part, nbt) {
+              Render.withPushedMatrix {
+                Render pure {
+                  GL11.glScaled(par1, par1, par1)
+                  try {
+                    Minecraft.getMinecraft.renderEngine.bindTexture(part.getTexture(nbt))
+                    applyTransform
+                    val ix = part.getColourIndex(nbt)
+                    if (ix < colours.size) {
+                      Colour.doGLByInt(colours(ix))
+                    }
+                    part.modelSpec.applyOffsetAndRotation // not yet implemented
+                    part.modelSpec.model.renderPart(part.partName)
+                    Colour.WHITE.doGL()
+                  } catch {
+                    case e: Throwable =>
                   }
-                  part.modelSpec.applyOffsetAndRotation // not yet implemented
-                  part.modelSpec.model.renderPart(part.partName)
-                  Colour.WHITE.doGL()
-                } catch {
-                  case e: Throwable =>
                 }
               }
-            }
-          }.run()
+            }.run()
+          }
         }
-      })
+      }
     }
   }
 
