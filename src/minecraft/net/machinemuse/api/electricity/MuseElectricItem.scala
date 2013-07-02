@@ -16,10 +16,10 @@ import net.machinemuse.api.ModuleManager
  * Created: 10:12 PM, 4/20/13
  */
 trait MuseElectricItem
-  extends ICustomElectricItem
-  with IItemElectric
-  with IChargeableItem
-  with IEMPItem {
+  extends ICustomElectricItem  // IC2
+  with IItemElectric // UE
+  with IChargeableItem // TE
+  with IEMPItem { // ICBM
   /**
    * Call to get the energy of an item
    *
