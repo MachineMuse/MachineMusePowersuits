@@ -12,7 +12,7 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.src.ModelPlayer
 
 object ArmorModel {
-  val instance = try {
+  val instance:ArmorModel = try {
     new SMovingArmorModel
   } catch {
     case _:Throwable => new VanillaArmorModel
