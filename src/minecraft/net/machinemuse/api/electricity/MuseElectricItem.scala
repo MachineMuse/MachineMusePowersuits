@@ -23,32 +23,25 @@ trait MuseElectricItem
   /**
    * Call to get the energy of an item
    *
-   * @param stack
-	 * IC2ItemTest to set
+   * @param stack ItemStack to set
    * @return Current energy level
    */
-  def getCurrentEnergy(stack: ItemStack): Double = {
-    MuseItemUtils.getDoubleOrZero(stack, ElectricItemUtils.CURRENT_ENERGY)
-  }
+  def getCurrentEnergy(stack: ItemStack): Double = MuseItemUtils.getDoubleOrZero(stack, ElectricItemUtils.CURRENT_ENERGY)
+
 
   /**
    * Call to set the energy of an item
    *
-   * @param stack
-	 * IC2ItemTest to set
+   * @param stack ItemStack to set
    * @return Maximum energy level
    */
-  def getMaxEnergy(stack: ItemStack): Double = {
-    ModuleManager.computeModularProperty(stack, ElectricItemUtils.MAXIMUM_ENERGY)
-  }
+  def getMaxEnergy(stack: ItemStack): Double = ModuleManager.computeModularProperty(stack, ElectricItemUtils.MAXIMUM_ENERGY)
 
   /**
    * Call to set the energy of an item
    *
-   * @param stack
-	 * IC2ItemTest to set
-   * @param energy
-	 * Level to set it to
+   * @param stack ItemStack to set
+   * @param energy Level to set it to
    */
   def setCurrentEnergy(stack: ItemStack, energy: Double) {
     MuseItemUtils.setDoubleOrRemove(stack, ElectricItemUtils.CURRENT_ENERGY, Math.min(energy, getMaxEnergy(stack)))
@@ -57,19 +50,16 @@ trait MuseElectricItem
   /**
    * Call to drain energy from an item
    *
-   * @param stack
-	 * IC2ItemTest being requested for energy
-   * @param requested
-	 * Amount of energy to drain
+   * @param stack ItemStack being requested for energy
+   * @param requested Amount of energy to drain
    * @return Amount of energy successfully drained
    */
   def drainEnergyFrom(stack: ItemStack, requested: Double): Double = {
-    val available: Double = getCurrentEnergy(stack)
+    val available = getCurrentEnergy(stack)
     if (available > requested) {
       setCurrentEnergy(stack, available - requested)
       requested
-    }
-    else {
+    } else {
       setCurrentEnergy(stack, 0)
       available
     }
@@ -78,20 +68,17 @@ trait MuseElectricItem
   /**
    * Call to give energy to an item
    *
-   * @param stack
-	 * IC2ItemTest being provided with energy
-   * @param provided
-	 * Amount of energy to add
+   * @param stack ItemStack being provided with energy
+   * @param provided Amount of energy to add
    * @return Amount of energy added
    */
   def giveEnergyTo(stack: ItemStack, provided: Double): Double = {
-    val available: Double = getCurrentEnergy(stack)
-    val max: Double = getMaxEnergy(stack)
+    val available = getCurrentEnergy(stack)
+    val max = getMaxEnergy(stack)
     if (available + provided < max) {
       setCurrentEnergy(stack, available + provided)
       provided
-    }
-    else {
+    } else {
       setCurrentEnergy(stack, max)
       max - available
     }
@@ -153,8 +140,9 @@ trait MuseElectricItem
   // UE
   def getJoules(itemStack: ItemStack): Double = museEnergyToJoules(getCurrentEnergy(itemStack))
 
-  def setJoules(joules: Double, itemStack: ItemStack) = setCurrentEnergy(itemStack, museEnergyFromJoules(joules))
-
+  def setJoules(joules: Double, itemStack: ItemStack) {
+    setCurrentEnergy(itemStack, museEnergyFromJoules(joules))
+  }
 
   def getMaxJoules(itemStack: ItemStack): Double = museEnergyToJoules(getMaxEnergy(itemStack))
 
@@ -195,11 +183,8 @@ trait MuseElectricItem
     museEnergyToMJ(takenME).toFloat
   }
 
-  def getEnergyStored(theItem: ItemStack): Float = {
-    museEnergyToMJ(getCurrentEnergy(theItem)).toFloat
-  }
+  def getEnergyStored(theItem: ItemStack) = museEnergyToMJ(getCurrentEnergy(theItem)).toFloat
 
-  def getMaxEnergyStored(theItem: ItemStack): Float = {
-    museEnergyToMJ(getMaxEnergy(theItem)).toFloat
-  }
+  def getMaxEnergyStored(theItem: ItemStack) = museEnergyToMJ(getMaxEnergy(theItem)).toFloat
+
 }
