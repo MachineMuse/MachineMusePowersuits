@@ -26,7 +26,7 @@ class RenderPart(base: ModelBase, val parent: ModelRenderer) extends ModelRender
         part => {
           if (part.slot == ArmorModel.instance.visible && part.morph.apply(ArmorModel.instance) == parent) {
             withMaybeGlow(part, nbt) {
-              Render.withPushedMatrix {
+              Render withPushedMatrix {
                 Render pure {
                   GL11.glScaled(par1, par1, par1)
                   try {
