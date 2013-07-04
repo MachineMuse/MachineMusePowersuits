@@ -3,12 +3,11 @@ package net.machinemuse.powersuits.client.render.modelspec
 import net.machinemuse.general.geometry.Colour
 import net.minecraft.client.Minecraft
 import net.machinemuse.powersuits.client.render.item.ArmorModel
-import net.minecraft.nbt.NBTTagCompound
 import net.machinemuse.utils.render.Render
 import net.minecraft.client.model.{ModelBase, ModelRenderer}
 import net.machinemuse.general.NBTTagAccessor
 import org.lwjgl.opengl.GL11._
-import org.lwjgl.opengl.GL11
+import net.minecraft.nbt.NBTTagCompound
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -16,47 +15,45 @@ import org.lwjgl.opengl.GL11
  */
 
 class RenderPart(base: ModelBase, val parent: ModelRenderer) extends ModelRenderer(base) {
-  override def render(par1: Float) {
+  override def render(scale: Float) {
     val renderSpec = ArmorModel.instance.renderSpec
     import scala.collection.JavaConverters._
     val colours = renderSpec.getIntArray("colours")
 
-    for (nbt <- NBTTagAccessor.getValues(renderSpec).asScala) {
-      ModelRegistry.getPart(nbt).map {
-        part => {
-          if (part.slot == ArmorModel.instance.visible && part.morph.apply(ArmorModel.instance) == parent) {
-            withMaybeGlow(part, nbt) {
-              Render withPushedMatrix {
-                Render pure {
-                  GL11.glScaled(par1, par1, par1)
-                  try {
-                    Minecraft.getMinecraft.renderEngine.bindTexture(part.getTexture(nbt))
-                    applyTransform
-                    val ix = part.getColourIndex(nbt)
-                    if (ix < colours.size) {
-                      Colour.doGLByInt(colours(ix))
-                    }
-                    part.modelSpec.applyOffsetAndRotation // not yet implemented
-                    part.modelSpec.model.renderPart(part.partName)
-                    Colour.WHITE.doGL()
-                  } catch {
-                    case e: Throwable =>
-                  }
-                }
-              }
-            }.run()
+    for {
+      nbt <- NBTTagAccessor.getValues(renderSpec).asScala
+      part <- ModelRegistry.getPart(nbt)
+      if part.slot == ArmorModel.instance.visible
+      if part.morph.apply(ArmorModel.instance) == parent
+    } {
+      withMaybeGlow(part, nbt) {
+        Render.withPushedMatrix {
+          Render {
+            glScaled(scale, scale, scale)
+            Minecraft.getMinecraft.renderEngine.bindTexture(part.getTexture(nbt))
+            applyTransform
+            val ix = part.getColourIndex(nbt)
+            if (ix < colours.size) {
+              Colour.doGLByInt(colours(ix))
+            }
+            part.modelSpec.applyOffsetAndRotation // not yet implemented
+            part.modelSpec.model.renderPart(part.partName)
+            Colour.WHITE.doGL()
           }
         }
-      }
+      }.run()
+
     }
   }
 
   val degrad = 180F / Math.PI.asInstanceOf[Float]
 
-  def withMaybeGlow(part: ModelPartSpec, nbt: NBTTagCompound) = if (part.getGlow(nbt)) {
-    a: Render[_] => Render withGlow a
-  } else {
-    a: Render[_] => a
+  def withMaybeGlow[A](part: ModelPartSpec, nbt: NBTTagCompound)(r: Render[A]): Render[A] = {
+    if (part.getGlow(nbt)) {
+      Render withGlow r
+    } else {
+      r
+    }
   }
 
   def applyTransform {
