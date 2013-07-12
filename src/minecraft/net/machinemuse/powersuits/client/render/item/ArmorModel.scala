@@ -9,19 +9,14 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraftforge.client.model.obj.WavefrontObject
 import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.src.ModelPlayer
 
 object ArmorModel {
-  val instance:ArmorModel = try {
+  val instance: ArmorModel = try {
     new SMovingArmorModel
   } catch {
-    case _:Throwable => new VanillaArmorModel
+    case _: Throwable => new VanillaArmorModel
   }
 }
-
-class SMovingArmorModel extends ModelPlayer(0) with ArmorModel
-
-class VanillaArmorModel extends ModelBiped(0) with ArmorModel
 
 trait ArmorModel extends ModelBiped {
   var renderSpec: NBTTagCompound = null
