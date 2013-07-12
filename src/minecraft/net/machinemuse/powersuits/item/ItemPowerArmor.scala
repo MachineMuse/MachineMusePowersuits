@@ -63,14 +63,14 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int)
 
   @SideOnly(Side.CLIENT)
   override def getArmorModel(entityLiving: EntityLiving, itemstack: ItemStack, armorSlot: Int): ModelBiped = {
-    val model = ArmorModel.instance
+    val model: ArmorModel = ArmorModel.instance
 
     model.visible = armorSlot
 
     if (itemstack != null) {
-      if(entityLiving.isInstanceOf[EntityPlayer]) {
-        Option(entityLiving.asInstanceOf[EntityPlayer].getCurrentArmor(2)).map(chest=>
-          if(MuseItemUtils.itemHasActiveModule(chest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) return null)
+      if (entityLiving.isInstanceOf[EntityPlayer]) {
+        Option(entityLiving.asInstanceOf[EntityPlayer].getCurrentArmor(2)).map(chest =>
+          if (MuseItemUtils.itemHasActiveModule(chest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) return null)
       }
       if (MuseItemUtils.itemHasActiveModule(itemstack, TransparentArmorModule.MODULE_TRANSPARENT_ARMOR)) {
         return null
