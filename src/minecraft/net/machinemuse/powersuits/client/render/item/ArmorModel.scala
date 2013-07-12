@@ -11,7 +11,7 @@ import net.minecraftforge.client.model.obj.WavefrontObject
 import net.minecraft.nbt.NBTTagCompound
 
 object ArmorModel {
-  val instance: ArmorModel = ArmorModelInstance.getInstance()
+  def instance: ArmorModel = ArmorModelInstance.getInstance()
 }
 
 trait ArmorModel extends ModelBiped {

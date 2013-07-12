@@ -5,7 +5,7 @@ package net.machinemuse.powersuits.client.render.item;
  * Created: 10:01 PM, 11/07/13
  */
 public class ArmorModelInstance {
-    private static ArmorModel instance;
+    private static ArmorModel instance = null;
 
     public static ArmorModel getInstance() {
         if (instance == null) {
