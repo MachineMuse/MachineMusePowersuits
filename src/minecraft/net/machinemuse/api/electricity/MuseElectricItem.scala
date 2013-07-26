@@ -16,10 +16,11 @@ import net.machinemuse.api.ModuleManager
  * Created: 10:12 PM, 4/20/13
  */
 trait MuseElectricItem
-  extends ICustomElectricItem  // IC2
+  extends ICustomElectricItem // IC2
   with IItemElectric // UE
   with IChargeableItem // TE
-  with IEMPItem { // ICBM
+  with IEMPItem {
+  // ICBM
   /**
    * Call to get the energy of an item
    *
@@ -172,14 +173,22 @@ trait MuseElectricItem
 
   // TE
   def receiveEnergy(theItem: ItemStack, energy: Float, doReceive: Boolean): Float = {
+    val current: Double = getCurrentEnergy(theItem)
     val receivedME: Double = museEnergyFromMJ(energy)
     val eatenME: Double = giveEnergyTo(theItem, receivedME)
+    if (!doReceive) {
+      setCurrentEnergy(theItem, current)
+    }
     museEnergyToMJ(eatenME).toFloat
   }
 
   def transferEnergy(theItem: ItemStack, energy: Float, doTransfer: Boolean): Float = {
+    val current: Double = getCurrentEnergy(theItem)
     val requesteddME: Double = museEnergyFromMJ(energy)
     val takenME: Double = drainEnergyFrom(theItem, requesteddME)
+    if (!doTransfer) {
+      setCurrentEnergy(theItem, current)
+    }
     museEnergyToMJ(takenME).toFloat
   }
 
