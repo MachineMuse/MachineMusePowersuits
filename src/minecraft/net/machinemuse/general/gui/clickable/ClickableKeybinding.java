@@ -11,6 +11,7 @@ import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.util.ChatMessageComponent;
 import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class ClickableKeybinding extends ClickableButton {
         for (ClickableModule module : boundModules) {
             String valstring = toggleval ? " on" : " off";
             if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
-                player.sendChatToPlayer("Toggled " + module.getModule().getDataName() + valstring);
+                player.sendChatToPlayer(ChatMessageComponent.func_111066_d("Toggled " + module.getModule().getDataName() + valstring));
             }
             MuseItemUtils.toggleModuleForPlayer(player, module.getModule().getDataName(), toggleval);
             MusePacketToggleRequest toggleRequest = new MusePacketToggleRequest((Player) player, module.getModule().getDataName(), toggleval);

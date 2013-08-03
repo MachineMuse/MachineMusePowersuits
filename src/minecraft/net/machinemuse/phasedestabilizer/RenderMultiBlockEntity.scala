@@ -7,7 +7,7 @@ import net.minecraft.entity.Entity
  * Author: MachineMuse (Claire Semple)
  * Created: 1:08 PM, 5/8/13
  */
-class RenderMultiBlockEntity extends Render {
+abstract class RenderMultiBlockEntity extends Render {
 
 
   def doRender(entity: EntityMultiBlock, x: Double, y: Double, z: Double, yaw: Float, partialTickTime: Float) {

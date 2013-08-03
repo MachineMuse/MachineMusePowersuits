@@ -21,6 +21,7 @@ import java.util.ArrayList
 import java.util.List
 import net.minecraft.nbt.NBTTagCompound
 import net.machinemuse.general.MuseLogger
+import net.minecraft.util.ChatMessageComponent
 
 /**
  * Packet for requesting to purchase an upgrade. Player-to-server. Server decides whether it is a valid upgrade or not and replies with an associated
@@ -52,7 +53,7 @@ class MusePacketInstallModuleRequest(player: Player, itemSlot: Int, moduleName: 
       val inventory: InventoryPlayer = playerEntity.inventory
       val moduleType: IPowerModule = ModuleManager.getModule(moduleName)
       if (moduleType == null || !moduleType.isAllowed) {
-        playerEntity.sendChatToPlayer("Server has disallowed this module. Sorry!")
+        playerEntity.sendChatToPlayer(ChatMessageComponent.func_111066_d("Server has disallowed this module. Sorry!"))
         return
       }
       val cost: List[ItemStack] = moduleType.getInstallCost

@@ -46,7 +46,6 @@ class MusePacketHandler extends IPacketHandler {
         packet => FMLCommonHandler.instance.getEffectiveSide match {
           case Side.SERVER => packet handleServer player.asInstanceOf[EntityPlayerMP]
           case Side.CLIENT => packet handleClient player.asInstanceOf[EntityClientPlayerMP]
-          case Side.BUKKIT => MuseLogger.logError("Wat O.o")
         }
       }
     }

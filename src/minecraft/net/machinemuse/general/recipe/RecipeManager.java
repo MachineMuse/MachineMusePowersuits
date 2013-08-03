@@ -32,7 +32,7 @@ public class RecipeManager {
         ItemStack paper = new ItemStack(Item.paper);
         ItemStack glass = new ItemStack(Block.glass);
         ItemStack glassPane = new ItemStack(Block.thinGlass);
-        ItemStack glowstone = new ItemStack(Item.lightStoneDust);
+        ItemStack glowstone = new ItemStack(Item.glowstone);
         ItemStack emerald = new ItemStack(Item.emerald);
         ItemStack diamond = new ItemStack(Item.diamond);
         ItemStack lapis = new ItemStack(Item.dyePowder, 1, 4);

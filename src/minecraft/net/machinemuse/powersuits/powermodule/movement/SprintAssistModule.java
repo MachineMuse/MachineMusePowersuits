@@ -63,18 +63,18 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
                 double sprintMultiplier = ModuleManager.computeModularProperty(item, SPRINT_SPEED_MULTIPLIER);
                 double exhaustionComp = ModuleManager.computeModularProperty(item, SPRINT_FOOD_COMPENSATION);
                 ElectricItemUtils.drainPlayerEnergy(player, sprintCost * horzMovement * 5);
-                player.landMovementFactor *= sprintMultiplier;
+                player.setAIMoveSpeed((float) (player.getAIMoveSpeed() * sprintMultiplier));
 
                 player.getFoodStats().addExhaustion((float) (-0.01 * exhaustion * exhaustionComp));
-                player.jumpMovementFactor = player.landMovementFactor * .5f;
+                player.jumpMovementFactor = player.getAIMoveSpeed() * .5f;
             }
         } else {
             double cost = ModuleManager.computeModularProperty(item, WALKING_ENERGY_CONSUMPTION);
             if (cost < totalEnergy) {
                 double walkMultiplier = ModuleManager.computeModularProperty(item, WALKING_SPEED_MULTIPLIER);
                 ElectricItemUtils.drainPlayerEnergy(player, cost * horzMovement * 5);
-                player.landMovementFactor *= walkMultiplier;
-                player.jumpMovementFactor = player.landMovementFactor * .5f;
+                player.setAIMoveSpeed((float) (player.getAIMoveSpeed() * walkMultiplier));
+                player.jumpMovementFactor = player.getAIMoveSpeed() * .5f;
             }
 
         }

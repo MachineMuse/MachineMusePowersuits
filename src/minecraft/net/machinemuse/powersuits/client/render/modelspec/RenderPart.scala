@@ -3,11 +3,13 @@ package net.machinemuse.powersuits.client.render.modelspec
 import net.machinemuse.general.geometry.Colour
 import net.minecraft.client.Minecraft
 import net.machinemuse.powersuits.client.render.item.ArmorModel
-import net.machinemuse.utils.render.Render
+import net.machinemuse.utils.render.{MuseRenderer, Render}
 import net.minecraft.client.model.{ModelBase, ModelRenderer}
 import net.machinemuse.general.NBTTagAccessor
 import org.lwjgl.opengl.GL11._
 import net.minecraft.nbt.NBTTagCompound
+import java.net.URI
+import net.minecraft.util.ResourceLocation
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -30,7 +32,7 @@ class RenderPart(base: ModelBase, val parent: ModelRenderer) extends ModelRender
         Render.withPushedMatrix {
           Render {
             glScaled(scale, scale, scale)
-            Minecraft.getMinecraft.renderEngine.bindTexture(part.getTexture(nbt))
+            MuseRenderer.bindTexture(part.getTexture(nbt))
             applyTransform
             val ix = part.getColourIndex(nbt)
             if (ix < colours.size && ix >= 0) {
@@ -63,7 +65,7 @@ class RenderPart(base: ModelBase, val parent: ModelRenderer) extends ModelRender
     //    glRotatef(rotateAngleX * degrad, 1.0F, 0.0F, 0.0F)
     glRotatef(180, 1.0F, 0.0F, 0.0F)
 
-    glTranslated(field_82906_o, field_82907_q - 26, field_82908_p)
+    glTranslated(offsetX, offsetY - 26, offsetZ)
 
   }
 }

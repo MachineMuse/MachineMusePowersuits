@@ -32,7 +32,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
 
   def getItemTag = MuseItemUtils.getMuseItemTag(getSelectedItem.getItem)
 
-  def isValidArmor(clickie: ClickableItem, slot: Int): Boolean = if (clickie == null) false else clickie.getItem.getItem.isValidArmor(clickie.getItem, slot)
+  def isValidArmor(clickie: ClickableItem, slot: Int): Boolean = if (clickie == null) false else clickie.getItem.getItem.isValidArmor(clickie.getItem, slot, Minecraft.getMinecraft.thePlayer)
 
   def getSpecTag(spec: ModelPartSpec) = getRenderTag.getCompoundTag(ModelRegistry.makeName(spec))
 

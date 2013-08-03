@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.entity;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
@@ -24,7 +24,7 @@ public class EntityPlasmaBolt extends EntityThrowable {
 		super(world);
 	}
 
-	public EntityPlasmaBolt(World world, EntityLiving shootingEntity, double explosiveness, double damagingness, int chargeTicks) {
+	public EntityPlasmaBolt(World world, EntityLivingBase shootingEntity, double explosiveness, double damagingness, int chargeTicks) {
 		super(world);
 		this.shootingEntity = shootingEntity;
 		this.size = ((chargeTicks) > 50 ? 50 : chargeTicks);

@@ -1,22 +1,25 @@
 package net.machinemuse.powersuits.client.render.item;
 
 import net.machinemuse.general.geometry.Colour;
+import net.machinemuse.powersuits.client.render.entity.MuseRender;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.item.ItemPowerFist;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.MapData;
 import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
@@ -28,7 +31,7 @@ import org.lwjgl.opengl.GL12;
  *
  * @author MachineMuse
  */
-public class ToolRenderer extends Render implements IItemRenderer {
+public class ToolRenderer extends MuseRender implements IItemRenderer {
     public ToolModel model = new ToolModel();
 
     /**
@@ -73,7 +76,7 @@ public class ToolRenderer extends Render implements IItemRenderer {
                 break;
             case EQUIPPED:
                 RenderBlocks renderEquipped = (RenderBlocks) data[0];
-                EntityLiving entityEquipped = (EntityLiving) data[1];
+                EntityLivingBase entityEquipped = (EntityLivingBase) data[1];
 
                 if (entityEquipped instanceof EntityPlayer) {
                     model.setPoseForPlayer((EntityPlayer) entityEquipped, itemStack);
@@ -85,7 +88,7 @@ public class ToolRenderer extends Render implements IItemRenderer {
                 break;
             case FIRST_PERSON_MAP:
                 EntityPlayer playerFirstPerson = (EntityPlayer) data[0];
-                RenderEngine engineFirstPerson = (RenderEngine) data[1];
+                TextureManager engineFirstPerson = (TextureManager) data[1];
                 MapData mapDataFirstPerson = (MapData) data[2];
                 model.setPoseForPlayer(playerFirstPerson, itemStack);
 
@@ -93,7 +96,7 @@ public class ToolRenderer extends Render implements IItemRenderer {
                 break;
             case EQUIPPED_FIRST_PERSON:
                 RenderBlocks renderEquFP = (RenderBlocks) data[0];
-                EntityLiving entityEquFP = (EntityLiving) data[1];
+                EntityLivingBase entityEquFP = (EntityLivingBase) data[1];
                 if (entityEquFP instanceof EntityPlayer) {
                     model.setPoseForPlayer((EntityPlayer) entityEquFP, itemStack);
                 } else {
@@ -129,7 +132,6 @@ public class ToolRenderer extends Render implements IItemRenderer {
 
     }
 
-
     public void renderFirstPersonArm(EntityClientPlayerMP entityclientplayermp, float par1) {
         Minecraft mc = Minecraft.getMinecraft();
         float changeItemProgress = 0;
@@ -148,8 +150,8 @@ public class ToolRenderer extends Render implements IItemRenderer {
         swingProgressy = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI);
         GL11.glRotatef(swingProgressy * 70.0F, 0.0F, 1.0F, 0.0F);
         GL11.glRotatef(-swingProgressx * 20.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, mc.renderEngine.getTextureForDownloadableImage(mc.thePlayer.skinUrl, mc.thePlayer.getTexture()));
-        mc.renderEngine.resetBoundTexture();
+//        GL11.glBindTexture(GL11.GL_TEXTURE_2D, mc.renderEngine.getTextureForDownloadableImage(mc.thePlayer.skinUrl, mc.thePlayer.getTexture()));
+//        mc.renderEngine.resetBoundTexture();
         GL11.glTranslatef(-1.0F, 3.6F, 3.5F);
         GL11.glRotatef(120.0F, 0.0F, 0.0F, 1.0F);
         GL11.glRotatef(200.0F, 1.0F, 0.0F, 0.0F);

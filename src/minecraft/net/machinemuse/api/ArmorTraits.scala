@@ -5,9 +5,9 @@ import net.minecraft.item.ItemStack
 import net.machinemuse.utils.{ElectricItemUtils, MuseItemUtils}
 import net.machinemuse.powersuits.powermodule.armor.{HazmatModule, ApiaristArmorModule}
 import forestry.api.apiculture.IArmorApiarist
-import net.minecraft.entity.EntityLiving
-import atomicscience.api.poison.Poison
+import net.minecraft.entity.EntityLivingBase
 import atomicscience.api.IAntiPoisonArmor
+import atomicscience.api.poison.Poison
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -29,9 +29,9 @@ trait ApiaristArmor extends IArmorApiarist {
 }
 
 trait RadiationArmor extends IAntiPoisonArmor {
-  def isProtectedFromPoison(itemStack: ItemStack, entityLiving: EntityLiving, `type`: Poison): Boolean = {
+  def isProtectedFromPoison(itemStack: ItemStack, EntityLivingBase: EntityLivingBase, `type`: Poison): Boolean = {
     MuseItemUtils.itemHasActiveModule(itemStack, HazmatModule.MODULE_HAZMAT)
   }
 
-  def onProtectFromPoison(itemStack: ItemStack, entityLiving: EntityLiving, `type`: Poison) {}
+  def onProtectFromPoison(itemStack: ItemStack, EntityLivingBase: EntityLivingBase, `type`: Poison) {}
 }

@@ -4,21 +4,21 @@
 
 
     <!-- Versions -->
-    <property name="build.ver" value="0.7.1"/>
+    <property name="build.ver" value="0.8.0"/>
     <property name="fullversion" value="${build.ver}-${env.BUILD_NUMBER}"/>
     <property name="scala.version" value="2.10.1"/>
 
-    <property name="mcp.version" value="742"/>
-    <property name="minecraft.version" value="1.5.2"/>
-    <property name="forgemajor.version" value="7.8.0"/>
-    <property name="forgebuild" value="712"/>
+    <property name="mcp.version" value="805"/>
+    <property name="minecraft.version" value="1.6.2"/>
+    <property name="forgemajor.version" value="9.10.0"/>
+    <property name="forgebuild" value="802"/>
 
     <property name="forge.version" value="${minecraft.version}-${forgemajor.version}.${forgebuild}"/>
     <property name="forgeant.version" value="${forgemajor.version}.${forgebuild}"/>
 
     <property name="ic2api.version" value="1.116.354-lf"/>
     <property name="ueapi.version" value="1.3.1.56"/>
-    <property name="asapi.version" value="0.5.1.3"/>
+    <property name="asapi.version" value="0.7.0.114"/>
     <property name="icbmapi.version" value="1.1.1.26"/>
     <property name="thermexapi.version" value="2.3.0b"/>
     <property name="galacticraftapi.version" value="1"/>

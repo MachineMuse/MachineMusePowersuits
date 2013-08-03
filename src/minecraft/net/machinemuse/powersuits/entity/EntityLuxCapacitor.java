@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.entity;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MovingObjectPosition;
@@ -17,7 +17,7 @@ public class EntityLuxCapacitor extends EntityThrowable {
 		super(par1World);
 	}
 
-	public EntityLuxCapacitor(World par1World, EntityLiving shootingEntity) {
+	public EntityLuxCapacitor(World par1World, EntityLivingBase shootingEntity) {
 		super(par1World, shootingEntity);
 		Vec3 direction = shootingEntity.getLookVec().normalize();
 		double speed = 1.0;

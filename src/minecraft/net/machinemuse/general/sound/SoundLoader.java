@@ -37,7 +37,7 @@ public class SoundLoader {
     public void onSoundLoad(SoundLoadEvent event) {
         for (String soundFile : soundFiles) {
             try {
-                event.manager.soundPoolSounds.addSound(soundFile, ModularPowersuits.class.getResource('/' + soundFile));
+                event.manager.soundPoolSounds.addSound(soundFile);
                 MuseLogger.logDebug("MMMPS registered sound: " + soundFile);
             } catch (Exception e) {
                 MuseLogger.logError("Failed to register sound:" + soundFile);

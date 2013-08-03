@@ -11,7 +11,7 @@ import org.lwjgl.opengl.GL12;
 
 import java.nio.DoubleBuffer;
 
-public class RenderPlasmaBolt extends Render {
+public class RenderPlasmaBolt extends MuseRender {
     protected static DrawableMuseCircle circle1;
     protected static DrawableMuseCircle circle2;
     protected static DrawableMuseCircle circle3;

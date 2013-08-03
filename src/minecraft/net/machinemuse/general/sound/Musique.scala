@@ -13,9 +13,10 @@ import net.machinemuse.powersuits.common.Config
  * Handles sound mechanics
  */
 object Musique {
-  def soundsystem = SoundManager.sndSystem
 
   def mcsound = Minecraft.getMinecraft.sndManager
+
+  def soundsystem = mcsound.sndSystem
 
   def options = Minecraft.getMinecraft.gameSettings
 
@@ -44,7 +45,7 @@ object Musique {
       if (!soundsystem.playing(soundid)) {
         val soundfile = getSoundPoolEntry(soundname)
         val amp: Float = 16.0F * Math.max(1, volume)
-        soundsystem.newSource(unknownflag, soundid, soundfile.soundUrl, soundfile.soundName, false, player.posX.toFloat, player.posY.toFloat, player.posZ.toFloat, 2, amp)
+        soundsystem.newSource(unknownflag, soundid, soundfile.func_110457_b, soundfile.func_110458_a, false, player.posX.toFloat, player.posY.toFloat, player.posZ.toFloat, 2, amp)
         soundsystem.setLooping(soundid, continuous)
         soundsystem.play(soundid)
       }

@@ -14,12 +14,13 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.PositionTextureVertex;
 import net.minecraft.client.model.TexturedQuad;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
@@ -65,12 +66,16 @@ public abstract class MuseRenderer {
     public static void pushTexture(String filename) {
         texturestack.push(TEXTURE_MAP);
         TEXTURE_MAP = filename;
-        getRenderEngine().bindTexture(TEXTURE_MAP);
+        bindTexture(TEXTURE_MAP);
     }
 
     public static void popTexture() {
         TEXTURE_MAP = texturestack.pop();
-        getRenderEngine().bindTexture(TEXTURE_MAP);
+        bindTexture(TEXTURE_MAP);
+    }
+
+    public static void bindTexture(String tex) {
+        getRenderEngine().func_110577_a(new ResourceLocation(tex));
     }
 
     /**
@@ -522,7 +527,7 @@ public abstract class MuseRenderer {
     /**
      * Singleton pattern for RenderEngine
      */
-    public static RenderEngine getRenderEngine() {
+    public static TextureManager getRenderEngine() {
         return Minecraft.getMinecraft().renderEngine;
     }
 

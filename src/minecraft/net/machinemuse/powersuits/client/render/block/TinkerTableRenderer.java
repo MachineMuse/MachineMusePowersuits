@@ -17,7 +17,7 @@ import org.lwjgl.opengl.GL11;
  *
  * @author MachineMuse
  */
-public class TinkerTableRenderer extends TileEntitySpecialRenderer implements ISimpleBlockRenderingHandler {
+public class TinkerTableRenderer extends MuseTESR implements ISimpleBlockRenderingHandler {
     protected TinkerTableModel model;
     protected int renderId;
 

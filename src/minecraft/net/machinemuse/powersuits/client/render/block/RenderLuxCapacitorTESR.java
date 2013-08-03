@@ -17,7 +17,7 @@ import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class RenderLuxCapacitorTESR extends TileEntitySpecialRenderer implements ISimpleBlockRenderingHandler {
+public class RenderLuxCapacitorTESR extends MuseTESR implements ISimpleBlockRenderingHandler {
     protected static WavefrontObject lightmodel;
     protected static WavefrontObject framemodel;
     protected int renderId;

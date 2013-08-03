@@ -4,7 +4,7 @@ import net.machinemuse.general.MuseLogger
 import net.machinemuse.powersuits.client.render.modelspec._
 import net.minecraft.client.model.{ModelBiped, ModelRenderer}
 import net.minecraft.entity.Entity
-import net.minecraft.entity.EntityLiving
+import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraftforge.client.model.obj.WavefrontObject
@@ -46,9 +46,9 @@ trait ArmorModel extends ModelBiped {
 
 
   def setInitialOffsets(r: ModelRenderer, x: Float, y: Float, z: Float) {
-    r.field_82906_o = x
-    r.field_82907_q = y
-    r.field_82908_p = z
+    r.offsetX = x
+    r.offsetY = y
+    r.offsetZ = z
   }
 
   /**
@@ -56,7 +56,7 @@ trait ArmorModel extends ModelBiped {
    */
   override def render(entity: Entity, par2: Float, par3: Float, par4: Float, par5: Float, par6: Float, scale: Float) {
     try {
-      val entLive: EntityLiving = entity.asInstanceOf[EntityLiving]
+      val entLive: EntityLivingBase = entity.asInstanceOf[EntityLivingBase]
       val stack: ItemStack = entLive.getCurrentItemOrArmor(0)
       this.heldItemRight = if (stack != null) 1 else 0
       this.isSneak = entLive.isSneaking

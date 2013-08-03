@@ -11,6 +11,7 @@ import universalelectricity.prefab.implement.IToolConfigurator
 import cpw.mods.fml.common.FMLCommonHandler
 import mods.mffs.api.IFieldTeleporter
 import powercrystals.minefactoryreloaded.api.IToolHammerAdvanced
+import net.minecraft.util.ChatMessageComponent
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -79,7 +80,7 @@ trait ForceFieldManipulator extends IFieldTeleporter {
         return true
       }
       else if (FMLCommonHandler.instance.getEffectiveSide.isServer) {
-        player.sendChatToPlayer("[Field Security] Could not teleport through forcefield. 20,000J is required to teleport.")
+        player.sendChatToPlayer(ChatMessageComponent.func_111066_d("[Field Security] Could not teleport through forcefield. 20,000J is required to teleport."))
       }
     }
     return false

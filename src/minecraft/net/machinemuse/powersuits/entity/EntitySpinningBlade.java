@@ -6,7 +6,8 @@ import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -32,7 +33,7 @@ public class EntitySpinningBlade extends EntityThrowable {
         super(world);
     }
 
-    public EntitySpinningBlade(World par1World, EntityLiving shootingEntity) {
+    public EntitySpinningBlade(World par1World, EntityLivingBase shootingEntity) {
         super(par1World, shootingEntity);
         this.shootingEntity = shootingEntity;
         if (shootingEntity instanceof EntityPlayer) {

@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.item
 import net.machinemuse.powersuits.common.Config
 import net.machinemuse.powersuits.powermodule.misc.{InvisibilityModule, TransparentArmorModule, TintModule}
 import net.machinemuse.utils._
-import net.minecraft.entity.{Entity, EntityLiving}
+import net.minecraft.entity.{EntityLivingBase, Entity}
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumArmorMaterial
 import net.minecraft.item.ItemStack
@@ -34,7 +34,7 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int)
    * Inherited from ISpecialArmor, allows significant customization of damage
    * calculations.
    */
-  def getProperties(player: EntityLiving, armor: ItemStack, source: DamageSource, damage: Double, slot: Int): ISpecialArmor.ArmorProperties = {
+  override def getProperties(player: EntityLivingBase, armor: ItemStack, source: DamageSource, damage: Double, slot: Int): ISpecialArmor.ArmorProperties = {
     val priority: Int = 1
     if (source.isFireDamage && !(source == MuseHeatUtils.overheatDamage)) {
       return new ISpecialArmor.ArmorProperties(priority, 0.25, (25 * damage).toInt)
@@ -62,15 +62,17 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int)
   }
 
   @SideOnly(Side.CLIENT)
-  override def getArmorModel(entityLiving: EntityLiving, itemstack: ItemStack, armorSlot: Int): ModelBiped = {
+  override def getArmorModel(entity: EntityLivingBase, itemstack: ItemStack, armorSlot: Int): ModelBiped = {
     val model: ArmorModel = ArmorModel.instance
 
     model.visibleSection = armorSlot
 
     if (itemstack != null) {
-      if (entityLiving.isInstanceOf[EntityPlayer]) {
-        Option(entityLiving.asInstanceOf[EntityPlayer].getCurrentArmor(2)).map(chest =>
-          if (MuseItemUtils.itemHasActiveModule(chest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) return null)
+      entity match {
+        case player: EntityPlayer =>
+          Option(player.getCurrentArmor(2)).map(chest =>
+            if (MuseItemUtils.itemHasActiveModule(chest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) return null)
+        case _ =>
       }
       if (MuseItemUtils.itemHasActiveModule(itemstack, TransparentArmorModule.MODULE_TRANSPARENT_ARMOR)) {
         return null
@@ -123,7 +125,7 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int)
    * Inherited from ISpecialArmor, allows us to customize how the armor
    * handles being damaged.
    */
-  def damageArmor(entity: EntityLiving, stack: ItemStack, source: DamageSource, damage: Int, slot: Int) {
+  override def damageArmor(entity: EntityLivingBase, stack: ItemStack, source: DamageSource, damage: Int, slot: Int) {
     val itemProperties: NBTTagCompound = MuseItemUtils.getMuseItemTag(stack)
     if (entity.isInstanceOf[EntityPlayer]) {
       if (source == MuseHeatUtils.overheatDamage) {
@@ -145,4 +147,5 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int)
       }
     }
   }
+
 }

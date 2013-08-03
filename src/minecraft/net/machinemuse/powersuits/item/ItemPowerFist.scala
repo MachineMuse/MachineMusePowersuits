@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.item
 
-import cpw.mods.fml.common.registry.LanguageRegistry
 import cpw.mods.fml.relauncher.Side
 import cpw.mods.fml.relauncher.SideOnly
 import forestry.api.arboriculture.IToolGrafter
@@ -15,8 +14,7 @@ import net.machinemuse.utils.MuseHeatUtils
 import net.machinemuse.utils.MuseItemUtils
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.texture.IconRegister
-import net.minecraft.entity.Entity
-import net.minecraft.entity.EntityLiving
+import net.minecraft.entity.{EntityLivingBase, Entity}
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumAction
 import net.minecraft.item.EnumToolMaterial
@@ -61,7 +59,7 @@ with OmniWrench {
    * Current implementations of this method in child classes do not use the
    * entry argument beside stack. They just raise the damage on the stack.
    */
-  override def hitEntity(stack: ItemStack, entityBeingHit: EntityLiving, entityDoingHitting: EntityLiving): Boolean = {
+  override def hitEntity(stack: ItemStack, entityBeingHit: EntityLivingBase, entityDoingHitting: EntityLivingBase): Boolean = {
     if (MuseItemUtils.itemHasActiveModule(stack, OmniWrenchModule.MODULE_OMNI_WRENCH)) {
       entityBeingHit.rotationYaw += 90.0F;
       entityBeingHit.rotationYaw %= 360.0F;
@@ -88,18 +86,20 @@ with OmniWrench {
    * <p/>
    * Returns: Whether to increment player use stats with this item
    */
-  override def onBlockDestroyed(stack: ItemStack, world: World, blockID: Int, x: Int, y: Int, z: Int, entity: EntityLiving): Boolean = {
-    if (entity.isInstanceOf[EntityPlayer]) {
-      import scala.collection.JavaConversions._
-      for (module <- ModuleManager.getBlockBreakingModules) {
-        if (MuseItemUtils.itemHasActiveModule(stack, module.getDataName)) {
-          if (module.onBlockDestroyed(stack, world, blockID, x, y, z, entity.asInstanceOf[EntityPlayer])) {
-            return true
+  override def onBlockDestroyed(stack: ItemStack, world: World, blockID: Int, x: Int, y: Int, z: Int, entity: EntityLivingBase): Boolean = {
+    entity match {
+      case player: EntityPlayer =>
+        import scala.collection.JavaConversions._
+        for (module <- ModuleManager.getBlockBreakingModules) {
+          if (MuseItemUtils.itemHasActiveModule(stack, module.getDataName)) {
+            if (module.onBlockDestroyed(stack, world, blockID, x, y, z, player)) {
+              return true
+            }
           }
         }
-      }
+      case _ =>
     }
-    return true
+    true
   }
 
   /**
@@ -112,8 +112,8 @@ with OmniWrench {
    * @param itemStack  The itemstack
    * @return the damage
    */
-  override def getDamageVsEntity(par1Entity: Entity, itemStack: ItemStack): Int = {
-    return ModuleManager.computeModularProperty(itemStack, MeleeAssistModule.PUNCH_DAMAGE).asInstanceOf[Int]
+  override def getDamageVsEntity(par1Entity: Entity, itemStack: ItemStack): Float = {
+    ModuleManager.computeModularProperty(itemStack, MeleeAssistModule.PUNCH_DAMAGE).toFloat
   }
 
   @SideOnly(Side.CLIENT) override def isFull3D: Boolean = {
@@ -124,30 +124,24 @@ with OmniWrench {
    * Return the enchantability factor of the item. In this case, 0. Might add
    * an enchantability module later :P
    */
-  override def getItemEnchantability: Int = {
-    return 0
-  }
+  override def getItemEnchantability = 0
 
   /**
    * Return the name for this tool's material.
    */
-  override def getToolMaterialName: String = {
-    return this.toolMaterial.toString
-  }
+  override def getToolMaterialName = this.toolMaterial.toString
+
 
   /**
    * Return whether this item is repairable in an anvil.
    */
-  override def getIsRepairable(par1ItemStack: ItemStack, par2ItemStack: ItemStack): Boolean = {
-    return false
-  }
+  override def getIsRepairable(par1ItemStack: ItemStack, par2ItemStack: ItemStack) = false
 
   /**
    * How long it takes to use or consume an item
    */
-  override def getMaxItemUseDuration(par1ItemStack: ItemStack): Int = {
-    return 72000
-  }
+  override def getMaxItemUseDuration(par1ItemStack: ItemStack): Int = 72000
+
 
   /**
    * Called when the right click button is pressed

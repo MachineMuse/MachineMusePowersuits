@@ -4,12 +4,13 @@ import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.obj.WavefrontObject;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class RenderLuxCapacitorEntity extends Render {
+public class RenderLuxCapacitorEntity extends MuseRender {
     protected static WavefrontObject lightmodel;
     protected static WavefrontObject framemodel;
 
@@ -41,5 +42,6 @@ public class RenderLuxCapacitorEntity extends Render {
         glPopMatrix();
         MuseRenderer.popTexture();
     }
+
 
 }

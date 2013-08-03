@@ -7,7 +7,7 @@ import net.minecraft.entity.Entity;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class RenderSpinningBlade extends Render {
+public class RenderSpinningBlade extends MuseRender {
 
     @Override
     public void doRender(Entity entity, double x, double y, double z, float yaw, float partialticktime) {
