@@ -401,7 +401,7 @@
         </getMethod>
         -->
 
-        <get src="http://files.minecraftforge.net/minecraftforge-src-${forge.version}.zip"
+        <get src="http://machinemuse.minecraftforge.net/minecraftforge-src-${forge.version}.zip"
              dest="${download.dir}/minecraftforge-src-${forge.version}.zip"/>
     </target>
 
