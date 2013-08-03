@@ -1,11 +1,11 @@
-Made by users: KazoBurg
-Last edited on 7/2/13
+#Made by users: KazoBurg and Vexatos
+#Last edited on 7/2/13
 
 tile.luxCapacitor.name = Lichtkondensator
-tile.tinkerTable.name = Energierüstungbearbeitungstisch
+tile.tinkerTable.name = Energierüstungsbasteltisch
 
 item.powerArmorBoots.name = Energiestiefel
-item.powerArmorLeggings.name = Energiehosen
+item.powerArmorLeggings.name = Energiehose
 item.powerArmorChestplate.name = Energiebrustplatte
 item.powerArmorHelmet.name = Energiehelm
 item.powerFist.name = Energiefaust
@@ -23,9 +23,9 @@ item.powerArmorComponent.componentPlatingBasic.name = Basisplatte
 item.powerArmorComponent.componentPlatingAdvanced.name = Fortgeschrittene Platte
 item.powerArmorComponent.componentFieldEmitter.name = Kraftfelderzeuger
 item.powerArmorComponent.componentLaserEmitter.name = Hologrammerzeuger
-item.powerArmorComponent.componentCarbonMyofiber.name = Karbonmyofibrillen
+item.powerArmorComponent.componentCarbonMyofiber.name = Karbonmyofaser
 item.powerArmorComponent.componentControlCircuit.name = Kontrollschaltkreis
-item.powerArmorComponent.componentMyofiberGel.name = Myofibrillengel
+item.powerArmorComponent.componentMyofiberGel.name = Myofasergel
 item.powerArmorComponent.componentArtificialMuscle.name = Künstlicher Muskel
 
 module.basicPlating.name = Eisenplatte
@@ -38,8 +38,8 @@ module.shovel.name = Schaufel
 module.shears.name = Scheren
 module.hoe.name = Hacke
 module.luxCapacitor.name = Lichtkondensator
-module.omniwrench.name = Prototyp Allesschraubenzieher
-module.fieldTinkerer.name = Field Tinker Module
+module.omniwrench.name = Prototyp Omni-Schraubenschlüssel
+module.fieldTinkerer.name = Feld-Tinkermodul
 module.meleeAssist.name = Nahkampfassistent
 module.plasmaCannon.name = Plasmakanone
 module.railgun.name = Elektromagnetische Kanone
@@ -56,24 +56,24 @@ module.swimAssist.name = Schwimmturbo
 module.climbAssist.name = Steigungsassistent
 module.jetBoots.name = Raketenstiefel
 module.shockAbsorber.name = Schockabsorber
-module.waterElectrolyzer.name = Wasserelektrolyser
+module.waterElectrolyzer.name = Wasserelektrolysierer
 module.binoculars.name = Ferngläser
 module.nightVision.name = Nachtsichtgerät
 module.flightControl.name = Flugkontrolle
 module.invisibility.name = Tarnung
 module.blinkDrive.name = Teleportationsgetriebe
-module.diamondPickUpgrade.name = Diamantbohrer Upgrade
+module.diamondPickUpgrade.name = Diamantbohrer-Upgrade
 module.aquaAffinity.name = Wasseraffinität
 module.coolingSystem.name = Kühlanlage
 module.tint.name = Farbbestimmungsmodul
 module.transparentArmor.name = Transparentrüstung
 module.cosmeticGlow.name = Leuchtmodul
-module.mffsFieldTeleporter.name = MFFS Kraftfeldteleporter
-module.grafter.name = Pflücker
+module.mffsFieldTeleporter.name = MFFS-Kraftfeldteleporter
+module.grafter.name = Gartenschere
 module.apiaristArmor.name = Imkerrüstung
 module.hazmat.name = Strahlungsschild
 module.redstoneLaser.name = Rotsteinlaser
 module.aurameter.name = Aurameter
 module.airtightSeal.name = Luftdichte Abdichtung
-module.citizenJoe.name = Citizen Joe Rüstung
+module.citizenJoe.name = Citizen-Joe-Rüstung
 module.sonicWeapon.name = Schallwaffe
