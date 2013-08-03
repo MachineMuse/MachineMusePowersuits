@@ -23,7 +23,7 @@ class RenderPart(base: ModelBase, val parent: ModelRenderer) extends ModelRender
     for {
       nbt <- NBTTagAccessor.getValues(renderSpec).asScala
       part <- ModelRegistry.getPart(nbt)
-      if part.slot == ArmorModel.instance.visible
+      if part.slot == ArmorModel.instance.visibleSection
       if part.morph.apply(ArmorModel.instance) == parent
     } {
       withMaybeGlow(part, nbt) {
@@ -33,7 +33,7 @@ class RenderPart(base: ModelBase, val parent: ModelRenderer) extends ModelRender
             Minecraft.getMinecraft.renderEngine.bindTexture(part.getTexture(nbt))
             applyTransform
             val ix = part.getColourIndex(nbt)
-            if (ix < colours.size) {
+            if (ix < colours.size && ix >= 0) {
               Colour.doGLByInt(colours(ix))
             }
             part.modelSpec.applyOffsetAndRotation // not yet implemented

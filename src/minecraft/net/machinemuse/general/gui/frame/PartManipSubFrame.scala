@@ -81,7 +81,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
       val tagdata = getOrDontGetSpecTag(spec)
       tagdata.map(e => {
         val oldindex = spec.getColourIndex(e)
-        if (oldindex >= index) {
+        if (oldindex >= index && oldindex > 0) {
           spec.setColourIndex(e, oldindex - 1)
           if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, e).getPacket250)
         }

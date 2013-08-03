@@ -16,7 +16,7 @@ object ArmorModel {
 
 trait ArmorModel extends ModelBiped {
   var renderSpec: NBTTagCompound = null
-  var visible: Int = 0
+  var visibleSection: Int = 0
 
   def clearAndAddChildWithInitialOffsets(mr: ModelRenderer, xo: Float, yo: Float, zo: Float) {
     mr.cubeList.clear()

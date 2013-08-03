@@ -4,6 +4,9 @@ import net.minecraft.entity.player.EntityPlayer
 import net.machinemuse.general.gui.frame.{ColourPickerFrame, ItemModelViewFrame, PartManipContainer, ItemSelectionFrame}
 import net.machinemuse.general.geometry.{MuseRect, Colour, MusePoint2D}
 import net.minecraft.item.ItemStack
+import net.machinemuse.utils.render.GlowBuffer
+import net.minecraft.client.gui.ScaledResolution
+import net.machinemuse.powersuits.common.Config
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -62,5 +65,14 @@ class CosmeticGui(val player: EntityPlayer) extends MuseGui {
     super.update()
   }
 
-
+  override def drawScreen(x: Int, y: Int, z: Float) {
+    if (Config.canUseShaders) {
+      GlowBuffer.clear()
+    }
+    super.drawScreen(x, y, z)
+    if (Config.canUseShaders) {
+      val screen: ScaledResolution = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight)
+      GlowBuffer.drawFullScreen(screen)
+    }
+  }
 }

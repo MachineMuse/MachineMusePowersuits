@@ -65,7 +65,7 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int)
   override def getArmorModel(entityLiving: EntityLiving, itemstack: ItemStack, armorSlot: Int): ModelBiped = {
     val model: ArmorModel = ArmorModel.instance
 
-    model.visible = armorSlot
+    model.visibleSection = armorSlot
 
     if (itemstack != null) {
       if (entityLiving.isInstanceOf[EntityPlayer]) {
