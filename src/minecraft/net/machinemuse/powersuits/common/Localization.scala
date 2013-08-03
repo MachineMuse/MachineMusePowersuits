@@ -5,6 +5,7 @@ import java.io._
 import net.machinemuse.general.MuseLogger
 import java.util.Properties
 import cpw.mods.fml.common.registry.LanguageRegistry
+import com.google.common.base.Charsets
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -22,7 +23,7 @@ object Localization {
       try {
         val inputStream: InputStream = this.getClass.getResourceAsStream(LANG_PATH + extractedLanguage + ".lang")
         val langPack: Properties = new Properties
-        langPack.load(inputStream)
+        langPack.load(new InputStreamReader(inputStream, Charsets.UTF_8))
         LanguageRegistry.instance.addStringLocalization(langPack, extractedLanguage)
       } catch {
         case e: Exception => {
