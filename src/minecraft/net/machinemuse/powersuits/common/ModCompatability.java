@@ -129,7 +129,7 @@ public class ModCompatability {
 
     public static ItemStack getGregtechItem(int aIndex, int aAmount, int aMeta) {
         try {
-            return (ItemStack) Class.forName("gregtechmod.GT_Mod")
+            return (ItemStack) Class.forName("gregtechmod.api.GregTech_API")
                     .getMethod("getGregTechItem", new Class[]{Integer.TYPE, Integer.TYPE, Integer.TYPE})
                     .invoke(null, Integer.valueOf(aIndex), Integer.valueOf(aAmount), Integer.valueOf(aMeta));
         } catch (Exception e) {
