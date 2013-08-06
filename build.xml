@@ -303,9 +303,9 @@
 
     <target name="build" depends="extract-apis,copy-source" unless="already-compiled">
 
-        <!--<echo message="Applying Scala patches..."/>-->
-        <!--<get src="http://overminddl1.com/minecraft/mcp_update_scala3.zip" dest="${download.dir}/scalapatch.zip"/>-->
-        <!--<unzip src="${download.dir}/scalapatch.zip" dest="${mcp.dir}"/>-->
+        <echo message="Applying Scala patches..."/>
+        <get src="http://overminddl1.com/minecraft/mcp_update_scala3.zip" dest="${download.dir}/scalapatch.zip"/>
+        <unzip src="${download.dir}/scalapatch.zip" dest="${mcp.dir}"/>
 
         <!-- Recompile -->
         <exec dir="${mcp.dir}" executable="cmd" osfamily="windows" failonerror="true">
