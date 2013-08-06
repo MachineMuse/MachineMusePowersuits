@@ -76,7 +76,7 @@
             <available file="${download.dir}/ICBM_API_v${icbmapi.version}.zip"/>
             <available file="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip"/>
             <available file="${download.dir}/CoFHCore-API.zip"/>
-            <available file="${download.dir}/AtomicScience_v${asapi.version}.zip"/>
+            <available file="${download.dir}/Atomic_Science_API_v${asapi.version}.zip"/>
             <available file="${download.dir}/GalacticraftAPIB.zip"/>
             <available file="${download.dir}/Railcraft_API_latest.zip"/>
             <available file="${download.dir}/MFR-API-${mfrapi.version}.zip"/>
@@ -102,8 +102,8 @@
              dest="${download.dir}/ICBM_API_v${icbmapi.version}.zip"/>
 
         <echo message="Downloading Atomic Science API..."/>
-        <get src="http://machinemuse.minecraftforge.net/AtomicScience_v${asapi.version}_api.zip"
-             dest="${download.dir}/AtomicScience_v${asapi.version}_api.zip"/>
+        <get src="http://machinemuse.minecraftforge.net/Atomic_Science_API_v${asapi.version}.zip"
+             dest="${download.dir}/Atomic_Science_API_v${asapi.version}.zip"/>
 
         <echo message="Downloading ThermEx API..."/>
         <get src="http://machinemuse.minecraftforge.net/ThermalExpansion-API-${thermexapi.version}.zip"
@@ -186,11 +186,11 @@
               todir="${mcpsrc.dir}/icbm/api/explosion/"/>
 
         <echo message="Extracting Atomic Science API... "/>
-        <unzip src="${download.dir}/AtomicScience_v${asapi.version}_api.zip" dest="${download.dir}/ue"/>
+        <unzip src="${download.dir}/Atomic_Science_API_v${asapi.version}.zip" dest="${download.dir}/ue"/>
         <mkdir dir="${mcpsrc.dir}/atomicscience/api/poison"/>
-        <move file="${download.dir}/ue/src/minecraft/atomicscience/api/poison/Poison.java"
+        <move file="${download.dir}/ue/poison/Poison.java"
               todir="${mcpsrc.dir}/atomicscience/api/poison"/>
-        <move file="${download.dir}/ue/src/minecraft/atomicscience/api/IAntiPoisonArmor.java"
+        <move file="${download.dir}/ue/IAntiPoisonArmor.java"
               todir="${mcpsrc.dir}/atomicscience/api"/>
 
         <echo message="Extracting ThermalExpansion API... "/>
