@@ -1,6 +1,6 @@
 <models>
     <model file="/assets/mmmpowersuits/models/armor2.obj"
-           textures="/assets/mmmpowersuits/textures/models/armor2diffuse.png">
+           textures="mmmpowersuits:textures/models/armor2diffuse.png">
         <binding slot="2" target="LeftLeg">
             <part defaultcolor="FFFFFF" defaultglow="false" polygroup="leggray" name="Left Leg Base"/>
             <part defaultcolor="FFFFFF" defaultglow="false" polygroup="legbit" name="Left Leg Protection"/>
