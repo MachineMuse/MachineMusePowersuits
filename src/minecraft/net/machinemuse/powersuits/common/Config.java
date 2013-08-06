@@ -43,8 +43,8 @@ import java.util.Properties;
  * @author MachineMuse
  */
 public class Config {
-    public static final String RESOURCE_PREFIX = "/mods/mmmPowersuits/";
-    public static final String TEXTURE_PREFIX = RESOURCE_PREFIX + "textures/";
+    public static final String RESOURCE_PREFIX = "/assets/mmmpowersuits/";
+    public static final String TEXTURE_PREFIX = "mmmpowersuits:textures/";
     public static final String SOUND_PREFIX = RESOURCE_PREFIX + "sound/";
     public static final String LANG_PREFIX = RESOURCE_PREFIX + "lang/";
     // public static final String SEBK_ICON_PATH =
