@@ -14,32 +14,32 @@ import net.minecraft.nbt.NBTTagCompound
 object DefaultModelSpec {
   val normalcolour: Colour = Colour.WHITE
   val glowcolour: Colour = new Colour(17.0 / 255, 78.0 / 255, 1, 1)
-  val tex = "/mods/mmmPowersuits/textures/models/diffuse.png"
+  val tex = "/assets/powersuits/textures/models/diffuse.png"
 
   def loadDefaultModel: Option[ModelSpec] = {
-    loadModel("/mods/mmmPowersuits/models/mps_helm.obj", tex.split(";")).map(model => {
+    loadModel("/assets/powersuits/models/mps_helm.obj", tex.split(";")).map(model => {
       makeEntries(Head, 0, 0, false, "helm_main;helm_tube_entry1;helm_tubes;helm_tube_entry2".split(";"), model)
       makeEntries(Head, 0, 1, true, "visor".split(";"), model)
       model
     })
-    loadModel("/mods/mmmPowersuits/models/mps_arms.obj", tex.split(";")).map(model => {
+    loadModel("/assets/powersuits/models/mps_arms.obj", tex.split(";")).map(model => {
       makeEntries(RightArm, 1, 0, false, "arms3".split(";"), model)
       makeEntries(RightArm, 1, 1, true, "crystal_shoulder_2".split(";"), model)
       makeEntries(LeftArm, 1, 0, false, "arms2".split(";"), model)
       makeEntries(LeftArm, 1, 1, true, "crystal_shoulder_1".split(";"), model)
       model
     })
-    loadModel("/mods/mmmPowersuits/models/mps_chest.obj", tex.split(";")).map(model => {
+    loadModel("/assets/powersuits/models/mps_chest.obj", tex.split(";")).map(model => {
       makeEntries(Body, 1, 0, false, "belt;chest_main;polySurface36;backpack;chest_padding".split(";"), model)
       makeEntries(Body, 1, 1, true, "crystal_belt".split(";"), model)
       model
     })
-    loadModel("/mods/mmmPowersuits/models/mps_pantaloons.obj", tex.split(";")).map(model => {
+    loadModel("/assets/powersuits/models/mps_pantaloons.obj", tex.split(";")).map(model => {
       makeEntries(RightLeg, 2, 0, false, "leg1".split(";"), model)
       makeEntries(LeftLeg, 2, 0, false, "leg2".split(";"), model)
       model
     })
-    loadModel("/mods/mmmPowersuits/models/mps_boots.obj", tex.split(";")).map(model => {
+    loadModel("/assets/powersuits/models/mps_boots.obj", tex.split(";")).map(model => {
       makeEntries(RightLeg, 3, 0, false, "boots1".split(";"), model)
       makeEntries(LeftLeg, 3, 0, false, "boots2".split(";"), model)
       model

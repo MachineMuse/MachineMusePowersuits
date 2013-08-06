@@ -38,7 +38,7 @@ import java.io.File;
 // Informs forge that this is a base mod class, and gives it some info for the
 // FML mod list. This is also where it looks to see if your client's version
 // matches the server's.
-@Mod(modid = "mmmPowersuits",
+@Mod(modid = "powersuits",
         name = "MachineMuse's Modular Powersuits",
         /* @DEPENDENCIES@ */
         version = "@MOD_VERSION@"
@@ -54,8 +54,8 @@ import java.io.File;
 // things that add new blocks/items, false for things like Rei's Minimap or
 // Inventory Tweaks.
 @NetworkMod(clientSideRequired = true, serverSideRequired = true,
-        clientPacketHandlerSpec = @SidedPacketHandler(channels = {"mmmPowersuits"}, packetHandler = MusePacketHandler.class),
-        serverPacketHandlerSpec = @SidedPacketHandler(channels = {"mmmPowersuits"}, packetHandler = MusePacketHandler.class))
+        clientPacketHandlerSpec = @SidedPacketHandler(channels = {"powersuits"}, packetHandler = MusePacketHandler.class),
+        serverPacketHandlerSpec = @SidedPacketHandler(channels = {"powersuits"}, packetHandler = MusePacketHandler.class))
 public class ModularPowersuits {
 
     public static ItemPowerArmorHelmet powerArmorHead;

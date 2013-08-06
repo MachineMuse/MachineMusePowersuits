@@ -47,7 +47,7 @@ public abstract class MuseRenderer {
 
     public static final String ITEM_TEXTURE_QUILT = "/gui/items.png";
     public static final String BLOCK_TEXTURE_QUILT = "/terrain.png";
-    public static final String ICON_PREFIX = "mmmPowersuits:";
+    public static final String ICON_PREFIX = "powersuits:";
 
     /**
      * Does the rotating green circle around the selection, e.g. in GUI.

@@ -105,7 +105,7 @@ public class Config {
      * @return
      */
     public static String getNetworkChannelName() {
-        return "mmmPowerSuits";
+        return "powerSuits";
     }
 
     /**

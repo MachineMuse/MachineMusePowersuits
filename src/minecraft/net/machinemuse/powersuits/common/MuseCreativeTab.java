@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class MuseCreativeTab extends CreativeTabs {
-	public static final String NAME = "MMMPowerSuits";
+	public static final String NAME = "PowerSuits";
 	public static MuseCreativeTab instance;
 	public static ItemStack stack;
 
@@ -18,7 +18,7 @@ public class MuseCreativeTab extends CreativeTabs {
 
 	public MuseCreativeTab(int id, String name) {
 		super(id, name);
-		LanguageRegistry.instance().addStringLocalization("itemGroup." + NAME, "en_US", "MMMPowersuits");
+		LanguageRegistry.instance().addStringLocalization("itemGroup." + NAME, "en_US", "Powersuits");
 	}
 
 	@Override

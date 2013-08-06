@@ -9,7 +9,7 @@ import net.minecraft.util.Icon;
  * @author MachineMuse
  */
 public class MuseIcon {
-    public static final String ICON_PREFIX = "mmmPowersuits:";
+    public static final String ICON_PREFIX = "powersuits:";
 
     // Placeholder icons
     public static final MuseIcon ORB_1_GREEN = new MuseIcon("greendrone");
