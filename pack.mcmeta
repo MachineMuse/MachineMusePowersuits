@@ -1,0 +1,333 @@
+{
+  "pack": {
+    "pack_format": 1,
+    "description": "The default look of Minecraft"
+  },
+  "language": {
+    "af_ZA": {
+      "name": "Afrikaans",
+      "region": "ZA",
+      "bidirectional": false
+    },
+    "ar_SA": {
+      "name": "\u0627\u0644\u0639\u0631\u0628\u064A\u0629",
+      "region": "\u0627\u0644\u0639\u0627\u0644\u0645 \u0627\u0644\u0639\u0631\u0628\u064A",
+      "bidirectional": true
+    },
+    "bg_BG": {
+      "name": "\u0411\u044A\u043B\u0433\u0430\u0440\u0441\u043A\u0438",
+      "region": "BG",
+      "bidirectional": false
+    },
+    "ca_ES": {
+      "name": "Catal\u00E0",
+      "region": "CAT",
+      "bidirectional": false
+    },
+    "cs_CZ": {
+      "name": "\u010Ce\u0161tina",
+      "region": "CZ",
+      "bidirectional": false
+    },
+    "cy_GB": {
+      "name": "Cymraeg",
+      "region": "Cymru",
+      "bidirectional": false
+    },
+    "da_DK": {
+      "name": "Dansk",
+      "region": "DK",
+      "bidirectional": false
+    },
+    "de_DE": {
+      "name": "Deutsch",
+      "region": "Deutschland",
+      "bidirectional": false
+    },
+    "el_GR": {
+      "name": "\u0395\u03BB\u03BB\u03B7\u03BD\u03B9\u03BA\u03AC",
+      "region": "El",
+      "bidirectional": false
+    },
+    "en_AU": {
+      "name": "Australian English",
+      "region": "Australia",
+      "bidirectional": false
+    },
+    "en_CA": {
+      "name": "Canadian English",
+      "region": "CA",
+      "bidirectional": false
+    },
+    "en_GB": {
+      "name": "English",
+      "region": "UK",
+      "bidirectional": false
+    },
+    "en_PT": {
+      "name": "Pirate Speak",
+      "region": "PIRATE",
+      "bidirectional": false
+    },
+    "en_US": {
+      "name": "English",
+      "region": "US",
+      "bidirectional": false
+    },
+    "eo_UY": {
+      "name": "Esperanto",
+      "region": "Mondo",
+      "bidirectional": false
+    },
+    "es_AR": {
+      "name": "Espa\u00F1ol",
+      "region": "Argentina",
+      "bidirectional": false
+    },
+    "es_ES": {
+      "name": "Espa\u00F1ol",
+      "region": "Espa\u00F1a",
+      "bidirectional": false
+    },
+    "es_MX": {
+      "name": "Espa\u00F1ol",
+      "region": "M\u00E9xico",
+      "bidirectional": false
+    },
+    "es_UY": {
+      "name": "Espa\u00F1ol",
+      "region": "Uruguay",
+      "bidirectional": false
+    },
+    "es_VE": {
+      "name": "Espa\u00F1ol",
+      "region": "Venezuela",
+      "bidirectional": false
+    },
+    "et_EE": {
+      "name": "Eesti",
+      "region": "ET",
+      "bidirectional": false
+    },
+    "eu_ES": {
+      "name": "Euskara",
+      "region": "EH",
+      "bidirectional": false
+    },
+    "fi_FI": {
+      "name": "suomi",
+      "region": "FI",
+      "bidirectional": false
+    },
+    "fr_CA": {
+      "name": "Fran\u00E7ais",
+      "region": "CA",
+      "bidirectional": false
+    },
+    "fr_FR": {
+      "name": "Fran\u00E7ais",
+      "region": "France",
+      "bidirectional": false
+    },
+    "ga_IE": {
+      "name": "Gaeilge",
+      "region": "\u00C9ire",
+      "bidirectional": false
+    },
+    "gl_ES": {
+      "name": "Galego",
+      "region": "Galicia",
+      "bidirectional": false
+    },
+    "he_IL": {
+      "name": "\u05D0\u05E0\u05D2\u05DC\u05D9\u05EA",
+      "region": "IL",
+      "bidirectional": true
+    },
+    "hi_IN": {
+      "name": "\u0905\u0902\u0917\u094D\u0930\u0947\u095B\u0940",
+      "region": "\u092D\u093E\u0930\u0924",
+      "bidirectional": false
+    },
+    "hr_HR": {
+      "name": "Hrvatski",
+      "region": "HR",
+      "bidirectional": false
+    },
+    "hu_HU": {
+      "name": "Magyar",
+      "region": "HU",
+      "bidirectional": false
+    },
+    "id_ID": {
+      "name": "Bahasa Indonesia",
+      "region": "ID",
+      "bidirectional": false
+    },
+    "is_IS": {
+      "name": "\u00CDslenska",
+      "region": "IS",
+      "bidirectional": false
+    },
+    "it_IT": {
+      "name": "Italiano",
+      "region": "Italia",
+      "bidirectional": false
+    },
+    "ja_JP": {
+      "name": "\u65E5\u672C\u8A9E",
+      "region": "\u65E5\u672C",
+      "bidirectional": false
+    },
+    "ka_GE": {
+      "name": "\u10E5\u10D0\u10E0\u10D7\u10E3\u10DA\u10D8",
+      "region": "\u10E1\u10D0\u10E5\u10D0\u10E0\u10D7\u10D5\u10D4\u10DA\u10DD",
+      "bidirectional": false
+    },
+    "ko_KR": {
+      "name": "\uD55C\uAD6D\uC5B4",
+      "region": "KR",
+      "bidirectional": false
+    },
+    "kw_GB": {
+      "name": "Kernowek",
+      "region": "Cornwall",
+      "bidirectional": false
+    },
+    "ky_KG": {
+      "name": "\u0905\u0902\u0917\u094D\u0930\u0947\u095B\u0940",
+      "region": "\u092D\u093E\u0930\u0924",
+      "bidirectional": false
+    },
+    "lt_LT": {
+      "name": "Lietuvi\u0173",
+      "region": "Lietuva",
+      "bidirectional": false
+    },
+    "lv_LV": {
+      "name": "Latvie\u0161u",
+      "region": "Latvija",
+      "bidirectional": false
+    },
+    "mi_NZ": {
+      "name": "Bahasa Melayu",
+      "region": "MS",
+      "bidirectional": false
+    },
+    "ms_MY": {
+      "name": "Bahasa Melayu",
+      "region": "MS",
+      "bidirectional": false
+    },
+    "mt_MT": {
+      "name": "Malti",
+      "region": "MT",
+      "bidirectional": false
+    },
+    "nb_NO": {
+      "name": "Norsk",
+      "region": "NO",
+      "bidirectional": false
+    },
+    "nl_NL": {
+      "name": "Nederlands",
+      "region": "Nederland",
+      "bidirectional": false
+    },
+    "nn_NO": {
+      "name": "Norsk nynorsk",
+      "region": "Noreg",
+      "bidirectional": false
+    },
+    "no_NO": {
+      "name": "Norsk",
+      "region": "NO",
+      "bidirectional": false
+    },
+    "pl_PL": {
+      "name": "Polski",
+      "region": "Polska",
+      "bidirectional": false
+    },
+    "pt_BR": {
+      "name": "Portugu\u00EAs",
+      "region": "BR",
+      "bidirectional": false
+    },
+    "pt_PT": {
+      "name": "Portugu\u00EAs",
+      "region": "Portugal",
+      "bidirectional": false
+    },
+    "qya_AA": {
+      "name": "Quenya",
+      "region": "Arda",
+      "bidirectional": false
+    },
+    "ro_RO": {
+      "name": "Rom\u00E2n\u0103",
+      "region": "RO",
+      "bidirectional": false
+    },
+    "ru_RU": {
+      "name": "\u0420\u0443\u0441\u0441\u043A\u0438\u0439",
+      "region": "\u0420\u043E\u0441\u0441\u0438\u044F",
+      "bidirectional": false
+    },
+    "sk_SK": {
+      "name": "Sloven\u010Dina",
+      "region": "SK",
+      "bidirectional": false
+    },
+    "sl_SI": {
+      "name": "Sloven\u0161\u010Dina",
+      "region": "SLO",
+      "bidirectional": false
+    },
+    "sr_SP": {
+      "name": "\u0421\u0440\u043F\u0441\u043A\u0438",
+      "region": "\u0421\u0440\u0431\u0438\u0458\u0430",
+      "bidirectional": false
+    },
+    "sv_SE": {
+      "name": "Svenska",
+      "region": "Sverige",
+      "bidirectional": false
+    },
+    "th_TH": {
+      "name": "\u0E20\u0E32\u0E29\u0E32\u0E44\u0E17\u0E22",
+      "region": "TH",
+      "bidirectional": false
+    },
+    "tlh_AA": {
+      "name": "tlhIngan Hol",
+      "region": "US",
+      "bidirectional": false
+    },
+    "tr_TR": {
+      "name": "T\u00FCrk\u00E7e",
+      "region": "TR",
+      "bidirectional": false
+    },
+    "uk_UA": {
+      "name": "\u0423\u043A\u0440\u0430\u0457\u043D\u0441\u044C\u043A\u0430",
+      "region": "\u0423\u043A\u0440\u0430\u0457\u043D\u0430",
+      "bidirectional": false
+    },
+    "vi_VN": {
+      "name": "Ti\u1EBFng Vi\u1EC7t",
+      "region": "VN",
+      "bidirectional": false
+    },
+    "zh_CN": {
+      "name": "\u7B80\u4F53\u4E2D\u6587",
+      "region": "\u4E2D\u56FD",
+      "bidirectional": false
+    },
+    "zh_TW": {
+      "name": "\u7E41\u9AD4\u4E2D\u6587",
+      "region": "\u53F0\u7063",
+      "bidirectional": false
+    }
+  }
+}

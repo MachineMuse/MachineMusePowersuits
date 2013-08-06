@@ -3,6 +3,7 @@
 !/mods
 !/src
 !/mcmod.info
+!/pack.mcmeta
 !/build.xml
 
 src/minecraft/*

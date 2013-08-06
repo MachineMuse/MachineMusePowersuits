@@ -138,7 +138,7 @@ public class ModularPowersuits {
         components = new ItemComponent();
         components.populate();
         // new ItemSnowbutt(2323);
-        Localization.loadCurrentLanguage();
+//        Localization.loadCurrentLanguage();
 
         Config.loadPowerModules();
 

@@ -294,6 +294,7 @@
             <fileset dir="${src.dir}/minecraft/net/machinemuse"/>
             <filterset>
                 <filter token="MOD_VERSION" value="${fullversion}"/>
+                <filter token="MC_VERSION" value="${minecraft.version}"/>
                 <filter token="DEPENDENCIES"
                         value="*/ dependencies = &quot;required-after:Forge@[${forgeant.version},)&quot;, /*"/>
             </filterset>
@@ -339,8 +340,16 @@
             <fileset dir="${resources.dir}"/>
         </copy>
 
+        <copy todir="${classes.dir}" file="pack.mcmeta">
+            <filterset>
+                <filter token="MC_VERSION" value="${minecraft.version}"/>
+                <filter token="MOD_VERSION" value="${fullversion}"/>
+            </filterset>
+        </copy>
+
         <copy todir="${classes.dir}" file="mcmod.info">
             <filterset>
+                <filter token="MC_VERSION" value="${minecraft.version}"/>
                 <filter token="MOD_VERSION" value="${fullversion}"/>
             </filterset>
         </copy>
