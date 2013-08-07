@@ -6,12 +6,12 @@
 
 package net.machinemuse.powersuits.client.render.item;
 
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.MuseLogger;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.powersuits.client.render.entity.RenderPlasmaBolt;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
-import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -490,7 +490,7 @@ public class ToolModel extends ModelBase {
 
     public void setPoseForPlayer(EntityPlayer player, ItemStack itemStack) {
         if (player.isUsingItem() && player.getCurrentEquippedItem() != null
-                && MuseItemUtils.itemHasActiveModule(player.getCurrentEquippedItem(), PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
+                && ModuleManager.itemHasActiveModule(player.getCurrentEquippedItem(), PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
             setPose(1.5f, -1, 1.5f, -1, 1.5f, -1);
             this.boltSize = player.getItemInUseDuration() > 50 ? 50 : player.getItemInUseDuration();
         } else {

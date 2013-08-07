@@ -3,6 +3,7 @@ package net.machinemuse.general.gui.frame;
 import cpw.mods.fml.common.network.Player;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.IPropertyModifier;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableItem;
@@ -48,7 +49,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
         if (itemTarget.getSelectedItem() != null && moduleTarget.getSelectedModule() != null) {
             ItemStack stack = itemTarget.getSelectedItem().getItem();
             IPowerModule module = moduleTarget.getSelectedModule().getModule();
-            if (MuseItemUtils.itemHasModule(itemTarget.getSelectedItem().getItem(), moduleTarget.getSelectedModule().getModule().getDataName())) {
+            if (ModuleManager.itemHasModule(itemTarget.getSelectedItem().getItem(), moduleTarget.getSelectedModule().getModule().getDataName())) {
                 loadTweaks(stack, module);
             } else {
                 sliders = null;

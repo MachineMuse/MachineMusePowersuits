@@ -7,7 +7,6 @@ import net.machinemuse.powersuits.item.ItemPowerArmor;
 import net.machinemuse.powersuits.powermodule.movement.JumpAssistModule;
 import net.machinemuse.powersuits.powermodule.movement.ShockAbsorberModule;
 import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.ForgeSubscribe;
@@ -39,7 +38,7 @@ public class MovementManager {
             EntityPlayer player = (EntityPlayer) event.entityLiving;
             ItemStack stack = player.getCurrentArmor(1);
             if (stack != null && stack.getItem() instanceof ItemPowerArmor
-                    && MuseItemUtils.itemHasActiveModule(stack, JumpAssistModule.MODULE_JUMP_ASSIST)) {
+                    && ModuleManager.itemHasActiveModule(stack, JumpAssistModule.MODULE_JUMP_ASSIST)) {
                 double jumpAssist = ModuleManager.computeModularProperty(stack, JumpAssistModule.JUMP_MULTIPLIER) * 2;
                 double drain = ModuleManager.computeModularProperty(stack, JumpAssistModule.JUMP_ENERGY_CONSUMPTION);
                 double avail = ElectricItemUtils.getPlayerEnergy(player);
@@ -66,7 +65,7 @@ public class MovementManager {
             EntityPlayer player = (EntityPlayer) event.entityLiving;
             ItemStack boots = player.getCurrentArmor(0);
             if (boots != null) {
-                if (MuseItemUtils.itemHasActiveModule(boots, ShockAbsorberModule.MODULE_SHOCK_ABSORBER) && event.distance > 3) {
+                if (ModuleManager.itemHasActiveModule(boots, ShockAbsorberModule.MODULE_SHOCK_ABSORBER) && event.distance > 3) {
                     double distanceAbsorb = event.distance * ModuleManager.computeModularProperty(boots, ShockAbsorberModule.SHOCK_ABSORB_MULTIPLIER);
                     Musique.playerSound(player, SoundLoader.SOUND_GUI_INSTALL, (float) (distanceAbsorb), 2, false);
 

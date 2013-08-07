@@ -4,6 +4,7 @@ import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.api.IPowerModule;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableButton;
@@ -64,7 +65,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
             IPowerModule module = targetModule.getSelectedModule().getModule();
             List<ItemStack> itemsToCheck = module.getInstallCost();
             double yoffset;
-            if (!MuseItemUtils.itemHasModule(stack, module.getDataName())) {
+            if (!ModuleManager.itemHasModule(stack, module.getDataName())) {
                 yoffset = border.top() + 4;
             } else {
                 yoffset = border.bottom() - 20;
@@ -101,7 +102,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
         IPowerModule module = targetModule.getSelectedModule().getModule();
         List<ItemStack> itemsToDraw = module.getInstallCost();
         double yoffset;
-        if (!MuseItemUtils.itemHasModule(stack, module.getDataName())) {
+        if (!ModuleManager.itemHasModule(stack, module.getDataName())) {
             yoffset = border.top() + 4;
         } else {
             yoffset = border.bottom() - 20;
@@ -120,7 +121,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
     private void drawButtons() {
         ItemStack stack = targetItem.getSelectedItem().getItem();
         IPowerModule module = targetModule.getSelectedModule().getModule();
-        if (!MuseItemUtils.itemHasModule(stack, module.getDataName())) {
+        if (!ModuleManager.itemHasModule(stack, module.getDataName())) {
 
             installButton.setEnabled(player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(
                     module.getInstallCost(), player.inventory));
@@ -138,7 +139,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
             ItemStack stack = selItem.getItem();
             IPowerModule module = selModule.getModule();
 
-            if (!MuseItemUtils.itemHasModule(stack, module.getDataName())) {
+            if (!ModuleManager.itemHasModule(stack, module.getDataName())) {
                 if (installButton.hitBox(x, y)) {
                     doInstall();
                 }

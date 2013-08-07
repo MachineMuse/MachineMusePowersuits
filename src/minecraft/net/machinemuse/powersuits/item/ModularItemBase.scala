@@ -10,6 +10,7 @@ import net.machinemuse.powersuits.powermodule.misc.{CosmeticGlowModule, TintModu
 import net.machinemuse.utils.MuseMathUtils._
 import net.machinemuse.api.electricity.MuseElectricItem
 import net.machinemuse.api.{ModuleManager, IModularItem}
+import net.machinemuse.api.ModuleManager.itemHasActiveModule
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -21,7 +22,7 @@ trait ModularItemBase extends Item with IModularItem with MuseElectricItem {
   }
 
   def getGlowFromItemStack(stack: ItemStack): Colour = {
-    if (!MuseItemUtils.itemHasActiveModule(stack, CosmeticGlowModule.MODULE_GLOW)) {
+    if (!ModuleManager.itemHasActiveModule(stack, CosmeticGlowModule.MODULE_GLOW)) {
       return Colour.LIGHTBLUE
     }
     val computedred: Double = ModuleManager.computeModularProperty(stack, CosmeticGlowModule.RED_GLOW)
@@ -32,7 +33,7 @@ trait ModularItemBase extends Item with IModularItem with MuseElectricItem {
   }
 
   def getColorFromItemStack(stack: ItemStack): Colour = {
-    if (!MuseItemUtils.itemHasActiveModule(stack, TintModule.MODULE_TINT)) {
+    if (!ModuleManager.itemHasActiveModule(stack, TintModule.MODULE_TINT)) {
       return Colour.WHITE
     }
     val computedred: Double = ModuleManager.computeModularProperty(stack, TintModule.RED_TINT)

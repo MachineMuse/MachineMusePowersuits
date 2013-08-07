@@ -4,7 +4,9 @@ import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.utils.MuseItemTag;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -54,9 +56,9 @@ public class ModuleManager {
 
     public static double computeModularProperty(ItemStack stack, String propertyName) {
         double propertyValue = 0;
-        NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+        NBTTagCompound itemTag = MuseItemTag.getMuseItemTag(stack);
         for (IPowerModule module : moduleList) {
-            if (MuseItemUtils.itemHasActiveModule(stack, module.getDataName())) {
+            if (itemHasActiveModule(stack, module.getDataName())) {
                 propertyValue = module.applyPropertyModifiers(itemTag, propertyName, propertyValue);
             }
         }
@@ -73,5 +75,76 @@ public class ModuleManager {
 
     public static List<IBlockBreakingModule> getBlockBreakingModules() {
         return blockBreakingModules;
+    }
+
+    public static List<IPowerModule> getValidModulesForItem(EntityPlayer player, ItemStack stack) {
+        List<IPowerModule> validModules = new ArrayList();
+        for (IPowerModule module : getAllModules()) {
+            if (module.isValidForItem(stack, player)) {
+                validModules.add(module);
+            }
+        }
+        return validModules;
+    }
+
+    public static boolean tagHasModule(NBTTagCompound tag, String moduleName) {
+        return tag.hasKey(moduleName);
+    }
+
+    public static boolean isModuleOnline(NBTTagCompound itemTag, String moduleName) {
+        if (tagHasModule(itemTag, moduleName) && !itemTag.getCompoundTag(moduleName).hasKey(MuseItemUtils.ONLINE)) {
+            return true;
+        } else if (tagHasModule(itemTag, moduleName) && itemTag.getCompoundTag(moduleName).getBoolean(MuseItemUtils.ONLINE)) {
+            return true;
+        }
+        return false;
+    }
+
+    public static void toggleModule(NBTTagCompound itemTag, String name, boolean toggleval) {
+        if (tagHasModule(itemTag, name)) {
+            NBTTagCompound moduleTag = itemTag.getCompoundTag(name);
+            moduleTag.setBoolean(MuseItemUtils.ONLINE, toggleval);
+        }
+    }
+
+    public static boolean itemHasModule(ItemStack stack, String moduleName) {
+        return tagHasModule(MuseItemUtils.getMuseItemTag(stack), moduleName);
+    }
+
+    public static void tagAddModule(NBTTagCompound tag, IPowerModule module) {
+        tag.setCompoundTag(module.getDataName(), module.getNewTag());
+    }
+
+    public static void itemAddModule(ItemStack stack, IPowerModule moduleType) {
+        tagAddModule(MuseItemUtils.getMuseItemTag(stack), moduleType);
+    }
+
+    public static boolean removeModule(NBTTagCompound tag, String moduleName) {
+        if (tag.hasKey(moduleName)) {
+            tag.removeTag(moduleName);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean removeModule(ItemStack stack, String moduleName) {
+        return removeModule(MuseItemUtils.getMuseItemTag(stack), moduleName);
+    }
+
+    public static boolean itemHasActiveModule(ItemStack itemStack, String moduleName) {
+        IPowerModule module = getModule(moduleName);
+        if (module == null || itemStack == null || !module.isAllowed() || !(itemStack.getItem() instanceof IModularItem)) {
+            // playerEntity.sendChatToPlayer("Server has disallowed this module. Sorry!");
+            return false;
+        }
+        if (module instanceof IRightClickModule) {
+            // MuseLogger.logDebug("Module: " + moduleName + " vs Mode: " +
+            // MuseItemUtils.getActiveMode(itemStack));
+
+            return moduleName.equals(MuseItemUtils.getActiveMode(itemStack));
+        } else {
+            return isModuleOnline(MuseItemUtils.getMuseItemTag(itemStack), moduleName);
+        }
     }
 }

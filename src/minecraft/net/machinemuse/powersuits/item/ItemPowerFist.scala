@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.item
 import cpw.mods.fml.relauncher.Side
 import cpw.mods.fml.relauncher.SideOnly
 import forestry.api.arboriculture.IToolGrafter
-import net.machinemuse.api.{OmniWrench, IModularItem, IPowerModule, ModuleManager}
+import net.machinemuse.api._
 import net.machinemuse.api.moduletrigger.IRightClickModule
 import net.machinemuse.general.gui.MuseIcon
 import net.machinemuse.powersuits.common.Config
@@ -22,6 +22,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.DamageSource
 import net.minecraft.util.Vec3
 import net.minecraft.world.World
+import net.machinemuse.api.ModuleManager.itemHasActiveModule
 
 /**
  * Describes the modular power tool.
@@ -60,11 +61,11 @@ with OmniWrench {
    * entry argument beside stack. They just raise the damage on the stack.
    */
   override def hitEntity(stack: ItemStack, entityBeingHit: EntityLivingBase, entityDoingHitting: EntityLivingBase): Boolean = {
-    if (MuseItemUtils.itemHasActiveModule(stack, OmniWrenchModule.MODULE_OMNI_WRENCH)) {
+    if (ModuleManager.itemHasActiveModule(stack, OmniWrenchModule.MODULE_OMNI_WRENCH)) {
       entityBeingHit.rotationYaw += 90.0F;
       entityBeingHit.rotationYaw %= 360.0F;
     }
-    if (entityDoingHitting.isInstanceOf[EntityPlayer] && MuseItemUtils.itemHasActiveModule(stack, MeleeAssistModule.MODULE_MELEE_ASSIST)) {
+    if (entityDoingHitting.isInstanceOf[EntityPlayer] && ModuleManager.itemHasActiveModule(stack, MeleeAssistModule.MODULE_MELEE_ASSIST)) {
       val player: EntityPlayer = entityDoingHitting.asInstanceOf[EntityPlayer]
       val drain: Double = ModuleManager.computeModularProperty(stack, MeleeAssistModule.PUNCH_ENERGY)
       if (ElectricItemUtils.getPlayerEnergy(player) > drain) {
@@ -91,7 +92,7 @@ with OmniWrench {
       case player: EntityPlayer =>
         import scala.collection.JavaConversions._
         for (module <- ModuleManager.getBlockBreakingModules) {
-          if (MuseItemUtils.itemHasActiveModule(stack, module.getDataName)) {
+          if (ModuleManager.itemHasActiveModule(stack, module.getDataName)) {
             if (module.onBlockDestroyed(stack, world, blockID, x, y, z, player)) {
               return true
             }
@@ -149,7 +150,7 @@ with OmniWrench {
   override def onItemRightClick(itemStack: ItemStack, world: World, player: EntityPlayer): ItemStack = {
     import scala.collection.JavaConversions._
     for (module <- ModuleManager.getRightClickModules) {
-      if (module.isValidForItem(itemStack, player) && MuseItemUtils.itemHasActiveModule(itemStack, module.getDataName)) {
+      if (module.isValidForItem(itemStack, player) && ModuleManager.itemHasActiveModule(itemStack, module.getDataName)) {
         module.onRightClick(player, world, itemStack)
       }
     }
@@ -199,7 +200,7 @@ with OmniWrench {
   }
 
   def getSaplingModifier(stack: ItemStack, world: World, player: EntityPlayer, x: Int, y: Int, z: Int): Float = {
-    if (MuseItemUtils.itemHasActiveModule(stack, GrafterModule.MODULE_GRAFTER)) {
+    if (ModuleManager.itemHasActiveModule(stack, GrafterModule.MODULE_GRAFTER)) {
       ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, GrafterModule.GRAFTER_ENERGY_CONSUMPTION))
       MuseHeatUtils.heatPlayer(player, ModuleManager.computeModularProperty(stack, GrafterModule.GRAFTER_HEAT_GENERATION))
       return 100F
@@ -213,7 +214,7 @@ with OmniWrench {
     }
     import scala.collection.JavaConversions._
     for (module <- ModuleManager.getBlockBreakingModules) {
-      if (MuseItemUtils.itemHasActiveModule(stack, module.getDataName) && module.canHarvestBlock(stack, block, meta, player)) {
+      if (ModuleManager.itemHasActiveModule(stack, module.getDataName) && module.canHarvestBlock(stack, block, meta, player)) {
         return true
       }
     }

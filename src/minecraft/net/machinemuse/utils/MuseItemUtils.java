@@ -24,18 +24,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import java.util.*;
 
 public class MuseItemUtils {
-    public static final String NBTPREFIX = "mmmpsmod";
     public static final String ONLINE = "Active";
-
-    public static List<IPowerModule> getValidModulesForItem(EntityPlayer player, ItemStack stack) {
-        List<IPowerModule> validModules = new ArrayList();
-        for (IPowerModule module : ModuleManager.getAllModules()) {
-            if (module.isValidForItem(stack, player)) {
-                validModules.add(module);
-            }
-        }
-        return validModules;
-    }
 
     private static int clampMode(int selection, int modesSize) {
         if (selection > 0) {
@@ -66,10 +55,6 @@ public class MuseItemUtils {
         }
     }
 
-    public static boolean tagHasModule(NBTTagCompound tag, String moduleName) {
-        return tag.hasKey(moduleName);
-    }
-
     public static List<String> getValidModes(ItemStack stack, EntityPlayer player) {
         List<String> modes = new ArrayList();
         if (stack.getItem() instanceof IModularItem) {
@@ -86,53 +71,12 @@ public class MuseItemUtils {
         List<String> modes = new ArrayList();
         if (stack.getItem() instanceof IModularItem) {
             for (IPowerModule module : ModuleManager.getAllModules()) {
-                if (module.isValidForItem(stack, player) && module instanceof IRightClickModule && itemHasModule(stack, module.getDataName())) {
+                if (module.isValidForItem(stack, player) && module instanceof IRightClickModule && ModuleManager.itemHasModule(stack, module.getDataName())) {
                     modes.add(module.getDataName());
                 }
             }
         }
         return modes;
-    }
-
-    public static boolean isModuleOnline(NBTTagCompound itemTag, String moduleName) {
-        if (MuseItemUtils.tagHasModule(itemTag, moduleName) && !itemTag.getCompoundTag(moduleName).hasKey(ONLINE)) {
-            return true;
-        } else if (MuseItemUtils.tagHasModule(itemTag, moduleName) && itemTag.getCompoundTag(moduleName).getBoolean(ONLINE)) {
-            return true;
-        }
-        return false;
-    }
-
-    public static void toggleModule(NBTTagCompound itemTag, String name, boolean toggleval) {
-        if (MuseItemUtils.tagHasModule(itemTag, name)) {
-            NBTTagCompound moduleTag = itemTag.getCompoundTag(name);
-            moduleTag.setBoolean(ONLINE, toggleval);
-        }
-    }
-
-    public static boolean itemHasModule(ItemStack stack, String moduleName) {
-        return tagHasModule(getMuseItemTag(stack), moduleName);
-    }
-
-    public static void tagAddModule(NBTTagCompound tag, IPowerModule module) {
-        tag.setCompoundTag(module.getDataName(), module.getNewTag());
-    }
-
-    public static void itemAddModule(ItemStack stack, IPowerModule moduleType) {
-        tagAddModule(getMuseItemTag(stack), moduleType);
-    }
-
-    public static boolean removeModule(NBTTagCompound tag, String moduleName) {
-        if (tag.hasKey(moduleName)) {
-            tag.removeTag(moduleName);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public static boolean removeModule(ItemStack stack, String moduleName) {
-        return removeModule(getMuseItemTag(stack), moduleName);
     }
 
     /**
@@ -143,25 +87,7 @@ public class MuseItemUtils {
      *         returns null.
      */
     public static NBTTagCompound getMuseItemTag(ItemStack stack) {
-        if (stack == null) {
-            return null;
-        }
-        NBTTagCompound stackTag;
-        if (stack.hasTagCompound()) {
-            stackTag = stack.getTagCompound();
-        } else {
-            stackTag = new NBTTagCompound();
-            stack.setTagCompound(stackTag);
-        }
-
-        NBTTagCompound properties;
-        if (stackTag.hasKey(NBTPREFIX)) {
-            properties = stackTag.getCompoundTag(NBTPREFIX);
-        } else {
-            properties = new NBTTagCompound();
-            stackTag.setCompoundTag(NBTPREFIX, properties);
-        }
-        return properties;
+        return MuseItemTag.getMuseItemTag(stack);
     }
 
     public static NBTTagCompound getMuseRenderTag(ItemStack stack, int armorSlot) {
@@ -480,8 +406,8 @@ public class MuseItemUtils {
         List<IPowerModule> installedModules = new ArrayList();
         for (ItemStack stack : MuseItemUtils.modularItemsEquipped(player)) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            for (IPowerModule module : MuseItemUtils.getValidModulesForItem(player, stack)) {
-                if (tagHasModule(itemTag, module.getDataName())) {
+            for (IPowerModule module : ModuleManager.getValidModulesForItem(player, stack)) {
+                if (ModuleManager.tagHasModule(itemTag, module.getDataName())) {
                     installedModules.add(module);
                 }
             }
@@ -492,25 +418,9 @@ public class MuseItemUtils {
     public static void toggleModuleForPlayer(EntityPlayer player, String name, boolean toggleval) {
         for (ItemStack stack : MuseItemUtils.modularItemsEquipped(player)) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            toggleModule(itemTag, name, toggleval);
+            ModuleManager.toggleModule(itemTag, name, toggleval);
         }
 
-    }
-
-    public static boolean itemHasActiveModule(ItemStack itemStack, String moduleName) {
-        IPowerModule module = ModuleManager.getModule(moduleName);
-        if (module == null || itemStack == null || !module.isAllowed() || !(itemStack.getItem() instanceof IModularItem)) {
-            // playerEntity.sendChatToPlayer("Server has disallowed this module. Sorry!");
-            return false;
-        }
-        if (module instanceof IRightClickModule) {
-            // MuseLogger.logDebug("Module: " + moduleName + " vs Mode: " +
-            // MuseItemUtils.getActiveMode(itemStack));
-
-            return moduleName.equals(MuseItemUtils.getActiveMode(itemStack));
-        } else {
-            return isModuleOnline(getMuseItemTag(itemStack), moduleName);
-        }
     }
 
     public static String getActiveMode(ItemStack itemStack) {

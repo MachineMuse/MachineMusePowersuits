@@ -1,6 +1,7 @@
 package net.machinemuse.general.gui.frame;
 
 import net.machinemuse.api.IPowerModule;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.geometry.MuseRect;
@@ -9,7 +10,6 @@ import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.general.sound.Musique;
 import net.machinemuse.general.sound.SoundLoader;
-import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;
 import org.lwjgl.opengl.GL11;
 
@@ -97,14 +97,14 @@ public class ModuleSelectionFrame extends ScrollableFrame {
             moduleButtons = new ArrayList<ClickableModule>();
             categories = new HashMap<String, ModuleSelectionSubFrame>();
 
-            List<IPowerModule> workingModules = MuseItemUtils.getValidModulesForItem(null, selectedItem.getItem());
+            List<IPowerModule> workingModules = ModuleManager.getValidModulesForItem(null, selectedItem.getItem());
 
             // Prune the list of disallowed modules, if not installed on this
             // item.
             for (Iterator<IPowerModule> it = workingModules.iterator(); it.hasNext(); ) {
                 IPowerModule module = it.next();
                 if (module.isAllowed() == false &&
-                        MuseItemUtils.itemHasModule(selectedItem.getItem(), module.getDataName()) == false) {
+                        ModuleManager.itemHasModule(selectedItem.getItem(), module.getDataName()) == false) {
                     it.remove();
                 }
             }
@@ -119,7 +119,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
                         // If a disallowed module made it to the list, indicate
                         // it as disallowed
                         moduleClickable.setAllowed(false);
-                    } else if (MuseItemUtils.itemHasModule(selectedItem.getItem(), module.getDataName())) {
+                    } else if (ModuleManager.itemHasModule(selectedItem.getItem(), module.getDataName())) {
                         moduleClickable.setInstalled(true);
                     }
                     if (moduleClickable.getModule().equals(this.prevSelection)) {

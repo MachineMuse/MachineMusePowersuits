@@ -22,6 +22,7 @@ import java.util.List
 import net.minecraft.nbt.NBTTagCompound
 import net.machinemuse.general.MuseLogger
 import net.minecraft.util.ChatMessageComponent
+import net.machinemuse.api.ModuleManager.{itemAddModule, itemHasModule}
 
 /**
  * Packet for requesting to purchase an upgrade. Player-to-server. Server decides whether it is a valid upgrade or not and replies with an associated
@@ -57,8 +58,8 @@ class MusePacketInstallModuleRequest(player: Player, itemSlot: Int, moduleName: 
         return
       }
       val cost: List[ItemStack] = moduleType.getInstallCost
-      if ((!MuseItemUtils.itemHasModule(stack, moduleName) && MuseItemUtils.hasInInventory(cost, playerEntity.inventory)) || playerEntity.capabilities.isCreativeMode) {
-        MuseItemUtils.itemAddModule(stack, moduleType)
+      if ((!ModuleManager.itemHasModule(stack, moduleName) && MuseItemUtils.hasInInventory(cost, playerEntity.inventory)) || playerEntity.capabilities.isCreativeMode) {
+        ModuleManager.itemAddModule(stack, moduleType)
         import scala.collection.JavaConversions._
         for (stackInCost <- cost) {
           ElectricItemUtils.givePlayerEnergy(playerEntity, ElectricItemUtils.jouleValueOfComponent(stackInCost))

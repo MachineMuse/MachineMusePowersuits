@@ -179,7 +179,7 @@ public class RenderTickHandler implements ITickHandler {
 
     private void drawGogglesHUD(EntityPlayer player, Minecraft mc, float partialTickTime) {
 
-        if (ModCompatability.isThaumCraftLoaded() && ModCompatability.enableThaumGogglesModule() && player.getCurrentArmor(3) != null && player.getCurrentArmor(3).getItem() instanceof IModularItem && MuseItemUtils.itemHasActiveModule(player.getCurrentArmor(3), "Aurameter")) {
+        if (ModCompatability.isThaumCraftLoaded() && ModCompatability.enableThaumGogglesModule() && player.getCurrentArmor(3) != null && player.getCurrentArmor(3).getItem() instanceof IModularItem && ModuleManager.itemHasActiveModule(player.getCurrentArmor(3), "Aurameter")) {
             ThaumRenderEventHandler.renderGogglesHUD(partialTickTime, player, mc.theWorld.getWorldTime());
         }
     }

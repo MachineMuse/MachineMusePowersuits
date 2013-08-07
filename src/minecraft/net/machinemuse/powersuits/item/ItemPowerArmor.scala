@@ -15,7 +15,8 @@ import net.machinemuse.general.geometry.Colour
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.client.model.ModelBiped
 import net.machinemuse.powersuits.client.render.item.ArmorModel
-import net.machinemuse.api.{ArmorTraits, ModuleManager, IModularItem}
+import net.machinemuse.api.{ModuleManager, ArmorTraits, IModularItem}
+import net.machinemuse.api.ModuleManager.{itemHasActiveModule, tagHasModule}
 
 /**
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.
@@ -71,10 +72,10 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int)
       entity match {
         case player: EntityPlayer =>
           Option(player.getCurrentArmor(2)).map(chest =>
-            if (MuseItemUtils.itemHasActiveModule(chest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) return null)
+            if (ModuleManager.itemHasActiveModule(chest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) return null)
         case _ =>
       }
-      if (MuseItemUtils.itemHasActiveModule(itemstack, TransparentArmorModule.MODULE_TRANSPARENT_ARMOR)) {
+      if (ModuleManager.itemHasActiveModule(itemstack, TransparentArmorModule.MODULE_TRANSPARENT_ARMOR)) {
         return null
       }
       model.renderSpec = MuseItemUtils.getMuseRenderTag(itemstack, armorSlot)
@@ -91,7 +92,7 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int)
    */
   override def hasColor(stack: ItemStack): Boolean = {
     val itemTag: NBTTagCompound = MuseItemUtils.getMuseItemTag(stack)
-    return MuseItemUtils.tagHasModule(itemTag, TintModule.RED_TINT) || MuseItemUtils.tagHasModule(itemTag, TintModule.GREEN_TINT) || MuseItemUtils.tagHasModule(itemTag, TintModule.BLUE_TINT)
+    return ModuleManager.tagHasModule(itemTag, TintModule.RED_TINT) || ModuleManager.tagHasModule(itemTag, TintModule.GREEN_TINT) || ModuleManager.tagHasModule(itemTag, TintModule.BLUE_TINT)
   }
 
   /**

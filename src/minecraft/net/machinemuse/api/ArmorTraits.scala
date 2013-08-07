@@ -8,6 +8,8 @@ import forestry.api.apiculture.IArmorApiarist
 import net.minecraft.entity.EntityLivingBase
 import atomicscience.api.IAntiPoisonArmor
 import atomicscience.api.poison.Poison
+import net.machinemuse.api.ModuleManager.itemHasActiveModule
+import net.machinemuse.api.ModuleManager
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -21,7 +23,7 @@ with RadiationArmor {
 
 trait ApiaristArmor extends IArmorApiarist {
   def protectPlayer(player: EntityPlayer, armor: ItemStack, cause: String, doProtect: Boolean): Boolean = {
-    if (MuseItemUtils.itemHasActiveModule(armor, ApiaristArmorModule.MODULE_APIARIST_ARMOR)) {
+    if (ModuleManager.itemHasActiveModule(armor, ApiaristArmorModule.MODULE_APIARIST_ARMOR)) {
       ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(armor, ApiaristArmorModule.APIARIST_ARMOR_ENERGY_CONSUMPTION))
       true
     } else false
@@ -30,7 +32,7 @@ trait ApiaristArmor extends IArmorApiarist {
 
 trait RadiationArmor extends IAntiPoisonArmor {
   def isProtectedFromPoison(itemStack: ItemStack, EntityLivingBase: EntityLivingBase, `type`: Poison): Boolean = {
-    MuseItemUtils.itemHasActiveModule(itemStack, HazmatModule.MODULE_HAZMAT)
+    ModuleManager.itemHasActiveModule(itemStack, HazmatModule.MODULE_HAZMAT)
   }
 
   def onProtectFromPoison(itemStack: ItemStack, EntityLivingBase: EntityLivingBase, `type`: Poison) {}

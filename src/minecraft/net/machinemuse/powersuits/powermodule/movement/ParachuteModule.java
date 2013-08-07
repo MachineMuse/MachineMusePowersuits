@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
 import net.machinemuse.api.IModularItem;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.powersuits.control.PlayerInputMap;
@@ -52,7 +53,7 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
         boolean hasGlider = false;
         MusePlayerUtils.resetFloatKickTicks(player);
         if (torso != null && torso.getItem() instanceof IModularItem) {
-            hasGlider = MuseItemUtils.itemHasActiveModule(torso, GliderModule.MODULE_GLIDER);
+            hasGlider = ModuleManager.itemHasActiveModule(torso, GliderModule.MODULE_GLIDER);
         }
         if (sneakkey && player.motionY < -0.1 && (!hasGlider || forwardkey <= 0)) {
             double totalVelocity = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ + player.motionY * player.motionY)

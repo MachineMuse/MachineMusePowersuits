@@ -18,6 +18,7 @@ import java.util.HashSet
 import java.util.List
 import java.util.Set
 import scala.Predef._
+import net.machinemuse.api.ModuleManager.{removeModule, itemHasModule}
 
 /**
  * Packet for requesting to purchase an upgrade. Player-to-server. Server
@@ -50,9 +51,9 @@ class MusePacketSalvageModuleRequest(player: Player, itemSlot: Int, moduleName: 
       val stack = playerEntity.inventory.getStackInSlot(itemSlot)
       val moduleType: IPowerModule = ModuleManager.getModule(moduleName)
       val refund: List[ItemStack] = moduleType.getInstallCost
-      if (MuseItemUtils.itemHasModule(stack, moduleName)) {
+      if (ModuleManager.itemHasModule(stack, moduleName)) {
         val slots: Set[Integer] = new HashSet[Integer]
-        MuseItemUtils.removeModule(stack, moduleName)
+        ModuleManager.removeModule(stack, moduleName)
         import scala.collection.JavaConversions._
         for (refundItem <- refund) {
           slots.addAll(MuseItemUtils.giveOrDropItemWithChance(refundItem.copy, playerEntity, Config.getSalvageChance))

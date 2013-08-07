@@ -4,7 +4,6 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.powersuits.item.ItemPowerFist;
-import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -31,7 +30,7 @@ public class HarvestEventHandler {
         ItemStack stack = player.getCurrentEquippedItem();
         if (stack != null && stack.getItem() instanceof IModularItem) {
             for (IBlockBreakingModule module : ModuleManager.getBlockBreakingModules()) {
-                if (MuseItemUtils.itemHasActiveModule(stack, module.getDataName()) && module.canHarvestBlock(stack, block, meta, player)) {
+                if (ModuleManager.itemHasActiveModule(stack, module.getDataName()) && module.canHarvestBlock(stack, block, meta, player)) {
                     if (event.newSpeed == 0) {
                         event.newSpeed = 1;
                     }

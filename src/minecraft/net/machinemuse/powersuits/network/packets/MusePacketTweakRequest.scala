@@ -10,6 +10,8 @@ import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.nbt.NBTTagCompound
 import java.io.DataInputStream
 import scala.Predef._
+import net.machinemuse.api.ModuleManager.tagHasModule
+import net.machinemuse.api.ModuleManager
 
 /**
  * Packet for requesting to purchase an upgrade. Player-to-server. Server
@@ -43,7 +45,7 @@ class MusePacketTweakRequest(player: Player, itemSlot: Int, moduleName: String, 
     if (moduleName != null && tweakName != null) {
       val stack = playerEntity.inventory.getStackInSlot(itemSlot)
       val itemTag: NBTTagCompound = MuseItemUtils.getMuseItemTag(stack)
-      if (itemTag != null && MuseItemUtils.tagHasModule(itemTag, moduleName)) {
+      if (itemTag != null && ModuleManager.tagHasModule(itemTag, moduleName)) {
         val moduleTag: NBTTagCompound = itemTag.getCompoundTag(moduleName)
         moduleTag.setDouble(tweakName, MuseMathUtils.clampDouble(tweakValue, 0, 1))
       }

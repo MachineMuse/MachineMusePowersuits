@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.event;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.api.ModuleManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -40,7 +40,7 @@ public class ThaumRenderEventHandler {
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
         if (player != null && player.inventory.armorItemInSlot(3) != null && player.inventory.armorItemInSlot(3).getItem() instanceof IModularItem) {
             ItemStack stack = player.inventory.armorItemInSlot(3);
-            if (MuseItemUtils.itemHasModule(stack, "Aurameter")) {
+            if (ModuleManager.itemHasModule(stack, "Aurameter")) {
                 renderAuraNodes(event, event.partialTicks, player, Minecraft.getMinecraft().theWorld.getWorldTime());
             }
         }
@@ -53,7 +53,7 @@ public class ThaumRenderEventHandler {
 
         if (player != null && player.inventory.armorItemInSlot(3) != null && player.inventory.armorItemInSlot(3).getItem() instanceof IModularItem) {
             ItemStack stack = player.inventory.armorItemInSlot(3);
-            if (MuseItemUtils.itemHasModule(stack, "Aurameter")) {
+            if (ModuleManager.itemHasModule(stack, "Aurameter")) {
                 drawTags(event.target, player.worldObj, event.partialTicks);
             }
         }

@@ -12,6 +12,8 @@ import cpw.mods.fml.common.FMLCommonHandler
 import mods.mffs.api.IFieldTeleporter
 import powercrystals.minefactoryreloaded.api.IToolHammerAdvanced
 import net.minecraft.util.ChatMessageComponent
+import net.machinemuse.api.ModuleManager.{itemHasActiveModule, itemHasModule}
+import net.machinemuse.api.ModuleManager
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -27,7 +29,7 @@ trait OmniWrench
 
 trait ModularCrowbar extends IToolCrowbar {
   def canWhack(player: EntityPlayer, crowbar: ItemStack, x: Int, y: Int, z: Int): Boolean = {
-    return MuseItemUtils.itemHasActiveModule(crowbar, OmniWrenchModule.MODULE_OMNI_WRENCH)
+    return ModuleManager.itemHasActiveModule(crowbar, OmniWrenchModule.MODULE_OMNI_WRENCH)
   }
 
   def onWhack(player: EntityPlayer, crowbar: ItemStack, x: Int, y: Int, z: Int) {
@@ -35,7 +37,7 @@ trait ModularCrowbar extends IToolCrowbar {
   }
 
   def canLink(player: EntityPlayer, crowbar: ItemStack, cart: EntityMinecart): Boolean = {
-    return MuseItemUtils.itemHasActiveModule(crowbar, OmniWrenchModule.MODULE_OMNI_WRENCH)
+    return ModuleManager.itemHasActiveModule(crowbar, OmniWrenchModule.MODULE_OMNI_WRENCH)
   }
 
   def onLink(player: EntityPlayer, crowbar: ItemStack, cart: EntityMinecart) {
@@ -43,7 +45,7 @@ trait ModularCrowbar extends IToolCrowbar {
   }
 
   def canBoost(player: EntityPlayer, crowbar: ItemStack, cart: EntityMinecart): Boolean = {
-    return MuseItemUtils.itemHasActiveModule(crowbar, OmniWrenchModule.MODULE_OMNI_WRENCH)
+    return ModuleManager.itemHasActiveModule(crowbar, OmniWrenchModule.MODULE_OMNI_WRENCH)
   }
 
   def onBoost(player: EntityPlayer, crowbar: ItemStack, cart: EntityMinecart) {
@@ -59,7 +61,7 @@ trait ModularWrench
 
   def canWrench(player: EntityPlayer, x: Int, y: Int, z: Int): Boolean = {
     if (player.getCurrentEquippedItem != null && player.getCurrentEquippedItem.getItem.isInstanceOf[IModularItem]) {
-      return MuseItemUtils.itemHasActiveModule(player.getCurrentEquippedItem, OmniWrenchModule.MODULE_OMNI_WRENCH)
+      return ModuleManager.itemHasActiveModule(player.getCurrentEquippedItem, OmniWrenchModule.MODULE_OMNI_WRENCH)
     }
     return false
   }
@@ -70,12 +72,12 @@ trait ModularWrench
 
 // MFR wrench
 trait ModularHammer extends IToolHammerAdvanced {
-  def isActive(stack: ItemStack): Boolean = MuseItemUtils.itemHasActiveModule(stack, OmniWrenchModule.MODULE_OMNI_WRENCH)
+  def isActive(stack: ItemStack): Boolean = ModuleManager.itemHasActiveModule(stack, OmniWrenchModule.MODULE_OMNI_WRENCH)
 }
 
 trait ForceFieldManipulator extends IFieldTeleporter {
   def canFieldTeleport(player: EntityPlayer, stack: ItemStack, teleportCost: Int): Boolean = {
-    if (MuseItemUtils.itemHasModule(stack, MFFSFieldTeleporterModule.MODULE_FIELD_TELEPORTER)) {
+    if (ModuleManager.itemHasModule(stack, MFFSFieldTeleporterModule.MODULE_FIELD_TELEPORTER)) {
       if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, MFFSFieldTeleporterModule.FIELD_TELEPORTER_ENERGY_CONSUMPTION)) {
         return true
       }

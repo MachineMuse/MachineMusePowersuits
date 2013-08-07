@@ -2,12 +2,12 @@ package net.machinemuse.powersuits.event;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.movement.FlightControlModule;
 import net.machinemuse.powersuits.powermodule.movement.GliderModule;
 import net.machinemuse.powersuits.powermodule.movement.JetBootsModule;
 import net.machinemuse.powersuits.powermodule.movement.JetPackModule;
-import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.GlowBuffer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -45,10 +45,10 @@ public class RenderEventHandler {
     }
 
     private boolean playerHasFlightOn(EntityPlayer player) {
-        return MuseItemUtils.itemHasActiveModule(player.getCurrentArmor(2), JetPackModule.MODULE_JETPACK)
-                || MuseItemUtils.itemHasActiveModule(player.getCurrentArmor(2), GliderModule.MODULE_GLIDER)
-                || MuseItemUtils.itemHasActiveModule(player.getCurrentArmor(0), JetBootsModule.MODULE_JETBOOTS)
-                || MuseItemUtils.itemHasActiveModule(player.getCurrentArmor(3), FlightControlModule.MODULE_FLIGHT_CONTROL);
+        return ModuleManager.itemHasActiveModule(player.getCurrentArmor(2), JetPackModule.MODULE_JETPACK)
+                || ModuleManager.itemHasActiveModule(player.getCurrentArmor(2), GliderModule.MODULE_GLIDER)
+                || ModuleManager.itemHasActiveModule(player.getCurrentArmor(0), JetBootsModule.MODULE_JETBOOTS)
+                || ModuleManager.itemHasActiveModule(player.getCurrentArmor(3), FlightControlModule.MODULE_FLIGHT_CONTROL);
     }
 
     @ForgeSubscribe
