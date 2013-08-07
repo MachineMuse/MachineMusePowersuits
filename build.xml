@@ -31,10 +31,10 @@
     <property name="ue.download.dir" value="${download.dir}/ue/minecraft/universalelectricity"/>
     <property name="src.dir" value="src"/>
     <property name="lib.dir" value="${src.dir}/lib"/>
-    <property name="build.dir" value="build"/>
+    <property name="build.dir" value="build/${minecraft.version}"/>
     <property name="classes.dir" value="${build.dir}/packaging"/>
     <property name="forge.dir" value="${build.dir}/forge"/>
-    <property name="dist.dir" value="${build.dir}/dist"/>
+    <property name="dist.dir" value="dist"/>
     <property name="mcp.dir" value="${forge.dir}/mcp"/>
     <property name="mcplib.dir" value="${mcp.dir}/lib"/>
     <property name="mcpsrc.dir" value="${mcp.dir}/src/minecraft"/>
