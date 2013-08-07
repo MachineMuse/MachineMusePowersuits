@@ -56,7 +56,7 @@
         <equals arg1="${forge.build.number}" arg2="${forgebuild}"/>
     </condition>
     <available property="forge-exists" file="${download.dir}/minecraftforge-src-${forge.version}.zip"/>
-    <available property="already-compiled" file="${classes.dir}/net/machinemuse"/>
+    <!--<available property="already-compiled" file="${classes.dir}/net/machinemuse"/>-->
 
     <mkdir dir="${download.dir}"/>
     <mkdir dir="${dist.dir}"/>
