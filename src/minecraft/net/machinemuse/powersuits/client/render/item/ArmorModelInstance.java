@@ -9,12 +9,12 @@ public class ArmorModelInstance {
 
     public static ArmorModel getInstance() {
         if (instance == null) {
-            instance = new VanillaArmorModel();
-//            try {
-//                instance = new SMovingArmorModel();
-//            } catch (Throwable e) {
-//                instance = new VanillaArmorModel();
-//            }
+//            instance = new VanillaArmorModel();
+            try {
+                instance = new SMovingArmorModel();
+            } catch (Throwable e) {
+                instance = new VanillaArmorModel();
+            }
         }
         return instance;
     }
