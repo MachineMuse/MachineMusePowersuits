@@ -6,6 +6,7 @@ import net.machinemuse.api.IPropertyModifier;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -153,7 +154,7 @@ public abstract class PowerModuleBase implements IPowerModule {
 
     @Override
     public String getStitchedTexture(ItemStack item) {
-        return "/gui/items.png";
+        return MuseRenderer.ITEM_TEXTURE_QUILT;
         // alternatively
         // return "/terrain.png";
     }
