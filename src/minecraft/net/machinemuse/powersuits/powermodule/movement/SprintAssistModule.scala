@@ -15,7 +15,6 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.nbt.NBTTagList
 import net.minecraft.util.StatCollector
 import java.util.List
-import net.machinemuse.general.MuseLogger
 
 object SprintAssistModule {
   val MODULE_SPRINT_ASSIST: String = "Sprint Assist"
@@ -56,7 +55,7 @@ class SprintAssistModule(validItems: List[IModularItem]) extends PowerModuleBase
         ElectricItemUtils.drainPlayerEnergy(player, sprintCost * horzMovement * 5)
         setMovementModifier(item, sprintMultiplier)
         player.getFoodStats.addExhaustion((-0.01 * exhaustion * exhaustionComp).asInstanceOf[Float])
-        player.jumpMovementFactor = player.getAIMoveSpeed * .5f
+//        player.jumpMovementFactor = player.getAIMoveSpeed * .5f
       }
     }
     else {
@@ -65,7 +64,7 @@ class SprintAssistModule(validItems: List[IModularItem]) extends PowerModuleBase
         val walkMultiplier: Double = ModuleManager.computeModularProperty(item, WALKING_SPEED_MULTIPLIER)
         ElectricItemUtils.drainPlayerEnergy(player, cost * horzMovement * 5)
         setMovementModifier(item, walkMultiplier)
-        player.jumpMovementFactor = player.getAIMoveSpeed * .5f
+//        player.jumpMovementFactor = player.getAIMoveSpeed * .5f
       }
     }
   }
@@ -76,18 +75,33 @@ class SprintAssistModule(validItems: List[IModularItem]) extends PowerModuleBase
     val sprintModifiers =
       for (i <- 0 until modifiers.tagCount()) yield {
         val tag = modifiers.tagAt(i).asInstanceOf[NBTTagCompound]
-        if (new AttributeModifier(tag).attributeName == "Sprint Assist") {
+        if (new AttributeModifier(tag).name == "Sprint Assist") {
           Some(tag)
         } else None
       } flatMap {
         tag: NBTTagCompound =>
-          tag.setDouble("Amount", multiplier)
+          tag.setInteger("Operation", 1)
+          tag.setDouble("Amount", multiplier-1)
           Some(tag)
       }
-    if (sprintModifiers.isEmpty) modifiers.appendTag(AttributeModifier(2, TAGUUID, multiplier, "generic.movementSpeed", "Sprint Assist").toNBT)
+    if (sprintModifiers.isEmpty) modifiers.appendTag(AttributeModifier(1, TAGUUID, multiplier-1, "generic.movementSpeed", "Sprint Assist").toNBT)
   }
 
   def onPlayerTickInactive(player: EntityPlayer, item: ItemStack) {
+    if (item != null) {
+
+      val modifiers: NBTTagList = item.getTagCompound.getTagList("AttributeModifiers")
+      for (i <- 0 until modifiers.tagCount()) yield {
+        val tag = modifiers.tagAt(i).asInstanceOf[NBTTagCompound]
+        if (new AttributeModifier(tag).name == "Sprint Assist") {
+          Some(tag)
+        } else None
+      } flatMap {
+        tag: NBTTagCompound =>
+          tag.setDouble("Amount", 0)
+          Some(tag)
+      }
+    }
   }
 
   def getTextureFile: String = "sprintassist"
