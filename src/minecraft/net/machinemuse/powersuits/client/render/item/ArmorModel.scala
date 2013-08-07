@@ -82,4 +82,8 @@ trait ArmorModel extends ModelBiped {
     setRotationAngles(par2, par3, par4, par5, par6, scale, entity)
     super.render(entity, par2, par3, par4, par5, par6, scale)
   }
+
+  def draw(entity: Entity, par2: Float, par3: Float, par4: Float, par5: Float, par6: Float, scale: Float) {
+    render(entity, par2, par3, par4, par5, par6, scale)
+  }
 }
