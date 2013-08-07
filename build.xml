@@ -278,6 +278,11 @@
     </target>
 
     <target name="install" depends="build">
+        <delete>
+            <fileset dir="${dist.dir}">
+                <include name="ModularPowersuits-${minecraft.version}-*"/>
+            </fileset>
+        </delete>
         <unzip src="${download.dir}/slick-util.jar" dest="${classes.dir}"/>
         <jar destfile="${dist.dir}/ModularPowersuits-${minecraft.version}-${fullversion}.jar" basedir="${classes.dir}"/>
         <delete dir="${classes.dir}"/>
