@@ -88,7 +88,7 @@ class ItemModelViewFrame(itemSelector: ItemSelectionFrame, topleft: MusePoint2D,
     glRotatef(rotx.toFloat, 1, 0, 0)
     glRotatef(roty.toFloat, 0, 1, 0)
     glTranslated(0, -getArmorSlot / 2.0, 0)
-    ArmorModel.instance.render(mc.thePlayer, 0, 0, 0, 0, 0, 0.0625f)
+    ArmorModel.instance.render(mc.thePlayer, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625f)
     glPopMatrix()
   }
 
