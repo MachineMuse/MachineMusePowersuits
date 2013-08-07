@@ -9,8 +9,8 @@ public class SoundLoader {
     /**
      * Sounds
      */
-    private static final String SOUND_RESOURCE_LOCATION = "assets/powersuits/sound/";
-    private static final String SOUND_PREFIX = "assets.powersuits.sound.";
+    private static final String SOUND_RESOURCE_LOCATION = "powersuits:";
+    private static final String SOUND_PREFIX = "powersuits:";
 
     public static String[] soundFiles = {
             SOUND_RESOURCE_LOCATION + "Glider.ogg",
@@ -37,7 +37,7 @@ public class SoundLoader {
     public void onSoundLoad(SoundLoadEvent event) {
         for (String soundFile : soundFiles) {
             try {
-                event.manager.soundPoolSounds.addSound(soundFile);
+                event.manager.addSound(soundFile);
                 MuseLogger.logDebug("MMMPS registered sound: " + soundFile);
             } catch (Exception e) {
                 MuseLogger.logError("Failed to register sound:" + soundFile);
