@@ -51,10 +51,8 @@ trait ArmorModel extends ModelBiped {
     r.offsetZ = z
   }
 
-  /**
-   * Sets the models various rotation angles then renders the model.
-   */
-  override def render(entity: Entity, par2: Float, par3: Float, par4: Float, par5: Float, par6: Float, scale: Float) {
+
+  def prep(entity: Entity, par2: Float, par3: Float, par4: Float, par5: Float, par6: Float, scale: Float) {
     try {
       val entLive: EntityLivingBase = entity.asInstanceOf[EntityLivingBase]
       val stack: ItemStack = entLive.getCurrentItemOrArmor(0)
@@ -80,10 +78,5 @@ trait ArmorModel extends ModelBiped {
     bipedLeftLeg.showModel = true
 
     setRotationAngles(par2, par3, par4, par5, par6, scale, entity)
-    super.render(entity, par2, par3, par4, par5, par6, scale)
-  }
-
-  def draw(entity: Entity, par2: Float, par3: Float, par4: Float, par5: Float, par6: Float, scale: Float) {
-    render(entity, par2, par3, par4, par5, par6, scale)
   }
 }
