@@ -59,6 +59,7 @@
     <available property="already-compiled" file="${classes.dir}/net/machinemuse"/>
 
     <mkdir dir="${download.dir}"/>
+    <mkdir dir="build"/>
     <mkdir dir="${build.dir}"/>
 
 
