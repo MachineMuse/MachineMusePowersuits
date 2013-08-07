@@ -42,11 +42,11 @@ public abstract class MuseRenderer {
 
     protected static SwirlyMuseCircle selectionCircle;
 
-    private static String TEXTURE_MAP = "/gui/items.png";
+    private static String TEXTURE_MAP = "items.png";
     private static Stack<String> texturestack = new Stack<String>();
 
-    public static final String ITEM_TEXTURE_QUILT = "/gui/items.png";
-    public static final String BLOCK_TEXTURE_QUILT = "/terrain.png";
+    public static final String ITEM_TEXTURE_QUILT = "items.png";
+    public static final String BLOCK_TEXTURE_QUILT = "terrain.png";
     public static final String ICON_PREFIX = "powersuits:";
 
     /**

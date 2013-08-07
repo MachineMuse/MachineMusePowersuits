@@ -9,8 +9,8 @@ public class SoundLoader {
     /**
      * Sounds
      */
-    private static final String SOUND_RESOURCE_LOCATION = "mods/mmmPowersuits/sound/";
-    private static final String SOUND_PREFIX = "mods.mmmPowersuits.sound.";
+    private static final String SOUND_RESOURCE_LOCATION = "assets/powersuits/sound/";
+    private static final String SOUND_PREFIX = "assets.powersuits.sound.";
 
     public static String[] soundFiles = {
             SOUND_RESOURCE_LOCATION + "Glider.ogg",
