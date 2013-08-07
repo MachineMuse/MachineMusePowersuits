@@ -265,8 +265,8 @@
     </target>
 
     <target name="update-names" depends="copy-source">
-        <get src="http://mcp.ocean-labs.de/files/mcptest/methods.csv" dest="${mcp.dir}/conf/methods.csv"/>
-        <get src="http://mcp.ocean-labs.de/files/mcptest/fields.csv" dest="${mcp.dir}/conf/fields.csv"/>
+        <get src="http://mcpold.ocean-labs.de/files/mcptest/methods.csv" dest="${mcp.dir}/conf/methods.csv"/>
+        <get src="http://mcpold.ocean-labs.de/files/mcptest/fields.csv" dest="${mcp.dir}/conf/fields.csv"/>
 
         <exec dir="${mcp.dir}" executable="cmd" osfamily="windows" failonerror="true">
             <arg line="/c updatenames.bat"/>
