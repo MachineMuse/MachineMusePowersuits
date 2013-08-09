@@ -1,4 +1,4 @@
-package net.machinemuse.utils
+package net.machinemuse.api
 
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.item.ItemStack
@@ -30,4 +30,8 @@ object MuseItemTag {
     properties
   }
 
+  def getActiveMode(stack: ItemStack): String = {
+    val active : String =  getMuseItemTag(stack).getString("Mode")
+    active
+  }
 }
