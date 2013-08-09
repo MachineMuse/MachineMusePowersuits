@@ -7,7 +7,6 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.entity.item.EntityMinecart
 import buildcraft.api.tools.IToolWrench
-import universalelectricity.prefab.implement.IToolConfigurator
 import cpw.mods.fml.common.FMLCommonHandler
 import mods.mffs.api.IFieldTeleporter
 import powercrystals.minefactoryreloaded.api.IToolHammerAdvanced
@@ -56,8 +55,7 @@ trait ModularCrowbar extends IToolCrowbar {
 
 trait ModularWrench
   extends IToolWrench // Buildcraft wrench
-  with IToolConfigurator {
-  // Universal Electricity wrench
+  {
 
   def canWrench(player: EntityPlayer, x: Int, y: Int, z: Int): Boolean = {
     if (player.getCurrentEquippedItem != null && player.getCurrentEquippedItem.getItem.isInstanceOf[IModularItem]) {

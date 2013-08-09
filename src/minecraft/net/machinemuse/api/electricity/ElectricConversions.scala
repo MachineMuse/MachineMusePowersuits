@@ -25,11 +25,11 @@ object ElectricConversions {
   def museEnergyFromMJ(mj: Double): Double = mj * ModCompatability.getBCRatio
 
   // UE
-  def museEnergyToElectricityPack(museEnergy: Double, voltage: Double): ElectricityPack = new ElectricityPack(museEnergyToJoules(museEnergy) * 20.0 / voltage, voltage)
+  def museEnergyToElectricityPack(museEnergy: Double, voltage: Float): ElectricityPack = new ElectricityPack(museEnergyToJoules(museEnergy) * 20.F / voltage, voltage)
 
-  def museEnergyFromElectricityPack(pack: ElectricityPack): Double = museEnergyFromJoules(pack.amperes / 20.0 * pack.voltage)
+  def museEnergyFromElectricityPack(pack: ElectricityPack): Double = museEnergyFromJoules(pack.amperes / 20.F * pack.voltage)
 
-  def museEnergyToJoules(energy: Double): Double = energy / ModCompatability.getUERatio
+  def museEnergyToJoules(energy: Double): Float = (energy / ModCompatability.getUERatio).toFloat
 
-  def museEnergyFromJoules(energy: Double): Double = energy * ModCompatability.getUERatio
+  def museEnergyFromJoules(energy: Float): Double = energy * ModCompatability.getUERatio
 }

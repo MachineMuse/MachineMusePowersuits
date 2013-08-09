@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.item
 
-import micdoodle8.mods.galacticraft.API.EnumGearType
-import micdoodle8.mods.galacticraft.API.IBreathableArmor
+import micdoodle8.mods.galacticraft.api.item.IBreathableArmor.EnumGearType
+import micdoodle8.mods.galacticraft.api.item.IBreathableArmor
 import net.machinemuse.powersuits.powermodule.misc.AirtightSealModule
 import net.minecraft.client.renderer.texture.IconRegister
 import net.minecraft.entity.player.EntityPlayer
