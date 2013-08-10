@@ -7,13 +7,10 @@ import net.minecraft.client.renderer.texture.IconRegister
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import atomicscience.api.poison.Poison.ArmorType
-import cpw.mods.fml.common.registry.LanguageRegistry
 import cpw.mods.fml.relauncher.Side
 import cpw.mods.fml.relauncher.SideOnly
 import atomicscience.api.poison.Poison
-import net.machinemuse.utils.{MuseItemUtils}
 import net.machinemuse.utils.render.MuseRenderer
-import net.machinemuse.api.ModuleManager.itemHasActiveModule
 import net.machinemuse.api.ModuleManager
 
 class ItemPowerArmorHelmet(id: Int) extends ItemPowerArmor(id, 0, 0) with IBreathableArmor {
@@ -26,9 +23,9 @@ class ItemPowerArmorHelmet(id: Int) extends ItemPowerArmor(id, 0, 0) with IBreat
   // IBreathableArmor
   def handleGearType(gearType: EnumGearType): Boolean = gearType eq EnumGearType.HELMET
 
-  def canBreathe(helm: ItemStack, player: EntityPlayer, gearType: EnumGearType): Boolean = {
-    return ModuleManager.itemHasActiveModule(helm, AirtightSealModule.AIRTIGHT_SEAL_MODULE)
-  }
+  def canBreathe(helm: ItemStack, player: EntityPlayer, gearType: EnumGearType): Boolean =
+    ModuleManager.itemHasActiveModule(helm, AirtightSealModule.AIRTIGHT_SEAL_MODULE)
+
 
   @SideOnly(Side.CLIENT)
   override def registerIcons(iconRegister: IconRegister) {
