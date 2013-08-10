@@ -28,7 +28,7 @@
 
     <!-- Directories -->
     <property name="download.dir" value="downloads"/>
-    <property name="ue.download.dir" value="${download.dir}/ue/minecraft/universalelectricity"/>
+    <property name="ue.download.dir" value="${download.dir}/ue/universalelectricity"/>
     <property name="src.dir" value="src"/>
     <property name="lib.dir" value="${src.dir}/lib"/>
     <property name="build.dir" value="build/${minecraft.version}"/>
