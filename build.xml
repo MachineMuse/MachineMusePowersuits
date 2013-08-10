@@ -180,9 +180,9 @@
         <echo message="Extracting ICBM API... "/>
         <unzip src="${download.dir}/ICBM_API_v${icbmapi.version}.zip" dest="${download.dir}/ue"/>
         <mkdir dir="${mcpsrc.dir}/icbm/api/explosion"/>
-        <move file="${download.dir}/ue/src/minecraft/icbm/api/explosion/IExplosion.java"
+        <move file="${download.dir}/ue/icbm/api/explosion/IExplosion.java"
               todir="${mcpsrc.dir}/icbm/api/explosion/"/>
-        <move file="${download.dir}/ue/src/minecraft/icbm/api/explosion/IEMPItem.java"
+        <move file="${download.dir}/ue/icbm/api/explosion/IEMPItem.java"
               todir="${mcpsrc.dir}/icbm/api/explosion/"/>
 
         <echo message="Extracting Atomic Science API... "/>
