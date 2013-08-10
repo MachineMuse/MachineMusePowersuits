@@ -169,7 +169,7 @@ with OmniWrench {
    * Called when the right click button is released
    */
   override def onPlayerStoppedUsing(itemStack: ItemStack, world: World, player: EntityPlayer, par4: Int) {
-    val mode: String = MuseItemUtils.getActiveMode(itemStack)
+    val mode: String = MuseItemTag.getActiveMode(itemStack)
     val module: IPowerModule = ModuleManager.getModule(mode)
     if (module.isInstanceOf[IRightClickModule]) {
       (module.asInstanceOf[IRightClickModule]).onPlayerStoppedUsing(itemStack, world, player, par4)
@@ -181,7 +181,7 @@ with OmniWrench {
   }
 
   override def onItemUseFirst(itemStack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z: Int, side: Int, hitX: Float, hitY: Float, hitZ: Float): Boolean = {
-    val mode: String = MuseItemUtils.getActiveMode(itemStack)
+    val mode: String = MuseItemTag.getActiveMode(itemStack)
     val module: IPowerModule = ModuleManager.getModule(mode)
     if (module.isInstanceOf[IRightClickModule]) {
       return (module.asInstanceOf[IRightClickModule]).onItemUseFirst(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ)
@@ -190,7 +190,7 @@ with OmniWrench {
   }
 
   override def onItemUse(itemStack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z: Int, side: Int, hitX: Float, hitY: Float, hitZ: Float): Boolean = {
-    val mode: String = MuseItemUtils.getActiveMode(itemStack)
+    val mode: String = MuseItemTag.getActiveMode(itemStack)
     val module: IPowerModule = ModuleManager.getModule(mode)
     if (module.isInstanceOf[IRightClickModule]) {
       (module.asInstanceOf[IRightClickModule]).onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ)

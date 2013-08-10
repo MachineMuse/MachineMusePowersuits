@@ -7,7 +7,7 @@ import universalelectricity.core.item.IItemElectric
 import universalelectricity.core.electricity.ElectricityPack
 import thermalexpansion.api.item.IChargeableItem
 import net.machinemuse.api.electricity.ElectricConversions._
-import icbm.api.explosion.{IExplosive, IEMPItem}
+import icbm.api.explosion.{IExplosion, IEMPItem}
 import net.minecraft.entity.Entity
 import net.machinemuse.api.ModuleManager
 
@@ -134,41 +134,49 @@ trait MuseElectricItem
   def canShowChargeToolTip(itemStack: ItemStack): Boolean = false
 
   // ICBM
-  def onEMP(itemStack: ItemStack, entity: Entity, empExplosive: IExplosive) {
+  def onEMP(itemStack: ItemStack, entity: Entity, empExplosive: IExplosion) {
     setCurrentEnergy(itemStack, 0)
   }
 
   // UE
-  def getJoules(itemStack: ItemStack): Double = museEnergyToJoules(getCurrentEnergy(itemStack))
+  def getElectricityStored(itemStack: ItemStack): Float = museEnergyToJoules(getCurrentEnergy(itemStack))
 
-  def setJoules(joules: Double, itemStack: ItemStack) {
+  def setElectricity(itemStack: ItemStack, joules: Float) {
     setCurrentEnergy(itemStack, museEnergyFromJoules(joules))
   }
 
-  def getMaxJoules(itemStack: ItemStack): Double = museEnergyToJoules(getMaxEnergy(itemStack))
+  def getMaxElectricityStored(itemStack: ItemStack): Float = museEnergyToJoules(getMaxEnergy(itemStack))
 
-  def getVoltage(itemStack: ItemStack): Double = 120
+  def getVoltage(itemStack: ItemStack): Float = 120
 
-  def onReceive(electricityPack: ElectricityPack, itemStack: ItemStack): ElectricityPack = {
-    val energyReceiving: Double = museEnergyFromElectricityPack(electricityPack)
-    val energyConsumed: Double = giveEnergyTo(itemStack, energyReceiving)
-    val packConsumed: ElectricityPack = museEnergyToElectricityPack(energyConsumed, getVoltage(itemStack))
-    packConsumed
+  def recharge(itemStack: ItemStack, energy: Float, doCharge: Boolean): Float = {
+    var joulesConsumed : Float = 0
+    val energyReceiving: Double = museEnergyFromJoules(energy)
+    if (doCharge) {
+      val energyConsumed: Double = giveEnergyTo(itemStack, energyReceiving)
+      joulesConsumed = museEnergyToJoules(energyConsumed)
+    } else {
+      val energyChargeable: Double = getMaxEnergy(itemStack) - getCurrentEnergy(itemStack)
+      joulesConsumed = museEnergyToJoules(math.min(energyReceiving, energyChargeable))
+    }
+    joulesConsumed
   }
 
-  def onProvide(electricityPack: ElectricityPack, itemStack: ItemStack): ElectricityPack = {
-    val energyRequested: Double = museEnergyFromElectricityPack(electricityPack)
-    val energyGiven: Double = drainEnergyFrom(itemStack, energyRequested)
-    val packGiven: ElectricityPack = museEnergyToElectricityPack(energyGiven, getVoltage(itemStack))
-    packGiven
+  def discharge(itemStack: ItemStack, energy: Float, doCharge: Boolean): Float = {
+    val energyRequested: Double = museEnergyFromJoules(energy)
+    var joulesGiven: Float = 0
+    if (doCharge) {
+      val energyGiven: Double = drainEnergyFrom(itemStack, energyRequested)
+      joulesGiven = museEnergyToJoules(energyGiven)
+    } else {
+      val energyAvailable: Double = getCurrentEnergy(itemStack)
+      joulesGiven = museEnergyToJoules(math.min(energyAvailable, energyRequested))
+    }
+    joulesGiven
   }
 
-  def getReceiveRequest(itemStack: ItemStack): ElectricityPack = {
-    museEnergyToElectricityPack(getMaxEnergy(itemStack) - getCurrentEnergy(itemStack), getVoltage(itemStack))
-  }
-
-  def getProvideRequest(itemStack: ItemStack): ElectricityPack = {
-    museEnergyToElectricityPack(getMaxEnergy(itemStack) - getCurrentEnergy(itemStack), getVoltage(itemStack))
+  def getTransfer(itemStack: ItemStack): Float = {
+    museEnergyToJoules(getMaxEnergy(itemStack) - getCurrentEnergy(itemStack))
   }
 
   // TE

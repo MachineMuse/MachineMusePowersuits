@@ -4,8 +4,6 @@ import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
-import net.machinemuse.utils.MuseItemTag;
-import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -16,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ModuleManager {
+
+    public static final String ONLINE = "Active";
 
     protected static final Map<String, IPowerModule> moduleMap = new HashMap<String, IPowerModule>();
     protected static final List<IPowerModule> moduleList = new ArrayList<IPowerModule>();
@@ -92,9 +92,9 @@ public class ModuleManager {
     }
 
     public static boolean isModuleOnline(NBTTagCompound itemTag, String moduleName) {
-        if (tagHasModule(itemTag, moduleName) && !itemTag.getCompoundTag(moduleName).hasKey(MuseItemUtils.ONLINE)) {
+        if (tagHasModule(itemTag, moduleName) && !itemTag.getCompoundTag(moduleName).hasKey(ONLINE)) {
             return true;
-        } else if (tagHasModule(itemTag, moduleName) && itemTag.getCompoundTag(moduleName).getBoolean(MuseItemUtils.ONLINE)) {
+        } else if (tagHasModule(itemTag, moduleName) && itemTag.getCompoundTag(moduleName).getBoolean(ONLINE)) {
             return true;
         }
         return false;
@@ -103,12 +103,12 @@ public class ModuleManager {
     public static void toggleModule(NBTTagCompound itemTag, String name, boolean toggleval) {
         if (tagHasModule(itemTag, name)) {
             NBTTagCompound moduleTag = itemTag.getCompoundTag(name);
-            moduleTag.setBoolean(MuseItemUtils.ONLINE, toggleval);
+            moduleTag.setBoolean(ONLINE, toggleval);
         }
     }
 
     public static boolean itemHasModule(ItemStack stack, String moduleName) {
-        return tagHasModule(MuseItemUtils.getMuseItemTag(stack), moduleName);
+        return tagHasModule(MuseItemTag.getMuseItemTag(stack), moduleName);
     }
 
     public static void tagAddModule(NBTTagCompound tag, IPowerModule module) {
@@ -116,7 +116,7 @@ public class ModuleManager {
     }
 
     public static void itemAddModule(ItemStack stack, IPowerModule moduleType) {
-        tagAddModule(MuseItemUtils.getMuseItemTag(stack), moduleType);
+        tagAddModule(MuseItemTag.getMuseItemTag(stack), moduleType);
     }
 
     public static boolean removeModule(NBTTagCompound tag, String moduleName) {
@@ -129,7 +129,7 @@ public class ModuleManager {
     }
 
     public static boolean removeModule(ItemStack stack, String moduleName) {
-        return removeModule(MuseItemUtils.getMuseItemTag(stack), moduleName);
+        return removeModule(MuseItemTag.getMuseItemTag(stack), moduleName);
     }
 
     public static boolean itemHasActiveModule(ItemStack itemStack, String moduleName) {
@@ -142,9 +142,9 @@ public class ModuleManager {
             // MuseLogger.logDebug("Module: " + moduleName + " vs Mode: " +
             // MuseItemUtils.getActiveMode(itemStack));
 
-            return moduleName.equals(MuseItemUtils.getActiveMode(itemStack));
+            return moduleName.equals(MuseItemTag.getActiveMode(itemStack));
         } else {
-            return isModuleOnline(MuseItemUtils.getMuseItemTag(itemStack), moduleName);
+            return isModuleOnline(MuseItemTag.getMuseItemTag(itemStack), moduleName);
         }
     }
 }

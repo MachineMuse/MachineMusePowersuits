@@ -6,6 +6,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.MuseItemTag;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.general.MuseLogger;
 import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec;
@@ -421,10 +422,6 @@ public class MuseItemUtils {
             ModuleManager.toggleModule(itemTag, name, toggleval);
         }
 
-    }
-
-    public static String getActiveMode(ItemStack itemStack) {
-        return getMuseItemTag(itemStack).getString("Mode");
     }
 
     /**
