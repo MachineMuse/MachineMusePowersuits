@@ -59,7 +59,7 @@ public class MultimeterModule extends PowerModuleBase implements IRightClickModu
     @Override
     public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World worldObj, int x, int y, int z, int side, float hitX, float hitY,
                                   float hitZ) {
-        if (ModCompatability.isBasicComponentsLoaded()) {
+/*        if (ModCompatability.isBasicComponentsLoaded()) {
             if (!worldObj.isRemote) {
                 TileEntity tileEntity = worldObj.getBlockTileEntity(x, y, z);
                 if (tileEntity instanceof IConductor) {
@@ -71,7 +71,7 @@ public class MultimeterModule extends PowerModuleBase implements IRightClickModu
                     return true;
                 }
             }
-        }
+        }*/
         return false;
     }
 
@@ -87,4 +87,9 @@ public class MultimeterModule extends PowerModuleBase implements IRightClickModu
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
     }
 
+    @Override
+    public boolean isAllowed() {
+        //This module can't work with the current state of UE
+        return false;
+    }
 }

@@ -11,6 +11,7 @@ import net.machinemuse.utils.MuseMathUtils._
 import net.machinemuse.api.electricity.MuseElectricItem
 import net.machinemuse.api.{ModuleManager, IModularItem}
 import net.machinemuse.api.ModuleManager.itemHasActiveModule
+import net.machinemuse.utils.ElectricItemUtils
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -73,4 +74,10 @@ trait ModularItemBase extends Item with IModularItem with MuseElectricItem {
   }
 
   def getArmorDouble(player: EntityPlayer, stack: ItemStack): Double = 0
+  
+  def getPlayerEnergy(player: EntityPlayer): Double = ElectricItemUtils.getPlayerEnergy(player)
+  
+  def drainPlayerEnergy(player: EntityPlayer, drainEnergy: Double) = ElectricItemUtils.drainPlayerEnergy(player, drainEnergy)
+  
+  def givePlayerEnergy(player: EntityPlayer, joulesToGive: Double) = ElectricItemUtils.givePlayerEnergy(player, joulesToGive)
 }
