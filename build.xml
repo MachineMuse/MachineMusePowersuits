@@ -84,7 +84,7 @@
             <available file="${download.dir}/MFR-API-${mfrapi.version}.zip"/>
             <available file="${download.dir}/forestry-api-${forestryapi.version}.zip"/>
             <available file="${download.dir}/scalalib-${scala.version}.zip"/>
-            <available file="${download.dir}/ThaumcraftApi ${thaumcraftapi.version}.zip"/>
+            <available file="${download.dir}/ThaumcraftApi-${thaumcraftapi.version}.zip"/>
             <available file="${download.dir}/MFFS2_API.zip"/>
             <available file="${download.dir}/slick-util.jar"/>
         </and>
