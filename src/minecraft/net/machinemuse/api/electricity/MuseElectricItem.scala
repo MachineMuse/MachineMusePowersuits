@@ -7,6 +7,7 @@ import universalelectricity.core.item.IItemElectric
 import thermalexpansion.api.item.IChargeableItem
 import net.machinemuse.api.electricity.ElectricConversions._
 import icbm.api.explosion.IEMPItem
+import icbm.api.explosion.IExplosion
 import net.minecraft.entity.Entity
 import net.machinemuse.api.ModuleManager
 
