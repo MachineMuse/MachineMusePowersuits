@@ -184,7 +184,6 @@ trait MuseElectricItem
     val receivedME: Double = museEnergyFromMJ(energy)
     val eatenME: Double = giveEnergyTo(theItem, receivedME)
     if (!doReceive) {
-      o
       setCurrentEnergy(theItem, current)
     }
     museEnergyToMJ(eatenME).toFloat
