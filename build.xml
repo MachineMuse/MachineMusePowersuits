@@ -132,7 +132,7 @@
 
         <echo message="Downloading Thaumcraft API..."/>
         <get src="http://machinemuse.minecraftforge.net/ThaumcraftApi-${thaumcraftapi.version}.zip"
-             dest="${download.dir}/ThaumcraftApi ${thaumcraftapi.version}.zip"/>
+             dest="${download.dir}/ThaumcraftApi-${thaumcraftapi.version}.zip"/>
 
         <echo message="Downloading MFFS API..."/>
         <get src="http://machinemuse.minecraftforge.net/MFFS2_API.zip"
