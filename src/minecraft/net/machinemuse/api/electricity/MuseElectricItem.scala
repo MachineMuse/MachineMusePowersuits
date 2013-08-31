@@ -4,10 +4,9 @@ import net.minecraft.item.ItemStack
 import net.machinemuse.utils.{ElectricItemUtils, MuseItemUtils}
 import ic2.api.item.ICustomElectricItem
 import universalelectricity.core.item.IItemElectric
-import universalelectricity.core.electricity.ElectricityPack
 import thermalexpansion.api.item.IChargeableItem
 import net.machinemuse.api.electricity.ElectricConversions._
-import icbm.api.explosion.{IExplosion, IEMPItem}
+import icbm.api.explosion.IEMPItem
 import net.minecraft.entity.Entity
 import net.machinemuse.api.ModuleManager
 
@@ -150,7 +149,7 @@ trait MuseElectricItem
   def getVoltage(itemStack: ItemStack): Float = 120
 
   def recharge(itemStack: ItemStack, energy: Float, doCharge: Boolean): Float = {
-    var joulesConsumed : Float = 0
+    var joulesConsumed: Float = 0
     val energyReceiving: Double = museEnergyFromJoules(energy)
     if (doCharge) {
       val energyConsumed: Double = giveEnergyTo(itemStack, energyReceiving)
@@ -185,6 +184,7 @@ trait MuseElectricItem
     val receivedME: Double = museEnergyFromMJ(energy)
     val eatenME: Double = giveEnergyTo(theItem, receivedME)
     if (!doReceive) {
+      o
       setCurrentEnergy(theItem, current)
     }
     museEnergyToMJ(eatenME).toFloat

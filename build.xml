@@ -23,7 +23,7 @@
     <property name="thermexapi.version" value="2.3.0b"/>
     <property name="galacticraftapi.version" value="2"/>
     <property name="mfrapi.version" value="2.5.2B2-642"/>
-    <property name="forestryapi.version" value="2.1.2.19"/>
+    <property name="forestryapi.version" value="2.3.0.1"/>
     <property name="thaumcraftapi.version" value="0.0.5 for 3.0.4b"/>
 
     <!-- Directories -->
@@ -131,7 +131,7 @@
              dest="${download.dir}/forestry-api-${forestryapi.version}.zip"/>
 
         <echo message="Downloading Thaumcraft API..."/>
-        <get src="http://machinemuse.net/ThaumcraftApi ${thaumcraftapi.version}.zip"
+        <get src="http://machinemuse.minecraftforge.net/ThaumcraftApi ${thaumcraftapi.version}.zip"
              dest="${download.dir}/ThaumcraftApi ${thaumcraftapi.version}.zip"/>
 
         <echo message="Downloading MFFS API..."/>
