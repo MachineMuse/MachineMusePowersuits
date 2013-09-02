@@ -84,7 +84,7 @@
             <available file="${download.dir}/MFR-API-${mfrapi.version}.zip"/>
             <available file="${download.dir}/forestry-api-${forestryapi.version}.zip"/>
             <available file="${download.dir}/scalalib-${scala.version}.zip"/>
-            <available file="${download.dir}/ThaumcraftApi-${thaumcraftapi.version}.zip"/>
+            <available file="${download.dir}/TC4_API_ALPHA_01.zip"/>
             <available file="${download.dir}/MFFS2_API.zip"/>
             <available file="${download.dir}/slick-util.jar"/>
         </and>
@@ -131,8 +131,8 @@
              dest="${download.dir}/forestry-api-${forestryapi.version}.zip"/>
 
         <echo message="Downloading Thaumcraft API..."/>
-        <get src="http://machinemuse.minecraftforge.net/ThaumcraftApi-${thaumcraftapi.version}.zip"
-             dest="${download.dir}/ThaumcraftApi-${thaumcraftapi.version}.zip"/>
+        <get src="http://machinemuse.minecraftforge.net/TC4_API_ALPHA_01.zip"
+             dest="${download.dir}/TC4_API_ALPHA_01.zip"/>
 
         <echo message="Downloading MFFS API..."/>
         <get src="http://machinemuse.minecraftforge.net/MFFS2_API.zip"
@@ -240,7 +240,8 @@
         <move file="${download.dir}/forestry/api/core/ItemInterface.java" todir="${mcpsrc.dir}/forestry/api/core"/>
 
         <echo message="Extracting Thaumcraft  API... "/>
-        <unzip src="${download.dir}/ThaumcraftApi-${thaumcraftapi.version}.zip" dest="${download.dir}"/>
+        <mkdir dir="${download.dir}/thaumcraft"/>
+        <unzip src="${download.dir}/TC4_API_ALPHA_01.zip" dest="${download.dir}/thaumcraft"/>
         <mkdir dir="${mcpsrc.dir}/thaumcraft/api"/>
         <move file="${download.dir}/thaumcraft/api/IAspectSource.java" todir="${mcpsrc.dir}/thaumcraft/api"/>
         <move file="${download.dir}/thaumcraft/api/ObjectTags.java" todir="${mcpsrc.dir}/thaumcraft/api"/>
