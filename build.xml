@@ -95,13 +95,13 @@
         <attribute name="filename"/>
         <attribute name="into"/>
         <sequential>
-            <if>
-            <available file="${download.dir}/@{filename}"/>
-                <then>
+            <!--<if>-->
+            <!--<available file="${download.dir}/@{filename}"/>-->
+                <!--<then>-->
                     <echo message="Downloading @{filename}... "/>
                     <get src="${apisource.url}/@{filename}" dest="${download.dir}/@{filename}"/>
-                </then>
-            </if>
+                <!--</then>-->
+            <!--</if>-->
 
             <echo message="Extracting @{filename}... "/>
             <mkdir dir="@{into}"/>
