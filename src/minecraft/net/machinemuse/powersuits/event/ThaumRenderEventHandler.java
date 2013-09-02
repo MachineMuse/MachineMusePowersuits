@@ -7,16 +7,10 @@ import net.machinemuse.api.ModuleManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.world.World;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.event.ForgeSubscribe;
 import org.lwjgl.opengl.GL11;
-import thaumcraft.api.IAspectSource;
-import thaumcraft.api.ObjectTags;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -54,27 +48,27 @@ public class ThaumRenderEventHandler {
         if (player != null && player.inventory.armorItemInSlot(3) != null && player.inventory.armorItemInSlot(3).getItem() instanceof IModularItem) {
             ItemStack stack = player.inventory.armorItemInSlot(3);
             if (ModuleManager.itemHasModule(stack, "Aurameter")) {
-                drawTags(event.target, player.worldObj, event.partialTicks);
+//                drawTags(event.target, player.worldObj, event.partialTicks);
             }
         }
     }
-
-    public static void drawTags(MovingObjectPosition target, World world, float partialTicks) {
-        int x = target.blockX;
-        int y = target.blockY;
-        int z = target.blockZ;
-        float tagscale = getTagScale();
-
-        TileEntity entity = world.getBlockTileEntity(x, y, z);
-        if (entity instanceof IAspectSource) {
-            ObjectTags tags = ((IAspectSource) entity).getSourceTags();
-            if (tags.size() > 0) {
-                if (tagscale < 0.3F) setTagScale(tagscale * 0.9f + 0.031F);
-                drawTagOnJar(x, y + 0.4F, z, tags, 220, ForgeDirection.UP, partialTicks);
-            }
-
-        }
-    }
+//
+//    public static void drawTags(MovingObjectPosition target, World world, float partialTicks) {
+//        int x = target.blockX;
+//        int y = target.blockY;
+//        int z = target.blockZ;
+//        float tagscale = getTagScale();
+//
+//        TileEntity entity = world.getBlockTileEntity(x, y, z);
+//        if (entity instanceof IAspectSource) {
+//            ObjectTags tags = ((IAspectSource) entity).getSourceTags();
+//            if (tags.size() > 0) {
+//                if (tagscale < 0.3F) setTagScale(tagscale * 0.9f + 0.031F);
+//                drawTagOnJar(x, y + 0.4F, z, tags, 220, ForgeDirection.UP, partialTicks);
+//            }
+//
+//        }
+//    }
 
     public static void populateReflections() {
         try {
@@ -82,9 +76,9 @@ public class ThaumRenderEventHandler {
                 c_eventHandler = Class.forName("thaumcraft.client.lib.RenderEventHandler");
                 o_eventHandler = c_eventHandler.newInstance();
             }
-            if (m_drawTagOnJar == null) {
-                m_drawTagOnJar = c_eventHandler.getDeclaredMethod("drawTagOnJar", Double.TYPE, Double.TYPE, Double.TYPE, ObjectTags.class, Integer.TYPE, ForgeDirection.class, Float.TYPE);
-            }
+//            if (m_drawTagOnJar == null) {
+//                m_drawTagOnJar = c_eventHandler.getDeclaredMethod("drawTagOnJar", Double.TYPE, Double.TYPE, Double.TYPE, ObjectTags.class, Integer.TYPE, ForgeDirection.class, Float.TYPE);
+//            }
             if (m_renderAuraNodes == null) {
                 m_renderAuraNodes = c_eventHandler.getDeclaredMethod("renderAuraNodes", RenderWorldLastEvent.class, Float.TYPE, EntityPlayer.class, Long.TYPE);
             }
@@ -105,14 +99,14 @@ public class ThaumRenderEventHandler {
             e.printStackTrace();
         }
     }
-
-    public static void drawTagOnJar(double x, double y, double z, ObjectTags tags, int bright, ForgeDirection dir, float partialTicks) {
-        populateReflections();
-        try {
-            m_drawTagOnJar.invoke(o_eventHandler, x, y, z, tags, bright, dir, partialTicks);
-        } catch (Exception e) {
-        }
-    }
+//
+//    public static void drawTagOnJar(double x, double y, double z, ObjectTags tags, int bright, ForgeDirection dir, float partialTicks) {
+//        populateReflections();
+//        try {
+//            m_drawTagOnJar.invoke(o_eventHandler, x, y, z, tags, bright, dir, partialTicks);
+//        } catch (Exception e) {
+//        }
+//    }
 
     public static void renderGogglesHUD(RenderWorldLastEvent event, float partialTicks, EntityPlayer player, long time) {
         populateReflections();
