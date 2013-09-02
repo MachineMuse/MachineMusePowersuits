@@ -43,6 +43,7 @@
     <!-- URLs -->
     <property name="forge.url"
               value="http://files.minecraftforge.net/minecraftforge/minecraftforge-src-${forge.version}.zip"/>
+    <property name="apisource.url" value="http://machinemuse.minecraftforge.net"/>
 
 
     <!-- Name -->
@@ -90,67 +91,27 @@
         </and>
     </condition>
 
-    <target name="download-apis" unless="${have-apis}">
-        <echo message="Downloading IC2 API... "/>
-        <get src="http://machinemuse.minecraftforge.net/industrialcraft-2-api_${ic2api.version}.zip"
-             dest="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip"/>
+    <macrodef name="get-api">
+        <attribute name="filename"/>
+        <attribute name="into"/>
+        <sequential>
+            <if>
+            <available file="${download.dir}/@{filename}"/>
+                <then>
+                    <echo message="Downloading @{filename}... "/>
+                    <get src="${apisource.url}/@{filename}" dest="${download.dir}/@{filename}"/>
+                </then>
+            </if>
 
-        <echo message="Downloading Universal Electricity API..."/>
-        <get src="http://machinemuse.minecraftforge.net/UniversalElectricity_API_v${ueapi.version}.zip"
-             dest="${download.dir}/UniversalElectricity_API_v${ueapi.version}.zip"/>
-
-        <echo message="Downloading ICBM API..."/>
-        <get src="http://machinemuse.minecraftforge.net/ICBM_API_v${icbmapi.version}.zip"
-             dest="${download.dir}/ICBM_API_v${icbmapi.version}.zip"/>
-
-        <echo message="Downloading Atomic Science API..."/>
-        <get src="http://machinemuse.minecraftforge.net/Atomic_Science_API_v${asapi.version}.zip"
-             dest="${download.dir}/Atomic_Science_API_v${asapi.version}.zip"/>
-
-        <echo message="Downloading ThermEx API..."/>
-        <get src="http://machinemuse.minecraftforge.net/ThermalExpansion-API-${thermexapi.version}.zip"
-             dest="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip"/>
-
-        <echo message="Downloading CoFH API..."/>
-        <get src="http://machinemuse.minecraftforge.net/CoFHCore-API.zip" dest="${download.dir}/CoFHCore-API.zip"/>
-
-        <echo message="Downloading Galacticraft API..."/>
-        <get src="http://machinemuse.minecraftforge.net/galacticraft-src-${galacticraftapi.version}.zip"
-             dest="${download.dir}/galacticraft-src-${galacticraftapi.version}.zip"/>
-
-        <echo message="Downloading Railcraft API..."/>
-        <get src="http://machinemuse.minecraftforge.net/Railcraft_API_latest.zip"
-             dest="${download.dir}/Railcraft_API_latest.zip"/>
-
-        <echo message="Downloading MFR API..."/>
-        <get src="http://machinemuse.minecraftforge.net/MFR-API-${mfrapi.version}.zip"
-             dest="${download.dir}/MFR-API-${mfrapi.version}.zip"/>
-
-        <echo message="Downloading Forestry API..."/>
-        <get src="http://machinemuse.minecraftforge.net/forestry-api-${forestryapi.version}.zip"
-             dest="${download.dir}/forestry-api-${forestryapi.version}.zip"/>
-
-        <echo message="Downloading Thaumcraft API..."/>
-        <get src="http://machinemuse.minecraftforge.net/TC4_API_ALPHA_01.zip"
-             dest="${download.dir}/TC4_API_ALPHA_01.zip"/>
-
-        <echo message="Downloading MFFS API..."/>
-        <get src="http://machinemuse.minecraftforge.net/MFFS2_API.zip"
-             dest="${download.dir}/MFFS2_API.zip"/>
-
-        <echo message="Downloading Scala Libraries..."/>
-        <get src="http://machinemuse.minecraftforge.net/scalalib-${scala.version}.zip"
-             dest="${download.dir}/scalalib-${scala.version}.zip"/>
-
-        <echo message="Downloading Slick-Util..."/>
-        <get src="http://machinemuse.minecraftforge.net/slick-util.jar"
-             dest="${download.dir}/slick-util.jar"/>
-    </target>
+            <echo message="Extracting @{filename}... "/>
+            <mkdir dir="@{into}"/>
+            <unzip src="${download.dir}/@{filename}" dest="@{into}"/>
+        </sequential>
+    </macrodef>
 
     <!-- Dependencies -->
-    <target name="extract-apis" depends="setup-forge,download-apis">
-        <echo message="Extracting IC2 API... "/>
-        <unzip src="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip" dest="${download.dir}"/>
+    <target name="extract-apis" depends="setup-forge">
+        <get-api filename="industrialcraft-2-api_${ic2api.version}.zip" into="${download.dir}"/>
         <mkdir dir="${mcpsrc.dir}/ic2/api/energy/tile"/>
         <move todir="${mcpsrc.dir}/ic2/api/">
             <fileset dir="${download.dir}/ic2/api/recipe"/>
@@ -168,53 +129,45 @@
             <fileset dir="${download.dir}/ic2/api/energy/tile/"/>
         </move>
 
-        <echo message="Extracting UE API... "/>
-        <mkdir dir="${download.dir}/ue"/>
-        <unzip src="${download.dir}/UniversalElectricity_API_v${ueapi.version}.zip" dest="${download.dir}/ue/"/>
+        <get-api filename="UniversalElectricity_API_v${ueapi.version}.zip" into="${download.dir}/ue"/>
         <mkdir dir="${mcpsrc.dir}/universalelectricity/core/"/>
         <mkdir dir="${mcpsrc.dir}/universalelectricity/prefab/implement/"/>
         <move todir="${mcpsrc.dir}/universalelectricity/core/">
             <fileset dir="${ue.download.dir}/core/"/>
         </move>
 
-        <echo message="Extracting ICBM API... "/>
-        <unzip src="${download.dir}/ICBM_API_v${icbmapi.version}.zip" dest="${download.dir}/ue"/>
+        <get-api filename="ICBM_API_v${icbmapi.version}.zip" into="${download.dir}/ue"/>
         <mkdir dir="${mcpsrc.dir}/icbm/api/explosion"/>
         <move file="${download.dir}/ue/icbm/api/explosion/IExplosion.java"
               todir="${mcpsrc.dir}/icbm/api/explosion/"/>
         <move file="${download.dir}/ue/icbm/api/explosion/IEMPItem.java"
               todir="${mcpsrc.dir}/icbm/api/explosion/"/>
 
-        <echo message="Extracting Atomic Science API... "/>
-        <unzip src="${download.dir}/Atomic_Science_API_v${asapi.version}.zip" dest="${download.dir}/ue"/>
+        <get-api filename="Atomic_Science_API_v${asapi.version}.zip" into="${download.dir}/ue"/>
         <mkdir dir="${mcpsrc.dir}/atomicscience/api/poison"/>
         <move file="${download.dir}/ue/poison/Poison.java"
               todir="${mcpsrc.dir}/atomicscience/api/poison"/>
         <move file="${download.dir}/ue/IAntiPoisonArmor.java"
               todir="${mcpsrc.dir}/atomicscience/api"/>
 
-        <echo message="Extracting ThermalExpansion API... "/>
-        <unzip src="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip" dest="${download.dir}"/>
+        <get-api filename="ThermalExpansion-API-${thermexapi.version}.zip" into="${download.dir}"/>
         <mkdir dir="${mcpsrc.dir}/thermalexpansion/api/core"/>
         <move file="${download.dir}/thermalexpansion/api/item/ItemRegistry.java"
               todir="${mcpsrc.dir}/thermalexpansion/api/item"/>
         <move file="${download.dir}/thermalexpansion/api/item/IChargeableItem.java"
               todir="${mcpsrc.dir}/thermalexpansion/api/item"/>
 
-        <echo message="Extracting CoFH API..."/>
-        <unzip src="${download.dir}/CoFHCore-API.zip" dest="${download.dir}"/>
+        <get-api filename="CoFHCore-API.zip" into="${download.dir}"/>
         <mkdir dir="${mcpsrc.dir}/cofh/api/tileentity"/>
         <move file="${download.dir}/cofh/api/tileentity/IReconfigurableFacing.java"
               todir="${mcpsrc.dir}/cofh/api/tileentity"/>
 
-        <echo message="Extracting Galacticraft API... "/>
-        <unzip src="${download.dir}/galacticraft-src-${galacticraftapi.version}.zip" dest="${download.dir}"/>
+        <get-api filename="galacticraft-src-${galacticraftapi.version}.zip" into="${download.dir}"/>
         <mkdir dir="${mcpsrc.dir}/micdoodle8/mods/galacticraft/api/item"/>
         <move file="${download.dir}/micdoodle8/mods/galacticraft/api/item/IBreathableArmor.java"
               todir="${mcpsrc.dir}/micdoodle8/mods/galacticraft/api/item"/>
 
-        <echo message="Extracting Railcraft API... "/>
-        <unzip src="${download.dir}/Railcraft_API_latest.zip" dest="${download.dir}"/>
+        <get-api filename="Railcraft_API_latest.zip" into="${download.dir}"/>
         <mkdir dir="${mcpsrc.dir}/mods/railcraft/api/core/items"/>
         <mkdir dir="${mcpsrc.dir}/buildcraft/api/tools/"/>
         <move file="${download.dir}/src/minecraft/mods/railcraft/api/core/items/IToolCrowbar.java"
@@ -222,14 +175,12 @@
         <move file="${download.dir}/src/minecraft/buildcraft/api/tools/IToolWrench.java"
               todir="${mcpsrc.dir}/buildcraft/api/tools"/>
 
-        <echo message="Extracting MFR API... "/>
-        <unzip src="${download.dir}/MFR-API-${mfrapi.version}.zip" dest="${download.dir}"/>
+        <get-api filename="MFR-API-${mfrapi.version}.zip" into="${download.dir}"/>
         <mkdir dir="${mcpsrc.dir}/powercrystals/minefactoryreloaded/api"/>
         <move file="${download.dir}/powercrystals/minefactoryreloaded/api/IToolHammerAdvanced.java"
               todir="${mcpsrc.dir}/powercrystals/minefactoryreloaded/api"/>
 
-        <echo message="Extracting Forestry API... "/>
-        <unzip src="${download.dir}/forestry-api-${forestryapi.version}.zip" dest="${download.dir}"/>
+        <get-api filename="forestry-api-${forestryapi.version}.zip" into="${download.dir}"/>
         <mkdir dir="${mcpsrc.dir}/forestry/api/apiculture"/>
         <mkdir dir="${mcpsrc.dir}/forestry/api/arboriculture"/>
         <mkdir dir="${mcpsrc.dir}/forestry/api/core"/>
@@ -248,16 +199,17 @@
         <!--<move file="${download.dir}/thaumcraft/api/EnumTag.java" todir="${mcpsrc.dir}/thaumcraft/api"/>-->
         <!--<move file="${download.dir}/thaumcraft/api/ThaumcraftApiHelper.java" todir="${mcpsrc.dir}/thaumcraft/api"/>-->
 
-        <echo message="Extracting MFFS API..."/>
-        <unzip src="${download.dir}/MFFS2_API.zip" dest="${download.dir}"/>
+        <get-api filename="MFFS2_API.zip" into="${download.dir}"/>
         <mkdir dir="${mcpsrc.dir}/mods/mffs/api"/>
         <move file="${download.dir}/mods/mffs/api/IFieldTeleporter.java" todir="${mcpsrc.dir}/mods/mffs/api"/>
         <move file="${download.dir}/mods/mffs/api/IMFFS_Wrench.java" todir="${mcpsrc.dir}/mods/mffs/api"/>
 
-        <echo message="Extracting Scala Libraries..."/>
-        <unzip src="${download.dir}/scalalib-${scala.version}.zip" dest="${mcp.dir}"/>
+
+        <get-api filename="scalalib-${scala.version}.zip" into="${mcp.dir}"/>
 
         <echo message="Importing Slick-Util..."/>
+        <get src="http://machinemuse.minecraftforge.net/slick-util.jar"
+             dest="${download.dir}/slick-util.jar"/>
         <copy file="${download.dir}/slick-util.jar" todir="${mcp.dir}/lib"/>
     </target>
 
