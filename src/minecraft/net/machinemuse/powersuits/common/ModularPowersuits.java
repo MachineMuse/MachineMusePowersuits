@@ -35,7 +35,6 @@ import java.io.File;
 // matches the server's.
 @Mod(modid = "powersuits",
         name = "MachineMuse's Modular Powersuits",
-        dependencies = "after:numina",
         /* @DEPENDENCIES@ */
         version = "@MOD_VERSION@"
 

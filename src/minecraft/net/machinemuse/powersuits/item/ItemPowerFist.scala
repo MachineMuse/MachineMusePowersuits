@@ -23,6 +23,7 @@ import net.minecraft.util.DamageSource
 import net.minecraft.util.Vec3
 import net.minecraft.world.World
 import net.machinemuse.api.ModuleManager.itemHasActiveModule
+import net.machinemuse.numina.scala.OptionCast
 
 /**
  * Describes the modular power tool.
@@ -171,8 +172,8 @@ with OmniWrench {
   override def onPlayerStoppedUsing(itemStack: ItemStack, world: World, player: EntityPlayer, par4: Int) {
     val mode: String = MuseItemTag.getActiveMode(itemStack)
     val module: IPowerModule = ModuleManager.getModule(mode)
-    if (module.isInstanceOf[IRightClickModule]) {
-      (module.asInstanceOf[IRightClickModule]).onPlayerStoppedUsing(itemStack, world, player, par4)
+    OptionCast[IRightClickModule](module) map {
+      m=>m.onPlayerStoppedUsing(itemStack, world, player, par4)
     }
   }
 
