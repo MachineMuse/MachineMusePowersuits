@@ -3,7 +3,7 @@ package net.machinemuse.general.gui.frame;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.DrawableMuseRect;
 import net.machinemuse.general.geometry.MusePoint2D;
-import net.machinemuse.utils.MuseMathUtils;
+import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.utils.render.MuseRenderer;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;

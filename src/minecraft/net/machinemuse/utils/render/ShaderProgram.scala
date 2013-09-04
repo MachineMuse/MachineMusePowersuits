@@ -1,11 +1,11 @@
 package net.machinemuse.utils.render
 
 import org.lwjgl.opengl._
-import net.machinemuse.general.MuseLogger
 import org.lwjgl.opengl.ARBShaderObjects._
 import java.net.URL
 import net.machinemuse.powersuits.common.CommonProxy
 import scala.io.Source
+import net.machinemuse.numina.general.MuseLogger
 
 /**
  * Author: MachineMuse (Claire Semple)

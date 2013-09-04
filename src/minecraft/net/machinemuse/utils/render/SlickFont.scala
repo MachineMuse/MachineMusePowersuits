@@ -6,7 +6,7 @@ import net.machinemuse.general.geometry.Colour
 import org.newdawn.slick.opengl.TextureImpl
 import org.lwjgl.opengl.GL11._
 import net.machinemuse.powersuits.common.Config
-import net.machinemuse.general.MuseLogger
+import net.machinemuse.numina.general.MuseLogger
 
 /**
  * Author: MachineMuse (Claire Semple)

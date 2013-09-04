@@ -4,7 +4,7 @@ import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.FlyFromPointToPoint2D;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableItem;
-import net.machinemuse.general.sound.Musique;
+import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;

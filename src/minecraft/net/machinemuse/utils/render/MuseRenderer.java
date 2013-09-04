@@ -1,13 +1,13 @@
 package net.machinemuse.utils.render;
 
-import net.machinemuse.general.MuseLogger;
+import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.geometry.SwirlyMuseCircle;
 import net.machinemuse.general.gui.MuseGui;
 import net.machinemuse.general.gui.clickable.IClickable;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.utils.MuseMathUtils;
+import net.machinemuse.numina.general.MuseMathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;

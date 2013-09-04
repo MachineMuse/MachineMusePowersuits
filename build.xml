@@ -72,25 +72,6 @@
         </or>
     </condition>
 
-    <condition property="have-apis">
-        <and>
-            <available file="${download.dir}/industrialcraft-2-api_${ic2api.version}.zip"/>
-            <available file="${download.dir}/UniversalElectricity_API_v${ueapi.version}.zip"/>
-            <available file="${download.dir}/ICBM_API_v${icbmapi.version}.zip"/>
-            <available file="${download.dir}/ThermalExpansion-API-${thermexapi.version}.zip"/>
-            <available file="${download.dir}/CoFHCore-API.zip"/>
-            <available file="${download.dir}/Atomic_Science_API_v${asapi.version}.zip"/>
-            <available file="${download.dir}/galacticraft-src-${galacticraftapi.version}.zip"/>
-            <available file="${download.dir}/Railcraft_API_latest.zip"/>
-            <available file="${download.dir}/MFR-API-${mfrapi.version}.zip"/>
-            <available file="${download.dir}/forestry-api-${forestryapi.version}.zip"/>
-            <available file="${download.dir}/scalalib-${scala.version}.zip"/>
-            <available file="${download.dir}/TC4_API_ALPHA_01.zip"/>
-            <available file="${download.dir}/MFFS2_API.zip"/>
-            <available file="${download.dir}/slick-util.jar"/>
-        </and>
-    </condition>
-
     <macrodef name="get-api">
         <attribute name="filename"/>
         <attribute name="into"/>
@@ -261,7 +242,7 @@
         <copy todir="${mcpsrc.dir}/net/minecraft/src" file="${src.dir}/minecraft/net/minecraft/src/ModelPlayer.java"/>
     </target>
 
-    <target name="build" depends="extract-apis,copy-source" unless="already-compiled">
+    <target name="build" depends="extract-apis,copy-source,update-names" unless="already-compiled">
 
         <echo message="Applying Scala mcp patch..."/>
         <get src="http://machinemuse.minecraftforge.net/scalapatch.sh" dest="${mcp.dir}/conf/scalapatch.sh"/>

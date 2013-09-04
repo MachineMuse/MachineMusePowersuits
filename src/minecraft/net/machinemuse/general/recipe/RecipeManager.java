@@ -2,7 +2,7 @@ package net.machinemuse.general.recipe;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.recipe.Recipes;
-import net.machinemuse.general.MuseLogger;
+import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.item.ItemComponent;

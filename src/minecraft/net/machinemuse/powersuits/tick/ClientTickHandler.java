@@ -8,7 +8,7 @@ import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.control.PlayerInputMap;
-import net.machinemuse.powersuits.network.MusePacket;
+import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.Minecraft;
@@ -69,7 +69,7 @@ public class ClientTickHandler implements ITickHandler {
             if (inputmap.hasChanged()) {
                 inputmap.refresh();
                 MusePacket inputPacket = new MusePacketPlayerUpdate((Player) player, inputmap);
-                player.sendQueue.addToSendQueue(inputPacket.getPacket250());
+                player.sendQueue.addToSendQueue(inputPacket.getPacket131());
             }
         }
     }

@@ -2,7 +2,8 @@ package net.machinemuse.utils;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.general.MuseLogger;
+import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.powermodule.movement.FlightControlModule;

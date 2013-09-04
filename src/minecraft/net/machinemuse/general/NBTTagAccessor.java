@@ -3,6 +3,7 @@
  */
 package net.machinemuse.general;
 
+import net.machinemuse.numina.general.MuseLogger;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagInt;
 
@@ -57,6 +58,7 @@ public class NBTTagAccessor extends NBTTagCompound {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         MuseLogger.logError("Unable to access nbt tag map!");
         return null;
     }

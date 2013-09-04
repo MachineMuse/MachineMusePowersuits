@@ -12,7 +12,7 @@ import cpw.mods.fml.common.network.{Player, PacketDispatcher}
 class PlayerTracker extends IPlayerTracker {
   def onPlayerLogin(player: EntityPlayer) {
     PacketDispatcher.sendPacketToPlayer(
-      new MusePacketPropertyModifierConfig(player.asInstanceOf[Player], null).getPacket250,
+      new MusePacketPropertyModifierConfig(player.asInstanceOf[Player], null).getPacket131,
       player.asInstanceOf[Player]
     )
   }

@@ -2,13 +2,13 @@ package net.machinemuse.powersuits.network.packets
 
 import cpw.mods.fml.common.network.Player
 import net.machinemuse.api.IModularItem
-import net.machinemuse.general.MuseLogger
-import net.machinemuse.powersuits.network.{MusePackager, MusePacket}
 import net.machinemuse.utils.MuseItemUtils
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.nbt.NBTTagCompound
 import java.io.DataInputStream
 import scala.Predef._
+import net.machinemuse.numina.general.MuseLogger
+import net.machinemuse.numina.network.{MusePackager, MusePacket}
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -40,15 +40,13 @@ class MusePacketCosmeticInfo(player: Player, itemSlot: Int, tagName: String, tag
       if (!itemTag.hasKey("render")) {
         renderTag = new NBTTagCompound
         itemTag.setCompoundTag("render", renderTag)
-      }
-      else {
+      } else {
         renderTag = itemTag.getCompoundTag("render")
       }
       if (tagData.hasNoTags) {
         MuseLogger.logDebug("Removing tag " + tagName)
         renderTag.removeTag(tagName)
-      }
-      else {
+      } else {
         MuseLogger.logDebug("Adding tag " + tagName + " : " + tagData)
         renderTag.setCompoundTag(tagName, tagData)
       }

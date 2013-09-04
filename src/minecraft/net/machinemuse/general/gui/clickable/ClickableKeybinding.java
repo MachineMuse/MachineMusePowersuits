@@ -60,7 +60,7 @@ public class ClickableKeybinding extends ClickableButton {
             }
             MuseItemUtils.toggleModuleForPlayer(player, module.getModule().getDataName(), toggleval);
             MusePacketToggleRequest toggleRequest = new MusePacketToggleRequest((Player) player, module.getModule().getDataName(), toggleval);
-            player.sendQueue.addToSendQueue(toggleRequest.getPacket250());
+            player.sendQueue.addToSendQueue(toggleRequest.getPacket131());
         }
         toggleval = !toggleval;
     }

@@ -8,7 +8,7 @@ import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableTinkerSlider;
-import net.machinemuse.powersuits.network.MusePacket;
+import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.powersuits.network.packets.MusePacketTweakRequest;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.machinemuse.powersuits.powermodule.PropertyModifierLinearAdditive;
@@ -141,7 +141,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
             IPowerModule module = moduleTarget.getSelectedModule().getModule();
             MusePacket tweakRequest = new MusePacketTweakRequest((Player) player, item.inventorySlot, module.getDataName(), selectedSlider.name(),
                     selectedSlider.value());
-            player.sendQueue.addToSendQueue(tweakRequest.getPacket250());
+            player.sendQueue.addToSendQueue(tweakRequest.getPacket131());
         }
         if (button == 0) {
             selectedSlider = null;

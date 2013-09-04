@@ -1,12 +1,10 @@
 package net.machinemuse.powersuits.common;
 
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.general.MuseLogger;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -29,11 +27,10 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.Configuration;
 import org.lwjgl.input.Keyboard;
 
-import java.io.*;
+import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * Initial attempt at storing all tweakable/configurable values in one class.
@@ -146,15 +143,6 @@ public class Config {
 
     public static boolean useMouseWheel() {
         return config.get(Configuration.CATEGORY_GENERAL, "Use Mousewheel to change modes", true).getBoolean(true);
-    }
-
-    /**
-     * Whether or not to print debugging info.
-     *
-     * @return
-     */
-    public static boolean isDebugging() {
-        return config.get(Configuration.CATEGORY_GENERAL, "Debugging info", false).getBoolean(false);
     }
 
     public static void addModule(IPowerModule module) {
@@ -281,10 +269,6 @@ public class Config {
 
     public static boolean useCustomFonts() {
         return config.get("Font", "Use Custom Font Engine", true).getBoolean(true);
-    }
-
-    public static boolean useSounds() {
-        return config.get(Configuration.CATEGORY_GENERAL, "Use Sounds", true).getBoolean(true);
     }
 
     public static double fontDetail() {

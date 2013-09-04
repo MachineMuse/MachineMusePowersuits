@@ -2,11 +2,12 @@ package net.machinemuse.powersuits.client.render.modelspec
 
 import net.minecraftforge.client.model.obj.WavefrontObject
 import net.minecraftforge.client.model.AdvancedModelLoader
-import net.machinemuse.utils.{MuseRegistry, MuseStringUtils}
+import net.machinemuse.utils.{MuseStringUtils}
 import net.minecraft.util.Vec3
 import net.machinemuse.general.geometry.Colour
-import net.machinemuse.general.MuseLogger
 import net.minecraft.nbt.NBTTagCompound
+import net.machinemuse.numina.general.{MuseLogger}
+import net.machinemuse.numina.scala.MuseRegistry
 
 /**
  * Author: MachineMuse (Claire Semple)

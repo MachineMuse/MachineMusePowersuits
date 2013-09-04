@@ -1,7 +1,7 @@
 package net.machinemuse.utils
 
 import java.io.{FileInputStream, FileOutputStream, File}
-import net.machinemuse.general.MuseLogger
+import net.machinemuse.numina.general.MuseLogger
 
 /**
  * Author: MachineMuse (Claire Semple)

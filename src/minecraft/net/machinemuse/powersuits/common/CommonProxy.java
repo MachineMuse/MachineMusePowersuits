@@ -2,7 +2,9 @@ package net.machinemuse.powersuits.common;
 
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
-import net.machinemuse.powersuits.network.MusePacketHandler;
+import net.machinemuse.numina.network.MusePacketHandler;
+import net.machinemuse.powersuits.network.packets.MPSPacketList;
+import net.machinemuse.powersuits.network.packets.MPSPacketList$;
 import net.machinemuse.powersuits.tick.PlayerTickHandler;
 
 import java.net.URL;
@@ -37,7 +39,7 @@ public class CommonProxy {
         playerTickHandler = new PlayerTickHandler();
         TickRegistry.registerTickHandler(playerTickHandler, Side.SERVER);
 
-        packetHandler = new MusePacketHandler();
+        MPSPacketList.registerPackets();
     }
 
     public void postInit() {

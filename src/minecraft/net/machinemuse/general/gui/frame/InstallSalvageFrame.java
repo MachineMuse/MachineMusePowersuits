@@ -10,9 +10,9 @@ import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableButton;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableModule;
-import net.machinemuse.general.sound.Musique;
+import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.general.sound.SoundLoader;
-import net.machinemuse.powersuits.network.MusePacket;
+import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.powersuits.network.packets.MusePacketInstallModuleRequest;
 import net.machinemuse.powersuits.network.packets.MusePacketSalvageModuleRequest;
 import net.machinemuse.utils.MuseItemUtils;
@@ -157,7 +157,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
                 (Player) player,
                 targetItem.getSelectedItem().inventorySlot,
                 module.getDataName());
-        player.sendQueue.addToSendQueue(newpacket.getPacket250());
+        player.sendQueue.addToSendQueue(newpacket.getPacket131());
     }
 
     /**
@@ -174,7 +174,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
                     (Player) player,
                     targetItem.getSelectedItem().inventorySlot,
                     module.getDataName());
-            player.sendQueue.addToSendQueue(newpacket.getPacket250());
+            player.sendQueue.addToSendQueue(newpacket.getPacket131());
         }
     }
 }

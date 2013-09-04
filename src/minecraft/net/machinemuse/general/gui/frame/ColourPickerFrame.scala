@@ -3,7 +3,6 @@ package net.machinemuse.general.gui.frame
 import java.util
 import net.machinemuse.general.gui.clickable.ClickableSlider
 import net.machinemuse.general.geometry._
-import net.machinemuse.general.MuseLogger
 import net.machinemuse.utils.MuseItemUtils
 import net.machinemuse.utils.render.GuiIcons
 import GuiIcons._
@@ -15,6 +14,7 @@ import net.machinemuse.powersuits.network.packets.MusePacketColourInfo
 import cpw.mods.fml.common.network.Player
 import net.minecraft.client.Minecraft
 import scala.Some
+import net.machinemuse.numina.general.MuseLogger
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -48,7 +48,7 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
       }
       val player = Minecraft.getMinecraft.thePlayer
       if (player.worldObj.isRemote)
-        player.sendQueue.addToSendQueue(new MusePacketColourInfo(player.asInstanceOf[Player], itemSelector.getSelectedItem.inventorySlot, colours).getPacket250)
+        player.sendQueue.addToSendQueue(new MusePacketColourInfo(player.asInstanceOf[Player], itemSelector.getSelectedItem.inventorySlot, colours).getPacket131)
       Some(renderSpec.getTag("colours").asInstanceOf[NBTTagIntArray])
     }
   }
@@ -78,7 +78,7 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
         colours(selectedColour) = Colour.getInt(rslider.value, gslider.value, bslider.value, 1.0)
         val player = Minecraft.getMinecraft.thePlayer
         if (player.worldObj.isRemote)
-          player.sendQueue.addToSendQueue(new MusePacketColourInfo(player.asInstanceOf[Player], itemSelector.getSelectedItem.inventorySlot, colours).getPacket250)
+          player.sendQueue.addToSendQueue(new MusePacketColourInfo(player.asInstanceOf[Player], itemSelector.getSelectedItem.inventorySlot, colours).getPacket131)
       }
     })
   }
@@ -128,7 +128,7 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
           e.intArray = (e.intArray :+ Colour.WHITE.getInt)
           val player = Minecraft.getMinecraft.thePlayer
           if (player.worldObj.isRemote)
-            player.sendQueue.addToSendQueue(new MusePacketColourInfo(player.asInstanceOf[Player], itemSelector.getSelectedItem.inventorySlot, e.intArray).getPacket250)
+            player.sendQueue.addToSendQueue(new MusePacketColourInfo(player.asInstanceOf[Player], itemSelector.getSelectedItem.inventorySlot, e.intArray).getPacket131)
         })
 
       }
@@ -144,7 +144,7 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
           }
           val player = Minecraft.getMinecraft.thePlayer
           if (player.worldObj.isRemote)
-            player.sendQueue.addToSendQueue(new MusePacketColourInfo(player.asInstanceOf[Player], itemSelector.getSelectedItem.inventorySlot, e.intArray).getPacket250)
+            player.sendQueue.addToSendQueue(new MusePacketColourInfo(player.asInstanceOf[Player], itemSelector.getSelectedItem.inventorySlot, e.intArray).getPacket131)
         }
       })
 

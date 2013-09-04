@@ -1,16 +1,12 @@
 package net.machinemuse.powersuits.common;
 
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.Mod.PostInit;
-import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import net.machinemuse.general.recipe.RecipeManager;
@@ -22,7 +18,6 @@ import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.event.HarvestEventHandler;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.*;
-import net.machinemuse.powersuits.network.MusePacketHandler;
 import net.machinemuse.utils.MuseFileUtils;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
@@ -40,8 +35,10 @@ import java.io.File;
 // matches the server's.
 @Mod(modid = "powersuits",
         name = "MachineMuse's Modular Powersuits",
+        dependencies = "after:numina",
         /* @DEPENDENCIES@ */
         version = "@MOD_VERSION@"
+
 )
 // Informs forge of the requirements:
 //
@@ -53,9 +50,7 @@ import java.io.File;
 // mod does anything potentially incompatible in its preInit function. True for
 // things that add new blocks/items, false for things like Rei's Minimap or
 // Inventory Tweaks.
-@NetworkMod(clientSideRequired = true, serverSideRequired = true,
-        clientPacketHandlerSpec = @SidedPacketHandler(channels = {"powersuits"}, packetHandler = MusePacketHandler.class),
-        serverPacketHandlerSpec = @SidedPacketHandler(channels = {"powersuits"}, packetHandler = MusePacketHandler.class))
+@NetworkMod(clientSideRequired = true, serverSideRequired = true)
 public class ModularPowersuits {
 
     public static ItemPowerArmorHelmet powerArmorHead;
@@ -93,7 +88,7 @@ public class ModularPowersuits {
      *
      * @param event An event object with useful data
      */
-    @PreInit
+    @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         INSTANCE = this;
         File oldConfig = event.getSuggestedConfigurationFile();
@@ -126,7 +121,7 @@ public class ModularPowersuits {
      *
      * @param event An event object with useful data
      */
-    @Init
+    @Mod.EventHandler
     public void load(FMLInitializationEvent event) {
         powerArmorHead = new ItemPowerArmorHelmet(Config.helmID);
         powerArmorTorso = new ItemPowerArmorChestplate(Config.chestID);
@@ -155,7 +150,6 @@ public class ModularPowersuits {
         Config.fontDetail();
         Config.fontAntiAliasing();
         Config.useCustomFonts();
-        Config.useSounds();
         Config.glowMultiplier();
         Config.useShaders();
 
@@ -174,7 +168,7 @@ public class ModularPowersuits {
      *
      * @param event An event object with useful data
      */
-    @PostInit
+    @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit();
         RecipeManager.addRecipes();

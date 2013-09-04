@@ -7,11 +7,13 @@ import net.machinemuse.utils.{MuseItemUtils, MuseStringUtils, MuseCommonStrings}
 import scala.Predef.String
 import net.minecraft.entity.player.EntityPlayer
 import net.machinemuse.powersuits.powermodule.misc.{CosmeticGlowModule, TintModule}
-import net.machinemuse.utils.MuseMathUtils._
+import net.machinemuse.numina.general.MuseMathUtils
+import MuseMathUtils._
 import net.machinemuse.api.electricity.MuseElectricItem
 import net.machinemuse.api.{ModuleManager, IModularItem}
 import net.machinemuse.api.ModuleManager.itemHasActiveModule
 import net.machinemuse.utils.ElectricItemUtils
+import net.machinemuse.numina.general.MuseMathUtils
 
 /**
  * Author: MachineMuse (Claire Semple)

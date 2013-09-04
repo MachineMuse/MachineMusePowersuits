@@ -2,16 +2,16 @@ package net.machinemuse.general.gui.frame
 
 import net.machinemuse.powersuits.client.render.modelspec.{ModelRegistry, ModelPartSpec, ModelSpec}
 import net.machinemuse.general.geometry.{Colour, MuseRect, MuseRelativeRect}
-import net.machinemuse.utils.{MuseItemUtils, MuseMathUtils}
+import net.machinemuse.utils.{MuseItemUtils}
 import org.lwjgl.opengl.GL11._
 import net.machinemuse.general.gui.clickable.ClickableItem
 import net.minecraft.nbt.NBTTagCompound
-import net.machinemuse.general.MuseLogger
 import net.machinemuse.powersuits.network.packets.MusePacketCosmeticInfo
 import net.minecraft.client.Minecraft
 import cpw.mods.fml.common.network.Player
 import net.minecraft.item.ItemArmor
 import net.machinemuse.utils.render.{MuseRenderer, GuiIcons}
+import net.machinemuse.numina.general.{MuseLogger, MuseMathUtils}
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -83,7 +83,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
         val oldindex = spec.getColourIndex(e)
         if (oldindex >= index && oldindex > 0) {
           spec.setColourIndex(e, oldindex - 1)
-          if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, e).getPacket250)
+          if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, e).getPacket131)
         }
       })
 
@@ -154,7 +154,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
           val tagname = ModelRegistry.makeName(spec)
           val player = Minecraft.getMinecraft.thePlayer
           renderTag.removeTag(ModelRegistry.makeName(spec))
-          if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, new NBTTagCompound()).getPacket250)
+          if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, new NBTTagCompound()).getPacket131)
           updateItems
           true
         }
@@ -163,7 +163,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
           val player = Minecraft.getMinecraft.thePlayer
           val tagdata = getOrMakeSpecTag(spec)
           spec.setGlow(tagdata, false)
-          if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, tagdata).getPacket250)
+          if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, tagdata).getPacket131)
           updateItems
           true
         }
@@ -172,7 +172,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
           val player = Minecraft.getMinecraft.thePlayer
           val tagdata = getOrMakeSpecTag(spec)
           spec.setGlow(tagdata, true)
-          if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, tagdata).getPacket250)
+          if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, tagdata).getPacket131)
           updateItems
           true
         }
@@ -186,7 +186,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
       val player = Minecraft.getMinecraft.thePlayer
       val tagdata = getOrMakeSpecTag(spec)
       spec.setColourIndex(tagdata, columnNumber)
-      if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, tagdata).getPacket250)
+      if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, tagdata).getPacket131)
       true
     }
 

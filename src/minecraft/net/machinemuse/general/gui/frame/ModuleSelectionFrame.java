@@ -8,7 +8,7 @@ import net.machinemuse.general.geometry.MuseRect;
 import net.machinemuse.general.geometry.MuseRelativeRect;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableModule;
-import net.machinemuse.general.sound.Musique;
+import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.utils.render.MuseRenderer;
 import org.lwjgl.opengl.GL11;

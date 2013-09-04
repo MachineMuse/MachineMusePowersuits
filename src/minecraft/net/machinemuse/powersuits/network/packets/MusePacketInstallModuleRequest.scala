@@ -8,7 +8,6 @@ import cpw.mods.fml.common.network.PacketDispatcher
 import cpw.mods.fml.common.network.Player
 import cpw.mods.fml.relauncher.Side
 import net.machinemuse.api.{IModularItem, IPowerModule, ModuleManager}
-import net.machinemuse.powersuits.network.{MusePackager, MusePacket}
 import net.machinemuse.utils.ElectricItemUtils
 import net.machinemuse.utils.MuseItemUtils
 import net.minecraft.client.entity.EntityClientPlayerMP
@@ -20,9 +19,10 @@ import java.io.IOException
 import java.util.ArrayList
 import java.util.List
 import net.minecraft.nbt.NBTTagCompound
-import net.machinemuse.general.MuseLogger
 import net.minecraft.util.ChatMessageComponent
 import net.machinemuse.api.ModuleManager.{itemAddModule, itemHasModule}
+import net.machinemuse.numina.general.MuseLogger
+import net.machinemuse.numina.network.{MusePackager, MusePacket}
 
 /**
  * Packet for requesting to purchase an upgrade. Player-to-server. Server decides whether it is a valid upgrade or not and replies with an associated
@@ -72,7 +72,7 @@ class MusePacketInstallModuleRequest(player: Player, itemSlot: Int, moduleName: 
         import scala.collection.JavaConversions._
         for (slotiter <- slotsToUpdate) {
           val reply: MusePacket = new MusePacketInventoryRefresh(player, slotiter, inventory.getStackInSlot(slotiter))
-          PacketDispatcher.sendPacketToPlayer(reply.getPacket250, player)
+          PacketDispatcher.sendPacketToPlayer(reply.getPacket131, player)
         }
       }
     }

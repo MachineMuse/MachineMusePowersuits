@@ -8,7 +8,6 @@ import cpw.mods.fml.common.network.Player
 import net.machinemuse.api.IPowerModule
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.powersuits.common.Config
-import net.machinemuse.powersuits.network.{MusePackager, MusePacket}
 import net.machinemuse.utils.MuseItemUtils
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.entity.player.InventoryPlayer
@@ -19,6 +18,7 @@ import java.util.List
 import java.util.Set
 import scala.Predef._
 import net.machinemuse.api.ModuleManager.{removeModule, itemHasModule}
+import net.machinemuse.numina.network.{MusePackager, MusePacket}
 
 /**
  * Packet for requesting to purchase an upgrade. Player-to-server. Server
@@ -62,7 +62,7 @@ class MusePacketSalvageModuleRequest(player: Player, itemSlot: Int, moduleName: 
         import scala.collection.JavaConversions._
         for (slotiter <- slots) {
           val reply: MusePacket = new MusePacketInventoryRefresh(player, slotiter, inventory.getStackInSlot(slotiter))
-          PacketDispatcher.sendPacketToPlayer(reply.getPacket250, player)
+          PacketDispatcher.sendPacketToPlayer(reply.getPacket131, player)
         }
       }
     }

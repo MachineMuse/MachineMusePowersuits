@@ -7,7 +7,7 @@
 package net.machinemuse.powersuits.client.render.item;
 
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.general.MuseLogger;
+import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.powersuits.client.render.entity.RenderPlasmaBolt;
 import net.machinemuse.powersuits.common.Config;

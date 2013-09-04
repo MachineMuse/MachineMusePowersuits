@@ -2,10 +2,10 @@ package net.machinemuse.powersuits.network.packets
 
 import java.io.DataInputStream
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt
-import net.machinemuse.powersuits.network.{MusePackager, MusePacket}
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.EntityClientPlayerMP
 import cpw.mods.fml.common.network.Player
+import net.machinemuse.numina.network.{MusePackager, MusePacket}
 
 /**
  * Author: MachineMuse (Claire Semple)

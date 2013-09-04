@@ -4,14 +4,15 @@
 package net.machinemuse.powersuits.network.packets
 
 import cpw.mods.fml.common.network.Player
-import net.machinemuse.powersuits.network.{MusePackager, MusePacket}
-import net.machinemuse.utils.{MuseMathUtils, MuseItemUtils}
+import net.machinemuse.utils.{MuseItemUtils}
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.nbt.NBTTagCompound
 import java.io.DataInputStream
 import scala.Predef._
 import net.machinemuse.api.ModuleManager.tagHasModule
 import net.machinemuse.api.ModuleManager
+import net.machinemuse.numina.general.MuseMathUtils
+import net.machinemuse.numina.network.{MusePackager, MusePacket}
 
 /**
  * Packet for requesting to purchase an upgrade. Player-to-server. Server

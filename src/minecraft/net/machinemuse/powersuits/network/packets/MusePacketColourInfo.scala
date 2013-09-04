@@ -5,8 +5,8 @@ import net.minecraft.entity.player.EntityPlayerMP
 import net.machinemuse.api.IModularItem
 import net.machinemuse.utils.MuseItemUtils
 import cpw.mods.fml.common.network.Player
-import net.machinemuse.powersuits.network.{MusePackager, MusePacket}
 import java.io.DataInputStream
+import net.machinemuse.numina.network.{MusePackager, MusePacket}
 
 
 /**

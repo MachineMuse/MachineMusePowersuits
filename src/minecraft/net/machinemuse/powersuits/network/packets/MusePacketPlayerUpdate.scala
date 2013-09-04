@@ -2,13 +2,13 @@ package net.machinemuse.powersuits.network.packets
 
 import java.io.DataInputStream
 import net.machinemuse.powersuits.control.PlayerInputMap
-import net.machinemuse.powersuits.network.{MusePackager, MusePacket}
 import net.minecraft.client.entity.EntityClientPlayerMP
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
 import cpw.mods.fml.common.network.PacketDispatcher
 import cpw.mods.fml.common.network.Player
 import net.minecraft.item.ItemStack
+import net.machinemuse.numina.network.{MusePackager, MusePacket}
 
 
 /**
@@ -36,7 +36,7 @@ class MusePacketPlayerUpdate(player: Player, inputMap: PlayerInputMap) extends M
     player.motionX = inputMap.motionX
     player.motionY = inputMap.motionY
     player.motionZ = inputMap.motionZ
-    PacketDispatcher.sendPacketToAllAround(player.posX, player.posY, player.posZ, 128, player.dimension, updatePacket.getPacket250)
+    PacketDispatcher.sendPacketToAllAround(player.posX, player.posY, player.posZ, 128, player.dimension, updatePacket.getPacket131)
   }
 
 }

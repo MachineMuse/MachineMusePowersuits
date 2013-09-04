@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.render.block;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import net.machinemuse.general.MuseLogger;
+import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.utils.render.MuseRenderer;

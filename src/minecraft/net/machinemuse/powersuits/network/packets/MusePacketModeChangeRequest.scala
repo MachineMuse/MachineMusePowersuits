@@ -4,7 +4,6 @@
 package net.machinemuse.powersuits.network.packets
 
 import cpw.mods.fml.common.network.Player
-import net.machinemuse.powersuits.network.{MusePackager, MusePacket}
 import net.machinemuse.utils.MuseItemUtils
 import net.minecraft.client.entity.EntityClientPlayerMP
 import net.minecraft.entity.player.EntityPlayerMP
@@ -13,6 +12,8 @@ import net.minecraft.nbt.NBTTagCompound
 import java.io.DataInputStream
 import java.util.List
 import scala.Predef._
+import net.machinemuse.numina.network.{MusePackager, MusePacket}
+
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 12:28 PM, 5/6/13

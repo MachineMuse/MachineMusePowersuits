@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.common;
 import cpw.mods.fml.common.Loader;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.general.MuseLogger;
+import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.powersuits.powermodule.armor.ApiaristArmorModule;
 import net.machinemuse.powersuits.powermodule.armor.HazmatModule;
 import net.machinemuse.powersuits.powermodule.misc.AirtightSealModule;
@@ -200,8 +200,8 @@ public class ModCompatability {
     }
 
     public static ItemStack getMFFSItem(String name, int quantity) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
-            Object obj = Class.forName("mods.mffs.common.ModularForceFieldSystem").getField("MFFSitemFieldTeleporter").get(null);
-            ItemStack stack = new ItemStack((Item) obj, quantity);
-            return stack;
+        Object obj = Class.forName("mods.mffs.common.ModularForceFieldSystem").getField("MFFSitemFieldTeleporter").get(null);
+        ItemStack stack = new ItemStack((Item) obj, quantity);
+        return stack;
     }
 }

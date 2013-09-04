@@ -1,10 +1,12 @@
 package net.machinemuse.powersuits.network.packets
 
-import net.machinemuse.powersuits.network.{MusePackager, MusePacket}
 import java.io.DataInputStream
 import cpw.mods.fml.common.network.Player
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.powersuits.powermodule.{PowerModuleBase, PropertyModifierLinearAdditive, PropertyModifierFlatAdditive}
+import net.machinemuse.numina.network.{MusePackager, MusePacket}
+import net.minecraft.entity.player.EntityPlayerMP
+import net.minecraft.client.entity.EntityClientPlayerMP
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -19,7 +21,7 @@ object MusePacketPropertyModifierConfig extends MusePackager {
 class MusePacketPropertyModifierConfig(player: Player, data: DataInputStream) extends MusePacket(player) {
   val packager = MusePacketPropertyModifierConfig
 
-  def write {
+  override def write {
     import scala.collection.JavaConverters._
     writeInt(ModuleManager.getAllModules.size())
     for (module <- ModuleManager.getAllModules.asScala) {
@@ -40,7 +42,12 @@ class MusePacketPropertyModifierConfig(player: Player, data: DataInputStream) ex
     }
   }
 
-  def handleClient() {
+  /**
+   * Called by the network manager since it does all the packet mapping
+   *
+   * @param player
+   */
+  override def handleClient(player: EntityClientPlayerMP) {
     val d = MusePacketPropertyModifierConfig
     val numModules = d readInt data
     for (_ <- 0 until numModules) {

@@ -8,10 +8,11 @@ import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemTag;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
-import net.machinemuse.general.MuseLogger;
+import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.machinemuse.powersuits.network.MusePacket;
+import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.powersuits.network.packets.MusePacketModeChangeRequest;
 import net.machinemuse.powersuits.tick.RenderTickHandler;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -51,7 +52,7 @@ public class MuseItemUtils {
                 RenderTickHandler.lastSwapTime = System.currentTimeMillis();
                 RenderTickHandler.lastSwapDirection = (int) Math.signum(dMode);
                 MusePacket modeChangePacket = new MusePacketModeChangeRequest((Player) player, newMode, player.inventory.currentItem);
-                player.sendQueue.addToSendQueue(modeChangePacket.getPacket250());
+                player.sendQueue.addToSendQueue(modeChangePacket.getPacket131());
             }
         }
     }
