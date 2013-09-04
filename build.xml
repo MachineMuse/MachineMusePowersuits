@@ -16,6 +16,8 @@
     <property name="forge.version" value="${minecraft.version}-${forgemajor.version}.${forgebuild}"/>
     <property name="forgeant.version" value="${forgemajor.version}.${forgebuild}"/>
 
+    <property name="numina.version" value="0.0.1-0"/>
+
     <property name="ic2api.version" value="1.118.401-lf"/>
     <property name="ueapi.version" value="2.1.0.153"/>
     <property name="asapi.version" value="0.7.0.114"/>
@@ -186,10 +188,13 @@
         <move file="${download.dir}/mods/mffs/api/IMFFS_Wrench.java" todir="${mcpsrc.dir}/mods/mffs/api"/>
 
 
-        <get-api filename="scalalib-${scala.version}.zip" into="${mcp.dir}"/>
+        <get src="${apisource.url}/scalalib-${scala.version}.zip"
+             dest="${mcplib.dir}/scalalib-${scala.version}.zip"/>
 
-        <echo message="Importing Slick-Util..."/>
-        <get src="http://machinemuse.minecraftforge.net/slick-util.jar"
+        <get src="${apisource.url}/Numina-dev-${numina.version}.jar"
+             dest="${mcplib.dir}/Numina-dev-${numina.version}.jar"/>
+
+        <get src="${apisource.url}/slick-util.jar"
              dest="${download.dir}/slick-util.jar"/>
         <copy file="${download.dir}/slick-util.jar" todir="${mcp.dir}/lib"/>
     </target>
@@ -217,6 +222,9 @@
         <copy file="${download.dir}/slick-util.jar" todir="${dist.dir}"/>
         <get src="http://files.minecraftforge.net/fmllibs/scala-library.jar"
              dest="${dist.dir}/scala-library.jar"/>
+
+        <get src="${apisource.url}/Numina-${minecraft.version}-${numina.version}.jar"
+             dest="${dist.dir}/Numina-${minecraft.version}-${numina.version}.jar"/>
 
         <jar destfile="${dist.dir}/ModularPowersuits-${minecraft.version}-${fullversion}.jar" basedir="${classes.dir}"/>
         <delete dir="${classes.dir}"/>
