@@ -1,5 +1,5 @@
 [{
-    "modid": "mmmPowersuits",
+    "modid": "powersuits",
     "name": "MachineMuse's Modular Powersuits",
     "description": "A mod which adds modular power armor, power tool, and a tinker table to configure them. Uses UniversalElectricty or IC2 for energy.",
     "version": "@MOD_VERSION@",
@@ -11,6 +11,6 @@
     "logoFile": "/mods/mmmPowersuits/textures/mmmpslogo_64.png",
     "screenshots": [ ],
     "parent": "",
-    "requiredMods": [ "Forge" ],
+    "requiredMods": [ "Forge", "Numina" ],
     "dependencies": [  ]
 }]
