@@ -16,8 +16,6 @@
     <property name="forge.version" value="${minecraft.version}-${forgemajor.version}.${forgebuild}"/>
     <property name="forgeant.version" value="${forgemajor.version}.${forgebuild}"/>
 
-    <property name="numina.version" value="0.0.1-0"/>
-
     <property name="ic2api.version" value="1.118.401-lf"/>
     <property name="ueapi.version" value="2.1.0.153"/>
     <property name="asapi.version" value="0.7.0.114"/>
@@ -191,8 +189,8 @@
         <get src="${apisource.url}/scalalib-${scala.version}.zip"
              dest="${mcplib.dir}/scalalib-${scala.version}.zip"/>
 
-        <move todir="${mcplib.dir}/">
-            <fileset includes="${dist.dir}/Numina-dev-*.jar"/>
+        <move todir="${mcplib.dir}">
+            <fileset dir="${dist.dir}" includes="Numina-dev-*.jar"/>
         </move>
 
         <get src="${apisource.url}/slick-util.jar"
