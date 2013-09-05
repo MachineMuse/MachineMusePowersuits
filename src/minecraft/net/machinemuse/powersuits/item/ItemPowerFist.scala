@@ -6,12 +6,10 @@ import forestry.api.arboriculture.IToolGrafter
 import net.machinemuse.api._
 import net.machinemuse.api.moduletrigger.IRightClickModule
 import net.machinemuse.general.gui.MuseIcon
-import net.machinemuse.powersuits.common.Config
+import net.machinemuse.powersuits.common.{ModularPowersuits, Config}
 import net.machinemuse.powersuits.powermodule.tool.{OmniWrenchModule, GrafterModule}
 import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule
-import net.machinemuse.utils.ElectricItemUtils
-import net.machinemuse.utils.MuseHeatUtils
-import net.machinemuse.utils.MuseItemUtils
+import net.machinemuse.utils.{MuseItemUtils, ElectricItemUtils, MuseHeatUtils}
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.texture.IconRegister
 import net.minecraft.entity.{EntityLivingBase, Entity}
@@ -19,11 +17,12 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumAction
 import net.minecraft.item.EnumToolMaterial
 import net.minecraft.item.ItemStack
-import net.minecraft.util.DamageSource
-import net.minecraft.util.Vec3
+import net.minecraft.util.{Icon, DamageSource, Vec3}
 import net.minecraft.world.World
-import net.machinemuse.api.ModuleManager.itemHasActiveModule
 import net.machinemuse.numina.scala.OptionCast
+import net.machinemuse.numina.item.ModeChangingItem
+import net.minecraft.nbt.NBTTagCompound
+import scala.Predef.String
 
 /**
  * Describes the modular power tool.
@@ -33,7 +32,8 @@ import net.machinemuse.numina.scala.OptionCast
 class ItemPowerFist extends ItemElectricTool(Config.fistID, 0, EnumToolMaterial.EMERALD, new Array[Block](0))
 with IModularItem
 with IToolGrafter
-with OmniWrench {
+with OmniWrench
+with ModeChangingModularItem {
   val iconpath: String = MuseIcon.ICON_PREFIX + "handitem"
   setMaxStackSize(1)
   setMaxDamage(0)
@@ -173,7 +173,7 @@ with OmniWrench {
     val mode: String = MuseItemTag.getActiveMode(itemStack)
     val module: IPowerModule = ModuleManager.getModule(mode)
     OptionCast[IRightClickModule](module) map {
-      m=>m.onPlayerStoppedUsing(itemStack, world, player, par4)
+      m => m.onPlayerStoppedUsing(itemStack, world, player, par4)
     }
   }
 

@@ -8,6 +8,7 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.geometry.Colour;
 import net.machinemuse.general.gui.EnergyMeter;
 import net.machinemuse.general.gui.HeatMeter;
+import net.machinemuse.numina.item.ModeChangingItem;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModCompatability;
@@ -98,7 +99,7 @@ public class RenderTickHandler implements ITickHandler {
 
         int i = player.inventory.currentItem;
         ItemStack stack = player.inventory.mainInventory[i];
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+        if (stack != null && stack.getItem() instanceof ModeChangingItem) {
             MuseRenderer.pushTexture(MuseRenderer.ITEM_TEXTURE_QUILT);
             MuseRenderer.blendingOn();
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
@@ -107,7 +108,7 @@ public class RenderTickHandler implements ITickHandler {
             Icon nextMode = null;
             Icon prevMode = null;
             List<String> modes = MuseItemUtils.getModes(stack, player);
-            String mode = itemTag.getString("Mode");
+            String mode = ((ModeChangingItem)(stack.getItem())).getActiveMode(stack);
             int modeIndex = modes.indexOf(mode);
             if (modeIndex > -1) {
                 String prevModeName = modes.get((modeIndex + modes.size() - 1) % modes.size());

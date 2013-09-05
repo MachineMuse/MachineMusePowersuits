@@ -10,6 +10,7 @@ import net.machinemuse.api.MuseItemTag;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.general.MuseMathUtils;
+import net.machinemuse.numina.item.ModeChangingItem;
 import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.numina.network.MusePacket;
@@ -28,32 +29,11 @@ import java.util.*;
 public class MuseItemUtils {
     public static final String ONLINE = "Active";
 
-    private static int clampMode(int selection, int modesSize) {
-        if (selection > 0) {
-            return selection % modesSize;
-        } else {
-            return (selection + modesSize * (-selection)) % modesSize;
-        }
-    }
 
     @SideOnly(Side.CLIENT)
     public static void cycleMode(ItemStack stack, EntityClientPlayerMP player, int dMode) {
-        if (stack != null && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            String mode = itemTag.getString("Mode");
-            List<String> modes = MuseItemUtils.getModes(stack, player);
-            if (mode.isEmpty() && modes.size() > 0) {
-                mode = modes.get(0);
-            }
-            if (modes.size() > 0 && dMode != 0) {
-                int modeIndex = modes.indexOf(mode);
-                String newMode = modes.get(clampMode(modeIndex + dMode, modes.size()));
-                itemTag.setString("Mode", newMode);
-                RenderTickHandler.lastSwapTime = System.currentTimeMillis();
-                RenderTickHandler.lastSwapDirection = (int) Math.signum(dMode);
-                MusePacket modeChangePacket = new MusePacketModeChangeRequest((Player) player, newMode, player.inventory.currentItem);
-                player.sendQueue.addToSendQueue(modeChangePacket.getPacket131());
-            }
+        if (stack != null && stack.getItem() instanceof ModeChangingItem) {
+            ((ModeChangingItem)(stack.getItem())).cycleMode(stack, dMode, player);
         }
     }
 

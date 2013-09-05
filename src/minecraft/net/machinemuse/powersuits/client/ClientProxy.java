@@ -3,10 +3,13 @@ package net.machinemuse.powersuits.client;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
-import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.general.sound.SoundLoader;
+import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.network.MusePacket;
+import net.machinemuse.numina.network.MusePacketHandler;
 import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
 import net.machinemuse.powersuits.block.TileEntityTinkerTable;
 import net.machinemuse.powersuits.client.render.block.RenderLuxCapacitorTESR;
@@ -25,11 +28,13 @@ import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.event.RenderEventHandler;
-import net.machinemuse.numina.network.MusePacketHandler;
+import net.machinemuse.powersuits.network.packets.MusePacketModeChangeRequest;
 import net.machinemuse.powersuits.tick.ClientTickHandler;
 import net.machinemuse.powersuits.tick.PlayerTickHandler;
 import net.machinemuse.powersuits.tick.RenderTickHandler;
 import net.machinemuse.utils.render.MuseShaders;
+import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -125,5 +130,13 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void postInit() {
         KeybindManager.readInKeybinds();
+    }
+
+    @Override
+    public void sendModeChange(EntityPlayer player, int dMode, String newMode) {
+        RenderTickHandler.lastSwapTime = System.currentTimeMillis();
+        RenderTickHandler.lastSwapDirection = (int) Math.signum(dMode);
+        MusePacket modeChangePacket = new MusePacketModeChangeRequest((Player) player, newMode, player.inventory.currentItem);
+        ((EntityClientPlayerMP) player).sendQueue.addToSendQueue(modeChangePacket.getPacket131());
     }
 }
