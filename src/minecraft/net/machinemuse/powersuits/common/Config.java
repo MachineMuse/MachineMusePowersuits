@@ -206,7 +206,7 @@ public class Config {
         addModule(new WaterElectrolyzerModule(HEADONLY));
 
         // Vision
-        addModule(new BinocularsModule(HEADONLY));
+        //addModule(new BinocularsModule(HEADONLY));
         addModule(new NightVisionModule(HEADONLY));
 
         // Special

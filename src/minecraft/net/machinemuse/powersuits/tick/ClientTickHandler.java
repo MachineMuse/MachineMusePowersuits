@@ -22,9 +22,6 @@ import java.util.EnumSet;
  * @author MachineMuse
  */
 public class ClientTickHandler implements ITickHandler {
-    protected int slotSelected = -1;
-    public static int dWheel;
-
     @Override
     public void tickStart(EnumSet<TickType> type, Object... tickData) {
         for (ClickableKeybinding kb : KeybindManager.getKeybindings()) {
