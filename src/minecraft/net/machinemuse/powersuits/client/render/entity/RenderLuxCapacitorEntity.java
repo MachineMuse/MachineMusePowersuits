@@ -43,5 +43,4 @@ public class RenderLuxCapacitorEntity extends MuseRender {
         MuseRenderer.popTexture();
     }
 
-
 }

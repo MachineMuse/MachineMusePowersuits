@@ -80,7 +80,7 @@ trait ForceFieldManipulator extends IFieldTeleporter {
         return true
       }
       else if (FMLCommonHandler.instance.getEffectiveSide.isServer) {
-        player.sendChatToPlayer(ChatMessageComponent.func_111066_d("[Field Security] Could not teleport through forcefield. 20,000J is required to teleport."))
+        player.sendChatToPlayer(ChatMessageComponent.createFromText("[Field Security] Could not teleport through forcefield. 20,000J is required to teleport."))
       }
     }
     return false

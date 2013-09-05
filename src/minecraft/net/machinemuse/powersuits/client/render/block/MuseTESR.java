@@ -9,6 +9,6 @@ import net.minecraft.util.ResourceLocation;
  */
 public abstract class MuseTESR extends TileEntitySpecialRenderer {
     public void bindTextureByName(String tex) {
-        this.func_110628_a(new ResourceLocation(tex));
+        this.bindTexture(new ResourceLocation(tex));
     }
 }

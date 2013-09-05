@@ -54,7 +54,7 @@ class MusePacketInstallModuleRequest(player: Player, itemSlot: Int, moduleName: 
       val inventory: InventoryPlayer = playerEntity.inventory
       val moduleType: IPowerModule = ModuleManager.getModule(moduleName)
       if (moduleType == null || !moduleType.isAllowed) {
-        playerEntity.sendChatToPlayer(ChatMessageComponent.func_111066_d("Server has disallowed this module. Sorry!"))
+        playerEntity.sendChatToPlayer(ChatMessageComponent.createFromText("Server has disallowed this module. Sorry!"))
         return
       }
       val cost: List[ItemStack] = moduleType.getInstallCost

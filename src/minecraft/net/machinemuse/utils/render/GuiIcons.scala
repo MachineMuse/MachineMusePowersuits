@@ -87,9 +87,10 @@ object GuiIcons {
 
     def getIconName: String = "GuiIcon"
 
-    def getSheetWidth: Int = 8
+    def getIconWidth: Int = 8
 
-    def getSheetHeight: Int = 8
+    def getIconHeight: Int = 8
+
   }
 
 }

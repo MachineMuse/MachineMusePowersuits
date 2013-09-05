@@ -75,7 +75,7 @@ public abstract class MuseRenderer {
     }
 
     public static void bindTexture(String tex) {
-        getRenderEngine().func_110577_a(new ResourceLocation(tex));
+        getRenderEngine().bindTexture(new ResourceLocation(tex));
     }
 
     /**

@@ -10,8 +10,8 @@
 
     <property name="mcp.version" value="805"/>
     <property name="minecraft.version" value="1.6.2"/>
-    <property name="forgemajor.version" value="9.10.0"/>
-    <property name="forgebuild" value="804"/>
+    <property name="forgemajor.version" value="9.10.1"/>
+    <property name="forgebuild" value="849"/>
 
     <property name="forge.version" value="${minecraft.version}-${forgemajor.version}.${forgebuild}"/>
     <property name="forgeant.version" value="${forgemajor.version}.${forgebuild}"/>
@@ -250,7 +250,7 @@
         <copy todir="${mcpsrc.dir}/net/minecraft/src" file="${src.dir}/minecraft/net/minecraft/src/ModelPlayer.java"/>
     </target>
 
-    <target name="build" depends="extract-apis,copy-source" unless="already-compiled">
+    <target name="build" depends="extract-apis,copy-source,update-names" unless="already-compiled">
 
         <echo message="Applying Scala mcp patch..."/>
         <get src="http://machinemuse.minecraftforge.net/scalapatch.sh" dest="${mcp.dir}/conf/scalapatch.sh"/>
