@@ -80,10 +80,10 @@
         <sequential>
             <!--<if>-->
             <!--<available file="${download.dir}/@{filename}"/>-->
-                <!--<then>-->
-                    <echo message="Downloading @{filename}... "/>
-                    <get src="${apisource.url}/@{filename}" dest="${download.dir}/@{filename}"/>
-                <!--</then>-->
+            <!--<then>-->
+            <echo message="Downloading @{filename}... "/>
+            <get src="${apisource.url}/@{filename}" dest="${download.dir}/@{filename}"/>
+            <!--</then>-->
             <!--</if>-->
 
             <echo message="Extracting @{filename}... "/>
@@ -191,8 +191,9 @@
         <get src="${apisource.url}/scalalib-${scala.version}.zip"
              dest="${mcplib.dir}/scalalib-${scala.version}.zip"/>
 
-        <get src="${apisource.url}/Numina-dev-${numina.version}.jar"
-             dest="${mcplib.dir}/Numina-dev-${numina.version}.jar"/>
+        <move todir="${mcplib.dir}/">
+            <fileset includes="${dist.dir}/Numina-dev-*.jar"/>
+        </move>
 
         <get src="${apisource.url}/slick-util.jar"
              dest="${download.dir}/slick-util.jar"/>
@@ -222,9 +223,6 @@
         <copy file="${download.dir}/slick-util.jar" todir="${dist.dir}"/>
         <get src="http://files.minecraftforge.net/fmllibs/scala-library.jar"
              dest="${dist.dir}/scala-library.jar"/>
-
-        <get src="${apisource.url}/Numina-${minecraft.version}-${numina.version}.jar"
-             dest="${dist.dir}/Numina-${minecraft.version}-${numina.version}.jar"/>
 
         <jar destfile="${dist.dir}/ModularPowersuits-${minecraft.version}-${fullversion}.jar" basedir="${classes.dir}"/>
         <delete dir="${classes.dir}"/>
