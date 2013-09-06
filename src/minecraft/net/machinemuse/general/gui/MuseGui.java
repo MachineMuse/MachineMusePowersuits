@@ -1,7 +1,7 @@
 package net.machinemuse.general.gui;
 
-import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.general.geometry.DrawableMuseRect;
+import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.geometry.DrawableMuseRect;
 import net.machinemuse.general.gui.clickable.IClickable;
 import net.machinemuse.general.gui.frame.IGuiFrame;
 import net.machinemuse.utils.render.MuseRenderer;

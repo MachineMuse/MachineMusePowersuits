@@ -1,8 +1,7 @@
 package net.machinemuse.powersuits.client.render.entity;
 
+import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.utils.render.MuseRenderer;
-import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -15,7 +14,7 @@ public class RenderSpinningBlade extends MuseRender {
         glPushMatrix();
         glPushAttrib(GL_ENABLE_BIT);
         glDisable(GL_CULL_FACE);
-        MuseRenderer.pushTexture(Config.TEXTURE_PREFIX + "items/spinningblade.png");
+        MuseTextureUtils.pushTexture(Config.TEXTURE_PREFIX + "items/spinningblade.png");
         glTranslated(x, y, z);
         double motionscale = Math.sqrt(entity.motionZ * entity.motionZ + entity.motionX * entity.motionX);
         glRotatef(90, 1, 0, 0);
@@ -36,7 +35,7 @@ public class RenderSpinningBlade extends MuseRender {
         glVertex3d(1, -1, 0);
 
         glEnd();
-        MuseRenderer.popTexture();
+        MuseTextureUtils.popTexture();
         glPopAttrib();
         glPopMatrix();
     }

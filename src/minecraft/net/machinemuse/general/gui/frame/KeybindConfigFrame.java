@@ -2,13 +2,16 @@ package net.machinemuse.general.gui.frame;
 
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
-import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.MuseGui;
 import net.machinemuse.general.gui.clickable.ClickableButton;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.general.gui.clickable.IClickable;
+import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.geometry.GradientAndArcCalculator;
+import net.machinemuse.numina.geometry.MusePoint2D;
+import net.machinemuse.numina.render.MuseTextureUtils;
+import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.utils.MuseItemUtils;
@@ -88,7 +91,7 @@ public class KeybindConfigFrame implements IGuiFrame {
 
     public void refreshModules() {
         List<IPowerModule> installedModules = MuseItemUtils.getPlayerInstalledModules(player);
-        List<MusePoint2D> points = MuseRenderer.pointsInLine(
+        List<MusePoint2D> points = GradientAndArcCalculator.pointsInLine(
                 installedModules.size(),
                 new MusePoint2D(ul.x() + 10, ul.y() + 10),
                 new MusePoint2D(ul.x() + 10, br.y() - 10));
@@ -209,17 +212,17 @@ public class KeybindConfigFrame implements IGuiFrame {
     @Override
     public void draw() {
         MusePoint2D center = ul.plus(br).times(0.5);
-        MuseRenderer.blendingOn();
-        MuseRenderer.on2D();
+        RenderState.blendingOn();
+        RenderState.on2D();
         if (selecting) {
             MuseRenderer.drawCenteredString("Press Key", center.x(), center.y());
-            MuseRenderer.off2D();
-            MuseRenderer.blendingOff();
+            RenderState.off2D();
+            RenderState.blendingOff();
             return;
         }
         newKeybindButton.draw();
         trashKeybindButton.draw();
-        MuseRenderer.pushTexture(MuseRenderer.ITEM_TEXTURE_QUILT);
+        MuseTextureUtils.pushTexture(MuseTextureUtils.ITEM_TEXTURE_QUILT());
         MuseRenderer.drawCenteredString("Use 'new' to bind new keys.", center.x(), center.y() + 40);
         MuseRenderer.drawCenteredString("Drag and drop modules to bind them to keys.", center.x(), center.y() + 50);
         MuseRenderer.drawCenteredString("Drop keys on 'trash' to unbind them.", center.x(), center.y() + 60);
@@ -236,9 +239,9 @@ public class KeybindConfigFrame implements IGuiFrame {
         if (selectedClickie != null && closestKeybind != null) {
             MuseRenderer.drawLineBetween(selectedClickie, closestKeybind, Colour.YELLOW);
         }
-        MuseRenderer.off2D();
-        MuseRenderer.blendingOff();
-        MuseRenderer.popTexture();
+        RenderState.off2D();
+        RenderState.blendingOff();
+        MuseTextureUtils.popTexture();
     }
 
     @Override

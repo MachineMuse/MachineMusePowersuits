@@ -10,8 +10,8 @@ import atomicscience.api.poison.Poison.ArmorType
 import cpw.mods.fml.relauncher.Side
 import cpw.mods.fml.relauncher.SideOnly
 import atomicscience.api.poison.Poison
-import net.machinemuse.utils.render.MuseRenderer
 import net.machinemuse.api.ModuleManager
+import net.machinemuse.utils.render.MuseRenderer
 
 class ItemPowerArmorHelmet(id: Int) extends ItemPowerArmor(id, 0, 0) with IBreathableArmor {
   val iconpath = MuseRenderer.ICON_PREFIX + "armorhead"

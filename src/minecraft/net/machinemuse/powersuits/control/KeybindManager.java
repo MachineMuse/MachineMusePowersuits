@@ -4,7 +4,7 @@ import cpw.mods.fml.common.Loader;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.general.MuseLogger;
-import net.machinemuse.general.geometry.MusePoint2D;
+import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.utils.MuseItemUtils;

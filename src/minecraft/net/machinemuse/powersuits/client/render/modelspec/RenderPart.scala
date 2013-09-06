@@ -1,15 +1,13 @@
 package net.machinemuse.powersuits.client.render.modelspec
 
-import net.machinemuse.general.geometry.Colour
-import net.minecraft.client.Minecraft
 import net.machinemuse.powersuits.client.render.item.ArmorModel
-import net.machinemuse.utils.render.{MuseRenderer, Render}
+import net.machinemuse.utils.render.Render
 import net.minecraft.client.model.{ModelBase, ModelRenderer}
 import net.machinemuse.general.NBTTagAccessor
 import org.lwjgl.opengl.GL11._
 import net.minecraft.nbt.NBTTagCompound
-import java.net.URI
-import net.minecraft.util.ResourceLocation
+import net.machinemuse.numina.geometry.Colour
+import net.machinemuse.numina.render.MuseTextureUtils
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -32,7 +30,7 @@ class RenderPart(base: ModelBase, val parent: ModelRenderer) extends ModelRender
         Render.withPushedMatrix {
           Render {
             glScaled(scale, scale, scale)
-            MuseRenderer.bindTexture(part.getTexture(nbt))
+            MuseTextureUtils.bindTexture(part.getTexture(nbt))
             applyTransform
             val ix = part.getColourIndex(nbt)
             if (ix < colours.size && ix >= 0) {

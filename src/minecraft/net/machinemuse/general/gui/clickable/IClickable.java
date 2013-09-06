@@ -2,7 +2,7 @@ package net.machinemuse.general.gui.clickable;
 
 import java.util.List;
 
-import net.machinemuse.general.geometry.MusePoint2D;
+import net.machinemuse.numina.geometry.MusePoint2D;
 
 public interface IClickable {
 

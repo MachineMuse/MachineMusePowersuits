@@ -2,11 +2,12 @@ package net.machinemuse.utils.render
 
 import org.lwjgl.opengl.GL11._
 import net.minecraft.client.gui.ScaledResolution
-import net.machinemuse.general.geometry.Colour
 import org.lwjgl.opengl.GL13._
 import net.minecraft.client.Minecraft
 import net.machinemuse.utils.render.Render._
 import net.machinemuse.powersuits.common.Config
+import net.machinemuse.numina.geometry.Colour
+import net.machinemuse.numina.render.RenderState
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -30,8 +31,8 @@ object GlowBuffer {
   def drawFullScreen(screen: ScaledResolution) {
     import Render._
     pushDualIdentityMatrix()
-    MuseRenderer.glowOn()
-    MuseRenderer.blendingOn()
+    RenderState.glowOn()
+    RenderState.blendingOn()
     glPushAttrib(GL_ENABLE_BIT)
 
     glDisable(GL_CULL_FACE)
@@ -105,8 +106,8 @@ object GlowBuffer {
 
 
     glPopAttrib()
-    MuseRenderer.blendingOff()
-    MuseRenderer.glowOff()
+    RenderState.blendingOff()
+    RenderState.glowOff()
     popDualIdentityMatrix()
   }
 

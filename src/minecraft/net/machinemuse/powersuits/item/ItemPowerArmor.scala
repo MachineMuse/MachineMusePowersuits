@@ -11,12 +11,11 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.DamageSource
 import net.minecraftforge.common.ISpecialArmor
 import scala.Predef.String
-import net.machinemuse.general.geometry.Colour
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.client.model.ModelBiped
 import net.machinemuse.powersuits.client.render.item.ArmorModel
 import net.machinemuse.api.{ModuleManager, ArmorTraits, IModularItem}
-import net.machinemuse.api.ModuleManager.{itemHasActiveModule, tagHasModule}
+import net.machinemuse.numina.geometry.Colour
 
 /**
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.

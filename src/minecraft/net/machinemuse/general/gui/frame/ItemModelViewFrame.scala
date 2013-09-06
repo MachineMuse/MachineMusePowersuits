@@ -1,16 +1,15 @@
 package net.machinemuse.general.gui.frame
 
 import java.util
-import net.machinemuse.general.geometry.{DrawableMuseRect, Colour, MusePoint2D}
 import org.lwjgl.input.Mouse
 import net.machinemuse.powersuits.client.render.item.ArmorModel
 import net.minecraft.client.Minecraft
 import org.lwjgl.opengl.GL11._
-import net.machinemuse.utils.{MuseItemUtils}
+import net.machinemuse.utils.MuseItemUtils
 import net.minecraft.nbt.NBTTagCompound
 import net.machinemuse.powersuits.item.ItemPowerArmor
-import net.machinemuse.utils.render.MuseRenderer
 import net.machinemuse.numina.general.MuseMathUtils
+import net.machinemuse.numina.geometry.{DrawableMuseRect, Colour, MusePoint2D}
 
 /**
  * Author: MachineMuse (Claire Semple)

@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.client.render.item;
 
-import net.machinemuse.general.geometry.Colour;
+import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.render.MuseIconUtils;
 import net.machinemuse.powersuits.client.render.entity.MuseRender;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.item.ItemPowerFist;
-import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -18,7 +18,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.MapData;
 import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
@@ -72,7 +71,7 @@ public class ToolRenderer extends MuseRender implements IItemRenderer {
                 break;
             case INVENTORY:
                 RenderBlocks renderInventory = (RenderBlocks) data[0];
-                MuseRenderer.drawIconAt(0, 0, ModularPowersuits.powerTool.getIconIndex(itemStack), colour);
+                MuseIconUtils.drawIconAt(0, 0, ModularPowersuits.powerTool.getIconIndex(itemStack), colour);
                 break;
             case EQUIPPED:
                 RenderBlocks renderEquipped = (RenderBlocks) data[0];

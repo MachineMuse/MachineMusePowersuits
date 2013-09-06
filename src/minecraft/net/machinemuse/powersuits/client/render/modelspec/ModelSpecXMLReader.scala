@@ -2,11 +2,11 @@ package net.machinemuse.powersuits.client.render.modelspec
 
 import scala.xml.{NodeSeq, XML}
 import net.minecraft.util.Vec3
-import net.machinemuse.general.geometry.Colour
 import java.awt.Color
 import net.machinemuse.utils.MuseStringUtils
 import java.net.URL
 import net.machinemuse.numina.general.MuseLogger
+import net.machinemuse.numina.geometry.Colour
 
 
 /**

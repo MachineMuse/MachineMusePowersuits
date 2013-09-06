@@ -1,13 +1,13 @@
 package net.machinemuse.general.gui.clickable
 
 import net.machinemuse.api.IPowerModule
-import net.machinemuse.general.geometry.Colour
-import net.machinemuse.general.geometry.MusePoint2D
 import net.machinemuse.utils.render.{MuseRenderer, GuiIcons}
 import GuiIcons.Checkmark
 import net.machinemuse.utils.MuseStringUtils
 import java.util.ArrayList
 import java.util.List
+import net.machinemuse.numina.geometry.{Colour, MusePoint2D}
+import net.machinemuse.numina.render.{MuseIconUtils, MuseTextureUtils}
 
 /**
  * Extends the Clickable class to make a clickable Augmentation; note that this
@@ -37,9 +37,9 @@ class ClickableModule(val module: IPowerModule, position: MusePoint2D) extends C
   def drawPartial(xmino: Double, ymino: Double, xmaxo: Double, ymaxo: Double) {
     val left: Double = getPosition.x - 8
     val top: Double = getPosition.y - 8
-    MuseRenderer.pushTexture(getModule.getStitchedTexture(null))
-    MuseRenderer.drawIconAt(left, top, getModule.getIcon(null), Colour.WHITE)
-    MuseRenderer.popTexture()
+    MuseTextureUtils.pushTexture(getModule.getStitchedTexture(null))
+    MuseIconUtils.drawIconAt(left, top, getModule.getIcon(null), Colour.WHITE)
+    MuseTextureUtils.popTexture()
     if (!allowed) {
       val string: String = MuseStringUtils.wrapFormatTags("x", MuseStringUtils.FormatCodes.DarkRed)
       MuseRenderer.drawString(string, getPosition.x + 3, getPosition.y + 1)

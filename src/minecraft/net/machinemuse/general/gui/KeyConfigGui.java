@@ -1,6 +1,6 @@
 package net.machinemuse.general.gui;
 
-import net.machinemuse.general.geometry.MusePoint2D;
+import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.general.gui.frame.KeybindConfigFrame;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.minecraft.entity.player.EntityPlayer;

@@ -1,16 +1,17 @@
 package net.machinemuse.utils.render;
 
+import net.machinemuse.numina.basemod.NuminaConfig;
 import net.machinemuse.numina.general.MuseLogger;
-import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.general.geometry.MusePoint2D;
-import net.machinemuse.general.geometry.SwirlyMuseCircle;
-import net.machinemuse.general.gui.MuseGui;
+import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.geometry.MusePoint2D;
+import net.machinemuse.numina.geometry.SwirlyMuseCircle;
 import net.machinemuse.general.gui.clickable.IClickable;
+import net.machinemuse.numina.render.MuseTextureUtils;
+import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.PositionTextureVertex;
 import net.minecraft.client.model.TexturedQuad;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -29,7 +30,6 @@ import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 /**
  * Contains a bunch of random OpenGL-related functions, accessed statically.
@@ -42,11 +42,6 @@ public abstract class MuseRenderer {
 
     protected static SwirlyMuseCircle selectionCircle;
 
-    private static String TEXTURE_MAP = "textures/atlas/items.png";
-    private static Stack<String> texturestack = new Stack<String>();
-
-    public static final String ITEM_TEXTURE_QUILT = "textures/atlas/items.png";
-    public static final String BLOCK_TEXTURE_QUILT = "textures/atlas/blocks.png";
     public static final String ICON_PREFIX = "powersuits:";
 
     /**
@@ -63,300 +58,17 @@ public abstract class MuseRenderer {
         selectionCircle.draw(radius, xoffset, yoffset);
     }
 
-    public static void pushTexture(String filename) {
-        texturestack.push(TEXTURE_MAP);
-        TEXTURE_MAP = filename;
-        bindTexture(TEXTURE_MAP);
-    }
-
-    public static void popTexture() {
-        TEXTURE_MAP = texturestack.pop();
-        bindTexture(TEXTURE_MAP);
-    }
-
-    public static void bindTexture(String tex) {
-        getRenderEngine().bindTexture(new ResourceLocation(tex));
-    }
-
-    /**
-     * Creates a list of points linearly interpolated between points a and b noninclusive.
-     *
-     * @return A list of num points
-     */
-    public static List<MusePoint2D> pointsInLine(int num, MusePoint2D a, MusePoint2D b) {
-        List<MusePoint2D> points = new ArrayList<MusePoint2D>();
-        if (num < 1) {
-            return points;
-        } else if (num < 2) {
-            points.add(b.minus(a).times(0.5F).plus(a));
-        } else {
-            MusePoint2D step = b.minus(a).times(1.0F / (num + 1));
-            for (int i = 1; i < num + 1; i++) {
-                points.add(a.plus(step.times(i)));
-            }
-        }
-
-        return points;
-    }
-
-    /**
-     * Returns a DoubleBuffer full of colours that are gradually interpolated
-     *
-     * @param c1
-     * @param c2
-     * @param numsegments
-     * @return
-     */
-    public static DoubleBuffer getColourGradient(Colour c1, Colour c2, int numsegments) {
-        DoubleBuffer buffer = BufferUtils.createDoubleBuffer(numsegments * 4);
-        for (double i = 0; i < numsegments; i++) {
-            Colour c3 = c1.interpolate(c2, i / numsegments);
-            buffer.put(c3.r);
-            buffer.put(c3.g);
-            buffer.put(c3.b);
-            buffer.put(c3.a);
-        }
-        buffer.flip();
-        return buffer;
-    }
-
-    /**
-     * Efficient algorithm for drawing circles and arcs in pure opengl!
-     *
-     * @param startangle Start angle in radians
-     * @param endangle   End angle in radians
-     * @param radius     Radius of the circle (used in calculating number of segments to draw as well as size of the arc)
-     * @param xoffset    Convenience parameter, added to every vertex
-     * @param yoffset    Convenience parameter, added to every vertex
-     * @param zoffset    Convenience parameter, added to every vertex
-     * @return
-     */
-    public static DoubleBuffer getArcPoints(double startangle, double endangle, double radius, double xoffset, double yoffset, double zoffset) {
-        // roughly 8 vertices per Minecraft 'pixel' - should result in at least
-        // 2 vertices per real pixel on the screen.
-        int numVertices = (int) Math.ceil(Math.abs((endangle - startangle) * 16 * Math.PI));
-        double theta = (endangle - startangle) / numVertices;
-        DoubleBuffer buffer = BufferUtils.createDoubleBuffer(numVertices * 3);
-
-        double x = radius * Math.sin(startangle);
-        double y = radius * Math.cos(startangle);
-        double tf = Math.tan(theta); // precompute tangent factor: how much to
-        // move along the tangent line each
-        // iteration
-        double rf = Math.cos(theta); // precompute radial factor: how much to
-        // move back towards the origin each
-        // iteration
-        double tx;
-        double ty;
-
-        for (int i = 0; i < numVertices; i++) {
-            buffer.put(x + xoffset);
-            buffer.put(y + yoffset);
-            buffer.put(zoffset);
-            tx = y; // compute tangent lines
-            ty = -x;
-            x += tx * tf; // add tangent line * tangent factor
-            y += ty * tf;
-            x *= rf;
-            y *= rf;
-        }
-        buffer.flip();
-        return buffer;
-    }
-
-    /**
-     * 2D rendering mode on/off
-     */
-
-    public static void on2D() {
-        GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
-
-        GL11.glDisable(GL11.GL_DEPTH_TEST);
-        GL11.glDisable(GL11.GL_CULL_FACE);
-        GL11.glDisable(GL11.GL_LIGHTING);
-
-        // attempt at fake antialiasing
-        // GL11.glBlendFunc(GL11.GL_SRC_ALPHA_SATURATE, GL11.GL_ONE);
-        // GL11.glColorMask(false, false, false, true);
-        // GL11.glClearColor(0, 0, 0, 0);
-        // GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-        // GL11.glColorMask(true, true, true, true);
-
-        // GL11.glHint(GL11.GL_POINT_SMOOTH, GL11.GL_NICEST);
-        // GL11.glHint(GL11.GL_LINE_SMOOTH, GL11.GL_NICEST);
-        // GL11.glHint(GL11.GL_POLYGON_SMOOTH, GL11.GL_NICEST);
-        // GL11.glDepthFunc(GL11.GL_GREATER);
-    }
-
-    public static void off2D() {
-        GL11.glPopAttrib();
-    }
-
-    /**
-     * Arrays on/off
-     */
-
-    public static void arraysOnC() {
-        GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
-        GL11.glEnableClientState(GL11.GL_COLOR_ARRAY);
-        // GL11.glEnableClientState(GL11.GL_INDEX_ARRAY);
-    }
-
-    public static void arraysOnT() {
-        GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
-        GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
-    }
-
-    public static void arraysOff() {
-        GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
-        GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
-        GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
-    }
-
-    /**
-     * Call before doing any pure geometry (ie. with colours rather than textures).
-     */
-    public static void texturelessOn() {
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
-    }
-
-    /**
-     * Call after doing pure geometry (ie. with colours) to go back to the texture mode (default).
-     */
-    public static void texturelessOff() {
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
-    }
-
-    /**
-     * Call before doing anything with alpha blending
-     */
-    public static void blendingOn() {
-        GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_LIGHTING_BIT);
-        if (Minecraft.isFancyGraphicsEnabled()) {
-            GL11.glShadeModel(GL11.GL_SMOOTH);
-            GL11.glDisable(GL11.GL_ALPHA_TEST);
-            // GL11.glEnable(GL11.GL_LINE_SMOOTH);
-            // GL11.glEnable(GL11.GL_POLYGON_SMOOTH);
-            GL11.glEnable(GL11.GL_BLEND);
-            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        }
-    }
-
-    /**
-     * Call after doing anything with alpha blending
-     */
-    public static void blendingOff() {
-        GL11.glPopAttrib();
-        // GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-    }
-
-    public static void scissorsOn(double x, double y, double w, double h) {
-//        GL11.glPushAttrib(GL11.GL_VIEWPORT_BIT);
-        GL11.glPushAttrib(GL11.GL_ENABLE_BIT | GL11.GL_SCISSOR_BIT);
-        GL11.glPushMatrix();
-        Minecraft mc = Minecraft.getMinecraft();
-
-        int dw = mc.displayWidth;
-        int dh = mc.displayHeight;
-        ScaledResolution res = new ScaledResolution(mc.gameSettings, dw, dh);
-
-        double newx = x * res.getScaleFactor();
-        double newy = dh - h * res.getScaleFactor() - y * res.getScaleFactor();
-        double neww = w * res.getScaleFactor();
-        double newh = h * res.getScaleFactor();
-
-//        GL11.glTranslated(-x, -y, 0);
-//        GL11.glScaled(dw/(double)neww, dh/(double)newh, 1);
-        GL11.glEnable(GL11.GL_SCISSOR_TEST);
-        GL11.glScissor((int) newx, (int) newy, (int) neww, (int) newh);
-    }
-
-    public static void scissorsOff() {
-        GL11.glPopMatrix();
-        GL11.glPopAttrib();
-    }
 
     /**
      * Makes the appropriate openGL calls and draws an item and overlay using the default icon
      */
     public static void drawItemAt(double x, double y, ItemStack item) {
-        on2D();
+        RenderState.on2D();
 
         getRenderItem().renderItemAndEffectIntoGUI(getFontRenderer(), getRenderEngine(), item, (int) x, (int) y);
         getRenderItem().renderItemOverlayIntoGUI(getFontRenderer(), getRenderEngine(), item, (int) x, (int) y);
 
-        off2D();
-    }
-
-    /**
-     * Draws a MuseIcon
-     *
-     * @param x
-     * @param y
-     * @param icon
-     * @param colour
-     */
-    public static void drawIconAt(double x, double y, Icon icon, Colour colour) {
-        drawIconPartial(x, y, icon, colour, 0, 0, 16, 16);
-    }
-
-
-    public static void drawIconPartialOccluded(double x, double y, Icon icon, Colour colour, double left, double top, double right, double bottom) {
-        double xmin = MuseMathUtils.clampDouble(left - x, 0, 16);
-        double ymin = MuseMathUtils.clampDouble(top - y, 0, 16);
-        double xmax = MuseMathUtils.clampDouble(right - x, 0, 16);
-        double ymax = MuseMathUtils.clampDouble(bottom - y, 0, 16);
-        drawIconPartial(x, y, icon, colour, xmin, ymin, xmax, ymax);
-    }
-
-    /**
-     * Draws a MuseIcon
-     *
-     * @param x
-     * @param y
-     * @param icon
-     * @param colour
-     */
-    public static void drawIconPartial(double x, double y, Icon icon, Colour colour, double left, double top, double right, double bottom) {
-        if (icon == null) {
-            return;
-        }
-        GL11.glPushMatrix();
-        on2D();
-        blendingOn();
-
-        if (colour != null) {
-            colour.doGL();
-        }
-        Tessellator tess = Tessellator.instance;
-        tess.startDrawingQuads();
-        float u1 = icon.getMinU();
-        float v1 = icon.getMinV();
-        float u2 = icon.getMaxU();
-        float v2 = icon.getMaxV();
-        double xoffset1 = left * (u2 - u1) / 16.0f;
-        double yoffset1 = top * (v2 - v1) / 16.0f;
-        double xoffset2 = right * (u2 - u1) / 16.0f;
-        double yoffset2 = bottom * (v2 - v1) / 16.0f;
-
-        tess.addVertexWithUV(x + left, y + top, 0, u1 + xoffset1, v1 + yoffset1);
-        tess.addVertexWithUV(x + left, y + bottom, 0, u1 + xoffset1, v1 + yoffset2);
-        tess.addVertexWithUV(x + right, y + bottom, 0, u1 + xoffset2, v1 + yoffset2);
-        tess.addVertexWithUV(x + right, y + top, 0, u1 + xoffset2, v1 + yoffset1);
-        tess.draw();
-
-        MuseRenderer.blendingOff();
-        off2D();
-        GL11.glPopMatrix();
-    }
-
-    /**
-     * Switches to relative coordinate frame (where -1,-1 is top left of the working area, and 1,1 is the bottom right)
-     */
-    public static void relativeCoords(MuseGui gui) {
-        GL11.glPushMatrix();
-        GL11.glTranslatef(gui.width / 2, gui.height / 2, 0);
-        GL11.glScalef(gui.getxSize(), gui.getySize(), 0);
+        RenderState.off2D();
     }
 
     static boolean messagedAboutSlick = false;
@@ -370,8 +82,8 @@ public abstract class MuseRenderer {
      */
     public static void drawString(String s, double x, double y, Colour c) {
         RenderHelper.disableStandardItemLighting();
-        blendingOn();
-        on2D();
+        RenderState.blendingOn();
+        RenderState.on2D();
         if (Config.useCustomFonts()) {
             try {
                 SlickFont.apply(x, y, s, c);
@@ -387,8 +99,8 @@ public abstract class MuseRenderer {
             getFontRenderer().drawStringWithShadow(s, (int) x, (int) y, c.getInt());
         }
 
-        off2D();
-        blendingOff();
+        RenderState.off2D();
+        RenderState.blendingOff();
     }
 
     /**
@@ -440,8 +152,8 @@ public abstract class MuseRenderer {
      */
     public static void drawRectPrism(double x, double d, double e, double f, double z, double g, float texturex, float texturey, float texturex2,
                                      float texturey2) {
-        arraysOnT();
-        texturelessOff();
+        RenderState.arraysOnT();
+        RenderState.texturelessOff();
         Vec3[] points = {Vec3.createVectorHelper(x, e, z), Vec3.createVectorHelper(d, e, z), Vec3.createVectorHelper(x, f, z),
                 Vec3.createVectorHelper(d, f, z), Vec3.createVectorHelper(x, e, g), Vec3.createVectorHelper(d, e, g),
                 Vec3.createVectorHelper(x, f, g), Vec3.createVectorHelper(d, f, g)};
@@ -496,25 +208,8 @@ public abstract class MuseRenderer {
         // 0, 4, 6
         // };
         // drawTriangles3DT(points, textures, indices);
-        texturelessOff();
-        arraysOff();
-    }
-
-
-    private static float lightmapLastX;
-    private static float lightmapLastY;
-
-    public static void glowOn() {
-        GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
-        lightmapLastX = OpenGlHelper.lastBrightnessX;
-        lightmapLastY = OpenGlHelper.lastBrightnessY;
-        RenderHelper.disableStandardItemLighting();
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);
-    }
-
-    public static void glowOff() {
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapLastX, lightmapLastY);
-        GL11.glPopAttrib();
+        RenderState.texturelessOff();
+        RenderState.arraysOff();
     }
 
     /**
@@ -608,10 +303,10 @@ public abstract class MuseRenderer {
         double cx = 0, cy = 0, cz = 0;
 
         double jagfactor = 0.3;
-        on2D();
+        RenderState.on2D();
         GL11.glEnable(GL11.GL_DEPTH_TEST);
-        pushTexture(Config.LIGHTNING_TEXTURE);
-        blendingOn();
+        MuseTextureUtils.pushTexture(Config.LIGHTNING_TEXTURE);
+        RenderState.blendingOn();
         colour.doGL();
         GL11.glBegin(GL11.GL_QUADS);
         while (Math.abs(cx) < Math.abs(tx) && Math.abs(cy) < Math.abs(ty) && Math.abs(cz) < Math.abs(tz)) {
@@ -630,12 +325,12 @@ public abstract class MuseRenderer {
             drawLightningBetweenPointsFast(ax, ay, az, bx, by, bz, index);
         }
         GL11.glEnd();
-        blendingOff();
-        off2D();
+        RenderState.blendingOff();
+        RenderState.off2D();
     }
 
     public static void drawLightningBetweenPoints(double x1, double y1, double z1, double x2, double y2, double z2, int index) {
-        pushTexture(Config.LIGHTNING_TEXTURE);
+        MuseTextureUtils.pushTexture(Config.LIGHTNING_TEXTURE);
         double u1 = index / 50.0;
         double u2 = u1 + 0.02;
         double px = (y1 - y2) * 0.125;
@@ -648,7 +343,7 @@ public abstract class MuseRenderer {
         GL11.glVertex3d(x2 - px, y2 - py, z2);
         GL11.glTexCoord2d(u2, 1);
         GL11.glVertex3d(x2 + px, y2 + py, z2);
-        popTexture();
+        MuseTextureUtils.popTexture();
     }
 
     public static void drawLightningBetweenPointsFast(double x1, double y1, double z1, double x2, double y2, double z2, int index) {
@@ -670,9 +365,9 @@ public abstract class MuseRenderer {
     public static void drawLightningLines(double x1, double y1, double z1, double x2, double y2, double z2, Colour colour) {
         double tx = x2 - x1, ty = y2 - y1, tz = z2 - z1, cx = 0, cy = 0, cz = 0;
         double jagfactor = 0.3;
-        texturelessOn();
-        blendingOn();
-        on2D();
+        RenderState.texturelessOn();
+        RenderState.blendingOn();
+        RenderState.on2D();
         GL11.glBegin(GL11.GL_LINE_STRIP);
         while (Math.abs(cx) < Math.abs(tx) && Math.abs(cy) < Math.abs(ty) && Math.abs(cz) < Math.abs(tz)) {
             colour.doGL();
@@ -691,9 +386,9 @@ public abstract class MuseRenderer {
             // GL11.glVertex3d(x1 + cx, y1 + cy, z1 + cz);
         }
         GL11.glEnd();
-        off2D();
-        blendingOff();
-        texturelessOff();
+        RenderState.off2D();
+        RenderState.blendingOff();
+        RenderState.texturelessOff();
 
     }
 

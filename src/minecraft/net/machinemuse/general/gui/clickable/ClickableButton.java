@@ -3,9 +3,9 @@
  */
 package net.machinemuse.general.gui.clickable;
 
-import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.general.geometry.DrawableMuseRect;
-import net.machinemuse.general.geometry.MusePoint2D;
+import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.geometry.DrawableMuseRect;
+import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.utils.render.MuseRenderer;
 
 import java.util.List;

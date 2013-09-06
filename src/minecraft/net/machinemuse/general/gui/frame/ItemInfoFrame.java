@@ -1,8 +1,8 @@
 package net.machinemuse.general.gui.frame;
 
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.general.geometry.MusePoint2D;
+import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;

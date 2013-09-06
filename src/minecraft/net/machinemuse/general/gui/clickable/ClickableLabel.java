@@ -1,6 +1,6 @@
 package net.machinemuse.general.gui.clickable;
 
-import net.machinemuse.general.geometry.MusePoint2D;
+import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.utils.render.MuseRenderer;
 
 import java.util.List;

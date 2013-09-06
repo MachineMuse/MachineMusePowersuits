@@ -2,11 +2,11 @@ package net.machinemuse.general.gui
 
 import net.minecraft.entity.player.EntityPlayer
 import net.machinemuse.general.gui.frame.{ColourPickerFrame, ItemModelViewFrame, PartManipContainer, ItemSelectionFrame}
-import net.machinemuse.general.geometry.{MuseRect, Colour, MusePoint2D}
 import net.minecraft.item.ItemStack
 import net.machinemuse.utils.render.GlowBuffer
 import net.minecraft.client.gui.ScaledResolution
 import net.machinemuse.powersuits.common.Config
+import net.machinemuse.numina.geometry.{MuseRect, Colour, MusePoint2D}
 
 /**
  * Author: MachineMuse (Claire Semple)

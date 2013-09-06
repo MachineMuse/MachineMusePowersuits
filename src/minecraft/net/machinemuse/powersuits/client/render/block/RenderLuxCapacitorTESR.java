@@ -2,13 +2,12 @@ package net.machinemuse.powersuits.client.render.block;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.AdvancedModelLoader;
@@ -77,9 +76,9 @@ public class RenderLuxCapacitorTESR extends MuseTESR implements ISimpleBlockRend
         }
         if (!Tessellator.instance.isDrawing) {
             getFrameModel().renderAll();
-            MuseRenderer.glowOn();
+            RenderState.glowOn();
             getLightModel().renderAll();
-            MuseRenderer.glowOff();
+            RenderState.glowOff();
         } else {
             MuseLogger.logError("Error: tessellator not flushed properly when MPS got ahold of it!");
         }
@@ -96,9 +95,9 @@ public class RenderLuxCapacitorTESR extends MuseTESR implements ISimpleBlockRend
         double scale = 0.0625;
         glScaled(scale, scale, scale);
         getFrameModel().renderAll();
-        MuseRenderer.glowOn();
+        RenderState.glowOn();
         getLightModel().renderAll();
-        MuseRenderer.glowOff();
+        RenderState.glowOff();
         glPopMatrix();
         GL11.glPopMatrix();
 

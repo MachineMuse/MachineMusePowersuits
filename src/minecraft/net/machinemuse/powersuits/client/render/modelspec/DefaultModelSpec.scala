@@ -1,11 +1,11 @@
 package net.machinemuse.powersuits.client.render.modelspec
 
-import net.machinemuse.general.geometry.Colour
 import net.minecraft.item.ItemStack
 import net.machinemuse.powersuits.item.ItemPowerArmor
 import net.machinemuse.utils.MuseStringUtils
 import net.minecraft.nbt.NBTTagCompound
 import net.machinemuse.numina.general.MuseLogger
+import net.machinemuse.numina.geometry.Colour
 
 /**
  * Author: MachineMuse (Claire Semple)

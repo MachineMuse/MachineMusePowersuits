@@ -1,9 +1,10 @@
 package net.machinemuse.utils.render
 
 import net.minecraft.util.Icon
-import net.machinemuse.general.geometry.Colour
 import net.machinemuse.powersuits.common.Config
 import org.lwjgl.opengl.GL11._
+import net.machinemuse.numina.geometry.Colour
+import net.machinemuse.numina.render.{MuseTextureUtils, RenderState, MuseIconUtils}
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -16,15 +17,15 @@ object GuiIcons {
     val size: Double
 
     def apply(x: Double, y: Double, c: Colour = Colour.WHITE, xmin: Double = Integer.MIN_VALUE, ymin: Double = Integer.MIN_VALUE, xmax: Double = Integer.MAX_VALUE, ymax: Double = Integer.MAX_VALUE) {
-      MuseRenderer.pushTexture(filepath)
+      MuseTextureUtils.pushTexture(filepath)
       glPushMatrix()
-      MuseRenderer.blendingOn()
+      RenderState.blendingOn()
       val s = size / 16.0
       glScaled(s, s, s)
-      MuseRenderer.drawIconPartialOccluded(x / s, y / s, GuiIconDrawer, c, xmin / s, ymin / s, xmax / s, ymax / s)
-      MuseRenderer.blendingOff()
+      MuseIconUtils.drawIconPartialOccluded(x / s, y / s, GuiIconDrawer, c, xmin / s, ymin / s, xmax / s, ymax / s)
+      RenderState.blendingOff()
       glPopMatrix()
-      MuseRenderer.popTexture()
+      MuseTextureUtils.popTexture()
     }
   }
 

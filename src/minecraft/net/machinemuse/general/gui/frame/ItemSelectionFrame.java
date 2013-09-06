@@ -1,11 +1,12 @@
 package net.machinemuse.general.gui.frame;
 
-import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.general.geometry.FlyFromPointToPoint2D;
-import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableItem;
-import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.general.sound.SoundLoader;
+import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.geometry.FlyFromPointToPoint2D;
+import net.machinemuse.numina.geometry.GradientAndArcCalculator;
+import net.machinemuse.numina.geometry.MusePoint2D;
+import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,7 +35,7 @@ public class ItemSelectionFrame extends ScrollableFrame {
         double centerx = (border.left() + border.right()) / 2;
         double centery = (border.top() + border.bottom()) / 2;
         itemPoints = new ArrayList();
-        List<MusePoint2D> targetPoints = MuseRenderer.pointsInLine(num,
+        List<MusePoint2D> targetPoints = GradientAndArcCalculator.pointsInLine(num,
                 new MusePoint2D(centerx, border.bottom()),
                 new MusePoint2D(centerx, border.top()));
         for (MusePoint2D point : targetPoints) {

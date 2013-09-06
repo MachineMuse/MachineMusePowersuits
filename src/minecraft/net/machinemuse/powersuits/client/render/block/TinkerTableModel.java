@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.client.render.block;
 
-import net.machinemuse.utils.render.MuseRenderer;
+import net.machinemuse.numina.render.RenderState;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -178,7 +178,7 @@ public class TinkerTableModel extends ModelBase {
     public void doRender(Entity entity, double x, double y, double z, float f,
                          float f1) {
         f = 0.0625f;
-        MuseRenderer.blendingOn();
+        RenderState.blendingOn();
         int timestep = (int) ((System.currentTimeMillis()) % 10000);
         double angle = timestep * Math.PI / 5000.0;
         GL11.glPushMatrix();
@@ -200,7 +200,7 @@ public class TinkerTableModel extends ModelBase {
         Wireshort1.render(f);
         Wirelong1.render(f);
 
-        MuseRenderer.glowOn();
+        RenderState.glowOn();
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslated(0.5f, 1.05f, 0.5f);
@@ -233,8 +233,8 @@ public class TinkerTableModel extends ModelBase {
         // }
         // }
         // GL11.glPopMatrix();
-        MuseRenderer.glowOff();
-        MuseRenderer.blendingOff();
+        RenderState.glowOff();
+        RenderState.blendingOff();
     }
 
     private void drawScanLine(double angle) {

@@ -2,8 +2,7 @@ package net.machinemuse.powersuits.item
 
 import net.minecraft.item.{ItemStack, Item}
 import cpw.mods.fml.relauncher.{SideOnly, Side}
-import net.machinemuse.general.geometry.Colour
-import net.machinemuse.utils.{MuseItemUtils, MuseStringUtils, MuseCommonStrings}
+import net.machinemuse.utils.{MuseStringUtils, MuseCommonStrings}
 import scala.Predef.String
 import net.minecraft.entity.player.EntityPlayer
 import net.machinemuse.powersuits.powermodule.misc.{CosmeticGlowModule, TintModule}
@@ -11,9 +10,8 @@ import net.machinemuse.numina.general.MuseMathUtils
 import MuseMathUtils._
 import net.machinemuse.api.electricity.MuseElectricItem
 import net.machinemuse.api.{ModuleManager, IModularItem}
-import net.machinemuse.api.ModuleManager.itemHasActiveModule
 import net.machinemuse.utils.ElectricItemUtils
-import net.machinemuse.numina.general.MuseMathUtils
+import net.machinemuse.numina.geometry.Colour
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -76,10 +74,10 @@ trait ModularItemBase extends Item with IModularItem with MuseElectricItem {
   }
 
   def getArmorDouble(player: EntityPlayer, stack: ItemStack): Double = 0
-  
+
   def getPlayerEnergy(player: EntityPlayer): Double = ElectricItemUtils.getPlayerEnergy(player)
-  
+
   def drainPlayerEnergy(player: EntityPlayer, drainEnergy: Double) = ElectricItemUtils.drainPlayerEnergy(player, drainEnergy)
-  
+
   def givePlayerEnergy(player: EntityPlayer, joulesToGive: Double) = ElectricItemUtils.givePlayerEnergy(player, joulesToGive)
 }

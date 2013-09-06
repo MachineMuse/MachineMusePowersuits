@@ -8,11 +8,12 @@ package net.machinemuse.powersuits.client.render.item;
 
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.general.MuseLogger;
-import net.machinemuse.general.geometry.Colour;
+import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.render.MuseTextureUtils;
+import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.client.render.entity.RenderPlasmaBolt;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
-import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -369,7 +370,7 @@ public class ToolModel extends ModelBase {
         GL11.glDisable(GL11.GL_CULL_FACE);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
 
-        MuseRenderer.pushTexture(Config.SEBK_TOOL_TEXTURE);
+        MuseTextureUtils.pushTexture(Config.SEBK_TOOL_TEXTURE);
 
         if (c1 != null) {
             c1.doGL();
@@ -444,7 +445,7 @@ public class ToolModel extends ModelBase {
         supportleft3.render(scale);
         supportleft4.render(scale);
         supportleft5.render(scale);
-        MuseRenderer.glowOn();
+        RenderState.glowOn();
         glow.doGL();
         crystal.render(scale);
         Colour.WHITE.doGL();
@@ -455,8 +456,8 @@ public class ToolModel extends ModelBase {
             RenderPlasmaBolt.doRender(boltSize);
             GL11.glPopMatrix();
         }
-        MuseRenderer.glowOff();
-        MuseRenderer.popTexture();
+        RenderState.glowOff();
+        MuseTextureUtils.popTexture();
         GL11.glPopMatrix();
         GL11.glPopAttrib();
         GL11.glPopMatrix();

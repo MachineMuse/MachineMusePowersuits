@@ -10,6 +10,7 @@ import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.MusePacketHandler;
+import net.machinemuse.numina.render.RenderGameOverlayEventHandler;
 import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
 import net.machinemuse.powersuits.block.TileEntityTinkerTable;
 import net.machinemuse.powersuits.client.render.block.RenderLuxCapacitorTESR;
@@ -134,8 +135,7 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void sendModeChange(EntityPlayer player, int dMode, String newMode) {
-        RenderTickHandler.lastSwapTime = System.currentTimeMillis();
-        RenderTickHandler.lastSwapDirection = (int) Math.signum(dMode);
+        RenderGameOverlayEventHandler.updateSwap((int) Math.signum(dMode));
         MusePacket modeChangePacket = new MusePacketModeChangeRequest((Player) player, newMode, player.inventory.currentItem);
         ((EntityClientPlayerMP) player).sendQueue.addToSendQueue(modeChangePacket.getPacket131());
     }

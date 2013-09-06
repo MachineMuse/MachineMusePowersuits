@@ -1,10 +1,10 @@
 package net.machinemuse.general.gui.frame;
 
-import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.general.geometry.DrawableMuseRect;
-import net.machinemuse.general.geometry.MusePoint2D;
 import net.machinemuse.numina.general.MuseMathUtils;
-import net.machinemuse.utils.render.MuseRenderer;
+import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.geometry.DrawableMuseRect;
+import net.machinemuse.numina.geometry.MusePoint2D;
+import net.machinemuse.numina.render.RenderState;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
@@ -48,8 +48,8 @@ public class ScrollableFrame implements IGuiFrame {
 
     public void preDraw() {
         border.draw();
-        MuseRenderer.glowOn();
-        MuseRenderer.texturelessOn();
+        RenderState.glowOn();
+        RenderState.texturelessOn();
         GL11.glBegin(GL11.GL_TRIANGLES);
         Colour.LIGHTBLUE.doGL();
         // Can scroll down
@@ -66,12 +66,12 @@ public class ScrollableFrame implements IGuiFrame {
         }
         Colour.WHITE.doGL();
         GL11.glEnd();
-        MuseRenderer.texturelessOff();
-        MuseRenderer.scissorsOn(border.left() + 4, border.top() + 4, border.width() - 8, border.height() - 8);
+        RenderState.texturelessOff();
+        RenderState.scissorsOn(border.left() + 4, border.top() + 4, border.width() - 8, border.height() - 8);
     }
     public void postDraw() {
-        MuseRenderer.scissorsOff();
-        MuseRenderer.glowOff();
+        RenderState.scissorsOff();
+        RenderState.glowOff();
     }
 
     @Override

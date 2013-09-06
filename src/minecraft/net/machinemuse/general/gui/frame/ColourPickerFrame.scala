@@ -2,7 +2,6 @@ package net.machinemuse.general.gui.frame
 
 import java.util
 import net.machinemuse.general.gui.clickable.ClickableSlider
-import net.machinemuse.general.geometry._
 import net.machinemuse.utils.MuseItemUtils
 import net.machinemuse.utils.render.GuiIcons
 import GuiIcons._
@@ -15,6 +14,7 @@ import cpw.mods.fml.common.network.Player
 import net.minecraft.client.Minecraft
 import scala.Some
 import net.machinemuse.numina.general.MuseLogger
+import net.machinemuse.numina.geometry.{DrawableMuseRect, MusePoint2D, Colour, MuseRect}
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -38,13 +38,13 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
     if (renderSpec.hasKey("colours") && renderSpec.getTag("colours").isInstanceOf[NBTTagIntArray]) Some(renderSpec.getTag("colours").asInstanceOf[NBTTagIntArray])
     else {
       val nbt = new NBTTagIntArray("colours")
-      if (itemSelector.getSelectedItem.getItem.getItem.isInstanceOf[ItemPowerArmor]) {
-        val itembase = itemSelector.getSelectedItem.getItem.getItem.asInstanceOf[ItemPowerArmor]
-        val intArray: Array[Int] = Array(itembase.getColorFromItemStack(itemSelector.getSelectedItem.getItem).getInt, itembase.getGlowFromItemStack(itemSelector.getSelectedItem.getItem).getInt)
-        renderSpec.setIntArray("colours", intArray)
-      } else {
-        val intArray: Array[Int] = Array.empty
-        renderSpec.setIntArray("colours", intArray)
+      itemSelector.getSelectedItem.getItem.getItem match {
+        case itembase: ItemPowerArmor =>
+          val intArray: Array[Int] = Array(itembase.getColorFromItemStack(itemSelector.getSelectedItem.getItem).getInt, itembase.getGlowFromItemStack(itemSelector.getSelectedItem.getItem).getInt)
+          renderSpec.setIntArray("colours", intArray)
+        case _ =>
+          val intArray: Array[Int] = Array.empty
+          renderSpec.setIntArray("colours", intArray)
       }
       val player = Minecraft.getMinecraft.thePlayer
       if (player.worldObj.isRemote)

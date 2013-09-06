@@ -2,11 +2,11 @@ package net.machinemuse.utils.render
 
 import java.awt.Font
 import org.newdawn.slick.{Color, TrueTypeFont}
-import net.machinemuse.general.geometry.Colour
 import org.newdawn.slick.opengl.TextureImpl
 import org.lwjgl.opengl.GL11._
 import net.machinemuse.powersuits.common.Config
 import net.machinemuse.numina.general.MuseLogger
+import net.machinemuse.numina.geometry.Colour
 
 /**
  * Author: MachineMuse (Claire Semple)

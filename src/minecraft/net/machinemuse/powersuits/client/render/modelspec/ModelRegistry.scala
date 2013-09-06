@@ -2,11 +2,10 @@ package net.machinemuse.powersuits.client.render.modelspec
 
 import net.minecraftforge.client.model.obj.WavefrontObject
 import net.minecraftforge.client.model.AdvancedModelLoader
-import net.machinemuse.utils.{MuseStringUtils}
+import net.machinemuse.utils.MuseStringUtils
 import net.minecraft.util.Vec3
-import net.machinemuse.general.geometry.Colour
 import net.minecraft.nbt.NBTTagCompound
-import net.machinemuse.numina.general.{MuseLogger}
+import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.scala.MuseRegistry
 
 /**
@@ -77,7 +76,7 @@ class ModelPartSpec(val modelSpec: ModelSpec,
     if (nbt hasKey "texture") nbt getString "texture" else modelSpec.textures.head
   }
 
-  def setTexture(nbt: NBTTagCompound, s: String)  {
+  def setTexture(nbt: NBTTagCompound, s: String) {
     if (s.equals("") || s.equalsIgnoreCase(modelSpec.textures.head)) nbt removeTag "texture" else nbt setString("texture", s)
   }
 
@@ -85,7 +84,7 @@ class ModelPartSpec(val modelSpec: ModelSpec,
     if (nbt hasKey "colourindex") nbt getInteger "colourindex" else defaultcolourindex
   }
 
-  def setColourIndex(nbt: NBTTagCompound, c: Int)  {
+  def setColourIndex(nbt: NBTTagCompound, c: Int) {
     if (c == defaultcolourindex) nbt removeTag "colourindex" else nbt setInteger("colourindex", c)
   }
 
@@ -93,7 +92,7 @@ class ModelPartSpec(val modelSpec: ModelSpec,
     if (nbt hasKey "glow") nbt getBoolean "glow" else defaultglow
   }
 
-  def setGlow(nbt: NBTTagCompound, g: Boolean)  {
+  def setGlow(nbt: NBTTagCompound, g: Boolean) {
     if (g == defaultglow) nbt removeTag "glow" else nbt setBoolean("glow", g)
   }
 

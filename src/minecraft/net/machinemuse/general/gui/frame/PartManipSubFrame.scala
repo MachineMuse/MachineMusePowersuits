@@ -1,8 +1,7 @@
 package net.machinemuse.general.gui.frame
 
 import net.machinemuse.powersuits.client.render.modelspec.{ModelRegistry, ModelPartSpec, ModelSpec}
-import net.machinemuse.general.geometry.{Colour, MuseRect, MuseRelativeRect}
-import net.machinemuse.utils.{MuseItemUtils}
+import net.machinemuse.utils.MuseItemUtils
 import org.lwjgl.opengl.GL11._
 import net.machinemuse.general.gui.clickable.ClickableItem
 import net.minecraft.nbt.NBTTagCompound
@@ -12,6 +11,8 @@ import cpw.mods.fml.common.network.Player
 import net.minecraft.item.ItemArmor
 import net.machinemuse.utils.render.{MuseRenderer, GuiIcons}
 import net.machinemuse.numina.general.{MuseLogger, MuseMathUtils}
+import net.machinemuse.numina.geometry.{MuseRect, Colour, MuseRelativeRect}
+import net.machinemuse.numina.render.RenderState
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -113,7 +114,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
   }
 
   def drawOpenArrow(min: Double, max: Double) {
-    MuseRenderer.texturelessOn()
+    RenderState.texturelessOn()
     Colour.LIGHTBLUE.doGL()
     glBegin(GL_TRIANGLES)
     import MuseMathUtils._
@@ -128,7 +129,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
     }
     glEnd()
     Colour.WHITE.doGL()
-    MuseRenderer.texturelessOff()
+    RenderState.texturelessOff()
   }
 
   def getBorder: MuseRect = {

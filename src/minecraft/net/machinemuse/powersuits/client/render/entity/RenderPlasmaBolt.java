@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.client.render.entity;
 
-import net.machinemuse.general.geometry.Colour;
-import net.machinemuse.general.geometry.DrawableMuseCircle;
+import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.geometry.DrawableMuseCircle;
+import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.utils.render.MuseRenderer;
-import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -57,7 +57,7 @@ public class RenderPlasmaBolt extends MuseRender {
         GL11.glScaled(scale, scale, scale);
         int millisPerCycle = 500;
         double timeScale = Math.cos((System.currentTimeMillis() % millisPerCycle) * 2.0 / millisPerCycle - 1.0);
-        MuseRenderer.glowOn();
+        RenderState.glowOn();
         circle1.draw(4, 0, 0);
         GL11.glTranslated(0, 0, 0.001);
         circle2.draw(3 + timeScale / 2, 0, 0);
@@ -71,7 +71,7 @@ public class RenderPlasmaBolt extends MuseRender {
             MuseRenderer.drawLightning(Math.cos(angle1) * 0.5, Math.sin(angle1) * 0.5, 0, Math.cos(angle2) * 5, Math.sin(angle2) * 5, 1,
                     new Colour(1, 1, 1, 0.9));
         }
-        MuseRenderer.glowOff();
+        RenderState.glowOff();
         GL11.glPopMatrix();
     }
 }

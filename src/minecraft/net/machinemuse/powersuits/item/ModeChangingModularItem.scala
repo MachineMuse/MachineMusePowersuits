@@ -1,37 +1,63 @@
 package net.machinemuse.powersuits.item
 
-import net.machinemuse.numina.item.{NuminaItemUtils, ModeChangingItem}
+import net.machinemuse.numina.item.ModeChangingItem
 import net.minecraft.item.ItemStack
 import net.minecraft.util.Icon
 import net.minecraft.entity.player.EntityPlayer
-import net.machinemuse.api.{ModuleManager, IModularItem}
-import net.minecraft.nbt.NBTTagCompound
+import net.machinemuse.api.ModuleManager
 import net.machinemuse.utils.MuseItemUtils
 import net.machinemuse.powersuits.common.ModularPowersuits
 import net.machinemuse.api.moduletrigger.IRightClickModule
-import net.machinemuse.numina.general.MuseLogger
+import net.minecraft.client.Minecraft
 
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 4:52 PM, 9/5/13
  */
 trait ModeChangingModularItem extends ModeChangingItem {
+  override def getActiveMode(stack: ItemStack): String = {
+    val mode = super.getActiveMode(stack)
+    val modes = MuseItemUtils.getModes(stack, Minecraft.getMinecraft.thePlayer)
+    if (mode.isEmpty && modes.size > 0) {
+      modes.get(0)
+    } else {
+      mode
+    }
+  }
 
-  def getPrevModeIcon(stack: ItemStack): Icon = null
+  def getPrevModeIcon(stack: ItemStack): Icon = ModuleManager.getModule(prevMode(stack)).getIcon(stack)
 
   def getCurrentModeIcon(stack: ItemStack): Icon = ModuleManager.getModule(getActiveMode(stack)).getIcon(stack)
 
-  def getNextModeIcon(stack: ItemStack): Icon = null
+  def getNextModeIcon(stack: ItemStack): Icon = ModuleManager.getModule(nextMode(stack)).getIcon(stack)
+
+  def nextMode(stack: ItemStack): String = {
+    val mode: String = getActiveMode(stack)
+    val modes = MuseItemUtils.getModes(stack, Minecraft.getMinecraft.thePlayer)
+    if (modes.size > 0) {
+      val modeIndex: Int = modes.indexOf(mode)
+      modes.get(clampMode(modeIndex + 1, modes.size))
+    } else {
+      mode
+    }
+  }
+
+  def prevMode(stack: ItemStack): String = {
+    val mode: String = getActiveMode(stack)
+    val modes = MuseItemUtils.getModes(stack, Minecraft.getMinecraft.thePlayer)
+    if (modes.size > 0) {
+      val modeIndex: Int = modes.indexOf(mode)
+      modes.get(clampMode(modeIndex - 1, modes.size))
+    } else {
+      mode
+    }
+  }
+
 
   def cycleMode(stack: ItemStack, dMode: Int, player: EntityPlayer) {
-    if (stack != null && stack.getItem.isInstanceOf[IModularItem]) {
-      var mode: String = getActiveMode(stack)
+    if (stack != null && stack.getItem.isInstanceOf[ModeChangingItem]) {
+      val mode: String = getActiveMode(stack)
       val modes = MuseItemUtils.getModes(stack, player)
-      if (mode.isEmpty && modes.size > 0) {
-        mode = modes.get(0)
-      }
-      MuseLogger.logDebug(modes.toString)
-      MuseLogger.logDebug(mode)
       if (modes.size > 0 && dMode != 0) {
         val modeIndex: Int = modes.indexOf(mode)
         val newMode: String = modes.get(clampMode(modeIndex + dMode, modes.size))

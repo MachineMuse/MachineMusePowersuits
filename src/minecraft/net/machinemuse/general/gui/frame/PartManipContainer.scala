@@ -1,9 +1,9 @@
 package net.machinemuse.general.gui.frame
 
-import net.machinemuse.general.geometry.{MuseRelativeRect, MusePoint2D, Colour}
 import net.machinemuse.powersuits.client.render.modelspec.{ModelSpec, ModelRegistry}
 import net.minecraft.item.ItemStack
 import org.lwjgl.opengl.GL11._
+import net.machinemuse.numina.geometry.{MuseRelativeRect, Colour, MusePoint2D}
 
 /**
  * Author: MachineMuse (Claire Semple)
