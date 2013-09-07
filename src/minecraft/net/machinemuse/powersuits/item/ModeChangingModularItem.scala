@@ -61,7 +61,7 @@ trait ModeChangingModularItem extends ModeChangingItem {
       if (modes.size > 0 && dMode != 0) {
         val modeIndex: Int = modes.indexOf(mode)
         val newMode: String = modes.get(clampMode(modeIndex + dMode, modes.size))
-        setActiveMode(stack, newMode)
+        this.setActiveMode(stack, newMode)
         ModularPowersuits.proxy.sendModeChange(player, dMode, newMode)
       }
     }

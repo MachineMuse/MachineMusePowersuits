@@ -1,7 +1,7 @@
 package net.machinemuse.api
 
 import mods.railcraft.api.core.items.IToolCrowbar
-import net.machinemuse.utils.{ElectricItemUtils, MuseItemUtils}
+import net.machinemuse.utils.ElectricItemUtils
 import net.machinemuse.powersuits.powermodule.tool.{MFFSFieldTeleporterModule, OmniWrenchModule}
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
@@ -11,8 +11,6 @@ import cpw.mods.fml.common.FMLCommonHandler
 import mods.mffs.api.IFieldTeleporter
 import powercrystals.minefactoryreloaded.api.IToolHammerAdvanced
 import net.minecraft.util.ChatMessageComponent
-import net.machinemuse.api.ModuleManager.{itemHasActiveModule, itemHasModule}
-import net.machinemuse.api.ModuleManager
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -54,8 +52,7 @@ trait ModularCrowbar extends IToolCrowbar {
 
 
 trait ModularWrench
-  extends IToolWrench // Buildcraft wrench
-  {
+  extends IToolWrench // Buildcraft wrench {
 
   def canWrench(player: EntityPlayer, x: Int, y: Int, z: Int): Boolean = {
     if (player.getCurrentEquippedItem != null && player.getCurrentEquippedItem.getItem.isInstanceOf[IModularItem]) {

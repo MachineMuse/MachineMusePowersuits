@@ -2,14 +2,12 @@ package net.machinemuse.api
 
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
-import net.machinemuse.utils.{ElectricItemUtils, MuseItemUtils}
+import net.machinemuse.utils.ElectricItemUtils
 import net.machinemuse.powersuits.powermodule.armor.{HazmatModule, ApiaristArmorModule}
 import forestry.api.apiculture.IArmorApiarist
 import net.minecraft.entity.EntityLivingBase
 import atomicscience.api.IAntiPoisonArmor
 import atomicscience.api.poison.Poison
-import net.machinemuse.api.ModuleManager.itemHasActiveModule
-import net.machinemuse.api.ModuleManager
 
 /**
  * Author: MachineMuse (Claire Semple)
