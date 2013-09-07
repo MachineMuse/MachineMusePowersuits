@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack
 import cpw.mods.fml.common.network.Player
 import net.machinemuse.numina.network.{MusePackager, MusePacket}
 import net.machinemuse.numina.scala.OptionCast
+import cpw.mods.fml.relauncher.{Side, SideOnly}
 
 
 /**
@@ -35,6 +36,7 @@ class MusePacketInventoryRefresh(player: Player, slot: Int, stack: ItemStack) ex
     writeItemStack(stack)
   }
 
+  @SideOnly(Side.CLIENT)
   override def handleClient(player: EntityClientPlayerMP) {
     val inventory: IInventory = player.inventory
     inventory.setInventorySlotContents(slot, stack)

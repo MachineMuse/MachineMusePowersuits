@@ -80,7 +80,7 @@ public class ModuleManager {
     public static List<IPowerModule> getValidModulesForItem(EntityPlayer player, ItemStack stack) {
         List<IPowerModule> validModules = new ArrayList();
         for (IPowerModule module : getAllModules()) {
-            if (module.isValidForItem(stack, player)) {
+            if (module.isValidForItem(stack)) {
                 validModules.add(module);
             }
         }

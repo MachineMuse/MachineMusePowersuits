@@ -7,13 +7,13 @@ import cpw.mods.fml.common.network.Player
 import net.machinemuse.utils.MuseItemUtils
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.item.ItemStack
-import net.minecraft.nbt.NBTTagCompound
 import java.io.DataInputStream
 import java.util.List
 import scala.Predef._
 import net.machinemuse.numina.network.{MusePackager, MusePacket}
 import net.machinemuse.numina.item.ModeChangingItem
 import net.machinemuse.numina.scala.OptionCast
+import net.machinemuse.powersuits.item.ModeChangingModularItem
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -38,14 +38,15 @@ class MusePacketModeChangeRequest(player: Player, mode: String, slot: Int) exten
   override def handleServer(player: EntityPlayerMP) {
     var stack: ItemStack = null
     if (slot > -1 && slot < 9) {
-      stack = player.inventory.mainInventory(slot)
-    }
-    if (stack == null) {
-      return
-    }
-    val modes: List[String] = MuseItemUtils.getModes(stack, player)
-    if (modes.contains(mode)) {
-      OptionCast[ModeChangingItem](stack.getItem).map(i => i.setActiveMode(stack, mode))
+      for {
+        stack <- Option(player.inventory.mainInventory(slot))
+        item <- OptionCast[ModeChangingModularItem](stack.getItem)
+      } {
+        val modes = item.getModes(stack)
+        if (modes.contains(mode)) {
+          OptionCast[ModeChangingItem](stack.getItem).map(i => i.setActiveMode(stack, mode))
+        }
+      }
     }
   }
 

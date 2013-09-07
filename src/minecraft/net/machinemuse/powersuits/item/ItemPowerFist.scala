@@ -6,10 +6,10 @@ import forestry.api.arboriculture.IToolGrafter
 import net.machinemuse.api._
 import net.machinemuse.api.moduletrigger.IRightClickModule
 import net.machinemuse.general.gui.MuseIcon
-import net.machinemuse.powersuits.common.{ModularPowersuits, Config}
+import net.machinemuse.powersuits.common.Config
 import net.machinemuse.powersuits.powermodule.tool.{OmniWrenchModule, GrafterModule}
 import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule
-import net.machinemuse.utils.{MuseItemUtils, ElectricItemUtils, MuseHeatUtils}
+import net.machinemuse.utils.{ElectricItemUtils, MuseHeatUtils}
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.texture.IconRegister
 import net.minecraft.entity.{EntityLivingBase, Entity}
@@ -17,11 +17,9 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumAction
 import net.minecraft.item.EnumToolMaterial
 import net.minecraft.item.ItemStack
-import net.minecraft.util.{Icon, DamageSource, Vec3}
+import net.minecraft.util.{DamageSource, Vec3}
 import net.minecraft.world.World
 import net.machinemuse.numina.scala.OptionCast
-import net.machinemuse.numina.item.ModeChangingItem
-import net.minecraft.nbt.NBTTagCompound
 import scala.Predef.String
 
 /**
@@ -151,7 +149,7 @@ with ModeChangingModularItem {
   override def onItemRightClick(itemStack: ItemStack, world: World, player: EntityPlayer): ItemStack = {
     import scala.collection.JavaConversions._
     for (module <- ModuleManager.getRightClickModules) {
-      if (module.isValidForItem(itemStack, player) && ModuleManager.itemHasActiveModule(itemStack, module.getDataName)) {
+      if (module.isValidForItem(itemStack) && ModuleManager.itemHasActiveModule(itemStack, module.getDataName)) {
         module.onRightClick(player, world, itemStack)
       }
     }

@@ -1,21 +1,16 @@
 package net.machinemuse.utils;
 
-import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemTag;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.item.ModeChangingItem;
 import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.machinemuse.numina.network.MusePacket;
-import net.machinemuse.powersuits.network.packets.MusePacketModeChangeRequest;
-import net.machinemuse.powersuits.tick.RenderTickHandler;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -33,34 +28,9 @@ public class MuseItemUtils {
     @SideOnly(Side.CLIENT)
     public static void cycleMode(ItemStack stack, EntityClientPlayerMP player, int dMode) {
         if (stack != null && stack.getItem() instanceof ModeChangingItem) {
-            ((ModeChangingItem)(stack.getItem())).cycleMode(stack, dMode, player);
+            ((ModeChangingItem)(stack.getItem())).cycleMode(stack, dMode);
         }
     }
-
-    public static List<String> getValidModes(ItemStack stack, EntityPlayer player) {
-        List<String> modes = new ArrayList();
-        if (stack.getItem() instanceof IModularItem) {
-            for (IPowerModule module : ModuleManager.getAllModules()) {
-                if (module.isValidForItem(stack, player) && module instanceof IRightClickModule) {
-                    modes.add(module.getDataName());
-                }
-            }
-        }
-        return modes;
-    }
-
-    public static List<String> getModes(ItemStack stack, EntityPlayer player) {
-        List<String> modes = new ArrayList();
-        if (stack.getItem() instanceof IModularItem) {
-            for (IPowerModule module : ModuleManager.getAllModules()) {
-                if (module.isValidForItem(stack, player) && module instanceof IRightClickModule && ModuleManager.itemHasModule(stack, module.getDataName())) {
-                    modes.add(module.getDataName());
-                }
-            }
-        }
-        return modes;
-    }
-
     /**
      * Gets or creates stack.getTagCompound().getTag(NBTPREFIX)
      *

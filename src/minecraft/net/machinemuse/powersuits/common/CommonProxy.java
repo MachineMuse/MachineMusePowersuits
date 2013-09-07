@@ -4,9 +4,7 @@ import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 import net.machinemuse.numina.network.MusePacketHandler;
 import net.machinemuse.powersuits.network.packets.MPSPacketList;
-import net.machinemuse.powersuits.network.packets.MPSPacketList$;
 import net.machinemuse.powersuits.tick.PlayerTickHandler;
-import net.minecraft.entity.player.EntityPlayer;
 
 import java.net.URL;
 
@@ -50,7 +48,7 @@ public class CommonProxy {
         return CommonProxy.class.getResource(url);
     }
 
-    public void sendModeChange(EntityPlayer player, int dMode, String newMode) {
+    public void sendModeChange(int dMode, String newMode) {
 
     }
 }

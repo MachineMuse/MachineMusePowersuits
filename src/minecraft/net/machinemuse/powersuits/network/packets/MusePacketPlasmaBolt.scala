@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.EntityClientPlayerMP
 import cpw.mods.fml.common.network.Player
 import net.machinemuse.numina.network.{MusePackager, MusePacket}
+import cpw.mods.fml.relauncher.{Side, SideOnly}
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -27,6 +28,7 @@ class MusePacketPlasmaBolt(player: Player, entityID: Int, size: Double) extends 
     writeDouble(size)
   }
 
+  @SideOnly(Side.CLIENT)
   override def handleClient(player: EntityClientPlayerMP) {
     try {
       val entity: EntityPlasmaBolt = Minecraft.getMinecraft.theWorld.getEntityByID(entityID).asInstanceOf[EntityPlasmaBolt]

@@ -61,7 +61,7 @@ public class PlayerTickHandler implements ITickHandler {
         for (IPlayerTickModule module : ModuleManager.getPlayerTickModules()) {
             foundItemWithModule = false;
             for (ItemStack itemStack : modularItemsEquipped) {
-                if (module.isValidForItem(itemStack, player)) {
+                if (module.isValidForItem(itemStack)) {
                     if (ModuleManager.itemHasActiveModule(itemStack, module.getDataName())) {
                         module.onPlayerTickActive(player, itemStack);
                         foundItemWithModule = true;

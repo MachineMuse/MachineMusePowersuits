@@ -8,7 +8,6 @@ import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -68,7 +67,7 @@ public abstract class PowerModuleBase implements IPowerModule {
     }
 
     @Override
-    public boolean isValidForItem(ItemStack stack, EntityPlayer player) {
+    public boolean isValidForItem(ItemStack stack) {
         Item item = stack.getItem();
         return item instanceof IModularItem && this.validItems.contains(item);
     }

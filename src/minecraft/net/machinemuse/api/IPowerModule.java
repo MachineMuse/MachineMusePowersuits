@@ -1,7 +1,6 @@
 package net.machinemuse.api;
 
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
@@ -20,7 +19,7 @@ public interface IPowerModule {
 
 	public abstract String getCategory();
 
-	public abstract boolean isValidForItem(ItemStack stack, EntityPlayer player);
+	public abstract boolean isValidForItem(ItemStack stack);
 
 	public abstract String getDataName();
 

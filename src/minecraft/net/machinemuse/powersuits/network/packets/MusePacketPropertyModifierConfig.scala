@@ -7,6 +7,7 @@ import net.machinemuse.powersuits.powermodule.{PowerModuleBase, PropertyModifier
 import net.machinemuse.numina.network.{MusePackager, MusePacket}
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.client.entity.EntityClientPlayerMP
+import cpw.mods.fml.relauncher.{Side, SideOnly}
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -47,6 +48,7 @@ class MusePacketPropertyModifierConfig(player: Player, data: DataInputStream) ex
    *
    * @param player
    */
+  @SideOnly(Side.CLIENT)
   override def handleClient(player: EntityClientPlayerMP) {
     val d = MusePacketPropertyModifierConfig
     val numModules = d readInt data

@@ -34,8 +34,8 @@ import net.machinemuse.powersuits.tick.ClientTickHandler;
 import net.machinemuse.powersuits.tick.PlayerTickHandler;
 import net.machinemuse.powersuits.tick.RenderTickHandler;
 import net.machinemuse.utils.render.MuseShaders;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -134,9 +134,10 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void sendModeChange(EntityPlayer player, int dMode, String newMode) {
+    public void sendModeChange(int dMode, String newMode) {
+        EntityClientPlayerMP player= Minecraft.getMinecraft().thePlayer;
         RenderGameOverlayEventHandler.updateSwap((int) Math.signum(dMode));
         MusePacket modeChangePacket = new MusePacketModeChangeRequest((Player) player, newMode, player.inventory.currentItem);
-        ((EntityClientPlayerMP) player).sendQueue.addToSendQueue(modeChangePacket.getPacket131());
+        player.sendQueue.addToSendQueue(modeChangePacket.getPacket131());
     }
 }
