@@ -189,6 +189,9 @@
         <get src="${apisource.url}/scalalib-${scala.version}.zip"
              dest="${mcplib.dir}/scalalib-${scala.version}.zip"/>
 
+        <delete>
+            <fileset dir="${mcplib.dir}" includes="Numina-*.jar"/>
+        </delete>
         <move todir="${mcplib.dir}">
             <fileset dir="${dist.dir}" includes="Numina-dev-*.jar"/>
         </move>
