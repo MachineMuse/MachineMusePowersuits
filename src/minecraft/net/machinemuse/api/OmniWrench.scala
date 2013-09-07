@@ -50,9 +50,9 @@ trait ModularCrowbar extends IToolCrowbar {
   }
 }
 
-
+// Buildcraft wrench
 trait ModularWrench
-  extends IToolWrench // Buildcraft wrench {
+  extends IToolWrench  {
 
   def canWrench(player: EntityPlayer, x: Int, y: Int, z: Int): Boolean = {
     if (player.getCurrentEquippedItem != null && player.getCurrentEquippedItem.getItem.isInstanceOf[IModularItem]) {
