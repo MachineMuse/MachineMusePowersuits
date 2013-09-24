@@ -73,8 +73,14 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World world, int blockID, int x, int y, int z, EntityPlayer player) {
-        ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION));
-        return true;
+        Block block = Block.blocksList[blockID];
+        int meta = world.getBlockMetadata(x,y,z);
+        if (canHarvestBlock(stack, block, meta, player)) {
+            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION));
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

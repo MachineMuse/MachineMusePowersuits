@@ -63,22 +63,32 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
 
     @Override
     public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
+        return harvestCheck(stack, block, meta, player);
+    }
+
+    @Override
+    public boolean onBlockDestroyed(ItemStack stack, World world, int blockID, int x, int y, int z, EntityPlayer player) {
+        Block block = Block.blocksList[blockID];
+        int meta = world.getBlockMetadata(x,y,z);
+        if (canHarvestBlock(stack, block, meta, player)) {
+            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, PICKAXE_ENERGY_CONSUMPTION));
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public void handleBreakSpeed(BreakSpeed event) {
+        event.newSpeed *= ModuleManager.computeModularProperty(event.entityPlayer.getCurrentEquippedItem(), PICKAXE_HARVEST_SPEED);
+    }
+
+    public static boolean harvestCheck(ItemStack stack, Block block, int meta, EntityPlayer player) {
         if (ironPickaxe.canHarvestBlock(block) || ForgeHooks.canToolHarvestBlock(block, meta, ironPickaxe)) {
             if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, PICKAXE_ENERGY_CONSUMPTION)) {
                 return true;
             }
         }
         return false;
-    }
-
-    @Override
-    public boolean onBlockDestroyed(ItemStack stack, World world, int blockID, int x, int y, int z, EntityPlayer player) {
-        ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, PICKAXE_ENERGY_CONSUMPTION));
-        return true;
-    }
-
-    @Override
-    public void handleBreakSpeed(BreakSpeed event) {
-        event.newSpeed *= ModuleManager.computeModularProperty(event.entityPlayer.getCurrentEquippedItem(), PICKAXE_HARVEST_SPEED);
     }
 }

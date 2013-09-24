@@ -10,9 +10,7 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockLog;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
@@ -37,8 +35,9 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
         addBaseProperty(AXE_HARVEST_SPEED, 8, "x");
         addTradeoffProperty("Overclock", AXE_ENERGY_CONSUMPTION, 950);
         addTradeoffProperty("Overclock", AXE_HARVEST_SPEED, 22);
-        addTradeoffProperty("Radius", AXE_ENERGY_CONSUMPTION, 1000);
-        addTradeoffProperty("Radius", AXE_SEARCH_RADIUS, 3);
+        // Removed until further research can be done!
+//        addTradeoffProperty("Radius", AXE_ENERGY_CONSUMPTION, 1000);
+//        addTradeoffProperty("Radius", AXE_SEARCH_RADIUS, 3);
     }
 
     @Override
@@ -78,43 +77,11 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World world, int blockID, int x, int y, int z, EntityPlayer player) {
-        if (player instanceof EntityPlayerMP) {
-            EntityPlayerMP playerMP = (EntityPlayerMP) player;
-            boolean found = true;
-            double radius = ModuleManager.computeModularProperty(stack, AXE_SEARCH_RADIUS);
-            int minx = (int) Math.floor(x - radius);
-            int maxx = (int) Math.ceil(x + radius);
-            int minz = (int) Math.floor(z - radius);
-            int maxz = (int) Math.ceil(z + radius);
-            int newminx, newmaxx, newminz, newmaxz;
-            while (found) {
-                y++;
-                found = false;
-                newminx = (minx + maxx) / 2;
-                newmaxx = newminx;
-                newminz = (minz + maxz) / 2;
-                newmaxz = newminz;
-
-                for (int i = minx; i < maxx; i++) {
-                    for (int j = minz; j < maxz; j++) {
-                        int id = world.getBlockId(i, y, j);
-                        if (Block.blocksList[id] instanceof BlockLog) {
-                            found = true;
-                            newminx = (int) Math.min(newminx, i - radius);
-                            newmaxx = (int) Math.max(newmaxx, i + radius);
-                            newminz = (int) Math.min(newminz, j - radius);
-                            newmaxz = (int) Math.max(newmaxz, j + radius);
-                            playerMP.theItemInWorldManager.tryHarvestBlock(i, y, j);
-                            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION));
-                        }
-                    }
-                }
-                minx = newminx;
-                maxx = newmaxx;
-                minz = newminz;
-                maxz = newmaxz;
-            }
-            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION));
+        Block block = Block.blocksList[blockID];
+        int meta = world.getBlockMetadata(x, y, z);
+        if (canHarvestBlock(stack, block, meta, player)) {
+            double energyConsumption = ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION);
+            ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
             return true;
         }
         return false;
