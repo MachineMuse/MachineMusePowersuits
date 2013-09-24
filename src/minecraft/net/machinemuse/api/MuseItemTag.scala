@@ -3,6 +3,8 @@ package net.machinemuse.api
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.item.ItemStack
 import java.lang.String
+import net.machinemuse.numina.scala.OptionCast
+import net.machinemuse.numina.item.ModeChangingItem
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -31,7 +33,10 @@ object MuseItemTag {
   }
 
   def getActiveMode(stack: ItemStack): String = {
-    val active : String =  getMuseItemTag(stack).getString("Mode")
-    active
-  }
+    for (
+      s <- Option(stack);
+      i <- OptionCast[ModeChangingItem](s.getItem)
+    ) yield i.getActiveMode(stack)
+
+  }.getOrElse("")
 }
