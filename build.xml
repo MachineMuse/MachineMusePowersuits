@@ -243,7 +243,7 @@
                 <filter token="MOD_VERSION" value="${fullversion}"/>
                 <filter token="MC_VERSION" value="${minecraft.version}"/>
                 <filter token="DEPENDENCIES"
-                        value="*/ dependencies = &quot;required-after:Forge@[${forgeant.version},);after:IC2&quot;, /*"/>
+                        value="*/ dependencies = &quot;required-after:Forge@[${forgeant.version},);after:IC2;required-after:numina&quot;, /*"/>
             </filterset>
         </copy>
         <copy todir="${mcpsrc.dir}/net/minecraft/src" file="${src.dir}/minecraft/net/minecraft/src/ModelPlayer.java"/>
