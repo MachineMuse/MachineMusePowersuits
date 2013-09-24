@@ -15,18 +15,20 @@ trait ModeChangingModularItem extends ModeChangingItem {
   override def getActiveMode(stack: ItemStack): String = {
     val mode = super.getActiveMode(stack)
     val modes = getModes(stack)
-    if (mode.isEmpty && modes.size > 0) {
+    if (modes.isEmpty) {
+      ""
+    } else if (mode.isEmpty) {
       modes(0)
     } else {
       mode
     }
   }
 
-  def getPrevModeIcon(stack: ItemStack): Icon = ModuleManager.getModule(prevMode(stack)).getIcon(stack)
+  def getPrevModeIcon(stack: ItemStack): Option[Icon] = Option(ModuleManager.getModule(prevMode(stack))).map(m=>m.getIcon(stack))
 
-  def getCurrentModeIcon(stack: ItemStack): Icon = ModuleManager.getModule(getActiveMode(stack)).getIcon(stack)
+  def getCurrentModeIcon(stack: ItemStack): Option[Icon] = Option(ModuleManager.getModule(getActiveMode(stack))).map(m=>m.getIcon(stack))
 
-  def getNextModeIcon(stack: ItemStack): Icon = ModuleManager.getModule(nextMode(stack)).getIcon(stack)
+  def getNextModeIcon(stack: ItemStack): Option[ Icon] = Option(ModuleManager.getModule(nextMode(stack))).map(m=>m.getIcon(stack))
 
   def nextMode(stack: ItemStack): String = {
     val mode: String = getActiveMode(stack)
