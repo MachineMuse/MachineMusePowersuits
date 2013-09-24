@@ -4,17 +4,17 @@ import cpw.mods.fml.common.network.Player;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.IPropertyModifier;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableTinkerSlider;
+import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.powersuits.network.packets.MusePacketTweakRequest;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.machinemuse.powersuits.powermodule.PropertyModifierLinearAdditive;
 import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.render.MuseRenderer;
 import net.machinemuse.utils.MuseStringUtils;
+import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -111,11 +111,15 @@ public class ModuleTweakFrame extends ScrollableFrame {
         int y = 0;
         for (String tweak : tweaks) {
             y += 20;
+            MusePoint2D center = new MusePoint2D((border.left() + border.right()) / 2, border.top() + y);
             ClickableTinkerSlider slider = new ClickableTinkerSlider(
-                    new MusePoint2D((border.left() + border.right()) / 2, border.top() + y),
+                    center,
                     border.right() - border.left() - 8,
                     moduleTag, tweak);
             sliders.add(slider);
+            if (selectedSlider != null && slider.hitBox(center.x(), center.y())) {
+                selectedSlider = slider;
+            }
         }
     }
 

@@ -4,7 +4,7 @@ import net.machinemuse.numina.geometry.MusePoint2D;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class ClickableTinkerSlider extends ClickableSlider {
-    protected NBTTagCompound moduleTag;
+    public NBTTagCompound moduleTag;
 
     public ClickableTinkerSlider(MusePoint2D topmiddle, double width, NBTTagCompound moduleTag, String name) {
         super(topmiddle, width, name);
