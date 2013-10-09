@@ -12,9 +12,19 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 
 public class EntityLuxCapacitor extends EntityThrowable {
+    public double red;
+    public double green;
+    public double blue;
 
     public EntityLuxCapacitor(World par1World) {
         super(par1World);
+    }
+
+    public EntityLuxCapacitor(World world, EntityLivingBase shootingEntity, double r, double g, double b) {
+        this(world, shootingEntity);
+        this.red = r;
+        this.green = g;
+        this.blue = b;
     }
 
     public EntityLuxCapacitor(World par1World, EntityLivingBase shootingEntity) {
@@ -71,7 +81,7 @@ public class EntityLuxCapacitor extends EntityThrowable {
                         int blockToStickTo = worldObj.getBlockId(xo, yo, zo);
                         if(Block.isNormalCube(blockToStickTo)) {
                             worldObj.setBlock(x, y, z, BlockLuxCapacitor.assignedBlockID, 0, 7);
-                            worldObj.setBlockTileEntity(x, y, z, new TileEntityLuxCapacitor(d));
+                            worldObj.setBlockTileEntity(x, y, z, new TileEntityLuxCapacitor(d, red, green, blue));
                         }
                     }
                 }

@@ -1,8 +1,10 @@
 package net.machinemuse.powersuits.client.render.entity;
 
+import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.minecraft.entity.Entity;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.obj.WavefrontObject;
@@ -28,7 +30,8 @@ public class RenderLuxCapacitorEntity extends MuseRender {
     }
 
     @Override
-    public void doRender(Entity entity, double x, double y, double z, float yaw, float partialTickTime) {
+    public void doRender(Entity undifferentiatedentity, double x, double y, double z, float yaw, float partialTickTime) {
+        EntityLuxCapacitor entity = (EntityLuxCapacitor) undifferentiatedentity;
         MuseTextureUtils.pushTexture(Config.TEXTURE_PREFIX + "models/thusters_uvw_2.png");
         glPushMatrix();
         glTranslated(x, y, z);
@@ -36,6 +39,7 @@ public class RenderLuxCapacitorEntity extends MuseRender {
         glScaled(scale, scale, scale);
         getFrameModel().renderAll();
         RenderState.glowOn();
+        new Colour(entity.red, entity.green, entity.blue, 1.0).doGL();
         getLightModel().renderAll();
         RenderState.glowOff();
         glPopMatrix();

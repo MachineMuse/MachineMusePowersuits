@@ -18,12 +18,18 @@ import java.util.List;
 public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
     public static final String MODULE_LUX_CAPACITOR = "Lux Capacitor";
     public static final String ENERGY = "Lux Capacitor Energy Consumption";
+    public static final String RED =  "Lux Capacitor Red Hue";
+    public static final String GREEN = "Lux Capacitor Green Hue";
+    public static final String BLUE = "Lux Capacitor Blue Hue";
 
     public LuxCapacitor(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(new ItemStack(Item.glowstone, 1));
         addInstallCost(new ItemStack(Item.ingotIron, 2));
         addBaseProperty(ENERGY, 100, "J");
+        addTradeoffProperty("Red", RED, 1, "%");
+        addTradeoffProperty("Green", GREEN, 1, "%");
+        addTradeoffProperty("Blue", BLUE, 1, "%");
     }
 
     @Override
@@ -60,7 +66,10 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
             if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
                 ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
 
-                EntityLuxCapacitor luxCapacitor = new EntityLuxCapacitor(world, player);
+                double red = ModuleManager.computeModularProperty(itemStack, RED);
+                double green = ModuleManager.computeModularProperty(itemStack, GREEN);
+                double blue = ModuleManager.computeModularProperty(itemStack, BLUE);
+                EntityLuxCapacitor luxCapacitor = new EntityLuxCapacitor(world, player, red, green, blue);
                 world.spawnEntityInWorld(luxCapacitor);
             }
         }

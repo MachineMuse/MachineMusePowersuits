@@ -14,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,9 @@ public class ItemComponent extends Item {
         iconNames.add(iconName);
         descriptions.add(description);
         ItemStack stack = new ItemStack(this, 1, names.size() - 1);
+
+        //oredict compares itemIDs and damage values only
+        OreDictionary.registerOre(oredictName, stack);
         return stack;
     }
 
@@ -69,6 +73,8 @@ public class ItemComponent extends Item {
         iconNames.add(iconName);
         descriptions.add(description);
         ItemStack stack = new ItemStack(this, 1, names.size() - 1);
+        //oredict compares itemIDs and damage values only
+        OreDictionary.registerOre(oredictName, stack);
         return stack;
     }
 

@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.client.render.block;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
 import net.machinemuse.powersuits.common.Config;
@@ -40,13 +41,14 @@ public class RenderLuxCapacitorTESR extends MuseTESR implements ISimpleBlockRend
     }
 
     @Override
-    public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float partialTickTime) {
+    public void renderTileEntityAt(TileEntity undifferentiatedtileentity, double x, double y, double z, float partialTickTime) {
+        TileEntityLuxCapacitor tileentity = (TileEntityLuxCapacitor) undifferentiatedtileentity;
         this.bindTextureByName(Config.TEXTURE_PREFIX + "models/thusters_uvw_2.png");
         glPushMatrix();
         glTranslated(x + 0.5, y + 0.5, z + 0.5);
         double scale = 0.0625;
         glScaled(scale, scale, scale);
-        switch (((TileEntityLuxCapacitor) tileentity).side) {
+        switch (tileentity.side) {
             case DOWN:
                 glTranslated(0, -8, 0);
                 break;
@@ -77,6 +79,7 @@ public class RenderLuxCapacitorTESR extends MuseTESR implements ISimpleBlockRend
         if (!Tessellator.instance.isDrawing) {
             getFrameModel().renderAll();
             RenderState.glowOn();
+            new Colour(tileentity.red, tileentity.green, tileentity.blue, 1.0).doGL();
             getLightModel().renderAll();
             RenderState.glowOff();
         } else {

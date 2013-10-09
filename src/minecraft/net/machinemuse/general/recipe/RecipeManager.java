@@ -1,8 +1,10 @@
 package net.machinemuse.general.recipe;
 
+import com.google.gson.Gson;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.recipe.Recipes;
 import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.recipe.CustomShapedOreRecipe;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -42,9 +44,14 @@ public class RecipeManager {
         ItemStack stone = new ItemStack(Block.stone);
 
         if (ModCompatability.vanillaRecipesEnabled()) {
-            GameRegistry.addRecipe(ItemComponent.basicPlating, "II", "CI", "II", 'C', ItemComponent.wiring, 'I', iron);
+            //CustomShapedOreRecipe arecipe = new CustomShapedOreRecipe(new String[] {"II", "CI", "II", "C", "componentWiring", "I", "ingotIron"}, ItemComponent.basicPlating);
+            Gson gson = new Gson();
+            CustomShapedOreRecipe.getJson();
+            //arecipe.register();
 
-            GameRegistry.addRecipe(ItemComponent.advancedPlating, "II", "CI", "II", 'C', ItemComponent.solenoid, 'I', diamond);
+            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.basicPlating, "II", "CI", "II", 'C', "componentWiring", 'I', "ingotIron"));
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, "II", "CI", "II", 'C', "componentSolenoid", 'I', diamond));
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.controlCircuit, true, "WCI", "RGC", "IRW", 'W', ItemComponent.wiring, 'C',
                     cactusgreen, 'I', ingotGold, 'G', glowstone, 'R', redstone));
             GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(iron, 5), true, "P", 'P', ItemComponent.basicPlating));
@@ -321,7 +328,7 @@ public class RecipeManager {
                     "IWI",
                     "IBI",
                     "IBI",
-                    'W', ItemComponent.wiring,
+                    'W', "componentWiring",
                     'I', "ingotTitanium",
                     'B', "crafting1kkEUStore"); // Lapotron crystal
 
