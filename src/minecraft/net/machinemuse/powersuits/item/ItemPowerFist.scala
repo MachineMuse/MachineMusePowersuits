@@ -168,43 +168,41 @@ with ModeChangingModularItem {
    * Called when the right click button is released
    */
   override def onPlayerStoppedUsing(itemStack: ItemStack, world: World, player: EntityPlayer, par4: Int) {
-    val mode: String = MuseItemTag.getActiveMode(itemStack)
+    val mode: String = getActiveMode(itemStack, player)
     val module: IPowerModule = ModuleManager.getModule(mode)
     OptionCast[IRightClickModule](module) map {
       m => m.onPlayerStoppedUsing(itemStack, world, player, par4)
     }
   }
 
-  override def shouldPassSneakingClickToBlock(world: World, x: Int, y: Int, z: Int): Boolean = {
-    return true
-  }
+  override def shouldPassSneakingClickToBlock(world: World, x: Int, y: Int, z: Int): Boolean = true
 
   override def onItemUseFirst(itemStack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z: Int, side: Int, hitX: Float, hitY: Float, hitZ: Float): Boolean = {
-    val mode: String = MuseItemTag.getActiveMode(itemStack)
+    val mode: String = getActiveMode(itemStack, player)
     val module: IPowerModule = ModuleManager.getModule(mode)
-    if (module.isInstanceOf[IRightClickModule]) {
-      return (module.asInstanceOf[IRightClickModule]).onItemUseFirst(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ)
+    module match {
+      case m:IRightClickModule => m.onItemUseFirst(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ)
+      case _ => false
     }
-    return false
   }
 
   override def onItemUse(itemStack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z: Int, side: Int, hitX: Float, hitY: Float, hitZ: Float): Boolean = {
-    val mode: String = MuseItemTag.getActiveMode(itemStack)
+    val mode: String = getActiveMode(itemStack, player)
     val module: IPowerModule = ModuleManager.getModule(mode)
-    if (module.isInstanceOf[IRightClickModule]) {
-      (module.asInstanceOf[IRightClickModule]).onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ)
-      return false
+    module match {
+      case m:IRightClickModule => m.onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ); false
+      case _ => false
     }
-    return false
   }
 
   def getSaplingModifier(stack: ItemStack, world: World, player: EntityPlayer, x: Int, y: Int, z: Int): Float = {
     if (ModuleManager.itemHasActiveModule(stack, GrafterModule.MODULE_GRAFTER)) {
       ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, GrafterModule.GRAFTER_ENERGY_CONSUMPTION))
       MuseHeatUtils.heatPlayer(player, ModuleManager.computeModularProperty(stack, GrafterModule.GRAFTER_HEAT_GENERATION))
-      return 100F
+      100F
+    } else {
+      0F
     }
-    return 0F
   }
 
   def canHarvestBlock(stack: ItemStack, block: Block, meta: Int, player: EntityPlayer): Boolean = {

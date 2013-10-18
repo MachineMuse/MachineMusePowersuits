@@ -29,7 +29,7 @@ import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.event.RenderEventHandler;
-import net.machinemuse.powersuits.network.packets.MusePacketModeChangeRequest;
+import net.machinemuse.numina.network.MusePacketModeChangeRequest;
 import net.machinemuse.powersuits.tick.ClientTickHandler;
 import net.machinemuse.powersuits.tick.PlayerTickHandler;
 import net.machinemuse.powersuits.tick.RenderTickHandler;

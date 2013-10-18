@@ -4,6 +4,7 @@ import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.powersuits.item.ModeChangingModularItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -141,8 +142,9 @@ public class ModuleManager {
         if (module instanceof IRightClickModule) {
             // MuseLogger.logDebug("Module: " + moduleName + " vs Mode: " +
             // MuseItemUtils.getActiveMode(itemStack));
+            ModeChangingModularItem item = (ModeChangingModularItem) itemStack.getItem();
 
-            return moduleName.equals(MuseItemTag.getActiveMode(itemStack));
+            return moduleName.equals(item.getActiveMode(itemStack));
         } else {
             return isModuleOnline(MuseItemTag.getMuseItemTag(itemStack), moduleName);
         }

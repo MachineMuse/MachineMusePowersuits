@@ -5,7 +5,7 @@ import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.powersuits.common.ModularPowersuits;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.powersuits.item.ModeChangingModularItem$;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.settings.KeyBinding;
@@ -59,11 +59,11 @@ public class KeybindKeyHandler extends KeyHandler {
         }
         if (kb.equals(cycleToolBackward)) {
             Minecraft.getMinecraft().playerController.updateController();
-            MuseItemUtils.cycleMode(player.inventory.getStackInSlot(player.inventory.currentItem), player, 1);
+            ModeChangingModularItem$.MODULE$.cycleModeForItem(player.inventory.getStackInSlot(player.inventory.currentItem), player, 1);
         }
         if (kb.equals(cycleToolForward)) {
             Minecraft.getMinecraft().playerController.updateController();
-            MuseItemUtils.cycleMode(player.inventory.getStackInSlot(player.inventory.currentItem), player, -1);
+            ModeChangingModularItem$.MODULE$.cycleModeForItem(player.inventory.getStackInSlot(player.inventory.currentItem), player, -1);
         }
     }
 

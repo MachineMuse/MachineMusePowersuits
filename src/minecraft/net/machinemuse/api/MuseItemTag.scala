@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack
 import java.lang.String
 import net.machinemuse.numina.scala.OptionCast
 import net.machinemuse.numina.item.ModeChangingItem
+import net.minecraft.entity.player.EntityPlayer
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -31,12 +32,4 @@ object MuseItemTag {
 
     properties
   }
-
-  def getActiveMode(stack: ItemStack): String = {
-    for (
-      s <- Option(stack);
-      i <- OptionCast[ModeChangingItem](s.getItem)
-    ) yield i.getActiveMode(stack)
-
-  }.getOrElse("")
 }

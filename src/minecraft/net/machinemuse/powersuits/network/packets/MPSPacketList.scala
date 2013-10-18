@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.network.packets
 
-import net.machinemuse.numina.network.MusePacketHandler
+import net.machinemuse.numina.network.{MusePacketModeChangeRequest, MusePacketHandler}
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -16,7 +16,6 @@ object MPSPacketList {
     MusePacketHandler.packagers.put(6, MusePacketPlayerUpdate)
     MusePacketHandler.packagers.put(7, MusePacketToggleRequest)
     MusePacketHandler.packagers.put(8, MusePacketPlasmaBolt)
-    MusePacketHandler.packagers.put(9, MusePacketModeChangeRequest)
     MusePacketHandler.packagers.put(10, MusePacketColourInfo)
     MusePacketHandler.packagers.put(11, MusePacketPropertyModifierConfig)
   }

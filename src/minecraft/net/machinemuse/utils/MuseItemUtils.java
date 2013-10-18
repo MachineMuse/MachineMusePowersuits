@@ -1,17 +1,13 @@
 package net.machinemuse.utils;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemTag;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.general.MuseMathUtils;
-import net.machinemuse.numina.item.ModeChangingItem;
 import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
@@ -24,13 +20,6 @@ import java.util.*;
 public class MuseItemUtils {
     public static final String ONLINE = "Active";
 
-
-    @SideOnly(Side.CLIENT)
-    public static void cycleMode(ItemStack stack, EntityClientPlayerMP player, int dMode) {
-        if (stack != null && stack.getItem() instanceof ModeChangingItem) {
-            ((ModeChangingItem)(stack.getItem())).cycleMode(stack, dMode);
-        }
-    }
     /**
      * Gets or creates stack.getTagCompound().getTag(NBTPREFIX)
      *
