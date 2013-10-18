@@ -139,7 +139,7 @@ public class ModuleManager {
             // playerEntity.sendChatToPlayer("Server has disallowed this module. Sorry!");
             return false;
         }
-        if (module instanceof IRightClickModule) {
+        if (module instanceof IRightClickModule && itemStack.getItem() instanceof ModeChangingModularItem) {
             // MuseLogger.logDebug("Module: " + moduleName + " vs Mode: " +
             // MuseItemUtils.getActiveMode(itemStack));
             ModeChangingModularItem item = (ModeChangingModularItem) itemStack.getItem();
