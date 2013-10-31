@@ -333,7 +333,7 @@ public class MusePlayerUtils {
         if ((int)player.posY > 128) { // If high in the air, increase cooling
             cool += 0.5;
         }
-        if (!player.worldObj.isDaytime() && getBiome(player).biomeName.equals("Desert")) { // If nighttime and in the desert, increase cooling
+        if (!player.worldObj.isDaytime() && "Desert".equals(getBiome(player).biomeName)) { // If nighttime and in the desert, increase cooling
             cool += 0.8;
         }
         if (player.worldObj.isRaining()) {
