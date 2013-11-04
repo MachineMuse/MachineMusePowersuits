@@ -58,6 +58,7 @@ trait ModularItemBase extends Item with IModularItem with MuseElectricItem {
    * @param advancedToolTips Whether or not the player has 'advanced tooltips' turned on in
    *                         their settings.
    */
+  @SideOnly(Side.CLIENT)
   override def addInformation(stack: ItemStack, player: EntityPlayer, currentTipList: java.util.List[_], advancedToolTips: Boolean) {
     MuseCommonStrings.addInformation(stack, player, currentTipList, advancedToolTips)
   }

@@ -224,17 +224,6 @@ public class Config {
 
     }
 
-    /**
-     * An enum to describe the various GUI windows which can appear. IDs are
-     * less important here since this data isn't saved or synced.
-     *
-     * @author MachineMuse
-     */
-    public static enum Guis {
-        GuiTinkerTable,
-        GuiSuitManager,
-        GuiPortableCrafting
-    }
 
     public static Configuration getConfig() {
         return config;

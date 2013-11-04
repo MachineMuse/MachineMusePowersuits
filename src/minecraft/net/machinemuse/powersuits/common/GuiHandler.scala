@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.stats.AchievementList
 import net.minecraft.world.World
 import net.machinemuse.numina.scala.OptionCast
+import cpw.mods.fml.relauncher.{Side, SideOnly}
 
 /**
  * Gui handler for this mod. Mainly just takes an ID according to what was
@@ -25,6 +26,7 @@ class GuiHandler extends IGuiHandler {
     }
   }
 
+  @SideOnly(Side.CLIENT)
   override def getClientGuiElement(ID: Int, player: EntityPlayer, world: World, x: Int, y: Int, z: Int): AnyRef = {
     Minecraft.getMinecraft.thePlayer.addStat(AchievementList.openInventory, 1)
     OptionCast[EntityClientPlayerMP](player) map (p =>
