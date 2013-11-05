@@ -60,60 +60,60 @@
 	},
 	{
 		"ingredients" : [
-			[ { "unlocalizedName" : "item.iron" }, { "oredictName" : "dyeBlue" }, { "unlocalizedName" : "item.iron" } ],
+			[ { "unlocalizedName" : "item.ingotIron" }, { "oredictName" : "dyeBlue" }, { "unlocalizedName" : "item.ingotIron" } ],
 			[ { "oredictName" : "dyeBlue" }, { "unlocalizedName" : "item.emerald" }, { "oredictName" : "dyeBlue" } ],
-			[ { "unlocalizedName" : "item.iron" }, { "oredictName" : "dyeBlue" }, { "unlocalizedName" : "item.iron" } ]
+			[ { "unlocalizedName" : "item.ingotIron" }, { "oredictName" : "dyeBlue" }, { "unlocalizedName" : "item.ingotIron" } ]
 		],
 		"result" : {
-			"unlocalizedName" : "ModularPowersuits.tinkerTable"
+			"unlocalizedName" : "tile.tinkerTable"
 		}
 	},
 	{
 		"ingredients" : [
-			[ { "unlocalizedName" : "item.iron" }, { "unlocalizedName" : "item.iron" }, { "unlocalizedName" : "item.iron" } ],
-			[ { "oredictName" : "componentWiring" }, {}, { "oredictName" : "componentWiring" } ]
+			[ { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" } ],
+			[ { "oredictName" : "componentWiring" }, null, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {
-			"unlocalizedName" : "ModularPowersuits.powerArmorHead"
+			"unlocalizedName" : "item.powerArmorHelmet"
 		}
 	},
 	{
 		"ingredients" : [
-			[ { "unlocalizedName" : "item.iron" }, {}, { "unlocalizedName" : "item.iron" } ],
-			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.iron" }, { "oredictName" : "componentWiring" } ],
-			[ { "unlocalizedName" : "item.iron" }, { "unlocalizedName" : "item.iron" }, { "unlocalizedName" : "item.iron" } ]
+			[ { "unlocalizedName" : "item.ingotIron" }, null, { "unlocalizedName" : "item.ingotIron" } ],
+			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.ingotIron" }, { "oredictName" : "componentWiring" } ],
+			[ { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" } ]
 		],
 		"result" : {
-			"unlocalizedName" : "ModularPowersuits.powerArmorTorso"
+			"unlocalizedName" : "item.powerArmorChestplate"
 		}
 	},
 	{
 		"ingredients" : [
-			[ { "unlocalizedName" : "item.iron" }, { "unlocalizedName" : "item.iron" }, { "unlocalizedName" : "item.iron" } ],
-			[ { "oredictName" : "componentWiring" }, {}, { "oredictName" : "componentWiring" } ],
-			[ { "unlocalizedName" : "item.iron" }, {}, { "unlocalizedName" : "item.iron" } ]
+			[ { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" } ],
+			[ { "oredictName" : "componentWiring" }, null, { "oredictName" : "componentWiring" } ],
+			[ { "unlocalizedName" : "item.ingotIron" }, null, { "unlocalizedName" : "item.ingotIron" } ]
 		],
 		"result" : {
-			"unlocalizedName" : "ModularPowersuits.powerArmorLegs"
+			"unlocalizedName" : "item.powerArmorLeggings"
 		}
 	},
 	{
 		"ingredients" : [
-			[ { "oredictName" : "componentWiring" }, {}, { "oredictName" : "componentWiring" } ],
-			[ { "unlocalizedName" : "item.iron" }, {}, { "unlocalizedName" : "item.iron" } ]
+			[ { "oredictName" : "componentWiring" }, null, { "oredictName" : "componentWiring" } ],
+			[ { "unlocalizedName" : "item.ingotIron" }, null, { "unlocalizedName" : "item.ingotIron" } ]
 		],
 		"result" : {
-			"unlocalizedName" : "ModularPowersuits.powerArmorFeet"
+			"unlocalizedName" : "item.powerArmorBoots"
 		}
 	},
 	{
 		"ingredients" : [
-			[ {}, { "oredictName" : "componentWiring" }, {} ],
-			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.iron" }, {} ],
-			[ {}, { "unlocalizedName" : "item.iron" }, { "oredictName" : "componentWiring" } ]
+			[ null, { "oredictName" : "componentWiring" }, null ],
+			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.ingotIron" }, null ],
+			[ null, { "unlocalizedName" : "item.ingotIron" }, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {
-			"unlocalizedName" : "ModularPowersuits.powerTool"
+			"unlocalizedName" : "item.powerFist"
 		}
 	},
 	{
@@ -128,7 +128,7 @@
 	{
 		"ingredients" : [
 			[  {"unlocalizedName" : "item.wool" }, { "unlocalizedName" : "item.wool" }, {"unlocalizedName" : "item.wool" } ],
-			[  {"unlocalizedName" : "item.string" }, {}, {"unlocalizedName" : "item.string" } ]
+			[  {"unlocalizedName" : "item.string" }, null, {"unlocalizedName" : "item.string" } ]
 		],
 		"result" : {
 			"oredictName" : "componentParachute"
@@ -136,8 +136,8 @@
 	},
 	{
 		"ingredients" : [
-			[  {"oredictName" : "componentWiring" }, { "unlocalizedName" : "item.paper" }, {"unlocalizedName" : "item.iron" } ],
-			[  {"oredictName" : "componentWiring" }, {}, {"oredictName" : "componentWiring" } ]
+			[  {"oredictName" : "componentWiring" }, { "unlocalizedName" : "item.paper" }, {"unlocalizedName" : "item.ingotIron" } ],
+			[  {"oredictName" : "componentWiring" }, null, {"oredictName" : "componentWiring" } ]
 		],
 		"result" : {
 			"oredictName" : "componentLVCapacitor"
@@ -146,7 +146,7 @@
 	{
 		"ingredients" : [
 			[  {"unlocalizedName" : "item.goldNugget" }, { "unlocalizedName" : "item.paper" }, {"oredictName" : "dyeBlue" } ],
-			[  {"oredictName" : "componentWiring" }, {}, {"oredictName" : "componentWiring" } ]
+			[  {"oredictName" : "componentWiring" }, null, {"oredictName" : "componentWiring" } ]
 		],
 		"result" : {
 			"oredictName" : "componentMVCapacitor"
@@ -155,7 +155,7 @@
 	{
 		"ingredients" : [
 			[  {"unlocalizedName" : "item.enderPearl" }, { "unlocalizedName" : "item.paper" }, {"unlocalizedName" : "item.glowstone" } ],
-			[  {"oredictName" : "componentWiring" }, {}, {"oredictName" : "componentWiring" } ]
+			[  {"oredictName" : "componentWiring" }, null, {"oredictName" : "componentWiring" } ]
 		],
 		"result" : {
 			"oredictName" : "componentHVCapacitor"
@@ -163,9 +163,9 @@
 	},
 	{
 		"ingredients" : [
-			[  {"oredictName" : "componentWiring" }, { "unlocalizedName" : "item.iron" }, {"oredictName" : "componentWiring" } ],
-			[  {"oredictName" : "componentWiring" }, { "unlocalizedName" : "item.iron" }, {"oredictName" : "componentWiring" } ],
-			[  {"oredictName" : "componentWiring" }, { "unlocalizedName" : "item.iron" }, {"oredictName" : "componentWiring" } ]
+			[  {"oredictName" : "componentWiring" }, { "unlocalizedName" : "item.ingotIron" }, {"oredictName" : "componentWiring" } ],
+			[  {"oredictName" : "componentWiring" }, { "unlocalizedName" : "item.ingotIron" }, {"oredictName" : "componentWiring" } ],
+			[  {"oredictName" : "componentWiring" }, { "unlocalizedName" : "item.ingotIron" }, {"oredictName" : "componentWiring" } ]
 		],
 		"result" : {
 			"oredictName" : "componentSolenoid"
@@ -173,9 +173,9 @@
 	},
 	{
 		"ingredients" : [
-			[  {}, { "unlocalizedName" : "item.iron" }, {"unlocalizedName" : "item.iron" } ],
-			[  {"unlocalizedName" : "item.iron" }, {"unlocalizedName" : "item.iron" }, {}],
-			[  {"unlocalizedName" : "item.iron" } ]
+			[  null, { "unlocalizedName" : "item.ingotIron" }, {"unlocalizedName" : "item.ingotIron" } ],
+			[  {"unlocalizedName" : "item.ingotIron" }, {"unlocalizedName" : "item.ingotIron" }, null],
+			[  {"unlocalizedName" : "item.ingotIron" } ]
 		],
 		"result" : {
 			"oredictName" : "componentGliderWing"
@@ -183,8 +183,8 @@
 	},
 	{
 		"ingredients" : [
-			[  {}, { "oredictName" : "componentWiring" }, {} ],
-			[  {"oredictName" : "componentSolenoid" }, {"unlocalizedName" : "item.iron" }, {"oredictName" : "componentSolenoid" } ]
+			[  null, { "oredictName" : "componentWiring" }, null ],
+			[  {"oredictName" : "componentSolenoid" }, {"unlocalizedName" : "item.ingotIron" }, {"oredictName" : "componentSolenoid" } ]
 		],
 		"result" : {
 			"oredictName" : "componentServo"
@@ -203,9 +203,9 @@
 	},
 	{
 		"ingredients" : [
-			[  {}, { "oredictName" : "componentFieldEmitter" }, {"oredictName" : "componentSolenoid" } ],
-			[  {"unlocalizedName" : "item.iron" }, {"unlocalizedName" : "item.glowstone" }, {}],
-			[  {"unlocalizedName" : "item.iron" }, {"oredictName" : "componentFieldEmitter" }, {"unlocalizedName" : "componentSolenoid" } ]
+			[  null, { "oredictName" : "componentFieldEmitter" }, {"oredictName" : "componentSolenoid" } ],
+			[  {"unlocalizedName" : "item.ingotIron" }, {"unlocalizedName" : "item.glowstone" }, null],
+			[  {"unlocalizedName" : "item.ingotIron" }, {"oredictName" : "componentFieldEmitter" }, {"unlocalizedName" : "componentSolenoid" } ]
 		],
 		"result" : {
 			"oredictName" : "componentIonThruster"
