@@ -3,6 +3,8 @@ package net.machinemuse.general.recipe;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.recipe.Recipes;
 import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.recipe.JSONRecipeList;
+import net.machinemuse.powersuits.common.CommonProxy;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -42,56 +44,8 @@ public class RecipeManager {
         ItemStack stone = new ItemStack(Block.stone);
 
         if (ModCompatability.vanillaRecipesEnabled()) {
-            //CustomShapedOreRecipe arecipe = new CustomShapedOreRecipe(new String[] {"II", "CI", "II", "C", "componentWiring", "I", "ingotIron"}, ItemComponent.basicPlating);
-            //arecipe.register();
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.basicPlating, "II", "CI", "II", 'C', "componentWiring", 'I', "ingotIron"));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, "II", "CI", "II", 'C', "componentSolenoid", 'I', diamond));
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.controlCircuit, true, "WCI", "RGC", "IRW", 'W', ItemComponent.wiring, 'C',
-                    cactusgreen, 'I', ingotGold, 'G', glowstone, 'R', redstone));
-            GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(iron, 5), true, "P", 'P', ItemComponent.basicPlating));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(diamond, 5), true, "P", 'P', ItemComponent.advancedPlating));
-
-            GameRegistry.addRecipe(ItemComponent.laserHologram, "YTG", "TWT", "BTR", 'W', ItemComponent.wiring, 'T', glass, 'Y', glowstone, 'G',
-                    cactusgreen, 'B', lapis, 'R', rosered);
-
-            GameRegistry.addRecipe(new ItemStack(ModularPowersuits.tinkerTable), "ILI", "LEL", "ILI", 'I', iron, 'L', lapis, 'E', emerald);
-
-            GameRegistry.addRecipe(new ItemStack(ModularPowersuits.powerArmorHead), "III", "C C", 'I', iron, 'C', circuit);
-
-            GameRegistry.addRecipe(new ItemStack(ModularPowersuits.powerArmorTorso), "I I", "CIC", "III", 'I', iron, 'C', circuit);
-
-            GameRegistry.addRecipe(new ItemStack(ModularPowersuits.powerArmorLegs), "III", "C C", "I I", 'I', iron, 'C', circuit);
-
-            GameRegistry.addRecipe(new ItemStack(ModularPowersuits.powerArmorFeet), "C C", "I I", 'I', iron, 'C', circuit);
-
-            GameRegistry.addRecipe(new ItemStack(ModularPowersuits.powerTool), " C ", "CI ", " IC", 'I', iron, 'C', circuit);
-
-            GameRegistry.addRecipe(copyAndResize(ItemComponent.wiring, 8), "GRG", 'G', goldNugget, 'R', redstone);
-
-            GameRegistry.addRecipe(ItemComponent.parachute, "WWW", "S S", 'W', wool, 'S', string);
-
-            GameRegistry.addRecipe(ItemComponent.lvcapacitor, "WPI", "W W", 'W', ItemComponent.wiring, 'I', iron, 'P', new ItemStack(Item.paper),
-                    'L', lapis);
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.mvcapacitor, "GPL", "W W", 'W', ItemComponent.wiring, 'G', goldNugget, 'P',
-                    new ItemStack(Item.paper), 'L', lapis));
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.hvcapacitor, "EPG", "W W", 'W', ItemComponent.wiring, 'E', enderPearl, 'P',
-                    glass, 'G', glowstone));
-
-            GameRegistry.addRecipe(ItemComponent.solenoid, "WIW", "WIW", "WIW", 'W', ItemComponent.wiring, 'I', iron);
-
-            GameRegistry.addRecipe(ItemComponent.gliderWing, " II", "II ", "I  ", 'I', iron);
-
-            GameRegistry.addRecipe(ItemComponent.servoMotor, " W ", "EIE", 'I', iron, 'E', ItemComponent.solenoid, 'W', ItemComponent.wiring);
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.fieldEmitter, true, "SES", "ESE", "SES", 'S', ItemComponent.solenoid, 'E',
-                    enderPearl));
-
-            GameRegistry.addRecipe(ItemComponent.ionThruster, " FE", "IG ", "IFE", 'I', iron, 'E', ItemComponent.solenoid, 'G', glowstone, 'F',
-                    ItemComponent.fieldEmitter);
+            JSONRecipeList.loadRecipesFromResource(CommonProxy.getResource("/assets/powersuits/recipes/vanilla.recipes"));
+//            JSONRecipeList.loadRecipesFromDir(Numina.configDir() + "/machinemuse/recipes/vanilla.recipes");
 
         }
         if (ModCompatability.UERecipesEnabled()) {
@@ -462,87 +416,6 @@ public class RecipeManager {
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true, " FI", "IG ", "WFI", 'I', "ingotInvar", 'G', glowstone, 'W',
                     ItemComponent.wiring, 'F', ItemComponent.fieldEmitter));
 
-        }
-    }
-
-    private void addShapedRecipe(ItemStack result, boolean mirror, String[] layout, String[] inputs) {
-        Object[] recipe = new Object[1 + layout.length + inputs.length * 2];
-        recipe[0] = new Boolean(mirror);
-        int i = 1;
-        for (String line : layout) {
-            recipe[i] = line;
-            i++;
-        }
-        for (String line : inputs) {
-            String[] p = line.split("=");
-            if (p.length > 2) {
-                MuseLogger.logError("Too many = signs at line " + line);
-            }
-            if (p[0].length() > 1) {
-                MuseLogger.logError("More than one charspec at line " + line);
-            }
-            recipe[i] = p[0].charAt(0);
-            recipe[i + 1] = parseItem(p[1]);
-            i += 2;
-        }
-        GameRegistry.addRecipe(new ShapedOreRecipe(result, recipe));
-    }
-
-    private Object parseItem(String itemIdentifier) {
-        String[] p = itemIdentifier.split("\\.");
-        String determinant = p[0].trim().toLowerCase();
-        if (p.length < 2) {
-            MuseLogger.logError("Insufficiently defined item: " + itemIdentifier + " ; syntax is char=determinant.id or char=determinant.id.meta");
-            return null;
-        }
-        String identifier = p[1];
-        int meta = p.length > 2 ? parseInt(p[2]) : 0;
-        if (meta == -1) {
-            MuseLogger.logError("Invalid meta spec. Use decimal digits only please!");
-            return null;
-        }
-        if (determinant.equals("blockid")) {
-
-            int blockID = parseInt(identifier);
-            if (blockID < 0 || blockID > 4096) {
-                MuseLogger.logError("Invalid block ID. Please use a decimal number between 0 and 4096.");
-                return null;
-            }
-            Block block = Block.blocksList[blockID];
-            if (block == null) {
-                MuseLogger.logError("Nothing registered at item ID " + blockID);
-                return null;
-            }
-            return new ItemStack(block, meta, 1);
-        } else if (determinant.equals("itemid")) {
-            int itemID = parseInt(identifier);
-            if (itemID < 0 || itemID > 32768) {
-                MuseLogger.logError("Invalid item ID. Please use a decimal number between 0 and 32768.");
-                return null;
-            }
-            Item item = Item.itemsList[itemID];
-            if (item == null) {
-                MuseLogger.logError("Nothing registered at item ID " + itemID);
-                return null;
-            }
-            return new ItemStack(item, meta, 1);
-        } else if (determinant.equals("oredict")) {
-            return identifier;
-        } else if (determinant.equals("teitem")) {
-        } else if (determinant.equals("blocksearch")) {
-
-            // return doBlockSearch(identifier);
-        } else if (determinant.equals("itemsearch")) {
-            // return doItemSearch(identifier);
-        }
-        return null;
-    }
-
-    private int parseInt(String string) {
-        try {
-            return Integer.parseInt(string.trim());
-        } catch (NumberFormatException e) {
-            return -1;
         }
     }
 }
