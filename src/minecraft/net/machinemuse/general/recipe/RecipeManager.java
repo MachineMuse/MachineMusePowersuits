@@ -1,10 +1,8 @@
 package net.machinemuse.general.recipe;
 
-import com.google.gson.Gson;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.recipe.Recipes;
 import net.machinemuse.numina.general.MuseLogger;
-import net.machinemuse.numina.recipe.CustomShapedOreRecipe;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -45,8 +43,6 @@ public class RecipeManager {
 
         if (ModCompatability.vanillaRecipesEnabled()) {
             //CustomShapedOreRecipe arecipe = new CustomShapedOreRecipe(new String[] {"II", "CI", "II", "C", "componentWiring", "I", "ingotIron"}, ItemComponent.basicPlating);
-            Gson gson = new Gson();
-            CustomShapedOreRecipe.getJson();
             //arecipe.register();
 
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.basicPlating, "II", "CI", "II", 'C', "componentWiring", 'I', "ingotIron"));

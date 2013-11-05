@@ -10,6 +10,7 @@ import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.MusePacketHandler;
+import net.machinemuse.numina.network.MusePacketModeChangeRequest;
 import net.machinemuse.numina.render.RenderGameOverlayEventHandler;
 import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
 import net.machinemuse.powersuits.block.TileEntityTinkerTable;
@@ -29,7 +30,6 @@ import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.event.RenderEventHandler;
-import net.machinemuse.numina.network.MusePacketModeChangeRequest;
 import net.machinemuse.powersuits.tick.ClientTickHandler;
 import net.machinemuse.powersuits.tick.PlayerTickHandler;
 import net.machinemuse.powersuits.tick.RenderTickHandler;
@@ -93,6 +93,8 @@ public class ClientProxy extends CommonProxy {
         URL otherResource = ClientProxy.class.getResource(Config.RESOURCE_PREFIX + "models/armor2.xml");
         ModelSpecXMLReader.parseFile(otherResource);
 
+
+//        ModelSpecJSONWriter.writeRegistry("modelspec.json");
         try {
             MuseShaders.hBlurProgram().program();
             Config.canUseShaders = true;
