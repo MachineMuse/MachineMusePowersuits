@@ -10,6 +10,7 @@ import icbm.api.explosion.IEMPItem
 import icbm.api.explosion.IExplosion
 import net.minecraft.entity.Entity
 import net.machinemuse.api.ModuleManager
+import cofh.api.energy.IEnergyContainerItem
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -18,7 +19,7 @@ import net.machinemuse.api.ModuleManager
 trait MuseElectricItem
   extends ICustomElectricItem // IC2
   with IItemElectric // UE
-  with IChargeableItem // TE
+  with IEnergyContainerItem // TE
   with IEMPItem {
   // ICBM
   /**
@@ -180,28 +181,28 @@ trait MuseElectricItem
   }
 
   // TE
-  def receiveEnergy(theItem: ItemStack, energy: Float, doReceive: Boolean): Float = {
-    val current: Double = getCurrentEnergy(theItem)
-    val receivedME: Double = museEnergyFromMJ(energy)
-    val eatenME: Double = giveEnergyTo(theItem, receivedME)
-    if (!doReceive) {
-      setCurrentEnergy(theItem, current)
+  def receiveEnergy(stack: ItemStack, energy: Int, simulate: Boolean): Int = {
+    val current: Double = getCurrentEnergy(stack)
+    val receivedME: Double = museEnergyFromRF(energy)
+    val eatenME: Double = giveEnergyTo(stack, receivedME)
+    if (simulate) {
+      setCurrentEnergy(stack, current)
     }
-    museEnergyToMJ(eatenME).toFloat
+    museEnergyToRF(eatenME)
   }
 
-  def transferEnergy(theItem: ItemStack, energy: Float, doTransfer: Boolean): Float = {
-    val current: Double = getCurrentEnergy(theItem)
-    val requesteddME: Double = museEnergyFromMJ(energy)
-    val takenME: Double = drainEnergyFrom(theItem, requesteddME)
-    if (!doTransfer) {
-      setCurrentEnergy(theItem, current)
+  def extractEnergy(stack: ItemStack, energy: Int, simulate: Boolean): Int = {
+    val current: Double = getCurrentEnergy(stack)
+    val requesteddME: Double = museEnergyFromRF(energy)
+    val takenME: Double = drainEnergyFrom(stack, requesteddME)
+    if (simulate) {
+      setCurrentEnergy(stack, current)
     }
-    museEnergyToMJ(takenME).toFloat
+    museEnergyToRF(takenME)
   }
 
-  def getEnergyStored(theItem: ItemStack) = museEnergyToMJ(getCurrentEnergy(theItem)).toFloat
+  def getEnergyStored(theItem: ItemStack) = museEnergyToMJ(getCurrentEnergy(theItem)).toInt
 
-  def getMaxEnergyStored(theItem: ItemStack) = museEnergyToMJ(getMaxEnergy(theItem)).toFloat
+  def getMaxEnergyStored(theItem: ItemStack) = museEnergyToMJ(getMaxEnergy(theItem)).toInt
 
 }

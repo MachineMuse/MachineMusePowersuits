@@ -85,14 +85,6 @@ public class ModCompatability {
         return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Thermal Expansion Recipes", defaultval).getBoolean(defaultval);
     }
 
-    public static int joulesToEU(double joules) {
-        return (int) (joules / getIC2Ratio());
-    }
-
-    public static double joulesFromEU(int eu) {
-        return getIC2Ratio() * eu;
-    }
-
     public static double getUERatio() {
         return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per UEJ", 1.0).getDouble(1.0);
     }
@@ -103,6 +95,10 @@ public class ModCompatability {
 
     public static double getBCRatio() {
         return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per MJ", 1.0).getDouble(1.0);
+    }
+
+    public static double getRFRatio() {
+        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per RF", 0.1).getDouble(0.1);
     }
 
     // These 2 elements are basically copied from IC2 api
@@ -141,6 +137,7 @@ public class ModCompatability {
         // Make the IC2 energy ratio show up in config file
         getBCRatio();
         getIC2Ratio();
+        getRFRatio();
         getUERatio();
 
         // Thaumcraft

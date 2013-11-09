@@ -1,18 +1,17 @@
 package net.machinemuse.api.electricity
 
 import net.minecraft.item.ItemStack
-import thermalexpansion.api.item.IChargeableItem
 import universalelectricity.core.item.IItemElectric
 import net.machinemuse.powersuits.common.ModCompatability
 import ic2.api.item.{ElectricItem, IElectricItem}
-import universalelectricity.core.electricity.ElectricityPack
 import net.machinemuse.api.electricity.ElectricConversions._
+import cofh.api.energy.IEnergyContainerItem
 
 object ElectricAdapter {
   def wrap(stack: ItemStack): ElectricAdapter = {
     if (stack == null) return null
     stack.getItem match {
-      case i: IChargeableItem => new TEElectricAdapter(stack)
+      case i: IEnergyContainerItem => new TEElectricAdapter(stack)
       case i: IItemElectric => new UEElectricAdapter(stack)
       case i: IElectricItem => if (ModCompatability.isIndustrialCraftLoaded) new IC2ElectricAdapter(stack) else null
       case _ => null
@@ -46,15 +45,15 @@ class IC2ElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
 }
 
 class TEElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
-  val item = stack.getItem.asInstanceOf[IChargeableItem]
+  val item = stack.getItem.asInstanceOf[IEnergyContainerItem]
 
-  def getCurrentEnergy: Double = museEnergyFromMJ(item.getEnergyStored(stack))
+  def getCurrentEnergy: Double = museEnergyFromRF(item.getEnergyStored(stack))
 
-  def getMaxEnergy: Double = museEnergyFromMJ(item.getMaxEnergyStored(stack))
+  def getMaxEnergy: Double = museEnergyFromRF(item.getMaxEnergyStored(stack))
 
-  def drainEnergy(requested: Double): Double = museEnergyFromMJ(item.transferEnergy(stack, museEnergyToMJ(requested).toFloat, true))
+  def drainEnergy(requested: Double): Double = museEnergyFromRF(item.extractEnergy(stack, museEnergyToRF(requested), true))
 
-  def giveEnergy(provided: Double): Double = museEnergyFromMJ(item.receiveEnergy(stack, museEnergyToMJ(provided).toFloat, true))
+  def giveEnergy(provided: Double): Double = museEnergyFromRF(item.receiveEnergy(stack, museEnergyToRF(provided), true))
 
 }
 

@@ -135,13 +135,16 @@
         <mkdir dir="${mcpsrc.dir}/thermalexpansion/api/core"/>
         <move file="${download.dir}/thermalexpansion/api/item/ItemRegistry.java"
               todir="${mcpsrc.dir}/thermalexpansion/api/item"/>
-        <move file="${download.dir}/thermalexpansion/api/item/IChargeableItem.java"
-              todir="${mcpsrc.dir}/thermalexpansion/api/item"/>
 
         <get-api filename="CoFHCore-API.zip" into="${download.dir}"/>
         <mkdir dir="${mcpsrc.dir}/cofh/api/tileentity"/>
         <move file="${download.dir}/cofh/api/tileentity/IReconfigurableFacing.java"
               todir="${mcpsrc.dir}/cofh/api/tileentity"/>
+
+        <get-api filename="CoFHLib-pre1.zip" into="${download.dir}"/>
+        <mkdir dir="${mcpsrc.dir}/cofh/api/energy"/>
+        <move file="${download.dir}/cofh/api/energy/IEnergyContainerItem.java"
+              todir="${mcpsrc.dir}/cofh/api/energy"/>
 
         <get-api filename="galacticraft-src-${galacticraftapi.version}.zip" into="${download.dir}"/>
         <mkdir dir="${mcpsrc.dir}/micdoodle8/mods/galacticraft/api/item"/>
