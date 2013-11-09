@@ -7,13 +7,13 @@ import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
-import net.machinemuse.numina.general.MuseLogger;
-import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.general.sound.SoundLoader;
+import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.general.MuseMathUtils;
+import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -69,7 +69,9 @@ public class PlayerTickHandler implements ITickHandler {
                 }
             }
             if (!foundItemWithModule) {
-                module.onPlayerTickInactive(player, null);
+                for (ItemStack itemStack : modularItemsEquipped) {
+                    module.onPlayerTickInactive(player, itemStack);
+                }
             }
         }
         boolean foundItem = modularItemsEquipped.size() > 0;
