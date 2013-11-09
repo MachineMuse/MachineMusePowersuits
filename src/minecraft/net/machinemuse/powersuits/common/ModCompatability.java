@@ -141,6 +141,7 @@ public class ModCompatability {
         // Make the IC2 energy ratio show up in config file
         getBCRatio();
         getIC2Ratio();
+        getUERatio();
 
         // Thaumcraft
         if (isThaumCraftLoaded() && enableThaumGogglesModule()) {
