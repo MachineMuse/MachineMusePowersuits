@@ -1,9 +1,9 @@
-#version 410
+#version 330
 uniform vec2 u_Scale;
 uniform sampler2D u_Texture;
 in vec2 texcoord;
 
-const float gaussFilter[50] = float[50](
+uniform float gaussFilter[50] = float[50](
     -12.0,               1.0/16777216.0,
     -11.0,	            24.0/16777216.0,
     -10.0,	           276.0/16777216.0,
@@ -37,7 +37,7 @@ void main() {
 	float wt = 0.0;
 	for( int i = 0; i < 25; i++ )
 	{
-	    vec4 pix = texture( u_Texture,
+	    vec4 pix = texture2D( u_Texture,
 	        vec2(texcoord.x+gaussFilter[i*2]*u_Scale.x, texcoord.y+gaussFilter[i*2]*u_Scale.y )
 	    );
         wt = gaussFilter[i*2+1] * pix.w * 1.5;
@@ -45,7 +45,4 @@ void main() {
         k += wt;
 	}
     gl_FragColor = color;
-//	if(k > 1) {
-//	    gl_FragColor /= k;
-//	}
 }

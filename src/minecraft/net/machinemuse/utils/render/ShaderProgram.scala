@@ -49,25 +49,25 @@ class ShaderProgram(vertSource: String, fragSource: String) {
 
   def setUniform2f(name: String, f1: Float, f2: Float) {
     val pointer = GL20.glGetUniformLocation(program, name)
-    if (pointer < 1) MuseLogger.logError("UNABLE TO ACCESS FLOATS!!!")
+    if (pointer < 0) MuseLogger.logError("UNABLE TO ACCESS FLOATS " + name + " !!!")
     GL20.glUniform2f(pointer, f1, f2)
   }
 
   def setUniform3f(name: String, f1:Float, f2:Float, f3:Float) {
     val pointer = GL20.glGetUniformLocation(program, name)
-    if (pointer < 1) MuseLogger.logError("UNABLE TO ACCESS FLOATS!!!")
+    if (pointer < 0) MuseLogger.logError("UNABLE TO ACCESS FLOATS " + name + " !!!")
     GL20.glUniform3f(pointer, f1, f2, f3)
   }
 
   def setUniformMatrix4(name: String, fb:FloatBuffer) {
     val pointer = GL20.glGetUniformLocation(program, name)
-    if (pointer < 1) MuseLogger.logError("UNABLE TO ACCESS FLOATS!!!")
+    if (pointer < 0) MuseLogger.logError("UNABLE TO ACCESS FLOATS " + name + " !!!")
     GL20.glUniformMatrix4(pointer, false, fb)
   }
 
   def setTexUnit(name: String, i: Int) {
     val pointer = GL20.glGetUniformLocation(program, name)
-    if (pointer < 1) MuseLogger.logError("UNABLE TO ACCESS TEX UNIT!!!")
+    if (pointer < 0) MuseLogger.logError("UNABLE TO ACCESS TEX UNIT " + name + " !!!")
     GL20.glUniform1i(pointer, i)
   }
 

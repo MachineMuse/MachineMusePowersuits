@@ -1,16 +1,16 @@
-#version 410
-uniform sampler2D depth;
-uniform sampler2D occlusion;
-uniform sampler2D texture;
+#version 330
+uniform sampler2D u_Occlusion;
+uniform sampler2D u_Texture;
+uniform sampler2D u_Depth;
 in vec2 texcoord;
 
 void main() {
-    float depth = texture(depth, texcoord).r - 0.001;
-    float occlusion = texture(occlusion, texcoord).r;
+    float occlusion = texture2D(u_Occlusion, texcoord).r;
+    float depth = texture2D(u_Depth, texcoord).r - 0.001;
     vec4 color = vec4(0.0);
     float writedepth = occlusion;
     if(depth <= occlusion) {
-        color = texture(texture, texcoord);
+        color = texture2D(u_Texture, texcoord);
 //        color = vec4(1.0);
         writedepth = depth;
     }

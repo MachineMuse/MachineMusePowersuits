@@ -13,10 +13,11 @@ object MuseShaders {
   val hBlurProgram = new ShaderProgram(blurVertex, blurFragment)
   val vBlurProgram = new ShaderProgram(blurVertex, blurFragment)
 
-  val depthVertex = Config.RESOURCE_PREFIX + "shaders/depthocclusion.vert"
-  val depthFragment = Config.RESOURCE_PREFIX + "shaders/depthocclusion.frag"
-  val depthProgram = new ShaderProgram(depthVertex, depthFragment)
+  val depthOcclusionVertex = Config.RESOURCE_PREFIX + "shaders/depthocclusion.vert"
+  val depthOcclusionFragment = Config.RESOURCE_PREFIX + "shaders/depthocclusion.frag"
+  val depthOcclusionProgram = new ShaderProgram(depthOcclusionVertex, depthOcclusionFragment)
 
+  val depthApplicatorVertex = Config.RESOURCE_PREFIX + "shaders/depthapplicator.vert"
   val depthApplicatorFragment = Config.RESOURCE_PREFIX + "shaders/depthapplicator.frag"
-  val depthApplicatorProgram = new ShaderProgram(depthVertex, depthApplicatorFragment)
+  val depthApplicatorProgram = new ShaderProgram(depthApplicatorVertex, depthApplicatorFragment)
 }
