@@ -9,6 +9,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.machinemuse.general.recipe.RecipeManager;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
@@ -123,14 +124,22 @@ public class ModularPowersuits {
     @Mod.EventHandler
     public void load(FMLInitializationEvent event) {
         powerArmorHead = new ItemPowerArmorHelmet(Config.helmID);
+        GameRegistry.registerItem(powerArmorHead, powerArmorHead.getUnlocalizedName());
         powerArmorTorso = new ItemPowerArmorChestplate(Config.chestID);
+        GameRegistry.registerItem(powerArmorTorso, powerArmorTorso.getUnlocalizedName());
         powerArmorLegs = new ItemPowerArmorLeggings(Config.legsID);
+        GameRegistry.registerItem(powerArmorLegs, powerArmorLegs.getUnlocalizedName());
         powerArmorFeet = new ItemPowerArmorBoots(Config.bootsID);
+        GameRegistry.registerItem(powerArmorFeet, powerArmorFeet.getUnlocalizedName());
         powerTool = new ItemPowerFist();
+        GameRegistry.registerItem(powerTool, powerTool.getUnlocalizedName());
         tinkerTable = new BlockTinkerTable();
+        GameRegistry.registerBlock(tinkerTable, tinkerTable.getUnlocalizedName());
         luxCapacitor = new BlockLuxCapacitor();
+        GameRegistry.registerBlock(luxCapacitor, luxCapacitor.getUnlocalizedName());
         components = new ItemComponent();
         components.populate();
+        GameRegistry.registerItem(components, components.getUnlocalizedName());
         // new ItemSnowbutt(2323);
 //        Localization.loadCurrentLanguage();
 

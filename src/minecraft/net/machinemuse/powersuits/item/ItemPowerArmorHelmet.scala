@@ -12,11 +12,13 @@ import cpw.mods.fml.relauncher.SideOnly
 import atomicscience.api.poison.Poison
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.utils.render.MuseRenderer
+import cpw.mods.fml.common.registry.GameRegistry
 
 class ItemPowerArmorHelmet(id: Int) extends ItemPowerArmor(id, 0, 0) with IBreathableArmor {
   val iconpath = MuseRenderer.ICON_PREFIX + "armorhead"
 
   setUnlocalizedName("powerArmorHelmet")
+
 
   def getArmorType: Poison.ArmorType = ArmorType.HELM
 

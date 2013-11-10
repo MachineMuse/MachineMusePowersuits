@@ -1,6 +1,6 @@
-#version 150
+#version 410
 uniform sampler2D depth;
-varying vec2 texcoord;
+in vec2 texcoord;
 
 void main() {
 	gl_FragDepth = texture(depth, texcoord).r;

@@ -8,6 +8,8 @@ import net.machinemuse.utils.render.Render._
 import net.machinemuse.powersuits.common.Config
 import net.machinemuse.numina.geometry.Colour
 import net.machinemuse.numina.render.RenderState
+import org.lwjgl.BufferUtils
+import org.lwjgl.opengl.GL20
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -20,6 +22,25 @@ object GlowBuffer {
   val glowBuffer = new TextureBuffer(texDimension)
   val secondBuffer = new TextureBuffer(texDimension)
   val depthBuffer = new TextureBuffer(texDimension)
+
+  val matrixBuffer = BufferUtils.createFloatBuffer(16)
+//  val vertexBuffer = BufferUtils.createFloatBuffer(16)
+//  val texcoordBuffer = BufferUtils.createFloatBuffer(16)
+//
+//  vertexBuffer.put(Array(
+//    0.0f, 0, 0, 0,
+//    0, texDimension, 0, 0,
+//    texDimension, texDimension, 0, 0,
+//    texDimension, 0, 0, 0
+//  ))
+//  vertexBuffer.flip()
+//  texcoordBuffer.put(Array(
+//    0.0f, 1, 0, 0,
+//    0, 0, 0, 0,
+//    1, 0, 0, 0,
+//    1, 1, 0, 0
+//  ))
+//  texcoordBuffer.flip()
 
   def draw[A](f: Render[A]): Render[A] = Render pure {
     glowBuffer.bindWrite()
@@ -50,6 +71,12 @@ object GlowBuffer {
             glActiveTexture(GL_TEXTURE1)
             glBindTexture(GL_TEXTURE_2D, depthBuffer.depthRenderBufferID)
             MuseShaders.depthProgram.setTexUnit("depth", 1)
+
+            matrixBuffer.clear()
+            glGetFloat(GL_MODELVIEW_MATRIX, matrixBuffer)
+            matrixBuffer.flip()
+            MuseShaders.depthProgram.setUniformMatrix4("u_ModelViewProjectionMatrix", matrixBuffer)
+
             glBegin(GL_QUADS)
             val t = texDimension
             val w = Minecraft.getMinecraft.displayWidth.toDouble
@@ -77,6 +104,12 @@ object GlowBuffer {
             glBindTexture(GL_TEXTURE_2D, glowBuffer.depthRenderBufferID)
             glActiveTexture(GL_TEXTURE0)
             glBindTexture(GL_TEXTURE_2D, glowBuffer.colorTextureID)
+
+            matrixBuffer.clear()
+            glGetFloat(GL_MODELVIEW_MATRIX, matrixBuffer)
+            matrixBuffer.flip()
+            MuseShaders.depthProgram.setUniformMatrix4("u_ModelViewProjectionMatrix", matrixBuffer)
+
             MuseShaders.depthProgram.setTexUnit("depth", 2)
             MuseShaders.depthProgram.setTexUnit("occlusion", 1)
             MuseShaders.depthProgram.setTexUnit("texture", 0)
@@ -118,6 +151,12 @@ object GlowBuffer {
         withShaderProgram(MuseShaders.vBlurProgram) {
           Render pure {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+
+            matrixBuffer.clear()
+            glGetFloat(GL_MODELVIEW_MATRIX, matrixBuffer)
+            matrixBuffer.flip()
+            MuseShaders.vBlurProgram.setUniformMatrix4("u_ModelViewProjectionMatrix", matrixBuffer)
+
             MuseShaders.vBlurProgram.setUniform2f("u_Scale", 0, 1.0f / texDimension)
             MuseShaders.vBlurProgram.setTexUnit("u_Texture0", 0)
             drawTexSquare(texDimension)
@@ -133,9 +172,13 @@ object GlowBuffer {
         withShaderProgram(MuseShaders.hBlurProgram) {
           Render.pure {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+
+            matrixBuffer.clear()
+            glGetFloat(GL_MODELVIEW_MATRIX, matrixBuffer)
+            matrixBuffer.flip()
+            MuseShaders.hBlurProgram.setUniformMatrix4("u_ModelViewProjectionMatrix", matrixBuffer)
             MuseShaders.hBlurProgram.setUniform2f("u_Scale", 1.0f / texDimension, 0)
             MuseShaders.hBlurProgram.setTexUnit("u_Texture0", 0)
-            drawTexSquare(texDimension)
           }
         }
       }
@@ -154,8 +197,8 @@ object GlowBuffer {
   }
 
   private def vertUV(x: Double, y: Double, u: Double, v: Double) {
-    glTexCoord2d(u, v)
-    glVertex2d(x, y)
+    GL20.glVertexAttrib2d(1, u, v)
+    GL20.glVertexAttrib2d(0, x, y)
   }
 
   private def pushDualIdentityMatrix() {

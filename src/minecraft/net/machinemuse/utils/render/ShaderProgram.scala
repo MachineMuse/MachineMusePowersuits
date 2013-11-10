@@ -6,6 +6,7 @@ import java.net.URL
 import net.machinemuse.powersuits.common.CommonProxy
 import scala.io.Source
 import net.machinemuse.numina.general.MuseLogger
+import java.nio.FloatBuffer
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -50,6 +51,18 @@ class ShaderProgram(vertSource: String, fragSource: String) {
     val pointer = GL20.glGetUniformLocation(program, name)
     if (pointer < 1) MuseLogger.logError("UNABLE TO ACCESS FLOATS!!!")
     GL20.glUniform2f(pointer, f1, f2)
+  }
+
+  def setUniform3f(name: String, f1:Float, f2:Float, f3:Float) {
+    val pointer = GL20.glGetUniformLocation(program, name)
+    if (pointer < 1) MuseLogger.logError("UNABLE TO ACCESS FLOATS!!!")
+    GL20.glUniform3f(pointer, f1, f2, f3)
+  }
+
+  def setUniformMatrix4(name: String, fb:FloatBuffer) {
+    val pointer = GL20.glGetUniformLocation(program, name)
+    if (pointer < 1) MuseLogger.logError("UNABLE TO ACCESS FLOATS!!!")
+    GL20.glUniformMatrix4(pointer, false, fb)
   }
 
   def setTexUnit(name: String, i: Int) {
