@@ -83,9 +83,6 @@ public class BlockTinkerTable extends Block {
 		// moment
 		GameRegistry.registerTileEntity(TileEntityTinkerTable.class, "tinkerTable");
 
-		// Finally, register the block so that it appears in the game. New
-		// standard requires a name to be passed.
-		GameRegistry.registerBlock(this, "tinkerTable");
 
 		setUnlocalizedName("tinkerTable");
 

@@ -59,10 +59,6 @@ public class BlockLuxCapacitor extends Block {
         // 0=bare hands, 1=wood, 2=stone, 3=iron, 4=diamond
         MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 0);
 
-        // Finally, register the block so that it appears in the game. New
-        // standard requires a name to be passed.
-        GameRegistry.registerBlock(this, "luxCapacitor");
-
         GameRegistry.registerTileEntity(TileEntityLuxCapacitor.class, "luxCapacitor");
 
         setUnlocalizedName("luxCapacitor");
