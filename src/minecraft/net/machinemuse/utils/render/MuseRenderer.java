@@ -1,34 +1,26 @@
 package net.machinemuse.utils.render;
 
-import net.machinemuse.numina.basemod.NuminaConfig;
+import net.machinemuse.general.gui.clickable.IClickable;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.geometry.SwirlyMuseCircle;
-import net.machinemuse.general.gui.clickable.IClickable;
+import net.machinemuse.numina.render.BillboardHelper;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.numina.general.MuseMathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.PositionTextureVertex;
 import net.minecraft.client.model.TexturedQuad;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
-import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 
-import java.nio.DoubleBuffer;
-import java.nio.FloatBuffer;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -392,23 +384,8 @@ public abstract class MuseRenderer {
 
     }
 
-    private static float pythag(float x, float y, float z) {
-        return (float) Math.sqrt(x * x + y * y + z * z);
-    }
-
     public static void unRotate() {
-        FloatBuffer matrix = BufferUtils.createFloatBuffer(16);
-        GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, matrix);
-        float scalex = pythag(matrix.get(0), matrix.get(1), matrix.get(2));
-        float scaley = pythag(matrix.get(4), matrix.get(5), matrix.get(6));
-        float scalez = pythag(matrix.get(8), matrix.get(9), matrix.get(10));
-        for (int i = 0; i < 12; i++) {
-            matrix.put(i, 0);
-        }
-        matrix.put(0, scalex);
-        matrix.put(5, scaley);
-        matrix.put(10, scalez);
-        GL11.glLoadMatrix(matrix);
+        BillboardHelper.unRotate();
     }
 
 }
