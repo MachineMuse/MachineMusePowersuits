@@ -51,9 +51,9 @@ class TEElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
 
   def getMaxEnergy: Double = museEnergyFromRF(item.getMaxEnergyStored(stack))
 
-  def drainEnergy(requested: Double): Double = museEnergyFromRF(item.extractEnergy(stack, museEnergyToRF(requested), true))
+  def drainEnergy(requested: Double): Double = museEnergyFromRF(item.extractEnergy(stack, museEnergyToRF(requested), false))
 
-  def giveEnergy(provided: Double): Double = museEnergyFromRF(item.receiveEnergy(stack, museEnergyToRF(provided), true))
+  def giveEnergy(provided: Double): Double = museEnergyFromRF(item.receiveEnergy(stack, museEnergyToRF(provided), false))
 
 }
 
