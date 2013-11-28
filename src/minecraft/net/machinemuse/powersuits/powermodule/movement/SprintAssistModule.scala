@@ -55,16 +55,15 @@ class SprintAssistModule(validItems: List[IModularItem]) extends PowerModuleBase
         ElectricItemUtils.drainPlayerEnergy(player, sprintCost * horzMovement * 5)
         setMovementModifier(item, sprintMultiplier)
         player.getFoodStats.addExhaustion((-0.01 * exhaustion * exhaustionComp).asInstanceOf[Float])
-//        player.jumpMovementFactor = player.getAIMoveSpeed * .5f
+                player.jumpMovementFactor = player.getAIMoveSpeed * .2f
       }
-    }
-    else {
+    } else {
       val cost: Double = ModuleManager.computeModularProperty(item, WALKING_ENERGY_CONSUMPTION)
       if (cost < totalEnergy) {
         val walkMultiplier: Double = ModuleManager.computeModularProperty(item, WALKING_SPEED_MULTIPLIER)
         ElectricItemUtils.drainPlayerEnergy(player, cost * horzMovement * 5)
         setMovementModifier(item, walkMultiplier)
-//        player.jumpMovementFactor = player.getAIMoveSpeed * .5f
+                player.jumpMovementFactor = player.getAIMoveSpeed * .2f
       }
     }
   }
@@ -81,10 +80,10 @@ class SprintAssistModule(validItems: List[IModularItem]) extends PowerModuleBase
       } flatMap {
         tag: NBTTagCompound =>
           tag.setInteger("Operation", 1)
-          tag.setDouble("Amount", multiplier-1)
+          tag.setDouble("Amount", multiplier - 1)
           Some(tag)
       }
-    if (sprintModifiers.isEmpty) modifiers.appendTag(AttributeModifier(1, TAGUUID, multiplier-1, "generic.movementSpeed", "Sprint Assist").toNBT)
+    if (sprintModifiers.isEmpty) modifiers.appendTag(AttributeModifier(1, TAGUUID, multiplier - 1, "generic.movementSpeed", "Sprint Assist").toNBT)
   }
 
   def onPlayerTickInactive(player: EntityPlayer, item: ItemStack) {
