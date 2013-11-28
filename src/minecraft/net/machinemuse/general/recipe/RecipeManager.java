@@ -335,7 +335,7 @@ public class RecipeManager {
                     'F', ItemComponent.fieldEmitter));
 
         }
-        if (ModCompatability.ThermalExpansionRecipesEnabled() && ModCompatability.isThermalExpansionLoaded()) {
+        if (false) { // No thermalexpansion recipes at this time
             ItemStack pneumaticServo = ModCompatability.getThermexItem("pneumaticServo", 1);
             ItemStack machineFrame = ModCompatability.getThermexItem("machineFrame", 1);
             ItemStack powerCoilGold = ModCompatability.getThermexItem("powerCoilGold", 1);
