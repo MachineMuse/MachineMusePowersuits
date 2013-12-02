@@ -205,7 +205,7 @@
 		"ingredients" : [
 			[  null, { "oredictName" : "componentFieldEmitter" }, {"oredictName" : "componentSolenoid" } ],
 			[  {"unlocalizedName" : "item.ingotIron" }, {"unlocalizedName" : "item.yellowDust" }, null],
-			[  {"unlocalizedName" : "item.ingotIron" }, {"oredictName" : "componentFieldEmitter" }, {"unlocalizedName" : "componentSolenoid" } ]
+			[  {"unlocalizedName" : "item.ingotIron" }, {"oredictName" : "componentFieldEmitter" }, {"oredictName" : "componentSolenoid" } ]
 		],
 		"result" : {
 			"oredictName" : "componentIonThruster"
