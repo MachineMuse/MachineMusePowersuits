@@ -22,7 +22,7 @@
 	{
 		"ingredients" : [
 			[ { "oredictName" : "componentWiring" }, { "oredictName" : "dyeGreen" }, { "unlocalizedName" : "item.ingotGold" } ],
-			[ { "unlocalizedName" : "item.redstone" }, { "unlocalizedName" : "item.glowstone" }, { "oredictName" : "dyeGreen" } ],
+			[ { "unlocalizedName" : "item.redstone" }, { "unlocalizedName" : "item.yellowDust" }, { "oredictName" : "dyeGreen" } ],
 			[ { "unlocalizedName" : "item.ingotGold" }, { "unlocalizedName" : "item.redstone" }, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {
@@ -50,7 +50,7 @@
 	},
 	{
 		"ingredients" : [
-			[ { "unlocalizedName" : "item.glowstone" }, { "unlocalizedName" : "item.glass" }, { "oredictName" : "dyeGreen" } ],
+			[ { "unlocalizedName" : "item.yellowDust" }, { "unlocalizedName" : "item.glass" }, { "oredictName" : "dyeGreen" } ],
 			[ { "unlocalizedName" : "item.glass" }, { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.glass" } ],
 			[ { "oredictName" : "dyeBlue" }, { "unlocalizedName" : "item.glass" }, { "oredictName" : "dyeRed" } ]
 		],
@@ -154,7 +154,7 @@
 	},
 	{
 		"ingredients" : [
-			[  {"unlocalizedName" : "item.enderPearl" }, { "unlocalizedName" : "item.paper" }, {"unlocalizedName" : "item.glowstone" } ],
+			[  {"unlocalizedName" : "item.enderPearl" }, { "unlocalizedName" : "item.paper" }, {"unlocalizedName" : "item.yellowDust" } ],
 			[  {"oredictName" : "componentWiring" }, null, {"oredictName" : "componentWiring" } ]
 		],
 		"result" : {
@@ -204,7 +204,7 @@
 	{
 		"ingredients" : [
 			[  null, { "oredictName" : "componentFieldEmitter" }, {"oredictName" : "componentSolenoid" } ],
-			[  {"unlocalizedName" : "item.ingotIron" }, {"unlocalizedName" : "item.glowstone" }, null],
+			[  {"unlocalizedName" : "item.ingotIron" }, {"unlocalizedName" : "item.yellowDust" }, null],
 			[  {"unlocalizedName" : "item.ingotIron" }, {"oredictName" : "componentFieldEmitter" }, {"unlocalizedName" : "componentSolenoid" } ]
 		],
 		"result" : {
