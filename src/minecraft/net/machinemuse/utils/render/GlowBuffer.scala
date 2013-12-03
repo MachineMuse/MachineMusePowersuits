@@ -179,24 +179,23 @@ object GlowBuffer {
   }
 
   private def pushDualIdentityMatrix() {
-    glMatrixMode(GL_MODELVIEW)
+    glMatrixMode(GL_PROJECTION)
     glPushMatrix()
     glLoadIdentity()
     glOrtho(0.0f, texDimension, texDimension, 0.0f, -1.0f, 1.0f)
 
-    glMatrixMode(GL_PROJECTION)
+    glMatrixMode(GL_MODELVIEW)
     glPushMatrix()
     glLoadIdentity()
   }
 
   private def popDualIdentityMatrix() {
+    glPopMatrix()
+
     glMatrixMode(GL_PROJECTION)
     glPopMatrix()
 
     glMatrixMode(GL_MODELVIEW)
-    glPopMatrix()
-
-    glMatrixMode(GL_PROJECTION)
   }
 
 
