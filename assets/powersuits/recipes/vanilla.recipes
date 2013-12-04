@@ -175,7 +175,7 @@
 		"ingredients" : [
 			[  null, { "unlocalizedName" : "item.ingotIron" }, {"unlocalizedName" : "item.ingotIron" } ],
 			[  {"unlocalizedName" : "item.ingotIron" }, {"unlocalizedName" : "item.ingotIron" }, null],
-			[  {"unlocalizedName" : "item.ingotIron" } ]
+			[  {"unlocalizedName" : "item.ingotIron" }, null, null]
 		],
 		"result" : {
 			"oredictName" : "componentGliderWing"
