@@ -38,7 +38,6 @@ import java.io.File;
         name = "MachineMuse's Modular Powersuits",
         /* @DEPENDENCIES@ */
         version = "@MOD_VERSION@"
-
 )
 // Informs forge of the requirements:
 //

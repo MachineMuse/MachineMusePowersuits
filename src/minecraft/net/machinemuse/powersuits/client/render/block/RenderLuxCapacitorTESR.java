@@ -103,13 +103,13 @@ public class RenderLuxCapacitorTESR extends MuseTESR implements ISimpleBlockRend
         RenderState.glowOff();
         glPopMatrix();
         GL11.glPopMatrix();
-
     }
 
     // Should do nothing since the tile entity handles all the rendering of the
     // world block
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+
         return true;
     }
 
