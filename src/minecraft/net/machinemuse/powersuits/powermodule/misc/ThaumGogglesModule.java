@@ -19,7 +19,7 @@ public class ThaumGogglesModule extends PowerModuleBase {
     public ThaumGogglesModule(List<IModularItem> validItems) {
         super(validItems);
         try {
-            tcItems = Class.forName("thaumcraft.common.Config");
+            tcItems = Class.forName("thaumcraft.common.config.ConfigItems");
             Field itemGoggles = tcItems.getField("itemGoggles");
             Item goggles = (Item) itemGoggles.get(itemGoggles);
             gogglesStack = new ItemStack(goggles);
