@@ -4,28 +4,26 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
-import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.List;
 
 public class ThaumGogglesModule extends PowerModuleBase {
     public static final String MODULE_THAUM_GOGGLES = "Aurameter";
-    Class tcItems;
     ItemStack gogglesStack = null;
 
     public ThaumGogglesModule(List<IModularItem> validItems) {
         super(validItems);
         try {
-            tcItems = Class.forName("thaumcraft.common.config.ConfigItems");
-            Field itemGoggles = tcItems.getField("itemGoggles");
-            Item goggles = (Item) itemGoggles.get(itemGoggles);
-            gogglesStack = new ItemStack(goggles);
+            Class tcItems = Class.forName("thaumcraft.api.ItemApi");
+            Method getItem = tcItems.getDeclaredMethod("getItem", String.class, int.class);
+            gogglesStack = (ItemStack) getItem.invoke("itemGoggles", 0);
             addInstallCost(ItemComponent.laserHologram.copy()).addInstallCost(gogglesStack);
         } catch (Exception e) {
             e.printStackTrace();
+            this.setIsAllowed(false);
         }
     }
 
