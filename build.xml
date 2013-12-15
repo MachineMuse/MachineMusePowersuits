@@ -174,14 +174,11 @@
               todir="${mcpsrc.dir}/forestry/api/arboriculture"/>
         <move file="${download.dir}/forestry/api/core/ItemInterface.java" todir="${mcpsrc.dir}/forestry/api/core"/>
 
-        <!--<echo message="Extracting Thaumcraft  API... "/>-->
-        <!--<mkdir dir="${download.dir}/thaumcraft"/>-->
-        <!--<unzip src="${download.dir}/TC4_API_ALPHA_01.zip" dest="${download.dir}/thaumcraft"/>-->
-        <!--<mkdir dir="${mcpsrc.dir}/thaumcraft/api"/>-->
-        <!--<move file="${download.dir}/thaumcraft/api/IAspectSource.java" todir="${mcpsrc.dir}/thaumcraft/api"/>-->
-        <!--<move file="${download.dir}/thaumcraft/api/ObjectTags.java" todir="${mcpsrc.dir}/thaumcraft/api"/>-->
-        <!--<move file="${download.dir}/thaumcraft/api/EnumTag.java" todir="${mcpsrc.dir}/thaumcraft/api"/>-->
-        <!--<move file="${download.dir}/thaumcraft/api/ThaumcraftApiHelper.java" todir="${mcpsrc.dir}/thaumcraft/api"/>-->
+        <get-api filename="Thaumcraft4.0.5-API.zip" into="${download.dir}/thaumcraft" />
+        <mkdir dir="${mcpsrc.dir}/thaumcraft/api/nodes" />
+        <move file="${download.dir}/thaumcraft/api/IGoggles.java" todir="${mcpsrc.dir}/thaumcraft/api" />
+        <move file="${download.dir}/thaumcraft/api/nodes/IRevealer.java" todir="${mcpsrc.dir}/thaumcraft/api/nodes" />
+
 
         <get-api filename="MFFS2_API.zip" into="${download.dir}"/>
         <mkdir dir="${mcpsrc.dir}/mods/mffs/api"/>

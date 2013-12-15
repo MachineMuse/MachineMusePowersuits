@@ -2,14 +2,10 @@ package net.machinemuse.powersuits.tick;
 
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.gui.EnergyMeter;
 import net.machinemuse.general.gui.HeatMeter;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.common.ModCompatability;
-import net.machinemuse.powersuits.event.ThaumRenderEventHandler;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
@@ -48,7 +44,7 @@ public class RenderTickHandler implements ITickHandler {
             Minecraft mc = Minecraft.getMinecraft();
             ScaledResolution screen = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
             drawMeters(player, screen);
-            drawGogglesHUD(player, mc, ((Float) tickData[0]));
+//            drawGogglesHUD(player, mc, ((Float) tickData[0]));
 
         }
     }
@@ -83,12 +79,12 @@ public class RenderTickHandler implements ITickHandler {
         }
     }
 
-    private void drawGogglesHUD(EntityPlayer player, Minecraft mc, float partialTickTime) {
-
-        if (ModCompatability.isThaumCraftLoaded() && ModCompatability.enableThaumGogglesModule() && player.getCurrentArmor(3) != null && player.getCurrentArmor(3).getItem() instanceof IModularItem && ModuleManager.itemHasActiveModule(player.getCurrentArmor(3), "Aurameter")) {
-            ThaumRenderEventHandler.renderGogglesHUD(partialTickTime, player, mc.theWorld.getWorldTime());
-        }
-    }
+//    private void drawGogglesHUD(EntityPlayer player, Minecraft mc, float partialTickTime) {
+//
+//        if (ModCompatability.isThaumCraftLoaded() && ModCompatability.enableThaumGogglesModule() && player.getCurrentArmor(3) != null && player.getCurrentArmor(3).getItem() instanceof IModularItem && ModuleManager.itemHasActiveModule(player.getCurrentArmor(3), "Aurameter")) {
+//            ThaumRenderEventHandler.renderGogglesHUD(partialTickTime, player, mc.theWorld.getWorldTime());
+//        }
+//    }
 
 
     @Override
