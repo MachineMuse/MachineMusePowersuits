@@ -19,7 +19,7 @@ public class ThaumGogglesModule extends PowerModuleBase {
         try {
             Class tcItems = Class.forName("thaumcraft.api.ItemApi");
             Method getItem = tcItems.getDeclaredMethod("getItem", String.class, int.class);
-            gogglesStack = (ItemStack) getItem.invoke("itemGoggles", 0);
+            gogglesStack = (ItemStack) getItem.invoke(null, "itemGoggles", 0);
             addInstallCost(ItemComponent.laserHologram.copy()).addInstallCost(gogglesStack);
         } catch (Exception e) {
             e.printStackTrace();
