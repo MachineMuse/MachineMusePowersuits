@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.misc;
 
 import net.machinemuse.api.IModularItem;
+import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
@@ -10,7 +11,7 @@ import net.minecraft.util.StatCollector;
 import java.lang.reflect.Method;
 import java.util.List;
 
-public class ThaumGogglesModule extends PowerModuleBase {
+public class ThaumGogglesModule extends PowerModuleBase implements IToggleableModule {
     public static final String MODULE_THAUM_GOGGLES = "Aurameter";
     ItemStack gogglesStack = null;
 
