@@ -1,0 +1,217 @@
+[
+	{
+		"ingredients" : [
+			[ { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" } ],
+			[ { "oredictName" : "gearTin" }, { "unlocalizedName" : "item.ingotIron" } ],
+			[ { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" } ]
+		],
+		"result" : {
+			"oredictName" : "componentPlatingBasic"
+		}
+	},
+	{
+		"ingredients" : [
+			[ { "unlocalizedName" : "item.diamond" }, { "unlocalizedName" : "item.diamond" } ],
+			[ { "oredictName" : "gearInvar" }, { "unlocalizedName" : "item.diamond" } ],
+			[ { "unlocalizedName" : "item.diamond" }, { "unlocalizedName" : "item.diamond" } ]
+		],
+		"result" : {
+			"oredictName" : "componentPlatingAdvanced"
+		}
+	},
+	{
+		"ingredients" : [
+			[ { "oredictName" : "ingotElectrum" }, { "unlocalizedName" : "item.yellowDust" }, { "oredictName" : "componentWiring" } ],
+			[ { "unlocalizedName" : "item.redstone" }, { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.yellowDust" } ],
+			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.redstone" }, { "oredictName" : "ingotElectrum" } ]
+		],
+		"result" : {
+			"oredictName" : "componentControlCircuit"
+		},
+		"mirror" : true
+	},
+	{
+		"ingredients" : [
+			[ { "oredictName" : "componentPlatingBasic" } ]
+		],
+		"result" : {
+			"unlocalizedName" : "item.ingotIron",
+			"quantity" : 5
+		}
+	},
+	{
+		"ingredients" : [
+			[ { "oredictName" : "componentPlatingAdvanced" } ]
+		],
+		"result" : {
+			"unlocalizedName" : "item.diamond",
+			"quantity" : 5
+		}
+	},
+	{
+		"ingredients" : [
+			[ { "oredictName" : "dyeRed" }, { "oredictName" : "dyeGreen" }, { "oredictName" : "dyeBlue" } ],
+			[ null, { "unlocalizedName" : "tile.glass" }, null ],
+			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.thermalexpansion.material.powerCoilGold" }, { "oredictName" : "componentWiring" } ]
+		],
+		"result" : {
+			"oredictName" : "componentLaserEmitter"
+		}
+	},
+	{
+		"ingredients" : [
+			[ null, { "unlocalizedName" : "item.emerald" }, null ],
+			[ { "oredictName" : "ingotElectrum" }, { "unlocalizedName" : "item.thermalexpansion.component.machineFrame" }, { "oredictName" : "ingotElectrum" } ],
+			[ null, { "unlocalizedName" : "item.thermalexpansion.material.powerCoilSilver" }, null ]
+		],
+		"result" : {
+			"unlocalizedName" : "tile.tinkerTable"
+		}
+	},
+	{
+		"ingredients" : [
+			[ { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" } ],
+			[ { "oredictName" : "componentWiring" }, null, { "oredictName" : "componentWiring" } ]
+		],
+		"result" : {
+			"unlocalizedName" : "item.powerArmorHelmet"
+		}
+	},
+	{
+		"ingredients" : [
+			[ { "unlocalizedName" : "item.ingotIron" }, null, { "unlocalizedName" : "item.ingotIron" } ],
+			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.ingotIron" }, { "oredictName" : "componentWiring" } ],
+			[ { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" } ]
+		],
+		"result" : {
+			"unlocalizedName" : "item.powerArmorChestplate"
+		}
+	},
+	{
+		"ingredients" : [
+			[ { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" } ],
+			[ { "oredictName" : "componentWiring" }, null, { "oredictName" : "componentWiring" } ],
+			[ { "unlocalizedName" : "item.ingotIron" }, null, { "unlocalizedName" : "item.ingotIron" } ]
+		],
+		"result" : {
+			"unlocalizedName" : "item.powerArmorLeggings"
+		}
+	},
+	{
+		"ingredients" : [
+			[ { "oredictName" : "componentWiring" }, null, { "oredictName" : "componentWiring" } ],
+			[ { "unlocalizedName" : "item.ingotIron" }, null, { "unlocalizedName" : "item.ingotIron" } ]
+		],
+		"result" : {
+			"unlocalizedName" : "item.powerArmorBoots"
+		}
+	},
+	{
+		"ingredients" : [
+			[ null, { "unlocalizedName" : "item.ingotIron" }, null ],
+			[ { "unlocalizedName" : "item.ingotIron" }, { "oredictName" : "ingotElectrum" }, { "unlocalizedName" : "item.ingotIron" } ],
+			[ null, { "oredictName" : "componentWiring" }, null ]
+		],
+		"result" : {
+			"unlocalizedName" : "item.powerFist"
+		}
+	},
+	{
+		"ingredients" : [
+			[ { "oredictName" : "ingotCopper" }, { "oredictName" : "ingotCopper" }, { "oredictName" : "ingotCopper" } ],
+			[ { "oredictName" : "ingotSilver" }, { "oredictName" : "ingotSilver" }, { "oredictName" : "ingotSilver" } ],
+			[ { "oredictName" : "ingotCopper" }, { "oredictName" : "ingotCopper" }, { "oredictName" : "ingotCopper" } ],
+		],
+		"result" : {
+			"oredictName" : "componentWiring",
+			"quantity" : 8
+		}
+	},
+	{
+		"ingredients" : [
+			[  { "id" : 35 }, { "id" : 35 }, { "id" : 35 } ],
+			[  { "unlocalizedName" : "item.string" }, null, { "unlocalizedName" : "item.string" } ],
+			[ null, { "unlocalizedName" : "item.thermalexpansion.material.pneumaticServo" }, null ]
+		],
+		"result" : {
+			"oredictName" : "componentParachute"
+		}
+	},
+	{
+		"ingredients" : [
+			[  { "oredictName" : "ingotSilver" }, { "unlocalizedName" : "item.paper" }, { "unlocalizedName" : "item.ingotGold" } ],
+			[  { "oredictName" : "componentWiring" }, null, { "oredictName" : "componentWiring" } ]
+		],
+		"result" : {
+			"oredictName" : "componentLVCapacitor"
+		}
+	},
+	{
+		"ingredients" : [
+			[  { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.thermalexpansion.component.conduitEnergyReinforcedEmpty" }, { "oredictName" : "componentWiring" } ]
+		],
+		"result" : {
+			"oredictName" : "componentMVCapacitor"
+		}
+	},
+	{
+		"ingredients" : [
+			[  { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.thermalexpansion.component.cellReinforcedFrameFull" }, { "oredictName" : "componentWiring" } ]
+		],
+		"result" : {
+			"oredictName" : "componentHVCapacitor"
+		}
+	},
+	{
+		"ingredients" : [
+			[  { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.ingotIron" }, { "oredictName" : "componentWiring" } ],
+			[  { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.ingotIron" }, { "oredictName" : "componentWiring" } ],
+			[  { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.ingotIron" }, { "oredictName" : "componentWiring" } ]
+		],
+		"result" : {
+			"oredictName" : "componentSolenoid"
+		}
+	},
+	{
+		"ingredients" : [
+			[  null, { "oredictName" : "glassHardened" }, { "oredictName" : "glassHardened" } ],
+			[  { "oredictName" : "glassHardened" }, { "oredictName" : "glassHardened" }, { "oredictName" : "componentSolenoid" } ],
+			[  { "oredictName" : "glassHardened" }, null, null ]
+		],
+		"result" : {
+			"oredictName" : "componentGliderWing"
+		}
+	},
+	{
+		"ingredients" : [
+			[  null, { "oredictName" : "componentSolenoid" }, null ],
+			[  { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.thermalexpansion.material.pneumaticServo" }, { "oredictName" : "componentWiring" } ],
+			[  null, { "oredictName" : "componentSolenoid" }, null ]
+		],
+		"result" : {
+			"oredictName" : "componentServo"
+		}
+	},
+	{
+		"ingredients" : [
+			[  null, { "oredictName" : "componentWiring" }, null ],
+			[  { "oredictName" : "componentSolenoid" }, { "unlocalizedName" : "item.thermalexpansion.component.tesseractFrameFull" }, { "oredictName" : "componentSolenoid" } ],
+			[  null, { "oredictName" : "componentWiring" }, null ]
+		],
+		"result" : {
+			"oredictName" : "componentFieldEmitter"
+		},
+		"mirror" : true
+	},
+	{
+		"ingredients" : [
+			[  null, { "oredictName" : "componentFieldEmitter" }, { "oredictName" : "ingotInvar" } ],
+			[  { "oredictName" : "ingotInvar" }, { "unlocalizedName" : "item.yellowDust" }, null],
+			[  { "oredictName" : "componentWiring" }, { "oredictName" : "componentFieldEmitter" }, { "oredictName" : "ingotInvar" } ]
+		],
+		"result" : {
+			"oredictName" : "componentIonThruster"
+		}
+
+	}
+]

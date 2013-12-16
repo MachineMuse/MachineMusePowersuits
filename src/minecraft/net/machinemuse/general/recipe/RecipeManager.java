@@ -27,13 +27,10 @@ public class RecipeManager {
         ItemStack iron = new ItemStack(Item.ingotIron);
         ItemStack circuit = ItemComponent.wiring;
         ItemStack goldNugget = new ItemStack(Item.goldNugget);
-        ItemStack ingotGold = new ItemStack(Item.ingotGold);
         ItemStack redstone = new ItemStack(Item.redstone);
         ItemStack wool = new ItemStack(Block.cloth);
         ItemStack string = new ItemStack(Item.silk);
-        ItemStack paper = new ItemStack(Item.paper);
         ItemStack glass = new ItemStack(Block.glass);
-        ItemStack glassPane = new ItemStack(Block.thinGlass);
         ItemStack glowstone = new ItemStack(Item.glowstone);
         ItemStack emerald = new ItemStack(Item.emerald);
         ItemStack diamond = new ItemStack(Item.diamond);
@@ -41,12 +38,9 @@ public class RecipeManager {
         ItemStack rosered = new ItemStack(Item.dyePowder, 1, 1);
         ItemStack cactusgreen = new ItemStack(Item.dyePowder, 1, 2);
         ItemStack enderPearl = new ItemStack(Item.enderPearl);
-        ItemStack stone = new ItemStack(Block.stone);
 
         if (ModCompatability.vanillaRecipesEnabled()) {
             JSONRecipeList.loadRecipesFromResource(CommonProxy.getResource("/assets/powersuits/recipes/vanilla.recipes"));
-//            JSONRecipeList.loadRecipesFromDir(Numina.configDir() + "/machinemuse/recipes/vanilla.recipes");
-
         }
         if (ModCompatability.UERecipesEnabled()) {
             String basicCircuit = "circuitBasic";

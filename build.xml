@@ -221,9 +221,14 @@
                 <include name="ModularPowersuits-${minecraft.version}-*"/>
             </fileset>
         </delete>
+
+        <copy todir="${dist.dir}">
+            <fileset dir="${classes.dir}/assets/powersuits/recipes" />
+        </copy>
         <copy file="${download.dir}/slick-util.jar" todir="${dist.dir}"/>
         <!--<get src="http://files.minecraftforge.net/fmllibs/scala-library.jar"-->
              <!--dest="${dist.dir}/scala-library.jar"/>-->
+
 
         <jar destfile="${dist.dir}/ModularPowersuits-${minecraft.version}-${fullversion}.jar" basedir="${classes.dir}"/>
         <delete dir="${classes.dir}"/>
