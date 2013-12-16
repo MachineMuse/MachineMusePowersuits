@@ -127,7 +127,7 @@
 	},
 	{
 		"ingredients" : [
-			[  {"unlocalizedName" : "item.wool" }, { "unlocalizedName" : "item.wool" }, {"unlocalizedName" : "item.wool" } ],
+			[  {"id" : 35 }, { "id" : 35 }, {"id" : 35 } ],
 			[  {"unlocalizedName" : "item.string" }, null, {"unlocalizedName" : "item.string" } ]
 		],
 		"result" : {
