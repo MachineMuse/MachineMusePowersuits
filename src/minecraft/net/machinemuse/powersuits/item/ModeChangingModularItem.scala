@@ -34,9 +34,8 @@ trait ModeChangingModularItem extends ModeChangingItem {
   def getValidModes(stack: ItemStack): Seq[String] = {
     import scala.collection.JavaConversions._
     for {
-      module <- ModuleManager.getAllModules
+      module <- ModuleManager.getRightClickModules
       if module.isValidForItem(stack)
-      if module.isInstanceOf[IRightClickModule]
       if ModuleManager.itemHasModule(stack, module.getDataName)
     } yield {
       module.getDataName
