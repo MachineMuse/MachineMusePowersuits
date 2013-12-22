@@ -3,8 +3,6 @@ package net.machinemuse.general.recipe;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.recipe.Recipes;
 import net.machinemuse.numina.general.MuseLogger;
-import net.machinemuse.numina.recipe.JSONRecipeList;
-import net.machinemuse.powersuits.common.CommonProxy;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -39,9 +37,6 @@ public class RecipeManager {
         ItemStack cactusgreen = new ItemStack(Item.dyePowder, 1, 2);
         ItemStack enderPearl = new ItemStack(Item.enderPearl);
 
-        if (ModCompatability.vanillaRecipesEnabled()) {
-            JSONRecipeList.loadRecipesFromResource(CommonProxy.getResource("/assets/powersuits/recipes/vanilla.recipes"));
-        }
         if (ModCompatability.UERecipesEnabled()) {
             String basicCircuit = "circuitBasic";
             String advancedCircuit = "circuitAdvanced";
@@ -327,88 +322,6 @@ public class RecipeManager {
                     'N', neutronReflector,
                     'C', ItemComponent.hvcapacitor,
                     'F', ItemComponent.fieldEmitter));
-
-        }
-        if (false) { // No thermalexpansion recipes at this time
-            ItemStack pneumaticServo = ModCompatability.getThermexItem("pneumaticServo", 1);
-            ItemStack machineFrame = ModCompatability.getThermexItem("machineFrame", 1);
-            ItemStack powerCoilGold = ModCompatability.getThermexItem("powerCoilGold", 1);
-            ItemStack powerCoilSilver = ModCompatability.getThermexItem("powerCoilSilver", 1);
-            ItemStack powerCoilElectrum = ModCompatability.getThermexItem("powerCoilElectrum", 1);
-            String gearCopper = "gearCopper";
-            String gearTin = "gearTin";
-            ItemStack gearInvar = ModCompatability.getThermexItem("gearInvar", 1);
-            ItemStack compressedSawdust = ModCompatability.getThermexItem("hardenedGlass", 1);
-            ItemStack energyFrameFull = ModCompatability.getThermexItem("energyCellFrameFull", 1);
-            ItemStack conduitEnergy = ModCompatability.getThermexItem("energyConduitEmpty", 1);
-            ItemStack teleportFrameFull = ModCompatability.getThermexItem("tesseractFrameFull", 1);
-            // IC2ItemTest hardenedGlass =
-            // ModCompatability.getThermexItem("blockGlass", 1);
-            // Unmake the armor platings
-            // try {
-            // IC2ItemTest titanium =
-            // OreDictionary.getOres("ingotTitanium").get(0);
-            // GameRegistry.addRecipe(new
-            // ShapedOreRecipe(copyAndResize(titanium, 5), true,
-            // "P", 'P', ItemComponent.basicPlating));
-            // } catch (Exception e) {
-            // MuseLogger.logError("Unable to load Titanium");
-            // }
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.controlCircuit, true, "EGW", "RWG", "WRE", 'E', "ingotElectrum", 'W',
-                    ItemComponent.wiring, 'G', glowstone, 'R', redstone));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.laserHologram, true, "RGB", " H ", "WLW", 'W', ItemComponent.wiring, 'L',
-                    powerCoilGold, 'H', glass, 'R', rosered, 'G', cactusgreen, 'B', lapis));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.basicPlating, true, "II", "CI", "II", 'C', gearTin, 'I', iron));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.advancedPlating, true, "II", "CI", "II", 'C', gearInvar, 'I', diamond));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.tinkerTable), true, " E ", "IMI", " R ", 'R', powerCoilSilver,
-                    'M', machineFrame, 'E', emerald, 'I', "ingotElectrum"));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorHead), true, "III", "W W", 'I', iron, 'W',
-                    ItemComponent.wiring));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorTorso), true, "I I", "WIW", "III", 'I', iron, 'W',
-                    ItemComponent.wiring));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorLegs), true, "III", "W W", "I I", 'I', iron, 'W',
-                    ItemComponent.wiring));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerArmorFeet), true, "W W", "I I", 'I', iron, 'W',
-                    ItemComponent.wiring));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModularPowersuits.powerTool), true, " I ", "IEI", " W ", 'W',
-                    ItemComponent.wiring, 'E', "ingotElectrum", 'I', iron));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(copyAndResize(ItemComponent.wiring, 8), true, "CCC", "SSS", "CCC", 'C', "ingotCopper", 'S',
-                    "ingotSilver"));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.parachute, true, "WWW", "S S", " O ", 'W', wool, 'S', string, 'O',
-                    pneumaticServo));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.lvcapacitor, false, "CPT", "W W", 'W', ItemComponent.wiring, 'C', "ingotSilver",
-                    'T', "ingotGold", 'P', new ItemStack(Item.paper)));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.mvcapacitor, "WRW", 'W', ItemComponent.wiring, 'R', conduitEnergy));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.hvcapacitor, "WRW", 'W', ItemComponent.wiring, 'R', energyFrameFull));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solenoid, true, "WSW", "WSW", "WSW", 'W', ItemComponent.wiring, 'S', iron));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.gliderWing, true, " GG", "GGI", "G  ", 'G', compressedSawdust, 'I',
-                    ItemComponent.solenoid));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.servoMotor, true, " O ", "WSW", " O ", 'O', ItemComponent.solenoid, 'S',
-                    pneumaticServo, 'W', ItemComponent.wiring));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.fieldEmitter, true, " W ", "OUO", " W ", 'W', ItemComponent.wiring, 'O',
-                    ItemComponent.solenoid, 'U', teleportFrameFull));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.ionThruster, true, " FI", "IG ", "WFI", 'I', "ingotInvar", 'G', glowstone, 'W',
-                    ItemComponent.wiring, 'F', ItemComponent.fieldEmitter));
 
         }
     }
