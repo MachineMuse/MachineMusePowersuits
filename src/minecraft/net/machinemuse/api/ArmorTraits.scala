@@ -12,7 +12,7 @@ import atomicscience.api.IAntiPoisonArmor
  * Author: MachineMuse (Claire Semple)
  * Created: 6:54 AM, 4/28/13
  */
-trait ArmorTraits extends IModularItem
+trait ArmorTraits extends ItemArmor with IModularItem
 with ApiaristArmor
 with RadiationArmor {
 
