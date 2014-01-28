@@ -9,16 +9,14 @@
     <property name="scala.version" value="2.10.1"/>
 
     <property name="mcp.version" value="805"/>
-    <property name="minecraft.version" value="1.6.2"/>
-    <property name="forgemajor.version" value="9.10.1"/>
-    <property name="forgebuild" value="856"/>
+    <property name="minecraft.version" value="1.6.4"/>
+    <property name="forgemajor.version" value="9.11.1"/>
+    <property name="forgebuild" value="965"/>
 
     <property name="forge.version" value="${minecraft.version}-${forgemajor.version}.${forgebuild}"/>
     <property name="forgeant.version" value="${forgemajor.version}.${forgebuild}"/>
 
     <property name="ic2api.version" value="1.118.401-lf"/>
-    <property name="ueapi.version" value="2.1.0.153"/>
-    <property name="asapi.version" value="0.7.0.114"/>
     <property name="icbmapi.version" value="1.3.2.216"/>
     <property name="thermexapi.version" value="2.3.0b"/>
     <property name="galacticraftapi.version" value="2"/>
@@ -40,8 +38,6 @@
     <property name="resources.dir" value="assets/powersuits"/>
 
     <!-- URLs -->
-    <property name="forge.url"
-              value="http://files.minecraftforge.net/minecraftforge/minecraftforge-src-${forge.version}.zip"/>
     <property name="apisource.url" value="http://machinemuse.minecraftforge.net"/>
 
 
@@ -55,7 +51,7 @@
     <condition property="forge-already-installed">
         <equals arg1="${forge.build.number}" arg2="${forgebuild}"/>
     </condition>
-    <available property="forge-exists" file="${download.dir}/minecraftforge-src-${forge.version}.zip"/>
+    <available property="forge-exists" file="${download.dir}/forge-${forge.version}-src.zip"/>
     <!--<available property="already-compiled" file="${classes.dir}/net/machinemuse"/>-->
 
     <mkdir dir="${download.dir}"/>
@@ -67,7 +63,7 @@
     <condition property="should-download-ant-contrib">
         <or>
             <available file="${download.dir}/ant-contrib/ant-contrib-1.0b3.jar"/>
-            <available file="${download.dir}/minecraftforge-src-${forge.version}.zip"/>
+            <available file="${download.dir}/forge-${forge.version}-src.zip"/>
         </or>
     </condition>
 
@@ -298,7 +294,7 @@
 
         <unzip dest="${build.dir}">
             <fileset dir="${download.dir}">
-                <include name="minecraftforge-src-${forge.version}.zip"/>
+                <include name="forge-${forge.version}-src.zip"/>
             </fileset>
         </unzip>
 
@@ -354,8 +350,8 @@
         </getMethod>
         -->
 
-        <get src="http://machinemuse.minecraftforge.net/minecraftforge-src-${forge.version}.zip"
-             dest="${download.dir}/minecraftforge-src-${forge.version}.zip"/>
+        <get src="http://machinemuse.net/forge-${forge.version}-src.zip"
+             dest="${download.dir}/forge-${forge.version}-src.zip"/>
     </target>
 
     <target name="download-ant-contrib" unless="should-download-ant-contrib">
