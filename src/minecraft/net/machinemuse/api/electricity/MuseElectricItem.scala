@@ -3,10 +3,7 @@ package net.machinemuse.api.electricity
 import net.minecraft.item.ItemStack
 import net.machinemuse.utils.{ElectricItemUtils, MuseItemUtils}
 import ic2.api.item.ICustomElectricItem
-import universalelectricity.core.item.IItemElectric
 import net.machinemuse.api.electricity.ElectricConversions._
-import icbm.api.explosion.IEMPItem
-import icbm.api.explosion.IExplosion
 import net.minecraft.entity.Entity
 import net.machinemuse.api.ModuleManager
 import cofh.api.energy.IEnergyContainerItem
@@ -17,9 +14,8 @@ import cofh.api.energy.IEnergyContainerItem
  */
 trait MuseElectricItem
   extends ICustomElectricItem // IC2
-  with IItemElectric // UE
   with IEnergyContainerItem // TE
-  with IEMPItem {
+{
   // ICBM
   /**
    * Call to get the energy of an item
@@ -132,52 +128,6 @@ trait MuseElectricItem
 
 
   def canShowChargeToolTip(itemStack: ItemStack): Boolean = false
-
-  // ICBM
-  def onEMP(itemStack: ItemStack, entity: Entity, empExplosive: IExplosion) {
-    setCurrentEnergy(itemStack, 0)
-  }
-
-  // UE
-  def getElectricityStored(itemStack: ItemStack): Float = museEnergyToJoules(getCurrentEnergy(itemStack))
-
-  def setElectricity(itemStack: ItemStack, joules: Float) {
-    setCurrentEnergy(itemStack, museEnergyFromJoules(joules))
-  }
-
-  def getMaxElectricityStored(itemStack: ItemStack): Float = museEnergyToJoules(getMaxEnergy(itemStack))
-
-  def getVoltage(itemStack: ItemStack): Float = 120
-
-  def recharge(itemStack: ItemStack, energy: Float, doCharge: Boolean): Float = {
-    var joulesConsumed: Float = 0
-    val energyReceiving: Double = museEnergyFromJoules(energy)
-    if (doCharge) {
-      val energyConsumed: Double = giveEnergyTo(itemStack, energyReceiving)
-      joulesConsumed = museEnergyToJoules(energyConsumed)
-    } else {
-      val energyChargeable: Double = getMaxEnergy(itemStack) - getCurrentEnergy(itemStack)
-      joulesConsumed = museEnergyToJoules(math.min(energyReceiving, energyChargeable))
-    }
-    joulesConsumed
-  }
-
-  def discharge(itemStack: ItemStack, energy: Float, doCharge: Boolean): Float = {
-    val energyRequested: Double = museEnergyFromJoules(energy)
-    var joulesGiven: Float = 0
-    if (doCharge) {
-      val energyGiven: Double = drainEnergyFrom(itemStack, energyRequested)
-      joulesGiven = museEnergyToJoules(energyGiven)
-    } else {
-      val energyAvailable: Double = getCurrentEnergy(itemStack)
-      joulesGiven = museEnergyToJoules(math.min(energyAvailable, energyRequested))
-    }
-    joulesGiven
-  }
-
-  def getTransfer(itemStack: ItemStack): Float = {
-    museEnergyToJoules(getMaxEnergy(itemStack) - getCurrentEnergy(itemStack))
-  }
 
   // TE
   def receiveEnergy(stack: ItemStack, energy: Int, simulate: Boolean): Int = {

@@ -28,7 +28,6 @@
 
     <!-- Directories -->
     <property name="download.dir" value="downloads"/>
-    <property name="ue.download.dir" value="${download.dir}/ue/universalelectricity"/>
     <property name="src.dir" value="src"/>
     <property name="lib.dir" value="${src.dir}/lib"/>
     <property name="build.dir" value="build/${minecraft.version}"/>
@@ -110,25 +109,13 @@
             <fileset dir="${download.dir}/ic2/api/energy/tile/"/>
         </move>
 
-        <get-api filename="UniversalElectricity_API_v${ueapi.version}.zip" into="${download.dir}/ue"/>
-        <mkdir dir="${mcpsrc.dir}/universalelectricity/core/"/>
-        <mkdir dir="${mcpsrc.dir}/universalelectricity/prefab/implement/"/>
-        <move todir="${mcpsrc.dir}/universalelectricity/core/">
-            <fileset dir="${ue.download.dir}/core/"/>
-        </move>
+        <echo message="Downloading Atomic Science API... "/>
+        <get src="http://machinemuse.net/Atomic-Science-1.1.0.16-api.zip" dest="${download.dir}/Atomic-Science-1.1.0.16-api.zip"/>
 
-        <get-api filename="ICBM_API_v${icbmapi.version}.zip" into="${download.dir}/ue"/>
-        <mkdir dir="${mcpsrc.dir}/icbm/api/explosion"/>
-        <move file="${download.dir}/ue/icbm/api/explosion/IExplosion.java"
-              todir="${mcpsrc.dir}/icbm/api/explosion/"/>
-        <move file="${download.dir}/ue/icbm/api/explosion/IEMPItem.java"
-              todir="${mcpsrc.dir}/icbm/api/explosion/"/>
-
-        <get-api filename="Atomic_Science_API_v${asapi.version}.zip" into="${download.dir}/ue"/>
+        <echo message="Extracting Atomic-Science-1.1.0.16-api.zip... "/>
+        <unzip src="${download.dir}/Atomic-Science-1.1.0.16-api.zip" dest="${download.dir}/"/>
         <mkdir dir="${mcpsrc.dir}/atomicscience/api/poison"/>
-        <move file="${download.dir}/ue/poison/Poison.java"
-              todir="${mcpsrc.dir}/atomicscience/api/poison"/>
-        <move file="${download.dir}/ue/IAntiPoisonArmor.java"
+        <move file="${download.dir}/atomicscience/api/IAntiPoisonArmor.java"
               todir="${mcpsrc.dir}/atomicscience/api"/>
 
         <get-api filename="ThermalExpansion-API-${thermexapi.version}.zip" into="${download.dir}"/>

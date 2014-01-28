@@ -1,20 +1,18 @@
 package net.machinemuse.powersuits.item
 
+import thaumcraft.api.nodes.IRevealer
 import micdoodle8.mods.galacticraft.api.item.IBreathableArmor.EnumGearType
 import micdoodle8.mods.galacticraft.api.item.IBreathableArmor
 import net.machinemuse.powersuits.powermodule.misc.{ThaumGogglesModule, AirtightSealModule}
 import net.minecraft.client.renderer.texture.IconRegister
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
-import atomicscience.api.poison.Poison.ArmorType
 import cpw.mods.fml.relauncher.Side
 import cpw.mods.fml.relauncher.SideOnly
-import atomicscience.api.poison.Poison
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.utils.render.MuseRenderer
-import thaumcraft.api.IGoggles
 import net.minecraft.entity.EntityLivingBase
-import thaumcraft.api.nodes.IRevealer
+import thaumcraft.api.IGoggles
 
 class ItemPowerArmorHelmet(id: Int) extends ItemPowerArmor(id, 0, 0)
 with IBreathableArmor
@@ -24,8 +22,6 @@ with IRevealer {
 
   setUnlocalizedName("powerArmorHelmet")
 
-
-  def getArmorType: Poison.ArmorType = ArmorType.HELM
 
   // IBreathableArmor
   def handleGearType(gearType: EnumGearType): Boolean = gearType eq EnumGearType.HELMET

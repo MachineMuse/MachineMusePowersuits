@@ -1,13 +1,12 @@
 package net.machinemuse.api
 
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.item.ItemStack
+import net.minecraft.item.{ItemArmor, ItemStack}
 import net.machinemuse.utils.ElectricItemUtils
 import net.machinemuse.powersuits.powermodule.armor.{HazmatModule, ApiaristArmorModule}
 import forestry.api.apiculture.IArmorApiarist
 import net.minecraft.entity.EntityLivingBase
 import atomicscience.api.IAntiPoisonArmor
-import atomicscience.api.poison.Poison
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -28,10 +27,13 @@ trait ApiaristArmor extends IArmorApiarist {
   }
 }
 
-trait RadiationArmor extends IAntiPoisonArmor {
-  def isProtectedFromPoison(itemStack: ItemStack, EntityLivingBase: EntityLivingBase, `type`: Poison): Boolean = {
+trait RadiationArmor extends ItemArmor with IAntiPoisonArmor {
+  def isProtectedFromPoison(itemStack: ItemStack, EntityLivingBase: EntityLivingBase, poisontype: String): Boolean = {
     ModuleManager.itemHasActiveModule(itemStack, HazmatModule.MODULE_HAZMAT)
   }
 
-  def onProtectFromPoison(itemStack: ItemStack, EntityLivingBase: EntityLivingBase, `type`: Poison) {}
+
+  def getArmorType:Int = this.armorType
+
+  def onProtectFromPoison(itemStack: ItemStack, EntityLivingBase: EntityLivingBase, poisontype: String) {}
 }

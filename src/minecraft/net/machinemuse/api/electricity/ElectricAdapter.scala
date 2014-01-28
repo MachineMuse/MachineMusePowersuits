@@ -1,7 +1,6 @@
 package net.machinemuse.api.electricity
 
 import net.minecraft.item.ItemStack
-import universalelectricity.core.item.IItemElectric
 import net.machinemuse.powersuits.common.ModCompatability
 import ic2.api.item.{ElectricItem, IElectricItem}
 import net.machinemuse.api.electricity.ElectricConversions._
@@ -12,7 +11,6 @@ object ElectricAdapter {
     if (stack == null) return null
     stack.getItem match {
       case i: IEnergyContainerItem => new TEElectricAdapter(stack)
-      case i: IItemElectric => new UEElectricAdapter(stack)
       case i: IElectricItem => if (ModCompatability.isIndustrialCraftLoaded) new IC2ElectricAdapter(stack) else null
       case _ => null
     }
@@ -55,25 +53,4 @@ class TEElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
 
   def giveEnergy(provided: Double): Double = museEnergyFromRF(item.receiveEnergy(stack, museEnergyToRF(provided), false))
 
-}
-
-
-class UEElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
-  val item = stack.getItem.asInstanceOf[IItemElectric]
-
-  def getCurrentEnergy: Double = museEnergyFromJoules(item.getElectricityStored(stack))
-
-  def getMaxEnergy: Double = museEnergyFromJoules(item.getMaxElectricityStored(stack))
-
-  def drainEnergy(requested: Double): Double = {
-    val joules: Double = museEnergyToJoules(requested)
-    val received: Float = item.discharge(stack, joules.toFloat, true)
-    museEnergyFromJoules(received)
-  }
-
-  def giveEnergy(provided: Double): Double = {
-    val joulesToProvide: Double = museEnergyToJoules(provided)
-    val eatenJoules: Float = item.recharge(stack, joulesToProvide.toFloat, true)
-    museEnergyFromJoules(eatenJoules)
-  }
 }

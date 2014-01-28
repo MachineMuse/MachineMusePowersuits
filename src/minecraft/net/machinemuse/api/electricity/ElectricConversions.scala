@@ -2,7 +2,6 @@ package net.machinemuse.api.electricity
 
 import net.minecraft.item.ItemStack
 import net.machinemuse.powersuits.common.ModCompatability
-import universalelectricity.core.electricity.ElectricityPack
 import net.machinemuse.api.ModuleManager
 
 /**
@@ -28,13 +27,4 @@ object ElectricConversions {
   def museEnergyToMJ(museEnergy: Double): Double = museEnergy / ModCompatability.getBCRatio
 
   def museEnergyFromMJ(mj: Double): Double = mj * ModCompatability.getBCRatio
-
-  // UE
-  def museEnergyToElectricityPack(museEnergy: Double, voltage: Float): ElectricityPack = new ElectricityPack(museEnergyToJoules(museEnergy) * 20.0F / voltage, voltage)
-
-  def museEnergyFromElectricityPack(pack: ElectricityPack): Double = museEnergyFromJoules(pack.amperes / 20.0F * pack.voltage)
-
-  def museEnergyToJoules(energy: Double): Float = (energy / ModCompatability.getUERatio).toFloat
-
-  def museEnergyFromJoules(energy: Float): Double = energy * ModCompatability.getUERatio
 }
