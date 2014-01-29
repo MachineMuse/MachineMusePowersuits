@@ -149,4 +149,15 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int)
     }
   }
 
+  /**
+   * Fixes issue #458.
+   * Someone who's better at Minecraft modding should probably check this.
+   * Also, I may or may not know Scala. It looks like ActionScript to me,
+   * which I don't know either. In any case, someone should check this.
+   * It's pretty much just copied from ArmorTraits.scala. And, ant keeps
+   * throwing unintelligible errors.
+   */
+  override def isProtectedFromPoison(itemStack: ItemStack, EntityLivingBase: EntityLivingBase, poisonType: String): Boolean = {
+    ModuleManager.itemHasActiveModule(itemStack, HazmatModule.MODULE_HAZMAT)
+  }
 }
