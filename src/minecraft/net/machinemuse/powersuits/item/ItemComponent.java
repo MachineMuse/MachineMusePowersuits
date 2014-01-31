@@ -126,6 +126,7 @@ public class ItemComponent extends Item {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister iconRegister) {
+        icons.clear();
         for (String iconName : iconNames) {
             icons.add(iconRegister.registerIcon(MuseIcon.ICON_PREFIX + iconName));
         }
