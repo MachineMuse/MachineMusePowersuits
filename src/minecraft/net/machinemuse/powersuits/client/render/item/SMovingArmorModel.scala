@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.render.item
 
-import net.minecraft.src.ModelPlayer
 import net.minecraft.entity.Entity
+import api.player.model.ModelPlayer
 
 /**
  * Author: MachineMuse (Claire Semple)

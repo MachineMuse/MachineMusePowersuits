@@ -12,10 +12,4 @@ src/minecraft/*
 src/minecraft/net/*
 !src/minecraft/net/machinemuse
 
-!src/minecraft/net/minecraft
-
-src/minecraft/net/minecraft/*
-!src/minecraft/net/minecraft/src/
-
-src/minecraft/net/minecraft/src/*
-!src/minecraft/net/minecraft/src/ModelPlayer.java
+!src/minecraft/api

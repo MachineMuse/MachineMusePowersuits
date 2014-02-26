@@ -1,4 +1,4 @@
-package net.minecraft.src;
+package api.player.model;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

@@ -234,7 +234,7 @@
                         value="*/ dependencies = &quot;required-after:Forge@[${forgeant.version},);after:IC2;required-after:numina;after:RenderPlayerAPI&quot;, /*"/>
             </filterset>
         </copy>
-        <copy todir="${mcpsrc.dir}/net/minecraft/src" file="${src.dir}/minecraft/net/minecraft/src/ModelPlayer.java"/>
+        <copy todir="${mcpsrc.dir}/api/player/model" file="${src.dir}/minecraft/api/player/model/ModelPlayer.java"/>
     </target>
 
     <target name="build" depends="extract-apis,copy-source,update-names" unless="already-compiled">
