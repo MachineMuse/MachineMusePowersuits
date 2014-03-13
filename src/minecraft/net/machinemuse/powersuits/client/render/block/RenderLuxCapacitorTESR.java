@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.client.render.block;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.render.MuseTESR;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
 import net.machinemuse.powersuits.common.Config;
