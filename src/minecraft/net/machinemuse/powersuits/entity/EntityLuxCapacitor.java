@@ -74,14 +74,20 @@ public class EntityLuxCapacitor extends EntityThrowable {
             if (y > 0) {
                 int blockID = worldObj.getBlockId(x, y, z);
                 if (blockID <= 0 || Block.blocksList[blockID] == null || Block.blocksList[blockID].isAirBlock(worldObj, x, y, z)) {
-                    for (ForgeDirection d : ForgeDirection.values()) {
-                        int xo = x + d.offsetX;
-                        int yo = y + d.offsetY;
-                        int zo = z + d.offsetZ;
-                        int blockToStickTo = worldObj.getBlockId(xo, yo, zo);
-                        if(Block.isNormalCube(blockToStickTo)) {
-                            worldObj.setBlock(x, y, z, BlockLuxCapacitor.assignedBlockID, 0, 7);
-                            worldObj.setBlockTileEntity(x, y, z, new TileEntityLuxCapacitor(d, red, green, blue));
+                    int blockToStickTo = worldObj.getBlockId(x, y, z);
+                    if (Block.isNormalCube(blockToStickTo)) {
+                        worldObj.setBlock(x, y, z, BlockLuxCapacitor.assignedBlockID, 0, 7);
+                        worldObj.setBlockTileEntity(x, y, z, new TileEntityLuxCapacitor(dir, red, green, blue));
+                    } else {
+                        for (ForgeDirection d : ForgeDirection.values()) {
+                            int xo = x + d.offsetX;
+                            int yo = y + d.offsetY;
+                            int zo = z + d.offsetZ;
+                            blockToStickTo = worldObj.getBlockId(xo, yo, zo);
+                            if (Block.isNormalCube(blockToStickTo)) {
+                                worldObj.setBlock(x, y, z, BlockLuxCapacitor.assignedBlockID, 0, 7);
+                                worldObj.setBlockTileEntity(x, y, z, new TileEntityLuxCapacitor(d, red, green, blue));
+                            }
                         }
                     }
                 }
