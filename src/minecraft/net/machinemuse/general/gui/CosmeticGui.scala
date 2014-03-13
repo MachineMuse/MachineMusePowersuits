@@ -1,7 +1,7 @@
 package net.machinemuse.general.gui
 
 import net.minecraft.entity.player.EntityPlayer
-import net.machinemuse.general.gui.frame.{ColourPickerFrame, ItemModelViewFrame, PartManipContainer, ItemSelectionFrame}
+import net.machinemuse.general.gui.frame._
 import net.minecraft.item.ItemStack
 import net.machinemuse.utils.render.GlowBuffer
 import net.minecraft.client.gui.ScaledResolution
@@ -12,7 +12,7 @@ import net.machinemuse.numina.geometry.{MuseRect, Colour, MusePoint2D}
  * Author: MachineMuse (Claire Semple)
  * Created: 6:32 PM, 29/04/13
  */
-class CosmeticGui(val player: EntityPlayer) extends MuseGui {
+class CosmeticGui(val player: EntityPlayer, val worldx:Int, val worldy:Int, val worldz:Int) extends MuseGui {
   var itemSelect: ItemSelectionFrame = null
   var lastSelectedItem: ItemStack = null
   this.xSize = 256
@@ -59,6 +59,12 @@ class CosmeticGui(val player: EntityPlayer) extends MuseGui {
     )
     frames.add(partframe)
 
+    val tabFrame: TabSelectFrame = new TabSelectFrame(
+      player,
+      new MusePoint2D(absX(-0.95F), absY(-1.05f)),
+      new MusePoint2D(absX(0.95F), absY(-0.95f)),
+      worldx, worldy, worldz)
+    frames.add(tabFrame)
   }
 
   override def update() {

@@ -16,12 +16,12 @@ import java.util.EnumSet;
 
 @SideOnly(Side.CLIENT)
 public class KeybindKeyHandler extends KeyHandler {
-    public static KeyBinding openKeybindGUI = new KeyBinding("Open MPS Keybind GUI", Keyboard.KEY_K);
+    public static KeyBinding openKeybindGUI = new KeyBinding("Open MPS Keybind GUI", -1);
     public static KeyBinding goDownKey = new KeyBinding("Go Down (MPS Flight Control)", Keyboard.KEY_Z);
     public static KeyBinding cycleToolBackward = new KeyBinding("Cycle Tool Backward (MPS)", -1);
     public static KeyBinding cycleToolForward = new KeyBinding("Cycle Tool Forward (MPS)", -1);
     public static KeyBinding zoom = new KeyBinding("Zoom (MPS)", Keyboard.KEY_Y);
-    public static KeyBinding openCosmeticGUI = new KeyBinding("Cosmetic (MPS)", Keyboard.KEY_L);
+    public static KeyBinding openCosmeticGUI = new KeyBinding("Cosmetic (MPS)", -1);
     public static KeyBinding[] keybindArray = new KeyBinding[]{openKeybindGUI, goDownKey, cycleToolBackward, cycleToolForward, zoom, openCosmeticGUI};
     public static boolean[] repeats = new boolean[keybindArray.length];
 

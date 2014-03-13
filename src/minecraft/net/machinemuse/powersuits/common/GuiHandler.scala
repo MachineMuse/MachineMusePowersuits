@@ -31,10 +31,10 @@ class GuiHandler extends IGuiHandler {
     Minecraft.getMinecraft.thePlayer.addStat(AchievementList.openInventory, 1)
     OptionCast[EntityClientPlayerMP](player) map (p =>
       ID match {
-        case 0 => new GuiTinkerTable(p)
-        case 1 => new KeyConfigGui(p)
+        case 0 => new GuiTinkerTable(p, x, y, z)
+        case 1 => new KeyConfigGui(p, x, y, z)
         case 2 => new GuiFieldTinker(p)
-        case 3 => new CosmeticGui(p)
+        case 3 => new CosmeticGui(p, x, y, z)
         case _ => None
       }) getOrElse null
   }

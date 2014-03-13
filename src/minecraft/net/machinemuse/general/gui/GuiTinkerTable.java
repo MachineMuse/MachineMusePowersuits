@@ -6,6 +6,7 @@ import net.machinemuse.general.gui.frame.*;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ChunkCoordinates;
 
 /**
  * The gui class for the TinkerTable block.
@@ -16,6 +17,10 @@ public class GuiTinkerTable extends MuseGui {
     protected EntityClientPlayerMP player;
 
     protected ItemSelectionFrame itemSelectFrame;
+
+    protected int worldx;
+    protected int worldy;
+    protected int worldz;
 
     /**
      * Constructor. Takes a player as an argument.
@@ -28,6 +33,15 @@ public class GuiTinkerTable extends MuseGui {
         this.ySize = 200;
     }
 
+    public GuiTinkerTable(EntityPlayer player, int x, int y, int z) {
+        this.player = (EntityClientPlayerMP) player;
+        this.xSize = 256;
+        this.ySize = 200;
+        this.worldx = x;
+        this.worldy = y;
+        this.worldz = z;
+
+    }
     /**
      * Add the buttons (and other controls) to the screen.
      */
@@ -53,6 +67,9 @@ public class GuiTinkerTable extends MuseGui {
         ModuleTweakFrame tweakFrame = new ModuleTweakFrame(player, new MusePoint2D(absX(0f), absY(0f)), new MusePoint2D(absX(0.9f), absY(0.9f)),
                 Colour.LIGHTBLUE.withAlpha(0.8), Colour.DARKBLUE.withAlpha(0.8), itemSelectFrame, moduleSelectFrame);
         frames.add(tweakFrame);
+
+        TabSelectFrame tabFrame = new TabSelectFrame(player, new MusePoint2D(absX(-0.95F), absY(-1.05f)),new MusePoint2D(absX(0.95F), absY(-0.95f)), worldx, worldy, worldz);
+        frames.add(tabFrame);
     }
 
     @Override
