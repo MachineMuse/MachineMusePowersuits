@@ -10,7 +10,8 @@ object ElectricAdapter {
   def wrap(stack: ItemStack): ElectricAdapter = {
     if (stack == null) return null
     stack.getItem match {
-      case i: IEnergyContainerItem => new TEElectricAdapter(stack)
+      case i: MuseElectricItem => new MuseElectricAdapter(stack)
+      case i: IEnergyContainerItem => if (ModCompatability.isCoFHCoreLoaded) new TEElectricAdapter(stack) else null
       case i: IElectricItem => if (ModCompatability.isIndustrialCraftLoaded) new IC2ElectricAdapter(stack) else null
       case _ => null
     }
@@ -26,6 +27,18 @@ abstract class ElectricAdapter {
   def drainEnergy(requested: Double): Double
 
   def giveEnergy(provided: Double): Double
+}
+
+class MuseElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
+  val item = stack.getItem.asInstanceOf[MuseElectricItem]
+
+  def getCurrentEnergy = item.getCurrentEnergy(stack)
+
+  def getMaxEnergy = item.getMaxEnergy(stack)
+
+  def drainEnergy(requested: Double) = item.drainEnergyFrom(stack, requested)
+
+  def giveEnergy(provided: Double) = item.giveEnergyTo(stack, provided)
 }
 
 class IC2ElectricAdapter(val stack: ItemStack) extends ElectricAdapter {

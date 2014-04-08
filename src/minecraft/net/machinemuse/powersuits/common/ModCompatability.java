@@ -43,6 +43,10 @@ public class ModCompatability {
         return Loader.isModLoaded("GalacticraftCore");
     }
 
+    public static boolean isCoFHCoreLoaded() {
+        return Loader.isModLoaded("CoFHCore");
+    }
+
     public static boolean isForestryLoaded() {
         return Loader.isModLoaded("Forestry");
     }

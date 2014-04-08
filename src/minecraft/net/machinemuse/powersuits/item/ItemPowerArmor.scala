@@ -17,6 +17,7 @@ import net.machinemuse.powersuits.client.render.item.ArmorModel
 import net.machinemuse.api.{ModuleManager, ArmorTraits, IModularItem}
 import net.machinemuse.numina.geometry.Colour
 import cpw.mods.fml.common.registry.GameRegistry
+import cpw.mods.fml.common.Optional
 
 /**
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.
