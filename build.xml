@@ -176,7 +176,7 @@
             <fileset dir="${mcplib.dir}" includes="Numina-*.jar"/>
         </delete>
         <move todir="${mcplib.dir}">
-            <fileset dir="${dist.dir}" includes="Numina-dev-*.jar"/>
+            <fileset dir="${dist.dir}" includes="Numina-*-deobf.jar"/>
         </move>
 
         <get src="${apisource.url}/slick-util.jar"
