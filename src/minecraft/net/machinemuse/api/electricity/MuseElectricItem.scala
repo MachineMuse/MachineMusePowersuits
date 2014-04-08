@@ -151,8 +151,8 @@ trait MuseElectricItem
     museEnergyToRF(takenME)
   }
 
-  def getEnergyStored(theItem: ItemStack) = museEnergyToMJ(getCurrentEnergy(theItem)).toInt
+  def getEnergyStored(theItem: ItemStack) = museEnergyToRF(getCurrentEnergy(theItem)).toInt
 
-  def getMaxEnergyStored(theItem: ItemStack) = museEnergyToMJ(getMaxEnergy(theItem)).toInt
+  def getMaxEnergyStored(theItem: ItemStack) = museEnergyToRF(getMaxEnergy(theItem)).toInt
 
 }
