@@ -15,6 +15,7 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.nbt.NBTTagList
 import net.minecraft.util.StatCollector
 import java.util.List
+import net.machinemuse.numina.general.MuseLogger
 
 object SprintAssistModule {
   val MODULE_SPRINT_ASSIST: String = "Sprint Assist"
@@ -44,7 +45,10 @@ class SprintAssistModule(validItems: List[IModularItem]) extends PowerModuleBase
   def getDescription: String = "A set of servo motors to help you sprint (double-tap forward) and walk faster."
 
   def onPlayerTickActive(player: EntityPlayer, item: ItemStack) {
-    val horzMovement: Double = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ)
+    val motionX = player.posX - player.lastTickPosX
+    val motionY = player.posY - player.lastTickPosY
+    val motionZ = player.posZ - player.lastTickPosZ
+    val horzMovement: Double = Math.sqrt(motionX * motionX + motionZ * motionZ)
     val totalEnergy: Double = ElectricItemUtils.getPlayerEnergy(player)
     if (player.isSprinting) {
       val exhaustion: Double = Math.round(horzMovement * 100.0F) * 0.01
