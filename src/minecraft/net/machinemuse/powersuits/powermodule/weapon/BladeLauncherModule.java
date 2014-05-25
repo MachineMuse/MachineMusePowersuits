@@ -55,9 +55,9 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
     }
 
     @Override
-    public void onRightClick(EntityPlayer player, World world, ItemStack item) {
-        if (ElectricItemUtils.getPlayerEnergy(player) > 500) {
-            player.setItemInUse(item, 72000);
+    public void onRightClick(EntityPlayer player, World world, ItemStack stack) {
+        if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, BLADE_ENERGY)) {
+            player.setItemInUse(stack, 72000);
         }
     }
 
