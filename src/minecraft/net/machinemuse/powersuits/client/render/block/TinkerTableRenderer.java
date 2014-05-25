@@ -27,7 +27,7 @@ public class TinkerTableRenderer extends MuseTESR implements ISimpleBlockRenderi
     }
 
     @Override
-    public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float partialTickTime) {
+    public void renderAt(TileEntity tileEntity, double x, double y, double z, float partialTickTime) {
         this.bindTextureByName(Config.TINKERTABLE_TEXTURE_PATH);
         GL11.glPushMatrix();
         GL11.glTranslated(x, y, z);

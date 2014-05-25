@@ -42,7 +42,7 @@ public class RenderLuxCapacitorTESR extends MuseTESR implements ISimpleBlockRend
     }
 
     @Override
-    public void renderTileEntityAt(TileEntity undifferentiatedtileentity, double x, double y, double z, float partialTickTime) {
+    public void renderAt(TileEntity undifferentiatedtileentity, double x, double y, double z, float partialTickTime) {
         TileEntityLuxCapacitor tileentity = (TileEntityLuxCapacitor) undifferentiatedtileentity;
         this.bindTextureByName(Config.TEXTURE_PREFIX + "models/thusters_uvw_2.png");
         glPushMatrix();
