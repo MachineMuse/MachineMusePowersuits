@@ -162,10 +162,14 @@ public class RecipeManager {
 
             Recipes.advRecipes.addRecipe(ItemComponent.lvcapacitor, "WBW", 'W', ItemComponent.wiring.copy(), 'B', fullBattery);
 
-            Recipes.advRecipes.addRecipe(ItemComponent.mvcapacitor, "WBW", 'W', ItemComponent.wiring.copy(), 'B', energyCrystal);
+            Recipes.advRecipes.addRecipe(ItemComponent.mvcapacitor, "WBW", 'W', ItemComponent.wiring.copy(), 'B', ItemStack(energyCrystal, 1, 26));
+            
+            Recipes.advRecipes.addRecipe(ItemComponent.mvcapacitor, "WBW", 'W', ItemComponent.wiring.copy(), 'B', ItemStack(energyCrystal, 1, 1));
 
-            Recipes.advRecipes.addRecipe(ItemComponent.hvcapacitor, "WBW", 'W', ItemComponent.wiring.copy(), 'B', lapotronCrystal);
+            Recipes.advRecipes.addRecipe(ItemComponent.hvcapacitor, "WBW", 'W', ItemComponent.wiring.copy(), 'B', ItemStack(lapotronCrystal, 1, 26));
 
+            Recipes.advRecipes.addRecipe(ItemComponent.hvcapacitor, "WBW", 'W', ItemComponent.wiring.copy(), 'B', ItemStack(lapotronCrystal, 1, 1));
+            
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.solenoid, true, " W ", "WIW", " W ", 'W', ItemComponent.wiring, 'I', machine));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(ItemComponent.gliderWing, true, " CC", "CCI", "C  ", 'C', carbonPlate.copy(), 'I',
