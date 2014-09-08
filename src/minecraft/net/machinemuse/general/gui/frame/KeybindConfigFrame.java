@@ -274,7 +274,13 @@ public class KeybindConfigFrame implements IGuiFrame {
     }
 
     private void addKeybind(int key, boolean free) {
-        KeyBinding keybind = new KeyBinding(Keyboard.getKeyName(key), key);
+        String name;
+        try {
+            name = Keyboard.getKeyName(key);
+        } catch (Exception e) {
+            name = "???";
+        }
+        KeyBinding keybind = new KeyBinding(name, key);
         ClickableKeybinding clickie = new ClickableKeybinding(keybind, newKeybindButton.getPosition().plus(new MusePoint2D(0, -20)), free);
         KeybindManager.getKeybindings().add(clickie);
     }
