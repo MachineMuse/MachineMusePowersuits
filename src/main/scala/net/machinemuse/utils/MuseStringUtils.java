@@ -1,5 +1,7 @@
 package net.machinemuse.utils;
 
+import net.minecraft.util.ResourceLocation;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -173,9 +175,15 @@ public abstract class MuseStringUtils {
         return strlist;
     }
 
-    public static String extractName(String resource) {
-        int ix = Math.max(resource.lastIndexOf('/'), resource.lastIndexOf('\\')) + 1;
-        return resource.substring(ix, resource.lastIndexOf('.'));
+    public static String extractName(ResourceLocation resource) {
+        String filename = resource.toString();
+        int ix = Math.max(filename.lastIndexOf('/'), Math.max(filename.lastIndexOf('\\'), filename.lastIndexOf(':'))) + 1;
+        return filename.substring(ix, filename.lastIndexOf('.'));
+    }
+
+    public static String extractName(String filename) {
+        int ix = Math.max(filename.lastIndexOf('/'), Math.max(filename.lastIndexOf('\\'), filename.lastIndexOf(':'))) + 1;
+        return filename.substring(ix, filename.lastIndexOf('.'));
     }
 
     /**

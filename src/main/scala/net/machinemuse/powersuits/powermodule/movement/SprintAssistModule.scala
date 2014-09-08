@@ -73,11 +73,11 @@ class SprintAssistModule(validItems: List[IModularItem]) extends PowerModuleBase
   }
 
   def setMovementModifier(item: ItemStack, multiplier: Double) {
-    val modifiers: NBTTagList = item.getTagCompound.getTagList("AttributeModifiers")
+    val modifiers: NBTTagList = item.getTagCompound.getTagList("AttributeModifiers", 10.asInstanceOf[Byte]) // Type 10 for tag compound
     item.getTagCompound.setTag("AttributeModifiers", modifiers)
     val sprintModifiers =
       for (i <- 0 until modifiers.tagCount()) yield {
-        val tag = modifiers.tagAt(i).asInstanceOf[NBTTagCompound]
+        val tag = modifiers.getCompoundTagAt(i).asInstanceOf[NBTTagCompound]
         if (new AttributeModifier(tag).name == "Sprint Assist") {
           Some(tag)
         } else None
@@ -93,9 +93,9 @@ class SprintAssistModule(validItems: List[IModularItem]) extends PowerModuleBase
   def onPlayerTickInactive(player: EntityPlayer, item: ItemStack) {
     if (item != null) {
 
-      val modifiers: NBTTagList = item.getTagCompound.getTagList("AttributeModifiers")
+      val modifiers: NBTTagList = item.getTagCompound.getTagList("AttributeModifiers", 10.asInstanceOf[Byte])
       for (i <- 0 until modifiers.tagCount()) yield {
-        val tag = modifiers.tagAt(i).asInstanceOf[NBTTagCompound]
+        val tag = modifiers.getCompoundTagAt(i)
         if (new AttributeModifier(tag).name == "Sprint Assist") {
           Some(tag)
         } else None

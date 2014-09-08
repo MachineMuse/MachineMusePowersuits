@@ -8,10 +8,10 @@ import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -26,7 +26,7 @@ import net.minecraftforge.common.MinecraftForge;
 public class BlockTinkerTable extends Block {
 	protected int renderType;
 	public static int assignedBlockID;
-	public static Icon energyIcon;
+	public static IIcon energyIcon;
 
 	public BlockTinkerTable setRenderType(int id) {
 		this.renderType = id;
@@ -90,7 +90,7 @@ public class BlockTinkerTable extends Block {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister) {
+	public void registerIcons(IIconRegister iconRegister) {
 		this.blockIcon = iconRegister.registerIcon(MuseIcon.ICON_PREFIX + "heatresistantplating");
 		energyIcon = blockIcon;
 	}

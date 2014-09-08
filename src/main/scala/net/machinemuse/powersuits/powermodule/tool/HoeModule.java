@@ -13,7 +13,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -113,7 +113,7 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
     }
 
     @Override
-    public Icon getIcon(ItemStack item) {
-        return Item.hoeGold.getIconFromDamage(0);
+    public IIcon getIcon(ItemStack item) {
+        return ((Item) Item.itemRegistry.getObject("golden_hoe")).getIconFromDamage(0);
     }
 }

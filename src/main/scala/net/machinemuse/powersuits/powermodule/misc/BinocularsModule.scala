@@ -33,7 +33,7 @@ class BinocularsModule(list: java.util.List[IModularItem]) extends PowerModuleBa
 
   override def onPlayerTickActive(player: EntityPlayer, item: ItemStack) {
     if (FMLCommonHandler.instance().getEffectiveSide.isClient) {
-      val fov = KeybindKeyHandler.zoom.pressed match {
+      val fov = KeybindKeyHandler.zoom.getIsKeyPressed match {
         case true => ModuleManager.computeModularProperty(item, FOV_MULTIPLIER).toFloat
         case false => 0.1f
       }

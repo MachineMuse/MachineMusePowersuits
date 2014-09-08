@@ -1,41 +1,36 @@
 package net.machinemuse.powersuits.item
 
-import cpw.mods.fml.relauncher.Side
-import cpw.mods.fml.relauncher.SideOnly
-import forestry.api.arboriculture.IToolGrafter
+import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.machinemuse.api._
 import net.machinemuse.api.moduletrigger.IRightClickModule
 import net.machinemuse.general.gui.MuseIcon
+import net.machinemuse.numina.scala.OptionCast
 import net.machinemuse.powersuits.common.Config
-import net.machinemuse.powersuits.powermodule.tool.{OmniWrenchModule, GrafterModule}
+import net.machinemuse.powersuits.powermodule.tool.{GrafterModule, OmniWrenchModule}
 import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule
 import net.machinemuse.utils.{ElectricItemUtils, MuseHeatUtils}
 import net.minecraft.block.Block
-import net.minecraft.client.renderer.texture.IconRegister
-import net.minecraft.entity.{EntityLivingBase, Entity}
+import net.minecraft.client.renderer.texture.IIconRegister
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.item.EnumAction
-import net.minecraft.item.EnumToolMaterial
-import net.minecraft.item.ItemStack
+import net.minecraft.entity.{Entity, EntityLivingBase}
+import net.minecraft.item.Item.ToolMaterial
+import net.minecraft.item.{EnumAction, ItemStack}
 import net.minecraft.util.{DamageSource, Vec3}
 import net.minecraft.world.World
-import net.machinemuse.numina.scala.OptionCast
-import scala.Predef.String
 
 /**
  * Describes the modular power tool.
  *
  * @author MachineMuse
  */
-class ItemPowerFist extends ItemElectricTool(Config.fistID, 0, EnumToolMaterial.EMERALD, new Array[Block](0))
+class ItemPowerFist extends ItemElectricTool(0, ToolMaterial.EMERALD)
 with IModularItem
-with IToolGrafter
-with OmniWrench
+//with IToolGrafter
+//with OmniWrench
 with ModeChangingModularItem {
   val iconpath: String = MuseIcon.ICON_PREFIX + "handitem"
   setMaxStackSize(1)
   setMaxDamage(0)
-  this.damageVsEntity = 1
   setCreativeTab(Config.getCreativeTab)
   setUnlocalizedName("powerFist")
 
@@ -44,14 +39,14 @@ with ModeChangingModularItem {
    * Returns the strength of the stack against a given block. 1.0F base,
    * (Quality+1)*2 if correct blocktype, 1.5F if sword
    */
-  override def getStrVsBlock(stack: ItemStack, block: Block): Float = getStrVsBlock(stack, block, 0)
+  def getStrVsBlock(stack: ItemStack, block: Block): Float = getStrVsBlock(stack, block, 0)
 
   /**
    * FORGE: Overridden to allow custom tool effectiveness
    */
-  override def getStrVsBlock(stack: ItemStack, block: Block, meta: Int): Float = 1
+  def getStrVsBlock(stack: ItemStack, block: Block, meta: Int): Float = 1
 
-  @SideOnly(Side.CLIENT) override def registerIcons(iconRegister: IconRegister) {
+  @SideOnly(Side.CLIENT) override def registerIcons(iconRegister: IIconRegister) {
     itemIcon = iconRegister.registerIcon(iconpath)
   }
 
@@ -86,7 +81,7 @@ with ModeChangingModularItem {
    * <p/>
    * Returns: Whether to increment player use stats with this item
    */
-  override def onBlockDestroyed(stack: ItemStack, world: World, blockID: Int, x: Int, y: Int, z: Int, entity: EntityLivingBase): Boolean = {
+  def onBlockDestroyed(stack: ItemStack, world: World, blockID: Int, x: Int, y: Int, z: Int, entity: EntityLivingBase): Boolean = {
     entity match {
       case player: EntityPlayer =>
         import scala.collection.JavaConversions._
@@ -112,7 +107,7 @@ with ModeChangingModularItem {
    * @param itemStack  The itemstack
    * @return the damage
    */
-  override def getDamageVsEntity(par1Entity: Entity, itemStack: ItemStack): Float = {
+  def getDamageVsEntity(par1Entity: Entity, itemStack: ItemStack): Float = {
     ModuleManager.computeModularProperty(itemStack, MeleeAssistModule.PUNCH_DAMAGE).toFloat
   }
 
@@ -175,13 +170,13 @@ with ModeChangingModularItem {
     }
   }
 
-  override def shouldPassSneakingClickToBlock(world: World, x: Int, y: Int, z: Int): Boolean = true
+  def shouldPassSneakingClickToBlock(world: World, x: Int, y: Int, z: Int): Boolean = true
 
   override def onItemUseFirst(itemStack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z: Int, side: Int, hitX: Float, hitY: Float, hitZ: Float): Boolean = {
     val mode: String = getActiveMode(itemStack, player)
     val module: IPowerModule = ModuleManager.getModule(mode)
     module match {
-      case m:IRightClickModule => m.onItemUseFirst(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ)
+      case m: IRightClickModule => m.onItemUseFirst(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ)
       case _ => false
     }
   }
@@ -190,7 +185,7 @@ with ModeChangingModularItem {
     val mode: String = getActiveMode(itemStack, player)
     val module: IPowerModule = ModuleManager.getModule(mode)
     module match {
-      case m:IRightClickModule => m.onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ); false
+      case m: IRightClickModule => m.onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ); false
       case _ => false
     }
   }
@@ -206,7 +201,7 @@ with ModeChangingModularItem {
   }
 
   def canHarvestBlock(stack: ItemStack, block: Block, meta: Int, player: EntityPlayer): Boolean = {
-    if (block.blockMaterial.isToolNotRequired) {
+    if (block.getMaterial.isToolNotRequired) {
       return true
     }
     import scala.collection.JavaConversions._

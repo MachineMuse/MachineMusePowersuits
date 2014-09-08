@@ -1,15 +1,15 @@
 package net.machinemuse.powersuits.event;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.general.sound.SoundLoader;
+import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.powersuits.item.ItemPowerArmor;
 import net.machinemuse.powersuits.powermodule.movement.JumpAssistModule;
 import net.machinemuse.powersuits.powermodule.movement.ShockAbsorberModule;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 
@@ -21,18 +21,18 @@ public class MovementManager {
 
     public static double getPlayerJumpMultiplier(EntityPlayer player) {
 
-        if (playerJumpMultipliers.containsKey(player.username)) {
-            return playerJumpMultipliers.get(player.username);
+        if (playerJumpMultipliers.containsKey(player.getCommandSenderName())) {
+            return playerJumpMultipliers.get(player.getCommandSenderName());
         } else {
             return 0;
         }
     }
 
     public static void setPlayerJumpTicks(EntityPlayer player, double number) {
-        playerJumpMultipliers.put(player.username, number);
+        playerJumpMultipliers.put(player.getCommandSenderName(), number);
     }
 
-    @ForgeSubscribe
+    @SubscribeEvent
     public void handleLivingJumpEvent(LivingJumpEvent event) {
         if (event.entityLiving instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.entityLiving;
@@ -42,7 +42,7 @@ public class MovementManager {
                 double jumpAssist = ModuleManager.computeModularProperty(stack, JumpAssistModule.JUMP_MULTIPLIER) * 2;
                 double drain = ModuleManager.computeModularProperty(stack, JumpAssistModule.JUMP_ENERGY_CONSUMPTION);
                 double avail = ElectricItemUtils.getPlayerEnergy(player);
-                Musique.playerSound(player, SoundLoader.SOUND_JUMP_ASSIST, (float) (jumpAssist/8.0), 2, false);
+                Musique.playerSound(player, SoundLoader.SOUND_JUMP_ASSIST, (float) (jumpAssist / 8.0), 2, false);
                 if (drain < avail) {
                     ElectricItemUtils.drainPlayerEnergy(player, drain);
                     setPlayerJumpTicks(player, jumpAssist);
@@ -59,7 +59,7 @@ public class MovementManager {
         }
     }
 
-    @ForgeSubscribe
+    @SubscribeEvent
     public void handleFallEvent(LivingFallEvent event) {
         if (event.entityLiving instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.entityLiving;

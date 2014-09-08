@@ -1,11 +1,10 @@
 package net.machinemuse.powersuits.network.packets
 
-import cpw.mods.fml.common.network.Player
-import net.machinemuse.utils.MuseItemUtils
-import net.minecraft.entity.player.EntityPlayerMP
 import java.io.DataInputStream
-import scala.Predef._
+
 import net.machinemuse.numina.network.{MusePackager, MusePacket}
+import net.machinemuse.utils.MuseItemUtils
+import net.minecraft.entity.player.{EntityPlayer, EntityPlayerMP}
 
 
 /**
@@ -13,7 +12,7 @@ import net.machinemuse.numina.network.{MusePackager, MusePacket}
  * Created: 12:28 PM, 5/6/13
  */
 object MusePacketToggleRequest extends MusePackager {
-  def read(d: DataInputStream, p: Player) = {
+  def read(d: DataInputStream, p: EntityPlayer) = {
 
     val module = readString(d)
     val value = readBoolean(d)
@@ -21,7 +20,7 @@ object MusePacketToggleRequest extends MusePackager {
   }
 }
 
-class MusePacketToggleRequest(player: Player, module: String, active: Boolean) extends MusePacket(player) {
+class MusePacketToggleRequest(player: EntityPlayer, module: String, active: Boolean) extends MusePacket {
   val packager = MusePacketToggleRequest
 
   def write() {

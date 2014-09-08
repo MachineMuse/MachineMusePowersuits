@@ -1,14 +1,11 @@
 package net.machinemuse.powersuits.block;
 
 import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.tileentity.MuseTileEntity;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileEntityLuxCapacitor extends TileEntity {
+public class TileEntityLuxCapacitor extends MuseTileEntity {
     public double red;
     public double green;
     public double blue;
@@ -60,20 +57,6 @@ public class TileEntityLuxCapacitor extends TileEntity {
         } else {
             MuseLogger.logDebug("No NBT found! D:");
         }
-    }
-
-    @Override
-    public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
-        readFromNBT(pkt.data);
-
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-    }
-
-    @Override
-    public Packet getDescriptionPacket() {
-        NBTTagCompound tag = new NBTTagCompound();
-        writeToNBT(tag);
-        return new Packet132TileEntityData(xCoord, yCoord, zCoord, 0, tag);
     }
 
     public ForgeDirection side;

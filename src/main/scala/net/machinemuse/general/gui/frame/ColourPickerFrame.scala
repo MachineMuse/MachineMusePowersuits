@@ -1,20 +1,20 @@
 package net.machinemuse.general.gui.frame
 
 import java.util
+
 import net.machinemuse.general.gui.clickable.ClickableSlider
+import net.machinemuse.numina.general.MuseLogger
+import net.machinemuse.numina.geometry.{Colour, DrawableMuseRect, MusePoint2D, MuseRect}
+import net.machinemuse.numina.network.PacketSender
+import net.machinemuse.powersuits.item.ItemPowerArmor
+import net.machinemuse.powersuits.network.packets.MusePacketColourInfo
 import net.machinemuse.utils.MuseItemUtils
 import net.machinemuse.utils.render.GuiIcons
-import GuiIcons._
-import scala.collection.mutable
-import scala.Array
-import net.machinemuse.powersuits.item.ItemPowerArmor
-import net.minecraft.nbt.NBTTagIntArray
-import net.machinemuse.powersuits.network.packets.MusePacketColourInfo
-import cpw.mods.fml.common.network.Player
+import net.machinemuse.utils.render.GuiIcons._
 import net.minecraft.client.Minecraft
-import scala.Some
-import net.machinemuse.numina.general.MuseLogger
-import net.machinemuse.numina.geometry.{DrawableMuseRect, MusePoint2D, Colour, MuseRect}
+import net.minecraft.nbt.NBTTagIntArray
+
+import scala.collection.mutable
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -26,7 +26,7 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
   val gslider: ClickableSlider = new ClickableSlider(new MusePoint2D(border.centerx, border.top + 22), border.width - 10, "Green")
   val bslider: ClickableSlider = new ClickableSlider(new MusePoint2D(border.centerx, border.top + 34), border.width - 10, "Blue")
 
-  def colours: Array[Int] = getOrCreateColourTag.map(e => e.intArray).getOrElse(Array.empty)
+  def colours: Array[Int] = getOrCreateColourTag.map(e => e.func_150302_c /*getIntArray()*/  ).getOrElse(Array.empty)
 
   var selectedSlider: Option[ClickableSlider] = None
   var selectedColour: Int = 0
@@ -37,7 +37,6 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
     val renderSpec = MuseItemUtils.getMuseRenderTag(itemSelector.getSelectedItem.getItem)
     if (renderSpec.hasKey("colours") && renderSpec.getTag("colours").isInstanceOf[NBTTagIntArray]) Some(renderSpec.getTag("colours").asInstanceOf[NBTTagIntArray])
     else {
-      val nbt = new NBTTagIntArray("colours")
       itemSelector.getSelectedItem.getItem.getItem match {
         case itembase: ItemPowerArmor =>
           val intArray: Array[Int] = Array(itembase.getColorFromItemStack(itemSelector.getSelectedItem.getItem).getInt, itembase.getGlowFromItemStack(itemSelector.getSelectedItem.getItem).getInt)
@@ -48,9 +47,19 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
       }
       val player = Minecraft.getMinecraft.thePlayer
       if (player.worldObj.isRemote)
-        player.sendQueue.addToSendQueue(new MusePacketColourInfo(player.asInstanceOf[Player], itemSelector.getSelectedItem.inventorySlot, colours).getPacket131)
+        PacketSender.sendToServer(new MusePacketColourInfo(player, itemSelector.getSelectedItem.inventorySlot, colours))
       Some(renderSpec.getTag("colours").asInstanceOf[NBTTagIntArray])
     }
+  }
+
+  def setColourTagMaybe(newarray: Array[Int]): Option[NBTTagIntArray] = {
+    if (itemSelector.getSelectedItem == null) return None
+    val renderSpec = MuseItemUtils.getMuseRenderTag(itemSelector.getSelectedItem.getItem)
+    renderSpec.setTag("colours", new NBTTagIntArray(newarray))
+    val player = Minecraft.getMinecraft.thePlayer
+    if (player.worldObj.isRemote)
+      PacketSender.sendToServer(new MusePacketColourInfo(player, itemSelector.getSelectedItem.inventorySlot, colours))
+    Some(renderSpec.getTag("colours").asInstanceOf[NBTTagIntArray])
   }
 
   def importColours = {
@@ -78,7 +87,7 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
         colours(selectedColour) = Colour.getInt(rslider.value, gslider.value, bslider.value, 1.0)
         val player = Minecraft.getMinecraft.thePlayer
         if (player.worldObj.isRemote)
-          player.sendQueue.addToSendQueue(new MusePacketColourInfo(player.asInstanceOf[Player], itemSelector.getSelectedItem.inventorySlot, colours).getPacket131)
+          PacketSender.sendToServer(new MusePacketColourInfo(player, itemSelector.getSelectedItem.inventorySlot, colours))
       }
     })
   }
@@ -125,10 +134,8 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
       } else if (colourCol == colours.size) {
         MuseLogger.logDebug("Adding")
         getOrCreateColourTag.map(e => {
-          e.intArray = (e.intArray :+ Colour.WHITE.getInt)
-          val player = Minecraft.getMinecraft.thePlayer
-          if (player.worldObj.isRemote)
-            player.sendQueue.addToSendQueue(new MusePacketColourInfo(player.asInstanceOf[Player], itemSelector.getSelectedItem.inventorySlot, e.intArray).getPacket131)
+          setColourTagMaybe(getIntArray(e) :+ Colour.WHITE.getInt) // append White
+
         })
 
       }
@@ -136,19 +143,20 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
     // remove
     if (y > border.bottom - 24 && y < border.bottom - 16 && x > border.left + 8 + selectedColour * 8 && x < border.left + 16 + selectedColour * 8) {
       getOrCreateColourTag.map(e => {
-        if (e.intArray.size > 1) {
-          e.intArray = e.intArray diff Array(e.intArray(selectedColour))
+        if (getIntArray(e).size > 1) {
+          setColourTagMaybe( getIntArray(e) diff Array(getIntArray(e)(selectedColour)))
           decrAbove = selectedColour
-          if (selectedColour == e.intArray.size) {
+          if (selectedColour == getIntArray(e).size) {
             selectedColour = selectedColour - 1
           }
           val player = Minecraft.getMinecraft.thePlayer
           if (player.worldObj.isRemote)
-            player.sendQueue.addToSendQueue(new MusePacketColourInfo(player.asInstanceOf[Player], itemSelector.getSelectedItem.inventorySlot, e.intArray).getPacket131)
+            PacketSender.sendToServer(new MusePacketColourInfo(player, itemSelector.getSelectedItem.inventorySlot, e.func_150302_c))
         }
       })
 
     }
 
   }
+  def getIntArray(e:NBTTagIntArray) = e.func_150302_c()
 }

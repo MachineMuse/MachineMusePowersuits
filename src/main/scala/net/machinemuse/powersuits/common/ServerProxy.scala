@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.common
 
-import cpw.mods.fml.common.registry.GameRegistry
-import net.machinemuse.powersuits.event.PlayerTracker
+import cpw.mods.fml.common.FMLCommonHandler
+import net.machinemuse.powersuits.event.PlayerLoginHandlerThingy
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -9,7 +9,7 @@ import net.machinemuse.powersuits.event.PlayerTracker
  */
 class ServerProxy extends CommonProxy {
   override def registerEvents {
-    GameRegistry.registerPlayerTracker(new PlayerTracker)
+    FMLCommonHandler.instance().bus().register(PlayerLoginHandlerThingy)
   }
 
 }

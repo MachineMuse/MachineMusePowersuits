@@ -28,7 +28,7 @@ object MuseItemTag {
     val stackTag: NBTTagCompound = if (stack.hasTagCompound) stack.getTagCompound else new NBTTagCompound
     stack.setTagCompound(stackTag)
     val properties: NBTTagCompound = if (stackTag.hasKey(NBTPREFIX)) stackTag.getCompoundTag(NBTPREFIX) else new NBTTagCompound
-    stackTag.setCompoundTag(NBTPREFIX, properties)
+    stackTag.setTag(NBTPREFIX, properties)
 
     properties
   }

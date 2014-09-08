@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.event;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
@@ -7,11 +8,10 @@ import net.machinemuse.powersuits.item.ItemPowerFist;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
 public class HarvestEventHandler {
-    @ForgeSubscribe
+    @SubscribeEvent
     public void handleHarvestCheck(PlayerEvent.HarvestCheck event) {
         EntityPlayer player = event.entityPlayer;
         Block block = event.block;
@@ -21,7 +21,7 @@ public class HarvestEventHandler {
         }
     }
 
-    @ForgeSubscribe
+    @SubscribeEvent
     public void handleBreakSpeed(PlayerEvent.BreakSpeed event) {
         Block block = event.block;
         EntityPlayer player = event.entityPlayer;

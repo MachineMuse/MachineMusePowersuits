@@ -7,12 +7,12 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.utils.MuseStringUtils;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -22,7 +22,7 @@ import java.util.List;
 public class ItemComponent extends Item {
     public static int assignedItemID;
 
-    public static List<Icon> icons;
+    public static List<IIcon> icons;
     public static List<String> iconNames;
     public static List<String> names;
     public static List<String> descriptions;
@@ -51,7 +51,7 @@ public class ItemComponent extends Item {
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setCreativeTab(Config.getCreativeTab());
-        icons = new ArrayList<Icon>();
+        icons = new ArrayList<IIcon>();
         iconNames = new ArrayList<String>();
         names = new ArrayList<String>();
         descriptions = new ArrayList<String>();
@@ -119,13 +119,13 @@ public class ItemComponent extends Item {
      * Gets an icon index based on an item's damage value
      */
     @Override
-    public Icon getIconFromDamage(int index) {
+    public IIcon getIconFromDamage(int index) {
         return icons.get(index);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister iconRegister) {
+    public void registerIcons(IIconRegister iconRegister) {
         icons.clear();
         for (String iconName : iconNames) {
             icons.add(iconRegister.registerIcon(MuseIcon.ICON_PREFIX + iconName));

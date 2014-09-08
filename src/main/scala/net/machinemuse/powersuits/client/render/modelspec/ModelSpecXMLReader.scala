@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.render.modelspec
 
 import scala.xml.{NodeSeq, XML}
-import net.minecraft.util.Vec3
+import net.minecraft.util.{ResourceLocation, Vec3}
 import java.awt.Color
 import net.machinemuse.utils.MuseStringUtils
 import java.net.URL
@@ -27,7 +27,7 @@ object ModelSpecXMLReader {
     val offset = parseVector((modelnode \ "@offset").text)
     val rotation = parseVector((modelnode \ "@rotation").text)
 
-    ModelRegistry.loadModel(file) match {
+    ModelRegistry.loadModel(new ResourceLocation(file)) match {
       case Some(m) => {
         val modelspec = new ModelSpec(m, textures, offset, rotation, file)
         val existingspec = ModelRegistry.put(MuseStringUtils.extractName(file), modelspec)

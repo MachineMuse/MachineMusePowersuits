@@ -2,7 +2,7 @@ package net.machinemuse.general.sound;
 
 import net.machinemuse.numina.general.MuseLogger;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
-import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.event.SubscribeEvent;
 
 public class SoundLoader {
     /**
@@ -32,7 +32,7 @@ public class SoundLoader {
     public static final String SOUND_SWIMASSIST = SOUND_PREFIX + "SwimAssist";
     public static final String SOUND_ELECTROLYZER = SOUND_PREFIX + "WaterElectrolyzer";
 
-    @ForgeSubscribe
+    @SubscribeEvent
     public void onSoundLoad(SoundLoadEvent event) {
         for (String soundFile : soundFiles) {
             try {

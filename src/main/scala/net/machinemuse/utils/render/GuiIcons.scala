@@ -1,6 +1,6 @@
 package net.machinemuse.utils.render
 
-import net.minecraft.util.Icon
+import net.minecraft.util.IIcon
 import net.machinemuse.powersuits.common.Config
 import org.lwjgl.opengl.GL11._
 import net.machinemuse.numina.geometry.Colour
@@ -69,7 +69,7 @@ object GuiIcons {
     val filepath = Config.TEXTURE_PREFIX + "gui/plussign.png"
   }
 
-  object GuiIconDrawer extends Icon {
+  object GuiIconDrawer extends IIcon {
     def getOriginX: Int = 0
 
     def getOriginY: Int = 0

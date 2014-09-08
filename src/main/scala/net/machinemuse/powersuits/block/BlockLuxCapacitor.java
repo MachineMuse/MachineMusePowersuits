@@ -7,13 +7,13 @@ import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.Random;
 
@@ -40,7 +40,7 @@ public class BlockLuxCapacitor extends Block {
         setResistance(10.0F);
 
         // Sound to play when player steps on the block
-        setStepSound(Block.soundMetalFootstep);
+        setStepSound(Block.soundTypeMetal);
 
         // How much light is stopped by this block; 0 for air, 255 for fully
         // opaque.
@@ -84,9 +84,8 @@ public class BlockLuxCapacitor extends Block {
         return AxisAlignedBB.getAABBPool().getAABB(x + x1, y + y1, z + z1, x + x2, y + y2, z + z2);
     }
 
-    @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister iconRegister) {
+    public void registerIcons(IIconRegister iconRegister) {
         this.blockIcon = iconRegister.registerIcon(MuseIcon.ICON_PREFIX + "bluelight");
     }
 
@@ -129,7 +128,7 @@ public class BlockLuxCapacitor extends Block {
      * Returns the bounding box of the wired rectangular prism to render.
      */
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
-        TileEntity te = world.getBlockTileEntity(x, y, z);
+        TileEntity te = world.getTileEntity(x, y, z);
         if (te instanceof TileEntityLuxCapacitor) {
             ForgeDirection side = ((TileEntityLuxCapacitor) te).side;
             return createAABBForSide(side, x, y, z);
@@ -142,7 +141,7 @@ public class BlockLuxCapacitor extends Block {
      * cleared to be reused)
      */
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
-        TileEntity te = world.getBlockTileEntity(x, y, z);
+        TileEntity te = world.getTileEntity(x, y, z);
         if (te instanceof TileEntityLuxCapacitor) {
             ForgeDirection side = ((TileEntityLuxCapacitor) te).side;
             return createAABBForSide(side, x, y, z);
@@ -151,7 +150,7 @@ public class BlockLuxCapacitor extends Block {
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int x, int y, int z) {
-        TileEntity te = par1IBlockAccess.getBlockTileEntity(x, y, z);
+        TileEntity te = par1IBlockAccess.getTileEntity(x, y, z);
         if (te instanceof TileEntityLuxCapacitor) {
             ForgeDirection side = ((TileEntityLuxCapacitor) te).side;
             float x1 = bbMin(side.offsetX);

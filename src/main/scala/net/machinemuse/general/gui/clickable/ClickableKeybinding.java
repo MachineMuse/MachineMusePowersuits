@@ -1,17 +1,16 @@
 package net.machinemuse.general.gui.clickable;
 
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
+import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.network.packets.MusePacketToggleRequest;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.util.ChatMessageComponent;
 import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
@@ -56,11 +55,11 @@ public class ClickableKeybinding extends ClickableButton {
         for (ClickableModule module : boundModules) {
             String valstring = toggleval ? " on" : " off";
             if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
-                player.sendChatToPlayer(ChatMessageComponent.createFromText("Toggled " + module.getModule().getDataName() + valstring));
+                player.sendChatMessage("Toggled " + module.getModule().getDataName() + valstring);
             }
             MuseItemUtils.toggleModuleForPlayer(player, module.getModule().getDataName(), toggleval);
-            MusePacketToggleRequest toggleRequest = new MusePacketToggleRequest((Player) player, module.getModule().getDataName(), toggleval);
-            player.sendQueue.addToSendQueue(toggleRequest.getPacket131());
+            MusePacketToggleRequest toggleRequest = new MusePacketToggleRequest(player, module.getModule().getDataName(), toggleval);
+            PacketSender.sendToServer(toggleRequest);
         }
         toggleval = !toggleval;
     }

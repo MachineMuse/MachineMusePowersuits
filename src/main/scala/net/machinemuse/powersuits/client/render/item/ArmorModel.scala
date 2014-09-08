@@ -55,7 +55,7 @@ trait ArmorModel extends ModelBiped {
   def prep(entity: Entity, par2: Float, par3: Float, par4: Float, par5: Float, par6: Float, scale: Float) {
     try {
       val entLive: EntityLivingBase = entity.asInstanceOf[EntityLivingBase]
-      val stack: ItemStack = entLive.getCurrentItemOrArmor(0)
+      val stack: ItemStack = entLive.getEquipmentInSlot(0)
       this.heldItemRight = if (stack != null) 1 else 0
       this.isSneak = entLive.isSneaking
       this.aimedBow = entLive.asInstanceOf[EntityPlayer].getItemInUse != null

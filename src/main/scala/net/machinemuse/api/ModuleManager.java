@@ -113,7 +113,7 @@ public class ModuleManager {
     }
 
     public static void tagAddModule(NBTTagCompound tag, IPowerModule module) {
-        tag.setCompoundTag(module.getDataName(), module.getNewTag());
+        tag.setTag(module.getDataName(), module.getNewTag());
     }
 
     public static void itemAddModule(ItemStack stack, IPowerModule moduleType) {

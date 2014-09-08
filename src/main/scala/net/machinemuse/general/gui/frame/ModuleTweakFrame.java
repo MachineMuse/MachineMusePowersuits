@@ -1,6 +1,5 @@
 package net.machinemuse.general.gui.frame;
 
-import cpw.mods.fml.common.network.Player;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.IPropertyModifier;
 import net.machinemuse.api.ModuleManager;
@@ -9,6 +8,7 @@ import net.machinemuse.general.gui.clickable.ClickableTinkerSlider;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.network.MusePacket;
+import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.network.packets.MusePacketTweakRequest;
 import net.machinemuse.powersuits.powermodule.PowerModule;
 import net.machinemuse.powersuits.powermodule.PropertyModifierLinearAdditive;
@@ -143,9 +143,9 @@ public class ModuleTweakFrame extends ScrollableFrame {
         if (selectedSlider != null && itemTarget.getSelectedItem() != null && moduleTarget.getSelectedModule() != null) {
             ClickableItem item = itemTarget.getSelectedItem();
             IPowerModule module = moduleTarget.getSelectedModule().getModule();
-            MusePacket tweakRequest = new MusePacketTweakRequest((Player) player, item.inventorySlot, module.getDataName(), selectedSlider.name(),
+            MusePacket tweakRequest = new MusePacketTweakRequest(player, item.inventorySlot, module.getDataName(), selectedSlider.name(),
                     selectedSlider.value());
-            player.sendQueue.addToSendQueue(tweakRequest.getPacket131());
+            PacketSender.sendToServer(tweakRequest.getPacket131());
         }
         if (button == 0) {
             selectedSlider = null;

@@ -1,7 +1,7 @@
 package net.machinemuse.general.gui;
 
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.util.Icon;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.util.IIcon;
 
 /**
  * MuseIcon is just a helper class to make it more convenient to have multiple sprite sheets and to keep all the icon indices in one place.
@@ -99,7 +99,7 @@ public class MuseIcon {
     public static final MuseIcon PUNCHY = new MuseIcon("jetboots");
 
     protected String texturename;
-    protected Icon icon;
+    protected IIcon icon;
 
     public MuseIcon(String texturename) {
         super();
@@ -111,11 +111,11 @@ public class MuseIcon {
         return texturename;
     }
 
-    public Icon getIconRegistration() {
+    public IIcon getIconRegistration() {
         return icon;
     }
 
-    public void register(IconRegister iconRegister) {
+    public void register(IIconRegister iconRegister) {
         icon = iconRegister.registerIcon(ICON_PREFIX + texturename);
 
     }

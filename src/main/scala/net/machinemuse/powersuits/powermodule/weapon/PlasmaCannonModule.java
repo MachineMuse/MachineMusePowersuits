@@ -1,11 +1,10 @@
 package net.machinemuse.powersuits.powermodule.weapon;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.network.Player;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.numina.general.MuseMathUtils;
+import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
@@ -97,8 +96,8 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
 
                 EntityPlasmaBolt plasmaBolt = new EntityPlasmaBolt(world, player, explosiveness, damagingness, chargeTicks);
                 world.spawnEntityInWorld(plasmaBolt);
-                MusePacketPlasmaBolt packet = new MusePacketPlasmaBolt((Player) player, plasmaBolt.entityId, plasmaBolt.size);
-                PacketDispatcher.sendPacketToAllPlayers(packet.getPacket131());
+                MusePacketPlasmaBolt packet = new MusePacketPlasmaBolt(player, plasmaBolt.getEntityId(), plasmaBolt.size);
+                PacketSender.sendToAll(packet);
             }
         }
     }

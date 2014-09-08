@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.client.render.modelspec
 import net.minecraftforge.client.model.obj.WavefrontObject
 import net.minecraftforge.client.model.AdvancedModelLoader
 import net.machinemuse.utils.MuseStringUtils
-import net.minecraft.util.Vec3
+import net.minecraft.util.{ResourceLocation, Vec3}
 import net.minecraft.nbt.NBTTagCompound
 import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.scala.MuseRegistry
@@ -13,7 +13,7 @@ import net.machinemuse.numina.scala.MuseRegistry
  * Created: 7:44 AM, 4/28/13
  */
 object ModelRegistry extends MuseRegistry[ModelSpec] {
-  def loadModel(resource: String): Option[WavefrontObject] = {
+  def loadModel(resource: ResourceLocation): Option[WavefrontObject] = {
     val name = MuseStringUtils.extractName(resource)
     get(name) match {
       case Some(i) => Some(i.model)
@@ -21,7 +21,7 @@ object ModelRegistry extends MuseRegistry[ModelSpec] {
     }
   }
 
-  def wrap(resource: String): Option[WavefrontObject] = {
+  def wrap(resource: ResourceLocation): Option[WavefrontObject] = {
     MuseLogger.logDebug("Loading " + resource + " as " + MuseStringUtils.extractName(resource))
     AdvancedModelLoader.loadModel(resource) match {
       case m: WavefrontObject => Some(m)

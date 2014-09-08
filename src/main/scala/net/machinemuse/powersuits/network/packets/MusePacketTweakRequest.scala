@@ -3,16 +3,14 @@
  */
 package net.machinemuse.powersuits.network.packets
 
-import cpw.mods.fml.common.network.Player
-import net.machinemuse.utils.{MuseItemUtils}
-import net.minecraft.entity.player.EntityPlayerMP
-import net.minecraft.nbt.NBTTagCompound
 import java.io.DataInputStream
-import scala.Predef._
-import net.machinemuse.api.ModuleManager.tagHasModule
+
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.numina.general.MuseMathUtils
 import net.machinemuse.numina.network.{MusePackager, MusePacket}
+import net.machinemuse.utils.MuseItemUtils
+import net.minecraft.entity.player.{EntityPlayer, EntityPlayerMP}
+import net.minecraft.nbt.NBTTagCompound
 
 /**
  * Packet for requesting to purchase an upgrade. Player-to-server. Server
@@ -23,7 +21,7 @@ import net.machinemuse.numina.network.{MusePackager, MusePacket}
  * Created: 12:28 PM, 5/6/13
  */
 object MusePacketTweakRequest extends MusePackager {
-  def read(d: DataInputStream, p: Player) = {
+  def read(d: DataInputStream, p: EntityPlayer) = {
     val itemSlot = readInt(d)
     val moduleName = readString(d)
     val tweakName = readString(d)
@@ -32,7 +30,7 @@ object MusePacketTweakRequest extends MusePackager {
   }
 }
 
-class MusePacketTweakRequest(player: Player, itemSlot: Int, moduleName: String, tweakName: String, tweakValue: Double) extends MusePacket(player) {
+class MusePacketTweakRequest(player: EntityPlayer, itemSlot: Int, moduleName: String, tweakName: String, tweakValue: Double) extends MusePacket {
   val packager = MusePacketTweakRequest
 
   def write {

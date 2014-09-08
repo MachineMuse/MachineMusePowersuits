@@ -1,21 +1,20 @@
 package net.machinemuse.powersuits.network.packets
 
-import cpw.mods.fml.common.network.Player
-import net.machinemuse.api.IModularItem
-import net.machinemuse.utils.MuseItemUtils
-import net.minecraft.entity.player.EntityPlayerMP
-import net.minecraft.nbt.NBTTagCompound
 import java.io.DataInputStream
-import scala.Predef._
+
+import net.machinemuse.api.IModularItem
 import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.network.{MusePackager, MusePacket}
+import net.machinemuse.utils.MuseItemUtils
+import net.minecraft.entity.player.{EntityPlayer, EntityPlayerMP}
+import net.minecraft.nbt.NBTTagCompound
 
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 10:16 AM, 01/05/13
  */
 object MusePacketCosmeticInfo extends MusePackager {
-  def read(d: DataInputStream, p: Player) = {
+  def read(d: DataInputStream, p: EntityPlayer) = {
     val itemSlot = readInt(d)
     val tagName = readString(d)
     val tagData = readNBTTagCompound(d)
@@ -23,7 +22,7 @@ object MusePacketCosmeticInfo extends MusePackager {
   }
 }
 
-class MusePacketCosmeticInfo(player: Player, itemSlot: Int, tagName: String, tagData: NBTTagCompound) extends MusePacket(player) {
+class MusePacketCosmeticInfo(player: EntityPlayer, itemSlot: Int, tagName: String, tagData: NBTTagCompound) extends MusePacket {
   val packager = MusePacketCosmeticInfo
 
   def write {
@@ -39,7 +38,7 @@ class MusePacketCosmeticInfo(player: Player, itemSlot: Int, tagName: String, tag
       var renderTag: NBTTagCompound = null
       if (!itemTag.hasKey("render")) {
         renderTag = new NBTTagCompound
-        itemTag.setCompoundTag("render", renderTag)
+        itemTag.setTag("render", renderTag)
       } else {
         renderTag = itemTag.getCompoundTag("render")
       }
@@ -48,7 +47,7 @@ class MusePacketCosmeticInfo(player: Player, itemSlot: Int, tagName: String, tag
         renderTag.removeTag(tagName)
       } else {
         MuseLogger.logDebug("Adding tag " + tagName + " : " + tagData)
-        renderTag.setCompoundTag(tagName, tagData)
+        renderTag.setTag(tagName, tagData)
       }
     }
   }

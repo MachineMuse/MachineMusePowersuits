@@ -1,12 +1,10 @@
 package net.machinemuse.api.electricity
 
-import net.minecraft.item.ItemStack
-import net.machinemuse.utils.{ElectricItemUtils, MuseItemUtils}
-import ic2.api.item.ICustomElectricItem
-import net.machinemuse.api.electricity.ElectricConversions._
-import net.machinemuse.api.ModuleManager
-import cofh.api.energy.IEnergyContainerItem
 import cpw.mods.fml.common.Optional
+import net.machinemuse.api.ModuleManager
+import net.machinemuse.api.electricity.ElectricConversions._
+import net.machinemuse.utils.{ElectricItemUtils, MuseItemUtils}
+import net.minecraft.item.ItemStack
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -15,8 +13,9 @@ import cpw.mods.fml.common.Optional
 @Optional.Interface(iface = "ic2.api.item.ICustomElectricItem", modid = "IC2", striprefs = true)
 @Optional.Interface(iface = "cofh.api.energy.IEnergyContainerItem", modid = "CoFHCore", striprefs = true)
 trait MuseElectricItem
-  extends ICustomElectricItem // IC2
-  with IEnergyContainerItem {
+//  extends ICustomElectricItem // IC2
+//  with IEnergyContainerItem
+{
   // ICBM
   /**
    * Call to get the energy of an item
@@ -84,10 +83,6 @@ trait MuseElectricItem
 
   // IC2
   def canProvideEnergy(itemStack: ItemStack): Boolean = true
-
-  def getChargedItemId(itemStack: ItemStack): Int = itemStack.itemID
-
-  def getEmptyItemId(itemStack: ItemStack): Int = itemStack.itemID
 
   def getMaxCharge(itemStack: ItemStack): Int = museEnergyToEU(getCurrentEnergy(itemStack)).asInstanceOf[Int]
 

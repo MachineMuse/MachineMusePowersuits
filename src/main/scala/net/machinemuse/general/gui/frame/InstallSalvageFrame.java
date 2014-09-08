@@ -1,18 +1,18 @@
 package net.machinemuse.general.gui.frame;
 
-import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.general.gui.clickable.ClickableButton;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableModule;
-import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.general.sound.SoundLoader;
+import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.network.MusePacket;
+import net.machinemuse.numina.network.PacketSender;
+import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.powersuits.network.packets.MusePacketInstallModuleRequest;
 import net.machinemuse.powersuits.network.packets.MusePacketSalvageModuleRequest;
 import net.machinemuse.utils.MuseItemUtils;
@@ -154,10 +154,10 @@ public class InstallSalvageFrame extends ScrollableFrame {
     private void doSalvage() {
         IPowerModule module = targetModule.getSelectedModule().getModule();
         MusePacket newpacket = new MusePacketSalvageModuleRequest(
-                (Player) player,
+                player,
                 targetItem.getSelectedItem().inventorySlot,
                 module.getDataName());
-        player.sendQueue.addToSendQueue(newpacket.getPacket131());
+        PacketSender.sendToServer(newpacket.getPacket131());
     }
 
     /**
@@ -171,10 +171,10 @@ public class InstallSalvageFrame extends ScrollableFrame {
             Musique.playClientSound(SoundLoader.SOUND_GUI_INSTALL, 1);
             // Now send request to server to make it legit
             MusePacket newpacket = new MusePacketInstallModuleRequest(
-                    (Player) player,
+                    player,
                     targetItem.getSelectedItem().inventorySlot,
                     module.getDataName());
-            player.sendQueue.addToSendQueue(newpacket.getPacket131());
+            PacketSender.sendToServer(newpacket.getPacket131());
         }
     }
 }

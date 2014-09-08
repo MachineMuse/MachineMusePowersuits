@@ -77,7 +77,7 @@ class CosmeticGui(val player: EntityPlayer, val worldx:Int, val worldy:Int, val 
     }
     super.drawScreen(x, y, z)
     if (Config.canUseShaders) {
-      val screen: ScaledResolution = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight)
+      val screen: ScaledResolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight)
       GlowBuffer.drawFullScreen(screen)
     }
   }

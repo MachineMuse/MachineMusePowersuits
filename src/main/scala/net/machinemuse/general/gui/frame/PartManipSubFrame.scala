@@ -1,18 +1,18 @@
 package net.machinemuse.general.gui.frame
 
-import net.machinemuse.powersuits.client.render.modelspec.{ModelRegistry, ModelPartSpec, ModelSpec}
-import net.machinemuse.utils.MuseItemUtils
-import org.lwjgl.opengl.GL11._
 import net.machinemuse.general.gui.clickable.ClickableItem
-import net.minecraft.nbt.NBTTagCompound
-import net.machinemuse.powersuits.network.packets.MusePacketCosmeticInfo
-import net.minecraft.client.Minecraft
-import cpw.mods.fml.common.network.Player
-import net.minecraft.item.ItemArmor
-import net.machinemuse.utils.render.{MuseRenderer, GuiIcons}
 import net.machinemuse.numina.general.{MuseLogger, MuseMathUtils}
-import net.machinemuse.numina.geometry.{MuseRect, Colour, MuseRelativeRect}
+import net.machinemuse.numina.geometry.{Colour, MuseRect, MuseRelativeRect}
+import net.machinemuse.numina.network.PacketSender
 import net.machinemuse.numina.render.RenderState
+import net.machinemuse.powersuits.client.render.modelspec.{ModelPartSpec, ModelRegistry, ModelSpec}
+import net.machinemuse.powersuits.network.packets.MusePacketCosmeticInfo
+import net.machinemuse.utils.MuseItemUtils
+import net.machinemuse.utils.render.{GuiIcons, MuseRenderer}
+import net.minecraft.client.Minecraft
+import net.minecraft.item.ItemArmor
+import net.minecraft.nbt.NBTTagCompound
+import org.lwjgl.opengl.GL11._
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -48,7 +48,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
     if (!getRenderTag.hasKey(name)) {
       val k = new NBTTagCompound()
       spec.multiSet(k, None, None, None)
-      getRenderTag.setCompoundTag(name, k)
+      getRenderTag.setTag(name, k)
       k
     } else {
       getRenderTag.getCompoundTag(name)
@@ -84,7 +84,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
         val oldindex = spec.getColourIndex(e)
         if (oldindex >= index && oldindex > 0) {
           spec.setColourIndex(e, oldindex - 1)
-          if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, e).getPacket131)
+          if (player.worldObj.isRemote) PacketSender.sendToServer(new MusePacketCosmeticInfo(player, getSelectedItem.inventorySlot, tagname, e).getPacket131)
         }
       })
 
@@ -117,7 +117,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
     RenderState.texturelessOn()
     Colour.LIGHTBLUE.doGL()
     glBegin(GL_TRIANGLES)
-    import MuseMathUtils._
+    import net.machinemuse.numina.general.MuseMathUtils._
     if (open) {
       glVertex2d(border.left + 3, clampDouble(border.top + 3, min, max))
       glVertex2d(border.left + 5, clampDouble(border.top + 7, min, max))
@@ -155,7 +155,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
           val tagname = ModelRegistry.makeName(spec)
           val player = Minecraft.getMinecraft.thePlayer
           renderTag.removeTag(ModelRegistry.makeName(spec))
-          if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, new NBTTagCompound()).getPacket131)
+          if (player.worldObj.isRemote) PacketSender.sendToServer(new MusePacketCosmeticInfo(player, getSelectedItem.inventorySlot, tagname, new NBTTagCompound()).getPacket131)
           updateItems
           true
         }
@@ -164,7 +164,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
           val player = Minecraft.getMinecraft.thePlayer
           val tagdata = getOrMakeSpecTag(spec)
           spec.setGlow(tagdata, false)
-          if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, tagdata).getPacket131)
+          if (player.worldObj.isRemote) PacketSender.sendToServer(new MusePacketCosmeticInfo(player, getSelectedItem.inventorySlot, tagname, tagdata).getPacket131)
           updateItems
           true
         }
@@ -173,7 +173,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
           val player = Minecraft.getMinecraft.thePlayer
           val tagdata = getOrMakeSpecTag(spec)
           spec.setGlow(tagdata, true)
-          if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, tagdata).getPacket131)
+          if (player.worldObj.isRemote) PacketSender.sendToServer(new MusePacketCosmeticInfo(player, getSelectedItem.inventorySlot, tagname, tagdata).getPacket131)
           updateItems
           true
         }
@@ -187,7 +187,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
       val player = Minecraft.getMinecraft.thePlayer
       val tagdata = getOrMakeSpecTag(spec)
       spec.setColourIndex(tagdata, columnNumber)
-      if (player.worldObj.isRemote) player.sendQueue.addToSendQueue(new MusePacketCosmeticInfo(player.asInstanceOf[Player], getSelectedItem.inventorySlot, tagname, tagdata).getPacket131)
+      if (player.worldObj.isRemote) PacketSender.sendToServer(new MusePacketCosmeticInfo(player, getSelectedItem.inventorySlot, tagname, tagdata).getPacket131)
       true
     }
 

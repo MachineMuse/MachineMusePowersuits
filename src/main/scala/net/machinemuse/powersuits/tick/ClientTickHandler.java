@@ -5,6 +5,7 @@ import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.network.Player;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.numina.network.MusePacket;
+import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
@@ -44,8 +45,8 @@ public class ClientTickHandler implements ITickHandler {
 
             if (inputmap.hasChanged()) {
                 inputmap.refresh();
-                MusePacket inputPacket = new MusePacketPlayerUpdate((Player) player, inputmap);
-                player.sendQueue.addToSendQueue(inputPacket.getPacket131());
+                MusePacket inputPacket = new MusePacketPlayerUpdate(player, inputmap);
+                PacketSender.sendToServer(inputPacket.getPacket131());
             }
         }
     }

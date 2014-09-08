@@ -1,34 +1,29 @@
 package net.machinemuse.powersuits.item
 
+import cpw.mods.fml.relauncher.{Side, SideOnly}
+import net.machinemuse.api.{IModularItem, ModuleManager}
+import net.machinemuse.numina.geometry.Colour
+import net.machinemuse.powersuits.client.render.item.ArmorModel
 import net.machinemuse.powersuits.common.Config
-import net.machinemuse.powersuits.powermodule.misc.{InvisibilityModule, TransparentArmorModule, TintModule}
+import net.machinemuse.powersuits.powermodule.misc.{InvisibilityModule, TintModule, TransparentArmorModule}
 import net.machinemuse.utils._
-import net.minecraft.entity.{EntityLivingBase, Entity}
+import net.minecraft.client.model.ModelBiped
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.item.EnumArmorMaterial
-import net.minecraft.item.ItemStack
+import net.minecraft.entity.{Entity, EntityLivingBase}
+import net.minecraft.item.{ItemArmor, ItemStack}
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.DamageSource
 import net.minecraftforge.common.ISpecialArmor
-import scala.Predef.String
-import cpw.mods.fml.relauncher.{Side, SideOnly}
-import net.minecraft.client.model.ModelBiped
-import net.machinemuse.powersuits.client.render.item.ArmorModel
-import net.machinemuse.api.{ModuleManager, ArmorTraits, IModularItem}
-import net.machinemuse.numina.geometry.Colour
-import cpw.mods.fml.common.registry.GameRegistry
-import cpw.mods.fml.common.Optional
 
 /**
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.
  *
  * @author MachineMuse
  */
-abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int)
-  extends ItemElectricArmor(id, EnumArmorMaterial.IRON, renderIndex, armorType)
+abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
+  extends ItemElectricArmor(ItemArmor.ArmorMaterial.IRON, renderIndex, armorType)
   with ISpecialArmor
-  with IModularItem
-  with ArmorTraits {
+  with IModularItem {
   setMaxStackSize(1)
   setCreativeTab(Config.getCreativeTab)
 
@@ -54,7 +49,7 @@ abstract class ItemPowerArmor(id: Int, renderIndex: Int, armorType: Int)
     return new ISpecialArmor.ArmorProperties(priority, absorbRatio, absorbMax)
   }
 
-  override def getArmorTexture(itemstack: ItemStack, entity: Entity, slot: Int, layer: Int): String = {
+  def getArmorTexture(itemstack: ItemStack, entity: Entity, slot: Int, layer: Int): String = {
     Config.BLANK_ARMOR_MODEL_PATH
   }
 

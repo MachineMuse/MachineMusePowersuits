@@ -3,26 +3,15 @@
  */
 package net.machinemuse.powersuits.network.packets
 
-import cpw.mods.fml.common.FMLCommonHandler
-import cpw.mods.fml.common.network.PacketDispatcher
-import cpw.mods.fml.common.network.Player
-import cpw.mods.fml.relauncher.Side
-import net.machinemuse.api.{IModularItem, IPowerModule, ModuleManager}
-import net.machinemuse.utils.ElectricItemUtils
-import net.machinemuse.utils.MuseItemUtils
-import net.minecraft.client.entity.EntityClientPlayerMP
-import net.minecraft.entity.player.EntityPlayerMP
-import net.minecraft.entity.player.InventoryPlayer
-import net.minecraft.item.ItemStack
 import java.io.DataInputStream
-import java.io.IOException
-import java.util.ArrayList
-import java.util.List
-import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.util.ChatMessageComponent
-import net.machinemuse.api.ModuleManager.{itemAddModule, itemHasModule}
-import net.machinemuse.numina.general.MuseLogger
-import net.machinemuse.numina.network.{MusePackager, MusePacket}
+import java.util.{ArrayList, List}
+
+import net.machinemuse.api.{IPowerModule, ModuleManager}
+import net.machinemuse.numina.network.{PacketSender, MusePackager, MusePacket}
+import net.machinemuse.utils.{ElectricItemUtils, MuseItemUtils}
+import net.minecraft.entity.player.{EntityPlayer, EntityPlayerMP, InventoryPlayer}
+import net.minecraft.item.ItemStack
+import net.minecraft.util.ChatComponentText
 
 /**
  * Packet for requesting to purchase an upgrade. Player-to-server. Server decides whether it is a valid upgrade or not and replies with an associated
@@ -33,14 +22,14 @@ import net.machinemuse.numina.network.{MusePackager, MusePacket}
  */
 
 object MusePacketInstallModuleRequest extends MusePackager {
-  def read(d: DataInputStream, p: Player) = {
+  def read(d: DataInputStream, p: EntityPlayer) = {
     val itemSlot = readInt(d)
     val moduleName = readString(d)
     new MusePacketInstallModuleRequest(p, itemSlot, moduleName)
   }
 }
 
-class MusePacketInstallModuleRequest(player: Player, itemSlot: Int, moduleName: String) extends MusePacket(player) {
+class MusePacketInstallModuleRequest(player: EntityPlayer, itemSlot: Int, moduleName: String) extends MusePacket {
   val packager = MusePacketInstallModuleRequest
 
   def write {
@@ -54,7 +43,7 @@ class MusePacketInstallModuleRequest(player: Player, itemSlot: Int, moduleName: 
       val inventory: InventoryPlayer = playerEntity.inventory
       val moduleType: IPowerModule = ModuleManager.getModule(moduleName)
       if (moduleType == null || !moduleType.isAllowed) {
-        playerEntity.sendChatToPlayer(ChatMessageComponent.createFromText("Server has disallowed this module. Sorry!"))
+        playerEntity.addChatComponentMessage(new ChatComponentText("Server has disallowed this module. Sorry!"))
         return
       }
       val cost: List[ItemStack] = moduleType.getInstallCost
@@ -71,8 +60,8 @@ class MusePacketInstallModuleRequest(player: Player, itemSlot: Int, moduleName: 
         slotsToUpdate.add(itemSlot)
         import scala.collection.JavaConversions._
         for (slotiter <- slotsToUpdate) {
-          val reply: MusePacket = new MusePacketInventoryRefresh(player, slotiter, inventory.getStackInSlot(slotiter))
-          PacketDispatcher.sendPacketToPlayer(reply.getPacket131, player)
+          val reply: MusePacket = new MusePacketInventoryRefresh(playerEntity, slotiter, inventory.getStackInSlot(slotiter))
+          PacketSender.sendTo(reply, playerEntity)
         }
       }
     }

@@ -6,6 +6,7 @@ import net.machinemuse.utils.MuseStringUtils
 import net.minecraft.nbt.NBTTagCompound
 import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.geometry.Colour
+import net.minecraft.util.ResourceLocation
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -17,38 +18,38 @@ object DefaultModelSpec {
   val tex = "/assets/powersuits/textures/models/diffuse.png"
 
   def loadDefaultModel: Option[ModelSpec] = {
-    loadModel("/assets/powersuits/models/mps_helm.obj", tex.split(";")).map(model => {
+    loadModel(new ResourceLocation("powersuits:models/mps_helm.obj"), tex.split(";")).map(model => {
       makeEntries(Head, 0, 0, false, "helm_main;helm_tube_entry1;helm_tubes;helm_tube_entry2".split(";"), model)
       makeEntries(Head, 0, 1, true, "visor".split(";"), model)
       model
     })
-    loadModel("/assets/powersuits/models/mps_arms.obj", tex.split(";")).map(model => {
+    loadModel(new ResourceLocation("powersuits:models/mps_arms.obj"), tex.split(";")).map(model => {
       makeEntries(RightArm, 1, 0, false, "arms3".split(";"), model)
       makeEntries(RightArm, 1, 1, true, "crystal_shoulder_2".split(";"), model)
       makeEntries(LeftArm, 1, 0, false, "arms2".split(";"), model)
       makeEntries(LeftArm, 1, 1, true, "crystal_shoulder_1".split(";"), model)
       model
     })
-    loadModel("/assets/powersuits/models/mps_chest.obj", tex.split(";")).map(model => {
+    loadModel(new ResourceLocation("powersuits:models/mps_chest.obj"), tex.split(";")).map(model => {
       makeEntries(Body, 1, 0, false, "belt;chest_main;polySurface36;backpack;chest_padding".split(";"), model)
       makeEntries(Body, 1, 1, true, "crystal_belt".split(";"), model)
       model
     })
-    loadModel("/assets/powersuits/models/mps_pantaloons.obj", tex.split(";")).map(model => {
+    loadModel(new ResourceLocation("powersuits:models/mps_pantaloons.obj"), tex.split(";")).map(model => {
       makeEntries(RightLeg, 2, 0, false, "leg1".split(";"), model)
       makeEntries(LeftLeg, 2, 0, false, "leg2".split(";"), model)
       model
     })
-    loadModel("/assets/powersuits/models/mps_boots.obj", tex.split(";")).map(model => {
+    loadModel(new ResourceLocation("powersuits:models/mps_boots.obj"), tex.split(";")).map(model => {
       makeEntries(RightLeg, 3, 0, false, "boots1".split(";"), model)
       makeEntries(LeftLeg, 3, 0, false, "boots2".split(";"), model)
       model
     })
   }
 
-  def loadModel(file: String, textures: Array[String]): Option[ModelSpec] = {
+  def loadModel(file: ResourceLocation, textures: Array[String]): Option[ModelSpec] = {
     ModelRegistry.loadModel(file) match {
-      case Some(m) => Some(ModelRegistry.put(MuseStringUtils.extractName(file), new ModelSpec(m, textures, None, None, file)))
+      case Some(m) => Some(ModelRegistry.put(MuseStringUtils.extractName(file), new ModelSpec(m, textures, None, None, file.toString)))
       case None => MuseLogger.logError("Model file " + file + " not found! D:")
     }
   }
@@ -83,7 +84,7 @@ object DefaultModelSpec {
 
     }
     (new NBTTagCompound() /: list) {
-      case (taglist, elem) => taglist.setCompoundTag(elem.getString("model") + "." + elem.getString("part"), elem); taglist
+      case (taglist, elem) => taglist.setTag(elem.getString("model") + "." + elem.getString("part"), elem); taglist
     }
   }
 

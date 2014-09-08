@@ -11,6 +11,7 @@ import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.MusePacketHandler;
 import net.machinemuse.numina.network.MusePacketModeChangeRequest;
+import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.render.RenderGameOverlayEventHandler;
 import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
 import net.machinemuse.powersuits.block.TileEntityTinkerTable;
@@ -68,7 +69,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerRenderers() {
         toolRenderer = new ToolRenderer();
-        MinecraftForgeClient.registerItemRenderer(ModularPowersuits.powerTool.itemID, toolRenderer);
+        MinecraftForgeClient.registerItemRenderer(ModularPowersuits.powerTool, toolRenderer);
 
         int tinkTableRenderID = RenderingRegistry.getNextAvailableRenderId();
         TinkerTableRenderer tinkTableRenderer = new TinkerTableRenderer(tinkTableRenderID);
@@ -117,7 +118,7 @@ public class ClientProxy extends CommonProxy {
         KeyBindingRegistry.registerKeyBinding(keybindHandler);
 
         playerTickHandler = new PlayerTickHandler();
-        TickRegistry.registerTickHandler(playerTickHandler, Side.CLIENT);
+        MinecraftForge.EVENT_BUS.register(playerTickHandler);
         // TickRegistry.registerTickHandler(playerTickHandler, Side.SERVER);
 
         renderTickHandler = new RenderTickHandler();
@@ -137,9 +138,9 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void sendModeChange(int dMode, String newMode) {
-        EntityClientPlayerMP player= Minecraft.getMinecraft().thePlayer;
+        EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
         RenderGameOverlayEventHandler.updateSwap((int) Math.signum(dMode));
-        MusePacket modeChangePacket = new MusePacketModeChangeRequest((Player) player, newMode, player.inventory.currentItem);
-        player.sendQueue.addToSendQueue(modeChangePacket.getPacket131());
+        MusePacket modeChangePacket = new MusePacketModeChangeRequest(player, newMode, player.inventory.currentItem);
+        PacketSender.sendToServer(modeChangePacket);
     }
 }

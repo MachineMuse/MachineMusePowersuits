@@ -7,11 +7,11 @@ import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.utils.MuseItemUtils;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 
 import java.util.*;
 
@@ -22,7 +22,7 @@ public abstract class PowerModuleBase implements IPowerModule {
     protected static Map<String, String> units = new HashMap<String, String>();
     protected NBTTagCompound defaultTag;
     protected boolean isAllowed;
-    protected Icon icon;
+    protected IIcon icon;
 
     public PowerModuleBase(String name, List<IModularItem> validItems) {
         this.validItems = validItems;
@@ -43,12 +43,12 @@ public abstract class PowerModuleBase implements IPowerModule {
     }
 
     @Override
-    public Icon getIcon(ItemStack item) {
+    public IIcon getIcon(ItemStack item) {
         return icon;
     }
 
     @Override
-    public void registerIcon(IconRegister register) {
+    public void registerIcon(IIconRegister register) {
         if (getTextureFile() != null) {
             this.icon = register.registerIcon(MuseIcon.ICON_PREFIX + getTextureFile());
         }

@@ -1,25 +1,25 @@
 package net.machinemuse.powersuits.network.packets
 
 import java.io.DataInputStream
-import cpw.mods.fml.common.network.Player
-import net.machinemuse.api.ModuleManager
-import net.machinemuse.powersuits.powermodule.{PowerModuleBase, PropertyModifierLinearAdditive, PropertyModifierFlatAdditive}
-import net.machinemuse.numina.network.{MusePackager, MusePacket}
-import net.minecraft.entity.player.EntityPlayerMP
-import net.minecraft.client.entity.EntityClientPlayerMP
+
 import cpw.mods.fml.relauncher.{Side, SideOnly}
+import net.machinemuse.api.ModuleManager
+import net.machinemuse.numina.network.{MusePackager, MusePacket}
+import net.machinemuse.powersuits.powermodule.{PowerModuleBase, PropertyModifierFlatAdditive, PropertyModifierLinearAdditive}
+import net.minecraft.client.entity.EntityClientPlayerMP
+import net.minecraft.entity.player.EntityPlayer
 
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 7:23 PM, 12/05/13
  */
 object MusePacketPropertyModifierConfig extends MusePackager {
-  def read(d: DataInputStream, p: Player) = {
+  def read(d: DataInputStream, p: EntityPlayer) = {
     new MusePacketPropertyModifierConfig(p, d)
   }
 }
 
-class MusePacketPropertyModifierConfig(player: Player, data: DataInputStream) extends MusePacket(player) {
+class MusePacketPropertyModifierConfig(player: EntityPlayer, data: DataInputStream) extends MusePacket {
   val packager = MusePacketPropertyModifierConfig
 
   override def write {

@@ -3,22 +3,15 @@
  */
 package net.machinemuse.powersuits.network.packets
 
-import cpw.mods.fml.common.network.PacketDispatcher
-import cpw.mods.fml.common.network.Player
-import net.machinemuse.api.IPowerModule
-import net.machinemuse.api.ModuleManager
+import java.io.DataInputStream
+import java.util.{HashSet, List}
+
+import net.machinemuse.api.{IPowerModule, ModuleManager}
+import net.machinemuse.numina.network.{PacketSender, MusePackager, MusePacket}
 import net.machinemuse.powersuits.common.Config
 import net.machinemuse.utils.MuseItemUtils
-import net.minecraft.entity.player.EntityPlayerMP
-import net.minecraft.entity.player.InventoryPlayer
+import net.minecraft.entity.player.{EntityPlayer, EntityPlayerMP, InventoryPlayer}
 import net.minecraft.item.ItemStack
-import java.io.DataInputStream
-import java.util.HashSet
-import java.util.List
-import java.util.Set
-import scala.Predef._
-import net.machinemuse.api.ModuleManager.{removeModule, itemHasModule}
-import net.machinemuse.numina.network.{MusePackager, MusePacket}
 
 /**
  * Packet for requesting to purchase an upgrade. Player-to-server. Server
@@ -29,7 +22,7 @@ import net.machinemuse.numina.network.{MusePackager, MusePacket}
  * Created: 12:28 PM, 5/6/13
  */
 object MusePacketSalvageModuleRequest extends MusePackager {
-  def read(d: DataInputStream, p: Player) = {
+  def read(d: DataInputStream, p: EntityPlayer) = {
 
     val itemSlot = readInt(d)
     val moduleName = readString(d)
@@ -37,7 +30,7 @@ object MusePacketSalvageModuleRequest extends MusePackager {
   }
 }
 
-class MusePacketSalvageModuleRequest(player: Player, itemSlot: Int, moduleName: String) extends MusePacket(player) {
+class MusePacketSalvageModuleRequest(player: EntityPlayer, itemSlot: Int, moduleName: String) extends MusePacket {
   val packager = MusePacketSalvageModuleRequest
 
   def write {
@@ -52,17 +45,16 @@ class MusePacketSalvageModuleRequest(player: Player, itemSlot: Int, moduleName: 
       val moduleType: IPowerModule = ModuleManager.getModule(moduleName)
       val refund: List[ItemStack] = moduleType.getInstallCost
       if (ModuleManager.itemHasModule(stack, moduleName)) {
-        val slots: Set[Integer] = new HashSet[Integer]
+        val slots: java.util.Set[Integer] = new HashSet[Integer]
         ModuleManager.removeModule(stack, moduleName)
         import scala.collection.JavaConversions._
         for (refundItem <- refund) {
           slots.addAll(MuseItemUtils.giveOrDropItemWithChance(refundItem.copy, playerEntity, Config.getSalvageChance))
         }
         slots.add(itemSlot)
-        import scala.collection.JavaConversions._
         for (slotiter <- slots) {
           val reply: MusePacket = new MusePacketInventoryRefresh(player, slotiter, inventory.getStackInSlot(slotiter))
-          PacketDispatcher.sendPacketToPlayer(reply.getPacket131, player)
+          PacketSender.sendTo(reply, playerEntity)
         }
       }
     }
