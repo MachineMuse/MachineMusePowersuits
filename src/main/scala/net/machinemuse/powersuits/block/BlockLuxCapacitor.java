@@ -27,7 +27,7 @@ public class BlockLuxCapacitor extends Block {
     }
 
     public BlockLuxCapacitor() {
-        super(assignedBlockID, Material.circuits);
+        super(Material.circuits);
 
         // Block's creative tab
         setCreativeTab(Config.getCreativeTab());
@@ -48,7 +48,7 @@ public class BlockLuxCapacitor extends Block {
 
         // Light level, 0-1. Gets multiplied by 15 and truncated to find the
         // actual light level for the block.
-        setLightValue(1.0f);
+        setLightLevel(1.0f);
 
         // Whether to receive random ticks e.g. plants
         setTickRandomly(false);

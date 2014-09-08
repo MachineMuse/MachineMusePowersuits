@@ -37,7 +37,7 @@ public class ClickableKeybinding extends ClickableButton {
     }
 
     public void doToggleTick() {
-        doToggleIf(keybind.pressed);
+        doToggleIf(keybind.getIsKeyPressed());
     }
 
     public void doToggleIf(boolean value) {
@@ -65,10 +65,10 @@ public class ClickableKeybinding extends ClickableButton {
     }
 
     public static String parseName(KeyBinding keybind) {
-        if (keybind.keyCode < 0) {
-            return "Mouse" + (keybind.keyCode + 100);
+        if (keybind.getKeyCode() < 0) {
+            return "Mouse" + (keybind.getKeyCode() + 100);
         } else {
-            return Keyboard.getKeyName(keybind.keyCode);
+            return Keyboard.getKeyName(keybind.getKeyCode());
         }
     }
 
@@ -132,7 +132,7 @@ public class ClickableKeybinding extends ClickableButton {
     }
 
     public boolean equals(ClickableKeybinding other) {
-        return other.keybind.keyCode == this.keybind.keyCode;
+        return other.keybind.getKeyCode() == this.keybind.getKeyCode();
     }
 
 }

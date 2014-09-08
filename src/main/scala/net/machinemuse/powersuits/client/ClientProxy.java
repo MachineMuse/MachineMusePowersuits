@@ -1,11 +1,8 @@
 package net.machinemuse.powersuits.client;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.network.Player;
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.network.MusePacket;
@@ -30,10 +27,9 @@ import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
+import net.machinemuse.powersuits.event.PlayerUpdateHandler;
 import net.machinemuse.powersuits.event.RenderEventHandler;
 import net.machinemuse.powersuits.tick.ClientTickHandler;
-import net.machinemuse.powersuits.tick.PlayerTickHandler;
-import net.machinemuse.powersuits.tick.RenderTickHandler;
 import net.machinemuse.utils.render.MuseShaders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -50,9 +46,6 @@ import java.net.URL;
  */
 public class ClientProxy extends CommonProxy {
     private static ToolRenderer toolRenderer;
-    private static ClientTickHandler clientTickHandler;
-    private static RenderTickHandler renderTickHandler;
-    private static PlayerTickHandler playerTickHandler;
     public static KeybindKeyHandler keybindHandler;
 
     @Override
@@ -115,20 +108,17 @@ public class ClientProxy extends CommonProxy {
     public void registerHandlers() {
         super.registerHandlers();
         keybindHandler = new KeybindKeyHandler();
-        KeyBindingRegistry.registerKeyBinding(keybindHandler);
+        FMLCommonHandler.instance().bus().register(keybindHandler);
 
-        playerTickHandler = new PlayerTickHandler();
+        PlayerUpdateHandler playerTickHandler = new PlayerUpdateHandler();
         MinecraftForge.EVENT_BUS.register(playerTickHandler);
         // TickRegistry.registerTickHandler(playerTickHandler, Side.SERVER);
 
-        renderTickHandler = new RenderTickHandler();
-        TickRegistry.registerTickHandler(renderTickHandler, Side.CLIENT);
-
-        clientTickHandler = new ClientTickHandler();
-        TickRegistry.registerTickHandler(clientTickHandler, Side.CLIENT);
+        ClientTickHandler clientTickHandler = new ClientTickHandler();
+        FMLCommonHandler.instance().bus().register(clientTickHandler);
 
 
-        packetHandler = new MusePacketHandler();
+        packetHandler = MusePacketHandler;
     }
 
     @Override

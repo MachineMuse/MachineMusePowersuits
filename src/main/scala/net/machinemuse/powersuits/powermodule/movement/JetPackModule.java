@@ -4,8 +4,6 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
-import net.machinemuse.numina.sound.Musique;
-import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -58,7 +56,7 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
         if (player.isInWater()) {
             return;
         }
-        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.username);
+        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderName());
         boolean jumpkey = movementInput.jumpKey;
         ItemStack helmet = player.getCurrentArmor(3);
         boolean hasFlightControl = helmet != null && helmet.getItem() instanceof IModularItem
@@ -88,7 +86,7 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-        Musique.stopPlayerSound(player, SoundLoader.SOUND_JETPACK);
+//        Musique.stopPlayerSound(player, SoundLoader.SOUND_JETPACK);
     }
 
     @Override

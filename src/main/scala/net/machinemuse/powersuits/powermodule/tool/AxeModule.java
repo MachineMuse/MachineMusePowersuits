@@ -11,6 +11,7 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
@@ -22,14 +23,13 @@ import java.util.List;
 
 public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
     public static final String MODULE_AXE = "Axe";
-    public static final ItemStack ironAxe = new ItemStack(Item.axeIron);
+    public static final ItemStack ironAxe = new ItemStack(Items.iron_axe);
     public static final String AXE_ENERGY_CONSUMPTION = "Axe Energy Consumption";
     public static final String AXE_HARVEST_SPEED = "Axe Harvest Speed";
     public static final String AXE_SEARCH_RADIUS = "Axe Search Radius";
 
     public AxeModule(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(new ItemStack(Item.ingotIron, 3));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBaseProperty(AXE_ENERGY_CONSUMPTION, 50, "J");
         addBaseProperty(AXE_HARVEST_SPEED, 8, "x");

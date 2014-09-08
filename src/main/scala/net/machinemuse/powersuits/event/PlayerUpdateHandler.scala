@@ -11,7 +11,7 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent
 /**
  * Created by Claire Semple on 9/8/2014.
  */
-object PlayerUpdateHandler {
+class PlayerUpdateHandler {
   @SubscribeEvent
   def onPlayerUpdate(e: LivingUpdateEvent) = {
     val player = OptionCast[EntityPlayer](e.entity).map { player =>

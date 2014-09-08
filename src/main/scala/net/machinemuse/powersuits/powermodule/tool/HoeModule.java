@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
+import cpw.mods.fml.common.eventhandler.Event;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
@@ -11,13 +12,13 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 
 import java.util.List;
@@ -29,7 +30,6 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
 
     public HoeModule(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(new ItemStack(Item.ingotIron, 2));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
 
         addBaseProperty(HOE_ENERGY_CONSUMPTION, 50);
@@ -50,7 +50,7 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
                 return;
             }
 
-            if (event.getResult() == Result.ALLOW) {
+            if (event.getResult() == Event.Result.ALLOW) {
                 ElectricItemUtils.drainPlayerEnergy(player, energyConsumed);
                 return;
             }
@@ -62,17 +62,17 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
             for (int i = (int) Math.floor(-radius); i < radius; i++) {
                 for (int j = (int) Math.floor(-radius); j < radius; j++) {
                     if (i * i + j * j < radius * radius) {
-                        int id = world.getBlockId(x + i, y, z + j);
-                        if (id == Block.grass.blockID || id == Block.dirt.blockID) {
-                            world.setBlock(x + i, y, z + j, Block.tilledField.blockID);
+                        Block block = world.getBlock(x + i, y, z + j);
+                        if (block == Blocks.grass || block == Blocks.dirt) {
+                            world.setBlock(x + i, y, z + j, Blocks.farmland);
                             ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemStack, HOE_ENERGY_CONSUMPTION));
                         }
                     }
                 }
             }
-            world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F),
-                    Block.tilledField.stepSound.getStepSound(), (Block.tilledField.stepSound.getVolume() + 1.0F) / 2.0F,
-                    Block.tilledField.stepSound.getPitch() * 0.8F);
+// Musique            world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F),
+//                    Blocks.farmland.stepSound.getStepSound(), (Blocks.farmland.stepSound.getVolume() + 1.0F) / 2.0F,
+//                    Blocks.farmland.stepSound.getPitch() * 0.8F);
 
         }
     }

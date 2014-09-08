@@ -4,8 +4,6 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
-import net.machinemuse.numina.sound.Musique;
-import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -55,7 +53,7 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         if (player.isInWater() && !(player.isRiding())) {
-            PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.username);
+            PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderName());
             boolean jumpkey = movementInput.jumpKey;
             boolean sneakkey = movementInput.sneakKey;
             float forwardkey = movementInput.forwardKey;
@@ -74,22 +72,22 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
                 double swimAssistRate = ModuleManager.computeModularProperty(item, SWIM_BOOST_AMOUNT) * 0.05;
                 double swimEnergyConsumption = ModuleManager.computeModularProperty(item, SWIM_BOOST_ENERGY_CONSUMPTION);
                 if (swimEnergyConsumption < ElectricItemUtils.getPlayerEnergy(player)) {
-                    Musique.playerSound(player, SoundLoader.SOUND_SWIMASSIST, 1.0f, 1.0f, true);
+//                    Musique.playerSound(player, SoundLoader.SOUND_SWIMASSIST, 1.0f, 1.0f, true);
                     MusePlayerUtils.thrust(player, swimAssistRate, true);
                 } else {
-                    Musique.stopPlayerSound(player, SoundLoader.SOUND_SWIMASSIST);
+//                    Musique.stopPlayerSound(player, SoundLoader.SOUND_SWIMASSIST);
                 }
             } else {
-                Musique.stopPlayerSound(player, SoundLoader.SOUND_SWIMASSIST);
+//                Musique.stopPlayerSound(player, SoundLoader.SOUND_SWIMASSIST);
             }
         } else {
-            Musique.stopPlayerSound(player, SoundLoader.SOUND_SWIMASSIST);
+//            Musique.stopPlayerSound(player, SoundLoader.SOUND_SWIMASSIST);
         }
     }
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-        Musique.stopPlayerSound(player, SoundLoader.SOUND_SWIMASSIST);
+//        Musique.stopPlayerSound(player, SoundLoader.SOUND_SWIMASSIST);
     }
 
     @Override

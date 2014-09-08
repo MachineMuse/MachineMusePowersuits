@@ -19,9 +19,6 @@ public class CommonProxy {
     public static String ITEMS_PNG = "/tutorial/generic/items.png";
     public static String BLOCK_PNG = "/tutorial/generic/block.png";
 
-    public static MusePacketHandler packetHandler;
-    public static PlayerTickHandler playerTickHandler;
-
     public void registerEvents() {
     }
 
