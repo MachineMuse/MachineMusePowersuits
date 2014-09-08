@@ -1,0 +1,90 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+    }
+}
+
+apply plugin: 'scala'
+apply plugin: 'forge'
+
+// define the properties file
+ext.configFile = file "project.properties"
+
+configFile.withReader {
+    // read config.  it shall from now on be referenced as simply config or as project.config
+    def prop = new Properties()
+    prop.load(it)
+    project.ext.config = new ConfigSlurper().parse prop
+}
+
+version = "${config.mod_version}." + System.getenv("BUILD_NUMBER") ?: "1"
+group= "${config.group_id}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "${config.mod_id}"
+
+minecraft {
+    version = "${config.minecraft_version}-${config.forge_version}"
+    runDir = "run"
+}
+
+new File(config.libs_dir).mkdirs()
+def getLibrary(filename) {
+    def f = new File(config.libs_dir + filename)
+    if (!f.exists()) {
+        new URL(config.apisource_url + filename).withInputStream{ i -> f.withOutputStream{ it << i }}
+    }
+    dependencies {
+        compile files(config.libs_dir + filename)
+    }
+}
+
+getLibrary("industrialcraft-2-api_1.118.401-lf.zip")
+getLibrary("Atomic-Science-1.1.0.16-api.zip")
+getLibrary("ThermalExpansion-API-2.3.0b.zip")
+getLibrary("CoFHCore-API.zip")
+getLibrary("CoFHLib-pre1.zip")
+getLibrary("galacticraft-src-2.zip")
+getLibrary("Railcraft_API_latest.zip")
+getLibrary("MFR-API-2.5.2B2-642.zip")
+getLibrary("forestry-api-2.3.0.1.zip")
+getLibrary("Thaumcraft4.0.5-API.zip")
+getLibrary("MFFS2_API.zip")
+getLibrary("slick-util.jar")
+
+processResources
+        {
+            // this will ensure that this task is redone when the versions change.
+            inputs.property "version", project.version
+            inputs.property "mcversion", project.minecraft.version
+
+            // replace stuff in mcmod.info, nothing else
+            from(sourceSets.main.resources.srcDirs) {
+                include 'mcmod.info'
+
+                // replace version and mcversion
+                expand 'version':project.version, 'mcversion':project.minecraft.version
+            }
+
+            // copy everything else, thats not the mcmod.info
+            from(sourceSets.main.resources.srcDirs) {
+                exclude 'mcmod.info'
+            }
+        }
+
+task devJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'dev'
+}
+artifacts {
+    archives devJar
+}

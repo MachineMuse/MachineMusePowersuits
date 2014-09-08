@@ -1,15 +1,21 @@
-/*
-!/assets
-!/mods
-!/src
-!/mcmod.info
-!/pack.mcmeta
-!/build.xml
+# ForgeGradle
+/.gradle
+/build
+/run
 
-src/minecraft/*
-!src/minecraft/net
+# Eclipse
+.classpath
+.project
+/.settings
+/bin
 
-src/minecraft/net/*
-!src/minecraft/net/machinemuse
+# IntelliJ
+/.idea
+*.iml
+*.ipr
+*.iws
+/out
 
-!src/minecraft/api
+# Mac Stuff
+.DS_Store
+*.command
