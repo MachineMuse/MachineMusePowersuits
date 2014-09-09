@@ -4,6 +4,8 @@ Last edited on 6/25/13 12:18AM EST
 tile.luxCapacitor.name=Lux Capacitor
 tile.tinkerTable.name=Power Armor Tinker Table
 
+itemGroup.powersuits=Modular Powersuits
+
 item.powerArmorBoots.name=Power Armor Boots
 item.powerArmorLeggings.name=Power Armor Leggings
 item.powerArmorChestplate.name=Power Armor Chestplate

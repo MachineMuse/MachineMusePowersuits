@@ -5,6 +5,6 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import cpw.mods.fml.common.registry.LanguageRegistry
 
-object MPSCreativeTab extends CreativeTabs(CreativeTabs.getNextID, "Modular Powersuits") {
+object MPSCreativeTab extends CreativeTabs(CreativeTabs.getNextID, "powersuits") {
   def getTabIconItem = MPSItems.powerArmorHead
 }
