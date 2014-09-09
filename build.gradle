@@ -88,7 +88,8 @@ task devJar(type: Jar) {
 
 task copyToLib(type: Copy) {
     into "$buildDir/libs"
-    from configurations.runtime
+    from "/libs/Numina*"
+    from "/*.recipes"
 }
 
 build.dependsOn(copyToLib)
