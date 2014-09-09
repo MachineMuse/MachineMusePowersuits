@@ -75,8 +75,12 @@ class ShaderProgram(vertSource: String, fragSource: String) {
     glGetInfoLogARB(obj, glGetObjectParameteriARB(obj, GL_OBJECT_INFO_LOG_LENGTH_ARB))
   }
 
+  def getResource(url: String): URL = {
+    classOf[CommonProxy].getResource(url)
+  }
+
   def mk(filename: String, shaderType: Int): Int = {
-    val resource: URL = CommonProxy.getResource(filename)
+    val resource: URL = getResource(filename)
     val shader = glCreateShaderObjectARB(shaderType)
     val shaderProg = Source.fromURL(resource).mkString
 //    MuseLogger.logDebug("Created shader object with ID " + shader + " and text: \n" + shaderProg)

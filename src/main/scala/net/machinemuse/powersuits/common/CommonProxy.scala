@@ -29,12 +29,6 @@ import net.minecraftforge.common.MinecraftForge
  *
  * @author MachineMuse
  */
-object CommonProxy {
-  def getResource(url: String): URL = {
-    return classOf[CommonProxy].getResource(url)
-  }
-}
-
 trait CommonProxy {
   def registerEvents() {}
 
@@ -47,10 +41,6 @@ trait CommonProxy {
   def sendModeChange(dMode: Int, newMode: String) {}
 }
 
-object ClientProxy {
-  private var toolRenderer: ToolRenderer = null
-  var keybindHandler: KeybindKeyHandler = null
-}
 
 class ClientProxy extends CommonProxy {
   override def registerEvents {
@@ -76,9 +66,9 @@ class ClientProxy extends CommonProxy {
     RenderingRegistry.registerEntityRenderingHandler(classOf[EntitySpinningBlade], new RenderSpinningBlade)
     RenderingRegistry.registerEntityRenderingHandler(classOf[EntityLuxCapacitor], new RenderLuxCapacitorEntity)
     MinecraftForge.EVENT_BUS.register(new RenderEventHandler)
-    val resource: URL = classOf[ClientProxy].getResource(Config.RESOURCE_PREFIX + "models/modelspec.xml")
+    val resource: URL = classOf[ClientProxy].getResource("/assets/powersuits/models/modelspec.xml")
     ModelSpecXMLReader.parseFile(resource)
-    val otherResource: URL = classOf[ClientProxy].getResource(Config.RESOURCE_PREFIX + "models/armor2.xml")
+    val otherResource: URL = classOf[ClientProxy].getResource("/assets/powersuits/models/armor2.xml")
     ModelSpecXMLReader.parseFile(otherResource)
     try {
       val x = MuseShaders.hBlurProgram.program // want this to initialize :s

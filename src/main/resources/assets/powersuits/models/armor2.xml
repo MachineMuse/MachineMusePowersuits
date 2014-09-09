@@ -1,5 +1,5 @@
 <models>
-    <model file="/assets/powersuits/models/armor2.obj"
+    <model file="powersuits:models/armor2.obj"
            textures="powersuits:textures/models/armor2diffuse.png">
         <binding slot="2" target="LeftLeg">
             <part defaultcolor="FFFFFF" defaultglow="false" polygroup="leggray" name="Left Leg Base"/>
