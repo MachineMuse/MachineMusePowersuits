@@ -81,6 +81,12 @@ processResources
             }
         }
 
+jar {
+    manifest {
+        attributes 'FMLAT': 'numina_at.cfg'
+    }
+}
+
 task devJar(type: Jar) {
     from sourceSets.main.output
     classifier = 'dev'
