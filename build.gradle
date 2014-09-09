@@ -88,8 +88,11 @@ task devJar(type: Jar) {
 
 task copyToLib(type: Copy) {
     into "$buildDir/libs"
-    from "/libs/Numina*"
-    from "/*.recipes"
+    from configurations.runtime {
+        include 'slick-util.jar'
+        include 'vanilla.recipes'
+        include 'ThermalExpansion.recipes'
+    }
 }
 
 build.dependsOn(copyToLib)
