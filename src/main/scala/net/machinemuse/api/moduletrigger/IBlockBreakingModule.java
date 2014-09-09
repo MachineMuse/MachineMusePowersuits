@@ -19,7 +19,7 @@ public interface IBlockBreakingModule extends IPowerModule {
      */
     boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player);
 
-    public boolean onBlockDestroyed(ItemStack stack, World world, int blockID, int x, int y, int z, EntityPlayer player);
+    public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityPlayer player);
 
     public void handleBreakSpeed(PlayerEvent.BreakSpeed event);
 }

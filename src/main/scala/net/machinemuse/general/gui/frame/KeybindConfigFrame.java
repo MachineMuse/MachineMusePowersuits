@@ -13,6 +13,7 @@ import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.control.KeybindKeyHandler;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;
@@ -121,7 +122,7 @@ public class KeybindConfigFrame implements IGuiFrame {
             } else if (selectedClickie != null && selectedClickie instanceof ClickableKeybinding && trashKeybindButton.hitBox(x, y)) {
                 KeyBinding binding = ((ClickableKeybinding) selectedClickie).getKeyBinding();
                 KeyBinding.keybindArray.remove(binding);
-                KeyBinding.hash.removeObject(binding.keyCode);
+                KeyBinding.hash.removeObject(binding.getKeyCode());
                 KeybindManager.getKeybindings().remove(selectedClickie);
             }
             selectedClickie = null;
@@ -280,7 +281,7 @@ public class KeybindConfigFrame implements IGuiFrame {
         } catch (Exception e) {
             name = "???";
         }
-        KeyBinding keybind = new KeyBinding(name, key);
+        KeyBinding keybind = new KeyBinding(name, key, KeybindKeyHandler.mps);
         ClickableKeybinding clickie = new ClickableKeybinding(keybind, newKeybindButton.getPosition().plus(new MusePoint2D(0, -20)), free);
         KeybindManager.getKeybindings().add(clickie);
     }

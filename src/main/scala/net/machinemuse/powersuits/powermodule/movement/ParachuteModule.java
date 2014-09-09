@@ -4,6 +4,7 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -46,12 +47,12 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.username);
+        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderName());
         float forwardkey = movementInput.forwardKey;
         boolean sneakkey = movementInput.sneakKey;
         ItemStack torso = player.getCurrentArmor(2);
         boolean hasGlider = false;
-        MusePlayerUtils.resetFloatKickTicks(player);
+        NuminaPlayerUtils.resetFloatKickTicks(player);
         if (torso != null && torso.getItem() instanceof IModularItem) {
             hasGlider = ModuleManager.itemHasActiveModule(torso, GliderModule.MODULE_GLIDER);
         }

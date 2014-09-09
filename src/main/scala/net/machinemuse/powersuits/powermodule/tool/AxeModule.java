@@ -67,7 +67,7 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
 
     @Override
     public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if (ironAxe.canHarvestBlock(block) || ForgeHooks.canToolHarvestBlock(block, meta, ironAxe)) {
+        if (ForgeHooks.canToolHarvestBlock(block, meta, ironAxe)) {
             if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION)) {
                 return true;
             }
@@ -76,8 +76,7 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack stack, World world, int blockID, int x, int y, int z, EntityPlayer player) {
-        Block block = Block.blocksList[blockID];
+    public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityPlayer player) {
         int meta = world.getBlockMetadata(x, y, z);
         if (canHarvestBlock(stack, block, meta, player)) {
             double energyConsumption = ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION);

@@ -33,7 +33,7 @@ public class RenderEventHandler {
 
         Minecraft mc = Minecraft.getMinecraft();
         ScaledResolution screen = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
-        if (Config.useShaders() && Config.canUseShaders && Minecraft.isFancyGraphicsEnabled()) {
+        if (Config.useShaders() && Config.canUseShaders() && Minecraft.isFancyGraphicsEnabled()) {
             GlowBuffer.drawFullScreen(screen);
             GlowBuffer.clear();
         }
@@ -95,7 +95,7 @@ public class RenderEventHandler {
         double maxEnergy = ElectricItemUtils.getMaxEnergy(player);
         double currHeat = MuseHeatUtils.getPlayerHeat(player);
         double maxHeat = MuseHeatUtils.getMaxHeat(player);
-        if (maxEnergy > 0 && BlockTinkerTable.energyIcon != null) {
+        if (maxEnergy > 0 && BlockTinkerTable.energyIcon() != null) {
             String currStr = MuseStringUtils.formatNumberShort(currEnergy);
             String maxStr = MuseStringUtils.formatNumberShort(maxEnergy);
             String currHeatStr = MuseStringUtils.formatNumberShort(currHeat);

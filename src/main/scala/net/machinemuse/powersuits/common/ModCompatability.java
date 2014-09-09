@@ -12,7 +12,7 @@ import net.machinemuse.powersuits.powermodule.tool.GrafterModule;
 import net.machinemuse.powersuits.powermodule.tool.MFFSFieldTeleporterModule;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.config.Configuration;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -146,60 +146,47 @@ public class ModCompatability {
 
         // Thaumcraft
         if (isThaumCraftLoaded() && enableThaumGogglesModule()) {
-            ModuleManager.addModule(new ThaumGogglesModule(Collections.singletonList((IModularItem) ModularPowersuits.powerArmorHead)));
+            ModuleManager.addModule(new ThaumGogglesModule(Collections.singletonList((IModularItem) MPSItems.powerArmorHead())));
         }
 
-        //IPowerModule module = new MultimeterModule(Collections.singletonList((IModularItem) ModularPowersuits.powerTool));
+        //IPowerModule module = new MultimeterModule(Collections.singletonList((IModularItem) MPSItems.powerTool()));
 
         // Atomic Science
         if (isAtomicScienceLoaded()) {
-            ModuleManager.addModule(new HazmatModule(Arrays.<IModularItem>asList(ModularPowersuits.powerArmorHead, ModularPowersuits.powerArmorTorso, ModularPowersuits.powerArmorLegs, ModularPowersuits.powerArmorFeet)));
+            ModuleManager.addModule(new HazmatModule(Arrays.<IModularItem>asList(MPSItems.powerArmorHead(), MPSItems.powerArmorTorso(), MPSItems.powerArmorLegs(), MPSItems.powerArmorFeet())));
         }
 
         // Galacticraft
         if (isGalacticraftLoaded()) {
-            ModuleManager.addModule(new AirtightSealModule(Collections.singletonList((IModularItem) ModularPowersuits.powerArmorHead)));
+            ModuleManager.addModule(new AirtightSealModule(Collections.singletonList((IModularItem) MPSItems.powerArmorHead())));
         }
 
         // Forestry
         if (isForestryLoaded()) {
-            ModuleManager.addModule(new GrafterModule(Collections.singletonList((IModularItem) ModularPowersuits.powerTool)));
-            ModuleManager.addModule(new ApiaristArmorModule(Arrays.<IModularItem>asList(ModularPowersuits.powerArmorHead, ModularPowersuits.powerArmorTorso, ModularPowersuits.powerArmorLegs, ModularPowersuits.powerArmorFeet)));
+            ModuleManager.addModule(new GrafterModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
+            ModuleManager.addModule(new ApiaristArmorModule(Arrays.<IModularItem>asList(MPSItems.powerArmorHead(), MPSItems.powerArmorTorso(), MPSItems.powerArmorLegs(), MPSItems.powerArmorFeet())));
         }
 
         try {
-            ModuleManager.addModule(new MFFSFieldTeleporterModule(Collections.singletonList((IModularItem) ModularPowersuits.powerTool)));
+            ModuleManager.addModule(new MFFSFieldTeleporterModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
         } catch (Throwable e) {
             MuseLogger.logError("Failed to get MFFS item!");
         }
     }
 
-    public static ItemStack getThermexItem(String name, int quantity) {
-        try {
-            ItemStack item =
-                    thermalexpansion.api.item.ItemRegistry.getItem(name, quantity);
-            if (item != null) {
-                return item;
-            }
-        } catch (Exception e) {
-        }
-        // thermalexpansion.api.item.ItemRegistry.printItemNames();
-        MuseLogger.logError("Failed to get Thermal Expansion item " + name);
-        return null;
-    }
-
-    public static ItemStack getForestryItem(String name, int quantity) {
-        try {
-            ItemStack item = forestry.api.core.ItemInterface.getItem(name);
-            if (item != null) {
-                item.stackSize = quantity;
-                return item;
-            }
-        } catch (Exception e) {
-        }
-        MuseLogger.logError("Failed to get Forestry item " + name);
-        return null;
-    }
+//
+//    public static ItemStack getForestryItem(String name, int quantity) {
+//        try {
+//            ItemStack item = forestry.api.core.ItemInterface.getItem(name);
+//            if (item != null) {
+//                item.stackSize = quantity;
+//                return item;
+//            }
+//        } catch (Exception e) {
+//        }
+//        MuseLogger.logError("Failed to get Forestry item " + name);
+//        return null;
+//    }
 
     public static ItemStack getMFFSItem(String name, int quantity) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
         Object obj = Class.forName("mods.mffs.common.ModularForceFieldSystem").getField("MFFSitemFieldTeleporter").get(null);

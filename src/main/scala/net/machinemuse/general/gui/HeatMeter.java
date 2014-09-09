@@ -6,6 +6,7 @@ import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import org.lwjgl.opengl.GL11;
 
@@ -17,7 +18,7 @@ public class HeatMeter {
         MuseTextureUtils.pushTexture(MuseTextureUtils.BLOCK_TEXTURE_QUILT());
         RenderState.blendingOn();
         RenderState.on2D();
-        IIcon icon = Block.lavaStill.getIcon(0, 0);
+        IIcon icon = Blocks.lava.getIcon(0, 0);
         drawFluid(xpos, ypos, value, icon);
         drawGlass(xpos, ypos);
         RenderState.off2D();
@@ -40,7 +41,7 @@ public class HeatMeter {
     }
 
     public void drawGlass(double xpos, double ypos) {
-        MuseTextureUtils.pushTexture(Config.GLASS_TEXTURE);
+        MuseTextureUtils.pushTexture(Config.GLASS_TEXTURE());
         GL11.glBegin(GL11.GL_QUADS);
         GL11.glTexCoord2d(0, 0);
         GL11.glVertex2d(xpos, ypos);

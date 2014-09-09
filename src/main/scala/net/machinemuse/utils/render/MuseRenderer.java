@@ -297,7 +297,7 @@ public abstract class MuseRenderer {
         double jagfactor = 0.3;
         RenderState.on2D();
         GL11.glEnable(GL11.GL_DEPTH_TEST);
-        MuseTextureUtils.pushTexture(Config.LIGHTNING_TEXTURE);
+        MuseTextureUtils.pushTexture(Config.LIGHTNING_TEXTURE());
         RenderState.blendingOn();
         colour.doGL();
         GL11.glBegin(GL11.GL_QUADS);
@@ -322,7 +322,7 @@ public abstract class MuseRenderer {
     }
 
     public static void drawLightningBetweenPoints(double x1, double y1, double z1, double x2, double y2, double z2, int index) {
-        MuseTextureUtils.pushTexture(Config.LIGHTNING_TEXTURE);
+        MuseTextureUtils.pushTexture(Config.LIGHTNING_TEXTURE());
         double u1 = index / 50.0;
         double u2 = u1 + 0.02;
         double px = (y1 - y2) * 0.125;

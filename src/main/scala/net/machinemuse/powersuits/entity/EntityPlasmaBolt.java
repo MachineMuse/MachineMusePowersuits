@@ -131,7 +131,7 @@ public class EntityPlasmaBolt extends EntityThrowable {
 				event.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.shootingEntity), (int) damage);
 			}
 			break;
-		case TILE:
+		case BLOCK:
 			break;
 		default:
 			break;

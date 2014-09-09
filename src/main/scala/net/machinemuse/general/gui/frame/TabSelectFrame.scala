@@ -21,7 +21,7 @@ class TabSelectFrame(p: EntityPlayer, topleft: MusePoint2D, bottomright: MusePoi
   def onMouseDown(x: Double, y: Double, button: Int): Unit = {
     for (b <- buttons) {
       if (b._1.isEnabled && b._1.hitBox(x, y)) {
-        p.openGui(ModularPowersuits.INSTANCE, b._2, p.worldObj, worldx, worldy, worldz)
+        p.openGui(ModularPowersuits, b._2, p.worldObj, worldx, worldy, worldz)
       }
     }
   }

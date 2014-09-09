@@ -81,13 +81,13 @@ with ModeChangingModularItem {
    * <p/>
    * Returns: Whether to increment player use stats with this item
    */
-  def onBlockDestroyed(stack: ItemStack, world: World, blockID: Int, x: Int, y: Int, z: Int, entity: EntityLivingBase): Boolean = {
+  override def onBlockDestroyed(stack: ItemStack, world: World, block: Block, x: Int, y: Int, z: Int, entity: EntityLivingBase): Boolean = {
     entity match {
       case player: EntityPlayer =>
         import scala.collection.JavaConversions._
         for (module <- ModuleManager.getBlockBreakingModules) {
           if (ModuleManager.itemHasActiveModule(stack, module.getDataName)) {
-            if (module.onBlockDestroyed(stack, world, blockID, x, y, z, player)) {
+            if (module.onBlockDestroyed(stack, world, block, x, y, z, player)) {
               return true
             }
           }

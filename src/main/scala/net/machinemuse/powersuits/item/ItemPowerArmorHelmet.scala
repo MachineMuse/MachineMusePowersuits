@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.texture.IIconRegister
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.item.ItemStack
 
-class ItemPowerArmorHelmet(id: Int) extends ItemPowerArmor(0, 0)
+object ItemPowerArmorHelmet extends ItemPowerArmor(0, 0)
 //with IBreathableArmor
 //with IGoggles
 //with IRevealer

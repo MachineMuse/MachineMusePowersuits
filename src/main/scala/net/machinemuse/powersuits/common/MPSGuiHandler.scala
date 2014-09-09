@@ -19,7 +19,7 @@ import cpw.mods.fml.relauncher.{Side, SideOnly}
  *
  * @author MachineMuse
  */
-class GuiHandler extends IGuiHandler {
+object MPSGuiHandler extends IGuiHandler {
   override def getServerGuiElement(ID: Int, player: EntityPlayer, world: World, x: Int, y: Int, z: Int): AnyRef = {
     ID match {
       case _ => null

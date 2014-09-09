@@ -7,6 +7,7 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
@@ -21,7 +22,7 @@ public class ShockAbsorberModule extends PowerModuleBase implements IToggleableM
         super(validItems);
         addSimpleTradeoff(this, "Power", SHOCK_ABSORB_ENERGY_CONSUMPTION, "J/m", 0, 10, SHOCK_ABSORB_MULTIPLIER, "%", 0, 1);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
-        addInstallCost(new ItemStack(Block.cloth, 2));
+        addInstallCost(new ItemStack(Blocks.wool, 2));
         }
 
     @Override

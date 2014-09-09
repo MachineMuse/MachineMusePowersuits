@@ -265,7 +265,7 @@ public class MuseItemUtils {
     public static boolean isSameItem(ItemStack stack1, ItemStack stack2) {
         if (stack1 == null || stack2 == null) {
             return false;
-        } else if (stack1.itemID != stack2.itemID) {
+        } else if (stack1.getItem() != stack2.getItem()) {
             return false;
         } else
             return !((!stack1.isItemStackDamageable())
@@ -313,7 +313,7 @@ public class MuseItemUtils {
         // Then try to add the items to empty slots
         for (int i = 0; i < player.inventory.getSizeInventory() && itemsToGive.stackSize > 0; i++) {
             if (player.inventory.getStackInSlot(i) == null) {
-                ItemStack destination = new ItemStack(itemsToGive.itemID, 0, itemsToGive.getItemDamage());
+                ItemStack destination = new ItemStack(itemsToGive.getItem(), 0, itemsToGive.getItemDamage());
                 transferStackWithChance(itemsToGive, destination, chanceOfSuccess);
                 if (destination.stackSize > 0) {
                     player.inventory.setInventorySlotContents(i, destination);
@@ -327,7 +327,7 @@ public class MuseItemUtils {
                 if (MuseMathUtils.nextDouble() < chanceOfSuccess) {
                     ItemStack copyStack = itemsToGive.copy();
                     copyStack.stackSize = 1;
-                    player.dropPlayerItem(copyStack);
+                    player.dropPlayerItemWithRandomChoice(copyStack, false);
                 }
             }
         }

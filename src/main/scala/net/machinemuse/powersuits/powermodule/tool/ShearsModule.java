@@ -16,6 +16,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
@@ -32,14 +33,14 @@ import java.util.List;
 import java.util.Random;
 
 public class ShearsModule extends PowerModuleBase implements IBlockBreakingModule, IRightClickModule {
-    public static final ItemStack shears = new ItemStack(Item.shears);
+    public static final ItemStack shears = new ItemStack(Items.shears);
     public static final String MODULE_SHEARS = "Shears";
     private static final String SHEARING_ENERGY_CONSUMPTION = "Shearing Energy Consumption";
     private static final String SHEARING_HARVEST_SPEED = "Shearing Harvest Speed";
 
     public ShearsModule(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(new ItemStack(Item.ingotIron, 2));
+        addInstallCost(new ItemStack(Items.iron_ingot, 2));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBaseProperty(SHEARING_ENERGY_CONSUMPTION, 50, "J");
         addBaseProperty(SHEARING_HARVEST_SPEED, 8, "x");
@@ -111,7 +112,7 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if (shears.canHarvestBlock(block) || ForgeHooks.canToolHarvestBlock(block, meta, shears) || shears.getStrVsBlock(block) > 1) {
+        if (ForgeHooks.canToolHarvestBlock(block, meta, shears)) {
             if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SHEARING_ENERGY_CONSUMPTION)) {
                 return true;
             }
@@ -120,13 +121,12 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack itemstack, World world, int blockID, int x, int y, int z, EntityPlayer player) {
+    public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int x, int y, int z, EntityPlayer player) {
         if (player.worldObj.isRemote) {
             return false;
         }
-        int id = player.worldObj.getBlockId(x, y, z);
-        if (Block.blocksList[id] instanceof IShearable && ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(itemstack, SHEARING_ENERGY_CONSUMPTION)) {
-            IShearable target = (IShearable) Block.blocksList[id];
+        if (block instanceof IShearable && ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(itemstack, SHEARING_ENERGY_CONSUMPTION)) {
+            IShearable target = (IShearable) block;
             if (target.isShearable(itemstack, player.worldObj, x, y, z)) {
                 ArrayList<ItemStack> drops = target.onSheared(itemstack, player.worldObj, x, y, z,
                         EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, itemstack));
@@ -143,7 +143,7 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
                 }
 
                 ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemstack, SHEARING_ENERGY_CONSUMPTION));
-                player.addStat(StatList.mineBlockStatArray[id], 1);
+                player.addStat(StatList.mineBlockStatArray[Block.getIdFromBlock(block)], 1);
             }
         }
         return false;
@@ -151,8 +151,8 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-        // TOOD: MAKE NOT STUPID
-        float defaultEffectiveness = shears.getStrVsBlock(event.block);
+        // TODO: MAKE NOT STUPID
+        float defaultEffectiveness = 8;
         double ourEffectiveness = ModuleManager.computeModularProperty(event.entityPlayer.getCurrentEquippedItem(), SHEARING_HARVEST_SPEED);
         event.newSpeed *= Math.max(defaultEffectiveness, ourEffectiveness);
 

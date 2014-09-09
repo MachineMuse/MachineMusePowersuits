@@ -54,10 +54,10 @@ public class MuseBlockUtils {
                 for (int i = 2; i < 6; i++) {
                     int[] coords;
                     coords = getAdjacentCoordinatesForSide(x, y, z, i);
-                    if (world.getBlockId(coords[0], coords[1], coords[2]) == block) {
-                        world.setBlockMetadataWithNotify(coords[0], coords[1], coords[2], SIDE_OPPOSITE[meta], 1);
-                        return SIDE_OPPOSITE[meta];
-                    }
+//                    if (world.getBlockId(coords[0], coords[1], coords[2]) == block) {
+//                        world.setBlockMetadataWithNotify(coords[0], coords[1], coords[2], SIDE_OPPOSITE[meta], 1);
+//                        return SIDE_OPPOSITE[meta];
+//                    }
                 }
                 return SIDE_LEFT[meta];
             case 10:
@@ -113,10 +113,10 @@ public class MuseBlockUtils {
                 for (int i = 2; i < 6; i++) {
                     int[] coords;
                     coords = getAdjacentCoordinatesForSide(x, y, z, i);
-                    if (world.getBlockId(coords[0], coords[1], coords[2]) == block) {
-                        world.setBlockMetadataWithNotify(coords[0], coords[1], coords[2], SIDE_OPPOSITE[meta], 1);
-                        return SIDE_OPPOSITE[meta];
-                    }
+//                    if (world.getBlockId(coords[0], coords[1], coords[2]) == block) {
+//                        world.setBlockMetadataWithNotify(coords[0], coords[1], coords[2], SIDE_OPPOSITE[meta], 1);
+//                        return SIDE_OPPOSITE[meta];
+//                    }
                 }
                 return SIDE_RIGHT[meta];
             case 10:
@@ -145,38 +145,38 @@ public class MuseBlockUtils {
     }
 
     static {
-        rotateType[Block.wood.blockID] = 7;
-        rotateType[Block.dispenser.blockID] = 2;
-        rotateType[Block.railPowered.blockID] = 3;
-        rotateType[Block.railDetector.blockID] = 3;
-        rotateType[Block.pistonStickyBase.blockID] = 2;
-        rotateType[Block.pistonBase.blockID] = 2;
-        rotateType[Block.stoneSingleSlab.blockID] = 8;
-        rotateType[Block.stairsWoodOak.blockID] = 5;
-        rotateType[Block.chest.blockID] = 9;
-        rotateType[Block.furnaceIdle.blockID] = 1;
-        rotateType[Block.furnaceBurning.blockID] = 1;
-        rotateType[Block.signPost.blockID] = 11;
-        rotateType[Block.rail.blockID] = 3;
-        rotateType[Block.stairsCobblestone.blockID] = 5;
-        rotateType[Block.lever.blockID] = 10;
-        rotateType[Block.pumpkin.blockID] = 4;
-        rotateType[Block.pumpkinLantern.blockID] = 4;
-        rotateType[Block.redstoneRepeaterIdle.blockID] = 6;
-        rotateType[Block.redstoneRepeaterActive.blockID] = 6;
-        rotateType[Block.stairsBrick.blockID] = 5;
-        rotateType[Block.stairsStoneBrick.blockID] = 5;
-        rotateType[Block.stairsNetherBrick.blockID] = 5;
-        rotateType[Block.woodSingleSlab.blockID] = 8;
-        rotateType[Block.stairsSandStone.blockID] = 5;
-        rotateType[Block.enderChest.blockID] = 1;
-        rotateType[Block.stairsWoodSpruce.blockID] = 5;
-        rotateType[Block.stairsWoodBirch.blockID] = 5;
-        rotateType[Block.stairsWoodJungle.blockID] = 5;
-        rotateType[Block.chestTrapped.blockID] = 9;
-        rotateType[Block.stairsNetherQuartz.blockID] = 5;
-        rotateType[Block.hopperBlock.blockID] = 2;
-        rotateType[Block.railActivator.blockID] = 3;
-        rotateType[Block.dropper.blockID] = 2;
+//        rotateType[Block.wood.blockID] = 7;
+//        rotateType[Block.dispenser.blockID] = 2;
+//        rotateType[Block.railPowered.blockID] = 3;
+//        rotateType[Block.railDetector.blockID] = 3;
+//        rotateType[Block.pistonStickyBase.blockID] = 2;
+//        rotateType[Block.pistonBase.blockID] = 2;
+//        rotateType[Block.stoneSingleSlab.blockID] = 8;
+//        rotateType[Block.stairsWoodOak.blockID] = 5;
+//        rotateType[Block.chest.blockID] = 9;
+//        rotateType[Block.furnaceIdle.blockID] = 1;
+//        rotateType[Block.furnaceBurning.blockID] = 1;
+//        rotateType[Block.signPost.blockID] = 11;
+//        rotateType[Block.rail.blockID] = 3;
+//        rotateType[Block.stairsCobblestone.blockID] = 5;
+//        rotateType[Block.lever.blockID] = 10;
+//        rotateType[Block.pumpkin.blockID] = 4;
+//        rotateType[Block.pumpkinLantern.blockID] = 4;
+//        rotateType[Block.redstoneRepeaterIdle.blockID] = 6;
+//        rotateType[Block.redstoneRepeaterActive.blockID] = 6;
+//        rotateType[Block.stairsBrick.blockID] = 5;
+//        rotateType[Block.stairsStoneBrick.blockID] = 5;
+//        rotateType[Block.stairsNetherBrick.blockID] = 5;
+//        rotateType[Block.woodSingleSlab.blockID] = 8;
+//        rotateType[Block.stairsSandStone.blockID] = 5;
+//        rotateType[Block.enderChest.blockID] = 1;
+//        rotateType[Block.stairsWoodSpruce.blockID] = 5;
+//        rotateType[Block.stairsWoodBirch.blockID] = 5;
+//        rotateType[Block.stairsWoodJungle.blockID] = 5;
+//        rotateType[Block.chestTrapped.blockID] = 9;
+//        rotateType[Block.stairsNetherQuartz.blockID] = 5;
+//        rotateType[Block.hopperBlock.blockID] = 2;
+//        rotateType[Block.railActivator.blockID] = 3;
+//        rotateType[Block.dropper.blockID] = 2;
     }
 }

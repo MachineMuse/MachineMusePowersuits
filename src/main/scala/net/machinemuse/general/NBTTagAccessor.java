@@ -4,6 +4,7 @@
 package net.machinemuse.general;
 
 import net.machinemuse.numina.general.MuseLogger;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagInt;
 
@@ -11,6 +12,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Workaround class to access static NBTTagCompound.getTagMap()
@@ -63,21 +65,14 @@ public class NBTTagAccessor extends NBTTagCompound {
         return null;
     }
 
-    public static List<NBTTagInt> getIntValues(NBTTagCompound nbt) {
-        ArrayList<NBTTagInt> a = new ArrayList<NBTTagInt>(nbt.getTags().size());
-        for (Object o : nbt.getTags()) {
-            if (o instanceof NBTTagInt) {
-                a.add((NBTTagInt) o);
-            }
-        }
-        return a;
-    }
 
     public static List<NBTTagCompound> getValues(NBTTagCompound nbt) {
-        ArrayList<NBTTagCompound> a = new ArrayList<NBTTagCompound>(nbt.getTags().size());
-        for (Object o : nbt.getTags()) {
-            if (o instanceof NBTTagCompound) {
-                a.add((NBTTagCompound) o);
+        Set<String> keyset = (Set<String>) nbt.func_150296_c();
+        ArrayList<NBTTagCompound> a = new ArrayList<NBTTagCompound>(keyset.size());
+        for (String key : keyset) {
+            NBTBase c = nbt.getTag(key);
+            if (c instanceof NBTTagCompound) {
+                a.add((NBTTagCompound) c);
             }
         }
         return a;

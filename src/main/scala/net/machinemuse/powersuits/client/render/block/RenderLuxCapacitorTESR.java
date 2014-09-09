@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.client.render.block;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.render.MuseTESR;
 import net.machinemuse.numina.render.RenderState;
@@ -9,8 +8,8 @@ import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.obj.WavefrontObject;
@@ -29,14 +28,14 @@ public class RenderLuxCapacitorTESR extends MuseTESR implements ISimpleBlockRend
 
     public static WavefrontObject getLightModel() {
         if (lightmodel == null) {
-            lightmodel = (WavefrontObject) AdvancedModelLoader.loadModel(Config.RESOURCE_PREFIX + "models/lightCore.obj");
+            lightmodel = (WavefrontObject) AdvancedModelLoader.loadModel(new ResourceLocation(Config.RESOURCE_PREFIX() + "models/lightCore.obj"));
         }
         return lightmodel;
     }
 
     public static WavefrontObject getFrameModel() {
         if (framemodel == null) {
-            framemodel = (WavefrontObject) AdvancedModelLoader.loadModel(Config.RESOURCE_PREFIX + "models/lightBase.obj");
+            framemodel = (WavefrontObject) AdvancedModelLoader.loadModel(new ResourceLocation(Config.RESOURCE_PREFIX() + "models/lightBase.obj"));
         }
         return framemodel;
     }
@@ -44,7 +43,7 @@ public class RenderLuxCapacitorTESR extends MuseTESR implements ISimpleBlockRend
     @Override
     public void renderAt(TileEntity undifferentiatedtileentity, double x, double y, double z, float partialTickTime) {
         TileEntityLuxCapacitor tileentity = (TileEntityLuxCapacitor) undifferentiatedtileentity;
-        this.bindTextureByName(Config.TEXTURE_PREFIX + "models/thusters_uvw_2.png");
+        this.bindTextureByName(Config.TEXTURE_PREFIX() + "models/thusters_uvw_2.png");
         glPushMatrix();
         glTranslated(x + 0.5, y + 0.5, z + 0.5);
         double scale = 0.0625;
@@ -77,21 +76,17 @@ public class RenderLuxCapacitorTESR extends MuseTESR implements ISimpleBlockRend
                 break;
 
         }
-        if (!Tessellator.instance.isDrawing) {
-            getFrameModel().renderAll();
-            RenderState.glowOn();
-            new Colour(tileentity.red, tileentity.green, tileentity.blue, 1.0).doGL();
-            getLightModel().renderAll();
-            RenderState.glowOff();
-        } else {
-            MuseLogger.logError("Error: tessellator not flushed properly when MPS got ahold of it!");
-        }
+        getFrameModel().renderAll();
+        RenderState.glowOn();
+        new Colour(tileentity.red, tileentity.green, tileentity.blue, 1.0).doGL();
+        getLightModel().renderAll();
+        RenderState.glowOff();
         glPopMatrix();
     }
 
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
-        this.bindTextureByName(Config.TEXTURE_PREFIX + "models/thusters_uvw_2.png");
+        this.bindTextureByName(Config.TEXTURE_PREFIX() + "models/thusters_uvw_2.png");
         GL11.glPushMatrix();
         GL11.glTranslated(-0.5, -0.5 + -1.0 / 16.0, -0.5);
 
@@ -115,7 +110,7 @@ public class RenderLuxCapacitorTESR extends MuseTESR implements ISimpleBlockRend
     }
 
     @Override
-    public boolean shouldRender3DInInventory() {
+    public boolean shouldRender3DInInventory(int modelId) {
         return true;
     }
 

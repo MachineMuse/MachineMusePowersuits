@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.control;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
 import cpw.mods.fml.relauncher.Side;
@@ -14,11 +13,9 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
 
-import java.util.EnumSet;
-
 @SideOnly(Side.CLIENT)
 public class KeybindKeyHandler {
-    static String mps = "Modular Powersuits";
+    public static final String mps = "Modular Powersuits";
     public static KeyBinding openKeybindGUI = new KeyBinding("Open MPS Keybind GUI", -1, mps);
     public static KeyBinding goDownKey = new KeyBinding("Go Down (MPS Flight Control)", Keyboard.KEY_Z, mps);
     public static KeyBinding cycleToolBackward = new KeyBinding("Cycle Tool Backward (MPS)", -1, mps);
@@ -43,17 +40,17 @@ public class KeybindKeyHandler {
         if (player == null) {
             return;
         }
-        if(pressed) {
+        if (pressed) {
             if (key == openKeybindGUI.getKeyCode()) {
                 World world = Minecraft.getMinecraft().theWorld;
                 if (Minecraft.getMinecraft().inGameHasFocus) {
-                    player.openGui(ModularPowersuits.INSTANCE, 1, world, 0, 0, 0);
+                    player.openGui(ModularPowersuits.INSTANCE(), 1, world, 0, 0, 0);
                 }
             }
             if (key == openCosmeticGUI.getKeyCode()) {
                 World world = Minecraft.getMinecraft().theWorld;
                 if (Minecraft.getMinecraft().inGameHasFocus) {
-                    player.openGui(ModularPowersuits.INSTANCE, 3, world, 0, 0, 0);
+                    player.openGui(ModularPowersuits.INSTANCE(), 3, world, 0, 0, 0);
                 }
             }
             if (key == goDownKey.getKeyCode()) {

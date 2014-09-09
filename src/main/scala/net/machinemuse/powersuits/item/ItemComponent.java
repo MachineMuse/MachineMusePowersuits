@@ -47,7 +47,7 @@ public class ItemComponent extends Item {
     public static ItemStack artificialMuscle;
 
     public ItemComponent() {
-        super(assignedItemID);
+        super();
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setCreativeTab(Config.getCreativeTab());
@@ -147,9 +147,9 @@ public class ItemComponent extends Item {
      * returns 16 items). For creative tab.
      */
     @Override
-    public void getSubItems(int itemID, CreativeTabs tab, List listToAddTo) {
+    public void getSubItems(Item item, CreativeTabs tab, List listToAddTo) {
         for (int i = 0; i < names.size(); ++i) {
-            listToAddTo.add(new ItemStack(itemID, 1, i));
+            listToAddTo.add(new ItemStack(this, 1, i));
         }
     }
 }

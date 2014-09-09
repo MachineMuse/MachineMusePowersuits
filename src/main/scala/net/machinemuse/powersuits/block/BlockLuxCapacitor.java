@@ -57,11 +57,11 @@ public class BlockLuxCapacitor extends Block {
         // a different toolclass. par3 is the minimum level of item required to
         // break it:
         // 0=bare hands, 1=wood, 2=stone, 3=iron, 4=diamond
-        MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 0);
+//        MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 0);
 
         GameRegistry.registerTileEntity(TileEntityLuxCapacitor.class, "luxCapacitor");
 
-        setUnlocalizedName("luxCapacitor");
+        setBlockName("luxCapacitor");
 
     }
 
@@ -81,7 +81,7 @@ public class BlockLuxCapacitor extends Block {
         double x2 = bbMax(dir.offsetX);
         double y2 = bbMax(dir.offsetY);
         double z2 = bbMax(dir.offsetZ);
-        return AxisAlignedBB.getAABBPool().getAABB(x + x1, y + y1, z + z1, x + x2, y + y2, z + z2);
+        return AxisAlignedBB.getBoundingBox(x + x1, y + y1, z + z1, x + x2, y + y2, z + z2);
     }
 
     @SideOnly(Side.CLIENT)

@@ -11,6 +11,7 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
@@ -22,12 +23,12 @@ import java.util.List;
 
 public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
     public static final String MODULE_DIAMOND_PICK_UPGRADE = "Diamond Drill Upgrade";
-    public static final ItemStack diamondPick = new ItemStack(Item.pickaxeDiamond);
+    public static final ItemStack diamondPick = new ItemStack(Items.diamond_pickaxe);
 
     public DiamondPickUpgradeModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
-        addInstallCost(new ItemStack(Item.diamond, 3));
+        addInstallCost(new ItemStack(Items.diamond, 3));
     }
 
     @Override
@@ -57,8 +58,8 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
 
     @Override
     public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if (!PickaxeModule.ironPickaxe.canHarvestBlock(block) && !ForgeHooks.canToolHarvestBlock(block, meta, PickaxeModule.ironPickaxe)) {
-            if (diamondPick.canHarvestBlock(block) || ForgeHooks.canToolHarvestBlock(block, meta, diamondPick)) {
+        if (!ForgeHooks.canToolHarvestBlock(block, meta, PickaxeModule.ironPickaxe)) {
+            if (ForgeHooks.canToolHarvestBlock(block, meta, diamondPick)) {
                 if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, PickaxeModule.PICKAXE_ENERGY_CONSUMPTION)) {
                     return true;
                 }
@@ -68,8 +69,7 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack stack, World world, int blockID, int x, int y, int z, EntityPlayer player) {
-        Block block = Block.blocksList[blockID];
+    public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityPlayer player) {
         int meta = world.getBlockMetadata(x,y,z);
         if (canHarvestBlock(stack, block, meta, player) && !PickaxeModule.harvestCheck(stack, block, meta, player)) {
             ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, PickaxeModule.PICKAXE_ENERGY_CONSUMPTION));

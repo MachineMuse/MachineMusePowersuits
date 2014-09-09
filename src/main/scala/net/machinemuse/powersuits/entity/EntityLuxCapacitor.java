@@ -2,14 +2,14 @@ package net.machinemuse.powersuits.entity;
 
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
+import net.machinemuse.powersuits.common.MPSItems;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class EntityLuxCapacitor extends EntityThrowable {
     public double red;
@@ -66,27 +66,27 @@ public class EntityLuxCapacitor extends EntityThrowable {
     @Override
     protected void onImpact(MovingObjectPosition movingobjectposition) {
 
-        if (!this.isDead && movingobjectposition.typeOfHit == EnumMovingObjectType.TILE) {
+        if (!this.isDead && movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
             ForgeDirection dir = ForgeDirection.values()[movingobjectposition.sideHit].getOpposite();
             int x = movingobjectposition.blockX - dir.offsetX;
             int y = movingobjectposition.blockY - dir.offsetY;
             int z = movingobjectposition.blockZ - dir.offsetZ;
             if (y > 0) {
-                int blockID = worldObj.getBlockId(x, y, z);
-                if (blockID <= 0 || Block.blocksList[blockID] == null || Block.blocksList[blockID].isAirBlock(worldObj, x, y, z)) {
-                    int blockToStickTo = worldObj.getBlockId(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
-                    if (Block.isNormalCube(blockToStickTo)) {
-                        worldObj.setBlock(x, y, z, BlockLuxCapacitor.assignedBlockID, 0, 7);
-                        worldObj.setBlockTileEntity(x, y, z, new TileEntityLuxCapacitor(dir, red, green, blue));
+                Block block = worldObj.getBlock(x, y, z);
+                if (block == null || block.isAir(worldObj, x, y, z)) {
+                    Block blockToStickTo = worldObj.getBlock(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
+                    if (blockToStickTo.isNormalCube(worldObj, x, y, z)) {
+                        worldObj.setBlock(x, y, z, MPSItems.luxCapacitor(), 0, 7);
+                        worldObj.setTileEntity(x, y, z, new TileEntityLuxCapacitor(dir, red, green, blue));
                     } else {
                         for (ForgeDirection d : ForgeDirection.values()) {
                             int xo = x + d.offsetX;
                             int yo = y + d.offsetY;
                             int zo = z + d.offsetZ;
-                            blockToStickTo = worldObj.getBlockId(xo, yo, zo);
-                            if (Block.isNormalCube(blockToStickTo)) {
-                                worldObj.setBlock(x, y, z, BlockLuxCapacitor.assignedBlockID, 0, 7);
-                                worldObj.setBlockTileEntity(x, y, z, new TileEntityLuxCapacitor(d, red, green, blue));
+                            blockToStickTo = worldObj.getBlock(xo, yo, zo);
+                            if (blockToStickTo.isNormalCube(worldObj, x, y, z)) {
+                                worldObj.setBlock(x, y, z, MPSItems.luxCapacitor(), 0, 7);
+                                worldObj.setTileEntity(x, y, z, new TileEntityLuxCapacitor(d, red, green, blue));
                             }
                         }
                     }

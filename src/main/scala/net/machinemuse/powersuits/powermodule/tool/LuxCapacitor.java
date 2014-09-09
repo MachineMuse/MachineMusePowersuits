@@ -8,6 +8,7 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
@@ -24,8 +25,8 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
 
     public LuxCapacitor(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(new ItemStack(Item.glowstone, 1));
-        addInstallCost(new ItemStack(Item.ingotIron, 2));
+        addInstallCost(new ItemStack(Items.glowstone_dust, 1));
+        addInstallCost(new ItemStack(Items.iron_ingot, 2));
         addBaseProperty(ENERGY, 100, "J");
         addTradeoffProperty("Red", RED, 1, "%");
         addTradeoffProperty("Green", GREEN, 1, "%");

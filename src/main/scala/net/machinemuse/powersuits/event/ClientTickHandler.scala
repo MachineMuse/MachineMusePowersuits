@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.tick
+package net.machinemuse.powersuits.event
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent
 import cpw.mods.fml.common.gameevent.TickEvent

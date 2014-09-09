@@ -111,7 +111,7 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule 
                                     * knockback);
                         }
                         break;
-                    case TILE:
+                    case BLOCK:
                         drawParticleStreamTo(player, world, hitMOP.hitVec.xCoord, hitMOP.hitVec.yCoord, hitMOP.hitVec.zCoord);
                         break;
                     default:

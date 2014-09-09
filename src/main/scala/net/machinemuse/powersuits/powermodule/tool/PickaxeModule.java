@@ -11,6 +11,7 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
@@ -22,13 +23,13 @@ import java.util.List;
 
 public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
     public static final String MODULE_PICKAXE = "Pickaxe";
-    public static final ItemStack ironPickaxe = new ItemStack(Item.pickaxeIron);
     public static final String PICKAXE_HARVEST_SPEED = "Pickaxe Harvest Speed";
     public static final String PICKAXE_ENERGY_CONSUMPTION = "Pickaxe Energy Consumption";
+    public static final ItemStack ironPickaxe = new ItemStack(Items.iron_pickaxe);
 
     public PickaxeModule(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(new ItemStack(Item.ingotIron, 3));
+        addInstallCost(new ItemStack(Items.iron_ingot, 3));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBaseProperty(PICKAXE_ENERGY_CONSUMPTION, 50, "J");
         addBaseProperty(PICKAXE_HARVEST_SPEED, 8, "x");
@@ -67,8 +68,7 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack stack, World world, int blockID, int x, int y, int z, EntityPlayer player) {
-        Block block = Block.blocksList[blockID];
+    public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityPlayer player) {
         int meta = world.getBlockMetadata(x,y,z);
         if (canHarvestBlock(stack, block, meta, player)) {
             ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, PICKAXE_ENERGY_CONSUMPTION));
@@ -84,7 +84,7 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
     }
 
     public static boolean harvestCheck(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if (ironPickaxe.canHarvestBlock(block) || ForgeHooks.canToolHarvestBlock(block, meta, ironPickaxe)) {
+        if (ForgeHooks.canToolHarvestBlock(block, meta, ironPickaxe)) {
             if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, PICKAXE_ENERGY_CONSUMPTION)) {
                 return true;
             }

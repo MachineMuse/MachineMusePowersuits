@@ -38,6 +38,6 @@ class FieldTinkerModule(list: java.util.List[IModularItem]) extends PowerModuleB
   def onPlayerStoppedUsing(itemStack: ItemStack, world: World, player: EntityPlayer, par4: Int) {}
 
   def onRightClick(player: EntityPlayer, world: World, item: ItemStack) {
-    player.openGui(ModularPowersuits.INSTANCE, 2, world, player.posX.toInt, player.posY.toInt, player.posZ.toInt)
+    player.openGui(ModularPowersuits, 2, world, player.posX.toInt, player.posY.toInt, player.posZ.toInt)
   }
 }

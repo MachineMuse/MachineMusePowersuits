@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.powermodule.movement;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
@@ -62,7 +63,7 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
         double range = ModuleManager.computeModularProperty(itemStack, BLINK_DRIVE_RANGE);
         double energyConsumption = ModuleManager.computeModularProperty(itemStack, BLINK_DRIVE_ENERGY_CONSUMPTION);
         if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
-            MusePlayerUtils.resetFloatKickTicks(player);
+            NuminaPlayerUtils.resetFloatKickTicks(player);
             ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
             world.playSoundAtEntity(player, "mob.endermen.portal", 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
             // MuseLogger.logDebug("Range: " + range);

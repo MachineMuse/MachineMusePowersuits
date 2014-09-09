@@ -5,13 +5,14 @@ import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import org.lwjgl.opengl.GL11;
 
 public class EnergyMeter extends HeatMeter {
     public void draw(double xpos, double ypos, double value) {
         MuseTextureUtils.pushTexture(MuseTextureUtils.BLOCK_TEXTURE_QUILT());
-        IIcon icon = Block.waterStill.getIcon(0, 0);
+        IIcon icon = Blocks.water.getIcon(0, 0);
         GL11.glLineWidth(0.5f);
         RenderState.on2D();
         RenderState.blendingOn();

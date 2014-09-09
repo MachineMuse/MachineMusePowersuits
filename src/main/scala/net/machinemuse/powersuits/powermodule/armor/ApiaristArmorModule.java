@@ -20,9 +20,9 @@ public class ApiaristArmorModule extends PowerModuleBase {
 
     public ApiaristArmorModule(List<IModularItem> validItems) {
         super(validItems);
-        ItemStack stack = ModCompatability.getForestryItem("craftingMaterial", 6);
-        stack.setItemDamage(3);
-        addInstallCost(stack);
+//        ItemStack stack = ModCompatability.getForestryItem("craftingMaterial", 6);
+//        stack.setItemDamage(3);
+//        addInstallCost(stack);
         addBaseProperty(APIARIST_ARMOR_ENERGY_CONSUMPTION, 10, "J");
     }
 

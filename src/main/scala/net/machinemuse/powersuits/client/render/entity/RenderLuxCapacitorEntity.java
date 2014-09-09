@@ -6,6 +6,7 @@ import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.obj.WavefrontObject;
 
@@ -17,14 +18,14 @@ public class RenderLuxCapacitorEntity extends MuseRender {
 
     public static WavefrontObject getLightModel() {
         if (lightmodel == null) {
-            lightmodel = (WavefrontObject) AdvancedModelLoader.loadModel(Config.RESOURCE_PREFIX + "models/lightCore.obj");
+            lightmodel = (WavefrontObject) AdvancedModelLoader.loadModel(new ResourceLocation(Config.RESOURCE_PREFIX() + "models/lightCore.obj"));
         }
         return lightmodel;
     }
 
     public static WavefrontObject getFrameModel() {
         if (framemodel == null) {
-            framemodel = (WavefrontObject) AdvancedModelLoader.loadModel(Config.RESOURCE_PREFIX + "models/lightBase.obj");
+            framemodel = (WavefrontObject) AdvancedModelLoader.loadModel(new ResourceLocation(Config.RESOURCE_PREFIX() + "models/lightBase.obj"));
         }
         return framemodel;
     }
@@ -32,7 +33,7 @@ public class RenderLuxCapacitorEntity extends MuseRender {
     @Override
     public void doRender(Entity undifferentiatedentity, double x, double y, double z, float yaw, float partialTickTime) {
         EntityLuxCapacitor entity = (EntityLuxCapacitor) undifferentiatedentity;
-        MuseTextureUtils.pushTexture(Config.TEXTURE_PREFIX + "models/thusters_uvw_2.png");
+        MuseTextureUtils.pushTexture(Config.TEXTURE_PREFIX() + "models/thusters_uvw_2.png");
         glPushMatrix();
         glTranslated(x, y, z);
         double scale = 0.0625;

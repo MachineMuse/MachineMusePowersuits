@@ -11,6 +11,7 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
@@ -22,13 +23,13 @@ import java.util.List;
 
 public class ShovelModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
     public static final String MODULE_SHOVEL = "Shovel";
-    public static final ItemStack ironShovel = new ItemStack(Item.shovelIron);
+    public static final ItemStack ironShovel = new ItemStack(Items.iron_shovel);
     public static final String SHOVEL_HARVEST_SPEED = "Shovel Harvest Speed";
     public static final String SHOVEL_ENERGY_CONSUMPTION = "Shovel Energy Consumption";
 
     public ShovelModule(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(new ItemStack(Item.ingotIron, 3));
+        addInstallCost(new ItemStack(Items.iron_ingot, 3));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBaseProperty(SHOVEL_ENERGY_CONSUMPTION, 50, "J");
         addBaseProperty(SHOVEL_HARVEST_SPEED, 8, "x");
@@ -63,7 +64,7 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if (ironShovel.canHarvestBlock(block) || ForgeHooks.canToolHarvestBlock(block, meta, ironShovel)) {
+        if (ForgeHooks.canToolHarvestBlock(block, meta, ironShovel)) {
             if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION)) {
                 return true;
             }
@@ -72,8 +73,7 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack stack, World world, int blockID, int x, int y, int z, EntityPlayer player) {
-        Block block = Block.blocksList[blockID];
+    public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityPlayer player) {
         int meta = world.getBlockMetadata(x,y,z);
         if (canHarvestBlock(stack, block, meta, player)) {
             ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION));

@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.powermodule.misc;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
-import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
@@ -14,7 +14,7 @@ public class AirtightSealModule extends PowerModuleBase {
 
     public AirtightSealModule(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(new ItemStack(Block.glass));
+        addInstallCost(new ItemStack(Blocks.glass));
     }
 
     @Override

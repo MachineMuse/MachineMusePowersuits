@@ -11,6 +11,7 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
@@ -24,7 +25,7 @@ public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickM
 
     public CoolingSystemModule(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(new ItemStack(Item.eyeOfEnder, 4));
+        addInstallCost(new ItemStack(Items.ender_eye, 4));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         addTradeoffProperty("Power", COOLING_BONUS, 4, "%");
         addTradeoffProperty("Power", ENERGY, 10, "J/t");

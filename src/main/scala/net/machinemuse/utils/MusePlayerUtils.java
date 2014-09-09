@@ -4,6 +4,7 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.general.MuseMathUtils;
+import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.powermodule.movement.FlightControlModule;
@@ -83,7 +84,7 @@ public class MusePlayerUtils {
 
         Vec3 playerViewOffset = Vec3.createVectorHelper(playerPosition.xCoord + playerLook.xCoord * reachDistance, playerPosition.yCoord
                 + playerLook.yCoord * reachDistance, playerPosition.zCoord + playerLook.zCoord * reachDistance);
-        return world.rayTraceBlocks_do_do(playerPosition, playerViewOffset, collisionFlag, !collisionFlag);
+        return world.rayTraceBlocks(playerPosition, playerViewOffset);
     }
 
     public static MovingObjectPosition doCustomRayTrace(World world, EntityPlayer player, boolean collisionFlag, double reachDistance) {
@@ -136,12 +137,12 @@ public class MusePlayerUtils {
     public static void teleportEntity(EntityPlayer entityPlayer, MovingObjectPosition hitMOP) {
         if (hitMOP != null && entityPlayer instanceof EntityPlayerMP) {
             EntityPlayerMP player = (EntityPlayerMP) entityPlayer;
-            if (!player.playerNetServerHandler.connectionClosed) {
+            if (player.playerNetServerHandler.netManager.isChannelOpen()) {
                 switch (hitMOP.typeOfHit) {
                     case ENTITY:
                         player.setPositionAndUpdate(hitMOP.hitVec.xCoord, hitMOP.hitVec.yCoord, hitMOP.hitVec.zCoord);
                         break;
-                    case TILE:
+                    case BLOCK:
                         double hitx = hitMOP.hitVec.xCoord;
                         double hity = hitMOP.hitVec.yCoord;
                         double hitz = hitMOP.hitVec.zCoord;
@@ -176,7 +177,7 @@ public class MusePlayerUtils {
     }
 
     public static double thrust(EntityPlayer player, double thrust, boolean flightControl) {
-        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.username);
+        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderName());
         boolean jumpkey = movementInput.jumpKey;
         float forwardkey = movementInput.forwardKey;
         float strafekey = movementInput.strafeKey;
@@ -293,7 +294,7 @@ public class MusePlayerUtils {
             player.motionX *= ratio;
             player.motionZ *= ratio;
         }
-        resetFloatKickTicks(player);
+        NuminaPlayerUtils.resetFloatKickTicks(player);
         return thrustUsed;
     }
 
@@ -302,12 +303,6 @@ public class MusePlayerUtils {
             return 1;
         } else {
             return capacity / currentWeight;
-        }
-    }
-
-    public static void resetFloatKickTicks(EntityPlayer player) {
-        if (player instanceof EntityPlayerMP) {
-            ((EntityPlayerMP) player).playerNetServerHandler.ticksForFloatKick = 0;
         }
     }
 
@@ -329,7 +324,7 @@ public class MusePlayerUtils {
         } else if (player.isInsideOfMaterial(Material.lava)) {
             return 0;
         }
-        cool += ((2.0 - getBiome(player).getFloatTemperature())/2); // Algorithm that returns a value from 0.0 -> 1.0. Biome temperature is from 0.0 -> 2.0
+        cool += ((2.0 - getBiome(player).getFloatTemperature((int)player.posX, (int)player.posY, (int)player.posZ))/2); // Algorithm that returns a value from 0.0 -> 1.0. Biome temperature is from 0.0 -> 2.0
         if ((int)player.posY > 128) { // If high in the air, increase cooling
             cool += 0.5;
         }

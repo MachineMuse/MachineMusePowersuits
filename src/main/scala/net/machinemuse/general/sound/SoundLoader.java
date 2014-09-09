@@ -1,9 +1,5 @@
 package net.machinemuse.general.sound;
 
-import net.machinemuse.numina.general.MuseLogger;
-import net.minecraftforge.client.event.sound.SoundLoadEvent;
-import net.minecraftforge.event.SubscribeEvent;
-
 public class SoundLoader {
     /**
      * Sounds
@@ -32,15 +28,15 @@ public class SoundLoader {
     public static final String SOUND_SWIMASSIST = SOUND_PREFIX + "SwimAssist";
     public static final String SOUND_ELECTROLYZER = SOUND_PREFIX + "WaterElectrolyzer";
 
-    @SubscribeEvent
-    public void onSoundLoad(SoundLoadEvent event) {
-        for (String soundFile : soundFiles) {
-            try {
-                event.manager.addSound(soundFile);
-                MuseLogger.logDebug("MMMPS registered sound: " + soundFile);
-            } catch (Exception e) {
-                MuseLogger.logError("Failed to register sound:" + soundFile);
-            }
-        }
-    }
+//    @SubscribeEvent
+//    public void onSoundLoad(SoundLoadEvent event) {  // Musique
+//        for (String soundFile : soundFiles) {
+//            try {
+//                event.addSound(soundFile);
+//                MuseLogger.logDebug("MMMPS registered sound: " + soundFile);
+//            } catch (Exception e) {
+//                MuseLogger.logError("Failed to register sound:" + soundFile);
+//            }
+//        }
+//    }
 }

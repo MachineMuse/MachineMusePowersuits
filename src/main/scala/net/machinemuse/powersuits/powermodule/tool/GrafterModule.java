@@ -20,7 +20,7 @@ public class GrafterModule extends PowerModuleBase {
 
     public GrafterModule(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(ModCompatability.getForestryItem("grafter", 1));
+//        addInstallCost(ModCompatability.getForestryItem("grafter", 1));
         addBaseProperty(GRAFTER_ENERGY_CONSUMPTION, 1000, "J");
         addBaseProperty(GRAFTER_HEAT_GENERATION, 20);
     }

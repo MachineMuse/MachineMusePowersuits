@@ -7,14 +7,12 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -84,13 +82,12 @@ public class EntitySpinningBlade extends EntityThrowable {
 
     @Override
     protected void onImpact(MovingObjectPosition hitMOP) {
-        if (hitMOP.typeOfHit == EnumMovingObjectType.TILE) {
+        if (hitMOP.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
             World world = this.worldObj;
             if (world == null) {
                 return;
             }
-            int id = world.getBlockId(hitMOP.blockX, hitMOP.blockY, hitMOP.blockZ);
-            Block block = Block.blocksList[id];
+            Block block = world.getBlock(hitMOP.blockX, hitMOP.blockY, hitMOP.blockZ);
             if (block instanceof IShearable) {
                 IShearable target = (IShearable) block;
                 if (target.isShearable(this.shootingItem, world, hitMOP.blockX, hitMOP.blockY, hitMOP.blockZ) && !world.isRemote) {
@@ -108,14 +105,14 @@ public class EntitySpinningBlade extends EntityThrowable {
                         world.spawnEntityInWorld(entityitem);
                     }
                     if (this.shootingEntity instanceof EntityPlayer) {
-                        ((EntityPlayer) shootingEntity).addStat(StatList.mineBlockStatArray[id], 1);
+                        ((EntityPlayer) shootingEntity).addStat(StatList.mineBlockStatArray[Block.getIdFromBlock(block)], 1);
                     }
                 }
-                world.destroyBlock(hitMOP.blockX, hitMOP.blockY, hitMOP.blockZ, true);
+                world.func_147480_a(hitMOP.blockX, hitMOP.blockY, hitMOP.blockZ, true); // Destroy block and drop item
             } else { // Block hit was not IShearable
                 this.kill();
             }
-        } else if (hitMOP.typeOfHit == EnumMovingObjectType.ENTITY && hitMOP.entityHit != this.shootingEntity) {
+        } else if (hitMOP.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY && hitMOP.entityHit != this.shootingEntity) {
             if (hitMOP.entityHit instanceof IShearable) {
                 IShearable target = (IShearable) hitMOP.entityHit;
                 Entity entity = hitMOP.entityHit;

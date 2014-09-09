@@ -4,6 +4,7 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -55,12 +56,12 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
         Vec3 playerHorzFacing = player.getLookVec();
         playerHorzFacing.yCoord = 0;
         playerHorzFacing.normalize();
-        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.username);
+        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderName());
         boolean sneakkey = movementInput.sneakKey;
         float forwardkey = movementInput.forwardKey;
         ItemStack torso = player.getCurrentArmor(2);
         boolean hasParachute = false;
-        MusePlayerUtils.resetFloatKickTicks(player);
+        NuminaPlayerUtils.resetFloatKickTicks(player);
         if (torso != null && torso.getItem() instanceof IModularItem) {
             hasParachute = ModuleManager.itemHasActiveModule(torso, ParachuteModule.MODULE_PARACHUTE);
         }
