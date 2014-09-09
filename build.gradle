@@ -90,6 +90,8 @@ task copyToLib(type: Copy) {
     into "$buildDir/libs"
     from configurations.runtime {
         include 'slick-util.jar'
+    }
+    from(sourceSets.main.resources.srcDirs){
         include 'vanilla.recipes'
         include 'ThermalExpansion.recipes'
     }
