@@ -1,0 +1,81 @@
+Made by users: Adaptivity
+Last edited on 9/10/14
+
+tile.luxCapacitor.name=Конденсатор света
+tile.tinkerTable.name=Верстак для создания силовой брони
+
+itemGroup.powersuits=Modular Powersuits
+
+item.powerArmorBoots.name=Силовые ботинки
+item.powerArmorLeggings.name=Силовые поножи
+item.powerArmorChestplate.name=Силовая кираса
+item.powerArmorHelmet.name=Силовой шлем
+item.powerFist.name=Силовой кулак
+
+item.powerArmorComponent.componentWiring.name=Провод
+item.powerArmorComponent.componentSolenoid.name=Соленоид
+item.powerArmorComponent.componentServo.name=Серводвигатель
+item.powerArmorComponent.componentGliderWing.name=Планёрное крыло
+item.powerArmorComponent.componentIonThruster.name=Ионный двигатель
+item.powerArmorComponent.componentLVCapacitor.name=Конденсатор низкого напряжения
+item.powerArmorComponent.componentMVCapacitor.name=Конденсатор среднего напряжения
+item.powerArmorComponent.componentHVCapacitor.name=Конденсатор высокого напряжения
+item.powerArmorComponent.componentParachute.name=Парашют
+item.powerArmorComponent.componentPlatingBasic.name=Обычная обшивка
+item.powerArmorComponent.componentPlatingAdvanced.name=Продвинутая обшивка
+item.powerArmorComponent.componentFieldEmitter.name=Излучатель силового поля
+item.powerArmorComponent.componentLaserEmitter.name=Излучатель голограммы
+item.powerArmorComponent.componentCarbonMyofiber.name=Углеродное мышечное волокно
+item.powerArmorComponent.componentControlCircuit.name=Контролирующая микросхема
+item.powerArmorComponent.componentMyofiberGel.name=Гель из мышечного волокна
+item.powerArmorComponent.componentArtificialMuscle.name=Искусственные мышцы
+
+module.basicPlating.name=Железная обшивка
+module.diamondPlating.name=Алмазная обшивка
+module.energyShield.name=Энергетический щит
+module.heatSink.name=Кулер
+module.axe.name=Топор
+module.pickaxe.name=Кирка
+module.shovel.name=Лопата
+module.shears.name=Ножницы
+module.hoe.name=Почвофреза
+module.luxCapacitor.name=Конденсатор света
+module.omniwrench.name=Прототип универсального ключа
+module.fieldTinkerer.name=Модуль инженерного поля
+module.meleeAssist.name=Помощь в рукопашном бою
+module.plasmaCannon.name=Плазменная пушка
+module.railgun.name=Рельсотрон
+module.bladeLauncher.name=Метатель лезвий
+module.basicBattery.name=Обычный аккумулятор
+module.eliteBattery.name=Элитный аккумулятор
+module.advancedBattery.name=Продвинутый аккумулятор
+module.parachute.name=Парашют
+module.glider.name=Планёр
+module.jetpack.name=Реактивный ранец
+module.sprintAssist.name=Помощь в спринте
+module.jumpAssist.name=Помощь в прыжке
+module.swimAssist.name=Усиление скорости плавания
+module.climbAssist.name=Помощь в ходьбе
+module.jetBoots.name=Реактивные ботинки
+module.shockAbsorber.name=Амортизатор
+module.waterElectrolyzer.name=Электролизёр воды
+module.binoculars.name=Бинокль
+module.nightVision.name=Ночное зрение
+module.flightControl.name=Контроль над полётом
+module.invisibility.name=Активный камуфляж
+module.blinkDrive.name=Мгновенный телепорт
+module.diamondPickUpgrade.name=Улучшение «Алмазная кирка»
+module.aquaAffinity.name=Родство с водой
+module.coolingSystem.name=Система охлаждения
+module.tint.name=Модуль пользовательского цвета
+module.transparentArmor.name=Прозрачная броня
+module.cosmeticGlow.name=Модуль свечения
+module.mffsFieldTeleporter.name=Телепортер поля MFFS
+module.grafter.name=Садовый нож
+module.apiaristArmor.name=Броня пчеловода
+module.hazmat.name=Защита от радиации
+module.redstoneLaser.name=Красный лазер
+module.aurameter.name=Измеритель ауры
+module.airtightSeal.name=Герметичность
+module.citizenJoe.name=Броня гражданина Джо
+module.sonicWeapon.name=Звуковое оружие
