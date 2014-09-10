@@ -1,23 +1,6 @@
 {
   "pack": {
     "pack_format": 1,
-    "description": "The default look of Minecraft"
-  },
-  "language": {
-    "de_DE": {
-      "name": "Deutsch",
-      "region": "Deutschland",
-      "bidirectional": false
-    },
-    "en_US": {
-      "name": "English",
-      "region": "US",
-      "bidirectional": false
-    },
-    "fr_FR": {
-      "name": "Fran\u00E7ais",
-      "region": "France",
-      "bidirectional": false
-    }
+    "description": "Resources used for Modular Powersuits"
   }
 }
