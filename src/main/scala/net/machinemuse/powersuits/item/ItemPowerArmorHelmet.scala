@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.item
 
+import cpw.mods.fml.common.Optional
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.powersuits.powermodule.misc.ThaumGogglesModule
@@ -7,10 +8,12 @@ import net.machinemuse.utils.render.MuseRenderer
 import net.minecraft.client.renderer.texture.IIconRegister
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.item.ItemStack
+import thaumcraft.api.IGoggles
 
+@Optional.Interface(iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft", striprefs = true)
 object ItemPowerArmorHelmet extends ItemPowerArmor(0, 0)
 //with IBreathableArmor
-//with IGoggles
+with IGoggles
 //with IRevealer
 {
   val iconpath = MuseRenderer.ICON_PREFIX + "armorhead"
