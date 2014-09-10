@@ -9,12 +9,13 @@ import net.minecraft.client.renderer.texture.IIconRegister
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.item.ItemStack
 import thaumcraft.api.IGoggles
+import thaumcraft.api.nodes.IRevealer
 
 @Optional.Interface(iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft", striprefs = true)
 object ItemPowerArmorHelmet extends ItemPowerArmor(0, 0)
 //with IBreathableArmor
 with IGoggles
-//with IRevealer
+with IRevealer
 {
   val iconpath = MuseRenderer.ICON_PREFIX + "armorhead"
 
@@ -33,9 +34,9 @@ with IGoggles
     itemIcon = iconRegister.registerIcon(iconpath)
   }
 
-  def showIngamePopups(itemstack: ItemStack, player: EntityLivingBase): Boolean =
+  override def showIngamePopups(itemstack: ItemStack, player: EntityLivingBase): Boolean =
     ModuleManager.itemHasActiveModule(itemstack, ThaumGogglesModule.MODULE_THAUM_GOGGLES)
 
-  def showNodes(itemstack: ItemStack, player: EntityLivingBase): Boolean =
+  override def showNodes(itemstack: ItemStack, player: EntityLivingBase): Boolean =
     ModuleManager.itemHasActiveModule(itemstack, ThaumGogglesModule.MODULE_THAUM_GOGGLES)
 }
