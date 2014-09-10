@@ -40,7 +40,7 @@ object BlockTinkerTable extends Block(Material.iron) {
     this
   }
 
-  @SideOnly(Side.CLIENT) def registerIcons(iconRegister: IIconRegister) {
+  @SideOnly(Side.CLIENT) override def registerBlockIcons(iconRegister: IIconRegister) {
     this.blockIcon = iconRegister.registerIcon(MuseIcon.ICON_PREFIX + "heatresistantplating")
     energyIcon = blockIcon
   }

@@ -4,6 +4,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent
 import cpw.mods.fml.common.gameevent.TickEvent
 import cpw.mods.fml.common.gameevent.TickEvent.{ClientTickEvent, RenderTickEvent}
 import net.machinemuse.general.gui.{EnergyMeter, HeatMeter}
+import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.network.{MusePacket, PacketSender}
 import net.machinemuse.powersuits.block.BlockTinkerTable
 import net.machinemuse.powersuits.common.Config
@@ -45,7 +46,7 @@ class ClientTickHandler {
         if (inputmap.hasChanged) {
           inputmap.refresh()
           val inputPacket: MusePacket = new MusePacketPlayerUpdate(player, inputmap)
-          PacketSender.sendToServer(inputPacket.getPacket131)
+          PacketSender.sendToServer(inputPacket)
         }
       }
     }
@@ -71,12 +72,15 @@ class ClientTickHandler {
     val maxEnergy: Double = ElectricItemUtils.getMaxEnergy(player)
     val currHeat: Double = MuseHeatUtils.getPlayerHeat(player)
     val maxHeat: Double = MuseHeatUtils.getMaxHeat(player)
+    MuseLogger.logDebug("A")
     if (maxEnergy > 0 && BlockTinkerTable.energyIcon != null) {
+      MuseLogger.logDebug("B")
       val currStr: String = MuseStringUtils.formatNumberShort(currEnergy)
       val maxStr: String = MuseStringUtils.formatNumberShort(maxEnergy)
       val currHeatStr: String = MuseStringUtils.formatNumberShort(currHeat)
       val maxHeatStr: String = MuseStringUtils.formatNumberShort(maxHeat)
-      if (Config.useGraphicalMeters) {
+      if (Config.useGraphicalMeters) {        MuseLogger.logDebug("C")
+
         if (energy == null) {
           energy = new EnergyMeter
           heat = new HeatMeter

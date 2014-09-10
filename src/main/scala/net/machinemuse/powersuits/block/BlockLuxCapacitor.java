@@ -85,7 +85,8 @@ public class BlockLuxCapacitor extends Block {
     }
 
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister iconRegister) {
+    @Override
+    public void registerBlockIcons(IIconRegister iconRegister) {
         this.blockIcon = iconRegister.registerIcon(MuseIcon.ICON_PREFIX + "bluelight");
     }
 
