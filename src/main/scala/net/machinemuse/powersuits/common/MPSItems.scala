@@ -8,13 +8,13 @@ import net.machinemuse.powersuits.item._
  * Created by Claire Semple on 9/9/2014.
  */
 object MPSItems {
-  val powerArmorHead = ItemPowerArmorHelmet
+  val powerArmorHead = new ItemPowerArmorHelmet
   GameRegistry.registerItem(powerArmorHead, powerArmorHead.getUnlocalizedName)
-  val powerArmorTorso = ItemPowerArmorChestplate
+  val powerArmorTorso = new ItemPowerArmorChestplate
   GameRegistry.registerItem(powerArmorTorso, powerArmorTorso.getUnlocalizedName)
-  val powerArmorLegs = ItemPowerArmorLeggings
+  val powerArmorLegs = new ItemPowerArmorLeggings
   GameRegistry.registerItem(powerArmorLegs, powerArmorLegs.getUnlocalizedName)
-  val powerArmorFeet = ItemPowerArmorBoots
+  val powerArmorFeet = new ItemPowerArmorBoots
   GameRegistry.registerItem(powerArmorFeet, powerArmorFeet.getUnlocalizedName)
   val powerTool = new ItemPowerFist
   GameRegistry.registerItem(powerTool, powerTool.getUnlocalizedName)

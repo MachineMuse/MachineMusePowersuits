@@ -5,7 +5,7 @@ import cpw.mods.fml.relauncher.Side
 import cpw.mods.fml.relauncher.SideOnly
 import net.machinemuse.utils.render.MuseRenderer
 
-object ItemPowerArmorBoots extends ItemPowerArmor(0, 3) {
+class ItemPowerArmorBoots extends ItemPowerArmor(0, 3) {
   val iconpath = MuseRenderer.ICON_PREFIX + "armorfeet"
 
   setUnlocalizedName("powerArmorBoots")

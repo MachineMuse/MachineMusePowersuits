@@ -13,7 +13,7 @@ import thaumcraft.api.nodes.IRevealer
 
 @Optional.Interface(iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft", striprefs = true)
 @Optional.Interface(iface = "thaumcraft.api.IRevealer", modid = "Thaumcraft", striprefs = true)
-object ItemPowerArmorHelmet extends ItemPowerArmor(0, 0)
+class ItemPowerArmorHelmet extends ItemPowerArmor(0, 0)
 //with IBreathableArmor
 with IGoggles
 with IRevealer
