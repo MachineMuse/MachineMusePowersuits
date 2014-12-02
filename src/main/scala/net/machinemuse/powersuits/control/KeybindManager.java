@@ -76,10 +76,16 @@ public class KeybindManager {
                 }
             }
 
-            writer.close();
         } catch (Exception e) {
             MuseLogger.logError("Problem writing out keyconfig :(");
             e.printStackTrace();
+        } finally {
+            try {
+                writer.close();
+            } catch (Exception e) {
+                MuseLogger.logError("Unexpected error closing keyconfig :(");
+                e.printStackTrace();
+            }
         }
     }
 
