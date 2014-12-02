@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.common
 import java.io.File
 
 import cpw.mods.fml.common.{Mod, SidedProxy}
-import cpw.mods.fml.common.event.{FMLInitializationEvent, FMLPostInitializationEvent, FMLPreInitializationEvent}
+import cpw.mods.fml.common.event.{FMLInitializationEvent, FMLPostInitializationEvent, FMLPreInitializationEvent, FMLLoadCompleteEvent}
 import cpw.mods.fml.common.network.NetworkRegistry
 import cpw.mods.fml.common.registry.EntityRegistry
 import net.machinemuse.powersuits.entity.{EntityLuxCapacitor, EntityPlasmaBolt, EntitySpinningBlade}
@@ -65,6 +65,10 @@ object ModularPowersuits {
     proxy.postInit()
     ModCompatability.registerModSpecificModules()
     Config.getConfig.save
+  }
+
+  @Mod.EventHandler def atLaunch(event: FMLLoadCompleteEvent) {
+    proxy.atLaunch()
   }
 
 }

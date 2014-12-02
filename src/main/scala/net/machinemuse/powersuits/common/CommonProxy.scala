@@ -4,6 +4,7 @@ import java.net.URL
 
 import cpw.mods.fml.client.registry.{ClientRegistry, RenderingRegistry}
 import cpw.mods.fml.common.FMLCommonHandler
+import cpw.mods.fml.common.event.FMLPostInitializationEvent
 import net.machinemuse.general.sound.SoundLoader
 import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.network.{MusePacket, MusePacketHandler, MusePacketModeChangeRequest, PacketSender}
@@ -37,6 +38,8 @@ trait CommonProxy {
   def registerHandlers() {}
 
   def postInit() {}
+
+  def atLaunch() {}
 
   def sendModeChange(dMode: Int, newMode: String) {}
 }
@@ -93,6 +96,9 @@ class ClientProxy extends CommonProxy {
   }
 
   override def postInit() {
+  }
+
+  override def atLaunch() {
     KeybindManager.readInKeybinds()
   }
 

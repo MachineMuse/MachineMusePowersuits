@@ -56,25 +56,30 @@ public class KeybindManager {
         BufferedWriter writer = null;
         try {
             File file = new File(Loader.instance().getConfigDir() + "/machinemuse/", "powersuits-keybinds.cfg");
+
             if (!file.exists()) {
                 file.createNewFile();
+            } else {
+              file.delete();
+              file.createNewFile();
             }
+
             writer = new BufferedWriter(new FileWriter(file));
+            writer.write("# Key Binding Configuration (Please use the Tinker Table or Keybind GUI in-game to set these values)");
+            writer.newLine();
             List<IPowerModule> modulesToWrite = MuseItemUtils.getPlayerInstalledModules(Minecraft.getMinecraft().thePlayer);
+            
             for (ClickableKeybinding keybinding : getInstance().keybindings) {
-                writer.write(keybinding.getKeyBinding().getKeyCode() + ":" + keybinding.getPosition().x() + ':' + keybinding.getPosition().y() + '\n');
+                writer.append(keybinding.getKeyBinding().getKeyCode() + ":" + keybinding.getPosition().x() + ':' + keybinding.getPosition().y() + '\n');
                 for (ClickableModule module : keybinding.getBoundModules()) {
-                    writer.write(module.getModule().getDataName() + '~' + module.getPosition().x() + '~' + module.getPosition().y() + '\n');
+                    writer.append(module.getModule().getDataName() + '~' + module.getPosition().x() + '~' + module.getPosition().y() + '\n');
                 }
             }
+
+            writer.close();
         } catch (Exception e) {
             MuseLogger.logError("Problem writing out keyconfig :(");
             e.printStackTrace();
-        } finally {
-            try {
-                writer.close();
-            } catch (Throwable e) {
-            }
         }
     }
 
