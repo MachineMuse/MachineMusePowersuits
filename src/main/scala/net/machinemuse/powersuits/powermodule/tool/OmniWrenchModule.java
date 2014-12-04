@@ -4,7 +4,6 @@ import cofh.api.tileentity.IReconfigurableFacing;
 import cofh.api.block.IDismantleable;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import crazypants.enderio.TileEntityEio;
 import ic2.api.tile.IWrenchable;
@@ -109,7 +108,7 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
 
         TileEntity tile = world.getTileEntity(x, y, z);
 
-        if (Loader.isModLoaded("EnderIO")) {
+        if (ModCompatability.isEnderIOLoaded()) {
                 // Hmm... Seems this allows breakage of more EnderIO blocks than the YetaWrench...
                 // Though it seems there's no better way to provide similar functionality with EnderIO machines... - 2014-12-01 Korynkai
                 if (tile instanceof TileEntityEio) {
@@ -117,7 +116,7 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
                 }
         }
         // IC2: UNTESTED - 2014-12-01 Korynkai
-        if (Loader.isModLoaded("IC2")) {
+        if (ModCompatability.isIndustrialCraftLoaded()) {
                 if (tile instanceof IWrenchable) {
                         IWrenchable wrenchTile = (IWrenchable) tile;
 
@@ -162,7 +161,7 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
                 }
         }
 
-        if (Loader.isModLoaded("CoFHCore")) {
+        if (ModCompatability.isCoFHCoreLoaded()) {
                 if (!world.isRemote) {
                         if (tile instanceof IReconfigurableFacing) {
                                 if (!player.isSneaking()) {
@@ -188,7 +187,7 @@ public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer 
 
 @Override
 public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        if (Loader.isModLoaded("EnderIO")) {
+        if (ModCompatability.isEnderIOLoaded()) {
                 if (item != null && item.getItem() instanceof IModularItem) {
                         if (!MuseItemTag.getMuseItemTag(item).getBoolean("eioFacadeTransparency")) {
                                 MuseItemTag.getMuseItemTag(item).setString("eioNoCompete", MODULE_OMNI_WRENCH);
@@ -200,7 +199,7 @@ public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
 
 @Override
 public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-        if (Loader.isModLoaded("EnderIO")) {
+        if (ModCompatability.isEnderIOLoaded()) {
                 if (item != null && item.getItem() instanceof IModularItem) {
                         if ((MuseItemTag.getMuseItemTag(item).getString("eioNoCompete") != null) && (!MuseItemTag.getMuseItemTag(item).getString("eioNoCompete").isEmpty())) {
                                 if (MuseItemTag.getMuseItemTag(item).getString("eioNoCompete").equals(MODULE_OMNI_WRENCH)) {

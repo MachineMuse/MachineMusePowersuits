@@ -47,6 +47,10 @@ public class ModCompatability {
         return Loader.isModLoaded("CoFHCore");
     }
 
+    public static boolean isEnderIOLoaded() {
+        return Loader.isModLoaded("EnderIO");
+    }
+
     public static boolean isForestryLoaded() {
         return Loader.isModLoaded("Forestry");
     }
