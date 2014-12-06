@@ -26,7 +26,7 @@ import net.minecraft.world.World
  *
  * @author MachineMuse
  */
-@Optional.Interface(iface = "ITool", modid = "EnderIO", striprefs = true)
+@Optional.Interface(iface = "crazypants.enderio.api.tool.ITool", modid = "EnderIO", striprefs = true)
 class ItemPowerFist extends ItemElectricTool(0, ToolMaterial.EMERALD)
 with IModularItem
 with ITool

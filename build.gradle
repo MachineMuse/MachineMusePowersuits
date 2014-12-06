@@ -48,20 +48,19 @@ def getLibrary(filename) {
     }
 }
 
-//getLibrary("CoFHCore-[1.7.10]3.0.0B2-dev-24.jar")
-//getLibrary("industrialcraft-2-api_1.118.401-lf.zip")
-//getLibrary("Atomic-Science-1.1.0.16-api.zip")
-//getLibrary("ThermalExpansion-API-2.3.0b.zip")
-//getLibrary("CoFHCore-API.zip")
-//getLibrary("CoFHLib-pre1.zip")
-//getLibrary("GalacticraftCore-Dev-BETA-1.7-3.0.1.8-noassets.jar")
-//getLibrary("Railcraft_API_latest.zip")
-//getLibrary("MFR-API-2.5.2B2-642.zip")
+//getLibrary("Atomic-Science-1.1.0.16-api.zip") -- Should be ResonantInduction once this is stable(?)
+getLibrary("buildcraft-6.2.2-api.jar")
+getLibrary("CoFHLib-API-[1.7.10]1.0.0B7-Compiled.jar")
+getLibrary("EnderIO-1.7.10-2.2.2.285-dev.jar")
 //getLibrary("forestry-api-2.3.0.1.zip")
-//getLibrary("Thaumcraft-API-4.2.0.0-Compiled.jar")
+getLibrary("GalacticraftCore-API-BETA-1.7-3.0.1.8-Compiled.jar")
+getLibrary("industrialcraft-2-2.2.654-experimental-api.jar")
 //getLibrary("MFFS2_API.zip")
-//getLibrary("EnderIO-1.7.10-2.2.2.285-dev.jar")
+getLibrary("MineFactoryReloaded-API-[1.7.10]2.8.0RC3-Compiled-591.jar")
+getLibrary("Railcraft-API-9.4.0.0-Compiled.jar")
 getLibrary("slick-util.jar")
+getLibrary("Thaumcraft-API-4.2.1.4-Compiled.jar")
+//getLibrary("ThermalExpansion-API-2.3.0b.zip")
 
 processResources
         {
