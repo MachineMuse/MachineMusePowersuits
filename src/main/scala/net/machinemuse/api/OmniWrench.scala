@@ -18,11 +18,7 @@ import powercrystals.minefactoryreloaded.api.IMFRHammer
  * Author: MachineMuse (Claire Semple)
  * Created: 5:06 PM, 29/04/13
  */
-@Optional.InterfaceList(Array(
-  new Optional.Interface(iface = "net.machinemuse.api.ModularHammer", modid = "MineFactoryReloaded"),
-  new Optional.Interface(iface = "net.machinemuse.api.ModularCrowbar", modid = "Railcraft"),
-  new Optional.Interface(iface = "net.machinemuse.api.ModularCrescentHammer", modid = "CoFHCore")
-))
+
 trait OmniWrench
   extends ModularWrench
   with ModularCrowbar
@@ -85,6 +81,7 @@ trait ModularCrescentHammer
 }
 
 // Buildcraft Wrench
+@Optional.Interface(iface = "buildcraft.api.tools.IToolWrench", modid = "BuildCraft|Core")
 trait ModularWrench
   extends IToolWrench {
 
