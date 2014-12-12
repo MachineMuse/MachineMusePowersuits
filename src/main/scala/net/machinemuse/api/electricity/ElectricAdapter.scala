@@ -7,11 +7,15 @@ import net.minecraft.item.ItemStack
 object ElectricAdapter {
   def wrap(stack: ItemStack): ElectricAdapter = {
     if (stack == null) return null
-    stack.getItem match {
-      case i: MuseElectricItem => new MuseElectricAdapter(stack)
-            case i: IEnergyContainerItem => if (ModCompatability.isCoFHCoreLoaded) new TEElectricAdapter(stack) else null
-      //      case i: IElectricItem => if (ModCompatability.isIndustrialCraftLoaded) new IC2ElectricAdapter(stack) else null
-      case _ => null
+    val i = stack.getItem
+    if (i.isInstanceOf[MuseElectricItem]) {
+      new MuseElectricAdapter(stack)
+    } else if (ModCompatability.isCoFHCoreLoaded && i.isInstanceOf[IEnergyContainerItem]) {
+      new TEElectricAdapter(stack)
+    } else if (ModCompatability.isIndustrialCraftLoaded) {
+      null
+    } else {
+      null
     }
   }
 
@@ -56,7 +60,9 @@ class MuseElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
 
 class TEElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
   val item = stack.getItem.asInstanceOf[IEnergyContainerItem]
-  import ElectricConversions._
+
+  import net.machinemuse.api.electricity.ElectricConversions._
+
   def getCurrentEnergy: Double = museEnergyFromRF(item.getEnergyStored(stack))
 
   def getMaxEnergy: Double = museEnergyFromRF(item.getMaxEnergyStored(stack))
