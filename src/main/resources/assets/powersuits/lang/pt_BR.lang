@@ -1,0 +1,81 @@
+Made by users: EzerArch
+Last edited on 12/24/14 07:02AM GMT-2
+
+tile.luxCapacitor.name=Capacitor de Luz
+tile.tinkerTable.name=Mesa de Trabalho Power Armor
+
+itemGroup.powersuits=Modular Powersuits
+
+item.powerArmorBoots.name=Botas Power Armor
+item.powerArmorLeggings.name=Perneiras Power Armor
+item.powerArmorChestplate.name=Peitoral Power Armor
+item.powerArmorHelmet.name=Elmo Power Armor
+item.powerFist.name=Power Fist
+
+item.powerArmorComponent.componentWiring.name=Fiação
+item.powerArmorComponent.componentSolenoid.name=Solenoide
+item.powerArmorComponent.componentServo.name=Servomotor
+item.powerArmorComponent.componentGliderWing.name=Asa de Planador
+item.powerArmorComponent.componentIonThruster.name=Propulsor Iônico
+item.powerArmorComponent.componentLVCapacitor.name=Capacitor LV
+item.powerArmorComponent.componentMVCapacitor.name=Capacitor MV
+item.powerArmorComponent.componentHVCapacitor.name=Capacitor HV
+item.powerArmorComponent.componentParachute.name=Paraquedas
+item.powerArmorComponent.componentPlatingBasic.name=Blindagem Básica
+item.powerArmorComponent.componentPlatingAdvanced.name=Blindagem Avançada
+item.powerArmorComponent.componentFieldEmitter.name=Emissor de Campo de Força
+item.powerArmorComponent.componentLaserEmitter.name=Emissor de Holograma
+item.powerArmorComponent.componentCarbonMyofiber.name=Miofibra de Carbono	
+item.powerArmorComponent.componentControlCircuit.name=Circuito de Controle 
+item.powerArmorComponent.componentMyofiberGel.name=Gel de Miofibra
+item.powerArmorComponent.componentArtificialMuscle.name=Músculo Artificial
+
+module.basicPlating.name=Blindagem de Ferro
+module.diamondPlating.name=Blindagem de Diamante
+module.energyShield.name=Campo de Energia
+module.heatSink.name=Dissipador de Calor
+module.axe.name=Machado
+module.pickaxe.name=Picareta
+module.shovel.name=Pá
+module.shears.name=Tesoura
+module.hoe.name=Motocultivadora
+module.luxCapacitor.name=Capacitor de Luz
+module.omniwrench.name=Chave Universal Protótipa
+module.fieldTinkerer.name=Módulo Suporte Remoto
+module.meleeAssist.name=Assistente de Golpes
+module.plasmaCannon.name=Canhão de Plasma
+module.railgun.name=Railgun
+module.bladeLauncher.name=Lança-Lâminas
+module.basicBattery.name=Bateria Básica
+module.eliteBattery.name=Bateria Elite
+module.advancedBattery.name=Bateria Avançada
+module.parachute.name=Paraquedas
+module.glider.name=Planador
+module.jetpack.name=Jetpack
+module.sprintAssist.name=Assistente de Corrida
+module.jumpAssist.name=Assistente de Pulo
+module.swimAssist.name=Impulso de Natação
+module.climbAssist.name=Assistente de Escalagem
+module.jetBoots.name=Bota-Jatos
+module.shockAbsorber.name=Amortecedor
+module.waterElectrolyzer.name=Eletrolisador de Água
+module.binoculars.name=Binóculos
+module.nightVision.name=Visão Noturna
+module.flightControl.name=Controle de Voo
+module.invisibility.name=Camuflagem Ativa
+module.blinkDrive.name=Blink Drive
+module.diamondPickUpgrade.name=Melhoramento da Broca de Diamante 
+module.aquaAffinity.name=Afinidade Aquática
+module.coolingSystem.name=Sistema de Resfriamento
+module.tint.name=Módulo de Cores Personalizáveis
+module.transparentArmor.name=Armadura Transparente
+module.cosmeticGlow.name=Módulo de Brilho
+module.mffsFieldTeleporter.name=Teleportador MFFS Field
+module.grafter.name=Enxertador
+module.apiaristArmor.name=Armadura para Apicultor
+module.hazmat.name=Proteção contra Radiação
+module.redstoneLaser.name=Redstone Laser
+module.aurameter.name=Medidor de Aura
+module.airtightSeal.name=Vedação Hermética
+module.citizenJoe.name=Armadura Citizen Joe
+module.sonicWeapon.name=Arma Sônica

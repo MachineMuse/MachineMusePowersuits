@@ -15,6 +15,13 @@ buildscript {
     }
 }
 
+repositories {
+  maven {
+    name = "ic2"
+    url = "http://maven.ic2.player.to/"
+  }
+}
+
 apply plugin: 'scala'
 apply plugin: 'forge'
 
@@ -37,6 +44,11 @@ minecraft {
     runDir = "run"
 }
 
+dependencies {
+  compile 'com.mod-buildcraft:buildcraft:6.2.6:dev'
+  compile "net.industrial-craft:industrialcraft-2:2.2.658-experimental:api"
+}
+
 new File(config.libs_dir).mkdirs()
 def getLibrary(filename) {
     def f = new File(config.libs_dir + filename)
@@ -49,38 +61,38 @@ def getLibrary(filename) {
 }
 
 //getLibrary("Atomic-Science-1.1.0.16-api.zip") -- Should be ResonantInduction once this is stable(?)
-getLibrary("buildcraft-6.2.2-api.jar")
-getLibrary("CoFHLib-API-[1.7.10]1.0.0B7-Compiled.jar")
-getLibrary("EnderIO-1.7.10-2.2.2.285-dev.jar")
+getLibrary("CoFHLib-API-[1.7.10]1.0.0B7-Compiled.jar") // Needs update - teamcofh's site is down
+getLibrary("EnderIO-1.7.10-2.2.2.285-dev.jar") // Needs update - tterrag's site is down
 //getLibrary("forestry-api-2.3.0.1.zip")
 getLibrary("GalacticraftCore-API-BETA-1.7-3.0.1.8-Compiled.jar")
-getLibrary("industrialcraft-2-2.2.654-experimental-api.jar")
 //getLibrary("MFFS2_API.zip")
-getLibrary("MineFactoryReloaded-API-[1.7.10]2.8.0RC3-Compiled-591.jar")
+getLibrary("MineFactoryReloaded-API-[1.7.10]2.8.0RC3-Compiled-591.jar") // Needs update - teamcofh's site is down
 getLibrary("Railcraft-API-9.4.0.0-Compiled.jar")
 getLibrary("slick-util.jar")
-getLibrary("Thaumcraft-API-4.2.1.4-Compiled.jar")
+getLibrary("Thaumcraft-API-4.2.2.1-Compiled.jar")
+getLibrary("RenderPlayerAPI-1.7.10-1.0.jar")
+getLibrary("SmartRender-dev-1.7.10-2.0.jar")
 //getLibrary("ThermalExpansion-API-2.3.0b.zip")
 
 processResources
-        {
-            // this will ensure that this task is redone when the versions change.
-            inputs.property "version", project.version
-            inputs.property "mcversion", project.minecraft.version
+{
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
 
-            // replace stuff in mcmod.info, nothing else
-            from(sourceSets.main.resources.srcDirs) {
-                include 'mcmod.info'
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
 
-                // replace version and mcversion
-                expand 'version':project.version, 'mcversion':project.minecraft.version
-            }
+        // replace version and mcversion
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
 
-            // copy everything else, thats not the mcmod.info
-            from(sourceSets.main.resources.srcDirs) {
-                exclude 'mcmod.info'
-            }
-        }
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
 
 jar {
     manifest {

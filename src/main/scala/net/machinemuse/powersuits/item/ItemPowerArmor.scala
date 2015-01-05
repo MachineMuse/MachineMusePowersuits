@@ -24,6 +24,7 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
   extends ItemElectricArmor(ItemArmor.ArmorMaterial.IRON, renderIndex, armorType)
   with ISpecialArmor
   with IModularItem {
+
   setMaxStackSize(1)
   setCreativeTab(Config.getCreativeTab)
 
@@ -60,7 +61,7 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
 
   @SideOnly(Side.CLIENT)
   override def getArmorModel(entity: EntityLivingBase, itemstack: ItemStack, armorSlot: Int): ModelBiped = {
-    val model: ArmorModel = ArmorModel.instance
+    var model: ArmorModel = ArmorModel.instance
 
     model.visibleSection = armorSlot
 
@@ -76,7 +77,7 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
       }
       model.renderSpec = MuseItemUtils.getMuseRenderTag(itemstack, armorSlot)
     }
-    model
+    model.asInstanceOf[ModelBiped]
   }
 
   override def getItemEnchantability: Int = {

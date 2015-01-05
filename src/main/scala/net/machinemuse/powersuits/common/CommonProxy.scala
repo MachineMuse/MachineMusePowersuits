@@ -31,6 +31,8 @@ import net.minecraftforge.common.MinecraftForge
  * @author MachineMuse
  */
 trait CommonProxy {
+  def preInit() {}
+
   def registerEvents() {}
 
   def registerRenderers() {}
@@ -46,8 +48,15 @@ trait CommonProxy {
 
 
 class ClientProxy extends CommonProxy {
+  override def preInit{
+    if (ModCompatability.isSmartMovingLoaded) {
+      if (!ModCompatability.isRenderPlayerAPILoaded) {
+        throw new net.machinemuse.general.gui.RenderPlayerAPIRequiredDisplayException
+      }
+    }
+  }
   override def registerEvents {
-    MinecraftForge.EVENT_BUS.register(new SoundLoader)
+    //MinecraftForge.EVENT_BUS.register(new SoundLoader)
   }
 
   /**

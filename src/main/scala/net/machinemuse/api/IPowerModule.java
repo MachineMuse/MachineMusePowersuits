@@ -23,7 +23,7 @@ public interface IPowerModule {
 
 	public abstract String getDataName();
 
-    public abstract String getLocalizedName();
+  public abstract String getLocalizedName();
 
 	public abstract double applyPropertyModifiers(NBTTagCompound itemTag, String propertyName, double propertyValue);
 
@@ -34,4 +34,6 @@ public interface IPowerModule {
 	public abstract Map<String, List<IPropertyModifier>> getPropertyModifiers();
 
 	public abstract boolean isAllowed();
+
+	public abstract boolean isCreativeOnly();
 }

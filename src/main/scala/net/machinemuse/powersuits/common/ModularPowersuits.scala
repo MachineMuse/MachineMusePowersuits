@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.common
 
 import java.io.File
 
+import cpw.mods.fml.client.FMLClientHandler
 import cpw.mods.fml.common.{Mod, SidedProxy}
 import cpw.mods.fml.common.event.{FMLInitializationEvent, FMLPostInitializationEvent, FMLPreInitializationEvent, FMLLoadCompleteEvent}
 import cpw.mods.fml.common.network.NetworkRegistry
@@ -18,7 +19,7 @@ import net.minecraftforge.common.config.Configuration
  *
  * @author MachineMuse
  */
-@Mod(modid = "powersuits", modLanguage = "scala", dependencies = "required-after:numina")
+@Mod(modid = "powersuits", modLanguage = "scala", dependencies = "required-after:numina;after:EnderIO;after:Railcraft;after:RenderPlayerAPI")
 object ModularPowersuits {
   @SidedProxy(clientSide = "net.machinemuse.powersuits.common.ClientProxy", serverSide = "net.machinemuse.powersuits.common.ServerProxy")
   var proxy: CommonProxy = null
@@ -27,12 +28,14 @@ object ModularPowersuits {
   val INSTANCE=this
 
   @Mod.EventHandler def preInit(event: FMLPreInitializationEvent) {
+    proxy.preInit()
     val newConfig: File = new File(event.getModConfigurationDirectory + "/machinemuse/powersuits.cfg")
     Config.init(new Configuration(newConfig))
     Config.setConfigFolderBase(event.getModConfigurationDirectory)
     MinecraftForge.EVENT_BUS.register(new HarvestEventHandler)
     MinecraftForge.EVENT_BUS.register(new MovementManager)
     proxy.registerEvents()
+
   }
 
   @Mod.EventHandler def load(event: FMLInitializationEvent) {

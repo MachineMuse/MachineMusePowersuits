@@ -1,6 +1,8 @@
 package net.machinemuse.general.gui.frame;
 
 import net.machinemuse.general.gui.clickable.ClickableItem;
+import net.machinemuse.general.sound.SoundLoader;
+import net.machinemuse.numina.sound.proxy.Musique;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.FlyFromPointToPoint2D;
 import net.machinemuse.numina.geometry.GradientAndArcCalculator;
@@ -116,7 +118,7 @@ public class ItemSelectionFrame extends ScrollableFrame {
         int i = 0;
         for (ClickableItem item : itemButtons) {
             if (item.hitBox(x, y)) {
-//                Musique.playClientSound(SoundLoader.SOUND_GUI_SELECT, 1);
+                Musique.clientSound(SoundLoader.SOUND_GUI_SELECT, 1.0f);
                 selectedItemStack = i;
                 break;
             } else {
