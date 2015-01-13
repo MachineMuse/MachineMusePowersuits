@@ -35,7 +35,7 @@ configFile.withReader {
     project.ext.config = new ConfigSlurper().parse prop
 }
 
-version = "${config.mod_version}." + System.getenv("BUILD_NUMBER") ?: "1"
+version = "${config.mod_version}." + System.getenv("BUILD_NAME") ?: "1"
 group= "${config.group_id}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "${config.mod_id}"
 
