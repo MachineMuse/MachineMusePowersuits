@@ -16,6 +16,10 @@ buildscript {
 }
 
 repositories {
+	maven {
+    name = "QMXTech"
+    url = "https://artifactory.qmxtech.com/artifactory/minecraft-release/"
+  }
   maven {
     name = "ic2"
     url = "http://maven.ic2.player.to/"
@@ -35,7 +39,7 @@ configFile.withReader {
     project.ext.config = new ConfigSlurper().parse prop
 }
 
-version = "${config.mod_version}." + System.getenv("BUILD_NAME") ?: "1"
+version = System.getenv("BUILD_NAME") ?: "${config.mod_version}." + ( System.getenv("BUILD_NUMBER") ?: "null" )
 group= "${config.group_id}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "${config.mod_id}"
 
@@ -45,8 +49,9 @@ minecraft {
 }
 
 dependencies {
+	compile 'net.machinemuse.numina:Numina:0.4.0.5-QMX:dev'
   compile 'com.mod-buildcraft:buildcraft:6.2.6:dev'
-  compile "net.industrial-craft:industrialcraft-2:2.2.658-experimental:api"
+  compile 'net.industrial-craft:industrialcraft-2:2.2.658-experimental:api'
 }
 
 new File(config.libs_dir).mkdirs()
