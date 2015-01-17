@@ -24,6 +24,10 @@ repositories {
     name = "ic2"
     url = "http://maven.ic2.player.to/"
   }
+  maven {
+  	name = "Tterrag"
+  	url = "http://maven.tterrag.com"
+  }
 }
 
 apply plugin: 'scala'
@@ -40,7 +44,7 @@ configFile.withReader {
 }
 
 version = System.getenv("BUILD_NAME") ?: "${config.mod_version}." + ( System.getenv("BUILD_NUMBER") ?: "null" )
-group= "${config.group_id}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = "${config.group_id}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "${config.mod_id}"
 
 minecraft {
@@ -51,6 +55,7 @@ minecraft {
 dependencies {
 	compile 'net.machinemuse.numina:Numina:0.4.0.5-QMX:dev'
   compile 'com.mod-buildcraft:buildcraft:6.2.6:dev'
+  compile 'com.enderio:EnderIO:1.7.10-2.2.6.323:dev'
   compile 'net.industrial-craft:industrialcraft-2:2.2.658-experimental:api'
 }
 
@@ -66,12 +71,11 @@ def getLibrary(filename) {
 }
 
 //getLibrary("Atomic-Science-1.1.0.16-api.zip") -- Should be ResonantInduction once this is stable(?)
-getLibrary("CoFHLib-API-[1.7.10]1.0.0B7-Compiled.jar") // Needs update - teamcofh's site is down
-getLibrary("EnderIO-1.7.10-2.2.2.285-dev.jar") // Needs update - tterrag's site is down
+getLibrary("CoFHLib-API-[1.7.10]1.0.0B7-Compiled.jar")
 //getLibrary("forestry-api-2.3.0.1.zip")
 getLibrary("GalacticraftCore-API-BETA-1.7-3.0.1.8-Compiled.jar")
 //getLibrary("MFFS2_API.zip")
-getLibrary("MineFactoryReloaded-API-[1.7.10]2.8.0RC3-Compiled-591.jar") // Needs update - teamcofh's site is down
+getLibrary("MineFactoryReloaded-API-[1.7.10]2.8.0RC3-Compiled-591.jar")
 getLibrary("Railcraft-API-9.4.0.0-Compiled.jar")
 getLibrary("slick-util.jar")
 getLibrary("Thaumcraft-API-4.2.2.1-Compiled.jar")
