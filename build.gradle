@@ -20,14 +20,6 @@ repositories {
     name = "QMXTech"
     url = "https://artifactory.qmxtech.com/artifactory/minecraft-release/"
   }
-  maven {
-    name = "ic2"
-    url = "http://maven.ic2.player.to/"
-  }
-  maven {
-  	name = "Tterrag"
-  	url = "http://maven.tterrag.com"
-  }
 }
 
 apply plugin: 'scala'
