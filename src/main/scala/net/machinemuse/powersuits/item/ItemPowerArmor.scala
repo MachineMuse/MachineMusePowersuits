@@ -28,6 +28,8 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
 
   setMaxStackSize(1)
   setCreativeTab(Config.getCreativeTab)
+  
+  private var tickPosition: Integer = 0
 
   /**
    * Inherited from ISpecialArmor, allows significant customization of damage
@@ -123,7 +125,16 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
   def onModularArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack)
   
   override def onArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
-    System.out.println("On general armor tick...")
+    val modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player)
+    var tickSize: Integer = 0
+    if (player.inventory.getCurrentItem.isInstanceOf[IModularItem]) { 
+        tickSize = (modularItemsEquipped.length - 1) 
+    } else { 
+        tickSize = modularItemsEquipped.length
+    }
+    if ((tickPosition == 0) && (tickSize > 0)) {
+        System.out.println("On general armor single tick...")
+    }
     onModularArmorTick(world, player, itemStack)
   }
 
