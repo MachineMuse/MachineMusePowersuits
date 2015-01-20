@@ -14,6 +14,7 @@ import net.minecraft.item.{ItemArmor, ItemStack}
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.DamageSource
 import net.minecraftforge.common.ISpecialArmor
+import net.minecraft.world.World
 
 /**
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.
