@@ -118,6 +118,10 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
     totalArmor = Math.min(Config.getMaximumArmorPerPiece, totalArmor)
     return totalArmor
   }
+  
+  override def onArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
+    System.out.println("On general armor tick...")   
+  }
 
   /**
    * Inherited from ISpecialArmor, allows us to customize how the armor
