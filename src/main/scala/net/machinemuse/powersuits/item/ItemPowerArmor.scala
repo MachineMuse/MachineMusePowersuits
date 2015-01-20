@@ -142,7 +142,7 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
             System.out.println(ItemPowerArmor.tickPosition + "/" + tickSize)
             System.out.println("On general armor single tick...")
         } else if (ItemPoerAwrmortickPosition == tickSize) {
-            ItemPowerArmor..tickPosition = 0
+            ItemPowerArmor.tickPosition = 0
         } else {
             tickPosition += 1
         }
