@@ -21,6 +21,11 @@ import net.minecraft.world.World
  *
  * @author MachineMuse
  */
+
+object ItemPowerArmor {
+    private var tickPosition: Int = 0
+}
+
 abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
   extends ItemElectricArmor(ItemArmor.ArmorMaterial.IRON, renderIndex, armorType)
   with ISpecialArmor
@@ -28,8 +33,6 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
 
   setMaxStackSize(1)
   setCreativeTab(Config.getCreativeTab)
-  
-  private var tickPosition: Integer = 0
 
   /**
    * Inherited from ISpecialArmor, allows significant customization of damage
@@ -135,11 +138,11 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
     }
     
     if (tickSize > 0) {
-        if (tickPosition == 0) {
-            System.out.println(tickPosition + "/" + tickSize)
+        if (ItemPowerArmor.tickPosition == 0) {
+            System.out.println(ItemPowerArmor.tickPosition + "/" + tickSize)
             System.out.println("On general armor single tick...")
-        } else if (tickPosition == tickSize) {
-            tickPosition = 0
+        } else if (ItemPoerAwrmortickPosition == tickSize) {
+            ItemPowerArmor..tickPosition = 0
         } else {
             tickPosition += 1
         }
