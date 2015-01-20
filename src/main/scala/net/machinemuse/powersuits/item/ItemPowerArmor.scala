@@ -127,11 +127,13 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
   override def onArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
     val modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player)
     var tickSize: Integer = 0
-    if (player.inventory.getCurrentItem.isInstanceOf[IModularItem]) { 
+    
+    if (player.inventory.getCurrentItem.getItem.isInstanceOf[IModularItem]) {
         tickSize = (modularItemsEquipped.length - 1) 
-    } else { 
+    } else {
         tickSize = modularItemsEquipped.length
     }
+    
     if ((tickPosition == 0) && (tickSize > 0)) {
         System.out.println("On general armor single tick...")
     }
