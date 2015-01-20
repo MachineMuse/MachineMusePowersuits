@@ -114,6 +114,7 @@ task copyToLib(type: Copy) {
     from(sourceSets.main.resources.srcDirs){
         include 'vanilla.recipes'
         include 'ThermalExpansion.recipes'
+        include 'IndustrialCraft2.recipes'
     }
 }
 

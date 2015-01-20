@@ -13,4 +13,8 @@ class ItemPowerArmorBoots extends ItemPowerArmor(0, 3) {
   @SideOnly(Side.CLIENT) override def registerIcons(iconRegister: IIconRegister) {
     itemIcon = iconRegister.registerIcon(iconpath)
   }
+  
+  /*override def onArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
+      
+  }*/
 }

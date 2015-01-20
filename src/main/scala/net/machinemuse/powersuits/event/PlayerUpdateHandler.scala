@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.event
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent
-import net.machinemuse.api.ModuleManager
+import net.machinemuse.api.{ModuleManager, IModularItem}
 import net.machinemuse.general.sound.SoundLoader
 import net.machinemuse.numina.sound.proxy.Musique
 import net.machinemuse.numina.general.MuseMathUtils
