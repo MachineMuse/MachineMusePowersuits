@@ -134,7 +134,8 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
         tickSize = modularItemsEquipped.size
     }
     
-    if ((tickPosition == tickSize) && (tickSize > 0)) {
+    if ((tickPosition == (tickSize - 1)) && (tickSize > 0)) {
+        System.out.println(tickPosition + "/" + tickSize)
         System.out.println("On general armor single tick...")
     }
     onModularArmorTick(world, player, itemStack)
