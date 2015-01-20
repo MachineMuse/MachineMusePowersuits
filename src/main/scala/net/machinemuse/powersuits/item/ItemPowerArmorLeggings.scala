@@ -15,4 +15,8 @@ class ItemPowerArmorLeggings extends ItemPowerArmor(0, 2) {
   override def registerIcons(iconRegister: IIconRegister) {
     itemIcon = iconRegister.registerIcon(iconpath)
   }
+  
+  override def onModularArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
+  	System.out.println("On Leggings Tick..")
+  }
 }

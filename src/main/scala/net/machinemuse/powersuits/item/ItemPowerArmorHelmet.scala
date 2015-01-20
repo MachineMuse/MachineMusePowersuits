@@ -30,6 +30,10 @@ with IRevealer
   override def registerIcons(iconRegister: IIconRegister) {
     itemIcon = iconRegister.registerIcon(iconpath)
   }
+  
+  override def onModularArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
+  	System.out.println("On Helmet Tick..")
+  }
 
   override def showIngamePopups(itemstack: ItemStack, player: EntityLivingBase): Boolean =
     ModuleManager.itemHasActiveModule(itemstack, ThaumGogglesModule.MODULE_THAUM_GOGGLES)

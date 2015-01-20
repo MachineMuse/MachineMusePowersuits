@@ -120,8 +120,11 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
     return totalArmor
   }
   
+  def onModularArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack)
+  
   override def onArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
-    System.out.println("On general armor tick...")   
+    System.out.println("On general armor tick...")
+    onModularArmorTick(world, player, itemStack)
   }
 
   /**

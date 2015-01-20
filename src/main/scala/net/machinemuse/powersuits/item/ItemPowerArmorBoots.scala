@@ -14,7 +14,7 @@ class ItemPowerArmorBoots extends ItemPowerArmor(0, 3) {
     itemIcon = iconRegister.registerIcon(iconpath)
   }
   
-  /*override def onArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
-      
-  }*/
+  override def onModularArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
+  	System.out.println("On Boots Tick..")
+  }
 }
