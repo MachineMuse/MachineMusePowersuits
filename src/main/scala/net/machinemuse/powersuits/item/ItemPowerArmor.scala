@@ -129,9 +129,9 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
     var tickSize: Integer = 0
     
     if (player.inventory.getCurrentItem.getItem.isInstanceOf[IModularItem]) {
-        tickSize = (modularItemsEquipped.length - 1) 
+        tickSize = (modularItemsEquipped.size - 1) 
     } else {
-        tickSize = modularItemsEquipped.length
+        tickSize = modularItemsEquipped.size
     }
     
     if ((tickPosition == 0) && (tickSize > 0)) {
