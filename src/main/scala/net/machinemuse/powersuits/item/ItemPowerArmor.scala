@@ -141,7 +141,7 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
         } else if (tickPosition == tickSize) {
             tickPosition = 0
         } else {
-            tickPosition++
+            tickPosition += 1
         }
     }
     onModularArmorTick(world, player, itemStack)
