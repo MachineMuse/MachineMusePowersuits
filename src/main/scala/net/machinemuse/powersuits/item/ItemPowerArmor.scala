@@ -26,9 +26,11 @@ object ItemPowerArmor {
     private var tickPosition: Integer = 0
     private def inc: Integer = {
         tickPosition += 1
+        tickPosition
     }
     private def init: Integer = {
         tickPosition = 0
+        tickPosition
     }
 }
 
