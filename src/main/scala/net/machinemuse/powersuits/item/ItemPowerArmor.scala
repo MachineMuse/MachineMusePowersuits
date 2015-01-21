@@ -189,7 +189,7 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
             // Pre-tick
             onModularArmorTick(world, player, itemStack)
             ItemPowerArmor.ArmorTickCounter.increment
-        } else if (ItemPowerArmor.ArmorTickCounter.get == (tickSize - 1)) {
+        } else if (ItemPowerArmor.ArmorTickCounter.get >= (tickSize - 1)) {
             onModularArmorTick(world, player, itemStack)
             // Post-tick
             if ( ItemPowerArmor.CurrentArmor.hasPiece(0) ) {
@@ -208,8 +208,6 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
                 System.out.println("Player has Full Power Set")
             }
             
-            ItemPowerArmor.ArmorTickCounter.reset
-        } else if (ItemPowerArmor.ArmorTickCounter.get >= tickSize) {
             ItemPowerArmor.ArmorTickCounter.reset
         } else {
             onModularArmorTick(world, player, itemStack)
