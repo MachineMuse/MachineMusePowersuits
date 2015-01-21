@@ -23,8 +23,13 @@ import net.minecraft.world.World
  */
 
 object ItemPowerArmor {
-    private var tickPosition: Int
-    tickPosition = 0
+    private var tickPosition: Integer = 0
+    private def inc: Integer = {
+        tickPosition += 1
+    }
+    private def init: Integer {
+        tickPosition = 0
+    }
 }
 
 abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
@@ -140,12 +145,12 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
     
     if (tickSize > 0) {
         if (ItemPowerArmor.tickPosition == 0) {
-            System.out.println(ItemPowerArmor.tickPosition + "/" + tickSize)
+            System.out.println(ItemPowerArmor.inc + "/" + tickSize)
             System.out.println("On general armor single tick...")
         } else if (ItemPowerArmor.tickPosition == tickSize) {
-            ItemPowerArmor.tickPosition = 0
+            ItemPowerArmor.init
         } else {
-            ItemPowerArmor.tickPosition += 1
+            ItemPowerArmor.inc
         }
     }
     onModularArmorTick(world, player, itemStack)
