@@ -209,6 +209,8 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
             }
             
             ItemPowerArmor.ArmorTickCounter.reset
+        } else if (ItemPowerArmor.ArmorTickCounter.get >= tickSize) {
+            ItemPowerArmor.ArmorTickCounter.reset
         } else {
             onModularArmorTick(world, player, itemStack)
             ItemPowerArmor.ArmorTickCounter.increment
