@@ -173,7 +173,7 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
     var tickSize: Integer = 0
     
     if (player.inventory.getCurrentItem.getItem.isInstanceOf[IModularItem]) {
-        tickSize = (modularItemsEquipped.size - 1) 
+        tickSize = (modularItemsEquipped.size - 1)
     } else {
         tickSize = modularItemsEquipped.size
     }
@@ -182,14 +182,14 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
         if (ItemPowerArmor.ArmorTickCounter.get == 0) {
             ItemPowerArmor.CurrentArmor.clear
             
-            if (tickSize == 3) {
+            if (tickSize == 4) {
                 System.out.println("Full armor equipped...")
                 ItemPowerArmor.CurrentArmor.setFull(true)
             }
             // Pre-tick
             onModularArmorTick(world, player, itemStack)
             ItemPowerArmor.ArmorTickCounter.increment
-        } else if ((ItemPowerArmor.ArmorTickCounter.get - 1) == tickSize) {
+        } else if (ItemPowerArmor.ArmorTickCounter.get == (tickSize - 1)) {
             onModularArmorTick(world, player, itemStack)
             // Post-tick
             if ( ItemPowerArmor.CurrentArmor.hasPiece(0) ) {
