@@ -23,7 +23,8 @@ import net.minecraft.world.World
  */
 
 object ItemPowerArmor {
-    private var tickPosition: Int = 0
+    private var tickPosition: Int
+    tickPosition = 0
 }
 
 abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
