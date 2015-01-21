@@ -179,7 +179,7 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
     }
     
     if (tickSize > 0) {
-        if (ItemPowerArmor.tickPosition == 0) {
+        if (ItemPowerArmor.ArmorTickCounter.get == 0) {
             ItemPowerArmor.CurrentArmor.clear
             
             if (tickSize == 4) {
