@@ -19,6 +19,5 @@ class ItemPowerArmorChestplate extends ItemPowerArmor(0, 1) {
   
   override def onModularArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
   	ItemPowerArmor.CurrentArmor.putPiece(1)
-  	System.out.println("On Chestplate Tick..")
   }
 }

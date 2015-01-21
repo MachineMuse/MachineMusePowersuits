@@ -34,7 +34,6 @@ with IRevealer
   
   override def onModularArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
     ItemPowerArmor.CurrentArmor.putPiece(0)
-  	System.out.println("On Helmet Tick..")
   }
 
   override def showIngamePopups(itemstack: ItemStack, player: EntityLivingBase): Boolean =

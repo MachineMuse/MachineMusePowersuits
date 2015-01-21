@@ -19,6 +19,5 @@ class ItemPowerArmorBoots extends ItemPowerArmor(0, 3) {
   
   override def onModularArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
     ItemPowerArmor.CurrentArmor.putPiece(3)
-  	System.out.println("On Boots Tick..")
   }
 }
