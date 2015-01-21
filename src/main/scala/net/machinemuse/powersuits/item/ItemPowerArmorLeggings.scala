@@ -20,6 +20,7 @@ class ItemPowerArmorLeggings extends ItemPowerArmor(0, 2) {
   }
   
   override def onModularArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
+    ItemPowerArmor.CurrentArmor.putPiece(2)
   	System.out.println("On Leggings Tick..")
   }
 }

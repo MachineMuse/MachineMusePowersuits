@@ -16,6 +16,8 @@ import net.minecraft.util.DamageSource
 import net.minecraftforge.common.ISpecialArmor
 import net.minecraft.world.World
 
+import scala.annotation.switch
+
 /**
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.
  *
@@ -23,14 +25,45 @@ import net.minecraft.world.World
  */
 
 object ItemPowerArmor {
-    private var tickPosition: Integer = 0
-    private def increment: Integer = {
-        tickPosition += 1
-        return tickPosition
+    object CurrentArmor {
+        object ArmorPiece extends Enumeration {
+            type ArmorPiece = Value
+            val head, torso, legs, feet = Value
+        }
+        private var armor: ArmorPiece.ValueSet = null
+        private var fullSet: Boolean = false
+        def hasPiece(piece: Int): Boolean = {
+            (piece: @switch) match {
+                case 0 => armor.contains(ArmorPiece.head)
+                case 1 => armor.contains(ArmorPiece.torso)
+                case 2 => armor.contains(ArmorPiece.legs)
+                case 3 => armor.contains(ArmorPiece.feet)
+            }
+        }
+        def putPiece(piece: Int) {
+            if (! hasPiece(piece)) {
+                (piece: @switch) match {
+                    case 0 => (armor += ArmorPiece.head)
+                    case 1 => (armor += ArmorPiece.torso)
+                    case 2 => (armor += ArmorPiece.legs)
+                    case 3 => (armor += ArmorPiece.feet)
+                }
+            }
+        }
+        def clear { 
+            armor = ArmorPiece.ValueSet.empty
+            fullSet = false
+        }
+        def getFull: Boolean = fullSet
+        def setFull(isFull: Boolean) { fullSet = isFull }
     }
-    private def reset: Integer = {
-        tickPosition = 0
-        return tickPosition
+    
+    object ArmorTickCounter {
+        private var tick: Integer = 0
+        
+        def increment { tick += 1 }
+        def reset { tick = 0 }
+        def get: Integer = tick
     }
 }
 
@@ -147,15 +180,40 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
     
     if (tickSize > 0) {
         if (ItemPowerArmor.tickPosition == 0) {
-            System.out.println(ItemPowerArmor.increment + "/" + tickSize)
-            System.out.println("On general armor single tick...")
-        } else if (ItemPowerArmor.tickPosition == (tickSize - 1)) {
-            ItemPowerArmor.reset
+            ItemPowerArmor.CurrentArmor.clear
+            
+            if (tickSize == 4) {
+                System.out.println("Full armor equipped...")
+                ItemPowerArmor.CurrentArmor.setFull(true)
+            }
+            // Pre-tick
+            onModularArmorTick(world, player, itemStack)
+            ItemPowerArmor.ArmorTickCounter.increment
+        } else if (ItemPowerArmor.ArmorTickCounter.get == (tickSize - 1)) {
+            onModularArmorTick(world, player, itemStack)
+            // Post-tick
+            if ( ItemPowerArmor.CurrentArmor.hasPiece(0) ) {
+                System.out.println("Player has Power Helmet")
+            }
+            if ( ItemPowerArmor.CurrentArmor.hasPiece(1) ) {
+                System.out.println("Player has Power Chestpiece")
+            }
+            if ( ItemPowerArmor.CurrentArmor.hasPiece(2) ) {
+                System.out.println("Player has Power Leggings")
+            }
+            if ( ItemPowerArmor.CurrentArmor.hasPiece(3) ) {
+                System.out.println("Player has Power Boots")
+            }
+            if ( ItemPowerArmor.CurrentArmor.getFull ) {
+                System.out.println("Player has Full Power Set")
+            }
+            
+            ItemPowerArmor.ArmorTickCounter.reset
         } else {
-            ItemPowerArmor.increment
+            onModularArmorTick(world, player, itemStack)
+            ItemPowerArmor.ArmorTickCounter.increment
         }
     }
-    onModularArmorTick(world, player, itemStack)
   }
 
   /**
