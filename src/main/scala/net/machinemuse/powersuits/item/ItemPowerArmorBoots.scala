@@ -17,7 +17,11 @@ class ItemPowerArmorBoots extends ItemPowerArmor(0, 3) {
     itemIcon = iconRegister.registerIcon(iconpath)
   }
   
-  override def onModularArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
+  override def onArmorPieceTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
     ItemPowerArmor.CurrentArmor.putPiece(3)
+  }
+  
+  override def onFullArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
+      
   }
 }

@@ -165,9 +165,12 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
     return totalArmor
   }
   
-  def onModularArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack)
+  def onArmorPieceTick(world: World, player: EntityPlayer, itemStack: ItemStack)
+  def onFullArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack)
   
   override def onArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
+  	import ItemPowerArmor._
+  	
     val modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player)
     var tickSize: Integer = 0
     
@@ -178,27 +181,36 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
     }
     
     if (tickSize > 0) {
-        if (ItemPowerArmor.ArmorTickCounter.get == 0) {
-            ItemPowerArmor.CurrentArmor.clear
+        if (ArmorTickCounter.get == 0) {
+            CurrentArmor.clear
             
             if (tickSize == 4) {
-                ItemPowerArmor.CurrentArmor.setFull(true)
-                // Full armor pre-tick
-            }
-            // Pre-tick
-            onModularArmorTick(world, player, itemStack)
-            ItemPowerArmor.ArmorTickCounter.increment
-        } else if (ItemPowerArmor.ArmorTickCounter.get >= (tickSize - 1)) {
-            onModularArmorTick(world, player, itemStack)
-            // Post-tick
-            if ( ItemPowerArmor.CurrentArmor.getFull ) {
-                // Full armor post-tick
+                CurrentArmor.setFull(true)
             }
             
-            ItemPowerArmor.ArmorTickCounter.reset
+            onArmorPieceTick(world, player, itemStack)
+            
+            if ( CurrentArmor.getFull ) {
+                onFullArmorTick(world, player, itemStack)
+            }
+            
+            ArmorTickCounter.increment
+        } else if (ArmorTickCounter.get >= (tickSize - 1)) {
+            onArmorPieceTick(world, player, itemStack)
+            
+            if ( CurrentArmor.getFull ) {
+                onFullArmorTick(world, player, itemStack)
+            }
+            
+            ArmorTickCounter.reset
         } else {
-            onModularArmorTick(world, player, itemStack)
-            ItemPowerArmor.ArmorTickCounter.increment
+            onArmorPieceTick(world, player, itemStack)
+            
+            if ( CurrentArmor.getFull ) {
+                onFullArmorTick(world, player, itemStack)
+            }
+            
+            ArmorTickCounter.increment
         }
     }
   }

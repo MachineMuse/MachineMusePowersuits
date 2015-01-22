@@ -17,7 +17,11 @@ class ItemPowerArmorChestplate extends ItemPowerArmor(0, 1) {
     itemIcon = iconRegister.registerIcon(iconpath)
   }
   
-  override def onModularArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
+  override def onArmorPieceTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
   	ItemPowerArmor.CurrentArmor.putPiece(1)
+  }
+  
+  override def onFullArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
+      
   }
 }
