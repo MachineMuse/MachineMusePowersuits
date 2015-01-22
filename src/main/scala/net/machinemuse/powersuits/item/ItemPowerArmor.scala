@@ -16,8 +16,6 @@ import net.minecraft.util.DamageSource
 import net.minecraftforge.common.ISpecialArmor
 import net.minecraft.world.World
 
-import scala.annotation.switch
-
 /**
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.
  *
@@ -25,6 +23,7 @@ import scala.annotation.switch
  */
 
 object ItemPowerArmor {
+		import scala.annotation.switch
     object CurrentArmor {
         object ArmorPiece extends Enumeration {
             type ArmorPiece = Value
@@ -183,8 +182,8 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
             ItemPowerArmor.CurrentArmor.clear
             
             if (tickSize == 4) {
-                System.out.println("Full armor equipped...")
                 ItemPowerArmor.CurrentArmor.setFull(true)
+                // Full armor pre-tick
             }
             // Pre-tick
             onModularArmorTick(world, player, itemStack)
@@ -192,20 +191,8 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
         } else if (ItemPowerArmor.ArmorTickCounter.get >= (tickSize - 1)) {
             onModularArmorTick(world, player, itemStack)
             // Post-tick
-            if ( ItemPowerArmor.CurrentArmor.hasPiece(0) ) {
-                System.out.println("Player has Power Helmet")
-            }
-            if ( ItemPowerArmor.CurrentArmor.hasPiece(1) ) {
-                System.out.println("Player has Power Chestpiece")
-            }
-            if ( ItemPowerArmor.CurrentArmor.hasPiece(2) ) {
-                System.out.println("Player has Power Leggings")
-            }
-            if ( ItemPowerArmor.CurrentArmor.hasPiece(3) ) {
-                System.out.println("Player has Power Boots")
-            }
             if ( ItemPowerArmor.CurrentArmor.getFull ) {
-                System.out.println("Player has Full Power Set")
+                // Full armor post-tick
             }
             
             ItemPowerArmor.ArmorTickCounter.reset
