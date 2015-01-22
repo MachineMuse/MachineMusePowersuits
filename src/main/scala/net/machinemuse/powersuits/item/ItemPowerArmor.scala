@@ -22,50 +22,6 @@ import net.minecraft.world.World
  * @author MachineMuse
  */
 
-object ItemPowerArmor {
-		import scala.annotation.switch
-    object CurrentArmor {
-        object ArmorPiece extends Enumeration {
-            type ArmorPiece = Value
-            val head, torso, legs, feet = Value
-        }
-        private var armor: ArmorPiece.ValueSet = null
-        private var fullSet: Boolean = false
-        def hasPiece(piece: Int): Boolean = {
-            (piece: @switch) match {
-                case 0 => armor.contains(ArmorPiece.head)
-                case 1 => armor.contains(ArmorPiece.torso)
-                case 2 => armor.contains(ArmorPiece.legs)
-                case 3 => armor.contains(ArmorPiece.feet)
-            }
-        }
-        def putPiece(piece: Int) {
-            if (! hasPiece(piece)) {
-                (piece: @switch) match {
-                    case 0 => (armor += ArmorPiece.head)
-                    case 1 => (armor += ArmorPiece.torso)
-                    case 2 => (armor += ArmorPiece.legs)
-                    case 3 => (armor += ArmorPiece.feet)
-                }
-            }
-        }
-        def clear { 
-            armor = ArmorPiece.ValueSet.empty
-            fullSet = false
-        }
-        def getFull: Boolean = fullSet
-        def setFull(isFull: Boolean) { fullSet = isFull }
-    }
-    
-    object ArmorTickCounter {
-        private var tick: Integer = 0
-        
-        def increment { tick += 1 }
-        def reset { tick = 0 }
-        def get: Integer = tick
-    }
-}
-
 abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
   extends ItemElectricArmor(ItemArmor.ArmorMaterial.IRON, renderIndex, armorType)
   with ISpecialArmor
@@ -181,53 +137,19 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
    * Inherited from ItemArmor. General armor ticker (called on every piece).
    */
   override def onArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
-  	import ItemPowerArmor._
-
     val modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player)
     var pieceCount: Integer = 0
     
-    if (player.inventory.getCurrentItem.getItem.isInstanceOf[IModularItem]) {
+    if (player.inventory.getCurrentItem.getItem.isInstanceOf[IModularItem])
         pieceCount = (modularItemsEquipped.size - 1)
-    } else {
+    else
         pieceCount = modularItemsEquipped.size
-    }
     
     if (pieceCount > 0) {
-        if (ArmorTickCounter.get == 0) {
-            CurrentArmor.clear
+        onArmorPieceTick(world, player, itemStack)
             
-            if (pieceCount == 4) {
-                CurrentArmor.setFull(true)
-            }
-            
-            onArmorPieceTick(world, player, itemStack)
-            
-            if ( CurrentArmor.getFull ) {
-                onFullArmorTick(world, player, itemStack)
-            }
-            
-            ArmorTickCounter.increment
-            
-            if ( pieceCount == 1 ) {
-                ArmorTickCounter.reset
-            }
-        } else if (ArmorTickCounter.get >= (pieceCount - 1)) {
-            onArmorPieceTick(world, player, itemStack)
-            
-            if ( CurrentArmor.getFull ) {
-                onFullArmorTick(world, player, itemStack)
-            }
-            
-            ArmorTickCounter.reset
-        } else {
-            onArmorPieceTick(world, player, itemStack)
-            
-            if ( CurrentArmor.getFull ) {
-                onFullArmorTick(world, player, itemStack)
-            }
-            
-            ArmorTickCounter.increment
-        }
+        if ( pieceCount == 4 )
+            onFullArmorTick(world, player, itemStack)
     }
   }
 
