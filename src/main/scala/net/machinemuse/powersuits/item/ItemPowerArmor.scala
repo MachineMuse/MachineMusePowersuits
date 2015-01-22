@@ -165,26 +165,38 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
     return totalArmor
   }
   
+  /**
+   * To-be-inherited method which allows us to tick on a per-piece basis.
+   * TODO: These should be further abstracted to pull such functionality into the ticker module trigger.
+   */
   def onArmorPieceTick(world: World, player: EntityPlayer, itemStack: ItemStack)
+  
+  /**
+   * To-be-inherited method which allows us to tick on a per-piece basis depending on if this is the full set.
+   * TODO: These should be further abstracted to pull such functionality into the ticker module trigger.
+   */
   def onFullArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack)
   
+  /**
+   * Inherited from ItemArmor. General armor ticker (called on every piece).
+   */
   override def onArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
   	import ItemPowerArmor._
-  	
+
     val modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player)
-    var tickSize: Integer = 0
+    var pieceCount: Integer = 0
     
     if (player.inventory.getCurrentItem.getItem.isInstanceOf[IModularItem]) {
-        tickSize = (modularItemsEquipped.size - 1)
+        pieceCount = (modularItemsEquipped.size - 1)
     } else {
-        tickSize = modularItemsEquipped.size
+        pieceCount = modularItemsEquipped.size
     }
     
-    if (tickSize > 0) {
+    if (pieceCount > 0) {
         if (ArmorTickCounter.get == 0) {
             CurrentArmor.clear
             
-            if (tickSize == 4) {
+            if (pieceCount == 4) {
                 CurrentArmor.setFull(true)
             }
             
@@ -195,7 +207,11 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
             }
             
             ArmorTickCounter.increment
-        } else if (ArmorTickCounter.get >= (tickSize - 1)) {
+            
+            if ( pieceCount == 1 ) {
+                ArmorTickCounter.reset
+            }
+        } else if (ArmorTickCounter.get >= (pieceCount - 1)) {
             onArmorPieceTick(world, player, itemStack)
             
             if ( CurrentArmor.getFull ) {
