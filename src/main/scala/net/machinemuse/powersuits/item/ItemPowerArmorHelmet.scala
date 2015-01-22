@@ -33,11 +33,11 @@ with IRevealer
   }
   
   override def onArmorPieceTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
-    ItemPowerArmor.CurrentArmor.putPiece(0)
+      System.out.println("On helmet tick.")
   }
   
   override def onFullArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
-      
+      System.out.println("On helmet full armor tick.")
   }
 
   override def showIngamePopups(itemstack: ItemStack, player: EntityLivingBase): Boolean =
