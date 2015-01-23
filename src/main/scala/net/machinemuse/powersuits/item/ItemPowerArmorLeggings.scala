@@ -20,10 +20,8 @@ class ItemPowerArmorLeggings extends ItemPowerArmor(0, 2) {
   }
   
   override def onArmorPieceTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
-      System.out.println("On leggings tick.")
   }
   
   override def onFullArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
-      System.out.println("On leggings full armor tick.")
   }
 }

@@ -18,10 +18,8 @@ class ItemPowerArmorChestplate extends ItemPowerArmor(0, 1) {
   }
   
   override def onArmorPieceTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
-      System.out.println("On chestplate tick.")
   }
   
   override def onFullArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
-      System.out.println("On chestplate full armor tick.")
   }
 }
