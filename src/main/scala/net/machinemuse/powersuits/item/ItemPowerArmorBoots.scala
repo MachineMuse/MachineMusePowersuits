@@ -19,7 +19,7 @@ class ItemPowerArmorBoots extends ItemPowerArmor(0, 3) {
   }
   
   override def onArmorPieceTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
-      System.out.println(player.inventory.armorItemInSlot(3).getItem.asInstanceOf[ItemPowerArmor].getUnlocalizedName)
+      System.out.println(player.inventory.armorItemInSlot(0).getItem.asInstanceOf[ItemPowerArmor].getUnlocalizedName)
   }
   
   override def onFullArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
