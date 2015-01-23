@@ -151,6 +151,14 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
         if ( pieceCount == 4 )
             onFullArmorTick(world, player, itemStack)
     }
+    
+    for (module <- ModuleManager.getPlayerTickModules) {
+        if (module.isValidForItem(itemStack)) {
+            if (ModuleManager.itemHasActiveModule(itemStack, module.getDataName)) {
+                module.onPlayerTickActive(player, itemStack)
+            }
+        }
+    }
   }
 
   /**

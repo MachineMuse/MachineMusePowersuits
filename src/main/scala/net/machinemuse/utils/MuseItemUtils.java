@@ -245,11 +245,11 @@ public class MuseItemUtils {
 
     public static ItemStack[] itemsEquipped(EntityPlayer player) {
         ItemStack[] equipped = {
-                player.inventory.armorInventory[0],
-                player.inventory.armorInventory[1],
-                player.inventory.armorInventory[2],
-                player.inventory.armorInventory[3],
-                player.inventory.getCurrentItem()};
+                player.inventory.armorItemInSlot(0),
+                player.inventory.armorItemInSlot(1),
+                player.inventory.armorItemInSlot(2),
+                player.inventory.armorItemInSlot(3),
+                player.getHeldItem()};
         return equipped;
     }
 

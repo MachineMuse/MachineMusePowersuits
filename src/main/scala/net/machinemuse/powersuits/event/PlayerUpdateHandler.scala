@@ -28,25 +28,13 @@ class PlayerUpdateHandler {
         }
       }
 
-
-
-      var foundItemWithModule: Boolean = false
-      import scala.collection.JavaConversions._
       for (module <- ModuleManager.getPlayerTickModules) {
         foundItemWithModule = false
-        import scala.collection.JavaConversions._
         for (itemStack <- modularItemsEquipped) {
           if (module.isValidForItem(itemStack)) {
-            if (ModuleManager.itemHasActiveModule(itemStack, module.getDataName)) {
-              module.onPlayerTickActive(player, itemStack)
-              foundItemWithModule = true
+            if (! ModuleManager.itemHasActiveModule(itemStack, module.getDataName)) {
+              module.onPlayerTickInactive(player, itemStack)
             }
-          }
-        }
-        if (!foundItemWithModule) {
-          import scala.collection.JavaConversions._
-          for (itemStack <- modularItemsEquipped) {
-            module.onPlayerTickInactive(player, itemStack)
           }
         }
       }
