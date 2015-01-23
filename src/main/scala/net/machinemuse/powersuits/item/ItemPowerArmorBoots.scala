@@ -18,7 +18,7 @@ class ItemPowerArmorBoots extends ItemPowerArmor(0, 3) {
   }
   
   override def onArmorPieceTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
-      if (player.inventory.armorItemInSlot(3).getItem.isInstanceOf[ItemPowerArmorBoots]) {
+      if (player.inventory.armorItemInSlot(3).getItem.isInstanceOf[ItemPowerArmor]) {
           System.out.println("itemStack and armor item are equal")
       }
   }
