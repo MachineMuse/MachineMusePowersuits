@@ -10,17 +10,19 @@ import net.minecraft.world.World
 
 class ItemPowerArmorBoots extends ItemPowerArmor(0, 3) {
   val iconpath = MuseRenderer.ICON_PREFIX + "armorfeet"
+  val unlocalizedName: String = "powerArmorBoots"
 
-  setUnlocalizedName("powerArmorBoots")
+  setUnlocalizedName(unlocalizedName)
 
   @SideOnly(Side.CLIENT) override def registerIcons(iconRegister: IIconRegister) {
     itemIcon = iconRegister.registerIcon(iconpath)
   }
   
   override def onArmorPieceTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
-      if (player.inventory.armorItemInSlot(3).getItem.isInstanceOf[ItemPowerArmor]) {
+      if (player.inventory.armorItemInSlot(3).getItem.asInstanceOf[ItemPowerArmor].getUnlocalizedName == unlocalizedName)
           System.out.println("itemStack and armor item are equal")
-      }
+      else
+          System.out.println("Not equal... (will this condition ever occur?)")
   }
   
   override def onFullArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
