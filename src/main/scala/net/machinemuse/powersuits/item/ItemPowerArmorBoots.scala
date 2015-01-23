@@ -10,16 +10,18 @@ import net.minecraft.world.World
 
 class ItemPowerArmorBoots extends ItemPowerArmor(0, 3) {
   val iconpath = MuseRenderer.ICON_PREFIX + "armorfeet"
-  val unlocalizedName: String = "powerArmorBoots"
 
-  setUnlocalizedName(unlocalizedName)
+  setUnlocalizedName("powerArmorBoots")
 
   @SideOnly(Side.CLIENT) override def registerIcons(iconRegister: IIconRegister) {
     itemIcon = iconRegister.registerIcon(iconpath)
   }
   
   override def onArmorPieceTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
-      System.out.println(player.inventory.armorItemInSlot(0).getItem.asInstanceOf[ItemPowerArmor].getUnlocalizedName)
+      if (player.inventory.armorItemInSlot(0).getItem.isInstanceOf[ItemPowerArmorBoots])
+          System.out.println("Is ItemPowerArmorBoots")
+      else
+          System.out.println("Not ItemPowerArmorBoots")
   }
   
   override def onFullArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
