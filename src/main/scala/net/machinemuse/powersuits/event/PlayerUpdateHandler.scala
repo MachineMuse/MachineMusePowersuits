@@ -28,7 +28,7 @@ class PlayerUpdateHandler {
         }
       }
 
-      val foundItemWithModule: Boolean = false
+      var foundItemWithModule: Boolean = false
       for (module <- ModuleManager.getPlayerTickModules) {
         foundItemWithModule = false
         for (itemStack <- modularItemsEquipped) {
