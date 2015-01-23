@@ -152,6 +152,7 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
             onFullArmorTick(world, player, itemStack)
     }
     
+    import scala.collection.JavaConversions._
     for (module <- ModuleManager.getPlayerTickModules) {
         if (module.isValidForItem(itemStack)) {
             if (ModuleManager.itemHasActiveModule(itemStack, module.getDataName)) {
