@@ -44,7 +44,7 @@ class PlayerUpdateHandler {
         if (!moduleActive) {
             for (j <- 0 until player.inventory.getSizeInventory) {
                 val itemStack: ItemStack = player.inventory.getStackInSlot(j)
-                if ((itemStack != null) && itemStack.isInstanceOf[ItemPowerArmor] && module.isValidForItem(itemStack)){
+                if ((itemStack != null) && itemStack.getItem.isInstanceOf[ItemPowerArmor] && module.isValidForItem(itemStack)){
                     module.onPlayerTickInactive(player, itemStack)
                 }
             }
