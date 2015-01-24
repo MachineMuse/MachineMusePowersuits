@@ -38,6 +38,7 @@ class PlayerUpdateHandler {
             }
           }
         }
+        import scala.collection.JavaConversions._
         if (!moduleActive) {
             module.onPlayerTickInactive(player, itemStack)
         }
