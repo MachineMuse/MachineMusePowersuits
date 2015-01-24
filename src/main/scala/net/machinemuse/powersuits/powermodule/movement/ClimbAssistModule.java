@@ -49,7 +49,7 @@ public class ClimbAssistModule extends PowerModuleBase implements IToggleableMod
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
         if (player.stepHeight == 1.001F) {
-            player.stepHeight = 0.5001F;
+            player.stepHeight = 0.0F;
         }
     }
 
