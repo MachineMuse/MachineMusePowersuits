@@ -140,7 +140,7 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
     val modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player)
     var pieceCount: Integer = 0
     
-    if (player.getHeldItem.getItem.isInstanceOf[IModularItem])
+    if ((player.getHeldItem != null) && (player.getHeldItem.getItem.isInstanceOf[IModularItem]))
         pieceCount = (modularItemsEquipped.size - 1)
     else
         pieceCount = modularItemsEquipped.size
