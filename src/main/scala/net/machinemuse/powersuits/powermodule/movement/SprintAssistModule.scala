@@ -102,7 +102,6 @@ class SprintAssistModule(validItems: List[IModularItem]) extends PowerModuleBase
           tag.setDouble("Amount", 0)
           Some(tag)
       }
-    }
   }
 
   def getTextureFile: String = "sprintassist"
