@@ -9,6 +9,7 @@ import net.machinemuse.numina.scala.OptionCast
 import net.machinemuse.utils.{MuseHeatUtils, MuseItemUtils, MusePlayerUtils}
 import net.machinemuse.powersuits.item.ItemPowerArmor
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.ItemStack
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent
 
 /**
