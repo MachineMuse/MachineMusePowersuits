@@ -28,14 +28,18 @@ class PlayerUpdateHandler {
       }
 
       import scala.collection.JavaConversions._
+      var moduleActive: Boolean = false
       for (module <- ModuleManager.getPlayerTickModules) {
         import scala.collection.JavaConversions._
         for (itemStack <- modularItemsEquipped) {
           if (module.isValidForItem(itemStack)) {
-            if (!ModuleManager.itemHasActiveModule(itemStack, module.getDataName)) {
-              module.onPlayerTickInactive(player, itemStack)
+            if (ModuleManager.itemHasActiveModule(itemStack, module.getDataName)) {
+              moduleActive = true
             }
           }
+        }
+        if (!moduleActive) {
+            module.onPlayerTickInactive(player, itemStack)
         }
       }
 

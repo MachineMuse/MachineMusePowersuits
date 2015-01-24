@@ -34,11 +34,12 @@ with IRevealer
     itemIcon = iconRegister.registerIcon(iconpath)
   }
   
-  override def onArmorPieceTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
+  // For future functionality if necessary...
+  /*override def onArmorPieceTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
   }
   
   override def onFullArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
-  }
+  }*/
 
   override def showIngamePopups(itemstack: ItemStack, player: EntityLivingBase): Boolean =
     ModuleManager.itemHasActiveModule(itemstack, ThaumGogglesModule.MODULE_THAUM_GOGGLES)

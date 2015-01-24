@@ -17,13 +17,10 @@ class ItemPowerArmorBoots extends ItemPowerArmor(0, 3) {
     itemIcon = iconRegister.registerIcon(iconpath)
   }
   
-  override def onArmorPieceTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
-      if (itemStack.getItem.isInstanceOf[ItemPowerArmorBoots])
-          System.out.println("Is ItemPowerArmorBoots")
-      else
-          System.out.println("Not ItemPowerArmorBoots")
+  // For future functionality if necessary...
+  /*override def onArmorPieceTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
   }
   
   override def onFullArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
-  }
+  }*/
 }

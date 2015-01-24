@@ -122,22 +122,21 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
   }
   
   /**
-   * To-be-inherited method which allows us to tick on a per-piece basis.
-   * TODO: These should be further abstracted to pull such functionality into the ticker module trigger.
+   * To-be-inherited method which allows us to tick on a per-piece basis. For future functionality if necessary.
    */
-  def onArmorPieceTick(world: World, player: EntityPlayer, itemStack: ItemStack)
+  //def onArmorPieceTick(world: World, player: EntityPlayer, itemStack: ItemStack)
   
   /**
-   * To-be-inherited method which allows us to tick on a per-piece basis depending on if this is the full set.
-   * TODO: These should be further abstracted to pull such functionality into the ticker module trigger.
+   * To-be-inherited method which allows us to tick on a per-piece basis depending on if this is the full set. For future functionality if necessary.
    */
-  def onFullArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack)
+  //def onFullArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack)
   
   /**
    * Inherited from ItemArmor. General armor ticker (called on every piece).
    */
   override def onArmorTick(world: World, player: EntityPlayer, itemStack: ItemStack) {
-    val modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player)
+  	// For future functionality if necessary...
+    /*val modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player)
     var pieceCount: Integer = 0
     
     if ((player.getHeldItem != null) && (player.getHeldItem.getItem.isInstanceOf[IModularItem]))
@@ -149,7 +148,7 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
         onArmorPieceTick(world, player, itemStack)
         if ( pieceCount == 4 )
             onFullArmorTick(world, player, itemStack)
-    }
+    }*/
     
     import scala.collection.JavaConversions._
     for (module <- ModuleManager.getPlayerTickModules) {
