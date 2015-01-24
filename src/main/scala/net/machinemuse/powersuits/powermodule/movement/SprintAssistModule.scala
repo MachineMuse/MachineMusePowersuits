@@ -91,8 +91,6 @@ class SprintAssistModule(validItems: List[IModularItem]) extends PowerModuleBase
   }
 
   def onPlayerTickInactive(player: EntityPlayer, item: ItemStack) {
-    if (item != null) {
-
       val modifiers: NBTTagList = item.getTagCompound.getTagList("AttributeModifiers", 10.asInstanceOf[Byte])
       for (i <- 0 until modifiers.tagCount()) yield {
         val tag = modifiers.getCompoundTagAt(i)

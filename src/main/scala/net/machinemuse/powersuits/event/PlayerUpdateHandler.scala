@@ -7,6 +7,7 @@ import net.machinemuse.numina.sound.proxy.Musique
 import net.machinemuse.numina.general.MuseMathUtils
 import net.machinemuse.numina.scala.OptionCast
 import net.machinemuse.utils.{MuseHeatUtils, MuseItemUtils, MusePlayerUtils}
+import net.machinemuse.powersuits.item.ItemPowerArmor
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent
 
@@ -38,9 +39,14 @@ class PlayerUpdateHandler {
             }
           }
         }
-        import scala.collection.JavaConversions._
+        
         if (!moduleActive) {
-            module.onPlayerTickInactive(player, itemStack)
+            for (j <- 0 until player.inventory.getSizeInventory) {
+                val itemStack: ItemStack = player.inventory.getStackInSlot(j)
+                if ((itemStack != null) && itemStack.isInstanceOf[ItemPowerArmor] && module.isValidForItem(itemStack)){
+                    module.onPlayerTickInactive(player, itemStack)
+                }
+            }
         }
       }
 
