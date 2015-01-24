@@ -11,8 +11,10 @@ import net.minecraft.item.ItemStack
  * Author: MachineMuse (Claire Semple)
  * Created: 10:12 PM, 4/20/13
  */
-@Optional.Interface(iface = "ic2.api.item.ICustomElectricItem", modid = "IC2", striprefs = true)
-@Optional.Interface(iface = "cofh.api.energy.IEnergyContainerItem", modid = "CoFHCore", striprefs = true)
+@Optional.InterfaceList(Array(
+    new Optional.Interface(iface = "ic2.api.item.ICustomElectricItem", modid = "IC2", striprefs = true),
+    new Optional.Interface(iface = "cofh.api.energy.IEnergyContainerItem", modid = "CoFHCore", striprefs = true)
+))
 trait MuseElectricItem
   extends IEnergyContainerItem {
   

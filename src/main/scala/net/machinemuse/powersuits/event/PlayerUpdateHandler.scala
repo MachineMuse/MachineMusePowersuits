@@ -20,7 +20,7 @@ class PlayerUpdateHandler {
       val modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player)
       val totalWeight: Double = MuseItemUtils.getPlayerWeight(player)
       val weightCapacity: Double = 25000
-
+        System.out.println("!!!!!!!!!!!!!!!!!!!! EntityPlayer StepHight == " + player.stepHeight)
       import scala.collection.JavaConversions._
       for (stack <- modularItemsEquipped) {
         if (stack.getTagCompound.hasKey("ench")) {

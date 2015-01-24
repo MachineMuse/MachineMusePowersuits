@@ -147,7 +147,6 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
     
     if (pieceCount > 0) {
         onArmorPieceTick(world, player, itemStack)
-            
         if ( pieceCount == 4 )
             onFullArmorTick(world, player, itemStack)
     }
