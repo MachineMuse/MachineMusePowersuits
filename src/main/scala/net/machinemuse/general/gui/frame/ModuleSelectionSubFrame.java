@@ -31,7 +31,7 @@ public class ModuleSelectionSubFrame {
     public ClickableModule addModule(IPowerModule module) {
         ClickableModule clickie = new ClickableModule(module, new MusePoint2D(0, 0));
         this.moduleButtons.add(clickie);
-        // refreshButtonPositions();
+        refreshButtonPositions();
         return clickie;
     }
 
