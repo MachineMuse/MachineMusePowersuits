@@ -157,7 +157,6 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 
     @Override
     public void onMouseDown(double x, double y, int button) {
-        super.onMouseDown(x, y, button);
         if (border.left() < x && border.right() > x && border.top() < y && border.bottom() > y) {
             y += currentscrollpixels;
             loadModules();
@@ -173,6 +172,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
                 }
             }
         }
+        super.onMouseDown(x, y, button);
     }
 
     @Override
