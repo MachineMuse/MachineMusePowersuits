@@ -158,9 +158,9 @@ public class ModuleSelectionFrame extends ScrollableFrame {
     @Override
     public void onMouseDown(double x, double y, int button) {
         //System.out.println("onMouseDown: X = " + x + " Y = " + y + " Button = " + button);
-        //super.onMouseDown(x, y, button);
+        super.onMouseDown(x, y, button);
         if (border.left() < x && border.right() > x && border.top() < y && border.bottom() > y) {
-            y += currentscrollpixels;
+            // y += currentscrollpixels;
             loadModules();
             int i = 0;
             for (ClickableModule module : moduleButtons) {
