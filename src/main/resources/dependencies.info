@@ -1,6 +1,6 @@
 {
-    "repo": "http://slick.ninjacave.com",
-    "file": "slick-util.jar",
+    "repo": "http://files.qmxtech.com/libs",
+    "file": "slick-util-0.0b9db0b2.jar",
     "class": "org.newdawn.slick.TrueTypeFont",
     "coreLib": "true"
 }
