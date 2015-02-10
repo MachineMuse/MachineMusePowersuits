@@ -61,7 +61,7 @@
 	{
 		"ingredients" : [
 			[ null, { "unlocalizedName" : "item.emerald" }, null ],
-			[ { "oredictName" : "ingotElectrum" }, { "unlocalizedName" : "item.thermalexpansion.component.machineFrame" }, { "oredictName" : "ingotElectrum" } ],
+			[ { "oredictName" : "ingotElectrum" }, { "unlocalizedName" : "tile.thermalexpansion.frame.machineBasic.name" }, { "oredictName" : "ingotElectrum" } ],
 			[ null, { "unlocalizedName" : "item.thermalexpansion.material.powerCoilSilver" }, null ]
 		],
 		"result" : {
@@ -148,7 +148,7 @@
 	},
 	{
 		"ingredients" : [
-			[  { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.thermalexpansion.component.conduitEnergyReinforcedEmpty" }, { "oredictName" : "componentWiring" } ]
+			[  { "oredictName" : "componentWiring" }, { "unlocalizedName" : "tile.thermalexpansion.frame.cellBasic.name" }, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {
 			"oredictName" : "componentMVCapacitor"
@@ -156,7 +156,7 @@
 	},
 	{
 		"ingredients" : [
-			[  { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.thermalexpansion.component.cellReinforcedFrameFull" }, { "oredictName" : "componentWiring" } ]
+			[  { "oredictName" : "componentWiring" }, { "unlocalizedName" : "tile.thermalexpansion.frame.cellReinforcedFull.name" }, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {
 			"oredictName" : "componentHVCapacitor"
@@ -174,9 +174,9 @@
 	},
 	{
 		"ingredients" : [
-			[  null, { "oredictName" : "glassHardened" }, { "oredictName" : "glassHardened" } ],
-			[  { "oredictName" : "glassHardened" }, { "oredictName" : "glassHardened" }, { "oredictName" : "componentSolenoid" } ],
-			[  { "oredictName" : "glassHardened" }, null, null ]
+			[  null, { "unlocalizedName" : "tile.thermalexpansion.glass.name" }, { "unlocalizedName" : "tile.thermalexpansion.glass.name" } ],
+			[  { "unlocalizedName" : "tile.thermalexpansion.glass.name" }, { "unlocalizedName" : "tile.thermalexpansion.glass.name" }, { "oredictName" : "componentSolenoid" } ],
+			[  { "unlocalizedName" : "tile.thermalexpansion.glass.name" }, null, null ]
 		],
 		"result" : {
 			"oredictName" : "componentGliderWing"
@@ -195,7 +195,7 @@
 	{
 		"ingredients" : [
 			[  null, { "oredictName" : "componentWiring" }, null ],
-			[  { "oredictName" : "componentSolenoid" }, { "unlocalizedName" : "item.thermalexpansion.component.tesseractFrameFull" }, { "oredictName" : "componentSolenoid" } ],
+			[  { "oredictName" : "componentSolenoid" }, { "unlocalizedName" : "tile.thermalexpansion.frame.tesseractFull.name" }, { "oredictName" : "componentSolenoid" } ],
 			[  null, { "oredictName" : "componentWiring" }, null ]
 		],
 		"result" : {
@@ -212,6 +212,5 @@
 		"result" : {
 			"oredictName" : "componentIonThruster"
 		}
-
 	}
 ]
