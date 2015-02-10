@@ -32,7 +32,7 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
         addTradeoffProperty("Thrust", JET_ENERGY_CONSUMPTION, 150);
         addTradeoffProperty("Thrust", JET_THRUST, 0.16);
         addPropertyLocalString(JET_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.jetpack.energy"));
-        ddPropertyLocalString(JET_THRUST, StatCollector.translateToLocal("module.jetpack.thrust"));
+        addPropertyLocalString(JET_THRUST, StatCollector.translateToLocal("module.jetpack.thrust"));
     }
 
     @Override

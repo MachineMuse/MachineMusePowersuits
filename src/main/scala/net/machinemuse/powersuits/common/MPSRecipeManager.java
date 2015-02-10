@@ -6,7 +6,11 @@ import org.apache.commons.io.FileUtils;
 import java.io.*;
 
 public class MPSRecipeManager {
-    private boolean isLoaded = false;
+    static private boolean isLoaded;
+    
+    static {
+    	isLoaded = false;
+    }
     
     public static void loadOrPutRecipesFromJar(String path) {
     	if (!isLoaded) {

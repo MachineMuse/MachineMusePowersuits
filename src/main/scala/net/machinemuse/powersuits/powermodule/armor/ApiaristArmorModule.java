@@ -24,7 +24,7 @@ public class ApiaristArmorModule extends PowerModuleBase {
 //        stack.setItemDamage(3);
 //        addInstallCost(stack);
         addBaseProperty(APIARIST_ARMOR_ENERGY_CONSUMPTION, 10, "J");
-        addPropertyLocalString(APARIST_ARMOR_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.apiaristArmor.energy"));
+        addPropertyLocalString(APIARIST_ARMOR_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.apiaristArmor.energy"));
     }
 
     @Override

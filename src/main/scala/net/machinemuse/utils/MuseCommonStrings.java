@@ -13,6 +13,7 @@ import net.minecraft.util.StatCollector;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class MuseCommonStrings {
