@@ -15,6 +15,13 @@ buildscript {
     }
 }
 
+repositories {
+	maven {
+    name = "QMXTech"
+    url = "https://artifactory.qmxtech.com/artifactory/minecraft-release/"
+  }
+}
+
 apply plugin: 'scala'
 apply plugin: 'forge'
 
@@ -28,13 +35,20 @@ configFile.withReader {
     project.ext.config = new ConfigSlurper().parse prop
 }
 
-version = "${config.mod_version}." + System.getenv("BUILD_NUMBER") ?: "1"
-group= "${config.group_id}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+version = System.getenv("BUILD_NAME") ?: "${config.mod_version}." + ( System.getenv("BUILD_NUMBER") ?: "null" )
+group = "${config.group_id}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "${config.mod_id}"
 
 minecraft {
     version = "${config.minecraft_version}-${config.forge_version}"
     runDir = "run"
+}
+
+dependencies {
+	compile 'net.machinemuse.numina:Numina:0.4.0.5-QMX:dev'
+  compile 'com.mod-buildcraft:buildcraft:6.2.6:dev'
+  compile 'com.enderio:EnderIO:1.7.10-2.2.6.323:dev'
+  compile 'net.industrial-craft:industrialcraft-2:2.2.658-experimental:api'
 }
 
 new File(config.libs_dir).mkdirs()
@@ -48,39 +62,38 @@ def getLibrary(filename) {
     }
 }
 
-getLibrary("CoFHCore-[1.7.10]3.0.0B2-dev-24.jar")
-//getLibrary("industrialcraft-2-api_1.118.401-lf.zip")
-//getLibrary("Atomic-Science-1.1.0.16-api.zip")
-//getLibrary("ThermalExpansion-API-2.3.0b.zip")
-//getLibrary("CoFHCore-API.zip")
-//getLibrary("CoFHLib-pre1.zip")
-getLibrary("GalacticraftCore-Dev-BETA-1.7-3.0.1.8-noassets.jar")
-//getLibrary("Railcraft_API_latest.zip")
-//getLibrary("MFR-API-2.5.2B2-642.zip")
+//getLibrary("Atomic-Science-1.1.0.16-api.zip") -- Should be ResonantInduction once this is stable(?)
+getLibrary("CoFHLib-API-[1.7.10]1.0.0B7-Compiled.jar")
 //getLibrary("forestry-api-2.3.0.1.zip")
-getLibrary("Thaumcraft-API-4.2.0.0-Compiled.jar")
+getLibrary("GalacticraftCore-API-BETA-1.7-3.0.1.8-Compiled.jar")
 //getLibrary("MFFS2_API.zip")
+getLibrary("MineFactoryReloaded-API-[1.7.10]2.8.0RC3-Compiled-591.jar")
+getLibrary("Railcraft-API-9.4.0.0-Compiled.jar")
 getLibrary("slick-util.jar")
+getLibrary("Thaumcraft-API-4.2.2.1-Compiled.jar")
+getLibrary("RenderPlayerAPI-1.7.10-1.0.jar")
+getLibrary("SmartRender-dev-1.7.10-2.0.jar")
+//getLibrary("ThermalExpansion-API-2.3.0b.zip")
 
 processResources
-        {
-            // this will ensure that this task is redone when the versions change.
-            inputs.property "version", project.version
-            inputs.property "mcversion", project.minecraft.version
+{
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
 
-            // replace stuff in mcmod.info, nothing else
-            from(sourceSets.main.resources.srcDirs) {
-                include 'mcmod.info'
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
 
-                // replace version and mcversion
-                expand 'version':project.version, 'mcversion':project.minecraft.version
-            }
+        // replace version and mcversion
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
 
-            // copy everything else, thats not the mcmod.info
-            from(sourceSets.main.resources.srcDirs) {
-                exclude 'mcmod.info'
-            }
-        }
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
 
 jar {
     manifest {

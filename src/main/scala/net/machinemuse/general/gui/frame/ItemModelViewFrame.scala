@@ -7,6 +7,7 @@ import net.minecraft.client.Minecraft
 import org.lwjgl.opengl.GL11._
 import net.machinemuse.utils.MuseItemUtils
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.client.model.ModelBiped
 import net.machinemuse.powersuits.item.ItemPowerArmor
 import net.machinemuse.numina.general.MuseMathUtils
 import net.machinemuse.numina.geometry.{DrawableMuseRect, Colour, MusePoint2D}
@@ -88,7 +89,7 @@ class ItemModelViewFrame(itemSelector: ItemSelectionFrame, topleft: MusePoint2D,
     glRotatef(rotx.toFloat, 1, 0, 0)
     glRotatef(roty.toFloat, 0, 1, 0)
     glTranslated(0, -getArmorSlot / 2.0, 0)
-    ArmorModel.instance.render(mc.thePlayer, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625f)
+    ArmorModel.instance.asInstanceOf[ModelBiped].render(mc.thePlayer, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625f)
     glPopMatrix()
   }
 

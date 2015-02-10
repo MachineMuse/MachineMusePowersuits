@@ -7,6 +7,8 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.gui.clickable.ClickableButton;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableModule;
+import net.machinemuse.general.sound.SoundLoader;
+import net.machinemuse.numina.sound.proxy.Musique;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.network.MusePacket;
@@ -166,7 +168,9 @@ public class InstallSalvageFrame extends ScrollableFrame {
         ItemStack stack = targetItem.getSelectedItem().getItem();
         IPowerModule module = targetModule.getSelectedModule().getModule();
         if (player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(module.getInstallCost(), player.inventory)) {
-//            Musique.playClientSound(SoundLoader.SOUND_GUI_INSTALL, 1);
+          // Hmm, should this sound be client-side or networked (like GC's compressor)?
+            //Musique.playerSound(player, SoundLoader.SOUND_GUI_INSTALL, 1.0f, 1.0f); //, true);
+            Musique.clientSound(SoundLoader.SOUND_GUI_INSTALL, 1.0f);
             // Now send request to server to make it legit
             MusePacket newpacket = new MusePacketInstallModuleRequest(
                     player,

@@ -54,10 +54,10 @@ public class MuseBlockUtils {
                 for (int i = 2; i < 6; i++) {
                     int[] coords;
                     coords = getAdjacentCoordinatesForSide(x, y, z, i);
-//                    if (world.getBlockId(coords[0], coords[1], coords[2]) == block) {
-//                        world.setBlockMetadataWithNotify(coords[0], coords[1], coords[2], SIDE_OPPOSITE[meta], 1);
-//                        return SIDE_OPPOSITE[meta];
-//                    }
+                   if (Block.blockRegistry.getIDForObject(world.getBlock(coords[0], coords[1], coords[2])) == block) {
+                       world.setBlockMetadataWithNotify(coords[0], coords[1], coords[2], SIDE_OPPOSITE[meta], 1);
+                       return SIDE_OPPOSITE[meta];
+                   }
                 }
                 return SIDE_LEFT[meta];
             case 10:
@@ -113,10 +113,10 @@ public class MuseBlockUtils {
                 for (int i = 2; i < 6; i++) {
                     int[] coords;
                     coords = getAdjacentCoordinatesForSide(x, y, z, i);
-//                    if (world.getBlockId(coords[0], coords[1], coords[2]) == block) {
-//                        world.setBlockMetadataWithNotify(coords[0], coords[1], coords[2], SIDE_OPPOSITE[meta], 1);
-//                        return SIDE_OPPOSITE[meta];
-//                    }
+                   if (Block.blockRegistry.getIDForObject(world.getBlock(coords[0], coords[1], coords[2])) == block) {
+                       world.setBlockMetadataWithNotify(coords[0], coords[1], coords[2], SIDE_OPPOSITE[meta], 1);
+                       return SIDE_OPPOSITE[meta];
+                   }
                 }
                 return SIDE_RIGHT[meta];
             case 10:
@@ -145,38 +145,38 @@ public class MuseBlockUtils {
     }
 
     static {
-//        rotateType[Block.wood.blockID] = 7;
-//        rotateType[Block.dispenser.blockID] = 2;
-//        rotateType[Block.railPowered.blockID] = 3;
-//        rotateType[Block.railDetector.blockID] = 3;
-//        rotateType[Block.pistonStickyBase.blockID] = 2;
-//        rotateType[Block.pistonBase.blockID] = 2;
-//        rotateType[Block.stoneSingleSlab.blockID] = 8;
-//        rotateType[Block.stairsWoodOak.blockID] = 5;
-//        rotateType[Block.chest.blockID] = 9;
-//        rotateType[Block.furnaceIdle.blockID] = 1;
-//        rotateType[Block.furnaceBurning.blockID] = 1;
-//        rotateType[Block.signPost.blockID] = 11;
-//        rotateType[Block.rail.blockID] = 3;
-//        rotateType[Block.stairsCobblestone.blockID] = 5;
-//        rotateType[Block.lever.blockID] = 10;
-//        rotateType[Block.pumpkin.blockID] = 4;
-//        rotateType[Block.pumpkinLantern.blockID] = 4;
-//        rotateType[Block.redstoneRepeaterIdle.blockID] = 6;
-//        rotateType[Block.redstoneRepeaterActive.blockID] = 6;
-//        rotateType[Block.stairsBrick.blockID] = 5;
-//        rotateType[Block.stairsStoneBrick.blockID] = 5;
-//        rotateType[Block.stairsNetherBrick.blockID] = 5;
-//        rotateType[Block.woodSingleSlab.blockID] = 8;
-//        rotateType[Block.stairsSandStone.blockID] = 5;
-//        rotateType[Block.enderChest.blockID] = 1;
-//        rotateType[Block.stairsWoodSpruce.blockID] = 5;
-//        rotateType[Block.stairsWoodBirch.blockID] = 5;
-//        rotateType[Block.stairsWoodJungle.blockID] = 5;
-//        rotateType[Block.chestTrapped.blockID] = 9;
-//        rotateType[Block.stairsNetherQuartz.blockID] = 5;
-//        rotateType[Block.hopperBlock.blockID] = 2;
-//        rotateType[Block.railActivator.blockID] = 3;
-//        rotateType[Block.dropper.blockID] = 2;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("wood"))] = 7;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("dispenser"))] = 2;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("railPowered"))] = 3;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("railDetector"))] = 3;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("pistonStickyBase"))] = 2;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("pistonBase"))] = 2;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("stoneSingleSlab"))] = 8;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("stairsWoodOak"))] = 5;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("chest"))] = 9;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("furnaceIdle"))] = 1;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("furnaceBurning"))] = 1;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("signPost"))] = 11;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("rail"))] = 3;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("stairsCobblestone"))] = 5;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("lever"))] = 10;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("pumpkin"))] = 4;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("pumpkinLantern"))] = 4;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("redstoneRepeaterIdle"))] = 6;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("redstoneRepeaterActive"))] = 6;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("stairsBrick"))] = 5;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("stairsStoneBrick"))] = 5;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("stairsNetherBrick"))] = 5;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("woodSingleSlab"))] = 8;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("stairsSandStone"))] = 5;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("enderChest"))] = 1;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("stairsWoodSpruce"))] = 5;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("stairsWoodBirch"))] = 5;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("stairsWoodJungle"))] = 5;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("chestTrapped"))] = 9;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("stairsNetherQuartz"))] = 5;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("hopperBlock"))] = 2;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("railActivator"))] = 3;
+       rotateType[Block.blockRegistry.getIDForObject(Block.blockRegistry.getObject("dropper"))] = 2;
     }
 }

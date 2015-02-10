@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.client.render.modelspec
 
 import net.machinemuse.powersuits.client.render.item.ArmorModel
 import net.machinemuse.utils.render.Render
-import net.minecraft.client.model.{ModelBase, ModelRenderer}
+import net.minecraft.client.model.{ModelBase, ModelRenderer, ModelBiped}
 import net.machinemuse.general.NBTTagAccessor
 import org.lwjgl.opengl.GL11._
 import net.minecraft.nbt.NBTTagCompound
@@ -24,7 +24,7 @@ class RenderPart(base: ModelBase, val parent: ModelRenderer) extends ModelRender
       nbt <- NBTTagAccessor.getValues(renderSpec).asScala
       part <- ModelRegistry.getPart(nbt)
       if part.slot == ArmorModel.instance.visibleSection
-      if part.morph.apply(ArmorModel.instance) == parent
+      if part.morph.apply(ArmorModel.instance.asInstanceOf[ModelBiped]) == parent
     } {
       withMaybeGlow(part, nbt) {
         Render.withPushedMatrix {

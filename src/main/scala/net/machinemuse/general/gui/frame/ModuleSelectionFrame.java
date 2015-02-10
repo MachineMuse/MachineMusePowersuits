@@ -4,11 +4,14 @@ import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableModule;
+import net.machinemuse.general.sound.SoundLoader;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.geometry.MuseRect;
 import net.machinemuse.numina.geometry.MuseRelativeRect;
+import net.machinemuse.numina.sound.proxy.Musique;
 import net.machinemuse.utils.render.MuseRenderer;
+import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 
 import java.util.*;
@@ -101,8 +104,8 @@ public class ModuleSelectionFrame extends ScrollableFrame {
             // item.
             for (Iterator<IPowerModule> it = workingModules.iterator(); it.hasNext(); ) {
                 IPowerModule module = it.next();
-                if (module.isAllowed() == false &&
-                        ModuleManager.itemHasModule(selectedItem.getItem(), module.getDataName()) == false) {
+                if ((!module.isAllowed() && !ModuleManager.itemHasModule(selectedItem.getItem(), module.getDataName())) ||
+                        (!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode && module.isCreativeOnly())) {
                     it.remove();
                 }
             }
@@ -157,11 +160,11 @@ public class ModuleSelectionFrame extends ScrollableFrame {
         super.onMouseDown(x, y, button);
         if (border.left() < x && border.right() > x && border.top() < y && border.bottom() > y) {
             y += currentscrollpixels;
-            // loadModules();
+            loadModules();
             int i = 0;
             for (ClickableModule module : moduleButtons) {
                 if (module.hitBox(x, y)) {
-//                    Musique.playClientSound(SoundLoader.SOUND_GUI_SELECT, 1);
+                    Musique.clientSound(SoundLoader.SOUND_GUI_SELECT, 1.0f);
                     selectedModule = i;
                     prevSelection = module.getModule();
                     break;

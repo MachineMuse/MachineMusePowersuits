@@ -2,6 +2,8 @@ package net.machinemuse.powersuits.event
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent
 import net.machinemuse.api.ModuleManager
+import net.machinemuse.general.sound.SoundLoader
+import net.machinemuse.numina.sound.proxy.Musique
 import net.machinemuse.numina.general.MuseMathUtils
 import net.machinemuse.numina.scala.OptionCast
 import net.machinemuse.utils.{MuseHeatUtils, MuseItemUtils, MusePlayerUtils}
@@ -71,10 +73,10 @@ class PlayerUpdateHandler {
         }
         val velsq2: Double = MuseMathUtils.sumsq(player.motionX, player.motionY, player.motionZ) - 0.5
         if (player.isAirBorne && velsq2 > 0) {
-          //          Musique.playerSound(player, SoundLoader.SOUND_GLIDER, (velsq2 / 3).asInstanceOf[Float], 1.0f, true)
+          Musique.playerSound(player, SoundLoader.SOUND_GLIDER, (velsq2 / 3).asInstanceOf[Float], 1.0f) //, true)
         }
         else {
-          //          Musique.stopPlayerSound(player, SoundLoader.SOUND_GLIDER)
+          Musique.stopPlayerSound(player, SoundLoader.SOUND_GLIDER)
         }
       }
     }

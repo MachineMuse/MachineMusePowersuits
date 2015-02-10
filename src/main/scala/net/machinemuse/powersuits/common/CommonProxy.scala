@@ -4,6 +4,7 @@ import java.net.URL
 
 import cpw.mods.fml.client.registry.{ClientRegistry, RenderingRegistry}
 import cpw.mods.fml.common.FMLCommonHandler
+import cpw.mods.fml.common.event.FMLPostInitializationEvent
 import net.machinemuse.general.sound.SoundLoader
 import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.network.{MusePacket, MusePacketHandler, MusePacketModeChangeRequest, PacketSender}
@@ -30,6 +31,8 @@ import net.minecraftforge.common.MinecraftForge
  * @author MachineMuse
  */
 trait CommonProxy {
+  def preInit() {}
+
   def registerEvents() {}
 
   def registerRenderers() {}
@@ -38,13 +41,22 @@ trait CommonProxy {
 
   def postInit() {}
 
+  def atLaunch() {}
+
   def sendModeChange(dMode: Int, newMode: String) {}
 }
 
 
 class ClientProxy extends CommonProxy {
+  override def preInit{
+    if (ModCompatability.isSmartMovingLoaded) {
+      if (!ModCompatability.isRenderPlayerAPILoaded) {
+        throw new net.machinemuse.general.gui.RenderPlayerAPIRequiredDisplayException
+      }
+    }
+  }
   override def registerEvents {
-    MinecraftForge.EVENT_BUS.register(new SoundLoader)
+    //MinecraftForge.EVENT_BUS.register(new SoundLoader)
   }
 
   /**
@@ -93,6 +105,9 @@ class ClientProxy extends CommonProxy {
   }
 
   override def postInit() {
+  }
+
+  override def atLaunch() {
     KeybindManager.readInKeybinds()
   }
 

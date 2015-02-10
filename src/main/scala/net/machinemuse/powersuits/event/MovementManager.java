@@ -2,6 +2,8 @@ package net.machinemuse.powersuits.event;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.general.sound.SoundLoader;
+import net.machinemuse.numina.sound.proxy.Musique;
 import net.machinemuse.powersuits.item.ItemPowerArmor;
 import net.machinemuse.powersuits.powermodule.movement.JumpAssistModule;
 import net.machinemuse.powersuits.powermodule.movement.ShockAbsorberModule;
@@ -40,7 +42,7 @@ public class MovementManager {
                 double jumpAssist = ModuleManager.computeModularProperty(stack, JumpAssistModule.JUMP_MULTIPLIER) * 2;
                 double drain = ModuleManager.computeModularProperty(stack, JumpAssistModule.JUMP_ENERGY_CONSUMPTION);
                 double avail = ElectricItemUtils.getPlayerEnergy(player);
-//                Musique.playerSound(player, SoundLoader.SOUND_JUMP_ASSIST, (float) (jumpAssist / 8.0), 2, false);
+                Musique.playerSound(player, SoundLoader.SOUND_JUMP_ASSIST, (float) (jumpAssist / 8.0), 1.0f); //, false);
                 if (drain < avail) {
                     ElectricItemUtils.drainPlayerEnergy(player, drain);
                     setPlayerJumpTicks(player, jumpAssist);
@@ -65,7 +67,7 @@ public class MovementManager {
             if (boots != null) {
                 if (ModuleManager.itemHasActiveModule(boots, ShockAbsorberModule.MODULE_SHOCK_ABSORBER) && event.distance > 3) {
                     double distanceAbsorb = event.distance * ModuleManager.computeModularProperty(boots, ShockAbsorberModule.SHOCK_ABSORB_MULTIPLIER);
-//                    Musique.playerSound(player, SoundLoader.SOUND_GUI_INSTALL, (float) (distanceAbsorb), 2, false);
+                    Musique.playerSound(player, SoundLoader.SOUND_GUI_INSTALL, (float) (distanceAbsorb), 1.0f); //, false);
 
                     double drain = distanceAbsorb * ModuleManager.computeModularProperty(boots, ShockAbsorberModule.SHOCK_ABSORB_ENERGY_CONSUMPTION);
                     double avail = ElectricItemUtils.getPlayerEnergy(player);

@@ -21,6 +21,7 @@ public abstract class PowerModuleBase implements IPowerModule {
     protected Map<String, List<IPropertyModifier>> propertyModifiers;
     protected static Map<String, String> units = new HashMap<String, String>();
     protected NBTTagCompound defaultTag;
+    //protected boolean isCreativeOnly; // Idea: Allow the option to make any module creative only?
     protected boolean isAllowed;
     protected IIcon icon;
 
@@ -97,6 +98,11 @@ public abstract class PowerModuleBase implements IPowerModule {
     @Override
     public boolean isAllowed() {
         return this.isAllowed;
+    }
+
+    @Override
+    public boolean isCreativeOnly() {
+        return false;
     }
 
     public void setIsAllowed(boolean allowed) {
