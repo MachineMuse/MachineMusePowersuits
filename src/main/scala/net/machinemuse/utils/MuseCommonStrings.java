@@ -74,8 +74,8 @@ public abstract class MuseCommonStrings {
         result.put("Plating Thickness", StatCollector.translateToLocal("module.common.armor.thickness"));
         result.put(ElectricConversions.IC2_TIER(), StatCollector.translateToLocal("module.common.battery.ic2Tier"));
         result.put("Battery Size", StatCollector.translateToLocal("module.common.battery.size"));
-        result.put(MuseHeatUtils.CURRENT_HEAT(), StatCollector.translateToLocal("module.common.heat.current"));
-        result.put(MuseHeatUtils.MAXIMUM_HEAT(), StatCollector.translateToLocal("module.common.heat.maximum"));
+        result.put(MuseHeatUtils.CURRENT_HEAT, StatCollector.translateToLocal("module.common.heat.current"));
+        result.put(MuseHeatUtils.MAXIMUM_HEAT, StatCollector.translateToLocal("module.common.heat.maximum"));
         result.put(ElectricItemUtils.CURRENT_ENERGY(), StatCollector.translateToLocal("module.common.energy.current"));
         result.put(ElectricItemUtils.MAXIMUM_ENERGY(), StatCollector.translateToLocal("module.common.energy.maximum"));
         result.put("Voltage", StatCollector.translateToLocal("module.common.voltage"));
