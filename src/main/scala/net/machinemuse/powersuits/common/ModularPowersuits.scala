@@ -32,7 +32,7 @@ object ModularPowersuits {
 
   @Mod.EventHandler def preInit(event: FMLPreInitializationEvent) {
     proxy.preInit()
-    configDir = e.getModConfigurationDirectory
+    configDir = event.getModConfigurationDirectory
     val recipesFolder = new File(configDir, "machinemuse/recipes/powersuits")
     val newConfig: File = new File(configDir, "machinemuse/powersuits.cfg")
     recipesFolder.mkdir()

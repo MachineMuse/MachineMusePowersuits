@@ -162,7 +162,7 @@ public abstract class PowerModuleBase implements IPowerModule {
         return this;
     }
     
-    public static void addPropertyLocalString(String propertyName, String localString) {
+    public void addPropertyLocalString(String propertyName, String localString) {
         if (locales.containsKey(propertyName)) {
             MuseLogger.logError("Module property localization string \"" + propertyName + "\" already exists. Skipping.");
             MuseLogger.logError("This message should only ever occur if a module is declaring a property which already exists.");
