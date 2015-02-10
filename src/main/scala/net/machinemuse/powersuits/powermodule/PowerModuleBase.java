@@ -47,7 +47,7 @@ public abstract class PowerModuleBase implements IPowerModule {
         addPropertyLocalString("Amperage", StatCollector.translateToLocal("module.common.amperage"));
         addPropertyLocalString("Overclock", StatCollector.translateToLocal("module.common.overclock"));
         addPropertyLocalString("Thrust", StatCollector.translateToLocal("module.common.thrust"));
-        addPropertyLocalString("Compensation", StatCollectior.translateToLocal("module.common.compensation");
+        addPropertyLocalString("Compensation", StatCollectior.translateToLocal("module.common.compensation"));
         addPropertyLocalString("Power", StatCollectior.translateToLocal("module.common.power"));
         addPropertyLocalString("Range", StatCollector.translateToLocal("module.common.range"));
         addPropertyLocalString("Red", StatCollector.translateToLocal("module.common.red"));

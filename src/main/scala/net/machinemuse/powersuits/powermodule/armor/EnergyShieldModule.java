@@ -11,7 +11,7 @@ import java.util.List;
 
 public class EnergyShieldModule extends PowerModuleBase {
     public static final String MODULE_ENERGY_SHIELD = "Energy Shield";
-    protected static final String FIELD_STRENGTH="Field Strength"
+    protected static final String FIELD_STRENGTH="Field Strength";
 
     public EnergyShieldModule(List<IModularItem> validItems) {
         super(validItems);
