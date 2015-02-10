@@ -99,7 +99,7 @@ private static boolean isAtomicScienceLoaded() {
 // }
 
 public static boolean IC2RecipesEnabled() {
-        boolean defaultval = (isIndustrialCraftLoaded() && (! isGregTechLoaded()) && (! isThermalExpansionLoaded));
+        boolean defaultval = (isIndustrialCraftLoaded() && (! isGregTechLoaded()) && (! isThermalExpansionLoaded()));
         return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "IndustrialCraft Recipes", defaultval).getBoolean(defaultval);
 }
 
