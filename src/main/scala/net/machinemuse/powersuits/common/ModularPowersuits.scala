@@ -4,7 +4,7 @@ import java.io.File
 
 import cpw.mods.fml.client.FMLClientHandler
 import cpw.mods.fml.common.{Mod, SidedProxy}
-import cpw.mods.fml.common.event.{FMLInitializationEvent, FMLPostInitializationEvent, FMLPreInitializationEvent, FMLLoadCompleteEvent}
+import cpw.mods.fml.common.event._
 import cpw.mods.fml.common.network.NetworkRegistry
 import cpw.mods.fml.common.registry.EntityRegistry
 import net.machinemuse.numina.recipe.JSONRecipeList
@@ -25,6 +25,8 @@ object ModularPowersuits {
   @SidedProxy(clientSide = "net.machinemuse.powersuits.common.ClientProxy", serverSide = "net.machinemuse.powersuits.common.ServerProxy")
   var proxy: CommonProxy = null
   var config: Configuration = null
+  
+  var configDir: java.io.File = null
 
   val INSTANCE=this
 
@@ -79,7 +81,7 @@ object ModularPowersuits {
   }
   
   @Mod.EventHandler def onServerStart(event: FMLServerStartedEvent) {
-    MPSRecipeManager.loadOrPutRecipesFromJar(event.getModConfigurationDirectory + "/machinemuse/recipes/powersuits")
+    MPSRecipeManager.loadOrPutRecipesFromJar(configDir.getAbsolutePath + "/machinemuse/recipes/powersuits")
   }
 
 }
