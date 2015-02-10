@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule;
 
 import net.machinemuse.api.IModularItem;
+import net.machinemuse.utils.MuseCommonStrings;
 
 import java.util.List;
 
