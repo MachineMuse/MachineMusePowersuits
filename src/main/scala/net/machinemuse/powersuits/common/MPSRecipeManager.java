@@ -73,7 +73,7 @@ public class MPSRecipeManager {
                 Config.getConfig().save();
                 isLoaded = true;
             } catch (IOException e) {
-            	MuseLogger.logError("Unable to access and or generate recipes!");
+            	MuseLogger.logError("Unable to access and/or generate recipes!");
             	MuseLogger.logError("Please check your permissions for the following directory: " + path);
             	e.printStackTrace();
             }
