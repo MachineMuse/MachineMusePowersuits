@@ -84,7 +84,8 @@ public static boolean enableThaumGogglesModule() {
 }
 
 public static boolean vanillaRecipesEnabled() {
-        boolean defaultval = (!isBasicComponentsLoaded()) && (!isIndustrialCraftLoaded());
+//        boolean defaultval = (!isBasicComponentsLoaded()) && (!isIndustrialCraftLoaded());
+        boolean defaultval = ((! isThermalExpansionLoaded()) && (! isIndustrialCraftLoaded()));
         return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Vanilla Recipes", defaultval).getBoolean(defaultval);
 }
 
@@ -92,13 +93,13 @@ private static boolean isAtomicScienceLoaded() {
         return Loader.isModLoaded("AtomicScience");
 }
 
-public static boolean UERecipesEnabled() {
-        boolean defaultval = isBasicComponentsLoaded();
-        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Universal Electricity Recipes", defaultval).getBoolean(defaultval);
-}
+// public static boolean UERecipesEnabled() {
+//         boolean defaultval = isBasicComponentsLoaded();
+//         return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Universal Electricity Recipes", defaultval).getBoolean(defaultval);
+// }
 
 public static boolean IC2RecipesEnabled() {
-        boolean defaultval = isIndustrialCraftLoaded() && (!isGregTechLoaded());
+        boolean defaultval = (isIndustrialCraftLoaded() && (! isGregTechLoaded()) && (! isThermalExpansionLoaded));
         return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "IndustrialCraft Recipes", defaultval).getBoolean(defaultval);
 }
 
@@ -108,7 +109,7 @@ public static boolean GregTechRecipesEnabled() {
 }
 
 public static boolean ThermalExpansionRecipesEnabled() {
-        boolean defaultval = isThermalExpansionLoaded();
+        boolean defaultval = (isThermalExpansionLoaded() && (! isGregTechLoaded()));
         return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Thermal Expansion Recipes", defaultval).getBoolean(defaultval);
 }
 
