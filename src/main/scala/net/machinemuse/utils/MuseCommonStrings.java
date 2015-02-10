@@ -3,8 +3,10 @@ package net.machinemuse.utils;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.ElectricAdapter;
+import net.machinemuse.api.electricity.ElectricConversions;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemPowerFist;
+import net.machinemuse.utils.ElectricItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -57,6 +59,53 @@ public abstract class MuseCommonStrings {
     public static String getModuleCategoryLocalString(String category) {
         String locale = CATEGORY_LOCALES.get(category);
         return locale == null ? "" : locale;
+    }
+    
+    protected static Map<String, String> propertyLocales;
+    static {
+        // Common property display strings. Implemented as such with plans to switch to unlocalized strings [where/when]ever possible. -- Korynkai 20150209
+        Map<String, String> result = new HashMap<String, String>();
+        result.put(WEIGHT, StatCollector.translateToLocal("module.common.weight"));
+        result.put(ARMOR_VALUE_PHYSICAL, StatCollector.translateToLocal("module.common.armor.physical"));
+        result.put(ARMOR_VALUE_ENERGY, StatCollector.translateToLocal("module.common.armor.energy"));
+        result.put(ARMOR_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.common.armor.consumption"));
+        result.put("Plating Thickness", StatCollector.translateToLocal("module.common.armor.thickness"));
+        result.put(ElectricConversions.IC2_TIER(), StatColletor.translateToLocal("module.common.battery.ic2Tier"));
+        result.put("Battery Size", StatColletor.translateToLocal("module.common.battery.size"));
+        result.put(ElectricItemUtils.CURRENT_HEAT(), StatCollector.translateToLocal("module.common.heat.current"));
+        result.put(ElectricItemUtils.MAXIMUM_HEAT(), StatCollector.translateToLocal("module.common.heat.maximum"));
+        result.put(ElectricItemUtils.CURRENT_ENERGY(), StatCollector.translateToLocal("module.common.energy.current"));
+        result.put(ElectricItemUtils.MAXIMUM_ENERGY(), StatCollector.translateToLocal("module.common.energy.maximum"));
+        result.put("Voltage", StatCollector.translateToLocal("module.common.voltage"));
+        result.put("Amperage", StatCollector.translateToLocal("module.common.amperage"));
+        result.put("Overclock", StatCollector.translateToLocal("module.common.overclock"));
+        result.put("Thrust", StatCollector.translateToLocal("module.common.thrust"));
+        result.put("Compensation", StatCollectior.translateToLocal("module.common.compensation"));
+        result.put("Power", StatCollectior.translateToLocal("module.common.power"));
+        result.put("Range", StatCollector.translateToLocal("module.common.range"));
+        result.put("Red", StatCollector.translateToLocal("module.common.red"));
+        result.put("Green", StatCollector.translateToLocal("module.common.green"));
+        result.put("Blue", StatCollector.translateToLocal("module.common.blue"));
+        propertyLocales = result;
+    }
+    
+    public static boolean hasPropertyLocalString(String property) {
+        return propertyLocales.containsKey(propertyName);
+    }
+    
+    public static String getPropertyLocalString(String property) {
+        String locale = propertyLocales.get(propertyName);
+        return locale == null ? "" : locale;
+    }
+    
+    public static void addPropertyLocalString(String property, String localString) {
+        if (propertyLocales.containsKey(propertyName)) {
+            MuseLogger.logError("Module property localization string \"" + propertyName + "\" already exists. Skipping.");
+            MuseLogger.logError("This message should only ever occur if a module is declaring a property which already exists.");
+            MuseLogger.logError("Please notify the developer of this issue.");
+        } else {
+            propertyLocales.put(propertyName, localString);
+        }
     }
 
     /**

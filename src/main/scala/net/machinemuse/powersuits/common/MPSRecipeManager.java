@@ -17,7 +17,7 @@ public class MPSRecipeManager {
             if (ModCompatability.vanillaRecipesEnabled()) {
                 File vanilla = new File(path, "vanilla.recipes");
                 if (!vanilla.isFile()) {
-                    FileUtils.copyURLToFile(getClass().getResource("/vanilla.recipes"), vanilla);
+                    FileUtils.copyURLToFile(MPSRecipeManager.class.getResource("/vanilla.recipes"), vanilla);
                 }
                 JSONRecipeList.loadRecipesFromFile(vanilla);
             }
@@ -49,14 +49,14 @@ public class MPSRecipeManager {
         		if (ModCompatability.IC2RecipesEnabled()) {
 		            File ic2 = new File(path, "IndustrialCraft2.recipes");
 		            if (!ic2.isFile()) {
-		                FileUtils.copyURLToFile(getClass().getResource("/IndustrialCraft2.recipes"), ic2);
+		                FileUtils.copyURLToFile(MPSRecipeManager.class.getResource("/IndustrialCraft2.recipes"), ic2);
 		            }
 		            JSONRecipeList.loadRecipesFromFile(ic2);
         		}
 		        if (ModCompatability.GregTechRecipesEnabled() && ModCompatability.isGregTechLoaded()) {
 		            File gt = new File(path, "GregTech.recipes");
 		            if (!gt.isFile()) {
-		                FileUtils.copyURLToFile(getClass().getResource("/GregTech.recipes"), gt);
+		                FileUtils.copyURLToFile(MPSRecipeManager.class.getResource("/GregTech.recipes"), gt);
 		            }
 		            JSONRecipeList.loadRecipesFromFile(gt);
 		        }
@@ -64,7 +64,7 @@ public class MPSRecipeManager {
             if (ModCompatability.ThermalExpansionRecipesEnabled() && ModCompatability.isThermalExpansionLoaded()) {
                 File te = new File(path, "ThermalExpansion.recipes");
                 if (!te.isFile()) {
-                    FileUtils.copyURLToFile(getClass().getResource("/ThermalExpansion.recipes"), te);
+                    FileUtils.copyURLToFile(MPSRecipeManager.class.getResource("/ThermalExpansion.recipes"), te);
                 }
                 JSONRecipeList.loadRecipesFromFile(te);
             }

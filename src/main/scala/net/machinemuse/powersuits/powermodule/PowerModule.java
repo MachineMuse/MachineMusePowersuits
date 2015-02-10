@@ -44,8 +44,7 @@ public class PowerModule extends PowerModuleBase {
 	}
 	
 	public static String getPropertyLocalString(String propertyName) {
-        String locale = locales.get(propertyName);
-        return locale == null ? "" : locale;
+        return MuseCommonStrings.getPropertyLocalString(propertyName);
     }
 
 	public PowerModule setDescription(String description) {
