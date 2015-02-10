@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.common;
 
+import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.recipe.JSONRecipeList;
 import net.machinemuse.powersuits.common.ModCompatability;
 import org.apache.commons.io.FileUtils;
@@ -14,6 +15,7 @@ public class MPSRecipeManager {
     
     public static void loadOrPutRecipesFromJar(String path) {
     	if (!isLoaded) {
+    		try {
             if (ModCompatability.vanillaRecipesEnabled()) {
                 File vanilla = new File(path, "vanilla.recipes");
                 if (!vanilla.isFile()) {
@@ -46,21 +48,21 @@ public class MPSRecipeManager {
             //     JSONRecipeList.loadRecipesFromFile(mk);
             // }
             if (ModCompatability.isIndustrialCraftLoaded()) {
-        		if (ModCompatability.IC2RecipesEnabled()) {
-		            File ic2 = new File(path, "IndustrialCraft2.recipes");
-		            if (!ic2.isFile()) {
-		                FileUtils.copyURLToFile(MPSRecipeManager.class.getResource("/IndustrialCraft2.recipes"), ic2);
-		            }
-		            JSONRecipeList.loadRecipesFromFile(ic2);
-        		}
-		        if (ModCompatability.GregTechRecipesEnabled() && ModCompatability.isGregTechLoaded()) {
+        				if (ModCompatability.IC2RecipesEnabled()) {
+		        		    File ic2 = new File(path, "IndustrialCraft2.recipes");
+		            		if (!ic2.isFile()) {
+		                		FileUtils.copyURLToFile(MPSRecipeManager.class.getResource("/IndustrialCraft2.recipes"), ic2);
+		            		}
+		            		JSONRecipeList.loadRecipesFromFile(ic2);
+        				}
+		        		if (ModCompatability.GregTechRecipesEnabled() && ModCompatability.isGregTechLoaded()) {
 		            File gt = new File(path, "GregTech.recipes");
-		            if (!gt.isFile()) {
-		                FileUtils.copyURLToFile(MPSRecipeManager.class.getResource("/GregTech.recipes"), gt);
-		            }
-		            JSONRecipeList.loadRecipesFromFile(gt);
-		        }
-        }
+		            		if (!gt.isFile()) {
+		                		FileUtils.copyURLToFile(MPSRecipeManager.class.getResource("/GregTech.recipes"), gt);
+		            		}
+		            		JSONRecipeList.loadRecipesFromFile(gt);
+		        		}
+        		}
             if (ModCompatability.ThermalExpansionRecipesEnabled() && ModCompatability.isThermalExpansionLoaded()) {
                 File te = new File(path, "ThermalExpansion.recipes");
                 if (!te.isFile()) {
@@ -69,6 +71,11 @@ public class MPSRecipeManager {
                 JSONRecipeList.loadRecipesFromFile(te);
             }
             isLoaded = true;
+        } catch (IOException e) {
+        	  MuseLogger.logError("Unable to access and or generate recipes!");
+        	  MuseLogger.logError("Please check your permissions for the following directory: " + path);
+        		e.printStackTrace();
+        }
     	}
     }
 }
