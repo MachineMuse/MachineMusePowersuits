@@ -44,19 +44,19 @@ class MuseElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
 }
 
 
-class IC2ElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
- val item = stack.getItem.asInstanceOf[IElectricItem]
+// class IC2ElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
+//  val item = stack.getItem.asInstanceOf[IElectricItem]
 
- def getCurrentEnergy: Double = museEnergyFromEU(ElectricItem.discharge(stack, Integer.MAX_VALUE, getTier, true, true))
+//  def getCurrentEnergy: Double = museEnergyFromEU(ElectricItem.discharge(stack, Integer.MAX_VALUE, getTier, true, true))
 
- def getMaxEnergy: Double = museEnergyFromEU(item.getMaxCharge(stack))
+//  def getMaxEnergy: Double = museEnergyFromEU(item.getMaxCharge(stack))
 
- def drainEnergy(requested: Double) = museEnergyFromEU(ElectricItem.discharge(stack, museEnergyToEU(requested).toInt, getTier, true, false))
+//  def drainEnergy(requested: Double) = museEnergyFromEU(ElectricItem.discharge(stack, museEnergyToEU(requested).toInt, getTier, true, false))
 
- def giveEnergy(provided: Double): Double = museEnergyFromEU(ElectricItem.charge(stack, museEnergyToEU(provided).toInt, getTier, true, false))
+//  def giveEnergy(provided: Double): Double = museEnergyFromEU(ElectricItem.charge(stack, museEnergyToEU(provided).toInt, getTier, true, false))
 
- def getTier = item.getTier(stack)
-}
+//  def getTier = item.getTier(stack)
+// }
 
 class TEElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
   val item = stack.getItem.asInstanceOf[IEnergyContainerItem]
