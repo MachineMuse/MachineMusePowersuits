@@ -1,358 +1,364 @@
 Made by users: Andrew2448, MachineMuse, Korynkai
-Last edited on 6/25/13 12:18AM EST
+Last edited on 2/10/15 5:19AM CST
 
-itemGroup.powersuits=Modular Powersuits:L
+itemGroup.powersuits=Modular Powersuits
 
-powersuits.exceptionRenderPlayerAPI.lineone=A required mod is missing. Minecraft cannot continue loading.:L
-powersuits.exceptionRenderPlayerAPI.linetwo=The mod: "MachineMuse's Modular Powersuits":L
-powersuits.exceptionRenderPlayerAPI.linethree=requires an additional mod: "RenderPlayerAPI":L
-powersuits.exceptionRenderPlayerAPI.linefour=when "SmartMoving" is loaded.:L
-powersuits.exceptionRenderPlayerAPI.linefive=Please install "RenderPlayerAPI" to continue.:L
-
-powersuits.keybindings.openUI=Open MPS Keybind GUI:L
-powersuits.keybindings.flightDown=Go Down (MPS Flight Control):L
-powersuits.keybindings.cycleBackward=Cycle Tool Backward (MPS):L
-powersuits.keybindings.cycleForward=Cycle Tool Forward (MPS):L
-powersuits.keybindings.zoom=Zoom (MPS):L
-powersuits.keybindings.cosmetic=Cosmetic (MPS):L
-powersuits.keybindings.mouse=Mouse:L
-powersuits.keybindings.new=New:L
-powersuits.keybindings.trash=Trash:L
-
-tile.luxCapacitor.name=Lux Capacitor:L
-
-tile.tinkerTable.name=Power Armor Tinker Table:L
-
-tile.tinkerTable.ui.tinker=Tinker:L
-tile.tinkerTable.ui.keybinds=Keybinds:L
-tile.tinkerTable.ui.visual=Visual:L
-tile.tinkerTable.ui.noItemsFound=No modular powersuit items found in inventory. Make some!:L
-
-item.commonModular.summary=Detailed Summary:L
-item.commonModular.armor=Armor:L
-item.commonModular.energy=Energy:L
-item.commonModular.weight=Weight:L
-
-item.powerArmorBoots.name=Power Armor Boots:L
-item.powerArmorLeggings.name=Power Armor Leggings:L
-item.powerArmorChestplate.name=Power Armor Chestplate:L
-item.powerArmorHelmet.name=Power Armor Helmet:L
-item.powerFist.name=Power Fist:L
-
-item.powerArmorComponent.common.usage=For use in Tinker Table.:L
-
-item.powerArmorComponent.componentWiring.name=Wiring:L
-item.powerArmorComponent.componentWiring.desc=A special type of wiring with high voltaic capacity and precision, necessary for the sensitive electronics in power armor.:L
-
-item.powerArmorComponent.componentSolenoid.name=Solenoid:L
-item.powerArmorComponent.componentSolenoid.desc=Wires wound around a ferromagnetic core produces a basic electromagnet.:L
-
-item.powerArmorComponent.componentServo.name=Servo Motor:L
-item.powerArmorComponent.componentServo.desc=A special type of motor which uses a pulse-modulated signal to enact very precise movements.:L
-
-item.powerArmorComponent.componentGliderWing.name=Glider Wing:L
-item.powerArmorComponent.componentGliderWing.desc=A lightweight aerodynamic wing with an electromagnet for quick deployment and retraction.:L
-
-item.powerArmorComponent.componentIonThruster.name=Ion Thruster:L
-item.powerArmorComponent.componentIonThruster.desc=Essentially a miniature particle accelerator. Accelerates ions to near-light speed to produce thrust.:L
-
-item.powerArmorComponent.componentLVCapacitor.name=LV Capacitor:L
-item.powerArmorComponent.componentLVCapacitor.desc=A simple capacitor can store and discharge small amounts of energy rapidly.:L
-
-item.powerArmorComponent.componentMVCapacitor.name=MV Capacitor:L
-item.powerArmorComponent.componentMVCapacitor.desc=A more advanced capacitor which can store more energy at higher voltages.:L
-
-item.powerArmorComponent.componentHVCapacitor.name=HV Capacitor:L
-item.powerArmorComponent.componentHVCapacitor.desc=A synthetic crystal device which can store and release massive amounts of energy.:L
-
-item.powerArmorComponent.componentParachute.name=Parachute:L
-item.powerArmorComponent.componentParachute.desc=A simple reusable parachute which can be deployed and recovered in midair.:L
-
-item.powerArmorComponent.componentPlatingBasic.name=Basic Plating:L
-item.powerArmorComponent.componentPlatingBasic.desc=Some carefully-arranged metal armor plates.:L
-
-item.powerArmorComponent.componentPlatingAdvanced.name=Advanced Plating:L
-item.powerArmorComponent.componentPlatingAdvanced.desc=Some carefully-arranged armor plates of a rare and stronger material:L
-
-item.powerArmorComponent.componentFieldEmitter.name=Force Field Emitter:L
-item.powerArmorComponent.componentFieldEmitter.desc=An advanced device which directly manipulates electromagnetic and gravitational fields in an area.:L
-
-item.powerArmorComponent.componentLaserEmitter.name=Hologram Emitter:L
-item.powerArmorComponent.componentLaserEmitter.desc=A multicoloured laser array which can cheaply alter the appearance of something.:L
-
-item.powerArmorComponent.componentCarbonMyofiber.name=Carbon Myofiber:L
-item.powerArmorComponent.componentCarbonMyofiber.desc=A small bundle of carbon fibers, refined for use in artificial muscles.:L
-
-item.powerArmorComponent.componentControlCircuit.name=Control Circuit:L
-item.powerArmorComponent.componentControlCircuit.desc=A simple networkable microcontroller for coordinating an individual component.:L
-
-item.powerArmorComponent.componentMyofiberGel.name=Myofiber Gel:L
-item.powerArmorComponent.componentMyofiberGel.desc=A thick, conductive paste, perfect for fitting between myofibers in an artificial muscle.:L
-
-item.powerArmorComponent.componentArtificialMuscle.name=Artificial Muscle:L
-item.powerArmorComponent.componentArtificialMuscle.desc=An electrical, artificial muscle, with less range of movement than human muscle but orders of magnitude more strength.:L
-
-module.common.none=No installed modules! This item is useless until you add some modules at a Tinker Table.:L
-module.common.installed=Installed Modules:L
-module.common.mode=Mode:L
-module.common.mode.change=Change modes: Sneak+mousewheel.:L
-module.common.energy=Energy:L
-module.common.voltage=Voltage:L
-module.common.amperage=Amperage:L
-module.common.overclock=Overclock:L
-module.common.weight=Weight:L
-module.common.thrust=Thrust:L
-module.common.compensation=Compensation:L
-module.common.power=Power:L
-module.common.range=Range:L
-module.common.red=Red:L
-module.common.green=Green:L
-module.common.blue=Blue:L
-
-module.common.armor.physical=Armor (Physical):L
-module.common.armor.energy=Armor (Energy):L
-module.common.armor.consumption=Energy Per Damage:L
-module.common.armor.thickness=Plating Thickness:L
-
-module.common.battery.ic2Tier=IC2 Tier:L
-module.common.battery.size=Battery Size:L
-
-module.common.energy.current=Current Energy:L
-module.common.energy.maximum=Maximum Energy:L
-
-module.common.heat.current=Current Heat:L
-module.common.heat.maximum=Maximum Heat:L
-
-module.category.armor=Armor:L
-module.category.energy=Energy:L
-module.category.tool=Tool:L
-module.category.weapon=Weapon:L
-module.category.movement=Movement:L
-module.category.cosmetic=Cosmetic:L
-module.category.vision=Vision:L
-module.category.environment=Environment:L
-module.category.special=Special:L
-
-module.toggle.toggled=Toggled:L
-module.toggle.stateOn=on:L
-module.toggle.stateOff=off:L
-module.toggle.install=Install:L
-module.toggle.salvage=Salvage:L
-
-module.basicPlating.name=Iron Plating:L
-module.basicPlating.desc=Basic plating is heavy but protective.:L
-
-module.diamondPlating.name=Diamond Plating:L
-module.diamondPlating.desc=Advanced plating is lighter, harder, and more protective than Basic but much harder to make.:L
-
-module.energyShield.name=Energy Shield:L
-module.energyShield.desc=Energy shields are much lighter than plating, but consume energy.:L
-module.energyShield.strength=Field Strength:L
-
-module.heatSink.name=Heat Sink:L
-module.heatSink.desc=A thick layer of plating to soak up heat.:L
-module.heatSink.thickness=Thickness:L
-
-module.axe.name=Axe:L
-module.axe.desc=Axes are mostly for chopping trees.:L
-module.axe.energy=Axe Energy Consumption:L
-module.axe.speed=Axe Harvest Speed:L
-module.axe.radius=Axe Search Radius:L
-
-module.pickaxe.name=Pickaxe:L
-module.pickaxe.desc=Picks are good for harder materials like stone and ore.:L
-module.pickaxe.speed=Pickaxe Harvest Speed:L
-module.pickaxe.energy=Pickaxe Energy Consumption:L
-
-module.shovel.name=Shovel:L
-module.shovel.desc=Shovels are good for soft materials like dirt and sand.:L
-module.shovel.speed=Shovel Harvest Speed:L
-module.shovel.energy=Shovel Energy Consumption:L
-
-module.shears.name=Shears:L
-module.shears.desc=Cuts through leaves, wool, and creepers alike.:L
-module.shears.speed=Shearing Harvest Speed:L
-module.shears.energy=Shearing Energy Consumption:L
-
-module.hoe.name=Rototiller:L
-module.hoe.descdius=An automated tilling addon to make it easy to till large swaths of land at once.:L
-module.hoe.radius=Hoe Search Radius:L
-module.hoe.energy=Hoe Energy Consumption:L
-
-module.luxCapacitor.name=Lux Capacitor:L
-module.luxCapacitor.desc=Launch a virtually infinite number of attractive light sources at the wall.:L
-module.luxCapacitor.energy=Lux Capacitor Energy Consumption:L
-module.luxCapacitor.red=Lux Capacitor Red Hue:L
-module.luxCapacitor.green=Lux Capacitor Green Hue:L
-module.luxCapacitor.blue=Lux Capacitor Blue Hue:L
-
-module.omniwrench.name=Prototype OmniWrench:L
-module.omniwrench.desc=A wrench which can interact with almost every mod.:L
-
-module.fieldTinkerer.name=Field Tinker Module:L
-module.fieldTinkerer.desc=Maybe you can't memorize the blueprints, but you should at least be able to fine tune your modules without Inspiration™ Inc. LLC.:L
-
-module.meleeAssist.name=Melee Assist:L
-module.meleeAssist.desc=A much simpler addon, makes your powertool punches hit harder.:L
-module.meleeAssist.energy=Punch Energy Consumption:L
-module.meleeAssist.damage=Melee Damage:L
-module.meleeAssist.knockback=Melee Knockback:L
-module.meleeAssist.impact=Impact:L
-module.meleeAssist.carrythrough=Carry-through:L
-
-module.plasmaCannon.name=Plasma Cannon:L
-module.plasmaCannon.desc=Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.:L
-module.plasmaCannon.energyPerTick=Plasma Energy Per Tick:L
-module.plasmaCannon.damageFullCharge=Plasma Damage At Full Charge:L
-module.plasmaCannon.explosiveness=Plasma Explosiveness:L
-
-module.railgun.name=Railgun:L
-module.railgun.desc=An assembly which accelerates a projectile to supersonic speeds using magnetic force. Heavy recoil.:L
-module.railgun.heat=Railgun Heat Emission:L
-module.railgun.energy=Railgun Energy Cost:L
-module.railgun.impulse=Railgun Total Impulse:L
-
-module.bladeLauncher.name=Blade Launcher:L
-module.bladeLauncher.desc=Launches a spinning blade of death (or shearing).:L
-module.bladeLauncher.energy=Spinning Blade Energy Consumption:L
-module.bladeLauncher.damage=Spinning Blade Damage:L
-
-module.basicBattery.name=Basic Battery:L
-module.basicBattery.desc=Integrate a battery to allow the item to store energy.:L
-
-module.eliteBattery.name=Elite Battery:L
-module.eliteBattery.desc=Integrate a the most advanced battery to store an extensive amount of energy.:L
-
-module.advancedBattery.name=Advanced Battery:L
-module.advancedBattery.name=Integrate a more advanced battery to store more energy.:L
-
-module.parachute.name=Parachute:L
-module.parachute.desc=Add a parachute to slow your descent. Activate by pressing sneak (defaults to Shift) in midair.:L
-
-module.glider.name=Glider:L
-module.glider.desc=Tack on some wings to turn downward into forward momentum. Press sneak+forward while falling to activate.:L
-
-module.jetpack.name=Jetpack:L
-module.jetpack.desc=A jetpack should allow you to jump indefinitely, or at least until you run out of power.:L
-module.jetpack.energy=Jetpack Energy Consumption:L
-module.jetpack.thrust=Jetpack Thrust:L
-
-module.sprintAssist.name=Sprint Assist:L
-module.sprintAssist.desc=A set of servo motors to help you sprint (double-tap forward) and walk faster.:L
-module.sprintAssist.sprint.energy=Sprint Energy Consumption:L
-module.sprintAssist.sprint.speed=Sprint Speed Multiplier:L
-module.sprintAssist.sprint.food=Sprint Exhaustion Compensation:L
-module.sprintAssist.walk.assist=Walking Assist:L
-module.sprintAssist.walk.energy=Walking Energy Consumption:L
-module.sprintAssist.walk.speed=Walking Speed Multiplier:L
-
-module.jumpAssist.name=Jump Assist:L
-module.jumpAssist.desc=Another set of servo motors to help you jump higher.:L
-module.jumpAssist.boost=Jump Boost:L
-module.jumpAssist.energy=Jump Energy Consumption:L
-module.jumpAssist.food=Jump Exhaustion Compensation:L
-
-module.swimAssist.name=Swim Boost:L
-module.swimAssist.desc=By refitting an ion thruster for underwater use, you may be able to add extra forward (or backward) thrust when underwater.:L
-module.swimAssist.boost=Underwater Movement Boost:L
-module.swimAssist.energy=Swim Boost Energy Consumption:L
-
-module.climbAssist.name=Uphill Step Assist:L
-module.climeAssist.desc=A pair of dedicated servos allow you to effortlessly step up 1m-high ledges.:L
-
-module.jetBoots.name=Jet Boots:L
-module.jetBoots.desc=Jet boots are not as strong as a jetpack, but they should at least be strong enough to counteract gravity.:L
-module.jetBoots.energy=Jetboots Energy Consumption:L
-module.jetBoots.thrust=Jetboots Thrust:L
-
-module.shockAbsorber.name=Shock Absorber:L
-module.shockAbsorber.desc=With some servos, springs, and padding, you should be able to negate a portion of fall damage.:L
-module.shockAbsorber.absorb=Distance Reduction:L
-module.shockAbsorber.energy=Impact Energy consumption:L
-
-module.waterElectrolyzer.name=Water Electrolyzer:L
-module.waterElectrolyzer.desc=When you run out of air, this module will jolt the water around you, electrolyzing a small bubble to breathe from.:L
-module.waterElectrolyzer.energy=Jolt Energy:L
-
-module.binoculars.name=Binoculars:L
-module.binoculars.desc=With the problems that have been plaguing Optifine lately, you've decided to take that Zoom ability into your own hands.:L
-module.binoculars.view=Field of View:L
-module.binoculars.multiplier=FOV multiplier:L
-
-module.nightVision.name=Night Vision:L
-module.nightVision.desc=A pair of augmented vision goggles to help you see at night and underwater.:L
-
-module.flightControl.name=Flight Control:L
-module.flightControl.desc=An integrated control circuit to help you fly better. Press Z to go down.:L
-module.flightControl.ratio=Y-look ratio:L
-module.flightControl.verticality=Verticality:L
-
-module.invisibility.name=Active Camouflage:L
-module.invisibility.desc=Emit a hologram of your surroundings to make yourself almost imperceptible.:L
-
-module.blinkDrive.name=Blink Drive:L
-module.blinkDrive.desc=Get from point A to point C via point B, where point B is a fold in space & time.:L
-module.blinkDrive.energy=Blink Drive Energy Consuption:L
-module.blinkDrive.range=Blink Drive Range:L
-
-module.diamondPickUpgrade.name=Diamond Drill Upgrade:L
-module.diamondPickUpgrade.desc=Add diamonds to allow your pickaxe module to mine Obsidian. *REQUIRES PICKAXE MODULE TO WORK*:L
-
-module.aquaAffinity.name=Aqua Affinity:L
-module.aquaAffinity.desc=Reduces the speed penalty for using your tool underwater.:L
-module.aquaAffinity.energy=Underwater Energy Consumption:L
-module.aquaAffinity.speed=Underwater Harvest Speed:L
-
-module.coolingSystem.name=Cooling System:L
-module.coolingSystem.desc=Cools down heat-producing modules quicker.:L
-module.coolingSystem.bonus=Cooling Bonus:L
-module.coolingSystem.energy=Cooling System Energy Consumption:L
-
-module.tint.name=Custom Colour Module:L
-module.tint.desc=Give your armor some coloured tinting to customize your armor's appearance.:L
-module.tint.red=Red Tint:L
-module.tint.green=Green Tint:L
-module.tint.blue=Blue Tint:L
-module.tint.intensity.red=Red Intensity:L
-module.tint.intensity.green=Green Intensity:L
-module.tint.intensity.blue=Blue Intensity:L
-
-module.transparentArmor.name=Transparent Armor:L
-module.transparentArmor.desc=Make the item transparent, so you can show off your skin without losing armor.:L
-
-module.cosmeticGlow.name=Glow Module:L
-module.cosmeticGlow.desc=Change the appearance of the glowy bits on your armor.:L
-module.cosmeticGlow.red=Red Glow:L
-module.cosmeticGlow.green=Green Glow:L
-module.cosmeticGlow.blue=Blue Glow:L
-
-module.mffsFieldTeleporter.name=MFFS Field Teleporter:L
-module.mffsFieldTeleporter.desc=A tool which allows you to teleport through MFFS forcefields that you own if you have enough energy.:L
-module.mffsFieldTeleporter.energy=Field Teleporter Energy Consumption:L
-
-module.grafter.name=Grafter:L
-module.grafter.desc=A Forestry grafter integrated into your power tool.:L
-module.grafter.energy=Grafter Energy Consumption:L
-module.grafter.heat=Grafter Heat Generation:L
-
-module.apiaristArmor.name=Apiarist Armor:L
-module.apiaristArmor.desc=A set of Forestry apiarist armor integrated into your armor.:L
-module.apiaristArmor.energy=Apiarist Armor Energy Consumption:L
-
-module.hazmat.name=Radiation Shielding:L
-module.hazmat.desc=Protect yourself from that pesky radiation poisoning. *Must be on every piece*:L
-
-module.redstoneLaser.name=Redstone Laser:L
-module.redstoneLaser.desc=No need for a lever if you're just giving it a pulse.:L
-
-module.aurameter.name=Aurameter:L
-module.aurameter.desc=Connect up some Thaumic goggles to have them embedded in your helmet. (Does not give Vis usage discount):L
-
-module.airtightSeal.name=Airtight Seal:L
-module.airtightSeal.desc=Seal the suit against hostile atmospheres for venturing to other planets.:L
-
-module.citizenJoe.name=Citizen Joe Armor:L
-module.citizenJoe.desc=An alternative armor texture, c/o CitizenJoe of IC2 forums.:L
-
-module.sonicWeapon.name=Sonic Weapon:L
-module.sonicWeapon.desc=A high-amplitude, complex-frequency soundwave generator can have shattering or disorienting effects on foes and blocks alike.:L
+powersuits.exceptionRenderPlayerAPI.lineone=A required mod is missing. Minecraft cannot continue loading.
+powersuits.exceptionRenderPlayerAPI.linetwo=The mod: "MachineMuse's Modular Powersuits"
+powersuits.exceptionRenderPlayerAPI.linethree=requires an additional mod: "RenderPlayerAPI"
+powersuits.exceptionRenderPlayerAPI.linefour=when "SmartMoving" is loaded.
+powersuits.exceptionRenderPlayerAPI.linefive=Please install "RenderPlayerAPI" to continue.
+
+powersuits.keybindings.openUI=Open MPS Keybind GUI
+powersuits.keybindings.flightDown=Go Down (MPS Flight Control)
+powersuits.keybindings.cycleBackward=Cycle Tool Backward (MPS)
+powersuits.keybindings.cycleForward=Cycle Tool Forward (MPS)
+powersuits.keybindings.zoom=Zoom (MPS)
+powersuits.keybindings.cosmetic=Cosmetic (MPS)
+powersuits.keybindings.mouse=Mouse
+powersuits.keybindings.new=New
+powersuits.keybindings.trash=Trash
+powersuits.keybindings.select=Press Key
+powersuits.keybindings.newBinding=Use 'new' to bind new keys.
+powersuits.keybindings.connectBinding=Drag and drop modules to bind them to keys.
+powersuits.keybindings.trashBinding=Drop keys on 'trash' to unbind them.
+powersuits.keybindings.accept=Taken!
+
+tile.luxCapacitor.name=Lux Capacitor
+
+tile.tinkerTable.name=Power Armor Tinker Table
+
+tile.tinkerTable.ui.tinker=Tinker
+tile.tinkerTable.ui.keybinds=Keybinds
+tile.tinkerTable.ui.visual=Visual
+tile.tinkerTable.ui.noItemsFound=No modular powersuit items found in inventory. Make some!
+
+item.commonModular.summary=Detailed Summary
+item.commonModular.armor=Armor
+item.commonModular.energy=Energy
+item.commonModular.weight=Weight
+item.commonModular.moreInfo=Press SHIFT for more information.
+
+item.powerArmorBoots.name=Power Armor Boots
+item.powerArmorLeggings.name=Power Armor Leggings
+item.powerArmorChestplate.name=Power Armor Chestplate
+item.powerArmorHelmet.name=Power Armor Helmet
+item.powerFist.name=Power Fist
+
+item.powerArmorComponent.common.usage=For use in Tinker Table.
+
+item.powerArmorComponent.componentWiring.name=Wiring
+item.powerArmorComponent.componentWiring.desc=A special type of wiring with high voltaic capacity and precision, necessary for the sensitive electronics in power armor.
+
+item.powerArmorComponent.componentSolenoid.name=Solenoid
+item.powerArmorComponent.componentSolenoid.desc=Wires wound around a ferromagnetic core produces a basic electromagnet.
+
+item.powerArmorComponent.componentServo.name=Servo Motor
+item.powerArmorComponent.componentServo.desc=A special type of motor which uses a pulse-modulated signal to enact very precise movements.
+
+item.powerArmorComponent.componentGliderWing.name=Glider Wing
+item.powerArmorComponent.componentGliderWing.desc=A lightweight aerodynamic wing with an electromagnet for quick deployment and retraction.
+
+item.powerArmorComponent.componentIonThruster.name=Ion Thruster
+item.powerArmorComponent.componentIonThruster.desc=Essentially a miniature particle accelerator. Accelerates ions to near-light speed to produce thrust.
+
+item.powerArmorComponent.componentLVCapacitor.name=LV Capacitor
+item.powerArmorComponent.componentLVCapacitor.desc=A simple capacitor can store and discharge small amounts of energy rapidly.
+
+item.powerArmorComponent.componentMVCapacitor.name=MV Capacitor
+item.powerArmorComponent.componentMVCapacitor.desc=A more advanced capacitor which can store more energy at higher voltages.
+
+item.powerArmorComponent.componentHVCapacitor.name=HV Capacitor
+item.powerArmorComponent.componentHVCapacitor.desc=A synthetic crystal device which can store and release massive amounts of energy.
+
+item.powerArmorComponent.componentParachute.name=Parachute
+item.powerArmorComponent.componentParachute.desc=A simple reusable parachute which can be deployed and recovered in midair.
+
+item.powerArmorComponent.componentPlatingBasic.name=Basic Plating
+item.powerArmorComponent.componentPlatingBasic.desc=Some carefully-arranged metal armor plates.
+
+item.powerArmorComponent.componentPlatingAdvanced.name=Advanced Plating
+item.powerArmorComponent.componentPlatingAdvanced.desc=Some carefully-arranged armor plates of a rare and stronger material
+
+item.powerArmorComponent.componentFieldEmitter.name=Force Field Emitter
+item.powerArmorComponent.componentFieldEmitter.desc=An advanced device which directly manipulates electromagnetic and gravitational fields in an area.
+
+item.powerArmorComponent.componentLaserEmitter.name=Hologram Emitter
+item.powerArmorComponent.componentLaserEmitter.desc=A multicoloured laser array which can cheaply alter the appearance of something.
+
+item.powerArmorComponent.componentCarbonMyofiber.name=Carbon Myofiber
+item.powerArmorComponent.componentCarbonMyofiber.desc=A small bundle of carbon fibers, refined for use in artificial muscles.
+
+item.powerArmorComponent.componentControlCircuit.name=Control Circuit
+item.powerArmorComponent.componentControlCircuit.desc=A simple networkable microcontroller for coordinating an individual component.
+
+item.powerArmorComponent.componentMyofiberGel.name=Myofiber Gel
+item.powerArmorComponent.componentMyofiberGel.desc=A thick, conductive paste, perfect for fitting between myofibers in an artificial muscle.
+
+item.powerArmorComponent.componentArtificialMuscle.name=Artificial Muscle
+item.powerArmorComponent.componentArtificialMuscle.desc=An electrical, artificial muscle, with less range of movement than human muscle but orders of magnitude more strength.
+
+module.common.none=No installed modules! This item is useless until you add some modules at a Tinker Table.
+module.common.installed=Installed Modules
+module.common.mode=Mode
+module.common.mode.change=Change modes: Sneak+mousewheel.
+module.common.energy=Energy
+module.common.voltage=Voltage
+module.common.amperage=Amperage
+module.common.overclock=Overclock
+module.common.weight=Weight
+module.common.thrust=Thrust
+module.common.compensation=Compensation
+module.common.power=Power
+module.common.range=Range
+module.common.red=Red
+module.common.green=Green
+module.common.blue=Blue
+
+module.common.armor.physical=Armor (Physical)
+module.common.armor.energy=Armor (Energy)
+module.common.armor.consumption=Energy Per Damage
+module.common.armor.thickness=Plating Thickness
+
+module.common.battery.ic2Tier=IC2 Tier
+module.common.battery.size=Battery Size
+
+module.common.energy.current=Current Energy
+module.common.energy.maximum=Maximum Energy
+
+module.common.heat.current=Current Heat
+module.common.heat.maximum=Maximum Heat
+
+module.category.armor=Armor
+module.category.energy=Energy
+module.category.tool=Tool
+module.category.weapon=Weapon
+module.category.movement=Movement
+module.category.cosmetic=Cosmetic
+module.category.vision=Vision
+module.category.environment=Environment
+module.category.special=Special
+
+module.toggle.toggled=Toggled
+module.toggle.stateOn=on
+module.toggle.stateOff=off
+module.toggle.install=Install
+module.toggle.salvage=Salvage
+
+module.basicPlating.name=Iron Plating
+module.basicPlating.desc=Basic plating is heavy but protective.
+
+module.diamondPlating.name=Diamond Plating
+module.diamondPlating.desc=Advanced plating is lighter, harder, and more protective than Basic but much harder to make.
+
+module.energyShield.name=Energy Shield
+module.energyShield.desc=Energy shields are much lighter than plating, but consume energy.
+module.energyShield.strength=Field Strength
+
+module.heatSink.name=Heat Sink
+module.heatSink.desc=A thick layer of plating to soak up heat.
+module.heatSink.thickness=Thickness
+
+module.axe.name=Axe
+module.axe.desc=Axes are mostly for chopping trees.
+module.axe.energy=Axe Energy Consumption
+module.axe.speed=Axe Harvest Speed
+module.axe.radius=Axe Search Radius
+
+module.pickaxe.name=Pickaxe
+module.pickaxe.desc=Picks are good for harder materials like stone and ore.
+module.pickaxe.speed=Pickaxe Harvest Speed
+module.pickaxe.energy=Pickaxe Energy Consumption
+
+module.shovel.name=Shovel
+module.shovel.desc=Shovels are good for soft materials like dirt and sand.
+module.shovel.speed=Shovel Harvest Speed
+module.shovel.energy=Shovel Energy Consumption
+
+module.shears.name=Shears
+module.shears.desc=Cuts through leaves, wool, and creepers alike.
+module.shears.speed=Shearing Harvest Speed
+module.shears.energy=Shearing Energy Consumption
+
+module.hoe.name=Rototiller
+module.hoe.descdius=An automated tilling addon to make it easy to till large swaths of land at once.
+module.hoe.radius=Hoe Search Radius
+module.hoe.energy=Hoe Energy Consumption
+
+module.luxCapacitor.name=Lux Capacitor
+module.luxCapacitor.desc=Launch a virtually infinite number of attractive light sources at the wall.
+module.luxCapacitor.energy=Lux Capacitor Energy Consumption
+module.luxCapacitor.red=Lux Capacitor Red Hue
+module.luxCapacitor.green=Lux Capacitor Green Hue
+module.luxCapacitor.blue=Lux Capacitor Blue Hue
+
+module.omniwrench.name=Prototype OmniWrench
+module.omniwrench.desc=A wrench which can interact with almost every mod.
+
+module.fieldTinkerer.name=Field Tinker Module
+module.fieldTinkerer.desc=Maybe you can't memorize the blueprints, but you should at least be able to fine tune your modules without Inspiration™ Inc. LLC.
+
+module.meleeAssist.name=Melee Assist
+module.meleeAssist.desc=A much simpler addon, makes your powertool punches hit harder.
+module.meleeAssist.energy=Punch Energy Consumption
+module.meleeAssist.damage=Melee Damage
+module.meleeAssist.knockback=Melee Knockback
+module.meleeAssist.impact=Impact
+module.meleeAssist.carrythrough=Carry-through
+
+module.plasmaCannon.name=Plasma Cannon
+module.plasmaCannon.desc=Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.
+module.plasmaCannon.energyPerTick=Plasma Energy Per Tick
+module.plasmaCannon.damageFullCharge=Plasma Damage At Full Charge
+module.plasmaCannon.explosiveness=Plasma Explosiveness
+
+module.railgun.name=Railgun
+module.railgun.desc=An assembly which accelerates a projectile to supersonic speeds using magnetic force. Heavy recoil.
+module.railgun.heat=Railgun Heat Emission
+module.railgun.energy=Railgun Energy Cost
+module.railgun.impulse=Railgun Total Impulse
+
+module.bladeLauncher.name=Blade Launcher
+module.bladeLauncher.desc=Launches a spinning blade of death (or shearing).
+module.bladeLauncher.energy=Spinning Blade Energy Consumption
+module.bladeLauncher.damage=Spinning Blade Damage
+
+module.basicBattery.name=Basic Battery
+module.basicBattery.desc=Integrate a battery to allow the item to store energy.
+
+module.eliteBattery.name=Elite Battery
+module.eliteBattery.desc=Integrate a the most advanced battery to store an extensive amount of energy.
+
+module.advancedBattery.name=Advanced Battery
+module.advancedBattery.name=Integrate a more advanced battery to store more energy.
+
+module.parachute.name=Parachute
+module.parachute.desc=Add a parachute to slow your descent. Activate by pressing sneak (defaults to Shift) in midair.
+
+module.glider.name=Glider
+module.glider.desc=Tack on some wings to turn downward into forward momentum. Press sneak+forward while falling to activate.
+
+module.jetpack.name=Jetpack
+module.jetpack.desc=A jetpack should allow you to jump indefinitely, or at least until you run out of power.
+module.jetpack.energy=Jetpack Energy Consumption
+module.jetpack.thrust=Jetpack Thrust
+
+module.sprintAssist.name=Sprint Assist
+module.sprintAssist.desc=A set of servo motors to help you sprint (double-tap forward) and walk faster.
+module.sprintAssist.sprint.energy=Sprint Energy Consumption
+module.sprintAssist.sprint.speed=Sprint Speed Multiplier
+module.sprintAssist.sprint.food=Sprint Exhaustion Compensation
+module.sprintAssist.walk.assist=Walking Assist
+module.sprintAssist.walk.energy=Walking Energy Consumption
+module.sprintAssist.walk.speed=Walking Speed Multiplier
+
+module.jumpAssist.name=Jump Assist
+module.jumpAssist.desc=Another set of servo motors to help you jump higher.
+module.jumpAssist.boost=Jump Boost
+module.jumpAssist.energy=Jump Energy Consumption
+module.jumpAssist.food=Jump Exhaustion Compensation
+
+module.swimAssist.name=Swim Boost
+module.swimAssist.desc=By refitting an ion thruster for underwater use, you may be able to add extra forward (or backward) thrust when underwater.
+module.swimAssist.boost=Underwater Movement Boost
+module.swimAssist.energy=Swim Boost Energy Consumption
+
+module.climbAssist.name=Uphill Step Assist
+module.climeAssist.desc=A pair of dedicated servos allow you to effortlessly step up 1m-high ledges.
+
+module.jetBoots.name=Jet Boots
+module.jetBoots.desc=Jet boots are not as strong as a jetpack, but they should at least be strong enough to counteract gravity.
+module.jetBoots.energy=Jetboots Energy Consumption
+module.jetBoots.thrust=Jetboots Thrust
+
+module.shockAbsorber.name=Shock Absorber
+module.shockAbsorber.desc=With some servos, springs, and padding, you should be able to negate a portion of fall damage.
+module.shockAbsorber.absorb=Distance Reduction
+module.shockAbsorber.energy=Impact Energy consumption
+
+module.waterElectrolyzer.name=Water Electrolyzer
+module.waterElectrolyzer.desc=When you run out of air, this module will jolt the water around you, electrolyzing a small bubble to breathe from.
+module.waterElectrolyzer.energy=Jolt Energy
+
+module.binoculars.name=Binoculars
+module.binoculars.desc=With the problems that have been plaguing Optifine lately, you've decided to take that Zoom ability into your own hands.
+module.binoculars.view=Field of View
+module.binoculars.multiplier=FOV multiplier
+
+module.nightVision.name=Night Vision
+module.nightVision.desc=A pair of augmented vision goggles to help you see at night and underwater.
+
+module.flightControl.name=Flight Control
+module.flightControl.desc=An integrated control circuit to help you fly better. Press Z to go down.
+module.flightControl.ratio=Y-look ratio
+module.flightControl.verticality=Verticality
+
+module.invisibility.name=Active Camouflage
+module.invisibility.desc=Emit a hologram of your surroundings to make yourself almost imperceptible.
+
+module.blinkDrive.name=Blink Drive
+module.blinkDrive.desc=Get from point A to point C via point B, where point B is a fold in space & time.
+module.blinkDrive.energy=Blink Drive Energy Consuption
+module.blinkDrive.range=Blink Drive Range
+
+module.diamondPickUpgrade.name=Diamond Drill Upgrade
+module.diamondPickUpgrade.desc=Add diamonds to allow your pickaxe module to mine Obsidian. *REQUIRES PICKAXE MODULE TO WORK*
+
+module.aquaAffinity.name=Aqua Affinity
+module.aquaAffinity.desc=Reduces the speed penalty for using your tool underwater.
+module.aquaAffinity.energy=Underwater Energy Consumption
+module.aquaAffinity.speed=Underwater Harvest Speed
+
+module.coolingSystem.name=Cooling System
+module.coolingSystem.desc=Cools down heat-producing modules quicker.
+module.coolingSystem.bonus=Cooling Bonus
+module.coolingSystem.energy=Cooling System Energy Consumption
+
+module.tint.name=Custom Colour Module
+module.tint.desc=Give your armor some coloured tinting to customize your armor's appearance.
+module.tint.red=Red Tint
+module.tint.green=Green Tint
+module.tint.blue=Blue Tint
+module.tint.intensity.red=Red Intensity
+module.tint.intensity.green=Green Intensity
+module.tint.intensity.blue=Blue Intensity
+
+module.transparentArmor.name=Transparent Armor
+module.transparentArmor.desc=Make the item transparent, so you can show off your skin without losing armor.
+
+module.cosmeticGlow.name=Glow Module
+module.cosmeticGlow.desc=Change the appearance of the glowy bits on your armor.
+module.cosmeticGlow.red=Red Glow
+module.cosmeticGlow.green=Green Glow
+module.cosmeticGlow.blue=Blue Glow
+
+module.mffsFieldTeleporter.name=MFFS Field Teleporter
+module.mffsFieldTeleporter.desc=A tool which allows you to teleport through MFFS forcefields that you own if you have enough energy.
+module.mffsFieldTeleporter.energy=Field Teleporter Energy Consumption
+
+module.grafter.name=Grafter
+module.grafter.desc=A Forestry grafter integrated into your power tool.
+module.grafter.energy=Grafter Energy Consumption
+module.grafter.heat=Grafter Heat Generation
+
+module.apiaristArmor.name=Apiarist Armor
+module.apiaristArmor.desc=A set of Forestry apiarist armor integrated into your armor.
+module.apiaristArmor.energy=Apiarist Armor Energy Consumption
+
+module.hazmat.name=Radiation Shielding
+module.hazmat.desc=Protect yourself from that pesky radiation poisoning. *Must be on every piece*
+
+module.redstoneLaser.name=Redstone Laser
+module.redstoneLaser.desc=No need for a lever if you're just giving it a pulse.
+
+module.aurameter.name=Aurameter
+module.aurameter.desc=Connect up some Thaumic goggles to have them embedded in your helmet. (Does not give Vis usage discount)
+
+module.airtightSeal.name=Airtight Seal
+module.airtightSeal.desc=Seal the suit against hostile atmospheres for venturing to other planets.
+
+module.citizenJoe.name=Citizen Joe Armor
+module.citizenJoe.desc=An alternative armor texture, c/o CitizenJoe of IC2 forums.
+
+module.sonicWeapon.name=Sonic Weapon
+module.sonicWeapon.desc=A high-amplitude, complex-frequency soundwave generator can have shattering or disorienting effects on foes and blocks alike.

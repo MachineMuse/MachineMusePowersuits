@@ -21,6 +21,7 @@ import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule
 import net.machinemuse.powersuits.powermodule.weapon.RailgunModule
 import net.machinemuse.utils.MuseStringUtils
 import net.minecraft.creativetab.CreativeTabs
+import net.minecraft.util.StatCollector
 import net.minecraftforge.common.config.Configuration
 import org.lwjgl.input.Keyboard
 import java.io.File
@@ -168,7 +169,7 @@ object Config {
   }
 
   def additionalInfoInstructions: AnyRef = {
-    var message: String = "Press SHIFT for more information."
+    var message: String = StatCollector.translateToLocal("item.commonModular.moreInfo")
     message = MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic)
     return message
   }
