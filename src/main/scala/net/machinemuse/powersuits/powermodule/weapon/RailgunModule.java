@@ -40,6 +40,9 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule 
         addTradeoffProperty("Voltage", IMPULSE, 2500);
         addTradeoffProperty("Voltage", ENERGY, 2500);
         addTradeoffProperty("Voltage", HEAT, 25);
+        addPropertyLocalString(IMPULSE, StatCollector.translateToLocal("module.railgun.impulse"));
+        addPropertyLocalString(ENERGY, StatCollector.translateToLocal("module.railgun.energy"));
+        addPropertyLocalString(HEAT, StatCollector.translateToLocal("module.railgun.heat"));
     }
 
     @Override
@@ -59,7 +62,7 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule 
 
     @Override
     public String getDescription() {
-        return "An assembly which accelerates a projectile to supersonic speeds using magnetic force. Heavy recoil.";
+        return StatCollector.translateToLocal("module.railgun.desc");
     }
 
     public void drawParticleStreamTo(EntityPlayer source, World world, double x, double y, double z) {

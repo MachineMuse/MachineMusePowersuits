@@ -23,6 +23,8 @@ public class GrafterModule extends PowerModuleBase {
 //        addInstallCost(ModCompatability.getForestryItem("grafter", 1));
         addBaseProperty(GRAFTER_ENERGY_CONSUMPTION, 1000, "J");
         addBaseProperty(GRAFTER_HEAT_GENERATION, 20);
+        addPropertyLocalString(GRAFTER_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.grafter.energy"));
+        addPropertyLocalString(GRAFTER_HEAT_GENERATION, StatCollector.translateToLocal("module.grafter.heat"));
     }
 
     @Override
@@ -42,7 +44,7 @@ public class GrafterModule extends PowerModuleBase {
 
     @Override
     public String getDescription() {
-        return "A Forestry grafter integrated into your power tool.";
+        return StatCollector.translateToLocal("module.grafter.desc");
     }
 
     @Override

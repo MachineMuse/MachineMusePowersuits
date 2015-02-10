@@ -36,7 +36,7 @@ public class SonicWeaponModule extends PowerModuleBase implements IRightClickMod
 
     @Override
     public String getDescription() {
-        return "A high-amplitude, complex-frequency soundwave generator can have shattering or disorienting effects on foes and blocks alike.";
+        return StatCollector.translateToLocal("module.sonicWeapon.desc");
     }
 
     @Override

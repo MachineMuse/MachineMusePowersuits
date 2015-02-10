@@ -6,6 +6,7 @@ import net.machinemuse.general.gui.frame.*;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.StatCollector;
 
 /**
  * The gui class for the TinkerTable block.
@@ -57,8 +58,10 @@ public class GuiFieldTinker extends MuseGui {
         if (itemSelectFrame.hasNoItems()) {
             double centerx = absX(0);
             double centery = absY(0);
-            MuseRenderer.drawCenteredString("No modular powersuit items", centerx, centery - 5);
-            MuseRenderer.drawCenteredString("found in inventory. Make some!", centerx, centery + 5);
+            String noItems = StatCollector.translateToLocal("tile.tinkerTable.ui.noItemsFound");
+            int indexCenter = noItems.lastIndexOf(' ', ( noItems.length() / 2 ));
+            MuseRenderer.drawCenteredString(noItems.substring(0, indexCenter), centerx, centery - 5);
+            MuseRenderer.drawCenteredString(noItems.substring(indexCenter + 1, noItems.length()), centerx, centery + 5);
         }
     }
 }

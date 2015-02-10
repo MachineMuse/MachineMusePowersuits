@@ -10,18 +10,19 @@ import net.machinemuse.powersuits.item.ModeChangingModularItem$;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
 
 @SideOnly(Side.CLIENT)
 public class KeybindKeyHandler {
-    public static final String mps = "Modular Powersuits";
-    public static KeyBinding openKeybindGUI = new KeyBinding("Open MPS Keybind GUI", -1, mps);
-    public static KeyBinding goDownKey = new KeyBinding("Go Down (MPS Flight Control)", Keyboard.KEY_Z, mps);
-    public static KeyBinding cycleToolBackward = new KeyBinding("Cycle Tool Backward (MPS)", -1, mps);
-    public static KeyBinding cycleToolForward = new KeyBinding("Cycle Tool Forward (MPS)", -1, mps);
-    public static KeyBinding zoom = new KeyBinding("Zoom (MPS)", Keyboard.KEY_Y, mps);
-    public static KeyBinding openCosmeticGUI = new KeyBinding("Cosmetic (MPS)", -1, mps);
+    public static final String mps = StatCollector.translateToLocal("itemGroup.powersuits");
+    public static KeyBinding openKeybindGUI = new KeyBinding(StatCollector.translateToLocal("powersuits.keybindings.openUI"), -1, mps);
+    public static KeyBinding goDownKey = new KeyBinding(StatCollector.translateToLocal("powersuits.keybindings.flightDown"), Keyboard.KEY_Z, mps);
+    public static KeyBinding cycleToolBackward = new KeyBinding(StatCollector.translateToLocal("powersuits.keybindings.cycleBackward"), -1, mps);
+    public static KeyBinding cycleToolForward = new KeyBinding(StatCollector.translateToLocal("powersuits.keybindings.cycleForward"), -1, mps);
+    public static KeyBinding zoom = new KeyBinding(StatCollector.translateToLocal("powersuits.keybindings.zoom"), Keyboard.KEY_Y, mps);
+    public static KeyBinding openCosmeticGUI = new KeyBinding(StatCollector.translateToLocal("powersuits.keybindings.cosmetic"), -1, mps);
     public static KeyBinding[] keybindArray = new KeyBinding[]{openKeybindGUI, goDownKey, cycleToolBackward, cycleToolForward, zoom, openCosmeticGUI};
     public static boolean[] repeats = new boolean[keybindArray.length];
 

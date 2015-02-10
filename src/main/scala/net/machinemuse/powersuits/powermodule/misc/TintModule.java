@@ -18,6 +18,12 @@ public class TintModule extends PowerModuleBase {
         addTradeoffProperty("Red Intensity", RED_TINT, 1, "%");
         addTradeoffProperty("Green Intensity", GREEN_TINT, 1, "%");
         addTradeoffProperty("Blue Intensity", BLUE_TINT, 1, "%");
+        addPropertyLocalString("Red Tint", StatCollector.translateToLocal("module.tint.red"));
+        addPropertyLocalString("Green Tint", StatCollector.translateToLocal("module.tint.green"));
+        addPropertyLocalString("Blue Tint", StatCollector.translateToLocal("module.tint.blue"));
+        addPropertyLocalString("Red Intensity", StatCollector.translateToLocal("module.tint.intensity.red"));
+        addPropertyLocalString("Green Intensity", StatCollector.translateToLocal("module.tint.intensity.green"));
+        addPropertyLocalString("Blue Intensity", StatCollector.translateToLocal("module.tint.intensity.blue"));
     }
 
     @Override
@@ -47,6 +53,6 @@ public class TintModule extends PowerModuleBase {
 
     @Override
     public String getDescription() {
-        return "Give your armor some coloured tinting to customize your armor's appearance.";
+        return StatCollector.translateToLocal("module.tint.desc");
     }
 }

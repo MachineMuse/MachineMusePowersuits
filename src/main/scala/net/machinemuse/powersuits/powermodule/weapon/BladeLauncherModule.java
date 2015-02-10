@@ -17,9 +17,9 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class BladeLauncherModule extends PowerModuleBase implements IRightClickModule {
-    public static final String MODULE_BLADE_LAUNCHER = "Blade Launcher";
-    public static final String BLADE_ENERGY = "Spinning Blade Energy Consumption";
-    public static final String BLADE_DAMAGE = "Spinning Blade Damage";
+    public static String MODULE_BLADE_LAUNCHER = "Blade Launcher";
+    public static String BLADE_ENERGY = "Spinning Blade Energy Consumption";
+    public static String BLADE_DAMAGE = "Spinning Blade Damage";
 
     public BladeLauncherModule(List<IModularItem> validItems) {
         super(validItems);
@@ -27,6 +27,8 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
         addBaseProperty(BLADE_DAMAGE, 6, "pt");
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 1));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.mvcapacitor, 1));
+        addPropertyLocalString(BLADE_ENERGY, StatCollector.translateToLocal("module.bladeLauncher.energy"));
+        addPropertyLocalString(BLADE_DAMAGE, StatCollector.translateToLocal("module.bladeLauncher.damage"));
     }
 
     @Override
@@ -46,7 +48,7 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
 
     @Override
     public String getDescription() {
-        return "Launches a spinning blade of death (or shearing).";
+        return StatCollector.translateToLocal("module.bladeLauncher.desc");
     }
 
     @Override

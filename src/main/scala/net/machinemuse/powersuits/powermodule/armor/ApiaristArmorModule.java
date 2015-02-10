@@ -24,6 +24,7 @@ public class ApiaristArmorModule extends PowerModuleBase {
 //        stack.setItemDamage(3);
 //        addInstallCost(stack);
         addBaseProperty(APIARIST_ARMOR_ENERGY_CONSUMPTION, 10, "J");
+        addPropertyLocalString(APARIST_ARMOR_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.apiaristArmor.energy"));
     }
 
     @Override
@@ -43,7 +44,7 @@ public class ApiaristArmorModule extends PowerModuleBase {
 
     @Override
     public String getDescription() {
-        return "A set of Forestry apiarist armor integrated into your armor.";
+        return StatCollector.translateToLocal("module.apiaristArmor.desc");
     }
 
     @Override

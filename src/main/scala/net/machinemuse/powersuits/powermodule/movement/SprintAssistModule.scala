@@ -31,10 +31,17 @@ class SprintAssistModule(validItems: List[IModularItem]) extends PowerModuleBase
 
   import SprintAssistModule._
 
+	protected val WALKING_ASSIST: String = "Walking Assist"
   addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 4))
   addSimpleTradeoff(this, "Power", SPRINT_ENERGY_CONSUMPTION, "J", 0, 10, SPRINT_SPEED_MULTIPLIER, "%", 1, 2)
   addSimpleTradeoff(this, "Compensation", SPRINT_ENERGY_CONSUMPTION, "J", 0, 2, SPRINT_FOOD_COMPENSATION, "%", 0, 1)
-  addSimpleTradeoff(this, "Walking Assist", WALKING_ENERGY_CONSUMPTION, "J", 0, 10, WALKING_SPEED_MULTIPLIER, "%", 1, 1)
+  addSimpleTradeoff(this, WALKING_ASSIST, WALKING_ENERGY_CONSUMPTION, "J", 0, 10, WALKING_SPEED_MULTIPLIER, "%", 1, 1)
+  addPropertyLocalString(SPRINT_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.sprintAssist.sprint.energy"))
+  addPropertyLocalString(SPRINT_SPEED_MULTIPLIER, StatCollector.translateToLocal("module.sprintAssist.sprint.speed"))
+  addPropertyLocalString(SPRINT_FOOD_COMPENSATION, StatCollector.translateToLocal("module.sprintAssist.sprint.food"))
+  addPropertyLocalString(WALKING_ASSIST, StatCollector.translateToLocal("module.sprintAssist.walk.assist"))
+  addPropertyLocalString(WALKING_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.sprintAssist.walk.energy"))
+  addPropertyLocalString(WALKING_SPEED_MULTIPLIER, StatCollector.translateToLocal("module.sprintAssist.walk.speed"))
 
   def getCategory: String = MuseCommonStrings.CATEGORY_MOVEMENT
 
@@ -42,7 +49,7 @@ class SprintAssistModule(validItems: List[IModularItem]) extends PowerModuleBase
 
   def getLocalizedName: String = StatCollector.translateToLocal("module.sprintAssist.name")
 
-  def getDescription: String = "A set of servo motors to help you sprint (double-tap forward) and walk faster."
+  def getDescription: String = StatCollector.translateToLocal("module.sprintAssist.desc")
 
   def onPlayerTickActive(player: EntityPlayer, item: ItemStack) {
     val motionX = player.posX - player.lastTickPosX
@@ -78,7 +85,7 @@ class SprintAssistModule(validItems: List[IModularItem]) extends PowerModuleBase
     val sprintModifiers =
       for (i <- 0 until modifiers.tagCount()) yield {
         val tag = modifiers.getCompoundTagAt(i).asInstanceOf[NBTTagCompound]
-        if (new AttributeModifier(tag).name == "Sprint Assist") {
+        if (new AttributeModifier(tag).name == MODULE_SPRINT_ASSIST) {
           Some(tag)
         } else None
       } flatMap {
@@ -87,14 +94,14 @@ class SprintAssistModule(validItems: List[IModularItem]) extends PowerModuleBase
           tag.setDouble("Amount", multiplier - 1)
           Some(tag)
       }
-    if (sprintModifiers.isEmpty) modifiers.appendTag(AttributeModifier(1, TAGUUID, multiplier - 1, "generic.movementSpeed", "Sprint Assist").toNBT)
+    if (sprintModifiers.isEmpty) modifiers.appendTag(AttributeModifier(1, TAGUUID, multiplier - 1, "generic.movementSpeed", MODULE_SPRINT_ASSIST).toNBT)
   }
 
   def onPlayerTickInactive(player: EntityPlayer, item: ItemStack) {
       val modifiers: NBTTagList = item.getTagCompound.getTagList("AttributeModifiers", 10.asInstanceOf[Byte])
       for (i <- 0 until modifiers.tagCount()) yield {
         val tag = modifiers.getCompoundTagAt(i)
-        if (new AttributeModifier(tag).name == "Sprint Assist") {
+        if (new AttributeModifier(tag).name == MODULE_SPRINT_ASSIST) {
           Some(tag)
         } else None
       } flatMap {

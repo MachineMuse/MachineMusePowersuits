@@ -26,7 +26,7 @@ class RedstoneLaser(list: java.util.List[IModularItem]) extends PowerModuleBase(
 
   def getLocalizedName: String = StatCollector.translateToLocal("module.redstoneLaser.name")
 
-  def getDescription: String = "No need for a lever if you're just giving it a pulse."
+  def getDescription: String = StatCollector.translateToLocal("module.redstoneLaser.desc")
 
   def getTextureFile: String = "laser"
 

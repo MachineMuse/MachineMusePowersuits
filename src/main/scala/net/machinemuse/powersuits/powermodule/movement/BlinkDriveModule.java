@@ -31,6 +31,8 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
         addTradeoffProperty("Range", BLINK_DRIVE_RANGE, 59);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 1));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
+        addPropertyLocalString(BLINK_DRIVE_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.blinkDrive.energy"));
+        addPropertyLocalString(BLINK_DRIVE_RANGE, StatCollector.translateToLocal("module.blinkDrive.range"));
     }
 
     @Override
@@ -55,7 +57,7 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public String getDescription() {
-        return "Get from point A to point C via point B, where point B is a fold in space & time.";
+        return StatCollector.translateToLocal("module.blinkDrive.desc");
     }
 
     @Override

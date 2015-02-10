@@ -19,6 +19,7 @@ public class HeatSinkModule extends PowerModuleBase {
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.basicPlating, 1));
         addTradeoffProperty(THICKNESS, MuseCommonStrings.WEIGHT, 5000, "g");
         addTradeoffProperty(THICKNESS, MuseHeatUtils.MAXIMUM_HEAT, 150, "");
+        addPropertyLocalString(THICKNESS, StatCollector.translateToLocal("module.heatSink.thickness"));
     }
 
     @Override
@@ -38,7 +39,7 @@ public class HeatSinkModule extends PowerModuleBase {
 
     @Override
     public String getDescription() {
-        return "A thick layer of plating to soak up heat.";
+        return StatCollector.translateToLocal("module.heatSink.desc");
     }
 
     @Override

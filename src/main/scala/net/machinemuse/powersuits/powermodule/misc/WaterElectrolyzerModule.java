@@ -25,6 +25,7 @@ public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerT
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.lvcapacitor, 1));
         addBaseProperty(WaterElectrolyzerModule.WATERBREATHING_ENERGY_CONSUMPTION, 1000, "J");
+        addPropertyLocalString(WATERBREATHING_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.waterElectrolyzer.energy"));
     }
 
     @Override
@@ -44,7 +45,7 @@ public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerT
 
     @Override
     public String getDescription() {
-        return "When you run out of air, this module will jolt the water around you, electrolyzing a small bubble to breathe from.";
+        return StatCollector.translateToLocal("module.waterElectrolyzer.desc");
     }
 
     @Override

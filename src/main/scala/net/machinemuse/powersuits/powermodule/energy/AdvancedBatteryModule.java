@@ -47,6 +47,6 @@ public class AdvancedBatteryModule extends PowerModuleBase {
 
     @Override
     public String getDescription() {
-        return "Integrate a more advanced battery to store more energy.";
+        return StatCollector.translateToLocal("module.advancedBattery.desc");
     }
 }

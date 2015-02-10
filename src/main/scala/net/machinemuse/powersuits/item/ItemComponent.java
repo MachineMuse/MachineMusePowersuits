@@ -14,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
@@ -81,7 +82,7 @@ public class ItemComponent extends Item {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
         if (Config.doAdditionalInfo()) {
-            String message = "For use in Tinker Table.";
+            String message = StatCollector.translateToLocal("item.powerArmorComponent.common.usage");
             message = MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic);
             currentTipList.add(message);
             int damage = stack.getItemDamage();
@@ -96,23 +97,23 @@ public class ItemComponent extends Item {
 
     public void populate() {
         // NOTE: Only add to end otherwise people's IDs will get screwed up n.n'
-        wiring = addComponent("componentWiring", "A special type of wiring with high voltaic capacity and precision, necessary for the sensitive electronics in power armor.", "wiring");
-        solenoid = addComponent("componentSolenoid", "Wires wound around a ferromagnetic core produces a basic electromagnet.", "solenoid");
-        servoMotor = addComponent("componentServo", "A special type of motor which uses a pulse-modulated signal to enact very precise movements.", "servo");
-        gliderWing = addComponent("componentGliderWing", "A lightweight aerodynamic wing with an electromagnet for quick deployment and retraction.", "gliderwing");
-        ionThruster = addComponent("componentIonThruster", "Essentially a miniature particle accelerator. Accelerates ions to near-light speed to produce thrust.", "ionthruster");
-        lvcapacitor = addComponent("componentLVCapacitor", "A simple capacitor can store and discharge small amounts of energy rapidly.", "lvcapacitor");
-        mvcapacitor = addComponent("componentMVCapacitor", "A more advanced capacitor which can store more energy at higher voltages.", "mvcapacitor");
-        hvcapacitor = addComponent("componentHVCapacitor", "A synthetic crystal device which can store and release massive amounts of energy.", "hvcapacitor");
-        parachute = addComponent("componentParachute", "A simple reusable parachute which can be deployed and recovered in midair.", "parachuteitem");
-        basicPlating = addComponent("componentPlatingBasic", "Some carefully-arranged metal armor plates.", "basicplating1");
-        advancedPlating = addComponent("componentPlatingAdvanced", "Some carefully-arranged armor plates of a rare and stronger material", "advancedplating1");
-        fieldEmitter = addComponent("componentFieldEmitter", "An advanced device which directly manipulates electromagnetic and gravitational fields in an area.", "fieldemitter");
-        laserHologram = addComponent("componentLaserEmitter", "A multicoloured laser array which can cheaply alter the appearance of something.", "hologramemitter");
-        carbonMyofiber = addComponent("componentCarbonMyofiber", "A small bundle of carbon fibers, refined for use in artificial muscles.", "myofiber");
-        controlCircuit = addComponent("componentControlCircuit", "A simple networkable microcontroller for coordinating an individual component.", "controlcircuit");
-        myofiberGel = addComponent("componentMyofiberGel", "A thick, conductive paste, perfect for fitting between myofibers in an artificial muscle.", "paste");
-        artificialMuscle = addComponent("componentArtificialMuscle", "An electrical, artificial muscle, with less range of movement than human muscle but orders of magnitude more strength.", "artificialmuscle");
+        wiring = addComponent("componentWiring", StatCollector.translateToLocal("item.powerArmorComponent.componentWiring.desc"), "wiring");
+        solenoid = addComponent("componentSolenoid", StatCollector.translateToLocal("item.powerArmorComponent.componentSolenoid.desc"), "solenoid");
+        servoMotor = addComponent("componentServo", StatCollector.translateToLocal("item.powerArmorComponent.componentServo.desc"), "servo");
+        gliderWing = addComponent("componentGliderWing", StatCollector.translateToLocal("item.powerArmorComponent.componentGliderWing.desc"), "gliderwing");
+        ionThruster = addComponent("componentIonThruster", StatCollector.translateToLocal("item.powerArmorComponent.componentIonThruster.desc"), "ionthruster");
+        lvcapacitor = addComponent("componentLVCapacitor", StatCollector.translateToLocal("item.powerArmorComponent.componentLVCapacitor.desc"), "lvcapacitor");
+        mvcapacitor = addComponent("componentMVCapacitor", StatCollector.translateToLocal("item.powerArmorComponent.componentMVCapacitor.desc"), "mvcapacitor");
+        hvcapacitor = addComponent("componentHVCapacitor", StatCollector.translateToLocal("item.powerArmorComponent.componentHVCapacitor.desc"), "hvcapacitor");
+        parachute = addComponent("componentParachute", StatCollector.translateToLocal("item.powerArmorComponent.componentParachute.desc"), "parachuteitem");
+        basicPlating = addComponent("componentPlatingBasic", StatCollector.translateToLocal("item.powerArmorComponent.componentPlatingBasic.desc"), "basicplating1");
+        advancedPlating = addComponent("componentPlatingAdvanced", StatCollector.translateToLocal("item.powerArmorComponent.componentPlatingAdvanced.desc"), "advancedplating1");
+        fieldEmitter = addComponent("componentFieldEmitter", StatCollector.translateToLocal("item.powerArmorComponent.componentFieldEmitter.desc"), "fieldemitter");
+        laserHologram = addComponent("componentLaserEmitter", StatCollector.translateToLocal("item.powerArmorComponent.componentLaserEmitter.desc"), "hologramemitter");
+        carbonMyofiber = addComponent("componentCarbonMyofiber", StatCollector.translateToLocal("item.powerArmorComponent.componentCarbonMyofiber.desc"), "myofiber");
+        controlCircuit = addComponent("componentControlCircuit", StatCollector.translateToLocal("item.powerArmorComponent.componentControlCircuit.desc"), "controlcircuit");
+        myofiberGel = addComponent("componentMyofiberGel", StatCollector.translateToLocal("item.powerArmorComponent.componentMyofiberGel.desc"), "paste");
+        artificialMuscle = addComponent("componentArtificialMuscle", StatCollector.translateToLocal("item.powerArmorComponent.componentArtificialMuscle.desc"), "artificialmuscle");
     }
 
     /**

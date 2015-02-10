@@ -31,6 +31,8 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
         addBaseProperty(JET_THRUST, 0);
         addTradeoffProperty("Thrust", JET_ENERGY_CONSUMPTION, 75);
         addTradeoffProperty("Thrust", JET_THRUST, 0.08);
+        addPropertyLocalString(JET_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.jetBoots.energy"));
+        addPropertyLocalString(JET_THRUST, StatCollector.translateToLocal("module.jetBoots.thrust"));
     }
 
     @Override
@@ -50,7 +52,7 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
 
     @Override
     public String getDescription() {
-        return "Jet boots are not as strong as a jetpack, but they should at least be strong enough to counteract gravity.";
+        return StatCollector.translateToLocal("module.jetBoots.desc");
     }
 
     @Override

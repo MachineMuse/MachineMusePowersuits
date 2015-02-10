@@ -38,7 +38,7 @@ public class ClimbAssistModule extends PowerModuleBase implements IToggleableMod
 
     @Override
     public String getDescription() {
-        return "A pair of dedicated servos allow you to effortlessly step up 1m-high ledges.";
+        return StatCollector.translateToLocal("module.climbAssist.desc");
     }
 
     @Override

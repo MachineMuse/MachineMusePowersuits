@@ -15,9 +15,12 @@ public class CosmeticGlowModule extends PowerModuleBase {
 
     public CosmeticGlowModule(List<IModularItem> validItems) {
         super(validItems);
-        addTradeoffProperty("Red Glow", RED_GLOW, 1, "%");
-        addTradeoffProperty("Green Glow", GREEN_GLOW, 1, "%");
-        addTradeoffProperty("Blue Glow", BLUE_GLOW, 1, "%");
+        addTradeoffProperty(RED_GLOW, RED_GLOW, 1, "%");
+        addTradeoffProperty(GREEN_GLOW, GREEN_GLOW, 1, "%");
+        addTradeoffProperty(BLUE_GLOW, BLUE_GLOW, 1, "%");
+        addPropertyLocalString(RED_GLOW, StatCollector.translateToLocal("module.cosmeticGlow.red"));
+        addPropertyLocalString(GREEN_GLOW, StatCollector.translateToLocal("module.cosmeticGlow.green"));
+        addPropertyLocalString(BLUE_GLOW, StatCollector.translateToLocal("module.cosmeticGlow.blue"));
     }
 
     @Override
@@ -42,7 +45,7 @@ public class CosmeticGlowModule extends PowerModuleBase {
 
     @Override
     public String getDescription() {
-        return "Change the appearance of the glowy bits on your armor.";
+        return StatCollector.translateToLocal("module.cosmeticGlow.desc");
     }
 
     @Override

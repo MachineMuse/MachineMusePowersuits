@@ -45,7 +45,7 @@ minecraft {
 }
 
 dependencies {
-	compile 'net.machinemuse.numina:Numina:0.4.0.5-QMX:dev'
+  //compile 'net.machinemuse.numina:Numina:0.4.0.6-QMX:dev' - Not released yet...
   compile 'com.mod-buildcraft:buildcraft:6.2.6:dev'
   compile 'com.enderio:EnderIO:1.7.10-2.2.6.323:dev'
   compile 'net.industrial-craft:industrialcraft-2:2.2.658-experimental:api'
@@ -111,11 +111,13 @@ task copyToLib(type: Copy) {
     from configurations.runtime {
         include 'slick-util.jar'
     }
-    from(sourceSets.main.resources.srcDirs){
-        include 'vanilla.recipes'
-        include 'ThermalExpansion.recipes'
-        include 'IndustrialCraft2.recipes'
-    }
+    
+    // No longer necessary, extracted from JAR on runtime.
+    // from(sourceSets.main.resources.srcDirs){
+    //     include 'vanilla.recipes'
+    //     include 'ThermalExpansion.recipes'
+    //     include 'IndustrialCraft2.recipes'
+    // }
 }
 
 build.dependsOn(copyToLib)

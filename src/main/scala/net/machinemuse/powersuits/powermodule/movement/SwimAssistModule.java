@@ -30,6 +30,8 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 2));
         addTradeoffProperty("Thrust", SWIM_BOOST_ENERGY_CONSUMPTION, 100, "J");
         addTradeoffProperty("Thrust", SWIM_BOOST_AMOUNT, 1, "m/s");
+        addPropertyLocalString(SWIM_BOOST_AMOUNT, StatCollector.translateToLocal("module.swimAssist.boost"));
+        addPropertyLocalString(SWIM_BOOST_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.swimAssist.energy"));
     }
 
     @Override
@@ -49,7 +51,7 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
 
     @Override
     public String getDescription() {
-        return "By refitting an ion thruster for underwater use, you may be able to add extra forward (or backward) thrust when underwater.";
+        return StatCollector.translateToLocal("module.swimAssist.desc");
     }
 
     @Override

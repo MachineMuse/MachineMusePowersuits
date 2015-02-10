@@ -35,6 +35,8 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
         addBaseProperty(PICKAXE_HARVEST_SPEED, 8, "x");
         addTradeoffProperty("Overclock", PICKAXE_ENERGY_CONSUMPTION, 950);
         addTradeoffProperty("Overclock", PICKAXE_HARVEST_SPEED, 22);
+        addPropertyLocalString(PICKAXE_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.pickaxe.energy"));
+        addPropertyLocalString(PICKAXE_HARVEST_SPEED, StatCollector.translateToLocal("module.pickaxe.speed"));
     }
 
     @Override
@@ -54,7 +56,7 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
 
     @Override
     public String getDescription() {
-        return "Picks are good for harder materials like stone and ore.";
+        return StatCollector.translateToLocal("module.pickaxe.desc");
     }
 
     @Override

@@ -18,6 +18,7 @@ import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
 import java.util.*;
@@ -71,14 +72,14 @@ public class ModuleTweakFrame extends ScrollableFrame {
             GL11.glPushMatrix();
             GL11.glScaled(SCALERATIO, SCALERATIO, SCALERATIO);
             super.draw();
-            MuseRenderer.drawCenteredString("Tinker", (border.left() + border.right()) / 2, border.top() + 2);
+            MuseRenderer.drawCenteredString(StatCollector.translateToLocal("tile.tinkerTable.ui.tinker"), (border.left() + border.right()) / 2, border.top() + 2);
             for (ClickableTinkerSlider slider : sliders) {
                 slider.draw();
             }
             int nexty = (int) (sliders.size() * 20 + border.top() + 14);
             for (Map.Entry<String, Double> property : propertyStrings.entrySet()) {
                 nexty += 9;
-                String[] str = {property.getKey() + ':',
+                String[] str = {PowerModule.getPropertyLocalString(property.getKey()) + ':',
                         MuseStringUtils.formatNumberFromUnits(property.getValue(), PowerModule.getUnit(property.getKey()))};
                 MuseRenderer.drawStringsJustified(Arrays.asList(str), border.left() + 4, border.right() - 4, nexty);
 
@@ -115,7 +116,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
             ClickableTinkerSlider slider = new ClickableTinkerSlider(
                     center,
                     border.right() - border.left() - 8,
-                    moduleTag, tweak);
+                    moduleTag, PowerModule.getPropertyLocalString(tweak));
             sliders.add(slider);
             if (selectedSlider != null && slider.hitBox(center.x(), center.y())) {
                 selectedSlider = slider;

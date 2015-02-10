@@ -35,6 +35,9 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
         addBaseProperty(SHOVEL_HARVEST_SPEED, 8, "x");
         addTradeoffProperty("Overclock", SHOVEL_ENERGY_CONSUMPTION, 950);
         addTradeoffProperty("Overclock", SHOVEL_HARVEST_SPEED, 22);
+        
+        addPropertyLocalString(SHOVEL_HARVEST_SPEED, StatCollector.translateToLocal("module.shovel.speed"));
+        addPropertyLocalString(SHOVEL_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.shovel.energy"));
     }
 
     @Override
@@ -54,7 +57,7 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public String getDescription() {
-        return "Shovels are good for soft materials like dirt and sand.";
+        return StatCollector.translateToLocal("module.shovel.desc");
     }
 
     @Override

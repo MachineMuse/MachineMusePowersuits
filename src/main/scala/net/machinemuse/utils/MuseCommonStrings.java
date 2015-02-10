@@ -8,9 +8,12 @@ import net.machinemuse.powersuits.item.ItemPowerFist;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public abstract class MuseCommonStrings {
     /**
@@ -20,11 +23,6 @@ public abstract class MuseCommonStrings {
     public static final String ARMOR_VALUE_ENERGY = "Armor (Energy)";
     public static final String ARMOR_ENERGY_CONSUMPTION = "Energy Per Damage";
     public static final String WEIGHT = "Weight";
-
-    /**
-     * Module names
-     */
-    public static final String MODULE_ANTIGRAVITY = "Antigravity Drive";
 
     /**
      * Categories for modules
@@ -38,6 +36,27 @@ public abstract class MuseCommonStrings {
     public static final String CATEGORY_VISION = "Vision";
     public static final String CATEGORY_ENVIRONMENTAL = "Environment";
     public static final String CATEGORY_SPECIAL = "Special";
+    
+    protected static final Map<String, String> CATEGORY_LOCALES;
+    static {
+        // Static category strings. Implemented as such with plans to switch to unlocalized strings [where/when]ever possible. -- Korynkai 20150209
+        Map<String, String> result = new HashMap<String, String>();
+        result.put(CATEGORY_ARMOR, StatCollector.translateToLocal("module.category.armor"));
+        result.put(CATEGORY_ENERGY, StatCollector.translateToLocal("module.category.energy"));
+        result.put(CATEGORY_TOOL, StatCollector.translateToLocal("module.category.tool"));
+        result.put(CATEGORY_WEAPON, StatCollector.translateToLocal("module.category.weapon"));
+        result.put(CATEGORY_MOVEMENT, StatCollector.translateToLocal("module.category.movement"));
+        result.put(CATEGORY_COSMETIC, StatCollector.translateToLocal("module.category.cosmetic"));
+        result.put(CATEGORY_VISION, StatCollector.translateToLocal("module.category.vision"));
+        result.put(CATEGORY_ENVIRONMENTAL, StatCollector.translateToLocal("module.category.environment"));
+        result.put(CATEGORY_SPECIAL, StatCollector.translateToLocal("module.category.special"));
+        CATEGORY_LOCALES = Collections.unmodifiableMap(result);
+    }
+    
+    public static String getModuleCategoryLocalString(String category) {
+        String locale = CATEGORY_LOCALES.get(category);
+        return locale == null ? "" : locale;
+    }
 
     /**
      * Adds information to the item's tooltip when 'getting' it.
@@ -55,14 +74,16 @@ public abstract class MuseCommonStrings {
         if (stack.getItem() instanceof ItemPowerFist) {
             String mode = MuseItemUtils.getStringOrNull(stack, "Mode");
             if (mode != null) {
-                currentTipList.add("Mode:" + MuseStringUtils.wrapFormatTags(mode, MuseStringUtils.FormatCodes.Red));
+                currentTipList.add(StatCollector.translateToLocal("module.common.mode") + ":" 
+                                + MuseStringUtils.wrapFormatTags(mode, MuseStringUtils.FormatCodes.Red));
             } else {
-                currentTipList.add("Change modes: Sneak+mousewheel.");
+                currentTipList.add(StatCollector.translateToLocal("module.common.mode.change"));
             }
         }
         ElectricAdapter adapter = ElectricAdapter.wrap(stack);
         if (adapter != null) {
-            String energyinfo = "Energy: " + MuseStringUtils.formatNumberShort(adapter.getCurrentEnergy()) + '/'
+            String energyinfo = StatCollector.translateToLocal("module.common.energy") + ": " 
+                    + MuseStringUtils.formatNumberShort(adapter.getCurrentEnergy()) + '/'
                     + MuseStringUtils.formatNumberShort(adapter.getMaxEnergy());
             currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character,
                     MuseStringUtils.FormatCodes.Grey));
@@ -70,10 +91,10 @@ public abstract class MuseCommonStrings {
         if (Config.doAdditionalInfo()) {
             List<String> installed = MuseCommonStrings.getItemInstalledModules(player, stack);
             if (installed.size() == 0) {
-                String message = "No installed modules! This item is useless until you add some modules at a Tinker Table.";
+                String message = StatCollector.translateToLocal("module.common.none");
                 currentTipList.addAll(MuseStringUtils.wrapStringToLength(message, 30));
             } else {
-                currentTipList.add("Installed Modules:");
+                currentTipList.add(StatCollector.translateToLocal("module.common.installed") + ":");
                 currentTipList.addAll(installed);
             }
         } else {

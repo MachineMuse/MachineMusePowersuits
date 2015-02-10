@@ -35,6 +35,8 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
         addBaseProperty(HOE_ENERGY_CONSUMPTION, 50);
         addTradeoffProperty("Search Radius", HOE_ENERGY_CONSUMPTION, 950);
         addTradeoffProperty("Search Radius", HOE_SEARCH_RADIUS, 8, "m");
+        addPropertyLocalString(HOE_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.hoe.energy"));
+        addPropertyLocalString(HOE_SEARCH_RADIUS, StatCollector.translateToLocal("module.hoe.radius"));
     }
 
     @Override
@@ -105,7 +107,7 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
 
     @Override
     public String getDescription() {
-        return "An automated tilling addon to make it easy to till large swaths of land at once.";
+        return StatCollector.translateToLocal("module.hoe.desc");
     }
 
     @Override

@@ -34,7 +34,7 @@ public class AirtightSealModule extends PowerModuleBase {
 
     @Override
     public String getDescription() {
-        return "Seal the suit against hostile atmospheres for venturing to other planets.";
+        return StatCollector.translateToLocal("module.airtightSeal.desc");
     }
 
     @Override

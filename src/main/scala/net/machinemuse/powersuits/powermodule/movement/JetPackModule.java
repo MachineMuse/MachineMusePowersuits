@@ -31,6 +31,8 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
         addBaseProperty(JET_THRUST, 0, "N");
         addTradeoffProperty("Thrust", JET_ENERGY_CONSUMPTION, 150);
         addTradeoffProperty("Thrust", JET_THRUST, 0.16);
+        addPropertyLocalString(JET_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.jetpack.energy"));
+        ddPropertyLocalString(JET_THRUST, StatCollector.translateToLocal("module.jetpack.thrust"));
     }
 
     @Override
@@ -50,7 +52,7 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
 
     @Override
     public String getDescription() {
-        return "A jetpack should allow you to jump indefinitely, or at least until you run out of power.";
+        return StatCollector.translateToLocal("module.jetpack.desc");
     }
 
     @Override

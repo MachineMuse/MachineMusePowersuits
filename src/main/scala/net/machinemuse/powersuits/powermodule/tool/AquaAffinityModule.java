@@ -31,6 +31,8 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
         addBaseProperty(UNDERWATER_HARVEST_SPEED, 0.2, "%");
         addTradeoffProperty("Power", AQUA_AFFINITY_ENERGY_CONSUMPTION, 100);
         addTradeoffProperty("Power", UNDERWATER_HARVEST_SPEED, 0.8);
+        addPropertyLocalString(UNDERWATER_HARVEST_SPEED, StatCollector.translateToLocal("module.aquaAffinity.speed"));
+        addPropertyLocalString(AQUA_AFFINITY_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.aquaAffinity.energy"));
     }
 
     @Override
@@ -50,7 +52,7 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
 
     @Override
     public String getDescription() {
-        return "Reduces the speed penalty for using your tool underwater.";
+        return StatCollector.translateToLocal("module.aquaAffinity.desc");
     }
 
     @Override

@@ -12,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.StatCollector;
 import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
@@ -54,9 +55,10 @@ public class ClickableKeybinding extends ClickableButton {
             return;
         }
         for (ClickableModule module : boundModules) {
-            String valstring = toggleval ? " on" : " off";
+            String valstring = toggleval ? StatCollector.translateToLocal("module.toggle.stateOn") : StatCollector.translateToLocal("module.toggle.stateOff");
             if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
-                player.addChatMessage(new ChatComponentText("Toggled " + module.getModule().getDataName() + valstring));
+                player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("module.toggle.toggled") + " " + module.getModule().getDataName() 
+                                            + " " + valstring));
             }
             MuseItemUtils.toggleModuleForPlayer(player, module.getModule().getDataName(), toggleval);
             MusePacketToggleRequest toggleRequest = new MusePacketToggleRequest(player, module.getModule().getDataName(), toggleval);
@@ -67,7 +69,7 @@ public class ClickableKeybinding extends ClickableButton {
 
     public static String parseName(KeyBinding keybind) {
         if (keybind.getKeyCode() < 0) {
-            return "Mouse" + (keybind.getKeyCode() + 100);
+            return StatCollector.translateToLocal("powersuits.keybindings.mouse") + (keybind.getKeyCode() + 100);
         } else {
             return Keyboard.getKeyName(keybind.getKeyCode());
         }

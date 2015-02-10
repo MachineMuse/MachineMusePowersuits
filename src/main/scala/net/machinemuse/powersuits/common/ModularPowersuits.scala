@@ -7,6 +7,7 @@ import cpw.mods.fml.common.{Mod, SidedProxy}
 import cpw.mods.fml.common.event.{FMLInitializationEvent, FMLPostInitializationEvent, FMLPreInitializationEvent, FMLLoadCompleteEvent}
 import cpw.mods.fml.common.network.NetworkRegistry
 import cpw.mods.fml.common.registry.EntityRegistry
+import net.machinemuse.numina.recipe.JSONRecipeList
 import net.machinemuse.powersuits.entity.{EntityLuxCapacitor, EntityPlasmaBolt, EntitySpinningBlade}
 import net.machinemuse.powersuits.event.{HarvestEventHandler, MovementManager}
 import net.machinemuse.powersuits.network.packets.MPSPacketList
@@ -29,7 +30,10 @@ object ModularPowersuits {
 
   @Mod.EventHandler def preInit(event: FMLPreInitializationEvent) {
     proxy.preInit()
-    val newConfig: File = new File(event.getModConfigurationDirectory + "/machinemuse/powersuits.cfg")
+    configDir = e.getModConfigurationDirectory
+    val recipesFolder = new File(configDir, "machinemuse/recipes/powersuits")
+    val newConfig: File = new File(configDir, "machinemuse/powersuits.cfg")
+    recipesFolder.mkdir()
     Config.init(new Configuration(newConfig))
     Config.setConfigFolderBase(event.getModConfigurationDirectory)
     MinecraftForge.EVENT_BUS.register(new HarvestEventHandler)
@@ -72,6 +76,10 @@ object ModularPowersuits {
 
   @Mod.EventHandler def atLaunch(event: FMLLoadCompleteEvent) {
     proxy.atLaunch()
+  }
+  
+  @Mod.EventHandler def onServerStart(event: FMLServerStartedEvent) {
+    MPSRecipeManager.loadOrPutRecipesFromJar(event.getModConfigurationDirectory + "/machinemuse/recipes/powersuits")
   }
 
 }

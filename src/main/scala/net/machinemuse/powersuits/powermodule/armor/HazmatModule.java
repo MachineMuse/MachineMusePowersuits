@@ -34,7 +34,7 @@ public class HazmatModule extends PowerModuleBase {
 
     @Override
     public String getDescription() {
-        return "Protect yourself from that pesky radiation poisoning. *Must be on every piece*";
+        return StatCollector.translateToLocal("module.hazmat.desc");
     }
 
     @Override

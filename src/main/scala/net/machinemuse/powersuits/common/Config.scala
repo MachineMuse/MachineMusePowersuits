@@ -144,7 +144,7 @@ object Config {
     addModule(new WaterElectrolyzerModule(HEADONLY))
     addModule(new NightVisionModule(HEADONLY))
     addModule(new FlightControlModule(HEADONLY))
-    addModule(new InvisibilityModule(TORSOONLY))
+    // addModule(new InvisibilityModule(TORSOONLY)) Removed until 0.11.0.7-QMX - See GitHub issue #15
     addModule(new BlinkDriveModule(TOOLONLY))
     addModule(new DiamondPickUpgradeModule(TOOLONLY))
     addModule(new AquaAffinityModule(TOOLONLY))

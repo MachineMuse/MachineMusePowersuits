@@ -20,6 +20,8 @@ class BinocularsModule(list: java.util.List[IModularItem]) extends PowerModuleBa
   addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.laserHologram, 1))
   addBaseProperty(FOV_MULTIPLIER, 0.5)
   addTradeoffProperty("FOV multiplier", FOV_MULTIPLIER, 9.5, "%")
+  addPropertyLocalString(FOV_MULTIPLIER, StatCollector.translateToLocal("module.binoculars.view"))
+  addPropertyLocalString("FOV multiplier", StatCollector.translateToLocal("module.binoculars.multiplier"))
 
   override def getCategory: String = MuseCommonStrings.CATEGORY_VISION
 
@@ -27,7 +29,7 @@ class BinocularsModule(list: java.util.List[IModularItem]) extends PowerModuleBa
 
   override def getLocalizedName: String = StatCollector.translateToLocal("module.binoculars.name")
 
-  override def getDescription: String = "With the problems that have been plaguing Optifine lately, you've decided to take that Zoom ability into your own hands."
+  override def getDescription: String = StatCollector.translateToLocal("module.binoculars.desc")
 
   override def getTextureFile: String = "binoculars"
 

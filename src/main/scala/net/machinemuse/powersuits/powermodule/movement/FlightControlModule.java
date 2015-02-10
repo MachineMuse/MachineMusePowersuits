@@ -18,6 +18,8 @@ public class FlightControlModule extends PowerModuleBase implements IToggleableM
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         addTradeoffProperty("Verticality", FLIGHT_VERTICALITY, 1.0, "%");
+        addPropertyLocalString("Verticality", StatCollector.translateToLocal("module.flightControl.verticality"));
+        addPropertyLocalString(FLIGHT_VERTICALITY, StatCollector.translateToLocal("module.flightControl.ratio"));
     }
 
     @Override
@@ -42,7 +44,7 @@ public class FlightControlModule extends PowerModuleBase implements IToggleableM
 
     @Override
     public String getDescription() {
-        return "An integrated control circuit to help you fly better. Press Z to go down.";
+        return StatCollector.translateToLocal("module.flightControl.desc");
     }
 
 }

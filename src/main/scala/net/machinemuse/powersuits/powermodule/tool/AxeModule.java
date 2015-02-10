@@ -27,6 +27,7 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
     public static final String AXE_ENERGY_CONSUMPTION = "Axe Energy Consumption";
     public static final String AXE_HARVEST_SPEED = "Axe Harvest Speed";
     public static final String AXE_SEARCH_RADIUS = "Axe Search Radius";
+    
 
     public AxeModule(List<IModularItem> validItems) {
         super(validItems);
@@ -35,9 +36,14 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
         addBaseProperty(AXE_HARVEST_SPEED, 8, "x");
         addTradeoffProperty("Overclock", AXE_ENERGY_CONSUMPTION, 950);
         addTradeoffProperty("Overclock", AXE_HARVEST_SPEED, 22);
+        
         // Removed until further research can be done!
 //        addTradeoffProperty("Radius", AXE_ENERGY_CONSUMPTION, 1000);
 //        addTradeoffProperty("Radius", AXE_SEARCH_RADIUS, 3);
+        
+        addPropertyLocalString(AXE_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.axe.energy"));
+        addPropertyLocalString(AXE_HARVEST_SPEED, StatCollector.translateToLocal("module.axe.speed"));
+        addPropertyLocalString(AXE_SEARCH_RADIUS, StatCollector.translateToLocal("module.axe.radius"));
     }
 
     @Override
@@ -57,7 +63,7 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
 
     @Override
     public String getDescription() {
-        return "Axes are mostly for chopping trees.";
+        return StatCollector.translateToLocal("module.axe.desc");
     }
 
     @Override

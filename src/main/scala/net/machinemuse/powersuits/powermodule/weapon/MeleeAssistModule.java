@@ -14,15 +14,22 @@ public class MeleeAssistModule extends PowerModuleBase {
     public static final String PUNCH_ENERGY = "Punch Energy Consumption";
     public static final String PUNCH_DAMAGE = "Melee Damage";
     public static final String PUNCH_KNOCKBACK = "Melee Knockback";
-
+    protected static final String IMPACT = "Impact";
+    protected static final String CARRY_THROUGH = "Carry-through";
+    
     public MeleeAssistModule(List<IModularItem> validItems) {
         super(validItems);
         addBaseProperty(PUNCH_ENERGY, 10, "J");
         addBaseProperty(PUNCH_DAMAGE, 2, "pt");
-        addTradeoffProperty("Impact", PUNCH_ENERGY, 100, "J");
-        addTradeoffProperty("Impact", PUNCH_DAMAGE, 8, "pt");
-        addTradeoffProperty("Carry-through", PUNCH_ENERGY, 20, "J");
-        addTradeoffProperty("Carry-through", PUNCH_KNOCKBACK, 1, "P");
+        addTradeoffProperty(IMPACT, PUNCH_ENERGY, 100, "J");
+        addTradeoffProperty(IMPACT, PUNCH_DAMAGE, 8, "pt");
+        addTradeoffProperty(CARRY_THROUGH, PUNCH_ENERGY, 20, "J");
+        addTradeoffProperty(CARRY_THROUGH, PUNCH_KNOCKBACK, 1, "P");
+        addPropertyLocalString(PUNCH_ENERGY, StatCollector.translateToLocal("module.meleeAssist.energy"));
+        addPropertyLocalString(PUNCH_DAMAGE, StatCollector.translateToLocal("module.meleeAssist.damage"));
+        addPropertyLocalString(PUNCH_KNOCKBACK, StatCollector.translateToLocal("module.meleeAssist.knockback"));
+        addPropertyLocalString(IMPACT, StatCollector.translateToLocal("module.meleeAssist.impact"));
+        addPropertyLocalString(CARRY_THROUGH, StatCollector.translateToLocal("module.meleeAssist.carrythrough"));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.lvcapacitor, 1));
     }
@@ -49,6 +56,6 @@ public class MeleeAssistModule extends PowerModuleBase {
 
     @Override
     public String getDescription() {
-        return "A much simpler addon, makes your powertool punches hit harder.";
+        return StatCollector.translateToLocal("module.meleeAssist.desc");
     }
 }

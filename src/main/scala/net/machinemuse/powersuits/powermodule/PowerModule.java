@@ -42,6 +42,11 @@ public class PowerModule extends PowerModuleBase {
 		String unit = units.get(propertyName);
 		return unit == null ? "" : unit;
 	}
+	
+	public static String getPropertyLocalString(String propertyName) {
+        String locale = locales.get(propertyName);
+        return locale == null ? "" : locale;
+    }
 
 	public PowerModule setDescription(String description) {
 		this.description = description;

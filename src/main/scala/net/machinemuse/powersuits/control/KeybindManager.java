@@ -10,6 +10,7 @@ import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.util.StatCollector;
 import org.lwjgl.input.Keyboard;
 
 import java.io.*;
@@ -46,7 +47,7 @@ public class KeybindManager {
 
     public static String parseName(KeyBinding keybind) {
         if (keybind.getKeyCode() < 0) {
-            return "Mouse" + (keybind.getKeyCode() + 100);
+            return StatCollector.translateToLocal("powersuits.keybindings.mouse") + (keybind.getKeyCode() + 100);
         } else {
             return Keyboard.getKeyName(keybind.getKeyCode());
         }

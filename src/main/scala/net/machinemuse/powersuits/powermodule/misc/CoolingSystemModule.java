@@ -29,6 +29,8 @@ public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickM
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         addTradeoffProperty("Power", COOLING_BONUS, 4, "%");
         addTradeoffProperty("Power", ENERGY, 10, "J/t");
+        addPropertyLocalString(ENERGY, StatCollector.translateToLocal("module.coolingSystem.energy"));
+        addPropertyLocalString(COOLING_BONUS, StatCollector.translateToLocal("module.coolingSystem.bonus"));
     }
 
     @Override
@@ -48,7 +50,7 @@ public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickM
 
     @Override
     public String getDescription() {
-        return "Cools down heat-producing modules quicker.";
+        return StatCollector.translateToLocal("module.coolingSystem.desc");
     }
 
     @Override

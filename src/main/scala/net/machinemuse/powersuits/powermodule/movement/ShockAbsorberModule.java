@@ -23,6 +23,8 @@ public class ShockAbsorberModule extends PowerModuleBase implements IToggleableM
         addSimpleTradeoff(this, "Power", SHOCK_ABSORB_ENERGY_CONSUMPTION, "J/m", 0, 10, SHOCK_ABSORB_MULTIPLIER, "%", 0, 1);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
         addInstallCost(new ItemStack(Blocks.wool, 2));
+        addPropertyLocalString(SHOCK_ABSORB_MULTIPLIER, StatCollector.translateToLocal("module.shockAbsorber.absorb"));
+        addPropertyLocalString(SHOCK_ABSORB_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.shockAbsorber.energy"));
         }
 
     @Override
@@ -42,7 +44,7 @@ public class ShockAbsorberModule extends PowerModuleBase implements IToggleableM
 
     @Override
     public String getDescription() {
-        return "With some servos, springs, and padding, you should be able to negate a portion of fall damage.";
+        return StatCollector.translateToLocal("module.shockAbsorber.desc");
     }
 
     @Override

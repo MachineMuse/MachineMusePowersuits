@@ -22,6 +22,7 @@ public class MFFSFieldTeleporterModule extends PowerModuleBase {
     public MFFSFieldTeleporterModule(List<IModularItem> validItems) throws IllegalAccessException, NoSuchFieldException, ClassNotFoundException {
         super(validItems);
         addBaseProperty(FIELD_TELEPORTER_ENERGY_CONSUMPTION, 20000, "J");
+        addPropertyLocalString(FIELD_TELEPORTER_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.mffsFieldTeleporter.energy"));
         ItemStack stack = ModCompatability.getMFFSItem("MFFSitemForcePowerCrystal", 1);
         if (stack == null) {
             throw new IllegalAccessException("Failed to get MFFS forcefield teleporter");
@@ -47,7 +48,7 @@ public class MFFSFieldTeleporterModule extends PowerModuleBase {
 
     @Override
     public String getDescription() {
-        return "A tool which allows you to teleport through MFFS forcefields that you own if you have enough energy.";
+        return StatCollector.translateToLocal("module.mffsFieldTeleporter.desc");
     }
 
     @Override

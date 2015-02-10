@@ -53,6 +53,10 @@ public static boolean isEnderIOLoaded() {
         return Loader.isModLoaded("EnderIO");
 }
 
+public static boolean isMekanismLoaded(){
+        return Loader.isModLoaded("Mekanism");
+}
+
 public static boolean isForestryLoaded() {
         return Loader.isModLoaded("Forestry");
 }
@@ -107,6 +111,16 @@ public static boolean ThermalExpansionRecipesEnabled() {
         boolean defaultval = isThermalExpansionLoaded();
         return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Thermal Expansion Recipes", defaultval).getBoolean(defaultval);
 }
+
+// public static boolean EnderIORecipesEnabled() {
+//         boolean defaultval = isEnderIOLoaded();
+//         return config.getConfig().get(Configuration.CATEGORY_GENERAL, "EnderIO Recipes", defaultval).getBoolean(defaultval);
+// }
+
+// public static boolean MekanismRecipesEnabled() {
+//         boolean defaultval = isMekanismLoaded();
+//         return config.getConfig().get(Configuration.CATEGORY_GENERAL, "Mekanism Recipes", defaultval).getBoolean(defaultval);
+// }
 
 public static double getUERatio() {
         return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per UEJ", 10.0).getDouble(10.0);

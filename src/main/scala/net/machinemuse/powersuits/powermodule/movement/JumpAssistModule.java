@@ -28,6 +28,9 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
         addSimpleTradeoff(this, "Power", JUMP_ENERGY_CONSUMPTION, "J", 0, 25, JUMP_MULTIPLIER, "%", 1, 4);
         addSimpleTradeoff(this, "Compensation", JUMP_ENERGY_CONSUMPTION, "J", 0, 5, JUMP_FOOD_COMPENSATION, "%", 0, 1);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 4));
+        addPropertyLocalString(JUMP_MULTIPLIER, StatCollector.translateToLocal("module.jumpAssist.boost"));
+        addPropertyLocalString(JUMP_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.jumpAssist.energy"));
+        addPropertyLocalString(JUMP_FOOD_COMPENSATION, StatCollector.translateToLocal("module.jumpAssist.food"));
     }
 
     @Override
@@ -47,7 +50,7 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
 
     @Override
     public String getDescription() {
-        return "Another set of servo motors to help you jump higher.";
+        return StatCollector.translateToLocal("module.jumpAssist.desc");
     }
 
     @Override

@@ -34,6 +34,9 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
         addTradeoffProperty("Amperage", PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 38, "pt");
         addTradeoffProperty("Voltage", PLASMA_CANNON_ENERGY_PER_TICK, 50, "J");
         addTradeoffProperty("Voltage", PLASMA_CANNON_EXPLOSIVENESS, 0.5, "Creeper");
+        addPropertyLocalString(PLASMA_CANNON_ENERGY_PER_TICK, StatCollector.translateToLocal("module.plasmaCannon.energyPerTick"));
+        addPropertyLocalString(PLASMA_CANNON_ENERGY_DAMAGE_AT_FULL_CHARGE, StatCollector.translateToLocal("module.plasmaCannon.damageFullCharge"));
+        addPropertyLocalString(PLASMA_CANNON_EXPLOSIVENESS, StatCollector.translateToLocal("module.plasmaCannon.explosiveness"));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 2));
     }
@@ -55,7 +58,7 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
 
     @Override
     public String getDescription() {
-        return "Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.";
+        return StatCollector.translateToLocal("module.plasmaCannon.desc");
     }
 
     @Override

@@ -12,6 +12,7 @@ import net.machinemuse.api.electricity.MuseElectricItem
 import net.machinemuse.api.{ModuleManager, IModularItem}
 import net.machinemuse.utils.ElectricItemUtils
 import net.machinemuse.numina.geometry.Colour
+import net.minecraft.util.StatCollector
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -67,10 +68,10 @@ trait ModularItemBase extends Item with IModularItem with MuseElectricItem {
 
   def getLongInfo(player: EntityPlayer, stack: ItemStack): java.util.List[String] = {
     val info = new java.util.ArrayList[String]
-    info add "Detailed Summary"
-    info add formatInfo("Armor", getArmorDouble(player, stack))
-    info add formatInfo("Energy Storage", getCurrentEnergy(stack)) + 'J'
-    info add formatInfo("Weight", MuseCommonStrings.getTotalWeight(stack)) + 'g'
+    info add StatCollector.translateToLocal("item.commonModular.summary")
+    info add formatInfo(StatCollector.translateToLocal("item.commonModular.armor"), getArmorDouble(player, stack))
+    info add formatInfo(StatCollector.translateToLocal("item.commonModular.energy"), getCurrentEnergy(stack)) + 'J'
+    info add formatInfo(StatCollector.translateToLocal("item.commonModular.weight"), MuseCommonStrings.getTotalWeight(stack)) + 'g'
     info
   }
 

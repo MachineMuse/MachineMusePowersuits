@@ -75,7 +75,7 @@ public String getLocalizedName() {
 
 @Override
 public String getDescription() {
-        return "A wrench which can interact with almost every mod.";
+        return StatCollector.translateToLocal("module.omniwrench.desc");
 }
 
 @Override

@@ -46,6 +46,8 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
         addBaseProperty(SHEARING_HARVEST_SPEED, 8, "x");
         addTradeoffProperty("Overclock", SHEARING_ENERGY_CONSUMPTION, 950);
         addTradeoffProperty("Overclock", SHEARING_HARVEST_SPEED, 22);
+        addPropertyLocalString(SHEARING_ENERGY_CONSUMPTION, StatCollector.translateToLocal("module.shears.energy"));
+        addPropertyLocalString(SHEARING_HARVEST_SPEED, StatCollector.translateToLocal("module.shears.speed"));
     }
 
 
@@ -66,7 +68,7 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public String getDescription() {
-        return "Cuts through leaves, wool, and creepers alike.";
+        return StatCollector.translateToLocal("module.shears.desc");
     }
 
     @Override

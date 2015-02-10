@@ -43,6 +43,6 @@ public class TransparentArmorModule extends PowerModuleBase {
 
     @Override
     public String getDescription() {
-        return "Make the item transparent, so you can show off your skin without losing armor.";
+        return StatCollector.translateToLocal("module.transparentArmor.desc");
     }
 }

@@ -31,6 +31,10 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
         addTradeoffProperty("Red", RED, 1, "%");
         addTradeoffProperty("Green", GREEN, 1, "%");
         addTradeoffProperty("Blue", BLUE, 1, "%");
+        addPropertyLocalString(RED, StatCollector.translateToLocal("module.luxCapacitor.red"));
+        addPropertyLocalString(GREEN, StatCollector.translateToLocal("module.luxCapacitor.green"));
+        addPropertyLocalString(BLUE, StatCollector.translateToLocal("module.luxCapacitor.blue"));
+        addPropertyLocalString(ENERGY, StatCollector.translateToLocal("module.luxCapacitor.energy"));
     }
 
     @Override
@@ -50,7 +54,7 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
 
     @Override
     public String getDescription() {
-        return "Launch a virtually infinite number of attractive light sources at the wall.";
+        return StatCollector.translateToLocal("module.luxCapacitor.desc");
     }
 
     @Override

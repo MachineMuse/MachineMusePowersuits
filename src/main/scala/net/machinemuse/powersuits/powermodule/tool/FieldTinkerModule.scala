@@ -27,7 +27,8 @@ class FieldTinkerModule(list: java.util.List[IModularItem]) extends PowerModuleB
 
   def getLocalizedName: String = StatCollector.translateToLocal("module.fieldTinkerer.name")
 
-  def getDescription: String = "Maybe you can't memorize the blueprints, but you should at least be able to fine tune your modules without Inspiration\u2122 Inc. LLC."
+// If lang fails to encode trademark symbol, it's "\u2122"
+  def getDescription: String = StatCollector.translateToLocal("module.fieldTinkerer.desc")
 
   def getTextureFile: String = "transparentarmor"
 

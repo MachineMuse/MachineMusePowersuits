@@ -10,6 +10,7 @@ import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.geometry.MuseRect;
 import net.machinemuse.numina.geometry.MuseRelativeRect;
 import net.machinemuse.numina.sound.proxy.Musique;
+import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
@@ -147,7 +148,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
             position.setBelow(lastPosition);
             lastPosition = position;
             ModuleSelectionSubFrame frame = new ModuleSelectionSubFrame(
-                    category,
+                    MuseCommonStrings.getModuleCategoryLocalString(category),
                     position);
 
             categories.put(category, frame);
