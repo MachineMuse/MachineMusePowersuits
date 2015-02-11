@@ -24,8 +24,8 @@ public class MPSRecipeManager {
                     JSONRecipeList.loadRecipesFromFile(vanilla);
                 }
                 // Universal Electricity/Resonant Induction/Electrodynamics reintroduction postponed until Calclavia gets his act together....
-                // if ModCompatability.isBasicComponentsLoaded() {
-                //     if ModCompatability.UERecipesEnabled()
+                // if (ModCompatability.isBasicComponentsLoaded()) {
+                //     if (ModCompatability.UERecipesEnabled()) {
                 //         File ue = new File(path, "UniversalElectricity.recipes");
                 //         if (!ue.isFile()) {
                 //             FileUtils.copyURLToFile(getClass().getResource("/UniversalElectricity.recipes"), ue);
@@ -34,8 +34,8 @@ public class MPSRecipeManager {
                 //     }
                 // }
                 // EnderIO support planned...
-                // if ModCompatability.isEnderIOLoaded() {
-                //     if ModCompatability.EnderIORecipesEnabled() {
+                // if (ModCompatability.isEnderIOLoaded()) {
+                //     if (ModCompatability.EnderIORecipesEnabled()) {
                 //         File eio = new File(path, "EnderIO.recipes");
                 //         if (!eio.isFile()) {
                 //             FileUtils.copyURLToFile(getClass().getResource("/EnderIO.recipes"), eio);
@@ -44,8 +44,8 @@ public class MPSRecipeManager {
                 //     }
                 // }
                 // Mekanism support planned...
-                // if ModCompatability.isMekanismLoaded() {
-                //     if ModCompatability.MekanismRecipesEnabled() {
+                // if (ModCompatability.isMekanismLoaded()) {
+                //     if (ModCompatability.MekanismRecipesEnabled()) {
                 //         File mk = new File(path, "Mekanism.recipes");
                 //         if (!mk.isFile()) {
                 //             FileUtils.copyURLToFile(getClass().getResource("/Mekanism.recipes"), mk);
