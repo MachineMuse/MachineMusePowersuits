@@ -28,7 +28,7 @@ public class MPSRecipeManager {
                 //     if (ModCompatability.UERecipesEnabled()) {
                 //         File ue = new File(path, "UniversalElectricity.recipes");
                 //         if (!ue.isFile()) {
-                //             FileUtils.copyURLToFile(getClass().getResource("/UniversalElectricity.recipes"), ue);
+                //             FileUtils.copyURLToFile(MPSRecipeManager.class.getResource("/UniversalElectricity.recipes"), ue);
                 //         }
                 //         JSONRecipeList.loadRecipesFromFile(ue);
                 //     }
@@ -38,7 +38,7 @@ public class MPSRecipeManager {
                 //     if (ModCompatability.EnderIORecipesEnabled()) {
                 //         File eio = new File(path, "EnderIO.recipes");
                 //         if (!eio.isFile()) {
-                //             FileUtils.copyURLToFile(getClass().getResource("/EnderIO.recipes"), eio);
+                //             FileUtils.copyURLToFile(MPSRecipeManager.class.getResource("/EnderIO.recipes"), eio);
                 //         }
                 //         JSONRecipeList.loadRecipesFromFile(eio);
                 //     }
@@ -48,7 +48,7 @@ public class MPSRecipeManager {
                 //     if (ModCompatability.MekanismRecipesEnabled()) {
                 //         File mk = new File(path, "Mekanism.recipes");
                 //         if (!mk.isFile()) {
-                //             FileUtils.copyURLToFile(getClass().getResource("/Mekanism.recipes"), mk);
+                //             FileUtils.copyURLToFile(MPSRecipeManager.class.getResource("/Mekanism.recipes"), mk);
                 //         }
                 //         JSONRecipeList.loadRecipesFromFile(mk);
                 //     }
