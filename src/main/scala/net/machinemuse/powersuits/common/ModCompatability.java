@@ -84,7 +84,7 @@ public static boolean enableThaumGogglesModule() {
 }
 
 public static boolean vanillaRecipesEnabled() {
-//        boolean defaultval = (!isBasicComponentsLoaded()) && (!isIndustrialCraftLoaded());
+//        boolean defaultval = ((!isBasicComponentsLoaded()) && (!isIndustrialCraftLoaded()) && (!isThermalExpansionLoaded()));
         boolean defaultval = ((! isThermalExpansionLoaded()) && (! isIndustrialCraftLoaded()));
         return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Vanilla Recipes", defaultval).getBoolean(defaultval);
 }
