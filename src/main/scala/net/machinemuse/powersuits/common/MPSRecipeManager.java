@@ -16,7 +16,7 @@ public class MPSRecipeManager {
     public static void loadOrPutRecipesFromJar(String path) {
     	if (!isLoaded) {
     		try {
-                if ModCompatability.vanillaRecipesEnabled() {
+                if (ModCompatability.vanillaRecipesEnabled()) {
                     File vanilla = new File(path, "vanilla.recipes");
                     if (!vanilla.isFile()) {
                         FileUtils.copyURLToFile(MPSRecipeManager.class.getResource("/vanilla.recipes"), vanilla);
@@ -53,16 +53,16 @@ public class MPSRecipeManager {
                 //         JSONRecipeList.loadRecipesFromFile(mk);
                 //     }
                 // }
-                if ModCompatability.isIndustrialCraftLoaded() {
-    				if ModCompatability.IC2RecipesEnabled() {
+                if (ModCompatability.isIndustrialCraftLoaded()) {
+    				if (ModCompatability.IC2RecipesEnabled()) {
 	        		    File ic2 = new File(path, "IndustrialCraft2.recipes");
 	            		if (!ic2.isFile()) {
 	                		FileUtils.copyURLToFile(MPSRecipeManager.class.getResource("/IndustrialCraft2.recipes"), ic2);
 	            		}
 	            		JSONRecipeList.loadRecipesFromFile(ic2);
     				}
-	        		if ModCompatability.isGregTechLoaded() {
-	        		    if ModCompatability.GregTechRecipesEnabled() {
+	        		if (ModCompatability.isGregTechLoaded()) {
+	        		    if (ModCompatability.GregTechRecipesEnabled()) {
 		                    File gt = new File(path, "GregTech.recipes");
 		            		if (!gt.isFile()) {
 		                		FileUtils.copyURLToFile(MPSRecipeManager.class.getResource("/GregTech.recipes"), gt);
@@ -71,8 +71,8 @@ public class MPSRecipeManager {
 	        		    }
 	        		}
         		}
-                if ModCompatability.isThermalExpansionLoaded() {
-                    if ModCompatability.ThermalExpansionRecipesEnabled() {
+                if (ModCompatability.isThermalExpansionLoaded()) {
+                    if (ModCompatability.ThermalExpansionRecipesEnabled()) {
                         File te = new File(path, "ThermalExpansion.recipes");
                         if (!te.isFile()) {
                             FileUtils.copyURLToFile(MPSRecipeManager.class.getResource("/ThermalExpansion.recipes"), te);
