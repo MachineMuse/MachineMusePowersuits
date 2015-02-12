@@ -52,7 +52,7 @@
 		"ingredients" : [
 			[ { "oredictName" : "dyeRed" }, { "oredictName" : "dyeGreen" }, { "oredictName" : "dyeBlue" } ],
 			[ null, { "oredictName" : "blockGlass" }, null ],
-			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.thermalexpansion.material.powerCoilGold.name" }, { "oredictName" : "componentWiring" } ]
+			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.thermalexpansion.material.powerCoilGold" }, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {
 			"oredictName" : "componentLaserEmitter"
@@ -62,7 +62,7 @@
 		"ingredients" : [
 			[ null, { "oredictName" : "gemEmerald" }, null ],
 			[ { "oredictName" : "ingotElectrum" }, { "unlocalizedName" : "tile.thermalexpansion.frame.machineBasic.name" }, { "oredictName" : "ingotElectrum" } ],
-			[ null, { "unlocalizedName" : "item.thermalexpansion.material.powerCoilSilver.name" }, null ]
+			[ null, { "unlocalizedName" : "item.thermalexpansion.material.powerCoilSilver" }, null ]
 		],
 		"result" : {
 			"unlocalizedName" : "tile.tinkerTable"
@@ -131,7 +131,7 @@
 		"ingredients" : [
 			[ { "oredictName" : "blockCloth" }, { "oredictName" : "blockCloth" }, { "oredictName" : "blockCloth" } ],
 			[ { "unlocalizedName" : "item.string" }, null, { "unlocalizedName" : "item.string" } ],
-			[ null, { "unlocalizedName" : "item.thermalexpansion.material.pneumaticServo.name" }, null ]
+			[ null, { "unlocalizedName" : "item.thermalexpansion.material.pneumaticServo" }, null ]
 		],
 		"result" : {
 			"oredictName" : "componentParachute"
@@ -156,7 +156,7 @@
 	},
 	{
 		"ingredients" : [
-			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.thermalexpansion.component.cellReinforcedFrameFull.name" }, { "oredictName" : "componentWiring" } ]
+			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "tile.thermalexpansion.frame.cellReinforcedFull.name" }, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {
 			"oredictName" : "componentHVCapacitor"
@@ -185,7 +185,7 @@
 	{
 		"ingredients" : [
 			[  null, { "oredictName" : "componentSolenoid" }, null ],
-			[  { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.thermalexpansion.material.pneumaticServo.name" }, { "oredictName" : "componentWiring" } ],
+			[  { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.thermalexpansion.material.pneumaticServo" }, { "oredictName" : "componentWiring" } ],
 			[  null, { "oredictName" : "componentSolenoid" }, null ]
 		],
 		"result" : {
