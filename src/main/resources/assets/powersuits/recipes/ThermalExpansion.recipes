@@ -52,7 +52,7 @@
 		"ingredients" : [
 			[ { "oredictName" : "dyeRed" }, { "oredictName" : "dyeGreen" }, { "oredictName" : "dyeBlue" } ],
 			[ null, { "oredictName" : "blockGlass" }, null ],
-			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.thermalexpansion.material.powerCoilGold" }, { "oredictName" : "componentWiring" } ]
+			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.thermalexpansion.material.powerCoilGold.name" }, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {
 			"oredictName" : "componentLaserEmitter"
@@ -61,8 +61,8 @@
 	{
 		"ingredients" : [
 			[ null, { "oredictName" : "gemEmerald" }, null ],
-			[ { "oredictName" : "ingotElectrum" }, { "unlocalizedName" : "tile.thermalexpansion.frame.machineBasic" }, { "oredictName" : "ingotElectrum" } ],
-			[ null, { "unlocalizedName" : "item.thermalexpansion.material.powerCoilSilver" }, null ]
+			[ { "oredictName" : "ingotElectrum" }, { "unlocalizedName" : "tile.thermalexpansion.frame.machineBasic.name" }, { "oredictName" : "ingotElectrum" } ],
+			[ null, { "unlocalizedName" : "item.thermalexpansion.material.powerCoilSilver.name" }, null ]
 		],
 		"result" : {
 			"unlocalizedName" : "tile.tinkerTable"
@@ -131,7 +131,7 @@
 		"ingredients" : [
 			[ { "oredictName" : "blockCloth" }, { "oredictName" : "blockCloth" }, { "oredictName" : "blockCloth" } ],
 			[ { "unlocalizedName" : "item.string" }, null, { "unlocalizedName" : "item.string" } ],
-			[ null, { "unlocalizedName" : "item.thermalexpansion.material.pneumaticServo" }, null ]
+			[ null, { "unlocalizedName" : "item.thermalexpansion.material.pneumaticServo.name" }, null ]
 		],
 		"result" : {
 			"oredictName" : "componentParachute"
@@ -148,7 +148,7 @@
 	},
 	{
 		"ingredients" : [
-			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "tile.thermalexpansion.frame.cellBasic" }, { "oredictName" : "componentWiring" } ]
+			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "tile.thermalexpansion.frame.cellBasic.name" }, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {
 			"oredictName" : "componentMVCapacitor"
@@ -156,7 +156,7 @@
 	},
 	{
 		"ingredients" : [
-			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.thermalexpansion.component.cellReinforcedFrameFull" }, { "oredictName" : "componentWiring" } ]
+			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.thermalexpansion.component.cellReinforcedFrameFull.name" }, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {
 			"oredictName" : "componentHVCapacitor"
@@ -185,7 +185,7 @@
 	{
 		"ingredients" : [
 			[  null, { "oredictName" : "componentSolenoid" }, null ],
-			[  { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.thermalexpansion.material.pneumaticServo" }, { "oredictName" : "componentWiring" } ],
+			[  { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.thermalexpansion.material.pneumaticServo.name" }, { "oredictName" : "componentWiring" } ],
 			[  null, { "oredictName" : "componentSolenoid" }, null ]
 		],
 		"result" : {
@@ -195,7 +195,7 @@
 	{
 		"ingredients" : [
 			[  null, { "oredictName" : "componentWiring" }, null ],
-			[  { "oredictName" : "componentSolenoid" }, { "unlocalizedName" : "tile.thermalexpansion.frame.tesseractFull" }, { "oredictName" : "componentSolenoid" } ],
+			[  { "oredictName" : "componentSolenoid" }, { "unlocalizedName" : "tile.thermalexpansion.frame.tesseractFull.name" }, { "oredictName" : "componentSolenoid" } ],
 			[  null, { "oredictName" : "componentWiring" }, null ]
 		],
 		"result" : {
@@ -215,35 +215,35 @@
 
 	},
 	{
-    "ingredients" : [
-      [ { "oredictName" : "dustCoal" }, { "oredictName" : "blockClothRock" }, { "oredictName" : "dustCoal" } ],
-      [ { "unlocalizedName" : "item.string" }, { "oredictName" : "gemDiamond" }, { "unlocalizedName" : "item.string" } ],
-      [ null, { "oredictName" : "dustPyrotheum" }, null ]
-    ],
-    "result" : {
-      "oredictName" : "componentCarbonMyofiber",
-      "quantity" : "2"
-    }
+        "ingredients" : [
+            [ { "oredictName" : "dustCoal" }, { "oredictName" : "blockClothRock" }, { "oredictName" : "dustCoal" } ],
+            [ { "unlocalizedName" : "item.string" }, { "oredictName" : "gemDiamond" }, { "unlocalizedName" : "item.string" } ],
+            [ null, { "oredictName" : "dustPyrotheum" }, null ]
+        ],
+        "result" : {
+            "oredictName" : "componentCarbonMyofiber",
+            "quantity" : "2"
+        }
 	},
 	{
-    "ingredients" : [
-      [ { "oredictName" : "dustCoal" }, { "oredictName" : "blockClothRock" }, { "oredictName" : "dustCoal" } ],
-      [ { "oredictName" : "slimeball" }, { "oredictName" : "gemDiamond" }, { "oredictName" : "slimeball" } ],
-      [ null, { "oredictName" : "dustPyrotheum" }, null ]
-    ],
-    "result" : {
-      "oredictName" : "componentMyofiberGel",
-      "quantity" : "3"
-    }
+        "ingredients" : [
+            [ { "oredictName" : "dustCoal" }, { "oredictName" : "blockClothRock" }, { "oredictName" : "dustCoal" } ],
+            [ { "oredictName" : "slimeball" }, { "oredictName" : "gemDiamond" }, { "oredictName" : "slimeball" } ],
+            [ null, { "oredictName" : "dustPyrotheum" }, null ]
+        ],
+        "result" : {
+            "oredictName" : "componentMyofiberGel",
+            "quantity" : "3"
+        }
 	},
 	{
-    "ingredients" : [
-      [ { "oredictName" : "componentMyofiberGel" }, { "oredictName" : "componentCarbonMyofiber" }, { "oredictName" : "componentMyofiberGel" } ],
-      [ { "oredictName" : "componentSolenoid" }, { "oredictName" : "componentCarbonMyofiber" }, { "oredictName" : "dustPyrotheum" } ],
-    	[ { "oredictName" : "componentMyofiberGel" }, { "oredictName" : "componentCarbonMyofiber" }, { "oredictName" : "componentMyofiberGel" } ]
-    ],
-    "result" : {
-      "oredictName" : "componentArtificialMuscle"
-    }
+        "ingredients" : [
+            [ { "oredictName" : "componentMyofiberGel" }, { "oredictName" : "componentCarbonMyofiber" }, { "oredictName" : "componentMyofiberGel" } ],
+            [ { "oredictName" : "componentSolenoid" }, { "oredictName" : "componentCarbonMyofiber" }, { "oredictName" : "dustPyrotheum" } ],
+            [ { "oredictName" : "componentMyofiberGel" }, { "oredictName" : "componentCarbonMyofiber" }, { "oredictName" : "componentMyofiberGel" } ]
+        ],
+        "result" : {
+            "oredictName" : "componentArtificialMuscle"
+        }
 	}
 ]
