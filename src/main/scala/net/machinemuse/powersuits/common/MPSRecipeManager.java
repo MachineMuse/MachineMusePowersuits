@@ -76,7 +76,7 @@ public class MPSRecipeManager {
                     if (ModCompatability.ThermalExpansionRecipesEnabled()) {
                         File te = new File(path, "ThermalExpansion.recipes");
                         if (!te.isFile()) {
-                            FileUtils.copyURLToFile(MPSRecipeManager.class.getResource(folder + "/ThermalExpansion.recipes"), te);
+                            FileUtils.copyURLToFile(MPSRecipeManager.class.getResource(recipeJarPath + "/ThermalExpansion.recipes"), te);
                         }
                         JSONRecipeList.loadRecipesFromFile(te);
                     }
