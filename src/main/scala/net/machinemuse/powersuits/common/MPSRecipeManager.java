@@ -16,7 +16,7 @@ public class MPSRecipeManager {
     public static void loadOrPutRecipesFromJar(String path) {
     	if (!isLoaded) {
     		try {
-    		    String folder = "/assets/powersuits/recipes"
+    		    String folder = "/assets/powersuits/recipes";
                 if (ModCompatability.vanillaRecipesEnabled()) {
                     File vanilla = new File(path, "vanilla.recipes");
                     if (!vanilla.isFile()) {
