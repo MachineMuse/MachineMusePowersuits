@@ -22,7 +22,7 @@ import java.util.Collections;
 public class ModCompatability {
 
 public static boolean isGregTechLoaded() {
-        return Loader.isModLoaded("gregtech_addon");
+        return Loader.isModLoaded("gregtech");
 }
 
 public static boolean isBasicComponentsLoaded() {
