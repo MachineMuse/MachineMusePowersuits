@@ -190,7 +190,7 @@
 	{
 		"ingredients" : [
 			[ { "oredictName" : "ingotSteel" }, { "oredictName" : "ingotBrass" }, { "oredictName" : "ingotSteel" } ],
-			[ { "oredictName" : "circuitAdvanced" }, { "oredictName" : "componentSolenoid" }, { "oredictName" : "circuitAdvanced" } ]
+			[ { "oredictName" : "circuitAdvanced" }, { "oredictName" : "componentSolenoid" }, { "oredictName" : "circuitAdvanced" } ],
 			[ { "oredictName" : "ingotSteel" }, { "oredictName" : "ingotBrass" }, { "oredictName" : "ingotSteel" } ]
 		],
 		"result" : {
