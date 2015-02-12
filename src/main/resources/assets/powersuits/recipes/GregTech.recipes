@@ -139,7 +139,7 @@
 	},
 	{
 		"ingredients" : [
-			[  { "oredictName" : "ingotSteel" }, { "oredictName" : "componentWiring" }, { "unlocalizedName" : "ingotSteel" } ],
+			[  { "oredictName" : "ingotSteel" }, { "oredictName" : "componentWiring" }, { "oredictName" : "ingotSteel" } ],
 			[  { "oredictName" : "ingotSteel" }, { "oredictName" : "batteryElite" }, { "oredictName" : "ingotSteel" } ],
 			[  { "oredictName" : "ingotSteel" }, { "oredictName" : "batteryElite" }, { "oredictName" : "ingotSteel" } ]
 		],
@@ -159,7 +159,7 @@
 	},
 	{
 		"ingredients" : [
-			[  { "oredictName" : "ingotChrome" }, { "oredictName" : "componentWiring" }, { "unlocalizedName" : "ingotChrome" } ],
+			[  { "oredictName" : "ingotChrome" }, { "oredictName" : "componentWiring" }, { "oredictName" : "ingotChrome" } ],
 			[  { "oredictName" : "ingotChrome" }, { "oredictName" : "batteryUltimate" }, { "oredictName" : "ingotChrome" } ],
 			[  { "oredictName" : "ingotChrome" }, { "oredictName" : "batteryUltimate" }, { "oredictName" : "ingotChrome" } ]
 		],

@@ -89,7 +89,7 @@ public class ScrollableFrame implements IGuiFrame {
     }
 
     public int getMaxScrollPixels() {
-        return (int) Math.max(totalsize - border.height(), 0);
+        return (int) Math.max((totalsize - border.height()) + 8, 0);
     }
 
     @Override
