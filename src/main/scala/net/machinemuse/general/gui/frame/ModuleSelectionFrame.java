@@ -57,8 +57,8 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 
             super.preDraw();
             GL11.glPushMatrix();
-            //GL11.glTranslatef(0, (~(currentscrollpixels - 1)), 0);
-            GL11.glTranslatef(0, currentscrollpixels, 0);
+            GL11.glTranslatef(0, (~(currentscrollpixels - 1)), 0);
+            //GL11.glTranslatef(0, currentscrollpixels, 0);
             drawItems();
             drawSelection();
             GL11.glPopMatrix();
