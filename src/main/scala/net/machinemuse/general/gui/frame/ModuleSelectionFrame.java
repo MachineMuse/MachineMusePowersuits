@@ -53,11 +53,12 @@ public class ModuleSelectionFrame extends ScrollableFrame {
             for (ModuleSelectionSubFrame frame : categories.values()) {
                 totalsize = (int) Math.max(frame.border.bottom() - this.border.top(), totalsize);
             }
-            //this.currentscrollpixels = Math.min(currentscrollpixels, getMaxScrollPixels());
+            this.currentscrollpixels = Math.min(currentscrollpixels, getMaxScrollPixels());
 
             super.preDraw();
             GL11.glPushMatrix();
-            GL11.glTranslatef(0, -currentscrollpixels, 0);
+            //GL11.glTranslatef(0, (~(currentscrollpixels - 1)), 0);
+            GL11.glTranslatef(0, currentscrollpixels, 0);
             drawItems();
             drawSelection();
             GL11.glPopMatrix();
