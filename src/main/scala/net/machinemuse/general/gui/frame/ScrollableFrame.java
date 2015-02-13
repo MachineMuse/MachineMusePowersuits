@@ -36,7 +36,7 @@ public class ScrollableFrame implements IGuiFrame {
             int dscroll = (lastdWheel - Mouse.getDWheel()) / 15;
             lastdWheel = Mouse.getDWheel();
             currentscrollpixels = (int) MuseMathUtils.clampDouble(currentscrollpixels + dscroll, 0, getMaxScrollPixels());
-            System.out.println("Scrollable Frame Current Scroll Pixels: " + currentscrollpixels);
+            System.out.println("Scrollable Frame dscroll: " + dscroll);
             if (Mouse.isButtonDown(0)) {
                 if ((y - border.top()) < buttonsize && currentscrollpixels > 0) {
                     dscroll -= getScrollAmount();
