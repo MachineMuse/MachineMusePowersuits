@@ -33,7 +33,6 @@ public class ScrollableFrame implements IGuiFrame {
     @Override
     public void update(double x, double y) {
         if (border.containsPoint(x, y)) {
-        	if (Mouse.next()) {
         	  int thisdWheel = Mouse.getEventDWheel();
             int dscroll = (lastdWheel - thisdWheel) / 15;
             lastdWheel = thisdWheel;
@@ -47,7 +46,6 @@ public class ScrollableFrame implements IGuiFrame {
                 }
             }
             currentscrollpixels = (int) MuseMathUtils.clampDouble(currentscrollpixels + dscroll, 0, getMaxScrollPixels());
-        	}
         }
     }
 
