@@ -17,7 +17,6 @@ public class ScrollableFrame implements IGuiFrame {
     protected boolean scrollbarPicked = false;
     protected boolean scrolldownPicked = false;
     protected boolean scrollupPicked = false;
-    protected int lastdWheel = Mouse.getDWheel();
 
     protected DrawableMuseRect border;
 
@@ -33,11 +32,8 @@ public class ScrollableFrame implements IGuiFrame {
     @Override
     public void update(double x, double y) {
         if (border.containsPoint(x, y)) {
-        	  int thisdWheel = Mouse.getEventDWheel();
+        	  int thisdWheel = (~(Mouse.getEventDWheel() - 1));
             int dscroll = thisdWheel / 15;
-            lastdWheel = thisdWheel;
-            
-            System.out.println("Scrollable Frame this scroll: " + thisdWheel);
             if (Mouse.isButtonDown(0)) {
                 if ((y - border.top()) < buttonsize && currentscrollpixels > 0) {
                     dscroll -= getScrollAmount();
