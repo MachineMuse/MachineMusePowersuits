@@ -106,23 +106,6 @@ task devJar(type: Jar) {
     classifier = 'dev'
 }
 
-// No longer necessary, SlickUtil is fetched by CB
-// task copyToLib(type: Copy) {
-//     into "$buildDir/libs"
-//     from configurations.runtime {
-//         include 'slick-util.jar'
-//     }
-    
-    // No longer necessary, extracted from JAR on runtime.
-    // from(sourceSets.main.resources.srcDirs){
-    //     include 'vanilla.recipes'
-    //     include 'ThermalExpansion.recipes'
-    //     include 'IndustrialCraft2.recipes'
-    // }
-// }
-
-// build.dependsOn(copyToLib)
-
 artifacts {
     archives devJar
 }
