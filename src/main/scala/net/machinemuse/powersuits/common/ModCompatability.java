@@ -124,15 +124,15 @@ public static boolean ThermalExpansionRecipesEnabled() {
 // }
 
 public static double getUERatio() {
-        return Config.getConfig().get("Recipes", "Energy per UEJ", 10.0).getDouble(10.0);
+        return Config.getConfig().get("Energy", "Energy per UEJ", 10.0).getDouble(10.0);
 }
 
 public static double getIC2Ratio() {
-        return Config.getConfig().get("Recipes", "Energy per IC2 EU", 4.0).getDouble(4.0);
+        return Config.getConfig().get("Energy", "Energy per IC2 EU", 4.0).getDouble(4.0);
 }
 
 public static double getRFRatio() {
-        return Config.getConfig().get("Recipes", "Energy per RF", 1.0).getDouble(1.0);
+        return Config.getConfig().get("Energy", "Energy per RF", 1.0).getDouble(1.0);
 }
 
 // These 2 elements are basically copied from IC2 api
