@@ -86,7 +86,7 @@ public static boolean enableThaumGogglesModule() {
 public static boolean vanillaRecipesEnabled() {
 //        boolean defaultval = ((!isBasicComponentsLoaded()) && (!isIndustrialCraftLoaded()) && (!isThermalExpansionLoaded()));
         boolean defaultval = ((! isThermalExpansionLoaded()) && (! isIndustrialCraftLoaded()));
-        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Vanilla Recipes", defaultval).getBoolean(defaultval);
+        return Config.getConfig().get("Recipes", "Vanilla Recipes", defaultval).getBoolean(defaultval);
 }
 
 private static boolean isAtomicScienceLoaded() {
@@ -95,44 +95,44 @@ private static boolean isAtomicScienceLoaded() {
 
 // public static boolean UERecipesEnabled() {
 //         boolean defaultval = isBasicComponentsLoaded();
-//         return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Universal Electricity Recipes", defaultval).getBoolean(defaultval);
+//         return Config.getConfig().get("Recipes", "Universal Electricity Recipes", defaultval).getBoolean(defaultval);
 // }
 
 public static boolean IC2RecipesEnabled() {
         boolean defaultval = (isIndustrialCraftLoaded() && (! isGregTechLoaded()) && (! isThermalExpansionLoaded()));
-        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "IndustrialCraft Recipes", defaultval).getBoolean(defaultval);
+        return Config.getConfig().get("Recipes", "IndustrialCraft Recipes", defaultval).getBoolean(defaultval);
 }
 
 public static boolean GregTechRecipesEnabled() {
         boolean defaultval = isGregTechLoaded();
-        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Gregtech Recipes", defaultval).getBoolean(defaultval);
+        return Config.getConfig().get("Recipes", "Gregtech Recipes", defaultval).getBoolean(defaultval);
 }
 
 public static boolean ThermalExpansionRecipesEnabled() {
         boolean defaultval = (isThermalExpansionLoaded() && (! isGregTechLoaded()));
-        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Thermal Expansion Recipes", defaultval).getBoolean(defaultval);
+        return Config.getConfig().get("Recipes", "Thermal Expansion Recipes", defaultval).getBoolean(defaultval);
 }
 
 // public static boolean EnderIORecipesEnabled() {
 //         boolean defaultval = isEnderIOLoaded();
-//         return config.getConfig().get(Configuration.CATEGORY_GENERAL, "EnderIO Recipes", defaultval).getBoolean(defaultval);
+//         return config.getConfig().get("Recipes", "EnderIO Recipes", defaultval).getBoolean(defaultval);
 // }
 
 // public static boolean MekanismRecipesEnabled() {
 //         boolean defaultval = isMekanismLoaded();
-//         return config.getConfig().get(Configuration.CATEGORY_GENERAL, "Mekanism Recipes", defaultval).getBoolean(defaultval);
+//         return config.getConfig().get("Recipes", "Mekanism Recipes", defaultval).getBoolean(defaultval);
 // }
 
 public static double getUERatio() {
-        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per UEJ", 10.0).getDouble(10.0);
+        return Config.getConfig().get("Recipes", "Energy per UEJ", 10.0).getDouble(10.0);
 }
 
 public static double getIC2Ratio() {
-        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per IC2 EU", 4.0).getDouble(4.0);
+        return Config.getConfig().get("Recipes", "Energy per IC2 EU", 4.0).getDouble(4.0);
 }
 
 public static double getRFRatio() {
-        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per RF", 1.0).getDouble(1.0);
+        return Config.getConfig().get("Recipes", "Energy per RF", 1.0).getDouble(1.0);
 }
 
 // These 2 elements are basically copied from IC2 api
