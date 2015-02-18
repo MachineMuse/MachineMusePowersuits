@@ -42,12 +42,16 @@ class PlayerUpdateHandler {
         }
         
         if (!moduleActive) {
-            for (j <- 0 until player.inventory.getSizeInventory) {
-                val itemStack: ItemStack = player.inventory.getStackInSlot(j)
-                if ((itemStack != null) && itemStack.getItem.isInstanceOf[ItemPowerArmor] && module.isValidForItem(itemStack)){
-                    module.onPlayerTickInactive(player, itemStack)
-                }
+          for (j <- 0 until player.inventory.getSizeInventory) {
+            val itemStack: ItemStack = player.inventory.getStackInSlot(j)
+            if (itemStack != null) {
+							if (itemStack.getItem.isInstanceOf[ItemPowerArmor]) {
+								if (ModuleManager.itemHasModule(itemStack, module.getDataName) {
+									module.onPlayerTickInactive(player, itemStack)
+								}
+							}
             }
+          }
         }
       }
 

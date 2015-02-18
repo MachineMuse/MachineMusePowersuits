@@ -136,7 +136,7 @@
 	},
 	{
 		"ingredients" : [
-			[ { "oredictName" : "componentWiring" }, { "oredictName" : "paperEmpty" }, { "oredictName" : "ingotIron" } ],
+			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.paper" }, { "oredictName" : "ingotIron" } ],
 			[ { "oredictName" : "componentWiring" }, null, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {

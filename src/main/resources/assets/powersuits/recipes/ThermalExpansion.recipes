@@ -139,7 +139,7 @@
 	},
 	{
 		"ingredients" : [
-			[ { "oredictName" : "ingotSilver" }, { "oredictName" : "paperEmpty" }, { "oredictName" : "ingotGold" } ],
+			[ { "oredictName" : "ingotSilver" }, { "unlocalizedName" : "item.paper" }, { "oredictName" : "ingotGold" } ],
 			[ { "oredictName" : "componentWiring" }, null, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {

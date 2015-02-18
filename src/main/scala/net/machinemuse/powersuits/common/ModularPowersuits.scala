@@ -80,7 +80,7 @@ object ModularPowersuits {
     proxy.atLaunch()
   }
   
-  @Mod.EventHandler def onServerStart(event: FMLServerStartedEvent) {
+  @Mod.EventHandler def onServerStarting(event: FMLServerStartingEvent) {
     MPSRecipeManager.loadOrPutRecipesFromJar(configDir.getAbsolutePath + "/machinemuse/recipes/powersuits")
   }
 
