@@ -46,7 +46,7 @@ class PlayerUpdateHandler {
             val itemStack: ItemStack = player.inventory.getStackInSlot(j)
             if (itemStack != null) {
 							if (itemStack.getItem.isInstanceOf[ItemPowerArmor]) {
-								if (ModuleManager.itemHasModule(itemStack, module.getDataName) {
+								if (ModuleManager.itemHasModule(itemStack, module.getDataName)) {
 									module.onPlayerTickInactive(player, itemStack)
 								}
 							}
