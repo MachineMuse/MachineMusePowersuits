@@ -90,7 +90,7 @@ trait EnderIOTool
 			if (stack != null && item.getItem.isInstanceOf[IModularItem]) {
 				val t = world.getTileEntity(x, y, z)
 				val b = world.getBlock(x, y, z);
-				if (ModuleManager.itemHasActiveModule(stack, OmniWrenchModule.MODULE_OMNI_WRENCH))
+				if (ModuleManager.itemHasActiveModule(stack, OmniWrenchModule.MODULE_OMNI_WRENCH)) {
 					if (t.isInstanceOf[TileEntityEio] && MuseItemTag.getMuseItemTag(stack).getBoolean("eioManipulateConduit")) {
 						if (player.isSneaking()) {
               b.removedByPlayer(player.getEntityWorld, player, x, y, z, true)
