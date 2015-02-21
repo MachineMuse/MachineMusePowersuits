@@ -5,7 +5,6 @@ import cofh.api.block.IDismantleable;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
-import crazypants.enderio.TileEntityEio;
 import ic2.api.tile.IWrenchable;
 import ic2.api.energy.tile.IEnergySource;
 import ic2.api.energy.tile.IEnergySink;
@@ -118,6 +117,7 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
                                 b.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side));
                         }
                 }
+                return !world.isRemote;
         }
         // IC2: UNTESTED - 2014-12-01 Korynkai
         if (ModCompatability.isIndustrialCraftLoaded()) {
@@ -196,6 +196,7 @@ public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
                         if (!MuseItemTag.getMuseItemTag(item).getBoolean("eioFacadeTransparency")) {
                                 MuseItemTag.getMuseItemTag(item).setString("eioNoCompete", MODULE_OMNI_WRENCH);
                                 MuseItemTag.getMuseItemTag(item).setBoolean("eioFacadeTransparency", true);
+                                MuseItemTag.getMuseItemTag(item).setBoolean("eioManipulateConduit", true);
                         }
                 }
         }
@@ -205,16 +206,19 @@ public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
 public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
         if (ModCompatability.isEnderIOLoaded()) {
                 if (item != null && item.getItem() instanceof IModularItem) {
-                        if ((MuseItemTag.getMuseItemTag(item).getString("eioNoCompete") != null) && (!MuseItemTag.getMuseItemTag(item).getString("eioNoCompete").isEmpty())) {
+                        if ((MuseItemTag.getMuseItemTag(item).getString("eioNoCompete") != null) 
+                        		&& (!MuseItemTag.getMuseItemTag(item).getString("eioNoCompete").isEmpty())) {
                                 if (MuseItemTag.getMuseItemTag(item).getString("eioNoCompete").equals(MODULE_OMNI_WRENCH)) {
                                         MuseItemTag.getMuseItemTag(item).setString("eioNoCompete", "");
                                         if (MuseItemTag.getMuseItemTag(item).getBoolean("eioFacadeTransparency")) {
                                                 MuseItemTag.getMuseItemTag(item).setBoolean("eioFacadeTransparency", false);
+                                                MuseItemTag.getMuseItemTag(item).setBoolean("eioManipulateConduit", false);
                                         }
                                 }
                         } else {
                                 if (MuseItemTag.getMuseItemTag(item).getBoolean("eioFacadeTransparency")) {
                                         MuseItemTag.getMuseItemTag(item).setBoolean("eioFacadeTransparency", false);
+                                        MuseItemTag.getMuseItemTag(item).setBoolean("eioManipulateConduit", false);
                                 }
                         }
                 }

@@ -4,6 +4,8 @@ import buildcraft.api.tools.IToolWrench
 import cofh.api.item.IToolHammer
 import cpw.mods.fml.common.FMLCommonHandler
 import cpw.mods.fml.common.Optional
+import crazypants.enderio.TileEntityEio
+import crazypants.enderio.api.tool.ITool
 import mods.railcraft.api.core.items.IToolCrowbar
 import net.machinemuse.powersuits.powermodule.tool.{MFFSFieldTeleporterModule, OmniWrenchModule}
 import net.machinemuse.utils.ElectricItemUtils
@@ -19,9 +21,17 @@ import powercrystals.minefactoryreloaded.api.IMFRHammer
  * Created: 5:06 PM, 29/04/13
  */
 
+@Optional.InterfaceList(Array(
+    new Optional.Interface(iface = "net.machinemuse.api.ModularCrowbar", modid = "Railcraft", striprefs = true),
+    new Optional.Interface(iface = "net.machinemuse.api.EnderIOTool", modid = "EnderIO", striprefs = true),
+    new Optional.Interface(iface = "net.machinemuse.api.ModularCrescentHammer", modid = "EnderIO", striprefs = true),
+    new Optional.Interface(iface = "net.machinemuse.api.ModularWrench", modid = "BuildCraft|Core", striprefs = true),
+    new Optional.Interface(iface = "net.machinemuse.api.ModularHammer", modid = "MineFactoryReloaded", striprefs = true)
+))
 trait OmniWrench
   extends ModularWrench
   with ModularCrowbar
+  with ModularCrescentHammer
   with ModularHammer
   with ModularCrescentHammer
   /*with ForceFieldManipulator*/ {
@@ -29,7 +39,7 @@ trait OmniWrench
 }
 
 // Railcraft Crowbar
-@Optional.Interface(iface = "mods.railcraft.api.core.items.IToolCrowbar", modid = "Railcraft")
+@Optional.Interface(iface = "mods.railcraft.api.core.items.IToolCrowbar", modid = "Railcraft", striprefs = true)
 trait ModularCrowbar extends IToolCrowbar {
   def canWhack(player: EntityPlayer, crowbar: ItemStack, x: Int, y: Int, z: Int): Boolean = {
     if (crowbar != null && crowbar.getItem.isInstanceOf[IModularItem]) {
@@ -68,8 +78,41 @@ trait ModularCrowbar extends IToolCrowbar {
   }
 }
 
+// EnderIO Tool
+@Optional.Interface(iface = "crazypants.enderio.api.tool.ITool", modid = "EnderIO", striprefs = true)
+trait EnderIOTool
+	extends ITool {
+		def canUse(stack: ItemStack, player: EntityPlayer, x: Int, y: Int, z: Int): Boolean = {
+      return true
+		}
+
+		def used(stack: ItemStack, player: EntityPlayer, x: Int, y: Int, z: Int) {
+			if (stack != null && item.getItem.isInstanceOf[IModularItem]) {
+				val t = world.getTileEntity(x, y, z)
+				val b = world.getBlock(x, y, z);
+				if (ModuleManager.itemHasActiveModule(stack, OmniWrenchModule.MODULE_OMNI_WRENCH))
+					if (t.isInstanceOf[TileEntityEio] && MuseItemTag.getMuseItemTag(stack).getBoolean("eioManipulateConduit")) {
+						if (player.isSneaking()) {
+              b.removedByPlayer(player.getEntityWorld, player, x, y, z, true)
+            } else {
+              b.rotateBlock(player.getEntityWorld, x, y, z, ForgeDirection.getOrientation(side))
+            }
+            player.swingItem
+					}
+				}
+			}
+		}
+
+		def shouldHideFacades(stack: ItemStack, player: EntityPlayer): Boolean = {
+			if (stack != null && item.getItem.isInstanceOf[IModularItem]) {
+    		return MuseItemTag.getMuseItemTag(stack).getBoolean("eioFacadeTransparency")
+			}
+			return false
+		}
+	}
+
 // CoFH Hammer
-@Optional.Interface(iface = "cofh.api.item.IToolHammer", modid = "CoFHCore")
+@Optional.Interface(iface = "cofh.api.item.IToolHammer", modid = "CoFHCore", striprefs = true)
 trait ModularCrescentHammer
   extends IToolHammer {
     def isUsable(item: ItemStack, user: EntityLivingBase, x: Int, y: Int, z: Int): Boolean = {
@@ -81,7 +124,7 @@ trait ModularCrescentHammer
 }
 
 // Buildcraft Wrench
-@Optional.Interface(iface = "buildcraft.api.tools.IToolWrench", modid = "BuildCraft|Core")
+@Optional.Interface(iface = "buildcraft.api.tools.IToolWrench", modid = "BuildCraft|Core", striprefs = true)
 trait ModularWrench
   extends IToolWrench {
 
@@ -98,7 +141,7 @@ trait ModularWrench
 }
 
 // MFR Hammer
-@Optional.Interface(iface = "powercrystals.minefactoryreloaded.api.IMFRHammer", modid = "MineFactoryReloaded")
+@Optional.Interface(iface = "powercrystals.minefactoryreloaded.api.IMFRHammer", modid = "MineFactoryReloaded", striprefs = true)
 trait ModularHammer extends IMFRHammer {
 }
 
