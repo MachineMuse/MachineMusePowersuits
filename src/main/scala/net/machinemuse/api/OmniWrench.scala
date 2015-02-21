@@ -90,15 +90,13 @@ trait EnderIOTool
 			if (stack != null && stack.getItem.isInstanceOf[IModularItem]) {
 				val t = player.getEntityWorld.getTileEntity(x, y, z)
 				val b = player.getEntityWorld.getBlock(x, y, z);
-				if (ModuleManager.itemHasActiveModule(stack, OmniWrenchModule.MODULE_OMNI_WRENCH)) {
-					if (t.isInstanceOf[TileEntityEio] && MuseItemTag.getMuseItemTag(stack).getBoolean("eioManipulateConduit")) {
-						if (player.isSneaking()) {
-              b.removedByPlayer(player.getEntityWorld, player, x, y, z, true)
-            } else {
-              b.rotateBlock(player.getEntityWorld, x, y, z, ForgeDirection.getOrientation(side))
-            }
-            player.swingItem
-					}
+				if (t.isInstanceOf[TileEntityEio] && MuseItemTag.getMuseItemTag(stack).getBoolean("eioManipulateConduit")) {
+					if (player.isSneaking()) {
+            b.removedByPlayer(player.getEntityWorld, player, x, y, z, true)
+          } else {
+            b.rotateBlock(player.getEntityWorld, x, y, z, ForgeDirection.getOrientation(t.getBlockMetadata))
+          }
+          player.swingItem
 				}
 			}
 		}
