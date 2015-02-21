@@ -7,6 +7,7 @@ import cpw.mods.fml.common.Optional
 import crazypants.enderio.TileEntityEio
 import crazypants.enderio.api.tool.ITool
 import mods.railcraft.api.core.items.IToolCrowbar
+import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.powersuits.powermodule.tool.{MFFSFieldTeleporterModule, OmniWrenchModule}
 import net.machinemuse.utils.ElectricItemUtils
 import net.minecraft.block.Block
@@ -84,15 +85,17 @@ trait ModularCrowbar extends IToolCrowbar {
 trait EnderIOTool
 	extends ITool {
 		def canUse(stack: ItemStack, player: EntityPlayer, x: Int, y: Int, z: Int): Boolean = {
-      return true
+			MuseLogger.logDebug("EnderIO canUse called")
+      return player.getEntityWorld.getTileEntity(x, y, z).isInstanceOf[TileEntityEio]
 		}
 
 		def used(stack: ItemStack, player: EntityPlayer, x: Int, y: Int, z: Int) {
 			if (stack != null && stack.getItem.isInstanceOf[IModularItem]) {
+				MuseLogger.logDebug("EnderIO used called")
 				val t = player.getEntityWorld.getTileEntity(x, y, z)
-				val b = player.getEntityWorld.getBlock(x, y, z);
+				val b = player.getEntityWorld.getBlock(x, y, z)
 				if (t.isInstanceOf[TileEntityEio] && MuseItemTag.getMuseItemTag(stack).getBoolean("eioManipulateConduit")) {
-					if (player.isSneaking()) {
+					if (player.isSneaking) {
             b.removedByPlayer(player.getEntityWorld, player, x, y, z, true)
           } else {
             b.rotateBlock(player.getEntityWorld, x, y, z, ForgeDirection.getOrientation(t.getBlockMetadata))
@@ -104,9 +107,12 @@ trait EnderIOTool
 
 		def shouldHideFacades(stack: ItemStack, player: EntityPlayer): Boolean = {
 			if (stack != null && stack.getItem.isInstanceOf[IModularItem]) {
+				MuseLogger.logDebug("Item hiding facades...")
     		return MuseItemTag.getMuseItemTag(stack).getBoolean("eioFacadeTransparency")
+			} else {
+				MuseLogger.logDebug("Item not hiding facades...")
+				return false
 			}
-			return false
 		}
 	}
 
