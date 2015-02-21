@@ -25,7 +25,7 @@ import powercrystals.minefactoryreloaded.api.IMFRHammer
 @Optional.InterfaceList(Array(
     new Optional.Interface(iface = "net.machinemuse.api.ModularCrowbar", modid = "Railcraft", striprefs = true),
     new Optional.Interface(iface = "net.machinemuse.api.EnderIOTool", modid = "EnderIO", striprefs = true),
-    new Optional.Interface(iface = "net.machinemuse.api.ModularCrescentHammer", modid = "EnderIO", striprefs = true),
+    new Optional.Interface(iface = "net.machinemuse.api.ModularCrescentHammer", modid = "CoFHCore", striprefs = true),
     new Optional.Interface(iface = "net.machinemuse.api.ModularWrench", modid = "BuildCraft|Core", striprefs = true),
     new Optional.Interface(iface = "net.machinemuse.api.ModularHammer", modid = "MineFactoryReloaded", striprefs = true)
 ))
