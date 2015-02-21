@@ -12,7 +12,7 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.MuseItemTag;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
-import net.machinemuse.numina.general.MuseLogger
+import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
