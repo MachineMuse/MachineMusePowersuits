@@ -31,7 +31,7 @@ import powercrystals.minefactoryreloaded.api.IMFRHammer
 trait OmniWrench
   extends ModularWrench
   with ModularCrowbar
-  with ModularCrescentHammer
+  with EnderIOTool
   with ModularHammer
   with ModularCrescentHammer
   /*with ForceFieldManipulator*/ {
@@ -87,9 +87,9 @@ trait EnderIOTool
 		}
 
 		def used(stack: ItemStack, player: EntityPlayer, x: Int, y: Int, z: Int) {
-			if (stack != null && item.getItem.isInstanceOf[IModularItem]) {
-				val t = world.getTileEntity(x, y, z)
-				val b = world.getBlock(x, y, z);
+			if (stack != null && stack.getItem.isInstanceOf[IModularItem]) {
+				val t = player.getEntityWorld.getTileEntity(x, y, z)
+				val b = player.getEntityWorld.getBlock(x, y, z);
 				if (ModuleManager.itemHasActiveModule(stack, OmniWrenchModule.MODULE_OMNI_WRENCH)) {
 					if (t.isInstanceOf[TileEntityEio] && MuseItemTag.getMuseItemTag(stack).getBoolean("eioManipulateConduit")) {
 						if (player.isSneaking()) {
@@ -104,7 +104,7 @@ trait EnderIOTool
 		}
 
 		def shouldHideFacades(stack: ItemStack, player: EntityPlayer): Boolean = {
-			if (stack != null && item.getItem.isInstanceOf[IModularItem]) {
+			if (stack != null && stack.getItem.isInstanceOf[IModularItem]) {
     		return MuseItemTag.getMuseItemTag(stack).getBoolean("eioFacadeTransparency")
 			}
 			return false
