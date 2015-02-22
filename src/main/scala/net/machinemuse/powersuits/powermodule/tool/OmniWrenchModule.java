@@ -5,6 +5,7 @@ import cofh.api.block.IDismantleable;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
+import crazypants.enderio.TileEntityEio;
 import ic2.api.tile.IWrenchable;
 import ic2.api.energy.tile.IEnergySource;
 import ic2.api.energy.tile.IEnergySink;
@@ -28,7 +29,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-//import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
 
 import java.util.List;
