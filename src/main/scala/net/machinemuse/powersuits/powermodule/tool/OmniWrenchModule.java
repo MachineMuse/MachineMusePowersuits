@@ -93,33 +93,32 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
 
         if (MuseBlockUtils.canRotate(Block.getIdFromBlock(b))) {
                 if (player.isSneaking()) {
-                        world.setBlockMetadataWithNotify(x, y, z, MuseBlockUtils.rotateVanillaBlockAlt(world, Block.getIdFromBlock(b), bMeta, x, y, z), 3);
                         if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
                                 world.playSoundAtEntity((Entity) player, b.stepSound.soundName, 1.0F, 0.6F);
                         }
+                        return world.setBlockMetadataWithNotify(x, y, z, MuseBlockUtils.rotateVanillaBlockAlt(world, Block.getIdFromBlock(b), bMeta, x, y, z), 3);
                 } else {
-                        world.setBlockMetadataWithNotify(x, y, z, MuseBlockUtils.rotateVanillaBlock(world, Block.getIdFromBlock(b), bMeta, x, y, z), 3);
                         if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
                                 world.playSoundAtEntity((Entity) player, b.stepSound.soundName, 1.0F, 0.8F);
                         }
+                        return world.setBlockMetadataWithNotify(x, y, z, MuseBlockUtils.rotateVanillaBlock(world, Block.getIdFromBlock(b), bMeta, x, y, z), 3);
                 }
-                return !world.isRemote;
+                //return !world.isRemote;
         }
 
         TileEntity tile = world.getTileEntity(x, y, z);
 
-        // if (ModCompatability.isEnderIOLoaded()) {
-        //         // Hmm... Seems this allows breakage of more EnderIO blocks than the YetaWrench...
-        //         // Though it seems there's no better way to provide similar functionality with EnderIO machines... - 2014-12-01 Korynkai
-        //         if (tile instanceof TileEntityEio) {
-        //                 if (player.isSneaking()) {
-        //                         b.removedByPlayer(world, player, x, y, z, true);
-        //                 } else {
-        //                         b.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side));
-        //                 }
-        //         }
-        //         return !world.isRemote;
-        // }
+        if (ModCompatability.isEnderIOLoaded()) {
+                // Hmm... Seems this allows breakage of more EnderIO blocks than the YetaWrench...
+                // Though it seems there's no better way to provide similar functionality with EnderIO machines... - 2014-12-01 Korynkai
+                if (tile instanceof TileEntityEio) {
+                        if (player.isSneaking()) {
+                                return b.removedByPlayer(world, player, x, y, z, true);
+                        } else {
+                                return b.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side));
+                        }
+                }
+        }
         // IC2: UNTESTED - 2014-12-01 Korynkai
         if (ModCompatability.isIndustrialCraftLoaded()) {
                 if (tile instanceof IWrenchable) {
@@ -150,7 +149,7 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
                                         }
                                 }
 
-                                return !world.isRemote;
+                                //return !world.isRemote;
                         }
 
                         if (!world.isRemote) {
@@ -162,7 +161,8 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
                                         wrenchTile.setFacing((short) side);
                                 }
                         }
-                        return !world.isRemote;
+                        //return !world.isRemote;
+                        return true;
                 }
         }
 
@@ -178,6 +178,7 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
                                 IDismantleable machine = (IDismantleable) b;
                                 if (machine.canDismantle(player, world, x, y, z)) {
                                         machine.dismantleBlock(player, world, x, y, z, false);
+                                        return true;
                                 }
                         }
                 }
