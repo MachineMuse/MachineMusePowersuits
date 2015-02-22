@@ -204,7 +204,7 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
 public void onPlayerStoppedUsing(ItemStack item, World world, EntityPlayer player, int par4) {
 				if (ModCompatability.isEnderIOLoaded()) {
 								//ItemStack item = player.getHeldItem();
-								MuseLogger.logDebug("Item not hiding facades... Unsetting NBT values...")
+								MuseLogger.logDebug("Item not hiding facades... Unsetting NBT values...");
                 if (item != null && item.getItem() instanceof IModularItem) {
                         if ((MuseItemTag.getMuseItemTag(item).getString("eioNoCompete") != null) 
                         		&& (!MuseItemTag.getMuseItemTag(item).getString("eioNoCompete").isEmpty())) {
