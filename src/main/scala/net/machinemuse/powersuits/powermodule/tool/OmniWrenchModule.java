@@ -185,7 +185,7 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
                 }
         }
 
-        return false;
+        return true;
 }
 
 @Override
