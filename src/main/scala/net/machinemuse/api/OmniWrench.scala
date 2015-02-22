@@ -109,6 +109,7 @@ trait EnderIOTool
 		def shouldHideFacades(stack: ItemStack, player: EntityPlayer): Boolean = {
 			val item = player.getHeldItem
 			if (item != null && item.getItem.isInstanceOf[IModularItem]) {
+				MuseLogger.logDebug(MuseItemTag.getMuseItemTag(item).toString)
 				MuseLogger.logDebug("Item hiding facades..." + MuseItemTag.getMuseItemTag(item).getBoolean("eioFacadeTransparency"))
     		return MuseItemTag.getMuseItemTag(item).getBoolean("eioFacadeTransparency")
 			} else {

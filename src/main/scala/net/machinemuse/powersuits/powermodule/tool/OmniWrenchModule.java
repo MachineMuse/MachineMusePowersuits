@@ -183,28 +183,32 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
                         }
                 }
         }
-        
-        if (ModCompatability.isEnderIOLoaded()) {
-								// ItemStack item = player.getHeldItem();
-								MuseLogger.logDebug("Item hiding facades... Setting NBT Values...");
-                if (itemStack != null && itemStack.getItem() instanceof IModularItem) {
-                        if (!MuseItemTag.getMuseItemTag(itemStack).getBoolean("eioFacadeTransparency")) {
-                                MuseItemTag.getMuseItemTag(itemStack).setString("eioNoCompete", MODULE_OMNI_WRENCH);
-                                MuseItemTag.getMuseItemTag(itemStack).setBoolean("eioFacadeTransparency", true);
-                                MuseItemTag.getMuseItemTag(itemStack).setBoolean("eioManipulateConduit", true);
-                        }
-                }
-                return !world.isRemote;
-        }
 
         return false;
 }
 
 @Override
-public void onPlayerStoppedUsing(ItemStack item, World world, EntityPlayer player, int par4) {
-				if (ModCompatability.isEnderIOLoaded()) {
-								//ItemStack item = player.getHeldItem();
-								MuseLogger.logDebug("Item not hiding facades... Unsetting NBT values...");
+public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
+}
+
+@Override
+public void onPlayerTickActive(EntityPlayer player, ItemStack stack) {
+        if (ModCompatability.isEnderIOLoaded()) {
+								ItemStack item = player.getHeldItem();
+                if (item != null && item.getItem() instanceof IModularItem) {
+                        if (!MuseItemTag.getMuseItemTag(item).getBoolean("eioFacadeTransparency")) {
+                                MuseItemTag.getMuseItemTag(item).setString("eioNoCompete", MODULE_OMNI_WRENCH);
+                                MuseItemTag.getMuseItemTag(item).setBoolean("eioFacadeTransparency", true);
+                                MuseItemTag.getMuseItemTag(item).setBoolean("eioManipulateConduit", true);
+                        }
+                }
+        }
+}
+
+@Override
+public void onPlayerTickInactive(EntityPlayer player, ItemStack stack) {
+        if (ModCompatability.isEnderIOLoaded()) {
+								ItemStack item = player.getHeldItem();
                 if (item != null && item.getItem() instanceof IModularItem) {
                         if ((MuseItemTag.getMuseItemTag(item).getString("eioNoCompete") != null) 
                         		&& (!MuseItemTag.getMuseItemTag(item).getString("eioNoCompete").isEmpty())) {
@@ -223,15 +227,5 @@ public void onPlayerStoppedUsing(ItemStack item, World world, EntityPlayer playe
                         }
                 }
         }
-}
-
-@Override
-public void onPlayerTickActive(EntityPlayer player, ItemStack stack) {
-        
-}
-
-@Override
-public void onPlayerTickInactive(EntityPlayer player, ItemStack stack) {
-        
 }
 }
