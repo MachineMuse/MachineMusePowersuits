@@ -26,9 +26,10 @@ import net.minecraft.world.World
  *
  * @author MachineMuse
  */
-
+@Optional.Interface(iface = "crazypants.enderio.api.tool.ITool", modid = "EnderIO", striprefs = true)
 class ItemPowerFist extends ItemElectricTool(0, ToolMaterial.EMERALD)
 with IModularItem
+with ITool
 //with IToolGrafter
 with OmniWrench
 with ModeChangingModularItem {
@@ -37,6 +38,33 @@ with ModeChangingModularItem {
   setMaxDamage(0)
   setCreativeTab(Config.getCreativeTab)
   setUnlocalizedName("powerFist")
+
+/**
+ * EnderIO: Always return true.
+ */
+  @Optional.Method( modid = "EnderIO" )
+  def canUse(stack: ItemStack, player: EntityPlayer, x: Int, y: Int, z: Int): Boolean = {
+      return true
+  }
+
+
+/**
+ * EnderIO: Don't do anything within this method as we implement this functionality
+ * within each module, if applicable.
+ */
+  @Optional.Method( modid = "EnderIO" )
+  def used(stack: ItemStack, player: EntityPlayer, x: Int, y: Int, z: Int) {
+  }
+
+/**
+ * EnderIO: Return the value given by the item's eioFacadeTransparency flag.
+ * This tells EnderIO to hide its facades based on the selected module.
+ * (Module must set the "eioFacadeTransparency" NBT flag to true for this to work)
+ */
+  @Optional.Method( modid = "EnderIO" )
+  def shouldHideFacades(stack: ItemStack, player: EntityPlayer): Boolean = {
+    return MuseItemTag.getMuseItemTag(stack).getBoolean("eioFacadeTransparency")
+  }
 
   /**
    * Returns the strength of the stack against a given block. 1.0F base,

@@ -13,7 +13,6 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.MuseItemTag;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
-import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -94,17 +93,17 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
 
         if (MuseBlockUtils.canRotate(Block.getIdFromBlock(b))) {
                 if (player.isSneaking()) {
+                        world.setBlockMetadataWithNotify(x, y, z, MuseBlockUtils.rotateVanillaBlockAlt(world, Block.getIdFromBlock(b), bMeta, x, y, z), 3);
                         if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
                                 world.playSoundAtEntity((Entity) player, b.stepSound.soundName, 1.0F, 0.6F);
                         }
-                        return world.setBlockMetadataWithNotify(x, y, z, MuseBlockUtils.rotateVanillaBlockAlt(world, Block.getIdFromBlock(b), bMeta, x, y, z), 3);
                 } else {
+                        world.setBlockMetadataWithNotify(x, y, z, MuseBlockUtils.rotateVanillaBlock(world, Block.getIdFromBlock(b), bMeta, x, y, z), 3);
                         if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
                                 world.playSoundAtEntity((Entity) player, b.stepSound.soundName, 1.0F, 0.8F);
                         }
-                        return world.setBlockMetadataWithNotify(x, y, z, MuseBlockUtils.rotateVanillaBlock(world, Block.getIdFromBlock(b), bMeta, x, y, z), 3);
                 }
-                //return !world.isRemote;
+                return !world.isRemote;
         }
 
         TileEntity tile = world.getTileEntity(x, y, z);
@@ -114,9 +113,9 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
                 // Though it seems there's no better way to provide similar functionality with EnderIO machines... - 2014-12-01 Korynkai
                 if (tile instanceof TileEntityEio) {
                         if (player.isSneaking()) {
-                                return b.removedByPlayer(world, player, x, y, z, true);
+                                b.removedByPlayer(world, player, x, y, z, true);
                         } else {
-                                return b.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side));
+                                b.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side));
                         }
                 }
         }
@@ -150,7 +149,7 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
                                         }
                                 }
 
-                                //return !world.isRemote;
+                                return !world.isRemote;
                         }
 
                         if (!world.isRemote) {
@@ -162,8 +161,7 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
                                         wrenchTile.setFacing((short) side);
                                 }
                         }
-                        //return !world.isRemote;
-                        return true;
+                        return !world.isRemote;
                 }
         }
 
@@ -179,13 +177,12 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
                                 IDismantleable machine = (IDismantleable) b;
                                 if (machine.canDismantle(player, world, x, y, z)) {
                                         machine.dismantleBlock(player, world, x, y, z, false);
-                                        return true;
                                 }
                         }
                 }
         }
 
-        return true;
+        return false;
 }
 
 @Override
@@ -193,9 +190,8 @@ public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer 
 }
 
 @Override
-public void onPlayerTickActive(EntityPlayer player, ItemStack stack) {
+public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         if (ModCompatability.isEnderIOLoaded()) {
-								ItemStack item = player.getHeldItem();
                 if (item != null && item.getItem() instanceof IModularItem) {
                         if (!MuseItemTag.getMuseItemTag(item).getBoolean("eioFacadeTransparency")) {
                                 MuseItemTag.getMuseItemTag(item).setString("eioNoCompete", MODULE_OMNI_WRENCH);
@@ -206,9 +202,8 @@ public void onPlayerTickActive(EntityPlayer player, ItemStack stack) {
 }
 
 @Override
-public void onPlayerTickInactive(EntityPlayer player, ItemStack stack) {
+public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
         if (ModCompatability.isEnderIOLoaded()) {
-								ItemStack item = player.getHeldItem();
                 if (item != null && item.getItem() instanceof IModularItem) {
                         if ((MuseItemTag.getMuseItemTag(item).getString("eioNoCompete") != null) 
                         		&& (!MuseItemTag.getMuseItemTag(item).getString("eioNoCompete").isEmpty())) {
