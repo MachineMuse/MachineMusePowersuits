@@ -92,7 +92,6 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
         int bMeta = world.getBlockMetadata(x, y, z);
 
         if (MuseBlockUtils.canRotate(Block.getIdFromBlock(b))) {
-        	MuseLogger.logDebug("This should only occur on Vanilla blocks...");
                 if (player.isSneaking()) {
                         world.setBlockMetadataWithNotify(x, y, z, MuseBlockUtils.rotateVanillaBlockAlt(world, Block.getIdFromBlock(b), bMeta, x, y, z), 3);
                         if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {

@@ -110,7 +110,8 @@ trait EnderIOTool
 			val item = player.getHeldItem
 			if (item != null && item.getItem.isInstanceOf[IModularItem]) {
 				//MuseLogger.logDebug(MuseItemTag.getMuseItemTag(item).toString)
-    		return MuseItemTag.getMuseItemTag(item).getBoolean("eioFacadeTransparency")
+				val tag : NBTTagCompound = MuseItemTag.getMuseItemTag(item)
+    		return tag.getBoolean("eioFacadeTransparency")
 			} else {
 				return false
 			}
