@@ -92,10 +92,10 @@ trait EnderIOTool
 		def used(stack: ItemStack, player: EntityPlayer, x: Int, y: Int, z: Int) {
 			val item = player.getHeldItem
 			if ( item != null && item.getItem.isInstanceOf[IModularItem]) {
-				MuseLogger.logDebug("EnderIO used called")
 				val t = player.getEntityWorld.getTileEntity(x, y, z)
 				val b = player.getEntityWorld.getBlock(x, y, z)
 				if (t.isInstanceOf[TileEntityEio] && MuseItemTag.getMuseItemTag(item).getBoolean("eioManipulateConduit")) {
+					MuseLogger.logDebug("Conduit manipulated...")
 					if (player.isSneaking) {
             b.removedByPlayer(player.getEntityWorld, player, x, y, z, true)
           } else {
@@ -109,8 +109,7 @@ trait EnderIOTool
 		def shouldHideFacades(stack: ItemStack, player: EntityPlayer): Boolean = {
 			val item = player.getHeldItem
 			if (item != null && item.getItem.isInstanceOf[IModularItem]) {
-				MuseLogger.logDebug(MuseItemTag.getMuseItemTag(item).toString)
-				MuseLogger.logDebug("Item hiding facades..." + MuseItemTag.getMuseItemTag(item).getBoolean("eioFacadeTransparency"))
+				//MuseLogger.logDebug(MuseItemTag.getMuseItemTag(item).toString)
     		return MuseItemTag.getMuseItemTag(item).getBoolean("eioFacadeTransparency")
 			} else {
 				return false
