@@ -193,9 +193,8 @@ public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer 
 }
 
 @Override
-public void onPlayerTickActive(EntityPlayer player, ItemStack stack) {
+public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         if (ModCompatability.isEnderIOLoaded()) {
-								ItemStack item = player.getHeldItem();
                 if (item != null && item.getItem() instanceof IModularItem) {
                         if (!MuseItemTag.getMuseItemTag(item).getBoolean("eioFacadeTransparency")) {
                                 MuseItemTag.getMuseItemTag(item).setString("eioNoCompete", MODULE_OMNI_WRENCH);
@@ -207,9 +206,8 @@ public void onPlayerTickActive(EntityPlayer player, ItemStack stack) {
 }
 
 @Override
-public void onPlayerTickInactive(EntityPlayer player, ItemStack stack) {
+public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
         if (ModCompatability.isEnderIOLoaded()) {
-								ItemStack item = player.getHeldItem();
                 if (item != null && item.getItem() instanceof IModularItem) {
                         if ((MuseItemTag.getMuseItemTag(item).getString("eioNoCompete") != null) 
                         		&& (!MuseItemTag.getMuseItemTag(item).getString("eioNoCompete").isEmpty())) {
