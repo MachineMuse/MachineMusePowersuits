@@ -7,7 +7,7 @@ import net.machinemuse.api._
 import net.machinemuse.api.moduletrigger.IRightClickModule
 import net.machinemuse.general.gui.MuseIcon
 import net.machinemuse.numina.scala.OptionCast
-import net.machinemuse.powersuits.common.Config
+import net.machinemuse.powersuits.common.{Config, ModCompatability}
 import net.machinemuse.powersuits.powermodule.tool.{GrafterModule, OmniWrenchModule}
 import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule
 import net.machinemuse.utils.{ElectricItemUtils, MuseHeatUtils}
@@ -39,12 +39,9 @@ with ModeChangingModularItem {
   setCreativeTab(Config.getCreativeTab)
   setUnlocalizedName("powerFist")
 
-/**
- * EnderIO: Always return true.
- */
-  @Optional.Method( modid = "EnderIO" )
   def canUse(stack: ItemStack, player: EntityPlayer, x: Int, y: Int, z: Int): Boolean = {
-      return true
+      return (ModuleManager.itemHasActiveModule(stack, OmniWrenchModule.MODULE_OMNI_WRENCH)
+      					&& (ModCompatability.isEnderIOLoaded || ModCompatability.isRemainInMotionLoaded))
   }
 
 

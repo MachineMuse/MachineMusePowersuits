@@ -53,6 +53,10 @@ public static boolean isEnderIOLoaded() {
         return Loader.isModLoaded("EnderIO");
 }
 
+public static boolean isRemainInMotionLoaded() {
+				return Loader.isModLoaded("RemainInMotion");
+}
+
 public static boolean isMekanismLoaded(){
         return Loader.isModLoaded("Mekanism");
 }
