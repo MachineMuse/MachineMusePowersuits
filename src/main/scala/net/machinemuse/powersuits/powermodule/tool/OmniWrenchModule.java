@@ -187,7 +187,7 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
         if (ModCompatability.isEnderIOLoaded()) {
 								// ItemStack item = player.getHeldItem();
 								MuseLogger.logDebug("Item hiding facades... Setting NBT Values...");
-                if (item != null && item.getItem() instanceof IModularItem) {
+                if (itemStack != null && itemStack.getItem() instanceof IModularItem) {
                         if (!MuseItemTag.getMuseItemTag(itemStack).getBoolean("eioFacadeTransparency")) {
                                 MuseItemTag.getMuseItemTag(itemStack).setString("eioNoCompete", MODULE_OMNI_WRENCH);
                                 MuseItemTag.getMuseItemTag(itemStack).setBoolean("eioFacadeTransparency", true);
