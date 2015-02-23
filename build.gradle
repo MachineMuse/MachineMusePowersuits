@@ -46,7 +46,7 @@ minecraft {
 
 dependencies {
   //compile 'net.machinemuse.numina:Numina:0.4.0.6-QMX:dev' // Removed for snapshot build.
-  compile 'com.mod-buildcraft:buildcraft:6.4.0:dev'
+  compile 'com.mod-buildcraft:buildcraft:6.3.7:dev'
   compile 'com.enderio:EnderIO:1.7.10-2.2.8.352:dev'
   compile 'net.industrial-craft:industrialcraft-2:2.2.683-experimental:api'
 }
