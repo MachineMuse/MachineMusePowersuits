@@ -28,7 +28,6 @@ import net.minecraft.world.World
  */
 class ItemPowerFist extends ItemElectricTool(0, ToolMaterial.EMERALD)
 with IModularItem
-with ITool
 //with IToolGrafter
 with OmniWrench
 with ModeChangingModularItem {

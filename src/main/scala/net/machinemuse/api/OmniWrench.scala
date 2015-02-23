@@ -16,6 +16,7 @@ import net.minecraft.entity.item.EntityMinecart
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraftforge.common.util.ForgeDirection
 import powercrystals.minefactoryreloaded.api.IMFRHammer
 
 /**
@@ -94,10 +95,10 @@ trait EnderIOTool
 		}
 
 		def used(stack: ItemStack, player: EntityPlayer, x: Int, y: Int, z: Int) {
-			if ( stack != null && stack.getItem.isInstanceOf[IModularItem]) {
+			if (stack != null && stack.getItem.isInstanceOf[IModularItem]) {
 				val t = player.getEntityWorld.getTileEntity(x, y, z)
 				val b = player.getEntityWorld.getBlock(x, y, z)
-				if (t.isInstanceOf[TileEntityEio] && MuseItemTag.getMuseItemTag(item).getBoolean("eioManipulateConduit")) {
+				if (t.isInstanceOf[TileEntityEio] && MuseItemTag.getMuseItemTag(stack).getBoolean("eioManipulateConduit")) {
 					if (player.isSneaking) {
             b.removedByPlayer(player.getEntityWorld, player, x, y, z, true)
           } else {
