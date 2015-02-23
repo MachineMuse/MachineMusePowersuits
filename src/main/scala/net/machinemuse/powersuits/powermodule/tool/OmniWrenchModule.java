@@ -28,6 +28,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
 
 import java.util.List;
@@ -107,6 +108,17 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
 
         TileEntity tile = world.getTileEntity(x, y, z);
 
+        if (ModCompatability.isEnderIOLoaded()) {
+                // Hmm... Seems this allows breakage of more EnderIO blocks than the YetaWrench...
+                // Though it seems there's no better way to provide similar functionality with EnderIO machines... - 2014-12-01 Korynkai
+                if (tile instanceof TileEntityEio) {
+                        if (player.isSneaking()) {
+                                b.removedByPlayer(world, player, x, y, z, true);
+                        } else {
+                                b.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side));
+                        }
+                }
+        }
         // IC2: UNTESTED - 2014-12-01 Korynkai
         if (ModCompatability.isIndustrialCraftLoaded()) {
                 if (tile instanceof IWrenchable) {
@@ -184,7 +196,6 @@ public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
                         if (!MuseItemTag.getMuseItemTag(item).getBoolean("eioFacadeTransparency")) {
                                 MuseItemTag.getMuseItemTag(item).setString("eioNoCompete", MODULE_OMNI_WRENCH);
                                 MuseItemTag.getMuseItemTag(item).setBoolean("eioFacadeTransparency", true);
-                                MuseItemTag.getMuseItemTag(item).setBoolean("eioManipulateConduit", true);
                         }
                 }
         }
@@ -201,16 +212,10 @@ public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
                                         if (MuseItemTag.getMuseItemTag(item).getBoolean("eioFacadeTransparency")) {
                                                 MuseItemTag.getMuseItemTag(item).setBoolean("eioFacadeTransparency", false);
                                         }
-                                        if (MuseItemTag.getMuseItemTag(item).getBoolean("eioManipulateConduit")) {
-																								MuseItemTag.getMuseItemTag(item).setBoolean("eioManipulateConduit", false);
-                                        }
                                 }
                         } else {
                                 if (MuseItemTag.getMuseItemTag(item).getBoolean("eioFacadeTransparency")) {
                                         MuseItemTag.getMuseItemTag(item).setBoolean("eioFacadeTransparency", false);
-                                }
-                                if (MuseItemTag.getMuseItemTag(item).getBoolean("eioManipulateConduit")) {
-																								MuseItemTag.getMuseItemTag(item).setBoolean("eioManipulateConduit", false);
                                 }
                         }
                 }

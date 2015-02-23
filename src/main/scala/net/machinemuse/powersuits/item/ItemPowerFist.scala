@@ -2,12 +2,12 @@ package net.machinemuse.powersuits.item
 
 import cpw.mods.fml.common.Optional
 import cpw.mods.fml.relauncher.{Side, SideOnly}
+import crazypants.enderio.api.tool.ITool
 import net.machinemuse.api._
 import net.machinemuse.api.moduletrigger.IRightClickModule
 import net.machinemuse.general.gui.MuseIcon
-import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.scala.OptionCast
-import net.machinemuse.powersuits.common.Config
+import net.machinemuse.powersuits.common.{Config, ModCompatability}
 import net.machinemuse.powersuits.powermodule.tool.{GrafterModule, OmniWrenchModule}
 import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule
 import net.machinemuse.utils.{ElectricItemUtils, MuseHeatUtils}
@@ -26,8 +26,10 @@ import net.minecraft.world.World
  *
  * @author MachineMuse
  */
+@Optional.Interface(iface = "crazypants.enderio.api.tool.ITool", modid = "EnderIO", striprefs = true)
 class ItemPowerFist extends ItemElectricTool(0, ToolMaterial.EMERALD)
 with IModularItem
+with ITool
 //with IToolGrafter
 with OmniWrench
 with ModeChangingModularItem {
@@ -36,6 +38,30 @@ with ModeChangingModularItem {
   setMaxDamage(0)
   setCreativeTab(Config.getCreativeTab)
   setUnlocalizedName("powerFist")
+
+  def canUse(stack: ItemStack, player: EntityPlayer, x: Int, y: Int, z: Int): Boolean = {
+      return (ModuleManager.itemHasActiveModule(stack, OmniWrenchModule.MODULE_OMNI_WRENCH)
+      					&& (ModCompatability.isEnderIOLoaded || ModCompatability.isRemainInMotionLoaded))
+  }
+
+
+/**
+ * EnderIO: Don't do anything within this method as we implement this functionality
+ * within each module, if applicable.
+ */
+  @Optional.Method( modid = "EnderIO" )
+  def used(stack: ItemStack, player: EntityPlayer, x: Int, y: Int, z: Int) {
+  }
+
+/**
+ * EnderIO: Return the value given by the item's eioFacadeTransparency flag.
+ * This tells EnderIO to hide its facades based on the selected module.
+ * (Module must set the "eioFacadeTransparency" NBT flag to true for this to work)
+ */
+  @Optional.Method( modid = "EnderIO" )
+  def shouldHideFacades(stack: ItemStack, player: EntityPlayer): Boolean = {
+    return MuseItemTag.getMuseItemTag(stack).getBoolean("eioFacadeTransparency")
+  }
 
   /**
    * Returns the strength of the stack against a given block. 1.0F base,
