@@ -46,9 +46,9 @@ minecraft {
 
 dependencies {
   //compile 'net.machinemuse.numina:Numina:0.4.0.6-QMX:dev' // Removed for snapshot build.
-  compile 'com.mod-buildcraft:buildcraft:6.2.6:dev'
-  compile 'com.enderio:EnderIO:1.7.10-2.2.6.323:dev'
-  compile 'net.industrial-craft:industrialcraft-2:2.2.658-experimental:api'
+  compile 'com.mod-buildcraft:buildcraft:6.4.0:dev'
+  compile 'com.enderio:EnderIO:1.7.10-2.2.8.352:dev'
+  compile 'net.industrial-craft:industrialcraft-2:2.2.683-experimental:api'
 }
 
 new File(config.libs_dir).mkdirs()
@@ -63,16 +63,16 @@ def getLibrary(filename) {
 }
 
 //getLibrary("Atomic-Science-1.1.0.16-api.zip") -- Should be ResonantInduction once this is stable(?)
-getLibrary("CoFHLib-API-[1.7.10]1.0.0B7-Compiled.jar")
+getLibrary("CoFHLib-API-[1.7.10]1.0.0B9-118-Compiled.jar")
 //getLibrary("forestry-api-2.3.0.1.zip")
 getLibrary("GalacticraftCore-API-BETA-1.7-3.0.1.8-Compiled.jar")
 //getLibrary("MFFS2_API.zip")
 getLibrary("MineFactoryReloaded-API-[1.7.10]2.8.0RC3-Compiled-591.jar")
-getLibrary("Railcraft-API-9.4.0.0-Compiled.jar")
+getLibrary("Railcraft-API-9.5.0.0-Compiled.jar")
 getLibrary("slick-util.jar")
-getLibrary("Thaumcraft-API-4.2.2.1-Compiled.jar")
-getLibrary("RenderPlayerAPI-1.7.10-1.0.jar")
-getLibrary("SmartRender-dev-1.7.10-2.0.jar")
+getLibrary("Thaumcraft-API-4.2.3.5-Compiled.jar")
+getLibrary("RenderPlayerAPI-1.7.10-1.3.jar")
+getLibrary("SmartRender-dev-1.7.10-2.1.jar")
 //getLibrary("ThermalExpansion-API-2.3.0b.zip")
 
 processResources
