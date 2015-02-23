@@ -88,7 +88,7 @@ trait EnderIOTool
 		def canUse(stack: ItemStack, player: EntityPlayer, x: Int, y: Int, z: Int): Boolean = {
 			if (stack != null && stack.getItem.isInstanceOf[IModularItem]) {
 				return (player.getEntityWorld.getTileEntity(x, y, z).isInstanceOf[TileEntityEio]
-									&& MuseItemTag.getMuseItemTag(item).getBoolean("eioManipulateConduit"))
+									&& MuseItemTag.getMuseItemTag(stack).getBoolean("eioManipulateConduit"))
 			} else {
 				return false
 			}
