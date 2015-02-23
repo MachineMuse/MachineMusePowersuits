@@ -6,6 +6,7 @@ import crazypants.enderio.api.tool.ITool
 import net.machinemuse.api._
 import net.machinemuse.api.moduletrigger.IRightClickModule
 import net.machinemuse.general.gui.MuseIcon
+import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.scala.OptionCast
 import net.machinemuse.powersuits.common.{Config, ModCompatability}
 import net.machinemuse.powersuits.powermodule.tool.{GrafterModule, OmniWrenchModule}
@@ -60,6 +61,7 @@ with ModeChangingModularItem {
  */
   @Optional.Method( modid = "EnderIO" )
   def shouldHideFacades(stack: ItemStack, player: EntityPlayer): Boolean = {
+  	MuseLogger.logDebug(MuseItemTag.getMuseItemTag(stack).toString)
     return MuseItemTag.getMuseItemTag(stack).getBoolean("eioFacadeTransparency")
   }
 
