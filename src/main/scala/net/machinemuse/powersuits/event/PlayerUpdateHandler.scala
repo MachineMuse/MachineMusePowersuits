@@ -36,6 +36,7 @@ class PlayerUpdateHandler {
         for (itemStack <- modularItemsEquipped) {
           if (module.isValidForItem(itemStack)) {
             if (ModuleManager.itemHasActiveModule(itemStack, module.getDataName)) {
+            	module.onPlayerTickActive(player, itemStack)
               moduleActive = true
             }
           }
