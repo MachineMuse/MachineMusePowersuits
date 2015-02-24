@@ -110,7 +110,7 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
         TileEntity tile = world.getTileEntity(x, y, z);
 
         if (ModCompatability.isEnderIOLoaded()) {
-								itemStack.getItem.used(itemStack, player, x, y, z);
+								itemStack.getItem().used(itemStack, player, x, y, z);
         //         // Hmm... Seems this allows breakage of more EnderIO blocks than the YetaWrench...
         //         // Though it seems there's no better way to provide similar functionality with EnderIO machines... - 2014-12-01 Korynkai
         //         if (tile instanceof TileEntityEio) {
