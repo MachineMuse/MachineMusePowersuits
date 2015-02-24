@@ -20,3 +20,6 @@
 # Mac Stuff
 .DS_Store
 *.command
+
+# Use already pushed README.md
+/README.md
