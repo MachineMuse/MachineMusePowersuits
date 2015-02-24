@@ -7,7 +7,7 @@ import net.machinemuse.numina.sound.proxy.Musique
 import net.machinemuse.numina.general.MuseMathUtils
 import net.machinemuse.numina.scala.OptionCast
 import net.machinemuse.utils.{MuseHeatUtils, MuseItemUtils, MusePlayerUtils}
-import net.machinemuse.powersuits.item.ItemPowerArmor
+import net.machinemuse.powersuits.item.ItemPowerFist
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent
@@ -36,7 +36,9 @@ class PlayerUpdateHandler {
         for (itemStack <- modularItemsEquipped) {
           if (module.isValidForItem(itemStack)) {
             if (ModuleManager.itemHasActiveModule(itemStack, module.getDataName)) {
-            	module.onPlayerTickActive(player, itemStack)
+            	if (itemStack.getItem.isInstanceOf[ItemPowerFist]) {
+            		module.onPlayerTickActive(player, itemStack)
+            	}            		
               moduleActive = true
             }
           }
@@ -46,7 +48,7 @@ class PlayerUpdateHandler {
           for (j <- 0 until player.inventory.getSizeInventory) {
             val itemStack: ItemStack = player.inventory.getStackInSlot(j)
             if (itemStack != null) {
-							if (itemStack.getItem.isInstanceOf[ItemPowerArmor]) {
+							if (itemStack.getItem.isInstanceOf[IModularItem]) {
 								if (ModuleManager.itemHasModule(itemStack, module.getDataName)) {
 									module.onPlayerTickInactive(player, itemStack)
 								}
