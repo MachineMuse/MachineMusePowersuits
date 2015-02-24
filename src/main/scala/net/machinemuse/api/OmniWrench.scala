@@ -87,28 +87,13 @@ trait EnderIOTool
 	extends ITool {
 		def canUse(stack: ItemStack, player: EntityPlayer, x: Int, y: Int, z: Int): Boolean = {
 			if (stack != null && stack.getItem.isInstanceOf[IModularItem]) {
-				return (player.getEntityWorld.getTileEntity(x, y, z).isInstanceOf[TileEntityEio]
-									&& MuseItemTag.getMuseItemTag(stack).getBoolean("eioManipulateConduit"))
+				return MuseItemTag.getMuseItemTag(stack).getBoolean("eioManipulateConduit")
 			} else {
 				return false
 			}
 		}
 
 		def used(stack: ItemStack, player: EntityPlayer, x: Int, y: Int, z: Int) {
-			if (stack != null && stack.getItem.isInstanceOf[IModularItem]) {
-				val t = player.getEntityWorld.getTileEntity(x, y, z)
-				val b = player.getEntityWorld.getBlock(x, y, z)
-				MuseLogger.logDebug("EnderIO used called...")
-				if (t.isInstanceOf[TileEntityEio] && MuseItemTag.getMuseItemTag(stack).getBoolean("eioManipulateConduit")) {
-					MuseLogger.logDebug("EnderIO used processing...")
-					if (player.isSneaking) {
-            b.removedByPlayer(player.getEntityWorld, player, x, y, z, true)
-          } else {
-            b.rotateBlock(player.getEntityWorld, x, y, z, ForgeDirection.getOrientation(t.getBlockMetadata))
-          }
-					player.swingItem
-				}
-			}
 		}
 
 		def shouldHideFacades(stack: ItemStack, player: EntityPlayer): Boolean = {
