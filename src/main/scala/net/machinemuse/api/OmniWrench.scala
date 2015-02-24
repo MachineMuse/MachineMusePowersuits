@@ -7,6 +7,7 @@ import cpw.mods.fml.common.Optional
 import crazypants.enderio.TileEntityEio
 import crazypants.enderio.api.tool.ITool
 import mods.railcraft.api.core.items.IToolCrowbar
+import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.powersuits.powermodule.tool.{MFFSFieldTeleporterModule, OmniWrenchModule}
 import net.machinemuse.utils.ElectricItemUtils
 import net.minecraft.block.Block
@@ -97,7 +98,9 @@ trait EnderIOTool
 			if (stack != null && stack.getItem.isInstanceOf[IModularItem]) {
 				val t = player.getEntityWorld.getTileEntity(x, y, z)
 				val b = player.getEntityWorld.getBlock(x, y, z)
+				MuseLogger.logDebug("EnderIO used called...")
 				if (t.isInstanceOf[TileEntityEio] && MuseItemTag.getMuseItemTag(stack).getBoolean("eioManipulateConduit")) {
+					MuseLogger.logDebug("EnderIO used processing...")
 					if (player.isSneaking) {
             b.removedByPlayer(player.getEntityWorld, player, x, y, z, true)
           } else {
