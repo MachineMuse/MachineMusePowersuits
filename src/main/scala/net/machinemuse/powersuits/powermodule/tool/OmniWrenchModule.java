@@ -11,6 +11,7 @@ import ic2.api.energy.tile.IEnergySource;
 import ic2.api.energy.tile.IEnergySink;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.MuseItemTag;
+import net.machinemuse.api.EnderIOTool;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.powersuits.common.ModCompatability;
@@ -108,7 +109,8 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
 
         TileEntity tile = world.getTileEntity(x, y, z);
 
-        // if (ModCompatability.isEnderIOLoaded()) {
+        if (ModCompatability.isEnderIOLoaded()) {
+								EnderIOTool.used(itemStack, player, x, y, z);
         //         // Hmm... Seems this allows breakage of more EnderIO blocks than the YetaWrench...
         //         // Though it seems there's no better way to provide similar functionality with EnderIO machines... - 2014-12-01 Korynkai
         //         if (tile instanceof TileEntityEio) {
@@ -118,7 +120,7 @@ public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World wo
         //                         b.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side));
         //                 }
         //         }
-        // }
+        }
         // IC2: UNTESTED - 2014-12-01 Korynkai
         if (ModCompatability.isIndustrialCraftLoaded()) {
                 if (tile instanceof IWrenchable) {

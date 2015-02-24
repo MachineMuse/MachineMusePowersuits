@@ -96,10 +96,9 @@ trait EnderIOTool
 
 		def used(stack: ItemStack, player: EntityPlayer, x: Int, y: Int, z: Int) {
 			if (stack != null && stack.getItem.isInstanceOf[IModularItem]) {
-				val t = player.getEntityWorld.getTileEntity(x, y, z)
 				val b = player.getEntityWorld.getBlock(x, y, z)
 				MuseLogger.logDebug("EnderIO used called...")
-				if (t.isInstanceOf[TileEntityEio] && MuseItemTag.getMuseItemTag(stack).getBoolean("eioManipulateConduit")) {
+				if (canUse(stack, player, x, y, z)) {
 					MuseLogger.logDebug("EnderIO used processing...")
 					if (player.isSneaking) {
             b.removedByPlayer(player.getEntityWorld, player, x, y, z, true)
