@@ -51,7 +51,7 @@
 	{
 		"ingredients" : [
 			[ { "oredictName" : "dyeRed" }, { "oredictName" : "dyeGreen" }, { "oredictName" : "dyeBlue" } ],
-			[ null, { "unlocalizedName" : "tile.glass" }, null ],
+			[ null, { "oredictName" : "blockGlass" }, null ],
 			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.thermalexpansion.material.powerCoilGold" }, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {
@@ -129,7 +129,7 @@
 	},
 	{
 		"ingredients" : [
-			[  { "id" : 35 }, { "id" : 35 }, { "id" : 35 } ],
+			[  { "oredictName" : "blockWool" }, { "oredictName" : "blockWool" }, { "oredictName" : "blockWool" } ],
 			[  { "unlocalizedName" : "item.string" }, null, { "unlocalizedName" : "item.string" } ],
 			[ null, { "unlocalizedName" : "item.thermalexpansion.material.pneumaticServo" }, null ]
 		],
