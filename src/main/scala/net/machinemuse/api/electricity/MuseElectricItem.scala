@@ -1,22 +1,28 @@
 package net.machinemuse.api.electricity
 
 import cofh.api.energy.IEnergyContainerItem
+import ic2.api.item.ElectricItem;
+import ic2.api.item.IElectricItemManager;
+import ic2.api.item.ISpecialElectricItem;
+
 import cpw.mods.fml.common.Optional
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.api.electricity.ElectricConversions._
 import net.machinemuse.utils.{ElectricItemUtils, MuseItemUtils}
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack
 
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 10:12 PM, 4/20/13
  */
-@Optional.Interface(iface = "ic2.api.item.ICustomElectricItem", modid = "IC2", striprefs = true)
+@Optional.Interface(iface = "ic2.api.item.IElectricItemManager", modid = "IC2", striprefs = true)
+@Optional.Interface(iface = "ic2.api.item.ISpecialElectricItem", modid = "IC2", striprefs = true)
 @Optional.Interface(iface = "cofh.api.energy.IEnergyContainerItem", modid = "CoFHCore", striprefs = true)
 trait MuseElectricItem
-  extends IEnergyContainerItem {
-  
-  //  with ICustomElectricItem // IC2
+  extends IEnergyContainerItem
+  with ISpecialElectricItem
+  with IElectricItemManager {
   // ICBM
   /**
    * Call to get the energy of an item
@@ -83,15 +89,23 @@ trait MuseElectricItem
   }
 
   // IC2
+  def getManager(itemStack: ItemStack) = this
+
+  def chargeFromArmor(itemStack: ItemStack, entity: EntityLivingBase) = ElectricItem.rawManager.chargeFromArmor(itemStack,entity)
+
+  def use(itemStack: ItemStack, amount: Double, entity: EntityLivingBase) = ElectricItem.rawManager.use(itemStack,museEnergyToEU(amount),entity)
+
   def canProvideEnergy(itemStack: ItemStack): Boolean = true
 
-  def getMaxCharge(itemStack: ItemStack): Int = museEnergyToEU(getCurrentEnergy(itemStack)).asInstanceOf[Int]
+  def getCharge(itemStack: ItemStack): Double = museEnergyToEU(getCurrentEnergy(itemStack))
+
+  def getMaxCharge(itemStack: ItemStack): Double = museEnergyToEU(getMaxEnergy(itemStack))
 
   def getTier(itemStack: ItemStack): Int = ElectricConversions.getTier(itemStack)
 
-  def getTransferLimit(itemStack: ItemStack): Int = museEnergyToEU(Math.sqrt(getMaxEnergy(itemStack))).asInstanceOf[Int]
+  def getTransferLimit(itemStack: ItemStack): Double = museEnergyToEU(Math.sqrt(getMaxEnergy(itemStack)))
 
-  def charge(itemStack: ItemStack, amount: Int, tier: Int, ignoreTransferLimit: Boolean, simulate: Boolean): Int = {
+  def charge(itemStack: ItemStack, amount: Double, tier: Int, ignoreTransferLimit: Boolean, simulate: Boolean): Double = {
     val current: Double = getCurrentEnergy(itemStack)
     val transfer = {
       if (ignoreTransferLimit || amount < getTransferLimit(itemStack))
@@ -103,10 +117,10 @@ trait MuseElectricItem
     if (simulate) {
       setCurrentEnergy(itemStack, current)
     }
-    museEnergyToEU(given).toInt
+    museEnergyToEU(given)
   }
 
-  def discharge(itemStack: ItemStack, amount: Int, tier: Int, ignoreTransferLimit: Boolean, simulate: Boolean): Int = {
+  def discharge(itemStack: ItemStack, amount: Double, tier: Int, ignoreTransferLimit: Boolean, externally: Boolean, simulate: Boolean): Double = {
     val current: Double = getCurrentEnergy(itemStack)
     val transfer = {
       if (ignoreTransferLimit || amount < getTransferLimit(itemStack))
@@ -118,13 +132,12 @@ trait MuseElectricItem
     if (simulate) {
       setCurrentEnergy(itemStack, current)
     }
-    museEnergyToEU(taken).toInt
+    museEnergyToEU(taken)
   }
 
-  def canUse(itemStack: ItemStack, amount: Int): Boolean = museEnergyFromEU(amount) < getCurrentEnergy(itemStack)
+  def canUse(itemStack: ItemStack, amount: Double): Boolean = museEnergyFromEU(amount) < getCurrentEnergy(itemStack)
 
-
-  def canShowChargeToolTip(itemStack: ItemStack): Boolean = false
+  def getToolTip(itemStack: ItemStack): String = ElectricItem.rawManager.getToolTip(itemStack)
 
   // TE
   def receiveEnergy(stack: ItemStack, energy: Int, simulate: Boolean): Int = {
