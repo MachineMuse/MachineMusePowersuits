@@ -50,9 +50,9 @@
 	},
 	{
 		"ingredients" : [
-			[ { "unlocalizedName" : "item.yellowDust" }, { "unlocalizedName" : "item.glass" }, { "oredictName" : "dyeGreen" } ],
-			[ { "unlocalizedName" : "item.glass" }, { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.glass" } ],
-			[ { "oredictName" : "dyeBlue" }, { "unlocalizedName" : "item.glass" }, { "oredictName" : "dyeRed" } ]
+			[ { "unlocalizedName" : "item.yellowDust" }, { "oredictName" : "blockGlass" }, { "oredictName" : "dyeGreen" } ],
+			[ { "oredictName" : "blockGlass" }, { "oredictName" : "componentWiring" }, { "oredictName" : "blockGlass" } ],
+			[ { "oredictName" : "dyeBlue" }, { "oredictName" : "blockGlass" }, { "oredictName" : "dyeRed" } ]
 		],
 		"result" : {
 			"oredictName" : "componentLaserEmitter"
@@ -127,7 +127,7 @@
 	},
 	{
 		"ingredients" : [
-			[  {"id" : 35 }, { "id" : 35 }, {"id" : 35 } ],
+			[  { "oredictName" : "blockWool" }, { "oredictName" : "blockWool" }, { "oredictName" : "blockWool" } ],
 			[  {"unlocalizedName" : "item.string" }, null, {"unlocalizedName" : "item.string" } ]
 		],
 		"result" : {
