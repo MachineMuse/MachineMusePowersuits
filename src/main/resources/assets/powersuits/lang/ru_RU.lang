@@ -72,6 +72,7 @@ module.transparentArmor.name=Прозрачная броня
 module.cosmeticGlow.name=Модуль свечения
 module.mffsFieldTeleporter.name=Телепортер поля MFFS
 module.grafter.name=Садовый нож
+module.scoop.name=Сачок
 module.apiaristArmor.name=Броня пчеловода
 module.hazmat.name=Защита от радиации
 module.redstoneLaser.name=Красный лазер
@@ -120,6 +121,7 @@ module.coolingSystem.desc=Охлаждает излучающие тепло м�
 module.tint.desc=Give your armor some coloured tinting to customize your armor's appearance.
 module.transparentArmor.desc=Make the item transparent, so you can show off your skin without losing armor.
 module.cosmeticGlow.desc=Change the appearance of the glowy bits on your armor.
+module.scoop.desc=Сачок, интегрированный в силовой кулак.
 
 gui.noModulesFound.line1=Части модульной силовой брони
 gui.noModulesFound.line2=не найдены в инвентаре. Сделайте несколько!

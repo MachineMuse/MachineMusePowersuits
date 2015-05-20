@@ -10,6 +10,7 @@ import net.machinemuse.powersuits.powermodule.misc.AirtightSealModule;
 import net.machinemuse.powersuits.powermodule.misc.ThaumGogglesModule;
 import net.machinemuse.powersuits.powermodule.tool.ChiselModule;
 import net.machinemuse.powersuits.powermodule.tool.GrafterModule;
+import net.machinemuse.powersuits.powermodule.tool.ScoopModule;
 import net.minecraftforge.common.config.Configuration;
 
 import java.util.Arrays;
@@ -91,6 +92,7 @@ public class ModCompatibility {
         // Forestry
         if (isForestryLoaded()) {
             ModuleManager.addModule(new GrafterModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
+            ModuleManager.addModule(new ScoopModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
             ModuleManager.addModule(new ApiaristArmorModule(Arrays.<IModularItem>asList(MPSItems.powerArmorHead(), MPSItems.powerArmorTorso(), MPSItems.powerArmorLegs(), MPSItems.powerArmorFeet())));
         }
 

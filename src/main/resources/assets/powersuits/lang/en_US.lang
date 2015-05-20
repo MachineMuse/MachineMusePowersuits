@@ -72,6 +72,7 @@ module.transparentArmor.name=Transparent Armor
 module.cosmeticGlow.name=Glow Module
 module.mffsFieldTeleporter.name=MFFS Field Teleporter
 module.grafter.name=Grafter
+module.scoop.name=Scoop
 module.apiaristArmor.name=Apiarist Armor
 module.hazmat.name=Radiation Shielding
 module.redstoneLaser.name=Redstone Laser
@@ -124,6 +125,7 @@ module.hazmat.desc=Protect yourself from electricity and radiation poisoning. *M
 module.aurameter.desc=Connect up some Thaumic goggles to have them embedded in your helmet. (Does not give Vis usage discount)
 module.airtightSeal.desc=Seal the suit against hostile atmospheres for venturing to other planets.
 module.grafter.desc=A Forestry grafter integrated into your power tool.
+module.scoop.desc=A Forestry Scoop integrated into your power tool.
 module.apiaristArmor.desc=A set of Forestry apiarist armor integrated into your armor.
 module.chisel.desc=This won't let you chisel blocks, but it will at least let you harvest them.
 
