@@ -76,21 +76,7 @@ public abstract class MuseRenderer {
         RenderHelper.disableStandardItemLighting();
         RenderState.blendingOn();
         RenderState.on2D();
-        if (Config.useCustomFonts()) {
-            try {
-                SlickFont.apply(x, y, s, c);
-            } catch (Throwable e) {
-                if (!messagedAboutSlick) {
-                    MuseLogger.logError("Slick-Util failed or was disabled in config!");
-                    e.printStackTrace();
-                    messagedAboutSlick = true;
-                }
-                getFontRenderer().drawStringWithShadow(s, (int) x, (int) y, c.getInt());
-            }
-        } else {
-            getFontRenderer().drawStringWithShadow(s, (int) x, (int) y, c.getInt());
-        }
-
+        getFontRenderer().drawStringWithShadow(s, (int) x, (int) y, c.getInt());
         RenderState.off2D();
         RenderState.blendingOff();
     }
@@ -112,14 +98,8 @@ public abstract class MuseRenderer {
     public static double getStringWidth(String s) {
         double val;
         GL11.glPushAttrib(GL11.GL_TEXTURE_BIT);
-        try {
-            if (!Config.useCustomFonts()) throw new UnsupportedOperationException();
-            val = SlickFont.getStringWidth(s);
-        } catch (Throwable e) {
-            val = getFontRenderer().getStringWidth(s);
-        } finally {
-            GL11.glPopAttrib();
-        }
+        val = getFontRenderer().getStringWidth(s);
+        GL11.glPopAttrib();
         return val;
     }
 
