@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.item
 
 import cpw.mods.fml.relauncher.{Side, SideOnly}
+import forestry.api.arboriculture.IToolGrafter;
 import net.machinemuse.api._
 import net.machinemuse.api.moduletrigger.IRightClickModule
 import net.machinemuse.general.gui.MuseIcon
@@ -25,7 +26,7 @@ import net.minecraft.world.World
  */
 class ItemPowerFist extends ItemElectricTool(0, ToolMaterial.EMERALD)
 with IModularItem
-//with IToolGrafter
+with IToolGrafter
 //with OmniWrench
 with ModeChangingModularItem {
   val iconpath: String = MuseIcon.ICON_PREFIX + "handitem"

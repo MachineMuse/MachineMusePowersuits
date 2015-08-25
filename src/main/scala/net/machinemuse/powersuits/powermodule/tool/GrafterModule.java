@@ -4,7 +4,10 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
+
+import cpw.mods.fml.common.registry.GameRegistry;
 
 import java.util.List;
 
@@ -20,7 +23,8 @@ public class GrafterModule extends PowerModuleBase {
 
     public GrafterModule(List<IModularItem> validItems) {
         super(validItems);
-//        addInstallCost(ModCompatability.getForestryItem("grafter", 1));
+        ItemStack stack = GameRegistry.findItemStack("Forestry", "grafter", 1);
+        addInstallCost(stack);
         addBaseProperty(GRAFTER_ENERGY_CONSUMPTION, 1000, "J");
         addBaseProperty(GRAFTER_HEAT_GENERATION, 20);
     }
