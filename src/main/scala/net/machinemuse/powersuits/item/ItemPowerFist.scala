@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.item
 
+import cpw.mods.fml.common.Optional
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import forestry.api.arboriculture.IToolGrafter;
 import net.machinemuse.api._
@@ -24,6 +25,7 @@ import net.minecraft.world.World
  *
  * @author MachineMuse
  */
+@Optional.Interface(iface = "forestry.api.arboriculture.IToolGrafter", modid = "Forestry", striprefs = true)
 class ItemPowerFist extends ItemElectricTool(0, ToolMaterial.EMERALD)
 with IModularItem
 with IToolGrafter
