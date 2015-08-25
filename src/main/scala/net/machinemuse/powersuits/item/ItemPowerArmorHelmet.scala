@@ -16,16 +16,17 @@ import net.minecraft.item.ItemStack
 import thaumcraft.api.IGoggles
 import thaumcraft.api.nodes.IRevealer
 
-@Optional.Interface(iface = "forestry.api.core.IArmorNaturalist", modid = "Forestry", striprefs = true)
-@Optional.Interface(iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft", striprefs = true)
-@Optional.Interface(iface = "thaumcraft.api.nodes.IRevealer", modid = "Thaumcraft", striprefs = true)
-@Optional.Interface(iface = "micdoodle8.mods.galacticraft.api.item.IBreathableArmor", modid = "GalacticraftCore", striprefs = true)
+@Optional.InterfaceList (Array(
+new Optional.Interface (iface = "forestry.api.core.IArmorNaturalist", modid = "Forestry", striprefs = true),
+new Optional.Interface (iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft", striprefs = true),
+new Optional.Interface (iface = "thaumcraft.api.nodes.IRevealer", modid = "Thaumcraft", striprefs = true),
+new Optional.Interface (iface = "micdoodle8.mods.galacticraft.api.item.IBreathableArmor", modid = "GalacticraftCore", striprefs = true)
+) )
 class ItemPowerArmorHelmet extends ItemPowerArmor(0, 0)
 with IArmorNaturalist
 with IBreathableArmor
 with IGoggles
-with IRevealer
-{
+with IRevealer {
   val iconpath = MuseRenderer.ICON_PREFIX + "armorhead"
 
   setUnlocalizedName("powerArmorHelmet")
