@@ -1,5 +1,6 @@
 package net.machinemuse.api
 
+import cpw.mods.fml.common.Optional
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.{ItemArmor, ItemStack}
 import net.machinemuse.utils.ElectricItemUtils
@@ -18,7 +19,10 @@ with ApiaristArmor {
 
 }
 
+@Optional.Interface(iface = "forestry.api.apiculture.IArmorApiarist", modid = "Forestry", striprefs = true)
 trait ApiaristArmor extends IArmorApiarist {
+
+  @Optional.Method(modid = "Forestry")
   def protectPlayer(player: EntityPlayer, armor: ItemStack, cause: String, doProtect: Boolean): Boolean = {
     if (ModuleManager.itemHasActiveModule(armor, ApiaristArmorModule.MODULE_APIARIST_ARMOR)) {
       ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(armor, ApiaristArmorModule.APIARIST_ARMOR_ENERGY_CONSUMPTION))

@@ -193,6 +193,7 @@ with ModeChangingModularItem {
     }
   }
 
+  @Optional.Method(modid = "Forestry")
   def getSaplingModifier(stack: ItemStack, world: World, player: EntityPlayer, x: Int, y: Int, z: Int): Float = {
     if (ModuleManager.itemHasActiveModule(stack, GrafterModule.MODULE_GRAFTER)) {
       ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, GrafterModule.GRAFTER_ENERGY_CONSUMPTION))
