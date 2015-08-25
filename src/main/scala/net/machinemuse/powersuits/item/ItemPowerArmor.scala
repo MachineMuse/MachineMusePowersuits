@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.item
 
 import cpw.mods.fml.relauncher.{Side, SideOnly}
-import net.machinemuse.api.{IModularItem, ModuleManager}
+import net.machinemuse.api.{IModularItem, ArmorTraits, ModuleManager}
 import net.machinemuse.numina.geometry.Colour
 import net.machinemuse.powersuits.client.render.item.ArmorModel
 import net.machinemuse.powersuits.common.Config
@@ -23,6 +23,7 @@ import net.minecraftforge.common.ISpecialArmor
 abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
   extends ItemElectricArmor(ItemArmor.ArmorMaterial.IRON, renderIndex, armorType)
   with ISpecialArmor
+  with ArmorTraits
   with IModularItem {
   setMaxStackSize(1)
   setCreativeTab(Config.getCreativeTab)

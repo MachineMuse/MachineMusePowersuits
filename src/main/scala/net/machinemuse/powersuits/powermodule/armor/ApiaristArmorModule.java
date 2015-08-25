@@ -7,6 +7,8 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+
 import java.util.List;
 
 /**
@@ -20,9 +22,9 @@ public class ApiaristArmorModule extends PowerModuleBase {
 
     public ApiaristArmorModule(List<IModularItem> validItems) {
         super(validItems);
-//        ItemStack stack = ModCompatability.getForestryItem("craftingMaterial", 6);
-//        stack.setItemDamage(3);
-//        addInstallCost(stack);
+        ItemStack stack = GameRegistry.findItemStack("Forestry", "craftingMaterial", 6);
+        stack.setItemDamage(3);
+        addInstallCost(stack);
         addBaseProperty(APIARIST_ARMOR_ENERGY_CONSUMPTION, 10, "J");
     }
 

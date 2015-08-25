@@ -1,6 +1,8 @@
 package net.machinemuse.api.electricity
 
 import cofh.api.energy.IEnergyContainerItem
+import ic2.api.item.ElectricItem
+import ic2.api.item.IElectricItem
 import net.machinemuse.powersuits.common.ModCompatability
 import net.minecraft.item.ItemStack
 
@@ -12,8 +14,8 @@ object ElectricAdapter {
       new MuseElectricAdapter(stack)
     } else if (ModCompatability.isCoFHCoreLoaded && i.isInstanceOf[IEnergyContainerItem]) {
       new TEElectricAdapter(stack)
-    } else if (ModCompatability.isIndustrialCraftLoaded) {
-      null
+    } else if (ModCompatability.isIndustrialCraftLoaded && i.isInstanceOf[IElectricItem]) {
+      new IC2ElectricAdapter(stack)
     } else {
       null
     }
@@ -43,20 +45,22 @@ class MuseElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
   def giveEnergy(provided: Double) = item.giveEnergyTo(stack, provided)
 }
 
-//
-//class IC2ElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
-//  val item = stack.getItem.asInstanceOf[IElectricItem]
-//
-//  def getCurrentEnergy: Double = museEnergyFromEU(ElectricItem.discharge(stack, Integer.MAX_VALUE, getTier, true, true))
-//
-//  def getMaxEnergy: Double = museEnergyFromEU(item.getMaxCharge(stack))
-//
-//  def drainEnergy(requested: Double) = museEnergyFromEU(ElectricItem.discharge(stack, museEnergyToEU(requested).toInt, getTier, true, false))
-//
-//  def giveEnergy(provided: Double): Double = museEnergyFromEU(ElectricItem.charge(stack, museEnergyToEU(provided).toInt, getTier, true, false))
-//
-//  def getTier = item.getTier(stack)
-//}
+
+class IC2ElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
+  val item = stack.getItem.asInstanceOf[IElectricItem]
+
+  import net.machinemuse.api.electricity.ElectricConversions._
+
+  def getCurrentEnergy: Double = museEnergyFromEU(ElectricItem.manager.getCharge(stack))
+
+  def getMaxEnergy: Double = museEnergyFromEU(item.getMaxCharge(stack))
+
+  def drainEnergy(requested: Double): Double = museEnergyFromEU(ElectricItem.manager.discharge(stack, museEnergyToEU(requested), getTier, true, false, false))
+
+  def giveEnergy(provided: Double): Double = museEnergyFromEU(ElectricItem.manager.charge(stack, museEnergyToEU(provided), getTier, true, false))
+
+  def getTier = item.getTier(stack)
+}
 
 class TEElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
   val item = stack.getItem.asInstanceOf[IEnergyContainerItem]
