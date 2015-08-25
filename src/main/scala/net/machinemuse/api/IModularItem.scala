@@ -42,11 +42,4 @@ trait IModularItem extends net.minecraft.item.Item {
    */
   def givePlayerEnergy(player: EntityPlayer, joulesToGive: Double)
 
-
-  /** Since this is the only mixin shared between the two, it's simplest to set it here.
-    *
-    * @param itemStack
-    * @return 0
-    */
-  override def getMaxDamage(itemStack:ItemStack) = 0
 }

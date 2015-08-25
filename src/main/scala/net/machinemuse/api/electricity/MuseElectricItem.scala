@@ -10,7 +10,7 @@ import net.machinemuse.api.ModuleManager
 import net.machinemuse.api.electricity.ElectricConversions._
 import net.machinemuse.utils.{ElectricItemUtils, MuseItemUtils}
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack
+import net.minecraft.item.{Item, ItemStack}
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -19,8 +19,8 @@ import net.minecraft.item.ItemStack
 @Optional.Interface(iface = "ic2.api.item.IElectricItemManager", modid = "IC2", striprefs = true)
 @Optional.Interface(iface = "ic2.api.item.ISpecialElectricItem", modid = "IC2", striprefs = true)
 @Optional.Interface(iface = "cofh.api.energy.IEnergyContainerItem", modid = "CoFHCore", striprefs = true)
-trait MuseElectricItem
-  extends IEnergyContainerItem
+trait MuseElectricItem extends Item
+  with IEnergyContainerItem
   with ISpecialElectricItem
   with IElectricItemManager {
   // ICBM
@@ -164,4 +164,5 @@ trait MuseElectricItem
 
   def getMaxEnergyStored(theItem: ItemStack) = museEnergyToRF(getMaxEnergy(theItem)).toInt
 
+  override def getMaxDamage(itemStack:ItemStack) = 0
 }
