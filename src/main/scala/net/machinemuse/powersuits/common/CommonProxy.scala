@@ -76,7 +76,7 @@ class ClientProxy extends CommonProxy {
     }
     catch {
       case e: Throwable => {
-        MuseLogger.logException("Loading shaders failed!", e)
+        MuseLogger.logDebug("Loading shaders failed!")
       }
     }
   }
