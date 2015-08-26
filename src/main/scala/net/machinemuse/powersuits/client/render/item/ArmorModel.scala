@@ -89,4 +89,10 @@ trait ArmorModel extends ModelBiped {
 
     setRotationAngles(par2, par3, par4, par5, par6, scale, entity)
   }
+
+  def post(entity: Entity, par2: Float, par3: Float, par4: Float, par5: Float, par6: Float, scale: Float): Unit = {
+    this.aimedBow = false
+    this.isSneak = false
+    this.heldItemRight = 0
+  }
 }
