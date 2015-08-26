@@ -60,6 +60,7 @@ getLibrary("GalacticraftCore-Dev-BETA-1.7-3.0.1.8-noassets.jar")
 getLibrary("forestry_1.7.10-3.4.0.7-api.jar")
 getLibrary("Thaumcraft-API-4.2.0.0-Compiled.jar")
 //getLibrary("MFFS2_API.zip")
+getLibrary("SmartRender-1.7.10-2.1.jar")
 getLibrary("RenderPlayerAPI-1.7.10-1.4.jar")
 
 processResources
