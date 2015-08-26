@@ -59,6 +59,7 @@ trait ArmorModel extends ModelBiped {
       this.heldItemRight = if (stack != null) 1 else 0
       this.isSneak = entLive.isSneaking
       this.aimedBow = entLive.asInstanceOf[EntityPlayer].getItemInUse != null
+      this.isRiding = entLive.isRiding
     } catch {
       case _: Exception =>
     }

@@ -69,11 +69,11 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
       entity match {
         case player: EntityPlayer =>
           Option(player.getCurrentArmor(2)).map(chest =>
-            if (ModuleManager.itemHasActiveModule(chest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) return null)
+            if (ModuleManager.itemHasActiveModule(chest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) model.visibleSection = 99)
         case _ =>
       }
       if (ModuleManager.itemHasActiveModule(itemstack, TransparentArmorModule.MODULE_TRANSPARENT_ARMOR)) {
-        return null
+        model.visibleSection = 99
       }
       model.renderSpec = MuseItemUtils.getMuseRenderTag(itemstack, armorSlot)
     }
