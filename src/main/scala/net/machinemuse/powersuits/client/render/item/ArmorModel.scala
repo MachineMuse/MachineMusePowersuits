@@ -5,7 +5,7 @@ import net.minecraft.client.model.{ModelBiped, ModelRenderer}
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.item.ItemStack
+import net.minecraft.item.{EnumAction, ItemStack}
 import net.minecraftforge.client.model.obj.WavefrontObject
 import net.minecraft.nbt.NBTTagCompound
 import net.machinemuse.numina.general.MuseLogger
@@ -58,8 +58,17 @@ trait ArmorModel extends ModelBiped {
       val stack: ItemStack = entLive.getEquipmentInSlot(0)
       this.heldItemRight = if (stack != null) 1 else 0
       this.isSneak = entLive.isSneaking
-      this.aimedBow = entLive.asInstanceOf[EntityPlayer].getItemInUse != null
       this.isRiding = entLive.isRiding
+      val entPlayer = entLive.asInstanceOf[EntityPlayer]
+      if ((stack != null) && (entPlayer.getItemInUseCount > 0))
+      {
+        val enumaction = stack.getItemUseAction
+        if (enumaction == EnumAction.block) {
+          this.heldItemRight = 3
+        } else if (enumaction == EnumAction.bow) {
+          this.aimedBow = true
+        }
+      }
     } catch {
       case _: Exception =>
     }
