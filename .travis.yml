@@ -1,7 +1,8 @@
 language: scala
 
 install: ./gradlew setupCIWorkspace -S
-script: ./gradlew build curse -S
+script: chmod +x gradlew
+  ./gradlew build curse -S
 
 env:
   global:
