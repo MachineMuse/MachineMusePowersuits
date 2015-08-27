@@ -1,8 +1,10 @@
 package net.machinemuse.powersuits.item
 
+import cofh.api.item.IToolHammer
 import cpw.mods.fml.common.Optional
 import cpw.mods.fml.relauncher.{Side, SideOnly}
-import forestry.api.arboriculture.IToolGrafter;
+import forestry.api.arboriculture.IToolGrafter
+import mods.railcraft.api.core.items.IToolCrowbar
 import net.machinemuse.api._
 import net.machinemuse.api.moduletrigger.IRightClickModule
 import net.machinemuse.general.gui.MuseIcon
@@ -13,6 +15,7 @@ import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule
 import net.machinemuse.utils.{ElectricItemUtils, MuseHeatUtils}
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.texture.IIconRegister
+import net.minecraft.entity.item.EntityMinecart
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.{Entity, EntityLivingBase}
 import net.minecraft.item.Item.ToolMaterial
@@ -25,11 +28,16 @@ import net.minecraft.world.World
  *
  * @author MachineMuse
  */
-@Optional.Interface(iface = "forestry.api.arboriculture.IToolGrafter", modid = "Forestry", striprefs = true)
+@Optional.InterfaceList (Array (
+new Optional.Interface (iface = "forestry.api.arboriculture.IToolGrafter", modid = "Forestry", striprefs = true),
+  new Optional.Interface (iface = "mods.railcraft.api.core.items.IToolCrowbar", modid = "Railcraft", striprefs = true),
+new Optional.Interface (iface = "cofh.api.item.IToolHammer", modid = "CoFHCore", striprefs = true)
+))
 class ItemPowerFist extends ItemElectricTool(0, ToolMaterial.EMERALD)
 with IModularItem
 with IToolGrafter
-//with OmniWrench
+with IToolHammer
+with IToolCrowbar
 with ModeChangingModularItem {
   val iconpath: String = MuseIcon.ICON_PREFIX + "handitem"
   setMaxStackSize(1)
@@ -217,4 +225,38 @@ with ModeChangingModularItem {
     return false
   }
 
+  // TE Crescent Hammer
+  override def isUsable(itemStack: ItemStack, entityLivingBase: EntityLivingBase, i: Int, i1: Int, i2: Int): Boolean = {
+    entityLivingBase match {
+      case player:EntityPlayer => getActiveMode(itemStack, player).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
+      case _ => false
+    }
+  }
+
+  // TE Crescent Hammer
+  override def toolUsed(itemStack: ItemStack, entityLivingBase: EntityLivingBase, i: Int, i1: Int, i2: Int): Unit = {}
+
+  // Railcraft Crowbar
+  override def canWhack(player: EntityPlayer, itemStack: ItemStack, i: Int, i1: Int, i2: Int): Boolean = {
+    getActiveMode(itemStack, player).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
+  }
+
+  // Railcraft Crowbar
+  override def canLink(player: EntityPlayer, itemStack: ItemStack, entityMinecart: EntityMinecart): Boolean = {
+    getActiveMode(itemStack, player).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
+  }
+
+  // Railcraft Crowbar
+  override def canBoost(player: EntityPlayer, itemStack: ItemStack, entityMinecart: EntityMinecart): Boolean = {
+    getActiveMode(itemStack, player).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
+  }
+
+  // Railcraft Crowbar
+  override def onLink(player: EntityPlayer, itemStack: ItemStack, entityMinecart: EntityMinecart): Unit = {}
+
+  // Railcraft Crowbar
+  override def onWhack(player: EntityPlayer, itemStack: ItemStack, i: Int, i1: Int, i2: Int): Unit = {}
+
+  // Railcraft Crowbar
+  override def onBoost(player: EntityPlayer, itemStack: ItemStack, entityMinecart: EntityMinecart): Unit = {}
 }
