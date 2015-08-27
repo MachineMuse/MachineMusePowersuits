@@ -4,10 +4,12 @@ import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableModule;
+import net.machinemuse.general.sound.SoundDictionary;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.geometry.MuseRect;
 import net.machinemuse.numina.geometry.MuseRelativeRect;
+import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.utils.render.MuseRenderer;
 import org.lwjgl.opengl.GL11;
 
@@ -161,7 +163,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
             int i = 0;
             for (ClickableModule module : moduleButtons) {
                 if (module.hitBox(x, y)) {
-//                    Musique.playClientSound(SoundLoader.SOUND_GUI_SELECT, 1);
+                    Musique.playClientSound(SoundDictionary.SOUND_GUI_SELECT, 1);
                     selectedModule = i;
                     prevSelection = module.getModule();
                     break;

@@ -1,6 +1,6 @@
 package net.machinemuse.general.sound;
 
-public class SoundLoader {
+public class SoundDictionary {
     /**
      * Sounds
      */
@@ -28,15 +28,4 @@ public class SoundLoader {
     public static final String SOUND_SWIMASSIST = SOUND_PREFIX + "SwimAssist";
     public static final String SOUND_ELECTROLYZER = SOUND_PREFIX + "WaterElectrolyzer";
 
-//    @SubscribeEvent
-//    public void onSoundLoad(SoundLoadEvent event) {  // Musique
-//        for (String soundFile : soundFiles) {
-//            try {
-//                event.addSound(soundFile);
-//                MuseLogger.logDebug("MMMPS registered sound: " + soundFile);
-//            } catch (Exception e) {
-//                MuseLogger.logError("Failed to register sound:" + soundFile);
-//            }
-//        }
-//    }
 }

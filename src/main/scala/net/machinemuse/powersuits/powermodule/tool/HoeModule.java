@@ -70,7 +70,8 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
                     }
                 }
             }
-// Musique            world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F),
+// TODO: Proper sound effect
+//            world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F),
 //                    Blocks.farmland.stepSound.getStepSound(), (Blocks.farmland.stepSound.getVolume() + 1.0F) / 2.0F,
 //                    Blocks.farmland.stepSound.getPitch() * 0.8F);
 

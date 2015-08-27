@@ -1,0 +1,11 @@
+{
+  "Glider": {"category": "master","sounds": [{"name": "Glider","stream": false}]},
+  "GUIInstall": {"category": "master","sounds": [{"name": "GUIInstall","stream": false}]},
+  "GUISelect": {"category": "master","sounds": [{"name": "GUISelect","stream": false}]},
+  "JetBoots": {"category": "master","sounds": [{"name": "JetBoots","stream": false}]},
+  "Jetpack": {"category": "master","sounds": [{"name": "Jetpack","stream": false}]},
+  "JumpAssist": {"category": "master","sounds": [{"name": "JumpAssist","stream": false}]},
+  "MMMPSboop": {"category": "master","sounds": [{"name": "MMMPSboop","stream": false}]},
+  "SwimAssist": {"category": "master","sounds": [{"name": "SwimAssist","stream": false}]},
+  "WaterElectrolyzer": {"category": "master","sounds": [{"name": "WaterElectrolyzer","stream": false}]}
+}

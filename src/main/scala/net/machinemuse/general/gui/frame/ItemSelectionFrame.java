@@ -1,10 +1,12 @@
 package net.machinemuse.general.gui.frame;
 
 import net.machinemuse.general.gui.clickable.ClickableItem;
+import net.machinemuse.general.sound.SoundDictionary;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.FlyFromPointToPoint2D;
 import net.machinemuse.numina.geometry.GradientAndArcCalculator;
 import net.machinemuse.numina.geometry.MusePoint2D;
+import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -116,7 +118,7 @@ public class ItemSelectionFrame extends ScrollableFrame {
         int i = 0;
         for (ClickableItem item : itemButtons) {
             if (item.hitBox(x, y)) {
-//                Musique.playClientSound(SoundLoader.SOUND_GUI_SELECT, 1);
+                Musique.playClientSound(SoundDictionary.SOUND_GUI_SELECT, 1);
                 selectedItemStack = i;
                 break;
             } else {

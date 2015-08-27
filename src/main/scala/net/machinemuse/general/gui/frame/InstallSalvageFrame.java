@@ -7,10 +7,12 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.gui.clickable.ClickableButton;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableModule;
+import net.machinemuse.general.sound.SoundDictionary;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
+import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.powersuits.network.packets.MusePacketInstallModuleRequest;
 import net.machinemuse.powersuits.network.packets.MusePacketSalvageModuleRequest;
 import net.machinemuse.utils.MuseItemUtils;
@@ -166,7 +168,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
         ItemStack stack = targetItem.getSelectedItem().getItem();
         IPowerModule module = targetModule.getSelectedModule().getModule();
         if (player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(module.getInstallCost(), player.inventory)) {
-//            Musique.playClientSound(SoundLoader.SOUND_GUI_INSTALL, 1);
+            Musique.playClientSound(SoundDictionary.SOUND_GUI_INSTALL, 1);
             // Now send request to server to make it legit
             MusePacket newpacket = new MusePacketInstallModuleRequest(
                     player,
