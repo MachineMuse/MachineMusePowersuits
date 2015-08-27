@@ -17,6 +17,7 @@ buildscript {
 
 apply plugin: 'scala'
 apply plugin: 'forge'
+apply plugin: 'curseforge'
 
 // define the properties file
 ext.configFile = file "project.properties"
@@ -28,7 +29,9 @@ configFile.withReader {
     project.ext.config = new ConfigSlurper().parse prop
 }
 
-version = "${config.mod_version}." + System.getenv("BUILD_NUMBER") ?: "1"
+def buildnumber = System.getenv("BUILD_NUMBER")
+def travisbuildnumber = (System.getenv("TRAVIS_BUILD_NUMBER") ?: -111).toInteger() + 111
+version = "${config.mod_version}." + (buildnumber ?: travisbuildnumber)
 group= "${config.group_id}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "${config.mod_id}"
 
@@ -102,4 +105,10 @@ build.dependsOn(copyToLib)
 
 artifacts {
     archives devJar
+}
+
+curse {
+    projectId = '235442'
+    apiKey = System.getenv('CURSE_API_KEY')
+    releaseType = 'release'
 }
