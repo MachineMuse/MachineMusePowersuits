@@ -22,6 +22,7 @@ import net.minecraft.item.Item.ToolMaterial
 import net.minecraft.item.{EnumAction, ItemStack}
 import net.minecraft.util.{DamageSource, Vec3}
 import net.minecraft.world.World
+import powercrystals.minefactoryreloaded.api.IMFRHammer
 
 /**
  * Describes the modular power tool.
@@ -37,6 +38,7 @@ class ItemPowerFist extends ItemElectricTool(0, ToolMaterial.EMERALD)
 with IModularItem
 with IToolGrafter
 with IToolHammer
+with IMFRHammer
 with IToolCrowbar
 with ModeChangingModularItem {
   val iconpath: String = MuseIcon.ICON_PREFIX + "handitem"
@@ -259,4 +261,5 @@ with ModeChangingModularItem {
 
   // Railcraft Crowbar
   override def onBoost(player: EntityPlayer, itemStack: ItemStack, entityMinecart: EntityMinecart): Unit = {}
+
 }

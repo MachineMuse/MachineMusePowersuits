@@ -1,9 +1,7 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
-import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
@@ -25,12 +23,9 @@ public class OmniWrenchModule extends PowerModuleBase implements IRightClickModu
 
     public OmniWrenchModule(List<IModularItem> validItems) {
         super(validItems);
-        if (ModCompatability.isOmniToolsLoaded() && GameRegistry.findItemStack("OmniTools", "OmniWrench", 1) != null) {
-            addInstallCost(GameRegistry.findItemStack("OmniTools", "OmniWrench", 1));
-        } else {
-            addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
-            addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
-        }
+
+        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
+        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
     }
 
     @Override
