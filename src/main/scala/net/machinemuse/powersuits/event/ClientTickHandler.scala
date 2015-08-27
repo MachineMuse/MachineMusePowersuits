@@ -72,15 +72,12 @@ class ClientTickHandler {
     val maxEnergy: Double = ElectricItemUtils.getMaxEnergy(player)
     val currHeat: Double = MuseHeatUtils.getPlayerHeat(player)
     val maxHeat: Double = MuseHeatUtils.getMaxHeat(player)
-    MuseLogger.logDebug("A")
     if (maxEnergy > 0 && BlockTinkerTable.energyIcon != null) {
-      MuseLogger.logDebug("B")
       val currStr: String = MuseStringUtils.formatNumberShort(currEnergy)
       val maxStr: String = MuseStringUtils.formatNumberShort(maxEnergy)
       val currHeatStr: String = MuseStringUtils.formatNumberShort(currHeat)
       val maxHeatStr: String = MuseStringUtils.formatNumberShort(maxHeat)
-      if (Config.useGraphicalMeters) {        MuseLogger.logDebug("C")
-
+      if (Config.useGraphicalMeters) {
         if (energy == null) {
           energy = new EnergyMeter
           heat = new HeatMeter
