@@ -22,7 +22,8 @@ object MPSItems {
   GameRegistry.registerBlock(tinkerTable, tinkerTable.getUnlocalizedName)
   val luxCapacitor = new BlockLuxCapacitor
   GameRegistry.registerBlock(luxCapacitor, luxCapacitor.getUnlocalizedName)
-  val components = new ItemComponent
+  val components = new ItemComponent()
+  components.setUnlocalizedName("powerArmorComponent")
   components.populate()
-  GameRegistry.registerItem(components, components.getUnlocalizedName)
+  GameRegistry.registerItem(components, "powerArmorComponent")
 }

@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.powermodule;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.IPropertyModifier;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.powersuits.common.Config;
@@ -16,7 +17,7 @@ import net.minecraft.util.IIcon;
 import java.util.*;
 
 public abstract class PowerModuleBase implements IPowerModule {
-    protected List<ItemStack> installCost;
+    protected List<ItemStack> defaultInstallCost;
     protected List<IModularItem> validItems;
     protected Map<String, List<IPropertyModifier>> propertyModifiers;
     protected static Map<String, String> units = new HashMap<String, String>();
@@ -26,7 +27,7 @@ public abstract class PowerModuleBase implements IPowerModule {
 
     public PowerModuleBase(String name, List<IModularItem> validItems) {
         this.validItems = validItems;
-        this.installCost = new ArrayList();
+        this.defaultInstallCost = new ArrayList();
         this.propertyModifiers = new HashMap();
         this.defaultTag = new NBTTagCompound();
         this.defaultTag.setBoolean(MuseItemUtils.ONLINE, true);
@@ -35,7 +36,7 @@ public abstract class PowerModuleBase implements IPowerModule {
 
     public PowerModuleBase(List<IModularItem> validItems) {
         this.validItems = validItems;
-        this.installCost = new ArrayList();
+        this.defaultInstallCost = new ArrayList();
         this.propertyModifiers = new HashMap();
         this.defaultTag = new NBTTagCompound();
         this.defaultTag.setBoolean(MuseItemUtils.ONLINE, true);
@@ -58,11 +59,15 @@ public abstract class PowerModuleBase implements IPowerModule {
 
     @Override
     public List<ItemStack> getInstallCost() {
-        return installCost;
+        if(ModuleManager.hasCustomInstallCost(this.getDataName())) {
+            return ModuleManager.getCustomInstallCost(this.getDataName());
+        } else {
+            return defaultInstallCost;
+        }
     }
 
     public PowerModuleBase addInstallCost(ItemStack stack) {
-        this.installCost.add(stack);
+        this.defaultInstallCost.add(stack);
         return this;
     }
 

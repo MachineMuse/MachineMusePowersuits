@@ -18,6 +18,7 @@ public class ModuleManager {
 
     public static final String ONLINE = "Active";
 
+    protected static final Map<String, List<ItemStack>> customInstallCosts = new HashMap<String, List<ItemStack>>();
     protected static final Map<String, IPowerModule> moduleMap = new HashMap<String, IPowerModule>();
     protected static final List<IPowerModule> moduleList = new ArrayList<IPowerModule>();
     protected static final List<IPlayerTickModule> playerTickModules = new ArrayList<IPlayerTickModule>();
@@ -147,6 +148,23 @@ public class ModuleManager {
             return moduleName.equals(item.getActiveMode(itemStack));
         } else {
             return isModuleOnline(MuseItemTag.getMuseItemTag(itemStack), moduleName);
+        }
+    }
+
+    public static boolean hasCustomInstallCost(String dataName) {
+        return customInstallCosts.containsKey(dataName);
+    }
+
+    public static List<ItemStack> getCustomInstallCost(String dataName) {
+        return customInstallCosts.get(dataName);
+    }
+
+    public static void addCustomInstallCost(String moduleName, ItemStack stack) {
+        if(customInstallCosts.containsKey(moduleName)) {
+            customInstallCosts.get(moduleName).add(stack);
+        } else {
+            customInstallCosts.put(moduleName, new ArrayList<ItemStack>());
+            customInstallCosts.get(moduleName).add(stack);
         }
     }
 }

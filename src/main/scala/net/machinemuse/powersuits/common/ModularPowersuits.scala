@@ -62,6 +62,7 @@ object ModularPowersuits {
     proxy.postInit()
     ModCompatibility.registerModSpecificModules()
     Config.extractRecipes
+    Config.addCustomInstallCosts
     Config.getConfig.save
   }
 
