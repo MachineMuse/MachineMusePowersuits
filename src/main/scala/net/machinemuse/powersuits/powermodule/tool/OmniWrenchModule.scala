@@ -51,7 +51,7 @@ class OmniWrenchModule(validItems: List[IModularItem]) extends PowerModuleBase(v
         player.swingItem()
         !world.isRemote
       case _ =>
-        super.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ)
+        false
     })
   }
 
