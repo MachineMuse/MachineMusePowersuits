@@ -43,8 +43,8 @@ object ModelSpecXMLReader {
   def parseBinding(bindingnode: NodeSeq, modelspec: ModelSpec) = {
     val slot = parseInt((bindingnode \ "@slot").text)
     val target = parseTarget((bindingnode \ "@target").text)
-    slot.map(slot => {
-      target.map(target =>
+    slot.foreach(slot => {
+      target.foreach(target =>
         (bindingnode \ "part").foreach {
           partnode =>
             parseParts(partnode, modelspec, slot, target)
