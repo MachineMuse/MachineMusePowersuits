@@ -137,7 +137,14 @@ artifacts {
 curse {
     projectId = '235442'
     apiKey = project.hasProperty('curseForgeApiKey') ? project.curseForgeApiKey : ''
-    releaseType = 'beta'
+    def branch = System.getEnv('GIT_BRANCH')
+    if(branch == null) {
+        releaseType = 'alpha'
+    } else if(branch.equals("experimental")) {
+        releaseType = 'beta'
+    } else if(branch.equals("master")) {
+        releaseType = 'release'
+    }
 
     changelog = getGitChangelog()
 
