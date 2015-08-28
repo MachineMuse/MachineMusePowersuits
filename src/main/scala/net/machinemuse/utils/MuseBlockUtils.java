@@ -1,6 +1,5 @@
 package net.machinemuse.utils;
 
-import net.minecraft.block.Block;
 import net.minecraft.world.World;
 
 /**

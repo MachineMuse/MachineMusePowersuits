@@ -61,6 +61,13 @@ getLibrary("forestry_1.7.10-3.6.3.20-api.jar")
 getLibrary("Thaumcraft-deobf-1.7.10-4.2.3.5.jar")
 getLibrary("SmartRender-1.7.10-2.1.jar")
 getLibrary("RenderPlayerAPI-1.7.10-1.4.jar")
+getLibrary("appliedenergistics2-rv2-stable-10-dev.jar")
+getLibrary("buildcraft-7.0.21-dev.jar")
+getLibrary("BluePower-1.7.10-0.2.962-universal.jar")
+getLibrary("EnderIO-1.7.10-2.3.0.408_beta-dev.jar")
+getLibrary("Mekanism-1.7.10-8.1.7.252.jar")
+getLibrary("MrTJPCore-1.1.0.31-universal.jar")
+getLibrary("ProjectRed-1.7.10-4.7.0pre8.92-Base.jar")
 
 processResources {
     // this will ensure that this task is redone when the versions change.
