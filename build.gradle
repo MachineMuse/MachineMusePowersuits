@@ -140,10 +140,12 @@ curse {
     def branch = System.getenv("GIT_BRANCH")
     if(branch == null) {
         releaseType = 'alpha'
-    } else if(branch.equals("experimental")) {
+    } else if(branch.equals("origin/experimental")) {
         releaseType = 'beta'
-    } else if(branch.equals("master")) {
+    } else if(branch.equals("origin/master")) {
         releaseType = 'release'
+    } else {
+        releaseType = 'alpha'
     }
 
     changelog = getGitChangelog()
