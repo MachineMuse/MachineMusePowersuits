@@ -110,8 +110,14 @@ artifacts {
 
 curse {
     projectId = '235442'
-    apiKey = System.getenv('CURSE_API_KEY')
-    releaseType = 'release'
+    apiKey = project.hasProperty('curseForgeApiKey') ? project.curseForgeApiKey : ''
+    releaseType = 'beta'
+
+    addGameVersion '1.7.10'
+
+    additionalArtifact 'mps-vanilla.recipes'
+    additionalArtifact 'mps-thermalexpansion.recipes'
+    additionalArtifact 'mps-ic2.recipes'
 
     relatedProject 'numina': 'requiredLibrary'
 }
