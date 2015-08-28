@@ -111,4 +111,6 @@ curse {
     projectId = '235442'
     apiKey = System.getenv('CURSE_API_KEY')
     releaseType = 'release'
+
+    relatedProject 'numina': 'requiredLibrary'
 }
