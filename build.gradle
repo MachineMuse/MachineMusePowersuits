@@ -51,7 +51,7 @@ def getLibrary(filename) {
     }
 }
 
-getLibrary("CoFHCore-[1.7.10]3.0.0B2-dev-24.jar")
+getLibrary("CoFHCore-[1.7.10]3.0.3-303-dev.jar")
 getLibrary("industrialcraft-2-2.2.765-experimental-api.jar")
 getLibrary("ThermalExpansion-[1.7.10]4.0.3B1-218-dev.jar")
 getLibrary("GalacticraftCore-Dev-BETA-1.7-3.0.1.8.jar")
