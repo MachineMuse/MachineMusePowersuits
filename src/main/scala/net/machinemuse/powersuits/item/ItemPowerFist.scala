@@ -34,9 +34,7 @@ import powercrystals.minefactoryreloaded.api.IMFRHammer
  * @author MachineMuse
  */
 @Optional.InterfaceList(Array(
-  new Optional.Interface(iface = "forestry.api.arboriculture.IToolGrafter", modid = "Forestry", striprefs = true),
-  new Optional.Interface(iface = "forestry.api.arboriculture.IToolGrafter", modid = "Forestry", striprefs = true),
-  new Optional.Interface(iface = "mekanism.api.IMekWrench", modid = "Forestry", striprefs = true),
+  new Optional.Interface(iface = "mekanism.api.IMekWrench", modid = "Mekanism", striprefs = true),
   new Optional.Interface(iface = "crazypants.enderio.api.tool.ITool", modid = "EnderIO", striprefs = true),
   new Optional.Interface(iface = "mrtjp.projectred.api.IScrewdriver", modid = "ProjRed|Core", striprefs = true),
   new Optional.Interface(iface = "com.bluepowermod.api.misc.IScrewdriver", modid = "bluepower", striprefs = true),
