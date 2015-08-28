@@ -1,12 +1,10 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
 import java.util.List;
@@ -22,11 +20,6 @@ public class MFFSFieldTeleporterModule extends PowerModuleBase {
     public MFFSFieldTeleporterModule(List<IModularItem> validItems) throws IllegalAccessException, NoSuchFieldException, ClassNotFoundException {
         super(validItems);
         addBaseProperty(FIELD_TELEPORTER_ENERGY_CONSUMPTION, 20000, "J");
-        ItemStack stack = ModCompatibility.getMFFSItem("MFFSitemForcePowerCrystal", 1);
-        if (stack == null) {
-            throw new IllegalAccessException("Failed to get MFFS forcefield teleporter");
-        }
-        addInstallCost(stack);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
     }
 

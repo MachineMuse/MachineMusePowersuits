@@ -1,10 +1,13 @@
 package net.machinemuse.powersuits.common
 
+import java.nio.file.{Paths, Files}
+
 import cpw.mods.fml.common.FMLCommonHandler
 import cpw.mods.fml.relauncher.Side
 import net.machinemuse.api.IModularItem
 import net.machinemuse.api.IPowerModule
 import net.machinemuse.api.ModuleManager
+import net.machinemuse.numina.basemod.Numina
 import net.machinemuse.powersuits.powermodule.armor.BasicPlatingModule
 import net.machinemuse.powersuits.powermodule.armor.DiamondPlatingModule
 import net.machinemuse.powersuits.powermodule.armor.EnergyShieldModule
@@ -23,10 +26,12 @@ import net.machinemuse.utils.MuseStringUtils
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraftforge.common.config.Configuration
 import org.lwjgl.input.Keyboard
-import java.io.File
+import java.io.{FileOutputStream, FileInputStream, File}
 import java.util.Arrays
 import java.util.Collections
 import java.util.List
+
+import scala.io.Source
 
 /**
  * Initial attempt at storing all tweakable/configurable values in one class.
@@ -36,6 +41,37 @@ import java.util.List
  * @author MachineMuse
  */
 object Config {
+  /**
+   * Called in post-init. Extracts recipes if the configuration value is not found.
+   */
+  def extractRecipes() = {
+    val key = "Auto-extract recipes"
+    if(!config.hasKey(Configuration.CATEGORY_GENERAL, key) || config.get(Configuration.CATEGORY_GENERAL, key, false).getBoolean) {
+      var found=false
+      if(ModCompatibility.isThermalExpansionLoaded) {
+        found=true
+        //TE
+        copyRecipe("mps-thermalexpansion.recipes")
+      }
+      if (ModCompatibility.isIndustrialCraftLoaded) {
+        found=true
+        //IC2
+        copyRecipe("mps-vanilla.recipes")
+      }
+      if(!found) {
+        //vanilla
+        copyRecipe("mps-thermalexpansion.recipes")
+      }
+    }
+  }
+
+  def copyRecipe(inFile:String): Unit = {
+    val src = classOf[CommonProxy].getClassLoader.getResourceAsStream(inFile)
+    val dest = new File(Numina.configDir.toString + "/machinemuse/recipes/" + inFile)
+    if(!dest.exists()) {
+      Files.copy(src, dest.toPath)
+    }
+  }
   /**
    * Called in the pre-init phase of initialization, informs Forge that we
    * want the following blockIDs.

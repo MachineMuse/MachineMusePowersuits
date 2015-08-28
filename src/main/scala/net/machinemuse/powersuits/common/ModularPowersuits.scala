@@ -45,9 +45,6 @@ object ModularPowersuits {
     Config.getSalvageChance
     Config.baseMaxHeat
     Config.allowConflictingKeybinds
-    Config.fontURI
-    Config.fontName
-    Config.fontDetail
     Config.fontAntiAliasing
     Config.useCustomFonts
     Config.glowMultiplier
@@ -64,6 +61,7 @@ object ModularPowersuits {
   @Mod.EventHandler def postInit(event: FMLPostInitializationEvent) {
     proxy.postInit()
     ModCompatibility.registerModSpecificModules()
+    Config.extractRecipes
     Config.getConfig.save
   }
 
