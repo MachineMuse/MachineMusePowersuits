@@ -54,7 +54,7 @@ def getLibrary(filename) {
 getLibrary("CoFHCore-[1.7.10]3.0.3-303-dev.jar")
 getLibrary("industrialcraft-2-2.2.765-experimental-api.jar")
 getLibrary("ThermalExpansion-[1.7.10]4.0.3B1-218-dev.jar")
-getLibrary("GalacticraftCore-Dev-BETA-1.7-3.0.1.8.jar")
+getLibrary("GalacticraftCore-Dev-1.7-3.0.12.168.jar")
 getLibrary("Railcraft_1.7.10-9.7.0.0-dev.jar")
 getLibrary("MineFactoryReloaded-[1.7.10]2.8.0-104-dev.jar")
 getLibrary("forestry_1.7.10-3.6.3.20-api.jar")
