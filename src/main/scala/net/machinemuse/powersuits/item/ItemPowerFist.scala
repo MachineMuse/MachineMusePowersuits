@@ -29,10 +29,11 @@ import powercrystals.minefactoryreloaded.api.IMFRHammer
  *
  * @author MachineMuse
  */
-@Optional.InterfaceList (Array (
-new Optional.Interface (iface = "forestry.api.arboriculture.IToolGrafter", modid = "Forestry", striprefs = true),
-  new Optional.Interface (iface = "mods.railcraft.api.core.items.IToolCrowbar", modid = "Railcraft", striprefs = true),
-new Optional.Interface (iface = "cofh.api.item.IToolHammer", modid = "CoFHCore", striprefs = true)
+@Optional.InterfaceList(Array(
+  new Optional.Interface(iface = "forestry.api.arboriculture.IToolGrafter", modid = "Forestry", striprefs = true),
+  new Optional.Interface(iface = "mods.railcraft.api.core.items.IToolCrowbar", modid = "Railcraft", striprefs = true),
+  new Optional.Interface(iface = "powercrystals.minefactoryreloaded.api.IMFRHammer", modid = "MineFactoryReloaded", striprefs = true),
+  new Optional.Interface(iface = "cofh.api.item.IToolHammer", modid = "CoFHCore", striprefs = true)
 ))
 class ItemPowerFist extends ItemElectricTool(0, ToolMaterial.EMERALD)
 with IModularItem
@@ -230,7 +231,7 @@ with ModeChangingModularItem {
   // TE Crescent Hammer
   override def isUsable(itemStack: ItemStack, entityLivingBase: EntityLivingBase, i: Int, i1: Int, i2: Int): Boolean = {
     entityLivingBase match {
-      case player:EntityPlayer => getActiveMode(itemStack, player).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
+      case player: EntityPlayer => getActiveMode(itemStack, player).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
       case _ => false
     }
   }
