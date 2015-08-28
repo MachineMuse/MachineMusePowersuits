@@ -9,7 +9,6 @@ import net.machinemuse.powersuits.powermodule.armor.HazmatModule;
 import net.machinemuse.powersuits.powermodule.misc.AirtightSealModule;
 import net.machinemuse.powersuits.powermodule.misc.ThaumGogglesModule;
 import net.machinemuse.powersuits.powermodule.tool.GrafterModule;
-import net.machinemuse.powersuits.powermodule.tool.MFFSFieldTeleporterModule;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
@@ -152,7 +151,7 @@ public class ModCompatability {
         //IPowerModule module = new MultimeterModule(Collections.singletonList((IModularItem) MPSItems.powerTool()));
 
         // Atomic Science
-        if (isAtomicScienceLoaded()) {
+        if (isIndustrialCraftLoaded()) {
             ModuleManager.addModule(new HazmatModule(Arrays.<IModularItem>asList(MPSItems.powerArmorHead(), MPSItems.powerArmorTorso(), MPSItems.powerArmorLegs(), MPSItems.powerArmorFeet())));
         }
 
@@ -166,14 +165,8 @@ public class ModCompatability {
             ModuleManager.addModule(new GrafterModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
             ModuleManager.addModule(new ApiaristArmorModule(Arrays.<IModularItem>asList(MPSItems.powerArmorHead(), MPSItems.powerArmorTorso(), MPSItems.powerArmorLegs(), MPSItems.powerArmorFeet())));
         }
-
-        try {
-            ModuleManager.addModule(new MFFSFieldTeleporterModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
-        } catch (Throwable e) {
-            MuseLogger.logError("Failed to get MFFS item!");
-        }
     }
-
+//
 //
 //    public static ItemStack getForestryItem(String name, int quantity) {
 //        try {
