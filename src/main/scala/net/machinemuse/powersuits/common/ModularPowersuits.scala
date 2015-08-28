@@ -63,7 +63,7 @@ object ModularPowersuits {
 
   @Mod.EventHandler def postInit(event: FMLPostInitializationEvent) {
     proxy.postInit()
-    ModCompatability.registerModSpecificModules()
+    ModCompatibility.registerModSpecificModules()
     Config.getConfig.save
   }
 

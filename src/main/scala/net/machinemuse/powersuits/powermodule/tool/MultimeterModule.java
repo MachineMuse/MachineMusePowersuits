@@ -53,7 +53,7 @@ public class MultimeterModule extends PowerModuleBase implements IRightClickModu
     @Override
     public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World worldObj, int x, int y, int z, int side, float hitX, float hitY,
                                   float hitZ) {
-/*        if (ModCompatability.isBasicComponentsLoaded()) {
+/*        if (ModCompatibility.isBasicComponentsLoaded()) {
             if (!worldObj.isRemote) {
                 TileEntity tileEntity = worldObj.getBlockTileEntity(x, y, z);
                 if (tileEntity instanceof IConductor) {

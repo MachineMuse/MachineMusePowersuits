@@ -3,7 +3,7 @@ package net.machinemuse.api.electricity
 import cofh.api.energy.IEnergyContainerItem
 import ic2.api.item.ElectricItem
 import ic2.api.item.IElectricItem
-import net.machinemuse.powersuits.common.ModCompatability
+import net.machinemuse.powersuits.common.ModCompatibility
 import net.minecraft.item.ItemStack
 
 object ElectricAdapter {
@@ -12,9 +12,9 @@ object ElectricAdapter {
     val i = stack.getItem
     if (i.isInstanceOf[MuseElectricItem]) {
       new MuseElectricAdapter(stack)
-    } else if (ModCompatability.isCoFHCoreLoaded && i.isInstanceOf[IEnergyContainerItem]) {
+    } else if (ModCompatibility.isCoFHCoreLoaded && i.isInstanceOf[IEnergyContainerItem]) {
       new TEElectricAdapter(stack)
-    } else if (ModCompatability.isIndustrialCraftLoaded && i.isInstanceOf[IElectricItem]) {
+    } else if (ModCompatibility.isIndustrialCraftLoaded && i.isInstanceOf[IElectricItem]) {
       new IC2ElectricAdapter(stack)
     } else {
       null

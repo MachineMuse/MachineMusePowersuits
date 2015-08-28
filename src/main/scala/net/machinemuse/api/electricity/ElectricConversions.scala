@@ -1,7 +1,7 @@
 package net.machinemuse.api.electricity
 
 import net.minecraft.item.ItemStack
-import net.machinemuse.powersuits.common.ModCompatability
+import net.machinemuse.powersuits.common.ModCompatibility
 import net.machinemuse.api.ModuleManager
 
 /**
@@ -14,17 +14,17 @@ object ElectricConversions {
 
   def getTier(stack: ItemStack): Int = ModuleManager.computeModularProperty(stack, IC2_TIER).toInt
 
-  def museEnergyToEU(museEnergy: Double): Double = museEnergy / ModCompatability.getIC2Ratio
+  def museEnergyToEU(museEnergy: Double): Double = museEnergy / ModCompatibility.getIC2Ratio
 
-  def museEnergyFromEU(eu: Double): Double = eu * ModCompatability.getIC2Ratio
+  def museEnergyFromEU(eu: Double): Double = eu * ModCompatibility.getIC2Ratio
 
   // TE
-  def museEnergyToRF(museEnergy: Double): Int = Math.ceil(museEnergy / ModCompatability.getRFRatio).toInt
+  def museEnergyToRF(museEnergy: Double): Int = Math.ceil(museEnergy / ModCompatibility.getRFRatio).toInt
 
-  def museEnergyFromRF(rf: Int): Double = rf * ModCompatability.getRFRatio
+  def museEnergyFromRF(rf: Int): Double = rf * ModCompatibility.getRFRatio
 
   // BC
-  def museEnergyToMJ(museEnergy: Double): Double = museEnergy / ModCompatability.getBCRatio
+  def museEnergyToMJ(museEnergy: Double): Double = museEnergy / ModCompatibility.getBCRatio
 
-  def museEnergyFromMJ(mj: Double): Double = mj * ModCompatability.getBCRatio
+  def museEnergyFromMJ(mj: Double): Double = mj * ModCompatibility.getBCRatio
 }

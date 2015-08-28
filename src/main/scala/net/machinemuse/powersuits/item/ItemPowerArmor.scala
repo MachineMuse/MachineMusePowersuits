@@ -4,7 +4,7 @@ import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.machinemuse.api.{IModularItem, ArmorTraits, ModuleManager}
 import net.machinemuse.numina.geometry.Colour
 import net.machinemuse.powersuits.client.render.item.ArmorModel
-import net.machinemuse.powersuits.common.{ModCompatability, Config}
+import net.machinemuse.powersuits.common.{ModCompatibility, Config}
 import net.machinemuse.powersuits.powermodule.armor.HazmatModule
 import net.machinemuse.powersuits.powermodule.misc.{InvisibilityModule, TintModule, TransparentArmorModule}
 import net.machinemuse.utils._

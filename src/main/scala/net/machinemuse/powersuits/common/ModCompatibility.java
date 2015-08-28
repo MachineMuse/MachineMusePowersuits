@@ -16,7 +16,7 @@ import net.minecraftforge.common.config.Configuration;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class ModCompatability {
+public class ModCompatibility {
 
     public static boolean isGregTechLoaded() {
         return Loader.isModLoaded("gregtech_addon");
