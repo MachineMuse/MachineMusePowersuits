@@ -62,25 +62,24 @@ getLibrary("Thaumcraft-deobf-1.7.10-4.2.3.5.jar")
 getLibrary("SmartRender-1.7.10-2.1.jar")
 getLibrary("RenderPlayerAPI-1.7.10-1.4.jar")
 
-processResources
-        {
-            // this will ensure that this task is redone when the versions change.
-            inputs.property "version", project.version
-            inputs.property "mcversion", project.minecraft.version
+processResources {
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
 
-            // replace stuff in mcmod.info, nothing else
-            from(sourceSets.main.resources.srcDirs) {
-                include 'mcmod.info'
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
 
-                // replace version and mcversion
-                expand 'version':project.version, 'mcversion':project.minecraft.version
-            }
+        // replace version and mcversion
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
 
-            // copy everything else, thats not the mcmod.info
-            from(sourceSets.main.resources.srcDirs) {
-                exclude 'mcmod.info'
-            }
-        }
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
 
 jar {
     manifest {
@@ -102,6 +101,33 @@ task copyToLib(type: Copy) {
     }
 }
 
+def getGitChangelog = { ->
+    try {
+        def stdout = new ByteArrayOutputStream()
+        def gitHash = System.getenv("GIT_COMMIT")
+        def gitPrevHash = System.getenv("GIT_PREVIOUS_COMMIT")
+        def travisRange = System.getenv("TRAVIS_COMMIT_RANGE")
+        if(gitHash && gitPrevHash) {
+            exec {
+                commandLine 'git', 'log', '--pretty=tformat:%s - %aN', '' + gitPrevHash + '...' + gitHash
+                standardOutput = stdout
+            }
+            return stdout.toString().trim()
+        } else if(travisRange) {
+            exec {
+                commandLine 'git', 'log', '--pretty=tformat:%s - %aN', '' + travisRange
+                standardOutput = stdout
+            }
+            return stdout.toString().trim()
+        } else {
+            return "";
+        }
+    } catch(ignored) {
+        return "";
+    }
+}
+
+
 build.dependsOn(copyToLib)
 
 artifacts {
@@ -112,6 +138,8 @@ curse {
     projectId = '235442'
     apiKey = project.hasProperty('curseForgeApiKey') ? project.curseForgeApiKey : ''
     releaseType = 'beta'
+
+    changelog = getGitChangelog()
 
     addGameVersion '1.7.10'
 
