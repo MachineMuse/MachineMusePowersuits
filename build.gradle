@@ -113,16 +113,9 @@ def getGitChangelog = { ->
         def stdout = new ByteArrayOutputStream()
         def gitHash = System.getenv("GIT_COMMIT")
         def gitPrevHash = System.getenv("GIT_PREVIOUS_COMMIT")
-        def travisRange = System.getenv("TRAVIS_COMMIT_RANGE")
         if(gitHash && gitPrevHash) {
             exec {
                 commandLine 'git', 'log', '--pretty=tformat:%s - %aN', '' + gitPrevHash + '...' + gitHash
-                standardOutput = stdout
-            }
-            return stdout.toString().trim()
-        } else if(travisRange) {
-            exec {
-                commandLine 'git', 'log', '--pretty=tformat:%s - %aN', '' + travisRange
                 standardOutput = stdout
             }
             return stdout.toString().trim()
