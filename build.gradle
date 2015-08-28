@@ -96,8 +96,9 @@ task devJar(type: Jar) {
 task copyToLib(type: Copy) {
     into "$buildDir/libs"
     from(sourceSets.main.resources.srcDirs){
-        include 'vanilla.recipes'
-        include 'ThermalExpansion.recipes'
+        include 'mps-vanilla.recipes'
+        include 'mps-thermalexpansion.recipes'
+        include 'mps-ic2.recipes'
     }
 }
 
