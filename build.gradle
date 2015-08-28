@@ -115,9 +115,9 @@ curse {
 
     addGameVersion '1.7.10'
 
-    additionalArtifact 'mps-vanilla.recipes'
-    additionalArtifact 'mps-thermalexpansion.recipes'
-    additionalArtifact 'mps-ic2.recipes'
+    additionalArtifact 'build/libs/mps-vanilla.recipes'
+    additionalArtifact 'build/libs/mps-thermalexpansion.recipes'
+    additionalArtifact 'build/libs/mps-ic2.recipes'
 
     relatedProject 'numina': 'requiredLibrary'
 }
