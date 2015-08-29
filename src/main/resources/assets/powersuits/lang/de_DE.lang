@@ -1,7 +1,7 @@
 #Made by users: KazoBurg and Vexatos
 #Last edited on 7/2/13
 
-tile.luxCapacitor.name=Lichtkondensator
+tile.luxCapacitor.name=Luxkompensator
 tile.tinkerTable.name=Energierüstungsbasteltisch
 
 item.powerArmorBoots.name=Energiestiefel
@@ -37,7 +37,7 @@ module.pickaxe.name=Spitzhacke
 module.shovel.name=Schaufel
 module.shears.name=Scheren
 module.hoe.name=Hacke
-module.luxCapacitor.name=Lichtkondensator
+module.luxCapacitor.name=Luxkompensator
 module.omniwrench.name=Prototyp Omni-Schraubenschlüssel
 module.fieldTinkerer.name=Feld-Tinkermodul
 module.meleeAssist.name=Nahkampfassistent
@@ -120,24 +120,24 @@ module.transparentArmor.desc=Make the item transparent, so you can show off your
 module.cosmeticGlow.desc=Change the appearance of the glowy bits on your armor.
 
 
-gui.noModulesFound.line1=No modular powersuit items
-gui.noModulesFound.line2=found in inventory. Make some!
+gui.noModulesFound.line1=Keine Energierüstungs-Items
+gui.noModulesFound.line2=im Inventar gefunden. Bastle welche!
 
-gui.red=Red
-gui.green=Green
-gui.blue=Blue
+gui.red=Rot
+gui.green=Grün
+gui.blue=Blau
 
-gui.install=Install
-gui.salvage=Salvage
+gui.install=Installieren
+gui.salvage=Demontieren
 
-gui.newKeybind=New
-gui.trashKeybind=Trash
-gui.pressKey=Press Key
-gui.keybindInstructions1=Use 'new' to bind new keys.
-gui.keybindInstructions2=Drag and drop modules to bind them to keys.
-gui.keybindInstructions3=Drop keys on 'trash' to unbind them.
-gui.keybindTaken=Taken!
+gui.newKeybind=Neu
+gui.trashKeybind=Entfernen
+gui.pressKey=Drücke Taste
+gui.keybindInstructions1=Nutze "Neu", um neue Tastenfunktionen zu konfigurieren.
+gui.keybindInstructions2=Ziehe Module hierhin, um sie mit Tasten zu verbinden.
+gui.keybindInstructions3=Ziehe Tasten auf das "Entfernen"-Feld, um die Konfiguration zu entfernen.
+gui.keybindTaken=Bereits in gebrauch!
 
-gui.tab.tinker=Tinker
-gui.tab.keybinds=Keybinds
-gui.tab.visual=Visual
+gui.tab.tinker=Bastlen
+gui.tab.keybinds=Tastenkombinationen
+gui.tab.visual=Visuelles
