@@ -15,7 +15,6 @@ import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -49,8 +48,7 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
     }
 
     @Override
-    public String getLocalizedName() {
-        return StatCollector.translateToLocal("module.plasmaCannon.name");
+    public String getUnlocalizedName() { return "plasmaCannon";
     }
 
     @Override

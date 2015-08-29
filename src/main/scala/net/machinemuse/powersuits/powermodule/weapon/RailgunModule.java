@@ -10,7 +10,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
@@ -53,8 +52,7 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule 
     }
 
     @Override
-    public String getLocalizedName() {
-        return StatCollector.translateToLocal("module.railgun.name");
+    public String getUnlocalizedName() { return "railgun";
     }
 
     @Override

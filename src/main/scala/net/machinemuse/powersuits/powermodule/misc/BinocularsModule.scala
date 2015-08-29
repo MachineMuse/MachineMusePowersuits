@@ -5,7 +5,6 @@ import net.machinemuse.api.moduletrigger.IToggleableModule
 import net.machinemuse.powersuits.item.ItemComponent
 import net.machinemuse.powersuits.powermodule.PowerModuleBase
 import net.machinemuse.utils.{MuseCommonStrings, MuseItemUtils}
-import net.minecraft.util.StatCollector
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -25,7 +24,7 @@ class BinocularsModule(list: java.util.List[IModularItem]) extends PowerModuleBa
 
   override def getDataName: String = BinocularsModule.BINOCULARS_MODULE
 
-  override def getLocalizedName: String = StatCollector.translateToLocal("module.binoculars.name")
+  override def getUnlocalizedName = "binoculars"
 
   override def getDescription: String = "With the problems that have been plaguing Optifine lately, you've decided to take that Zoom ability into your own hands."
 

@@ -12,7 +12,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -37,8 +36,7 @@ public class InvisibilityModule extends PowerModuleBase implements IPlayerTickMo
     }
 
     @Override
-    public String getLocalizedName() {
-        return StatCollector.translateToLocal("module.invisibility.name");
+    public String getUnlocalizedName() { return "invisibility";
     }
 
     @Override

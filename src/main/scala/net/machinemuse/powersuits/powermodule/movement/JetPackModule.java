@@ -15,7 +15,6 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -44,8 +43,7 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
     }
 
     @Override
-    public String getLocalizedName() {
-        return StatCollector.translateToLocal("module.jetpack.name");
+    public String getUnlocalizedName() { return "jetpack";
     }
 
     @Override

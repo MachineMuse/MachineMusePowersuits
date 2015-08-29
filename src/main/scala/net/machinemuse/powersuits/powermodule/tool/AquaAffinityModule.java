@@ -13,7 +13,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
@@ -44,8 +43,7 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
     }
 
     @Override
-    public String getLocalizedName() {
-        return StatCollector.translateToLocal("module.aquaAffinity.name");
+    public String getUnlocalizedName() { return "aquaAffinity";
     }
 
     @Override

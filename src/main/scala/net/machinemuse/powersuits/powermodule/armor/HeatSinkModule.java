@@ -6,7 +6,6 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
-import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -32,8 +31,7 @@ public class HeatSinkModule extends PowerModuleBase {
     }
 
     @Override
-    public String getLocalizedName() {
-        return StatCollector.translateToLocal("module.heatSink.name");
+    public String getUnlocalizedName() { return "heatSink";
     }
 
     @Override

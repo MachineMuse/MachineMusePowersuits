@@ -13,7 +13,6 @@ import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -49,8 +48,7 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public String getLocalizedName() {
-        return StatCollector.translateToLocal("module.blinkDrive.name");
+    public String getUnlocalizedName() { return "blinkDrive";
     }
 
     @Override

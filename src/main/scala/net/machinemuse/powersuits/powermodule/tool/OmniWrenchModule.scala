@@ -11,7 +11,6 @@ import net.minecraft.block.Block
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
-import net.minecraft.util.StatCollector
 import net.minecraft.world.World
 import net.minecraftforge.common.util.ForgeDirection
 
@@ -35,7 +34,7 @@ class OmniWrenchModule(validItems: List[IModularItem]) extends PowerModuleBase(v
 
   def getDataName: String = OmniWrenchModule.MODULE_OMNI_WRENCH
 
-  def getLocalizedName: String = StatCollector.translateToLocal("module.omniwrench.name")
+  override def getUnlocalizedName = "omniwrench"
 
 
   def getDescription: String = "A wrench which can interact with almost every mod."

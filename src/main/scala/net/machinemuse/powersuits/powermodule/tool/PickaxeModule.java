@@ -12,9 +12,7 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
@@ -48,8 +46,7 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
     }
 
     @Override
-    public String getLocalizedName() {
-        return StatCollector.translateToLocal("module.pickaxe.name");
+    public String getUnlocalizedName() { return "pickaxe";
     }
 
     @Override

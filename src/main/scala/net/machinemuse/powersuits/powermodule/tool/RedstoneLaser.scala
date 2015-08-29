@@ -8,9 +8,7 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase
 import net.machinemuse.utils.{MuseCommonStrings, MuseItemUtils}
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
-import net.minecraft.util.StatCollector
 import net.minecraft.world.World
-import net.minecraftforge.common.util.ForgeDirection
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -24,7 +22,7 @@ class RedstoneLaser(list: java.util.List[IModularItem]) extends PowerModuleBase(
 
   def getDataName: String = "Redstone Laser"
 
-  def getLocalizedName: String = StatCollector.translateToLocal("module.redstoneLaser.name")
+  override def getUnlocalizedName = "redstoneLaser"
 
   def getDescription: String = "No need for a lever if you're just giving it a pulse."
 

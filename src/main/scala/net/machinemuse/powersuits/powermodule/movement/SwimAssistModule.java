@@ -15,7 +15,6 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -43,8 +42,7 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
     }
 
     @Override
-    public String getLocalizedName() {
-        return StatCollector.translateToLocal("module.swimAssist.name");
+    public String getUnlocalizedName() { return "swimAssist";
     }
 
     @Override

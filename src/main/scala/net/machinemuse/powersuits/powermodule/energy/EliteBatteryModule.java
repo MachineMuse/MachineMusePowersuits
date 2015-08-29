@@ -7,7 +7,6 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
-import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -41,8 +40,7 @@ public class EliteBatteryModule extends PowerModuleBase {
     }
 
     @Override
-    public String getLocalizedName() {
-        return StatCollector.translateToLocal("module.eliteBattery.name");
+    public String getUnlocalizedName() { return "eliteBattery";
     }
 
     @Override

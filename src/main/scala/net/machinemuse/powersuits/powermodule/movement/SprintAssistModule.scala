@@ -1,21 +1,15 @@
 package net.machinemuse.powersuits.powermodule.movement
 
-import net.machinemuse.api.IModularItem
-import net.machinemuse.api.ModuleManager
-import net.machinemuse.api.moduletrigger.IPlayerTickModule
-import net.machinemuse.api.moduletrigger.IToggleableModule
+import java.util.List
+
+import net.machinemuse.api.{IModularItem, ModuleManager}
+import net.machinemuse.api.moduletrigger.{IPlayerTickModule, IToggleableModule}
 import net.machinemuse.powersuits.item.ItemComponent
 import net.machinemuse.powersuits.powermodule.PowerModuleBase
-import net.machinemuse.utils.ElectricItemUtils
-import net.machinemuse.utils.MuseCommonStrings
-import net.machinemuse.utils.MuseItemUtils
+import net.machinemuse.utils.{ElectricItemUtils, MuseCommonStrings, MuseItemUtils}
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
-import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.nbt.NBTTagList
-import net.minecraft.util.StatCollector
-import java.util.List
-import net.machinemuse.numina.general.MuseLogger
+import net.minecraft.nbt.{NBTTagCompound, NBTTagList}
 
 object SprintAssistModule {
   val MODULE_SPRINT_ASSIST: String = "Sprint Assist"
@@ -40,7 +34,7 @@ class SprintAssistModule(validItems: List[IModularItem]) extends PowerModuleBase
 
   def getDataName: String = MODULE_SPRINT_ASSIST
 
-  def getLocalizedName: String = StatCollector.translateToLocal("module.sprintAssist.name")
+  override def getUnlocalizedName = "sprintAssist"
 
   def getDescription: String = "A set of servo motors to help you sprint (double-tap forward) and walk faster."
 

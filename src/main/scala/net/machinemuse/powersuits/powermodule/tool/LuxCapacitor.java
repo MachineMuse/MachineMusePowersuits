@@ -9,9 +9,7 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -44,8 +42,7 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
     }
 
     @Override
-    public String getLocalizedName() {
-        return StatCollector.translateToLocal("module.luxCapacitor.name");
+    public String getUnlocalizedName() { return "luxCapacitor";
     }
 
     @Override

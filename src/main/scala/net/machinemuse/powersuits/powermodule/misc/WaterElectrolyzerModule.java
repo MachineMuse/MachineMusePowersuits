@@ -13,7 +13,6 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -38,8 +37,7 @@ public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerT
     }
 
     @Override
-    public String getLocalizedName() {
-        return StatCollector.translateToLocal("module.waterElectrolyzer.name");
+    public String getUnlocalizedName() { return "waterElectrolyzer";
     }
 
     @Override

@@ -12,7 +12,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -36,8 +35,7 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
     }
 
     @Override
-    public String getLocalizedName() {
-        return StatCollector.translateToLocal("module.nightVision.name");
+    public String getUnlocalizedName() { return "nightVision";
     }
 
     @Override

@@ -1,15 +1,14 @@
 package net.machinemuse.powersuits.powermodule.tool
 
 import net.machinemuse.api.IModularItem
-import net.machinemuse.powersuits.powermodule.PowerModuleBase
-import net.machinemuse.utils.{MuseItemUtils, MuseCommonStrings}
 import net.machinemuse.api.moduletrigger.IRightClickModule
-import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.world.World
-import net.minecraft.item.ItemStack
 import net.machinemuse.powersuits.common.ModularPowersuits
 import net.machinemuse.powersuits.item.ItemComponent
-import net.minecraft.util.StatCollector
+import net.machinemuse.powersuits.powermodule.PowerModuleBase
+import net.machinemuse.utils.{MuseCommonStrings, MuseItemUtils}
+import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.ItemStack
+import net.minecraft.world.World
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,7 +24,7 @@ class FieldTinkerModule(list: java.util.List[IModularItem]) extends PowerModuleB
 
   def getDataName: String = "Field Tinker Module"
 
-  def getLocalizedName: String = StatCollector.translateToLocal("module.fieldTinkerer.name")
+  override def getUnlocalizedName = "fieldTinkerer"
 
   def getDescription: String = "Maybe you can't memorize the blueprints, but you should at least be able to fine tune your modules without Inspiration\u2122 Inc. LLC."
 

@@ -6,10 +6,8 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -36,8 +34,7 @@ public class ShockAbsorberModule extends PowerModuleBase implements IToggleableM
     }
 
     @Override
-    public String getLocalizedName() {
-        return StatCollector.translateToLocal("module.shockAbsorber.name");
+    public String getUnlocalizedName() { return "shockAbsorber";
     }
 
     @Override

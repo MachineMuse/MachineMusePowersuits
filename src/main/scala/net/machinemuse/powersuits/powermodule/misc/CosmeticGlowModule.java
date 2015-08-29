@@ -3,7 +3,6 @@ package net.machinemuse.powersuits.powermodule.misc;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
-import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -36,8 +35,7 @@ public class CosmeticGlowModule extends PowerModuleBase {
     }
 
     @Override
-    public String getLocalizedName() {
-        return StatCollector.translateToLocal("module.cosmeticGlow.name");
+    public String getUnlocalizedName() { return "cosmeticGlow";
     }
 
     @Override

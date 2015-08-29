@@ -13,7 +13,6 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -36,8 +35,7 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
     }
 
     @Override
-    public String getLocalizedName() {
-        return StatCollector.translateToLocal("module.parachute.name");
+    public String getUnlocalizedName() { return "parachute";
     }
 
     @Override

@@ -12,9 +12,7 @@ import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -42,8 +40,7 @@ public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickM
     }
 
     @Override
-    public String getLocalizedName() {
-        return StatCollector.translateToLocal("module.coolingSystem.name");
+    public String getUnlocalizedName() { return "coolingSystem";
     }
 
     @Override

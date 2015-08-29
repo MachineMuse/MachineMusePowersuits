@@ -1,6 +1,6 @@
 package net.machinemuse.general.gui.clickable
 
-import net.machinemuse.api.IPowerModule
+import net.machinemuse.api.{ILocalizeableModule, IPowerModule}
 import net.machinemuse.utils.render.{MuseRenderer, GuiIcons}
 import GuiIcons.Checkmark
 import net.machinemuse.utils.MuseStringUtils
@@ -8,6 +8,7 @@ import java.util.ArrayList
 import java.util.List
 import net.machinemuse.numina.geometry.{Colour, MusePoint2D}
 import net.machinemuse.numina.render.{MuseIconUtils, MuseTextureUtils}
+import net.minecraft.util.StatCollector
 
 /**
  * Extends the Clickable class to make a clickable Augmentation; note that this
@@ -22,9 +23,22 @@ class ClickableModule(val module: IPowerModule, position: MusePoint2D) extends C
 
   override def getToolTip: List[String] = {
     val toolTipText: List[String] = new ArrayList[String]
-    toolTipText.add(getModule.getLocalizedName)
-    toolTipText.addAll(MuseStringUtils.wrapStringToLength(getModule.getDescription, 30))
+    toolTipText.add(getLocalizedName(getModule))
+    toolTipText.addAll(MuseStringUtils.wrapStringToLength(getLocalizedDescription(getModule), 30))
     toolTipText
+  }
+  def getLocalizedName(m:IPowerModule): String = {
+    m match {
+      case m:ILocalizeableModule => StatCollector.translateToLocal("module." + m.getUnlocalizedName + ".name")
+      case m => m.getLocalizedName
+    }
+  }
+
+  def getLocalizedDescription(m:IPowerModule): String = {
+    m match {
+      case m:ILocalizeableModule => StatCollector.translateToLocal("module." + m.getUnlocalizedName + ".desc")
+      case m => m.getDescription
+    }
   }
 
   def draw {

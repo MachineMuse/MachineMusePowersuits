@@ -6,7 +6,6 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -30,8 +29,7 @@ public class SonicWeaponModule extends PowerModuleBase implements IRightClickMod
     }
 
     @Override
-    public String getLocalizedName() {
-        return StatCollector.translateToLocal("module.sonicWeapon.name");
+    public String getUnlocalizedName() { return "sonicWeapon";
     }
 
     @Override

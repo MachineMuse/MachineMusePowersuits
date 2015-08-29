@@ -1,9 +1,6 @@
 package net.machinemuse.powersuits.powermodule;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.IPropertyModifier;
-import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.*;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.powersuits.common.Config;
@@ -13,10 +10,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 
 import java.util.*;
 
-public abstract class PowerModuleBase implements IPowerModule {
+public abstract class PowerModuleBase implements ILocalizeableModule {
     protected List<ItemStack> defaultInstallCost;
     protected List<IModularItem> validItems;
     protected Map<String, List<IPropertyModifier>> propertyModifiers;
@@ -163,4 +161,13 @@ public abstract class PowerModuleBase implements IPowerModule {
         // return "/terrain.png";
     }
 
+    @Override
+    public String getLocalizedName() {
+        return StatCollector.translateToLocal("module." + getUnlocalizedName() + ".name");
+    }
+
+    @Override
+    public String getUnlocalizedName() {
+        return "Unknown Module";
+    }
 }

@@ -9,29 +9,33 @@ import java.util.List;
 import java.util.Map;
 
 public interface IPowerModule {
-	public abstract List<ItemStack> getInstallCost();
+	List<ItemStack> getInstallCost();
 
-	public abstract IIcon getIcon(ItemStack item);
+	IIcon getIcon(ItemStack item);
 
-	public abstract String getStitchedTexture(ItemStack item);
+	String getStitchedTexture(ItemStack item);
 
-	public abstract void registerIcon(IIconRegister registry);
+	void registerIcon(IIconRegister registry);
 
-	public abstract String getCategory();
+	String getCategory();
 
-	public abstract boolean isValidForItem(ItemStack stack);
+	boolean isValidForItem(ItemStack stack);
 
-	public abstract String getDataName();
+	String getDataName();
 
-    public abstract String getLocalizedName();
+    // Use StatCollector.translateToLocal("module." + m.getUnlocalizedName + ".name") instead
+    @Deprecated
+	String getLocalizedName();
 
-	public abstract double applyPropertyModifiers(NBTTagCompound itemTag, String propertyName, double propertyValue);
+	double applyPropertyModifiers(NBTTagCompound itemTag, String propertyName, double propertyValue);
 
-	public abstract NBTTagCompound getNewTag();
+	NBTTagCompound getNewTag();
 
-	public abstract String getDescription();
+    // Use StatCollector.translateToLocal("module." + m.getUnlocalizedName + ".desc") instead
+    @Deprecated
+	String getDescription();
 
-	public abstract Map<String, List<IPropertyModifier>> getPropertyModifiers();
+	Map<String, List<IPropertyModifier>> getPropertyModifiers();
 
-	public abstract boolean isAllowed();
+	boolean isAllowed();
 }
