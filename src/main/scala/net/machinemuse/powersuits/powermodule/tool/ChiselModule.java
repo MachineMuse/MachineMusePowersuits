@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
 import com.cricketcraft.chisel.init.ChiselItems;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
@@ -13,7 +14,6 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -29,7 +29,7 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
 
     public ChiselModule(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(new ItemStack(Items.iron_ingot, 3));
+        addInstallCost(new ItemStack(GameRegistry.findItem("minecraft", "obsidian"), 2));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBaseProperty(CHISEL_ENERGY_CONSUMPTION, 50, "J");
         addBaseProperty(CHISEL_HARVEST_SPEED, 8, "x");
