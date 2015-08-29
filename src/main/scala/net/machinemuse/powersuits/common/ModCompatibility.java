@@ -57,10 +57,6 @@ public class ModCompatibility {
         return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per IC2 EU", 0.4).getDouble(0.4);
     }
 
-    public static double getBCRatio() {
-        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per MJ", 1.0).getDouble(1.0);
-    }
-
     public static double getRFRatio() {
         return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per RF", 0.1).getDouble(0.1);
     }

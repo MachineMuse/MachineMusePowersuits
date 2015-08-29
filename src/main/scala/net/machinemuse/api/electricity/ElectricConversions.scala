@@ -23,8 +23,4 @@ object ElectricConversions {
 
   def museEnergyFromRF(rf: Int): Double = rf * ModCompatibility.getRFRatio
 
-  // BC
-  def museEnergyToMJ(museEnergy: Double): Double = museEnergy / ModCompatibility.getBCRatio
-
-  def museEnergyFromMJ(mj: Double): Double = mj * ModCompatibility.getBCRatio
 }
