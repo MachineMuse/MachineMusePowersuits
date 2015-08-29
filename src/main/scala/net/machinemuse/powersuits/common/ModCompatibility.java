@@ -19,10 +19,6 @@ public class ModCompatibility {
         return Loader.isModLoaded("gregtech_addon");
     }
 
-    public static boolean isBasicComponentsLoaded() {
-        return Loader.isModLoaded("BasicComponents");
-    }
-
     public static boolean isIndustrialCraftLoaded() {
         return Loader.isModLoaded("IC2");
     }
@@ -45,10 +41,6 @@ public class ModCompatibility {
 
     public static boolean isForestryLoaded() {
         return Loader.isModLoaded("Forestry");
-    }
-
-    public static boolean isOmniToolsLoaded() {
-        return Loader.isModLoaded("OmniTools");
     }
 
     public static boolean enableThaumGogglesModule() {
@@ -96,19 +88,5 @@ public class ModCompatibility {
             ModuleManager.addModule(new ApiaristArmorModule(Arrays.<IModularItem>asList(MPSItems.powerArmorHead(), MPSItems.powerArmorTorso(), MPSItems.powerArmorLegs(), MPSItems.powerArmorFeet())));
         }
     }
-//
-//
-//    public static ItemStack getForestryItem(String name, int quantity) {
-//        try {
-//            ItemStack item = forestry.api.core.ItemInterface.getItem(name);
-//            if (item != null) {
-//                item.stackSize = quantity;
-//                return item;
-//            }
-//        } catch (Exception e) {
-//        }
-//        MuseLogger.logError("Failed to get Forestry item " + name);
-//        return null;
-//    }
 
 }
