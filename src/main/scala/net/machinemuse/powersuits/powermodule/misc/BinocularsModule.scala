@@ -1,29 +1,29 @@
 package net.machinemuse.powersuits.powermodule.misc
 
-import net.machinemuse.powersuits.powermodule.PowerModuleBase
-import net.machinemuse.utils.{MusePlayerUtils, MuseItemUtils, MuseCommonStrings}
+import net.machinemuse.api.IModularItem
+import net.machinemuse.api.moduletrigger.IToggleableModule
 import net.machinemuse.powersuits.item.ItemComponent
-import net.minecraft.item.ItemStack
-import net.minecraft.entity.player.EntityPlayer
-import net.machinemuse.powersuits.control.KeybindKeyHandler
-import cpw.mods.fml.common.FMLCommonHandler
-import net.machinemuse.api.{ModuleManager, IModularItem}
-import net.machinemuse.api.moduletrigger.IPlayerTickModule
+import net.machinemuse.powersuits.powermodule.PowerModuleBase
+import net.machinemuse.utils.{MuseCommonStrings, MuseItemUtils}
 import net.minecraft.util.StatCollector
 
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 1:08 AM, 4/24/13
  */
-class BinocularsModule(list: java.util.List[IModularItem]) extends PowerModuleBase(list) with IPlayerTickModule {
+object BinocularsModule {
+  val BINOCULARS_MODULE = "Binoculars"
   val FOV_MULTIPLIER = "Field of View"
+}
+
+class BinocularsModule(list: java.util.List[IModularItem]) extends PowerModuleBase(list) with IToggleableModule {
   addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.laserHologram, 1))
-  addBaseProperty(FOV_MULTIPLIER, 0.5)
-  addTradeoffProperty("FOV multiplier", FOV_MULTIPLIER, 9.5, "%")
+  addBaseProperty(BinocularsModule.FOV_MULTIPLIER, 0.5)
+  addTradeoffProperty("FOV multiplier", BinocularsModule.FOV_MULTIPLIER, 9.5, "%")
 
   override def getCategory: String = MuseCommonStrings.CATEGORY_VISION
 
-  override def getDataName: String = "Binoculars"
+  override def getDataName: String = BinocularsModule.BINOCULARS_MODULE
 
   override def getLocalizedName: String = StatCollector.translateToLocal("module.binoculars.name")
 
@@ -31,17 +31,4 @@ class BinocularsModule(list: java.util.List[IModularItem]) extends PowerModuleBa
 
   override def getTextureFile: String = "binoculars"
 
-  override def onPlayerTickActive(player: EntityPlayer, item: ItemStack) {
-    if (FMLCommonHandler.instance().getEffectiveSide.isClient) {
-      val fov = KeybindKeyHandler.zoom.getIsKeyPressed match {
-        case true => ModuleManager.computeModularProperty(item, FOV_MULTIPLIER).toFloat
-        case false => 0.1f
-      }
-      MusePlayerUtils.setFOVMult(player, fov)
-    }
-
-  }
-
-  override def onPlayerTickInactive(player: EntityPlayer, item: ItemStack) {
-  }
 }

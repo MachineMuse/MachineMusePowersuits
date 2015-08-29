@@ -185,6 +185,7 @@ object Config {
     addModule(new ShockAbsorberModule(FEETONLY))
     addModule(new WaterElectrolyzerModule(HEADONLY))
     addModule(new NightVisionModule(HEADONLY))
+    addModule(new BinocularsModule(HEADONLY))
     addModule(new FlightControlModule(HEADONLY))
     addModule(new InvisibilityModule(TORSOONLY))
     addModule(new BlinkDriveModule(TOOLONLY))
