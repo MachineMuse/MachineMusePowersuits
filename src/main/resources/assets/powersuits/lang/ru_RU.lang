@@ -1,5 +1,5 @@
 Made by users: Adaptivity
-Last edited on 9/10/14
+Last edited on 8/29/15
 
 tile.luxCapacitor.name=Конденсатор света
 tile.tinkerTable.name=Верстак для создания силовой брони
@@ -21,12 +21,12 @@ item.powerArmorComponent.componentLVCapacitor.name=Конденсатор низ
 item.powerArmorComponent.componentMVCapacitor.name=Конденсатор среднего напряжения
 item.powerArmorComponent.componentHVCapacitor.name=Конденсатор высокого напряжения
 item.powerArmorComponent.componentParachute.name=Парашют
-item.powerArmorComponent.componentPlatingBasic.name=Обычная обшивка
+item.powerArmorComponent.componentPlatingBasic.name=Основная обшивка
 item.powerArmorComponent.componentPlatingAdvanced.name=Продвинутая обшивка
 item.powerArmorComponent.componentFieldEmitter.name=Излучатель силового поля
 item.powerArmorComponent.componentLaserEmitter.name=Излучатель голограммы
 item.powerArmorComponent.componentCarbonMyofiber.name=Углеродное мышечное волокно
-item.powerArmorComponent.componentControlCircuit.name=Контролирующая микросхема
+item.powerArmorComponent.componentControlCircuit.name=Микросхема управления
 item.powerArmorComponent.componentMyofiberGel.name=Гель из мышечного волокна
 item.powerArmorComponent.componentArtificialMuscle.name=Искусственные мышцы
 
@@ -46,7 +46,7 @@ module.meleeAssist.name=Помощь в рукопашном бою
 module.plasmaCannon.name=Плазменная пушка
 module.railgun.name=Рельсотрон
 module.bladeLauncher.name=Метатель лезвий
-module.basicBattery.name=Обычный аккумулятор
+module.basicBattery.name=Основной аккумулятор
 module.eliteBattery.name=Элитный аккумулятор
 module.advancedBattery.name=Продвинутый аккумулятор
 module.parachute.name=Парашют
@@ -54,7 +54,7 @@ module.glider.name=Планёр
 module.jetpack.name=Реактивный ранец
 module.sprintAssist.name=Помощь в спринте
 module.jumpAssist.name=Помощь в прыжке
-module.swimAssist.name=Усиление скорости плавания
+module.swimAssist.name=Увеличение скорости плавания
 module.climbAssist.name=Помощь в ходьбе
 module.jetBoots.name=Реактивные ботинки
 module.shockAbsorber.name=Амортизатор
@@ -80,31 +80,30 @@ module.airtightSeal.name=Герметичность
 module.citizenJoe.name=Броня гражданина Джо
 module.sonicWeapon.name=Звуковое оружие
 
-
-module.basicPlating.desc=Basic plating is heavy but protective.
-module.diamondPlating.desc=Advanced plating is lighter, harder, and more protective than Basic but much harder to make.
-module.energyShield.desc=Energy shields are much lighter than plating, but consume energy.
-module.heatSink.desc=A thick layer of plating to soak up heat.
-module.axe.desc=Axes are mostly for chopping trees.
-module.pickaxe.desc=Picks are good for harder materials like stone and ore.
-module.shovel.desc=Shovels are good for soft materials like dirt and sand.
-module.shears.desc=Cuts through leaves, wool, and creepers alike.
-module.hoe.desc=An automated tilling addon to make it easy to till large swaths of land at once.
-module.luxCapacitor.desc=Launch a virtually infinite number of attractive light sources at the wall.
-module.omniwrench.desc=A wrench which can interact with almost every mod.
+module.basicPlating.desc=Основная обшивка достаточна тяжела, но хорошо защищает.
+module.diamondPlating.desc=Продвинутая обшивка легче, прочнее и защищает ещё лучше основной, но её непросто получить.
+module.energyShield.desc=Энергетические щиты намного легче обшивок, но потребляют энергию.
+module.heatSink.desc=Толстый слой обшивки для впитывания тепла.
+module.axe.desc=Топоры в основном нужны для рубки деревьев.
+module.pickaxe.desc=Кирки хороши для добычи крепких материалов вроде камня и руд.
+module.shovel.desc=Лопаты подходят для добычи мягких материалов вроде земли и песка.
+module.shears.desc=Подходят для стрижки листьев, шерсти и лиан.
+module.hoe.desc=Автоматическое вспахивающее дополнение, подходящее для вспахивания больших кусков земли.
+module.luxCapacitor.desc=Излучает практически бесконечное число источников света на стены.
+module.omniwrench.desc=Ключ, который может взаимодействовать почти с каждым модом.
 module.fieldTinkerer.desc=Maybe you can't memorize the blueprints, but you should at least be able to fine tune your modules without Inspiration™ Inc. LLC.
-module.meleeAssist.desc=A much simpler addon, makes your powertool punches hit harder.
+module.meleeAssist.desc=Простое дополнение, усиливает удары Вашего силового инструмента.
 module.plasmaCannon.desc=Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.
 module.railgun.desc=An assembly which accelerates a projectile to supersonic speeds using magnetic force. Heavy recoil.
-module.bladeLauncher.desc=Launches a spinning blade of death (or shearing).
-module.basicBattery.desc=Integrate a battery to allow the item to store energy.
-module.advancedBattery.desc=Integrate a more advanced battery to store more energy.
-module.eliteBattery.desc=Integrate a the most advanced battery to store an extensive amount of energy.
-module.parachute.desc=Add a parachute to slow your descent. Activate by pressing sneak (defaults to Shift) in midair.
+module.bladeLauncher.desc=Запускает крутящееся лезвие смерти (или стригущее).
+module.basicBattery.desc=Аккумулятор, позволяющий предмету хранить энергию.
+module.advancedBattery.desc=Продвинутый аккумулятор, позволяющий предмету хранить больше энергии.
+module.eliteBattery.desc=Самый продвинутый аккумулятор, позволяющий предмету хранить ещё больше энергии.
+module.parachute.desc=Парашют для замедления падений. Активируется нажатием клавиши приседания (по-умолч. Shift) в воздухе.
 module.glider.desc=Tack on some wings to turn downward into forward momentum. Press sneak+forward while falling to activate.
-module.jetpack.desc=A jetpack should allow you to jump indefinitely, or at least until you run out of power.
-module.sprintAssist.desc=A set of servo motors to help you sprint (double-tap forward) and walk faster.
-module.jumpAssist.desc=Another set of servo motors to help you jump higher.
+module.jetpack.desc=Реактивный ранец позволит Вам прыгать сколько угодно или, по крайней мере, пока у Вас не кончится энергия.
+module.sprintAssist.desc=Набор серводвигателей, который поможет Вам бежать (дважды нажмите вперёд) и ходить быстрее.
+module.jumpAssist.desc=Ещё один набор серводвигателей, который поможет Вам прыгать выше.
 module.swimAssist.desc=By refitting an ion thruster for underwater use, you may be able to add extra forward (or backward) thrust when underwater.
 module.climbAssist.desc=A pair of dedicated servos allow you to effortlessly step up 1m-high ledges.
 module.jetBoots.desc=Jet boots are not as strong as a jetpack, but they should at least be strong enough to counteract gravity.
@@ -112,35 +111,34 @@ module.shockAbsorber.desc=With some servos, springs, and padding, you should be 
 module.waterElectrolyzer.desc=When you run out of air, this module will jolt the water around you, electrolyzing a small bubble to breathe from.
 module.nightVision.desc=A pair of augmented vision goggles to help you see at night and underwater.
 module.binoculars.desc=With the problems that have been plaguing Optifine lately, you've decided to take that Zoom ability into your own hands.
-module.flightControl.desc=An integrated control circuit to help you fly better. Press Z to go down.
+module.flightControl.desc=Интегрированная схема управления поможет Вам в полёте. Нажмите Z, чтобы снизиться.
 module.invisibility.desc=Emit a hologram of your surroundings to make yourself almost imperceptible.
-module.blinkDrive.desc=Get from point A to point C via point B, where point B is a fold in space & time.
-module.diamondPickUpgrade.desc=Add diamonds to allow your pickaxe module to mine Obsidian. *REQUIRES PICKAXE MODULE TO WORK*
-module.aquaAffinity.desc=Reduces the speed penalty for using your tool underwater.
-module.coolingSystem.desc=Cools down heat-producing modules quicker.
+module.blinkDrive.desc=Доберитесь до точки C из точки A через точку B, при том что точка B спрятана в пространстве-времени.
+module.diamondPickUpgrade.desc=Алмазы позволят модулю "Кирка" добывать обсидиан. *ТРЕБУЕТСЯ МОДУЛЬ КИРКА*
+module.aquaAffinity.desc=Уменьшает понижение скорости инструмента под водой.
+module.coolingSystem.desc=Охлаждает излучающие тепло модули.
 module.tint.desc=Give your armor some coloured tinting to customize your armor's appearance.
 module.transparentArmor.desc=Make the item transparent, so you can show off your skin without losing armor.
 module.cosmeticGlow.desc=Change the appearance of the glowy bits on your armor.
 
+gui.noModulesFound.line1=Части модульной силовой брони
+gui.noModulesFound.line2=не найдены в инвентаре. Сделайте несколько!
 
-gui.noModulesFound.line1=No modular powersuit items
-gui.noModulesFound.line2=found in inventory. Make some!
+gui.red=Красный
+gui.green=Зелёный
+gui.blue=Синий
 
-gui.red=Red
-gui.green=Green
-gui.blue=Blue
-
-gui.install=Install
+gui.install=Установить
 gui.salvage=Salvage
 
-gui.newKeybind=New
-gui.trashKeybind=Trash
-gui.pressKey=Press Key
-gui.keybindInstructions1=Use 'new' to bind new keys.
-gui.keybindInstructions2=Drag and drop modules to bind them to keys.
-gui.keybindInstructions3=Drop keys on 'trash' to unbind them.
-gui.keybindTaken=Taken!
+gui.newKeybind=Новая
+gui.trashKeybind=Убрать
+gui.pressKey=Нажмите клавишу
+gui.keybindInstructions1=Нажмите на 'Новая', чтобы привязать новые клавиши.
+gui.keybindInstructions2=Перетаскивайте модули, чтобы привязать их к клавишам.
+gui.keybindInstructions3=Перетащите клавиши на 'Убрать', чтобы отвязать их.
+gui.keybindTaken=Занято!
 
 gui.tab.tinker=Tinker
-gui.tab.keybinds=Keybinds
+gui.tab.keybinds=Клавиши
 gui.tab.visual=Visual
