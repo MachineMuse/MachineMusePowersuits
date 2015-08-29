@@ -38,10 +38,10 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
         addTradeoffProperty("Overclock", CHISEL_HARVEST_SPEED, 22);
 
         try {
-            ITEM_CHISEL = com.cricketcraft.chisel.init.ChiselItems.obsidianChisel;
+            ITEM_CHISEL = ChiselGetter1.getChisel();
         } catch (NoClassDefFoundError e) {
             try {
-                ITEM_CHISEL = team.chisel.init.ChiselItems.obsidianChisel;
+                ITEM_CHISEL = ChiselGetter2.getChisel();
             } catch (NoClassDefFoundError f) {
                 MuseLogger.logException("Couldn't get Chisel reference item", f);
             }
