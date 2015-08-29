@@ -81,8 +81,4 @@ trait ModularItemBase extends Item with IModularItem with MuseElectricItem {
   def drainPlayerEnergy(player: EntityPlayer, drainEnergy: Double) = ElectricItemUtils.drainPlayerEnergy(player, drainEnergy)
 
   def givePlayerEnergy(player: EntityPlayer, joulesToGive: Double) = ElectricItemUtils.givePlayerEnergy(player, joulesToGive)
-
-  // Industrial Craft 2 methods
-  def getChargedItem(itemStack: ItemStack) : Item = this
-  def getEmptyItem(itemStack: ItemStack) : Item = this
 }
