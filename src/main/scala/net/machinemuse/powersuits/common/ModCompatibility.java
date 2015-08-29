@@ -7,6 +7,7 @@ import net.machinemuse.powersuits.powermodule.armor.ApiaristArmorModule;
 import net.machinemuse.powersuits.powermodule.armor.HazmatModule;
 import net.machinemuse.powersuits.powermodule.misc.AirtightSealModule;
 import net.machinemuse.powersuits.powermodule.misc.ThaumGogglesModule;
+import net.machinemuse.powersuits.powermodule.tool.ChiselModule;
 import net.machinemuse.powersuits.powermodule.tool.GrafterModule;
 import net.minecraftforge.common.config.Configuration;
 
@@ -41,6 +42,10 @@ public class ModCompatibility {
 
     public static boolean isForestryLoaded() {
         return Loader.isModLoaded("Forestry");
+    }
+
+    public static boolean isChiselLoaded() {
+        return Loader.isModLoaded("chisel");
     }
 
     public static boolean enableThaumGogglesModule() {
@@ -86,6 +91,11 @@ public class ModCompatibility {
         if (isForestryLoaded()) {
             ModuleManager.addModule(new GrafterModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
             ModuleManager.addModule(new ApiaristArmorModule(Arrays.<IModularItem>asList(MPSItems.powerArmorHead(), MPSItems.powerArmorTorso(), MPSItems.powerArmorLegs(), MPSItems.powerArmorFeet())));
+        }
+
+        // Chisel
+        if(isChiselLoaded()) {
+            ModuleManager.addModule(new ChiselModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
         }
     }
 

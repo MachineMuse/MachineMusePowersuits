@@ -26,7 +26,8 @@
         "IC2",
         "Thaumcraft",
         "GalacticraftCore",
-        "numina"
+        "numina",
+        "chisel"
         ],
     "useDependencyInformation": true
 

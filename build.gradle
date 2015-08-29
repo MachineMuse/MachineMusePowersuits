@@ -68,6 +68,7 @@ getLibrary("EnderIO-1.7.10-2.2.8.381-dev.jar")
 getLibrary("Mekanism-1.7.10-8.1.7.252.jar")
 getLibrary("MrTJPCore-1.1.0.31-universal.jar")
 getLibrary("ProjectRed-1.7.10-4.7.0pre8.92-Base.jar")
+getLibrary("Chisel2-2.5.0.43-deobf.jar")
 
 processResources {
     // this will ensure that this task is redone when the versions change.
