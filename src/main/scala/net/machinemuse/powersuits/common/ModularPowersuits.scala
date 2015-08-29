@@ -18,7 +18,7 @@ import net.minecraftforge.common.config.Configuration
  *
  * @author MachineMuse
  */
-@Mod(modid = "powersuits", modLanguage = "scala", dependencies = "required-after:numina")
+@Mod(modid = "powersuits", modLanguage = "scala")
 object ModularPowersuits {
   @SidedProxy(clientSide = "net.machinemuse.powersuits.common.ClientProxy", serverSide = "net.machinemuse.powersuits.common.ServerProxy")
   var proxy: CommonProxy = null

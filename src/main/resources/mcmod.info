@@ -11,6 +11,23 @@
     "logoFile": "/mods/mmmPowersuits/textures/mmmpslogo_64.png",
     "screenshots": [ ],
     "parent": "",
-    "requiredMods": [ "Forge", "Numina" ],
-    "dependencies": [  ]
+    "requiredMods": [ "Forge", "numina" ],
+    "dependencies": [
+        "Mekanism",
+        "EnderIO",
+        "ProjRed|Core",
+        "bluepower",
+        "Forestry",
+        "Railcraft",
+        "MineFactoryReloaded",
+        "CoFHCore",
+        "BuildCraft|Core",
+        "appliedenergistics2",
+        "IC2",
+        "Thaumcraft",
+        "GalacticraftCore",
+        "numina"
+        ],
+    "useDependencyInformation": true
+
 }]
