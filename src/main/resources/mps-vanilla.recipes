@@ -1,9 +1,9 @@
 [
 	{
 		"ingredients" : [
-			[ { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" } ],
-			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.ingotIron" } ],
-			[ { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" } ]
+			[ { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" } ],
+			[ { "oredictName" : "componentWiring" }, { "oredictName" : "ingotIron" } ],
+			[ { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" } ]
 		],
 		"result" : {
 			"oredictName" : "componentPlatingBasic"
@@ -11,9 +11,9 @@
 	},
 	{
 		"ingredients" : [
-			[ { "unlocalizedName" : "item.diamond" }, { "unlocalizedName" : "item.diamond" } ],
-			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.diamond" } ],
-			[ { "unlocalizedName" : "item.diamond" }, { "unlocalizedName" : "item.diamond" } ]
+			[ { "oredictName" : "gemDiamond" }, { "oredictName" : "gemDiamond" } ],
+			[ { "oredictName" : "componentWiring" }, { "oredictName" : "gemDiamond" } ],
+			[ { "oredictName" : "gemDiamond" }, { "oredictName" : "gemDiamond" } ]
 		],
 		"result" : {
 			"oredictName" : "componentPlatingAdvanced"
@@ -21,9 +21,9 @@
 	},
 	{
 		"ingredients" : [
-			[ { "oredictName" : "componentWiring" }, { "oredictName" : "dyeGreen" }, { "unlocalizedName" : "item.ingotGold" } ],
-			[ { "unlocalizedName" : "item.redstone" }, { "unlocalizedName" : "item.yellowDust" }, { "oredictName" : "dyeGreen" } ],
-			[ { "unlocalizedName" : "item.ingotGold" }, { "unlocalizedName" : "item.redstone" }, { "oredictName" : "componentWiring" } ]
+			[ { "oredictName" : "componentWiring" }, { "oredictName" : "dyeGreen" }, { "oredictName" : "ingotGold" } ],
+			[ { "oredictName" : "dustRedstone" }, { "oredictName" : "dustGlowstone" }, { "oredictName" : "dyeGreen" } ],
+			[ { "oredictName" : "ingotGold" }, { "oredictName" : "dustRedstone" }, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {
 			"oredictName" : "componentControlCircuit"
@@ -35,7 +35,7 @@
 			[ { "oredictName" : "componentPlatingBasic" } ]
 		],
 		"result" : {
-			"unlocalizedName" : "item.ingotIron",
+			"oredictName" : "ingotIron",
 			"quantity" : 5
 		}
 	},
@@ -44,13 +44,13 @@
 			[ { "oredictName" : "componentPlatingAdvanced" } ]
 		],
 		"result" : {
-			"unlocalizedName" : "item.diamond",
+			"oredictName" : "gemDiamond",
 			"quantity" : 5
 		}
 	},
 	{
 		"ingredients" : [
-			[ { "unlocalizedName" : "item.yellowDust" }, { "oredictName" : "blockGlass" }, { "oredictName" : "dyeGreen" } ],
+			[ { "oredictName" : "dustGlowstone" }, { "oredictName" : "blockGlass" }, { "oredictName" : "dyeGreen" } ],
 			[ { "oredictName" : "blockGlass" }, { "oredictName" : "componentWiring" }, { "oredictName" : "blockGlass" } ],
 			[ { "oredictName" : "dyeBlue" }, { "oredictName" : "blockGlass" }, { "oredictName" : "dyeRed" } ]
 		],
@@ -60,65 +60,65 @@
 	},
 	{
 		"ingredients" : [
-			[ { "unlocalizedName" : "item.ingotIron" }, { "oredictName" : "dyeBlue" }, { "unlocalizedName" : "item.ingotIron" } ],
-			[ { "oredictName" : "dyeBlue" }, { "unlocalizedName" : "item.emerald" }, { "oredictName" : "dyeBlue" } ],
-			[ { "unlocalizedName" : "item.ingotIron" }, { "oredictName" : "dyeBlue" }, { "unlocalizedName" : "item.ingotIron" } ]
+			[ { "oredictName" : "ingotIron" }, { "oredictName" : "dyeBlue" }, { "oredictName" : "ingotIron" } ],
+			[ { "oredictName" : "dyeBlue" }, { "oredictName" : "gemEmerald" }, { "oredictName" : "dyeBlue" } ],
+			[ { "oredictName" : "ingotIron" }, { "oredictName" : "dyeBlue" }, { "oredictName" : "ingotIron" } ]
 		],
 		"result" : {
-			"unlocalizedName" : "tile.tinkerTable"
+			"registryName" : "powersuits:tile.tinkerTable"
 		}
 	},
 	{
 		"ingredients" : [
-			[ { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" } ],
+			[ { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" } ],
 			[ { "oredictName" : "componentWiring" }, null, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {
-			"unlocalizedName" : "item.powerArmorHelmet"
+			"registryName" : "powersuits:item.powerArmorHelmet"
 		}
 	},
 	{
 		"ingredients" : [
-			[ { "unlocalizedName" : "item.ingotIron" }, null, { "unlocalizedName" : "item.ingotIron" } ],
-			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.ingotIron" }, { "oredictName" : "componentWiring" } ],
-			[ { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" } ]
+			[ { "oredictName" : "ingotIron" }, null, { "oredictName" : "ingotIron" } ],
+			[ { "oredictName" : "componentWiring" }, { "oredictName" : "ingotIron" }, { "oredictName" : "componentWiring" } ],
+			[ { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" } ]
 		],
 		"result" : {
-			"unlocalizedName" : "item.powerArmorChestplate"
+			"registryName" : "powersuits:item.powerArmorChestplate"
 		}
 	},
 	{
 		"ingredients" : [
-			[ { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" }, { "unlocalizedName" : "item.ingotIron" } ],
+			[ { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" } ],
 			[ { "oredictName" : "componentWiring" }, null, { "oredictName" : "componentWiring" } ],
-			[ { "unlocalizedName" : "item.ingotIron" }, null, { "unlocalizedName" : "item.ingotIron" } ]
+			[ { "oredictName" : "ingotIron" }, null, { "oredictName" : "ingotIron" } ]
 		],
 		"result" : {
-			"unlocalizedName" : "item.powerArmorLeggings"
+			"registryName" : "powersuits:item.powerArmorLeggings"
 		}
 	},
 	{
 		"ingredients" : [
 			[ { "oredictName" : "componentWiring" }, null, { "oredictName" : "componentWiring" } ],
-			[ { "unlocalizedName" : "item.ingotIron" }, null, { "unlocalizedName" : "item.ingotIron" } ]
+			[ { "oredictName" : "ingotIron" }, null, { "oredictName" : "ingotIron" } ]
 		],
 		"result" : {
-			"unlocalizedName" : "item.powerArmorBoots"
+			"registryName" : "powersuits:item.powerArmorBoots"
 		}
 	},
 	{
 		"ingredients" : [
 			[ null, { "oredictName" : "componentWiring" }, null ],
-			[ { "oredictName" : "componentWiring" }, { "unlocalizedName" : "item.ingotIron" }, null ],
-			[ null, { "unlocalizedName" : "item.ingotIron" }, { "oredictName" : "componentWiring" } ]
+			[ { "oredictName" : "componentWiring" }, { "oredictName" : "ingotIron" }, null ],
+			[ null, { "oredictName" : "ingotIron" }, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {
-			"unlocalizedName" : "item.powerFist"
+			"registryName" : "powersuits:item.powerFist"
 		}
 	},
 	{
 		"ingredients" : [
-			[  {"unlocalizedName" : "item.goldNugget" }, { "unlocalizedName" : "item.redstone" }, {"unlocalizedName" : "item.goldNugget" } ]
+			[  {"oredictName" : "nuggetGold" }, { "oredictName" : "dustRedstone" }, {"oredictName" : "nuggetGold" } ]
 		],
 		"result" : {
 			"oredictName" : "componentWiring",
@@ -127,8 +127,8 @@
 	},
 	{
 		"ingredients" : [
-			[  { "oredictName" : "blockWool" }, { "oredictName" : "blockWool" }, { "oredictName" : "blockWool" } ],
-			[  {"unlocalizedName" : "item.string" }, null, {"unlocalizedName" : "item.string" } ]
+			[  { "registryName" : "minecraft:wool" }, { "registryName" : "minecraft:wool" }, { "registryName" : "minecraft:wool" } ],
+			[  {"registryName" : "minecraft:string" }, null, {"registryName" : "minecraft:string" } ]
 		],
 		"result" : {
 			"oredictName" : "componentParachute"
@@ -136,7 +136,7 @@
 	},
 	{
 		"ingredients" : [
-			[  {"oredictName" : "componentWiring" }, { "unlocalizedName" : "item.paper" }, {"unlocalizedName" : "item.ingotIron" } ],
+			[  {"oredictName" : "componentWiring" }, { "registryName" : "minecraft:paper" }, {"oredictName" : "ingotIron" } ],
 			[  {"oredictName" : "componentWiring" }, null, {"oredictName" : "componentWiring" } ]
 		],
 		"result" : {
@@ -145,7 +145,7 @@
 	},
 	{
 		"ingredients" : [
-			[  {"unlocalizedName" : "item.goldNugget" }, { "unlocalizedName" : "item.paper" }, {"oredictName" : "dyeBlue" } ],
+			[  {"oredictName" : "nuggetGold" }, { "registryName" : "minecraft:paper" }, {"oredictName" : "dyeBlue" } ],
 			[  {"oredictName" : "componentWiring" }, null, {"oredictName" : "componentWiring" } ]
 		],
 		"result" : {
@@ -154,7 +154,7 @@
 	},
 	{
 		"ingredients" : [
-			[  {"unlocalizedName" : "item.enderPearl" }, { "unlocalizedName" : "item.paper" }, {"unlocalizedName" : "item.yellowDust" } ],
+			[  {"registryName" : "minecraft:ender_pearl" }, { "registryName" : "minecraft:paper" }, {"oredictName" : "dustGlowstone" } ],
 			[  {"oredictName" : "componentWiring" }, null, {"oredictName" : "componentWiring" } ]
 		],
 		"result" : {
@@ -163,9 +163,9 @@
 	},
 	{
 		"ingredients" : [
-			[  {"oredictName" : "componentWiring" }, { "unlocalizedName" : "item.ingotIron" }, {"oredictName" : "componentWiring" } ],
-			[  {"oredictName" : "componentWiring" }, { "unlocalizedName" : "item.ingotIron" }, {"oredictName" : "componentWiring" } ],
-			[  {"oredictName" : "componentWiring" }, { "unlocalizedName" : "item.ingotIron" }, {"oredictName" : "componentWiring" } ]
+			[  {"oredictName" : "componentWiring" }, { "oredictName" : "ingotIron" }, {"oredictName" : "componentWiring" } ],
+			[  {"oredictName" : "componentWiring" }, { "oredictName" : "ingotIron" }, {"oredictName" : "componentWiring" } ],
+			[  {"oredictName" : "componentWiring" }, { "oredictName" : "ingotIron" }, {"oredictName" : "componentWiring" } ]
 		],
 		"result" : {
 			"oredictName" : "componentSolenoid"
@@ -173,9 +173,9 @@
 	},
 	{
 		"ingredients" : [
-			[  null, { "unlocalizedName" : "item.ingotIron" }, {"unlocalizedName" : "item.ingotIron" } ],
-			[  {"unlocalizedName" : "item.ingotIron" }, {"unlocalizedName" : "item.ingotIron" }, null],
-			[  {"unlocalizedName" : "item.ingotIron" }, null, null]
+			[  null, { "oredictName" : "ingotIron" }, {"oredictName" : "ingotIron" } ],
+			[  {"oredictName" : "ingotIron" }, {"oredictName" : "ingotIron" }, null],
+			[  {"oredictName" : "ingotIron" }, null, null]
 		],
 		"result" : {
 			"oredictName" : "componentGliderWing"
@@ -184,7 +184,7 @@
 	{
 		"ingredients" : [
 			[  null, { "oredictName" : "componentWiring" }, null ],
-			[  {"oredictName" : "componentSolenoid" }, {"unlocalizedName" : "item.ingotIron" }, {"oredictName" : "componentSolenoid" } ]
+			[  {"oredictName" : "componentSolenoid" }, {"oredictName" : "ingotIron" }, {"oredictName" : "componentSolenoid" } ]
 		],
 		"result" : {
 			"oredictName" : "componentServo"
@@ -192,9 +192,9 @@
 	},
 	{
 		"ingredients" : [
-			[  {"oredictName" : "componentSolenoid" }, { "unlocalizedName" : "item.enderPearl" }, {"oredictName" : "componentSolenoid" } ],
-			[  {"unlocalizedName" : "item.enderPearl" }, { "oredictName" : "componentSolenoid" }, {"unlocalizedName" : "item.enderPearl" } ],
-			[  {"oredictName" : "componentSolenoid" }, { "unlocalizedName" : "item.enderPearl" }, {"oredictName" : "componentSolenoid" } ]
+			[  {"oredictName" : "componentSolenoid" }, { "registryName" : "minecraft:ender_pearl" }, {"oredictName" : "componentSolenoid" } ],
+			[  {"registryName" : "minecraft:ender_pearl" }, { "oredictName" : "componentSolenoid" }, {"registryName" : "minecraft:ender_pearl" } ],
+			[  {"oredictName" : "componentSolenoid" }, { "registryName" : "minecraft:ender_pearl" }, {"oredictName" : "componentSolenoid" } ]
 		],
 		"result" : {
 			"oredictName" : "componentFieldEmitter"
@@ -204,8 +204,8 @@
 	{
 		"ingredients" : [
 			[  null, { "oredictName" : "componentFieldEmitter" }, {"oredictName" : "componentSolenoid" } ],
-			[  {"unlocalizedName" : "item.ingotIron" }, {"unlocalizedName" : "item.yellowDust" }, null],
-			[  {"unlocalizedName" : "item.ingotIron" }, {"oredictName" : "componentFieldEmitter" }, {"oredictName" : "componentSolenoid" } ]
+			[  {"oredictName" : "ingotIron" }, {"oredictName" : "dustGlowstone" }, null],
+			[  {"oredictName" : "ingotIron" }, {"oredictName" : "componentFieldEmitter" }, {"oredictName" : "componentSolenoid" } ]
 		],
 		"result" : {
 			"oredictName" : "componentIonThruster"

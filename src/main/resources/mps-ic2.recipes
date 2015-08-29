@@ -11,9 +11,9 @@
 	},
 	{
 		"ingredients" : [
-			[ { "unlocalizedName" : "item.diamond" }, { "unlocalizedName" : "item.diamond" } ],
-			[ { "oredictName" : "circuitAdvanced" }, { "unlocalizedName" : "item.diamond" } ],
-			[ { "unlocalizedName" : "item.diamond" }, { "unlocalizedName" : "item.diamond" } ]
+			[ { "oredictName" : "gemDiamond" }, { "oredictName" : "gemDiamond" } ],
+			[ { "oredictName" : "circuitAdvanced" }, { "oredictName" : "gemDiamond" } ],
+			[ { "oredictName" : "gemDiamond" }, { "oredictName" : "gemDiamond" } ]
 		],
 		"result" : {
 			"oredictName" : "componentPlatingAdvanced"
@@ -22,8 +22,8 @@
 	{
 		"ingredients" : [
 			[ { "oredictName" : "componentWiring" }, { "oredictName" : "circuitBasic" } ],
-			[ { "unlocalizedName" : "item.redstone" }, { "unlocalizedName" : "item.yellowDust" }, { "oredictName" : "circuitBasic" } ],
-			[ null, { "unlocalizedName" : "item.redstone" }, { "oredictName" : "componentWiring" } ]
+			[ { "oredictName" : "dustRedstone" }, { "oredictName" : "dustGlowstone" }, { "oredictName" : "circuitBasic" } ],
+			[ null, { "oredictName" : "dustRedstone" }, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {
 			"oredictName" : "componentControlCircuit"
@@ -44,15 +44,15 @@
 			[ { "oredictName" : "componentPlatingAdvanced" } ]
 		],
 		"result" : {
-			"unlocalizedName" : "item.diamond",
+			"oredictName" : "gemDiamond",
 			"quantity" : 5
 		}
 	},
 	{
 		"ingredients" : [
-			[ { "unlocalizedName" : "item.yellowDust" }, { "unlocalizedName" : "tile.glass" }, { "oredictName" : "dyeGreen" } ],
-			[ { "unlocalizedName" : "tile.glass" }, { "oredictName" : "componentWiring" }, { "unlocalizedName" : "tile.glass" } ],
-			[ { "oredictName" : "dyeBlue" }, { "unlocalizedName" : "tile.glass" }, { "oredictName" : "dyeRed" } ]
+			[ { "oredictName" : "dustGlowstone" }, { "registryName" : "minecraft:glass" }, { "oredictName" : "dyeGreen" } ],
+			[ { "registryName" : "minecraft:glass" }, { "oredictName" : "componentWiring" }, { "registryName" : "minecraft:glass" } ],
+			[ { "oredictName" : "dyeBlue" }, { "registryName" : "minecraft:glass" }, { "oredictName" : "dyeRed" } ]
 		],
 		"result" : {
 			"oredictName" : "componentLaserEmitter"
@@ -60,12 +60,12 @@
 	},
 	{
 		"ingredients" : [
-			[ null, { "unlocalizedName" : "item.emerald" }, null ],
+			[ null, { "oredictName" : "gemEmerald" }, null ],
 			[ null, { "oredictName" : "circuitBasic" }, null ],
 			[ null, { "unlocalizedName" : "ic2.blockMachine" }, null ]
 		],
 		"result" : {
-			"unlocalizedName" : "tile.tinkerTable"
+			"registryName" : "powersuits:tile.tinkerTable"
 		}
 	},
 	{
@@ -74,7 +74,7 @@
 			[ { "oredictName" : "circuitBasic" }, null, { "oredictName" : "circuitBasic" } ]
 		],
 		"result" : {
-			"unlocalizedName" : "item.powerArmorHelmet"
+			"registryName" : "powersuits:item.powerArmorHelmet"
 		}
 	},
 	{
@@ -84,7 +84,7 @@
 			[ { "unlocalizedName" : "itemPlateIron" }, { "unlocalizedName" : "itemPlateIron" }, { "unlocalizedName" : "itemPlateIron" } ]
 		],
 		"result" : {
-			"unlocalizedName" : "item.powerArmorChestplate"
+			"registryName" : "powersuits:item.powerArmorChestplate"
 		}
 	},
 	{
@@ -94,7 +94,7 @@
 			[ { "unlocalizedName" : "itemPlateIron" }, null, { "unlocalizedName" : "itemPlateIron" } ]
 		],
 		"result" : {
-			"unlocalizedName" : "item.powerArmorLeggings"
+			"registryName" : "powersuits:item.powerArmorLeggings"
 		}
 	},
 	{
@@ -103,7 +103,7 @@
 			[ { "unlocalizedName" : "itemPlateIron" }, null, { "unlocalizedName" : "itemPlateIron" } ]
 		],
 		"result" : {
-			"unlocalizedName" : "item.powerArmorBoots"
+			"registryName" : "powersuits:item.powerArmorBoots"
 		}
 	},
 	{
@@ -113,12 +113,12 @@
 			[ null, { "unlocalizedName" : "itemPlateIron" }, { "oredictName" : "circuitBasic" } ]
 		],
 		"result" : {
-			"unlocalizedName" : "item.powerFist"
+			"registryName" : "powersuits:item.powerFist"
 		}
 	},
 	{
 		"ingredients" : [
-			[ { "unlocalizedName" : "ic2.itemGoldCable" }, { "unlocalizedName" : "item.redstone" }, { "unlocalizedName" : "ic2.itemGoldCable" } ]
+			[ { "unlocalizedName" : "ic2.itemGoldCable" }, { "oredictName" : "dustRedstone" }, { "unlocalizedName" : "ic2.itemGoldCable" } ]
 		],
 		"result" : {
 			"oredictName" : "componentWiring",
@@ -127,8 +127,8 @@
 	},
 	{
 		"ingredients" : [
-			[  { "id" : 35 }, { "id" : 35 }, { "id" : 35 } ],
-			[  { "unlocalizedName" : "item.string" }, null, { "unlocalizedName" : "item.string" } ],
+			[  { "registryName" : "minecraft:wool" }, { "registryName" : "minecraft:wool" }, { "registryName" : "minecraft:wool" } ],
+			[  { "registryName" : "minecraft:string" }, null, { "registryName" : "minecraft:string" } ],
 			[  { "unlocalizedName" : "ic2.itemPartCarbonPlate" }, null, { "unlocalizedName" : "ic2.itemPartCarbonPlate" } ]
 		],
 		"result" : {
@@ -198,9 +198,9 @@
 	},
 	{
 		"ingredients" : [
-			[  {"oredictName" : "componentSolenoid" }, { "unlocalizedName" : "item.enderPearl" }, {"oredictName" : "componentSolenoid" } ],
-			[  {"unlocalizedName" : "item.enderPearl" }, { "oredictName" : "circuitAdvanced" }, {"unlocalizedName" : "item.enderPearl" } ],
-			[  {"oredictName" : "componentSolenoid" }, { "unlocalizedName" : "item.enderPearl" }, {"oredictName" : "componentSolenoid" } ]
+			[  {"oredictName" : "componentSolenoid" }, { "registryName" : "minecraft:ender_pearl" }, {"oredictName" : "componentSolenoid" } ],
+			[  {"registryName" : "minecraft:ender_pearl" }, { "oredictName" : "circuitAdvanced" }, {"registryName" : "minecraft:ender_pearl" } ],
+			[  {"oredictName" : "componentSolenoid" }, { "registryName" : "minecraft:ender_pearl" }, {"oredictName" : "componentSolenoid" } ]
 		],
 		"result" : {
 			"oredictName" : "componentFieldEmitter"
@@ -210,7 +210,7 @@
 	{
 		"ingredients" : [
 			[  null, { "oredictName" : "componentFieldEmitter" }, { "oredictName" : "componentSolenoid" } ],
-			[  { "unlocalizedName" : "ic2.blockAdvMachine" }, { "unlocalizedName" : "item.yellowDust" }, null ],
+			[  { "unlocalizedName" : "ic2.blockAdvMachine" }, { "oredictName" : "dustGlowstone" }, null ],
 			[  { "oredictName" : "circuitAdvanced" }, { "oredictName" : "componentFieldEmitter" }, { "oredictName" : "componentSolenoid" } ]
 		],
 		"result" : {

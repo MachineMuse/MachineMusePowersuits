@@ -53,6 +53,7 @@ object Config {
   def extractRecipes() = {
     val key = "Auto-extract recipes"
     if(!config.hasKey(Configuration.CATEGORY_GENERAL, key) || config.get(Configuration.CATEGORY_GENERAL, key, false).getBoolean) {
+      config.get(Configuration.CATEGORY_GENERAL, key, false)
       var found=false
       if(ModCompatibility.isThermalExpansionLoaded) {
         found=true
