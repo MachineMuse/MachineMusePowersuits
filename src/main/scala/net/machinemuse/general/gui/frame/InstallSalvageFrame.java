@@ -19,6 +19,7 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -41,11 +42,11 @@ public class InstallSalvageFrame extends ScrollableFrame {
         double sizex = border.right() - border.left();
         double sizey = border.bottom() - border.top();
 
-        this.installButton = new ClickableButton("Install", new MusePoint2D(
+        this.installButton = new ClickableButton(StatCollector.translateToLocal("gui.install"), new MusePoint2D(
                 border.right() - sizex / 2.0, border.bottom() - sizey
                 / 4.0),
                 true);
-        this.salvageButton = new ClickableButton("Salvage", new MusePoint2D(
+        this.salvageButton = new ClickableButton(StatCollector.translateToLocal("gui.salvage"), new MusePoint2D(
                 border.left() + sizex / 2.0, border.top() + sizey / 4.0),
                 true);
 

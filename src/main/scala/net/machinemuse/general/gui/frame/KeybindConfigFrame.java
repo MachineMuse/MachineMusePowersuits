@@ -19,6 +19,7 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.StatCollector;
 import org.lwjgl.input.Keyboard;
 
 import java.util.HashSet;
@@ -51,8 +52,8 @@ public class KeybindConfigFrame implements IGuiFrame {
         this.br = br;
         this.player = player;
         MusePoint2D center = br.plus(ul).times(0.5);
-        newKeybindButton = new ClickableButton("New", center.plus(new MusePoint2D(0, -8)), true);
-        trashKeybindButton = new ClickableButton("Trash", center.plus(new MusePoint2D(0, 8)), true);
+        newKeybindButton = new ClickableButton(StatCollector.translateToLocal("gui.newKeybind"), center.plus(new MusePoint2D(0, -8)), true);
+        trashKeybindButton = new ClickableButton(StatCollector.translateToLocal("gui.trashKeybind"), center.plus(new MusePoint2D(0, 8)), true);
     }
 
     @Override
@@ -216,7 +217,7 @@ public class KeybindConfigFrame implements IGuiFrame {
         RenderState.blendingOn();
         RenderState.on2D();
         if (selecting) {
-            MuseRenderer.drawCenteredString("Press Key", center.x(), center.y());
+            MuseRenderer.drawCenteredString(StatCollector.translateToLocal("gui.pressKey"), center.x(), center.y());
             RenderState.off2D();
             RenderState.blendingOff();
             return;
@@ -224,12 +225,12 @@ public class KeybindConfigFrame implements IGuiFrame {
         newKeybindButton.draw();
         trashKeybindButton.draw();
         MuseTextureUtils.pushTexture(MuseTextureUtils.ITEM_TEXTURE_QUILT());
-        MuseRenderer.drawCenteredString("Use 'new' to bind new keys.", center.x(), center.y() + 40);
-        MuseRenderer.drawCenteredString("Drag and drop modules to bind them to keys.", center.x(), center.y() + 50);
-        MuseRenderer.drawCenteredString("Drop keys on 'trash' to unbind them.", center.x(), center.y() + 60);
+        MuseRenderer.drawCenteredString(StatCollector.translateToLocal("gui.keybindInstructions1"), center.x(), center.y() + 40);
+        MuseRenderer.drawCenteredString(StatCollector.translateToLocal("gui.keybindInstructions2"), center.x(), center.y() + 50);
+        MuseRenderer.drawCenteredString(StatCollector.translateToLocal("gui.keybindInstructions3"), center.x(), center.y() + 60);
         if (takenTime + 1000 > System.currentTimeMillis()) {
             MusePoint2D pos = newKeybindButton.getPosition().plus(new MusePoint2D(0, -20));
-            MuseRenderer.drawCenteredString("Taken!", pos.x(), pos.y());
+            MuseRenderer.drawCenteredString(StatCollector.translateToLocal("gui.keybindTaken"), pos.x(), pos.y());
         }
         for (ClickableModule module : modules) {
             module.draw();

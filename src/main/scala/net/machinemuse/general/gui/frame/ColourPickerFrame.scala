@@ -13,6 +13,7 @@ import net.machinemuse.utils.render.GuiIcons
 import net.machinemuse.utils.render.GuiIcons._
 import net.minecraft.client.Minecraft
 import net.minecraft.nbt.NBTTagIntArray
+import net.minecraft.util.StatCollector
 
 import scala.collection.mutable
 
@@ -22,9 +23,9 @@ import scala.collection.mutable
  */
 class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val borderColour: Colour, val itemSelector: ItemSelectionFrame) extends IGuiFrame {
   val border = new DrawableMuseRect(borderRef, insideColour, borderColour)
-  val rslider: ClickableSlider = new ClickableSlider(new MusePoint2D(border.centerx, border.top + 10), border.width - 10, "Red")
-  val gslider: ClickableSlider = new ClickableSlider(new MusePoint2D(border.centerx, border.top + 22), border.width - 10, "Green")
-  val bslider: ClickableSlider = new ClickableSlider(new MusePoint2D(border.centerx, border.top + 34), border.width - 10, "Blue")
+  val rslider: ClickableSlider = new ClickableSlider(new MusePoint2D(border.centerx, border.top + 8), border.width - 10, StatCollector.translateToLocal("gui.red"))
+  val gslider: ClickableSlider = new ClickableSlider(new MusePoint2D(border.centerx, border.top + 24), border.width - 10, StatCollector.translateToLocal("gui.green"))
+  val bslider: ClickableSlider = new ClickableSlider(new MusePoint2D(border.centerx, border.top + 40), border.width - 10, StatCollector.translateToLocal("gui.blue"))
 
   def colours: Array[Int] = getOrCreateColourTag.map(e => e.func_150302_c /*getIntArray()*/  ).getOrElse(Array.empty)
 
