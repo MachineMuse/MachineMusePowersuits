@@ -27,15 +27,16 @@ class ClickableSlider(val pos: MusePoint2D, val width: Double, val name: String)
       Math.abs(position.y + 12 - y) < 4
   }
 
-  var value: Double = 0
+  var valueInternal: Double = 0
+  def value = valueInternal
 
   def setValueByX(x: Double) {
     val v = (x - pos.x) / width + 0.5
-    value = MuseMathUtils.clampDouble(v, 0, 1)
+    valueInternal = MuseMathUtils.clampDouble(v, 0, 1)
   }
 
   def setValue(v: Double) {
-    value = v
+    valueInternal = v
   }
 
 }
