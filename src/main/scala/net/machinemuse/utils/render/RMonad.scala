@@ -45,15 +45,6 @@ object Render {
     a
   }
 
-  def withShaderProgram[A](prog: ShaderProgram)(r: Render[A]): Render[A] = mk {
-    prog.bind()
-    //    MuseLogger.logDebug("Bound shader program")
-    val a = r.run()
-    //    MuseLogger.logDebug("Unbound shader program")
-    prog.unbind()
-    a
-  }
-
   def fromBuffer[A](buf: TextureBuffer)(r: Render[A]): Render[A] = mk {
     buf.bindRead()
     //    MuseLogger.logDebug("Bound buffer for reading")
@@ -110,11 +101,6 @@ object Render {
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F)
       }
       a <- r
-      _ <- Render {
-        if (Config.useShaders && Config.canUseShaders && Minecraft.isFancyGraphicsEnabled)
-          GlowBuffer.draw(r)
-      }
-
       _ <- Render {
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, saved._1, saved._2)
         GL11.glPopAttrib()

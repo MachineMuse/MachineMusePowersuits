@@ -4,24 +4,13 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.general.gui.EnergyMeter;
-import net.machinemuse.general.gui.HeatMeter;
-import net.machinemuse.powersuits.block.BlockTinkerTable;
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.movement.FlightControlModule;
 import net.machinemuse.powersuits.powermodule.movement.GliderModule;
 import net.machinemuse.powersuits.powermodule.movement.JetBootsModule;
 import net.machinemuse.powersuits.powermodule.movement.JetPackModule;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseHeatUtils;
-import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.MuseStringUtils;
-import net.machinemuse.utils.render.GlowBuffer;
-import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -33,10 +22,7 @@ public class RenderEventHandler {
 
         Minecraft mc = Minecraft.getMinecraft();
         ScaledResolution screen = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
-        if (Config.useShaders() && Config.canUseShaders() && Minecraft.isFancyGraphicsEnabled()) {
-            GlowBuffer.drawFullScreen(screen);
-            GlowBuffer.clear();
-        }
+
     }
 
     @SubscribeEvent

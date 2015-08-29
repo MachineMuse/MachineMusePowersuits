@@ -5,7 +5,6 @@ import java.net.URL
 import cpw.mods.fml.client.registry.{ClientRegistry, RenderingRegistry}
 import cpw.mods.fml.common.FMLCommonHandler
 import net.machinemuse.general.sound.SoundDictionary
-import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.network.{MusePacket, MusePacketHandler, MusePacketModeChangeRequest, PacketSender}
 import net.machinemuse.numina.render.RenderGameOverlayEventHandler
 import net.machinemuse.powersuits.block.{BlockTinkerTable, TileEntityLuxCapacitor, TileEntityTinkerTable}
@@ -16,7 +15,6 @@ import net.machinemuse.powersuits.client.render.modelspec.ModelSpecXMLReader
 import net.machinemuse.powersuits.control.{KeybindKeyHandler, KeybindManager}
 import net.machinemuse.powersuits.entity.{EntityLuxCapacitor, EntityPlasmaBolt, EntitySpinningBlade}
 import net.machinemuse.powersuits.event.{ClientTickHandler, PlayerLoginHandlerThingy, PlayerUpdateHandler, RenderEventHandler}
-import net.machinemuse.utils.render.MuseShaders
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.EntityClientPlayerMP
 import net.minecraftforge.client.MinecraftForgeClient
@@ -70,15 +68,7 @@ class ClientProxy extends CommonProxy {
     ModelSpecXMLReader.parseFile(resource)
     val otherResource: URL = classOf[ClientProxy].getResource("/assets/powersuits/models/armor2.xml")
     ModelSpecXMLReader.parseFile(otherResource)
-    try {
-      val x = MuseShaders.hBlurProgram.program // want this to initialize :s
-      Config.canUseShaders = true
-    }
-    catch {
-      case e: Throwable => {
-        MuseLogger.logDebug("Loading shaders failed!")
-      }
-    }
+
   }
 
   /**
