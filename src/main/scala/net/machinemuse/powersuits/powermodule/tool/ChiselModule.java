@@ -1,11 +1,11 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import com.cricketcraft.chisel.init.ChiselItems;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -14,6 +14,7 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
@@ -25,6 +26,7 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
     public static final String MODULE_CHISEL = "Chisel";
     public static final String CHISEL_HARVEST_SPEED = "CHISEL Harvest Speed";
     public static final String CHISEL_ENERGY_CONSUMPTION = "CHISEL Energy Consumption";
+    private Item ITEM_CHISEL = null;
 
     public ChiselModule(List<IModularItem> validItems) {
         super(validItems);
@@ -34,6 +36,16 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
         addBaseProperty(CHISEL_HARVEST_SPEED, 8, "x");
         addTradeoffProperty("Overclock", CHISEL_ENERGY_CONSUMPTION, 950);
         addTradeoffProperty("Overclock", CHISEL_HARVEST_SPEED, 22);
+
+        try {
+            ITEM_CHISEL = com.cricketcraft.chisel.init.ChiselItems.obsidianChisel;
+        } catch (Exception e) {
+            try {
+                ITEM_CHISEL = team.chisel.init.ChiselItems.obsidianChisel;
+            } catch (Exception f) {
+                MuseLogger.logException("Couldn't get Chisel reference item", f);
+            }
+        }
     }
 
     @Override
@@ -62,8 +74,8 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if (ModCompatibility.isChiselLoaded()) {
-            if (ForgeHooks.canToolHarvestBlock(block, meta, new ItemStack(ChiselItems.obsidianChisel))) {
+        if (ModCompatibility.isChiselLoaded() && ITEM_CHISEL != null) {
+            if (ForgeHooks.canToolHarvestBlock(block, meta, new ItemStack(ITEM_CHISEL))) {
                 if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, CHISEL_ENERGY_CONSUMPTION)) {
                     return true;
                 }
