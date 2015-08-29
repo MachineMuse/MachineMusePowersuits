@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.common;
 import cpw.mods.fml.common.Loader;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.powersuits.powermodule.armor.ApiaristArmorModule;
 import net.machinemuse.powersuits.powermodule.armor.HazmatModule;
 import net.machinemuse.powersuits.powermodule.misc.AirtightSealModule;
@@ -91,7 +92,11 @@ public class ModCompatibility {
 
         // Chisel
         if(isChiselLoaded()) {
-            ModuleManager.addModule(new ChiselModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
+            try {
+                ModuleManager.addModule(new ChiselModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
+            } catch(Exception e) {
+                MuseLogger.logException("Couldn't add Chisel module", e);
+            }
         }
     }
 
