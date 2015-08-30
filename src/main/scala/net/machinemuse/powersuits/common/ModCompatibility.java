@@ -49,6 +49,10 @@ public class ModCompatibility {
         return Loader.isModLoaded("chisel");
     }
 
+    public static boolean isEnderIOLoaded() {
+        return Loader.isModLoaded("EnderIO");
+    }
+
     public static boolean enableThaumGogglesModule() {
         boolean defaultval = isThaumCraftLoaded();
         return Config.getConfig().get("Special Modules", "Thaumcraft Goggles Module", defaultval).getBoolean(defaultval);

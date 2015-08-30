@@ -65,6 +65,11 @@ object Config {
         //IC2
         copyRecipe("mps-vanilla.recipes")
       }
+      if (ModCompatibility.isEnderIOLoaded) {
+        found=true
+        //enderIO
+        copyRecipe("mps-enderio.recipes")
+      }
       if(!found) {
         //vanilla
         copyRecipe("mps-thermalexpansion.recipes")
