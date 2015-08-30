@@ -2,7 +2,7 @@
 	{
 		"ingredients" : [
 			[ { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" } ],
-			[ { "oredictName" : "componentWiring" }, { "oredictName" : "ingotIron" } ],
+			[ { "registryName" : "EnderIO:itemBasicCapacitor" }, { "oredictName" : "ingotIron" } ],
 			[ { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" } ]
 		],
 		"result" : {
@@ -12,7 +12,7 @@
 	{
 		"ingredients" : [
 			[ { "oredictName" : "gemDiamond" }, { "oredictName" : "gemDiamond" } ],
-			[ { "oredictName" : "componentWiring" }, { "oredictName" : "gemDiamond" } ],
+			[ { "registryName" : "EnderIO:itemBasicCapacitor", "meta" : 1 }, { "oredictName" : "gemDiamond" } ],
 			[ { "oredictName" : "gemDiamond" }, { "oredictName" : "gemDiamond" } ]
 		],
 		"result" : {
@@ -21,9 +21,9 @@
 	},
 	{
 		"ingredients" : [
-			[ { "oredictName" : "componentWiring" }, { "oredictName" : "dyeGreen" }, { "oredictName" : "ingotGold" } ],
-			[ { "oredictName" : "dustRedstone" }, { "oredictName" : "dustGlowstone" }, { "oredictName" : "dyeGreen" } ],
-			[ { "oredictName" : "ingotGold" }, { "oredictName" : "dustRedstone" }, { "oredictName" : "componentWiring" } ]
+			[ { "oredictName" : "componentWiring" }, { "oredictName" : "dyeGreen" }, { "oredictName" : "ingotElectricalSteel" } ],
+			[ { "oredictName" : "dustRedstone" }, { "registryName" : "EnderIO:itemBasicCapacitor", "meta" : 1 }, { "oredictName" : "dyeGreen" } ],
+			[ { "oredictName" : "ingotElectricalSteel" }, { "oredictName" : "dustRedstone" }, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {
 			"oredictName" : "componentControlCircuit"
@@ -51,7 +51,7 @@
 	{
 		"ingredients" : [
 			[ { "oredictName" : "dustGlowstone" }, { "oredictName" : "blockGlass" }, { "oredictName" : "dyeGreen" } ],
-			[ { "oredictName" : "blockGlass" }, { "oredictName" : "componentWiring" }, { "oredictName" : "blockGlass" } ],
+			[ { "oredictName" : "blockGlass" }, { "registryName" : "EnderIO:itemBasicCapacitor" }, { "oredictName" : "blockGlass" } ],
 			[ { "oredictName" : "dyeBlue" }, { "oredictName" : "blockGlass" }, { "oredictName" : "dyeRed" } ]
 		],
 		"result" : {
@@ -60,9 +60,9 @@
 	},
 	{
 		"ingredients" : [
-			[ { "oredictName" : "ingotIron" }, { "oredictName" : "dyeBlue" }, { "oredictName" : "ingotIron" } ],
-			[ { "oredictName" : "dyeBlue" }, { "oredictName" : "gemEmerald" }, { "oredictName" : "dyeBlue" } ],
-			[ { "oredictName" : "ingotIron" }, { "oredictName" : "dyeBlue" }, { "oredictName" : "ingotIron" } ]
+			[ null, { "oredictName" : "gemEmerald" }, null ],
+			[ { "oredictName" : "ingotElectricalSteel"}, { "registryName" : "EnderIO:itemBasicCapacitor" }, { "oredictName" : "ingotElectricalSteel"} ],
+			[ null, { "oredictName" : "itemMachineChassi" }, null ]
 		],
 		"result" : {
 			"registryName" : "powersuits:tile.tinkerTable"
@@ -71,7 +71,7 @@
 	{
 		"ingredients" : [
 			[ { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" } ],
-			[ { "oredictName" : "componentWiring" }, null, { "oredictName" : "componentWiring" } ]
+			[ { "registryName" : "EnderIO:itemBasicCapacitor" }, null, { "registryName" : "EnderIO:itemBasicCapacitor" } ]
 		],
 		"result" : {
 			"registryName" : "powersuits:item.powerArmorHelmet"
@@ -80,7 +80,7 @@
 	{
 		"ingredients" : [
 			[ { "oredictName" : "ingotIron" }, null, { "oredictName" : "ingotIron" } ],
-			[ { "oredictName" : "componentWiring" }, { "oredictName" : "ingotIron" }, { "oredictName" : "componentWiring" } ],
+			[ { "registryName" : "EnderIO:itemBasicCapacitor" }, { "oredictName" : "ingotIron" }, { "registryName" : "EnderIO:itemBasicCapacitor" } ],
 			[ { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" } ]
 		],
 		"result" : {
@@ -90,7 +90,7 @@
 	{
 		"ingredients" : [
 			[ { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" } ],
-			[ { "oredictName" : "componentWiring" }, null, { "oredictName" : "componentWiring" } ],
+			[ { "registryName" : "EnderIO:itemBasicCapacitor" }, null, { "registryName" : "EnderIO:itemBasicCapacitor" } ],
 			[ { "oredictName" : "ingotIron" }, null, { "oredictName" : "ingotIron" } ]
 		],
 		"result" : {
@@ -99,7 +99,7 @@
 	},
 	{
 		"ingredients" : [
-			[ { "oredictName" : "componentWiring" }, null, { "oredictName" : "componentWiring" } ],
+			[ { "registryName" : "EnderIO:itemBasicCapacitor" }, null, { "registryName" : "EnderIO:itemBasicCapacitor" } ],
 			[ { "oredictName" : "ingotIron" }, null, { "oredictName" : "ingotIron" } ]
 		],
 		"result" : {
@@ -109,8 +109,8 @@
 	{
 		"ingredients" : [
 			[ null, { "oredictName" : "componentWiring" }, null ],
-			[ { "oredictName" : "componentWiring" }, { "oredictName" : "ingotIron" }, null ],
-			[ null, { "oredictName" : "ingotIron" }, { "oredictName" : "componentWiring" } ]
+			[ { "oredictName" : "componentWiring" }, { "oredictName" : "ingotPhasedIron" }, null ],
+			[ null, { "oredictName" : "ingotPhasedIron" }, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {
 			"registryName" : "powersuits:item.powerFist"
@@ -118,7 +118,7 @@
 	},
 	{
 		"ingredients" : [
-			[  {"oredictName" : "ingotGold" }, { "oredictName" : "dustRedstone" }, {"oredictName" : "ingotGold" } ]
+			[  {"oredictName" : "ingotPhasedIron" }, { "oredictName" : "dustRedstone" }, {"oredictName" : "ingotPhasedIron" } ]
 		],
 		"result" : {
 			"oredictName" : "componentWiring",
@@ -128,8 +128,8 @@
 	{
 		"ingredients" : [
 			[  { "registryName" : "minecraft:wool" }, { "registryName" : "minecraft:wool" }, { "registryName" : "minecraft:wool" } ],
-			[  {"registryName" : "minecraft:string" }, null, {"registryName" : "minecraft:string" } ],
-			[  {"oredictName" : "ingotIron" }, null, {"oredictName" : "ingotIron" } ]
+			[  { "registryName" : "minecraft:string" }, null, {"registryName" : "minecraft:string" } ],
+			[  { "oredictName" : "ingotElectricalSteel" }, null, {"oredictName" : "ingotElectricalSteel" } ]
 		],
 		"result" : {
 			"oredictName" : "componentParachute"
@@ -137,7 +137,7 @@
 	},
 	{
 		"ingredients" : [
-			[  {"oredictName" : "componentWiring" }, { "registryName" : "minecraft:paper" }, {"oredictName" : "ingotIron" } ],
+			[  {"oredictName" : "componentWiring" }, { "registryName" : "EnderIO:itemBasicCapacitor" }, {"oredictName" : "componentWiring" } ],
 			[  {"oredictName" : "componentWiring" }, null, {"oredictName" : "componentWiring" } ]
 		],
 		"result" : {
@@ -146,7 +146,7 @@
 	},
 	{
 		"ingredients" : [
-			[  {"oredictName" : "nuggetGold" }, { "registryName" : "minecraft:paper" }, {"oredictName" : "dyeBlue" } ],
+			[  {"oredictName" : "componentWiring" }, { "registryName" : "EnderIO:itemBasicCapacitor", "meta" : 1 }, {"oredictName" : "componentWiring" } ],
 			[  {"oredictName" : "componentWiring" }, null, {"oredictName" : "componentWiring" } ]
 		],
 		"result" : {
@@ -155,7 +155,7 @@
 	},
 	{
 		"ingredients" : [
-			[  {"registryName" : "minecraft:ender_pearl" }, { "registryName" : "minecraft:paper" }, {"oredictName" : "dustGlowstone" } ],
+			[  {"oredictName" : "componentWiring" }, { "registryName" : "EnderIO:itemBasicCapacitor", "meta" : 2 }, {"oredictName" : "componentWiring" } ],
 			[  {"oredictName" : "componentWiring" }, null, {"oredictName" : "componentWiring" } ]
 		],
 		"result" : {
@@ -164,8 +164,8 @@
 	},
 	{
 		"ingredients" : [
-			[  {"oredictName" : "componentWiring" }, { "oredictName" : "ingotIron" }, {"oredictName" : "componentWiring" } ],
-			[  {"oredictName" : "componentWiring" }, { "oredictName" : "ingotIron" }, {"oredictName" : "componentWiring" } ],
+			[  {"oredictName" : "componentWiring" }, {"oredictName" : "ingotIron" }, {"oredictName" : "componentWiring" } ],
+			[  {"oredictName" : "componentWiring" }, { "oredictName" : "ingotEnergeticAlloy" }, {"oredictName" : "componentWiring" } ],
 			[  {"oredictName" : "componentWiring" }, { "oredictName" : "ingotIron" }, {"oredictName" : "componentWiring" } ]
 		],
 		"result" : {
@@ -174,9 +174,9 @@
 	},
 	{
 		"ingredients" : [
-			[  null, { "oredictName" : "ingotIron" }, {"oredictName" : "ingotIron" } ],
-			[  {"oredictName" : "ingotIron" }, {"oredictName" : "ingotIron" }, {"oredictName" : "componentSolenoid" }],
-			[  {"oredictName" : "ingotIron" }, null, null]
+			[  null, { "oredictName" : "blockGlassHardened" }, {"oredictName" : "blockGlassHardened" } ],
+			[  {"oredictName" : "blockGlassHardened" }, {"oredictName" : "blockGlassHardened" }, { "oredictName" : "componentSolenoid" } ],
+			[  {"oredictName" : "blockGlassHardened" }, null, null]
 		],
 		"result" : {
 			"oredictName" : "componentGliderWing"
@@ -185,7 +185,7 @@
 	{
 		"ingredients" : [
 			[  null, { "oredictName" : "componentSolenoid" }, null ],
-			[  { "oredictName" : "componentWiring" }, { "oredictName" : "ingotIron" }, { "oredictName" : "componentWiring" } ],
+			[  { "oredictName" : "componentWiring" }, { "registryName" : "EnderIO:itemMachinePart" }, { "oredictName" : "componentWiring" } ],
 			[  null, { "oredictName" : "componentSolenoid" }, null ]
 		],
 		"result" : {
@@ -195,7 +195,7 @@
 	{
 		"ingredients" : [
 			[  {"oredictName" : "componentSolenoid" }, { "registryName" : "minecraft:ender_pearl" }, {"oredictName" : "componentSolenoid" } ],
-			[  {"registryName" : "minecraft:ender_pearl" }, { "oredictName" : "componentSolenoid" }, {"registryName" : "minecraft:ender_pearl" } ],
+			[  {"registryName" : "minecraft:ender_pearl" }, { "registryName" : "EnderIO:itemBasicCapacitor", "meta" : 2 }, {"registryName" : "minecraft:ender_pearl" } ],
 			[  {"oredictName" : "componentSolenoid" }, { "registryName" : "minecraft:ender_pearl" }, {"oredictName" : "componentSolenoid" } ]
 		],
 		"result" : {
@@ -206,7 +206,7 @@
 	{
 		"ingredients" : [
 			[  null, { "oredictName" : "componentFieldEmitter" }, {"oredictName" : "componentSolenoid" } ],
-			[  {"oredictName" : "ingotIron" }, {"oredictName" : "dustGlowstone" }, null],
+			[  {"oredictName" : "ingotPhasedGold" }, {"oredictName" : "dustGlowstone" }, null],
 			[  {"oredictName" : "componentWiring" }, {"oredictName" : "componentFieldEmitter" }, {"oredictName" : "componentSolenoid" } ]
 		],
 		"result" : {
