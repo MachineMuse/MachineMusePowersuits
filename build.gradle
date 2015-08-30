@@ -107,6 +107,7 @@ task copyToLib(type: Copy) {
         include 'mps-vanilla.recipes'
         include 'mps-thermalexpansion.recipes'
         include 'mps-ic2.recipes'
+        include 'mps-enderio.recipes'
     }
 }
 
