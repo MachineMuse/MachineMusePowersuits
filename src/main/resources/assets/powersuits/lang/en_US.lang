@@ -142,3 +142,5 @@ gui.keybindTaken=Taken!
 gui.tab.tinker=Tinker
 gui.tab.keybinds=Keybinds
 gui.tab.visual=Visual
+
+nei.jsonShaped=JSON Shaped

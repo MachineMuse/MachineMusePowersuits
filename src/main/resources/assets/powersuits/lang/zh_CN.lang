@@ -1,9 +1,11 @@
 #zh_CN
-Made by users: crafteveryehre
-Last edited on 8/19/13 15:20PM UTC+8
+Made by users: crafteverywhere, 3TUSK
+Last edited on 8/30/15 1:35 AM EST
 
 tile.luxCapacitor.name=光能容器
 tile.tinkerTable.name=动力装甲改装台
+
+itemGroup.powersuits=模块化动力套装
 
 item.powerArmorBoots.name=动力靴子
 item.powerArmorChestplate.name=动力护甲
@@ -53,9 +55,9 @@ module.glider.name=滑翔翼
 module.jetpack.name=喷气背包
 module.sprintAssist.name=冲刺辅助模块
 module.jumpAssist.name=跳跃辅助模块
-module.swimAssist.name=游泳加速
+module.swimAssist.name=游泳加速模块
 module.climbAssist.name=攀岩辅助模块
-module.jetBoots.name=喷射加速
+module.jetBoots.name=喷射加速模块
 module.shockAbsorber.name=减震器
 module.waterElectrolyzer.name=电解水模块
 module.binoculars.name=望远镜模块
@@ -64,7 +66,7 @@ module.flightControl.name=飞行控制
 module.invisibility.name=动态伪装模块
 module.blinkDrive.name=闪烁驱动模块
 module.diamondPickUpgrade.name=钻石钻头升级
-module.aquaAffinity.name=法力亲和模块
+module.aquaAffinity.name=水亲和模块
 module.coolingSystem.name=冷却系统
 module.tint.name=自定义色彩系统
 module.transparentArmor.name=透明化模块
@@ -80,66 +82,66 @@ module.citizenJoe.name=自定义皮肤模块
 module.sonicWeapon.name=声波武器
 
 
-module.basicPlating.desc=Basic plating is heavy but protective.
-module.diamondPlating.desc=Advanced plating is lighter, harder, and more protective than Basic but much harder to make.
-module.energyShield.desc=Energy shields are much lighter than plating, but consume energy.
-module.heatSink.desc=A thick layer of plating to soak up heat.
-module.axe.desc=Axes are mostly for chopping trees.
-module.pickaxe.desc=Picks are good for harder materials like stone and ore.
-module.shovel.desc=Shovels are good for soft materials like dirt and sand.
-module.shears.desc=Cuts through leaves, wool, and creepers alike.
-module.hoe.desc=An automated tilling addon to make it easy to till large swaths of land at once.
-module.luxCapacitor.desc=Launch a virtually infinite number of attractive light sources at the wall.
-module.omniwrench.desc=A wrench which can interact with almost every mod.
-module.fieldTinkerer.desc=Maybe you can't memorize the blueprints, but you should at least be able to fine tune your modules without Inspiration™ Inc. LLC.
-module.meleeAssist.desc=A much simpler addon, makes your powertool punches hit harder.
-module.plasmaCannon.desc=Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.
-module.railgun.desc=An assembly which accelerates a projectile to supersonic speeds using magnetic force. Heavy recoil.
-module.bladeLauncher.desc=Launches a spinning blade of death (or shearing).
-module.basicBattery.desc=Integrate a battery to allow the item to store energy.
-module.advancedBattery.desc=Integrate a more advanced battery to store more energy.
-module.eliteBattery.desc=Integrate a the most advanced battery to store an extensive amount of energy.
-module.parachute.desc=Add a parachute to slow your descent. Activate by pressing sneak (defaults to Shift) in midair.
-module.glider.desc=Tack on some wings to turn downward into forward momentum. Press sneak+forward while falling to activate.
-module.jetpack.desc=A jetpack should allow you to jump indefinitely, or at least until you run out of power.
-module.sprintAssist.desc=A set of servo motors to help you sprint (double-tap forward) and walk faster.
-module.jumpAssist.desc=Another set of servo motors to help you jump higher.
-module.swimAssist.desc=By refitting an ion thruster for underwater use, you may be able to add extra forward (or backward) thrust when underwater.
-module.climbAssist.desc=A pair of dedicated servos allow you to effortlessly step up 1m-high ledges.
-module.jetBoots.desc=Jet boots are not as strong as a jetpack, but they should at least be strong enough to counteract gravity.
-module.shockAbsorber.desc=With some servos, springs, and padding, you should be able to negate a portion of fall damage.
-module.waterElectrolyzer.desc=When you run out of air, this module will jolt the water around you, electrolyzing a small bubble to breathe from.
-module.nightVision.desc=A pair of augmented vision goggles to help you see at night and underwater.
-module.binoculars.desc=With the problems that have been plaguing Optifine lately, you've decided to take that Zoom ability into your own hands.
-module.flightControl.desc=An integrated control circuit to help you fly better. Press Z to go down.
-module.invisibility.desc=Emit a hologram of your surroundings to make yourself almost imperceptible.
-module.blinkDrive.desc=Get from point A to point C via point B, where point B is a fold in space & time.
-module.diamondPickUpgrade.desc=Add diamonds to allow your pickaxe module to mine Obsidian. *REQUIRES PICKAXE MODULE TO WORK*
-module.aquaAffinity.desc=Reduces the speed penalty for using your tool underwater.
-module.coolingSystem.desc=Cools down heat-producing modules quicker.
-module.tint.desc=Give your armor some coloured tinting to customize your armor's appearance.
-module.transparentArmor.desc=Make the item transparent, so you can show off your skin without losing armor.
-module.cosmeticGlow.desc=Change the appearance of the glowy bits on your armor.
+module.basicPlating.desc=基础的电镀板,虽然沉重,但防护性能优良.
+module.diamondPlating.desc=高级电镀板更轻,更坚固,比基础的还硬,不过难以制造.
+module.energyShield.desc=能量护盾自然比电镀板轻,但是它消耗能量.
+module.heatSink.desc=薄薄一层电镀,但却是用于散热的.
+module.axe.desc=斧子大都是拿来砍树的.
+module.pickaxe.desc=镐子,为石头和矿物等坚硬材料而生.
+module.shovel.desc=铲子,为沙子和泥土等松软物质而生.
+module.shears.desc=用于剪下树叶,羊毛,苦力怕等.
+module.hoe.desc=一个自动翻地模块,让你瞬间犁出大片土地.(妈妈的金坷垃是我的)
+module.luxCapacitor.desc=在墙上释放出一个无限发光的光源.
+module.omniwrench.desc=一个能用于几乎所有MOD的扳手.
+module.fieldTinkerer.desc=也许你不记蓝图,但你至少可以在不接受Inspiration™ Inc. LLC.的帮助下改良你的模块.
+module.meleeAssist.desc=一个简易的模块,提升你的近战伤害.
+module.plasmaCannon.desc=在收容场中用电弧将空气加热至等离子态,然后朝敌人发射.
+module.railgun.desc=一个集成模块,可将投掷物用磁场加速至超音速,后座力极大.
+module.bladeLauncher.desc=可弹射出旋转(或者,剪切一切)的死亡之刃.
+module.basicBattery.desc=内置电池,这样物品就可以储存一定能量了.
+module.advancedBattery.desc=内置一个高级的电池,可储存更多能量.
+module.eliteBattery.desc=内置带南孚聚能环的电池,可储存大量能量.
+module.parachute.desc=增加一个降落伞,用于在降落时减速.在半空中潜行(默认按Shift)即可激活.
+module.glider.desc=加装些翅膀即可在下降时急转而上.在掉下去时按Shift+前进(默认W)以激活.
+module.jetpack.desc=一个喷气背包可以让你想跳多久跳多久,或者说,至少在没电之前.
+module.sprintAssist.desc=一组提高你的行走和疾跑(连按两下前进)的伺服马达.
+module.jumpAssist.desc=另一组伺服马达,但却是强化跳跃能力的.
+module.swimAssist.desc=对推进器进行水下环境适应性改造后,你可以在水下使用额外的前进(或后退)推进器了.
+module.climbAssist.desc=一对特种伺服器,帮你不费吹灰之力爬上1米高的墙.
+module.jetBoots.desc=喷射加速模块虽不如喷气背包,但它们至少可以反重力.
+module.shockAbsorber.desc=在各种伺服器弹簧和松软材料的帮助下,你应该可以无视摔落造成的伤害了.
+module.waterElectrolyzer.desc=当你在水下断氧时,这个模块将会震荡并电解你周围的水,产生可以用来呼吸的小气泡.
+module.nightVision.desc=一副视觉增强型护目镜,方便夜间和水下使用.
+module.binoculars.desc=出于对最近Optifine大规模扩散的问题的考虑,你决定将那个放大功能控制在你的掌心中.
+module.flightControl.desc=一系列帮助飞行的集成控制电路.按Z往下.
+module.invisibility.desc=向周围发射全息投影,使你不易被察觉到.
+module.blinkDrive.desc=从点A经由B到达点C,而B是时间和空间的集合.
+module.diamondPickUpgrade.desc=钻石强化过的镐模块可以让你挖掘黑曜石. *重复,需要先安装镐模块才可安装此模块*
+module.aquaAffinity.desc=提高你在水下使用工具的速度.
+module.coolingSystem.desc=更快冷却你的制热模块.
+module.tint.desc=用颜色点缀下你的装甲,来自定义你的出场方式吧.
+module.transparentArmor.desc=使装甲本身透明,这样你就可以在不卸掉装甲时展示你的皮肤了.
+module.cosmeticGlow.desc=让你的装甲闪闪发光.
 
 
-gui.noModulesFound.line1=No modular powersuit items
-gui.noModulesFound.line2=found in inventory. Make some!
+gui.noModulesFound.line1=未发现模块化动力套装物品
+gui.noModulesFound.line2=物品栏中发现目标.我们开始吧!
 
-gui.red=Red
-gui.green=Green
-gui.blue=Blue
+gui.red=红
+gui.green=绿
+gui.blue=蓝
 
-gui.install=Install
-gui.salvage=Salvage
+gui.install=安装
+gui.salvage=回收
 
-gui.newKeybind=New
-gui.trashKeybind=Trash
-gui.pressKey=Press Key
-gui.keybindInstructions1=Use 'new' to bind new keys.
-gui.keybindInstructions2=Drag and drop modules to bind them to keys.
-gui.keybindInstructions3=Drop keys on 'trash' to unbind them.
-gui.keybindTaken=Taken!
+gui.newKeybind=新建
+gui.trashKeybind=删除!
+gui.pressKey=按键
+gui.keybindInstructions1=使用"新建"来绑定新快捷键.
+gui.keybindInstructions2=拖拽模块完成绑定.
+gui.keybindInstructions3=拖到"删除!"上解除绑定.
+gui.keybindTaken=完成!
 
-gui.tab.tinker=Tinker
-gui.tab.keybinds=Keybinds
-gui.tab.visual=Visual
+gui.tab.tinker=改装
+gui.tab.keybinds=按键
+gui.tab.visual=视觉效果
