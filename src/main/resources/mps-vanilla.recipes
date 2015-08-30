@@ -118,7 +118,7 @@
 	},
 	{
 		"ingredients" : [
-			[  {"oredictName" : "nuggetGold" }, { "oredictName" : "dustRedstone" }, {"oredictName" : "nuggetGold" } ]
+			[  {"oredictName" : "ingotGold" }, { "oredictName" : "dustRedstone" }, {"oredictName" : "ingotGold" } ]
 		],
 		"result" : {
 			"oredictName" : "componentWiring",
@@ -128,7 +128,8 @@
 	{
 		"ingredients" : [
 			[  { "registryName" : "minecraft:wool" }, { "registryName" : "minecraft:wool" }, { "registryName" : "minecraft:wool" } ],
-			[  {"registryName" : "minecraft:string" }, null, {"registryName" : "minecraft:string" } ]
+			[  {"registryName" : "minecraft:string" }, null, {"registryName" : "minecraft:string" } ],
+			[  {"oredictName" : "ingotIron" }, null, {"oredictName" : "ingotIron" } ]
 		],
 		"result" : {
 			"oredictName" : "componentParachute"
@@ -174,7 +175,7 @@
 	{
 		"ingredients" : [
 			[  null, { "oredictName" : "ingotIron" }, {"oredictName" : "ingotIron" } ],
-			[  {"oredictName" : "ingotIron" }, {"oredictName" : "ingotIron" }, null],
+			[  {"oredictName" : "ingotIron" }, {"oredictName" : "ingotIron" }, {"oredictName" : "componentSolenoid" }],
 			[  {"oredictName" : "ingotIron" }, null, null]
 		],
 		"result" : {
@@ -183,8 +184,9 @@
 	},
 	{
 		"ingredients" : [
-			[  null, { "oredictName" : "componentWiring" }, null ],
-			[  {"oredictName" : "componentSolenoid" }, {"oredictName" : "ingotIron" }, {"oredictName" : "componentSolenoid" } ]
+			[  null, { "oredictName" : "componentSolenoid" }, null ],
+			[  { "oredictName" : "componentWiring" }, { "oredictName" : "ingotIron" }, { "oredictName" : "componentWiring" } ],
+			[  null, { "oredictName" : "componentSolenoid" }, null ]
 		],
 		"result" : {
 			"oredictName" : "componentServo"
@@ -205,7 +207,7 @@
 		"ingredients" : [
 			[  null, { "oredictName" : "componentFieldEmitter" }, {"oredictName" : "componentSolenoid" } ],
 			[  {"oredictName" : "ingotIron" }, {"oredictName" : "dustGlowstone" }, null],
-			[  {"oredictName" : "ingotIron" }, {"oredictName" : "componentFieldEmitter" }, {"oredictName" : "componentSolenoid" } ]
+			[  {"oredictName" : "componentWiring" }, {"oredictName" : "componentFieldEmitter" }, {"oredictName" : "componentSolenoid" } ]
 		],
 		"result" : {
 			"oredictName" : "componentIonThruster"
