@@ -63,7 +63,7 @@ object Config {
       if (ModCompatibility.isIndustrialCraftLoaded) {
         found=true
         //IC2
-        copyRecipe("mps-vanilla.recipes")
+        copyRecipe("mps-ic2.recipes")
       }
       if (ModCompatibility.isEnderIOLoaded) {
         found=true
@@ -72,7 +72,7 @@ object Config {
       }
       if(!found) {
         //vanilla
-        copyRecipe("mps-thermalexpansion.recipes")
+        copyRecipe("mps-vanilla.recipes")
       }
     }
   }
