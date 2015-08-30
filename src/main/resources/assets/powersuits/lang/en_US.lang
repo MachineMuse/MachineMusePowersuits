@@ -120,6 +120,7 @@ module.coolingSystem.desc=Cools down heat-producing modules quicker.
 module.tint.desc=Give your armor some coloured tinting to customize your armor's appearance.
 module.transparentArmor.desc=Make the item transparent, so you can show off your skin without losing armor.
 module.cosmeticGlow.desc=Change the appearance of the glowy bits on your armor.
+module.hazmat.desc=Protect yourself from electricity and radiation poisoning. *Must be on every piece for 100% protection*
 
 gui.noModulesFound.line1=No modular powersuit items
 gui.noModulesFound.line2=found in inventory. Make some!
