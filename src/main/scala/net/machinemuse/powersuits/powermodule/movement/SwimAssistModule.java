@@ -1,10 +1,13 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.general.sound.SoundDictionary;
+import net.machinemuse.numina.basemod.NuminaConfig;
 import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -72,22 +75,32 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
                 double swimAssistRate = ModuleManager.computeModularProperty(item, SWIM_BOOST_AMOUNT) * 0.05;
                 double swimEnergyConsumption = ModuleManager.computeModularProperty(item, SWIM_BOOST_ENERGY_CONSUMPTION);
                 if (swimEnergyConsumption < ElectricItemUtils.getPlayerEnergy(player)) {
-                    Musique.playerSound(player, SoundDictionary.SOUND_SWIMASSIST, 1.0f, 1.0f, true);
+                    if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+                        Musique.playerSound(player, SoundDictionary.SOUND_SWIMASSIST, 1.0f, 1.0f, true);
+                    }
                     MusePlayerUtils.thrust(player, swimAssistRate, true);
                 } else {
-                    Musique.stopPlayerSound(player, SoundDictionary.SOUND_SWIMASSIST);
+                    if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+                        Musique.stopPlayerSound(player, SoundDictionary.SOUND_SWIMASSIST);
+                    }
                 }
             } else {
-                Musique.stopPlayerSound(player, SoundDictionary.SOUND_SWIMASSIST);
+                if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+                    Musique.stopPlayerSound(player, SoundDictionary.SOUND_SWIMASSIST);
+                }
             }
         } else {
-            Musique.stopPlayerSound(player, SoundDictionary.SOUND_SWIMASSIST);
+            if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+                Musique.stopPlayerSound(player, SoundDictionary.SOUND_SWIMASSIST);
+            }
         }
     }
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-        Musique.stopPlayerSound(player, SoundDictionary.SOUND_SWIMASSIST);
+        if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+            Musique.stopPlayerSound(player, SoundDictionary.SOUND_SWIMASSIST);
+        }
     }
 
     @Override

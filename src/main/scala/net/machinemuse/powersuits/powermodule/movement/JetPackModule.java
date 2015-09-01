@@ -1,10 +1,13 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.general.sound.SoundDictionary;
+import net.machinemuse.numina.basemod.NuminaConfig;
 import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -70,23 +73,34 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
             thrust *= MusePlayerUtils.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
             if (hasFlightControl && thrust > 0) {
                 thrust = MusePlayerUtils.thrust(player, thrust, true);
-                Musique.playerSound(player, SoundDictionary.SOUND_JETPACK, (float) (thrust*6.25), 1.0f, true);
+                if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+                    Musique.playerSound(player, SoundDictionary.SOUND_JETPACK, (float) (thrust * 6.25), 1.0f, true);
+                }
                 ElectricItemUtils.drainPlayerEnergy(player, thrust * jetEnergy);
             } else if (jumpkey && player.motionY < 0.5) {
                 thrust = MusePlayerUtils.thrust(player, thrust, false);
-                Musique.playerSound(player, SoundDictionary.SOUND_JETPACK,(float) (thrust*6.25), 1.0f, true);
+                if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+                    Musique.playerSound(player, SoundDictionary.SOUND_JETPACK, (float) (thrust * 6.25), 1.0f, true);
+                }
                 ElectricItemUtils.drainPlayerEnergy(player, thrust * jetEnergy);
             } else {
-                Musique.stopPlayerSound(player, SoundDictionary.SOUND_JETPACK);
+                if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+                    Musique.stopPlayerSound(player, SoundDictionary.SOUND_JETPACK);
+                }
             }
         } else {
-            Musique.stopPlayerSound(player, SoundDictionary.SOUND_JETPACK);
+            if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+                Musique.stopPlayerSound(player, SoundDictionary.SOUND_JETPACK);
+            }
         }
     }
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-        Musique.stopPlayerSound(player, SoundDictionary.SOUND_JETPACK);
+
+        if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+            Musique.stopPlayerSound(player, SoundDictionary.SOUND_JETPACK);
+        }
     }
 
     @Override
