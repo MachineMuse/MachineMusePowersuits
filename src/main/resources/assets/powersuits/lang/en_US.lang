@@ -149,4 +149,9 @@ gui.tab.tinker=Tinker
 gui.tab.keybinds=Keybinds
 gui.tab.visual=Visual
 
+gui.equippedTotals=Equipped Totals
+gui.energyStorage=Energy Storage
+gui.weight=Weight
+gui.armor=Armor
+
 nei.jsonShaped=JSON Shaped

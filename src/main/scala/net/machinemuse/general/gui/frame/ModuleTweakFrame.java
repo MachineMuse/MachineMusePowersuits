@@ -24,6 +24,7 @@ import java.util.*;
 
 public class ModuleTweakFrame extends ScrollableFrame {
     protected static double SCALERATIO = 0.75;
+    protected static int margin = 4;
     protected ItemSelectionFrame itemTarget;
     protected ModuleSelectionFrame moduleTarget;
     protected List<ClickableTinkerSlider> sliders;
@@ -75,12 +76,18 @@ public class ModuleTweakFrame extends ScrollableFrame {
             for (ClickableTinkerSlider slider : sliders) {
                 slider.draw();
             }
-            int nexty = (int) (sliders.size() * 20 + border.top() + 14);
+            int nexty = (int) (sliders.size() * 20 + border.top() + 23);
             for (Map.Entry<String, Double> property : propertyStrings.entrySet()) {
-                nexty += 9;
-                String[] str = {property.getKey() + ':',
-                        MuseStringUtils.formatNumberFromUnits(property.getValue(), PowerModule.getUnit(property.getKey()))};
-                MuseRenderer.drawStringsJustified(Arrays.asList(str), border.left() + 4, border.right() - 4, nexty);
+                String formattedValue = MuseStringUtils.formatNumberFromUnits(property.getValue(), PowerModule.getUnit(property.getKey()));
+                String name = property.getKey();
+                double valueWidth = MuseRenderer.getStringWidth(formattedValue);
+                double allowedNameWidth = border.width() - valueWidth - margin * 2;
+                List<String> namesList = MuseStringUtils.wrapStringToVisualLength(name, allowedNameWidth);
+                for(int i=0; i<namesList.size();i++) {
+                    MuseRenderer.drawString(namesList.get(i), border.left() + margin, nexty + 9*i);
+                }
+                MuseRenderer.drawRightAlignedString(formattedValue, border.right() - margin, nexty + 9 * (namesList.size()-1)/2);
+                nexty += 9*namesList.size()+1;
 
             }
             GL11.glPopMatrix();

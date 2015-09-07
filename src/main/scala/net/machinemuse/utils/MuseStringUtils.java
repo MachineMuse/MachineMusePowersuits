@@ -1,5 +1,6 @@
 package net.machinemuse.utils;
 
+import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.util.ResourceLocation;
 
 import java.text.DecimalFormat;
@@ -175,6 +176,48 @@ public abstract class MuseStringUtils {
         return strlist;
     }
 
+    /**
+     * Takes a string and wraps it to a certain length using MuseRenderer's string length
+     *
+     * @param str
+     * @param length
+     * @return a list of strings which are no longer than
+     *         <p/>
+     *         <pre>
+     *                         length
+     *                         </pre>
+     *
+     *         unless there is a sequence of non-space characters longer than
+     *
+     *         <pre>
+     *                         length
+     *                         </pre>
+     */
+    public static List<String> wrapStringToVisualLength(String str, double length) {
+        List<String> strlist = new ArrayList<String>();
+
+        String[] words = str.split(" ");
+        if(words.length == 0) {
+            return null;
+        }
+
+        int line = 0;
+
+        String currLine = words[0];
+
+        for(int i=1; i<words.length;i++) {
+            String approxLine = currLine + " " + words[i];
+            if(MuseRenderer.getStringWidth(approxLine) > length) {
+                strlist.add(currLine);
+                currLine = " " + words[i];
+            } else {
+                currLine = approxLine;
+            }
+        }
+        strlist.add(currLine);
+
+        return strlist;
+    }
     public static String extractName(ResourceLocation resource) {
         String filename = resource.toString();
         int ix = Math.max(filename.lastIndexOf('/'), Math.max(filename.lastIndexOf('\\'), filename.lastIndexOf(':'))) + 1;
