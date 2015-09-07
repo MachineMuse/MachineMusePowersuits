@@ -47,6 +47,8 @@ import scala.io.Source
  * @author MachineMuse
  */
 object Config {
+  def getWeightCapacity(): Double = config.get(Configuration.CATEGORY_GENERAL, "Weight Limit (grams)", 25000.0).getDouble()
+
   /**
    * Called in post-init. Extracts recipes if the configuration value is not found.
    */

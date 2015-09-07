@@ -8,6 +8,7 @@ import net.machinemuse.general.sound.SoundDictionary
 import net.machinemuse.numina.basemod.NuminaConfig
 import net.machinemuse.numina.general.MuseMathUtils
 import net.machinemuse.numina.sound.Musique
+import net.machinemuse.powersuits.common.Config
 import net.machinemuse.utils.{MuseHeatUtils, MuseItemUtils, MusePlayerUtils}
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent
@@ -23,7 +24,7 @@ class PlayerUpdateHandler {
 
         val modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player)
         val totalWeight: Double = MuseItemUtils.getPlayerWeight(player)
-        val weightCapacity: Double = 25000
+        val weightCapacity: Double = Config.getWeightCapacity()
 
         import scala.collection.JavaConversions._
         for (stack <- modularItemsEquipped) {
