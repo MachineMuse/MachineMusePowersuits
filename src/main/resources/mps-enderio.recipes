@@ -137,7 +137,7 @@
 	},
 	{
 		"ingredients" : [
-			[  {"oredictName" : "componentWiring" }, { "registryName" : "EnderIO:itemBasicCapacitor" }, {"oredictName" : "componentWiring" } ],
+			[  {"oredictName" : "componentWiring" }, { "registryName" : "EnderIO:itemBasicCapacitor", "meta" : 0 }, {"oredictName" : "componentWiring" } ],
 			[  {"oredictName" : "componentWiring" }, null, {"oredictName" : "componentWiring" } ]
 		],
 		"result" : {
