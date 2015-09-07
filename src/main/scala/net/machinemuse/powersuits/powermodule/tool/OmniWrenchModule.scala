@@ -44,14 +44,18 @@ class OmniWrenchModule(validItems: List[IModularItem]) extends PowerModuleBase(v
   def onItemUse(itemStack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z: Int, side: Int, hitX: Float, hitY: Float, hitZ: Float) {}
 
   def onItemUseFirst(stack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z: Int, side: Int, hitX: Float, hitY: Float, hitZ: Float): Boolean = {
-    world.blockExists(x, y, z) && world.canMineBlock(player, x, y, z) && (world.getBlock(x, y, z) match {
-      case block: Block if block.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side)) =>
-        block.onNeighborBlockChange(world, x, y, z, Blocks.air)
-        player.swingItem()
-        !world.isRemote
-      case _ =>
-        false
-    })
+    if (!StolenWrenchCode.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ)) {
+      world.blockExists(x, y, z) && world.canMineBlock(player, x, y, z) && (world.getBlock(x, y, z) match {
+        case block: Block if block.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side)) =>
+          block.onNeighborBlockChange(world, x, y, z, Blocks.air)
+          player.swingItem()
+          !world.isRemote
+        case _ =>
+          false
+      })
+    } else {
+      false
+    }
   }
 
   def onPlayerStoppedUsing(itemStack: ItemStack, world: World, player: EntityPlayer, par4: Int) {}
