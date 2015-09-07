@@ -121,6 +121,11 @@ module.tint.desc=Give your armor some coloured tinting to customize your armor's
 module.transparentArmor.desc=Make the item transparent, so you can show off your skin without losing armor.
 module.cosmeticGlow.desc=Change the appearance of the glowy bits on your armor.
 module.hazmat.desc=Protect yourself from electricity and radiation poisoning. *Must be on every piece for 100% protection*
+module.aurameter.desc=Connect up some Thaumic goggles to have them embedded in your helmet. (Does not give Vis usage discount)
+module.airtightSeal.desc=Seal the suit against hostile atmospheres for venturing to other planets.
+module.grafter.desc=A Forestry grafter integrated into your power tool.
+module.apiaristArmor.desc=A set of Forestry apiarist armor integrated into your armor.
+module.chisel.desc=This won't let you chisel blocks, but it will at least let you harvest them.
 
 gui.noModulesFound.line1=No modular powersuit items
 gui.noModulesFound.line2=found in inventory. Make some!
