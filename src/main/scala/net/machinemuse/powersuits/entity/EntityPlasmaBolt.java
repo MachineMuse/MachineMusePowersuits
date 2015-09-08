@@ -127,7 +127,7 @@ public class EntityPlasmaBolt extends EntityThrowable {
 		double damage = this.size / 50.0 * this.damagingness;
 		switch (event.typeOfHit) {
 		case ENTITY:
-			if (event.entityHit != null) {
+			if (event.entityHit != null && event.entityHit != shootingEntity) {
 				event.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.shootingEntity), (int) damage);
 			}
 			break;
