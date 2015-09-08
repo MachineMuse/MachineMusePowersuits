@@ -36,9 +36,6 @@ class OmniWrenchModule(validItems: List[IModularItem]) extends PowerModuleBase(v
 
   override def getUnlocalizedName = "omniwrench"
 
-
-  def getDescription: String = "A wrench which can interact with almost every mod."
-
   def onRightClick(playerClicking: EntityPlayer, world: World, item: ItemStack) {}
 
   def onItemUse(itemStack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z: Int, side: Int, hitX: Float, hitY: Float, hitZ: Float) {}

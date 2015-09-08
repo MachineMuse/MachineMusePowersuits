@@ -1,9 +1,9 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
-import net.machinemuse.powersuits.common.ModCompatability;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
@@ -13,12 +13,9 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
-
-import cpw.mods.fml.common.registry.GameRegistry;
 
 import java.util.List;
 
@@ -53,7 +50,7 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
 
     @Override
     public String getUnlocalizedName() {
-        return "scoop"
+        return "scoop";
     }
 
     @Override
@@ -78,7 +75,7 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityPlayer player) {
-        int meta = world.getBlockMetadata(x,y,z);
+        int meta = world.getBlockMetadata(x, y, z);
         if (canHarvestBlock(stack, block, meta, player)) {
             ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, SCOOP_ENERGY_CONSUMPTION));
             return true;

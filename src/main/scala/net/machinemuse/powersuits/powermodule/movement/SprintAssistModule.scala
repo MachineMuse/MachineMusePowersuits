@@ -36,8 +36,6 @@ class SprintAssistModule(validItems: List[IModularItem]) extends PowerModuleBase
 
   override def getUnlocalizedName = "sprintAssist"
 
-  def getDescription: String = "A set of servo motors to help you sprint (double-tap forward) and walk faster."
-
   def onPlayerTickActive(player: EntityPlayer, item: ItemStack) {
     val motionX = player.posX - player.lastTickPosX
     val motionY = player.posY - player.lastTickPosY

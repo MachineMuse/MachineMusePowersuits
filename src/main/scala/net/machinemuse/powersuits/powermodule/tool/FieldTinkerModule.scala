@@ -26,8 +26,6 @@ class FieldTinkerModule(list: java.util.List[IModularItem]) extends PowerModuleB
 
   override def getUnlocalizedName = "fieldTinkerer"
 
-  def getDescription: String = "Maybe you can't memorize the blueprints, but you should at least be able to fine tune your modules without Inspiration\u2122 Inc. LLC."
-
   def getTextureFile: String = "transparentarmor"
 
   def onItemUse(itemStack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z: Int, side: Int, hitX: Float, hitY: Float, hitZ: Float) {}

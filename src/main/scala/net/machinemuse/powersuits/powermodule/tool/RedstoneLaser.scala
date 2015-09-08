@@ -24,8 +24,6 @@ class RedstoneLaser(list: java.util.List[IModularItem]) extends PowerModuleBase(
 
   override def getUnlocalizedName = "redstoneLaser"
 
-  def getDescription: String = "No need for a lever if you're just giving it a pulse."
-
   def getTextureFile: String = "laser"
 
   def onItemUse(itemStack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z: Int, side: Int, hitX: Float, hitY: Float, hitZ: Float) {
