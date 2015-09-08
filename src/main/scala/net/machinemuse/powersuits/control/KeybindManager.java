@@ -40,7 +40,7 @@ public class KeybindManager {
     public static KeyBinding addKeybinding(String keybindDescription, int keycode, MusePoint2D position) {
         KeyBinding kb = new KeyBinding(keybindDescription, keycode, KeybindKeyHandler.mps);
         boolean free = !KeyBinding.hash.containsItem(keycode);
-        getInstance().keybindings.add(new ClickableKeybinding(kb, position, free));
+        getInstance().keybindings.add(new ClickableKeybinding(kb, position, free, false));
         return kb;
     }
 
@@ -62,7 +62,7 @@ public class KeybindManager {
             writer = new BufferedWriter(new FileWriter(file));
             List<IPowerModule> modulesToWrite = MuseItemUtils.getPlayerInstalledModules(Minecraft.getMinecraft().thePlayer);
             for (ClickableKeybinding keybinding : getInstance().keybindings) {
-                writer.write(keybinding.getKeyBinding().getKeyCode() + ":" + keybinding.getPosition().x() + ':' + keybinding.getPosition().y() + '\n');
+                writer.write(keybinding.getKeyBinding().getKeyCode() + ":" + keybinding.getPosition().x() + ':' + keybinding.getPosition().y() + ':' + keybinding.displayOnHUD() + ':' + keybinding.toggleval() + '\n');
                 for (ClickableModule module : keybinding.getBoundModules()) {
                     writer.write(module.getModule().getDataName() + '~' + module.getPosition().x() + '~' + module.getPosition().y() + '\n');
                 }
@@ -95,7 +95,16 @@ public class KeybindManager {
                     if (!KeyBinding.hash.containsItem(id)) {
                         MusePoint2D position = new MusePoint2D(Double.parseDouble(exploded[1]), Double.parseDouble(exploded[2]));
                         boolean free = !KeyBinding.hash.containsItem(id);
-                        workingKeybinding = new ClickableKeybinding(new KeyBinding(Keyboard.getKeyName(id), id, KeybindKeyHandler.mps), position, free);
+                        boolean displayOnHUD = false;
+                        boolean toggleval = false;
+                        if(exploded.length > 3) {
+                            displayOnHUD = Boolean.parseBoolean(exploded[3]);
+                        }
+                        if(exploded.length > 4) {
+                            toggleval = Boolean.parseBoolean(exploded[4]);
+                        }
+                        workingKeybinding = new ClickableKeybinding(new KeyBinding(Keyboard.getKeyName(id), id, KeybindKeyHandler.mps), position, free, displayOnHUD);
+                        workingKeybinding.toggleval_$eq(toggleval);
                         getInstance().keybindings.add(workingKeybinding);
                     } else {
                         workingKeybinding = null;

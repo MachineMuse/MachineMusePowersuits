@@ -11,6 +11,7 @@ import net.machinemuse.api.IPowerModule
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.numina.basemod.Numina
 import net.machinemuse.numina.general.MuseLogger
+import net.machinemuse.numina.geometry.MusePoint2D
 import net.machinemuse.powersuits.item.ItemComponent
 import net.machinemuse.powersuits.powermodule.armor.BasicPlatingModule
 import net.machinemuse.powersuits.powermodule.armor.DiamondPlatingModule
@@ -47,6 +48,11 @@ import scala.io.Source
  * @author MachineMuse
  */
 object Config {
+  def keybindHUDon: Boolean = config.get("HUD", "Display HUD", true).getBoolean()
+  def keybindHUDx: Double = config.get("HUD", "x position", 8.0).getDouble()
+  def keybindHUDy: Double = config.get("HUD", "y position", 32.0).getDouble()
+  def toggleModuleSpam: Boolean = config.get("HUD", "Chat message when toggling modules", false).getBoolean()
+
   def getWeightCapacity(): Double = config.get(Configuration.CATEGORY_GENERAL, "Weight Limit (grams)", 25000.0).getDouble()
 
   /**

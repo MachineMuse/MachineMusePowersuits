@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.item
 
+import com.google.common.collect.Multimap
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.machinemuse.api.{IModularItem, ArmorTraits, ModuleManager}
 import net.machinemuse.numina.geometry.Colour
@@ -86,6 +87,8 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
     }
     model
   }
+
+  override def getAttributeModifiers(stack: ItemStack): Multimap[_, _] = super.getAttributeModifiers(stack)
 
   override def getItemEnchantability: Int = {
     return 0

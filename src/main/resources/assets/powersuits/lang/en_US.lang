@@ -143,6 +143,7 @@ gui.pressKey=Press Key
 gui.keybindInstructions1=Use 'new' to bind new keys.
 gui.keybindInstructions2=Drag and drop modules to bind them to keys.
 gui.keybindInstructions3=Drop keys on 'trash' to unbind them.
+gui.keybindInstructions4=Right-click keybinds to add them to the HUD.
 gui.keybindTaken=Taken!
 
 gui.tab.tinker=Tinker

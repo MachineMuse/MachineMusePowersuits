@@ -29,7 +29,7 @@ class ClientTickHandler {
     if (event.phase == TickEvent.Phase.START) {
       import scala.collection.JavaConversions._
       for (kb <- KeybindManager.getKeybindings) {
-        kb.doToggleTick()
+        kb.doToggleTick
       }
     }
     else {

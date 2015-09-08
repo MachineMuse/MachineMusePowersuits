@@ -51,6 +51,9 @@ object ModularPowersuits {
     Config.glowMultiplier
     Config.useShaders
     Config.getWeightCapacity()
+    Config.keybindHUDon
+    Config.keybindHUDx
+    Config.toggleModuleSpam
     EntityRegistry.registerModEntity(classOf[EntityPlasmaBolt], "entityPlasmaBolt", 2477, this, 64, 20, true)
     EntityRegistry.registerModEntity(classOf[EntitySpinningBlade], "entitySpinningBlade", 2478, this, 64, 20, true)
     EntityRegistry.registerModEntity(classOf[EntityLuxCapacitor], "entityLuxCapacitor", 2479, this, 64, 20, true)

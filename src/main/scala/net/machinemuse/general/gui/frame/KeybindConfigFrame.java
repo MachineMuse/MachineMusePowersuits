@@ -76,8 +76,14 @@ public class KeybindConfigFrame implements IGuiFrame {
             if (newKeybindButton.hitBox(x, y)) {
                 selecting = true;
             }
-        }
-        if (button > 2) {
+        } else if(button == 1) {
+            for (ClickableKeybinding keybind : KeybindManager.getKeybindings()) {
+                if (keybind.hitBox(x, y)) {
+                    keybind.toggleHUDState();
+                    return;
+                }
+            }
+        } else if (button > 2) {
             int key = button - 100;
             if (KeyBinding.hash.containsItem(key)) {
                 takenTime = System.currentTimeMillis();
@@ -228,6 +234,7 @@ public class KeybindConfigFrame implements IGuiFrame {
         MuseRenderer.drawCenteredString(StatCollector.translateToLocal("gui.keybindInstructions1"), center.x(), center.y() + 40);
         MuseRenderer.drawCenteredString(StatCollector.translateToLocal("gui.keybindInstructions2"), center.x(), center.y() + 50);
         MuseRenderer.drawCenteredString(StatCollector.translateToLocal("gui.keybindInstructions3"), center.x(), center.y() + 60);
+        MuseRenderer.drawCenteredString(StatCollector.translateToLocal("gui.keybindInstructions4"), center.x(), center.y() + 70);
         if (takenTime + 1000 > System.currentTimeMillis()) {
             MusePoint2D pos = newKeybindButton.getPosition().plus(new MusePoint2D(0, -20));
             MuseRenderer.drawCenteredString(StatCollector.translateToLocal("gui.keybindTaken"), pos.x(), pos.y());
@@ -283,7 +290,7 @@ public class KeybindConfigFrame implements IGuiFrame {
             name = "???";
         }
         KeyBinding keybind = new KeyBinding(name, key, KeybindKeyHandler.mps);
-        ClickableKeybinding clickie = new ClickableKeybinding(keybind, newKeybindButton.getPosition().plus(new MusePoint2D(0, -20)), free);
+        ClickableKeybinding clickie = new ClickableKeybinding(keybind, newKeybindButton.getPosition().plus(new MusePoint2D(0, -20)), free, false);
         KeybindManager.getKeybindings().add(clickie);
     }
 
