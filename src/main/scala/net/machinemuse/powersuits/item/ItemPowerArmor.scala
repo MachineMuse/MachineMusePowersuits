@@ -1,5 +1,7 @@
 package net.machinemuse.powersuits.item
 
+import java.util.UUID
+
 import com.google.common.collect.Multimap
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.machinemuse.api.{IModularItem, ArmorTraits, ModuleManager}
@@ -10,6 +12,7 @@ import net.machinemuse.powersuits.powermodule.armor.HazmatModule
 import net.machinemuse.powersuits.powermodule.misc.{InvisibilityModule, TintModule, TransparentArmorModule}
 import net.machinemuse.utils._
 import net.minecraft.client.model.ModelBiped
+import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.{Entity, EntityLivingBase}
 import net.minecraft.item.{ItemArmor, ItemStack}
@@ -88,7 +91,11 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
     model
   }
 
-  override def getAttributeModifiers(stack: ItemStack): Multimap[_, _] = super.getAttributeModifiers(stack)
+  override def getAttributeModifiers(stack: ItemStack): Multimap[_, _] = {
+    val parent = super.getAttributeModifiers(stack).asInstanceOf[Multimap[String, AttributeModifier]]
+    parent.put("generic.knockbackResistance", new AttributeModifier(UUID.fromString("448ef0e9-9b7c-4e56-bf3a-6b52aeabff8d"), "generic.knockbackResistance", 0.25, 0))
+    parent
+  }
 
   override def getItemEnchantability: Int = {
     return 0

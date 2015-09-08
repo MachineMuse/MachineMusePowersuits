@@ -17,14 +17,14 @@ import net.minecraft.client.entity.EntityClientPlayerMP
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.entity.player.EntityPlayer
 
-/**
- * This handler is called before/after the game processes input events and
- * updates the gui state mainly. *independent of rendering, so don't do rendering here
- * -is also the parent class of KeyBindingHandler
- *
- * @author MachineMuse
- */
 class ClientTickHandler {
+  /**
+   * This handler is called before/after the game processes input events and
+   * updates the gui state mainly. *independent of rendering, so don't do rendering here
+   * -is also the parent class of KeyBindingHandler
+   *
+   * @author MachineMuse
+   */
   @SubscribeEvent def onPreClientTick(event: ClientTickEvent) {
     if (event.phase == TickEvent.Phase.START) {
       import scala.collection.JavaConversions._
