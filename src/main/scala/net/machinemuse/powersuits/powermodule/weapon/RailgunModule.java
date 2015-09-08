@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.powermodule.weapon;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -15,13 +16,14 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class RailgunModule extends PowerModuleBase implements IRightClickModule {
+public class RailgunModule extends PowerModuleBase implements IRightClickModule, IPlayerTickModule {
     // private List<String> particles;
     // private Iterator<String> iterator;
     public static final String MODULE_RAILGUN = "Railgun";
     public static final String IMPULSE = "Railgun Total Impulse";
     public static final String ENERGY = "Railgun Energy Cost";
     public static final String HEAT = "Railgun Heat Emission";
+    public static final String TIMER = "cooldown";
 
     public RailgunModule(List<IModularItem> validItems) {
         super(validItems);
@@ -35,10 +37,10 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule 
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
         addBaseProperty(IMPULSE, 500, "Ns");
         addBaseProperty(ENERGY, 500, "J");
-        addBaseProperty(HEAT, 5, "");
+        addBaseProperty(HEAT, 2, "");
         addTradeoffProperty("Voltage", IMPULSE, 2500);
         addTradeoffProperty("Voltage", ENERGY, 2500);
-        addTradeoffProperty("Voltage", HEAT, 25);
+        addTradeoffProperty("Voltage", HEAT, 10);
     }
 
     @Override
@@ -52,7 +54,8 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule 
     }
 
     @Override
-    public String getUnlocalizedName() { return "railgun";
+    public String getUnlocalizedName() {
+        return "railgun";
     }
 
     @Override
@@ -89,9 +92,11 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule 
     public void onRightClick(EntityPlayer player, World world, ItemStack itemStack) {
 
         double range = 64;
+        double timer = MuseItemUtils.getDoubleOrZero(itemStack, TIMER);
         double energyConsumption = ModuleManager.computeModularProperty(itemStack, ENERGY);
-        if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
+        if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption && timer == 0) {
             ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
+            MuseItemUtils.setDoubleOrRemove(itemStack, TIMER, 10);
             MuseHeatUtils.heatPlayer(player, ModuleManager.computeModularProperty(itemStack, HEAT));
             MovingObjectPosition hitMOP = MusePlayerUtils.doCustomRayTrace(player.worldObj, player, true, range);
             world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
@@ -143,4 +148,15 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule 
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
     }
 
+    @Override
+    public void onPlayerTickActive(EntityPlayer player, ItemStack stack) {
+        double timer = MuseItemUtils.getDoubleOrZero(stack, TIMER);
+        if (timer > 0) MuseItemUtils.setDoubleOrRemove(stack, TIMER, timer - 1 > 0 ? timer - 1 : 0);
+
+    }
+
+    @Override
+    public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+
+    }
 }
