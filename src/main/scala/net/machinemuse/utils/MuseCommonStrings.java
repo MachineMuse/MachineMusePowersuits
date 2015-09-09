@@ -8,6 +8,7 @@ import net.machinemuse.powersuits.item.ItemPowerFist;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -55,14 +56,14 @@ public abstract class MuseCommonStrings {
         if (stack.getItem() instanceof ItemPowerFist) {
             String mode = MuseItemUtils.getStringOrNull(stack, "Mode");
             if (mode != null) {
-                currentTipList.add("Mode:" + MuseStringUtils.wrapFormatTags(mode, MuseStringUtils.FormatCodes.Red));
+                currentTipList.add(StatCollector.translateToLocal("tooltip.mode") + " " + MuseStringUtils.wrapFormatTags(mode, MuseStringUtils.FormatCodes.Red));
             } else {
-                currentTipList.add("Change modes: Sneak+mousewheel.");
+                currentTipList.add(StatCollector.translateToLocal("tooltip.changeModes"));
             }
         }
         ElectricAdapter adapter = ElectricAdapter.wrap(stack);
         if (adapter != null) {
-            String energyinfo = "Energy: " + MuseStringUtils.formatNumberShort(adapter.getCurrentEnergy()) + '/'
+            String energyinfo = StatCollector.translateToLocal("tooltip.energy") + " " + MuseStringUtils.formatNumberShort(adapter.getCurrentEnergy()) + '/'
                     + MuseStringUtils.formatNumberShort(adapter.getMaxEnergy());
             currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character,
                     MuseStringUtils.FormatCodes.Grey));
@@ -70,10 +71,10 @@ public abstract class MuseCommonStrings {
         if (Config.doAdditionalInfo()) {
             List<String> installed = MuseCommonStrings.getItemInstalledModules(player, stack);
             if (installed.size() == 0) {
-                String message = "No installed modules! This item is useless until you add some modules at a Tinker Table.";
+                String message = StatCollector.translateToLocal("tooltip.noModules");
                 currentTipList.addAll(MuseStringUtils.wrapStringToLength(message, 30));
             } else {
-                currentTipList.add("Installed Modules:");
+                currentTipList.add(StatCollector.translateToLocal("tooltip.installedModules"));
                 currentTipList.addAll(installed);
             }
         } else {
