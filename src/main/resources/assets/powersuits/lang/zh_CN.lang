@@ -1,4 +1,3 @@
-#zh_CN
 Made by users: crafteverywhere, 3TUSK
 Last edited on 8/30/15 1:35 AM EST
 
@@ -44,7 +43,7 @@ module.luxCapacitor.name=光能容器
 module.omniwrench.name=原型万能扳手
 module.fieldTinkerer.name=力场改装模块
 module.meleeAssist.name=近战辅助模块
-module.plasmaCannon.name=电浆炮
+module.plasmaCannon.name=离子炮
 module.railgun.name=磁轨炮
 module.bladeLauncher.name=刀刃发射器
 module.basicBattery.name=基础电池
@@ -56,7 +55,7 @@ module.jetpack.name=喷气背包
 module.sprintAssist.name=冲刺辅助模块
 module.jumpAssist.name=跳跃辅助模块
 module.swimAssist.name=游泳加速模块
-module.climbAssist.name=攀岩辅助模块
+module.climbAssist.name=上坡辅助模块
 module.jetBoots.name=喷射加速模块
 module.shockAbsorber.name=减震器
 module.waterElectrolyzer.name=电解水模块
@@ -73,7 +72,8 @@ module.transparentArmor.name=透明化模块
 module.cosmeticGlow.name=发光模块
 module.mffsFieldTeleporter.name=MFFS力场传送器
 module.grafter.name=剪枝器
-module.apiaristArmor.name=养蜂模块
+module.scoop.name=捕虫网
+module.apiaristArmor.name=养蜂员护甲
 module.hazmat.name=辐射防护模块
 module.redstoneLaser.name=红石镭射模块
 module.aurameter.name=灵气探测模块
@@ -81,16 +81,15 @@ module.airtightSeal.name=气密性模块
 module.citizenJoe.name=自定义皮肤模块
 module.sonicWeapon.name=声波武器
 
-
 module.basicPlating.desc=基础的电镀板,虽然沉重,但防护性能优良.
 module.diamondPlating.desc=高级电镀板更轻,更坚固,比基础的还硬,不过难以制造.
 module.energyShield.desc=能量护盾自然比电镀板轻,但是它消耗能量.
-module.heatSink.desc=薄薄一层电镀,但却是用于散热的.
+module.heatSink.desc=薄薄一层电镀,用于散热.
 module.axe.desc=斧子大都是拿来砍树的.
 module.pickaxe.desc=镐子,为石头和矿物等坚硬材料而生.
 module.shovel.desc=铲子,为沙子和泥土等松软物质而生.
 module.shears.desc=用于剪下树叶,羊毛,苦力怕等.
-module.hoe.desc=一个自动翻地模块,让你瞬间犁出大片土地.(妈妈的金坷垃是我的)
+module.hoe.desc=一个自动翻地模块,让你瞬间犁出大片土地.
 module.luxCapacitor.desc=在墙上释放出一个无限发光的光源.
 module.omniwrench.desc=一个能用于几乎所有MOD的扳手.
 module.fieldTinkerer.desc=也许你不记蓝图,但你至少可以在不接受Inspiration™ Inc. LLC.的帮助下改良你的模块.
@@ -99,30 +98,36 @@ module.plasmaCannon.desc=在收容场中用电弧将空气加热至等离子态,
 module.railgun.desc=一个集成模块,可将投掷物用磁场加速至超音速,后座力极大.
 module.bladeLauncher.desc=可弹射出旋转(或者,剪切一切)的死亡之刃.
 module.basicBattery.desc=内置电池,这样物品就可以储存一定能量了.
-module.advancedBattery.desc=内置一个高级的电池,可储存更多能量.
-module.eliteBattery.desc=内置带南孚聚能环的电池,可储存大量能量.
+module.advancedBattery.desc=内置一个更高级的电池,可储存更多能量.
+module.eliteBattery.desc=内置一个最高级的电池,可储存大量能量.
 module.parachute.desc=增加一个降落伞,用于在降落时减速.在半空中潜行(默认按Shift)即可激活.
-module.glider.desc=加装些翅膀即可在下降时急转而上.在掉下去时按Shift+前进(默认W)以激活.
+module.glider.desc=加装些翅膀即可在下降时向前滑动.在降落时按Shift+前进(默认W)以激活.
 module.jetpack.desc=一个喷气背包可以让你想跳多久跳多久,或者说,至少在没电之前.
 module.sprintAssist.desc=一组提高你的行走和疾跑(连按两下前进)的伺服马达.
 module.jumpAssist.desc=另一组伺服马达,但却是强化跳跃能力的.
-module.swimAssist.desc=对推进器进行水下环境适应性改造后,你可以在水下使用额外的前进(或后退)推进器了.
+module.swimAssist.desc=对离子推进器进行水下环境适应性改造后,你可以在水下使用额外的前进(或后退)推进器了.
 module.climbAssist.desc=一对特种伺服器,帮你不费吹灰之力爬上1米高的墙.
 module.jetBoots.desc=喷射加速模块虽不如喷气背包,但它们至少可以反重力.
-module.shockAbsorber.desc=在各种伺服器弹簧和松软材料的帮助下,你应该可以无视摔落造成的伤害了.
+module.shockAbsorber.desc=在各种伺服器,弹簧,填充材料的帮助下,你应该可以消除部分摔落伤害.
 module.waterElectrolyzer.desc=当你在水下断氧时,这个模块将会震荡并电解你周围的水,产生可以用来呼吸的小气泡.
 module.nightVision.desc=一副视觉增强型护目镜,方便夜间和水下使用.
-module.binoculars.desc=出于对最近Optifine大规模扩散的问题的考虑,你决定将那个放大功能控制在你的掌心中.
-module.flightControl.desc=一系列帮助飞行的集成控制电路.按Z往下.
+module.binoculars.desc=出于最近苦恼Optifine的问题,你决定将那个放大功能控制在你的掌心中.
+module.flightControl.desc=一个帮助飞行的集成控制电路.按Z下降.
 module.invisibility.desc=向周围发射全息投影,使你不易被察觉到.
 module.blinkDrive.desc=从点A经由B到达点C,而B是时间和空间的集合.
-module.diamondPickUpgrade.desc=钻石强化过的镐模块可以让你挖掘黑曜石. *重复,需要先安装镐模块才可安装此模块*
+module.diamondPickUpgrade.desc=钻石强化过的镐模块可以让你挖掘黑曜石. *需要先安装镐模块才可安装此模块*
 module.aquaAffinity.desc=提高你在水下使用工具的速度.
 module.coolingSystem.desc=更快冷却你的制热模块.
 module.tint.desc=用颜色点缀下你的装甲,来自定义你的出场方式吧.
 module.transparentArmor.desc=使装甲本身透明,这样你就可以在不卸掉装甲时展示你的皮肤了.
 module.cosmeticGlow.desc=让你的装甲闪闪发光.
-
+module.hazmat.desc=保护你自己免于电流和辐射中毒. *必须全套配备才能有100%的保护效果*
+module.aurameter.desc=接上一些神秘护目镜来把他们植入你的头盔. (不会提供魔力减免)
+module.airtightSeal.desc=密封好套装以抵抗外界大气,让好你去其他星球探险.
+module.grafter.desc=一个集成到你动力全套上的林业剪枝器.
+module.scoop.desc=一个集成到你动力拳套上的林业捕虫网.
+module.apiaristArmor.desc=一套集成到你装备上的林业养蜂员护甲.
+module.chisel.desc=它无法让你雕刻方块,但至少它能让你收获它们.
 
 gui.noModulesFound.line1=未发现模块化动力套装物品
 gui.noModulesFound.line2=物品栏中发现目标.我们开始吧!
@@ -135,13 +140,29 @@ gui.install=安装
 gui.salvage=回收
 
 gui.newKeybind=新建
-gui.trashKeybind=删除!
+gui.trashKeybind=删除
 gui.pressKey=按键
 gui.keybindInstructions1=使用"新建"来绑定新快捷键.
 gui.keybindInstructions2=拖拽模块完成绑定.
 gui.keybindInstructions3=拖到"删除!"上解除绑定.
+gui.keybindInstructions4=右击快捷键将它们添加到显示窗.
 gui.keybindTaken=完成!
 
 gui.tab.tinker=改装
 gui.tab.keybinds=按键
 gui.tab.visual=视觉效果
+
+gui.equippedTotals=装备总计
+gui.energyStorage=能量存储
+gui.weight=重量
+gui.armor=护甲
+
+nei.jsonShaped=JSON Shaped
+
+tooltip.pressShift=按下shift显示更多内容.
+tooltip.componentTooltip=在动力装甲改装台中使用.
+tooltip.changeModes=改变模式:潜行+鼠标滚轮.
+tooltip.energy=能量:
+tooltip.noModules=未安装模块!该装备目前无法使用,需要在动力装甲改装台安装一些模块.
+tooltip.installedModules=已安装模块:
+tooltip.mode=模式:
