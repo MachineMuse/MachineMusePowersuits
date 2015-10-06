@@ -14,14 +14,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 import java.util.List;
 
 public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
     public static final String MODULE_DIAMOND_PICK_UPGRADE = "Diamond Drill Upgrade";
-    public static final ItemStack diamondPick = new ItemStack(Items.diamond_pickaxe);
 
     public DiamondPickUpgradeModule(List<IModularItem> validItems) {
         super(validItems);
@@ -55,8 +53,8 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
 
     @Override
     public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if (!ForgeHooks.canToolHarvestBlock(block, meta, PickaxeModule.ironPickaxe)) {
-            if (ForgeHooks.canToolHarvestBlock(block, meta, diamondPick)) {
+        if (!Items.iron_pickaxe.canHarvestBlock(block, stack)) {
+            if (Items.diamond_pickaxe.canHarvestBlock(block, stack)) {
                 if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, PickaxeModule.PICKAXE_ENERGY_CONSUMPTION)) {
                     return true;
                 }
