@@ -8,15 +8,19 @@ import net.machinemuse.powersuits.powermodule.armor.ApiaristArmorModule;
 import net.machinemuse.powersuits.powermodule.armor.HazmatModule;
 import net.machinemuse.powersuits.powermodule.misc.AirtightSealModule;
 import net.machinemuse.powersuits.powermodule.misc.ThaumGogglesModule;
-import net.machinemuse.powersuits.powermodule.tool.ChiselModule;
-import net.machinemuse.powersuits.powermodule.tool.GrafterModule;
-import net.machinemuse.powersuits.powermodule.tool.ScoopModule;
+import net.machinemuse.powersuits.powermodule.tool.*;
 import net.minecraftforge.common.config.Configuration;
+
+
+import net.minecraft.block.Block; //needed?
 
 import java.util.Arrays;
 import java.util.Collections;
 
 public class ModCompatibility {
+
+    public static double appengMultiplier;
+
 
     public static boolean isGregTechLoaded() {
         return Loader.isModLoaded("gregtech_addon");
@@ -52,6 +56,14 @@ public class ModCompatibility {
 
     public static boolean isEnderIOLoaded() {
         return Loader.isModLoaded("EnderIO");
+    }
+
+    public static boolean isAppengLoaded() {
+        return Loader.isModLoaded("appliedenergistics2");
+    }
+
+    public static boolean isExtraCellsLoaded() {
+        return Loader.isModLoaded("extracells");
     }
 
     public static boolean enableThaumGogglesModule() {
@@ -103,6 +115,26 @@ public class ModCompatibility {
             } catch(Exception e) {
                 MuseLogger.logException("Couldn't add Chisel module", e);
             }
+        }
+
+        // Applied Energistics
+        if (isAppengLoaded()) {
+            appengMultiplier = Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per AE", 5.0).getDouble(5.0);
+            ModuleManager.addModule(new AppEngWirelessModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
+
+            // Extra Cells 2
+            if (isExtraCellsLoaded())
+                ModuleManager.addModule(new AppEngWirelessFluidModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
+        }
+
+        // Multi-Mod Compatible OmniProbe
+        if (Loader.isModLoaded("EnderIO") || Loader.isModLoaded("MineFactoryReloaded") || Loader.isModLoaded("Railcraft")) {
+            ModuleManager.addModule(new OmniProbeModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
+        }
+
+        // Compact Machines Personal Shrinking Device
+        if (Loader.isModLoaded("CompactMachines")) {
+            ModuleManager.addModule(new PersonalShrinkingModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
         }
     }
 

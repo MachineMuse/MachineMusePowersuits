@@ -13,21 +13,13 @@ import net.machinemuse.numina.basemod.Numina
 import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.geometry.MusePoint2D
 import net.machinemuse.powersuits.item.ItemComponent
-import net.machinemuse.powersuits.powermodule.armor.BasicPlatingModule
-import net.machinemuse.powersuits.powermodule.armor.DiamondPlatingModule
-import net.machinemuse.powersuits.powermodule.armor.EnergyShieldModule
-import net.machinemuse.powersuits.powermodule.armor.HeatSinkModule
-import net.machinemuse.powersuits.powermodule.energy.AdvancedBatteryModule
-import net.machinemuse.powersuits.powermodule.energy.BasicBatteryModule
-import net.machinemuse.powersuits.powermodule.energy.EliteBatteryModule
+import net.machinemuse.powersuits.powermodule.armor._
+import net.machinemuse.powersuits.powermodule.energy._
 import net.machinemuse.powersuits.powermodule.misc._
 import net.machinemuse.powersuits.powermodule.movement._
 import net.machinemuse.powersuits.powermodule.tool._
-import net.machinemuse.powersuits.powermodule.weapon.BladeLauncherModule
-import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule
-import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule
-import net.machinemuse.powersuits.powermodule.weapon.RailgunModule
-import net.machinemuse.utils.MuseStringUtils
+import net.machinemuse.powersuits.powermodule.weapon._
+import net.machinemuse.utils.{MuseCommonStrings, MuseStringUtils}
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
@@ -157,6 +149,34 @@ object Config {
   def addModule(module: IPowerModule) {
     ModuleManager.addModule(module)
   }
+  /**
+   * The power drain for the Applied Energistics2 and ExtraCells2 wireless terminals
+   *
+   */
+  def appengMultiplier: Double = {
+    return config.get(Configuration.CATEGORY_GENERAL, "Energy per AE", 5.0).getDouble(5.0)
+  }
+
+  def useAdvancedOreScannerMessage: Boolean = {
+    return config.get(Configuration.CATEGORY_GENERAL, "Use Detailed Ore Scanner Message", true).getBoolean(true)
+  }
+
+  def useOldAutoFeeder: Boolean = {
+    return config.get(Configuration.CATEGORY_GENERAL, "Use Old Auto Feeder Method", false).getBoolean(false);
+  }
+
+  def useCheatyLeatherRecipe: Boolean = {
+    return config.get(Configuration.CATEGORY_GENERAL, "Use Cheaty Leather Recipe (Requires Thermal Expansion)", true).getBoolean(true)
+  }
+
+  def useHUDStuff: Boolean = {
+    return config.get(Configuration.CATEGORY_GENERAL, "Use HUD for certain modules (Auto Feeder, Compass, Clock, etc.", true).getBoolean(true)
+  }
+
+  def use24hClock: Boolean  = {
+    return config.get(Configuration.CATEGORY_GENERAL, "Use a 24h clock instead of 12h", false).getBoolean(false)
+  }
+
 
   /**
    * Load all the modules in the config file into memory. Eventually. For now,
@@ -210,6 +230,25 @@ object Config {
     addModule(new TintModule(TOOLONLY))
     addModule(new TransparentArmorModule(ARMORONLY))
     addModule(new CosmeticGlowModule(ARMORONLY))
+    addModule(new InPlaceAssemblerModule(TOOLONLY));
+    addModule(new KineticGeneratorModule(LEGSONLY));
+    addModule(new SolarGeneratorModule(HEADONLY));
+    addModule(new AutoFeederModule(HEADONLY));
+    addModule(new MagnetModule(TORSOONLY));
+    addModule(new OreScannerModule(TOOLONLY));
+    addModule(new LeafBlowerModule(TOOLONLY));
+    addModule(new ThermalGeneratorModule(TORSOONLY));
+    addModule(new MobRepulsorModule(TORSOONLY));
+    addModule(new FlintAndSteelModule(TOOLONLY));
+    addModule(new ClockModule(HEADONLY));
+    addModule(new CompassModule(HEADONLY));
+    addModule(new LightningModule(TOOLONLY));
+    addModule(new WaterTankModule(TORSOONLY));
+    addModule(new DimensionalRiftModule(TOOLONLY));
+    addModule(new AdvancedSolarGenerator(HEADONLY));
+    addModule(new NitrogenCoolingSystem(TORSOONLY));
+    addModule(new MechanicalAssistance(TORSOONLY));
+    //addModule(new CoalGenerator(TORSOONLY)); //doesn't seem to be working
   }
 
   def getConfig: Configuration = {

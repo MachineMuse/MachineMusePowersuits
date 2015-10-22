@@ -46,6 +46,12 @@ public class ItemComponent extends Item {
     public static ItemStack controlCircuit;
     public static ItemStack myofiberGel;
     public static ItemStack artificialMuscle;
+    public static ItemStack magnet;
+    public static ItemStack solarPanel;
+    public static ItemStack computerChip;
+    public static ItemStack liquidNitrogen;
+    public static ItemStack rubberHose;
+
 
     public ItemComponent() {
         super();
@@ -114,6 +120,11 @@ public class ItemComponent extends Item {
         controlCircuit = addComponent("componentControlCircuit", "A simple networkable microcontroller for coordinating an individual component.", "controlcircuit");
         myofiberGel = addComponent("componentMyofiberGel", "A thick, conductive paste, perfect for fitting between myofibers in an artificial muscle.", "paste");
         artificialMuscle = addComponent("componentArtificialMuscle", "An electrical, artificial muscle, with less range of movement than human muscle but orders of magnitude more strength.", "artificialmuscle");
+        solarPanel = addComponent("componentSolarPanel", "A light sensitive device that will generate electricity from the sun.", "solarpanel");
+        magnet = addComponent("componentMagnet", "A metallic device that generates a magnetic field which pulls items towards the player.", "magnetb");
+        computerChip = addComponent("componentComputerChip", "An upgraded control circuit that contains a CPU which is capable of more advanced calculations.", "computerchip");
+        rubberHose = addComponent("componentRubberHose", "A heavily insulated rubber hose capable of withstanding extreme heat or cold", "rubberhose");
+        liquidNitrogen = addComponent("componentLiquidNitrogen", "A bucket of Liquid Nitrogen", "liquidnitrogen");
     }
 
     /**
