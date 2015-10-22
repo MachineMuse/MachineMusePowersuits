@@ -10,10 +10,6 @@ import net.machinemuse.powersuits.powermodule.misc.AirtightSealModule;
 import net.machinemuse.powersuits.powermodule.misc.ThaumGogglesModule;
 import net.machinemuse.powersuits.powermodule.tool.*;
 import net.minecraftforge.common.config.Configuration;
-
-
-import net.minecraft.block.Block; //needed?
-
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -64,6 +60,18 @@ public class ModCompatibility {
 
     public static boolean isExtraCellsLoaded() {
         return Loader.isModLoaded("extracells");
+    }
+
+    public static boolean isMFRLoaded() {
+        return Loader.isModLoaded("MineFactoryReloaded");
+    }
+
+    public static boolean isRailcraftLoaded() {
+        return Loader.isModLoaded("Railcraft");
+    }
+
+    public static boolean isCompactMachinesLaded() {
+        return Loader.isModLoaded("CompactMachines");
     }
 
     public static boolean enableThaumGogglesModule() {
@@ -128,7 +136,7 @@ public class ModCompatibility {
         }
 
         // Multi-Mod Compatible OmniProbe
-        if (Loader.isModLoaded("EnderIO") || Loader.isModLoaded("MineFactoryReloaded") || Loader.isModLoaded("Railcraft")) {
+        if (isEnderIOLoaded() || isMFRLoaded() || isRailcraftLoaded()) {
             ModuleManager.addModule(new OmniProbeModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
         }
 

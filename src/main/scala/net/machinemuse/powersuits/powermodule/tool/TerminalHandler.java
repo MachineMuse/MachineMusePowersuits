@@ -123,7 +123,6 @@ public static void registerHandler() {
         if (Loader.isModLoaded("appliedenergistics2")) {
                 TerminalHandler handler = new TerminalHandler();
                 registerAEHandler(handler);
-                System.out.println("MPSA: Registering AE Terminal Handler :MPSA");
                 if (Loader.isModLoaded("extracells")) {
                         registerECHandler(handler);
                 }

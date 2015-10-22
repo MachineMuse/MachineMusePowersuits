@@ -26,7 +26,6 @@ object ModularPowersuits {
   @SidedProxy(clientSide = "net.machinemuse.powersuits.common.ClientProxy", serverSide = "net.machinemuse.powersuits.common.ServerProxy")
   var proxy: CommonProxy = null
   var config: Configuration = null
-  var modid = "powersuitaddons";
 
   val INSTANCE=this
 
