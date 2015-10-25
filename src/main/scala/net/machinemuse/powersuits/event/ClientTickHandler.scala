@@ -67,7 +67,7 @@ class ClientTickHandler {
 
   var modules: util.ArrayList[String] = _
 
-  def findInstalledModules(player: EntityClientPlayerMP) {
+ def findInstalledModules(player: EntityPlayer) {
     if (player != null) {
       val tool = player.getCurrentEquippedItem
       if (tool != null && tool.getItem.isInstanceOf[ItemPowerFist]) {
@@ -116,7 +116,7 @@ class ClientTickHandler {
   @SideOnly(Side.CLIENT) // MPSA - is this needed or not?
   @SubscribeEvent def onRenderTickEvent(event: RenderTickEvent) {
     if (event.phase == TickEvent.Phase.END) {
-      val player = Minecraft.getMinecraft.thePlayer
+      val player: EntityPlayer = Minecraft.getMinecraft.thePlayer
       modules = new util.ArrayList[String]()
       findInstalledModules(player) // MPSA
       if (player != null && MuseItemUtils.modularItemsEquipped(player).size > 0 && Minecraft.getMinecraft.currentScreen == null) {

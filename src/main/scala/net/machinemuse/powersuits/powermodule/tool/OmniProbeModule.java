@@ -51,23 +51,23 @@ public OmniProbeModule(List<IModularItem> validItems) {
         //         tHighest = prDebugger;
         // }
 
-        if (Loader.isModLoaded("MineFactoryReloaded")) {
+        if (ModCompatibility.isMFRLoaded()) {
                 rednetMeter = GameRegistry.findItemStack("MineFactoryReloaded", "rednet.meter", 1);
                 tHighest = rednetMeter;
         }
 
-        if (Loader.isModLoaded("Railcraft")) {
+        if (ModCompatibility.isRailcraftLoaded()) {
                 rcMeter = GameRegistry.findItemStack("Railcraft", "tool.electric.meter", 1);
                 tHighest = rcMeter;
         }
 
         /* Will be added when ThermalExpansion's new conduit mod is released */
-        // if (Loader.isModLoaded("ThermalExpansion")) {
+        // if (ModCompatibility.isThermalExpansionLoaded) {
         //     teMultimeter = GameRegistry.findItemStack("ThermalExpansion", "multimeter", 1);
         //     tHighest = teMultimeter
         // }
 
-        if (Loader.isModLoaded("EnderIO")) {
+        if (ModCompatibility.isEnderIOLoaded()) {
                 conduitProbe = GameRegistry.findItemStack("EnderIO", "itemConduitProbe", 1);
                 tHighest = conduitProbe;
         }

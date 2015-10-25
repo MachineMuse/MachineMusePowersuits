@@ -17,7 +17,6 @@ public class ModCompatibility {
 
     public static double appengMultiplier;
 
-
     public static boolean isGregTechLoaded() {
         return Loader.isModLoaded("gregtech_addon");
     }
@@ -141,7 +140,7 @@ public class ModCompatibility {
         }
 
         // Compact Machines Personal Shrinking Device
-        if (Loader.isModLoaded("CompactMachines")) {
+        if (isCompactMachinesLaded()) {
             ModuleManager.addModule(new PersonalShrinkingModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
         }
     }
