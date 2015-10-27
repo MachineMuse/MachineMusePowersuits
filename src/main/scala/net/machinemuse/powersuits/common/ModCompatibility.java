@@ -69,7 +69,7 @@ public class ModCompatibility {
         return Loader.isModLoaded("Railcraft");
     }
 
-    public static boolean isCompactMachinesLaded() {
+    public static boolean isCompactMachinesLoaded() {
         return Loader.isModLoaded("CompactMachines");
     }
 
@@ -140,7 +140,7 @@ public class ModCompatibility {
         }
 
         // Compact Machines Personal Shrinking Device
-        if (isCompactMachinesLaded()) {
+        if (isCompactMachinesLoaded()) {
             ModuleManager.addModule(new PersonalShrinkingModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
         }
     }
