@@ -105,7 +105,6 @@ class ClientTickHandler {
     yBaseString = 32
   }
 
-  protected var water: WaterMeter = _
   var food: ItemStack = new ItemStack(Items.cooked_beef)
   var clock: ItemStack = new ItemStack(Items.clock)
   var compass: ItemStack = new ItemStack(Items.compass)
@@ -113,12 +112,12 @@ class ClientTickHandler {
   var yOffsetString: Int = 18
   var ampm: String = ""
 
-  @SideOnly(Side.CLIENT) // MPSA - is this needed or not?
+  //@SideOnly(Side.CLIENT) // MPSA - is this needed or not?
   @SubscribeEvent def onRenderTickEvent(event: RenderTickEvent) {
     if (event.phase == TickEvent.Phase.END) {
       val player: EntityPlayer = Minecraft.getMinecraft.thePlayer
       modules = new util.ArrayList[String]()
-      findInstalledModules(player) // MPSA
+      findInstalledModules(player)
       if (player != null && MuseItemUtils.modularItemsEquipped(player).size > 0 && Minecraft.getMinecraft.currentScreen == null) {
         val mc: Minecraft = Minecraft.getMinecraft
         val screen: ScaledResolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight)
@@ -186,6 +185,7 @@ class ClientTickHandler {
 
   protected var heat: HeatMeter = null
   protected var energy: HeatMeter = null
+  protected var water : WaterMeter = null
   private var lightningCounter: Int = 0
 
   private def drawMeters(player: EntityPlayer, screen: ScaledResolution) {
@@ -193,17 +193,17 @@ class ClientTickHandler {
     val maxEnergy: Double = ElectricItemUtils.getMaxEnergy(player)
     val currHeat: Double = MuseHeatUtils.getPlayerHeat(player)
     val maxHeat: Double = MuseHeatUtils.getMaxHeat(player)
-
     val currWater = AddonWaterUtils.getPlayerWater(player)
     val maxWater = AddonWaterUtils.getMaxWater(player)
-    val currWaterStr = MuseStringUtils.formatNumberShort(currWater)
-    val maxWaterStr = MuseStringUtils.formatNumberShort(maxWater)
 
     if (maxEnergy > 0 && BlockTinkerTable.energyIcon != null) {
-      val currStr: String = MuseStringUtils.formatNumberShort(currEnergy)
-      val maxStr: String = MuseStringUtils.formatNumberShort(maxEnergy)
+      val currEnergyStr: String = MuseStringUtils.formatNumberShort(currEnergy)
+      val maxEnergyStr: String = MuseStringUtils.formatNumberShort(maxEnergy)
       val currHeatStr: String = MuseStringUtils.formatNumberShort(currHeat)
       val maxHeatStr: String = MuseStringUtils.formatNumberShort(maxHeat)
+      val currWaterStr: String = MuseStringUtils.formatNumberShort(currWater)
+      val maxWaterStr: String = MuseStringUtils.formatNumberShort(maxWater)
+
       if (Config.useGraphicalMeters) {
         if (energy == null) {
           energy = new EnergyMeter
@@ -213,8 +213,7 @@ class ClientTickHandler {
           water = new WaterMeter()
         }
 
-        //val left: Double = screen.getScaledWidth - 20
-        val left: Double = screen.getScaledWidth - 30 // wrong way
+        val left: Double = screen.getScaledWidth - 30
         val top: Double = screen.getScaledHeight / 2.0 - 16
 
         // numbers
@@ -223,12 +222,12 @@ class ClientTickHandler {
         water.draw(left + 16, top, currWater / maxWater)
 
         // meters
-        MuseRenderer.drawRightAlignedString(currStr, left - 2, top + 10)
+        MuseRenderer.drawRightAlignedString(currEnergyStr, left - 2, top + 10)
         MuseRenderer.drawRightAlignedString(currHeatStr, left - 2, top + 20)
         MuseRenderer.drawRightAlignedString(currWaterStr, left - 2, top + 30)
       }
       else {
-        MuseRenderer.drawString(currStr + '/' + maxStr + " \u1D60", 1, 1)
+        MuseRenderer.drawString(currEnergyStr + '/' + maxEnergyStr + " \u1D60", 1, 1)
         MuseRenderer.drawString(currHeatStr + '/' + maxHeatStr + " C", 1, 10)
         MuseRenderer.drawString(currWaterStr + '/' + maxWaterStr + " buckets", 1, 19)
       }

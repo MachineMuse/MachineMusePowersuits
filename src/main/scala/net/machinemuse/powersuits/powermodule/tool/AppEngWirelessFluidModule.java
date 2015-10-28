@@ -30,7 +30,7 @@ import java.util.List;
  * Created by User: Korynkai
  * 10:03pm - 2014-11-15
  */
- 
+
 public class AppEngWirelessFluidModule extends PowerModuleBase implements IRightClickModule {
     public static final String MODULE_APPENG_EC_WIRELESS_FLUID = "AppEng EC Wireless Fluid Terminal";
     private ItemStack wirelessFluidTerminal;

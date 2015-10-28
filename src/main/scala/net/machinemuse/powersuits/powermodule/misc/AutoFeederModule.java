@@ -11,7 +11,6 @@ import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemFood;
