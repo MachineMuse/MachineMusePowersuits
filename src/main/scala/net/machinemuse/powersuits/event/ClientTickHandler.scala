@@ -176,9 +176,9 @@ class ClientTickHandler {
           } else if (modules.get(i) == WaterTankModule.MODULE_WATER_TANK) {
             val mc = Minecraft.getMinecraft
             val screen = new ScaledResolution(Minecraft.getMinecraft, mc.displayWidth, mc.displayHeight)
-            drawMeters(player, screen)
           }
         }
+        drawMeters(player, screen)
       }
     }
   }
