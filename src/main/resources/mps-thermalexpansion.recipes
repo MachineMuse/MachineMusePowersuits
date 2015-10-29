@@ -215,5 +215,54 @@
 		"result" : {
 			"oredictName" : "componentIonThruster"
 		}
+	},
+	{
+		"ingredients" : [
+			[ { "unlocalizedName" : "tile.glass" }, { "unlocalizedName" : "tile.glass" }, { "unlocalizedName" : "tile.glass" } ],
+			[ { "unlocalizedName" : "item.thermalexpansion.material.powerCoilElectrum" }, { "unlocalizedName" : "tile.blockLapis" }, { "unlocalizedName" : "item.thermalexpansion.material.powerCoilElectrum" } ]
+		],
+		"result" : {
+			"oredictName" : "componentSolarPanel"
+		}
+	},
+	{
+		"ingredients" : [
+			[ { "oredictName" : "ingotIron" }, { "unlocalizedName" : "item.thermalexpansion.material.powerCoilGold" }, { "oredictName" : "ingotIron" } ],
+			[ { "oredictName" : "componentSolenoid" }, { "oredictName" : "componentSolenoid" }, { "oredictName" : "componentSolenoid" } ],
+			[ { "oredictName" : "ingotIron" }, { "unlocalizedName" : "item.thermalexpansion.material.powerCoilGold" }, { "oredictName" : "ingotIron" } ]
+		],
+		"result" : {
+			"oredictName" : "componentMagnet"
+		}
+	},
+	{
+		"ingredients" : [
+			[ null, { "oredictName" : "componentSolenoid" }, null ],
+			[ { "unlocalizedName" : "item.thermalexpansion.material.powerCoilGold" }, { "unlocalizedName" : "item.thermalexpansion.tool.multimeter" }, { "unlocalizedName" : "item.thermalexpansion.material.powerCoilSilver" } ],
+			[ null, { "unlocalizedName" : "item.thermalexpansion.material.powerCoilElectrum" }, null ]
+		],
+		"result" : {
+			"oredictName" : "componentComputerChip"
+		}
+	},
+	{
+		"ingredients" : [
+			[ null, { "oredictName" : "bucketCoal" }, null ],
+			[ { "oredictName" : "dustCoal" }, { "unlocalizedName" : "item.thermalexpansion.material.slagRich" }, { "oredictName" : "dustCoal" } ],
+			[ null, { "oredictName" : "dustPyrotheum" }, null ]
+		],
+		"result" : {
+			"oredictName" : "componentRubberHose"
+		}
+	},
+	{
+		"ingredients" : [
+			[ { "oredictName" : "dustCryotheum" }, { "oredictName" : "dustBlizz" } ],
+			[ { "oredictName" : "bucketCryotheum" }, { "oredictName" : "dustBlizz" } ],
+			[ { "unlocalizedName" : "item.bucket" } ]
+		],
+		"result" : {
+			"oredictName" : "componentLiquidNitrogen"
+		}
 	}
 ]

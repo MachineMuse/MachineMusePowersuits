@@ -222,5 +222,54 @@
 			"oredictName" : "componentIonThruster"
 		}
 
+	},
+	{
+		"ingredients" : [
+			[ { "oredictName" : "dyeBlue" }, { "unlocalizedName" : "tile.glass" }, { "oredictName" : "dyeBlue" } ],
+			[ { "unlocalizedName" : "tile.glass" }, { "oredictName" : "dyeBlue" }, { "unlocalizedName" : "tile.glass" } ],
+			[ { "oredictName" : "circuitBasic" }, { "oredictName" : "craftingGenerator" }, { "oredictName" : "circuitBasic" } ]
+		],
+		"result" : {
+			"oredictName" : "componentSolarPanel"
+		}
+	},
+	{
+		"ingredients" : [
+			[ { "oredictName" : "ingotIron" }, { "oredictName" : "circuitAdvanced" }, { "oredictName" : "ingotIron" } ],
+			[ { "oredictName" : "componentSolenoid" }, { "oredictName" : "componentSolenoid" }, { "oredictName" : "componentSolenoid" } ],
+			[ { "oredictName" : "ingotIron" }, { "oredictName" : "circuitAdvanced" }, { "oredictName" : "ingotIron" } ]
+		],
+		"result" : {
+			"oredictName" : "componentMagnet"
+		}
+	},
+	{
+		"ingredients" : [
+			[ { "oredictName" : "circuitAdvanced" }, { "unlocalizedName" : "ic2.itemScannerAdv" }, { "oredictName" : "circuitAdvanced" } ],
+			[ { "unlocalizedName" : "ic2.itemGoldCable" }, { "unlocalizedName" : "ic2.itemGoldCable" }, { "unlocalizedName" : "ic2.itemGoldCable" } ]
+		],
+		"result" : {
+			"oredictName" : "componentComputerChip"
+		}
+	},
+	{
+		"ingredients" : [
+			[ null, { "oredictName" : "ingotRubber" }, null ],
+			[ { "oredictName" : "ingotRubber" }, { "oredictName" : "dustBlaze" }, { "oredictName" : "ingotRubber" } ],
+			[ null, { "oredictName" : "ingotRubber" }, null ]
+		],
+		"result" : {
+			"oredictName" : "componentRubberHose"
+		}
+	},
+	{
+		"ingredients" : [
+			[ { "unlocalizedName" : "tile.ice" }, { "unlocalizedName" : "tile.ice" } ],
+			[ { "oredictName" : "dustBlaze" }, { "oredictName" : "gemDiamond" } ],
+			[ { "unlocalizedName" : "item.bucket" } ]
+		],
+		"result" : {
+			"oredictName" : "componentLiquidNitrogen"
+		}
 	}
 ]
