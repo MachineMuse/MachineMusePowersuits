@@ -111,6 +111,7 @@ class ClientTickHandler {
   var yOffsetIcon: Double = 16.0
   var yOffsetString: Int = 18
   var ampm: String = ""
+  var drawWaterMeter: Boolean = false
 
   //@SideOnly(Side.CLIENT) // MPSA - is this needed or not?
   @SubscribeEvent def onRenderTickEvent(event: RenderTickEvent) {
@@ -174,8 +175,7 @@ class ClientTickHandler {
               MuseRenderer.drawItemAt(-1.0, yBaseIcon + (yOffsetIcon * i), compass)
             }
           } else if (modules.get(i) == WaterTankModule.MODULE_WATER_TANK) {
-            val mc = Minecraft.getMinecraft
-            val screen = new ScaledResolution(Minecraft.getMinecraft, mc.displayWidth, mc.displayHeight)
+            drawWaterMeter = true
           }
         }
         drawMeters(player, screen)
@@ -201,16 +201,11 @@ class ClientTickHandler {
       val maxEnergyStr: String = MuseStringUtils.formatNumberShort(maxEnergy)
       val currHeatStr: String = MuseStringUtils.formatNumberShort(currHeat)
       val maxHeatStr: String = MuseStringUtils.formatNumberShort(maxHeat)
-      val currWaterStr: String = MuseStringUtils.formatNumberShort(currWater)
-      val maxWaterStr: String = MuseStringUtils.formatNumberShort(maxWater)
 
       if (Config.useGraphicalMeters) {
         if (energy == null) {
           energy = new EnergyMeter
           heat = new HeatMeter
-        }
-        if (water == null) {
-          water = new WaterMeter()
         }
 
         val left: Double = screen.getScaledWidth - 30
@@ -219,16 +214,32 @@ class ClientTickHandler {
         // numbers
         energy.draw(left, top, currEnergy / maxEnergy)
         heat.draw(left + 8, top, currHeat / maxHeat)
-        water.draw(left + 16, top, currWater / maxWater)
 
         // meters
         MuseRenderer.drawRightAlignedString(currEnergyStr, left - 2, top + 10)
         MuseRenderer.drawRightAlignedString(currHeatStr, left - 2, top + 20)
-        MuseRenderer.drawRightAlignedString(currWaterStr, left - 2, top + 30)
       }
       else {
         MuseRenderer.drawString(currEnergyStr + '/' + maxEnergyStr + " \u1D60", 1, 1)
         MuseRenderer.drawString(currHeatStr + '/' + maxHeatStr + " C", 1, 10)
+      }
+    }
+    if (maxWater > 0 && drawWaterMeter ) {
+      val currWaterStr: String = MuseStringUtils.formatNumberShort(currWater)
+      val maxWaterStr: String = MuseStringUtils.formatNumberShort(maxWater)
+
+      if (Config.useGraphicalMeters) {
+        if (water == null) {
+          water = new WaterMeter()
+        }
+        val left: Double = screen.getScaledWidth - 30
+        val top: Double = screen.getScaledHeight / 2.0 - 16
+
+        water.draw(left + 16, top, currWater / maxWater)
+
+        MuseRenderer.drawRightAlignedString(currWaterStr, left - 2, top + 30)
+      }
+      else {
         MuseRenderer.drawString(currWaterStr + '/' + maxWaterStr + " buckets", 1, 19)
       }
     }
