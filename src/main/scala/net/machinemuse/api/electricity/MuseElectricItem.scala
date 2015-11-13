@@ -2,7 +2,7 @@ package net.machinemuse.api.electricity
 
 import cofh.api.energy.IEnergyContainerItem
 import cpw.mods.fml.common.Optional
-import ic2.api.item.{IElectricItem, ElectricItem}
+import ic2.api.item.{IElectricItemManager, ISpecialElectricItem, IElectricItem, ElectricItem}
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.api.electricity.ElectricConversions._
 import net.machinemuse.utils.{ElectricItemUtils, MuseItemUtils}
@@ -13,9 +13,14 @@ import net.minecraft.item.{Item, ItemStack}
  * Author: MachineMuse (Claire Semple)
  * Created: 10:12 PM, 4/20/13
  */
+
+@Optional.Interface(iface = "ic2.api.item.IElectricItemManager", modid = "IC2", striprefs = true)
+@Optional.Interface(iface = "ic2.api.item.ISpecialElectricItem", modid = "IC2", striprefs = true)
 @Optional.Interface(iface = "cofh.api.energy.IEnergyContainerItem", modid = "CoFHCore", striprefs = true)
 trait MuseElectricItem extends Item
 with IEnergyContainerItem
+with ISpecialElectricItem
+with IElectricItemManager
 with IElectricItem
 {
   /**
