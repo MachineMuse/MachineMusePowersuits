@@ -144,5 +144,4 @@ public class ModCompatibility {
             ModuleManager.addModule(new PersonalShrinkingModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
         }
     }
-
 }

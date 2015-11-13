@@ -21,12 +21,11 @@ import net.machinemuse.powersuits.powermodule.tool.TerminalHandler;
  *
  * @author MachineMuse
  */
-@Mod(modid = "powersuits", modLanguage = "scala")
+@Mod(modid = "powersuits", modLanguage = "scala", dependencies = "required-after:numina@[0.4.0.131,)")
 object ModularPowersuits {
   @SidedProxy(clientSide = "net.machinemuse.powersuits.common.ClientProxy", serverSide = "net.machinemuse.powersuits.common.ServerProxy")
   var proxy: CommonProxy = null
   var config: Configuration = null
-
   val INSTANCE=this
 
   @Mod.EventHandler def preInit(event: FMLPreInitializationEvent) {
