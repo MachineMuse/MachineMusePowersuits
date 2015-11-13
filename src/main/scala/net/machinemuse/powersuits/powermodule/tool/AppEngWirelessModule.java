@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.powermodule.tool;
 
 import appeng.api.AEApi;
 import appeng.items.tools.powered.ToolWirelessTerminal;
+import com.google.common.base.Optional;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
@@ -28,9 +29,8 @@ public class AppEngWirelessModule extends PowerModuleBase implements IRightClick
     public AppEngWirelessModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
-        wirelessTerminal = AEApi.instance().items().itemWirelessTerminal.stack(1);
-        addInstallCost(wirelessTerminal);
-
+        Optional<ItemStack> wirelessTerminal = AEApi.instance().definitions().items().wirelessTerminal().maybeStack(1);
+        addInstallCost(wirelessTerminal.get());
     }
 
     @Override
