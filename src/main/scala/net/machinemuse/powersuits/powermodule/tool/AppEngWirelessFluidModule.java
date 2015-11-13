@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
+import com.google.common.base.Optional;
 import extracells.api.ECApi;
 import extracells.item.ItemWirelessTerminalFluid;
 import appeng.api.AEApi;
@@ -35,13 +36,17 @@ public class AppEngWirelessFluidModule extends PowerModuleBase implements IRight
     public static final String MODULE_APPENG_EC_WIRELESS_FLUID = "AppEng EC Wireless Fluid Terminal";
     private ItemStack wirelessFluidTerminal;
 
-
     public AppEngWirelessFluidModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
-        wirelessFluidTerminal = ECApi.instance().items().wirelessFluidTerminal().stack(1);
-        addInstallCost(wirelessFluidTerminal);
 
+        //this is for versions of ExtraCells-1.7.10-2.3.0b142 and newer
+        Optional<ItemStack> wirelessFluidTerminal = ECApi.instance().items().wirelessFluidTerminal().maybeStack(1);
+        addInstallCost(wirelessFluidTerminal.get());
+
+        //this is for older versions of extra cells and should be avoided as it relies on an outdated AE2 API
+//        wirelessFluidTerminal = ECApi.instance().items().wirelessFluidTerminal().stack(1);
+//        addInstallCost(wirelessFluidTerminal);
     }
 
     @Override
