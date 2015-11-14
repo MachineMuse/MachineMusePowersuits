@@ -14,15 +14,15 @@ import net.minecraft.item.{Item, ItemStack}
  * Created: 10:12 PM, 4/20/13
  */
 
-@Optional.Interface(iface = "ic2.api.item.IElectricItemManager", modid = "IC2", striprefs = true)
-@Optional.Interface(iface = "ic2.api.item.ISpecialElectricItem", modid = "IC2", striprefs = true)
-@Optional.Interface(iface = "cofh.api.energy.IEnergyContainerItem", modid = "CoFHCore", striprefs = true)
-trait MuseElectricItem extends Item
-with IEnergyContainerItem
-with ISpecialElectricItem
-with IElectricItemManager
-with IElectricItem
-{
+@Optional.InterfaceList(Array(
+  new Optional.Interface(iface = "cofh.api.energy.IEnergyContainerItem", modid = "CoFHCore", striprefs = true),
+  new Optional.Interface(iface = "ic2.api.item.IElectricItemManager", modid = "IC2", striprefs = true),
+  new Optional.Interface(iface = "ic2.api.item.ISpecialElectricItem", modid = "IC2", striprefs = true)))
+trait MuseElectricItem extends Item 
+with IEnergyContainerItem 
+with ISpecialElectricItem 
+with IElectricItemManager 
+with IElectricItem {
   /**
    * Call to get the energy of an item
    *
