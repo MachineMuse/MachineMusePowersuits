@@ -1,16 +1,16 @@
-Made by users: EzerArch
-Last edited on 12/24/14 07:02AM GMT-2
+Made by users: EzerArch, LorenzoDCC
+Last edited on 10/27/15 6:25PM GMT-2
 
 tile.luxCapacitor.name=Capacitor de Luz
-tile.tinkerTable.name=Mesa de Trabalho Power Armor
+tile.tinkerTable.name=Mesa de Trabalho da Super Armadura
 
 itemGroup.powersuits=Modular Powersuits
 
-item.powerArmorBoots.name=Botas Power Armor
-item.powerArmorLeggings.name=Perneiras Power Armor
-item.powerArmorChestplate.name=Peitoral Power Armor
-item.powerArmorHelmet.name=Elmo Power Armor
-item.powerFist.name=Power Fist
+item.powerArmorBoots.name=Botas da Super Armadura
+item.powerArmorLeggings.name=Perneiras da Super Armadura
+item.powerArmorChestplate.name=Peitoral da Super Armadura
+item.powerArmorHelmet.name=Capacete da Super Armadura
+item.powerFist.name=Super Punho
 
 item.powerArmorComponent.componentWiring.name=Fiação
 item.powerArmorComponent.componentSolenoid.name=Solenoide
@@ -38,20 +38,20 @@ module.axe.name=Machado
 module.pickaxe.name=Picareta
 module.shovel.name=Pá
 module.shears.name=Tesoura
-module.hoe.name=Motocultivadora
-module.luxCapacitor.name=Capacitor de Luz
-module.omniwrench.name=Chave Universal Protótipa
-module.fieldTinkerer.name=Módulo Suporte Remoto
+module.hoe.name=Rotoenxada
+module.luxCapacitor.name=Capacitor Lux
+module.omniwrench.name=Protótipo de OmniChave
+module.fieldTinkerer.name=Módulo de Alteração em Campo
 module.meleeAssist.name=Assistente de Golpes
 module.plasmaCannon.name=Canhão de Plasma
-module.railgun.name=Railgun
+module.railgun.name=Canhão Elétrico
 module.bladeLauncher.name=Lança-Lâminas
 module.basicBattery.name=Bateria Básica
 module.eliteBattery.name=Bateria Elite
 module.advancedBattery.name=Bateria Avançada
 module.parachute.name=Paraquedas
 module.glider.name=Planador
-module.jetpack.name=Jetpack
+module.jetpack.name=Mochila a Jato
 module.sprintAssist.name=Assistente de Corrida
 module.jumpAssist.name=Assistente de Pulo
 module.swimAssist.name=Impulso de Natação
@@ -63,19 +63,19 @@ module.binoculars.name=Binóculos
 module.nightVision.name=Visão Noturna
 module.flightControl.name=Controle de Voo
 module.invisibility.name=Camuflagem Ativa
-module.blinkDrive.name=Blink Drive
-module.diamondPickUpgrade.name=Melhoramento da Broca de Diamante 
+module.blinkDrive.name=Acionador de Teletransporte
+module.diamondPickUpgrade.name=Melhoria da Broca de Diamante 
 module.aquaAffinity.name=Afinidade Aquática
 module.coolingSystem.name=Sistema de Resfriamento
 module.tint.name=Módulo de Cores Personalizáveis
 module.transparentArmor.name=Armadura Transparente
 module.cosmeticGlow.name=Módulo de Brilho
-module.mffsFieldTeleporter.name=Teleportador MFFS Field
+module.mffsFieldTeleporter.name=Teletransportador de Campo MFFS
 module.grafter.name=Enxertador
 module.apiaristArmor.name=Armadura para Apicultor
 module.hazmat.name=Proteção contra Radiação
-module.redstoneLaser.name=Redstone Laser
-module.aurameter.name=Medidor de Aura
+module.redstoneLaser.name=Laser de Redstone
+module.aurameter.name=Aurâmetro
 module.airtightSeal.name=Vedação Hermética
-module.citizenJoe.name=Armadura Citizen Joe
+module.citizenJoe.name=Armadura do Cidadão Comum
 module.sonicWeapon.name=Arma Sônica
