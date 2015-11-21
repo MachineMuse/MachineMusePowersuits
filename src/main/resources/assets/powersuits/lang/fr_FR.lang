@@ -1,4 +1,4 @@
-Made by users: Mazdallier, AegisLesha 
+Made by users: Mazdallier, AegisLesha, solomon56 
 Last edited on 08/31/15
 
 tile.luxCapacitor.name=Condensateur Lux 
@@ -29,6 +29,10 @@ item.powerArmorComponent.componentCarbonMyofiber.name=Myofibre carbone
 item.powerArmorComponent.componentControlCircuit.name=Circuit de contrôle
 item.powerArmorComponent.componentMyofiberGel.name=Gel myofibre
 item.powerArmorComponent.componentArtificialMuscle.name=Muscle artificiel 
+
+item.powerArmorComponent.componentSolarPanel.name=Panneau Solaire
+item.powerArmorComponent.componentMagnet.name=Aimant
+item.powerArmorComponent.componentComputerChip.name=Puce informatique
 
 module.basicPlating.name=Plaquage en Fer 
 module.diamondPlating.name=Plaquage en Diamant 
@@ -121,6 +125,26 @@ module.tint.desc=Permet à votre armure de se tinter pour la customisation de so
 module.transparentArmor.desc=Rend l'objet transparent, pour que vous puissiez montrer votre skin sans perdre la protection offerte par l'armure.
 module.cosmeticGlow.desc=Change l'apparence des parties lumineuse de l'armure.
 module.hazmat.desc=Vous protège de l'électricité et de l'empoisonnement dû aux radiations. (Doit être présent sur toutes les parties de l'armure pour une protection totale)
+
+module.portableCraftingTable.name=Poche Tableau Artisanat
+module.kineticGenerator.name=Générateur Cinétique
+module.solarGenerator.name=Générateur Solaire
+module.thermalGenerator.name=Générateur Thermique
+module.autoFeeder.name=Nourriture-Automatique
+module.magnet.name=Aimant
+module.oreScanner.name=Scanneur des Minerais
+module.leafBlower.name=Ventilateur de Feuille
+module.mobRepulsor.name=Mob Repulsor
+module.flintAndSteel.name=Briquet
+module.clock.name=Montre
+module.compass.name=Boussole
+module.lightningSummoner.name=Porteur de la Foudre
+module.waterTank.name=Réservoir d'eau
+module.euReader.name= Interpréter d'EU
+module.treetap.name=Sève prise
+module.teMultimeter.name=Multimètre de TE
+module.appengWireless.name=Terminal sans fil d'AppEng
+module.bucket.name=Seau
 
 gui.noModulesFound.line1=Aucune armure énergétique modulaire
 gui.noModulesFound.line2=trouvée dans les alentours.

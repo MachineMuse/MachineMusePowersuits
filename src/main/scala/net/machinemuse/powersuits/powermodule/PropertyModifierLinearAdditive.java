@@ -21,5 +21,4 @@ public class PropertyModifierLinearAdditive implements IPropertyModifier {
     public String getTradeoffName() {
         return tradeoffName;
     }
-
 }

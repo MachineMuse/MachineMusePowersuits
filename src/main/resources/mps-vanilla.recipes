@@ -213,5 +213,54 @@
 			"oredictName" : "componentIonThruster"
 		}
 
+	},
+	{
+		"ingredients" : [
+			[ { "unlocalizedName" : "tile.thinGlass" }, { "unlocalizedName" : "tile.thinGlass" }, { "unlocalizedName" : "tile.thinGlass" } ],
+			[ { "unlocalizedName" : "tile.thinGlass" }, { "unlocalizedName" : "tile.blockLapis" }, { "unlocalizedName" : "tile.thinGlass" } ],
+			[ { "unlocalizedName" : "tile.thinGlass" }, { "unlocalizedName" : "tile.thinGlass" }, { "unlocalizedName" : "tile.thinGlass" } ]
+		],
+		"result" : {
+			"oredictName" : "componentSolarPanel"
+		}
+	},
+	{
+		"ingredients" : [
+			[ { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" } ],
+			[ { "oredictName" : "componentSolenoid" }, { "oredictName" : "componentSolenoid" }, { "oredictName" : "componentSolenoid" } ],
+			[ { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" } ]
+		],
+		"result" : {
+			"oredictName" : "componentMagnet"
+		}
+	},
+	{
+		"ingredients" : [
+			[ { "oredictName" : "blockRedstone" }, { "unlocalizedName" : "item.comparator" }, { "oredictName" : "blockRedstone" } ],
+			[ { "oredictName" : "ingotGold" }, { "oredictName" : "gemDiamond" }, { "oredictName" : "ingotGold" } ]
+		],
+		"result" : {
+			"oredictName" : "componentComputerChip"
+		}
+	},
+	{
+		"ingredients" : [
+			[ null, { "oredictName" : "gemCoal" }, null ],
+			[ { "oredictName" : "slimeball" }, { "oredictName" : "dustBlaze" }, { "oredictName" : "slimeball" } ],
+			[ null, { "oredictName" : "gemCoal" }, null ]
+		],
+		"result" : {
+			"oredictName" : "componentRubberHose"
+		}
+	},
+	{
+		"ingredients" : [
+			[ { "unlocalizedName" : "tile.ice" }, { "unlocalizedName" : "tile.ice" } ],
+			[ { "oredictName" : "dustBlaze" }, { "oredictName" : "gemDiamond" } ],
+			[ { "unlocalizedName" : "item.bucket" } ]
+		],
+		"result" : {
+			"oredictName" : "componentLiquidNitrogen"
+		}
 	}
 ]

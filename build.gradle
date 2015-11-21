@@ -55,16 +55,17 @@ getLibrary("CoFHCore-[1.7.10]3.0.3-303-dev.jar")
 getLibrary("industrialcraft-2-2.2.765-experimental-api.jar")
 getLibrary("ThermalExpansion-[1.7.10]4.0.3B1-218-dev.jar")
 getLibrary("GalacticraftCore-Dev-1.7-3.0.12.168.jar")
-getLibrary("Railcraft_1.7.10-9.7.0.0-dev.jar")
+getLibrary("Railcraft_1.7.10-9.7.0.0-dev.jar") // delete outdated CoFH API from this jar to run in dev environment
 getLibrary("MineFactoryReloaded-[1.7.10]2.8.0-104-dev.jar")
 getLibrary("forestry_1.7.10-3.6.3.20-api.jar")
 getLibrary("Thaumcraft-deobf-1.7.10-4.2.3.5.jar")
-getLibrary("SmartRender-1.7.10-2.1.jar")
+getLibrary("SmartRender-1.7.10-2.1.jar") // this version is ok to build with, but to run in dev environment, download the SmartMoving zip and use the version from that
 getLibrary("RenderPlayerAPI-1.7.10-1.4.jar")
 getLibrary("appliedenergistics2-rv2-stable-10-dev.jar")
+getLibrary("ExtraCells-deobf-1.7.10-2.3.0b142.jar") // This one may have to be downloaded manually
 getLibrary("buildcraft-7.0.21-dev.jar")
 getLibrary("BluePower-1.7.10-0.2.962-universal.jar")
-getLibrary("EnderIO-1.7.10-2.2.8.381-dev.jar")
+getLibrary("EnderIO-1.7.10-2.2.8.381-dev.jar") // May need to delete Mekanism API from this jar to run in dev environment
 getLibrary("Mekanism-1.7.10-8.1.7.252.jar")
 getLibrary("MrTJPCore-1.1.0.31-universal.jar")
 getLibrary("ProjectRed-1.7.10-4.7.0pre8.92-Base.jar")
@@ -156,4 +157,11 @@ curse {
     addGameVersion '1.7.10'
 
     relatedProject 'numina': 'requiredLibrary'
+}
+
+apply plugin: 'idea'
+idea {
+    module {
+        inheritOutputDirs = true
+    }
 }

@@ -24,6 +24,6 @@ object MPSItems {
   GameRegistry.registerBlock(luxCapacitor, luxCapacitor.getUnlocalizedName)
   val components = new ItemComponent()
   components.setUnlocalizedName("powerArmorComponent")
-  components.populate()
   GameRegistry.registerItem(components, "powerArmorComponent")
+  components.populate()
 }

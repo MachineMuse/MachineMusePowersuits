@@ -20,7 +20,6 @@ object ElectricAdapter {
       null
     }
   }
-
 }
 
 abstract class ElectricAdapter {

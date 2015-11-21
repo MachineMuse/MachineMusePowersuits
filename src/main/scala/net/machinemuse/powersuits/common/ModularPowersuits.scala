@@ -12,6 +12,8 @@ import net.machinemuse.powersuits.event.{HarvestEventHandler, MovementManager}
 import net.machinemuse.powersuits.network.packets.MPSPacketList
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.common.config.Configuration
+import net.machinemuse.powersuits.powermodule.tool.TerminalHandler;
+
 
 /**
  * Main mod class. This is what Forge loads to get the mod up and running, both
@@ -19,12 +21,11 @@ import net.minecraftforge.common.config.Configuration
  *
  * @author MachineMuse
  */
-@Mod(modid = "powersuits", modLanguage = "scala")
+@Mod(modid = "powersuits", modLanguage = "scala", dependencies = "required-after:numina@[0.4.0.131,)")
 object ModularPowersuits {
   @SidedProxy(clientSide = "net.machinemuse.powersuits.common.ClientProxy", serverSide = "net.machinemuse.powersuits.common.ServerProxy")
   var proxy: CommonProxy = null
   var config: Configuration = null
-
   val INSTANCE=this
 
   @Mod.EventHandler def preInit(event: FMLPreInitializationEvent) {
@@ -61,6 +62,7 @@ object ModularPowersuits {
     proxy.registerRenderers()
     MPSPacketList.registerPackets()
     NetworkRegistry.INSTANCE.registerGuiHandler(this, MPSGuiHandler)
+    TerminalHandler.registerHandler();
   }
 
   @Mod.EventHandler def postInit(event: FMLPostInitializationEvent) {
