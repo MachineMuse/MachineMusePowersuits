@@ -34,9 +34,11 @@ def travisbuildnumber = (System.getenv("TRAVIS_BUILD_NUMBER") ?: -111).toInteger
 version = "${config.mod_version}." + (buildnumber ?: travisbuildnumber)
 group= "${config.group_id}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "${config.mod_id}"
+def numina_version = (System.getenv("NUMINA_VERSION") ?:"0.4.0.131")
 
 minecraft {
     version = "${config.minecraft_version}-${config.forge_version}"
+    replace "@numina_version@", numina_version
     runDir = "run"
 }
 
@@ -71,6 +73,7 @@ getLibrary("MrTJPCore-1.1.0.31-universal.jar")
 getLibrary("ProjectRed-1.7.10-4.7.0pre8.92-Base.jar")
 getLibrary("Chisel2-2.5.0.43-deobf.jar")
 getLibrary("Chisel-2.9.0.3-deobf.jar")
+//getLibrary("compactmachines-1.7.10-1.20-dev.jar") // This is for the personal shrinking device module; needs to be built from source. 
 
 processResources {
     // this will ensure that this task is redone when the versions change.
