@@ -21,8 +21,10 @@ import net.machinemuse.powersuits.powermodule.tool.TerminalHandler;
  *
  * @author MachineMuse
  */
-@Mod(modid = "powersuits", modLanguage = "scala", dependencies = "required-after:numina@[0.4.0.131,)")
+@Mod(modid = "powersuits", modLanguage = "scala", dependencies = "required-after:numina@[" + ModularPowersuits.NuminaVersion + ",)")
 object ModularPowersuits {
+  final val NuminaVersion = "@numina_version@"
+
   @SidedProxy(clientSide = "net.machinemuse.powersuits.common.ClientProxy", serverSide = "net.machinemuse.powersuits.common.ServerProxy")
   var proxy: CommonProxy = null
   var config: Configuration = null
@@ -38,7 +40,6 @@ object ModularPowersuits {
   }
 
   @Mod.EventHandler def load(event: FMLInitializationEvent) {
-
     Config.loadPowerModules
     Config.getMaximumArmorPerPiece
     Config.getMaximumFlyingSpeedmps
