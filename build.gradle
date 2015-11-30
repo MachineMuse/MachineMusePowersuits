@@ -64,7 +64,7 @@ getLibrary("Thaumcraft-deobf-1.7.10-4.2.3.5.jar")
 getLibrary("SmartRender-1.7.10-2.1.jar") // this version is ok to build with, but to run in dev environment, download the SmartMoving zip and use the version from that
 getLibrary("RenderPlayerAPI-1.7.10-1.4.jar")
 getLibrary("appliedenergistics2-rv2-stable-10-dev.jar")
-getLibrary("ExtraCells-deobf-1.7.10-2.3.0b142.jar") // This one may have to be downloaded manually
+getLibrary("ExtraCells-deobf-1.7.10-2.3.2b158.jar") // This one may have to be downloaded manually
 getLibrary("buildcraft-7.0.21-dev.jar")
 getLibrary("BluePower-1.7.10-0.2.962-universal.jar")
 getLibrary("EnderIO-1.7.10-2.2.8.381-dev.jar") // May need to delete Mekanism API from this jar to run in dev environment
@@ -73,7 +73,7 @@ getLibrary("MrTJPCore-1.1.0.31-universal.jar")
 getLibrary("ProjectRed-1.7.10-4.7.0pre8.92-Base.jar")
 getLibrary("Chisel2-2.5.0.43-deobf.jar")
 getLibrary("Chisel-2.9.0.3-deobf.jar")
-//getLibrary("compactmachines-1.7.10-1.20-dev.jar") // This is for the personal shrinking device module; needs to be built from source. 
+getLibrary("compactmachines-1.7.10-1.20-dev.jar") // This is for the personal shrinking device module; needs to be built from source.
 
 processResources {
     // this will ensure that this task is redone when the versions change.
