@@ -1,4 +1,4 @@
-Made by users: crafteverywhere, 3TUSK
+Made by users: crafteverywhere, 3TUSK, Joccob
 Last edited on 8/30/15 1:35 AM EST
 
 tile.luxCapacitor.name=光能容器
@@ -7,9 +7,9 @@ tile.tinkerTable.name=动力装甲改装台
 itemGroup.powersuits=模块化动力套装
 
 item.powerArmorBoots.name=动力靴子
+item.powerArmorLeggings.name=动力护腿
 item.powerArmorChestplate.name=动力护甲
 item.powerArmorHelmet.name=动力头盔
-item.powerArmorLeggings.name=动力护腿
 item.powerFist.name=动力拳套
 
 item.powerArmorComponent.componentWiring.name=线材
@@ -29,6 +29,13 @@ item.powerArmorComponent.componentCarbonMyofiber.name=人造碳纤维肌肉
 item.powerArmorComponent.componentControlCircuit.name=控制电路
 item.powerArmorComponent.componentMyofiberGel.name=人造凝胶肌肉
 item.powerArmorComponent.componentArtificialMuscle.name=人造肌肉
+
+item.powerArmorComponent.componentSolarPanel.name=太阳能板
+item.powerArmorComponent.componentMagnet.name=磁铁
+item.powerArmorComponent.componentComputerChip.name=电脑芯片
+item.powerArmorComponent.componentLiquidNitrogen.name=桶装液氮
+item.powerArmorComponent.componentRubberHose.name=绝缘橡胶管
+item.powerArmorComponent.componentRawCarbon.name=Raw Carbon
 
 module.basicPlating.name=铁质电镀板
 module.diamondPlating.name=钻石电镀板
@@ -81,6 +88,30 @@ module.airtightSeal.name=气密性模块
 module.citizenJoe.name=自定义皮肤模块
 module.sonicWeapon.name=声波武器
 
+module.portableCraftingTable.name=内置装配台
+module.kineticGenerator.name=动能发电模块
+module.solarGenerator.name=太阳能发电模块
+module.thermalGenerator.name=热能发电模块
+module.autoFeeder.name=自动喂食模块
+module.magnet.name=磁力发生器
+module.oreScanner.name=矿物扫描模块
+module.leafBlower.name=吹叶机
+module.mobRepulsor.name=排斥力场模块
+module.flintAndSteel.name=打火石
+module.clock.name=钟表
+module.compass.name=罗盘
+module.lightningSummoner.name=闪雷召唤模块
+module.waterTank.name=储水模块
+module.teMultimeter.name=TE万用表
+module.appengWireless.name=AE无线终端模块
+module.appengECWirelessFluid.name=ExtraCells无线流体终端
+module.advSolarGenerator.name=高效太阳能发电模块
+module.nitrogenCoolingSystem.name=液氮冷却系统
+module.mechAssistance.name=机械辅助模块
+module.cmPSD.name=手持缩放仪
+module.omniProbe.name=标准多功能探测器
+module.dimRiftGen.name=空间裂缝发生器
+
 module.basicPlating.desc=基础的电镀板,虽然沉重,但防护性能优良.
 module.diamondPlating.desc=高级电镀板更轻,更坚固,比基础的还硬,不过难以制造.
 module.energyShield.desc=能量护盾自然比电镀板轻,但是它消耗能量.
@@ -128,6 +159,30 @@ module.grafter.desc=一个集成到你动力全套上的林业剪枝器.
 module.scoop.desc=一个集成到你动力拳套上的林业捕虫网.
 module.apiaristArmor.desc=一套集成到你装备上的林业养蜂员护甲.
 module.chisel.desc=它无法让你雕刻方块,但至少它能让你收获它们.
+
+module.portableCraftingTable.desc=一个更大的便携式合成台.
+module.kineticGenerator.desc=利用你的移动来进行发电.
+module.solarGenerator.desc=让烈日成为你冒险的坚实后盾.
+module.thermalGenerator.desc=利用大量热能来进行发电.
+module.autoFeeder.desc=当你感到饥饿的时候,该模块会使用背包中最左下方的食物给你喂食 多余的食物会被储存起来以备不时之需.
+module.magnet.desc=产生一个强力磁场将掉落物品吸向玩家.                                          警告:                   该模块会持续消耗能量.不需要时请将其关闭.(按键绑定:k)
+module.oreScanner.desc=一个能够让你了解周围土地价值的模块.
+module.leafBlower.desc=产生一股强气流将植物和树叶从地面和树上吹落.
+module.mobRepulsor.desc=激活时会将怪物推开,但会持续消耗能量. 鉴于该模组的较高,强烈建议将该模组绑定快捷键.
+module.flintAndSteel.desc=一个使用能量点火的便携式打火石.
+module.clock.desc=一个无论你在何处,都能准确向你报时的钟表.可绑定快捷键.
+module.compass.desc=一个无论你在何处,都能准确向你告知方向的罗盘.可绑定快捷键.
+module.lightningSummoner.desc=让你能够消耗大量能源来召唤一条雷电.
+module.waterTank.desc=用于存储冷水,可在紧急情况下用于降温.
+module.teMultimeter.desc=一个整合至动力装甲中的标准多功能探测器.
+module.appengWireless.desc=一个整合至动力装甲中的应用能源无线终端.
+module.appengECWirelessFluid.desc=一个整合至动力装甲中的ExtraCell无线流体终端.
+module.advSolarGenerator.desc=一个太阳能发电模块,产能是普通太阳能发电模块的三倍.
+module.nitrogenCoolingSystem.desc=相比标准的冷却系统,能够更快的冷却装甲.
+module.mechAssistance.desc=通过机械辅助来减轻重量对使用者的压力
+module.cmPSD.desc=一个整合至动力装甲中的空间机器手持缩放仪.
+module.omniProbe.desc=一个整合至动力装甲中的标准多功能探测器.
+module.dimRiftGen.desc=在连续时空当中产生一条裂缝,使玩家能够在地狱和主世界的对应坐标来回穿梭.
 
 gui.noModulesFound.line1=未发现模块化动力套装物品
 gui.noModulesFound.line2=物品栏中发现目标.我们开始吧!
