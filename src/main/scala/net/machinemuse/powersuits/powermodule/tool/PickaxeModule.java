@@ -14,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
     public static final String MODULE_PICKAXE = "Pickaxe";
     public static final String PICKAXE_HARVEST_SPEED = "Pickaxe Harvest Speed";
     public static final String PICKAXE_ENERGY_CONSUMPTION = "Pickaxe Energy Consumption";
+    public static final ItemStack ironShovel = new ItemStack(Items.iron_shovel);
 
     public PickaxeModule(List<IModularItem> validItems) {
         super(validItems);

@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
+import com.google.common.collect.Sets;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
@@ -10,18 +11,30 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class ShovelModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
     public static final String MODULE_SHOVEL = "Shovel";
     public static final String SHOVEL_HARVEST_SPEED = "Shovel Harvest Speed";
     public static final String SHOVEL_ENERGY_CONSUMPTION = "Shovel Energy Consumption";
+    public static final ItemStack ironShovel = new ItemStack(Items.iron_shovel);
+    public static final ItemStack diamond_shovel = new ItemStack(Items.diamond_shovel);
+    private static final Set HarvestableMaterials = Sets.newHashSet(new Material[]{Material.sand,
+                                                                                    Material.ground,
+                                                                                    Material.snow,
+                                                                                    Material.craftedSnow,
+                                                                                    Material.snow,
+                                                                                    Material.grass,
+                                                                                    Material.clay});
 
     public ShovelModule(List<IModularItem> validItems) {
         super(validItems);
@@ -59,7 +72,7 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if (Items.iron_shovel.canHarvestBlock(block, stack)) {
+        if ((Items.iron_shovel.canHarvestBlock(block, stack)) || HarvestableMaterials.contains(block.getMaterial())) {
             if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION)) {
                 return true;
             }
