@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
@@ -9,20 +8,14 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockClay;
-import net.minecraft.block.BlockFlower;
-import net.minecraft.block.BlockSnow;
+import net.minecraft.block.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.machinemuse.powersuits.powermodule.PropertyModifierIntLinearAdditive;
-
-
 import java.util.List;
+
 
 /**
  * Created by User: Andrew2448
@@ -82,6 +75,34 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
     public void onRightClick(EntityPlayer player, World world, ItemStack item) {
     }
 
+    private boolean blockCheckAndHarvest(String blocktype, EntityPlayer player, World world, int x, int y, int z) {
+        Block block = world.getBlock(x, y, z);
+        int meta = world.getBlockMetadata(x, y, z);
+        if (block == null)
+            return false;
+
+        // Plants
+        if (blocktype == "plants" && (block != null) && ((block instanceof BlockTallGrass) || (block instanceof BlockFlower)) && block.canHarvestBlock(player, meta)) {
+            block.harvestBlock(world, player, x, y, z, meta);
+            world.setBlockToAir(x, y, z);
+            return true;
+        }
+
+        // Leaves
+        if (blocktype == "leaves" && block instanceof BlockLeaves && block.canHarvestBlock(player, meta)) {
+            block.harvestBlock(world, player, x, y, z, meta);
+            world.setBlockToAir(x, y, z);
+            return true;
+        }
+
+        // Snow
+        if (blocktype == "snow" && block instanceof BlockSnow && block.canHarvestBlock(player, meta)) {
+            block.harvestBlock(world, player, x, y, z, meta);
+            world.setBlockToAir(x, y, z);
+        }
+        return false;
+    }
+
     @Override
     public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         Block blockID = world.getBlock(x, y, z);
@@ -90,55 +111,21 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
         int snow = (int) ModuleManager.computeModularProperty(itemStack, SNOW_RADIUS);
         int totalEnergyDrain = 0;
 
-        // Leaves
-        if (blockID != null && blockID.isLeaves(world, x, y, z)) {
-            for (int i = -leaf; i < leaf; i++) {
-                for (int j = -leaf; j < leaf; j++) {
-                    for (int k = -leaf; k < leaf; k++) {
-                        Block leafBlock = world.getBlock(x + i, y + j, z + k);
-                        int meta = world.getBlockMetadata(x + i, y + j, z + k);
-                        if (leafBlock != null && leafBlock.isLeaves(world, x + i, y + j, z + k)) {
-                            if (leafBlock.canHarvestBlock(player, meta)) {
-                                leafBlock.harvestBlock(world, player, x + i, y + j, z + k, meta);
-                                totalEnergyDrain += ModuleManager.computeModularProperty(itemStack, LEAF_BLOWER_ENERGY_CONSUMPTION);
-                            }
-                            world.setBlockToAir(x + i, y + j, z + k);
-                        }
-                    }
-                }
-            }
-        }
-
-        //Snow
-        for (int i = -snow; i < snow; i++) {
-            for (int j = -snow; j < snow; j++) {
-                for (int k = -snow; k < snow; k++) {
-                    Block snowBlock = world.getBlock(x + i, y + j, z + k);
-                    int meta = world.getBlockMetadata(x + i, y + j, z + k);
-                    if (snowBlock instanceof BlockSnow) {
-                        snowBlock.harvestBlock(world, player, x + i, y + j, z + k, meta);
-                        totalEnergyDrain += ModuleManager.computeModularProperty(itemStack, LEAF_BLOWER_ENERGY_CONSUMPTION);
-                        world.setBlockToAir(x + i, y + j, z + k);
-
-                    }
-                }
-            }
-        }
-        ElectricItemUtils.drainPlayerEnergy(player, totalEnergyDrain);
-
-
         // Plants
-        for (int i = -plant; i < plant; i++) {
-            for (int j = -plant; j < plant; j++) {
-                for (int k = -plant; k < plant; k++) {
-                    Block flowerBlock = world.getBlock(x + i, y + j, z + k);
-                    int meta = world.getBlockMetadata(x + i, y + j, z + k);
-                    if (flowerBlock != null && flowerBlock instanceof BlockFlower) {
-                        if (flowerBlock.canHarvestBlock(player, meta)) {
-                            flowerBlock.harvestBlock(world, player, x + i, y + j, z + k, meta);
-                            totalEnergyDrain += ModuleManager.computeModularProperty(itemStack, LEAF_BLOWER_ENERGY_CONSUMPTION);
-                            world.setBlockToAir(x + i, y + j, z + k);
-                        }
+        useBlower(plant, "plants", itemStack, player, world,  x, y, z);
+        // Leaves
+        useBlower(leaf, "leaves", itemStack, player, world,  x, y, z);
+        // Snow
+        useBlower(snow, "snow", itemStack, player, world,  x, y, z);
+    }
+
+    private void useBlower(int radius, String blocktypename , ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z) {
+        int totalEnergyDrain = 0;
+        for (int i = -radius; i < radius; i++) {
+            for (int j = -radius; j < radius; j++) {
+                for (int k = -radius; k < radius; k++) {
+                    if (blockCheckAndHarvest(blocktypename, player, world, x + i, y + j, z + k)) {
+                        totalEnergyDrain += ModuleManager.computeModularProperty(itemStack, LEAF_BLOWER_ENERGY_CONSUMPTION);
                     }
                 }
             }
