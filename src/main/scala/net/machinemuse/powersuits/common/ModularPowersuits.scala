@@ -21,10 +21,8 @@ import net.machinemuse.powersuits.powermodule.tool.TerminalHandler;
  *
  * @author MachineMuse
  */
-@Mod(modid = "powersuits", modLanguage = "scala", dependencies = "required-after:numina@[" + ModularPowersuits.NuminaVersion + ",)")
+@Mod(modid = "powersuits", modLanguage = "scala", dependencies = "required-after:numina@[@numina_version@,)")
 object ModularPowersuits {
-  final val NuminaVersion = "@numina_version@"
-
   @SidedProxy(clientSide = "net.machinemuse.powersuits.common.ClientProxy", serverSide = "net.machinemuse.powersuits.common.ServerProxy")
   var proxy: CommonProxy = null
   var config: Configuration = null
