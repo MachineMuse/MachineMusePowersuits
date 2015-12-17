@@ -195,35 +195,42 @@ class ClientTickHandler {
     val maxHeat: Double = MuseHeatUtils.getMaxHeat(player)
     val currWater = AddonWaterUtils.getPlayerWater(player)
     val maxWater = AddonWaterUtils.getMaxWater(player)
+    val left: Double = screen.getScaledWidth - 30
+    val top: Double = screen.getScaledHeight / 2.0 - 16
 
+    // Heat Meter
+    val currHeatStr: String = MuseStringUtils.formatNumberShort(currHeat)
+    val maxHeatStr: String = MuseStringUtils.formatNumberShort(maxHeat)
+
+    if (Config.useGraphicalMeters) {
+      if (heat == null) {
+        heat = new HeatMeter
+      }
+      heat.draw(left + 8, top, currHeat / maxHeat)
+      MuseRenderer.drawRightAlignedString(currHeatStr, left - 2, top + 20)
+    }
+    else {
+      MuseRenderer.drawString(currHeatStr + '/' + maxHeatStr + " C", 1, 10)
+    }
+
+    // Energy Meter
     if (maxEnergy > 0 && BlockTinkerTable.energyIcon != null) {
       val currEnergyStr: String = MuseStringUtils.formatNumberShort(currEnergy)
       val maxEnergyStr: String = MuseStringUtils.formatNumberShort(maxEnergy)
-      val currHeatStr: String = MuseStringUtils.formatNumberShort(currHeat)
-      val maxHeatStr: String = MuseStringUtils.formatNumberShort(maxHeat)
 
       if (Config.useGraphicalMeters) {
         if (energy == null) {
           energy = new EnergyMeter
-          heat = new HeatMeter
         }
-
-        val left: Double = screen.getScaledWidth - 30
-        val top: Double = screen.getScaledHeight / 2.0 - 16
-
-        // numbers
         energy.draw(left, top, currEnergy / maxEnergy)
-        heat.draw(left + 8, top, currHeat / maxHeat)
-
-        // meters
         MuseRenderer.drawRightAlignedString(currEnergyStr, left - 2, top + 10)
-        MuseRenderer.drawRightAlignedString(currHeatStr, left - 2, top + 20)
       }
       else {
         MuseRenderer.drawString(currEnergyStr + '/' + maxEnergyStr + " \u1D60", 1, 1)
-        MuseRenderer.drawString(currHeatStr + '/' + maxHeatStr + " C", 1, 10)
       }
     }
+
+    // Water Meter
     if (maxWater > 0 && drawWaterMeter ) {
       val currWaterStr: String = MuseStringUtils.formatNumberShort(currWater)
       val maxWaterStr: String = MuseStringUtils.formatNumberShort(maxWater)
@@ -232,6 +239,7 @@ class ClientTickHandler {
         if (water == null) {
           water = new WaterMeter()
         }
+        
         val left: Double = screen.getScaledWidth - 30
         val top: Double = screen.getScaledHeight / 2.0 - 16
 
