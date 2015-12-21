@@ -239,7 +239,7 @@ class ClientTickHandler {
         if (water == null) {
           water = new WaterMeter()
         }
-        
+
         val left: Double = screen.getScaledWidth - 30
         val top: Double = screen.getScaledHeight / 2.0 - 16
 

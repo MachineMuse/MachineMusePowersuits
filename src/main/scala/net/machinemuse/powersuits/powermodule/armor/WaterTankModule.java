@@ -8,6 +8,7 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -76,15 +77,19 @@ public class WaterTankModule extends PowerModuleBase implements IPlayerTickModul
         if (MuseItemUtils.getWaterLevel(item) > ModuleManager.computeModularProperty(item, WATER_TANK_SIZE)) {
             MuseItemUtils.setWaterLevel(item, ModuleManager.computeModularProperty(item, WATER_TANK_SIZE));
         }
-        if (player.isInWater() && MuseItemUtils.getWaterLevel(item) < ModuleManager.computeModularProperty(item, WATER_TANK_SIZE)) {
+        // Fill tank if player is in water
+        Block block = player.worldObj.getBlock(MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ));
+        if (((block == Blocks.water) || block == Blocks.flowing_water) && MuseItemUtils.getWaterLevel(item) < ModuleManager.computeModularProperty(item, WATER_TANK_SIZE)) {
             MuseItemUtils.setWaterLevel(item, MuseItemUtils.getWaterLevel(item) + 1);
         }
+        // Fill tank if raining
         int xCoord = MathHelper.floor_double(player.posX);
         int zCoord = MathHelper.floor_double(player.posZ);
         boolean isRaining = (player.worldObj.getWorldChunkManager().getBiomeGenAt(xCoord, zCoord).getIntRainfall() > 0) && (player.worldObj.isRaining() || player.worldObj.isThundering());
         if (isRaining && player.worldObj.canBlockSeeTheSky(xCoord, MathHelper.floor_double(player.posY) + 1, zCoord) && (player.worldObj.getTotalWorldTime() % 5) == 0 && MuseItemUtils.getWaterLevel(item) < ModuleManager.computeModularProperty(item, WATER_TANK_SIZE)) {
             MuseItemUtils.setWaterLevel(item, MuseItemUtils.getWaterLevel(item) + 1);
         }
+        // Apply cooling
         double currentHeat = MuseHeatUtils.getPlayerHeat(player);
         double maxHeat = MuseHeatUtils.getMaxHeat(player);
         if ((currentHeat / maxHeat) >= ModuleManager.computeModularProperty(item, ACTIVATION_PERCENT) && MuseItemUtils.getWaterLevel(item) > 0) {
