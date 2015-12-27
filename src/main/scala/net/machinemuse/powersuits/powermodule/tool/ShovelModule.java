@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import com.google.common.collect.Sets;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
@@ -11,16 +10,16 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class ShovelModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
     public static final String MODULE_SHOVEL = "Shovel";
@@ -28,13 +27,6 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
     public static final String SHOVEL_ENERGY_CONSUMPTION = "Shovel Energy Consumption";
     public static final ItemStack ironShovel = new ItemStack(Items.iron_shovel);
     public static final ItemStack diamond_shovel = new ItemStack(Items.diamond_shovel);
-    private static final Set HarvestableMaterials = Sets.newHashSet(new Material[]{Material.sand,
-                                                                                    Material.ground,
-                                                                                    Material.snow,
-                                                                                    Material.craftedSnow,
-                                                                                    Material.snow,
-                                                                                    Material.grass,
-                                                                                    Material.clay});
 
     public ShovelModule(List<IModularItem> validItems) {
         super(validItems);
@@ -70,9 +62,32 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
         return "toolshovel";
     }
 
+    private boolean istEffectiveHarvestTool(Block block, int metadata)
+    {
+        ItemStack emulatedTool = new ItemStack(Items.iron_shovel);
+
+        if (emulatedTool.getItem().canHarvestBlock(block, emulatedTool))
+            return true;
+        
+        String effectiveTool = block.getHarvestTool(metadata);
+
+        // some blocks like stairs do no not have a tool assigned to them
+        if (effectiveTool == null)
+        {
+            {
+                if (emulatedTool.func_150997_a/*getStrVsBlock*/(block) >= ((ItemTool) emulatedTool.getItem()).func_150913_i/*getToolMaterial*/().getEfficiencyOnProperMaterial())
+                {
+                    return true;
+                }
+            }
+        }
+        return effectiveTool == "shovel";
+    }
+
     @Override
     public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if ((Items.iron_shovel.canHarvestBlock(block, stack)) || HarvestableMaterials.contains(block.getMaterial())) {
+        if (istEffectiveHarvestTool(block, meta)) {
+
             if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION)) {
                 return true;
             }
@@ -82,7 +97,7 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityPlayer player) {
-        int meta = world.getBlockMetadata(x,y,z);
+        int meta = world.getBlockMetadata(x, y, z);
         if (canHarvestBlock(stack, block, meta, player)) {
             ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION));
             return true;
