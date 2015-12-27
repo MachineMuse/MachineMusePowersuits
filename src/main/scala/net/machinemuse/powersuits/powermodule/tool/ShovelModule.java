@@ -10,12 +10,10 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
@@ -68,7 +66,7 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
 
         if (emulatedTool.getItem().canHarvestBlock(block, emulatedTool))
             return true;
-        
+
         String effectiveTool = block.getHarvestTool(metadata);
 
         // some blocks like stairs do no not have a tool assigned to them
