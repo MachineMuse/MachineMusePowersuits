@@ -23,8 +23,6 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
     public static final String MODULE_SHOVEL = "Shovel";
     public static final String SHOVEL_HARVEST_SPEED = "Shovel Harvest Speed";
     public static final String SHOVEL_ENERGY_CONSUMPTION = "Shovel Energy Consumption";
-    public static final ItemStack ironShovel = new ItemStack(Items.iron_shovel);
-    public static final ItemStack diamond_shovel = new ItemStack(Items.diamond_shovel);
 
     public ShovelModule(List<IModularItem> validItems) {
         super(validItems);
