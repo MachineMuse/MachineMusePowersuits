@@ -13,17 +13,17 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 import java.util.List;
+
 
 public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
     public static final String MODULE_PICKAXE = "Pickaxe";
     public static final String PICKAXE_HARVEST_SPEED = "Pickaxe Harvest Speed";
     public static final String PICKAXE_ENERGY_CONSUMPTION = "Pickaxe Energy Consumption";
-    public static final ItemStack ironShovel = new ItemStack(Items.iron_shovel);
 
     public PickaxeModule(List<IModularItem> validItems) {
         super(validItems);
@@ -80,8 +80,25 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
         event.newSpeed *= ModuleManager.computeModularProperty(event.entityPlayer.getCurrentEquippedItem(), PICKAXE_HARVEST_SPEED);
     }
 
+    private static boolean istEffectiveHarvestTool(Block block, int metadata) {
+        ItemStack emulatedTool = new ItemStack(Items.iron_pickaxe);
+        String effectiveHarvestTool = block.getHarvestTool(metadata);
+        if (effectiveHarvestTool == "pickaxe") {
+            return block.getHarvestLevel(metadata) <= 2; // higher than 2 requires better then iron
+        }
+
+        // some blocks like stairs do no not have a tool assigned to them
+        if (effectiveHarvestTool == null) {
+           if (emulatedTool.func_150997_a/*getStrVsBlock*/(block) >= ((ItemTool) emulatedTool.getItem()).func_150913_i/*getToolMaterial*/().getEfficiencyOnProperMaterial())
+           {
+               return true;
+           }
+        }
+        return false;
+    }
+
     public static boolean harvestCheck(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if (Items.iron_pickaxe.canHarvestBlock(block, stack)) {
+        if (istEffectiveHarvestTool(block, meta)) {
             if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, PICKAXE_ENERGY_CONSUMPTION)) {
                 return true;
             }
