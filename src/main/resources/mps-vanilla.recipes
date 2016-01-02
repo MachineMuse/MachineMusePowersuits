@@ -275,9 +275,9 @@
 	},
 	{
 		"ingredients" : [
-			[ { "oredictName" : "blockWoolBlack" }, { "oredictName" : "blockWoolBlack" }, { "oredictName" : "blockWoolBlack" } ],
+			[ { "registryName" :  "minecraft:wool", "meta" : 15 }, { "registryName" :  "minecraft:wool", "meta" : 15 }, { "registryName" : "minecraft:wool", "meta" : 15 } ],
 			[ { "oredictName" : "blockGlass" }, null, { "oredictName" : "blockGlass" } ],
-			[ { "oredictName" : "blockWoolBlack" }, { "oredictName" : "blockWoolBlack" }, { "oredictName" : "blockWoolBlack" } ]
+			[ { "registryName" : "minecraft:wool", "meta" : 15 }, { "registryName" :  "minecraft:wool", "meta" : 15 }, { "registryName" : "minecraft:wool", "meta" : 15} ]
 		],
 		"result" : {
 			"oredictName" : "componentRubberHose"
@@ -285,7 +285,7 @@
 	},
 	{
 		"ingredients" : [
-			[ { "oredictName" : "blockIce" }, { "oredictName" : "blockPackedIce" }, { "oredictName" : "blockIce" } ],
+			[ { "oredictName" : "blockIce" }, { "registryName" : "minecraft:packed_ice" }, { "oredictName" : "blockIce" } ],
 			[ { "registryName" : "minecraft:water_bucket" }, { "registryName" : "minecraft:water_bucket" }, { "registryName" : "minecraft:water_bucket" } ],
 			[ null, { "registryName" : "minecraft:bucket" }, null ]
 		],
