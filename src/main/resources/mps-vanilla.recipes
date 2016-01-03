@@ -285,7 +285,7 @@
 	},
 	{
 		"ingredients" : [
-			[ { "oredictName" : "blockIce" }, { "registryName" : "minecraft:packed_ice" }, { "oredictName" : "blockIce" } ],
+			[ { "registryName" : "minecraft:ice" }, { "registryName" : "minecraft:packed_ice" }, { "registryName" : "minecraft:ice" } ],
 			[ { "registryName" : "minecraft:water_bucket" }, { "registryName" : "minecraft:water_bucket" }, { "registryName" : "minecraft:water_bucket" } ],
 			[ null, { "registryName" : "minecraft:bucket" }, null ]
 		],
