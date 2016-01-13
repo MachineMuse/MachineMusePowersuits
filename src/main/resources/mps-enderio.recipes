@@ -3,7 +3,7 @@
 		"ingredients" : [
 			[ null, { "oredictName" : "gemEmerald" }, null ],
 			[ { "oredictName" : "ingotElectricalSteel"}, { "registryName" : "EnderIO:itemBasicCapacitor" }, { "oredictName" : "ingotElectricalSteel"} ],
-			[ null, { "oredictName" : "itemMachineChasis" }, null ]
+			[ null, { "oredictName" : "itemMachineChassis" }, null ]
 		],
 		"result" : {
 			"registryName" : "powersuits:tile.tinkerTable"
