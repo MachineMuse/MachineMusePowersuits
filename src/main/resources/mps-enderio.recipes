@@ -3,7 +3,7 @@
 		"ingredients" : [
 			[ null, { "oredictName" : "gemEmerald" }, null ],
 			[ { "oredictName" : "ingotElectricalSteel"}, { "registryName" : "EnderIO:itemBasicCapacitor" }, { "oredictName" : "ingotElectricalSteel"} ],
-			[ null, { "oredictName" : "itemMachineChassi" }, null ]
+			[ null, { "oredictName" : "itemMachineChasis" }, null ]
 		],
 		"result" : {
 			"registryName" : "powersuits:tile.tinkerTable"
@@ -247,7 +247,7 @@
 		"ingredients" : [
 			[ { "oredictName" : "dyeBlue" }, { "oredictName" : "blockGlass" }, { "oredictName" : "dyeBlue" } ],
 			[ { "oredictName" : "blockGlass" }, { "oredictName" : "blockLapis" }, { "oredictName" : "blockGlass" } ],
-			[ { "oredictName" : "circuitBasic" }, { "oredictName" : "circuitAdvanced" }, { "oredictName" : "circuitBasic" } ]
+			[ { "oredictName" : "itemSilicon" }, { "oredictName" : "componentControlCircuit" }, { "oredictName" : "itemSilicon" } ]
 		],
 		"result" : {
 			"oredictName" : "componentSolarPanel"
