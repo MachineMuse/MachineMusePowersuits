@@ -247,7 +247,7 @@
 		"ingredients" : [
 			[ { "oredictName" : "dyeBlue" }, { "oredictName" : "blockGlass" }, { "oredictName" : "dyeBlue" } ],
 			[ { "oredictName" : "blockGlass" }, { "oredictName" : "blockLapis" }, { "oredictName" : "blockGlass" } ],
-			[ { "oredictName" : "itemSilicon" }, { "oredictName" : "componentControlCircuit" }, { "oredictName" : "itemSilicon" } ]
+			[ { "oredictName" : "itemSilicon" }, { "oredictName" : "itgotRedstoneAlloy" }, { "oredictName" : "itemSilicon" } ]
 		],
 		"result" : {
 			"oredictName" : "componentSolarPanel"
