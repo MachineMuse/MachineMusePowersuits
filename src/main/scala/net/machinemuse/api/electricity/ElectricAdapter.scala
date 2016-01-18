@@ -1,5 +1,7 @@
 package net.machinemuse.api.electricity
 
+import appeng.api.config.AccessRestriction
+import appeng.api.implementations.items.IAEItemPowerStorage
 import cofh.api.energy.IEnergyContainerItem
 import ic2.api.item.ElectricItem
 import ic2.api.item.IElectricItem
@@ -12,10 +14,12 @@ object ElectricAdapter {
     val i = stack.getItem
     if (i.isInstanceOf[MuseElectricItem]) {
       new MuseElectricAdapter(stack)
-    } else if (ModCompatibility.isCoFHCoreLoaded && i.isInstanceOf[IEnergyContainerItem]) {
+    } else if (ModCompatibility.isRFAPILoaded && i.isInstanceOf[IEnergyContainerItem]) {
       new TEElectricAdapter(stack)
     } else if (ModCompatibility.isIndustrialCraftLoaded && i.isInstanceOf[IElectricItem]) {
       new IC2ElectricAdapter(stack)
+    } else if (ModCompatibility.isAppengLoaded && i.isInstanceOf[IAEItemPowerStorage]) {
+      new AE2ElectricAdapter(stack)
     } else {
       null
     }
@@ -73,5 +77,19 @@ class TEElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
   def drainEnergy(requested: Double): Double = museEnergyFromRF(item.extractEnergy(stack, museEnergyToRF(requested), false))
 
   def giveEnergy(provided: Double): Double = museEnergyFromRF(item.receiveEnergy(stack, museEnergyToRF(provided), false))
+}
 
+class AE2ElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
+  val item =  stack.getItem.asInstanceOf[IAEItemPowerStorage]
+  import net.machinemuse.api.electricity.ElectricConversions._
+
+  def getCurrentEnergy: Double = museEnergyFromAE(item.getAECurrentPower(stack))
+
+  def getMaxEnergy: Double = museEnergyFromAE(item.getAEMaxPower(stack))
+
+  def drainEnergy(requested: Double): Double = museEnergyFromAE(item.extractAEPower(stack, museEnergyToAE(requested)))
+
+  def giveEnergy(provided: Double): Double = museEnergyFromAE(item.injectAEPower(stack,museEnergyToAE(provided)))
+
+  def getPowerFlow(stack: ItemStack): AccessRestriction = AccessRestriction.READ_WRITE
 }

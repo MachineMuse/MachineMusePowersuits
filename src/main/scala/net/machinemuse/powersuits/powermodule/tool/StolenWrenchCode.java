@@ -45,7 +45,7 @@ public class StolenWrenchCode {
         if (MinecraftForge.EVENT_BUS.post(event) || event.getResult() == Event.Result.DENY || event.useBlock == Event.Result.DENY || event.useItem == Event.Result.DENY) {
             return false;
         }
-        if (ModCompatibility.isCoFHCoreLoaded() && ServerHelper.isServerWorld(world) && player.isSneaking() && block instanceof IDismantleable
+        if (ModCompatibility.isRFAPILoaded() && ServerHelper.isServerWorld(world) && player.isSneaking() && block instanceof IDismantleable
                 && ((IDismantleable) block).canDismantle(player, world, x, y, z)) {
             ((IDismantleable) block).dismantleBlock(player, world, x, y, z, false);
 

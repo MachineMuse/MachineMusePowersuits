@@ -10,5 +10,4 @@ public class ToggleablePowerModule extends PowerModule implements IToggleableMod
 	public ToggleablePowerModule(String name, List<IModularItem> validItems, String textureFile, String category) {
 		super(name, validItems, textureFile, category);
 	}
-
 }

@@ -23,4 +23,8 @@ object ElectricConversions {
 
   def museEnergyFromRF(rf: Int): Double = rf * ModCompatibility.getRFRatio
 
+  //AE2
+  def museEnergyFromAE(ae: Double): Double = ae * ModCompatibility.getAE2Ratio
+
+  def museEnergyToAE(museEnergy: Double): Double = museEnergy / ModCompatibility.getAE2Ratio
 }

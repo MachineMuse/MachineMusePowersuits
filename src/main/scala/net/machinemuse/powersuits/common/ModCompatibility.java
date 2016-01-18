@@ -15,8 +15,6 @@ import java.util.Collections;
 
 public class ModCompatibility {
 
-    public static double appengMultiplier;
-
     public static boolean isGregTechLoaded() {
         return Loader.isModLoaded("gregtech_addon");
     }
@@ -37,8 +35,8 @@ public class ModCompatibility {
         return Loader.isModLoaded("GalacticraftCore");
     }
 
-    public static boolean isCoFHCoreLoaded() {
-        return Loader.isModLoaded("CoFHCore");
+    public static boolean isRFAPILoaded() {
+        return Loader.isModLoaded("CoFHAPI|energy");
     }
 
     public static boolean isForestryLoaded() {
@@ -78,12 +76,22 @@ public class ModCompatibility {
         return Config.getConfig().get("Special Modules", "Thaumcraft Goggles Module", defaultval).getBoolean(defaultval);
     }
 
+    // 1 MJ = 2.5 EU
+    // 1 EU = 0.4 MJ
     public static double getIC2Ratio() {
         return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per IC2 EU", 0.4).getDouble(0.4);
     }
 
+    // 1 MJ = 10 RF
+    // 1 RF = 0.1 MJ
     public static double getRFRatio() {
         return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per RF", 0.1).getDouble(0.1);
+    }
+
+    // 1 MJ = 5 AE
+    // 1 AE = 0.2 MJ
+    public static double getAE2Ratio() {
+        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per AE", 0.2).getDouble(0.2);
     }
 
     public static void registerModSpecificModules() {
@@ -126,7 +134,6 @@ public class ModCompatibility {
 
         // Applied Energistics
         if (isAppengLoaded()) {
-            appengMultiplier = Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per AE", 5.0).getDouble(5.0);
             ModuleManager.addModule(new AppEngWirelessModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
 
             // Extra Cells 2
