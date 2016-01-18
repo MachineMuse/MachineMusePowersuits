@@ -1,5 +1,7 @@
 package net.machinemuse.api.electricity
 
+import appeng.api.config.AccessRestriction
+import appeng.api.implementations.items.IAEItemPowerStorage
 import cofh.api.energy.IEnergyContainerItem
 import cpw.mods.fml.common.Optional
 import ic2.api.item.{IElectricItemManager, ISpecialElectricItem, IElectricItem, ElectricItem}
@@ -15,14 +17,16 @@ import net.minecraft.item.{Item, ItemStack}
  */
 
 @Optional.InterfaceList(Array(
-  new Optional.Interface(iface = "cofh.api.energy.IEnergyContainerItem", modid = "CoFHCore", striprefs = true),
+  new Optional.Interface(iface = "cofh.api.energy.IEnergyContainerItem", modid = "CoFHAPI|energy", striprefs = true),
   new Optional.Interface(iface = "ic2.api.item.IElectricItemManager", modid = "IC2", striprefs = true),
-  new Optional.Interface(iface = "ic2.api.item.ISpecialElectricItem", modid = "IC2", striprefs = true)))
+  new Optional.Interface(iface = "ic2.api.item.ISpecialElectricItem", modid = "IC2", striprefs = true),
+  new Optional.Interface(iface = "appeng.api.implementations.items.IAEItemPowerStorage", modid = "AE2", striprefs = true)))
 trait MuseElectricItem extends Item 
 with IEnergyContainerItem 
 with ISpecialElectricItem 
 with IElectricItemManager 
-with IElectricItem {
+with IElectricItem
+with IAEItemPowerStorage {
   /**
    * Call to get the energy of an item
    *
@@ -167,4 +171,25 @@ with IElectricItem {
   def getMaxEnergyStored(theItem: ItemStack) = museEnergyToRF(getMaxEnergy(theItem)).toInt
 
   override def getMaxDamage(itemStack: ItemStack) = 0
+
+  // AE2
+  def injectAEPower(stack: ItemStack, ae: Double): Double = {
+    val current: Double = getCurrentEnergy(stack)
+    val recieved: Double = museEnergyFromAE(ae)
+    setCurrentEnergy(stack, current)
+    museEnergyToAE(recieved)
+  }
+
+  def extractAEPower(stack: ItemStack, ae: Double): Double  = {
+    val current: Double = getCurrentEnergy(stack)
+    val taken: Double = museEnergyFromAE(ae)
+    setCurrentEnergy(stack, current)
+    museEnergyToAE(taken)
+  }
+
+  def getAEMaxPower(stack: ItemStack) = museEnergyToAE(getCurrentEnergy(stack)).toInt
+
+  def getAECurrentPower(stack: ItemStack) = museEnergyToAE(getCurrentEnergy(stack)).toInt
+
+  def getPowerFlow(stack: ItemStack): AccessRestriction = AccessRestriction.READ_WRITE
 }

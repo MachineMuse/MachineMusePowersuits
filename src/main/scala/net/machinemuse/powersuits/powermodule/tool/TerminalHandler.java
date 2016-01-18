@@ -47,9 +47,9 @@ public boolean canHandle(ItemStack is) {
 @Override
 public boolean usePower(EntityPlayer entityPlayer, double v, ItemStack itemStack) {
         boolean ret = false;
-        if (( v * ModCompatibility.appengMultiplier ) < ( ElectricItemUtils.getPlayerEnergy( entityPlayer ) * ModCompatibility.appengMultiplier ))
+        if (( v * ModCompatibility.getAE2Ratio() ) < ( ElectricItemUtils.getPlayerEnergy( entityPlayer ) * ModCompatibility.getAE2Ratio() ))
         {
-                ElectricItemUtils.drainPlayerEnergy(entityPlayer, ( v * ModCompatibility.appengMultiplier ) );
+                ElectricItemUtils.drainPlayerEnergy(entityPlayer, ( v * ModCompatibility.getAE2Ratio() ) );
                 ret = true;
         }
 
@@ -59,7 +59,7 @@ public boolean usePower(EntityPlayer entityPlayer, double v, ItemStack itemStack
 @Optional.Method(modid = "appliedenergistics2")
 @Override
 public boolean hasPower(EntityPlayer entityPlayer, double v, ItemStack itemStack) {
-        return (( v * ModCompatibility.appengMultiplier ) < ( ElectricItemUtils.getPlayerEnergy(entityPlayer) * ModCompatibility.appengMultiplier ));
+        return (( v * ModCompatibility.getAE2Ratio() ) < ( ElectricItemUtils.getPlayerEnergy(entityPlayer) * ModCompatibility.getAE2Ratio() ));
 }
 
 @Optional.Method(modid = "appliedenergistics2")

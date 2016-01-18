@@ -21,7 +21,7 @@ new Optional.Interface (iface = "forestry.api.core.IArmorNaturalist", modid = "F
 new Optional.Interface (iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft", striprefs = true),
 new Optional.Interface (iface = "thaumcraft.api.nodes.IRevealer", modid = "Thaumcraft", striprefs = true),
 new Optional.Interface (iface = "micdoodle8.mods.galacticraft.api.item.IBreathableArmor", modid = "GalacticraftCore", striprefs = true)
-) )
+))
 class ItemPowerArmorHelmet extends ItemPowerArmor(0, 0)
 with IArmorNaturalist
 with IBreathableArmor

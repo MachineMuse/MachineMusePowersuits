@@ -76,7 +76,7 @@ public class AppEngWirelessFluidModule extends PowerModuleBase implements IRight
 
     @Override
     public void onRightClick(EntityPlayer player, World world, ItemStack item) {
-        ECApi.instance().openWirelessTerminal(player, player.getHeldItem(), world);
+        ECApi.instance().openWirelessFluidTerminal(player, player.getHeldItem(), world);
     }
 
     @Override
