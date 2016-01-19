@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.common;
 
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.ModAPIManager;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.general.MuseLogger;
@@ -36,7 +37,7 @@ public class ModCompatibility {
     }
 
     public static boolean isRFAPILoaded() {
-        return Loader.isModLoaded("CoFHAPI|energy");
+        return ModAPIManager.INSTANCE.hasAPI("CoFHAPI|energy");
     }
 
     public static boolean isForestryLoaded() {
