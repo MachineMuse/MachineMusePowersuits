@@ -40,6 +40,14 @@ public class ModCompatibility {
         return ModAPIManager.INSTANCE.hasAPI("CoFHAPI|energy");
     }
 
+    public static boolean isCOFHLibLoaded() {
+        return ModAPIManager.INSTANCE.hasAPI("CoFHLib");
+    }
+
+    public static boolean isCOFHCoreLoaded() {
+        return ModAPIManager.INSTANCE.hasAPI("CoFHCore");
+    }
+
     public static boolean isForestryLoaded() {
         return Loader.isModLoaded("Forestry");
     }
@@ -99,6 +107,11 @@ public class ModCompatibility {
         // Make the energy ratios show up in config file
         getIC2Ratio();
         getRFRatio();
+
+        // CoFH Lib - CoFHLib is included in CoFHCore
+        if (isCOFHLibLoaded()|| isCOFHCoreLoaded()) {
+            ModuleManager.addModule(new OmniWrenchModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
+        }
 
         // Thaumcraft
         if (isThaumCraftLoaded() && enableThaumGogglesModule()) {

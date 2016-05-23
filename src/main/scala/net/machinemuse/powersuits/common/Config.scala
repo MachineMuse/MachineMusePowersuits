@@ -200,7 +200,7 @@ object Config {
     addModule(new ShearsModule(TOOLONLY))
     addModule(new HoeModule(TOOLONLY))
     addModule(new LuxCapacitor(TOOLONLY))
-    addModule(new OmniWrenchModule(TOOLONLY))
+    //addModule(new OmniWrenchModule(TOOLONLY)) // Requires COFH lib/core
     addModule(new FieldTinkerModule(TOOLONLY))
     addModule(new MeleeAssistModule(TOOLONLY))
     addModule(new PlasmaCannonModule(TOOLONLY))
