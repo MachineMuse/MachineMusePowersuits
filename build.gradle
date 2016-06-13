@@ -1,47 +1,68 @@
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
         maven {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
         }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
+	maven {
+            url = 'https://oss.sonatype.org/content/groups/public' 
+	}
+	// needed?
+    	maven {
+            url "https://plugins.gradle.org/m2/"
+    	}
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+	    classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.0.5"
     }
 }
 
 apply plugin: 'scala'
-apply plugin: 'forge'
-apply plugin: 'curseforge'
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'com.matthewprenger.cursegradle'
+apply plugin: 'idea'
 
-// define the properties file
-ext.configFile = file "project.properties"
+/*
+// enable if java 1.8 + scala support still horrible
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
-configFile.withReader {
-    // read config.  it shall from now on be referenced as simply config or as project.config
-    def prop = new Properties()
-    prop.load(it)
-    project.ext.config = new ConfigSlurper().parse prop
+tasks.withType(ScalaCompile) {
+    // Use incremental compilation
+    //scalaCompileOptions.useAnt = false // supposed to be a fix for java 8  
+    scalaCompileOptions.additionalParameters = ["-target:jvm-1.7"]
 }
+*/
 
 def buildnumber = System.getenv("BUILD_NUMBER")
 def travisbuildnumber = (System.getenv("TRAVIS_BUILD_NUMBER") ?: -111).toInteger() + 111
-version = "${config.mod_version}." + (buildnumber ?: travisbuildnumber)
-group= "${config.group_id}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "${config.mod_id}"
+version = mod_version + "-" + (buildnumber ?: travisbuildnumber)
+group= group_id // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = mod_id
 def numina_version = (System.getenv("NUMINA_VERSION") ?:"0.4.0.131")
 
-minecraft {
-    version = "${config.minecraft_version}-${config.forge_version}"
-    replace "@numina_version@", numina_version
-    runDir = "run"
+repositories {
+	//JEI
+	maven {
+            url "http://dvs1.progwml6.com/files/maven"
+	}
 }
 
+dependencies {
+    deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
+}
+
+minecraft {
+    version = minecraft_version + "-" + forge_version
+    runDir = "run"
+    mappings = mcp_mappings
+    replace "@numina_version@", project.version
+    useDepAts = true
+}
+
+/*
 new File(config.libs_dir).mkdirs()
 def getLibrary(filename) {
     def f = new File(config.libs_dir + filename)
@@ -74,6 +95,8 @@ getLibrary("ProjectRed-1.7.10-4.7.0pre8.92-Base.jar")
 getLibrary("Chisel2-2.5.0.43-deobf.jar")
 getLibrary("Chisel-2.9.0.3-deobf.jar")
 getLibrary("compactmachines-1.7.10-1.20-dev.jar") // This is for the personal shrinking device module; needs to be built from source.
+*/
+
 
 processResources {
     // this will ensure that this task is redone when the versions change.
@@ -83,7 +106,6 @@ processResources {
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-
         // replace version and mcversion
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
@@ -103,6 +125,10 @@ jar {
 task devJar(type: Jar) {
     from sourceSets.main.output
     classifier = 'dev'
+}
+
+artifacts {
+    archives devJar
 }
 
 task copyToLib(type: Copy) {
@@ -137,14 +163,18 @@ def getGitChangelog = { ->
 
 build.dependsOn(copyToLib)
 
-artifacts {
-    archives devJar
-}
 
-curse {
-    projectId = '235442'
+
+curseforge {
     apiKey = project.hasProperty('curseForgeApiKey') ? project.curseForgeApiKey : ''
     def branch = System.getenv("GIT_BRANCH")
+
+  project {
+    id = '235442'
+    changelog = getGitChangelog()
+    addGameVersion '1.8.9'
+    //relatedProject 'numina': 'requiredLibrary'
+
     if(branch == null) {
         releaseType = 'alpha'
     } else if(branch.equals("origin/experimental")) {
@@ -153,16 +183,10 @@ curse {
         releaseType = 'release'
     } else {
         releaseType = 'alpha'
-    }
-
-    changelog = getGitChangelog()
-
-    addGameVersion '1.7.10'
-
-    relatedProject 'numina': 'requiredLibrary'
+    }    
+  }    
 }
 
-apply plugin: 'idea'
 idea {
     module {
         inheritOutputDirs = true
