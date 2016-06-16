@@ -1,7 +1,5 @@
 package net.machinemuse.general.gui.clickable
 
-import cpw.mods.fml.common.FMLCommonHandler
-import cpw.mods.fml.relauncher.Side
 import net.machinemuse.numina.geometry.Colour
 import net.machinemuse.numina.geometry.MusePoint2D
 import net.machinemuse.numina.network.PacketSender
@@ -12,9 +10,11 @@ import net.machinemuse.utils.{MuseStringUtils, MuseItemUtils}
 import net.machinemuse.utils.MuseStringUtils.FormatCodes
 import net.machinemuse.utils.render.{GuiIcons, MuseRenderer}
 import net.minecraft.client.Minecraft
-import net.minecraft.client.entity.EntityClientPlayerMP
+import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.client.settings.KeyBinding
-import net.minecraft.util.ChatComponentText
+import net.minecraft.util.text.TextComponentString
+import net.minecraftforge.fml.common.FMLCommonHandler
+import net.minecraftforge.fml.relauncher.Side
 import org.lwjgl.input.Keyboard
 import java.util.ArrayList
 import java.util.Iterator
@@ -39,7 +39,7 @@ class ClickableKeybinding(val keybind: KeyBinding, position: MusePoint2D, val fr
   var toggled: Boolean = false
 
   def doToggleTick {
-    doToggleIf(keybind.getIsKeyPressed)
+    doToggleIf(keybind.isPressed)
   }
 
   def doToggleIf(value: Boolean) {
@@ -51,7 +51,7 @@ class ClickableKeybinding(val keybind: KeyBinding, position: MusePoint2D, val fr
   }
 
   def toggleModules() {
-    val player: EntityClientPlayerMP = Minecraft.getMinecraft.thePlayer
+    val player: EntityPlayerSP = Minecraft.getMinecraft.thePlayer
     if (player == null) {
       return
     }
@@ -59,7 +59,7 @@ class ClickableKeybinding(val keybind: KeyBinding, position: MusePoint2D, val fr
     for (module <- boundModules) {
       val valstring: String = if (toggleval) " on" else " off"
       if ((FMLCommonHandler.instance.getEffectiveSide eq Side.CLIENT) && Config.toggleModuleSpam) {
-        player.addChatMessage(new ChatComponentText("Toggled " + module.getModule.getDataName + valstring))
+        player.addChatMessage(new TextComponentString("Toggled " + module.getModule.getDataName + valstring))
       }
       MuseItemUtils.toggleModuleForPlayer(player, module.getModule.getDataName, toggleval)
       val toggleRequest: MusePacketToggleRequest = new MusePacketToggleRequest(player, module.getModule.getDataName, toggleval)

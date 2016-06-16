@@ -4,9 +4,9 @@ import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.general.gui.frame.*;
 import net.machinemuse.utils.render.MuseRenderer;
-import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.StatCollector;
 
 /**
  * The gui class for the TinkerTable block.
@@ -14,7 +14,7 @@ import net.minecraft.util.StatCollector;
  * @author MachineMuse
  */
 public class GuiFieldTinker extends MuseGui {
-    protected EntityClientPlayerMP player;
+    protected EntityPlayerSP player;
 
     protected ItemSelectionFrame itemSelectFrame;
 
@@ -24,7 +24,7 @@ public class GuiFieldTinker extends MuseGui {
      * @param player
      */
     public GuiFieldTinker(EntityPlayer player) {
-        this.player = (EntityClientPlayerMP) player;
+        this.player = (EntityPlayerSP) player;
         this.xSize = 256;
         this.ySize = 200;
     }
@@ -58,8 +58,8 @@ public class GuiFieldTinker extends MuseGui {
         if (itemSelectFrame.hasNoItems()) {
             double centerx = absX(0);
             double centery = absY(0);
-            MuseRenderer.drawCenteredString(StatCollector.translateToLocal("gui.noModulesFound.line1"), centerx, centery - 5);
-            MuseRenderer.drawCenteredString(StatCollector.translateToLocal("gui.noModulesFound.line2"), centerx, centery + 5);
+            MuseRenderer.drawCenteredString( I18n.format("gui.noModulesFound.line1"), centerx, centery - 5);
+            MuseRenderer.drawCenteredString( I18n.format("gui.noModulesFound.line2"), centerx, centery + 5);
         }
     }
 }

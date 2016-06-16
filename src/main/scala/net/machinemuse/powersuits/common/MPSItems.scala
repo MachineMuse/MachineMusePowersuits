@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.common
 
-import cpw.mods.fml.common.registry.GameRegistry
 import net.machinemuse.powersuits.block.{BlockLuxCapacitor, BlockTinkerTable}
 import net.machinemuse.powersuits.item._
+import net.minecraftforge.fml.common.registry.GameRegistry
 
 /**
  * Created by Claire Semple on 9/9/2014.

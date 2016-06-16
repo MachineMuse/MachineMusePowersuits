@@ -3,9 +3,6 @@ package net.machinemuse.powersuits.common
 import java.nio.file.{Paths, Files}
 
 import com.google.gson.Gson
-import cpw.mods.fml.common.FMLCommonHandler
-import cpw.mods.fml.common.registry.GameRegistry
-import cpw.mods.fml.relauncher.Side
 import net.machinemuse.api.IModularItem
 import net.machinemuse.api.IPowerModule
 import net.machinemuse.api.ModuleManager
@@ -20,11 +17,14 @@ import net.machinemuse.powersuits.powermodule.movement._
 import net.machinemuse.powersuits.powermodule.tool._
 import net.machinemuse.powersuits.powermodule.weapon._
 import net.machinemuse.utils.{MuseCommonStrings, MuseStringUtils}
+import net.minecraft.client.resources.I18n
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
-import net.minecraft.util.StatCollector
 import net.minecraftforge.common.config.Configuration
+import net.minecraftforge.fml.common.FMLCommonHandler
+import net.minecraftforge.fml.common.registry.GameRegistry
+import net.minecraftforge.fml.relauncher.Side
 import org.lwjgl.input.Keyboard
 import java.io.{PrintWriter, FileOutputStream, FileInputStream, File}
 import java.util.Arrays
@@ -265,7 +265,7 @@ object Config {
   }
 
   def additionalInfoInstructions: AnyRef = {
-    var message: String = StatCollector.translateToLocal("tooltip.pressShift")
+    var message: String =  I18n.format("tooltip.pressShift")
     message = MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic)
     return message
   }

@@ -3,9 +3,9 @@ package net.machinemuse.general.gui.frame
 import net.machinemuse.numina.geometry.MusePoint2D
 import java.util
 import net.machinemuse.general.gui.clickable.ClickableButton
+import net.minecraft.client.resources.I18n
 import net.minecraft.entity.player.EntityPlayer
 import net.machinemuse.powersuits.common.ModularPowersuits
-import net.minecraft.util.StatCollector
 
 /**
  * @author MachineMuse
@@ -14,9 +14,9 @@ class TabSelectFrame(p: EntityPlayer, topleft: MusePoint2D, bottomright: MusePoi
                      worldx: Int, worldy: Int, worldz: Int)
   extends IGuiFrame {
   val buttons = Array(
-    (new ClickableButton(StatCollector.translateToLocal("gui.tab.tinker"), topleft.midpoint(bottomright).minus(100, 0), worldy < 256  && worldy > 0), 0),
-    (new ClickableButton(StatCollector.translateToLocal("gui.tab.keybinds"), topleft.midpoint(bottomright), true), 1),
-    (new ClickableButton(StatCollector.translateToLocal("gui.tab.visual"), topleft.midpoint(bottomright).plus(100, 0), true), 3)
+    (new ClickableButton( I18n.format("gui.tab.tinker"), topleft.midpoint(bottomright).minus(100, 0), worldy < 256  && worldy > 0), 0),
+    (new ClickableButton( I18n.format("gui.tab.keybinds"), topleft.midpoint(bottomright), true), 1),
+    (new ClickableButton( I18n.format("gui.tab.visual"), topleft.midpoint(bottomright).plus(100, 0), true), 3)
   )
 
   def onMouseDown(x: Double, y: Double, button: Int): Unit = {

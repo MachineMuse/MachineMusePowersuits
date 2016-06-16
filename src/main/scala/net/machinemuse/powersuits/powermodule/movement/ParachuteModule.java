@@ -48,7 +48,7 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
         PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderName());
         float forwardkey = movementInput.forwardKey;
         boolean sneakkey = movementInput.sneakKey;
-        ItemStack torso = player.getCurrentArmor(2);
+        ItemStack torso = player.inventory.armorItemInSlot(2);
         boolean hasGlider = false;
         NuminaPlayerUtils.resetFloatKickTicks(player);
         if (torso != null && torso.getItem() instanceof IModularItem) {

@@ -16,7 +16,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.FoodStats;
-import net.minecraft.util.StatCollector;
+
 
 import java.util.List;
 

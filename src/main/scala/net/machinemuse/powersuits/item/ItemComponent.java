@@ -14,7 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.StatCollector;
+
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
@@ -88,7 +88,7 @@ public class ItemComponent extends Item {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
         if (Config.doAdditionalInfo()) {
-            String message = StatCollector.translateToLocal("tooltip.componentTooltip");
+            String message =  I18n.format("tooltip.componentTooltip");
             message = MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic);
             currentTipList.add(message);
             int damage = stack.getItemDamage();

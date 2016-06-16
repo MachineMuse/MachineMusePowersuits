@@ -3,7 +3,6 @@ package net.machinemuse.powersuits.item
 import java.util.UUID
 
 import com.google.common.collect.Multimap
-import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.machinemuse.api.{IModularItem, ArmorTraits, ModuleManager}
 import net.machinemuse.numina.geometry.Colour
 import net.machinemuse.powersuits.client.render.item.ArmorModel
@@ -19,6 +18,7 @@ import net.minecraft.item.{ItemArmor, ItemStack}
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.DamageSource
 import net.minecraftforge.common.ISpecialArmor
+import net.minecraftforge.fml.relauncher.{Side, SideOnly}
 
 /**
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.
@@ -79,7 +79,7 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
     if (itemstack != null) {
       entity match {
         case player: EntityPlayer =>
-          Option(player.getCurrentArmor(2)).map(chest =>
+          Option(player.inventory.armorItemInSlot(2)).map(chest =>
             if (ModuleManager.itemHasActiveModule(chest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) model.visibleSection = 99)
         case _ =>
       }

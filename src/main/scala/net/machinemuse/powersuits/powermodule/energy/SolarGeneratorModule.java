@@ -12,7 +12,8 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.StatCollector;
+
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -57,7 +58,7 @@ public class SolarGeneratorModule extends PowerModuleBase implements IPlayerTick
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        ItemStack helmet = player.getCurrentArmor(3);
+        ItemStack helmet = player.inventory.armorItemInSlot(3);
         if (helmet != null && helmet.equals(item)) {
             World world = player.worldObj;
             int xCoord = MathHelper.floor_double(player.posX);
@@ -68,9 +69,10 @@ public class SolarGeneratorModule extends PowerModuleBase implements IPlayerTick
             }
 
             isRaining = canRain && (world.isRaining() || world.isThundering());
-            boolean sunVisible = world.isDaytime() && !isRaining && world.canBlockSeeTheSky(xCoord, MathHelper.floor_double(player.posY) + 1, zCoord);
+            boolean sunVisible = world.isDaytime() && !isRaining && world.canBlockSeeSky
+                    ( new BlockPos(xCoord, MathHelper.floor_double(player.posY) + 1, zCoord));
             boolean moonVisible = !world.isDaytime() && !isRaining && world.canBlockSeeTheSky(xCoord, MathHelper.floor_double(player.posY) + 1, zCoord);
-            if (!world.isRemote && !world.provider.hasNoSky && (world.getTotalWorldTime() % 80) == 0) {
+            if (!world.isRemote && !world.provider.getHasNoSky() && (world.getTotalWorldTime() % 80) == 0) {
                 if (sunVisible) {
                     ElectricItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(item, SOLAR_ENERGY_GENERATION_DAY));
                 } else if (moonVisible) {

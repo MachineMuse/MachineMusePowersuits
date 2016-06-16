@@ -24,7 +24,7 @@ class MusePacketPlayerUpdate(player: EntityPlayer, inputMap: PlayerInputMap) ext
   val packager = MusePacketPlayerUpdate
 
   def write {
-    writeString(player.getCommandSenderName)
+    writeString(player.getCommandSenderEntity.getName)
     inputMap.writeToStream(dataout)
   }
 
@@ -35,5 +35,4 @@ class MusePacketPlayerUpdate(player: EntityPlayer, inputMap: PlayerInputMap) ext
     player.motionZ = inputMap.motionZ
     PacketSender.sendToAllAround(updatePacket, player, 128)
   }
-
 }

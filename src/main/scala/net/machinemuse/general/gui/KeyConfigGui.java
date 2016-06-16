@@ -6,6 +6,8 @@ import net.machinemuse.general.gui.frame.KeybindConfigFrame;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.minecraft.entity.player.EntityPlayer;
 
+import java.io.IOException;
+
 public class KeyConfigGui extends MuseGui {
 	private EntityPlayer player;
 	protected KeybindConfigFrame frame;
@@ -41,7 +43,11 @@ public class KeyConfigGui extends MuseGui {
 
 	@Override
 	public void handleKeyboardInput() {
-		super.handleKeyboardInput();
+		try {
+			super.handleKeyboardInput();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		frame.handleKeyboard();
 	}
 

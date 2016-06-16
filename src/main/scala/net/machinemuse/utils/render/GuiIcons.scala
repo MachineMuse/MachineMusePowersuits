@@ -1,16 +1,17 @@
 package net.machinemuse.utils.render
 
-import net.minecraft.util.IIcon
-import net.machinemuse.powersuits.common.Config
-import org.lwjgl.opengl.GL11._
 import net.machinemuse.numina.geometry.Colour
-import net.machinemuse.numina.render.{MuseTextureUtils, RenderState, MuseIconUtils}
+import net.machinemuse.numina.render.{MuseIconUtils, MuseTextureUtils, RenderState}
+import net.machinemuse.powersuits.common.Config
+import net.minecraft.client.renderer.texture.TextureAtlasSprite
+import org.lwjgl.opengl.GL11._
 
 /**
- * Author: MachineMuse (Claire Semple)
- * Created: 4:01 AM, 30/04/13
- */
+  * Author: MachineMuse (Claire Semple)
+  * Created: 4:01 AM, 30/04/13
+  */
 object GuiIcons {
+  val filepath: String = null
 
   trait GuiIcon {
     val filepath: String
@@ -40,12 +41,12 @@ object GuiIcons {
   }
 
   object NormalArmor extends GuiIcon {
-    val size = 8.0
+    val size = 88.0
     val filepath = Config.TEXTURE_PREFIX + "gui/normalarmor.png"
   }
 
   object GlowArmor extends GuiIcon {
-    val size = 8.0
+    val size = 88.0
     val filepath = Config.TEXTURE_PREFIX + "gui/glowarmor.png"
   }
 
@@ -69,28 +70,29 @@ object GuiIcons {
     val filepath = Config.TEXTURE_PREFIX + "gui/plussign.png"
   }
 
-  object GuiIconDrawer extends IIcon {
-    def getOriginX: Int = 0
 
-    def getOriginY: Int = 0
+  object GuiIconDrawer extends TextureAtlasSprite(filepath: String) {
+    override def getOriginX: Int = 0
 
-    def getMinU: Float = 0
+    override def getOriginY: Int = 0
 
-    def getMaxU: Float = 1
+    override def getMinU: Float = 0
 
-    def getInterpolatedU(d0: Double): Float = d0.toFloat
+    override def getMaxU: Float = 1
 
-    def getMinV: Float = 0
+    override def getInterpolatedU(d0: Double): Float = d0.toFloat
 
-    def getMaxV: Float = 1
+    override def getMinV: Float = 0
 
-    def getInterpolatedV(d0: Double): Float = d0.toFloat
+    override def getMaxV: Float = 1
 
-    def getIconName: String = "GuiIcon"
+    override def getInterpolatedV(d0: Double): Float = d0.toFloat
 
-    def getIconWidth: Int = 8
+    override def getIconName: String = "GuiIcon"
 
-    def getIconHeight: Int = 8
+    override def getIconWidth: Int = 8
+
+    override def getIconHeight: Int = 8
 
   }
 

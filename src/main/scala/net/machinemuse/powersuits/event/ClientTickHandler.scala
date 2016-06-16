@@ -2,11 +2,6 @@ package net.machinemuse.powersuits.event
 
 import java.util
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent
-import cpw.mods.fml.common.gameevent.TickEvent
-import cpw.mods.fml.common.gameevent.TickEvent.{ClientTickEvent, RenderTickEvent}
-import cpw.mods.fml.relauncher.Side
-import cpw.mods.fml.relauncher.SideOnly
 import net.machinemuse.general.gui.{WaterMeter, EnergyMeter, HeatMeter}
 import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.network.{MusePacket, PacketSender}
@@ -21,13 +16,16 @@ import net.machinemuse.utils.{ElectricItemUtils, MuseHeatUtils, MuseItemUtils, M
 import net.machinemuse.powersuits.powermodule.armor.WaterTankModule;
 
 import net.minecraft.client.Minecraft
-import net.minecraft.client.entity.EntityClientPlayerMP
+import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.init.Items
 import net.minecraft.init.Blocks
 import net.machinemuse.api.ModuleManager
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.common.gameevent.TickEvent
+import net.minecraftforge.fml.common.gameevent.TickEvent.{RenderTickEvent, ClientTickEvent}
 
 
 class ClientTickHandler {
@@ -46,9 +44,9 @@ class ClientTickHandler {
       }
     }
     else {
-      val player: EntityClientPlayerMP = Minecraft.getMinecraft.thePlayer
+      val player: EntityPlayerSP = Minecraft.getMinecraft.thePlayer
       if (player != null && MuseItemUtils.getModularItemsInInventory(player).size > 0) {
-        val inputmap: PlayerInputMap = PlayerInputMap.getInputMapFor(player.getCommandSenderName)
+        val inputmap: PlayerInputMap = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity.getName)
         inputmap.forwardKey = Math.signum(player.movementInput.moveForward)
         inputmap.strafeKey = Math.signum(player.movementInput.moveStrafe)
         inputmap.jumpKey = player.movementInput.jump
@@ -72,7 +70,7 @@ class ClientTickHandler {
       val tool = player.getCurrentEquippedItem
       if (tool != null && tool.getItem.isInstanceOf[ItemPowerFist]) {
       }
-      val helmet = player.getCurrentArmor(3)
+      val helmet = player.inventory.armorItemInSlot(3)
       if (helmet != null && helmet.getItem.isInstanceOf[ItemPowerArmorHelmet]) {
         if (ModuleManager.itemHasActiveModule(helmet, AutoFeederModule.MODULE_AUTO_FEEDER)) {
           modules.add(AutoFeederModule.MODULE_AUTO_FEEDER)
@@ -84,7 +82,7 @@ class ClientTickHandler {
           modules.add(CompassModule.MODULE_COMPASS)
         }
       }
-      val chest = player.getCurrentArmor(2)
+      val chest = player.inventory.armorItemInSlot(2)
       if (chest != null &&
         chest.getItem.isInstanceOf[ItemPowerArmorChestplate]) {
         if (ModuleManager.itemHasActiveModule(chest, WaterTankModule.MODULE_WATER_TANK)) {
@@ -105,9 +103,9 @@ class ClientTickHandler {
     yBaseString = 32
   }
 
-  var food: ItemStack = new ItemStack(Items.cooked_beef)
-  var clock: ItemStack = new ItemStack(Items.clock)
-  var compass: ItemStack = new ItemStack(Items.compass)
+  var food: ItemStack = new ItemStack(Items.COOKED_BEEF)
+  var clock: ItemStack = new ItemStack(Items.CLOCK)
+  var compass: ItemStack = new ItemStack(Items.COMPASS)
   var yOffsetIcon: Double = 16.0
   var yOffsetString: Int = 18
   var ampm: String = ""
@@ -121,10 +119,10 @@ class ClientTickHandler {
       findInstalledModules(player)
       if (player != null && MuseItemUtils.modularItemsEquipped(player).size > 0 && Minecraft.getMinecraft.currentScreen == null) {
         val mc: Minecraft = Minecraft.getMinecraft
-        val screen: ScaledResolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight)
+        val screen: ScaledResolution = new ScaledResolution(mc)
         for (i <- 0 until modules.size) {
           if (modules.get(i) == AutoFeederModule.MODULE_AUTO_FEEDER) {
-            val foodLevel = MuseItemUtils.getFoodLevel(player.getCurrentArmor(3)).toInt
+            val foodLevel = MuseItemUtils.getFoodLevel(player.inventory.armorItemInSlot(3)).toInt
             val num = MuseStringUtils.formatNumberShort(foodLevel)
             if (i == 0) {
               MuseRenderer.drawString(num, 17, yBaseString)

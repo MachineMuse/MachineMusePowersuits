@@ -1,20 +1,16 @@
 package net.machinemuse.powersuits.block
 
-import cpw.mods.fml.common.registry.GameRegistry
-import cpw.mods.fml.relauncher.Side
-import cpw.mods.fml.relauncher.SideOnly
 import net.machinemuse.general.gui.MuseIcon
 import net.machinemuse.powersuits.common.Config
 import net.machinemuse.powersuits.common.ModularPowersuits
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
-import net.minecraft.client.renderer.texture.IIconRegister
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.tileentity.TileEntity
-import net.minecraft.util.IIcon
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fml.common.registry.GameRegistry
 
 /**
  * This is the tinkertable block. It doesn't do much except look pretty
@@ -23,7 +19,7 @@ import net.minecraftforge.common.MinecraftForge
  * @author MachineMuse
  *
  */
-object BlockTinkerTable extends Block(Material.iron) {
+object BlockTinkerTable extends Block(Material.IRON) {
   setCreativeTab(Config.getCreativeTab)
   setHardness(1.5F)
   setResistance(1000.0F)

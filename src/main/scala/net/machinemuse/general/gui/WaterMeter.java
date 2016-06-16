@@ -4,7 +4,6 @@ import net.machinemuse.general.gui.HeatMeter;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.IIcon;
 
 
 /**

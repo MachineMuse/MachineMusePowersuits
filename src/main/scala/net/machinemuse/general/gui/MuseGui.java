@@ -169,7 +169,7 @@ public class MuseGui extends GuiScreen {
      * Returns absolute screen coordinates (int 0 to width) from a relative
      * coordinate (float -1.0F to +1.0F)
      *
-     * @param relx Relative Y coordinate
+     * @param rely Relative Y coordinate
      * @return Absolute Y coordinate
      */
     public int absY(double rely) {
@@ -232,16 +232,12 @@ public class MuseGui extends GuiScreen {
      * mouseUp
      */
     @Override
-    protected void mouseMovedOrUp(int x, int y, int which) {
+    protected void mouseReleased(int x, int y, int which) {
         for (IGuiFrame frame : frames) {
             frame.onMouseUp(x, y, which);
         }
     }
 
-    /**
-     * @param x
-     * @param y
-     */
     protected void drawToolTip() {
         int x = Mouse.getEventX() * this.width / this.mc.displayWidth;
         int y = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;

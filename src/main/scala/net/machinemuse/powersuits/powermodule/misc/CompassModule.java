@@ -6,10 +6,11 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
+
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ import java.util.List;
 public class CompassModule extends PowerModuleBase implements IToggleableModule {
 
     public static final String MODULE_COMPASS = "Compass";
-    public static ItemStack compass = new ItemStack(Items.compass);
+    public static ItemStack compass = new ItemStack(Items.COMPASS);
 
     public CompassModule(List<IModularItem> validItems) {
         super(validItems);
@@ -34,8 +35,8 @@ public class CompassModule extends PowerModuleBase implements IToggleableModule 
     }
 
     @Override
-    public IIcon getIcon(ItemStack item) {
-        return compass.getIconIndex();
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(compass).getParticleTexture();
     }
 
     @Override

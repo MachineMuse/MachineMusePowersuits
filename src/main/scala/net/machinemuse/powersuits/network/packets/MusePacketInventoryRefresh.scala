@@ -5,15 +5,15 @@ package net.machinemuse.powersuits.network.packets
 
 import java.io.DataInputStream
 
-import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.machinemuse.general.gui.MuseGui
 import net.machinemuse.numina.network.{MusePackager, MusePacket}
 import net.machinemuse.numina.scala.OptionCast
 import net.minecraft.client.Minecraft
-import net.minecraft.client.entity.EntityClientPlayerMP
+import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
+import net.minecraftforge.fml.relauncher.{SideOnly, Side}
 
 
 /**
@@ -37,7 +37,7 @@ class MusePacketInventoryRefresh(player: EntityPlayer, slot: Int, stack: ItemSta
   }
 
   @SideOnly(Side.CLIENT)
-  override def handleClient(player: EntityClientPlayerMP) {
+  override def handleClient(player: EntityPlayerSP) {
     val inventory: IInventory = player.inventory
     inventory.setInventorySlotContents(slot, stack)
     OptionCast[MuseGui](Minecraft.getMinecraft.currentScreen) map (s => s.refresh())

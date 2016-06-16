@@ -12,7 +12,7 @@
 // import net.minecraft.entity.player.EntityPlayer;
 // import net.minecraft.entity.player.EntityPlayerMP;
 // import net.minecraft.item.ItemStack;
-// import net.minecraft.util.StatCollector;
+//
 // import net.minecraft.nbt.NBTTagCompound;
 // import net.minecraft.world.World;
 // import li.cil.oc.OpenComputers;
@@ -71,7 +71,7 @@
 //
 // @Override
 // public String getUnlocalizedName() {
-//         return StatCollector.translateToLocal("module.ocTerminal.name");
+//         return  I18n.format("module.ocTerminal.name");
 // }
 //
 // @Override

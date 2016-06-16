@@ -14,8 +14,8 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.StatCollector;
+
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
@@ -94,13 +94,13 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
             ElectricItemUtils.drainPlayerEnergy(player, totalEnergy);
             if (MuseItemUtils.isServerSide()) {
                 if (Config.useAdvancedOreScannerMessage()) {
-                    player.addChatMessage(new ChatComponentText("[Ore Scanner] Total ore value: " + totalValue + " --- Most valuable: " + highestValue + "\nSearch radius: " +
+                    player.addChatMessage(new TextComponentString("[Ore Scanner] Total ore value: " + totalValue + " --- Most valuable: " + highestValue + "\nSearch radius: " +
                             (2 * (int) ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_X) + 1) + "x" +
                             (2 * (int) ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_Y) + 1) + "x" +
                             (2 * (int) ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_Z) + 1) +
                             " --- Energy used: " + MuseStringUtils.formatNumberFromUnits(totalEnergy, "J")));
                 } else {
-                    player.addChatMessage(new ChatComponentText("[Ore Scanner] Total ore value: " + totalValue + " --- Most valuable: " + highestValue));
+                    player.addChatMessage(new TextComponentString("[Ore Scanner] Total ore value: " + totalValue + " --- Most valuable: " + highestValue));
                 }
             }
         }
@@ -119,7 +119,7 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
                 oreMap.put(Arrays.asList(ores.get(a).get(b), ores.get(a).get(b).getItemDamage()), oreNames[a]);
             }
         }
-        oreMap.put(Arrays.asList(Blocks.coal_ore, 0), "oreCoal");
+        oreMap.put(Arrays.asList(Blocks.COAL_ORE, 0), "oreCoal");
         oreMap.put(Arrays.asList(Blocks.iron_ore, 0), "oreIron");
         oreMap.put(Arrays.asList(Blocks.gold_ore, 0), "oreGold");
         oreMap.put(Arrays.asList(Blocks.redstone_ore, 0), "oreRedstone");

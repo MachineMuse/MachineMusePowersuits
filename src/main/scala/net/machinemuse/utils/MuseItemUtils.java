@@ -15,8 +15,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+
 
 import java.util.*;
 
@@ -330,7 +331,7 @@ public class MuseItemUtils {
                 if (MuseMathUtils.nextDouble() < chanceOfSuccess) {
                     ItemStack copyStack = itemsToGive.copy();
                     copyStack.stackSize = 1;
-                    player.dropPlayerItemWithRandomChoice(copyStack, false);
+                    player.dropItem(copyStack, false);
                 }
             }
         }
@@ -555,7 +556,7 @@ public class MuseItemUtils {
     public static void setFluidTermTag(ItemStack stack, NBTTagCompound tag) {
         NBTTagCompound t = MuseItemUtils.getMuseItemTag(stack);
         t.setTag("AppEng EC Wireless Fluid Terminal", tag);
-        stack.stackTagCompound.setTag(MuseItemTag.NBTPREFIX(), t);
+        stack.getTagCompound().setTag(MuseItemTag.NBTPREFIX(), t);
     }
 
     public static boolean getCanShrink(ItemStack stack) {
@@ -571,7 +572,7 @@ public class MuseItemUtils {
 
     public static void setCanShrink(ItemStack stack, boolean b) {
         if (stack != null && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = stack.stackTagCompound;
+            NBTTagCompound itemTag = stack.getTagCompound();
             NBTTagCompound cmTag = ((itemTag.hasKey("CompactMachines")) ? itemTag.getCompoundTag("CompactMachines") : (new NBTTagCompound()));
             cmTag.setBoolean("canShrink", b);
             itemTag.setTag("CompactMachines", cmTag);

@@ -4,7 +4,6 @@ import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 
 import java.util.List;
@@ -18,7 +17,6 @@ import java.util.List;
 public class ClickableItem extends Clickable {
     public static final int offsetx = 8;
     public static final int offsety = 8;
-    public static RenderItem itemRenderer;
     public int inventorySlot;
     protected ItemStack item;
 
@@ -53,7 +51,8 @@ public class ClickableItem extends Clickable {
         MuseRenderer.drawItemAt(
                 getPosition().x() - offsetx,
                 getPosition().y() - offsety, item);
-        if (inventorySlot > 35 || Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem() == item) {
+        if (inventorySlot > 35 || Minecraft.getMinecraft().thePlayer.getHeldItemMainhand() == item ||
+                Minecraft.getMinecraft().thePlayer.getHeldItemOffhand() == item) {
             MuseRenderer.drawString("e", getPosition().x() + 3, getPosition().y() + 1, Colour.DARKGREEN);
         }
     }

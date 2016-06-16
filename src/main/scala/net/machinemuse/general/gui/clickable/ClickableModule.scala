@@ -8,7 +8,7 @@ import java.util.ArrayList
 import java.util.List
 import net.machinemuse.numina.geometry.{Colour, MusePoint2D}
 import net.machinemuse.numina.render.{MuseIconUtils, MuseTextureUtils}
-import net.minecraft.util.StatCollector
+import net.minecraft.client.resources.I18n
 
 /**
  * Extends the Clickable class to make a clickable Augmentation; note that this
@@ -29,14 +29,14 @@ class ClickableModule(val module: IPowerModule, position: MusePoint2D) extends C
   }
   def getLocalizedName(m:IPowerModule): String = {
     m match {
-      case m:ILocalizeableModule => StatCollector.translateToLocal("module." + m.getUnlocalizedName + ".name")
+      case m:ILocalizeableModule => I18n.format("module." + m.getUnlocalizedName + ".name")
       case m => m.getLocalizedName
     }
   }
 
   def getLocalizedDescription(m:IPowerModule): String = {
     m match {
-      case m:ILocalizeableModule => StatCollector.translateToLocal("module." + m.getUnlocalizedName + ".desc")
+      case m:ILocalizeableModule =>  I18n.format("module." + m.getUnlocalizedName + ".desc")
       case m => m.getDescription
     }
   }

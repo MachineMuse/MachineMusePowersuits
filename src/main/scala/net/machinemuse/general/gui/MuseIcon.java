@@ -1,123 +1,190 @@
 package net.machinemuse.general.gui;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.util.IIcon;
+import net.machinemuse.powersuits.common.ModularPowersuits;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.TextureStitchEvent;
 
-/**
- * MuseIcon is just a helper class to make it more convenient to have multiple sprite sheets and to keep all the icon indices in one place.
- *
+
+/*
+ * Icons without an item registered need to be added this way
+ * Do not register the same icon twice as this produces weird side effects
  * @author MachineMuse
  */
-public class MuseIcon {
-    public static final String ICON_PREFIX = "powersuits:";
-
-    // Placeholder icons
-    public static final MuseIcon ORB_1_GREEN = new MuseIcon("greendrone");
-    public static final MuseIcon ORB_1_RED = new MuseIcon("reddrone");
-    public static final MuseIcon ORB_1_BLUE = new MuseIcon("bluedrone");
-    public static final MuseIcon PLATE_1_GREEN = new MuseIcon("greenlight");
-    public static final MuseIcon PLATE_1_RED = new MuseIcon("redlight");
-    public static final MuseIcon PLATE_1_BLUE = new MuseIcon("bluelight");
-    public static final MuseIcon NEXUS_1_RED = new MuseIcon("redstar");
-    public static final MuseIcon NEXUS_1_GREEN = new MuseIcon("greenstar");
-    public static final MuseIcon NEXUS_1_BLUE = new MuseIcon("bluestar");
-    public static final MuseIcon PLATE_2_GREEN = new MuseIcon("greenplate");
-    public static final MuseIcon PLATE_2_BLUE = new MuseIcon("blueplate");
-    public static final MuseIcon PLATE_2_RED = new MuseIcon("redplate");
-    public static final MuseIcon INDICATOR_1_GREEN = new MuseIcon("greenphaser");
-    public static final MuseIcon INDICATOR_1_RED = new MuseIcon("redphaser");
-    public static final MuseIcon INDICATOR_1_BLUE = new MuseIcon("bluephaser");
-
-    // Item icons
-    public static final MuseIcon TOOL_AXE = new MuseIcon("toolaxe");
-    public static final MuseIcon TOOL_PICK = new MuseIcon("toolaxe");
-    public static final MuseIcon TOOL_SHOVEL = new MuseIcon("toolaxe");
-    public static final MuseIcon TOOL_SHEARS = new MuseIcon("toolaxe");
-    public static final MuseIcon TOOL_FIST = new MuseIcon("toolaxe");
-    public static final MuseIcon TOOL_PINCH = new MuseIcon("toolaxe");
-
-    // Module icons
-    public static final MuseIcon JETBOOTS = new MuseIcon("jetboots");
-    public static final MuseIcon JETPACK = new MuseIcon("jetboots");
-    public static final MuseIcon GLIDER = new MuseIcon("jetboots");
-    public static final MuseIcon GRAVITY_ENGINE = new MuseIcon("jetboots");
-    public static final MuseIcon SPRINT_ASSIST = new MuseIcon("jetboots");
-    public static final MuseIcon JUMP_ASSIST = new MuseIcon("jetboots");
-    public static final MuseIcon ENERGY_SHIELD = new MuseIcon("jetboots");
-    public static final MuseIcon ITEM_IRON_PLATING = new MuseIcon("jetboots");
-    public static final MuseIcon ITEM_DIAMOND_PLATING = new MuseIcon("jetboots");
-    public static final MuseIcon ITEM_TUNGSTEN_PLATING = new MuseIcon("jetboots");
-    public static final MuseIcon CLAW_OPEN = new MuseIcon("jetboots");
-    public static final MuseIcon WEAPON_FIRE = new MuseIcon("jetboots");
-    public static final MuseIcon HEART = new MuseIcon("jetboots");
-    public static final MuseIcon FIELD_EMITTER_GREEN = new MuseIcon("jetboots");
-    public static final MuseIcon FIELD_EMITTER_RED = new MuseIcon("jetboots");
-    public static final MuseIcon SHOCK_ABSORBER = new MuseIcon("jetboots");
-    public static final MuseIcon PARACHUTE_MODULE = new MuseIcon("jetboots");
-    public static final MuseIcon WATER_ELECTROLYZER = new MuseIcon("jetboots");
-    public static final MuseIcon TRANSPARENT_ARMOR = new MuseIcon("jetboots");
-    public static final MuseIcon SWIM_BOOST = new MuseIcon("jetboots");
-    public static final MuseIcon STEP_ASSIST = new MuseIcon("jetboots");
-    public static final MuseIcon DIAMOND_PICK = new MuseIcon("jetboots");
-    public static final MuseIcon CLAW_CLOSED = new MuseIcon("jetboots");
-    public static final MuseIcon WEAPON_ELECTRIC = new MuseIcon("jetboots");
-    public static final MuseIcon BATTERY1 = new MuseIcon("jetboots");
-    public static final MuseIcon CIRCUIT = new MuseIcon("jetboots");
-    public static final MuseIcon WIRING = new MuseIcon("jetboots");
-    public static final MuseIcon SOLENOID = new MuseIcon("jetboots");
-    public static final MuseIcon SERVOMOTOR = new MuseIcon("jetboots");
-    public static final MuseIcon GLIDERWING = new MuseIcon("jetboots");
-    public static final MuseIcon IONTHRUSTER = new MuseIcon("jetboots");
-    public static final MuseIcon LVCAPACITOR = new MuseIcon("jetboots");
-    public static final MuseIcon PARACHUTE = new MuseIcon("jetboots");
-    public static final MuseIcon AQUA_AFFINITY = new MuseIcon("jetboots");
-    public static final MuseIcon CLAW_LASER = new MuseIcon("jetboots");
-    public static final MuseIcon WEAPON_SOUND = new MuseIcon("jetboots");
-    public static final MuseIcon BATTERY2 = new MuseIcon("jetboots");
-    public static final MuseIcon LAMP = new MuseIcon("jetboots");
-    public static final MuseIcon MYOFIBER_PASTE = new MuseIcon("jetboots");
-    public static final MuseIcon CARBON_MYOFIBER = new MuseIcon("jetboots");
-    public static final MuseIcon ARTIFICIAL_MUSCLE = new MuseIcon("jetboots");
-    public static final MuseIcon CRYSTAL_BUBBLE = new MuseIcon("jetboots");
-    public static final MuseIcon COOLING_SYSTEM = new MuseIcon("jetboots");
-    public static final MuseIcon MVCAPACITOR = new MuseIcon("jetboots");
-    public static final MuseIcon SCANNER = new MuseIcon("jetboots");
-    public static final MuseIcon POWERTOOL = new MuseIcon("handitem");
-    public static final MuseIcon WEAPON_GRAVITY = new MuseIcon("jetboots");
-    public static final MuseIcon BATTERYCRYSTAL = new MuseIcon("jetboots");
-    public static final MuseIcon FLOATING_CRYSTAL = new MuseIcon("jetboots");
-    public static final MuseIcon MODULE_IRON_PLATING = new MuseIcon("jetboots");
-    public static final MuseIcon MODULE_DIAMOND_PLATING = new MuseIcon("jetboots");
-    public static final MuseIcon MODULE_TUNGSTEN_PLATING = new MuseIcon("jetboots");
-    public static final MuseIcon FIELD_GENERATOR = new MuseIcon("jetboots");
-    public static final MuseIcon HVCAPACITOR = new MuseIcon("jetboots");
-    public static final MuseIcon HOLOGRAM_EMITTER = new MuseIcon("jetboots");
-    public static final MuseIcon LASER = new MuseIcon("jetboots");
-    public static final MuseIcon ALIEN = new MuseIcon("jetboots");
-    public static final MuseIcon NETHERSTAR = new MuseIcon("jetboots");
-    public static final MuseIcon ARCREACTOR = new MuseIcon("jetboots");
-    public static final MuseIcon PUNCHY = new MuseIcon("jetboots");
-
-    protected String texturename;
-    protected IIcon icon;
-
-    public MuseIcon(String texturename) {
-        super();
-        this.texturename = texturename;
-        this.icon = null;
+public class MuseIcon extends TextureAtlasSprite {
+    protected MuseIcon(String spriteName) {
+        super(spriteName);
     }
 
-    public String getTexturename() {
-        return texturename;
+    // Armor
+    public static TextureAtlasSprite apiaristArmor= new MuseIcon("apiaristArmor");
+    public static TextureAtlasSprite basicPlating = new MuseIcon("basicPlating");
+    public static TextureAtlasSprite diamondPlating = new MuseIcon("diamondPlating");
+    public static TextureAtlasSprite energyShield = new MuseIcon("energyShield");
+    public static TextureAtlasSprite hazmat = new MuseIcon("hazmat");
+    public static TextureAtlasSprite heatSink = new MuseIcon("heatSink");
+    public static TextureAtlasSprite mechAssistance = new MuseIcon("mechAssistance");
+    public static TextureAtlasSprite nitrogenCoolingSystem = new MuseIcon("nitrogenCoolingSystem");
+
+    // Energy
+    public static TextureAtlasSprite advancedBattery = new MuseIcon("advancedBattery");
+    public static TextureAtlasSprite advSolarGenerator = new MuseIcon("advSolarGenerator");
+    public static TextureAtlasSprite basicBattery = new MuseIcon("basicBattery");
+    public static TextureAtlasSprite coalGenerator = new MuseIcon("coalGenerator"); // does this thing even work?
+    public static TextureAtlasSprite eliteBattery = new MuseIcon("eliteBattery");
+    public static TextureAtlasSprite kineticGenerator = new MuseIcon("kineticGenerator");
+    public static TextureAtlasSprite solarGenerator = new MuseIcon("solarGenerator");
+    public static TextureAtlasSprite thermalGenerator = new MuseIcon("thermalGenerator");
+
+    // Misc
+    public static TextureAtlasSprite airtightSeal = new MuseIcon("airtightSeal");
+    public static TextureAtlasSprite autoFeeder = new MuseIcon("autoFeeder");
+    public static TextureAtlasSprite binoculars = new MuseIcon("binoculars");
+    public static TextureAtlasSprite citizenJoe = new MuseIcon("citizenJoe");
+    // clock uses vanilla icon
+    // compass uses vanilla icon
+    public static TextureAtlasSprite coolingSystem = new MuseIcon("coolingSystem");
+    public static TextureAtlasSprite cosmeticGlow = new MuseIcon("cosmeticGlow");
+    public static TextureAtlasSprite portableCraftingTable = new MuseIcon("portableCraftingTable");
+    public static TextureAtlasSprite invisibility = new MuseIcon("invisibility");
+    public static TextureAtlasSprite magnet = new MuseIcon("magnet");
+    public static TextureAtlasSprite mobRepulsor = new MuseIcon("mobRepulsor");
+    public static TextureAtlasSprite nightVision = new MuseIcon("nightVision");
+    public static TextureAtlasSprite aurameter = new MuseIcon("aurameter");
+    public static TextureAtlasSprite tint = new MuseIcon("tint");
+    public static TextureAtlasSprite transparentArmor = new MuseIcon("transparentArmor");
+    public static TextureAtlasSprite waterElectrolyzer = new MuseIcon("waterElectrolyzer");
+
+    //Movement
+    public static TextureAtlasSprite blinkDrive = new MuseIcon("blinkDrive");
+    public static TextureAtlasSprite climbAssist = new MuseIcon("climbAssist");
+    public static TextureAtlasSprite flightControl = new MuseIcon("climbAssist");
+    public static TextureAtlasSprite glider = new MuseIcon("glider");
+    public static TextureAtlasSprite jetBoots = new MuseIcon("jetBoots");
+    public static TextureAtlasSprite jetpack = new MuseIcon("jetpack");
+    public static TextureAtlasSprite jumpAssist = new MuseIcon("jumpAssist");
+    public static TextureAtlasSprite parachute = new MuseIcon("parachute");
+    public static TextureAtlasSprite shockAbsorber = new MuseIcon("shockAbsorber");
+    public static TextureAtlasSprite sprintAssist = new MuseIcon("sprintAssist");
+    public static TextureAtlasSprite swimAssist = new MuseIcon("swimAssist");
+
+    // Tools
+    public static TextureAtlasSprite aoePickUpgrade = new MuseIcon("aoePickUpgrade");
+    public static TextureAtlasSprite appengECWirelessFluid = new MuseIcon("appengECWirelessFluid");
+    public static TextureAtlasSprite appengWireless = new MuseIcon("appengWireless");
+    public static TextureAtlasSprite aquaAffinity = new MuseIcon("aquaAffinity");
+    public static TextureAtlasSprite axe = new MuseIcon("axe");
+    public static TextureAtlasSprite chisel = new MuseIcon("chisel");
+    public static TextureAtlasSprite diamondPickUpgrade = new MuseIcon("diamondPickUpgrade");
+    public static TextureAtlasSprite dimRiftGen = new MuseIcon("dimRiftGen");
+    public static TextureAtlasSprite fieldTinkerer = new MuseIcon("fieldTinkerer");
+    // flint and steel using vanilla texture
+    // grafter using external texture
+    // hoe using vanilla texture
+    public static TextureAtlasSprite leafBlower = new MuseIcon("leafBlower");
+    public static TextureAtlasSprite luxCapacitor = new MuseIcon("luxCapacitor");
+    public static TextureAtlasSprite mffsFieldTeleporter = new MuseIcon("mffsFieldTeleporter");
+    public static TextureAtlasSprite ocTerminal = new MuseIcon("ocTerminal");
+    public static TextureAtlasSprite omniProbe = new MuseIcon("omniProbe");
+    public static TextureAtlasSprite omniwrench = new MuseIcon("omniwrench");
+    public static TextureAtlasSprite oreScanner = new MuseIcon("oreScanner");
+    public static TextureAtlasSprite cmPSD = new MuseIcon("cmPSD");
+    public static TextureAtlasSprite pickaxe = new MuseIcon("pickaxe");
+    public static TextureAtlasSprite redstoneLaser = new MuseIcon("redstoneLaser");
+    // scoop using external mod texture
+    // shears using vanilla texture
+    public static TextureAtlasSprite shovel = new MuseIcon("shovel");
+
+    // Weapons
+    public static TextureAtlasSprite bladeLauncher = new MuseIcon("spinningblade");
+    public static TextureAtlasSprite lightning = new MuseIcon("lightningSummoner");
+    public static TextureAtlasSprite meleeAssist = new MuseIcon("meleeAssist");
+    public static TextureAtlasSprite plasmaCannon = new MuseIcon("plasmaCannon");
+    public static TextureAtlasSprite railgun = new MuseIcon("railgun");
+    public static TextureAtlasSprite sonicWeapon = new MuseIcon("sonicWeapon");
+
+
+    public static void registerIcons(TextureStitchEvent.Pre event) {
+        // Armor
+        apiaristArmor = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(),"modules/apiaristArmor"));
+        basicPlating = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(),"modules/basicplating2"));
+        diamondPlating = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/advancedplating2"));
+        energyShield = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/energyshield"));
+        hazmat = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/greenstar"));
+        heatSink = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/heatresistantplating2"));
+        mechAssistance = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/mechassistance"));
+        nitrogenCoolingSystem = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/coolingsystem"));
+
+        // Energy
+        advancedBattery = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/mvbattery"));
+        advSolarGenerator = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/advsolarhelmet"));
+        basicBattery = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/lvbattery"));
+        coalGenerator = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/coalgen"));
+        eliteBattery = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/crystalcapacitor"));
+        kineticGenerator = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/kineticgen"));
+        solarGenerator = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/solarhelmet"));
+        thermalGenerator = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/heatgenerator"));
+
+        // Misc
+        airtightSeal = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/glasspane"));
+        autoFeeder = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/autofeeder"));
+        binoculars = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/binoculars"));
+        citizenJoe = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/greendrone"));
+        //coolingSystem = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/coolingsystem"));
+        coolingSystem = nitrogenCoolingSystem;
+        cosmeticGlow = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/netherstar"));
+        portableCraftingTable = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/portablecrafting"));
+        invisibility = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/bluedrone"));
+        magnet = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/magnetmodule"));
+        mobRepulsor = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/magneta"));
+        nightVision = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/nightvision"));
+        aurameter = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/bluestar"));
+        tint = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/netherstar"));
+        transparentArmor = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/transparentarmor"));
+        waterElectrolyzer = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/waterelectrolyzer"));
+
+        // Movement
+        blinkDrive = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/alien"));
+        climbAssist = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/climbassist"));
+        flightControl = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/FlightControlY"));
+        glider = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/glider"));
+        jetBoots = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/jetboots"));
+        jetpack = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/jetpack"));
+        jumpAssist = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/jumpassist"));
+        parachute = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/parachute"));
+        shockAbsorber = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/shockabsorber"));
+        sprintAssist = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/sprintassist"));
+        swimAssist = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/swimboost"));
+
+        // Tools
+        aoePickUpgrade = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/diamondupgrade1"));
+        appengECWirelessFluid = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/ItemWirelessTerminalFluid"));
+        appengWireless = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/ItemWirelessTerminal"));
+        aquaAffinity = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/aquaaffinity"));
+        axe = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/toolaxe"));
+        chisel = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/toolpinch"));
+        diamondPickUpgrade = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/diamondupgrade1"));
+        //dimRiftGen = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/kineticgen"));
+        dimRiftGen = kineticGenerator;
+        fieldTinkerer = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/transparentarmor"));
+        leafBlower = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/leafblower"));
+        luxCapacitor = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/bluelight"));
+        mffsFieldTeleporter = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/fieldteleporter"));
+        ocTerminal = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/ocTerminal"));
+        omniProbe = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/omniprobe"));
+        omniwrench = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/omniwrench"));
+        oreScanner = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/orescanner"));
+        cmPSD = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/psd"));
+        pickaxe = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/toolpick"));
+        redstoneLaser = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/laser"));
+        shovel = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/toolshovel"));
+
+        //Weapons
+        bladeLauncher = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(),"modules/spinningblade"));
+        lightning = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(),"modules/bluestar"));
+        meleeAssist = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(),"modules/toolfist"));
+        plasmaCannon =  event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(),"modules/gravityweapon"));
+        railgun = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(),"modules/electricweapon"));
+        sonicWeapon = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(),"modules/soundweapon"));
     }
-
-    public IIcon getIconRegistration() {
-        return icon;
-    }
-
-    public void register(IIconRegister iconRegister) {
-        icon = iconRegister.registerIcon(ICON_PREFIX + texturename);
-
-    }
-
 }

@@ -12,8 +12,8 @@ import net.machinemuse.utils.MuseItemUtils
 import net.machinemuse.utils.render.GuiIcons
 import net.machinemuse.utils.render.GuiIcons._
 import net.minecraft.client.Minecraft
+import net.minecraft.client.resources.I18n
 import net.minecraft.nbt.NBTTagIntArray
-import net.minecraft.util.StatCollector
 
 import scala.collection.mutable
 
@@ -23,11 +23,11 @@ import scala.collection.mutable
  */
 class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val borderColour: Colour, val itemSelector: ItemSelectionFrame) extends IGuiFrame {
   val border = new DrawableMuseRect(borderRef, insideColour, borderColour)
-  val rslider: ClickableSlider = new ClickableSlider(new MusePoint2D(border.centerx, border.top + 8), border.width - 10, StatCollector.translateToLocal("gui.red"))
-  val gslider: ClickableSlider = new ClickableSlider(new MusePoint2D(border.centerx, border.top + 24), border.width - 10, StatCollector.translateToLocal("gui.green"))
-  val bslider: ClickableSlider = new ClickableSlider(new MusePoint2D(border.centerx, border.top + 40), border.width - 10, StatCollector.translateToLocal("gui.blue"))
+  val rslider: ClickableSlider = new ClickableSlider(new MusePoint2D(border.centerx, border.top + 8), border.width - 10,  I18n.format("gui.red"))
+  val gslider: ClickableSlider = new ClickableSlider(new MusePoint2D(border.centerx, border.top + 24), border.width - 10,  I18n.format("gui.green"))
+  val bslider: ClickableSlider = new ClickableSlider(new MusePoint2D(border.centerx, border.top + 40), border.width - 10,  I18n.format("gui.blue"))
 
-  def colours: Array[Int] = getOrCreateColourTag.map(e => e.func_150302_c /*getIntArray()*/  ).getOrElse(Array.empty)
+  def colours: Array[Int] = getOrCreateColourTag.map(e => e.getIntArray).getOrElse(Array.empty)
 
   var selectedSlider: Option[ClickableSlider] = None
   var selectedColour: Int = 0
@@ -152,12 +152,12 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
           }
           val player = Minecraft.getMinecraft.thePlayer
           if (player.worldObj.isRemote)
-            PacketSender.sendToServer(new MusePacketColourInfo(player, itemSelector.getSelectedItem.inventorySlot, e.func_150302_c))
+            PacketSender.sendToServer(new MusePacketColourInfo(player, itemSelector.getSelectedItem.inventorySlot, e.getIntArray))
         }
       })
 
     }
 
   }
-  def getIntArray(e:NBTTagIntArray) = e.func_150302_c()
+  def getIntArray(e:NBTTagIntArray) = e.getIntArray()
 }

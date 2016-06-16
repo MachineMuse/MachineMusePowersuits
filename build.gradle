@@ -24,17 +24,17 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'com.matthewprenger.cursegradle'
 apply plugin: 'idea'
 
-/*
-// enable if java 1.8 + scala support still horrible
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
 
-tasks.withType(ScalaCompile) {
-    // Use incremental compilation
-    //scalaCompileOptions.useAnt = false // supposed to be a fix for java 8  
-    scalaCompileOptions.additionalParameters = ["-target:jvm-1.7"]
-}
-*/
+// enable if java 1.8 + scala support still horrible
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+//
+//tasks.withType(ScalaCompile) {
+//    // Use incremental compilation
+//    //scalaCompileOptions.useAnt = false // supposed to be a fix for java 8
+//    scalaCompileOptions.additionalParameters = ["-target:jvm-1.7"]
+//}
+
 
 def buildnumber = System.getenv("BUILD_NUMBER")
 def travisbuildnumber = (System.getenv("TRAVIS_BUILD_NUMBER") ?: -111).toInteger() + 111

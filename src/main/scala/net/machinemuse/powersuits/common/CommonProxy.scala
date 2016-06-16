@@ -2,8 +2,6 @@ package net.machinemuse.powersuits.common
 
 import java.net.URL
 
-import cpw.mods.fml.client.registry.{ClientRegistry, RenderingRegistry}
-import cpw.mods.fml.common.FMLCommonHandler
 import net.machinemuse.general.sound.SoundDictionary
 import net.machinemuse.numina.network.{MusePacket, MusePacketHandler, MusePacketModeChangeRequest, PacketSender}
 import net.machinemuse.numina.render.RenderGameOverlayEventHandler
@@ -16,9 +14,11 @@ import net.machinemuse.powersuits.control.{KeybindKeyHandler, KeybindManager}
 import net.machinemuse.powersuits.entity.{EntityLuxCapacitor, EntityPlasmaBolt, EntitySpinningBlade}
 import net.machinemuse.powersuits.event.{ClientTickHandler, PlayerLoginHandlerThingy, PlayerUpdateHandler, RenderEventHandler}
 import net.minecraft.client.Minecraft
-import net.minecraft.client.entity.EntityClientPlayerMP
+import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraftforge.client.MinecraftForgeClient
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fml.client.registry.{ClientRegistry, RenderingRegistry}
+import net.minecraftforge.fml.common.FMLCommonHandler
 
 /**
  * Common side of the proxy. Provides functions which
@@ -87,7 +87,7 @@ class ClientProxy extends CommonProxy {
   }
 
   override def sendModeChange(dMode: Int, newMode: String) {
-    val player: EntityClientPlayerMP = Minecraft.getMinecraft.thePlayer
+    val player: EntityPlayerSP = Minecraft.getMinecraft.thePlayer
     RenderGameOverlayEventHandler.updateSwap(Math.signum(dMode).asInstanceOf[Int])
     val modeChangePacket: MusePacket = new MusePacketModeChangeRequest(player, newMode, player.inventory.currentItem)
     PacketSender.sendToServer(modeChangePacket)

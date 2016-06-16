@@ -11,7 +11,7 @@ import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
+
 import net.minecraft.world.World;
 
 import java.util.List;

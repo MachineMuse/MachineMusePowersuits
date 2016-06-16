@@ -190,7 +190,7 @@ public class MusePlayerUtils {
             double strafeZ = -desiredDirection.xCoord;
             double scaleStrafe = (strafeX * strafeX + strafeZ * strafeZ);
             double flightVerticality = 0;
-            ItemStack helm = player.getCurrentArmor(3);
+            ItemStack helm = player.inventory.armorItemInSlot(3);
             if (helm != null && helm.getItem() instanceof IModularItem) {
                 flightVerticality = ModuleManager.computeModularProperty(helm, FlightControlModule.FLIGHT_VERTICALITY);
             }

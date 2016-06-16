@@ -61,7 +61,7 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
         }
         PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderName());
         boolean jumpkey = movementInput.jumpKey;
-        ItemStack helmet = player.getCurrentArmor(3);
+        ItemStack helmet = player.inventory.armorItemInSlot(3);
         boolean hasFlightControl = helmet != null && helmet.getItem() instanceof IModularItem
                 && ModuleManager.itemHasActiveModule(helmet, FlightControlModule.MODULE_FLIGHT_CONTROL);
         double jetEnergy = 0;

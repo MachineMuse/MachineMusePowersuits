@@ -13,7 +13,7 @@ public class AirtightSealModule extends PowerModuleBase {
 
     public AirtightSealModule(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(new ItemStack(Blocks.glass));
+        addInstallCost(new ItemStack(Blocks.GLASS));
     }
 
     @Override

@@ -65,9 +65,9 @@ trait ArmorModel extends ModelBiped {
       if ((stack != null) && (entPlayer.getItemInUseCount > 0))
       {
         val enumaction = stack.getItemUseAction
-        if (enumaction == EnumAction.block) {
+        if (enumaction == EnumAction.BLOCK) {
           heldItemRight = 3
-        } else if (enumaction == EnumAction.bow) {
+        } else if (enumaction == EnumAction.BOW) {
           aimedBow = true
         }
       }

@@ -56,7 +56,7 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
         PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderName());
         boolean sneakkey = movementInput.sneakKey;
         float forwardkey = movementInput.forwardKey;
-        ItemStack torso = player.getCurrentArmor(2);
+        ItemStack torso = player.inventory.armorItemInSlot(2);
         boolean hasParachute = false;
         NuminaPlayerUtils.resetFloatKickTicks(player);
         if (torso != null && torso.getItem() instanceof IModularItem) {

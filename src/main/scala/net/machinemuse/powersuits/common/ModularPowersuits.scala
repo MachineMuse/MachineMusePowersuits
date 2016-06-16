@@ -2,17 +2,17 @@ package net.machinemuse.powersuits.common
 
 import java.io.File
 
-import cpw.mods.fml.common.{Mod, SidedProxy}
-import cpw.mods.fml.common.event.{FMLInitializationEvent, FMLPostInitializationEvent, FMLPreInitializationEvent}
-import cpw.mods.fml.common.network.NetworkRegistry
-import cpw.mods.fml.common.registry.EntityRegistry
 import net.machinemuse.api.{ILocalizeableModule, IPowerModule, ModuleManager}
 import net.machinemuse.powersuits.entity.{EntityLuxCapacitor, EntityPlasmaBolt, EntitySpinningBlade}
 import net.machinemuse.powersuits.event.{HarvestEventHandler, MovementManager}
 import net.machinemuse.powersuits.network.packets.MPSPacketList
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.common.config.Configuration
-import net.machinemuse.powersuits.powermodule.tool.TerminalHandler;
+import net.minecraftforge.fml.common.event.{FMLPostInitializationEvent, FMLInitializationEvent, FMLPreInitializationEvent}
+import net.minecraftforge.fml.common.network.NetworkRegistry
+import net.minecraftforge.fml.common.registry.EntityRegistry
+import net.minecraftforge.fml.common.{SidedProxy, Mod}
+;
 
 
 /**
@@ -27,6 +27,8 @@ object ModularPowersuits {
   var proxy: CommonProxy = null
   var config: Configuration = null
   val INSTANCE=this
+  val MODID="powersuits"
+  val VERSION = "@VERSION@"
 
   @Mod.EventHandler def preInit(event: FMLPreInitializationEvent) {
     val newConfig: File = new File(event.getModConfigurationDirectory + "/machinemuse/powersuits.cfg")
@@ -61,7 +63,6 @@ object ModularPowersuits {
     proxy.registerRenderers()
     MPSPacketList.registerPackets()
     NetworkRegistry.INSTANCE.registerGuiHandler(this, MPSGuiHandler)
-    TerminalHandler.registerHandler();
   }
 
   @Mod.EventHandler def postInit(event: FMLPostInitializationEvent) {

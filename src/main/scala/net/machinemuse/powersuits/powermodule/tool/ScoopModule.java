@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
@@ -10,12 +9,13 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.List;
 
@@ -54,7 +54,7 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
     }
 
     @Override
-    public IIcon getIcon(ItemStack item) {
+    public TextureAtlasSprite getIcon(ItemStack item) {
         return scoop.getIconIndex();
     }
 
@@ -86,6 +86,7 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-        event.newSpeed *= ModuleManager.computeModularProperty(event.entityPlayer.getCurrentEquippedItem(), SCOOP_HARVEST_SPEED);
+        event.setNewSpeed((float)(event.getNewSpeed() *
+                ModuleManager.computeModularProperty(event.getEntityPlayer().getHeldItemMainhand(), SCOOP_HARVEST_SPEED)));
     }
 }

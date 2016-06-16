@@ -19,7 +19,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.StatCollector;
+
 import net.minecraft.world.World;
 import net.machinemuse.powersuits.powermodule.PropertyModifierIntLinearAdditive;
 

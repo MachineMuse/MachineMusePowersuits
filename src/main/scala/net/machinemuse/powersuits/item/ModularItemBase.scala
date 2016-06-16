@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.item
 
 import net.minecraft.item.{ItemStack, Item}
-import cpw.mods.fml.relauncher.{SideOnly, Side}
 import net.machinemuse.utils.{MuseStringUtils, MuseCommonStrings}
+import net.minecraftforge.fml.relauncher.{Side, SideOnly}
 import scala.Predef.String
 import net.minecraft.entity.player.EntityPlayer
 import net.machinemuse.powersuits.powermodule.misc.{CosmeticGlowModule, TintModule}

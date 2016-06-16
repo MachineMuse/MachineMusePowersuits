@@ -57,13 +57,13 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        ItemStack chest = player.getCurrentArmor(1);
+        ItemStack chest = player.inventory.armorItemInSlot(1);
         if (player.isInWater()) {
             return;
         }
         PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderName());
         boolean jumpkey = movementInput.jumpKey;
-        ItemStack helmet = player.getCurrentArmor(3);
+        ItemStack helmet = player.inventory.armorItemInSlot(3);
         boolean hasFlightControl = ModuleManager.itemHasActiveModule(helmet, FlightControlModule.MODULE_FLIGHT_CONTROL);
         double jetEnergy = ModuleManager.computeModularProperty(item, JET_ENERGY_CONSUMPTION);
         double thrust = ModuleManager.computeModularProperty(item, JET_THRUST);

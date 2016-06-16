@@ -11,7 +11,7 @@ import net.machinemuse.numina.network.{PacketSender, MusePackager, MusePacket}
 import net.machinemuse.utils.{ElectricItemUtils, MuseItemUtils}
 import net.minecraft.entity.player.{EntityPlayer, EntityPlayerMP, InventoryPlayer}
 import net.minecraft.item.ItemStack
-import net.minecraft.util.ChatComponentText
+import net.minecraft.util.text.TextComponentString
 
 /**
  * Packet for requesting to purchase an upgrade. Player-to-server. Server decides whether it is a valid upgrade or not and replies with an associated
@@ -43,7 +43,7 @@ class MusePacketInstallModuleRequest(player: EntityPlayer, itemSlot: Int, module
       val inventory: InventoryPlayer = playerEntity.inventory
       val moduleType: IPowerModule = ModuleManager.getModule(moduleName)
       if (moduleType == null || !moduleType.isAllowed) {
-        playerEntity.addChatComponentMessage(new ChatComponentText("Server has disallowed this module. Sorry!"))
+        playerEntity.addChatComponentMessage(new TextComponentString("Server has disallowed this module. Sorry!"))
         return
       }
       val cost: List[ItemStack] = moduleType.getInstallCost

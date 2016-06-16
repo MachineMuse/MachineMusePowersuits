@@ -1,16 +1,14 @@
 package net.machinemuse.powersuits.item
 
-import net.minecraft.client.renderer.texture.IIconRegister
-import cpw.mods.fml.relauncher.Side
-import cpw.mods.fml.relauncher.SideOnly
 import net.machinemuse.utils.render.MuseRenderer
+import net.minecraft.entity.EntityLivingBase
+import net.minecraft.item.ItemStack
+import net.minecraftforge.fml.relauncher.{Side, SideOnly}
 
 class ItemPowerArmorChestplate extends ItemPowerArmor(0, 1) {
   val iconpath = MuseRenderer.ICON_PREFIX + "armortorso"
 
   setUnlocalizedName("powerArmorChestplate")
 
-  @SideOnly(Side.CLIENT) override def registerIcons(iconRegister: IIconRegister) {
-    itemIcon = iconRegister.registerIcon(iconpath)
-  }
+  override def protectEntity(entityLivingBase: EntityLivingBase, itemStack: ItemStack, s: String, b: Boolean): Boolean = ??? //Todo: Finish
 }

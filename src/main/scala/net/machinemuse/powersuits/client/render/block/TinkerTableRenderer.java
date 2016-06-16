@@ -3,7 +3,6 @@
  */
 package net.machinemuse.powersuits.client.render.block;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.machinemuse.numina.render.MuseTESR;
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.block.Block;

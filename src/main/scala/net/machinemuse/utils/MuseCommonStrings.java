@@ -5,10 +5,10 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.ElectricAdapter;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemPowerFist;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -56,14 +56,14 @@ public abstract class MuseCommonStrings {
         if (stack.getItem() instanceof ItemPowerFist) {
             String mode = MuseItemUtils.getStringOrNull(stack, "Mode");
             if (mode != null) {
-                currentTipList.add(StatCollector.translateToLocal("tooltip.mode") + " " + MuseStringUtils.wrapFormatTags(mode, MuseStringUtils.FormatCodes.Red));
+                currentTipList.add( I18n.format("tooltip.mode") + " " + MuseStringUtils.wrapFormatTags(mode, MuseStringUtils.FormatCodes.Red));
             } else {
-                currentTipList.add(StatCollector.translateToLocal("tooltip.changeModes"));
+                currentTipList.add( I18n.format("tooltip.changeModes"));
             }
         }
         ElectricAdapter adapter = ElectricAdapter.wrap(stack);
         if (adapter != null) {
-            String energyinfo = StatCollector.translateToLocal("tooltip.energy") + " " + MuseStringUtils.formatNumberShort(adapter.getCurrentEnergy()) + '/'
+            String energyinfo =  I18n.format("tooltip.energy") + " " + MuseStringUtils.formatNumberShort(adapter.getCurrentEnergy()) + '/'
                     + MuseStringUtils.formatNumberShort(adapter.getMaxEnergy());
             currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character,
                     MuseStringUtils.FormatCodes.Grey));
@@ -71,10 +71,10 @@ public abstract class MuseCommonStrings {
         if (Config.doAdditionalInfo()) {
             List<String> installed = MuseCommonStrings.getItemInstalledModules(player, stack);
             if (installed.size() == 0) {
-                String message = StatCollector.translateToLocal("tooltip.noModules");
+                String message =  I18n.format("tooltip.noModules");
                 currentTipList.addAll(MuseStringUtils.wrapStringToLength(message, 30));
             } else {
-                currentTipList.add(StatCollector.translateToLocal("tooltip.installedModules"));
+                currentTipList.add( I18n.format("tooltip.installedModules"));
                 currentTipList.addAll(installed);
             }
         } else {

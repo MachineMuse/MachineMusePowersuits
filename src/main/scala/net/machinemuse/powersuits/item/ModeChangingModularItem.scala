@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.item
 
 import net.machinemuse.numina.item.{NuminaItemUtils, ModeChangingItem}
+import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.item.ItemStack
-import net.minecraft.util.IIcon
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.api.moduletrigger.IRightClickModule
 import net.minecraft.entity.player.EntityPlayer
@@ -25,7 +25,7 @@ object ModeChangingModularItem {
 }
 
 trait ModeChangingModularItem extends ModeChangingItem {
-  def getModeIcon(mode: String, stack: ItemStack, player: EntityPlayer): Option[IIcon] = Option(ModuleManager.getModule(mode)).map(m => m.getIcon(stack))
+  def getModeIcon(mode: String, stack: ItemStack, player: EntityPlayer): Option[TextureAtlasSprite] = Option(ModuleManager.getModule(mode)).map(m => m.getIcon(stack))
 
   def getValidModes(stack: ItemStack, player: EntityPlayer): Seq[String] = {
     getValidModes(stack)

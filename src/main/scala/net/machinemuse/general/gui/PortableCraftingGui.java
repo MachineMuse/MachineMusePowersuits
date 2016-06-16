@@ -11,7 +11,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+
 import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
@@ -28,8 +28,8 @@ public class PortableCraftingGui extends GuiContainer {
      */
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-        /*this.fontRenderer.drawString(StatCollector.translateToLocal("container.crafting"), 28, 6, 4210752);
-        this.fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 4210752);*/
+        /*this.fontRenderer.drawString( I18n.format("container.crafting"), 28, 6, 4210752);
+        this.fontRenderer.drawString( I18n.format("container.inventory"), 8, this.ySize - 96 + 2, 4210752);*/
     }
 
     /**

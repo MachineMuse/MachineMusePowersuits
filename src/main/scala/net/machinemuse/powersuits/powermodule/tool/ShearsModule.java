@@ -11,6 +11,8 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -19,7 +21,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
@@ -31,14 +32,14 @@ import java.util.List;
 import java.util.Random;
 
 public class ShearsModule extends PowerModuleBase implements IBlockBreakingModule, IRightClickModule {
-    public static final ItemStack shears = new ItemStack(Items.shears);
+    public static final ItemStack shears = new ItemStack(Items.SHEARS);
     public static final String MODULE_SHEARS = "Shears";
     private static final String SHEARING_ENERGY_CONSUMPTION = "Shearing Energy Consumption";
     private static final String SHEARING_HARVEST_SPEED = "Shearing Harvest Speed";
 
     public ShearsModule(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(new ItemStack(Items.iron_ingot, 2));
+        addInstallCost(new ItemStack(Items.IRON_INGOT, 2));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBaseProperty(SHEARING_ENERGY_CONSUMPTION, 50, "J");
         addBaseProperty(SHEARING_HARVEST_SPEED, 8, "x");
@@ -156,8 +157,8 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public IIcon getIcon(ItemStack item) {
-        return shears.getIconIndex();
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(shears).getParticleTexture();
     }
 
     @Override

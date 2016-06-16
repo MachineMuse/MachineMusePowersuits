@@ -19,7 +19,7 @@ import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.StatCollector;
+
 import net.minecraft.world.World;
 
 import java.util.Iterator;

@@ -2,12 +2,12 @@ package net.machinemuse.powersuits.network.packets
 
 import java.io.DataInputStream
 
-import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.machinemuse.numina.network.{MusePackager, MusePacket}
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt
 import net.minecraft.client.Minecraft
-import net.minecraft.client.entity.EntityClientPlayerMP
+import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraftforge.fml.relauncher.{Side, SideOnly}
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -30,7 +30,7 @@ class MusePacketPlasmaBolt(player: EntityPlayer, entityID: Int, size: Double) ex
   }
 
   @SideOnly(Side.CLIENT)
-  override def handleClient(player: EntityClientPlayerMP) {
+  override def handleClient(player: EntityPlayerSP) {
     try {
       val entity: EntityPlasmaBolt = Minecraft.getMinecraft.theWorld.getEntityByID(entityID).asInstanceOf[EntityPlasmaBolt]
       entity.size = this.size

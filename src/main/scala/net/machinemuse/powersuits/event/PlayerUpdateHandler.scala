@@ -1,8 +1,5 @@
 package net.machinemuse.powersuits.event
 
-import cpw.mods.fml.common.FMLCommonHandler
-import cpw.mods.fml.common.eventhandler.SubscribeEvent
-import cpw.mods.fml.relauncher.Side
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.general.sound.SoundDictionary
 import net.machinemuse.numina.basemod.NuminaConfig
@@ -12,6 +9,9 @@ import net.machinemuse.powersuits.common.Config
 import net.machinemuse.utils.{MuseHeatUtils, MuseItemUtils, MusePlayerUtils}
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent
+import net.minecraftforge.fml.common.FMLCommonHandler
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.relauncher.Side
 
 /**
  * Created by Claire Semple on 9/8/2014.

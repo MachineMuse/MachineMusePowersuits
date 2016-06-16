@@ -1,10 +1,7 @@
 package net.machinemuse.powersuits.item
 
-import appeng.api.implementations.items.IAEWrench
 import buildcraft.api.tools.IToolWrench
 import cofh.api.item.IToolHammer
-import cpw.mods.fml.common.Optional
-import cpw.mods.fml.relauncher.{Side, SideOnly}
 import crazypants.enderio.api.tool.ITool
 import forestry.api.arboriculture.IToolGrafter
 import mekanism.api.IMekWrench
@@ -26,6 +23,8 @@ import net.minecraft.item.Item.ToolMaterial
 import net.minecraft.item.{EnumAction, ItemStack}
 import net.minecraft.util.{DamageSource, Vec3}
 import net.minecraft.world.World
+import net.minecraftforge.fml.common.Optional
+import net.minecraftforge.fml.relauncher.{Side, SideOnly}
 import powercrystals.minefactoryreloaded.api.IMFRHammer
 
 /**
@@ -42,16 +41,14 @@ import powercrystals.minefactoryreloaded.api.IMFRHammer
   new Optional.Interface(iface = "mods.railcraft.api.core.items.IToolCrowbar", modid = "Railcraft", striprefs = true),
   new Optional.Interface(iface = "powercrystals.minefactoryreloaded.api.IMFRHammer", modid = "MineFactoryReloaded", striprefs = true),
   new Optional.Interface(iface = "cofh.api.item.IToolHammer", modid = "CoFHCore", striprefs = true),
-  new Optional.Interface(iface = "buildcraft.api.tools.IToolWrench", modid = "BuildCraft|Core", striprefs = true),
-  new Optional.Interface(iface = "appeng.api.implementations.items.IAEWrench", modid = "appliedenergistics2", striprefs = true)
+  new Optional.Interface(iface = "buildcraft.api.tools.IToolWrench", modid = "BuildCraft|Core", striprefs = true)
 ))
-class ItemPowerFist extends ItemElectricTool(0, ToolMaterial.EMERALD)
+class ItemPowerFist extends ItemElectricTool(0, ToolMaterial.DIAMOND)
 with IModularItem
 with IToolGrafter
 with IToolHammer
 with IMFRHammer
 with IToolCrowbar
-with IAEWrench
 with IToolWrench
 with com.bluepowermod.api.misc.IScrewdriver
 with mrtjp.projectred.api.IScrewdriver
@@ -186,7 +183,7 @@ with ModeChangingModularItem {
    * is being used
    */
   override def getItemUseAction(stack: ItemStack): EnumAction = {
-    return EnumAction.bow
+    return EnumAction.BOW
   }
 
   /**

@@ -2,12 +2,12 @@ package net.machinemuse.powersuits.network.packets
 
 import java.io.DataInputStream
 
-import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.numina.network.{MusePackager, MusePacket}
 import net.machinemuse.powersuits.powermodule.{PowerModuleBase, PropertyModifierFlatAdditive, PropertyModifierLinearAdditive}
-import net.minecraft.client.entity.EntityClientPlayerMP
+import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraftforge.fml.relauncher.{SideOnly, Side}
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -49,7 +49,7 @@ class MusePacketPropertyModifierConfig(player: EntityPlayer, data: DataInputStre
    * @param player
    */
   @SideOnly(Side.CLIENT)
-  override def handleClient(player: EntityClientPlayerMP) {
+  override def handleClient(player: EntityPlayerSP) {
     val d = MusePacketPropertyModifierConfig
     val numModules = d readInt data
     for (_ <- 0 until numModules) {

@@ -12,7 +12,7 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.StatCollector;
+
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -68,7 +68,7 @@ public class AdvancedSolarGenerator extends PowerModuleBase implements IPlayerTi
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        ItemStack helmet = player.getCurrentArmor(3);
+        ItemStack helmet = player.inventory.armorItemInSlot(3);
         if (helmet != null && helmet.equals(item)) {
             World world = player.worldObj;
             int xCoord = MathHelper.floor_double(player.posX);

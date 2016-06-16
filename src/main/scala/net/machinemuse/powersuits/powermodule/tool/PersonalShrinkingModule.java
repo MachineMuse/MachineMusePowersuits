@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
@@ -12,9 +11,10 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+
 import net.minecraft.world.World;
 import net.minecraft.block.Block;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.dave.CompactMachines.CompactMachines;
 
 import java.util.List;
