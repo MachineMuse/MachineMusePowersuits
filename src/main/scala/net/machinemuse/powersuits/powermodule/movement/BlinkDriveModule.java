@@ -12,7 +12,9 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -65,7 +67,7 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
             ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
             world.playSoundAtEntity(player, "mob.endermen.portal", 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
             // MuseLogger.logDebug("Range: " + range);
-            MovingObjectPosition hitMOP = MusePlayerUtils.doCustomRayTrace(player.worldObj, player, true, range);
+            RayTraceResult hitMOP = MusePlayerUtils.doCustomRayTrace(player.worldObj, player, true, range);
             // MuseLogger.logDebug("Hit:" + hitMOP);
             MusePlayerUtils.teleportEntity(player, hitMOP);
             world.playSoundAtEntity(player, "mob.endermen.portal", 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
@@ -74,13 +76,12 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public void onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
 
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY,
-                                  float hitZ) {
+    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         return false;
     }
 

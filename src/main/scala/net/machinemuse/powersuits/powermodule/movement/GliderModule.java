@@ -12,7 +12,7 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
 
@@ -50,10 +50,10 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        Vec3 playerHorzFacing = player.getLookVec();
-        playerHorzFacing.yCoord = 0;
+        Vec3d playerHorzFacing = player.getLookVec();
+        playerHorzFacing = new Vec3d(playerHorzFacing.xCoord, 0, playerHorzFacing.zCoord);
         playerHorzFacing.normalize();
-        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderName());
+        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
         boolean sneakkey = movementInput.sneakKey;
         float forwardkey = movementInput.forwardKey;
         ItemStack torso = player.inventory.armorItemInSlot(2);

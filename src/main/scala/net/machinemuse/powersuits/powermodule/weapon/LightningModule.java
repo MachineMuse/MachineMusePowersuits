@@ -10,7 +10,7 @@ import net.machinemuse.utils.*;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 
 import net.minecraft.world.World;
 
@@ -67,7 +67,7 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
             if (energyConsumption < ElectricItemUtils.getPlayerEnergy(player)) {
                 ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
                 MuseHeatUtils.heatPlayer(player, ModuleManager.computeModularProperty(item, HEAT));
-                MovingObjectPosition MOP = MusePlayerUtils.doCustomRayTrace(player.worldObj, player, true, range);
+                RayTraceResult MOP = MusePlayerUtils.doCustomRayTrace(player.worldObj, player, true, range);
                 world.spawnEntityInWorld(new EntityLightningBolt(player.worldObj, MOP.hitVec.xCoord, MOP.hitVec.yCoord, MOP.hitVec.zCoord));
 
                 /*for (int x = (int)player.posX-1; x < (int)player.posX+2; x++) {
@@ -86,11 +86,11 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
         return false;
     }
 

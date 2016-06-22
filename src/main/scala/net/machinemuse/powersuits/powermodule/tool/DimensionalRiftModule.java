@@ -17,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -98,12 +99,12 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
 
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
 
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
         return false;
     }
 

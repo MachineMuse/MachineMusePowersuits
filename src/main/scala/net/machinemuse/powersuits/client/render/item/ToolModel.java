@@ -490,10 +490,10 @@ public class ToolModel extends ModelBase {
     }
 
     public void setPoseForPlayer(EntityPlayer player, ItemStack itemStack) {
-        if (player.isHandActive() && player.getCurrentEquippedItem() != null
-                && ModuleManager.itemHasActiveModule(player.getCurrentEquippedItem(), PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
+        if (player.isHandActive() && player.getHeldItemMainhand() != null
+                && ModuleManager.itemHasActiveModule(player.getHeldItemMainhand(), PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
             setPose(1.5f, -1, 1.5f, -1, 1.5f, -1);
-            this.boltSize = player.getItemInUseDuration() > 50 ? 50 : player.getItemInUseDuration();
+            this.boltSize = player.getItemInUseCount() > 50 ? 50 : player.getItemInUseCount();
         } else {
             setPose(0.5f, -1, 0.5f, -1, 0.5f, -1);
             this.boltSize = 0;

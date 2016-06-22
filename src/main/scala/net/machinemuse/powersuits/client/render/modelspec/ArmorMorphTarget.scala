@@ -15,11 +15,11 @@ sealed trait MorphTarget {
   def apply(m: ModelBiped): ModelRenderer
 }
 
-case object Cloak extends MorphTarget {
-  val name = "Cloak"
-
-  def apply(m: ModelBiped) = m.bipedCloak
-}
+//case object Cloak extends MorphTarget {
+//  val name = "Cloak"
+//
+//  def apply(m: ModelBiped) = m.bipedCloak
+//}
 
 case object Head extends MorphTarget {
   val name = "Head"

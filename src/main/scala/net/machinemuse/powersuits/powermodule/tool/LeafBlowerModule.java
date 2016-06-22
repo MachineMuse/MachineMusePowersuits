@@ -30,7 +30,7 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
 
     public LeafBlowerModule(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(new ItemStack(Items.iron_ingot, 3));
+        addInstallCost(new ItemStack(Items.IRON_INGOT, 3));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBaseProperty(LEAF_BLOWER_ENERGY_CONSUMPTION, 100, "J");
         addBaseProperty(PLANT_RADIUS, 1, "m");
@@ -104,7 +104,7 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
         Block blockID = world.getBlock(x, y, z);
         int plant = (int) ModuleManager.computeModularProperty(itemStack, PLANT_RADIUS);
         int leaf = (int) ModuleManager.computeModularProperty(itemStack, LEAF_RADIUS);
@@ -134,7 +134,7 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
         return false;
     }
 

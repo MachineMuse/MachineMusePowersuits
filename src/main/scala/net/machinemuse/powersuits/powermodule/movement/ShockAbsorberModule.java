@@ -20,7 +20,7 @@ public class ShockAbsorberModule extends PowerModuleBase implements IToggleableM
         super(validItems);
         addSimpleTradeoff(this, "Power", SHOCK_ABSORB_ENERGY_CONSUMPTION, "J/m", 0, 10, SHOCK_ABSORB_MULTIPLIER, "%", 0, 1);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
-        addInstallCost(new ItemStack(Blocks.wool, 2));
+        addInstallCost(new ItemStack(Blocks.WOOL, 2));
         }
 
     @Override

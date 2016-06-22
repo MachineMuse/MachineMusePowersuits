@@ -1,12 +1,15 @@
 package net.machinemuse.powersuits.client.render.modelspec
 
 import scala.xml.{NodeSeq, XML}
-import net.minecraft.util.{ResourceLocation, Vec3}
 import java.awt.Color
+
 import net.machinemuse.utils.MuseStringUtils
 import java.net.URL
+
 import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.geometry.Colour
+import net.minecraft.util.ResourceLocation
+import net.minecraft.util.math.Vec3d
 
 
 /**
@@ -94,7 +97,7 @@ object ModelSpecXMLReader {
       case "rightarm" => Some(RightArm)
       case "leftleg" => Some(LeftLeg)
       case "rightleg" => Some(RightLeg)
-      case "cloak" => Some(Cloak)
+//      case "cloak" => Some(Cloak)
       case _ => None
     }
   }
@@ -105,13 +108,13 @@ object ModelSpecXMLReader {
     }
   }
 
-  def parseVector(s: String): Option[Vec3] = {
+  def parseVector(s: String): Option[Vec3d] = {
     try {
       val ss = s.split(",")
       val x = ss(0).toDouble
       val y = ss(1).toDouble
       val z = ss(2).toDouble
-      Some(Vec3.createVectorHelper(x, y, z))
+      Some(new Vec3d(x, y, z))
     } catch {
       case _: Throwable => None
     }

@@ -10,6 +10,7 @@ import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -35,7 +36,7 @@ public class MuseItemUtils {
         return MuseItemTag.getMuseItemTag(stack);
     }
 
-    public static NBTTagCompound getMuseRenderTag(ItemStack stack, int armorSlot) {
+    public static NBTTagCompound getMuseRenderTag(ItemStack stack, EntityEquipmentSlot armorSlot) {
         NBTTagCompound tag = getMuseItemTag(stack);
         if (!tag.hasKey("render") || !(tag.getTag("render") instanceof NBTTagCompound)) {
             MuseLogger.logDebug("TAG BREACH IMMINENT, PLEASE HOLD ONTO YOUR SEATBELTS");

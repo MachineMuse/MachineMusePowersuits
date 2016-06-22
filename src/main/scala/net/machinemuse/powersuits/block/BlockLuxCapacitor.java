@@ -1,19 +1,19 @@
 package net.machinemuse.powersuits.block;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
@@ -21,13 +21,23 @@ public class BlockLuxCapacitor extends Block {
     public static int assignedBlockID;
     protected int renderType;
 
+//    TODO: these will be static bounding boxes instead of calculating them over and over (numbers still neeed to be filled in)
+//    protected static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.1875D);
+//    protected static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.8125D, 1.0D, 1.0D, 1.0D);
+//    protected static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(0.8125D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
+//    protected static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.1875D, 1.0D, 1.0D);
+//    protected static final AxisAlignedBB UP_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.1875D);
+//    protected static final AxisAlignedBB DOWN_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.8125D, 1.0D, 1.0D, 1.0D);
+
+
+
     public BlockLuxCapacitor setRenderType(int id) {
         this.renderType = id;
         return this;
     }
 
     public BlockLuxCapacitor() {
-        super(Material.circuits);
+        super(Material.CIRCUITS);
 
         // Block's creative tab
         setCreativeTab(Config.getCreativeTab());
@@ -74,21 +84,22 @@ public class BlockLuxCapacitor extends Block {
     }
 
 
-    public static AxisAlignedBB createAABBForSide(ForgeDirection dir, double x, double y, double z) {
-        double x1 = bbMin(dir.offsetX);
-        double y1 = bbMin(dir.offsetY);
-        double z1 = bbMin(dir.offsetZ);
-        double x2 = bbMax(dir.offsetX);
-        double y2 = bbMax(dir.offsetY);
-        double z2 = bbMax(dir.offsetZ);
-        return AxisAlignedBB.getBoundingBox(x + x1, y + y1, z + z1, x + x2, y + y2, z + z2);
+    public static AxisAlignedBB createAABBForSide(EnumFacing dir, BlockPos blockPos) {
+        double x1 = bbMin(dir.getFrontOffsetX());
+        double y1 = bbMin(dir.getFrontOffsetY());
+        double z1 = bbMin(dir.getFrontOffsetZ());
+        double x2 = bbMax(dir.getFrontOffsetX());
+        double y2 = bbMax(dir.getFrontOffsetY());
+        double z2 = bbMax(dir.getFrontOffsetZ());
+        return new AxisAlignedBB(blockPos.getX() + x1, blockPos.getY() + y1, blockPos.getZ() + z1,
+                blockPos.getX() + x2, blockPos.getY() + y2, blockPos.getZ() + z2);
     }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void registerBlockIcons(IIconRegister iconRegister) {
-        this.blockIcon = iconRegister.registerIcon(MuseIcon.ICON_PREFIX + "bluelight");
-    }
+//    @SideOnly(Side.CLIENT)
+//    @Override
+//    public void registerBlockIcons(IIconRegister iconRegister) {
+//        this.blockIcon = iconRegister.registerIcon(MuseIcon.ICON_PREFIX + "bluelight");
+//    }
 
     /**
      * returns some value from 0 to 30 or so for different models. Since we're
@@ -129,10 +140,12 @@ public class BlockLuxCapacitor extends Block {
      * Returns the bounding box of the wired rectangular prism to render.
      */
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
-        TileEntity te = world.getTileEntity(x, y, z);
+        BlockPos blockPos = new BlockPos(x, y, z);
+
+        TileEntity te = world.getTileEntity(blockPos);
         if (te instanceof TileEntityLuxCapacitor) {
-            ForgeDirection side = ((TileEntityLuxCapacitor) te).side;
-            return createAABBForSide(side, x, y, z);
+            EnumFacing side = ((TileEntityLuxCapacitor) te).side;
+            return createAABBForSide(side, blockPos);
         }
         return null;
     }
@@ -141,27 +154,32 @@ public class BlockLuxCapacitor extends Block {
      * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
      * cleared to be reused)
      */
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
-        TileEntity te = world.getTileEntity(x, y, z);
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, BlockPos blockPos) {
+        TileEntity te = world.getTileEntity(blockPos);
         if (te instanceof TileEntityLuxCapacitor) {
-            ForgeDirection side = ((TileEntityLuxCapacitor) te).side;
-            return createAABBForSide(side, x, y, z);
+            EnumFacing side = ((TileEntityLuxCapacitor) te).side;
+            return createAABBForSide(side, blockPos);
         }
         return null;
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int x, int y, int z) {
-        TileEntity te = par1IBlockAccess.getTileEntity(x, y, z);
+    public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, BlockPos blockPos) {
+        TileEntity te = par1IBlockAccess.getTileEntity(blockPos);
         if (te instanceof TileEntityLuxCapacitor) {
-            ForgeDirection side = ((TileEntityLuxCapacitor) te).side;
-            float x1 = bbMin(side.offsetX);
-            float y1 = bbMin(side.offsetY);
-            float z1 = bbMin(side.offsetZ);
-            float x2 = bbMax(side.offsetX);
-            float y2 = bbMax(side.offsetY);
-            float z2 = bbMax(side.offsetZ);
+            EnumFacing side = ((TileEntityLuxCapacitor) te).side;
+            float x1 = bbMin(side.getFrontOffsetX());
+            float y1 = bbMin(side.getFrontOffsetY());
+            float z1 = bbMin(side.getFrontOffsetZ());
+            float x2 = bbMax(side.getFrontOffsetX());
+            float y2 = bbMax(side.getFrontOffsetY());
+            float z2 = bbMax(side.getFrontOffsetZ());
             this.setBlockBounds(x1, y1, z1, x2, y2, z2);
         }
+    }
+
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return super.getBoundingBox(state, source, pos);
     }
 
     /**

@@ -18,7 +18,8 @@ import net.machinemuse.numina.geometry.Colour
  * Created: 7:49 PM, 4/23/13
  */
 trait ModularItemBase extends Item with IModularItem with MuseElectricItem {
-  @SideOnly(Side.CLIENT) override def getColorFromItemStack(stack: ItemStack, par2: Int): Int = {
+  @SideOnly(Side.CLIENT)
+  override def getColorFromItemStack(stack: ItemStack, par2: Int): Int = {
     getColorFromItemStack(stack).getInt
   }
 

@@ -45,7 +45,7 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderName());
+        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
         float forwardkey = movementInput.forwardKey;
         boolean sneakkey = movementInput.sneakKey;
         ItemStack torso = player.inventory.armorItemInSlot(2);

@@ -65,7 +65,7 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
         return addPropertyModifier(propertyName, new PropertyModifierIntLinearAdditive(tradeoffName, multiplier, roundTo, offset));
     }
 
-    public void searchForValuables(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side) {
+    public void searchForValuables(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side) {
         int xRadius = (int) ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_X);
         int yRadius = (int) ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_Y);
         int zRadius = (int) ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_Z);
@@ -179,12 +179,12 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
         searchForValuables(itemStack, player, world, x, y, z, side);
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
         return false;
     }
 

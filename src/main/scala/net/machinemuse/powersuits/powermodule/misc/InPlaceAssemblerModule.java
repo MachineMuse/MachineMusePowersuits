@@ -1,17 +1,17 @@
 package net.machinemuse.powersuits.powermodule.misc;
 
-import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class InPlaceAssemblerModule extends PowerModuleBase implements IRightCli
     public InPlaceAssemblerModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
-        addInstallCost(new ItemStack(Blocks.crafting_table, 1));
+        addInstallCost(new ItemStack(Blocks.CRAFTING_TABLE, 1));
     }
 
     @Override
@@ -56,13 +56,13 @@ public class InPlaceAssemblerModule extends PowerModuleBase implements IRightCli
         player.openGui(ModularPowersuits.INSTANCE(), 4, world, (int) player.posX, (int) player.posY, (int) player.posZ);
     }
 
-
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         return false;
     }
 

@@ -6,6 +6,7 @@ import net.machinemuse.utils.MuseStringUtils
 import net.minecraft.nbt.NBTTagCompound
 import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.geometry.Colour
+import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.util.ResourceLocation
 
 /**
@@ -60,7 +61,7 @@ object DefaultModelSpec {
     }
   }
 
-  def makeModelPrefs(stack: ItemStack, slot: Int): NBTTagCompound = {
+  def makeModelPrefs(stack: ItemStack, slot: EntityEquipmentSlot): NBTTagCompound = {
     val item = stack.getItem().asInstanceOf[ItemPowerArmor]
     val normalcolour = item.getColorFromItemStack(stack)
     val glowcolour = item.getGlowFromItemStack(stack)

@@ -10,6 +10,7 @@ import net.machinemuse.powersuits.network.packets.MusePacketCosmeticInfo
 import net.machinemuse.utils.MuseItemUtils
 import net.machinemuse.utils.render.{GuiIcons, MuseRenderer}
 import net.minecraft.client.Minecraft
+import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemArmor
 import net.minecraft.nbt.NBTTagCompound
 import org.lwjgl.opengl.GL11._
@@ -33,7 +34,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
 
   def getItemTag = MuseItemUtils.getMuseItemTag(getSelectedItem.getItem)
 
-  def isValidArmor(clickie: ClickableItem, slot: Int): Boolean = if (clickie == null) false else clickie.getItem.getItem.isValidArmor(clickie.getItem, slot, Minecraft.getMinecraft.thePlayer)
+  def isValidArmor(clickie: ClickableItem, slot: EntityEquipmentSlot): Boolean = if (clickie == null) false else clickie.getItem.getItem.isValidArmor(clickie.getItem, slot, Minecraft.getMinecraft.thePlayer)
 
   def getSpecTag(spec: ModelPartSpec) = getRenderTag.getCompoundTag(ModelRegistry.makeName(spec))
 

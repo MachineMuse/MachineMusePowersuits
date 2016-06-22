@@ -3,10 +3,10 @@ package net.machinemuse.powersuits.item
 import java.util.UUID
 
 import com.google.common.collect.Multimap
-import net.machinemuse.api.{IModularItem, ArmorTraits, ModuleManager}
+import net.machinemuse.api.{ArmorTraits, IModularItem, ModuleManager}
 import net.machinemuse.numina.geometry.Colour
 import net.machinemuse.powersuits.client.render.item.ArmorModel
-import net.machinemuse.powersuits.common.{ModCompatibility, Config}
+import net.machinemuse.powersuits.common.{Config, ModCompatibility}
 import net.machinemuse.powersuits.powermodule.armor.HazmatModule
 import net.machinemuse.powersuits.powermodule.misc.{InvisibilityModule, TintModule, TransparentArmorModule}
 import net.machinemuse.utils._
@@ -14,6 +14,7 @@ import net.minecraft.client.model.ModelBiped
 import net.minecraft.entity.ai.attributes.AttributeModifier
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.{Entity, EntityLivingBase}
+import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.{ItemArmor, ItemStack}
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.DamageSource
@@ -25,7 +26,7 @@ import net.minecraftforge.fml.relauncher.{Side, SideOnly}
  *
  * @author MachineMuse
  */
-abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
+abstract class ItemPowerArmor(renderIndex: Int, armorType: EntityEquipmentSlot)
   extends ItemElectricArmor(ItemArmor.ArmorMaterial.IRON, renderIndex, armorType)
   with ISpecialArmor
   with ArmorTraits

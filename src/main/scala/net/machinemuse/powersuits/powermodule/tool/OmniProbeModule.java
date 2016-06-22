@@ -105,11 +105,11 @@ public void onRightClick(EntityPlayer player, World world, ItemStack item) {
 }
 
 @Override
-public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
 }
 
 @Override
-public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
         int block = Block.getIdFromBlock(world.getBlock(x, y, z));
 
         /* Project Red seems to do something odd with its debugger. Will have to look into this. */

@@ -67,12 +67,12 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-        EntityPlayer player = event.entityPlayer;
-        ItemStack stack = player.getCurrentEquippedItem();
-        if (event.newSpeed > 1
+        EntityPlayer player = event.getEntityPlayer();
+        ItemStack stack = player.getHeldItemMainhand();
+        if (event.getNewSpeed() > 1
                 && (player.isInsideOfMaterial(Material.WATER) || !player.onGround)
                 && ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, AQUA_AFFINITY_ENERGY_CONSUMPTION)) {
-            event.newSpeed *= 5 * ModuleManager.computeModularProperty(stack, UNDERWATER_HARVEST_SPEED);
+            event.setNewSpeed((float) (event.getNewSpeed() * 5 * ModuleManager.computeModularProperty(stack, UNDERWATER_HARVEST_SPEED)));
         }
     }
 

@@ -6,9 +6,12 @@ import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.{EnumAction, ItemStack}
-import net.minecraftforge.client.model.obj.WavefrontObject
 import net.minecraft.nbt.NBTTagCompound
 import net.machinemuse.numina.general.MuseLogger
+import net.minecraft.client.model.ModelBiped.ArmPose
+import net.minecraft.inventory.EntityEquipmentSlot
+import net.minecraft.util.EnumHandSide
+import net.minecraftforge.client.model.obj.OBJModel
 
 object ArmorModel {
   def instance: ArmorModel = ArmorModelInstance.getInstance()
@@ -16,7 +19,7 @@ object ArmorModel {
 
 trait ArmorModel extends ModelBiped {
   var renderSpec: NBTTagCompound = null
-  var visibleSection: Int = 0
+  var visibleSection: EntityEquipmentSlot = EntityEquipmentSlot.HEAD // TODO is this the right one to start with?
 
   def clearAndAddChildWithInitialOffsets(mr: ModelRenderer, xo: Float, yo: Float, zo: Float) {
     mr.cubeList.clear()
@@ -33,12 +36,12 @@ trait ArmorModel extends ModelBiped {
     clearAndAddChildWithInitialOffsets(bipedRightLeg, 2, 12.0F, 0.0F)
     clearAndAddChildWithInitialOffsets(bipedLeftLeg, -2, 12.0F, 0.0F)
     bipedHeadwear.cubeList.clear()
-    bipedEars.cubeList.clear()
-    bipedCloak.cubeList.clear()
+//    bipedEars.cubeList.clear()
+//    bipedCloak.cubeList.clear()
   }
 
 
-  private def logModelParts(model: WavefrontObject) {
+  private def logModelParts(model: OBJModel) {
     MuseLogger.logDebug(model.toString + ":")
     import scala.collection.JavaConversions._
     for (group <- model.groupObjects) {
@@ -57,8 +60,20 @@ trait ArmorModel extends ModelBiped {
   def prep(entity: Entity, par2: Float, par3: Float, par4: Float, par5: Float, par6: Float, scale: Float) {
     try {
       val entLive: EntityLivingBase = entity.asInstanceOf[EntityLivingBase]
-      val stack: ItemStack = entLive.getEquipmentInSlot(0)
-      heldItemRight = if (stack != null) 1 else 0
+      val stack: ItemStack = entLive.getActiveItemStack
+      if (stack != null) {
+        if (getMainHand(entLive) == EnumHandSide.LEFT)
+          this.leftArmPose = ArmPose.ITEM
+        else
+          this.rightArmPose = ArmPose.ITEM
+      } else {
+        if (getMainHand(entLive) == EnumHandSide.LEFT)
+          this.leftArmPose = ArmPose.EMPTY
+        else
+          this.rightArmPose = ArmPose.EMPTY
+      }
+
+
       isSneak = entLive.isSneaking
       isRiding = entLive.isRiding
       val entPlayer = entLive.asInstanceOf[EntityPlayer]
@@ -66,9 +81,15 @@ trait ArmorModel extends ModelBiped {
       {
         val enumaction = stack.getItemUseAction
         if (enumaction == EnumAction.BLOCK) {
-          heldItemRight = 3
+          if (getMainHand(entLive) == EnumHandSide.LEFT)
+            this.leftArmPose = ArmPose.BLOCK
+          else
+            this.rightArmPose = ArmPose.BLOCK
         } else if (enumaction == EnumAction.BOW) {
-          aimedBow = true
+          if (getMainHand(entLive) == EnumHandSide.LEFT)
+            this.leftArmPose = ArmPose.BOW_AND_ARROW
+          else
+            this.rightArmPose = ArmPose.BOW_AND_ARROW
         }
       }
     } catch {
@@ -91,8 +112,8 @@ trait ArmorModel extends ModelBiped {
   }
 
   def post(entity: Entity, par2: Float, par3: Float, par4: Float, par5: Float, par6: Float, scale: Float): Unit = {
-    aimedBow = false
+    leftArmPose = ArmPose.EMPTY
+    rightArmPose = ArmPose.EMPTY
     isSneak = false
-    heldItemRight = 0
   }
 }

@@ -76,7 +76,7 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
         int blockID = world.getBlockId(x, y, z);
 
         if (blockID == rubber.itemID) {
@@ -85,7 +85,7 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
         }
     }
 
-    public static boolean tryExtract(EntityPlayer player, World world, int x, int y, int z, int side, List stacks) {
+    public static boolean tryExtract(EntityPlayer player, World world, int x, int y, int z, EnumFacing side, List stacks) {
         int metadata = world.getBlockMetadata(x, y, z);
         if ((metadata < 2) || (metadata % 6 != side)) {
             return false;
@@ -122,7 +122,7 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
         return false;
     }
 
-    public static void eject(World world, int x, int y, int z, int side, int quantity) {
+    public static void eject(World world, int x, int y, int z, EnumFacing side, int quantity) {
         double ejectX = x + 0.5D;
         double ejectY = y + 0.5D;
         double ejectZ = z + 0.5D;
@@ -145,7 +145,7 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
         return false;
     }
 

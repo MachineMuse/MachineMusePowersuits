@@ -67,7 +67,7 @@ class ClientTickHandler {
 
  def findInstalledModules(player: EntityPlayer) {
     if (player != null) {
-      val tool = player.getCurrentEquippedItem
+      val tool = player.getHeldItemMainhand
       if (tool != null && tool.getItem.isInstanceOf[ItemPowerFist]) {
       }
       val helmet = player.inventory.armorItemInSlot(3)

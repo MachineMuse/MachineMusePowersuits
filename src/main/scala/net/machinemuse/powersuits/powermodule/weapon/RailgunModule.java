@@ -10,8 +10,10 @@ import net.machinemuse.utils.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -64,13 +66,13 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
     }
 
     public void drawParticleStreamTo(EntityPlayer source, World world, double x, double y, double z) {
-        Vec3 direction = source.getLookVec().normalize();
+        Vec3d direction = source.getLookVec().normalize();
         double scale = 1.0;
         double xoffset = 1.3f;
         double yoffset = -.2;
         double zoffset = 0.3f;
-        Vec3 horzdir = direction.normalize();
-        horzdir.yCoord = 0;
+        Vec3d horzdir = direction.normalize();
+        horzdir = new Vec3d(horzdir.xCoord, 0, horzdir.zCoord);
         horzdir = horzdir.normalize();
         double cx = source.posX + direction.xCoord * xoffset - direction.yCoord * horzdir.xCoord * yoffset - horzdir.zCoord * zoffset;
         double cy = source.posY + source.getEyeHeight() + direction.yCoord * xoffset + (1 - Math.abs(direction.yCoord)) * yoffset;
@@ -81,7 +83,7 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
         double ratio = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
         while (Math.abs(cx - x) > Math.abs(dx / ratio)) {
-            world.spawnParticle("townaura", cx, cy, cz, 0.0D, 0.0D, 0.0D);
+            world.spawnParticle(EnumParticleTypes.TOWN_AURA, cx, cy, cz, 0.0D, 0.0D, 0.0D);
             cx += dx * 0.1 / ratio;
             cy += dy * 0.1 / ratio;
             cz += dz * 0.1 / ratio;
@@ -98,12 +100,12 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
             ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
             MuseItemUtils.setDoubleOrRemove(itemStack, TIMER, 10);
             MuseHeatUtils.heatPlayer(player, ModuleManager.computeModularProperty(itemStack, HEAT));
-            MovingObjectPosition hitMOP = MusePlayerUtils.doCustomRayTrace(player.worldObj, player, true, range);
+            RayTraceResult hitMOP = MusePlayerUtils.doCustomRayTrace(player.worldObj, player, true, range);
             world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
 
             double damage = ModuleManager.computeModularProperty(itemStack, IMPULSE) / 100.0;
             double knockback = damage / 20.0;
-            Vec3 lookVec = player.getLookVec();
+            Vec3d lookVec = player.getLookVec();
             if (hitMOP != null) {
                 switch (hitMOP.typeOfHit) {
                     case ENTITY:
@@ -134,12 +136,12 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
     }
 
     @Override
-    public void onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public void onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
 
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY,
+    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY,
                                   float hitZ) {
         return false;
     }

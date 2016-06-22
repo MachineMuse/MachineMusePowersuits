@@ -1,16 +1,22 @@
 package net.machinemuse.powersuits.entity;
 
+import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityPlasmaBolt extends EntityThrowable {
+public class EntityPlasmaBolt extends EntityThrowable implements IEntityAdditionalSpawnData {
 	public double size;
 	public static final int SIZE = 24;
 	public double damagingness;
@@ -28,7 +34,7 @@ public class EntityPlasmaBolt extends EntityThrowable {
 		this.size = ((chargeTicks) > 50 ? 50 : chargeTicks);
 		this.explosiveness = explosiveness;
 		this.damagingness = damagingness;
-		Vec3 direction = shootingEntity.getLookVec().normalize();
+		Vec3d direction = shootingEntity.getLookVec().normalize();
 		double scale = 1.0;
 		this.motionX = direction.xCoord * scale;
 		this.motionY = direction.yCoord * scale;
@@ -43,7 +49,7 @@ public class EntityPlasmaBolt extends EntityThrowable {
 		this.posX = shootingEntity.posX + direction.xCoord * xoffset - direction.yCoord * horzx * yoffset - horzz * zoffset;
 		this.posY = shootingEntity.posY + shootingEntity.getEyeHeight() + direction.yCoord * xoffset + (1 - Math.abs(direction.yCoord)) * yoffset;
 		this.posZ = shootingEntity.posZ + direction.zCoord * xoffset - direction.yCoord * horzz * yoffset + horzx * zoffset;
-		this.boundingBox.setBounds(posX - r, posY - r, posZ - r, posX + r, posY + r, posZ + r);
+		this.setEntityBoundingBox( new AxisAlignedBB(posX - r, posY - r, posZ - r, posX + r, posY + r, posZ + r));
 	}
 
 	@Override
@@ -56,7 +62,7 @@ public class EntityPlasmaBolt extends EntityThrowable {
 			this.setDead();
 			for (int var3 = 0; var3 < this.size; ++var3)
 			{
-				this.worldObj.spawnParticle("flame", this.posX + Math.random() * 1, this.posY + Math.random() * 1, this.posZ + Math.random()
+				this.worldObj.spawnParticle(EnumParticleTypes.FLAME, this.posX + Math.random() * 1, this.posY + Math.random() * 1, this.posZ + Math.random()
 						* 0.1,
 						0.0D, 0.0D, 0.0D);
 			}
@@ -79,27 +85,33 @@ public class EntityPlasmaBolt extends EntityThrowable {
 		return false;
 	}
 
-	/**
+    /**
 	 * If returns false, the item will not inflict any damage against entities.
 	 * (damage is computed separately in the onDamage function)
 	 */
-	@Override
-	public boolean canAttackWithItem()
-	{
-		return false;
-	}
+    @Override
+    public boolean canBeAttackedWithItem() {
+        return false;
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public float getShadowSize()
-	{
-		return 0.0F;
-	}
+// TODO: replacement? needed?
+//	@Override
+//	@SideOnly(Side.CLIENT)
+//	public float getShadowSize()
+//	{
+//		return 0.0F;
+//	}
 
-	@Override
-	protected void entityInit() {
-		this.renderDistanceWeight = 10.0D;
-	}
+
+    /**
+     * Checks if the entity is in range to render.
+     */
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean isInRangeToRenderDist(double distance)
+    {
+        return distance < 10.0D;
+    }
 
 	@Override
 	public void readEntityFromNBT(NBTTagCompound var1) {
@@ -119,14 +131,13 @@ public class EntityPlasmaBolt extends EntityThrowable {
 		return 0;
 	}
 
-	@Override
-	protected void onImpact(MovingObjectPosition event) {
-
+    @Override
+    protected void onImpact(RayTraceResult result) {
 		double damage = this.size / 50.0 * this.damagingness;
-		switch (event.typeOfHit) {
+		switch (result.typeOfHit) {
 		case ENTITY:
-			if (event.entityHit != null && event.entityHit != shootingEntity) {
-				event.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.shootingEntity), (int) damage);
+			if (result.entityHit != null && result.entityHit != shootingEntity) {
+				result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.shootingEntity), (int) damage);
 			}
 			break;
 		case BLOCK:
@@ -136,12 +147,12 @@ public class EntityPlasmaBolt extends EntityThrowable {
 		}
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
 		{
-			boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
+			boolean flag = this.worldObj.getGameRules().getBoolean("mobGriefing");
 			this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.size / 50.0f * 3 * this.explosiveness), flag);
 		}
 		for (int var3 = 0; var3 < 8; ++var3)
 		{
-			this.worldObj.spawnParticle("flame", this.posX + Math.random() * 0.1, this.posY + Math.random() * 0.1, this.posZ + Math.random() * 0.1,
+			this.worldObj.spawnParticle(EnumParticleTypes.FLAME, this.posX + Math.random() * 0.1, this.posY + Math.random() * 0.1, this.posZ + Math.random() * 0.1,
 					0.0D, 0.0D, 0.0D);
 		}
 
@@ -150,4 +161,14 @@ public class EntityPlasmaBolt extends EntityThrowable {
 			this.setDead();
 		}
 	}
+
+    @Override
+    public void writeSpawnData(ByteBuf buffer) {
+        buffer.writeDouble(this.size);
+    }
+
+    @Override
+    public void readSpawnData(ByteBuf additionalData) {
+        this.size = additionalData.readDouble();
+    }
 }

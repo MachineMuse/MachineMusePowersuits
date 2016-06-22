@@ -1,7 +1,5 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
@@ -18,6 +16,8 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.List;
 
@@ -59,7 +59,7 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
         if (player.isInWater()) {
             return;
         }
-        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderName());
+        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
         boolean jumpkey = movementInput.jumpKey;
         ItemStack helmet = player.inventory.armorItemInSlot(3);
         boolean hasFlightControl = helmet != null && helmet.getItem() instanceof IModularItem

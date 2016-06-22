@@ -96,7 +96,7 @@
 // }
 //
 // @Override
-// public void onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+// public void onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
 // /*        if (world.getTileEntity(x, y, z) instanceof ServerRack) {
 //       ServerRack rack = (ServerRack) world.getTileEntity(x, y, z);
 //       if (side == rack.facing().ordinal()) {
@@ -137,7 +137,7 @@
 // }
 //
 // @Override
-// public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+// public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
 //         if (world.getTileEntity(x, y, z) instanceof ServerRack) {
 //                 ServerRack rack = (ServerRack) world.getTileEntity(x, y, z);
 //                 if (side == rack.facing().ordinal()) {

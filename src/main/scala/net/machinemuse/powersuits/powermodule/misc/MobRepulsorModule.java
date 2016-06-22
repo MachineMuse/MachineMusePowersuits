@@ -18,8 +18,7 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import java.util.Iterator;
@@ -84,19 +83,19 @@ public class MobRepulsorModule extends PowerModuleBase implements IPlayerTickMod
         float distance = 5.0F;
         Entity entity;
         Iterator iterator;
-        List list = world.getEntitiesWithinAABB(EntityMob.class, AxisAlignedBB.getBoundingBox(i - distance, j - distance, k - distance, i + distance, j + distance, k + distance));
+        List list = world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(i - distance, j - distance, k - distance, i + distance, j + distance, k + distance));
         for (iterator = list.iterator(); iterator.hasNext(); push(entity, i, j, k)) {
             entity = (Entity) iterator.next();
         }
-        list = world.getEntitiesWithinAABB(EntityArrow.class, AxisAlignedBB.getBoundingBox(i - distance, j - distance, k - distance, i + distance, j + distance, k + distance));
+        list = world.getEntitiesWithinAABB(EntityArrow.class, new AxisAlignedBB(i - distance, j - distance, k - distance, i + distance, j + distance, k + distance));
         for (iterator = list.iterator(); iterator.hasNext(); push(entity, i, j, k)) {
             entity = (Entity) iterator.next();
         }
-        list = world.getEntitiesWithinAABB(EntityFireball.class, AxisAlignedBB.getBoundingBox(i - distance, j - distance, k - distance, i + distance, j + distance, k + distance));
+        list = world.getEntitiesWithinAABB(EntityFireball.class, new AxisAlignedBB(i - distance, j - distance, k - distance, i + distance, j + distance, k + distance));
         for (iterator = list.iterator(); iterator.hasNext(); push(entity, i, j, k)) {
             entity = (Entity) iterator.next();
         }
-        list = world.getEntitiesWithinAABB(EntityPotion.class, AxisAlignedBB.getBoundingBox(i - distance, j - distance, k - distance, i + distance, j + distance, k + distance));
+        list = world.getEntitiesWithinAABB(EntityPotion.class, new AxisAlignedBB(i - distance, j - distance, k - distance, i + distance, j + distance, k + distance));
         for (iterator = list.iterator(); iterator.hasNext(); push(entity, i, j, k)) {
             entity = (Entity) iterator.next();
         }

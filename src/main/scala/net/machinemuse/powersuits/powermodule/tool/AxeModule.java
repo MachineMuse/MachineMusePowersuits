@@ -63,7 +63,7 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
 
     private static boolean istEffectiveHarvestTool(Block block, int metadata)
     {
-        ItemStack emulatedTool = new ItemStack(Items.iron_axe);
+        ItemStack emulatedTool = new ItemStack(Items.IRON_AXE);
 
         if (emulatedTool.getItem().canHarvestBlock(block, emulatedTool))
             return true;
@@ -105,6 +105,6 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-        event.newSpeed *= ModuleManager.computeModularProperty(event.entityPlayer.getCurrentEquippedItem(), AXE_HARVEST_SPEED);
+        event.setNewSpeed((float) (event.getNewSpeed() * ModuleManager.computeModularProperty(event.getEntityPlayer().getHeldItemMainhand(), AXE_HARVEST_SPEED)));
     }
 }

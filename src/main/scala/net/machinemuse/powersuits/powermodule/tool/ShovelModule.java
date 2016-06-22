@@ -104,6 +104,6 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-        event.newSpeed *= ModuleManager.computeModularProperty(event.entityPlayer.getCurrentEquippedItem(), SHOVEL_HARVEST_SPEED);
+        event.newSpeed *= ModuleManager.computeModularProperty(event.entityPlayer.getHeldItemMainhand(), SHOVEL_HARVEST_SPEED);
     }
 }

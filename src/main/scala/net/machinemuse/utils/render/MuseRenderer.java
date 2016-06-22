@@ -14,11 +14,13 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.PositionTextureVertex;
 import net.minecraft.client.model.TexturedQuad;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.block.model.ModelManager;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 import org.lwjgl.opengl.GL11;
 
 import java.util.List;
@@ -56,9 +58,9 @@ public abstract class MuseRenderer {
      */
     public static void drawItemAt(double x, double y, ItemStack item) {
         RenderState.on2D();
+        Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(item, (int) x, (int) y);
+        Minecraft.getMinecraft().getRenderItem().renderItemOverlayIntoGUI(getFontRenderer(), item, (int) x, (int) y,(String)null);
 
-        getRenderItem().renderItemAndEffectIntoGUI(getFontRenderer(), getRenderEngine(), item, (int) x, (int) y);
-        getRenderItem().renderItemOverlayIntoGUI(getFontRenderer(), getRenderEngine(), item, (int) x, (int) y);
 
         RenderState.off2D();
     }
@@ -126,45 +128,45 @@ public abstract class MuseRenderer {
                                      float texturey2) {
         RenderState.arraysOnT();
         RenderState.texturelessOff();
-        Vec3[] points = {Vec3.createVectorHelper(x, e, z), Vec3.createVectorHelper(d, e, z), Vec3.createVectorHelper(x, f, z),
-                Vec3.createVectorHelper(d, f, z), Vec3.createVectorHelper(x, e, g), Vec3.createVectorHelper(d, e, g),
-                Vec3.createVectorHelper(x, f, g), Vec3.createVectorHelper(d, f, g)};
+        Vec3d[] points = {new Vec3d(x, e, z), new Vec3d(d, e, z), new Vec3d (x, f, z),
+                new Vec3d(d, f, z), new Vec3d(x, e, g), new Vec3d(d, e, g),
+                new Vec3d(x, f, g), new Vec3d(d, f, g)};
         PositionTextureVertex[] va1 = {new PositionTextureVertex(points[0], texturex, texturey2),
                 new PositionTextureVertex(points[2], texturex2, texturey2), new PositionTextureVertex(points[3], texturex2, texturey),
                 new PositionTextureVertex(points[1], texturex, texturey)
 
         };
-        new TexturedQuad(va1).draw(Tessellator.instance, 1.0F);
+        new TexturedQuad(va1).draw(Tessellator.getInstance().getBuffer(), 1.0F);
         PositionTextureVertex[] va2 = {new PositionTextureVertex(points[2], texturex, texturey2),
                 new PositionTextureVertex(points[6], texturex2, texturey2), new PositionTextureVertex(points[7], texturex2, texturey),
                 new PositionTextureVertex(points[3], texturex, texturey)
 
         };
-        new TexturedQuad(va2).draw(Tessellator.instance, 1.0F);
+        new TexturedQuad(va2).draw(Tessellator.getInstance().getBuffer(), 1.0F);
         PositionTextureVertex[] va3 = {new PositionTextureVertex(points[6], texturex, texturey2),
                 new PositionTextureVertex(points[4], texturex2, texturey2), new PositionTextureVertex(points[5], texturex2, texturey),
                 new PositionTextureVertex(points[7], texturex, texturey)
 
         };
-        new TexturedQuad(va3).draw(Tessellator.instance, 1.0F);
+        new TexturedQuad(va3).draw(Tessellator.getInstance().getBuffer(), 1.0F);
         PositionTextureVertex[] va4 = {new PositionTextureVertex(points[4], texturex, texturey2),
                 new PositionTextureVertex(points[0], texturex2, texturey2), new PositionTextureVertex(points[1], texturex2, texturey),
                 new PositionTextureVertex(points[5], texturex, texturey)
 
         };
-        new TexturedQuad(va4).draw(Tessellator.instance, 1.0F);
+        new TexturedQuad(va4).draw(Tessellator.getInstance().getBuffer(), 1.0F);
         PositionTextureVertex[] va5 = {new PositionTextureVertex(points[1], texturex, texturey2),
                 new PositionTextureVertex(points[3], texturex2, texturey2), new PositionTextureVertex(points[7], texturex2, texturey),
                 new PositionTextureVertex(points[5], texturex, texturey)
 
         };
-        new TexturedQuad(va5).draw(Tessellator.instance, 1.0F);
+        new TexturedQuad(va5).draw(Tessellator.getInstance().getBuffer(), 1.0F);
         PositionTextureVertex[] va6 = {new PositionTextureVertex(points[0], texturex, texturey2),
                 new PositionTextureVertex(points[4], texturex2, texturey2), new PositionTextureVertex(points[6], texturex2, texturey),
                 new PositionTextureVertex(points[2], texturex, texturey)
 
         };
-        new TexturedQuad(va6).draw(Tessellator.instance, 1.0F);
+        new TexturedQuad(va6).draw(Tessellator.getInstance().getBuffer(), 1.0F);
         // int[] indices = {
         // 0, 3, 1,
         // 0, 2, 3,
@@ -188,7 +190,7 @@ public abstract class MuseRenderer {
      * Singleton pattern for FontRenderer
      */
     public static FontRenderer getFontRenderer() {
-        return Minecraft.getMinecraft().fontRenderer;
+        return Minecraft.getMinecraft().fontRendererObj;
     }
 
     /**
@@ -203,9 +205,9 @@ public abstract class MuseRenderer {
      *
      * @return the static renderItem instance
      */
-    public static RenderItem getRenderItem() {
+    public static RenderItem getRenderItem(TextureManager textureManager, ModelManager modelManager) {
         if (renderItem == null) {
-            renderItem = new RenderItem();
+            renderItem = new RenderItem(textureManager, modelManager, null); // FIXME!!!! this shoudl be an item color but might be good enough to get running
         }
         return renderItem;
     }

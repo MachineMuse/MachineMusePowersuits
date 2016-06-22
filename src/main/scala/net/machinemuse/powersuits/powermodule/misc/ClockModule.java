@@ -6,11 +6,10 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ import java.util.List;
 public class ClockModule extends PowerModuleBase implements IToggleableModule {
 
     public static final String MODULE_CLOCK = "Clock";
-    public static ItemStack clock = new ItemStack(Items.clock);
+    public static ItemStack clock = new ItemStack(Items.CLOCK);
 
     public ClockModule(List<IModularItem> validItems) {
         super(validItems);
@@ -36,7 +35,7 @@ public class ClockModule extends PowerModuleBase implements IToggleableModule {
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
-        return clock.getIconIndex();
+        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(clock).getParticleTexture();
     }
 
     @Override

@@ -1,16 +1,12 @@
 package net.machinemuse.utils;
 
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.LongHashMap;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Teleporter;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
@@ -19,7 +15,7 @@ import net.machinemuse.powersuits.entity.TileEntityPortal;
 public class MPSTeleporter extends Teleporter {
     private final WorldServer worldServerInstance;
     private final Random random;
-    private final LongHashMap destinationCoordinateCache = new LongHashMap();
+    private final HashMap destinationCoordinateCache = new HashMap();
     private final List destinationCoordinateKeys = new ArrayList();
 
     public MPSTeleporter(WorldServer par1WorldServer) {
@@ -30,8 +26,8 @@ public class MPSTeleporter extends Teleporter {
 
     public void placeInPortal(Entity entity, double x, double y, double z, float r) {
         if (!placeInExistingPortal(entity, x, y, z, r)) {
-            if (this.worldServerInstance.provider.dimensionId != -1) {
-                y = this.worldServerInstance.getTopSolidOrLiquidBlock((int) x, (int) z);
+            if (this.worldServerInstance.provider.getDimension() != -1) {
+                y = this.worldServerInstance.getTopSolidOrLiquidBlock(new BlockPos((int) x, 0, (int) z)).getY();
                 entity.setLocationAndAngles(x, y, z, entity.rotationYaw, 0.0F);
             } else {
                 makePortal(entity);
@@ -40,8 +36,8 @@ public class MPSTeleporter extends Teleporter {
     }
 
     public TileEntity findPortalInChunk(double x, double z) {
-        Chunk chunk = this.worldServerInstance.getChunkFromBlockCoords((int) x, (int) z);
-        Iterator t = chunk.chunkTileEntityMap.values().iterator();
+        Chunk chunk = this.worldServerInstance.getChunkFromBlockCoords(new BlockPos((int) x, 0, (int) z));
+        Iterator t = chunk.getTileEntityMap().values().iterator();
         while (t.hasNext()) {
             Object tile = t.next();
             if ((tile instanceof TileEntityPortal)) {
@@ -63,7 +59,8 @@ public class MPSTeleporter extends Teleporter {
             }
         }
         if (destPortal != null) {
-            entity.setLocationAndAngles(destPortal.xCoord + 0.5D, destPortal.yCoord + 1, destPortal.zCoord + 0.5D, entity.rotationYaw, entity.rotationPitch);
+            entity.setLocationAndAngles(destPortal.getPos().getX() + 0.5D, destPortal.getPos().getY() + 1,
+                    destPortal.getPos().getZ() + 0.5D, entity.rotationYaw, entity.rotationPitch);
             entity.motionX = (entity.motionY = entity.motionZ = 0.0D);
             return true;
         }
@@ -88,11 +85,11 @@ public class MPSTeleporter extends Teleporter {
                         // this.worldServerInstance.setBlock(ex + x, ey + y, ez + z, Block.blockDiamond.blockID, 1, 2);
                         // this.worldServerInstance.scheduleBlockUpdate(ex + x, ey + y, ez + z, Block.blockDiamond.blockID, 1);
                     } else if ((y <= -2)) {
-                        this.worldServerInstance.setBlock(ex + x, ey + y, ez + z, Blocks.stone);
+                        this.worldServerInstance.setBlockState(new BlockPos(ex + x, ey + y, ez + z), Blocks.STONE.getDefaultState());
                     } else if ((y == 0) && ((x == 2) || (x == -2) || (z == 2) || (z == -2))) {
                         //this.worldServerInstance.setBlock(ex + x, ey + y, ez + z, 0, 5, 3);
                     } else {
-                        this.worldServerInstance.setBlock(ex + x, ey + y, ez + z, Blocks.air);
+                        this.worldServerInstance.setBlockState(new BlockPos(ex + x, ey + y, ez + z), Blocks.AIR.getDefaultState());
                     }
                 }
             }
@@ -109,7 +106,7 @@ public class MPSTeleporter extends Teleporter {
             long j = par1 - 600L;
             while (iterator.hasNext()) {
                 Long olong = (Long) iterator.next();
-                PortalPosition portalposition = (PortalPosition) this.destinationCoordinateCache.getValueByKey(olong.longValue());
+                PortalPosition portalposition = (PortalPosition) this.destinationCoordinateCache.get(olong.longValue());
                 if ((portalposition == null) || (portalposition.lastUpdateTime < j)) {
                     iterator.remove();
                     this.destinationCoordinateCache.remove(olong.longValue());

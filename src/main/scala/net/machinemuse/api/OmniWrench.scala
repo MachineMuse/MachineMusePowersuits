@@ -50,8 +50,8 @@
 //  extends IToolWrench {
 //
 //  def canWrench(player: EntityPlayer, x: Int, y: Int, z: Int): Boolean = {
-//    if (player.getCurrentEquippedItem != null && player.getCurrentEquippedItem.getItem.isInstanceOf[IModularItem]) {
-//      return ModuleManager.itemHasActiveModule(player.getCurrentEquippedItem, OmniWrenchModule.MODULE_OMNI_WRENCH)
+//    if (player.getHeldItemMainhand != null && player.getHeldItemMainhand.getItem.isInstanceOf[IModularItem]) {
+//      return ModuleManager.itemHasActiveModule(player.getHeldItemMainhand, OmniWrenchModule.MODULE_OMNI_WRENCH)
 //    }
 //    return false
 //  }

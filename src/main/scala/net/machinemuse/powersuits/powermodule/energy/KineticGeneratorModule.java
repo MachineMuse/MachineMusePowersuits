@@ -15,7 +15,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-
 import java.util.List;
 
 public class KineticGeneratorModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
@@ -63,7 +62,7 @@ public class KineticGeneratorModule extends PowerModuleBase implements IPlayerTi
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         if (!player.isAirBorne) {
             NBTTagCompound tag = MuseItemUtils.getMuseItemTag(item);
-            boolean isNotWalking = (player.ridingEntity != null) || (player.isInWater());
+            boolean isNotWalking = (player.getRidingEntity() != null) || (player.isInWater());
             if ((!tag.hasKey("x")) || (isNotWalking))
                 tag.setInteger("x", (int) player.posX);
             if ((!tag.hasKey("z")) || (isNotWalking))

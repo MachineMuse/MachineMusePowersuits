@@ -11,9 +11,6 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
-
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -61,17 +58,16 @@ public class SolarGeneratorModule extends PowerModuleBase implements IPlayerTick
         ItemStack helmet = player.inventory.armorItemInSlot(3);
         if (helmet != null && helmet.equals(item)) {
             World world = player.worldObj;
-            int xCoord = MathHelper.floor_double(player.posX);
-            int zCoord = MathHelper.floor_double(player.posZ);
+//            int xCoord = MathHelper.floor_double(player.posX);
+//            int zCoord = MathHelper.floor_double(player.posZ);
             boolean isRaining, canRain = true;
             if (world.getTotalWorldTime() % 20 == 0) {
-                canRain = world.getWorldChunkManager().getBiomeGenAt(xCoord, zCoord).getIntRainfall() > 0;
+                canRain = world.getBiome(player.getPosition()).canRain();
             }
 
             isRaining = canRain && (world.isRaining() || world.isThundering());
-            boolean sunVisible = world.isDaytime() && !isRaining && world.canBlockSeeSky
-                    ( new BlockPos(xCoord, MathHelper.floor_double(player.posY) + 1, zCoord));
-            boolean moonVisible = !world.isDaytime() && !isRaining && world.canBlockSeeTheSky(xCoord, MathHelper.floor_double(player.posY) + 1, zCoord);
+            boolean sunVisible = world.isDaytime() && !isRaining && world.canBlockSeeSky(player.getPosition().add(0,1,0));
+            boolean moonVisible = !world.isDaytime() && !isRaining && world.canBlockSeeSky(player.getPosition().add(0,1,0));
             if (!world.isRemote && !world.provider.getHasNoSky() && (world.getTotalWorldTime() % 80) == 0) {
                 if (sunVisible) {
                     ElectricItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(item, SOLAR_ENERGY_GENERATION_DAY));

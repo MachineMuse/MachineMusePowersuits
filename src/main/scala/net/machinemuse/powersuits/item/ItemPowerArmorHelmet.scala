@@ -1,12 +1,13 @@
 package net.machinemuse.powersuits.item
 
-import forestry.api.core.IArmorNaturalist;
+import forestry.api.core.IArmorNaturalist
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.powersuits.powermodule.armor.ApiaristArmorModule
 import net.machinemuse.powersuits.powermodule.misc.{AirtightSealModule, ThaumGogglesModule}
 import net.machinemuse.utils.render.MuseRenderer
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.common.Optional
 
@@ -16,7 +17,7 @@ import net.minecraftforge.fml.common.Optional
 @Optional.InterfaceList (Array(
 new Optional.Interface (iface = "forestry.api.core.IArmorNaturalist", modid = "Forestry", striprefs = true)
 ))
-class ItemPowerArmorHelmet extends ItemPowerArmor(0, 0)
+class ItemPowerArmorHelmet extends ItemPowerArmor(0, EntityEquipmentSlot.HEAD)
 with IArmorNaturalist {
   val iconpath = MuseRenderer.ICON_PREFIX + "armorhead"
 

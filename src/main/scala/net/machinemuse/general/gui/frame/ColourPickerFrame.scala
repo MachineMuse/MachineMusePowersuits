@@ -9,7 +9,6 @@ import net.machinemuse.numina.network.PacketSender
 import net.machinemuse.powersuits.item.ItemPowerArmor
 import net.machinemuse.powersuits.network.packets.MusePacketColourInfo
 import net.machinemuse.utils.MuseItemUtils
-import net.machinemuse.utils.render.GuiIcons
 import net.machinemuse.utils.render.GuiIcons._
 import net.minecraft.client.Minecraft
 import net.minecraft.client.resources.I18n

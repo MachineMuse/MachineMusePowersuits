@@ -8,5 +8,4 @@ import net.minecraft.nbt.NBTTagCompound
  */
 class ScalaNBT(val nbt: NBTTagCompound) extends NBTTagCompound {
   implicit def wrap(nbt: NBTTagCompound) = new ScalaNBT(nbt)
-
 }
