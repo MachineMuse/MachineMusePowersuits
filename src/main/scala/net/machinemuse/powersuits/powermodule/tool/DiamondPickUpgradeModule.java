@@ -10,9 +10,11 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
@@ -24,7 +26,7 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
     public DiamondPickUpgradeModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
-        addInstallCost(new ItemStack(Items.diamond, 3));
+        addInstallCost(new ItemStack(Items.DIAMOND, 3));
     }
 
     @Override
@@ -52,9 +54,9 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
     }
 
     @Override
-    public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if (!Items.iron_pickaxe.canHarvestBlock(block, stack)) {
-            if (Items.diamond_pickaxe.canHarvestBlock(block, stack)) {
+    public boolean canHarvestBlock(ItemStack stack, BlockPos pos, IBlockState state, EntityPlayer player) {
+        if (!Items.IRON_PICKAXE.canHarvestBlock(state, stack)) {
+            if (Items.DIAMOND_PICKAXE.canHarvestBlock(state, stack)) {
                 if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, PickaxeModule.PICKAXE_ENERGY_CONSUMPTION)) {
                     return true;
                 }
@@ -64,9 +66,8 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityPlayer player) {
-        int meta = world.getBlockMetadata(x,y,z);
-        if (canHarvestBlock(stack, block, meta, player) && !PickaxeModule.harvestCheck(stack, block, meta, player)) {
+    public boolean onBlockDestroyed(ItemStack stack, World world, IBlockState state, BlockPos pos, EntityPlayer player) {
+        if (canHarvestBlock(stack, pos, state, player) && !PickaxeModule.harvestCheck(stack, state, player)) {
             ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, PickaxeModule.PICKAXE_ENERGY_CONSUMPTION));
             return true;
         }
@@ -75,7 +76,7 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-        event.newSpeed = (float) ModuleManager.computeModularProperty(event.entityPlayer.getHeldItemMainhand(),
-                PickaxeModule.PICKAXE_HARVEST_SPEED);
+        event.setNewSpeed((float) ModuleManager.computeModularProperty(event.getEntityPlayer().getHeldItemMainhand(),
+                PickaxeModule.PICKAXE_HARVEST_SPEED));
     }
 }

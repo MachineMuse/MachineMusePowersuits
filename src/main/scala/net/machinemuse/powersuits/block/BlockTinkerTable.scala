@@ -1,16 +1,23 @@
 package net.machinemuse.powersuits.block
 
+import javax.annotation.Nullable
+
 import net.machinemuse.general.gui.MuseIcon
 import net.machinemuse.powersuits.common.Config
 import net.machinemuse.powersuits.common.ModularPowersuits
-import net.minecraft.block.Block
+import net.minecraft.block.{Block, SoundType}
 import net.minecraft.block.material.Material
+import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
+import net.minecraft.util.{EnumFacing, EnumHand}
+import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.registry.GameRegistry
+import net.minecraftforge.fml.relauncher.Side
 
 /**
  * This is the tinkertable block. It doesn't do much except look pretty
@@ -20,35 +27,29 @@ import net.minecraftforge.fml.common.registry.GameRegistry
  *
  */
 object BlockTinkerTable extends Block(Material.IRON) {
-  setCreativeTab(Config.getCreativeTab)
-  setHardness(1.5F)
-  setResistance(1000.0F)
-  setStepSound(Block.soundTypeMetal)
-  setLightOpacity(0)
-  setLightLevel(0.4f)
-  setTickRandomly(false)
+  this.setCreativeTab(Config.getCreativeTab)
+  this.setHardness(1.5F)
+  this.setResistance(1000.0F)
+  this.setSoundType(SoundType.METAL)
+  this.setLightOpacity(0)
+  this.setLightLevel(0.4f)
+  this.setTickRandomly(false)
   GameRegistry.registerTileEntity(classOf[TileEntityTinkerTable], "tinkerTable")
-  setBlockName("tinkerTable")
-  var energyIcon: IIcon = null
+  this.setUnlocalizedName("tinkerTable")
 
   def setRenderType(id: Int) = {
     this.renderType = id
     this
   }
 
-  @SideOnly(Side.CLIENT) override def registerBlockIcons(iconRegister: IIconRegister) {
-    this.blockIcon = iconRegister.registerIcon(MuseIcon.ICON_PREFIX + "heatresistantplating")
-    energyIcon = blockIcon
-  }
-
   /**
    * Called upon block activation (right click on the block.)
    */
-  override def onBlockActivated(world: World, x: Int, y: Int, z: Int, player: EntityPlayer, par6: Int, par7: Float, par8: Float, par9: Float): Boolean = {
+  override def onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, @Nullable heldItem: ItemStack, side: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean = {
     if (player.isSneaking) {
       return false
     }
-    player.openGui(ModularPowersuits, 0, world, x, y, z)
+    player.openGui(ModularPowersuits, 0, world, pos.getX, pos.getY, pos.getZ)
     true
   }
 
@@ -105,17 +106,5 @@ object BlockTinkerTable extends Block(Material.IRON) {
    */
   override def hasTileEntity(metadata: Int): Boolean = true
 
-  /**
-   * Called throughout the code as a replacement for
-   * BlockContainer.getBlockEntity Return the same thing you would from that
-   * function. This will
-   * fall back to BlockContainer.getBlockEntity if this block is a
-   * BlockContainer.
-   *
-   * @param metadata
-	 * The Metadata of the current block
-   * @return A instance of a class extending TileEntity
-   */
-  override def createTileEntity(world: World, metadata: Int): TileEntity = new TileEntityTinkerTable
-
+  override def createTileEntity(world: World, state: IBlockState): TileEntity = new TileEntityTinkerTable
 }

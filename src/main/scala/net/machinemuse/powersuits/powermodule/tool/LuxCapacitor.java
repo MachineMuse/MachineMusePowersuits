@@ -10,6 +10,8 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -23,8 +25,8 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
 
     public LuxCapacitor(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(new ItemStack(Items.glowstone_dust, 1));
-        addInstallCost(new ItemStack(Items.iron_ingot, 2));
+        addInstallCost(new ItemStack(Items.GLOWSTONE_DUST, 1));
+        addInstallCost(new ItemStack(Items.IRON_INGOT, 2));
         addBaseProperty(ENERGY, 100, "J");
         addTradeoffProperty("Red", RED, 1, "%");
         addTradeoffProperty("Green", GREEN, 1, "%");
@@ -74,14 +76,12 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
 
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY,
-                                  float hitZ) {
-        // TODO Auto-generated method stub
+    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         return false;
     }
 

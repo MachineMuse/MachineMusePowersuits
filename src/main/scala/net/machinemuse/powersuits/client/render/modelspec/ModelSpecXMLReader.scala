@@ -8,6 +8,7 @@ import java.net.URL
 
 import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.geometry.Colour
+import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.Vec3d
 
@@ -44,7 +45,7 @@ object ModelSpecXMLReader {
   }
 
   def parseBinding(bindingnode: NodeSeq, modelspec: ModelSpec) = {
-    val slot = parseInt((bindingnode \ "@slot").text)
+    val slot = parseArmorSlot((bindingnode \ "@slot").text)
     val target = parseTarget((bindingnode \ "@target").text)
     slot.foreach(slot => {
       target.foreach(target =>
@@ -55,7 +56,7 @@ object ModelSpecXMLReader {
     })
   }
 
-  def parseParts(partNode: NodeSeq, modelspec: ModelSpec, slot: Int, target: MorphTarget) = {
+  def parseParts(partNode: NodeSeq, modelspec: ModelSpec, slot: EntityEquipmentSlot, target: MorphTarget) = {
     val defaultcolor = parseColour((partNode \ "@defaultcolor").text)
     val defaultglow = parseBool((partNode \ "@defaultglow").text)
     val name = (partNode \ "@name").text
@@ -99,6 +100,17 @@ object ModelSpecXMLReader {
       case "rightleg" => Some(RightLeg)
 //      case "cloak" => Some(Cloak)
       case _ => None
+    }
+  }
+
+  def parseArmorSlot(s: String): Option[EntityEquipmentSlot] = {
+    s.toUpperCase match {
+      case "FEET" => Some(EntityEquipmentSlot.FEET)
+      case "LEGS" => Some(EntityEquipmentSlot.LEGS)
+      case "CHEST" => Some(EntityEquipmentSlot.CHEST)
+      case "HEAD" => Some(EntityEquipmentSlot.HEAD)
+      case "MAINHAND" => Some(EntityEquipmentSlot.MAINHAND)
+      case "OFFHAND" => Some(EntityEquipmentSlot.OFFHAND)
     }
   }
 

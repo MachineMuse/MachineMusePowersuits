@@ -32,6 +32,7 @@ trait ApiaristArmor extends IArmorApiarist {
   }
 }
 
+// This was for Ressonant Induction
 /*
 trait RadiationArmor extends ItemArmor with IAntiPoisonArmor {
   def isProtectedFromPoison(itemStack: ItemStack, EntityLivingBase: EntityLivingBase, poisontype: String): Boolean = {

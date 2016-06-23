@@ -1,15 +1,18 @@
 package net.machinemuse.powersuits.item
 
-import net.minecraft.item.{ItemStack, Item}
-import net.machinemuse.utils.{MuseStringUtils, MuseCommonStrings}
+import java.util
+
+import net.minecraft.item.{Item, ItemStack}
+import net.machinemuse.utils.{MuseCommonStrings, MuseStringUtils}
 import net.minecraftforge.fml.relauncher.{Side, SideOnly}
+
 import scala.Predef.String
 import net.minecraft.entity.player.EntityPlayer
 import net.machinemuse.powersuits.powermodule.misc.{CosmeticGlowModule, TintModule}
 import net.machinemuse.numina.general.MuseMathUtils
 import MuseMathUtils._
 import net.machinemuse.api.electricity.MuseElectricItem
-import net.machinemuse.api.{ModuleManager, IModularItem}
+import net.machinemuse.api.{IModularItem, ModuleManager}
 import net.machinemuse.utils.ElectricItemUtils
 import net.machinemuse.numina.geometry.Colour
 
@@ -18,10 +21,10 @@ import net.machinemuse.numina.geometry.Colour
  * Created: 7:49 PM, 4/23/13
  */
 trait ModularItemBase extends Item with IModularItem with MuseElectricItem {
-  @SideOnly(Side.CLIENT)
-  override def getColorFromItemStack(stack: ItemStack, par2: Int): Int = {
-    getColorFromItemStack(stack).getInt
-  }
+//  @SideOnly(Side.CLIENT)
+//  override def getColorFromItemStack(stack: ItemStack, par2: Int): Int = {
+//    getColorFromItemStack(stack).getInt
+//  }
 
   def getGlowFromItemStack(stack: ItemStack): Colour = {
     if (!ModuleManager.itemHasActiveModule(stack, CosmeticGlowModule.MODULE_GLOW)) {
@@ -45,7 +48,7 @@ trait ModularItemBase extends Item with IModularItem with MuseElectricItem {
     colour
   }
 
-  @SideOnly(Side.CLIENT) override def requiresMultipleRenderPasses: Boolean = false
+//  @SideOnly(Side.CLIENT) override def requiresMultipleRenderPasses: Boolean = false
 
   /**
    * Adds information to the item's tooltip when 'getting' it.
@@ -60,7 +63,7 @@ trait ModularItemBase extends Item with IModularItem with MuseElectricItem {
    *                         their settings.
    */
   @SideOnly(Side.CLIENT)
-  override def addInformation(stack: ItemStack, player: EntityPlayer, currentTipList: java.util.List[_], advancedToolTips: Boolean) {
+  override def addInformation(stack: ItemStack, player: EntityPlayer, currentTipList: util.List[String], advancedToolTips: Boolean): Unit = {
     MuseCommonStrings.addInformation(stack, player, currentTipList, advancedToolTips)
   }
 

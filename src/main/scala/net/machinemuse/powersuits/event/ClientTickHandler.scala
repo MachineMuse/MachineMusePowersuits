@@ -2,40 +2,38 @@ package net.machinemuse.powersuits.event
 
 import java.util
 
-import net.machinemuse.general.gui.{WaterMeter, EnergyMeter, HeatMeter}
-import net.machinemuse.numina.general.MuseLogger
+import net.machinemuse.api.ModuleManager
+import net.machinemuse.general.gui.{EnergyMeter, HeatMeter, WaterMeter}
 import net.machinemuse.numina.network.{MusePacket, PacketSender}
 import net.machinemuse.powersuits.block.BlockTinkerTable
 import net.machinemuse.powersuits.common.Config
 import net.machinemuse.powersuits.control.{KeybindManager, PlayerInputMap}
 import net.machinemuse.powersuits.item.{ItemPowerArmorChestplate, ItemPowerArmorHelmet, ItemPowerFist}
 import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate
+import net.machinemuse.powersuits.powermodule.armor.WaterTankModule
 import net.machinemuse.powersuits.powermodule.misc.{AutoFeederModule, ClockModule, CompassModule}
 import net.machinemuse.utils.render.MuseRenderer
-import net.machinemuse.utils.{ElectricItemUtils, MuseHeatUtils, MuseItemUtils, MuseStringUtils, AddonWaterUtils}
-import net.machinemuse.powersuits.powermodule.armor.WaterTankModule;
-
+import net.machinemuse.utils.{AddonWaterUtils, ElectricItemUtils, MuseHeatUtils, MuseItemUtils, MuseStringUtils}
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.item.ItemStack
 import net.minecraft.init.Items
-import net.minecraft.init.Blocks
-import net.machinemuse.api.ModuleManager
+import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
-import net.minecraftforge.fml.common.gameevent.TickEvent.{RenderTickEvent, ClientTickEvent}
+import net.minecraftforge.fml.common.gameevent.TickEvent.{ClientTickEvent, RenderTickEvent}
+import net.minecraftforge.fml.relauncher.{Side, SideOnly}
 
 
 class ClientTickHandler {
   /**
-   * This handler is called before/after the game processes input events and
-   * updates the gui state mainly. *independent of rendering, so don't do rendering here
-   * -is also the parent class of KeyBindingHandler
-   *
-   * @author MachineMuse
-   */
+    * This handler is called before/after the game processes input events and
+    * updates the gui state mainly. *independent of rendering, so don't do rendering here
+    * -is also the parent class of KeyBindingHandler
+    *
+    * @author MachineMuse
+    */
   @SubscribeEvent def onPreClientTick(event: ClientTickEvent) {
     if (event.phase == TickEvent.Phase.START) {
       import scala.collection.JavaConversions._
@@ -62,15 +60,14 @@ class ClientTickHandler {
       }
     }
   }
-
   var modules: util.ArrayList[String] = _
 
- def findInstalledModules(player: EntityPlayer) {
+  def findInstalledModules(player: EntityPlayer) {
     if (player != null) {
-      val tool = player.getHeldItemMainhand
+      val tool = player.getCurrentEquippedItem
       if (tool != null && tool.getItem.isInstanceOf[ItemPowerFist]) {
       }
-      val helmet = player.inventory.armorItemInSlot(3)
+      val helmet = player.getCurrentArmor(3)
       if (helmet != null && helmet.getItem.isInstanceOf[ItemPowerArmorHelmet]) {
         if (ModuleManager.itemHasActiveModule(helmet, AutoFeederModule.MODULE_AUTO_FEEDER)) {
           modules.add(AutoFeederModule.MODULE_AUTO_FEEDER)
@@ -82,7 +79,7 @@ class ClientTickHandler {
           modules.add(CompassModule.MODULE_COMPASS)
         }
       }
-      val chest = player.inventory.armorItemInSlot(2)
+      val chest = player.getCurrentArmor(2)
       if (chest != null &&
         chest.getItem.isInstanceOf[ItemPowerArmorChestplate]) {
         if (ModuleManager.itemHasActiveModule(chest, WaterTankModule.MODULE_WATER_TANK)) {
@@ -111,7 +108,7 @@ class ClientTickHandler {
   var ampm: String = ""
   var drawWaterMeter: Boolean = false
 
-  //@SideOnly(Side.CLIENT) // MPSA - is this needed or not?
+  @SideOnly(Side.CLIENT) // MPSA - is this needed or not?
   @SubscribeEvent def onRenderTickEvent(event: RenderTickEvent) {
     if (event.phase == TickEvent.Phase.END) {
       val player: EntityPlayer = Minecraft.getMinecraft.thePlayer
@@ -122,7 +119,7 @@ class ClientTickHandler {
         val screen: ScaledResolution = new ScaledResolution(mc)
         for (i <- 0 until modules.size) {
           if (modules.get(i) == AutoFeederModule.MODULE_AUTO_FEEDER) {
-            val foodLevel = MuseItemUtils.getFoodLevel(player.inventory.armorItemInSlot(3)).toInt
+            val foodLevel = MuseItemUtils.getFoodLevel(player.getCurrentArmor(3)).toInt
             val num = MuseStringUtils.formatNumberShort(foodLevel)
             if (i == 0) {
               MuseRenderer.drawString(num, 17, yBaseString)
@@ -187,8 +184,8 @@ class ClientTickHandler {
   private var lightningCounter: Int = 0
 
   private def drawMeters(player: EntityPlayer, screen: ScaledResolution) {
-    val currEnergy: Double = ElectricItemUtils.getPlayerEnergy(player)
     val maxEnergy: Double = ElectricItemUtils.getMaxEnergy(player)
+    val currEnergy: Double = ElectricItemUtils.getPlayerEnergy(player)
     val currHeat: Double = MuseHeatUtils.getPlayerHeat(player)
     val maxHeat: Double = MuseHeatUtils.getMaxHeat(player)
     val currWater = AddonWaterUtils.getPlayerWater(player)
@@ -212,8 +209,8 @@ class ClientTickHandler {
     }
 
     // Energy Meter
-    if (maxEnergy > 0 && BlockTinkerTable.energyIcon != null) {
-      val currEnergyStr: String = MuseStringUtils.formatNumberShort(currEnergy)
+    if (maxEnergy > 0) {//} && BlockTinkerTable.energyIcon != null) {
+    val currEnergyStr: String = MuseStringUtils.formatNumberShort(currEnergy)
       val maxEnergyStr: String = MuseStringUtils.formatNumberShort(maxEnergy)
 
       if (Config.useGraphicalMeters) {

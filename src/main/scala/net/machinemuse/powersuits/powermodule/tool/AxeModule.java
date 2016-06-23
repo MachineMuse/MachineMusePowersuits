@@ -10,10 +10,12 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import java.util.List;
@@ -61,20 +63,21 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
         return "toolaxe";
     }
 
-    private static boolean istEffectiveHarvestTool(Block block, int metadata)
+    private static boolean istEffectiveHarvestTool(IBlockState state)
     {
+        Block block = state.getBlock();
         ItemStack emulatedTool = new ItemStack(Items.IRON_AXE);
 
-        if (emulatedTool.getItem().canHarvestBlock(block, emulatedTool))
+        if (emulatedTool.getItem().canHarvestBlock(state, emulatedTool))
             return true;
 
-        String effectiveTool = block.getHarvestTool(metadata);
+        String effectiveTool = block.getHarvestTool(state);
 
         // some blocks like stairs do no not have a tool assigned to them
         if (effectiveTool == null)
         {
             {
-                if (emulatedTool.func_150997_a/*getStrVsBlock*/(block) >= ((ItemTool) emulatedTool.getItem()).func_150913_i/*getToolMaterial*/().getEfficiencyOnProperMaterial())
+                if (emulatedTool.getStrVsBlock(state) >= ((ItemTool) emulatedTool.getItem()).getToolMaterial().getEfficiencyOnProperMaterial())
                 {
                     return true;
                 }
@@ -84,8 +87,8 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
     }
 
     @Override
-    public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if (istEffectiveHarvestTool(block, meta)) {
+    public boolean canHarvestBlock(ItemStack stack, BlockPos pos, IBlockState state, EntityPlayer player) {
+        if (istEffectiveHarvestTool(state)) {
             if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION)) {
                 return true;
             }
@@ -94,9 +97,8 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityPlayer player) {
-        int meta = world.getBlockMetadata(x, y, z);
-        if (canHarvestBlock(stack, block, meta, player)) {
+    public boolean onBlockDestroyed(ItemStack stack, World world, IBlockState state, BlockPos pos, EntityPlayer player) {
+        if (canHarvestBlock(stack, pos, state, player)) {
             ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION));
             return true;
         }

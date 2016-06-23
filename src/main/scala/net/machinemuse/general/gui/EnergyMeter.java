@@ -4,15 +4,15 @@ import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.utils.render.MuseRenderer;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.IIcon;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraftforge.fluids.FluidRegistry;
 import org.lwjgl.opengl.GL11;
 
 public class EnergyMeter extends HeatMeter {
+    TextureAtlasSprite icon = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(FluidRegistry.WATER.getStill().toString());
     public void draw(double xpos, double ypos, double value) {
-        MuseTextureUtils.pushTexture(MuseTextureUtils.BLOCK_TEXTURE_QUILT());
-        IIcon icon = Blocks.water.getIcon(0, 0);
+        MuseTextureUtils.pushTexture(MuseTextureUtils.TEXTURE_QUILT());
         GL11.glLineWidth(0.5f);
         RenderState.on2D();
         RenderState.blendingOn();

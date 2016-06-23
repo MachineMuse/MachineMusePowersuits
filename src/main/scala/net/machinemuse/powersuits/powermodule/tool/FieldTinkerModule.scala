@@ -8,6 +8,8 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase
 import net.machinemuse.utils.{MuseCommonStrings, MuseItemUtils}
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
+import net.minecraft.util.EnumFacing
+import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
 /**
@@ -28,13 +30,13 @@ class FieldTinkerModule(list: java.util.List[IModularItem]) extends PowerModuleB
 
   def getTextureFile: String = "transparentarmor"
 
-  def onItemUse(itemStack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z: Int, side: Int, hitX: Float, hitY: Float, hitZ: Float) {}
-
-  def onItemUseFirst(itemStack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z: Int, side: Int, hitX: Float, hitY: Float, hitZ: Float): Boolean =  {false}
-
   def onPlayerStoppedUsing(itemStack: ItemStack, world: World, player: EntityPlayer, par4: Int) {}
 
   def onRightClick(player: EntityPlayer, world: World, item: ItemStack) {
     player.openGui(ModularPowersuits, 2, world, player.posX.toInt, player.posY.toInt, player.posZ.toInt)
   }
+
+  override def onItemUse(itemStack: ItemStack, player: EntityPlayer, world: World, pos: BlockPos, side: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Unit = {}
+
+  override def onItemUseFirst(itemStack: ItemStack, player: EntityPlayer, world: World, pos: BlockPos, side: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean = false
 }

@@ -1,31 +1,28 @@
 package net.machinemuse.powersuits.item
 
-import buildcraft.api.tools.IToolWrench
-import cofh.api.item.IToolHammer
 import crazypants.enderio.api.tool.ITool
 import forestry.api.arboriculture.IToolGrafter
-import mekanism.api.IMekWrench
-import mods.railcraft.api.core.items.IToolCrowbar
 import net.machinemuse.api._
 import net.machinemuse.api.moduletrigger.IRightClickModule
 import net.machinemuse.general.gui.MuseIcon
 import net.machinemuse.numina.scala.OptionCast
 import net.machinemuse.powersuits.common.Config
-import net.machinemuse.powersuits.powermodule.tool.{GrafterModule, OmniWrenchModule}
+import net.machinemuse.powersuits.powermodule.tool.GrafterModule
 import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule
 import net.machinemuse.utils.{ElectricItemUtils, MuseHeatUtils}
 import net.minecraft.block.Block
-import net.minecraft.client.renderer.texture.IIconRegister
+import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.item.EntityMinecart
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.{Entity, EntityLivingBase}
 import net.minecraft.item.Item.ToolMaterial
 import net.minecraft.item.{EnumAction, ItemStack}
-import net.minecraft.util.{DamageSource, Vec3}
+import net.minecraft.util.math.{BlockPos, Vec3d}
+import net.minecraft.util.{EnumActionResult, _}
 import net.minecraft.world.World
 import net.minecraftforge.fml.common.Optional
 import net.minecraftforge.fml.relauncher.{Side, SideOnly}
-import powercrystals.minefactoryreloaded.api.IMFRHammer
+
 
 /**
  * Describes the modular power tool.
@@ -33,29 +30,16 @@ import powercrystals.minefactoryreloaded.api.IMFRHammer
  * @author MachineMuse
  */
 @Optional.InterfaceList(Array(
-  new Optional.Interface(iface = "mekanism.api.IMekWrench", modid = "Mekanism", striprefs = true),
   new Optional.Interface(iface = "crazypants.enderio.api.tool.ITool", modid = "EnderIO", striprefs = true),
-  new Optional.Interface(iface = "mrtjp.projectred.api.IScrewdriver", modid = "ProjRed|Core", striprefs = true),
-  new Optional.Interface(iface = "com.bluepowermod.api.misc.IScrewdriver", modid = "bluepower", striprefs = true),
   new Optional.Interface(iface = "forestry.api.arboriculture.IToolGrafter", modid = "Forestry", striprefs = true),
-  new Optional.Interface(iface = "mods.railcraft.api.core.items.IToolCrowbar", modid = "Railcraft", striprefs = true),
-  new Optional.Interface(iface = "powercrystals.minefactoryreloaded.api.IMFRHammer", modid = "MineFactoryReloaded", striprefs = true),
-  new Optional.Interface(iface = "cofh.api.item.IToolHammer", modid = "CoFHCore", striprefs = true),
   new Optional.Interface(iface = "buildcraft.api.tools.IToolWrench", modid = "BuildCraft|Core", striprefs = true)
 ))
-class ItemPowerFist extends ItemElectricTool(0, ToolMaterial.DIAMOND)
+class ItemPowerFist extends ItemElectricTool(0, 0,ToolMaterial.DIAMOND)
 with IModularItem
 with IToolGrafter
-with IToolHammer
-with IMFRHammer
-with IToolCrowbar
-with IToolWrench
-with com.bluepowermod.api.misc.IScrewdriver
-with mrtjp.projectred.api.IScrewdriver
 with ITool
-with IMekWrench
 with ModeChangingModularItem {
-  val iconpath: String = MuseIcon.ICON_PREFIX + "handitem"
+  val iconpath: String = Config.TEXTURE_PREFIX + "handitem"
   setMaxStackSize(1)
   setMaxDamage(0)
   setCreativeTab(Config.getCreativeTab)
@@ -73,19 +57,17 @@ with ModeChangingModularItem {
    */
   def getStrVsBlock(stack: ItemStack, block: Block, meta: Int): Float = 1
 
-  @SideOnly(Side.CLIENT) override def registerIcons(iconRegister: IIconRegister) {
-    itemIcon = iconRegister.registerIcon(iconpath)
-  }
-
   /**
    * Current implementations of this method in child classes do not use the
    * entry argument beside stack. They just raise the damage on the stack.
    */
   override def hitEntity(stack: ItemStack, entityBeingHit: EntityLivingBase, entityDoingHitting: EntityLivingBase): Boolean = {
-    if (ModuleManager.itemHasActiveModule(stack, OmniWrenchModule.MODULE_OMNI_WRENCH)) {
-      entityBeingHit.rotationYaw += 90.0F;
-      entityBeingHit.rotationYaw %= 360.0F;
-    }
+    // TODO find replacement wrench code or port CoFH lib
+
+//    if (ModuleManager.itemHasActiveModule(stack, OmniWrenchModule.MODULE_OMNI_WRENCH)) {
+//      entityBeingHit.rotationYaw += 90.0F;
+//      entityBeingHit.rotationYaw %= 360.0F;
+//    }
     if (entityDoingHitting.isInstanceOf[EntityPlayer] && ModuleManager.itemHasActiveModule(stack, MeleeAssistModule.MODULE_MELEE_ASSIST)) {
       val player: EntityPlayer = entityDoingHitting.asInstanceOf[EntityPlayer]
       val drain: Double = ModuleManager.computeModularProperty(stack, MeleeAssistModule.PUNCH_ENERGY)
@@ -95,7 +77,7 @@ with ModeChangingModularItem {
         val knockback: Double = ModuleManager.computeModularProperty(stack, MeleeAssistModule.PUNCH_KNOCKBACK)
         val damageSource: DamageSource = DamageSource.causePlayerDamage(player)
         if (entityBeingHit.attackEntityFrom(damageSource, damage.asInstanceOf[Int])) {
-          val lookVec: Vec3 = player.getLookVec
+          val lookVec: Vec3d = player.getLookVec
           entityBeingHit.addVelocity(lookVec.xCoord * knockback, Math.abs(lookVec.yCoord + 0.2f) * knockback, lookVec.zCoord * knockback)
         }
       }
@@ -108,13 +90,13 @@ with ModeChangingModularItem {
    * <p/>
    * Returns: Whether to increment player use stats with this item
    */
-  override def onBlockDestroyed(stack: ItemStack, world: World, block: Block, x: Int, y: Int, z: Int, entity: EntityLivingBase): Boolean = {
-    entity match {
+  override def onBlockDestroyed(stack: ItemStack, worldIn: World, state: IBlockState, pos: BlockPos, entityLiving: EntityLivingBase): Boolean = {
+    entityLiving match {
       case player: EntityPlayer =>
         import scala.collection.JavaConversions._
         for (module <- ModuleManager.getBlockBreakingModules) {
           if (ModuleManager.itemHasActiveModule(stack, module.getDataName)) {
-            if (module.onBlockDestroyed(stack, world, block, x, y, z, player)) {
+            if (module.onBlockDestroyed(stack, worldIn, state, pos, player)) {
               return true
             }
           }
@@ -168,14 +150,15 @@ with ModeChangingModularItem {
   /**
    * Called when the right click button is pressed
    */
-  override def onItemRightClick(itemStack: ItemStack, world: World, player: EntityPlayer): ItemStack = {
+  override def onItemRightClick(itemStackIn: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult[ItemStack] = {
     import scala.collection.JavaConversions._
     for (module <- ModuleManager.getRightClickModules) {
-      if (module.isValidForItem(itemStack) && ModuleManager.itemHasActiveModule(itemStack, module.getDataName)) {
-        module.onRightClick(player, world, itemStack)
+      if (module.isValidForItem(itemStackIn) && ModuleManager.itemHasActiveModule(itemStackIn, module.getDataName)) {
+        module.onRightClick(playerIn, worldIn, itemStackIn)
       }
     }
-    return itemStack
+    return new ActionResult(EnumActionResult.PASS, itemStackIn);
+//    return itemStackIn;
   }
 
   /**
@@ -187,136 +170,87 @@ with ModeChangingModularItem {
   }
 
   /**
-   * Called when the right click button is released
-   */
-  override def onPlayerStoppedUsing(itemStack: ItemStack, world: World, player: EntityPlayer, par4: Int) {
-    val mode: String = getActiveMode(itemStack, player)
+    * Called when the player stops using an Item (stops holding the right mouse button).
+    */
+  override def onPlayerStoppedUsing(stack: ItemStack, worldIn: World, entityLiving: EntityLivingBase, timeLeft: Int) {
+    val mode: String = getActiveMode(stack, entityLiving.asInstanceOf[EntityPlayer])
     val module: IPowerModule = ModuleManager.getModule(mode)
     OptionCast[IRightClickModule](module) map {
-      m => m.onPlayerStoppedUsing(itemStack, world, player, par4)
+      m => m.onPlayerStoppedUsing(stack, worldIn, entityLiving.asInstanceOf[EntityPlayer], timeLeft)
     }
   }
 
   def shouldPassSneakingClickToBlock(world: World, x: Int, y: Int, z: Int): Boolean = true
 
-  override def onItemUseFirst(itemStack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z: Int, side: Int, hitX: Float, hitY: Float, hitZ: Float): Boolean = {
-    val mode: String = getActiveMode(itemStack, player)
+  override def onItemUseFirst(stack: ItemStack, player: EntityPlayer, world: World, pos: BlockPos, side: EnumFacing, hitX: Float,
+                              hitY: Float, hitZ: Float, hand: EnumHand): EnumActionResult = {
+
+    val mode: String = getActiveMode(stack, player)
     val module: IPowerModule = ModuleManager.getModule(mode)
     module match {
-      case m: IRightClickModule => m.onItemUseFirst(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ)
+      case m: IRightClickModule => m.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ)
       case _ => false
     }
+
+    return EnumActionResult.PASS
   }
 
-  override def onItemUse(itemStack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z: Int, side: Int, hitX: Float, hitY: Float, hitZ: Float): Boolean = {
-    val mode: String = getActiveMode(itemStack, player)
+  override def onItemUse(stack: ItemStack, playerIn: EntityPlayer, worldIn: World, pos: BlockPos, hand: EnumHand,
+                         facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult = {
+
+
+    val mode: String = getActiveMode(stack, playerIn)
     val module: IPowerModule = ModuleManager.getModule(mode)
     module match {
-      case m: IRightClickModule => m.onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ); false
+      case m: IRightClickModule => m.onItemUse(stack, playerIn, worldIn, pos, facing, hitX, hitY, hitZ); false
       case _ => false
     }
+    return EnumActionResult.PASS
   }
 
   @Optional.Method(modid = "Forestry")
-  def getSaplingModifier(stack: ItemStack, world: World, player: EntityPlayer, x: Int, y: Int, z: Int): Float = {
-    if (ModuleManager.itemHasActiveModule(stack, GrafterModule.MODULE_GRAFTER)) {
-      ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, GrafterModule.GRAFTER_ENERGY_CONSUMPTION))
-      MuseHeatUtils.heatPlayer(player, ModuleManager.computeModularProperty(stack, GrafterModule.GRAFTER_HEAT_GENERATION))
+  override def getSaplingModifier(itemStack: ItemStack, world: World, entityPlayer: EntityPlayer, blockPos: BlockPos): Float = {
+    if (ModuleManager.itemHasActiveModule(itemStack, GrafterModule.MODULE_GRAFTER)) {
+      ElectricItemUtils.drainPlayerEnergy(entityPlayer, ModuleManager.computeModularProperty(itemStack, GrafterModule.GRAFTER_ENERGY_CONSUMPTION))
+      MuseHeatUtils.heatPlayer(entityPlayer, ModuleManager.computeModularProperty(itemStack, GrafterModule.GRAFTER_HEAT_GENERATION))
       100F
     } else {
       0F
     }
   }
 
-  def canHarvestBlock(stack: ItemStack, block: Block, meta: Int, player: EntityPlayer): Boolean = {
-    if (block.getMaterial.isToolNotRequired) {
+  def canHarvestBlock(stack: ItemStack, pos: BlockPos, state: IBlockState, player: EntityPlayer): Boolean = {
+    if (state.getMaterial.isToolNotRequired) {
       return true
     }
     import scala.collection.JavaConversions._
     for (module <- ModuleManager.getBlockBreakingModules) {
-      if (ModuleManager.itemHasActiveModule(stack, module.getDataName) && module.canHarvestBlock(stack, block, meta, player)) {
+      if (ModuleManager.itemHasActiveModule(stack, module.getDataName) && module.canHarvestBlock(stack, pos, state, player)) {
         return true
       }
     }
     return false
   }
 
-  // TE Crescent Hammer
-  override def isUsable(itemStack: ItemStack, entityLivingBase: EntityLivingBase, i: Int, i1: Int, i2: Int): Boolean = {
-    entityLivingBase match {
-      case player: EntityPlayer => getActiveMode(itemStack, player).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
-      case _ => false
-    }
-  }
 
-  // TE Crescent Hammer
-  override def toolUsed(itemStack: ItemStack, entityLivingBase: EntityLivingBase, i: Int, i1: Int, i2: Int): Unit = {}
-
-  // Railcraft Crowbar
-  override def canWhack(player: EntityPlayer, itemStack: ItemStack, i: Int, i1: Int, i2: Int): Boolean = {
-    getActiveMode(itemStack, player).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
-  }
-
-  // Railcraft Crowbar
-  override def canLink(player: EntityPlayer, itemStack: ItemStack, entityMinecart: EntityMinecart): Boolean = {
-    getActiveMode(itemStack, player).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
-  }
-
-  // Railcraft Crowbar
-  override def canBoost(player: EntityPlayer, itemStack: ItemStack, entityMinecart: EntityMinecart): Boolean = {
-    getActiveMode(itemStack, player).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
-  }
-
-  // Railcraft Crowbar
-  override def onLink(player: EntityPlayer, itemStack: ItemStack, entityMinecart: EntityMinecart): Unit = {}
-
-  // Railcraft Crowbar
-  override def onWhack(player: EntityPlayer, itemStack: ItemStack, i: Int, i1: Int, i2: Int): Unit = {}
-
-  // Railcraft Crowbar
-  override def onBoost(player: EntityPlayer, itemStack: ItemStack, entityMinecart: EntityMinecart): Unit = {}
-
-  // AE wrench
-  override def canWrench(itemStack: ItemStack, player: EntityPlayer, i: Int, i1: Int, i2: Int): Boolean = {
-    getActiveMode(itemStack, player).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
-  }
-
-  // Buildcraft Wrench
-  override def wrenchUsed(player: EntityPlayer, i: Int, i1: Int, i2: Int): Unit = { }
-
-  // Buildcraft Wrench
-  override def canWrench(player: EntityPlayer, i: Int, i1: Int, i2: Int): Boolean = {
-    getActiveMode(player.getHeldItem, player).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
-  }
-
-  // Bluepower Screwdriver
-  override def damage(itemStack: ItemStack, i: Int, entityPlayer: EntityPlayer, b: Boolean): Boolean = {
-    getActiveMode(itemStack, entityPlayer).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
-  }
-
-  // ProjectRed Screwdriver
-  override def damageScrewdriver(entityPlayer: EntityPlayer, itemStack: ItemStack): Unit = {}
-
-  // ProjectRed Screwdriver
-  override def canUse(entityPlayer: EntityPlayer, itemStack: ItemStack): Boolean = {
-    getActiveMode(itemStack, entityPlayer).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
-  }
+//  // Buildcraft Wrench
+//  override def wrenchUsed(player: EntityPlayer, i: Int, i1: Int, i2: Int): Unit = { }
+//
+//  // Buildcraft Wrench
+//  override def canWrench(player: EntityPlayer, i: Int, i1: Int, i2: Int): Boolean = {
+//    getActiveMode(player.getHeldItem, player).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
+//  }
 
   // EnderIO Tool
-  override def used(itemStack: ItemStack, entityPlayer: EntityPlayer, i: Int, i1: Int, i2: Int): Unit = {}
+  override def used(itemStack: ItemStack, entityPlayer: EntityPlayer, pos: BlockPos): Unit = {}
 
   // EnderIO Tool
-  override def canUse(itemStack: ItemStack, entityPlayer: EntityPlayer, i: Int, i1: Int, i2: Int): Boolean = {
-    getActiveMode(itemStack, entityPlayer).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
-  }
+//  override def canUse(itemStack: ItemStack, entityPlayer: EntityPlayer, pos: BlockPos): Boolean = {
+//    getActiveMode(itemStack, entityPlayer).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
+//  }
 
   // EnderIO Tool
-  override def shouldHideFacades(itemStack: ItemStack, entityPlayer: EntityPlayer): Boolean = {
-    getActiveMode(itemStack, entityPlayer).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
-  }
-
-  // Mekanism Wrench
-  override def canUseWrench(entityPlayer: EntityPlayer, i: Int, i1: Int, i2: Int): Boolean = {
-    getActiveMode(entityPlayer.getHeldItem, entityPlayer).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
-  }
+//  override def shouldHideFacades(itemStack: ItemStack, entityPlayer: EntityPlayer): Boolean = {
+//    getActiveMode(itemStack, entityPlayer).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
+//  }
 }

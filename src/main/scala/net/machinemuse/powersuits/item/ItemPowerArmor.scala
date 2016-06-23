@@ -72,7 +72,7 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: EntityEquipmentSlot)
   }
 
   @SideOnly(Side.CLIENT)
-  override def getArmorModel(entity: EntityLivingBase, itemstack: ItemStack, armorSlot: Int): ModelBiped = {
+  override def getArmorModel(entity: EntityLivingBase, itemstack: ItemStack, armorSlot: EntityEquipmentSlot): ModelBiped = {
     val model: ArmorModel = ArmorModel.instance
 
     model.visibleSection = armorSlot
@@ -99,7 +99,7 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: EntityEquipmentSlot)
   }
 
   override def getItemEnchantability: Int = {
-    return 0
+    0
   }
 
   /**

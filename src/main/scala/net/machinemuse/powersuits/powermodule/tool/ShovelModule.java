@@ -10,10 +10,12 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
@@ -26,7 +28,7 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
 
     public ShovelModule(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(new ItemStack(Items.iron_ingot, 3));
+        addInstallCost(new ItemStack(Items.IRON_INGOT, 3));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBaseProperty(SHOVEL_ENERGY_CONSUMPTION, 50, "J");
         addBaseProperty(SHOVEL_HARVEST_SPEED, 8, "x");
@@ -58,20 +60,21 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
         return "toolshovel";
     }
 
-    private boolean istEffectiveHarvestTool(Block block, int metadata)
+    private boolean istEffectiveHarvestTool(IBlockState state)
     {
-        ItemStack emulatedTool = new ItemStack(Items.iron_shovel);
+        ItemStack emulatedTool = new ItemStack(Items.IRON_SHOVEL);
+        Block block = state.getBlock();
 
-        if (emulatedTool.getItem().canHarvestBlock(block, emulatedTool))
+        if (emulatedTool.getItem().canHarvestBlock(state, emulatedTool))
             return true;
 
-        String effectiveTool = block.getHarvestTool(metadata);
+        String effectiveTool = block.getHarvestTool(state);
 
         // some blocks like stairs do no not have a tool assigned to them
         if (effectiveTool == null)
         {
             {
-                if (emulatedTool.func_150997_a/*getStrVsBlock*/(block) >= ((ItemTool) emulatedTool.getItem()).func_150913_i/*getToolMaterial*/().getEfficiencyOnProperMaterial())
+                if (emulatedTool.getStrVsBlock(state) >= ((ItemTool) emulatedTool.getItem()).getToolMaterial().getEfficiencyOnProperMaterial())
                 {
                     return true;
                 }
@@ -81,9 +84,8 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if (istEffectiveHarvestTool(block, meta)) {
-
+    public boolean canHarvestBlock(ItemStack stack, BlockPos pos, IBlockState state, EntityPlayer player) {
+        if (istEffectiveHarvestTool(state)) {
             if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION)) {
                 return true;
             }
@@ -92,9 +94,8 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityPlayer player) {
-        int meta = world.getBlockMetadata(x, y, z);
-        if (canHarvestBlock(stack, block, meta, player)) {
+    public boolean onBlockDestroyed(ItemStack stack, World world, IBlockState state, BlockPos pos, EntityPlayer player) {
+        if (canHarvestBlock(stack, pos, state, player)) {
             ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION));
             return true;
         } else {
@@ -104,6 +105,6 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-        event.newSpeed *= ModuleManager.computeModularProperty(event.entityPlayer.getHeldItemMainhand(), SHOVEL_HARVEST_SPEED);
+        event.setNewSpeed((float) (event.getNewSpeed() * ModuleManager.computeModularProperty(event.getEntityPlayer().getHeldItemMainhand(), SHOVEL_HARVEST_SPEED)));
     }
 }

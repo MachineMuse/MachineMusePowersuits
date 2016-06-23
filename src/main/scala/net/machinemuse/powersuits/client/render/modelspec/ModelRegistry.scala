@@ -4,15 +4,17 @@ import net.machinemuse.utils.MuseStringUtils
 import net.minecraft.nbt.NBTTagCompound
 import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.scala.MuseRegistry
+import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.Vec3d
+import net.minecraftforge.client.model.obj.{OBJLoader, OBJModel}
 
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 7:44 AM, 4/28/13
  */
 object ModelRegistry extends MuseRegistry[ModelSpec] {
-  def loadModel(resource: ResourceLocation): Option[WavefrontObject] = {
+  def loadModel(resource: ResourceLocation): Option[OBJModel] = {
     val name = MuseStringUtils.extractName(resource)
     get(name) match {
       case Some(i) => Some(i.model)
@@ -20,10 +22,10 @@ object ModelRegistry extends MuseRegistry[ModelSpec] {
     }
   }
 
-  def wrap(resource: ResourceLocation): Option[WavefrontObject] = {
+  def wrap(resource: ResourceLocation): Option[OBJModel] = {
     MuseLogger.logDebug("Loading " + resource + " as " + MuseStringUtils.extractName(resource))
-    AdvancedModelLoader.loadModel(resource) match {
-      case m: WavefrontObject => Some(m)
+    OBJLoader.INSTANCE.loadModel(resource) match {
+      case m: OBJModel => Some(m)
       case _ => MuseLogger.logError("Model loading failed :( " + resource)
     }
   }
@@ -48,7 +50,7 @@ object ModelRegistry extends MuseRegistry[ModelSpec] {
   def makeName(spec: ModelPartSpec) = spec.modelSpec.getOwnName + "." + spec.partName
 }
 
-class ModelSpec(val model: WavefrontObject,
+class ModelSpec(val model: OBJModel,
                 val textures: Array[String],
                 val offset: Option[Vec3d],
                 val rotation: Option[Vec3d],
@@ -66,7 +68,7 @@ class ModelSpec(val model: WavefrontObject,
 class ModelPartSpec(val modelSpec: ModelSpec,
                     val morph: MorphTarget,
                     val partName: String,
-                    val slot: Int,
+                    val slot: EntityEquipmentSlot,
                     val defaultcolourindex: Int = 0,
                     val defaultglow: Boolean = false,
                     val displayName: String) {

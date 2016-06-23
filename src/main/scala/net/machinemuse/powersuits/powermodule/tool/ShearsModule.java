@@ -11,6 +11,7 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.enchantment.Enchantment;
@@ -109,8 +110,8 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if (ForgeHooks.canToolHarvestBlock(block, meta, shears)) {
+    public boolean canHarvestBlock(ItemStack stack, BlockPos pos, IBlockState state, EntityPlayer player) {
+        if (ForgeHooks.canToolHarvestBlock(player.worldObj, pos, shears)) {
             if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SHEARING_ENERGY_CONSUMPTION)) {
                 return true;
             }
@@ -119,16 +120,17 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int x, int y, int z, EntityPlayer player) {
+    public boolean onBlockDestroyed(ItemStack itemstack, World world, IBlockState state, BlockPos pos, EntityPlayer player) {
         if (player.worldObj.isRemote) {
             return false;
         }
+        Block block = state.getBlock();
+
         if (block instanceof IShearable && ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(itemstack, SHEARING_ENERGY_CONSUMPTION)) {
             IShearable target = (IShearable) block;
-            BlockPos blockPos = new BlockPos(x, y, z);
 
-            if (target.isShearable(itemstack, player.worldObj, blockPos)) {
-                List<ItemStack> drops = target.onSheared(itemstack, player.worldObj, blockPos,
+            if (target.isShearable(itemstack, player.worldObj, pos)) {
+                List<ItemStack> drops = target.onSheared(itemstack, player.worldObj, pos,
                         EnchantmentHelper.getEnchantmentLevel(Enchantment.getEnchantmentByLocation("fortune"), itemstack));
                 Random rand = new Random();
 
@@ -137,7 +139,7 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
                     double d = rand.nextFloat() * f + (1.0F - f) * 0.5D;
                     double d1 = rand.nextFloat() * f + (1.0F - f) * 0.5D;
                     double d2 = rand.nextFloat() * f + (1.0F - f) * 0.5D;
-                    EntityItem entityitem = new EntityItem(player.worldObj, x + d, y + d1, z + d2, stack);
+                    EntityItem entityitem = new EntityItem(player.worldObj, pos.getX() + d, pos.getY() + d1, pos.getZ() + d2, stack);
                     entityitem.setDefaultPickupDelay();
                     player.worldObj.spawnEntityInWorld(entityitem);
                 }

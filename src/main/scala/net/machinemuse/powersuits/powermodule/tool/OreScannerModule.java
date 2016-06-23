@@ -15,9 +15,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 import net.machinemuse.powersuits.powermodule.PropertyModifierIntLinearAdditive;
 import net.machinemuse.powersuits.common.ModCompatibility;
@@ -54,9 +55,8 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.computerChip, 1));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 2));
         for (int i = 0; i < oreNames.length; i++) {
-            ores.add(i, OreDictionary.getOres(oreNames[i]));
+            ores.add(i, (ArrayList<ItemStack>) OreDictionary.getOres(oreNames[i]));
         }
-
         fillMap();
     }
 
@@ -65,21 +65,23 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
         return addPropertyModifier(propertyName, new PropertyModifierIntLinearAdditive(tradeoffName, multiplier, roundTo, offset));
     }
 
-    public void searchForValuables(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side) {
+    public void searchForValuables(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side) {
         int xRadius = (int) ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_X);
         int yRadius = (int) ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_Y);
         int zRadius = (int) ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_Z);
 
         int totalValue = 0, totalEnergy = 0, highestValue = 0, value;
-        ForgeDirection fdSide = ForgeDirection.getOrientation(side).getOpposite();
-        int cX = x + (fdSide.offsetX * xRadius);
-        int cY = y + (fdSide.offsetY * yRadius);
-        int cZ = z + (fdSide.offsetZ * zRadius);
+        EnumFacing fdSide = side.getOpposite();
+
+        int cX = pos.getX() + (fdSide.getFrontOffsetX() * xRadius);
+        int cY = pos.getY() + (fdSide.getFrontOffsetY() * yRadius);
+        int cZ = pos.getZ() + (fdSide.getFrontOffsetZ() * zRadius);
 
         for (int sX = cX - xRadius; sX <= cX + xRadius; sX++) {
             for (int sY = cY - yRadius; sY <= cY + yRadius; sY++) {
                 for (int sZ = cZ - zRadius; sZ <= cZ + zRadius; sZ++) {
-                    value = getValue(world.getBlock(sX, sY, sZ), world.getBlockMetadata(sX, sY, sZ));
+                    value = getValue(world.getBlockState(new BlockPos(sX, sY, sZ)).getBlock(),
+                            world.getBlockState(new BlockPos(sX, sY, sZ)).getBlock().getMetaFromState(world.getBlockState(new BlockPos(sX, sY, sZ))));
                     totalValue += value;
                     ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_ENERGY_CONSUMPTION));
                     totalEnergy += ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_ENERGY_CONSUMPTION);
@@ -120,13 +122,13 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
             }
         }
         oreMap.put(Arrays.asList(Blocks.COAL_ORE, 0), "oreCoal");
-        oreMap.put(Arrays.asList(Blocks.iron_ore, 0), "oreIron");
-        oreMap.put(Arrays.asList(Blocks.gold_ore, 0), "oreGold");
-        oreMap.put(Arrays.asList(Blocks.redstone_ore, 0), "oreRedstone");
-        oreMap.put(Arrays.asList(Blocks.diamond_ore, 0), "oreDiamond");
-        oreMap.put(Arrays.asList(Blocks.emerald_ore, 0), "oreEmerald");
-        oreMap.put(Arrays.asList(Blocks.lapis_ore, 0), "oreLapis");
-        oreMap.put(Arrays.asList(Blocks.quartz_ore, 0), "oreNetherQuartz");
+        oreMap.put(Arrays.asList(Blocks.IRON_ORE, 0), "oreIron");
+        oreMap.put(Arrays.asList(Blocks.GOLD_ORE, 0), "oreGold");
+        oreMap.put(Arrays.asList(Blocks.REDSTONE_ORE, 0), "oreRedstone");
+        oreMap.put(Arrays.asList(Blocks.DIAMOND_ORE, 0), "oreDiamond");
+        oreMap.put(Arrays.asList(Blocks.EMERALD_ORE, 0), "oreEmerald");
+        oreMap.put(Arrays.asList(Blocks.LAPIS_ORE, 0), "oreLapis");
+        oreMap.put(Arrays.asList(Blocks.QUARTZ_ORE, 0), "oreNetherQuartz");
         valueMap.put("oreCoal", 1);
         valueMap.put("oreIron", 4);
         valueMap.put("oreGold", 6);
@@ -179,12 +181,12 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
-        searchForValuables(itemStack, player, world, x, y, z, side);
+    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+        searchForValuables(itemStack, player, world, pos, side);
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         return false;
     }
 

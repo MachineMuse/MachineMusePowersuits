@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.Side
 class PlayerUpdateHandler {
   @SubscribeEvent
   def onPlayerUpdate(e: LivingUpdateEvent) = {
-    e.entity match {
+    e.getEntity match {
       case player: EntityPlayer => {
 
         val modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player)

@@ -46,12 +46,10 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
-        BlockPos blockPos = new BlockPos(x, y, z);
-
+    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         double energyConsumed = ModuleManager.computeModularProperty(itemStack, HOE_ENERGY_CONSUMPTION);
-        if (player.canPlayerEdit(blockPos, side, itemStack) && ElectricItemUtils.getPlayerEnergy(player) > energyConsumed) {
-            UseHoeEvent event = new UseHoeEvent(player, itemStack, world, blockPos);
+        if (player.canPlayerEdit(pos, side, itemStack) && ElectricItemUtils.getPlayerEnergy(player) > energyConsumed) {
+            UseHoeEvent event = new UseHoeEvent(player, itemStack, world, pos);
             if (MinecraftForge.EVENT_BUS.post(event)) {
                 return;
             }
@@ -68,9 +66,9 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
             for (int i = (int) Math.floor(-radius); i < radius; i++) {
                 for (int j = (int) Math.floor(-radius); j < radius; j++) {
                     if (i * i + j * j < radius * radius) {
-                        Block block = world.getBlockState(blockPos.add(i, 0, j)).getBlock();
+                        Block block = world.getBlockState(pos.add(i, 0, j)).getBlock();
                         if (block == Blocks.GRASS || block == Blocks.DIRT) {
-                            world.setBlockState(blockPos.add(i,0,j), Blocks.FARMLAND.getDefaultState());
+                            world.setBlockState(pos.add(i,0,j), Blocks.FARMLAND.getDefaultState());
                             ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemStack, HOE_ENERGY_CONSUMPTION));
                         }
                     }
@@ -85,6 +83,11 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
     }
 
     @Override
+    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+        return false;
+    }
+
+    @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
 
     }
@@ -92,12 +95,6 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
     @Override
     public String getTextureFile() {
         return null;
-    }
-
-    @Override
-    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY,
-                                  float hitZ) {
-        return false;
     }
 
     @Override

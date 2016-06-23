@@ -9,9 +9,12 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.*;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.machinemuse.powersuits.powermodule.PropertyModifierIntLinearAdditive;
 import java.util.List;
@@ -75,67 +78,68 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
     public void onRightClick(EntityPlayer player, World world, ItemStack item) {
     }
 
-    private boolean blockCheckAndHarvest(String blocktype, EntityPlayer player, World world, int x, int y, int z) {
-        Block block = world.getBlock(x, y, z);
-        int meta = world.getBlockMetadata(x, y, z);
-        if (block == null)
-            return false;
-
-        // Plants
-        if (blocktype == "plants" && (block != null) && ((block instanceof BlockTallGrass) || (block instanceof BlockFlower)) && block.canHarvestBlock(player, meta)) {
-            block.harvestBlock(world, player, x, y, z, meta);
-            world.setBlockToAir(x, y, z);
-            return true;
-        }
-
-        // Leaves
-        if (blocktype == "leaves" && block instanceof BlockLeaves && block.canHarvestBlock(player, meta)) {
-            block.harvestBlock(world, player, x, y, z, meta);
-            world.setBlockToAir(x, y, z);
-            return true;
-        }
-
-        // Snow
-        if (blocktype == "snow" && block instanceof BlockSnow && block.canHarvestBlock(player, meta)) {
-            block.harvestBlock(world, player, x, y, z, meta);
-            world.setBlockToAir(x, y, z);
-        }
-        return false;
-    }
-
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
-        Block blockID = world.getBlock(x, y, z);
+    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+        Block blockID = world.getBlockState(pos).getBlock();
         int plant = (int) ModuleManager.computeModularProperty(itemStack, PLANT_RADIUS);
         int leaf = (int) ModuleManager.computeModularProperty(itemStack, LEAF_RADIUS);
         int snow = (int) ModuleManager.computeModularProperty(itemStack, SNOW_RADIUS);
         int totalEnergyDrain = 0;
 
         // Plants
-        useBlower(plant, "plants", itemStack, player, world,  x, y, z);
+        useBlower(plant, "plants", itemStack, player, world,  pos);
         // Leaves
-        useBlower(leaf, "leaves", itemStack, player, world,  x, y, z);
+        useBlower(leaf, "leaves", itemStack, player, world,  pos);
         // Snow
-        useBlower(snow, "snow", itemStack, player, world,  x, y, z);
+        useBlower(snow, "snow", itemStack, player, world,  pos);
     }
 
-    private void useBlower(int radius, String blocktypename , ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z) {
+    @Override
+    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+        return false;
+    }
+
+    private boolean blockCheckAndHarvest(String blocktype, EntityPlayer player, World world, BlockPos pos) {
+        IBlockState blockState = world.getBlockState(pos);
+        Block block = blockState.getBlock();
+
+        if (block == null)
+            return false;
+
+        // Plants
+        if (blocktype == "plants" && (block != null) && ((block instanceof BlockTallGrass) || (block instanceof BlockFlower)) && block.canHarvestBlock(player.worldObj, pos, player)) {
+            block.harvestBlock(world, player, pos, blockState, null, null);
+            world.setBlockToAir(pos);
+            return true;
+        }
+
+        // Leaves
+        if (blocktype == "leaves" && block instanceof BlockLeaves && block.canHarvestBlock(player.worldObj, pos, player)) {
+            block.harvestBlock(world, player, pos, blockState, null, null);
+            world.setBlockToAir(pos);
+            return true;
+        }
+
+        // Snow
+        if (blocktype == "snow" && block instanceof BlockSnow && block.canHarvestBlock(player.worldObj, pos, player)) {
+            block.harvestBlock(world, player, pos, blockState, null, null);
+            world.setBlockToAir(pos);
+        }
+        return false;
+    }
+
+    private void useBlower(int radius, String blocktypename , ItemStack itemStack, EntityPlayer player, World world, BlockPos pos) {
         int totalEnergyDrain = 0;
         for (int i = -radius; i < radius; i++) {
             for (int j = -radius; j < radius; j++) {
                 for (int k = -radius; k < radius; k++) {
-                    if (blockCheckAndHarvest(blocktypename, player, world, x + i, y + j, z + k)) {
+                    if (blockCheckAndHarvest(blocktypename, player, world, pos.add(i, j, k))) {
                         totalEnergyDrain += ModuleManager.computeModularProperty(itemStack, LEAF_BLOWER_ENERGY_CONSUMPTION);
                     }
                 }
             }
         }
         ElectricItemUtils.drainPlayerEnergy(player, totalEnergyDrain);
-    }
-
-    @Override
-    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
-        return false;
     }
 
     @Override

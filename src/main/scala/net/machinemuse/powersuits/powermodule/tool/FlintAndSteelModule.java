@@ -9,13 +9,15 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -29,7 +31,7 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
 
     public static final String MODULE_FLINT_AND_STEEL = "Flint and Steel";
     public static final String IGNITION_ENERGY_CONSUMPTION = "Ignition Energy Consumption";
-    public ItemStack fas = new ItemStack(Items.flint_and_steel);
+    public ItemStack fas = new ItemStack(Items.FLINT_AND_STEEL);
     Random ran = new Random();
 
     public FlintAndSteelModule(List<IModularItem> validItems) {
@@ -46,7 +48,7 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
-        return fas.getIconIndex();
+        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(fas).getParticleTexture();;
     }
 
     @Override
@@ -74,27 +76,26 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         double energyConsumption = ModuleManager.computeModularProperty(itemStack, IGNITION_ENERGY_CONSUMPTION);
         if (energyConsumption < ElectricItemUtils.getPlayerEnergy(player)) {
-            x += (side == 5 ? 1 : side == 4 ? -1 : 0);
-            y += (side == 1 ? 1 : side == 0 ? -1 : 0);
-            z += (side == 3 ? 1 : side == 2 ? -1 : 0);
+            pos = pos.add(/* X */ (side == EnumFacing.EAST ? 1 : side == EnumFacing.WEST ? -1 : 0),
+                        /* Y */ (side == EnumFacing.UP ? 1 : side == EnumFacing.DOWN ? -1 : 0),
+                        /* Z */(side == EnumFacing.SOUTH ? 1 : side == EnumFacing.NORTH ? -1 : 0));
 
-            if (player.canPlayerEdit(x, y, z, side, itemStack)) {
-                Block clickedBlock = world.getBlock(x, y, z);
-
-                if (clickedBlock == Blocks.air) {
+            if (player.canPlayerEdit(pos, side, itemStack)) {
+                Block clickedBlock = world.getBlockState(pos).getBlock();
+                if (clickedBlock == Blocks.AIR) {
                     ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
-                    world.playSoundEffect((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D, "fire.ignite", 1.0F, ran.nextFloat() * 0.4F + 0.8F);
-                    world.setBlock(x, y, z, Blocks.fire);
+                    world.playSoundEffect((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, "fire.ignite", 1.0F, ran.nextFloat() * 0.4F + 0.8F);
+                    world.setBlockState(pos, Blocks.FIRE.getDefaultState());
                 }
             }
         }
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         return false;
     }
 
