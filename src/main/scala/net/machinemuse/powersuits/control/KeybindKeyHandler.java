@@ -54,7 +54,7 @@ public class KeybindKeyHandler {
                 }
             }
             if (key == goDownKey.getKeyCode()) {
-                PlayerInputMap.getInputMapFor(player.getCommandSenderName()).downKey = true;
+                PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName()).downKey = true;
             }
             if (key == cycleToolBackward.getKeyCode()) {
                 Minecraft.getMinecraft().playerController.updateController();
@@ -66,7 +66,7 @@ public class KeybindKeyHandler {
             }
         } else {
             if (Minecraft.getMinecraft().thePlayer != null && key == goDownKey.getKeyCode()) {
-                PlayerInputMap.getInputMapFor(Minecraft.getMinecraft().thePlayer.getCommandSenderName()).downKey = false;
+                PlayerInputMap.getInputMapFor(Minecraft.getMinecraft().thePlayer.getCommandSenderEntity().getName()).downKey = false;
             }
         }
     }

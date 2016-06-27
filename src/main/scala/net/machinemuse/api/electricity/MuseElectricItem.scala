@@ -1,7 +1,7 @@
 package net.machinemuse.api.electricity
 
 import cofh.api.energy.IEnergyContainerItem
-import ic2.api.item.{IElectricItemManager, ISpecialElectricItem, IElectricItem, ElectricItem}
+import ic2.api.item.{IElectricItemManager, ISpecialElectricItem, ElectricItem, ElectricItem}
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.api.electricity.ElectricConversions._
 import net.machinemuse.utils.{ElectricItemUtils, MuseItemUtils}
@@ -22,7 +22,7 @@ trait MuseElectricItem extends Item
 with IEnergyContainerItem 
 with ISpecialElectricItem 
 with IElectricItemManager 
-with IElectricItem {
+with ElectricItem {
   /**
    * Call to get the energy of an item
    *

@@ -20,3 +20,6 @@
 # Mac Stuff
 .DS_Store
 *.command
+
+#Numina (sometimes added while porting)
+/src/main/scala/net/machinemuse/numina
