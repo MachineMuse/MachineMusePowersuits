@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.powermodule.energy;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.electricity.ElectricConversions;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
@@ -27,16 +28,6 @@ public class EliteBatteryModule extends PowerModuleBase {
     }
 
     @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return super.getIcon(item);
-    }
-
-    //    @Override
-//    public String getTextureFile() {
-//        return "crystalcapacitor";
-//    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_ENERGY;
     }
@@ -53,5 +44,10 @@ public class EliteBatteryModule extends PowerModuleBase {
     @Override
     public String getDescription() {
         return "Integrate a the most advanced battery to store an extensive amount of energy.";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.eliteBattery;
     }
 }

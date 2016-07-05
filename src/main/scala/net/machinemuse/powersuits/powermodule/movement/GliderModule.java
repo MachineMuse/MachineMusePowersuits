@@ -4,12 +4,14 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Vec3d;
@@ -18,11 +20,6 @@ import java.util.List;
 
 public class GliderModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
     public static final String MODULE_GLIDER = "Glider";
-
-//    @Override
-//    public String getTextureFile() {
-//        return "glider";
-//    }
 
     public GliderModule(List<IModularItem> validItems) {
         super(validItems);
@@ -81,4 +78,8 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
     }
 
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.glider;
+    }
 }

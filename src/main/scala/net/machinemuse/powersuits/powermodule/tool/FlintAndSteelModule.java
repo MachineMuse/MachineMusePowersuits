@@ -45,10 +45,6 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
         addBaseProperty(IGNITION_ENERGY_CONSUMPTION, 1000, "J");
     }
 
-//    @Override
-//    public String getTextureFile() {
-//        return null;
-//    }
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {

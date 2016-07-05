@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.powermodule.misc
 
 import net.machinemuse.api.IModularItem
 import net.machinemuse.api.moduletrigger.IToggleableModule
+import net.machinemuse.general.gui.MuseIcon
 import net.machinemuse.powersuits.item.ItemComponent
 import net.machinemuse.powersuits.powermodule.PowerModuleBase
 import net.machinemuse.utils.{MuseCommonStrings, MuseItemUtils}
@@ -30,6 +31,6 @@ class BinocularsModule(list: java.util.List[IModularItem]) extends PowerModuleBa
 
   override def getDescription: String = "With the problems that have been plaguing Optifine lately, you've decided to take that Zoom ability into your own hands."
 
-  override def getIcon(item: ItemStack): TextureAtlasSprite = super.getIcon(item)
+  override def getIcon(item: ItemStack): TextureAtlasSprite = MuseIcon.binoculars
 
 }

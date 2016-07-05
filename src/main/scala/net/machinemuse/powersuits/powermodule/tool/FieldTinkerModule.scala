@@ -2,10 +2,12 @@ package net.machinemuse.powersuits.powermodule.tool
 
 import net.machinemuse.api.IModularItem
 import net.machinemuse.api.moduletrigger.IRightClickModule
+import net.machinemuse.general.gui.MuseIcon
 import net.machinemuse.powersuits.common.ModularPowersuits
 import net.machinemuse.powersuits.item.ItemComponent
 import net.machinemuse.powersuits.powermodule.PowerModuleBase
 import net.machinemuse.utils.{MuseCommonStrings, MuseItemUtils}
+import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
@@ -28,8 +30,6 @@ class FieldTinkerModule(list: java.util.List[IModularItem]) extends PowerModuleB
 
   override def getUnlocalizedName = "fieldTinkerer"
 
-  def getTextureFile: String = "transparentarmor"
-
   def onPlayerStoppedUsing(itemStack: ItemStack, world: World, player: EntityPlayer, par4: Int) {}
 
   def onRightClick(player: EntityPlayer, world: World, item: ItemStack) {
@@ -39,4 +39,6 @@ class FieldTinkerModule(list: java.util.List[IModularItem]) extends PowerModuleB
   override def onItemUse(itemStack: ItemStack, player: EntityPlayer, world: World, pos: BlockPos, side: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Unit = {}
 
   override def onItemUseFirst(itemStack: ItemStack, player: EntityPlayer, world: World, pos: BlockPos, side: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean = false
+
+override def getIcon(item: ItemStack): TextureAtlasSprite = MuseIcon.fieldTinkerer
 }

@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.powermodule.movement;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.event.MovementManager;
@@ -11,6 +12,7 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -69,9 +71,8 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
     }
 
-//    @Override
-//    public String getTextureFile() {
-//        return "jumpassist";
-//    }
-
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.jumpAssist;
+    }
 }

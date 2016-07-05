@@ -2,11 +2,13 @@ package net.machinemuse.powersuits.powermodule.misc;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -25,11 +27,6 @@ public class InPlaceAssemblerModule extends PowerModuleBase implements IRightCli
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         addInstallCost(new ItemStack(Blocks.CRAFTING_TABLE, 1));
     }
-
-//    @Override
-//    public String getTextureFile() {
-//        return "portablecrafting";
-//    }
 
     @Override
     public String getCategory() {
@@ -70,4 +67,8 @@ public class InPlaceAssemblerModule extends PowerModuleBase implements IRightCli
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
     }
 
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.portableCraftingTable;
+    }
 }

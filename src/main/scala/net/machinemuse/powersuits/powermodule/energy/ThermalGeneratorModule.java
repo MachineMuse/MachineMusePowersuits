@@ -4,12 +4,14 @@ package net.machinemuse.powersuits.powermodule.energy;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -39,10 +41,6 @@ public class ThermalGeneratorModule extends PowerModuleBase implements IPlayerTi
 //        }
     }
 
-//    @Override
-//    public String getTextureFile() {
-//        return "heatgenerator";
-//    }
 
     @Override
     public String getCategory() {
@@ -81,5 +79,10 @@ public class ThermalGeneratorModule extends PowerModuleBase implements IPlayerTi
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.thermalGenerator;
     }
 }

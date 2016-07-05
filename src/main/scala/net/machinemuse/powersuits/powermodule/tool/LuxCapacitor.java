@@ -3,10 +3,12 @@ package net.machinemuse.powersuits.powermodule.tool;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -52,11 +54,6 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
         return "Launch a virtually infinite number of attractive light sources at the wall.";
     }
 
-//    @Override
-//    public String getTextureFile() {
-//        return "bluelight";
-//    }
-
     @Override
     public void onRightClick(EntityPlayer player, World world, ItemStack itemStack) {
 //        player.setItemInUse(itemStack, 10);
@@ -91,4 +88,8 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
 
     }
 
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.luxCapacitor;
+    }
 }

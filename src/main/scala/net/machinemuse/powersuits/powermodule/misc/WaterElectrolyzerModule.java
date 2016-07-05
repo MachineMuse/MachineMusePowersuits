@@ -4,6 +4,7 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.general.sound.SoundDictionary;
 import net.machinemuse.numina.basemod.NuminaConfig;
 import net.machinemuse.numina.sound.Musique;
@@ -12,6 +13,7 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
@@ -68,9 +70,8 @@ public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerT
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
     }
 
-//    @Override
-//    public String getTextureFile() {
-//        return "waterelectrolyzer";
-//    }
-
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.waterElectrolyzer;
+    }
 }

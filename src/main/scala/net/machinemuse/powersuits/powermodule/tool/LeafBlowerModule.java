@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.powermodule.tool;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
@@ -10,6 +11,7 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -145,5 +147,10 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
 
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.leafBlower;
     }
 }

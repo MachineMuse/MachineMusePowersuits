@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.powermodule.energy;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
@@ -36,19 +37,6 @@ public class AdvancedSolarGenerator extends PowerModuleBase implements IPlayerTi
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solarPanel, 3));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 2));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.computerChip, 1));
-
-
-    }
-
-//    @Override
-//    public String getTextureFile() {
-//        return "advsolarhelmet";
-//    }
-
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return super.getIcon(item);
     }
 
     @Override
@@ -99,5 +87,10 @@ public class AdvancedSolarGenerator extends PowerModuleBase implements IPlayerTi
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.advSolarGenerator;
     }
 }

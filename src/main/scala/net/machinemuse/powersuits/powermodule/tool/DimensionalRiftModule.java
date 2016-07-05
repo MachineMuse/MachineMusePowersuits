@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.utils.MPSTeleporter;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
@@ -10,6 +11,7 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -36,11 +38,6 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         this.defaultTag.setBoolean(MuseItemUtils.ONLINE, false);
     }
-
-//    @Override
-//    public String getTextureFile() {
-//        return "kineticgen";
-//    }
 
     @Override
     public String getCategory() {
@@ -107,5 +104,10 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
 
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.dimRiftGen;
     }
 }

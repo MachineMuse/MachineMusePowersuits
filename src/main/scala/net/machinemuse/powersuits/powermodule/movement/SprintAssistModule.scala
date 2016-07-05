@@ -4,9 +4,11 @@ import java.util.List
 
 import net.machinemuse.api.{IModularItem, ModuleManager}
 import net.machinemuse.api.moduletrigger.{IPlayerTickModule, IToggleableModule}
+import net.machinemuse.general.gui.MuseIcon
 import net.machinemuse.powersuits.item.ItemComponent
 import net.machinemuse.powersuits.powermodule.PowerModuleBase
 import net.machinemuse.utils.{ElectricItemUtils, MuseCommonStrings, MuseItemUtils}
+import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.{NBTTagCompound, NBTTagList}
@@ -99,5 +101,9 @@ class SprintAssistModule(validItems: List[IModularItem]) extends PowerModuleBase
     }
   }
 
-  def getTextureFile: String = "sprintassist"
+  override def getIcon(item: ItemStack): TextureAtlasSprite = {
+    return MuseIcon.sprintAssist
+  }
+
+
 }

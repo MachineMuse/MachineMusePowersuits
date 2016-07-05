@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.powermodule.armor;
 
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
@@ -11,6 +12,7 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -51,11 +53,6 @@ public class NitrogenCoolingSystem extends PowerModuleBase implements IPlayerTic
 
     }
 
-//    @Override
-//    public String getTextureFile() {
-//        return "coolingsystem";
-//    }
-
     @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_ENVIRONMENTAL;
@@ -74,5 +71,10 @@ public class NitrogenCoolingSystem extends PowerModuleBase implements IPlayerTic
     @Override
     public String getDescription() {
         return "Cools down heat-producing modules even faster than the standard cooling system.";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.nitrogenCoolingSystem;
     }
 }

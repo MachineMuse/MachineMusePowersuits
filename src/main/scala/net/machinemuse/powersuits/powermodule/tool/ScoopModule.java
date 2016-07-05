@@ -64,11 +64,6 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
         return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(scoop).getParticleTexture();
     }
 
-//    @Override
-//    public String getTextureFile() {
-//        return null;
-//    }
-
     @Override
     public boolean canHarvestBlock(ItemStack stack, BlockPos pos, IBlockState state, EntityPlayer player) {
             if (ForgeHooks.canToolHarvestBlock(player.worldObj, pos, scoop)) {

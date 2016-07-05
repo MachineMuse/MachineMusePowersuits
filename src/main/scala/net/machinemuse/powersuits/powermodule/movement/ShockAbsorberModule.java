@@ -2,10 +2,12 @@ package net.machinemuse.powersuits.powermodule.movement;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
@@ -42,8 +44,8 @@ public class ShockAbsorberModule extends PowerModuleBase implements IToggleableM
         return "With some servos, springs, and padding, you should be able to negate a portion of fall damage.";
     }
 
-//    @Override
-//    public String getTextureFile() {
-//        return "shockabsorber";
-//    }
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.shockAbsorber;
+    }
 }

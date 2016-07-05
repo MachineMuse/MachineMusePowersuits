@@ -4,8 +4,10 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
+import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -56,30 +58,20 @@ public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule,
                     if (ModuleManager.computeModularProperty(item, MAX_COAL_STORAGE) - MuseItemUtils.getCoalLevel(item) < 1) {
                         i = inv.getSizeInventory() + 1;
                     }
-
-
                 }
-
             }
-
         }
-
+        if (MuseItemUtils.getCoalLevel(item) > 0) {
+            ElectricItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(item, COAL_ENERGY_GEN));
+            MuseItemUtils.setCoalLevel(item, MuseItemUtils.getCoalLevel(item) - 1);
+            System.out.println("coal level: " + MuseItemUtils.getCoalLevel(item));
+        }
     }
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
 
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return super.getIcon(item);
-    }
-
-    //    @Override
-//    public String getTextureFile() {
-//        return "coalgen";
-//    }
 
     @Override
     public String getCategory() {
@@ -99,5 +91,10 @@ public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule,
     @Override
     public String getDescription() {
         return "Generate power with solid fuels";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.coalGenerator;
     }
 }

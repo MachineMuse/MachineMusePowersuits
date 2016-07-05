@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.powermodule.movement;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -10,6 +11,7 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -38,11 +40,6 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 1));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
     }
-
-//    @Override
-//    public String getTextureFile() {
-//        return "alien";
-//    }
 
     @Override
     public String getCategory() {
@@ -93,5 +90,10 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.blinkDrive;
     }
 }

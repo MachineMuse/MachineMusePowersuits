@@ -1,8 +1,11 @@
 package net.machinemuse.powersuits.powermodule.misc;
 
 import net.machinemuse.api.IModularItem;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
@@ -43,9 +46,8 @@ public class CosmeticGlowModule extends PowerModuleBase {
         return "Change the appearance of the glowy bits on your armor.";
     }
 
-//    @Override
-//    public String getTextureFile() {
-//        return "netherstar";
-//    }
-
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.cosmeticGlow;
+    }
 }

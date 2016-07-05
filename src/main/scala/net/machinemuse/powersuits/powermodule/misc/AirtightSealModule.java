@@ -1,8 +1,10 @@
 package net.machinemuse.powersuits.powermodule.misc;
 
 import net.machinemuse.api.IModularItem;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
@@ -36,9 +38,8 @@ public class AirtightSealModule extends PowerModuleBase {
         return "Seal the suit against hostile atmospheres for venturing to other planets.";
     }
 
-//    @Override
-//    public String getTextureFile() {
-//        return "glasspane";
-//    }
-
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.airtightSeal;
+    }
 }

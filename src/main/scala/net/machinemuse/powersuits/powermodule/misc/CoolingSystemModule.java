@@ -4,12 +4,14 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -48,10 +50,6 @@ public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickM
         return "Cools down heat-producing modules quicker.";
     }
 
-//    @Override
-//    public String getTextureFile() {
-//        return "coolingsystem";
-//    }
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
@@ -65,4 +63,8 @@ public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickM
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
     }
 
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.coolingSystem;
+    }
 }

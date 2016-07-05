@@ -28,16 +28,6 @@ public class ClockModule extends PowerModuleBase implements IToggleableModule {
         addInstallCost(clock);
     }
 
-//    @Override
-//    public String getTextureFile() {
-//        return null;
-//    }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(clock).getParticleTexture();
-    }
-
     @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_SPECIAL;
@@ -56,5 +46,10 @@ public class ClockModule extends PowerModuleBase implements IToggleableModule {
     @Override
     public String getDescription() {
         return "A clock on the run that shows you the time, no matter where you are. Toggleable by keybinds.";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(clock).getParticleTexture();
     }
 }

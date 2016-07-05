@@ -1,10 +1,13 @@
 package net.machinemuse.powersuits.powermodule.misc;
 
 import net.machinemuse.api.IModularItem;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
@@ -20,10 +23,6 @@ public class TransparentArmorModule extends PowerModuleBase {
     public boolean isAllowed() {
         return false;
     }
-//    @Override
-//    public String getTextureFile() {
-//        return "transparentarmor";
-//    }
 
     @Override
     public String getCategory() {
@@ -42,5 +41,10 @@ public class TransparentArmorModule extends PowerModuleBase {
     @Override
     public String getDescription() {
         return "Make the item transparent, so you can show off your skin without losing armor.";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.transparentArmor;
     }
 }

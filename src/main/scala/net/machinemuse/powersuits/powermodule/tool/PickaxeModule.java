@@ -4,6 +4,7 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
@@ -11,6 +12,7 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -56,11 +58,6 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
         return "Picks are good for harder materials like stone and ore.";
     }
 
-//    @Override
-//    public String getTextureFile() {
-//        return "toolpick";
-//    }
-
     @Override
     public boolean canHarvestBlock(ItemStack stack, BlockPos pos, IBlockState state, EntityPlayer player) {
         return harvestCheck(stack, state, player);
@@ -105,5 +102,10 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
             }
         }
         return false;
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.pickaxe;
     }
 }

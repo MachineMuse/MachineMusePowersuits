@@ -92,11 +92,6 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
 
     }
 
-//    @Override
-//    public String getTextureFile() {
-//        return null;
-//    }
-
     @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_TOOL;

@@ -3,11 +3,13 @@ package net.machinemuse.powersuits.powermodule.misc;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -77,8 +79,8 @@ public class InvisibilityModule extends PowerModuleBase implements IPlayerTickMo
         }
     }
 
-//    @Override
-//    public String getTextureFile() {
-//        return "bluedrone";
-//    }
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.invisibility;
+    }
 }

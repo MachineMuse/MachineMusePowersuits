@@ -4,12 +4,14 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.powermodule.PropertyModifierIntLinearAdditive;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
@@ -45,11 +47,6 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
         units.put(propertyName, unit);
         return addPropertyModifier(propertyName, new PropertyModifierIntLinearAdditive(tradeoffName, multiplier, roundTo, offset));
     }
-
-//    @Override
-//    public String getTextureFile() {
-//        return "magnetmodule";
-//    }
 
     @Override
     public String getCategory() {
@@ -129,4 +126,8 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
     }
 
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.magnet;
+    }
 }

@@ -1,10 +1,13 @@
 package net.machinemuse.powersuits.powermodule.armor;
 
 import net.machinemuse.api.IModularItem;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
@@ -17,11 +20,6 @@ public class DiamondPlatingModule extends PowerModuleBase {
         addTradeoffProperty("Plating Thickness", MuseCommonStrings.ARMOR_VALUE_PHYSICAL, 6, " Points");
         addTradeoffProperty("Plating Thickness", MuseCommonStrings.WEIGHT, 6000, "g");
     }
-
-//    @Override
-//    public String getTextureFile() {
-//        return "advancedplating2";
-//    }
 
     @Override
     public String getCategory() {
@@ -40,5 +38,10 @@ public class DiamondPlatingModule extends PowerModuleBase {
     @Override
     public String getDescription() {
         return "Advanced plating is lighter, harder, and more protective than Basic but much harder to make.";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.diamondPlating;
     }
 }

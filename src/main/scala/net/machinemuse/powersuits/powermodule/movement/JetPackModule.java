@@ -4,6 +4,7 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.general.sound.SoundDictionary;
 import net.machinemuse.numina.basemod.NuminaConfig;
 import net.machinemuse.numina.sound.Musique;
@@ -14,6 +15,7 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
@@ -104,9 +106,8 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
         }
     }
 
-//    @Override
-//    public String getTextureFile() {
-//        return "jetpack";
-//    }
-
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.jetpack;
+    }
 }

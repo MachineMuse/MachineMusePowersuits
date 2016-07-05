@@ -1,8 +1,11 @@
 package net.machinemuse.powersuits.powermodule.misc;
 
 import net.machinemuse.api.IModularItem;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
@@ -12,11 +15,6 @@ public class CitizenJoeStyle extends PowerModuleBase {
     public CitizenJoeStyle(List<IModularItem> validItems) {
         super(validItems);
     }
-
-//    @Override
-//    public String getTextureFile() {
-//        return "greendrone";
-//    }
 
     @Override
     public String getCategory() {
@@ -35,5 +33,10 @@ public class CitizenJoeStyle extends PowerModuleBase {
     @Override
     public String getDescription() {
         return "An alternative armor texture, c/o CitizenJoe of IC2 forums.";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.citizenJoe;
     }
 }

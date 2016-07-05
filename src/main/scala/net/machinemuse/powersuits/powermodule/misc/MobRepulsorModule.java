@@ -5,11 +5,13 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.monster.EntityMob;
@@ -39,11 +41,6 @@ public class MobRepulsorModule extends PowerModuleBase implements IPlayerTickMod
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.magnet, 1));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
     }
-
-//    @Override
-//    public String getTextureFile() {
-//        return "magneta";
-//    }
 
     @Override
     public String getCategory() {
@@ -133,5 +130,10 @@ public class MobRepulsorModule extends PowerModuleBase implements IPlayerTickMod
                 entity2.motionZ += d7;
             }
         }
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.mobRepulsor;
     }
 }

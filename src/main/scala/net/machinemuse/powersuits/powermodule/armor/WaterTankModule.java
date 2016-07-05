@@ -44,10 +44,6 @@ public class WaterTankModule extends PowerModuleBase implements IPlayerTickModul
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 2));
     }
 
-//    @Override
-//    public String getTextureFile() {
-//        return null;
-//    }
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {

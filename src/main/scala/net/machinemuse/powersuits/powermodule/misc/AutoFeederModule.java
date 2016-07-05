@@ -4,12 +4,14 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemFood;
@@ -32,11 +34,6 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
     }
-
-//    @Override
-//    public String getTextureFile() {
-//        return "autofeeder";
-//    }
 
     @Override
     public String getCategory() {
@@ -133,5 +130,10 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.autoFeeder;
     }
 }
