@@ -26,10 +26,10 @@ public class InPlaceAssemblerModule extends PowerModuleBase implements IRightCli
         addInstallCost(new ItemStack(Blocks.CRAFTING_TABLE, 1));
     }
 
-    @Override
-    public String getTextureFile() {
-        return "portablecrafting";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "portablecrafting";
+//    }
 
     @Override
     public String getCategory() {

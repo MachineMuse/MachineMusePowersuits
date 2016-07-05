@@ -9,6 +9,7 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -39,9 +40,15 @@ public class AdvancedSolarGenerator extends PowerModuleBase implements IPlayerTi
 
     }
 
+//    @Override
+//    public String getTextureFile() {
+//        return "advsolarhelmet";
+//    }
+
+
     @Override
-    public String getTextureFile() {
-        return "advsolarhelmet";
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return super.getIcon(item);
     }
 
     @Override
@@ -69,11 +76,9 @@ public class AdvancedSolarGenerator extends PowerModuleBase implements IPlayerTi
         ItemStack helmet = player.inventory.armorItemInSlot(3);
         if (helmet != null && helmet.equals(item)) {
             World world = player.worldObj;
-//            int xCoord = MathHelper.floor_double(player.posX);
-//            int zCoord = MathHelper.floor_double(player.posZ);
             boolean isRaining, canRain = true;
             if (world.getTotalWorldTime() % 20 == 0) {
-                canRain = world.getBiome(player.getPosition()).canRain();
+                canRain = world.getBiomeGenForCoords(player.getPosition()).canRain();
             }
 
             isRaining = canRain && (world.isRaining() || world.isThundering());

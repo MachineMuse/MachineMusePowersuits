@@ -58,10 +58,10 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
         return "Axes are mostly for chopping trees.";
     }
 
-    @Override
-    public String getTextureFile() {
-        return "toolaxe";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "toolaxe";
+//    }
 
     private static boolean istEffectiveHarvestTool(IBlockState state)
     {

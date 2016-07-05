@@ -18,10 +18,10 @@ public class DiamondPlatingModule extends PowerModuleBase {
         addTradeoffProperty("Plating Thickness", MuseCommonStrings.WEIGHT, 6000, "g");
     }
 
-    @Override
-    public String getTextureFile() {
-        return "advancedplating2";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "advancedplating2";
+//    }
 
     @Override
     public String getCategory() {

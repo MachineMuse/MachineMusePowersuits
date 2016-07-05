@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.client.render.block;
 
 import net.machinemuse.numina.render.RenderState;
+import net.machinemuse.powersuits.block.TileEntityTinkerTable;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -175,7 +176,7 @@ public class TinkerTableModel extends ModelBase {
         setRotation(Wirelong1, 0F, 0F, 0F);
     }
 
-    public void doRender(Entity entity, double x, double y, double z, float f,
+    public void doRender(TileEntityTinkerTable entity, double x, double y, double z, float f,
                          float f1) {
         f = 0.0625f;
         RenderState.blendingOn();

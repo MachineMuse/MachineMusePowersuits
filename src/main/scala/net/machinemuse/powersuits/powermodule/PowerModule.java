@@ -63,9 +63,9 @@ public class PowerModule extends PowerModuleBase {
 		return this;
 	}
 
-	@Override
-	public String getTextureFile() {
-		return textureFile;
-	}
+//	@Override
+//	public String getTextureFile() {
+//		return textureFile;
+//	}
 
 }

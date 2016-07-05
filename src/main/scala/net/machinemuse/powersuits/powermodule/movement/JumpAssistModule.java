@@ -69,9 +69,9 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
     }
 
-    @Override
-    public String getTextureFile() {
-        return "jumpassist";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "jumpassist";
+//    }
 
 }

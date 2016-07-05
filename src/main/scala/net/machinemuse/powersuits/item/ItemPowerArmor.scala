@@ -72,31 +72,44 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: EntityEquipmentSlot)
   }
 
   @SideOnly(Side.CLIENT)
-  override def getArmorModel(entity: EntityLivingBase, itemstack: ItemStack, armorSlot: EntityEquipmentSlot): ModelBiped = {
+  override def getArmorModel(entityLiving: EntityLivingBase, itemStack: ItemStack, armorSlot: EntityEquipmentSlot, _default: ModelBiped): ModelBiped ={
+    // TODO fix invisibility and maybe add switch for Citizen Joe Armor
+
+
     val model: ArmorModel = ArmorModel.instance
+        model.visibleSection = armorSlot
 
-    model.visibleSection = armorSlot
+        if (itemStack != null) {
+          entityLiving match {
+            case player: EntityPlayer =>
+              Option(player.inventory.armorItemInSlot(2)).map(chest =>
+                if (ModuleManager.itemHasActiveModule(chest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) model.visibleSection = EntityEquipmentSlot.HEAD)
+            case _ =>
+          }
+          if (ModuleManager.itemHasActiveModule(itemStack, TransparentArmorModule.MODULE_TRANSPARENT_ARMOR)) {
+            model.visibleSection = EntityEquipmentSlot.HEAD
+          }
+          model.renderSpec = MuseItemUtils.getMuseRenderTag(itemStack, armorSlot)
+        }
+        return model
 
-    if (itemstack != null) {
-      entity match {
-        case player: EntityPlayer =>
-          Option(player.inventory.armorItemInSlot(2)).map(chest =>
-            if (ModuleManager.itemHasActiveModule(chest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) model.visibleSection = 99)
-        case _ =>
-      }
-      if (ModuleManager.itemHasActiveModule(itemstack, TransparentArmorModule.MODULE_TRANSPARENT_ARMOR)) {
-        model.visibleSection = 99
-      }
-      model.renderSpec = MuseItemUtils.getMuseRenderTag(itemstack, armorSlot)
-    }
-    model
+
+//    super.getArmorModel(entityLiving, itemStack, armorSlot, _default)
   }
 
-  override def getAttributeModifiers(stack: ItemStack): Multimap[_, _] = {
-    val parent = super.getAttributeModifiers(stack).asInstanceOf[Multimap[String, AttributeModifier]]
-    parent.put("generic.knockbackResistance", new AttributeModifier(UUID.fromString("448ef0e9-9b7c-4e56-bf3a-6b52aeabff8d"), "generic.knockbackResistance", 0.25, 0))
-    parent
+
+  override def getAttributeModifiers(slot: EntityEquipmentSlot, stack: ItemStack): Multimap[String, AttributeModifier] = {
+    val parent = super.getAttributeModifiers(slot, stack).asInstanceOf[Multimap[String, AttributeModifier]]
+
+    super.getAttributeModifiers(slot, stack)
+    //    parent.put("generic.knockbackResistance", new AttributeModifier(UUID.fromString("448ef0e9-9b7c-4e56-bf3a-6b52aeabff8d"), "generic.knockbackResistance", 0.25, 0))
+    //    parent
+
   }
+
+
+
+
 
   override def getItemEnchantability: Int = {
     0
@@ -163,5 +176,8 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: EntityEquipmentSlot)
       }
     }
   }
+
+  // TODO: finish implementation
+  override def protectEntity(entityLivingBase: EntityLivingBase, itemStack: ItemStack, s: String, b: Boolean): Boolean = ???
 
 }

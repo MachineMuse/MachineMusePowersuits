@@ -40,10 +40,10 @@ public class MobRepulsorModule extends PowerModuleBase implements IPlayerTickMod
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
     }
 
-    @Override
-    public String getTextureFile() {
-        return "magneta";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "magneta";
+//    }
 
     @Override
     public String getCategory() {

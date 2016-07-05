@@ -4,6 +4,7 @@ package net.machinemuse.powersuits.powermodule.tool;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
@@ -11,6 +12,7 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -24,7 +26,6 @@ import net.machinemuse.powersuits.powermodule.PropertyModifierIntLinearAdditive;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.common.Config;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -37,9 +38,8 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
     public static final String ORE_SCANNER_RADIUS_X = "X Radius";
     public static final String ORE_SCANNER_RADIUS_Y = "Y Radius";
     public static final String ORE_SCANNER_RADIUS_Z = "Z Radius";
-
     private static String[] oreNames = {"oreCopper", "oreTin", "oreSilver", "oreLead", "oreNickel", "orePlatinum", "oreZinc", "oreApatite", "oreUranium"};
-    private static ArrayList<ArrayList<ItemStack>> ores = new ArrayList<ArrayList<ItemStack>>();
+    private static ArrayList<List<ItemStack>> ores = new ArrayList<>();
     private static HashMap<List, String> oreMap = new HashMap();
     private static HashMap<String, Integer> valueMap = new HashMap();
 
@@ -55,7 +55,7 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.computerChip, 1));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 2));
         for (int i = 0; i < oreNames.length; i++) {
-            ores.add(i, (ArrayList<ItemStack>) OreDictionary.getOres(oreNames[i]));
+            ores.add(i, OreDictionary.getOres(oreNames[i]));
         }
         fillMap();
     }
@@ -65,14 +65,15 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
         return addPropertyModifier(propertyName, new PropertyModifierIntLinearAdditive(tradeoffName, multiplier, roundTo, offset));
     }
 
+
     public void searchForValuables(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side) {
         int xRadius = (int) ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_X);
         int yRadius = (int) ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_Y);
         int zRadius = (int) ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_Z);
 
         int totalValue = 0, totalEnergy = 0, highestValue = 0, value;
-        EnumFacing fdSide = side.getOpposite();
 
+        EnumFacing fdSide = side.getOpposite();
         int cX = pos.getX() + (fdSide.getFrontOffsetX() * xRadius);
         int cY = pos.getY() + (fdSide.getFrontOffsetY() * yRadius);
         int cZ = pos.getZ() + (fdSide.getFrontOffsetZ() * zRadius);
@@ -151,11 +152,11 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
         valueMap.put("oreCertusQuartz", 5);
     }
 
-    @Override
-    public String getTextureFile() {
-        return "orescanner";
-    }
-
+////    @Override
+////    public String getTextureFile() {
+////        return "orescanner";
+////    }
+//
     @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_TOOL;
@@ -192,5 +193,10 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.oreScanner;
     }
 }

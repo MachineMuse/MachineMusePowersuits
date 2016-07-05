@@ -1,7 +1,7 @@
 package net.machinemuse.api.electricity
 
 import cofh.api.energy.IEnergyContainerItem
-import ic2.api.item.{IElectricItemManager, ISpecialElectricItem, ElectricItem, ElectricItem}
+import ic2.api.item.{ElectricItem, IElectricItem, IElectricItemManager, ISpecialElectricItem}
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.api.electricity.ElectricConversions._
 import net.machinemuse.utils.{ElectricItemUtils, MuseItemUtils}
@@ -19,10 +19,10 @@ import net.minecraftforge.fml.common.Optional
   new Optional.Interface(iface = "ic2.api.item.IElectricItemManager", modid = "IC2", striprefs = true),
   new Optional.Interface(iface = "ic2.api.item.ISpecialElectricItem", modid = "IC2", striprefs = true)))
 trait MuseElectricItem extends Item 
-with IEnergyContainerItem 
-with ISpecialElectricItem 
-with IElectricItemManager 
-with ElectricItem {
+  with IEnergyContainerItem
+  with ISpecialElectricItem
+  with IElectricItemManager
+  with IElectricItem {
   /**
    * Call to get the energy of an item
    *

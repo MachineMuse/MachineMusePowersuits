@@ -37,7 +37,9 @@ class RenderPart(base: ModelBase, val parent: ModelRenderer) extends ModelRender
               Colour.doGLByInt(colours(ix))
             }
             part.modelSpec.applyOffsetAndRotation // not yet implemented
-            part.modelSpec.model.renderPart(part.partName)
+            // FIXME!!!!!
+
+//            part.modelSpec.model.renderPart(part.partName)
             Colour.WHITE.doGL()
           }
         }

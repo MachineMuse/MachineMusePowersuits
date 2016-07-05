@@ -8,6 +8,7 @@ import net.machinemuse.numina.sound.Musique
 import net.machinemuse.powersuits.common.Config
 import net.machinemuse.utils.{MuseHeatUtils, MuseItemUtils, MusePlayerUtils}
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.util.{SoundCategory, SoundEvent}
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent
 import net.minecraftforge.fml.common.FMLCommonHandler
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -79,10 +80,10 @@ class PlayerUpdateHandler {
           val velsq2: Double = MuseMathUtils.sumsq(player.motionX, player.motionY, player.motionZ) - 0.5
           if ((FMLCommonHandler.instance.getEffectiveSide == Side.CLIENT) && NuminaConfig.useSounds) {
             if (player.isAirBorne && velsq2 > 0) {
-              Musique.playerSound(player, SoundDictionary.SOUND_GLIDER, (velsq2 / 3).asInstanceOf[Float], 1.0f, continuous = true)
+              Musique.playerSound(player, SoundDictionary.SOUND_EVENT_GLIDER, (velsq2 / 3).asInstanceOf[Float], 1.0f, continuous = true, SoundCategory.PLAYERS)
             }
             else {
-              Musique.stopPlayerSound(player, SoundDictionary.SOUND_GLIDER)
+              Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_GLIDER)
             }
           }
         }

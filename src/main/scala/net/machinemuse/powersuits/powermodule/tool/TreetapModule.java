@@ -180,10 +180,10 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_TOOL;
     }
-    @Override
-    public String getTextureFile() {
-        return "treetap";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "treetap";
+//    }
 
     @Override
     public String getDataName() {

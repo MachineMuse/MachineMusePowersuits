@@ -35,10 +35,10 @@ public class MechanicalAssistance extends PowerModuleBase implements IPlayerTick
 
     }
 
-    @Override
-    public String getTextureFile() {
-        return "mechassistance";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "mechassistance";
+//    }
 
     @Override
     public String getCategory() {

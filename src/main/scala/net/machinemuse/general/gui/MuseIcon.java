@@ -35,6 +35,7 @@ public class MuseIcon extends TextureAtlasSprite {
     public static TextureAtlasSprite kineticGenerator = new MuseIcon("kineticGenerator");
     public static TextureAtlasSprite solarGenerator = new MuseIcon("solarGenerator");
     public static TextureAtlasSprite thermalGenerator = new MuseIcon("thermalGenerator");
+    public static TextureAtlasSprite ultimateBattery = new MuseIcon("ultimateBattery");
 
     // Misc
     public static TextureAtlasSprite airtightSeal = new MuseIcon("airtightSeal");
@@ -106,7 +107,8 @@ public class MuseIcon extends TextureAtlasSprite {
 
     public static void registerIcons(TextureStitchEvent.Pre event) {
         // Armor
-        apiaristArmor = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(),"modules/apiaristArmor"));
+        // FIXME: no icon "apiaristArmor"
+        apiaristArmor = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(),"modules/silkWisp"));
         basicPlating = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(),"modules/basicplating2"));
         diamondPlating = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/advancedplating2"));
         energyShield = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/energyshield"));
@@ -119,11 +121,13 @@ public class MuseIcon extends TextureAtlasSprite {
         advancedBattery = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/mvbattery"));
         advSolarGenerator = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/advsolarhelmet"));
         basicBattery = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/lvbattery"));
+        // FIXME no icon "coalgen"
         coalGenerator = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/coalgen"));
-        eliteBattery = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/crystalcapacitor"));
+        eliteBattery = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/hvcapacitor"));
         kineticGenerator = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/kineticgen"));
         solarGenerator = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/solarhelmet"));
         thermalGenerator = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/heatgenerator"));
+        ultimateBattery = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/crystalcapacitor"));
 
         // Misc
         airtightSeal = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/glasspane"));
@@ -139,6 +143,7 @@ public class MuseIcon extends TextureAtlasSprite {
         mobRepulsor = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/magneta"));
         nightVision = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/nightvision"));
         aurameter = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/bluestar"));
+        // FIXME should not be the same as cosmetic glow
         tint = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/netherstar"));
         transparentArmor = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/transparentarmor"));
         waterElectrolyzer = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/waterelectrolyzer"));
@@ -157,6 +162,7 @@ public class MuseIcon extends TextureAtlasSprite {
         swimAssist = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/swimboost"));
 
         // Tools
+        // FIXME this should be different than diamondPickUpgrade
         aoePickUpgrade = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/diamondupgrade1"));
         appengECWirelessFluid = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/ItemWirelessTerminalFluid"));
         appengWireless = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/ItemWirelessTerminal"));
@@ -166,6 +172,8 @@ public class MuseIcon extends TextureAtlasSprite {
         diamondPickUpgrade = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/diamondupgrade1"));
         //dimRiftGen = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/kineticgen"));
         dimRiftGen = kineticGenerator;
+
+        // FIXME should not be the same as transparent armor module
         fieldTinkerer = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/transparentarmor"));
         leafBlower = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/leafblower"));
         luxCapacitor = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(), "modules/bluelight"));
@@ -181,6 +189,7 @@ public class MuseIcon extends TextureAtlasSprite {
 
         //Weapons
         bladeLauncher = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(),"modules/spinningblade"));
+        // FIXME should not be the same as aurameter
         lightning = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(),"modules/bluestar"));
         meleeAssist = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(),"modules/toolfist"));
         plasmaCannon =  event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID(),"modules/gravityweapon"));

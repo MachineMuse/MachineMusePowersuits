@@ -19,6 +19,7 @@ import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Items
+import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.TickEvent
@@ -64,10 +65,11 @@ class ClientTickHandler {
 
   def findInstalledModules(player: EntityPlayer) {
     if (player != null) {
-      val tool = player.getCurrentEquippedItem
+      val tool = player.getHeldItemMainhand
       if (tool != null && tool.getItem.isInstanceOf[ItemPowerFist]) {
       }
-      val helmet = player.getCurrentArmor(3)
+
+      val helmet = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD)
       if (helmet != null && helmet.getItem.isInstanceOf[ItemPowerArmorHelmet]) {
         if (ModuleManager.itemHasActiveModule(helmet, AutoFeederModule.MODULE_AUTO_FEEDER)) {
           modules.add(AutoFeederModule.MODULE_AUTO_FEEDER)
@@ -79,9 +81,8 @@ class ClientTickHandler {
           modules.add(CompassModule.MODULE_COMPASS)
         }
       }
-      val chest = player.getCurrentArmor(2)
-      if (chest != null &&
-        chest.getItem.isInstanceOf[ItemPowerArmorChestplate]) {
+      val chest = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST)
+      if (chest != null && chest.getItem.isInstanceOf[ItemPowerArmorChestplate]) {
         if (ModuleManager.itemHasActiveModule(chest, WaterTankModule.MODULE_WATER_TANK)) {
           modules.add(WaterTankModule.MODULE_WATER_TANK)
         }
@@ -119,7 +120,7 @@ class ClientTickHandler {
         val screen: ScaledResolution = new ScaledResolution(mc)
         for (i <- 0 until modules.size) {
           if (modules.get(i) == AutoFeederModule.MODULE_AUTO_FEEDER) {
-            val foodLevel = MuseItemUtils.getFoodLevel(player.getCurrentArmor(3)).toInt
+            val foodLevel = MuseItemUtils.getFoodLevel(player.getItemStackFromSlot(EntityEquipmentSlot.HEAD)).toInt
             val num = MuseStringUtils.formatNumberShort(foodLevel)
             if (i == 0) {
               MuseRenderer.drawString(num, 17, yBaseString)

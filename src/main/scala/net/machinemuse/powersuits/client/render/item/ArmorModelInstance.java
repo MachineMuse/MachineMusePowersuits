@@ -12,14 +12,14 @@ public class ArmorModelInstance {
     public static ArmorModel getInstance() {
         if (instance == null) {
 //            instance = new VanillaArmorModel();
-            try {
-                MuseLogger.logInfo("Attempting to load Smart Moving armor model.");
-                instance = new SMovingArmorModel();
-                MuseLogger.logInfo("Smart Moving armor model loaded successfully!");
-            } catch (Throwable e) {
+//            try {
+//                MuseLogger.logInfo("Attempting to load Smart Moving armor model.");
+//                instance = new SMovingArmorModel();
+//                MuseLogger.logInfo("Smart Moving armor model loaded successfully!");
+//            } catch (Throwable e) {
                 MuseLogger.logInfo("Smart Moving armor model did not load successfully. Either Smart Moving is not installed, or there was another problem.");
                 instance = new VanillaArmorModel();
-            }
+//            }
         }
         return instance;
     }

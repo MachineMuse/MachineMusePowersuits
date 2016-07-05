@@ -7,6 +7,8 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
@@ -25,8 +27,8 @@ public class AdvancedBatteryModule extends PowerModuleBase {
     }
 
     @Override
-    public String getTextureFile() {
-        return "mvbattery";
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return super.getIcon(item);//return "mvbattery";
     }
 
     @Override

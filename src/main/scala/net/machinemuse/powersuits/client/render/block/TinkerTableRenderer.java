@@ -1,14 +1,8 @@
-/**
- *
- */
 package net.machinemuse.powersuits.client.render.block;
 
-import net.machinemuse.numina.render.MuseTESR;
-import net.machinemuse.powersuits.common.Config;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockAccess;
+import net.machinemuse.powersuits.block.TileEntityTinkerTable;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -16,60 +10,32 @@ import org.lwjgl.opengl.GL11;
  *
  * @author MachineMuse
  */
-public class TinkerTableRenderer extends MuseTESR implements ISimpleBlockRenderingHandler {
-    protected TinkerTableModel model;
-    protected int renderId;
+public class TinkerTableRenderer extends TileEntitySpecialRenderer<TileEntityTinkerTable> {
+    private static final ResourceLocation TEXTURE = new ResourceLocation("powersuits:textures/blocks/models/tinkertable_tx.png");
+    private final TinkerTableModel model;
 
-    public TinkerTableRenderer(int renderId) {
-        model = new TinkerTableModel();
-        this.renderId = renderId;
+    public TinkerTableRenderer() {
+        this.model = new TinkerTableModel();
     }
 
     @Override
-    public void renderAt(TileEntity tileEntity, double x, double y, double z, float partialTickTime) {
-        this.bindTextureByName(Config.TINKERTABLE_TEXTURE_PATH());
+    public void renderTileEntityAt(TileEntityTinkerTable tileEntityTinkerTable, double x, double y, double z, float v3, int i) {
+        // Not sure what param i is but seems to always be -1
+
+        float scale = 0.0625F;
+        //The PushMatrix tells the renderer to "start" doing something.
         GL11.glPushMatrix();
-        GL11.glTranslated(x, y, z);
-
-        model.doRender(null, x, y, z, partialTickTime, partialTickTime);
-        // float texturex = 80 / 256.0f;
-        // float texturey = 32 / 256.0f;
-        // float texturex2 = 96 / 256.0f;
-        // float texturey2 = 48 / 256.0f;
-        // MuseRenderer.drawRectPrism(
-        // x, x + 1,
-        // y + 0.5f, y + 1,
-        // z, z + 1,
-        // texturex, texturey, texturex2, texturey2);
-
-        GL11.glPopMatrix();
-
-    }
-
-    @Override
-    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
-        this.bindTextureByName(Config.TINKERTABLE_TEXTURE_PATH());
+        //This is setting the initial location.
+        GL11.glTranslatef((float) x, (float) y, (float) z);
+        //This is the texture of your block. It's pathed to be the same place as your other block here.
+        this.bindTexture(TEXTURE);
+        //This rotation part is very important! Without it, your model will render upside-down! And for some reason you DO need PushMatrix again!
         GL11.glPushMatrix();
-        GL11.glTranslated(-0.5, -0.5 + -1.0 / 16.0, -0.5);
-        model.doRender(null, 0, 0, 0, 0, 0);
+        GL11.glRotatef(0F, 0.0F, 0.0F, 1.0F);
+        //A reference to your Model file. Again, very important.
+        this.model.doRender(tileEntityTinkerTable, x, y, z, scale, 0.0F); //
+        //Tell it to stop rendering for both the PushMatrix's
         GL11.glPopMatrix();
-
-    }
-
-    // Should do nothing since the tile entity handles all the rendering of the
-    // world block
-    @Override
-    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-        return true;
-    }
-
-    @Override
-    public boolean shouldRender3DInInventory(int modelId) {
-        return true;
-    }
-
-    @Override
-    public int getRenderId() {
-        return renderId;
+        GL11.glPopMatrix();
     }
 }

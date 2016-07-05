@@ -77,8 +77,8 @@ public class InvisibilityModule extends PowerModuleBase implements IPlayerTickMo
         }
     }
 
-    @Override
-    public String getTextureFile() {
-        return "bluedrone";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "bluedrone";
+//    }
 }

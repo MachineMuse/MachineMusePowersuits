@@ -14,9 +14,13 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -41,14 +45,14 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
         addBaseProperty(IGNITION_ENERGY_CONSUMPTION, 1000, "J");
     }
 
-    @Override
-    public String getTextureFile() {
-        return null;
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return null;
+//    }
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(fas).getParticleTexture();;
+        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(fas).getParticleTexture();
     }
 
     @Override
@@ -87,7 +91,7 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
                 Block clickedBlock = world.getBlockState(pos).getBlock();
                 if (clickedBlock == Blocks.AIR) {
                     ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
-                    world.playSoundEffect((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, "fire.ignite", 1.0F, ran.nextFloat() * 0.4F + 0.8F);
+                    world.playSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, ran.nextFloat() * 0.4F + 0.8F, false);
                     world.setBlockState(pos, Blocks.FIRE.getDefaultState());
                 }
             }

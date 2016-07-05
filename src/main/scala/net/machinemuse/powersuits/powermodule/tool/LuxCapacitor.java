@@ -52,14 +52,14 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
         return "Launch a virtually infinite number of attractive light sources at the wall.";
     }
 
-    @Override
-    public String getTextureFile() {
-        return "bluelight";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "bluelight";
+//    }
 
     @Override
     public void onRightClick(EntityPlayer player, World world, ItemStack itemStack) {
-        player.setItemInUse(itemStack, 10);
+//        player.setItemInUse(itemStack, 10);
         if (!world.isRemote) {
             double energyConsumption = ModuleManager.computeModularProperty(itemStack, ENERGY);
             // MuseHeatUtils.heatPlayer(player, energyConsumption / 500);

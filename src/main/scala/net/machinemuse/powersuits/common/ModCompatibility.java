@@ -1,7 +1,5 @@
 package net.machinemuse.powersuits.common;
 
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.ModAPIManager;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.general.MuseLogger;
@@ -11,6 +9,9 @@ import net.machinemuse.powersuits.powermodule.misc.AirtightSealModule;
 import net.machinemuse.powersuits.powermodule.misc.ThaumGogglesModule;
 import net.machinemuse.powersuits.powermodule.tool.*;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.ModAPIManager;
+
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -108,10 +109,10 @@ public class ModCompatibility {
         getIC2Ratio();
         getRFRatio();
 
-        // CoFH Lib - CoFHLib is included in CoFHCore
-        if (isCOFHLibLoaded()|| isCOFHCoreLoaded()) {
-            ModuleManager.addModule(new OmniWrenchModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
-        }
+//        // CoFH Lib - CoFHLib WAS included in CoFHCore
+//        if (isCOFHLibLoaded()|| isCOFHCoreLoaded()) {
+//            ModuleManager.addModule(new OmniWrenchModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
+//        }
 
         // Thaumcraft
         if (isThaumCraftLoaded() && enableThaumGogglesModule()) {
@@ -137,32 +138,32 @@ public class ModCompatibility {
             ModuleManager.addModule(new ApiaristArmorModule(Arrays.<IModularItem>asList(MPSItems.powerArmorHead(), MPSItems.powerArmorTorso(), MPSItems.powerArmorLegs(), MPSItems.powerArmorFeet())));
         }
 
-        // Chisel
-        if(isChiselLoaded()) {
-            try {
-                ModuleManager.addModule(new ChiselModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
-            } catch(Exception e) {
-                MuseLogger.logException("Couldn't add Chisel module", e);
-            }
-        }
+//        // Chisel
+//        if(isChiselLoaded()) {
+//            try {
+//                ModuleManager.addModule(new ChiselModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
+//            } catch(Exception e) {
+//                MuseLogger.logException("Couldn't add Chisel module", e);
+//            }
+//        }
 
-        // Applied Energistics
-        if (isAppengLoaded()) {
-            ModuleManager.addModule(new AppEngWirelessModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
-
-            // Extra Cells 2
-            if (isExtraCellsLoaded())
-                ModuleManager.addModule(new AppEngWirelessFluidModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
-        }
+//        // Applied Energistics
+//        if (isAppengLoaded()) {
+//            ModuleManager.addModule(new AppEngWirelessModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
+//
+//            // Extra Cells 2
+//            if (isExtraCellsLoaded())
+//                ModuleManager.addModule(new AppEngWirelessFluidModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
+//        }
 
         // Multi-Mod Compatible OmniProbe
         if (isEnderIOLoaded() || isMFRLoaded() || isRailcraftLoaded()) {
             ModuleManager.addModule(new OmniProbeModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
         }
 
-        // Compact Machines Personal Shrinking Device
-        if (isCompactMachinesLoaded()) {
-            ModuleManager.addModule(new PersonalShrinkingModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
-        }
+//        // Compact Machines Personal Shrinking Device
+//        if (isCompactMachinesLoaded()) {
+//            ModuleManager.addModule(new PersonalShrinkingModule(Collections.singletonList((IModularItem) MPSItems.powerTool())));
+//        }
     }
 }

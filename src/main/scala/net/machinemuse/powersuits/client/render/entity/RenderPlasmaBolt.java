@@ -5,19 +5,22 @@ import net.machinemuse.numina.geometry.DrawableMuseCircle;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.utils.render.MuseRenderer;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import java.nio.DoubleBuffer;
 
-public class RenderPlasmaBolt extends MuseRender {
+public class RenderPlasmaBolt<T extends Entity> extends MuseRender<T> {
     protected static DrawableMuseCircle circle1;
     protected static DrawableMuseCircle circle2;
     protected static DrawableMuseCircle circle3;
     protected static DrawableMuseCircle circle4;
 
-    public RenderPlasmaBolt() {
+    protected RenderPlasmaBolt(RenderManager renderManager) {
+        super(renderManager);
+
         Colour c1 = new Colour(.3, .3, 1, 0.3);
         circle1 = new DrawableMuseCircle(c1, c1);
         c1 = new Colour(.3, .3, 1, 0.6);

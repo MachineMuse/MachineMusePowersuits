@@ -56,10 +56,10 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
         return "Picks are good for harder materials like stone and ore.";
     }
 
-    @Override
-    public String getTextureFile() {
-        return "toolpick";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "toolpick";
+//    }
 
     @Override
     public boolean canHarvestBlock(ItemStack stack, BlockPos pos, IBlockState state, EntityPlayer player) {

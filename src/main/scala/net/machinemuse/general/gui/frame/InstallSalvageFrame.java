@@ -18,6 +18,7 @@ import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -170,7 +171,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
         ItemStack stack = targetItem.getSelectedItem().getItem();
         IPowerModule module = targetModule.getSelectedModule().getModule();
         if (player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(module.getInstallCost(), player.inventory)) {
-            Musique.playClientSound(SoundDictionary.SOUND_GUI_INSTALL, 1);
+            Musique.playClientSound(player, SoundDictionary.SOUND_EVENT_GUI_INSTALL, SoundCategory.PLAYERS, 1);
             // Now send request to server to make it legit
             MusePacket newpacket = new MusePacketInstallModuleRequest(
                     player,

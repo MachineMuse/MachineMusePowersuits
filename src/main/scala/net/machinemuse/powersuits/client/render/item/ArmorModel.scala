@@ -40,13 +40,13 @@ trait ArmorModel extends ModelBiped {
 //    bipedCloak.cubeList.clear()
   }
 
-
+  // FIXME: needs to
   private def logModelParts(model: OBJModel) {
-    MuseLogger.logDebug(model.toString + ":")
-    import scala.collection.JavaConversions._
-    for (group <- model.groupObjects) {
-      MuseLogger.logDebug("-" + group.name)
-    }
+//    MuseLogger.logDebug(model.toString + ":")
+//    import scala.collection.JavaConversions._
+//    for (group <- model.groupObjects) {
+//      MuseLogger.logDebug("-" + group.name)
+//    }
   }
 
 
@@ -62,15 +62,21 @@ trait ArmorModel extends ModelBiped {
       val entLive: EntityLivingBase = entity.asInstanceOf[EntityLivingBase]
       val stack: ItemStack = entLive.getActiveItemStack
       if (stack != null) {
-        if (getMainHand(entLive) == EnumHandSide.LEFT)
-          this.leftArmPose = ArmPose.ITEM
-        else
-          this.rightArmPose = ArmPose.ITEM
-      } else {
-        if (getMainHand(entLive) == EnumHandSide.LEFT)
-          this.leftArmPose = ArmPose.EMPTY
-        else
-          this.rightArmPose = ArmPose.EMPTY
+        // FIXME:
+//        Error:(65, 13) Implementation restriction: trait ArmorModel accesses protected method getMainHand inside a concrete trait method.
+//        Add an accessor in a class extending class ModelBiped as a workaround.
+//        if (getMainHand(entLive) == EnumHandSide.LEFT)
+
+
+//        if (getMainHand(entLive) == EnumHandSide.LEFT)
+//          this.leftArmPose = ArmPose.ITEM
+//        else
+//          this.rightArmPose = ArmPose.ITEM
+//      } else {
+//        if (getMainHand(entLive) == EnumHandSide.LEFT)
+//          this.leftArmPose = ArmPose.EMPTY
+//        else
+//          this.rightArmPose = ArmPose.EMPTY
       }
 
 
@@ -81,15 +87,20 @@ trait ArmorModel extends ModelBiped {
       {
         val enumaction = stack.getItemUseAction
         if (enumaction == EnumAction.BLOCK) {
-          if (getMainHand(entLive) == EnumHandSide.LEFT)
-            this.leftArmPose = ArmPose.BLOCK
-          else
-            this.rightArmPose = ArmPose.BLOCK
-        } else if (enumaction == EnumAction.BOW) {
-          if (getMainHand(entLive) == EnumHandSide.LEFT)
-            this.leftArmPose = ArmPose.BOW_AND_ARROW
-          else
-            this.rightArmPose = ArmPose.BOW_AND_ARROW
+          // FIXME:
+//          Error:(95, 15) Implementation restriction: trait ArmorModel accesses protected method getMainHand inside a concrete trait method.
+//          Add an accessor in a class extending class ModelBiped as a workaround.
+//          if (getMainHand(entLive) == EnumHandSide.LEFT)
+
+//          if (getMainHand(entLive) == EnumHandSide.LEFT)
+//            this.leftArmPose = ArmPose.BLOCK
+//          else
+//            this.rightArmPose = ArmPose.BLOCK
+//        } else if (enumaction == EnumAction.BOW) {
+//          if (getMainHand(entLive) == EnumHandSide.LEFT)
+//            this.leftArmPose = ArmPose.BOW_AND_ARROW
+//          else
+//            this.rightArmPose = ArmPose.BOW_AND_ARROW
         }
       }
     } catch {

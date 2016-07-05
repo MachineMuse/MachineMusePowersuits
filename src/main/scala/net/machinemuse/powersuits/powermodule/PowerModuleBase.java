@@ -46,7 +46,7 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
         return icon;
     }
 
-    public abstract String getTextureFile();
+//    public abstract String getTextureFile();
 
     @Override
     public List<ItemStack> getInstallCost() {

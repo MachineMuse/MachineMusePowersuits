@@ -33,10 +33,10 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
     }
 
-    @Override
-    public String getTextureFile() {
-        return "autofeeder";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "autofeeder";
+//    }
 
     @Override
     public String getCategory() {

@@ -48,10 +48,10 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
         return "Add diamonds to allow your pickaxe module to mine Obsidian. *REQUIRES PICKAXE MODULE TO WORK*";
     }
 
-    @Override
-    public String getTextureFile() {
-        return "diamondupgrade1";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "diamondupgrade1";
+//    }
 
     @Override
     public boolean canHarvestBlock(ItemStack stack, BlockPos pos, IBlockState state, EntityPlayer player) {

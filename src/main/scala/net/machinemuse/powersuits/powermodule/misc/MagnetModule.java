@@ -15,6 +15,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -43,10 +46,10 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
         return addPropertyModifier(propertyName, new PropertyModifierIntLinearAdditive(tradeoffName, multiplier, roundTo, offset));
     }
 
-    @Override
-    public String getTextureFile() {
-        return "magnetmodule";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "magnetmodule";
+//    }
 
     @Override
     public String getCategory() {
@@ -113,7 +116,7 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
                     }
                     if (world.rand.nextInt(20) == 0) {
                         float pitch = 0.85F - world.rand.nextFloat() * 3.0F / 10.0F;
-                        world.playSoundEffect(e.posX, e.posY, e.posZ, "mob.endermen.portal", 0.6F, pitch);
+                        world.playSound(e.posX, e.posY, e.posZ, SoundEvent.REGISTRY.getObject(new ResourceLocation("mob.endermen.portal")), SoundCategory.PLAYERS, 0.6F, pitch, true);
                     }
                 }
             }

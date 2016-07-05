@@ -6,7 +6,8 @@ import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderBlocks;
+
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
@@ -14,16 +15,8 @@ import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class RenderLuxCapacitorTESR extends MuseTESR {
-    @Override
-    public void renderAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
+public class RenderLuxCapacitorTESR extends TileEntitySpecialRenderer<TileEntityLuxCapacitor> {
 
-    }
-
-    @Override
-    public void renderTileEntityAt(Object te, double x, double y, double z, float partialTicks, int destroyStage) {
-
-    }
 //    protected static WavefrontObject lightmodel;
 //    protected static WavefrontObject framemodel;
 //    protected int renderId;

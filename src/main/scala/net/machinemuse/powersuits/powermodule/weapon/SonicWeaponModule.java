@@ -39,10 +39,6 @@ public class SonicWeaponModule extends PowerModuleBase implements IRightClickMod
         return "A high-amplitude, complex-frequency soundwave generator can have shattering or disorienting effects on foes and blocks alike.";
     }
 
-    @Override
-    public String getTextureFile() {
-        return "soundweapon";
-    }
 
     @Override
     public void onRightClick(EntityPlayer playerClicking, World world, ItemStack item) {
@@ -63,4 +59,8 @@ public class SonicWeaponModule extends PowerModuleBase implements IRightClickMod
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
     }
 
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.sonicWeapon;
+    }
 }

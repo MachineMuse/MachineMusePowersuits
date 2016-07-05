@@ -11,6 +11,7 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -34,9 +35,14 @@ public class KineticGeneratorModule extends PowerModuleBase implements IPlayerTi
     }
 
     @Override
-    public String getTextureFile() {
-        return "kineticgen";
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return super.getIcon(item);
     }
+
+    //    @Override
+//    public String getTextureFile() {
+//        return "kineticgen";
+//    }
 
     @Override
     public String getCategory() {

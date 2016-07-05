@@ -38,11 +38,6 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
     }
 
     @Override
-    public String getTextureFile() {
-        return "bluestar";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_WEAPON;
     }
@@ -88,5 +83,10 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
 
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.lightning;
     }
 }

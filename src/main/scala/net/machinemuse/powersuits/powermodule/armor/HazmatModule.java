@@ -35,8 +35,8 @@ public class HazmatModule extends PowerModuleBase {
         return "Protect yourself from electricity and radiation poisoning. *Must be on every piece for 100% protection*";
     }
 
-    @Override
-    public String getTextureFile() {
-        return "greenstar";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "greenstar";
+//    }
 }

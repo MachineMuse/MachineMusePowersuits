@@ -37,6 +37,9 @@ object ModularPowersuits {
     MinecraftForge.EVENT_BUS.register(new HarvestEventHandler)
     MinecraftForge.EVENT_BUS.register(new MovementManager)
     proxy.registerEvents()
+
+
+    proxy.registerRenderers()
   }
 
   @Mod.EventHandler def load(event: FMLInitializationEvent) {
@@ -60,7 +63,7 @@ object ModularPowersuits {
     EntityRegistry.registerModEntity(classOf[EntitySpinningBlade], "entitySpinningBlade", 2478, this, 64, 20, true)
     EntityRegistry.registerModEntity(classOf[EntityLuxCapacitor], "entityLuxCapacitor", 2479, this, 64, 20, true)
     proxy.registerHandlers()
-    proxy.registerRenderers()
+//    proxy.registerRenderers()
     MPSPacketList.registerPackets()
     NetworkRegistry.INSTANCE.registerGuiHandler(this, MPSGuiHandler)
   }

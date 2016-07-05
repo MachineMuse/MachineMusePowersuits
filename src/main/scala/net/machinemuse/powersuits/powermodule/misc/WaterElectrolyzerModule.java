@@ -14,6 +14,7 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -56,7 +57,7 @@ public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerT
         if (energy > energyConsumption && player.getAir() < 10) {
 
             if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
-                Musique.playClientSound(SoundDictionary.SOUND_ELECTROLYZER, 1.0f);
+                Musique.playClientSound(player, SoundDictionary.SOUND_EVENT_ELECTROLYZER, SoundCategory.PLAYERS, 1.0f);
             }
             ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
             player.setAir(300);
@@ -67,9 +68,9 @@ public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerT
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
     }
 
-    @Override
-    public String getTextureFile() {
-        return "waterelectrolyzer";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "waterelectrolyzer";
+//    }
 
 }

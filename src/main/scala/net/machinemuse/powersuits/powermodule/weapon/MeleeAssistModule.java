@@ -26,10 +26,6 @@ public class MeleeAssistModule extends PowerModuleBase {
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.lvcapacitor, 1));
     }
 
-    @Override
-    public String getTextureFile() {
-        return "toolfist";
-    }
 
     @Override
     public String getCategory() {
@@ -48,5 +44,10 @@ public class MeleeAssistModule extends PowerModuleBase {
     @Override
     public String getDescription() {
         return "A much simpler addon, makes your powertool punches hit harder.";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.meleeAssist;
     }
 }

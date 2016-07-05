@@ -16,6 +16,7 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -73,23 +74,23 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
             if (hasFlightControl && thrust > 0) {
                 thrust = MusePlayerUtils.thrust(player, thrust, true);
                 if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
-                    Musique.playerSound(player, SoundDictionary.SOUND_JETBOOTS, (float) (thrust * 12.5), 1.0f, true);
+                    Musique.playerSound(player, SoundDictionary.SOUND_EVENT_JETBOOTS, (float) (thrust * 12.5), 1.0f, true, SoundCategory.PLAYERS);
                 }
                 ElectricItemUtils.drainPlayerEnergy(player, thrust * jetEnergy);
             } else if (jumpkey && player.motionY < 0.5) {
                 thrust = MusePlayerUtils.thrust(player, thrust, false);
                 if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
-                    Musique.playerSound(player, SoundDictionary.SOUND_JETBOOTS, (float) (thrust * 12.5), 1.0f, true);
+                    Musique.playerSound(player, SoundDictionary.SOUND_EVENT_JETBOOTS, (float) (thrust * 12.5), 1.0f, true, SoundCategory.PLAYERS);
                 }
                 ElectricItemUtils.drainPlayerEnergy(player, thrust * jetEnergy);
             } else {
                 if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
-                    Musique.stopPlayerSound(player, SoundDictionary.SOUND_JETBOOTS);
+                    Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_JETBOOTS);
                 }
             }
         } else {
             if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
-                Musique.stopPlayerSound(player, SoundDictionary.SOUND_JETBOOTS);
+                Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_JETBOOTS);
             }
         }
     }
@@ -98,13 +99,13 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
         if ((FMLCommonHandler.instance().getEffectiveSide() == Side
                 .CLIENT) && NuminaConfig.useSounds()) {
-            Musique.stopPlayerSound(player, SoundDictionary.SOUND_JETBOOTS);
+            Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_JETBOOTS);
         }
     }
 
-    @Override
-    public String getTextureFile() {
-        return "jetboots";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "jetboots";
+//    }
 
 }

@@ -13,6 +13,7 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -58,16 +59,25 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
         return "Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.";
     }
 
-    @Override
-    public String getTextureFile() {
-        return "gravityweapon";
-    }
 
     @Override
     public void onRightClick(EntityPlayer player, World world, ItemStack item) {
         if (ElectricItemUtils.getPlayerEnergy(player) > 500) {
-            player.setItemInUse(item, 72000);
+            /*
+                TODO: item in use mechanic has changed:
+
+                http://www.minecraftforge.net/forum/index.php?topic=39711.0
+             */
+
+
+//            player.getActiveHand();
+
+//                   .setActiveHand
+//
+//
+//            player.setItemInUse(item, 72000);
         }
+		//player.addStat(StatList.mineBlockStatArray.); // TODO check 
     }
 
     @Override
@@ -85,8 +95,7 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
         int chargeTicks = (int) MuseMathUtils.clampDouble(itemStack.getMaxItemUseDuration() - par4, 10, 50);
 
         if (!world.isRemote) {
-            double energyConsumption = ModuleManager.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_ENERGY_PER_TICK)
-                    * chargeTicks;
+            double energyConsumption = ModuleManager.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_ENERGY_PER_TICK) * chargeTicks;
             MuseHeatUtils.heatPlayer(player, energyConsumption / 500);
             if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
                 ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
@@ -95,10 +104,15 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
 
                 EntityPlasmaBolt plasmaBolt = new EntityPlasmaBolt(world, player, explosiveness, damagingness, chargeTicks);
                 world.spawnEntityInWorld(plasmaBolt);
-                MusePacketPlasmaBolt packet = new MusePacketPlasmaBolt(player, plasmaBolt.getEntityId(), plasmaBolt.size);
-                PacketSender.sendToAll(packet);
+                // switched to IEntityAdditionalSpawnData
+                //MusePacketPlasmaBolt packet = new MusePacketPlasmaBolt(player, plasmaBolt.getEntityId(), plasmaBolt.size);
+                //PacketSender.sendToAll(packet);
             }
         }
     }
 
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.plasmaCannon;
+    }
 }

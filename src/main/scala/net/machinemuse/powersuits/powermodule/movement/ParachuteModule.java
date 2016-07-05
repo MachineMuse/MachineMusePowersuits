@@ -69,9 +69,9 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
     }
 
-    @Override
-    public String getTextureFile() {
-        return "parachute";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "parachute";
+//    }
 
 }

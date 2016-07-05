@@ -13,10 +13,15 @@ import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.sound.SoundSetupEvent;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class BlinkDriveModule extends PowerModuleBase implements IRightClickModule {
@@ -34,10 +39,10 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
     }
 
-    @Override
-    public String getTextureFile() {
-        return "alien";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "alien";
+//    }
 
     @Override
     public String getCategory() {
@@ -60,17 +65,18 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public void onRightClick(EntityPlayer player, World world, ItemStack itemStack) {
+        SoundEvent enderman_portal =  SoundEvent.REGISTRY.getObject(new ResourceLocation("entity.endermen.teleport"));
         double range = ModuleManager.computeModularProperty(itemStack, BLINK_DRIVE_RANGE);
         double energyConsumption = ModuleManager.computeModularProperty(itemStack, BLINK_DRIVE_ENERGY_CONSUMPTION);
         if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
             NuminaPlayerUtils.resetFloatKickTicks(player);
             ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
-            world.playSoundAtEntity(player, "mob.endermen.portal", 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
+            world.playSound(player, player.getPosition(), enderman_portal, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
             // MuseLogger.logDebug("Range: " + range);
             RayTraceResult hitMOP = MusePlayerUtils.doCustomRayTrace(player.worldObj, player, true, range);
             // MuseLogger.logDebug("Hit:" + hitMOP);
             MusePlayerUtils.teleportEntity(player, hitMOP);
-            world.playSoundAtEntity(player, "mob.endermen.portal", 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
+            world.playSound(player, player.getPosition(), enderman_portal, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
         }
 
     }

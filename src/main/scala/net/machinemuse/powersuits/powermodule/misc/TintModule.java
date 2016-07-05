@@ -19,10 +19,10 @@ public class TintModule extends PowerModuleBase {
         addTradeoffProperty("Blue Intensity", BLUE_TINT, 1, "%");
     }
 
-    @Override
-    public String getTextureFile() {
-        return "netherstar";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "netherstar";
+//    }
 
     @Override
     public boolean isAllowed() {

@@ -28,10 +28,10 @@ public class ClockModule extends PowerModuleBase implements IToggleableModule {
         addInstallCost(clock);
     }
 
-    @Override
-    public String getTextureFile() {
-        return null;
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return null;
+//    }
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {

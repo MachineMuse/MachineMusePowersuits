@@ -11,6 +11,11 @@ import net.machinemuse.numina.geometry.MuseRect;
 import net.machinemuse.numina.geometry.MuseRelativeRect;
 import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.utils.render.MuseRenderer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.SoundCategory;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import java.util.*;
@@ -154,8 +159,10 @@ public class ModuleSelectionFrame extends ScrollableFrame {
         }
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void onMouseDown(double x, double y, int button) {
+        EntityPlayer player = Minecraft.getMinecraft().thePlayer;
         super.onMouseDown(x, y, button);
         if (border.left() < x && border.right() > x && border.top() < y && border.bottom() > y) {
             y += currentscrollpixels;
@@ -163,7 +170,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
             int i = 0;
             for (ClickableModule module : moduleButtons) {
                 if (module.hitBox(x, y)) {
-                    Musique.playClientSound(SoundDictionary.SOUND_GUI_SELECT, 1);
+                    Musique.playClientSound(player, SoundDictionary.SOUND_EVENT_GUI_SELECT, SoundCategory.PLAYERS, 1);
                     selectedModule = i;
                     prevSelection = module.getModule();
                     break;

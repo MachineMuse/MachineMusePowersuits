@@ -69,10 +69,10 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
         return "Create a torrent of air to knock plants out of the ground and leaves off of trees.";
     }
 
-    @Override
-    public String getTextureFile() {
-        return "leafblower";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "leafblower";
+//    }
 
     @Override
     public void onRightClick(EntityPlayer player, World world, ItemStack item) {

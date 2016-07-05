@@ -36,9 +36,9 @@ public class AirtightSealModule extends PowerModuleBase {
         return "Seal the suit against hostile atmospheres for venturing to other planets.";
     }
 
-    @Override
-    public String getTextureFile() {
-        return "glasspane";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "glasspane";
+//    }
 
 }

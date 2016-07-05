@@ -165,8 +165,4 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
         return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(shears).getParticleTexture();
     }
 
-    @Override
-    public String getTextureFile() {
-        return null;
-    }
 }

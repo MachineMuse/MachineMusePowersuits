@@ -5,6 +5,8 @@ import net.machinemuse.api.moduletrigger.IToggleableModule
 import net.machinemuse.powersuits.item.ItemComponent
 import net.machinemuse.powersuits.powermodule.PowerModuleBase
 import net.machinemuse.utils.{MuseCommonStrings, MuseItemUtils}
+import net.minecraft.client.renderer.texture.TextureAtlasSprite
+import net.minecraft.item.ItemStack
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -28,6 +30,6 @@ class BinocularsModule(list: java.util.List[IModularItem]) extends PowerModuleBa
 
   override def getDescription: String = "With the problems that have been plaguing Optifine lately, you've decided to take that Zoom ability into your own hands."
 
-  override def getTextureFile: String = "binoculars"
+  override def getIcon(item: ItemStack): TextureAtlasSprite = super.getIcon(item)
 
 }

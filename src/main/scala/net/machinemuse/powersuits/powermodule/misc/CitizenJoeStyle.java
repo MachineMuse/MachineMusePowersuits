@@ -13,10 +13,10 @@ public class CitizenJoeStyle extends PowerModuleBase {
         super(validItems);
     }
 
-    @Override
-    public String getTextureFile() {
-        return "greendrone";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "greendrone";
+//    }
 
     @Override
     public String getCategory() {

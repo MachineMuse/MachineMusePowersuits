@@ -8,6 +8,7 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -71,9 +72,14 @@ public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule,
     }
 
     @Override
-    public String getTextureFile() {
-        return "coalgen";
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return super.getIcon(item);
     }
+
+    //    @Override
+//    public String getTextureFile() {
+//        return "coalgen";
+//    }
 
     @Override
     public String getCategory() {

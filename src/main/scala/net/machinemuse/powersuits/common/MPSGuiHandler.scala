@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.stats.AchievementList
 import net.minecraft.world.World
 import net.machinemuse.numina.scala.OptionCast
+import net.minecraft.util.math.BlockPos
 import net.minecraftforge.fml.common.network.IGuiHandler
 import net.minecraftforge.fml.relauncher.{Side, SideOnly}
 
@@ -19,8 +20,9 @@ import net.minecraftforge.fml.relauncher.{Side, SideOnly}
  */
 object MPSGuiHandler extends IGuiHandler {
   override def getServerGuiElement(ID: Int, player: EntityPlayer, world: World, x: Int, y: Int, z: Int): AnyRef = {
+    val pos = new BlockPos(x, y, z)
     ID match {
-      case 4 => new PortableCraftingContainer(player.inventory, world, x, y, z)
+      case 4 => new PortableCraftingContainer(player.inventory, world, pos)
       case _ => null
     }
   }
@@ -34,7 +36,7 @@ object MPSGuiHandler extends IGuiHandler {
         case 1 => new KeyConfigGui(p, x, y, z)
         case 2 => new GuiFieldTinker(p)
         case 3 => new CosmeticGui(p, x, y, z)
-        case 4 => new PortableCraftingGui(p, world, x, y, z)
+        case 4 => new PortableCraftingGui(p, world, new BlockPos(x, y, z))
         case _ => None
       }) getOrElse null
   }

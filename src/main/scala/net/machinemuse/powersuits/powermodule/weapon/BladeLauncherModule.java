@@ -49,15 +49,11 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
         return "Launches a spinning blade of death (or shearing).";
     }
 
-    @Override
-    public String getTextureFile() {
-        return "spinningblade";
-    }
 
     @Override
     public void onRightClick(EntityPlayer player, World world, ItemStack stack) {
         if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, BLADE_ENERGY)) {
-            player.setItemInUse(stack, 72000);
+//            player.setItemInUse(stack, 72000);
         }
     }
 
@@ -87,4 +83,8 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
         }
     }
 
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.bladeLauncher;
+    }
 }

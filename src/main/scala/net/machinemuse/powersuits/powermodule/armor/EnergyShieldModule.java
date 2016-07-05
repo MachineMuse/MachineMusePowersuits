@@ -18,10 +18,10 @@ public class EnergyShieldModule extends PowerModuleBase {
         addTradeoffProperty("Field Strength", MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION, 500, "J");
     }
 
-    @Override
-    public String getTextureFile() {
-        return "energyshield";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "energyshield";
+//    }
 
     @Override
     public String getCategory() {

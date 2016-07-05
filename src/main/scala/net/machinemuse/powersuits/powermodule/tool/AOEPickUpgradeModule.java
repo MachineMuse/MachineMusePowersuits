@@ -36,10 +36,10 @@ public class AOEPickUpgradeModule extends PowerModuleBase implements IBlockBreak
 
     }
 
-    @Override
-    public String getTextureFile() {
-        return "diamondupgrade1";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "diamondupgrade1";
+//    }
 
     @Override
     public String getCategory() {

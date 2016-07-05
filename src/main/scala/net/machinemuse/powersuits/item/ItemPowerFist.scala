@@ -244,13 +244,15 @@ with ModeChangingModularItem {
   // EnderIO Tool
   override def used(itemStack: ItemStack, entityPlayer: EntityPlayer, pos: BlockPos): Unit = {}
 
-  // EnderIO Tool
-//  override def canUse(itemStack: ItemStack, entityPlayer: EntityPlayer, pos: BlockPos): Boolean = {
+//   EnderIO Tool
+  override def canUse(itemStack: ItemStack, entityPlayer: EntityPlayer, pos: BlockPos): Boolean = {
 //    getActiveMode(itemStack, entityPlayer).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
-//  }
+    false
+  }
 
-  // EnderIO Tool
-//  override def shouldHideFacades(itemStack: ItemStack, entityPlayer: EntityPlayer): Boolean = {
+//   EnderIO Tool
+  override def shouldHideFacades(itemStack: ItemStack, entityPlayer: EntityPlayer): Boolean = {
 //    getActiveMode(itemStack, entityPlayer).equals(OmniWrenchModule.MODULE_OMNI_WRENCH)
-//  }
+    false
+  }
 }

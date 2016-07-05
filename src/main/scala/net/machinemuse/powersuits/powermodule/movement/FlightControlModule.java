@@ -24,10 +24,10 @@ public class FlightControlModule extends PowerModuleBase implements IToggleableM
         return MuseCommonStrings.CATEGORY_SPECIAL;
     }
 
-    @Override
-    public String getTextureFile() {
-        return "FlightControlY";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "FlightControlY";
+//    }
 
     @Override
     public String getDataName() {

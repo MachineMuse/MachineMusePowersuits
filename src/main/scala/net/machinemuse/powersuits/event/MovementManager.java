@@ -10,6 +10,7 @@ import net.machinemuse.powersuits.powermodule.movement.ShockAbsorberModule;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -46,7 +47,7 @@ public class MovementManager {
                 double drain = ModuleManager.computeModularProperty(stack, JumpAssistModule.JUMP_ENERGY_CONSUMPTION);
                 double avail = ElectricItemUtils.getPlayerEnergy(player);
                 if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
-                    Musique.playerSound(player, SoundDictionary.SOUND_JUMP_ASSIST, (float) (jumpAssist / 8.0), 1, false);
+                    Musique.playerSound(player, SoundDictionary.SOUND_EVENT_JUMP_ASSIST, (float) (jumpAssist / 8.0), 1, false, SoundCategory.PLAYERS);
                 }
                 if (drain < avail) {
                     ElectricItemUtils.drainPlayerEnergy(player, drain);
@@ -73,7 +74,7 @@ public class MovementManager {
                 if (ModuleManager.itemHasActiveModule(boots, ShockAbsorberModule.MODULE_SHOCK_ABSORBER) && event.getDistance() > 3) {
                     double distanceAbsorb = event.getDistance() * ModuleManager.computeModularProperty(boots, ShockAbsorberModule.SHOCK_ABSORB_MULTIPLIER);
                     if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
-                        Musique.playerSound(player, SoundDictionary.SOUND_GUI_INSTALL, (float) (distanceAbsorb), 1, false);
+                        Musique.playerSound(player, SoundDictionary.SOUND_EVENT_GUI_INSTALL, (float) (distanceAbsorb), 1, false, SoundCategory.PLAYERS);
                     }
 
                     double drain = distanceAbsorb * ModuleManager.computeModularProperty(boots, ShockAbsorberModule.SHOCK_ABSORB_ENERGY_CONSUMPTION);

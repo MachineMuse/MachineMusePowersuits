@@ -41,8 +41,8 @@ public class MFFSFieldTeleporterModule extends PowerModuleBase {
         return "A tool which allows you to teleport through MFFS forcefields that you own if you have enough energy.";
     }
 
-    @Override
-    public String getTextureFile() {
-        return "fieldteleporter";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "fieldteleporter";
+//    }
 }

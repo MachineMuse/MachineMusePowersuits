@@ -3,21 +3,32 @@ package net.machinemuse.powersuits.block;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
 public class BlockLuxCapacitor extends Block {
+    public static final PropertyDirection FACING = PropertyDirection.create("facing");
+
+
+
+
     public static int assignedBlockID;
     protected int renderType;
 
@@ -50,7 +61,7 @@ public class BlockLuxCapacitor extends Block {
         setResistance(10.0F);
 
         // Sound to play when player steps on the block
-        setStepSound(Block.soundTypeMetal);
+        setSoundType(SoundType.METAL);
 
         // How much light is stopped by this block; 0 for air, 255 for fully
         // opaque.
@@ -71,29 +82,44 @@ public class BlockLuxCapacitor extends Block {
 
         GameRegistry.registerTileEntity(TileEntityLuxCapacitor.class, "luxCapacitor");
 
-        setBlockName("luxCapacitor");
+        setUnlocalizedName("luxCapacitor");
 
     }
 
-    private static float bbMin(double offset) {
-        return (offset > 0 ? 13 : offset < 0 ? 0 : 1) / 16.0f;
-    }
-
-    private static float bbMax(double offset) {
-        return (offset > 0 ? 16 : offset < 0 ? 3 : 15) / 16.0f;
-    }
 
 
-    public static AxisAlignedBB createAABBForSide(EnumFacing dir, BlockPos blockPos) {
-        double x1 = bbMin(dir.getFrontOffsetX());
-        double y1 = bbMin(dir.getFrontOffsetY());
-        double z1 = bbMin(dir.getFrontOffsetZ());
-        double x2 = bbMax(dir.getFrontOffsetX());
-        double y2 = bbMax(dir.getFrontOffsetY());
-        double z2 = bbMax(dir.getFrontOffsetZ());
-        return new AxisAlignedBB(blockPos.getX() + x1, blockPos.getY() + y1, blockPos.getZ() + z1,
-                blockPos.getX() + x2, blockPos.getY() + y2, blockPos.getZ() + z2);
-    }
+//    public static final IProperty FACING = PropertyDirection.create("facing");
+//    @Override
+//    protected BlockStateContainer createBlockState() {
+//        return new IBlockState(this, FACING);
+//    }
+
+    //
+//    protected BlockState createBlockState()
+//    {
+//
+//    }
+
+
+//    private static float bbMin(double offset) {
+//        return (offset > 0 ? 13 : offset < 0 ? 0 : 1) / 16.0f;
+//    }
+//
+//    private static float bbMax(double offset) {
+//        return (offset > 0 ? 16 : offset < 0 ? 3 : 15) / 16.0f;
+//    }
+//
+//
+//    public static AxisAlignedBB createAABBForSide(EnumFacing dir, BlockPos blockPos) {
+//        double x1 = bbMin(dir.getFrontOffsetX());
+//        double y1 = bbMin(dir.getFrontOffsetY());
+//        double z1 = bbMin(dir.getFrontOffsetZ());
+//        double x2 = bbMax(dir.getFrontOffsetX());
+//        double y2 = bbMax(dir.getFrontOffsetY());
+//        double z2 = bbMax(dir.getFrontOffsetZ());
+//        return new AxisAlignedBB(blockPos.getX() + x1, blockPos.getY() + y1, blockPos.getZ() + z1,
+//                blockPos.getX() + x2, blockPos.getY() + y2, blockPos.getZ() + z2);
+//    }
 
 //    @SideOnly(Side.CLIENT)
 //    @Override
@@ -108,79 +134,79 @@ public class BlockLuxCapacitor extends Block {
      * it up in a table anyway, but it's still best to have different internal
      * IDs.
      */
-    @Override
-    public int getRenderType() {
-        return renderType;
-    }
+//    @Override
+//    public int getRenderType() {
+//        return renderType;
+//    }
+//
+//    @Override
+//    public boolean renderAsNormalBlock() {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean isOpaqueCube() {
+//        return false;
+//    }
+
+
+
 
     @Override
-    public boolean renderAsNormalBlock() {
-        return false;
-    }
-
-    @Override
-    public boolean isOpaqueCube() {
-        return false;
-    }
-
-    @Override
-    public boolean hasTileEntity(int metadata) {
+    public boolean hasTileEntity(IBlockState state) {
         return true;
     }
-
     @Override
-    public TileEntity createTileEntity(World world, int metadata) {
+    public TileEntity createTileEntity(World world, IBlockState state) {
         return new TileEntityLuxCapacitor();
-
     }
-
     @SideOnly(Side.CLIENT)
 
-    /**
-     * Returns the bounding box of the wired rectangular prism to render.
-     */
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
-        BlockPos blockPos = new BlockPos(x, y, z);
+//    /**
+//     * Returns the bounding box of the wired rectangular prism to render.
+//     */
+//    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
+//        BlockPos blockPos = new BlockPos(x, y, z);
+//
+//        TileEntity te = world.getTileEntity(blockPos);
+//        if (te instanceof TileEntityLuxCapacitor) {
+//            EnumFacing side = ((TileEntityLuxCapacitor) te).side;
+//            return createAABBForSide(side, blockPos);
+//        }
+//        return null;
+//    }
 
-        TileEntity te = world.getTileEntity(blockPos);
-        if (te instanceof TileEntityLuxCapacitor) {
-            EnumFacing side = ((TileEntityLuxCapacitor) te).side;
-            return createAABBForSide(side, blockPos);
-        }
-        return null;
-    }
+//    /**
+//     * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
+//     * cleared to be reused)
+//     */
+//    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, BlockPos blockPos) {
+//        TileEntity te = world.getTileEntity(blockPos);
+//        if (te instanceof TileEntityLuxCapacitor) {
+//            EnumFacing side = ((TileEntityLuxCapacitor) te).side;
+//            return createAABBForSide(side, blockPos);
+//        }
+//        return null;
+//    }
 
-    /**
-     * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
-     * cleared to be reused)
-     */
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, BlockPos blockPos) {
-        TileEntity te = world.getTileEntity(blockPos);
-        if (te instanceof TileEntityLuxCapacitor) {
-            EnumFacing side = ((TileEntityLuxCapacitor) te).side;
-            return createAABBForSide(side, blockPos);
-        }
-        return null;
-    }
+//    public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, BlockPos blockPos) {
+//        TileEntity te = par1IBlockAccess.getTileEntity(blockPos);
+//        if (te instanceof TileEntityLuxCapacitor) {
+//            EnumFacing side = ((TileEntityLuxCapacitor) te).side;
+//            float x1 = bbMin(side.getFrontOffsetX());
+//            float y1 = bbMin(side.getFrontOffsetY());
+//            float z1 = bbMin(side.getFrontOffsetZ());
+//            float x2 = bbMax(side.getFrontOffsetX());
+//            float y2 = bbMax(side.getFrontOffsetY());
+//            float z2 = bbMax(side.getFrontOffsetZ());
+//            this.setBlockBounds(x1, y1, z1, x2, y2, z2);
+//        }
+//    }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, BlockPos blockPos) {
-        TileEntity te = par1IBlockAccess.getTileEntity(blockPos);
-        if (te instanceof TileEntityLuxCapacitor) {
-            EnumFacing side = ((TileEntityLuxCapacitor) te).side;
-            float x1 = bbMin(side.getFrontOffsetX());
-            float y1 = bbMin(side.getFrontOffsetY());
-            float z1 = bbMin(side.getFrontOffsetZ());
-            float x2 = bbMax(side.getFrontOffsetX());
-            float y2 = bbMax(side.getFrontOffsetY());
-            float z2 = bbMax(side.getFrontOffsetZ());
-            this.setBlockBounds(x1, y1, z1, x2, y2, z2);
-        }
-    }
-
-    @Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        return super.getBoundingBox(state, source, pos);
-    }
+//    @Override
+//    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+//        return super.getBoundingBox(state, source, pos);
+//    }
 
     /**
      * Returns the quantity of items to drop on block destruction.

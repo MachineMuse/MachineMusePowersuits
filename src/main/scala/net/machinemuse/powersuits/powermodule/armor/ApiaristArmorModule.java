@@ -1,8 +1,10 @@
 package net.machinemuse.powersuits.powermodule.armor;
 
 import net.machinemuse.api.IModularItem;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -47,7 +49,7 @@ public class ApiaristArmorModule extends PowerModuleBase {
     }
 
     @Override
-    public String getTextureFile() {
-        return "silkWisp";
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.apiaristArmor;
     }
 }

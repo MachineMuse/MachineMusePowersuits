@@ -68,10 +68,11 @@ object ModelSpecXMLReader {
   }
 
   def validatePolygroup(s: String, m: ModelSpec): Option[String] = {
-    val it = m.model.groupObjects.iterator
-    while (it.hasNext) {
-      if (it.next().name.equals(s)) return Some(s)
-    }
+    //FIXME !!!!
+//    val it = m.model.groupObjects.iterator
+//    while (it.hasNext) {
+//      if (it.next().name.equals(s)) return Some(s)
+//    }
     return None
   }
 
@@ -104,14 +105,17 @@ object ModelSpecXMLReader {
   }
 
   def parseArmorSlot(s: String): Option[EntityEquipmentSlot] = {
-    s.toUpperCase match {
-      case "FEET" => Some(EntityEquipmentSlot.FEET)
-      case "LEGS" => Some(EntityEquipmentSlot.LEGS)
-      case "CHEST" => Some(EntityEquipmentSlot.CHEST)
-      case "HEAD" => Some(EntityEquipmentSlot.HEAD)
-      case "MAINHAND" => Some(EntityEquipmentSlot.MAINHAND)
-      case "OFFHAND" => Some(EntityEquipmentSlot.OFFHAND)
-    }
+    // FIXME
+
+//    s.toUpperCase match {
+//      case "FEET" => Some(EntityEquipmentSlot.FEET)
+//      case "LEGS" => Some(EntityEquipmentSlot.LEGS)
+//      case "CHEST" => Some(EntityEquipmentSlot.CHEST)
+//      case "HEAD" => Some(EntityEquipmentSlot.HEAD)
+//      case "MAINHAND" => Some(EntityEquipmentSlot.MAINHAND)
+//      case "OFFHAND" => Some(EntityEquipmentSlot.OFFHAND)
+//    }
+    return Some(EntityEquipmentSlot.OFFHAND)
   }
 
   def parseInt(s: String): Option[Int] = {

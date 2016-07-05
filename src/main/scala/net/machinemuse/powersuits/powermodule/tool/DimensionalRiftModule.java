@@ -37,10 +37,10 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
         this.defaultTag.setBoolean(MuseItemUtils.ONLINE, false);
     }
 
-    @Override
-    public String getTextureFile() {
-        return "kineticgen";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        return "kineticgen";
+//    }
 
     @Override
     public String getCategory() {

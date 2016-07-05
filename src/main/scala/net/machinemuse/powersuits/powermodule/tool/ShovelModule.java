@@ -55,10 +55,6 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
         return "Shovels are good for soft materials like dirt and sand.";
     }
 
-    @Override
-    public String getTextureFile() {
-        return "toolshovel";
-    }
 
     private boolean istEffectiveHarvestTool(IBlockState state)
     {
@@ -106,5 +102,10 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
         event.setNewSpeed((float) (event.getNewSpeed() * ModuleManager.computeModularProperty(event.getEntityPlayer().getHeldItemMainhand(), SHOVEL_HARVEST_SPEED)));
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.shovel;
     }
 }

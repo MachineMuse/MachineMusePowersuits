@@ -10,5 +10,5 @@ import net.minecraft.tileentity.TileEntity
  *
  */
 class TileEntityTinkerTable extends TileEntity {
-  override def canUpdate = false
+//  override def canUpdate = false
 }

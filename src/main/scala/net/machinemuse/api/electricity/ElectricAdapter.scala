@@ -1,7 +1,7 @@
 package net.machinemuse.api.electricity
 
 import cofh.api.energy.IEnergyContainerItem
-import ic2.api.item.ElectricItem
+import ic2.api.item.{ElectricItem, IElectricItem}
 import net.machinemuse.powersuits.common.ModCompatibility
 import net.minecraft.item.ItemStack
 
@@ -13,7 +13,7 @@ object ElectricAdapter {
       new MuseElectricAdapter(stack)
     } else if (ModCompatibility.isRFAPILoaded && i.isInstanceOf[IEnergyContainerItem]) {
       new TEElectricAdapter(stack)
-    } else if (ModCompatibility.isIndustrialCraftLoaded && i.isInstanceOf[ElectricItem]) {
+    } else if (ModCompatibility.isIndustrialCraftLoaded && i.isInstanceOf[IElectricItem]) {
       new IC2ElectricAdapter(stack)
     } else {
       null
@@ -45,7 +45,7 @@ class MuseElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
 
 
 class IC2ElectricAdapter(val stack: ItemStack) extends ElectricAdapter {
-  val item = stack.getItem.asInstanceOf[ElectricItem]
+  val item = stack.getItem.asInstanceOf[IElectricItem]
 
   import net.machinemuse.api.electricity.ElectricConversions._
 

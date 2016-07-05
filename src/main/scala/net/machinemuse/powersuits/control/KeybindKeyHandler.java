@@ -25,6 +25,48 @@ public class KeybindKeyHandler {
     public static KeyBinding[] keybindArray = new KeyBinding[]{openKeybindGUI, goDownKey, cycleToolBackward, cycleToolForward, zoom, openCosmeticGUI};
     public static boolean[] repeats = new boolean[keybindArray.length];
 
+
+
+
+//    @Nonnull
+//    public static final KeyBinding = new KeyBinding(I18n.format("keybind.fovfixtoggle"), Keyboard.KEY_NONE, "Modular Powersuits")
+
+
+
+
+
+
+
+/*
+public class KeyBindings {
+	private static final String categoryName = Constants.MOD_ID + " (" + Constants.NAME + ')';
+
+	@Nonnull
+	public static final KeyBinding toggleOverlay = new KeyBinding("key.jei.toggleOverlay", KeyConflictContext.GUI, KeyModifier.CONTROL, Keyboard.KEY_O, categoryName);
+	@Nonnull
+	public static final KeyBinding focusSearch = new KeyBinding("key.jei.focusSearch", KeyConflictContext.GUI, KeyModifier.CONTROL, Keyboard.KEY_F, categoryName);
+	@Nonnull
+	public static final KeyBinding showRecipe = new KeyBinding("key.jei.showRecipe", KeyConflictContext.GUI, Keyboard.KEY_R, categoryName);
+	@Nonnull
+	public static final KeyBinding showUses = new KeyBinding("key.jei.showUses", KeyConflictContext.GUI, Keyboard.KEY_U, categoryName);
+	@Nonnull
+	public static final KeyBinding recipeBack = new KeyBinding("key.jei.recipeBack", KeyConflictContext.GUI, Keyboard.KEY_BACK, categoryName);
+
+	public static void init() {
+		ClientRegistry.registerKeyBinding(toggleOverlay);
+		ClientRegistry.registerKeyBinding(focusSearch);
+		ClientRegistry.registerKeyBinding(showRecipe);
+		ClientRegistry.registerKeyBinding(showUses);
+		ClientRegistry.registerKeyBinding(recipeBack);
+	}
+}
+ */
+
+
+
+
+
+
     public KeybindKeyHandler() {
         for (KeyBinding key : keybindArray) {
             ClientRegistry.registerKeyBinding(key);

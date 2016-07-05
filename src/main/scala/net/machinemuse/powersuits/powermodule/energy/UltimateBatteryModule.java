@@ -12,12 +12,13 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
-public class EliteBatteryModule extends PowerModuleBase {
-    public static final String MODULE_BATTERY_ELITE = "Elite Battery";
-
-    public EliteBatteryModule(List<IModularItem> validItems) {
+/**
+ * Created by leon on 7/3/16.
+ */
+public class UltimateBatteryModule extends PowerModuleBase {
+    public UltimateBatteryModule(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
+        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.evcapacitor, 1));
         addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY(), 750000, "J");
         addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g");
         addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY(), 4250000);
@@ -27,14 +28,44 @@ public class EliteBatteryModule extends PowerModuleBase {
     }
 
     @Override
+    public String getCategory() {
+        return null;
+    }
+
+    @Override
+    public String getDataName() {
+        return null;
+    }
+
+    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return super.getIcon(item);
     }
+}
+/*
+package net.machinemuse.powersuits.powermodule.energy;
 
-    //    @Override
-//    public String getTextureFile() {
-//        return "crystalcapacitor";
-//    }
+import net.machinemuse.api.IModularItem;
+import net.machinemuse.api.electricity.ElectricConversions;
+import net.machinemuse.powersuits.item.ItemComponent;
+import net.machinemuse.powersuits.powermodule.PowerModuleBase;
+import net.machinemuse.utils.ElectricItemUtils;
+import net.machinemuse.utils.MuseCommonStrings;
+import net.machinemuse.utils.MuseItemUtils;
+
+import java.util.List;
+
+public class EliteBatteryModule extends PowerModuleBase {
+    public static final String MODULE_BATTERY_ELITE = "Elite Battery";
+
+    public EliteBatteryModule(List<IModularItem> validItems) {
+
+    }
+
+    @Override
+    public String getTextureFile() {
+        return "crystalcapacitor";
+    }
 
     @Override
     public String getCategory() {
@@ -55,3 +86,5 @@ public class EliteBatteryModule extends PowerModuleBase {
         return "Integrate a the most advanced battery to store an extensive amount of energy.";
     }
 }
+
+ */

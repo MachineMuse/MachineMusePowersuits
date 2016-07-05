@@ -8,10 +8,12 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.*;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -102,8 +104,8 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
             MuseItemUtils.setDoubleOrRemove(itemStack, TIMER, 10);
             MuseHeatUtils.heatPlayer(player, ModuleManager.computeModularProperty(itemStack, HEAT));
             RayTraceResult hitMOP = MusePlayerUtils.doCustomRayTrace(player.worldObj, player, true, range);
-            world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
-
+            // TODO: actual railgun sound
+            world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
             double damage = ModuleManager.computeModularProperty(itemStack, IMPULSE) / 100.0;
             double knockback = damage / 20.0;
             Vec3d lookVec = player.getLookVec();
@@ -125,10 +127,11 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
                 }
                 player.addVelocity(-lookVec.xCoord * knockback, Math.abs(-lookVec.yCoord + 0.2f) * knockback, -lookVec.zCoord * knockback);
 
-                world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
+                world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
             }
         }
-        player.setItemInUse(itemStack, 10);
+        // FIXME
+//        player.setItemInUse(itemStack, 10);
     }
 
     @Override
@@ -141,10 +144,6 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
         return false;
     }
 
-    @Override
-    public String getTextureFile() {
-        return "electricweapon";
-    }
 
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
@@ -160,5 +159,10 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
 
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.railgun;
     }
 }

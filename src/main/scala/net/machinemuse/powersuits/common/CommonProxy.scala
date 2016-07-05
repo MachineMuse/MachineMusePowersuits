@@ -8,7 +8,6 @@ import net.machinemuse.numina.render.RenderGameOverlayEventHandler
 import net.machinemuse.powersuits.block.{BlockTinkerTable, TileEntityLuxCapacitor, TileEntityTinkerTable}
 import net.machinemuse.powersuits.client.render.block.{RenderLuxCapacitorTESR, TinkerTableRenderer}
 import net.machinemuse.powersuits.client.render.entity.{RenderLuxCapacitorEntity, RenderPlasmaBolt, RenderSpinningBlade}
-import net.machinemuse.powersuits.client.render.item.ToolRenderer
 import net.machinemuse.powersuits.client.render.modelspec.ModelSpecXMLReader
 import net.machinemuse.powersuits.control.{KeybindKeyHandler, KeybindManager}
 import net.machinemuse.powersuits.entity.{EntityLuxCapacitor, EntityPlasmaBolt, EntitySpinningBlade}
@@ -45,29 +44,47 @@ class ClientProxy extends CommonProxy {
     MinecraftForge.EVENT_BUS.register(new SoundDictionary)
   }
 
-  /**
-   * Register all the custom renderers for this mod.
-   */
-  override def registerRenderers {
-    MinecraftForgeClient.registerItemRenderer(MPSItems.powerTool, new ToolRenderer)
-    val tinkTableRenderID: Int = RenderingRegistry.getNextAvailableRenderId
-    val tinkTableRenderer: TinkerTableRenderer = new TinkerTableRenderer(tinkTableRenderID)
-    BlockTinkerTable.setRenderType(tinkTableRenderID)
-    ClientRegistry.bindTileEntitySpecialRenderer(classOf[TileEntityTinkerTable], tinkTableRenderer)
-    RenderingRegistry.registerBlockHandler(tinkTableRenderer)
-    val luxCapacitorRenderID: Int = RenderingRegistry.getNextAvailableRenderId
-    val luxCapacitorRenderer: RenderLuxCapacitorTESR = new RenderLuxCapacitorTESR(luxCapacitorRenderID)
-    MPSItems.luxCapacitor.setRenderType(luxCapacitorRenderID)
-    ClientRegistry.bindTileEntitySpecialRenderer(classOf[TileEntityLuxCapacitor], luxCapacitorRenderer)
-    RenderingRegistry.registerBlockHandler(luxCapacitorRenderer)
-    RenderingRegistry.registerEntityRenderingHandler(classOf[EntityPlasmaBolt], new RenderPlasmaBolt)
-    RenderingRegistry.registerEntityRenderingHandler(classOf[EntitySpinningBlade], new RenderSpinningBlade)
-    RenderingRegistry.registerEntityRenderingHandler(classOf[EntityLuxCapacitor], new RenderLuxCapacitorEntity)
-    MinecraftForge.EVENT_BUS.register(new RenderEventHandler)
+
+  override def registerRenderers: Unit = {
+    ClientRegistry.bindTileEntitySpecialRenderer(classOf[TileEntityTinkerTable], new TinkerTableRenderer)
+    ClientRegistry.bindTileEntitySpecialRenderer(classOf[TileEntityLuxCapacitor], new RenderLuxCapacitorTESR)
+
     val resource: URL = classOf[ClientProxy].getResource("/assets/powersuits/models/modelspec.xml")
     ModelSpecXMLReader.parseFile(resource)
     val otherResource: URL = classOf[ClientProxy].getResource("/assets/powersuits/models/armor2.xml")
     ModelSpecXMLReader.parseFile(otherResource)
+  }
+
+
+  /**
+   * Register all the custom renderers for this mod.
+   */
+  def registerRenderersOld {
+//    MinecraftForgeClient.registerItemRenderer(MPSItems.powerTool, new ToolRenderer)
+//    val tinkTableRenderID: Int = RenderingRegistry.getNextAvailableRenderId
+//    val tinkTableRenderer: TinkerTableRenderer = new TinkerTableRenderer(tinkTableRenderID)
+//    BlockTinkerTable.setRenderType(tinkTableRenderID)
+//    ClientRegistry.bindTileEntitySpecialRenderer(classOf[TileEntityTinkerTable], tinkTableRenderer)
+//    RenderingRegistry.registerBlockHandler(tinkTableRenderer)
+//    val luxCapacitorRenderID: Int = RenderingRegistry.getNextAvailableRenderId
+//    val luxCapacitorRenderer: RenderLuxCapacitorTESR = new RenderLuxCapacitorTESR(luxCapacitorRenderID)
+//    MPSItems.luxCapacitor.setRenderType(luxCapacitorRenderID)
+//    ClientRegistry.bindTileEntitySpecialRenderer(classOf[TileEntityLuxCapacitor], luxCapacitorRenderer)
+//    RenderingRegistry.registerBlockHandler(luxCapacitorRenderer)
+//
+//
+//
+//
+//
+//
+//    RenderingRegistry.registerEntityRenderingHandler(classOf[EntityPlasmaBolt], new RenderPlasmaBolt)
+//    RenderingRegistry.registerEntityRenderingHandler(classOf[EntitySpinningBlade], new RenderSpinningBlade)
+//    RenderingRegistry.registerEntityRenderingHandler(classOf[EntityLuxCapacitor], new RenderLuxCapacitorEntity)
+
+
+
+
+//    MinecraftForge.EVENT_BUS.register(new RenderEventHandler)
 
   }
 
@@ -76,9 +93,10 @@ class ClientProxy extends CommonProxy {
    * network synchronization and permission stuff).
    */
   override def registerHandlers {
-    FMLCommonHandler.instance.bus.register(new KeybindKeyHandler)
+    MinecraftForge.EVENT_BUS.register(new KeybindKeyHandler)
+
     MinecraftForge.EVENT_BUS.register(new PlayerUpdateHandler)
-    FMLCommonHandler.instance.bus.register(new ClientTickHandler)
+    MinecraftForge.EVENT_BUS.register(new ClientTickHandler)
     val packetHandler: MusePacketHandler.type = MusePacketHandler
   }
 
@@ -97,7 +115,7 @@ class ClientProxy extends CommonProxy {
 
 class ServerProxy extends CommonProxy {
   override def registerEvents {
-    FMLCommonHandler.instance().bus().register(PlayerLoginHandlerThingy)
+    MinecraftForge.EVENT_BUS.register(PlayerLoginHandlerThingy)
   }
 
   override def registerHandlers() {

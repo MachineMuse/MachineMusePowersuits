@@ -51,10 +51,10 @@ public class ClimbAssistModule extends PowerModuleBase implements IToggleableMod
         }
     }
 
-    @Override
-    public String getTextureFile() {
-        // TODO Auto-generated method stub
-        return "climbassist";
-    }
+//    @Override
+//    public String getTextureFile() {
+//        // TODO Auto-generated method stub
+//        return "climbassist";
+//    }
 
 }
