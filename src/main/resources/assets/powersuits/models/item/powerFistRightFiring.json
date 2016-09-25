@@ -1,0 +1,12 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {"all":"powersuits:model/tool"},
+    "model": "powersuits:powerfist/powerfistRightFiring.obj"
+  },
+  "variants": {
+    "inventory": [{
+      "transform": "forge:default-tool"
+    }]
+  }
+}

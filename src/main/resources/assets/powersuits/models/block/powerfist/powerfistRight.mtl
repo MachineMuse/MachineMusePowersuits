@@ -1,0 +1,387 @@
+# Blender MTL File: 'powerfist-test.blend'
+# Material Count: 64
+
+newmtl Material.000
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.000_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.001
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.014
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.014_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.015
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.015_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.016
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.016_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.017
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.017_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.018
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.019
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.019_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.020
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.020_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.022
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.022_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.023
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.023_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.024
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.024_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.025
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.025_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.026
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.026_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.027
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.027_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.028
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.028_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.029
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.029_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.030
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.030_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.031
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.031_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.032
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.032_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.033
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.033_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.034
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.035
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.035_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.036
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.036_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.037
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.037_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.038
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.038_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.039
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.039_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.040
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.040_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.041
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.041_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.042
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.042_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.043
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.043_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.044
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.044_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+
+map_Kd powersuits:models/tool
+
+newmtl Material.045
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd  powersuits:models/tool
+
+newmtl Material.045_texture.png
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool
+
+newmtl Material.046
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:models/tool

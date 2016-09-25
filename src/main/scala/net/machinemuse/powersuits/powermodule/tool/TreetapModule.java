@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
@@ -11,10 +10,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -41,19 +40,20 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
     }
 
     @Override
-    public void onRightClick(EntityPlayer playerClicking, World world, ItemStack item) {
-
+    public ActionResult onRightClick(EntityPlayer player, World world, ItemStack item, EnumHand hand) {
+        return ActionResult.newResult(EnumActionResult.PASS, item);
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         IBlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
 
         if (block == rubber_wood) {
-            tryExtract(player, world, pos, side, state, null);
+            tryExtract(player, world, pos, facing, state, null);
             ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemStack, TREETAP_ENERGY_CONSUMPTION));
         }
+        return EnumActionResult.PASS;
     }
 
     public static boolean tryExtract(EntityPlayer player, World world, BlockPos pos, EnumFacing side, IBlockState state, List stacks) {
@@ -174,6 +174,11 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
 
+    }
+
+    @Override
+    public EnumAction getItemUseAction(ItemStack stack) {
+        return EnumAction.BOW;
     }
 
     @Override

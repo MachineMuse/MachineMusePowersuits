@@ -1,14 +1,15 @@
 package net.machinemuse.general.gui.clickable
 
-import net.machinemuse.numina.geometry.Colour
-import net.machinemuse.numina.geometry.MusePoint2D
+import java.util.{ArrayList, Iterator, List}
+
+import net.machinemuse.numina.geometry.{Colour, MusePoint2D}
 import net.machinemuse.numina.network.PacketSender
 import net.machinemuse.powersuits.common.Config
 import net.machinemuse.powersuits.control.KeybindManager
 import net.machinemuse.powersuits.network.packets.MusePacketToggleRequest
-import net.machinemuse.utils.{MuseStringUtils, MuseItemUtils}
 import net.machinemuse.utils.MuseStringUtils.FormatCodes
-import net.machinemuse.utils.render.{GuiIcons, MuseRenderer}
+import net.machinemuse.utils.render.MuseRenderer
+import net.machinemuse.utils.{MuseItemUtils, MuseStringUtils}
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.client.settings.KeyBinding
@@ -16,10 +17,6 @@ import net.minecraft.util.text.TextComponentString
 import net.minecraftforge.fml.common.FMLCommonHandler
 import net.minecraftforge.fml.relauncher.Side
 import org.lwjgl.input.Keyboard
-import java.util.ArrayList
-import java.util.Iterator
-import java.util.List
-
 import org.lwjgl.opengl.GL11
 
 object ClickableKeybinding {

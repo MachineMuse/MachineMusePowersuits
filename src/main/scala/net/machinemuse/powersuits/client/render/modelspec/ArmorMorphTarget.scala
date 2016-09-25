@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.client.render.modelspec
 
 import net.minecraft.client.model.{ModelBiped, ModelRenderer}
-import org.lwjgl.opengl.GL11._
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -14,12 +13,6 @@ sealed trait MorphTarget {
 
   def apply(m: ModelBiped): ModelRenderer
 }
-
-//case object Cloak extends MorphTarget {
-//  val name = "Cloak"
-//
-//  def apply(m: ModelBiped) = m.bipedCloak
-//}
 
 case object Head extends MorphTarget {
   val name = "Head"

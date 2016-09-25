@@ -9,9 +9,9 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase
 import net.machinemuse.utils.{MuseCommonStrings, MuseItemUtils}
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.item.ItemStack
-import net.minecraft.util.EnumFacing
+import net.minecraft.item.{EnumAction, ItemStack}
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.{ActionResult, EnumActionResult, EnumFacing, EnumHand}
 import net.minecraft.world.World
 
 /**
@@ -30,15 +30,18 @@ class FieldTinkerModule(list: java.util.List[IModularItem]) extends PowerModuleB
 
   override def getUnlocalizedName = "fieldTinkerer"
 
-  def onPlayerStoppedUsing(itemStack: ItemStack, world: World, player: EntityPlayer, par4: Int) {}
+  override def onPlayerStoppedUsing(itemStack: ItemStack, world: World, player: EntityPlayer, par4: Int) = {}
 
-  def onRightClick(player: EntityPlayer, world: World, item: ItemStack) {
-    player.openGui(ModularPowersuits, 2, world, player.posX.toInt, player.posY.toInt, player.posZ.toInt)
-  }
-
-  override def onItemUse(itemStack: ItemStack, player: EntityPlayer, world: World, pos: BlockPos, side: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Unit = {}
+  override def onItemUse(itemStack: ItemStack, player: EntityPlayer, world: World, pos: BlockPos, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult = EnumActionResult.PASS
 
   override def onItemUseFirst(itemStack: ItemStack, player: EntityPlayer, world: World, pos: BlockPos, side: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean = false
 
-override def getIcon(item: ItemStack): TextureAtlasSprite = MuseIcon.fieldTinkerer
+  override def getIcon(item: ItemStack): TextureAtlasSprite = MuseIcon.fieldTinkerer
+
+  override def onRightClick(player: EntityPlayer, world: World, item: ItemStack, hand: EnumHand): ActionResult[_] = {
+    player.openGui(ModularPowersuits, 2, world, player.posX.toInt, player.posY.toInt, player.posZ.toInt)
+    ActionResult.newResult(EnumActionResult.SUCCESS, item)
+  }
+
+  override def getItemUseAction(stack: ItemStack): EnumAction = EnumAction.NONE
 }

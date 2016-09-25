@@ -2,13 +2,13 @@ package net.machinemuse.powersuits.common
 
 import net.machinemuse.general.gui._
 import net.machinemuse.general.gui.frame.PortableCraftingContainer
+import net.machinemuse.numina.scala.OptionCast
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.stats.AchievementList
-import net.minecraft.world.World
-import net.machinemuse.numina.scala.OptionCast
 import net.minecraft.util.math.BlockPos
+import net.minecraft.world.World
 import net.minecraftforge.fml.common.network.IGuiHandler
 import net.minecraftforge.fml.relauncher.{Side, SideOnly}
 

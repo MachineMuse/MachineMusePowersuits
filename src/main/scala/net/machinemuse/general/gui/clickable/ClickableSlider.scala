@@ -1,9 +1,8 @@
 package net.machinemuse.general.gui.clickable
 
-import java.lang.String
 import net.machinemuse.numina.general.MuseMathUtils
-import net.machinemuse.utils.render.MuseRenderer
 import net.machinemuse.numina.geometry.{Colour, DrawableMuseRect, MusePoint2D}
+import net.machinemuse.utils.render.MuseRenderer
 
 /**
  * Author: MachineMuse (Claire Semple)

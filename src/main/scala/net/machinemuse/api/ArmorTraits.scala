@@ -1,11 +1,11 @@
 package net.machinemuse.api
 
+import forestry.api.apiculture.IArmorApiarist
+import net.machinemuse.powersuits.powermodule.armor.ApiaristArmorModule
+import net.machinemuse.utils.ElectricItemUtils
+import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.{ItemArmor, ItemStack}
-import net.machinemuse.utils.ElectricItemUtils
-import net.machinemuse.powersuits.powermodule.armor.{HazmatModule, ApiaristArmorModule}
-import forestry.api.apiculture.IArmorApiarist
-import net.minecraft.entity.EntityLivingBase
 import net.minecraftforge.fml.common.Optional
 
 //import atomicscience.api.IAntiPoisonArmor
@@ -24,9 +24,9 @@ with ApiaristArmor {
 trait ApiaristArmor extends IArmorApiarist {
 
   @Optional.Method(modid = "Forestry")
-  def protectPlayer(player: EntityPlayer, armor: ItemStack, cause: String, doProtect: Boolean): Boolean = {
-    if (ModuleManager.itemHasActiveModule(armor, ApiaristArmorModule.MODULE_APIARIST_ARMOR)) {
-      ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(armor, ApiaristArmorModule.APIARIST_ARMOR_ENERGY_CONSUMPTION))
+  def protectEntity(entityLivingBase: EntityLivingBase, armor: ItemStack, cause: String, doProtect: Boolean): Boolean = {
+    if (ModuleManager.itemHasActiveModule(armor, ApiaristArmorModule.MODULE_APIARIST_ARMOR) && entityLivingBase.isInstanceOf[EntityPlayer]) {
+      ElectricItemUtils.drainPlayerEnergy(entityLivingBase.asInstanceOf[EntityPlayer], ModuleManager.computeModularProperty(armor, ApiaristArmorModule.APIARIST_ARMOR_ENERGY_CONSUMPTION))
       true
     } else false
   }

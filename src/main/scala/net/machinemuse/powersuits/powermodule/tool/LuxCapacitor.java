@@ -4,6 +4,7 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
@@ -11,8 +12,12 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -55,7 +60,7 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
     }
 
     @Override
-    public void onRightClick(EntityPlayer player, World world, ItemStack itemStack) {
+    public ActionResult onRightClick(EntityPlayer player, World world, ItemStack itemStack, EnumHand hand) {
 //        player.setItemInUse(itemStack, 10);
         if (!world.isRemote) {
             double energyConsumption = ModuleManager.computeModularProperty(itemStack, ENERGY);
@@ -63,18 +68,23 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
             if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
                 ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
 
-                double red = ModuleManager.computeModularProperty(itemStack, RED);
-                double green = ModuleManager.computeModularProperty(itemStack, GREEN);
-                double blue = ModuleManager.computeModularProperty(itemStack, BLUE);
-                EntityLuxCapacitor luxCapacitor = new EntityLuxCapacitor(world, player, red, green, blue);
+                Colour colour = new Colour(0);
+                colour.r = ModuleManager.computeModularProperty(itemStack, RED);
+                colour.g = ModuleManager.computeModularProperty(itemStack, GREEN);
+                colour.b = ModuleManager.computeModularProperty(itemStack, BLUE);
+                colour.a = 1;
+
+                EntityLuxCapacitor luxCapacitor = new EntityLuxCapacitor(world, player, colour.getInt());
                 world.spawnEntityInWorld(luxCapacitor);
             }
+            return ActionResult.newResult(EnumActionResult.SUCCESS, itemStack);
         }
+        return ActionResult.newResult(EnumActionResult.FAIL, itemStack);
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-
+    public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        return null;
     }
 
     @Override
@@ -86,6 +96,11 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public EnumAction getItemUseAction(ItemStack stack) {
+        return EnumAction.BOW;
     }
 
     @Override

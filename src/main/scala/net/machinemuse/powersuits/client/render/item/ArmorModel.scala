@@ -1,15 +1,14 @@
 package net.machinemuse.powersuits.client.render.item
 
+import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.powersuits.client.render.modelspec._
+import net.minecraft.client.model.ModelBiped.ArmPose
 import net.minecraft.client.model.{ModelBiped, ModelRenderer}
-import net.minecraft.entity.Entity
-import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.{Entity, EntityLivingBase}
+import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.{EnumAction, ItemStack}
 import net.minecraft.nbt.NBTTagCompound
-import net.machinemuse.numina.general.MuseLogger
-import net.minecraft.client.model.ModelBiped.ArmPose
-import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.util.EnumHandSide
 import net.minecraftforge.client.model.obj.OBJModel
 
@@ -18,7 +17,7 @@ object ArmorModel {
 }
 
 trait ArmorModel extends ModelBiped {
-  var renderSpec: NBTTagCompound = null
+  var renderSpec: NBTTagCompound = _
   var visibleSection: EntityEquipmentSlot = EntityEquipmentSlot.HEAD // TODO is this the right one to start with?
 
   def clearAndAddChildWithInitialOffsets(mr: ModelRenderer, xo: Float, yo: Float, zo: Float) {
@@ -36,19 +35,24 @@ trait ArmorModel extends ModelBiped {
     clearAndAddChildWithInitialOffsets(bipedRightLeg, 2, 12.0F, 0.0F)
     clearAndAddChildWithInitialOffsets(bipedLeftLeg, -2, 12.0F, 0.0F)
     bipedHeadwear.cubeList.clear()
-//    bipedEars.cubeList.clear()
-//    bipedCloak.cubeList.clear()
   }
 
-  // FIXME: needs to
+  // FIXME: convert to new model loader format
+  /*
+   * Look at forge example for an idea how to do this.
+   */
+
+
+
   private def logModelParts(model: OBJModel) {
-//    MuseLogger.logDebug(model.toString + ":")
-//    import scala.collection.JavaConversions._
-//    for (group <- model.groupObjects) {
-//      MuseLogger.logDebug("-" + group.name)
-//    }
+    MuseLogger.logDebug(model.toString + ":")
+    val it = model.getMatLib.getGroups.keySet().iterator()
+    while (it.hasNext) {
+      val group  = it.next()
+      MuseLogger.logDebug("-" + group)
+      println("loading model group -" + group)
+    }
   }
-
 
   def setInitialOffsets(r: ModelRenderer, x: Float, y: Float, z: Float) {
     r.offsetX = x
@@ -56,29 +60,21 @@ trait ArmorModel extends ModelBiped {
     r.offsetZ = z
   }
 
-
-  def prep(entity: Entity, par2: Float, par3: Float, par4: Float, par5: Float, par6: Float, scale: Float) {
+  def prep(entity: Entity, limbSwing: Float, limbSwingAmount: Float, ageInTicks: Float, netHeadYaw: Float,  headPitch: Float, scale: Float) {
     try {
       val entLive: EntityLivingBase = entity.asInstanceOf[EntityLivingBase]
       val stack: ItemStack = entLive.getActiveItemStack
       if (stack != null) {
-        // FIXME:
-//        Error:(65, 13) Implementation restriction: trait ArmorModel accesses protected method getMainHand inside a concrete trait method.
-//        Add an accessor in a class extending class ModelBiped as a workaround.
-//        if (getMainHand(entLive) == EnumHandSide.LEFT)
-
-
-//        if (getMainHand(entLive) == EnumHandSide.LEFT)
-//          this.leftArmPose = ArmPose.ITEM
-//        else
-//          this.rightArmPose = ArmPose.ITEM
-//      } else {
-//        if (getMainHand(entLive) == EnumHandSide.LEFT)
-//          this.leftArmPose = ArmPose.EMPTY
-//        else
-//          this.rightArmPose = ArmPose.EMPTY
+        if (getMainHand(entLive) == EnumHandSide.LEFT)
+          this.leftArmPose = ArmPose.ITEM
+        else
+          this.rightArmPose = ArmPose.ITEM
+      } else {
+        if (getMainHand(entLive) == EnumHandSide.LEFT)
+          this.leftArmPose = ArmPose.EMPTY
+        else
+          this.rightArmPose = ArmPose.EMPTY
       }
-
 
       isSneak = entLive.isSneaking
       isRiding = entLive.isRiding
@@ -87,20 +83,15 @@ trait ArmorModel extends ModelBiped {
       {
         val enumaction = stack.getItemUseAction
         if (enumaction == EnumAction.BLOCK) {
-          // FIXME:
-//          Error:(95, 15) Implementation restriction: trait ArmorModel accesses protected method getMainHand inside a concrete trait method.
-//          Add an accessor in a class extending class ModelBiped as a workaround.
-//          if (getMainHand(entLive) == EnumHandSide.LEFT)
-
-//          if (getMainHand(entLive) == EnumHandSide.LEFT)
-//            this.leftArmPose = ArmPose.BLOCK
-//          else
-//            this.rightArmPose = ArmPose.BLOCK
-//        } else if (enumaction == EnumAction.BOW) {
-//          if (getMainHand(entLive) == EnumHandSide.LEFT)
-//            this.leftArmPose = ArmPose.BOW_AND_ARROW
-//          else
-//            this.rightArmPose = ArmPose.BOW_AND_ARROW
+          if (getMainHand(entLive) == EnumHandSide.LEFT)
+            this.leftArmPose = ArmPose.BLOCK
+          else
+            this.rightArmPose = ArmPose.BLOCK
+        } else if (enumaction == EnumAction.BOW) {
+          if (getMainHand(entLive) == EnumHandSide.LEFT)
+            this.leftArmPose = ArmPose.BOW_AND_ARROW
+          else
+            this.rightArmPose = ArmPose.BOW_AND_ARROW
         }
       }
     } catch {
@@ -127,4 +118,7 @@ trait ArmorModel extends ModelBiped {
     rightArmPose = ArmPose.EMPTY
     isSneak = false
   }
+
+  // needed for "Implementation restriction error"
+  override def getMainHand(entityIn: Entity): EnumHandSide = super.getMainHand(entityIn)
 }

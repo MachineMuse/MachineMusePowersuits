@@ -6,14 +6,12 @@
 
 package net.machinemuse.powersuits.client.render.item;
 
-import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;
-import net.machinemuse.powersuits.client.render.entity.RenderPlasmaBolt;
+import net.machinemuse.powersuits.client.render.entity.EntityRenderPlasmaBolt;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -453,7 +451,7 @@ public class ToolModel extends ModelBase {
         if (boltSize != 0) {
             GL11.glTranslated(-1, 1, 16);
             GL11.glPushMatrix();
-            RenderPlasmaBolt.doRender(boltSize);
+            EntityRenderPlasmaBolt.doRender(boltSize);
             GL11.glPopMatrix();
         }
         RenderState.glowOff();
@@ -486,18 +484,18 @@ public class ToolModel extends ModelBase {
         pinky2.rotateAngleX = otherFingersFlex;
         thumb1.rotateAngleY = -thumbOpen;
         thumb2.rotateAngleY = -thumbFlex;
-
     }
 
     public void setPoseForPlayer(EntityPlayer player, ItemStack itemStack) {
-        if (player.isHandActive() && player.getHeldItemMainhand() != null
-                && ModuleManager.itemHasActiveModule(player.getHeldItemMainhand(), PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
-            setPose(1.5f, -1, 1.5f, -1, 1.5f, -1);
-            this.boltSize = player.getItemInUseCount() > 50 ? 50 : player.getItemInUseCount();
-        } else {
-            setPose(0.5f, -1, 0.5f, -1, 0.5f, -1);
-            this.boltSize = 0;
-        }
+//        if (player.
+//                isUsingItem() && player.getCurrentEquippedItem() != null
+//                && ModuleManager.itemHasActiveModule(player.getCurrentEquippedItem(), PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
+//            setPose(1.5f, -1, 1.5f, -1, 1.5f, -1);
+//            this.boltSize = player.getItemInUseDuration() > 50 ? 50 : player.getItemInUseDuration();
+//        } else {
+//            setPose(0.5f, -1, 0.5f, -1, 0.5f, -1);
+//            this.boltSize = 0;
+//        }
 
     }
 

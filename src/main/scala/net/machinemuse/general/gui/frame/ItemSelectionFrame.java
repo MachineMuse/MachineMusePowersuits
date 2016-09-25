@@ -22,12 +22,10 @@ public class ItemSelectionFrame extends ScrollableFrame {
     protected EntityPlayer player;
     protected List<MusePoint2D> itemPoints;
 
-    public ItemSelectionFrame(MusePoint2D topleft, MusePoint2D bottomright,
-                              Colour borderColour, Colour insideColour, EntityPlayer player) {
+    public ItemSelectionFrame(MusePoint2D topleft, MusePoint2D bottomright, Colour borderColour, Colour insideColour, EntityPlayer player) {
         super(topleft, bottomright, borderColour, insideColour);
         this.player = player;
-        List<Integer> slots = MuseItemUtils
-                .getModularItemSlotsInInventory(player.inventory);
+        List<Integer> slots = MuseItemUtils.getModularItemSlotsInInventory(player.inventory);
         loadPoints(slots.size());
         loadItems();
     }
@@ -36,14 +34,10 @@ public class ItemSelectionFrame extends ScrollableFrame {
         double centerx = (border.left() + border.right()) / 2;
         double centery = (border.top() + border.bottom()) / 2;
         itemPoints = new ArrayList();
-        List<MusePoint2D> targetPoints = GradientAndArcCalculator.pointsInLine(num,
-                new MusePoint2D(centerx, border.bottom()),
-                new MusePoint2D(centerx, border.top()));
+        List<MusePoint2D> targetPoints = GradientAndArcCalculator.pointsInLine(num, new MusePoint2D(centerx, border.bottom()), new MusePoint2D(centerx, border.top()));
         for (MusePoint2D point : targetPoints) {
             // Fly from middle over 200 ms
-            itemPoints.add(new FlyFromPointToPoint2D(
-                    new MusePoint2D(centerx, centery),
-                    point, 200));
+            itemPoints.add(new FlyFromPointToPoint2D(new MusePoint2D(centerx, centery), point, 200));
         }
     }
 
@@ -52,8 +46,7 @@ public class ItemSelectionFrame extends ScrollableFrame {
             itemButtons = new ArrayList<ClickableItem>();
             double centerx = (border.left() + border.right()) / 2;
             double centery = (border.top() + border.bottom()) / 2;
-            List<Integer> slots = MuseItemUtils
-                    .getModularItemSlotsInInventory(player.inventory);
+            List<Integer> slots = MuseItemUtils.getModularItemSlotsInInventory(player.inventory);
             if (slots.size() > itemPoints.size()) {
                 loadPoints(slots.size());
             }
@@ -61,9 +54,7 @@ public class ItemSelectionFrame extends ScrollableFrame {
                 Iterator<MusePoint2D> pointiterator = itemPoints.iterator();
 
                 for (int slot : slots) {
-                    ClickableItem clickie = new ClickableItem(
-                            player.inventory.getStackInSlot(slot),
-                            pointiterator.next(), slot);
+                    ClickableItem clickie = new ClickableItem(player.inventory.getStackInSlot(slot), pointiterator.next(), slot);
                     itemButtons.add(clickie);
                 }
             }
@@ -95,10 +86,7 @@ public class ItemSelectionFrame extends ScrollableFrame {
 
     private void drawSelection() {
         if (selectedItemStack != -1) {
-            MuseRenderer.drawCircleAround(
-                    Math.floor(itemButtons.get(selectedItemStack).getPosition().x()),
-                    Math.floor(itemButtons.get(selectedItemStack).getPosition().y()),
-                    10);
+            MuseRenderer.drawCircleAround(Math.floor(itemButtons.get(selectedItemStack).getPosition().x()), Math.floor(itemButtons.get(selectedItemStack).getPosition().y()), 10);
         }
     }
 

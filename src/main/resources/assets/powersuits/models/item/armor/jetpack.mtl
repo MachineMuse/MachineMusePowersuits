@@ -1,0 +1,13 @@
+newmtl initialShadingGroup
+Kd 0.00 0.00 0.00
+map_Kd diffuse.psd
+newmtl lambert3SG
+Kd 0.50 0.50 0.50
+newmtl lambert7SG
+Kd 1.00 1.00 1.00
+newmtl lambert11SG
+Kd 0.00 0.00 0.00
+map_Kd diffuse3.psd
+newmtl lambert13SG
+Kd 0.00 0.00 0.00
+map_Kd jetpack.psd

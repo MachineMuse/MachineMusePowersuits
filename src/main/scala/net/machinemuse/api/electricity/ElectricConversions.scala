@@ -1,8 +1,8 @@
 package net.machinemuse.api.electricity
 
-import net.minecraft.item.ItemStack
-import net.machinemuse.powersuits.common.ModCompatibility
 import net.machinemuse.api.ModuleManager
+import net.machinemuse.powersuits.common.ModCompatibility
+import net.minecraft.item.ItemStack
 
 /**
  * Author: MachineMuse (Claire Semple)

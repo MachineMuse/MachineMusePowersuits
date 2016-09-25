@@ -5,8 +5,10 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
+import net.machinemuse.powersuits.powermodule.PropertyModifierIntLinearAdditive;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
@@ -15,16 +17,16 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
-
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
-import net.machinemuse.powersuits.powermodule.PropertyModifierIntLinearAdditive;
-import net.machinemuse.powersuits.common.ModCompatibility;
-import net.machinemuse.powersuits.common.Config;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -152,11 +154,6 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
         valueMap.put("oreCertusQuartz", 5);
     }
 
-////    @Override
-////    public String getTextureFile() {
-////        return "orescanner";
-////    }
-//
     @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_TOOL;
@@ -178,12 +175,14 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public void onRightClick(EntityPlayer playerClicking, World world, ItemStack item) {
+    public ActionResult onRightClick(EntityPlayer player, World world, ItemStack item, EnumHand hand) {
+        return null;
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-        searchForValuables(itemStack, player, world, pos, side);
+    public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        searchForValuables(itemStack, player, world, pos, facing);
+        return null;
     }
 
     @Override
@@ -193,6 +192,11 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
+    }
+
+    @Override
+    public EnumAction getItemUseAction(ItemStack stack) {
+        return EnumAction.NONE;
     }
 
     @Override

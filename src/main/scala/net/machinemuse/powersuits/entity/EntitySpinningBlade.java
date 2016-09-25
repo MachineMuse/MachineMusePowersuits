@@ -21,6 +21,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class EntitySpinningBlade extends EntityThrowable {
@@ -93,7 +94,7 @@ public class EntitySpinningBlade extends EntityThrowable {
             if (block instanceof IShearable) {
                 IShearable target = (IShearable) block;
                 if (target.isShearable(this.shootingItem, world, hitMOP.getBlockPos()) && !world.isRemote) {
-                    ArrayList<ItemStack> drops = (ArrayList<ItemStack>) target.onSheared(this.shootingItem, world, hitMOP.getBlockPos(),
+                    List<ItemStack> drops = target.onSheared(this.shootingItem, world, hitMOP.getBlockPos(),
                             EnchantmentHelper.getEnchantmentLevel(Enchantment.getEnchantmentByLocation("fortune"), this.shootingItem));
                     Random rand = new Random();
 

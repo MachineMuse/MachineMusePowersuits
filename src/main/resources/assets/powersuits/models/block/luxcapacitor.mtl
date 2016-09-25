@@ -1,0 +1,14 @@
+# Blender MTL File: 'luxcapacitor.blend'
+# Material Count: 2
+
+newmtl Material__3.002
+Ka 0.588000 0.588000 0.588000
+Kd 0.588000 0.588000 0.588000
+d 1.000000
+map_Kd powersuits:models/luxcapacitor
+
+newmtl Material__3.003
+Ka 0.588000 0.588000 0.588000
+Kd 0.588000 0.588000 0.588000
+d 1.000000
+map_Kd powersuits:models/luxcapacitor

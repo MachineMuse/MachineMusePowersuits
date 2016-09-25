@@ -37,7 +37,6 @@ class MusePacketPlasmaBolt(player: EntityPlayer, entityID: Int, size: Double) ex
     }
     catch {
       case e: Exception => {
-        return
       }
     }
   }

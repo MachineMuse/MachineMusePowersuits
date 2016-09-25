@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.powermodule;
 
 import net.machinemuse.api.*;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.utils.MuseItemUtils;
@@ -10,7 +9,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-
 
 import java.util.*;
 
@@ -45,8 +43,6 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
     public TextureAtlasSprite getIcon(ItemStack item) {
         return icon;
     }
-
-//    public abstract String getTextureFile();
 
     @Override
     public List<ItemStack> getInstallCost() {

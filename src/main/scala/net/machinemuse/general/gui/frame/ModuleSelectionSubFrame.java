@@ -1,10 +1,10 @@
 package net.machinemuse.general.gui.frame;
 
 import net.machinemuse.api.IPowerModule;
+import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.geometry.MuseRect;
 import net.machinemuse.numina.geometry.MuseRelativeRect;
-import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.utils.render.MuseRenderer;
 
 import java.util.ArrayList;

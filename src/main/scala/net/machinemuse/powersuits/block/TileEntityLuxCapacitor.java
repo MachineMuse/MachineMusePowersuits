@@ -1,75 +1,83 @@
 package net.machinemuse.powersuits.block;
 
 import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.tileentity.MuseTileEntity;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+
 
 public class TileEntityLuxCapacitor extends MuseTileEntity {
-    public double red;
-    public double green;
-    public double blue;
-    public EnumFacing side;
+    private EnumFacing side;
+    private Colour color = new Colour(0);
 
     public TileEntityLuxCapacitor() {
-        side = EnumFacing.DOWN;
-        red = 0;
-        green = 0.2;
-        blue = 0.9;
+        side = EnumFacing.UP;
+        this.color.r = 0;
+        this.color.g = 0.2;
+        this.color.b = 0.9;
+        this.color.a = 1;
+    }
+
+    public TileEntityLuxCapacitor(EnumFacing side, Colour color) {
+        this.side = side;
+        this.color = color;
     }
 
     public TileEntityLuxCapacitor(EnumFacing side, double red, double green, double blue) {
         this.side = side;
-        this.red = red;
-        this.green = green;
-        this.blue = blue;
+        this.color.r = red;
+        this.color.g = green;
+        this.color.b = blue;
+        this.color.a = 1;
     }
 
-    @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
-        super.writeToNBT(nbt);
-        nbt.setInteger("s", side.ordinal());
-        nbt.setDouble("r", red);
-        nbt.setDouble("g", green);
-        nbt.setDouble("b", blue);
-        return nbt;
+    public EnumFacing getFacing() {
+        return this.side;
     }
 
+    public void setFacing(EnumFacing facing) {
+        this.side = facing;
+    }
+
+
+    public Colour getColor() {
+        return this.color;
+    }
+
+    public void setColor(Colour color) {
+        this.color = color;
+    }
+    
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
+
         if (nbt.hasKey("s")) {
             side = EnumFacing.values()[nbt.getInteger("s")];
         } else {
             MuseLogger.logDebug("No NBT found! D:");
         }
-        if (nbt.hasKey("r")) {
-            red = nbt.getDouble("r");
+
+        if (nbt.hasKey("c")) {
+            color = new Colour(nbt.getInteger("c"));
+
         } else {
             MuseLogger.logDebug("No NBT found! D:");
         }
-        if (nbt.hasKey("g")) {
-            green = nbt.getDouble("g");
-        } else {
-            MuseLogger.logDebug("No NBT found! D:");
-        }
-        if (nbt.hasKey("b")) {
-            blue = nbt.getDouble("b");
-        } else {
-            MuseLogger.logDebug("No NBT found! D:");
-        }
+        color.a = 1;
     }
 
-    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate)
-    {
-        return (oldState.getBlock() != newSate.getBlock());
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+        super.writeToNBT(nbt);
+        nbt.setInteger("s", side.getIndex());
+        nbt.setInteger("c", color.getInt());
+
+        nbt.setInteger("x", this.pos.getX());
+        nbt.setInteger("y", this.pos.getY());
+        nbt.setInteger("z", this.pos.getZ());
+
+        return nbt;
     }
-//
-//    @Override
-//    public boolean canUpdate() {
-//        return false;
-//    }
 }

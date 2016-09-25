@@ -1,16 +1,17 @@
 package net.machinemuse.powersuits.client.render.modelspec
 
-import scala.xml.{NodeSeq, XML}
 import java.awt.Color
-
-import net.machinemuse.utils.MuseStringUtils
 import java.net.URL
 
 import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.geometry.Colour
+import net.machinemuse.utils.MuseStringUtils
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.Vec3d
+import net.minecraftforge.client.model.obj.OBJModel
+
+import scala.xml.{NodeSeq, XML}
 
 
 /**
@@ -68,12 +69,11 @@ object ModelSpecXMLReader {
   }
 
   def validatePolygroup(s: String, m: ModelSpec): Option[String] = {
-    //FIXME !!!!
-//    val it = m.model.groupObjects.iterator
-//    while (it.hasNext) {
-//      if (it.next().name.equals(s)) return Some(s)
-//    }
-    return None
+    val it = m.model.asInstanceOf[OBJModel].getMatLib.getGroups.keySet().iterator()
+    while (it.hasNext)
+      if (it.next().equals(s))
+        return Some(s)
+    None
   }
 
   def parseBool(s: String): Option[Boolean] = {
@@ -99,23 +99,19 @@ object ModelSpecXMLReader {
       case "rightarm" => Some(RightArm)
       case "leftleg" => Some(LeftLeg)
       case "rightleg" => Some(RightLeg)
-//      case "cloak" => Some(Cloak)
       case _ => None
     }
   }
 
   def parseArmorSlot(s: String): Option[EntityEquipmentSlot] = {
-    // FIXME
-
-//    s.toUpperCase match {
-//      case "FEET" => Some(EntityEquipmentSlot.FEET)
-//      case "LEGS" => Some(EntityEquipmentSlot.LEGS)
-//      case "CHEST" => Some(EntityEquipmentSlot.CHEST)
-//      case "HEAD" => Some(EntityEquipmentSlot.HEAD)
-//      case "MAINHAND" => Some(EntityEquipmentSlot.MAINHAND)
-//      case "OFFHAND" => Some(EntityEquipmentSlot.OFFHAND)
-//    }
-    return Some(EntityEquipmentSlot.OFFHAND)
+    s.toUpperCase match {
+      case "FEET" => Some(EntityEquipmentSlot.FEET)
+      case "LEGS" => Some(EntityEquipmentSlot.LEGS)
+      case "CHEST" => Some(EntityEquipmentSlot.CHEST)
+      case "HEAD" => Some(EntityEquipmentSlot.HEAD)
+      case "MAINHAND" => Some(EntityEquipmentSlot.MAINHAND)
+      case "OFFHAND" => Some(EntityEquipmentSlot.OFFHAND)
+    }
   }
 
   def parseInt(s: String): Option[Int] = {

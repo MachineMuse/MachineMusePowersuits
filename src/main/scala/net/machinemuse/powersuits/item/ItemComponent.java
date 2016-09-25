@@ -1,8 +1,5 @@
 package net.machinemuse.powersuits.item;
 
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.resources.I18n;
@@ -10,18 +7,13 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItemComponent extends Item {
-    public static int assignedItemID;
-
     public static List<String> iconNames;
     public static List<String> names;
     public static List<String> descriptions;
@@ -56,9 +48,9 @@ public class ItemComponent extends Item {
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setCreativeTab(Config.getCreativeTab());
-        iconNames = new ArrayList<String>();
-        names = new ArrayList<String>();
-        descriptions = new ArrayList<String>();
+        this.iconNames = new ArrayList<>();
+        this.names = new ArrayList<>();
+        this.descriptions = new ArrayList<>();
     }
 
     public ItemStack addComponent(String oredictName, String description, String iconName) {
@@ -67,16 +59,6 @@ public class ItemComponent extends Item {
         descriptions.add(description);
         ItemStack stack = new ItemStack(this, 1, names.size() - 1);
 
-        //oredict compares itemIDs and damage values only
-        OreDictionary.registerOre(oredictName, stack);
-        return stack;
-    }
-
-    public ItemStack addComponent(int id, String oredictName, String description, String iconName) {
-        names.add(oredictName);
-        iconNames.add(iconName);
-        descriptions.add(description);
-        ItemStack stack = new ItemStack(this, 1, names.size() - 1);
         //oredict compares itemIDs and damage values only
         OreDictionary.registerOre(oredictName, stack);
         return stack;

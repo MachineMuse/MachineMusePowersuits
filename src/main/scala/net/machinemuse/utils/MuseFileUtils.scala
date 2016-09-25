@@ -1,6 +1,7 @@
 package net.machinemuse.utils
 
-import java.io.{FileInputStream, FileOutputStream, File}
+import java.io.{File, FileInputStream, FileOutputStream}
+
 import net.machinemuse.numina.general.MuseLogger
 
 /**

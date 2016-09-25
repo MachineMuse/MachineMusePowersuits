@@ -6,7 +6,6 @@ package net.machinemuse.general;
 import net.machinemuse.numina.general.MuseLogger;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagInt;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

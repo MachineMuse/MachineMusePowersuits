@@ -6,6 +6,7 @@ import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
+import net.machinemuse.powersuits.powermodule.PropertyModifierIntLinearAdditive;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
@@ -14,11 +15,15 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.machinemuse.powersuits.powermodule.PropertyModifierIntLinearAdditive;
+
 import java.util.List;
 
 
@@ -71,17 +76,13 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
         return "Create a torrent of air to knock plants out of the ground and leaves off of trees.";
     }
 
-//    @Override
-//    public String getTextureFile() {
-//        return "leafblower";
-//    }
-
     @Override
-    public void onRightClick(EntityPlayer player, World world, ItemStack item) {
+    public ActionResult onRightClick(EntityPlayer player, World world, ItemStack item, EnumHand hand) {
+        return ActionResult.newResult(EnumActionResult.PASS, item);
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         Block blockID = world.getBlockState(pos).getBlock();
         int plant = (int) ModuleManager.computeModularProperty(itemStack, PLANT_RADIUS);
         int leaf = (int) ModuleManager.computeModularProperty(itemStack, LEAF_RADIUS);
@@ -94,6 +95,7 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
         useBlower(leaf, "leaves", itemStack, player, world,  pos);
         // Snow
         useBlower(snow, "snow", itemStack, player, world,  pos);
+        return EnumActionResult.PASS;
     }
 
     @Override
@@ -147,6 +149,11 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
 
+    }
+
+    @Override
+    public EnumAction getItemUseAction(ItemStack stack) {
+        return EnumAction.NONE;
     }
 
     @Override

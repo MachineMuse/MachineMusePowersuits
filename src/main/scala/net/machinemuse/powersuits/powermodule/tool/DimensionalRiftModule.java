@@ -1,22 +1,22 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.general.gui.MuseIcon;
-import net.machinemuse.utils.MPSTeleporter;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseHeatUtils;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.utils.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -60,10 +60,9 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
     }
 
     @Override
-    public void onRightClick(EntityPlayer playerClicking, World world, ItemStack item) {
-
-        if ((playerClicking.getRidingEntity() == null) && (playerClicking.getPassengers().isEmpty()) && ((playerClicking instanceof EntityPlayerMP))) {
-            EntityPlayerMP thePlayer = (EntityPlayerMP) playerClicking;
+    public ActionResult onRightClick(EntityPlayer player, World world, ItemStack item, EnumHand hand) {
+        if ((player.getRidingEntity() == null) && (player.getPassengers().isEmpty()) && ((player instanceof EntityPlayerMP))) {
+            EntityPlayerMP thePlayer = (EntityPlayerMP) player;
             if (thePlayer.dimension != -1) {
                 thePlayer.setLocationAndAngles(0.5D, thePlayer.posY, 0.5D, thePlayer.rotationYaw, thePlayer.rotationPitch);
                 thePlayer.mcServer.getPlayerList().transferPlayerToDimension(thePlayer, -1, new MPSTeleporter(thePlayer.mcServer.worldServerForDimension(-1)));
@@ -88,12 +87,12 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
             ElectricItemUtils.drainPlayerEnergy(thePlayer, ModuleManager.computeModularProperty(item, DIMENSIONAL_RIFT_ENERGY_GENERATION));
             MuseHeatUtils.heatPlayer(thePlayer, ModuleManager.computeModularProperty(item, DIMENSIONAL_RIFT_HEAT_GENERATION));
         }
-
+        return ActionResult.newResult(EnumActionResult.PASS, item);
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-
+    public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        return null;
     }
 
     @Override
@@ -104,6 +103,11 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
 
+    }
+
+    @Override
+    public EnumAction getItemUseAction(ItemStack stack) {
+        return EnumAction.NONE;
     }
 
     @Override

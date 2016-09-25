@@ -15,12 +15,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
-
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -72,18 +69,19 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
     }
 
     @Override
-    public void onRightClick(EntityPlayer player, World world, ItemStack item) {
+    public ActionResult onRightClick(EntityPlayer player, World world, ItemStack item, EnumHand hand) {
+        return ActionResult.newResult(EnumActionResult.PASS, item);
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         double energyConsumption = ModuleManager.computeModularProperty(itemStack, IGNITION_ENERGY_CONSUMPTION);
         if (energyConsumption < ElectricItemUtils.getPlayerEnergy(player)) {
-            pos = pos.add(/* X */ (side == EnumFacing.EAST ? 1 : side == EnumFacing.WEST ? -1 : 0),
-                        /* Y */ (side == EnumFacing.UP ? 1 : side == EnumFacing.DOWN ? -1 : 0),
-                        /* Z */(side == EnumFacing.SOUTH ? 1 : side == EnumFacing.NORTH ? -1 : 0));
+            pos = pos.add(/* X */ (facing == EnumFacing.EAST ? 1 : facing == EnumFacing.WEST ? -1 : 0),
+                        /* Y */ (facing == EnumFacing.UP ? 1 : facing == EnumFacing.DOWN ? -1 : 0),
+                        /* Z */(facing == EnumFacing.SOUTH ? 1 : facing == EnumFacing.NORTH ? -1 : 0));
 
-            if (player.canPlayerEdit(pos, side, itemStack)) {
+            if (player.canPlayerEdit(pos, facing, itemStack)) {
                 Block clickedBlock = world.getBlockState(pos).getBlock();
                 if (clickedBlock == Blocks.AIR) {
                     ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
@@ -92,6 +90,7 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
                 }
             }
         }
+        return EnumActionResult.SUCCESS;
     }
 
     @Override
@@ -101,5 +100,10 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
 
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
+    }
+
+    @Override
+    public EnumAction getItemUseAction(ItemStack stack) {
+        return EnumAction.BOW;
     }
 }

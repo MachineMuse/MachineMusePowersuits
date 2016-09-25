@@ -5,15 +5,14 @@ import java.util
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.general.gui.{EnergyMeter, HeatMeter, WaterMeter}
 import net.machinemuse.numina.network.{MusePacket, PacketSender}
-import net.machinemuse.powersuits.block.BlockTinkerTable
 import net.machinemuse.powersuits.common.Config
 import net.machinemuse.powersuits.control.{KeybindManager, PlayerInputMap}
 import net.machinemuse.powersuits.item.{ItemPowerArmorChestplate, ItemPowerArmorHelmet, ItemPowerFist}
 import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate
 import net.machinemuse.powersuits.powermodule.armor.WaterTankModule
 import net.machinemuse.powersuits.powermodule.misc.{AutoFeederModule, ClockModule, CompassModule}
+import net.machinemuse.utils._
 import net.machinemuse.utils.render.MuseRenderer
-import net.machinemuse.utils.{AddonWaterUtils, ElectricItemUtils, MuseHeatUtils, MuseItemUtils, MuseStringUtils}
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.client.gui.ScaledResolution
@@ -179,9 +178,9 @@ class ClientTickHandler {
     }
   }
 
-  protected var heat: HeatMeter = null
-  protected var energy: HeatMeter = null
-  protected var water : WaterMeter = null
+  protected var heat: HeatMeter = _
+  protected var energy: HeatMeter = _
+  protected var water : WaterMeter = _
   private var lightningCounter: Int = 0
 
   private def drawMeters(player: EntityPlayer, screen: ScaledResolution) {

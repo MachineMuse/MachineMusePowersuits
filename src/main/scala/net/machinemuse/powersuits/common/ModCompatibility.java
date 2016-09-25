@@ -2,12 +2,13 @@ package net.machinemuse.powersuits.common;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.powersuits.powermodule.armor.ApiaristArmorModule;
 import net.machinemuse.powersuits.powermodule.armor.HazmatModule;
 import net.machinemuse.powersuits.powermodule.misc.AirtightSealModule;
 import net.machinemuse.powersuits.powermodule.misc.ThaumGogglesModule;
-import net.machinemuse.powersuits.powermodule.tool.*;
+import net.machinemuse.powersuits.powermodule.tool.GrafterModule;
+import net.machinemuse.powersuits.powermodule.tool.OmniProbeModule;
+import net.machinemuse.powersuits.powermodule.tool.ScoopModule;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModAPIManager;

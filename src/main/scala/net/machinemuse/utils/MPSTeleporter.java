@@ -1,7 +1,6 @@
 package net.machinemuse.utils;
 
-import java.util.*;
-
+import net.machinemuse.powersuits.entity.TileEntityPortal;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
@@ -10,7 +9,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Teleporter;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
-import net.machinemuse.powersuits.entity.TileEntityPortal;
+
+import java.util.*;
 
 public class MPSTeleporter extends Teleporter {
     private final WorldServer worldServerInstance;

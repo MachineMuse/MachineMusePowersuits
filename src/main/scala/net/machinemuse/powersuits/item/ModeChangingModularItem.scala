@@ -1,12 +1,11 @@
 package net.machinemuse.powersuits.item
 
-import net.machinemuse.numina.item.{NuminaItemUtils, ModeChangingItem}
-import net.minecraft.client.renderer.texture.TextureAtlasSprite
-import net.minecraft.item.ItemStack
 import net.machinemuse.api.ModuleManager
-import net.machinemuse.api.moduletrigger.IRightClickModule
-import net.minecraft.entity.player.EntityPlayer
+import net.machinemuse.numina.item.{ModeChangingItem, NuminaItemUtils}
 import net.machinemuse.numina.scala.OptionCast
+import net.minecraft.client.renderer.texture.TextureAtlasSprite
+import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.ItemStack
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -48,7 +47,7 @@ trait ModeChangingModularItem extends ModeChangingItem {
       modeFromNBT
     } else {
       val validModes = getValidModes(stack)
-      if (!validModes.isEmpty) {
+      if (validModes.nonEmpty) {
         validModes(0)
       } else {
         ""

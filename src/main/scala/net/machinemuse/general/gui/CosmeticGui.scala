@@ -2,8 +2,6 @@ package net.machinemuse.general.gui
 
 import net.machinemuse.general.gui.frame._
 import net.machinemuse.numina.geometry.{Colour, MusePoint2D, MuseRect}
-import net.machinemuse.powersuits.common.Config
-import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 
@@ -12,8 +10,8 @@ import net.minecraft.item.ItemStack
  * Created: 6:32 PM, 29/04/13
  */
 class CosmeticGui(val player: EntityPlayer, val worldx: Int, val worldy: Int, val worldz: Int) extends MuseGui {
-  var itemSelect: ItemSelectionFrame = null
-  var lastSelectedItem: ItemStack = null
+  var itemSelect: ItemSelectionFrame = _
+  var lastSelectedItem: ItemStack = _
   this.xSize = 256
   this.ySize = 200
 

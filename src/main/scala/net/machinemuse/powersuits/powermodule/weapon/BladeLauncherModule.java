@@ -12,8 +12,12 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -51,17 +55,18 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
         return "Launches a spinning blade of death (or shearing).";
     }
 
-
     @Override
-    public void onRightClick(EntityPlayer player, World world, ItemStack stack) {
+    public ActionResult onRightClick(EntityPlayer player, World world, ItemStack stack, EnumHand hand) {
         if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, BLADE_ENERGY)) {
-//            player.setItemInUse(stack, 72000);
+            player.setActiveHand(hand);
+            return new ActionResult(EnumActionResult.SUCCESS, this);
         }
+        return new ActionResult(EnumActionResult.FAIL, this);
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-
+    public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        return null;
     }
 
     @Override
@@ -71,9 +76,6 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
 
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
-        // int chargeTicks = Math.max(itemStack.getMaxItemUseDuration() - par4,
-        // 10);
-
         if (!world.isRemote) {
             double energyConsumption = ModuleManager.computeModularProperty(itemStack, BLADE_ENERGY);
             if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
@@ -83,6 +85,11 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
                 world.spawnEntityInWorld(blade);
             }
         }
+    }
+
+    @Override
+    public EnumAction getItemUseAction(ItemStack stack) {
+        return EnumAction.BOW;
     }
 
     @Override

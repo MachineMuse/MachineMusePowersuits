@@ -1,11 +1,12 @@
 package net.machinemuse.general.gui.frame
 
-import net.machinemuse.numina.geometry.MusePoint2D
 import java.util
+
 import net.machinemuse.general.gui.clickable.ClickableButton
+import net.machinemuse.numina.geometry.MusePoint2D
+import net.machinemuse.powersuits.common.ModularPowersuits
 import net.minecraft.client.resources.I18n
 import net.minecraft.entity.player.EntityPlayer
-import net.machinemuse.powersuits.common.ModularPowersuits
 
 /**
  * @author MachineMuse

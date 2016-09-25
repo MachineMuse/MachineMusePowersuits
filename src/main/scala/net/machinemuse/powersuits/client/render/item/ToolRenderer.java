@@ -2,12 +2,11 @@
 //
 //import net.machinemuse.numina.geometry.Colour;
 //import net.machinemuse.numina.render.MuseIconUtils;
-//import net.machinemuse.powersuits.client.render.entity.MuseRender;
+//import net.machinemuse.powersuits.client.render.entity.MuseEntityRender;
 //import net.machinemuse.powersuits.common.MPSItems;
 //import net.machinemuse.powersuits.common.ModularPowersuits;
 //import net.machinemuse.powersuits.item.ItemPowerFist;
 //import net.minecraft.client.Minecraft;
-//import net.minecraft.client.entity.EntityPlayerSP;
 //import net.minecraft.client.renderer.entity.Render;
 //import net.minecraft.client.renderer.entity.RenderManager;
 //import net.minecraft.client.renderer.entity.RenderPlayer;
@@ -28,7 +27,7 @@
 // *
 // * @author MachineMuse
 // */
-//public class ToolRenderer extends MuseRender implements IItemRenderer {
+//public class ToolRenderer extends MuseEntityRender implements IItemRenderer {
 //    public ToolModel model = new ToolModel();
 //
 //    /**
@@ -130,7 +129,7 @@
 //
 //    }
 //
-//    public void renderFirstPersonArm(EntityPlayerSP entityclientplayermp, float par1) {
+//    public void renderFirstPersonArm(EntityClientPlayerMP entityclientplayermp, float par1) {
 //        Minecraft mc = Minecraft.getMinecraft();
 //        float changeItemProgress = 0;
 //

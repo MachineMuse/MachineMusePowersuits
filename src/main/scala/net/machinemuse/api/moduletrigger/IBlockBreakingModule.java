@@ -1,7 +1,6 @@
 package net.machinemuse.api.moduletrigger;
 
 import net.machinemuse.api.IPowerModule;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

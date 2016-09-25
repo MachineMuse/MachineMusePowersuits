@@ -1,35 +1,28 @@
 package net.machinemuse.powersuits.common
 
-import java.nio.file.{Paths, Files}
+import java.io.{File, PrintWriter}
+import java.nio.file.Files
+import java.util.{Arrays, Collections, List}
 
 import com.google.gson.Gson
-import net.machinemuse.api.IModularItem
-import net.machinemuse.api.IPowerModule
-import net.machinemuse.api.ModuleManager
+import net.machinemuse.api.{IModularItem, IPowerModule, ModuleManager}
 import net.machinemuse.numina.basemod.Numina
 import net.machinemuse.numina.general.MuseLogger
-import net.machinemuse.numina.geometry.MusePoint2D
-import net.machinemuse.powersuits.item.ItemComponent
 import net.machinemuse.powersuits.powermodule.armor._
 import net.machinemuse.powersuits.powermodule.energy._
 import net.machinemuse.powersuits.powermodule.misc._
 import net.machinemuse.powersuits.powermodule.movement._
 import net.machinemuse.powersuits.powermodule.tool._
 import net.machinemuse.powersuits.powermodule.weapon._
-import net.machinemuse.utils.{MuseCommonStrings, MuseStringUtils}
+import net.machinemuse.utils.MuseStringUtils
 import net.minecraft.client.resources.I18n
 import net.minecraft.creativetab.CreativeTabs
-import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
 import net.minecraftforge.common.config.Configuration
 import net.minecraftforge.fml.common.FMLCommonHandler
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import org.lwjgl.input.Keyboard
-import java.io.{PrintWriter, FileOutputStream, FileInputStream, File}
-import java.util.Arrays
-import java.util.Collections
-import java.util.List
 
 import scala.io.Source
 
@@ -105,7 +98,7 @@ object Config {
    * @return
    */
   def getNetworkChannelName: String = {
-    return "powerSuits"
+    "powerSuits"
   }
 
   /**
@@ -116,7 +109,7 @@ object Config {
    * @return
    */
   def getCreativeTab: CreativeTabs = {
-    return MPSCreativeTab
+    MPSCreativeTab
   }
 
   /**
@@ -125,7 +118,7 @@ object Config {
    * @return percent chance, 0.0 to 1.0
    */
   def getSalvageChance: Double = {
-    return config.get(Configuration.CATEGORY_GENERAL, "Salvage Ratio", 0.9).getDouble(0.9)
+    config.get(Configuration.CATEGORY_GENERAL, "Salvage Ratio", 0.9).getDouble(0.9)
   }
 
   /**
@@ -135,15 +128,15 @@ object Config {
    * @return
    */
   def getMaximumArmorPerPiece: Double = {
-    return Math.max(0.0, config.get(Configuration.CATEGORY_GENERAL, "Maximum Armor per Piece", 6.0).getDouble(6.0))
+    Math.max(0.0, config.get(Configuration.CATEGORY_GENERAL, "Maximum Armor per Piece", 6.0).getDouble(6.0))
   }
 
   def getMaximumFlyingSpeedmps: Double = {
-    return config.get(Configuration.CATEGORY_GENERAL, "Maximum flight speed (in m/s)", 25.0).getDouble(25.0)
+    config.get(Configuration.CATEGORY_GENERAL, "Maximum flight speed (in m/s)", 25.0).getDouble(25.0)
   }
 
   def useMouseWheel: Boolean = {
-    return config.get(Configuration.CATEGORY_GENERAL, "Use Mousewheel to change modes", true).getBoolean(true)
+    config.get(Configuration.CATEGORY_GENERAL, "Use Mousewheel to change modes", true).getBoolean(true)
   }
 
   def addModule(module: IPowerModule) {
@@ -154,27 +147,27 @@ object Config {
    *
    */
   def appengMultiplier: Double = {
-    return config.get(Configuration.CATEGORY_GENERAL, "Energy per AE", 5.0).getDouble(5.0)
+    config.get(Configuration.CATEGORY_GENERAL, "Energy per AE", 5.0).getDouble(5.0)
   }
 
   def useAdvancedOreScannerMessage: Boolean = {
-    return config.get(Configuration.CATEGORY_GENERAL, "Use Detailed Ore Scanner Message", true).getBoolean(true)
+    config.get(Configuration.CATEGORY_GENERAL, "Use Detailed Ore Scanner Message", true).getBoolean(true)
   }
 
   def useOldAutoFeeder: Boolean = {
-    return config.get(Configuration.CATEGORY_GENERAL, "Use Old Auto Feeder Method", false).getBoolean(false);
+    config.get(Configuration.CATEGORY_GENERAL, "Use Old Auto Feeder Method", false).getBoolean(false)
   }
 
   def useCheatyLeatherRecipe: Boolean = {
-    return config.get(Configuration.CATEGORY_GENERAL, "Use Cheaty Leather Recipe (Requires Thermal Expansion)", true).getBoolean(true)
+    config.get(Configuration.CATEGORY_GENERAL, "Use Cheaty Leather Recipe (Requires Thermal Expansion)", true).getBoolean(true)
   }
 
   def useHUDStuff: Boolean = {
-    return config.get(Configuration.CATEGORY_GENERAL, "Use HUD for certain modules (Auto Feeder, Compass, Clock, etc.", true).getBoolean(true)
+    config.get(Configuration.CATEGORY_GENERAL, "Use HUD for certain modules (Auto Feeder, Compass, Clock, etc.", true).getBoolean(true)
   }
 
   def use24hClock: Boolean  = {
-    return config.get(Configuration.CATEGORY_GENERAL, "Use a 24h clock instead of 12h", false).getBoolean(false)
+    config.get(Configuration.CATEGORY_GENERAL, "Use a 24h clock instead of 12h", false).getBoolean(false)
   }
 
 
@@ -209,6 +202,7 @@ object Config {
     addModule(new BasicBatteryModule(ALLITEMS))
     addModule(new AdvancedBatteryModule(ALLITEMS))
     addModule(new EliteBatteryModule(ALLITEMS))
+    addModule(new UltimateBatteryModule(ALLITEMS))
     addModule(new ParachuteModule(TORSOONLY))
     addModule(new GliderModule(TORSOONLY))
     addModule(new JetPackModule(TORSOONLY))
@@ -230,29 +224,29 @@ object Config {
     addModule(new TintModule(TOOLONLY))
     addModule(new TransparentArmorModule(ARMORONLY))
     addModule(new CosmeticGlowModule(ARMORONLY))
-    addModule(new InPlaceAssemblerModule(TOOLONLY));
-    addModule(new KineticGeneratorModule(LEGSONLY));
-    addModule(new SolarGeneratorModule(HEADONLY));
-    addModule(new AutoFeederModule(HEADONLY));
-    addModule(new MagnetModule(TORSOONLY));
-    addModule(new OreScannerModule(TOOLONLY));
-    addModule(new LeafBlowerModule(TOOLONLY));
-    addModule(new ThermalGeneratorModule(TORSOONLY));
-    addModule(new MobRepulsorModule(TORSOONLY));
-    addModule(new FlintAndSteelModule(TOOLONLY));
-    addModule(new ClockModule(HEADONLY));
-    addModule(new CompassModule(HEADONLY));
-    addModule(new LightningModule(TOOLONLY));
-    addModule(new WaterTankModule(TORSOONLY));
-    addModule(new DimensionalRiftModule(TOOLONLY));
-    addModule(new AdvancedSolarGenerator(HEADONLY));
-    addModule(new NitrogenCoolingSystem(TORSOONLY));
-    addModule(new MechanicalAssistance(TORSOONLY));
+    addModule(new InPlaceAssemblerModule(TOOLONLY))
+    addModule(new KineticGeneratorModule(LEGSONLY))
+    addModule(new SolarGeneratorModule(HEADONLY))
+    addModule(new AutoFeederModule(HEADONLY))
+    addModule(new MagnetModule(TORSOONLY))
+    addModule(new OreScannerModule(TOOLONLY))
+    addModule(new LeafBlowerModule(TOOLONLY))
+    addModule(new ThermalGeneratorModule(TORSOONLY))
+    addModule(new MobRepulsorModule(TORSOONLY))
+    addModule(new FlintAndSteelModule(TOOLONLY))
+    addModule(new ClockModule(HEADONLY))
+    addModule(new CompassModule(HEADONLY))
+    addModule(new LightningModule(TOOLONLY))
+    addModule(new WaterTankModule(TORSOONLY))
+    addModule(new DimensionalRiftModule(TOOLONLY))
+    addModule(new AdvancedSolarGenerator(HEADONLY))
+    addModule(new NitrogenCoolingSystem(TORSOONLY))
+    addModule(new MechanicalAssistance(TORSOONLY))
     //addModule(new CoalGenerator(TORSOONLY)); //doesn't seem to be working
   }
 
   def getConfig: Configuration = {
-    return config
+    config
   }
 
   def doAdditionalInfo: Boolean = {
@@ -261,53 +255,53 @@ object Config {
         return true
       }
     }
-    return false
+    false
   }
 
   def additionalInfoInstructions: AnyRef = {
     var message: String =  I18n.format("tooltip.pressShift")
     message = MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic)
-    return message
+    message
   }
 
   def useGraphicalMeters: Boolean = {
-    return config.get(Configuration.CATEGORY_GENERAL, "Use Graphical Meters", true).getBoolean(true)
+    config.get(Configuration.CATEGORY_GENERAL, "Use Graphical Meters", true).getBoolean(true)
   }
 
   def baseMaxHeat: Double = {
-    return config.get(Configuration.CATEGORY_GENERAL, "Base Heat Cap", 50.0).getDouble(50.0)
+    config.get(Configuration.CATEGORY_GENERAL, "Base Heat Cap", 50.0).getDouble(50.0)
   }
 
   def allowConflictingKeybinds: Boolean = {
-    return config.get(Configuration.CATEGORY_GENERAL, "Allow Conflicting Keybinds", true).getBoolean(true)
+    config.get(Configuration.CATEGORY_GENERAL, "Allow Conflicting Keybinds", true).getBoolean(true)
   }
 
   def useCustomFonts: Boolean = {
-    return config.get("Font", "Use Custom Font Engine", true).getBoolean(true)
+    config.get("Font", "Use Custom Font Engine", true).getBoolean(true)
   }
 
   def fontDetail: Double = {
-    return config.get("Font", "Font Detail Multiplier", 4).getDouble(4)
+    config.get("Font", "Font Detail Multiplier", 4).getDouble(4)
   }
 
   def fontURI: String = {
-    return config.get("Font", "Font URI", Config.RESOURCE_PREFIX + "fonts/cra.ttf").getString
+    config.get("Font", "Font URI", Config.RESOURCE_PREFIX + "fonts/cra.ttf").getString
   }
 
   def fontName: String = {
-    return config.get("Font", "Native Font Name (Overrides URI)", "").getString
+    config.get("Font", "Native Font Name (Overrides URI)", "").getString
   }
 
   def fontAntiAliasing: Boolean = {
-    return config.get("Font", "Font Anti-Aliasing", false).getBoolean(false)
+    config.get("Font", "Font Anti-Aliasing", false).getBoolean(false)
   }
 
   def glowMultiplier: Int = {
-    return config.get("Graphics", "Bloom Multiplier", 3).getInt(3)
+    config.get("Graphics", "Bloom Multiplier", 3).getInt(3)
   }
 
   def useShaders: Boolean = {
-    return config.get("Graphics", "Use Pixel/Vertex Shaders", true).getBoolean(true)
+    config.get("Graphics", "Use Pixel/Vertex Shaders", true).getBoolean(true)
   }
 
   def setConfigFolderBase(folder: File) {
@@ -328,8 +322,8 @@ object Config {
   final val CITIZENJOE_ARMOR_PATH: String = TEXTURE_PREFIX + "models/joearmor.png"
   final val CITIZENJOE_ARMORPANTS_PATH: String = TEXTURE_PREFIX + "models/joearmorpants.png"
   final val GLASS_TEXTURE: String = TEXTURE_PREFIX + "gui/glass.png"
-  var configFolder: File = null
-  private var config: Configuration = null
+  var configFolder: File = _
+  private var config: Configuration = _
   var canUseShaders: Boolean = false
 
   def addCustomInstallCosts():Unit = {

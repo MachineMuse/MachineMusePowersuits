@@ -18,7 +18,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.MathHelper;
 
-
 import java.util.List;
 
 /**
@@ -83,7 +82,7 @@ public class WaterTankModule extends PowerModuleBase implements IPlayerTickModul
         // Fill tank if raining
         int xCoord = MathHelper.floor_double(player.posX);
         int zCoord = MathHelper.floor_double(player.posZ);
-        boolean isRaining = (player.worldObj.getBiomeGenForCoords(player.getPosition()).getRainfall() > 0) && (player.worldObj.isRaining() || player.worldObj.isThundering());
+        boolean isRaining = (player.worldObj.getBiomeForCoordsBody(player.getPosition()).getRainfall() > 0) && (player.worldObj.isRaining() || player.worldObj.isThundering());
         if (isRaining && player.worldObj.canBlockSeeSky(player.getPosition().add(0,1,0))
                 && (player.worldObj.getTotalWorldTime() % 5) == 0 && MuseItemUtils.getWaterLevel(item) < ModuleManager.computeModularProperty(item, WATER_TANK_SIZE)) {
             MuseItemUtils.setWaterLevel(item, MuseItemUtils.getWaterLevel(item) + 1);

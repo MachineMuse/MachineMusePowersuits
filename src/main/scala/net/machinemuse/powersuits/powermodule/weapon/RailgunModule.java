@@ -11,11 +11,9 @@ import net.machinemuse.utils.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -96,8 +94,7 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
     }
 
     @Override
-    public void onRightClick(EntityPlayer player, World world, ItemStack itemStack) {
-
+    public ActionResult onRightClick(EntityPlayer player, World world, ItemStack itemStack, EnumHand hand) {
         double range = 64;
         double timer = MuseItemUtils.getDoubleOrZero(itemStack, TIMER);
         double energyConsumption = ModuleManager.computeModularProperty(itemStack, ENERGY);
@@ -131,14 +128,15 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
 
                 world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
             }
+            player.setActiveHand(hand);
+            return new ActionResult(EnumActionResult.SUCCESS, this);
         }
-        // FIXME
-//        player.setItemInUse(itemStack, 10);
+        return new ActionResult(EnumActionResult.FAIL, this);
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-
+    public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        return null;
     }
 
     @Override
@@ -146,9 +144,13 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
         return false;
     }
 
-
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
+    }
+
+    @Override
+    public EnumAction getItemUseAction(ItemStack stack) {
+        return EnumAction.BOW;
     }
 
     @Override

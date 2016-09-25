@@ -1,7 +1,7 @@
 package net.machinemuse.general.gui.frame
 
 import net.machinemuse.general.gui.clickable.ClickableItem
-import net.machinemuse.numina.general.{MuseLogger, MuseMathUtils}
+import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.geometry.{Colour, MuseRect, MuseRelativeRect}
 import net.machinemuse.numina.network.PacketSender
 import net.machinemuse.numina.render.RenderState
@@ -58,11 +58,11 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
 
   def updateItems {
     specs = model.apply.values.filter(spec => isValidArmor(getSelectedItem, spec.slot)).toArray
-    border.setHeight(if (specs.size > 0) specs.size * 8 + 10 else 0)
+    border.setHeight(if (specs.length > 0) specs.length * 8 + 10 else 0)
   }
 
   def drawPartial(min: Double, max: Double) {
-    if (specs.size > 0) {
+    if (specs.length > 0) {
       ModelRegistry.getName(model).map(s => MuseRenderer.drawString(s, border.left + 8, border.top))
       drawOpenArrow(min, max)
       if (open) {
@@ -134,7 +134,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
   }
 
   def getBorder: MuseRect = {
-    if (open) border.setHeight(9 + 9 * specs.size)
+    if (open) border.setHeight(9 + 9 * specs.length)
     else border.setHeight(9)
     border
   }
@@ -148,7 +148,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
     } else if (x < border.left + 24 && y > border.top + 8) {
       val lineNumber = ((y - border.top - 8) / 8).toInt
       val columnNumber = ((x - border.left) / 8).toInt
-      val spec = specs(lineNumber.min(specs.size - 1).max(0))
+      val spec = specs(lineNumber.min(specs.length - 1).max(0))
       MuseLogger.logDebug("Line " + lineNumber + " Column " + columnNumber)
       columnNumber match {
         case 0 => {
@@ -180,10 +180,10 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
         }
         case _ => false
       }
-    } else if (x > border.left + 28 && x < border.left + 28 + colourframe.colours.size * 8) {
+    } else if (x > border.left + 28 && x < border.left + 28 + colourframe.colours.length * 8) {
       val lineNumber = ((y - border.top - 8) / 8).toInt
       val columnNumber = ((x - border.left - 28) / 8).toInt
-      val spec = specs(lineNumber.min(specs.size - 1).max(0))
+      val spec = specs(lineNumber.min(specs.length - 1).max(0))
       val tagname = ModelRegistry.makeName(spec)
       val player = Minecraft.getMinecraft.thePlayer
       val tagdata = getOrMakeSpecTag(spec)

@@ -24,17 +24,8 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'com.matthewprenger.cursegradle'
 apply plugin: 'idea'
 
-
-// enable if java 1.8 + scala support still horrible
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-//
-//tasks.withType(ScalaCompile) {
-//    // Use incremental compilation
-//    //scalaCompileOptions.useAnt = false // supposed to be a fix for java 8
-//    scalaCompileOptions.additionalParameters = ["-target:jvm-1.7"]
-//}
-
 
 def buildnumber = System.getenv("BUILD_NUMBER")
 def travisbuildnumber = (System.getenv("TRAVIS_BUILD_NUMBER") ?: -111).toInteger() + 111
@@ -55,7 +46,7 @@ dependencies {
 }
 
 minecraft {
-    version = minecraft_version + "-" + forge_version + "-" + "1.10.0"
+    version = minecraft_version + "-" + forge_version// + "-" + "1.10.0"
     runDir = "run"
     mappings = mcp_mappings
     replace "@numina_version@", project.version
@@ -137,7 +128,7 @@ task copyToLib(type: Copy) {
     into "$buildDir/libs"
     from(sourceSets.main.resources.srcDirs){
         include 'mps-vanilla.recipes'
-        include 'mps-thermalexpansion.recipes'
+//        include 'mps-thermalexpansion.recipes'
         include 'mps-ic2.recipes'
         include 'mps-enderio.recipes'
     }
@@ -174,7 +165,7 @@ curseforge {
   project {
     id = '235442'
     changelog = getGitChangelog()
-    addGameVersion '1.8.9'
+    addGameVersion '1.10.2'
     //relatedProject 'numina': 'requiredLibrary'
 
     if(branch == null) {

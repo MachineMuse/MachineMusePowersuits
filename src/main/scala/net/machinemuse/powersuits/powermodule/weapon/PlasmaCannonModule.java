@@ -5,20 +5,21 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.numina.general.MuseMathUtils;
-import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -61,31 +62,20 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
         return "Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.";
     }
 
-
     @Override
-    public void onRightClick(EntityPlayer player, World world, ItemStack item) {
+    public ActionResult onRightClick(EntityPlayer player, World world, ItemStack item, EnumHand hand) {
         if (ElectricItemUtils.getPlayerEnergy(player) > 500) {
-            /*
-                TODO: item in use mechanic has changed:
-
-                http://www.minecraftforge.net/forum/index.php?topic=39711.0
-             */
-
-
-//            player.getActiveHand();
-
-//                   .setActiveHand
-//
-//
-//            player.setItemInUse(item, 72000);
+            player.setActiveHand(hand);
+            return new ActionResult(EnumActionResult.SUCCESS, this);
         }
-		//player.addStat(StatList.mineBlockStatArray.); // TODO check 
+        return new ActionResult(EnumActionResult.FAIL, this);
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-
+    public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        return EnumActionResult.PASS;
     }
+
 
     @Override
     public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -116,5 +106,11 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.plasmaCannon;
+    }
+
+
+    public EnumAction getItemUseAction(ItemStack stack)
+    {
+        return EnumAction.BOW;
     }
 }

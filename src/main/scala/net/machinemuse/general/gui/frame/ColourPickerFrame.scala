@@ -83,7 +83,7 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
   def update(mousex: Double, mousey: Double) {
     selectedSlider.map(s => {
       s.setValueByX(mousex)
-      if (colours.size > selectedColour) {
+      if (colours.length > selectedColour) {
         colours(selectedColour) = Colour.getInt(rslider.value, gslider.value, bslider.value, 1.0)
         val player = Minecraft.getMinecraft.thePlayer
         if (player.worldObj.isRemote)
@@ -97,13 +97,13 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
     rslider.draw()
     gslider.draw()
     bslider.draw()
-    for (i <- 0 until colours.size) {
+    for (i <- 0 until colours.length) {
       ArmourColourPatch(border.left + 8 + i * 8, border.bottom - 16, new Colour(colours(i)))
     }
-    ArmourColourPatch(border.left + 8 + colours.size * 8, border.bottom - 16, Colour.WHITE)
+    ArmourColourPatch(border.left + 8 + colours.length * 8, border.bottom - 16, Colour.WHITE)
     SelectedArmorOverlay(border.left + 8 + selectedColour * 8, border.bottom - 16, Colour.WHITE)
     MinusSign(border.left + 8 + selectedColour * 8, border.bottom - 24, Colour.RED)
-    PlusSign(border.left + 8 + colours.size * 8, border.bottom - 16, Colour.GREEN)
+    PlusSign(border.left + 8 + colours.length * 8, border.bottom - 16, Colour.GREEN)
   }
 
   def getToolTip(x: Int, y: Int): util.List[String] = null
@@ -129,9 +129,9 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
     // add
     if (y > border.bottom - 16 && y < border.bottom - 8) {
       val colourCol: Int = (x - border.left - 8.0).toInt / 8
-      if (colourCol >= 0 && colourCol < colours.size) {
+      if (colourCol >= 0 && colourCol < colours.length) {
         onSelectColour(colourCol.toInt)
-      } else if (colourCol == colours.size) {
+      } else if (colourCol == colours.length) {
         MuseLogger.logDebug("Adding")
         getOrCreateColourTag.map(e => {
           setColourTagMaybe(getIntArray(e) :+ Colour.WHITE.getInt) // append White
@@ -143,10 +143,10 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
     // remove
     if (y > border.bottom - 24 && y < border.bottom - 16 && x > border.left + 8 + selectedColour * 8 && x < border.left + 16 + selectedColour * 8) {
       getOrCreateColourTag.map(e => {
-        if (getIntArray(e).size > 1) {
+        if (getIntArray(e).length > 1) {
           setColourTagMaybe( getIntArray(e) diff Array(getIntArray(e)(selectedColour)))
           decrAbove = selectedColour
-          if (selectedColour == getIntArray(e).size) {
+          if (selectedColour == getIntArray(e).length) {
             selectedColour = selectedColour - 1
           }
           val player = Minecraft.getMinecraft.thePlayer

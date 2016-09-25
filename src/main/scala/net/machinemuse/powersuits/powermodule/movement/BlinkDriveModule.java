@@ -13,17 +13,13 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.sound.SoundSetupEvent;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class BlinkDriveModule extends PowerModuleBase implements IRightClickModule {
@@ -61,7 +57,7 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public void onRightClick(EntityPlayer player, World world, ItemStack itemStack) {
+    public ActionResult onRightClick(EntityPlayer player, World world, ItemStack itemStack, EnumHand hand) {
         SoundEvent enderman_portal =  SoundEvent.REGISTRY.getObject(new ResourceLocation("entity.endermen.teleport"));
         double range = ModuleManager.computeModularProperty(itemStack, BLINK_DRIVE_RANGE);
         double energyConsumption = ModuleManager.computeModularProperty(itemStack, BLINK_DRIVE_ENERGY_CONSUMPTION);
@@ -74,13 +70,14 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
             // MuseLogger.logDebug("Hit:" + hitMOP);
             MusePlayerUtils.teleportEntity(player, hitMOP);
             world.playSound(player, player.getPosition(), enderman_portal, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
+            return ActionResult.newResult(EnumActionResult.SUCCESS, itemStack);
         }
-
+        return ActionResult.newResult(EnumActionResult.FAIL, itemStack);
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-
+    public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        return null;
     }
 
     @Override
@@ -90,6 +87,11 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
+    }
+
+    @Override
+    public EnumAction getItemUseAction(ItemStack stack) {
+        return EnumAction.NONE;
     }
 
     @Override

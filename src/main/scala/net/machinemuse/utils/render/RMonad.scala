@@ -1,9 +1,7 @@
 package net.machinemuse.utils.render
 
+import net.minecraft.client.renderer.{GLAllocation, OpenGlHelper, RenderHelper}
 import org.lwjgl.opengl.GL11
-import net.minecraft.client.renderer.{GLAllocation, RenderHelper, OpenGlHelper}
-import net.machinemuse.powersuits.common.Config
-import net.minecraft.client.Minecraft
 
 /**
  * Library for working with rendering.

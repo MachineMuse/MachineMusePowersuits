@@ -2,16 +2,18 @@ package net.machinemuse.powersuits.common
 
 import java.io.File
 
-import net.machinemuse.api.{ILocalizeableModule, IPowerModule, ModuleManager}
+import net.machinemuse.powersuits.block.{BlockLuxCapacitor, BlockTinkerTable, TileEntityLuxCapacitor, TileEntityTinkerTable}
 import net.machinemuse.powersuits.entity.{EntityLuxCapacitor, EntityPlasmaBolt, EntitySpinningBlade}
-import net.machinemuse.powersuits.event.{HarvestEventHandler, MovementManager}
+import net.machinemuse.powersuits.event.{HarvestEventHandler, ModelBakeEventHandler, MovementManager}
 import net.machinemuse.powersuits.network.packets.MPSPacketList
+import net.minecraft.item.ItemBlock
+import net.minecraftforge.client.model.obj.OBJLoader
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.common.config.Configuration
-import net.minecraftforge.fml.common.event.{FMLPostInitializationEvent, FMLInitializationEvent, FMLPreInitializationEvent}
+import net.minecraftforge.fml.common.event.{FMLInitializationEvent, FMLPostInitializationEvent, FMLPreInitializationEvent}
 import net.minecraftforge.fml.common.network.NetworkRegistry
-import net.minecraftforge.fml.common.registry.EntityRegistry
-import net.minecraftforge.fml.common.{SidedProxy, Mod}
+import net.minecraftforge.fml.common.registry.{EntityRegistry, GameRegistry}
+import net.minecraftforge.fml.common.{Mod, SidedProxy}
 ;
 
 
@@ -24,21 +26,36 @@ import net.minecraftforge.fml.common.{SidedProxy, Mod}
 @Mod(modid = "powersuits", modLanguage = "scala", dependencies = "required-after:numina@[@numina_version@,)")
 object ModularPowersuits {
   @SidedProxy(clientSide = "net.machinemuse.powersuits.common.ClientProxy", serverSide = "net.machinemuse.powersuits.common.ServerProxy")
-  var proxy: CommonProxy = null
-  var config: Configuration = null
+  var proxy: CommonProxy = _
+  var config: Configuration = _
   val INSTANCE=this
   val MODID="powersuits"
   val VERSION = "@VERSION@"
 
   @Mod.EventHandler def preInit(event: FMLPreInitializationEvent) {
+    OBJLoader.INSTANCE.addDomain(MODID.toLowerCase)
+
+
     val newConfig: File = new File(event.getModConfigurationDirectory + "/machinemuse/powersuits.cfg")
     Config.init(new Configuration(newConfig))
     Config.setConfigFolderBase(event.getModConfigurationDirectory)
     MinecraftForge.EVENT_BUS.register(new HarvestEventHandler)
     MinecraftForge.EVENT_BUS.register(new MovementManager)
+    MinecraftForge.EVENT_BUS.register(new ModelBakeEventHandler)
+
     proxy.registerEvents()
 
 
+
+    GameRegistry.register(BlockTinkerTable.instance)
+
+
+
+    GameRegistry.register(new ItemBlock(BlockTinkerTable.instance).setRegistryName(BlockTinkerTable.instance.getRegistryName))
+    GameRegistry.register(BlockLuxCapacitor.instance)
+    GameRegistry.register(new ItemBlock(BlockLuxCapacitor.instance).setRegistryName(BlockLuxCapacitor.instance.getRegistryName))
+    GameRegistry.registerTileEntity(classOf[TileEntityTinkerTable], BlockTinkerTable.name)
+    GameRegistry.registerTileEntity(classOf[TileEntityLuxCapacitor], BlockLuxCapacitor.name)
     proxy.registerRenderers()
   }
 
@@ -63,7 +80,6 @@ object ModularPowersuits {
     EntityRegistry.registerModEntity(classOf[EntitySpinningBlade], "entitySpinningBlade", 2478, this, 64, 20, true)
     EntityRegistry.registerModEntity(classOf[EntityLuxCapacitor], "entityLuxCapacitor", 2479, this, 64, 20, true)
     proxy.registerHandlers()
-//    proxy.registerRenderers()
     MPSPacketList.registerPackets()
     NetworkRegistry.INSTANCE.registerGuiHandler(this, MPSGuiHandler)
   }

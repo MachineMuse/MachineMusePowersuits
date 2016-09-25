@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.client.render.modelspec
 
-import net.machinemuse.utils.MuseStringUtils
-import net.minecraft.nbt.NBTTagCompound
 import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.scala.MuseRegistry
+import net.machinemuse.utils.MuseStringUtils
 import net.minecraft.inventory.EntityEquipmentSlot
+import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.Vec3d
 import net.minecraftforge.client.model.obj.{OBJLoader, OBJModel}
@@ -56,6 +56,7 @@ class ModelSpec(val model: OBJModel,
                 val rotation: Option[Vec3d],
                 val filename: String
                  ) extends MuseRegistry[ModelPartSpec] {
+
   def applyOffsetAndRotation = {
     // TODO: Implement
   }

@@ -1,7 +1,8 @@
 package net.machinemuse.powersuits.client.render.modelspec
 
+import java.io.{File, FileOutputStream, PrintWriter}
+
 import com.google.gson.Gson
-import java.io.{File, PrintWriter, FileOutputStream}
 
 
 /**

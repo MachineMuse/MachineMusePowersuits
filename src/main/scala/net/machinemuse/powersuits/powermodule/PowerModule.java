@@ -62,10 +62,4 @@ public class PowerModule extends PowerModuleBase {
 		this.defaultTag.setDouble(key, value);
 		return this;
 	}
-
-//	@Override
-//	public String getTextureFile() {
-//		return textureFile;
-//	}
-
 }

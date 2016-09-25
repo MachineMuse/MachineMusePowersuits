@@ -9,14 +9,13 @@ import net.minecraft.util.ResourceLocation;
  * Author: MachineMuse (Claire Semple)
  * Created: 4:31 PM, 8/3/13
  */
-public abstract class MuseRender<T extends Entity> extends Render<T> {
-
-    protected MuseRender(RenderManager renderManager) {
+public class MuseEntityRender<T extends Entity> extends Render<T> {
+    protected MuseEntityRender(RenderManager renderManager) {
         super(renderManager);
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(Entity entity) {
+    protected ResourceLocation getEntityTexture(T entity) {
         return null;
     }
 }

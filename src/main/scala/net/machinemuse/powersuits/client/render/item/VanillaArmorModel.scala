@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.client.render.item
 
-import net.minecraft.client.model.ModelBiped
 import net.minecraft.entity.Entity
 
 /**
@@ -12,10 +11,10 @@ class VanillaArmorModel extends ArmorModel {
   /**
    * Sets the models various rotation angles then renders the model.
    */
-  override def render(entity: Entity, par2: Float, par3: Float, par4: Float, par5: Float, par6: Float, scale: Float) {
-    prep(entity, par2, par3, par4, par5, par6, scale)
-    setRotationAngles(par2, par3, par4, par5, par6, scale, entity)
-    super.render(entity, par2, par3, par4, par5, par6, scale)
-    post(entity, par2, par3, par4, par5, par6, scale)
+  override def render(entityIn: Entity, limbSwing: Float, limbSwingAmount: Float, ageInTicks: Float, netHeadYaw: Float, headPitch: Float, scale: Float) {
+    prep(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale)
+    setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn)
+    super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale)
+    post(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale)
   }
 }

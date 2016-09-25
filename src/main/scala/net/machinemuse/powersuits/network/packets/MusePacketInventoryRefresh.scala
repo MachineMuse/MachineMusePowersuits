@@ -13,7 +13,7 @@ import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
-import net.minecraftforge.fml.relauncher.{SideOnly, Side}
+import net.minecraftforge.fml.relauncher.{Side, SideOnly}
 
 
 /**

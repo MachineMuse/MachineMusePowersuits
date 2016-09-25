@@ -1,10 +1,11 @@
 package net.machinemuse.utils.render
 
-import org.lwjgl.opengl.GLContext
 import java.nio.ByteBuffer
+
 import org.lwjgl.opengl.EXTFramebufferObject._
 import org.lwjgl.opengl.GL11._
 import org.lwjgl.opengl.GL14._
+import org.lwjgl.opengl.GLContext
 
 /**
  * Author: MachineMuse (Claire Semple)

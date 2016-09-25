@@ -11,7 +11,7 @@ import org.lwjgl.opengl.GL11;
  * @author MachineMuse
  */
 public class TinkerTableRenderer extends TileEntitySpecialRenderer<TileEntityTinkerTable> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation("powersuits:textures/blocks/models/tinkertable_tx.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation("powersuits:textures/models/tinkertable_tx.png");
     private final TinkerTableModel model;
 
     public TinkerTableRenderer() {
@@ -19,9 +19,7 @@ public class TinkerTableRenderer extends TileEntitySpecialRenderer<TileEntityTin
     }
 
     @Override
-    public void renderTileEntityAt(TileEntityTinkerTable tileEntityTinkerTable, double x, double y, double z, float v3, int i) {
-        // Not sure what param i is but seems to always be -1
-
+    public void renderTileEntityAt(TileEntityTinkerTable tileEntityTinkerTable, double x, double y, double z, float partialTicks, int destroyStage) {
         float scale = 0.0625F;
         //The PushMatrix tells the renderer to "start" doing something.
         GL11.glPushMatrix();

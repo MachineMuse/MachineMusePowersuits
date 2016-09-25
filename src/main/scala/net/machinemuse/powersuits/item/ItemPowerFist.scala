@@ -4,7 +4,6 @@ import crazypants.enderio.api.tool.ITool
 import forestry.api.arboriculture.IToolGrafter
 import net.machinemuse.api._
 import net.machinemuse.api.moduletrigger.IRightClickModule
-import net.machinemuse.general.gui.MuseIcon
 import net.machinemuse.numina.scala.OptionCast
 import net.machinemuse.powersuits.common.Config
 import net.machinemuse.powersuits.powermodule.tool.GrafterModule
@@ -12,11 +11,10 @@ import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule
 import net.machinemuse.utils.{ElectricItemUtils, MuseHeatUtils}
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
-import net.minecraft.entity.item.EntityMinecart
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.{Entity, EntityLivingBase}
 import net.minecraft.item.Item.ToolMaterial
-import net.minecraft.item.{EnumAction, ItemStack}
+import net.minecraft.item.{EnumAction, IItemPropertyGetter, ItemStack}
 import net.minecraft.util.math.{BlockPos, Vec3d}
 import net.minecraft.util.{EnumActionResult, _}
 import net.minecraft.world.World
@@ -43,7 +41,45 @@ with ModeChangingModularItem {
   setMaxStackSize(1)
   setMaxDamage(0)
   setCreativeTab(Config.getCreativeTab)
-  setUnlocalizedName("powerFist")
+
+//  this.addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter() {
+//
+//    @SideOnly(Side.CLIENT)
+//    def apply(stack: ItemStack, worldIn: World, entityIn: EntityLivingBase): Float = {
+//      if (entityIn == null) {
+//        0.0F
+//      } else {
+//        val itemstack = entityIn.getActiveItemStack
+//        if (itemstack != null && itemstack.getItem == Items.BOW) (stack.getMaxItemUseDuration - entityIn.getItemInUseCount).toFloat /
+//          20.0F else 0.0F
+//      }
+//    }
+//  })
+
+  this.addPropertyOverride(new ResourceLocation("equipped"), new IItemPropertyGetter() {
+
+    @SideOnly(Side.CLIENT)
+    def apply(stack: ItemStack, worldIn: World, entityIn: EntityLivingBase): Float = {
+      if (entityIn != null && (entityIn.getHeldItemOffhand == this || entityIn.getHeldItemMainhand == this)) 1.0F else 0.0F
+    }
+  })
+
+
+  this.addPropertyOverride(new ResourceLocation("firing"), new IItemPropertyGetter() {
+
+    @SideOnly(Side.CLIENT)
+    def apply(stack: ItemStack, worldIn: World, entityIn: EntityLivingBase): Float = {
+      if (entityIn != null && entityIn.isHandActive && entityIn.getActiveItemStack == stack) 1.0F else 0.0F
+    }
+  })
+
+
+
+
+
+
+
+//  setUnlocalizedName("powerFist")
 
 
   /**
@@ -82,7 +118,7 @@ with ModeChangingModularItem {
         }
       }
     }
-    return true
+    true
   }
 
   /**
@@ -121,7 +157,7 @@ with ModeChangingModularItem {
   }
 
   @SideOnly(Side.CLIENT) override def isFull3D: Boolean = {
-    return true
+    true
   }
 
   /**
@@ -154,11 +190,14 @@ with ModeChangingModularItem {
     import scala.collection.JavaConversions._
     for (module <- ModuleManager.getRightClickModules) {
       if (module.isValidForItem(itemStackIn) && ModuleManager.itemHasActiveModule(itemStackIn, module.getDataName)) {
-        module.onRightClick(playerIn, worldIn, itemStackIn)
+        // TODO actually use returned result from module.onRightClick
+
+
+        module.onRightClick(playerIn, worldIn, itemStackIn, hand)
       }
     }
-    return new ActionResult(EnumActionResult.PASS, itemStackIn);
-//    return itemStackIn;
+    new ActionResult(EnumActionResult.PASS, itemStackIn)
+    //    return itemStackIn;
   }
 
   /**
@@ -166,7 +205,7 @@ with ModeChangingModularItem {
    * is being used
    */
   override def getItemUseAction(stack: ItemStack): EnumAction = {
-    return EnumAction.BOW
+    EnumAction.BOW
   }
 
   /**
@@ -192,7 +231,7 @@ with ModeChangingModularItem {
       case _ => false
     }
 
-    return EnumActionResult.PASS
+    EnumActionResult.PASS
   }
 
   override def onItemUse(stack: ItemStack, playerIn: EntityPlayer, worldIn: World, pos: BlockPos, hand: EnumHand,
@@ -202,10 +241,10 @@ with ModeChangingModularItem {
     val mode: String = getActiveMode(stack, playerIn)
     val module: IPowerModule = ModuleManager.getModule(mode)
     module match {
-      case m: IRightClickModule => m.onItemUse(stack, playerIn, worldIn, pos, facing, hitX, hitY, hitZ); false
+      case m: IRightClickModule => m.onItemUse(stack, playerIn, worldIn, pos, hand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float); false
       case _ => false
     }
-    return EnumActionResult.PASS
+    EnumActionResult.PASS
   }
 
   @Optional.Method(modid = "Forestry")
@@ -229,7 +268,7 @@ with ModeChangingModularItem {
         return true
       }
     }
-    return false
+    false
   }
 
 

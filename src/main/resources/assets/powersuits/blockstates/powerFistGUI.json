@@ -1,0 +1,18 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "inventory": [{
+      "model": "forge:item-layer",
+      "transform": "forge:default-tool",
+      "textures": {
+        "layer0": "powersuits:items/handitem"
+      }
+    }],
+    "equipped": {
+      "left": {"model": "powersuits:powerfist/powerfistLeft.obj", "x": 180},
+      "left_firing:": {"model": "powersuits:powerfist/powerfistLeftFiring.obj", "x": 180},
+      "right":{"model": "powersuits:powerfist/powerfistRight.obj", "x": 180},
+      "right_firing":{"model": "powersuits:powerfist/powerfistRightFiring.obj", "x": 180}
+    }
+  }
+}

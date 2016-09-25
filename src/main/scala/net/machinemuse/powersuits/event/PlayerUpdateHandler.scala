@@ -8,7 +8,7 @@ import net.machinemuse.numina.sound.Musique
 import net.machinemuse.powersuits.common.Config
 import net.machinemuse.utils.{MuseHeatUtils, MuseItemUtils, MusePlayerUtils}
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.util.{SoundCategory, SoundEvent}
+import net.minecraft.util.SoundCategory
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent
 import net.minecraftforge.fml.common.FMLCommonHandler
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent

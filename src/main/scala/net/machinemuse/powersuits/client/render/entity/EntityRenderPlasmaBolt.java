@@ -6,19 +6,20 @@ import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import java.nio.DoubleBuffer;
 
-public class RenderPlasmaBolt<T extends Entity> extends MuseRender<T> {
+public class EntityRenderPlasmaBolt extends MuseEntityRender<EntityPlasmaBolt> {
     protected static DrawableMuseCircle circle1;
     protected static DrawableMuseCircle circle2;
     protected static DrawableMuseCircle circle3;
     protected static DrawableMuseCircle circle4;
 
-    protected RenderPlasmaBolt(RenderManager renderManager) {
+
+    public EntityRenderPlasmaBolt(RenderManager renderManager) {
         super(renderManager);
 
         Colour c1 = new Colour(.3, .3, 1, 0.3);
@@ -39,8 +40,7 @@ public class RenderPlasmaBolt<T extends Entity> extends MuseRender<T> {
      * f1). But JAD is pre 1.5 so doesn't do that.
      */
     @Override
-    public void doRender(Entity entity, double x, double y, double z, float yaw, float partialTickTime) {
-        EntityPlasmaBolt bolt = (EntityPlasmaBolt) entity;
+    public void doRender(EntityPlasmaBolt bolt, double x, double y, double z, float entityYaw, float partialTicks) {
         double size = (bolt.size) / 10.0;
         GL11.glPushMatrix();
         GL11.glTranslated(x, y, z);
@@ -49,6 +49,11 @@ public class RenderPlasmaBolt<T extends Entity> extends MuseRender<T> {
         doRender(size);
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();
+    }
+
+    @Override
+    protected ResourceLocation getEntityTexture(EntityPlasmaBolt entity) {
+        return null;
     }
 
     public static DoubleBuffer unrotatebuffer;

@@ -4,7 +4,7 @@ import net.machinemuse.api.electricity.ElectricAdapter
 import net.machinemuse.powersuits.item.ItemComponent
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
-import scala.collection.JavaConverters._
+
 import scala.collection.mutable.ListBuffer
 
 object ElectricItemUtils {

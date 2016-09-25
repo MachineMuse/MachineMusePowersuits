@@ -20,9 +20,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -70,11 +74,11 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public void onRightClick(EntityPlayer playerClicking, World world, ItemStack stack) {
-        if (playerClicking.worldObj.isRemote) {
-            return;
+    public ActionResult onRightClick(EntityPlayer player, World world, ItemStack stack, EnumHand hand) {
+        if (player.worldObj.isRemote) {
+            return ActionResult.newResult(EnumActionResult.FAIL, stack);
         }
-        RayTraceResult hitMOP = MusePlayerUtils.raytraceEntities(world, playerClicking, false, 8);
+        RayTraceResult hitMOP = MusePlayerUtils.raytraceEntities(world, player, false, 8);
 
         if (hitMOP != null && hitMOP.entityHit instanceof IShearable) {
             IShearable target = (IShearable) hitMOP.entityHit;
@@ -90,14 +94,15 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
                     ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
                     ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
                 }
-                ElectricItemUtils.drainPlayerEnergy(playerClicking, ModuleManager.computeModularProperty(stack, SHEARING_ENERGY_CONSUMPTION));
+                ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, SHEARING_ENERGY_CONSUMPTION));
             }
         }
+        return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-
+    public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        return null;
     }
 
     @Override
@@ -107,6 +112,11 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
+    }
+
+    @Override
+    public EnumAction getItemUseAction(ItemStack stack) {
+        return EnumAction.BLOCK;
     }
 
     @Override

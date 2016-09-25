@@ -1,0 +1,72 @@
+# Blender MTL File: 'TinkerTable.blend'
+# Material Count: 14
+
+newmtl Material.001
+Ka 1.000000 1.000000 1.000000
+d 1.000000
+map_Kd powersuits:models/blocks/tinkertable1_tx.png
+
+newmtl Material.002
+Ka 1.000000 1.000000 1.000000
+d 1.000000
+map_Kd powersuits:models/blocks/tinkertable1_tx.png
+
+newmtl Material.003
+Ka 1.000000 1.000000 1.000000
+d 1.000000
+map_Kd powersuits:models/blocks/tinkertable1_tx.png
+
+newmtl Material.004
+Ka 1.000000 1.000000 1.000000
+d 1.000000
+map_Kd powersuits:models/blocks/tinkertable1_tx.png
+
+newmtl Material.005
+Ka 1.000000 1.000000 1.000000
+d 1.000000
+map_Kd powersuits:models/blocks/tinkertable1_tx.png
+
+newmtl Material.006
+Ka 1.000000 1.000000 1.000000
+d 1.000000
+map_Kd powersuits:models/blocks/tinkertable1_tx.png
+
+newmtl Material.007
+Ka 1.000000 1.000000 1.000000
+d 1.000000
+map_Kd powersuits:models/blocks/tinkertable1_tx.png
+
+newmtl Material.008
+Ka 1.000000 1.000000 1.000000
+d 1.000000
+map_Kd powersuits:models/blocks/tinkertable1_tx.png
+
+newmtl Material.009
+Ka 1.000000 1.000000 1.000000
+d 1.000000
+map_Kd powersuits:models/blocks/tinkertable1_tx.png
+
+newmtl Material.010
+Ka 1.000000 1.000000 1.000000
+d 1.000000
+map_Kd powersuits:models/blocks/tinkertable1_tx.png
+
+newmtl Material.011
+Ka 1.000000 1.000000 1.000000
+d 1.000000
+map_Kd powersuits:models/blocks/tinkertable1_tx.png
+
+newmtl Material.012
+Ka 1.000000 1.000000 1.000000
+d 1.000000
+map_Kd powersuits:models/blocks/tinkertable1_tx.png
+
+newmtl Material.013
+Ka 1.000000 1.000000 1.000000
+d 1.000000
+map_Kd powersuits:models/blocks/tinkertable1_tx.png
+
+newmtl Material.014
+Ka 1.000000 1.000000 1.000000
+d 1.000000
+map_Kd powersuits:models/blocks/tinkertable1_tx.png

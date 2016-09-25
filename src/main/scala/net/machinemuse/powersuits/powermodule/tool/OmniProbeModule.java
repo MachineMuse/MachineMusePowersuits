@@ -1,33 +1,28 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
+import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
-
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.block.Block;
-import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.fml.common.Loader;
-//import mrtjp.projectred.transmission.bundledwires.TWireCommons;
 
 import java.util.List;
+
+//import mrtjp.projectred.transmission.bundledwires.TWireCommons;
 
 /**
  * Created by User: Korynkai
@@ -106,13 +101,13 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
     }
 
     @Override
-    public void onRightClick(EntityPlayer playerClicking, World world, ItemStack item) {
-
+    public ActionResult onRightClick(EntityPlayer player, World world, ItemStack item, EnumHand hand) {
+        return ActionResult.newResult(EnumActionResult.PASS, item);
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-
+    public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        return null;
     }
 
     @Override
@@ -157,6 +152,11 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
 
+    }
+
+    @Override
+    public EnumAction getItemUseAction(ItemStack stack) {
+        return EnumAction.NONE;
     }
 
     @Override

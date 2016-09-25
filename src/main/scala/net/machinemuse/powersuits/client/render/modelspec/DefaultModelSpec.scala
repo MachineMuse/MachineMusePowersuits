@@ -1,12 +1,12 @@
 package net.machinemuse.powersuits.client.render.modelspec
 
-import net.minecraft.item.ItemStack
-import net.machinemuse.powersuits.item.ItemPowerArmor
-import net.machinemuse.utils.MuseStringUtils
-import net.minecraft.nbt.NBTTagCompound
 import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.geometry.Colour
+import net.machinemuse.powersuits.item.ItemPowerArmor
+import net.machinemuse.utils.MuseStringUtils
 import net.minecraft.inventory.EntityEquipmentSlot
+import net.minecraft.item.ItemStack
+import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.ResourceLocation
 
 /**
@@ -82,6 +82,14 @@ object DefaultModelSpec {
       case EntityEquipmentSlot.FEET => {
         makePrefs("mps_boots", "boots1;boots2".split(";"), 0, false)
       }
+
+        //TODO: Model default spec for powerfist left and right models
+//      case EntityEquipmentSlot.OFFHAND => {
+//
+//      }
+//      case EntityEquipmentSlot.MAINHAND => {
+//
+//      }
 
     }
     (new NBTTagCompound() /: list) {

@@ -2,7 +2,6 @@ package net.machinemuse.powersuits.item
 
 import com.google.common.collect.ImmutableSet
 import net.machinemuse.api.electricity._
-import net.minecraft.block.Block
 import net.minecraft.init.Blocks
 import net.minecraft.item.{Item, ItemStack, ItemTool}
 

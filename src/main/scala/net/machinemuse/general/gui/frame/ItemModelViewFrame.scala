@@ -1,15 +1,17 @@
 package net.machinemuse.general.gui.frame
 
 import java.util
-import org.lwjgl.input.Mouse
-import net.machinemuse.powersuits.client.render.item.ArmorModel
-import net.minecraft.client.Minecraft
-import org.lwjgl.opengl.GL11._
-import net.machinemuse.utils.MuseItemUtils
-import net.minecraft.nbt.NBTTagCompound
-import net.machinemuse.powersuits.item.ItemPowerArmor
+
 import net.machinemuse.numina.general.MuseMathUtils
-import net.machinemuse.numina.geometry.{DrawableMuseRect, Colour, MusePoint2D}
+import net.machinemuse.numina.geometry.{Colour, DrawableMuseRect, MusePoint2D}
+import net.machinemuse.powersuits.client.render.item.ArmorModel
+import net.machinemuse.powersuits.item.ItemPowerArmor
+import net.machinemuse.utils.MuseItemUtils
+import net.minecraft.client.Minecraft
+import net.minecraft.inventory.EntityEquipmentSlot
+import net.minecraft.nbt.NBTTagCompound
+import org.lwjgl.input.Mouse
+import org.lwjgl.opengl.GL11._
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -81,13 +83,17 @@ class ItemModelViewFrame(itemSelector: ItemSelectionFrame, topleft: MusePoint2D,
     glPushMatrix()
     ArmorModel.instance.renderSpec = MuseItemUtils.getMuseRenderTag(getSelectedItem.getItem, getArmorSlot)
     ArmorModel.instance.visibleSection = getArmorSlot
+
+    println(getArmorSlot.getName)
+
     glTranslated(border.centerx + offsetx, border.centery + offsety, 0)
     glScaled(zoom, zoom, zoom)
     glClear(GL_DEPTH_BUFFER_BIT)
     glDisable(GL_CULL_FACE)
     glRotatef(rotx.toFloat, 1, 0, 0)
     glRotatef(roty.toFloat, 0, 1, 0)
-//    glTranslated(0, -getArmorSlot / 2.0, 0) // FIxme
+    if (getArmorSlot.getSlotType == EntityEquipmentSlot.Type.ARMOR)
+      glTranslated(0, -getArmorSlot.getSlotIndex / 2.0, 0)
     ArmorModel.instance.render(mc.thePlayer, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625f)
     glPopMatrix()
   }

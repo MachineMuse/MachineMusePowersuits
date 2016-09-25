@@ -6,7 +6,7 @@ import com.google.common.collect.Multimap
 import net.machinemuse.api.{ArmorTraits, IModularItem, ModuleManager}
 import net.machinemuse.numina.geometry.Colour
 import net.machinemuse.powersuits.client.render.item.ArmorModel
-import net.machinemuse.powersuits.common.{Config, ModCompatibility}
+import net.machinemuse.powersuits.common.Config
 import net.machinemuse.powersuits.powermodule.armor.HazmatModule
 import net.machinemuse.powersuits.powermodule.misc.{InvisibilityModule, TintModule, TransparentArmorModule}
 import net.machinemuse.utils._
@@ -59,7 +59,7 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: EntityEquipmentSlot)
       absorbRatio = 0
     }
 
-    return new ISpecialArmor.ArmorProperties(priority, absorbRatio, absorbMax)
+    new ISpecialArmor.ArmorProperties(priority, absorbRatio, absorbMax)
   }
 
   def getArmorTexture(itemstack: ItemStack, entity: Entity, slot: Int, layer: Int): String = {
@@ -73,7 +73,30 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: EntityEquipmentSlot)
 
   @SideOnly(Side.CLIENT)
   override def getArmorModel(entityLiving: EntityLivingBase, itemStack: ItemStack, armorSlot: EntityEquipmentSlot, _default: ModelBiped): ModelBiped ={
-    // TODO fix invisibility and maybe add switch for Citizen Joe Armor
+    /*
+     * TODO fix invisibility and add switch for Citizen Joe Armor
+     * Note that we have access to arm/hands here, not just amor slots. We can probably use that to return the model for the powerfist from here as well
+     *
+     *
+     *
+     */
+
+
+    //
+    //
+
+
+    // These are the
+//    MAINHAND(EntityEquipmentSlot.Type.HAND, 0, 0, "mainhand"),
+//    OFFHAND(EntityEquipmentSlot.Type.HAND, 1, 5, "offhand"),
+//    FEET(EntityEquipmentSlot.Type.ARMOR, 0, 1, "feet"),
+//    LEGS(EntityEquipmentSlot.Type.ARMOR, 1, 2, "legs"),
+//    CHEST(EntityEquipmentSlot.Type.ARMOR, 2, 3, "chest"),
+//    HEAD(EntityEquipmentSlot.Type.ARMOR, 3, 4, "head");
+
+
+
+
 
 
     val model: ArmorModel = ArmorModel.instance
@@ -91,7 +114,7 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: EntityEquipmentSlot)
           }
           model.renderSpec = MuseItemUtils.getMuseRenderTag(itemStack, armorSlot)
         }
-        return model
+        model
 
 
 //    super.getArmorModel(entityLiving, itemStack, armorSlot, _default)
@@ -99,18 +122,17 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: EntityEquipmentSlot)
 
 
   override def getAttributeModifiers(slot: EntityEquipmentSlot, stack: ItemStack): Multimap[String, AttributeModifier] = {
-    val parent = super.getAttributeModifiers(slot, stack).asInstanceOf[Multimap[String, AttributeModifier]]
-
-    super.getAttributeModifiers(slot, stack)
-    //    parent.put("generic.knockbackResistance", new AttributeModifier(UUID.fromString("448ef0e9-9b7c-4e56-bf3a-6b52aeabff8d"), "generic.knockbackResistance", 0.25, 0))
-    //    parent
-
+    val parent = super.getAttributeModifiers(slot, stack)
+    parent.put("generic.knockbackResistance", new AttributeModifier(UUID.fromString("448ef0e9-9b7c-4e56-bf3a-6b52aeabff8d"), "generic.knockbackResistance", 0.25, 0))
+    parent
   }
 
 
 
 
-
+  /*
+   * Prevents armor enchantment
+   */
   override def getItemEnchantability: Int = {
     0
   }
@@ -120,7 +142,7 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: EntityEquipmentSlot)
    */
   override def hasColor(stack: ItemStack): Boolean = {
     val itemTag: NBTTagCompound = MuseItemUtils.getMuseItemTag(stack)
-    return ModuleManager.tagHasModule(itemTag, TintModule.RED_TINT) || ModuleManager.tagHasModule(itemTag, TintModule.GREEN_TINT) || ModuleManager.tagHasModule(itemTag, TintModule.BLUE_TINT)
+    ModuleManager.tagHasModule(itemTag, TintModule.RED_TINT) || ModuleManager.tagHasModule(itemTag, TintModule.GREEN_TINT) || ModuleManager.tagHasModule(itemTag, TintModule.BLUE_TINT)
   }
 
   /**
@@ -128,11 +150,11 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: EntityEquipmentSlot)
    * how much armor will display on the player's HUD.
    */
   override def getArmorDisplay(player: EntityPlayer, armor: ItemStack, slot: Int): Int = {
-    return getArmorDouble(player, armor).asInstanceOf[Int]
+    getArmorDouble(player, armor).asInstanceOf[Int]
   }
 
   def getHeatResistance(player: EntityPlayer, stack: ItemStack): Double = {
-    return MuseHeatUtils.getMaxHeat(stack)
+    MuseHeatUtils.getMaxHeat(stack)
   }
 
   override def getArmorDouble(player: EntityPlayer, stack: ItemStack): Double = {
@@ -147,7 +169,7 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: EntityEquipmentSlot)
       totalArmor += enerArmor
     }
     totalArmor = Math.min(Config.getMaximumArmorPerPiece, totalArmor)
-    return totalArmor
+    totalArmor
   }
 
   /**
@@ -176,8 +198,4 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: EntityEquipmentSlot)
       }
     }
   }
-
-  // TODO: finish implementation
-  override def protectEntity(entityLivingBase: EntityLivingBase, itemStack: ItemStack, s: String, b: Boolean): Boolean = ???
-
 }

@@ -1,9 +1,8 @@
 package net.machinemuse.general.gui.frame
 
-import net.machinemuse.powersuits.client.render.modelspec.{ModelSpec, ModelRegistry}
-import net.minecraft.item.ItemStack
+import net.machinemuse.numina.geometry.{Colour, MusePoint2D, MuseRelativeRect}
+import net.machinemuse.powersuits.client.render.modelspec.{ModelRegistry, ModelSpec}
 import org.lwjgl.opengl.GL11._
-import net.machinemuse.numina.geometry.{MuseRelativeRect, Colour, MusePoint2D}
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -18,7 +17,7 @@ class PartManipContainer(val itemSelect: ItemSelectionFrame, val colourSelect: C
   def getItemSlot = Option(itemSelect.getSelectedItem).map(e => e.inventorySlot)
   var lastItemSlot: Option[Int] = None
 
-  def getColour = if(getItem != None && colourSelect.selectedColour < colourSelect.colours.size && colourSelect.selectedColour >= 0) colourSelect.colours(colourSelect.selectedColour) else Colour.WHITE.getInt
+  def getColour = if(getItem.isDefined && colourSelect.selectedColour < colourSelect.colours.length && colourSelect.selectedColour >= 0) colourSelect.colours(colourSelect.selectedColour) else Colour.WHITE.getInt
   var lastColour = getColour
 
   def getColourIndex = colourSelect.selectedColour

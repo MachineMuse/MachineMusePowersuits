@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.event
 
 import net.machinemuse.api.ModuleManager
+import net.machinemuse.general.gui.MuseIcon
 import net.machinemuse.general.gui.clickable.{ClickableKeybinding, ClickableModule}
 import net.machinemuse.numina.geometry.{Colour, DrawableMuseRect}
 import net.machinemuse.numina.render.{MuseIconUtils, MuseTextureUtils}
@@ -29,6 +30,11 @@ class RenderEventHandler {
     val screen: ScaledResolution = new ScaledResolution(mc)
   }
 
+  @SideOnly(Side.CLIENT)
+  @SubscribeEvent def preTextureStitch(event: TextureStitchEvent.Pre) {
+    MuseIcon.registerIcons(event)
+  }
+
   @SubscribeEvent def onTextureStitch(event: TextureStitchEvent.Post) {
   }
 
@@ -40,7 +46,7 @@ class RenderEventHandler {
   }
 
   private def playerHasFlightOn(player: EntityPlayer): Boolean = {
-    return ModuleManager.itemHasActiveModule(player.inventory.armorItemInSlot(2), JetPackModule.MODULE_JETPACK) || ModuleManager.itemHasActiveModule(player.inventory.armorItemInSlot(2), GliderModule.MODULE_GLIDER) || ModuleManager.itemHasActiveModule(player.inventory.armorItemInSlot(0), JetBootsModule.MODULE_JETBOOTS) || ModuleManager.itemHasActiveModule(player.inventory.armorItemInSlot(3), FlightControlModule.MODULE_FLIGHT_CONTROL)
+    ModuleManager.itemHasActiveModule(player.inventory.armorItemInSlot(2), JetPackModule.MODULE_JETPACK) || ModuleManager.itemHasActiveModule(player.inventory.armorItemInSlot(2), GliderModule.MODULE_GLIDER) || ModuleManager.itemHasActiveModule(player.inventory.armorItemInSlot(0), JetBootsModule.MODULE_JETBOOTS) || ModuleManager.itemHasActiveModule(player.inventory.armorItemInSlot(3), FlightControlModule.MODULE_FLIGHT_CONTROL)
   }
 
   @SubscribeEvent def onPostRenderPlayer(event: RenderPlayerEvent.Post) {

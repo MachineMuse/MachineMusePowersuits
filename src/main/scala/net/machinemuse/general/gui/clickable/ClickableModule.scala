@@ -1,13 +1,13 @@
 package net.machinemuse.general.gui.clickable
 
+import java.util.{ArrayList, List}
+
 import net.machinemuse.api.{ILocalizeableModule, IPowerModule}
-import net.machinemuse.utils.render.{MuseRenderer, GuiIcons}
-import GuiIcons.Checkmark
-import net.machinemuse.utils.MuseStringUtils
-import java.util.ArrayList
-import java.util.List
 import net.machinemuse.numina.geometry.{Colour, MusePoint2D}
 import net.machinemuse.numina.render.{MuseIconUtils, MuseTextureUtils}
+import net.machinemuse.utils.MuseStringUtils
+import net.machinemuse.utils.render.GuiIcons.Checkmark
+import net.machinemuse.utils.render.MuseRenderer
 import net.minecraft.client.resources.I18n
 
 /**

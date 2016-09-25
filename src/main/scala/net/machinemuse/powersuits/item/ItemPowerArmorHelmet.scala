@@ -3,9 +3,7 @@ package net.machinemuse.powersuits.item
 import forestry.api.core.IArmorNaturalist
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.powersuits.powermodule.armor.ApiaristArmorModule
-import net.machinemuse.powersuits.powermodule.misc.{AirtightSealModule, ThaumGogglesModule}
 import net.machinemuse.utils.render.MuseRenderer
-import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
@@ -21,12 +19,10 @@ class ItemPowerArmorHelmet extends ItemPowerArmor(0, EntityEquipmentSlot.HEAD)
 with IArmorNaturalist {
   val iconpath = MuseRenderer.ICON_PREFIX + "armorhead"
 
-  setUnlocalizedName("powerArmorHelmet")
+//  setUnlocalizedName("powerArmorHelmet")
 
   @Optional.Method(modid = "Forestry")
   override def canSeePollination(player: EntityPlayer, helm: ItemStack, doSee: Boolean): Boolean = {
     ModuleManager.itemHasActiveModule(helm, ApiaristArmorModule.MODULE_APIARIST_ARMOR)
   }
-
-  override def protectEntity(entityLivingBase: EntityLivingBase, itemStack: ItemStack, s: String, b: Boolean): Boolean = ???
 }

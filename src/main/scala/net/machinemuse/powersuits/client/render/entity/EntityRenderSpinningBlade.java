@@ -4,23 +4,27 @@ import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class RenderSpinningBlade extends MuseRender {
+public class EntityRenderSpinningBlade extends MuseEntityRender<EntitySpinningBlade> {
 
-    protected RenderSpinningBlade(RenderManager renderManager) {
+    public EntityRenderSpinningBlade(RenderManager renderManager) {
         super(renderManager);
     }
 
     @Override
-    public void doRender(Entity entity, double x, double y, double z, float yaw, float partialticktime) {
+    protected ResourceLocation getEntityTexture(EntitySpinningBlade entity) {
+        return null;
+    }
 
+    @Override
+    public void doRender(EntitySpinningBlade entity, double x, double y, double z, float entityYaw, float partialTicks) {
         glPushMatrix();
         glPushAttrib(GL_ENABLE_BIT);
         glDisable(GL_CULL_FACE);
-        MuseTextureUtils.pushTexture(Config.TEXTURE_PREFIX() + "items/spinningblade.png");
+        MuseTextureUtils.pushTexture(Config.TEXTURE_PREFIX() + "modules/spinningblade.png");
         glTranslated(x, y, z);
         double motionscale = Math.sqrt(entity.motionZ * entity.motionZ + entity.motionX * entity.motionX);
         glRotatef(90, 1, 0, 0);

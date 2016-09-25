@@ -19,7 +19,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
-
 import java.util.*;
 
 public class MuseItemUtils {

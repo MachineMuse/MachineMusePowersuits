@@ -7,7 +7,7 @@ import net.machinemuse.numina.network.{MusePackager, MusePacket}
 import net.machinemuse.powersuits.powermodule.{PowerModuleBase, PropertyModifierFlatAdditive, PropertyModifierLinearAdditive}
 import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraftforge.fml.relauncher.{SideOnly, Side}
+import net.minecraftforge.fml.relauncher.{Side, SideOnly}
 
 /**
  * Author: MachineMuse (Claire Semple)

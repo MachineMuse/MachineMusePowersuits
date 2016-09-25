@@ -2,8 +2,8 @@ package net.machinemuse.powersuits.powermodule.movement
 
 import java.util.List
 
-import net.machinemuse.api.{IModularItem, ModuleManager}
 import net.machinemuse.api.moduletrigger.{IPlayerTickModule, IToggleableModule}
+import net.machinemuse.api.{IModularItem, ModuleManager}
 import net.machinemuse.general.gui.MuseIcon
 import net.machinemuse.powersuits.item.ItemComponent
 import net.machinemuse.powersuits.powermodule.PowerModuleBase
@@ -102,7 +102,7 @@ class SprintAssistModule(validItems: List[IModularItem]) extends PowerModuleBase
   }
 
   override def getIcon(item: ItemStack): TextureAtlasSprite = {
-    return MuseIcon.sprintAssist
+    MuseIcon.sprintAssist
   }
 
 
