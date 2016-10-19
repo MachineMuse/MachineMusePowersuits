@@ -8,6 +8,7 @@ import net.machinemuse.numina.render.RenderState
 import net.machinemuse.powersuits.client.render.modelspec.{ModelPartSpec, ModelRegistry, ModelSpec}
 import net.machinemuse.powersuits.network.packets.MusePacketCosmeticInfo
 import net.machinemuse.utils.MuseItemUtils
+import net.machinemuse.utils.render.GuiIcons.GuiIcon
 import net.machinemuse.utils.render.{GuiIcons, MuseRenderer}
 import net.minecraft.client.Minecraft
 import net.minecraft.item.ItemArmor
@@ -96,17 +97,22 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
     val selcomp = if (tag.hasNoTags) 0 else if (spec.getGlow(tag)) 2 else 1
     val selcolour = spec.getColourIndex(tag)
 
-    GuiIcons.TransparentArmor(x, y, ymin = ymino, ymax = ymaxo)
-    GuiIcons.NormalArmor(x + 8, y, ymin = ymino, ymax = ymaxo)
-    GuiIcons.GlowArmor(x + 16, y, ymin = ymino, ymax = ymaxo)
-    GuiIcons.SelectedArmorOverlay(x + selcomp * 8, y, ymin = ymino, ymax = ymaxo)
+
+//    new GuiIcon (double x, double y, Colour c, Double xmin, Double ymin, Double xmax, Double ymax) // FIXME!!!
+
+
+
+    new GuiIcons.TransparentArmor(x, y, null, null, ymino, null, ymaxo);
+    new GuiIcons.NormalArmor(x + 8, y, null, null, ymino, null, ymaxo);
+    new GuiIcons.GlowArmor(x + 16, y, null, null, ymino, null, ymaxo);
+    new GuiIcons.SelectedArmorOverlay(x + selcomp * 8, y, null, null, ymino, null, ymaxo);
     val textstartx = ((x + 28) /: colourframe.colours) {
       case (acc, colour) =>
-        GuiIcons.ArmourColourPatch(acc, y, new Colour(colour), ymin = ymino, ymax = ymaxo)
+        new GuiIcons.ArmourColourPatch(acc, y, new Colour(colour), null, ymino, null, ymaxo);
         acc + 8
     }
     if (selcomp > 0) {
-      GuiIcons.SelectedArmorOverlay(x + 28 + selcolour * 8, y, ymin = ymino, ymax = ymaxo)
+      new GuiIcons.SelectedArmorOverlay(x + 28 + selcolour * 8, y, null, null, ymino, null, ymaxo);
     }
 
 

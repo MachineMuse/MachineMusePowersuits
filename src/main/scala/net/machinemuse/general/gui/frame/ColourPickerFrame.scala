@@ -99,12 +99,12 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
     gslider.draw()
     bslider.draw()
     for (i <- 0 until colours.size) {
-      ArmourColourPatch(border.left + 8 + i * 8, border.bottom - 16, new Colour(colours(i)))
+      new ArmourColourPatch(border.left + 8 + i * 8, border.bottom - 16, new Colour(colours(i)), null, null, null, null);
     }
-    ArmourColourPatch(border.left + 8 + colours.size * 8, border.bottom - 16, Colour.WHITE)
-    SelectedArmorOverlay(border.left + 8 + selectedColour * 8, border.bottom - 16, Colour.WHITE)
-    MinusSign(border.left + 8 + selectedColour * 8, border.bottom - 24, Colour.RED)
-    PlusSign(border.left + 8 + colours.size * 8, border.bottom - 16, Colour.GREEN)
+    new ArmourColourPatch(border.left + 8 + colours.size * 8, border.bottom - 16, Colour.WHITE, null, null, null, null);
+    new SelectedArmorOverlay(border.left + 8 + selectedColour * 8, border.bottom - 16, Colour.WHITE, null, null, null, null);
+    new MinusSign(border.left + 8 + selectedColour * 8, border.bottom - 24, Colour.RED, null, null, null, null);
+    new PlusSign(border.left + 8 + colours.size * 8, border.bottom - 16, Colour.GREEN, null, null, null, null);
   }
 
   def getToolTip(x: Int, y: Int): util.List[String] = null

@@ -21,7 +21,7 @@ public interface IElectricItemManager {
 	/**
 	 * Charge an item with a specified amount of energy.
 	 *
-	 * @param itemStack electric item's stack
+	 * @param stack electric item's stack
 	 * @param amount amount of energy to charge in EU
 	 * @param tier tier of the charging device, has to be at least as high as the item to charge
 	 * @param ignoreTransferLimit ignore the transfer limit specified by getTransferLimit()
@@ -33,7 +33,7 @@ public interface IElectricItemManager {
 	/**
 	 * Discharge an item by a specified amount of energy
 	 *
-	 * @param itemStack electric item's stack
+	 * @param stack electric item's stack
 	 * @param amount amount of energy to discharge in EU
 	 * @param tier tier of the discharging device, has to be at least as high as the item to discharge
 	 * @param ignoreTransferLimit ignore the transfer limit specified by getTransferLimit()
@@ -46,7 +46,7 @@ public interface IElectricItemManager {
 	/**
 	 * Determine the charge level for the specified item.
 	 * 
-	 * @param itemStack ItemStack containing the electric item
+	 * @param stack ItemStack containing the electric item
 	 * @return charge level in EU
 	 */
 	double getCharge(ItemStack stack);
@@ -56,7 +56,7 @@ public interface IElectricItemManager {
 	 * This is supposed to be used in the item code during operation, for example if you want to implement your own electric item.
 	 * BatPacks are not taken into account.
 	 *
-	 * @param itemStack electric item's stack
+	 * @param stack electric item's stack
 	 * @param amount minimum amount of energy required
 	 * @return true if there's enough energy
 	 */
@@ -66,7 +66,7 @@ public interface IElectricItemManager {
 	 * Try to retrieve a specific amount of energy from an Item, and if applicable, a BatPack.
 	 * This is supposed to be used in the item code during operation, for example if you want to implement your own electric item.
 	 *
-	 * @param itemStack electric item's stack
+	 * @param stack electric item's stack
 	 * @param amount amount of energy to discharge in EU
 	 * @param entity entity holding the item
 	 * @return true if the operation succeeded
@@ -78,7 +78,7 @@ public interface IElectricItemManager {
 	 * This is supposed to be used in the item code during operation, for example if you want to implement your own electric item.
 	 * use() already contains this functionality.
 	 *
-	 * @param itemStack electric item's stack
+	 * @param stack electric item's stack
 	 * @param entity entity holding the item
 	 */
 	void chargeFromArmor(ItemStack stack, EntityLivingBase entity);
@@ -86,7 +86,7 @@ public interface IElectricItemManager {
 	/**
 	 * Get the tool tip to display for electric items.
 	 * 
-	 * @param itemStack ItemStack to determine the tooltip for
+	 * @param stack ItemStack to determine the tooltip for
 	 * @return tool tip string or null for none
 	 */
 	String getToolTip(ItemStack stack);
