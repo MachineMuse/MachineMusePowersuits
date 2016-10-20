@@ -96,12 +96,6 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
     val tag = getSpecTag(spec)
     val selcomp = if (tag.hasNoTags) 0 else if (spec.getGlow(tag)) 2 else 1
     val selcolour = spec.getColourIndex(tag)
-
-
-//    new GuiIcon (double x, double y, Colour c, Double xmin, Double ymin, Double xmax, Double ymax) // FIXME!!!
-
-
-
     new GuiIcons.TransparentArmor(x, y, null, null, ymino, null, ymaxo);
     new GuiIcons.NormalArmor(x + 8, y, null, null, ymino, null, ymaxo);
     new GuiIcons.GlowArmor(x + 16, y, null, null, ymino, null, ymaxo);

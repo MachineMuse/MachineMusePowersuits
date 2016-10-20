@@ -62,7 +62,7 @@ public class KeybindManager {
             writer = new BufferedWriter(new FileWriter(file));
             List<IPowerModule> modulesToWrite = MuseItemUtils.getPlayerInstalledModules(Minecraft.getMinecraft().thePlayer);
             for (ClickableKeybinding keybinding : getInstance().keybindings) {
-                writer.write(keybinding.getKeyBinding().getKeyCode() + ":" + keybinding.getPosition().x() + ':' + keybinding.getPosition().y() + ':' + keybinding.displayOnHUD() + ':' + keybinding.toggleval() + '\n');
+                writer.write(keybinding.getKeyBinding().getKeyCode() + ":" + keybinding.getPosition().x() + ':' + keybinding.getPosition().y() + ':' + keybinding.displayOnHUD + ':' + keybinding.toggleval + '\n');
                 for (ClickableModule module : keybinding.getBoundModules()) {
                     writer.write(module.getModule().getDataName() + '~' + module.getPosition().x() + '~' + module.getPosition().y() + '\n');
                 }
@@ -104,7 +104,7 @@ public class KeybindManager {
                             toggleval = Boolean.parseBoolean(exploded[4]);
                         }
                         workingKeybinding = new ClickableKeybinding(new KeyBinding(Keyboard.getKeyName(id), id, KeybindKeyHandler.mps), position, free, displayOnHUD);
-                        workingKeybinding.toggleval_$eq(toggleval);
+                        workingKeybinding.toggleval = toggleval;
                         getInstance().keybindings.add(workingKeybinding);
                     } else {
                         workingKeybinding = null;

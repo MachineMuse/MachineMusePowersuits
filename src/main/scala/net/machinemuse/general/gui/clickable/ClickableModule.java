@@ -25,13 +25,10 @@ import java.util.List;
 public class ClickableModule extends Clickable {
     IPowerModule module;
 
-
     public ClickableModule(IPowerModule module , MusePoint2D position) {
         super(position);
         this.module = module;
     }
-
-
 
     boolean allowed = true;
     boolean installed = false;

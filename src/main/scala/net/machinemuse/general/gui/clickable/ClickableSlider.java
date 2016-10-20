@@ -16,20 +16,26 @@ public class ClickableSlider extends Clickable {
     public static MusePoint2D pos;
     public static double width;
     public static String name;
-
+    public static int cornersize = 3;
+    DrawableMuseRect insideRect;
+    DrawableMuseRect outsideRect;
 
     public ClickableSlider(MusePoint2D pos, double width, String name) {
         this.pos = pos;
         this.width = width;
         this.name = name;
-
-
         this.position = pos;
-    }
 
-    public static int cornersize = 3;
-    DrawableMuseRect insideRect = new DrawableMuseRect(position.x() - width / 2.0 - cornersize, position.y() + 8, 0, position.y() + 16, Colour.LIGHTBLUE, Colour.ORANGE);
-    DrawableMuseRect outsideRect = new DrawableMuseRect(position.x() - width / 2.0 - cornersize, position.y() + 8, position.x() + width / 2.0 + cornersize, position.y() + 16, Colour.LIGHTBLUE, Colour.DARKBLUE);
+        insideRect = new DrawableMuseRect(position.x() - width / 2.0 - cornersize, position.y() + 8, 0, position.y() + 16, Colour.LIGHTBLUE, Colour.ORANGE);
+        outsideRect = new DrawableMuseRect(position.x() - width / 2.0 - cornersize, position.y() + 8, position.x() + width / 2.0 + cornersize, position.y() + 16, Colour.LIGHTBLUE, Colour.DARKBLUE);
+
+
+        System.out.println("===========================================================");
+        System.out.println("name: " + name);
+        System.out.println("pos.x: " + pos.x());
+        System.out.println("pos.y: " + pos.y());
+        System.out.println("============================================================");
+    }
 
     double valueInternal = 0;
 

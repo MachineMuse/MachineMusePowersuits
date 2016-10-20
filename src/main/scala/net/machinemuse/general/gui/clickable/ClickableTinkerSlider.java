@@ -11,6 +11,7 @@ public class ClickableTinkerSlider  extends ClickableSlider {
     MusePoint2D topmiddle;
     double width;
     NBTTagCompound moduleTag;
+    public String name;
 
     public ClickableTinkerSlider(MusePoint2D topmiddle, double width, NBTTagCompound moduleTag, String name) {
         super(topmiddle, width, name);
@@ -18,6 +19,15 @@ public class ClickableTinkerSlider  extends ClickableSlider {
         this.topmiddle = topmiddle;
         this.width = width;
         this.moduleTag = moduleTag;
+
+
+        System.out.println("===========================================================");
+        System.out.println("name: " + this.name);
+        System.out.println("pos.x: " + pos.x());
+        System.out.println("pos.y: " + pos.y());
+        System.out.println("============================================================");
+
+
     }
 
     @Override
@@ -30,4 +40,5 @@ public class ClickableTinkerSlider  extends ClickableSlider {
         double xratio = MuseMathUtils.clampDouble(0.5 - (xval / width), 0, 1);
         moduleTag.setDouble(name, xratio);
     }
+
 }
