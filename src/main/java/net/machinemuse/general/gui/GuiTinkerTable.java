@@ -14,7 +14,7 @@ import net.minecraft.util.StatCollector;
  * @author MachineMuse
  */
 public class GuiTinkerTable extends MuseGui {
-    protected EntityClientPlayerMP player;
+    protected final EntityClientPlayerMP player;
 
     protected ItemSelectionFrame itemSelectFrame;
 

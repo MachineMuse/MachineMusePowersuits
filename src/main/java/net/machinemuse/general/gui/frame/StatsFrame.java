@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.Set;
 
 public class StatsFrame extends ScrollableFrame {
-    protected NBTTagCompound properties;
-    protected ItemStack stack;
-    protected Set<String> propertiesToList;
+    protected final NBTTagCompound properties;
+    protected final ItemStack stack;
+    protected final Set<String> propertiesToList;
 
     public StatsFrame(MusePoint2D topleft, MusePoint2D bottomright,
                       Colour borderColour, Colour insideColour, ItemStack stack) {

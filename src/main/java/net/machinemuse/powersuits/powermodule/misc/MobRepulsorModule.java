@@ -19,7 +19,6 @@ import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import java.util.Iterator;
@@ -104,10 +103,9 @@ public class MobRepulsorModule extends PowerModuleBase implements IPlayerTickMod
 
     private void push(Entity entity, int i, int j, int k) {
         if (!(entity instanceof EntityPlayer) && !(entity instanceof EntityDragon)) {
-            Entity entity2 = entity;
-            double d = i - entity2.posX;
-            double d1 = j - entity2.posY;
-            double d2 = k - entity2.posZ;
+            double d = i - entity.posX;
+            double d1 = j - entity.posY;
+            double d2 = k - entity.posZ;
             double d4 = d * d + d1 * d1 + d2 * d2;
             d4 *= d4;
             if (d4 <= Math.pow(6.0D, 4.0D)) {
@@ -129,9 +127,9 @@ public class MobRepulsorModule extends PowerModuleBase implements IPlayerTickMod
                 } else if (d7 < 0.0D) {
                     d7 = -0.22D;
                 }
-                entity2.motionX += d5;
-                entity2.motionY += d6;
-                entity2.motionZ += d7;
+                entity.motionX += d5;
+                entity.motionY += d6;
+                entity.motionZ += d7;
             }
         }
     }

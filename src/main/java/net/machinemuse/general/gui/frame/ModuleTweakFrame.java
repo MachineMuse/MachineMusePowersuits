@@ -61,6 +61,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
             propertyStrings = null;
         }
         if (selectedSlider != null) {
+            System.out.println("moving slider  name: " + selectedSlider.name());
             selectedSlider.moveSlider(mousex, mousey);
         }
 
@@ -99,7 +100,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
         NBTTagCompound moduleTag = itemTag.getCompoundTag(module.getDataName());
 
         propertyStrings = new HashMap();
-        Set<String> tweaks = new HashSet<String>();
+        Set<String> tweaks = new HashSet<>();
 
         Map<String, List<IPropertyModifier>> propertyModifiers = module.getPropertyModifiers();
         for (Map.Entry<String, List<IPropertyModifier>> property : propertyModifiers.entrySet()) {
@@ -150,7 +151,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
         if (selectedSlider != null && itemTarget.getSelectedItem() != null && moduleTarget.getSelectedModule() != null) {
             ClickableItem item = itemTarget.getSelectedItem();
             IPowerModule module = moduleTarget.getSelectedModule().getModule();
-            MusePacket tweakRequest = new MusePacketTweakRequest(player, item.inventorySlot, module.getDataName(), selectedSlider.name,
+            MusePacket tweakRequest = new MusePacketTweakRequest(player, item.inventorySlot, module.getDataName(), selectedSlider.name(),
                     selectedSlider.value());
             PacketSender.sendToServer(tweakRequest.getPacket131());
         }

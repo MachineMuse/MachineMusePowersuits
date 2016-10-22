@@ -4,7 +4,6 @@ import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.render.MuseIconUtils;
 import net.machinemuse.powersuits.client.render.entity.MuseRender;
 import net.machinemuse.powersuits.common.MPSItems;
-import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.item.ItemPowerFist;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -31,7 +30,7 @@ import org.lwjgl.opengl.GL12;
  * @author MachineMuse
  */
 public class ToolRenderer extends MuseRender implements IItemRenderer {
-    public ToolModel model = new ToolModel();
+    public final ToolModel model = new ToolModel();
 
     /**
      * Forge checks this to see if our custom renderer will handle a certain type of rendering.

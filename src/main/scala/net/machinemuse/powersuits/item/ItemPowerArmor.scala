@@ -4,10 +4,10 @@ import java.util.UUID
 
 import com.google.common.collect.Multimap
 import cpw.mods.fml.relauncher.{Side, SideOnly}
-import net.machinemuse.api.{IModularItem, ArmorTraits, ModuleManager}
+import net.machinemuse.api.{ArmorTraits, IModularItem, ModuleManager}
 import net.machinemuse.numina.geometry.Colour
 import net.machinemuse.powersuits.client.render.item.ArmorModel
-import net.machinemuse.powersuits.common.{ModCompatibility, Config}
+import net.machinemuse.powersuits.common.Config
 import net.machinemuse.powersuits.powermodule.armor.HazmatModule
 import net.machinemuse.powersuits.powermodule.misc.{InvisibilityModule, TintModule, TransparentArmorModule}
 import net.machinemuse.utils._
@@ -79,7 +79,7 @@ abstract class ItemPowerArmor(renderIndex: Int, armorType: Int)
     if (itemstack != null) {
       entity match {
         case player: EntityPlayer =>
-          Option(player.getCurrentArmor(2)).map(chest =>
+          Option(player.getCurrentArmor(2)).foreach(chest =>
             if (ModuleManager.itemHasActiveModule(chest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) model.visibleSection = 99)
         case _ =>
       }

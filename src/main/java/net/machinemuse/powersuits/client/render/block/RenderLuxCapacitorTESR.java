@@ -20,7 +20,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class RenderLuxCapacitorTESR extends MuseTESR implements ISimpleBlockRenderingHandler {
     protected static WavefrontObject lightmodel;
     protected static WavefrontObject framemodel;
-    protected int renderId;
+    protected final int renderId;
 
     public RenderLuxCapacitorTESR(int renderId) {
         this.renderId = renderId;

@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11;
  * Ported to Java by lehjr on 10/19/16.
  */
 public class MuseStencilManager {
-    int stencilMask = 0x10;
+    final int stencilMask = 0x10;
 
     public void stencilOn() {
         GL11.glStencilMask(stencilMask);

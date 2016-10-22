@@ -195,7 +195,7 @@ with ModeChangingModularItem {
   override def onPlayerStoppedUsing(itemStack: ItemStack, world: World, player: EntityPlayer, par4: Int) {
     val mode: String = getActiveMode(itemStack, player)
     val module: IPowerModule = ModuleManager.getModule(mode)
-    OptionCast[IRightClickModule](module) map {
+    OptionCast[IRightClickModule](module) foreach {
       m => m.onPlayerStoppedUsing(itemStack, world, player, par4)
     }
   }

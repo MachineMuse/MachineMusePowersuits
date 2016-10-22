@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.network.packets
 
 import java.io.DataInputStream
 
-import net.machinemuse.numina.network.{PacketSender, MusePackager, MusePacket}
+import net.machinemuse.numina.network.{MusePackager, MusePacket, PacketSender}
 import net.machinemuse.powersuits.control.PlayerInputMap
 import net.minecraft.entity.player.{EntityPlayer, EntityPlayerMP}
 

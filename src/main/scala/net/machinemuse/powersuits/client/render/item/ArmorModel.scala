@@ -1,14 +1,14 @@
 package net.machinemuse.powersuits.client.render.item
 
+import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.powersuits.client.render.modelspec._
 import net.minecraft.client.model.{ModelBiped, ModelRenderer}
-import net.minecraft.entity.Entity
-import net.minecraft.entity.EntityLivingBase
+import net.minecraft.entity.{Entity, EntityLivingBase}
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.{EnumAction, ItemStack}
-import net.minecraftforge.client.model.obj.WavefrontObject
 import net.minecraft.nbt.NBTTagCompound
-import net.machinemuse.numina.general.MuseLogger
+import net.minecraftforge.client.model.obj.WavefrontObject
+
 
 object ArmorModel {
   def instance: ArmorModel = ArmorModelInstance.getInstance()
@@ -17,6 +17,8 @@ object ArmorModel {
 trait ArmorModel extends ModelBiped {
   var renderSpec: NBTTagCompound = null
   var visibleSection: Int = 0
+
+
 
   def clearAndAddChildWithInitialOffsets(mr: ModelRenderer, xo: Float, yo: Float, zo: Float) {
     mr.cubeList.clear()

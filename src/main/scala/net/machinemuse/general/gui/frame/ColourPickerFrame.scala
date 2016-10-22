@@ -9,7 +9,6 @@ import net.machinemuse.numina.network.PacketSender
 import net.machinemuse.powersuits.item.ItemPowerArmor
 import net.machinemuse.powersuits.network.packets.MusePacketColourInfo
 import net.machinemuse.utils.MuseItemUtils
-import net.machinemuse.utils.render.GuiIcons
 import net.machinemuse.utils.render.GuiIcons._
 import net.minecraft.client.Minecraft
 import net.minecraft.nbt.NBTTagIntArray
@@ -82,7 +81,7 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
   }
 
   def update(mousex: Double, mousey: Double) {
-    selectedSlider.map(s => {
+    selectedSlider.foreach(s => {
       s.setValueByX(mousex)
       if (colours.size > selectedColour) {
         colours(selectedColour) = Colour.getInt(rslider.value, gslider.value, bslider.value, 1.0)
@@ -98,13 +97,13 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
     rslider.draw()
     gslider.draw()
     bslider.draw()
-    for (i <- 0 until colours.size) {
-      new ArmourColourPatch(border.left + 8 + i * 8, border.bottom - 16, new Colour(colours(i)), null, null, null, null);
+    for (i <- colours.indices) {
+      new ArmourColourPatch(border.left + 8 + i * 8, border.bottom - 16, new Colour(colours(i)), null, null, null, null)
     }
-    new ArmourColourPatch(border.left + 8 + colours.size * 8, border.bottom - 16, Colour.WHITE, null, null, null, null);
-    new SelectedArmorOverlay(border.left + 8 + selectedColour * 8, border.bottom - 16, Colour.WHITE, null, null, null, null);
-    new MinusSign(border.left + 8 + selectedColour * 8, border.bottom - 24, Colour.RED, null, null, null, null);
-    new PlusSign(border.left + 8 + colours.size * 8, border.bottom - 16, Colour.GREEN, null, null, null, null);
+    new ArmourColourPatch(border.left + 8 + colours.size * 8, border.bottom - 16, Colour.WHITE, null, null, null, null)
+    new SelectedArmorOverlay(border.left + 8 + selectedColour * 8, border.bottom - 16, Colour.WHITE, null, null, null, null)
+    new MinusSign(border.left + 8 + selectedColour * 8, border.bottom - 24, Colour.RED, null, null, null, null)
+    new PlusSign(border.left + 8 + colours.size * 8, border.bottom - 16, Colour.GREEN, null, null, null, null)
   }
 
   def getToolTip(x: Int, y: Int): util.List[String] = null
@@ -134,16 +133,13 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
         onSelectColour(colourCol.toInt)
       } else if (colourCol == colours.size) {
         MuseLogger.logDebug("Adding")
-        getOrCreateColourTag.map(e => {
-          setColourTagMaybe(getIntArray(e) :+ Colour.WHITE.getInt) // append White
-
-        })
+        getOrCreateColourTag.map(e => {setColourTagMaybe(getIntArray(e) :+ Colour.WHITE.getInt)}) // append White
 
       }
     }
     // remove
     if (y > border.bottom - 24 && y < border.bottom - 16 && x > border.left + 8 + selectedColour * 8 && x < border.left + 16 + selectedColour * 8) {
-      getOrCreateColourTag.map(e => {
+      getOrCreateColourTag.foreach(e => {
         if (getIntArray(e).size > 1) {
           setColourTagMaybe( getIntArray(e) diff Array(getIntArray(e)(selectedColour)))
           decrAbove = selectedColour

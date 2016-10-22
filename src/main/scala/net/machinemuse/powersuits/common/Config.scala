@@ -1,35 +1,28 @@
 package net.machinemuse.powersuits.common
 
-import java.nio.file.{Paths, Files}
+import java.io.{File, PrintWriter}
+import java.nio.file.Files
+import java.util.{Arrays, Collections, List}
 
 import com.google.gson.Gson
 import cpw.mods.fml.common.FMLCommonHandler
 import cpw.mods.fml.common.registry.GameRegistry
 import cpw.mods.fml.relauncher.Side
-import net.machinemuse.api.IModularItem
-import net.machinemuse.api.IPowerModule
-import net.machinemuse.api.ModuleManager
+import net.machinemuse.api.{IModularItem, IPowerModule, ModuleManager}
 import net.machinemuse.numina.basemod.Numina
 import net.machinemuse.numina.general.MuseLogger
-import net.machinemuse.numina.geometry.MusePoint2D
-import net.machinemuse.powersuits.item.ItemComponent
 import net.machinemuse.powersuits.powermodule.armor._
 import net.machinemuse.powersuits.powermodule.energy._
 import net.machinemuse.powersuits.powermodule.misc._
 import net.machinemuse.powersuits.powermodule.movement._
 import net.machinemuse.powersuits.powermodule.tool._
 import net.machinemuse.powersuits.powermodule.weapon._
-import net.machinemuse.utils.{MuseCommonStrings, MuseStringUtils}
+import net.machinemuse.utils.MuseStringUtils
 import net.minecraft.creativetab.CreativeTabs
-import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
 import net.minecraft.util.StatCollector
 import net.minecraftforge.common.config.Configuration
 import org.lwjgl.input.Keyboard
-import java.io.{PrintWriter, FileOutputStream, FileInputStream, File}
-import java.util.Arrays
-import java.util.Collections
-import java.util.List
 
 import scala.io.Source
 
@@ -46,7 +39,7 @@ object Config {
   def keybindHUDy: Double = config.get("HUD", "y position", 32.0).getDouble()
   def toggleModuleSpam: Boolean = config.get("HUD", "Chat message when toggling modules", false).getBoolean()
 
-  def getWeightCapacity(): Double = config.get(Configuration.CATEGORY_GENERAL, "Weight Limit (grams)", 25000.0).getDouble()
+  def getWeightCapacity: Double = config.get(Configuration.CATEGORY_GENERAL, "Weight Limit (grams)", 25000.0).getDouble()
 
   /**
    * Called in post-init. Extracts recipes if the configuration value is not found.
@@ -94,8 +87,8 @@ object Config {
    */
   def init(config: Configuration) {
     Config.config = config
-    config.load
-    config.save
+    config.load()
+    config.save()
   }
 
   /**
@@ -182,7 +175,7 @@ object Config {
    * Load all the modules in the config file into memory. Eventually. For now,
    * they are hardcoded.
    */
-  def loadPowerModules {
+  def loadPowerModules() {
     val ARMORONLY: List[IModularItem] = Arrays.asList[IModularItem](MPSItems.powerArmorHead.asInstanceOf[IModularItem], MPSItems.powerArmorTorso.asInstanceOf[IModularItem], MPSItems.powerArmorLegs.asInstanceOf[IModularItem], MPSItems.powerArmorFeet.asInstanceOf[IModularItem])
     val ALLITEMS: List[IModularItem] = Arrays.asList(MPSItems.powerArmorHead.asInstanceOf[IModularItem], MPSItems.powerArmorTorso.asInstanceOf[IModularItem], MPSItems.powerArmorLegs.asInstanceOf[IModularItem], MPSItems.powerArmorFeet.asInstanceOf[IModularItem], MPSItems.powerTool.asInstanceOf[IModularItem])
     val HEADONLY: List[IModularItem] = Collections.singletonList(MPSItems.powerArmorHead.asInstanceOf[IModularItem])
@@ -255,7 +248,7 @@ object Config {
     return config
   }
 
-  def doAdditionalInfo: Boolean = {
+  def doAdditionalInfo(): Boolean = {
     if (FMLCommonHandler.instance.getEffectiveSide eq Side.CLIENT) {
       if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
         return true

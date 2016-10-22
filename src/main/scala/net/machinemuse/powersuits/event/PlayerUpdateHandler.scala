@@ -24,7 +24,7 @@ class PlayerUpdateHandler {
 
         val modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player)
         val totalWeight: Double = MuseItemUtils.getPlayerWeight(player)
-        val weightCapacity: Double = Config.getWeightCapacity()
+        val weightCapacity: Double = Config.getWeightCapacity
 
         import scala.collection.JavaConversions._
         for (stack <- modularItemsEquipped) {
@@ -79,7 +79,7 @@ class PlayerUpdateHandler {
           val velsq2: Double = MuseMathUtils.sumsq(player.motionX, player.motionY, player.motionZ) - 0.5
           if ((FMLCommonHandler.instance.getEffectiveSide == Side.CLIENT) && NuminaConfig.useSounds) {
             if (player.isAirBorne && velsq2 > 0) {
-              Musique.playerSound(player, SoundDictionary.SOUND_GLIDER, (velsq2 / 3).asInstanceOf[Float], 1.0f, continuous = true)
+              Musique.playerSound(player, SoundDictionary.SOUND_GLIDER, (velsq2 / 3).asInstanceOf[Float], 1.0f, true)
             }
             else {
               Musique.stopPlayerSound(player, SoundDictionary.SOUND_GLIDER)

@@ -5,10 +5,10 @@ import net.machinemuse.api.IModularItem;
 import java.util.List;
 
 public class PowerModule extends PowerModuleBase {
-	protected String name;
+	protected final String name;
 	protected String description;
 	protected String category;
-	protected String textureFile;
+	protected final String textureFile;
 
 	public PowerModule(String name, List<IModularItem> validItems, String textureFile, String category) {
 		super(name, validItems);

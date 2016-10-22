@@ -6,7 +6,10 @@ import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.StatCollector;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author MachineMuse
@@ -14,14 +17,14 @@ import java.util.*;
  * Ported to Java by lehjr on 10/19/16.
  */
 public class TabSelectFrame implements IGuiFrame {
-    EntityPlayer p;
-    MusePoint2D topleft;
-    MusePoint2D bottomright;
-    int worldx;
-    int worldy;
-    int worldz;
+    final EntityPlayer p;
+    final MusePoint2D topleft;
+    final MusePoint2D bottomright;
+    final int worldx;
+    final int worldy;
+    final int worldz;
 
-    Map<ClickableButton, Integer> buttons = new HashMap<>();
+    final Map<ClickableButton, Integer> buttons = new HashMap<>();
 
     public TabSelectFrame(EntityPlayer p, MusePoint2D topleft, MusePoint2D bottomright, int worldx, int worldy, int worldz) {
         this.p = p;
@@ -61,7 +64,7 @@ public class TabSelectFrame implements IGuiFrame {
             b.draw();
     }
 
-    List<String> toolTip = new ArrayList<String>();
+    List<String> toolTip = new ArrayList<>();
 
     @Override
     public List<String> getToolTip(int x, int y) {

@@ -13,13 +13,13 @@ import java.util.List;
 public class ScrollableFrame implements IGuiFrame {
     protected int totalsize;
     protected int currentscrollpixels;
-    protected int buttonsize = 5;
+    protected final int buttonsize = 5;
     protected boolean scrollbarPicked = false;
     protected boolean scrolldownPicked = false;
     protected boolean scrollupPicked = false;
     protected int lastdWheel = Mouse.getDWheel();
 
-    protected DrawableMuseRect border;
+    protected final DrawableMuseRect border;
 
     public ScrollableFrame(MusePoint2D topleft, MusePoint2D bottomright,
                            Colour borderColour, Colour insideColour) {

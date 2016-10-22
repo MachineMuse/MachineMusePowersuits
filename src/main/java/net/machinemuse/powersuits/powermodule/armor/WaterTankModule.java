@@ -15,7 +15,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class WaterTankModule extends PowerModuleBase implements IPlayerTickModul
     public static final String MODULE_WATER_TANK = "Water Tank";
     public static final String WATER_TANK_SIZE = "Tank Size";
     public static final String ACTIVATION_PERCENT = "Heat Activation Percent";
-    ItemStack bucketWater = new ItemStack(Items.water_bucket);
+    final ItemStack bucketWater = new ItemStack(Items.water_bucket);
 
     public WaterTankModule(List<IModularItem> validItems) {
         super(validItems);

@@ -14,7 +14,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -28,8 +27,8 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
 
     public static final String MODULE_FLINT_AND_STEEL = "Flint and Steel";
     public static final String IGNITION_ENERGY_CONSUMPTION = "Ignition Energy Consumption";
-    public ItemStack fas = new ItemStack(Items.flint_and_steel);
-    Random ran = new Random();
+    public final ItemStack fas = new ItemStack(Items.flint_and_steel);
+    final Random ran = new Random();
 
     public FlintAndSteelModule(List<IModularItem> validItems) {
         super(validItems);

@@ -2,17 +2,16 @@ package net.machinemuse.powersuits.common
 
 import java.io.File
 
-import cpw.mods.fml.common.{Mod, SidedProxy}
 import cpw.mods.fml.common.event.{FMLInitializationEvent, FMLPostInitializationEvent, FMLPreInitializationEvent}
 import cpw.mods.fml.common.network.NetworkRegistry
 import cpw.mods.fml.common.registry.EntityRegistry
-import net.machinemuse.api.{ILocalizeableModule, IPowerModule, ModuleManager}
+import cpw.mods.fml.common.{Mod, SidedProxy}
 import net.machinemuse.powersuits.entity.{EntityLuxCapacitor, EntityPlasmaBolt, EntitySpinningBlade}
 import net.machinemuse.powersuits.event.{HarvestEventHandler, MovementManager}
 import net.machinemuse.powersuits.network.packets.MPSPacketList
+import net.machinemuse.powersuits.powermodule.tool.TerminalHandler
 import net.minecraftforge.common.MinecraftForge
-import net.minecraftforge.common.config.Configuration
-import net.machinemuse.powersuits.powermodule.tool.TerminalHandler;
+import net.minecraftforge.common.config.Configuration;
 
 
 /**
@@ -38,7 +37,7 @@ object ModularPowersuits {
   }
 
   @Mod.EventHandler def load(event: FMLInitializationEvent) {
-    Config.loadPowerModules
+    Config.loadPowerModules()
     Config.getMaximumArmorPerPiece
     Config.getMaximumFlyingSpeedmps
     Config.useMouseWheel
@@ -50,7 +49,7 @@ object ModularPowersuits {
     Config.useCustomFonts
     Config.glowMultiplier
     Config.useShaders
-    Config.getWeightCapacity()
+    Config.getWeightCapacity
     Config.keybindHUDon
     Config.keybindHUDx
     Config.toggleModuleSpam
@@ -67,9 +66,9 @@ object ModularPowersuits {
   @Mod.EventHandler def postInit(event: FMLPostInitializationEvent) {
     proxy.postInit()
     ModCompatibility.registerModSpecificModules()
-    Config.extractRecipes
-    Config.addCustomInstallCosts
-    Config.getConfig.save
+    Config.extractRecipes()
+    Config.addCustomInstallCosts()
+    Config.getConfig.save()
   }
 
 }

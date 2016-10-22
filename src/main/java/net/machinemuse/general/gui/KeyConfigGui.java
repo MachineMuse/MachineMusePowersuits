@@ -1,17 +1,17 @@
 package net.machinemuse.general.gui;
 
+import net.machinemuse.general.gui.frame.KeybindConfigFrame;
 import net.machinemuse.general.gui.frame.TabSelectFrame;
 import net.machinemuse.numina.geometry.MusePoint2D;
-import net.machinemuse.general.gui.frame.KeybindConfigFrame;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class KeyConfigGui extends MuseGui {
-	private EntityPlayer player;
+	private final EntityPlayer player;
 	protected KeybindConfigFrame frame;
-    protected int worldx;
-    protected int worldy;
-    protected int worldz;
+    protected final int worldx;
+    protected final int worldy;
+    protected final int worldz;
 
 	public KeyConfigGui(EntityPlayer player, int x, int y, int z) {
 		super();

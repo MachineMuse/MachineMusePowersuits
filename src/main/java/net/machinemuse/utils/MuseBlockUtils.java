@@ -7,7 +7,7 @@ import net.minecraft.world.World;
  * 5:50 PM 4/21/13
  */
 public class MuseBlockUtils {
-    public static byte[] rotateType = new byte[4096];
+    public static final byte[] rotateType = new byte[4096];
     public static final int[][] SIDE_COORD_MOD = {{0, -1, 0}, {0, 1, 0}, {0, 0, -1}, {0, 0, 1}, {-1, 0, 0}, {1, 0, 0}};
     public static final int[] SIDE_LEFT = {4, 5, 5, 4, 2, 3};
     public static final int[] SIDE_RIGHT = {5, 4, 4, 5, 3, 2};
@@ -70,7 +70,7 @@ public class MuseBlockUtils {
                 if (meta == 6)
                     return 5 + shift;
                 if (meta == 7)
-                    return 0 + shift;
+                    return shift;
                 if (meta == 0) {
                     return 7 + shift;
                 }
@@ -129,7 +129,7 @@ public class MuseBlockUtils {
                 if (meta == 6)
                     return 5 + shift;
                 if (meta == 7)
-                    return 0 + shift;
+                    return shift;
                 if (meta == 0)
                     return 7 + shift;
                 break;

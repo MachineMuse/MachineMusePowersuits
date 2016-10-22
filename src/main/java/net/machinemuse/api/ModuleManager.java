@@ -18,13 +18,13 @@ public class ModuleManager {
 
     public static final String ONLINE = "Active";
 
-    protected static final Map<String, List<ItemStack>> customInstallCosts = new HashMap<String, List<ItemStack>>();
-    protected static final Map<String, IPowerModule> moduleMap = new HashMap<String, IPowerModule>();
-    protected static final List<IPowerModule> moduleList = new ArrayList<IPowerModule>();
-    protected static final List<IPlayerTickModule> playerTickModules = new ArrayList<IPlayerTickModule>();
-    protected static final List<IRightClickModule> rightClickModules = new ArrayList<IRightClickModule>();
-    protected static final List<IToggleableModule> toggleableModules = new ArrayList<IToggleableModule>();
-    protected static final List<IBlockBreakingModule> blockBreakingModules = new ArrayList<IBlockBreakingModule>();
+    protected static final Map<String, List<ItemStack>> customInstallCosts = new HashMap<>();
+    protected static final Map<String, IPowerModule> moduleMap = new HashMap<>();
+    protected static final List<IPowerModule> moduleList = new ArrayList<>();
+    protected static final List<IPlayerTickModule> playerTickModules = new ArrayList<>();
+    protected static final List<IRightClickModule> rightClickModules = new ArrayList<>();
+    protected static final List<IToggleableModule> toggleableModules = new ArrayList<>();
+    protected static final List<IBlockBreakingModule> blockBreakingModules = new ArrayList<>();
 
     public static List<IPowerModule> getAllModules() {
         return moduleList;

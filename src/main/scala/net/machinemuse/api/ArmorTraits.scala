@@ -1,12 +1,12 @@
 package net.machinemuse.api
 
 import cpw.mods.fml.common.Optional
+import forestry.api.apiculture.IArmorApiarist
+import net.machinemuse.powersuits.powermodule.armor.ApiaristArmorModule
+import net.machinemuse.utils.ElectricItemUtils
+import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.{ItemArmor, ItemStack}
-import net.machinemuse.utils.ElectricItemUtils
-import net.machinemuse.powersuits.powermodule.armor.{HazmatModule, ApiaristArmorModule}
-import forestry.api.apiculture.IArmorApiarist
-import net.minecraft.entity.EntityLivingBase
 //import atomicscience.api.IAntiPoisonArmor
 
 /**

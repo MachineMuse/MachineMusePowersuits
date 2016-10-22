@@ -18,7 +18,7 @@ object MPSItems {
   GameRegistry.registerItem(powerArmorFeet, powerArmorFeet.getUnlocalizedName)
   val powerTool = new ItemPowerFist
   GameRegistry.registerItem(powerTool, powerTool.getUnlocalizedName)
-  val tinkerTable = BlockTinkerTable
+  val tinkerTable = new BlockTinkerTable
   GameRegistry.registerBlock(tinkerTable, tinkerTable.getUnlocalizedName)
   val luxCapacitor = new BlockLuxCapacitor
   GameRegistry.registerBlock(luxCapacitor, luxCapacitor.getUnlocalizedName)

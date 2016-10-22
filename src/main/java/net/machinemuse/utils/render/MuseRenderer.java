@@ -1,7 +1,6 @@
 package net.machinemuse.utils.render;
 
 import net.machinemuse.general.gui.clickable.IClickable;
-import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.geometry.SwirlyMuseCircle;

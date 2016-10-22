@@ -5,14 +5,13 @@ import net.machinemuse.numina.render.MuseIconUtils;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.common.Config;
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import org.lwjgl.opengl.GL11;
 
 public class HeatMeter {
-    int xsize = 8;
-    int ysize = 32;
+    final int xsize = 8;
+    final int ysize = 32;
 
     public void draw(double xpos, double ypos, double value) {
         MuseTextureUtils.pushTexture(MuseTextureUtils.BLOCK_TEXTURE_QUILT());

@@ -23,20 +23,20 @@ import java.util.List;
  * Ported to Java by lehjr on 10/19/16.
  */
 public class ClickableModule extends Clickable {
-    IPowerModule module;
+    private final IPowerModule module;
 
     public ClickableModule(IPowerModule module , MusePoint2D position) {
         super(position);
         this.module = module;
     }
 
-    boolean allowed = true;
-    boolean installed = false;
-    Colour checkmarkcolour = new Colour(0.0F, 0.667F, 0.0F, 1.0F);
+    private boolean allowed = true;
+    private boolean installed = false;
+    private final Colour checkmarkcolour = new Colour(0.0F, 0.667F, 0.0F, 1.0F);
 
     @Override
     public List<String> getToolTip() {
-        List<String> toolTipText = new ArrayList<String>();
+        List<String> toolTipText = new ArrayList<>();
         toolTipText.add(getLocalizedName(getModule()));
         toolTipText.addAll(MuseStringUtils.wrapStringToLength(getLocalizedDescription(getModule()), 30));
         return toolTipText;

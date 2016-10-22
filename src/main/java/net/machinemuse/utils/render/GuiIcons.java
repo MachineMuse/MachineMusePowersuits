@@ -35,16 +35,16 @@ public class GuiIcons {
     }
 
     public static class GuiIcon implements IGuiIcon {
-        double size;
-        String filepath;
+        final double size;
+        final String filepath;
 
-        double x;
-        double y;
-        Colour c;
-        double xmin;
-        double ymin;
-        double xmax;
-        double ymax;
+        final double x;
+        final double y;
+        final Colour c;
+        final double xmin;
+        final double ymin;
+        final double xmax;
+        final double ymax;
 
         public GuiIcon (double size, String filepath, double x, double y, Colour c, Double xmin, Double ymin, Double xmax, Double ymax) {
             this.size = size;

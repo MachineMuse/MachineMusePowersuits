@@ -21,13 +21,13 @@ import java.util.List;
  * Created by leon on 10/18/16.
  */
 public class SprintAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static String MODULE_SPRINT_ASSIST = "Sprint Assist";
-    public static String SPRINT_ENERGY_CONSUMPTION = "Sprint Energy Consumption";
-    public static String SPRINT_SPEED_MULTIPLIER = "Sprint Speed Multiplier";
-    public static String SPRINT_FOOD_COMPENSATION = "Sprint Exhaustion Compensation";
-    public static String WALKING_ENERGY_CONSUMPTION = "Walking Energy Consumption";
-    public static String WALKING_SPEED_MULTIPLIER = "Walking Speed Multiplier";
-    public static UUID TAGUUID = new UUID(-7931854408382894632l, -8160638015224787553l);
+    public static final String MODULE_SPRINT_ASSIST = "Sprint Assist";
+    public static final String SPRINT_ENERGY_CONSUMPTION = "Sprint Energy Consumption";
+    public static final String SPRINT_SPEED_MULTIPLIER = "Sprint Speed Multiplier";
+    public static final String SPRINT_FOOD_COMPENSATION = "Sprint Exhaustion Compensation";
+    public static final String WALKING_ENERGY_CONSUMPTION = "Walking Energy Consumption";
+    public static final String WALKING_SPEED_MULTIPLIER = "Walking Speed Multiplier";
+    public static final UUID TAGUUID = new UUID(-7931854408382894632L, -8160638015224787553L);
 
     public SprintAssistModule(List<IModularItem> validItems) {
         super(validItems);

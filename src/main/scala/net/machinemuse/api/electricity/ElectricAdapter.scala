@@ -3,8 +3,7 @@ package net.machinemuse.api.electricity
 import appeng.api.config.AccessRestriction
 import appeng.api.implementations.items.IAEItemPowerStorage
 import cofh.api.energy.IEnergyContainerItem
-import ic2.api.item.ElectricItem
-import ic2.api.item.IElectricItem
+import ic2.api.item.{ElectricItem, IElectricItem}
 import net.machinemuse.powersuits.common.ModCompatibility
 import net.minecraft.item.ItemStack
 

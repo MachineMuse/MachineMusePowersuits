@@ -14,10 +14,10 @@ import net.minecraft.item.ItemStack;
  * Ported to Java by lehjr on 10/19/16.
  */
 public class CosmeticGui extends MuseGui {
-    EntityPlayer player;
-    int worldx;
-    int worldy;
-    int worldz;
+    final EntityPlayer player;
+    final int worldx;
+    final int worldy;
+    final int worldz;
 
     ItemSelectionFrame itemSelect;
     ItemStack lastSelectedItem;

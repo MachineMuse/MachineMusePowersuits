@@ -1,9 +1,8 @@
 package net.machinemuse.general.gui.frame
 
-import net.machinemuse.powersuits.client.render.modelspec.{ModelSpec, ModelRegistry}
-import net.minecraft.item.ItemStack
+import net.machinemuse.numina.geometry.{Colour, MusePoint2D, MuseRelativeRect}
+import net.machinemuse.powersuits.client.render.modelspec.{ModelRegistry, ModelSpec}
 import org.lwjgl.opengl.GL11._
-import net.machinemuse.numina.geometry.{MuseRelativeRect, Colour, MusePoint2D}
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -56,7 +55,7 @@ class PartManipContainer(val itemSelect: ItemSelectionFrame, val colourSelect: C
       lastItemSlot = getItemSlot
       colourSelect.refreshColours()
       this.totalsize = (0.0 /: modelframes) {
-        (acc, subframe) => subframe.updateItems; subframe.border.bottom()
+        (acc, subframe) => subframe.updateItems(); subframe.border.bottom()
       }.toInt
     }
     if(colourSelect.decrAbove > -1) {

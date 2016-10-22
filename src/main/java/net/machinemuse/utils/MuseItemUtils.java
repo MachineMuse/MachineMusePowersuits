@@ -1,5 +1,7 @@
 package net.machinemuse.utils;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
@@ -15,8 +17,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 
 import java.util.*;
 
@@ -61,7 +61,7 @@ public class MuseItemUtils {
      *         IModularItem
      */
     public static List<ItemStack> getModularItemsInInventory(IInventory inv) {
-        ArrayList<ItemStack> stacks = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> stacks = new ArrayList<>();
 
         for (int i = 0; i < inv.getSizeInventory(); i++) {
             ItemStack stack = inv.getStackInSlot(i);
@@ -83,7 +83,7 @@ public class MuseItemUtils {
      * @return A List of inventory slots containing an IModularItem
      */
     public static List<Integer> getModularItemSlotsInInventory(IInventory inv) {
-        ArrayList<Integer> slots = new ArrayList<Integer>();
+        ArrayList<Integer> slots = new ArrayList<>();
 
         for (int i = 0; i < inv.getSizeInventory(); i++) {
             ItemStack stack = inv.getStackInSlot(i);
@@ -130,7 +130,7 @@ public class MuseItemUtils {
     }
 
     public static List<Integer> deleteFromInventory(List<ItemStack> cost, InventoryPlayer inventory) {
-        List<Integer> slots = new LinkedList<Integer>();
+        List<Integer> slots = new LinkedList<>();
         for (ItemStack stackInCost : cost) {
             int remaining = stackInCost.stackSize;
             for (int i = 0; i < inventory.getSizeInventory() && remaining > 0; i++) {
@@ -150,7 +150,7 @@ public class MuseItemUtils {
     }
 
     public static List<Integer> findInInventoryForCost(List<ItemStack> workingUpgradeCost, InventoryPlayer inventory) {
-        List<Integer> slots = new LinkedList<Integer>();
+        List<Integer> slots = new LinkedList<>();
         for (ItemStack stackInCost : workingUpgradeCost) {
             int found = 0;
             for (int i = 0; i < inventory.getSizeInventory() && found < stackInCost.stackSize; i++) {
@@ -247,13 +247,12 @@ public class MuseItemUtils {
     }
 
     public static ItemStack[] itemsEquipped(EntityPlayer player) {
-        ItemStack[] equipped = {
+        return new ItemStack[]{
                 player.inventory.armorInventory[0],
                 player.inventory.armorInventory[1],
                 player.inventory.armorInventory[2],
                 player.inventory.armorInventory[3],
                 player.inventory.getCurrentItem()};
-        return equipped;
     }
 
     public static boolean canStackTogether(ItemStack stack1, ItemStack stack2) {
@@ -303,7 +302,7 @@ public class MuseItemUtils {
     }
 
     public static Set<Integer> giveOrDropItemWithChance(ItemStack itemsToGive, EntityPlayer player, double chanceOfSuccess) {
-        Set<Integer> slots = new HashSet<Integer>();
+        Set<Integer> slots = new HashSet<>();
 
         // First try to add the items to existing stacks
         for (int i = 0; i < player.inventory.getSizeInventory() && itemsToGive.stackSize > 0; i++) {
@@ -405,9 +404,7 @@ public class MuseItemUtils {
         if (stack != null && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
             Double foodLevel = itemTag.getDouble("Food");
-            if (foodLevel != null) {
-                return foodLevel;
-            }
+            return foodLevel;
         }
         return 0.0;
     }

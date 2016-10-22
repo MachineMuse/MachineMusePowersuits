@@ -4,8 +4,10 @@ package net.machinemuse.powersuits.powermodule.tool;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
+import net.machinemuse.powersuits.powermodule.PropertyModifierIntLinearAdditive;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
@@ -15,14 +17,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
-import net.machinemuse.powersuits.powermodule.PropertyModifierIntLinearAdditive;
-import net.machinemuse.powersuits.common.ModCompatibility;
-import net.machinemuse.powersuits.common.Config;
-
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,10 +34,10 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
     public static final String ORE_SCANNER_RADIUS_Y = "Y Radius";
     public static final String ORE_SCANNER_RADIUS_Z = "Z Radius";
 
-    private static String[] oreNames = {"oreCopper", "oreTin", "oreSilver", "oreLead", "oreNickel", "orePlatinum", "oreZinc", "oreApatite", "oreUranium"};
-    private static ArrayList<ArrayList<ItemStack>> ores = new ArrayList<ArrayList<ItemStack>>();
-    private static HashMap<List, String> oreMap = new HashMap();
-    private static HashMap<String, Integer> valueMap = new HashMap();
+    private static final String[] oreNames = {"oreCopper", "oreTin", "oreSilver", "oreLead", "oreNickel", "orePlatinum", "oreZinc", "oreApatite", "oreUranium"};
+    private static final ArrayList<ArrayList<ItemStack>> ores = new ArrayList<>();
+    private static final HashMap<List, String> oreMap = new HashMap();
+    private static final HashMap<String, Integer> valueMap = new HashMap();
 
     public OreScannerModule(List<IModularItem> validItems) {
         super(validItems);

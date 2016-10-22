@@ -5,29 +5,24 @@ import java.util
 import cpw.mods.fml.common.eventhandler.SubscribeEvent
 import cpw.mods.fml.common.gameevent.TickEvent
 import cpw.mods.fml.common.gameevent.TickEvent.{ClientTickEvent, RenderTickEvent}
-import cpw.mods.fml.relauncher.Side
-import cpw.mods.fml.relauncher.SideOnly
-import net.machinemuse.general.gui.{WaterMeter, EnergyMeter, HeatMeter}
-import net.machinemuse.numina.general.MuseLogger
+import net.machinemuse.api.ModuleManager
+import net.machinemuse.general.gui.{EnergyMeter, HeatMeter, WaterMeter}
 import net.machinemuse.numina.network.{MusePacket, PacketSender}
 import net.machinemuse.powersuits.block.BlockTinkerTable
 import net.machinemuse.powersuits.common.Config
 import net.machinemuse.powersuits.control.{KeybindManager, PlayerInputMap}
 import net.machinemuse.powersuits.item.{ItemPowerArmorChestplate, ItemPowerArmorHelmet, ItemPowerFist}
 import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate
+import net.machinemuse.powersuits.powermodule.armor.WaterTankModule
 import net.machinemuse.powersuits.powermodule.misc.{AutoFeederModule, ClockModule, CompassModule}
 import net.machinemuse.utils.render.MuseRenderer
-import net.machinemuse.utils.{ElectricItemUtils, MuseHeatUtils, MuseItemUtils, MuseStringUtils, AddonWaterUtils}
-import net.machinemuse.powersuits.powermodule.armor.WaterTankModule;
-
+import net.machinemuse.utils._
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.EntityClientPlayerMP
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.item.ItemStack
 import net.minecraft.init.Items
-import net.minecraft.init.Blocks
-import net.machinemuse.api.ModuleManager
+import net.minecraft.item.ItemStack
 
 
 class ClientTickHandler {
@@ -42,7 +37,7 @@ class ClientTickHandler {
     if (event.phase == TickEvent.Phase.START) {
       import scala.collection.JavaConversions._
       for (kb <- KeybindManager.getKeybindings) {
-        kb.doToggleTick
+        kb.doToggleTick()
       }
     }
     else {

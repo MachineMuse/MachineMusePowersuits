@@ -57,8 +57,7 @@ public abstract class MuseStringUtils {
         format.setMaximumFractionDigits(2);
         format.applyPattern("##0.##");
 
-        String formattedNumber = format.format(number * 100);
-        return formattedNumber;
+        return format.format(number * 100);
     }
 
     /**
@@ -194,7 +193,7 @@ public abstract class MuseStringUtils {
      *                         </pre>
      */
     public static List<String> wrapStringToVisualLength(String str, double length) {
-        List<String> strlist = new ArrayList<String>();
+        List<String> strlist = new ArrayList<>();
 
         String[] words = str.split(" ");
         if(words.length == 0) {
@@ -234,7 +233,7 @@ public abstract class MuseStringUtils {
      *
      * @author MachineMuse
      */
-    public static enum FormatCodes {
+    public enum FormatCodes {
         Black('0'),
         DarkBlue('1'),
         DarkGreen('2'),
@@ -258,9 +257,9 @@ public abstract class MuseStringUtils {
         Italic('o'),
         Reset('r');
 
-        public char character;
+        public final char character;
 
-        private FormatCodes(char character) {
+        FormatCodes(char character) {
             this.character = character;
         }
     }

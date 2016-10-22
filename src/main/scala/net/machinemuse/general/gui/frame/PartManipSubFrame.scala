@@ -1,14 +1,13 @@
 package net.machinemuse.general.gui.frame
 
 import net.machinemuse.general.gui.clickable.ClickableItem
-import net.machinemuse.numina.general.{MuseLogger, MuseMathUtils}
+import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.geometry.{Colour, MuseRect, MuseRelativeRect}
 import net.machinemuse.numina.network.PacketSender
 import net.machinemuse.numina.render.RenderState
 import net.machinemuse.powersuits.client.render.modelspec.{ModelPartSpec, ModelRegistry, ModelSpec}
 import net.machinemuse.powersuits.network.packets.MusePacketCosmeticInfo
 import net.machinemuse.utils.MuseItemUtils
-import net.machinemuse.utils.render.GuiIcons.GuiIcon
 import net.machinemuse.utils.render.{GuiIcons, MuseRenderer}
 import net.minecraft.client.Minecraft
 import net.minecraft.item.ItemArmor
@@ -56,14 +55,14 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
     }
   }
 
-  def updateItems {
+  def updateItems() {
     specs = model.apply.values.filter(spec => isValidArmor(getSelectedItem, spec.slot)).toArray
     border.setHeight(if (specs.size > 0) specs.size * 8 + 10 else 0)
   }
 
   def drawPartial(min: Double, max: Double) {
     if (specs.size > 0) {
-      ModelRegistry.getName(model).map(s => MuseRenderer.drawString(s, border.left + 8, border.top))
+      ModelRegistry.getName(model).foreach(s => MuseRenderer.drawString(s, border.left + 8, border.top))
       drawOpenArrow(min, max)
       if (open) {
         ((border.top + 8) /: specs) {
@@ -81,7 +80,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
       val tagname = ModelRegistry.makeName(spec)
       val player = Minecraft.getMinecraft.thePlayer
       val tagdata = getOrDontGetSpecTag(spec)
-      tagdata.map(e => {
+      tagdata.foreach(e => {
         val oldindex = spec.getColourIndex(e)
         if (oldindex >= index && oldindex > 0) {
           spec.setColourIndex(e, oldindex - 1)
@@ -96,17 +95,17 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
     val tag = getSpecTag(spec)
     val selcomp = if (tag.hasNoTags) 0 else if (spec.getGlow(tag)) 2 else 1
     val selcolour = spec.getColourIndex(tag)
-    new GuiIcons.TransparentArmor(x, y, null, null, ymino, null, ymaxo);
-    new GuiIcons.NormalArmor(x + 8, y, null, null, ymino, null, ymaxo);
-    new GuiIcons.GlowArmor(x + 16, y, null, null, ymino, null, ymaxo);
-    new GuiIcons.SelectedArmorOverlay(x + selcomp * 8, y, null, null, ymino, null, ymaxo);
+    new GuiIcons.TransparentArmor(x, y, null, null, ymino, null, ymaxo)
+    new GuiIcons.NormalArmor(x + 8, y, null, null, ymino, null, ymaxo)
+    new GuiIcons.GlowArmor(x + 16, y, null, null, ymino, null, ymaxo)
+    new GuiIcons.SelectedArmorOverlay(x + selcomp * 8, y, null, null, ymino, null, ymaxo)
     val textstartx = ((x + 28) /: colourframe.colours) {
       case (acc, colour) =>
-        new GuiIcons.ArmourColourPatch(acc, y, new Colour(colour), null, ymino, null, ymaxo);
+        new GuiIcons.ArmourColourPatch(acc, y, new Colour(colour), null, ymino, null, ymaxo)
         acc + 8
     }
     if (selcomp > 0) {
-      new GuiIcons.SelectedArmorOverlay(x + 28 + selcolour * 8, y, null, null, ymino, null, ymaxo);
+      new GuiIcons.SelectedArmorOverlay(x + 28 + selcolour * 8, y, null, null, ymino, null, ymaxo)
     }
 
 
@@ -156,7 +155,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
           val player = Minecraft.getMinecraft.thePlayer
           renderTag.removeTag(ModelRegistry.makeName(spec))
           if (player.worldObj.isRemote) PacketSender.sendToServer(new MusePacketCosmeticInfo(player, getSelectedItem.inventorySlot, tagname, new NBTTagCompound()).getPacket131)
-          updateItems
+          updateItems()
           true
         }
         case 1 => {
@@ -165,7 +164,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
           val tagdata = getOrMakeSpecTag(spec)
           spec.setGlow(tagdata, false)
           if (player.worldObj.isRemote) PacketSender.sendToServer(new MusePacketCosmeticInfo(player, getSelectedItem.inventorySlot, tagname, tagdata).getPacket131)
-          updateItems
+          updateItems()
           true
         }
         case 2 => {
@@ -174,7 +173,7 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
           val tagdata = getOrMakeSpecTag(spec)
           spec.setGlow(tagdata, true)
           if (player.worldObj.isRemote) PacketSender.sendToServer(new MusePacketCosmeticInfo(player, getSelectedItem.inventorySlot, tagname, tagdata).getPacket131)
-          updateItems
+          updateItems()
           true
         }
         case _ => false

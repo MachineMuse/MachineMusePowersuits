@@ -1,8 +1,11 @@
 package net.machinemuse.general.gui;
 
+import net.machinemuse.general.gui.frame.DetailedSummaryFrame;
+import net.machinemuse.general.gui.frame.ItemSelectionFrame;
+import net.machinemuse.general.gui.frame.ModuleSelectionFrame;
+import net.machinemuse.general.gui.frame.ModuleTweakFrame;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
-import net.machinemuse.general.gui.frame.*;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +17,7 @@ import net.minecraft.util.StatCollector;
  * @author MachineMuse
  */
 public class GuiFieldTinker extends MuseGui {
-    protected EntityClientPlayerMP player;
+    protected final EntityClientPlayerMP player;
 
     protected ItemSelectionFrame itemSelectFrame;
 

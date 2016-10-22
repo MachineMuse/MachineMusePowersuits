@@ -6,7 +6,6 @@ package net.machinemuse.general;
 import net.machinemuse.numina.general.MuseLogger;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagInt;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -68,7 +67,7 @@ public class NBTTagAccessor extends NBTTagCompound {
 
     public static List<NBTTagCompound> getValues(NBTTagCompound nbt) {
         Set<String> keyset = (Set<String>) nbt.func_150296_c();
-        ArrayList<NBTTagCompound> a = new ArrayList<NBTTagCompound>(keyset.size());
+        ArrayList<NBTTagCompound> a = new ArrayList<>(keyset.size());
         for (String key : keyset) {
             NBTBase c = nbt.getTag(key);
             if (c instanceof NBTTagCompound) {

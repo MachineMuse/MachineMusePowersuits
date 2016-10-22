@@ -1,9 +1,8 @@
 package net.machinemuse.utils;
 
-import net.machinemuse.powersuits.powermodule.armor.WaterTankModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.powersuits.item.ItemPowerArmorChestplate;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.powersuits.powermodule.armor.WaterTankModule;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 

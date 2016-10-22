@@ -19,7 +19,7 @@ import java.util.Set;
 
 public class KeybindManager {
     // only stores keybindings relevant to us!!
-    protected Set<ClickableKeybinding> keybindings;
+    protected final Set<ClickableKeybinding> keybindings;
     protected static KeybindManager instance;
 
     protected KeybindManager() {
@@ -73,7 +73,7 @@ public class KeybindManager {
         } finally {
             try {
                 writer.close();
-            } catch (Throwable e) {
+            } catch (Throwable ignored) {
             }
         }
     }

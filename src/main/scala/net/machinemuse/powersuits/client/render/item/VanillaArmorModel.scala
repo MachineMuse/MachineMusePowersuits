@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.client.render.item
 
-import net.minecraft.client.model.ModelBiped
 import net.minecraft.entity.Entity
 
 /**

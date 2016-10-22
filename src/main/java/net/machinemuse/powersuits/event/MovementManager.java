@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MovementManager {
-    public static Map<String, Double> playerJumpMultipliers = new HashMap();
+    public static final Map<String, Double> playerJumpMultipliers = new HashMap();
 
     public static double getPlayerJumpMultiplier(EntityPlayer player) {
 
@@ -46,7 +46,7 @@ public class MovementManager {
                 double drain = ModuleManager.computeModularProperty(stack, JumpAssistModule.JUMP_ENERGY_CONSUMPTION);
                 double avail = ElectricItemUtils.getPlayerEnergy(player);
                 if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
-                    Musique.playerSound(player, SoundDictionary.SOUND_JUMP_ASSIST, (float) (jumpAssist / 8.0), 1, false);
+                    Musique.playerSound(player, SoundDictionary.SOUND_JUMP_ASSIST, (float) (jumpAssist / 8.0), (float)1, false);
                 }
                 if (drain < avail) {
                     ElectricItemUtils.drainPlayerEnergy(player, drain);
@@ -73,7 +73,7 @@ public class MovementManager {
                 if (ModuleManager.itemHasActiveModule(boots, ShockAbsorberModule.MODULE_SHOCK_ABSORBER) && event.distance > 3) {
                     double distanceAbsorb = event.distance * ModuleManager.computeModularProperty(boots, ShockAbsorberModule.SHOCK_ABSORB_MULTIPLIER);
                     if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
-                        Musique.playerSound(player, SoundDictionary.SOUND_GUI_INSTALL, (float) (distanceAbsorb), 1, false);
+                        Musique.playerSound(player, SoundDictionary.SOUND_GUI_INSTALL, (float) (distanceAbsorb), (float)1, false);
                     }
 
                     double drain = distanceAbsorb * ModuleManager.computeModularProperty(boots, ShockAbsorberModule.SHOCK_ABSORB_ENERGY_CONSUMPTION);
@@ -94,7 +94,6 @@ public class MovementManager {
 
     public static double computeFallHeightFromVelocity(double velocity) {
         double ticks = velocity / DEFAULT_GRAVITY;
-        double distance = -0.5 * DEFAULT_GRAVITY * ticks * ticks;
-        return distance;
+        return -0.5 * DEFAULT_GRAVITY * ticks * ticks;
     }
 }

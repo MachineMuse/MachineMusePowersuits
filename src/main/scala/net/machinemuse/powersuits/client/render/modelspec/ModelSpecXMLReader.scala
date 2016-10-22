@@ -1,12 +1,14 @@
 package net.machinemuse.powersuits.client.render.modelspec
 
-import scala.xml.{NodeSeq, XML}
-import net.minecraft.util.{ResourceLocation, Vec3}
 import java.awt.Color
-import net.machinemuse.utils.MuseStringUtils
 import java.net.URL
+
 import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.geometry.Colour
+import net.machinemuse.utils.MuseStringUtils
+import net.minecraft.util.{ResourceLocation, Vec3}
+
+import scala.xml.{NodeSeq, XML}
 
 
 /**

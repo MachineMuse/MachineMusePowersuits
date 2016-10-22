@@ -1,6 +1,5 @@
 package net.machinemuse.general.gui;
 
-import net.machinemuse.general.gui.HeatMeter;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;
 import net.minecraft.init.Blocks;

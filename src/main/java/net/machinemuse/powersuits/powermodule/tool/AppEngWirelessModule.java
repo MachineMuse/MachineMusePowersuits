@@ -1,9 +1,7 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
 import appeng.api.AEApi;
-import appeng.items.tools.powered.ToolWirelessTerminal;
 import com.google.common.base.Optional;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -12,7 +10,6 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import java.util.List;

@@ -1,9 +1,9 @@
 package net.machinemuse.general.gui;
 
-import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.numina.geometry.DrawableMuseRect;
 import net.machinemuse.general.gui.clickable.IClickable;
 import net.machinemuse.general.gui.frame.IGuiFrame;
+import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.geometry.DrawableMuseRect;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Keyboard;
@@ -28,7 +28,7 @@ public class MuseGui extends GuiScreen {
     protected DrawableMuseRect backgroundRect;
     protected DrawableMuseRect tooltipRect;
 
-    protected List<IGuiFrame> frames;
+    protected final List<IGuiFrame> frames;
 
     public MuseGui() {
         super();
@@ -161,8 +161,7 @@ public class MuseGui extends GuiScreen {
      */
     public int relX(double absx) {
         int padding = (width - getxSize()) / 2;
-        int relx = (int) ((absx - padding) * 2 / getxSize() - 1);
-        return relx;
+        return (int) ((absx - padding) * 2 / getxSize() - 1);
     }
 
     /**
@@ -184,8 +183,7 @@ public class MuseGui extends GuiScreen {
      */
     public int relY(float absy) {
         int padding = (height - ySize) / 2;
-        int rely = (int) ((absy - padding) * 2 / ySize - 1);
-        return rely;
+        return (int) ((absy - padding) * 2 / ySize - 1);
     }
 
     /**
@@ -279,7 +277,7 @@ public class MuseGui extends GuiScreen {
      * @return
      */
     public List<String> getToolTip(int x, int y) {
-        List<String> hitTip = null;
+        List<String> hitTip;
         for (IGuiFrame frame : frames) {
             hitTip = frame.getToolTip(x, y);
             if (hitTip != null) {

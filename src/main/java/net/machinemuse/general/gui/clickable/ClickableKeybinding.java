@@ -17,6 +17,7 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.util.ChatComponentText;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,11 +26,11 @@ import java.util.List;
  * Ported to Java by lehjr on 10/19/16.
  */
 public class ClickableKeybinding extends ClickableButton {
-    protected List<ClickableModule> boundModules = new ArrayList<ClickableModule>();
+    protected final List<ClickableModule> boundModules = new ArrayList<>();
     public boolean toggleval = false;
     public boolean toggled = false;
     public Boolean displayOnHUD;
-    public KeyBinding keybind;
+    public final KeyBinding keybind;
 
 
     public ClickableKeybinding(KeyBinding keybind, MusePoint2D position, boolean free, Boolean displayOnHUD) {
@@ -115,7 +116,7 @@ public class ClickableKeybinding extends ClickableButton {
 
     public void unbindFarModules() {
         Iterator<ClickableModule> iterator = boundModules.iterator();
-        ClickableModule module = null;
+        ClickableModule module;
         while (iterator.hasNext()) {
             module = iterator.next();
             int maxDistance = getTargetDistance() * 2;

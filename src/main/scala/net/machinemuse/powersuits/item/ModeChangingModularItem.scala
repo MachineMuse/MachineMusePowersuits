@@ -1,12 +1,11 @@
 package net.machinemuse.powersuits.item
 
-import net.machinemuse.numina.item.{NuminaItemUtils, ModeChangingItem}
+import net.machinemuse.api.ModuleManager
+import net.machinemuse.numina.item.{ModeChangingItem, NuminaItemUtils}
+import net.machinemuse.numina.scala.OptionCast
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.IIcon
-import net.machinemuse.api.ModuleManager
-import net.machinemuse.api.moduletrigger.IRightClickModule
-import net.minecraft.entity.player.EntityPlayer
-import net.machinemuse.numina.scala.OptionCast
 
 /**
  * Author: MachineMuse (Claire Semple)

@@ -4,7 +4,6 @@ import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.utils.render.MuseRenderer;
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import org.lwjgl.opengl.GL11;

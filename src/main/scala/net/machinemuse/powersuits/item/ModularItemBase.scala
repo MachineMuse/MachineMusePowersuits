@@ -1,17 +1,15 @@
 package net.machinemuse.powersuits.item
 
-import net.minecraft.item.{ItemStack, Item}
-import cpw.mods.fml.relauncher.{SideOnly, Side}
-import net.machinemuse.utils.{MuseStringUtils, MuseCommonStrings}
-import scala.Predef.String
-import net.minecraft.entity.player.EntityPlayer
-import net.machinemuse.powersuits.powermodule.misc.{CosmeticGlowModule, TintModule}
-import net.machinemuse.numina.general.MuseMathUtils
-import MuseMathUtils._
+import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.machinemuse.api.electricity.MuseElectricItem
-import net.machinemuse.api.{ModuleManager, IModularItem}
-import net.machinemuse.utils.ElectricItemUtils
+import net.machinemuse.api.{IModularItem, ModuleManager}
+import net.machinemuse.numina.general.MuseMathUtils
+import net.machinemuse.numina.general.MuseMathUtils._
 import net.machinemuse.numina.geometry.Colour
+import net.machinemuse.powersuits.powermodule.misc.{CosmeticGlowModule, TintModule}
+import net.machinemuse.utils.{ElectricItemUtils, MuseCommonStrings, MuseStringUtils}
+import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.{Item, ItemStack}
 
 /**
  * Author: MachineMuse (Claire Semple)

@@ -4,7 +4,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent
 import net.machinemuse.numina.network.PacketSender
 import net.machinemuse.powersuits.network.packets.MusePacketPropertyModifierConfig
-import net.minecraft.entity.player.{EntityPlayerMP, EntityPlayer}
+import net.minecraft.entity.player.EntityPlayerMP
 
 /**
  * Author: MachineMuse (Claire Semple)

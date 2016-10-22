@@ -17,7 +17,7 @@ import net.minecraft.item.ItemTool;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
-import java.util.*;
+import java.util.List;
 
 public class ShovelModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
     public static final String MODULE_SHOVEL = "Shovel";

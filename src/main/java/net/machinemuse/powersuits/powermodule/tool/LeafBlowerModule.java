@@ -5,6 +5,7 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
+import net.machinemuse.powersuits.powermodule.PropertyModifierIntLinearAdditive;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
@@ -13,7 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.machinemuse.powersuits.powermodule.PropertyModifierIntLinearAdditive;
+
 import java.util.List;
 
 
@@ -82,7 +83,7 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
             return false;
 
         // Plants
-        if (blocktype == "plants" && (block != null) && ((block instanceof BlockTallGrass) || (block instanceof BlockFlower)) && block.canHarvestBlock(player, meta)) {
+        if (blocktype == "plants" && (block instanceof BlockTallGrass || block instanceof BlockFlower) && block.canHarvestBlock(player, meta)) {
             block.harvestBlock(world, player, x, y, z, meta);
             world.setBlockToAir(x, y, z);
             return true;

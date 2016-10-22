@@ -9,11 +9,11 @@ import net.minecraft.nbt.NBTTagCompound;
  * Created by leon on 10/18/16.
  */
 public class AttributeModifier {
-    int operation;
-    UUID uuid;
-    double amount;
-    String attributeName;
-    String name;
+    final int operation;
+    final UUID uuid;
+    final double amount;
+    final String attributeName;
+    final String name;
 
     public AttributeModifier(int operation, UUID uuid, double amount, String attributeName, String name) {
         this.operation = operation;

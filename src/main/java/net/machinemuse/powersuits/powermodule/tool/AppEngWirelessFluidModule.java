@@ -2,28 +2,15 @@ package net.machinemuse.powersuits.powermodule.tool;
 
 import com.google.common.base.Optional;
 import extracells.api.ECApi;
-import extracells.item.ItemWirelessTerminalFluid;
-import appeng.api.AEApi;
-import appeng.api.networking.IGrid;
-import appeng.api.networking.IGridHost;
-import appeng.api.networking.IGridNode;
-import appeng.api.networking.IMachineSet;
-import appeng.api.util.DimensionalCoord;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.List;
 

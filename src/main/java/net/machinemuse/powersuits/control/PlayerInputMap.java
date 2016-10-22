@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PlayerInputMap {
-	protected static Map<String, PlayerInputMap> playerInputs = new HashMap();
+	protected static final Map<String, PlayerInputMap> playerInputs = new HashMap();
 
 	public static PlayerInputMap getInputMapFor(String playerName) {
 		PlayerInputMap map = playerInputs.get(playerName);
@@ -83,7 +83,7 @@ public class PlayerInputMap {
 					&& other.motionX == this.motionX
 					&& other.motionY == this.motionY
 					&& other.motionZ == this.motionZ;
-		} catch (ClassCastException e) {
+		} catch (ClassCastException ignored) {
 		}
 		return false;
 	}

@@ -1,12 +1,12 @@
 package net.machinemuse.powersuits.client.render.modelspec
 
-import net.minecraftforge.client.model.obj.WavefrontObject
-import net.minecraftforge.client.model.AdvancedModelLoader
-import net.machinemuse.utils.MuseStringUtils
-import net.minecraft.util.{ResourceLocation, Vec3}
-import net.minecraft.nbt.NBTTagCompound
 import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.scala.MuseRegistry
+import net.machinemuse.utils.MuseStringUtils
+import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.util.{ResourceLocation, Vec3}
+import net.minecraftforge.client.model.AdvancedModelLoader
+import net.minecraftforge.client.model.obj.WavefrontObject
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -55,7 +55,7 @@ class ModelSpec(val model: WavefrontObject,
                 val rotation: Option[Vec3],
                 val filename: String
                  ) extends MuseRegistry[ModelPartSpec] {
-  def applyOffsetAndRotation = {
+  def applyOffsetAndRotation() = {
     // TODO: Implement
   }
 
@@ -97,7 +97,7 @@ class ModelPartSpec(val modelSpec: ModelSpec,
   }
 
   def setModel(nbt: NBTTagCompound, model: ModelSpec) {
-    setModel(nbt, ModelRegistry.inverse.get(model).getOrElse(""))
+    setModel(nbt, ModelRegistry.inverse.getOrElse(model, ""))
   }
 
   def setModel(nbt: NBTTagCompound, modelname: String) {

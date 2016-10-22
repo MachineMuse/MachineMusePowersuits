@@ -40,6 +40,6 @@ class MusePacketInventoryRefresh(player: EntityPlayer, slot: Int, stack: ItemSta
   override def handleClient(player: EntityClientPlayerMP) {
     val inventory: IInventory = player.inventory
     inventory.setInventorySlotContents(slot, stack)
-    OptionCast[MuseGui](Minecraft.getMinecraft.currentScreen) map (s => s.refresh())
+    OptionCast[MuseGui](Minecraft.getMinecraft.currentScreen) foreach (s => s.refresh())
   }
 }

@@ -1,10 +1,5 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
 import appeng.api.AEApi;
 import appeng.api.config.Settings;
 import appeng.api.config.SortDir;
@@ -12,15 +7,19 @@ import appeng.api.config.SortOrder;
 import appeng.api.config.ViewItems;
 import appeng.api.features.IWirelessTermHandler;
 import appeng.api.util.IConfigManager;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.Optional;
 import extracells.api.ECApi;
 import extracells.api.IWirelessFluidTermHandler;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.utils.ElectricItemUtils;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Optional;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Eximius88 on 1/13/14.
@@ -38,9 +37,7 @@ public boolean canHandle(ItemStack is) {
                 return false;
         if(is.getUnlocalizedName() == null)
                 return false;
-        if(is.getUnlocalizedName().equals("item.powerFist"))
-                return true;
-        return false;
+    return is.getUnlocalizedName().equals("item.powerFist");
 }
 
 @Optional.Method(modid = "appliedenergistics2")
@@ -142,7 +139,7 @@ public static NBTTagCompound openNbtData(ItemStack item) {
 @Optional.Interface(iface = "appeng.api.util.IConfigManager", modid = "appliedenergistics2", striprefs = true)
 class WirelessConfig implements IConfigManager {
 
-private final Map<Settings, Enum<?>> enums = new EnumMap<Settings, Enum<?>>( Settings.class );
+private final Map<Settings, Enum<?>> enums = new EnumMap<>(Settings.class);
 
 final ItemStack stack;
 
@@ -217,7 +214,7 @@ public void readFromNBT(NBTTagCompound tagCompound)
                                 putSetting( key, newValue );
                         }
                 }
-                catch (IllegalArgumentException e)
+                catch (IllegalArgumentException ignored)
                 {
 
                 }

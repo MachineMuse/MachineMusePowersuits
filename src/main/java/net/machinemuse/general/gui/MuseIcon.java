@@ -98,7 +98,7 @@ public class MuseIcon {
     public static final MuseIcon ARCREACTOR = new MuseIcon("jetboots");
     public static final MuseIcon PUNCHY = new MuseIcon("jetboots");
 
-    protected String texturename;
+    protected final String texturename;
     protected IIcon icon;
 
     public MuseIcon(String texturename) {

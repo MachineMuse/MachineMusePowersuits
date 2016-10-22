@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.item
 
 import cpw.mods.fml.common.Optional
 import cpw.mods.fml.relauncher.{Side, SideOnly}
-import forestry.api.core.IArmorNaturalist;
+import forestry.api.core.IArmorNaturalist
 import micdoodle8.mods.galacticraft.api.item.IBreathableArmor
 import micdoodle8.mods.galacticraft.api.item.IBreathableArmor.EnumGearType
 import net.machinemuse.api.ModuleManager

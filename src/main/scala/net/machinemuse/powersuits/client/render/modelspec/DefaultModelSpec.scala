@@ -1,11 +1,11 @@
 package net.machinemuse.powersuits.client.render.modelspec
 
-import net.minecraft.item.ItemStack
-import net.machinemuse.powersuits.item.ItemPowerArmor
-import net.machinemuse.utils.MuseStringUtils
-import net.minecraft.nbt.NBTTagCompound
 import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.numina.geometry.Colour
+import net.machinemuse.powersuits.item.ItemPowerArmor
+import net.machinemuse.utils.MuseStringUtils
+import net.minecraft.item.ItemStack
+import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.ResourceLocation
 
 /**
@@ -61,7 +61,7 @@ object DefaultModelSpec {
   }
 
   def makeModelPrefs(stack: ItemStack, slot: Int): NBTTagCompound = {
-    val item = stack.getItem().asInstanceOf[ItemPowerArmor]
+    val item = stack.getItem.asInstanceOf[ItemPowerArmor]
     val normalcolour = item.getColorFromItemStack(stack)
     val glowcolour = item.getGlowFromItemStack(stack)
     val list = slot match {

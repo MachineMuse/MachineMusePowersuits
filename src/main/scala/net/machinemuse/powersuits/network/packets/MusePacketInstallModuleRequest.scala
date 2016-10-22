@@ -7,7 +7,7 @@ import java.io.DataInputStream
 import java.util.{ArrayList, List}
 
 import net.machinemuse.api.{IPowerModule, ModuleManager}
-import net.machinemuse.numina.network.{PacketSender, MusePackager, MusePacket}
+import net.machinemuse.numina.network.{MusePackager, MusePacket, PacketSender}
 import net.machinemuse.utils.{ElectricItemUtils, MuseItemUtils}
 import net.minecraft.entity.player.{EntityPlayer, EntityPlayerMP, InventoryPlayer}
 import net.minecraft.item.ItemStack

@@ -2,20 +2,17 @@ package net.machinemuse.powersuits.powermodule.tool;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
-import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraft.block.Block;
-import org.dave.CompactMachines.CompactMachines;
 
 import java.util.List;
 
@@ -26,7 +23,7 @@ import java.util.List;
 
 public class PersonalShrinkingModule extends PowerModuleBase implements IRightClickModule, IPlayerTickModule {
 public static final String MODULE_CM_PSD = "Personal Shrinking Device";
-private ItemStack cpmPSD;
+private final ItemStack cpmPSD;
 
 public PersonalShrinkingModule(List<IModularItem> validItems) {
         super(validItems);

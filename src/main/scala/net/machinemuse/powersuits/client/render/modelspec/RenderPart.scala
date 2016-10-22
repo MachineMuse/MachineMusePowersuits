@@ -1,13 +1,13 @@
 package net.machinemuse.powersuits.client.render.modelspec
 
+import net.machinemuse.general.NBTTagAccessor
+import net.machinemuse.numina.geometry.Colour
+import net.machinemuse.numina.render.MuseTextureUtils
 import net.machinemuse.powersuits.client.render.item.ArmorModel
 import net.machinemuse.utils.render.Render
 import net.minecraft.client.model.{ModelBase, ModelRenderer}
-import net.machinemuse.general.NBTTagAccessor
-import org.lwjgl.opengl.GL11._
 import net.minecraft.nbt.NBTTagCompound
-import net.machinemuse.numina.geometry.Colour
-import net.machinemuse.numina.render.MuseTextureUtils
+import org.lwjgl.opengl.GL11._
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -31,12 +31,12 @@ class RenderPart(base: ModelBase, val parent: ModelRenderer) extends ModelRender
           Render {
             glScaled(scale, scale, scale)
             MuseTextureUtils.bindTexture(part.getTexture(nbt))
-            applyTransform
+            applyTransform()
             val ix = part.getColourIndex(nbt)
             if (ix < colours.size && ix >= 0) {
               Colour.doGLByInt(colours(ix))
             }
-            part.modelSpec.applyOffsetAndRotation // not yet implemented
+            part.modelSpec.applyOffsetAndRotation() // not yet implemented
             part.modelSpec.model.renderPart(part.partName)
             Colour.WHITE.doGL()
           }
@@ -56,7 +56,7 @@ class RenderPart(base: ModelBase, val parent: ModelRenderer) extends ModelRender
     }
   }
 
-  def applyTransform {
+  def applyTransform() {
     //    glTranslatef(rotationPointX, rotationPointY, rotationPointZ)
     //    glRotatef(rotateAngleZ * degrad, 0.0F, 0.0F, 1.0F)
     //    glRotatef(rotateAngleY * degrad, 0.0F, 1.0F, 0.0F)

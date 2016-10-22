@@ -18,8 +18,8 @@ import org.lwjgl.opengl.GL11;
  * @author MachineMuse
  */
 public class TinkerTableRenderer extends MuseTESR implements ISimpleBlockRenderingHandler {
-    protected TinkerTableModel model;
-    protected int renderId;
+    protected final TinkerTableModel model;
+    protected final int renderId;
 
     public TinkerTableRenderer(int renderId) {
         model = new TinkerTableModel();
@@ -32,7 +32,7 @@ public class TinkerTableRenderer extends MuseTESR implements ISimpleBlockRenderi
         GL11.glPushMatrix();
         GL11.glTranslated(x, y, z);
 
-        model.doRender(null, x, y, z, partialTickTime, partialTickTime);
+        model.doRender(null, x, y, z, partialTickTime);
         // float texturex = 80 / 256.0f;
         // float texturey = 32 / 256.0f;
         // float texturex2 = 96 / 256.0f;
@@ -52,7 +52,7 @@ public class TinkerTableRenderer extends MuseTESR implements ISimpleBlockRenderi
         this.bindTextureByName(Config.TINKERTABLE_TEXTURE_PATH());
         GL11.glPushMatrix();
         GL11.glTranslated(-0.5, -0.5 + -1.0 / 16.0, -0.5);
-        model.doRender(null, 0, 0, 0, 0, 0);
+        model.doRender(null, 0, 0, 0, 0);
         GL11.glPopMatrix();
 
     }

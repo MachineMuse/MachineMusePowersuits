@@ -1,9 +1,7 @@
 package net.machinemuse.powersuits.client.render.item
 
-import api.player.render.RenderPlayerAPI
-import net.minecraft.entity.Entity
 import api.player.model.ModelPlayer
-import net.smart.render.SmartRenderModel
+import net.minecraft.entity.Entity
 import net.smart.render.playerapi.SmartRender
 
 /**
@@ -12,7 +10,7 @@ import net.smart.render.playerapi.SmartRender
  */
 class SMovingArmorModel extends ModelPlayer(0) with ArmorModel {
   val renderPlayerBase = SmartRender.getPlayerBase(this)
-  val model = renderPlayerBase.getRenderModel()
+  val model = renderPlayerBase.getRenderModel
 
   this.bipedHead = model.bipedHead
   this.bipedBody = model.bipedBody

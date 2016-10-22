@@ -10,9 +10,9 @@ import net.minecraft.client.entity.EntityClientPlayerMP
 import net.minecraft.entity.player.EntityPlayer
 
 /**
- * Author: MachineMuse (Claire Semple)
- * Created: 7:23 PM, 12/05/13
- */
+  * Author: MachineMuse (Claire Semple)
+  * Created: 7:23 PM, 12/05/13
+  */
 object MusePacketPropertyModifierConfig extends MusePackager {
   def read(d: DataInputStream, p: EntityPlayer) = {
     new MusePacketPropertyModifierConfig(p, d)
@@ -44,10 +44,10 @@ class MusePacketPropertyModifierConfig(player: EntityPlayer, data: DataInputStre
   }
 
   /**
-   * Called by the network manager since it does all the packet mapping
-   *
-   * @param player
-   */
+    * Called by the network manager since it does all the packet mapping
+    *
+    * @param player
+    */
   @SideOnly(Side.CLIENT)
   override def handleClient(player: EntityClientPlayerMP) {
     val d = MusePacketPropertyModifierConfig

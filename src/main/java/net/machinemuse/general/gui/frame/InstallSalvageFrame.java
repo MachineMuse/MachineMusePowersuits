@@ -25,11 +25,11 @@ import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class InstallSalvageFrame extends ScrollableFrame {
-    protected ItemSelectionFrame targetItem;
-    protected ModuleSelectionFrame targetModule;
-    protected ClickableButton installButton;
-    protected ClickableButton salvageButton;
-    protected EntityClientPlayerMP player;
+    protected final ItemSelectionFrame targetItem;
+    protected final ModuleSelectionFrame targetModule;
+    protected final ClickableButton installButton;
+    protected final ClickableButton salvageButton;
+    protected final EntityClientPlayerMP player;
 
     public InstallSalvageFrame(EntityClientPlayerMP player, MusePoint2D topleft,
                                MusePoint2D bottomright,
@@ -76,8 +76,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
                         + (border.left() + border.right()) / 2;
                 if (xoffset + 16 * itemsToCheck.size() > x && xoffset < x) {
                     int index = (int) (x - xoffset) / 16;
-                    List<String> tip = itemsToCheck.get(index).getTooltip(player, false);
-                    return tip;
+                    return (List<String>) itemsToCheck.get(index).getTooltip(player, false);
                 }
             }
         }

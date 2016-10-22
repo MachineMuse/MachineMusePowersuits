@@ -11,6 +11,7 @@ import net.machinemuse.powersuits.powermodule.misc.AirtightSealModule;
 import net.machinemuse.powersuits.powermodule.misc.ThaumGogglesModule;
 import net.machinemuse.powersuits.powermodule.tool.*;
 import net.minecraftforge.common.config.Configuration;
+
 import java.util.Arrays;
 import java.util.Collections;
 

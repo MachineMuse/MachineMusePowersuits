@@ -1,11 +1,7 @@
 package net.machinemuse.utils;
 
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-
+import net.machinemuse.powersuits.entity.TileEntityPortal;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
@@ -14,18 +10,21 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.Teleporter;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
-import net.machinemuse.powersuits.entity.TileEntityPortal;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 public class MPSTeleporter extends Teleporter {
     private final WorldServer worldServerInstance;
-    private final Random random;
     private final LongHashMap destinationCoordinateCache = new LongHashMap();
     private final List destinationCoordinateKeys = new ArrayList();
 
     public MPSTeleporter(WorldServer par1WorldServer) {
         super(par1WorldServer);
         this.worldServerInstance = par1WorldServer;
-        this.random = new Random(par1WorldServer.getSeed());
+        Random random = new Random(par1WorldServer.getSeed());
     }
 
     public void placeInPortal(Entity entity, double x, double y, double z, float r) {
@@ -41,9 +40,7 @@ public class MPSTeleporter extends Teleporter {
 
     public TileEntity findPortalInChunk(double x, double z) {
         Chunk chunk = this.worldServerInstance.getChunkFromBlockCoords((int) x, (int) z);
-        Iterator t = chunk.chunkTileEntityMap.values().iterator();
-        while (t.hasNext()) {
-            Object tile = t.next();
+        for (Object tile : chunk.chunkTileEntityMap.values()) {
             if ((tile instanceof TileEntityPortal)) {
                 return (TileEntity) tile;
             }
@@ -109,10 +106,10 @@ public class MPSTeleporter extends Teleporter {
             long j = par1 - 600L;
             while (iterator.hasNext()) {
                 Long olong = (Long) iterator.next();
-                PortalPosition portalposition = (PortalPosition) this.destinationCoordinateCache.getValueByKey(olong.longValue());
+                PortalPosition portalposition = (PortalPosition) this.destinationCoordinateCache.getValueByKey(olong);
                 if ((portalposition == null) || (portalposition.lastUpdateTime < j)) {
                     iterator.remove();
-                    this.destinationCoordinateCache.remove(olong.longValue());
+                    this.destinationCoordinateCache.remove(olong);
                 }
             }
         }

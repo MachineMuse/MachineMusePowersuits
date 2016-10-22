@@ -17,10 +17,10 @@ import static org.lwjgl.opengl.GL14.GL_DEPTH_COMPONENT24;
  */
 public class TextureBuffer {
     // Allocate IDs for a FBO, colour buffer, and depth buffer
-    int framebufferID = glGenFramebuffersEXT();
-    int colorTextureID = GL11.glGenTextures();
-    int  depthRenderBufferID = GL11.glGenTextures();
-    int texDimension;
+    final int framebufferID = glGenFramebuffersEXT();
+    final int colorTextureID = GL11.glGenTextures();
+    final int  depthRenderBufferID = GL11.glGenTextures();
+    final int texDimension;
 
     public TextureBuffer(int texDimension) {
         this.texDimension = texDimension;

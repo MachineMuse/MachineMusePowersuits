@@ -6,7 +6,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class PropertyModifierLinearAdditive implements IPropertyModifier {
     public double multiplier;
-    public String tradeoffName;
+    public final String tradeoffName;
 
     public PropertyModifierLinearAdditive(String tradeoffName, double multiplier) {
         this.multiplier = multiplier;

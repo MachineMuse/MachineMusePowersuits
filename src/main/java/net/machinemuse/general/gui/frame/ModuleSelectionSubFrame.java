@@ -1,24 +1,24 @@
 package net.machinemuse.general.gui.frame;
 
 import net.machinemuse.api.IPowerModule;
+import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.geometry.MuseRect;
 import net.machinemuse.numina.geometry.MuseRelativeRect;
-import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.utils.render.MuseRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ModuleSelectionSubFrame {
-    protected List<ClickableModule> moduleButtons;
-    protected MuseRelativeRect border;
-    protected String category;
+    protected final List<ClickableModule> moduleButtons;
+    protected final MuseRelativeRect border;
+    protected final String category;
 
     public ModuleSelectionSubFrame(String category, MuseRelativeRect border) {
         this.category = category;
         this.border = border;
-        this.moduleButtons = new ArrayList<ClickableModule>();
+        this.moduleButtons = new ArrayList<>();
     }
 
     // public void draw() {

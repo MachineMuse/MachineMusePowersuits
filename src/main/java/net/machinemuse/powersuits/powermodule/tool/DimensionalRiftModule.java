@@ -1,17 +1,12 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
 
-import net.machinemuse.utils.MPSTeleporter;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseHeatUtils;
-import net.machinemuse.utils.MuseItemUtils;
-import net.minecraft.block.Block;
+import net.machinemuse.utils.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;

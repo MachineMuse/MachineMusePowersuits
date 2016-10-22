@@ -8,6 +8,7 @@ import net.machinemuse.general.sound.SoundDictionary
 import net.machinemuse.numina.network.{MusePacket, MusePacketHandler, MusePacketModeChangeRequest, PacketSender}
 import net.machinemuse.numina.render.RenderGameOverlayEventHandler
 import net.machinemuse.powersuits.block.{BlockTinkerTable, TileEntityLuxCapacitor, TileEntityTinkerTable}
+import net.machinemuse.powersuits.client.render.TinkerTableRenderer
 import net.machinemuse.powersuits.client.render.block.{RenderLuxCapacitorTESR, TinkerTableRenderer}
 import net.machinemuse.powersuits.client.render.entity.{RenderLuxCapacitorEntity, RenderPlasmaBolt, RenderSpinningBlade}
 import net.machinemuse.powersuits.client.render.item.ToolRenderer

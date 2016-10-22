@@ -4,7 +4,7 @@ import appeng.api.config.AccessRestriction
 import appeng.api.implementations.items.IAEItemPowerStorage
 import cofh.api.energy.IEnergyContainerItem
 import cpw.mods.fml.common.Optional
-import ic2.api.item.{IElectricItemManager, ISpecialElectricItem, IElectricItem, ElectricItem}
+import ic2.api.item.{ElectricItem, IElectricItem, IElectricItemManager, ISpecialElectricItem}
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.api.electricity.ElectricConversions._
 import net.machinemuse.utils.{ElectricItemUtils, MuseItemUtils}

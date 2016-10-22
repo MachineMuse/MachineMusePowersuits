@@ -9,8 +9,8 @@ import net.minecraft.nbt.NBTTagCompound;
  * Ported to Java by lehjr on 10/13/16.
  */
 public class UUID {
-    long least;
-    long most;
+    final long least;
+    final long most;
 
     public UUID(long least, long most){
         this.least = least;

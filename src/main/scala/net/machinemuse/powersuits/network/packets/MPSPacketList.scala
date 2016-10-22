@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.network.packets
 
-import net.machinemuse.numina.network.{MusePacketModeChangeRequest, MusePacketHandler}
+import net.machinemuse.numina.network.MusePacketHandler
 
 /**
  * Author: MachineMuse (Claire Semple)
