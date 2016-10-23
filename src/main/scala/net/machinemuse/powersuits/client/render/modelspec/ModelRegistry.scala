@@ -26,6 +26,7 @@ object ModelRegistry extends MuseRegistry[ModelSpec] {
     AdvancedModelLoader.loadModel(resource) match {
       case m: WavefrontObject => Some(m)
       case _ => MuseLogger.logError("Model loading failed :( " + resource)
+        None
     }
   }
 

@@ -176,13 +176,13 @@ object Config {
    * they are hardcoded.
    */
   def loadPowerModules() {
-    val ARMORONLY: List[IModularItem] = Arrays.asList[IModularItem](MPSItems.powerArmorHead.asInstanceOf[IModularItem], MPSItems.powerArmorTorso.asInstanceOf[IModularItem], MPSItems.powerArmorLegs.asInstanceOf[IModularItem], MPSItems.powerArmorFeet.asInstanceOf[IModularItem])
-    val ALLITEMS: List[IModularItem] = Arrays.asList(MPSItems.powerArmorHead.asInstanceOf[IModularItem], MPSItems.powerArmorTorso.asInstanceOf[IModularItem], MPSItems.powerArmorLegs.asInstanceOf[IModularItem], MPSItems.powerArmorFeet.asInstanceOf[IModularItem], MPSItems.powerTool.asInstanceOf[IModularItem])
-    val HEADONLY: List[IModularItem] = Collections.singletonList(MPSItems.powerArmorHead.asInstanceOf[IModularItem])
-    val TORSOONLY: List[IModularItem] = Collections.singletonList(MPSItems.powerArmorTorso.asInstanceOf[IModularItem])
-    val LEGSONLY: List[IModularItem] = Collections.singletonList(MPSItems.powerArmorLegs.asInstanceOf[IModularItem])
-    val FEETONLY: List[IModularItem] = Collections.singletonList(MPSItems.powerArmorFeet.asInstanceOf[IModularItem])
-    val TOOLONLY: List[IModularItem] = Collections.singletonList(MPSItems.powerTool.asInstanceOf[IModularItem])
+    val ARMORONLY: List[IModularItem] = Arrays.asList[IModularItem](MPSItems.INSTANCE.powerArmorHead.asInstanceOf[IModularItem], MPSItems.INSTANCE.powerArmorTorso.asInstanceOf[IModularItem], MPSItems.INSTANCE.powerArmorLegs.asInstanceOf[IModularItem], MPSItems.INSTANCE.powerArmorFeet.asInstanceOf[IModularItem])
+    val ALLITEMS: List[IModularItem] = Arrays.asList(MPSItems.INSTANCE.powerArmorHead.asInstanceOf[IModularItem], MPSItems.INSTANCE.powerArmorTorso.asInstanceOf[IModularItem], MPSItems.INSTANCE.powerArmorLegs.asInstanceOf[IModularItem], MPSItems.INSTANCE.powerArmorFeet.asInstanceOf[IModularItem], MPSItems.INSTANCE.powerTool.asInstanceOf[IModularItem])
+    val HEADONLY: List[IModularItem] = Collections.singletonList(MPSItems.INSTANCE.powerArmorHead.asInstanceOf[IModularItem])
+    val TORSOONLY: List[IModularItem] = Collections.singletonList(MPSItems.INSTANCE.powerArmorTorso.asInstanceOf[IModularItem])
+    val LEGSONLY: List[IModularItem] = Collections.singletonList(MPSItems.INSTANCE.powerArmorLegs.asInstanceOf[IModularItem])
+    val FEETONLY: List[IModularItem] = Collections.singletonList(MPSItems.INSTANCE.powerArmorFeet.asInstanceOf[IModularItem])
+    val TOOLONLY: List[IModularItem] = Collections.singletonList(MPSItems.INSTANCE.powerTool.asInstanceOf[IModularItem])
     addModule(new BasicPlatingModule(ARMORONLY))
     addModule(new DiamondPlatingModule(ARMORONLY))
     addModule(new EnergyShieldModule(ARMORONLY))

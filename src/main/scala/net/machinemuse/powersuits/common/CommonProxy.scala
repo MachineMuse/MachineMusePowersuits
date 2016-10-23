@@ -8,7 +8,6 @@ import net.machinemuse.general.sound.SoundDictionary
 import net.machinemuse.numina.network.{MusePacket, MusePacketHandler, MusePacketModeChangeRequest, PacketSender}
 import net.machinemuse.numina.render.RenderGameOverlayEventHandler
 import net.machinemuse.powersuits.block.{BlockTinkerTable, TileEntityLuxCapacitor, TileEntityTinkerTable}
-import net.machinemuse.powersuits.client.render.TinkerTableRenderer
 import net.machinemuse.powersuits.client.render.block.{RenderLuxCapacitorTESR, TinkerTableRenderer}
 import net.machinemuse.powersuits.client.render.entity.{RenderLuxCapacitorEntity, RenderPlasmaBolt, RenderSpinningBlade}
 import net.machinemuse.powersuits.client.render.item.ToolRenderer
@@ -50,7 +49,7 @@ class ClientProxy extends CommonProxy {
    * Register all the custom renderers for this mod.
    */
   override def registerRenderers {
-    MinecraftForgeClient.registerItemRenderer(MPSItems.powerTool, new ToolRenderer)
+    MinecraftForgeClient.registerItemRenderer(MPSItems.INSTANCE.powerTool, new ToolRenderer)
     val tinkTableRenderID: Int = RenderingRegistry.getNextAvailableRenderId
     val tinkTableRenderer: TinkerTableRenderer = new TinkerTableRenderer(tinkTableRenderID)
     BlockTinkerTable.setRenderType(tinkTableRenderID)
@@ -58,7 +57,7 @@ class ClientProxy extends CommonProxy {
     RenderingRegistry.registerBlockHandler(tinkTableRenderer)
     val luxCapacitorRenderID: Int = RenderingRegistry.getNextAvailableRenderId
     val luxCapacitorRenderer: RenderLuxCapacitorTESR = new RenderLuxCapacitorTESR(luxCapacitorRenderID)
-    MPSItems.luxCapacitor.setRenderType(luxCapacitorRenderID)
+    MPSItems.INSTANCE.luxCapacitor.setRenderType(luxCapacitorRenderID)
     ClientRegistry.bindTileEntitySpecialRenderer(classOf[TileEntityLuxCapacitor], luxCapacitorRenderer)
     RenderingRegistry.registerBlockHandler(luxCapacitorRenderer)
     RenderingRegistry.registerEntityRenderingHandler(classOf[EntityPlasmaBolt], new RenderPlasmaBolt)

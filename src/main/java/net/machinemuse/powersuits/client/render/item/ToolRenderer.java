@@ -71,7 +71,7 @@ public class ToolRenderer extends MuseRender implements IItemRenderer {
                 break;
             case INVENTORY:
                 RenderBlocks renderInventory = (RenderBlocks) data[0];
-                MuseIconUtils.drawIconAt(0, 0, MPSItems.powerTool().getIconIndex(itemStack), colour);
+                MuseIconUtils.drawIconAt(0, 0, MPSItems.INSTANCE.powerTool.getIconIndex(itemStack), colour);
                 break;
             case EQUIPPED:
                 RenderBlocks renderEquipped = (RenderBlocks) data[0];

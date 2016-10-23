@@ -7,6 +7,7 @@ import net.machinemuse.numina.general.MuseLogger;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,7 @@ public class NBTTagAccessor extends NBTTagCompound {
         }
     }
 
+    @Nullable
     public static Map getMap(NBTTagCompound nbt) {
         try {
             return (Map) getTagAccessor().invoke(nbt, nbt);

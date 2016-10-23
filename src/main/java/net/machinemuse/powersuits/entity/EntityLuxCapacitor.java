@@ -75,7 +75,7 @@ public class EntityLuxCapacitor extends EntityThrowable {
                 if (block == null || block.isAir(worldObj, x, y, z)) {
                     Block blockToStickTo = worldObj.getBlock(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
                     if (blockToStickTo.isNormalCube(worldObj, x, y, z)) {
-                        worldObj.setBlock(x, y, z, MPSItems.luxCapacitor(), 0, 7);
+                        worldObj.setBlock(x, y, z, MPSItems.INSTANCE.luxCapacitor, 0, 7);
                         worldObj.setTileEntity(x, y, z, new TileEntityLuxCapacitor(dir, red, green, blue));
                     } else {
                         for (ForgeDirection d : ForgeDirection.values()) {
@@ -84,7 +84,7 @@ public class EntityLuxCapacitor extends EntityThrowable {
                             int zo = z + d.offsetZ;
                             blockToStickTo = worldObj.getBlock(xo, yo, zo);
                             if (blockToStickTo.isNormalCube(worldObj, x, y, z)) {
-                                worldObj.setBlock(x, y, z, MPSItems.luxCapacitor(), 0, 7);
+                                worldObj.setBlock(x, y, z, MPSItems.INSTANCE.luxCapacitor, 0, 7);
                                 worldObj.setTileEntity(x, y, z, new TileEntityLuxCapacitor(d, red, green, blue));
                             }
                         }

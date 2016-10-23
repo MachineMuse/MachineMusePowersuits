@@ -552,7 +552,7 @@ public class MuseItemUtils {
     public static void setFluidTermTag(ItemStack stack, NBTTagCompound tag) {
         NBTTagCompound t = MuseItemUtils.getMuseItemTag(stack);
         t.setTag("AppEng EC Wireless Fluid Terminal", tag);
-        stack.stackTagCompound.setTag(MuseItemTag.NBTPREFIX(), t);
+        stack.stackTagCompound.setTag(MuseItemTag.NBTPREFIX, t);
     }
 
     public static boolean getCanShrink(ItemStack stack) {
