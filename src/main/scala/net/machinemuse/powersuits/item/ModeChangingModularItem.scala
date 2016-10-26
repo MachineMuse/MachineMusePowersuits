@@ -47,7 +47,7 @@ trait ModeChangingModularItem extends ModeChangingItem {
       modeFromNBT
     } else {
       val validModes = getValidModes(stack)
-      if (!validModes.isEmpty) {
+      if (validModes.nonEmpty) {
         validModes(0)
       } else {
         ""

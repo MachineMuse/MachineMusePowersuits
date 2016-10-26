@@ -403,8 +403,7 @@ public class MuseItemUtils {
     public static double getFoodLevel(ItemStack stack) {
         if (stack != null && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            Double foodLevel = itemTag.getDouble("Food");
-            return foodLevel;
+            return itemTag.getDouble("Food");
         }
         return 0.0;
     }

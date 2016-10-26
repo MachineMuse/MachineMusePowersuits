@@ -5,7 +5,7 @@ import java.net.URL
 import cpw.mods.fml.client.registry.{ClientRegistry, RenderingRegistry}
 import cpw.mods.fml.common.FMLCommonHandler
 import net.machinemuse.general.sound.SoundDictionary
-import net.machinemuse.numina.network.{MusePacket, MusePacketHandler, MusePacketModeChangeRequest, PacketSender}
+import net.machinemuse.numina.network.{MusePacket, MusePacketModeChangeRequest, PacketSender}
 import net.machinemuse.numina.render.RenderGameOverlayEventHandler
 import net.machinemuse.powersuits.block.{BlockTinkerTable, TileEntityLuxCapacitor, TileEntityTinkerTable}
 import net.machinemuse.powersuits.client.render.block.{RenderLuxCapacitorTESR, TinkerTableRenderer}
@@ -79,7 +79,7 @@ class ClientProxy extends CommonProxy {
     FMLCommonHandler.instance.bus.register(new KeybindKeyHandler)
     MinecraftForge.EVENT_BUS.register(new PlayerUpdateHandler)
     FMLCommonHandler.instance.bus.register(new ClientTickHandler)
-    val packetHandler: MusePacketHandler.type = MusePacketHandler
+//    val packetHandler: MusePacketHandler.type = MusePacketHandler
   }
 
   override def postInit() {
@@ -97,7 +97,7 @@ class ClientProxy extends CommonProxy {
 
 class ServerProxy extends CommonProxy {
   override def registerEvents {
-    FMLCommonHandler.instance().bus().register(PlayerLoginHandlerThingy)
+    FMLCommonHandler.instance().bus().register(new PlayerLoginHandlerThingy)
   }
 
   override def registerHandlers() {

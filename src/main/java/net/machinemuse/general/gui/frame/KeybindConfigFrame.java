@@ -230,7 +230,7 @@ public class KeybindConfigFrame implements IGuiFrame {
         }
         newKeybindButton.draw();
         trashKeybindButton.draw();
-        MuseTextureUtils.pushTexture(MuseTextureUtils.ITEM_TEXTURE_QUILT());
+        MuseTextureUtils.pushTexture(MuseTextureUtils.ITEM_TEXTURE_QUILT);
         MuseRenderer.drawCenteredString(StatCollector.translateToLocal("gui.keybindInstructions1"), center.x(), center.y() + 40);
         MuseRenderer.drawCenteredString(StatCollector.translateToLocal("gui.keybindInstructions2"), center.x(), center.y() + 50);
         MuseRenderer.drawCenteredString(StatCollector.translateToLocal("gui.keybindInstructions3"), center.x(), center.y() + 60);

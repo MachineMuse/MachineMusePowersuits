@@ -3,8 +3,8 @@ package net.machinemuse.powersuits.client.render.item
 import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.powersuits.client.render.modelspec._
 import net.minecraft.client.model.{ModelBiped, ModelRenderer}
-import net.minecraft.entity.{Entity, EntityLivingBase}
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.{Entity, EntityLivingBase}
 import net.minecraft.item.{EnumAction, ItemStack}
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.client.model.obj.WavefrontObject

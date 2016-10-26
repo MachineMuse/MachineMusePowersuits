@@ -17,9 +17,9 @@ import net.minecraft.util.StatCollector
 import scala.collection.mutable
 
 /**
- * Author: MachineMuse (Claire Semple)
- * Created: 4:19 AM, 03/05/13
- */
+  * Author: MachineMuse (Claire Semple)
+  * Created: 4:19 AM, 03/05/13
+  */
 class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val borderColour: Colour, val itemSelector: ItemSelectionFrame) extends IGuiFrame {
   val border = new DrawableMuseRect(borderRef, insideColour, borderColour)
   val rslider: ClickableSlider = new ClickableSlider(new MusePoint2D(border.centerx, border.top + 8), border.width - 10, StatCollector.translateToLocal("gui.red"))
@@ -153,7 +153,6 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
       })
 
     }
-
   }
   def getIntArray(e:NBTTagIntArray) = e.func_150302_c()
 }

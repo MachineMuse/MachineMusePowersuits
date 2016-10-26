@@ -21,6 +21,10 @@ class RenderPart(base: ModelBase, val parent: ModelRenderer) extends ModelRender
     val colours = renderSpec.getIntArray("colours")
 
     for {
+      /* rember null checks when porting this section to Java */
+
+
+
       nbt <- NBTTagAccessor.getValues(renderSpec).asScala
       part <- ModelRegistry.getPart(nbt)
       if part.slot == ArmorModel.instance.visibleSection

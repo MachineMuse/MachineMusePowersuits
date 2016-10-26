@@ -41,7 +41,6 @@ public class BlockTinkerTable extends Block {
 
     public static void setRenderType(int id) {
         renderType = id;
-        return;// this;
     }
 
     @Override

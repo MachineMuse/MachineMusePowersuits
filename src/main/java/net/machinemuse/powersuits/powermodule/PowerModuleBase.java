@@ -156,7 +156,7 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
 
     @Override
     public String getStitchedTexture(ItemStack item) {
-        return MuseTextureUtils.ITEM_TEXTURE_QUILT();
+        return MuseTextureUtils.ITEM_TEXTURE_QUILT;
         // alternatively
         // return "/terrain.png";
     }

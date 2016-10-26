@@ -3,7 +3,6 @@ package net.machinemuse.powersuits.item
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.machinemuse.api.electricity.MuseElectricItem
 import net.machinemuse.api.{IModularItem, ModuleManager}
-import net.machinemuse.numina.general.MuseMathUtils
 import net.machinemuse.numina.general.MuseMathUtils._
 import net.machinemuse.numina.geometry.Colour
 import net.machinemuse.powersuits.powermodule.misc.{CosmeticGlowModule, TintModule}

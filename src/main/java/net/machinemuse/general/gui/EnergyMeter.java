@@ -10,7 +10,7 @@ import org.lwjgl.opengl.GL11;
 
 public class EnergyMeter extends HeatMeter {
     public void draw(double xpos, double ypos, double value) {
-        MuseTextureUtils.pushTexture(MuseTextureUtils.BLOCK_TEXTURE_QUILT());
+        MuseTextureUtils.pushTexture(MuseTextureUtils.BLOCK_TEXTURE_QUILT);
         IIcon icon = Blocks.water.getIcon(0, 0);
         GL11.glLineWidth(0.5f);
         RenderState.on2D();
