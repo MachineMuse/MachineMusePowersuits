@@ -1,56 +1,46 @@
 package net.machinemuse.powersuits.item;
 
-import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
-import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.common.Config$;
-import net.machinemuse.general.gui.MuseIcon;
-import scala.collection.mutable.StringBuilder;
-import net.minecraft.item.Item;
-import net.minecraft.entity.item.EntityMinecart;
-import net.machinemuse.utils.MuseHeatUtils;
-import net.machinemuse.powersuits.powermodule.tool.GrafterModule;
-import net.machinemuse.api.IPowerModule;
-import scala.reflect.Manifest;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
-import scala.reflect.ManifestFactory$;
-import net.machinemuse.numina.scala.OptionCast$;
-import net.minecraft.item.EnumAction;
-import net.minecraft.entity.Entity;
-import scala.runtime.NonLocalReturnControl;
-import scala.runtime.BoxedUnit;
-import scala.Function1;
-import java.util.List;
-import scala.collection.JavaConversions$;
-import net.minecraft.world.World;
-import net.minecraft.util.Vec3;
-import net.minecraft.util.DamageSource;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.powersuits.powermodule.tool.OmniWrenchModule;
-import net.minecraft.entity.EntityLivingBase;
+import appeng.api.implementations.items.IAEWrench;
+import buildcraft.api.tools.IToolWrench;
+import cofh.api.item.IToolHammer;
+import com.bluepowermod.api.misc.IScrewdriver;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.block.Block;
-import net.machinemuse.numina.item.ModeChangingItem;
-import net.machinemuse.numina.item.ModeChangingItem$class;
-import scala.collection.Seq;
-import net.minecraft.util.IIcon;
-import scala.Option;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import scala.reflect.ScalaSignature;
-import cpw.mods.fml.common.Optional;
-import mekanism.api.IMekWrench;
 import crazypants.enderio.api.tool.ITool;
-import com.bluepowermod.api.misc.IScrewdriver;
-import buildcraft.api.tools.IToolWrench;
-import appeng.api.implementations.items.IAEWrench;
-import mods.railcraft.api.core.items.IToolCrowbar;
-import powercrystals.minefactoryreloaded.api.IMFRHammer;
-import cofh.api.item.IToolHammer;
 import forestry.api.arboriculture.IToolGrafter;
+import mekanism.api.IMekWrench;
+import mods.railcraft.api.core.items.IToolCrowbar;
+import net.machinemuse.api.IPowerModule;
+import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
+import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.numina.item.ModeChangingItem;
+import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.powermodule.tool.GrafterModule;
+import net.machinemuse.powersuits.powermodule.tool.OmniWrenchModule;
+import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule;
+import net.machinemuse.utils.ElectricItemUtils;
+import net.machinemuse.utils.MuseHeatUtils;
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityMinecart;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.Vec3;
+import net.minecraft.world.World;
+import powercrystals.minefactoryreloaded.api.IMFRHammer;
+
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 /**
  * Describes the modular power tool.
@@ -71,13 +61,13 @@ import forestry.api.arboriculture.IToolGrafter;
         @Optional.Interface(iface = "cofh.api.item.IToolHammer", modid = "CoFHCore", striprefs = true),
         @Optional.Interface(iface = "buildcraft.api.tools.IToolWrench", modid = "BuildCraft|Core", striprefs = true),
         @Optional.Interface(iface = "appeng.api.implementations.items.IAEWrench", modid = "appliedenergistics2", striprefs = true) })
-public class ItemPowerFist extends ItemElectricTool implements IToolGrafter, IToolHammer, IMFRHammer, IToolCrowbar, IAEWrench, IToolWrench, IScrewdriver, mrtjp.projectred.api.IScrewdriver, ITool, IMekWrench, ModeChangingModularItem
+public class ItemPowerFist extends ItemElectricTool implements IToolGrafter, IToolHammer, IMFRHammer, IToolCrowbar, IAEWrench, IToolWrench, IScrewdriver, mrtjp.projectred.api.IScrewdriver, ITool, IMekWrench, IModeChangingModularItem
 {
     private final String iconpath = MuseIcon.ICON_PREFIX + "handitem";
     public ItemPowerFist() {
         super(0.0f, Item.ToolMaterial.EMERALD);
-//        ModeChangingItem$class.$init$(this);
-//        ModeChangingModularItem$class.$init$(this);
+//        IModeChangingItem$class.$init$(this);
+//        IModeChangingModularItem$class.$init$(this);
         this.setMaxStackSize(1);
         this.setMaxDamage(0);
         this.setCreativeTab(Config.getCreativeTab());
@@ -389,42 +379,50 @@ public class ItemPowerFist extends ItemElectricTool implements IToolGrafter, ITo
         return this.getActiveMode(entityPlayer.getHeldItem(), entityPlayer).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
 
-/* A D D E D   B Y   D E C O M P I L E R ------------------------------------------------------------------------------ */
-
-
-    public Option<IIcon> getModeIcon(String mode, ItemStack stack, EntityPlayer player) {
-        return (Option<IIcon>)ModeChangingModularItem$class.getModeIcon(this, mode, stack, player);
-    }
-
-    public Seq<String> getValidModes(ItemStack stack, EntityPlayer player) {
-        return (Seq<String>)ModeChangingModularItem$class.getValidModes(this, stack, player);
-    }
-
-    public Seq<String> getValidModes(ItemStack stack) {
-        return (Seq<String>)ModeChangingModularItem$class.getValidModes(this, stack);
-    }
-
-    public String getActiveMode(ItemStack stack) {
-        return ModeChangingModularItem$class.getActiveMode(this, stack);
-    }
-
+    /* A D D E D   B Y   D E C O M P I L E R ------------------------------------------------------------------------------ */
+    @Override
     public void setActiveMode(ItemStack stack, String newMode) {
-        ModeChangingItem$class.setActiveMode(this, stack, newMode);
+        ModeChangingItem.getInstance().setActiveMode(stack, newMode);
     }
 
+    @Override
     public String getActiveMode(ItemStack stack, EntityPlayer player) {
-        return ModeChangingItem$class.getActiveMode(this, stack, player);
+        return ModeChangingItem.getInstance().getActiveMode(stack, player);
     }
 
+    @Override
     public void cycleMode(ItemStack stack, EntityPlayer player, int dMode) {
-        ModeChangingItem$class.cycleMode(this, stack, player, dMode);
+        ModeChangingItem.getInstance().cycleMode(stack, player, dMode);
     }
 
+    @Override
     public String nextMode(ItemStack stack, EntityPlayer player) {
-        return ModeChangingItem$class.nextMode(this, stack, player);
+        return ModeChangingItem.getInstance().nextMode(stack, player);
     }
 
+    @Override
     public String prevMode(ItemStack stack, EntityPlayer player) {
-        return ModeChangingItem$class.prevMode(this, stack, player);
+        return ModeChangingItem.getInstance().prevMode(stack, player);
+    }
+
+    @Nullable
+    @Override
+    public IIcon getModeIcon(String mode, ItemStack stack, EntityPlayer player) {
+        return ModeChangingModularItem.getInstance().getModeIcon(mode, stack, player);
+    }
+
+    @Override
+    public List<String> getValidModes(ItemStack stack, EntityPlayer player) {
+        return ModeChangingModularItem.getInstance().getValidModes(stack, player);
+    }
+
+    @Override
+    public List<String> getValidModes(ItemStack stack) {
+        return ModeChangingModularItem.getInstance().getValidModes(stack);
+    }
+
+    @Override
+    public String getActiveMode(ItemStack stack) {
+        return ModeChangingModularItem.getInstance().getActiveMode(stack);
     }
 }

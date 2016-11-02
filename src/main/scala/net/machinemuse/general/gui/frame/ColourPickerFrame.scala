@@ -46,8 +46,9 @@ class ColourPickerFrame(val borderRef: MuseRect, val insideColour: Colour, val b
           renderSpec.setIntArray("colours", intArray)
       }
       val player = Minecraft.getMinecraft.thePlayer
-      if (player.worldObj.isRemote)
+      if (player.worldObj.isRemote) {
         PacketSender.sendToServer(new MusePacketColourInfo(player, itemSelector.getSelectedItem.inventorySlot, colours))
+      }
       Some(renderSpec.getTag("colours").asInstanceOf[NBTTagIntArray])
     }
   }

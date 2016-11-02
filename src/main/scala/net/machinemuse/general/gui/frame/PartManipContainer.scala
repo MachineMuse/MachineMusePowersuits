@@ -46,9 +46,6 @@ class PartManipContainer(val itemSelect: ItemSelectionFrame, val colourSelect: C
     }
   }
 
-  //
-  //  override def onMouseUp(x: Double, y: Double, button: Int) {}
-  //
   override def update(mousex: Double, mousey: Double) {
     super.update(mousex, mousey)
     if (lastItemSlot != getItemSlot) {
@@ -77,6 +74,4 @@ class PartManipContainer(val itemSelect: ItemSelectionFrame, val colourSelect: C
     glPopMatrix()
     super.postDraw()
   }
-
-  //  override def getToolTip(x: Int, y: Int): util.List[String] = ???
 }

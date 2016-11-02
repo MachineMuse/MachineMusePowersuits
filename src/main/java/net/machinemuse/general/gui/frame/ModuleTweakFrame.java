@@ -61,7 +61,6 @@ public class ModuleTweakFrame extends ScrollableFrame {
             propertyStrings = null;
         }
         if (selectedSlider != null) {
-            System.out.println("moving slider  name: " + selectedSlider.name());
             selectedSlider.moveSlider(mousex, mousey);
         }
 

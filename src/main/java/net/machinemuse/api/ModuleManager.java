@@ -4,11 +4,12 @@ import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
-import net.machinemuse.powersuits.item.ModeChangingModularItem;
+import net.machinemuse.powersuits.item.IModeChangingModularItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +35,7 @@ public class ModuleManager {
         return playerTickModules;
     }
 
+    @Nullable
     public static IPowerModule getModule(String key) {
         return moduleMap.get(key);
     }
@@ -140,10 +142,10 @@ public class ModuleManager {
             // playerEntity.sendChatToPlayer("Server has disallowed this module. Sorry!");
             return false;
         }
-        if (module instanceof IRightClickModule && itemStack.getItem() instanceof ModeChangingModularItem) {
+        if (module instanceof IRightClickModule && itemStack.getItem() instanceof IModeChangingModularItem) {
             // MuseLogger.logDebug("Module: " + moduleName + " vs Mode: " +
             // MuseItemUtils.getActiveMode(itemStack));
-            ModeChangingModularItem item = (ModeChangingModularItem) itemStack.getItem();
+            IModeChangingModularItem item = (IModeChangingModularItem) itemStack.getItem();
 
             return moduleName.equals(item.getActiveMode(itemStack));
         } else {

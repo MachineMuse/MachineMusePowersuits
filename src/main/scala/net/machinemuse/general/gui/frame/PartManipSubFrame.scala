@@ -189,7 +189,6 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
       if (player.worldObj.isRemote) PacketSender.sendToServer(new MusePacketCosmeticInfo(player, getSelectedItem.inventorySlot, tagname, tagdata).getPacket131)
       true
     }
-
     else false
   }
 

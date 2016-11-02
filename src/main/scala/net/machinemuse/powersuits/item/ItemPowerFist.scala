@@ -57,7 +57,7 @@
 //with mrtjp.projectred.api.IScrewdriver
 //with ITool
 //with IMekWrench
-//with ModeChangingModularItem {
+//with IModeChangingModularItem {
 //  val iconpath: String = MuseIcon.ICON_PREFIX + "handitem"
 //  setMaxStackSize(1)
 //  setMaxDamage(0)

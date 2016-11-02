@@ -6,7 +6,8 @@ import cpw.mods.fml.common.gameevent.InputEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.powersuits.common.ModularPowersuits;
-import net.machinemuse.powersuits.item.ModeChangingModularItem$;
+import net.machinemuse.powersuits.item.IModeChangingModularItem;
+import net.machinemuse.powersuits.item.ModeChangingModularItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.settings.KeyBinding;
@@ -58,11 +59,12 @@ public class KeybindKeyHandler {
             }
             if (key == cycleToolBackward.getKeyCode()) {
                 Minecraft.getMinecraft().playerController.updateController();
-                ModeChangingModularItem$.MODULE$.cycleModeForItem(player.inventory.getStackInSlot(player.inventory.currentItem), player, 1);
+                ModeChangingModularItem.cycleModeForItem(player.inventory.getStackInSlot(player.inventory.currentItem), player, 1);
+
             }
             if (key == cycleToolForward.getKeyCode()) {
                 Minecraft.getMinecraft().playerController.updateController();
-                ModeChangingModularItem$.MODULE$.cycleModeForItem(player.inventory.getStackInSlot(player.inventory.currentItem), player, -1);
+                ModeChangingModularItem.cycleModeForItem(player.inventory.getStackInSlot(player.inventory.currentItem), player, -1);
             }
         } else {
             if (Minecraft.getMinecraft().thePlayer != null && key == goDownKey.getKeyCode()) {
@@ -70,5 +72,4 @@ public class KeybindKeyHandler {
             }
         }
     }
-
 }
