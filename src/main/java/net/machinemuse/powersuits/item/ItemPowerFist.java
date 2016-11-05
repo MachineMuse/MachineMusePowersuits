@@ -13,6 +13,7 @@ import mekanism.api.IMekWrench;
 import mods.railcraft.api.core.items.IToolCrowbar;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.general.gui.MuseIcon;
@@ -32,15 +33,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import powercrystals.minefactoryreloaded.api.IMFRHammer;
-
-
 import javax.annotation.Nullable;
 import java.util.List;
+
 
 /**
  * Describes the modular power tool.
@@ -61,7 +62,19 @@ import java.util.List;
         @Optional.Interface(iface = "cofh.api.item.IToolHammer", modid = "CoFHCore", striprefs = true),
         @Optional.Interface(iface = "buildcraft.api.tools.IToolWrench", modid = "BuildCraft|Core", striprefs = true),
         @Optional.Interface(iface = "appeng.api.implementations.items.IAEWrench", modid = "appliedenergistics2", striprefs = true) })
-public class ItemPowerFist extends ItemElectricTool implements IToolGrafter, IToolHammer, IMFRHammer, IToolCrowbar, IAEWrench, IToolWrench, IScrewdriver, mrtjp.projectred.api.IScrewdriver, ITool, IMekWrench, IModeChangingModularItem
+public class ItemPowerFist extends MPSItemElectricTool
+implements
+        IToolGrafter,
+        IToolHammer,
+        IMFRHammer,
+        IToolCrowbar,
+        IAEWrench,
+        IToolWrench,
+        IScrewdriver,
+        mrtjp.projectred.api.IScrewdriver,
+        ITool, IMekWrench,
+        IModularItem,
+        IModeChangingModularItem
 {
     private final String iconpath = MuseIcon.ICON_PREFIX + "handitem";
     public ItemPowerFist() {
@@ -424,5 +437,27 @@ public class ItemPowerFist extends ItemElectricTool implements IToolGrafter, ITo
     @Override
     public String getActiveMode(ItemStack stack) {
         return ModeChangingModularItem.getInstance().getActiveMode(stack);
+    }
+
+
+    /* IModularItem ------------------------------------------------------------------------------- */
+    @Override
+    public List<String> getLongInfo(EntityPlayer player, ItemStack stack) {
+        return null;
+    }
+
+    @Override
+    public double getPlayerEnergy(EntityPlayer player) {
+        return ElectricItemUtils.getPlayerEnergy(player);
+    }
+
+    @Override
+    public void drainPlayerEnergy(EntityPlayer player, double drainAmount) {
+        ElectricItemUtils.drainPlayerEnergy(player, drainAmount);
+    }
+
+    @Override
+    public void givePlayerEnergy(EntityPlayer player, double joulesToGive) {
+        ElectricItemUtils.givePlayerEnergy(player, joulesToGive);
     }
 }

@@ -59,7 +59,7 @@ object ModularPowersuits {
     proxy.registerHandlers()
     proxy.registerRenderers()
     MPSPacketList.registerPackets()
-    NetworkRegistry.INSTANCE.registerGuiHandler(this, MPSGuiHandler)
+    NetworkRegistry.INSTANCE.registerGuiHandler(this, MPSGuiHandler.getInstance())
     TerminalHandler.registerHandler();
   }
 
@@ -70,5 +70,4 @@ object ModularPowersuits {
     Config.addCustomInstallCosts()
     Config.getConfig.save()
   }
-
 }

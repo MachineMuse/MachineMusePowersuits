@@ -15,9 +15,9 @@ import net.minecraft.nbt.NBTTagCompound
 import org.lwjgl.opengl.GL11._
 
 /**
- * Author: MachineMuse (Claire Semple)
- * Created: 1:46 AM, 30/04/13
- */
+  * Author: MachineMuse (Claire Semple)
+  * Created: 1:46 AM, 30/04/13
+  */
 class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame, val itemSelector: ItemSelectionFrame, val border: MuseRelativeRect) {
   var specs: Array[ModelPartSpec] = model.apply.values.filter(spec => isValidArmor(getSelectedItem, spec.slot)).toArray
   var open: Boolean = true
@@ -104,6 +104,17 @@ class PartManipSubFrame(val model: ModelSpec, val colourframe: ColourPickerFrame
         new GuiIcons.ArmourColourPatch(acc, y, new Colour(colour), null, ymino, null, ymaxo)
         acc + 8
     }
+
+    /*
+        val textstartx = ((x + 28) /: colourframe.colours) {
+      case (acc, colour) =>
+        new GuiIcons.ArmourColourPatch(acc, y, new Colour(colour), null, ymino, null, ymaxo)
+        acc + 8
+    }
+
+     */
+
+
     if (selcomp > 0) {
       new GuiIcons.SelectedArmorOverlay(x + 28 + selcolour * 8, y, null, null, ymino, null, ymaxo)
     }

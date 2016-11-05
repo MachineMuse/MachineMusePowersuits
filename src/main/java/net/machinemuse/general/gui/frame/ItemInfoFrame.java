@@ -1,6 +1,6 @@
 package net.machinemuse.general.gui.frame;
 
-import net.machinemuse.api.IModularItem;
+import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;

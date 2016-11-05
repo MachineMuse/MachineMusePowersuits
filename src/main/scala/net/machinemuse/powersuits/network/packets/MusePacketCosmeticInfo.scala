@@ -2,9 +2,9 @@ package net.machinemuse.powersuits.network.packets
 
 import java.io.DataInputStream
 
-import net.machinemuse.api.IModularItem
+import net.machinemuse.api.electricity.IModularItem
 import net.machinemuse.numina.general.MuseLogger
-import net.machinemuse.numina.network.{MusePackager, MusePacket}
+import net.machinemuse.numina.network.{IMusePackager, MusePacket}
 import net.machinemuse.utils.MuseItemUtils
 import net.minecraft.entity.player.{EntityPlayer, EntityPlayerMP}
 import net.minecraft.nbt.NBTTagCompound
@@ -13,7 +13,7 @@ import net.minecraft.nbt.NBTTagCompound
  * Author: MachineMuse (Claire Semple)
  * Created: 10:16 AM, 01/05/13
  */
-object MusePacketCosmeticInfo extends MusePackager {
+object MusePacketCosmeticInfo extends IMusePackager {
   def read(d: DataInputStream, p: EntityPlayer) = {
     val itemSlot = readInt(d)
     val tagName = readString(d)

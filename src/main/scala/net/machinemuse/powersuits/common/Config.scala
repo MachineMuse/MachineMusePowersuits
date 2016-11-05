@@ -8,7 +8,8 @@ import com.google.gson.Gson
 import cpw.mods.fml.common.FMLCommonHandler
 import cpw.mods.fml.common.registry.GameRegistry
 import cpw.mods.fml.relauncher.Side
-import net.machinemuse.api.{IModularItem, IPowerModule, ModuleManager}
+import net.machinemuse.api.electricity.IModularItem
+import net.machinemuse.api.{IPowerModule, ModuleManager}
 import net.machinemuse.numina.basemod.Numina
 import net.machinemuse.numina.general.MuseLogger
 import net.machinemuse.powersuits.powermodule.armor._
@@ -109,7 +110,7 @@ object Config {
    * @return
    */
   def getCreativeTab: CreativeTabs = {
-    return MPSCreativeTab
+    return new MPSCreativeTab
   }
 
   /**

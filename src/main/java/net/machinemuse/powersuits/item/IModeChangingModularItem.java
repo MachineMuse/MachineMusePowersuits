@@ -8,6 +8,9 @@ import net.minecraft.util.IIcon;
 import java.util.List;
 
 /**
+ * Author: MachineMuse (Claire Semple)
+ * Created: 4:52 PM, 9/5/13
+ *
  * Ported to Java by lehjr on 11/1/16.
  */
 public interface IModeChangingModularItem extends IModeChangingItem{

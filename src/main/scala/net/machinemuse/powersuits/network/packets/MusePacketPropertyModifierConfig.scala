@@ -4,7 +4,7 @@ import java.io.DataInputStream
 
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.machinemuse.api.ModuleManager
-import net.machinemuse.numina.network.{MusePackager, MusePacket}
+import net.machinemuse.numina.network.{IMusePackager, MusePacket}
 import net.machinemuse.powersuits.powermodule.{PowerModuleBase, PropertyModifierFlatAdditive, PropertyModifierLinearAdditive}
 import net.minecraft.client.entity.EntityClientPlayerMP
 import net.minecraft.entity.player.EntityPlayer
@@ -13,7 +13,7 @@ import net.minecraft.entity.player.EntityPlayer
   * Author: MachineMuse (Claire Semple)
   * Created: 7:23 PM, 12/05/13
   */
-object MusePacketPropertyModifierConfig extends MusePackager {
+object MusePacketPropertyModifierConfig extends IMusePackager {
   def read(d: DataInputStream, p: EntityPlayer) = {
     new MusePacketPropertyModifierConfig(p, d)
   }

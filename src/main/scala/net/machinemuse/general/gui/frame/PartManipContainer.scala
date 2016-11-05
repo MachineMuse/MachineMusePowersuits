@@ -17,7 +17,10 @@ class PartManipContainer(val itemSelect: ItemSelectionFrame, val colourSelect: C
   def getItemSlot = Option(itemSelect.getSelectedItem).map(e => e.inventorySlot)
   var lastItemSlot: Option[Int] = None
 
-  def getColour = if(getItem != None && colourSelect.selectedColour < colourSelect.colours.size && colourSelect.selectedColour >= 0) colourSelect.colours(colourSelect.selectedColour) else Colour.WHITE.getInt
+  def getColour = if(getItem != None && colourSelect.selectedColour < colourSelect.colours.size && colourSelect.selectedColour >= 0)
+    colourSelect.colours(colourSelect.selectedColour)
+  else
+    Colour.WHITE.getInt
   var lastColour = getColour
 
   def getColourIndex = colourSelect.selectedColour

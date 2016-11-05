@@ -4,6 +4,7 @@ import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.render.MuseIconUtils;
 import net.machinemuse.powersuits.client.render.entity.MuseRender;
 import net.machinemuse.powersuits.common.MPSItems;
+import net.machinemuse.powersuits.item.IModularItemBase;
 import net.machinemuse.powersuits.item.ItemPowerFist;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -59,8 +60,11 @@ public class ToolRenderer extends MuseRender implements IItemRenderer {
         boolean drawIcon = false;
         ItemPowerFist item = (ItemPowerFist) itemStack.getItem();
 
-        Colour colour = item.getColorFromItemStack(itemStack);
-        Colour glow = item.getColorFromItemStack(itemStack);
+        Colour colour = ((IModularItemBase) item).getColorFromItemStack(itemStack);
+        Colour glow = ((IModularItemBase) item).getColorFromItemStack(itemStack);
+
+
+
         switch (type) {
             case ENTITY:
                 RenderBlocks renderEntity = (RenderBlocks) data[0];

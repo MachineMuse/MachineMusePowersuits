@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule;
 
 import net.machinemuse.api.*;
+import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.powersuits.common.Config;

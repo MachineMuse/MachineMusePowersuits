@@ -1,24 +1,23 @@
 package net.machinemuse.powersuits.item;
 
-import ic2.api.item.IElectricItemManager;
 import appeng.api.config.AccessRestriction;
-import net.minecraft.item.Item;
-import net.minecraft.entity.EntityLivingBase;
-import net.machinemuse.api.electricity.MuseElectricItem;
-import net.machinemuse.api.electricity.MuseElectricItem$class;
-import java.util.List;
-import net.minecraft.entity.player.EntityPlayer;
-import net.machinemuse.numina.geometry.Colour;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.item.ItemStack;
-import scala.reflect.ScalaSignature;
+import net.machinemuse.api.electricity.IMuseElectricItem;
+import net.machinemuse.api.electricity.MuseElectricItem;
+import net.machinemuse.numina.geometry.Colour;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
+
+import java.util.List;
 
 /**
  * Ported to Java by lehjr on 10/26/16.
  */
-public abstract class ItemElectricArmor extends ItemArmor implements ModularItemBase
+public abstract class ItemElectricArmor extends ItemArmor implements IModularItemBase
 {
     public ItemElectricArmor(final ItemArmor.ArmorMaterial material, final int index1, final int index2) {
         super(material, index1, index2);
@@ -33,20 +32,20 @@ public abstract class ItemElectricArmor extends ItemArmor implements ModularItem
 
     @SideOnly(Side.CLIENT)
     public int getColorFromItemStack(final ItemStack stack, final int par2) {
-        return ModularItemBase$class.getColorFromItemStack(this, stack, par2);
+        return ModularItemBase.getInstance().getColorFromItemStack(stack, par2);
     }
 
     public Colour getGlowFromItemStack(final ItemStack stack) {
-        return ModularItemBase$class.getGlowFromItemStack(this, stack);
+        return ModularItemBase.getInstance().getGlowFromItemStack(stack);
     }
 
     public Colour getColorFromItemStack(final ItemStack stack) {
-        return ModularItemBase$class.getColorFromItemStack(this, stack);
+        return ModularItemBase.getInstance().getColorFromItemStack(stack);
     }
 
     @SideOnly(Side.CLIENT)
     public boolean requiresMultipleRenderPasses() {
-        return ModularItemBase$class.requiresMultipleRenderPasses(this);
+        return ModularItemBase.getInstance().requiresMultipleRenderPasses();
     }
 
 //    @SideOnly(Side.CLIENT)
@@ -55,138 +54,139 @@ public abstract class ItemElectricArmor extends ItemArmor implements ModularItem
 //    }
 
     public String formatInfo(final String string, final double value) {
-        return ModularItemBase$class.formatInfo(this, string, value);
+        return ModularItemBase.getInstance().formatInfo(string, value);
     }
 
     public List<String> getLongInfo(final EntityPlayer player, final ItemStack stack) {
-        return (List<String>)ModularItemBase$class.getLongInfo(this, player, stack);
+        return (List<String>) ModularItemBase.getInstance().getLongInfo(player, stack);
     }
 
     public double getArmorDouble(final EntityPlayer player, final ItemStack stack) {
-        return ModularItemBase$class.getArmorDouble(this, player, stack);
+        return ModularItemBase.getInstance().getArmorDouble(player, stack);
     }
 
     public double getPlayerEnergy(final EntityPlayer player) {
-        return ModularItemBase$class.getPlayerEnergy(this, player);
+        return ModularItemBase.getInstance().getPlayerEnergy(player);
     }
 
     public void drainPlayerEnergy(final EntityPlayer player, final double drainEnergy) {
-        ModularItemBase$class.drainPlayerEnergy(this, player, drainEnergy);
+        ModularItemBase.getInstance().drainPlayerEnergy(player, drainEnergy);
     }
 
     public void givePlayerEnergy(final EntityPlayer player, final double joulesToGive) {
-        ModularItemBase$class.givePlayerEnergy(this, player, joulesToGive);
+        ModularItemBase.getInstance().givePlayerEnergy(player, joulesToGive);
     }
 
     public double getCurrentEnergy(final ItemStack stack) {
-        return MuseElectricItem$class.getCurrentEnergy(this, stack);
+        return MuseElectricItem.getInstance().getCurrentEnergy(stack);
     }
 
     public double getMaxEnergy(final ItemStack stack) {
-        return MuseElectricItem$class.getMaxEnergy(this, stack);
+        return MuseElectricItem.getInstance().getMaxEnergy(stack);
     }
 
     public void setCurrentEnergy(final ItemStack stack, final double energy) {
-        MuseElectricItem$class.setCurrentEnergy(this, stack, energy);
+        MuseElectricItem.getInstance().setCurrentEnergy(stack, energy);
     }
 
     public double drainEnergyFrom(final ItemStack stack, final double requested) {
-        return MuseElectricItem$class.drainEnergyFrom(this, stack, requested);
+        return MuseElectricItem.getInstance().drainEnergyFrom(stack, requested);
     }
 
     public double giveEnergyTo(final ItemStack stack, final double provided) {
-        return MuseElectricItem$class.giveEnergyTo(this, stack, provided);
+        return MuseElectricItem.getInstance().giveEnergyTo(stack, provided);
     }
 
-    public MuseElectricItem getManager(final ItemStack itemStack) {
-        return MuseElectricItem$class.getManager(this, itemStack);
+    public IMuseElectricItem getManager(final ItemStack itemStack) {
+        return MuseElectricItem.getInstance().getManager(itemStack);
     }
 
     public void chargeFromArmor(final ItemStack itemStack, final EntityLivingBase entity) {
-        MuseElectricItem$class.chargeFromArmor(this, itemStack, entity);
+        MuseElectricItem.getInstance().chargeFromArmor(itemStack, entity);
     }
 
     public boolean use(final ItemStack itemStack, final double amount, final EntityLivingBase entity) {
-        return MuseElectricItem$class.use(this, itemStack, amount, entity);
+        return MuseElectricItem.getInstance().use(itemStack, amount, entity);
     }
 
     public boolean canProvideEnergy(final ItemStack itemStack) {
-        return MuseElectricItem$class.canProvideEnergy(this, itemStack);
+        return MuseElectricItem.getInstance().canProvideEnergy(itemStack);
     }
 
     public double getCharge(final ItemStack itemStack) {
-        return MuseElectricItem$class.getCharge(this, itemStack);
+        return MuseElectricItem.getInstance().getCharge(itemStack);
     }
 
     public double getMaxCharge(final ItemStack itemStack) {
-        return MuseElectricItem$class.getMaxCharge(this, itemStack);
+        return MuseElectricItem.getInstance().getMaxCharge(itemStack);
     }
 
     public int getTier(final ItemStack itemStack) {
-        return MuseElectricItem$class.getTier(this, itemStack);
+        return MuseElectricItem.getInstance().getTier(itemStack);
     }
 
     public double getTransferLimit(final ItemStack itemStack) {
-        return MuseElectricItem$class.getTransferLimit(this, itemStack);
+        return MuseElectricItem.getInstance().getTransferLimit(itemStack);
     }
 
     public double charge(final ItemStack itemStack, final double amount, final int tier, final boolean ignoreTransferLimit, final boolean simulate) {
-        return MuseElectricItem$class.charge(this, itemStack, amount, tier, ignoreTransferLimit, simulate);
+        return MuseElectricItem.getInstance().charge(itemStack, amount, tier, ignoreTransferLimit, simulate);
     }
 
     public double discharge(final ItemStack itemStack, final double amount, final int tier, final boolean ignoreTransferLimit, final boolean externally, final boolean simulate) {
-        return MuseElectricItem$class.discharge(this, itemStack, amount, tier, ignoreTransferLimit, externally, simulate);
+        return MuseElectricItem.getInstance().discharge(itemStack, amount, tier, ignoreTransferLimit, externally, simulate);
     }
 
     public boolean canUse(final ItemStack itemStack, final double amount) {
-        return MuseElectricItem$class.canUse(this, itemStack, amount);
+        return MuseElectricItem.getInstance().canUse(itemStack, amount);
     }
 
     public Item getChargedItem(final ItemStack itemStack) {
-        return MuseElectricItem$class.getChargedItem(this, itemStack);
+        return MuseElectricItem.getInstance().getChargedItem(itemStack);
     }
 
     public Item getEmptyItem(final ItemStack itemStack) {
-        return MuseElectricItem$class.getEmptyItem(this, itemStack);
+        return MuseElectricItem.getInstance().getEmptyItem(itemStack);
     }
 
     public int receiveEnergy(final ItemStack stack, final int energy, final boolean simulate) {
-        return MuseElectricItem$class.receiveEnergy(this, stack, energy, simulate);
+        return MuseElectricItem.getInstance().receiveEnergy(stack, energy, simulate);
     }
 
     public int extractEnergy(final ItemStack stack, final int energy, final boolean simulate) {
-        return MuseElectricItem$class.extractEnergy(this, stack, energy, simulate);
+        return MuseElectricItem.getInstance().extractEnergy(stack, energy, simulate);
     }
 
     public int getEnergyStored(final ItemStack theItem) {
-        return MuseElectricItem$class.getEnergyStored(this, theItem);
+        return MuseElectricItem.getInstance().getEnergyStored(theItem);
     }
 
     public int getMaxEnergyStored(final ItemStack theItem) {
-        return MuseElectricItem$class.getMaxEnergyStored(this, theItem);
+        return MuseElectricItem.getInstance().getMaxEnergyStored(theItem);
     }
 
     public int getMaxDamage(final ItemStack itemStack) {
-        return MuseElectricItem$class.getMaxDamage(this, itemStack);
+        return MuseElectricItem.getInstance().getMaxDamage(itemStack);
     }
 
+    /* Applied Energistics 2 ---------------------------------------------------------------------- */
     public double injectAEPower(final ItemStack stack, final double ae) {
-        return MuseElectricItem$class.injectAEPower(this, stack, ae);
+        return MuseElectricItem.getInstance().injectAEPower(stack, ae);
     }
 
     public double extractAEPower(final ItemStack stack, final double ae) {
-        return MuseElectricItem$class.extractAEPower(this, stack, ae);
+        return MuseElectricItem.getInstance().extractAEPower(stack, ae);
     }
 
     public double getAEMaxPower(final ItemStack stack) {
-        return MuseElectricItem$class.getAEMaxPower(this, stack);
+        return MuseElectricItem.getInstance().getAEMaxPower(stack);
     }
 
     public double getAECurrentPower(final ItemStack stack) {
-        return MuseElectricItem$class.getAECurrentPower(this, stack);
+        return MuseElectricItem.getInstance().getAECurrentPower(stack);
     }
 
     public AccessRestriction getPowerFlow(final ItemStack stack) {
-        return MuseElectricItem$class.getPowerFlow(this, stack);
+        return MuseElectricItem.getInstance().getPowerFlow(stack);
     }
 }

@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.network.packets
 import java.io.DataInputStream
 
 import cpw.mods.fml.relauncher.{Side, SideOnly}
-import net.machinemuse.numina.network.{MusePackager, MusePacket}
+import net.machinemuse.numina.network.{IMusePackager, MusePacket}
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.EntityClientPlayerMP
@@ -13,7 +13,7 @@ import net.minecraft.entity.player.EntityPlayer
  * Author: MachineMuse (Claire Semple)
  * Created: 12:28 PM, 5/6/13
  */
-object MusePacketPlasmaBolt extends MusePackager {
+object MusePacketPlasmaBolt extends IMusePackager {
   def read(d: DataInputStream, p: EntityPlayer) = {
     val entityID = readInt(d)
     val size = readDouble(d)

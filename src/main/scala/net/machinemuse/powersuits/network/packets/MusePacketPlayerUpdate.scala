@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.network.packets
 
 import java.io.DataInputStream
 
-import net.machinemuse.numina.network.{MusePackager, MusePacket, PacketSender}
+import net.machinemuse.numina.network.{IMusePackager, MusePacket, PacketSender}
 import net.machinemuse.powersuits.control.PlayerInputMap
 import net.minecraft.entity.player.{EntityPlayer, EntityPlayerMP}
 
@@ -11,7 +11,7 @@ import net.minecraft.entity.player.{EntityPlayer, EntityPlayerMP}
  * Author: MachineMuse (Claire Semple)
  * Created: 12:28 PM, 5/6/13
  */
-object MusePacketPlayerUpdate extends MusePackager {
+object MusePacketPlayerUpdate extends IMusePackager {
   def read(d: DataInputStream, p: EntityPlayer) = {
     val username = readString(d)
     val inputMap: PlayerInputMap = PlayerInputMap.getInputMapFor(username)

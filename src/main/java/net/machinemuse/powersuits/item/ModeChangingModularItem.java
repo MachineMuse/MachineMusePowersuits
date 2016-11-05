@@ -9,7 +9,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import scala.Option;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -81,7 +80,7 @@ public class ModeChangingModularItem implements IModeChangingModularItem {
         }
     }
 
-    /* I M O D E C H A N G I N G I T E M ---------------------------------------------------------- */
+    /* IModeChangingItem -------------------------------------------------------------------------- */
 
     @Override
     public void setActiveMode(ItemStack stack, String newMode) {

@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.common;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModAPIManager;
-import net.machinemuse.api.IModularItem;
+import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.powersuits.powermodule.armor.ApiaristArmorModule;

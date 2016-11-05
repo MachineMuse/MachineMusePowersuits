@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.powermodule.energy;
 
-import net.machinemuse.api.IModularItem;
+import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.electricity.ElectricConversions;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -20,8 +20,8 @@ public class AdvancedBatteryModule extends PowerModuleBase {
         addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g");
         addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 400000);
         addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000);
-        addBaseProperty(ElectricConversions.IC2_TIER(), 1);
-        addTradeoffProperty("IC2 Tier", ElectricConversions.IC2_TIER(), 2);
+        addBaseProperty(ElectricConversions.IC2_TIER, 1);
+        addTradeoffProperty("IC2 Tier", ElectricConversions.IC2_TIER, 2);
     }
 
     @Override

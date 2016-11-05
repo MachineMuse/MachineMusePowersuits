@@ -2,7 +2,7 @@ package net.machinemuse.utils;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
-import net.machinemuse.api.IModularItem;
+import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemTag;

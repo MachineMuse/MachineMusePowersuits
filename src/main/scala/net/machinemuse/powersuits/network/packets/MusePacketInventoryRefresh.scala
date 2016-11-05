@@ -7,7 +7,7 @@ import java.io.DataInputStream
 
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.machinemuse.general.gui.MuseGui
-import net.machinemuse.numina.network.{MusePackager, MusePacket}
+import net.machinemuse.numina.network.{IMusePackager, MusePacket}
 import net.machinemuse.numina.scala.OptionCast
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.EntityClientPlayerMP
@@ -20,7 +20,7 @@ import net.minecraft.item.ItemStack
  * Author: MachineMuse (Claire Semple)
  * Created: 12:28 PM, 5/6/13
  */
-object MusePacketInventoryRefresh extends MusePackager {
+object MusePacketInventoryRefresh extends IMusePackager {
   def read(d: DataInputStream, p: EntityPlayer) = {
     val itemSlot = readInt(d)
     val stack = readItemStack(d)
