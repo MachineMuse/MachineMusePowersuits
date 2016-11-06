@@ -4,7 +4,7 @@ import java.io.DataInputStream
 
 import net.machinemuse.api.electricity.IModularItem
 import net.machinemuse.numina.general.MuseLogger
-import net.machinemuse.numina.network.{IMusePackager, MusePacket}
+import net.machinemuse.numina.network.{IMusePackager, MusePackager, MusePacket}
 import net.machinemuse.utils.MuseItemUtils
 import net.minecraft.entity.player.{EntityPlayer, EntityPlayerMP}
 import net.minecraft.nbt.NBTTagCompound
@@ -13,8 +13,8 @@ import net.minecraft.nbt.NBTTagCompound
  * Author: MachineMuse (Claire Semple)
  * Created: 10:16 AM, 01/05/13
  */
-object MusePacketCosmeticInfo extends IMusePackager {
-  def read(d: DataInputStream, p: EntityPlayer) = {
+object MusePacketCosmeticInfo extends MusePackager {
+  override def read(d: DataInputStream, p: EntityPlayer) = {
     val itemSlot = readInt(d)
     val tagName = readString(d)
     val tagData = readNBTTagCompound(d)

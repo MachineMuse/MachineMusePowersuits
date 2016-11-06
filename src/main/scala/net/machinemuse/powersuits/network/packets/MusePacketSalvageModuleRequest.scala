@@ -7,7 +7,7 @@ import java.io.DataInputStream
 import java.util.{HashSet, List}
 
 import net.machinemuse.api.{IPowerModule, ModuleManager}
-import net.machinemuse.numina.network.{IMusePackager, MusePacket, PacketSender}
+import net.machinemuse.numina.network.{IMusePackager, MusePackager, MusePacket, PacketSender}
 import net.machinemuse.powersuits.common.Config
 import net.machinemuse.utils.MuseItemUtils
 import net.minecraft.entity.player.{EntityPlayer, EntityPlayerMP, InventoryPlayer}
@@ -21,8 +21,8 @@ import net.minecraft.item.ItemStack
  * Author: MachineMuse (Claire Semple)
  * Created: 12:28 PM, 5/6/13
  */
-object MusePacketSalvageModuleRequest extends IMusePackager {
-  def read(d: DataInputStream, p: EntityPlayer) = {
+object MusePacketSalvageModuleRequest extends MusePackager {
+  override def read(d: DataInputStream, p: EntityPlayer) = {
 
     val itemSlot = readInt(d)
     val moduleName = readString(d)

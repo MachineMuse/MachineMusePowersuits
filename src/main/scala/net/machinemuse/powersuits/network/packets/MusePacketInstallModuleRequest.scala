@@ -7,7 +7,7 @@ import java.io.DataInputStream
 import java.util.{ArrayList, List}
 
 import net.machinemuse.api.{IPowerModule, ModuleManager}
-import net.machinemuse.numina.network.{IMusePackager, MusePacket, PacketSender}
+import net.machinemuse.numina.network.{IMusePackager, MusePackager, MusePacket, PacketSender}
 import net.machinemuse.utils.{ElectricItemUtils, MuseItemUtils}
 import net.minecraft.entity.player.{EntityPlayer, EntityPlayerMP, InventoryPlayer}
 import net.minecraft.item.ItemStack
@@ -21,8 +21,8 @@ import net.minecraft.util.ChatComponentText
  * Created: 10:16 AM, 01/05/13
  */
 
-object MusePacketInstallModuleRequest extends IMusePackager {
-  def read(d: DataInputStream, p: EntityPlayer) = {
+object MusePacketInstallModuleRequest extends MusePackager {
+  override def read(d: DataInputStream, p: EntityPlayer) = {
     val itemSlot = readInt(d)
     val moduleName = readString(d)
     new MusePacketInstallModuleRequest(p, itemSlot, moduleName)

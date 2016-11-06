@@ -7,7 +7,7 @@ import java.io.DataInputStream
 
 import net.machinemuse.api.ModuleManager
 import net.machinemuse.numina.general.MuseMathUtils
-import net.machinemuse.numina.network.{IMusePackager, MusePacket}
+import net.machinemuse.numina.network.{IMusePackager, MusePackager, MusePacket}
 import net.machinemuse.utils.MuseItemUtils
 import net.minecraft.entity.player.{EntityPlayer, EntityPlayerMP}
 import net.minecraft.nbt.NBTTagCompound
@@ -20,8 +20,8 @@ import net.minecraft.nbt.NBTTagCompound
  * Author: MachineMuse (Claire Semple)
  * Created: 12:28 PM, 5/6/13
  */
-object MusePacketTweakRequest extends IMusePackager {
-  def read(d: DataInputStream, p: EntityPlayer) = {
+object MusePacketTweakRequest extends MusePackager {
+  override def read(d: DataInputStream, p: EntityPlayer) = {
     val itemSlot = readInt(d)
     val moduleName = readString(d)
     val tweakName = readString(d)
