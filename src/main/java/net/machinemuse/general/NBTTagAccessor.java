@@ -39,13 +39,11 @@ public class NBTTagAccessor extends NBTTagCompound {
             SecurityException {
         if (mTagAccessor == null) {
             try {
-                mTagAccessor = NBTTagCompound.class.getDeclaredMethod(
-                        "getTagMap", NBTTagCompound.class);
+                mTagAccessor = NBTTagCompound.class.getDeclaredMethod("getTagMap", NBTTagCompound.class);
                 mTagAccessor.setAccessible(true);
                 return mTagAccessor;
             } catch (NoSuchMethodException e) {
-                mTagAccessor = NBTTagCompound.class.getDeclaredMethod(
-                        "a", NBTTagCompound.class);
+                mTagAccessor = NBTTagCompound.class.getDeclaredMethod("a", NBTTagCompound.class);
                 mTagAccessor.setAccessible(true);
                 return mTagAccessor;
             }

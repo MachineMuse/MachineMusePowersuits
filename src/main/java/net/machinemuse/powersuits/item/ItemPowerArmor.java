@@ -8,8 +8,8 @@ import net.machinemuse.api.ApiaristArmor;
 import net.machinemuse.api.IArmorTraits;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.powersuits.client.render.item.ArmorModel;
-import net.machinemuse.powersuits.client.render.item.ArmorModel$;
+import net.machinemuse.powersuits.client.render.item.ArmorModelInstance;
+import net.machinemuse.powersuits.client.render.item.IArmorModel;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.misc.InvisibilityModule;
 import net.machinemuse.utils.ElectricItemUtils;
@@ -90,21 +90,21 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel(final EntityLivingBase entity, final ItemStack itemstack, final int armorSlot) {
-        final ArmorModel model = ArmorModel$.MODULE$.instance();
-        model.visibleSection_$eq(armorSlot);
+        final ModelBiped model = ArmorModelInstance.getInstance();
+        ((IArmorModel)model).setVisibleSection(armorSlot);
         if (itemstack != null) {
             if (entity instanceof EntityPlayer) {
                 ItemStack armorChest = ((EntityPlayer)entity).getCurrentArmor(2);
 
                 if (!armorChest.equals(null) && armorChest.getItem() instanceof ItemPowerArmor)
-                    if (ModuleManager.itemHasActiveModule(armorChest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) model.visibleSection_$eq(99);
+                    if (ModuleManager.itemHasActiveModule(armorChest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) ((IArmorModel)model).setVisibleSection(99);
 
             }
 
             if (ModuleManager.itemHasActiveModule(itemstack, "Transparent Armor")) {
-                model.visibleSection_$eq(99);
+                ((IArmorModel)model).setVisibleSection(99);
             }
-            model.renderSpec_$eq(MuseItemUtils.getMuseRenderTag(itemstack, armorSlot));
+            ((IArmorModel)model).setRenderSpec(MuseItemUtils.getMuseRenderTag(itemstack, armorSlot));
         }
         return (ModelBiped)model;
     }

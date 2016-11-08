@@ -1,11 +1,11 @@
-//package net.machinemuse.powersuits.client.render.modelspec;
-//
-//import net.minecraft.client.model.ModelBiped;
-//import net.minecraft.client.model.ModelRenderer;
-//
-///**
-// * Ported to Java by lehjr on 11/5/16.
-// */
+package net.machinemuse.powersuits.client.render.modelspec;
+
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.model.ModelRenderer;
+
+/**
+ * Ported to Java by lehjr on 11/5/16.
+ */
 //public class ArmorMorphTarget {
 //    public interface MorphTarget {
 //        String name = null;

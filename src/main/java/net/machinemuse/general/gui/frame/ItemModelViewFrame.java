@@ -5,7 +5,8 @@ import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.DrawableMuseRect;
 import net.machinemuse.numina.geometry.MusePoint2D;
-import net.machinemuse.powersuits.client.render.item.ArmorModel$;
+import net.machinemuse.powersuits.client.render.item.ArmorModelInstance;
+import net.machinemuse.powersuits.client.render.item.IArmorModel;
 import net.machinemuse.powersuits.item.ItemPowerArmor;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.Minecraft;
@@ -119,8 +120,8 @@ public class ItemModelViewFrame implements IGuiFrame
         this.border.draw();
         if (this.itemSelector.getSelectedItem() != null && this.getSelectedItem().getItem().getItem() instanceof ItemPowerArmor) {
             GL11.glPushMatrix();
-            ArmorModel$.MODULE$.instance().renderSpec_$eq(MuseItemUtils.getMuseRenderTag(this.getSelectedItem().getItem(), this.getArmorSlot()));
-            ArmorModel$.MODULE$.instance().visibleSection_$eq(this.getArmorSlot());
+            ((IArmorModel)ArmorModelInstance.getInstance()).setRenderSpec((MuseItemUtils.getMuseRenderTag(this.getSelectedItem().getItem(), this.getArmorSlot())));
+            ((IArmorModel)ArmorModelInstance.getInstance()).setVisibleSection(this.getArmorSlot());
             GL11.glTranslated(this.border.centerx() + this.offsetx, this.border.centery() + this.offsety, 0.0);
             GL11.glScaled(this.zoom, this.zoom, this.zoom);
             GL11.glClear(256);
@@ -128,7 +129,7 @@ public class ItemModelViewFrame implements IGuiFrame
             GL11.glRotatef((float)this.rotx, 1.0f, 0.0f, 0.0f);
             GL11.glRotatef((float)this.roty, 0.0f, 1.0f, 0.0f);
             GL11.glTranslated(0.0, -this.getArmorSlot() / 2.0, 0.0);
-            ((ModelBiped)ArmorModel$.MODULE$.instance()).render((Entity)mc.thePlayer, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0625f);
+            ArmorModelInstance.getInstance().render((Entity)mc.thePlayer, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0625f);
             GL11.glPopMatrix();
         }
     }
