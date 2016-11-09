@@ -51,9 +51,6 @@ public class RenderPart extends ModelRenderer {
                     MuseTextureUtils.bindTexture(part.get().getTexture(nbt));
                     applyTransform();
 
-
-
-
                     int ix = part.get().getColourIndex(nbt);
                     if (ix < colours.length && ix >= 0) {
                         Colour.doGLByInt(colours[ix]);

@@ -27,15 +27,3 @@ object ModelSpecXMLWriter {
 
   def concatList(list: Seq[String]): String = list mkString ","
 }
-
-object ModelSpecJSONWriter {
-  def writeRegistry(file: String) {
-    val gson = new Gson()
-    import scala.collection.JavaConverters._
-    val registry = ModelRegistry.apply.asJava
-    val jsonwrite = gson.toJson(registry)
-    val w = new PrintWriter(new FileOutputStream(new File(file)))
-    w.print(jsonwrite)
-    w.close()
-  }
-}
