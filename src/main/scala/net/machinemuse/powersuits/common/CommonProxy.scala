@@ -65,9 +65,9 @@ class ClientProxy extends CommonProxy {
     RenderingRegistry.registerEntityRenderingHandler(classOf[EntityLuxCapacitor], new RenderLuxCapacitorEntity)
     MinecraftForge.EVENT_BUS.register(new RenderEventHandler)
     val resource: URL = classOf[ClientProxy].getResource("/assets/powersuits/models/modelspec.xml")
-    ModelSpecXMLReader.parseFile(resource)
+    ModelSpecXMLReader.getINSTANCE.parseFile(resource)
     val otherResource: URL = classOf[ClientProxy].getResource("/assets/powersuits/models/armor2.xml")
-    ModelSpecXMLReader.parseFile(otherResource)
+    ModelSpecXMLReader.getINSTANCE.parseFile(otherResource)
 
   }
 

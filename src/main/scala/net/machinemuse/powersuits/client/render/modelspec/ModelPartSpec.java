@@ -8,12 +8,12 @@ import net.minecraft.nbt.NBTTagCompound;
 public class ModelPartSpec
 {
     public ModelSpec modelSpec;
-    private MorphTarget morph;
+    public MorphTarget morph;
     public String partName;
-    private int slot;
-    private int defaultcolourindex;
-    private boolean defaultglow;
-    private String displayName;
+    public int slot;
+    public int defaultcolourindex;
+    public boolean defaultglow;
+    public String displayName;
 
     public ModelPartSpec(ModelSpec modelSpec, MorphTarget morph, String partName, int slot, Integer defaultcolourindex, Boolean defaultglow, String displayName) {
         this.modelSpec = modelSpec;

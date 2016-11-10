@@ -16,7 +16,7 @@ public class ModelSpec extends MuseRegistry<ModelPartSpec>
     public String[] textures;
     public Vec3 offset;
     public Vec3 rotation;
-    public String filename;
+    public static String filename;
 
     public ModelSpec(WavefrontObject model, String[] textures, Vec3 offset, Vec3 rotation, String filename) {
         this.model = model;

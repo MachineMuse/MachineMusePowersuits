@@ -56,7 +56,7 @@ public class ModelRegistry extends MuseRegistry<ModelSpec> {
 
     public ModelPartSpec getPart(NBTTagCompound nbt) {
         return getPart(nbt, getModel(nbt));
-        //getModel(nbt).flatMap(m => m.get(nbt getString "part"))
+//        getModel(nbt).flatMap(m => m.get(nbt getString "part"))
         // FIXME: not sure if this is right
     }
 

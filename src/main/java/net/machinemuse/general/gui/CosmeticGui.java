@@ -53,21 +53,23 @@ public class CosmeticGui extends MuseGui {
                 Colour.DARKBLUE.withAlpha(0.8F));
         frames.add(renderframe);
 
-        ColourPickerFrame colourpicker = new ColourPickerFrame(
-                new MuseRect(absX(0.18f), absY(-0.95f),
-                        absX(0.95f), absY(-0.025f)),
-                Colour.LIGHTBLUE.withAlpha(0.8F),
-                Colour.DARKBLUE.withAlpha(0.8F),
-                itemSelect);
-        frames.add(colourpicker);
+        //FIXME!!!!
 
-        PartManipContainer partframe = new PartManipContainer(
-                    itemSelect, colourpicker,
-                    new MusePoint2D(absX(-0.95F), absY(0.025f)),
-                    new MusePoint2D(absX(+0.95F), absY(0.95f)),
-                    Colour.LIGHTBLUE.withAlpha(0.8F),
-                    Colour.DARKBLUE.withAlpha(0.8F));
-            frames.add(partframe);
+//        ColourPickerFrame colourpicker = new ColourPickerFrame(
+//                new MuseRect(absX(0.18f), absY(-0.95f),
+//                        absX(0.95f), absY(-0.025f)),
+//                Colour.LIGHTBLUE.withAlpha(0.8F),
+//                Colour.DARKBLUE.withAlpha(0.8F),
+//                itemSelect);
+//        frames.add(colourpicker);
+//
+//        PartManipContainer partframe = new PartManipContainer(
+//                    itemSelect, colourpicker,
+//                    new MusePoint2D(absX(-0.95F), absY(0.025f)),
+//                    new MusePoint2D(absX(+0.95F), absY(0.95f)),
+//                    Colour.LIGHTBLUE.withAlpha(0.8F),
+//                    Colour.DARKBLUE.withAlpha(0.8F));
+//            frames.add(partframe);
 
         TabSelectFrame tabFrame = new TabSelectFrame(
                     player,

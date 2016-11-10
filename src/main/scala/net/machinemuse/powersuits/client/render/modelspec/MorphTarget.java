@@ -22,12 +22,40 @@ public enum MorphTarget {
         ModelRenderer apply(ModelBiped m);
     }
 
+    public ModelRenderer apply(ModelBiped m) {
+        switch(this) {
+            case Cloak:
+                return Cloak.apply(m);
+
+            case Head:
+                return Head.apply(m);
+
+            case Body:
+                return Body.apply(m);
+
+            case RightArm:
+                return RightArm.apply(m);
+
+            case LeftArm:
+                return LeftArm.apply(m);
+
+            case RightLeg:
+                return RightLeg.apply(m);
+
+            case LeftLeg:
+                return LeftLeg.apply(m);
+
+            default:
+                return null;
+        }
+    }
+
     public class Cloak implements iMorphTarget {
         String name = "Cloak";
 
         @Override
         public ModelRenderer apply(ModelBiped m) {
-            return null;
+            return m.bipedCloak;
         }
     }
 

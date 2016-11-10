@@ -32,15 +32,15 @@ public class RenderPart extends ModelRenderer {
         NBTTagCompound renderSpec = ((IArmorModel)(ArmorModelInstance.getInstance())).getRenderSpec();
         int[] colours = renderSpec.getIntArray("colours");
         for (NBTTagCompound nbt : NBTTagAccessor.getValues(renderSpec)) {
-            Option<ModelPartSpec> part = ModelRegistry.getPart(nbt);
+            ModelPartSpec part = ModelRegistry.getInstance().getPart(nbt);
             /* checks for None TODO: Null check for Java port.*/
-            if (part.isDefined()) {
-                if (part.get().slot() == ((IArmorModel)(ArmorModelInstance.getInstance())).getVisibleSection() && part.get().morph().apply(ArmorModelInstance.getInstance()) == parent) {
+            if (part !=null) {
+                if (part.slot == ((IArmorModel)(ArmorModelInstance.getInstance())).getVisibleSection() && part.morph.apply(ArmorModelInstance.getInstance()) == parent) {
                     float prevBrightX = OpenGlHelper.lastBrightnessX;
                     float prevBrightY = OpenGlHelper.lastBrightnessY;
 
                     // GLOW stuff on
-                    if (part.get().getGlow(nbt)) {
+                    if (part.getGlow(nbt)) {
                         GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
                         RenderHelper.disableStandardItemLighting();
                         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);
@@ -48,20 +48,20 @@ public class RenderPart extends ModelRenderer {
 
                     GL11.glPushMatrix();
                     GL11.glScaled(scale, scale, scale);
-                    MuseTextureUtils.bindTexture(part.get().getTexture(nbt));
+                    MuseTextureUtils.bindTexture(part.getTexture(nbt));
                     applyTransform();
 
-                    int ix = part.get().getColourIndex(nbt);
+                    int ix = part.getColourIndex(nbt);
                     if (ix < colours.length && ix >= 0) {
                         Colour.doGLByInt(colours[ix]);
                     }
-                    part.get().modelSpec().applyOffsetAndRotation(); // not yet implemented
-                    part.get().modelSpec().model().renderPart(part.get().partName());
+                    part.modelSpec.applyOffsetAndRotation(); // not yet implemented
+                    part.modelSpec.model.renderPart(part.partName);
                     Colour.WHITE.doGL();
                     GL11.glPopMatrix();
 
                     // GLOW stuff off
-                    if (part.get().getGlow(nbt)) {
+                    if (part.getGlow(nbt)) {
                         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, prevBrightX, prevBrightY);
                         GL11.glPopAttrib();
                     }
