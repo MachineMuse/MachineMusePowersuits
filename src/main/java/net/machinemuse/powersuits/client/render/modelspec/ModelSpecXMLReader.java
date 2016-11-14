@@ -53,7 +53,6 @@ public class ModelSpecXMLReader {
 
                 if (modelNode.getNodeType() == Node.ELEMENT_NODE) {
                     parseModel(modelNode);
-                    Element eElement = (Element) modelNode;
                 }
             }
         } catch (Exception e) {
@@ -69,9 +68,10 @@ public class ModelSpecXMLReader {
 
         if (modelnode.getNodeType() == Node.ELEMENT_NODE) {
             Element eElement = (Element) modelnode;
-
             file = eElement.getAttribute("file");
             textures = eElement.getAttribute("textures").split(",");
+
+            // These are null because they are not used in the files
             offset = parseVector(eElement.getAttribute("offset"));
             rotation = parseVector(eElement.getAttribute("rotation"));
 
@@ -80,7 +80,7 @@ public class ModelSpecXMLReader {
                 ModelSpec modelspec = new ModelSpec(model, textures, offset, rotation, file);
                 ModelSpec existingspec = ModelRegistry.getInstance().put(MuseStringUtils.extractName(file), modelspec);
 
-                NodeList bindingNodeList = eElement.getElementsByTagName("model");
+                NodeList bindingNodeList = eElement.getElementsByTagName("binding");
                 for (int temp = 0; temp < bindingNodeList.getLength(); temp++) {
                     Node bindingnode = bindingNodeList.item(temp);
                     parseBinding(bindingnode, existingspec);
@@ -96,7 +96,6 @@ public class ModelSpecXMLReader {
             Element eElement = (Element) bindingnode;
             int slot = parseInt(eElement.getAttribute("slot"));
             MorphTarget target = parseTarget(eElement.getAttribute("target"));
-
             NodeList partNodeList = eElement.getElementsByTagName("part");
             for (int temp = 0; temp < partNodeList.getLength(); temp++) {
                 Node partnode = partNodeList.item(temp);
@@ -108,11 +107,11 @@ public class ModelSpecXMLReader {
     public void parseParts(Node partNode, ModelSpec modelspec, int slot, MorphTarget target) {
         if (partNode.getNodeType() == Node.ELEMENT_NODE) {
             Element eElement = (Element) partNode;
-            Colour defaultcolor = parseColour(eElement.getAttribute("defaultcolor"));
+//            Colour defaultcolor = parseColour(eElement.getAttribute("defaultcolor"));
             Boolean defaultglow = parseBool(eElement.getAttribute("defaultglow"));
             String name = eElement.getAttribute("name");
 
-            String polygroup = validatePolygroup(eElement.getAttribute("name"), modelspec);
+            String polygroup = validatePolygroup(eElement.getAttribute("polygroup"), modelspec);
 
             if (polygroup != null) {
                 ModelPartSpec partspec = new ModelPartSpec(modelspec, target, polygroup, slot, 0, (defaultglow != null) ? defaultglow :false, name);
@@ -179,7 +178,6 @@ public class ModelSpecXMLReader {
             double x = Double.parseDouble(ss[0]);
             double y = Double.parseDouble(ss[1]);
             double z = Double.parseDouble(ss[2]);
-
             return Vec3.createVectorHelper(x, y, z);
         } catch (Exception e) {
             return null;

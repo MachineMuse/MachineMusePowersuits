@@ -15,26 +15,8 @@ import org.lwjgl.opengl.GL11;
  * Ported to Java by lehjr on 10/19/16.
  */
 public class GuiIcons {
-    private GuiIcons() {
-    }
+        public static class GuiIcon {
 
-    public GuiIcons INSTANCE = new GuiIcons();
-
-
-    public interface IGuiIcon {
-        double size = 0;
-        String filepath = null;
-
-        double x = 0;
-        double y = 0;
-        Colour c = null;
-        double xmin = 0;
-        double ymin = 0;
-        double xmax = 0;
-        double yma = 0;
-    }
-
-    public static class GuiIcon implements IGuiIcon {
         final double size;
         final String filepath;
 
@@ -71,72 +53,48 @@ public class GuiIcons {
     }
 
     public static class Checkmark extends GuiIcon {
-//        double size = 16.0;
-//        String filepath = Config.TEXTURE_PREFIX() + "gui/checkmark.png";
-
         public Checkmark(double x, double y, Colour c, Double xmin, Double ymin, Double xmax, Double ymax) {
             super(16.0, Config.TEXTURE_PREFIX() + "gui/checkmark.png", x, y, c, xmin, ymin, xmax, ymax);
         }
     }
 
     public static class TransparentArmor extends GuiIcon {
-//        double size = 8.0;
-//        String filepath = Config.TEXTURE_PREFIX() + "gui/transparentarmor.png";
-
         public TransparentArmor(double x, double y, Colour c, Double xmin, Double ymin, Double xmax, Double ymax) {
             super(8.0, Config.TEXTURE_PREFIX() + "gui/transparentarmor.png", x, y, c, xmin, ymin, xmax, ymax);
         }
     }
 
     public static class NormalArmor extends GuiIcon {
-//        double size = 8.0;
-//        String filepath = Config.TEXTURE_PREFIX() + "gui/normalarmor.png";
-
         public NormalArmor(double x, double y, Colour c, Double xmin, Double ymin, Double xmax, Double ymax) {
             super(8.0, Config.TEXTURE_PREFIX() + "gui/normalarmor.png", x, y, c, xmin, ymin, xmax, ymax);
         }
     }
 
     public static class GlowArmor extends GuiIcon {
-//        double size = 8.0;
-//        String filepath = Config.TEXTURE_PREFIX() + "gui/glowarmor.png";
-
         public GlowArmor(double x, double y, Colour c, Double xmin, Double ymin, Double xmax, Double ymax) {
             super(8.0, Config.TEXTURE_PREFIX() + "gui/glowarmor.png", x, y, c, xmin, ymin, xmax, ymax);
         }
     }
 
     public static class SelectedArmorOverlay extends GuiIcon {
-//        double size = 8.0;
-//        String filepath = Config.TEXTURE_PREFIX() + "gui/armordisplayselect.png";
-
         public SelectedArmorOverlay(double x, double y, Colour c, Double xmin, Double ymin, Double xmax, Double ymax) {
             super(8.0, Config.TEXTURE_PREFIX() + "gui/armordisplayselect.png", x, y, c, xmin, ymin, xmax, ymax);
         }
     }
 
     public static class ArmourColourPatch extends GuiIcon {
-//        double size = 8.0;
-//        String filepath = Config.TEXTURE_PREFIX() + "gui/colourclicker.png";
-
         public ArmourColourPatch(double x, double y, Colour c, Double xmin, Double ymin, Double xmax, Double ymax) {
             super(8.0, Config.TEXTURE_PREFIX() + "gui/colourclicker.png", x, y, c, xmin, ymin, xmax, ymax);
         }
     }
 
     public static class MinusSign extends GuiIcon {
-//        double size = 8.0;
-//        String filepath = Config.TEXTURE_PREFIX() + "gui/minussign.png";
-
         public MinusSign(double x, double y, Colour c, Double xmin, Double ymin, Double xmax, Double ymax) {
             super(8.0, Config.TEXTURE_PREFIX() + "gui/minussign.png", x, y, c, xmin, ymin, xmax, ymax);
         }
     }
 
     public static class PlusSign extends GuiIcon {
-//        double size = 8.0;
-//        String filepath = Config.TEXTURE_PREFIX() + "gui/plussign.png";
-
         public PlusSign(double x, double y, Colour c, Double xmin, Double ymin, Double xmax, Double ymax) {
             super(8.0, Config.TEXTURE_PREFIX() + "gui/plussign.png", x, y, c, xmin, ymin, xmax, ymax);
         }

@@ -12,21 +12,18 @@ public class ArmorModelInstance {
     private static ModelBiped instance = null;
     private static NBTTagCompound renderSpec;
 
-    private static boolean smartMoving = false;
-
     public static ModelBiped getInstance() {
         // TODO: Actual (skinned) vanilla model as low bandwitdth alternative
 
         if (instance == null) {
-//            try {
-//                MuseLogger.logInfo("Attempting to load Smart Moving armor model.");
-//                instance = SMovingArmorModel.getInstance();
-//                smartMoving = true;
-//                MuseLogger.logInfo("Smart Moving armor model loaded successfully!");
-//            } catch (Throwable e) {
-//                MuseLogger.logInfo("Smart Moving armor model did not load successfully. Either Smart Moving is not installed, or there was another problem.");
+            try {
+                MuseLogger.logInfo("Attempting to load Smart Moving armor model.");
+                instance = SMovingArmorModel.getInstance();
+                MuseLogger.logInfo("Smart Moving armor model loaded successfully!");
+            } catch (Throwable e) {
+                MuseLogger.logInfo("Smart Moving armor model did not load successfully. Either Smart Moving is not installed, or there was another problem.");
                 instance = VanillaArmorModel.getInstance();
-//            }
+            }
         }
         return instance;
     }

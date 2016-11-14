@@ -139,19 +139,21 @@
 //      }
 //    }
 //    // remove
-//    if (y > border.bottom - 24 && y < border.bottom - 16 && x > border.left + 8 + selectedColour * 8 && x < border.left + 16 + selectedColour * 8) {
-//      getOrCreateColourTag.foreach(e => {
-//        if (getIntArray(e).size > 1) {
-//          setColourTagMaybe( getIntArray(e) diff Array(getIntArray(e)(selectedColour)))
-//          decrAbove = selectedColour
-//          if (selectedColour == getIntArray(e).size) {
-//            selectedColour = selectedColour - 1
-//          }
-//          val player = Minecraft.getMinecraft.thePlayer
+//    if (y.>(border.bottom.-(24)).&&(y.<(border.bottom.-(16))).&&(x.>(border.left.+(8).+(selectedColour.*(8)))).&&(x.<(border.left.+(16).+(selectedColour.*(8))))) {
+//      getOrCreateColourTag.foreach((e: NBTTagIntArray) => {
+//
+//        // if (getIntArray(nbtTagIntArray).length > 1) {
+//        if (Predef.intArrayOps(getIntArray(e)).size.>(1)) {
+//          setColourTagMaybe( Predef.intArrayOps(getIntArray(e)).diff(Predef.wrapIntArray(Array.apply(getIntArray(e)(selectedColour)))));
+//          decrAbove_=(selectedColour);
+//          if (selectedColour.==(Predef.intArrayOps(getIntArray(e)).size)) {
+//            selectedColour_=(selectedColour.-(1));
+//          };
+//          val player: net.minecraft.client.entity.EntityClientPlayerMP = Minecraft.getMinecraft.thePlayer;
 //          if (player.worldObj.isRemote)
-//            PacketSender.sendToServer(new MusePacketColourInfo(player, itemSelector.getSelectedItem.inventorySlot, e.func_150302_c))
-//        }
-//      })
+//            PacketSender.sendToServer(new MusePacketColourInfo(player, itemSelector.getSelectedItem.inventorySlot, e.func_150302_c));
+//        };
+//      });
 //
 //    }
 //  }

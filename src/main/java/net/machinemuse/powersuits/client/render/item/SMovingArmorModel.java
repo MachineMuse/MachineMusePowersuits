@@ -72,9 +72,6 @@ public class SMovingArmorModel extends ModelPlayer implements IArmorModel {
      */
     @Override
     public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float scale) {
-        System.out.println("Stuff is happening here!!");
-
-
         prep(entity, par2, par3, par4, par5, par6, scale);
         renderPlayerBase.setRotationAngles(par2, par3, par4, par5, par6, scale, entity);
         renderPlayerBase.render(entity, par2, par3, par4, par5, par6, scale);

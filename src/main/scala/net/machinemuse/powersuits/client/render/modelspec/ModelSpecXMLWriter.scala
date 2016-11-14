@@ -11,6 +11,9 @@ import com.google.gson.Gson
  */
 object ModelSpecXMLWriter {
   def writeRegistry(file: String) {
+    println("Writing XML file to " + file)
+
+
 //    val xmlwrite =
 //      <models>
 //        {for ((modelname, modelspec) <- ModelRegistry.getInstance()) yield

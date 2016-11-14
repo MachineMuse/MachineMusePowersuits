@@ -28,12 +28,12 @@
 //
 //
 //  val modelframes: Seq[PartManipSubFrame] =
-//    ((Seq.empty[PartManipSubFrame], None: Option[PartManipSubFrame]) /: ModelRegistry.getInstance().apply.values) {
+//    (ModelRegistry.getInstance().apply.values./:(Tuple2.apply(Seq.empty[PartManipSubFrame], scala.None: Option[PartManipSubFrame]))) ({
 //      case ((frameseq, prev), modelspec: ModelSpec) => {
-//        val newframe = createNewFrame(modelspec, prev)
-//        (frameseq :+ newframe, Some(newframe))
+//        val newframe: PartManipSubFrame = createNewFrame(modelspec, prev);
+//        Tuple2.apply(frameseq.:+(newframe), Some.apply(newframe));
 //      }
-//    }._1
+//    })._1;
 //
 //  def createNewFrame(modelspec: ModelSpec, prev: Option[PartManipSubFrame]) = {
 //    val newborder = new MuseRelativeRect(topleft.x + 4, topleft.y + 4, bottomright.x, topleft.y + 10)
@@ -65,7 +65,6 @@
 //  }
 //
 //  def decrAbove(index:Int) {for(frame<-modelframes) frame.decrAbove(index)}
-//
 //
 //  override def draw() {
 //    super.preDraw()

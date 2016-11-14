@@ -68,7 +68,6 @@ class ClientProxy extends CommonProxy {
     ModelSpecXMLReader.getINSTANCE.parseFile(resource)
     val otherResource: URL = classOf[ClientProxy].getResource("/assets/powersuits/models/armor2.xml")
     ModelSpecXMLReader.getINSTANCE.parseFile(otherResource)
-
   }
 
   /**

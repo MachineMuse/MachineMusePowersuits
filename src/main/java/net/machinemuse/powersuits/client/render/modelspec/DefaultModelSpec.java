@@ -113,8 +113,15 @@ public class DefaultModelSpec {
     public static List<NBTTagCompound> makePrefs(String modelname, String[] partnames, int colour, boolean glow) {
         List<NBTTagCompound> prefArray = new ArrayList<>();
         ModelSpec model = ModelRegistry.getInstance().get(modelname);
-        for (String name: partnames)
+        for (String name: partnames) {
             prefArray.add(makePref(model.get(name), colour, glow));
+        }
+
+
+
+
+
+
         return prefArray;
     }
 
