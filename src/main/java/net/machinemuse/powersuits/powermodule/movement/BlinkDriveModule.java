@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
-import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.powersuits.item.ItemComponent;

@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.powermodule.energy;
 
-import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.electricity.ElectricConversions;
+import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;

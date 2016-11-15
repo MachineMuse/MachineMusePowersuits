@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.powermodule.weapon;
 
 
-import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;

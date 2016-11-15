@@ -1,9 +1,9 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
 import cpw.mods.fml.common.eventhandler.Event;
-import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;

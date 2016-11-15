@@ -370,7 +370,7 @@ public class ToolModel extends ModelBase {
         GL11.glDisable(GL11.GL_CULL_FACE);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
 
-        MuseTextureUtils.pushTexture(Config.SEBK_TOOL_TEXTURE());
+        MuseTextureUtils.pushTexture(Config.SEBK_TOOL_TEXTURE);
 
         if (c1 != null) {
             c1.doGL();

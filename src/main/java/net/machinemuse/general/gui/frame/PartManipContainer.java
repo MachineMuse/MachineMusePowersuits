@@ -1,9 +1,7 @@
 package net.machinemuse.general.gui.frame;
 
-import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
-import net.machinemuse.numina.geometry.MuseRect;
 import net.machinemuse.numina.geometry.MuseRelativeRect;
 import net.machinemuse.powersuits.client.render.modelspec.ModelRegistry;
 import net.machinemuse.powersuits.client.render.modelspec.ModelSpec;

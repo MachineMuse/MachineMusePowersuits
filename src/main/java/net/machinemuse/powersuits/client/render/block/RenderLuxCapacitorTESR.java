@@ -28,14 +28,14 @@ public class RenderLuxCapacitorTESR extends MuseTESR implements ISimpleBlockRend
 
     public static WavefrontObject getLightModel() {
         if (lightmodel == null) {
-            lightmodel = (WavefrontObject) AdvancedModelLoader.loadModel(new ResourceLocation(Config.RESOURCE_PREFIX() + "models/lightCore.obj"));
+            lightmodel = (WavefrontObject) AdvancedModelLoader.loadModel(new ResourceLocation(Config.RESOURCE_PREFIX + "models/lightCore.obj"));
         }
         return lightmodel;
     }
 
     public static WavefrontObject getFrameModel() {
         if (framemodel == null) {
-            framemodel = (WavefrontObject) AdvancedModelLoader.loadModel(new ResourceLocation(Config.RESOURCE_PREFIX() + "models/lightBase.obj"));
+            framemodel = (WavefrontObject) AdvancedModelLoader.loadModel(new ResourceLocation(Config.RESOURCE_PREFIX + "models/lightBase.obj"));
         }
         return framemodel;
     }
@@ -43,7 +43,7 @@ public class RenderLuxCapacitorTESR extends MuseTESR implements ISimpleBlockRend
     @Override
     public void renderAt(TileEntity undifferentiatedtileentity, double x, double y, double z, float partialTickTime) {
         TileEntityLuxCapacitor tileentity = (TileEntityLuxCapacitor) undifferentiatedtileentity;
-        this.bindTextureByName(Config.TEXTURE_PREFIX() + "models/thusters_uvw_2.png");
+        this.bindTextureByName(Config.TEXTURE_PREFIX + "models/thusters_uvw_2.png");
         glPushMatrix();
         glTranslated(x + 0.5, y + 0.5, z + 0.5);
         double scale = 0.0625;
@@ -86,7 +86,7 @@ public class RenderLuxCapacitorTESR extends MuseTESR implements ISimpleBlockRend
 
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
-        this.bindTextureByName(Config.TEXTURE_PREFIX() + "models/thusters_uvw_2.png");
+        this.bindTextureByName(Config.TEXTURE_PREFIX + "models/thusters_uvw_2.png");
         GL11.glPushMatrix();
         GL11.glTranslated(-0.5, -0.5 + -1.0 / 16.0, -0.5);
 

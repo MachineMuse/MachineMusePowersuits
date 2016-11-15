@@ -6,7 +6,6 @@ import cpw.mods.fml.common.gameevent.InputEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.powersuits.common.ModularPowersuits;
-import net.machinemuse.powersuits.item.IModeChangingModularItem;
 import net.machinemuse.powersuits.item.ModeChangingModularItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -45,13 +44,13 @@ public class KeybindKeyHandler {
             if (key == openKeybindGUI.getKeyCode()) {
                 World world = Minecraft.getMinecraft().theWorld;
                 if (Minecraft.getMinecraft().inGameHasFocus) {
-                    player.openGui(ModularPowersuits.INSTANCE(), 1, world, 0, 0, 0);
+                    player.openGui(ModularPowersuits.getInstance(), 1, world, 0, 0, 0);
                 }
             }
             if (key == openCosmeticGUI.getKeyCode()) {
                 World world = Minecraft.getMinecraft().theWorld;
                 if (Minecraft.getMinecraft().inGameHasFocus) {
-                    player.openGui(ModularPowersuits.INSTANCE(), 3, world, 0, 0, 0);
+                    player.openGui(ModularPowersuits.getInstance(), 3, world, 0, 0, 0);
                 }
             }
             if (key == goDownKey.getKeyCode()) {

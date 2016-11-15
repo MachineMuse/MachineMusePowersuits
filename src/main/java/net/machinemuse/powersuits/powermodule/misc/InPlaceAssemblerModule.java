@@ -51,7 +51,7 @@ public class InPlaceAssemblerModule extends PowerModuleBase implements IRightCli
 
     @Override
     public void onRightClick(EntityPlayer player, World world, ItemStack item) {
-        player.openGui(ModularPowersuits.INSTANCE(), 4, world, (int) player.posX, (int) player.posY, (int) player.posZ);
+        player.openGui(ModularPowersuits.getInstance(), 4, world, (int) player.posX, (int) player.posY, (int) player.posZ);
     }
 
 

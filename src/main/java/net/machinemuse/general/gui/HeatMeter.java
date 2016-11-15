@@ -40,7 +40,7 @@ public class HeatMeter {
     }
 
     public void drawGlass(double xpos, double ypos) {
-        MuseTextureUtils.pushTexture(Config.GLASS_TEXTURE());
+        MuseTextureUtils.pushTexture(Config.GLASS_TEXTURE);
         GL11.glBegin(GL11.GL_QUADS);
         GL11.glTexCoord2d(0, 0);
         GL11.glVertex2d(xpos, ypos);

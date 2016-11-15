@@ -2,7 +2,6 @@ package net.machinemuse.api;
 
 import cpw.mods.fml.common.Optional;
 import forestry.api.apiculture.IArmorApiarist;
-import net.machinemuse.utils.ElectricItemUtils;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

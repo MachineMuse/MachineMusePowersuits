@@ -80,7 +80,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
     }
 
     public String getArmorTexture(final ItemStack itemstack, final Entity entity, final int slot, final int layer) {
-        return Config.BLANK_ARMOR_MODEL_PATH();
+        return Config.BLANK_ARMOR_MODEL_PATH;
     }
 
     public int getColor(final ItemStack stack) {

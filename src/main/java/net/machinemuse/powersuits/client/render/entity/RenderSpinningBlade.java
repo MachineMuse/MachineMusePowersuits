@@ -14,7 +14,7 @@ public class RenderSpinningBlade extends MuseRender {
         glPushMatrix();
         glPushAttrib(GL_ENABLE_BIT);
         glDisable(GL_CULL_FACE);
-        MuseTextureUtils.pushTexture(Config.TEXTURE_PREFIX() + "items/spinningblade.png");
+        MuseTextureUtils.pushTexture(Config.TEXTURE_PREFIX + "items/spinningblade.png");
         glTranslated(x, y, z);
         double motionscale = Math.sqrt(entity.motionZ * entity.motionZ + entity.motionX * entity.motionX);
         glRotatef(90, 1, 0, 0);

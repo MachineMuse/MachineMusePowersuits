@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import org.lwjgl.opengl.GL11;
-import scala.Option;
 
 /**
  * Author: MachineMuse (Claire Semple)

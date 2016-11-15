@@ -10,12 +10,10 @@ import net.machinemuse.powersuits.client.render.item.IArmorModel;
 import net.machinemuse.powersuits.item.ItemPowerArmor;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
-import scala.None$;
 
 import java.util.List;
 
@@ -89,8 +87,11 @@ public class ItemModelViewFrame implements IGuiFrame
         final double dx = mousex - this.anchorx;
         final double dy = mousey - this.anchory;
         switch (this.dragging) {
-            default: {
-                final None$ module$ = None$.MODULE$;
+            case 0: {
+                this.rotx = MuseMathUtils.clampDouble(this.rotx + dy, -90.0, 90.0);
+                this.roty = this.roty - dx;
+                this.anchorx = mousex;
+                this.anchory = mousey;
                 break;
             }
             case 1: {
@@ -100,15 +101,7 @@ public class ItemModelViewFrame implements IGuiFrame
                 this.anchory = mousey;
                 break;
             }
-            case 0: {
-                this.rotx = MuseMathUtils.clampDouble(this.rotx + dy, -90.0, 90.0);
-                this.roty = this.roty - dx;
-                this.anchorx = mousex;
-                this.anchory = mousey;
-                break;
-            }
-            case -1: {
-                final None$ module$2 = None$.MODULE$;
+            default: {
                 break;
             }
         }

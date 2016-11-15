@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.powermodule.misc;
 
 
-import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.powersuits.item.ItemComponent;

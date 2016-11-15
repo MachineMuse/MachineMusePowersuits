@@ -28,7 +28,7 @@ public class TinkerTableRenderer extends MuseTESR implements ISimpleBlockRenderi
 
     @Override
     public void renderAt(TileEntity tileEntity, double x, double y, double z, float partialTickTime) {
-        this.bindTextureByName(Config.TINKERTABLE_TEXTURE_PATH());
+        this.bindTextureByName(Config.TINKERTABLE_TEXTURE_PATH);
         GL11.glPushMatrix();
         GL11.glTranslated(x, y, z);
 
@@ -49,7 +49,7 @@ public class TinkerTableRenderer extends MuseTESR implements ISimpleBlockRenderi
 
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
-        this.bindTextureByName(Config.TINKERTABLE_TEXTURE_PATH());
+        this.bindTextureByName(Config.TINKERTABLE_TEXTURE_PATH);
         GL11.glPushMatrix();
         GL11.glTranslated(-0.5, -0.5 + -1.0 / 16.0, -0.5);
         model.doRender(null, 0, 0, 0, 0);

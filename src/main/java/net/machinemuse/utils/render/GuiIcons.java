@@ -54,49 +54,49 @@ public class GuiIcons {
 
     public static class Checkmark extends GuiIcon {
         public Checkmark(double x, double y, Colour c, Double xmin, Double ymin, Double xmax, Double ymax) {
-            super(16.0, Config.TEXTURE_PREFIX() + "gui/checkmark.png", x, y, c, xmin, ymin, xmax, ymax);
+            super(16.0, Config.TEXTURE_PREFIX + "gui/checkmark.png", x, y, c, xmin, ymin, xmax, ymax);
         }
     }
 
     public static class TransparentArmor extends GuiIcon {
         public TransparentArmor(double x, double y, Colour c, Double xmin, Double ymin, Double xmax, Double ymax) {
-            super(8.0, Config.TEXTURE_PREFIX() + "gui/transparentarmor.png", x, y, c, xmin, ymin, xmax, ymax);
+            super(8.0, Config.TEXTURE_PREFIX + "gui/transparentarmor.png", x, y, c, xmin, ymin, xmax, ymax);
         }
     }
 
     public static class NormalArmor extends GuiIcon {
         public NormalArmor(double x, double y, Colour c, Double xmin, Double ymin, Double xmax, Double ymax) {
-            super(8.0, Config.TEXTURE_PREFIX() + "gui/normalarmor.png", x, y, c, xmin, ymin, xmax, ymax);
+            super(8.0, Config.TEXTURE_PREFIX + "gui/normalarmor.png", x, y, c, xmin, ymin, xmax, ymax);
         }
     }
 
     public static class GlowArmor extends GuiIcon {
         public GlowArmor(double x, double y, Colour c, Double xmin, Double ymin, Double xmax, Double ymax) {
-            super(8.0, Config.TEXTURE_PREFIX() + "gui/glowarmor.png", x, y, c, xmin, ymin, xmax, ymax);
+            super(8.0, Config.TEXTURE_PREFIX + "gui/glowarmor.png", x, y, c, xmin, ymin, xmax, ymax);
         }
     }
 
     public static class SelectedArmorOverlay extends GuiIcon {
         public SelectedArmorOverlay(double x, double y, Colour c, Double xmin, Double ymin, Double xmax, Double ymax) {
-            super(8.0, Config.TEXTURE_PREFIX() + "gui/armordisplayselect.png", x, y, c, xmin, ymin, xmax, ymax);
+            super(8.0, Config.TEXTURE_PREFIX + "gui/armordisplayselect.png", x, y, c, xmin, ymin, xmax, ymax);
         }
     }
 
     public static class ArmourColourPatch extends GuiIcon {
         public ArmourColourPatch(double x, double y, Colour c, Double xmin, Double ymin, Double xmax, Double ymax) {
-            super(8.0, Config.TEXTURE_PREFIX() + "gui/colourclicker.png", x, y, c, xmin, ymin, xmax, ymax);
+            super(8.0, Config.TEXTURE_PREFIX + "gui/colourclicker.png", x, y, c, xmin, ymin, xmax, ymax);
         }
     }
 
     public static class MinusSign extends GuiIcon {
         public MinusSign(double x, double y, Colour c, Double xmin, Double ymin, Double xmax, Double ymax) {
-            super(8.0, Config.TEXTURE_PREFIX() + "gui/minussign.png", x, y, c, xmin, ymin, xmax, ymax);
+            super(8.0, Config.TEXTURE_PREFIX + "gui/minussign.png", x, y, c, xmin, ymin, xmax, ymax);
         }
     }
 
     public static class PlusSign extends GuiIcon {
         public PlusSign(double x, double y, Colour c, Double xmin, Double ymin, Double xmax, Double ymax) {
-            super(8.0, Config.TEXTURE_PREFIX() + "gui/plussign.png", x, y, c, xmin, ymin, xmax, ymax);
+            super(8.0, Config.TEXTURE_PREFIX + "gui/plussign.png", x, y, c, xmin, ymin, xmax, ymax);
         }
     }
 

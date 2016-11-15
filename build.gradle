@@ -23,7 +23,7 @@ repositories {
     }
 }
 
-apply plugin: 'scala'
+//apply plugin: 'scala'
 apply plugin: 'forge'
 apply plugin: 'curseforge'
 

@@ -63,7 +63,7 @@ public class FieldTinkerModule extends PowerModuleBase implements IRightClickMod
 
     @Override
     public void onRightClick(EntityPlayer player, World world, ItemStack item) {
-        player.openGui(ModularPowersuits.INSTANCE(), 2, world, (int)player.posX, (int)player.posY, (int)player.posZ);
+        player.openGui(ModularPowersuits.getInstance(), 2, world, (int)player.posX, (int)player.posY, (int)player.posZ);
     }
 }
 

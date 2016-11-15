@@ -1,6 +1,9 @@
 package net.machinemuse.powersuits.powermodule;
 
-import net.machinemuse.api.*;
+import net.machinemuse.api.ILocalizeableModule;
+import net.machinemuse.api.IPowerModule;
+import net.machinemuse.api.IPropertyModifier;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.numina.render.MuseTextureUtils;

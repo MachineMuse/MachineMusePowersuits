@@ -43,7 +43,7 @@ public class TabSelectFrame implements IGuiFrame {
     public void onMouseDown(double x, double y, int button) {
         for (ClickableButton b : buttons.keySet()) {
             if (b.isEnabled() && b.hitBox(x, y)) {
-                p.openGui(ModularPowersuits.INSTANCE(), buttons.get(b), p.worldObj, worldx, worldy, worldz);
+                p.openGui(ModularPowersuits.getInstance(), buttons.get(b), p.worldObj, worldx, worldy, worldz);
             }
         }
     }

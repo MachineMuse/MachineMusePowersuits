@@ -14,15 +14,15 @@ public class MPSPacketList {
     }
 
     public static void registerPackets() {
-        MusePacketHandler.packagers.put(1, MusePacketInventoryRefresh$.MODULE$);
-        MusePacketHandler.packagers.put(2, MusePacketInstallModuleRequest$.MODULE$);
-        MusePacketHandler.packagers.put(3, MusePacketSalvageModuleRequest$.MODULE$);
-        MusePacketHandler.packagers.put(4, MusePacketTweakRequest$.MODULE$);
-        MusePacketHandler.packagers.put(5, MusePacketCosmeticInfo$.MODULE$);
-        MusePacketHandler.packagers.put(6, MusePacketPlayerUpdate$.MODULE$);
-        MusePacketHandler.packagers.put(7, MusePacketToggleRequest$.MODULE$);
-        MusePacketHandler.packagers.put(8, MusePacketPlasmaBolt$.MODULE$);
-        MusePacketHandler.packagers.put(10, MusePacketColourInfo$.MODULE$);
-        MusePacketHandler.packagers.put(11, MusePacketPropertyModifierConfig$.MODULE$);
+        MusePacketHandler.packagers.put(1, MusePacketInventoryRefresh.getPackagerInstance());
+        MusePacketHandler.packagers.put(2, MusePacketInstallModuleRequest.getPackagerInstance());
+        MusePacketHandler.packagers.put(3, MusePacketSalvageModuleRequest.getPackagerInstance());
+        MusePacketHandler.packagers.put(4, MusePacketTweakRequest.getPackagerInstance());
+        MusePacketHandler.packagers.put(5, MusePacketCosmeticInfo.getPackagerInstance());
+        MusePacketHandler.packagers.put(6, MusePacketPlayerUpdate.getPackagerInstance());
+        MusePacketHandler.packagers.put(7, MusePacketToggleRequest.getPackagerInstance());
+        MusePacketHandler.packagers.put(8, MusePacketPlasmaBolt.getPackagerInstance());
+        MusePacketHandler.packagers.put(10, MusePacketColourInfo.getPackagerInstance());
+        MusePacketHandler.packagers.put(11, MusePacketPropertyModifierConfig.getPackagerInstance());
     }
 }

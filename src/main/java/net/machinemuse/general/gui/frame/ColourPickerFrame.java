@@ -136,10 +136,7 @@ public class ColourPickerFrame implements IGuiFrame {
         this.rslider.draw();
         this.gslider.draw();
         this.bslider.draw();
-        System.out.println("colours().length: " + colours().length);
-
         for (int i = 0; i <  colours().length; i++) {
-            System.out.println("colours()[i] " + colours()[i]);
             new GuiIcons.ArmourColourPatch(border.left() + 8 + i * 8, border.bottom() - 16, new Colour(colours()[i]), null, null, null, null);
         }
         new GuiIcons.ArmourColourPatch(this.border.left() + 8 + this.colours().length * 8, this.border.bottom() - 16, Colour.WHITE, null, null, null, null);
