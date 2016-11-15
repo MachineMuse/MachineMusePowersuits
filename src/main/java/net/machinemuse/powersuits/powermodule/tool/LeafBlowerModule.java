@@ -17,7 +17,6 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-
 /**
  * Created by User: Andrew2448
  * 7:13 PM 4/21/13
@@ -141,6 +140,5 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
-
     }
 }

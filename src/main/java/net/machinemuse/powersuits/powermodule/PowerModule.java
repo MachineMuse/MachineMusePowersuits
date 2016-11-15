@@ -67,5 +67,4 @@ public class PowerModule extends PowerModuleBase {
 	public String getTextureFile() {
 		return textureFile;
 	}
-
 }

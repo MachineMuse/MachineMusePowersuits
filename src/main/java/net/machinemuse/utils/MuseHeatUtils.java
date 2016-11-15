@@ -51,7 +51,6 @@ public class MuseHeatUtils {
             } else {
                 return;
             }
-
         }
     }
 

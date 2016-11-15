@@ -40,5 +40,4 @@ public class AirtightSealModule extends PowerModuleBase {
     public String getTextureFile() {
         return "glasspane";
     }
-
 }

@@ -14,7 +14,6 @@ public class ArmorModelInstance {
 
     public static ModelBiped getInstance() {
         // TODO: Actual (skinned) vanilla model as low bandwitdth alternative
-
         if (instance == null) {
             try {
                 MuseLogger.logInfo("Attempting to load Smart Moving armor model.");

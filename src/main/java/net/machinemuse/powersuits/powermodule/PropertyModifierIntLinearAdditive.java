@@ -4,7 +4,6 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class PropertyModifierIntLinearAdditive extends PropertyModifierLinearAdditive {
-
     protected int roundTo = 0;
     protected int offset = 0;
 

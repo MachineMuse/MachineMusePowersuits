@@ -62,7 +62,6 @@ public class MPSItemElectricTool extends ItemTool implements IModularItemBase, I
         return MuseElectricItem.getInstance().giveEnergyTo(stack, provided);
     }
 
-
     /* Industrialcraft 2 -------------------------------------------------------------------------- */
     @Override
     public IMuseElectricItem getManager(ItemStack stack) {
@@ -129,7 +128,6 @@ public class MPSItemElectricTool extends ItemTool implements IModularItemBase, I
         return MuseElectricItem.getInstance().getEmptyItem(itemStack);
     }
 
-
     /* Thermal Expansion -------------------------------------------------------------------------- */
     @Override
     public int receiveEnergy(ItemStack stack, int energy, boolean simulate) {
@@ -150,7 +148,6 @@ public class MPSItemElectricTool extends ItemTool implements IModularItemBase, I
     public int getMaxEnergyStored(ItemStack theItem) {
         return MuseElectricItem.getInstance().getMaxEnergyStored(theItem);
     }
-
 
     /* Applied Energistics 2 ---------------------------------------------------------------------- */
     @Override
@@ -178,7 +175,6 @@ public class MPSItemElectricTool extends ItemTool implements IModularItemBase, I
         return MuseElectricItem.getInstance().getPowerFlow(stack);
     }
 
-
     /* IModularItemBase ------------------------------------------------------------------------------ */
     @Override
     public Colour getGlowFromItemStack(ItemStack stack) {
@@ -205,7 +201,6 @@ public class MPSItemElectricTool extends ItemTool implements IModularItemBase, I
         return 0;
     }
 
-
     /* MPSItemElectricTool ------------------------------------------------------------------------ */
     @Override
     public double getPlayerEnergy(EntityPlayer player) {
@@ -219,6 +214,5 @@ public class MPSItemElectricTool extends ItemTool implements IModularItemBase, I
 
     @Override
     public void givePlayerEnergy(EntityPlayer player, double joulesToGive) {
-
     }
 }

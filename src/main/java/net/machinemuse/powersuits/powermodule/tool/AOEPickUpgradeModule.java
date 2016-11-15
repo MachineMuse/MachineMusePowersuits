@@ -22,14 +22,11 @@ public class AOEPickUpgradeModule extends PowerModuleBase implements IBlockBreak
     public static final String MODULE_AOE_PICK_UPGRADE = "Diamond Drill Upgrade";
     //public static final ItemStack ironPickaxe = new ItemStack(Item.pickaxeIron);
     public static final String ENERGY_CONSUMPTION = "Energy Consumption";
-
-
     public AOEPickUpgradeModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         //addInstallCost(new ItemStack(Item.diamond, 3));
         addBaseProperty(ENERGY_CONSUMPTION, 5, "J");
-
     }
 
     @Override
@@ -57,7 +54,6 @@ public class AOEPickUpgradeModule extends PowerModuleBase implements IBlockBreak
         return "An updrade that will allow the pickaxe module to mine a 3x3 area of blocks";
     }
 
-
     @Override
     public boolean canHarvestBlock(ItemStack itemStack, Block block, int i, EntityPlayer entityPlayer) {
         return false;
@@ -70,6 +66,5 @@ public class AOEPickUpgradeModule extends PowerModuleBase implements IBlockBreak
 
     @Override
     public void handleBreakSpeed(PlayerEvent.BreakSpeed breakSpeed) {
-
     }
 }

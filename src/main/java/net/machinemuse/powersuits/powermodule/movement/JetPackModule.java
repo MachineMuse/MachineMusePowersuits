@@ -97,7 +97,6 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-
         if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
             Musique.stopPlayerSound(player, SoundDictionary.SOUND_JETPACK);
         }
@@ -107,5 +106,4 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
     public String getTextureFile() {
         return "jetpack";
     }
-
 }

@@ -42,7 +42,8 @@ public class MeleeAssistModule extends PowerModuleBase {
     }
 
     @Override
-    public String getUnlocalizedName() { return "meleeAssist";
+    public String getUnlocalizedName() {
+        return "meleeAssist";
     }
 
     @Override

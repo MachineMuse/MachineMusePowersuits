@@ -36,8 +36,6 @@ public class AdvancedSolarGenerator extends PowerModuleBase implements IPlayerTi
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solarPanel, 3));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 2));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.computerChip, 1));
-
-
     }
 
     @Override

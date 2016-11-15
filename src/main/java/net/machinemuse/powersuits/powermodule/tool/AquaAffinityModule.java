@@ -80,5 +80,4 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
     public String getTextureFile() {
         return "aquaaffinity";
     }
-
 }

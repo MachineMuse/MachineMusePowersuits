@@ -53,7 +53,6 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
         for (int i = 0; i < oreNames.length; i++) {
             ores.add(i, OreDictionary.getOres(oreNames[i]));
         }
-
         fillMap();
     }
 

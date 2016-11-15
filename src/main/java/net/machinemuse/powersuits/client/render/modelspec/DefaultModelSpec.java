@@ -116,12 +116,6 @@ public class DefaultModelSpec {
         for (String name: partnames) {
             prefArray.add(makePref(model.get(name), colour, glow));
         }
-
-
-
-
-
-
         return prefArray;
     }
 
@@ -129,4 +123,3 @@ public class DefaultModelSpec {
         return partSpec.multiSet(new NBTTagCompound(), null, glow, colourindex);
     }
 }
-

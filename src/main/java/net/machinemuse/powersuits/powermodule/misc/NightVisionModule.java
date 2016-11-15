@@ -58,7 +58,6 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
         } else {
             onPlayerTickInactive(player, item);
         }
-
     }
 
     @Override

@@ -56,5 +56,4 @@ public class ClimbAssistModule extends PowerModuleBase implements IToggleableMod
         // TODO Auto-generated method stub
         return "climbassist";
     }
-
 }

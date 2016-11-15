@@ -20,7 +20,6 @@ import java.util.List;
  * 5:56 PM 6/14/13
  */
 public class LightningModule extends PowerModuleBase implements IRightClickModule {
-
     public static final String MODULE_LIGHTNING = "Lightning Summoner";
     public static final String LIGHTNING_ENERGY_CONSUMPTION = "Energy Consumption";
     public static final String HEAT = "Heat Emission";

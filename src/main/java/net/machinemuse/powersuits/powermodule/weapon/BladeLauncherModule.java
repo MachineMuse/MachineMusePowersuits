@@ -61,29 +61,23 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
 
     @Override
     public void onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY,
-                                  float hitZ) {
+    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         return false;
     }
 
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
-        // int chargeTicks = Math.max(itemStack.getMaxItemUseDuration() - par4,
-        // 10);
-
+        // int chargeTicks = Math.max(itemStack.getMaxItemUseDuration() - par4, 10);
         if (!world.isRemote) {
             double energyConsumption = ModuleManager.computeModularProperty(itemStack, BLADE_ENERGY);
             if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
                 ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
-
                 EntitySpinningBlade blade = new EntitySpinningBlade(world, player);
                 world.spawnEntityInWorld(blade);
             }
         }
     }
-
 }

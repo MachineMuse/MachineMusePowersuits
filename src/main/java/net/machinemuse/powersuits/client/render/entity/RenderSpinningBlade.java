@@ -10,7 +10,6 @@ public class RenderSpinningBlade extends MuseRender {
 
     @Override
     public void doRender(Entity entity, double x, double y, double z, float yaw, float partialticktime) {
-
         glPushMatrix();
         glPushAttrib(GL_ENABLE_BIT);
         glDisable(GL_CULL_FACE);

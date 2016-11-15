@@ -55,14 +55,9 @@ public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule,
                     if (ModuleManager.computeModularProperty(item, MAX_COAL_STORAGE) - MuseItemUtils.getCoalLevel(item) < 1) {
                         i = inv.getSizeInventory() + 1;
                     }
-
-
                 }
-
             }
-
         }
-
     }
 
     @Override

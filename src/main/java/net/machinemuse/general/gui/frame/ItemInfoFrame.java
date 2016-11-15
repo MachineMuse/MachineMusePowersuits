@@ -64,13 +64,11 @@ public class ItemInfoFrame extends ScrollableFrame {
     @Override
     public void onMouseDown(double x, double y, int button) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void onMouseUp(double x, double y, int button) {
         // TODO Auto-generated method stub
-
     }
 
     @Override

@@ -45,7 +45,6 @@ public class NitrogenCoolingSystem extends PowerModuleBase implements IPlayerTic
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-
     }
 
     @Override

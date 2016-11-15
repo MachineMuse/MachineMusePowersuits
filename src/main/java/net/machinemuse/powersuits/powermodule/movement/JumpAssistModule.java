@@ -73,5 +73,4 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
     public String getTextureFile() {
         return "jumpassist";
     }
-
 }

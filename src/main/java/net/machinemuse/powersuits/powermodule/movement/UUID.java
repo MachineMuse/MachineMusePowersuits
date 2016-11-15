@@ -28,4 +28,3 @@ public class UUID {
         return nbt;
     }
 }
-

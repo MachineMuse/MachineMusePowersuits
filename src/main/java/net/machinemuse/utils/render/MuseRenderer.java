@@ -366,5 +366,4 @@ public abstract class MuseRenderer {
     public static void unRotate() {
         BillboardHelper.unRotate();
     }
-
 }

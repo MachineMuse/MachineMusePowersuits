@@ -134,7 +134,8 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
     }
 
     public PowerModuleBase addSimpleTradeoff(IPowerModule module, String tradeoffName, String firstPropertyName, String firstUnits,
-                                             double firstPropertyBase, double firstPropertyMultiplier, String secondPropertyName, String secondUnits, double secondPropertyBase,
+                                             double firstPropertyBase, double firstPropertyMultiplier, String secondPropertyName,
+                                             String secondUnits, double secondPropertyBase,
                                              double secondPropertyMultiplier) {
         this.addBaseProperty(firstPropertyName, firstPropertyBase, firstUnits);
         this.addTradeoffProperty(tradeoffName, firstPropertyName, firstPropertyMultiplier);

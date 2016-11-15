@@ -9,7 +9,6 @@ import net.minecraft.util.ResourceLocation;
  * Created: 4:31 PM, 8/3/13
  */
 public abstract class MuseRender extends Render {
-
     @Override
     protected ResourceLocation getEntityTexture(Entity entity) {
         return null;

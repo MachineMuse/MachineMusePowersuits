@@ -57,7 +57,6 @@ public class OmniWrenchModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-
     }
 
     @Override
@@ -77,6 +76,5 @@ public class OmniWrenchModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
-
     }
 }

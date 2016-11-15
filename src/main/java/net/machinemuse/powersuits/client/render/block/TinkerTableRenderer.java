@@ -42,9 +42,7 @@ public class TinkerTableRenderer extends MuseTESR implements ISimpleBlockRenderi
         // y + 0.5f, y + 1,
         // z, z + 1,
         // texturex, texturey, texturex2, texturey2);
-
         GL11.glPopMatrix();
-
     }
 
     @Override

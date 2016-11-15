@@ -80,5 +80,4 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
     }
-
 }

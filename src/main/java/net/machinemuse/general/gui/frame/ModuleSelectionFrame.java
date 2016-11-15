@@ -198,5 +198,4 @@ public class ModuleSelectionFrame extends ScrollableFrame {
         }
         return null;
     }
-
 }

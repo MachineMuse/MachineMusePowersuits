@@ -71,5 +71,4 @@ public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerT
     public String getTextureFile() {
         return "waterelectrolyzer";
     }
-
 }

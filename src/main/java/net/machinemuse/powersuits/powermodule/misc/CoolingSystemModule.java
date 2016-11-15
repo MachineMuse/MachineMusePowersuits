@@ -64,5 +64,4 @@ public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickM
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
     }
-
 }

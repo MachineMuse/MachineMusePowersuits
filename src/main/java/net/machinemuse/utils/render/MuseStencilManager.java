@@ -17,6 +17,5 @@ public class MuseStencilManager {
     }
 
     public void stencilOff() {
-
     }
 }

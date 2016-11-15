@@ -279,5 +279,4 @@ public class TinkerTableModel extends ModelBase {
         model.rotateAngleY = y;
         model.rotateAngleZ = z;
     }
-
 }

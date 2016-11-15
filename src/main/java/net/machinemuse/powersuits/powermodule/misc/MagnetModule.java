@@ -69,7 +69,6 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
         return "Generates a magnetic field strong enough to attract items towards the player.         WARNING:                   This module drains power continuously. Turn it off when not needed. (Keybind menu: k)";
     }
 
-
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack stack) {
         if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, MAGNET_ENERGY_CONSUMPTION)) {
@@ -118,13 +117,10 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
                     }
                 }
             }
-
-
         }
     }
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
     }
-
 }

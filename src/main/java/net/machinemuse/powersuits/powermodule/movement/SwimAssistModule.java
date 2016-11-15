@@ -107,5 +107,4 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
     public String getTextureFile() {
         return "swimboost";
     }
-
 }

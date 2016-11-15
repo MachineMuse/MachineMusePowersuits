@@ -46,5 +46,4 @@ public class RenderLuxCapacitorEntity extends MuseRender {
         glPopMatrix();
         MuseTextureUtils.popTexture();
     }
-
 }

@@ -13,5 +13,4 @@ public interface IGuiFrame {
 	void draw();
 	
 	List<String> getToolTip(int x, int y);
-	
 }

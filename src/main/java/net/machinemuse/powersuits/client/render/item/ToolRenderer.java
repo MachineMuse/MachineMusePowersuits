@@ -59,11 +59,8 @@ public class ToolRenderer extends MuseRender implements IItemRenderer {
     public void renderItem(ItemRenderType type, ItemStack itemStack, Object... data) {
         boolean drawIcon = false;
         ItemPowerFist item = (ItemPowerFist) itemStack.getItem();
-
         Colour colour = ((IModularItemBase) item).getColorFromItemStack(itemStack);
         Colour glow = ((IModularItemBase) item).getColorFromItemStack(itemStack);
-
-
 
         switch (type) {
             case ENTITY:
@@ -80,13 +77,11 @@ public class ToolRenderer extends MuseRender implements IItemRenderer {
             case EQUIPPED:
                 RenderBlocks renderEquipped = (RenderBlocks) data[0];
                 EntityLivingBase entityEquipped = (EntityLivingBase) data[1];
-
                 if (entityEquipped instanceof EntityPlayer) {
                     model.setPoseForPlayer((EntityPlayer) entityEquipped, itemStack);
                 } else {
                     model.setNeutralPose();
                 }
-
                 model.render(entityEquipped, 1, false, colour, glow);
                 break;
             case FIRST_PERSON_MAP:
@@ -94,7 +89,6 @@ public class ToolRenderer extends MuseRender implements IItemRenderer {
                 TextureManager engineFirstPerson = (TextureManager) data[1];
                 MapData mapDataFirstPerson = (MapData) data[2];
                 model.setPoseForPlayer(playerFirstPerson, itemStack);
-
                 model.render(playerFirstPerson, 1, true, colour, glow);
                 break;
             case EQUIPPED_FIRST_PERSON:
@@ -105,7 +99,6 @@ public class ToolRenderer extends MuseRender implements IItemRenderer {
                 } else {
                     model.setNeutralPose();
                 }
-
                 model.render(entityEquFP, 1, true, colour, glow);
                 break;
             default:
@@ -132,7 +125,6 @@ public class ToolRenderer extends MuseRender implements IItemRenderer {
 
     @Override
     public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {
-
     }
 
     public void renderFirstPersonArm(EntityClientPlayerMP entityclientplayermp, float par1) {

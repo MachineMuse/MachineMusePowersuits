@@ -139,8 +139,7 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY,
-                                  float hitZ) {
+    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         return false;
     }
 
@@ -152,11 +151,9 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
     public void onPlayerTickActive(EntityPlayer player, ItemStack stack) {
         double timer = MuseItemUtils.getDoubleOrZero(stack, TIMER);
         if (timer > 0) MuseItemUtils.setDoubleOrRemove(stack, TIMER, timer - 1 > 0 ? timer - 1 : 0);
-
     }
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-
     }
 }

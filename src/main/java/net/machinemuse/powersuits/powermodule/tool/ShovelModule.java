@@ -66,15 +66,10 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
             return true;
 
         String effectiveTool = block.getHarvestTool(metadata);
-
         // some blocks like stairs do no not have a tool assigned to them
-        if (effectiveTool == null)
-        {
-            {
-                if (emulatedTool.func_150997_a/*getStrVsBlock*/(block) >= ((ItemTool) emulatedTool.getItem()).func_150913_i/*getToolMaterial*/().getEfficiencyOnProperMaterial())
-                {
-                    return true;
-                }
+        if (effectiveTool == null) {
+            if (emulatedTool.func_150997_a/*getStrVsBlock*/(block) >= ((ItemTool) emulatedTool.getItem()).func_150913_i/*getToolMaterial*/().getEfficiencyOnProperMaterial()) {
+                return true;
             }
         }
         return effectiveTool == "shovel";

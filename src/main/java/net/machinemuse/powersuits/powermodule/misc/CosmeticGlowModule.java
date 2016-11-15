@@ -47,5 +47,4 @@ public class CosmeticGlowModule extends PowerModuleBase {
     public String getTextureFile() {
         return "netherstar";
     }
-
 }

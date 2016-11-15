@@ -293,5 +293,4 @@ public class KeybindConfigFrame implements IGuiFrame {
         ClickableKeybinding clickie = new ClickableKeybinding(keybind, newKeybindButton.getPosition().plus(new MusePoint2D(0, -20)), free, false);
         KeybindManager.getKeybindings().add(clickie);
     }
-
 }

@@ -105,5 +105,4 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
     public String getTextureFile() {
         return "jetboots";
     }
-
 }

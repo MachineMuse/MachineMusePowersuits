@@ -392,7 +392,6 @@ public class ToolModel extends ModelBase {
             // GL11.glRotatef(xtap, 1, 0, 0);
             // GL11.glRotatef(ytap, 0, 1, 0);
             // GL11.glRotatef(ztap, 0, 0, 1);
-
         } else {
             GL11.glScaled(-scale1, scale1, scale1);
             GL11.glRotatef(-90, 0, 1, 0);
@@ -402,7 +401,6 @@ public class ToolModel extends ModelBase {
             GL11.glRotatef(1.5F, 0, 0, 1);
             GL11.glTranslatef(2 / 4.0F, 3 / 4.0F, 1 / 4.0F);
             GL11.glTranslatef(-2, -1, 4);
-
         }
         GL11.glPushMatrix();
         // Compensate for offset when Sebk was doing his rendering
@@ -498,7 +496,6 @@ public class ToolModel extends ModelBase {
             setPose(0.5f, -1, 0.5f, -1, 0.5f, -1);
             this.boltSize = 0;
         }
-
     }
 
     public void setNeutralPose() {

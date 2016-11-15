@@ -61,11 +61,9 @@ public class MechanicalAssistance extends PowerModuleBase implements IPlayerTick
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(item, POWER_USAGE));
-
     }
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-
     }
 }

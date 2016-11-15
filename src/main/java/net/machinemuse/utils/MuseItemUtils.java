@@ -363,7 +363,6 @@ public class MuseItemUtils {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
             ModuleManager.toggleModule(itemTag, name, toggleval);
         }
-
     }
 
     /**

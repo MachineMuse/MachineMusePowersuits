@@ -66,4 +66,3 @@ public class FieldTinkerModule extends PowerModuleBase implements IRightClickMod
         player.openGui(ModularPowersuits.getInstance(), 2, world, (int)player.posX, (int)player.posY, (int)player.posZ);
     }
 }
-

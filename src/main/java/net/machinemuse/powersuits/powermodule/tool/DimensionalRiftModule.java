@@ -60,7 +60,6 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
 
     @Override
     public void onRightClick(EntityPlayer playerClicking, World world, ItemStack item) {
-
         if ((playerClicking.ridingEntity == null) && (playerClicking.riddenByEntity == null) && ((playerClicking instanceof EntityPlayerMP))) {
             EntityPlayerMP thePlayer = (EntityPlayerMP) playerClicking;
             if (thePlayer.dimension != -1) {
@@ -82,19 +81,14 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
                     yPos++;
                 }
                 (thePlayer).setPositionAndUpdate(coords.posX + 0.5D, yPos, coords.posZ + 0.5D);
-
             }
-
             ElectricItemUtils.drainPlayerEnergy(thePlayer, ModuleManager.computeModularProperty(item, DIMENSIONAL_RIFT_ENERGY_GENERATION));
             MuseHeatUtils.heatPlayer(thePlayer, ModuleManager.computeModularProperty(item, DIMENSIONAL_RIFT_HEAT_GENERATION));
         }
-
     }
-
 
     @Override
     public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-
     }
 
     @Override
@@ -104,6 +98,5 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
 
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
-
     }
 }

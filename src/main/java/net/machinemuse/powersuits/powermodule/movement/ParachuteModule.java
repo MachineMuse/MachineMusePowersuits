@@ -73,5 +73,4 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
     public String getTextureFile() {
         return "parachute";
     }
-
 }

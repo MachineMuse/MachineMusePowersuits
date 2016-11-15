@@ -117,7 +117,5 @@ public class MuseIcon {
 
     public void register(IIconRegister iconRegister) {
         icon = iconRegister.registerIcon(ICON_PREFIX + texturename);
-
     }
-
 }

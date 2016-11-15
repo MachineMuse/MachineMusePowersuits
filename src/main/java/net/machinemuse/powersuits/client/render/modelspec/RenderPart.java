@@ -79,6 +79,3 @@ public class RenderPart extends ModelRenderer {
         GL11.glTranslated(offsetX, offsetY - 26, offsetZ);
     }
 }
-
-
-

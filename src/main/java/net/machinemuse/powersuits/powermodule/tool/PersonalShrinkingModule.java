@@ -22,83 +22,82 @@ import java.util.List;
  */
 
 public class PersonalShrinkingModule extends PowerModuleBase implements IRightClickModule, IPlayerTickModule {
-public static final String MODULE_CM_PSD = "Personal Shrinking Device";
-private final ItemStack cpmPSD;
+    public static final String MODULE_CM_PSD = "Personal Shrinking Device";
+    private final ItemStack cpmPSD;
 
-public PersonalShrinkingModule(List<IModularItem> validItems) {
+    public PersonalShrinkingModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 4));
         cpmPSD = GameRegistry.findItemStack("CompactMachines", "psd", 1);
         addInstallCost(cpmPSD);
-}
+    }
 
-@Override
-public String getTextureFile() {
+    @Override
+    public String getTextureFile() {
         return "psd";
-}
+    }
 
-@Override
-public String getCategory() {
+    @Override
+    public String getCategory() {
         return MuseCommonStrings.CATEGORY_TOOL;
-}
+    }
 
-@Override
-public String getDataName() {
+    @Override
+    public String getDataName() {
         return MODULE_CM_PSD;
-}
+    }
 
-@Override
-public String getUnlocalizedName() {
+    @Override
+    public String getUnlocalizedName() {
         return "cmPSD";
-}
+    }
 
-@Override
-public String getDescription() {
+    @Override
+    public String getDescription() {
         return "A Compact Machines Personal Shrinking Device integrated into your power tool.";
-}
+    }
 
-@Override
-public void onRightClick(EntityPlayer player, World world, ItemStack item) {
+    @Override
+    public void onRightClick(EntityPlayer player, World world, ItemStack item) {
         cpmPSD.getItem().onItemRightClick(item, world, player);
-}
+    }
 
-@Override
-public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-}
+    @Override
+    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    }
 
-@Override
-public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    @Override
+    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         if (world.isRemote && player instanceof EntityPlayerMP) {
-                int block = Block.getIdFromBlock(world.getBlock(x, y, z));
-                if (block == Block.getIdFromBlock(GameRegistry.findBlock("CompactMachines", "machine"))) {
-                        return false;
-                } else if (block == Block.getIdFromBlock(GameRegistry.findBlock("CompactMachines", "innerwall"))) {
-                        return true;
-                }
+            int block = Block.getIdFromBlock(world.getBlock(x, y, z));
+            if (block == Block.getIdFromBlock(GameRegistry.findBlock("CompactMachines", "machine"))) {
+                return false;
+            } else if (block == Block.getIdFromBlock(GameRegistry.findBlock("CompactMachines", "innerwall"))) {
+                return true;
+            }
         }
         return false;
+    }
 
-}
-
-@Override
-public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
+    @Override
+    public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         if (!MuseItemUtils.getCanShrink(item)) {
-                MuseItemUtils.setCanShrink(item, true);
+            MuseItemUtils.setCanShrink(item, true);
         }
-}
+    }
 
-@Override
-public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+    @Override
+    public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
         if (MuseItemUtils.getCanShrink(item)) {
-                MuseItemUtils.setCanShrink(item, false);
+            MuseItemUtils.setCanShrink(item, false);
         }
-}
+    }
 
-public float minF(float a, float b) {
+    public float minF(float a, float b) {
         return a < b ? a : b;
-}
+    }
 
-@Override
-public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
-}
+    @Override
+    public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
+    }
 }

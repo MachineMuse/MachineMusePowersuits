@@ -63,7 +63,6 @@ public class ModuleTweakFrame extends ScrollableFrame {
         if (selectedSlider != null) {
             selectedSlider.moveSlider(mousex, mousey);
         }
-
     }
 
     @Override
@@ -88,7 +87,6 @@ public class ModuleTweakFrame extends ScrollableFrame {
                 }
                 MuseRenderer.drawRightAlignedString(formattedValue, border.right() - margin, nexty + 9 * (namesList.size()-1)/2);
                 nexty += 9*namesList.size()+1;
-
             }
             GL11.glPopMatrix();
         }
@@ -111,7 +109,6 @@ public class ModuleTweakFrame extends ScrollableFrame {
                 }
             }
             propertyStrings.put(property.getKey(), currValue);
-
         }
 
         sliders = new LinkedList();

@@ -96,7 +96,6 @@ public class MPSTeleporter extends Teleporter {
         }
         entity.setLocationAndAngles(ex + 0.5D, ey, ez + 0.5D, entity.rotationYaw, 0.0F);
         entity.motionX = (entity.motionY = entity.motionZ = 0.0D);
-
         return true;
     }
 

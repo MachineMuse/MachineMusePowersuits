@@ -31,10 +31,14 @@ public class InstallSalvageFrame extends ScrollableFrame {
     protected final ClickableButton salvageButton;
     protected final EntityClientPlayerMP player;
 
-    public InstallSalvageFrame(EntityClientPlayerMP player, MusePoint2D topleft,
+    public InstallSalvageFrame(EntityClientPlayerMP player,
+                               MusePoint2D topleft,
                                MusePoint2D bottomright,
-                               Colour borderColour, Colour insideColour,
-                               ItemSelectionFrame targetItem, ModuleSelectionFrame targetModule) {
+                               Colour borderColour,
+                               Colour insideColour,
+                               ItemSelectionFrame targetItem,
+                               ModuleSelectionFrame targetModule) {
+
         super(topleft, bottomright, borderColour, insideColour);
         this.player = player;
         this.targetItem = targetItem;
@@ -42,20 +46,16 @@ public class InstallSalvageFrame extends ScrollableFrame {
         double sizex = border.right() - border.left();
         double sizey = border.bottom() - border.top();
 
-        this.installButton = new ClickableButton(StatCollector.translateToLocal("gui.install"), new MusePoint2D(
-                border.right() - sizex / 2.0, border.bottom() - sizey
-                / 4.0),
+        this.installButton = new ClickableButton(StatCollector.translateToLocal("gui.install"),
+                new MusePoint2D(border.right() - sizex / 2.0, border.bottom() - sizey / 4.0),
                 true);
-        this.salvageButton = new ClickableButton(StatCollector.translateToLocal("gui.salvage"), new MusePoint2D(
-                border.left() + sizex / 2.0, border.top() + sizey / 4.0),
-                true);
-
+        this.salvageButton = new ClickableButton(StatCollector.translateToLocal("gui.salvage"),
+                new MusePoint2D(border.left() + sizex / 2.0, border.top() + sizey / 4.0), true);
     }
 
     @Override
     public void update(double mousex, double mousey) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
@@ -122,9 +122,8 @@ public class InstallSalvageFrame extends ScrollableFrame {
         ItemStack stack = targetItem.getSelectedItem().getItem();
         IPowerModule module = targetModule.getSelectedModule().getModule();
         if (!ModuleManager.itemHasModule(stack, module.getDataName())) {
-
-            installButton.setEnabled(player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(
-                    module.getInstallCost(), player.inventory));
+            installButton.setEnabled(player.capabilities.isCreativeMode ||
+                    MuseItemUtils.hasInInventory(module.getInstallCost(), player.inventory));
             installButton.draw();
         } else {
             salvageButton.draw();
@@ -138,25 +137,15 @@ public class InstallSalvageFrame extends ScrollableFrame {
         if (selItem != null && selModule != null) {
             ItemStack stack = selItem.getItem();
             IPowerModule module = selModule.getModule();
-
-            if (!ModuleManager.itemHasModule(stack, module.getDataName())) {
-                if (installButton.hitBox(x, y)) {
-                    doInstall();
-                }
-            } else {
-                if (salvageButton.hitBox(x, y)) {
-                    doSalvage();
-                }
-            }
+            if (!ModuleManager.itemHasModule(stack, module.getDataName()))
+                if (installButton.hitBox(x, y)) doInstall();
+            else if (salvageButton.hitBox(x, y)) doSalvage();
         }
     }
 
     private void doSalvage() {
         IPowerModule module = targetModule.getSelectedModule().getModule();
-        MusePacket newpacket = new MusePacketSalvageModuleRequest(
-                player,
-                targetItem.getSelectedItem().inventorySlot,
-                module.getDataName());
+        MusePacket newpacket = new MusePacketSalvageModuleRequest(player, targetItem.getSelectedItem().inventorySlot, module.getDataName());
         PacketSender.sendToServer(newpacket.getPacket131());
     }
 
@@ -170,10 +159,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
         if (player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(module.getInstallCost(), player.inventory)) {
             Musique.playClientSound(SoundDictionary.SOUND_GUI_INSTALL, 1);
             // Now send request to server to make it legit
-            MusePacket newpacket = new MusePacketInstallModuleRequest(
-                    player,
-                    targetItem.getSelectedItem().inventorySlot,
-                    module.getDataName());
+            MusePacket newpacket = new MusePacketInstallModuleRequest(player, targetItem.getSelectedItem().inventorySlot, module.getDataName());
             PacketSender.sendToServer(newpacket.getPacket131());
         }
     }

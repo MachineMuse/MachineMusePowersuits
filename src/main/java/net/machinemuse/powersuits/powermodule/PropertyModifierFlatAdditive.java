@@ -14,5 +14,4 @@ public class PropertyModifierFlatAdditive implements IPropertyModifier {
     public double applyModifier(NBTTagCompound moduleTag, double value) {
         return value + this.valueAdded;
     }
-
 }
