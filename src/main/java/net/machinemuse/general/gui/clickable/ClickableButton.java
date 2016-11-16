@@ -96,5 +96,4 @@ public class ClickableButton extends Clickable {
     }
 
     public String getLabel() { return label; }
-
 }

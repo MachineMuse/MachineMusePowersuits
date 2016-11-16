@@ -59,9 +59,11 @@ public class NBTTagAccessor extends NBTTagCompound {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         MuseLogger.logError("Unable to access nbt tag map!");
         return null;
     }
+
 
     public static List<NBTTagCompound> getValues(NBTTagCompound nbt) {
         Set<String> keyset = (Set<String>) nbt.func_150296_c();

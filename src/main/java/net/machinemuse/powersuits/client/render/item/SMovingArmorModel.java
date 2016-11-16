@@ -23,11 +23,11 @@ public class SMovingArmorModel extends ModelPlayer implements IArmorModel {
     public static NBTTagCompound renderSpec = null;
     public static int visibleSection = 0;
     private SmartRenderModelPlayerBase renderPlayerBase = SmartRender.getPlayerBase(this);
-    private SmartRenderModel model = renderPlayerBase.getRenderModel();
 
     private SMovingArmorModel() {
         super(0);
 
+        SmartRenderModel model = renderPlayerBase.getRenderModel();
         this.bipedBody = model.bipedBody;
         this.bipedRightArm = model.bipedRightArm;
         this.bipedLeftArm = model.bipedLeftArm;

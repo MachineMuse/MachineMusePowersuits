@@ -27,10 +27,7 @@ import org.lwjgl.input.Keyboard;
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -376,8 +373,8 @@ public class Config {
                     String moduleName = cost.moduleName;
                     Item item = GameRegistry.findItem(cost.modId, cost.itemName);
                     if(item != null) {
-                        int metadata = (cost.itemMetadata == null) ? 0 : cost.itemMetadata.intValue();
-                        int quantity = (cost.itemQuantity == null) ? 1 : cost.itemQuantity.intValue();
+                        int metadata = (cost.itemMetadata == null) ? 0 : cost.itemMetadata;
+                        int quantity = (cost.itemQuantity == null) ? 1 : cost.itemQuantity;
                         ItemStack stack = new ItemStack(item, quantity, metadata);
                         if(stack != null) {
                             ModuleManager.addCustomInstallCost(moduleName, stack);

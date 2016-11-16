@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by User: Andrew2448
@@ -82,21 +83,21 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
             return false;
 
         // Plants
-        if (blocktype == "plants" && (block instanceof BlockTallGrass || block instanceof BlockFlower) && block.canHarvestBlock(player, meta)) {
+        if (Objects.equals(blocktype, "plants") && (block instanceof BlockTallGrass || block instanceof BlockFlower) && block.canHarvestBlock(player, meta)) {
             block.harvestBlock(world, player, x, y, z, meta);
             world.setBlockToAir(x, y, z);
             return true;
         }
 
         // Leaves
-        if (blocktype == "leaves" && block instanceof BlockLeaves && block.canHarvestBlock(player, meta)) {
+        if (Objects.equals(blocktype, "leaves") && block instanceof BlockLeaves && block.canHarvestBlock(player, meta)) {
             block.harvestBlock(world, player, x, y, z, meta);
             world.setBlockToAir(x, y, z);
             return true;
         }
 
         // Snow
-        if (blocktype == "snow" && block instanceof BlockSnow && block.canHarvestBlock(player, meta)) {
+        if (Objects.equals(blocktype, "snow") && block instanceof BlockSnow && block.canHarvestBlock(player, meta)) {
             block.harvestBlock(world, player, x, y, z, meta);
             world.setBlockToAir(x, y, z);
         }

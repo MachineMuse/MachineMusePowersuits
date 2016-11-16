@@ -27,4 +27,5 @@ public class SoundDictionary {
     public static final String SOUND_JETPACK = SOUND_PREFIX + "Jetpack";
     public static final String SOUND_SWIMASSIST = SOUND_PREFIX + "SwimAssist";
     public static final String SOUND_ELECTROLYZER = SOUND_PREFIX + "WaterElectrolyzer";
+
 }

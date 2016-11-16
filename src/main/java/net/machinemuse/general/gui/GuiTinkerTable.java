@@ -15,9 +15,7 @@ import net.minecraft.util.StatCollector;
  */
 public class GuiTinkerTable extends MuseGui {
     protected final EntityClientPlayerMP player;
-
     protected ItemSelectionFrame itemSelectFrame;
-
     protected int worldx;
     protected int worldy;
     protected int worldz;
@@ -40,7 +38,6 @@ public class GuiTinkerTable extends MuseGui {
         this.worldx = x;
         this.worldy = y;
         this.worldz = z;
-
     }
     /**
      * Add the buttons (and other controls) to the screen.

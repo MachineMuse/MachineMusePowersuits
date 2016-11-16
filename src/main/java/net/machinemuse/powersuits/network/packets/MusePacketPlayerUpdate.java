@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.network.packets;
 
-import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
@@ -26,7 +25,7 @@ public class MusePacketPlayerUpdate extends MusePacket {
     }
 
     @Override
-    public IMusePackager packager() {
+    public MusePackager packager() {
         return getPackagerInstance();
     }
 

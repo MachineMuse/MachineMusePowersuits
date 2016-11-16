@@ -87,6 +87,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
                 }
                 MuseRenderer.drawRightAlignedString(formattedValue, border.right() - margin, nexty + 9 * (namesList.size()-1)/2);
                 nexty += 9*namesList.size()+1;
+
             }
             GL11.glPopMatrix();
         }
@@ -147,8 +148,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
         if (selectedSlider != null && itemTarget.getSelectedItem() != null && moduleTarget.getSelectedModule() != null) {
             ClickableItem item = itemTarget.getSelectedItem();
             IPowerModule module = moduleTarget.getSelectedModule().getModule();
-            MusePacket tweakRequest = new MusePacketTweakRequest(player, item.inventorySlot, module.getDataName(), selectedSlider.name(),
-                    selectedSlider.value());
+            MusePacket tweakRequest = new MusePacketTweakRequest(player, item.inventorySlot, module.getDataName(), selectedSlider.name(), selectedSlider.value());
             PacketSender.sendToServer(tweakRequest.getPacket131());
         }
         if (button == 0) {

@@ -53,6 +53,8 @@ public class DetailedSummaryFrame extends ScrollableFrame {
             int nexty = (int) border.top() + margin;
             MuseRenderer.drawCenteredString(StatCollector.translateToLocal("gui.equippedTotals"), (border.left() + border.right())/2, nexty);
             nexty += 10;
+
+
             String formattedValue = MuseStringUtils.formatNumberFromUnits(energy, PowerModule.getUnit(ElectricItemUtils.MAXIMUM_ENERGY));
             String name = StatCollector.translateToLocal("gui.energyStorage");
             double valueWidth = MuseRenderer.getStringWidth(formattedValue);
@@ -86,6 +88,7 @@ public class DetailedSummaryFrame extends ScrollableFrame {
                 MuseRenderer.drawString(namesList.get(i), border.left() + margin, nexty + 9*i);
             }
             MuseRenderer.drawRightAlignedString(formattedValue, border.right() - margin, nexty + 9 * (namesList.size() - 1) / 2);
+
             GL11.glPopMatrix();
         }
     }
@@ -93,11 +96,13 @@ public class DetailedSummaryFrame extends ScrollableFrame {
     @Override
     public void onMouseDown(double x, double y, int button) {
         // TODO Auto-generated method stub
+
     }
 
     @Override
     public void onMouseUp(double x, double y, int button) {
         // TODO Auto-generated method stub
+
     }
 
     @Override

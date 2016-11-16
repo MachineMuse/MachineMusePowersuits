@@ -15,9 +15,9 @@ import net.minecraft.item.ItemStack;
 @Optional.Interface(iface = "forestry.api.apiculture.IArmorApiarist", modid = "Forestry", striprefs = true)
 public interface IApiaristArmor extends IArmorApiarist {
     @Optional.Method(modid = "Forestry")
-    public boolean protectPlayer(final EntityPlayer player, final ItemStack armor, final String cause, final boolean doProtect);
+    boolean protectPlayer(final EntityPlayer player, final ItemStack armor, final String cause, final boolean doProtect);
 
 
     @Optional.Method(modid = "Forestry")
-    public boolean protectEntity(final EntityLivingBase player, final ItemStack armor, final String cause, final boolean doProtect);
+    boolean protectEntity(final EntityLivingBase player, final ItemStack armor, final String cause, final boolean doProtect);
 }

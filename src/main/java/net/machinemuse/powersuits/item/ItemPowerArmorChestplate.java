@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
  * Ported to Java by lehjr on 10/26/16.
  */
 public class ItemPowerArmorChestplate extends ItemPowerArmor {
-    private final String iconpath = MuseRenderer.ICON_PREFIX + "armortorso";
 
     public ItemPowerArmorChestplate() {
         super(0, 1);
@@ -17,7 +16,8 @@ public class ItemPowerArmorChestplate extends ItemPowerArmor {
     }
 
     public String iconpath() {
-        return this.iconpath;
+        String iconpath = MuseRenderer.ICON_PREFIX + "armortorso";
+        return iconpath;
     }
 
     @SideOnly(Side.CLIENT)

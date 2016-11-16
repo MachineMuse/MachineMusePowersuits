@@ -24,14 +24,12 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 4:19 AM, 03/05/13
  *
  * Ported to Java by lehjr on 11/2/16.
  */
-
 public class ColourPickerFrame implements IGuiFrame {
     public ItemSelectionFrame itemSelector;
     public DrawableMuseRect border;
@@ -189,9 +187,9 @@ public class ColourPickerFrame implements IGuiFrame {
                 /* TODO - for 1.10.2 and above, simplyfy with Java 8 collections and streams. Seriously, all this to remove an element fron an int array*/
                 List<Integer> integerArray = new ArrayList<>();
                 int intToRemove = intArray[selectedColour];
-                for (int i = 0; i < intArray.length; i++) {
-                    if (intArray[i] != intToRemove)
-                        integerArray.add(intArray[i]);
+                for (int anIntArray : intArray) {
+                    if (anIntArray != intToRemove)
+                        integerArray.add(anIntArray);
                 }
                 int[] newIntArray = new int[integerArray.size()];
                 int j = 0;

@@ -18,7 +18,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
 import java.net.URL;
-import java.util.Iterator;
 
 import static net.machinemuse.powersuits.client.render.modelspec.MorphTarget.*;
 
@@ -122,9 +121,8 @@ public class ModelSpecXMLReader {
 
     @Nullable
     public String validatePolygroup(String s, ModelSpec m) {
-        Iterator<GroupObject> it = m.model.groupObjects.iterator();
-        while (it.hasNext()) {
-            if (it.next().name.equals(s)) return s;
+        for (GroupObject groupObject : m.model.groupObjects) {
+            if (groupObject.name.equals(s)) return s;
         }
         return null;
     }

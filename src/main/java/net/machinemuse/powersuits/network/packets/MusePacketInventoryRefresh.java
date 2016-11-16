@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.network.packets;
 
 import net.machinemuse.general.gui.MuseGui;
-import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.minecraft.client.Minecraft;
@@ -29,9 +28,8 @@ public class MusePacketInventoryRefresh extends MusePacket {
         this.stack = stack;
     }
 
-
     @Override
-    public IMusePackager packager() {
+    public MusePackager packager() {
         return getPackagerInstance();
     }
 

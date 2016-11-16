@@ -2,7 +2,6 @@ package net.machinemuse.powersuits.network.packets;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
@@ -31,7 +30,7 @@ public class MusePacketPlasmaBolt extends MusePacket {
     }
 
     @Override
-    public IMusePackager packager() {
+    public MusePackager packager() {
         return getPackagerInstance();
     }
 

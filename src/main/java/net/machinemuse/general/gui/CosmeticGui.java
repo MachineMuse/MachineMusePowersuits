@@ -18,7 +18,6 @@ public class CosmeticGui extends MuseGui {
     final int worldx;
     final int worldy;
     final int worldz;
-
     ItemSelectionFrame itemSelect;
     ItemStack lastSelectedItem;
 
@@ -27,7 +26,6 @@ public class CosmeticGui extends MuseGui {
         this.worldx = worldx;
         this.worldy = worldy;
         this.worldz = worldz;
-
         this.xSize = 256;
         this.ySize = 200;
     }

@@ -76,7 +76,6 @@ implements
         IModularItem,
         IModeChangingModularItem
 {
-    private final String iconpath = MuseIcon.ICON_PREFIX + "handitem";
     public ItemPowerFist() {
         super(0.0f, Item.ToolMaterial.EMERALD);
 //        IModeChangingItem$class.$init$(this);
@@ -104,7 +103,8 @@ implements
 
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
-        this.itemIcon = iconRegister.registerIcon(this.iconpath);
+        String iconpath = MuseIcon.ICON_PREFIX + "handitem";
+        this.itemIcon = iconRegister.registerIcon(iconpath);
     }
 
     /**

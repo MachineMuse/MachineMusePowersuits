@@ -291,7 +291,7 @@ public abstract class MuseRenderer {
             by = y1 + cy;
             bz = z1 + cz;
 
-            int index = (int) Math.random() * 50;
+            int index = (int) Math.random() * 50; // FIXME: Math.random() cast to int is always rounded down to 0
 
             drawLightningBetweenPointsFast(ax, ay, az, bx, by, bz, index);
         }

@@ -1,9 +1,14 @@
 package net.machinemuse.powersuits.network.packets;
 
-import net.machinemuse.numina.network.IMusePackager;
+import net.machinemuse.api.ModuleManager;
+import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
+import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 import java.io.DataInputStream;
 
@@ -18,30 +23,43 @@ import java.io.DataInputStream;
  * Ported to Java by lehjr on 11/14/16.
  */
 public class MusePacketTweakRequest extends MusePacket {
-    EntityPlayer player;
-    int itemSlot;
-    String moduleName;
-    String tweakName;
+    final EntityPlayer player;
+    final int itemSlot;
+    final String moduleName;
+    final String tweakName;
     double tweakValue;
 
-    public  MusePacketTweakRequest(EntityPlayer player, int itemSlot, String moduleName, String tweakName, double tweakValue) {
+    public MusePacketTweakRequest(EntityPlayer player, int itemSlot, String moduleName, String tweakName, double tweakValue) {
         this.player = player;
         this.itemSlot = itemSlot;
         this.moduleName = moduleName;
+        this.tweakName = tweakName;
         this.tweakValue = tweakValue;
     }
 
     @Override
-    public IMusePackager packager() {
+    public MusePackager packager() {
         return getPackagerInstance();
     }
 
     @Override
     public void write() {
-        writeInt(itemSlot);
-        writeString(moduleName);
-        writeString(tweakName);
-        writeDouble(tweakValue);
+        writeInt(this.itemSlot);
+        writeString(this.moduleName);
+        writeString(this.tweakName);
+        writeDouble(this.tweakValue);
+    }
+
+    @Override
+    public void handleServer(EntityPlayerMP player) {
+        if (moduleName != null && tweakName != null) {
+            ItemStack stack = player.inventory.getStackInSlot(itemSlot);
+            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+            if (itemTag != null && ModuleManager.tagHasModule(itemTag, moduleName)) {
+                NBTTagCompound moduleTag = itemTag.getCompoundTag(moduleName);
+                moduleTag.setDouble(tweakName, MuseMathUtils.clampDouble(tweakValue, 0, 1));
+            }
+        }
     }
 
     private static MusePacketTweakRequestPackager PACKAGERINSTANCE;

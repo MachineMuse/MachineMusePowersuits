@@ -23,8 +23,7 @@ import java.util.List;
  *
  * Ported to Java by lehjr on 11/2/16.
  */
-public class ItemModelViewFrame implements IGuiFrame
-{
+public class ItemModelViewFrame implements IGuiFrame {
     private final ItemSelectionFrame itemSelector;
     private final DrawableMuseRect border;
     private double anchorx;

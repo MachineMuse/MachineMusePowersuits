@@ -13,7 +13,6 @@ import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class PortableCraftingGui extends GuiContainer {
-
     public PortableCraftingGui(EntityPlayer player, World world, int x, int y, int z) {
         super(new PortableCraftingContainer(player.inventory, world, x, y, z));
     }

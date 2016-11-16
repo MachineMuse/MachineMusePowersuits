@@ -50,12 +50,10 @@ public class TabSelectFrame implements IGuiFrame {
 
     @Override
     public void onMouseUp(double x, double y, int button) {
-
     }
 
     @Override
     public void update(double mousex, double mousey) {
-
     }
 
     @Override

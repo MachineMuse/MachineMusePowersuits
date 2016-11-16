@@ -5,7 +5,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.IPropertyModifier;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -35,7 +34,7 @@ public class MusePacketPropertyModifierConfig extends MusePacket {
     }
 
     @Override
-    public IMusePackager packager() {
+    public MusePackager packager() {
         return getPackagerInstance();
     }
 

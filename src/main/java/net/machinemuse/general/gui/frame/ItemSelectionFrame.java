@@ -21,12 +21,8 @@ public class ItemSelectionFrame extends ScrollableFrame {
     protected final EntityPlayer player;
     protected List<MusePoint2D> itemPoints;
 
-    public ItemSelectionFrame(MusePoint2D topleft,
-                              MusePoint2D bottomright,
-                              Colour borderColour,
-                              Colour insideColour,
-                              EntityPlayer player) {
-
+    public ItemSelectionFrame(MusePoint2D topleft, MusePoint2D bottomright,
+                              Colour borderColour, Colour insideColour, EntityPlayer player) {
         super(topleft, bottomright, borderColour, insideColour);
         this.player = player;
         List<Integer> slots = MuseItemUtils
@@ -44,7 +40,9 @@ public class ItemSelectionFrame extends ScrollableFrame {
                 new MusePoint2D(centerx, border.top()));
         for (MusePoint2D point : targetPoints) {
             // Fly from middle over 200 ms
-            itemPoints.add(new FlyFromPointToPoint2D(new MusePoint2D(centerx, centery), point, 200));
+            itemPoints.add(new FlyFromPointToPoint2D(
+                    new MusePoint2D(centerx, centery),
+                    point, 200));
         }
     }
 
@@ -62,7 +60,9 @@ public class ItemSelectionFrame extends ScrollableFrame {
                 Iterator<MusePoint2D> pointiterator = itemPoints.iterator();
 
                 for (int slot : slots) {
-                    ClickableItem clickie = new ClickableItem(player.inventory.getStackInSlot(slot), pointiterator.next(), slot);
+                    ClickableItem clickie = new ClickableItem(
+                            player.inventory.getStackInSlot(slot),
+                            pointiterator.next(), slot);
                     itemButtons.add(clickie);
                 }
             }

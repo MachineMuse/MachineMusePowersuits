@@ -17,7 +17,6 @@ import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.ItemPowerArmorHelmet;
-import net.machinemuse.powersuits.item.ItemPowerFist;
 import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
 import net.machinemuse.powersuits.powermodule.armor.WaterTankModule;
 import net.machinemuse.powersuits.powermodule.misc.AutoFeederModule;
@@ -33,6 +32,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Ported to Java by lehjr on 10/24/16.
@@ -78,8 +78,8 @@ public class ClientTickHandler {
     public void findInstalledModules(EntityPlayer player) {
         if (player != null) {
             ItemStack tool = player.getCurrentEquippedItem();
-            if (tool != null && tool.getItem() instanceof ItemPowerFist) {
-            }
+//            if (tool != null && tool.getItem() instanceof ItemPowerFist) {
+//            }
             ItemStack helmet = player.getCurrentArmor(3);
             if (helmet != null && helmet.getItem() instanceof ItemPowerArmorHelmet) {
                 if (ModuleManager.itemHasActiveModule(helmet, AutoFeederModule.MODULE_AUTO_FEEDER)) {
@@ -130,7 +130,7 @@ public class ClientTickHandler {
                 Minecraft mc = Minecraft.getMinecraft();
                 ScaledResolution screen = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
                 for (int i = 0; i < modules.size(); i++) {
-                    if (modules.get(i) == AutoFeederModule.MODULE_AUTO_FEEDER) {
+                    if (Objects.equals(modules.get(i), AutoFeederModule.MODULE_AUTO_FEEDER)) {
                         int foodLevel = (int) MuseItemUtils.getFoodLevel(player.getCurrentArmor(3));
                         String num = MuseStringUtils.formatNumberShort(foodLevel);
                         if (i == 0) {
@@ -140,7 +140,7 @@ public class ClientTickHandler {
                             MuseRenderer.drawString(num, 17, yBaseString + (yOffsetString * i));
                             MuseRenderer.drawItemAt(-1.0, yBaseIcon + (yOffsetIcon * i), food);
                         }
-                    } else if (modules.get(i) == ClockModule.MODULE_CLOCK) {
+                    } else if (Objects.equals(modules.get(i), ClockModule.MODULE_CLOCK)) {
                         long time = player.worldObj.provider.getWorldTime();
                         long hour = ((time % 24000) / 1000);
                         if (Config.use24hClock()) {
@@ -175,13 +175,13 @@ public class ClientTickHandler {
                             MuseRenderer.drawString(hour + ampm, 17, yBaseString + (yOffsetString * i));
                             MuseRenderer.drawItemAt(-1.0, yBaseIcon + (yOffsetIcon * i), clock);
                         }
-                    } else if (modules.get(i) == CompassModule.MODULE_COMPASS) {
+                    } else if (Objects.equals(modules.get(i), CompassModule.MODULE_COMPASS)) {
                         if (i == 0) {
                             MuseRenderer.drawItemAt(-1.0, yBaseIcon, compass);
                         } else {
                             MuseRenderer.drawItemAt(-1.0, yBaseIcon + (yOffsetIcon * i), compass);
                         }
-                    } else if (modules.get(i) == WaterTankModule.MODULE_WATER_TANK) {
+                    } else if (Objects.equals(modules.get(i), WaterTankModule.MODULE_WATER_TANK)) {
                         drawWaterMeter = true;
                     }
                 }

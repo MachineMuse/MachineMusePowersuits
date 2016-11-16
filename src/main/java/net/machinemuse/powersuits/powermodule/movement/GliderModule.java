@@ -73,7 +73,6 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
                 // sprinting speed
                 player.jumpMovementFactor += 0.03f;
             }
-        } else {
         }
     }
 

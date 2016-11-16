@@ -12,6 +12,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -102,7 +103,7 @@ public class PartManipContainer extends ScrollableFrame {
     @Override
     public void update(double mousex, double mousey) {
         super.update(mousex, mousey);
-        if (lastItemSlot != getItemSlot()) {
+        if (!Objects.equals(lastItemSlot, getItemSlot())) {
             lastItemSlot = getItemSlot();
             colourSelect.refreshColours();
 
@@ -130,7 +131,6 @@ public class PartManipContainer extends ScrollableFrame {
         GL11.glTranslated(0.0, (double)(-this.currentscrollpixels), 0.0);
         for (PartManipSubFrame f : modelframes) {
             f.drawPartial(currentscrollpixels + 4 + border.top(), this.currentscrollpixels + border.bottom() - 4);
-
         }
         GL11.glPopMatrix();
         super.postDraw();
