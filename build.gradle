@@ -44,7 +44,7 @@ def travisbuildnumber = (System.getenv("TRAVIS_BUILD_NUMBER") ?: -111).toInteger
 version = "${config.mod_version}." + (buildnumber ?: travisbuildnumber)
 group= "${config.group_id}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "${config.mod_id}"
-def numina_version = (System.getenv("NUMINA_VERSION") ?:"0.4.0.131")
+def numina_version = (System.getenv("NUMINA_VERSION") ?:"0.4.1.100")
 
 minecraft {
     version = "${config.minecraft_version}-${config.forge_version}"
@@ -62,9 +62,6 @@ def getLibrary(filename) {
         compile files(config.libs_dir + filename)
     }
 }
-
-
-
 
 dependencies {
     compile 'codechicken:CodeChickenCore:1.7.10-1.0.7.47:dev'
@@ -88,15 +85,6 @@ dependencies {
 
 
 */
-
-
-
-
-
-
-
-
-
 
 
 //getLibrary("CoFHCore-[1.7.10]3.0.3-303-dev.jar")
