@@ -349,7 +349,7 @@ public class MuseItemUtils {
         List<IPowerModule> installedModules = new ArrayList();
         for (ItemStack stack : MuseItemUtils.modularItemsEquipped(player)) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            for (IPowerModule module : ModuleManager.getValidModulesForItem(player, stack)) {
+            for (IPowerModule module : ModuleManager.getValidModulesForItem(stack)) {
                 if (ModuleManager.tagHasModule(itemTag, module.getDataName())) {
                     installedModules.add(module);
                 }

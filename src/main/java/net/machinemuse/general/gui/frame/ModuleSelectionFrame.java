@@ -97,7 +97,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
             moduleButtons = new ArrayList<>();
             categories = new HashMap<>();
 
-            List<IPowerModule> workingModules = ModuleManager.getValidModulesForItem(null, selectedItem.getItem());
+            List<IPowerModule> workingModules = ModuleManager.getValidModulesForItem(selectedItem.getItem());
 
             // Prune the list of disallowed modules, if not installed on this
             // item.

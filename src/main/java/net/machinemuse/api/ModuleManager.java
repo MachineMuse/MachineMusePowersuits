@@ -5,7 +5,7 @@ import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
-import net.machinemuse.powersuits.item.IModeChangingModularItem;
+import net.machinemuse.numina.item.IModeChangingItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -82,7 +82,7 @@ public class ModuleManager {
         return blockBreakingModules;
     }
 
-    public static List<IPowerModule> getValidModulesForItem(EntityPlayer player, ItemStack stack) {
+    public static List<IPowerModule> getValidModulesForItem(ItemStack stack) {
         List<IPowerModule> validModules = new ArrayList();
         for (IPowerModule module : getAllModules()) {
             if (module.isValidForItem(stack)) {
@@ -143,10 +143,10 @@ public class ModuleManager {
             // playerEntity.sendChatToPlayer("Server has disallowed this module. Sorry!");
             return false;
         }
-        if (module instanceof IRightClickModule && itemStack.getItem() instanceof IModeChangingModularItem) {
+        if (module instanceof IRightClickModule && itemStack.getItem() instanceof IModeChangingItem) {
             // MuseLogger.logDebug("Module: " + moduleName + " vs Mode: " +
             // MuseItemUtils.getActiveMode(itemStack));
-            IModeChangingModularItem item = (IModeChangingModularItem) itemStack.getItem();
+            IModeChangingItem item = (IModeChangingItem) itemStack.getItem();
 
             return moduleName.equals(item.getActiveMode(itemStack));
         } else {

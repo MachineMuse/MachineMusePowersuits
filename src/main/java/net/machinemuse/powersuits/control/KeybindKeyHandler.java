@@ -5,8 +5,8 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.machinemuse.numina.item.ModeChangingItem;
 import net.machinemuse.powersuits.common.ModularPowersuits;
-import net.machinemuse.powersuits.item.ModeChangingModularItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.settings.KeyBinding;
@@ -36,11 +36,13 @@ public class KeybindKeyHandler {
         int key = Keyboard.getEventKey();
         boolean pressed = Keyboard.getEventKeyState();
         EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
+
         // Only activate if there is a player to work with
         if (player == null) {
             return;
         }
         if (pressed) {
+            ModeChangingItem mci = new ModeChangingItem(player.inventory.getCurrentItem());
             if (key == openKeybindGUI.getKeyCode()) {
                 World world = Minecraft.getMinecraft().theWorld;
                 if (Minecraft.getMinecraft().inGameHasFocus) {
@@ -56,14 +58,20 @@ public class KeybindKeyHandler {
             if (key == goDownKey.getKeyCode()) {
                 PlayerInputMap.getInputMapFor(player.getCommandSenderName()).downKey = true;
             }
+
+            /* cycleToolBackward/cycleToolForward only seem to be used if actual keys are assinged instead of mousewheel */
             if (key == cycleToolBackward.getKeyCode()) {
+                System.out.println("cycling backward");
+
                 Minecraft.getMinecraft().playerController.updateController();
-                ModeChangingModularItem.cycleModeForItem(player.inventory.getStackInSlot(player.inventory.currentItem), player, 1);
+                mci.cycleMode(player.inventory.getStackInSlot(player.inventory.currentItem), player, 1);
 
             }
             if (key == cycleToolForward.getKeyCode()) {
+                System.out.println("cycling forward");
+
                 Minecraft.getMinecraft().playerController.updateController();
-                ModeChangingModularItem.cycleModeForItem(player.inventory.getStackInSlot(player.inventory.currentItem), player, -1);
+                mci.cycleMode(player.inventory.getStackInSlot(player.inventory.currentItem), player, -1);
             }
         } else {
             if (Minecraft.getMinecraft().thePlayer != null && key == goDownKey.getKeyCode()) {

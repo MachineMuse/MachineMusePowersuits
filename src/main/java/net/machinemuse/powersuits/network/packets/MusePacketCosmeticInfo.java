@@ -26,6 +26,7 @@ public class MusePacketCosmeticInfo extends MusePacket {
 
     public MusePacketCosmeticInfo(EntityPlayer player, int itemSlot, String tagName, NBTTagCompound tagData) {
         this.player = player;
+        this.itemSlot = itemSlot;
         this.tagName = tagName;
         this.tagData = tagData;
     }

@@ -1,5 +1,7 @@
 package net.machinemuse.powersuits.network.packets;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.general.gui.MuseGui;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
@@ -39,6 +41,7 @@ public class MusePacketInventoryRefresh extends MusePacket {
         writeItemStack(stack);
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void handleClient(EntityClientPlayerMP player) {
         IInventory inventory = player.inventory;
