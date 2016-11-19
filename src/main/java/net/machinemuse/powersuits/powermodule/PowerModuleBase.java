@@ -19,11 +19,11 @@ import net.minecraft.util.StatCollector;
 import java.util.*;
 
 public abstract class PowerModuleBase implements ILocalizeableModule {
-    protected final List<ItemStack> defaultInstallCost;
-    protected final List<IModularItem> validItems;
-    protected final Map<String, List<IPropertyModifier>> propertyModifiers;
-    protected static final Map<String, String> units = new HashMap<>();
-    protected final NBTTagCompound defaultTag;
+    protected List<ItemStack> defaultInstallCost;
+    protected List<IModularItem> validItems;
+    protected Map<String, List<IPropertyModifier>> propertyModifiers;
+    protected static Map<String, String> units = new HashMap<>();
+    protected NBTTagCompound defaultTag;
     protected boolean isAllowed;
     protected IIcon icon;
 

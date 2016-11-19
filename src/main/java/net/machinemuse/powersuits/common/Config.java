@@ -57,6 +57,9 @@ public class Config {
     public static final String CITIZENJOE_ARMORPANTS_PATH = TEXTURE_PREFIX + "models/joearmorpants.png";
     public static final String GLASS_TEXTURE = TEXTURE_PREFIX + "gui/glass.png";
     static File configFolder = null;
+    private static MPSCreativeTab mpsCreativeTab;
+
+
     private static Configuration config = null;
     public static boolean canUseShaders = false;
 
@@ -153,7 +156,9 @@ public class Config {
      * @return
      */
     public static CreativeTabs getCreativeTab() {
-        return new MPSCreativeTab();
+        if (mpsCreativeTab == null)
+            mpsCreativeTab = new MPSCreativeTab();
+        return mpsCreativeTab;
     }
 
     /**
