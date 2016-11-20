@@ -100,8 +100,6 @@ public class SMovingArmorModel extends ModelPlayer implements IArmorModel {
     }
 
 //    private void logModelParts(WavefrontObject model) {
-//        System.out.println();
-//
 //        MuseLogger.logDebug(model.toString() + ":");
 //        for (GroupObject group : model.groupObjects) {
 //            MuseLogger.logDebug("-" + group.name);

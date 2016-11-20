@@ -49,7 +49,8 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
     }
 
     @Override
-    public String getUnlocalizedName() { return "lightningSummoner";
+    public String getUnlocalizedName() {
+        return "lightningSummoner";
     }
 
     @Override

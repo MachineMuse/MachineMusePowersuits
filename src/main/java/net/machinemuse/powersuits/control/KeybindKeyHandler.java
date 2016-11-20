@@ -61,15 +61,11 @@ public class KeybindKeyHandler {
 
             /* cycleToolBackward/cycleToolForward only seem to be used if actual keys are assinged instead of mousewheel */
             if (key == cycleToolBackward.getKeyCode()) {
-                System.out.println("cycling backward");
-
                 Minecraft.getMinecraft().playerController.updateController();
                 mci.cycleMode(player.inventory.getStackInSlot(player.inventory.currentItem), player, 1);
 
             }
             if (key == cycleToolForward.getKeyCode()) {
-                System.out.println("cycling forward");
-
                 Minecraft.getMinecraft().playerController.updateController();
                 mci.cycleMode(player.inventory.getStackInSlot(player.inventory.currentItem), player, -1);
             }
