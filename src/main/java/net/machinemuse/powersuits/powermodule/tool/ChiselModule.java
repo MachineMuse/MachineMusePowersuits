@@ -97,6 +97,6 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-        event.newSpeed *= ModuleManager.computeModularProperty(event.getEntityPlayer().getCurrentEquippedItem(), CHISEL_HARVEST_SPEED);
+        event.newSpeed *= ModuleManager.computeModularProperty(event.getEntityPlayer().inventory.getCurrentItem(), CHISEL_HARVEST_SPEED);
     }
 }

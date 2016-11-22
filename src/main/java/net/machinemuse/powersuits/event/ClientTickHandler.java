@@ -25,7 +25,7 @@ import net.machinemuse.powersuits.powermodule.misc.CompassModule;
 import net.machinemuse.utils.*;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -56,7 +56,7 @@ public class ClientTickHandler {
                 kb.doToggleTick();
             }
         } else {
-            EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
+            EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
             if (player != null && MuseItemUtils.getModularItemsInInventory(player).size() > 0) {
                 PlayerInputMap inputmap = PlayerInputMap.getInputMapFor(player.getCommandSenderName());
                 inputmap.forwardKey = Math.signum(player.movementInput.moveForward);
@@ -77,7 +77,7 @@ public class ClientTickHandler {
 
     public void findInstalledModules(EntityPlayer player) {
         if (player != null) {
-            ItemStack tool = player.getCurrentEquippedItem();
+            ItemStack tool = player.inventory.getCurrentItem();
 //            if (tool != null && tool.getItem() instanceof ItemPowerFist) {
 //            }
             ItemStack helmet = player.getCurrentArmor(3);

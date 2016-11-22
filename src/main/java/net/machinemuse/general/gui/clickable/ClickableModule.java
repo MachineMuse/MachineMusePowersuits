@@ -9,7 +9,8 @@ import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.utils.MuseStringUtils;
 import net.machinemuse.utils.render.GuiIcons;
 import net.machinemuse.utils.render.MuseRenderer;
-import net.minecraft.util.StatCollector;
+import net.minecraft.client.resources.I18n;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,13 +45,13 @@ public class ClickableModule extends Clickable {
 
     public String getLocalizedName(IPowerModule m) {
         if (m instanceof ILocalizeableModule)
-            return StatCollector.translateToLocal("module." + ((ILocalizeableModule) m).getUnlocalizedName() + ".name");
+            return I18n.format("module." + ((ILocalizeableModule) m).getUnlocalizedName() + ".name");
         return m.getLocalizedName();
     }
 
     public String getLocalizedDescription(IPowerModule m) {
         if (m instanceof ILocalizeableModule)
-            return StatCollector.translateToLocal("module." + ((ILocalizeableModule) m).getUnlocalizedName() + ".desc");
+            return I18n.format("module." + ((ILocalizeableModule) m).getUnlocalizedName() + ".desc");
         return m.getDescription();
     }
 

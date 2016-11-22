@@ -27,7 +27,7 @@ public class HarvestEventHandler {
         EntityPlayer player = event.entityPlayer;
         int meta = event.metadata;
         event.newSpeed = event.originalSpeed;
-        ItemStack stack = player.getCurrentEquippedItem();
+        ItemStack stack = player.inventory.getCurrentItem();
         if (stack != null && stack.getItem() instanceof IModularItem) {
             for (IBlockBreakingModule module : ModuleManager.getBlockBreakingModules()) {
                 if (ModuleManager.itemHasActiveModule(stack, module.getDataName()) && module.canHarvestBlock(stack, block, meta, player)) {

@@ -28,7 +28,7 @@ import net.machinemuse.powersuits.event.ClientTickHandler;
 import net.machinemuse.powersuits.event.PlayerUpdateHandler;
 import net.machinemuse.powersuits.event.RenderEventHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -93,7 +93,7 @@ public class ClientProxy implements CommonProxy {
     public void sendModeChange(int dMode, String newMode) {
         System.out.println("Sending mode change request");
 
-        EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
+        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
         RenderGameOverlayEventHandler.updateSwap((int) Math.signum(dMode));
         MusePacket modeChangePacket = new MusePacketModeChangeRequest(player, newMode, player.inventory.currentItem);
         PacketSender.sendToServer(modeChangePacket);

@@ -1,14 +1,14 @@
 package net.machinemuse.powersuits.common;
 
-import cpw.mods.fml.common.network.IGuiHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.general.gui.*;
 import net.machinemuse.general.gui.frame.PortableCraftingContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.IGuiHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Gui handler for this mod. Mainly just takes an ID according to what was
@@ -37,7 +37,7 @@ public final class MPSGuiHandler implements IGuiHandler {
     @SideOnly(Side.CLIENT)
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        Minecraft.getMinecraft().thePlayer.addStat(AchievementList.openInventory, 1);
+        Minecraft.getMinecraft().thePlayer.addStat(AchievementList.OPEN_INVENTORY, 1);
         switch (ID) {
             case 0:
                 return new GuiTinkerTable(player, x, y, z);

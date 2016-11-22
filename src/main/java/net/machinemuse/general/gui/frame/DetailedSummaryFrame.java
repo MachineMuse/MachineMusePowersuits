@@ -10,9 +10,10 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MuseStringUtils;
 import net.machinemuse.utils.render.MuseRenderer;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+
 import org.lwjgl.opengl.GL11;
 
 import java.util.List;
@@ -51,12 +52,12 @@ public class DetailedSummaryFrame extends ScrollableFrame {
             super.draw();
             int margin = 4;
             int nexty = (int) border.top() + margin;
-            MuseRenderer.drawCenteredString(StatCollector.translateToLocal("gui.equippedTotals"), (border.left() + border.right())/2, nexty);
+            MuseRenderer.drawCenteredString(I18n.format("gui.equippedTotals"), (border.left() + border.right())/2, nexty);
             nexty += 10;
 
 
             String formattedValue = MuseStringUtils.formatNumberFromUnits(energy, PowerModule.getUnit(ElectricItemUtils.MAXIMUM_ENERGY));
-            String name = StatCollector.translateToLocal("gui.energyStorage");
+            String name = I18n.format("gui.energyStorage");
             double valueWidth = MuseRenderer.getStringWidth(formattedValue);
             double allowedNameWidth = border.width() - valueWidth - margin * 2;
             List<String> namesList = MuseStringUtils.wrapStringToVisualLength(name, allowedNameWidth);
@@ -67,7 +68,7 @@ public class DetailedSummaryFrame extends ScrollableFrame {
             nexty += 10*namesList.size()+1;
 
             formattedValue = MuseStringUtils.wrapFormatTags(MuseStringUtils.formatNumberFromUnits(weight, PowerModule.getUnit(MuseCommonStrings.WEIGHT)), weight > Config.getWeightCapacity() ? MuseStringUtils.FormatCodes.Red : MuseStringUtils.FormatCodes.BrightGreen);
-            name = StatCollector.translateToLocal("gui.weight");
+            name = I18n.format("gui.weight");
             valueWidth = MuseRenderer.getStringWidth(formattedValue);
             allowedNameWidth = border.width() - valueWidth - margin * 2;
             namesList = MuseStringUtils.wrapStringToVisualLength(name, allowedNameWidth);
@@ -79,7 +80,7 @@ public class DetailedSummaryFrame extends ScrollableFrame {
             nexty += 10*namesList.size()+1;
 
             formattedValue = MuseStringUtils.formatNumberFromUnits(armor, "pts");
-            name = StatCollector.translateToLocal("gui.armor");
+            name = I18n.format("gui.armor");
             valueWidth = MuseRenderer.getStringWidth(formattedValue);
             allowedNameWidth = border.width() - valueWidth - margin * 2;
             namesList = MuseStringUtils.wrapStringToVisualLength(name, allowedNameWidth);

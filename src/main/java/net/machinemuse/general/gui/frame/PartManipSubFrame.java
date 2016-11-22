@@ -16,7 +16,7 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.GuiIcons;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -73,7 +73,7 @@ public class PartManipSubFrame {
         return specsArray;
     }
 
-    public int getArmorSlot() {
+    public EntityEquipmentSlot getArmorSlot() {
         return ((ItemArmor)this.getSelectedItem().getItem().getItem()).armorType;
     }
 

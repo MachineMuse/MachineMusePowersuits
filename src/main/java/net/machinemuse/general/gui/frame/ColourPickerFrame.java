@@ -12,14 +12,14 @@ import net.machinemuse.powersuits.network.packets.MusePacketColourInfo;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.GuiIcons;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagIntArray;
-import net.minecraft.util.StatCollector;
+
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;
@@ -44,16 +44,16 @@ public class ColourPickerFrame implements IGuiFrame {
     public ColourPickerFrame(MuseRect borderRef, Colour insideColour, Colour borderColour, ItemSelectionFrame itemSelector) {
         this.itemSelector = itemSelector;
         this.border = new DrawableMuseRect(borderRef, insideColour, borderColour);
-        this.rslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 8), this.border.width() - 10, StatCollector.translateToLocal("gui.red"));
-        this.gslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 24), this.border.width() - 10, StatCollector.translateToLocal("gui.green"));
-        this.bslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 40), this.border.width() - 10, StatCollector.translateToLocal("gui.blue"));
+        this.rslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 8), this.border.width() - 10, I18n.format("gui.red"));
+        this.gslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 24), this.border.width() - 10, I18n.format("gui.green"));
+        this.bslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 40), this.border.width() - 10, I18n.format("gui.blue"));
         this.selectedSlider = null;
         this.selectedColour = 0;
         this.decrAbove = -1;
     }
 
     public int[] colours() {
-        return (getOrCreateColourTag() != null) ? getOrCreateColourTag().func_150302_c() /*getIntArray()*/ : new int[0];
+        return (getOrCreateColourTag() != null) ? getOrCreateColourTag().getIntArray() : new int[0];
     }
 
     public NBTTagIntArray getOrCreateColourTag() {
@@ -207,12 +207,12 @@ public class ColourPickerFrame implements IGuiFrame {
 
                 EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
                 if (player.worldObj.isRemote)
-                    PacketSender.sendToServer(new MusePacketColourInfo(player, itemSelector.getSelectedItem().inventorySlot, nbtTagIntArray.func_150302_c()));
+                    PacketSender.sendToServer(new MusePacketColourInfo(player, itemSelector.getSelectedItem().inventorySlot, nbtTagIntArray.getIntArray()));
             }
         }
     }
 
     public int[] getIntArray(NBTTagIntArray e) {
-        return e.func_150302_c();
+        return e.getIntArray();
     }
 }

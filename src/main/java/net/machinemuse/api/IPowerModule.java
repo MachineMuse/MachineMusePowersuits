@@ -20,7 +20,7 @@ public interface IPowerModule {
 
 	String getDataName();
 
-    // Use StatCollector.translateToLocal("module." + m.getUnlocalizedName + ".name") instead
+    // Use I18n.format("module." + m.getUnlocalizedName + ".name") instead
     @Deprecated
 	String getLocalizedName();
 
@@ -28,7 +28,7 @@ public interface IPowerModule {
 
 	NBTTagCompound getNewTag();
 
-    // Use StatCollector.translateToLocal("module." + m.getUnlocalizedName + ".desc") instead
+    // Use I18n.format("module." + m.getUnlocalizedName + ".desc") instead
     @Deprecated
 	String getDescription();
 

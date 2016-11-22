@@ -1,7 +1,5 @@
 package net.machinemuse.general.gui.frame;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.gui.clickable.ClickableButton;
@@ -17,9 +15,12 @@ import net.machinemuse.powersuits.network.packets.MusePacketInstallModuleRequest
 import net.machinemuse.powersuits.network.packets.MusePacketSalvageModuleRequest;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;
-import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 
 import java.util.List;
 
@@ -29,9 +30,9 @@ public class InstallSalvageFrame extends ScrollableFrame {
     protected final ModuleSelectionFrame targetModule;
     protected final ClickableButton installButton;
     protected final ClickableButton salvageButton;
-    protected final EntityClientPlayerMP player;
+    protected final EntityPlayerSP player;
 
-    public InstallSalvageFrame(EntityClientPlayerMP player, MusePoint2D topleft,
+    public InstallSalvageFrame(EntityPlayerSP player, MusePoint2D topleft,
                                MusePoint2D bottomright,
                                Colour borderColour, Colour insideColour,
                                ItemSelectionFrame targetItem, ModuleSelectionFrame targetModule) {
@@ -42,11 +43,11 @@ public class InstallSalvageFrame extends ScrollableFrame {
         double sizex = border.right() - border.left();
         double sizey = border.bottom() - border.top();
 
-        this.installButton = new ClickableButton(StatCollector.translateToLocal("gui.install"), new MusePoint2D(
+        this.installButton = new ClickableButton(I18n.format("gui.install"), new MusePoint2D(
                 border.right() - sizex / 2.0, border.bottom() - sizey
                 / 4.0),
                 true);
-        this.salvageButton = new ClickableButton(StatCollector.translateToLocal("gui.salvage"), new MusePoint2D(
+        this.salvageButton = new ClickableButton(I18n.format("gui.salvage"), new MusePoint2D(
                 border.left() + sizex / 2.0, border.top() + sizey / 4.0),
                 true);
 

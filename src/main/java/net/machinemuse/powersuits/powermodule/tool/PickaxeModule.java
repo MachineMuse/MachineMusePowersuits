@@ -78,7 +78,7 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-        event.newSpeed *= ModuleManager.computeModularProperty(event.entityPlayer.getCurrentEquippedItem(), PICKAXE_HARVEST_SPEED);
+        event.newSpeed *= ModuleManager.computeModularProperty(event.entityPlayer.inventory.getCurrentItem(), PICKAXE_HARVEST_SPEED);
     }
 
     private static boolean istEffectiveHarvestTool(Block block, int metadata) {

@@ -1,7 +1,5 @@
 package net.machinemuse.general.gui.clickable;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.network.PacketSender;
@@ -12,9 +10,11 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MuseStringUtils;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
@@ -50,7 +50,7 @@ public class ClickableKeybinding extends ClickableButton {
     }
 
     public void doToggleTick() {
-        doToggleIf(keybind.getIsKeyPressed());
+        doToggleIf(keybind.isPressed());
     }
 
     public void doToggleIf(boolean value) {
@@ -62,7 +62,7 @@ public class ClickableKeybinding extends ClickableButton {
     }
 
     public void toggleModules() {
-        EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
+        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
         if (player == null) {
             return;
         }
@@ -70,7 +70,7 @@ public class ClickableKeybinding extends ClickableButton {
         for (ClickableModule module : boundModules) {
             String valstring = (toggleval) ? " on" : " off";
             if ((FMLCommonHandler.instance().getEffectiveSide().equals(Side.CLIENT) && Config.toggleModuleSpam())) {
-                player.addChatMessage(new ChatComponentText("Toggled " + module.getModule().getDataName() + valstring));
+                player.addChatMessage(new TextComponentString("Toggled " + module.getModule().getDataName() + valstring));
             }
             MuseItemUtils.toggleModuleForPlayer(player, module.getModule().getDataName(), toggleval);
             MusePacketToggleRequest toggleRequest = new MusePacketToggleRequest(player, module.getModule().getDataName(), toggleval);

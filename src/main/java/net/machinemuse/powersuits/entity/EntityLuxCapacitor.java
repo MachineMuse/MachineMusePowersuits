@@ -5,10 +5,12 @@ import net.machinemuse.powersuits.common.MPSItems;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class EntityLuxCapacitor extends EntityThrowable {
     public double red;
@@ -28,7 +30,7 @@ public class EntityLuxCapacitor extends EntityThrowable {
 
     public EntityLuxCapacitor(World par1World, EntityLivingBase shootingEntity) {
         super(par1World, shootingEntity);
-        Vec3 direction = shootingEntity.getLookVec().normalize();
+        Vec3d direction = shootingEntity.getLookVec().normalize();
         double speed = 1.0;
         this.motionX = direction.xCoord * speed;
         this.motionY = direction.yCoord * speed;
@@ -43,7 +45,7 @@ public class EntityLuxCapacitor extends EntityThrowable {
         this.posX = shootingEntity.posX + direction.xCoord * xoffset - direction.yCoord * horzx * yoffset - horzz * zoffset;
         this.posY = shootingEntity.posY + shootingEntity.getEyeHeight() + direction.yCoord * xoffset + (1 - Math.abs(direction.yCoord)) * yoffset;
         this.posZ = shootingEntity.posZ + direction.zCoord * xoffset - direction.yCoord * horzz * yoffset + horzx * zoffset;
-        this.boundingBox.setBounds(posX - r, posY - 0.0625, posZ - r, posX + r, posY + 0.0625, posZ + r);
+        this.setEntityBoundingBox(new AxisAlignedBB(posX - r, posY - 0.0625, posZ - r, posX + r, posY + 0.0625, posZ + r));
     }
 
     /**
@@ -63,22 +65,27 @@ public class EntityLuxCapacitor extends EntityThrowable {
     }
 
     @Override
-    protected void onImpact(MovingObjectPosition movingobjectposition) {
-
-        if (!this.isDead && movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-            ForgeDirection dir = ForgeDirection.values()[movingobjectposition.sideHit].getOpposite();
-            int x = movingobjectposition.blockX - dir.offsetX;
-            int y = movingobjectposition.blockY - dir.offsetY;
-            int z = movingobjectposition.blockZ - dir.offsetZ;
+    protected void onImpact(RayTraceResult hitResult) {
+        if (!this.isDead && hitResult.typeOfHit == RayTraceResult.Type.BLOCK) {
+            EnumFacing dir = hitResult.sideHit.getOpposite();
+            int x = hitResult.getBlockPos().getX() - dir.getFrontOffsetX();
+            int y = hitResult.getBlockPos().getY() - dir.getFrontOffsetY();
+            int z = hitResult.getBlockPos().getZ() - dir.getFrontOffsetZ();
             if (y > 0) {
-                Block block = worldObj.getBlock(x, y, z);
-                if (block == null || block.isAir(worldObj, x, y, z)) {
-                    Block blockToStickTo = worldObj.getBlock(movingobjectposition.blockX, movingobjectposition.blockY, movingobjectposition.blockZ);
-                    if (blockToStickTo.isNormalCube(worldObj, x, y, z)) {
+                BlockPos blockPos = new BlockPos(x, y, z);
+                Block block = worldObj.getBlockState(blockPos).getBlock();
+                if (block == null || block.isAir(worldObj.getBlockState(blockPos), worldObj, blockPos)) {
+                    Block blockToStickTo = worldObj.getBlockState(new BlockPos(hitResult.getBlockPos().getX(),
+                            hitResult.getBlockPos().getY(), hitResult.getBlockPos().getZ())).getBlock();
+
+
+
+
+                    if (blockToStickTo.isNormalCube(worldObj.getBlockState(blockPos), worldObj, blockPos)) {
                         worldObj.setBlock(x, y, z, MPSItems.INSTANCE.luxCapacitor, 0, 7);
                         worldObj.setTileEntity(x, y, z, new TileEntityLuxCapacitor(dir, red, green, blue));
                     } else {
-                        for (ForgeDirection d : ForgeDirection.values()) {
+                        for (EnumFacing d : EnumFacing.values()) {
                             int xo = x + d.offsetX;
                             int yo = y + d.offsetY;
                             int zo = z + d.offsetZ;
@@ -94,4 +101,53 @@ public class EntityLuxCapacitor extends EntityThrowable {
             this.setDead();
         }
     }
+
+
+
+
+
+            if (!this.isDead && hitResult.typeOfHit == hitResult.Type.BLOCK) {
+        EnumFacing dir = hitResult.sideHit.getOpposite();
+
+        BlockPos Block blockToStickTo = worldObj.getBlockState(new BlockPos(hitResult.getBlockPos().getX(), hitResult.getBlockPos().getY(), hitResult.getBlockPos().getZ())).getBlock();  = new BlockPos(x, y, z);
+        if (y > 0) {
+            Block block = worldObj.getBlockState(blockPos).getBlock();
+            if (block == null || block.isAir(worldObj.getBlockState(blockPos), worldObj, blockPos)) {
+                Block blockToStickTo = worldObj.getBlockState(new BlockPos(hitResult.getBlockPos().getX(), hitResult.getBlockPos().getY(), hitResult.getBlockPos().getZ())).getBlock();
+                if (blockToStickTo.isNormalCube(worldObj.getBlockState(blockPos), worldObj, blockPos)) {
+                    createBlockAndTE(blockPos, dir);
+                } else {
+                    for (EnumFacing d : EnumFacing.VALUES) {
+                        int xo = x + d.getFrontOffsetX();
+                        int yo = y + d.getFrontOffsetY();
+                        int zo = z + d.getFrontOffsetZ();
+                        BlockPos blockPos2 = new BlockPos(xo, yo, zo);
+                        blockToStickTo = worldObj.getBlockState( new BlockPos(xo, yo, zo)).getBlock();
+                        if (blockToStickTo.isNormalCube(worldObj.getBlockState(blockPos2), worldObj, blockPos)) {
+                            createBlockAndTE(blockPos, d);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        this.setDead();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

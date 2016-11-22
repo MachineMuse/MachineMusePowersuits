@@ -15,7 +15,7 @@ import net.machinemuse.powersuits.powermodule.PropertyModifierLinearAdditive;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MuseStringUtils;
 import net.machinemuse.utils.render.MuseRenderer;
-import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import org.lwjgl.opengl.GL11;
@@ -30,10 +30,10 @@ public class ModuleTweakFrame extends ScrollableFrame {
     protected List<ClickableTinkerSlider> sliders;
     protected Map<String, Double> propertyStrings;
     protected ClickableTinkerSlider selectedSlider;
-    protected EntityClientPlayerMP player;
+    protected EntityPlayerSP player;
 
     public ModuleTweakFrame(
-            EntityClientPlayerMP player,
+            EntityPlayerSP player,
             MusePoint2D topleft, MusePoint2D bottomright,
             Colour borderColour, Colour insideColour,
             ItemSelectionFrame itemTarget, ModuleSelectionFrame moduleTarget) {

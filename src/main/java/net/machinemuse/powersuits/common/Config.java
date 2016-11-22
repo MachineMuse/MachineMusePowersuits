@@ -1,9 +1,6 @@
 package net.machinemuse.powersuits.common;
 
 import com.google.gson.Gson;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
@@ -17,11 +14,15 @@ import net.machinemuse.powersuits.powermodule.movement.*;
 import net.machinemuse.powersuits.powermodule.tool.*;
 import net.machinemuse.powersuits.powermodule.weapon.*;
 import net.machinemuse.utils.MuseStringUtils;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 import org.lwjgl.input.Keyboard;
 
 import java.io.*;
@@ -316,7 +317,7 @@ public class Config {
     }
 
     public static String additionalInfoInstructions() {
-        String message = StatCollector.translateToLocal("tooltip.pressShift");
+        String message = I18n.format("tooltip.pressShift");
         return MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic);
     }
 

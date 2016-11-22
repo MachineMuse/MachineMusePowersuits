@@ -10,7 +10,7 @@
 //import net.minecraft.entity.item.EntityMinecart
 //import net.minecraft.entity.player.EntityPlayer
 //import net.minecraft.item.ItemStack
-//import net.minecraft.util.ChatComponentText
+//import net.minecraft.util.TextComponentString
 //
 ///**
 // * Author: MachineMuse (Claire Semple)
@@ -77,7 +77,7 @@
 //        return true
 //      }
 //      else if (FMLCommonHandler.instance.getEffectiveSide.isServer)
-//        player.addChatComponentMessage(new ChatComponentText("[Field Security] Could not teleport through forcefield. 20,000J is required to teleport."))
+//        player.addChatComponentMessage(new TextComponentString("[Field Security] Could not teleport through forcefield. 20,000J is required to teleport."))
 //    }
 //    return false
 //  }

@@ -20,7 +20,7 @@ import net.machinemuse.powersuits.powermodule.movement.JetPackModule;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -87,7 +87,7 @@ public class RenderEventHandler {
     public void drawKeybindToggles() {
         if (Config.keybindHUDon()) {
             Minecraft mc = Minecraft.getMinecraft();
-            EntityClientPlayerMP player = mc.thePlayer;
+            EntityPlayerSP player = mc.thePlayer;
             ScaledResolution screen = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
             frame.setLeft(Config.keybindHUDx());
             frame.setTop(Config.keybindHUDy());

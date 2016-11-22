@@ -1,20 +1,19 @@
 package net.machinemuse.powersuits.item;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.StatCollector;
+
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ import java.util.List;
 public class ItemComponent extends Item {
     public static int assignedItemID;
 
-    public static List<IIcon> icons;
+    public static List<TextureAtlasSprite> icons;
     public static List<String> iconNames;
     public static List<String> names;
     public static List<String> descriptions;
@@ -88,7 +87,7 @@ public class ItemComponent extends Item {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
         if (Config.doAdditionalInfo()) {
-            String message = StatCollector.translateToLocal("tooltip.componentTooltip");
+            String message = I18n.format("tooltip.componentTooltip");
             message = MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic);
             currentTipList.add(message);
             int damage = stack.getItemDamage();

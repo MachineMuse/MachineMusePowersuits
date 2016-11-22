@@ -7,7 +7,7 @@ import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.item.IModularItemBase;
 import net.machinemuse.powersuits.item.ItemPowerFist;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -127,20 +127,20 @@ public class ToolRenderer extends MuseRender implements IItemRenderer {
     public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {
     }
 
-    public void renderFirstPersonArm(EntityClientPlayerMP entityclientplayermp, float par1) {
+    public void renderFirstPersonArm(EntityPlayerSP EntityPlayerSP, float par1) {
         Minecraft mc = Minecraft.getMinecraft();
         float changeItemProgress = 0;
 
         GL11.glPushMatrix();
         float f4 = 0.8F;
-        float swingProgress = entityclientplayermp.getSwingProgress(par1);
+        float swingProgress = EntityPlayerSP.getSwingProgress(par1);
         float swingProgressx = MathHelper.sin(swingProgress * (float) Math.PI);
         float swingProgressy = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI);
         GL11.glTranslatef(-swingProgressy * 0.3F, MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI * 2.0F) * 0.4F, -swingProgressx * 0.4F);
         GL11.glTranslatef(0.8F * f4, -0.75F * f4 - (1.0F - changeItemProgress) * 0.6F, -0.9F * f4);
         GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        swingProgress = entityclientplayermp.getSwingProgress(par1);
+        swingProgress = EntityPlayerSP.getSwingProgress(par1);
         swingProgressx = MathHelper.sin(swingProgress * swingProgress * (float) Math.PI);
         swingProgressy = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI);
         GL11.glRotatef(swingProgressy * 70.0F, 0.0F, 1.0F, 0.0F);

@@ -20,7 +20,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.IIcon;
+
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
@@ -151,7 +151,7 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
     public void handleBreakSpeed(BreakSpeed event) {
         // TODO: MAKE NOT STUPID
         float defaultEffectiveness = 8;
-        double ourEffectiveness = ModuleManager.computeModularProperty(event.entityPlayer.getCurrentEquippedItem(), SHEARING_HARVEST_SPEED);
+        double ourEffectiveness = ModuleManager.computeModularProperty(event.entityPlayer.inventory.getCurrentItem(), SHEARING_HARVEST_SPEED);
         event.newSpeed *= Math.max(defaultEffectiveness, ourEffectiveness);
 
     }

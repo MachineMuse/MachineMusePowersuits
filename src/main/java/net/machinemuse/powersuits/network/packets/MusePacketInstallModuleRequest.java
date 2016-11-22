@@ -11,7 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.TextComponentString;
 
 import java.io.DataInputStream;
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public class MusePacketInstallModuleRequest extends MusePacket {
             InventoryPlayer inventory = player.inventory;
             IPowerModule moduleType = ModuleManager.getModule(moduleName);
             if (moduleType == null || !moduleType.isAllowed()) {
-                player.addChatComponentMessage(new ChatComponentText("Server has disallowed this module. Sorry!"));
+                player.addChatComponentMessage(new TextComponentString("Server has disallowed this module. Sorry!"));
                 return;
             }
             List<ItemStack> cost = moduleType.getInstallCost();

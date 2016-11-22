@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.control;
 
-import cpw.mods.fml.common.Loader;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
@@ -10,6 +9,7 @@ import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraftforge.fml.common.Loader;
 import org.lwjgl.input.Keyboard;
 
 import java.io.*;

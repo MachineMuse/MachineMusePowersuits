@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.client.render.modelspec;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.item.ItemPowerArmor;
 import net.machinemuse.utils.MuseStringUtils;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
@@ -76,7 +77,7 @@ public class DefaultModelSpec {
             model.put(name, new ModelPartSpec(model, target, name, slot, colourIndex, glow, name));
     }
 
-    public static NBTTagCompound makeModelPrefs(ItemStack stack, int slot) {
+    public static NBTTagCompound makeModelPrefs(ItemStack stack, EntityEquipmentSlot slot) {
         ItemPowerArmor item = (ItemPowerArmor) stack.getItem();
         Colour normalcolour = item.getColorFromItemStack(stack);
         Colour glowcolour = item.getGlowFromItemStack(stack);

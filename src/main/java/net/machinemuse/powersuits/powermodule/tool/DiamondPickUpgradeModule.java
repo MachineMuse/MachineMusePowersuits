@@ -75,7 +75,7 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-        event.newSpeed = (float) ModuleManager.computeModularProperty(event.entityPlayer.getCurrentEquippedItem(),
+        event.newSpeed = (float) ModuleManager.computeModularProperty(event.entityPlayer.inventory.getCurrentItem(),
                 PickaxeModule.PICKAXE_HARVEST_SPEED);
     }
 }

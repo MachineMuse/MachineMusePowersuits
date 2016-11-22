@@ -13,12 +13,15 @@ import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class EntitySpinningBlade extends EntityThrowable {
@@ -35,12 +38,12 @@ public class EntitySpinningBlade extends EntityThrowable {
         super(par1World, shootingEntity);
         this.shootingEntity = shootingEntity;
         if (shootingEntity instanceof EntityPlayer) {
-            this.shootingItem = ((EntityPlayer) shootingEntity).getCurrentEquippedItem();
+            this.shootingItem = ((EntityPlayer) shootingEntity).inventory.getCurrentItem();
             if (this.shootingItem != null) {
                 this.damage = ModuleManager.computeModularProperty(shootingItem, BladeLauncherModule.BLADE_DAMAGE);
             }
         }
-        Vec3 direction = shootingEntity.getLookVec().normalize();
+        Vec3d direction = shootingEntity.getLookVec().normalize();
         double speed = 1.0;
         double scale = 1;
         this.motionX = direction.xCoord * speed;
@@ -56,7 +59,7 @@ public class EntitySpinningBlade extends EntityThrowable {
         this.posX = shootingEntity.posX + direction.xCoord * xoffset - direction.yCoord * horzx * yoffset - horzz * zoffset;
         this.posY = shootingEntity.posY + shootingEntity.getEyeHeight() + direction.yCoord * xoffset + (1 - Math.abs(direction.yCoord)) * yoffset;
         this.posZ = shootingEntity.posZ + direction.zCoord * xoffset - direction.yCoord * horzz * yoffset + horzx * zoffset;
-        this.boundingBox.setBounds(posX - r, posY - r, posZ - r, posX + r, posY + r, posZ + r);
+        this.setEntityBoundingBox(new AxisAlignedBB(posX - r, posY - r, posZ - r, posX + r, posY + r, posZ + r));
     }
 
     /**
@@ -67,6 +70,8 @@ public class EntitySpinningBlade extends EntityThrowable {
         return 0;
     }
 
+
+
     public int getMaxLifetime() {
         return 200;
     }
@@ -74,25 +79,24 @@ public class EntitySpinningBlade extends EntityThrowable {
     @Override
     public void onUpdate() {
         super.onUpdate();
-
         if (this.ticksExisted > this.getMaxLifetime()) {
             this.setDead();
         }
     }
 
     @Override
-    protected void onImpact(MovingObjectPosition hitMOP) {
-        if (hitMOP.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+    protected void onImpact(RayTraceResult hitResult) {
+        if (hitResult.typeOfHit == RayTraceResult.Type.BLOCK) {
             World world = this.worldObj;
             if (world == null) {
                 return;
             }
-            Block block = world.getBlock(hitMOP.blockX, hitMOP.blockY, hitMOP.blockZ);
+            Block block = world.getBlockState(hitResult.getBlockPos()).getBlock();
             if (block instanceof IShearable) {
                 IShearable target = (IShearable) block;
-                if (target.isShearable(this.shootingItem, world, hitMOP.blockX, hitMOP.blockY, hitMOP.blockZ) && !world.isRemote) {
-                    ArrayList<ItemStack> drops = target.onSheared(this.shootingItem, world, hitMOP.blockX, hitMOP.blockY, hitMOP.blockZ,
-                            EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, this.shootingItem));
+                if (target.isShearable(this.shootingItem, world, hitResult.getBlockPos()) && !world.isRemote) {
+                    List<ItemStack> drops = target.onSheared(this.shootingItem, world, hitResult.getBlockPos(),
+                            EnchantmentHelper.getEnchantmentLevel(Enchantment.getEnchantmentByLocation("fortune"), this.shootingItem));
                     Random rand = new Random();
 
                     for (ItemStack stack : drops) {
@@ -100,26 +104,26 @@ public class EntitySpinningBlade extends EntityThrowable {
                         double d = rand.nextFloat() * f + (1.0F - f) * 0.5D;
                         double d1 = rand.nextFloat() * f + (1.0F - f) * 0.5D;
                         double d2 = rand.nextFloat() * f + (1.0F - f) * 0.5D;
-                        EntityItem entityitem = new EntityItem(world, hitMOP.blockX + d, hitMOP.blockY + d1, hitMOP.blockZ + d2, stack);
-                        entityitem.delayBeforeCanPickup = 10;
+                        EntityItem entityitem = new EntityItem(world, hitResult.getBlockPos().getX() + d, hitResult.getBlockPos().getY() + d1, hitResult.getBlockPos().getZ() + d2, stack);
+                        entityitem.setPickupDelay(10);
                         world.spawnEntityInWorld(entityitem);
                     }
                     if (this.shootingEntity instanceof EntityPlayer) {
-                        ((EntityPlayer) shootingEntity).addStat(StatList.mineBlockStatArray[Block.getIdFromBlock(block)], 1);
+                        ((EntityPlayer) shootingEntity).addStat(StatList.getBlockStats(block), 1);
                     }
                 }
-                world.func_147480_a(hitMOP.blockX, hitMOP.blockY, hitMOP.blockZ, true); // Destroy block and drop item
+                world.destroyBlock(hitResult.getBlockPos(), true);// Destroy block and drop item
             } else { // Block hit was not IShearable
                 this.kill();
             }
-        } else if (hitMOP.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY && hitMOP.entityHit != this.shootingEntity) {
-            if (hitMOP.entityHit instanceof IShearable) {
-                IShearable target = (IShearable) hitMOP.entityHit;
-                Entity entity = hitMOP.entityHit;
-                if (target.isShearable(this.shootingItem, entity.worldObj, (int) entity.posX, (int) entity.posY, (int) entity.posZ)) {
-                    ArrayList<ItemStack> drops = target.onSheared(this.shootingItem, entity.worldObj,
-                            (int) entity.posX, (int) entity.posY, (int) entity.posZ,
-                            EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, this.shootingItem));
+        } else if (hitResult.typeOfHit == RayTraceResult.Type.ENTITY && hitResult.entityHit != this.shootingEntity) {
+            if (hitResult.entityHit instanceof IShearable) {
+                IShearable target = (IShearable) hitResult.entityHit;
+                Entity entity = hitResult.entityHit;
+                if (target.isShearable(this.shootingItem, entity.worldObj, entity.getPosition())) {
+                    List<ItemStack> drops = target.onSheared(this.shootingItem, entity.worldObj,
+                            entity.getPosition (),
+                            EnchantmentHelper.getEnchantmentLevel(Enchantment.getEnchantmentByLocation("fortune"), this.shootingItem));
 
                     Random rand = new Random();
                     for (ItemStack drop : drops) {
@@ -130,7 +134,7 @@ public class EntitySpinningBlade extends EntityThrowable {
                     }
                 }
             } else {
-                hitMOP.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.shootingEntity), (int) damage);
+                hitResult.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.shootingEntity), (int) damage);
             }
         }
     }

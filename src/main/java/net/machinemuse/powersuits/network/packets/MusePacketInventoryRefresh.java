@@ -6,7 +6,7 @@ import net.machinemuse.general.gui.MuseGui;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -43,7 +43,7 @@ public class MusePacketInventoryRefresh extends MusePacket {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void handleClient(EntityClientPlayerMP player) {
+    public void handleClient(EntityPlayerSP player) {
         IInventory inventory = player.inventory;
         inventory.setInventorySlotContents(slot, stack);
         ((MuseGui)(Minecraft.getMinecraft().currentScreen)).refresh();
