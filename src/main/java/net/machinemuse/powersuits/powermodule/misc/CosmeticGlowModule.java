@@ -1,8 +1,11 @@
 package net.machinemuse.powersuits.powermodule.misc;
 
 import net.machinemuse.api.electricity.IModularItem;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
@@ -46,5 +49,10 @@ public class CosmeticGlowModule extends PowerModuleBase {
     @Override
     public String getTextureFile() {
         return "netherstar";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.cosmeticGlow;
     }
 }

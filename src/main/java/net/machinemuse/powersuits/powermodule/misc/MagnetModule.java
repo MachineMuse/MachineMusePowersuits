@@ -1,25 +1,29 @@
 package net.machinemuse.powersuits.powermodule.misc;
 
-
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.powermodule.PropertyModifierIntLinearAdditive;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.List;
 
@@ -77,14 +81,14 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
             }
             int range = (int) ModuleManager.computeModularProperty(stack, MAGNET_RADIUS);
             World world = player.worldObj;
-            AxisAlignedBB bounds = player.boundingBox.expand(range, range, range);
+            AxisAlignedBB bounds = player.getEntityBoundingBox().expand(range, range, range);
             if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
                 bounds.expand(0.2000000029802322D, 0.2000000029802322D, 0.2000000029802322D);
                 if (stack.getItemDamage() >> 1 >= 7) {
                     List<EntityArrow> arrows = world.getEntitiesWithinAABB(EntityArrow.class, bounds);
                     for (EntityArrow arrow : arrows) {
-                        if ((arrow.canBePickedUp == 1) && (world.rand.nextInt(6) == 0)) {
-                            EntityItem replacement = new EntityItem(world, arrow.posX, arrow.posY, arrow.posZ, new ItemStack(Items.arrow));
+                        if ((arrow.pickupStatus == EntityArrow.PickupStatus.ALLOWED) && (world.rand.nextInt(6) == 0)) {
+                            EntityItem replacement = new EntityItem(world, arrow.posX, arrow.posY, arrow.posZ, new ItemStack(Items.ARROW));
                             world.spawnEntityInWorld(replacement);
                         }
                         world.removeEntity(arrow);
@@ -93,7 +97,7 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
             }
             List<EntityItem> list = world.getEntitiesWithinAABB(EntityItem.class, bounds);
             for (EntityItem e : list) {
-                if (e.age >= 10) {
+                if (e.getAge() >= 10) {
                     double x = player.posX - e.posX;
                     double y = player.posY - e.posY;
                     double z = player.posZ - e.posZ;
@@ -113,7 +117,7 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
                     }
                     if (world.rand.nextInt(20) == 0) {
                         float pitch = 0.85F - world.rand.nextFloat() * 3.0F / 10.0F;
-                        world.playSoundEffect(e.posX, e.posY, e.posZ, "mob.endermen.portal", 0.6F, pitch);
+                        world.playSound(e.posX, e.posY, e.posZ, SoundEvent.REGISTRY.getObject(new ResourceLocation("mob.endermen.portal")), SoundCategory.PLAYERS, 0.6F, pitch, true);
                     }
                 }
             }
@@ -122,5 +126,10 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.magnet;
     }
 }

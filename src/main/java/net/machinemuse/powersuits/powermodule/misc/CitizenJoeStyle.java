@@ -1,12 +1,17 @@
 package net.machinemuse.powersuits.powermodule.misc;
 
 import net.machinemuse.api.electricity.IModularItem;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
 public class CitizenJoeStyle extends PowerModuleBase {
+    // TODO: Bring this back for low res armor mode.
+
     public static final String CITIZEN_JOE_STYLE = "Citizen Joe Style";
 
     public CitizenJoeStyle(List<IModularItem> validItems) {
@@ -35,5 +40,10 @@ public class CitizenJoeStyle extends PowerModuleBase {
     @Override
     public String getDescription() {
         return "An alternative armor texture, c/o CitizenJoe of IC2 forums.";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.citizenJoe;
     }
 }

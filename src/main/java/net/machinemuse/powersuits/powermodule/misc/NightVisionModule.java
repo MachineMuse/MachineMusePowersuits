@@ -3,11 +3,13 @@ package net.machinemuse.powersuits.powermodule.misc;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -17,6 +19,7 @@ import java.util.List;
 
 public class NightVisionModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
     public static final String MODULE_NIGHT_VISION = "Night Vision";
+    private static Potion nightvision = Potion.getPotionFromResourceLocation("nightVision");
 
     public NightVisionModule(List<IModularItem> validItems) {
         super(validItems);
@@ -47,30 +50,30 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         double totalEnergy = ElectricItemUtils.getPlayerEnergy(player);
         PotionEffect nightVision = null;
-        if (player.isPotionActive(Potion.nightVision.id)) {
-            nightVision = player.getActivePotionEffect(Potion.nightVision);
+        if (player.isPotionActive(nightvision)) {
+            nightVision = player.getActivePotionEffect(nightvision);
         }
         if (5 < totalEnergy) {
             if (nightVision == null || nightVision.getDuration() < 210) {
-                player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 500, -3));
+                player.addPotionEffect(new PotionEffect(nightvision, 500, -3));
                 ElectricItemUtils.drainPlayerEnergy(player, 5);
             }
         } else {
             onPlayerTickInactive(player, item);
         }
-    }
 
+    }
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
         PotionEffect nightVision = null;
-        if (player.isPotionActive(Potion.nightVision.id)) {
-            nightVision = player.getActivePotionEffect(Potion.nightVision);
+        if (player.isPotionActive(nightvision)) {
+            nightVision = player.getActivePotionEffect(nightvision);
         }
         if (nightVision != null && nightVision.getAmplifier() == -3) {
             if (player.worldObj.isRemote) {
-                player.removePotionEffectClient(Potion.nightVision.id);
+                player.removeActivePotionEffect(nightvision);
             } else {
-                player.removePotionEffect(Potion.nightVision.id);
+                player.removePotionEffect(nightvision);
             }
         }
     }
@@ -78,5 +81,10 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
     @Override
     public String getTextureFile() {
         return "nightvision";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.nightVision;
     }
 }

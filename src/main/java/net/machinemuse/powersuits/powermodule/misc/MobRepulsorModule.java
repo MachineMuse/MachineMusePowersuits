@@ -5,11 +5,13 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.monster.EntityMob;
@@ -18,7 +20,7 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import java.util.Iterator;
@@ -83,19 +85,19 @@ public class MobRepulsorModule extends PowerModuleBase implements IPlayerTickMod
         float distance = 5.0F;
         Entity entity;
         Iterator iterator;
-        List list = world.getEntitiesWithinAABB(EntityMob.class, AxisAlignedBB.getBoundingBox(i - distance, j - distance, k - distance, i + distance, j + distance, k + distance));
+        List list = world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(i - distance, j - distance, k - distance, i + distance, j + distance, k + distance));
         for (iterator = list.iterator(); iterator.hasNext(); push(entity, i, j, k)) {
             entity = (Entity) iterator.next();
         }
-        list = world.getEntitiesWithinAABB(EntityArrow.class, AxisAlignedBB.getBoundingBox(i - distance, j - distance, k - distance, i + distance, j + distance, k + distance));
+        list = world.getEntitiesWithinAABB(EntityArrow.class, new AxisAlignedBB(i - distance, j - distance, k - distance, i + distance, j + distance, k + distance));
         for (iterator = list.iterator(); iterator.hasNext(); push(entity, i, j, k)) {
             entity = (Entity) iterator.next();
         }
-        list = world.getEntitiesWithinAABB(EntityFireball.class, AxisAlignedBB.getBoundingBox(i - distance, j - distance, k - distance, i + distance, j + distance, k + distance));
+        list = world.getEntitiesWithinAABB(EntityFireball.class, new AxisAlignedBB(i - distance, j - distance, k - distance, i + distance, j + distance, k + distance));
         for (iterator = list.iterator(); iterator.hasNext(); push(entity, i, j, k)) {
             entity = (Entity) iterator.next();
         }
-        list = world.getEntitiesWithinAABB(EntityPotion.class, AxisAlignedBB.getBoundingBox(i - distance, j - distance, k - distance, i + distance, j + distance, k + distance));
+        list = world.getEntitiesWithinAABB(EntityPotion.class, new AxisAlignedBB(i - distance, j - distance, k - distance, i + distance, j + distance, k + distance));
         for (iterator = list.iterator(); iterator.hasNext(); push(entity, i, j, k)) {
             entity = (Entity) iterator.next();
         }
@@ -132,5 +134,10 @@ public class MobRepulsorModule extends PowerModuleBase implements IPlayerTickMod
                 entity.motionZ += d7;
             }
         }
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.mobRepulsor;
     }
 }

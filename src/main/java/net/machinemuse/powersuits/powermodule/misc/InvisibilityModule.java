@@ -3,11 +3,13 @@ package net.machinemuse.powersuits.powermodule.misc;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -17,6 +19,7 @@ import java.util.List;
 
 public class InvisibilityModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
     public static final String MODULE_ACTIVE_CAMOUFLAGE = "Active Camouflage";
+    private final Potion invisibility = Potion.getPotionFromResourceLocation("invisibility");
 
     public InvisibilityModule(List<IModularItem> validItems) {
         super(validItems);
@@ -48,12 +51,12 @@ public class InvisibilityModule extends PowerModuleBase implements IPlayerTickMo
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         double totalEnergy = ElectricItemUtils.getPlayerEnergy(player);
         PotionEffect invis = null;
-        if (player.isPotionActive(Potion.invisibility.id)) {
-            invis = player.getActivePotionEffect(Potion.invisibility);
+        if (player.isPotionActive(invisibility)) {
+            invis = player.getActivePotionEffect(invisibility);
         }
         if (50 < totalEnergy) {
             if (invis == null || invis.getDuration() < 210) {
-                player.addPotionEffect(new PotionEffect(Potion.invisibility.id, 500, -3));
+                player.addPotionEffect(new PotionEffect(invisibility, 500, -3));
                 ElectricItemUtils.drainPlayerEnergy(player, 50);
             }
         } else {
@@ -64,14 +67,14 @@ public class InvisibilityModule extends PowerModuleBase implements IPlayerTickMo
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
         PotionEffect invis = null;
-        if (player.isPotionActive(Potion.invisibility.id)) {
-            invis = player.getActivePotionEffect(Potion.invisibility);
+        if (player.isPotionActive(invisibility)) {
+            invis = player.getActivePotionEffect(invisibility);
         }
         if (invis != null && invis.getAmplifier() == -3) {
             if (player.worldObj.isRemote) {
-                player.removePotionEffectClient(Potion.invisibility.id);
+                player.removeActivePotionEffect(invisibility);
             } else {
-                player.removePotionEffect(Potion.invisibility.id);
+                player.removePotionEffect(invisibility);
             }
         }
     }
@@ -79,5 +82,10 @@ public class InvisibilityModule extends PowerModuleBase implements IPlayerTickMo
     @Override
     public String getTextureFile() {
         return "bluedrone";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.invisibility;
     }
 }

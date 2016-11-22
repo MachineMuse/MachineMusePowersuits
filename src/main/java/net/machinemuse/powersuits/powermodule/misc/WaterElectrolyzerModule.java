@@ -1,11 +1,10 @@
 package net.machinemuse.powersuits.powermodule.misc;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.general.sound.SoundDictionary;
 import net.machinemuse.numina.basemod.NuminaConfig;
 import net.machinemuse.numina.sound.Musique;
@@ -14,8 +13,12 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.List;
 
@@ -56,7 +59,7 @@ public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerT
         if (energy > energyConsumption && player.getAir() < 10) {
 
             if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
-                Musique.playClientSound(SoundDictionary.SOUND_ELECTROLYZER, 1.0f);
+                Musique.playClientSound(SoundDictionary.SOUND_EVENT_ELECTROLYZER, SoundCategory.PLAYERS, 1.0f, player.getPosition());
             }
             ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
             player.setAir(300);
@@ -70,5 +73,10 @@ public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerT
     @Override
     public String getTextureFile() {
         return "waterelectrolyzer";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.waterElectrolyzer;
     }
 }

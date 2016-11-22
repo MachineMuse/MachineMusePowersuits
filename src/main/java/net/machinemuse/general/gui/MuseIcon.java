@@ -7,6 +7,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
 
 /*
+ * These are mostly icons for the Tinker Table GUI and PowerFist GUI
+ * Other textures here may just be textures that need to be loaded through the stitch event
  * Icons without an item registered need to be added this way
  * Do not register the same icon twice as this produces weird side effects
  * @author Lehjr
@@ -16,7 +18,7 @@ public class MuseIcon extends TextureAtlasSprite {
         super(spriteName);
     }
 
-    // Armor
+    /* Armor -------------------------------------------------------------------------------------- */
     public static TextureAtlasSprite apiaristArmor= new MuseIcon("apiaristArmor");
     public static TextureAtlasSprite basicPlating = new MuseIcon("basicPlating");
     public static TextureAtlasSprite diamondPlating = new MuseIcon("diamondPlating");
@@ -27,7 +29,7 @@ public class MuseIcon extends TextureAtlasSprite {
     public static TextureAtlasSprite nitrogenCoolingSystem = new MuseIcon("nitrogenCoolingSystem");
     /* Water tank module uses vanilla bucket of water icon */
 
-    // Energy
+    /* Energy ------------------------------------------------------------------------------------- */
     public static TextureAtlasSprite advancedBattery = new MuseIcon("advancedBattery");
     public static TextureAtlasSprite advSolarGenerator = new MuseIcon("advSolarGenerator");
     public static TextureAtlasSprite basicBattery = new MuseIcon("basicBattery");
@@ -38,12 +40,29 @@ public class MuseIcon extends TextureAtlasSprite {
     public static TextureAtlasSprite thermalGenerator = new MuseIcon("thermalGenerator");
     public static TextureAtlasSprite ultimateBattery = new MuseIcon("ultimateBattery");
 
-
+    /* Misc --------------------------------------------------------------------------------------- */
+    public static TextureAtlasSprite airtightSeal = new MuseIcon("airtightSeal");
+    public static TextureAtlasSprite autoFeeder = new MuseIcon("autoFeeder");
+    public static TextureAtlasSprite binoculars = new MuseIcon("binoculars");
+    public static TextureAtlasSprite citizenJoe = new MuseIcon("citizenJoe");
+    // clock uses vanilla icon
+    // compass uses vanilla icon
+    public static TextureAtlasSprite coolingSystem = new MuseIcon("coolingSystem");
+    public static TextureAtlasSprite cosmeticGlow = new MuseIcon("cosmeticGlow");
+    public static TextureAtlasSprite portableCraftingTable = new MuseIcon("portableCraftingTable");
+    public static TextureAtlasSprite invisibility = new MuseIcon("invisibility");
+    public static TextureAtlasSprite magnet = new MuseIcon("magnet");
+    public static TextureAtlasSprite mobRepulsor = new MuseIcon("mobRepulsor");
+    public static TextureAtlasSprite nightVision = new MuseIcon("nightVision");
+    public static TextureAtlasSprite aurameter = new MuseIcon("aurameter");
+    public static TextureAtlasSprite tint = new MuseIcon("tint");
+    public static TextureAtlasSprite transparentArmor = new MuseIcon("transparentArmor");
+    public static TextureAtlasSprite waterElectrolyzer = new MuseIcon("waterElectrolyzer");
 
 
 
     public static void registerIcons(TextureStitchEvent.Pre event) {
-        // Armor
+        /* Armor -------------------------------------------------------------------------------------- */
         apiaristArmor = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID,"modules/silkWisp"));
         basicPlating = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID,"modules/basicplating2"));
         diamondPlating = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/advancedplating2"));
@@ -54,7 +73,7 @@ public class MuseIcon extends TextureAtlasSprite {
         nitrogenCoolingSystem = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/coolingsystem"));
         /* Water tank module uses vanilla bucket of water icon */
 
-        // Energy
+        /* Energy ------------------------------------------------------------------------------------- */
         advancedBattery = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/mvbattery"));
         advSolarGenerator = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/advsolarhelmet"));
         basicBattery = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/lvbattery"));
@@ -66,7 +85,25 @@ public class MuseIcon extends TextureAtlasSprite {
         thermalGenerator = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/heatgenerator"));
         ultimateBattery = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/crystalcapacitor"));
 
-
+        /* Misc --------------------------------------------------------------------------------------- */
+        airtightSeal = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/glasspane"));
+        autoFeeder = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/autofeeder"));
+        binoculars = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/binoculars"));
+        citizenJoe = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/greendrone"));
+        //coolingSystem = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/coolingsystem"));
+        coolingSystem = nitrogenCoolingSystem;
+        cosmeticGlow = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/netherstar"));
+        portableCraftingTable = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/portablecrafting"));
+        invisibility = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/bluedrone"));
+        magnet = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/magnetmodule"));
+        mobRepulsor = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/magneta"));
+        nightVision = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/nightvision"));
+        aurameter = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/bluestar"));
+        // FIXME should not be the same as cosmetic glow
+//        tint = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/netherstar"));
+        tint = cosmeticGlow;
+        transparentArmor = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/transparentarmor"));
+        waterElectrolyzer = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/waterelectrolyzer"));
 
 
     }

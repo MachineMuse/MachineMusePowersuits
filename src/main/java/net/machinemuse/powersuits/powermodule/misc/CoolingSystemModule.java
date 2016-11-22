@@ -4,12 +4,14 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -23,7 +25,7 @@ public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickM
 
     public CoolingSystemModule(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(new ItemStack(Items.ender_eye, 4));
+        addInstallCost(new ItemStack(Items.ENDER_EYE, 4));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         addTradeoffProperty("Power", COOLING_BONUS, 4, "%");
         addTradeoffProperty("Power", ENERGY, 10, "J/t");
@@ -63,5 +65,10 @@ public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickM
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.coolingSystem;
     }
 }

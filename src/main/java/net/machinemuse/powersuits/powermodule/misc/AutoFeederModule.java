@@ -4,12 +4,14 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemFood;
@@ -70,8 +72,8 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
                 if (stack != null && stack.getItem() instanceof ItemFood) {
                     ItemFood food = (ItemFood) stack.getItem();
                     for (int a = 0; a < stack.stackSize; a++) {
-                        foodLevel += food.func_150905_g(stack);
-                        saturationLevel += food.func_150906_h(stack);
+                        foodLevel += food.getHealAmount(stack);
+                        saturationLevel += food.getSaturationModifier(stack);
                     }
                     foodLevel = foodLevel * efficiency / 100.0;
                     saturationLevel = saturationLevel * efficiency / 100.0;
@@ -106,8 +108,8 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
                 if (stack != null && stack.getItem() instanceof ItemFood) {
                     ItemFood food = (ItemFood) stack.getItem();
                     for (; stack.stackSize > 0 && foodNeeded > foodLevel; stack.stackSize--) {
-                        foodLevel += food.func_150905_g(stack) * efficiency / 100.0;
-                        saturationLevel += food.func_150906_h(stack) * efficiency / 100.0;
+                        foodLevel += food.getHealAmount(stack) * efficiency / 100.0;
+                        saturationLevel += food.getSaturationModifier(stack) * efficiency / 100.0;
                     }
                     if (stack.stackSize == 0) {
                         player.inventory.setInventorySlotContents(i, null);
@@ -133,5 +135,10 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.autoFeeder;
     }
 }
