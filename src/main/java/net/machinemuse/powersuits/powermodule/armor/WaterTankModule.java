@@ -9,12 +9,12 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.List;
@@ -48,7 +48,7 @@ public class WaterTankModule extends PowerModuleBase implements IPlayerTickModul
     }
 
     @Override
-    public IIcon getIcon(ItemStack item) {
+    public TextureAtlasSprite getIcon(ItemStack item) {
         return bucketWater.getIconIndex();
     }
 

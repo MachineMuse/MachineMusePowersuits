@@ -11,6 +11,7 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -111,7 +112,7 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
     }
 
     @Override
-    public IIcon getIcon(ItemStack item) {
+    public TextureAtlasSprite getIcon(ItemStack item) {
         return ((Item) Item.itemRegistry.getObject("golden_hoe")).getIconFromDamage(0);
     }
 }

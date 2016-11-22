@@ -6,7 +6,6 @@ import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.IIcon;
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -46,7 +45,7 @@ public class GuiIcons {
             double s = size / 16.0;
             GL11.glScaled(s, s, s);
 
-            MuseIconUtils.drawIconPartialOccluded(x / s, y / s, new GuiIconDrawer(), this.c, this.xmin / s, this.ymin / s, this.xmax / s, this.ymax / s);
+            MuseIconUtils.drawIconPartialOccluded(x / s, y / s, new GuiIconDrawer(filepath) /* FIXME: this will need to be changed to a reference or name */, this.c, this.xmin / s, this.ymin / s, this.xmax / s, this.ymax / s);
             RenderState.blendingOff();
             GL11.glPopMatrix();
             MuseTextureUtils.popTexture();

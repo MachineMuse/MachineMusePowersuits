@@ -4,9 +4,6 @@ import appeng.api.implementations.items.IAEWrench;
 import buildcraft.api.tools.IToolWrench;
 import cofh.api.item.IToolHammer;
 import com.bluepowermod.api.misc.IScrewdriver;
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import crazypants.enderio.api.tool.ITool;
 import forestry.api.arboriculture.IToolGrafter;
 import mekanism.api.IMekWrench;
@@ -37,8 +34,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import powercrystals.minefactoryreloaded.api.IMFRHammer;
 
 import javax.annotation.Nullable;
@@ -82,7 +80,7 @@ public class ItemPowerFist extends MPSItemElectricTool
     private static ModeChangingItem modeChangingItem;
 
     public ItemPowerFist() {
-        super(0.0f, Item.ToolMaterial.EMERALD);
+        super(0.0f, ToolMaterial.DIAMOND);
         this.setMaxStackSize(1);
         this.setMaxDamage(0);
         this.setCreativeTab(Config.getCreativeTab());
@@ -135,7 +133,7 @@ public class ItemPowerFist extends MPSItemElectricTool
                 double knockback = ModuleManager.computeModularProperty(stack, MeleeAssistModule.PUNCH_KNOCKBACK);
                 DamageSource damageSource = DamageSource.causePlayerDamage(player);
                 if (entityBeingHit.attackEntityFrom(damageSource, (float)(int)damage)) {
-                    Vec3 lookVec = player.getLookVec();
+                    Vec3d lookVec = player.getLookVec();
                     entityBeingHit.addVelocity(lookVec.xCoord * knockback, Math.abs(lookVec.yCoord + 0.2f) * knockback, lookVec.zCoord * knockback);
                 }
             }
@@ -240,7 +238,7 @@ public class ItemPowerFist extends MPSItemElectricTool
      */
     @Override
     public EnumAction getItemUseAction(ItemStack stack) {
-        return EnumAction.bow;
+        return EnumAction.BOW;
     }
 
     /**

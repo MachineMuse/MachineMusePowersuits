@@ -6,6 +6,7 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -33,7 +34,7 @@ public class CompassModule extends PowerModuleBase implements IToggleableModule 
     }
 
     @Override
-    public IIcon getIcon(ItemStack item) {
+    public TextureAtlasSprite getIcon(ItemStack item) {
         return compass.getIconIndex();
     }
 

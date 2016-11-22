@@ -11,6 +11,7 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -156,7 +157,7 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public IIcon getIcon(ItemStack item) {
+    public TextureAtlasSprite getIcon(ItemStack item) {
         return shears.getIconIndex();
     }
 

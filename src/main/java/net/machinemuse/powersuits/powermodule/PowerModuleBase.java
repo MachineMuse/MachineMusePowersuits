@@ -9,12 +9,11 @@ import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.utils.MuseItemUtils;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
 
 import java.util.*;
 
@@ -25,7 +24,7 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
     protected static Map<String, String> units = new HashMap<>();
     protected NBTTagCompound defaultTag;
     protected boolean isAllowed;
-    protected IIcon icon;
+    protected TextureAtlasSprite icon;
 
     public PowerModuleBase(String name, List<IModularItem> validItems) {
         this.validItems = validItems;
@@ -46,15 +45,8 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
     }
 
     @Override
-    public IIcon getIcon(ItemStack item) {
+    public TextureAtlasSprite getIcon(ItemStack item) {
         return icon;
-    }
-
-    @Override
-    public void registerIcon(IIconRegister register) {
-        if (getTextureFile() != null) {
-            this.icon = register.registerIcon(MuseIcon.ICON_PREFIX + getTextureFile());
-        }
     }
 
     public abstract String getTextureFile();
@@ -168,12 +160,12 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
 
     @Override
     public String getLocalizedName() {
-        return StatCollector.translateToLocal("module." + getUnlocalizedName() + ".name");
+        return I18n.format("module." + getUnlocalizedName() + ".name");
     }
 
     @Override
     public String getDescription() {
-        return StatCollector.translateToLocal("module." + getUnlocalizedName() + ".desc");
+        return I18n.format("module." + getUnlocalizedName() + ".desc");
     }
 
     @Override

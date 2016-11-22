@@ -1,12 +1,12 @@
 package net.machinemuse.powersuits.item;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.electricity.IMuseElectricItem;
 import net.machinemuse.numina.geometry.Colour;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 

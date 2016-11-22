@@ -1,9 +1,8 @@
 package net.machinemuse.api;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
 
 import java.util.List;
 import java.util.Map;
@@ -11,11 +10,9 @@ import java.util.Map;
 public interface IPowerModule {
 	List<ItemStack> getInstallCost();
 
-	IIcon getIcon(ItemStack item);
+	TextureAtlasSprite getIcon(ItemStack item);
 
 	String getStitchedTexture(ItemStack item);
-
-	void registerIcon(IIconRegister registry);
 
 	String getCategory();
 

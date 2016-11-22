@@ -1,10 +1,10 @@
 package net.machinemuse.api;
 
-import cpw.mods.fml.common.Optional;
 import forestry.api.apiculture.IArmorApiarist;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Optional;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -14,10 +14,6 @@ import net.minecraft.item.ItemStack;
  */
 @Optional.Interface(iface = "forestry.api.apiculture.IArmorApiarist", modid = "Forestry", striprefs = true)
 public interface IApiaristArmor extends IArmorApiarist {
-    @Optional.Method(modid = "Forestry")
-    boolean protectPlayer(final EntityPlayer player, final ItemStack armor, final String cause, final boolean doProtect);
-
-
     @Optional.Method(modid = "Forestry")
     boolean protectEntity(final EntityLivingBase player, final ItemStack armor, final String cause, final boolean doProtect);
 }

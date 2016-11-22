@@ -1,9 +1,6 @@
 package net.machinemuse.powersuits.item;
 
 import com.google.common.collect.Multimap;
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.api.ApiaristArmor;
 import net.machinemuse.api.IArmorTraits;
 import net.machinemuse.api.ModuleManager;
@@ -26,6 +23,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor;
+import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.UUID;
 
@@ -183,11 +183,6 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
                 }
             }
         }
-    }
-
-    @Optional.Method(modid = "Forestry")
-    public boolean protectPlayer(EntityPlayer player, ItemStack armor, String cause, boolean doProtect) {
-        return ApiaristArmor.getInstance().protectPlayer(player, armor, cause, doProtect);
     }
 
     @Optional.Method(modid = "Forestry")
