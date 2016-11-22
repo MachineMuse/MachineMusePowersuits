@@ -1,113 +1,56 @@
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
         maven {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
         }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
+	maven {
+            url = 'https://oss.sonatype.org/content/groups/public' 
+	}
+	// needed?
+    	maven {
+            url "https://plugins.gradle.org/m2/"
+    	}
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+	    classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.0.6"
     }
 }
 
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'com.matthewprenger.cursegradle'
+apply plugin: 'idea'
 
-repositories {
-    maven {
-        name = "ChickenBones"
-        url = "http://chickenbones.net/maven"
-    }
-}
-
-apply plugin: 'forge'
-apply plugin: 'curseforge'
-
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
-
-// define the properties file
-ext.configFile = file "project.properties"
-
-configFile.withReader {
-    // read config.  it shall from now on be referenced as simply config or as project.config
-    def prop = new Properties()
-    prop.load(it)
-    project.ext.config = new ConfigSlurper().parse prop
-}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 def buildnumber = System.getenv("BUILD_NUMBER")
 def travisbuildnumber = (System.getenv("TRAVIS_BUILD_NUMBER") ?: -111).toInteger() + 111
-version = "${config.mod_version}." + (buildnumber ?: travisbuildnumber)
-group= "${config.group_id}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "${config.mod_id}"
-def numina_version = (System.getenv("NUMINA_VERSION") ?:"0.4.1.100")
+version = mod_version + "-" + (buildnumber ?: travisbuildnumber)
+group= group_id // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = mod_id
+def numina_version = (System.getenv("NUMINA_VERSION") ?:"0.4.1.131")
 
-minecraft {
-    version = "${config.minecraft_version}-${config.forge_version}"
-    replace "@numina_version@", numina_version
-    runDir = "run"
-}
-
-new File(config.libs_dir).mkdirs()
-def getLibrary(filename) {
-    def f = new File(config.libs_dir + filename)
-    if (!f.exists()) {
-        new URL(config.apisource_url + filename).withInputStream{ i -> f.withOutputStream{ it << i }}
-    }
-    dependencies {
-        compile files(config.libs_dir + filename)
-    }
-}
-
-dependencies {
-    compile 'codechicken:CodeChickenCore:1.7.10-1.0.7.47:dev'
-    compile 'codechicken:NotEnoughItems:1.7.10-1.0.5.120:dev'
-    compile 'codechicken:CodeChickenLib:1.7.10-1.1.3.140:dev'
-}
-
-
-
-/*
 repositories {
+	//JEI
 	maven {
-		name = "ic2"
-		url = "http://maven.ic2.player.to/"
+            url "http://dvs1.progwml6.com/files/maven"
 	}
 }
 
 dependencies {
-	compile 'net.industrial-craft:industrialcraft-2:2.2.826-experimental:api'
+    deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
 }
 
-
-*/
-
-
-//getLibrary("CoFHCore-[1.7.10]3.0.3-303-dev.jar")
-////getLibrary("industrialcraft-2-2.2.765-experimental-api.jar")
-//getLibrary("ThermalExpansion-[1.7.10]4.0.3B1-218-dev.jar")
-//getLibrary("GalacticraftCore-Dev-1.7-3.0.12.168.jar")
-//getLibrary("Railcraft_1.7.10-9.7.0.0-dev.jar") // delete outdated CoFH API from this jar to run in dev environment
-//getLibrary("MineFactoryReloaded-[1.7.10]2.8.0-104-dev.jar")
-//getLibrary("forestry_1.7.10-3.6.3.20-api.jar")
-//getLibrary("Thaumcraft-deobf-1.7.10-4.2.3.5.jar")
-//getLibrary("SmartRender-1.7.10-2.1.jar") // this version is ok to build with, but to run in dev environment, download the SmartMoving zip and use the version from that
-//getLibrary("RenderPlayerAPI-1.7.10-1.4.jar")
-////getLibrary("appliedenergistics2-rv2-stable-10-dev.jar")
-//getLibrary("ExtraCells-deobf-1.7.10-2.3.2b158.jar") // This one may have to be downloaded manually
-//getLibrary("buildcraft-7.0.21-dev.jar")
-//getLibrary("BluePower-1.7.10-0.2.962-universal.jar")
-//getLibrary("EnderIO-1.7.10-2.2.8.381-dev.jar") // May need to delete Mekanism API from this jar to run in dev environment
-//getLibrary("Mekanism-1.7.10-8.1.7.252.jar")
-//getLibrary("MrTJPCore-1.1.0.31-universal.jar")
-//getLibrary("ProjectRed-1.7.10-4.7.0pre8.92-Base.jar")
-////getLibrary("Chisel2-2.5.0.43-deobf.jar")
-////getLibrary("Chisel-2.9.0.3-deobf.jar")
-//getLibrary("compactmachines-1.7.10-1.20-dev.jar") // This is for the personal shrinking device module; needs to be built from source.
+minecraft {
+    version = minecraft_version + "-" + forge_version// + "-" + "1.10.0"
+    runDir = "run"
+    mappings = mcp_mappings
+    replace "@numina_version@", project.version
+    useDepAts = true
+}
 
 processResources {
     // this will ensure that this task is redone when the versions change.
@@ -117,7 +60,6 @@ processResources {
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-
         // replace version and mcversion
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
@@ -126,6 +68,8 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+    // Move access transformers to META-INF
+    rename '(.+_at.cfg)', 'META-INF/$1'
 }
 
 jar {
@@ -139,11 +83,15 @@ task devJar(type: Jar) {
     classifier = 'dev'
 }
 
+artifacts {
+    archives devJar
+}
+
 task copyToLib(type: Copy) {
     into "$buildDir/libs"
     from(sourceSets.main.resources.srcDirs){
         include 'mps-vanilla.recipes'
-        include 'mps-thermalexpansion.recipes'
+//        include 'mps-thermalexpansion.recipes'
         include 'mps-ic2.recipes'
         include 'mps-enderio.recipes'
     }
@@ -168,17 +116,18 @@ def getGitChangelog = { ->
     }
 }
 
-
 build.dependsOn(copyToLib)
 
-artifacts {
-    archives devJar
-}
-
-curse {
-    projectId = '235442'
+curseforge {
     apiKey = project.hasProperty('curseForgeApiKey') ? project.curseForgeApiKey : ''
     def branch = System.getenv("GIT_BRANCH")
+
+  project {
+    id = '235442'
+    changelog = getGitChangelog()
+    addGameVersion '1.10.2'
+    //relatedProject 'numina': 'requiredLibrary'
+
     if(branch == null) {
         releaseType = 'alpha'
     } else if(branch.equals("origin/experimental")) {
@@ -187,16 +136,10 @@ curse {
         releaseType = 'release'
     } else {
         releaseType = 'alpha'
-    }
-
-    changelog = getGitChangelog()
-
-    addGameVersion '1.7.10'
-
-    relatedProject 'numina': 'requiredLibrary'
+    }    
+  }    
 }
 
-apply plugin: 'idea'
 idea {
     module {
         inheritOutputDirs = true
