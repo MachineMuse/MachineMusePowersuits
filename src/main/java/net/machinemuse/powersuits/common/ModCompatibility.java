@@ -1,7 +1,9 @@
 package net.machinemuse.powersuits.common;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModAPIManager;
+import cpw.mods.fml.relauncher.Side;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.numina.general.MuseLogger;
@@ -79,6 +81,10 @@ public class ModCompatibility {
 
     public static boolean isCompactMachinesLoaded() {
         return Loader.isModLoaded("CompactMachines");
+    }
+
+    public static boolean isRenderPlayerAPILoaded() {
+        return Loader.isModLoaded("RenderPlayerAPI");
     }
 
     public static boolean enableThaumGogglesModule() {

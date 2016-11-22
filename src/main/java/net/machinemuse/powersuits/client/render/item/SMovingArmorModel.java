@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.client.render.item;
 
 import api.player.model.ModelPlayer;
+import cpw.mods.fml.common.Optional;
 import net.machinemuse.powersuits.client.render.modelspec.RenderPart;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -24,7 +25,7 @@ public class SMovingArmorModel extends ModelPlayer implements IArmorModel {
     public static int visibleSection = 0;
     private SmartRenderModelPlayerBase renderPlayerBase = SmartRender.getPlayerBase(this);
 
-    private SMovingArmorModel() {
+    public SMovingArmorModel() {
         super(0);
 
         SmartRenderModel model = renderPlayerBase.getRenderModel();

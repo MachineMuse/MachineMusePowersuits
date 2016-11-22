@@ -37,17 +37,17 @@ import java.util.UUID;
  * Ported to Java by lehjr on 11/4/16.
  */
 public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpecialArmor, IArmorTraits {
-    public ItemPowerArmor(final int renderIndex, final int armorType) {
+    public ItemPowerArmor(int renderIndex, int armorType) {
         super(ItemArmor.ArmorMaterial.IRON, renderIndex, armorType);
         this.setMaxStackSize(1);
         this.setCreativeTab(Config.getCreativeTab());
     }
 
-    public ISpecialArmor.ArmorProperties getProperties(final EntityLivingBase player, final ItemStack armor, final DamageSource source, final double damage, final int slot) {
-        final int priority = 0;
+    public ISpecialArmor.ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
+        int priority = 0;
         Label_0057: {
             if (source.isFireDamage()) {
-                final DamageSource overheatDamage = MuseHeatUtils.overheatDamage;
+                DamageSource overheatDamage = MuseHeatUtils.overheatDamage;
                 if (source == null) {
                     if (overheatDamage == null) {
                         break Label_0057;
@@ -69,7 +69,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         else {
             armorDouble2 = 2.0;
         }
-        final double armorDouble = armorDouble2;
+        double armorDouble = armorDouble2;
         double absorbRatio = 0.04 * armorDouble;
         int absorbMax = (int)armorDouble * 75;
         if (source.isUnblockable()) {
@@ -79,18 +79,18 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         return new ISpecialArmor.ArmorProperties(priority, absorbRatio, absorbMax);
     }
 
-    public String getArmorTexture(final ItemStack itemstack, final Entity entity, final int slot, final int layer) {
+    public String getArmorTexture(ItemStack itemstack, Entity entity, int slot, int layer) {
         return Config.BLANK_ARMOR_MODEL_PATH;
     }
 
-    public int getColor(final ItemStack stack) {
-        final Colour c = this.getColorFromItemStack(stack);
+    public int getColor(ItemStack stack) {
+        Colour c = this.getColorFromItemStack(stack);
         return c.getInt();
     }
 
     @SideOnly(Side.CLIENT)
-    public ModelBiped getArmorModel(final EntityLivingBase entity, final ItemStack itemstack, final int armorSlot) {
-        final ModelBiped model = ArmorModelInstance.getInstance();
+    public ModelBiped getArmorModel(EntityLivingBase entity, ItemStack itemstack, int armorSlot) {
+        ModelBiped model = ArmorModelInstance.getInstance();
         ((IArmorModel)model).setVisibleSection(armorSlot);
         if (itemstack != null) {
             if (entity instanceof EntityPlayer) {
@@ -111,8 +111,8 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         return (ModelBiped)model;
     }
 
-    public Multimap<?, ?> getAttributeModifiers(final ItemStack stack) {
-        final Multimap parent = super.getAttributeModifiers(stack);
+    public Multimap<?, ?> getAttributeModifiers(ItemStack stack) {
+        Multimap parent = super.getAttributeModifiers(stack);
         parent.put((Object)"generic.knockbackResistance", (Object)new AttributeModifier(UUID.fromString("448ef0e9-9b7c-4e56-bf3a-6b52aeabff8d"), "generic.knockbackResistance", 0.25, 0));
         return (Multimap<?, ?>)parent;
     }
@@ -121,27 +121,27 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         return 0;
     }
 
-    public boolean hasColor(final ItemStack stack) {
-        final NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+    public boolean hasColor(ItemStack stack) {
+        NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
         return ModuleManager.tagHasModule(itemTag, "Red Tint") || ModuleManager.tagHasModule(itemTag, "Green Tint") || ModuleManager.tagHasModule(itemTag, "Blue Tint");
     }
 
-    public int getArmorDisplay(final EntityPlayer player, final ItemStack armor, final int slot) {
+    public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
         return (int)this.getArmorDouble(player, armor);
     }
 
-    public double getHeatResistance(final EntityPlayer player, final ItemStack stack) {
+    public double getHeatResistance(EntityPlayer player, ItemStack stack) {
         return MuseHeatUtils.getMaxHeat(stack);
     }
 
     @Override
-    public double getArmorDouble(final EntityPlayer player, final ItemStack stack) {
+    public double getArmorDouble(EntityPlayer player, ItemStack stack) {
         double totalArmor = 0.0;
-        final NBTTagCompound props = MuseItemUtils.getMuseItemTag(stack);
-        final double energy = ElectricItemUtils.getPlayerEnergy(player);
-        final double physArmor = ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_VALUE_PHYSICAL);
-        final double enerArmor = ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_VALUE_ENERGY);
-        final double enerConsum = ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION);
+        NBTTagCompound props = MuseItemUtils.getMuseItemTag(stack);
+        double energy = ElectricItemUtils.getPlayerEnergy(player);
+        double physArmor = ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_VALUE_PHYSICAL);
+        double enerArmor = ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_VALUE_ENERGY);
+        double enerConsum = ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION);
         totalArmor += physArmor;
         if (energy > enerConsum) {
             totalArmor += enerArmor;
@@ -154,10 +154,10 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
      * Inherited from ISpecialArmor, allows us to customize how the armor
      * handles being damaged.
      */
-    public void damageArmor(final EntityLivingBase entity, final ItemStack stack, final DamageSource source, final int damage, final int slot) {
-        final NBTTagCompound itemProperties = MuseItemUtils.getMuseItemTag(stack);
+    public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
+        NBTTagCompound itemProperties = MuseItemUtils.getMuseItemTag(stack);
         if (entity instanceof EntityPlayer) {
-            final DamageSource overheatDamage = MuseHeatUtils.overheatDamage;
+            DamageSource overheatDamage = MuseHeatUtils.overheatDamage;
             if (source == null) {
                 if (overheatDamage == null) {
                     return;
@@ -167,14 +167,14 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
                 return;
             }
             if (source.isFireDamage()) {
-                final EntityPlayer player = (EntityPlayer)entity;
+                EntityPlayer player = (EntityPlayer)entity;
                 if (!source.equals(DamageSource.onFire) || MuseHeatUtils.getPlayerHeat(player) < MuseHeatUtils.getMaxHeat(player)) {
                     MuseHeatUtils.heatPlayer(player, damage);
                 }
             }
             else {
-                final double enerConsum = ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION);
-                final double drain = enerConsum * damage;
+                double enerConsum = ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION);
+                double drain = enerConsum * damage;
                 if (entity instanceof EntityPlayer) {
                     ElectricItemUtils.drainPlayerEnergy((EntityPlayer)entity, drain);
                 }
@@ -186,12 +186,12 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
     }
 
     @Optional.Method(modid = "Forestry")
-    public boolean protectPlayer(final EntityPlayer player, final ItemStack armor, final String cause, final boolean doProtect) {
+    public boolean protectPlayer(EntityPlayer player, ItemStack armor, String cause, boolean doProtect) {
         return ApiaristArmor.getInstance().protectPlayer(player, armor, cause, doProtect);
     }
 
     @Optional.Method(modid = "Forestry")
-    public boolean protectEntity(final EntityLivingBase player, final ItemStack armor, final String cause, final boolean doProtect) {
+    public boolean protectEntity(EntityLivingBase player, ItemStack armor, String cause, boolean doProtect) {
         return ApiaristArmor.getInstance().protectEntity(player, armor, cause, doProtect);
     }
 }

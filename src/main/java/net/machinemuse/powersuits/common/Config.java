@@ -86,6 +86,9 @@ public class Config {
     /**
      * Called in post-init. Extracts recipes if the configuration value is not found.
      */
+    // TODO: a better idea might be to extract all of the recipes and then only read the ones that are valid.
+    // This would save on requests for recipe downloads
+
     public static void extractRecipes() {
         String key = "Auto-extract recipes";
         if (!config.hasKey(Configuration.CATEGORY_GENERAL, key) || config.get(Configuration.CATEGORY_GENERAL, key, false).getBoolean()) {
