@@ -5,6 +5,7 @@ import net.machinemuse.numina.render.MuseIconUtils;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.common.Config;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.IIcon;
 import org.lwjgl.opengl.GL11;
 
@@ -100,7 +101,11 @@ public class GuiIcons {
         }
     }
 
-    public static class GuiIconDrawer implements IIcon {
+    public static class GuiIconDrawer extends TextureAtlasSprite {
+        protected GuiIconDrawer(String spriteName) {
+            super(spriteName);
+        }
+
         @Override
         public int getIconWidth() {
             return 8;

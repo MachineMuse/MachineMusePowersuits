@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.nbt.NBTTagCompound;
 
 /**
@@ -10,12 +11,12 @@ public class ModelPartSpec
     public ModelSpec modelSpec;
     public MorphTarget morph;
     public String partName;
-    public int slot;
+    public EntityEquipmentSlot slot;
     public int defaultcolourindex;
     public boolean defaultglow;
     public String displayName;
 
-    public ModelPartSpec(ModelSpec modelSpec, MorphTarget morph, String partName, int slot, Integer defaultcolourindex, Boolean defaultglow, String displayName) {
+    public ModelPartSpec(ModelSpec modelSpec, MorphTarget morph, String partName, EntityEquipmentSlot slot, Integer defaultcolourindex, Boolean defaultglow, String displayName) {
         this.modelSpec = modelSpec;
         this.morph = morph;
         this.partName = partName;

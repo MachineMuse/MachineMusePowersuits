@@ -13,6 +13,7 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.GuiIcons;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTBase;
@@ -75,7 +76,7 @@ public class ColourPickerFrame implements IGuiFrame {
                 int[] intArray2 = new int[0];
                 renderSpec.setIntArray("colours", intArray2);
             }
-            EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
+            EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
             if (player.worldObj.isRemote) {
                 PacketSender.sendToServer(new MusePacketColourInfo((EntityPlayer)player, this.itemSelector.getSelectedItem().inventorySlot, this.colours()));
             }
@@ -89,7 +90,7 @@ public class ColourPickerFrame implements IGuiFrame {
         }
         NBTTagCompound renderSpec = MuseItemUtils.getMuseRenderTag(this.itemSelector.getSelectedItem().getItem());
         renderSpec.setTag("colours", (NBTBase)new NBTTagIntArray(newarray));
-        EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
+        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
         if (player.worldObj.isRemote) {
             PacketSender.sendToServer(new MusePacketColourInfo((EntityPlayer)player, this.itemSelector.getSelectedItem().inventorySlot, this.colours()));
         }
@@ -121,7 +122,7 @@ public class ColourPickerFrame implements IGuiFrame {
             this.selectedSlider.setValueByX(mousex);
             if (colours().length > selectedColour) {
                 colours()[selectedColour] = Colour.getInt(rslider.value(), gslider.value(), bslider.value(), 1.0);
-                EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
+                EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
                 if (player.worldObj.isRemote)
                     PacketSender.sendToServer(new MusePacketColourInfo(player, itemSelector.getSelectedItem().inventorySlot, colours()));
             }
@@ -204,7 +205,7 @@ public class ColourPickerFrame implements IGuiFrame {
                     selectedColour = selectedColour -1;
                 }
 
-                EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
+                EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
                 if (player.worldObj.isRemote)
                     PacketSender.sendToServer(new MusePacketColourInfo(player, itemSelector.getSelectedItem().inventorySlot, nbtTagIntArray.func_150302_c()));
             }

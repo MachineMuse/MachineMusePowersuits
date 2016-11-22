@@ -3,12 +3,12 @@ package net.machinemuse.api.electricity;
 import appeng.api.config.AccessRestriction;
 import appeng.api.implementations.items.IAEItemPowerStorage;
 import cofh.api.energy.IEnergyContainerItem;
-import cpw.mods.fml.common.Optional;
 import ic2.api.item.IElectricItemManager;
 import ic2.api.item.ISpecialElectricItem;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Optional;
 
 /**
  * Author: MachineMuse (Claire Semple)

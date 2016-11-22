@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
@@ -19,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.List;
 
@@ -97,6 +97,6 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-        event.newSpeed *= ModuleManager.computeModularProperty(event.entityPlayer.getCurrentEquippedItem(), CHISEL_HARVEST_SPEED);
+        event.newSpeed *= ModuleManager.computeModularProperty(event.getEntityPlayer().getCurrentEquippedItem(), CHISEL_HARVEST_SPEED);
     }
 }

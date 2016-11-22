@@ -1,16 +1,16 @@
 package net.machinemuse.powersuits.control;
 
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.InputEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.numina.item.ModeChangingItem;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 
 @SideOnly(Side.CLIENT)
@@ -35,7 +35,7 @@ public class KeybindKeyHandler {
     public void onKeyInput(InputEvent.KeyInputEvent e) {
         int key = Keyboard.getEventKey();
         boolean pressed = Keyboard.getEventKeyState();
-        EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
+        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
 
         // Only activate if there is a player to work with
         if (player == null) {
@@ -56,7 +56,7 @@ public class KeybindKeyHandler {
                 }
             }
             if (key == goDownKey.getKeyCode()) {
-                PlayerInputMap.getInputMapFor(player.getCommandSenderName()).downKey = true;
+                PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName()).downKey = true; // TODO: is this correct?
             }
 
             /* cycleToolBackward/cycleToolForward only seem to be used if actual keys are assinged instead of mousewheel */
@@ -71,7 +71,7 @@ public class KeybindKeyHandler {
             }
         } else {
             if (Minecraft.getMinecraft().thePlayer != null && key == goDownKey.getKeyCode()) {
-                PlayerInputMap.getInputMapFor(Minecraft.getMinecraft().thePlayer.getCommandSenderName()).downKey = false;
+                PlayerInputMap.getInputMapFor(Minecraft.getMinecraft().thePlayer.getCommandSenderEntity().getName()).downKey = false;
             }
         }
     }

@@ -1,12 +1,5 @@
 package net.machinemuse.powersuits.common;
 
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.EntityRegistry;
 import net.machinemuse.powersuits.common.proxy.CommonProxy;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
@@ -17,6 +10,13 @@ import net.machinemuse.powersuits.network.packets.MPSPacketList;
 import net.machinemuse.powersuits.powermodule.tool.TerminalHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 import javax.annotation.Nonnull;
 import java.io.File;

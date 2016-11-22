@@ -7,15 +7,13 @@ import appeng.api.config.SortOrder;
 import appeng.api.config.ViewItems;
 import appeng.api.features.IWirelessTermHandler;
 import appeng.api.util.IConfigManager;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Optional;
-import extracells.api.ECApi;
-import extracells.api.IWirelessFluidTermHandler;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Optional;
 
 import java.util.EnumMap;
 import java.util.Map;
