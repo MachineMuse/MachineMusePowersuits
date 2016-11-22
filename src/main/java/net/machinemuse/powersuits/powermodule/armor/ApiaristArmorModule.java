@@ -1,10 +1,13 @@
 package net.machinemuse.powersuits.powermodule.armor;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.machinemuse.api.electricity.IModularItem;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
 
@@ -19,7 +22,7 @@ public class ApiaristArmorModule extends PowerModuleBase {
 
     public ApiaristArmorModule(List<IModularItem> validItems) {
         super(validItems);
-        ItemStack stack = GameRegistry.findItemStack("Forestry", "craftingMaterial", 6);
+        ItemStack stack = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("Forestry", "craftingMaterial")), 6);
         stack.setItemDamage(3);
         addInstallCost(stack);
         addBaseProperty(APIARIST_ARMOR_ENERGY_CONSUMPTION, 10, "J");
@@ -36,7 +39,8 @@ public class ApiaristArmorModule extends PowerModuleBase {
     }
 
     @Override
-    public String getUnlocalizedName() { return "apiaristArmor";
+    public String getUnlocalizedName() {
+        return "apiaristArmor";
     }
 
     @Override
@@ -47,5 +51,10 @@ public class ApiaristArmorModule extends PowerModuleBase {
     @Override
     public String getTextureFile() {
         return "silkWisp";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.apiaristArmor;
     }
 }

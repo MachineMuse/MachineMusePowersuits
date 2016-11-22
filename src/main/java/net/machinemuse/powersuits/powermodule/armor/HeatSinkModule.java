@@ -1,11 +1,14 @@
 package net.machinemuse.powersuits.powermodule.armor;
 
 import net.machinemuse.api.electricity.IModularItem;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
@@ -42,5 +45,10 @@ public class HeatSinkModule extends PowerModuleBase {
     @Override
     public String getTextureFile() {
         return "heatresistantplating2";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.heatSink;
     }
 }

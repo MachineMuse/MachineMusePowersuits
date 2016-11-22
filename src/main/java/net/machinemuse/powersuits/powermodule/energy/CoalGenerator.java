@@ -4,10 +4,12 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -32,7 +34,7 @@ public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule,
         addBaseProperty(COAL_HEAT_GEN, 2.5);
         addBaseProperty(MuseCommonStrings.WEIGHT, 500);
         addBaseProperty(COAL_ENERGY_GEN, 300);
-        addInstallCost(new ItemStack(Blocks.furnace));
+        addInstallCost(new ItemStack(Blocks.FURNACE));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
     }
 
@@ -43,7 +45,7 @@ public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule,
         if (coalNeeded > 0) {
             for (int i = 0; i < inv.getSizeInventory(); i++) {
                 ItemStack stack = inv.getStackInSlot(i);
-                if (stack != null && stack.getItem() == Items.coal) {
+                if (stack != null && stack.getItem() == Items.COAL) {
                     int loopTimes = coalNeeded < stack.stackSize ? coalNeeded : stack.stackSize;
                     for (int i2 = 0; i2 < loopTimes; i2++) {
                         MuseItemUtils.setCoalLevel(item, MuseItemUtils.getCoalLevel(item) + 1);
@@ -62,7 +64,6 @@ public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule,
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-
     }
 
     @Override
@@ -88,5 +89,10 @@ public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule,
     @Override
     public String getDescription() {
         return "Generate power with solid fuels";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.coalGenerator;
     }
 }

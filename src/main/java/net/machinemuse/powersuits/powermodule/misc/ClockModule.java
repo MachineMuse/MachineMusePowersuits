@@ -20,7 +20,7 @@ import java.util.List;
 public class ClockModule extends PowerModuleBase implements IToggleableModule {
 
     public static final String MODULE_CLOCK = "Clock";
-    public static final ItemStack clock = new ItemStack(Items.clock);
+    public static final ItemStack clock = new ItemStack(Items.CLOCK);
 
     public ClockModule(List<IModularItem> validItems) {
         super(validItems);

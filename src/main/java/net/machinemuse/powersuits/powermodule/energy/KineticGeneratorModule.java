@@ -5,12 +5,14 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -62,7 +64,7 @@ public class KineticGeneratorModule extends PowerModuleBase implements IPlayerTi
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         if (!player.isAirBorne) {
             NBTTagCompound tag = MuseItemUtils.getMuseItemTag(item);
-            boolean isNotWalking = (player.ridingEntity != null) || (player.isInWater());
+            boolean isNotWalking = (player.getRidingEntity() != null) || (player.isInWater());
             if ((!tag.hasKey("x")) || (isNotWalking))
                 tag.setInteger("x", (int) player.posX);
             if ((!tag.hasKey("z")) || (isNotWalking))
@@ -84,5 +86,10 @@ public class KineticGeneratorModule extends PowerModuleBase implements IPlayerTi
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.kineticGenerator;
     }
 }

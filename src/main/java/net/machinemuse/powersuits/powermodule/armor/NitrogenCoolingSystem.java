@@ -4,12 +4,14 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -33,7 +35,6 @@ public class NitrogenCoolingSystem extends PowerModuleBase implements IPlayerTic
         addTradeoffProperty("Power", COOLING_BONUS, 7, "%");
         addTradeoffProperty("Power", ENERGY, 16, "J/t");
     }
-
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
@@ -70,5 +71,10 @@ public class NitrogenCoolingSystem extends PowerModuleBase implements IPlayerTic
     @Override
     public String getDescription() {
         return "Cools down heat-producing modules even faster than the standard cooling system.";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.nitrogenCoolingSystem;
     }
 }
