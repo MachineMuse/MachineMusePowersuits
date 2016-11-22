@@ -59,6 +59,19 @@ public class MuseIcon extends TextureAtlasSprite {
     public static TextureAtlasSprite transparentArmor = new MuseIcon("transparentArmor");
     public static TextureAtlasSprite waterElectrolyzer = new MuseIcon("waterElectrolyzer");
 
+    /* Movement ----------------------------------------------------------------------------------- */
+    public static TextureAtlasSprite blinkDrive = new MuseIcon("blinkDrive");
+    public static TextureAtlasSprite climbAssist = new MuseIcon("climbAssist");
+    public static TextureAtlasSprite flightControl = new MuseIcon("climbAssist");
+    public static TextureAtlasSprite glider = new MuseIcon("glider");
+    public static TextureAtlasSprite jetBoots = new MuseIcon("jetBoots");
+    public static TextureAtlasSprite jetpack = new MuseIcon("jetpack");
+    public static TextureAtlasSprite jumpAssist = new MuseIcon("jumpAssist");
+    public static TextureAtlasSprite parachute = new MuseIcon("parachute");
+    public static TextureAtlasSprite shockAbsorber = new MuseIcon("shockAbsorber");
+    public static TextureAtlasSprite sprintAssist = new MuseIcon("sprintAssist");
+    public static TextureAtlasSprite swimAssist = new MuseIcon("swimAssist");
+
 
 
     public static void registerIcons(TextureStitchEvent.Pre event) {
@@ -104,6 +117,22 @@ public class MuseIcon extends TextureAtlasSprite {
         tint = cosmeticGlow;
         transparentArmor = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/transparentarmor"));
         waterElectrolyzer = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/waterelectrolyzer"));
+
+        /* Movement ----------------------------------------------------------------------------------- */
+        blinkDrive = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/alien"));
+        climbAssist = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/climbassist"));
+        flightControl = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/FlightControlY"));
+        glider = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/glider"));
+        jetBoots = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/jetboots"));
+        jetpack = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/jetpack"));
+        jumpAssist = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/jumpassist"));
+        parachute = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/parachute"));
+        shockAbsorber = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/shockabsorber"));
+        sprintAssist = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/sprintassist"));
+        swimAssist = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/swimboost"));
+
+
+
 
 
     }

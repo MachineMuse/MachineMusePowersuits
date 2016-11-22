@@ -13,11 +13,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 
 import java.lang.reflect.Field;
@@ -26,17 +27,17 @@ import java.util.List;
 public class MusePlayerUtils {
     static final double root2 = Math.sqrt(2);
 
-    public static MovingObjectPosition raytraceEntities(World world, EntityPlayer player, boolean collisionFlag, double reachDistance) {
+    public static RayTraceResult raytraceEntities(World world, EntityPlayer player, boolean collisionFlag, double reachDistance) {
 
-        MovingObjectPosition pickedEntity = null;
-        Vec3 playerPosition = Vec3.createVectorHelper(player.posX, player.posY + player.getEyeHeight(), player.posZ);
-        Vec3 playerLook = player.getLookVec();
+        RayTraceResult pickedEntity = null;
+        Vec3d playerPosition = new Vec3d(player.posX, player.posY + player.getEyeHeight(), player.posZ);
+        Vec3d playerLook = player.getLookVec();
 
-        Vec3 playerViewOffset = Vec3.createVectorHelper(playerPosition.xCoord + playerLook.xCoord * reachDistance, playerPosition.yCoord
+        Vec3d playerViewOffset = new Vec3d(playerPosition.xCoord + playerLook.xCoord * reachDistance, playerPosition.yCoord
                 + playerLook.yCoord * reachDistance, playerPosition.zCoord + playerLook.zCoord * reachDistance);
 
         double playerBorder = 1.1 * reachDistance;
-        AxisAlignedBB boxToScan = player.boundingBox.expand(playerBorder, playerBorder, playerBorder);
+        AxisAlignedBB boxToScan = player.getEntityBoundingBox().expand(playerBorder, playerBorder, playerBorder);
         // AxisAlignedBB boxToScan =
         // player.boundingBox.addCoord(playerLook.xCoord * reachDistance,
         // playerLook.yCoord * reachDistance, playerLook.zCoord
@@ -49,26 +50,26 @@ public class MusePlayerUtils {
             return null;
         }
         for (Entity entityHit : (Iterable<Entity>) entitiesHit) {
-            if (entityHit != null && entityHit.canBeCollidedWith() && entityHit.boundingBox != null) {
+            if (entityHit != null && entityHit.canBeCollidedWith() && entityHit.getEntityBoundingBox() != null) {
                 float border = entityHit.getCollisionBorderSize();
-                AxisAlignedBB aabb = entityHit.boundingBox.expand((double) border, (double) border, (double) border);
-                MovingObjectPosition hitMOP = aabb.calculateIntercept(playerPosition, playerViewOffset);
+                AxisAlignedBB aabb = entityHit.getEntityBoundingBox().expand((double) border, (double) border, (double) border);
+                RayTraceResult raytraceResult = aabb.calculateIntercept(playerPosition, playerViewOffset);
 
-                if (hitMOP != null) {
+                if (raytraceResult != null) {
                     if (aabb.isVecInside(playerPosition)) {
                         if (0.0D < closestEntity || closestEntity == 0.0D) {
-                            pickedEntity = new MovingObjectPosition(entityHit);
+                            pickedEntity = new RayTraceResult(entityHit);
                             if (pickedEntity != null) {
-                                pickedEntity.hitVec = hitMOP.hitVec;
+                                pickedEntity.hitVec = raytraceResult.hitVec;
                                 closestEntity = 0.0D;
                             }
                         }
                     } else {
-                        double distance = playerPosition.distanceTo(hitMOP.hitVec);
+                        double distance = playerPosition.distanceTo(raytraceResult.hitVec);
 
                         if (distance < closestEntity || closestEntity == 0.0D) {
-                            pickedEntity = new MovingObjectPosition(entityHit);
-                            pickedEntity.hitVec = hitMOP.hitVec;
+                            pickedEntity = new RayTraceResult(entityHit);
+                            pickedEntity.hitVec = raytraceResult.hitVec;
                             closestEntity = distance;
                         }
                     }
@@ -78,26 +79,26 @@ public class MusePlayerUtils {
         return pickedEntity;
     }
 
-    public static MovingObjectPosition raytraceBlocks(World world, EntityPlayer player, boolean collisionFlag, double reachDistance) {
-        Vec3 playerPosition = Vec3.createVectorHelper(player.posX, player.posY + player.getEyeHeight(), player.posZ);
-        Vec3 playerLook = player.getLookVec();
+    public static RayTraceResult raytraceBlocks(World world, EntityPlayer player, boolean collisionFlag, double reachDistance) {
+        Vec3d playerPosition = new Vec3d(player.posX, player.posY + player.getEyeHeight(), player.posZ);
+        Vec3d playerLook = player.getLookVec();
 
-        Vec3 playerViewOffset = Vec3.createVectorHelper(playerPosition.xCoord + playerLook.xCoord * reachDistance, playerPosition.yCoord
+        Vec3d playerViewOffset = new Vec3d(playerPosition.xCoord + playerLook.xCoord * reachDistance, playerPosition.yCoord
                 + playerLook.yCoord * reachDistance, playerPosition.zCoord + playerLook.zCoord * reachDistance);
         return world.rayTraceBlocks(playerPosition, playerViewOffset);
     }
 
-    public static MovingObjectPosition doCustomRayTrace(World world, EntityPlayer player, boolean collisionFlag, double reachDistance) {
+    public static RayTraceResult doCustomRayTrace(World world, EntityPlayer player, boolean collisionFlag, double reachDistance) {
         // Somehow this destroys the playerPosition vector -.-
-        MovingObjectPosition pickedBlock = raytraceBlocks(world, player, collisionFlag, reachDistance);
-        MovingObjectPosition pickedEntity = raytraceEntities(world, player, collisionFlag, reachDistance);
+        RayTraceResult pickedBlock = raytraceBlocks(world, player, collisionFlag, reachDistance);
+        RayTraceResult pickedEntity = raytraceEntities(world, player, collisionFlag, reachDistance);
 
         if (pickedBlock == null) {
             return pickedEntity;
         } else if (pickedEntity == null) {
             return pickedBlock;
         } else {
-            Vec3 playerPosition = Vec3.createVectorHelper(player.posX, player.posY + player.getEyeHeight(), player.posZ);
+            Vec3d playerPosition = new Vec3d(player.posX, player.posY + player.getEyeHeight(), player.posZ);
             double dBlock = pickedBlock.hitVec.distanceTo(playerPosition);
             double dEntity = pickedEntity.hitVec.distanceTo(playerPosition);
             if (dEntity < dBlock) {
@@ -134,38 +135,39 @@ public class MusePlayerUtils {
         // collisionFlag, !collisionFlag);
     }
 
-    public static void teleportEntity(EntityPlayer entityPlayer, MovingObjectPosition hitMOP) {
-        if (hitMOP != null && entityPlayer instanceof EntityPlayerMP) {
+    public static void teleportEntity(EntityPlayer entityPlayer, RayTraceResult rayTraceResult) {
+        if (rayTraceResult != null && entityPlayer instanceof EntityPlayerMP) {
             EntityPlayerMP player = (EntityPlayerMP) entityPlayer;
-            if (player.playerNetServerHandler.netManager.isChannelOpen()) {
-                switch (hitMOP.typeOfHit) {
+            if (player.connection.netManager.isChannelOpen()) {
+                switch (rayTraceResult.typeOfHit) {
                     case ENTITY:
-                        player.setPositionAndUpdate(hitMOP.hitVec.xCoord, hitMOP.hitVec.yCoord, hitMOP.hitVec.zCoord);
+                        player.setPositionAndUpdate(rayTraceResult.hitVec.xCoord, rayTraceResult.hitVec.yCoord, rayTraceResult.hitVec.zCoord);
                         break;
                     case BLOCK:
-                        double hitx = hitMOP.hitVec.xCoord;
-                        double hity = hitMOP.hitVec.yCoord;
-                        double hitz = hitMOP.hitVec.zCoord;
-                        switch (hitMOP.sideHit) {
-                            case 0: // Bottom
+                        double hitx = rayTraceResult.hitVec.xCoord;
+                        double hity = rayTraceResult.hitVec.yCoord;
+                        double hitz = rayTraceResult.hitVec.zCoord;
+                        switch (rayTraceResult.sideHit) {
+                            case DOWN: // Bottom
                                 hity -= 2;
                                 break;
-                            case 1: // Top
+                            case UP: // Top
                                 // hity += 1;
                                 break;
-                            case 2: // East
-                                hitz -= 0.5;
-                                break;
-                            case 3: // West
-                                hitz += 0.5;
-                                break;
-                            case 4: // North
+                            case NORTH: // North
                                 hitx -= 0.5;
                                 break;
-                            case 5: // South
+                            case SOUTH: // South
                                 hitx += 0.5;
                                 break;
+                            case WEST: // West
+                                hitz += 0.5;
+                                break;
+                            case EAST: // East
+                                hitz -= 0.5;
+                                break;
                         }
+
                         player.setPositionAndUpdate(hitx, hity, hitz);
                         break;
                     default:
@@ -177,7 +179,7 @@ public class MusePlayerUtils {
     }
 
     public static double thrust(EntityPlayer player, double thrust, boolean flightControl) {
-        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderName());
+        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
         boolean jumpkey = movementInput.jumpKey;
         float forwardkey = movementInput.forwardKey;
         float strafekey = movementInput.strafeKey;
@@ -185,18 +187,20 @@ public class MusePlayerUtils {
         boolean sneakkey = movementInput.sneakKey;
         double thrustUsed = 0;
         if (flightControl) {
-            Vec3 desiredDirection = player.getLookVec().normalize();
+            Vec3d desiredDirection = player.getLookVec().normalize();
             double strafeX = desiredDirection.zCoord;
             double strafeZ = -desiredDirection.xCoord;
             double scaleStrafe = (strafeX * strafeX + strafeZ * strafeZ);
             double flightVerticality = 0;
-            ItemStack helm = player.getCurrentArmor(3);
+            ItemStack helm = player.inventory.armorItemInSlot(3);
             if (helm != null && helm.getItem() instanceof IModularItem) {
                 flightVerticality = ModuleManager.computeModularProperty(helm, FlightControlModule.FLIGHT_VERTICALITY);
             }
-            desiredDirection.xCoord = desiredDirection.xCoord * Math.signum(forwardkey) + strafeX * Math.signum(strafekey);
-            desiredDirection.yCoord = flightVerticality * desiredDirection.yCoord * Math.signum(forwardkey) + (jumpkey ? 1 : 0) - (downkey ? 1 : 0);
-            desiredDirection.zCoord = desiredDirection.zCoord * Math.signum(forwardkey) + strafeZ * Math.signum(strafekey);
+
+            desiredDirection = new Vec3d(
+                    (desiredDirection.xCoord * Math.signum(forwardkey) + strafeX * Math.signum(strafekey)),
+                    (flightVerticality * desiredDirection.yCoord * Math.signum(forwardkey) + (jumpkey ? 1 : 0) - (downkey ? 1 : 0)),
+                    (desiredDirection.zCoord * Math.signum(forwardkey) + strafeZ * Math.signum(strafekey)));
 
             desiredDirection = desiredDirection.normalize();
             // Gave up on this... I suck at math apparently
@@ -269,8 +273,8 @@ public class MusePlayerUtils {
             thrustUsed += thrust;
 
         } else {
-            Vec3 playerHorzFacing = player.getLookVec();
-            playerHorzFacing.yCoord = 0;
+            Vec3d playerHorzFacing = player.getLookVec();
+            playerHorzFacing = new Vec3d(playerHorzFacing.xCoord, 0,  playerHorzFacing.zCoord);
             playerHorzFacing.normalize();
             if (forwardkey == 0) {
                 player.motionY += thrust;
@@ -321,14 +325,14 @@ public class MusePlayerUtils {
         double cool = 0;
         if (player.isInWater()) {
             cool += 0.5;
-        } else if (player.isInsideOfMaterial(Material.lava)) {
+        } else if (player.isInsideOfMaterial(Material.LAVA)) {
             return 0;
         }
-        cool += ((2.0 - getBiome(player).getFloatTemperature((int)player.posX, (int)player.posY, (int)player.posZ))/2); // Algorithm that returns a value from 0.0 -> 1.0. Biome temperature is from 0.0 -> 2.0
+        cool += ((2.0 - getBiome(player).getFloatTemperature(new BlockPos((int)player.posX, (int)player.posY, (int)player.posZ))/2)); // Algorithm that returns a value from 0.0 -> 1.0. Biome temperature is from 0.0 -> 2.0
         if ((int)player.posY > 128) { // If high in the air, increase cooling
             cool += 0.5;
         }
-        if (!player.worldObj.isDaytime() && "Desert".equals(getBiome(player).biomeName)) { // If nighttime and in the desert, increase cooling
+        if (!player.worldObj.isDaytime() && "Desert".equals(getBiome(player).getBiomeName())) { // If nighttime and in the desert, increase cooling
             cool += 0.8;
         }
         if (player.worldObj.isRaining()) {
@@ -337,9 +341,9 @@ public class MusePlayerUtils {
         return cool;
     }
 
-    public static BiomeGenBase getBiome(EntityPlayer player) {
-        Chunk chunk = player.worldObj.getChunkFromBlockCoords((int) player.posX, (int) player.posZ);
-        return chunk.getBiomeGenForWorldCoords((int) player.posX & 15, (int) player.posZ & 15, player.worldObj.getWorldChunkManager());
+    public static Biome getBiome(EntityPlayer player) {
+        Chunk chunk = player.worldObj.getChunkFromBlockCoords(player.getPosition());
+        return chunk.getBiome(new BlockPos((int) player.posX & 15, player.posY, (int) player.posZ & 15), player.worldObj.getBiomeProvider());
     }
 
     public static void setFOVMult(EntityPlayer player, float fovmult) {
@@ -350,7 +354,6 @@ public class MusePlayerUtils {
             MuseLogger.logDebug("illegalAccessException");
         }
     }
-
 
     protected static Field movementfactorfieldinstance;
 

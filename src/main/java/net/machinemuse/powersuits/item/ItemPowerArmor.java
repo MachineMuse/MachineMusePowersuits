@@ -94,7 +94,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         ((IArmorModel)model).setVisibleSection(armorSlot);
         if (itemstack != null) {
             if (entity instanceof EntityPlayer) {
-                ItemStack armorChest = ((EntityPlayer)entity).getCurrentArmor(2);
+                ItemStack armorChest = ((EntityPlayer)entity).inventory.armorItemInSlot(2);
 
                 if (armorChest != null) {
                     if (armorChest.getItem() instanceof ItemPowerArmor)

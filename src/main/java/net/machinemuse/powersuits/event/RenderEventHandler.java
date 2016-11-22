@@ -57,7 +57,7 @@ public class RenderEventHandler {
     }
 
     private boolean playerHasFlightOn(EntityPlayer player) {
-        return ModuleManager.itemHasActiveModule(player.getCurrentArmor(2), JetPackModule.MODULE_JETPACK) || ModuleManager.itemHasActiveModule(player.getCurrentArmor(2), GliderModule.MODULE_GLIDER) || ModuleManager.itemHasActiveModule(player.getCurrentArmor(0), JetBootsModule.MODULE_JETBOOTS) || ModuleManager.itemHasActiveModule(player.getCurrentArmor(3), FlightControlModule.MODULE_FLIGHT_CONTROL);
+        return ModuleManager.itemHasActiveModule(player.inventory.armorItemInSlot(2), JetPackModule.MODULE_JETPACK) || ModuleManager.itemHasActiveModule(player.inventory.armorItemInSlot(2), GliderModule.MODULE_GLIDER) || ModuleManager.itemHasActiveModule(player.inventory.armorItemInSlot(0), JetBootsModule.MODULE_JETBOOTS) || ModuleManager.itemHasActiveModule(player.inventory.armorItemInSlot(3), FlightControlModule.MODULE_FLIGHT_CONTROL);
     }
 
     @SubscribeEvent
@@ -70,7 +70,7 @@ public class RenderEventHandler {
 
     @SubscribeEvent
     public void onFOVUpdate(FOVUpdateEvent e) {
-        ItemStack helmet = e.entity.getCurrentArmor(3);
+        ItemStack helmet = e.entity.inventory.armorItemInSlot(3);
         if (ModuleManager.itemHasActiveModule(helmet, "Binoculars")) {
             e.newfov /= (float)ModuleManager.computeModularProperty(helmet, BinocularsModule.FOV_MULTIPLIER);
         }

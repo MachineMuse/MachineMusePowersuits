@@ -4,15 +4,17 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
 
@@ -50,13 +52,16 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        Vec3 playerHorzFacing = player.getLookVec();
-        playerHorzFacing.yCoord = 0;
+        Vec3d playerHorzFacing = player.getLookVec();
+        playerHorzFacing = new Vec3d(playerHorzFacing.xCoord, 0, playerHorzFacing.zCoord);
         playerHorzFacing.normalize();
-        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderName());
+        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
         boolean sneakkey = movementInput.sneakKey;
         float forwardkey = movementInput.forwardKey;
-        ItemStack torso = player.getCurrentArmor(2);
+        ItemStack torso = player.inventory.armorItemInSlot(2);
+
+
+
         boolean hasParachute = false;
         NuminaPlayerUtils.resetFloatKickTicks(player);
         if (torso != null && torso.getItem() instanceof IModularItem) {
@@ -78,5 +83,10 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.glider;
     }
 }

@@ -80,7 +80,7 @@ public class ClientTickHandler {
             ItemStack tool = player.inventory.getCurrentItem();
 //            if (tool != null && tool.getItem() instanceof ItemPowerFist) {
 //            }
-            ItemStack helmet = player.getCurrentArmor(3);
+            ItemStack helmet = player.inventory.armorItemInSlot(3);
             if (helmet != null && helmet.getItem() instanceof ItemPowerArmorHelmet) {
                 if (ModuleManager.itemHasActiveModule(helmet, AutoFeederModule.MODULE_AUTO_FEEDER)) {
                     modules.add(AutoFeederModule.MODULE_AUTO_FEEDER);
@@ -92,7 +92,7 @@ public class ClientTickHandler {
                     modules.add(CompassModule.MODULE_COMPASS);
                 }
             }
-            ItemStack chest = player.getCurrentArmor(2);
+            ItemStack chest = player.inventory.armorItemInSlot(2);
             if (chest != null && chest.getItem() instanceof ItemPowerArmorChestplate) {
                 if (ModuleManager.itemHasActiveModule(chest, WaterTankModule.MODULE_WATER_TANK)) {
                     modules.add(WaterTankModule.MODULE_WATER_TANK);
@@ -131,7 +131,7 @@ public class ClientTickHandler {
                 ScaledResolution screen = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
                 for (int i = 0; i < modules.size(); i++) {
                     if (Objects.equals(modules.get(i), AutoFeederModule.MODULE_AUTO_FEEDER)) {
-                        int foodLevel = (int) MuseItemUtils.getFoodLevel(player.getCurrentArmor(3));
+                        int foodLevel = (int) MuseItemUtils.getFoodLevel(player.inventory.armorItemInSlot(3));
                         String num = MuseStringUtils.formatNumberShort(foodLevel);
                         if (i == 0) {
                             MuseRenderer.drawString(num, 17, yBaseString);

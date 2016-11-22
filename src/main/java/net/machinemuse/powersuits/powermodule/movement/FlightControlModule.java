@@ -2,10 +2,13 @@ package net.machinemuse.powersuits.powermodule.movement;
 
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
@@ -41,5 +44,10 @@ public class FlightControlModule extends PowerModuleBase implements IToggleableM
     @Override
     public String getDescription() {
         return "An integrated control circuit to help you fly better. Press Z to go down.";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.flightControl;
     }
 }

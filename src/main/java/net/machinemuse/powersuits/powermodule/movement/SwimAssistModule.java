@@ -1,11 +1,10 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.general.sound.SoundDictionary;
 import net.machinemuse.numina.basemod.NuminaConfig;
 import net.machinemuse.numina.sound.Musique;
@@ -16,8 +15,12 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.List;
 
@@ -56,7 +59,7 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         if (player.isInWater() && !(player.isRiding())) {
-            PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderName());
+            PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
             boolean jumpkey = movementInput.jumpKey;
             boolean sneakkey = movementInput.sneakKey;
             float forwardkey = movementInput.forwardKey;
@@ -76,22 +79,22 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
                 double swimEnergyConsumption = ModuleManager.computeModularProperty(item, SWIM_BOOST_ENERGY_CONSUMPTION);
                 if (swimEnergyConsumption < ElectricItemUtils.getPlayerEnergy(player)) {
                     if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
-                        Musique.playerSound(player, SoundDictionary.SOUND_SWIMASSIST, 1.0f, 1.0f, true);
+                        Musique.playerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST, SoundCategory.PLAYERS, 1.0f, 1.0f, true);
                     }
                     MusePlayerUtils.thrust(player, swimAssistRate, true);
                 } else {
                     if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
-                        Musique.stopPlayerSound(player, SoundDictionary.SOUND_SWIMASSIST);
+                        Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST);
                     }
                 }
             } else {
                 if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
-                    Musique.stopPlayerSound(player, SoundDictionary.SOUND_SWIMASSIST);
+                    Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST);
                 }
             }
         } else {
             if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
-                Musique.stopPlayerSound(player, SoundDictionary.SOUND_SWIMASSIST);
+                Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST);
             }
         }
     }
@@ -99,12 +102,17 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
         if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
-            Musique.stopPlayerSound(player, SoundDictionary.SOUND_SWIMASSIST);
+            Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST);
         }
     }
 
     @Override
     public String getTextureFile() {
         return "swimboost";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.swimAssist;
     }
 }

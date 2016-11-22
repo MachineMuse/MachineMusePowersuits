@@ -1,8 +1,5 @@
 package net.machinemuse.powersuits.event;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.sound.SoundDictionary;
 import net.machinemuse.numina.basemod.NuminaConfig;
@@ -13,8 +10,12 @@ import net.machinemuse.powersuits.powermodule.movement.ShockAbsorberModule;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,29 +25,29 @@ public class MovementManager {
 
     public static double getPlayerJumpMultiplier(EntityPlayer player) {
 
-        if (playerJumpMultipliers.containsKey(player.getCommandSenderName())) {
-            return playerJumpMultipliers.get(player.getCommandSenderName());
+        if (playerJumpMultipliers.containsKey(player.getCommandSenderEntity().getName())) {
+            return playerJumpMultipliers.get(player.getCommandSenderEntity().getName());
         } else {
             return 0;
         }
     }
 
     public static void setPlayerJumpTicks(EntityPlayer player, double number) {
-        playerJumpMultipliers.put(player.getCommandSenderName(), number);
+        playerJumpMultipliers.put(player.getCommandSenderEntity().getName(), number);
     }
 
     @SubscribeEvent
     public void handleLivingJumpEvent(LivingJumpEvent event) {
-        if (event.entityLiving instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.entityLiving;
-            ItemStack stack = player.getCurrentArmor(1);
+        if (event.getEntityLiving() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+            ItemStack stack = player.inventory.armorItemInSlot(1);
             if (stack != null && stack.getItem() instanceof ItemPowerArmor
                     && ModuleManager.itemHasActiveModule(stack, JumpAssistModule.MODULE_JUMP_ASSIST)) {
                 double jumpAssist = ModuleManager.computeModularProperty(stack, JumpAssistModule.JUMP_MULTIPLIER) * 2;
                 double drain = ModuleManager.computeModularProperty(stack, JumpAssistModule.JUMP_ENERGY_CONSUMPTION);
                 double avail = ElectricItemUtils.getPlayerEnergy(player);
                 if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
-                    Musique.playerSound(player, SoundDictionary.SOUND_JUMP_ASSIST, (float) (jumpAssist / 8.0), (float)1, false);
+                    Musique.playerSound(player, SoundDictionary.SOUND_EVENT_JUMP_ASSIST, SoundCategory.PLAYERS, (float) (jumpAssist / 8.0), (float) 1, false);
                 }
                 if (drain < avail) {
                     ElectricItemUtils.drainPlayerEnergy(player, drain);
@@ -66,21 +67,21 @@ public class MovementManager {
 
     @SubscribeEvent
     public void handleFallEvent(LivingFallEvent event) {
-        if (event.entityLiving instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.entityLiving;
-            ItemStack boots = player.getCurrentArmor(0);
+        if (event.getEntityLiving() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+            ItemStack boots = player.inventory.armorItemInSlot(0);
             if (boots != null) {
-                if (ModuleManager.itemHasActiveModule(boots, ShockAbsorberModule.MODULE_SHOCK_ABSORBER) && event.distance > 3) {
-                    double distanceAbsorb = event.distance * ModuleManager.computeModularProperty(boots, ShockAbsorberModule.SHOCK_ABSORB_MULTIPLIER);
+                if (ModuleManager.itemHasActiveModule(boots, ShockAbsorberModule.MODULE_SHOCK_ABSORBER) && event.getDistance() > 3) {
+                    double distanceAbsorb = event.getDistance() * ModuleManager.computeModularProperty(boots, ShockAbsorberModule.SHOCK_ABSORB_MULTIPLIER);
                     if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
-                        Musique.playerSound(player, SoundDictionary.SOUND_GUI_INSTALL, (float) (distanceAbsorb), (float)1, false);
+                        Musique.playerSound(player, SoundDictionary.SOUND_EVENT_GUI_INSTALL, SoundCategory.PLAYERS, (float) (distanceAbsorb), (float)1, false);
                     }
 
                     double drain = distanceAbsorb * ModuleManager.computeModularProperty(boots, ShockAbsorberModule.SHOCK_ABSORB_ENERGY_CONSUMPTION);
                     double avail = ElectricItemUtils.getPlayerEnergy(player);
                     if (drain < avail) {
                         ElectricItemUtils.drainPlayerEnergy(player, drain);
-                        event.distance -= distanceAbsorb;
+                        event.setDistance((float) (event.getDistance() - distanceAbsorb));
                     }
                 }
             }
