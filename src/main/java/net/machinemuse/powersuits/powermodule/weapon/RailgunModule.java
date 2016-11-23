@@ -4,14 +4,19 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.*;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -64,13 +69,13 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
     }
 
     public void drawParticleStreamTo(EntityPlayer source, World world, double x, double y, double z) {
-        Vec3 direction = source.getLookVec().normalize();
+        Vec3d direction = source.getLookVec().normalize();
         double scale = 1.0;
         double xoffset = 1.3f;
         double yoffset = -.2;
         double zoffset = 0.3f;
-        Vec3 horzdir = direction.normalize();
-        horzdir.yCoord = 0;
+        Vec3d horzdir = direction.normalize();
+        horzdir = new Vec3d(horzdir.xCoord, 0, horzdir.zCoord);
         horzdir = horzdir.normalize();
         double cx = source.posX + direction.xCoord * xoffset - direction.yCoord * horzdir.xCoord * yoffset - horzdir.zCoord * zoffset;
         double cy = source.posY + source.getEyeHeight() + direction.yCoord * xoffset + (1 - Math.abs(direction.yCoord)) * yoffset;
@@ -81,7 +86,7 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
         double ratio = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
         while (Math.abs(cx - x) > Math.abs(dx / ratio)) {
-            world.spawnParticle("townaura", cx, cy, cz, 0.0D, 0.0D, 0.0D);
+            world.spawnParticle(EnumParticleTypes.TOWN_AURA, cx, cy, cz, 0.0D, 0.0D, 0.0D);
             cx += dx * 0.1 / ratio;
             cy += dy * 0.1 / ratio;
             cz += dz * 0.1 / ratio;
@@ -90,7 +95,6 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
 
     @Override
     public void onRightClick(EntityPlayer player, World world, ItemStack itemStack) {
-
         double range = 64;
         double timer = MuseItemUtils.getDoubleOrZero(itemStack, TIMER);
         double energyConsumption = ModuleManager.computeModularProperty(itemStack, ENERGY);
@@ -98,31 +102,29 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
             ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
             MuseItemUtils.setDoubleOrRemove(itemStack, TIMER, 10);
             MuseHeatUtils.heatPlayer(player, ModuleManager.computeModularProperty(itemStack, HEAT));
-            MovingObjectPosition hitMOP = MusePlayerUtils.doCustomRayTrace(player.worldObj, player, true, range);
-            world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
-
+            RayTraceResult raytraceResult = MusePlayerUtils.doCustomRayTrace(player.worldObj, player, true, range);
+            world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
             double damage = ModuleManager.computeModularProperty(itemStack, IMPULSE) / 100.0;
             double knockback = damage / 20.0;
-            Vec3 lookVec = player.getLookVec();
-            if (hitMOP != null) {
-                switch (hitMOP.typeOfHit) {
+            Vec3d lookVec = player.getLookVec();
+            if (raytraceResult != null) {
+                switch (raytraceResult.typeOfHit) {
                     case ENTITY:
-                        drawParticleStreamTo(player, world, hitMOP.hitVec.xCoord, hitMOP.hitVec.yCoord, hitMOP.hitVec.zCoord);
+                        drawParticleStreamTo(player, world, raytraceResult.hitVec.xCoord, raytraceResult.hitVec.yCoord, raytraceResult.hitVec.zCoord);
                         DamageSource damageSource = DamageSource.causePlayerDamage(player);
-                        if (hitMOP.entityHit.attackEntityFrom(damageSource, (int) damage)) {
-                            hitMOP.entityHit.addVelocity(lookVec.xCoord * knockback, Math.abs(lookVec.yCoord + 0.2f) * knockback, lookVec.zCoord
+                        if (raytraceResult.entityHit.attackEntityFrom(damageSource, (int) damage)) {
+                            raytraceResult.entityHit.addVelocity(lookVec.xCoord * knockback, Math.abs(lookVec.yCoord + 0.2f) * knockback, lookVec.zCoord
                                     * knockback);
                         }
                         break;
                     case BLOCK:
-                        drawParticleStreamTo(player, world, hitMOP.hitVec.xCoord, hitMOP.hitVec.yCoord, hitMOP.hitVec.zCoord);
+                        drawParticleStreamTo(player, world, raytraceResult.hitVec.xCoord, raytraceResult.hitVec.yCoord, raytraceResult.hitVec.zCoord);
                         break;
                     default:
                         break;
                 }
                 player.addVelocity(-lookVec.xCoord * knockback, Math.abs(-lookVec.yCoord + 0.2f) * knockback, -lookVec.zCoord * knockback);
-
-                world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
+                world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
             }
         }
         player.setItemInUse(itemStack, 10);
@@ -155,5 +157,10 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.railgun;
     }
 }

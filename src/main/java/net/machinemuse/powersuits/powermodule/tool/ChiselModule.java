@@ -37,15 +37,12 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
         addTradeoffProperty("Overclock", CHISEL_ENERGY_CONSUMPTION, 950);
         addTradeoffProperty("Overclock", CHISEL_HARVEST_SPEED, 22);
 
-//        try {
-//            ITEM_CHISEL = ChiselGetter1.getChisel();
-//        } catch (NoClassDefFoundError e) {
-            try {
-                ITEM_CHISEL = ChiselGetter2.getChisel();
-            } catch (NoClassDefFoundError f) {
-                MuseLogger.logException("Couldn't get Chisel reference item", f);
-            }
-//        }
+        try {
+            ITEM_CHISEL = ChiselGetter2.getChisel();
+        } catch (NoClassDefFoundError f) {
+            MuseLogger.logException("Couldn't get Chisel reference item", f);
+        }
+
     }
 
     @Override

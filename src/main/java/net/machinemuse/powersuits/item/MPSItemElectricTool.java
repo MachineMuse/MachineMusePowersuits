@@ -21,16 +21,16 @@ import java.util.Set;
  */
 public class MPSItemElectricTool extends ItemTool implements IModularItemBase, IMuseElectricItem {
     public static final Set<Block> blocksEffectiveOn = Sets.newHashSet(new Block[] {
-            Blocks.cobblestone, Blocks.double_stone_slab, Blocks.stone_slab, Blocks.stone, Blocks.sandstone, Blocks.mossy_cobblestone,
-            Blocks.iron_ore, Blocks.iron_block, Blocks.coal_ore, Blocks.gold_block, Blocks.gold_ore, Blocks.diamond_ore,
-            Blocks.diamond_block, Blocks.ice, Blocks.netherrack, Blocks.lapis_ore, Blocks.lapis_block, Blocks.redstone_ore,
-            Blocks.lit_redstone_ore, Blocks.rail, Blocks.detector_rail, Blocks.golden_rail, Blocks.activator_rail});
+            Blocks.COBBLESTONE, Blocks.DOUBLE_STONE_SLAB, Blocks.STONE_SLAB, Blocks.STONE_SLAB2, Blocks.STONE, Blocks.SANDSTONE,
+            Blocks.MOSSY_COBBLESTONE, Blocks.IRON_ORE, Blocks.IRON_BLOCK, Blocks.COAL_ORE, Blocks.GOLD_BLOCK, Blocks.GOLD_ORE,
+            Blocks.DIAMOND_ORE, Blocks.DIAMOND_BLOCK, Blocks.ICE, Blocks.NETHERRACK, Blocks.LAPIS_ORE, Blocks.LAPIS_BLOCK, Blocks.REDSTONE_ORE,
+            Blocks.LIT_REDSTONE_ORE, Blocks.RAIL, Blocks.DETECTOR_RAIL, Blocks.GOLDEN_RAIL, Blocks.ACTIVATOR_RAIL});
 
 
-    protected MPSItemElectricTool(float damageBonus, ToolMaterial material) {
-        super(damageBonus, material, blocksEffectiveOn);
-
-    }
+//    protected MPSItemElectricTool(float damageBonus, ToolMaterial material) {
+//        super(damageBonus, material, blocksEffectiveOn);
+//
+//    }
 
     @Override
     public String getToolTip(ItemStack itemStack) {

@@ -25,6 +25,7 @@ public class KeybindManager {
     protected KeybindManager() {
         keybindings = new HashSet();
     }
+    private static KeyBindingHelper keyBindingHelper = new KeyBindingHelper();
 
     public static KeybindManager getInstance() {
         if (instance == null) {
@@ -39,7 +40,8 @@ public class KeybindManager {
 
     public static KeyBinding addKeybinding(String keybindDescription, int keycode, MusePoint2D position) {
         KeyBinding kb = new KeyBinding(keybindDescription, keycode, KeybindKeyHandler.mps);
-        boolean free = !KeyBinding.hash.containsItem(keycode);
+//        boolean free = !KeyBinding.HASH.containsItem(keycode);
+        boolean free = !keyBindingHelper.keyBindingHasKey(keycode);
         getInstance().keybindings.add(new ClickableKeybinding(kb, position, free, false));
         return kb;
     }
@@ -92,9 +94,9 @@ public class KeybindManager {
                 if (line.contains(":")) {
                     String[] exploded = line.split(":");
                     int id = Integer.parseInt(exploded[0]);
-                    if (!KeyBinding.hash.containsItem(id)) {
+                    if (keyBindingHelper.keyBindingHasKey(id)) {
                         MusePoint2D position = new MusePoint2D(Double.parseDouble(exploded[1]), Double.parseDouble(exploded[2]));
-                        boolean free = !KeyBinding.hash.containsItem(id);
+                        boolean free = !keyBindingHelper.keyBindingHasKey(id);
                         boolean displayOnHUD = false;
                         boolean toggleval = false;
                         if(exploded.length > 3) {

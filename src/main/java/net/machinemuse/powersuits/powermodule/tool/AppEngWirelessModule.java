@@ -1,18 +1,20 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
 import appeng.api.AEApi;
-import com.google.common.base.Optional;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by User: Andrew2448
@@ -71,5 +73,10 @@ public class AppEngWirelessModule extends PowerModuleBase implements IRightClick
 
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.appengWireless;
     }
 }

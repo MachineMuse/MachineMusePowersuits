@@ -4,6 +4,7 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
@@ -11,6 +12,7 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -58,7 +60,7 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityPlayer player) {
-        if (player.isInsideOfMaterial(Material.water) || !player.onGround) {
+        if (player.isInsideOfMaterial(Material.WATER) || !player.onGround) {
             ElectricItemUtils.drainPlayerEnergy(player,
                     ModuleManager.computeModularProperty(stack, AQUA_AFFINITY_ENERGY_CONSUMPTION));
         }
@@ -67,17 +69,22 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-        EntityPlayer player = event.entityPlayer;
+        EntityPlayer player = event.getEntityPlayer();
         ItemStack stack = player.inventory.getCurrentItem();
-        if (event.newSpeed > 1
-                && (player.isInsideOfMaterial(Material.water) || !player.onGround)
+        if (event.getNewSpeed() > 1
+                && (player.isInsideOfMaterial(Material.WATER) || !player.onGround)
                 && ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, AQUA_AFFINITY_ENERGY_CONSUMPTION)) {
-            event.newSpeed *= 5 * ModuleManager.computeModularProperty(stack, UNDERWATER_HARVEST_SPEED);
+            event.setNewSpeed((float) (event.getNewSpeed() * 5 * ModuleManager.computeModularProperty(stack, UNDERWATER_HARVEST_SPEED)));
         }
     }
 
     @Override
     public String getTextureFile() {
         return "aquaaffinity";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.aquaAffinity;
     }
 }

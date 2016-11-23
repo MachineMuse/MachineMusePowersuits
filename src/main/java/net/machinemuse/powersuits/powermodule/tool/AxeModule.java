@@ -4,12 +4,14 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -65,7 +67,7 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
 
     private static boolean istEffectiveHarvestTool(Block block, int metadata)
     {
-        ItemStack emulatedTool = new ItemStack(Items.iron_axe);
+        ItemStack emulatedTool = new ItemStack(Items.IRON_AXE);
 
         if (emulatedTool.getItem().canHarvestBlock(block, emulatedTool))
             return true;
@@ -107,6 +109,11 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-        event.newSpeed *= ModuleManager.computeModularProperty(event.entityPlayer.inventory.getCurrentItem(), AXE_HARVEST_SPEED);
+        event.setNewSpeed((float) (event.getNewSpeed() * ModuleManager.computeModularProperty(event.getEntityPlayer().inventory.getCurrentItem(), AXE_HARVEST_SPEED)));
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.axe;
     }
 }

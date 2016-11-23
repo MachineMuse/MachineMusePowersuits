@@ -72,6 +72,41 @@ public class MuseIcon extends TextureAtlasSprite {
     public static TextureAtlasSprite sprintAssist = new MuseIcon("sprintAssist");
     public static TextureAtlasSprite swimAssist = new MuseIcon("swimAssist");
 
+    /* Tools -------------------------------------------------------------------------------------- */
+    public static TextureAtlasSprite aoePickUpgrade = new MuseIcon("aoePickUpgrade");
+    public static TextureAtlasSprite appengECWirelessFluid = new MuseIcon("appengECWirelessFluid");
+    public static TextureAtlasSprite appengWireless = new MuseIcon("appengWireless");
+    public static TextureAtlasSprite aquaAffinity = new MuseIcon("aquaAffinity");
+    public static TextureAtlasSprite axe = new MuseIcon("axe");
+    public static TextureAtlasSprite chisel = new MuseIcon("chisel");
+    public static TextureAtlasSprite diamondPickUpgrade = new MuseIcon("diamondPickUpgrade");
+    public static TextureAtlasSprite dimRiftGen = new MuseIcon("dimRiftGen");
+    public static TextureAtlasSprite fieldTinkerer = new MuseIcon("fieldTinkerer");
+    // flint and steel using vanilla texture
+    // grafter using external texture
+    // hoe using vanilla texture
+    public static TextureAtlasSprite leafBlower = new MuseIcon("leafBlower");
+    public static TextureAtlasSprite luxCapacitor = new MuseIcon("luxCapacitor");
+    public static TextureAtlasSprite mffsFieldTeleporter = new MuseIcon("mffsFieldTeleporter");
+    public static TextureAtlasSprite ocTerminal = new MuseIcon("ocTerminal");
+    public static TextureAtlasSprite omniProbe = new MuseIcon("omniProbe");
+    public static TextureAtlasSprite omniwrench = new MuseIcon("omniwrench");
+    public static TextureAtlasSprite oreScanner = new MuseIcon("oreScanner");
+    public static TextureAtlasSprite cmPSD = new MuseIcon("cmPSD");
+    public static TextureAtlasSprite pickaxe = new MuseIcon("pickaxe");
+    public static TextureAtlasSprite redstoneLaser = new MuseIcon("redstoneLaser");
+    // scoop using external mod texture
+    // shears using vanilla texture
+    public static TextureAtlasSprite shovel = new MuseIcon("shovel");
+
+
+    /* Weapons ------------------------------------------------------------------------------------ */
+    public static TextureAtlasSprite bladeLauncher = new MuseIcon("spinningblade");
+    public static TextureAtlasSprite lightning = new MuseIcon("lightningSummoner");
+    public static TextureAtlasSprite meleeAssist = new MuseIcon("meleeAssist");
+    public static TextureAtlasSprite plasmaCannon = new MuseIcon("plasmaCannon");
+    public static TextureAtlasSprite railgun = new MuseIcon("railgun");
+    public static TextureAtlasSprite sonicWeapon = new MuseIcon("sonicWeapon");
 
 
     public static void registerIcons(TextureStitchEvent.Pre event) {
@@ -131,8 +166,41 @@ public class MuseIcon extends TextureAtlasSprite {
         sprintAssist = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/sprintassist"));
         swimAssist = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/swimboost"));
 
+        /* Tools -------------------------------------------------------------------------------------- */
+        // FIXME this should be different than diamondPickUpgrade
+        aoePickUpgrade = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/diamondupgrade1"));
+        appengECWirelessFluid = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/ItemWirelessTerminalFluid"));
+        appengWireless = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/ItemWirelessTerminal"));
+        aquaAffinity = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/aquaaffinity"));
+        axe = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/toolaxe"));
+        chisel = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/toolpinch"));
+        diamondPickUpgrade = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/diamondupgrade1"));
+        //dimRiftGen = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/kineticgen"));
+        dimRiftGen = kineticGenerator;
 
+        // FIXME should not be the same as transparent armor module
+//        fieldTinkerer = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/transparentarmor"));
+        fieldTinkerer= transparentArmor;
+        leafBlower = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/leafblower"));
+        luxCapacitor = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/bluelight"));
+        mffsFieldTeleporter = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/fieldteleporter"));
+        ocTerminal = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/ocTerminal"));
+        omniProbe = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/omniprobe"));
+        omniwrench = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/omniwrench"));
+        oreScanner = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/orescanner"));
+        cmPSD = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/psd"));
+        pickaxe = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/toolpick"));
+        redstoneLaser = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/laser"));
+        shovel = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/toolshovel"));
 
+        /* Weapons ------------------------------------------------------------------------------------ */
+        bladeLauncher = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID,"modules/spinningblade"));
+        // FIXME should not be the same as aurameter
+        lightning = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID,"modules/bluestar"));
+        meleeAssist = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID,"modules/toolfist"));
+        plasmaCannon =  event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID,"modules/gravityweapon"));
+        railgun = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID,"modules/electricweapon"));
+        sonicWeapon = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID,"modules/soundweapon"));
 
 
     }

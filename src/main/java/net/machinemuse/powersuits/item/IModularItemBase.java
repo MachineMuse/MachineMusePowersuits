@@ -25,10 +25,8 @@ public interface IModularItemBase extends IModularItem, IMuseElectricItem {
     Colour getColorFromItemStack(final ItemStack stack);
 
     @SideOnly(Side.CLIENT)
-    boolean requiresMultipleRenderPasses();
+    void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> currentTipList, boolean advancedToolTips);
 
-    @SideOnly(Side.CLIENT)
-    void addInformation(final ItemStack stack, final EntityPlayer player, final List<?> currentTipList, final boolean advancedToolTips);
 
     String formatInfo(final String string, final double value);
 

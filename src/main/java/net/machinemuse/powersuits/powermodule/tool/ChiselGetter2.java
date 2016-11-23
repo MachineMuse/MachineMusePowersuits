@@ -7,6 +7,6 @@ import net.minecraft.item.Item;
  */
 public class ChiselGetter2 {
     public static Item getChisel() {
-        return team.chisel.init.ChiselItems.obsidianChisel;
+        return team.chisel.common.init.ChiselItems.obsidianChisel;
     }
 }
