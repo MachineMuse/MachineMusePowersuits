@@ -9,12 +9,12 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -94,40 +94,40 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
     }
 
     @Override
-    public void onRightClick(EntityPlayer player, World world, ItemStack itemStack) {
+    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         double range = 64;
-        double timer = MuseItemUtils.getDoubleOrZero(itemStack, TIMER);
-        double energyConsumption = ModuleManager.computeModularProperty(itemStack, ENERGY);
-        if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption && timer == 0) {
-            ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
-            MuseItemUtils.setDoubleOrRemove(itemStack, TIMER, 10);
-            MuseHeatUtils.heatPlayer(player, ModuleManager.computeModularProperty(itemStack, HEAT));
-            RayTraceResult raytraceResult = MusePlayerUtils.doCustomRayTrace(player.worldObj, player, true, range);
-            world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
-            double damage = ModuleManager.computeModularProperty(itemStack, IMPULSE) / 100.0;
+        double timer = MuseItemUtils.getDoubleOrZero(itemStackIn, TIMER);
+        double energyConsumption = ModuleManager.computeModularProperty(itemStackIn, ENERGY);
+        if (ElectricItemUtils.getPlayerEnergy(playerIn) > energyConsumption && timer == 0) {
+            ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
+            MuseItemUtils.setDoubleOrRemove(itemStackIn, TIMER, 10);
+            MuseHeatUtils.heatPlayer(playerIn, ModuleManager.computeModularProperty(itemStackIn, HEAT));
+            RayTraceResult raytraceResult = MusePlayerUtils.doCustomRayTrace(playerIn.worldObj, playerIn, true, range);
+            worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
+            double damage = ModuleManager.computeModularProperty(itemStackIn, IMPULSE) / 100.0;
             double knockback = damage / 20.0;
-            Vec3d lookVec = player.getLookVec();
+            Vec3d lookVec = playerIn.getLookVec();
             if (raytraceResult != null) {
                 switch (raytraceResult.typeOfHit) {
                     case ENTITY:
-                        drawParticleStreamTo(player, world, raytraceResult.hitVec.xCoord, raytraceResult.hitVec.yCoord, raytraceResult.hitVec.zCoord);
-                        DamageSource damageSource = DamageSource.causePlayerDamage(player);
+                        drawParticleStreamTo(playerIn, worldIn, raytraceResult.hitVec.xCoord, raytraceResult.hitVec.yCoord, raytraceResult.hitVec.zCoord);
+                        DamageSource damageSource = DamageSource.causePlayerDamage(playerIn);
                         if (raytraceResult.entityHit.attackEntityFrom(damageSource, (int) damage)) {
                             raytraceResult.entityHit.addVelocity(lookVec.xCoord * knockback, Math.abs(lookVec.yCoord + 0.2f) * knockback, lookVec.zCoord
                                     * knockback);
                         }
                         break;
                     case BLOCK:
-                        drawParticleStreamTo(player, world, raytraceResult.hitVec.xCoord, raytraceResult.hitVec.yCoord, raytraceResult.hitVec.zCoord);
+                        drawParticleStreamTo(playerIn, worldIn, raytraceResult.hitVec.xCoord, raytraceResult.hitVec.yCoord, raytraceResult.hitVec.zCoord);
                         break;
                     default:
                         break;
                 }
-                player.addVelocity(-lookVec.xCoord * knockback, Math.abs(-lookVec.yCoord + 0.2f) * knockback, -lookVec.zCoord * knockback);
-                world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
+                playerIn.addVelocity(-lookVec.xCoord * knockback, Math.abs(-lookVec.yCoord + 0.2f) * knockback, -lookVec.zCoord * knockback);
+                worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
             }
         }
-        player.setItemInUse(itemStack, 10);
+        playerIn.setItemInUse(itemStackIn, 10);
     }
 
     @Override
@@ -136,17 +136,18 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
     }
 
     @Override
-    public void onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-
+    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        return null;
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-        return false;
+    public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+        return null;
     }
 
     @Override
-    public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
+    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
+
     }
 
     @Override

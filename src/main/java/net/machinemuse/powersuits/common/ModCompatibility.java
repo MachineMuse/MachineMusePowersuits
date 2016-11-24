@@ -1,9 +1,5 @@
 package net.machinemuse.powersuits.common;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.ModAPIManager;
-import cpw.mods.fml.relauncher.Side;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.numina.general.MuseLogger;
@@ -13,6 +9,8 @@ import net.machinemuse.powersuits.powermodule.misc.AirtightSealModule;
 import net.machinemuse.powersuits.powermodule.misc.ThaumGogglesModule;
 import net.machinemuse.powersuits.powermodule.tool.*;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.ModAPIManager;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -157,9 +155,9 @@ public class ModCompatibility {
         if (isAppengLoaded()) {
             ModuleManager.addModule(new AppEngWirelessModule(Collections.singletonList((IModularItem) MPSItems.INSTANCE.powerTool)));
 
-            // Extra Cells 2
-            if (isExtraCellsLoaded())
-                ModuleManager.addModule(new AppEngWirelessFluidModule(Collections.singletonList((IModularItem) MPSItems.INSTANCE.powerTool)));
+//            // Extra Cells 2
+//            if (isExtraCellsLoaded())
+//                ModuleManager.addModule(new AppEngWirelessFluidModule(Collections.singletonList((IModularItem) MPSItems.INSTANCE.powerTool)));
         }
 
         // Multi-Mod Compatible OmniProbe

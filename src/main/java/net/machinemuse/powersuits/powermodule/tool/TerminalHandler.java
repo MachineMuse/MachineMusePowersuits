@@ -26,7 +26,9 @@ import java.util.Set;
         @Optional.Interface(iface = "extracells.api.IWirelessFluidTermHandler", modid = "extracells", striprefs = true),
         @Optional.Interface(iface = "appeng.api.features.IWirelessTermHandler", modid = "appliedenergistics2", striprefs = true)
 })
-public class TerminalHandler implements IWirelessTermHandler, IWirelessFluidTermHandler {
+public class TerminalHandler implements
+        IWirelessTermHandler {
+        //, IWirelessFluidTermHandler {
     @Optional.Method(modid = "appliedenergistics2")
     @Override
     public boolean canHandle(ItemStack is) {
@@ -97,29 +99,29 @@ public class TerminalHandler implements IWirelessTermHandler, IWirelessFluidTerm
         }
     }
 
-    @Optional.Method(modid = "extracells")
-    @Override
-    public boolean isItemNormalWirelessTermToo(ItemStack is) {
-        return true;
-    }
+//    @Optional.Method(modid = "extracells")
+//    @Override
+//    public boolean isItemNormalWirelessTermToo(ItemStack is) {
+//        return true;
+//    }
 
     @Optional.Method(modid = "appliedenergistics2")
     private static void registerAEHandler(TerminalHandler handler){
         AEApi.instance().registries().wireless().registerWirelessHandler(handler);
     }
 
-    @Optional.Method(modid = "extracells")
-    private static void registerECHandler(TerminalHandler handler){
-        ECApi.instance().registerWirelessFluidTermHandler(handler);
-    }
+//    @Optional.Method(modid = "extracells")
+//    private static void registerECHandler(TerminalHandler handler){
+//        ECApi.instance().registerWirelessFluidTermHandler(handler);
+//    }
 
     public static void registerHandler() {
         if (Loader.isModLoaded("appliedenergistics2")) {
             TerminalHandler handler = new TerminalHandler();
             registerAEHandler(handler);
-            if (Loader.isModLoaded("extracells")) {
-                registerECHandler(handler);
-            }
+//            if (Loader.isModLoaded("extracells")) {
+//                registerECHandler(handler);
+//            }
         }
     }
 
@@ -171,7 +173,6 @@ public class TerminalHandler implements IWirelessTermHandler, IWirelessFluidTerm
             if(!enums.containsKey(arg0)) {
                 putSetting(arg0, arg1);
             }
-
         }
 
         @Optional.Method(modid = "appliedenergistics2")

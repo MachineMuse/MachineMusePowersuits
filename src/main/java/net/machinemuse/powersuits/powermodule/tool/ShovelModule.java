@@ -4,17 +4,23 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 import java.util.List;
@@ -27,7 +33,7 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
 
     public ShovelModule(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(new ItemStack(Items.iron_ingot, 3));
+        addInstallCost(new ItemStack(Items.IRON_INGOT, 3));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBaseProperty(SHOVEL_ENERGY_CONSUMPTION, 50, "J");
         addBaseProperty(SHOVEL_HARVEST_SPEED, 8, "x");
@@ -46,12 +52,30 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public String getUnlocalizedName() { return "shovel";
+    public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
+        if (istEffectiveHarvestTool(block, meta)) {
+
+            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
-    public String getDescription() {
-        return "Shovels are good for soft materials like dirt and sand.";
+    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
+        int meta = worldIn.getBlockMetadata(x, y, z);
+        if (canHarvestBlock(stack, block, meta, player)) {
+            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION));
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public void handleBreakSpeed(BreakSpeed event) {
+        event.newSpeed *= ModuleManager.computeModularProperty(event.entityPlayer.inventory.getCurrentItem(), SHOVEL_HARVEST_SPEED);
     }
 
     @Override
@@ -59,9 +83,25 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
         return "toolshovel";
     }
 
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.shovel;
+    }
+
+    @Override
+    public String getUnlocalizedName() {
+        return "shovel";
+    }
+
+        @Override
+    public String getDescription() {
+        return "Shovels are good for soft materials like dirt and sand.";
+    }
+
+    // TODO: move this, axe and pickaxe (+upgraded pickaxe) to single helper
     private boolean istEffectiveHarvestTool(Block block, int metadata)
     {
-        ItemStack emulatedTool = new ItemStack(Items.iron_shovel);
+        ItemStack emulatedTool = new ItemStack(Items.IRON_SHOVEL);
 
         if (emulatedTool.getItem().canHarvestBlock(block, emulatedTool))
             return true;
@@ -74,32 +114,5 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
             }
         }
         return Objects.equals(effectiveTool, "shovel");
-    }
-
-    @Override
-    public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if (istEffectiveHarvestTool(block, meta)) {
-
-            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityPlayer player) {
-        int meta = world.getBlockMetadata(x, y, z);
-        if (canHarvestBlock(stack, block, meta, player)) {
-            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION));
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public void handleBreakSpeed(BreakSpeed event) {
-        event.newSpeed *= ModuleManager.computeModularProperty(event.entityPlayer.inventory.getCurrentItem(), SHOVEL_HARVEST_SPEED);
     }
 }

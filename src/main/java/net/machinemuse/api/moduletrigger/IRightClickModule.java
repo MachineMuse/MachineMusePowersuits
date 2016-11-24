@@ -1,22 +1,25 @@
 package net.machinemuse.api.moduletrigger;
 
 import net.machinemuse.api.IPowerModule;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public interface IRightClickModule extends IPowerModule {
-    void onRightClick(EntityPlayer playerClicking, World world, ItemStack item);
+    ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand);
 
-    void onItemUse(
-            ItemStack itemStack, EntityPlayer player, World world,
-            int x, int y, int z,
-            int side, float hitX, float hitY, float hitZ);
+    EnumActionResult onItemUse(
+            ItemStack stack, EntityPlayer playerIn, World worldIn,
+            BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ);
 
-    boolean onItemUseFirst(
-            ItemStack itemStack, EntityPlayer player, World world,
-            int x, int y, int z,
-            int side, float hitX, float hitY, float hitZ);
+    EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world,
+                                    BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand);
 
-    void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4);
+    void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft);
 }

@@ -1,5 +1,7 @@
 package net.machinemuse.powersuits.entity;
 
+import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.minecraft.block.Block;
@@ -12,20 +14,18 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import static net.minecraft.block.BlockDirectional.FACING;
+
 public class EntityLuxCapacitor extends EntityThrowable {
-    public double red;
-    public double green;
-    public double blue;
+    public Colour color;
 
     public EntityLuxCapacitor(World par1World) {
         super(par1World);
     }
 
-    public EntityLuxCapacitor(World world, EntityLivingBase shootingEntity, double r, double g, double b) {
+    public EntityLuxCapacitor(World world, EntityLivingBase shootingEntity, double red, double green, double blue) {
         this(world, shootingEntity);
-        this.red = r;
-        this.green = g;
-        this.blue = b;
+        this.color = new Colour((float)red, (float)green, (float)blue);
     }
 
     public EntityLuxCapacitor(World par1World, EntityLivingBase shootingEntity) {
@@ -77,77 +77,29 @@ public class EntityLuxCapacitor extends EntityThrowable {
                 if (block == null || block.isAir(worldObj.getBlockState(blockPos), worldObj, blockPos)) {
                     Block blockToStickTo = worldObj.getBlockState(new BlockPos(hitResult.getBlockPos().getX(),
                             hitResult.getBlockPos().getY(), hitResult.getBlockPos().getZ())).getBlock();
-
-
-
-
                     if (blockToStickTo.isNormalCube(worldObj.getBlockState(blockPos), worldObj, blockPos)) {
-                        worldObj.setBlock(x, y, z, MPSItems.INSTANCE.luxCapacitor, 0, 7);
-                        worldObj.setTileEntity(x, y, z, new TileEntityLuxCapacitor(dir, red, green, blue));
+                        worldObj.setBlockState(blockPos, new BlockLuxCapacitor().getDefaultState().withProperty(FACING, dir.getOpposite()));
+                        worldObj.setTileEntity(blockPos, new TileEntityLuxCapacitor(dir, color));
                     } else {
-                        for (EnumFacing d : EnumFacing.values()) {
-                            int xo = x + d.offsetX;
-                            int yo = y + d.offsetY;
-                            int zo = z + d.offsetZ;
-                            blockToStickTo = worldObj.getBlock(xo, yo, zo);
-                            if (blockToStickTo.isNormalCube(worldObj, x, y, z)) {
-                                worldObj.setBlock(x, y, z, MPSItems.INSTANCE.luxCapacitor, 0, 7);
-                                worldObj.setTileEntity(x, y, z, new TileEntityLuxCapacitor(d, red, green, blue));
+                        for (EnumFacing d : EnumFacing.VALUES) {
+                            int xo = x + d.getFrontOffsetX();
+                            int yo = y + d.getFrontOffsetY();
+                            int zo = z + d.getFrontOffsetZ();
+                            BlockPos blockPos2 = new BlockPos(xo, yo, zo);
+                            blockToStickTo = worldObj.getBlockState( new BlockPos(xo, yo, zo)).getBlock();
+                            if (blockToStickTo.isNormalCube(worldObj.getBlockState(blockPos2), worldObj, blockPos)) {
+                                if (blockToStickTo.isNormalCube(worldObj.getBlockState(blockPos), worldObj, blockPos)) {
+                                    worldObj.setBlockState(blockPos, new BlockLuxCapacitor().getDefaultState().withProperty(FACING, d.getOpposite()));
+                                    worldObj.setTileEntity(blockPos, new TileEntityLuxCapacitor(d, color));
+                                    break;
+                                }
                             }
+
                         }
                     }
                 }
-            }
-            this.setDead();
-        }
-    }
-
-
-
-
-
-            if (!this.isDead && hitResult.typeOfHit == hitResult.Type.BLOCK) {
-        EnumFacing dir = hitResult.sideHit.getOpposite();
-
-        BlockPos Block blockToStickTo = worldObj.getBlockState(new BlockPos(hitResult.getBlockPos().getX(), hitResult.getBlockPos().getY(), hitResult.getBlockPos().getZ())).getBlock();  = new BlockPos(x, y, z);
-        if (y > 0) {
-            Block block = worldObj.getBlockState(blockPos).getBlock();
-            if (block == null || block.isAir(worldObj.getBlockState(blockPos), worldObj, blockPos)) {
-                Block blockToStickTo = worldObj.getBlockState(new BlockPos(hitResult.getBlockPos().getX(), hitResult.getBlockPos().getY(), hitResult.getBlockPos().getZ())).getBlock();
-                if (blockToStickTo.isNormalCube(worldObj.getBlockState(blockPos), worldObj, blockPos)) {
-                    createBlockAndTE(blockPos, dir);
-                } else {
-                    for (EnumFacing d : EnumFacing.VALUES) {
-                        int xo = x + d.getFrontOffsetX();
-                        int yo = y + d.getFrontOffsetY();
-                        int zo = z + d.getFrontOffsetZ();
-                        BlockPos blockPos2 = new BlockPos(xo, yo, zo);
-                        blockToStickTo = worldObj.getBlockState( new BlockPos(xo, yo, zo)).getBlock();
-                        if (blockToStickTo.isNormalCube(worldObj.getBlockState(blockPos2), worldObj, blockPos)) {
-                            createBlockAndTE(blockPos, d);
-                            break;
-                        }
-                    }
-                }
+                this.setDead();
             }
         }
-        this.setDead();
     }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

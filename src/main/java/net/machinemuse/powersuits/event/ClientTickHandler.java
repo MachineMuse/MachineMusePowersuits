@@ -1,9 +1,5 @@
 package net.machinemuse.powersuits.event;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.gui.EnergyMeter;
 import net.machinemuse.general.gui.HeatMeter;
@@ -30,6 +26,10 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -58,7 +58,7 @@ public class ClientTickHandler {
         } else {
             EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
             if (player != null && MuseItemUtils.getModularItemsInInventory(player).size() > 0) {
-                PlayerInputMap inputmap = PlayerInputMap.getInputMapFor(player.getCommandSenderName());
+                PlayerInputMap inputmap = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
                 inputmap.forwardKey = Math.signum(player.movementInput.moveForward);
                 inputmap.strafeKey = Math.signum(player.movementInput.moveStrafe);
                 inputmap.jumpKey = player.movementInput.jump;
@@ -104,9 +104,9 @@ public class ClientTickHandler {
     @SideOnly(Side.CLIENT) // MPSA - is this needed or not?
     @SubscribeEvent
     public void onRenderTickEvent(TickEvent.RenderTickEvent event) {
-        ItemStack food = new ItemStack(Items.cooked_beef);
-        ItemStack clock = new ItemStack(Items.clock);
-        ItemStack compass = new ItemStack(Items.compass);
+        ItemStack food = new ItemStack(Items.COOKED_BEEF);
+        ItemStack clock = new ItemStack(Items.CLOCK);
+        ItemStack compass = new ItemStack(Items.COMPASS);
 
         int yOffsetString = 18;
         double yOffsetIcon = 16.0;
@@ -128,7 +128,7 @@ public class ClientTickHandler {
             findInstalledModules(player);
             if (player != null && MuseItemUtils.modularItemsEquipped(player).size() > 0 && Minecraft.getMinecraft().currentScreen == null) {
                 Minecraft mc = Minecraft.getMinecraft();
-                ScaledResolution screen = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+                ScaledResolution screen = new ScaledResolution(mc);
                 for (int i = 0; i < modules.size(); i++) {
                     if (Objects.equals(modules.get(i), AutoFeederModule.MODULE_AUTO_FEEDER)) {
                         int foodLevel = (int) MuseItemUtils.getFoodLevel(player.inventory.armorItemInSlot(3));

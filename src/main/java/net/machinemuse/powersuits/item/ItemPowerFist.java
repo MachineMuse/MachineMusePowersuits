@@ -67,20 +67,21 @@ public class ItemPowerFist extends MPSItemElectricTool
         implements
         IToolGrafter,
         IToolHammer,
-        IMFRHammer,
+//        IMFRHammer,
         IToolCrowbar,
         IAEWrench,
-        IToolWrench,
-        IScrewdriver,
-        mrtjp.projectred.api.IScrewdriver,
-        ITool, IMekWrench,
+//        IToolWrench,
+//        IScrewdriver,
+//        mrtjp.projectred.api.IScrewdriver,
+        ITool,
+        IMekWrench,
         IModularItem,
         IModeChangingItem
 {
     private static ModeChangingItem modeChangingItem;
 
     public ItemPowerFist() {
-        super(0.0f, ToolMaterial.DIAMOND);
+        super(0.0f, 0.0f, ToolMaterial.DIAMOND); // FIXME
         this.setMaxStackSize(1);
         this.setMaxDamage(0);
         this.setCreativeTab(Config.getCreativeTab());
@@ -108,11 +109,11 @@ public class ItemPowerFist extends MPSItemElectricTool
         return 1.0f;
     }
 
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister iconRegister) {
-        String iconpath = MuseIcon.ICON_PREFIX + "handitem";
-        this.itemIcon = iconRegister.registerIcon(iconpath);
-    }
+//    @SideOnly(Side.CLIENT)
+//    public void registerIcons(IIconRegister iconRegister) {
+//        String iconpath = MuseIcon.ICON_PREFIX + "handitem";
+//        this.itemIcon = iconRegister.registerIcon(iconpath);
+//    }
 
     /**
      * Current implementations of this method in child classes do not use the

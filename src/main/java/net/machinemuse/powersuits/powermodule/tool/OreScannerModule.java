@@ -4,6 +4,7 @@ package net.machinemuse.powersuits.powermodule.tool;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -13,10 +14,17 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.TextComponentString;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
@@ -115,14 +123,14 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
                 oreMap.put(Arrays.asList(ores.get(a).get(b), ores.get(a).get(b).getItemDamage()), oreNames[a]);
             }
         }
-        oreMap.put(Arrays.asList(Blocks.coal_ore, 0), "oreCoal");
-        oreMap.put(Arrays.asList(Blocks.iron_ore, 0), "oreIron");
-        oreMap.put(Arrays.asList(Blocks.gold_ore, 0), "oreGold");
-        oreMap.put(Arrays.asList(Blocks.redstone_ore, 0), "oreRedstone");
-        oreMap.put(Arrays.asList(Blocks.diamond_ore, 0), "oreDiamond");
-        oreMap.put(Arrays.asList(Blocks.emerald_ore, 0), "oreEmerald");
-        oreMap.put(Arrays.asList(Blocks.lapis_ore, 0), "oreLapis");
-        oreMap.put(Arrays.asList(Blocks.quartz_ore, 0), "oreNetherQuartz");
+        oreMap.put(Arrays.asList(Blocks.COAL_ORE, 0), "oreCoal");
+        oreMap.put(Arrays.asList(Blocks.IRON_ORE, 0), "oreIron");
+        oreMap.put(Arrays.asList(Blocks.GOLD_ORE, 0), "oreGold");
+        oreMap.put(Arrays.asList(Blocks.REDSTONE_ORE, 0), "oreRedstone");
+        oreMap.put(Arrays.asList(Blocks.DIAMOND_ORE, 0), "oreDiamond");
+        oreMap.put(Arrays.asList(Blocks.EMERALD_ORE, 0), "oreEmerald");
+        oreMap.put(Arrays.asList(Blocks.LAPIS_ORE, 0), "oreLapis");
+        oreMap.put(Arrays.asList(Blocks.QUARTZ_ORE, 0), "oreNetherQuartz");
         valueMap.put("oreCoal", 1);
         valueMap.put("oreIron", 4);
         valueMap.put("oreGold", 6);
@@ -171,20 +179,27 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public void onRightClick(EntityPlayer playerClicking, World world, ItemStack item) {
+    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+        return null;
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-        searchForValuables(itemStack, player, world, x, y, z, side);
+    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        return null;
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-        return false;
+    public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+        return null;
     }
 
     @Override
-    public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
+    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
+
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.oreScanner;
     }
 }

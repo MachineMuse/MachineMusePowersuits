@@ -1,9 +1,9 @@
 package net.machinemuse.api;
 
-import cpw.mods.fml.common.Optional;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Optional;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -19,13 +19,6 @@ public class ApiaristArmor implements IApiaristArmor {
         if (INSTANCE == null)
             INSTANCE = new ApiaristArmor();
         return INSTANCE;
-    }
-
-
-    @Optional.Method(modid = "Forestry")
-    @Override
-    public boolean protectPlayer(EntityPlayer player, ItemStack armor, String cause, boolean doProtect) {
-        return false;
     }
 
     @Optional.Method(modid = "Forestry")

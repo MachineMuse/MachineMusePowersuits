@@ -11,13 +11,13 @@ public class TileEntityLuxCapacitor extends MuseTileEntity {
     public EnumFacing side;
 
     public TileEntityLuxCapacitor() {
-        side = EnumFacing.DOWN;
+        side = EnumFacing.UP;
         this.colour = new Colour(0F, 0.2F, 0.9F);
     }
 
-    public TileEntityLuxCapacitor(EnumFacing side, double red, double green, double blue) {
+    public TileEntityLuxCapacitor(EnumFacing side, Colour colour) {
         this.side = side;
-        this.colour = new Colour((float)red, (float)green, (float)blue);
+        this.colour = colour;
     }
 
     @Override
@@ -42,5 +42,9 @@ public class TileEntityLuxCapacitor extends MuseTileEntity {
         } else {
             MuseLogger.logDebug("No NBT found! D:");
         }
+    }
+
+    public void setFacing(EnumFacing side) {
+        this.side = side;
     }
 }

@@ -27,10 +27,9 @@ public class MPSItemElectricTool extends ItemTool implements IModularItemBase, I
             Blocks.LIT_REDSTONE_ORE, Blocks.RAIL, Blocks.DETECTOR_RAIL, Blocks.GOLDEN_RAIL, Blocks.ACTIVATOR_RAIL});
 
 
-//    protected MPSItemElectricTool(float damageBonus, ToolMaterial material) {
-//        super(damageBonus, material, blocksEffectiveOn);
-//
-//    }
+    protected MPSItemElectricTool(float attackDamageIn, float attackSpeedIn, ToolMaterial material) {
+        super(attackDamageIn, attackSpeedIn, material, blocksEffectiveOn);
+    }
 
     @Override
     public String getToolTip(ItemStack itemStack) {
@@ -176,6 +175,12 @@ public class MPSItemElectricTool extends ItemTool implements IModularItemBase, I
     }
 
     /* IModularItemBase ------------------------------------------------------------------------------ */
+
+    @Override // TODO: get rid of this as the whole system around this has changed.
+    public int getColorFromItemStack(ItemStack stack, int p1) {
+        return 0;
+    }
+
     @Override
     public Colour getGlowFromItemStack(ItemStack stack) {
         return ModularItemBase.getInstance().getGlowFromItemStack(stack);

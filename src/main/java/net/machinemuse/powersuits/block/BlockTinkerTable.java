@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.block;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModularPowersuits;

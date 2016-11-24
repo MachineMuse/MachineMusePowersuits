@@ -4,14 +4,21 @@ package net.machinemuse.powersuits.powermodule.tool;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.*;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -34,11 +41,6 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
     }
 
     @Override
-    public String getTextureFile() {
-        return "kineticgen";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_TOOL;
     }
@@ -49,24 +51,14 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
     }
 
     @Override
-    public String getUnlocalizedName() {
-        return "dimRiftGen";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Generate a tear in the space-time continuum that will teleport the player to its relative coordinates in the nether or overworld.";
-    }
-
-    @Override
-    public void onRightClick(EntityPlayer playerClicking, World world, ItemStack item) {
-        if ((playerClicking.ridingEntity == null) && (playerClicking.riddenByEntity == null) && ((playerClicking instanceof EntityPlayerMP))) {
-            EntityPlayerMP thePlayer = (EntityPlayerMP) playerClicking;
+    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+        if ((playerIn.ridingEntity == null) && (playerIn.riddenByEntity == null) && ((playerIn instanceof EntityPlayerMP))) {
+            EntityPlayerMP thePlayer = (EntityPlayerMP) playerIn;
             if (thePlayer.dimension != -1) {
                 thePlayer.setLocationAndAngles(0.5D, thePlayer.posY, 0.5D, thePlayer.rotationYaw, thePlayer.rotationPitch);
                 thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, -1, new MPSTeleporter(thePlayer.mcServer.worldServerForDimension(-1)));
-                ElectricItemUtils.drainPlayerEnergy(thePlayer, ModuleManager.computeModularProperty(item, DIMENSIONAL_RIFT_ENERGY_GENERATION));
-                MuseHeatUtils.heatPlayer(thePlayer, ModuleManager.computeModularProperty(item, DIMENSIONAL_RIFT_HEAT_GENERATION));
+                ElectricItemUtils.drainPlayerEnergy(thePlayer, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_ENERGY_GENERATION));
+                MuseHeatUtils.heatPlayer(thePlayer, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_HEAT_GENERATION));
             } else if (thePlayer.dimension == -1 || thePlayer.dimension == 1)
                 thePlayer.setLocationAndAngles(0.5D, thePlayer.posY, 0.5D, thePlayer.rotationYaw, thePlayer.rotationPitch);
             thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, 0, new MPSTeleporter(thePlayer.mcServer.worldServerForDimension(0)));
@@ -82,21 +74,42 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
                 }
                 (thePlayer).setPositionAndUpdate(coords.posX + 0.5D, yPos, coords.posZ + 0.5D);
             }
-            ElectricItemUtils.drainPlayerEnergy(thePlayer, ModuleManager.computeModularProperty(item, DIMENSIONAL_RIFT_ENERGY_GENERATION));
-            MuseHeatUtils.heatPlayer(thePlayer, ModuleManager.computeModularProperty(item, DIMENSIONAL_RIFT_HEAT_GENERATION));
+            ElectricItemUtils.drainPlayerEnergy(thePlayer, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_ENERGY_GENERATION));
+            MuseHeatUtils.heatPlayer(thePlayer, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_HEAT_GENERATION));
         }
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        return null;
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-        return false;
+    public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+        return null;
     }
 
     @Override
-    public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
+    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
+    }
+
+    @Override
+    public String getTextureFile() {
+        return "kineticgen";
+    }
+
+    @Override
+    public String getUnlocalizedName() {
+        return "dimRiftGen";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Generate a tear in the space-time continuum that will teleport the player to its relative coordinates in the nether or overworld.";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.dimRiftGen;
     }
 }

@@ -4,15 +4,20 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
@@ -24,7 +29,7 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
     public DiamondPickUpgradeModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
-        addInstallCost(new ItemStack(Items.diamond, 3));
+        addInstallCost(new ItemStack(Items.DIAMOND, 3));
     }
 
     @Override
@@ -53,7 +58,7 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
 
     @Override
     public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if (!Items.iron_pickaxe.canHarvestBlock(block, stack)) {
+        if (!Items.IRON_PICKAXE.canHarvestBlock(block, stack)) {
             if (Items.diamond_pickaxe.canHarvestBlock(block, stack)) {
                 if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, PickaxeModule.PICKAXE_ENERGY_CONSUMPTION)) {
                     return true;
@@ -64,7 +69,7 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityPlayer player) {
+    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
         int meta = world.getBlockMetadata(x,y,z);
         if (canHarvestBlock(stack, block, meta, player) && !PickaxeModule.harvestCheck(stack, block, meta, player)) {
             ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, PickaxeModule.PICKAXE_ENERGY_CONSUMPTION));
@@ -77,5 +82,10 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
     public void handleBreakSpeed(BreakSpeed event) {
         event.newSpeed = (float) ModuleManager.computeModularProperty(event.entityPlayer.inventory.getCurrentItem(),
                 PickaxeModule.PICKAXE_HARVEST_SPEED);
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.diamondPickUpgrade;
     }
 }
