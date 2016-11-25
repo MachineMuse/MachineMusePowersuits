@@ -49,10 +49,9 @@ public class ItemInfoFrame extends ScrollableFrame {
             for (String infostring : info) {
                 String[] str = infostring.split("\t");
                 MuseRenderer.drawStringsJustified(Arrays.asList(str),
-                        border.left()
-                                + xoffset, border.right() - xoffset,
-                        border.top() + yoffset
-                                + i * 10);
+                        border.left() + xoffset,
+                        border.right() - xoffset,
+                        border.top() + yoffset + i * 10);
 
                 i++;
             }

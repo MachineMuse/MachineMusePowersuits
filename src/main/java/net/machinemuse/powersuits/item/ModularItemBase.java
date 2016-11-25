@@ -80,8 +80,8 @@ public class ModularItemBase extends Item implements IModularItemBase {
     }
 
 
-
     /* IModularItem ------------------------------------------------------------------------------- */
+    @SideOnly(Side.CLIENT)
     @Override
     public List<String> getLongInfo(EntityPlayer player, ItemStack stack) {
         List<String> info = new ArrayList<>();

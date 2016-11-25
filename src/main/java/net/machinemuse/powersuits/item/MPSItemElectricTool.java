@@ -2,6 +2,8 @@ package net.machinemuse.powersuits.item;
 
 import appeng.api.config.AccessRestriction;
 import com.google.common.collect.Sets;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.api.electricity.IMuseElectricItem;
 import net.machinemuse.api.electricity.MuseElectricItem;
 import net.machinemuse.numina.geometry.Colour;
@@ -60,6 +62,12 @@ public class MPSItemElectricTool extends ItemTool implements IModularItemBase, I
     @Override
     public double giveEnergyTo(ItemStack stack, double provided) {
         return MuseElectricItem.getInstance().giveEnergyTo(stack, provided);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
+        ModularItemBase.getInstance().addInformation(stack, player, currentTipList, advancedToolTips);
     }
 
     /* Industrialcraft 2 -------------------------------------------------------------------------- */

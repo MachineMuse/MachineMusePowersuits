@@ -2,6 +2,7 @@ package net.machinemuse.api.moduletrigger;
 
 import net.machinemuse.api.IPowerModule;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;

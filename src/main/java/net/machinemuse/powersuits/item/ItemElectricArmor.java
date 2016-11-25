@@ -21,8 +21,6 @@ public abstract class ItemElectricArmor extends ItemArmor implements IModularIte
 {
     public ItemElectricArmor(final ItemArmor.ArmorMaterial material, final int index1, final int index2) {
         super(material, index1, index2);
-//        MuseElectricItem$class.$init$(this);
-//        ModularItemBase$class.$init$(this);
     }
 
     @Override
@@ -48,17 +46,18 @@ public abstract class ItemElectricArmor extends ItemArmor implements IModularIte
         return ModularItemBase.getInstance().requiresMultipleRenderPasses();
     }
 
-//    @SideOnly(Side.CLIENT)
-//    public void addInformation(final ItemStack stack, final EntityPlayer player, final List<?> currentTipList, final boolean advancedToolTips) {
-//        ModularItemBase$class.addInformation(this, stack, player, currentTipList, advancedToolTips);
-//    }
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
+        ModularItemBase.getInstance().addInformation(stack, player, currentTipList, advancedToolTips);
+    }
 
     public String formatInfo(final String string, final double value) {
         return ModularItemBase.getInstance().formatInfo(string, value);
     }
 
     public List<String> getLongInfo(final EntityPlayer player, final ItemStack stack) {
-        return (List<String>) ModularItemBase.getInstance().getLongInfo(player, stack);
+        return ModularItemBase.getInstance().getLongInfo(player, stack);
     }
 
     public double getArmorDouble(final EntityPlayer player, final ItemStack stack) {
