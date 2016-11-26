@@ -19,9 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemComponent extends Item {
-    public static int assignedItemID;
-
-    public static List<TextureAtlasSprite> icons;
     public static List<String> iconNames;
     public static List<String> names;
     public static List<String> descriptions;
@@ -56,10 +53,10 @@ public class ItemComponent extends Item {
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setCreativeTab(Config.getCreativeTab());
-        icons = new ArrayList<>();
-        iconNames = new ArrayList<>();
-        names = new ArrayList<>();
-        descriptions = new ArrayList<>();
+        this.iconNames = new ArrayList<>();
+        this.names = new ArrayList<>();
+        this.descriptions = new ArrayList<>();
+        this.populate();
     }
 
     public ItemStack addComponent(String oredictName, String description, String iconName) {
@@ -73,20 +70,10 @@ public class ItemComponent extends Item {
         return stack;
     }
 
-    public ItemStack addComponent(int id, String oredictName, String description, String iconName) {
-        names.add(oredictName);
-        iconNames.add(iconName);
-        descriptions.add(description);
-        ItemStack stack = new ItemStack(this, 1, names.size() - 1);
-        //oredict compares itemIDs and damage values only
-        OreDictionary.registerOre(oredictName, stack);
-        return stack;
-    }
-
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
         if (Config.doAdditionalInfo()) {
-            String message = I18n.format("tooltip.componentTooltip");
+            String message =  I18n.format("tooltip.componentTooltip");
             message = MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic);
             currentTipList.add(message);
             int damage = stack.getItemDamage();
@@ -109,6 +96,7 @@ public class ItemComponent extends Item {
         lvcapacitor = addComponent("componentLVCapacitor", "A simple capacitor can store and discharge small amounts of energy rapidly.", "lvcapacitor");
         mvcapacitor = addComponent("componentMVCapacitor", "A more advanced capacitor which can store more energy at higher voltages.", "mvcapacitor");
         hvcapacitor = addComponent("componentHVCapacitor", "A synthetic crystal device which can store and release massive amounts of energy.", "hvcapacitor");
+        evcapacitor = addComponent("componentEVCapacitor", "The most advanced energy storage device ever created. Now 15% less likely to randomly explode!", "evcapacitor");
         parachute = addComponent("componentParachute", "A simple reusable parachute which can be deployed and recovered in midair.", "parachuteitem");
         basicPlating = addComponent("componentPlatingBasic", "Some carefully-arranged metal armor plates.", "basicplating1");
         advancedPlating = addComponent("componentPlatingAdvanced", "Some carefully-arranged armor plates of a rare and stronger material", "advancedplating1");
@@ -123,27 +111,6 @@ public class ItemComponent extends Item {
         computerChip = addComponent("componentComputerChip", "An upgraded control circuit that contains a CPU which is capable of more advanced calculations.", "computerchip");
         rubberHose = addComponent("componentRubberHose", "A heavily insulated rubber hose capable of withstanding extreme heat or cold", "rubberhose");
         liquidNitrogen = addComponent("componentLiquidNitrogen", "A bucket of Liquid Nitrogen", "liquidnitrogen");
-    }
-
-    /**
-     * Gets an icon index based on an item's damage value
-     */
-    @Override
-    public IIcon getIconFromDamage(int index) {
-        return icons.get(index);
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister iconRegister) {
-        icons.clear();
-        for (String iconName : iconNames) {
-            icons.add(iconRegister.registerIcon(MuseIcon.ICON_PREFIX + iconName));
-        }
-
-        for (IPowerModule module : ModuleManager.getAllModules()) {
-            module.registerIcon(iconRegister);
-        }
     }
 
     @Override

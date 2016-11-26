@@ -1,9 +1,7 @@
 package net.machinemuse.powersuits.item;
 
 import appeng.api.implementations.items.IAEWrench;
-import buildcraft.api.tools.IToolWrench;
 import cofh.api.item.IToolHammer;
-import com.bluepowermod.api.misc.IScrewdriver;
 import crazypants.enderio.api.tool.ITool;
 import forestry.api.arboriculture.IToolGrafter;
 import mekanism.api.IMekWrench;
@@ -24,7 +22,8 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityMinecart;
@@ -32,12 +31,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
+import net.minecraft.util.*;
 
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
-import powercrystals.minefactoryreloaded.api.IMFRHammer;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -55,8 +54,6 @@ import java.util.List;
 @Optional.InterfaceList({
         @Optional.Interface(iface = "mekanism.api.IMekWrench", modid = "Mekanism", striprefs = true),
         @Optional.Interface(iface = "crazypants.enderio.api.tool.ITool", modid = "EnderIO", striprefs = true),
-        @Optional.Interface(iface = "mrtjp.projectred.api.IScrewdriver", modid = "ProjRed|Core", striprefs = true),
-        @Optional.Interface(iface = "com.bluepowermod.api.misc.IScrewdriver", modid = "bluepower", striprefs = true),
         @Optional.Interface(iface = "forestry.api.arboriculture.IToolGrafter", modid = "Forestry", striprefs = true),
         @Optional.Interface(iface = "mods.railcraft.api.core.items.IToolCrowbar", modid = "Railcraft", striprefs = true),
         @Optional.Interface(iface = "powercrystals.minefactoryreloaded.api.IMFRHammer", modid = "MineFactoryReloaded", striprefs = true),
@@ -67,17 +64,13 @@ public class ItemPowerFist extends MPSItemElectricTool
         implements
         IToolGrafter,
         IToolHammer,
-//        IMFRHammer,
         IToolCrowbar,
         IAEWrench,
 //        IToolWrench,
-//        IScrewdriver,
-//        mrtjp.projectred.api.IScrewdriver,
         ITool,
         IMekWrench,
         IModularItem,
-        IModeChangingItem
-{
+        IModeChangingItem {
     private static ModeChangingItem modeChangingItem;
 
     public ItemPowerFist() {
@@ -98,14 +91,14 @@ public class ItemPowerFist extends MPSItemElectricTool
      * Returns the strength of the stack against a given block. 1.0F base,
      * (Quality+1)*2 if correct blocktype, 1.5F if sword
      */
-    public float getStrVsBlock( ItemStack stack,  Block block) {
+    public float getStrVsBlock(ItemStack stack, Block block) {
         return this.getStrVsBlock(stack, block, 0);
     }
 
     /**
      * FORGE: Overridden to allow custom tool effectiveness
      */
-    public float getStrVsBlock(ItemStack stack,  Block block, int meta) {
+    public float getStrVsBlock(ItemStack stack, Block block, int meta) {
         return 1.0f;
     }
 
@@ -126,14 +119,14 @@ public class ItemPowerFist extends MPSItemElectricTool
             entityBeingHit.rotationYaw %= 360.0f;
         }
         if (entityDoingHitting instanceof EntityPlayer && ModuleManager.itemHasActiveModule(stack, MeleeAssistModule.MODULE_MELEE_ASSIST)) {
-            EntityPlayer player = (EntityPlayer)entityDoingHitting;
+            EntityPlayer player = (EntityPlayer) entityDoingHitting;
             double drain = ModuleManager.computeModularProperty(stack, MeleeAssistModule.PUNCH_ENERGY);
             if (ElectricItemUtils.getPlayerEnergy(player) > drain) {
                 ElectricItemUtils.drainPlayerEnergy(player, drain);
                 double damage = ModuleManager.computeModularProperty(stack, MeleeAssistModule.PUNCH_DAMAGE);
                 double knockback = ModuleManager.computeModularProperty(stack, MeleeAssistModule.PUNCH_KNOCKBACK);
                 DamageSource damageSource = DamageSource.causePlayerDamage(player);
-                if (entityBeingHit.attackEntityFrom(damageSource, (float)(int)damage)) {
+                if (entityBeingHit.attackEntityFrom(damageSource, (float) (int) damage)) {
                     Vec3d lookVec = player.getLookVec();
                     entityBeingHit.addVelocity(lookVec.xCoord * knockback, Math.abs(lookVec.yCoord + 0.2f) * knockback, lookVec.zCoord * knockback);
                 }
@@ -142,17 +135,19 @@ public class ItemPowerFist extends MPSItemElectricTool
         return true;
     }
 
+
+
     /**
      * Called when a block is destroyed using this tool.
      * <p/>
      * Returns: Whether to increment player use stats with this item
      */
     @Override
-    public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityLivingBase entity) {
-        if (entity instanceof EntityPlayer) {
+    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
+        if (entityLiving instanceof EntityPlayer) {
             for (IBlockBreakingModule module : ModuleManager.getBlockBreakingModules()) {
                 if (ModuleManager.itemHasActiveModule(stack, module.getDataName())) {
-                    if (module.onBlockDestroyed(stack, world, block, x, y, z, (EntityPlayer) entity)) {
+                    if (module.onBlockDestroyed(stack, worldIn, state, pos, (EntityPlayer) entityLiving)) {
                         return true;
                     }
                 }
@@ -172,13 +167,13 @@ public class ItemPowerFist extends MPSItemElectricTool
      * @return the damage
      */
     public float getDamageVsEntity(Entity par1Entity, ItemStack itemStack) {
-        return (float)ModuleManager.computeModularProperty(itemStack, MeleeAssistModule.PUNCH_DAMAGE);
+        return (float) ModuleManager.computeModularProperty(itemStack, MeleeAssistModule.PUNCH_DAMAGE);
     }
 
-    @SideOnly(Side.CLIENT)
-    public boolean isFull3D() {
-        return true;
-    }
+//    @SideOnly(Side.CLIENT)
+//    public boolean isFull3D() {
+//        return true;
+//    }
 
     /**
      * Return the enchantability factor of the item. In this case, 0. Might add
@@ -216,21 +211,13 @@ public class ItemPowerFist extends MPSItemElectricTool
      * Called when the right click button is pressed
      */
     @Override
-    public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
+    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         // Only one right click module should be active at a time.
-        IPowerModule iPowerModulemodule = ModuleManager.getModule(getActiveMode(itemStack));
+        IPowerModule iPowerModulemodule = ModuleManager.getModule(getActiveMode(itemStackIn));
         if (iPowerModulemodule instanceof IRightClickModule) {
-            ((IRightClickModule) iPowerModulemodule).onRightClick(player, world, itemStack);
+            return ((IRightClickModule) iPowerModulemodule).onItemRightClick(itemStackIn, worldIn, playerIn, hand);
         }
-
-/* Trying to simplify with new code above */
-//        for (IRightClickModule module : ModuleManager.getRightClickModules()) {
-//            if (module.isValidForItem(itemStack) && ModuleManager.itemHasActiveModule(itemStack, module.getDataName())) {
-//                module.onRightClick(player, world, itemStack);
-//                return itemStack;
-//            }
-//        }
-        return itemStack;
+        return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
 
     /**
@@ -246,11 +233,11 @@ public class ItemPowerFist extends MPSItemElectricTool
      * Called when the right click button is released
      */
     @Override
-    public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
+    public void onPlayerStoppedUsing(ItemStack itemStack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
         String mode = this.getActiveMode(itemStack);
         IPowerModule module = ModuleManager.getModule(mode);
         if (module != null)
-            ((IRightClickModule)module).onPlayerStoppedUsing(itemStack, world, player, par4);
+            ((IRightClickModule)module).onPlayerStoppedUsing(itemStack, worldIn, entityLiving, timeLeft);
     }
 
     public boolean shouldPassSneakingClickToBlock(World world, int x, int y, int z) {
@@ -258,25 +245,27 @@ public class ItemPowerFist extends MPSItemElectricTool
     }
 
     @Override
-    public boolean onItemUseFirst( ItemStack itemStack,  EntityPlayer player,  World world,  int x,  int y,  int z,  int side,  float hitX,  float hitY,  float hitZ) {
+    public EnumActionResult onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         String mode = this.getActiveMode(itemStack);
         IPowerModule module = ModuleManager.getModule(mode);
-        return module instanceof IRightClickModule && ((IRightClickModule)module).onItemUseFirst(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+        if (module instanceof IRightClickModule)
+            return ((IRightClickModule)module).onItemUseFirst(itemStack, player, world, pos, side, hitX, hitY, hitZ, hand);
+        return EnumActionResult.PASS;
     }
 
     @Override
-    public boolean onItemUse( ItemStack itemStack,  EntityPlayer player,  World world,  int x,  int y,  int z,  int side,  float hitX,  float hitY,  float hitZ) {
+    public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         String mode = this.getActiveMode(itemStack);
         IPowerModule module2;
         IPowerModule module = module2 = ModuleManager.getModule(mode);
         if (module2 instanceof IRightClickModule) {
-            ((IRightClickModule)module2).onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+            return ((IRightClickModule)module2).onItemUse(itemStack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
         }
-        return false;
+        return EnumActionResult.PASS;
     }
 
     @Optional.Method(modid = "Forestry")
-    public float getSaplingModifier(ItemStack stack, World world, EntityPlayer player, int x, int y, int z) {
+    public float getSaplingModifier(ItemStack stack, World world, EntityPlayer player, BlockPos pos) {
         if (ModuleManager.itemHasActiveModule(stack, GrafterModule.MODULE_GRAFTER)) {
             ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, GrafterModule.GRAFTER_ENERGY_CONSUMPTION));
             MuseHeatUtils.heatPlayer(player, ModuleManager.computeModularProperty(stack, GrafterModule.GRAFTER_HEAT_GENERATION));
@@ -284,6 +273,24 @@ public class ItemPowerFist extends MPSItemElectricTool
         }
         return 0.0f;
     }
+
+
+    // TODO: rewrite based on whatever information is needed.
+
+    /*
+        public float getStrVsBlock(ItemStack stack, IBlockState state)
+    {
+        for (String type : getToolClasses(stack))
+        {
+            if (state.getBlock().isToolEffective(type, state))
+                return efficiencyOnProperMaterial;
+        }
+        return this.effectiveBlocks.contains(state.getBlock()) ? this.efficiencyOnProperMaterial : 1.0F;
+    }
+
+
+
+     */
 
     public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
         Object o = new Object();
@@ -300,90 +307,89 @@ public class ItemPowerFist extends MPSItemElectricTool
 
     /* TE Crescent Hammer */
     @Override
-    public boolean isUsable(ItemStack itemStack, EntityLivingBase entityLivingBase, int i, int i1, int i2) {
+    public boolean isUsable(ItemStack itemStack, EntityLivingBase entityLivingBase, Entity entity) {
+        return entityLivingBase instanceof EntityPlayer && this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
+    }
+    /* TE Crescent Hammer */
+    @Override
+    public boolean isUsable(ItemStack itemStack, EntityLivingBase entityLivingBase, BlockPos blockPos) {
         return entityLivingBase instanceof EntityPlayer && this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
 
     /* TE Crescent Hammer */
     @Override
-    public void toolUsed(ItemStack itemStack, EntityLivingBase entityLivingBase, int i, int i1, int i2) {
+    public void toolUsed(ItemStack itemStack, EntityLivingBase entityLivingBase, Entity entity) {
+
+    }
+    /* TE Crescent Hammer */
+
+    @Override
+    public void toolUsed(ItemStack itemStack, EntityLivingBase entityLivingBase, BlockPos blockPos) {
+
     }
 
     /* Railcraft Crowbar */
     @Override
-    public boolean canWhack(EntityPlayer player, ItemStack itemStack, int i, int i1, int i2) {
+    public boolean canWhack(EntityPlayer entityPlayer, EnumHand enumHand, ItemStack itemStack, BlockPos blockPos) {
         return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
 
     /* Railcraft Crowbar */
     @Override
-    public boolean canLink(EntityPlayer player, ItemStack itemStack, EntityMinecart entityMinecart) {
+    public boolean canLink(EntityPlayer entityPlayer, EnumHand enumHand, ItemStack itemStack, EntityMinecart entityMinecart) {
         return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
 
     /* Railcraft Crowbar */
     @Override
-    public boolean canBoost(EntityPlayer player, ItemStack itemStack, EntityMinecart entityMinecart) {
+    public boolean canBoost(EntityPlayer entityPlayer, EnumHand enumHand, ItemStack itemStack, EntityMinecart entityMinecart) {
         return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
 
     /* Railcraft Crowbar */
     @Override
-    public void onLink(EntityPlayer player, ItemStack itemStack, EntityMinecart entityMinecart) {
+    public void onLink(EntityPlayer entityPlayer, EnumHand enumHand, ItemStack itemStack, EntityMinecart entityMinecart) {
+
     }
 
     /* Railcraft Crowbar */
     @Override
-    public void onWhack(EntityPlayer player, ItemStack itemStack, int i, int i1, int i2) {
+    public void onWhack(EntityPlayer entityPlayer, EnumHand enumHand, ItemStack itemStack, BlockPos blockPos) {
+
     }
 
     /* Railcraft Crowbar */
     @Override
-    public void onBoost(EntityPlayer player, ItemStack itemStack, EntityMinecart entityMinecart) {
+    public void onBoost(EntityPlayer entityPlayer, EnumHand enumHand, ItemStack itemStack, EntityMinecart entityMinecart) {
+
     }
 
     /* AE wrench */
     @Override
-    public boolean canWrench(ItemStack itemStack, EntityPlayer player, int i, int i1, int i2) {
+    public boolean canWrench(ItemStack itemStack, EntityPlayer entityPlayer, BlockPos blockPos) {
         return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
 
-    /* Buildcraft Wrench */
-    @Override
-    public void wrenchUsed(EntityPlayer player, int i, int i1, int i2) {
-    }
+//    /* Buildcraft Wrench */
+//    @Override
+//    public void wrenchUsed(EntityPlayer player, int i, int i1, int i2) {
+//    }
+//
+//    /* Buildcraft Wrench */
+//    @Override
+//    public boolean canWrench(EntityPlayer player, int i, int i1, int i2) {
+//        return this.getActiveMode(player.getHeldItem()).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
+//    }
 
-    /* Buildcraft Wrench */
+    /* EnderIO Tool */
     @Override
-    public boolean canWrench(EntityPlayer player, int i, int i1, int i2) {
-        return this.getActiveMode(player.getHeldItem()).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
-    }
+    public void used(ItemStack itemStack, EntityPlayer entityPlayer, BlockPos blockPos) {
 
-    /* Bluepower Screwdriver */
-    @Override
-    public boolean damage(ItemStack itemStack, int i, EntityPlayer entityPlayer, boolean b) {
-        return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
-    }
-
-    /* ProjectRed Screwdriver */
-    @Override
-    public void damageScrewdriver(EntityPlayer entityPlayer, ItemStack itemStack) {
-    }
-
-    /* ProjectRed Screwdriver */
-    @Override
-    public boolean canUse(EntityPlayer entityPlayer, ItemStack itemStack) {
-        return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
 
     /* EnderIO Tool */
     @Override
-    public void used(ItemStack itemStack, EntityPlayer entityPlayer, int i, int i1, int i2) {
-    }
-
-    /* EnderIO Tool */
-    @Override
-    public boolean canUse(ItemStack itemStack, EntityPlayer entityPlayer, int i, int i1, int i2) {
+    public boolean canUse(ItemStack itemStack, EntityPlayer entityPlayer, BlockPos blockPos) {
         return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
 
@@ -395,15 +401,16 @@ public class ItemPowerFist extends MPSItemElectricTool
 
     /* Mekanism Wrench */
     @Override
-    public boolean canUseWrench(EntityPlayer entityPlayer, int i, int i1, int i2) {
-        return this.getActiveMode(entityPlayer.getHeldItem()).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
+    public boolean canUseWrench(ItemStack itemStack, EntityPlayer entityPlayer, BlockPos blockPos) {
+        return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
+
 
     /* IModeChangingItem -------------------------------------------------------------------------- */
 
     @Nullable
     @Override
-    public IIcon getModeIcon(String mode, ItemStack stack, EntityPlayer player) {
+    public TextureAtlasSprite getModeIcon(String mode, ItemStack stack, EntityPlayer player) {
         IPowerModule module = ModuleManager.getModule(mode);
         if (module != null)
             return module.getIcon(stack);

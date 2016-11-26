@@ -61,6 +61,11 @@ public class MPSItemElectricTool extends ItemTool implements IModularItemBase, I
         return MuseElectricItem.getInstance().giveEnergyTo(stack, provided);
     }
 
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> currentTipList, boolean advancedToolTips) {
+        ModularItemBase.getInstance().addInformation(stack, playerIn, currentTipList, advancedToolTips);
+    }
+
     /* Industrialcraft 2 -------------------------------------------------------------------------- */
     @Override
     public IMuseElectricItem getManager(ItemStack stack) {

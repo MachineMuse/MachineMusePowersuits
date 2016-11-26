@@ -10,6 +10,7 @@ import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.SoundCategory;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -118,7 +119,7 @@ public class ItemSelectionFrame extends ScrollableFrame {
         int i = 0;
         for (ClickableItem item : itemButtons) {
             if (item.hitBox(x, y)) {
-                Musique.playClientSound(SoundDictionary.SOUND_GUI_SELECT, 1);
+                Musique.playClientSound(SoundDictionary.SOUND_EVENT_GUI_SELECT, SoundCategory.BLOCKS, 1);
                 selectedItemStack = i;
                 break;
             } else {

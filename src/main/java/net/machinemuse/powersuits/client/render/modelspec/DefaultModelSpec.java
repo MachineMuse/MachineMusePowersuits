@@ -30,34 +30,34 @@ public class DefaultModelSpec {
 
         /* Head ----------------------- */
         ModelSpec headModel = loadModel(new ResourceLocation("powersuits:models/mps_helm.obj"), tex.split(";"));
-        makeEntries(Head, 0, 0, false, "helm_main;helm_tube_entry1;helm_tubes;helm_tube_entry2".split(";"), headModel);
-        makeEntries(Head, 0, 1, true, "visor".split(";"), headModel);
+        makeEntries(Head, EntityEquipmentSlot.HEAD, 0, false, "helm_main;helm_tube_entry1;helm_tubes;helm_tube_entry2".split(";"), headModel);
+        makeEntries(Head, EntityEquipmentSlot.HEAD, 1, true, "visor".split(";"), headModel);
         defaultSpecList.add(headModel);
 
         /* Arms ----------------------- */
         ModelSpec armsModel = loadModel(new ResourceLocation("powersuits:models/mps_arms.obj"), tex.split(";"));
-        makeEntries(RightArm, 1, 0, false, "arms3".split(";"),armsModel);
-        makeEntries(RightArm, 1, 1, true, "crystal_shoulder_2".split(";"), armsModel);
-        makeEntries(LeftArm, 1, 0, false, "arms2".split(";"), armsModel);
-        makeEntries(LeftArm, 1, 1, true, "crystal_shoulder_1".split(";"), armsModel);
+        makeEntries(RightArm, EntityEquipmentSlot.CHEST, 0, false, "arms3".split(";"),armsModel);
+        makeEntries(RightArm, EntityEquipmentSlot.CHEST, 1, true, "crystal_shoulder_2".split(";"), armsModel);
+        makeEntries(LeftArm, EntityEquipmentSlot.CHEST, 0, false, "arms2".split(";"), armsModel);
+        makeEntries(LeftArm, EntityEquipmentSlot.CHEST, 1, true, "crystal_shoulder_1".split(";"), armsModel);
         defaultSpecList.add(armsModel);
 
         /* Body ----------------------- */
         ModelSpec bodyModel = loadModel(new ResourceLocation("powersuits:models/mps_chest.obj"), tex.split(";"));
-        makeEntries(Body, 1, 0, false, "belt;chest_main;polySurface36;backpack;chest_padding".split(";"), bodyModel);
-        makeEntries(Body, 1, 1, true, "crystal_belt".split(";"), bodyModel);
+        makeEntries(Body, EntityEquipmentSlot.CHEST, 0, false, "belt;chest_main;polySurface36;backpack;chest_padding".split(";"), bodyModel);
+        makeEntries(Body, EntityEquipmentSlot.CHEST, 1, true, "crystal_belt".split(";"), bodyModel);
         defaultSpecList.add(bodyModel);
 
         /* Legs ----------------------- */
         ModelSpec legsModel = loadModel(new ResourceLocation("powersuits:models/mps_pantaloons.obj"), tex.split(";"));
-        makeEntries(RightLeg, 2, 0, false, "leg1".split(";"), legsModel);
-        makeEntries(LeftLeg, 2, 0, false, "leg2".split(";"), legsModel);
+        makeEntries(RightLeg, EntityEquipmentSlot.LEGS, 0, false, "leg1".split(";"), legsModel);
+        makeEntries(LeftLeg, EntityEquipmentSlot.LEGS, 0, false, "leg2".split(";"), legsModel);
         defaultSpecList.add(legsModel);
 
         /* Feet ----------------------- */
         ModelSpec feetModel = loadModel(new ResourceLocation("powersuits:models/mps_boots.obj"), tex.split(";"));
-        makeEntries(RightLeg, 3, 0, false, "boots1".split(";"), feetModel);
-        makeEntries(LeftLeg, 3, 0, false, "boots2".split(";"), feetModel);
+        makeEntries(RightLeg, EntityEquipmentSlot.FEET, 0, false, "boots1".split(";"), feetModel);
+        makeEntries(LeftLeg, EntityEquipmentSlot.FEET, 0, false, "boots2".split(";"), feetModel);
         defaultSpecList.add(feetModel);
 
         return (ModelSpec[]) defaultSpecList.toArray();
@@ -72,7 +72,7 @@ public class DefaultModelSpec {
         return null;
     }
 
-    public static void makeEntries(MorphTarget target, int slot, int colourIndex, Boolean glow, String[] names, ModelSpec model) {
+    public static void makeEntries(MorphTarget target, EntityEquipmentSlot slot, int colourIndex, Boolean glow, String[] names, ModelSpec model) {
         for (String name: names)
             model.put(name, new ModelPartSpec(model, target, name, slot, colourIndex, glow, name));
     }
@@ -84,23 +84,23 @@ public class DefaultModelSpec {
         List<NBTTagCompound> list = new ArrayList<>();
 
         switch (slot) {
-            case 0:
+            case HEAD:
                 list.addAll(makePrefs("mps_helm", "helm_main;helm_tube_entry1;helm_tubes;helm_tube_entry2".split(";"), 0, false));
                 list.addAll(makePrefs("mps_helm", "visor".split(";"), 1, true));
                 break;
 
-            case 1:
+            case CHEST:
                 list.addAll(makePrefs("mps_arms", "arms2;arms3".split(";"), 0, false));
                 list.addAll(makePrefs("mps_arms", "crystal_shoulder_2;crystal_shoulder_1".split(";"), 1, true));
                 list.addAll(makePrefs("mps_chest", "belt;chest_main;polySurface36;backpack;chest_padding".split(";"), 0, false));
                 list.addAll(makePrefs("mps_chest", "crystal_belt".split(";"), 1, true));
                 break;
 
-            case 2:
+            case LEGS:
                 list.addAll(makePrefs("mps_pantaloons", "leg1;leg2".split(";"), 0, false));
                 break;
 
-            case 3:
+            case FEET:
                 list.addAll(makePrefs("mps_boots", "boots1;boots2".split(";"), 0, false));
                 break;
         }

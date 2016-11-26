@@ -11,7 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.TextComponentString;
+import net.minecraft.util.text.TextComponentString;
 
 import java.io.DataInputStream;
 import java.util.ArrayList;

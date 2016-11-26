@@ -1,8 +1,5 @@
 package net.machinemuse.powersuits.common.proxy;
 
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.FMLCommonHandler;
 import net.machinemuse.general.sound.SoundDictionary;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.MusePacketModeChangeRequest;
@@ -31,6 +28,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import java.net.URL;
 
@@ -79,9 +78,9 @@ public class ClientProxy implements CommonProxy {
      */
     @Override
     public void registerHandlers() {
-        FMLCommonHandler.instance().bus().register(new KeybindKeyHandler());
+        MinecraftForge.EVENT_BUS.register(new KeybindKeyHandler());
         MinecraftForge.EVENT_BUS.register(new PlayerUpdateHandler());
-        FMLCommonHandler.instance().bus().register(new ClientTickHandler());
+        MinecraftForge.EVENT_BUS.register(new ClientTickHandler());
     }
 
     @Override

@@ -52,31 +52,32 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        if ((playerIn.ridingEntity == null) && (playerIn.riddenByEntity == null) && ((playerIn instanceof EntityPlayerMP))) {
+        if ((playerIn.getRidingEntity() == null) && (playerIn.isBeingRidden() == true) && ((playerIn instanceof EntityPlayerMP))) {
             EntityPlayerMP thePlayer = (EntityPlayerMP) playerIn;
             if (thePlayer.dimension != -1) {
                 thePlayer.setLocationAndAngles(0.5D, thePlayer.posY, 0.5D, thePlayer.rotationYaw, thePlayer.rotationPitch);
-                thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, -1, new MPSTeleporter(thePlayer.mcServer.worldServerForDimension(-1)));
+                thePlayer.mcServer.getPlayerList().transferPlayerToDimension(thePlayer, -1, new MPSTeleporter(thePlayer.mcServer.worldServerForDimension(-1)));
                 ElectricItemUtils.drainPlayerEnergy(thePlayer, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_ENERGY_GENERATION));
                 MuseHeatUtils.heatPlayer(thePlayer, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_HEAT_GENERATION));
             } else if (thePlayer.dimension == -1 || thePlayer.dimension == 1)
                 thePlayer.setLocationAndAngles(0.5D, thePlayer.posY, 0.5D, thePlayer.rotationYaw, thePlayer.rotationPitch);
-            thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, 0, new MPSTeleporter(thePlayer.mcServer.worldServerForDimension(0)));
+            thePlayer.mcServer.getPlayerList().transferPlayerToDimension(thePlayer, 0, new MPSTeleporter(thePlayer.mcServer.worldServerForDimension(0)));
             if (thePlayer.dimension == 0) {
-                ChunkCoordinates coords = (thePlayer instanceof EntityPlayer) ? (thePlayer).getBedLocation(thePlayer.dimension) : null;
-                if ((coords == null) || ((coords.posX == 0) && (coords.posY == 0) && (coords.posZ == 0))) {
-                    coords = world.getSpawnPoint();
+                BlockPos coords = (thePlayer instanceof EntityPlayer) ? (thePlayer).getBedLocation(thePlayer.dimension) : null;
+                if ((coords == null) || ((coords.getX() == 0) && (coords.getY() == 0) && (coords.getZ() == 0))) {
+                    coords = worldIn.getSpawnPoint();
                 }
-                int yPos = coords.posY;
-                while ((world.getBlock(coords.posX, yPos, coords.posZ) != Blocks.air) && (world.getBlock(coords.posX, yPos + 1, coords.posZ) != Blocks.air)
-                        ) {
+                int yPos = coords.getY();
+                while ((worldIn.getBlockState(new BlockPos(coords.getX(), yPos, coords.getZ())).getBlock() != Blocks.AIR) &&
+                        (worldIn.getBlockState(new BlockPos(coords.getX(), yPos + 1, coords.getZ())) != Blocks.AIR)) {
                     yPos++;
                 }
-                (thePlayer).setPositionAndUpdate(coords.posX + 0.5D, yPos, coords.posZ + 0.5D);
+                (thePlayer).setPositionAndUpdate(coords.getX() + 0.5D, yPos, coords.getZ() + 0.5D);
             }
             ElectricItemUtils.drainPlayerEnergy(thePlayer, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_ENERGY_GENERATION));
             MuseHeatUtils.heatPlayer(thePlayer, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_HEAT_GENERATION));
         }
+        return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
 
     @Override

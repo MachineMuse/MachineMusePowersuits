@@ -1,9 +1,9 @@
 package net.machinemuse.powersuits.common.proxy;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import net.machinemuse.powersuits.event.PlayerLoginHandlerThingy;
 import net.machinemuse.powersuits.event.PlayerUpdateHandler;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 /**
  * Server side of the proxy.

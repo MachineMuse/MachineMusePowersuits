@@ -10,7 +10,7 @@ import net.minecraft.client.model.ModelRenderer;
  * Ported to Java by lehjr on 11/8/16.
  */
 public enum MorphTarget {
-    Cloak,
+//    Cloak,
     Head,
     Body,
     RightArm,
@@ -20,8 +20,8 @@ public enum MorphTarget {
 
     public ModelRenderer apply(ModelBiped m) {
         switch(this) {
-            case Cloak:
-                return m.bipedCloak;
+//            case Cloak:
+//                return m.bipedCloak;
 
             case Head:
                 return m.bipedHead;

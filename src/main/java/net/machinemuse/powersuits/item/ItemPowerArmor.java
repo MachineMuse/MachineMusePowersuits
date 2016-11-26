@@ -18,6 +18,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -37,8 +38,8 @@ import java.util.UUID;
  * Ported to Java by lehjr on 11/4/16.
  */
 public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpecialArmor, IArmorTraits {
-    public ItemPowerArmor(int renderIndex, int armorType) {
-        super(ItemArmor.ArmorMaterial.IRON, renderIndex, armorType);
+    public ItemPowerArmor(int renderIndex, EntityEquipmentSlot entityEquipmentSlot) {
+        super(ItemArmor.ArmorMaterial.IRON, renderIndex, entityEquipmentSlot);
         this.setMaxStackSize(1);
         this.setCreativeTab(Config.getCreativeTab());
     }
@@ -89,32 +90,34 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
     }
 
     @SideOnly(Side.CLIENT)
-    public ModelBiped getArmorModel(EntityLivingBase entity, ItemStack itemstack, int armorSlot) {
+    @Override
+    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
         ModelBiped model = ArmorModelInstance.getInstance();
         ((IArmorModel)model).setVisibleSection(armorSlot);
-        if (itemstack != null) {
-            if (entity instanceof EntityPlayer) {
-                ItemStack armorChest = ((EntityPlayer)entity).inventory.armorItemInSlot(2);
+        if (itemStack != null) {
+            if (entityLiving instanceof EntityPlayer) {
+                ItemStack armorChest = ((EntityPlayer)entityLiving).inventory.armorItemInSlot(2);
 
                 if (armorChest != null) {
                     if (armorChest.getItem() instanceof ItemPowerArmor)
                         if (ModuleManager.itemHasActiveModule(armorChest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) ((IArmorModel)model).setVisibleSection(99);
                 }
-
             }
 
-            if (ModuleManager.itemHasActiveModule(itemstack, "Transparent Armor")) {
+            if (ModuleManager.itemHasActiveModule(itemStack, "Transparent Armor")) {
                 ((IArmorModel)model).setVisibleSection(99);
             }
-            ((IArmorModel)model).setRenderSpec(MuseItemUtils.getMuseRenderTag(itemstack, armorSlot));
+            ((IArmorModel)model).setRenderSpec(MuseItemUtils.getMuseRenderTag(itemStack, armorSlot));
         }
         return (ModelBiped)model;
     }
 
-    public Multimap<?, ?> getAttributeModifiers(ItemStack stack) {
-        Multimap parent = super.getAttributeModifiers(stack);
+    @Override
+    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack)
+    {
+        Multimap parent = super.getAttributeModifiers(slot, stack);
         parent.put((Object)"generic.knockbackResistance", (Object)new AttributeModifier(UUID.fromString("448ef0e9-9b7c-4e56-bf3a-6b52aeabff8d"), "generic.knockbackResistance", 0.25, 0));
-        return (Multimap<?, ?>)parent;
+        return (Multimap<String, AttributeModifier>)parent;
     }
 
     public int getItemEnchantability() {

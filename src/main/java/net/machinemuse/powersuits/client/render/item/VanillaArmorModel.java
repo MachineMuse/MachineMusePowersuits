@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumHandSide;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -22,6 +23,9 @@ import net.minecraft.nbt.NBTTagCompound;
 public class VanillaArmorModel extends ModelBiped implements IArmorModel {
     public NBTTagCompound renderSpec = null;
     public int visibleSection = 0;
+
+    public ModelRenderer bipedEars;
+    public ModelRenderer bipedCloak;
 
     private static VanillaArmorModel INSTANCE;
 
@@ -109,17 +113,35 @@ public class VanillaArmorModel extends ModelBiped implements IArmorModel {
     public void prep(Entity entity, float par2, float par3, float par4, float par5, float par6, float scale) {
         try {
             EntityLivingBase entLive = (EntityLivingBase) entity;
-            ItemStack stack = entLive.getEquipmentInSlot(0);
-            heldItemRight = (stack != null) ? 1 : 0;
+            ItemStack stack = entLive.getActiveItemStack();
+            if (stack != null) {
+                if (getMainHand(entLive) == EnumHandSide.LEFT)
+                    this.leftArmPose = ArmPose.ITEM;
+                else
+                    this.rightArmPose = ArmPose.ITEM;
+            } else {
+                if (getMainHand(entLive) == EnumHandSide.LEFT)
+                    this.leftArmPose = ArmPose.EMPTY;
+                else
+                    this.rightArmPose = ArmPose.EMPTY;
+            }
+
             isSneak = entLive.isSneaking();
             isRiding = entLive.isRiding();
             EntityPlayer entPlayer = (EntityPlayer) entLive;
-            if ((stack != null) && (entPlayer.getItemInUseCount() > 0)) {
+            if ((stack != null) && (entPlayer.getItemInUseCount() > 0))
+            {
                 EnumAction enumaction = stack.getItemUseAction();
-                if (enumaction == EnumAction.block) {
-                    heldItemRight = 3;
-                } else if (enumaction == EnumAction.bow) {
-                    aimedBow = true;
+                if (enumaction == EnumAction.BLOCK) {
+                    if (getMainHand(entLive) == EnumHandSide.LEFT)
+                        this.leftArmPose = ArmPose.BLOCK;
+                    else
+                        this.rightArmPose = ArmPose.BLOCK;
+                } else if (enumaction == EnumAction.BOW) {
+                    if (getMainHand(entLive) == EnumHandSide.LEFT)
+                        this.leftArmPose = ArmPose.BOW_AND_ARROW;
+                    else
+                        this.rightArmPose = ArmPose.BOW_AND_ARROW;
                 }
             }
         } catch (Exception e) {
@@ -142,8 +164,13 @@ public class VanillaArmorModel extends ModelBiped implements IArmorModel {
 
     @Override
     public void post(Entity entity, float par2, float par3, float par4, float par5, float par6, float scale) {
-        aimedBow = false;
+        leftArmPose = ArmPose.EMPTY;
+        rightArmPose = ArmPose.EMPTY;
         isSneak = false;
-        heldItemRight = 0;
+    }
+
+    @Override
+    protected EnumHandSide getMainHand(Entity entityIn) {
+        return super.getMainHand(entityIn);
     }
 }

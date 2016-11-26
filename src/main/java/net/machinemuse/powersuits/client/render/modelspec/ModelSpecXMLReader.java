@@ -3,8 +3,9 @@ package net.machinemuse.powersuits.client.render.modelspec;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.utils.MuseStringUtils;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.model.obj.GroupObject;
 import net.minecraftforge.client.model.obj.WavefrontObject;
 import org.w3c.dom.Document;
@@ -62,8 +63,8 @@ public class ModelSpecXMLReader {
     public void parseModel(Node modelnode) {
         String file;
         String[] textures;
-        Vec3 offset;
-        Vec3 rotation;
+        Vec3d offset;
+        Vec3d rotation;
 
         if (modelnode.getNodeType() == Node.ELEMENT_NODE) {
             Element eElement = (Element) modelnode;
@@ -93,7 +94,7 @@ public class ModelSpecXMLReader {
     public void parseBinding(Node bindingnode, ModelSpec modelspec) {
         if (bindingnode.getNodeType() == Node.ELEMENT_NODE) {
             Element eElement = (Element) bindingnode;
-            int slot = parseInt(eElement.getAttribute("slot"));
+            EntityEquipmentSlot slot = parseEquipmentSlot(eElement.getAttribute("slot"));
             MorphTarget target = parseTarget(eElement.getAttribute("target"));
             NodeList partNodeList = eElement.getElementsByTagName("part");
             for (int temp = 0; temp < partNodeList.getLength(); temp++) {
@@ -103,7 +104,7 @@ public class ModelSpecXMLReader {
         }
     }
 
-    public void parseParts(Node partNode, ModelSpec modelspec, int slot, MorphTarget target) {
+    public void parseParts(Node partNode, ModelSpec modelspec, EntityEquipmentSlot slot, MorphTarget target) {
         if (partNode.getNodeType() == Node.ELEMENT_NODE) {
             Element eElement = (Element) partNode;
 //            Colour defaultcolor = parseColour(eElement.getAttribute("defaultcolor"));
@@ -145,6 +146,22 @@ public class ModelSpecXMLReader {
             return null;
         }
     }
+    /*
+    * TODO: try something else.
+    */
+    EntityEquipmentSlot parseEquipmentSlot(String s) {
+        switch (s.toUpperCase()) {
+            case "HEAD": return EntityEquipmentSlot.HEAD;
+            case "CHEST": return EntityEquipmentSlot.CHEST;
+            case "LEGS": return EntityEquipmentSlot.LEGS;
+            case "FEET": return EntityEquipmentSlot.FEET;
+            // Left and right hand would have been better.
+//            case "OFFHAND": return EntityEquipmentSlot.OFFHAND;
+//            case "MAINHAND": return EntityEquipmentSlot.MAINHAND;
+            default: return null;
+        }
+    }
+
 
     @Nullable
     public MorphTarget parseTarget(String s) {
@@ -155,7 +172,7 @@ public class ModelSpecXMLReader {
             case "rightarm": return RightArm;
             case "leftleg": return LeftLeg;
             case "rightleg": return RightLeg;
-            case "cloak": return Cloak;
+//            case "cloak": return Cloak;
             default: return null;
         }
     }
@@ -170,13 +187,13 @@ public class ModelSpecXMLReader {
     }
 
     @Nullable
-    public Vec3 parseVector(String s) {
+    public Vec3d parseVector(String s) {
         try {
             String[] ss = s.split(",");
             double x = Double.parseDouble(ss[0]);
             double y = Double.parseDouble(ss[1]);
             double z = Double.parseDouble(ss[2]);
-            return Vec3.createVectorHelper(x, y, z);
+            return new Vec3d(x, y, z);
         } catch (Exception e) {
             return null;
         }

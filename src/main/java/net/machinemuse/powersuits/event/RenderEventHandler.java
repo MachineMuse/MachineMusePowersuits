@@ -1,8 +1,5 @@
 package net.machinemuse.powersuits.event;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.general.gui.clickable.ClickableModule;
@@ -25,6 +22,9 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.*;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Ported to Java by lehjr on 10/24/16.
@@ -45,13 +45,13 @@ public class RenderEventHandler {
     @SubscribeEvent
     public void renderLast(RenderWorldLastEvent event) {
         Minecraft mc = Minecraft.getMinecraft();
-        ScaledResolution screen = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+        ScaledResolution screen = new ScaledResolution(mc);
     }
 
     @SubscribeEvent
     public void onPreRenderPlayer(RenderPlayerEvent.Pre event) {
-        if (!event.entityPlayer.capabilities.isFlying && !event.entityPlayer.onGround && this.playerHasFlightOn(event.entityPlayer)) {
-            event.entityPlayer.capabilities.isFlying = true;
+        if (!event.getEntityPlayer().capabilities.isFlying && !event.getEntityPlayer().onGround && this.playerHasFlightOn(event.getEntityPlayer())) {
+            event.getEntityPlayer().capabilities.isFlying = true;
             RenderEventHandler.ownFly =true;
         }
     }
@@ -64,21 +64,21 @@ public class RenderEventHandler {
     public void onPostRenderPlayer(RenderPlayerEvent.Post event) {
         if (RenderEventHandler.ownFly) {
             RenderEventHandler.ownFly = false;
-            event.entityPlayer.capabilities.isFlying = false;
+            event.getEntityPlayer().capabilities.isFlying = false;
         }
     }
 
     @SubscribeEvent
     public void onFOVUpdate(FOVUpdateEvent e) {
-        ItemStack helmet = e.entity.inventory.armorItemInSlot(3);
+        ItemStack helmet = e.getEntity().inventory.armorItemInSlot(3);
         if (ModuleManager.itemHasActiveModule(helmet, "Binoculars")) {
-            e.newfov /= (float)ModuleManager.computeModularProperty(helmet, BinocularsModule.FOV_MULTIPLIER);
+            e.setNewfov(e.getNewfov() / (float)ModuleManager.computeModularProperty(helmet, BinocularsModule.FOV_MULTIPLIER));
         }
     }
 
     @SubscribeEvent
     public void onPostRenderGameOverlayEvent(RenderGameOverlayEvent.Post e) {
-        RenderGameOverlayEvent.ElementType elementType = e.type;
+        RenderGameOverlayEvent.ElementType elementType = e.getType();
         if (RenderGameOverlayEvent.ElementType.HOTBAR.equals((Object)elementType)) {
             this.drawKeybindToggles();
         }
@@ -88,7 +88,7 @@ public class RenderEventHandler {
         if (Config.keybindHUDon()) {
             Minecraft mc = Minecraft.getMinecraft();
             EntityPlayerSP player = mc.thePlayer;
-            ScaledResolution screen = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+            ScaledResolution screen = new ScaledResolution(mc);
             frame.setLeft(Config.keybindHUDx());
             frame.setTop(Config.keybindHUDy());
             frame.setBottom(frame.top() + 16);

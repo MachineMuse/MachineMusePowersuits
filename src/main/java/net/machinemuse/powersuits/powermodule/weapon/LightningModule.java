@@ -70,12 +70,12 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         try {
             double range = 64;
-            double energyConsumption = ModuleManager.computeModularProperty(item, LIGHTNING_ENERGY_CONSUMPTION);
+            double energyConsumption = ModuleManager.computeModularProperty(itemStackIn, LIGHTNING_ENERGY_CONSUMPTION);
             if (energyConsumption < ElectricItemUtils.getPlayerEnergy(playerIn)) {
                 ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
-                MuseHeatUtils.heatPlayer(playerIn, ModuleManager.computeModularProperty(item, HEAT));
+                MuseHeatUtils.heatPlayer(playerIn, ModuleManager.computeModularProperty(itemStackIn, HEAT));
                 RayTraceResult raytraceResult = MusePlayerUtils.doCustomRayTrace(playerIn.worldObj, playerIn, true, range);
-                worldIn.spawnEntityInWorld(new EntityLightningBolt(playerIn.worldObj, raytraceResult.hitVec.xCoord, raytraceResult.hitVec.yCoord, raytraceResult.hitVec.zCoord));
+                worldIn.spawnEntityInWorld(new EntityLightningBolt(playerIn.worldObj, raytraceResult.hitVec.xCoord, raytraceResult.hitVec.yCoord, raytraceResult.hitVec.zCoord, true));
 
                 /*for (int x = (int)playerIn.posX-1; x < (int)playerIn.posX+2; x++) {
                     for (int z = (int)playerIn.posZ-1; z < (int)playerIn.posZ+2; z++) {
@@ -90,6 +90,7 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
             }
         } catch (Exception ignored) {
         }
+        return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
     }
 
     @Override

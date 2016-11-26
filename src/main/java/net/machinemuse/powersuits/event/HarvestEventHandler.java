@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.event;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
@@ -9,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class HarvestEventHandler {
     @SubscribeEvent

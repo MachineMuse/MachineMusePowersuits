@@ -4,13 +4,23 @@ import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 /**
  * This is the tinkertable block. It doesn't do much except look pretty
@@ -22,124 +32,60 @@ import net.minecraft.world.World;
  * Ported to Java by lehjr on 10/21/16.
  */
 public class BlockTinkerTable extends Block {
-    public static IIcon energyIcon;
-    protected static int renderType = 0;
+    public static final String name = "tinkerTable";
 
     public BlockTinkerTable() {
-        super(Material.iron);
-        setCreativeTab(Config.getCreativeTab());
-        setHardness(1.5F);
-        setResistance(1000.0F);
-        setStepSound(Block.soundTypeMetal);
-        setLightOpacity(0);
-        setLightLevel(0.4f);
-        setTickRandomly(false);
-        GameRegistry.registerTileEntity(TileEntityTinkerTable.class, "tinkerTable");
-        setBlockName("tinkerTable");
+        super(Material.IRON);
+        this.setHardness(1.5F);
+        this.setResistance(1000.0F);
+        this.setHarvestLevel("pickaxe", 2);
+        this.setCreativeTab(Config.getCreativeTab());
+        this.setSoundType(SoundType.METAL);
+        this.setLightOpacity(0);
+        this.setLightLevel(0.4f);
+        this.setTickRandomly(false);
+        setUnlocalizedName(ModularPowersuits.MODID + "." + name);
+        setRegistryName(new ResourceLocation(ModularPowersuits.MODID, name));
     }
 
-    public static void setRenderType(int id) {
-        renderType = id;
-    }
+    public static TextureAtlasSprite energyIcon = null;
 
     @Override
-    public void registerBlockIcons(IIconRegister iconRegister) {
-        this.blockIcon = iconRegister.registerIcon(MuseIcon.ICON_PREFIX + "heatresistantplating");
-        energyIcon = blockIcon;
-    }
-
-    /**
-     * Called upon block activation (right click on the block.)
-     */
-    @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
-        if (player.isSneaking()) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+        if (playerIn.isSneaking())
             return false;
-        }
-        player.openGui(ModularPowersuits.getInstance(), 0, world, x, y, z);
+        if (worldIn.isRemote)
+            playerIn.openGui(ModularPowersuits.getInstance(), 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
         return true;
     }
 
-    /**
-     * returns some value from 0 to 30 or so for different models. Since we're
-     * using a custom renderer, we pass in a completely different ID: the
-     * assigned block ID. It won't conflict with other mods, since Forge looks
-     * it up in a table anyway, but it's still best to have different internal
-     * IDs.
-     */
     @Override
-    public int getRenderType() {
-        return renderType;
-    }
-
-    /**
-     * This method is called on a block after all other blocks gets already
-     * created. You can use it to reference and configure something on the block
-     * that needs the others ones.
-     */
-    protected void initializeBlock() {
-    }
-
-    /**
-     * If this block doesn't render as an ordinary block it will return False
-     * (examples: signs, buttons, stairs, etc)
-     */
-    @Override
-    public boolean renderAsNormalBlock() {
+    public boolean isVisuallyOpaque() {
         return false;
     }
 
-    /**
-     * Returns Returns true if the given side of this block type should be
-     * rendered (if it's solid or not), if the adjacent block is at the given
-     * coordinates. Args: blockAccess, x, y, z, side
-     */
     @Override
-    public boolean isBlockSolid(IBlockAccess p_149747_1_, int p_149747_2_, int p_149747_3_, int p_149747_4_, int p_149747_5_) {
-        return true;
-    }
-
-    /**
-     * Is this block (a) opaque and (b) a full 1m cube? This determines whether
-     * or not to render the shared face of two adjacent blocks and also
-     * whether the player can attach torches, redstone wire, etc to this block.
-     */
-    @Override
-    public boolean isOpaqueCube() {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
-    /**
-     * Called throughout the code as a replacement for block instanceof
-     * BlockContainer Moving this to the Block base class allows for mods that
-     * wish
-     * to extend vinella blocks, and also want to have a tile entity on that
-     * block, may.
-     *
-     * Return true from this function to specify this block has a tile entity.
-     *
-     * @param metadata
-     * Metadata of the current block
-     * @return True if block has a tile entity, false otherwise
-     */
     @Override
-    public boolean hasTileEntity(int metadata) {
+    public boolean isFullBlock(IBlockState state) {
+        return false;
+    }
+
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.MODEL; // TODO: fix this. The static rendered setup is horrible, such as hte translucent stuff doesn't work, the texures have to be resized, the glow doesnt work, the animation needs stupid undocumented code to make work
+    }
+
+    @Override
+    public boolean hasTileEntity(IBlockState state) {
         return true;
     }
 
-    /**
-     * Called throughout the code as a replacement for
-     * BlockContainer.getBlockEntity Return the same thing you would from that
-     * function. This will
-     * fall back to BlockContainer.getBlockEntity if this block is a
-     * BlockContainer.
-     *
-     * @param metadata
-     * The Metadata of the current block
-     * @return A instance of a class extending TileEntity
-     */
     @Override
-    public TileEntity createTileEntity(World world, int metadata) {
+    public TileEntity createTileEntity(World world, IBlockState state) {
         return new TileEntityTinkerTable();
     }
 }

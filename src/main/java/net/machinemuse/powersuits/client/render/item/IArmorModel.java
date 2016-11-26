@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.client.render.item;
 
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.nbt.NBTTagCompound;
 
 /**
@@ -17,7 +18,7 @@ public interface IArmorModel {
 
     int getVisibleSection();
 
-    void setVisibleSection(int value);
+    void setVisibleSection(EntityEquipmentSlot value);
 
     void clearAndAddChildWithInitialOffsets(ModelRenderer mr, float xo, float yo, float zo);
 

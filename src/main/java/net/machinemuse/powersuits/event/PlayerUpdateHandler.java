@@ -1,8 +1,5 @@
 package net.machinemuse.powersuits.event;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.general.sound.SoundDictionary;
@@ -15,7 +12,11 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.List;
 
@@ -27,8 +28,8 @@ import java.util.List;
 public class PlayerUpdateHandler {
     @SubscribeEvent
     public void onPlayerUpdate(LivingEvent.LivingUpdateEvent e){
-        if (e.entity instanceof EntityPlayer){
-            EntityPlayer player = (EntityPlayer) e.entity;
+        if (e.getEntity() instanceof EntityPlayer){
+            EntityPlayer player = (EntityPlayer) e.getEntity();
 
             List<ItemStack> modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player);
             double totalWeight = MuseItemUtils.getPlayerWeight(player);
@@ -78,10 +79,10 @@ public class PlayerUpdateHandler {
                 double velsq2 = MuseMathUtils.sumsq(player.motionX, player.motionY, player.motionZ) - 0.5;
                 if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
                     if (player.isAirBorne && velsq2 > 0) {
-                        Musique.playerSound(player, SoundDictionary.SOUND_GLIDER, (float)(velsq2 / 3), 1.0f, true);
+                        Musique.playerSound(player, SoundDictionary.SOUND_EVENT_GLIDER, SoundCategory.PLAYERS, (float)(velsq2 / 3), 1.0f, true);
                     }
                     else {
-                        Musique.stopPlayerSound(player, SoundDictionary.SOUND_GLIDER);
+                        Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_GLIDER);
                     }
                 }
             }

@@ -56,12 +56,12 @@ public class FieldTinkerModule extends PowerModuleBase implements IRightClickMod
 
     @Override
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        return null;
+        return EnumActionResult.PASS;
     }
 
     @Override
     public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-        return null;
+        return EnumActionResult.PASS;
     }
 
     @Override
@@ -71,8 +71,8 @@ public class FieldTinkerModule extends PowerModuleBase implements IRightClickMod
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        player.openGui(ModularPowersuits.getInstance(), 2, world, (int)player.posX, (int)player.posY, (int)player.posZ);
-        return null;
+        playerIn.openGui(ModularPowersuits.getInstance(), 2, worldIn, (int)playerIn.posX, (int)playerIn.posY, (int)playerIn.posZ);
+        return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
     }
 
     @Override
