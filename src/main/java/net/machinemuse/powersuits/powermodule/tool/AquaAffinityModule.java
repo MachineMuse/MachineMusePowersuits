@@ -57,16 +57,16 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
     }
 
     @Override
-    public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
+    public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
         return false;
     }
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-        if (player.isInsideOfMaterial(Material.WATER) || !player.onGround) {
-            ElectricItemUtils.drainPlayerEnergy(player,
-                    ModuleManager.computeModularProperty(stack, AQUA_AFFINITY_ENERGY_CONSUMPTION));
-        }
+//        if (player.isInsideOfMaterial(Material.WATER) || !player.onGround) {
+//            ElectricItemUtils.drainPlayerEnergy(player,
+//                    ModuleManager.computeModularProperty(stack, AQUA_AFFINITY_ENERGY_CONSUMPTION));
+//        }
         return true;
     }
 
@@ -84,6 +84,11 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
     @Override
     public String getTextureFile() {
         return "aquaaffinity";
+    }
+
+    @Override
+    public ItemStack getEmulatedTool() {
+        return null;
     }
 
     @Override

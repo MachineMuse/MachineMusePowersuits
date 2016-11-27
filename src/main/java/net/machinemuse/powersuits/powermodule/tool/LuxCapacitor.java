@@ -65,20 +65,21 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        player.setItemInUse(itemStack, 10);
-        if (!world.isRemote) {
-            double energyConsumption = ModuleManager.computeModularProperty(itemStack, ENERGY);
-            // MuseHeatUtils.heatPlayer(player, energyConsumption / 500);
-            if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
-                ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
-
-                double red = ModuleManager.computeModularProperty(itemStack, RED);
-                double green = ModuleManager.computeModularProperty(itemStack, GREEN);
-                double blue = ModuleManager.computeModularProperty(itemStack, BLUE);
-                EntityLuxCapacitor luxCapacitor = new EntityLuxCapacitor(world, player, red, green, blue);
-                world.spawnEntityInWorld(luxCapacitor);
-            }
-        }
+//        player.setItemInUse(itemStack, 10);
+//        if (!world.isRemote) {
+//            double energyConsumption = ModuleManager.computeModularProperty(itemStack, ENERGY);
+//            // MuseHeatUtils.heatPlayer(player, energyConsumption / 500);
+//            if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
+//                ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
+//
+//                double red = ModuleManager.computeModularProperty(itemStack, RED);
+//                double green = ModuleManager.computeModularProperty(itemStack, GREEN);
+//                double blue = ModuleManager.computeModularProperty(itemStack, BLUE);
+//                EntityLuxCapacitor luxCapacitor = new EntityLuxCapacitor(world, player, red, green, blue);
+//                world.spawnEntityInWorld(luxCapacitor);
+//            }
+//        }
+        return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
 
     @Override

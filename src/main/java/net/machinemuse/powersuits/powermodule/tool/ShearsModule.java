@@ -30,6 +30,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.IShearable;
@@ -77,29 +78,29 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        if (playerIn.worldObj.isRemote) {
-            return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
-        }
-        RayTraceResult rayTraceResult = MusePlayerUtils.raytraceEntities(worldIn, playerIn, false, 8);
-
-        if (rayTraceResult != null && rayTraceResult.entityHit instanceof IShearable) {
-            IShearable target = (IShearable) rayTraceResult.entityHit;
-            Entity entity = rayTraceResult.entityHit;
-            if (target.isShearable(itemStackIn, entity.worldObj, new BlockPos(entity))) {
-                ArrayList<ItemStack> drops = target.onSheared(itemStackIn, entity.worldObj,
-                        (int) entity.posX, (int) entity.posY, (int) entity.posZ,
-                        EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, itemStackIn));
-
-                Random rand = new Random();
-                for (ItemStack drop : drops) {
-                    EntityItem ent = entity.entityDropItem(drop, 1.0F);
-                    ent.motionY += rand.nextFloat() * 0.05F;
-                    ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-                    ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-                }
-                ElectricItemUtils.drainPlayerEnergy(playerIn, ModuleManager.computeModularProperty(itemStackIn, SHEARING_ENERGY_CONSUMPTION));
-            }
-        }
+//        if (playerIn.worldObj.isRemote) {
+//            return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
+//        }
+//        RayTraceResult rayTraceResult = MusePlayerUtils.raytraceEntities(worldIn, playerIn, false, 8);
+//
+//        if (rayTraceResult != null && rayTraceResult.entityHit instanceof IShearable) {
+//            IShearable target = (IShearable) rayTraceResult.entityHit;
+//            Entity entity = rayTraceResult.entityHit;
+//            if (target.isShearable(itemStackIn, entity.worldObj, new BlockPos(entity))) {
+//                ArrayList<ItemStack> drops = target.onSheared(itemStackIn, entity.worldObj,
+//                        (int) entity.posX, (int) entity.posY, (int) entity.posZ,
+//                        EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, itemStackIn));
+//
+//                Random rand = new Random();
+//                for (ItemStack drop : drops) {
+//                    EntityItem ent = entity.entityDropItem(drop, 1.0F);
+//                    ent.motionY += rand.nextFloat() * 0.05F;
+//                    ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+//                    ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+//                }
+//                ElectricItemUtils.drainPlayerEnergy(playerIn, ModuleManager.computeModularProperty(itemStackIn, SHEARING_ENERGY_CONSUMPTION));
+//            }
+//        }
         return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
     }
 
@@ -119,51 +120,63 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public boolean canHarvestBlock(ItemStack stack, Block block, IBlockState state, EntityPlayer player) {
-        if (ForgeHooks.canToolHarvestBlock(block, state, shears)) {
-            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SHEARING_ENERGY_CONSUMPTION)) {
-                return true;
-            }
-        }
+    public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
+        // TODO: The params needed for ForgeHooks.canToolHarvestBlock don't take us where we need to go, but
+        // we can use our own helper function to do the same thing with the parameters above.
+
+
+
+
+
+//        if (ForgeHooks.canToolHarvestBlock(block, state, shears)) {
+//            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SHEARING_ENERGY_CONSUMPTION)) {
+//                return true;
+//            }
+//        }
         return false;
     }
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-        if (player.worldObj.isRemote) {
-            return false;
-        }
-        if (block instanceof IShearable && ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(itemstack, SHEARING_ENERGY_CONSUMPTION)) {
-            IShearable target = (IShearable) block;
-            if (target.isShearable(itemstack, player.worldObj, x, y, z)) {
-                ArrayList<ItemStack> drops = target.onSheared(itemstack, player.worldObj, x, y, z,
-                        EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, itemstack));
-                Random rand = new Random();
-
-                for (ItemStack stack : drops) {
-                    float f = 0.7F;
-                    double d = rand.nextFloat() * f + (1.0F - f) * 0.5D;
-                    double d1 = rand.nextFloat() * f + (1.0F - f) * 0.5D;
-                    double d2 = rand.nextFloat() * f + (1.0F - f) * 0.5D;
-                    EntityItem entityitem = new EntityItem(player.worldObj, x + d, y + d1, z + d2, stack);
-                    entityitem.delayBeforeCanPickup = 10;
-                    player.worldObj.spawnEntityInWorld(entityitem);
-                }
-
-                ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemstack, SHEARING_ENERGY_CONSUMPTION));
-                player.addStat(StatList.mineBlockStatArray[Block.getIdFromBlock(block)], 1);
-            }
-        }
+//        if (player.worldObj.isRemote) {
+//            return false;
+//        }
+//        if (block instanceof IShearable && ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(itemstack, SHEARING_ENERGY_CONSUMPTION)) {
+//            IShearable target = (IShearable) block;
+//            if (target.isShearable(itemstack, player.worldObj, x, y, z)) {
+//                ArrayList<ItemStack> drops = target.onSheared(itemstack, player.worldObj, x, y, z,
+//                        EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, itemstack));
+//                Random rand = new Random();
+//
+//                for (ItemStack stack : drops) {
+//                    float f = 0.7F;
+//                    double d = rand.nextFloat() * f + (1.0F - f) * 0.5D;
+//                    double d1 = rand.nextFloat() * f + (1.0F - f) * 0.5D;
+//                    double d2 = rand.nextFloat() * f + (1.0F - f) * 0.5D;
+//                    EntityItem entityitem = new EntityItem(player.worldObj, x + d, y + d1, z + d2, stack);
+//                    entityitem.delayBeforeCanPickup = 10;
+//                    player.worldObj.spawnEntityInWorld(entityitem);
+//                }
+//
+//                ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemstack, SHEARING_ENERGY_CONSUMPTION));
+//                player.addStat(StatList.mineBlockStatArray[Block.getIdFromBlock(block)], 1);
+//            }
+//        }
         return false;
     }
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-        // TODO: MAKE NOT STUPID
-        float defaultEffectiveness = 8;
-        double ourEffectiveness = ModuleManager.computeModularProperty(event.entityPlayer.inventory.getCurrentItem(), SHEARING_HARVEST_SPEED);
-        event.newSpeed *= Math.max(defaultEffectiveness, ourEffectiveness);
+//        // TODO: MAKE NOT STUPID
+//        float defaultEffectiveness = 8;
+//        double ourEffectiveness = ModuleManager.computeModularProperty(event.entityPlayer.inventory.getCurrentItem(), SHEARING_HARVEST_SPEED);
+//        event.newSpeed *= Math.max(defaultEffectiveness, ourEffectiveness);
 
+    }
+
+    @Override
+    public String getTextureFile() {
+        return null;
     }
 
     @Override
@@ -172,7 +185,7 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public String getTextureFile() {
-        return null;
+    public ItemStack getEmulatedTool() {
+        return shears;
     }
 }

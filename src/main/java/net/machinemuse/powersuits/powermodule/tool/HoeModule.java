@@ -52,39 +52,40 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
     @Override
     public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
-        double energyConsumed = ModuleManager.computeModularProperty(itemStack, HOE_ENERGY_CONSUMPTION);
-        if (playerIn.canPlayerEdit(x, y, z, side, itemStack) && ElectricItemUtils.getPlayerEnergy(player) > energyConsumed) {
-            UseHoeEvent event = new UseHoeEvent(player, itemStack, world, x, y, z);
-            if (MinecraftForge.EVENT_BUS.post(event)) {
-                return;
-            }
-
-            if (event.getResult() == Event.Result.ALLOW) {
-                ElectricItemUtils.drainPlayerEnergy(player, energyConsumed);
-                return;
-            }
-
-            if (world.isRemote) {
-                return;
-            }
-            double radius = (int) ModuleManager.computeModularProperty(itemStack, HOE_SEARCH_RADIUS);
-            for (int i = (int) Math.floor(-radius); i < radius; i++) {
-                for (int j = (int) Math.floor(-radius); j < radius; j++) {
-                    if (i * i + j * j < radius * radius) {
-                        Block block = world.getBlock(x + i, y, z + j);
-                        if (block == Blocks.grass || block == Blocks.dirt) {
-                            world.setBlock(x + i, y, z + j, Blocks.farmland);
-                            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemStack, HOE_ENERGY_CONSUMPTION));
-                        }
-                    }
-                }
-            }
-// TODO: Proper sound effect
-//            world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F),
-//                    Blocks.farmland.stepSound.getStepSound(), (Blocks.farmland.stepSound.getVolume() + 1.0F) / 2.0F,
-//                    Blocks.farmland.stepSound.getPitch() * 0.8F);
-
-        }
+//        double energyConsumed = ModuleManager.computeModularProperty(itemStack, HOE_ENERGY_CONSUMPTION);
+//        if (playerIn.canPlayerEdit(x, y, z, side, itemStack) && ElectricItemUtils.getPlayerEnergy(player) > energyConsumed) {
+//            UseHoeEvent event = new UseHoeEvent(player, itemStack, world, x, y, z);
+//            if (MinecraftForge.EVENT_BUS.post(event)) {
+//                return;
+//            }
+//
+//            if (event.getResult() == Event.Result.ALLOW) {
+//                ElectricItemUtils.drainPlayerEnergy(player, energyConsumed);
+//                return;
+//            }
+//
+//            if (world.isRemote) {
+//                return;
+//            }
+//            double radius = (int) ModuleManager.computeModularProperty(itemStack, HOE_SEARCH_RADIUS);
+//            for (int i = (int) Math.floor(-radius); i < radius; i++) {
+//                for (int j = (int) Math.floor(-radius); j < radius; j++) {
+//                    if (i * i + j * j < radius * radius) {
+//                        Block block = world.getBlock(x + i, y, z + j);
+//                        if (block == Blocks.grass || block == Blocks.dirt) {
+//                            world.setBlock(x + i, y, z + j, Blocks.farmland);
+//                            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemStack, HOE_ENERGY_CONSUMPTION));
+//                        }
+//                    }
+//                }
+//            }
+//// TODO: Proper sound effect
+////            world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F),
+////                    Blocks.farmland.stepSound.getStepSound(), (Blocks.farmland.stepSound.getVolume() + 1.0F) / 2.0F,
+////                    Blocks.farmland.stepSound.getPitch() * 0.8F);
+//
+//        }
+        return EnumActionResult.PASS;
     }
 
     @Override

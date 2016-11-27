@@ -12,11 +12,11 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
@@ -62,36 +62,39 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public void onRightClick(EntityPlayer player, World world, ItemStack itemStack) {
-        SoundEvent enderman_portal =  SoundEvent.REGISTRY.getObject(new ResourceLocation("entity.endermen.teleport"));
-        double range = ModuleManager.computeModularProperty(itemStack, BLINK_DRIVE_RANGE);
-        double energyConsumption = ModuleManager.computeModularProperty(itemStack, BLINK_DRIVE_ENERGY_CONSUMPTION);
-        if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
-            NuminaPlayerUtils.resetFloatKickTicks(player);
-            ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
-            world.playSound(player, player.getPosition(), enderman_portal, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
-            // MuseLogger.logDebug("Range: " + range);
-            RayTraceResult hitRayTrace = MusePlayerUtils.doCustomRayTrace(player.worldObj, player, true, range);
-
-
-
-            // MuseLogger.logDebug("Hit:" + hitMOP);
-            MusePlayerUtils.teleportEntity(player, hitRayTrace);
-            world.playSound(player, player.getPosition(), enderman_portal, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
-        }
+    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+//        SoundEvent enderman_portal =  SoundEvent.REGISTRY.getObject(new ResourceLocation("entity.endermen.teleport"));
+//        double range = ModuleManager.computeModularProperty(itemStack, BLINK_DRIVE_RANGE);
+//        double energyConsumption = ModuleManager.computeModularProperty(itemStack, BLINK_DRIVE_ENERGY_CONSUMPTION);
+//        if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
+//            NuminaPlayerUtils.resetFloatKickTicks(player);
+//            ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
+//            world.playSound(player, player.getPosition(), enderman_portal, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
+//            // MuseLogger.logDebug("Range: " + range);
+//            RayTraceResult hitRayTrace = MusePlayerUtils.doCustomRayTrace(player.worldObj, player, true, range);
+//
+//
+//
+//            // MuseLogger.logDebug("Hit:" + hitMOP);
+//            MusePlayerUtils.teleportEntity(player, hitRayTrace);
+//            world.playSound(player, player.getPosition(), enderman_portal, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
+//        }
+        return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
 
     @Override
-    public void onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        return EnumActionResult.PASS;
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-        return false;
+    public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+        return EnumActionResult.PASS;
     }
 
     @Override
-    public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int par4) {
+    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
+
     }
 
     @Override

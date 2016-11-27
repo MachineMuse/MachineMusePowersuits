@@ -15,19 +15,19 @@ public interface IBlockBreakingModule extends IPowerModule {
     /**
      * Return true if using the tool allows the block to drop as an item (e.g. diamond pickaxe on obsidian)
      *
+     * @param state  IBlockState of block being checked for breakability
      * @param stack  IC2ItemTest being used as a tool
-     * @param block  Block being checked for breakability
-     * @param state  IBlockState of the block being checked
      * @param player Player doing the breaking
      * @return True if the player can harvest the block, false if not
      */
-    boolean canHarvestBlock(IBlockAccess world, BlockPos pos, ItemStack stack, EntityPlayer player);
+    boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player);
 
-//    boolean canHarvestBlock(IBlockState state, ItemStack stack);
-//      public float getStrVsBlock(ItemStack stack, IBlockState state);
+//      public float getStrVsBlock(ItemStack stack, IBlockState state); // TODO: use if needed
 
 
     boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving);
 
     void handleBreakSpeed(PlayerEvent.BreakSpeed event);
+
+    ItemStack getEmulatedTool();
 }

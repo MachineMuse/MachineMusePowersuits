@@ -229,23 +229,23 @@ public class Config {
      */
     public static void loadPowerModules() {
         List<IModularItem> ARMORONLY = Arrays.asList(
-                (IModularItem)MPSItems.INSTANCE.powerArmorHead,
-                (IModularItem)MPSItems.INSTANCE.powerArmorTorso,
-                (IModularItem)MPSItems.INSTANCE.powerArmorLegs,
-                (IModularItem)MPSItems.INSTANCE.powerArmorFeet);
+                (IModularItem)MPSItems.getInstance().powerArmorHead,
+                (IModularItem)MPSItems.getInstance().powerArmorTorso,
+                (IModularItem)MPSItems.getInstance().powerArmorLegs,
+                (IModularItem)MPSItems.getInstance().powerArmorFeet);
 
         List<IModularItem> ALLITEMS = Arrays.asList(
-                (IModularItem)MPSItems.INSTANCE.powerArmorHead,
-                (IModularItem)MPSItems.INSTANCE.powerArmorTorso,
-                (IModularItem)MPSItems.INSTANCE.powerArmorLegs,
-                (IModularItem)MPSItems.INSTANCE.powerArmorFeet,
-                (IModularItem)MPSItems.INSTANCE.powerTool);
+                (IModularItem)MPSItems.getInstance().powerArmorHead,
+                (IModularItem)MPSItems.getInstance().powerArmorTorso,
+                (IModularItem)MPSItems.getInstance().powerArmorLegs,
+                (IModularItem)MPSItems.getInstance().powerArmorFeet,
+                (IModularItem)MPSItems.getInstance().powerTool);
 
-        List<IModularItem> HEADONLY = Collections.singletonList((IModularItem)MPSItems.INSTANCE.powerArmorHead);
-        List<IModularItem> TORSOONLY = Collections.singletonList((IModularItem)MPSItems.INSTANCE.powerArmorTorso);
-        List<IModularItem> LEGSONLY = Collections.singletonList((IModularItem)MPSItems.INSTANCE.powerArmorLegs);
-        List<IModularItem> FEETONLY = Collections.singletonList((IModularItem)MPSItems.INSTANCE.powerArmorFeet);
-        List<IModularItem> TOOLONLY = Collections.singletonList((IModularItem)MPSItems.INSTANCE.powerTool);
+        List<IModularItem> HEADONLY = Collections.singletonList((IModularItem)MPSItems.getInstance().powerArmorHead);
+        List<IModularItem> TORSOONLY = Collections.singletonList((IModularItem)MPSItems.getInstance().powerArmorTorso);
+        List<IModularItem> LEGSONLY = Collections.singletonList((IModularItem)MPSItems.getInstance().powerArmorLegs);
+        List<IModularItem> FEETONLY = Collections.singletonList((IModularItem)MPSItems.getInstance().powerArmorFeet);
+        List<IModularItem> TOOLONLY = Collections.singletonList((IModularItem)MPSItems.getInstance().powerTool);
 
         addModule(new BasicPlatingModule(ARMORONLY));
         addModule(new DiamondPlatingModule(ARMORONLY));

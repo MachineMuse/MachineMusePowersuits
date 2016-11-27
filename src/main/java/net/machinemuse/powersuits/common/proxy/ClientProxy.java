@@ -13,7 +13,7 @@ import net.machinemuse.powersuits.client.render.block.TinkerTableRenderer;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererLuxCapacitorEntity;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererPlasmaBolt;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererSpinningBlade;
-import net.machinemuse.powersuits.client.render.item.ToolRenderer;
+//import net.machinemuse.powersuits.client.render.item.ToolRenderer;
 import net.machinemuse.powersuits.client.render.modelspec.ModelSpecXMLReader;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.control.KeybindKeyHandler;
@@ -50,20 +50,22 @@ public class ClientProxy implements CommonProxy {
      */
     @Override
     public void registerRenderers() {
-        MinecraftForgeClient.registerItemRenderer(MPSItems.INSTANCE.powerTool, new ToolRenderer());
-        int tinkTableRenderID = RenderingRegistry.getNextAvailableRenderId();
-        TinkerTableRenderer tinkTableRenderer = new TinkerTableRenderer(tinkTableRenderID);
-        BlockTinkerTable.setRenderType(tinkTableRenderID);
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinkerTable.class, tinkTableRenderer);
-        RenderingRegistry.registerBlockHandler(tinkTableRenderer);
-        int luxCapacitorRenderID = RenderingRegistry.getNextAvailableRenderId();
-        RenderLuxCapacitorTESR luxCapacitorRenderer = new RenderLuxCapacitorTESR(luxCapacitorRenderID);
-        MPSItems.INSTANCE.luxCapacitor.setRenderType(luxCapacitorRenderID);
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLuxCapacitor.class, luxCapacitorRenderer);
-        RenderingRegistry.registerBlockHandler(luxCapacitorRenderer);
-        RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, new EntityRendererPlasmaBolt());
-        RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, new EntityRendererSpinningBlade());
-        RenderingRegistry.registerEntityRenderingHandler(EntityLuxCapacitor.class, new EntityRendererLuxCapacitorEntity());
+        // TODO: fix all rendering stuff
+
+//        MinecraftForgeClient.registerItemRenderer(MPSItems.getInstance().powerTool, new ToolRenderer());
+//        int tinkTableRenderID = RenderingRegistry.getNextAvailableRenderId();
+//        TinkerTableRenderer tinkTableRenderer = new TinkerTableRenderer(tinkTableRenderID);
+//        BlockTinkerTable.setRenderType(tinkTableRenderID);
+//        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinkerTable.class, tinkTableRenderer);
+//        RenderingRegistry.registerBlockHandler(tinkTableRenderer);
+//        int luxCapacitorRenderID = RenderingRegistry.getNextAvailableRenderId();
+//        RenderLuxCapacitorTESR luxCapacitorRenderer = new RenderLuxCapacitorTESR(luxCapacitorRenderID);
+//        MPSItems.INSTANCE.luxCapacitor.setRenderType(luxCapacitorRenderID);
+//        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLuxCapacitor.class, luxCapacitorRenderer);
+//        RenderingRegistry.registerBlockHandler(luxCapacitorRenderer);
+//        RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, new EntityRendererPlasmaBolt());
+//        RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, new EntityRendererSpinningBlade());
+//        RenderingRegistry.registerEntityRenderingHandler(EntityLuxCapacitor.class, new EntityRendererLuxCapacitorEntity());
         MinecraftForge.EVENT_BUS.register(new RenderEventHandler());
         URL resource = ClientProxy.class.getResource("/assets/powersuits/models/modelspec.xml");
         ModelSpecXMLReader.getINSTANCE().parseFile(resource);

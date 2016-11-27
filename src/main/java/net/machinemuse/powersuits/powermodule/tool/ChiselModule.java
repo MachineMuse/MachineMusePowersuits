@@ -60,7 +60,8 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public String getUnlocalizedName() { return "chisel";
+    public String getUnlocalizedName() {
+        return "chisel";
     }
 
     @Override
@@ -74,31 +75,35 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if (ModCompatibility.isChiselLoaded() && ITEM_CHISEL != null) {
-            if (ForgeHooks.canToolHarvestBlock(block, meta, new ItemStack(ITEM_CHISEL))) {
-                if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, CHISEL_ENERGY_CONSUMPTION)) {
-                    return true;
-                }
-            }
-        }
+    public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
+//        if (ModCompatibility.isChiselLoaded() && ITEM_CHISEL != null) {
+//            if (ForgeHooks.canToolHarvestBlock(block, meta, new ItemStack(ITEM_CHISEL))) {
+//                if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, CHISEL_ENERGY_CONSUMPTION)) {
+//                    return true;
+//                }
+//            }
+//        }
         return false;
     }
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-        int meta = world.getBlockMetadata(x, y, z);
-        if (canHarvestBlock(stack, block, meta, player)) {
-            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, CHISEL_ENERGY_CONSUMPTION));
-            return true;
-        } else {
-            return false;
-        }
+//        int meta = world.getBlockMetadata(x, y, z);
+//        if (canHarvestBlock(stack, block, meta, player)) {
+//            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, CHISEL_ENERGY_CONSUMPTION));
+//            return true;
+//        }
+        return false;
     }
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-        event.newSpeed *= ModuleManager.computeModularProperty(event.getEntityPlayer().inventory.getCurrentItem(), CHISEL_HARVEST_SPEED);
+//        event.newSpeed *= ModuleManager.computeModularProperty(event.getEntityPlayer().inventory.getCurrentItem(), CHISEL_HARVEST_SPEED);
+    }
+
+    @Override
+    public ItemStack getEmulatedTool() {
+        return null; // FIXME TOO!!
     }
 
     @Override

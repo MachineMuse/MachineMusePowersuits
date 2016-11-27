@@ -11,6 +11,7 @@ import net.machinemuse.numina.geometry.MuseRect;
 import net.machinemuse.numina.geometry.MuseRelativeRect;
 import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.utils.render.MuseRenderer;
+import net.minecraft.util.SoundCategory;
 import org.lwjgl.opengl.GL11;
 
 import java.util.*;
@@ -163,7 +164,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
             int i = 0;
             for (ClickableModule module : moduleButtons) {
                 if (module.hitBox(x, y)) {
-                    Musique.playClientSound(SoundDictionary.SOUND_GUI_SELECT, 1);
+                    Musique.playClientSound(SoundDictionary.SOUND_EVENT_GUI_SELECT, SoundCategory.BLOCKS,1, null);
                     selectedModule = i;
                     prevSelection = module.getModule();
                     break;

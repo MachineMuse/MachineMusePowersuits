@@ -488,14 +488,14 @@ public class ToolModel extends ModelBase {
     }
 
     public void setPoseForPlayer(EntityPlayer player, ItemStack itemStack) {
-        if (player.isUsingItem() && player.inventory.getCurrentItem() != null
-                && ModuleManager.itemHasActiveModule(player.inventory.getCurrentItem(), PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
-            setPose(1.5f, -1, 1.5f, -1, 1.5f, -1);
-            this.boltSize = player.getItemInUseDuration() > 50 ? 50 : player.getItemInUseDuration();
-        } else {
-            setPose(0.5f, -1, 0.5f, -1, 0.5f, -1);
-            this.boltSize = 0;
-        }
+//        if (player.isUsingItem() && player.inventory.getCurrentItem() != null
+//                && ModuleManager.itemHasActiveModule(player.inventory.getCurrentItem(), PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
+//            setPose(1.5f, -1, 1.5f, -1, 1.5f, -1);
+//            this.boltSize = player.getItemInUseDuration() > 50 ? 50 : player.getItemInUseDuration();
+//        } else {
+//            setPose(0.5f, -1, 0.5f, -1, 0.5f, -1);
+//            this.boltSize = 0;
+//        }
     }
 
     public void setNeutralPose() {

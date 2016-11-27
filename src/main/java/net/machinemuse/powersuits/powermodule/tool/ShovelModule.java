@@ -30,6 +30,8 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
     public static final String MODULE_SHOVEL = "Shovel";
     public static final String SHOVEL_HARVEST_SPEED = "Shovel Harvest Speed";
     public static final String SHOVEL_ENERGY_CONSUMPTION = "Shovel Energy Consumption";
+    private static final ItemStack emulatedTool = new ItemStack(Items.IRON_SHOVEL);
+
 
     public ShovelModule(List<IModularItem> validItems) {
         super(validItems);
@@ -52,40 +54,34 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if (istEffectiveHarvestTool(block, meta)) {
-
-            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION)) {
-                return true;
-            }
-        }
+    public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
+//        if (istEffectiveHarvestTool(block, meta)) {
+//
+//            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION)) {
+//                return true;
+//            }
+//        }
         return false;
     }
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-        int meta = worldIn.getBlockMetadata(x, y, z);
-        if (canHarvestBlock(stack, block, meta, player)) {
-            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION));
-            return true;
-        } else {
-            return false;
-        }
+//        int meta = worldIn.getBlockMetadata(x, y, z);
+//        if (canHarvestBlock(stack, block, meta, player)) {
+//            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION));
+//            return true;
+//        }
+        return false;
     }
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-        event.newSpeed *= ModuleManager.computeModularProperty(event.entityPlayer.inventory.getCurrentItem(), SHOVEL_HARVEST_SPEED);
+//        event.newSpeed *= ModuleManager.computeModularProperty(event.entityPlayer.inventory.getCurrentItem(), SHOVEL_HARVEST_SPEED);
     }
 
     @Override
     public String getTextureFile() {
         return "toolshovel";
-    }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.shovel;
     }
 
     @Override
@@ -99,20 +95,31 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     // TODO: move this, axe and pickaxe (+upgraded pickaxe) to single helper
-    private boolean istEffectiveHarvestTool(Block block, int metadata)
-    {
-        ItemStack emulatedTool = new ItemStack(Items.IRON_SHOVEL);
+    private boolean istEffectiveHarvestTool(Block block, int metadata) {
+//        ItemStack emulatedTool = new ItemStack(Items.IRON_SHOVEL);
+//
+//        if (emulatedTool.getItem().canHarvestBlock(block, emulatedTool))
+//            return true;
+//
+//        String effectiveTool = block.getHarvestTool(metadata);
+//        // some blocks like stairs do no not have a tool assigned to them
+//        if (effectiveTool == null) {
+//            if (emulatedTool.func_150997_a/*getStrVsBlock*/(block) >= ((ItemTool) emulatedTool.getItem()).func_150913_i/*getToolMaterial*/().getEfficiencyOnProperMaterial()) {
+//                return true;
+//            }
+//        }
+//        return Objects.equals(effectiveTool, "shovel");
+        return false;
+    }
 
-        if (emulatedTool.getItem().canHarvestBlock(block, emulatedTool))
-            return true;
 
-        String effectiveTool = block.getHarvestTool(metadata);
-        // some blocks like stairs do no not have a tool assigned to them
-        if (effectiveTool == null) {
-            if (emulatedTool.func_150997_a/*getStrVsBlock*/(block) >= ((ItemTool) emulatedTool.getItem()).func_150913_i/*getToolMaterial*/().getEfficiencyOnProperMaterial()) {
-                return true;
-            }
-        }
-        return Objects.equals(effectiveTool, "shovel");
+    @Override
+    public ItemStack getEmulatedTool() {
+        return emulatedTool;
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.shovel;
     }
 }

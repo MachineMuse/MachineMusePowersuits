@@ -31,6 +31,8 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
     public static final String AXE_ENERGY_CONSUMPTION = "Axe Energy Consumption";
     public static final String AXE_HARVEST_SPEED = "Axe Harvest Speed";
     public static final String AXE_SEARCH_RADIUS = "Axe Search Radius";
+    public static final ItemStack emulatedTool = new ItemStack(Items.IRON_AXE);
+
 
     public AxeModule(List<IModularItem> validItems) {
         super(validItems);
@@ -70,49 +72,55 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
 
     private static boolean istEffectiveHarvestTool(Block block, int metadata)
     {
-        ItemStack emulatedTool = new ItemStack(Items.IRON_AXE);
-
-        if (emulatedTool.getItem().canHarvestBlock(block, emulatedTool))
-            return true;
-
-        String effectiveTool = block.getHarvestTool(metadata);
-
-        // some blocks like stairs do no not have a tool assigned to them
-        if (effectiveTool == null)
-        {
-            {
-                if (emulatedTool.func_150997_a/*getStrVsBlock*/(block) >= ((ItemTool) emulatedTool.getItem()).func_150913_i/*getToolMaterial*/().getEfficiencyOnProperMaterial())
-                {
-                    return true;
-                }
-            }
-        }
-        return Objects.equals(effectiveTool, "axe");
+//        ItemStack emulatedTool = new ItemStack(Items.IRON_AXE);
+//
+//        if (emulatedTool.getItem().canHarvestBlock(block, emulatedTool))
+//            return true;
+//
+//        String effectiveTool = block.getHarvestTool(metadata);
+//
+//        // some blocks like stairs do no not have a tool assigned to them
+//        if (effectiveTool == null)
+//        {
+//            {
+//                if (emulatedTool.func_150997_a/*getStrVsBlock*/(block) >= ((ItemTool) emulatedTool.getItem()).func_150913_i/*getToolMaterial*/().getEfficiencyOnProperMaterial())
+//                {
+//                    return true;
+//                }
+//            }
+//        }
+//        return Objects.equals(effectiveTool, "axe");
+        return false;
     }
 
     @Override
-    public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if (istEffectiveHarvestTool(block, meta)) {
-            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION)) {
-                return true;
-            }
-        }
+    public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
+//        if (istEffectiveHarvestTool(block, meta)) {
+//            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION)) {
+//                return true;
+//            }
+//        }
         return false;
     }
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-        int meta = world.getBlockMetadata(x, y, z);
-        if (canHarvestBlock(stack, block, meta, player)) {
-            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION));
-            return true;
-        }
+//        int meta = world.getBlockMetadata(x, y, z);
+//        if (canHarvestBlock(stack, block, meta, player)) {
+//            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION));
+//            return true;
+//        }
         return false;
     }
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
         event.setNewSpeed((float) (event.getNewSpeed() * ModuleManager.computeModularProperty(event.getEntityPlayer().inventory.getCurrentItem(), AXE_HARVEST_SPEED)));
+    }
+
+    @Override
+    public ItemStack getEmulatedTool() {
+        return emulatedTool;
     }
 
     @Override

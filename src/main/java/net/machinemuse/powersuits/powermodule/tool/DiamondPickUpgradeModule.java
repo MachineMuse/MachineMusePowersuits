@@ -25,6 +25,7 @@ import java.util.List;
 
 public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
     public static final String MODULE_DIAMOND_PICK_UPGRADE = "Diamond Drill Upgrade";
+    public static final ItemStack emulatedTool = new ItemStack(Items.DIAMOND_PICKAXE);
 
     public DiamondPickUpgradeModule(List<IModularItem> validItems) {
         super(validItems);
@@ -57,31 +58,36 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
     }
 
     @Override
-    public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if (!Items.IRON_PICKAXE.canHarvestBlock(block, stack)) {
-            if (Items.diamond_pickaxe.canHarvestBlock(block, stack)) {
-                if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, PickaxeModule.PICKAXE_ENERGY_CONSUMPTION)) {
-                    return true;
-                }
-            }
-        }
+    public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
+//        if (!Items.IRON_PICKAXE.canHarvestBlock(block, stack)) {
+//            if (Items.diamond_pickaxe.canHarvestBlock(block, stack)) {
+//                if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, PickaxeModule.PICKAXE_ENERGY_CONSUMPTION)) {
+//                    return true;
+//                }
+//            }
+//        }
         return false;
     }
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-        int meta = world.getBlockMetadata(x,y,z);
-        if (canHarvestBlock(stack, block, meta, player) && !PickaxeModule.harvestCheck(stack, block, meta, player)) {
-            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, PickaxeModule.PICKAXE_ENERGY_CONSUMPTION));
-            return true;
-        }
+//        int meta = world.getBlockMetadata(x,y,z);
+//        if (canHarvestBlock(stack, block, meta, player) && !PickaxeModule.harvestCheck(stack, block, meta, player)) {
+//            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, PickaxeModule.PICKAXE_ENERGY_CONSUMPTION));
+//            return true;
+//        }
         return false;
     }
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-        event.newSpeed = (float) ModuleManager.computeModularProperty(event.entityPlayer.inventory.getCurrentItem(),
-                PickaxeModule.PICKAXE_HARVEST_SPEED);
+//        event.newSpeed = (float) ModuleManager.computeModularProperty(event.entityPlayer.inventory.getCurrentItem(),
+//                PickaxeModule.PICKAXE_HARVEST_SPEED);
+    }
+
+    @Override
+    public ItemStack getEmulatedTool() {
+        return emulatedTool;
     }
 
     @Override
