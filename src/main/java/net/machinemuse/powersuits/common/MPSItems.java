@@ -14,6 +14,18 @@ import net.minecraft.item.ItemStack;
  */
 
 public final class MPSItems {
+    private MPSItems() {
+
+    }
+
+    private static MPSItems INSTANCE;
+    public static MPSItems getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new MPSItems();
+        }
+        return INSTANCE;
+    }
+
     public static final Item powerArmorHead = MPSRegistry.registerItem(new ItemPowerArmorHelmet(), "powerArmorHead", "powerArmorHelmet");
     public static final Item powerArmorTorso = MPSRegistry.registerItem(new ItemPowerArmorChestplate(), "powerArmorTorso", "powerArmorChestplate");
     public static final Item powerArmorLegs = MPSRegistry.registerItem(new ItemPowerArmorLeggings(), "powerArmorLegs", "powerArmorLeggings");

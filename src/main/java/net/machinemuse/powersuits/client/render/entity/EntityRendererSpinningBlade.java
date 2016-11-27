@@ -2,14 +2,19 @@ package net.machinemuse.powersuits.client.render.entity;
 
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.entity.EntitySpinningBlade;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class RenderSpinningBlade extends MuseRender {
+public class EntityRendererSpinningBlade extends MuseEntityRenderer<EntitySpinningBlade> {
+    protected EntityRendererSpinningBlade(RenderManager renderManager) {
+        super(renderManager);
+    }
 
     @Override
-    public void doRender(Entity entity, double x, double y, double z, float yaw, float partialticktime) {
+    public void doRender(EntitySpinningBlade entity, double x, double y, double z, float entityYaw, float partialTicks) {
         glPushMatrix();
         glPushAttrib(GL_ENABLE_BIT);
         glDisable(GL_CULL_FACE);

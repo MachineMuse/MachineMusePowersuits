@@ -7,7 +7,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.obj.WavefrontObject;
+import net.minecraftforge.client.model.obj.OBJModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +65,7 @@ public class DefaultModelSpec {
 
 
     public static ModelSpec loadModel(ResourceLocation file, String[] textures)  {
-        WavefrontObject model = ModelRegistry.getInstance().loadModel(file);
+        OBJModel model = ModelRegistry.getInstance().loadModel(file);
         if (model != null) {
             return (ModelRegistry.getInstance().put(MuseStringUtils.extractName(file), new ModelSpec(model, textures, null, null, file.toString())));
         }

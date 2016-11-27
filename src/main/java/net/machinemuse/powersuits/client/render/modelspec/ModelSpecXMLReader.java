@@ -6,8 +6,7 @@ import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
-import net.minecraftforge.client.model.obj.GroupObject;
-import net.minecraftforge.client.model.obj.WavefrontObject;
+import net.minecraftforge.client.model.obj.OBJModel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -75,7 +74,7 @@ public class ModelSpecXMLReader {
             offset = parseVector(eElement.getAttribute("offset"));
             rotation = parseVector(eElement.getAttribute("rotation"));
 
-            WavefrontObject model = ModelRegistry.getInstance().loadModel(new ResourceLocation(file));
+            OBJModel model = ModelRegistry.getInstance().loadModel(new ResourceLocation(file));
             if (model != null) {
                 ModelSpec modelspec = new ModelSpec(model, textures, offset, rotation, file);
                 ModelSpec existingspec = ModelRegistry.getInstance().put(MuseStringUtils.extractName(file), modelspec);
@@ -122,10 +121,7 @@ public class ModelSpecXMLReader {
 
     @Nullable
     public String validatePolygroup(String s, ModelSpec m) {
-        for (GroupObject groupObject : m.model.groupObjects) {
-            if (groupObject.name.equals(s)) return s;
-        }
-        return null;
+        return m.model.getMatLib().getGroups().keySet().contains(s) ? s : null;
     }
 
     @Nullable

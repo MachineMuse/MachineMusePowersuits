@@ -11,6 +11,7 @@ import net.machinemuse.powersuits.item.ItemPowerArmor;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.nbt.NBTTagCompound;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -50,7 +51,7 @@ public class ItemModelViewFrame implements IGuiFrame {
         this.zoom = 64.0;
     }
 
-    public int getArmorSlot() {
+    public EntityEquipmentSlot getArmorSlot() {
         return ((ItemPowerArmor)this.getSelectedItem().getItem().getItem()).armorType;
     }
 
@@ -120,7 +121,7 @@ public class ItemModelViewFrame implements IGuiFrame {
             GL11.glDisable(2884);
             GL11.glRotatef((float)this.rotx, 1.0f, 0.0f, 0.0f);
             GL11.glRotatef((float)this.roty, 0.0f, 1.0f, 0.0f);
-            GL11.glTranslated(0.0, -this.getArmorSlot() / 2.0, 0.0);
+            GL11.glTranslated(0.0, -this.getArmorSlot().getIndex() / 2.0, 0.0);
             ArmorModelInstance.getInstance().render((Entity)mc.thePlayer, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0625f);
             GL11.glPopMatrix();
         }

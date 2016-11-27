@@ -119,7 +119,7 @@ public class ItemSelectionFrame extends ScrollableFrame {
         int i = 0;
         for (ClickableItem item : itemButtons) {
             if (item.hitBox(x, y)) {
-                Musique.playClientSound(SoundDictionary.SOUND_EVENT_GUI_SELECT, SoundCategory.BLOCKS, 1);
+                Musique.playClientSound(SoundDictionary.SOUND_EVENT_GUI_SELECT, SoundCategory.BLOCKS, 1, null);
                 selectedItemStack = i;
                 break;
             } else {

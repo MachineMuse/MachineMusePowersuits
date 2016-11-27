@@ -3,7 +3,6 @@ package net.machinemuse.powersuits.powermodule.tool;
 import cofh.api.block.IDismantleable;
 import cofh.lib.util.helpers.BlockHelper;
 import cofh.lib.util.helpers.ServerHelper;
-import cpw.mods.fml.common.eventhandler.Event;
 import ic2.api.tile.IWrenchable;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.minecraft.block.Block;

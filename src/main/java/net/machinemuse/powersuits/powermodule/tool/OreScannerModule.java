@@ -23,10 +23,9 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.TextComponentString;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
@@ -69,16 +68,16 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
         return addPropertyModifier(propertyName, new PropertyModifierIntLinearAdditive(tradeoffName, multiplier, roundTo, offset));
     }
 
-    public void searchForValuables(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side) {
+    public void searchForValuables(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, EnumFacing side) {
         int xRadius = (int) ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_X);
         int yRadius = (int) ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_Y);
         int zRadius = (int) ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_Z);
 
         int totalValue = 0, totalEnergy = 0, highestValue = 0, value;
-        ForgeDirection fdSide = ForgeDirection.getOrientation(side).getOpposite();
-        int cX = x + (fdSide.offsetX * xRadius);
-        int cY = y + (fdSide.offsetY * yRadius);
-        int cZ = z + (fdSide.offsetZ * zRadius);
+        EnumFacing fdSide = side.getOpposite();
+        int cX = x + (fdSide.getFrontOffsetX() * xRadius);
+        int cY = y + (fdSide.getFrontOffsetY() * yRadius);
+        int cZ = z + (fdSide.getFrontOffsetZ() * zRadius);
 
         for (int sX = cX - xRadius; sX <= cX + xRadius; sX++) {
             for (int sY = cY - yRadius; sY <= cY + yRadius; sY++) {

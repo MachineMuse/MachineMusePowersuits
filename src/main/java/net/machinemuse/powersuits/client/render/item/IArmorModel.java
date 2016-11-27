@@ -16,7 +16,7 @@ public interface IArmorModel {
 
     void setRenderSpec(NBTTagCompound nbt);
 
-    int getVisibleSection();
+    EntityEquipmentSlot getVisibleSection();
 
     void setVisibleSection(EntityEquipmentSlot value);
 

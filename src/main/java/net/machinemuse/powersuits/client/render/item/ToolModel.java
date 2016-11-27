@@ -11,7 +11,7 @@ import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;
-import net.machinemuse.powersuits.client.render.entity.RenderPlasmaBolt;
+import net.machinemuse.powersuits.client.render.entity.EntityRendererPlasmaBolt;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
 import net.minecraft.client.model.ModelBase;
@@ -451,7 +451,7 @@ public class ToolModel extends ModelBase {
         if (boltSize != 0) {
             GL11.glTranslated(-1, 1, 16);
             GL11.glPushMatrix();
-            RenderPlasmaBolt.doRender(boltSize);
+            EntityRendererPlasmaBolt.doRender(boltSize);
             GL11.glPopMatrix();
         }
         RenderState.glowOff();

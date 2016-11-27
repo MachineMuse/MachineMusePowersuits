@@ -5,9 +5,9 @@ import net.machinemuse.numina.scala.MuseRegistry;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.AdvancedModelLoader;
-import net.minecraftforge.client.model.IModelCustom;
-import net.minecraftforge.client.model.obj.WavefrontObject;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraftforge.client.model.obj.OBJModel;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -29,7 +29,7 @@ public class ModelRegistry extends MuseRegistry<ModelSpec> {
         return INSTANCE;
     }
 
-    public WavefrontObject loadModel(ResourceLocation resource) {
+    public OBJModel loadModel(ResourceLocation resource) {
         String name = MuseStringUtils.extractName(resource);
         ModelSpec spec = get(name);
         if (spec == null)
@@ -37,11 +37,16 @@ public class ModelRegistry extends MuseRegistry<ModelSpec> {
         return spec.model;
     }
 
-    public WavefrontObject wrap(ResourceLocation resource) {
+    public OBJModel wrap(ResourceLocation resource) {
         MuseLogger.logDebug("Loading " + resource + " as " + MuseStringUtils.extractName(resource));
-        IModelCustom model = AdvancedModelLoader.loadModel(resource);
-        if (model instanceof WavefrontObject)
-            return (WavefrontObject) model;
+        IModel model = null;
+        try {
+            model = OBJLoader.INSTANCE.loadModel(resource);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (model instanceof OBJModel)
+            return (OBJModel) model;
         MuseLogger.logError("Model loading failed :( " + resource);
         return null;
     }

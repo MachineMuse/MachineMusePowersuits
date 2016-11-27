@@ -55,7 +55,20 @@ public class RenderPart extends ModelRenderer {
                         Colour.doGLByInt(colours[ix]);
                     }
                     part.modelSpec.applyOffsetAndRotation(); // not yet implemented
-                    part.modelSpec.model.renderPart(part.partName);
+
+                    /*
+                        FIXME!!!!!
+                        The model system and rendering system have completely changed.
+                        There is no mechanism for rendering single parts anymore. Models are now rendered as
+                        "baked quads". So, my current thinking is to create a models from the existing models,
+                        with rendering hooks and a color/glow system for the parts, specifically for the armor
+                        slots/ modelBiped areas, such as head, chest, arms, hands, legs, and feet, and then
+                        render these models this way.
+
+                        */
+
+
+//                    part.modelSpec.model.renderPart(part.partName);
                     Colour.WHITE.doGL();
                     GL11.glPopMatrix();
 

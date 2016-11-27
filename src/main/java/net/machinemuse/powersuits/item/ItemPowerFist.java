@@ -292,13 +292,13 @@ public class ItemPowerFist extends MPSItemElectricTool
 
      */
 
-    public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
+    public boolean canHarvestBlock(ItemStack stack, Block block, IBlockState state, EntityPlayer player) {
         Object o = new Object();
-        if (block.getMaterial().isToolNotRequired())
+        if (block.getMaterial(state).isToolNotRequired())
             return true;
 
         for (IBlockBreakingModule module : ModuleManager.getBlockBreakingModules()) {
-            if (ModuleManager.itemHasActiveModule(stack, module.getDataName()) && module.canHarvestBlock(stack, block, meta, player)) {
+            if (ModuleManager.itemHasActiveModule(stack, module.getDataName()) && module.canHarvestBlock(stack, block, state, player)) {
                 return true;
             }
         }

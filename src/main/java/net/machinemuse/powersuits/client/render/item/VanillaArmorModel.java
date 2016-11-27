@@ -6,6 +6,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -22,7 +23,7 @@ import net.minecraft.util.EnumHandSide;
  */
 public class VanillaArmorModel extends ModelBiped implements IArmorModel {
     public NBTTagCompound renderSpec = null;
-    public int visibleSection = 0;
+    public EntityEquipmentSlot visibleSection = EntityEquipmentSlot.HEAD;
 
     public ModelRenderer bipedEars;
     public ModelRenderer bipedCloak;
@@ -52,13 +53,13 @@ public class VanillaArmorModel extends ModelBiped implements IArmorModel {
     }
 
     @Override
-    public int getVisibleSection() {
+    public EntityEquipmentSlot getVisibleSection() {
         return this.visibleSection;
     }
 
     @Override
-    public void setVisibleSection(int value) {
-        this.visibleSection = value;
+    public void setVisibleSection(EntityEquipmentSlot equipmentSlot) {
+        this.visibleSection = equipmentSlot;
     }
 
     /**

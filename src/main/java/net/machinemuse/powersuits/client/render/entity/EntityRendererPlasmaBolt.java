@@ -5,19 +5,21 @@ import net.machinemuse.numina.geometry.DrawableMuseCircle;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.utils.render.MuseRenderer;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import java.nio.DoubleBuffer;
 
-public class RenderPlasmaBolt extends MuseRender {
+public class EntityRendererPlasmaBolt extends MuseEntityRenderer<EntityPlasmaBolt> {
     protected static DrawableMuseCircle circle1;
     protected static DrawableMuseCircle circle2;
     protected static DrawableMuseCircle circle3;
     protected static DrawableMuseCircle circle4;
 
-    public RenderPlasmaBolt() {
+    protected EntityRendererPlasmaBolt(RenderManager renderManager) {
+        super(renderManager);
         Colour c1 = new Colour(.3, .3, 1, 0.3);
         circle1 = new DrawableMuseCircle(c1, c1);
         c1 = new Colour(.3, .3, 1, 0.6);
@@ -36,9 +38,8 @@ public class RenderPlasmaBolt extends MuseRender {
      * f1). But JAD is pre 1.5 so doesn't do that.
      */
     @Override
-    public void doRender(Entity entity, double x, double y, double z, float yaw, float partialTickTime) {
-        EntityPlasmaBolt bolt = (EntityPlasmaBolt) entity;
-        double size = (bolt.size) / 10.0;
+    public void doRender(EntityPlasmaBolt entity, double x, double y, double z, float entityYaw, float partialTicks) {
+        double size = (entity.size) / 10.0;
         GL11.glPushMatrix();
         GL11.glTranslated(x, y, z);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);

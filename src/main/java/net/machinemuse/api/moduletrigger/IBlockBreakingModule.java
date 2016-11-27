@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
@@ -16,11 +17,15 @@ public interface IBlockBreakingModule extends IPowerModule {
      *
      * @param stack  IC2ItemTest being used as a tool
      * @param block  Block being checked for breakability
-     * @param meta   Metadata of the block being checked
+     * @param state  IBlockState of the block being checked
      * @param player Player doing the breaking
      * @return True if the player can harvest the block, false if not
      */
-    boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player);
+    boolean canHarvestBlock(IBlockAccess world, BlockPos pos, ItemStack stack, EntityPlayer player);
+
+//    boolean canHarvestBlock(IBlockState state, ItemStack stack);
+//      public float getStrVsBlock(ItemStack stack, IBlockState state);
+
 
     boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving);
 

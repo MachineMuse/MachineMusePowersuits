@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.client.render.modelspec;
 
 import net.machinemuse.numina.scala.MuseRegistry;
 import net.minecraft.util.math.Vec3d;
-import net.minecraftforge.client.model.obj.WavefrontObject;
+import net.minecraftforge.client.model.obj.OBJModel;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -12,13 +12,13 @@ import net.minecraftforge.client.model.obj.WavefrontObject;
  */
 public class ModelSpec extends MuseRegistry<ModelPartSpec>
 {
-    public WavefrontObject model;
+    public OBJModel model;
     public String[] textures;
     public Vec3d offset;
     public Vec3d rotation;
     public static String filename;
 
-    public ModelSpec(WavefrontObject model, String[] textures, Vec3d offset, Vec3d rotation, String filename) {
+    public ModelSpec(OBJModel model, String[] textures, Vec3d offset, Vec3d rotation, String filename) {
         this.model = model;
         this.textures = textures;
         this.offset = offset;

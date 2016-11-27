@@ -28,8 +28,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.IShearable;
@@ -40,14 +40,14 @@ import java.util.List;
 import java.util.Random;
 
 public class ShearsModule extends PowerModuleBase implements IBlockBreakingModule, IRightClickModule {
-    public static final ItemStack shears = new ItemStack(Items.shears);
+    public static final ItemStack shears = new ItemStack(Items.SHEARS);
     public static final String MODULE_SHEARS = "Shears";
     private static final String SHEARING_ENERGY_CONSUMPTION = "Shearing Energy Consumption";
     private static final String SHEARING_HARVEST_SPEED = "Shearing Harvest Speed";
 
     public ShearsModule(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(new ItemStack(Items.iron_ingot, 2));
+        addInstallCost(new ItemStack(Items.IRON_INGOT, 2));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBaseProperty(SHEARING_ENERGY_CONSUMPTION, 50, "J");
         addBaseProperty(SHEARING_HARVEST_SPEED, 8, "x");
@@ -77,18 +77,18 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        if (playerClicking.worldObj.isRemote) {
-            return;
+        if (playerIn.worldObj.isRemote) {
+            return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
         }
-        MovingObjectPosition hitMOP = MusePlayerUtils.raytraceEntities(world, playerClicking, false, 8);
+        RayTraceResult rayTraceResult = MusePlayerUtils.raytraceEntities(worldIn, playerIn, false, 8);
 
-        if (hitMOP != null && hitMOP.entityHit instanceof IShearable) {
-            IShearable target = (IShearable) hitMOP.entityHit;
-            Entity entity = hitMOP.entityHit;
-            if (target.isShearable(stack, entity.worldObj, (int) entity.posX, (int) entity.posY, (int) entity.posZ)) {
-                ArrayList<ItemStack> drops = target.onSheared(stack, entity.worldObj, (int) entity.posX, (int) entity.posY,
-                        (int) entity.posZ,
-                        EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack));
+        if (rayTraceResult != null && rayTraceResult.entityHit instanceof IShearable) {
+            IShearable target = (IShearable) rayTraceResult.entityHit;
+            Entity entity = rayTraceResult.entityHit;
+            if (target.isShearable(itemStackIn, entity.worldObj, new BlockPos(entity))) {
+                ArrayList<ItemStack> drops = target.onSheared(itemStackIn, entity.worldObj,
+                        (int) entity.posX, (int) entity.posY, (int) entity.posZ,
+                        EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, itemStackIn));
 
                 Random rand = new Random();
                 for (ItemStack drop : drops) {
@@ -97,9 +97,10 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
                     ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
                     ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
                 }
-                ElectricItemUtils.drainPlayerEnergy(playerClicking, ModuleManager.computeModularProperty(stack, SHEARING_ENERGY_CONSUMPTION));
+                ElectricItemUtils.drainPlayerEnergy(playerIn, ModuleManager.computeModularProperty(itemStackIn, SHEARING_ENERGY_CONSUMPTION));
             }
         }
+        return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
     }
 
     @Override
@@ -118,8 +119,8 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if (ForgeHooks.canToolHarvestBlock(block, meta, shears)) {
+    public boolean canHarvestBlock(ItemStack stack, Block block, IBlockState state, EntityPlayer player) {
+        if (ForgeHooks.canToolHarvestBlock(block, state, shears)) {
             if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SHEARING_ENERGY_CONSUMPTION)) {
                 return true;
             }

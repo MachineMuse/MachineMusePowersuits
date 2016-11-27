@@ -31,7 +31,7 @@ public class MusePacketPlayerUpdate extends MusePacket {
 
     @Override
     public void write() {
-        writeString(player.getCommandSenderName());
+        writeString(player.getCommandSenderEntity().getName());
         inputMap.writeToStream(dataout());
     }
 
