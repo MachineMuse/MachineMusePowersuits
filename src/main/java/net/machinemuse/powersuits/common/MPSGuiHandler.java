@@ -5,6 +5,7 @@ import net.machinemuse.general.gui.frame.PortableCraftingContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.stats.AchievementList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.relauncher.Side;
@@ -30,7 +31,7 @@ public final class MPSGuiHandler implements IGuiHandler {
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID == 4)
-            return new PortableCraftingContainer(player.inventory, world, x, y, z);
+            return new PortableCraftingContainer(player.inventory, world, new BlockPos(x,y,z));
         return null;
     }
 
@@ -48,7 +49,7 @@ public final class MPSGuiHandler implements IGuiHandler {
             case 3:
                 return new CosmeticGui(player, x, y, z);
             case 4:
-                return new PortableCraftingGui(player, world, x, y, z);
+                return new PortableCraftingGui(player, world, new BlockPos(x,y,z));
             default:
                 return null;
         }

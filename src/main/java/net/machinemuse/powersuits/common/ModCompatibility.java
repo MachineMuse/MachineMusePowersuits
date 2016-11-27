@@ -127,7 +127,7 @@ public class ModCompatibility {
 
         // Hazmat
         if (isIndustrialCraftLoaded()) {
-            ModuleManager.addModule(new HazmatModule(Arrays.<IModularItem>asList(MPSItems.getInstance().powerArmorHead, MPSItems.getInstance().powerArmorTorso, MPSItems.getInstance().powerArmorLegs, MPSItems.getInstance().powerArmorFeet)));
+            ModuleManager.addModule(new HazmatModule(Arrays.<IModularItem>asList((IModularItem)MPSItems.getInstance().powerArmorHead, (IModularItem)MPSItems.getInstance().powerArmorTorso, (IModularItem)MPSItems.getInstance().powerArmorLegs, (IModularItem)MPSItems.getInstance().powerArmorFeet)));
         }
 
         // Galacticraft
@@ -139,7 +139,7 @@ public class ModCompatibility {
         if (isForestryLoaded()) {
             ModuleManager.addModule(new GrafterModule(Collections.singletonList((IModularItem) MPSItems.getInstance().powerTool)));
             ModuleManager.addModule(new ScoopModule(Collections.singletonList((IModularItem) MPSItems.getInstance().powerTool)));
-            ModuleManager.addModule(new ApiaristArmorModule(Arrays.<IModularItem>asList(MPSItems.getInstance().powerArmorHead, MPSItems.getInstance().powerArmorTorso, MPSItems.getInstance().powerArmorLegs, MPSItems.getInstance().powerArmorFeet)));
+            ModuleManager.addModule(new ApiaristArmorModule(Arrays.<IModularItem>asList((IModularItem)MPSItems.getInstance().powerArmorHead, (IModularItem)MPSItems.getInstance().powerArmorTorso, (IModularItem)MPSItems.getInstance().powerArmorLegs, (IModularItem)MPSItems.getInstance().powerArmorFeet)));
         }
 
         // Chisel

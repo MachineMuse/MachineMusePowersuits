@@ -68,17 +68,19 @@ public class OmniWrenchModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-        if (!StolenWrenchCode.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ)) {
-            Block block = world.getBlock(x, y, z);
-            if (world.blockExists(x, y, z) && world.canMineBlock(player, x, y, z) && (block != null)) {
-                if (block.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side))) {
-                    player.swingItem();
-                    return !world.isRemote;
-                }
-                return false;
-            }
-        }
-        return false;
+//        if (!StolenWrenchCode.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ)) {
+//            Block block = world.getBlock(x, y, z);
+//            if (world.blockExists(x, y, z) && world.canMineBlock(player, x, y, z) && (block != null)) {
+//                if (block.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side))) {
+//                    player.swingItem();
+//                    return !world.isRemote;
+//                }
+//                return false;
+//            }
+//        }
+//        return false;
+
+        return EnumActionResult.PASS;
     }
 
     @Override

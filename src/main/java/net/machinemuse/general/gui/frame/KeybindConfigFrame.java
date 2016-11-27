@@ -13,10 +13,12 @@ import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.control.KeyBindingHelper;
 import net.machinemuse.powersuits.control.KeybindKeyHandler;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -39,6 +41,7 @@ public class KeybindConfigFrame implements IGuiFrame {
     protected final ClickableButton newKeybindButton;
     protected final ClickableButton trashKeybindButton;
     protected long takenTime;
+    private static KeyBindingHelper keyBindingHelper = new KeyBindingHelper();
 
     public KeybindConfigFrame(MuseGui gui, MusePoint2D ul, MusePoint2D br, EntityPlayer player) {
         modules = new HashSet();
@@ -85,10 +88,12 @@ public class KeybindConfigFrame implements IGuiFrame {
             }
         } else if (button > 2) {
             int key = button - 100;
-            if (KeyBinding.hash.containsItem(key)) {
+//            if (KeyBinding.HASH.containsItem(key)) {
+            if (keyBindingHelper.keyBindingHasKey(key)) {
                 takenTime = System.currentTimeMillis();
             }
-            if (!KeyBinding.hash.containsItem(key)) {
+//            if (!KeyBinding.HASH.containsItem(key)) {
+            if (!keyBindingHelper.keyBindingHasKey(key)) {
                 addKeybind(key, true);
             } else if (Config.allowConflictingKeybinds()) {
                 addKeybind(key, false);
@@ -128,8 +133,9 @@ public class KeybindConfigFrame implements IGuiFrame {
                 closestKeybind.bindModule((ClickableModule) selectedClickie);
             } else if (selectedClickie != null && selectedClickie instanceof ClickableKeybinding && trashKeybindButton.hitBox(x, y)) {
                 KeyBinding binding = ((ClickableKeybinding) selectedClickie).getKeyBinding();
-                KeyBinding.keybindArray.remove(binding);
-                KeyBinding.hash.removeObject(binding.getKeyCode());
+                KeyBinding.KEYBIND_ARRAY.remove(binding);
+//                KeyBinding.HASH.removeObject(binding.getKeyCode());
+                keyBindingHelper.removeKey(binding.getKeyCode());
                 KeybindManager.getKeybindings().remove(selectedClickie);
             }
             selectedClickie = null;
@@ -269,10 +275,12 @@ public class KeybindConfigFrame implements IGuiFrame {
         if (selecting) {
             if (Keyboard.getEventKeyState()) {
                 int key = Keyboard.getEventKey();
-                if (KeyBinding.hash.containsItem(key)) {
+//                if (KeyBinding.HASH.containsItem(key)) {
+                if (keyBindingHelper.keyBindingHasKey(key)) {
                     takenTime = System.currentTimeMillis();
                 }
-                if (!KeyBinding.hash.containsItem(key)) {
+//                if (!KeyBinding.HASH.containsItem(key)) {
+                if (!keyBindingHelper.keyBindingHasKey(key)) {
                     addKeybind(key, true);
                 } else if (Config.allowConflictingKeybinds()) {
                     addKeybind(key, false);

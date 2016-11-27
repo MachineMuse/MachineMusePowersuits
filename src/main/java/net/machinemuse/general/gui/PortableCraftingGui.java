@@ -5,6 +5,7 @@ import net.machinemuse.powersuits.common.Config;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -12,8 +13,8 @@ import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class PortableCraftingGui extends GuiContainer {
-    public PortableCraftingGui(EntityPlayer player, World world, int x, int y, int z) {
-        super(new PortableCraftingContainer(player.inventory, world, x, y, z));
+    public PortableCraftingGui(EntityPlayer player, World world, BlockPos pos) {
+        super(new PortableCraftingContainer(player.inventory, world, pos));
     }
 
     /**

@@ -230,7 +230,7 @@ public class MuseGui extends GuiScreen {
      * mouseUp
      */
     @Override
-    protected void mouseMovedOrUp(int x, int y, int which) {
+    protected void mouseReleased(int x, int y, int which) {
         for (IGuiFrame frame : frames) {
             frame.onMouseUp(x, y, which);
         }

@@ -1,12 +1,14 @@
 package net.machinemuse.powersuits.item;
 
+import net.minecraft.inventory.EntityEquipmentSlot;
+
 /**
  * Ported to Java by lehjr on 10/26/16.
  */
 public class ItemPowerArmorLeggings extends ItemPowerArmor {
 
     public ItemPowerArmorLeggings() {
-        super(0, 2);
+        super(0, EntityEquipmentSlot.LEGS);
         this.setUnlocalizedName("powerArmorLeggings");
     }
 }

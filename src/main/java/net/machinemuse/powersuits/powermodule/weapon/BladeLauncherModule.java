@@ -63,9 +63,10 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        if (ElectricItemUtils.getPlayerEnergy(playerIn) > ModuleManager.computeModularProperty(itemStackIn, BLADE_ENERGY)) {
-            playerIn.setItemInUse(itemStackIn, 72000);
-        }
+//        if (ElectricItemUtils.getPlayerEnergy(playerIn) > ModuleManager.computeModularProperty(itemStackIn, BLADE_ENERGY)) {
+//            playerIn.setItemInUse(itemStackIn, 72000);
+//        }
+        return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
 
     @Override
@@ -83,14 +84,14 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
         // int chargeTicks = Math.max(itemStack.getMaxItemUseDuration() - par4, 10);
 
 
-        if (!worldIn.isRemote) {
-            double energyConsumption = ModuleManager.computeModularProperty(itemStack, BLADE_ENERGY);
-            if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
-                ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
-                EntitySpinningBlade blade = new EntitySpinningBlade(worldIn, player);
-                worldIn.spawnEntityInWorld(blade);
-            }
-        }
+//        if (!worldIn.isRemote) {
+//            double energyConsumption = ModuleManager.computeModularProperty(itemStack, BLADE_ENERGY);
+//            if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
+//                ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
+//                EntitySpinningBlade blade = new EntitySpinningBlade(worldIn, player);
+//                worldIn.spawnEntityInWorld(blade);
+//            }
+//        }
     }
 
 //    @Override

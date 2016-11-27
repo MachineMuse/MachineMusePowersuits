@@ -34,46 +34,46 @@ public class MuseHeatUtils {
     }
 
     public static void coolPlayer(EntityPlayer player, double coolDegrees) {
-        List<ItemStack> items = MuseItemUtils.getModularItemsInInventory(player);
-        if (player.isUsingItem()) {
-            items.remove(player.inventory.getCurrentItem());
-        }
-        for (ItemStack stack : items) {
-            double currHeat = getItemHeat(stack);
-            if (coolDegrees > 0) {
-                if (currHeat > coolDegrees) {
-                    setItemHeat(stack, currHeat - coolDegrees);
-                    return;
-                } else {
-                    coolDegrees -= currHeat;
-                    setItemHeat(stack, 0);
-                }
-            } else {
-                return;
-            }
-        }
+//        List<ItemStack> items = MuseItemUtils.getModularItemsInInventory(player);
+//        if (player.isUsingItem()) {
+//            items.remove(player.inventory.getCurrentItem());
+//        }
+//        for (ItemStack stack : items) {
+//            double currHeat = getItemHeat(stack);
+//            if (coolDegrees > 0) {
+//                if (currHeat > coolDegrees) {
+//                    setItemHeat(stack, currHeat - coolDegrees);
+//                    return;
+//                } else {
+//                    coolDegrees -= currHeat;
+//                    setItemHeat(stack, 0);
+//                }
+//            } else {
+//                return;
+//            }
+//        }
     }
 
     public static void heatPlayer(EntityPlayer player, double heatDegrees) {
-        List<ItemStack> items = MuseItemUtils.getModularItemsInInventory(player);
-        if (player.isUsingItem()) {
-            items.remove(player.inventory.getCurrentItem());
-        }
-        for (ItemStack stack : items) {
-            double currHeat = getItemHeat(stack);
-            double maxHeat = getMaxHeat(stack);
-            if (currHeat + heatDegrees < maxHeat) {
-                setItemHeat(stack, currHeat + heatDegrees);
-                return;
-            } else {
-                heatDegrees -= (maxHeat - currHeat);
-                setItemHeat(stack, maxHeat);
-            }
-        }
-        double heatPerStack = heatDegrees / items.size();
-        for (ItemStack stack : items) {
-            heatItem(stack, heatPerStack);
-        }
+//        List<ItemStack> items = MuseItemUtils.getModularItemsInInventory(player);
+//        if (player.isUsingItem()) {
+//            items.remove(player.inventory.getCurrentItem());
+//        }
+//        for (ItemStack stack : items) {
+//            double currHeat = getItemHeat(stack);
+//            double maxHeat = getMaxHeat(stack);
+//            if (currHeat + heatDegrees < maxHeat) {
+//                setItemHeat(stack, currHeat + heatDegrees);
+//                return;
+//            } else {
+//                heatDegrees -= (maxHeat - currHeat);
+//                setItemHeat(stack, maxHeat);
+//            }
+//        }
+//        double heatPerStack = heatDegrees / items.size();
+//        for (ItemStack stack : items) {
+//            heatItem(stack, heatPerStack);
+//        }
     }
 
     public static double getItemHeat(ItemStack stack) {

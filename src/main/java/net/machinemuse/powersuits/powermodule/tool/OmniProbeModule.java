@@ -12,11 +12,10 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -42,7 +41,7 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
     public OmniProbeModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 4));
-        ItemStack tHighest = GameRegistry.findItemStack("minecraft", "comparator", 1);
+        ItemStack tHighest = new ItemStack(Items.COMPARATOR);
 
         /* Project Red seems to do something odd with its debugger. Will have to look into this. */
         // if (Loader.isModLoaded("ProjRed|Core")) {
@@ -51,12 +50,12 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
         // }
 
         if (ModCompatibility.isMFRLoaded()) {
-            rednetMeter = GameRegistry.findItemStack("MineFactoryReloaded", "rednet.meter", 1);
+            rednetMeter = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("MineFactoryReloaded", "rednet.meter")), 1);
             tHighest = rednetMeter;
         }
 
         if (ModCompatibility.isRailcraftLoaded()) {
-            rcMeter = GameRegistry.findItemStack("Railcraft", "tool.electric.meter", 1);
+            rcMeter = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("Railcraft", "tool.electric.meter")), 1);
             tHighest = rcMeter;
         }
 
@@ -67,7 +66,7 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
         // }
 
         if (ModCompatibility.isEnderIOLoaded()) {
-            conduitProbe = GameRegistry.findItemStack("EnderIO", "itemConduitProbe", 1);
+            conduitProbe = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("EnderIO", "itemConduitProbe")), 1);
             tHighest = conduitProbe;
         }
         addInstallCost(tHighest);
@@ -111,41 +110,43 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
     @Override
     public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
 
-        int block = Block.getIdFromBlock(world.getBlock(x, y, z));
+//        int block = Block.getIdFromBlock(world.getBlock(x, y, z));
+//
+//        /* Project Red seems to do something odd with its debugger. Will have to look into this. */
+//        // if (Loader.isModLoaded("ProjRed|Transmission")) {
+//        //    if ( world.getBlock(x, y, z) instanceof TWireCommons) {
+//        //
+//        //    }
+//        // }
+//
+//        if (Loader.isModLoaded("MineFactoryReloaded")) {
+//            if (block == Block.getIdFromBlock(GameRegistry.findBlock("MineFactoryReloaded", "cable.redstone")))
+//                return rednetMeter.getItem().onItemUseFirst(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+//        }
+//
+//        if (Loader.isModLoaded("Railcraft")) {
+//            if ((block == Block.getIdFromBlock(GameRegistry.findBlock("Railcraft", "tile.railcraft.machine.alpha"))) ||
+//                    (block == Block.getIdFromBlock(GameRegistry.findBlock("Railcraft", "tile.railcraft.track"))) ||
+//                    (block == Block.getIdFromBlock(GameRegistry.findBlock("Railcraft", "tile.railcraft.machine.epsilon"))) ||
+//                    (block == Block.getIdFromBlock(GameRegistry.findBlock("Railcraft", "tile.railcraft.machine.delta")))) {
+//                return rcMeter.getItem().onItemUseFirst(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+//            }
+//        }
+//
+//        //  if (ModCompatability.isThermalExpansionLoaded()) {
+//        //     if (block == Block.getIdFromBlock(GameRegistry.findBlock("ThermalExpansion", .... ))) {
+//        //    return multiMeter.getItem().onItemUseFirst(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+//        //     }
+//        //  }
+//
+//        if (Loader.isModLoaded("EnderIO")) {
+//            if (block == Block.getIdFromBlock(GameRegistry.findBlock("EnderIO", "blockConduitBundle"))) {
+//                return conduitProbe.getItem().onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+//            }
+//        }
+//        return false;
 
-        /* Project Red seems to do something odd with its debugger. Will have to look into this. */
-        // if (Loader.isModLoaded("ProjRed|Transmission")) {
-        //    if ( world.getBlock(x, y, z) instanceof TWireCommons) {
-        //
-        //    }
-        // }
-
-        if (Loader.isModLoaded("MineFactoryReloaded")) {
-            if (block == Block.getIdFromBlock(GameRegistry.findBlock("MineFactoryReloaded", "cable.redstone")))
-                return rednetMeter.getItem().onItemUseFirst(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
-        }
-
-        if (Loader.isModLoaded("Railcraft")) {
-            if ((block == Block.getIdFromBlock(GameRegistry.findBlock("Railcraft", "tile.railcraft.machine.alpha"))) ||
-                    (block == Block.getIdFromBlock(GameRegistry.findBlock("Railcraft", "tile.railcraft.track"))) ||
-                    (block == Block.getIdFromBlock(GameRegistry.findBlock("Railcraft", "tile.railcraft.machine.epsilon"))) ||
-                    (block == Block.getIdFromBlock(GameRegistry.findBlock("Railcraft", "tile.railcraft.machine.delta")))) {
-                return rcMeter.getItem().onItemUseFirst(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
-            }
-        }
-
-        //  if (ModCompatability.isThermalExpansionLoaded()) {
-        //     if (block == Block.getIdFromBlock(GameRegistry.findBlock("ThermalExpansion", .... ))) {
-        //    return multiMeter.getItem().onItemUseFirst(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
-        //     }
-        //  }
-
-        if (Loader.isModLoaded("EnderIO")) {
-            if (block == Block.getIdFromBlock(GameRegistry.findBlock("EnderIO", "blockConduitBundle"))) {
-                return conduitProbe.getItem().onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
-            }
-        }
-        return false;
+        return EnumActionResult.PASS;
     }
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {

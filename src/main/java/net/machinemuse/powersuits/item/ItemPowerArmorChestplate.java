@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.item;
 
 import net.machinemuse.utils.render.MuseRenderer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 
 /**
  * Ported to Java by lehjr on 10/26/16.
@@ -8,7 +9,7 @@ import net.machinemuse.utils.render.MuseRenderer;
 public class ItemPowerArmorChestplate extends ItemPowerArmor {
 
     public ItemPowerArmorChestplate() {
-        super(0, 1);
+        super(0, EntityEquipmentSlot.CHEST);
         this.setUnlocalizedName("powerArmorChestplate");
     }
 

@@ -9,6 +9,7 @@ import net.machinemuse.powersuits.powermodule.misc.ThaumGogglesModule;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Optional;
 //import thaumcraft.api.IGoggles;
@@ -28,7 +29,7 @@ public class ItemPowerArmorHelmet extends ItemPowerArmor implements IArmorNatura
 {
     private final String iconpath;
     public ItemPowerArmorHelmet() {
-        super(0, 0);
+        super(0, EntityEquipmentSlot.HEAD);
         this.iconpath = MuseRenderer.ICON_PREFIX + "armorhead";
         this.setUnlocalizedName("powerArmorHelmet");
     }

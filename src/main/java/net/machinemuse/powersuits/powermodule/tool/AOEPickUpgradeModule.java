@@ -60,7 +60,7 @@ public class AOEPickUpgradeModule extends PowerModuleBase implements IBlockBreak
     }
 
     @Override
-    public boolean canHarvestBlock(ItemStack itemStack, Block block, int i, EntityPlayer entityPlayer) {
+    public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
         return false;
     }
 
@@ -71,6 +71,11 @@ public class AOEPickUpgradeModule extends PowerModuleBase implements IBlockBreak
 
     @Override
     public void handleBreakSpeed(PlayerEvent.BreakSpeed breakSpeed) {
+    }
+
+    @Override
+    public ItemStack getEmulatedTool() {
+        return null; // FIXME
     }
 
     @Override

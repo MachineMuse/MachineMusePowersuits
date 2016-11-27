@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.item;
 import ic2.api.item.IMetalArmor;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Optional;
 
@@ -13,7 +14,7 @@ import net.minecraftforge.fml.common.Optional;
 public class ItemPowerArmorBoots extends ItemPowerArmor implements IMetalArmor
 {
     public ItemPowerArmorBoots() {
-        super(0, 3);
+        super(0, EntityEquipmentSlot.FEET);
         this.setUnlocalizedName("powerArmorBoots");
     }
 
