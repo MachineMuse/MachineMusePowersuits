@@ -36,7 +36,7 @@ public class MusePacketToggleRequest extends MusePacket{
     }
 
     @Override
-    public void handleServer(EntityPlayerMP player) {
+    public void handleServer(EntityPlayer player) {
         MuseItemUtils.toggleModuleForPlayer(player, module, active);
     }
 

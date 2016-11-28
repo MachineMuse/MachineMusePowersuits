@@ -50,7 +50,7 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
     }
 
     @Override
-    public void handleServer(EntityPlayerMP player) {
+    public void handleServer(EntityPlayer player) {
         if (moduleName != null) {
             InventoryPlayer inventory = player.inventory;
             ItemStack stack = player.inventory.getStackInSlot(itemSlot);
@@ -66,7 +66,7 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
 
                 for (Integer slotiter : slots) {
                     MusePacket reply = new MusePacketInventoryRefresh(player, slotiter, inventory.getStackInSlot(slotiter));
-                    PacketSender.sendTo(reply, player);
+                    PacketSender.sendTo(reply, (EntityPlayerMP) player);
                 }
             }
         }

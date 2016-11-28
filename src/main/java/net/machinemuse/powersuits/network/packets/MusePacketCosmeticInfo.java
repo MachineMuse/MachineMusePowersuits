@@ -44,7 +44,7 @@ public class MusePacketCosmeticInfo extends MusePacket {
     }
 
     @Override
-    public void handleServer(EntityPlayerMP player) {
+    public void handleServer(EntityPlayer player) {
         ItemStack stack = player.inventory.getStackInSlot(itemSlot);
         if (tagName != null && stack != null && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);

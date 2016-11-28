@@ -51,7 +51,7 @@ public class MusePacketTweakRequest extends MusePacket {
     }
 
     @Override
-    public void handleServer(EntityPlayerMP player) {
+    public void handleServer(EntityPlayer player) {
         if (moduleName != null && tweakName != null) {
             ItemStack stack = player.inventory.getStackInSlot(itemSlot);
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);

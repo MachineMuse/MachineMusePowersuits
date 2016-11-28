@@ -71,7 +71,7 @@ public class MusePacketPropertyModifierConfig extends MusePacket {
      */
     @SideOnly(Side.CLIENT)
     @Override
-    public void handleClient(EntityClientPlayerMP player) {
+    public void handleClient(EntityPlayer player) {
         MusePackager d = MusePacketPropertyModifierConfigPackager.getInstance();
         int numModules = d.readInt(data);
         for (int i = 0; i < numModules; i++) {

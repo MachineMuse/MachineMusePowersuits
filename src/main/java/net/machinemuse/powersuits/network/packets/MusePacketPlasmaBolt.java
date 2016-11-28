@@ -42,7 +42,7 @@ public class MusePacketPlasmaBolt extends MusePacket {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void handleClient(EntityClientPlayerMP player) {
+    public void handleClient(EntityPlayer player) {
         try {
             EntityPlasmaBolt entity = (EntityPlasmaBolt) Minecraft.getMinecraft().theWorld.getEntityByID(entityID);
             entity.size = this.size;

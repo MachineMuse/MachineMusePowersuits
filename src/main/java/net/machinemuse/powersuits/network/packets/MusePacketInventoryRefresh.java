@@ -43,7 +43,7 @@ public class MusePacketInventoryRefresh extends MusePacket {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void handleClient(EntityClientPlayerMP player) {
+    public void handleClient(EntityPlayer player) {
         IInventory inventory = player.inventory;
         inventory.setInventorySlotContents(slot, stack);
         ((MuseGui)(Minecraft.getMinecraft().currentScreen)).refresh();

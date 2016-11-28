@@ -36,7 +36,7 @@ public class MusePacketPlayerUpdate extends MusePacket {
     }
 
     @Override
-    public void handleServer(EntityPlayerMP player) {
+    public void handleServer(EntityPlayer player) {
         MusePacketPlayerUpdate updatePacket = new MusePacketPlayerUpdate(player, inputMap);
         player.motionX = inputMap.motionX;
         player.motionY = inputMap.motionY;
