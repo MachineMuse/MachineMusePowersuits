@@ -5,7 +5,6 @@ import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.IPropertyModifier;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.utils.MuseItemUtils;
@@ -153,7 +152,7 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
 
     @Override
     public String getStitchedTexture(ItemStack item) {
-        return MuseTextureUtils.ITEM_TEXTURE_QUILT;
+        return MuseTextureUtils.TEXTURE_QUILT;
         // alternatively
         // return "/terrain.png";
     }

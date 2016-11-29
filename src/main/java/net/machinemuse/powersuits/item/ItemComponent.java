@@ -1,17 +1,12 @@
 package net.machinemuse.powersuits.item;
 
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.utils.MuseStringUtils;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -59,11 +54,11 @@ public class ItemComponent extends Item {
         this.populate();
     }
 
-    public ItemStack addComponent(String oredictName, String description, String iconName) {
+    public ItemStack addComponent(int index, String oredictName, String description, String iconName) {
         names.add(oredictName);
         iconNames.add(iconName);
         descriptions.add(description);
-        ItemStack stack = new ItemStack(this, 1, names.size() - 1);
+        ItemStack stack = new ItemStack(this, 1, index);
 
         //oredict compares itemIDs and damage values only
         OreDictionary.registerOre(oredictName, stack);
@@ -86,31 +81,32 @@ public class ItemComponent extends Item {
         }
     }
 
+    // changed this to static values for meta just in case we need to change or add things later
     public void populate() {
         // NOTE: Only add to end otherwise people's IDs will get screwed up n.n'
-        wiring = addComponent("componentWiring", "A special type of wiring with high voltaic capacity and precision, necessary for the sensitive electronics in power armor.", "wiring");
-        solenoid = addComponent("componentSolenoid", "Wires wound around a ferromagnetic core produces a basic electromagnet.", "solenoid");
-        servoMotor = addComponent("componentServo", "A special type of motor which uses a pulse-modulated signal to enact very precise movements.", "servo");
-        gliderWing = addComponent("componentGliderWing", "A lightweight aerodynamic wing with an electromagnet for quick deployment and retraction.", "gliderwing");
-        ionThruster = addComponent("componentIonThruster", "Essentially a miniature particle accelerator. Accelerates ions to near-light speed to produce thrust.", "ionthruster");
-        lvcapacitor = addComponent("componentLVCapacitor", "A simple capacitor can store and discharge small amounts of energy rapidly.", "lvcapacitor");
-        mvcapacitor = addComponent("componentMVCapacitor", "A more advanced capacitor which can store more energy at higher voltages.", "mvcapacitor");
-        hvcapacitor = addComponent("componentHVCapacitor", "A synthetic crystal device which can store and release massive amounts of energy.", "hvcapacitor");
-        evcapacitor = addComponent("componentEVCapacitor", "The most advanced energy storage device ever created. Now 15% less likely to randomly explode!", "evcapacitor");
-        parachute = addComponent("componentParachute", "A simple reusable parachute which can be deployed and recovered in midair.", "parachuteitem");
-        basicPlating = addComponent("componentPlatingBasic", "Some carefully-arranged metal armor plates.", "basicplating1");
-        advancedPlating = addComponent("componentPlatingAdvanced", "Some carefully-arranged armor plates of a rare and stronger material", "advancedplating1");
-        fieldEmitter = addComponent("componentFieldEmitter", "An advanced device which directly manipulates electromagnetic and gravitational fields in an area.", "fieldemitter");
-        laserHologram = addComponent("componentLaserEmitter", "A multicoloured laser array which can cheaply alter the appearance of something.", "hologramemitter");
-        carbonMyofiber = addComponent("componentCarbonMyofiber", "A small bundle of carbon fibers, refined for use in artificial muscles.", "myofiber");
-        controlCircuit = addComponent("componentControlCircuit", "A simple networkable microcontroller for coordinating an individual component.", "controlcircuit");
-        myofiberGel = addComponent("componentMyofiberGel", "A thick, conductive paste, perfect for fitting between myofibers in an artificial muscle.", "paste");
-        artificialMuscle = addComponent("componentArtificialMuscle", "An electrical, artificial muscle, with less range of movement than human muscle but orders of magnitude more strength.", "artificialmuscle");
-        solarPanel = addComponent("componentSolarPanel", "A light sensitive device that will generate electricity from the sun.", "solarpanel");
-        magnet = addComponent("componentMagnet", "A metallic device that generates a magnetic field which pulls items towards the player.", "magnetb");
-        computerChip = addComponent("componentComputerChip", "An upgraded control circuit that contains a CPU which is capable of more advanced calculations.", "computerchip");
-        rubberHose = addComponent("componentRubberHose", "A heavily insulated rubber hose capable of withstanding extreme heat or cold", "rubberhose");
-        liquidNitrogen = addComponent("componentLiquidNitrogen", "A bucket of Liquid Nitrogen", "liquidnitrogen");
+        wiring = addComponent(0, "componentWiring", "A special type of wiring with high voltaic capacity and precision, necessary for the sensitive electronics in power armor.", "wiring");
+        solenoid = addComponent(1, "componentSolenoid", "Wires wound around a ferromagnetic core produces a basic electromagnet.", "solenoid");
+        servoMotor = addComponent(2, "componentServo", "A special type of motor which uses a pulse-modulated signal to enact very precise movements.", "servo");
+        gliderWing = addComponent(3, "componentGliderWing", "A lightweight aerodynamic wing with an electromagnet for quick deployment and retraction.", "gliderwing");
+        ionThruster = addComponent(4, "componentIonThruster", "Essentially a miniature particle accelerator. Accelerates ions to near-light speed to produce thrust.", "ionthruster");
+        lvcapacitor = addComponent(5, "componentLVCapacitor", "A simple capacitor can store and discharge small amounts of energy rapidly.", "lvcapacitor");
+        mvcapacitor = addComponent(6, "componentMVCapacitor", "A more advanced capacitor which can store more energy at higher voltages.", "mvcapacitor");
+        hvcapacitor = addComponent(7, "componentHVCapacitor", "A synthetic crystal device which can store and release massive amounts of energy.", "hvcapacitor");
+        evcapacitor = addComponent(8, "componentEVCapacitor", "The most advanced energy storage device ever created. Now 15% less likely to randomly explode!", "evcapacitor");
+        parachute = addComponent(9, "componentParachute", "A simple reusable parachute which can be deployed and recovered in midair.", "parachuteitem");
+        basicPlating = addComponent(10, "componentPlatingBasic", "Some carefully-arranged metal armor plates.", "basicplating1");
+        advancedPlating = addComponent(11, "componentPlatingAdvanced", "Some carefully-arranged armor plates of a rare and stronger material", "advancedplating1");
+        fieldEmitter = addComponent(12, "componentFieldEmitter", "An advanced device which directly manipulates electromagnetic and gravitational fields in an area.", "fieldemitter");
+        laserHologram = addComponent(13, "componentLaserEmitter", "A multicoloured laser array which can cheaply alter the appearance of something.", "hologramemitter");
+        carbonMyofiber = addComponent(14,"componentCarbonMyofiber", "A small bundle of carbon fibers, refined for use in artificial muscles.", "myofiber");
+        controlCircuit = addComponent(15, "componentControlCircuit", "A simple networkable microcontroller for coordinating an individual component.", "controlcircuit");
+        myofiberGel = addComponent(16, "componentMyofiberGel", "A thick, conductive paste, perfect for fitting between myofibers in an artificial muscle.", "paste");
+        artificialMuscle = addComponent(17, "componentArtificialMuscle", "An electrical, artificial muscle, with less range of movement than human muscle but orders of magnitude more strength.", "artificialmuscle");
+        solarPanel = addComponent(18, "componentSolarPanel", "A light sensitive device that will generate electricity from the sun.", "solarpanel");
+        magnet = addComponent(19, "componentMagnet", "A metallic device that generates a magnetic field which pulls items towards the player.", "magnetb");
+        computerChip = addComponent(20, "componentComputerChip", "An upgraded control circuit that contains a CPU which is capable of more advanced calculations.", "computerchip");
+        rubberHose = addComponent(21,"componentRubberHose", "A heavily insulated rubber hose capable of withstanding extreme heat or cold", "rubberhose");
+        liquidNitrogen = addComponent(22, "componentLiquidNitrogen", "A bucket of Liquid Nitrogen", "liquidnitrogen");
     }
 
     @Override

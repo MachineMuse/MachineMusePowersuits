@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.item;
 
-import appeng.api.implementations.items.IAEWrench;
+//import appeng.api.implementations.items.IAEWrench;
+
 import cofh.api.item.IToolHammer;
 import crazypants.enderio.api.tool.ITool;
 import forestry.api.arboriculture.IToolGrafter;
@@ -11,7 +12,6 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.numina.item.IModeChangingItem;
 import net.machinemuse.numina.item.ModeChangingItem;
 import net.machinemuse.powersuits.common.Config;
@@ -29,10 +29,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
-
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -65,7 +63,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         IToolGrafter,
         IToolHammer,
         IToolCrowbar,
-        IAEWrench,
+//        IAEWrench,
 //        IToolWrench,
         ITool,
         IMekWrench,
@@ -373,11 +371,11 @@ public class ItemPowerFist extends MPSItemElectricTool
 
     }
 
-    /* AE wrench */
-    @Override
-    public boolean canWrench(ItemStack itemStack, EntityPlayer entityPlayer, BlockPos blockPos) {
-        return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
-    }
+//    /* AE wrench */
+//    @Override
+//    public boolean canWrench(ItemStack itemStack, EntityPlayer entityPlayer, BlockPos blockPos) {
+//        return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
+//    }
 
 //    /* Buildcraft Wrench */
 //    @Override

@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.item;
 
-import appeng.api.config.AccessRestriction;
+//import appeng.api.config.AccessRestriction;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IMuseElectricItem;
 import net.machinemuse.api.electricity.MuseElectricItem;
@@ -236,28 +236,28 @@ public class ModularItemBase extends Item implements IModularItemBase {
 
 
     /* Applied Energistics 2 ---------------------------------------------------------------------- */
-    @Override
-    public double injectAEPower(ItemStack stack, double ae) {
-        return MuseElectricItem.getInstance().injectAEPower(stack, ae);
-    }
-
-    @Override
-    public double extractAEPower(ItemStack stack, double ae) {
-        return MuseElectricItem.getInstance().extractAEPower(stack, ae);
-    }
-
-    @Override
-    public double getAEMaxPower(ItemStack stack) {
-        return MuseElectricItem.getInstance().getAEMaxPower(stack);
-    }
-
-    @Override
-    public double getAECurrentPower(ItemStack stack) {
-        return MuseElectricItem.getInstance().getAECurrentPower(stack);
-    }
-
-    @Override
-    public AccessRestriction getPowerFlow(ItemStack stack) {
-        return MuseElectricItem.getInstance().getPowerFlow(stack);
-    }
+//    @Override
+//    public double injectAEPower(ItemStack stack, double ae) {
+//        return MuseElectricItem.getInstance().injectAEPower(stack, ae);
+//    }
+//
+//    @Override
+//    public double extractAEPower(ItemStack stack, double ae) {
+//        return MuseElectricItem.getInstance().extractAEPower(stack, ae);
+//    }
+//
+//    @Override
+//    public double getAEMaxPower(ItemStack stack) {
+//        return MuseElectricItem.getInstance().getAEMaxPower(stack);
+//    }
+//
+//    @Override
+//    public double getAECurrentPower(ItemStack stack) {
+//        return MuseElectricItem.getInstance().getAECurrentPower(stack);
+//    }
+//
+//    @Override
+//    public AccessRestriction getPowerFlow(ItemStack stack) {
+//        return MuseElectricItem.getInstance().getPowerFlow(stack);
+//    }
 }

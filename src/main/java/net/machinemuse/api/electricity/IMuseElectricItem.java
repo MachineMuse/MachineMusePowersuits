@@ -1,7 +1,7 @@
 package net.machinemuse.api.electricity;
 
-import appeng.api.config.AccessRestriction;
-import appeng.api.implementations.items.IAEItemPowerStorage;
+//import appeng.api.config.AccessRestriction;
+//import appeng.api.implementations.items.IAEItemPowerStorage;
 import cofh.api.energy.IEnergyContainerItem;
 import ic2.api.item.IElectricItemManager;
 import ic2.api.item.ISpecialElectricItem;
@@ -19,13 +19,15 @@ import net.minecraftforge.fml.common.Optional;
 @Optional.InterfaceList({
         @Optional.Interface(iface = "cofh.api.energy.IEnergyContainerItem", modid = "CoFHAPI|energy", striprefs = true),
         @Optional.Interface(iface = "ic2.api.item.IElectricItemManager", modid = "IC2", striprefs = true),
-        @Optional.Interface(iface = "ic2.api.item.ISpecialElectricItem", modid = "IC2", striprefs = true),
-        @Optional.Interface(iface = "appeng.api.implementations.items.IAEItemPowerStorage", modid = "AE2", striprefs = true)})
+        @Optional.Interface(iface = "ic2.api.item.ISpecialElectricItem", modid = "IC2", striprefs = true)//,
+//        @Optional.Interface(iface = "appeng.api.implementations.items.IAEItemPowerStorage", modid = "AE2", striprefs = true)
+})
 public interface IMuseElectricItem
         extends IEnergyContainerItem,
         ISpecialElectricItem,
-        IElectricItemManager,
-        IAEItemPowerStorage {
+        IElectricItemManager//,
+//        IAEItemPowerStorage
+{
     /**
      * Call to get the energy of an item
      *
@@ -116,13 +118,13 @@ public interface IMuseElectricItem
     int getMaxDamage(ItemStack itemStack);
 
     /* Applied Energistics 2 ---------------------------------------------------------------------- */
-    double injectAEPower(ItemStack stack, double ae);
-
-    double extractAEPower(ItemStack stack, double ae);
-
-    double getAEMaxPower(ItemStack stack);
-
-    double getAECurrentPower(ItemStack stack);
-
-    AccessRestriction getPowerFlow(ItemStack stack);
+//    double injectAEPower(ItemStack stack, double ae);
+//
+//    double extractAEPower(ItemStack stack, double ae);
+//
+//    double getAEMaxPower(ItemStack stack);
+//
+//    double getAECurrentPower(ItemStack stack);
+//
+//    AccessRestriction getPowerFlow(ItemStack stack);
 }

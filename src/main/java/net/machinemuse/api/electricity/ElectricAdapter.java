@@ -1,6 +1,6 @@
 package net.machinemuse.api.electricity;
 
-import appeng.api.implementations.items.IAEItemPowerStorage;
+//import appeng.api.implementations.items.IAEItemPowerStorage;
 import cofh.api.energy.IEnergyContainerItem;
 import ic2.api.item.IElectricItem;
 import net.machinemuse.powersuits.common.ModCompatibility;
@@ -16,7 +16,9 @@ public abstract class ElectricAdapter {
             return null;
         }
         final Item i = stack.getItem();
-        return (i instanceof MuseElectricItem) ? new MuseElectricAdapter(stack) : ((ModCompatibility.isRFAPILoaded() && i instanceof IEnergyContainerItem) ? new TEElectricAdapter(stack) : ((ModCompatibility.isIndustrialCraftLoaded() && i instanceof IElectricItem) ? new IC2ElectricAdapter(stack) : ((ModCompatibility.isAppengLoaded() && i instanceof IAEItemPowerStorage) ? new AE2ElectricAdapter(stack) : null)));
+//        return (i instanceof MuseElectricItem) ? new MuseElectricAdapter(stack) : ((ModCompatibility.isRFAPILoaded() && i instanceof IEnergyContainerItem) ? new TEElectricAdapter(stack) : ((ModCompatibility.isIndustrialCraftLoaded() && i instanceof IElectricItem) ? new IC2ElectricAdapter(stack) : ((ModCompatibility.isAppengLoaded() && i instanceof IAEItemPowerStorage) ? new AE2ElectricAdapter(stack) : null)));
+
+        return (i instanceof MuseElectricItem) ? new MuseElectricAdapter(stack) : ((ModCompatibility.isRFAPILoaded() && i instanceof IEnergyContainerItem) ? new TEElectricAdapter(stack) : ((ModCompatibility.isIndustrialCraftLoaded() && i instanceof IElectricItem) ? new IC2ElectricAdapter(stack) : null));
     }
 
     public abstract double getCurrentEnergy();

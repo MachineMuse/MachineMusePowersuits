@@ -14,23 +14,26 @@ import net.minecraft.item.ItemStack;
  */
 
 public final class MPSItems {
+    static {
+        new MPSItems();
+    }
+
     private MPSItems() {
-
     }
 
-    private static MPSItems INSTANCE;
-    public static MPSItems getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new MPSItems();
-        }
-        return INSTANCE;
-    }
+//    private static MPSItems INSTANCE;
+//    public static MPSItems getInstance() {
+//        if (INSTANCE == null) {
+//            INSTANCE = new MPSItems();
+//        }
+//        return INSTANCE;
+//    }
 
     public static final Item powerArmorHead = MPSRegistry.registerItem(new ItemPowerArmorHelmet(), "powerArmorHead", "powerArmorHelmet");
-    public static final Item powerArmorTorso = MPSRegistry.registerItem(new ItemPowerArmorChestplate(), "powerArmorTorso", "powerArmorChestplate");
+    public static final Item powerArmorTorso =  MPSRegistry.registerItem(new ItemPowerArmorChestplate(), "powerArmorTorso", "powerArmorChestplate");
     public static final Item powerArmorLegs = MPSRegistry.registerItem(new ItemPowerArmorLeggings(), "powerArmorLegs", "powerArmorLeggings");
-    public static final Item powerArmorFeet = MPSRegistry.registerItem(new ItemPowerArmorBoots(), "powerArmorFeet", "powerArmorBoots");
-    public static final Item powerTool = MPSRegistry.registerItem(new ItemPowerFist(), "powerTool", "powerFist");
+    public static final Item powerArmorFeet =  MPSRegistry.registerItem(new ItemPowerArmorBoots(), "powerArmorFeet", "powerArmorBoots");
+    public static final Item powerTool =  MPSRegistry.registerItem(new ItemPowerFist(), "powerTool", "powerFist");
 
     public static final Block tinkerTable = MPSRegistry.registerBlock(new BlockTinkerTable());
     public static final Block luxCapacitor = MPSRegistry.registerBlock(new BlockLuxCapacitor());

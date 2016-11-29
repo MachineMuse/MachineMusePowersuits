@@ -1,17 +1,15 @@
 package net.machinemuse.powersuits.item;
 
 import forestry.api.core.IArmorNaturalist;
-//import micdoodle8.mods.galacticraft.api.item.IBreathableArmor;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.powersuits.powermodule.armor.ApiaristArmorModule;
-import net.machinemuse.powersuits.powermodule.misc.AirtightSealModule;
-import net.machinemuse.powersuits.powermodule.misc.ThaumGogglesModule;
 import net.machinemuse.utils.render.MuseRenderer;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Optional;
+
+//import micdoodle8.mods.galacticraft.api.item.IBreathableArmor;
 //import thaumcraft.api.IGoggles;
 //import thaumcraft.api.nodes.IRevealer;
 

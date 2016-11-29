@@ -25,8 +25,8 @@ public class VanillaArmorModel extends ModelBiped implements IArmorModel {
     public NBTTagCompound renderSpec = null;
     public EntityEquipmentSlot visibleSection = EntityEquipmentSlot.HEAD;
 
-    public ModelRenderer bipedEars;
-    public ModelRenderer bipedCloak;
+//    public ModelRenderer bipedEars;
+//    public ModelRenderer bipedCloak;
 
     private static VanillaArmorModel INSTANCE;
 
@@ -92,8 +92,8 @@ public class VanillaArmorModel extends ModelBiped implements IArmorModel {
         clearAndAddChildWithInitialOffsets(bipedRightLeg, 2, 12.0F, 0.0F);
         clearAndAddChildWithInitialOffsets(bipedLeftLeg, -2, 12.0F, 0.0F);
         bipedHeadwear.cubeList.clear();
-        bipedEars.cubeList.clear();
-        bipedCloak.cubeList.clear();
+//        bipedEars.cubeList.clear();
+//        bipedCloak.cubeList.clear();
     }
 
 //    private void logModelParts(WavefrontObject model) {

@@ -64,7 +64,7 @@ public class SolarGeneratorModule extends PowerModuleBase implements IPlayerTick
             int zCoord = MathHelper.floor_double(player.posZ);
             boolean isRaining, canRain = true;
             if (world.getTotalWorldTime() % 20 == 0) {
-                canRain = world.getBiomeGenForCoords(player.getPosition()).canRain();
+                canRain = world.getBiome(player.getPosition()).canRain();
             }
 
             isRaining = canRain && (world.isRaining() || world.isThundering());

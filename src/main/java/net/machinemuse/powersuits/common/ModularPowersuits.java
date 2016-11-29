@@ -7,7 +7,7 @@ import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.event.HarvestEventHandler;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.network.packets.MPSPacketList;
-import net.machinemuse.powersuits.powermodule.tool.TerminalHandler;
+//import net.machinemuse.powersuits.powermodule.tool.TerminalHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
@@ -61,6 +61,12 @@ public final class ModularPowersuits {
         MinecraftForge.EVENT_BUS.register(new HarvestEventHandler());
         MinecraftForge.EVENT_BUS.register(new MovementManager());
         proxy.registerEvents();
+
+
+
+//        MPSItems.populateItems()
+//        MPSItems.popuateComponents()
+        proxy.registerRenderers();
     }
 
     @Mod.EventHandler
@@ -85,10 +91,10 @@ public final class ModularPowersuits {
         EntityRegistry.registerModEntity(EntitySpinningBlade.class, "entitySpinningBlade", 2478, this, 64, 20, true);
         EntityRegistry.registerModEntity(EntityLuxCapacitor.class, "entityLuxCapacitor", 2479, this, 64, 20, true);
         proxy.registerHandlers();
-        proxy.registerRenderers();
+//        proxy.registerRenderers();
         MPSPacketList.registerPackets();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, MPSGuiHandler.getInstance());
-        TerminalHandler.registerHandler();
+//        TerminalHandler.registerHandler();
     }
 
     @Mod.EventHandler

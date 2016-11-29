@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.event;
 
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.numina.geometry.Colour;
@@ -35,6 +36,12 @@ public class RenderEventHandler {
 
     public RenderEventHandler() {
         this.ownFly = false;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public void preTextureStitch(TextureStitchEvent.Pre event) {
+        MuseIcon.registerIcons(event);
     }
 
     @SubscribeEvent

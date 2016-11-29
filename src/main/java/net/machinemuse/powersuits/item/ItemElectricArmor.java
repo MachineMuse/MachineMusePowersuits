@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.item;
 
-import appeng.api.config.AccessRestriction;
+//import appeng.api.config.AccessRestriction;
 import net.machinemuse.api.electricity.IMuseElectricItem;
 import net.machinemuse.api.electricity.MuseElectricItem;
 import net.machinemuse.numina.geometry.Colour;
@@ -171,23 +171,23 @@ public abstract class ItemElectricArmor extends ItemArmor implements IModularIte
     }
 
     /* Applied Energistics 2 ---------------------------------------------------------------------- */
-    public double injectAEPower(ItemStack stack, double ae) {
-        return MuseElectricItem.getInstance().injectAEPower(stack, ae);
-    }
-
-    public double extractAEPower(ItemStack stack, double ae) {
-        return MuseElectricItem.getInstance().extractAEPower(stack, ae);
-    }
-
-    public double getAEMaxPower(ItemStack stack) {
-        return MuseElectricItem.getInstance().getAEMaxPower(stack);
-    }
-
-    public double getAECurrentPower(ItemStack stack) {
-        return MuseElectricItem.getInstance().getAECurrentPower(stack);
-    }
-
-    public AccessRestriction getPowerFlow(ItemStack stack) {
-        return MuseElectricItem.getInstance().getPowerFlow(stack);
-    }
+//    public double injectAEPower(ItemStack stack, double ae) {
+//        return MuseElectricItem.getInstance().injectAEPower(stack, ae);
+//    }
+//
+//    public double extractAEPower(ItemStack stack, double ae) {
+//        return MuseElectricItem.getInstance().extractAEPower(stack, ae);
+//    }
+//
+//    public double getAEMaxPower(ItemStack stack) {
+//        return MuseElectricItem.getInstance().getAEMaxPower(stack);
+//    }
+//
+//    public double getAECurrentPower(ItemStack stack) {
+//        return MuseElectricItem.getInstance().getAECurrentPower(stack);
+//    }
+//
+//    public AccessRestriction getPowerFlow(ItemStack stack) {
+//        return MuseElectricItem.getInstance().getPowerFlow(stack);
+//    }
 }

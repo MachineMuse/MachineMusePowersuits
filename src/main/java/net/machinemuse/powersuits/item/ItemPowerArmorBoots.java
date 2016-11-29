@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.item;
 
 import ic2.api.item.IMetalArmor;
-import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;

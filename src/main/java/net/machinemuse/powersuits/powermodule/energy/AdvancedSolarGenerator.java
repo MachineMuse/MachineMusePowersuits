@@ -74,7 +74,7 @@ public class AdvancedSolarGenerator extends PowerModuleBase implements IPlayerTi
             int zCoord = MathHelper.floor_double(player.posZ);
             boolean isRaining, canRain = true;
             if (world.getTotalWorldTime() % 20 == 0) {
-                canRain = world.getBiomeGenForCoords(player.getPosition()).canRain();
+                canRain = world.getBiome(player.getPosition()).canRain();
             }
             isRaining = canRain && (world.isRaining() || world.isThundering());
             boolean sunVisible = world.isDaytime() && !isRaining && world.canBlockSeeSky(player.getPosition().add(0,1,0));

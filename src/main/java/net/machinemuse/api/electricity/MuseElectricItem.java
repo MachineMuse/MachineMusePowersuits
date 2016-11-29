@@ -1,6 +1,6 @@
 package net.machinemuse.api.electricity;
 
-import appeng.api.config.AccessRestriction;
+//import appeng.api.config.AccessRestriction;
 import ic2.api.item.ElectricItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.utils.ElectricItemUtils;
@@ -205,29 +205,29 @@ public class MuseElectricItem extends Item implements IMuseElectricItem {
     }
 
     /* Applied Energistics 2 ---------------------------------------------------------------------- */
-    public double injectAEPower(ItemStack stack, double ae) {
-        double current = getCurrentEnergy(stack);
-        double recieved = ElectricConversions.museEnergyFromAE(ae);
-        setCurrentEnergy(stack, current);
-        return ElectricConversions.museEnergyToAE(recieved);
-    }
-
-    public double extractAEPower(ItemStack stack, double ae) {
-        double current = getCurrentEnergy(stack);
-        double taken = ElectricConversions.museEnergyFromAE(ae);
-        setCurrentEnergy(stack, current);
-        return ElectricConversions.museEnergyToAE(taken);
-    }
-
-    public double getAEMaxPower(ItemStack stack) {
-        return ElectricConversions.museEnergyToAE(getCurrentEnergy(stack));
-    }
-
-    public double getAECurrentPower(ItemStack stack) {
-        return ElectricConversions.museEnergyToAE(getCurrentEnergy(stack));
-    }
-
-    public AccessRestriction getPowerFlow(ItemStack stack) {
-        return AccessRestriction.READ_WRITE;
-    }
+//    public double injectAEPower(ItemStack stack, double ae) {
+//        double current = getCurrentEnergy(stack);
+//        double recieved = ElectricConversions.museEnergyFromAE(ae);
+//        setCurrentEnergy(stack, current);
+//        return ElectricConversions.museEnergyToAE(recieved);
+//    }
+//
+//    public double extractAEPower(ItemStack stack, double ae) {
+//        double current = getCurrentEnergy(stack);
+//        double taken = ElectricConversions.museEnergyFromAE(ae);
+//        setCurrentEnergy(stack, current);
+//        return ElectricConversions.museEnergyToAE(taken);
+//    }
+//
+//    public double getAEMaxPower(ItemStack stack) {
+//        return ElectricConversions.museEnergyToAE(getCurrentEnergy(stack));
+//    }
+//
+//    public double getAECurrentPower(ItemStack stack) {
+//        return ElectricConversions.museEnergyToAE(getCurrentEnergy(stack));
+//    }
+//
+//    public AccessRestriction getPowerFlow(ItemStack stack) {
+//        return AccessRestriction.READ_WRITE;
+//    }
 }

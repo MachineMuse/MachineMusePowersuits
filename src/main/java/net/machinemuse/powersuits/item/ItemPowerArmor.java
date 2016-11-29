@@ -16,6 +16,7 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -38,6 +39,12 @@ import java.util.UUID;
  * Ported to Java by lehjr on 11/4/16.
  */
 public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpecialArmor, IArmorTraits {
+    private static final UUID[] ARMOR_MODIFIERS = new UUID[] {
+            UUID.randomUUID(),
+            UUID.randomUUID(),
+            UUID.randomUUID(),
+            UUID.randomUUID()};
+
     public ItemPowerArmor(int renderIndex, EntityEquipmentSlot entityEquipmentSlot) {
         super(ItemArmor.ArmorMaterial.IRON, renderIndex, entityEquipmentSlot);
         this.setMaxStackSize(1);
@@ -113,11 +120,16 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
     }
 
     @Override
-    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack)
+    public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot)
     {
-        Multimap parent = super.getAttributeModifiers(slot, stack);
-        parent.put((Object)"generic.knockbackResistance", (Object)new AttributeModifier(UUID.fromString("448ef0e9-9b7c-4e56-bf3a-6b52aeabff8d"), "generic.knockbackResistance", 0.25, 0));
-        return (Multimap<String, AttributeModifier>)parent;
+        Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
+
+        if (equipmentSlot == this.armorType)
+        {
+            multimap.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getAttributeUnlocalizedName(), new AttributeModifier(ARMOR_MODIFIERS[equipmentSlot.getIndex()], SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getAttributeUnlocalizedName(), 0.25, 0));
+        }
+
+        return multimap;
     }
 
     public int getItemEnchantability() {

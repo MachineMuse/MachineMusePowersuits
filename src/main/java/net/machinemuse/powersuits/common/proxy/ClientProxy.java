@@ -15,6 +15,7 @@ import net.machinemuse.powersuits.client.render.entity.EntityRendererPlasmaBolt;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererSpinningBlade;
 //import net.machinemuse.powersuits.client.render.item.ToolRenderer;
 import net.machinemuse.powersuits.client.render.modelspec.ModelSpecXMLReader;
+import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.control.KeybindKeyHandler;
 import net.machinemuse.powersuits.control.KeybindManager;
@@ -26,7 +27,10 @@ import net.machinemuse.powersuits.event.PlayerUpdateHandler;
 import net.machinemuse.powersuits.event.RenderEventHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
@@ -50,6 +54,42 @@ public class ClientProxy implements CommonProxy {
      */
     @Override
     public void registerRenderers() {
+        regRenderer(MPSItems.powerTool);
+        regRenderer(MPSItems.powerArmorHead);
+        regRenderer(MPSItems.powerArmorTorso);
+        regRenderer(MPSItems.powerArmorLegs);
+        regRenderer(MPSItems.powerArmorFeet);
+        regRenderer(Item.getItemFromBlock(MPSItems.tinkerTable));
+
+
+
+
+
+
+
+//        // register component icons
+//        val mpsItems = MPSItems
+//        if (mpsItems.components != null) {
+//            var i = 0
+//            val nameList = ItemComponent.names
+//
+//            for( i <- 1 to  nameList.size()) {
+//                val itemModelResourceLocation: ModelResourceLocation = new ModelResourceLocation(Config.RESOURCE_PREFIX + nameList.get(i-1), "inventory")
+//                ModelLoader.setCustomModelResourceLocation(mpsItems.components, i-1, itemModelResourceLocation)
+//            }
+//        }
+
+
+
+
+
+
+
+
+
+
+
+
         // TODO: fix all rendering stuff
 
 //        MinecraftForgeClient.registerItemRenderer(MPSItems.getInstance().powerTool, new ToolRenderer());
@@ -72,6 +112,19 @@ public class ClientProxy implements CommonProxy {
         URL otherResource = ClientProxy.class.getResource("/assets/powersuits/models/armor2.xml");
         ModelSpecXMLReader.getINSTANCE().parseFile(otherResource);
     }
+
+    private void regRenderer(Item item) {
+        ModelResourceLocation location =  new ModelResourceLocation(item.getRegistryName(), "inventory");
+
+        System.out.println("location is: " + location.toString());
+
+
+
+        ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+    }
+
+
+
 
     /**
      * Register the tick handler (for on-tick behaviour) and packet handler (for
