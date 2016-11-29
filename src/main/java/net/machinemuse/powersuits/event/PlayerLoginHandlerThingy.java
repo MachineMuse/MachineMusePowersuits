@@ -15,7 +15,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
  */
 public class PlayerLoginHandlerThingy {
     @SubscribeEvent
-    public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent e) {
+    public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent e) {
         EntityPlayer player = e.player;
         PacketSender.sendTo(new MusePacketPropertyModifierConfig(player, null), (EntityPlayerMP)player);
     }
