@@ -4,9 +4,11 @@
 
 Modular Powersuits is a Minecraft mod based around the idea of an inventor who tinkers with high-tech electronics and makes a suit of powered armor chock-full of useful gadgets and features. Inspired by heroes like Iron Man and Megaman as well as by the high-tech armor in mods like IndustrialCraft 2 and EE2.
 
+This specific branch is the pure Java port of Modular Powersuits, meaning that there is no Scala (programming language) code in this branch. It is meant to be used with the Java port of Numina. This branch was created by Lehjr in an effort to make the mod easier to actually read and understand what the code was doing, which in turn makes the mod easier to maintain and port to future versions of Minecraft. Please note that this was not a small undertaking by any means, and some bugs may still remain. 
+
 #Changelog
 
-http://build.technicpack.net/view/MachineMuse/job/ModularPowersuits/changes
+http://build.technicpack.net/view/MachineMuse/job/ModularPowersuits/changes (sorry, this link is no longer valid)
 
 #Downloads
 
@@ -20,7 +22,7 @@ http://machinemuse.net/download.php
 
 Jenkins:
 
-http://build.technicpack.net/view/MachineMuse/job/ModularPowersuits/
+http://build.technicpack.net/view/MachineMuse/job/ModularPowersuits/ (sorry, this link is no longer valid)
 
 #Issues
 
