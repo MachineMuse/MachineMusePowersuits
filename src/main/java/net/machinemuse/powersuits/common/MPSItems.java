@@ -38,7 +38,7 @@ public final class MPSItems {
     public static final Block tinkerTable = MPSRegistry.registerBlock(new BlockTinkerTable());
     public static final Block luxCapacitor = MPSRegistry.registerBlock(new BlockLuxCapacitor());
 
-    Item components = MPSRegistry.registerItem(new ItemComponent(), "powerArmorComponent", "powerArmorComponent");
+    public static final Item components = MPSRegistry.registerItem(new ItemComponent(), "powerArmorComponent", "powerArmorComponent");
 
 
 

@@ -25,16 +25,20 @@ import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.event.ClientTickHandler;
 import net.machinemuse.powersuits.event.PlayerUpdateHandler;
 import net.machinemuse.powersuits.event.RenderEventHandler;
+import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.net.URL;
+import java.util.Map;
 
 /**
  * Client side of the proxy.
@@ -61,6 +65,18 @@ public class ClientProxy implements CommonProxy {
         regRenderer(MPSItems.powerArmorFeet);
         regRenderer(Item.getItemFromBlock(MPSItems.tinkerTable));
 
+        if (MPSItems.components != null) {
+            for (ItemStack  stack : ((ItemComponent)MPSItems.components).names.keySet()) {
+                String oredictName = ((ItemComponent)MPSItems.components).names.get(stack);
+                ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation(Config.RESOURCE_PREFIX + oredictName, "inventory");
+                ModelLoader.setCustomModelResourceLocation(MPSItems.components, stack.getItemDamage(), itemModelResourceLocation);
+
+                OreDictionary.registerOre(oredictName, stack);
+            }
+
+
+
+        }
 
 
 
