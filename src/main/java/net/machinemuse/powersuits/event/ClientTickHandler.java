@@ -101,7 +101,7 @@ public class ClientTickHandler {
         }
     }
 
-    @SideOnly(Side.CLIENT) // MPSA - is this needed or not?
+    @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void onRenderTickEvent(TickEvent.RenderTickEvent event) {
         ItemStack food = new ItemStack(Items.COOKED_BEEF);
@@ -218,7 +218,8 @@ public class ClientTickHandler {
         double maxWater = AddonWaterUtils.getMaxWater(player);
         double currEnergy = ElectricItemUtils.getPlayerEnergy(player);
         double maxEnergy = ElectricItemUtils.getMaxEnergy(player);
-        if (maxEnergy > 0 && BlockTinkerTable.energyIcon != null) {
+
+        if (maxEnergy > 0) {
             String currEnergyStr = MuseStringUtils.formatNumberShort(currEnergy);
             String maxEnergyStr = MuseStringUtils.formatNumberShort(maxEnergy);
 

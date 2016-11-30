@@ -61,8 +61,8 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
         } else {
             onPlayerTickInactive(player, item);
         }
-
     }
+
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
         PotionEffect nightVision = null;

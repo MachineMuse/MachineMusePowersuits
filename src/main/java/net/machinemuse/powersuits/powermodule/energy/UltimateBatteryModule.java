@@ -48,7 +48,9 @@ public class UltimateBatteryModule extends PowerModuleBase {
 
     @Override
     public String getDescription() {
-        return "Integrate a the most advanced battery to store an extensive amount of energy.";
+        return "<insert some witty description here assuring that this " +
+                "is not stolen alien tech that we have yet to understand " +
+                "and that this device probably won't blow up, we think ...>";
     }
 
     @Override
