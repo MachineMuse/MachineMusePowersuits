@@ -55,10 +55,6 @@ public class ItemComponent extends Item {
         ItemStack stack = new ItemStack(this, 1, index);
         names.put(stack, oredictName);
         descriptions.put(stack, description);
-
-
-        //oredict compares itemIDs and damage values only
-//        OreDictionary.registerOre(oredictName, stack);
         return stack;
     }
 

@@ -19,7 +19,7 @@ import java.util.List;
 
 public class NightVisionModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
     public static final String MODULE_NIGHT_VISION = "Night Vision";
-    private static Potion nightvision = Potion.getPotionFromResourceLocation("nightVision");
+    private static Potion nightvision = Potion.getPotionFromResourceLocation("night_vision");
 
     public NightVisionModule(List<IModularItem> validItems) {
         super(validItems);
