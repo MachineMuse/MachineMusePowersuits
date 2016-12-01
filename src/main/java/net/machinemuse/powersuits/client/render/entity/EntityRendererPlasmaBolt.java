@@ -18,7 +18,7 @@ public class EntityRendererPlasmaBolt extends MuseEntityRenderer<EntityPlasmaBol
     protected static DrawableMuseCircle circle3;
     protected static DrawableMuseCircle circle4;
 
-    protected EntityRendererPlasmaBolt(RenderManager renderManager) {
+    public EntityRendererPlasmaBolt(RenderManager renderManager) {
         super(renderManager);
         Colour c1 = new Colour(.3, .3, 1, 0.3);
         circle1 = new DrawableMuseCircle(c1, c1);

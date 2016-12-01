@@ -21,7 +21,7 @@ public class MPSPacketList {
         MusePacketHandler.packagers.put(5, MusePacketCosmeticInfo.getPackagerInstance());
         MusePacketHandler.packagers.put(6, MusePacketPlayerUpdate.getPackagerInstance());
         MusePacketHandler.packagers.put(7, MusePacketToggleRequest.getPackagerInstance());
-        MusePacketHandler.packagers.put(8, MusePacketPlasmaBolt.getPackagerInstance());
+//        MusePacketHandler.packagers.put(8, MusePacketPlasmaBolt.getPackagerInstance());
         MusePacketHandler.packagers.put(10, MusePacketColourInfo.getPackagerInstance());
         MusePacketHandler.packagers.put(11, MusePacketPropertyModifierConfig.getPackagerInstance());
     }

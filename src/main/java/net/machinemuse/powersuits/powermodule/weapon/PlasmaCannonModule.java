@@ -8,7 +8,7 @@ import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
+//import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
@@ -66,9 +66,10 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-//        if (ElectricItemUtils.getPlayerEnergy(player) > 500) {
-//            playerIn.setItemInUse(item, 72000);
-//        }
+        if (ElectricItemUtils.getPlayerEnergy(playerIn) > 500) {
+            playerIn.setActiveHand(hand);
+            return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+        }
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
 
@@ -98,8 +99,9 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
 
                     EntityPlasmaBolt plasmaBolt = new EntityPlasmaBolt(worldIn, player, explosiveness, damagingness, chargeTicks);
                     worldIn.spawnEntityInWorld(plasmaBolt);
-                    MusePacketPlasmaBolt packet = new MusePacketPlasmaBolt(player, plasmaBolt.getEntityId(), plasmaBolt.size);
-                    PacketSender.sendToAll(packet);
+                    // switched to IEntityAdditionalSpawnData
+                    //MusePacketPlasmaBolt packet = new MusePacketPlasmaBolt(player, plasmaBolt.getEntityId(), plasmaBolt.size);
+                    //PacketSender.sendToAll(packet);
                 }
             }
         }

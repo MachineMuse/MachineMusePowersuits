@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.entity;
 
 
+import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -12,9 +13,10 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.relauncher.Side;
 
-public class EntityPlasmaBolt extends EntityThrowable {
+public class EntityPlasmaBolt extends EntityThrowable implements IEntityAdditionalSpawnData {
 	public double size;
 	public static final int SIZE = 24;
 	public double damagingness;
@@ -149,5 +151,15 @@ public class EntityPlasmaBolt extends EntityThrowable {
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
 			this.setDead();
 		}
+	}
+
+	@Override
+	public void writeSpawnData(ByteBuf buffer) {
+		buffer.writeDouble(this.size);
+	}
+
+	@Override
+	public void readSpawnData(ByteBuf additionalData) {
+		this.size = additionalData.readDouble();
 	}
 }
