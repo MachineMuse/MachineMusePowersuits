@@ -33,21 +33,31 @@ import java.util.Objects;
 public class LeafBlowerModule extends PowerModuleBase implements IRightClickModule {
     private static final String MODULE_LEAF_BLOWER = "Leaf Blower";
     private static final String LEAF_BLOWER_ENERGY_CONSUMPTION = "Energy Consumption";
-    private static final String PLANT_RADIUS = "Plant Radius";
-    private static final String LEAF_RADIUS = "Leaf Radius";
-    private static final String SNOW_RADIUS = "Snow Radius";
+    private static final String RADIUS = "Radius";
+
+
+//    private static final String PLANT_RADIUS = "Plant Radius";
+//    private static final String LEAF_RADIUS = "Leaf Radius";
+//    private static final String SNOW_RADIUS = "Snow Radius";
 
     public LeafBlowerModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(new ItemStack(Items.IRON_INGOT, 3));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBaseProperty(LEAF_BLOWER_ENERGY_CONSUMPTION, 100, "J");
-        addBaseProperty(PLANT_RADIUS, 1, "m");
-        addBaseProperty(LEAF_RADIUS, 1, "m");
-        addBaseProperty(SNOW_RADIUS, 1, "m");
-        addIntTradeoffProperty(PLANT_RADIUS, PLANT_RADIUS, 8, "m", 1, 0);
-        addIntTradeoffProperty(LEAF_RADIUS, LEAF_RADIUS, 8, "m", 1, 0);
-        addIntTradeoffProperty(SNOW_RADIUS, SNOW_RADIUS, 5, "m", 1, 0);
+
+        addBaseProperty(RADIUS, 1, "m");
+
+
+//        addBaseProperty(PLANT_RADIUS, 1, "m");
+//        addBaseProperty(LEAF_RADIUS, 1, "m");
+//        addBaseProperty(SNOW_RADIUS, 1, "m");
+
+        addIntTradeoffProperty(RADIUS, RADIUS, 8, "m", 1, 0);
+
+//        addIntTradeoffProperty(PLANT_RADIUS, PLANT_RADIUS, 8, "m", 1, 0);
+//        addIntTradeoffProperty(LEAF_RADIUS, LEAF_RADIUS, 8, "m", 1, 0);
+//        addIntTradeoffProperty(SNOW_RADIUS, SNOW_RADIUS, 5, "m", 1, 0);
     }
 
     public PowerModuleBase addIntTradeoffProperty(String tradeoffName, String propertyName, double multiplier, String unit, int roundTo, int offset) {
@@ -77,7 +87,7 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        return null;
+        return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
 
     private boolean blockCheckAndHarvest(String blocktype, EntityPlayer player, World world, int x, int y, int z) {
@@ -110,7 +120,14 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-//        Block blockID = world.getBlock(x, y, z);
+        /* FIXME: this really needs to be one radius for everything.
+
+         */
+
+
+
+
+        //        Block blockID = world.getBlock(x, y, z);
 //        int plant = (int) ModuleManager.computeModularProperty(itemStack, PLANT_RADIUS);
 //        int leaf = (int) ModuleManager.computeModularProperty(itemStack, LEAF_RADIUS);
 //        int snow = (int) ModuleManager.computeModularProperty(itemStack, SNOW_RADIUS);

@@ -128,6 +128,7 @@ public class ModCompatibility {
         // Hazmat
         if (isIndustrialCraftLoaded()) {
             ModuleManager.addModule(new HazmatModule(Arrays.<IModularItem>asList((IModularItem)MPSItems.powerArmorHead, (IModularItem)MPSItems.powerArmorTorso, (IModularItem)MPSItems.powerArmorLegs, (IModularItem)MPSItems.powerArmorFeet)));
+            ModuleManager.addModule(new TreetapModule(Collections.singletonList((IModularItem)MPSItems.powerTool)));
         }
 
         // Galacticraft

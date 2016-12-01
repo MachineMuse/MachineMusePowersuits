@@ -247,6 +247,13 @@ public class Config {
         List<IModularItem> FEETONLY = Collections.singletonList((IModularItem)MPSItems.powerArmorFeet);
         List<IModularItem> TOOLONLY = Collections.singletonList((IModularItem)MPSItems.powerTool);
 
+        // FIXME: these need to be sorted
+
+
+
+
+
+
         addModule(new BasicPlatingModule(ARMORONLY));
         addModule(new DiamondPlatingModule(ARMORONLY));
         addModule(new EnergyShieldModule(ARMORONLY));
