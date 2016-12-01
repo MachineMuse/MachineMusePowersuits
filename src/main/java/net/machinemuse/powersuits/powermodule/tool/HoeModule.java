@@ -10,23 +10,19 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.UseHoeEvent;
 
 import java.util.List;
 
@@ -46,51 +42,62 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        return null;
+        return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
 
     @Override
     public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        double energyConsumed = ModuleManager.computeModularProperty(itemStack, HOE_ENERGY_CONSUMPTION);
+        if (!playerIn.canPlayerEdit(pos, facing, itemStack) || ElectricItemUtils.getPlayerEnergy(playerIn) < energyConsumed) {
+            return EnumActionResult.FAIL;
+        } else {
+            int hook = net.minecraftforge.event.ForgeEventFactory.onHoeUse(itemStack, playerIn, worldIn, pos);
+            if (hook != 0) return hook > 0 ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
 
-//        double energyConsumed = ModuleManager.computeModularProperty(itemStack, HOE_ENERGY_CONSUMPTION);
-//        if (playerIn.canPlayerEdit(x, y, z, side, itemStack) && ElectricItemUtils.getPlayerEnergy(player) > energyConsumed) {
-//            UseHoeEvent event = new UseHoeEvent(player, itemStack, world, x, y, z);
-//            if (MinecraftForge.EVENT_BUS.post(event)) {
-//                return;
-//            }
-//
-//            if (event.getResult() == Event.Result.ALLOW) {
-//                ElectricItemUtils.drainPlayerEnergy(player, energyConsumed);
-//                return;
-//            }
-//
-//            if (world.isRemote) {
-//                return;
-//            }
-//            double radius = (int) ModuleManager.computeModularProperty(itemStack, HOE_SEARCH_RADIUS);
-//            for (int i = (int) Math.floor(-radius); i < radius; i++) {
-//                for (int j = (int) Math.floor(-radius); j < radius; j++) {
-//                    if (i * i + j * j < radius * radius) {
-//                        Block block = world.getBlock(x + i, y, z + j);
-//                        if (block == Blocks.grass || block == Blocks.dirt) {
-//                            world.setBlock(x + i, y, z + j, Blocks.farmland);
-//                            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemStack, HOE_ENERGY_CONSUMPTION));
-//                        }
-//                    }
-//                }
-//            }
-//// TODO: Proper sound effect
-////            world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F),
-////                    Blocks.farmland.stepSound.getStepSound(), (Blocks.farmland.stepSound.getVolume() + 1.0F) / 2.0F,
-////                    Blocks.farmland.stepSound.getPitch() * 0.8F);
-//
-//        }
-        return EnumActionResult.PASS;
+            double radius = (int) ModuleManager.computeModularProperty(itemStack, HOE_SEARCH_RADIUS);
+            for (int i = (int) Math.floor(-radius); i < radius; i++) {
+                for (int j = (int) Math.floor(-radius); j < radius; j++) {
+                    if (i * i + j * j < radius * radius) {
+                        BlockPos newPos = pos.add(i, 0, j);
+
+                        IBlockState iblockstate = worldIn.getBlockState(newPos);
+                        Block block = iblockstate.getBlock();
+
+                        if (facing != EnumFacing.DOWN && worldIn.isAirBlock(pos.up())) {
+                            if (block == Blocks.GRASS || block == Blocks.GRASS_PATH) {
+                                this.setBlock(itemStack, playerIn, worldIn, newPos, Blocks.FARMLAND.getDefaultState());
+                            }
+
+                            if (block == Blocks.DIRT) {
+                                switch (iblockstate.getValue(BlockDirt.VARIANT)) {
+                                    case DIRT:
+                                        this.setBlock(itemStack, playerIn, worldIn, pos, Blocks.FARMLAND.getDefaultState());
+                                    case COARSE_DIRT:
+                                        this.setBlock(itemStack, playerIn, worldIn, pos, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return EnumActionResult.SUCCESS;
+        }
     }
+
+    protected void setBlock(ItemStack stack, EntityPlayer player, World worldIn, BlockPos pos, IBlockState state) {
+        // TODO: Proper sound effect, maybe some particle effects like dirt particles flying around.
+        // note that the isRemote check was moved here because exiting with it seems to cancel sound
+        worldIn.playSound(player, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        if (!worldIn.isRemote) {
+            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, HOE_ENERGY_CONSUMPTION));
+            worldIn.setBlockState(pos, state, 11);
+        }
+    }
+
 
     @Override
     public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-        return null;
+        return EnumActionResult.PASS;
     }
 
     @Override
