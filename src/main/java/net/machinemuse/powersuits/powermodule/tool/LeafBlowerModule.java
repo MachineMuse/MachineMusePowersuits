@@ -159,7 +159,7 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-        return null;
+        return EnumActionResult.PASS;
     }
 
     @Override

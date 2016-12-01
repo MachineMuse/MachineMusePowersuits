@@ -174,17 +174,17 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        return null;
+        return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
 
     @Override
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        return null;
+        return EnumActionResult.PASS;
     }
 
     @Override
     public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-        return null;
+        return EnumActionResult.PASS;
     }
 
     @Override

@@ -72,7 +72,7 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        return null;
+        return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
 
     @Override
@@ -98,7 +98,7 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
 
     @Override
     public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-        return null;
+        return EnumActionResult.PASS;
     }
 
     @Override
