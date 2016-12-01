@@ -49,11 +49,6 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
     }
 
     @Override
-    public String getTextureFile() {
-        return "magnetmodule";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_SPECIAL;
     }
@@ -117,7 +112,7 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
                     }
                     if (world.rand.nextInt(20) == 0) {
                         float pitch = 0.85F - world.rand.nextFloat() * 3.0F / 10.0F;
-                        world.playSound(e.posX, e.posY, e.posZ, SoundEvent.REGISTRY.getObject(new ResourceLocation("mob.endermen.portal")), SoundCategory.PLAYERS, 0.6F, pitch, true);
+                        world.playSound(e.posX, e.posY, e.posZ, SoundEvent.REGISTRY.getObject(new ResourceLocation("entity.endermen.teleport")), SoundCategory.PLAYERS, 0.6F, pitch, true);
                     }
                 }
             }

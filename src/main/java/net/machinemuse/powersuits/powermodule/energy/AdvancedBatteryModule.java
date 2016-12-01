@@ -28,11 +28,6 @@ public class AdvancedBatteryModule extends PowerModuleBase {
     }
 
     @Override
-    public String getTextureFile() {
-        return "mvbattery";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_ENERGY;
     }

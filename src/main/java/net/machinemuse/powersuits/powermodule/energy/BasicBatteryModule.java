@@ -28,11 +28,6 @@ public class BasicBatteryModule extends PowerModuleBase {
     }
 
     @Override
-    public String getTextureFile() {
-        return "lvbattery";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_ENERGY;
     }

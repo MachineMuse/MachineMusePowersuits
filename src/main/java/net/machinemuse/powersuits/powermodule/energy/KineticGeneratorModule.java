@@ -36,11 +36,6 @@ public class KineticGeneratorModule extends PowerModuleBase implements IPlayerTi
     }
 
     @Override
-    public String getTextureFile() {
-        return "kineticgen";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_ENERGY;
     }

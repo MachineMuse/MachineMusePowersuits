@@ -95,11 +95,6 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
     }
 
     @Override
-    public String getTextureFile() {
-        return "kineticgen";
-    }
-
-    @Override
     public String getUnlocalizedName() {
         return "dimRiftGen";
     }

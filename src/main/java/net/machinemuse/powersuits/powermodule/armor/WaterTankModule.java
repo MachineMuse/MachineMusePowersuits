@@ -44,11 +44,6 @@ public class WaterTankModule extends PowerModuleBase implements IPlayerTickModul
     }
 
     @Override
-    public String getTextureFile() {
-        return null;
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(bucketWater).getParticleTexture();
     }

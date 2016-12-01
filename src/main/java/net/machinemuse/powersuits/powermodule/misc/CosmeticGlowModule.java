@@ -47,11 +47,6 @@ public class CosmeticGlowModule extends PowerModuleBase {
     }
 
     @Override
-    public String getTextureFile() {
-        return "netherstar";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.cosmeticGlow;
     }

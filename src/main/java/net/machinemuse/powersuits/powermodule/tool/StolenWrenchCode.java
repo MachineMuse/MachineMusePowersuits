@@ -82,6 +82,11 @@ public class StolenWrenchCode {
 //            if (wrenchable.wrenchCanSetFacing(player, hitSide)) {
 //                if (ServerHelper.isServerWorld(world)) {
 //                    wrenchable.setFacing((short) hitSide);
+//    @Override
+//    public String getTextureFile() {
+//        return "toolshovel";
+//    }
+
 //                }
 //            } else if (wrenchable.wrenchCanRemove(player)) {
 //                ItemStack dropBlock = wrenchable.getWrenchDrop(player);

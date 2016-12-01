@@ -107,11 +107,6 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
     }
 
     @Override
-    public String getTextureFile() {
-        return "jetpack";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.jetpack;
     }

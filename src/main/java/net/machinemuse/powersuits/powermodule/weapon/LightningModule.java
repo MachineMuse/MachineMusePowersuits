@@ -42,11 +42,6 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
     }
 
     @Override
-    public String getTextureFile() {
-        return "bluestar";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_WEAPON;
     }

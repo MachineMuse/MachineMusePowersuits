@@ -72,11 +72,6 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
     }
 
     @Override
-    public String getTextureFile() {
-        return "jumpassist";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.jumpAssist;
     }

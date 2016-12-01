@@ -33,11 +33,6 @@ public class InPlaceAssemblerModule extends PowerModuleBase implements IRightCli
     }
 
     @Override
-    public String getTextureFile() {
-        return "portablecrafting";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_SPECIAL;
     }

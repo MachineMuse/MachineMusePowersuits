@@ -23,11 +23,6 @@ public class TintModule extends PowerModuleBase {
     }
 
     @Override
-    public String getTextureFile() {
-        return "netherstar";
-    }
-
-    @Override
     public boolean isAllowed() {
         return false;
     }

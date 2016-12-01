@@ -49,11 +49,6 @@ public class ThaumGogglesModule extends PowerModuleBase implements IToggleableMo
     }
 
     @Override
-    public String getTextureFile() {
-        return "bluestar";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.aurameter;
     }

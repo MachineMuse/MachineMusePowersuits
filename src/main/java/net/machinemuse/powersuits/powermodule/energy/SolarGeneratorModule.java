@@ -31,11 +31,6 @@ public class SolarGeneratorModule extends PowerModuleBase implements IPlayerTick
     }
 
     @Override
-    public String getTextureFile() {
-        return "solarhelmet";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_ENERGY;
     }

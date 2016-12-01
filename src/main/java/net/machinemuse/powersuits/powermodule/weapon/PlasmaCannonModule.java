@@ -65,11 +65,6 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
     }
 
     @Override
-    public String getTextureFile() {
-        return "gravityweapon";
-    }
-
-    @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
 //        if (ElectricItemUtils.getPlayerEnergy(player) > 500) {
 //            playerIn.setItemInUse(item, 72000);

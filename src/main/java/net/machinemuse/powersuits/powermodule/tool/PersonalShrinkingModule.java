@@ -44,11 +44,6 @@
 //    }
 //
 //    @Override
-//    public String getTextureFile() {
-//        return "psd";
-//    }
-//
-//    @Override
 //    public String getCategory() {
 //        return MuseCommonStrings.CATEGORY_TOOL;
 //    }

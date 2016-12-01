@@ -20,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
     public static final String MODULE_PICKAXE = "Pickaxe";
     public static final String PICKAXE_HARVEST_SPEED = "Pickaxe Harvest Speed";
     public static final String PICKAXE_ENERGY_CONSUMPTION = "Pickaxe Energy Consumption";
-    private static ItemStack emulatedTool = new ItemStack(Items.IRON_PICKAXE);
+    protected static final ItemStack emulatedTool = new ItemStack(Items.IRON_PICKAXE);
 
 
     public PickaxeModule(List<IModularItem> validItems) {
@@ -64,58 +65,30 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
     }
 
     @Override
-    public String getTextureFile() {
-        return "toolpick";
-    }
-
-    @Override
     public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
-        return false;
-        // return harvestCheck(stack, block, meta, player);
-    }
-
-    @Override
-    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-        return false;
-
-//        int meta = world.getBlockMetadata(x,y,z);
-//        if (canHarvestBlock(stack, block, meta, player)) {
-//            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, PICKAXE_ENERGY_CONSUMPTION));
-//            return true;
-//        } else {
-//            return false;
-//        }
-    }
-
-    @Override
-    public void handleBreakSpeed(BreakSpeed event) {
-//        event.newSpeed *= ModuleManager.computeModularProperty(event.entityPlayer.inventory.getCurrentItem(), PICKAXE_HARVEST_SPEED);
-    }
-
-    private static boolean istEffectiveHarvestTool(Block block, int metadata) {
-//        ItemStack emulatedTool = new ItemStack(Items.iron_pickaxe);
-//        String effectiveHarvestTool = block.getHarvestTool(metadata);
-//        if (Objects.equals(effectiveHarvestTool, "pickaxe")) {
-//            return block.getHarvestLevel(metadata) <= 2; // higher than 2 requires better then iron
-//        }
-//
-//        // some blocks like stairs do no not have a tool assigned to them
-//        if (effectiveHarvestTool == null) {
-//           if (emulatedTool.func_150997_a/*getStrVsBlock*/(block) >= ((ItemTool) emulatedTool.getItem()).func_150913_i/*getToolMaterial*/().getEfficiencyOnProperMaterial())
-//           {
-//               return true;
-//           }
-//        }
-        return false;
-    }
-
-    public static boolean harvestCheck(ItemStack stack, Block block, int meta, EntityPlayer player) {
-        if (istEffectiveHarvestTool(block, meta)) {
+        if (ToolHelpers.isEffectiveTool(state, emulatedTool)) {
             if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, PICKAXE_ENERGY_CONSUMPTION)) {
                 return true;
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
+        // this does a check using ActualBlockstate, something we can't do without BlockPos
+        if (ForgeHooks.canToolHarvestBlock(worldIn, pos, emulatedTool)) {
+            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, ModuleManager.computeModularProperty(stack, PICKAXE_ENERGY_CONSUMPTION));
+
+            System.out.println("breaking with regular pickaxe module");
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void handleBreakSpeed(BreakSpeed event) {
+        event.setNewSpeed((float) (event.getNewSpeed() * ModuleManager.computeModularProperty(event.getEntityPlayer().inventory.getCurrentItem(), PICKAXE_HARVEST_SPEED)));
     }
 
     @Override

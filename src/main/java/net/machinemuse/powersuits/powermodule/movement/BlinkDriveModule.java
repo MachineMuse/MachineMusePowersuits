@@ -4,6 +4,7 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -38,11 +39,6 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public String getTextureFile() {
-        return "alien";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_MOVEMENT;
     }
@@ -63,22 +59,21 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-//        SoundEvent enderman_portal =  SoundEvent.REGISTRY.getObject(new ResourceLocation("entity.endermen.teleport"));
-//        double range = ModuleManager.computeModularProperty(itemStack, BLINK_DRIVE_RANGE);
-//        double energyConsumption = ModuleManager.computeModularProperty(itemStack, BLINK_DRIVE_ENERGY_CONSUMPTION);
-//        if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
-//            NuminaPlayerUtils.resetFloatKickTicks(player);
-//            ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
-//            world.playSound(player, player.getPosition(), enderman_portal, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
-//            // MuseLogger.logDebug("Range: " + range);
-//            RayTraceResult hitRayTrace = MusePlayerUtils.doCustomRayTrace(player.worldObj, player, true, range);
-//
-//
-//
-//            // MuseLogger.logDebug("Hit:" + hitMOP);
-//            MusePlayerUtils.teleportEntity(player, hitRayTrace);
-//            world.playSound(player, player.getPosition(), enderman_portal, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
-//        }
+        SoundEvent enderman_portal =  SoundEvent.REGISTRY.getObject(new ResourceLocation("entity.endermen.teleport"));
+        double range = ModuleManager.computeModularProperty(itemStackIn, BLINK_DRIVE_RANGE);
+        double energyConsumption = ModuleManager.computeModularProperty(itemStackIn, BLINK_DRIVE_ENERGY_CONSUMPTION);
+        if (ElectricItemUtils.getPlayerEnergy(playerIn) > energyConsumption) {
+            NuminaPlayerUtils.resetFloatKickTicks(playerIn);
+            ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
+            worldIn.playSound(playerIn, playerIn.getPosition(), enderman_portal, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
+             MuseLogger.logDebug("Range: " + range);
+            RayTraceResult hitRayTrace = MusePlayerUtils.doCustomRayTrace(playerIn.worldObj, playerIn, true, range);
+
+            MuseLogger.logDebug("Hit:" + hitRayTrace);
+            MusePlayerUtils.teleportEntity(playerIn, hitRayTrace);
+            worldIn.playSound(playerIn, playerIn.getPosition(), enderman_portal, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
+            return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
+        }
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
 

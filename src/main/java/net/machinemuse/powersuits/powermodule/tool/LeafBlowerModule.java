@@ -76,11 +76,6 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public String getTextureFile() {
-        return "leafblower";
-    }
-
-    @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         return null;
     }

@@ -30,11 +30,6 @@ public class MeleeAssistModule extends PowerModuleBase {
     }
 
     @Override
-    public String getTextureFile() {
-        return "toolfist";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_WEAPON;
     }

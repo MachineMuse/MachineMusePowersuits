@@ -8,7 +8,6 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -34,11 +33,11 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
     public static final String MODULE_SCOOP = "Scoop";
     public static final String SCOOP_HARVEST_SPEED = "Scoop Harvest Speed";
     public static final String SCOOP_ENERGY_CONSUMPTION = "Scoop Energy Consumption";
-    public static final ItemStack scoop = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("Forestry", "scoop")), 1);
+    public static final ItemStack emulatedTool = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("Forestry", "emulatedTool")), 1);
 
     public ScoopModule(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(scoop);
+        addInstallCost(emulatedTool);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBaseProperty(SCOOP_ENERGY_CONSUMPTION, 2000, "J");
         addBaseProperty(SCOOP_HARVEST_SPEED, 5, "x");
@@ -56,48 +55,42 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
 
     @Override
     public String getUnlocalizedName() {
-        return "scoop";
+        return "emulatedTool";
     }
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(scoop).getParticleTexture();
-    }
-
-    @Override
-    public String getTextureFile() {
-        return null;
+        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(emulatedTool).getParticleTexture();
     }
 
     @Override
     public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
-//        if (ForgeHooks.canToolHarvestBlock(block, meta, scoop)) {
-//            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SCOOP_ENERGY_CONSUMPTION)) {
-//                return true;
-//            }
-//        }
+        if (ToolHelpers.isEffectiveTool(state, emulatedTool)) {
+            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SCOOP_ENERGY_CONSUMPTION)) {
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-
-//        int meta = world.getBlockMetadata(x, y, z);
-//        if (canHarvestBlock(stack, block, meta, player)) {
-//            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, SCOOP_ENERGY_CONSUMPTION));
-//            return true;
-//        }
+        if (ForgeHooks.canToolHarvestBlock(worldIn, pos, emulatedTool)) {
+            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, ModuleManager.computeModularProperty(stack, SCOOP_ENERGY_CONSUMPTION));
+            return true;
+        }
         return false;
 
     }
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-//        event.newSpeed *= ModuleManager.computeModularProperty(event.entityPlayer.inventory.getCurrentItem(), SCOOP_HARVEST_SPEED);
+        event.setNewSpeed((float) (event.getNewSpeed() *
+                ModuleManager.computeModularProperty(event.getEntityPlayer().inventory.getCurrentItem(), SCOOP_HARVEST_SPEED)));
     }
 
     @Override
     public ItemStack getEmulatedTool() {
-        return scoop;
+        return emulatedTool;
     }
 }

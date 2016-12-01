@@ -22,11 +22,6 @@ public class EnergyShieldModule extends PowerModuleBase {
     }
 
     @Override
-    public String getTextureFile() {
-        return "energyshield";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_ARMOR;
     }

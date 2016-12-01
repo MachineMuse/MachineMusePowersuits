@@ -28,11 +28,6 @@ public class EliteBatteryModule extends PowerModuleBase {
     }
 
     @Override
-    public String getTextureFile() {
-        return "crystalcapacitor";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_ENERGY;
     }

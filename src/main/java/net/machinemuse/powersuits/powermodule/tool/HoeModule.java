@@ -118,11 +118,6 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
     }
 
     @Override
-    public String getTextureFile() {
-        return null;
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(new ItemStack(Items.GOLDEN_HOE)).getParticleTexture();
     }

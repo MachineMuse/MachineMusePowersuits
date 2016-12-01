@@ -73,11 +73,6 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
     }
 
     @Override
-    public String getTextureFile() {
-        return "omniprobe";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_TOOL;
     }

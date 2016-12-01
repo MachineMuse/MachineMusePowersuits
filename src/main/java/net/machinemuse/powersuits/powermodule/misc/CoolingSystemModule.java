@@ -51,11 +51,6 @@ public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickM
     }
 
     @Override
-    public String getTextureFile() {
-        return "coolingsystem";
-    }
-
-    @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         double heatBefore = MuseHeatUtils.getPlayerHeat(player);
         MuseHeatUtils.coolPlayer(player, 0.1 * ModuleManager.computeModularProperty(item, COOLING_BONUS));

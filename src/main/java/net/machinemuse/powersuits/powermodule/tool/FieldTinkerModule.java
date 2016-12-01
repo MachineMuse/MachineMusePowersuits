@@ -50,11 +50,6 @@ public class FieldTinkerModule extends PowerModuleBase implements IRightClickMod
     }
 
     @Override
-    public String getTextureFile() {
-        return "transparentarmor";
-    }
-
-    @Override
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         return EnumActionResult.PASS;
     }

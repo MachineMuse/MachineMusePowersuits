@@ -45,11 +45,6 @@ public class MFFSFieldTeleporterModule extends PowerModuleBase {
     }
 
     @Override
-    public String getTextureFile() {
-        return "fieldteleporter";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.mffsFieldTeleporter;
     }

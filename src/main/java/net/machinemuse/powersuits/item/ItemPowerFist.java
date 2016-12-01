@@ -23,6 +23,7 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -35,6 +36,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -86,25 +89,12 @@ public class ItemPowerFist extends MPSItemElectricTool
     }
 
     /**
-     * Returns the strength of the stack against a given block. 1.0F base,
-     * (Quality+1)*2 if correct blocktype, 1.5F if sword
-     */
-    public float getStrVsBlock(ItemStack stack, Block block) {
-        return this.getStrVsBlock(stack, block, 0);
-    }
-
-    /**
      * FORGE: Overridden to allow custom tool effectiveness
      */
-    public float getStrVsBlock(ItemStack stack, Block block, int meta) {
+    @Override
+    public float getStrVsBlock(ItemStack stack, IBlockState state) {
         return 1.0f;
     }
-
-//    @SideOnly(Side.CLIENT)
-//    public void registerIcons(IIconRegister iconRegister) {
-//        String iconpath = MuseIcon.ICON_PREFIX + "handitem";
-//        this.itemIcon = iconRegister.registerIcon(iconpath);
-//    }
 
     /**
      * Current implementations of this method in child classes do not use the
@@ -133,8 +123,6 @@ public class ItemPowerFist extends MPSItemElectricTool
         return true;
     }
 
-
-
     /**
      * Called when a block is destroyed using this tool.
      * <p/>
@@ -145,7 +133,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         if (entityLiving instanceof EntityPlayer) {
             for (IBlockBreakingModule module : ModuleManager.getBlockBreakingModules()) {
                 if (ModuleManager.itemHasActiveModule(stack, module.getDataName())) {
-                    if (module.onBlockDestroyed(stack, worldIn, state, pos, (EntityPlayer) entityLiving)) {
+                    if (module.onBlockDestroyed(stack, worldIn, state, pos, entityLiving)) {
                         return true;
                     }
                 }
@@ -168,10 +156,10 @@ public class ItemPowerFist extends MPSItemElectricTool
         return (float) ModuleManager.computeModularProperty(itemStack, MeleeAssistModule.PUNCH_DAMAGE);
     }
 
-//    @SideOnly(Side.CLIENT)
-//    public boolean isFull3D() {
-//        return true;
-//    }
+    @Override
+    public boolean isFull3D() {
+        return true;
+    }
 
     /**
      * Return the enchantability factor of the item. In this case, 0. Might add
@@ -272,45 +260,18 @@ public class ItemPowerFist extends MPSItemElectricTool
         return 0.0f;
     }
 
-
-    // TODO: rewrite based on whatever information is needed.
-
-    /*
-        public float getStrVsBlock(ItemStack stack, IBlockState state)
-    {
-        for (String type : getToolClasses(stack))
-        {
-            if (state.getBlock().isToolEffective(type, state))
-                return efficiencyOnProperMaterial;
-        }
-        return this.effectiveBlocks.contains(state.getBlock()) ? this.efficiencyOnProperMaterial : 1.0F;
-    }
-
-
-
-     */
-
-    @Override
-    public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
-        return super.canHarvestBlock(state, stack);
-    }
-
+    // The Item/ItemTool version doesn't give us the player, so we can't override that.
     public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
-        // TODO: fixme
+        if(state.getMaterial().isToolNotRequired())
+            return true;
 
-
-
-//        Object o = new Object();
-//        if (block.getMaterial(state).isToolNotRequired())
-//            return true;
-//
-//        for (IBlockBreakingModule module : ModuleManager.getBlockBreakingModules()) {
-//            if (ModuleManager.itemHasActiveModule(stack, module.getDataName()) && module.canHarvestBlock(stack, block, state, player)) {
-//                return true;
-//            }
-//        }
+        for (IBlockBreakingModule module : ModuleManager.getBlockBreakingModules()) {
+            if (ModuleManager.itemHasActiveModule(stack, module.getDataName()) && module.canHarvestBlock(stack, state, player)) {
+                return true;
+            }
+        }
         return false;
-    }
+  }
 
     /* TE Crescent Hammer */
     @Override

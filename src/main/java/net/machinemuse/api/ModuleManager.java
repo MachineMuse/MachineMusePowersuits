@@ -27,11 +27,9 @@ public class ModuleManager {
     protected static final List<IRightClickModule> rightClickModules = new ArrayList<>();
     protected static final List<IToggleableModule> toggleableModules = new ArrayList<>();
     protected static final List<IBlockBreakingModule> blockBreakingModules = new ArrayList<>();
-
     public static List<IPowerModule> getAllModules() {
         return moduleList;
     }
-
     public static List<IPlayerTickModule> getPlayerTickModules() {
         return playerTickModules;
     }

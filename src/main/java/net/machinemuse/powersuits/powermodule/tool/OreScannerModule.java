@@ -153,11 +153,6 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public String getTextureFile() {
-        return "orescanner";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_TOOL;
     }

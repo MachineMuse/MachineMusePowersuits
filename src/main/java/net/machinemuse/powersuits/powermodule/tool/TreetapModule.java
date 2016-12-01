@@ -41,11 +41,6 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
     }
 
     @Override
-    public String getTextureFile() {
-        return null;
-    }
-
-    @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }

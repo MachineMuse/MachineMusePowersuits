@@ -42,11 +42,6 @@ public class ThermalGeneratorModule extends PowerModuleBase implements IPlayerTi
     }
 
     @Override
-    public String getTextureFile() {
-        return "heatgenerator";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_ENERGY;
     }

@@ -20,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
     public static final String AXE_ENERGY_CONSUMPTION = "Axe Energy Consumption";
     public static final String AXE_HARVEST_SPEED = "Axe Harvest Speed";
     public static final String AXE_SEARCH_RADIUS = "Axe Search Radius";
-    public static final ItemStack emulatedTool = new ItemStack(Items.IRON_AXE);
+    private static final ItemStack emulatedTool = new ItemStack(Items.IRON_AXE);
 
 
     public AxeModule(List<IModularItem> validItems) {
@@ -66,50 +67,22 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
     }
 
     @Override
-    public String getTextureFile() {
-        return "toolaxe";
-    }
-
-    private static boolean istEffectiveHarvestTool(Block block, int metadata)
-    {
-//        ItemStack emulatedTool = new ItemStack(Items.IRON_AXE);
-//
-//        if (emulatedTool.getItem().canHarvestBlock(block, emulatedTool))
-//            return true;
-//
-//        String effectiveTool = block.getHarvestTool(metadata);
-//
-//        // some blocks like stairs do no not have a tool assigned to them
-//        if (effectiveTool == null)
-//        {
-//            {
-//                if (emulatedTool.func_150997_a/*getStrVsBlock*/(block) >= ((ItemTool) emulatedTool.getItem()).func_150913_i/*getToolMaterial*/().getEfficiencyOnProperMaterial())
-//                {
-//                    return true;
-//                }
-//            }
-//        }
-//        return Objects.equals(effectiveTool, "axe");
-        return false;
-    }
-
-    @Override
     public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
-//        if (istEffectiveHarvestTool(block, meta)) {
-//            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION)) {
-//                return true;
-//            }
-//        }
+        if (ToolHelpers.isEffectiveTool(state, emulatedTool)) {
+            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION)) {
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-//        int meta = world.getBlockMetadata(x, y, z);
-//        if (canHarvestBlock(stack, block, meta, player)) {
-//            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION));
-//            return true;
-//        }
+        if (ForgeHooks.canToolHarvestBlock(worldIn, pos, emulatedTool)) {
+            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION));
+            System.out.println("breaking with regular axe module");
+            return true;
+        }
         return false;
     }
 

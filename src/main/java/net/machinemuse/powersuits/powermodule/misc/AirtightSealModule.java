@@ -39,11 +39,6 @@ public class AirtightSealModule extends PowerModuleBase {
     }
 
     @Override
-    public String getTextureFile() {
-        return "glasspane";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.airtightSeal;
     }

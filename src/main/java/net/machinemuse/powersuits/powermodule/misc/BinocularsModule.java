@@ -50,11 +50,6 @@ public class BinocularsModule extends PowerModuleBase implements IToggleableModu
     }
 
     @Override
-    public String getTextureFile() {
-        return "binoculars";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.binoculars;
     }

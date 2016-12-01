@@ -37,11 +37,6 @@ public class OmniWrenchModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public String getTextureFile() {
-        return "omniwrench";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_TOOL;
     }

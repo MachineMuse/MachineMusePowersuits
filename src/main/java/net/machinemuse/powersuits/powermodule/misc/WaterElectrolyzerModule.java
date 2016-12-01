@@ -71,11 +71,6 @@ public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerT
     }
 
     @Override
-    public String getTextureFile() {
-        return "waterelectrolyzer";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.waterElectrolyzer;
     }

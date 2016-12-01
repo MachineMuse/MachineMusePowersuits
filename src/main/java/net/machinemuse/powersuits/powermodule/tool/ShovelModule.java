@@ -20,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
@@ -31,7 +32,6 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
     public static final String SHOVEL_HARVEST_SPEED = "Shovel Harvest Speed";
     public static final String SHOVEL_ENERGY_CONSUMPTION = "Shovel Energy Consumption";
     private static final ItemStack emulatedTool = new ItemStack(Items.IRON_SHOVEL);
-
 
     public ShovelModule(List<IModularItem> validItems) {
         super(validItems);
@@ -55,33 +55,29 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
-//        if (istEffectiveHarvestTool(block, meta)) {
-//
-//            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION)) {
-//                return true;
-//            }
-//        }
+        if (ToolHelpers.isEffectiveTool(state, emulatedTool)) {
+            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION)) {
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-//        int meta = worldIn.getBlockMetadata(x, y, z);
-//        if (canHarvestBlock(stack, block, meta, player)) {
-//            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION));
-//            return true;
-//        }
+        if (ForgeHooks.canToolHarvestBlock(worldIn, pos, emulatedTool)) {
+            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION));
+
+            System.out.println("breaking with shovel module");
+            return true;
+        }
         return false;
     }
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-//        event.newSpeed *= ModuleManager.computeModularProperty(event.entityPlayer.inventory.getCurrentItem(), SHOVEL_HARVEST_SPEED);
-    }
-
-    @Override
-    public String getTextureFile() {
-        return "toolshovel";
+        event.setNewSpeed((float) (event.getNewSpeed() *
+                ModuleManager.computeModularProperty(event.getEntityPlayer().inventory.getCurrentItem(), SHOVEL_HARVEST_SPEED)));
     }
 
     @Override
@@ -89,29 +85,10 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
         return "shovel";
     }
 
-        @Override
+    @Override
     public String getDescription() {
         return "Shovels are good for soft materials like dirt and sand.";
     }
-
-    // TODO: move this, axe and pickaxe (+upgraded pickaxe) to single helper
-    private boolean istEffectiveHarvestTool(Block block, int metadata) {
-//        ItemStack emulatedTool = new ItemStack(Items.IRON_SHOVEL);
-//
-//        if (emulatedTool.getItem().canHarvestBlock(block, emulatedTool))
-//            return true;
-//
-//        String effectiveTool = block.getHarvestTool(metadata);
-//        // some blocks like stairs do no not have a tool assigned to them
-//        if (effectiveTool == null) {
-//            if (emulatedTool.func_150997_a/*getStrVsBlock*/(block) >= ((ItemTool) emulatedTool.getItem()).func_150913_i/*getToolMaterial*/().getEfficiencyOnProperMaterial()) {
-//                return true;
-//            }
-//        }
-//        return Objects.equals(effectiveTool, "shovel");
-        return false;
-    }
-
 
     @Override
     public ItemStack getEmulatedTool() {

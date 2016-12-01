@@ -72,11 +72,6 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
     }
 
     @Override
-    public String getTextureFile() {
-        return "parachute";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.parachute;
     }

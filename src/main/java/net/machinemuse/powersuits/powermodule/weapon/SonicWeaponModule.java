@@ -65,11 +65,6 @@ public class SonicWeaponModule extends PowerModuleBase implements IRightClickMod
     }
 
     @Override
-    public String getTextureFile() {
-        return "soundweapon";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.sonicWeapon;
     }

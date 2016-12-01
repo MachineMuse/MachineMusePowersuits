@@ -22,11 +22,6 @@ public class BasicPlatingModule extends PowerModuleBase {
     }
 
     @Override
-    public String getTextureFile() {
-        return "basicplating2";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_ARMOR;
     }

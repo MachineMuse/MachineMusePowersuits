@@ -55,11 +55,6 @@ package net.machinemuse.powersuits.powermodule.tool;// package andrew.powersuits
 // }
 //
 // @Override
-// public String getTextureFile() {
-//         return "ocTerminal";
-// }
-//
-// @Override
 // public String getCategory() {
 //         return MuseCommonStrings.CATEGORY_TOOL;
 // }

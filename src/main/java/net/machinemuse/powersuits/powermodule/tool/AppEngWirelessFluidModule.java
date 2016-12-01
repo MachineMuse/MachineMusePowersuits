@@ -39,11 +39,6 @@
 //    }
 //
 //    @Override
-//    public String getTextureFile() {
-//        return "ItemWirelessTerminalFluid"; //?
-//    }
-//
-//    @Override
 //    public String getCategory() {
 //        return MuseCommonStrings.CATEGORY_TOOL;
 //    }

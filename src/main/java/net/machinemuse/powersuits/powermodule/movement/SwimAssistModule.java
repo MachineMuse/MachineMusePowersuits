@@ -107,11 +107,6 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
     }
 
     @Override
-    public String getTextureFile() {
-        return "swimboost";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.swimAssist;
     }

@@ -18,6 +18,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
@@ -30,7 +31,10 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
     public static final String MODULE_CHISEL = "Chisel";
     public static final String CHISEL_HARVEST_SPEED = "CHISEL Harvest Speed";
     public static final String CHISEL_ENERGY_CONSUMPTION = "CHISEL Energy Consumption";
-    private Item ITEM_CHISEL = null;
+
+    // Fixme put actual item.
+    private static final ItemStack emulatedTool = new ItemStack(
+            Item.REGISTRY.getObject(new ResourceLocation("ic2", "electric_treetap")), 1);
 
     public ChiselModule(List<IModularItem> validItems) {
         super(validItems);
@@ -40,13 +44,6 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
         addBaseProperty(CHISEL_HARVEST_SPEED, 8, "x");
         addTradeoffProperty("Overclock", CHISEL_ENERGY_CONSUMPTION, 950);
         addTradeoffProperty("Overclock", CHISEL_HARVEST_SPEED, 22);
-
-        try {
-            ITEM_CHISEL = ChiselGetter2.getChisel();
-        } catch (NoClassDefFoundError f) {
-            MuseLogger.logException("Couldn't get Chisel reference item", f);
-        }
-
     }
 
     @Override
@@ -70,40 +67,33 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public String getTextureFile() {
-        return "toolpinch";
-    }
-
-    @Override
     public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
-//        if (ModCompatibility.isChiselLoaded() && ITEM_CHISEL != null) {
-//            if (ForgeHooks.canToolHarvestBlock(block, meta, new ItemStack(ITEM_CHISEL))) {
-//                if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, CHISEL_ENERGY_CONSUMPTION)) {
-//                    return true;
-//                }
-//            }
-//        }
+        if (ToolHelpers.isEffectiveTool(state, emulatedTool)) {
+            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, CHISEL_ENERGY_CONSUMPTION)) {
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-//        int meta = world.getBlockMetadata(x, y, z);
-//        if (canHarvestBlock(stack, block, meta, player)) {
-//            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, CHISEL_ENERGY_CONSUMPTION));
-//            return true;
-//        }
+        if (ForgeHooks.canToolHarvestBlock(worldIn, pos, emulatedTool)) {
+            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, ModuleManager.computeModularProperty(stack, CHISEL_ENERGY_CONSUMPTION));
+            return true;
+        }
         return false;
     }
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-//        event.newSpeed *= ModuleManager.computeModularProperty(event.getEntityPlayer().inventory.getCurrentItem(), CHISEL_HARVEST_SPEED);
+        event.setNewSpeed((float) (event.getNewSpeed() *
+                ModuleManager.computeModularProperty(event.getEntityPlayer().inventory.getCurrentItem(), CHISEL_HARVEST_SPEED)));
     }
 
     @Override
     public ItemStack getEmulatedTool() {
-        return null; // FIXME TOO!!
+        return emulatedTool; // FIXME TOO!!
     }
 
     @Override

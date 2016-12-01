@@ -109,11 +109,6 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
     }
 
     @Override
-    public String getTextureFile() {
-        return "sprintassist";
-    }
-
-    @Override
     public String getUnlocalizedName() {
         return "sprintAssist";
     }

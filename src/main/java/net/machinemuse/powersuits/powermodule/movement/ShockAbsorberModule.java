@@ -45,11 +45,6 @@ public class ShockAbsorberModule extends PowerModuleBase implements IToggleableM
     }
 
     @Override
-    public String getTextureFile() {
-        return "shockabsorber";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.shockAbsorber;
     }

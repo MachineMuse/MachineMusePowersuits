@@ -19,11 +19,6 @@ public class CitizenJoeStyle extends PowerModuleBase {
     }
 
     @Override
-    public String getTextureFile() {
-        return "greendrone";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_COSMETIC;
     }

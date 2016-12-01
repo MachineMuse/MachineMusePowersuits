@@ -43,11 +43,6 @@ public class MobRepulsorModule extends PowerModuleBase implements IPlayerTickMod
     }
 
     @Override
-    public String getTextureFile() {
-        return "magneta";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_ENVIRONMENTAL;
     }

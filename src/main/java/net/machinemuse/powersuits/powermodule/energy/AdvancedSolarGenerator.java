@@ -41,11 +41,6 @@ public class AdvancedSolarGenerator extends PowerModuleBase implements IPlayerTi
     }
 
     @Override
-    public String getTextureFile() {
-        return "advsolarhelmet";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_ENERGY;
     }

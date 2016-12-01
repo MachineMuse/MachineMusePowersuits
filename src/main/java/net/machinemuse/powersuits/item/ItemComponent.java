@@ -64,7 +64,7 @@ public class ItemComponent extends Item {
             String message =  I18n.format("tooltip.componentTooltip");
             message = MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic);
             currentTipList.add(message);
-            String description = descriptions.get(stack);
+            String description = (descriptions.get(stack) != null) ? descriptions.get(stack) : "";
             currentTipList.addAll(MuseStringUtils.wrapStringToLength(description, 30));
         } else {
             currentTipList.add(Config.additionalInfoInstructions());

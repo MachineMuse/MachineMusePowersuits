@@ -49,11 +49,6 @@ public class NitrogenCoolingSystem extends PowerModuleBase implements IPlayerTic
     }
 
     @Override
-    public String getTextureFile() {
-        return "coolingsystem";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_ENVIRONMENTAL;
     }

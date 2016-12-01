@@ -106,11 +106,6 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
     }
 
     @Override
-    public String getTextureFile() {
-        return "jetboots";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.jetBoots;
     }

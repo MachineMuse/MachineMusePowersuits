@@ -49,11 +49,6 @@ public class ApiaristArmorModule extends PowerModuleBase {
     }
 
     @Override
-    public String getTextureFile() {
-        return "silkWisp";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.apiaristArmor;
     }

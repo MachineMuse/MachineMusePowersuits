@@ -39,11 +39,6 @@ public class HazmatModule extends PowerModuleBase {
     }
 
     @Override
-    public String getTextureFile() {
-        return "greenstar";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.hazmat;
     }

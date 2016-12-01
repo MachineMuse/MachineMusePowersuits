@@ -19,6 +19,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 import java.util.List;
@@ -53,36 +54,29 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
     }
 
     @Override
-    public String getTextureFile() {
-        return "diamondupgrade1";
-    }
-
-    @Override
     public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
-//        if (!Items.IRON_PICKAXE.canHarvestBlock(block, stack)) {
-//            if (Items.diamond_pickaxe.canHarvestBlock(block, stack)) {
-//                if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, PickaxeModule.PICKAXE_ENERGY_CONSUMPTION)) {
-//                    return true;
-//                }
-//            }
-//        }
+        if (!ToolHelpers.isEffectiveTool(state, PickaxeModule.emulatedTool) && ToolHelpers.isEffectiveTool(state, emulatedTool)) {
+            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, PickaxeModule.PICKAXE_ENERGY_CONSUMPTION)) {
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-//        int meta = world.getBlockMetadata(x,y,z);
-//        if (canHarvestBlock(stack, block, meta, player) && !PickaxeModule.harvestCheck(stack, block, meta, player)) {
-//            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, PickaxeModule.PICKAXE_ENERGY_CONSUMPTION));
-//            return true;
-//        }
+        if (!ForgeHooks.canToolHarvestBlock(worldIn, pos, PickaxeModule.emulatedTool) &&
+                ForgeHooks.canToolHarvestBlock(worldIn, pos, emulatedTool)) {
+            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, ModuleManager.computeModularProperty(stack, PickaxeModule.PICKAXE_ENERGY_CONSUMPTION));
+            return true;
+        }
         return false;
     }
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-//        event.newSpeed = (float) ModuleManager.computeModularProperty(event.entityPlayer.inventory.getCurrentItem(),
-//                PickaxeModule.PICKAXE_HARVEST_SPEED);
+        event.setNewSpeed((float) (event.getNewSpeed() *
+                ModuleManager.computeModularProperty(event.getEntityPlayer().inventory.getCurrentItem(), PickaxeModule.PICKAXE_HARVEST_SPEED)));
     }
 
     @Override

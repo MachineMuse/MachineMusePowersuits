@@ -22,11 +22,6 @@ public class DiamondPlatingModule extends PowerModuleBase {
     }
 
     @Override
-    public String getTextureFile() {
-        return "advancedplating2";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_ARMOR;
     }

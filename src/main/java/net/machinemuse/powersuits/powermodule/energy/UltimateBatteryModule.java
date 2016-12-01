@@ -57,9 +57,4 @@ public class UltimateBatteryModule extends PowerModuleBase {
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.ultimateBattery;
     }
-
-    @Override
-    public String getTextureFile() {// TODO do we still need this???
-        return null;
-    }
 }

@@ -59,11 +59,6 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
     }
 
     @Override
-    public String getTextureFile() {
-        return "bluelight";
-    }
-
-    @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
 //        player.setItemInUse(itemStack, 10);
 //        if (!world.isRemote) {

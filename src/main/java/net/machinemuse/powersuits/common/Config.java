@@ -257,6 +257,9 @@ public class Config {
         addModule(new ShearsModule(TOOLONLY));
         addModule(new HoeModule(TOOLONLY));
         addModule(new LuxCapacitor(TOOLONLY));
+        addModule(new UltimateBatteryModule(ALLITEMS));
+
+
 //        addModule(new OmniWrenchModule(TOOLONLY)) // Requires COFH lib/core
         addModule(new FieldTinkerModule(TOOLONLY));
         addModule(new MeleeAssistModule(TOOLONLY));
@@ -272,7 +275,7 @@ public class Config {
         addModule(new SprintAssistModule(LEGSONLY));
         addModule(new JumpAssistModule(LEGSONLY));
         addModule(new SwimAssistModule(LEGSONLY));
-        addModule(new ClimbAssistModule(LEGSONLY));
+//        addModule(new ClimbAssistModule(LEGSONLY)); // OBSOLETE due to changes in Minecraft
         addModule(new JetBootsModule(FEETONLY));
         addModule(new ShockAbsorberModule(FEETONLY));
         addModule(new WaterElectrolyzerModule(HEADONLY));

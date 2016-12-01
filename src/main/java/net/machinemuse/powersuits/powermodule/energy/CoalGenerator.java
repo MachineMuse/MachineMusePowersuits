@@ -67,11 +67,6 @@ public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule,
     }
 
     @Override
-    public String getTextureFile() {
-        return "coalgen";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_ENERGY;
     }

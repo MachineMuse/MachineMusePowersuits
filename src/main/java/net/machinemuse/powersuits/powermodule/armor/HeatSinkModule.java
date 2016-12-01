@@ -43,11 +43,6 @@ public class HeatSinkModule extends PowerModuleBase {
     }
 
     @Override
-    public String getTextureFile() {
-        return "heatresistantplating2";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.heatSink;
     }

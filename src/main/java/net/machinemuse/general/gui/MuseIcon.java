@@ -95,7 +95,7 @@ public class MuseIcon extends TextureAtlasSprite {
     public static TextureAtlasSprite cmPSD = new MuseIcon("cmPSD");
     public static TextureAtlasSprite pickaxe = new MuseIcon("pickaxe");
     public static TextureAtlasSprite redstoneLaser = new MuseIcon("redstoneLaser");
-    // scoop using external mod texture
+    // emulatedTool using external mod texture
     // shears using vanilla texture
     public static TextureAtlasSprite shovel = new MuseIcon("shovel");
 

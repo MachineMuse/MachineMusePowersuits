@@ -28,11 +28,6 @@ public class FlightControlModule extends PowerModuleBase implements IToggleableM
     }
 
     @Override
-    public String getTextureFile() {
-        return "FlightControlY";
-    }
-
-    @Override
     public String getDataName() {
         return MODULE_FLIGHT_CONTROL;
     }

@@ -57,11 +57,6 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
     }
 
     @Override
-    public String getTextureFile() {
-        return "spinningblade";
-    }
-
-    @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
 //        if (ElectricItemUtils.getPlayerEnergy(playerIn) > ModuleManager.computeModularProperty(itemStackIn, BLADE_ENERGY)) {
 //            playerIn.setItemInUse(itemStackIn, 72000);

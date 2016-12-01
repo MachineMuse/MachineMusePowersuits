@@ -21,11 +21,6 @@ import java.util.List;
 public class GliderModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
     public static final String MODULE_GLIDER = "Glider";
 
-    @Override
-    public String getTextureFile() {
-        return "glider";
-    }
-
     public GliderModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.gliderWing, 2));

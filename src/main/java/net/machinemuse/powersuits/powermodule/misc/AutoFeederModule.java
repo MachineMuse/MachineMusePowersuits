@@ -36,11 +36,6 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
     }
 
     @Override
-    public String getTextureFile() {
-        return "autofeeder";
-    }
-
-    @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_ENVIRONMENTAL;
     }
