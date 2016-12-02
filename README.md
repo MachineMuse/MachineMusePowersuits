@@ -4,9 +4,12 @@
 
 Modular Powersuits is a Minecraft mod based around the idea of an inventor who tinkers with high-tech electronics and makes a suit of powered armor chock-full of useful gadgets and features. Inspired by heroes like Iron Man and Megaman as well as by the high-tech armor in mods like IndustrialCraft 2 and EE2.
 
+#Important
+Please note that this branch will no longer be upadated. Please submit Pull Requests to the Java based version branches. We will not be using Scala anymore.
+
 #Changelog
 
-http://build.technicpack.net/view/MachineMuse/job/ModularPowersuits/changes
+http://build.technicpack.net/view/MachineMuse/job/ModularPowersuits/changes  (no longer valid)
 
 #Downloads
 
@@ -20,7 +23,7 @@ http://machinemuse.net/download.php
 
 Jenkins:
 
-http://build.technicpack.net/view/MachineMuse/job/ModularPowersuits/
+http://build.technicpack.net/view/MachineMuse/job/ModularPowersuits/ (no longer valid. Please use Curse or CurseForge)
 
 #Issues
 
