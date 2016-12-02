@@ -69,16 +69,8 @@ public class ClickableSlider extends Clickable {
         return Math.abs(this.position.x() - x) < this.width() / 2 && Math.abs(this.position.y() + 12 - y) < 4;
     }
 
-    public double valueInternal() {
-        return this.valueInternal;
-    }
-
-    public void valueInternal_$eq(final double x$1) {
-        this.valueInternal = x$1;
-    }
-
     public double value() {
-        return this.valueInternal();
+        return this.valueInternal;
     }
 
     public void setValueByX(final double x) {
@@ -87,6 +79,6 @@ public class ClickableSlider extends Clickable {
     }
 
     public void setValue(final double v) {
-        this.valueInternal_$eq(v);
+        this.valueInternal = v;
     }
 }
