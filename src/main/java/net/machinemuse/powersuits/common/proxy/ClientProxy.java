@@ -91,8 +91,6 @@ public class ClientProxy implements CommonProxy {
 
     @Override
     public void sendModeChange(int dMode, String newMode) {
-        System.out.println("Sending mode change request");
-
         EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
         RenderGameOverlayEventHandler.updateSwap((int) Math.signum(dMode));
         MusePacket modeChangePacket = new MusePacketModeChangeRequest(player, newMode, player.inventory.currentItem);
