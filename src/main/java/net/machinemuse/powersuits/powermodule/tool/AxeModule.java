@@ -18,7 +18,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 import java.util.List;
-import java.util.Objects;
 
 
 public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
@@ -82,7 +81,7 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
                 }
             }
         }
-        return Objects.equals(effectiveTool, "axe");
+        return (effectiveTool == "axe");
     }
 
     @Override

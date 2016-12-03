@@ -18,7 +18,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 import java.util.List;
-import java.util.Objects;
 
 
 public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
@@ -84,7 +83,7 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
     private static boolean istEffectiveHarvestTool(Block block, int metadata) {
         ItemStack emulatedTool = new ItemStack(Items.iron_pickaxe);
         String effectiveHarvestTool = block.getHarvestTool(metadata);
-        if (Objects.equals(effectiveHarvestTool, "pickaxe")) {
+        if (effectiveHarvestTool == "pickaxe") {
             return block.getHarvestLevel(metadata) <= 2; // higher than 2 requires better then iron
         }
 
