@@ -16,8 +16,7 @@ public class ItemPowerArmorChestplate extends ItemPowerArmor {
     }
 
     public String iconpath() {
-        String iconpath = MuseRenderer.ICON_PREFIX + "armortorso";
-        return iconpath;
+        return MuseRenderer.ICON_PREFIX + "armortorso";
     }
 
     @SideOnly(Side.CLIENT)

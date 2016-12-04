@@ -48,8 +48,6 @@ public class MusePacketPlasmaBolt extends MusePacket {
             entity.size = this.size;
         }
         catch (Exception e){
-
-            return;
         }
     }
 

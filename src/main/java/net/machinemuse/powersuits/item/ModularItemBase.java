@@ -53,8 +53,7 @@ public class ModularItemBase extends Item implements IModularItemBase {
         double computedred = ModuleManager.computeModularProperty(stack, CosmeticGlowModule.RED_GLOW);
         double computedgreen = ModuleManager.computeModularProperty(stack, CosmeticGlowModule.GREEN_GLOW);
         double computedblue = ModuleManager.computeModularProperty(stack, CosmeticGlowModule.BLUE_GLOW);
-        Colour colour = new Colour(clampDouble(computedred, 0, 1), clampDouble(computedgreen, 0, 1), clampDouble(computedblue, 0, 1), 0.8);
-        return colour;
+        return new Colour(clampDouble(computedred, 0, 1), clampDouble(computedgreen, 0, 1), clampDouble(computedblue, 0, 1), 0.8);
     }
 
     @Override
@@ -65,8 +64,7 @@ public class ModularItemBase extends Item implements IModularItemBase {
         double computedred = ModuleManager.computeModularProperty(stack, TintModule.RED_TINT);
         double computedgreen = ModuleManager.computeModularProperty(stack, TintModule.GREEN_TINT);
         double computedblue = ModuleManager.computeModularProperty(stack, TintModule.BLUE_TINT);
-        Colour colour = new Colour(clampDouble(computedred, 0, 1), clampDouble(computedgreen, 0, 1), clampDouble(computedblue, 0, 1), 1.0F);
-        return colour;
+        return new Colour(clampDouble(computedred, 0, 1), clampDouble(computedgreen, 0, 1), clampDouble(computedblue, 0, 1), 1.0F);
     }
 
     @Override
