@@ -5,21 +5,13 @@ import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.MusePacketModeChangeRequest;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.render.RenderGameOverlayEventHandler;
-import net.machinemuse.powersuits.block.BlockTinkerTable;
-import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
-import net.machinemuse.powersuits.block.TileEntityTinkerTable;
-import net.machinemuse.powersuits.client.render.block.RenderLuxCapacitorTESR;
-import net.machinemuse.powersuits.client.render.block.TinkerTableRenderer;
-import net.machinemuse.powersuits.client.render.entity.EntityRendererLuxCapacitorEntity;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererPlasmaBolt;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererSpinningBlade;
-//import net.machinemuse.powersuits.client.render.item.ToolRenderer;
 import net.machinemuse.powersuits.client.render.modelspec.ModelSpecXMLReader;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.control.KeybindKeyHandler;
 import net.machinemuse.powersuits.control.KeybindManager;
-import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.event.ClientTickHandler;
@@ -31,15 +23,14 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.net.URL;
-import java.util.Map;
+
+//import net.machinemuse.powersuits.client.render.item.ToolRenderer;
 
 /**
  * Client side of the proxy.
@@ -59,24 +50,24 @@ public class ClientProxy implements CommonProxy {
      */
     @Override
     public void registerRenderers() {
-        regRenderer(MPSItems.powerTool);
-        regRenderer(MPSItems.powerArmorHead);
-        regRenderer(MPSItems.powerArmorTorso);
-        regRenderer(MPSItems.powerArmorLegs);
-        regRenderer(MPSItems.powerArmorFeet);
-        regRenderer(Item.getItemFromBlock(MPSItems.tinkerTable));
+        MPSItems mpsItems = MPSItems.getInstance();
+        Item components = mpsItems.components;
 
-        if (MPSItems.components != null) {
-            for (ItemStack  stack : ((ItemComponent)MPSItems.components).names.keySet()) {
-                String oredictName = ((ItemComponent)MPSItems.components).names.get(stack);
+        regRenderer(mpsItems.powerTool);
+        regRenderer(mpsItems.powerArmorHead);
+        regRenderer(mpsItems.powerArmorTorso);
+        regRenderer(mpsItems.powerArmorLegs);
+        regRenderer(mpsItems.powerArmorFeet);
+        regRenderer(Item.getItemFromBlock(mpsItems.tinkerTable));
+
+        if (components != null) {
+            for (Integer  meta : ((ItemComponent)components).names.keySet()) {
+                String oredictName = ((ItemComponent)components).names.get(meta);
                 ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation(Config.RESOURCE_PREFIX + oredictName, "inventory");
-                ModelLoader.setCustomModelResourceLocation(MPSItems.components, stack.getItemDamage(), itemModelResourceLocation);
+                ModelLoader.setCustomModelResourceLocation(components, meta, itemModelResourceLocation);
 
-                OreDictionary.registerOre(oredictName, stack);
+                OreDictionary.registerOre(oredictName, new ItemStack(components, 1, meta));
             }
-
-
-
         }
 
         RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, EntityRendererSpinningBlade::new);
@@ -85,13 +76,13 @@ public class ClientProxy implements CommonProxy {
 
 //        // register component icons
 //        val mpsItems = MPSItems
-//        if (mpsItems.components != null) {
+//        if (MPSItems.getInstance().components != null) {
 //            var i = 0
 //            val nameList = ItemComponent.names
 //
 //            for( i <- 1 to  nameList.size()) {
 //                val itemModelResourceLocation: ModelResourceLocation = new ModelResourceLocation(Config.RESOURCE_PREFIX + nameList.get(i-1), "inventory")
-//                ModelLoader.setCustomModelResourceLocation(mpsItems.components, i-1, itemModelResourceLocation)
+//                ModelLoader.setCustomModelResourceLocation(MPSItems.getInstance().components, i-1, itemModelResourceLocation)
 //            }
 //        }
 
@@ -116,7 +107,7 @@ public class ClientProxy implements CommonProxy {
 //        RenderingRegistry.registerBlockHandler(tinkTableRenderer);
 //        int luxCapacitorRenderID = RenderingRegistry.getNextAvailableRenderId();
 //        RenderLuxCapacitorTESR luxCapacitorRenderer = new RenderLuxCapacitorTESR(luxCapacitorRenderID);
-//        MPSItems.INSTANCE.luxCapacitor.setRenderType(luxCapacitorRenderID);
+//        MPSItems.getInstance().INSTANCE.luxCapacitor.setRenderType(luxCapacitorRenderID);
 //        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLuxCapacitor.class, luxCapacitorRenderer);
 //        RenderingRegistry.registerBlockHandler(luxCapacitorRenderer);
 //        RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, new EntityRendererPlasmaBolt());

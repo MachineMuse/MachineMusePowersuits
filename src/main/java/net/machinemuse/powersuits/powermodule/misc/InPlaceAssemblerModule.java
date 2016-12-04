@@ -53,7 +53,7 @@ public class InPlaceAssemblerModule extends PowerModuleBase implements IRightCli
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         playerIn.openGui(ModularPowersuits.getInstance(), 4, worldIn, (int) playerIn.posX, (int) playerIn.posY, (int) playerIn.posZ);
         return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
     }

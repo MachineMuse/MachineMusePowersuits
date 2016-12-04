@@ -18,7 +18,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -229,23 +228,23 @@ public class Config {
      */
     public static void loadPowerModules() {
         List<IModularItem> ARMORONLY = Arrays.asList(
-                (IModularItem)MPSItems.powerArmorHead,
-                (IModularItem)MPSItems.powerArmorTorso,
-                (IModularItem)MPSItems.powerArmorLegs,
-                (IModularItem)MPSItems.powerArmorFeet);
+                (IModularItem)MPSItems.getInstance().powerArmorHead,
+                (IModularItem)MPSItems.getInstance().powerArmorTorso,
+                (IModularItem)MPSItems.getInstance().powerArmorLegs,
+                (IModularItem)MPSItems.getInstance().powerArmorFeet);
 
         List<IModularItem> ALLITEMS = Arrays.asList(
-                (IModularItem)MPSItems.powerArmorHead,
-                (IModularItem)MPSItems.powerArmorTorso,
-                (IModularItem)MPSItems.powerArmorLegs,
-                (IModularItem)MPSItems.powerArmorFeet,
-                (IModularItem)MPSItems.powerTool);
+                (IModularItem)MPSItems.getInstance().powerArmorHead,
+                (IModularItem)MPSItems.getInstance().powerArmorTorso,
+                (IModularItem)MPSItems.getInstance().powerArmorLegs,
+                (IModularItem)MPSItems.getInstance().powerArmorFeet,
+                (IModularItem)MPSItems.getInstance().powerTool);
 
-        List<IModularItem> HEADONLY = Collections.singletonList((IModularItem)MPSItems.powerArmorHead);
-        List<IModularItem> TORSOONLY = Collections.singletonList((IModularItem)MPSItems.powerArmorTorso);
-        List<IModularItem> LEGSONLY = Collections.singletonList((IModularItem)MPSItems.powerArmorLegs);
-        List<IModularItem> FEETONLY = Collections.singletonList((IModularItem)MPSItems.powerArmorFeet);
-        List<IModularItem> TOOLONLY = Collections.singletonList((IModularItem)MPSItems.powerTool);
+        List<IModularItem> HEADONLY = Collections.singletonList((IModularItem)MPSItems.getInstance().powerArmorHead);
+        List<IModularItem> TORSOONLY = Collections.singletonList((IModularItem)MPSItems.getInstance().powerArmorTorso);
+        List<IModularItem> LEGSONLY = Collections.singletonList((IModularItem)MPSItems.getInstance().powerArmorLegs);
+        List<IModularItem> FEETONLY = Collections.singletonList((IModularItem)MPSItems.getInstance().powerArmorFeet);
+        List<IModularItem> TOOLONLY = Collections.singletonList((IModularItem)MPSItems.getInstance().powerTool);
 
         // FIXME: these need to be sorted
 

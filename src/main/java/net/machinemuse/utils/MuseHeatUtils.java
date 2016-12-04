@@ -6,8 +6,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 
-import java.util.List;
-
 public class MuseHeatUtils {
 
     public static final String MAXIMUM_HEAT = "Maximum Heat";

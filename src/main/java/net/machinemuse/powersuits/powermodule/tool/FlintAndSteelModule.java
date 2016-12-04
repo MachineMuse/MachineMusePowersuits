@@ -8,19 +8,15 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -71,28 +67,28 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
 
     @Override
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-//        double energyConsumption = ModuleManager.computeModularProperty(itemStack, IGNITION_ENERGY_CONSUMPTION);
-//        if (energyConsumption < ElectricItemUtils.getPlayerEnergy(player)) {
-//            x += (side == 5 ? 1 : side == 4 ? -1 : 0);
-//            y += (side == 1 ? 1 : side == 0 ? -1 : 0);
-//            z += (side == 3 ? 1 : side == 2 ? -1 : 0);
-//
-//            if (player.canPlayerEdit(x, y, z, side, itemStack)) {
-//                Block clickedBlock = world.getBlock(x, y, z);
-//
-//                if (clickedBlock == Blocks.air) {
-//                    ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
-//                    world.playSoundEffect((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D, "fire.ignite", 1.0F, ran.nextFloat() * 0.4F + 0.8F);
-//                    world.setBlock(x, y, z, Blocks.fire);
-//                }
-//            }
-//        }
+        double energyConsumption = ModuleManager.computeModularProperty(stack, IGNITION_ENERGY_CONSUMPTION);
+        if (energyConsumption < ElectricItemUtils.getPlayerEnergy(playerIn)) {
+            pos = pos.offset(facing);
+            if (!playerIn.canPlayerEdit(pos, facing, stack)) {
+                return EnumActionResult.FAIL;
+            } else {
+                if (worldIn.isAirBlock(pos)) {
+                    ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
+                    worldIn.playSound(playerIn, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, ran.nextFloat() * 0.4F + 0.8F);
+                    worldIn.setBlockState(pos, Blocks.FIRE.getDefaultState(), 11);
+                }
+
+                stack.damageItem(1, playerIn);
+                return EnumActionResult.SUCCESS;
+            }
+        }
         return EnumActionResult.PASS;
     }
 

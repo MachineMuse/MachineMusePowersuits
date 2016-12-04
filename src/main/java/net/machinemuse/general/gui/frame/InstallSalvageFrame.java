@@ -22,7 +22,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-
 import java.util.List;
 
 @SideOnly(Side.CLIENT)

@@ -41,7 +41,7 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
 
@@ -63,7 +63,7 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
                         IBlockState iblockstate = worldIn.getBlockState(newPos);
                         Block block = iblockstate.getBlock();
 
-                        if (facing != EnumFacing.DOWN && worldIn.isAirBlock(pos.up())) {
+                        if (facing != EnumFacing.DOWN && worldIn.isAirBlock(newPos.up())) {
                             if (block == Blocks.GRASS || block == Blocks.GRASS_PATH) {
                                 this.setBlock(itemStack, playerIn, worldIn, newPos, Blocks.FARMLAND.getDefaultState());
                             }
@@ -71,9 +71,9 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
                             if (block == Blocks.DIRT) {
                                 switch (iblockstate.getValue(BlockDirt.VARIANT)) {
                                     case DIRT:
-                                        this.setBlock(itemStack, playerIn, worldIn, pos, Blocks.FARMLAND.getDefaultState());
+                                        this.setBlock(itemStack, playerIn, worldIn, newPos, Blocks.FARMLAND.getDefaultState());
                                     case COARSE_DIRT:
-                                        this.setBlock(itemStack, playerIn, worldIn, pos, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
+                                        this.setBlock(itemStack, playerIn, worldIn, newPos, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
                                 }
                             }
                         }

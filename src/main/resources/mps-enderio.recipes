@@ -3,7 +3,7 @@
 		"ingredients" : [
 			[ null, { "oredictName" : "gemEmerald" }, null ],
 			[ { "oredictName" : "ingotElectricalSteel"}, { "registryName" : "EnderIO:itemBasicCapacitor" }, { "oredictName" : "ingotElectricalSteel"} ],
-			[ null, { "oredictName" : "itemMachineChassis" }, null ]
+			[ null, { "oredictName" : "itemMachineChassi" }, null ]
 		],
 		"result" : {
 			"registryName" : "powersuits:tile.tinkerTable"
@@ -50,8 +50,8 @@
 	{
 		"ingredients" : [
 			[ null, { "oredictName" : "componentWiring" }, null ],
-			[ { "oredictName" : "componentWiring" }, { "oredictName" : "ingotPhasedIron" }, null ],
-			[ null, { "oredictName" : "ingotPhasedIron" }, { "oredictName" : "componentWiring" } ]
+			[ { "oredictName" : "componentWiring" }, { "oredictName" : "ingotPulsatingIron" }, null ],
+			[ null, { "oredictName" : "ingotPulsatingIron" }, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {
 			"registryName" : "powersuits:item.powerFist"
@@ -59,7 +59,8 @@
 	},
 	{
 		"ingredients" : [
-			[  {"oredictName" : "ingotPhasedIron" }, { "oredictName" : "dustRedstone" }, {"oredictName" : "ingotPhasedIron" } ]
+			[  {"oredictName" : "ingotPulsatingIron" }, { "oredictName" : "dustRedstone" }, {"oredictName" : "ingotPulsatingIron" } ],
+			[ null, null, null ]
 		],
 		"result" : {
 			"oredictName" : "componentWiring",
@@ -99,7 +100,7 @@
 	{
 		"ingredients" : [
 			[  null, { "oredictName" : "componentFieldEmitter" }, {"oredictName" : "componentSolenoid" } ],
-			[  {"oredictName" : "ingotPhasedGold" }, {"oredictName" : "dustGlowstone" }, null],
+			[  {"oredictName" : "ingotVibrantAlloy" }, {"oredictName" : "dustGlowstone" }, null],
 			[  {"oredictName" : "componentWiring" }, {"oredictName" : "componentFieldEmitter" }, {"oredictName" : "componentSolenoid" } ]
 		],
 		"result" : {

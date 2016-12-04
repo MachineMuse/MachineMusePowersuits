@@ -11,7 +11,6 @@ import net.machinemuse.utils.render.GuiIcons;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.resources.I18n;
 
-
 import java.util.ArrayList;
 import java.util.List;
 

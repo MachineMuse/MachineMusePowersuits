@@ -12,7 +12,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -103,7 +102,7 @@ public class PartManipContainer extends ScrollableFrame {
     @Override
     public void update(double mousex, double mousey) {
         super.update(mousex, mousey);
-        if (!Objects.equals(lastItemSlot, getItemSlot())) {
+        if (lastItemSlot == getItemSlot()) {
             lastItemSlot = getItemSlot();
             colourSelect.refreshColours();
 

@@ -4,11 +4,6 @@
 package net.machinemuse.powersuits.client.render.block;
 
 import net.machinemuse.numina.render.MuseTESR;
-import net.machinemuse.powersuits.common.Config;
-import net.minecraft.block.Block;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockAccess;
-import org.lwjgl.opengl.GL11;
 
 /**
  * Rendering handler for the tinkertable

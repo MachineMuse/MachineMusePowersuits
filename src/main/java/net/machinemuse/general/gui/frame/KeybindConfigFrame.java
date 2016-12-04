@@ -21,7 +21,6 @@ import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
-
 import org.lwjgl.input.Keyboard;
 
 import java.util.HashSet;

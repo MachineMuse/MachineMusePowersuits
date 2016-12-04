@@ -6,7 +6,6 @@ import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.numina.item.IModeChangingItem;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -27,9 +26,11 @@ public class ModuleManager {
     protected static final List<IRightClickModule> rightClickModules = new ArrayList<>();
     protected static final List<IToggleableModule> toggleableModules = new ArrayList<>();
     protected static final List<IBlockBreakingModule> blockBreakingModules = new ArrayList<>();
+
     public static List<IPowerModule> getAllModules() {
         return moduleList;
     }
+
     public static List<IPlayerTickModule> getPlayerTickModules() {
         return playerTickModules;
     }

@@ -13,7 +13,6 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -57,7 +56,7 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         if (ElectricItemUtils.getPlayerEnergy(playerIn) > ModuleManager.computeModularProperty(itemStackIn, BLADE_ENERGY)) {
             playerIn.setActiveHand(hand);
             return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);

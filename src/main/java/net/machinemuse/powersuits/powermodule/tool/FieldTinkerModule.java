@@ -65,7 +65,7 @@ public class FieldTinkerModule extends PowerModuleBase implements IRightClickMod
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         playerIn.openGui(ModularPowersuits.getInstance(), 2, worldIn, (int)playerIn.posX, (int)playerIn.posY, (int)playerIn.posZ);
         return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
     }

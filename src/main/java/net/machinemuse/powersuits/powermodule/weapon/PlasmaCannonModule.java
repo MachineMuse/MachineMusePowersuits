@@ -5,10 +5,8 @@ import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.numina.general.MuseMathUtils;
-import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.item.ItemComponent;
-//import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
@@ -26,6 +24,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
+
+//import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
 
 public class PlasmaCannonModule extends PowerModuleBase implements IRightClickModule {
     public static final String MODULE_PLASMA_CANNON = "Plasma Cannon";
@@ -65,7 +65,7 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         if (ElectricItemUtils.getPlayerEnergy(playerIn) > 500) {
             playerIn.setActiveHand(hand);
             return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);

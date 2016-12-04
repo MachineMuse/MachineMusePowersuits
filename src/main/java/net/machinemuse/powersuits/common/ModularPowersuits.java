@@ -7,7 +7,6 @@ import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.event.HarvestEventHandler;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.network.packets.MPSPacketList;
-//import net.machinemuse.powersuits.powermodule.tool.TerminalHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
@@ -23,6 +22,8 @@ import java.io.File;
 
 import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
 import static net.machinemuse.powersuits.common.ModularPowersuits.VERSION;
+
+//import net.machinemuse.powersuits.powermodule.tool.TerminalHandler;
 
 /**
  * Main mod class. This is what Forge loads to get the mod up and running, both
@@ -64,8 +65,8 @@ public final class ModularPowersuits {
 
 
 
-//        MPSItems.populateItems()
-//        MPSItems.popuateComponents()
+//        MPSItems.getInstance().populateItems()
+//        MPSItems.getInstance().popuateComponents()
         proxy.registerRenderers();
     }
 

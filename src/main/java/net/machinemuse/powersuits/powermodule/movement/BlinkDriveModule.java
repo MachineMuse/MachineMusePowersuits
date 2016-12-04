@@ -58,7 +58,7 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         SoundEvent enderman_portal =  SoundEvent.REGISTRY.getObject(new ResourceLocation("entity.endermen.teleport"));
         double range = ModuleManager.computeModularProperty(itemStackIn, BLINK_DRIVE_RANGE);
         double energyConsumption = ModuleManager.computeModularProperty(itemStackIn, BLINK_DRIVE_ENERGY_CONSUMPTION);

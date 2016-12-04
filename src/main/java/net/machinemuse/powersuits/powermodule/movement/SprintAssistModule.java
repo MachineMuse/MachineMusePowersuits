@@ -16,9 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by leon on 10/18/16.
@@ -75,7 +73,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
             NBTTagList  modifiers = item.getTagCompound().getTagList("AttributeModifiers", (byte)10);
             for (int i = 0;  i< modifiers.tagCount(); i++) {
                 NBTTagCompound tag = modifiers.getCompoundTagAt(i);
-                if (Objects.equals(new AttributeModifier(tag).name, "Sprint Assist")) {
+                if (new AttributeModifier(tag).name == "Sprint Assist") {
                     tag.setDouble("Amount", 0);
                 }
             }
@@ -85,17 +83,17 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
     public void  setMovementModifier(ItemStack item, double multiplier) {
         NBTTagList modifiers = item.getTagCompound().getTagList("AttributeModifiers", (byte) 10); // Type 10 for tag compound
         item.getTagCompound().setTag("AttributeModifiers", modifiers);
-        List sprintModifiers = new ArrayList();
+        NBTTagCompound sprintModifiers = new NBTTagCompound();
         for (int i = 0; i < modifiers.tagCount(); i++) {
             NBTTagCompound tag = modifiers.getCompoundTagAt(i);
-            if (Objects.equals(new AttributeModifier(tag).name, "Sprint Assist")) {
-                tag.setInteger("Operation", 1);
-                tag.setDouble("Amount", multiplier - 1);
-                sprintModifiers.add(tag);
+            if (new AttributeModifier(tag).name == "Sprint Assist") {
+                sprintModifiers = tag;
+                sprintModifiers.setInteger("Operation", 1);
+                sprintModifiers.setDouble("Amount", multiplier - 1);
             }
-            if (sprintModifiers.isEmpty())
-                modifiers.appendTag(new AttributeModifier(1, TAGUUID, multiplier - 1, "generic.movementSpeed", "Sprint Assist").toNBT());
         }
+        if (sprintModifiers.hasNoTags())
+            modifiers.appendTag(new AttributeModifier(1, TAGUUID, multiplier - 1, "generic.movementSpeed", "Sprint Assist").toNBT());
     }
 
     @Override

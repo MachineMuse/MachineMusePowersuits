@@ -19,7 +19,6 @@ import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagIntArray;
-
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;

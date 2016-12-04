@@ -3,7 +3,6 @@ package net.machinemuse.powersuits.client.render.item;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.nbt.NBTTagCompound;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 10:01 PM, 11/07/13

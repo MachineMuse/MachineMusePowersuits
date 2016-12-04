@@ -33,7 +33,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -74,7 +73,7 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         if (playerIn.worldObj.isRemote) {
             return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
         }

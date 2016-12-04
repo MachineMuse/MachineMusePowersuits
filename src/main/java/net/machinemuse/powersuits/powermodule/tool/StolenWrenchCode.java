@@ -3,18 +3,10 @@ package net.machinemuse.powersuits.powermodule.tool;
 //import cofh.api.block.IDismantleable;
 //import cofh.lib.util.helpers.BlockHelper;
 //import cofh.lib.util.helpers.ServerHelper;
-import ic2.api.tile.IWrenchable;
-import net.machinemuse.powersuits.common.ModCompatibility;
-import net.minecraft.block.Block;
-import net.minecraft.entity.item.EntityItem;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-
-import java.util.List;
 
 /**
  * Created by MachineMuse on 9/7/2015.
@@ -27,6 +19,8 @@ public class StolenWrenchCode {
         // TBI, maybe?
     }
 
+
+    // public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
     public static boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int hitSide, float hitX, float hitY, float hitZ) {
 
 //        if (stack.getItemDamage() > 0) {
@@ -82,11 +76,6 @@ public class StolenWrenchCode {
 //            if (wrenchable.wrenchCanSetFacing(player, hitSide)) {
 //                if (ServerHelper.isServerWorld(world)) {
 //                    wrenchable.setFacing((short) hitSide);
-//    @Override
-//    public String getTextureFile() {
-//        return "toolshovel";
-//    }
-
 //                }
 //            } else if (wrenchable.wrenchCanRemove(player)) {
 //                ItemStack dropBlock = wrenchable.getWrenchDrop(player);

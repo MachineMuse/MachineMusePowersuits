@@ -7,7 +7,6 @@ import net.machinemuse.general.gui.WaterMeter;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
-import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.control.PlayerInputMap;
@@ -32,7 +31,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * Ported to Java by lehjr on 10/24/16.
@@ -130,7 +128,7 @@ public class ClientTickHandler {
                 Minecraft mc = Minecraft.getMinecraft();
                 ScaledResolution screen = new ScaledResolution(mc);
                 for (int i = 0; i < modules.size(); i++) {
-                    if (Objects.equals(modules.get(i), AutoFeederModule.MODULE_AUTO_FEEDER)) {
+                    if (modules.get(i) == AutoFeederModule.MODULE_AUTO_FEEDER) {
                         int foodLevel = (int) MuseItemUtils.getFoodLevel(player.inventory.armorItemInSlot(3));
                         String num = MuseStringUtils.formatNumberShort(foodLevel);
                         if (i == 0) {
@@ -140,7 +138,7 @@ public class ClientTickHandler {
                             MuseRenderer.drawString(num, 17, yBaseString + (yOffsetString * i));
                             MuseRenderer.drawItemAt(-1.0, yBaseIcon + (yOffsetIcon * i), food);
                         }
-                    } else if (Objects.equals(modules.get(i), ClockModule.MODULE_CLOCK)) {
+                    } else if (modules.get(i) == ClockModule.MODULE_CLOCK) {
                         long time = player.worldObj.provider.getWorldTime();
                         long hour = ((time % 24000) / 1000);
                         if (Config.use24hClock()) {
@@ -175,13 +173,13 @@ public class ClientTickHandler {
                             MuseRenderer.drawString(hour + ampm, 17, yBaseString + (yOffsetString * i));
                             MuseRenderer.drawItemAt(-1.0, yBaseIcon + (yOffsetIcon * i), clock);
                         }
-                    } else if (Objects.equals(modules.get(i), CompassModule.MODULE_COMPASS)) {
+                    } else if (modules.get(i) == CompassModule.MODULE_COMPASS) {
                         if (i == 0) {
                             MuseRenderer.drawItemAt(-1.0, yBaseIcon, compass);
                         } else {
                             MuseRenderer.drawItemAt(-1.0, yBaseIcon + (yOffsetIcon * i), compass);
                         }
-                    } else if (Objects.equals(modules.get(i), WaterTankModule.MODULE_WATER_TANK)) {
+                    } else if (modules.get(i) == WaterTankModule.MODULE_WATER_TANK) {
                         drawWaterMeter = true;
                     }
                 }

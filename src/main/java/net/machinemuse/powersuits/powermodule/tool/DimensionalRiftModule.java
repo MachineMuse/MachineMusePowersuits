@@ -51,8 +51,8 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        if ((playerIn.getRidingEntity() == null) && (playerIn.isBeingRidden() == true) && ((playerIn instanceof EntityPlayerMP))) {
+    public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+        if ((playerIn.getRidingEntity() == null) && (playerIn.getPassengers().isEmpty()) && ((playerIn instanceof EntityPlayerMP))) {
             EntityPlayerMP thePlayer = (EntityPlayerMP) playerIn;
             if (thePlayer.dimension != -1) {
                 thePlayer.setLocationAndAngles(0.5D, thePlayer.posY, 0.5D, thePlayer.rotationYaw, thePlayer.rotationPitch);

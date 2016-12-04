@@ -5,6 +5,7 @@ import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

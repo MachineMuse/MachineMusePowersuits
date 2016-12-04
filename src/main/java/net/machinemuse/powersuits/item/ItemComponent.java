@@ -7,17 +7,14 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ItemComponent extends Item {
-    public static Map<ItemStack, String> descriptions = new HashMap<>();
-    public static Map<ItemStack, String> names = new HashMap<>();
+    public static Map<Integer, String> descriptions = new HashMap<>();
+    public static Map<Integer, String> names = new HashMap<>();
 
     public static ItemStack wiring;
     public static ItemStack solenoid;
@@ -48,13 +45,13 @@ public class ItemComponent extends Item {
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setCreativeTab(Config.getCreativeTab());
-        this.populate();
+        this.setUnlocalizedName("item.powerArmorComponent.");
     }
 
-    public ItemStack addComponent(int index, String oredictName, String description) {
-        ItemStack stack = new ItemStack(this, 1, index);
-        names.put(stack, oredictName);
-        descriptions.put(stack, description);
+    public ItemStack addComponent(int meta, String oredictName, String description) {
+        ItemStack stack = new ItemStack(this, 1, meta);
+        names.put(meta, oredictName);
+        descriptions.put(meta, description);
         return stack;
     }
 
@@ -64,7 +61,7 @@ public class ItemComponent extends Item {
             String message =  I18n.format("tooltip.componentTooltip");
             message = MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic);
             currentTipList.add(message);
-            String description = (descriptions.get(stack) != null) ? descriptions.get(stack) : "";
+            String description = (descriptions.get(stack.getMetadata()) != null) ? descriptions.get(stack.getMetadata()) : "";
             currentTipList.addAll(MuseStringUtils.wrapStringToLength(description, 30));
         } else {
             currentTipList.add(Config.additionalInfoInstructions());
@@ -101,14 +98,14 @@ public class ItemComponent extends Item {
 
     @Override
     public String getUnlocalizedName(ItemStack itemStack) {
-        String unlocalizedName = names.get(itemStack);
+        String unlocalizedName = names.get(itemStack.getMetadata());
         if (unlocalizedName != null){
             unlocalizedName = unlocalizedName.replaceAll("\\s", "");
         } else
             unlocalizedName = "";
 
         return "item.powerArmorComponent." + unlocalizedName;
-    }
+   }
 
     /**
      * returns a list of items with the same ID, but different meta (eg: dye
@@ -116,8 +113,8 @@ public class ItemComponent extends Item {
      */
     @Override
     public void getSubItems(Item item, CreativeTabs tab, List listToAddTo) {
-        for (int i = 0; i < names.keySet().size(); ++i) {
-            listToAddTo.add(new ItemStack(this, 1, i));
+        for (Integer meta : names.keySet()) {
+            listToAddTo.add(new ItemStack(this, 1, meta));
         }
     }
 }

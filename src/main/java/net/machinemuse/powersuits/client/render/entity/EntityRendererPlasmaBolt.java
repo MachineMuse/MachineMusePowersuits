@@ -6,7 +6,6 @@ import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 

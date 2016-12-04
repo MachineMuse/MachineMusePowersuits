@@ -115,38 +115,38 @@ public class ModCompatibility {
 
         // CoFH Lib - CoFHLib is included in CoFHCore
         if (isCOFHLibLoaded()|| isCOFHCoreLoaded()) {
-            ModuleManager.addModule(new OmniWrenchModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
+            ModuleManager.addModule(new OmniWrenchModule(Collections.singletonList((IModularItem) MPSItems.getInstance().powerTool)));
         }
 
         // Thaumcraft
         if (isThaumCraftLoaded() && enableThaumGogglesModule()) {
-            ModuleManager.addModule(new ThaumGogglesModule(Collections.singletonList((IModularItem) MPSItems.powerArmorHead)));
+            ModuleManager.addModule(new ThaumGogglesModule(Collections.singletonList((IModularItem) MPSItems.getInstance().powerArmorHead)));
         }
 
-        //IPowerModule module = new MultimeterModule(Collections.singletonList((IModularItem) MPSItems.powerTool()));
+        //IPowerModule module = new MultimeterModule(Collections.singletonList((IModularItem) MPSItems.getInstance().powerTool()));
 
         // Hazmat
         if (isIndustrialCraftLoaded()) {
-            ModuleManager.addModule(new HazmatModule(Arrays.<IModularItem>asList((IModularItem)MPSItems.powerArmorHead, (IModularItem)MPSItems.powerArmorTorso, (IModularItem)MPSItems.powerArmorLegs, (IModularItem)MPSItems.powerArmorFeet)));
-            ModuleManager.addModule(new TreetapModule(Collections.singletonList((IModularItem)MPSItems.powerTool)));
+            ModuleManager.addModule(new HazmatModule(Arrays.<IModularItem>asList((IModularItem)MPSItems.getInstance().powerArmorHead, (IModularItem)MPSItems.getInstance().powerArmorTorso, (IModularItem)MPSItems.getInstance().powerArmorLegs, (IModularItem)MPSItems.getInstance().powerArmorFeet)));
+            ModuleManager.addModule(new TreetapModule(Collections.singletonList((IModularItem)MPSItems.getInstance().powerTool)));
         }
 
         // Galacticraft
         if (isGalacticraftLoaded()) {
-            ModuleManager.addModule(new AirtightSealModule(Collections.singletonList((IModularItem) MPSItems.powerArmorHead)));
+            ModuleManager.addModule(new AirtightSealModule(Collections.singletonList((IModularItem) MPSItems.getInstance().powerArmorHead)));
         }
 
         // Forestry
         if (isForestryLoaded()) {
-            ModuleManager.addModule(new GrafterModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
-            ModuleManager.addModule(new ScoopModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
-            ModuleManager.addModule(new ApiaristArmorModule(Arrays.<IModularItem>asList((IModularItem)MPSItems.powerArmorHead, (IModularItem)MPSItems.powerArmorTorso, (IModularItem)MPSItems.powerArmorLegs, (IModularItem)MPSItems.powerArmorFeet)));
+            ModuleManager.addModule(new GrafterModule(Collections.singletonList((IModularItem) MPSItems.getInstance().powerTool)));
+            ModuleManager.addModule(new ScoopModule(Collections.singletonList((IModularItem) MPSItems.getInstance().powerTool)));
+            ModuleManager.addModule(new ApiaristArmorModule(Arrays.<IModularItem>asList((IModularItem)MPSItems.getInstance().powerArmorHead, (IModularItem)MPSItems.getInstance().powerArmorTorso, (IModularItem)MPSItems.getInstance().powerArmorLegs, (IModularItem)MPSItems.getInstance().powerArmorFeet)));
         }
 
         // Chisel
         if(isChiselLoaded()) {
             try {
-                ModuleManager.addModule(new ChiselModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
+                ModuleManager.addModule(new ChiselModule(Collections.singletonList((IModularItem) MPSItems.getInstance().powerTool)));
             } catch(Exception e) {
                 MuseLogger.logException("Couldn't add Chisel module", e);
             }
@@ -154,21 +154,21 @@ public class ModCompatibility {
 
 //        // Applied Energistics
 //        if (isAppengLoaded()) {
-//            ModuleManager.addModule(new AppEngWirelessModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
+//            ModuleManager.addModule(new AppEngWirelessModule(Collections.singletonList((IModularItem) MPSItems.getInstance().powerTool)));
 //
 ////            // Extra Cells 2
 ////            if (isExtraCellsLoaded())
-////                ModuleManager.addModule(new AppEngWirelessFluidModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
+////                ModuleManager.addModule(new AppEngWirelessFluidModule(Collections.singletonList((IModularItem) MPSItems.getInstance().powerTool)));
 //        }
 
         // Multi-Mod Compatible OmniProbe
         if (isEnderIOLoaded() || isMFRLoaded() || isRailcraftLoaded()) {
-            ModuleManager.addModule(new OmniProbeModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
+            ModuleManager.addModule(new OmniProbeModule(Collections.singletonList((IModularItem) MPSItems.getInstance().powerTool)));
         }
 
 //        // Compact Machines Personal Shrinking Device
 //        if (isCompactMachinesLoaded()) {
-//            ModuleManager.addModule(new PersonalShrinkingModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
+//            ModuleManager.addModule(new PersonalShrinkingModule(Collections.singletonList((IModularItem) MPSItems.getInstance().powerTool)));
 //        }
     }
 }

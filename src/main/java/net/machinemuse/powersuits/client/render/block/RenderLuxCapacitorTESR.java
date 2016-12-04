@@ -1,19 +1,6 @@
 package net.machinemuse.powersuits.client.render.block;
 
-import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.render.MuseTESR;
-import net.machinemuse.numina.render.RenderState;
-import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
-import net.machinemuse.powersuits.common.Config;
-import net.minecraft.block.Block;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.client.model.obj.OBJLoader;
-import net.minecraftforge.client.model.obj.OBJModel;
-import org.lwjgl.opengl.GL11;
-
-import static org.lwjgl.opengl.GL11.*;
 
 public class RenderLuxCapacitorTESR extends MuseTESR {
     //TODO!! everything

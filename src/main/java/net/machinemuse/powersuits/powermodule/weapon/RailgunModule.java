@@ -94,7 +94,7 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         double range = 64;
         double timer = MuseItemUtils.getDoubleOrZero(itemStackIn, TIMER);
         double energyConsumption = ModuleManager.computeModularProperty(itemStackIn, ENERGY);

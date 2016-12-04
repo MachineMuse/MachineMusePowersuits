@@ -2,7 +2,6 @@ package net.machinemuse.api;
 
 import forestry.api.apiculture.IArmorApiarist;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Optional;
 

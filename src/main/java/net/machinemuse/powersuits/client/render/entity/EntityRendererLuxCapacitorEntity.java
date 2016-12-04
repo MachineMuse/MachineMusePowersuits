@@ -1,17 +1,10 @@
 package net.machinemuse.powersuits.client.render.entity;
 
-import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.numina.render.MuseTextureUtils;
-import net.machinemuse.numina.render.RenderState;
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.ResourceLocation;
+
 //import net.minecraftforge.client.model.AdvancedModelLoader;
 //import net.minecraftforge.client.model.obj.WavefrontObject;
-
-import static org.lwjgl.opengl.GL11.*;
 
 public class EntityRendererLuxCapacitorEntity extends MuseEntityRenderer <EntityLuxCapacitor> {
     protected EntityRendererLuxCapacitorEntity(RenderManager renderManager) {

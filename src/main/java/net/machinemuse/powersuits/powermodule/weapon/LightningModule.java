@@ -62,7 +62,7 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         try {
             double range = 64;
             double energyConsumption = ModuleManager.computeModularProperty(itemStackIn, LIGHTNING_ENERGY_CONSUMPTION);
