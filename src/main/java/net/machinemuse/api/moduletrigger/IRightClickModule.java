@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 public interface IRightClickModule extends IPowerModule {
     void onRightClick(EntityPlayer playerClicking, World world, ItemStack item);
 
-    void onItemUse(
+    boolean onItemUse(
             ItemStack itemStack, EntityPlayer player, World world,
             int x, int y, int z,
             int side, float hitX, float hitY, float hitZ);

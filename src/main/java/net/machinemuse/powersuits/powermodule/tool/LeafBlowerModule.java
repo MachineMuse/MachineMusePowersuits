@@ -82,7 +82,7 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
             return false;
 
         // Plants
-        if ((blocktype == "plants") && (block instanceof BlockTallGrass || block instanceof BlockFlower) && block.canHarvestBlock(player, meta)) {
+        if ((blocktype == "plants") && (block instanceof BlockBush) && block.canHarvestBlock(player, meta)) {
             block.harvestBlock(world, player, x, y, z, meta);
             world.setBlockToAir(x, y, z);
             return true;
@@ -104,7 +104,7 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         Block blockID = world.getBlock(x, y, z);
         int plant = (int) ModuleManager.computeModularProperty(itemStack, PLANT_RADIUS);
         int leaf = (int) ModuleManager.computeModularProperty(itemStack, LEAF_RADIUS);
@@ -117,6 +117,7 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
         useBlower(leaf, "leaves", itemStack, player, world,  x, y, z);
         // Snow
         useBlower(snow, "snow", itemStack, player, world,  x, y, z);
+        return false;
     }
 
     private void useBlower(int radius, String blocktypename , ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z) {

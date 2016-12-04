@@ -67,7 +67,8 @@ public class AppEngWirelessFluidModule extends PowerModuleBase implements IRight
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+        return false;
     }
 
     @Override

@@ -72,7 +72,7 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         double energyConsumption = ModuleManager.computeModularProperty(itemStack, IGNITION_ENERGY_CONSUMPTION);
         if (energyConsumption < ElectricItemUtils.getPlayerEnergy(player)) {
             x += (side == 5 ? 1 : side == 4 ? -1 : 0);
@@ -86,9 +86,11 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
                     ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
                     world.playSoundEffect((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D, "fire.ignite", 1.0F, ran.nextFloat() * 0.4F + 0.8F);
                     world.setBlock(x, y, z, Blocks.fire);
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     @Override

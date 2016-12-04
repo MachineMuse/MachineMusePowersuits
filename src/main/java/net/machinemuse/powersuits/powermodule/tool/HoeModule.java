@@ -41,40 +41,50 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
     }
 
     @Override
-    public void onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         double energyConsumed = ModuleManager.computeModularProperty(itemStack, HOE_ENERGY_CONSUMPTION);
         if (player.canPlayerEdit(x, y, z, side, itemStack) && ElectricItemUtils.getPlayerEnergy(player) > energyConsumed) {
             UseHoeEvent event = new UseHoeEvent(player, itemStack, world, x, y, z);
+
             if (MinecraftForge.EVENT_BUS.post(event)) {
-                return;
+                return false;
             }
 
             if (event.getResult() == Event.Result.ALLOW) {
                 ElectricItemUtils.drainPlayerEnergy(player, energyConsumed);
-                return;
+                return true;
             }
 
             if (world.isRemote) {
-                return;
+                return true;
             }
+            boolean used = false;
             double radius = (int) ModuleManager.computeModularProperty(itemStack, HOE_SEARCH_RADIUS);
+            int newX, newZ;
             for (int i = (int) Math.floor(-radius); i < radius; i++) {
                 for (int j = (int) Math.floor(-radius); j < radius; j++) {
                     if (i * i + j * j < radius * radius) {
-                        Block block = world.getBlock(x + i, y, z + j);
-                        if (block == Blocks.grass || block == Blocks.dirt) {
-                            world.setBlock(x + i, y, z + j, Blocks.farmland);
+                        newX = x + i;
+                        newZ = z+ j;
+
+                        Block block = world.getBlock(newX, y, newZ);
+                        if (side != 0 && world.getBlock(newX, y + 1, newZ).isAir(world, newX, y + 1, newZ) && (block == Blocks.grass || block == Blocks.dirt)) {
+                            world.setBlock(newX, y, newZ, Blocks.farmland);
                             ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemStack, HOE_ENERGY_CONSUMPTION));
+                            used = true;
                         }
                     }
                 }
             }
 // TODO: Proper sound effect
-//            world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F),
-//                    Blocks.farmland.stepSound.getStepSound(), (Blocks.farmland.stepSound.getVolume() + 1.0F) / 2.0F,
-//                    Blocks.farmland.stepSound.getPitch() * 0.8F);
-
+            if (used) {
+                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F),
+                        Blocks.farmland.stepSound.getStepResourcePath(), (Blocks.farmland.stepSound.getVolume() + 1.0F) / 2.0F,
+                        Blocks.farmland.stepSound.getPitch() * 0.8F);
+                return true;
+            }
         }
+        return false;
     }
 
     @Override

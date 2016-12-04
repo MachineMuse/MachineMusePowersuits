@@ -69,7 +69,8 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
     }
 
     @Override
-    public void onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+        return false;
     }
 
     @Override

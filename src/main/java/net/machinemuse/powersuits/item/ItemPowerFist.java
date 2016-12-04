@@ -271,7 +271,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         IPowerModule module2;
         IPowerModule module = module2 = ModuleManager.getModule(mode);
         if (module2 instanceof IRightClickModule) {
-            ((IRightClickModule)module2).onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+            return ((IRightClickModule)module2).onItemUse(itemStack, player, world, x, y, z, side, hitX, hitY, hitZ);
         }
         return false;
     }
