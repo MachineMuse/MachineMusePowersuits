@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.client.render.item;
 
 import api.player.model.ModelPlayer;
-import cpw.mods.fml.common.Optional;
 import net.machinemuse.powersuits.client.render.modelspec.RenderPart;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;

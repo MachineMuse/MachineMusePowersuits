@@ -32,6 +32,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Ported to Java by lehjr on 10/24/16.
@@ -129,7 +130,7 @@ public class ClientTickHandler {
                 Minecraft mc = Minecraft.getMinecraft();
                 ScaledResolution screen = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
                 for (int i = 0; i < modules.size(); i++) {
-                    if (modules.get(i) == AutoFeederModule.MODULE_AUTO_FEEDER) {
+                    if (Objects.equals(modules.get(i), AutoFeederModule.MODULE_AUTO_FEEDER)) {
                         int foodLevel = (int) MuseItemUtils.getFoodLevel(player.getCurrentArmor(3));
                         String num = MuseStringUtils.formatNumberShort(foodLevel);
                         if (i == 0) {
@@ -139,7 +140,7 @@ public class ClientTickHandler {
                             MuseRenderer.drawString(num, 17, yBaseString + (yOffsetString * i));
                             MuseRenderer.drawItemAt(-1.0, yBaseIcon + (yOffsetIcon * i), food);
                         }
-                    } else if(modules.get(i) == ClockModule.MODULE_CLOCK) {
+                    } else if(Objects.equals(modules.get(i), ClockModule.MODULE_CLOCK)) {
                         long time = player.worldObj.provider.getWorldTime();
                         long hour = ((time % 24000) / 1000);
                         if (Config.use24hClock()) {
@@ -174,13 +175,13 @@ public class ClientTickHandler {
                             MuseRenderer.drawString(hour + ampm, 17, yBaseString + (yOffsetString * i));
                             MuseRenderer.drawItemAt(-1.0, yBaseIcon + (yOffsetIcon * i), clock);
                         }
-                    } else if (modules.get(i) == CompassModule.MODULE_COMPASS) {
+                    } else if (Objects.equals(modules.get(i), CompassModule.MODULE_COMPASS)) {
                         if (i == 0) {
                             MuseRenderer.drawItemAt(-1.0, yBaseIcon, compass);
                         } else {
                             MuseRenderer.drawItemAt(-1.0, yBaseIcon + (yOffsetIcon * i), compass);
                         }
-                    } else if (modules.get(i) == WaterTankModule.MODULE_WATER_TANK) {
+                    } else if (Objects.equals(modules.get(i), WaterTankModule.MODULE_WATER_TANK)) {
                         drawWaterMeter = true;
                     }
                 }

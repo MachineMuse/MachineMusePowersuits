@@ -15,6 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by leon on 10/18/16.
@@ -71,7 +72,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
             NBTTagList  modifiers = item.getTagCompound().getTagList("AttributeModifiers", (byte)10);
             for (int i = 0;  i< modifiers.tagCount(); i++) {
                 NBTTagCompound tag = modifiers.getCompoundTagAt(i);
-                if (new AttributeModifier(tag).name == "Sprint Assist") {
+                if (Objects.equals(new AttributeModifier(tag).name, "Sprint Assist")) {
                     tag.setDouble("Amount", 0);
                 }
             }
@@ -84,7 +85,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
         NBTTagCompound sprintModifiers = new NBTTagCompound();
         for (int i = 0; i < modifiers.tagCount(); i++) {
             NBTTagCompound tag = modifiers.getCompoundTagAt(i);
-            if (new AttributeModifier(tag).name == "Sprint Assist") {
+            if (Objects.equals(new AttributeModifier(tag).name, "Sprint Assist")) {
                 sprintModifiers = tag;
                 sprintModifiers.setInteger("Operation", 1);
                 sprintModifiers.setDouble("Amount", multiplier - 1);

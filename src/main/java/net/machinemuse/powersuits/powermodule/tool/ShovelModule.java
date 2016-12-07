@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ShovelModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
     public static final String MODULE_SHOVEL = "Shovel";
@@ -72,7 +73,7 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
                 return true;
             }
         }
-        return (effectiveTool == "shovel");
+        return (Objects.equals(effectiveTool, "shovel"));
     }
 
     @Override

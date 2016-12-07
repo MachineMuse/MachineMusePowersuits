@@ -5,7 +5,6 @@ import ic2.api.item.ElectricItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseItemUtils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

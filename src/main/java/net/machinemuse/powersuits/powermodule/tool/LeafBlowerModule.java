@@ -9,13 +9,17 @@ import net.machinemuse.powersuits.powermodule.PropertyModifierIntLinearAdditive;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockBush;
+import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.BlockSnow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by User: Andrew2448
@@ -82,21 +86,21 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
             return false;
 
         // Plants
-        if ((blocktype == "plants") && (block instanceof BlockBush) && block.canHarvestBlock(player, meta)) {
+        if ((Objects.equals(blocktype, "plants")) && (block instanceof BlockBush) && block.canHarvestBlock(player, meta)) {
             block.harvestBlock(world, player, x, y, z, meta);
             world.setBlockToAir(x, y, z);
             return true;
         }
 
         // Leaves
-        if ((blocktype == "leaves") && block instanceof BlockLeaves && block.canHarvestBlock(player, meta)) {
+        if ((Objects.equals(blocktype, "leaves")) && block instanceof BlockLeaves && block.canHarvestBlock(player, meta)) {
             block.harvestBlock(world, player, x, y, z, meta);
             world.setBlockToAir(x, y, z);
             return true;
         }
 
         // Snow
-        if ((blocktype == "snow") && block instanceof BlockSnow && block.canHarvestBlock(player, meta)) {
+        if ((Objects.equals(blocktype, "snow")) && block instanceof BlockSnow && block.canHarvestBlock(player, meta)) {
             block.harvestBlock(world, player, x, y, z, meta);
             world.setBlockToAir(x, y, z);
         }
