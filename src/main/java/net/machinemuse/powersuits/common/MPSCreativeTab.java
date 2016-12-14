@@ -13,6 +13,6 @@ public class MPSCreativeTab extends CreativeTabs {
 
     @Override
     public Item getTabIconItem() {
-        return MPSItems.INSTANCE.powerArmorHead;
+        return MPSItems.getInstance().powerArmorHead;
     }
 }

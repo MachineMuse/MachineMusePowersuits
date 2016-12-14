@@ -7,39 +7,31 @@ import net.minecraft.item.ItemStack;
  * Ported to Java by lehjr on 11/4/16.
  */
 public class TEElectricAdapter extends ElectricAdapter {
-    private final ItemStack stack;
-    private final IEnergyContainerItem item;
+    ItemStack stack;
+    IEnergyContainerItem item;
 
-    public TEElectricAdapter(final ItemStack stack) {
+    public TEElectricAdapter(ItemStack stack) {
         this.stack = stack;
         this.item = (IEnergyContainerItem)stack.getItem();
     }
 
-    public ItemStack stack() {
-        return this.stack;
-    }
-
-    public IEnergyContainerItem item() {
-        return this.item;
-    }
-
     @Override
     public double getCurrentEnergy() {
-        return ElectricConversions.museEnergyFromRF(this.item().getEnergyStored(this.stack()));
+        return ElectricConversions.museEnergyFromRF(item.getEnergyStored(stack));
     }
 
     @Override
     public double getMaxEnergy() {
-        return ElectricConversions.museEnergyFromRF(this.item().getMaxEnergyStored(this.stack()));
+        return ElectricConversions.museEnergyFromRF(item.getMaxEnergyStored(stack));
     }
 
     @Override
-    public double drainEnergy(final double requested) {
-        return ElectricConversions.museEnergyFromRF(this.item().extractEnergy(this.stack(), ElectricConversions.museEnergyToRF(requested), false));
+    public double drainEnergy(double requested) {
+        return ElectricConversions.museEnergyFromRF(item.extractEnergy(stack, ElectricConversions.museEnergyToRF(requested), false));
     }
 
     @Override
-    public double giveEnergy(final double provided) {
-        return ElectricConversions.museEnergyFromRF(this.item().receiveEnergy(this.stack(), ElectricConversions.museEnergyToRF(provided), false));
+    public double giveEnergy(double provided) {
+        return ElectricConversions.museEnergyFromRF(item.receiveEnergy(stack, ElectricConversions.museEnergyToRF(provided), false));
     }
 }

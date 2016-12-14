@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.powermodule.weapon;
 
-import net.machinemuse.api.electricity.IModularItem;
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
@@ -43,8 +43,7 @@ public class SonicWeaponModule extends PowerModuleBase implements IRightClickMod
     }
 
     @Override
-    public void onRightClick(EntityPlayer playerClicking, World world, ItemStack item) {
-    }
+    public void onRightClick(EntityPlayer playerClicking, World world, ItemStack item) {}
 
     @Override
     public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {

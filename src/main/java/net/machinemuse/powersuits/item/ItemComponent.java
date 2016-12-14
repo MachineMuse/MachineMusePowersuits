@@ -58,10 +58,10 @@ public class ItemComponent extends Item {
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setCreativeTab(Config.getCreativeTab());
-        icons = new ArrayList<>();
-        iconNames = new ArrayList<>();
-        names = new ArrayList<>();
-        descriptions = new ArrayList<>();
+        icons = new ArrayList<IIcon>();
+        iconNames = new ArrayList<String>();
+        names = new ArrayList<String>();
+        descriptions = new ArrayList<String>();
     }
 
     public ItemStack addComponent(String oredictName, String description, String iconName) {

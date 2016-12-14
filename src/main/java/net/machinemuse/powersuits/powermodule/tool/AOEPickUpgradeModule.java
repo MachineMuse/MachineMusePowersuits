@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.api.electricity.IModularItem;
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -22,6 +22,7 @@ public class AOEPickUpgradeModule extends PowerModuleBase implements IBlockBreak
     public static final String MODULE_AOE_PICK_UPGRADE = "Diamond Drill Upgrade";
     //public static final ItemStack ironPickaxe = new ItemStack(Item.pickaxeIron);
     public static final String ENERGY_CONSUMPTION = "Energy Consumption";
+
     public AOEPickUpgradeModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));

@@ -1,9 +1,7 @@
 //package net.machinemuse.powersuits.item;
 //
-//import net.machinemuse.api.IPowerModule;
 //import net.machinemuse.api.ModuleManager;
 //import net.machinemuse.api.moduletrigger.IRightClickModule;
-//import net.machinemuse.numina.item.IModeChangingItem;
 //import net.machinemuse.numina.item.NuminaItemUtils;
 //import net.machinemuse.numina.network.MusePacketModeChangeRequest;
 //import net.machinemuse.numina.network.PacketSender;
@@ -11,7 +9,6 @@
 //import net.minecraft.item.ItemStack;
 //import net.minecraft.util.IIcon;
 //
-//import javax.annotation.Nullable;
 //import java.util.ArrayList;
 //import java.util.List;
 //
@@ -19,91 +16,115 @@
 // * Author: MachineMuse (Claire Semple)
 // * Created: 4:52 PM, 9/5/13
 // *
-// * Ported to Java by lehjr on 11/1/16.
+// * Ported to Java by lehjr on 12/12/16.
 // */
-//public class ModeChangingModularItem implements IModeChangingItem {
-//    private static ModeChangingModularItem INSTANCE;
+//public class ModeChangingModularItem implements IModeChangingModularItem {
+//    private static ModeChangingModularItem ourInstance = new ModeChangingModularItem();
 //
 //    public static ModeChangingModularItem getInstance() {
-//        if (INSTANCE == null) {
-//            INSTANCE = new ModeChangingModularItem();
-//        }
-//        return INSTANCE;
+//        return ourInstance;
 //    }
 //
-//    @Nullable
+//    private ModeChangingModularItem() {
+//    }
+//
 //    @Override
-//    public IIcon getModeIcon(String mode, ItemStack stack, EntityPlayer player) {
-//        IPowerModule module = ModuleManager.getModule(mode);
-//        if (module != null)
-//            return module.getIcon(stack);
+//    public void setActiveMode(ItemStack itemStack, String newMode) {
+//        NuminaItemUtils.getTagCompound(itemStack).setString("mode", newMode);
+//    }
+//
+//    @Override
+//    public String getActiveMode(ItemStack itemStack, EntityPlayer player) {
+//        return getActiveMode(itemStack);
+//    }
+//
+//    @Override
+//    public void cycleMode(ItemStack itemStack, EntityPlayer player, int dMode) {
+//        List<String> modes = getValidModes(itemStack, player);
+//        if (!modes.isEmpty()) {
+//            int newindex = clampMode(modes.indexOf(getActiveMode(itemStack, player)) + dMode, modes.size());
+//            String newmode = modes.get(newindex);
+//            setActiveMode(itemStack, newmode);
+//            PacketSender.sendToServer(new MusePacketModeChangeRequest(player,newmode, player.inventory.currentItem));
+//        }
+//    }
+//
+//    @Override
+//    public String nextMode(ItemStack itemStack, EntityPlayer player) {
+//        List<String> modes = getValidModes(itemStack, player);
+//        if (!modes.isEmpty()) {
+//            int newindex = clampMode(modes.indexOf(getActiveMode(itemStack, player)) + 1, modes.size());
+//            return modes.get(newindex);
+//        } else {
+//            return "";
+//        }
+//    }
+//
+//    @Override
+//    public String prevMode(ItemStack itemStack, EntityPlayer player) {
+//        List<String> modes = getValidModes(itemStack, player);
+//        if (!modes.isEmpty()) {
+//            int newindex = clampMode(modes.indexOf(getActiveMode(itemStack, player)) - 1, modes.size());
+//            return modes.get(newindex);
+//        } else {
+//            return "";
+//        }
+//    }
+//
+//    @Override
+//    public void cycleModeForItem(ItemStack itemStack, EntityPlayer player, int dMode) {
+//        if (itemStack != null) {
+//            this.cycleMode(itemStack, player, dMode);
+//        }
+//    }
+//
+//    @Override
+//    public IIcon getModeIcon(String mode, ItemStack itemStack, EntityPlayer player) {
+//        if (!mode.isEmpty())
+//            return ModuleManager.getModule(mode).getIcon(itemStack);
 //        return null;
 //    }
 //
-//    @Override
-//    public List<String> getValidModes(ItemStack stack) {
-//        List<String> modes = new ArrayList<>();
-//        for (IRightClickModule module : ModuleManager.getRightClickModules()) {
-//            if (module.isValidForItem(stack))
-//                if (ModuleManager.itemHasModule(stack, module.getDataName()))
-//                    modes.add(module.getDataName());
+//
+//    private int clampMode(int selection, int modesSize) {
+//        if (selection > 0) {
+//            return selection % modesSize;
+//        } else {
+//            return (selection + modesSize * (-selection)) % modesSize;
 //        }
-//        return modes;
+//    }
+////-------------
+//
+//
+//    @Override
+//    public List<String> getValidModes(ItemStack stack, EntityPlayer player) {
+//        return getValidModes(stack);
 //    }
 //
 //    @Override
-//    public String getActiveMode(ItemStack stack) {
-//        List<String> validModes;
-//        String modeFromNBT = NuminaItemUtils.getTagCompound(stack).getString("mode");
-//        if (!modeFromNBT.isEmpty())
+//    public List<String> getValidModes(ItemStack itemStack) {
+////        List<String> validModes = new ArrayList<>();
+////
+////        for (IRightClickModule module : ModuleManager.getRightClickModules()) {
+////            if (module.isValidForItem(itemStack))
+////                if (ModuleManager.itemHasActiveModule(itemStack, module.getDataName()))
+////                    validModes.add(module.getDataName());
+////        }
+//        return ModuleManager.getValidModes(itemStack);
+//    }
+//
+//    @Override
+//    public String getActiveMode(ItemStack itemStack) {
+//        String modeFromNBT = NuminaItemUtils.getTagCompound(itemStack).getString("mode");
+//        if (!modeFromNBT.isEmpty()) {
 //            return modeFromNBT;
-//        else {
-//            validModes = getValidModes(stack);
-//            return (!validModes.isEmpty()) ? validModes.get(0) : "";
+//        } else {
+//            List<String> validModes = getValidModes(itemStack);
+//            if (!validModes.isEmpty()) {
+//                return validModes.get(0);
+//            } else {
+//                return "";
+//            }
 //        }
-//    }
-//
-//    @Override
-//    public void setActiveMode(ItemStack stack, String newMode) {
-//        NuminaItemUtils.getTagCompound(stack).setString("mode", newMode);
-//    }
-//
-//    @Override
-//    public void cycleMode(ItemStack stack, EntityPlayer player, int dMode) {
-//        List<String> modes = this.getValidModes(stack);
-//        if (modes.size() > 0) {
-//            int newindex = clampMode(modes.indexOf(this.getActiveMode(stack)) + dMode, modes.size());
-//            String newmode = (String)modes.get(newindex);
-//            this.setActiveMode(stack, newmode);
-//            PacketSender.sendToServer(new MusePacketModeChangeRequest(player, newmode, player.inventory.currentItem));
-//        }
-//    }
-//
-//    @Override
-//    public String nextMode(ItemStack stack, EntityPlayer player) {
-//        List<String> modes = getValidModes(stack);
-//        if (modes.size() > 0) {
-//            int newindex = clampMode(modes.indexOf(getActiveMode(stack)) + 1, modes.size());
-//            return (String)modes.get(newindex);
-//        }
-//        else {
-//            return "";
-//        }
-//    }
-//
-//    @Override
-//    public String prevMode(ItemStack stack, EntityPlayer player) {
-//        List<String> modes = this.getValidModes(stack);
-//        if (modes.size() > 0) {
-//            int newindex = clampMode(modes.indexOf(getActiveMode(stack)) - 1, modes.size());
-//            return (String)modes.get(newindex);
-//        }
-//        else {
-//            return "";
-//        }
-//    }
-//
-//    private static int clampMode(int selection, int modesSize) {
-//        return (selection > 0) ? (selection % modesSize) : ((selection + modesSize * -selection) % modesSize);
 //    }
 //}

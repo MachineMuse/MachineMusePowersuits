@@ -63,6 +63,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
         if (selectedSlider != null) {
             selectedSlider.moveSlider(mousex, mousey);
         }
+
     }
 
     @Override
@@ -98,7 +99,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
         NBTTagCompound moduleTag = itemTag.getCompoundTag(module.getDataName());
 
         propertyStrings = new HashMap();
-        Set<String> tweaks = new HashSet<>();
+        Set<String> tweaks = new HashSet<String>();
 
         Map<String, List<IPropertyModifier>> propertyModifiers = module.getPropertyModifiers();
         for (Map.Entry<String, List<IPropertyModifier>> property : propertyModifiers.entrySet()) {
@@ -110,6 +111,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
                 }
             }
             propertyStrings.put(property.getKey(), currValue);
+
         }
 
         sliders = new LinkedList();

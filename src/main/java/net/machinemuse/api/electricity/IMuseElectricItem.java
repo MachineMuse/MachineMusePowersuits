@@ -4,6 +4,7 @@ import appeng.api.config.AccessRestriction;
 import appeng.api.implementations.items.IAEItemPowerStorage;
 import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.common.Optional;
+import ic2.api.item.IElectricItem;
 import ic2.api.item.IElectricItemManager;
 import ic2.api.item.ISpecialElectricItem;
 import net.minecraft.entity.EntityLivingBase;
@@ -20,11 +21,13 @@ import net.minecraft.item.ItemStack;
         @Optional.Interface(iface = "cofh.api.energy.IEnergyContainerItem", modid = "CoFHAPI|energy", striprefs = true),
         @Optional.Interface(iface = "ic2.api.item.IElectricItemManager", modid = "IC2", striprefs = true),
         @Optional.Interface(iface = "ic2.api.item.ISpecialElectricItem", modid = "IC2", striprefs = true),
-        @Optional.Interface(iface = "appeng.api.implementations.items.IAEItemPowerStorage", modid = "AE2", striprefs = true)})
-public interface IMuseElectricItem
-        extends IEnergyContainerItem,
+        @Optional.Interface(iface = "appeng.api.implementations.items.IAEItemPowerStorage", modid = "AE2", striprefs = true)
+})
+public interface IMuseElectricItem extends
+        IEnergyContainerItem,
         ISpecialElectricItem,
         IElectricItemManager,
+        IElectricItem,
         IAEItemPowerStorage {
     /**
      * Call to get the energy of an item
@@ -68,24 +71,29 @@ public interface IMuseElectricItem
      */
     double giveEnergyTo(ItemStack stack, double provided);
 
+    /**
+     * Override max damage of an item. Nothing to do with power, at all :P
+     */
+    int getMaxDamage(ItemStack itemStack);
+
+
     /* Industrialcraft 2 -------------------------------------------------------------------------- */
-    IMuseElectricItem getManager(ItemStack stack);
-
     @Override
-    void chargeFromArmor(ItemStack itemStack, EntityLivingBase entity);
-
-    @Override
-    boolean use(ItemStack itemStack, double amount, EntityLivingBase entity);
-
     boolean canProvideEnergy(ItemStack itemStack);
 
     @Override
-    double getCharge(ItemStack itemStack);
+    Item getChargedItem(ItemStack itemStack);
 
+    @Override
+    Item getEmptyItem(ItemStack itemStack);
+
+    @Override
     double getMaxCharge(ItemStack itemStack);
 
+    @Override
     int getTier(ItemStack itemStack);
 
+    @Override
     double getTransferLimit(ItemStack itemStack);
 
     @Override
@@ -95,34 +103,50 @@ public interface IMuseElectricItem
     double discharge(ItemStack itemStack, double amount, int tier, boolean ignoreTransferLimit, boolean externally, boolean simulate);
 
     @Override
+    double getCharge(ItemStack itemStack);
+
+    @Override
     boolean canUse(ItemStack itemStack, double amount);
+
+    @Override
+    boolean use(ItemStack itemStack, double amount, EntityLivingBase entity);
+
+    @Override
+    void chargeFromArmor(ItemStack itemStack, EntityLivingBase entity);
 
     @Override
     String getToolTip(ItemStack itemStack);
 
-    Item getChargedItem(ItemStack itemStack);
-
-    Item getEmptyItem(ItemStack itemStack);
+    @Override
+    IElectricItemManager getManager(ItemStack itemStack);
 
     /* Thermal Expansion -------------------------------------------------------------------------- */
-    int receiveEnergy(ItemStack stack, int energy, boolean simulate);
+    @Override
+    int receiveEnergy(ItemStack itemStack, int energy, boolean simulate);
 
-    int extractEnergy(ItemStack stack, int energy, boolean simulate);
+    @Override
+    int extractEnergy(ItemStack itemStack, int energy, boolean simulate);
 
-    int getEnergyStored(ItemStack theItem);
+    @Override
+    int getEnergyStored(ItemStack itemStack);
 
-    int getMaxEnergyStored(ItemStack theItem);
+    @Override
+    int getMaxEnergyStored(ItemStack itemStack);
 
-    int getMaxDamage(ItemStack itemStack);
 
     /* Applied Energistics 2 ---------------------------------------------------------------------- */
-    double injectAEPower(ItemStack stack, double ae);
+    @Override
+    double injectAEPower(ItemStack itemStack, double ae);
 
-    double extractAEPower(ItemStack stack, double ae);
+    @Override
+    double extractAEPower(ItemStack itemStack, double ae);
 
-    double getAEMaxPower(ItemStack stack);
+    @Override
+    double getAEMaxPower(ItemStack itemStack);
 
-    double getAECurrentPower(ItemStack stack);
+    @Override
+    double getAECurrentPower(ItemStack itemStack);
 
-    AccessRestriction getPowerFlow(ItemStack stack);
+    @Override
+    AccessRestriction getPowerFlow(ItemStack itemStack);
 }

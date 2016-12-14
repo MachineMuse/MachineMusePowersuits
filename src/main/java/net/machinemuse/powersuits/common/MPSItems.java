@@ -11,6 +11,11 @@ import net.machinemuse.powersuits.item.*;
  */
 
 public final class MPSItems {
+    private static MPSItems ourInstance = new MPSItems();
+    public static MPSItems getInstance() {
+        return ourInstance;
+    }
+
     public final ItemPowerArmorHelmet powerArmorHead;
     public final ItemPowerArmorChestplate powerArmorTorso;
     public final ItemPowerArmorLeggings powerArmorLegs;
@@ -19,8 +24,6 @@ public final class MPSItems {
     public final BlockTinkerTable tinkerTable;
     public final BlockLuxCapacitor luxCapacitor;
     public final ItemComponent components;
-
-    public static MPSItems INSTANCE = new MPSItems();
 
     private MPSItems() {
         this.powerArmorHead = new ItemPowerArmorHelmet();

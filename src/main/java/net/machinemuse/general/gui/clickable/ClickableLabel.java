@@ -6,8 +6,8 @@ import net.machinemuse.utils.render.MuseRenderer;
 import java.util.List;
 
 public class ClickableLabel implements IClickable {
-    protected final String label;
-    protected final MusePoint2D position;
+    protected String label;
+    protected MusePoint2D position;
 
     public ClickableLabel(String label, MusePoint2D position) {
         this.label = label;
@@ -52,4 +52,5 @@ public class ClickableLabel implements IClickable {
     public MusePoint2D getPosition() {
         return position;
     }
+
 }

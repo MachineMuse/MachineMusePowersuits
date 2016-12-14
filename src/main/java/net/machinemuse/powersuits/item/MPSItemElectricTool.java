@@ -4,6 +4,7 @@ import appeng.api.config.AccessRestriction;
 import com.google.common.collect.Sets;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ic2.api.item.IElectricItemManager;
 import net.machinemuse.api.electricity.IMuseElectricItem;
 import net.machinemuse.api.electricity.MuseElectricItem;
 import net.machinemuse.numina.geometry.Colour;
@@ -28,7 +29,7 @@ public class MPSItemElectricTool extends ItemTool implements IModularItemBase, I
             Blocks.lit_redstone_ore, Blocks.rail, Blocks.detector_rail, Blocks.golden_rail, Blocks.activator_rail);
 
 
-    protected MPSItemElectricTool(float damageBonus, ToolMaterial material) {
+    protected MPSItemElectricTool(float damageBonus, Item.ToolMaterial material) {
         super(damageBonus, material, blocksEffectiveOn);
 
     }
@@ -71,7 +72,7 @@ public class MPSItemElectricTool extends ItemTool implements IModularItemBase, I
 
     /* Industrialcraft 2 -------------------------------------------------------------------------- */
     @Override
-    public IMuseElectricItem getManager(ItemStack stack) {
+    public IElectricItemManager getManager(ItemStack stack) {
         return MuseElectricItem.getInstance().getManager(stack);
     }
 

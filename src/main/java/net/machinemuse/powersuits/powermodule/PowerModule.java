@@ -1,14 +1,14 @@
 package net.machinemuse.powersuits.powermodule;
 
-import net.machinemuse.api.electricity.IModularItem;
+import net.machinemuse.api.IModularItem;
 
 import java.util.List;
 
 public class PowerModule extends PowerModuleBase {
-	protected final String name;
+	protected String name;
 	protected String description;
 	protected String category;
-	protected final String textureFile;
+	protected String textureFile;
 
 	public PowerModule(String name, List<IModularItem> validItems, String textureFile, String category) {
 		super(name, validItems);

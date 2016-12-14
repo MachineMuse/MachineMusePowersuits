@@ -1,11 +1,12 @@
 package net.machinemuse.powersuits.network.packets;
 
-import net.machinemuse.api.electricity.IModularItem;
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -43,7 +44,7 @@ public class MusePacketCosmeticInfo extends MusePacket {
     }
 
     @Override
-    public void handleServer(EntityPlayer player) {
+    public void handleServer(EntityPlayerMP player) {
         ItemStack stack = player.inventory.getStackInSlot(itemSlot);
         if (tagName != null && stack != null && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);

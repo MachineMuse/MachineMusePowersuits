@@ -16,7 +16,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.*;
 
 public class ModuleSelectionFrame extends ScrollableFrame {
-    protected final ItemSelectionFrame target;
+    protected ItemSelectionFrame target;
     protected Map<String, ModuleSelectionSubFrame> categories;
     protected List<ClickableModule> moduleButtons;
     protected int selectedModule = -1;
@@ -29,8 +29,8 @@ public class ModuleSelectionFrame extends ScrollableFrame {
         super(topleft, bottomright, borderColour, insideColour);
         this.target = target;
 
-        moduleButtons = new ArrayList<>();
-        categories = new HashMap<>();
+        moduleButtons = new ArrayList<ClickableModule>();
+        categories = new HashMap<String, ModuleSelectionSubFrame>();
     }
 
     @Override
@@ -94,10 +94,10 @@ public class ModuleSelectionFrame extends ScrollableFrame {
         this.lastPosition = null;
         ClickableItem selectedItem = target.getSelectedItem();
         if (selectedItem != null) {
-            moduleButtons = new ArrayList<>();
-            categories = new HashMap<>();
+            moduleButtons = new ArrayList<ClickableModule>();
+            categories = new HashMap<String, ModuleSelectionSubFrame>();
 
-            List<IPowerModule> workingModules = ModuleManager.getValidModulesForItem(selectedItem.getItem());
+            List<IPowerModule> workingModules = ModuleManager.getValidModulesForItem(null, selectedItem.getItem());
 
             // Prune the list of disallowed modules, if not installed on this
             // item.

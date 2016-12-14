@@ -50,7 +50,7 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
     }
 
     @Override
-    public void handleServer(EntityPlayer player) {
+    public void handleServer(EntityPlayerMP player) {
         if (moduleName != null) {
             InventoryPlayer inventory = player.inventory;
             ItemStack stack = player.inventory.getStackInSlot(itemSlot);

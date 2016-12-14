@@ -2,6 +2,7 @@ package net.machinemuse.api.electricity;
 
 import appeng.api.config.AccessRestriction;
 import ic2.api.item.ElectricItem;
+import ic2.api.item.IElectricItemManager;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseItemUtils;
@@ -30,6 +31,7 @@ public class MuseElectricItem extends Item implements IMuseElectricItem {
      * @param stack ItemStack to set
      * @return Current energy level
      */
+    @Override
     public double getCurrentEnergy(ItemStack stack) {
         return MuseItemUtils.getDoubleOrZero(stack, ElectricItemUtils.CURRENT_ENERGY);
     }
@@ -40,6 +42,7 @@ public class MuseElectricItem extends Item implements IMuseElectricItem {
      * @param stack ItemStack to set
      * @return Maximum energy level
      */
+    @Override
     public double getMaxEnergy(ItemStack stack) {
         return ModuleManager.computeModularProperty(stack, ElectricItemUtils.MAXIMUM_ENERGY);
     }
@@ -50,6 +53,7 @@ public class MuseElectricItem extends Item implements IMuseElectricItem {
      * @param stack ItemStack to set
      * @param energy Level to set it to
      */
+    @Override
     public void setCurrentEnergy(ItemStack stack, double energy) {
         MuseItemUtils.setDoubleOrRemove(stack, ElectricItemUtils.CURRENT_ENERGY, Math.min(energy, getMaxEnergy(stack)));
     }
@@ -61,6 +65,7 @@ public class MuseElectricItem extends Item implements IMuseElectricItem {
      * @param requested Amount of energy to drain
      * @return Amount of energy successfully drained
      */
+    @Override
     public double drainEnergyFrom(ItemStack stack, double requested) {
         double available = getCurrentEnergy(stack);
         if (available > requested) {
@@ -79,10 +84,10 @@ public class MuseElectricItem extends Item implements IMuseElectricItem {
      * @param provided Amount of energy to add
      * @return Amount of energy added
      */
+    @Override
     public double giveEnergyTo(ItemStack stack, double provided) {
         double available = getCurrentEnergy(stack);
         double max = getMaxEnergy(stack);
-
         if (available + provided < max) {
             setCurrentEnergy(stack, available + provided);
             return provided;
@@ -92,38 +97,38 @@ public class MuseElectricItem extends Item implements IMuseElectricItem {
         }
     }
 
+    @Override
+    public int getMaxDamage(ItemStack itemStack) {
+        return 0;
+    }
+
     /* Industrialcraft 2 -------------------------------------------------------------------------- */
-    public IMuseElectricItem getManager(ItemStack stack) {
-        return this;
-    }
-
     @Override
-    public void chargeFromArmor(ItemStack itemStack, EntityLivingBase entity) {
-        ElectricItem.rawManager.chargeFromArmor(itemStack, entity);
-    }
-
-    @Override
-    public boolean use(ItemStack itemStack, double amount, EntityLivingBase entity) {
-        return ElectricItem.rawManager.use(itemStack, ElectricConversions.museEnergyToEU(amount), entity);
-    }
-
     public boolean canProvideEnergy(ItemStack itemStack) {
         return true;
     }
 
     @Override
-    public double getCharge(ItemStack itemStack) {
-        return ElectricConversions.museEnergyToEU(getCurrentEnergy(itemStack));
+    public Item getChargedItem(ItemStack itemStack) {
+        return this;
     }
 
+    @Override
+    public Item getEmptyItem(ItemStack itemStack) {
+        return this;
+    }
+
+    @Override
     public double getMaxCharge(ItemStack itemStack) {
         return ElectricConversions.museEnergyToEU(getMaxEnergy(itemStack));
     }
 
+    @Override
     public int getTier(ItemStack itemStack) {
         return ElectricConversions.getTier(itemStack);
     }
 
+    @Override
     public double getTransferLimit(ItemStack itemStack) {
         return ElectricConversions.museEnergyToEU(Math.sqrt(getMaxEnergy(itemStack)));
     }
@@ -151,8 +156,23 @@ public class MuseElectricItem extends Item implements IMuseElectricItem {
     }
 
     @Override
+    public double getCharge(ItemStack itemStack) {
+        return ElectricConversions.museEnergyToEU(getCurrentEnergy(itemStack));
+    }
+
+    @Override
     public boolean canUse(ItemStack itemStack, double amount) {
         return ElectricConversions.museEnergyFromEU(amount) < getCurrentEnergy(itemStack);
+    }
+
+    @Override
+    public boolean use(ItemStack itemStack, double amount, EntityLivingBase entity) {
+        return ElectricItem.rawManager.use(itemStack, ElectricConversions.museEnergyToEU(amount), entity);
+    }
+
+    @Override
+    public void chargeFromArmor(ItemStack itemStack, EntityLivingBase entity) {
+        ElectricItem.rawManager.chargeFromArmor(itemStack, entity);
     }
 
     @Override
@@ -161,71 +181,73 @@ public class MuseElectricItem extends Item implements IMuseElectricItem {
         return "";
     }
 
-    public Item getChargedItem(ItemStack itemStack) {
+    @Override
+    public IElectricItemManager getManager(ItemStack itemStack) {
         return this;
     }
 
-    public Item getEmptyItem(ItemStack itemStack) {
-        return this;
-    }
 
     /* Thermal Expansion -------------------------------------------------------------------------- */
-    public int receiveEnergy(ItemStack stack, int energy, boolean simulate) {
-        double current = getCurrentEnergy(stack);
+    @Override
+    public int receiveEnergy(ItemStack itemStack, int energy, boolean simulate) {
+        double current = getCurrentEnergy(itemStack);
         double receivedME = ElectricConversions.museEnergyFromRF(energy);
-        double eatenME = giveEnergyTo(stack, receivedME);
-        if (simulate) {
-            setCurrentEnergy(stack, current);
-        }
+        double eatenME = giveEnergyTo(itemStack, receivedME);
+        if (simulate) setCurrentEnergy(itemStack, current);
         return ElectricConversions.museEnergyToRF(eatenME);
     }
 
-    public int extractEnergy(ItemStack stack, int energy, boolean simulate) {
-        double current = getCurrentEnergy(stack);
+    @Override
+    public int extractEnergy(ItemStack itemStack, int energy, boolean simulate) {
+        double current = getCurrentEnergy(itemStack);
         double requesteddME = ElectricConversions.museEnergyFromRF(energy);
-        double takenME = drainEnergyFrom(stack, requesteddME);
+        double takenME = drainEnergyFrom(itemStack, requesteddME);
         if (simulate) {
-            setCurrentEnergy(stack, current);
+            setCurrentEnergy(itemStack, current);
         }
         return ElectricConversions.museEnergyToRF(takenME);
     }
 
-    public int getEnergyStored(ItemStack theItem) {
-        return ElectricConversions.museEnergyToRF(getCurrentEnergy(theItem));
+    @Override
+    public int getEnergyStored(ItemStack itemStack) {
+        return ElectricConversions.museEnergyToRF(getCurrentEnergy(itemStack));
     }
 
-    public int getMaxEnergyStored(ItemStack theItem) {
-        return ElectricConversions.museEnergyToRF(getMaxEnergy(theItem));
+    @Override
+    public int getMaxEnergyStored(ItemStack itemStack) {
+        return ElectricConversions.museEnergyToRF(getMaxEnergy(itemStack));
     }
 
-    public int getMaxDamage(ItemStack itemStack) {
-        return 0;
-    }
 
     /* Applied Energistics 2 ---------------------------------------------------------------------- */
-    public double injectAEPower(ItemStack stack, double ae) {
-        double current = getCurrentEnergy(stack);
+    @Override
+    public double injectAEPower(ItemStack itemStack, double ae) {
+        double current = getCurrentEnergy(itemStack);
         double recieved = ElectricConversions.museEnergyFromAE(ae);
-        setCurrentEnergy(stack, current);
+        setCurrentEnergy(itemStack, current);
         return ElectricConversions.museEnergyToAE(recieved);
     }
 
-    public double extractAEPower(ItemStack stack, double ae) {
-        double current = getCurrentEnergy(stack);
+    @Override
+    public double extractAEPower(ItemStack itemStack, double ae) {
+        double current = getCurrentEnergy(itemStack);
         double taken = ElectricConversions.museEnergyFromAE(ae);
-        setCurrentEnergy(stack, current);
+        setCurrentEnergy(itemStack, current);
         return ElectricConversions.museEnergyToAE(taken);
     }
 
-    public double getAEMaxPower(ItemStack stack) {
-        return ElectricConversions.museEnergyToAE(getCurrentEnergy(stack));
+    @Override
+    public double getAEMaxPower(ItemStack itemStack) {
+        return ElectricConversions.museEnergyToAE(getCurrentEnergy(itemStack));
     }
 
-    public double getAECurrentPower(ItemStack stack) {
-        return ElectricConversions.museEnergyToAE(getCurrentEnergy(stack));
+    @Override
+    public double getAECurrentPower(ItemStack itemStack) {
+        return ElectricConversions.museEnergyToAE(getCurrentEnergy(itemStack));
     }
 
-    public AccessRestriction getPowerFlow(ItemStack stack) {
+    @Override
+    public AccessRestriction getPowerFlow(ItemStack itemStack) {
         return AccessRestriction.READ_WRITE;
     }
 }

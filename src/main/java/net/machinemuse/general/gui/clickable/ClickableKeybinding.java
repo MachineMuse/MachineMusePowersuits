@@ -1,7 +1,5 @@
 package net.machinemuse.general.gui.clickable;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.network.PacketSender;
@@ -25,22 +23,22 @@ import java.util.List;
 /**
  * Ported to Java by lehjr on 10/19/16.
  */
-public class ClickableKeybinding extends ClickableButton {
-    protected final List<ClickableModule> boundModules = new ArrayList<>();
+public class ClickableKeybinding extends ClickableButton{
+    protected List<ClickableModule> boundModules = new ArrayList<ClickableModule>();
     public boolean toggleval = false;
-    public boolean toggled = false;
-    public Boolean displayOnHUD;
-    public final KeyBinding keybind;
+    boolean toggled = false;
+    KeyBinding keybind;
+    public boolean displayOnHUD;
 
 
     public ClickableKeybinding(KeyBinding keybind, MusePoint2D position, boolean free, Boolean displayOnHUD) {
-        super((keybind.getKeyCode() < 0)? ("Mouse" + (keybind.getKeyCode() + 100)) : Keyboard.getKeyName(keybind.getKeyCode()), position, true);
-        this.displayOnHUD = (displayOnHUD != null) ? displayOnHUD : false;
+        super(ClickableKeybinding.parseName(keybind), position, true);
         this.keybind = keybind;
+        this.displayOnHUD = (displayOnHUD!= null) ? displayOnHUD : false;
 
     }
 
-    public String parseName(KeyBinding keybind) {
+    static String parseName(KeyBinding keybind) {
         if (keybind.getKeyCode() < 0) {
             return "Mouse" + (keybind.getKeyCode() + 100);
         }
@@ -68,8 +66,8 @@ public class ClickableKeybinding extends ClickableButton {
         }
 
         for (ClickableModule module : boundModules) {
-            String valstring = (toggleval) ? " on" : " off";
-            if ((FMLCommonHandler.instance().getEffectiveSide().equals(Side.CLIENT) && Config.toggleModuleSpam())) {
+            String valstring = (toggleval)? " on" : " off";
+            if ((player.worldObj.isRemote) && Config.toggleModuleSpam()) {
                 player.addChatMessage(new ChatComponentText("Toggled " + module.getModule().getDataName() + valstring));
             }
             MuseItemUtils.toggleModuleForPlayer(player, module.getModule().getDataName(), toggleval);
@@ -82,7 +80,6 @@ public class ClickableKeybinding extends ClickableButton {
     @Override
     public void draw() {
         super.draw();
-
         for (ClickableModule module : boundModules) {
             MuseRenderer.drawLineBetween(this, module, Colour.LIGHTBLUE);
             GL11.glPushMatrix();
@@ -116,7 +113,7 @@ public class ClickableKeybinding extends ClickableButton {
 
     public void unbindFarModules() {
         Iterator<ClickableModule> iterator = boundModules.iterator();
-        ClickableModule module;
+        ClickableModule module = null;
         while (iterator.hasNext()) {
             module = iterator.next();
             int maxDistance = getTargetDistance() * 2;
@@ -147,7 +144,7 @@ public class ClickableKeybinding extends ClickableButton {
         return other.keybind.getKeyCode() == this.keybind.getKeyCode();
     }
 
-    public void toggleHUDState (){
+    public void toggleHUDState(){
         displayOnHUD = !displayOnHUD;
     }
 }

@@ -9,7 +9,6 @@ import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.powermodule.PropertyModifierFlatAdditive;
-import net.machinemuse.powersuits.powermodule.PropertyModifierIntLinearAdditive;
 import net.machinemuse.powersuits.powermodule.PropertyModifierLinearAdditive;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -44,20 +43,16 @@ public class MusePacketPropertyModifierConfig extends MusePacket {
             writeString(module.getDataName());
             writeBoolean(module.isAllowed());
             writeInt(module.getPropertyModifiers().size());
-            Map<String, List<IPropertyModifier>> propertyMap = module.getPropertyModifiers();
-
-            for (String propname : propertyMap.keySet()) {
-                List<IPropertyModifier> propmodlist = propertyMap.get(propname);
-                writeString(propname);
+            for (Map.Entry<String, List<IPropertyModifier>> entry: module.getPropertyModifiers().entrySet()) {
+                writeString(entry.getKey()); // propertyName
+                List<IPropertyModifier> propmodlist = entry.getValue();
                 writeInt(propmodlist.size());
-
                 for (IPropertyModifier propmod : propmodlist) {
                     if (propmod instanceof PropertyModifierFlatAdditive)
                         writeDouble(((PropertyModifierFlatAdditive) propmod).valueAdded);
-                    else if (propmod instanceof PropertyModifierIntLinearAdditive)
-                        writeDouble(((PropertyModifierIntLinearAdditive) propmod).multiplier);
-                    else
-                        writeDouble(0);
+                    else if (propmod instanceof PropertyModifierLinearAdditive)
+                        writeDouble(((PropertyModifierLinearAdditive) propmod).multiplier);
+                    else writeDouble(0);
                 }
             }
         }
@@ -79,21 +74,18 @@ public class MusePacketPropertyModifierConfig extends MusePacket {
             IPowerModule module = ModuleManager.getModule(moduleName);
             if (module instanceof PowerModuleBase)
                 ((PowerModuleBase) module).setIsAllowed(allowed);
-
             int numProps = d.readInt(data);
             for (int j = 0; j < numProps; j++ ) {
                 String propName = d.readString(data);
                 int numModifiers = d.readInt(data);
                 List<IPropertyModifier> proplist = module.getPropertyModifiers().get(propName);
-
                 for (int m = 0; m < numModifiers; m++) {
                     IPropertyModifier propMod = proplist.get(m);
                     if (propMod instanceof PropertyModifierFlatAdditive)
                         ((PropertyModifierFlatAdditive) propMod).valueAdded = d.readDouble(data);
                     else if (propMod instanceof PropertyModifierLinearAdditive)
                         ((PropertyModifierLinearAdditive) propMod).multiplier = d.readDouble(data);
-                    else
-                        d.readDouble(data);
+                    else d.readDouble(data);
                 }
             }
         }

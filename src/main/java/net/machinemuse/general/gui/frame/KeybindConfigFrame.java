@@ -28,16 +28,16 @@ import java.util.List;
 import java.util.Set;
 
 public class KeybindConfigFrame implements IGuiFrame {
-    protected final Set<ClickableModule> modules;
+    protected Set<ClickableModule> modules;
     protected IClickable selectedClickie;
     protected ClickableKeybinding closestKeybind;
-    protected final EntityPlayer player;
-    protected final MusePoint2D ul;
-    protected final MusePoint2D br;
-    protected final MuseGui gui;
+    protected EntityPlayer player;
+    protected MusePoint2D ul;
+    protected MusePoint2D br;
+    protected MuseGui gui;
     protected boolean selecting;
-    protected final ClickableButton newKeybindButton;
-    protected final ClickableButton trashKeybindButton;
+    protected ClickableButton newKeybindButton;
+    protected ClickableButton trashKeybindButton;
     protected long takenTime;
 
     public KeybindConfigFrame(MuseGui gui, MusePoint2D ul, MusePoint2D br, EntityPlayer player) {

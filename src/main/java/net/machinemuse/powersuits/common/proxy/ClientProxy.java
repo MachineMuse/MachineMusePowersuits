@@ -52,7 +52,7 @@ public class ClientProxy implements CommonProxy {
      */
     @Override
     public void registerRenderers() {
-        MinecraftForgeClient.registerItemRenderer(MPSItems.INSTANCE.powerTool, new ToolRenderer());
+        MinecraftForgeClient.registerItemRenderer(MPSItems.getInstance().powerTool, new ToolRenderer());
         int tinkTableRenderID = RenderingRegistry.getNextAvailableRenderId();
         TinkerTableRenderer tinkTableRenderer = new TinkerTableRenderer(tinkTableRenderID);
         BlockTinkerTable.setRenderType(tinkTableRenderID);
@@ -60,7 +60,7 @@ public class ClientProxy implements CommonProxy {
         RenderingRegistry.registerBlockHandler(tinkTableRenderer);
         int luxCapacitorRenderID = RenderingRegistry.getNextAvailableRenderId();
         RenderLuxCapacitorTESR luxCapacitorRenderer = new RenderLuxCapacitorTESR(luxCapacitorRenderID);
-        MPSItems.INSTANCE.luxCapacitor.setRenderType(luxCapacitorRenderID);
+        MPSItems.getInstance().luxCapacitor.setRenderType(luxCapacitorRenderID);
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLuxCapacitor.class, luxCapacitorRenderer);
         RenderingRegistry.registerBlockHandler(luxCapacitorRenderer);
         RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, new RenderPlasmaBolt());

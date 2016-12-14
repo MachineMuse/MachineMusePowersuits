@@ -8,43 +8,36 @@ import net.minecraft.item.ItemStack;
  * Ported to Java by lehjr on 11/4/16.
  */
 public class IC2ElectricAdapter extends ElectricAdapter {
-    private final ItemStack stack;
-    private final IElectricItem item;
+    ItemStack stack;
+    IElectricItem item;
 
-    public IC2ElectricAdapter(final ItemStack stack) {
+    public IC2ElectricAdapter(ItemStack stack) {
         this.stack = stack;
         this.item = (IElectricItem)stack.getItem();
     }
 
-    public ItemStack stack() {
-        return this.stack;
-    }
-
-    public IElectricItem item() {
-        return this.item;
-    }
 
     @Override
     public double getCurrentEnergy() {
-        return ElectricConversions.museEnergyFromEU(ElectricItem.manager.getCharge(this.stack()));
+        return ElectricConversions.museEnergyFromEU(ElectricItem.manager.getCharge(stack));
     }
 
     @Override
     public double getMaxEnergy() {
-        return ElectricConversions.museEnergyFromEU(this.item().getMaxCharge(this.stack()));
+        return ElectricConversions.museEnergyFromEU(item.getMaxCharge(stack));
     }
 
     @Override
-    public double drainEnergy(final double requested) {
-        return ElectricConversions.museEnergyFromEU(ElectricItem.manager.discharge(this.stack(), ElectricConversions.museEnergyToEU(requested), this.getTier(), true, false, false));
+    public double drainEnergy(double requested) {
+        return ElectricConversions.museEnergyFromEU(ElectricItem.manager.discharge(stack, ElectricConversions.museEnergyToEU(requested), getTier(), true, false, false));
     }
 
     @Override
-    public double giveEnergy(final double provided) {
-        return ElectricConversions.museEnergyFromEU(ElectricItem.manager.charge(this.stack(), ElectricConversions.museEnergyToEU(provided), this.getTier(), true, false));
+    public double giveEnergy(double provided) {
+        return ElectricConversions.museEnergyFromEU(ElectricItem.manager.charge(stack, ElectricConversions.museEnergyToEU(provided), getTier(), true, false));
     }
 
     public int getTier() {
-        return this.item().getTier(this.stack());
+        return item.getTier(stack);
     }
 }

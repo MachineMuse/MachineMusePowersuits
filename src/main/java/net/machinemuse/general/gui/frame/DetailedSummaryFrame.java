@@ -19,7 +19,7 @@ import java.util.List;
 
 public class DetailedSummaryFrame extends ScrollableFrame {
     public static final double SCALEFACTOR = 1;
-    protected final EntityPlayer player;
+    protected EntityPlayer player;
     protected double weight;
     protected double energy;
     protected double armor;
@@ -71,8 +71,7 @@ public class DetailedSummaryFrame extends ScrollableFrame {
             valueWidth = MuseRenderer.getStringWidth(formattedValue);
             allowedNameWidth = border.width() - valueWidth - margin * 2;
             namesList = MuseStringUtils.wrapStringToVisualLength(name, allowedNameWidth);
-            assert namesList != null;
-            for(int i = 0; i<namesList.size(); i++) {
+            for(int i=0; i<namesList.size();i++) {
                 MuseRenderer.drawString(namesList.get(i), border.left() + margin, nexty + 9*i);
             }
             MuseRenderer.drawRightAlignedString(formattedValue, border.right() - margin, nexty + 9 * (namesList.size() - 1) / 2);
@@ -83,8 +82,7 @@ public class DetailedSummaryFrame extends ScrollableFrame {
             valueWidth = MuseRenderer.getStringWidth(formattedValue);
             allowedNameWidth = border.width() - valueWidth - margin * 2;
             namesList = MuseStringUtils.wrapStringToVisualLength(name, allowedNameWidth);
-            assert namesList != null;
-            for(int i = 0; i<namesList.size(); i++) {
+            for(int i=0; i<namesList.size();i++) {
                 MuseRenderer.drawString(namesList.get(i), border.left() + margin, nexty + 9*i);
             }
             MuseRenderer.drawRightAlignedString(formattedValue, border.right() - margin, nexty + 9 * (namesList.size() - 1) / 2);

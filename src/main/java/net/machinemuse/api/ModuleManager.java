@@ -1,11 +1,13 @@
 package net.machinemuse.api;
 
-import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
-import net.machinemuse.numina.item.IModeChangingItem;
+import net.machinemuse.numina.item.NuminaItemUtils;
+import net.machinemuse.powersuits.item.IModeChangingModularItem;
+import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -19,13 +21,13 @@ public class ModuleManager {
 
     public static final String ONLINE = "Active";
 
-    protected static final Map<String, List<ItemStack>> customInstallCosts = new HashMap<>();
-    protected static final Map<String, IPowerModule> moduleMap = new HashMap<>();
-    protected static final List<IPowerModule> moduleList = new ArrayList<>();
-    protected static final List<IPlayerTickModule> playerTickModules = new ArrayList<>();
-    protected static final List<IRightClickModule> rightClickModules = new ArrayList<>();
-    protected static final List<IToggleableModule> toggleableModules = new ArrayList<>();
-    protected static final List<IBlockBreakingModule> blockBreakingModules = new ArrayList<>();
+    protected static final Map<String, List<ItemStack>> customInstallCosts = new HashMap<String, List<ItemStack>>();
+    protected static final Map<String, IPowerModule> moduleMap = new HashMap<String, IPowerModule>();
+    protected static final List<IPowerModule> moduleList = new ArrayList<IPowerModule>();
+    protected static final List<IPlayerTickModule> playerTickModules = new ArrayList<IPlayerTickModule>();
+    protected static final List<IRightClickModule> rightClickModules = new ArrayList<IRightClickModule>();
+    protected static final List<IToggleableModule> toggleableModules = new ArrayList<IToggleableModule>();
+    protected static final List<IBlockBreakingModule> blockBreakingModules = new ArrayList<IBlockBreakingModule>();
 
     public static List<IPowerModule> getAllModules() {
         return moduleList;
@@ -81,7 +83,7 @@ public class ModuleManager {
         return blockBreakingModules;
     }
 
-    public static List<IPowerModule> getValidModulesForItem(ItemStack stack) {
+    public static List<IPowerModule> getValidModulesForItem(EntityPlayer player, ItemStack stack) {
         List<IPowerModule> validModules = new ArrayList();
         for (IPowerModule module : getAllModules()) {
             if (module.isValidForItem(stack)) {
@@ -90,6 +92,17 @@ public class ModuleManager {
         }
         return validModules;
     }
+
+    public static List<String> getValidModes(ItemStack itemStack) {
+        List<String> validModes = new ArrayList<>();
+
+        for (IRightClickModule rightclickModule : getRightClickModules()) {
+            if (rightclickModule.isValidForItem(itemStack) && itemHasModule(itemStack, rightclickModule.getDataName()))
+                validModes.add(rightclickModule.getDataName() );
+        }
+        return validModes;
+    }
+
 
     public static boolean tagHasModule(NBTTagCompound tag, String moduleName) {
         return tag.hasKey(moduleName);
@@ -142,12 +155,20 @@ public class ModuleManager {
             // playerEntity.sendChatToPlayer("Server has disallowed this module. Sorry!");
             return false;
         }
-        if (module instanceof IRightClickModule && itemStack.getItem() instanceof IModeChangingItem) {
+        if (module instanceof IRightClickModule && itemStack.getItem() instanceof IModeChangingModularItem) {
             // MuseLogger.logDebug("Module: " + moduleName + " vs Mode: " +
-            // MuseItemUtils.getActiveMode(itemStack));
-            IModeChangingItem item = (IModeChangingItem) itemStack.getItem();
+//             MuseItemUtils.getActiveMode(itemStack));
+            IModeChangingModularItem item = (IModeChangingModularItem) itemStack.getItem();
+            String activeMode = NuminaItemUtils.getTagCompound(itemStack).getString("mode");
+            if (!activeMode.isEmpty())
+                return moduleName.equals(activeMode);
+            List<String> validModes = getValidModes(itemStack);
 
-            return moduleName.equals(item.getActiveMode(itemStack));
+            if (validModes.isEmpty())
+                return false;
+            return validModes.contains(moduleName);
+//            return moduleName.equals(item.getActiveMode(itemStack)); //<--- FIXME!!! creates an endless loop.
+
         } else {
             return isModuleOnline(MuseItemTag.getMuseItemTag(itemStack), moduleName);
         }

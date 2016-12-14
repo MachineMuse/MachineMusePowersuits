@@ -1,9 +1,9 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
 import cpw.mods.fml.common.eventhandler.Event;
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -45,7 +45,6 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
         double energyConsumed = ModuleManager.computeModularProperty(itemStack, HOE_ENERGY_CONSUMPTION);
         if (player.canPlayerEdit(x, y, z, side, itemStack) && ElectricItemUtils.getPlayerEnergy(player) > energyConsumed) {
             UseHoeEvent event = new UseHoeEvent(player, itemStack, world, x, y, z);
-
             if (MinecraftForge.EVENT_BUS.post(event)) {
                 return false;
             }

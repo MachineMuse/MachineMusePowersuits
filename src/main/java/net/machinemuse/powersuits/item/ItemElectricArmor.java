@@ -17,8 +17,7 @@ import java.util.List;
 /**
  * Ported to Java by lehjr on 10/26/16.
  */
-public abstract class ItemElectricArmor extends ItemArmor implements IModularItemBase
-{
+public abstract class ItemElectricArmor extends ItemArmor implements IModularItemBase, IMuseElectricItem {
     public ItemElectricArmor(final ItemArmor.ArmorMaterial material, final int index1, final int index2) {
         super(material, index1, index2);
     }
@@ -97,7 +96,7 @@ public abstract class ItemElectricArmor extends ItemArmor implements IModularIte
     }
 
     public IMuseElectricItem getManager(final ItemStack itemStack) {
-        return MuseElectricItem.getInstance().getManager(itemStack);
+        return (IMuseElectricItem) MuseElectricItem.getInstance().getManager(itemStack);
     }
 
     public void chargeFromArmor(final ItemStack itemStack, final EntityLivingBase entity) {

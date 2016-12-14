@@ -4,6 +4,7 @@ import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 
 import java.io.DataInputStream;
 
@@ -35,7 +36,7 @@ public class MusePacketToggleRequest extends MusePacket{
     }
 
     @Override
-    public void handleServer(EntityPlayer player) {
+    public void handleServer(EntityPlayerMP player) {
         MuseItemUtils.toggleModuleForPlayer(player, module, active);
     }
 

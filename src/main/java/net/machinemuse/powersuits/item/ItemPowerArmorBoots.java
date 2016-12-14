@@ -12,21 +12,25 @@ import net.minecraft.item.ItemStack;
 /**
  * Ported to Java by lehjr on 10/26/16.
  */
-@Optional.InterfaceList({ @Optional.Interface(iface = "ic2.api.item.IMetalArmor", modid = "IC2", striprefs = true) })
-public class ItemPowerArmorBoots extends ItemPowerArmor implements IMetalArmor
-{
+@Optional.InterfaceList ({
+        @Optional.Interface (iface = "ic2.api.item.IMetalArmor", modid = "IC2", striprefs = true)
+})
+public class ItemPowerArmorBoots extends ItemPowerArmor implements IMetalArmor{
+    public final String iconpath = MuseRenderer.ICON_PREFIX + "armorfeet";
+
     public ItemPowerArmorBoots() {
         super(0, 3);
-        this.setUnlocalizedName("powerArmorBoots");
+        setUnlocalizedName("powerArmorBoots");
     }
 
     @SideOnly(Side.CLIENT)
-    public void registerIcons(final IIconRegister iconRegister) {
-        String iconpath = MuseRenderer.ICON_PREFIX + "armorfeet";
-        this.itemIcon = iconRegister.registerIcon(iconpath);
+    @Override
+    public void registerIcons(IIconRegister iconRegister) {
+        itemIcon = iconRegister.registerIcon(iconpath);
     }
 
-    public boolean isMetalArmor(final ItemStack itemStack, final EntityPlayer entityPlayer) {
+    @Override
+    public boolean isMetalArmor(ItemStack itemStack, EntityPlayer entityPlayer) {
         return true;
     }
 }

@@ -4,7 +4,7 @@ import net.machinemuse.api.ILocalizeableModule;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.IPropertyModifier;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.electricity.IModularItem;
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.powersuits.common.Config;
@@ -22,7 +22,7 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
     protected List<ItemStack> defaultInstallCost;
     protected List<IModularItem> validItems;
     protected Map<String, List<IPropertyModifier>> propertyModifiers;
-    protected static Map<String, String> units = new HashMap<>();
+    protected static Map<String, String> units = new HashMap<String, String>();
     protected NBTTagCompound defaultTag;
     protected boolean isAllowed;
     protected IIcon icon;

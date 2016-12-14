@@ -17,14 +17,13 @@ import java.util.Map;
  * Ported to Java by lehjr on 10/19/16.
  */
 public class TabSelectFrame implements IGuiFrame {
-    final EntityPlayer p;
-    final MusePoint2D topleft;
-    final MusePoint2D bottomright;
-    final int worldx;
-    final int worldy;
-    final int worldz;
-
-    final Map<ClickableButton, Integer> buttons = new HashMap<>();
+    EntityPlayer p;
+    MusePoint2D topleft;
+    MusePoint2D bottomright;
+    int worldx;
+    int worldy;
+    int worldz;
+    Map<ClickableButton, Integer> buttons = new HashMap<>();
 
     public TabSelectFrame(EntityPlayer p, MusePoint2D topleft, MusePoint2D bottomright, int worldx, int worldy, int worldz) {
         this.p = p;

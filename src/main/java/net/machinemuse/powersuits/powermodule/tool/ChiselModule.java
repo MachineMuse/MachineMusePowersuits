@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.numina.general.MuseLogger;
@@ -37,15 +37,11 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
         addTradeoffProperty("Overclock", CHISEL_ENERGY_CONSUMPTION, 950);
         addTradeoffProperty("Overclock", CHISEL_HARVEST_SPEED, 22);
 
-//        try {
-//            ITEM_CHISEL = ChiselGetter1.getChisel();
-//        } catch (NoClassDefFoundError e) {
-            try {
-                ITEM_CHISEL = ChiselGetter2.getChisel();
-            } catch (NoClassDefFoundError f) {
-                MuseLogger.logException("Couldn't get Chisel reference item", f);
-            }
-//        }
+        try {
+            ITEM_CHISEL = ChiselGetter2.getChisel();
+        } catch (NoClassDefFoundError f) {
+            MuseLogger.logException("Couldn't get Chisel reference item", f);
+        }
     }
 
     @Override

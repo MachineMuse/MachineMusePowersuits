@@ -19,7 +19,7 @@ public class MuseItemTag {
      *
      * @param stack
      * @return an NBTTagCompound, may be newly created. If stack is null,
-     *         returns null.
+     * returns null.
      */
     @Nullable
     public static NBTTagCompound getMuseItemTag(ItemStack stack) {

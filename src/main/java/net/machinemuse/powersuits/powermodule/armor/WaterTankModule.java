@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.powermodule.armor;
 
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -26,7 +26,7 @@ public class WaterTankModule extends PowerModuleBase implements IPlayerTickModul
     public static final String MODULE_WATER_TANK = "Water Tank";
     public static final String WATER_TANK_SIZE = "Tank Size";
     public static final String ACTIVATION_PERCENT = "Heat Activation Percent";
-    final ItemStack bucketWater = new ItemStack(Items.water_bucket);
+    ItemStack bucketWater = new ItemStack(Items.water_bucket);
 
     public WaterTankModule(List<IModularItem> validItems) {
         super(validItems);

@@ -7,11 +7,11 @@ import net.machinemuse.powersuits.control.KeybindManager;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class KeyConfigGui extends MuseGui {
-	private final EntityPlayer player;
+	private EntityPlayer player;
 	protected KeybindConfigFrame frame;
-    protected final int worldx;
-    protected final int worldy;
-    protected final int worldz;
+    protected int worldx;
+    protected int worldy;
+    protected int worldz;
 
 	public KeyConfigGui(EntityPlayer player, int x, int y, int z) {
 		super();

@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -79,7 +79,6 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
     @Override
     public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
         if (istEffectiveHarvestTool(block, meta)) {
-
             if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION)) {
                 return true;
             }
@@ -93,9 +92,8 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
         if (canHarvestBlock(stack, block, meta, player)) {
             ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION));
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     @Override

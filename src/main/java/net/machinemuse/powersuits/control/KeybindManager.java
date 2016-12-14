@@ -19,7 +19,7 @@ import java.util.Set;
 
 public class KeybindManager {
     // only stores keybindings relevant to us!!
-    protected final Set<ClickableKeybinding> keybindings;
+    protected Set<ClickableKeybinding> keybindings;
     protected static KeybindManager instance;
 
     protected KeybindManager() {

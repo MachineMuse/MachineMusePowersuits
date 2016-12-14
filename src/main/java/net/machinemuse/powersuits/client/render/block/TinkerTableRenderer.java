@@ -18,8 +18,8 @@ import org.lwjgl.opengl.GL11;
  * @author MachineMuse
  */
 public class TinkerTableRenderer extends MuseTESR implements ISimpleBlockRenderingHandler {
-    protected final TinkerTableModel model;
-    protected final int renderId;
+    protected TinkerTableModel model;
+    protected int renderId;
 
     public TinkerTableRenderer(int renderId) {
         model = new TinkerTableModel();

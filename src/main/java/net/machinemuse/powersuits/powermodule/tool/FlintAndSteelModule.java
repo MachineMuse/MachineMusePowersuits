@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -27,8 +27,8 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
 
     public static final String MODULE_FLINT_AND_STEEL = "Flint and Steel";
     public static final String IGNITION_ENERGY_CONSUMPTION = "Ignition Energy Consumption";
-    public final ItemStack fas = new ItemStack(Items.flint_and_steel);
-    final Random ran = new Random();
+    public ItemStack fas = new ItemStack(Items.flint_and_steel);
+    Random ran = new Random();
 
     public FlintAndSteelModule(List<IModularItem> validItems) {
         super(validItems);

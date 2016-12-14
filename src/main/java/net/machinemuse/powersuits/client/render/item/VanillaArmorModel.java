@@ -122,7 +122,7 @@ public class VanillaArmorModel extends ModelBiped implements IArmorModel {
                     aimedBow = true;
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         bipedHead.isHidden = false;

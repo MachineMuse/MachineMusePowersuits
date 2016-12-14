@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
 
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -34,10 +34,10 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
     public static final String ORE_SCANNER_RADIUS_Y = "Y Radius";
     public static final String ORE_SCANNER_RADIUS_Z = "Z Radius";
 
-    private static final String[] oreNames = {"oreCopper", "oreTin", "oreSilver", "oreLead", "oreNickel", "orePlatinum", "oreZinc", "oreApatite", "oreUranium"};
-    private static final ArrayList<ArrayList<ItemStack>> ores = new ArrayList<>();
-    private static final HashMap<List, String> oreMap = new HashMap();
-    private static final HashMap<String, Integer> valueMap = new HashMap();
+    private static String[] oreNames = {"oreCopper", "oreTin", "oreSilver", "oreLead", "oreNickel", "orePlatinum", "oreZinc", "oreApatite", "oreUranium"};
+    private static ArrayList<ArrayList<ItemStack>> ores = new ArrayList<ArrayList<ItemStack>>();
+    private static HashMap<List, String> oreMap = new HashMap();
+    private static HashMap<String, Integer> valueMap = new HashMap();
 
     public OreScannerModule(List<IModularItem> validItems) {
         super(validItems);

@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.item;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.machinemuse.api.electricity.IModularItem;
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.electricity.IMuseElectricItem;
 import net.machinemuse.numina.geometry.Colour;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,27 +18,39 @@ import java.util.List;
  */
 public interface IModularItemBase extends IModularItem, IMuseElectricItem {
     @SideOnly(Side.CLIENT)
-    int getColorFromItemStack(final ItemStack stack, final int p1);
+    int getColorFromItemStack(ItemStack stack, int par2);
 
-    Colour getGlowFromItemStack(final ItemStack stack);
+    Colour getGlowFromItemStack(ItemStack stack);
 
-    Colour getColorFromItemStack(final ItemStack stack);
+    Colour getColorFromItemStack(ItemStack stack);
 
     @SideOnly(Side.CLIENT)
     boolean requiresMultipleRenderPasses();
 
+    /**
+     * Adds information to the item's tooltip when 'getting' it.
+     *
+     * @param stack            The itemstack to get the tooltip for
+     * @param player           The player (client) viewing the tooltip
+     * @param currentTipList   A list of strings containing the existing tooltip. When
+     *                         passed, it will just contain the name of the item;
+     *                         enchantments and lore are
+     *                         appended afterwards.
+     * @param advancedToolTips Whether or not the player has 'advanced tooltips' turned on in
+     *                         their settings.
+     */
     @SideOnly(Side.CLIENT)
-    void addInformation(final ItemStack stack, final EntityPlayer player, final List<?> currentTipList, final boolean advancedToolTips);
+    void addInformation(ItemStack stack, EntityPlayer player, List<String> currentTipList, boolean advancedToolTips);
 
-    String formatInfo(final String string, final double value);
+    String formatInfo(String string, double value);
 
-    List<String> getLongInfo(final EntityPlayer player, final ItemStack stack);
+    List<String> getLongInfo(EntityPlayer player, ItemStack stack);
 
-    double getArmorDouble(final EntityPlayer player, final ItemStack stack);
+    double getArmorDouble(EntityPlayer player, ItemStack stack);
 
-    double getPlayerEnergy(final EntityPlayer player);
+    double getPlayerEnergy(EntityPlayer player);
 
-    void drainPlayerEnergy(final EntityPlayer player, final double drainEnergy);
+    void drainPlayerEnergy(EntityPlayer player, double drainEnergy);
 
-    void givePlayerEnergy(final EntityPlayer player, final double joulesToGive);
+    void givePlayerEnergy(EntityPlayer player, double joulesToGive);
 }

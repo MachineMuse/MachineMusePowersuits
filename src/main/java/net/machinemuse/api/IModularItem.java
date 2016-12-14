@@ -1,4 +1,4 @@
-package net.machinemuse.api.electricity;
+package net.machinemuse.api;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -16,6 +16,7 @@ public interface IModularItem {
     /**
      * Gets the item's extended summary for displaying in the gui.
      *
+     * @param player
      * @param stack
      * @return
      */
@@ -37,7 +38,6 @@ public interface IModularItem {
      * @return
      */
     void drainPlayerEnergy(EntityPlayer player, double drainAmount);
-
 
     /**
      * Adds the amount of energy to the player's inventory.

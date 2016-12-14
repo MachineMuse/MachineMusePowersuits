@@ -11,7 +11,7 @@ import java.util.Random;
 public class TinkerTableModel extends ModelBase {
     // public float onGround;
     // public boolean isRiding = false;
-    protected final ModelBase model = new ModelBase() {
+    protected ModelBase model = new ModelBase() {
     };
 
     private static final Random random = new Random();
@@ -29,26 +29,26 @@ public class TinkerTableModel extends ModelBase {
     // public int textureWidth = 64;
     // public int textureHeight = 32;
 
-    final ModelRenderer cube;
-    final ModelRenderer screen3;
-    final ModelRenderer screen2;
-    final ModelRenderer screen1;
-    final ModelRenderer middletable;
-    final ModelRenderer uppertable;
-    final ModelRenderer particles;
-    final ModelRenderer footbase;
-    final ModelRenderer foot1;
-    final ModelRenderer fatfoot2;
-    final ModelRenderer fatfoot1;
-    final ModelRenderer backsupport;
-    final ModelRenderer tank3;
-    final ModelRenderer tank2;
-    final ModelRenderer tank1;
-    final ModelRenderer wireshort4;
-    final ModelRenderer wireshort3;
-    final ModelRenderer wireshort2;
-    final ModelRenderer Wireshort1;
-    final ModelRenderer Wirelong1;
+    ModelRenderer cube;
+    ModelRenderer screen3;
+    ModelRenderer screen2;
+    ModelRenderer screen1;
+    ModelRenderer middletable;
+    ModelRenderer uppertable;
+    ModelRenderer particles;
+    ModelRenderer footbase;
+    ModelRenderer foot1;
+    ModelRenderer fatfoot2;
+    ModelRenderer fatfoot1;
+    ModelRenderer backsupport;
+    ModelRenderer tank3;
+    ModelRenderer tank2;
+    ModelRenderer tank1;
+    ModelRenderer wireshort4;
+    ModelRenderer wireshort3;
+    ModelRenderer wireshort2;
+    ModelRenderer Wireshort1;
+    ModelRenderer Wirelong1;
 
     /**
      *
@@ -175,8 +175,7 @@ public class TinkerTableModel extends ModelBase {
         setRotation(Wirelong1, 0F, 0F, 0F);
     }
 
-    public void doRender(Entity entity, double x, double y, double z,
-                         float f1) {
+    public void doRender(Entity entity, double x, double y, double z, float f1) {
         float f = 0.0625f;
         RenderState.blendingOn();
         int timestep = (int) ((System.currentTimeMillis()) % 10000);

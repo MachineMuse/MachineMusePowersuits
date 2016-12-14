@@ -4,7 +4,6 @@ import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.render.MuseIconUtils;
 import net.machinemuse.powersuits.client.render.entity.MuseRender;
 import net.machinemuse.powersuits.common.MPSItems;
-import net.machinemuse.powersuits.item.IModularItemBase;
 import net.machinemuse.powersuits.item.ItemPowerFist;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -31,7 +30,7 @@ import org.lwjgl.opengl.GL12;
  * @author MachineMuse
  */
 public class ToolRenderer extends MuseRender implements IItemRenderer {
-    public final ToolModel model = new ToolModel();
+    public ToolModel model = new ToolModel();
 
     /**
      * Forge checks this to see if our custom renderer will handle a certain type of rendering.
@@ -59,9 +58,9 @@ public class ToolRenderer extends MuseRender implements IItemRenderer {
     public void renderItem(ItemRenderType type, ItemStack itemStack, Object... data) {
         boolean drawIcon = false;
         ItemPowerFist item = (ItemPowerFist) itemStack.getItem();
-        Colour colour = ((IModularItemBase) item).getColorFromItemStack(itemStack);
-        Colour glow = ((IModularItemBase) item).getColorFromItemStack(itemStack);
 
+        Colour colour = item.getColorFromItemStack(itemStack);
+        Colour glow = item.getColorFromItemStack(itemStack);
         switch (type) {
             case ENTITY:
                 RenderBlocks renderEntity = (RenderBlocks) data[0];
@@ -72,7 +71,7 @@ public class ToolRenderer extends MuseRender implements IItemRenderer {
                 break;
             case INVENTORY:
                 RenderBlocks renderInventory = (RenderBlocks) data[0];
-                MuseIconUtils.drawIconAt(0, 0, MPSItems.INSTANCE.powerTool.getIconIndex(itemStack), colour);
+                MuseIconUtils.drawIconAt(0, 0, MPSItems.getInstance().powerTool.getIconIndex(itemStack), colour);
                 break;
             case EQUIPPED:
                 RenderBlocks renderEquipped = (RenderBlocks) data[0];
@@ -124,8 +123,7 @@ public class ToolRenderer extends MuseRender implements IItemRenderer {
     }
 
     @Override
-    public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {
-    }
+    public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {}
 
     public void renderFirstPersonArm(EntityClientPlayerMP entityclientplayermp, float par1) {
         Minecraft mc = Minecraft.getMinecraft();

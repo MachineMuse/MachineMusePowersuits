@@ -67,7 +67,7 @@ public class NBTTagAccessor extends NBTTagCompound {
 
     public static List<NBTTagCompound> getValues(NBTTagCompound nbt) {
         Set<String> keyset = (Set<String>) nbt.func_150296_c();
-        ArrayList<NBTTagCompound> a = new ArrayList<>(keyset.size());
+        ArrayList<NBTTagCompound> a = new ArrayList<NBTTagCompound>(keyset.size());
         for (String key : keyset) {
             NBTBase c = nbt.getTag(key);
             if (c instanceof NBTTagCompound) {

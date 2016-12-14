@@ -6,6 +6,7 @@ import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -50,7 +51,7 @@ public class MusePacketTweakRequest extends MusePacket {
     }
 
     @Override
-    public void handleServer(EntityPlayer player) {
+    public void handleServer(EntityPlayerMP player) {
         if (moduleName != null && tweakName != null) {
             ItemStack stack = player.inventory.getStackInSlot(itemSlot);
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);

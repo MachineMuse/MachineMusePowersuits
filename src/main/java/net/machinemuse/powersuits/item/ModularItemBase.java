@@ -3,8 +3,8 @@ package net.machinemuse.powersuits.item;
 import appeng.api.config.AccessRestriction;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ic2.api.item.IElectricItemManager;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.electricity.IMuseElectricItem;
 import net.machinemuse.api.electricity.MuseElectricItem;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.powermodule.misc.CosmeticGlowModule;
@@ -41,35 +41,40 @@ public class ModularItemBase extends Item implements IModularItemBase {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public int getColorFromItemStack(ItemStack stack, int par2) {
-        return getColorFromItemStack(stack).getInt();
+    public int getColorFromItemStack(ItemStack itemStack, int par2) {
+        return getColorFromItemStack(itemStack).getInt();
     }
 
     @Override
-    public Colour getGlowFromItemStack(ItemStack stack) {
-        if (!ModuleManager.itemHasActiveModule(stack, CosmeticGlowModule.MODULE_GLOW)) {
+    public Colour getGlowFromItemStack(ItemStack itemStack) {
+        if (!ModuleManager.itemHasActiveModule(itemStack, CosmeticGlowModule.MODULE_GLOW)) {
             return Colour.LIGHTBLUE;
         }
-        double computedred = ModuleManager.computeModularProperty(stack, CosmeticGlowModule.RED_GLOW);
-        double computedgreen = ModuleManager.computeModularProperty(stack, CosmeticGlowModule.GREEN_GLOW);
-        double computedblue = ModuleManager.computeModularProperty(stack, CosmeticGlowModule.BLUE_GLOW);
+        double computedred = ModuleManager.computeModularProperty(itemStack, CosmeticGlowModule.RED_GLOW);
+        double computedgreen = ModuleManager.computeModularProperty(itemStack, CosmeticGlowModule.GREEN_GLOW);
+        double computedblue = ModuleManager.computeModularProperty(itemStack, CosmeticGlowModule.BLUE_GLOW);
         return new Colour(clampDouble(computedred, 0, 1), clampDouble(computedgreen, 0, 1), clampDouble(computedblue, 0, 1), 0.8);
     }
 
     @Override
-    public Colour getColorFromItemStack(ItemStack stack) {
-        if (!ModuleManager.itemHasActiveModule(stack, TintModule.MODULE_TINT)) {
+    public Colour getColorFromItemStack(ItemStack itemStack) {
+        if (!ModuleManager.itemHasActiveModule(itemStack, TintModule.MODULE_TINT)) {
             return Colour.WHITE;
         }
-        double computedred = ModuleManager.computeModularProperty(stack, TintModule.RED_TINT);
-        double computedgreen = ModuleManager.computeModularProperty(stack, TintModule.GREEN_TINT);
-        double computedblue = ModuleManager.computeModularProperty(stack, TintModule.BLUE_TINT);
+        double computedred = ModuleManager.computeModularProperty(itemStack, TintModule.RED_TINT);
+        double computedgreen = ModuleManager.computeModularProperty(itemStack, TintModule.GREEN_TINT);
+        double computedblue = ModuleManager.computeModularProperty(itemStack, TintModule.BLUE_TINT);
         return new Colour(clampDouble(computedred, 0, 1), clampDouble(computedgreen, 0, 1), clampDouble(computedblue, 0, 1), 1.0F);
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
-        MuseCommonStrings.addInformation(stack, player, currentTipList, advancedToolTips);
+    public boolean requiresMultipleRenderPasses() {
+        return false;
+    }
+
+    @Override
+    public void addInformation(ItemStack itemStack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
+        MuseCommonStrings.addInformation(itemStack, player, currentTipList, advancedToolTips);
     }
 
     @Override
@@ -81,18 +86,18 @@ public class ModularItemBase extends Item implements IModularItemBase {
     /* IModularItem ------------------------------------------------------------------------------- */
     @SideOnly(Side.CLIENT)
     @Override
-    public List<String> getLongInfo(EntityPlayer player, ItemStack stack) {
+    public List<String> getLongInfo(EntityPlayer player, ItemStack itemStack) {
         List<String> info = new ArrayList<>();
 
         info.add("Detailed Summary");
-        info.add(formatInfo("Armor", getArmorDouble(player, stack)));
-        info.add(formatInfo("Energy Storage", getCurrentEnergy(stack)) + 'J');
-        info.add(formatInfo("Weight", MuseCommonStrings.getTotalWeight(stack)) + 'g');
+        info.add(formatInfo("Armor", getArmorDouble(player, itemStack)));
+        info.add(formatInfo("Energy Storage", getCurrentEnergy(itemStack)) + 'J');
+        info.add(formatInfo("Weight", MuseCommonStrings.getTotalWeight(itemStack)) + 'g');
         return info;
     }
 
     @Override
-    public double getArmorDouble(EntityPlayer player, ItemStack stack) {
+    public double getArmorDouble(EntityPlayer player, ItemStack itemStack) {
         return 0;
     }
 
@@ -114,28 +119,33 @@ public class ModularItemBase extends Item implements IModularItemBase {
 
     /* MuseElectricItem --------------------------------------------------------------------------- */
     @Override
-    public double getCurrentEnergy(ItemStack stack) {
-        return MuseElectricItem.getInstance().getCurrentEnergy(stack);
+    public double getCurrentEnergy(ItemStack itemStack) {
+        return MuseElectricItem.getInstance().getCurrentEnergy(itemStack);
     }
 
     @Override
-    public double getMaxEnergy(ItemStack stack) {
-        return MuseElectricItem.getInstance().getCurrentEnergy(stack);
+    public double getMaxEnergy(ItemStack itemStack) {
+        return MuseElectricItem.getInstance().getCurrentEnergy(itemStack);
     }
 
     @Override
-    public void setCurrentEnergy(ItemStack stack, double energy) {
-        MuseElectricItem.getInstance().setCurrentEnergy(stack, energy);
+    public void setCurrentEnergy(ItemStack itemStack, double energy) {
+        MuseElectricItem.getInstance().setCurrentEnergy(itemStack, energy);
     }
 
     @Override
-    public double drainEnergyFrom(ItemStack stack, double requested) {
-        return MuseElectricItem.getInstance().drainEnergyFrom(stack, requested);
+    public double drainEnergyFrom(ItemStack itemStack, double requested) {
+        return MuseElectricItem.getInstance().drainEnergyFrom(itemStack, requested);
     }
 
     @Override
-    public double giveEnergyTo(ItemStack stack, double provided) {
-        return MuseElectricItem.getInstance().giveEnergyTo(stack, provided);
+    public double giveEnergyTo(ItemStack itemStack, double provided) {
+        return MuseElectricItem.getInstance().giveEnergyTo(itemStack, provided);
+    }
+
+    @Override
+    public int getMaxDamage(ItemStack itemStack) {
+        return 0;
     }
 
     @SideOnly(Side.CLIENT)
@@ -144,30 +154,21 @@ public class ModularItemBase extends Item implements IModularItemBase {
         return itemStack.getTooltip(Minecraft.getMinecraft().thePlayer, false).toString();
     }
 
+
     /* Industrialcraft 2 -------------------------------------------------------------------------- */
-    @Override
-    public IMuseElectricItem getManager(ItemStack stack) {
-        return MuseElectricItem.getInstance().getManager(stack);
-    }
-
-    @Override
-    public void chargeFromArmor(ItemStack itemStack, EntityLivingBase entity) {
-        MuseElectricItem.getInstance().chargeFromArmor(itemStack, entity);
-    }
-
-    @Override
-    public boolean use(ItemStack itemStack, double amount, EntityLivingBase entity) {
-        return MuseElectricItem.getInstance().use(itemStack, amount, entity);
-    }
-
     @Override
     public boolean canProvideEnergy(ItemStack itemStack) {
         return MuseElectricItem.getInstance().canProvideEnergy(itemStack);
     }
 
     @Override
-    public double getCharge(ItemStack itemStack) {
-        return MuseElectricItem.getInstance().getCharge(itemStack);
+    public Item getChargedItem(ItemStack itemStack) {
+        return MuseElectricItem.getInstance().getChargedItem(itemStack);
+    }
+
+    @Override
+    public Item getEmptyItem(ItemStack itemStack) {
+        return MuseElectricItem.getInstance().getEmptyItem(itemStack);
     }
 
     @Override
@@ -196,66 +197,77 @@ public class ModularItemBase extends Item implements IModularItemBase {
     }
 
     @Override
+    public double getCharge(ItemStack itemStack) {
+        return MuseElectricItem.getInstance().getCharge(itemStack);
+    }
+
+    @Override
     public boolean canUse(ItemStack itemStack, double amount) {
         return MuseElectricItem.getInstance().canUse(itemStack, amount);
     }
 
     @Override
-    public Item getChargedItem(ItemStack itemStack) {
-        return MuseElectricItem.getInstance().getChargedItem(itemStack);
+    public boolean use(ItemStack itemStack, double amount, EntityLivingBase entity) {
+        return MuseElectricItem.getInstance().use(itemStack, amount, entity);
     }
 
     @Override
-    public Item getEmptyItem(ItemStack itemStack) {
-        return MuseElectricItem.getInstance().getEmptyItem(itemStack);
+    public void chargeFromArmor(ItemStack itemStack, EntityLivingBase entity) {
+        MuseElectricItem.getInstance().chargeFromArmor(itemStack, entity);
+    }
+
+
+    @Override
+    public IElectricItemManager getManager(ItemStack itemStack) {
+        return MuseElectricItem.getInstance().getManager(itemStack);
     }
 
 
     /* Thermal Expansion -------------------------------------------------------------------------- */
     @Override
-    public int receiveEnergy(ItemStack stack, int energy, boolean simulate) {
-        return MuseElectricItem.getInstance().receiveEnergy(stack, energy, simulate);
+    public int receiveEnergy(ItemStack itemStack, int energy, boolean simulate) {
+        return MuseElectricItem.getInstance().receiveEnergy(itemStack, energy, simulate);
     }
 
     @Override
-    public int extractEnergy(ItemStack stack, int energy, boolean simulate) {
-        return MuseElectricItem.getInstance().extractEnergy(stack, energy, simulate);
+    public int extractEnergy(ItemStack itemStack, int energy, boolean simulate) {
+        return MuseElectricItem.getInstance().extractEnergy(itemStack, energy, simulate);
     }
 
     @Override
-    public int getEnergyStored(ItemStack theItem) {
-        return MuseElectricItem.getInstance().getEnergyStored(theItem);
+    public int getEnergyStored(ItemStack itemStack) {
+        return MuseElectricItem.getInstance().getEnergyStored(itemStack);
     }
 
     @Override
-    public int getMaxEnergyStored(ItemStack theItem) {
-        return MuseElectricItem.getInstance().getMaxEnergyStored(theItem);
+    public int getMaxEnergyStored(ItemStack itemStack) {
+        return MuseElectricItem.getInstance().getMaxEnergyStored(itemStack);
     }
 
 
     /* Applied Energistics 2 ---------------------------------------------------------------------- */
     @Override
-    public double injectAEPower(ItemStack stack, double ae) {
-        return MuseElectricItem.getInstance().injectAEPower(stack, ae);
+    public double injectAEPower(ItemStack itemStack, double ae) {
+        return MuseElectricItem.getInstance().injectAEPower(itemStack, ae);
     }
 
     @Override
-    public double extractAEPower(ItemStack stack, double ae) {
-        return MuseElectricItem.getInstance().extractAEPower(stack, ae);
+    public double extractAEPower(ItemStack itemStack, double ae) {
+        return MuseElectricItem.getInstance().extractAEPower(itemStack, ae);
     }
 
     @Override
-    public double getAEMaxPower(ItemStack stack) {
-        return MuseElectricItem.getInstance().getAEMaxPower(stack);
+    public double getAEMaxPower(ItemStack itemStack) {
+        return MuseElectricItem.getInstance().getAEMaxPower(itemStack);
     }
 
     @Override
-    public double getAECurrentPower(ItemStack stack) {
-        return MuseElectricItem.getInstance().getAECurrentPower(stack);
+    public double getAECurrentPower(ItemStack itemStack) {
+        return MuseElectricItem.getInstance().getAECurrentPower(itemStack);
     }
 
     @Override
-    public AccessRestriction getPowerFlow(ItemStack stack) {
-        return MuseElectricItem.getInstance().getPowerFlow(stack);
+    public AccessRestriction getPowerFlow(ItemStack itemStack) {
+        return MuseElectricItem.getInstance().getPowerFlow(itemStack);
     }
 }

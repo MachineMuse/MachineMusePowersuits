@@ -17,7 +17,7 @@ import net.minecraft.util.StatCollector;
  * @author MachineMuse
  */
 public class GuiFieldTinker extends MuseGui {
-    protected final EntityClientPlayerMP player;
+    protected EntityClientPlayerMP player;
     protected ItemSelectionFrame itemSelectFrame;
 
     /**

@@ -5,6 +5,7 @@ import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 
 import java.io.DataInputStream;
 
@@ -35,7 +36,7 @@ public class MusePacketPlayerUpdate extends MusePacket {
     }
 
     @Override
-    public void handleServer(EntityPlayer player) {
+    public void handleServer(EntityPlayerMP player) {
         MusePacketPlayerUpdate updatePacket = new MusePacketPlayerUpdate(player, inputMap);
         player.motionX = inputMap.motionX;
         player.motionY = inputMap.motionY;

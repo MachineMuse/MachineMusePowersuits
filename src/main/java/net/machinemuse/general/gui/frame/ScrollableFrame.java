@@ -19,7 +19,7 @@ public class ScrollableFrame implements IGuiFrame {
     protected boolean scrollupPicked = false;
     protected int lastdWheel = Mouse.getDWheel();
 
-    protected final DrawableMuseRect border;
+    protected DrawableMuseRect border;
 
     public ScrollableFrame(MusePoint2D topleft, MusePoint2D bottomright,
                            Colour borderColour, Colour insideColour) {

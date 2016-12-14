@@ -19,8 +19,8 @@ public class ClickableItem extends Clickable {
     public static final int offsetx = 8;
     public static final int offsety = 8;
     public static RenderItem itemRenderer;
-    public final int inventorySlot;
-    protected final ItemStack item;
+    public int inventorySlot;
+    protected ItemStack item;
 
     public ClickableItem(ItemStack item, MusePoint2D pos, int inventorySlot) {
         super(pos);

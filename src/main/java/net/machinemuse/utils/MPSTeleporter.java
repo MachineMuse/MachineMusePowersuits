@@ -105,10 +105,10 @@ public class MPSTeleporter extends Teleporter {
             long j = par1 - 600L;
             while (iterator.hasNext()) {
                 Long olong = (Long) iterator.next();
-                PortalPosition portalposition = (PortalPosition) this.destinationCoordinateCache.getValueByKey(olong);
+                PortalPosition portalposition = (PortalPosition) this.destinationCoordinateCache.getValueByKey(olong.longValue());
                 if ((portalposition == null) || (portalposition.lastUpdateTime < j)) {
                     iterator.remove();
-                    this.destinationCoordinateCache.remove(olong);
+                    this.destinationCoordinateCache.remove(olong.longValue());
                 }
             }
         }

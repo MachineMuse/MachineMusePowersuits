@@ -1,8 +1,6 @@
 package net.machinemuse.powersuits.event;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.general.sound.SoundDictionary;
@@ -76,7 +74,8 @@ public class PlayerUpdateHandler {
                     player.extinguish();
                 }
                 double velsq2 = MuseMathUtils.sumsq(player.motionX, player.motionY, player.motionZ) - 0.5;
-                if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+
+                if ((player.worldObj.isRemote)  && NuminaConfig.useSounds()) {
                     if (player.isAirBorne && velsq2 > 0) {
                         Musique.playerSound(player, SoundDictionary.SOUND_GLIDER, (float)(velsq2 / 3), 1.0f, true);
                     }

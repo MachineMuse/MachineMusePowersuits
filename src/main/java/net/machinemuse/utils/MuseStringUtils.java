@@ -193,7 +193,7 @@ public abstract class MuseStringUtils {
      *                         </pre>
      */
     public static List<String> wrapStringToVisualLength(String str, double length) {
-        List<String> strlist = new ArrayList<>();
+        List<String> strlist = new ArrayList<String>();
 
         String[] words = str.split(" ");
         if(words.length == 0) {
@@ -233,7 +233,7 @@ public abstract class MuseStringUtils {
      *
      * @author MachineMuse
      */
-    public enum FormatCodes {
+    public static enum FormatCodes {
         Black('0'),
         DarkBlue('1'),
         DarkGreen('2'),
@@ -257,9 +257,9 @@ public abstract class MuseStringUtils {
         Italic('o'),
         Reset('r');
 
-        public final char character;
+        public char character;
 
-        FormatCodes(char character) {
+        private FormatCodes(char character) {
             this.character = character;
         }
     }

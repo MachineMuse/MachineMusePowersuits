@@ -46,7 +46,7 @@ public class MusePacketPlasmaBolt extends MusePacket {
             EntityPlasmaBolt entity = (EntityPlasmaBolt) Minecraft.getMinecraft().theWorld.getEntityByID(entityID);
             entity.size = this.size;
         }
-        catch (Exception e){
+        catch (Exception ignored){
         }
     }
 

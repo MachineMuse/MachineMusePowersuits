@@ -130,7 +130,7 @@ public class SMovingArmorModel extends ModelPlayer implements IArmorModel {
                     aimedBow = true;
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         bipedHead.isHidden = false;
