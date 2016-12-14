@@ -16,7 +16,6 @@ public class IC2ElectricAdapter extends ElectricAdapter {
         this.item = (IElectricItem)stack.getItem();
     }
 
-
     @Override
     public double getCurrentEnergy() {
         return ElectricConversions.museEnergyFromEU(ElectricItem.manager.getCharge(stack));

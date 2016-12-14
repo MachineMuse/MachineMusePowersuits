@@ -218,7 +218,7 @@ public class ClientTickHandler {
         double maxWater = AddonWaterUtils.getMaxWater(player);
         double currEnergy = ElectricItemUtils.getPlayerEnergy(player);
         double maxEnergy = ElectricItemUtils.getMaxEnergy(player);
-        if (maxEnergy > 0 && BlockTinkerTable.energyIcon != null) {
+        if (maxEnergy > 0) {
             String currEnergyStr = MuseStringUtils.formatNumberShort(currEnergy);
             String maxEnergyStr = MuseStringUtils.formatNumberShort(maxEnergy);
 
