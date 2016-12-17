@@ -1,12 +1,39 @@
 package net.machinemuse.powersuits.client.render.model;
 
+import com.google.common.collect.ImmutableMap;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.vertex.VertexFormat;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.obj.OBJModel;
+import net.minecraftforge.common.model.IModelState;
+
 //import net.minecraftforge.client.model.obj.OBJModel;
 //
-///**
-// * Ported to Java by lehjr on 12/3/16.
-// */
-//public class OBJMultiModel extends OBJModel.OBJBakedModel {
-//}
+/**
+ * Created by lehjr on 12/3/16.
+ */
+public class OBJMultiModel extends OBJModel {
+//    public OBJMultiModel(MaterialLibrary matLib, ResourceLocation modelLocation, OBJModel.CustomData customData) {
+//        super(matLib, modelLocation, customData);
+//    }
+
+    public OBJMultiModel(MaterialLibrary matLib, ResourceLocation modelLocation) {
+        super(matLib, modelLocation);
+    }
+
+
+
+
+    public class OBJMultiBakedModel extends OBJBakedModel {
+
+        public OBJMultiBakedModel(OBJModel this$0, IModelState model, VertexFormat state, ImmutableMap<String, TextureAtlasSprite> format) {
+            super(this$0, model, state, format);
+        }
+    }
+
+
+
+}
 
 
 /*

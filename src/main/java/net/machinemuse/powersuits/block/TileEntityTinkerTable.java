@@ -1,11 +1,54 @@
 package net.machinemuse.powersuits.block;
 
+import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.tileentity.MuseTileEntity;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 
 /**
  * @author MachineMuse
  *
  * Ported to Java by lehjr on 10/21/16.
  */
-public class TileEntityTinkerTable extends TileEntity {
+public class TileEntityTinkerTable extends MuseTileEntity {
+    EnumFacing facing;
+
+//    public TileEntityTinkerTable() {
+//
+//    }
+
+    public TileEntityTinkerTable(EnumFacing facing) {
+        this.facing = facing;
+        System.out.println("facing is " + facing.getName());
+        System.out.println("facing ordinal is " + facing.ordinal());
+
+    }
+
+    public EnumFacing getFacing() {
+        return (this.facing != null) ? this.facing : EnumFacing.NORTH;
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+        super.writeToNBT(nbt);
+        nbt.setInteger("f", facing.ordinal());
+        return nbt;
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound nbt) {
+        super.readFromNBT(nbt);
+        if (nbt.hasKey("s")) {
+            facing = EnumFacing.values()[nbt.getInteger("f")];
+        } else {
+            MuseLogger.logDebug("No NBT found! D:");
+        }
+    }
+
+    public void setFacing(EnumFacing facing) {
+        this.facing = facing;
+    }
 }

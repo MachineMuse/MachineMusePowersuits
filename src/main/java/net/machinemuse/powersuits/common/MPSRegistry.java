@@ -44,7 +44,18 @@ public class MPSRegistry {
         GameRegistry.register(block);
         if (itemFactory != null) {
             final ItemBlock itemBlock = itemFactory.apply(block);
+
+            System.out.println("Setting registry name for item as " + block.getRegistryName());
+
+
             GameRegistry.register(itemBlock.setRegistryName(block.getRegistryName()));
+            itemBlock.setUnlocalizedName(block.getUnlocalizedName());
+
+
+            System.out.println("registry name for item is: " + itemBlock.getRegistryName());
+
+            System.out.println("unlocalized name for item is:" + itemBlock.getUnlocalizedName());
+
         }
         return block;
     }

@@ -1,0 +1,22 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "custom": { "flip-v": true },
+    "textures": {},
+    "model": "powersuits:nothing"
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{
+      "transform": "forge:default-block"
+    }],
+    "facing": {
+      "down": {"model": "powersuits:nothing", "x": 180},
+      "up": {"model": "powersuits:nothing"},
+      "north": {"model": "powersuits:nothing", "x": 90},
+      "south": {"model": "powersuits:nothing", "x": 270},
+      "west": {"model": "powersuits:nothing", "x": 90, "y": 270},
+      "east": {"model": "powersuits:nothing", "x": 90, "y": 90}
+    }
+  }
+}

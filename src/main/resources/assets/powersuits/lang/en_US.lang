@@ -1,8 +1,8 @@
 Made by users: Andrew2448, MachineMuse
 Last edited on 6/25/13 12:18AM EST
 
-tile.luxCapacitor.name=Lux Capacitor
-tile.tinkerTable.name=Power Armor Tinker Table
+tile.powersuits.luxCapacitor.name=Lux Capacitor
+tile.powersuits.tinkerTable.name=Power Armor Tinker Table
 
 itemGroup.powersuits=Modular Powersuits
 
@@ -123,7 +123,7 @@ module.shears.desc=Cuts through leaves, wool, and creepers alike.
 module.hoe.desc=An automated tilling addon to make it easy to till large swaths of land at once.
 module.luxCapacitor.desc=Launch a virtually infinite number of attractive light sources at the wall.
 module.omniwrench.desc=A wrench which can interact with almost every mod.
-module.fieldTinkerer.desc=Maybe you can't memorize the blueprints, but you should at least be able to fine tune your modules without Inspiration™ Inc. LLC.
+module.fieldTinkerer.desc=Maybe you can't memorize the blueprints, but you should at least be able to fine tune your modules without Inspirationï¿½ Inc. LLC.
 module.meleeAssist.desc=A much simpler addon, makes your powertool punches hit harder.
 module.plasmaCannon.desc=Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.
 module.railgun.desc=An assembly which accelerates a projectile to supersonic speeds using magnetic force. Heavy recoil.

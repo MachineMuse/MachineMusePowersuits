@@ -5,11 +5,15 @@ import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.MusePacketModeChangeRequest;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.render.RenderGameOverlayEventHandler;
+import net.machinemuse.powersuits.block.BlockTinkerTable;
+import net.machinemuse.powersuits.block.TileEntityTinkerTable;
+import net.machinemuse.powersuits.client.render.block.TinkerTableRenderer;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererPlasmaBolt;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererSpinningBlade;
 import net.machinemuse.powersuits.client.render.modelspec.ModelSpecXMLReader;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MPSItems;
+import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.control.KeybindKeyHandler;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
@@ -21,11 +25,17 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.animation.AnimationTESR;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.animation.Event;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.net.URL;
@@ -40,7 +50,56 @@ import java.net.URL;
  * Ported to Java by lehjr on 11/14/16.
  */
 public class ClientProxy implements CommonProxy {
+
     @Override
+    public void preInit() {
+        registerEvents();
+        registerRenderers();
+
+        /*
+        registerItemBlock(Blocks.ENDER_CHEST);
+
+//            /**
+//     * Register a default ItemBlock for the given Block.
+//     * /
+//        private static void registerItemBlock(Block blockIn)
+//        {
+//            registerItemBlock(blockIn, new ItemBlock(blockIn));
+//        }
+
+
+
+    / **
+     * Register the given Item as the ItemBlock for the given Block.
+     * /
+        protected static void registerItemBlock(Block blockIn, Item itemIn)
+        {
+            registerItem(Block.getIdFromBlock(blockIn), (ResourceLocation)Block.REGISTRY.getNameForObject(blockIn), itemIn);
+            BLOCK_TO_ITEM.put(blockIn, itemIn);
+        }
+
+private static final Map<Block, Item> BLOCK_TO_ITEM = net.minecraftforge.fml.common.registry.GameData.getBlockItemMap();
+
+
+
+         */
+
+
+    }
+
+    @Override
+    public void init() {
+        registerHandlers();
+
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinkerTable.class, new TinkerTableRenderer());
+
+
+
+
+
+
+    }
+
     public void registerEvents() {
         MinecraftForge.EVENT_BUS.register(new SoundDictionary());
     }
@@ -48,7 +107,6 @@ public class ClientProxy implements CommonProxy {
     /**
      * Register all the custom renderers for this mod.
      */
-    @Override
     public void registerRenderers() {
         MPSItems mpsItems = MPSItems.getInstance();
         Item components = mpsItems.components;
@@ -59,6 +117,12 @@ public class ClientProxy implements CommonProxy {
         regRenderer(mpsItems.powerArmorLegs);
         regRenderer(mpsItems.powerArmorFeet);
         regRenderer(Item.getItemFromBlock(mpsItems.tinkerTable));
+
+        GameRegistry.registerTileEntity(TileEntityTinkerTable.class, "TinkerTable");
+
+        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(mpsItems.tinkerTable), 0, TileEntityTinkerTable.class);
+
+
 
         if (components != null) {
             for (Integer  meta : ((ItemComponent)components).names.keySet()) {
@@ -72,6 +136,18 @@ public class ClientProxy implements CommonProxy {
 
         RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, EntityRendererSpinningBlade::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, EntityRendererPlasmaBolt::new);
+
+
+
+
+
+
+//
+//        ClientRegistry.registerTileEntity(TileEntityTinkerTable.class,
+//                ModularPowersuits.MODID + ":tinkerTable", new TinkerTableRenderer());
+
+
+
 
 
 //        // register component icons
@@ -137,7 +213,7 @@ public class ClientProxy implements CommonProxy {
      * Register the tick handler (for on-tick behaviour) and packet handler (for
      * network synchronization and permission stuff).
      */
-    @Override
+
     public void registerHandlers() {
         MinecraftForge.EVENT_BUS.register(new KeybindKeyHandler());
         MinecraftForge.EVENT_BUS.register(new PlayerUpdateHandler());

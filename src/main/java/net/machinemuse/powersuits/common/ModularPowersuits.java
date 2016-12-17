@@ -61,13 +61,17 @@ public final class ModularPowersuits {
         Config.setConfigFolderBase(event.getModConfigurationDirectory());
         MinecraftForge.EVENT_BUS.register(new HarvestEventHandler());
         MinecraftForge.EVENT_BUS.register(new MovementManager());
-        proxy.registerEvents();
+        proxy.preInit();
+
+
+
+//        proxy.registerEvents();
 
 
 
 //        MPSItems.getInstance().populateItems()
 //        MPSItems.getInstance().popuateComponents()
-        proxy.registerRenderers();
+//        proxy.registerRenderers();
     }
 
     @Mod.EventHandler
@@ -91,7 +95,11 @@ public final class ModularPowersuits {
         EntityRegistry.registerModEntity(EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, this, 64, 20, true);
         EntityRegistry.registerModEntity(EntitySpinningBlade.class, "entitySpinningBlade", 2478, this, 64, 20, true);
         EntityRegistry.registerModEntity(EntityLuxCapacitor.class, "entityLuxCapacitor", 2479, this, 64, 20, true);
-        proxy.registerHandlers();
+        proxy.init();
+
+
+
+//        proxy.registerHandlers();
 //        proxy.registerRenderers();
         MPSPacketList.registerPackets();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, MPSGuiHandler.getInstance());

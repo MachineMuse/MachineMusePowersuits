@@ -4,64 +4,81 @@
 package net.machinemuse.powersuits.client.render.block;
 
 import net.machinemuse.numina.render.MuseTESR;
+import net.machinemuse.powersuits.block.TileEntityTinkerTable;
+import net.machinemuse.powersuits.common.Config;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 /**
  * Rendering handler for the tinkertable
  *
  * @author MachineMuse
  */
-public class TinkerTableRenderer extends MuseTESR {
-//    protected final TinkerTableModel model;
-//    protected final int renderId;
-//
-//    public TinkerTableRenderer(int renderId) {
-//        model = new TinkerTableModel();
-//        this.renderId = renderId;
-//    }
-//
-//    @Override
-//    public void renderAt(TileEntity tileEntity, double x, double y, double z, float partialTickTime) {
-//        this.bindTextureByName(Config.TINKERTABLE_TEXTURE_PATH);
-//        GL11.glPushMatrix();
-//        GL11.glTranslated(x, y, z);
-//
-//        model.doRender(null, x, y, z, partialTickTime);
-//        // float texturex = 80 / 256.0f;
-//        // float texturey = 32 / 256.0f;
-//        // float texturex2 = 96 / 256.0f;
-//        // float texturey2 = 48 / 256.0f;
-//        // MuseRenderer.drawRectPrism(
-//        // x, x + 1,
-//        // y + 0.5f, y + 1,
-//        // z, z + 1,
-//        // texturex, texturey, texturex2, texturey2);
-//        GL11.glPopMatrix();
-//    }
-//
-//    @Override
-//    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
-//        this.bindTextureByName(Config.TINKERTABLE_TEXTURE_PATH);
-//        GL11.glPushMatrix();
-//        GL11.glTranslated(-0.5, -0.5 + -1.0 / 16.0, -0.5);
-//        model.doRender(null, 0, 0, 0, 0);
-//        GL11.glPopMatrix();
-//
-//    }
-//
-//    // Should do nothing since the tile entity handles all the rendering of the
-//    // world block
-//    @Override
-//    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean shouldRender3DInInventory(int modelId) {
-//        return true;
-//    }
-//
-//    @Override
-//    public int getRenderId() {
-//        return renderId;
-//    }
+public class TinkerTableRenderer extends TileEntitySpecialRenderer<TileEntityTinkerTable> {
+    ResourceLocation texture = new ResourceLocation(Config.TINKERTABLE_TEXTURE_PATH);
+    protected final TinkerTableModel model;
+
+    public TinkerTableRenderer () {
+        model = new TinkerTableModel();
+    }
+
+    @Override
+    public void renderTileEntityAt(TileEntityTinkerTable te, double x, double y, double z, float partialTicks, int destroyStage) {
+        this.bindTexture(texture);
+        GlStateManager.pushMatrix();
+        if (te != null) {
+            EnumFacing facing = te.getFacing();
+            if (facing == null) facing = EnumFacing.NORTH;
+            switch (te.getFacing()) {
+                case EAST:
+                    GlStateManager.translate(x, y, z +1);
+                    break;
+                case WEST:
+                    GlStateManager.translate(x+1, y, z);
+                    break;
+                case SOUTH:
+                    GlStateManager.translate(x+1, y, z+1);
+                    break;
+                default:
+                    GlStateManager.translate(x, y, z);
+                    break;
+            }
+
+            int degrees = facing.getOpposite().getHorizontalIndex() * 90;
+            GlStateManager.rotate(degrees, 0.0F, 1.0F, 0.0F);
+        } else
+            GlStateManager.translate(x, y, z); // y is up, x is east, z is south
+        /*
+            facing north
+
+            facing south is 1 block off x-1, z-1
+
+            facing west is one block off x-1
+
+            facing east is z-1
+*/
+
+
+
+
+
+        model.doRender(null, x, y, z, partialTicks);
+        // float texturex = 80 / 256.0f;
+        // float texturey = 32 / 256.0f;
+        // float texturex2 = 96 / 256.0f;
+        // float texturey2 = 48 / 256.0f;
+        // MuseRenderer.drawRectPrism(
+        // x, x + 1,
+        // y + 0.5f, y + 1,
+        // z, z + 1,
+        // texturex, texturey, texturex2, texturey2);
+        GlStateManager.popMatrix();
+    }
 }

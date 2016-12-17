@@ -10,13 +10,24 @@ package net.machinemuse.powersuits.common.proxy;
  * Ported to Java by lehjr on 11/14/16.
  */
 public interface CommonProxy {
-    void registerEvents();
+    void preInit();
 
-    void registerRenderers();
-
-    void registerHandlers();
+    void init();
 
     void postInit();
+
+
+
+
+
+
+//    void registerEvents();
+
+//    void registerRenderers();
+
+//    void registerHandlers();
+
+
 
     void sendModeChange(int dMode, String newMode);
 }

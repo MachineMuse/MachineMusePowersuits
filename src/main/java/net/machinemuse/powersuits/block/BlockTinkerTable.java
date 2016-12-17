@@ -3,9 +3,14 @@ package net.machinemuse.powersuits.block;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -29,7 +34,7 @@ import javax.annotation.Nullable;
  */
 public class BlockTinkerTable extends Block {
     public static final String name = "tinkerTable";
-
+    public static final PropertyDirection FACING = BlockHorizontal.FACING;
     public BlockTinkerTable() {
         super(Material.IRON);
         this.setHardness(1.5F);
@@ -41,7 +46,8 @@ public class BlockTinkerTable extends Block {
         this.setLightLevel(0.4f);
         this.setTickRandomly(false);
         setUnlocalizedName(ModularPowersuits.MODID + "." + name);
-        setRegistryName(new ResourceLocation(ModularPowersuits.MODID, name));
+        setRegistryName(ModularPowersuits.MODID, "tile."+ name);
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
     }
 
     @Override
@@ -52,6 +58,14 @@ public class BlockTinkerTable extends Block {
             playerIn.openGui(ModularPowersuits.getInstance(), 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
         return true;
     }
+
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    {
+        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
+    }
+
+
+
 
     @Override
     public boolean isVisuallyOpaque() {
@@ -70,7 +84,8 @@ public class BlockTinkerTable extends Block {
 
     @Override
     public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.MODEL; // TODO: fix this. The static rendered setup is horrible, such as hte translucent stuff doesn't work, the texures have to be resized, the glow doesnt work, the animation needs stupid undocumented code to make work
+        //return EnumBlockRenderType.MODEL; // TODO: fix this. The static rendered setup is horrible, such as hte translucent stuff doesn't work, the texures have to be resized, the glow doesnt work, the animation needs stupid undocumented code to make work
+        return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
     }
 
     @Override
@@ -80,6 +95,16 @@ public class BlockTinkerTable extends Block {
 
     @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
-        return new TileEntityTinkerTable();
+        return new TileEntityTinkerTable(state.getValue(FACING));
+    }
+
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[] {FACING});
+    }
+
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return ((EnumFacing)state.getValue(FACING)).getIndex();
     }
 }

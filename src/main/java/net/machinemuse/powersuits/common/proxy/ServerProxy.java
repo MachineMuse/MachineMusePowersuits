@@ -13,17 +13,22 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
  * Ported to Java by lehjr on 11/14/16.
  */
 public class ServerProxy implements CommonProxy{
+
     @Override
+    public void preInit() {
+        registerEvents();
+    }
+
+    @Override
+    public void init() {
+        registerHandlers();
+    }
+
+
     public void registerEvents() {
         FMLCommonHandler.instance().bus().register(new PlayerLoginHandlerThingy());
     }
 
-    @Override
-    public void registerRenderers() {
-
-    }
-
-    @Override
     public void registerHandlers() {
         MinecraftForge.EVENT_BUS.register(new PlayerUpdateHandler());
     }

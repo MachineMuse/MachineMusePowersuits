@@ -23,7 +23,6 @@ public class TileEntityLuxCapacitor extends MuseTileEntity {
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
-        super.writeToNBT(nbt);
         nbt.setInteger("s", side.ordinal());
         nbt.setInteger("c", colour.getInt());
         return nbt;
