@@ -36,6 +36,8 @@ public class TinkerTableRenderer extends TileEntitySpecialRenderer<TileEntityTin
         if (te != null) {
             EnumFacing facing = te.getFacing();
             if (facing == null) facing = EnumFacing.NORTH;
+
+            // the rotation creates an offset. Apparently the model is not centered on the axis of rotation.
             switch (te.getFacing()) {
                 case EAST:
                     GlStateManager.translate(x, y, z +1);
@@ -55,20 +57,6 @@ public class TinkerTableRenderer extends TileEntitySpecialRenderer<TileEntityTin
             GlStateManager.rotate(degrees, 0.0F, 1.0F, 0.0F);
         } else
             GlStateManager.translate(x, y, z); // y is up, x is east, z is south
-        /*
-            facing north
-
-            facing south is 1 block off x-1, z-1
-
-            facing west is one block off x-1
-
-            facing east is z-1
-*/
-
-
-
-
-
         model.doRender(null, x, y, z, partialTicks);
         // float texturex = 80 / 256.0f;
         // float texturey = 32 / 256.0f;

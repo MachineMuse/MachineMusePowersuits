@@ -16,15 +16,12 @@ import net.minecraft.util.EnumFacing;
 public class TileEntityTinkerTable extends MuseTileEntity {
     EnumFacing facing;
 
-//    public TileEntityTinkerTable() {
-//
-//    }
+    public TileEntityTinkerTable() {
+        this.facing = EnumFacing.NORTH;
+    }
 
     public TileEntityTinkerTable(EnumFacing facing) {
         this.facing = facing;
-        System.out.println("facing is " + facing.getName());
-        System.out.println("facing ordinal is " + facing.ordinal());
-
     }
 
     public EnumFacing getFacing() {
@@ -41,7 +38,7 @@ public class TileEntityTinkerTable extends MuseTileEntity {
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
-        if (nbt.hasKey("s")) {
+        if (nbt.hasKey("f")) {
             facing = EnumFacing.values()[nbt.getInteger("f")];
         } else {
             MuseLogger.logDebug("No NBT found! D:");
