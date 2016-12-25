@@ -1,6 +1,7 @@
 package net.machinemuse.general.gui;
 
 
+import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
@@ -107,101 +108,107 @@ public class MuseIcon extends TextureAtlasSprite {
     public static TextureAtlasSprite plasmaCannon = new MuseIcon("plasmaCannon");
     public static TextureAtlasSprite railgun = new MuseIcon("railgun");
     public static TextureAtlasSprite sonicWeapon = new MuseIcon("sonicWeapon");
+    
+    /* Things other than module icons ------------------------------------------------------------- */
+//    public static TextureAtlasSprite powerFistIcon = new MuseIcon("powerFistIcon");
 
 
     public static void registerIcons(TextureStitchEvent.Pre event) {
         /* Armor -------------------------------------------------------------------------------------- */
-        apiaristArmor = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID,"modules/silkWisp"));
-        basicPlating = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID,"modules/basicplating2"));
-        diamondPlating = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/advancedplating2"));
-        energyShield = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/energyshield"));
-        hazmat = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/greenstar"));
-        heatSink = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/heatresistantplating2"));
-        mechAssistance = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/mechassistance"));
-        nitrogenCoolingSystem = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/coolingsystem"));
+        apiaristArmor = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX + "modules/silkWisp"));
+        basicPlating = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX + "modules/basicplating2"));
+        diamondPlating = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/advancedplating2"));
+        energyShield = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/energyshield"));
+        hazmat = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/greenstar"));
+        heatSink = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/heatresistantplating2"));
+        mechAssistance = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/mechassistance"));
+        nitrogenCoolingSystem = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/coolingsystem"));
         /* Water tank module uses vanilla bucket of water icon */
 
         /* Energy ------------------------------------------------------------------------------------- */
-        advancedBattery = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/mvbattery"));
-        advSolarGenerator = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/advsolarhelmet"));
-        basicBattery = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/lvbattery"));
+        advancedBattery = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/mvbattery"));
+        advSolarGenerator = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/advsolarhelmet"));
+        basicBattery = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/lvbattery"));
         /* FIXME no icon "coalgen" */
-        coalGenerator = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/coalgen"));
-        eliteBattery = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/hvbattery"));
-        kineticGenerator = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/kineticgen"));
-        solarGenerator = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/solarhelmet"));
-        thermalGenerator = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/heatgenerator"));
-        ultimateBattery = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/crystalcapacitor"));
+        coalGenerator = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/coalgen"));
+        eliteBattery = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/hvbattery"));
+        kineticGenerator = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/kineticgen"));
+        solarGenerator = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/solarhelmet"));
+        thermalGenerator = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/heatgenerator"));
+        ultimateBattery = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/crystalcapacitor"));
 
         /* Misc --------------------------------------------------------------------------------------- */
-        airtightSeal = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/glasspane"));
-        autoFeeder = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/autofeeder"));
-        binoculars = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/binoculars"));
-        citizenJoe = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/greendrone"));
-        //coolingSystem = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/coolingsystem"));
+        airtightSeal = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/glasspane"));
+        autoFeeder = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/autofeeder"));
+        binoculars = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/binoculars"));
+        citizenJoe = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/greendrone"));
+        //coolingSystem = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/coolingsystem"));
         coolingSystem = nitrogenCoolingSystem;
-        cosmeticGlow = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/netherstar"));
-        portableCraftingTable = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/portablecrafting"));
-        invisibility = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/bluedrone"));
-        magnet = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/magnetmodule"));
-        mobRepulsor = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/magneta"));
-        nightVision = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/nightvision"));
-        aurameter = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/bluestar"));
+        cosmeticGlow = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/netherstar"));
+        portableCraftingTable = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/portablecrafting"));
+        invisibility = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/bluedrone"));
+        magnet = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/magnetmodule"));
+        mobRepulsor = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/magneta"));
+        nightVision = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/nightvision"));
+        aurameter = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/bluestar"));
         // FIXME should not be the same as cosmetic glow
-//        tint = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/netherstar"));
+//        tint = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/netherstar"));
         tint = cosmeticGlow;
-        transparentArmor = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/transparentarmor"));
-        waterElectrolyzer = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/waterelectrolyzer"));
+        transparentArmor = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/transparentarmor"));
+        waterElectrolyzer = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/waterelectrolyzer"));
 
         /* Movement ----------------------------------------------------------------------------------- */
-        blinkDrive = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/alien"));
-        climbAssist = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/climbassist"));
-        flightControl = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/FlightControlY"));
-        glider = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/glider"));
-        jetBoots = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/jetboots"));
-        jetpack = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/jetpack"));
-        jumpAssist = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/jumpassist"));
-        parachute = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/parachute"));
-        shockAbsorber = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/shockabsorber"));
-        sprintAssist = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/sprintassist"));
-        swimAssist = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/swimboost"));
+        blinkDrive = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/alien"));
+        climbAssist = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/climbassist"));
+        flightControl = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/FlightControlY"));
+        glider = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/glider"));
+        jetBoots = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/jetboots"));
+        jetpack = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/jetpack"));
+        jumpAssist = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/jumpassist"));
+        parachute = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/parachute"));
+        shockAbsorber = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/shockabsorber"));
+        sprintAssist = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/sprintassist"));
+        swimAssist = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/swimboost"));
 
         /* Tools -------------------------------------------------------------------------------------- */
         // FIXME this should be different than diamondPickUpgrade
-        aoePickUpgrade = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/diamondupgrade1"));
-        appengECWirelessFluid = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/ItemWirelessTerminalFluid"));
-        appengWireless = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/ItemWirelessTerminal"));
-        aquaAffinity = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/aquaaffinity"));
-        axe = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/toolaxe"));
-        chisel = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/toolpinch"));
-        diamondPickUpgrade = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/diamondupgrade1"));
-        //dimRiftGen = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/kineticgen"));
+        aoePickUpgrade = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/diamondupgrade1"));
+        appengECWirelessFluid = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/ItemWirelessTerminalFluid"));
+        appengWireless = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/ItemWirelessTerminal"));
+        aquaAffinity = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/aquaaffinity"));
+        axe = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/toolaxe"));
+        chisel = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/toolpinch"));
+        diamondPickUpgrade = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/diamondupgrade1"));
+        //dimRiftGen = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/kineticgen"));
         dimRiftGen = kineticGenerator;
 
         // FIXME should not be the same as transparent armor module
-//        fieldTinkerer = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/transparentarmor"));
+//        fieldTinkerer = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/transparentarmor"));
         fieldTinkerer= transparentArmor;
-        leafBlower = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/leafblower"));
-        luxCapacitor = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/bluelight"));
-        mffsFieldTeleporter = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/fieldteleporter"));
-        ocTerminal = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/ocTerminal"));
-        omniProbe = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/omniprobe"));
-        omniwrench = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/omniwrench"));
-        oreScanner = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/orescanner"));
-        cmPSD = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/psd"));
-        pickaxe = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/toolpick"));
-        redstoneLaser = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/laser"));
-        shovel = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID, "modules/toolshovel"));
+        leafBlower = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/leafblower"));
+        luxCapacitor = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/bluelight"));
+        mffsFieldTeleporter = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/fieldteleporter"));
+        ocTerminal = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/ocTerminal"));
+        omniProbe = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/omniprobe"));
+        omniwrench = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/omniwrench"));
+        oreScanner = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/orescanner"));
+        cmPSD = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/psd"));
+        pickaxe = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/toolpick"));
+        redstoneLaser = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/laser"));
+        shovel = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX +  "modules/toolshovel"));
 
         /* Weapons ------------------------------------------------------------------------------------ */
-        bladeLauncher = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID,"modules/spinningblade"));
+        bladeLauncher = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX + "modules/spinningblade"));
         // FIXME should not be the same as aurameter
-        lightning = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID,"modules/bluestar"));
-        meleeAssist = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID,"modules/toolfist"));
-        plasmaCannon =  event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID,"modules/gravityweapon"));
-        railgun = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID,"modules/electricweapon"));
-        sonicWeapon = event.getMap().registerSprite(new ResourceLocation(ModularPowersuits.MODID,"modules/soundweapon"));
+        lightning = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX + "modules/bluestar"));
+        meleeAssist = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX + "modules/toolfist"));
+        plasmaCannon =  event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX + "modules/gravityweapon"));
+        railgun = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX + "modules/electricweapon"));
+        sonicWeapon = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX + "modules/soundweapon"));
 
+
+        /* Things other than module icons ------------------------------------------------------------- */
+//        powerFistIcon = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX + "items/handitem"));
 
     }
 }

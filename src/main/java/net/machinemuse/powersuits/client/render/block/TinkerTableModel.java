@@ -175,8 +175,7 @@ public class TinkerTableModel extends ModelBase {
         setRotation(Wirelong1, 0F, 0F, 0F);
     }
 
-    public void doRender(Entity entity, double x, double y, double z,
-                         float f1) {
+    public void doRender(Entity entity, double x, double y, double z, float f1) {
         float f = 0.0625f;
         RenderState.blendingOn();
         int timestep = (int) ((System.currentTimeMillis()) % 10000);
@@ -200,7 +199,7 @@ public class TinkerTableModel extends ModelBase {
         Wireshort1.render(f);
         Wirelong1.render(f);
 
-        RenderState.glowOn();
+//        RenderState.glowOn();
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslated(0.5f, 1.05f, 0.5f);
@@ -233,7 +232,7 @@ public class TinkerTableModel extends ModelBase {
         // }
         // }
         // GL11.glPopMatrix();
-        RenderState.glowOff();
+//        RenderState.glowOff();
         RenderState.blendingOff();
     }
 
@@ -258,8 +257,7 @@ public class TinkerTableModel extends ModelBase {
      * Sets the model's various rotation angles then renders the model.
      */
     @Override
-    public void render(Entity par1Entity, float par2, float par3, float par4,
-                       float par5, float par6, float par7) {
+    public void render(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7) {
         model.render(par1Entity, par2, par3, par4, par5, par6, par7);
     }
 

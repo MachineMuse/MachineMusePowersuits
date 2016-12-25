@@ -10,6 +10,7 @@ import net.machinemuse.powersuits.block.TileEntityTinkerTable;
 import net.machinemuse.powersuits.client.render.block.TinkerTableRenderer;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererPlasmaBolt;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererSpinningBlade;
+import net.machinemuse.powersuits.client.render.item.TileEntityItemRenderer;
 import net.machinemuse.powersuits.client.render.modelspec.ModelSpecXMLReader;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MPSItems;
@@ -19,25 +20,31 @@ import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.event.ClientTickHandler;
+import net.machinemuse.powersuits.event.ModelBakeEventHandler;
 import net.machinemuse.powersuits.event.PlayerUpdateHandler;
 import net.machinemuse.powersuits.event.RenderEventHandler;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.animation.AnimationTESR;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.animation.Event;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.io.IOException;
 import java.net.URL;
 
 //import net.machinemuse.powersuits.client.render.item.ToolRenderer;
@@ -90,7 +97,6 @@ private static final Map<Block, Item> BLOCK_TO_ITEM = net.minecraftforge.fml.com
     @Override
     public void init() {
         registerHandlers();
-
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinkerTable.class, new TinkerTableRenderer());
 
 
@@ -116,11 +122,15 @@ private static final Map<Block, Item> BLOCK_TO_ITEM = net.minecraftforge.fml.com
         regRenderer(mpsItems.powerArmorTorso);
         regRenderer(mpsItems.powerArmorLegs);
         regRenderer(mpsItems.powerArmorFeet);
+
+
+
         regRenderer(Item.getItemFromBlock(mpsItems.tinkerTable));
 
         GameRegistry.registerTileEntity(TileEntityTinkerTable.class, "TinkerTable");
 
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(mpsItems.tinkerTable), 0, TileEntityTinkerTable.class);
+//        ForgeHooksClient.registerTESRItemStack(mpsItems.powerTool, 0, TileEntityItemRenderer.class);
 
 
 
@@ -138,7 +148,7 @@ private static final Map<Block, Item> BLOCK_TO_ITEM = net.minecraftforge.fml.com
         RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, EntityRendererPlasmaBolt::new);
 
 
-
+//        ModelLoader.setCustomModelResourceLocation(mpsItems.powerTool, 0, ModelLocations.powerFistGUI);
 
 
 
@@ -189,7 +199,13 @@ private static final Map<Block, Item> BLOCK_TO_ITEM = net.minecraftforge.fml.com
 //        RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, new EntityRendererPlasmaBolt());
 //        RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, new EntityRendererSpinningBlade());
 //        RenderingRegistry.registerEntityRenderingHandler(EntityLuxCapacitor.class, new EntityRendererLuxCapacitorEntity());
+
+
         MinecraftForge.EVENT_BUS.register(new RenderEventHandler());
+        MinecraftForge.EVENT_BUS.register(ModelBakeEventHandler.getInstance());
+
+
+
         URL resource = ClientProxy.class.getResource("/assets/powersuits/models/modelspec.xml");
         ModelSpecXMLReader.getINSTANCE().parseFile(resource);
         URL otherResource = ClientProxy.class.getResource("/assets/powersuits/models/armor2.xml");
@@ -200,11 +216,31 @@ private static final Map<Block, Item> BLOCK_TO_ITEM = net.minecraftforge.fml.com
         ModelResourceLocation location =  new ModelResourceLocation(item.getRegistryName(), "inventory");
 
         System.out.println("location is: " + location.toString());
-
-
-
         ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

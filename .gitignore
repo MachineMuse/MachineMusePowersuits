@@ -14,8 +14,8 @@
 /bin
 
 # Numina while porting
-/src/main/java/net/machinemuse/numina
-/src/main/scala/net/machinemuse/numina
+#/src/main/java/net/machinemuse/numina
+#/src/main/scala/net/machinemuse/numina
 
 # IntelliJ
 /.idea

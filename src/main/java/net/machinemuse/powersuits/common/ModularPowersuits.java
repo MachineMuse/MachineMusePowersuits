@@ -114,4 +114,6 @@ public final class ModularPowersuits {
         Config.addCustomInstallCosts();
         Config.getConfig().save();
     }
+
+//    @Mod.EventHandler
 }

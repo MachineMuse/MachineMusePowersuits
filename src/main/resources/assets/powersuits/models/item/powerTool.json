@@ -1,0 +1,15 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0":  "powersuits:items/handitem"
+  },
+  "equipped": {
+    "gui": {
+      "textures": {
+        "layer0":  "powersuits:items/handitem"
+      },
+      "model": "builtin/generated"
+    }
+  }
+}
+
