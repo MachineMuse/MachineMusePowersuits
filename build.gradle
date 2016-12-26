@@ -43,7 +43,7 @@ def travisbuildnumber = (System.getenv("TRAVIS_BUILD_NUMBER") ?: -111).toInteger
 version = "${config.mod_version}." + (buildnumber ?: travisbuildnumber)
 group= "${config.group_id}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "${config.mod_id}"
-def numina_version = (System.getenv("NUMINA_VERSION") ?:"0.4.1.101")
+def numina_version = (System.getenv("NUMINA_VERSION") ?:"0.4.1.104")
 
 minecraft {
     version = "${config.minecraft_version}-${config.forge_version}"

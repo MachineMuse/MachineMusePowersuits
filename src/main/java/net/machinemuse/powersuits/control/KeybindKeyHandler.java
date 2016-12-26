@@ -67,7 +67,7 @@ public class KeybindKeyHandler {
                 Minecraft.getMinecraft().playerController.updateController();
                 ((IModeChangingModularItem)modeChangingModularItem).cycleModeForItem(player.inventory.getStackInSlot(player.inventory.currentItem), player, 1);
             }
-            if (key == cycleToolForward.getKeyCode()) {
+            if (key == cycleToolForward.getKeyCode() && modeChangingModularItem != null) {
                 Minecraft.getMinecraft().playerController.updateController();
                 ((IModeChangingModularItem)modeChangingModularItem).cycleModeForItem(player.inventory.getStackInSlot(player.inventory.currentItem), player, -1);
             }

@@ -128,7 +128,6 @@ public class ToolRenderer extends MuseRender implements IItemRenderer {
     public void renderFirstPersonArm(EntityClientPlayerMP entityclientplayermp, float par1) {
         Minecraft mc = Minecraft.getMinecraft();
         float changeItemProgress = 0;
-
         GL11.glPushMatrix();
         float f4 = 0.8F;
         float swingProgress = entityclientplayermp.getSwingProgress(par1);
