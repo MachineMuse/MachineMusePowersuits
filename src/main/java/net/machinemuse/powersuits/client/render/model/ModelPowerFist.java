@@ -158,8 +158,6 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
 
 
                 break;
-
-
         }
 
 
