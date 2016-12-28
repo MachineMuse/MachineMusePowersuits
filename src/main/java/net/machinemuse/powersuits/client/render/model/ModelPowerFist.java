@@ -51,13 +51,6 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
     Colour glow;
     Item item;
 
-
-
-
-
-
-    public ItemCameraTransforms.TransformType cameraTransformType = ItemCameraTransforms.TransformType.NONE;
-
     public ModelPowerFist(IBakedModel bakedModelIn) {
         if (bakedModelIn instanceof ModelPowerFist) {
             modelOriginal = ((ModelPowerFist)bakedModelIn).modelOriginal;
@@ -65,6 +58,8 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
             modelOriginal = bakedModelIn;
         }
     }
+
+    public ItemCameraTransforms.TransformType cameraTransformType = ItemCameraTransforms.TransformType.NONE;
 
     public void handleItemState(ItemStack itemStackIn, World worldIn, EntityLivingBase entityLivingBaseIn) {
         itemStack = itemStackIn;

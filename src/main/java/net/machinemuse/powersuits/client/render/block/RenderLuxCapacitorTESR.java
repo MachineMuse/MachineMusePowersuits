@@ -1,8 +1,16 @@
 package net.machinemuse.powersuits.client.render.block;
 
 import net.machinemuse.numina.render.MuseTESR;
+import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 
-public class RenderLuxCapacitorTESR extends MuseTESR {
+public class RenderLuxCapacitorTESR extends TileEntitySpecialRenderer<TileEntityLuxCapacitor> {
+    @Override
+    public void renderTileEntityAt(TileEntityLuxCapacitor te, double x, double y, double z, float partialTicks, int destroyStage) {
+        super.renderTileEntityAt(te, x, y, z, partialTicks, destroyStage);
+    }
+
+
     //TODO!! everything
 
 //        implements ISimpleBlockRenderingHandler {

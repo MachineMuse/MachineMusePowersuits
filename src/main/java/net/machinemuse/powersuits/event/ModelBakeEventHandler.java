@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.event;
 
+import net.machinemuse.powersuits.client.render.model.ModelLuxCapacitor;
 import net.machinemuse.powersuits.client.render.model.ModelPowerFist;
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -27,21 +28,22 @@ public class ModelBakeEventHandler {
     public void onModelBake(ModelBakeEvent event) throws IOException
     {
         ModelResourceLocation powerFistIconLocation = new ModelResourceLocation(Config.RESOURCE_PREFIX + "powerTool", "inventory");
+        ModelResourceLocation luxCapacitorLocation = new ModelResourceLocation(Config.RESOURCE_PREFIX + "tile.luxCapacitor", "inventory");
+
+
+
         Object obj = event.getModelRegistry().getObject(powerFistIconLocation);
 
-        if(obj instanceof IBakedModel)
-        {
-//            event.getModelRegistry().putObject(model, new CustomItemModelFactory((IBakedModel)obj));
 
-            System.out.println("this is a baked Model");
-
-        } else {
-            System.out.println("this is NOT a baked Model");
-        }
 
 
         ModelPowerFist powerFistModel = new ModelPowerFist(event.getModelRegistry().getObject(powerFistIconLocation));
         event.getModelRegistry().putObject(powerFistIconLocation, powerFistModel);
+
+        ModelLuxCapacitor luxCapacitorModel = new ModelLuxCapacitor(event.getModelRegistry().getObject(luxCapacitorLocation), 0);
+
+
+
     }
 
 

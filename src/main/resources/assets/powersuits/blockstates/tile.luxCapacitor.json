@@ -2,20 +2,90 @@
   "forge_marker": 1,
   "defaults": {
     "custom": { "flip-v": true },
-    "textures": {}
+    "textures": {},
+    "model": "powersuits:luxCapacitor/lightBase.obj"
   },
   "variants": {
     "normal": [{}],
     "inventory": [{
-      "transform": "forge:default-block"
+      "transform": {
+        "thirdperson_righthand": {
+          "scale" : 0.0234375,
+          "translation": [0.0, 0.15625, 0.0],
+          "rotation": [{"x": 75}, {"y": 45}]
+        },
+        "thirdperson_lefthand": {
+          "scale" : 0.025,
+          "rotation": [{"x": 75}, {"y": 45}]
+        },
+        "firstperson_righthand": {
+          "scale": 0.025
+        },
+        "firstperson_lefthand": {
+          "scale": 0.025
+        },
+        "gui": {
+          "scale": 0.0390625,
+          "translation": [0.0, 0.025, 0.0],
+          "rotation": [{"x":30}, {"y":225}]
+        },
+        "ground": {
+          "scale": 0.1563,
+          "translation": [0.0, 0.1625, 0.0]
+        },
+        "fixed": {
+          "scale" : 0.03125
+        }
+      }
     }],
     "facing": {
-      "down": { "x": 180},
-      "up": {},
-      "north": { "x": 90},
-      "south": { "x": 270},
-      "west": { "x": 90, "y": 270},
-      "east": { "x": 90, "y": 90}
+      "down": {
+        "transform": {
+          "translation": [0.0, -0.40, 0.0],
+          "scale" : 0.0625
+        },
+        "model": "powersuits:luxCapacitor/lightBase.obj"
+      },
+      "up": {
+        "transform": {
+          "translation": [0.0, 0.40, 0.0],
+          "rotation": {"x": 180},
+          "scale" : 0.0625
+        },
+        "model": "powersuits:luxCapacitor/lightBase.obj"
+      },
+      "north": {
+        "transform": {
+          "translation": [0.0, 0.0, -0.4],
+          "rotation": {"x": 90},
+          "scale": 0.0625
+        },
+        "model": "powersuits:luxCapacitor/lightBase.obj"
+      },
+      "south": {
+        "transform": {
+          "translation": [0.0, 0.0, 0.4],
+          "rotation": {"x": 270},
+          "scale": 0.0625
+        },
+        "model": "powersuits:luxCapacitor/lightBase.obj"
+      },
+      "west": {
+        "transform": {
+          "translation": [-0.4, 0.0, -0.0],
+          "rotation": {"z": 270},
+          "scale" : 0.0625
+        },
+        "model": "powersuits:luxCapacitor/lightBase.obj"
+      },
+      "east": {
+        "transform": {
+          "translation": [0.4, 0.0, 0.0],
+          "rotation": {"z": 90},
+          "scale" : 0.0625
+        },
+        "model": "powersuits:luxCapacitor/lightBase.obj"
+      }
     }
   }
 }

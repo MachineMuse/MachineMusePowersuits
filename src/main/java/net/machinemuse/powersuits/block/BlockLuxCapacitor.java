@@ -15,27 +15,30 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.Random;
 
 public class BlockLuxCapacitor extends BlockDirectional {
-    protected static final AxisAlignedBB LUXCAPACITOR_EAST_AABB = new AxisAlignedBB(0.0, 0.0625, 0.0625, 0.25, 0.9375, 0.9375);
-    protected static final AxisAlignedBB LUXCAPACITOR_WEST_AABB = new AxisAlignedBB(0.75, 0.0625, 0.0625, 1.0, 0.9375, 0.9375);
-    protected static final AxisAlignedBB LUXCAPACITOR_SOUTH_AABB = new AxisAlignedBB(0.0625, 0.0625, 0.0, 0.9375, 0.9375, 0.25);
-    protected static final AxisAlignedBB LUXCAPACITOR_NORTH_AABB = new AxisAlignedBB(0.0625, 0.0625, 0.75, 0.9375, 0.9375, 1.0);
-    protected static final AxisAlignedBB LUXCAPACITOR_UP_AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.25, 0.9375);
-    protected static final AxisAlignedBB LUXCAPACITOR_DOWN_AABB = new AxisAlignedBB(0.0625, 0.75, 0.0625, 0.9375, 1.0, 0.9375);
+    protected static final AxisAlignedBB LUXCAPACITOR_EAST_AABB = new AxisAlignedBB(0.75, 0.0625, 0.0625, 1.0, 0.9375, 0.9375);
+    protected static final AxisAlignedBB LUXCAPACITOR_WEST_AABB = new AxisAlignedBB(0.0, 0.0625, 0.0625, 0.25, 0.9375, 0.9375);
+    protected static final AxisAlignedBB LUXCAPACITOR_SOUTH_AABB = new AxisAlignedBB(0.0625, 0.0625, 0.75, 0.9375, 0.9375, 1.0);
+    protected static final AxisAlignedBB LUXCAPACITOR_NORTH_AABB = new AxisAlignedBB(0.0625, 0.0625, 0.0, 0.9375, 0.9375, 0.25);
+    protected static final AxisAlignedBB LUXCAPACITOR_UP_AABB = new AxisAlignedBB(0.0625, 0.75, 0.0625, 0.9375, 1.0, 0.9375);
+    protected static final AxisAlignedBB LUXCAPACITOR_DOWN_AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.25, 0.9375);
+
     public static int assignedBlockID;
 
     public static final String name = "luxCapacitor";
 
     public BlockLuxCapacitor() {
         super(Material.CIRCUITS);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN));
         setCreativeTab(Config.getCreativeTab());
         setUnlocalizedName(ModularPowersuits.MODID + "." + name);
-        setRegistryName(new ResourceLocation(ModularPowersuits.MODID, name));
+        setRegistryName(ModularPowersuits.MODID, "tile."+ name);
         setHardness(0.05F);
         setResistance(10.0F);
         setSoundType(SoundType.METAL);
@@ -44,6 +47,28 @@ public class BlockLuxCapacitor extends BlockDirectional {
         setTickRandomly(false);
         setHarvestLevel("pickaxe", 0);
     }
+
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+    {
+        switch (state.getValue(FACING))
+        {
+            default:
+            case DOWN:
+                return LUXCAPACITOR_DOWN_AABB;
+            case UP:
+                return LUXCAPACITOR_UP_AABB;
+            case NORTH:
+                return LUXCAPACITOR_NORTH_AABB;
+            case SOUTH:
+                return LUXCAPACITOR_SOUTH_AABB;
+            case WEST:
+                return LUXCAPACITOR_WEST_AABB;
+            case EAST:
+                return LUXCAPACITOR_EAST_AABB;
+        }
+    }
+
 
     /**
      * Used to determine ambient occlusion and culling when rebuilding chunks for render
@@ -67,7 +92,7 @@ public class BlockLuxCapacitor extends BlockDirectional {
      */
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return this.getDefaultState().withProperty(FACING, BlockPistonBase.getFacingFromEntity(pos, placer));
+        return this.getDefaultState().withProperty(FACING, getFacingFromEntity(pos, placer).getOpposite());
     }
 
     /**
@@ -76,14 +101,25 @@ public class BlockLuxCapacitor extends BlockDirectional {
      */
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
     {
-        worldIn.setBlockState(pos, state.withProperty(FACING, BlockPistonBase.getFacingFromEntity(pos, placer)), 2);
+        worldIn.setBlockState(pos, state.withProperty(FACING, getFacingFromEntity(pos, placer).getOpposite()), 2);
 
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
         if (tileentity instanceof TileEntityLuxCapacitor)
         {
-            ((TileEntityLuxCapacitor)tileentity).setFacing(state.getValue(FACING).getOpposite());
+            ((TileEntityLuxCapacitor)tileentity).setFacing(state.getValue(FACING));
         }
+    }
+
+    public static EnumFacing getFacingFromEntity(BlockPos pos, EntityLivingBase entityIn) {
+        if (MathHelper.abs((float)entityIn.posX - (float)pos.getX()) < 2.0F && MathHelper.abs((float)entityIn.posZ - (float)pos.getZ()) < 2.0F) {
+            double d0 = entityIn.posY + (double)entityIn.getEyeHeight();
+            if (d0 - (double)pos.getY() > 2.0D) return EnumFacing.UP;
+
+            if ((double)pos.getY() - d0 > 0.0D)
+                return EnumFacing.DOWN;
+        }
+        return entityIn.getHorizontalFacing().getOpposite();
     }
 
     @Override

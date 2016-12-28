@@ -6,7 +6,9 @@ import net.machinemuse.numina.network.MusePacketModeChangeRequest;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.render.RenderGameOverlayEventHandler;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
+import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
 import net.machinemuse.powersuits.block.TileEntityTinkerTable;
+import net.machinemuse.powersuits.client.render.block.RenderLuxCapacitorTESR;
 import net.machinemuse.powersuits.client.render.block.TinkerTableRenderer;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererPlasmaBolt;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererSpinningBlade;
@@ -36,6 +38,7 @@ import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.animation.AnimationTESR;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.animation.Event;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -60,8 +63,11 @@ public class ClientProxy implements CommonProxy {
 
     @Override
     public void preInit() {
+        OBJLoader.INSTANCE.addDomain(ModularPowersuits.MODID.toLowerCase());
         registerEvents();
         registerRenderers();
+
+
 
         /*
         registerItemBlock(Blocks.ENDER_CHEST);
@@ -98,8 +104,7 @@ private static final Map<Block, Item> BLOCK_TO_ITEM = net.minecraftforge.fml.com
     public void init() {
         registerHandlers();
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinkerTable.class, new TinkerTableRenderer());
-
-
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLuxCapacitor.class, new RenderLuxCapacitorTESR());
 
 
 
@@ -126,12 +131,14 @@ private static final Map<Block, Item> BLOCK_TO_ITEM = net.minecraftforge.fml.com
 
 
         regRenderer(Item.getItemFromBlock(mpsItems.tinkerTable));
-
         GameRegistry.registerTileEntity(TileEntityTinkerTable.class, "TinkerTable");
-
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(mpsItems.tinkerTable), 0, TileEntityTinkerTable.class);
 //        ForgeHooksClient.registerTESRItemStack(mpsItems.powerTool, 0, TileEntityItemRenderer.class);
 
+
+        regRenderer(Item.getItemFromBlock(mpsItems.luxCapacitor));
+        GameRegistry.registerTileEntity(TileEntityLuxCapacitor.class, "LuxCapacitor");
+        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(mpsItems.luxCapacitor), 0, TileEntityLuxCapacitor.class);
 
 
         if (components != null) {
