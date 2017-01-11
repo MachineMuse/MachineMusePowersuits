@@ -17,6 +17,11 @@ public class JSONRecipe implements IRecipe {
 
     static final int MAX_WIDTH = 3;
     static final int MAX_HEIGHT = 3;
+//    private Object[] input = null;
+//
+//    public Object[] getInput(){
+//        return input;
+//    }
 
     @Override
     public boolean matches(InventoryCrafting inv, World world) {
@@ -96,6 +101,8 @@ public class JSONRecipe implements IRecipe {
 
     @Override
     public ItemStack getRecipeOutput() {
+        System.out.println("Doing something here");
+
         return result.getRecipeOutput();
     }
 

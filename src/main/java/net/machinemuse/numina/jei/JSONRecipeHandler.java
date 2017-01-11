@@ -2,6 +2,7 @@ package net.machinemuse.numina.jei;
 
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import net.machinemuse.numina.recipe.JSONRecipe;
 
 import javax.annotation.Nonnull;
@@ -19,13 +20,13 @@ public class JSONRecipeHandler implements IRecipeHandler<JSONRecipe> {
     @Nonnull
     @Override
     public String getRecipeCategoryUid() {
-        return "minecraft.crafting";
+        return VanillaRecipeCategoryUid.CRAFTING;
     }
 
     @Nonnull
     @Override
     public String getRecipeCategoryUid(@Nonnull JSONRecipe recipe) {
-        return "minecraft.crafting";
+        return VanillaRecipeCategoryUid.CRAFTING;
     }
 
     @Nonnull
@@ -40,7 +41,8 @@ public class JSONRecipeHandler implements IRecipeHandler<JSONRecipe> {
 //        if (recipe.getRecipeSize() < 2)
 //            return false;
 
-        return recipe.getRecipeOutput() != null;
+//        return recipe.getRecipeOutput() != null; // re enable after fixing
+        return true;
     }
 
 }

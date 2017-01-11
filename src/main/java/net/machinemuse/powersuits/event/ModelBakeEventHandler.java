@@ -41,7 +41,7 @@ public class ModelBakeEventHandler {
         event.getModelRegistry().putObject(powerFistIconLocation, powerFistModel);
 
         ModelLuxCapacitor luxCapacitorModel = new ModelLuxCapacitor(event.getModelRegistry().getObject(luxCapacitorLocation), 0);
-
+        event.getModelRegistry().putObject(luxCapacitorLocation, luxCapacitorModel);
 
 
     }

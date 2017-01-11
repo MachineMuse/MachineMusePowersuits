@@ -49,6 +49,9 @@ public class SimpleItemMaker implements IItemMaker {
         }
 
         if (itemStackName != null) {
+            System.out.println("ItemStack name is: " + itemStackName);
+
+
             try {
                 ItemStack stack = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(itemStackName)), newquantity);
                 if(this.meta != null) stack.setItemDamage(meta);
@@ -59,6 +62,9 @@ public class SimpleItemMaker implements IItemMaker {
                 return null;
             }
         } else if (registryName != null) {
+            System.out.println("registry name is: " + registryName);
+
+
             try {
                 ItemStack stack = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(itemStackName)), newquantity, newmeta);
                 if(nbt != null) stack.setTagCompound(nbt);
@@ -68,6 +74,8 @@ public class SimpleItemMaker implements IItemMaker {
                 return null;
             }
         } else if (oredictName != null) {
+            System.out.println("oredict name is: " + oredictName);
+
             try {
                 ItemStack stack = OreDictionary.getOres(oredictName).get(0).copy();
                 stack.stackSize = Math.min(newquantity, stack.getMaxStackSize());
@@ -78,6 +86,8 @@ public class SimpleItemMaker implements IItemMaker {
                 return null;
             }
         } else if (unlocalizedName != null) {
+            System.out.println("unlocalized name is: " + unlocalizedName);
+
             MuseLogger.logError("WARNING: unlocalizedName is deprecated; please use registryName or itemStackName instead!");
             try {
                 ItemStack stack = ItemNameMappings.getItem(unlocalizedName).copy();
@@ -91,9 +101,11 @@ public class SimpleItemMaker implements IItemMaker {
                 return null;
             }
         } else {
+            System.out.println("something failed so returning null");
             return null;
         }
     }
+
     @Override
     public boolean equals(Object obj) {
         if(! (obj instanceof SimpleItemMaker) ) return false;

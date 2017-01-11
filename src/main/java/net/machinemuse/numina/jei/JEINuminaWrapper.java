@@ -1,8 +1,10 @@
 package net.machinemuse.numina.jei;
 
+import com.google.common.collect.Lists;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import mezz.jei.api.recipe.wrapper.ICraftingRecipeWrapper;
+import mezz.jei.api.recipe.wrapper.IShapedCraftingRecipeWrapper;
 import net.machinemuse.numina.recipe.ItemNameMappings;
 import net.machinemuse.numina.recipe.JSONRecipe;
 import net.machinemuse.numina.recipe.SimpleItemMatcher;
@@ -13,6 +15,7 @@ import net.minecraft.nbt.NBTException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,37 +24,40 @@ import java.util.Map;
 /**
  * Created by leon on 3/31/16.
  */
-public class JEINuminaWrapper extends BlankRecipeWrapper implements ICraftingRecipeWrapper {
+public class JEINuminaWrapper extends BlankRecipeWrapper implements IShapedCraftingRecipeWrapper {
+    @Nonnull
     private final JSONRecipe recipe;
 
-    public JEINuminaWrapper(JSONRecipe recipe){
-        this.recipe = recipe;
-    }
+    public JEINuminaWrapper(@Nonnull JSONRecipe recipeIn) {
+        this.recipe = recipeIn;
 
-    public int getHeight() {
-        return recipe.ingredients.length;
-    }
+        for(Object input : recipe.ingredients) {
+            if(input instanceof ItemStack) {
+                ItemStack itemStack = (ItemStack)input;
+                System.out.println("stack size for " + itemStack.getDisplayName() + " is " + itemStack.stackSize);
 
-    public int getWidth() {
-        return recipe.getWidth();
+                if(itemStack.stackSize != 1)
+                {
+                    itemStack.stackSize = 1;
+                }
+            }
+        }
     }
 
     @Override
     public void getIngredients(IIngredients ingredients) {
+//        Object[] recipeInput = this.recipe.getInput();
+        List<List<ItemStack>> inputs = new ArrayList<>( recipe.ingredients.length );
 
-        System.out.println("ingredients: " + ingredients.toString());
-
-    }
-
-    @Override
-    public List getInputs() {
         int height = recipe.ingredients.length;
         int width = recipe.getWidth();
 
         if (height == 0 || width == 0)
-            return null;
+            return;
 
-        List ret = new ArrayList<>();
+//        List ret = new ArrayList<>();
+        System.out.println("=================================================================");
+        System.out.println("Recipe for " + this.recipe.result.getRecipeOutput().getUnlocalizedName());
         for (int y=0; y < height; y++) {
             if (recipe.ingredients[y] != null) {
                 for (int x=0; x < width; x++) {
@@ -59,21 +65,95 @@ public class JEINuminaWrapper extends BlankRecipeWrapper implements ICraftingRec
                     if(recipe.ingredients[y].length > x) {
                         item = getIngredient(recipe.ingredients[y][x]);
                     } else {
-                        item = null;
+//                        item = null;
+                        item = new ArrayList<>();
                     }
+
+                    if (item == null)
+                        System.out.println("cell " + x + ", " + y + " is NULL");
+                    else if (item.isEmpty())
+                        System.out.println("cell " + x + ", " + y + " is empty");
+                    else
+                        System.out.println("cell " + x + ", " + y + " is " +
+                                item.get(0).getDisplayName());
+
+
                     if (item != null && item.isEmpty())
-                        return null;
-                    ret.add(item);
+                        return;
+
+
+
+                    inputs.add(item);
                 }
             }
         }
-        return ret;
+
+
+
+//        for( Object inputObj : recipeInput ) {
+//            if( inputObj instanceof IIngredient ) {
+//                IIngredient ingredient = (IIngredient) inputObj;
+//                for (ItemStack stack : ingredient.getItems()) :
+
+
+
+//                try {
+//                    inputs.add( Lists.newArrayList( ingredient.getItems()));
+//                }
+//                catch( RegistrationError | MissingIngredientError registrationError ) {
+//                    throw new RuntimeException( "Unable to register recipe with JEI" );
+//                }
+//            }
+//        }
+
+        ingredients.setInputLists( ItemStack.class, inputs );
+        ingredients.setOutput( ItemStack.class, this.recipe.getRecipeOutput() );
+    }
+
+//    @Nonnull
+//    @Override
+//    public List<ItemStack> getOutputs()
+//    {
+//        return Collections.singletonList(recipe.getRecipeOutput());
+//    }
+
+    @Override
+    public int getWidth() {
+        return recipe.getWidth();
     }
 
     @Override
-    public List getOutputs() {
-        return Collections.singletonList(recipe.getRecipeOutput());
+    public int getHeight() {
+        return recipe.ingredients.length;
     }
+
+//    @Nonnull
+//    @Override
+//    public List getInputs() {
+//        int height = recipe.ingredients.length;
+//        int width = recipe.getWidth();
+//
+//        if (height == 0 || width == 0)
+//            return null;
+//
+//        List ret = new ArrayList<>();
+//        for (int y=0; y < height; y++) {
+//            if (recipe.ingredients[y] != null) {
+//                for (int x=0; x < width; x++) {
+//                    List<ItemStack> item;
+//                    if(recipe.ingredients[y].length > x) {
+//                        item = getIngredient(recipe.ingredients[y][x]);
+//                    } else {
+//                        item = null;
+//                    }
+//                    if (item != null && item.isEmpty())
+//                        return null;
+//                    ret.add(item);
+//                }
+//            }
+//        }
+//        return ret;
+//    }
 
     public static List<ItemStack> getIngredient(SimpleItemMatcher cell)
     {

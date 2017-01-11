@@ -126,20 +126,7 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
                 break;
 
 
-
-
-
-
-
-
-
             /* Everything else is GUI *------------------------------------------------------------ */
-
-
-
-
-
-
             default:
         /*
         USE ICON for these:
@@ -150,13 +137,8 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
         HEAD, wait, what?
         NONE, ?
          */
-
-
                 break;
         }
-
-
-
 
 
 
@@ -212,10 +194,6 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
         return new PowerFistItemOverrideList();
     }
 
-
-
-
-
     public class PowerFistItemOverrideList extends ItemOverrideList {
         public PowerFistItemOverrideList() {
             super(Collections.EMPTY_LIST);
@@ -228,64 +206,5 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
             }
             return originalModel;
         }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//========================================================================================================
-
-
-
-    Minecraft mc = Minecraft.getMinecraft();
-
-    public void renderFirstPersonArm(EntityPlayerSP entityclientplayermp, float sp, ItemCameraTransforms.TransformType transformType) {
-        entityclientplayermp.swingArm(EnumHand.MAIN_HAND);
-        entityclientplayermp.renderArmPitch =0;
-        entityclientplayermp.renderArmYaw = 0;
-
-        float changeItemProgress = 0;
-
-        GL11.glPushMatrix();
-        float f4 = 0.8F;
-        float swingProgress = entityclientplayermp.swingProgress;
-        float swingProgressx = MathHelper.sin(swingProgress * (float) Math.PI);
-        float swingProgressy = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI);
-        GL11.glTranslatef(-swingProgressy * 0.3F, MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI * 2.0F) * 0.4F, -swingProgressx * 0.4F);
-        GL11.glTranslatef(0.8F * f4, -0.75F * f4 - (1.0F - changeItemProgress) * 0.6F, -0.9F * f4);
-        GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
-        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        swingProgress = entityclientplayermp.swingProgress;
-        swingProgressx = MathHelper.sin(swingProgress * swingProgress * (float) Math.PI);
-        swingProgressy = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI);
-        GL11.glRotatef(swingProgressy * 70.0F, 0.0F, 1.0F, 0.0F);
-        GL11.glRotatef(-swingProgressx * 20.0F, 0.0F, 0.0F, 1.0F);
-//        GL11.glBindTexture(GL11.GL_TEXTURE_2D, mc.renderEngine.getTextureForDownloadableImage(mc.thePlayer.skinUrl, mc.thePlayer.getTexture()));
-//        mc.renderEngine.resetBoundTexture();
-        GL11.glTranslatef(-1.0F, 3.6F, 3.5F);
-        GL11.glRotatef(120.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glRotatef(200.0F, 1.0F, 0.0F, 0.0F);
-        GL11.glRotatef(-135.0F, 0.0F, 1.0F, 0.0F);
-        GL11.glScalef(1.0F, 1.0F, 1.0F);
-        GL11.glTranslatef(5.6F, 0.0F, 0.0F);
-        Render render = mc.getRenderManager().getEntityRenderObject(mc.thePlayer);
-        RenderPlayer renderplayer = (RenderPlayer) render;
-        if (transformType == ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND)
-            renderplayer.renderRightArm(entityclientplayermp);
-        else
-            renderplayer.renderLeftArm(entityclientplayermp);
-        GL11.glPopMatrix();
     }
 }

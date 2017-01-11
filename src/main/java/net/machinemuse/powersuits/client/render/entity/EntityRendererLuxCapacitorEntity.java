@@ -1,14 +1,21 @@
 package net.machinemuse.powersuits.client.render.entity;
 
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.entity.RenderManager;
 
 //import net.minecraftforge.client.model.AdvancedModelLoader;
 //import net.minecraftforge.client.model.obj.WavefrontObject;
 
 public class EntityRendererLuxCapacitorEntity extends MuseEntityRenderer <EntityLuxCapacitor> {
-    protected EntityRendererLuxCapacitorEntity(RenderManager renderManager) {
+    public EntityRendererLuxCapacitorEntity(RenderManager renderManager) {
         super(renderManager);
+    }
+
+    @Override
+    public void doRender(EntityLuxCapacitor entity, double x, double y, double z, float entityYaw, float partialTicks) {
+        super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
 

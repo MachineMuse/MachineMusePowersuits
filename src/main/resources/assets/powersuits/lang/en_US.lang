@@ -1,8 +1,8 @@
 Made by users: Andrew2448, MachineMuse
 Last edited on 6/25/13 12:18AM EST
 
-tile.powersuits.luxCapacitor.name=Lux Capacitor
-tile.powersuits.tinkerTable.name=Power Armor Tinker Table
+tile.luxCapacitor.name=Lux Capacitor
+tile.tinkerTable.name=Power Armor Tinker Table
 
 itemGroup.powersuits=Modular Powersuits
 

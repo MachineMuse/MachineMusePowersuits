@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 import javax.annotation.Nonnull;
+
 import java.io.File;
 
 import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
@@ -56,22 +57,9 @@ public final class ModularPowersuits {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        File newConfig = new File(event.getModConfigurationDirectory() + "/machinemuse/powersuits.cfg");
-        Config.init(new Configuration(newConfig));
-        Config.setConfigFolderBase(event.getModConfigurationDirectory());
-        MinecraftForge.EVENT_BUS.register(new HarvestEventHandler());
-        MinecraftForge.EVENT_BUS.register(new MovementManager());
-        proxy.preInit();
-
-
-
-//        proxy.registerEvents();
-
-
-
-//        MPSItems.getInstance().populateItems()
-//        MPSItems.getInstance().popuateComponents()
-//        proxy.registerRenderers();
+        proxy.preInit(event);
+        proxy.registerEvents();
+        proxy.registerRenderers();
     }
 
     @Mod.EventHandler
@@ -95,7 +83,8 @@ public final class ModularPowersuits {
         EntityRegistry.registerModEntity(EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, this, 64, 20, true);
         EntityRegistry.registerModEntity(EntitySpinningBlade.class, "entitySpinningBlade", 2478, this, 64, 20, true);
         EntityRegistry.registerModEntity(EntityLuxCapacitor.class, "entityLuxCapacitor", 2479, this, 64, 20, true);
-        proxy.init();
+        proxy.init(event);
+
 
 
 
@@ -108,12 +97,10 @@ public final class ModularPowersuits {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        proxy.postInit();
-        ModCompatibility.registerModSpecificModules();
+        proxy.postInit(event);
+
         Config.extractRecipes();
         Config.addCustomInstallCosts();
         Config.getConfig().save();
     }
-
-//    @Mod.EventHandler
 }

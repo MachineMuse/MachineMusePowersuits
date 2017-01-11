@@ -2,6 +2,7 @@ package net.machinemuse.numina.geometry;
 
 import org.lwjgl.opengl.GL11;
 
+import javax.vecmath.Vector4f;
 import java.awt.*;
 
 /**
@@ -139,5 +140,14 @@ public class Colour {
 
     public boolean equals(Colour o) {
         return r == o.r && g == o.g && b == o.b && a == o.a;
+    }
+
+    public Vector4f toVector4f(){
+        Vector4f colorVec = new Vector4f();
+        colorVec.w = (float) a;
+        colorVec.x = (float) r;
+        colorVec.y = (float) g;
+        colorVec.z = (float) b;
+        return colorVec;
     }
 }

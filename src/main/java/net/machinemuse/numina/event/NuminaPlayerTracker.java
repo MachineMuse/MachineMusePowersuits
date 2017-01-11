@@ -1,4 +1,4 @@
-package net.machinemuse.numina.basemod;
+package net.machinemuse.numina.event;
 
 import net.machinemuse.numina.network.MusePacketRecipeUpdate;
 import net.machinemuse.numina.network.PacketSender;

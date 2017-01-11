@@ -18,30 +18,23 @@ public class MPSItems {
     public static Item powerArmorLegs;
     public static Item powerArmorFeet;
     public static Item powerTool;
-
     public static Block tinkerTable;
     public static Block luxCapacitor;
-
     public static Item components;
 
-    private MPSItems() {
-        this.powerArmorHead = MPSRegistry.registerItem(new ItemPowerArmorHelmet(), "powerArmorHead", "powerArmorHelmet");
-        this.powerArmorTorso = MPSRegistry.registerItem(new ItemPowerArmorChestplate(), "powerArmorTorso", "powerArmorChestplate");
-        this.powerArmorLegs = MPSRegistry.registerItem(new ItemPowerArmorLeggings(), "powerArmorLegs", "powerArmorLeggings");
-        this.powerArmorFeet = MPSRegistry.registerItem(new ItemPowerArmorBoots(), "powerArmorFeet", "powerArmorBoots");
-        this.powerTool     =  MPSRegistry.registerItem(new ItemPowerFist(), "powerTool", "powerFist");
+    public static void populateItems() {
+        powerArmorHead = MPSRegistry.registerItem(new ItemPowerArmorHelmet(), "powerArmorHead", "powerArmorHelmet");
+        powerArmorTorso = MPSRegistry.registerItem(new ItemPowerArmorChestplate(), "powerArmorTorso", "powerArmorChestplate");
+        powerArmorLegs = MPSRegistry.registerItem(new ItemPowerArmorLeggings(), "powerArmorLegs", "powerArmorLeggings");
+        powerArmorFeet = MPSRegistry.registerItem(new ItemPowerArmorBoots(), "powerArmorFeet", "powerArmorBoots");
+        powerTool     =  MPSRegistry.registerItem(new ItemPowerFist(), "powerTool", "powerFist");
 
-        this.tinkerTable = MPSRegistry.registerBlock(new BlockTinkerTable());
-        this.luxCapacitor = MPSRegistry.registerBlock(new BlockLuxCapacitor());
-
-        this.components = MPSRegistry.registerItem(new ItemComponent(), "powerArmorComponent", "powerArmorComponent");
-        ((ItemComponent)components).populate();
+        tinkerTable = MPSRegistry.registerBlock(new BlockTinkerTable());
+        luxCapacitor = MPSRegistry.registerBlock(new BlockLuxCapacitor());
     }
 
-    private static MPSItems INSTANCE;
-    public static MPSItems getInstance() {
-        if (INSTANCE == null)
-            INSTANCE = new MPSItems();
-        return INSTANCE;
+    public static void populateComponents() {
+        components = MPSRegistry.registerItem(new ItemComponent(), "powerArmorComponent", "powerArmorComponent");
+        ((ItemComponent)components).populate();
     }
 }

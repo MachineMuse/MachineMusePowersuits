@@ -228,93 +228,104 @@ public class Config {
      */
     public static void loadPowerModules() {
         List<IModularItem> ARMORONLY = Arrays.asList(
-                (IModularItem)MPSItems.getInstance().powerArmorHead,
-                (IModularItem)MPSItems.getInstance().powerArmorTorso,
-                (IModularItem)MPSItems.getInstance().powerArmorLegs,
-                (IModularItem)MPSItems.getInstance().powerArmorFeet);
+                (IModularItem)MPSItems.powerArmorHead,
+                (IModularItem)MPSItems.powerArmorTorso,
+                (IModularItem)MPSItems.powerArmorLegs,
+                (IModularItem)MPSItems.powerArmorFeet);
 
         List<IModularItem> ALLITEMS = Arrays.asList(
-                (IModularItem)MPSItems.getInstance().powerArmorHead,
-                (IModularItem)MPSItems.getInstance().powerArmorTorso,
-                (IModularItem)MPSItems.getInstance().powerArmorLegs,
-                (IModularItem)MPSItems.getInstance().powerArmorFeet,
-                (IModularItem)MPSItems.getInstance().powerTool);
+                (IModularItem)MPSItems.powerArmorHead,
+                (IModularItem)MPSItems.powerArmorTorso,
+                (IModularItem)MPSItems.powerArmorLegs,
+                (IModularItem)MPSItems.powerArmorFeet,
+                (IModularItem)MPSItems.powerTool);
 
-        List<IModularItem> HEADONLY = Collections.singletonList((IModularItem)MPSItems.getInstance().powerArmorHead);
-        List<IModularItem> TORSOONLY = Collections.singletonList((IModularItem)MPSItems.getInstance().powerArmorTorso);
-        List<IModularItem> LEGSONLY = Collections.singletonList((IModularItem)MPSItems.getInstance().powerArmorLegs);
-        List<IModularItem> FEETONLY = Collections.singletonList((IModularItem)MPSItems.getInstance().powerArmorFeet);
-        List<IModularItem> TOOLONLY = Collections.singletonList((IModularItem)MPSItems.getInstance().powerTool);
+        List<IModularItem> HEADONLY = Collections.singletonList((IModularItem)MPSItems.powerArmorHead);
+        List<IModularItem> TORSOONLY = Collections.singletonList((IModularItem)MPSItems.powerArmorTorso);
+        List<IModularItem> LEGSONLY = Collections.singletonList((IModularItem)MPSItems.powerArmorLegs);
+        List<IModularItem> FEETONLY = Collections.singletonList((IModularItem)MPSItems.powerArmorFeet);
+        List<IModularItem> TOOLONLY = Collections.singletonList((IModularItem)MPSItems.powerTool);
 
         // FIXME: these need to be sorted
-
-
-
-
-
-
+        /* Armor -------------------------------- */
         addModule(new BasicPlatingModule(ARMORONLY));
         addModule(new DiamondPlatingModule(ARMORONLY));
         addModule(new EnergyShieldModule(ARMORONLY));
         addModule(new HeatSinkModule(ARMORONLY));
+        addModule(new CosmeticGlowModule(ARMORONLY));
+        addModule(new TransparentArmorModule(ARMORONLY));
+
+
+        /* Energy ------------------------------- */
+        addModule(new BasicBatteryModule(ALLITEMS));
+        addModule(new AdvancedBatteryModule(ALLITEMS));
+        addModule(new EliteBatteryModule(ALLITEMS));
+        addModule(new UltimateBatteryModule(ALLITEMS));
+
+
+        /* Power Fist --------------------------- */
         addModule(new AxeModule(TOOLONLY));
         addModule(new PickaxeModule(TOOLONLY));
+        addModule(new DiamondPickUpgradeModule(TOOLONLY));
         addModule(new ShovelModule(TOOLONLY));
         addModule(new ShearsModule(TOOLONLY));
         addModule(new HoeModule(TOOLONLY));
         addModule(new LuxCapacitor(TOOLONLY));
-        addModule(new UltimateBatteryModule(ALLITEMS));
-
-
-//        addModule(new OmniWrenchModule(TOOLONLY)) // Requires COFH lib/core
         addModule(new FieldTinkerModule(TOOLONLY));
         addModule(new MeleeAssistModule(TOOLONLY));
         addModule(new PlasmaCannonModule(TOOLONLY));
         addModule(new RailgunModule(TOOLONLY));
         addModule(new BladeLauncherModule(TOOLONLY));
-        addModule(new BasicBatteryModule(ALLITEMS));
-        addModule(new AdvancedBatteryModule(ALLITEMS));
-        addModule(new EliteBatteryModule(ALLITEMS));
-        addModule(new ParachuteModule(TORSOONLY));
-        addModule(new GliderModule(TORSOONLY));
-        addModule(new JetPackModule(TORSOONLY));
-        addModule(new SprintAssistModule(LEGSONLY));
-        addModule(new JumpAssistModule(LEGSONLY));
-        addModule(new SwimAssistModule(LEGSONLY));
-//        addModule(new ClimbAssistModule(LEGSONLY)); // OBSOLETE due to changes in Minecraft
-        addModule(new JetBootsModule(FEETONLY));
-        addModule(new ShockAbsorberModule(FEETONLY));
+        addModule(new BlinkDriveModule(TOOLONLY));
+        addModule(new AquaAffinityModule(TOOLONLY));
+        addModule(new TintModule(TOOLONLY));
+        addModule(new InPlaceAssemblerModule(TOOLONLY));
+        addModule(new OreScannerModule(TOOLONLY));
+        addModule(new LeafBlowerModule(TOOLONLY));
+        addModule(new FlintAndSteelModule(TOOLONLY));
+        addModule(new LightningModule(TOOLONLY));
+        addModule(new DimensionalRiftModule(TOOLONLY));
+        //        addModule(new OmniWrenchModule(TOOLONLY)) // Requires COFH lib/core
+
+
+        /* Helmet ------------------------------- */
         addModule(new WaterElectrolyzerModule(HEADONLY));
         addModule(new NightVisionModule(HEADONLY));
         addModule(new BinocularsModule(HEADONLY));
         addModule(new FlightControlModule(HEADONLY));
-        addModule(new InvisibilityModule(TORSOONLY));
-        addModule(new BlinkDriveModule(TOOLONLY));
-        addModule(new DiamondPickUpgradeModule(TOOLONLY));
-        addModule(new AquaAffinityModule(TOOLONLY));
-        addModule(new CoolingSystemModule(TORSOONLY));
-        addModule(new TintModule(TOOLONLY));
-        addModule(new TransparentArmorModule(ARMORONLY));
-        addModule(new CosmeticGlowModule(ARMORONLY));
-        addModule(new InPlaceAssemblerModule(TOOLONLY));
-        addModule(new KineticGeneratorModule(LEGSONLY));
         addModule(new SolarGeneratorModule(HEADONLY));
         addModule(new AutoFeederModule(HEADONLY));
-        addModule(new MagnetModule(TORSOONLY));
-        addModule(new OreScannerModule(TOOLONLY));
-        addModule(new LeafBlowerModule(TOOLONLY));
-        addModule(new ThermalGeneratorModule(TORSOONLY));
-        addModule(new MobRepulsorModule(TORSOONLY));
-        addModule(new FlintAndSteelModule(TOOLONLY));
         addModule(new ClockModule(HEADONLY));
         addModule(new CompassModule(HEADONLY));
-        addModule(new LightningModule(TOOLONLY));
-        addModule(new WaterTankModule(TORSOONLY));
-        addModule(new DimensionalRiftModule(TOOLONLY));
         addModule(new AdvancedSolarGenerator(HEADONLY));
+
+
+        /* Chestplate --------------------------- */
+        addModule(new ParachuteModule(TORSOONLY));
+        addModule(new GliderModule(TORSOONLY));
+        addModule(new JetPackModule(TORSOONLY));
+        addModule(new InvisibilityModule(TORSOONLY));
+        addModule(new CoolingSystemModule(TORSOONLY));
+        addModule(new MagnetModule(TORSOONLY));
+        addModule(new ThermalGeneratorModule(TORSOONLY));
+        addModule(new MobRepulsorModule(TORSOONLY));
+        addModule(new WaterTankModule(TORSOONLY));
         addModule(new NitrogenCoolingSystem(TORSOONLY));
         addModule(new MechanicalAssistance(TORSOONLY));
-//        //addModule(new CoalGenerator(TORSOONLY)); //doesn't seem to be working
+        //addModule(new CoalGenerator(TORSOONLY)); //doesn't seem to be working
+
+
+        /* Legs --------------------------------- */
+        addModule(new SprintAssistModule(LEGSONLY));
+        addModule(new JumpAssistModule(LEGSONLY));
+        addModule(new SwimAssistModule(LEGSONLY));
+        addModule(new KineticGeneratorModule(LEGSONLY));
+//        addModule(new ClimbAssistModule(LEGSONLY)); // OBSOLETE due to changes in Minecraft
+
+
+        /* Feet --------------------------------- */
+        addModule(new JetBootsModule(FEETONLY));
+        addModule(new ShockAbsorberModule(FEETONLY));
     }
 
     public static Configuration getConfig() {

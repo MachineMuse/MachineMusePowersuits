@@ -8,6 +8,8 @@ public class RenderLuxCapacitorTESR extends TileEntitySpecialRenderer<TileEntity
     @Override
     public void renderTileEntityAt(TileEntityLuxCapacitor te, double x, double y, double z, float partialTicks, int destroyStage) {
         super.renderTileEntityAt(te, x, y, z, partialTicks, destroyStage);
+
+//        System.out.println("trying to render something");
     }
 
 

@@ -6,22 +6,24 @@ import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.mouse.MouseEventHandler;
 import net.machinemuse.numina.render.RenderGameOverlayEventHandler;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 /**
+ * Author: MachineMuse (Claire Semple)
+ * Created: 11:57 AM, 9/3/13
+ *
  * Ported to Java by lehjr on 10/26/16.
  */
-public class NuminaProxyClient implements NuminaProxy
-{
+public class ClientProxy extends CommonProxy {
     @Override
-    public void PreInit() {
+    public void PreInit(FMLPreInitializationEvent event) {
+
     }
 
     @Override
-    public void PostInit() {
-    }
-
-    @Override
-    public void Init() {
+    public void Init(FMLInitializationEvent event) {
         MuseLogger.logDebug("Client Proxy Started");
         MinecraftForge.EVENT_BUS.register((Object)new MouseEventHandler());
         MinecraftForge.EVENT_BUS.register((Object)new RenderGameOverlayEventHandler());
@@ -29,6 +31,8 @@ public class NuminaProxyClient implements NuminaProxy
         MinecraftForge.EVENT_BUS.register((Object)new KeybindKeyHandler());
     }
 
-    public NuminaProxyClient() {
+    @Override
+    public void PostInit(FMLPostInitializationEvent event) {
+
     }
 }

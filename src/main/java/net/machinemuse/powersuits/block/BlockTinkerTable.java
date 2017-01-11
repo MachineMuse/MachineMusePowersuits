@@ -45,7 +45,7 @@ public class BlockTinkerTable extends Block {
         this.setLightOpacity(0);
         this.setLightLevel(0.4f);
         this.setTickRandomly(false);
-        setUnlocalizedName(ModularPowersuits.MODID + "." + name);
+        setUnlocalizedName(name);
         setRegistryName(ModularPowersuits.MODID, "tile."+ name);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
     }

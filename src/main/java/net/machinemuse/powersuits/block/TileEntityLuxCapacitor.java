@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.block;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.tileentity.MuseTileEntity;
+import net.machinemuse.powersuits.client.render.model.UnlistedPropertyColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 
@@ -45,5 +46,9 @@ public class TileEntityLuxCapacitor extends MuseTileEntity {
 
     public void setFacing(EnumFacing side) {
         this.side = side;
+    }
+
+    public Colour getColour(){
+        return colour;
     }
 }

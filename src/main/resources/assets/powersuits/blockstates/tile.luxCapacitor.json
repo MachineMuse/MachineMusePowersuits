@@ -3,7 +3,7 @@
   "defaults": {
     "custom": { "flip-v": true },
     "textures": {},
-    "model": "powersuits:luxCapacitor/lightBase.obj"
+    "model": "powersuits:luxCapacitor/luxCapacitor.obj"
   },
   "variants": {
     "normal": [{}],
@@ -15,7 +15,7 @@
           "rotation": [{"x": 75}, {"y": 45}]
         },
         "thirdperson_lefthand": {
-          "scale" : 0.025,
+          "scale" : 0.0234375,
           "rotation": [{"x": 75}, {"y": 45}]
         },
         "firstperson_righthand": {
@@ -44,7 +44,7 @@
           "translation": [0.0, -0.40, 0.0],
           "scale" : 0.0625
         },
-        "model": "powersuits:luxCapacitor/lightBase.obj"
+        "model": "powersuits:luxCapacitor/luxCapacitor.obj"
       },
       "up": {
         "transform": {
@@ -52,7 +52,7 @@
           "rotation": {"x": 180},
           "scale" : 0.0625
         },
-        "model": "powersuits:luxCapacitor/lightBase.obj"
+        "model": "powersuits:luxCapacitor/luxCapacitor.obj"
       },
       "north": {
         "transform": {
@@ -60,7 +60,7 @@
           "rotation": {"x": 90},
           "scale": 0.0625
         },
-        "model": "powersuits:luxCapacitor/lightBase.obj"
+        "model": "powersuits:luxCapacitor/luxCapacitor.obj"
       },
       "south": {
         "transform": {
@@ -68,7 +68,7 @@
           "rotation": {"x": 270},
           "scale": 0.0625
         },
-        "model": "powersuits:luxCapacitor/lightBase.obj"
+        "model": "powersuits:luxCapacitor/luxCapacitor.obj"
       },
       "west": {
         "transform": {
@@ -76,7 +76,7 @@
           "rotation": {"z": 270},
           "scale" : 0.0625
         },
-        "model": "powersuits:luxCapacitor/lightBase.obj"
+        "model": "powersuits:luxCapacitor/luxCapacitor.obj"
       },
       "east": {
         "transform": {
@@ -84,7 +84,7 @@
           "rotation": {"z": 90},
           "scale" : 0.0625
         },
-        "model": "powersuits:luxCapacitor/lightBase.obj"
+        "model": "powersuits:luxCapacitor/luxCapacitor.obj"
       }
     }
   }

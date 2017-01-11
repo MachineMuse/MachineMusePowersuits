@@ -1,9 +1,12 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
+import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
@@ -57,20 +60,21 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
 
     @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-//        player.setItemInUse(itemStack, 10);
-//        if (!world.isRemote) {
-//            double energyConsumption = ModuleManager.computeModularProperty(itemStack, ENERGY);
-//            // MuseHeatUtils.heatPlayer(player, energyConsumption / 500);
-//            if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
-//                ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
-//
-//                double red = ModuleManager.computeModularProperty(itemStack, RED);
-//                double green = ModuleManager.computeModularProperty(itemStack, GREEN);
-//                double blue = ModuleManager.computeModularProperty(itemStack, BLUE);
-//                EntityLuxCapacitor luxCapacitor = new EntityLuxCapacitor(world, player, red, green, blue);
-//                world.spawnEntityInWorld(luxCapacitor);
-//            }
-//        }
+        playerIn.setActiveHand(hand);
+        if (!worldIn.isRemote) {
+            double energyConsumption = ModuleManager.computeModularProperty(itemStackIn, ENERGY);
+            // MuseHeatUtils.heatPlayer(player, energyConsumption / 500);
+            if (ElectricItemUtils.getPlayerEnergy(playerIn) > energyConsumption) {
+                ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
+
+                double red = ModuleManager.computeModularProperty(itemStackIn, RED);
+                double green = ModuleManager.computeModularProperty(itemStackIn, GREEN);
+                double blue = ModuleManager.computeModularProperty(itemStackIn, BLUE);
+                EntityLuxCapacitor luxCapacitor = new EntityLuxCapacitor(worldIn, playerIn, red, green, blue);
+                worldIn.spawnEntityInWorld(luxCapacitor);
+            }
+            return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
+        }
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
 

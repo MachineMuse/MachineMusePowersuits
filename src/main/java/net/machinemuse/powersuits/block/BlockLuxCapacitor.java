@@ -1,12 +1,15 @@
 package net.machinemuse.powersuits.block;
 
 
+import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.powersuits.client.render.model.UnlistedPropertyColor;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,6 +21,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.common.property.Properties;
 
 import java.util.Random;
 
@@ -29,7 +36,9 @@ public class BlockLuxCapacitor extends BlockDirectional {
     protected static final AxisAlignedBB LUXCAPACITOR_UP_AABB = new AxisAlignedBB(0.0625, 0.75, 0.0625, 0.9375, 1.0, 0.9375);
     protected static final AxisAlignedBB LUXCAPACITOR_DOWN_AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.25, 0.9375);
 
-    public static int assignedBlockID;
+    public static UnlistedPropertyColor COLOR = new UnlistedPropertyColor();
+
+//    public static final IUnlistedProperty<Integer> JAI = new IUnlistedProperty<Integer>();
 
     public static final String name = "luxCapacitor";
 
@@ -37,8 +46,8 @@ public class BlockLuxCapacitor extends BlockDirectional {
         super(Material.CIRCUITS);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN));
         setCreativeTab(Config.getCreativeTab());
-        setUnlocalizedName(ModularPowersuits.MODID + "." + name);
-        setRegistryName(ModularPowersuits.MODID, "tile."+ name);
+        setUnlocalizedName(name);
+        setRegistryName(ModularPowersuits.MODID, "tile." + name);
         setHardness(0.05F);
         setResistance(10.0F);
         setSoundType(SoundType.METAL);
@@ -68,7 +77,6 @@ public class BlockLuxCapacitor extends BlockDirectional {
                 return LUXCAPACITOR_EAST_AABB;
         }
     }
-
 
     /**
      * Used to determine ambient occlusion and culling when rebuilding chunks for render
@@ -166,7 +174,28 @@ public class BlockLuxCapacitor extends BlockDirectional {
     @Override
     public BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, FACING);
+//        return new BlockStateContainer(this, FACING);
+        return new ExtendedBlockState(this, new IProperty[] { FACING  }, new IUnlistedProperty[]{ COLOR });
+
+    }
+
+    @Override
+    public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+        IExtendedBlockState extendedBlockState = (IExtendedBlockState) state;
+        System.out.println("actually checking for extended state");
+
+        TileEntity te = world.getTileEntity(pos);
+
+        if (te != null)
+            System.out.println("color is " + ((TileEntityLuxCapacitor)te).getColour().hexColour());
+        else
+            System.out.println("tile entity is null");
+
+
+//        if (te instanceof TileEntityLuxCapacitor && state instanceof IExtendedBlockState) {
+            return ((IExtendedBlockState)state).withProperty(COLOR, ((TileEntityLuxCapacitor)te).getColour());
+//        }
+//        return state;
     }
 
     @Override

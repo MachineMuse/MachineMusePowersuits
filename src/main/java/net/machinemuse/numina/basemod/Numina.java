@@ -1,6 +1,6 @@
 package net.machinemuse.numina.basemod;
 
-import net.machinemuse.numina.network.NuminaPackets;
+import net.machinemuse.numina.event.NuminaPlayerTracker;
 import net.machinemuse.numina.recipe.JSONRecipeList;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -22,8 +22,8 @@ import java.io.File;
 @Mod(modid = "numina")
 public class Numina {
 
-    @SidedProxy(clientSide = "net.machinemuse.numina.basemod.NuminaProxyClient", serverSide = "net.machinemuse.numina.basemod.NuminaProxyServer")
-    static NuminaProxy proxy = null;
+    @SidedProxy(clientSide = "net.machinemuse.numina.basemod.ClientProxy", serverSide = "net.machinemuse.numina.basemod.ServerProxy")
+    static CommonProxy proxy = null;
     public static File configDir = null;
 
     @Nonnull
@@ -47,18 +47,17 @@ public class Numina {
         //MinecraftForge.EVENT_BUS.register(PlayerTickHandler)
         //    MinecraftForge.EVENT_BUS.register(DeathEventHandler)
         //    NetworkRegistry.instance.registerGuiHandler(Numina, NuminaGuiHandler)
-        proxy.PreInit();
+        proxy.PreInit(e);
     }
 
     @Mod.EventHandler
     private void init(FMLInitializationEvent e) {
-        proxy.Init();
-        NuminaPackets.init();
+        proxy.Init(e);
     }
 
     @Mod.EventHandler
     private void postinit(FMLPostInitializationEvent e) {
-        proxy.PostInit();
+        proxy.PostInit(e);
     }
 
     @Mod.EventHandler private void serverstart(FMLServerStartedEvent e) {

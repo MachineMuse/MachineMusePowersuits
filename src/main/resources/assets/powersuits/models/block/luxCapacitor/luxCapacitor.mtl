@@ -1,0 +1,12 @@
+# Blender MTL File: 'None'
+# Material Count: 2
+
+newmtl LensMaterial
+Kd 0.588000 0.588000 0.588000
+d 1.000000
+map_Kd powersuits:blocks/LuxCap
+
+newmtl BaseMaterial
+Kd 0.640000 0.640000 0.640000
+d 1.000000
+map_Kd powersuits:blocks/LuxCap
