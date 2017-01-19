@@ -1,9 +1,18 @@
 package net.machinemuse.powersuits.client.render.entity;
 
+import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.client.model.obj.OBJModel;
+import org.lwjgl.opengl.GL11;
 
 //import net.minecraftforge.client.model.AdvancedModelLoader;
 //import net.minecraftforge.client.model.obj.WavefrontObject;
@@ -13,9 +22,38 @@ public class EntityRendererLuxCapacitorEntity extends MuseEntityRenderer <Entity
         super(renderManager);
     }
 
+//    IBakedModel luxCapModel =
+
     @Override
     public void doRender(EntityLuxCapacitor entity, double x, double y, double z, float entityYaw, float partialTicks) {
-        super.doRender(entity, x, y, z, entityYaw, partialTicks);
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(x, y, z);
+
+        Tessellator tessellator = Tessellator.getInstance();
+        tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+
+        // FIXME:
+
+//        Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().
+//                renderModel(entity.worldObj,
+//                        MPSModels.luxCapacitormodel(entity.color, EnumFacing.UP),
+//                        BlockLuxCapacitor.getDefaultState(),
+//                        new BlockPos(x, y, z),
+//                        Tessellator.getInstance().getBuffer(),
+//                        true);
+        tessellator.draw();
+        RenderHelper.enableStandardItemLighting();
+        GlStateManager.popMatrix();
+
+
+
+
+
+
+
+        System.out.println("trying to render something here");
+
+//        super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
 

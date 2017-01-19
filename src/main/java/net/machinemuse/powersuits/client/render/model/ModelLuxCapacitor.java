@@ -50,8 +50,8 @@ public class ModelLuxCapacitor implements IBakedModel, IPerspectiveAwareModel {
         IBakedModel colouredModel = modelCache.get(colour);
         if (colouredModel == null) {
             OBJModel.OBJBakedModel bakedOBJ = (OBJModel.OBJBakedModel) baseModel;
-            bakedOBJ.getModel().getMatLib().getMaterial("LensMaterial").setColor(colour.toVector4f());
-            bakedOBJ.scheduleRebake();
+//            bakedOBJ.getModel().getMatLib().getMaterial("LensMaterial").setColor(colour.toVector4f());
+//            bakedOBJ.scheduleRebake();
             colouredModel = bakedOBJ;
             modelCache.put(colour, colouredModel);
         }
@@ -137,6 +137,11 @@ public class ModelLuxCapacitor implements IBakedModel, IPerspectiveAwareModel {
         }
 
         Colour colour =  ((IExtendedBlockState)state).getValue(BlockLuxCapacitor.COLOR);
+
+        System.out.println("Color is: " + colour.hexColour());
+
+
+
         return getColoredModel(colour).getQuads(state, side, rand);
 
 

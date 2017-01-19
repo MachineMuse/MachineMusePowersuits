@@ -39,11 +39,29 @@ public abstract class CommonProxy {
     }
 
     public void init(FMLInitializationEvent event) {
+        Config.loadPowerModules();
+        Config.getMaximumArmorPerPiece();
+        Config.getMaximumFlyingSpeedmps();
+        Config.useMouseWheel();
+        Config.useGraphicalMeters();
+        Config.getSalvageChance();
+        Config.baseMaxHeat();
+        Config.allowConflictingKeybinds();
+        Config.fontAntiAliasing();
+        Config.useCustomFonts();
+        Config.glowMultiplier();
+        Config.useShaders();
+        Config.getWeightCapacity();
+        Config.keybindHUDon();
+        Config.keybindHUDx();
+        Config.toggleModuleSpam();
 
     }
 
     public void postInit(FMLPostInitializationEvent event) {
-
+        Config.extractRecipes();
+        Config.addCustomInstallCosts();
+        Config.getConfig().save();
     }
 
     public void registerHandlers(){

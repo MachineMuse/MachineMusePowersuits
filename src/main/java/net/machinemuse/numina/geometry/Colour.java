@@ -43,6 +43,16 @@ public class Colour {
     }
 
     /**
+     * Constructor. Just sets the RGBA values to the parameters.
+     */
+    public Colour(double r, double g, double b) {
+        this.r = r;
+        this.g = g;
+        this.b = b;
+        this.a = 1.0;
+    }
+
+    /**
      * Secondary constructor. Sets RGB accordingly and sets alpha to 1.0F (full
      * opacity)
      */

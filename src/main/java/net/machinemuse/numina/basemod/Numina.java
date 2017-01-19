@@ -60,6 +60,7 @@ public class Numina {
         proxy.PostInit(e);
     }
 
+    /* this runs when a client loads a world in single player, or when a dedicated server loads */
     @Mod.EventHandler private void serverstart(FMLServerStartedEvent e) {
         JSONRecipeList.loadRecipesFromDir(Numina.configDir.toString() + "/machinemuse/recipes/");
         MinecraftForge.EVENT_BUS.register(new NuminaPlayerTracker());

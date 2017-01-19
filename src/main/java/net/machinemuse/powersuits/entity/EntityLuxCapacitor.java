@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.entity;
 
+import io.netty.buffer.ByteBuf;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
@@ -12,19 +13,22 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
+import static net.machinemuse.powersuits.block.BlockLuxCapacitor.COLOR;
 import static net.minecraft.block.BlockDirectional.FACING;
 
-public class EntityLuxCapacitor extends EntityThrowable {
+public class EntityLuxCapacitor extends EntityThrowable implements IEntityAdditionalSpawnData {
     public Colour color;
 
     public EntityLuxCapacitor(World par1World) {
         super(par1World);
     }
 
-    public EntityLuxCapacitor(World world, EntityLivingBase shootingEntity, double red, double green, double blue) {
+    public EntityLuxCapacitor(World world, EntityLivingBase shootingEntity, Colour color) {
         this(world, shootingEntity);
-        this.color = new Colour((float)red, (float)green, (float)blue);
+        this.color = color;
     }
 
     public EntityLuxCapacitor(World par1World, EntityLivingBase shootingEntity) {
@@ -77,8 +81,9 @@ public class EntityLuxCapacitor extends EntityThrowable {
                     Block blockToStickTo = worldObj.getBlockState(new BlockPos(hitResult.getBlockPos().getX(),
                             hitResult.getBlockPos().getY(), hitResult.getBlockPos().getZ())).getBlock();
                     if (blockToStickTo.isNormalCube(worldObj.getBlockState(blockPos), worldObj, blockPos)) {
-                        worldObj.setBlockState(blockPos, new BlockLuxCapacitor().getDefaultState().withProperty(FACING, dir.getOpposite()));
+                        worldObj.setBlockState(blockPos, ((IExtendedBlockState)new BlockLuxCapacitor().getDefaultState()).withProperty(COLOR, color));
                         worldObj.setTileEntity(blockPos, new TileEntityLuxCapacitor(dir, color));
+
                     } else {
                         for (EnumFacing d : EnumFacing.VALUES) {
                             int xo = x + d.getFrontOffsetX();
@@ -87,18 +92,26 @@ public class EntityLuxCapacitor extends EntityThrowable {
                             BlockPos blockPos2 = new BlockPos(xo, yo, zo);
                             blockToStickTo = worldObj.getBlockState( new BlockPos(xo, yo, zo)).getBlock();
                             if (blockToStickTo.isNormalCube(worldObj.getBlockState(blockPos2), worldObj, blockPos)) {
-                                if (blockToStickTo.isNormalCube(worldObj.getBlockState(blockPos), worldObj, blockPos)) {
-                                    worldObj.setBlockState(blockPos, new BlockLuxCapacitor().getDefaultState().withProperty(FACING, d.getOpposite()));
-                                    worldObj.setTileEntity(blockPos, new TileEntityLuxCapacitor(d, color));
-                                    break;
-                                }
+                                worldObj.setBlockState(blockPos, ((IExtendedBlockState)new BlockLuxCapacitor().getDefaultState()).withProperty(COLOR, color));
+                                worldObj.setTileEntity(blockPos, new TileEntityLuxCapacitor(d, color));
+                                break;
                             }
-
                         }
                     }
                 }
                 this.setDead();
             }
         }
+    }
+
+    /* using these to sync color between client and server, since without this, color isn't initialized */
+    @Override
+    public void writeSpawnData(ByteBuf buffer) {
+        buffer.writeInt(color.getInt());
+    }
+
+    @Override
+    public void readSpawnData(ByteBuf additionalData) {
+        this.color = new Colour(additionalData.readInt());
     }
 }

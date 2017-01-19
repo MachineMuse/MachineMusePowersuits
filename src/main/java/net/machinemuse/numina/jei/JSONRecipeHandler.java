@@ -38,9 +38,6 @@ public class JSONRecipeHandler implements IRecipeHandler<JSONRecipe> {
     @Override
     public boolean isRecipeValid(@Nonnull JSONRecipe recipe) {
         //todo: actual real recipe validation
-//        if (recipe.getRecipeSize() < 2)
-//            return false;
-
 //        return recipe.getRecipeOutput() != null; // re enable after fixing
         return true;
     }

@@ -1,8 +1,12 @@
 package net.machinemuse.powersuits.client.render.model;
 
 import com.google.common.collect.ImmutableMap;
+import net.machinemuse.powersuits.common.ModularPowersuits;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelRotation;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
@@ -13,6 +17,7 @@ import net.minecraftforge.common.property.IExtendedBlockState;
 
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
+import javax.vecmath.Vector4f;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +29,9 @@ public class ModelLuxCapLens {
     private Map<EnumFacing, BakedQuad> lenseModelMap = new HashMap<>();
     private Map<EnumFacing, BakedQuad> baseModelMap = new HashMap<>();
     private Map<Integer, Map<EnumFacing, BakedQuad>> completeModels = new HashMap<>();
+    private final String materialName = "LensMaterial";
+    private static ResourceLocation modelLocation = new ResourceLocation(ModularPowersuits.MODID.toLowerCase(), "models/block/lightCore.obj");
+
 
     private static ModelLuxCapLens ourInstance = new ModelLuxCapLens();
 
@@ -54,7 +62,49 @@ public class ModelLuxCapLens {
         return imodel;
     }
 
+    /**
+     * We need our own because the default set is based on the default=facing north
+     * Our model is default facing down
+     */
+    public TRSRTransformation getTransform(EnumFacing side) {
+        Matrix4f matrix;
 
+        switch(side.getOpposite()) {
+            case DOWN:
+                matrix = TRSRTransformation.identity().getMatrix();
+                matrix.setTranslation(new Vector3f(0.0f, -0.40f, 0.0f));
+                matrix.setScale(0.0625f);
+                break;
+            case UP:
+                matrix = ModelRotation.X180_Y0.getMatrix();
+                matrix.setTranslation(new Vector3f(0.0f, 0.40f, 0.0f));
+                matrix.setScale(0.0625f);
+                break;
+            case NORTH:
+                matrix = ModelRotation.X90_Y0.getMatrix();
+                matrix.setTranslation(new Vector3f(0.0f, 0.0f, -0.4f));
+                matrix.setScale(0.0625f);
+                break;
+            case SOUTH:
+                matrix = ModelRotation.X270_Y0.getMatrix();
+                matrix.setTranslation(new Vector3f(0.0f, 0.0f, 0.4f));
+                matrix.setScale(0.0625f);
+                break;
+            case WEST:
+                matrix = ModelRotation.X90_Y270.getMatrix();
+                matrix.setTranslation(new Vector3f(-0.4f, 0.0f, -0.0f));
+                matrix.setScale(0.0625f);
+                break;
+            case EAST:
+                matrix = ModelRotation.X90_Y90.getMatrix();
+
+                matrix.setScale(0.0625f);
+                break;
+            default:
+                matrix = new Matrix4f();
+        }
+        return new TRSRTransformation(matrix);
+    }
 
 
 /*
@@ -105,47 +155,19 @@ public static TRSRTransformation blockCenterToCorner(TRSRTransformation transfor
 
 
 
-    /**
-     * We need our own because the default set is based on the default=facing north
-     * Our model is default facing up
-     */
-    public TRSRTransformation getTransform(EnumFacing side) {
-        Matrix4f matrix;
 
-        switch(side.getOpposite()) {
-            case DOWN:
-                matrix = TRSRTransformation.identity().getMatrix();
-                matrix.setTranslation(new Vector3f(0.0f, -0.40f, 0.0f));
-                matrix.setScale(0.0625f);
-                break;
-            case UP:
-                matrix = ModelRotation.X180_Y0.getMatrix();
-                matrix.setTranslation(new Vector3f(0.0f, 0.40f, 0.0f));
-                matrix.setScale(0.0625f);
-                break;
-            case NORTH:
-                matrix = ModelRotation.X90_Y0.getMatrix();
-                matrix.setTranslation(new Vector3f(0.0f, 0.0f, -0.4f));
-                matrix.setScale(0.0625f);
-                break;
-            case SOUTH:
-                matrix = ModelRotation.X270_Y0.getMatrix();
-                matrix.setTranslation(new Vector3f(0.0f, 0.0f, 0.4f));
-                matrix.setScale(0.0625f);
-                break;
-            case WEST:
-                matrix = ModelRotation.X90_Y270.getMatrix();
-                matrix.setTranslation(new Vector3f(-0.4f, 0.0f, -0.0f));
-                matrix.setScale(0.0625f);
-                break;
-            case EAST:
-                matrix = ModelRotation.X90_Y90.getMatrix();
 
-                matrix.setScale(0.0625f);
-                break;
-            default:
-                matrix = new Matrix4f();
-        }
-        return new TRSRTransformation(matrix);
+    private IBakedModel bakedLuxCapModel(TRSRTransformation transformation, EnumFacing facing, Vector4f colorVec) {
+        OBJModel model = getOBJModel(modelLocation);
+
+        if (model.getMatLib().getMaterialNames().contains(materialName))
+            model.getMatLib().getMaterial(materialName).setColor(colorVec);
+        else
+            System.out.println("Material for LuxCapacitor Lens not found: " + materialName);
+
+        IBakedModel bakedModel = model.bake(transformation, DefaultVertexFormats.ITEM,
+                location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString()));
+        return bakedModel;
     }
+
 }

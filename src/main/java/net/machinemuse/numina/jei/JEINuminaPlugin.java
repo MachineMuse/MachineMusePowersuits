@@ -16,7 +16,7 @@ public class JEINuminaPlugin implements IModPlugin {
 
     @Override
     public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry) {
-
+        // No subtypes to add
     }
 
     @Override
@@ -31,7 +31,6 @@ public class JEINuminaPlugin implements IModPlugin {
      */
     @Override
     public void register(IModRegistry registry) {
-//        IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
         registry.addRecipeHandlers(new JSONRecipeHandler());
     }
 

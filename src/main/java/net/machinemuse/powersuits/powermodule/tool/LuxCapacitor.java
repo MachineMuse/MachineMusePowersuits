@@ -4,10 +4,12 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
+import net.machinemuse.utils.MuseHeatUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -63,14 +65,18 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
         playerIn.setActiveHand(hand);
         if (!worldIn.isRemote) {
             double energyConsumption = ModuleManager.computeModularProperty(itemStackIn, ENERGY);
-            // MuseHeatUtils.heatPlayer(player, energyConsumption / 500);
+             MuseHeatUtils.heatPlayer(playerIn, energyConsumption / 500);
             if (ElectricItemUtils.getPlayerEnergy(playerIn) > energyConsumption) {
                 ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
 
                 double red = ModuleManager.computeModularProperty(itemStackIn, RED);
                 double green = ModuleManager.computeModularProperty(itemStackIn, GREEN);
                 double blue = ModuleManager.computeModularProperty(itemStackIn, BLUE);
-                EntityLuxCapacitor luxCapacitor = new EntityLuxCapacitor(worldIn, playerIn, red, green, blue);
+
+                System.out.println("color here is: " + new Colour((float)red, (float)green, (float)blue).hexColour());
+
+
+                EntityLuxCapacitor luxCapacitor = new EntityLuxCapacitor(worldIn, playerIn, new Colour(red, green, blue));
                 worldIn.spawnEntityInWorld(luxCapacitor);
             }
             return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);

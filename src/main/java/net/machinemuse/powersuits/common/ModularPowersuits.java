@@ -64,22 +64,6 @@ public final class ModularPowersuits {
 
     @Mod.EventHandler
     public void load(FMLInitializationEvent event) {
-        Config.loadPowerModules();
-        Config.getMaximumArmorPerPiece();
-        Config.getMaximumFlyingSpeedmps();
-        Config.useMouseWheel();
-        Config.useGraphicalMeters();
-        Config.getSalvageChance();
-        Config.baseMaxHeat();
-        Config.allowConflictingKeybinds();
-        Config.fontAntiAliasing();
-        Config.useCustomFonts();
-        Config.glowMultiplier();
-        Config.useShaders();
-        Config.getWeightCapacity();
-        Config.keybindHUDon();
-        Config.keybindHUDx();
-        Config.toggleModuleSpam();
         EntityRegistry.registerModEntity(EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, this, 64, 20, true);
         EntityRegistry.registerModEntity(EntitySpinningBlade.class, "entitySpinningBlade", 2478, this, 64, 20, true);
         EntityRegistry.registerModEntity(EntityLuxCapacitor.class, "entityLuxCapacitor", 2479, this, 64, 20, true);
@@ -97,10 +81,7 @@ public final class ModularPowersuits {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+        proxy.registerHandlers();
         proxy.postInit(event);
-
-        Config.extractRecipes();
-        Config.addCustomInstallCosts();
-        Config.getConfig().save();
     }
 }
