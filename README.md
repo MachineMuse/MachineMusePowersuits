@@ -15,7 +15,12 @@ http://build.technicpack.net/view/MachineMuse/job/ModularPowersuits/changes  (no
 
 CurseForge:
 
-https://minecraft.curseforge.com/mc-mods/235442-modular-powersuits
+https://minecraft.curseforge.com/projects/modular-powersuits
+
+Numina:
+
+https://minecraft.curseforge.com/projects/numina
+
 
 Site:
 
