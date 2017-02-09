@@ -2,7 +2,6 @@ package net.machinemuse.general.gui;
 
 
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;

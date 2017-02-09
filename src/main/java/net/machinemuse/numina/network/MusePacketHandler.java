@@ -7,7 +7,6 @@ import io.netty.handler.codec.MessageToMessageCodec;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.scala.MuseNumericRegistry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

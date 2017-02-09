@@ -2,12 +2,10 @@ package net.machinemuse.powersuits.client.render.model;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.common.ModularPowersuits;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -28,7 +26,10 @@ import net.minecraftforge.common.property.IExtendedBlockState;
 import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Modular Powersuits by MachineMuse
@@ -71,6 +72,11 @@ public class LuxCapModelHelper {
                         && frameModelMap.get(resourceLocation) == null) ) { // replace the value with an actual model
             frameModelMap.put(resourceLocation, model);
         }
+    }
+
+    public IBakedModel getFrameModelforState(IBlockState state) {
+        ModelResourceLocation location = getLocationForState(state);
+        return  frameModelMap.get(location);
     }
 
     public static IModel getLensModel() {

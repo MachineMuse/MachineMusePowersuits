@@ -3,7 +3,6 @@ package net.machinemuse.powersuits.item;
 import forestry.api.core.IArmorNaturalist;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.powersuits.powermodule.armor.ApiaristArmorModule;
-import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;

@@ -1,8 +1,5 @@
 package net.machinemuse.numina.basemod;
 
-import net.machinemuse.numina.event.NuminaPlayerTracker;
-import net.machinemuse.numina.recipe.JSONRecipeList;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;

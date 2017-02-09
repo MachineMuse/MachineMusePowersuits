@@ -5,7 +5,6 @@ import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.tileentity.MuseTileEntity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.property.IExtendedBlockState;
-import scala.reflect.internal.Trees;
 
 public class TileEntityLuxCapacitor extends MuseTileEntity {
     private Colour color;

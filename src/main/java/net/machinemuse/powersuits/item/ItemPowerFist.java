@@ -2,11 +2,8 @@ package net.machinemuse.powersuits.item;
 
 //import appeng.api.implementations.items.IAEWrench;
 
-import cofh.api.item.IToolHammer;
 import crazypants.enderio.api.tool.ITool;
-import forestry.api.arboriculture.IToolGrafter;
 import mekanism.api.IMekWrench;
-//import mods.railcraft.api.core.items.IToolCrowbar;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
@@ -25,7 +22,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -38,6 +34,8 @@ import net.minecraftforge.fml.common.Optional;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+
+//import mods.railcraft.api.core.items.IToolCrowbar;
 
 
 /**

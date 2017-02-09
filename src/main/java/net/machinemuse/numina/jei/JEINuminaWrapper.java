@@ -3,20 +3,10 @@ package net.machinemuse.numina.jei;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import mezz.jei.api.recipe.wrapper.IShapedCraftingRecipeWrapper;
-import net.machinemuse.numina.recipe.ItemNameMappings;
 import net.machinemuse.numina.recipe.JSONRecipe;
-import net.machinemuse.numina.recipe.SimpleItemMatcher;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.JsonToNBT;
-import net.minecraft.nbt.NBTException;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by leon on 3/31/16.

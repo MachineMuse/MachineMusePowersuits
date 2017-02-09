@@ -3,7 +3,6 @@ package net.machinemuse.powersuits.common.proxy;
 import net.machinemuse.powersuits.event.PlayerLoginHandlerThingy;
 import net.machinemuse.powersuits.event.PlayerUpdateHandler;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;

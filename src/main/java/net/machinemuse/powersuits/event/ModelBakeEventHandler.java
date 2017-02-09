@@ -1,12 +1,11 @@
 package net.machinemuse.powersuits.event;
 
 //import net.machinemuse.powersuits.client.render.model.ModelLuxCapacitor;
-import net.machinemuse.powersuits.block.BlockLuxCapacitor;
+
 import net.machinemuse.powersuits.client.render.model.LuxCapModelHelper;
 import net.machinemuse.powersuits.client.render.model.ModelLuxCapacitor;
 import net.machinemuse.powersuits.client.render.model.ModelPowerFist;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.common.MPSItems;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.util.EnumFacing;

@@ -7,7 +7,6 @@
 package net.machinemuse.powersuits.client.render.item;
 
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;
