@@ -110,7 +110,7 @@ public class MuseIcon extends TextureAtlasSprite {
     public static TextureAtlasSprite sonicWeapon = new MuseIcon("sonicWeapon");
     
     /* Things other than module icons ------------------------------------------------------------- */
-//    public static TextureAtlasSprite powerFistIcon = new MuseIcon("powerFistIcon");
+    // nothing here yet
 
 
     public static void registerIcons(TextureStitchEvent.Pre event) {
@@ -208,7 +208,6 @@ public class MuseIcon extends TextureAtlasSprite {
 
 
         /* Things other than module icons ------------------------------------------------------------- */
-//        powerFistIcon = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX + "items/handitem"));
-
+        // nothing here yet
     }
 }

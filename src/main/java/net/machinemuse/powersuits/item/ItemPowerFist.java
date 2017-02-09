@@ -6,7 +6,7 @@ import cofh.api.item.IToolHammer;
 import crazypants.enderio.api.tool.ITool;
 import forestry.api.arboriculture.IToolGrafter;
 import mekanism.api.IMekWrench;
-import mods.railcraft.api.core.items.IToolCrowbar;
+//import mods.railcraft.api.core.items.IToolCrowbar;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.IModularItem;
@@ -51,19 +51,20 @@ import java.util.List;
 @Optional.InterfaceList({
         @Optional.Interface(iface = "mekanism.api.IMekWrench", modid = "Mekanism", striprefs = true),
         @Optional.Interface(iface = "crazypants.enderio.api.tool.ITool", modid = "EnderIO", striprefs = true),
-        @Optional.Interface(iface = "forestry.api.arboriculture.IToolGrafter", modid = "Forestry", striprefs = true),
-        @Optional.Interface(iface = "mods.railcraft.api.core.items.IToolCrowbar", modid = "Railcraft", striprefs = true),
-        @Optional.Interface(iface = "powercrystals.minefactoryreloaded.api.IMFRHammer", modid = "MineFactoryReloaded", striprefs = true),
-        @Optional.Interface(iface = "cofh.api.item.IToolHammer", modid = "CoFHCore", striprefs = true),
-        @Optional.Interface(iface = "buildcraft.api.tools.IToolWrench", modid = "BuildCraft|Core", striprefs = true),
-        @Optional.Interface(iface = "appeng.api.implementations.items.IAEWrench", modid = "appliedenergistics2", striprefs = true) })
+//        @Optional.Interface(iface = "forestry.api.arboriculture.IToolGrafter", modid = "Forestry", striprefs = true),
+//        @Optional.Interface(iface = "mods.railcraft.api.core.items.IToolCrowbar", modid = "Railcraft", striprefs = true),
+//        @Optional.Interface(iface = "powercrystals.minefactoryreloaded.api.IMFRHammer", modid = "MineFactoryReloaded", striprefs = true),
+//        @Optional.Interface(iface = "cofh.api.item.IToolHammer", modid = "CoFHCore", striprefs = true),
+//        @Optional.Interface(iface = "buildcraft.api.tools.IToolWrench", modid = "BuildCraft|Core", striprefs = true),
+//        @Optional.Interface(iface = "appeng.api.implementations.items.IAEWrench", modid = "appliedenergistics2", striprefs = true)
+})
 public class ItemPowerFist extends MPSItemElectricTool
         implements
-        IToolGrafter,
-        IToolHammer,
-        IToolCrowbar,
-//        IAEWrench,
-//        IToolWrench,
+//        IToolGrafter,
+//        IToolHammer,
+//        IToolCrowbar,
+////        IAEWrench,
+////        IToolWrench,
         ITool,
         IMekWrench,
         IModularItem,
@@ -269,64 +270,64 @@ public class ItemPowerFist extends MPSItemElectricTool
         return false;
   }
 
-    /* TE Crescent Hammer */
-    @Override
-    public boolean isUsable(ItemStack itemStack, EntityLivingBase entityLivingBase, Entity entity) {
-        return entityLivingBase instanceof EntityPlayer && this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
-    }
-    /* TE Crescent Hammer */
-    @Override
-    public boolean isUsable(ItemStack itemStack, EntityLivingBase entityLivingBase, BlockPos blockPos) {
-        return entityLivingBase instanceof EntityPlayer && this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
-    }
-
-    /* TE Crescent Hammer */
-    @Override
-    public void toolUsed(ItemStack itemStack, EntityLivingBase entityLivingBase, Entity entity) {
-
-    }
-    /* TE Crescent Hammer */
-
-    @Override
-    public void toolUsed(ItemStack itemStack, EntityLivingBase entityLivingBase, BlockPos blockPos) {
-
-    }
-
-    /* Railcraft Crowbar */
-    @Override
-    public boolean canWhack(EntityPlayer entityPlayer, EnumHand enumHand, ItemStack itemStack, BlockPos blockPos) {
-        return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
-    }
-
-    /* Railcraft Crowbar */
-    @Override
-    public boolean canLink(EntityPlayer entityPlayer, EnumHand enumHand, ItemStack itemStack, EntityMinecart entityMinecart) {
-        return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
-    }
-
-    /* Railcraft Crowbar */
-    @Override
-    public boolean canBoost(EntityPlayer entityPlayer, EnumHand enumHand, ItemStack itemStack, EntityMinecart entityMinecart) {
-        return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
-    }
-
-    /* Railcraft Crowbar */
-    @Override
-    public void onLink(EntityPlayer entityPlayer, EnumHand enumHand, ItemStack itemStack, EntityMinecart entityMinecart) {
-
-    }
-
-    /* Railcraft Crowbar */
-    @Override
-    public void onWhack(EntityPlayer entityPlayer, EnumHand enumHand, ItemStack itemStack, BlockPos blockPos) {
-
-    }
-
-    /* Railcraft Crowbar */
-    @Override
-    public void onBoost(EntityPlayer entityPlayer, EnumHand enumHand, ItemStack itemStack, EntityMinecart entityMinecart) {
-
-    }
+//    /* TE Crescent Hammer */
+//    @Override
+//    public boolean isUsable(ItemStack itemStack, EntityLivingBase entityLivingBase, Entity entity) {
+//        return entityLivingBase instanceof EntityPlayer && this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
+//    }
+//    /* TE Crescent Hammer */
+//    @Override
+//    public boolean isUsable(ItemStack itemStack, EntityLivingBase entityLivingBase, BlockPos blockPos) {
+//        return entityLivingBase instanceof EntityPlayer && this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
+//    }
+//
+//    /* TE Crescent Hammer */
+//    @Override
+//    public void toolUsed(ItemStack itemStack, EntityLivingBase entityLivingBase, Entity entity) {
+//
+//    }
+//    /* TE Crescent Hammer */
+//
+//    @Override
+//    public void toolUsed(ItemStack itemStack, EntityLivingBase entityLivingBase, BlockPos blockPos) {
+//
+//    }
+//
+//    /* Railcraft Crowbar */
+//    @Override
+//    public boolean canWhack(EntityPlayer entityPlayer, EnumHand enumHand, ItemStack itemStack, BlockPos blockPos) {
+//        return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
+//    }
+//
+//    /* Railcraft Crowbar */
+//    @Override
+//    public boolean canLink(EntityPlayer entityPlayer, EnumHand enumHand, ItemStack itemStack, EntityMinecart entityMinecart) {
+//        return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
+//    }
+//
+//    /* Railcraft Crowbar */
+//    @Override
+//    public boolean canBoost(EntityPlayer entityPlayer, EnumHand enumHand, ItemStack itemStack, EntityMinecart entityMinecart) {
+//        return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
+//    }
+//
+//    /* Railcraft Crowbar */
+//    @Override
+//    public void onLink(EntityPlayer entityPlayer, EnumHand enumHand, ItemStack itemStack, EntityMinecart entityMinecart) {
+//
+//    }
+//
+//    /* Railcraft Crowbar */
+//    @Override
+//    public void onWhack(EntityPlayer entityPlayer, EnumHand enumHand, ItemStack itemStack, BlockPos blockPos) {
+//
+//    }
+//
+//    /* Railcraft Crowbar */
+//    @Override
+//    public void onBoost(EntityPlayer entityPlayer, EnumHand enumHand, ItemStack itemStack, EntityMinecart entityMinecart) {
+//
+//    }
 
 //    /* AE wrench */
 //    @Override

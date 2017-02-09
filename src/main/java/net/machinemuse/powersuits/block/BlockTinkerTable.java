@@ -17,9 +17,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import javax.annotation.Nullable;
 
@@ -37,17 +37,18 @@ public class BlockTinkerTable extends Block {
     public static final PropertyDirection FACING = BlockHorizontal.FACING;
     public BlockTinkerTable() {
         super(Material.IRON);
-        this.setHardness(1.5F);
-        this.setResistance(1000.0F);
-        this.setHarvestLevel("pickaxe", 2);
-        this.setCreativeTab(Config.getCreativeTab());
-        this.setSoundType(SoundType.METAL);
-        this.setLightOpacity(0);
-        this.setLightLevel(0.4f);
-        this.setTickRandomly(false);
+        setHardness(1.5F);
+        setResistance(1000.0F);
+        setHarvestLevel("pickaxe", 2);
+        setCreativeTab(Config.getCreativeTab());
+        setSoundType(SoundType.METAL);
+        setLightOpacity(0);
+        setLightLevel(0.4f);
+        setTickRandomly(false);
         setUnlocalizedName(name);
         setRegistryName(ModularPowersuits.MODID, "tile."+ name);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        GameRegistry.registerTileEntity(TileEntityTinkerTable.class, "tinkerTable");
     }
 
     @Override
@@ -63,9 +64,6 @@ public class BlockTinkerTable extends Block {
     {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
     }
-
-
-
 
     @Override
     public boolean isVisuallyOpaque() {

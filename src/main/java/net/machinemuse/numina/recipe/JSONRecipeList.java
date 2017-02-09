@@ -30,6 +30,9 @@ public class JSONRecipeList {
     };
 
     public static void loadRecipesFromDir(String dir) {
+        System.out.println("loading recipes");
+
+
         try {
             File file = new File(dir);
             if (file.exists()) {

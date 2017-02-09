@@ -1,6 +1,9 @@
 package net.machinemuse.powersuits.client.render.entity;
 
-import net.machinemuse.powersuits.block.BlockLuxCapacitor;
+import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.render.RenderState;
+import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -8,86 +11,74 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.client.model.obj.OBJModel;
+import net.minecraftforge.common.property.IExtendedBlockState;
 import org.lwjgl.opengl.GL11;
 
-//import net.minecraftforge.client.model.AdvancedModelLoader;
-//import net.minecraftforge.client.model.obj.WavefrontObject;
+import java.util.concurrent.ThreadLocalRandom;
+
+import static net.machinemuse.powersuits.block.BlockLuxCapacitor.COLOR;
+//import static net.machinemuse.powersuits.event.ModelBakeEventHandler.luxCapacitorModel;
+import static net.minecraft.block.BlockDirectional.FACING;
+import static net.minecraft.util.EnumFacing.DOWN;
+import static net.minecraft.util.EnumFacing.UP;
 
 public class EntityRendererLuxCapacitorEntity extends MuseEntityRenderer <EntityLuxCapacitor> {
     public EntityRendererLuxCapacitorEntity(RenderManager renderManager) {
         super(renderManager);
     }
 
-//    IBakedModel luxCapModel =
+    ResourceLocation textureLocation = new ResourceLocation(Config.RESOURCE_PREFIX + "textures/blocks/LuxCap.png");
+
+
+
+    // debugging stuff
+//    int min = new Colour(0, 0, 0).getInt();
+//    int max = new Colour(255, 255, 255).getInt();
+    // end debugging stuff
+
+
 
     @Override
     public void doRender(EntityLuxCapacitor entity, double x, double y, double z, float entityYaw, float partialTicks) {
-        GlStateManager.pushMatrix();
-        GlStateManager.translate(x, y, z);
-
-        Tessellator tessellator = Tessellator.getInstance();
-        tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-
-        // FIXME:
-
-//        Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().
-//                renderModel(entity.worldObj,
-//                        MPSModels.luxCapacitormodel(entity.color, EnumFacing.UP),
-//                        BlockLuxCapacitor.getDefaultState(),
-//                        new BlockPos(x, y, z),
-//                        Tessellator.getInstance().getBuffer(),
-//                        true);
-        tessellator.draw();
-        RenderHelper.enableStandardItemLighting();
-        GlStateManager.popMatrix();
-
-
-
-
-
-
-
-        System.out.println("trying to render something here");
-
-//        super.doRender(entity, x, y, z, entityYaw, partialTicks);
-    }
-
-
-//    protected static WavefrontObject lightmodel;
-//    protected static WavefrontObject framemodel;
 //
-//    public static WavefrontObject getLightModel() {
-//        if (lightmodel == null) {
-//            lightmodel = (WavefrontObject) AdvancedModelLoader.loadModel(new ResourceLocation(Config.RESOURCE_PREFIX + "models/lightCore.obj"));
-//        }
-//        return lightmodel;
-//    }
 //
-//    public static WavefrontObject getFrameModel() {
-//        if (framemodel == null) {
-//            framemodel = (WavefrontObject) AdvancedModelLoader.loadModel(new ResourceLocation(Config.RESOURCE_PREFIX + "models/lightBase.obj"));
-//        }
-//        return framemodel;
-//    }
 //
-//    @Override
-//    public void doRender(Entity undifferentiatedentity, double x, double y, double z, float yaw, float partialTickTime) {
-//        EntityLuxCapacitor entity = (EntityLuxCapacitor) undifferentiatedentity;
-//        MuseTextureUtils.pushTexture(Config.TEXTURE_PREFIX + "models/thusters_uvw_2.png");
-//        glPushMatrix();
-//        glTranslated(x, y, z);
-//        double scale = 0.0625;
-//        glScaled(scale, scale, scale);
-//        getFrameModel().renderAll();
-//        RenderState.glowOn();
-//        new Colour(entity.red, entity.green, entity.blue, 1.0).doGL();
-//        getLightModel().renderAll();
+//        this.bindTexture(textureLocation);
+//
+//
+////        int colour = ThreadLocalRandom.current().nextInt(min, max + 1);
+//        GlStateManager.pushMatrix();
+////        RenderState.glowOn();
+//
+//        GlStateManager.translate(x, y, z);
+////        GlStateManager.scale(0.0625, 0.0625, 0.0625);
+//
+//        Tessellator tessellator = Tessellator.getInstance();
+//        tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+//
+//
+//        IExtendedBlockState blockState = ((IExtendedBlockState) MPSItems.luxCapacitor.getDefaultState().
+//                withProperty(FACING, UP)).withProperty(COLOR, entity.color);
+//        IBakedModel ibakedmodel = luxCapacitorModel.getBakedLuxCapModel(UP, entity.color);
+//
+//        Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(
+//                entity.worldObj,
+//                ibakedmodel,
+//                blockState,
+//                new BlockPos(x, y, z),
+//                Tessellator.getInstance().getBuffer(),
+//                true);
+//        tessellator.draw();
+//
+////        RenderHelper.enableStandardItemLighting();
+//
 //        RenderState.glowOff();
-//        glPopMatrix();
-//        MuseTextureUtils.popTexture();
-//    }
+//        GlStateManager.popMatrix();
+//
+
+    }
 }

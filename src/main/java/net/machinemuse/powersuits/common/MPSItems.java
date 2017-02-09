@@ -20,6 +20,7 @@ public class MPSItems {
     public static Item powerTool;
     public static Block tinkerTable;
     public static Block luxCapacitor;
+
     public static Item components;
 
     public static void populateItems() {

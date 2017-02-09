@@ -81,9 +81,12 @@ public class EntityLuxCapacitor extends EntityThrowable implements IEntityAdditi
                 if (block == null || block.isAir(worldObj.getBlockState(blockPos), worldObj, blockPos)) {
                     Block blockToStickTo = worldObj.getBlockState(new BlockPos(hitResult.getBlockPos().getX(),
                             hitResult.getBlockPos().getY(), hitResult.getBlockPos().getZ())).getBlock();
-                    if (blockToStickTo.isNormalCube(worldObj.getBlockState(blockPos), worldObj, blockPos)) {
-                        worldObj.setBlockState(blockPos, ((IExtendedBlockState) MPSItems.luxCapacitor.getDefaultState()).withProperty(COLOR, color));
-                        worldObj.setTileEntity(blockPos, new TileEntityLuxCapacitor(dir, color));
+                    if (blockToStickTo.isNormalCube(worldObj.getBlockState(blockPos), worldObj, blockPos) &&
+                            !(blockToStickTo instanceof BlockLuxCapacitor) && color != null) {
+                        // FIXME: disabled while working on models.
+                        worldObj.setBlockState(blockPos, ((IExtendedBlockState) MPSItems.luxCapacitor.getDefaultState().
+                                withProperty(FACING, dir)).withProperty(COLOR, color));
+                        worldObj.setTileEntity(blockPos, new TileEntityLuxCapacitor(color));
 
                     } else {
                         for (EnumFacing d : EnumFacing.VALUES) {
@@ -92,9 +95,12 @@ public class EntityLuxCapacitor extends EntityThrowable implements IEntityAdditi
                             int zo = z + d.getFrontOffsetZ();
                             BlockPos blockPos2 = new BlockPos(xo, yo, zo);
                             blockToStickTo = worldObj.getBlockState( new BlockPos(xo, yo, zo)).getBlock();
-                            if (blockToStickTo.isNormalCube(worldObj.getBlockState(blockPos2), worldObj, blockPos)) {
-                                worldObj.setBlockState(blockPos, ((IExtendedBlockState) MPSItems.luxCapacitor.getDefaultState()).withProperty(COLOR, color));
-                                worldObj.setTileEntity(blockPos, new TileEntityLuxCapacitor(d, color));
+                            // FIXME: disabled while working on models
+                            if (blockToStickTo.isNormalCube(worldObj.getBlockState(blockPos2), worldObj, blockPos) &&
+                                    !(blockToStickTo instanceof BlockLuxCapacitor) && color != null) {
+                                worldObj.setBlockState(blockPos, ((IExtendedBlockState) MPSItems.luxCapacitor.getDefaultState().
+                                        withProperty(FACING, dir)).withProperty(COLOR, color));
+                                worldObj.setTileEntity(blockPos, new TileEntityLuxCapacitor(color));
                                 break;
                             }
                         }
@@ -108,7 +114,8 @@ public class EntityLuxCapacitor extends EntityThrowable implements IEntityAdditi
     /* using these to sync color between client and server, since without this, color isn't initialized */
     @Override
     public void writeSpawnData(ByteBuf buffer) {
-        buffer.writeInt(color.getInt());
+        if (color != null)
+            buffer.writeInt(color.getInt());
     }
 
     @Override

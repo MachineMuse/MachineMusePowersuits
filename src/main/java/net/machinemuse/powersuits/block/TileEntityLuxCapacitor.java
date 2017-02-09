@@ -3,52 +3,42 @@ package net.machinemuse.powersuits.block;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.tileentity.MuseTileEntity;
-import net.machinemuse.powersuits.client.render.model.UnlistedPropertyColor;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import scala.reflect.internal.Trees;
 
 public class TileEntityLuxCapacitor extends MuseTileEntity {
-    public Colour colour;
-    public EnumFacing side;
-
+    private Colour color;
     public TileEntityLuxCapacitor() {
-        side = EnumFacing.UP;
-        this.colour = new Colour(0F, 0.2F, 0.9F);
+        this.color = BlockLuxCapacitor.defaultColor;
     }
 
-    public TileEntityLuxCapacitor(EnumFacing side, Colour colour) {
-        this.side = side;
-        this.colour = colour;
+    public TileEntityLuxCapacitor(Colour colour) {
+        this.color = colour;
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
-        nbt.setInteger("s", side.ordinal());
-        nbt.setInteger("c", colour.getInt());
+        if (color == null)
+            color = ((IExtendedBlockState)this.getWorld().getBlockState(this.getPos())).getValue(BlockLuxCapacitor.COLOR);
+        if (color == null)
+            color = BlockLuxCapacitor.defaultColor;
+        nbt.setInteger("c", color.getInt());
         return nbt;
     }
 
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
-        if (nbt.hasKey("s")) {
-            side = EnumFacing.values()[nbt.getInteger("s")];
-        } else {
-            MuseLogger.logDebug("No NBT found! D:");
-        }
         if (nbt.hasKey("c")) {
-            colour = new Colour(nbt.getInteger("c"));
+            color = new Colour(nbt.getInteger("c"));
         } else {
             MuseLogger.logDebug("No NBT found! D:");
         }
     }
 
-    public void setFacing(EnumFacing side) {
-        this.side = side;
-    }
-
-    public Colour getColour(){
-        return colour;
+    public Colour getColor(){
+        return color != null ? color : BlockLuxCapacitor.defaultColor;
     }
 }

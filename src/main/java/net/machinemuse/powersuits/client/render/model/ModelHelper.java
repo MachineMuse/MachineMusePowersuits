@@ -79,17 +79,17 @@ public class ModelHelper {
      * We need our own because the default set is based on the default=facing north
      * Our model is default facing up
      */
-    public TRSRTransformation getLuxCapacitorBlockTransform(EnumFacing side) {
+    public static TRSRTransformation getLuxCapacitorBlockTransform(EnumFacing side) {
         Matrix4f matrix;
 
         switch(side.getOpposite()) {
             case DOWN:
                 matrix = TRSRTransformation.identity().getMatrix();
-                matrix.setTranslation(new Vector3f(0.0f, -0.40f, 0.0f));
+                matrix.setTranslation(new Vector3f(0.0f, -0.4f, 0.0f));
                 break;
             case UP:
                 matrix = ModelRotation.X180_Y0.getMatrix();
-                matrix.setTranslation(new Vector3f(0.0f, 0.40f, 0.0f));
+                matrix.setTranslation(new Vector3f(0.0f, 0.4f, 0.0f));
                 break;
             case NORTH:
                 matrix = ModelRotation.X90_Y0.getMatrix();
