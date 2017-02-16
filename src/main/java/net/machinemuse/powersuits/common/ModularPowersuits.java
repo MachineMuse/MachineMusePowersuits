@@ -51,52 +51,18 @@ public final class ModularPowersuits {
     @SidedProxy(clientSide = "net.machinemuse.powersuits.common.proxy.ClientProxy", serverSide = "net.machinemuse.powersuits.common.proxy.ServerProxy")
     public static CommonProxy proxy;
 
-    public static Configuration config = null;
-
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        File newConfig = new File(event.getModConfigurationDirectory() + "/machinemuse/powersuits.cfg");
-        Config.init(new Configuration(newConfig));
-        Config.setConfigFolderBase(event.getModConfigurationDirectory());
-        MinecraftForge.EVENT_BUS.register(new HarvestEventHandler());
-        MinecraftForge.EVENT_BUS.register(new MovementManager());
-        proxy.registerEvents();
+        proxy.preInit(event);
     }
 
     @Mod.EventHandler
-    public void load(FMLInitializationEvent event) {
-        Config.loadPowerModules();
-        Config.getMaximumArmorPerPiece();
-        Config.getMaximumFlyingSpeedmps();
-        Config.useMouseWheel();
-        Config.useGraphicalMeters();
-        Config.getSalvageChance();
-        Config.baseMaxHeat();
-        Config.allowConflictingKeybinds();
-        Config.fontAntiAliasing();
-        Config.useCustomFonts();
-        Config.glowMultiplier();
-        Config.useShaders();
-        Config.getWeightCapacity();
-        Config.keybindHUDon();
-        Config.keybindHUDx();
-        Config.toggleModuleSpam();
-        EntityRegistry.registerModEntity(EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, this, 64, 20, true);
-        EntityRegistry.registerModEntity(EntitySpinningBlade.class, "entitySpinningBlade", 2478, this, 64, 20, true);
-        EntityRegistry.registerModEntity(EntityLuxCapacitor.class, "entityLuxCapacitor", 2479, this, 64, 20, true);
-        proxy.registerHandlers();
-        proxy.registerRenderers();
-        MPSPacketList.registerPackets();
-        NetworkRegistry.INSTANCE.registerGuiHandler(this, MPSGuiHandler.getInstance());
-        TerminalHandler.registerHandler();
+    public void init(FMLInitializationEvent event) {
+        proxy.init(event);
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        proxy.postInit();
-        ModCompatibility.registerModSpecificModules();
-        Config.extractRecipes();
-        Config.addCustomInstallCosts();
-        Config.getConfig().save();
+        proxy.postInit(event);
     }
 }

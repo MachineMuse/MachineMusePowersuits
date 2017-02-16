@@ -59,7 +59,6 @@ public class Config {
     static File configFolder = null;
     private static MPSCreativeTab mpsCreativeTab;
 
-
     private static Configuration config = null;
     public static boolean canUseShaders = false;
 

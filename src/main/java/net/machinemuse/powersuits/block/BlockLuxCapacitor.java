@@ -27,41 +27,15 @@ public class BlockLuxCapacitor extends Block {
 
     public BlockLuxCapacitor() {
         super(Material.circuits);
-
-        // Block's creative tab
         setCreativeTab(Config.getCreativeTab());
-
-        // Block's hardness (base time to harvest it with the correct tool).
-        // Sand = 0.5, Stone = 1.5, Ore = 3.0 Obsidian = 20
         setHardness(0.05F);
-
-        // Block's resistance to explosions. Stone = 10, obsidian = 2000
         setResistance(10.0F);
-
-        // Sound to play when player steps on the block
         setStepSound(Block.soundTypeMetal);
-
-        // How much light is stopped by this block; 0 for air, 255 for fully
-        // opaque.
         setLightOpacity(0);
-
-        // Light level, 0-1. Gets multiplied by 15 and truncated to find the
-        // actual light level for the block.
         setLightLevel(1.0f);
-
-        // Whether to receive random ticks e.g. plants
         setTickRandomly(false);
-
-        // Harvest level for this block. par2 can be pickaxe, axe, or shovel, or
-        // a different toolclass. par3 is the minimum level of item required to
-        // break it:
-        // 0=bare hands, 1=wood, 2=stone, 3=iron, 4=diamond
-//        MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 0);
-
         GameRegistry.registerTileEntity(TileEntityLuxCapacitor.class, "luxCapacitor");
-
         setBlockName("luxCapacitor");
-
     }
 
     private static float bbMin(double offset) {
@@ -169,5 +143,4 @@ public class BlockLuxCapacitor extends Block {
     public int quantityDropped(Random par1Random) {
         return 0;
     }
-
 }

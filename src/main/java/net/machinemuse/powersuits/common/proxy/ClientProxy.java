@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.common.proxy;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import net.machinemuse.general.sound.SoundDictionary;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.MusePacketModeChangeRequest;
@@ -41,10 +42,12 @@ import java.net.URL;
  *
  * Ported to Java by lehjr on 11/14/16.
  */
-public class ClientProxy implements CommonProxy {
+public class ClientProxy extends CommonProxy {
     @Override
     public void registerEvents() {
         MinecraftForge.EVENT_BUS.register(new SoundDictionary());
+        MinecraftForge.EVENT_BUS.register(new RenderEventHandler());
+        MinecraftForge.EVENT_BUS.register(new PlayerUpdateHandler());
     }
 
     /**
@@ -66,7 +69,6 @@ public class ClientProxy implements CommonProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, new RenderPlasmaBolt());
         RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, new RenderSpinningBlade());
         RenderingRegistry.registerEntityRenderingHandler(EntityLuxCapacitor.class, new RenderLuxCapacitorEntity());
-        MinecraftForge.EVENT_BUS.register(new RenderEventHandler());
         URL resource = ClientProxy.class.getResource("/assets/powersuits/models/modelspec.xml");
         ModelSpecXMLReader.getINSTANCE().parseFile(resource);
         URL otherResource = ClientProxy.class.getResource("/assets/powersuits/models/armor2.xml");
@@ -80,12 +82,12 @@ public class ClientProxy implements CommonProxy {
     @Override
     public void registerHandlers() {
         FMLCommonHandler.instance().bus().register(new KeybindKeyHandler());
-        MinecraftForge.EVENT_BUS.register(new PlayerUpdateHandler());
         FMLCommonHandler.instance().bus().register(new ClientTickHandler());
     }
 
     @Override
-    public void postInit() {
+    public void postInit(FMLPostInitializationEvent event) {
+        super.postInit(event);
         KeybindManager.readInKeybinds();
     }
 

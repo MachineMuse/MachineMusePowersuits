@@ -12,24 +12,21 @@ import net.minecraftforge.common.MinecraftForge;
  *
  * Ported to Java by lehjr on 11/14/16.
  */
-public class ServerProxy implements CommonProxy{
+public class ServerProxy extends CommonProxy{
     @Override
     public void registerEvents() {
+        super.registerEvents();
         FMLCommonHandler.instance().bus().register(new PlayerLoginHandlerThingy());
-    }
-
-    @Override
-    public void registerRenderers() {
-
-    }
-
-    @Override
-    public void registerHandlers() {
         MinecraftForge.EVENT_BUS.register(new PlayerUpdateHandler());
     }
 
     @Override
-    public void postInit() {
+    public void registerHandlers() {
+
+    }
+
+    @Override
+    public void registerRenderers() {
 
     }
 
