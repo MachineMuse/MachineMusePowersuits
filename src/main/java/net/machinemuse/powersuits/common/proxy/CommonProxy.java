@@ -30,7 +30,7 @@ import java.io.File;
  *
  * Ported to Java by lehjr on 11/14/16.
  */
-public abstract class CommonProxy {
+public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         File newConfig = new File(event.getModConfigurationDirectory() + "/machinemuse/powersuits.cfg");
         Config.init(new Configuration(newConfig));
@@ -77,9 +77,9 @@ public abstract class CommonProxy {
         MinecraftForge.EVENT_BUS.register(new MovementManager());
     }
 
-    public abstract void registerHandlers();
+    public void registerHandlers() {};
 
-    public abstract void registerRenderers();
+    public void registerRenderers() {};
 
-    public abstract void sendModeChange(int dMode, String newMode);
+    public void sendModeChange(int dMode, String newMode) {};
 }

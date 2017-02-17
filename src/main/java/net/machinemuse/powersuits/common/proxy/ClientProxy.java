@@ -45,9 +45,8 @@ import java.net.URL;
 public class ClientProxy extends CommonProxy {
     @Override
     public void registerEvents() {
+        super.registerEvents();
         MinecraftForge.EVENT_BUS.register(new SoundDictionary());
-        MinecraftForge.EVENT_BUS.register(new RenderEventHandler());
-        MinecraftForge.EVENT_BUS.register(new PlayerUpdateHandler());
     }
 
     /**
@@ -55,6 +54,7 @@ public class ClientProxy extends CommonProxy {
      */
     @Override
     public void registerRenderers() {
+        super.registerRenderers();
         MinecraftForgeClient.registerItemRenderer(MPSItems.getInstance().powerTool, new ToolRenderer());
         int tinkTableRenderID = RenderingRegistry.getNextAvailableRenderId();
         TinkerTableRenderer tinkTableRenderer = new TinkerTableRenderer(tinkTableRenderID);
@@ -69,6 +69,7 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, new RenderPlasmaBolt());
         RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, new RenderSpinningBlade());
         RenderingRegistry.registerEntityRenderingHandler(EntityLuxCapacitor.class, new RenderLuxCapacitorEntity());
+        MinecraftForge.EVENT_BUS.register(new RenderEventHandler());
         URL resource = ClientProxy.class.getResource("/assets/powersuits/models/modelspec.xml");
         ModelSpecXMLReader.getINSTANCE().parseFile(resource);
         URL otherResource = ClientProxy.class.getResource("/assets/powersuits/models/armor2.xml");
@@ -81,6 +82,8 @@ public class ClientProxy extends CommonProxy {
      */
     @Override
     public void registerHandlers() {
+        super.registerHandlers();
+        MinecraftForge.EVENT_BUS.register(new PlayerUpdateHandler());
         FMLCommonHandler.instance().bus().register(new KeybindKeyHandler());
         FMLCommonHandler.instance().bus().register(new ClientTickHandler());
     }

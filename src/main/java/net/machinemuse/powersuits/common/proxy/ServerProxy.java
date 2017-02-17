@@ -17,21 +17,10 @@ public class ServerProxy extends CommonProxy{
     public void registerEvents() {
         super.registerEvents();
         FMLCommonHandler.instance().bus().register(new PlayerLoginHandlerThingy());
-        MinecraftForge.EVENT_BUS.register(new PlayerUpdateHandler());
     }
 
     @Override
     public void registerHandlers() {
-
-    }
-
-    @Override
-    public void registerRenderers() {
-
-    }
-
-    @Override
-    public void sendModeChange(int dMode, String newMode) {
-
+        MinecraftForge.EVENT_BUS.register(new PlayerUpdateHandler());
     }
 }
