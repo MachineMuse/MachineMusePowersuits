@@ -1,15 +1,7 @@
+# Blender MTL File: 'None'
+# Material Count: 1
+
 newmtl initialShadingGroup
-Kd 0.00 0.00 0.00
-map_Kd powersuits:models/diffuse
-
-newmtl lambert3SG
-Kd 0.50 0.50 0.50
-
-newmtl lambert7SG
-Kd 1.00 1.00 1.00
-
-newmtl lambert11SG
-Kd 0.00 0.00 0.00
-
-newmtl lambert13SG
-Kd 0.00 0.00 0.00
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+map_Kd powersuits:models/jetpack
