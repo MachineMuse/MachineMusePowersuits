@@ -115,6 +115,10 @@ public class DefaultModelSpec {
         List<NBTTagCompound> prefArray = new ArrayList<>();
         ModelSpec model = ModelRegistry.getInstance().get(modelname);
         for (String name: partnames) {
+            System.out.println("model.get(name): " + model.get(name));
+            System.out.println("colour: " + colour);
+            System.out.println("glow: " + glow);
+
             prefArray.add(makePref(model.get(name), colour, glow));
         }
         return prefArray;

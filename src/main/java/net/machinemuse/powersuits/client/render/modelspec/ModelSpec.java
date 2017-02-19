@@ -10,8 +10,11 @@ import net.minecraftforge.client.model.obj.OBJModel;
  *
  * Ported to Java by lehjr on 11/8/16.
  */
-public class ModelSpec extends MuseRegistry<ModelPartSpec>
-{
+public class ModelSpec extends MuseRegistry<ModelPartSpec> {
+
+    // here I want a model that has a quadmap for each part
+
+
     public OBJModel model;
     public String[] textures;
     public Vec3d offset;

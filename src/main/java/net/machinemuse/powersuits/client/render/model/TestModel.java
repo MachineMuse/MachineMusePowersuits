@@ -27,7 +27,6 @@ public class TestModel implements IBakedModel, IPerspectiveAwareModel {
 
 
         * The tinker table item model is still modelbase, just reduced scale.
-        * The Lux Capacitor model held in hand should use the same color as the default color.
         * The armor models use an icon for everything but equipped.
         *
 

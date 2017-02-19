@@ -1,6 +1,6 @@
 newmtl initialShadingGroup
 Kd 0.00 0.00 0.00
-map_Kd diffuse3.psd
+map_Kd powersuits:models/diffuse
 
 newmtl jetpack1:wire_000214253
 Kd 0.00 0.84 0.99

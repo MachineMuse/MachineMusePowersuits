@@ -1,25 +1,36 @@
 package net.machinemuse.powersuits.client.render.model;
 
+import com.google.common.base.Function;
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.UnmodifiableIterator;
+import com.sun.org.apache.regexp.internal.RE;
+import net.machinemuse.powersuits.client.render.modelspec.ModelRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ModelRotation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.SimpleModelState;
+import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
 import net.minecraftforge.client.model.pipeline.VertexTransformer;
 import net.minecraftforge.common.model.IModelPart;
 import net.minecraftforge.common.model.IModelState;
+import net.minecraftforge.common.model.Models;
 import net.minecraftforge.common.model.TRSRTransformation;
 
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
+import java.util.*;
 
 /*
  * slimeknights.mantle.client;
@@ -27,6 +38,95 @@ import javax.vecmath.Vector3f;
  *
  */
 public class ModelHelper {
+
+
+
+
+
+
+
+
+
+
+// armor model stuff
+
+
+//// this will be a little tricky
+//// map partName IModelState
+////    public Map<String, >
+//
+//
+//
+
+//
+//
+//
+//
+//    // Example of "display" only a specific group
+//    // Group "group1", to display only "group2"
+//    final List <String> visibleGroups = Arrays.asList (new String [] { "group1", "group2"});
+//    IBakedModel bakedModel;
+//
+//		try {
+//        IModel model = ModelLoaderRegistry.getModel (resourceLocation);
+//        IModelState state = new IModelState () {
+//
+//            @Override
+//            public Optional <TRSRTransformation> apply (Optional <? extends IModelPart> part) {
+//                if (part.isPresent ()) {
+//                    UnmodifiableIterator <String> parts = Models.getParts (part.get ());
+//
+//                    if (parts.hasNext ()) {
+//                        String name = parts.next ();
+//
+//                        // To compare only the first element of the parts
+//                        if (! parts.hasNext () && visibleGroups.contains (name)) {
+//                            // Return the absent in the group to be displayed
+//                            return Optional.absent ();
+//                        }
+//                        // It returns the result to be a isPresent the not display group
+//                        return Optional.of (TRSRTransformation.identity ());
+//
+//                    }
+//                }
+//
+//                // Part returns absent at the time of absent
+//                return Optional.absent ();
+//            }
+//
+//        };
+//
+//        bakedModel = model.bake (state,
+//                DefaultVertexFormats.ITEM,
+//                new Function <ResourceLocation, TextureAtlasSprite> () {
+//
+//                    @Override
+//                    public TextureAtlasSprite apply (ResourceLocation location) {
+//                        Minecraft mc = Minecraft.getMinecraft ();
+//							. Return mc.getTextureMapBlocks () getAtlasSprite (location.toString ());
+//                    }
+//
+//                });
+//    } Catch (Exception e) {
+//        e.printStackTrace ();
+//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static final IModelState LUXCAPACITOR_ITEM_STATE;
 
 
@@ -117,7 +217,7 @@ public class ModelHelper {
 
 
 
-private static class ColorTransformer extends VertexTransformer {
+    private static class ColorTransformer extends VertexTransformer {
 
         private final float r,g,b,a;
 

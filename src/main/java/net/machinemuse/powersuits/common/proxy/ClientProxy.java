@@ -131,6 +131,11 @@ public class ClientProxy extends CommonProxy {
 //            }
 //        });
 
+
+        // TODO: model testing block. Not a permanent addition
+        regRenderer(Item.getItemFromBlock(MPSItems.testBlock));
+
+
         RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, EntityRendererSpinningBlade::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, EntityRendererPlasmaBolt::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityLuxCapacitor.class, EntityRendererLuxCapacitorEntity::new);

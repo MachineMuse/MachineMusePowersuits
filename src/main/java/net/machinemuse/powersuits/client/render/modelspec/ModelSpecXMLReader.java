@@ -2,8 +2,11 @@ package net.machinemuse.powersuits.client.render.modelspec;
 
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.powersuits.client.render.model.ModelHelper;
 import net.machinemuse.utils.MuseStringUtils;
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.model.obj.OBJModel;
@@ -18,6 +21,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
 import java.net.URL;
+import java.util.*;
 
 import static net.machinemuse.powersuits.client.render.modelspec.MorphTarget.*;
 
@@ -75,6 +79,9 @@ public class ModelSpecXMLReader {
             rotation = parseVector(eElement.getAttribute("rotation"));
 
             OBJModel model = ModelRegistry.getInstance().loadModel(new ResourceLocation(file));
+            Map<String, Map<EnumFacing, java.util.List<BakedQuad>>> quadmap = new PartNameToQuads(new ResourceLocation(file)).getQuadMapPerModelGroup();
+
+
             if (model != null) {
                 ModelSpec modelspec = new ModelSpec(model, textures, offset, rotation, file);
                 ModelSpec existingspec = ModelRegistry.getInstance().put(MuseStringUtils.extractName(file), modelspec);

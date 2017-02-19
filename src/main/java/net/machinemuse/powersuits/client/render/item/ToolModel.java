@@ -200,7 +200,6 @@ public class ToolModel extends ModelBase {
 //        setRotation(thumb1,0.0F,0.4014257F,0.0F);
 
 
-
         thumb2 = new ModelRenderer(this, 10, 0);
         thumb2.addBox(-0.5F, -0.5F, 0.0F, 1, 1, 3);
         thumb2.setRotationPoint(0.0F, 0.0F, 4.0F);
@@ -400,92 +399,88 @@ public class ToolModel extends ModelBase {
 
     public void render(Entity entity, float scale, ItemCameraTransforms.TransformType cameraTransformTypeIn, Colour c1, Colour glow) {
         boolean renderTypeIsFirstPerson;
-
-
-
-
-        // super.render(entity, f, f1, f2, f3, f4, f5);
-        int numsegments = 16;
-//        if (!tap) {
-
-
-        if (Keyboard.isKeyDown(Keyboard.KEY_INSERT)) {
-            xOffest += 0.1;
-            tap = true;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_DELETE)) {
-            xOffest -= 0.1;
-            tap = true;
-        }
-
-        if (Keyboard.isKeyDown(Keyboard.KEY_HOME)) {
-            yOffest += 0.1;
-            tap = true;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_END)) {
-            yOffest -= 0.1;
-            tap = true;
-        }
-
-        if (Keyboard.isKeyDown(Keyboard.KEY_PRIOR)) {
-            zOffest += 0.1;
-            tap = true;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_NEXT)) {
-            zOffest -= 0.1;
-            tap = true;
-        }
-
-
-
-        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD1)) {
-            xtap += 1;
-            tap = true;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD2)) {
-            ytap += 1;
-            tap = true;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD3)) {
-            ztap += 1;
-            tap = true;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD4)) {
-            xtap -= 1;
-            tap = true;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD5)) {
-            ytap -= 1;
-            tap = true;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD6)) {
-            ztap -= 1;
-            tap = true;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD8)) {
-            xtap = 0;
-            ytap = 0;
-            ztap = 0;
-
-            xOffest = 0;
-            yOffest = 0;
-            zOffest = 0;
-
-            tap = true;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD0)) {
-            System.out.println("xrot: " + xtap + ", yrot: " + ytap + ", zrot: " + ztap);
-
-            System.out.println("xOffest: " + xOffest + ", yOffest: " + yOffest + ", zOffest: " + zOffest);
-            tap = true;
 //
-//            [20:24:23] [Client thread/INFO]: [net.machinemuse.powersuits.client.render.item.ToolModel:render:459]: xrot: -178, yrot: 0, zrot: 0
-//                    [20:24:23] [Client thread/INFO]: [net.machinemuse.powersuits.client.render.item.ToolModel:render:461]: xrot: -3.0999992, yrot: 1.5000001, zrot: 9.299999
-
-
-
-
-        }
+//        // super.render(entity, f, f1, f2, f3, f4, f5);
+//        int numsegments = 16;
+////        if (!tap) {
+//
+//        if (Keyboard.isKeyDown(Keyboard.KEY_INSERT)) {
+//            xOffest += 0.1;
+//            tap = true;
+//        }
+//        if (Keyboard.isKeyDown(Keyboard.KEY_DELETE)) {
+//            xOffest -= 0.1;
+//            tap = true;
+//        }
+//
+//        if (Keyboard.isKeyDown(Keyboard.KEY_HOME)) {
+//            yOffest += 0.1;
+//            tap = true;
+//        }
+//        if (Keyboard.isKeyDown(Keyboard.KEY_END)) {
+//            yOffest -= 0.1;
+//            tap = true;
+//        }
+//
+//        if (Keyboard.isKeyDown(Keyboard.KEY_PRIOR)) {
+//            zOffest += 0.1;
+//            tap = true;
+//        }
+//        if (Keyboard.isKeyDown(Keyboard.KEY_NEXT)) {
+//            zOffest -= 0.1;
+//            tap = true;
+//        }
+//
+//
+//
+//        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD1)) {
+//            xtap += 1;
+//            tap = true;
+//        }
+//        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD2)) {
+//            ytap += 1;
+//            tap = true;
+//        }
+//        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD3)) {
+//            ztap += 1;
+//            tap = true;
+//        }
+//        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD4)) {
+//            xtap -= 1;
+//            tap = true;
+//        }
+//        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD5)) {
+//            ytap -= 1;
+//            tap = true;
+//        }
+//        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD6)) {
+//            ztap -= 1;
+//            tap = true;
+//        }
+//        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD8)) {
+//            xtap = 0;
+//            ytap = 0;
+//            ztap = 0;
+//
+//            xOffest = 0;
+//            yOffest = 0;
+//            zOffest = 0;
+//
+//            tap = true;
+//        }
+//        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD0)) {
+//            System.out.println("xrot: " + xtap + ", yrot: " + ytap + ", zrot: " + ztap);
+//
+//            System.out.println("xOffest: " + xOffest + ", yOffest: " + yOffest + ", zOffest: " + zOffest);
+//            tap = true;
+////
+////            [20:24:23] [Client thread/INFO]: [net.machinemuse.powersuits.client.render.item.ToolModel:render:459]: xrot: -178, yrot: 0, zrot: 0
+////                    [20:24:23] [Client thread/INFO]: [net.machinemuse.powersuits.client.render.item.ToolModel:render:461]: xrot: -3.0999992, yrot: 1.5000001, zrot: 9.299999
+//
+//
+//
+//
+//        }
 //        }
 //        else {
 //            if (!Keyboard.isKeyDown(Keyboard.KEY_NUMPAD0) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD1) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD2)
@@ -541,7 +536,6 @@ public class ToolModel extends ModelBase {
 
         } else {
             GL11.glScaled(-scale1, scale1, scale1);
-
             GL11.glRotatef(-182, 1, 0, 0);
             //xOffest: -2.9999993, yOffest: -1.6000001, zOffest: -8.999998
 

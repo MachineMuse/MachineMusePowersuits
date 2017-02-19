@@ -20,7 +20,6 @@ import java.util.List;
  * Ported to Java by lehjr on 12/27/16.
  */
 public class ModelLuxCapacitor implements IBakedModel, IPerspectiveAwareModel {
-    private static ResourceLocation location;
     private static final LuxCapModelHelper modelHelper = LuxCapModelHelper.getInstance();
     private static IBakedModel baseBakedModel; // used mainly for the Item model
 

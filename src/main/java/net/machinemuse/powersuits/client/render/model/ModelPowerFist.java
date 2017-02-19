@@ -28,6 +28,8 @@ import java.util.List;
  * Created by lehjr on 12/19/16.
  */
 public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
+    // TODO: switch to our obj models asap
+
     public static ToolModel powerFistRightModel = new ToolModel(false);
     public static ToolModel powerFistLeftModel = new ToolModel(true);
     public IBakedModel modelOriginal;

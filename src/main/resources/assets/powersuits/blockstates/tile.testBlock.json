@@ -1,0 +1,92 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "particle": "blocks/iron_block"
+    },
+    "custom": { "flip-v": true }
+  },
+  "variants": {
+    "inventory": [{
+      "model": "powersuits:armor/mps_pantaloons.obj",
+      "transform": {
+        "thirdperson_righthand": {
+          "scale" : 0.0234375,
+          "translation": [0.0, 0.15625, 0.0],
+          "rotation": [{"x": 75}, {"y": 45}]
+        },
+        "thirdperson_lefthand": {
+          "scale" : 0.0234375,
+          "rotation": [{"x": 75}, {"y": 45}]
+        },
+        "firstperson_righthand": {
+          "scale": 0.025
+        },
+        "firstperson_lefthand": {
+          "scale": 0.025
+        },
+        "gui": {
+          "scale": 0.0390625,
+          "translation": [0.0, 0.025, 0.0],
+          "rotation": [{"x":30}, {"y":225}]
+        },
+        "ground": {
+          "scale": 0.1563,
+          "translation": [0.0, 0.1625, 0.0]
+        },
+        "fixed": {
+          "scale" : 0.03125
+        }
+      }
+    }],
+    "facing": {
+      "down": {
+        "model": "powersuits:armor/mps_pantaloons.obj",
+        "transform": {
+          "translation": [0.02, -0.40, 0.02],
+          "scale" : 0.0625
+        }
+      },
+      "up": {
+        "model": "powersuits:armor/mps_pantaloons.obj",
+        "transform": {
+          "translation": [0.0, 0.40, 0.0],
+          "rotation": {"x": 180},
+          "scale" : 0.0625
+        }
+      },
+      "north": {
+        "model": "powersuits:armor/mps_pantaloons.obj",
+        "transform": {
+          "translation": [0.02, -0.02, -0.4],
+          "rotation": {"x": 90},
+          "scale": 0.0625
+        }
+      },
+      "south": {
+        "model": "powersuits:armor/mps_pantaloons.obj",
+        "transform": {
+          "translation": [0.02, 0.02, 0.4],
+          "rotation": {"x": 270},
+          "scale": 0.0625
+        }
+      },
+      "west": {
+        "model": "powersuits:armor/mps_pantaloons.obj",
+        "transform": {
+          "translation": [-0.4, -0.02, 0.02],
+          "rotation": {"z": 270},
+          "scale" : 0.0625
+        }
+      },
+      "east": {
+        "model": "powersuits:armor/mps_pantaloons.obj",
+        "transform": {
+          "translation": [0.4, 0.02, 0.02],
+          "rotation": {"z": 90},
+          "scale" : 0.0625
+        }
+      }
+    }
+  }
+}
