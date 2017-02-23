@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.powermodule.energy;
 
 
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.electricity.IModularItem;
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;

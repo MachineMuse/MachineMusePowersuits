@@ -49,7 +49,6 @@ public class VanillaArmorModel extends ModelBiped implements IArmorModel {
     @Override
     public void setRenderSpec(NBTTagCompound nbt) {
         renderSpec = nbt;
-
     }
 
     @Override

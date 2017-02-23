@@ -1,7 +1,7 @@
 //package net.machinemuse.powersuits.powermodule.tool;
 //
 //import appeng.api.AEApi;
-//import net.machinemuse.api.electricity.IModularItem;
+//import net.machinemuse.api.IModularItem;
 //import net.machinemuse.api.moduletrigger.IRightClickModule;
 //import net.machinemuse.general.gui.MuseIcon;
 //import net.machinemuse.powersuits.item.ItemComponent;

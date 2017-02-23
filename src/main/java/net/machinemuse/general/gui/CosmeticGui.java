@@ -14,10 +14,10 @@ import net.minecraft.item.ItemStack;
  * Ported to Java by lehjr on 10/19/16.
  */
 public class CosmeticGui extends MuseGui {
-    final EntityPlayer player;
-    final int worldx;
-    final int worldy;
-    final int worldz;
+    EntityPlayer player;
+    int worldx;
+    int worldy;
+    int worldz;
     ItemSelectionFrame itemSelect;
     ItemStack lastSelectedItem;
 
@@ -60,20 +60,20 @@ public class CosmeticGui extends MuseGui {
         frames.add(colourpicker);
 
         PartManipContainer partframe = new PartManipContainer(
-                    itemSelect, colourpicker,
-                    new MusePoint2D(absX(-0.95F), absY(0.025f)),
-                    new MusePoint2D(absX(+0.95F), absY(0.95f)),
-                    Colour.LIGHTBLUE.withAlpha(0.8F),
-                    Colour.DARKBLUE.withAlpha(0.8F));
-            frames.add(partframe);
+                itemSelect, colourpicker,
+                new MusePoint2D(absX(-0.95F), absY(0.025f)),
+                new MusePoint2D(absX(+0.95F), absY(0.95f)),
+                Colour.LIGHTBLUE.withAlpha(0.8F),
+                Colour.DARKBLUE.withAlpha(0.8F));
+        frames.add(partframe);
 
         TabSelectFrame tabFrame = new TabSelectFrame(
-                    player,
-                    new MusePoint2D(absX(-0.95F), absY(-1.05f)),
-                    new MusePoint2D(absX(0.95F), absY(-0.95f)),
-                    worldx, worldy, worldz);
-            frames.add(tabFrame);
-        }
+                player,
+                new MusePoint2D(absX(-0.95F), absY(-1.05f)),
+                new MusePoint2D(absX(0.95F), absY(-0.95f)),
+                worldx, worldy, worldz);
+        frames.add(tabFrame);
+    }
 
     @Override
     public void update() {

@@ -20,32 +20,30 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ServerProxy extends CommonProxy{
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-        System.out.println("running here");
         super.preInit(event);
     }
 
     @Override
     public void init(FMLInitializationEvent event) {
-        System.out.println("running here");
         super.init(event);
     }
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-        System.out.println("running here");
         super.postInit(event);
     }
 
     @Override
     public void registerEvents() {
-        System.out.println("running here");
         super.registerEvents();
         MinecraftForge.EVENT_BUS.register(new PlayerUpdateHandler());
         MinecraftForge.EVENT_BUS.register(new PlayerLoginHandlerThingy());
     }
 
     @Override
-    public void registerRenderers() {}
+    public void registerRenderers() {
+        super.registerRenderers();
+    }
 
     @Override
     public void sendModeChange(int dMode, String newMode) {}

@@ -28,7 +28,7 @@ public class MuseGui extends GuiScreen {
     protected DrawableMuseRect backgroundRect;
     protected DrawableMuseRect tooltipRect;
 
-    protected final List<IGuiFrame> frames;
+    protected List<IGuiFrame> frames;
 
     public MuseGui() {
         super();

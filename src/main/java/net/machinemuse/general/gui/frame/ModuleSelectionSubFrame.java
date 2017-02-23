@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModuleSelectionSubFrame {
-    protected final List<ClickableModule> moduleButtons;
-    protected final MuseRelativeRect border;
-    protected final String category;
+    protected List<ClickableModule> moduleButtons;
+    protected MuseRelativeRect border;
+    protected String category;
 
     public ModuleSelectionSubFrame(String category, MuseRelativeRect border) {
         this.category = category;

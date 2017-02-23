@@ -27,7 +27,7 @@ public class EntityRendererLuxCapacitorEntity extends MuseEntityRenderer <Entity
     }
     LuxCapModelHelper modelhelper = LuxCapModelHelper.getInstance();
     ModelResourceLocation luxCapFramelocation = modelhelper.getLocationForFacing(EnumFacing.DOWN);
-    IBakedModel luxCapFrame = modelhelper.frameModelMap.get(luxCapFramelocation);
+    IBakedModel luxCapFrame = modelhelper.luxCapCleanModelMap.get(luxCapFramelocation);
     IBakedModel luxCapacitorModel;
 
     @Override

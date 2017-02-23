@@ -8,7 +8,7 @@
   },
   "variants": {
     "inventory": [{
-      "model": "powersuits:luxCapacitor/lightBase.obj",
+      "model": "powersuits:luxCapacitor/luxCapacitor.obj",
       "transform": {
         "thirdperson_righthand": {
           "scale" : 0.0234375,
@@ -41,14 +41,14 @@
     }],
     "facing": {
       "down": {
-        "model": "powersuits:luxCapacitor/lightBase.obj",
+        "model": "powersuits:luxCapacitor/luxCapacitor.obj",
         "transform": {
           "translation": [0.02, -0.40, 0.02],
           "scale" : 0.0625
         }
       },
       "up": {
-        "model": "powersuits:luxCapacitor/lightBase.obj",
+        "model": "powersuits:luxCapacitor/luxCapacitor.obj",
         "transform": {
           "translation": [0.0, 0.40, 0.0],
           "rotation": {"x": 180},
@@ -56,7 +56,7 @@
         }
       },
       "north": {
-        "model": "powersuits:luxCapacitor/lightBase.obj",
+        "model": "powersuits:luxCapacitor/luxCapacitor.obj",
         "transform": {
           "translation": [0.02, -0.02, -0.4],
           "rotation": {"x": 90},
@@ -64,7 +64,7 @@
         }
       },
       "south": {
-        "model": "powersuits:luxCapacitor/lightBase.obj",
+        "model": "powersuits:luxCapacitor/luxCapacitor.obj",
         "transform": {
           "translation": [0.02, 0.02, 0.4],
           "rotation": {"x": 270},
@@ -72,7 +72,7 @@
         }
       },
       "west": {
-        "model": "powersuits:luxCapacitor/lightBase.obj",
+        "model": "powersuits:luxCapacitor/luxCapacitor.obj",
         "transform": {
           "translation": [-0.4, -0.02, 0.02],
           "rotation": {"z": 270},
@@ -80,7 +80,7 @@
         }
       },
       "east": {
-        "model": "powersuits:luxCapacitor/lightBase.obj",
+        "model": "powersuits:luxCapacitor/luxCapacitor.obj",
         "transform": {
           "translation": [0.4, 0.02, 0.02],
           "rotation": {"z": 90},

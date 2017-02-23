@@ -14,9 +14,9 @@ import java.util.List;
  * @author MachineMuse
  */
 public class ClickableButton extends Clickable {
-    protected final String label;
-    protected final MusePoint2D radius;
-    protected final DrawableMuseRect rect;
+    protected String label;
+    protected MusePoint2D radius;
+    protected DrawableMuseRect rect;
     protected boolean enabled;
 
     public ClickableButton(String label, MusePoint2D position, boolean enabled) {

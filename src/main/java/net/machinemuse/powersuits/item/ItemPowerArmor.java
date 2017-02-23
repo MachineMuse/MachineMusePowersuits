@@ -114,6 +114,31 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
             if (ModuleManager.itemHasActiveModule(itemStack, "Transparent Armor")) {
                 ((IArmorModel)model).setVisibleSection(null);
             }
+
+//            System.out.println("MuseItemUtils.getMuseRenderTag(itemStack, armorSlot).getKeySet().size(): " +
+//                    MuseItemUtils.getMuseRenderTag(itemStack, armorSlot).getKeySet().size());
+//            if (MuseItemUtils.getMuseRenderTag(itemStack, armorSlot).getKeySet().size() > 0) {
+//                NBTTagCompound nbtThingy = MuseItemUtils.getMuseRenderTag(itemStack, armorSlot);
+//
+//
+//                /*
+//                    So far the only tag showing is "colours"
+//
+//                 */
+//
+//
+//
+//
+//                for (String thingy : nbtThingy.getKeySet())
+//                    System.out.println("NBTTagCompound tag key: " + thingy);
+//
+//
+//
+//            }
+
+
+
+
             ((IArmorModel)model).setRenderSpec(MuseItemUtils.getMuseRenderTag(itemStack, armorSlot));
         }
         return (ModelBiped)model;

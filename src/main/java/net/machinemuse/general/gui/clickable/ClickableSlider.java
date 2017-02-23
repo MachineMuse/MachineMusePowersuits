@@ -13,22 +13,21 @@ import net.machinemuse.utils.render.MuseRenderer;
  * Ported to Java by lehjr on 10/19/16.
  */
 public class ClickableSlider extends Clickable {
-    private final MusePoint2D pos;
-    private final double width;
-    private final String name;
-    private final int cornersize;
-    private final DrawableMuseRect insideRect;
-    private final DrawableMuseRect outsideRect;
-    private double valueInternal;
+    double valueInternal = 0;
+    MusePoint2D pos;
+    double width;
+    String name;
+    DrawableMuseRect insideRect;
+    DrawableMuseRect outsideRect;
+    final int cornersize = 3;
 
-    public ClickableSlider(final MusePoint2D pos, final double width, final String name) {
+    public ClickableSlider(MusePoint2D pos, double width, String name) {
         this.pos = pos;
         this.width = width;
         this.name = name;
-        super.position = pos;
-        this.cornersize = 3;
-        this.insideRect = new DrawableMuseRect(this.position.x() - width / 2.0 - this.cornersize(), this.position.y() + 8, 0.0, this.position.y() + 16, Colour.LIGHTBLUE, Colour.ORANGE);
-        this.outsideRect = new DrawableMuseRect(this.position.x() - width / 2.0 - this.cornersize(), this.position.y() + 8, this.position.x() + width / 2.0 + this.cornersize(), this.position.y() + 16, Colour.LIGHTBLUE, Colour.DARKBLUE);
+        this.position = pos;
+        this.insideRect = new DrawableMuseRect(position.x() - width / 2.0 - cornersize(), this.position.y() + 8, 0.0, this.position.y() + 16, Colour.LIGHTBLUE, Colour.ORANGE);
+        this.outsideRect = new DrawableMuseRect(position.x() - width / 2.0 - cornersize(), this.position.y() + 8, this.position.x() + width / 2.0 + this.cornersize(), this.position.y() + 16, Colour.LIGHTBLUE, Colour.DARKBLUE);
         this.valueInternal = 0.0;
     }
 

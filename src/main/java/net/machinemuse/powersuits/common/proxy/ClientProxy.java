@@ -60,33 +60,26 @@ import java.net.URL;
 public class ClientProxy extends CommonProxy {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-        System.out.println("running here");
         super.preInit(event);
-        System.out.println("running here");
         OBJLoader.INSTANCE.addDomain(ModularPowersuits.MODID.toLowerCase());
     }
 
     @Override
     public void init(FMLInitializationEvent event) {
-        System.out.println("running here");
         super.init(event);
-        System.out.println("running here");
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinkerTable.class, new TinkerTableRenderer());
+        loadArmorModels();
     }
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-        System.out.println("running here");
         super.postInit(event);
-        System.out.println("running here");
         KeybindManager.readInKeybinds();
     }
 
     @Override
     public void registerEvents() {
-        System.out.println("running here");
         super.registerEvents();
-        System.out.println("running here");
         MinecraftForge.EVENT_BUS.register(new KeybindKeyHandler());
         MinecraftForge.EVENT_BUS.register(new PlayerUpdateHandler());
         MinecraftForge.EVENT_BUS.register(new ClientTickHandler());
@@ -97,6 +90,7 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void registerRenderers() {
+        super.registerRenderers();
         System.out.println("running here");
         regRenderer(MPSItems.powerTool);
         regRenderer(MPSItems.powerArmorHead);
@@ -108,7 +102,7 @@ public class ClientProxy extends CommonProxy {
         if (components != null) {
             for (Integer  meta : ((ItemComponent)components).names.keySet()) {
                 String oredictName = ((ItemComponent)components).names.get(meta);
-                ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation(Config.RESOURCE_PREFIX + oredictName, "inventory");
+                ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation(Config.COMPONENTS_PREFIX + oredictName, "inventory");
                 ModelLoader.setCustomModelResourceLocation(components, meta, itemModelResourceLocation);
                 OreDictionary.registerOre(oredictName, new ItemStack(components, 1, meta));
             }
@@ -119,18 +113,6 @@ public class ClientProxy extends CommonProxy {
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(MPSItems.tinkerTable), 0, TileEntityTinkerTable.class);
 
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(MPSItems.luxCapacitor), 0, LuxCapModelHelper.getInstance().luxCapItemLocation);
-        LuxCapModelHelper.getInstance().putLuxCapFameModels(LuxCapModelHelper.getInstance().luxCapItemLocation, null);
-
-//        // This probably isn't needed but ...
-//        ModelLoader.setCustomStateMapper(MPSItems.luxCapacitor, new StateMapperBase() {
-//            @Override
-//            protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-//                LinkedHashMap<IProperty<?>, Comparable<?>> mappings = Maps.newLinkedHashMap(state.getProperties());
-//                ModelResourceLocation modresloc = new ModelResourceLocation(MPSItems.luxCapacitor.getRegistryName(), this.getPropertyString(mappings));
-//                return modresloc;
-//            }
-//        });
-
 
         // TODO: model testing block. Not a permanent addition
         regRenderer(Item.getItemFromBlock(MPSItems.testBlock));
@@ -140,10 +122,7 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, EntityRendererPlasmaBolt::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityLuxCapacitor.class, EntityRendererLuxCapacitorEntity::new);
 
-        URL resource = ClientProxy.class.getResource("/assets/powersuits/models/modelspec.xml");
-        ModelSpecXMLReader.getINSTANCE().parseFile(resource);
-        URL otherResource = ClientProxy.class.getResource("/assets/powersuits/models/armor2.xml");
-        ModelSpecXMLReader.getINSTANCE().parseFile(otherResource);
+
     }
 
     @Override
@@ -160,5 +139,14 @@ public class ClientProxy extends CommonProxy {
 
         System.out.println("location is: " + location.toString());
         ModelLoader.setCustomModelResourceLocation(item, 0,location);
+    }
+
+
+    private void loadArmorModels() {
+        // this needs to be loaded after preInit
+        URL resource = ClientProxy.class.getResource("/assets/powersuits/models/item/armor/modelspec.xml");
+        ModelSpecXMLReader.getINSTANCE().parseFile(resource);
+        URL otherResource = ClientProxy.class.getResource("/assets/powersuits/models/item/armor/armor2.xml");
+        ModelSpecXMLReader.getINSTANCE().parseFile(otherResource);
     }
 }

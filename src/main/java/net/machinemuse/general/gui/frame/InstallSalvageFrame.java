@@ -26,11 +26,11 @@ import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class InstallSalvageFrame extends ScrollableFrame {
-    protected final ItemSelectionFrame targetItem;
-    protected final ModuleSelectionFrame targetModule;
-    protected final ClickableButton installButton;
-    protected final ClickableButton salvageButton;
-    protected final EntityPlayerSP player;
+    protected ItemSelectionFrame targetItem;
+    protected ModuleSelectionFrame targetModule;
+    protected ClickableButton installButton;
+    protected ClickableButton salvageButton;
+    protected EntityPlayerSP player;
 
     public InstallSalvageFrame(EntityPlayerSP player, MusePoint2D topleft,
                                MusePoint2D bottomright,

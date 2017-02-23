@@ -41,7 +41,6 @@ public class TestBlock extends BlockDirectional {
         setLightLevel(1.0f);
         setTickRandomly(false);
         setHarvestLevel("pickaxe", 0);
-        GameRegistry.registerTileEntity(TileEntityLuxCapacitor.class, name);
     }
 
     @Override

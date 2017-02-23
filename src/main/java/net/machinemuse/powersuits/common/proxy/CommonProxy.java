@@ -29,19 +29,16 @@ import java.io.File;
  *
  * Ported to Java by lehjr on 11/14/16.
  */
-public abstract class CommonProxy {
+public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
-        System.out.println("running here");
         File newConfig = new File(event.getModConfigurationDirectory() + "/machinemuse/powersuits.cfg");
         Config.init(new Configuration(newConfig));
         Config.setConfigFolderBase(event.getModConfigurationDirectory());
-
         MPSItems.populateItems();
         MPSItems.populateComponents();
     }
 
     public void init(FMLInitializationEvent event) {
-        System.out.println("running here");
         Config.loadPowerModules();
         Config.getMaximumArmorPerPiece();
         Config.getMaximumFlyingSpeedmps();
@@ -58,30 +55,26 @@ public abstract class CommonProxy {
         Config.keybindHUDon();
         Config.keybindHUDx();
         Config.toggleModuleSpam();
-
         EntityRegistry.registerModEntity(EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, ModularPowersuits.getInstance(), 64, 20, true);
         EntityRegistry.registerModEntity(EntitySpinningBlade.class, "entitySpinningBlade", 2478, ModularPowersuits.getInstance(), 64, 20, true);
         EntityRegistry.registerModEntity(EntityLuxCapacitor.class, "entityLuxCapacitor", 2479, ModularPowersuits.getInstance(), 64, 20, true);
-
         MPSPacketList.registerPackets();
         NetworkRegistry.INSTANCE.registerGuiHandler(ModularPowersuits.getInstance(), MPSGuiHandler.getInstance());
 //        TerminalHandler.registerHandler(); // TODO: enable when Applied Energistics API ready for addons
     }
 
     public void postInit(FMLPostInitializationEvent event) {
-        System.out.println("running here");
         Config.extractRecipes();
         Config.addCustomInstallCosts();
         Config.getConfig().save();
     }
 
     public void registerEvents(){
-        System.out.println("running here");
         MinecraftForge.EVENT_BUS.register(new HarvestEventHandler());
         MinecraftForge.EVENT_BUS.register(new MovementManager());
     }
 
-    public abstract void registerRenderers();
+    public void registerRenderers() {}
 
-    public abstract void sendModeChange(int dMode, String newMode);
+    public void sendModeChange(int dMode, String newMode) {}
 }

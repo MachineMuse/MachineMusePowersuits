@@ -2,7 +2,7 @@
 //
 //import com.google.common.base.Optional;
 //import extracells.api.ECApi;
-//import net.machinemuse.api.electricity.IModularItem;
+//import net.machinemuse.api.IModularItem;
 //import net.machinemuse.api.moduletrigger.IRightClickModule;
 //import net.machinemuse.powersuits.item.ItemComponent;
 //import net.machinemuse.powersuits.powermodule.PowerModuleBase;

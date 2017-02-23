@@ -19,7 +19,7 @@ import java.util.List;
 public class ItemSelectionFrame extends ScrollableFrame {
     protected List<ClickableItem> itemButtons;
     protected int selectedItemStack = -1;
-    protected final EntityPlayer player;
+    protected EntityPlayer player;
     protected List<MusePoint2D> itemPoints;
 
     public ItemSelectionFrame(MusePoint2D topleft, MusePoint2D bottomright,
@@ -49,7 +49,7 @@ public class ItemSelectionFrame extends ScrollableFrame {
 
     private void loadItems() {
         if (player != null) {
-            itemButtons = new ArrayList<>();
+            itemButtons = new ArrayList<ClickableItem>();
             double centerx = (border.left() + border.right()) / 2;
             double centery = (border.top() + border.bottom()) / 2;
             List<Integer> slots = MuseItemUtils

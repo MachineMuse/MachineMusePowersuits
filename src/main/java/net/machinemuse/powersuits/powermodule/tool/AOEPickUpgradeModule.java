@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.api.electricity.IModularItem;
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.general.gui.MuseIcon;

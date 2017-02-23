@@ -98,7 +98,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
         NBTTagCompound moduleTag = itemTag.getCompoundTag(module.getDataName());
 
         propertyStrings = new HashMap();
-        Set<String> tweaks = new HashSet<>();
+        Set<String> tweaks = new HashSet<String>();
 
         Map<String, List<IPropertyModifier>> propertyModifiers = module.getPropertyModifiers();
         for (Map.Entry<String, List<IPropertyModifier>> property : propertyModifiers.entrySet()) {

@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.common;
 import com.google.gson.Gson;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.electricity.IModularItem;
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.numina.basemod.Numina;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.powersuits.common.proxy.CommonProxy;
@@ -44,6 +44,7 @@ import java.util.List;
 public class Config {
     public static final String RESOURCE_PREFIX = "powersuits:";
     public static final String TEXTURE_PREFIX = "powersuits:textures/";
+    public static final String COMPONENTS_PREFIX = "powersuits:component/";
     public static final String SOUND_PREFIX = RESOURCE_PREFIX + "sound/";
     public static final String LANG_PREFIX = RESOURCE_PREFIX + "lang/";
     public static final String SEBK_ARMOR_PATH = TEXTURE_PREFIX + "models/sebkarmor.png";

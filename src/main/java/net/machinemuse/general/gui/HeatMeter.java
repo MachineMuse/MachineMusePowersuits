@@ -13,12 +13,12 @@ import org.lwjgl.opengl.GL11;
 public class HeatMeter {
     final int xsize = 8;
     final int ysize = 32;
-    TextureAtlasSprite icon = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(FluidRegistry.LAVA.getStill().toString());
 
     public void draw(double xpos, double ypos, double value) {
         MuseTextureUtils.pushTexture(MuseTextureUtils.TEXTURE_QUILT);
         RenderState.blendingOn();
         RenderState.on2D();
+        TextureAtlasSprite icon = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(FluidRegistry.LAVA.getStill().toString());
         drawFluid(xpos, ypos, value, icon);
         drawGlass(xpos, ypos);
         RenderState.off2D();

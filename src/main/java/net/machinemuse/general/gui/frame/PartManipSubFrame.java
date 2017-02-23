@@ -40,7 +40,7 @@ public class PartManipSubFrame {
     public ModelSpec model;
     public ColourPickerFrame colourframe;
     public ItemSelectionFrame itemSelector;
-    public final MuseRelativeRect border;
+    public MuseRelativeRect border;
     public List<ModelPartSpec> specs;
     public boolean open;
 
@@ -88,27 +88,27 @@ public class PartManipSubFrame {
         return MuseItemUtils.getMuseItemTag(this.getSelectedItem().getItem());
     }
 
-    public boolean isValidArmor(final ClickableItem clickie, final EntityEquipmentSlot slot) {
+    public boolean isValidArmor(ClickableItem clickie, EntityEquipmentSlot slot) {
         return clickie != null && clickie.getItem().getItem().isValidArmor(clickie.getItem(), slot, (Entity)Minecraft.getMinecraft().thePlayer);
     }
 
-    public NBTTagCompound getSpecTag(final ModelPartSpec spec) {
+    public NBTTagCompound getSpecTag(ModelPartSpec spec) {
         return this.getRenderTag().getCompoundTag(ModelRegistry.getInstance().makeName(spec));
     }
 
-    public NBTTagCompound getOrDontGetSpecTag(final ModelPartSpec spec) {
-        final String name = ModelRegistry.getInstance().makeName(spec);
+    public NBTTagCompound getOrDontGetSpecTag(ModelPartSpec spec) {
+        String name = ModelRegistry.getInstance().makeName(spec);
         return this.getRenderTag().hasKey(name) ? this.getRenderTag().getCompoundTag(name) : null;
     }
 
-    public NBTTagCompound getOrMakeSpecTag(final ModelPartSpec spec) {
-        final String name = ModelRegistry.getInstance().makeName(spec);
+    public NBTTagCompound getOrMakeSpecTag(ModelPartSpec spec) {
+        String name = ModelRegistry.getInstance().makeName(spec);
         NBTTagCompound compoundTag;
         if (this.getRenderTag().hasKey(name)) {
             compoundTag = this.getRenderTag().getCompoundTag(name);
         }
         else {
-            final NBTTagCompound k = new NBTTagCompound();
+            NBTTagCompound k = new NBTTagCompound();
             spec.multiSet(k, null, null, null);
             this.getRenderTag().setTag(name, (NBTBase)k);
             compoundTag = k;
@@ -121,7 +121,7 @@ public class PartManipSubFrame {
         this.border.setHeight((specs.size() > 0) ? (specs.size() * 8 + 10) : 0);
     }
 
-    public void drawPartial(final double min, final double max) {
+    public void drawPartial(double min, double max) {
         if (specs.size() > 0) {
             MuseRenderer.drawString(ModelRegistry.getInstance().getName(model), border.left() + 8, border.top());
             drawOpenArrow(min, max);
@@ -152,10 +152,10 @@ public class PartManipSubFrame {
         }
     }
 
-    public void drawSpecPartial(final double x, final double y, final ModelPartSpec spec, final double ymino, final double ymaxo) {
-        final NBTTagCompound tag = this.getSpecTag(spec);
-        final int selcomp = tag.hasNoTags() ? 0 : (spec.getGlow(tag) ? 2 : 1);
-        final int selcolour = spec.getColourIndex(tag);
+    public void drawSpecPartial(double x, double y, ModelPartSpec spec, double ymino, double ymaxo) {
+        NBTTagCompound tag = this.getSpecTag(spec);
+        int selcomp = tag.hasNoTags() ? 0 : (spec.getGlow(tag) ? 2 : 1);
+        int selcolour = spec.getColourIndex(tag);
         new GuiIcons.TransparentArmor(x, y, null, null, ymino, null, ymaxo);
         new GuiIcons.NormalArmor(x + 8, y, null, null, ymino, null, ymaxo);
         new GuiIcons.GlowArmor(x + 16, y, null, null, ymino, null, ymaxo);
@@ -174,7 +174,7 @@ public class PartManipSubFrame {
         MuseRenderer.drawString(spec.displayName, textstartx + 4, y);
     }
 
-    public void drawOpenArrow(final double min, final double max) {
+    public void drawOpenArrow(double min, double max) {
         RenderState.texturelessOn();
         Colour.LIGHTBLUE.doGL();
         GL11.glBegin(4);
@@ -203,7 +203,7 @@ public class PartManipSubFrame {
         return this.border;
     }
 
-    public boolean tryMouseClick(final double x, final double y) {
+    public boolean tryMouseClick(double x, double y) {
         if (x < this.border.left() || x > this.border.right() || y < this.border.top() || y > this.border.bottom()) {
             return false;
         }
@@ -213,15 +213,15 @@ public class PartManipSubFrame {
             return true;
         }
         else if (x < this.border.left() + 24 && y > this.border.top() + 8) {
-            final int lineNumber = (int)((y - this.border.top() - 8) / 8);
-            final int columnNumber = (int)((x - this.border.left()) / 8);
-            final ModelPartSpec spec = specs.get(Math.max(Math.min(lineNumber, specs.size() - 1), 0));
+            int lineNumber = (int)((y - this.border.top() - 8) / 8);
+            int columnNumber = (int)((x - this.border.left()) / 8);
+            ModelPartSpec spec = specs.get(Math.max(Math.min(lineNumber, specs.size() - 1), 0));
             MuseLogger.logDebug("Line " + lineNumber + " Column " + columnNumber);
             switch (columnNumber) {
                 case 0: {
-                    final NBTTagCompound renderTag = this.getRenderTag();
-                    final String tagname3 = ModelRegistry.getInstance().makeName(spec);
-                    final EntityPlayerSP player3 = Minecraft.getMinecraft().thePlayer;
+                    NBTTagCompound renderTag = this.getRenderTag();
+                    String tagname3 = ModelRegistry.getInstance().makeName(spec);
+                    EntityPlayerSP player3 = Minecraft.getMinecraft().thePlayer;
                     renderTag.removeTag(ModelRegistry.getInstance().makeName(spec));
                     if (player3.worldObj.isRemote) {
                         PacketSender.sendToServer(new MusePacketCosmeticInfo((EntityPlayer) player3, this.getSelectedItem().inventorySlot, tagname3, new NBTTagCompound()).getPacket131());
@@ -231,9 +231,9 @@ public class PartManipSubFrame {
                 }
 
                 case 1: {
-                    final String tagname2 = ModelRegistry.getInstance().makeName(spec);
-                    final EntityPlayerSP player2 = Minecraft.getMinecraft().thePlayer;
-                    final NBTTagCompound tagdata2 = this.getOrMakeSpecTag(spec);
+                    String tagname2 = ModelRegistry.getInstance().makeName(spec);
+                    EntityPlayerSP player2 = Minecraft.getMinecraft().thePlayer;
+                    NBTTagCompound tagdata2 = this.getOrMakeSpecTag(spec);
                     spec.setGlow(tagdata2, false);
                     if (player2.worldObj.isRemote) {
                         PacketSender.sendToServer(new MusePacketCosmeticInfo((EntityPlayer)player2, this.getSelectedItem().inventorySlot, tagname2, tagdata2).getPacket131());
@@ -243,9 +243,9 @@ public class PartManipSubFrame {
                 }
 
                 case 2: {
-                    final String tagname = ModelRegistry.getInstance().makeName(spec);
-                    final EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
-                    final NBTTagCompound tagdata = this.getOrMakeSpecTag(spec);
+                    String tagname = ModelRegistry.getInstance().makeName(spec);
+                    EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+                    NBTTagCompound tagdata = this.getOrMakeSpecTag(spec);
                     spec.setGlow(tagdata, true);
                     if (player.worldObj.isRemote) {
                         PacketSender.sendToServer(new MusePacketCosmeticInfo((EntityPlayer) player, this.getSelectedItem().inventorySlot, tagname, tagdata).getPacket131());
@@ -259,12 +259,12 @@ public class PartManipSubFrame {
             }
         }
         else if (x > this.border.left() + 28 && x < this.border.left() + 28 + this.colourframe.colours().length * 8) {
-            final int lineNumber2 = (int)((y - this.border.top() - 8) / 8);
-            final int columnNumber2 = (int)((x - this.border.left() - 28) / 8);
-            final ModelPartSpec spec2 = specs.get(Math.max(Math.min(lineNumber2, specs.size() - 1), 0));
-            final String tagname4 = ModelRegistry.getInstance().makeName(spec2);
-            final EntityPlayerSP player4 = Minecraft.getMinecraft().thePlayer;
-            final NBTTagCompound tagdata3 = this.getOrMakeSpecTag(spec2);
+            int lineNumber2 = (int)((y - this.border.top() - 8) / 8);
+            int columnNumber2 = (int)((x - this.border.left() - 28) / 8);
+            ModelPartSpec spec2 = specs.get(Math.max(Math.min(lineNumber2, specs.size() - 1), 0));
+            String tagname4 = ModelRegistry.getInstance().makeName(spec2);
+            EntityPlayerSP player4 = Minecraft.getMinecraft().thePlayer;
+            NBTTagCompound tagdata3 = this.getOrMakeSpecTag(spec2);
             spec2.setColourIndex(tagdata3, columnNumber2);
             if (player4.worldObj.isRemote) {
                 PacketSender.sendToServer(new MusePacketCosmeticInfo((EntityPlayer)player4, this.getSelectedItem().inventorySlot, tagname4, tagdata3).getPacket131());

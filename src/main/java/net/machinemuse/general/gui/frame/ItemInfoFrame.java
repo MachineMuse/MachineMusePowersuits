@@ -1,6 +1,6 @@
 package net.machinemuse.general.gui.frame;
 
-import net.machinemuse.api.electricity.IModularItem;
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
@@ -14,8 +14,8 @@ import java.util.List;
 
 public class ItemInfoFrame extends ScrollableFrame {
     public static final double SCALEFACTOR = 1;
-    protected final ItemSelectionFrame target;
-    protected final EntityPlayer player;
+    protected ItemSelectionFrame target;
+    protected EntityPlayer player;
     protected List<String> info;
 
     public ItemInfoFrame(EntityPlayer player, MusePoint2D topleft,
@@ -49,10 +49,9 @@ public class ItemInfoFrame extends ScrollableFrame {
             for (String infostring : info) {
                 String[] str = infostring.split("\t");
                 MuseRenderer.drawStringsJustified(Arrays.asList(str),
-                        border.left()
-                                + xoffset, border.right() - xoffset,
-                        border.top() + yoffset
-                                + i * 10);
+                        border.left() + xoffset,
+                        border.right() - xoffset,
+                        border.top() + yoffset + i * 10);
 
                 i++;
             }

@@ -1,7 +1,5 @@
 package net.machinemuse.powersuits.event;
 
-//import net.machinemuse.powersuits.client.render.model.ModelLuxCapacitor;
-
 import net.machinemuse.powersuits.client.render.model.LuxCapModelHelper;
 import net.machinemuse.powersuits.client.render.model.ModelLuxCapacitor;
 import net.machinemuse.powersuits.client.render.model.ModelPowerFist;
@@ -25,44 +23,37 @@ public class ModelBakeEventHandler {
     private static IRegistry<ModelResourceLocation, IBakedModel> modelRegistry;
     LuxCapModelHelper luxCapHeler = LuxCapModelHelper.getInstance();
 
-
     public static final ModelResourceLocation powerFistIconLocation = new ModelResourceLocation(Config.RESOURCE_PREFIX + "powerTool", "inventory");
     public static ModelPowerFist powerFistModel;
-
-    IBakedModel luxCapacitorModel;
 
     public static ModelBakeEventHandler getInstance() {
         return ourInstance;
     }
-
-    private ModelBakeEventHandler() {
-    }
-
-    public IRegistry<ModelResourceLocation, IBakedModel> getModelRegistry(){
-        return modelRegistry;
-    }
+    private ModelBakeEventHandler() {}
 
     @SubscribeEvent
     public void onModelBake(ModelBakeEvent event) throws IOException {
         modelRegistry = event.getModelRegistry();
+
+        // Power Fist
         powerFistModel = new ModelPowerFist(modelRegistry.getObject(powerFistIconLocation));
         modelRegistry.putObject(powerFistIconLocation, powerFistModel);
 
-        luxCapacitorModel = modelRegistry.getObject(LuxCapModelHelper.getInstance().luxCapItemLocation);
-        storeModel(luxCapHeler.luxCapItemLocation, luxCapacitorModel);
+        // Lux Capacitor as Item
+        storeLuxCapModel(null);
 
-        ModelResourceLocation luxCapacitorLocation;
+        // Lux Capacitor as Blocks
         for (EnumFacing facing : EnumFacing.values()) {
-            luxCapacitorLocation = luxCapHeler.getLocationForFacing(facing);
-            luxCapacitorModel = modelRegistry.getObject(luxCapacitorLocation);
-            storeModel(luxCapacitorLocation, luxCapacitorModel);
+            storeLuxCapModel(facing);
         }
     }
 
-    private void storeModel(ModelResourceLocation locationIn, IBakedModel modelIn) {
+    private void storeLuxCapModel(EnumFacing facing) {
+        ModelResourceLocation luxCapacitorLocation = luxCapHeler.getLocationForFacing(facing);
+        IBakedModel modelIn = modelRegistry.getObject(luxCapacitorLocation);
         if (modelIn instanceof OBJModel.OBJBakedModel) {
-            LuxCapModelHelper.getInstance().putLuxCapFameModels(locationIn, modelIn);
-            modelRegistry.putObject(locationIn, new ModelLuxCapacitor(modelIn));
+            LuxCapModelHelper.getInstance().putLuxCapModels(luxCapacitorLocation, modelIn);
+            modelRegistry.putObject(luxCapacitorLocation, new ModelLuxCapacitor(modelIn));
         }
     }
 }

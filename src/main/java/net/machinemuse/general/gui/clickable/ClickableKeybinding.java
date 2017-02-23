@@ -37,7 +37,6 @@ public class ClickableKeybinding extends ClickableButton {
         super((keybind.getKeyCode() < 0)? ("Mouse" + (keybind.getKeyCode() + 100)) : Keyboard.getKeyName(keybind.getKeyCode()), position, true);
         this.displayOnHUD = (displayOnHUD != null) ? displayOnHUD : false;
         this.keybind = keybind;
-
     }
 
     public String parseName(KeyBinding keybind) {
@@ -82,7 +81,6 @@ public class ClickableKeybinding extends ClickableButton {
     @Override
     public void draw() {
         super.draw();
-
         for (ClickableModule module : boundModules) {
             MuseRenderer.drawLineBetween(this, module, Colour.LIGHTBLUE);
             GL11.glPushMatrix();
@@ -116,7 +114,7 @@ public class ClickableKeybinding extends ClickableButton {
 
     public void unbindFarModules() {
         Iterator<ClickableModule> iterator = boundModules.iterator();
-        ClickableModule module;
+        ClickableModule module = null;
         while (iterator.hasNext()) {
             module = iterator.next();
             int maxDistance = getTargetDistance() * 2;
@@ -147,7 +145,7 @@ public class ClickableKeybinding extends ClickableButton {
         return other.keybind.getKeyCode() == this.keybind.getKeyCode();
     }
 
-    public void toggleHUDState (){
+    public void toggleHUDState(){
         displayOnHUD = !displayOnHUD;
     }
 }

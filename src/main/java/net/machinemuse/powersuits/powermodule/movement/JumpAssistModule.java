@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
-import net.machinemuse.api.electricity.IModularItem;
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.general.gui.MuseIcon;

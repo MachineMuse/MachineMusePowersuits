@@ -23,16 +23,15 @@ import java.util.List;
  * Ported to Java by lehjr on 10/19/16.
  */
 public class ClickableModule extends Clickable {
-    private final IPowerModule module;
+    boolean allowed = true;
+    boolean installed = false;
+    final Colour checkmarkcolour = new Colour(0.0F, 0.667F, 0.0F, 1.0F);
+    IPowerModule module;
 
-    public ClickableModule(IPowerModule module , MusePoint2D position) {
+    public ClickableModule(IPowerModule module, MusePoint2D position){
         super(position);
         this.module = module;
     }
-
-    private boolean allowed = true;
-    private boolean installed = false;
-    private final Colour checkmarkcolour = new Colour(0.0F, 0.667F, 0.0F, 1.0F);
 
     @Override
     public List<String> getToolTip() {
@@ -88,7 +87,6 @@ public class ClickableModule extends Clickable {
         return module;
     }
 
-    // this is bad as there is already a keyword equals in Java
     public boolean equals(ClickableModule other) {
         return this.module == other.getModule();
     }

@@ -1,20 +1,54 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
+import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.UnmodifiableIterator;
+import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.powersuits.client.render.model.ModelHelper;
+import net.machinemuse.powersuits.common.MPSItems;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.EnumPushReaction;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.EntityRenderer;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.renderer.vertex.VertexFormat;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Mirror;
+import net.minecraft.util.Rotation;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.client.model.obj.OBJModel;
+import net.minecraftforge.common.model.IModelPart;
+import net.minecraftforge.common.model.IModelState;
+import net.minecraftforge.common.model.Models;
+import net.minecraftforge.common.model.TRSRTransformation;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.common.property.Properties;
+import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Ported to Java by lehjr on 11/8/16.
@@ -25,12 +59,11 @@ public class ModelPartSpec
     public MorphTarget morph;
     public String partName;
     public EntityEquipmentSlot slot;
-    public int defaultcolourindex;
+    public int defaultcolourindex; // NOT A COLOR but an index of a list
     public boolean defaultglow;
     public String displayName;
-    Map<EnumFacing, List<BakedQuad>> quadsPerFacing;
-
-
+    IExtendedBlockState extendedState;
+    Map<EnumFacing, List<BakedQuad>> quadsPerFacing = new HashMap<>();
 
     public ModelPartSpec(ModelSpec modelSpec, MorphTarget morph, String partName, EntityEquipmentSlot slot, Integer defaultcolourindex, Boolean defaultglow, String displayName) {
         this.modelSpec = modelSpec;
@@ -40,53 +73,48 @@ public class ModelPartSpec
         this.defaultcolourindex = (defaultcolourindex != null) ? defaultcolourindex : 0;
         this.defaultglow = (defaultglow != null) ? defaultglow : false;
         this.displayName = displayName;
+        this.extendedState = ModelHelper.getStateForPart(partName, (OBJModel.OBJBakedModel) modelSpec.getModel());
     }
 
-    public void render(){
-        Tessellator tessellator = Tessellator.getInstance();
-        VertexBuffer vertexbuffer = tessellator.getBuffer();
-        vertexbuffer.begin(7, DefaultVertexFormats.ITEM);
-
-        for (EnumFacing enumfacing : EnumFacing.values())
-        {
-            this.renderQuads(vertexbuffer, quadsPerFacing.get(enumfacing), defaultcolourindex);
-        }
-
-        this.renderQuads(vertexbuffer, quadsPerFacing.get((EnumFacing) null), defaultcolourindex);
-        tessellator.draw();
-
-    }
-
-    private void renderQuads(VertexBuffer renderer, List<BakedQuad> quads, int color)
-    {
-//        boolean flag = color == -1 && stack != null;
-        int i = 0;
-
-        for (int j = quads.size(); i < j; ++i)
-        {
-            BakedQuad bakedquad = (BakedQuad)quads.get(i);
-            int k = color;
-
-//            if (flag && bakedquad.hasTintIndex())
-//            {
-//                k = this.itemColors.getColorFromItemstack(stack, bakedquad.getTintIndex());
-//
-//                if (EntityRenderer.anaglyphEnable)
-//                {
-//                    k = TextureUtil.anaglyphColor(k);
-//                }
-//
-//                k = k | -16777216;
-//            }
-
-            net.minecraftforge.client.model.pipeline.LightUtil.renderQuadColor(renderer, bakedquad, k);
+    private void renderQuads(VertexBuffer renderer, List<BakedQuad> quads, int color) {
+        for (BakedQuad bakedquad: quads) {
+            net.minecraftforge.client.model.pipeline.LightUtil.renderQuadColor(renderer, bakedquad, color);
         }
     }
 
+    public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
+        if (quadsPerFacing.get(side) == null) {
+            for (EnumFacing facing: EnumFacing.values()) {
+                quadsPerFacing.put(facing, modelSpec.getModel().getQuads(extendedState, facing, 0));
+            }
+            quadsPerFacing.put(null, modelSpec.getModel().getQuads(extendedState, null, 0));
+        }
+        return quadsPerFacing.get(side);
+    }
+
+    public void render(int color) {
+        if (modelSpec.getModelpartList().contains(partName)) {
+            GlStateManager.pushMatrix();
+            GlStateManager.translate(-0.5F, -0.5F, -0.5F);
+            //---
+            Tessellator tessellator = Tessellator.getInstance();
+            VertexBuffer vertexbuffer = tessellator.getBuffer();
+            vertexbuffer.begin(GL11.GL_QUADS, DefaultVertexFormats.ITEM);
+            //------
+            for (EnumFacing enumfacing : EnumFacing.values()) {
+                this.renderQuads(vertexbuffer, getQuads((IBlockState) null, enumfacing, 0L), color);
+            }
+            this.renderQuads(vertexbuffer, getQuads((IBlockState) null, (EnumFacing) null, 0L), color);
+
+            tessellator.draw();
+            //------
+            GlStateManager.popMatrix();
+            //-------------------------------
+        } else
+            System.out.println("part name not in model part list: " + partName);
 
 
-
-
+    }
 
     public String getTexture(NBTTagCompound nbt) {
         return (nbt.hasKey("texture") ?  nbt.getString("texture") :  modelSpec.textures[0]);

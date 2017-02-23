@@ -3,7 +3,7 @@ package net.machinemuse.utils;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemTag;
-import net.machinemuse.api.electricity.IModularItem;
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec;
@@ -37,11 +37,12 @@ public class MuseItemUtils {
 
     public static NBTTagCompound getMuseRenderTag(ItemStack stack, EntityEquipmentSlot armorSlot) {
         NBTTagCompound tag = getMuseItemTag(stack);
-        if (!tag.hasKey("render") || !(tag.getTag("render") instanceof NBTTagCompound)) {
-            MuseLogger.logDebug("TAG BREACH IMMINENT, PLEASE HOLD ONTO YOUR SEATBELTS");
+//        if (!tag.hasKey("render") || !(tag.getTag("render") instanceof NBTTagCompound)) {
+//            MuseLogger.logDebug("TAG BREACH IMMINENT, PLEASE HOLD ONTO YOUR SEATBELTS");
             tag.removeTag("render");
             tag.setTag("render", DefaultModelSpec.makeModelPrefs(stack, armorSlot));
-        }
+//        }
+
         return tag.getCompoundTag("render");
     }
 

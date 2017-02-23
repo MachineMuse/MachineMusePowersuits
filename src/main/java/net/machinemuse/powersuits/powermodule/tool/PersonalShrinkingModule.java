@@ -5,7 +5,7 @@
 //package net.machinemuse.powersuits.powermodule.tool;
 //
 //import cpw.mods.fml.common.registry.GameRegistry;
-//import net.machinemuse.api.electricity.IModularItem;
+//import net.machinemuse.api.IModularItem;
 //import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 //import net.machinemuse.api.moduletrigger.IRightClickModule;
 //import net.machinemuse.powersuits.item.ItemComponent;

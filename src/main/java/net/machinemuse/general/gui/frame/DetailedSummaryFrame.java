@@ -19,7 +19,7 @@ import java.util.List;
 
 public class DetailedSummaryFrame extends ScrollableFrame {
     public static final double SCALEFACTOR = 1;
-    protected final EntityPlayer player;
+    protected EntityPlayer player;
     protected double weight;
     protected double energy;
     protected double armor;

@@ -3,8 +3,10 @@ package net.machinemuse.powersuits.client.render.modelspec;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.client.render.model.ModelHelper;
+import net.machinemuse.powersuits.event.ModelBakeEventHandler;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -77,13 +79,10 @@ public class ModelSpecXMLReader {
             // These are null because they are not used in the files
             offset = parseVector(eElement.getAttribute("offset"));
             rotation = parseVector(eElement.getAttribute("rotation"));
+            IBakedModel bakedModel = ModelRegistry.getInstance().loadModel(new ResourceLocation(file));
 
-            OBJModel model = ModelRegistry.getInstance().loadModel(new ResourceLocation(file));
-            Map<String, Map<EnumFacing, java.util.List<BakedQuad>>> quadmap = new PartNameToQuads(new ResourceLocation(file)).getQuadMapPerModelGroup();
-
-
-            if (model != null) {
-                ModelSpec modelspec = new ModelSpec(model, textures, offset, rotation, file);
+            if (bakedModel != null && bakedModel instanceof OBJModel.OBJBakedModel) {
+                ModelSpec modelspec = new ModelSpec(bakedModel, textures, offset, rotation, file);
                 ModelSpec existingspec = ModelRegistry.getInstance().put(MuseStringUtils.extractName(file), modelspec);
 
                 NodeList bindingNodeList = eElement.getElementsByTagName("binding");
@@ -116,11 +115,11 @@ public class ModelSpecXMLReader {
 //            Colour defaultcolor = parseColour(eElement.getAttribute("defaultcolor"));
             Boolean defaultglow = parseBool(eElement.getAttribute("defaultglow"));
             String name = eElement.getAttribute("name");
-
             String polygroup = validatePolygroup(eElement.getAttribute("polygroup"), modelspec);
 
             if (polygroup != null) {
-                ModelPartSpec partspec = new ModelPartSpec(modelspec, target, polygroup, slot, 0, (defaultglow != null) ? defaultglow :false, name);
+                ModelPartSpec partspec = new ModelPartSpec(modelspec, target, polygroup, slot, 0,
+                        (defaultglow != null) ? defaultglow :false, name);
                 modelspec.put(polygroup, partspec);
             }
         }
@@ -128,7 +127,7 @@ public class ModelSpecXMLReader {
 
     @Nullable
     public String validatePolygroup(String s, ModelSpec m) {
-        return m.model.getMatLib().getGroups().keySet().contains(s) ? s : null;
+        return ((OBJModel.OBJBakedModel)m.getModel()).getModel().getMatLib().getGroups().keySet().contains(s) ? s : null;
     }
 
     @Nullable

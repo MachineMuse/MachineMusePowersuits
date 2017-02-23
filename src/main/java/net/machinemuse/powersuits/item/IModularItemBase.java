@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.item;
 
-import net.machinemuse.api.electricity.IModularItem;
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.electricity.IMuseElectricItem;
 import net.machinemuse.numina.geometry.Colour;
 import net.minecraft.entity.player.EntityPlayer;

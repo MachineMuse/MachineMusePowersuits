@@ -1,13 +1,22 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
+import com.google.common.collect.ImmutableMap;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.scala.MuseRegistry;
 import net.machinemuse.utils.MuseStringUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
+import net.minecraftforge.common.model.TRSRTransformation;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -18,6 +27,7 @@ import net.minecraftforge.client.model.obj.OBJModel;
  * Note: make sure to have null checks in place.
  */
 public class ModelRegistry extends MuseRegistry<ModelSpec> {
+    private static Map<String, String> customData = new HashMap<String, String>();
     private ModelRegistry(){
     }
 
@@ -29,24 +39,34 @@ public class ModelRegistry extends MuseRegistry<ModelSpec> {
         return INSTANCE;
     }
 
-    public OBJModel loadModel(ResourceLocation resource) {
+    public IBakedModel loadModel(ResourceLocation resource) {
         String name = MuseStringUtils.extractName(resource);
         ModelSpec spec = get(name);
         if (spec == null)
             return wrap(resource);
-        return spec.model;
+        return spec.getModel();
     }
 
-    public OBJModel wrap(ResourceLocation resource) {
+    public IBakedModel wrap(ResourceLocation resource) {
+        if (!customData.containsKey("flip-v"))
+            customData.put("flip-v", "true");
         MuseLogger.logDebug("Loading " + resource + " as " + MuseStringUtils.extractName(resource));
         IModel model = null;
         try {
             model = OBJLoader.INSTANCE.loadModel(resource);
+            model = ((OBJModel) model).process(ImmutableMap.copyOf(customData));
         } catch (Exception e) {
             e.printStackTrace();
+            MuseLogger.logError("Model loading failed :( " + resource);
+            model = ModelLoaderRegistry.getMissingModel();
         }
-        if (model instanceof OBJModel)
-            return (OBJModel) model;
+        if (model == null)
+            model = ModelLoaderRegistry.getMissingModel();
+
+        IBakedModel bakedModel = model.bake(TRSRTransformation.identity(), DefaultVertexFormats.ITEM,
+                location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString()));
+        if (bakedModel instanceof OBJModel.OBJBakedModel)
+            return bakedModel;
         MuseLogger.logError("Model loading failed :( " + resource);
         return null;
     }
@@ -61,8 +81,6 @@ public class ModelRegistry extends MuseRegistry<ModelSpec> {
 
     public ModelPartSpec getPart(NBTTagCompound nbt) {
         return getPart(nbt, getModel(nbt));
-//        getModel(nbt).flatMap(m => m.get(nbt getString "part"))
-        // FIXME: not sure if this is right
     }
 
     public NBTTagCompound getSpecTag(NBTTagCompound museRenderTag, ModelPartSpec spec) {
