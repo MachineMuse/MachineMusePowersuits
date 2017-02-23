@@ -82,7 +82,7 @@ public class ModelPartSpec
         }
     }
 
-    public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
+    public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, int color) {
         if (quadsPerFacing.get(side) == null) {
             for (EnumFacing facing: EnumFacing.values()) {
                 quadsPerFacing.put(facing, modelSpec.getModel().getQuads(extendedState, facing, 0));
@@ -90,6 +90,10 @@ public class ModelPartSpec
             quadsPerFacing.put(null, modelSpec.getModel().getQuads(extendedState, null, 0));
         }
         return quadsPerFacing.get(side);
+    }
+
+    private List<BakedQuad> getColoredQuads(List<BakedQuad> quadList, int color) {
+        return ModelHelper.getColoredQuads(quadList, new Colour(color));
     }
 
     public void render(int color) {
@@ -102,9 +106,9 @@ public class ModelPartSpec
             vertexbuffer.begin(GL11.GL_QUADS, DefaultVertexFormats.ITEM);
             //------
             for (EnumFacing enumfacing : EnumFacing.values()) {
-                this.renderQuads(vertexbuffer, getQuads((IBlockState) null, enumfacing, 0L), color);
+                this.renderQuads(vertexbuffer, getQuads((IBlockState) null, enumfacing, color), color);
             }
-            this.renderQuads(vertexbuffer, getQuads((IBlockState) null, (EnumFacing) null, 0L), color);
+            this.renderQuads(vertexbuffer, getQuads((IBlockState) null, (EnumFacing) null, color), color);
 
             tessellator.draw();
             //------

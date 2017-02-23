@@ -56,7 +56,6 @@ public class PartManipSubFrame {
         var specs: Array[ModelPartSpec] = model.apply.values.filter(spec => isValidArmor(getSelectedItem, spec.slot)).toArray
         model.apply().values().filter(Function1<ModelPartSpec, Object> p) */
         this.specs = getSpecs();
-
         this.open = true;
     }
 
@@ -216,6 +215,10 @@ public class PartManipSubFrame {
             int lineNumber = (int)((y - this.border.top() - 8) / 8);
             int columnNumber = (int)((x - this.border.left()) / 8);
             ModelPartSpec spec = specs.get(Math.max(Math.min(lineNumber, specs.size() - 1), 0));
+
+            System.out.println("Line " + lineNumber + " Column " + columnNumber);
+            System.out.println("spec: " + spec.displayName);
+
             MuseLogger.logDebug("Line " + lineNumber + " Column " + columnNumber);
             switch (columnNumber) {
                 case 0: {
@@ -259,13 +262,16 @@ public class PartManipSubFrame {
             }
         }
         else if (x > this.border.left() + 28 && x < this.border.left() + 28 + this.colourframe.colours().length * 8) {
-            int lineNumber2 = (int)((y - this.border.top() - 8) / 8);
-            int columnNumber2 = (int)((x - this.border.left() - 28) / 8);
-            ModelPartSpec spec2 = specs.get(Math.max(Math.min(lineNumber2, specs.size() - 1), 0));
-            String tagname4 = ModelRegistry.getInstance().makeName(spec2);
+            int lineNumber = (int)((y - this.border.top() - 8) / 8);
+            int columnNumber = (int)((x - this.border.left() - 28) / 8);
+
+            System.out.println("Line " + lineNumber + " Column " + columnNumber);
+
+            ModelPartSpec spec = specs.get(Math.max(Math.min(lineNumber, specs.size() - 1), 0));
+            String tagname4 = ModelRegistry.getInstance().makeName(spec);
             EntityPlayerSP player4 = Minecraft.getMinecraft().thePlayer;
-            NBTTagCompound tagdata3 = this.getOrMakeSpecTag(spec2);
-            spec2.setColourIndex(tagdata3, columnNumber2);
+            NBTTagCompound tagdata3 = this.getOrMakeSpecTag(spec);
+            spec.setColourIndex(tagdata3, columnNumber);
             if (player4.worldObj.isRemote) {
                 PacketSender.sendToServer(new MusePacketCosmeticInfo((EntityPlayer)player4, this.getSelectedItem().inventorySlot, tagname4, tagdata3).getPacket131());
             }

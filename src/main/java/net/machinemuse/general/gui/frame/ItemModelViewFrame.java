@@ -97,6 +97,21 @@ public class ItemModelViewFrame implements IGuiFrame {
         }
     }
 
+    float getYforSlot(EntityEquipmentSlot slot) {
+        switch (slot) {
+            case HEAD:
+                return -0.5f;
+            case CHEST:
+                return -1f;
+            case LEGS:
+                return -1.5f;
+            case FEET:
+                return -1.75f;
+            default:
+                return 0;
+        }
+    }
+
     @Override
     public void draw() {
         Minecraft mc = Minecraft.getMinecraft();
@@ -111,10 +126,7 @@ public class ItemModelViewFrame implements IGuiFrame {
         GL11.glDisable(GL11.GL_CULL_FACE);
         GL11.glRotatef((float) rotx, 1, 0, 0);
         GL11.glRotatef((float) roty, 0, 1, 0);
-
-        // FIXME --- translation needs work
-        GL11.glTranslated(0.0, -this.getArmorSlot().getIndex() / 2.0, 0.0);
-
+        GL11.glTranslated(0.0, getYforSlot(getArmorSlot()), 0.0);
         ArmorModelInstance.getInstance().render((Entity)mc.thePlayer, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0625f);
         GL11.glPopMatrix();
     }

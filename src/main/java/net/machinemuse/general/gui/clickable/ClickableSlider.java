@@ -26,66 +26,38 @@ public class ClickableSlider extends Clickable {
         this.width = width;
         this.name = name;
         this.position = pos;
-        this.insideRect = new DrawableMuseRect(position.x() - width / 2.0 - cornersize(), this.position.y() + 8, 0.0, this.position.y() + 16, Colour.LIGHTBLUE, Colour.ORANGE);
-        this.outsideRect = new DrawableMuseRect(position.x() - width / 2.0 - cornersize(), this.position.y() + 8, this.position.x() + width / 2.0 + this.cornersize(), this.position.y() + 16, Colour.LIGHTBLUE, Colour.DARKBLUE);
-        this.valueInternal = 0.0;
-    }
-
-    public MusePoint2D pos() {
-        return this.pos;
-    }
-
-    public double width() {
-        return this.width;
+        this.insideRect = new DrawableMuseRect(position.x() - width / 2.0 - cornersize, position.y() + 8, 0, position.y() + 16, Colour.LIGHTBLUE, Colour.ORANGE);
+        this.outsideRect = new DrawableMuseRect(position.x() - width / 2.0 - cornersize, position.y() + 8, position.x() + width / 2.0 + cornersize, position.y() + 16, Colour.LIGHTBLUE, Colour.DARKBLUE);
     }
 
     public String name() {
         return this.name;
     }
 
-    public int cornersize() {
-        return this.cornersize;
-    }
-
-    public DrawableMuseRect insideRect() {
-        return this.insideRect;
-    }
-
-    public DrawableMuseRect outsideRect() {
-        return this.outsideRect;
-    }
-
     @Override
     public void draw() {
-        MuseRenderer.drawCenteredString(this.name(), this.position.x(), this.position.y());
-        this.insideRect().setRight(this.position.x() + this.width() * (this.value() - 0.5) + this.cornersize());
-        this.outsideRect().draw();
-        this.insideRect().draw();
+        MuseRenderer.drawCenteredString(name, position.x(), position.y());
+        this.insideRect.setRight(position.x() + width * (value() - 0.5) + cornersize);
+        this.outsideRect.draw();
+        this.insideRect.draw();
     }
 
     @Override
-    public boolean hitBox(final double x, final double y) {
-        return Math.abs(this.position.x() - x) < this.width() / 2 && Math.abs(this.position.y() + 12 - y) < 4;
-    }
-
-    public double valueInternal() {
-        return this.valueInternal;
-    }
-
-    public void valueInternal_$eq(final double x$1) {
-        this.valueInternal = x$1;
+    public boolean hitBox(double x, double y) {
+        return Math.abs(position.x() - x) < width / 2 &&
+                Math.abs(position.y() + 12 - y) < 4;
     }
 
     public double value() {
-        return this.valueInternal();
+        return valueInternal;
     }
 
-    public void setValueByX(final double x) {
-        final double v = (x - this.pos().x()) / this.width() + 0.5;
-        this.valueInternal = (MuseMathUtils.clampDouble(v, 0.0, 1.0));
+    public void setValueByX(double x) {
+        double v = (x - pos.x()) / width + 0.5;
+        valueInternal = MuseMathUtils.clampDouble(v, 0, 1);
     }
 
-    public void setValue(final double v) {
-        this.valueInternal_$eq(v);
+    public void setValue(double v) {
+        valueInternal = v;
     }
 }

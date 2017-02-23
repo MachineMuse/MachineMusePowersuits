@@ -37,12 +37,11 @@ public class MuseItemUtils {
 
     public static NBTTagCompound getMuseRenderTag(ItemStack stack, EntityEquipmentSlot armorSlot) {
         NBTTagCompound tag = getMuseItemTag(stack);
-//        if (!tag.hasKey("render") || !(tag.getTag("render") instanceof NBTTagCompound)) {
-//            MuseLogger.logDebug("TAG BREACH IMMINENT, PLEASE HOLD ONTO YOUR SEATBELTS");
+        if (!tag.hasKey("render") || !(tag.getTag("render") instanceof NBTTagCompound)) {
+            MuseLogger.logDebug("TAG BREACH IMMINENT, PLEASE HOLD ONTO YOUR SEATBELTS");
             tag.removeTag("render");
             tag.setTag("render", DefaultModelSpec.makeModelPrefs(stack, armorSlot));
-//        }
-
+        }
         return tag.getCompoundTag("render");
     }
 

@@ -18,7 +18,7 @@ public class ModuleSelectionSubFrame {
     public ModuleSelectionSubFrame(String category, MuseRelativeRect border) {
         this.category = category;
         this.border = border;
-        this.moduleButtons = new ArrayList<>();
+        this.moduleButtons = new ArrayList<ClickableModule>();
     }
 
     // public void draw() {

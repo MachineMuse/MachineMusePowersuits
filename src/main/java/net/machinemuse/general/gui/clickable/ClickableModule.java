@@ -35,7 +35,7 @@ public class ClickableModule extends Clickable {
 
     @Override
     public List<String> getToolTip() {
-        List<String> toolTipText = new ArrayList<>();
+        List<String> toolTipText = new ArrayList<String>();
         toolTipText.add(getLocalizedName(getModule()));
         toolTipText.addAll(MuseStringUtils.wrapStringToLength(getLocalizedDescription(getModule()), 30));
         return toolTipText;

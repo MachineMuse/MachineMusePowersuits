@@ -8,25 +8,21 @@ import net.minecraft.nbt.NBTTagCompound;
  * Ported to Java by lehjr on 10/19/16.
  */
 public class ClickableTinkerSlider extends ClickableSlider {
-    private final NBTTagCompound moduleTag;
+    NBTTagCompound moduleTag;
 
-    public ClickableTinkerSlider(final MusePoint2D topmiddle, final double width, final NBTTagCompound moduleTag, final String name) {
+    public ClickableTinkerSlider(MusePoint2D topmiddle, double width, NBTTagCompound moduleTag, String name) {
         super(topmiddle, width, name);
         this.moduleTag = moduleTag;
     }
 
-    public NBTTagCompound moduleTag() {
-        return this.moduleTag;
-    }
-
     @Override
     public double value() {
-        return this.moduleTag().hasKey(super.name()) ? this.moduleTag().getDouble(super.name()) : 0.0;
+        return (moduleTag.hasKey(name)) ? moduleTag.getDouble(name) : 0;
     }
 
-    public void moveSlider(final double x, final double y) {
-        final double xval = this.position.x() - x;
-        final double xratio = MuseMathUtils.clampDouble(0.5 - xval / super.width(), 0.0, 1.0);
-        this.moduleTag().setDouble(super.name(), xratio);
+    public void moveSlider(double x, double y) {
+        double xval = position.x() - x;
+        double xratio = MuseMathUtils.clampDouble(0.5 - (xval / width), 0, 1);
+        moduleTag.setDouble(name, xratio);
     }
 }

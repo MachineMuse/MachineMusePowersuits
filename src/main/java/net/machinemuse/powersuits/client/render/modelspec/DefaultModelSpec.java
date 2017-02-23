@@ -71,13 +71,6 @@ public class DefaultModelSpec {
             return (ModelRegistry.getInstance().put(MuseStringUtils.extractName(file), new ModelSpec(model, textures, null, null, file.toString())));
         }
         return null;
-
-
-//        OBJModel model = ModelRegistry.getInstance().loadModel(file);
-//        if (model != null) {
-//            return (ModelRegistry.getInstance().put(MuseStringUtils.extractName(file), new ModelSpec(model, textures, null, null, file.toString())));
-//        }
-//        return null;
     }
 
     public static void makeEntries(MorphTarget target, EntityEquipmentSlot slot, int colourIndex, Boolean glow, String[] names, ModelSpec model) {
@@ -116,27 +109,13 @@ public class DefaultModelSpec {
         for (NBTTagCompound elem: list) {
             nbt.setTag(elem.getString("model") + "." + elem.getString("part"), elem);
         }
-//        System.out.println("nbt.getKeySet().size(): " +nbt.getKeySet().size());
-        nbt.getKeySet().size();
-
         return nbt;
     }
 
     public static List<NBTTagCompound> makePrefs(String modelname, String[] partnames, int colour, boolean glow) {
         List<NBTTagCompound> prefArray = new ArrayList<>();
         ModelSpec model = ModelRegistry.getInstance().get(modelname);
-
-
-
-
         for (String name: partnames) {
-//            if (model != null)
-//                System.out.println("model.get(name): " + model.get(name).displayName);
-//            else
-//                System.out.println("ModelSpec is NULL!!!!!!");
-//            System.out.println("colour: " + colour);
-//            System.out.println("glow: " + glow);
-
             prefArray.add(makePref(model.get(name), colour, glow));
         }
         return prefArray;
