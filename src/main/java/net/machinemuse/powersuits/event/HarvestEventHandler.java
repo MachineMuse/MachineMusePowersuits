@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.event;
 
-import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.IModularItem;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.powersuits.item.ItemPowerFist;
 import net.minecraft.block.state.IBlockState;

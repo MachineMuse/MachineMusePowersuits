@@ -1,7 +1,5 @@
 package net.machinemuse.powersuits.client.render.item;
 
-import net.machinemuse.numina.general.MuseLogger;
-import net.machinemuse.powersuits.common.ModCompatibility;
 import net.minecraft.client.model.ModelBiped;
 /**
  * Author: MachineMuse (Claire Semple)

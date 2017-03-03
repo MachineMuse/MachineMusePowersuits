@@ -24,6 +24,7 @@ import net.machinemuse.powersuits.event.ClientTickHandler;
 import net.machinemuse.powersuits.event.ModelBakeEventHandler;
 import net.machinemuse.powersuits.event.PlayerUpdateHandler;
 import net.machinemuse.powersuits.event.RenderEventHandler;
+import net.machinemuse.powersuits.item.DummyItem;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -68,13 +69,13 @@ public class ClientProxy extends CommonProxy {
     public void init(FMLInitializationEvent event) {
         super.init(event);
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinkerTable.class, new TinkerTableRenderer());
-        loadArmorModels();
     }
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
         KeybindManager.readInKeybinds();
+        loadArmorModels();
     }
 
     @Override
@@ -91,7 +92,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerRenderers() {
         super.registerRenderers();
-        System.out.println("running here");
         regRenderer(MPSItems.powerTool);
         regRenderer(MPSItems.powerArmorHead);
         regRenderer(MPSItems.powerArmorTorso);
@@ -108,14 +108,24 @@ public class ClientProxy extends CommonProxy {
             }
         }
 
+        // temporary setup for loading the armor models until I can get them to load correctly manually
+        Item dummies = MPSItems.dummies;
+        if (dummies != null) {
+            for (Integer  meta : ((DummyItem)dummies).modelLocations.keySet()) {
+                ModelResourceLocation location = ((DummyItem)dummies).modelLocations.get(meta);
+                ModelLoader.setCustomModelResourceLocation(dummies, meta, location);
+            }
+        }
+
+
         // TODO, eliminate as much TESR dependency as possible.
         regRenderer(Item.getItemFromBlock(MPSItems.tinkerTable));
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(MPSItems.tinkerTable), 0, TileEntityTinkerTable.class);
 
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(MPSItems.luxCapacitor), 0, LuxCapModelHelper.getInstance().luxCapItemLocation);
 
-        // TODO: model testing block. Not a permanent addition
-        regRenderer(Item.getItemFromBlock(MPSItems.testBlock));
+//        // TODO: model testing block. Not a permanent addition
+//        regRenderer(Item.getItemFromBlock(MPSItems.testBlock));
 
 
         RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, EntityRendererSpinningBlade::new);
@@ -127,7 +137,6 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void sendModeChange(int dMode, String newMode) {
-        System.out.println("running here");
         EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
         RenderGameOverlayEventHandler.updateSwap((int) Math.signum(dMode));
         MusePacket modeChangePacket = new MusePacketModeChangeRequest(player, newMode, player.inventory.currentItem);
@@ -141,7 +150,6 @@ public class ClientProxy extends CommonProxy {
         ModelLoader.setCustomModelResourceLocation(item, 0,location);
     }
 
-
     private void loadArmorModels() {
         // this needs to be loaded after preInit
         URL resource = ClientProxy.class.getResource("/assets/powersuits/models/item/armor/modelspec.xml");
@@ -149,4 +157,5 @@ public class ClientProxy extends CommonProxy {
         URL otherResource = ClientProxy.class.getResource("/assets/powersuits/models/item/armor/armor2.xml");
         ModelSpecXMLReader.getINSTANCE().parseFile(otherResource);
     }
+
 }

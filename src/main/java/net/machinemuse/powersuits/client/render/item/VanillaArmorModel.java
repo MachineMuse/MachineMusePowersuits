@@ -114,13 +114,30 @@ public class VanillaArmorModel extends ModelBiped implements IArmorModel {
         try {
             EntityLivingBase entLive = (EntityLivingBase) entity;
             ItemStack stack = entLive.getActiveItemStack();
-            if (stack != null) {
+
+            ItemStack itemstackMainHand = entLive.getHeldItemMainhand();
+            ItemStack itemstackOffHand = entLive.getHeldItemOffhand();
+
+            if (itemstackMainHand != null) {
                 if (getMainHand(entLive) == EnumHandSide.LEFT)
                     this.leftArmPose = ArmPose.ITEM;
                 else
                     this.rightArmPose = ArmPose.ITEM;
             } else {
                 if (getMainHand(entLive) == EnumHandSide.LEFT)
+                    this.leftArmPose = ArmPose.EMPTY;
+                else
+                    this.rightArmPose = ArmPose.EMPTY;
+            }
+
+            // the "offhand" is the other hand
+            if (itemstackOffHand != null) {
+                if (getMainHand(entLive) == EnumHandSide.RIGHT)
+                    this.leftArmPose = ArmPose.ITEM;
+                else
+                    this.rightArmPose = ArmPose.ITEM;
+            } else {
+                if (getMainHand(entLive) == EnumHandSide.RIGHT)
                     this.leftArmPose = ArmPose.EMPTY;
                 else
                     this.rightArmPose = ArmPose.EMPTY;

@@ -1,27 +1,14 @@
 package net.machinemuse.powersuits.client.render.model;
 
-import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.UnmodifiableIterator;
-import com.sun.org.apache.regexp.internal.RE;
 import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.powersuits.client.render.modelspec.ModelRegistry;
-import net.machinemuse.powersuits.common.MPSItems;
-import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.*;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
 import net.minecraftforge.client.model.pipeline.VertexTransformer;
@@ -29,20 +16,21 @@ import net.minecraftforge.common.model.IModelPart;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.Models;
 import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.common.property.*;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
 
 import javax.annotation.Nullable;
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Vector3f;
-import java.util.*;
-import java.util.Properties;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ModelHelper {
     /*
       * This is a slightly modified version of Forge's example (@author shadekiller666) for the Tesseract model.
       * With this we can generate an extended blockstate to get the quads of any group in a model without
-      * having to rebake the model.
+      * having to rebake the model. In this perticular case, the setup is for gettting an extended state that
+      * will hide all groups but one. However, this can easily be altered to hide fewer parts if needed.
       *
      */
     @Nullable
@@ -78,59 +66,6 @@ public class ModelHelper {
 
 
 
-
-
-
-
-
-
-
-
-
-
-//    public static final IModelState LUXCAPACITOR_ITEM_STATE;
-//
-//
-//    public static final TRSRTransformation BLOCK_THIRD_PERSON_RIGHT;
-//    public static final TRSRTransformation BLOCK_THIRD_PERSON_LEFT;
-//
-//    public static TextureAtlasSprite getTextureFromBlock(Block block, int meta) {
-//        IBlockState state = block.getStateFromMeta(meta);
-//        return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(state);
-//    }
-//
-//    public static TextureAtlasSprite getTextureFromBlockstate(IBlockState state) {
-//        return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(state);
-//    }
-//
-
-//
-//    private static TRSRTransformation get(float offsetX, float offsetY, float offsetZ, float angleX, float angleY, float angleZ, float scale) {
-//        return TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
-//                new Vector3f(offsetX / 16, offsetY / 16, offsetZ / 16),
-//                TRSRTransformation.quatFromXYZDegrees(new Vector3f(angleX, angleY, angleZ)),
-//                new Vector3f(scale, scale, scale),
-//                null));
-//    }
-//
-//    static {
-//        {
-//            ImmutableMap.Builder<IModelPart, TRSRTransformation> builder = ImmutableMap.builder();
-//            builder.put(ItemCameraTransforms.TransformType.GROUND, get(0, 0.1625f, 0, 0,0,0, 0.1563f));
-//            builder.put(ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, get(0, 0.15625f, 0, 75, 45, 0, 0.0234375f));
-//            builder.put(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, get(0, 0.15625f, 0, 75, 45, 0, 0.0234375f));
-//            builder.put(ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND, get(0, 0, 0, 0, 0, 0, 0.025f));
-//            builder.put(ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND, get(0, 0, 0, 0, 0, 0, 0.025f));
-//            builder.put(ItemCameraTransforms.TransformType.GUI,  get(0, 0.025f, 0, 30, 225, 0, 0.0390625f));
-//            builder.put(ItemCameraTransforms.TransformType.FIXED, get(0, 0, 0, 0, 0, 0, 0.03125f));
-//            LUXCAPACITOR_ITEM_STATE = new SimpleModelState(builder.build());
-//        }
-//        {
-//            BLOCK_THIRD_PERSON_RIGHT = get(0, 2.5f, 0, 75, 45, 0, 0.375f);
-//            BLOCK_THIRD_PERSON_LEFT = get(0, 0, 0, 0, 255, 0, 0.4f);
-//        }
-//    }
-//
 //    /**
 //     * We need our own because the default set is based on the default=facing north
 //     * Our model is default facing up
@@ -169,6 +104,7 @@ public class ModelHelper {
 //        matrix.setScale(0.0625f);
 //        return new TRSRTransformation(matrix);
 //    }
+
 
 
     /*

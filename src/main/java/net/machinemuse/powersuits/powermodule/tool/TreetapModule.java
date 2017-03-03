@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.IModularItem;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;

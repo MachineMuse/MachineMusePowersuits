@@ -1,0 +1,13 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "all": "powersuits:tmodels/diffuse.png"
+    },
+    "custom": { "flip-v": true },
+    "model": "powersuits:armor/mps_arms.obj"
+  },
+  "variants": {
+    "normal": [{}]
+  }
+}

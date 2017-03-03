@@ -1,6 +1,6 @@
 <models>
-    <model file="powersuits:models/item/armor/armor2.obj"
-           textures="powersuits:textures/models/armor2diffuse.png">
+    <model file="powersuits:item/armor/armor2.obj"
+           textures="powersuits:models/armor2diffuse.png">
         <binding slot="head" target="Head">
             <part defaultcolor="11d2ff" defaultglow="true" polygroup="helmetglow1" name="Helmet Tubes and Visor"/>
             <part defaultcolor="FFFFFF" defaultglow="false" polygroup="helmetmain" name="Helmet"/>

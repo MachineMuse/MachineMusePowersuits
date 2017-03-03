@@ -1,19 +1,15 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import com.google.common.collect.ImmutableMap;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.scala.MuseRegistry;
+import net.machinemuse.powersuits.common.MPSItems;
+import net.machinemuse.powersuits.item.DummyItem;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
-import net.minecraftforge.common.model.TRSRTransformation;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,24 +43,84 @@ public class ModelRegistry extends MuseRegistry<ModelSpec> {
         return spec.getModel();
     }
 
-    public IBakedModel wrap(ResourceLocation resource) {
-        if (!customData.containsKey("flip-v"))
-            customData.put("flip-v", "true");
-        MuseLogger.logDebug("Loading " + resource + " as " + MuseStringUtils.extractName(resource));
-        IModel model = null;
-        try {
-            model = OBJLoader.INSTANCE.loadModel(resource);
-            model = ((OBJModel) model).process(ImmutableMap.copyOf(customData));
-        } catch (Exception e) {
-            e.printStackTrace();
-            MuseLogger.logError("Model loading failed :( " + resource);
-            model = ModelLoaderRegistry.getMissingModel();
-        }
-        if (model == null)
-            model = ModelLoaderRegistry.getMissingModel();
 
-        IBakedModel bakedModel = model.bake(TRSRTransformation.identity(), DefaultVertexFormats.ITEM,
-                location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString()));
+    public IBakedModel wrap(ResourceLocation resource) {
+        // FIXME: using
+
+
+
+//        System.out.println("model location: " + resource.toString());
+//
+//
+//        IModel testModel = null;
+//
+//        try {
+//            testModel = ModelLoaderRegistry.getModel(resource);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//        if (!customData.containsKey("flip-v"))
+//            customData.put("flip-v", "true");
+//        MuseLogger.logDebug("Loading " + resource + " as " + MuseStringUtils.extractName(resource));
+//        OBJModel model = null;
+//        try {
+//            if (!(testModel instanceof OBJModel)) {
+//                model = (OBJModel) OBJLoader.INSTANCE.loadModel(resource);
+//                System.out.println("loaded model through OBJLoader");
+//            } else {
+//                System.out.println("loaded model through model loader registry");
+//                model = (OBJModel) testModel;
+//            }
+//
+//            model = (OBJModel) model.process(ImmutableMap.copyOf(customData));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            MuseLogger.logError("Model loading failed :( " + resource);
+//            return null;
+//        }
+//
+//        ResourceLocation textureLocation = null;
+//
+//        for (ResourceLocation location: model.getTextures()) {
+//            Minecraft.getMinecraft().getTextureMapBlocks().registerSprite(location);
+//            System.out.println("texture location: " + location.toString());
+//            textureLocation = location;
+//        }
+//
+//
+//
+////        Function<ResourceLocation, TextureAtlasSprite> textureGetter = new Function<ResourceLocation, TextureAtlasSprite>() {
+////            public TextureAtlasSprite apply(ResourceLocation resourceLocation) {
+////                System.out.println("resource location: " + resourceLocation.toString());
+////
+////                return Minecraft.getMinecraft().getTextureMapBlocks().registerSprite(resourceLocation);
+////            }
+////        };
+//
+//
+//        IBakedModel bakedModel = model.bake(TRSRTransformation.identity(), DefaultVertexFormats.ITEM,
+//                new Function<ResourceLocation, TextureAtlasSprite>() {
+//                    public TextureAtlasSprite apply(ResourceLocation resourceLocation) {
+//                        System.out.println("resource location: " + resourceLocation.toString());
+//
+//                        return Minecraft.getMinecraft().getTextureMapBlocks().registerSprite(resourceLocation);
+//                    }
+//                });
+////                location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString()));
+
+        IBakedModel bakedModel = ((DummyItem)MPSItems.dummies).getModel(resource);
+
+
+        for (ResourceLocation location: ((OBJModel.OBJBakedModel)bakedModel).getModel().getTextures()) {
+            Minecraft.getMinecraft().getTextureMapBlocks().registerSprite(location);
+            System.out.println("texture location: " + location.toString());
+        }
+
+
+        System.out.println("DONE--------------------");
+
         if (bakedModel instanceof OBJModel.OBJBakedModel)
             return bakedModel;
         MuseLogger.logError("Model loading failed :( " + resource);

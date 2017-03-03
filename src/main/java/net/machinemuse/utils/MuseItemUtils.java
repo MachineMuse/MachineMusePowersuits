@@ -1,9 +1,9 @@
 package net.machinemuse.utils;
 
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemTag;
-import net.machinemuse.api.IModularItem;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec;

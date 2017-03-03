@@ -99,7 +99,6 @@ public class MuseIcon extends TextureAtlasSprite {
     // shears using vanilla texture
     public static TextureAtlasSprite shovel = new MuseIcon("shovel");
 
-
     /* Weapons ------------------------------------------------------------------------------------ */
     public static TextureAtlasSprite bladeLauncher = new MuseIcon("spinningblade");
     public static TextureAtlasSprite lightning = new MuseIcon("lightningSummoner");
@@ -109,11 +108,6 @@ public class MuseIcon extends TextureAtlasSprite {
     public static TextureAtlasSprite sonicWeapon = new MuseIcon("sonicWeapon");
     
     /* Things other than module icons ------------------------------------------------------------- */
-    public static TextureAtlasSprite armor1diffuse = new MuseIcon("armor1diffuse");
-    public static TextureAtlasSprite armor2diffuse = new MuseIcon("armor2diffuse");
-
-
-
     // nothing here yet
 
 
@@ -210,10 +204,7 @@ public class MuseIcon extends TextureAtlasSprite {
         railgun = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX + "modules/electricweapon"));
         sonicWeapon = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX + "modules/soundweapon"));
 
-
         /* Things other than module icons ------------------------------------------------------------- */
-        armor1diffuse = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX + "models/diffuse"));
-        armor2diffuse = event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_PREFIX + "models/armor2diffuse"));
         // nothing here yet
     }
 }

@@ -215,10 +215,6 @@ public class PartManipSubFrame {
             int lineNumber = (int)((y - this.border.top() - 8) / 8);
             int columnNumber = (int)((x - this.border.left()) / 8);
             ModelPartSpec spec = specs.get(Math.max(Math.min(lineNumber, specs.size() - 1), 0));
-
-            System.out.println("Line " + lineNumber + " Column " + columnNumber);
-            System.out.println("spec: " + spec.displayName);
-
             MuseLogger.logDebug("Line " + lineNumber + " Column " + columnNumber);
             switch (columnNumber) {
                 case 0: {
@@ -264,9 +260,6 @@ public class PartManipSubFrame {
         else if (x > this.border.left() + 28 && x < this.border.left() + 28 + this.colourframe.colours().length * 8) {
             int lineNumber = (int)((y - this.border.top() - 8) / 8);
             int columnNumber = (int)((x - this.border.left() - 28) / 8);
-
-            System.out.println("Line " + lineNumber + " Column " + columnNumber);
-
             ModelPartSpec spec = specs.get(Math.max(Math.min(lineNumber, specs.size() - 1), 0));
             String tagname4 = ModelRegistry.getInstance().makeName(spec);
             EntityPlayerSP player4 = Minecraft.getMinecraft().thePlayer;

@@ -2,13 +2,9 @@ package net.machinemuse.powersuits.client.render.modelspec;
 
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.powersuits.client.render.model.ModelHelper;
-import net.machinemuse.powersuits.event.ModelBakeEventHandler;
 import net.machinemuse.utils.MuseStringUtils;
-import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.model.obj.OBJModel;
@@ -23,7 +19,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
 import java.net.URL;
-import java.util.*;
 
 import static net.machinemuse.powersuits.client.render.modelspec.MorphTarget.*;
 
@@ -67,14 +62,12 @@ public class ModelSpecXMLReader {
 
     public void parseModel(Node modelnode) {
         String file;
-        String[] textures;
         Vec3d offset;
         Vec3d rotation;
 
         if (modelnode.getNodeType() == Node.ELEMENT_NODE) {
             Element eElement = (Element) modelnode;
             file = eElement.getAttribute("file");
-            textures = eElement.getAttribute("textures").split(",");
 
             // These are null because they are not used in the files
             offset = parseVector(eElement.getAttribute("offset"));
@@ -82,7 +75,7 @@ public class ModelSpecXMLReader {
             IBakedModel bakedModel = ModelRegistry.getInstance().loadModel(new ResourceLocation(file));
 
             if (bakedModel != null && bakedModel instanceof OBJModel.OBJBakedModel) {
-                ModelSpec modelspec = new ModelSpec(bakedModel, textures, offset, rotation, file);
+                ModelSpec modelspec = new ModelSpec(bakedModel, offset, rotation, file);
                 ModelSpec existingspec = ModelRegistry.getInstance().put(MuseStringUtils.extractName(file), modelspec);
 
                 NodeList bindingNodeList = eElement.getElementsByTagName("binding");
@@ -91,6 +84,9 @@ public class ModelSpecXMLReader {
                     parseBinding(bindingnode, existingspec);
                 }
             } else {
+                System.out.println("Model file " + file + " not found! D:");
+
+
                 MuseLogger.logError("Model file " + file + " not found! D:");
             }
         }
@@ -148,6 +144,7 @@ public class ModelSpecXMLReader {
             return null;
         }
     }
+
     /*
     * TODO: try something else.
     */
@@ -163,7 +160,6 @@ public class ModelSpecXMLReader {
             default: return null;
         }
     }
-
 
     @Nullable
     public MorphTarget parseTarget(String s) {

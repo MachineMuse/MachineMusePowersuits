@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.common;
 
-import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.IModularItem;
+import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.powersuits.powermodule.armor.ApiaristArmorModule;
 import net.machinemuse.powersuits.powermodule.armor.HazmatModule;

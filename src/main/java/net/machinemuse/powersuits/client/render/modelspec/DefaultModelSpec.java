@@ -24,19 +24,18 @@ import static net.machinemuse.powersuits.client.render.modelspec.MorphTarget.*;
 public class DefaultModelSpec {
     public static Colour normalcolour = Colour.WHITE;
     public static Colour glowcolour = new Colour(17.0 / 255, 78.0 / 255, 1, 1);
-    public static String tex = "/assets/powersuits/textures/models/diffuse.png";
 
     public static ModelSpec[] loadDefaultModel() {
         List<ModelSpec> defaultSpecList = new ArrayList<>();
 
         /* Head ----------------------- */
-        ModelSpec headModel = loadModel(new ResourceLocation("powersuits:models/mps_helm.obj"), tex.split(";"));
+        ModelSpec headModel = loadModel(new ResourceLocation("powersuits:models/mps_helm.obj"));
         makeEntries(Head, EntityEquipmentSlot.HEAD, 0, false, "helm_main;helm_tube_entry1;helm_tubes;helm_tube_entry2".split(";"), headModel);
         makeEntries(Head, EntityEquipmentSlot.HEAD, 1, true, "visor".split(";"), headModel);
         defaultSpecList.add(headModel);
 
         /* Arms ----------------------- */
-        ModelSpec armsModel = loadModel(new ResourceLocation("powersuits:models/mps_arms.obj"), tex.split(";"));
+        ModelSpec armsModel = loadModel(new ResourceLocation("powersuits:models/mps_arms.obj"));
         makeEntries(RightArm, EntityEquipmentSlot.CHEST, 0, false, "arms3".split(";"),armsModel);
         makeEntries(RightArm, EntityEquipmentSlot.CHEST, 1, true, "crystal_shoulder_2".split(";"), armsModel);
         makeEntries(LeftArm, EntityEquipmentSlot.CHEST, 0, false, "arms2".split(";"), armsModel);
@@ -44,19 +43,19 @@ public class DefaultModelSpec {
         defaultSpecList.add(armsModel);
 
         /* Body ----------------------- */
-        ModelSpec bodyModel = loadModel(new ResourceLocation("powersuits:models/mps_chest.obj"), tex.split(";"));
+        ModelSpec bodyModel = loadModel(new ResourceLocation("powersuits:models/mps_chest.obj"));
         makeEntries(Body, EntityEquipmentSlot.CHEST, 0, false, "belt;chest_main;polySurface36;backpack;chest_padding".split(";"), bodyModel);
         makeEntries(Body, EntityEquipmentSlot.CHEST, 1, true, "crystal_belt".split(";"), bodyModel);
         defaultSpecList.add(bodyModel);
 
         /* Legs ----------------------- */
-        ModelSpec legsModel = loadModel(new ResourceLocation("powersuits:models/mps_pantaloons.obj"), tex.split(";"));
+        ModelSpec legsModel = loadModel(new ResourceLocation("powersuits:models/mps_pantaloons.obj"));
         makeEntries(RightLeg, EntityEquipmentSlot.LEGS, 0, false, "leg1".split(";"), legsModel);
         makeEntries(LeftLeg, EntityEquipmentSlot.LEGS, 0, false, "leg2".split(";"), legsModel);
         defaultSpecList.add(legsModel);
 
         /* Feet ----------------------- */
-        ModelSpec feetModel = loadModel(new ResourceLocation("powersuits:models/mps_boots.obj"), tex.split(";"));
+        ModelSpec feetModel = loadModel(new ResourceLocation("powersuits:models/mps_boots.obj"));
         makeEntries(RightLeg, EntityEquipmentSlot.FEET, 0, false, "boots1".split(";"), feetModel);
         makeEntries(LeftLeg, EntityEquipmentSlot.FEET, 0, false, "boots2".split(";"), feetModel);
         defaultSpecList.add(feetModel);
@@ -65,10 +64,10 @@ public class DefaultModelSpec {
     }
 
 
-    public static ModelSpec loadModel(ResourceLocation file, String[] textures)  {
+    public static ModelSpec loadModel(ResourceLocation file)  {
         IBakedModel model = ModelRegistry.getInstance().loadModel(file);
         if (model != null && model instanceof OBJModel.OBJBakedModel) {
-            return (ModelRegistry.getInstance().put(MuseStringUtils.extractName(file), new ModelSpec(model, textures, null, null, file.toString())));
+            return (ModelRegistry.getInstance().put(MuseStringUtils.extractName(file), new ModelSpec(model, null, null, file.toString())));
         }
         return null;
     }

@@ -4,9 +4,9 @@ package net.machinemuse.powersuits.item;
 
 import crazypants.enderio.api.tool.ITool;
 import mekanism.api.IMekWrench;
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.numina.item.IModeChangingItem;
