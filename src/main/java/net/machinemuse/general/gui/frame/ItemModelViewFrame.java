@@ -100,13 +100,13 @@ public class ItemModelViewFrame implements IGuiFrame {
     float getYforSlot(EntityEquipmentSlot slot) {
         switch (slot) {
             case HEAD:
-                return -0.5f;
+                return -0.40f;
             case CHEST:
-                return -1f;
+                return -0.90f;
             case LEGS:
-                return -1.5f;
+                return -1.20f;
             case FEET:
-                return -1.75f;
+                return -1.35f;
             default:
                 return 0;
         }
@@ -125,7 +125,7 @@ public class ItemModelViewFrame implements IGuiFrame {
         GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
         GL11.glDisable(GL11.GL_CULL_FACE);
         GL11.glRotatef((float) rotx, 1, 0, 0);
-        GL11.glRotatef((float) roty, 0, 1, 0);
+        GL11.glRotatef((float) roty - 180, 0, 1, 0);
         GL11.glTranslated(0.0, getYforSlot(getArmorSlot()), 0.0);
         ArmorModelInstance.getInstance().render((Entity)mc.thePlayer, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0625f);
         GL11.glPopMatrix();
