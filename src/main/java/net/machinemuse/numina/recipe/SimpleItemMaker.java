@@ -49,9 +49,7 @@ public class SimpleItemMaker implements IItemMaker {
         }
 
         if (itemStackName != null) {
-            System.out.println("ItemStack name is: " + itemStackName);
-
-
+            MuseLogger.logDebug("ItemStack name is: " + itemStackName);
             try {
                 ItemStack stack = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(itemStackName)), newquantity);
                 if(this.meta != null) stack.setItemDamage(meta);
@@ -62,11 +60,10 @@ public class SimpleItemMaker implements IItemMaker {
                 return null;
             }
         } else if (registryName != null) {
-            System.out.println("registry name is: " + registryName);
-
-
+            String[] names = registryName.split(":");
+            MuseLogger.logDebug("registry name is: " + registryName);
             try {
-                ItemStack stack = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(itemStackName)), newquantity, newmeta);
+                ItemStack stack = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(names[0], names[1])), newquantity, newmeta);
                 if(nbt != null) stack.setTagCompound(nbt);
                 return stack;
             } catch (Exception e) {
@@ -74,8 +71,7 @@ public class SimpleItemMaker implements IItemMaker {
                 return null;
             }
         } else if (oredictName != null) {
-            System.out.println("oredict name is: " + oredictName);
-
+            MuseLogger.logDebug("oredict name is: " + oredictName);
             try {
                 ItemStack stack = OreDictionary.getOres(oredictName).get(0).copy();
                 stack.stackSize = Math.min(newquantity, stack.getMaxStackSize());
@@ -86,8 +82,7 @@ public class SimpleItemMaker implements IItemMaker {
                 return null;
             }
         } else if (unlocalizedName != null) {
-            System.out.println("unlocalized name is: " + unlocalizedName);
-
+            MuseLogger.logDebug("unlocalized name is: " + unlocalizedName);
             MuseLogger.logError("WARNING: unlocalizedName is deprecated; please use registryName or itemStackName instead!");
             try {
                 ItemStack stack = ItemNameMappings.getItem(unlocalizedName).copy();
@@ -101,7 +96,7 @@ public class SimpleItemMaker implements IItemMaker {
                 return null;
             }
         } else {
-            System.out.println("something failed so returning null");
+            MuseLogger.logDebug("something failed so returning null");
             return null;
         }
     }
@@ -116,8 +111,9 @@ public class SimpleItemMaker implements IItemMaker {
         if(!compareString(oredictName, other.oredictName)) return false;
         if(!compareString(registryName, other.registryName)) return false;
         if(!compareString(itemStackName, other.itemStackName)) return false;
-        if(!compareString(nbtString, other.nbtString)) return false;
-        return true;
+//        if(!compareString(nbtString, other.nbtString)) return false;
+//        return true;
+        return compareString(nbtString, other.nbtString); // this is what was used in 1.7.10
     }
 
     private boolean compareInteger(Integer a, Integer b) {

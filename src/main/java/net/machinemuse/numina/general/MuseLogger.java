@@ -1,6 +1,6 @@
 package net.machinemuse.numina.general;
 
-import net.machinemuse.numina.basemod.NuminaConfig;
+import net.machinemuse.numina.common.NuminaConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

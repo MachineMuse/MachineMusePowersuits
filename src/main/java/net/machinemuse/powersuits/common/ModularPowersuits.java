@@ -52,7 +52,7 @@ public final class ModularPowersuits {
     }
 
     @Mod.EventHandler
-    public void load(FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent event) {
         proxy.init(event);
     }
 

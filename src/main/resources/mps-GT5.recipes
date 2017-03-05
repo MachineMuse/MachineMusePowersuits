@@ -15,7 +15,7 @@
 			[ { "oredictName" : "circuitBasic" }, null, { "oredictName" : "circuitBasic" } ]
 		],
 		"result" : {
-			"registryName" : "powersuits:item.powerArmorHelmet"
+			"registryName" : "powersuits:powerArmorHead"
 		}
 	},
 	{
@@ -25,7 +25,7 @@
 			[ { "oredictName" : "ingotSilver" }, { "oredictName" : "ingotSilver" }, { "oredictName" : "ingotSilver" } ]
 		],
 		"result" : {
-			"registryName" : "powersuits:item.powerArmorChestplate"
+			"registryName" : "powersuits:powerArmorTorso"
 		}
 	},
 	{
@@ -35,7 +35,7 @@
 			[ { "oredictName" : "ingotSilver" }, null, { "oredictName" : "ingotSilver" } ]
 		],
 		"result" : {
-			"registryName" : "powersuits:item.powerArmorLeggings"
+			"registryName" : "powersuits:powerArmorLegs"
 		}
 	},
 	{
@@ -44,7 +44,7 @@
 			[ { "oredictName" : "ingotSilver" }, null, { "oredictName" : "ingotSilver" } ]
 		],
 		"result" : {
-			"registryName" : "powersuits:item.powerArmorBoots"
+			"registryName" : "powersuits:powerArmorFeet"
 		}
 	},
 	{
@@ -54,7 +54,7 @@
 			[ null, { "oredictName" : "ingotSilver" }, { "oredictName" : "circuitBasic" } ]
 		],
 		"result" : {
-			"registryName" : "powersuits:item.powerFist"
+			"registryName" : "powersuits:powerTool"
 		}
 	},
 	{

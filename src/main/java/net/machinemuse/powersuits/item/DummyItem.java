@@ -13,6 +13,9 @@ import java.util.Map;
 /**
  * Modular Powersuits by MachineMuse
  * Created by lehjr on 2/26/17.
+ *
+ * This is a temporary hackish workaround to get models to render with the texture
+ *
  */
 public class DummyItem extends Item {
     public static ItemStack dummyHead;
@@ -53,9 +56,7 @@ public class DummyItem extends Item {
     }
 
     public void setModel(IBakedModel model, String resourcePath) {
-        System.out.println("resource path: " + resourcePath);
         ResourceLocation modelpath = resourcePathToModelLocation(resourcePath);
-        System.out.println("model path: " + modelpath.toString());
         modelMap.put(modelpath, model);
     }
 

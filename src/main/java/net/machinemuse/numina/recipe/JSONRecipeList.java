@@ -19,10 +19,10 @@ import java.util.List;
  * Created: 5:54 PM, 11/4/13
  */
 public class JSONRecipeList {
-    static final List<JSONRecipe> recipesList = new ArrayList<>();
+    static List<JSONRecipe> recipesList = new ArrayList<>();
     public static final Gson gson = new Gson();
 
-    private static final FilenameFilter filter = new FilenameFilter() {
+    private static FilenameFilter filter = new FilenameFilter() {
         @Override
         public boolean accept(File dir, String name) {
             return name.endsWith(".recipe") || name.endsWith(".recipes");
@@ -30,9 +30,7 @@ public class JSONRecipeList {
     };
 
     public static void loadRecipesFromDir(String dir) {
-        System.out.println("loading recipes");
-
-
+        MuseLogger.logDebug("loading recipes");
         try {
             File file = new File(dir);
             if (file.exists()) {

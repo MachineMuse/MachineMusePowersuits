@@ -6,7 +6,7 @@ import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.general.sound.SoundDictionary;
-import net.machinemuse.numina.basemod.NuminaConfig;
+import net.machinemuse.numina.common.NuminaConfig;
 import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;

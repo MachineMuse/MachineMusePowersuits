@@ -1,6 +1,10 @@
-package net.machinemuse.numina.basemod;
+package net.machinemuse.numina.common.proxy;
 
+import net.machinemuse.numina.common.Numina;
+import net.machinemuse.numina.common.NuminaConfig;
+import net.machinemuse.numina.event.NuminaPlayerTracker;
 import net.machinemuse.numina.network.NuminaPackets;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -13,8 +17,8 @@ import java.io.File;
  *
  * Ported to Java by lehjr on 10/26/16.
  */
-public abstract class CommonProxy {
-    public void PreInit(FMLPreInitializationEvent event) {
+public class CommonProxy {
+    public void preInit(FMLPreInitializationEvent event) {
         NuminaConfig.init(event);
         Numina.getInstance().configDir = event.getModConfigurationDirectory();
         File recipesFolder = new File(Numina.getInstance().configDir, "machinemuse/recipes");
@@ -22,14 +26,16 @@ public abstract class CommonProxy {
         recipesFolder.mkdir();
         //MinecraftForge.EVENT_BUS.register(PlayerTickHandler)
         //    MinecraftForge.EVENT_BUS.register(DeathEventHandler)
-        //    NetworkRegistry.instance.registerGuiHandler(Numina, NuminaGuiHandler)
+        //    NetworkRegistry.instance.registerGuiHandler(Numina.getInstance(), NuminaGuiHandler);
+
     }
 
-    public void Init(FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent event) {
         NuminaPackets.init();
+        MinecraftForge.EVENT_BUS.register(new NuminaPlayerTracker());
     }
 
-    public void PostInit(FMLPostInitializationEvent event) {
+    public void postInit(FMLPostInitializationEvent event) {
 
     }
 }

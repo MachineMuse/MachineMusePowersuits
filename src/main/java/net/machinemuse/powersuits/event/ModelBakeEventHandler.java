@@ -55,25 +55,21 @@ public class ModelBakeEventHandler {
 //         temporary setup for loading the armor models until I can get them to load correctly manually
         Item dummies = MPSItems.dummies;
         IBakedModel armorModel;
-        boolean success = true;
+        boolean success = false;
         if (dummies != null) {
             for (Integer  meta : ((DummyItem)dummies).modelLocations.keySet()) {
                 ModelResourceLocation location = ((DummyItem)dummies).modelLocations.get(meta);
                 armorModel= modelRegistry.getObject(location);
                 if (armorModel instanceof OBJModel.OBJBakedModel) {
                     ((DummyItem)dummies).setModel(armorModel, location.getResourcePath());
-                    System.out.println("model IS OBJBakedModel " + location.getResourcePath());
+                    success = true;
                 } else {
                     success = false;
-                    System.out.println("model NOT OBJBakedModel " + location.getVariant());
-                    if (armorModel == null) System.out.println("model is NULL!!!: " + location.getResourcePath());
                 }
             }
             if (success)
                 loadArmorModels();
         }
-
-        loadArmorModels();
     }
 
     private void storeLuxCapModel(EnumFacing facing) {

@@ -15,10 +15,9 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
  *
  * Ported to Java by lehjr on 10/26/16.
  */
-public final class NuminaPlayerTracker
-{
+public final class NuminaPlayerTracker {
     @SubscribeEvent
-    public void onPlayerLogin(final PlayerEvent.PlayerLoggedInEvent event) {
+    public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (!FMLCommonHandler.instance().getMinecraftServerInstance().isSinglePlayer()) {
             for (JSONRecipe recipe : JSONRecipeList.getJSONRecipesList()) {
                 JSONRecipe[] recipeArray = new JSONRecipe[]{recipe};
@@ -28,7 +27,3 @@ public final class NuminaPlayerTracker
         }
     }
 }
-
-
-
-

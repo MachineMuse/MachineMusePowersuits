@@ -35,9 +35,15 @@ public class ModelHelper {
      */
     @Nullable
     public static IExtendedBlockState getStateForPart(String shownIn, OBJModel.OBJBakedModel objBakedModelIn) {
-        BlockStateContainer stateContainer = new ExtendedBlockState(null, new IProperty[0], new IUnlistedProperty[] {net.minecraftforge.common.property.Properties.AnimationProperty});
         List<String> hidden = new ArrayList<>(objBakedModelIn.getModel().getMatLib().getGroups().keySet());
-        hidden.remove(shownIn);
+
+        return getStateForPart(shownIn, hidden);
+    }
+
+    public static IExtendedBlockState getStateForPart(String shownIn, List<String> hiddenIn) {
+        BlockStateContainer stateContainer = new ExtendedBlockState(null, new IProperty[0], new IUnlistedProperty[] {net.minecraftforge.common.property.Properties.AnimationProperty});
+
+        hiddenIn.remove(shownIn);
 
         try {
             IModelState state = new IModelState() {
@@ -50,7 +56,7 @@ public class ModelHelper {
                         if (parts.hasNext()) {
                             String name = parts.next();
                             // only interested in the root level
-                            if (!parts.hasNext() && hidden.contains(name)) return value;
+                            if (!parts.hasNext() && hiddenIn.contains(name)) return value;
                         }
                     }
                     return Optional.absent();

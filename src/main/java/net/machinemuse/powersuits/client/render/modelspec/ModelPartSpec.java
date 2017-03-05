@@ -14,6 +14,7 @@ import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import org.lwjgl.opengl.GL11;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +30,7 @@ public class ModelPartSpec
     public boolean defaultglow;
     public String displayName;
     IExtendedBlockState extendedState;
+    List<BakedQuad> quadcache = new ArrayList<>();
 
     public ModelPartSpec(ModelSpec modelSpec, MorphTarget morph, String partName, EntityEquipmentSlot slot, Integer defaultcolourindex, Boolean defaultglow, String displayName) {
         this.modelSpec = modelSpec;
@@ -54,12 +56,9 @@ public class ModelPartSpec
         VertexBuffer buffer = tess.getBuffer();
         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.ITEM);
         List<BakedQuad> quadList;
-        for (EnumFacing facing : EnumFacing.values()) {
-            quadList = modelSpec.getModel().getQuads(extendedState, facing, 0);;
-            renderPrep(buffer, quadList, color.getInt());
-        }
-        quadList = modelSpec.getModel().getQuads(extendedState, null, 0);
-        renderPrep(buffer, quadList, color.getInt());
+        if (quadcache.isEmpty())
+            quadcache = modelSpec.getModel().getQuads(extendedState, null, 0);
+        renderPrep(buffer, quadcache, color.getInt());
         tess.draw();
     }
 

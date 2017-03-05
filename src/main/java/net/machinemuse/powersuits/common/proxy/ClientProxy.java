@@ -75,7 +75,7 @@ public class ClientProxy extends CommonProxy {
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
         KeybindManager.readInKeybinds();
-        loadArmorModels();
+//        loadArmorModels(); // FIXME: using workaround until models loading is fixed
     }
 
     @Override
@@ -131,8 +131,6 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, EntityRendererSpinningBlade::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, EntityRendererPlasmaBolt::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityLuxCapacitor.class, EntityRendererLuxCapacitorEntity::new);
-
-
     }
 
     @Override
@@ -157,5 +155,4 @@ public class ClientProxy extends CommonProxy {
         URL otherResource = ClientProxy.class.getResource("/assets/powersuits/models/item/armor/armor2.xml");
         ModelSpecXMLReader.getINSTANCE().parseFile(otherResource);
     }
-
 }

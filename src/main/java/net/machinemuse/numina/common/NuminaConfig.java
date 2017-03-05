@@ -1,4 +1,4 @@
-package net.machinemuse.numina.basemod;
+package net.machinemuse.numina.common;
 
 import net.machinemuse.numina.general.MuseLogger;
 import net.minecraftforge.common.config.Configuration;

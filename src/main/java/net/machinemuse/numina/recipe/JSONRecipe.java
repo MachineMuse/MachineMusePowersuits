@@ -19,6 +19,11 @@ public class JSONRecipe implements IRecipe {
     static final int MAX_HEIGHT = 3;
 
     @Override
+    public ItemStack getRecipeOutput() {
+        return result.getRecipeOutput();
+    }
+
+    @Override
     public boolean matches(InventoryCrafting inv, World world) {
         int width = getWidth();
         int height = ingredients.length;
@@ -95,11 +100,6 @@ public class JSONRecipe implements IRecipe {
     }
 
     @Override
-    public ItemStack getRecipeOutput() {
-        return result.getRecipeOutput();
-    }
-
-    @Override
     public ItemStack[] getRemainingItems(InventoryCrafting inv) {
         ItemStack[] aitemstack = new ItemStack[inv.getSizeInventory()];
         for (int i = 0; i < aitemstack.length; ++i)
@@ -108,7 +108,6 @@ public class JSONRecipe implements IRecipe {
             aitemstack[i] = net.minecraftforge.common.ForgeHooks.getContainerItem(itemstack);
         }
         return aitemstack;
-        //return new ItemStack[0];
     }
 
     public int getWidth() {

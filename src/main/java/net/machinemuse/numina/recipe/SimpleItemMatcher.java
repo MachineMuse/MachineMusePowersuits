@@ -1,6 +1,6 @@
 package net.machinemuse.numina.recipe;
 
-import net.machinemuse.numina.basemod.NuminaConfig;
+import net.machinemuse.numina.common.NuminaConfig;
 import net.machinemuse.numina.general.MuseLogger;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -50,7 +50,7 @@ public class SimpleItemMatcher implements IItemMatcher {
         }
         if (registryName != null) {
             String[] names = registryName.split(":");
-            Item item = Item.REGISTRY.getObject(new ResourceLocation(itemStackName));
+            Item item = Item.REGISTRY.getObject(new ResourceLocation(names[0], names[1]));
             if (item == null) {
                 MuseLogger.logError("Item " + registryName + " not found in registry for recipe.");
                 return false;
@@ -58,7 +58,7 @@ public class SimpleItemMatcher implements IItemMatcher {
             if (item != stack.getItem()) return false;
         }
         if (itemStackName != null) {
-            String[] names = itemStackName.split(":");
+//            String[] names = itemStackName.split(":");
             ItemStack compareStack = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(itemStackName)), 1);
             if (compareStack == null) {
                 MuseLogger.logError("ItemStack " + itemStackName + " not found in registry for recipe.");

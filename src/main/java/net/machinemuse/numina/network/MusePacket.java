@@ -68,13 +68,13 @@ public abstract class MusePacket
      * @param player
      */
     @SideOnly(Side.CLIENT)
-    public void handleClient(final EntityPlayer player) {
+    public void handleClient(EntityPlayer player) {
     }
 
-    public void handleServer(final EntityPlayerMP player) {
+    public void handleServer(EntityPlayerMP player) {
     }
 
-    public void writeInt(final int i) {
+    public void writeInt(int i) {
         try {
             this.dataout.writeInt(i);
         } catch (IOException exception) {
@@ -82,7 +82,7 @@ public abstract class MusePacket
         }
     }
 
-    public void writeIntArray(final int[] data) {
+    public void writeIntArray(int[] data) {
         try {
             this.dataout.writeInt(data.length);
             for (int k :  data)
@@ -92,7 +92,7 @@ public abstract class MusePacket
         }
     }
 
-    public void writeBoolean(final boolean b) {
+    public void writeBoolean(boolean b) {
         try {
             this.dataout.writeBoolean(b);
         } catch (IOException exception) {
@@ -100,7 +100,7 @@ public abstract class MusePacket
         }
     }
 
-    public void writeDouble(final double i) {
+    public void writeDouble(double i) {
         try {
             this.dataout.writeDouble(i);
         } catch (IOException exception) {
@@ -111,13 +111,13 @@ public abstract class MusePacket
     /**
      * Writes the IC2ItemTest's ID (short), then size (byte), then damage. (short)
      */
-    public void writeItemStack(final ItemStack stack) {
+    public void writeItemStack(ItemStack stack) {
         try {
             if (stack == null) {
                 this.dataout.writeShort(-1);
             }
             else {
-                final NBTTagCompound nbt = new NBTTagCompound();
+                NBTTagCompound nbt = new NBTTagCompound();
                 stack.writeToNBT(nbt);
                 this.writeNBTTagCompound(nbt);
             }
@@ -129,13 +129,13 @@ public abstract class MusePacket
     /**
      * Writes a compressed NBTTagCompound to the OutputStream
      */
-    public void writeNBTTagCompound(final NBTTagCompound nbt) {
+    public void writeNBTTagCompound(NBTTagCompound nbt) {
         try {
             if (nbt == null) {
                 this.dataout.writeShort(-1);
             }
             else {
-                final byte[] compressednbt = compress(nbt);
+                byte[] compressednbt = compress(nbt);
                 this.dataout.writeShort((short)compressednbt.length);
                 this.dataout.write(compressednbt);
             }
@@ -162,7 +162,7 @@ public abstract class MusePacket
     /**
      * Writes a String to the DataOutputStream
      */
-    public void writeString(final String string) {
+    public void writeString(String string) {
         try {
             this.dataout.writeUTF(string);
         } catch (IOException exception) {

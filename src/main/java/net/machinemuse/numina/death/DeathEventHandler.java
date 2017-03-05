@@ -1,6 +1,6 @@
 package net.machinemuse.numina.death;
 
-import net.machinemuse.numina.basemod.Numina;
+import net.machinemuse.numina.common.Numina;
 import net.machinemuse.numina.general.MuseLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;

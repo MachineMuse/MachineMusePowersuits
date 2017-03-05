@@ -8,24 +8,22 @@ import net.machinemuse.numina.recipe.JSONRecipe;
 import javax.annotation.Nonnull;
 
 /**
- * Created by leon on 3/31/16.
+ * Numina by MachineMuse
+ * Created by lehjr on 3/3/17.
  */
 public class JSONRecipeHandler implements IRecipeHandler<JSONRecipe> {
-    @Nonnull
     @Override
     public Class<JSONRecipe> getRecipeClass() {
         return JSONRecipe.class;
     }
 
-    @Nonnull
     @Override
     public String getRecipeCategoryUid() {
         return VanillaRecipeCategoryUid.CRAFTING;
     }
 
-    @Nonnull
     @Override
-    public String getRecipeCategoryUid(@Nonnull JSONRecipe recipe) {
+    public String getRecipeCategoryUid(JSONRecipe recipe) {
         return VanillaRecipeCategoryUid.CRAFTING;
     }
 
@@ -38,8 +36,10 @@ public class JSONRecipeHandler implements IRecipeHandler<JSONRecipe> {
     @Override
     public boolean isRecipeValid(@Nonnull JSONRecipe recipe) {
         //todo: actual real recipe validation
-//        return recipe.getRecipeOutput() != null; // re enable after fixing
-        return true;
-    }
+        return recipe.getRecipeOutput() != null; // re enable after fixing
+//        return true;
 
+
+
+    }
 }

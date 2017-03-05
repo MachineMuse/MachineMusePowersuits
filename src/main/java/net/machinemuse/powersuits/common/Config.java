@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.numina.basemod.Numina;
+import net.machinemuse.numina.common.Numina;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.powersuits.common.proxy.CommonProxy;
 import net.machinemuse.powersuits.powermodule.armor.*;

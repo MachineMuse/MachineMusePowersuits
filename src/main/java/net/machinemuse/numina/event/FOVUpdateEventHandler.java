@@ -1,6 +1,6 @@
 package net.machinemuse.numina.event;
 
-import net.machinemuse.numina.basemod.NuminaConfig;
+import net.machinemuse.numina.common.NuminaConfig;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraftforge.client.event.FOVUpdateEvent;

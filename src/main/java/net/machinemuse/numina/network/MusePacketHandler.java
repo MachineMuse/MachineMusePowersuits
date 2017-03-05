@@ -30,24 +30,22 @@ import java.util.List;
  * Ported to Java by lehjr on 10/23/16.
  */
 @ChannelHandler.Sharable
-public final class MusePacketHandler extends MessageToMessageCodec<FMLProxyPacket, MusePacket>
-{
+public final class MusePacketHandler extends MessageToMessageCodec<FMLProxyPacket, MusePacket> {
     public static String networkChannelName;
     public static MuseNumericRegistry<MusePackager> packagers;
     public static EnumMap<Side, FMLEmbeddedChannel> channels;
 
-
     private MusePacketHandler() {
         this.networkChannelName = "Numina";
         this.packagers = new MuseNumericRegistry<>();
-        this.channels = NetworkRegistry.INSTANCE.newChannel(this.networkChannelName, new ChannelHandler[] { this });
+        this.channels = NetworkRegistry.INSTANCE.newChannel(this.networkChannelName, this);
     }
 
     static {
         new MusePacketHandler();
     }
 
-    public void encode(final ChannelHandlerContext ctx, final MusePacket msg, final List<Object> out) {
+    public void encode(ChannelHandlerContext ctx, MusePacket msg, List<Object> out) {
         try {
             out.add(msg.getFMLProxyPacket());
         } catch (IOException e) {

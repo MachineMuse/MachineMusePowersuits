@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.event;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.general.sound.SoundDictionary;
-import net.machinemuse.numina.basemod.NuminaConfig;
+import net.machinemuse.numina.common.NuminaConfig;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.powersuits.common.Config;
