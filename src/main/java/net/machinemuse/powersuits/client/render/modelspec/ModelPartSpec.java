@@ -20,8 +20,7 @@ import java.util.List;
 /**
  * Ported to Java by lehjr on 11/8/16.
  */
-public class ModelPartSpec
-{
+public class ModelPartSpec {
     public ModelSpec modelSpec;
     public MorphTarget morph;
     public String partName;
@@ -44,22 +43,10 @@ public class ModelPartSpec
         this.extendedState = ModelHelper.getStateForPart(partName, (OBJModel.OBJBakedModel) modelSpec.getModel());
     }
 
-    public void renderPrep(VertexBuffer buffer, List<BakedQuad> quadList, int color) {
-        for (BakedQuad quad : quadList) {
-            buffer.addVertexData(quad.getVertexData());
-            ForgeHooksClient.putQuadColor(buffer, quad, color);
-        }
-    }
-
-    public void render(Colour color) {
-        Tessellator tess = Tessellator.getInstance();
-        VertexBuffer buffer = tess.getBuffer();
-        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.ITEM);
-        List<BakedQuad> quadList;
+    public List<BakedQuad> getQuads() {
         if (quadcache.isEmpty())
             quadcache = modelSpec.getModel().getQuads(extendedState, null, 0);
-        renderPrep(buffer, quadcache, color.getInt());
-        tess.draw();
+        return quadcache;
     }
 
     public int getColourIndex(NBTTagCompound nbt) {
@@ -67,12 +54,8 @@ public class ModelPartSpec
     }
 
     public void setColourIndex(NBTTagCompound nbt, int c) {
-        if (c == this.defaultcolourindex) {
-            nbt.removeTag("colourindex");
-        }
-        else {
-            nbt.setInteger("colourindex", c);
-        }
+        if (c == this.defaultcolourindex) nbt.removeTag("colourindex");
+        else nbt.setInteger("colourindex", c);
     }
 
     public boolean getGlow(NBTTagCompound nbt) {
@@ -80,12 +63,8 @@ public class ModelPartSpec
     }
 
     public void setGlow(NBTTagCompound nbt, boolean g) {
-        if (g == this.defaultglow) {
-            nbt.removeTag("glow");
-        }
-        else {
-            nbt.setBoolean("glow", g);
-        }
+        if (g == this.defaultglow) nbt.removeTag("glow");
+        else nbt.setBoolean("glow", g);
     }
 
     public void setModel(NBTTagCompound nbt, ModelSpec model) {
@@ -101,13 +80,9 @@ public class ModelPartSpec
         nbt.setString("part", this.partName);
     }
 
-    public void setPartAndModel(NBTTagCompound nbt) {
-    }
-
     public NBTTagCompound multiSet(NBTTagCompound nbt, String tex, Boolean glow, Integer c) {
         this.setPart(nbt);
         this.setModel(nbt, this.modelSpec);
-//        this.setTexture(nbt, (tex != null) ? tex : "");
         this.setGlow(nbt, (glow != null) ? glow : false);
         this.setColourIndex(nbt, (c != null) ? c : defaultcolourindex);
         return nbt;

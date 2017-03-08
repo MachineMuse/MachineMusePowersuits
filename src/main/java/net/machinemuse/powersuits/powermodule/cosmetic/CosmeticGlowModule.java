@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.powermodule.misc;
+package net.machinemuse.powersuits.powermodule.cosmetic;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.general.gui.MuseIcon;

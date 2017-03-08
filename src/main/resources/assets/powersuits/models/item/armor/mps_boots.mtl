@@ -4,4 +4,4 @@
 newmtl initialShadingGroup
 Ka 1.000000 1.000000 1.000000
 Kd 1.000000 1.000000 1.000000
-map_Kd powersuits:models/diffuse
+map_Kd powersuits:items/armor/diffuse

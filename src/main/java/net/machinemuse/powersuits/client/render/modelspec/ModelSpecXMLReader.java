@@ -84,9 +84,6 @@ public class ModelSpecXMLReader {
                     parseBinding(bindingnode, existingspec);
                 }
             } else {
-                System.out.println("Model file " + file + " not found! D:");
-
-
                 MuseLogger.logError("Model file " + file + " not found! D:");
             }
         }
@@ -108,7 +105,7 @@ public class ModelSpecXMLReader {
     public void parseParts(Node partNode, ModelSpec modelspec, EntityEquipmentSlot slot, MorphTarget target) {
         if (partNode.getNodeType() == Node.ELEMENT_NODE) {
             Element eElement = (Element) partNode;
-//            Colour defaultcolor = parseColour(eElement.getAttribute("defaultcolor"));
+            Colour defaultcolor = parseColour(eElement.getAttribute("defaultcolor")); // not currently used
             Boolean defaultglow = parseBool(eElement.getAttribute("defaultglow"));
             String name = eElement.getAttribute("name");
             String polygroup = validatePolygroup(eElement.getAttribute("polygroup"), modelspec);

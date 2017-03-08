@@ -8,6 +8,10 @@ import net.machinemuse.numina.common.Numina;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.powersuits.common.proxy.CommonProxy;
 import net.machinemuse.powersuits.powermodule.armor.*;
+import net.machinemuse.powersuits.powermodule.cosmetic.CitizenJoeStyle;
+import net.machinemuse.powersuits.powermodule.cosmetic.CosmeticGlowModule;
+import net.machinemuse.powersuits.powermodule.cosmetic.SebKStyle;
+import net.machinemuse.powersuits.powermodule.cosmetic.TintModule;
 import net.machinemuse.powersuits.powermodule.energy.*;
 import net.machinemuse.powersuits.powermodule.misc.*;
 import net.machinemuse.powersuits.powermodule.movement.*;
@@ -42,20 +46,21 @@ import java.util.List;
  * Ported to Java by lehjr on 11/14/16.
  */
 public class Config {
-    public static final String RESOURCE_PREFIX = "powersuits:";
+    public static final String RESOURCE_DOMAIN = ModularPowersuits.MODID.toLowerCase();
+    public static final String RESOURCE_PREFIX = RESOURCE_DOMAIN + ":";
     public static final String TEXTURE_PREFIX = "powersuits:textures/";
     public static final String COMPONENTS_PREFIX = "powersuits:component/";
     public static final String SOUND_PREFIX = RESOURCE_PREFIX + "sound/";
     public static final String LANG_PREFIX = RESOURCE_PREFIX + "lang/";
-    public static final String SEBK_ARMOR_PATH = TEXTURE_PREFIX + "models/sebkarmor.png";
-    public static final String SEBK_ARMORPANTS_PATH = TEXTURE_PREFIX + "models/sebkarmorpants.png";
+    public static final String SEBK_ARMOR_PATH = TEXTURE_PREFIX + "items/armor/sebkarmor.png";
+    public static final String SEBK_ARMORPANTS_PATH = TEXTURE_PREFIX + "items/armor/sebkarmorpants.png";
     public static final String TINKERTABLE_TEXTURE_PATH = TEXTURE_PREFIX + "models/tinkertable_tx.png";
-    public static final String ARMOR_TEXTURE_PATH = TEXTURE_PREFIX + "models/diffuse.png";
-    public static final String BLANK_ARMOR_MODEL_PATH = TEXTURE_PREFIX + "models/blankarmor.png";
+    public static final String ARMOR_TEXTURE_PATH = TEXTURE_PREFIX + "items/armor/diffuse.png";
+    public static final String BLANK_ARMOR_MODEL_PATH = TEXTURE_PREFIX + "items/armor/blankarmor.png";
     public static final String SEBK_TOOL_TEXTURE = TEXTURE_PREFIX + "models/tool.png";
     public static final String LIGHTNING_TEXTURE = TEXTURE_PREFIX + "gui/lightning-medium.png";
-    public static final String CITIZENJOE_ARMOR_PATH = TEXTURE_PREFIX + "models/joearmor.png";
-    public static final String CITIZENJOE_ARMORPANTS_PATH = TEXTURE_PREFIX + "models/joearmorpants.png";
+    public static final String CITIZENJOE_ARMOR_PATH = TEXTURE_PREFIX + "items/armor/joearmor.png";
+    public static final String CITIZENJOE_ARMORPANTS_PATH = TEXTURE_PREFIX + "items/armor/joearmorpants.png";
     public static final String GLASS_TEXTURE = TEXTURE_PREFIX + "gui/glass.png";
     static File configFolder = null;
     private static MPSCreativeTab mpsCreativeTab;
@@ -253,8 +258,14 @@ public class Config {
         addModule(new DiamondPlatingModule(ARMORONLY));
         addModule(new EnergyShieldModule(ARMORONLY));
         addModule(new HeatSinkModule(ARMORONLY));
-        addModule(new CosmeticGlowModule(ARMORONLY));
         addModule(new TransparentArmorModule(ARMORONLY));
+
+
+        /* Cosmetic ----------------------------- */
+        addModule(new CosmeticGlowModule(ARMORONLY));
+        addModule(new CitizenJoeStyle(ARMORONLY));
+        addModule(new SebKStyle(ARMORONLY));
+        addModule(new TintModule(TOOLONLY));
 
 
         /* Energy ------------------------------- */
@@ -279,7 +290,6 @@ public class Config {
         addModule(new BladeLauncherModule(TOOLONLY));
         addModule(new BlinkDriveModule(TOOLONLY));
         addModule(new AquaAffinityModule(TOOLONLY));
-        addModule(new TintModule(TOOLONLY));
         addModule(new InPlaceAssemblerModule(TOOLONLY));
         addModule(new OreScannerModule(TOOLONLY));
         addModule(new LeafBlowerModule(TOOLONLY));

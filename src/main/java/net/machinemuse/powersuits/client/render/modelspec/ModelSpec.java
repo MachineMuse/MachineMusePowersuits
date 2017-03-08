@@ -1,8 +1,17 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
+import com.google.common.collect.ImmutableMap;
 import net.machinemuse.numina.scala.MuseRegistry;
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.client.model.obj.OBJModel;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Author: MachineMuse (Claire Semple)

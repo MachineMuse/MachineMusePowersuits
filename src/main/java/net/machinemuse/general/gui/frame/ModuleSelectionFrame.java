@@ -18,20 +18,16 @@ import java.util.*;
 
 public class ModuleSelectionFrame extends ScrollableFrame {
     protected ItemSelectionFrame target;
-    protected Map<String, ModuleSelectionSubFrame> categories;
-    protected List<ClickableModule> moduleButtons;
+    protected Map<String, ModuleSelectionSubFrame> categories = new HashMap<>();
+    protected List<ClickableModule> moduleButtons = new ArrayList<>();
     protected int selectedModule = -1;
     protected IPowerModule prevSelection;
     protected ClickableItem lastItem;
     protected MuseRect lastPosition;
 
-    public ModuleSelectionFrame(MusePoint2D topleft, MusePoint2D bottomright,
-                                Colour borderColour, Colour insideColour, ItemSelectionFrame target) {
+    public ModuleSelectionFrame(MusePoint2D topleft, MusePoint2D bottomright, Colour borderColour, Colour insideColour, ItemSelectionFrame target) {
         super(topleft, bottomright, borderColour, insideColour);
         this.target = target;
-
-        moduleButtons = new ArrayList<ClickableModule>();
-        categories = new HashMap<String, ModuleSelectionSubFrame>();
     }
 
     @Override
@@ -78,9 +74,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
             if (pos.y() > this.currentscrollpixels + border.top() + 4 && pos.y() < this.currentscrollpixels + border.top() + border.height() - 4) {
                 MuseRenderer.drawCircleAround(pos.x(), pos.y(), 10);
             }
-
         }
-
     }
 
     public ClickableModule getSelectedModule() {
@@ -95,13 +89,12 @@ public class ModuleSelectionFrame extends ScrollableFrame {
         this.lastPosition = null;
         ClickableItem selectedItem = target.getSelectedItem();
         if (selectedItem != null) {
-            moduleButtons = new ArrayList<ClickableModule>();
-            categories = new HashMap<String, ModuleSelectionSubFrame>();
+            moduleButtons = new ArrayList<>();
+            categories = new HashMap<>();
 
             List<IPowerModule> workingModules = ModuleManager.getValidModulesForItem(selectedItem.getItem());
 
-            // Prune the list of disallowed modules, if not installed on this
-            // item.
+            // Prune the list of disallowed modules, if not installed on this item.
             for (Iterator<IPowerModule> it = workingModules.iterator(); it.hasNext(); ) {
                 IPowerModule module = it.next();
                 if (!module.isAllowed() &&

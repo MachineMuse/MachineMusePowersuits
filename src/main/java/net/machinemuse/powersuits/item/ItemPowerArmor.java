@@ -8,6 +8,8 @@ import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.client.render.item.ArmorModelInstance;
 import net.machinemuse.powersuits.client.render.item.IArmorModel;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.powermodule.cosmetic.CitizenJoeStyle;
+import net.machinemuse.powersuits.powermodule.cosmetic.SebKStyle;
 import net.machinemuse.powersuits.powermodule.misc.InvisibilityModule;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
@@ -87,7 +89,22 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         return new ISpecialArmor.ArmorProperties(priority, absorbRatio, absorbMax);
     }
 
-    public String getArmorTexture(ItemStack itemstack, Entity entity, int slot, int layer) {
+    @Override
+    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+        ItemStack armor = ((EntityPlayer)entity).inventory.armorItemInSlot(slot.getIndex());
+        if (armor.getItem() instanceof ItemPowerArmor) {
+            if (ModuleManager.itemHasActiveModule(armor, SebKStyle.SEBK_STYLE)) {
+                if (slot == EntityEquipmentSlot.HEAD || slot == EntityEquipmentSlot.CHEST)
+                    return Config.SEBK_ARMOR_PATH;
+                else
+                    return Config.SEBK_ARMORPANTS_PATH;
+            } else if (ModuleManager.itemHasActiveModule(armor, CitizenJoeStyle.CITIZEN_JOE_STYLE)) {
+                if (slot == EntityEquipmentSlot.HEAD || slot == EntityEquipmentSlot.CHEST)
+                    return Config.CITIZENJOE_ARMOR_PATH;
+                else
+                    return Config.CITIZENJOE_ARMORPANTS_PATH;
+            }
+        }
         return Config.BLANK_ARMOR_MODEL_PATH;
     }
 
@@ -114,32 +131,16 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
             if (ModuleManager.itemHasActiveModule(itemStack, "Transparent Armor")) {
                 ((IArmorModel)model).setVisibleSection(null);
             }
-
-//            System.out.println("MuseItemUtils.getMuseRenderTag(itemStack, armorSlot).getKeySet().size(): " +
-//                    MuseItemUtils.getMuseRenderTag(itemStack, armorSlot).getKeySet().size());
-//            if (MuseItemUtils.getMuseRenderTag(itemStack, armorSlot).getKeySet().size() > 0) {
-//                NBTTagCompound nbtThingy = MuseItemUtils.getMuseRenderTag(itemStack, armorSlot);
-//
-//
-//                /*
-//                    So far the only tag showing is "colours"
-//
-//                 */
-//
-//
-//
-//
-//                for (String thingy : nbtThingy.getKeySet())
-//                    System.out.println("NBTTagCompound tag key: " + thingy);
-//
-//
-//
-//            }
-
-
-
-
             ((IArmorModel)model).setRenderSpec(MuseItemUtils.getMuseRenderTag(itemStack, armorSlot));
+        }
+
+
+        ItemStack armor = ((EntityPlayer)entityLiving).inventory.armorItemInSlot(armorSlot.getIndex());
+        if (armor.getItem() instanceof ItemPowerArmor) {
+            if ((ModuleManager.itemHasActiveModule(armor, SebKStyle.SEBK_STYLE)) ||
+                    (ModuleManager.itemHasActiveModule(armor, CitizenJoeStyle.CITIZEN_JOE_STYLE))) {
+                return _default;
+            }
         }
         return (ModelBiped)model;
     }

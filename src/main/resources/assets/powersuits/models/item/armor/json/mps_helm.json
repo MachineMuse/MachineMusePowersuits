@@ -3,7 +3,7 @@
   "defaults": {
     "textures": {},
     "custom": { "flip-v": true },
-    "model": "powersuits:armor/mps_arms.obj"
+    "model": "powersuits:armor/mps_helm.obj"
   },
   "variants": {
     "normal": [{}]

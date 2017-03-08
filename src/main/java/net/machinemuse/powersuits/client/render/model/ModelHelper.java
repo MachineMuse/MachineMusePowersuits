@@ -4,6 +4,8 @@ import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.UnmodifiableIterator;
 import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.powersuits.client.render.modelspec.ModelSpecXMLReader;
+import net.machinemuse.powersuits.common.proxy.ClientProxy;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -21,17 +23,31 @@ import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 
 import javax.annotation.Nullable;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class ModelHelper {
+
+    //
+    public static void loadArmorModels() {
+        URL resource = ClientProxy.class.getResource("/assets/powersuits/models/item/armor/modelspec.xml");
+        ModelSpecXMLReader.getINSTANCE().parseFile(resource);
+        URL otherResource = ClientProxy.class.getResource("/assets/powersuits/models/item/armor/armor2.xml");
+        ModelSpecXMLReader.getINSTANCE().parseFile(otherResource);
+    }
+
+
+
+
     /*
       * This is a slightly modified version of Forge's example (@author shadekiller666) for the Tesseract model.
       * With this we can generate an extended blockstate to get the quads of any group in a model without
       * having to rebake the model. In this perticular case, the setup is for gettting an extended state that
       * will hide all groups but one. However, this can easily be altered to hide fewer parts if needed.
       *
+      * The biggest issue with this setup is that the tr
      */
     @Nullable
     public static IExtendedBlockState getStateForPart(String shownIn, OBJModel.OBJBakedModel objBakedModelIn) {

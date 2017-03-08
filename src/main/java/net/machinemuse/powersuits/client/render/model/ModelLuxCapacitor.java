@@ -1,15 +1,27 @@
 package net.machinemuse.powersuits.client.render.model;
 
+import com.google.common.collect.ImmutableList;
+import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.render.RenderState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.common.model.TRSRTransformation;
+import net.minecraftforge.common.property.IExtendedBlockState;
 import org.apache.commons.lang3.tuple.Pair;
+import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
@@ -20,30 +32,30 @@ import java.util.List;
  */
 public class ModelLuxCapacitor implements IBakedModel, IPerspectiveAwareModel {
     private static final LuxCapModelHelper modelHelper = LuxCapModelHelper.getInstance();
-    private static IBakedModel baseBakedModel; // used mainly for the Item model
+    private static IBakedModel baseFrameModel; // used mainly for the Item model
+    private static IBakedModel baseLightModel; // used mainly for the Item model
 
     public ModelLuxCapacitor(IBakedModel bakedModelIn) {
-        this.baseBakedModel = bakedModelIn;
+        this.baseFrameModel = bakedModelIn;
     }
 
     @Override
     public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
-        baseBakedModel = modelHelper.getFrameModelforState(state);
-        if (modelHelper.getQuads(state, side, rand) != null)
-            return modelHelper.getQuads(state, side, rand);
-        return baseBakedModel.getQuads(state, side, rand);
+        baseFrameModel = modelHelper.getFrameForFacing(null);
+        if (side != null) return ImmutableList.of(); // expected OBJBakedModel behaviour
+        return modelHelper.getQuads((IExtendedBlockState) state);
     }
 
     @Override
     public boolean isAmbientOcclusion() {
-        return baseBakedModel.isAmbientOcclusion();
+        return baseFrameModel.isAmbientOcclusion();
     }
 
     @Override
     public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformTypeIn) {
         Matrix4f matrix;
-        if (baseBakedModel != null && baseBakedModel instanceof IPerspectiveAwareModel) {
-            matrix = ((IPerspectiveAwareModel) baseBakedModel).handlePerspective(cameraTransformTypeIn).getValue();
+        if (baseFrameModel != null && baseFrameModel instanceof IPerspectiveAwareModel) {
+            matrix = ((IPerspectiveAwareModel) baseFrameModel).handlePerspective(cameraTransformTypeIn).getValue();
         } else {
             matrix = TRSRTransformation.identity().getMatrix();
         }
@@ -52,26 +64,26 @@ public class ModelLuxCapacitor implements IBakedModel, IPerspectiveAwareModel {
 
     @Override
     public boolean isBuiltInRenderer() {
-        return baseBakedModel.isBuiltInRenderer();
+        return baseFrameModel.isBuiltInRenderer();
     }
 
     @Override
     public TextureAtlasSprite getParticleTexture() {
-        return baseBakedModel.getParticleTexture();
+        return modelHelper.getParticleTexture();
     }
 
     @Override
     public boolean isGui3d() {
-        return baseBakedModel.isAmbientOcclusion();
+        return baseFrameModel.isAmbientOcclusion();
     }
 
     @Override
     public ItemCameraTransforms getItemCameraTransforms() {
-        return baseBakedModel.getItemCameraTransforms();
+        return baseFrameModel.getItemCameraTransforms();
     }
 
     @Override
     public ItemOverrideList getOverrides() {
-        return baseBakedModel.getOverrides();
+        return baseFrameModel.getOverrides();
     }
 }

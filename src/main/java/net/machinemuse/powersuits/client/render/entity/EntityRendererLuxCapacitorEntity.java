@@ -26,13 +26,16 @@ public class EntityRendererLuxCapacitorEntity extends MuseEntityRenderer <Entity
         super(renderManager);
     }
     LuxCapModelHelper modelhelper = LuxCapModelHelper.getInstance();
+
+
     ModelResourceLocation luxCapFramelocation = modelhelper.getLocationForFacing(EnumFacing.DOWN);
-    IBakedModel luxCapFrame = modelhelper.luxCapCleanModelMap.get(luxCapFramelocation);
+    IBakedModel luxCapFrame = modelhelper.getFrameForFacing(EnumFacing.DOWN);
     IBakedModel luxCapacitorModel;
+    IExtendedBlockState blockState;
 
     @Override
     public void doRender(EntityLuxCapacitor entity, double x, double y, double z, float entityYaw, float partialTicks) {
-        IExtendedBlockState blockState = ((IExtendedBlockState) MPSItems.luxCapacitor.getDefaultState().
+        blockState = ((IExtendedBlockState) MPSItems.luxCapacitor.getDefaultState().
                 withProperty(FACING, DOWN)).withProperty(COLOR, entity.color);
         luxCapacitorModel = (luxCapacitorModel != null) ? luxCapacitorModel : new ModelLuxCapacitor(luxCapFrame);
 

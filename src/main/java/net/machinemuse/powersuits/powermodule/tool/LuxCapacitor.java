@@ -73,9 +73,6 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
                 double green = ModuleManager.computeModularProperty(itemStackIn, GREEN);
                 double blue = ModuleManager.computeModularProperty(itemStackIn, BLUE);
 
-                System.out.println("color here is: " + new Colour((float)red, (float)green, (float)blue).hexColour());
-
-
                 EntityLuxCapacitor luxCapacitor = new EntityLuxCapacitor(worldIn, playerIn, new Colour(red, green, blue));
                 worldIn.spawnEntityInWorld(luxCapacitor);
             }

@@ -14,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.registry.IRegistry;
 import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -52,7 +53,7 @@ public class ModelBakeEventHandler {
             storeLuxCapModel(facing);
         }
 
-//         temporary setup for loading the armor models until I can get them to load correctly manually
+        /* temporary setup for loading the armor models until I can get them to load correctly manually */
         Item dummies = MPSItems.dummies;
         IBakedModel armorModel;
         boolean success = false;
@@ -76,7 +77,7 @@ public class ModelBakeEventHandler {
         ModelResourceLocation luxCapacitorLocation = luxCapHeler.getLocationForFacing(facing);
         IBakedModel modelIn = modelRegistry.getObject(luxCapacitorLocation);
         if (modelIn instanceof OBJModel.OBJBakedModel) {
-            LuxCapModelHelper.getInstance().putLuxCapModels(luxCapacitorLocation, modelIn);
+            LuxCapModelHelper.getInstance().putLuxCapModels(facing, modelIn);
             modelRegistry.putObject(luxCapacitorLocation, new ModelLuxCapacitor(modelIn));
         }
     }

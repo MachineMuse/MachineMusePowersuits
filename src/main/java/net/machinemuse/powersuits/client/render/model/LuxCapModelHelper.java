@@ -1,23 +1,37 @@
 package net.machinemuse.powersuits.client.render.model;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
+import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.common.ModularPowersuits;
+import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.property.IExtendedBlockState;
 
 import javax.annotation.Nullable;
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static net.machinemuse.powersuits.block.BlockLuxCapacitor.COLOR;
+import static net.minecraft.block.Block.registerBlocks;
+import static net.minecraft.block.BlockDirectional.FACING;
 
 /**
  * Modular Powersuits by MachineMuse
@@ -33,13 +47,66 @@ public class LuxCapModelHelper {
     }
     private LuxCapModelHelper() {
     }
-
-    private static final ResourceLocation lensModelLocation = new ResourceLocation(ModularPowersuits.MODID.toLowerCase(), "models/block/luxCapacitor/lightCore.obj");
+    // item model variant
     public static final ModelResourceLocation luxCapItemLocation = new ModelResourceLocation(MPSItems.luxCapacitor.getRegistryName(), "inventory");
+    private static final ResourceLocation lensModelLocation = new ResourceLocation(ModularPowersuits.MODID.toLowerCase(), "models/block/luxCapacitor/lightCore.obj");
+    private static List<BakedQuad> itemQuads = new ArrayList<>();
+
 
     // Store the Untouched models
-    public static Map<ModelResourceLocation, IBakedModel> luxCapCleanModelMap = new HashMap<>();
+    private static Map<EnumFacing, IBakedModel> luxCapCleanFrameModelMap = new HashMap<>();
+    private static Map<EnumFacing, IBakedModel> luxCapCleanLensModelMap = new HashMap<>();
 
+    // The actual quad map
+    private static Map<Map<Colour, EnumFacing>, List<BakedQuad>> luxCapColoredQuadMap = new HashMap<>();
+
+
+
+
+
+    static IModel getLensModel() {
+        IModel model = null;
+        try {
+            model = OBJLoader.INSTANCE.loadModel(lensModelLocation);
+            model = ((OBJModel) model).process(ImmutableMap.copyOf(ImmutableMap.of("flip-v", "true")));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return model;
+    }
+
+    public static IBakedModel getBakedLensModelForFacing(EnumFacing facing) {
+        IBakedModel lensModel = luxCapCleanLensModelMap.get(facing);
+
+        if (lensModel == null) {
+            IBakedModel frameModel = luxCapCleanFrameModelMap.get(facing);
+            if (frameModel != null && frameModel instanceof OBJModel.OBJBakedModel) {
+                IModel model = getLensModel();
+                if (model instanceof OBJModel) {
+                    lensModel = model.bake(((OBJModel.OBJBakedModel) frameModel).getState(), DefaultVertexFormats.ITEM,
+                            location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString()));
+                }
+            }
+        }
+        return lensModel;
+    }
+
+    public static IBakedModel getFrameForFacing(EnumFacing facing) {
+        return luxCapCleanFrameModelMap.get(facing);
+    }
+
+    // used in the ModelBakeEvent handler to load the untouched models into the cache
+    public static void putLuxCapModels(EnumFacing facing, IBakedModel model) {
+        if (model instanceof OBJModel.OBJBakedModel && luxCapCleanFrameModelMap.get(facing) == null) {
+            luxCapCleanFrameModelMap.put(facing, model);
+
+            // bake and load the lens models too
+            IBakedModel lensModel = getBakedLensModelForFacing(facing);
+            if (lensModel instanceof OBJModel.OBJBakedModel && luxCapCleanLensModelMap.get(facing) == null) {
+                luxCapCleanLensModelMap.put(facing, lensModel);
+            }
+        }
+    }
 
     // get the frame model resource location for the given rotation variant
     public ModelResourceLocation getLocationForFacing(EnumFacing facing) {
@@ -48,56 +115,98 @@ public class LuxCapModelHelper {
         return new ModelResourceLocation(MPSItems.luxCapacitor.getRegistryName(), "facing=" + facing.getName());
     }
 
-    // translate the blockstate into a facing value and get frame rotation variant location
-    public ModelResourceLocation getLocationForState(IBlockState state) {
-        EnumFacing facing = state != null ? state.getValue(BlockLuxCapacitor.FACING) : null;
-        return getLocationForFacing(facing);
+    // translate the blockstate into the color value
+    public static Colour getColorFromState(IExtendedBlockState state) {
+        Colour color = null;
+        if (state == null) color = BlockLuxCapacitor.defaultColor;
+        else color = ((IExtendedBlockState) state).getValue(BlockLuxCapacitor.COLOR);
+        color = color != null ? color : BlockLuxCapacitor.defaultColor;
+        return color;
     }
 
-    List<BakedQuad> getQuadsForFacing(IBakedModel baseBakedModelIn, Colour colorIn, EnumFacing facingIn, IExtendedBlockState lensStateIn, IExtendedBlockState frameStateIn) {
-        List<BakedQuad> coloredLensQuads = ModelHelper.getColoredQuads(baseBakedModelIn.getQuads(lensStateIn, facingIn, 0), colorIn);
-        List<BakedQuad> frameQuads = baseBakedModelIn.getQuads(frameStateIn, facingIn, 0);
-        ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
-        for (BakedQuad quad : frameQuads) {
-            builder.add(quad);
-        }
-        for (BakedQuad quad : coloredLensQuads) {
-            builder.add(quad);
-        }
-        return builder.build();
+    // get the facing value from state
+    public static EnumFacing getFacingFromState(IBlockState state) {
+        if (state == null)
+            return null;
+        return state.getValue(FACING);
     }
 
-    Map<IExtendedBlockState,  Map<EnumFacing, List<BakedQuad>>> coloredQuadMap = new HashMap<>();
-    public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
-        Map<EnumFacing, List<BakedQuad>> quadMap = coloredQuadMap.get(((IExtendedBlockState) state));
-        if (quadMap == null) {
-            quadMap = new HashMap<>();
-            Colour color = null;
-            ModelResourceLocation location = getLocationForState(state);
-            if (state != null) color = ((IExtendedBlockState) state).getValue(BlockLuxCapacitor.COLOR);
-            color = color != null ? color : BlockLuxCapacitor.defaultColor;
-            IBakedModel baseBakedModel = luxCapCleanModelMap.get(location);
-            IExtendedBlockState lensState = ModelHelper.getStateForPart("poplight001", (OBJModel.OBJBakedModel)baseBakedModel);
-            IExtendedBlockState frameState = ModelHelper.getStateForPart("poplight", (OBJModel.OBJBakedModel)baseBakedModel);
-            List<BakedQuad> quadList;
-            for (EnumFacing facing : EnumFacing.values()) {
-                quadMap.put(facing, getQuadsForFacing(baseBakedModel,color, facing, lensState, frameState));
+    public static List<BakedQuad> getQuadsForColorAndFacing(Colour color, EnumFacing facing) {
+        List<BakedQuad> quadList;
+        if (facing == null) {
+            quadList = itemQuads;
+            if (quadList.isEmpty()) {
+                IBakedModel lensModel;
+                IBakedModel frameModel;
+                IBlockState state;
+                List<BakedQuad> lensList;
+                List<BakedQuad> frameList;
+                ImmutableList.Builder<BakedQuad> builder;
+
+
+                lensModel = getBakedLensModelForFacing(null);
+                frameModel = getFrameForFacing(null);
+                state = MPSItems.luxCapacitor.getDefaultState().withProperty(FACING, EnumFacing.DOWN);
+                lensList = lensModel.getQuads(state, null, 0);
+                lensList= ModelHelper.getColoredQuads(lensList, color);
+                frameList = frameModel.getQuads(state, null, 0);
+
+                builder = ImmutableList.builder();
+                for (BakedQuad quad : frameList) {
+                    builder.add(quad);
+                }
+                for (BakedQuad quad : lensList) {
+                    builder.add(quad);
+                }
+                List<BakedQuad> quads = builder.build();
+                itemQuads = quads;
             }
-            quadMap.put(null, getQuadsForFacing(baseBakedModel,color, null, lensState, frameState));
-            coloredQuadMap.put((IExtendedBlockState) state, quadMap);
+            return itemQuads;
+        } else {
+            quadList = luxCapColoredQuadMap.get(ImmutableMap.of(color, facing));
+
+            if (quadList == null) {
+                IBakedModel lensModel;
+                IBakedModel frameModel;
+                IBlockState state;
+                List<BakedQuad> lensList;
+                List<BakedQuad> frameList;
+                ImmutableList.Builder<BakedQuad> builder;
+
+                for (EnumFacing side: EnumFacing.values()) {
+                    lensModel = getBakedLensModelForFacing(side);
+                    frameModel = getFrameForFacing(side);
+                    state = MPSItems.luxCapacitor.getDefaultState().withProperty(FACING, side);
+                    lensList = lensModel.getQuads(state, null, 0);
+                    lensList= ModelHelper.getColoredQuads(lensList, color);
+                    frameList = frameModel.getQuads(state, null, 0);
+
+                    builder = ImmutableList.builder();
+                    for (BakedQuad quad : frameList) {
+                        builder.add(quad);
+                    }
+                    for (BakedQuad quad : lensList) {
+                        builder.add(quad);
+                    }
+                    List<BakedQuad> quads = builder.build();
+                    if (facing == side)
+                        quadList = quads;
+                    luxCapColoredQuadMap.put(ImmutableMap.of(color, side), quads);
+                }
+
+            }
+            return quadList;
         }
-        return quadMap.get(side);
     }
 
-    public static void putLuxCapModels(ModelResourceLocation resourceLocation, IBakedModel model) {
-        if (model instanceof OBJModel.OBJBakedModel && luxCapCleanModelMap.get(resourceLocation) == null) {
-            luxCapCleanModelMap.put(resourceLocation, model);
-        }
+    public static List<BakedQuad> getQuads(IExtendedBlockState state) {
+        EnumFacing facing = getFacingFromState(state);
+        Colour color = getColorFromState(state);
+
+        return getQuadsForColorAndFacing(color, facing);
     }
 
-    // get the actual frame model for the given state
-    public IBakedModel getFrameModelforState(IBlockState state) {
-        ModelResourceLocation location = getLocationForState(state);
-        return luxCapCleanModelMap.get(location);
+    public static TextureAtlasSprite getParticleTexture() {
+        return Minecraft.getMinecraft().getTextureMapBlocks().registerSprite(new ResourceLocation(Config.RESOURCE_DOMAIN, "blocks/LuxCap"));
     }
 }

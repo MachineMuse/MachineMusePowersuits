@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
 import net.machinemuse.general.NBTTagAccessor;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.client.render.item.ArmorModelInstance;
@@ -9,8 +10,19 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.client.model.obj.OBJModel;
+import org.lwjgl.opengl.GL11;
+
+import java.util.List;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -25,32 +37,45 @@ public class RenderPart extends ModelRenderer {
         super (base);
         this.parent = parent;
     }
-    // TODO: check to see if glow is actually working. AFAIKT it isn't
     @Override
     public void render(float scale) {
         NBTTagCompound renderSpec = ((IArmorModel)(ArmorModelInstance.getInstance())).getRenderSpec();
         int[] colours = renderSpec.getIntArray("colours");
-        Colour partColor;
+        int partColor;
         for (NBTTagCompound nbt : NBTTagAccessor.getValues(renderSpec)) {
             ModelPartSpec part = ModelRegistry.getInstance().getPart(nbt);
             if (part !=null) {
                 if (part.slot == ((IArmorModel)(ArmorModelInstance.getInstance())).getVisibleSection() && part.morph.apply(ArmorModelInstance.getInstance()) == parent) {
-                    int ix = part.getColourIndex(nbt);
-                    if (ix < colours.length && ix >= 0) partColor = new Colour(colours[ix]);
-                    else partColor = Colour.WHITE;
-                    // GLOW stuff on
-                    if (part.getGlow(nbt))
-                        RenderState.glowOn();
-                    GlStateManager.pushMatrix();
-                    GlStateManager.scale(scale, scale, scale);
-                    applyTransform();
-                    Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-                    part.modelSpec.applyOffsetAndRotation(); // not yet implemented
-                    part.render(partColor);
-                    GlStateManager.popMatrix();
-                    //Glow stuff off
-                    if (part.getGlow(nbt))
-                        RenderState.glowOff();
+                    List<BakedQuad> quadList = part.getQuads();
+                    if (!quadList.isEmpty()) {
+                        int ix = part.getColourIndex(nbt);
+                        if (ix < colours.length && ix >= 0) partColor = colours[ix];
+                        else partColor = Colour.WHITE.getInt();
+
+                        // GLOW stuff on
+                        if (part.getGlow(nbt)) RenderState.glowOn();
+
+                        GlStateManager.pushMatrix();
+                        GlStateManager.scale(scale, scale, scale);
+                        applyTransform();
+                        Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+                        part.modelSpec.applyOffsetAndRotation(); // not yet implemented
+
+                        Tessellator tess = Tessellator.getInstance();
+                        VertexBuffer buffer = tess.getBuffer();
+                        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.ITEM);
+
+                        for (BakedQuad quad : part.getQuads()) {
+                            buffer.addVertexData(quad.getVertexData());
+                            ForgeHooksClient.putQuadColor(buffer, quad, partColor);
+                        }
+                        tess.draw();
+
+                        GlStateManager.popMatrix();
+
+                        //Glow stuff off
+                        if (part.getGlow(nbt)) RenderState.glowOff();
+                    }
                 }
             }
         }
