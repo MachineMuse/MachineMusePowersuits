@@ -9,7 +9,7 @@ import net.machinemuse.powersuits.client.render.item.ArmorModelInstance;
 import net.machinemuse.powersuits.client.render.item.IArmorModel;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.cosmetic.CitizenJoeStyle;
-import net.machinemuse.powersuits.powermodule.cosmetic.SebKStyle;
+import net.machinemuse.powersuits.powermodule.cosmetic.HighPolyArmor;
 import net.machinemuse.powersuits.powermodule.misc.InvisibilityModule;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
@@ -93,16 +93,26 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
     public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
         ItemStack armor = ((EntityPlayer)entity).inventory.armorItemInSlot(slot.getIndex());
         if (armor.getItem() instanceof ItemPowerArmor) {
-            if (ModuleManager.itemHasActiveModule(armor, SebKStyle.SEBK_STYLE)) {
-                if (slot == EntityEquipmentSlot.HEAD || slot == EntityEquipmentSlot.CHEST)
-                    return Config.SEBK_ARMOR_PATH;
-                else
-                    return Config.SEBK_ARMORPANTS_PATH;
-            } else if (ModuleManager.itemHasActiveModule(armor, CitizenJoeStyle.CITIZEN_JOE_STYLE)) {
+
+            if (entity instanceof EntityPlayer) {
+                ItemStack armorChest = ((EntityPlayer)entity).inventory.armorItemInSlot(2);
+                if (armorChest != null) {
+                    if (armorChest.getItem() instanceof ItemPowerArmor)
+                        if (ModuleManager.itemHasActiveModule(armorChest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE))
+                            return Config.BLANK_ARMOR_MODEL_PATH;
+                }
+            }
+
+            if (ModuleManager.itemHasActiveModule(armor, CitizenJoeStyle.CITIZEN_JOE_STYLE)) {
                 if (slot == EntityEquipmentSlot.HEAD || slot == EntityEquipmentSlot.CHEST)
                     return Config.CITIZENJOE_ARMOR_PATH;
                 else
                     return Config.CITIZENJOE_ARMORPANTS_PATH;
+            } else if (!ModuleManager.itemHasActiveModule(armor, HighPolyArmor.HighPolyArmor)) {
+                if (slot == EntityEquipmentSlot.HEAD || slot == EntityEquipmentSlot.CHEST)
+                    return Config.SEBK_ARMOR_PATH;
+                else
+                    return Config.SEBK_ARMORPANTS_PATH;
             }
         }
         return Config.BLANK_ARMOR_MODEL_PATH;
@@ -115,34 +125,33 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
     @SideOnly(Side.CLIENT)
     @Override
-    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
-        ModelBiped model = ArmorModelInstance.getInstance();
-        ((IArmorModel)model).setVisibleSection(armorSlot);
-        if (itemStack != null) {
-            if (entityLiving instanceof EntityPlayer) {
-                ItemStack armorChest = ((EntityPlayer)entityLiving).inventory.armorItemInSlot(2);
-
-                if (armorChest != null) {
-                    if (armorChest.getItem() instanceof ItemPowerArmor)
-                        if (ModuleManager.itemHasActiveModule(armorChest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) ((IArmorModel)model).setVisibleSection(null);
-                }
-            }
-
-            if (ModuleManager.itemHasActiveModule(itemStack, "Transparent Armor")) {
-                ((IArmorModel)model).setVisibleSection(null);
-            }
-            ((IArmorModel)model).setRenderSpec(MuseItemUtils.getMuseRenderTag(itemStack, armorSlot));
-        }
-
-
-        ItemStack armor = ((EntityPlayer)entityLiving).inventory.armorItemInSlot(armorSlot.getIndex());
-        if (armor.getItem() instanceof ItemPowerArmor) {
-            if ((ModuleManager.itemHasActiveModule(armor, SebKStyle.SEBK_STYLE)) ||
-                    (ModuleManager.itemHasActiveModule(armor, CitizenJoeStyle.CITIZEN_JOE_STYLE))) {
+    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStackArmor, EntityEquipmentSlot armorSlot, ModelBiped _default) {
+        if (itemStackArmor != null) {
+            // check if using 2d armor
+            if (!(ModuleManager.itemHasActiveModule(itemStackArmor, HighPolyArmor.HighPolyArmor))) {
                 return _default;
             }
+
+            ModelBiped model = ArmorModelInstance.getInstance();
+            ((IArmorModel)model).setVisibleSection(armorSlot);
+            if (itemStackArmor != null) {
+                if (entityLiving instanceof EntityPlayer) {
+                    ItemStack armorChest = ((EntityPlayer)entityLiving).inventory.armorItemInSlot(2);
+
+                    if (armorChest != null) {
+                        if (armorChest.getItem() instanceof ItemPowerArmor)
+                            if (ModuleManager.itemHasActiveModule(armorChest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) ((IArmorModel)model).setVisibleSection(null);
+                    }
+                }
+
+                if (ModuleManager.itemHasActiveModule(itemStackArmor, "Transparent Armor")) {
+                    ((IArmorModel)model).setVisibleSection(null);
+                }
+                ((IArmorModel)model).setRenderSpec(MuseItemUtils.getMuseRenderTag(itemStackArmor, armorSlot));
+            }
+            return (ModelBiped)model;
         }
-        return (ModelBiped)model;
+        return _default;
     }
 
     @Override

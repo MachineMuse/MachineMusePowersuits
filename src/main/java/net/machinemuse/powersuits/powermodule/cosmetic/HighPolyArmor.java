@@ -13,10 +13,10 @@ import java.util.List;
  * Modular Powersuits by MachineMuse
  * Created by lehjr on 3/7/17.
  */
-public class SebKStyle extends PowerModuleBase {
-    public static final String SEBK_STYLE = "SebK Style";
+public class HighPolyArmor extends PowerModuleBase {
+    public static final String HighPolyArmor = "3D Armor";
 
-    public SebKStyle(List<IModularItem> validItems) {
+    public HighPolyArmor(List<IModularItem> validItems) {
         super(validItems);
     }
 
@@ -27,20 +27,20 @@ public class SebKStyle extends PowerModuleBase {
 
     @Override
     public String getDataName() {
-        return SEBK_STYLE;
+        return HighPolyArmor;
     }
 
     @Override
-    public String getUnlocalizedName() { return "SebK";
+    public String getUnlocalizedName() { return "3dArmor";
     }
 
     @Override
     public String getDescription() {
-        return "SebK armor texture.";
+        return "Enable 3d Armor";
     }
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.sebk;
+        return MuseIcon.highPoly;
     }
 }

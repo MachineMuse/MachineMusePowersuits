@@ -21,22 +21,22 @@ import net.minecraft.util.EnumHandSide;
  * FIXME: IMPORTANT!!!!: Note that SmartMoving will mess up the rendering here and the armor's yaw will not change with the player's yaw but will be fine with it not installed.
  *
  */
-public class VanillaArmorModel extends ModelBiped implements IArmorModel {
+public class HighPolyArmor extends ModelBiped implements IArmorModel {
     public NBTTagCompound renderSpec = null;
     public EntityEquipmentSlot visibleSection = EntityEquipmentSlot.HEAD;
 
 //    public ModelRenderer bipedEars;
 //    public ModelRenderer bipedCloak;
 
-    private static VanillaArmorModel INSTANCE;
+    private static HighPolyArmor INSTANCE;
 
-    public static VanillaArmorModel getInstance() {
+    public static HighPolyArmor getInstance() {
         if (INSTANCE == null)
-            INSTANCE = new VanillaArmorModel();
+            INSTANCE = new HighPolyArmor();
         return INSTANCE;
     }
 
-    private VanillaArmorModel() {
+    private HighPolyArmor() {
         super(0);
         init();
     }

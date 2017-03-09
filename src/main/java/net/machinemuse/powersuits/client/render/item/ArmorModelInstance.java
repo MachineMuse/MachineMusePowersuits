@@ -17,10 +17,10 @@ public class ArmorModelInstance {
 //                    MuseLogger.logInfo("SmartMoving armor model loaded successfully!");
 //                } catch (Exception e) {
 //                    MuseLogger.logInfo("Smart Moving armor model did not load successfully. Either Smart Moving is not installed, or there was another problem.");
-//                    instance = VanillaArmorModel.getInstance();
+//                    instance = HighPolyArmor.getInstance();
 //                }
 //            } else {
-                instance = VanillaArmorModel.getInstance();
+                instance = HighPolyArmor.getInstance();
 //            }
 //        }
         return instance;

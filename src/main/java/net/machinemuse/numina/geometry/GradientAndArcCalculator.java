@@ -25,23 +25,31 @@ public class GradientAndArcCalculator {
      * @return
      */
     public static DoubleBuffer getArcPoints(double startangle, double endangle, double radius, double xoffset, double yoffset, double zoffset) {
-        int numVertices = (int) Math.ceil(Math.abs((endangle - startangle) * 2 * Math.PI));
+        // roughly 8 vertices per Minecraft 'pixel' - should result in at least
+        // 2 vertices per real pixel on the screen.
+//        int numVertices = (int) Math.ceil(Math.abs((endangle - startangle) * 16 * Math.PI)); // value from wayyyyy back early on
+        int numVertices =  (int) Math.ceil(Math.abs((endangle - startangle) * 2 * Math.PI));
         double theta = (endangle - startangle) / numVertices;
         DoubleBuffer buffer = BufferUtils.createDoubleBuffer(numVertices * 3);
+
         double x = radius * Math.sin(startangle);
         double y = radius * Math.cos(startangle);
-        double tf = Math.tan(theta);
-        double rf = Math.cos(theta);
-        double tx = 0.0;
-        double ty = 0.0;
+        double tf = Math.tan(theta); // precompute tangent factor: how much to
+        // move along the tangent line each
+        // iteration
+        double rf = Math.cos(theta); // precompute radial factor: how much to
+        // move back towards the origin each
+        // iteration
+        double tx;
+        double ty;
 
         for (int i = 0; i < numVertices; i++) {
             buffer.put(x + xoffset);
             buffer.put(y + yoffset);
             buffer.put(zoffset);
-            tx = y;
+            tx = y; // compute tangent lines
             ty = -x;
-            x += tx * tf;
+            x += tx * tf; // add tangent line * tangent factor
             y += ty * tf;
             x *= rf;
             y *= rf;

@@ -1,9 +1,7 @@
 package net.machinemuse.general.gui;
 
 
-import net.machinemuse.powersuits.client.render.model.ModelHelper;
 import net.machinemuse.powersuits.common.Config;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -32,7 +30,7 @@ public class MuseIcon {
     /* Cosmetic ----------------------------------------------------------------------------------- */
     public static TextureAtlasSprite citizenJoe;
     public static TextureAtlasSprite cosmeticGlow;
-    public static TextureAtlasSprite sebk;
+    public static TextureAtlasSprite highPoly;
     public static TextureAtlasSprite tint;
 
     /* Energy ------------------------------------------------------------------------------------- */
@@ -130,7 +128,7 @@ public class MuseIcon {
         /* Cosmetic ----------------------------------------------------------------------------------- */
         citizenJoe = register(event, "modules/greendrone");
         cosmeticGlow = register(event, "modules/netherstar");
-        sebk = register(event, "modules/bluedrone");
+        highPoly = register(event, "modules/bluedrone");
         tint = register(event, "modules/netherstar");
 
         /* Energy ------------------------------------------------------------------------------------- */

@@ -86,6 +86,7 @@ module.redstoneLaser.name=Redstone Laser
 module.aurameter.name=Aurameter
 module.airtightSeal.name=Airtight Seal
 module.citizenJoe.name=Citizen Joe Armor
+module.3dArmor.name=3D Armor
 module.sonicWeapon.name=Sonic Weapon
 
 module.portableCraftingTable.name=In-Place Assembler
@@ -155,6 +156,8 @@ module.cosmeticGlow.desc=Change the appearance of the glowy bits on your armor.
 module.hazmat.desc=Protect yourself from electricity and radiation poisoning. *Must be on every piece for 100% protection*
 module.aurameter.desc=Connect up some Thaumic goggles to have them embedded in your helmet. (Does not give Vis usage discount)
 module.airtightSeal.desc=Seal the suit against hostile atmospheres for venturing to other planets.
+module.citizenJoe.desc=An alternative armor texture, c/o CitizenJoe of IC2 forums.
+module.3dArmor.desc=Enable 3D Armor
 module.grafter.desc=A Forestry grafter integrated into your power tool.
 module.scoop.desc=A Forestry Scoop integrated into your power tool.
 module.apiaristArmor.desc=A set of Forestry apiarist armor integrated into your armor.
