@@ -9,6 +9,7 @@ import net.machinemuse.powersuits.powermodule.movement.JumpAssistModule;
 import net.machinemuse.powersuits.powermodule.movement.ShockAbsorberModule;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
@@ -40,7 +41,8 @@ public class MovementManager {
     public void handleLivingJumpEvent(LivingJumpEvent event) {
         if (event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-            ItemStack stack = player.inventory.armorItemInSlot(1);
+            ItemStack stack = player.getItemStackFromSlot(EntityEquipmentSlot.FEET);
+
             if (stack != null && stack.getItem() instanceof ItemPowerArmor
                     && ModuleManager.itemHasActiveModule(stack, JumpAssistModule.MODULE_JUMP_ASSIST)) {
                 double jumpAssist = ModuleManager.computeModularProperty(stack, JumpAssistModule.JUMP_MULTIPLIER) * 2;
@@ -58,10 +60,8 @@ public class MovementManager {
                     } else {
                         player.getFoodStats().addExhaustion((float) (-0.2 * jumpCompensationRatio));
                     }
-
                 }
             }
-
         }
     }
 
@@ -69,7 +69,7 @@ public class MovementManager {
     public void handleFallEvent(LivingFallEvent event) {
         if (event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-            ItemStack boots = player.inventory.armorItemInSlot(0);
+            ItemStack boots = player.getItemStackFromSlot(EntityEquipmentSlot.FEET);
             if (boots != null) {
                 if (ModuleManager.itemHasActiveModule(boots, ShockAbsorberModule.MODULE_SHOCK_ABSORBER) && event.getDistance() > 3) {
                     double distanceAbsorb = event.getDistance() * ModuleManager.computeModularProperty(boots, ShockAbsorberModule.SHOCK_ABSORB_MULTIPLIER);
