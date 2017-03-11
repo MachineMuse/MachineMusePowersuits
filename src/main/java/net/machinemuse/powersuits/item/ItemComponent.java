@@ -7,6 +7,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +52,7 @@ public class ItemComponent extends Item {
     public ItemStack addComponent(int meta, String oredictName, String description) {
         ItemStack stack = new ItemStack(this, 1, meta);
         names.put(meta, oredictName);
+        OreDictionary.registerOre(oredictName, stack);
         descriptions.put(meta, description);
         return stack;
     }
