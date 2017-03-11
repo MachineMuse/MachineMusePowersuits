@@ -212,6 +212,8 @@ public class ColourPickerFrame implements IGuiFrame {
     }
 
     public int[] getIntArray(NBTTagIntArray e) {
+        if (e == null) // null when no armor item selected
+            return new int[0];
         return e.getIntArray();
     }
 }
