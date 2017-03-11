@@ -72,7 +72,7 @@ public class ClickableModule extends Clickable {
             MuseRenderer.drawString(string, getPosition().x() + 3, getPosition().y() + 1);
         }
         else if (installed) {
-            new GuiIcons.Checkmark(this.getPosition().x() - 8 + 1, this.getPosition().y() - 8 + 1, this.checkmarkcolour, null, null, null,null);
+            new GuiIcons.Checkmark(getPosition().x() - 8 + 1, getPosition().y() - 8 + 1, checkmarkcolour, null, null, null, null);
         }
     }
 

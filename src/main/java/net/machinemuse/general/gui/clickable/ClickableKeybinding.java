@@ -33,9 +33,8 @@ public class ClickableKeybinding extends ClickableButton{
 
     public ClickableKeybinding(KeyBinding keybind, MusePoint2D position, boolean free, Boolean displayOnHUD) {
         super(ClickableKeybinding.parseName(keybind), position, true);
-        this.keybind = keybind;
         this.displayOnHUD = (displayOnHUD!= null) ? displayOnHUD : false;
-
+        this.keybind = keybind;
     }
 
     static String parseName(KeyBinding keybind) {

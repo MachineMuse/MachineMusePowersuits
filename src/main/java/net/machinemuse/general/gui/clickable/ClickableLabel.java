@@ -52,5 +52,4 @@ public class ClickableLabel implements IClickable {
     public MusePoint2D getPosition() {
         return position;
     }
-
 }

@@ -55,7 +55,6 @@ public class PartManipSubFrame {
         var specs: Array[ModelPartSpec] = model.apply.values.filter(spec => isValidArmor(getSelectedItem, spec.slot)).toArray
         model.apply().values().filter(Function1<ModelPartSpec, Object> p) */
         this.specs = getSpecs();
-
         this.open = true;
     }
 

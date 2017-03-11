@@ -63,7 +63,6 @@ public class ModuleTweakFrame extends ScrollableFrame {
         if (selectedSlider != null) {
             selectedSlider.moveSlider(mousex, mousey);
         }
-
     }
 
     @Override
@@ -111,7 +110,6 @@ public class ModuleTweakFrame extends ScrollableFrame {
                 }
             }
             propertyStrings.put(property.getKey(), currValue);
-
         }
 
         sliders = new LinkedList();

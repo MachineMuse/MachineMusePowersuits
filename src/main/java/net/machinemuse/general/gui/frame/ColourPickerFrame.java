@@ -68,7 +68,7 @@ public class ColourPickerFrame implements IGuiFrame {
             if (item instanceof ItemPowerArmor) {
                 ItemPowerArmor itemPowerArmor = (ItemPowerArmor)item;
                 int[] intArray = { itemPowerArmor.getColorFromItemStack(this.itemSelector.getSelectedItem().getItem()).getInt(),
-                                         itemPowerArmor.getGlowFromItemStack(this.itemSelector.getSelectedItem().getItem()).getInt() };
+                        itemPowerArmor.getGlowFromItemStack(this.itemSelector.getSelectedItem().getItem()).getInt() };
                 renderSpec.setIntArray("colours", intArray);
             }
             else {
@@ -77,7 +77,7 @@ public class ColourPickerFrame implements IGuiFrame {
             }
             EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
             if (player.worldObj.isRemote) {
-                PacketSender.sendToServer(new MusePacketColourInfo((EntityPlayer)player, this.itemSelector.getSelectedItem().inventorySlot, this.colours()));
+                PacketSender.sendToServer(new MusePacketColourInfo(player, this.itemSelector.getSelectedItem().inventorySlot, this.colours()));
             }
             return (NBTTagIntArray) renderSpec.getTag("colours");
         }
@@ -88,25 +88,25 @@ public class ColourPickerFrame implements IGuiFrame {
             return null;
         }
         NBTTagCompound renderSpec = MuseItemUtils.getMuseRenderTag(this.itemSelector.getSelectedItem().getItem());
-        renderSpec.setTag("colours", (NBTBase)new NBTTagIntArray(newarray));
+        renderSpec.setTag("colours", new NBTTagIntArray(newarray));
         EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
         if (player.worldObj.isRemote) {
-            PacketSender.sendToServer(new MusePacketColourInfo((EntityPlayer)player, this.itemSelector.getSelectedItem().inventorySlot, this.colours()));
+            PacketSender.sendToServer(new MusePacketColourInfo(player, this.itemSelector.getSelectedItem().inventorySlot, this.colours()));
         }
         return (NBTTagIntArray) renderSpec.getTag("colours");
     }
 
     public ArrayList<Integer> importColours() {
-        return new ArrayList<Integer>();
+        return new ArrayList<>();
     }
 
     public void refreshColours() {
-        //    getOrCreateColourTag.map(coloursTag => {
-        //      val colourints: Array[Int] = coloursTag.intArray
-        //      val colourset: HashSet[Int] = HashSet.empty ++ colours ++ colourints
-        //      val colourarray = colourset.toArray
-        //      coloursTag.intArray = colourarray
-        //    })
+//            getOrCreateColourTag.map(coloursTag => {
+//              val colourints: Array[Int] = coloursTag.intArray
+//              val colourset: HashSet[Int] = HashSet.empty ++ colours ++ colourints
+//              val colourarray = colourset.toArray
+//              coloursTag.intArray = colourarray
+//            })
     }
 
     @Override
@@ -174,7 +174,10 @@ public class ColourPickerFrame implements IGuiFrame {
                 this.onSelectColour(colourCol);
             } else if (colourCol == this.colours().length) {
                 MuseLogger.logDebug("Adding");
-                setColourTagMaybe(ArrayUtils.add(getIntArray(getOrCreateColourTag()), Colour.WHITE.getInt()));
+
+                NBTTagIntArray nbtTagIntArray = getOrCreateColourTag();
+                int[] intArray = getIntArray(nbtTagIntArray);
+                setColourTagMaybe(ArrayUtils.add(intArray, Colour.WHITE.getInt()));
             }
         }
 
@@ -183,7 +186,7 @@ public class ColourPickerFrame implements IGuiFrame {
             NBTTagIntArray nbtTagIntArray = getOrCreateColourTag();
 
             int[] intArray = getIntArray(nbtTagIntArray);
-            if (intArray.length > 1) {
+            if (intArray != null && intArray.length > 1) {
                 /* TODO - for 1.10.2 and above, simplyfy with Java 8 collections and streams. Seriously, all this to remove an element fron an int array*/
                 List<Integer> integerArray = new ArrayList<>();
                 int intToRemove = intArray[selectedColour];
@@ -212,6 +215,8 @@ public class ColourPickerFrame implements IGuiFrame {
     }
 
     public int[] getIntArray(NBTTagIntArray e) {
+        if (e == null) // null when no armor item selected
+            return new int[0];
         return e.func_150302_c();
     }
 }

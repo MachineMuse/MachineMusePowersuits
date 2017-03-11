@@ -34,7 +34,6 @@ public class ClickableSlider extends Clickable {
         return this.name;
     }
 
-
     @Override
     public void draw() {
         MuseRenderer.drawCenteredString(name, position.x(), position.y());

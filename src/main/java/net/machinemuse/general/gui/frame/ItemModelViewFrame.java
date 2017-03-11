@@ -27,19 +27,17 @@ import java.util.List;
 public class ItemModelViewFrame implements IGuiFrame {
     ItemSelectionFrame itemSelector;
     DrawableMuseRect border;
-
     double anchorx = 0;
     double anchory = 0;
     int dragging = -1;
     double lastdWheel = 0;
-
     double rotx = 0;
     double roty = 0;
     double offsetx = 0;
     double offsety = 0;
     double zoom = 64;
 
-    public ItemModelViewFrame(ItemSelectionFrame itemSelector, MusePoint2D topleft, MusePoint2D  bottomright, Colour borderColour, Colour insideColour) {
+    public ItemModelViewFrame(ItemSelectionFrame itemSelector, MusePoint2D topleft, MusePoint2D bottomright, Colour borderColour, Colour insideColour) {
         this.itemSelector = itemSelector;
         this.border = new DrawableMuseRect(topleft, bottomright, borderColour, insideColour);
     }
@@ -81,15 +79,15 @@ public class ItemModelViewFrame implements IGuiFrame {
         double dy = mousey - anchory;
         switch(dragging) {
             case 0: {
-                rotx = MuseMathUtils.clampDouble((rotx + dy), -90, 90);
-                roty = (roty - dx);
+                rotx = MuseMathUtils.clampDouble(rotx + dy, -90, 90);
+                roty = roty - dx;
                 anchorx = mousex;
                 anchory = mousey;
                 break;
             }
             case 1: {
-                offsetx = (offsetx + dx);
-                offsety = (offsety + dy);
+                offsetx = offsetx + dx;
+                offsety = offsety + dy;
                 anchorx = mousex;
                 anchory = mousey;
                 break;
