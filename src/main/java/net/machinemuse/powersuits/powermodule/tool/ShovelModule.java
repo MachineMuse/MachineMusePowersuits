@@ -63,8 +63,6 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
         if (ForgeHooks.canToolHarvestBlock(worldIn, pos, emulatedTool)) {
             ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, ModuleManager.computeModularProperty(stack, SHOVEL_ENERGY_CONSUMPTION));
-
-            System.out.println("breaking with shovel module");
             return true;
         }
         return false;

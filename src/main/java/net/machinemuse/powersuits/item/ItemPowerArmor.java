@@ -104,15 +104,15 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
             }
 
             if (ModuleManager.itemHasActiveModule(armor, CitizenJoeStyle.CITIZEN_JOE_STYLE)) {
-                if (slot == EntityEquipmentSlot.HEAD || slot == EntityEquipmentSlot.CHEST)
-                    return Config.CITIZENJOE_ARMOR_PATH;
-                else
+                if (slot == EntityEquipmentSlot.LEGS)
                     return Config.CITIZENJOE_ARMORPANTS_PATH;
-            } else if (!ModuleManager.itemHasActiveModule(armor, HighPolyArmor.HighPolyArmor)) {
-                if (slot == EntityEquipmentSlot.HEAD || slot == EntityEquipmentSlot.CHEST)
-                    return Config.SEBK_ARMOR_PATH;
                 else
+                    return Config.CITIZENJOE_ARMOR_PATH;
+            } else if (!ModuleManager.itemHasActiveModule(armor, HighPolyArmor.HighPolyArmor)) {
+                if (slot == EntityEquipmentSlot.LEGS)
                     return Config.SEBK_ARMORPANTS_PATH;
+                else
+                    return Config.SEBK_ARMOR_PATH;
             }
         }
         return Config.BLANK_ARMOR_MODEL_PATH;

@@ -76,8 +76,6 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
         // this does a check using ActualBlockstate, something we can't do without BlockPos
         if (ForgeHooks.canToolHarvestBlock(worldIn, pos, emulatedTool)) {
             ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, ModuleManager.computeModularProperty(stack, PICKAXE_ENERGY_CONSUMPTION));
-
-            System.out.println("breaking with regular pickaxe module");
             return true;
         }
         return false;

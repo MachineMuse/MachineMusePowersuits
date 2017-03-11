@@ -143,8 +143,6 @@ public class ClientProxy extends CommonProxy {
 
     private void regRenderer(Item item) {
         ModelResourceLocation location =  new ModelResourceLocation(item.getRegistryName(), "inventory");
-
-        System.out.println("location is: " + location.toString());
         ModelLoader.setCustomModelResourceLocation(item, 0,location);
     }
 

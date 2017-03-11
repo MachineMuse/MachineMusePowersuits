@@ -77,7 +77,6 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
         if (ForgeHooks.canToolHarvestBlock(worldIn, pos, emulatedTool)) {
             ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION));
-            System.out.println("breaking with regular axe module");
             return true;
         }
         return false;

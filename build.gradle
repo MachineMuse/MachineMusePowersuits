@@ -27,11 +27,11 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 def buildnumber = System.getenv("BUILD_NUMBER")
-def travisbuildnumber = (System.getenv("TRAVIS_BUILD_NUMBER") ?: -111).toInteger() + 111
+def travisbuildnumber = (System.getenv("TRAVIS_BUILD_NUMBER") ?: -000).toInteger() + 000
 version = mod_version + "-" + (buildnumber ?: travisbuildnumber)
 group= group_id // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = mod_id
-def numina_version = (System.getenv("NUMINA_VERSION") ?:"0.4.1.131")
+def numina_version = (System.getenv("NUMINA_VERSION") ?:"0.4.2.000")
 
 repositories {
 	//JEI
