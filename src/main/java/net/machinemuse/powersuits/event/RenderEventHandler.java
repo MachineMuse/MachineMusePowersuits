@@ -21,6 +21,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -64,7 +65,10 @@ public class RenderEventHandler {
     }
 
     private boolean playerHasFlightOn(EntityPlayer player) {
-        return ModuleManager.itemHasActiveModule(player.inventory.armorItemInSlot(2), JetPackModule.MODULE_JETPACK) || ModuleManager.itemHasActiveModule(player.inventory.armorItemInSlot(2), GliderModule.MODULE_GLIDER) || ModuleManager.itemHasActiveModule(player.inventory.armorItemInSlot(0), JetBootsModule.MODULE_JETBOOTS) || ModuleManager.itemHasActiveModule(player.inventory.armorItemInSlot(3), FlightControlModule.MODULE_FLIGHT_CONTROL);
+        return ModuleManager.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), JetPackModule.MODULE_JETPACK) ||
+                ModuleManager.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), GliderModule.MODULE_GLIDER) ||
+                ModuleManager.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.FEET), JetBootsModule.MODULE_JETBOOTS) ||
+                ModuleManager.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.HEAD), FlightControlModule.MODULE_FLIGHT_CONTROL);
     }
 
     @SubscribeEvent
@@ -77,7 +81,7 @@ public class RenderEventHandler {
 
     @SubscribeEvent
     public void onFOVUpdate(FOVUpdateEvent e) {
-        ItemStack helmet = e.getEntity().inventory.armorItemInSlot(3);
+        ItemStack helmet = e.getEntity().getItemStackFromSlot(EntityEquipmentSlot.HEAD);
         if (ModuleManager.itemHasActiveModule(helmet, "Binoculars")) {
             e.setNewfov(e.getNewfov() / (float)ModuleManager.computeModularProperty(helmet, BinocularsModule.FOV_MULTIPLIER));
         }

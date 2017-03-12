@@ -91,11 +91,11 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-        ItemStack armor = ((EntityPlayer)entity).inventory.armorItemInSlot(slot.getIndex());
+        ItemStack armor = ((EntityPlayer)entity).getItemStackFromSlot(slot);
         if (armor.getItem() instanceof ItemPowerArmor) {
 
             if (entity instanceof EntityPlayer) {
-                ItemStack armorChest = ((EntityPlayer)entity).inventory.armorItemInSlot(2);
+                ItemStack armorChest = ((EntityPlayer)entity).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
                 if (armorChest != null) {
                     if (armorChest.getItem() instanceof ItemPowerArmor)
                         if (ModuleManager.itemHasActiveModule(armorChest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE))
@@ -136,8 +136,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
             ((IArmorModel)model).setVisibleSection(armorSlot);
             if (itemStackArmor != null) {
                 if (entityLiving instanceof EntityPlayer) {
-                    ItemStack armorChest = ((EntityPlayer)entityLiving).inventory.armorItemInSlot(2);
-
+                    ItemStack armorChest = ((EntityPlayer)entityLiving).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
                     if (armorChest != null) {
                         if (armorChest.getItem() instanceof ItemPowerArmor)
                             if (ModuleManager.itemHasActiveModule(armorChest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) ((IArmorModel)model).setVisibleSection(null);

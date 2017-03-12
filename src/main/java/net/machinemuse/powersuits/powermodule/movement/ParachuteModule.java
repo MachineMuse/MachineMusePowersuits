@@ -14,6 +14,7 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
         PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
         float forwardkey = movementInput.forwardKey;
         boolean sneakkey = movementInput.sneakKey;
-        ItemStack torso = player.inventory.armorItemInSlot(2);
+        ItemStack torso = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
         boolean hasGlider = false;
         NuminaPlayerUtils.resetFloatKickTicks(player);
         if (torso != null && torso.getItem() instanceof IModularItem) {

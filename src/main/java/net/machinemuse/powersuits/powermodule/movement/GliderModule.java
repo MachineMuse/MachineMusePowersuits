@@ -13,6 +13,7 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Vec3d;
 
@@ -53,10 +54,7 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
         PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
         boolean sneakkey = movementInput.sneakKey;
         float forwardkey = movementInput.forwardKey;
-        ItemStack torso = player.inventory.armorItemInSlot(2);
-
-
-
+        ItemStack torso = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
         boolean hasParachute = false;
         NuminaPlayerUtils.resetFloatKickTicks(player);
         if (torso != null && torso.getItem() instanceof IModularItem) {

@@ -17,6 +17,7 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -60,13 +61,13 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        ItemStack chest = player.inventory.armorItemInSlot(1);
+        ItemStack chest = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
         if (player.isInWater()) {
             return;
         }
         PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
         boolean jumpkey = movementInput.jumpKey;
-        ItemStack helmet = player.inventory.armorItemInSlot(3);
+        ItemStack helmet = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
         boolean hasFlightControl = ModuleManager.itemHasActiveModule(helmet, FlightControlModule.MODULE_FLIGHT_CONTROL);
         double jetEnergy = ModuleManager.computeModularProperty(item, JET_ENERGY_CONSUMPTION);
         double thrust = ModuleManager.computeModularProperty(item, JET_THRUST);

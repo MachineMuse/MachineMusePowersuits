@@ -17,6 +17,7 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -64,7 +65,7 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
         }
         PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
         boolean jumpkey = movementInput.jumpKey;
-        ItemStack helmet = player.inventory.armorItemInSlot(3);
+        ItemStack helmet = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
         boolean hasFlightControl = helmet != null && helmet.getItem() instanceof IModularItem
                 && ModuleManager.itemHasActiveModule(helmet, FlightControlModule.MODULE_FLIGHT_CONTROL);
         double jetEnergy = 0;

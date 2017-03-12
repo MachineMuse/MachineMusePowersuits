@@ -12,6 +12,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -192,7 +193,7 @@ public class MusePlayerUtils {
             double strafeZ = -desiredDirection.xCoord;
             double scaleStrafe = (strafeX * strafeX + strafeZ * strafeZ);
             double flightVerticality = 0;
-            ItemStack helm = player.inventory.armorItemInSlot(3);
+            ItemStack helm = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);;
             if (helm != null && helm.getItem() instanceof IModularItem) {
                 flightVerticality = ModuleManager.computeModularProperty(helm, FlightControlModule.FLIGHT_VERTICALITY);
             }

@@ -35,7 +35,6 @@ public class MPSRegistry {
         return item;
     }
 
-
     //----------------
     protected static <BLOCK extends Block> Block registerBlock(BLOCK block) {
         return registerBlock(block, ItemBlock::new);
