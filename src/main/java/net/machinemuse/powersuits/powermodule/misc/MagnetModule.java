@@ -24,6 +24,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -92,7 +93,8 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
             }
             List<EntityItem> list = world.getEntitiesWithinAABB(EntityItem.class, bounds);
             for (EntityItem e : list) {
-                if (e.getAge() >= 10) {
+                if (!e.cannotPickup()) {
+//                    getAge() >= 10
                     double x = player.posX - e.posX;
                     double y = player.posY - e.posY;
                     double z = player.posZ - e.posZ;
