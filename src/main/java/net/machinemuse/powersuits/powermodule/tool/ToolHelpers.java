@@ -1,7 +1,9 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 
@@ -12,8 +14,6 @@ import java.util.Set;
  *  by lehjr on 11/27/16.
  */
 public class ToolHelpers {
-
-
     public static boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
         String tool = state.getBlock().getHarvestTool(state);
         if (stack == null || tool == null) return false;
@@ -30,16 +30,19 @@ public class ToolHelpers {
                 return true;
         }
 
+        if (emulatedTool.getItem().canHarvestBlock(state))
+            return true;
+
         if (effectiveTool == null) {
-           if (emulatedTool.getStrVsBlock(state) >= ((ItemTool) emulatedTool.getItem()).getToolMaterial().getEfficiencyOnProperMaterial())
-               return true;
+            Item.ToolMaterial material;
+            if (emulatedTool.getItem() instanceof ItemTool) {
+                material = ((ItemTool) emulatedTool.getItem()).getToolMaterial();
+            } else {
+                material = Item.ToolMaterial.IRON;
+            }
+            if (emulatedTool.getStrVsBlock(state) >= material.getEfficiencyOnProperMaterial())
+                return true;
         }
         return false;
     }
-
-
-
-
-
-
 }

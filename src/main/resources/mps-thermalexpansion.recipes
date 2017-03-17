@@ -3,7 +3,7 @@
 		"ingredients" : [
 			[ null, { "oredictName" : "gemEmerald" }, null ],
 			[ { "oredictName" : "ingotElectrum" }, { "registryName" : "ThermalExpansion:Frame"}, { "oredictName" : "ingotElectrum" } ],
-			[ null, { "registryName" : "ThermalExpansion:material", "meta" : 2 }, null ]
+			[ null, { "registryName" : "thermalfoundation:material", "meta" : 514 }, null ]
 		],
 		"result" : {
 			"registryName" : "powersuits:tile.tinkerTable"
@@ -140,7 +140,7 @@
 		"ingredients" : [
 			[ { "registryName" : "minecraft:wool" }, { "registryName" : "minecraft:wool" }, { "registryName" : "minecraft:wool" } ],
 			[ { "registryName" : "minecraft:string" }, null, { "registryName" : "minecraft:string" } ],
-			[ { "registryName" : "ThermalExpansion:Rockwool", "meta" : 8 }, null, { "registryName" : "ThermalExpansion:Rockwool", "meta" : 8 } ]
+			[ { "registryName" : "thermalfoundation:rockwool", "meta" : 7 }, null, { "registryName" : "thermalfoundation:rockwool", "meta" : 7 } ]
 		],
 		"result" : {
 			"oredictName" : "componentParachute"
@@ -175,6 +175,15 @@
 			"oredictName" : "componentPlatingAdvanced"
 		}
 	},
+
+
+
+
+
+
+
+
+
 	{
 		"ingredients" : [
 			[ { "oredictName" : "componentPlatingAdvanced" } ]
@@ -184,10 +193,10 @@
 			"quantity" : 5
 		}
 	},
-	{
+    {
 		"ingredients" : [
 			[  {"oredictName" : "componentSolenoid" }, { "registryName" : "minecraft:ender_pearl" }, {"oredictName" : "componentSolenoid" } ],
-			[  {"registryName" : "minecraft:ender_pearl" }, { "registryName" : "ThermalExpansion:Frame", "meta" : 11}, {"registryName" : "minecraft:ender_pearl" } ],
+			[  {"registryName" : "minecraft:ender_pearl" }, { "registryName" : "thermalexpansion:frame", "meta" : 128 }, {"registryName" : "minecraft:ender_pearl" } ],
 			[  {"oredictName" : "componentSolenoid" }, { "registryName" : "minecraft:ender_pearl" }, {"oredictName" : "componentSolenoid" } ]
 		],
 		"result" : {
@@ -195,10 +204,10 @@
 		},
 		"mirror" : true
 	},
-	{
+    {
 		"ingredients" : [
 			[ { "oredictName" : "dustGlowstone" }, { "oredictName" : "blockGlass" }, { "oredictName" : "dyeGreen" } ],
-			[ { "oredictName" : "blockGlass" }, { "registryName" : "ThermalExpansion:material", "meta" : 3 }, { "oredictName" : "blockGlass" } ],
+			[ { "oredictName" : "blockGlass" }, { "registryName" : "thermalfoundation:material", "meta" : 515 }, { "oredictName" : "blockGlass" } ],
 			[ { "oredictName" : "dyeBlue" }, { "oredictName" : "blockGlass" }, { "oredictName" : "dyeRed" } ]
 		],
 		"result" : {
@@ -207,9 +216,9 @@
 	},
 	{
 		"ingredients" : [
-			[ { "oredictName" : "dustCoal" }, { "oredictName" : "bucketCoal" }, { "oredictName" : "dustCoal" } ],
-			[ { "oredictName" : "dustCoal" }, { "oredictName" : "bucketCoal" }, { "oredictName" : "dustCoal" } ],
-			[ { "oredictName" : "dustCoal" }, { "oredictName" : "bucketCoal" }, { "oredictName" : "dustCoal" } ]
+			[ { "oredictName" : "dustCoal" }, { "registryName" : "forge:bucketFilled", "nbtString" : "{FluidName:coal, Amount:1000}" }, { "oredictName" : "dustCoal" } ],
+			[ { "oredictName" : "dustCoal" }, { "registryName" : "forge:bucketFilled", "nbtString" : "{FluidName:coal, Amount:1000}" }, { "oredictName" : "dustCoal" } ],
+			[ { "oredictName" : "dustCoal" }, { "registryName" : "forge:bucketFilled", "nbtString" : "{FluidName:coal, Amount:1000}" }, { "oredictName" : "dustCoal" } ]
 		],
 		"result" : {
 			"oredictName" : "componentCarbonMyofiber"
@@ -218,7 +227,7 @@
 	{
 		"ingredients" : [
 			[ { "oredictName" : "componentWiring" }, { "oredictName" : "dyeGreen" }, { "oredictName" : "ingotElectrum" } ],
-			[ { "oredictName" : "dustRedstone" }, { "registryName" : "ThermalExpansion:material", "meta" : 3 }, { "oredictName" : "dyeGreen" } ],
+			[ { "oredictName" : "dustRedstone" }, { "registryName" : "thermalfoundation:material", "meta" : 515 }, { "oredictName" : "dyeGreen" } ],
 			[ { "oredictName" : "ingotElectrum" }, { "oredictName" : "dustRedstone" }, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {
@@ -226,11 +235,13 @@
 		},
 		"mirror" : true
 	},
+
+
 	{
 		"ingredients" : [
 			[ null, { "registryName" : "minecraft:magma_cream" }, null ],
-			[ { "registryName" : "ThermalExpansion:Rockwool", "meta" : 7 }, { "oredictName" : "dustCoal" }, { "registryName" : "ThermalExpansion:Rockwool", "meta" : 7 } ],
-			[ { "registryName" : "ThermalExpansion:Rockwool", "meta" : 7 }, { "registryName" : "minecraft:magma_cream" }, { "registryName" : "ThermalExpansion:Rockwool", "meta" : 7 } ]
+			[ { "registryName" : "thermalfoundation:rockwool", "meta" : 8 }, { "oredictName" : "dustCoal" }, { "registryName" : "thermalfoundation:rockwool", "meta" : 8 } ],
+			[ { "registryName" : "thermalfoundation:rockwool", "meta" : 8 }, { "registryName" : "minecraft:magma_cream" }, { "registryName" : "thermalfoundation:rockwool", "meta" : 8 } ]
 		],
 		"result" : {
 			"oredictName" : "componentMyofiberGel"
@@ -250,7 +261,7 @@
 		"ingredients" : [
 			[ { "oredictName" : "dyeBlue" }, { "oredictName" : "blockGlass" }, { "oredictName" : "dyeBlue" } ],
 			[ { "oredictName" : "blockGlass" }, { "oredictName" : "blockLapis" }, { "oredictName" : "blockGlass" } ],
-			[ { "registryName" : "ThermalExpansion:material", "meta" : 2 }, { "registryName" : "ThermalExpansion:material", "meta" : 3 }, { "registryName" : "ThermalExpansion:material", "meta" : 2 } ]
+			[ { "registryName" : "thermalfoundation:material", "meta" : 514 }, { "registryName" : "thermalfoundation:material", "meta" : 515 }, { "registryName" : "thermalfoundation:material", "meta" : 514 } ]
 		],
 		"result" : {
 			"oredictName" : "componentSolarPanel"
@@ -258,29 +269,29 @@
 	},
 	{
 		"ingredients" : [
-			[ { "oredictName" : "ingotElectrum" }, { "registryName" : "ThermalExpansion:material", "meta" : 3 }, { "oredictName" : "ingotElectrum" } ],
+			[ { "oredictName" : "ingotElectrum" },  { "registryName" : "thermalfoundation:material", "meta" : 515 }, { "oredictName" : "ingotElectrum" } ],
 			[ { "oredictName" : "componentSolenoid" }, { "oredictName" : "componentSolenoid" }, { "oredictName" : "componentSolenoid" } ],
-			[ { "oredictName" : "ingotElectrum" }, { "registryName" : "ThermalExpansion:material", "meta" : 3 }, { "oredictName" : "ingotElectrum" } ]
+			[ { "oredictName" : "ingotElectrum" },  { "registryName" : "thermalfoundation:material", "meta" : 515 }, { "oredictName" : "ingotElectrum" } ]
 		],
 		"result" : {
 			"oredictName" : "componentMagnet"
 		}
 	},
-	{
+    {
 		"ingredients" : [
-			[ { "registryName" : "ThermalExpansion:material", "meta" : 2 }, { "oredictName" : "componentSolenoid" }, { "registryName" : "ThermalExpansion:material", "meta" : 2 } ],
-			[ { "registryName" : "ThermalExpansion:Rockwool", "meta" : 8 }, { "registryName" : "ThermalExpansion:meter" }, { "registryName" : "ThermalExpansion:Rockwool", "meta" : 8 } ],
-			[ { "registryName" : "ThermalExpansion:material", "meta" : 1 }, { "oredictName" : "componentSolenoid" }, { "registryName" : "ThermalExpansion:material", "meta" : 3 } ]
+			[ { "registryName" : "thermalfoundation:material", "meta" : 514 }, { "oredictName" : "componentSolenoid" }, { "registryName" : "thermalfoundation:material", "meta" : 514 } ],
+			[ { "registryName" : "thermalfoundation:rockwool", "meta" : 7 }, { "registryName" : "thermalfoundation:meter" }, { "registryName" : "thermalfoundation:rockwool", "meta" : 7 } ],
+			[ { "registryName" : "thermalfoundation:material", "meta" : 513 }, { "oredictName" : "componentSolenoid" }, { "registryName" : "thermalfoundation:material", "meta" : 515 } ]
 		],
 		"result" : {
 			"oredictName" : "componentComputerChip"
 		}
 	},
-	{
+    {
 		"ingredients" : [
-			[ { "registryName" : "ThermalExpansion:Rockwool", "meta" : 15 }, { "registryName" : "ThermalExpansion:Rockwool", "meta" : 15 }, { "registryName" : "ThermalExpansion:Rockwool", "meta" : 15 } ],
+			[ { "registryName" :  "thermalfoundation:rockwool", "meta" : 0 }, { "registryName" :  "thermalfoundation:rockwool", "meta" : 0 }, { "registryName" :  "thermalfoundation:rockwool", "meta" : 0 } ],
 			[ { "oredictName" : "blockGlassHardened" }, null, { "oredictName" : "blockGlassHardened" } ],
-			[ { "registryName" : "ThermalExpansion:Rockwool", "meta" : 15 }, { "registryName" : "ThermalExpansion:Rockwool", "meta" : 15 }, { "registryName" : "ThermalExpansion:Rockwool", "meta" : 15 } ]
+			[ { "registryName" :  "thermalfoundation:rockwool", "meta" : 0 }, { "registryName" :  "thermalfoundation:rockwool", "meta" : 0 }, { "registryName" :  "thermalfoundation:rockwool", "meta" : 0 } ]
 		],
 		"result" : {
 			"oredictName" : "componentRubberHose"
@@ -289,7 +300,7 @@
 	{
 		"ingredients" : [
 			[ { "oredictName" : "dustCryotheum" }, { "oredictName" : "dustCryotheum" }, { "oredictName" : "dustCryotheum" } ],
-			[ { "oredictName" : "bucketCryotheum" }, { "oredictName" : "bucketCryotheum" }, { "oredictName" : "bucketCryotheum" } ],
+			[ { "registryName" : "forge:bucketFilled", "nbtString" : "{FluidName:cryotheum, Amount:1000}"}, { "registryName" : "forge:bucketFilled", "nbtString" : "{FluidName:cryotheum, Amount:1000}"}, { "registryName" : "forge:bucketFilled", "nbtString" : "{FluidName:cryotheum, Amount:1000}"} ],
 			[ null, { "registryName" : "minecraft:bucket" }, null ]
 		],
 		"result" : {

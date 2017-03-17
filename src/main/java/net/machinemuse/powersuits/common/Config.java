@@ -331,7 +331,7 @@ public class Config {
         addModule(new JumpAssistModule(LEGSONLY));
         addModule(new SwimAssistModule(LEGSONLY));
         addModule(new KineticGeneratorModule(LEGSONLY));
-//        addModule(new ClimbAssistModule(LEGSONLY)); // OBSOLETE due to changes in Minecraft
+        addModule(new ClimbAssistModule(LEGSONLY)); // OBSOLETE due to changes in Minecraft
 
 
         /* Feet --------------------------------- */

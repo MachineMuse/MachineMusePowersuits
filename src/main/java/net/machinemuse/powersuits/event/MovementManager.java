@@ -41,7 +41,7 @@ public class MovementManager {
     public void handleLivingJumpEvent(LivingJumpEvent event) {
         if (event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-            ItemStack stack = player.getItemStackFromSlot(EntityEquipmentSlot.FEET);
+            ItemStack stack = player.getItemStackFromSlot(EntityEquipmentSlot.LEGS);
 
             if (stack != null && stack.getItem() instanceof ItemPowerArmor
                     && ModuleManager.itemHasActiveModule(stack, JumpAssistModule.MODULE_JUMP_ASSIST)) {

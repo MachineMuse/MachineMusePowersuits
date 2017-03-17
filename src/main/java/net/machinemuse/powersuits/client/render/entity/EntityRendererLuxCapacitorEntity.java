@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.client.render.entity;
 
+import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.client.render.model.LuxCapModelHelper;
 import net.machinemuse.powersuits.client.render.model.ModelLuxCapacitor;
@@ -8,6 +9,8 @@ import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -15,6 +18,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import org.lwjgl.opengl.GL11;
 
@@ -39,22 +43,17 @@ public class EntityRendererLuxCapacitorEntity extends MuseEntityRenderer <Entity
                 withProperty(FACING, DOWN)).withProperty(COLOR, entity.color);
         luxCapacitorModel = (luxCapacitorModel != null) ? luxCapacitorModel : new ModelLuxCapacitor(luxCapFrame);
 
-        this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         GlStateManager.pushMatrix();
-        RenderState.glowOn();
         GlStateManager.translate(x, y, z);
-        Tessellator tessellator = Tessellator.getInstance();
-
-        tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.ITEM);
-        Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(
-                entity.worldObj,
-                luxCapacitorModel,
-                blockState,
-                new BlockPos(x, y, z),
-                Tessellator.getInstance().getBuffer(),
-                true);
-        tessellator.draw();
-        RenderState.glowOff();
+        Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        Tessellator tess = Tessellator.getInstance();
+        VertexBuffer buffer = tess.getBuffer();
+        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.ITEM);
+        for (BakedQuad quad : luxCapacitorModel.getQuads(blockState, null, 0)) {
+            buffer.addVertexData(quad.getVertexData());
+            ForgeHooksClient.putQuadColor(buffer, quad, Colour.WHITE.getInt());
+        }
+        tess.draw();
         GlStateManager.popMatrix();
     }
 }

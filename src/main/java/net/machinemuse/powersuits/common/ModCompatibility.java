@@ -30,7 +30,7 @@ public class ModCompatibility {
     }
 
     public static boolean isThermalExpansionLoaded() {
-        return Loader.isModLoaded("ThermalExpansion");
+        return Loader.isModLoaded("thermalexpansion");
     }
 
     public static boolean isGalacticraftLoaded() {

@@ -15,10 +15,13 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
@@ -74,6 +77,7 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
         thrust += ModuleManager.computeModularProperty(item, JET_THRUST);
 
         if (jetEnergy < ElectricItemUtils.getPlayerEnergy(player)) {
+
             thrust *= MusePlayerUtils.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
             if (hasFlightControl && thrust > 0) {
                 thrust = MusePlayerUtils.thrust(player, thrust, true);
