@@ -2,7 +2,7 @@
 	{
 		"ingredients" : [
 			[ null, { "oredictName" : "gemEmerald" }, null ],
-			[ { "oredictName" : "ingotElectrum" }, { "registryName" : "ThermalExpansion:Frame"}, { "oredictName" : "ingotElectrum" } ],
+			[ { "oredictName" : "ingotElectrum" }, { "registryName" : "thermalexpansion:frame"}, { "oredictName" : "ingotElectrum" } ],
 			[ null, { "registryName" : "thermalfoundation:material", "meta" : 514 }, null ]
 		],
 		"result" : {
@@ -81,7 +81,7 @@
 	{
 		"ingredients" : [
 			[  null, { "oredictName" : "componentSolenoid" }, null ],
-			[  { "oredictName" : "componentWiring" }, { "registryName" : "ThermalExpansion:material" }, { "oredictName" : "componentWiring" } ],
+			[  { "oredictName" : "componentWiring" }, { "registryName" : "thermalfoundation:material", "meta" : 512 }, { "oredictName" : "componentWiring" } ],
 			[  null, { "oredictName" : "componentSolenoid" }, null ]
 		],
 		"result" : {
@@ -110,7 +110,7 @@
 	},
 	{
 		"ingredients" : [
-			[ { "oredictName" : "ingotSilver" }, { "registryName" : "ThermalExpansion:Frame", "meta" : 4 }, { "oredictName" : "ingotGold" } ],
+			[ { "oredictName" : "ingotSilver" }, { "registryName" : "thermalexpansion:frame" }, { "oredictName" : "ingotGold" } ],
 			[ { "oredictName" : "componentWiring" }, null, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {
@@ -119,7 +119,7 @@
 	},
 	{
 		"ingredients" : [
-			[ { "oredictName" : "componentWiring" }, { "registryName" : "ThermalExpansion:Frame", "meta" : 5 }, { "oredictName" : "componentWiring" } ],
+			[ { "oredictName" : "componentWiring" }, { "registryName" : "thermalexpansion:frame", "meta" : 64 }, { "oredictName" : "componentWiring" } ],
 			[ { "oredictName" : "componentWiring" }, null, { "oredictName" : "componentWiring" } ]
 		],
 		"result" : {
@@ -128,7 +128,7 @@
 	},
 	{
 		"ingredients" : [
-			[ { "oredictName" : "componentWiring" }, { "registryName" : "ThermalExpansion:Frame", "meta" : 9 }, { "oredictName" : "componentWiring" } ],
+			[ { "oredictName" : "componentWiring" }, { "registryName" : "thermalexpansion:frame", "meta" : 128 }, { "oredictName" : "componentWiring" } ],
 			[ { "oredictName" : "componentWiring" }, null, { "oredictName" : "componentWiring" } ]
 
 		],
@@ -175,15 +175,6 @@
 			"oredictName" : "componentPlatingAdvanced"
 		}
 	},
-
-
-
-
-
-
-
-
-
 	{
 		"ingredients" : [
 			[ { "oredictName" : "componentPlatingAdvanced" } ]
