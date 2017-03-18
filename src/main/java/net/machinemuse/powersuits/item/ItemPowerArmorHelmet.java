@@ -14,9 +14,11 @@ import net.minecraftforge.fml.common.Optional;
 
 @Optional.Interface(iface = "forestry.api.core.IArmorNaturalist", modid = "Forestry", striprefs = true)
 public class ItemPowerArmorHelmet extends ItemPowerArmor implements IArmorNaturalist {
+    public final EntityEquipmentSlot armorType;
     public ItemPowerArmorHelmet() {
         super(0, EntityEquipmentSlot.HEAD);
         this.setUnlocalizedName("powerArmorHelmet");
+        this.armorType = this.getEquipmentSlot();
     }
 
     @Optional.Method(modid = "Forestry")

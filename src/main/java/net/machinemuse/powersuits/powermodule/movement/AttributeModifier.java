@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.nbt.NBTTagCompound;
 
 /**
@@ -14,13 +15,15 @@ public class AttributeModifier {
     final double amount;
     final String attributeName;
     final String name;
+    final EntityEquipmentSlot slot;
 
-    public AttributeModifier(int operation, UUID uuid, double amount, String attributeName, String name) {
+    public AttributeModifier(int operation, UUID uuid, double amount, String attributeName, String name, EntityEquipmentSlot slotIn) {
         this.operation = operation;
         this.uuid = uuid;
         this.amount = amount;
         this.attributeName = attributeName;
         this.name = name;
+        this.slot = slotIn;
     }
 
     public AttributeModifier(NBTTagCompound nbt) {
@@ -29,6 +32,7 @@ public class AttributeModifier {
         this.amount = nbt.getDouble("Amount");
         this.attributeName = nbt.getString("AttributeName");
         this.name = nbt.getString("Name");
+        this.slot = EntityEquipmentSlot.fromString(nbt.getString("Slot").toLowerCase());
     }
 
     public NBTTagCompound toNBT(NBTTagCompound nbt) {
@@ -37,6 +41,7 @@ public class AttributeModifier {
         nbt.setDouble("Amount", amount);
         nbt.setString("AttributeName", attributeName);
         nbt.setString("Name", name);
+        nbt.setString("Slot", slot.getName());
         return nbt;
     }
 

@@ -10,11 +10,12 @@ import net.minecraftforge.fml.common.Optional;
  * Ported to Java by lehjr on 10/26/16.
  */
 @Optional.InterfaceList({ @Optional.Interface(iface = "ic2.api.item.IMetalArmor", modid = "IC2", striprefs = true) })
-public class ItemPowerArmorBoots extends ItemPowerArmor implements IMetalArmor
-{
+public class ItemPowerArmorBoots extends ItemPowerArmor implements IMetalArmor {
+    public final EntityEquipmentSlot armorType;
     public ItemPowerArmorBoots() {
         super(0, EntityEquipmentSlot.FEET);
         this.setUnlocalizedName("powerArmorBoots");
+        this.armorType = this.getEquipmentSlot();
     }
 
     public boolean isMetalArmor(final ItemStack itemStack, final EntityPlayer entityPlayer) {

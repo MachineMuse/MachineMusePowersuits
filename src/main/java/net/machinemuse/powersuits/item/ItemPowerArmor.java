@@ -37,11 +37,11 @@ import java.util.UUID;
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.
  *
  * @author MachineMuse
- *
- * Ported to Java by lehjr on 11/4/16.
+ *         <p>
+ *         Ported to Java by lehjr on 11/4/16.
  */
 public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpecialArmor, IArmorTraits {
-    private static final UUID[] ARMOR_MODIFIERS = new UUID[] {
+    public static final UUID[] ARMOR_MODIFIERS = new UUID[]{
             UUID.randomUUID(),
             UUID.randomUUID(),
             UUID.randomUUID(),
@@ -55,33 +55,32 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
     public ISpecialArmor.ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
         int priority = 0;
-        Label_0057: {
+        Label_0057:
+        {
             if (source.isFireDamage()) {
                 DamageSource overheatDamage = MuseHeatUtils.overheatDamage;
                 if (source == null) {
                     if (overheatDamage == null) {
                         break Label_0057;
                     }
-                }
-                else if (source.equals(overheatDamage)) {
+                } else if (source.equals(overheatDamage)) {
                     break Label_0057;
                 }
-                return new ISpecialArmor.ArmorProperties(priority, 0.25, (int)(25 * damage));
+                return new ISpecialArmor.ArmorProperties(priority, 0.25, (int) (25 * damage));
             }
         }
         if (ModuleManager.itemHasModule(armor, "Radiation Shielding") && (source.damageType.equals("electricity") || source.damageType.equals("radiation"))) {
-            return new ISpecialArmor.ArmorProperties(priority, 0.25, (int)(25 * damage));
+            return new ISpecialArmor.ArmorProperties(priority, 0.25, (int) (25 * damage));
         }
         double armorDouble2;
         if (player instanceof EntityPlayer) {
-            armorDouble2 = this.getArmorDouble((EntityPlayer)player, armor);
-        }
-        else {
+            armorDouble2 = this.getArmorDouble((EntityPlayer) player, armor);
+        } else {
             armorDouble2 = 2.0;
         }
         double armorDouble = armorDouble2;
         double absorbRatio = 0.04 * armorDouble;
-        int absorbMax = (int)armorDouble * 75;
+        int absorbMax = (int) armorDouble * 75;
         if (source.isUnblockable()) {
             absorbMax = 0;
             absorbRatio = 0.0;
@@ -91,11 +90,11 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-        ItemStack armor = ((EntityPlayer)entity).getItemStackFromSlot(slot);
+        ItemStack armor = ((EntityPlayer) entity).getItemStackFromSlot(slot);
         if (armor.getItem() instanceof ItemPowerArmor) {
 
             if (entity instanceof EntityPlayer) {
-                ItemStack armorChest = ((EntityPlayer)entity).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+                ItemStack armorChest = ((EntityPlayer) entity).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
                 if (armorChest != null) {
                     if (armorChest.getItem() instanceof ItemPowerArmor)
                         if (ModuleManager.itemHasActiveModule(armorChest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE))
@@ -133,33 +132,32 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
             }
 
             ModelBiped model = ArmorModelInstance.getInstance();
-            ((IArmorModel)model).setVisibleSection(armorSlot);
+            ((IArmorModel) model).setVisibleSection(armorSlot);
             if (itemStackArmor != null) {
                 if (entityLiving instanceof EntityPlayer) {
-                    ItemStack armorChest = ((EntityPlayer)entityLiving).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+                    ItemStack armorChest = ((EntityPlayer) entityLiving).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
                     if (armorChest != null) {
                         if (armorChest.getItem() instanceof ItemPowerArmor)
-                            if (ModuleManager.itemHasActiveModule(armorChest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) ((IArmorModel)model).setVisibleSection(null);
+                            if (ModuleManager.itemHasActiveModule(armorChest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE))
+                                ((IArmorModel) model).setVisibleSection(null);
                     }
                 }
 
                 if (ModuleManager.itemHasActiveModule(itemStackArmor, "Transparent Armor")) {
-                    ((IArmorModel)model).setVisibleSection(null);
+                    ((IArmorModel) model).setVisibleSection(null);
                 }
-                ((IArmorModel)model).setRenderSpec(MuseItemUtils.getMuseRenderTag(itemStackArmor, armorSlot));
+                ((IArmorModel) model).setRenderSpec(MuseItemUtils.getMuseRenderTag(itemStackArmor, armorSlot));
             }
-            return (ModelBiped)model;
+            return (ModelBiped) model;
         }
         return _default;
     }
 
     @Override
-    public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot)
-    {
+    public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
         Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
 
-        if (equipmentSlot == this.armorType)
-        {
+        if (equipmentSlot == this.armorType) {
             multimap.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getAttributeUnlocalizedName(), new AttributeModifier(ARMOR_MODIFIERS[equipmentSlot.getIndex()], SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getAttributeUnlocalizedName(), 0.25, 0));
         }
 
@@ -176,7 +174,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
     }
 
     public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
-        return (int)this.getArmorDouble(player, armor);
+        return (int) this.getArmorDouble(player, armor);
     }
 
     public double getHeatResistance(EntityPlayer player, ItemStack stack) {
@@ -211,23 +209,20 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
                 if (overheatDamage == null) {
                     return;
                 }
-            }
-            else if (source.equals(overheatDamage)) {
+            } else if (source.equals(overheatDamage)) {
                 return;
             }
             if (source.isFireDamage()) {
-                EntityPlayer player = (EntityPlayer)entity;
+                EntityPlayer player = (EntityPlayer) entity;
                 if (!source.equals(DamageSource.onFire) || MuseHeatUtils.getPlayerHeat(player) < MuseHeatUtils.getMaxHeat(player)) {
                     MuseHeatUtils.heatPlayer(player, damage);
                 }
-            }
-            else {
+            } else {
                 double enerConsum = ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION);
                 double drain = enerConsum * damage;
                 if (entity instanceof EntityPlayer) {
-                    ElectricItemUtils.drainPlayerEnergy((EntityPlayer)entity, drain);
-                }
-                else {
+                    ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entity, drain);
+                } else {
                     this.drainEnergyFrom(stack, drain);
                 }
             }

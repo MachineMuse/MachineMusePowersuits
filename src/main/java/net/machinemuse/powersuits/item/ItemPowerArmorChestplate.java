@@ -10,6 +10,6 @@ public class ItemPowerArmorChestplate extends ItemPowerArmor {
     public ItemPowerArmorChestplate() {
         super(0, EntityEquipmentSlot.CHEST);
         this.setUnlocalizedName("powerArmorChestplate");
-        this.armorType = EntityEquipmentSlot.CHEST;
+        this.armorType = this.getEquipmentSlot();
     }
 }

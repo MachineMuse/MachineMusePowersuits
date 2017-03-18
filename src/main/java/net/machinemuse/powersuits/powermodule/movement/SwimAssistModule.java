@@ -75,7 +75,7 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
                 if (jumpkey || sneakkey) {
                     moveRatio += 0.2 * 0.2;
                 }
-                double swimAssistRate = ModuleManager.computeModularProperty(item, SWIM_BOOST_AMOUNT) * 0.05;
+                double swimAssistRate = ModuleManager.computeModularProperty(item, SWIM_BOOST_AMOUNT) * 0.05 * moveRatio;;
                 double swimEnergyConsumption = ModuleManager.computeModularProperty(item, SWIM_BOOST_ENERGY_CONSUMPTION);
                 if (swimEnergyConsumption < ElectricItemUtils.getPlayerEnergy(player)) {
                     if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
