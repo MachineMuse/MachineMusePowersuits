@@ -32,7 +32,7 @@ public class AttributeModifier {
         this.amount = nbt.getDouble("Amount");
         this.attributeName = nbt.getString("AttributeName");
         this.name = nbt.getString("Name");
-        this.slot = EntityEquipmentSlot.fromString(nbt.getString("Slot").toLowerCase());
+        this.slot = EntityEquipmentSlot.fromString(nbt.getString("Slot") != "" ? nbt.getString("Slot").toLowerCase() : "legs" );
     }
 
     public NBTTagCompound toNBT(NBTTagCompound nbt) {

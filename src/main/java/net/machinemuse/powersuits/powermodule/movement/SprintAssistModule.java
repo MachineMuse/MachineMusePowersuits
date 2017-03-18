@@ -27,7 +27,7 @@ import java.util.*;
 import static net.machinemuse.powersuits.item.ItemPowerArmor.ARMOR_MODIFIERS;
 
 /**
- * Created by leon on 10/18/16.
+ * Ported by leon on 10/18/16.
  */
 public class SprintAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
     public static final String MODULE_SPRINT_ASSIST = "Sprint Assist";
@@ -37,8 +37,6 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
     public static final String WALKING_ENERGY_CONSUMPTION = "Walking Energy Consumption";
     public static final String WALKING_SPEED_MULTIPLIER = "Walking Speed Multiplier";
     public static final UUID TAGUUID = new UUID(-7931854408382894632L, -8160638015224787553L);
-    public static final UUID KNOCKBACKFIX = new UUID(java.util.UUID.randomUUID().getLeastSignificantBits(), java.util.UUID.randomUUID().getMostSignificantBits());
-
 
     public SprintAssistModule(List<IModularItem> validItems) {
         super(validItems);
@@ -63,7 +61,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
                     double sprintMultiplier = ModuleManager.computeModularProperty(item, SPRINT_SPEED_MULTIPLIER);
                     double exhaustionComp = ModuleManager.computeModularProperty(item, SPRINT_FOOD_COMPENSATION);
                     ElectricItemUtils.drainPlayerEnergy(player, sprintCost * horzMovement * 5);
-                    setMovementModifier(item, sprintMultiplier);
+                    setMovementModifier(item, sprintMultiplier * 1.2);
                     player.getFoodStats().addExhaustion((float) (-0.01 * exhaustion * exhaustionComp));
                     player.jumpMovementFactor = player.getAIMoveSpeed() * .2f;
                 }
@@ -113,8 +111,8 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
         if (sprintModifiers.hasNoTags()) {
             modifiers.appendTag(new AttributeModifier(1, TAGUUID, multiplier - 1, "generic.movementSpeed", "Sprint Assist", EntityEquipmentSlot.LEGS).toNBT());
 
-
-            modifiers.appendTag(new AttributeModifier(0, KNOCKBACKFIX, 0.25,
+            // add knockback resistance back because it doesn't show in tooltip after AttributeModifiers tag is added
+            modifiers.appendTag(new AttributeModifier(0, TAGUUID, 0.25,
                     SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getAttributeUnlocalizedName(),
                     SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getAttributeUnlocalizedName(), EntityEquipmentSlot.LEGS).toNBT());
 
