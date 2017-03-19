@@ -18,7 +18,7 @@ public class ItemPowerArmorHelmet extends ItemPowerArmor implements IArmorNatura
     public ItemPowerArmorHelmet() {
         super(0, EntityEquipmentSlot.HEAD);
         this.setUnlocalizedName("powerArmorHelmet");
-        this.armorType = this.getEquipmentSlot();
+        this.armorType = EntityEquipmentSlot.HEAD;
     }
 
     @Optional.Method(modid = "Forestry")

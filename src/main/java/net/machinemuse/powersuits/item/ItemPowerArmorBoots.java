@@ -15,7 +15,7 @@ public class ItemPowerArmorBoots extends ItemPowerArmor implements IMetalArmor {
     public ItemPowerArmorBoots() {
         super(0, EntityEquipmentSlot.FEET);
         this.setUnlocalizedName("powerArmorBoots");
-        this.armorType = this.getEquipmentSlot();
+        this.armorType = EntityEquipmentSlot.FEET;
     }
 
     public boolean isMetalArmor(final ItemStack itemStack, final EntityPlayer entityPlayer) {

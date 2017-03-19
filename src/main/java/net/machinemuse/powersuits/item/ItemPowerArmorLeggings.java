@@ -10,6 +10,6 @@ public class ItemPowerArmorLeggings extends ItemPowerArmor {
     public ItemPowerArmorLeggings() {
         super(0, EntityEquipmentSlot.LEGS);
         this.setUnlocalizedName("powerArmorLeggings");
-        this.armorType = this.getEquipmentSlot();
+        this.armorType = EntityEquipmentSlot.LEGS;
     }
 }
