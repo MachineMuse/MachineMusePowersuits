@@ -32,7 +32,7 @@ http://build.technicpack.net/view/MachineMuse/job/ModularPowersuits/ (no longer 
 
 #Issues
 
-Before posting to the issue tracker, make sure you meet the following criteria. 1.7.10 should be mostly working please do not post issue reports for 1.6.4 anymore.
+Before posting to the issue tracker, make sure you meet the following criteria. 1.7.10 should be mostly working ut support will be ending soon. Please do not post issue reports for 1.6.4 or 1.8.9 anymore.
 
 - You're using the latest EXPERIMENTAL version of MPS from jenkins or curseforge.
 - You've made sure the version of Forge you're using is the one MPS has been compiled for. (Newer is usually OK, but be careful!)
