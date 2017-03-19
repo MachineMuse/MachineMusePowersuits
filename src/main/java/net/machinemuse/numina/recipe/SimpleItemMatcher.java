@@ -15,7 +15,6 @@ import net.minecraftforge.oredict.OreDictionary;
  */
 public class SimpleItemMatcher implements IItemMatcher {
     public Integer meta;
-    public String unlocalizedName;
     public String oredictName;
     public String registryName;
     public String itemStackName;
@@ -35,10 +34,7 @@ public class SimpleItemMatcher implements IItemMatcher {
         if (meta != null && meta != stack.getItemDamage()) {
             return false;
         }
-        if (unlocalizedName != null) {
-            NuminaConfig.warnOnce("WARNING: unlocalizedName is deprecated; please use registryName or itemStackName instead!");
-            if (!unlocalizedName.equals(stack.getItem().getUnlocalizedName(stack))) return false;
-        }
+
         if (oredictName != null) {
             boolean found = false;
             for (ItemStack ore : OreDictionary.getOres(oredictName)) {
@@ -85,9 +81,8 @@ public class SimpleItemMatcher implements IItemMatcher {
     public SimpleItemMatcher copy() {
         SimpleItemMatcher copy = new SimpleItemMatcher();
         copy.meta = this.meta;
-        copy.unlocalizedName = this.unlocalizedName;
-        copy.oredictName = this.unlocalizedName;
-//        copy.nbt = this.nbt;
+        copy.oredictName = this.oredictName;
+        copy.nbtString = this.nbtString;
         return copy;
     }
 
@@ -96,7 +91,6 @@ public class SimpleItemMatcher implements IItemMatcher {
         if(! (obj instanceof SimpleItemMatcher) ) return false;
         SimpleItemMatcher other = (SimpleItemMatcher)obj;
         if(!compareInteger(meta, other.meta)) return false;
-        if(!compareString(unlocalizedName, other.unlocalizedName)) return false;
         if(!compareString(oredictName, other.oredictName)) return false;
         if(!compareString(registryName, other.registryName)) return false;
         if(!compareString(itemStackName, other.itemStackName)) return false;

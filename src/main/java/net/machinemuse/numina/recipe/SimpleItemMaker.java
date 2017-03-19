@@ -16,7 +16,6 @@ import net.minecraftforge.oredict.OreDictionary;
 public class SimpleItemMaker implements IItemMaker {
     public Integer meta;
     public Integer quantity;
-    public String unlocalizedName;
     public String oredictName;
     public String registryName;
     public String itemStackName;
@@ -81,22 +80,8 @@ public class SimpleItemMaker implements IItemMaker {
                 MuseLogger.logError("Unable to load " + oredictName + " from oredict");
                 return null;
             }
-        } else if (unlocalizedName != null) {
-            MuseLogger.logDebug("unlocalized name is: " + unlocalizedName);
-            MuseLogger.logError("WARNING: unlocalizedName is deprecated; please use registryName or itemStackName instead!");
-            try {
-                ItemStack stack = ItemNameMappings.getItem(unlocalizedName).copy();
-                newmeta = getOrElse(this.meta, stack.getItemDamage());
-                stack.setItemDamage(newmeta);
-                stack.stackSize = Math.min(newquantity, stack.getMaxStackSize());
-                if(nbt != null) stack.setTagCompound(nbt);
-                return stack;
-            } catch (Exception e) {
-                MuseLogger.logError("Unable to load " + unlocalizedName + " from unlocalized names");
-                return null;
-            }
         } else {
-            MuseLogger.logDebug("something failed so returning null");
+            MuseLogger.logError("Could not find a valid item for recipe output so returning NULL \n this will invalidate the recipe");
             return null;
         }
     }
@@ -107,13 +92,11 @@ public class SimpleItemMaker implements IItemMaker {
         SimpleItemMaker other = (SimpleItemMaker)obj;
         if(!compareInteger(meta, other.meta)) return false;
         if(!compareInteger(quantity, other.quantity)) return false;
-        if(!compareString(unlocalizedName, other.unlocalizedName)) return false;
         if(!compareString(oredictName, other.oredictName)) return false;
         if(!compareString(registryName, other.registryName)) return false;
         if(!compareString(itemStackName, other.itemStackName)) return false;
-//        if(!compareString(nbtString, other.nbtString)) return false;
-//        return true;
-        return compareString(nbtString, other.nbtString); // this is what was used in 1.7.10
+        if(!compareString(nbtString, other.nbtString)) return false;
+        return true;
     }
 
     private boolean compareInteger(Integer a, Integer b) {

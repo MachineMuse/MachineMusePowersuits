@@ -3,6 +3,7 @@ package net.machinemuse.numina.jei;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
+import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.recipe.JSONRecipe;
 
 import javax.annotation.Nonnull;
@@ -35,11 +36,9 @@ public class JSONRecipeHandler implements IRecipeHandler<JSONRecipe> {
 
     @Override
     public boolean isRecipeValid(@Nonnull JSONRecipe recipe) {
-        //todo: actual real recipe validation
-        return recipe.getRecipeOutput() != null; // re enable after fixing
-//        return true;
-
-
-
+        recipe.validate();
+        if (!recipe.getIsValid())
+            MuseLogger.logError("recipe is NOT valid for " + ((recipe.getRecipeOutput() != null) ? recipe.getRecipeOutput().getDisplayName() : " NULL OUTPUT"));
+        return recipe.getIsValid();
     }
 }

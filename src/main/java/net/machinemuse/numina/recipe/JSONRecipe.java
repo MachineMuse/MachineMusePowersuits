@@ -1,9 +1,18 @@
 package net.machinemuse.numina.recipe;
 
+import net.machinemuse.numina.general.MuseLogger;
 import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.nbt.JsonToNBT;
+import net.minecraft.nbt.NBTException;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -14,12 +23,49 @@ public class JSONRecipe implements IRecipe {
     public SimpleItemMaker result;
     public Boolean mirror;
     public Boolean unshaped; // TODO: Unshaped recipes
+    private boolean isValid = true;
 
     static final int MAX_WIDTH = 3;
     static final int MAX_HEIGHT = 3;
 
+    public boolean getIsValid(){
+        return isValid;
+    }
+
+    public void setIsValid(boolean isValid) {
+        this.isValid = isValid;
+    }
+
+    public void validate() {
+        List<ItemStack> inputs = new ArrayList<>();
+        int height = ingredients.length;
+        int width = getWidth();
+
+        if (height == 0 || width == 0) {
+            isValid = false;
+            return;
+        }
+        if (result == null) {
+            isValid = false;
+            return;
+        }
+        for (int y = 0; y < height; y++) {
+            if (ingredients[y] != null) {
+                for (int x = 0; x < width; x++) {
+                    List<ItemStack> itemStacks = new ArrayList<>();
+                    if (ingredients[y].length > x) itemStacks = getIngredient(ingredients[y][x]);
+                    if (itemStacks != null && itemStacks.isEmpty()) {
+                        isValid = false;
+                    }
+                }
+            }
+        }
+    }
+
     @Override
     public ItemStack getRecipeOutput() {
+        if (result.getRecipeOutput() == null)
+            setIsValid(false);
         return result.getRecipeOutput();
     }
 
@@ -161,5 +207,76 @@ public class JSONRecipe implements IRecipe {
             if(a.booleanValue() == b.booleanValue()) return true;
         }
         return false;
+    }
+
+    public List<ItemStack> getIngredient(SimpleItemMatcher cell) {
+        Boolean shouldbenull = true;
+        List<ItemStack> result = null;
+        if (cell == null) {
+            return null;
+        }
+
+        if (cell.oredictName != null) {
+            shouldbenull = false;
+            result = OreDictionary.getOres(cell.oredictName);
+
+            if (cell.meta != null && result != null && cell.meta != OreDictionary.WILDCARD_VALUE) {
+                ArrayList<ItemStack> t = new ArrayList<ItemStack>();
+                for (ItemStack stack : result)
+                    if (cell.meta == stack.getItemDamage())
+                        t.add(stack);
+                result = t;
+            }
+        }
+
+        if (cell.itemStackName != null) {
+            shouldbenull = false;
+            result = new ArrayList<>();
+
+            ItemStack stack = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(cell.itemStackName)), 1);
+            if(stack != null) {
+                stack = stack.copy();
+                if(cell.meta != null) {
+                    stack.setItemDamage(cell.meta);
+                }
+                result.add(stack);
+            }
+        }
+
+        if(cell.registryName != null) {
+            shouldbenull = false;
+            result = new ArrayList<>();
+            Item item = Item.REGISTRY.getObject(new ResourceLocation(cell.registryName));
+            if(item != null) {
+                int newMeta = cell.meta == null ? 0 : cell.meta;
+                ItemStack stack = new ItemStack(item, 1, newMeta);
+                result.add(stack);
+            }
+        }
+
+        if (cell.nbtString != null && result != null) {
+            shouldbenull = false;
+            ArrayList<ItemStack> t = new ArrayList<ItemStack>();
+            for (ItemStack stack : result) {
+                ItemStack stack2 = stack.copy();
+                try {
+                    stack2.setTagCompound(JsonToNBT.getTagFromJson(cell.nbtString));
+                } catch (NBTException e) {
+                    e.printStackTrace();
+                }
+                t.add(stack2);
+            }
+            result = t;
+        }
+        // this provides some basic info on an invalid recipe cell
+        if (!shouldbenull && (result == null || result.size() == 0)) {
+            this.isValid = false;
+            MuseLogger.logError("cell should not be null but it is");
+            MuseLogger.logError("cell.oredictName: " + cell.oredictName);
+            MuseLogger.logError("cell.itemStackName: " + cell.itemStackName);
+            MuseLogger.logError("cell.registryName: "+ cell.registryName);
+            MuseLogger.logError("cell.nbtString: " + cell.nbtString);
+        }
+        return result;
     }
 }
