@@ -89,12 +89,12 @@ public class RenderGameOverlayEventHandler {
             TextureAtlasSprite currentMode = item.getModeIcon(item.getActiveMode(stack), stack, player);
             TextureAtlasSprite nextMode = item.getModeIcon(item.nextMode(stack, player), stack, player);
             TextureAtlasSprite prevMode = item.getModeIcon(item.prevMode(stack, player), stack, player);
-            double prevX = .0;
-            double prevY = .0;
-            double currX = .0;
-            double currY = .0;
-            double nextX = .0;
-            double nextY = .0;
+            double prevX;
+            double prevY;
+            double currX;
+            double currY;
+            double nextX;
+            double nextY;
             int sw = screen.getScaledWidth();
             int sh = screen.getScaledHeight();
             int baroffset = 22;

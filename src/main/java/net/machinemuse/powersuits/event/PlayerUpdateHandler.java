@@ -40,7 +40,7 @@ public class PlayerUpdateHandler {
                 }
             }
 
-            boolean foundItemWithModule = false;
+            boolean foundItemWithModule;
             for (IPlayerTickModule module : ModuleManager.getPlayerTickModules()) {
                 foundItemWithModule = false;
                 for (ItemStack itemStack : modularItemsEquipped) {

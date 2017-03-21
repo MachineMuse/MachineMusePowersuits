@@ -26,20 +26,20 @@ import java.util.List;
  * Ported to Java by lehjr on 10/19/16.
  */
 public class ClickableKeybinding extends ClickableButton {
-    protected final List<ClickableModule> boundModules = new ArrayList<>();
+    protected List<ClickableModule> boundModules = new ArrayList<>();
     public boolean toggleval = false;
-    public boolean toggled = false;
-    public Boolean displayOnHUD;
-    public final KeyBinding keybind;
+    boolean toggled = false;
+    KeyBinding keybind;
+    public boolean displayOnHUD;
 
 
     public ClickableKeybinding(KeyBinding keybind, MusePoint2D position, boolean free, Boolean displayOnHUD) {
-        super((keybind.getKeyCode() < 0)? ("Mouse" + (keybind.getKeyCode() + 100)) : Keyboard.getKeyName(keybind.getKeyCode()), position, true);
-        this.displayOnHUD = (displayOnHUD != null) ? displayOnHUD : false;
+        super(ClickableKeybinding.parseName(keybind), position, true);
+        this.displayOnHUD = (displayOnHUD!= null) ? displayOnHUD : false;
         this.keybind = keybind;
     }
 
-    public String parseName(KeyBinding keybind) {
+    static String parseName(KeyBinding keybind) {
         if (keybind.getKeyCode() < 0) {
             return "Mouse" + (keybind.getKeyCode() + 100);
         }
@@ -114,7 +114,7 @@ public class ClickableKeybinding extends ClickableButton {
 
     public void unbindFarModules() {
         Iterator<ClickableModule> iterator = boundModules.iterator();
-        ClickableModule module = null;
+        ClickableModule module;
         while (iterator.hasNext()) {
             module = iterator.next();
             int maxDistance = getTargetDistance() * 2;

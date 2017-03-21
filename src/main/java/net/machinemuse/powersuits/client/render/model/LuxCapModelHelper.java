@@ -117,7 +117,7 @@ public class LuxCapModelHelper {
 
     // translate the blockstate into the color value
     public static Colour getColorFromState(IExtendedBlockState state) {
-        Colour color = null;
+        Colour color;
         if (state == null) color = BlockLuxCapacitor.defaultColor;
         else color = ((IExtendedBlockState) state).getValue(BlockLuxCapacitor.COLOR);
         color = color != null ? color : BlockLuxCapacitor.defaultColor;

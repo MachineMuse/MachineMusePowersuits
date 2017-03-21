@@ -48,7 +48,7 @@ public class MusePacketCosmeticInfo extends MusePacket {
         ItemStack stack = player.inventory.getStackInSlot(itemSlot);
         if (tagName != null && stack != null && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            NBTTagCompound renderTag = null;
+            NBTTagCompound renderTag;
             if (!itemTag.hasKey("render")) {
                 renderTag = new NBTTagCompound();
                 itemTag.setTag("render", renderTag);

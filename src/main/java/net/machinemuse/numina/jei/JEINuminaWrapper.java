@@ -75,20 +75,20 @@ public class JEINuminaWrapper extends BlankRecipeWrapper implements IShapedCraft
         ingredients.setOutput( ItemStack.class, this.recipe.getRecipeOutput() );
     }
 
-    private static Map<String, ArrayList<ItemStack>> itemMap;
-    public static ArrayList<ItemStack> getItemByUnlocalizedName(String unlocalizedName) {
-        ArrayList<ItemStack> result = new ArrayList<>();
-        if (itemMap == null)
-        {
-            ItemStack stack = ItemNameMappings.getItem(unlocalizedName);
-            if (stack != null)
-                result.add(stack);
-        }
-        if (itemMap != null && itemMap.containsKey(unlocalizedName)){
-            result.addAll(itemMap.get(unlocalizedName));
-        }
-        return result;
-    }
+//    private static Map<String, ArrayList<ItemStack>> itemMap;
+//    public static ArrayList<ItemStack> getItemByUnlocalizedName(String unlocalizedName) {
+//        ArrayList<ItemStack> result = new ArrayList<>();
+//        if (itemMap == null)
+//        {
+//            ItemStack stack = ItemNameMappings.getItem(unlocalizedName);
+//            if (stack != null)
+//                result.add(stack);
+//        }
+//        if (itemMap != null && itemMap.containsKey(unlocalizedName)){
+//            result.addAll(itemMap.get(unlocalizedName));
+//        }
+//        return result;
+//    }
 
     @Override
     public int getWidth() {

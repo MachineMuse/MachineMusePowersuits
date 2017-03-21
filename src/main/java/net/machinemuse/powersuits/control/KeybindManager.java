@@ -94,7 +94,7 @@ public class KeybindManager {
                 if (line.contains(":")) {
                     String[] exploded = line.split(":");
                     int id = Integer.parseInt(exploded[0]);
-                    if (keyBindingHelper.keyBindingHasKey(id)) {
+                    if (!keyBindingHelper.keyBindingHasKey(id)) {
                         MusePoint2D position = new MusePoint2D(Double.parseDouble(exploded[1]), Double.parseDouble(exploded[2]));
                         boolean free = !keyBindingHelper.keyBindingHasKey(id);
                         boolean displayOnHUD = false;

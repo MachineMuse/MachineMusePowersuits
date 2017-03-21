@@ -76,7 +76,7 @@ public class PartManipContainer extends ScrollableFrame {
         Collection<ModelSpec> specCollection = ModelRegistry.getInstance().apply().values();
 
         PartManipSubFrame prev = null;
-        PartManipSubFrame newframe = null;
+        PartManipSubFrame newframe;
         for (ModelSpec modelspec : specCollection) {
             newframe = createNewFrame(modelspec, prev);
             prev = newframe;

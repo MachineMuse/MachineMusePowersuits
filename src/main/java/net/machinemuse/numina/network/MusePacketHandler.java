@@ -60,7 +60,7 @@ public final class MusePacketHandler extends MessageToMessageCodec<FMLProxyPacke
 
     public void decode(ChannelHandlerContext ctx, FMLProxyPacket msg, List<Object> out) {
         DataInputStream data = new DataInputStream((InputStream)new ByteBufInputStream(msg.payload()));
-        int packetType = 0;
+        int packetType;
 
         INetHandler handler = msg.handler();
         try {

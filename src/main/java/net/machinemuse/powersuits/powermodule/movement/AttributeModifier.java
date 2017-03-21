@@ -3,6 +3,8 @@ package net.machinemuse.powersuits.powermodule.movement;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.nbt.NBTTagCompound;
 
+import java.util.Objects;
+
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 10:10 AM, 8/7/13
@@ -32,7 +34,7 @@ public class AttributeModifier {
         this.amount = nbt.getDouble("Amount");
         this.attributeName = nbt.getString("AttributeName");
         this.name = nbt.getString("Name");
-        this.slot = EntityEquipmentSlot.fromString(nbt.getString("Slot") != "" ? nbt.getString("Slot").toLowerCase() : "legs" );
+        this.slot = EntityEquipmentSlot.fromString(!Objects.equals(nbt.getString("Slot"), "") ? nbt.getString("Slot").toLowerCase() : "legs" );
     }
 
     public NBTTagCompound toNBT(NBTTagCompound nbt) {

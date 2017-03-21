@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -26,7 +27,7 @@ public class ToolHelpers {
 
         // this should be enough but nooooo, stairs still don't work here;
         for (String tool : emulatedToolClass) {
-            if (state.getBlock().isToolEffective(tool, state) || state.getBlock().getHarvestTool(state) == tool)
+            if (state.getBlock().isToolEffective(tool, state) || Objects.equals(state.getBlock().getHarvestTool(state), tool))
                 return true;
         }
 

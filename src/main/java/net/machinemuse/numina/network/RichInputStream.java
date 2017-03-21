@@ -62,7 +62,7 @@ public class RichInputStream {
      * Reads a compressed NBTTagCompound from the InputStream
      */
     public NBTTagCompound readNBTTagCompound() {
-        short length = 0;
+        short length;
         try {
             length = in.readShort();
             return (length != -1) ? CompressedStreamTools.readCompressed(in) : null;

@@ -270,8 +270,8 @@ public abstract class MuseRenderer {
     public static void drawLightningTextured(double x1, double y1, double z1, double x2, double y2, double z2, Colour colour) {
         double tx = x2 - x1, ty = y2 - y1, tz = z2 - z1;
 
-        double ax = 0, ay = 0, az = 0;
-        double bx = 0, by = 0, bz = 0;
+        double ax, ay, az;
+        double bx, by, bz;
         double cx = 0, cy = 0, cz = 0;
 
         double jagfactor = 0.3;
