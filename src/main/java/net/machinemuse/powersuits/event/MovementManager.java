@@ -5,7 +5,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.sound.SoundDictionary;
-import net.machinemuse.numina.common.NuminaConfig;
+import net.machinemuse.numina.basemod.NuminaConfig;
 import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.powersuits.item.ItemPowerArmor;
 import net.machinemuse.powersuits.powermodule.movement.JumpAssistModule;
