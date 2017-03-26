@@ -15,7 +15,7 @@ public abstract class ElectricAdapter {
         if (stack == null)
             return null;
         Item i = stack.getItem();
-        if (i instanceof MuseElectricItem) {
+        if (i instanceof IMuseElectricItem) {
             return new MuseElectricAdapter(stack);
         } else if (ModCompatibility.isRFAPILoaded() && i instanceof IEnergyContainerItem) {
             return new TEElectricAdapter(stack);

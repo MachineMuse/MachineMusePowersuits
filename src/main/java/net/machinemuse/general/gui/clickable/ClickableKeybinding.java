@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Ported to Java by lehjr on 10/19/16.
  */
-public class ClickableKeybinding extends ClickableButton{
+public class ClickableKeybinding extends ClickableButton {
     protected List<ClickableModule> boundModules = new ArrayList<ClickableModule>();
     public boolean toggleval = false;
     boolean toggled = false;

@@ -7,11 +7,11 @@ import net.minecraft.item.ItemStack;
  */
 public class MuseElectricAdapter extends ElectricAdapter {
     ItemStack stack;
-    MuseElectricItem item;
+    IMuseElectricItem item;
 
     public MuseElectricAdapter(ItemStack stack) {
         this.stack = stack;
-        this.item = (MuseElectricItem)stack.getItem();
+        this.item = (IMuseElectricItem)stack.getItem();
     }
 
     @Override
