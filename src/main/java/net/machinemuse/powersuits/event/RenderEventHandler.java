@@ -103,7 +103,6 @@ public class RenderEventHandler {
             frame.setLeft(Config.keybindHUDx());
             frame.setTop(Config.keybindHUDy());
             frame.setBottom(frame.top() + 16);
-
             for (ClickableKeybinding kb:   KeybindManager.getKeybindings()) {
                 if (kb.displayOnHUD) {
                     double stringwidth = net.machinemuse.utils.render.MuseRenderer.getStringWidth(kb.getLabel());

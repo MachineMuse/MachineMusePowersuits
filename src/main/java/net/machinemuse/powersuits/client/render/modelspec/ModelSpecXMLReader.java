@@ -74,7 +74,12 @@ public class ModelSpecXMLReader {
             // These are null because they are not used in the files
             offset = parseVector(eElement.getAttribute("offset"));
             rotation = parseVector(eElement.getAttribute("rotation"));
-            IBakedModel bakedModel = ModelRegistry.getInstance().loadModel(new ResourceLocation(file));
+
+            // currently each model only uses one texture and I don't see anyone adding more soon.
+            // adding support for more would be a headhache and isn't worth it
+            IBakedModel bakedModel = ModelRegistry.getInstance().loadModel(new ResourceLocation(file), new ResourceLocation(textures[0]));
+
+
 
             if (bakedModel != null && bakedModel instanceof OBJModel.OBJBakedModel) {
                 ModelSpec modelspec = new ModelSpec(bakedModel, offset, rotation, file);

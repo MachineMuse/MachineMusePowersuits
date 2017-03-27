@@ -20,9 +20,8 @@ public class KeybindKeyHandler {
     public static final KeyBinding goDownKey = new KeyBinding("Go Down (MPS Flight Control)", Keyboard.KEY_Z, mps);
     public static final KeyBinding cycleToolBackward = new KeyBinding("Cycle Tool Backward (MPS)", -1, mps);
     public static final KeyBinding cycleToolForward = new KeyBinding("Cycle Tool Forward (MPS)", -1, mps);
-    public static final KeyBinding zoom = new KeyBinding("Zoom (MPS)", Keyboard.KEY_Y, mps);
     public static final KeyBinding openCosmeticGUI = new KeyBinding("Cosmetic (MPS)", -1, mps);
-    public static final KeyBinding[] keybindArray = new KeyBinding[]{openKeybindGUI, goDownKey, cycleToolBackward, cycleToolForward, zoom, openCosmeticGUI};
+    public static final KeyBinding[] keybindArray = new KeyBinding[]{openKeybindGUI, goDownKey, cycleToolBackward, cycleToolForward, openCosmeticGUI};
     public static boolean[] repeats = new boolean[keybindArray.length];
 
     public KeybindKeyHandler() {

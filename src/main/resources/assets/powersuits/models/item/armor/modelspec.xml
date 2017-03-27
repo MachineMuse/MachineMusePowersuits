@@ -1,5 +1,5 @@
 <models>
-    <model file="powersuits:item/armor/mps_helm.obj" textures="powersuits:models/diffuse.png">
+    <model file="powersuits:item/armor/mps_helm.obj" textures="powersuits:models/diffuse">
         <binding slot="head" target="Head">
             <part defaultcolor="FFFFFF" defaultglow="false" polygroup="helm_main" name="Helmet"/>
             <part defaultcolor="114EFF" defaultglow="true" polygroup="visor" name="Visor"/>

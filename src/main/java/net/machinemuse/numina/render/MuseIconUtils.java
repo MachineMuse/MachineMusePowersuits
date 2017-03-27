@@ -12,11 +12,10 @@ import org.lwjgl.opengl.GL11;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 2:37 PM, 9/6/13
- *
+ * <p>
  * Ported to Java by lehjr on 10/25/16.
  */
-public final class MuseIconUtils
-{
+public class MuseIconUtils {
     /**
      * Draws a MuseIcon
      *
@@ -25,11 +24,11 @@ public final class MuseIconUtils
      * @param icon
      * @param colour
      */
-    public static void drawIconAt(final double x, final double y, final TextureAtlasSprite icon, final Colour colour) {
+    public static void drawIconAt(double x, double y, TextureAtlasSprite icon, Colour colour) {
         drawIconPartial(x, y, icon, colour, 0, 0, 16, 16);
     }
 
-    public static void drawIconPartialOccluded(final double x, final double y, final TextureAtlasSprite icon, final Colour colour, final double left, final double top, final double right, final double bottom) {
+    public static void drawIconPartialOccluded(double x, double y, TextureAtlasSprite icon, Colour colour, double left, double top, double right, double bottom) {
         double xmin = MuseMathUtils.clampDouble(left - x, 0, 16);
         double ymin = MuseMathUtils.clampDouble(top - y, 0, 16);
         double xmax = MuseMathUtils.clampDouble(right - x, 0, 16);
@@ -45,8 +44,8 @@ public final class MuseIconUtils
      * @param icon
      * @param colour
      */
-    public static void drawIconPartial(final double x, final double y, final TextureAtlasSprite icon, final Colour colour, final double left, final double top, final double right, final double bottom) {
-        TextureAtlasSprite icon1 =  Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
+    public static void drawIconPartial(double x, double y, TextureAtlasSprite icon, Colour colour, double left, double top, double right, double bottom) {
+        TextureAtlasSprite icon1 = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
         if (icon != null)
             icon1 = icon;
 

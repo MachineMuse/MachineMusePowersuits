@@ -82,7 +82,7 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
                         Musique.playerSound(player, SoundDictionary.SOUND_EVENT_JETPACK, SoundCategory.PLAYERS, (float) (thrust * 6.25), 1.0f, true);
                 }
                 ElectricItemUtils.drainPlayerEnergy(player, thrust * jetEnergy);
-            } else if (jumpkey && player.motionY < 0.5) {
+            } else if (jumpkey ){//&& player.motionY < 0.5) {
                 thrust = MusePlayerUtils.thrust(player, thrust, false);
                 if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
 
