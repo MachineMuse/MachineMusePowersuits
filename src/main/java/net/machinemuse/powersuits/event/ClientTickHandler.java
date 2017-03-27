@@ -126,7 +126,7 @@ public class ClientTickHandler {
             EntityPlayer player = Minecraft.getMinecraft().thePlayer;
             modules = new ArrayList<String>();
             findInstalledModules(player);
-            if (player != null && MuseItemUtils.modularItemsEquipped(player).size() > 0 && Minecraft.getMinecraft().currentScreen == null) {
+            if (player != null && Minecraft.getMinecraft().isGuiEnabled() && MuseItemUtils.modularItemsEquipped(player).size() > 0 && Minecraft.getMinecraft().currentScreen == null) {
                 Minecraft mc = Minecraft.getMinecraft();
                 ScaledResolution screen = new ScaledResolution(mc);
                 for (int i = 0; i < modules.size(); i++) {

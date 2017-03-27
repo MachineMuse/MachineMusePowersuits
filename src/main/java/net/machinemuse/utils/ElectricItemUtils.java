@@ -52,9 +52,9 @@ public class ElectricItemUtils {
     public static void givePlayerEnergy(EntityPlayer player, double joulesToGive) {
         double joulesleft = joulesToGive;
         for (ElectricAdapter adapter: electricItemsEquipped(player))
-            if (joulesleft > 0)
+            if (joulesleft > 0) {
                 joulesleft = joulesleft - adapter.giveEnergy(joulesleft);
-            else
+            } else
                 break;
     }
 

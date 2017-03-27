@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.common;
 
-import net.machinemuse.numina.general.MuseLogger;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;

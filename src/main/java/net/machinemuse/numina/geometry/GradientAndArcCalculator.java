@@ -92,8 +92,8 @@ public class GradientAndArcCalculator {
      */
     public static DoubleBuffer getColourGradient(Colour c1, Colour c2, int numsegments) {
         DoubleBuffer buffer = BufferUtils.createDoubleBuffer(numsegments * 4);
-        for (int i = 0; i < numsegments; i++) {
-            Colour c3  = c1.interpolate(c2, i / numsegments);
+        for (double i = 0; i < numsegments; i++) {
+            Colour c3 = c1.interpolate(c2, i / numsegments);
             buffer.put(c3.r);
             buffer.put(c3.g);
             buffer.put(c3.b);
@@ -101,5 +101,5 @@ public class GradientAndArcCalculator {
         }
         buffer.flip();
         return buffer;
-  }
+    }
 }

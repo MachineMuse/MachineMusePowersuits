@@ -6,19 +6,19 @@ import net.minecraft.item.ItemStack;
  * Ported to Java by lehjr on 11/4/16.
  */
 public class MuseElectricAdapter extends ElectricAdapter {
-    private final ItemStack stack;
-    private final MuseElectricItem item;
+    private ItemStack stack;
+    private IMuseElectricItem item;
 
-    public MuseElectricAdapter(final ItemStack stack) {
+    public MuseElectricAdapter(ItemStack stack) {
         this.stack = stack;
-        this.item = (MuseElectricItem)stack.getItem();
+        this.item = (IMuseElectricItem)stack.getItem();
     }
 
     public ItemStack stack() {
         return this.stack;
     }
 
-    public MuseElectricItem item() {
+    public IMuseElectricItem item() {
         return this.item;
     }
 

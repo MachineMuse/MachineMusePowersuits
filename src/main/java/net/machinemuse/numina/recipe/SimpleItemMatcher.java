@@ -1,6 +1,5 @@
 package net.machinemuse.numina.recipe;
 
-import net.machinemuse.numina.common.NuminaConfig;
 import net.machinemuse.numina.general.MuseLogger;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

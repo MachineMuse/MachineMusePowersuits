@@ -62,12 +62,14 @@ public class ModelSpecXMLReader {
 
     public void parseModel(Node modelnode) {
         String file;
+        String[] textures;
         Vec3d offset;
         Vec3d rotation;
 
         if (modelnode.getNodeType() == Node.ELEMENT_NODE) {
             Element eElement = (Element) modelnode;
             file = eElement.getAttribute("file");
+            textures = eElement.getAttribute("textures").split(",");
 
             // These are null because they are not used in the files
             offset = parseVector(eElement.getAttribute("offset"));
@@ -76,6 +78,8 @@ public class ModelSpecXMLReader {
 
             if (bakedModel != null && bakedModel instanceof OBJModel.OBJBakedModel) {
                 ModelSpec modelspec = new ModelSpec(bakedModel, offset, rotation, file);
+                // ModelSpec modelspec = new ModelSpec(model, textures, offset, rotation, file);
+
                 ModelSpec existingspec = ModelRegistry.getInstance().put(MuseStringUtils.extractName(file), modelspec);
 
                 NodeList bindingNodeList = eElement.getElementsByTagName("binding");

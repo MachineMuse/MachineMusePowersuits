@@ -110,7 +110,7 @@ public class ModularItemBase extends Item implements IModularItemBase {
 
     @Override
     public void givePlayerEnergy(EntityPlayer player, double joulesToGive) {
-        ElectricItemUtils.drainPlayerEnergy(player, joulesToGive);
+        ElectricItemUtils.givePlayerEnergy(player, joulesToGive);
     }
 
 

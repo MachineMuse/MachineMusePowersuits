@@ -1,7 +1,5 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
-import ic2.api.item.ElectricItem;
-import ic2.core.IC2;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
@@ -13,18 +11,15 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
 
-import java.util.*;
-
-import static net.machinemuse.powersuits.item.ItemPowerArmor.ARMOR_MODIFIERS;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Ported by leon on 10/18/16.

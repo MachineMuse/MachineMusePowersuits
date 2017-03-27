@@ -14,7 +14,6 @@ import net.minecraft.item.Item;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.registry.IRegistry;
 import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 

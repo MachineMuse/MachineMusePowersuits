@@ -7,7 +7,6 @@ import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.common.ModularPowersuits;
-import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -22,15 +21,11 @@ import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.property.IExtendedBlockState;
 
-import javax.annotation.Nullable;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static net.machinemuse.powersuits.block.BlockLuxCapacitor.COLOR;
-import static net.minecraft.block.Block.registerBlocks;
 import static net.minecraft.block.BlockDirectional.FACING;
 
 /**

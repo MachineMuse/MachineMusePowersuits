@@ -18,25 +18,25 @@ import java.util.List;
  */
 public interface IModularItemBase extends IModularItem, IMuseElectricItem {
     @SideOnly(Side.CLIENT)
-    int getColorFromItemStack(final ItemStack stack, final int p1);
+    int getColorFromItemStack(ItemStack stack, int p1);
 
-    Colour getGlowFromItemStack(final ItemStack stack);
+    Colour getGlowFromItemStack(ItemStack stack);
 
-    Colour getColorFromItemStack(final ItemStack stack);
+    Colour getColorFromItemStack(ItemStack stack);
 
     @SideOnly(Side.CLIENT)
     void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> currentTipList, boolean advancedToolTips);
 
 
-    String formatInfo(final String string, final double value);
+    String formatInfo(String string, double value);
 
-    List<String> getLongInfo(final EntityPlayer player, final ItemStack stack);
+    List<String> getLongInfo(EntityPlayer player, ItemStack stack);
 
-    double getArmorDouble(final EntityPlayer player, final ItemStack stack);
+    double getArmorDouble(EntityPlayer player, ItemStack stack);
 
-    double getPlayerEnergy(final EntityPlayer player);
+    double getPlayerEnergy(EntityPlayer player);
 
-    void drainPlayerEnergy(final EntityPlayer player, final double drainEnergy);
+    void drainPlayerEnergy(EntityPlayer player, double drainEnergy);
 
-    void givePlayerEnergy(final EntityPlayer player, final double joulesToGive);
+    void givePlayerEnergy(EntityPlayer player, double joulesToGive);
 }

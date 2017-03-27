@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
 import net.machinemuse.general.NBTTagAccessor;
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.client.render.item.ArmorModelInstance;
@@ -13,13 +12,10 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.client.model.obj.OBJModel;
 import org.lwjgl.opengl.GL11;
 
 import java.util.List;

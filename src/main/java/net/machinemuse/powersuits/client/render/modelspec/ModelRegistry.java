@@ -1,39 +1,18 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.scala.MuseRegistry;
-import net.machinemuse.powersuits.client.render.model.ModelHelper;
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.item.DummyItem;
 import net.machinemuse.utils.MuseStringUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.*;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.vertex.VertexFormat;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.client.model.*;
-import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
-import net.minecraftforge.common.model.IModelState;
-import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.common.property.IExtendedBlockState;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import static net.minecraftforge.client.model.ModelLoader.defaultTextureGetter;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -56,6 +35,26 @@ public class ModelRegistry extends MuseRegistry<ModelSpec> {
         return INSTANCE;
     }
 
+    /*
+     *  replacement methods adding the ResourceLocation for the model texture
+     *  going to try to brute force the textures to pair up with the models.
+     *
+     */
+    public IBakedModel loadModel(ResourceLocation modelLocation, ResourceLocation textureLocation) {
+        String name = MuseStringUtils.extractName(modelLocation);
+        ModelSpec spec = get(name);
+        if (spec == null)
+            return wrap(modelLocation);
+        return spec.getModel();
+    }
+
+    public IBakedModel wrap(ResourceLocation modelLocation, ResourceLocation textureLocation){
+        return wrap(modelLocation);
+    }
+
+
+
+
     public IBakedModel loadModel(ResourceLocation resource) {
         String name = MuseStringUtils.extractName(resource);
         ModelSpec spec = get(name);
@@ -64,14 +63,19 @@ public class ModelRegistry extends MuseRegistry<ModelSpec> {
         return spec.getModel();
     }
 
-    protected ResourceLocation getItemLocation(ResourceLocation resourceLocation) {
-        String location = resourceLocation.toString();
-        ResourceLocation resourcelocation = new ResourceLocation(location.replaceAll("#.*", "").
-                replaceAll("item/", "models/item/"));//.replaceAll(".obj.*", ""));
 
-        return resourcelocation;
-//        return new ResourceLocation(resourcelocation.getResourceDomain(), "item/armor/json/" + resourcelocation.getResourcePath());
-    }
+
+
+//    protected ResourceLocation getItemLocation(ResourceLocation resourceLocation) {
+//        String location = resourceLocation.toString();
+//        ResourceLocation resourcelocation = new ResourceLocation(location.replaceAll("#.*", "").
+//                replaceAll("item/", "models/item/"));//.replaceAll(".obj.*", ""));
+//
+//        return resourcelocation;
+////        return new ResourceLocation(resourcelocation.getResourceDomain(), "item/armor/json/" + resourcelocation.getResourcePath());
+//    }
+
+
 
     public IBakedModel wrap(ResourceLocation resource) {
         Item dummies = MPSItems.dummies;

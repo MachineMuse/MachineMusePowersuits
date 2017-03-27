@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.client.render.entity;
 
 import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.client.render.model.LuxCapModelHelper;
 import net.machinemuse.powersuits.client.render.model.ModelLuxCapacitor;
 import net.machinemuse.powersuits.common.MPSItems;
@@ -17,7 +16,6 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import org.lwjgl.opengl.GL11;

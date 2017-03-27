@@ -1,18 +1,11 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.client.render.model.ModelHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.property.IExtendedBlockState;
-import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -45,9 +45,8 @@ public abstract class MuseRenderer {
      * @param radius
      */
     public static void drawCircleAround(double xoffset, double yoffset, double radius) {
-        if (selectionCircle == null) {
+        if (selectionCircle == null)
             selectionCircle = new SwirlyMuseCircle(new Colour(0.0f, 1.0f, 0.0f, 0.0f), new Colour(0.8f, 1.0f, 0.8f, 1.0f));
-        }
         selectionCircle.draw(radius, xoffset, yoffset);
     }
 
@@ -210,6 +209,7 @@ public abstract class MuseRenderer {
         }
         return renderItem;
     }
+
     public static void drawLineBetween(IClickable firstClickable, IClickable secondClickable, Colour gradientColour) {
         long varia = System.currentTimeMillis() % 2000 - 1000; // ranges from
         // -1000 to 1000

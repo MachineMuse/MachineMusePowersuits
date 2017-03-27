@@ -9,12 +9,10 @@ import org.lwjgl.opengl.GL11;
 import java.util.Random;
 
 public class TinkerTableModel extends ModelBase {
-    // public float onGround;
-    // public boolean isRiding = false;
-    protected final ModelBase model = new ModelBase() {
+    protected ModelBase model = new ModelBase() {
     };
 
-    private static final Random random = new Random();
+    private static Random random = new Random();
     /**
      * This is a list of all the boxes (ModelRenderer.class) in the current
      * model.
@@ -61,63 +59,74 @@ public class TinkerTableModel extends ModelBase {
         cube.addBox(-2F, -2F, -2F, 4, 4, 4);
         cube.setTextureSize(112, 70);
         cube.mirror = true;
+
         screen3 = new ModelRenderer(this, 1, 1);
         screen3.addBox(0F, 0F, 0F, 11, 0, 14);
         screen3.setRotationPoint(-9.666667F, 3.466667F, -7F);
         screen3.setTextureSize(112, 70);
         screen3.mirror = true;
+
         screen2 = new ModelRenderer(this, 0, 32);
         screen2.addBox(0F, 0F, 0F, 8, 0, 11);
         screen2.setRotationPoint(2F, 4.966667F, -6F);
         screen2.setTextureSize(112, 70);
         screen2.mirror = true;
+
         screen1 = new ModelRenderer(this, 3, 20);
         screen1.addBox(0F, 0F, 0F, 14, 0, 7);
         screen1.setRotationPoint(-6F, 2.466667F, 3F);
         screen1.setTextureSize(112, 70);
         screen1.mirror = true;
         setRotation(screen1, 0F, 0F, 0F);
+
         middletable = new ModelRenderer(this, 40, 49);
         middletable.addBox(-5F, 1F, -5F, 17, 3, 18);
         middletable.setRotationPoint(-4F, 10F, -4F);
         middletable.setTextureSize(112, 70);
         middletable.mirror = true;
         setRotation(middletable, 0F, 0F, 0F);
+
         uppertable = new ModelRenderer(this, 56, 28);
         uppertable.addBox(0F, 0F, 0F, 12, 5, 16);
         uppertable.setRotationPoint(-8F, 10F, -8F);
         uppertable.setTextureSize(112, 70);
         uppertable.mirror = true;
         setRotation(uppertable, 0F, 0F, 0F);
+
         particles = new ModelRenderer(this, 90, 0);
         particles.addBox(0F, 0F, 0F, 6, 7, 5);
         particles.setRotationPoint(-3F, 15F, -3F);
         particles.setTextureSize(112, 70);
         particles.mirror = true;
         setRotation(particles, 0F, 0F, 0F);
+
         footbase = new ModelRenderer(this, 0, 54);
         footbase.addBox(-5F, 8F, -5F, 12, 2, 11);
         footbase.setRotationPoint(-1F, 14F, -1F);
         footbase.setTextureSize(112, 70);
         footbase.mirror = true;
         setRotation(footbase, 0F, 0F, 0F);
+
         foot1 = new ModelRenderer(this, 82, 13);
         foot1.addBox(-5F, 8F, -5F, 4, 3, 3);
         foot1.setRotationPoint(-2F, 13F, 3F);
         foot1.setTextureSize(112, 70);
         foot1.mirror = true;
         setRotation(foot1, 0F, 0F, 0F);
+
         fatfoot2 = new ModelRenderer(this, 96, 13);
         fatfoot2.addBox(-5F, 8F, -5F, 4, 3, 4);
         fatfoot2.setRotationPoint(3F, 13F, 1F);
         fatfoot2.setTextureSize(112, 70);
         fatfoot2.mirror = true;
         setRotation(fatfoot2, 0F, 1.570796F, 0F);
+
         fatfoot1 = new ModelRenderer(this, 96, 13);
         fatfoot1.addBox(-5F, 8F, -5F, 4, 3, 4);
         fatfoot1.setRotationPoint(3F, 13F, -8F);
         fatfoot1.setTextureSize(112, 70);
         fatfoot1.mirror = true;
+
         setRotation(fatfoot1, 0F, 1.570796F, 0F);
         backsupport = new ModelRenderer(this, 38, 34);
         backsupport.addBox(0F, 0F, -2F, 2, 8, 7);
@@ -125,48 +134,56 @@ public class TinkerTableModel extends ModelBase {
         backsupport.setTextureSize(112, 70);
         backsupport.mirror = true;
         setRotation(backsupport, 0F, 0F, 0F);
+
         tank3 = new ModelRenderer(this, 51, 18);
         tank3.addBox(0F, 0F, 0F, 3, 5, 3);
         tank3.setRotationPoint(6F, 10F, 3F);
         tank3.setTextureSize(112, 70);
         tank3.mirror = true;
         setRotation(tank3, 0F, 0F, 0F);
+
         tank2 = new ModelRenderer(this, 51, 18);
         tank2.addBox(0F, 0F, 0F, 3, 5, 3);
         tank2.setRotationPoint(6F, 10F, -2F);
         tank2.setTextureSize(112, 70);
         tank2.mirror = true;
         setRotation(tank2, 0F, 0F, 0F);
+
         tank1 = new ModelRenderer(this, 51, 18);
         tank1.addBox(0F, 0F, 0F, 3, 5, 3);
         tank1.setRotationPoint(6F, 10F, -7F);
         tank1.setTextureSize(112, 70);
         tank1.mirror = true;
         setRotation(tank1, 0F, 0F, 0F);
+
         wireshort4 = new ModelRenderer(this, 71, 15);
         wireshort4.addBox(0F, 0F, 5F, 1, 2, 1);
         wireshort4.setRotationPoint(7F, 15F, -1F);
         wireshort4.setTextureSize(112, 70);
         wireshort4.mirror = true;
         setRotation(wireshort4, 0F, 0F, 0F);
+
         wireshort3 = new ModelRenderer(this, 71, 15);
         wireshort3.addBox(0F, 0F, 0F, 1, 2, 1);
         wireshort3.setRotationPoint(7F, 15F, -6F);
         wireshort3.setTextureSize(112, 70);
         wireshort3.mirror = true;
         setRotation(wireshort3, 0F, 0F, 0F);
+
         wireshort2 = new ModelRenderer(this, 69, 13);
         wireshort2.addBox(0F, 0F, 0F, 2, 1, 1);
         wireshort2.setRotationPoint(5F, 17F, -1F);
         wireshort2.setTextureSize(112, 70);
         wireshort2.mirror = true;
         setRotation(wireshort2, 0F, 0F, 0F);
+
         Wireshort1 = new ModelRenderer(this, 71, 15);
         Wireshort1.addBox(0F, 0F, 0F, 1, 2, 1);
         Wireshort1.setRotationPoint(7F, 15F, -1F);
         Wireshort1.setTextureSize(112, 70);
         Wireshort1.mirror = true;
         setRotation(Wireshort1, 0F, 0F, 0F);
+
         Wirelong1 = new ModelRenderer(this, 77, 1);
         Wirelong1.addBox(0F, 0F, 0F, 1, 1, 11);
         Wirelong1.setRotationPoint(7F, 17F, -6F);
@@ -222,16 +239,21 @@ public class TinkerTableModel extends ModelBase {
         screen1.render(f);
         particles.render(f);
         GL11.glPopMatrix();
-        // GL11.glPushMatrix();
-        // if (Minecraft.getMinecraft().isFancyGraphicsEnabled()) {
-        // if (f1 != 0) {
-        // GL11.glDisable(GL11.GL_CULL_FACE);
-        // for (int i = 0; i < 1; i++) {
-        // drawScanLine(angle);
-        // }
-        // }
-        // }
-        // GL11.glPopMatrix();
+
+
+//        // testing
+//        GL11.glPushMatrix();
+//        if (Minecraft.getMinecraft().isFancyGraphicsEnabled()) {
+//            if (f1 != 0) {
+//                GL11.glDisable(GL11.GL_CULL_FACE);
+//                for (int i = 0; i < 1; i++) {
+//                    drawScanLine(angle);
+//                }
+//            }
+//        }
+//        GL11.glPopMatrix();
+        // end testing
+
 //        RenderState.glowOff();
         RenderState.blendingOff();
     }
@@ -245,6 +267,9 @@ public class TinkerTableModel extends ModelBase {
         GL11.glVertex3d(0.5, 1.05 + 0.02f * Math.sin(angle * 3), 0.5);
         GL11.glVertex3d(xtarg, 1.2f, ytarg);
         GL11.glEnd();
+
+
+
         // MuseRenderer.drawGradientRect3D(
         // Vec3.createVectorHelper(Math.floor(xtarg * 16.0) / 16.0, 1.201,
         // Math.floor(ytarg * 16.0) / 16.0),
