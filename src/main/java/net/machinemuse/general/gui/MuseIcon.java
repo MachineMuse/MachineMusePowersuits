@@ -5,6 +5,8 @@ import net.machinemuse.powersuits.common.Config;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /*
  * These are mostly icons for the Tinker Table GUI and PowerFist GUI
@@ -12,6 +14,7 @@ import net.minecraftforge.client.event.TextureStitchEvent;
  * Icons without an item registered need to be added this way
  * @author Lehjr
  */
+@SideOnly(Side.CLIENT)
 public class MuseIcon {
     protected MuseIcon() {
     }

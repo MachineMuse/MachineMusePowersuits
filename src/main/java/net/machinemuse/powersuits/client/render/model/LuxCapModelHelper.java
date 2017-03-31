@@ -20,6 +20,8 @@ import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +37,7 @@ import static net.minecraft.block.BlockDirectional.FACING;
  * Yes, this is a lot of code to color the lens of the model. But it still allows us to
  * have complete control over the lens color without using a TESR
  */
+@SideOnly(Side.CLIENT)
 public class LuxCapModelHelper {
     private static LuxCapModelHelper ourInstance = new LuxCapModelHelper();
     public static LuxCapModelHelper getInstance() {

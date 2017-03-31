@@ -6,6 +6,8 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +39,9 @@ public class ModelPartSpec {
     }
 
     public List<BakedQuad> getQuads() {
-        if (quadcache.isEmpty())
+        if (quadcache.isEmpty()) {
             quadcache = modelSpec.getModel().getQuads(extendedState, null, 0);
+        }
         return quadcache;
     }
 

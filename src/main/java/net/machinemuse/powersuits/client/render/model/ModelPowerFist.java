@@ -17,6 +17,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.common.model.TRSRTransformation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
@@ -27,6 +29,7 @@ import java.util.List;
 /**
  * Created by lehjr on 12/19/16.
  */
+@SideOnly(Side.CLIENT)
 public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
     // TODO: switch to our obj models asap
 
@@ -164,6 +167,8 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
 
     @Override
     public boolean isBuiltInRenderer() {
+//        if (cameraTransformType == ItemCameraTransforms.TransformType.GUI)
+//            return true;
         return modelOriginal.isBuiltInRenderer();
     }
 

@@ -11,15 +11,15 @@ import java.util.HashMap;
  * Ported to Java by lehjr on 11/8/16.
  */
 public class MuseBiMap<S, T> {
-    private HashMap<S, T> nameMap;// = new HashMap<>();
-    private HashMap<T, S> elemMap;//= new HashMap<>();
+    private HashMap<S, T> nameMap;
+    private HashMap<T, S> elemMap;
 
     public MuseBiMap() {
         this.nameMap = (HashMap<S, T>)new HashMap();
         this.elemMap = (HashMap<T, S>)new HashMap();
     }
 
-    public T get(final S name) {
+    public T get(S name) {
         return this.nameMap.get(name);
     }
 
@@ -31,10 +31,18 @@ public class MuseBiMap<S, T> {
         return elemMap.values();
     }
 
-    public T putName(final S name, final T elem) {
-        final T value = this.nameMap.get(name);
+    public T putName(S name, T elem) {
+        T value = this.nameMap.get(name);
         if (value != null) {
             MuseLogger.logError(name + " already a member!");
+            //------------------------------------
+//            nameMap.remove(name);
+//            nameMap.put(name, elem);
+//
+//            elemMap.remove(elem);
+//            elemMap.put(elem, name);
+//            //------------------------------------
+
             return value;
         } else {
             nameMap.put(name, elem);
@@ -43,8 +51,26 @@ public class MuseBiMap<S, T> {
         }
     }
 
-    public S putElem(final T elem, final S name) {
-        final T value = nameMap.get(name);
+    public S putElem(T elem, S name) {
+//        S value = elemMap.get(elem);
+//        if (value != null) {
+//            //------------------------------------
+//            nameMap.remove(name);
+//            nameMap.put(name, elem);
+//
+//            elemMap.remove(elem);
+//            elemMap.put(elem, name);
+//            //------------------------------------
+//
+//            MuseLogger.logError(name + " already a member!");
+//            return value;
+//        } else {
+//            nameMap.put(name, elem);
+//            elemMap.put(elem, name) ;
+//        }
+//        return name;
+
+        T value = nameMap.get(name);
         if (value != null) {
             MuseLogger.logError(name + " already a member!");
         } else {
@@ -62,12 +88,12 @@ public class MuseBiMap<S, T> {
         return this.elemMap;
     }
 
-    public S getName(final T elem) {
+    public S getName(T elem) {
         return elemMap.get(elem);
     }
 
-    public S removeElem(final T elem) {
-        final S name = this.getName(elem);
+    public S removeElem(T elem) {
+        S name = this.getName(elem);
         if (name != null) {
             nameMap.remove(name);
             elemMap.remove(elem);
@@ -75,8 +101,8 @@ public class MuseBiMap<S, T> {
         return name;
     }
 
-    public T removeName(final S name) {
-        final T value = this.get(name);
+    public T removeName(S name) {
+        T value = this.get(name);
         if (value != null) {
             nameMap.remove(name);
             elemMap.remove(value);

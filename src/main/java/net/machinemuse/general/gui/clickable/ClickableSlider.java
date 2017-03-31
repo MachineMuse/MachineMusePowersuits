@@ -6,6 +6,9 @@ import net.machinemuse.numina.geometry.DrawableMuseRect;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.utils.render.MuseRenderer;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 7:08 AM, 06/05/13
@@ -49,6 +52,21 @@ public class ClickableSlider extends Clickable {
     }
 
     public double value() {
+// TODO: messing around with precision .. need to finish this and setup for tinker slider
+//        double toBeTruncated = new Double("3.5789055");
+//        double internalTest = BigDecimal.valueOf(valueInternal)
+//                .setScale(2, RoundingMode.HALF_UP)
+//                .doubleValue();
+//
+//        double truncatedDouble = BigDecimal.valueOf(toBeTruncated)
+//                .setScale(2, RoundingMode.HALF_UP)
+//                .doubleValue();
+//        System.out.println("truncated: " + truncatedDouble );
+//
+//        System.out.println("valueInternal: " + valueInternal);
+//        System.out.println("internal test: " + internalTest);
+
+
         return valueInternal;
     }
 

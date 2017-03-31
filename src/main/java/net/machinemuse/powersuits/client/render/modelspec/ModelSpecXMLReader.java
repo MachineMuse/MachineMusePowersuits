@@ -2,12 +2,15 @@ package net.machinemuse.powersuits.client.render.modelspec;
 
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.powersuits.client.render.model.MPSOBJLoader;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.model.obj.OBJModel;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -28,7 +31,10 @@ import static net.machinemuse.powersuits.client.render.modelspec.MorphTarget.*;
  *
  * Ported to Java by lehjr on 11/8/16.
  */
+@SideOnly(Side.CLIENT)
 public class ModelSpecXMLReader {
+    boolean registerModels;
+
     private ModelSpecXMLReader() {
     }
 
@@ -40,7 +46,9 @@ public class ModelSpecXMLReader {
         return INSTANCE;
     }
 
-    public void parseFile(URL file) {
+    public void parseFile(URL file, boolean registerModelsIn) {
+        this.registerModels = registerModelsIn;
+
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -62,38 +70,41 @@ public class ModelSpecXMLReader {
 
     public void parseModel(Node modelnode) {
         String file;
-        String[] textures;
+//        String[] texturesArray;
         Vec3d offset;
         Vec3d rotation;
 
         if (modelnode.getNodeType() == Node.ELEMENT_NODE) {
             Element eElement = (Element) modelnode;
             file = eElement.getAttribute("file");
-            textures = eElement.getAttribute("textures").split(",");
+            // this is just used for texture registration now.
+//            texturesArray = eElement.getAttribute("textures").split(",");
 
             // These are null because they are not used in the files
             offset = parseVector(eElement.getAttribute("offset"));
             rotation = parseVector(eElement.getAttribute("rotation"));
 
-            // currently each model only uses one texture and I don't see anyone adding more soon.
-            // adding support for more would be a headhache and isn't worth it
-            IBakedModel bakedModel = ModelRegistry.getInstance().loadModel(new ResourceLocation(file), new ResourceLocation(textures[0]));
-
-
-
-            if (bakedModel != null && bakedModel instanceof OBJModel.OBJBakedModel) {
-                ModelSpec modelspec = new ModelSpec(bakedModel, offset, rotation, file);
-                // ModelSpec modelspec = new ModelSpec(model, textures, offset, rotation, file);
-
-                ModelSpec existingspec = ModelRegistry.getInstance().put(MuseStringUtils.extractName(file), modelspec);
-
-                NodeList bindingNodeList = eElement.getElementsByTagName("binding");
-                for (int temp = 0; temp < bindingNodeList.getLength(); temp++) {
-                    Node bindingnode = bindingNodeList.item(temp);
-                    parseBinding(bindingnode, existingspec);
+            // register the textures
+            if (!registerModels) {
+                try {
+                    MPSOBJLoader.INSTANCE.registerModelSprites(new ResourceLocation(file));
+                } catch (Exception ignored) {
                 }
             } else {
-                MuseLogger.logError("Model file " + file + " not found! D:");
+                IBakedModel bakedModel = ModelRegistry.getInstance().loadBakedModel(new ResourceLocation(file));
+                if (bakedModel != null && bakedModel instanceof OBJModel.OBJBakedModel) {
+                    ModelSpec modelspec = new ModelSpec(bakedModel, offset, rotation, file);
+                    // ModelSpec modelspec = new ModelSpec(model, textures, offset, rotation, file);
+
+                    ModelSpec existingspec = ModelRegistry.getInstance().put(MuseStringUtils.extractName(file), modelspec);
+                    NodeList bindingNodeList = eElement.getElementsByTagName("binding");
+                    for (int temp = 0; temp < bindingNodeList.getLength(); temp++) {
+                        Node bindingnode = bindingNodeList.item(temp);
+                        parseBinding(bindingnode, existingspec);
+                    }
+                } else {
+                    MuseLogger.logError("Model file " + file + " not found! D:");
+                }
             }
         }
     }

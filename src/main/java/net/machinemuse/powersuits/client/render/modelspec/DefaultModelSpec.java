@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
 import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.powersuits.client.render.model.MPSOBJLoader;
 import net.machinemuse.powersuits.item.ItemPowerArmor;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -9,6 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.obj.OBJModel;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,11 +66,16 @@ public class DefaultModelSpec {
         return (ModelSpec[]) defaultSpecList.toArray();
     }
 
-
     public static ModelSpec loadModel(ResourceLocation file)  {
-        IBakedModel model = ModelRegistry.getInstance().loadModel(file);
-        if (model != null && model instanceof OBJModel.OBJBakedModel) {
-            return (ModelRegistry.getInstance().put(MuseStringUtils.extractName(file), new ModelSpec(model, null, null, file.toString())));
+        // TODO: this may or may not fail. Not sure how late textures can be registered.
+        try {
+            MPSOBJLoader.INSTANCE.registerModelSprites(file); //<-- this registers the textures without caching the model
+            IBakedModel model = ModelRegistry.getInstance().loadBakedModel(file);
+            if (model != null && model instanceof OBJModel.OBJBakedModel) {
+                return (ModelRegistry.getInstance().put(MuseStringUtils.extractName(file), new ModelSpec(model, null, null, file.toString())));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }

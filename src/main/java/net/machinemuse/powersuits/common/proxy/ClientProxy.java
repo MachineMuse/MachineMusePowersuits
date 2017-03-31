@@ -11,7 +11,7 @@ import net.machinemuse.powersuits.client.render.entity.EntityRendererLuxCapacito
 import net.machinemuse.powersuits.client.render.entity.EntityRendererPlasmaBolt;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererSpinningBlade;
 import net.machinemuse.powersuits.client.render.model.LuxCapModelHelper;
-import net.machinemuse.powersuits.client.render.modelspec.ModelSpecXMLReader;
+import net.machinemuse.powersuits.client.render.model.MPSOBJLoader;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.common.ModularPowersuits;
@@ -24,7 +24,6 @@ import net.machinemuse.powersuits.event.ClientTickHandler;
 import net.machinemuse.powersuits.event.ModelBakeEventHandler;
 import net.machinemuse.powersuits.event.PlayerUpdateHandler;
 import net.machinemuse.powersuits.event.RenderEventHandler;
-import net.machinemuse.powersuits.item.DummyItem;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -33,7 +32,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -43,12 +42,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.net.URL;
-
-//import net.machinemuse.powersuits.client.render.block.RenderLuxCapacitorTESR;
-
-//import net.machinemuse.powersuits.client.render.item.ToolRenderer;
 
 /**
  * Client side of the proxy.
@@ -62,7 +55,8 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
-        OBJLoader.INSTANCE.addDomain(ModularPowersuits.MODID.toLowerCase());
+        ModelLoaderRegistry.registerLoader(MPSOBJLoader.INSTANCE);
+        MPSOBJLoader.INSTANCE.addDomain(ModularPowersuits.MODID.toLowerCase());
     }
 
     @Override
@@ -75,7 +69,6 @@ public class ClientProxy extends CommonProxy {
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
         KeybindManager.readInKeybinds();
-//        loadArmorModels(); // FIXME: using workaround until models loading is fixed
     }
 
     @Override
@@ -108,26 +101,13 @@ public class ClientProxy extends CommonProxy {
             }
         }
 
-        // temporary setup for loading the armor models until I can get them to load correctly manually
-        Item dummies = MPSItems.dummies;
-        if (dummies != null) {
-            for (Integer  meta : ((DummyItem)dummies).modelLocations.keySet()) {
-                ModelResourceLocation location = ((DummyItem)dummies).modelLocations.get(meta);
-                ModelLoader.setCustomModelResourceLocation(dummies, meta, location);
-            }
-        }
-
-
         // TODO, eliminate as much TESR dependency as possible.
         regRenderer(Item.getItemFromBlock(MPSItems.tinkerTable));
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(MPSItems.tinkerTable), 0, TileEntityTinkerTable.class);
-
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(MPSItems.luxCapacitor), 0, LuxCapModelHelper.getInstance().luxCapItemLocation);
 
 //        // TODO: model testing block. Not a permanent addition
-//        regRenderer(Item.getItemFromBlock(MPSItems.testBlock));
-
-
+        regRenderer(Item.getItemFromBlock(MPSItems.testBlock));
         RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, EntityRendererSpinningBlade::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, EntityRendererPlasmaBolt::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityLuxCapacitor.class, EntityRendererLuxCapacitorEntity::new);
@@ -144,13 +124,5 @@ public class ClientProxy extends CommonProxy {
     private void regRenderer(Item item) {
         ModelResourceLocation location =  new ModelResourceLocation(item.getRegistryName(), "inventory");
         ModelLoader.setCustomModelResourceLocation(item, 0,location);
-    }
-
-    private void loadArmorModels() {
-        // this needs to be loaded after preInit
-        URL resource = ClientProxy.class.getResource("/assets/powersuits/models/item/armor/modelspec.xml");
-        ModelSpecXMLReader.getINSTANCE().parseFile(resource);
-        URL otherResource = ClientProxy.class.getResource("/assets/powersuits/models/item/armor/armor2.xml");
-        ModelSpecXMLReader.getINSTANCE().parseFile(otherResource);
     }
 }

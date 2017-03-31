@@ -8,6 +8,7 @@ import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.DrawableMuseRect;
 import net.machinemuse.numina.render.MuseIconUtils;
 import net.machinemuse.numina.render.MuseTextureUtils;
+import net.machinemuse.powersuits.client.render.model.ModelHelper;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.powermodule.misc.BinocularsModule;
@@ -43,10 +44,13 @@ public class RenderEventHandler {
     @SubscribeEvent
     public void preTextureStitch(TextureStitchEvent.Pre event) {
         MuseIcon.registerIcons(event);
+        ModelHelper.loadArmorModels(false);
     }
 
+    @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void onTextureStitch(TextureStitchEvent.Post event) {
+
     }
 
     @SideOnly(Side.CLIENT)
@@ -87,6 +91,7 @@ public class RenderEventHandler {
         }
     }
 
+    @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void onPostRenderGameOverlayEvent(RenderGameOverlayEvent.Post e) {
         RenderGameOverlayEvent.ElementType elementType = e.getType();
@@ -94,7 +99,7 @@ public class RenderEventHandler {
             this.drawKeybindToggles();
         }
     }
-
+    @SideOnly(Side.CLIENT)
     public void drawKeybindToggles() {
         if (Config.keybindHUDon()) {
             Minecraft mc = Minecraft.getMinecraft();

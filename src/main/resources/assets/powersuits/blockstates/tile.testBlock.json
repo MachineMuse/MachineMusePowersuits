@@ -8,30 +8,33 @@
   },
   "variants": {
     "inventory": [{
-      "model": "powersuits:armor/armor2.obj",
+      "model": "powersuits:powerFist/powerFist.obj",
       "transform": {
         "thirdperson_righthand": {
-          "scale" : 0.0234375,
-          "translation": [0.0, 0.15625, 0.0],
-          "rotation": [{"x": 75}, {"y": 45}]
+          "scale" : 0.625,
+          "translation": [-5.0, 4.0, -4.75],
+          "rotation": [{"x": 348}, {"y": 180}]
         },
         "thirdperson_lefthand": {
-          "scale" : 0.0234375,
-          "rotation": [{"x": 75}, {"y": 45}]
+          "scale" : 0.625,
+          "translation": [0, 0, -28],
+          "rotation": [{"x": 0}, {"y": 0}]
         },
         "firstperson_righthand": {
-          "scale": 0.025
+          "scale": 0.625,
+          "translation": [0.0, 0.0, -28],
+          "rotation": [{"x": 0}, {"y": 180}]
         },
         "firstperson_lefthand": {
           "scale": 0.025
         },
         "gui": {
-          "scale": 0.0390625,
+          "scale": 0.625,
           "translation": [0.0, 0.025, 0.0],
           "rotation": [{"x":30}, {"y":225}]
         },
         "ground": {
-          "scale": 0.1563,
+          "scale": 0.625,
           "translation": [0.0, 0.1625, 0.0]
         },
         "fixed": {
@@ -41,14 +44,14 @@
     }],
     "facing": {
       "down": {
-        "model": "powersuits:armor/armor2.obj",
+        "model": "powersuits:powerFist/powerFist.obj",
         "transform": {
           "translation": [0.02, -0.40, 0.02],
           "scale" : 0.0625
         }
       },
       "up": {
-        "model": "powersuits:armor/armor2.obj",
+        "model": "powersuits:powerFist/powerFist.obj",
         "transform": {
           "translation": [0.0, 0.40, 0.0],
           "rotation": {"x": 180},
@@ -56,7 +59,7 @@
         }
       },
       "north": {
-        "model": "powersuits:armor/armor2.obj",
+        "model": "powersuits:powerFist/powerFist.obj",
         "transform": {
           "translation": [0.02, -0.02, -0.4],
           "rotation": {"x": 90},
@@ -64,7 +67,7 @@
         }
       },
       "south": {
-        "model": "powersuits:armor/armor2.obj",
+        "model": "powersuits:powerFist/powerFist.obj",
         "transform": {
           "translation": [0.02, 0.02, 0.4],
           "rotation": {"x": 270},
@@ -72,7 +75,7 @@
         }
       },
       "west": {
-        "model": "powersuits:armor/armor2.obj",
+        "model": "powersuits:powerFist/powerFist.obj",
         "transform": {
           "translation": [-0.4, -0.02, 0.02],
           "rotation": {"z": 270},
@@ -80,7 +83,7 @@
         }
       },
       "east": {
-        "model": "powersuits:armor/armor2.obj",
+        "model": "powersuits:powerFist/powerFist.obj",
         "transform": {
           "translation": [0.4, 0.02, 0.02],
           "rotation": {"z": 90},

@@ -1,5 +1,5 @@
 <models>
-    <model file="powersuits:item/armor/mps_helm.obj" textures="powersuits:models/diffuse">
+    <model file="powersuits:models/item/armor/mps_helm.obj" textures="powersuits:items/armor/diffuse">
         <binding slot="head" target="Head">
             <part defaultcolor="FFFFFF" defaultglow="false" polygroup="helm_main" name="Helmet"/>
             <part defaultcolor="114EFF" defaultglow="true" polygroup="visor" name="Visor"/>
@@ -8,7 +8,7 @@
             <part defaultcolor="FFFFFF" defaultglow="false" polygroup="helm_tube_entry1" name="Left Tube Entry"/>
         </binding>
     </model>
-    <model file="powersuits:item/armor/mps_chest.obj" textures="powersuits:textures/models/diffuse.png">
+    <model file="powersuits:models/item/armor/mps_chest.obj" textures="powersuits:items/armor/diffuse">
         <binding slot="chest" target="Body">
             <part defaultcolor="FFFFFF" defaultglow="false" polygroup="backpack" name="Backpack"/>
             <part defaultcolor="FFFFFF" defaultglow="false" polygroup="polySurface36" name="Accessory"/>
@@ -18,14 +18,14 @@
             <part defaultcolor="FFFFFF" defaultglow="false" polygroup="chest_main" name="Chest Plating"/>
         </binding>
     </model>
-    <model file="powersuits:item/armor/jetpack.obj" textures="powersuits:textures/models/jetpack.png">
+    <model file="powersuits:models/item/armor/jetpack.obj" textures="powersuits:items/armor/jetpack">
         <binding slot="chest" target="Body">
             <part defaultcolor="FFFFFF" defaultglow="false" polygroup="default" name="Main"/>
             <part defaultcolor="114EFF" defaultglow="false" polygroup="jetpack5" name="Secondary"/>
             <part defaultcolor="114EFF" defaultglow="true" polygroup="jetpack_glow" name="Lights"/>
         </binding>
     </model>
-    <model file="powersuits:item/armor/mps_arms.obj" textures="powersuits:textures/models/diffuse.png">
+    <model file="powersuits:models/item/armor/mps_arms.obj" textures="powersuits:items/armor/diffuse">
         <binding slot="chest" target="RightArm">
             <part defaultcolor="114EFF" defaultglow="true" polygroup="crystal_shoulder_2"
                   name="Right Shoulder Crystal"/>
@@ -36,7 +36,7 @@
             <part defaultcolor="FFFFFF" defaultglow="false" polygroup="arms2" name="Left Arm"/>
         </binding>
     </model>
-    <model file="powersuits:item/armor/mps_pantaloons.obj" textures="powersuits:textures/models/diffuse.png">
+    <model file="powersuits:models/item/armor/mps_pantaloons.obj" textures="powersuits:items/armor/diffuse">
         <binding slot="legs" target="LeftLeg">
             <part defaultcolor="FFFFFF" defaultglow="false" polygroup="leg2" name="Left Leg"/>
         </binding>
@@ -44,7 +44,7 @@
             <part defaultcolor="FFFFFF" defaultglow="false" polygroup="leg1" name="Right Leg"/>
         </binding>
     </model>
-    <model file="powersuits:item/armor/mps_boots.obj" textures="powersuits:textures/models/diffuse.png">
+    <model file="powersuits:models/item/armor/mps_boots.obj" textures="powersuits:items/armor/diffuse">
         <binding slot="feet" target="RightLeg">
             <part defaultcolor="FFFFFF" defaultglow="false" polygroup="boots1" name="Right Boot"/>
         </binding>

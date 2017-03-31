@@ -32,7 +32,7 @@ public class ModelLuxCapacitor implements IBakedModel, IPerspectiveAwareModel {
     @Override
     public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
         baseFrameModel = modelHelper.getFrameForFacing(null);
-        if (side != null) return ImmutableList.of(); // expected OBJBakedModel behaviour
+        if (side != null) return ImmutableList.of(); // expected MPSTestingOBJBakedModel behaviour
         return modelHelper.getQuads((IExtendedBlockState) state);
     }
 

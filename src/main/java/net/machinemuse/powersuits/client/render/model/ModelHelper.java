@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.client.render.model;
 
+import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.UnmodifiableIterator;
@@ -8,9 +9,14 @@ import net.machinemuse.powersuits.client.render.modelspec.ModelSpecXMLReader;
 import net.machinemuse.powersuits.common.proxy.ClientProxy;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.BakedQuadRetextured;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
 import net.minecraftforge.client.model.pipeline.VertexTransformer;
@@ -21,25 +27,36 @@ import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ModelHelper {
-
-    //
-    public static void loadArmorModels() {
-        URL resource = ClientProxy.class.getResource("/assets/powersuits/models/item/armor/modelspec.xml");
-        ModelSpecXMLReader.getINSTANCE().parseFile(resource);
-        URL otherResource = ClientProxy.class.getResource("/assets/powersuits/models/item/armor/armor2.xml");
-        ModelSpecXMLReader.getINSTANCE().parseFile(otherResource);
+    // One pass just to register the textures, another to register the models.
+    public static void loadArmorModels(boolean loadModels) {
+        URL resource = ModelHelper.class.getResource("/assets/powersuits/models/item/armor/modelspec.xml");
+        ModelSpecXMLReader.getINSTANCE().parseFile(resource, loadModels);
+        URL otherResource = ModelHelper.class.getResource("/assets/powersuits/models/item/armor/armor2.xml");
+        ModelSpecXMLReader.getINSTANCE().parseFile(otherResource, loadModels);
     }
 
+    public static BakedQuad getRetexturedQuad(BakedQuad quadIn, TextureAtlasSprite spriteIn) {
+        spriteIn = (spriteIn != null) ? spriteIn : quadIn.getSprite();
+        TextureAtlasSprite newSprite = Minecraft.getMinecraft().getTextureMapBlocks().registerSprite( new ResourceLocation(spriteIn.getIconName()));
+        return new BakedQuadRetextured(quadIn, spriteIn);
+    }
 
-
+    public static List<BakedQuad> getRetexturedQuadList(List<BakedQuad> quadsIn, TextureAtlasSprite spriteIn){
+        List<BakedQuad> quadsOut = new ArrayList<>();
+        for (BakedQuad quad: quadsIn) {
+            quadsOut.add(getRetexturedQuad(quad, spriteIn));
+        }
+        return quadsOut;
+    }
 
     /*
       * This is a slightly modified version of Forge's example (@author shadekiller666) for the Tesseract model.
@@ -47,7 +64,7 @@ public class ModelHelper {
       * having to rebake the model. In this perticular case, the setup is for gettting an extended state that
       * will hide all groups but one. However, this can easily be altered to hide fewer parts if needed.
       *
-      * The biggest issue with this setup is that the tr
+      * The biggest issue with this setup is that the code. There is a better way out there
      */
     @Nullable
     public static IExtendedBlockState getStateForPart(String shownIn, OBJModel.OBJBakedModel objBakedModelIn) {
@@ -126,8 +143,6 @@ public class ModelHelper {
 //        matrix.setScale(0.0625f);
 //        return new TRSRTransformation(matrix);
 //    }
-
-
 
     /*
      * Here we can color the quads using the setup below. This is better than changing material colors

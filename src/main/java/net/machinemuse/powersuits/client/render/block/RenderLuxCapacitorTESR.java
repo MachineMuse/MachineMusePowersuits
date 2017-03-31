@@ -392,16 +392,16 @@
 ////        this.renderId = renderId;
 ////    }
 ////
-////    public static OBJModel getLightModel() {
+////    public static MPSTestingMPSTestingOBJModel getLightModel() {
 ////        if (lightmodel == null) {
-////            lightmodel = (OBJModel) OBJLoader.INSTANCE.loadModel(new ResourceLocation(Config.RESOURCE_PREFIX + "models/lightCore.obj"));
+////            lightmodel = (MPSTestingMPSTestingOBJModel) OBJLoader.INSTANCE.loadModel(new ResourceLocation(Config.RESOURCE_PREFIX + "models/lightCore.obj"));
 ////        }
 ////        return lightmodel;
 ////    }
 ////
-////    public static OBJModel getFrameModel() {
+////    public static MPSTestingMPSTestingOBJModel getFrameModel() {
 ////        if (framemodel == null) {
-////            framemodel = (OBJModel) OBJLoader.INSTANCE.loadModel(new ResourceLocation(Config.RESOURCE_PREFIX + "models/lightBase.obj"));
+////            framemodel = (MPSTestingMPSTestingOBJModel) OBJLoader.INSTANCE.loadModel(new ResourceLocation(Config.RESOURCE_PREFIX + "models/lightBase.obj"));
 ////        }
 ////        return framemodel;
 ////    }
