@@ -4,6 +4,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.scala.MuseRegistry;
+import net.machinemuse.powersuits.client.render.model.MPSOBJLoader;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -39,10 +40,10 @@ public class ModelRegistry extends MuseRegistry<ModelSpec> {
         return INSTANCE;
     }
 
-    private IModel getModel(ResourceLocation resource){
+    public IModel getModel(ResourceLocation resource){
         IModel model = null;
         try {
-            model = (OBJModel) OBJLoader.INSTANCE.loadModel(resource);
+            model = (OBJModel) MPSOBJLoader.INSTANCE.loadModel(resource);
             model = ((OBJModel) model).process(ImmutableMap.copyOf(ImmutableMap.of("flip-v", "true")));
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,7 +62,6 @@ public class ModelRegistry extends MuseRegistry<ModelSpec> {
 
     public IBakedModel wrap(ResourceLocation resource) {
         IModel model = getModel(resource);
-        model.getTextures();
         IBakedModel bakedModel = model.bake(model.getDefaultState(), DefaultVertexFormats.ITEM,
                 new Function<ResourceLocation, TextureAtlasSprite>() {
                     public TextureAtlasSprite apply(ResourceLocation resourceLocation) {

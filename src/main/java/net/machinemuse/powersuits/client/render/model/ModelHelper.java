@@ -3,20 +3,29 @@ package net.machinemuse.powersuits.client.render.model;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.UnmodifiableIterator;
+import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.client.render.modelspec.ModelSpecXMLReader;
+import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.proxy.ClientProxy;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BakedQuadRetextured;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.SimpleModelState;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
 import net.minecraftforge.client.model.pipeline.VertexTransformer;
@@ -31,32 +40,99 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
+import javax.vecmath.Vector3f;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+@SideOnly(Side.CLIENT)
 public class ModelHelper {
-    // One pass just to register the textures, another to register the models.
+    public static final ResourceLocation powerFistLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFist.obj");
+    public static final ResourceLocation powerFistFiringLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistFiring.obj");
+    public static final ResourceLocation powerFistLeftLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistLeft.obj");
+    public static final ResourceLocation powerFistLeftFiringLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistFiringLeft.obj");
+
+    static IBakedModel powerFist;
+    static IBakedModel powerFistFiring;
+    static IBakedModel powerFistLeft;
+    static IBakedModel powerFistLeftFiring;
+
+
+    // One pass just to register the textures called from texture stitch event
+    // another to register the models called from model bake event (second run)
     public static void loadArmorModels(boolean loadModels) {
         URL resource = ModelHelper.class.getResource("/assets/powersuits/models/item/armor/modelspec.xml");
         ModelSpecXMLReader.getINSTANCE().parseFile(resource, loadModels);
         URL otherResource = ModelHelper.class.getResource("/assets/powersuits/models/item/armor/armor2.xml");
         ModelSpecXMLReader.getINSTANCE().parseFile(otherResource, loadModels);
-    }
 
-    public static BakedQuad getRetexturedQuad(BakedQuad quadIn, TextureAtlasSprite spriteIn) {
-        spriteIn = (spriteIn != null) ? spriteIn : quadIn.getSprite();
-        TextureAtlasSprite newSprite = Minecraft.getMinecraft().getTextureMapBlocks().registerSprite( new ResourceLocation(spriteIn.getIconName()));
-        return new BakedQuadRetextured(quadIn, spriteIn);
-    }
-
-    public static List<BakedQuad> getRetexturedQuadList(List<BakedQuad> quadsIn, TextureAtlasSprite spriteIn){
-        List<BakedQuad> quadsOut = new ArrayList<>();
-        for (BakedQuad quad: quadsIn) {
-            quadsOut.add(getRetexturedQuad(quad, spriteIn));
+        if (!loadModels) {
+            try {
+                MPSOBJLoader.INSTANCE.registerModelSprites(powerFistLocation);
+                MPSOBJLoader.INSTANCE.registerModelSprites(powerFistFiringLocation);
+                MPSOBJLoader.INSTANCE.registerModelSprites(powerFistLeftLocation);
+                MPSOBJLoader.INSTANCE.registerModelSprites(powerFistLeftFiringLocation);
+            } catch (Exception ignored) {
+            }
+        } else {
+            powerFist = loadBakedModel(POWERFIST_ITEM_STATE, powerFistLocation);
+            powerFistFiring = loadBakedModel(POWERFIST_ITEM_STATE, powerFistFiringLocation);
+            powerFistLeft = loadBakedModel(POWERFIST_ITEM_STATE, powerFistLeftLocation);
+            powerFistLeftFiring = loadBakedModel(POWERFIST_ITEM_STATE, powerFistLeftFiringLocation);
         }
-        return quadsOut;
     }
+
+    public static IModel getModel(ResourceLocation resource){
+        IModel model = null;
+        try {
+            model = (OBJModel) MPSOBJLoader.INSTANCE.loadModel(resource);
+            model = ((OBJModel) model).process(ImmutableMap.copyOf(ImmutableMap.of("flip-v", "true")));
+        } catch (Exception e) {
+            e.printStackTrace();
+            MuseLogger.logError("Model loading failed :( " + resource);
+        }
+        return model;
+    }
+
+    public static IBakedModel loadBakedModel(IModelState modelState, ResourceLocation resource) {
+        IModel model = getModel(resource);
+        if (model != null) {
+
+            IBakedModel bakedModel = model.bake(modelState,
+//                                            model.getDefaultState(),
+                    DefaultVertexFormats.ITEM,
+                    new Function<ResourceLocation, TextureAtlasSprite>() {
+                        public TextureAtlasSprite apply(ResourceLocation resourceLocation) {
+                            return Minecraft.getMinecraft().getTextureMapBlocks().registerSprite(resourceLocation);
+                        }
+                    });
+            return bakedModel;
+        }
+        return null;
+    }
+
+
+
+
+
+
+
+
+
+//
+//    public static BakedQuad getRetexturedQuad(BakedQuad quadIn, TextureAtlasSprite spriteIn) {
+//        spriteIn = (spriteIn != null) ? spriteIn : quadIn.getSprite();
+//        TextureAtlasSprite newSprite = Minecraft.getMinecraft().getTextureMapBlocks().registerSprite( new ResourceLocation(spriteIn.getIconName()));
+//        return new BakedQuadRetextured(quadIn, spriteIn);
+//    }
+//
+//    public static List<BakedQuad> getRetexturedQuadList(List<BakedQuad> quadsIn, TextureAtlasSprite spriteIn){
+//        List<BakedQuad> quadsOut = new ArrayList<>();
+//        for (BakedQuad quad: quadsIn) {
+//            quadsOut.add(getRetexturedQuad(quad, spriteIn));
+//        }
+//        return quadsOut;
+//    }
 
     /*
       * This is a slightly modified version of Forge's example (@author shadekiller666) for the Tesseract model.
@@ -69,7 +145,6 @@ public class ModelHelper {
     @Nullable
     public static IExtendedBlockState getStateForPart(String shownIn, OBJModel.OBJBakedModel objBakedModelIn) {
         List<String> hidden = new ArrayList<>(objBakedModelIn.getModel().getMatLib().getGroups().keySet());
-
         return getStateForPart(shownIn, hidden);
     }
 
@@ -157,7 +232,28 @@ public class ModelHelper {
         return builder.build();
     }
 
-//slimeknights.mantle.client.ModelHelper;
+    //slimeknights.mantle.client.ModelHelper;
+    public static final IModelState POWERFIST_ITEM_STATE;
+    static {
+        // equals forge:default-item
+        ImmutableMap.Builder<IModelPart, TRSRTransformation> builder = ImmutableMap.builder();
+//        builder.put(ItemCameraTransforms.TransformType.HEAD, get(0, 13, 7, 0, 180, 0, 1));
+        builder.put(ItemCameraTransforms.TransformType.GROUND, get(0, 2, 0, 0, 0, 0, 0.5f));
+        builder.put(ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, get(0, 3, 1, 0, 0, 0, 0.55f));
+        builder.put(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, get(0, 3, 1, 0, 0, 0, 0.55f));
+        builder.put(ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND, get(1.13f, 3.2f, 1.13f, 0, -90, 25, 0.68f));
+        builder.put(ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND, get(1.13f, 3.2f, 1.13f, 0, 90, -25, 0.68f));
+        POWERFIST_ITEM_STATE = new SimpleModelState(builder.build());
+    }
+
+    private static TRSRTransformation get(float transformX, float transformY, float transformZ, float angleX, float angleY, float angleZ, float scale) {
+        return TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
+                new Vector3f(transformX / 16, transformY / 16, transformZ / 16),
+                TRSRTransformation.quatFromXYZDegrees(new Vector3f(angleX, angleY, angleZ)),
+                new Vector3f(scale, scale, scale),
+                null));
+    }
+
     public static BakedQuad colorQuad(Colour color, BakedQuad quad) {
         ColorTransformer transformer = new ColorTransformer(color, quad.getFormat());
         quad.pipe(transformer);
