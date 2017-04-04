@@ -83,8 +83,9 @@ public class PlayerUpdateHandler {
                         Musique.stopPlayerSound(player, SoundDictionary.SOUND_GLIDER);
                     }
                 }
-            } // kinda hacky fix for item that gets unequipped when the sound is playing, like when player dies or takes it off
-            else Musique.stopPlayerSound(player, SoundDictionary.SOUND_GLIDER);
+            }
+            else if ((player.worldObj.isRemote)  && NuminaConfig.useSounds())
+                Musique.stopPlayerSound(player, SoundDictionary.SOUND_GLIDER);
         }
     }
 }
