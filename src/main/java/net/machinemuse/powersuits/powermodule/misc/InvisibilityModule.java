@@ -39,12 +39,8 @@ public class InvisibilityModule extends PowerModuleBase implements IPlayerTickMo
     }
 
     @Override
-    public String getUnlocalizedName() { return "invisibility";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Emit a hologram of your surroundings to make yourself almost imperceptible.";
+    public String getUnlocalizedName() {
+        return "invisibility";
     }
 
     @Override

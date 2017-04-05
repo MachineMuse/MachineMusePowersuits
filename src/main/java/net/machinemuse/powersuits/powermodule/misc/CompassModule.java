@@ -47,9 +47,4 @@ public class CompassModule extends PowerModuleBase implements IToggleableModule 
     public String getUnlocalizedName() {
         return "compass";
     }
-
-    @Override
-    public String getDescription() {
-        return "A compass on the run that shows you your direction, no matter where you are. Toggleable by keybinds.";
-    }
 }

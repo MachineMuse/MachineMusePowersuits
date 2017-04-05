@@ -58,11 +58,6 @@ public class MobRepulsorModule extends PowerModuleBase implements IPlayerTickMod
     }
 
     @Override
-    public String getDescription() {
-        return "Pushes mobs away from you when activated, but constantly drains power. It is highly recommended that you set this module to a keybind because of the high energy draw.";
-    }
-
-    @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(item, MOB_REPULSOR_ENERGY_CONSUMPTION)) {
             if (player.worldObj.getTotalWorldTime() % 20 == 0) {

@@ -35,12 +35,8 @@ public class TransparentArmorModule extends PowerModuleBase {
     }
 
     @Override
-    public String getUnlocalizedName() { return "transparentArmor";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Make the item transparent, so you can show off your skin without losing armor.";
+    public String getUnlocalizedName() {
+        return "transparentArmor";
     }
 
     @Override

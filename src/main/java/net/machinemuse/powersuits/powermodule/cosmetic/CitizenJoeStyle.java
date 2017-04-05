@@ -10,8 +10,6 @@ import net.minecraft.item.ItemStack;
 import java.util.List;
 
 public class CitizenJoeStyle extends PowerModuleBase {
-    // TODO: Bring this back for low res armor mode.
-
     public static final String CITIZEN_JOE_STYLE = "Citizen Joe Style";
 
     public CitizenJoeStyle(List<IModularItem> validItems) {
@@ -30,11 +28,6 @@ public class CitizenJoeStyle extends PowerModuleBase {
 
     @Override
     public String getUnlocalizedName() { return "citizenJoe";
-    }
-
-    @Override
-    public String getDescription() {
-        return "An alternative armor texture, c/o CitizenJoe of IC2 forums.";
     }
 
     @Override

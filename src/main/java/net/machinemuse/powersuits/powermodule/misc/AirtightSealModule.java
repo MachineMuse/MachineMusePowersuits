@@ -34,11 +34,6 @@ public class AirtightSealModule extends PowerModuleBase {
     }
 
     @Override
-    public String getDescription() {
-        return "Seal the suit against hostile atmospheres for venturing to other planets.";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.airtightSeal;
     }

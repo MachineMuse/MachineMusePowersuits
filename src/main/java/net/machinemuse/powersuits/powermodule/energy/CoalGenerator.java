@@ -82,11 +82,6 @@ public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule,
     }
 
     @Override
-    public String getDescription() {
-        return "Generate power with solid fuels";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.coalGenerator;
     }

@@ -38,12 +38,8 @@ public class AdvancedBatteryModule extends PowerModuleBase {
     }
 
     @Override
-    public String getUnlocalizedName() { return "advancedBattery";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Integrate a more advanced battery to store more energy.";
+    public String getUnlocalizedName() {
+        return "advancedBattery";
     }
 
     @Override

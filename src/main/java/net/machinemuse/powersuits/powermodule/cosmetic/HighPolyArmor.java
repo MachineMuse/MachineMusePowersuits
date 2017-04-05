@@ -35,11 +35,6 @@ public class HighPolyArmor extends PowerModuleBase {
     }
 
     @Override
-    public String getDescription() {
-        return "Enable 3d Armor";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.highPoly;
     }

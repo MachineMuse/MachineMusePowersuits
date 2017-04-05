@@ -13,6 +13,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -20,7 +21,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.List;
 
@@ -29,13 +29,14 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
     public static final String CHISEL_HARVEST_SPEED = "CHISEL Harvest Speed";
     public static final String CHISEL_ENERGY_CONSUMPTION = "CHISEL Energy Consumption";
 
-    // Fixme put actual item.
+    // TODO Fixme put actual item.
     private static final ItemStack emulatedTool = new ItemStack(
             Item.REGISTRY.getObject(new ResourceLocation("ic2", "electric_treetap")), 1);
 
     public ChiselModule(List<IModularItem> validItems) {
         super(validItems);
-        addInstallCost(new ItemStack(GameRegistry.findItem("minecraft", "obsidian"), 2));
+        //        addInstallCost(new ItemStack(GameRegistry.findItem("minecraft", "obsidian"), 2)); // depreciated, left for now for reference
+        addInstallCost(new ItemStack(Item.getItemFromBlock(Blocks.OBSIDIAN), 2));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBaseProperty(CHISEL_ENERGY_CONSUMPTION, 50, "J");
         addBaseProperty(CHISEL_HARVEST_SPEED, 8, "x");

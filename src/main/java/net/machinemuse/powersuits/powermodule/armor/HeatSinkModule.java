@@ -38,11 +38,6 @@ public class HeatSinkModule extends PowerModuleBase {
     }
 
     @Override
-    public String getDescription() {
-        return "A thick layer of plating to soak up heat.";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.heatSink;
     }

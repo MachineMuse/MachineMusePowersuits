@@ -47,9 +47,4 @@ public class ClockModule extends PowerModuleBase implements IToggleableModule {
     public String getUnlocalizedName() {
         return "clock";
     }
-
-    @Override
-    public String getDescription() {
-        return "A clock on the run that shows you the time, no matter where you are. Toggleable by keybinds.";
-    }
 }

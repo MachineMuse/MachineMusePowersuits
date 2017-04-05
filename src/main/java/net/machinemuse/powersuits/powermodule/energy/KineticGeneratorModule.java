@@ -51,11 +51,6 @@ public class KineticGeneratorModule extends PowerModuleBase implements IPlayerTi
     }
 
     @Override
-    public String getDescription() {
-        return "Generate power with your movement.";
-    }
-
-    @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         if (!player.isAirBorne) {
             NBTTagCompound tag = MuseItemUtils.getMuseItemTag(item);

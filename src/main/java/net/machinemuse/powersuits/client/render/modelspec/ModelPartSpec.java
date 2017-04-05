@@ -6,8 +6,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.property.IExtendedBlockState;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.List;

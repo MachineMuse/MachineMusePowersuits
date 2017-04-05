@@ -47,11 +47,6 @@ public class SolarGeneratorModule extends PowerModuleBase implements IPlayerTick
     }
 
     @Override
-    public String getDescription() {
-        return "Let the sun power your adventures.";
-    }
-
-    @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         ItemStack helmet = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
         if (helmet != null && helmet.equals(item)) {

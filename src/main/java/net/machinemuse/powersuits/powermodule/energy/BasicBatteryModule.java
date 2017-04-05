@@ -43,11 +43,6 @@ public class BasicBatteryModule extends PowerModuleBase {
     }
 
     @Override
-    public String getDescription() {
-        return "Integrate a battery to allow the item to store energy.";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.basicBattery;
     }

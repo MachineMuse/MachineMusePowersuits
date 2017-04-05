@@ -42,12 +42,8 @@ public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickM
     }
 
     @Override
-    public String getUnlocalizedName() { return "coolingSystem";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Cools down heat-producing modules quicker.";
+    public String getUnlocalizedName() {
+        return "coolingSystem";
     }
 
     @Override

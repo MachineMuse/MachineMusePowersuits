@@ -1,14 +1,11 @@
 package net.machinemuse.powersuits.event;
 
 import net.machinemuse.numina.network.PacketSender;
-import net.machinemuse.powersuits.client.render.model.ModelHelper;
 import net.machinemuse.powersuits.network.packets.MusePacketPropertyModifierConfig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Author: MachineMuse (Claire Semple)

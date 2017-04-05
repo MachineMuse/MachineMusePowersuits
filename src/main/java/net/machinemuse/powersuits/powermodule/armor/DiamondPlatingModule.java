@@ -36,11 +36,6 @@ public class DiamondPlatingModule extends PowerModuleBase {
     }
 
     @Override
-    public String getDescription() {
-        return "Advanced plating is lighter, harder, and more protective than Basic but much harder to make.";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.diamondPlating;
     }

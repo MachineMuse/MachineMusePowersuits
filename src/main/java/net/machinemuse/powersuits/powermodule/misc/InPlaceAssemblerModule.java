@@ -23,7 +23,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class InPlaceAssemblerModule extends PowerModuleBase implements IRightClickModule {
-
     public static final String MODULE_PORTABLE_CRAFTING = "In-Place Assembler";
 
     public InPlaceAssemblerModule(List<IModularItem> validItems) {
@@ -45,11 +44,6 @@ public class InPlaceAssemblerModule extends PowerModuleBase implements IRightCli
     @Override
     public String getUnlocalizedName() {
         return "portableCraftingTable";
-    }
-
-    @Override
-    public String getDescription() {
-        return "A larger crafting grid, on the go.";
     }
 
     @Override

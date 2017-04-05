@@ -52,15 +52,6 @@ public class TinkerTableRenderer extends TileEntitySpecialRenderer<TileEntityTin
         } else
             GlStateManager.translate(x, y, z); // y is up, x is east, z is south
         model.doRender(null, x, y, z, partialTicks);
-        // float texturex = 80 / 256.0f;
-        // float texturey = 32 / 256.0f;
-        // float texturex2 = 96 / 256.0f;
-        // float texturey2 = 48 / 256.0f;
-        // MuseRenderer.drawRectPrism(
-        // x, x + 1,
-        // y + 0.5f, y + 1,
-        // z, z + 1,
-        // texturex, texturey, texturex2, texturey2);
         GlStateManager.popMatrix();
     }
 }

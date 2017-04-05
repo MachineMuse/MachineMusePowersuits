@@ -64,10 +64,6 @@ public class WaterTankModule extends PowerModuleBase implements IPlayerTickModul
     }
 
     @Override
-    public String getDescription() {
-        return "Store water which can later be used to cool yourself in emergency situations.";
-    }
-    @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         if (MuseItemUtils.getWaterLevel(item) > ModuleManager.computeModularProperty(item, WATER_TANK_SIZE)) {
             MuseItemUtils.setWaterLevel(item, ModuleManager.computeModularProperty(item, WATER_TANK_SIZE));

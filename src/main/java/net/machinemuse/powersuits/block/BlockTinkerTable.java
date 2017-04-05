@@ -60,6 +60,7 @@ public class BlockTinkerTable extends Block {
         return true;
     }
 
+    @SuppressWarnings("deprecation")
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
@@ -70,19 +71,22 @@ public class BlockTinkerTable extends Block {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isFullBlock(IBlockState state) {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public EnumBlockRenderType getRenderType(IBlockState state) {
-        //return EnumBlockRenderType.MODEL; // TODO: fix this. The static rendered setup is horrible, such as hte translucent stuff doesn't work, the texures have to be resized, the glow doesnt work, the animation needs stupid undocumented code to make work
+        // TODO: either quit whining about forge animation API and figure out how to use it, or make a new model that doesn't need it.
         return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
     }
 

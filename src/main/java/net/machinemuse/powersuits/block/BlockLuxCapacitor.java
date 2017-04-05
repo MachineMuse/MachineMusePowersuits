@@ -77,6 +77,7 @@ public class BlockLuxCapacitor extends BlockDirectional {
         GameRegistry.registerTileEntity(TileEntityLuxCapacitor.class, name);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         switch (state.getValue(FACING)) {
@@ -96,11 +97,13 @@ public class BlockLuxCapacitor extends BlockDirectional {
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     public boolean isFullyOpaque(IBlockState state) {
         return  state.getValue(FACING) == EnumFacing.UP || state.getValue(FACING) == EnumFacing.DOWN;
     }
@@ -134,11 +137,13 @@ public class BlockLuxCapacitor extends BlockDirectional {
         return state;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isFullCube(IBlockState state) {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta));

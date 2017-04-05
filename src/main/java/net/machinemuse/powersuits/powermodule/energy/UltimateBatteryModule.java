@@ -23,12 +23,12 @@ public class UltimateBatteryModule extends PowerModuleBase {
         // TODO: setup power and install cost
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.evcapacitor, 1));
-        addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 750000, "J");
-        addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g");
+        addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 1250000, "J");
+        addBaseProperty(MuseCommonStrings.WEIGHT, 1500, "g");
         addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 4250000);
-        addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000);
+        addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 6000);
         addBaseProperty(ElectricConversions.IC2_TIER, 1);
-        addTradeoffProperty("IC2 Tier", ElectricConversions.IC2_TIER, 2);
+        addTradeoffProperty("IC2 Tier", ElectricConversions.IC2_TIER, 3);
     }
 
     @Override
@@ -44,13 +44,6 @@ public class UltimateBatteryModule extends PowerModuleBase {
     @Override
     public String getUnlocalizedName() {
         return "ultimateBattery";
-    }
-
-    @Override
-    public String getDescription() {
-        return "<insert some witty description here assuring that this " +
-                "is not stolen alien tech that we have yet to understand " +
-                "and that this device probably won't blow up, we think ...>";
     }
 
     @Override

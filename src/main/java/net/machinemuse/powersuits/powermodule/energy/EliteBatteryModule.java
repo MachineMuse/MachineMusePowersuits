@@ -42,11 +42,6 @@ public class EliteBatteryModule extends PowerModuleBase {
     }
 
     @Override
-    public String getDescription() {
-        return "Integrate the most advanced battery to store an extensive amount of energy.";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.eliteBattery;
     }

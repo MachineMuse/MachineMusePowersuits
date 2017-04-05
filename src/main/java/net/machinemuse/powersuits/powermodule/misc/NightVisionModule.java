@@ -38,12 +38,8 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
     }
 
     @Override
-    public String getUnlocalizedName() { return "nightVision";
-    }
-
-    @Override
-    public String getDescription() {
-        return "A pair of augmented vision goggles to help you see at night and underwater.";
+    public String getUnlocalizedName() {
+        return "nightVision";
     }
 
     @Override

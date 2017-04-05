@@ -40,5 +40,6 @@ public class PortableCraftingGui extends GuiContainer {
         super.onGuiClosed();
     }
 
-    public static final ResourceLocation GUI_Loc = new ResourceLocation(Config.TEXTURE_PREFIX +  "gui/crafting.png");
+    public static final ResourceLocation GUI_Loc = //new ResourceLocation(Config.TEXTURE_PREFIX +  "gui/crafting.png");
+            new ResourceLocation("minecraft", "textures/gui/container/crafting_table.png");
 }

@@ -76,7 +76,7 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
             thrust *= MusePlayerUtils.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
             if (hasFlightControl && thrust > 0) {
                 thrust = MusePlayerUtils.thrust(player, thrust, true);
-                if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+                if ((player.worldObj.isRemote) && NuminaConfig.useSounds()) {
                     Musique.playerSound(player, SoundDictionary.SOUND_EVENT_JETBOOTS, SoundCategory.PLAYERS, (float) (thrust * 12.5), 1.0f, true);
                 }
                 ElectricItemUtils.drainPlayerEnergy(player, thrust * jetEnergy);
@@ -87,12 +87,12 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
                 }
                 ElectricItemUtils.drainPlayerEnergy(player, thrust * jetEnergy);
             } else {
-                if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+                if ((player.worldObj.isRemote) && NuminaConfig.useSounds()) {
                     Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_JETBOOTS);
                 }
             }
         } else {
-            if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+            if (player.worldObj.isRemote && NuminaConfig.useSounds()) {
                 Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_JETBOOTS);
             }
         }
@@ -100,7 +100,7 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-        if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+        if (player.worldObj.isRemote && NuminaConfig.useSounds()) {
             Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_JETBOOTS);
         }
     }

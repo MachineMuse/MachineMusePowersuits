@@ -57,11 +57,6 @@ public class ThermalGeneratorModule extends PowerModuleBase implements IPlayerTi
     }
 
     @Override
-    public String getDescription() {
-        return "Generate power from extreme amounts of heat.";
-    }
-
-    @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         double currentHeat = MuseHeatUtils.getPlayerHeat(player);
         double maxHeat = MuseHeatUtils.getMaxHeat(player);

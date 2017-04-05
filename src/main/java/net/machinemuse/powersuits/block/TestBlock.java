@@ -41,11 +41,13 @@ public class TestBlock extends BlockDirectional {
         setHarvestLevel("pickaxe", 0);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     public boolean isFullyOpaque(IBlockState state) {
         return  state.getValue(FACING) == EnumFacing.UP || state.getValue(FACING) == EnumFacing.DOWN;
     }
@@ -71,11 +73,13 @@ public class TestBlock extends BlockDirectional {
         return new BlockStateContainer(this, new IProperty[] {FACING});
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isFullCube(IBlockState state) {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta));

@@ -44,11 +44,6 @@ public class ApiaristArmorModule extends PowerModuleBase {
     }
 
     @Override
-    public String getDescription() {
-        return "A set of Forestry apiarist armor integrated into your armor.";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.apiaristArmor;
     }

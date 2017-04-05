@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.client.render.block;
 
 import net.machinemuse.numina.render.RenderState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -242,16 +243,16 @@ public class TinkerTableModel extends ModelBase {
 
 
 //        // testing
-//        GL11.glPushMatrix();
-//        if (Minecraft.getMinecraft().isFancyGraphicsEnabled()) {
-//            if (f1 != 0) {
-//                GL11.glDisable(GL11.GL_CULL_FACE);
-//                for (int i = 0; i < 1; i++) {
-//                    drawScanLine(angle);
-//                }
-//            }
-//        }
-//        GL11.glPopMatrix();
+        GL11.glPushMatrix();
+        if (Minecraft.getMinecraft().isFancyGraphicsEnabled()) {
+            if (f1 != 0) {
+                GL11.glDisable(GL11.GL_CULL_FACE);
+                for (int i = 0; i < 1; i++) {
+                    drawScanLine(angle);
+                }
+            }
+        }
+        GL11.glPopMatrix();
         // end testing
 
         RenderState.glowOff();

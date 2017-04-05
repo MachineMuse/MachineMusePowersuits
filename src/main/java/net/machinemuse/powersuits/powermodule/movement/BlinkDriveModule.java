@@ -53,11 +53,6 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public String getDescription() {
-        return "Get from point A to point C via point B, where point B is a fold in space & time.";
-    }
-
-    @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         SoundEvent enderman_portal =  SoundEvent.REGISTRY.getObject(new ResourceLocation("entity.endermen.teleport"));
         double range = ModuleManager.computeModularProperty(itemStackIn, BLINK_DRIVE_RANGE);

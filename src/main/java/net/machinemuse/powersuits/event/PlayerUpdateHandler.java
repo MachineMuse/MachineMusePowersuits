@@ -14,9 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.List;
 
@@ -77,7 +75,7 @@ public class PlayerUpdateHandler {
                     player.extinguish();
                 }
                 double velsq2 = MuseMathUtils.sumsq(player.motionX, player.motionY, player.motionZ) - 0.5;
-                if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+                if (player.worldObj.isRemote && NuminaConfig.useSounds()) {
                     if (player.isAirBorne && velsq2 > 0) {
                         Musique.playerSound(player, SoundDictionary.SOUND_EVENT_GLIDER, SoundCategory.PLAYERS, (float)(velsq2 / 3), 1.0f, true);
                     }
@@ -85,7 +83,8 @@ public class PlayerUpdateHandler {
                         Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_GLIDER);
                     }
                 }
-            }
+            } else if (player.worldObj.isRemote && NuminaConfig.useSounds())
+                Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_GLIDER);
         }
     }
 }

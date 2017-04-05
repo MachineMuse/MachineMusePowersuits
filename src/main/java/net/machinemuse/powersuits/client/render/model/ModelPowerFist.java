@@ -165,6 +165,7 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
         return modelOriginal.getParticleTexture();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public ItemCameraTransforms getItemCameraTransforms() {
         return modelOriginal.getItemCameraTransforms();

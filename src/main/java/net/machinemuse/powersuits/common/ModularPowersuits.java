@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.common;
 
-import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.common.proxy.CommonProxy;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
@@ -8,9 +7,6 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent;
-import net.minecraftforge.fml.relauncher.Side;
 
 import javax.annotation.Nonnull;
 

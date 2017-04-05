@@ -67,6 +67,7 @@ public class ModelLuxCapacitor implements IBakedModel, IPerspectiveAwareModel {
         return baseFrameModel.isAmbientOcclusion();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public ItemCameraTransforms getItemCameraTransforms() {
         return baseFrameModel.getItemCameraTransforms();

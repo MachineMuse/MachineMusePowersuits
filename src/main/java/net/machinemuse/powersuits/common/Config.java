@@ -22,9 +22,9 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
@@ -413,7 +413,9 @@ public class Config {
                 InstallCost[] costs = (InstallCost[])gson.fromJson(string, (Class)InstallCost[].class);
                 for(InstallCost cost: costs) {
                     String moduleName = cost.moduleName;
-                    Item item = GameRegistry.findItem(cost.modId, cost.itemName);
+//                    Item item = GameRegistry.findItem(cost.modId, cost.itemName);
+                    Item item = Item.REGISTRY.getObject(new ResourceLocation(cost.modId, cost.itemName));
+
                     if(item != null) {
                         int metadata = (cost.itemMetadata == null) ? 0 : cost.itemMetadata;
                         int quantity = (cost.itemQuantity == null) ? 1 : cost.itemQuantity;

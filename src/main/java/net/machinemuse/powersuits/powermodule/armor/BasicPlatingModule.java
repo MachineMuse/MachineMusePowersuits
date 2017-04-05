@@ -32,12 +32,8 @@ public class BasicPlatingModule extends PowerModuleBase {
     }
 
     @Override
-    public String getUnlocalizedName() { return "basicPlating";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Basic plating is heavy but protective.";
+    public String getUnlocalizedName() {
+        return "basicPlating";
     }
 
     @Override

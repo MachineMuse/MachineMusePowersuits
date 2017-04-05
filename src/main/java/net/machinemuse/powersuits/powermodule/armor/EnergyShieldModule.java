@@ -36,11 +36,6 @@ public class EnergyShieldModule extends PowerModuleBase {
     }
 
     @Override
-    public String getDescription() {
-        return "Energy shields are much lighter than plating, but consume energy.";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.energyShield;
     }

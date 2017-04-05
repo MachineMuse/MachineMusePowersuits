@@ -54,25 +54,6 @@ public class ModelBakeEventHandler {
             storeLuxCapModel(facing);
         }
 
-        /* temporary setup for loading the armor models until I can get them to load correctly manually */
-//        Item dummies = MPSItems.dummies;
-//        IBakedModel armorModel;
-//        boolean success = false;
-//        if (dummies != null) {
-//            for (Integer  meta : ((DummyItem)dummies).modelLocations.keySet()) {
-//                ModelResourceLocation location = ((DummyItem)dummies).modelLocations.get(meta);
-//                armorModel= modelRegistry.getObject(location);
-//                if (armorModel instanceof MPSTestingOBJModel.MPSTestingOBJBakedModel) {
-//                    ((DummyItem)dummies).setModel(armorModel, location.getResourcePath());
-//                    success = true;
-//                } else {
-//                    success = false;
-//                }
-//            }
-//            if (success)
-//                loadArmorModels();
-//        }
-
         // put this here because it might be fired late enough to actually work
         if (firstLoad) {
             firstLoad = false;

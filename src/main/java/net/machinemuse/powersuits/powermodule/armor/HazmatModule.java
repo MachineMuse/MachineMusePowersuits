@@ -34,11 +34,6 @@ public class HazmatModule extends PowerModuleBase {
     }
 
     @Override
-    public String getDescription() {
-        return "Protect yourself from electricity and radiation poisoning. *Must be on every piece for 100% protection*";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.hazmat;
     }

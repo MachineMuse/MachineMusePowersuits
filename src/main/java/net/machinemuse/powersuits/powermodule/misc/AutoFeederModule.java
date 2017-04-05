@@ -51,11 +51,6 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
     }
 
     @Override
-    public String getDescription() {
-        return "Whenever you're hungry, this module will grab the bottom-left-most food item from your inventory and feed it to you, storing the rest for later.";
-    }
-
-    @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         if (Config.useOldAutoFeeder()) {
             IInventory inv = player.inventory;

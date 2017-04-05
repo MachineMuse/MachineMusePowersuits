@@ -19,8 +19,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.List;
 
@@ -78,22 +76,22 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
                 double swimAssistRate = ModuleManager.computeModularProperty(item, SWIM_BOOST_AMOUNT) * 0.05 * moveRatio;;
                 double swimEnergyConsumption = ModuleManager.computeModularProperty(item, SWIM_BOOST_ENERGY_CONSUMPTION);
                 if (swimEnergyConsumption < ElectricItemUtils.getPlayerEnergy(player)) {
-                    if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+                    if (player.worldObj.isRemote && NuminaConfig.useSounds()) {
                         Musique.playerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST, SoundCategory.PLAYERS, 1.0f, 1.0f, true);
                     }
                     MusePlayerUtils.thrust(player, swimAssistRate, true);
                 } else {
-                    if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+                    if (player.worldObj.isRemote && NuminaConfig.useSounds()) {
                         Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST);
                     }
                 }
             } else {
-                if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+                if (player.worldObj.isRemote && NuminaConfig.useSounds()) {
                     Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST);
                 }
             }
         } else {
-            if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+            if (player.worldObj.isRemote && NuminaConfig.useSounds()) {
                 Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST);
             }
         }
@@ -101,7 +99,7 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-        if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+        if (player.worldObj.isRemote && NuminaConfig.useSounds()) {
             Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST);
         }
     }

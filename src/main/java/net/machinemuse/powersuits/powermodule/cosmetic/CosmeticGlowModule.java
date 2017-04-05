@@ -42,11 +42,6 @@ public class CosmeticGlowModule extends PowerModuleBase {
     }
 
     @Override
-    public String getDescription() {
-        return "Change the appearance of the glowy bits on your armor.";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.cosmeticGlow;
     }

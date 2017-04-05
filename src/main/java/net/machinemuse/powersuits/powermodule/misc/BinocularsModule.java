@@ -45,11 +45,6 @@ public class BinocularsModule extends PowerModuleBase implements IToggleableModu
     }
 
     @Override
-    public String getDescription() {
-        return "With the problems that have been plaguing Optifine lately, you've decided to take that Zoom ability into your own hands.";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.binoculars;
     }

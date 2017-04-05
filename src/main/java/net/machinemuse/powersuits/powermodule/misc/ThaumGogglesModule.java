@@ -40,12 +40,8 @@ public class ThaumGogglesModule extends PowerModuleBase implements IToggleableMo
     }
 
     @Override
-    public String getUnlocalizedName() { return "aurameter";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Connect up some Thaumic goggles to have them embedded in your helmet. (Does not give Vis usage discount)";
+    public String getUnlocalizedName() {
+        return "aurameter";
     }
 
     @Override

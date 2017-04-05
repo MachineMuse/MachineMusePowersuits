@@ -42,11 +42,6 @@ public class TintModule extends PowerModuleBase {
     }
 
     @Override
-    public String getDescription() {
-        return "Give your armor some coloured tinting to customize your armor's appearance.";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.tint;
     }
