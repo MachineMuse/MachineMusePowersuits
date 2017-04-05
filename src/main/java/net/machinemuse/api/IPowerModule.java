@@ -20,17 +20,9 @@ public interface IPowerModule {
 
 	String getDataName();
 
-    // Use I18n.format("module." + m.getUnlocalizedName + ".name") instead
-    @Deprecated
-	String getLocalizedName();
-
 	double applyPropertyModifiers(NBTTagCompound itemTag, String propertyName, double propertyValue);
 
 	NBTTagCompound getNewTag();
-
-    // Use I18n.format("module." + m.getUnlocalizedName + ".desc") instead
-    @Deprecated
-	String getDescription();
 
 	Map<String, List<IPropertyModifier>> getPropertyModifiers();
 

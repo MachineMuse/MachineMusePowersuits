@@ -22,17 +22,6 @@ public class PowerModule extends PowerModuleBase {
 		return name;
 	}
 
-    @Override
-    public String getLocalizedName() {
-        return "This module did not correctly label its name.";
-    }
-
-
-	@Override
-	public String getDescription() {
-		return description;
-	}
-
 	@Override
 	public String getCategory() {
 		return category;

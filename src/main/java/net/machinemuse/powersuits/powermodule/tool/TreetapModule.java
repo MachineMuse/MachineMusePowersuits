@@ -98,11 +98,6 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
         return "treetap";
     }
 
-    @Override
-    public String getDescription() {
-        return "An IC2 treetap integrated in your power tool.";
-    }
-
     public static void eject(World world, BlockPos pos, EnumFacing side, int quantity) {
         double ejectX = (double)pos.getX() + 0.5D + (double)side.getFrontOffsetX() * 0.3D;
         double ejectY = (double)pos.getY() + 0.5D + (double)side.getFrontOffsetY() * 0.3D;

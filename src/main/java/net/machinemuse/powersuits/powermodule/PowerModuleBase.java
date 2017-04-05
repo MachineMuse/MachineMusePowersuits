@@ -152,16 +152,6 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
     }
 
     @Override
-    public String getLocalizedName() {
-        return I18n.format("module." + getUnlocalizedName() + ".name");
-    }
-
-    @Override
-    public String getDescription() {
-        return I18n.format("module." + getUnlocalizedName() + ".desc");
-    }
-
-    @Override
     public String getUnlocalizedName() {
         return "Unknown Module";
     }

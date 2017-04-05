@@ -84,11 +84,6 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
     }
 
     @Override
-    public String getDescription() {
-        return "A prototype multi-use probe integrated into your power tool.";
-    }
-
-    @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }

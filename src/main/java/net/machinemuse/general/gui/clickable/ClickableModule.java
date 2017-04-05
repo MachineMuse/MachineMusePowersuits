@@ -44,13 +44,13 @@ public class ClickableModule extends Clickable {
     public String getLocalizedName(IPowerModule m) {
         if (m instanceof ILocalizeableModule)
             return I18n.format("module." + ((ILocalizeableModule) m).getUnlocalizedName() + ".name");
-        return m.getLocalizedName();
+        return "module has broken translation for localized name";
     }
 
     public String getLocalizedDescription(IPowerModule m) {
         if (m instanceof ILocalizeableModule)
             return I18n.format("module." + ((ILocalizeableModule) m).getUnlocalizedName() + ".desc");
-        return m.getDescription();
+        return "module has broken translation for description";
     }
 
     @Override
