@@ -36,12 +36,8 @@ public class MFFSFieldTeleporterModule extends PowerModuleBase {
     }
 
     @Override
-    public String getUnlocalizedName() { return "mffsFieldTeleporter";
-    }
-
-    @Override
-    public String getDescription() {
-        return "A tool which allows you to teleport through MFFS forcefields that you own if you have enough energy.";
+    public String getUnlocalizedName() {
+        return "mffsFieldTeleporter";
     }
 
     @Override

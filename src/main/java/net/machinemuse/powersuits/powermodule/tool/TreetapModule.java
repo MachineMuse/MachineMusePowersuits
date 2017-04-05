@@ -35,13 +35,7 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
     public static final ItemStack resin = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("ic2", "misc_resource")), 1, 4);
     public static final Block rubber_wood =  Block.REGISTRY.getObject(new ResourceLocation("ic2", "rubber_wood"));
     public static final ItemStack emulatedTool = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("ic2", "electric_treetap")), 1);
-
-
     public static final ItemStack treetap  = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("ic2", "treetap")), 1);
-
-
-
-
 
     public TreetapModule(List<IModularItem> validItems) {
         super(validItems);
@@ -78,9 +72,6 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
         }
         return EnumActionResult.FAIL;
     }
-
-
-
 
     @Override
     public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
@@ -123,7 +114,6 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
             world.spawnEntityInWorld(item);
         }
     }
-
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {

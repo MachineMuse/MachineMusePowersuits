@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.powermodule.tool;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
@@ -62,7 +63,8 @@ public class OmniWrenchModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-//        if (!StolenWrenchCode.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ)) {
+        //FIXME
+        //        if (!StolenWrenchCode.onItemUseFirst(stack, player, world, x, y, z, side, hitX, hitY, hitZ)) {
 //            Block block = world.getBlock(x, y, z);
 //            if (world.blockExists(x, y, z) && world.canMineBlock(player, x, y, z) && (block != null)) {
 //                if (block.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side))) {
@@ -84,6 +86,6 @@ public class OmniWrenchModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
-        return super.getIcon(item); // FIXME!!!
+        return MuseIcon.omniwrench;
     }
 }

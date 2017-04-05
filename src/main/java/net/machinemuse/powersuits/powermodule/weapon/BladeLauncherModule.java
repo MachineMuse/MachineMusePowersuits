@@ -47,12 +47,8 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
     }
 
     @Override
-    public String getUnlocalizedName() { return "bladeLauncher";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Launches a spinning blade of death (or shearing).";
+    public String getUnlocalizedName() {
+        return "bladeLauncher";
     }
 
     @Override

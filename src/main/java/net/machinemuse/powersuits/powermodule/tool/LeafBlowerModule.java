@@ -79,11 +79,6 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public String getDescription() {
-        return "Create a torrent of air to knock plants out of the ground and leaves off of trees.";
-    }
-
-    @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }

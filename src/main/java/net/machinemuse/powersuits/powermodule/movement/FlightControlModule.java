@@ -33,12 +33,8 @@ public class FlightControlModule extends PowerModuleBase implements IToggleableM
     }
 
     @Override
-    public String getUnlocalizedName() { return "flightControl";
-    }
-
-    @Override
-    public String getDescription() {
-        return "An integrated control circuit to help you fly better. Press Z to go down.";
+    public String getUnlocalizedName() {
+        return "flightControl";
     }
 
     @Override

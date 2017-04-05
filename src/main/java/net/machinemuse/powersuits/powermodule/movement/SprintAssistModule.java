@@ -102,6 +102,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
             }
         }
 
+        //TODO: fix this so knockback does not have to be readded
         // this should be when first created
         if (sprintModifiers.hasNoTags()) {
             modifiers.appendTag(new AttributeModifier(1, TAGUUID, multiplier - 1, "generic.movementSpeed", "Sprint Assist", EntityEquipmentSlot.LEGS).toNBT());

@@ -59,11 +59,6 @@
 //    }
 //
 //    @Override
-//    public String getDescription() {
-//        return "A Compact Machines Personal Shrinking Device integrated into your power tool.";
-//    }
-//
-//    @Override
 //    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
 //        cpmPSD.getItem().onItemRightClick(item, world, player);
 //

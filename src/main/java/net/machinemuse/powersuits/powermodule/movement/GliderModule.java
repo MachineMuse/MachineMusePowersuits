@@ -38,12 +38,8 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
     }
 
     @Override
-    public String getUnlocalizedName() { return "glider";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Tack on some wings to turn downward into forward momentum. Press sneak+forward while falling to activate.";
+    public String getUnlocalizedName() {
+        return "glider";
     }
 
     @Override

@@ -55,12 +55,8 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
     }
 
     @Override
-    public String getUnlocalizedName() { return "axe";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Axes are mostly for chopping trees.";
+    public String getUnlocalizedName() {
+        return "axe";
     }
 
     @Override

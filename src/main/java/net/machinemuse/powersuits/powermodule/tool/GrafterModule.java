@@ -41,12 +41,8 @@ public class GrafterModule extends PowerModuleBase {
     }
 
     @Override
-    public String getUnlocalizedName() { return "grafter";
-    }
-
-    @Override
-    public String getDescription() {
-        return "A Forestry grafter integrated into your power tool.";
+    public String getUnlocalizedName() {
+        return "grafter";
     }
 
     @Override

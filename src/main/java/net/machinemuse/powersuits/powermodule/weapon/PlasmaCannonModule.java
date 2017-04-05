@@ -56,12 +56,8 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
     }
 
     @Override
-    public String getUnlocalizedName() { return "plasmaCannon";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.";
+    public String getUnlocalizedName() {
+        return "plasmaCannon";
     }
 
     @Override

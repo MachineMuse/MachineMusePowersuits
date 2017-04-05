@@ -45,11 +45,6 @@ public class MeleeAssistModule extends PowerModuleBase {
     }
 
     @Override
-    public String getDescription() {
-        return "A much simpler addon, makes your powertool punches hit harder.";
-    }
-
-    @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.meleeAssist;
     }

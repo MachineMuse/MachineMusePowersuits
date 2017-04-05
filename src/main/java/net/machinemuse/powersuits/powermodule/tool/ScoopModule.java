@@ -54,7 +54,7 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
 
     @Override
     public String getUnlocalizedName() {
-        return "emulatedTool";
+        return "scoop";
     }
 
     @Override
@@ -79,7 +79,6 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
             return true;
         }
         return false;
-
     }
 
     @Override

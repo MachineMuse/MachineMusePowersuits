@@ -60,11 +60,6 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public String getDescription() {
-        return "This won't let you chisel blocks, but it will at least let you harvest them.";
-    }
-
-    @Override
     public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
         if (ToolHelpers.isEffectiveTool(state, emulatedTool)) {
             if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, CHISEL_ENERGY_CONSUMPTION)) {

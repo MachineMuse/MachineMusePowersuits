@@ -50,11 +50,6 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
     }
 
     @Override
-    public String getDescription() {
-        return "By refitting an ion thruster for underwater use, you may be able to add extra forward (or backward) thrust when underwater.";
-    }
-
-    @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         if (player.isInWater() && !(player.isRiding())) {
             PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());

@@ -47,12 +47,8 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
     }
 
     @Override
-    public String getUnlocalizedName() { return "aquaAffinity";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Reduces the speed penalty for using your tool underwater.";
+    public String getUnlocalizedName() {
+        return "aquaAffinity";
     }
 
     @Override

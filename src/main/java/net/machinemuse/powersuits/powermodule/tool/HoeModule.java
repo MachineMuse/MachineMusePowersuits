@@ -94,7 +94,6 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
         }
     }
 
-
     @Override
     public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         return EnumActionResult.PASS;
@@ -116,12 +115,8 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
     }
 
     @Override
-    public String getUnlocalizedName() { return "hoe";
-    }
-
-    @Override
-    public String getDescription() {
-        return "An automated tilling addon to make it easy to till large swaths of land at once.";
+    public String getUnlocalizedName() {
+        return "hoe";
     }
 
     @Override

@@ -48,12 +48,8 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
     }
 
     @Override
-    public String getUnlocalizedName() { return "jetpack";
-    }
-
-    @Override
-    public String getDescription() {
-        return "A jetpack should allow you to jump indefinitely, or at least until you run out of power.";
+    public String getUnlocalizedName() {
+        return "jetpack";
     }
 
     @Override

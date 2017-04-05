@@ -57,11 +57,6 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
     }
 
     @Override
-    public String getDescription() {
-        return "Picks are good for harder materials like stone and ore.";
-    }
-
-    @Override
     public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
         if (ToolHelpers.isEffectiveTool(state, emulatedTool)) {
             if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, PICKAXE_ENERGY_CONSUMPTION)) {

@@ -52,7 +52,6 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
         addTradeoffProperty("Overclock", SHEARING_HARVEST_SPEED, 22);
     }
 
-
     @Override
     public String getCategory() {
         return MuseCommonStrings.CATEGORY_TOOL;
@@ -64,12 +63,8 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public String getUnlocalizedName() { return "emulatedTool";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Cuts through leaves, wool, and creepers alike.";
+    public String getUnlocalizedName() {
+        return "shears";
     }
 
     @Override

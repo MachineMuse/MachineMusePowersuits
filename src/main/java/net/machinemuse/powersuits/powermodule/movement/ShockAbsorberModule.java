@@ -36,12 +36,8 @@ public class ShockAbsorberModule extends PowerModuleBase implements IToggleableM
     }
 
     @Override
-    public String getUnlocalizedName() { return "shockAbsorber";
-    }
-
-    @Override
-    public String getDescription() {
-        return "With some servos, springs, and padding, you should be able to negate a portion of fall damage.";
+    public String getUnlocalizedName() {
+        return "shockAbsorber";
     }
 
     @Override

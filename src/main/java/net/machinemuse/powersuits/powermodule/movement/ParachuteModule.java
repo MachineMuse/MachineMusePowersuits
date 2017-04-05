@@ -38,12 +38,8 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
     }
 
     @Override
-    public String getUnlocalizedName() { return "parachute";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Add a parachute to slow your descent. Activate by pressing sneak (defaults to Shift) in midair.";
+    public String getUnlocalizedName() {
+        return "parachute";
     }
 
     @Override

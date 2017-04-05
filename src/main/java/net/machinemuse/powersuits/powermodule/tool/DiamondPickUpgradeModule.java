@@ -44,12 +44,8 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
     }
 
     @Override
-    public String getUnlocalizedName() { return "diamondPickUpgrade";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Add diamonds to allow your pickaxe module to mine Obsidian. *REQUIRES PICKAXE MODULE TO WORK*";
+    public String getUnlocalizedName() {
+        return "diamondPickUpgrade";
     }
 
     @Override

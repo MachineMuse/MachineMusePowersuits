@@ -52,12 +52,8 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
     }
 
     @Override
-    public String getUnlocalizedName() { return "luxCapacitor";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Launch a virtually infinite number of attractive light sources at the wall.";
+    public String getUnlocalizedName() {
+        return "luxCapacitor";
     }
 
     @Override

@@ -55,11 +55,6 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
     }
 
     @Override
-    public String getDescription() {
-        return "Jet boots are not as strong as a jetpack, but they should at least be strong enough to counteract gravity.";
-    }
-
-    @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         ItemStack chest = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
         if (player.isInWater()) {

@@ -63,11 +63,6 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
         return "railgun";
     }
 
-    @Override
-    public String getDescription() {
-        return "An assembly which accelerates a projectile to supersonic speeds using magnetic force. Heavy recoil.";
-    }
-
     public void drawParticleStreamTo(EntityPlayer source, World world, double x, double y, double z) {
         Vec3d direction = source.getLookVec().normalize();
         double scale = 1.0;

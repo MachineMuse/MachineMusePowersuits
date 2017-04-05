@@ -80,11 +80,6 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public String getDescription() {
-        return "Shovels are good for soft materials like dirt and sand.";
-    }
-
-    @Override
     public ItemStack getEmulatedTool() {
         return emulatedTool;
     }

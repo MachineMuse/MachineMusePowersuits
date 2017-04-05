@@ -33,12 +33,8 @@ public class ClimbAssistModule extends PowerModuleBase implements IToggleableMod
     }
 
     @Override
-    public String getUnlocalizedName() { return "climbAssist";
-    }
-
-    @Override
-    public String getDescription() {
-        return "A pair of dedicated servos allow you to effortlessly step up 1m-high ledges.";
+    public String getUnlocalizedName() {
+        return "climbAssist";
     }
 
     @Override

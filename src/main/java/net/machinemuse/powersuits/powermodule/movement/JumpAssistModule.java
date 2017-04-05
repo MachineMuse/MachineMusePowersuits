@@ -42,12 +42,8 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
     }
 
     @Override
-    public String getUnlocalizedName() { return "jumpAssist";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Another set of servo motors to help you jump higher.";
+    public String getUnlocalizedName() {
+        return "jumpAssist";
     }
 
     @Override
