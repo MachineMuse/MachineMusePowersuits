@@ -11,7 +11,7 @@ Modular Powersuits is a Minecraft mod based around the idea of an inventor who t
 
 CurseForge:
 
-https://minecraft.curseforge.com/mc-mods/235442-modular-powersuits
+https://minecraft.curseforge.com/projects/modular-powersuits/files?
 
 Site:
 
