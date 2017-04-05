@@ -17,8 +17,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
@@ -29,12 +27,11 @@ import java.util.List;
 /**
  * Created by lehjr on 12/19/16.
  */
-@SideOnly(Side.CLIENT)
 public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
     // TODO: switch to our obj models asap
 
-    public static ToolModel powerFistRightModel = new ToolModel(false);
-    public static ToolModel powerFistLeftModel = new ToolModel(true);
+    public static ToolModel powerFistRightModel = new ToolModel(true);
+    public static ToolModel powerFistLeftModel = new ToolModel(false);
     public IBakedModel modelOriginal;
     public ItemStack itemStack;
     public World world;
@@ -54,14 +51,7 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
 
     public ItemCameraTransforms.TransformType cameraTransformType = ItemCameraTransforms.TransformType.NONE;
 
-    public void handleItemState(ItemStack itemStackIn, World worldIn, EntityLivingBase entityLivingBaseIn) {
-        itemStack = itemStackIn;
-        world = worldIn;
-        entity = entityLivingBaseIn;
-        item = itemStack.getItem();
-        colour = ((IModularItemBase) item).getColorFromItemStack(itemStack);
-        glow = ((IModularItemBase) item).getColorFromItemStack(itemStack);
-    }
+
 
     /*
         First person model and third person models are switched for each side due to some rendering oddity that makes the
@@ -81,7 +71,7 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
                 } else {
                     powerFistLeftModel.setNeutralPose();
                 }
-                powerFistLeftModel.render(entity, 1, cameraTransformTypeIn, colour, glow);
+                powerFistLeftModel.render(entity, 0.625f, cameraTransformTypeIn, colour, glow);
                 break;
 
             case THIRD_PERSON_LEFT_HAND:
@@ -90,7 +80,7 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
                 } else {
                     powerFistLeftModel.setNeutralPose();
                 }
-                powerFistLeftModel.render(entity, 1, cameraTransformTypeIn, colour, glow);
+                powerFistLeftModel.render(entity, 0.625f, cameraTransformTypeIn, colour, glow);
                 break;
 
 
@@ -101,7 +91,7 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
                 } else {
                     powerFistRightModel.setNeutralPose();
                 }
-                powerFistRightModel.render(entity, 1, cameraTransformTypeIn, colour, glow);
+                powerFistRightModel.render(entity, 0.625f, cameraTransformTypeIn, colour, glow);
                 break;
 
             case THIRD_PERSON_RIGHT_HAND:
@@ -110,12 +100,12 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
                 } else {
                     powerFistRightModel.setNeutralPose();
                 }
-                powerFistRightModel.render(entity, 1, cameraTransformTypeIn, colour, glow);
+                powerFistRightModel.render(entity, 0.625f, cameraTransformTypeIn, colour, glow);
                 break;
 
             case GROUND: // defaut to right hand model when on the ground;
                 powerFistRightModel.setNeutralPose();
-                powerFistRightModel.render(null, 1, cameraTransformTypeIn, colour, glow);
+                powerFistRightModel.render(null, 0.625f, cameraTransformTypeIn, colour, glow);
                 break;
 
 
@@ -167,8 +157,6 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
 
     @Override
     public boolean isBuiltInRenderer() {
-//        if (cameraTransformType == ItemCameraTransforms.TransformType.GUI)
-//            return true;
         return modelOriginal.isBuiltInRenderer();
     }
 
@@ -195,10 +183,13 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
         }
 
         @Override
-        public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity) {
-            if (originalModel instanceof ModelPowerFist) {
-                ((ModelPowerFist)originalModel).handleItemState(stack, world, entity);
-            }
+        public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stackIn, World worldIn, EntityLivingBase entityIn) {
+            itemStack = stackIn;
+            world = worldIn;
+            entity = entityIn;
+            item = itemStack.getItem();
+            colour = ((IModularItemBase) item).getColorFromItemStack(itemStack);
+            glow = ((IModularItemBase) item).getGlowFromItemStack(itemStack);
             return originalModel;
         }
     }

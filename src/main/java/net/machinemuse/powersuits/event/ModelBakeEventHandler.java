@@ -42,9 +42,9 @@ public class ModelBakeEventHandler {
     public void onModelBake(ModelBakeEvent event) throws IOException {
         modelRegistry = event.getModelRegistry();
 
-        // Power Fist
-//        powerFistModel = new ModelPowerFist(modelRegistry.getObject(powerFistIconLocation));
-//        modelRegistry.putObject(powerFistIconLocation, powerFistModel);
+//         Power Fist
+        powerFistModel = new ModelPowerFist(modelRegistry.getObject(powerFistIconLocation));
+        modelRegistry.putObject(powerFistIconLocation, powerFistModel);
 
         // Lux Capacitor as Item
         storeLuxCapModel(null);

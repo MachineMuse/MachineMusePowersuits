@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import static net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND;
@@ -196,7 +197,6 @@ public class ToolModel extends ModelBase {
         thumb1.setTextureSize(64, 32);
         thumb1.mirror = true;
         setRotation(thumb1, 0.0F, (isRightHand) ? -0.4014257F : 0.4014257F, 0.0F);
-//        setRotation(thumb1,0.0F,0.4014257F,0.0F);
 
 
         thumb2 = new ModelRenderer(this, 10, 0);
@@ -363,25 +363,16 @@ public class ToolModel extends ModelBase {
         palm.addChild(ringfinger1);
         palm.addChild(pinky1);
         palm.addChild(thumb1);
-        // makeChild(index2, index1);
-        // makeChild(middlefinger2, middlefinger1);
-        // makeChild(ringfinger2, ringfinger1);
-        // makeChild(pinky2, pinky1);
-        // makeChild(thumb2, thumb1);
-        // makeChild(index1, palm);
-        // makeChild(middlefinger1, palm);
-        // makeChild(ringfinger1, palm);
-        // makeChild(pinky1, palm);
-        // makeChild(thumb1, palm);
-        // setRotation(index1, 1.2617994F, 0.0F, 0.0F);
     }
 
-    public static int xtap;
-    public static int ytap;
-    public static int ztap;
+    public static int xtap = 0;
+    public static int ytap = 0;
+    public static int ztap = 0;
     public static float xOffest = 0;
     public static float yOffest = 0;
     public static float zOffest = 0;
+    public static float scalemodifier = 1;
+
 
 
     public static boolean tap;
@@ -396,112 +387,134 @@ public class ToolModel extends ModelBase {
         child.rotateAngleZ -= parent.rotateAngleZ;
     }
 
+
+    /*
+     * Only used for setting up scale, rotation, and relative placement coordinates
+     */
+    private void transformCalibration() {
+//        super.render(entity, f, f1, f2, f3, f4, f5);
+        int numsegments = 16;
+        if (!tap) {
+
+            if (Keyboard.isKeyDown(Keyboard.KEY_INSERT)) {
+                xOffest += 0.1;
+                tap = true;
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_DELETE)) {
+                xOffest -= 0.1;
+                tap = true;
+            }
+
+            if (Keyboard.isKeyDown(Keyboard.KEY_HOME)) {
+                yOffest += 0.1;
+                tap = true;
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_END)) {
+                yOffest -= 0.1;
+                tap = true;
+            }
+
+            if (Keyboard.isKeyDown(Keyboard.KEY_PRIOR)) {
+                zOffest += 0.1;
+                tap = true;
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_NEXT)) {
+                zOffest -= 0.1;
+                tap = true;
+            }
+
+            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD1)) {
+                xtap += 1;
+                tap = true;
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD2)) {
+                ytap += 1;
+                tap = true;
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD3)) {
+                ztap += 1;
+                tap = true;
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD4)) {
+                xtap -= 1;
+                tap = true;
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD5)) {
+                ytap -= 1;
+                tap = true;
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD6)) {
+                ztap -= 1;
+                tap = true;
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD8)) {
+                xtap = 0;
+                ytap = 0;
+                ztap = 0;
+
+                xOffest = 0;
+                yOffest = 0;
+                zOffest = 0;
+
+                scalemodifier = 1;
+
+                tap = true;
+            }
+
+//            if (Keyboard.isKeyDown(Keyboard.KEY_SCROLL)) {
+//                scalemodifier -= 1;
+//                tap = true;
+//            }
+//            if (Keyboard.isKeyDown(Keyboard.KEY_PAUSE)) {
+//                scalemodifier += 1;
+//                tap = true;
+//            }
+
+            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD0)) {
+                System.out.println("xrot: " + xtap + ", yrot: " + ytap + ", zrot: " + ztap);
+
+                System.out.println("xOffest: " + xOffest + ", yOffest: " + yOffest + ", zOffest: " + zOffest);
+
+                System.out.println("scaleModifier: " + scalemodifier);
+
+                tap = true;
+//
+//            [20:24:23] [Client thread/INFO]: [net.machinemuse.powersuits.client.render.item.ToolModel:render:459]: xrot: -178, yrot: 0, zrot: 0
+//                    [20:24:23] [Client thread/INFO]: [net.machinemuse.powersuits.client.render.item.ToolModel:render:461]: xrot: -3.0999992, yrot: 1.5000001, zrot: 9.299999
+            }
+        }
+        else {
+            if (!Keyboard.isKeyDown(Keyboard.KEY_NUMPAD0) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD1) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD2)
+                    && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD3) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD4)
+                    && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD5) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD6)) {
+                tap = false;
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
+                tap = false;
+            }
+        }
+    }
+
+
+
+
     public void render(Entity entity, float scale, ItemCameraTransforms.TransformType cameraTransformTypeIn, Colour c1, Colour glow) {
-        boolean renderTypeIsFirstPerson;
 //
-//        // super.render(entity, f, f1, f2, f3, f4, f5);
-//        int numsegments = 16;
-////        if (!tap) {
-//
-//        if (Keyboard.isKeyDown(Keyboard.KEY_INSERT)) {
-//            xOffest += 0.1;
-//            tap = true;
-//        }
-//        if (Keyboard.isKeyDown(Keyboard.KEY_DELETE)) {
-//            xOffest -= 0.1;
-//            tap = true;
-//        }
-//
-//        if (Keyboard.isKeyDown(Keyboard.KEY_HOME)) {
-//            yOffest += 0.1;
-//            tap = true;
-//        }
-//        if (Keyboard.isKeyDown(Keyboard.KEY_END)) {
-//            yOffest -= 0.1;
-//            tap = true;
-//        }
-//
-//        if (Keyboard.isKeyDown(Keyboard.KEY_PRIOR)) {
-//            zOffest += 0.1;
-//            tap = true;
-//        }
-//        if (Keyboard.isKeyDown(Keyboard.KEY_NEXT)) {
-//            zOffest -= 0.1;
-//            tap = true;
-//        }
-//
-//
-//
-//        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD1)) {
-//            xtap += 1;
-//            tap = true;
-//        }
-//        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD2)) {
-//            ytap += 1;
-//            tap = true;
-//        }
-//        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD3)) {
-//            ztap += 1;
-//            tap = true;
-//        }
-//        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD4)) {
-//            xtap -= 1;
-//            tap = true;
-//        }
-//        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD5)) {
-//            ytap -= 1;
-//            tap = true;
-//        }
-//        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD6)) {
-//            ztap -= 1;
-//            tap = true;
-//        }
-//        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD8)) {
-//            xtap = 0;
-//            ytap = 0;
-//            ztap = 0;
-//
-//            xOffest = 0;
-//            yOffest = 0;
-//            zOffest = 0;
-//
-//            tap = true;
-//        }
-//        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD0)) {
-//            System.out.println("xrot: " + xtap + ", yrot: " + ytap + ", zrot: " + ztap);
-//
-//            System.out.println("xOffest: " + xOffest + ", yOffest: " + yOffest + ", zOffest: " + zOffest);
-//            tap = true;
-////
-////            [20:24:23] [Client thread/INFO]: [net.machinemuse.powersuits.client.render.item.ToolModel:render:459]: xrot: -178, yrot: 0, zrot: 0
-////                    [20:24:23] [Client thread/INFO]: [net.machinemuse.powersuits.client.render.item.ToolModel:render:461]: xrot: -3.0999992, yrot: 1.5000001, zrot: 9.299999
-//
-//
-//
-//
-//        }
-//        }
-//        else {
-//            if (!Keyboard.isKeyDown(Keyboard.KEY_NUMPAD0) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD1) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD2)
-//                    && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD3) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD4)
-//                    && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD5) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD6)) {
-//                tap = false;
-//            }
-//            if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
-//                tap = false;
-//            }
-//        }
+
         GL11.glPushMatrix();
         GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
         GL11.glDisable(GL11.GL_CULL_FACE);
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
+//        GL11.glEnable(GL11.GL_DEPTH_TEST);
 
         MuseTextureUtils.pushTexture(Config.SEBK_TOOL_TEXTURE);
 
         if (c1 != null) {
             c1.doGL();
         }
-        double scale1 = 1.0 / 16.0;
+        double scale1 = 1.0 / 16.0; // 0.0625
+
+        transformCalibration();
+
 
 
 //[22:29:51] [Client thread/INFO]: [net.machinemuse.powersuits.client.render.item.ToolModel:render:475]: xrot: -182, yrot: 0, zrot: 0
@@ -509,49 +522,29 @@ public class ToolModel extends ModelBase {
 // xOffest: -3.1999993, yOffest: -1.4000001, zOffest: -8.999998
 
         if (cameraTransformTypeIn == FIRST_PERSON_RIGHT_HAND || cameraTransformTypeIn == FIRST_PERSON_LEFT_HAND) {
-            // if (entity instanceof EntityPlayer) {
-            // EntityPlayer player = (EntityPlayer) entity;
-            // RenderPlayer rp = new RenderPlayer();
-            // // Render first person hand:
-            // rp.func_82441_a(player);
-            // }
-            GL11.glScaled(scale1, scale1, scale1);
-//            // GL11.glDisable(GL11.GL_CULL_FACE);
-//            GL11.glRotatef(270, 1, 0, 0);
-//            GL11.glRotatef(45, 0, 1, 0);
-//            GL11.glRotatef(-90, 0, 0, 1);
-//            GL11.glTranslatef(0, 0, 4);
-//             GL11.glRotatef(xtap, 1, 0, 0);
-//             GL11.glRotatef(ytap, 0, 1, 0);
-//             GL11.glRotatef(ztap, 0, 0, 1);
+            GL11.glScaled(-scale1, scale1, scale1);
 
             GL11.glTranslatef(xOffest, yOffest, zOffest);
+            GL11.glRotatef(xtap, 1, 0, 0);
+            GL11.glRotatef(ytap, 0, 1, 0);
+            GL11.glRotatef(ztap, 0, 0, 1);
 
+//            GL11.glRotatef(-182, 1, 0, 0);
+
+        } else {
+            GL11.glScaled(scale1, scale1, scale1);
+            GL11.glTranslatef(0, 0, 1.3f);
+            GL11.glRotatef(-196, 1, 0, 0);
+
+//            GL11.glTranslatef(xOffest, yOffest, zOffest);
 //            GL11.glRotatef(xtap, 1, 0, 0);
 //            GL11.glRotatef(ytap, 0, 1, 0);
 //            GL11.glRotatef(ztap, 0, 0, 1);
-
-            GL11.glRotatef(-182, 1, 0, 0);
-
-        } else {
-            GL11.glScaled(-scale1, scale1, scale1);
-            GL11.glRotatef(-182, 1, 0, 0);
-            //xOffest: -2.9999993, yOffest: -1.6000001, zOffest: -8.999998
-
-//            GL11.glTranslatef(xOffest, yOffest, zOffest);
-            GL11.glTranslatef(-3, -1.6F, -9.0F);
-//            GL11.glTranslatef(-3, -2.2F, -9.0F);
         }
 
 
-
-
-
         GL11.glPushMatrix();
-        // Compensate for offset when Sebk was doing his rendering
-        GL11.glRotatef(-15, 1, 0, 0);
-        GL11.glTranslatef(3, 0, 8);
-        GL11.glScalef(1 / 1.5F, 1 / 1.5F, 1 / 1.5F);
+
         if (cameraTransformTypeIn == FIRST_PERSON_RIGHT_HAND || cameraTransformTypeIn == FIRST_PERSON_LEFT_HAND) {
             mainarm.render(scale);
         }
@@ -561,16 +554,6 @@ public class ToolModel extends ModelBase {
         wristtopleft.render(scale);
         wristbottomright.render(scale);
         wristbottomleft.render(scale);
-        // index1.render(scale);
-        // index2.render(scale);
-        // middlefinger1.render(scale);
-        // middlefinger2.render(scale);
-        // ringfinger1.render(scale);
-        // ringfinger2.render(scale);
-        // pinky1.render(scale);
-        // pinky2.render(scale);
-        // thumb1.render(scale);
-        // thumb2.render(scale);
         fingerguard.render(scale);
         crystalholder.render(scale);
         supportright1.render(scale);
@@ -589,16 +572,19 @@ public class ToolModel extends ModelBase {
         supportleft4.render(scale);
         supportleft5.render(scale);
         RenderState.glowOn();
-        glow.doGL();
+        if (glow != null)
+            glow.doGL();
         crystal.render(scale);
         Colour.WHITE.doGL();
 
+        // todo: move this to ModelPowerFist
         if (boltSize != 0) {
             GL11.glTranslated(-1, 1, 16);
             GL11.glPushMatrix();
             EntityRendererPlasmaBolt.doRender(boltSize);
             GL11.glPopMatrix();
         }
+
         RenderState.glowOff();
         MuseTextureUtils.popTexture();
         GL11.glPopMatrix();
@@ -629,17 +615,12 @@ public class ToolModel extends ModelBase {
         pinky2.rotateAngleX = otherFingersFlex;
         thumb1.rotateAngleY = (isRightHand) ? -thumbOpen : thumbOpen;
         thumb2.rotateAngleY = (isRightHand) ? -thumbFlex : thumbFlex;
-
     }
 
     public void setPoseForPlayer(EntityPlayer player, ItemStack itemStack) {
-//        if (player.isUsingItem() && player.inventory.getCurrentItem() != null
         if (player.isHandActive() && player.inventory.getCurrentItem() == itemStack
                 && ModuleManager.itemHasActiveModule(player.inventory.getCurrentItem(), PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
             setPose(1.5f, -1, 1.5f, -1, 1.5f, -1);
-//            this.boltSize = player.getItemInUseDuration() > 50 ? 50 : player.getItemInUseDuration();
-//            this.boltSize = player.getItemInUseCount() > 50 ? 50 : player.getItemInUseCount();
-            // player.getItemInUseCount() starts at 71999 and counts down, so (-71999 + 72000) would be one.
             int actualCount = (-player.getItemInUseCount() + 72000);
             this.boltSize = actualCount > 50 ? 50 : actualCount;
         } else {

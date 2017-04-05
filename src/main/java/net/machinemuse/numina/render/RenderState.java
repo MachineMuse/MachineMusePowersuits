@@ -113,6 +113,7 @@ public final class RenderState {
 
     public static void glowOff() {
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapLastX, lightmapLastY);
+        RenderHelper.enableStandardItemLighting();
         GL11.glPopAttrib();
     }
 }

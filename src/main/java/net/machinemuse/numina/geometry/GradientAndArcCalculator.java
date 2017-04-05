@@ -92,6 +92,7 @@ public class GradientAndArcCalculator {
      */
     public static DoubleBuffer getColourGradient(Colour c1, Colour c2, int numsegments) {
         DoubleBuffer buffer = BufferUtils.createDoubleBuffer(numsegments * 4);
+        // declaring "i" as an int instead of double is what broke the swirly circle.
         for (double i = 0; i < numsegments; i++) {
             Colour c3 = c1.interpolate(c2, i / numsegments);
             buffer.put(c3.r);

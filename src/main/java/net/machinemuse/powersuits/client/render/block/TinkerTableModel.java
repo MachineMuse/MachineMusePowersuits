@@ -216,7 +216,7 @@ public class TinkerTableModel extends ModelBase {
         Wireshort1.render(f);
         Wirelong1.render(f);
 
-//        RenderState.glowOn();
+        RenderState.glowOn();
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslated(0.5f, 1.05f, 0.5f);
@@ -254,7 +254,7 @@ public class TinkerTableModel extends ModelBase {
 //        GL11.glPopMatrix();
         // end testing
 
-//        RenderState.glowOff();
+        RenderState.glowOff();
         RenderState.blendingOff();
     }
 
