@@ -18,16 +18,6 @@ public class TinkerTableModel extends ModelBase {
      * This is a list of all the boxes (ModelRenderer.class) in the current
      * model.
      */
-    // public List boxList = new ArrayList();
-    // public boolean isChild = true;
-
-    /**
-     * A mapping for all texture offsets
-     */
-    // private Map modelTextureMap = new HashMap();
-    // public int textureWidth = 64;
-    // public int textureHeight = 32;
-
     final ModelRenderer cube;
     final ModelRenderer screen3;
     final ModelRenderer screen2;

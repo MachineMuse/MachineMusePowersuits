@@ -8,10 +8,7 @@ import net.machinemuse.numina.common.Numina;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.powersuits.common.proxy.CommonProxy;
 import net.machinemuse.powersuits.powermodule.armor.*;
-import net.machinemuse.powersuits.powermodule.cosmetic.CitizenJoeStyle;
-import net.machinemuse.powersuits.powermodule.cosmetic.CosmeticGlowModule;
-import net.machinemuse.powersuits.powermodule.cosmetic.HighPolyArmor;
-import net.machinemuse.powersuits.powermodule.cosmetic.TintModule;
+import net.machinemuse.powersuits.powermodule.cosmetic.*;
 import net.machinemuse.powersuits.powermodule.energy.*;
 import net.machinemuse.powersuits.powermodule.misc.*;
 import net.machinemuse.powersuits.powermodule.movement.*;
@@ -266,7 +263,8 @@ public class Config {
         addModule(new CosmeticGlowModule(ARMORONLY));
         addModule(new CitizenJoeStyle(ARMORONLY));
         addModule(new HighPolyArmor(ARMORONLY));
-        addModule(new TintModule(TOOLONLY));
+//        addModule(new TintModule(TOOLONLY));
+        addModule(new TintModule(ALLITEMS));
 
 
         /* Energy ------------------------------- */

@@ -249,11 +249,12 @@ public class MuseItemUtils {
 
     public static ItemStack[] itemsEquipped(EntityPlayer player) {
         return new ItemStack[]{
-                player.inventory.armorInventory[0],
-                player.inventory.armorInventory[1],
-                player.inventory.armorInventory[2],
-                player.inventory.armorInventory[3],
-                player.inventory.getCurrentItem()};
+                player.getItemStackFromSlot(EntityEquipmentSlot.HEAD),
+                player.getItemStackFromSlot(EntityEquipmentSlot.CHEST),
+                player.getItemStackFromSlot(EntityEquipmentSlot.LEGS),
+                player.getItemStackFromSlot(EntityEquipmentSlot.FEET),
+                player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND)};
+//                player.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND) // todo ?
     }
 
     public static boolean canStackTogether(ItemStack stack1, ItemStack stack2) {

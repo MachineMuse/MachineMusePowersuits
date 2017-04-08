@@ -22,10 +22,10 @@ public class TintModule extends PowerModuleBase {
         addTradeoffProperty("Blue Intensity", BLUE_TINT, 1, "%");
     }
 
-    @Override
-    public boolean isAllowed() {
-        return false;
-    }
+//    @Override
+//    public boolean isAllowed() {
+//        return false;
+//    }
 
     @Override
     public String getCategory() {

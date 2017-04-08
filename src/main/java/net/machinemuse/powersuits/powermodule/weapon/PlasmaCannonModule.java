@@ -56,8 +56,7 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
     }
 
     @Override
-    public String getUnlocalizedName() {
-        return "plasmaCannon";
+    public String getUnlocalizedName() { return "plasmaCannon";
     }
 
     @Override

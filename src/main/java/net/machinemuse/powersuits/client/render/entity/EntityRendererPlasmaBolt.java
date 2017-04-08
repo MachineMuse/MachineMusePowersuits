@@ -5,11 +5,15 @@ import net.machinemuse.numina.geometry.DrawableMuseCircle;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.utils.render.MuseRenderer;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.RenderManager;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import java.nio.DoubleBuffer;
+
+import static net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND;
+import static net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND;
 
 public class EntityRendererPlasmaBolt extends MuseEntityRenderer<EntityPlasmaBolt> {
     protected static DrawableMuseCircle circle1;
@@ -73,5 +77,28 @@ public class EntityRendererPlasmaBolt extends MuseEntityRenderer<EntityPlasmaBol
         }
         RenderState.glowOff();
         GL11.glPopMatrix();
+    }
+
+    public static void doRender(double boltSizeIn, ItemCameraTransforms.TransformType cameraTransformTypeIn) {
+        if (boltSizeIn != 0) {
+            GL11.glPushMatrix();
+            if (cameraTransformTypeIn == FIRST_PERSON_RIGHT_HAND || cameraTransformTypeIn == FIRST_PERSON_LEFT_HAND) {
+                GL11.glScaled(0.0625f, 0.0625f, 0.0625f); // negative scale mirrors the model
+                GL11.glRotatef(-182, 1, 0, 0);
+
+            } else {
+                GL11.glScaled(0.0625f, 0.0625f, 0.0625f);
+                GL11.glTranslatef(0, 0, 20.3f);
+//                GL11.glTranslatef(0, 0, 1.3f);
+                GL11.glRotatef(-196, 1, 0, 0);
+            }
+            //---
+            GL11.glTranslated(-1, 1, 16);
+            GL11.glPushMatrix();
+            EntityRendererPlasmaBolt.doRender(boltSizeIn);
+            GL11.glPopMatrix();
+            // ---
+            GL11.glPopMatrix();
+        }
     }
 }

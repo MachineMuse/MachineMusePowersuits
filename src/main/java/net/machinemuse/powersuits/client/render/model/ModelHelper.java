@@ -34,6 +34,7 @@ import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.input.Keyboard;
 
 import javax.annotation.Nullable;
 import javax.vecmath.Vector3f;
@@ -43,6 +44,11 @@ import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class ModelHelper {
+    static {
+        new ModelHelper();
+    }
+
+
     public static final ResourceLocation powerFistLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFist.obj");
     public static final ResourceLocation powerFistFiringLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistFiring.obj");
     public static final ResourceLocation powerFistLeftLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistLeft.obj");
@@ -71,10 +77,10 @@ public class ModelHelper {
             } catch (Exception ignored) {
             }
         } else {
-            powerFist = loadBakedModel(POWERFIST_ITEM_STATE, powerFistLocation);
-            powerFistFiring = loadBakedModel(POWERFIST_ITEM_STATE, powerFistFiringLocation);
-            powerFistLeft = loadBakedModel(POWERFIST_ITEM_STATE, powerFistLeftLocation);
-            powerFistLeftFiring = loadBakedModel(POWERFIST_ITEM_STATE, powerFistLeftFiringLocation);
+            powerFist = loadBakedModel(powerFistLocation);
+            powerFistFiring = loadBakedModel(powerFistFiringLocation);
+            powerFistLeft = loadBakedModel(powerFistLeftLocation);
+            powerFistLeftFiring = loadBakedModel(powerFistLeftFiringLocation);
         }
     }
 
@@ -90,12 +96,11 @@ public class ModelHelper {
         return model;
     }
 
-    public static IBakedModel loadBakedModel(IModelState modelState, ResourceLocation resource) {
+    public static IBakedModel loadBakedModel(ResourceLocation resource) {
         IModel model = getModel(resource);
         if (model != null) {
 
-            IBakedModel bakedModel = model.bake(modelState,
-//                                            model.getDefaultState(),
+            IBakedModel bakedModel = model.bake(model.getDefaultState(),
                     DefaultVertexFormats.ITEM,
                     new Function<ResourceLocation, TextureAtlasSprite>() {
                         public TextureAtlasSprite apply(ResourceLocation resourceLocation) {
@@ -107,7 +112,118 @@ public class ModelHelper {
         return null;
     }
 
+    //-----------------------
+    public static int xtap = 0;
+    public static int ytap = 0;
+    public static int ztap = 0;
+    public static float xOffest = 0;
+    public static float yOffest = 0;
+    public static float zOffest = 0;
+    public static float scalemodifier = 0.625f;
+    public static boolean tap;
+    //----------------------------------
+    /*
+     * Only used for setting up scale, rotation, and relative placement coordinates
+     */
+    public static void transformCalibration() {
+        int numsegments = 16;
+        if (!tap) {
 
+            if (Keyboard.isKeyDown(Keyboard.KEY_INSERT)) {
+                xOffest += 0.1;
+                tap = true;
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_DELETE)) {
+                xOffest -= 0.1;
+                tap = true;
+            }
+
+            if (Keyboard.isKeyDown(Keyboard.KEY_HOME)) {
+                yOffest += 0.1;
+                tap = true;
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_END)) {
+                yOffest -= 0.1;
+                tap = true;
+            }
+
+            if (Keyboard.isKeyDown(Keyboard.KEY_PRIOR)) {
+                zOffest += 0.1;
+                tap = true;
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_NEXT)) {
+                zOffest -= 0.1;
+                tap = true;
+            }
+
+            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD1)) {
+                xtap += 1;
+                tap = true;
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD2)) {
+                ytap += 1;
+                tap = true;
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD3)) {
+                ztap += 1;
+                tap = true;
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD4)) {
+                xtap -= 1;
+                tap = true;
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD5)) {
+                ytap -= 1;
+                tap = true;
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD6)) {
+                ztap -= 1;
+                tap = true;
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD8)) {
+                xtap = 0;
+                ytap = 0;
+                ztap = 0;
+
+                xOffest = 0;
+                yOffest = 0;
+                zOffest = 0;
+
+                scalemodifier = 1;
+
+                tap = true;
+            }
+            // this probably needs a bit more work, int's are too big.
+            if (Keyboard.isKeyDown(Keyboard.KEY_SCROLL)) {
+                scalemodifier -= 0.01f;
+                tap = true;
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_PAUSE)) {
+                scalemodifier += 0.01f;
+                tap = true;
+            }
+
+            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD0)) {
+                System.out.println("xrot: " + xtap + ", yrot: " + ytap + ", zrot: " + ztap);
+
+                System.out.println("xOffest: " + xOffest + ", yOffest: " + yOffest + ", zOffest: " + zOffest);
+
+                System.out.println("scaleModifier: " + scalemodifier);
+
+                tap = true;
+            }
+        }
+        else {
+            if (!Keyboard.isKeyDown(Keyboard.KEY_NUMPAD0) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD1) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD2)
+                    && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD3) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD4)
+                    && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD5) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD6)) {
+                tap = false;
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
+                tap = false;
+            }
+        }
+    }
 
 
 
@@ -228,21 +344,21 @@ public class ModelHelper {
         return builder.build();
     }
 
-    //slimeknights.mantle.client.ModelHelper;
-    public static final IModelState POWERFIST_ITEM_STATE;
-    static {
-        // equals forge:default-item
-        ImmutableMap.Builder<IModelPart, TRSRTransformation> builder = ImmutableMap.builder();
-//        builder.put(ItemCameraTransforms.TransformType.HEAD, get(0, 13, 7, 0, 180, 0, 1));
-        builder.put(ItemCameraTransforms.TransformType.GROUND, get(0, 2, 0, 0, 0, 0, 0.5f));
-        builder.put(ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, get(0, 3, 1, 0, 0, 0, 0.55f));
-        builder.put(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, get(0, 3, 1, 0, 0, 0, 0.55f));
-        builder.put(ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND, get(1.13f, 3.2f, 1.13f, 0, -90, 25, 0.68f));
-        builder.put(ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND, get(1.13f, 3.2f, 1.13f, 0, 90, -25, 0.68f));
-        POWERFIST_ITEM_STATE = new SimpleModelState(builder.build());
-    }
+//    //slimeknights.mantle.client.ModelHelper;
+//    public static final IModelState POWERFIST_ITEM_STATE;
+//    static {
+//        // equals forge:default-item
+//        ImmutableMap.Builder<IModelPart, TRSRTransformation> builder = ImmutableMap.builder();
+////        builder.put(ItemCameraTransforms.TransformType.HEAD, get(0, 13, 7, 0, 180, 0, 1));
+//        builder.put(ItemCameraTransforms.TransformType.GROUND, get(0, 2, 0, 0, 0, 0, 0.5f));
+//        builder.put(ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, get(0, 3, 1, 0, 0, 0, 0.55f));
+//        builder.put(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, get(0, 3, 1, 0, 0, 0, 0.55f));
+//        builder.put(ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND, get(1.13f, 3.2f, 1.13f, 0, -90, 25, 0.68f));
+//        builder.put(ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND, get(1.13f, 3.2f, 1.13f, 0, 90, -25, 0.68f));
+//        POWERFIST_ITEM_STATE = new SimpleModelState(builder.build());
+//    }
 
-    private static TRSRTransformation get(float transformX, float transformY, float transformZ, float angleX, float angleY, float angleZ, float scale) {
+    public static TRSRTransformation get(float transformX, float transformY, float transformZ, float angleX, float angleY, float angleZ, float scale) {
         return TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
                 new Vector3f(transformX / 16, transformY / 16, transformZ / 16),
                 TRSRTransformation.quatFromXYZDegrees(new Vector3f(angleX, angleY, angleZ)),
