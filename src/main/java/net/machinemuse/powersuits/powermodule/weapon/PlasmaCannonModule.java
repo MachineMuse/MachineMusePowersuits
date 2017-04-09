@@ -61,7 +61,7 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
 
     @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        if (ElectricItemUtils.getPlayerEnergy(playerIn) > 500) {
+        if (hand == EnumHand.MAIN_HAND && ElectricItemUtils.getPlayerEnergy(playerIn) > 500) {
             playerIn.setActiveHand(hand);
             return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
         }

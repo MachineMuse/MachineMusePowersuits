@@ -58,19 +58,22 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
 
     @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        try {
-            double range = 64;
-            double energyConsumption = ModuleManager.computeModularProperty(itemStackIn, LIGHTNING_ENERGY_CONSUMPTION);
-            if (energyConsumption < ElectricItemUtils.getPlayerEnergy(playerIn)) {
-                ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
-                MuseHeatUtils.heatPlayer(playerIn, ModuleManager.computeModularProperty(itemStackIn, HEAT));
-                RayTraceResult raytraceResult = MusePlayerUtils.doCustomRayTrace(playerIn.worldObj, playerIn, true, range);
-                worldIn.spawnEntityInWorld(new EntityLightningBolt(playerIn.worldObj, raytraceResult.hitVec.xCoord, raytraceResult.hitVec.yCoord, raytraceResult.hitVec.zCoord, false));
+        if (hand == EnumHand.MAIN_HAND) {
+            try {
+                double range = 64;
+                double energyConsumption = ModuleManager.computeModularProperty(itemStackIn, LIGHTNING_ENERGY_CONSUMPTION);
+                if (energyConsumption < ElectricItemUtils.getPlayerEnergy(playerIn)) {
+                    ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
+                    MuseHeatUtils.heatPlayer(playerIn, ModuleManager.computeModularProperty(itemStackIn, HEAT));
+                    RayTraceResult raytraceResult = MusePlayerUtils.doCustomRayTrace(playerIn.worldObj, playerIn, true, range);
+                    worldIn.spawnEntityInWorld(new EntityLightningBolt(playerIn.worldObj, raytraceResult.hitVec.xCoord, raytraceResult.hitVec.yCoord, raytraceResult.hitVec.zCoord, false));
+                }
+            } catch (Exception ignored) {
+                return ActionResult.newResult(EnumActionResult.FAIL, itemStackIn);
             }
-        } catch (Exception ignored) {
-            return ActionResult.newResult(EnumActionResult.FAIL, itemStackIn);
+            return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
         }
-        return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
+        return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
 
     @Override

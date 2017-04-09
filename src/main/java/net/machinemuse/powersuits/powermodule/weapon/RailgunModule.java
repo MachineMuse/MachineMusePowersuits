@@ -90,41 +90,43 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
 
     @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        double range = 64;
-        double timer = MuseItemUtils.getDoubleOrZero(itemStackIn, TIMER);
-        double energyConsumption = ModuleManager.computeModularProperty(itemStackIn, ENERGY);
-        if (ElectricItemUtils.getPlayerEnergy(playerIn) > energyConsumption && timer == 0) {
-            ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
-            MuseItemUtils.setDoubleOrRemove(itemStackIn, TIMER, 10);
-            MuseHeatUtils.heatPlayer(playerIn, ModuleManager.computeModularProperty(itemStackIn, HEAT));
-            RayTraceResult hitMOP = MusePlayerUtils.doCustomRayTrace(playerIn.worldObj, playerIn, true, range);
-            // TODO: actual railgun sound
-            worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
-            double damage = ModuleManager.computeModularProperty(itemStackIn, IMPULSE) / 100.0;
-            double knockback = damage / 20.0;
-            Vec3d lookVec = playerIn.getLookVec();
-            if (hitMOP != null) {
-                switch (hitMOP.typeOfHit) {
-                    case ENTITY:
-                        drawParticleStreamTo(playerIn, worldIn, hitMOP.hitVec.xCoord, hitMOP.hitVec.yCoord, hitMOP.hitVec.zCoord);
-                        DamageSource damageSource = DamageSource.causePlayerDamage(playerIn);
-                        if (hitMOP.entityHit.attackEntityFrom(damageSource, (int) damage)) {
-                            hitMOP.entityHit.addVelocity(lookVec.xCoord * knockback, Math.abs(lookVec.yCoord + 0.2f) * knockback, lookVec.zCoord
-                                    * knockback);
-                        }
-                        break;
-                    case BLOCK:
-                        drawParticleStreamTo(playerIn, worldIn, hitMOP.hitVec.xCoord, hitMOP.hitVec.yCoord, hitMOP.hitVec.zCoord);
-                        break;
-                    default:
-                        break;
-                }
-                playerIn.addVelocity(-lookVec.xCoord * knockback, Math.abs(-lookVec.yCoord + 0.2f) * knockback, -lookVec.zCoord * knockback);
-
+        if (hand == EnumHand.MAIN_HAND) {
+            double range = 64;
+            double timer = MuseItemUtils.getDoubleOrZero(itemStackIn, TIMER);
+            double energyConsumption = ModuleManager.computeModularProperty(itemStackIn, ENERGY);
+            if (ElectricItemUtils.getPlayerEnergy(playerIn) > energyConsumption && timer == 0) {
+                ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
+                MuseItemUtils.setDoubleOrRemove(itemStackIn, TIMER, 10);
+                MuseHeatUtils.heatPlayer(playerIn, ModuleManager.computeModularProperty(itemStackIn, HEAT));
+                RayTraceResult hitMOP = MusePlayerUtils.doCustomRayTrace(playerIn.worldObj, playerIn, true, range);
+                // TODO: actual railgun sound
                 worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
+                double damage = ModuleManager.computeModularProperty(itemStackIn, IMPULSE) / 100.0;
+                double knockback = damage / 20.0;
+                Vec3d lookVec = playerIn.getLookVec();
+                if (hitMOP != null) {
+                    switch (hitMOP.typeOfHit) {
+                        case ENTITY:
+                            drawParticleStreamTo(playerIn, worldIn, hitMOP.hitVec.xCoord, hitMOP.hitVec.yCoord, hitMOP.hitVec.zCoord);
+                            DamageSource damageSource = DamageSource.causePlayerDamage(playerIn);
+                            if (hitMOP.entityHit.attackEntityFrom(damageSource, (int) damage)) {
+                                hitMOP.entityHit.addVelocity(lookVec.xCoord * knockback, Math.abs(lookVec.yCoord + 0.2f) * knockback, lookVec.zCoord
+                                        * knockback);
+                            }
+                            break;
+                        case BLOCK:
+                            drawParticleStreamTo(playerIn, worldIn, hitMOP.hitVec.xCoord, hitMOP.hitVec.yCoord, hitMOP.hitVec.zCoord);
+                            break;
+                        default:
+                            break;
+                    }
+                    playerIn.addVelocity(-lookVec.xCoord * knockback, Math.abs(-lookVec.yCoord + 0.2f) * knockback, -lookVec.zCoord * knockback);
+
+                    worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
+                }
+                playerIn.setActiveHand(hand);
+                return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
             }
-            playerIn.setActiveHand(hand);
-            return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
         }
         return new ActionResult(EnumActionResult.PASS, itemStackIn);
     }
