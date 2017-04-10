@@ -67,6 +67,8 @@ public class ElectricItemUtils {
                     return 100000 * stackInCost.stackSize;
                 case 2:
                     return 750000 * stackInCost.stackSize;
+                case 3:
+                    return 1000000 * stackInCost.stackSize;
                 default:
                     return 0;
             }

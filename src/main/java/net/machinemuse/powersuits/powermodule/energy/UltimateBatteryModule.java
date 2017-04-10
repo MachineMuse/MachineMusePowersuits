@@ -20,7 +20,6 @@ public class UltimateBatteryModule extends PowerModuleBase {
     public static final String MODULE_BATTERY_ULTIMATE = "Ultimate Battery";
 
     public UltimateBatteryModule(List<IModularItem> validItems) {
-        // TODO: setup power and install cost
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.evcapacitor, 1));
         addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 1250000, "J");
