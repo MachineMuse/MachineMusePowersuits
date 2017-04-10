@@ -10,6 +10,7 @@ import net.machinemuse.powersuits.client.render.item.IArmorModel;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.cosmetic.CitizenJoeStyle;
 import net.machinemuse.powersuits.powermodule.cosmetic.HighPolyArmor;
+import net.machinemuse.powersuits.powermodule.cosmetic.TintModule;
 import net.machinemuse.powersuits.powermodule.misc.InvisibilityModule;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
@@ -90,9 +91,11 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+        if (type == "overlay") // this is to allow a tint to be applied ot the armor
+            return Config.BLANK_ARMOR_MODEL_PATH;
+
         ItemStack armor = ((EntityPlayer) entity).getItemStackFromSlot(slot);
         if (armor.getItem() instanceof ItemPowerArmor) {
-
             if (entity instanceof EntityPlayer) {
                 ItemStack armorChest = ((EntityPlayer) entity).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
                 if (armorChest != null) {
@@ -117,9 +120,17 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         return Config.BLANK_ARMOR_MODEL_PATH;
     }
 
+
+
+    @Override
     public int getColor(ItemStack stack) {
         Colour c = this.getColorFromItemStack(stack);
         return c.getInt();
+    }
+
+    @Override
+    public boolean hasOverlay(ItemStack stack) {
+        return ModuleManager.itemHasActiveModule(stack, TintModule.MODULE_TINT);
     }
 
     @SideOnly(Side.CLIENT)

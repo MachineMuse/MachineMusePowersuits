@@ -8,33 +8,30 @@
   },
   "variants": {
     "inventory": [{
-      "model": "powersuits:powerFist/powerFist.obj",
+      "model": "powersuits:tinkerTable.obj",
       "transform": {
         "thirdperson_righthand": {
-          "scale" : 0.625,
-          "translation": [-5.0, 4.0, -4.75],
-          "rotation": [{"x": 348}, {"y": 180}]
+          "scale" : 0.0234375,
+          "translation": [0.0, 0.15625, 0.0],
+          "rotation": [{"x": 75}, {"y": 45}]
         },
         "thirdperson_lefthand": {
-          "scale" : 0.625,
-          "translation": [0, 0, -28],
-          "rotation": [{"x": 0}, {"y": 0}]
+          "scale" : 0.0234375,
+          "rotation": [{"x": 75}, {"y": 45}]
         },
         "firstperson_righthand": {
-          "scale": 0.625,
-          "translation": [0.0, 0.0, -28],
-          "rotation": [{"x": 0}, {"y": 180}]
+          "scale": 0.025
         },
         "firstperson_lefthand": {
           "scale": 0.025
         },
         "gui": {
-          "scale": 0.625,
+          "scale": 0.0390625,
           "translation": [0.0, 0.025, 0.0],
           "rotation": [{"x":30}, {"y":225}]
         },
         "ground": {
-          "scale": 0.625,
+          "scale": 0.1563,
           "translation": [0.0, 0.1625, 0.0]
         },
         "fixed": {
@@ -44,14 +41,14 @@
     }],
     "facing": {
       "down": {
-        "model": "powersuits:powerFist/powerFist.obj",
+        "model": "powersuits:tinkerTable.obj",
         "transform": {
           "translation": [0.02, -0.40, 0.02],
-          "scale" : 0.0625
+          "scale" : 1
         }
       },
       "up": {
-        "model": "powersuits:powerFist/powerFist.obj",
+        "model": "powersuits:tinkerTable.obj",
         "transform": {
           "translation": [0.0, 0.40, 0.0],
           "rotation": {"x": 180},
@@ -59,7 +56,7 @@
         }
       },
       "north": {
-        "model": "powersuits:powerFist/powerFist.obj",
+        "model": "powersuits:tinkerTable.obj",
         "transform": {
           "translation": [0.02, -0.02, -0.4],
           "rotation": {"x": 90},
@@ -67,7 +64,7 @@
         }
       },
       "south": {
-        "model": "powersuits:powerFist/powerFist.obj",
+        "model": "powersuits:tinkerTable.obj",
         "transform": {
           "translation": [0.02, 0.02, 0.4],
           "rotation": {"x": 270},
@@ -75,7 +72,7 @@
         }
       },
       "west": {
-        "model": "powersuits:powerFist/powerFist.obj",
+        "model": "powersuits:tinkerTable.obj",
         "transform": {
           "translation": [-0.4, -0.02, 0.02],
           "rotation": {"z": 270},
@@ -83,7 +80,7 @@
         }
       },
       "east": {
-        "model": "powersuits:powerFist/powerFist.obj",
+        "model": "powersuits:tinkerTable.obj",
         "transform": {
           "translation": [0.4, 0.02, 0.02],
           "rotation": {"z": 90},

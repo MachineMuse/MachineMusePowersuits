@@ -6,7 +6,10 @@ import net.machinemuse.general.sound.SoundDictionary;
 import net.machinemuse.numina.common.NuminaConfig;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.sound.Musique;
+import net.machinemuse.powersuits.client.render.entity.EntityRendererPlasmaBolt;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
+import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
@@ -25,14 +28,14 @@ import java.util.List;
  */
 public class PlayerUpdateHandler {
     @SubscribeEvent
-    public void onPlayerUpdate(LivingEvent.LivingUpdateEvent e){
-        if (e.getEntity() instanceof EntityPlayer){
+    public void onPlayerUpdate(LivingEvent.LivingUpdateEvent e) {
+        if (e.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) e.getEntity();
 
             List<ItemStack> modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player);
             double totalWeight = MuseItemUtils.getPlayerWeight(player);
             double weightCapacity = Config.getWeightCapacity();
-            for (ItemStack stack :modularItemsEquipped) {
+            for (ItemStack stack : modularItemsEquipped) {
                 if (stack.getTagCompound().hasKey("ench")) {
                     stack.getTagCompound().removeTag("ench");
                 }
@@ -70,16 +73,14 @@ public class PlayerUpdateHandler {
                 if (currHeat > maxHeat) {
                     player.attackEntityFrom(MuseHeatUtils.overheatDamage, (float) (Math.sqrt(currHeat - maxHeat)/* was (int) */ / 4));
                     player.setFire(1);
-                }
-                else {
+                } else {
                     player.extinguish();
                 }
                 double velsq2 = MuseMathUtils.sumsq(player.motionX, player.motionY, player.motionZ) - 0.5;
                 if (player.worldObj.isRemote && NuminaConfig.useSounds()) {
                     if (player.isAirBorne && velsq2 > 0) {
-                        Musique.playerSound(player, SoundDictionary.SOUND_EVENT_GLIDER, SoundCategory.PLAYERS, (float)(velsq2 / 3), 1.0f, true);
-                    }
-                    else {
+                        Musique.playerSound(player, SoundDictionary.SOUND_EVENT_GLIDER, SoundCategory.PLAYERS, (float) (velsq2 / 3), 1.0f, true);
+                    } else {
                         Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_GLIDER);
                     }
                 }

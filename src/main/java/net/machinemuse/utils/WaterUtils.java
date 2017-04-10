@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
  * Created by User: Andrew2448
  * 4:52 PM 6/21/13
  */
-public class AddonWaterUtils {
+public class WaterUtils {
 
     public static double getPlayerWater(EntityPlayer player) {
         double water = 0;

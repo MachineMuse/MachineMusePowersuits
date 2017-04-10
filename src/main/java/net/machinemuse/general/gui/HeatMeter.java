@@ -7,6 +7,7 @@ import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidRegistry;
 import org.lwjgl.opengl.GL11;
 
@@ -14,11 +15,15 @@ public class HeatMeter {
     final int xsize = 8;
     final int ysize = 32;
 
+    private static final ResourceLocation iconLocation = new ResourceLocation("minecraft", "blocks/magma");
+
+
     public void draw(double xpos, double ypos, double value) {
         MuseTextureUtils.pushTexture(MuseTextureUtils.TEXTURE_QUILT);
         RenderState.blendingOn();
         RenderState.on2D();
-        TextureAtlasSprite icon = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(FluidRegistry.LAVA.getStill().toString());
+//        TextureAtlasSprite icon = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(FluidRegistry.LAVA.getStill().toString());
+        TextureAtlasSprite icon = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/magma");
         drawFluid(xpos, ypos, value, icon);
         drawGlass(xpos, ypos);
         RenderState.off2D();

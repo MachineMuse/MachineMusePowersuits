@@ -6,13 +6,14 @@ import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidRegistry;
 import org.lwjgl.opengl.GL11;
 
 public class EnergyMeter extends HeatMeter {
     public void draw(double xpos, double ypos, double value) {
         MuseTextureUtils.pushTexture(MuseTextureUtils.TEXTURE_QUILT);
-        TextureAtlasSprite icon = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(FluidRegistry.WATER.getStill().toString());
+        TextureAtlasSprite icon = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/portal");
         GL11.glLineWidth(0.5f);
         RenderState.on2D();
         RenderState.blendingOn();

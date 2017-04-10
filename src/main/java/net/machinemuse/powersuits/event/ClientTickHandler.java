@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.event;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.gui.EnergyMeter;
 import net.machinemuse.general.gui.HeatMeter;
+import net.machinemuse.general.gui.PlasmaChargeMeter;
 import net.machinemuse.general.gui.WaterMeter;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.numina.network.MusePacket;
@@ -12,13 +13,16 @@ import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.ItemPowerArmorHelmet;
+import net.machinemuse.powersuits.item.ItemPowerFist;
 import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
 import net.machinemuse.powersuits.powermodule.armor.WaterTankModule;
 import net.machinemuse.powersuits.powermodule.misc.AutoFeederModule;
 import net.machinemuse.powersuits.powermodule.misc.ClockModule;
 import net.machinemuse.powersuits.powermodule.misc.CompassModule;
+import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
 import net.machinemuse.utils.*;
 import net.machinemuse.utils.render.MuseRenderer;
+import net.machinemuse.utils.render.PlasmaUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
@@ -48,6 +52,7 @@ public class ClientTickHandler {
 
     public ArrayList<String> modules;
     private boolean drawWaterMeter = false;
+    private boolean drawPlasmaMeter = false;
 
     @SubscribeEvent
     public void onPreClientTick(TickEvent.ClientTickEvent event) {
@@ -77,9 +82,6 @@ public class ClientTickHandler {
 
     public void findInstalledModules(EntityPlayer player) {
         if (player != null) {
-            ItemStack tool = player.inventory.getCurrentItem();
-//            if (tool != null && tool.getItem() instanceof ItemPowerFist) {
-//            }
             ItemStack helmet = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
             if (helmet != null && helmet.getItem() instanceof ItemPowerArmorHelmet) {
                 if (ModuleManager.itemHasActiveModule(helmet, AutoFeederModule.MODULE_AUTO_FEEDER)) {
@@ -92,11 +94,18 @@ public class ClientTickHandler {
                     modules.add(CompassModule.MODULE_COMPASS);
                 }
             }
+
             ItemStack chest = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
             if (chest != null && chest.getItem() instanceof ItemPowerArmorChestplate) {
                 if (ModuleManager.itemHasActiveModule(chest, WaterTankModule.MODULE_WATER_TANK)) {
                     modules.add(WaterTankModule.MODULE_WATER_TANK);
                 }
+            }
+
+            ItemStack powerfist = player.getHeldItemMainhand();
+            if (powerfist != null && powerfist.getItem() instanceof ItemPowerFist) {
+                if (ModuleManager.itemHasActiveModule(powerfist, PlasmaCannonModule.MODULE_PLASMA_CANNON))
+                    modules.add(PlasmaCannonModule.MODULE_PLASMA_CANNON);
             }
         }
     }
@@ -184,6 +193,9 @@ public class ClientTickHandler {
                     } else if (Objects.equals(modules.get(i), WaterTankModule.MODULE_WATER_TANK)) {
                         drawWaterMeter = true;
                     }
+                    else if (Objects.equals(modules.get(i), PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
+                        drawPlasmaMeter = true;
+                    }
                 }
                 drawMeters(player, screen);
             }
@@ -193,61 +205,102 @@ public class ClientTickHandler {
     protected HeatMeter heat = null;
     protected HeatMeter energy = null;
     protected WaterMeter water = null;
+    protected PlasmaChargeMeter plasma = null;
+
     private void drawMeters(EntityPlayer player, ScaledResolution screen) {
-        double left = screen.getScaledWidth() - 30;
+        double left = screen.getScaledWidth() - 2;
         double top = (double)screen.getScaledHeight() / 2.0 - (double)16;
 
-        /* Heat Meter ---------------------------------------------------------*/
+        // energy
+        double currEnergy = ElectricItemUtils.getPlayerEnergy(player);
+        double maxEnergy = ElectricItemUtils.getMaxEnergy(player);
+        String currEnergyStr = MuseStringUtils.formatNumberShort(currEnergy);
+        String maxEnergyStr = MuseStringUtils.formatNumberShort(maxEnergy);
+
+        // heat
         double currHeat = MuseHeatUtils.getPlayerHeat(player);
         double maxHeat = MuseHeatUtils.getMaxHeat(player);
         String currHeatStr = MuseStringUtils.formatNumberShort(currHeat);
         String maxHeatStr = MuseStringUtils.formatNumberShort(maxHeat);
 
+        // water
+        double currWater = WaterUtils.getPlayerWater(player);
+        double maxWater = WaterUtils.getMaxWater(player);
+        String currWaterStr = MuseStringUtils.formatNumberShort(currWater);
+        String maxWaterStr = MuseStringUtils.formatNumberShort(maxWater);
+
+        // plasma
+        double currPlasma = PlasmaUtils.getPlayerPlasma(player);
+        double maxPlasma = PlasmaUtils.getMaxPlasma(player);
+        String currPlasmaStr = MuseStringUtils.formatNumberShort(currPlasma);
+        String maxPlasmaStr = MuseStringUtils.formatNumberShort(maxPlasma);
+
         if (Config.useGraphicalMeters()) {
-            if (heat == null) {
-                heat = new HeatMeter();
-            }
-            heat.draw(left + (double)8, top, currHeat / maxHeat);
-            MuseRenderer.drawRightAlignedString(currHeatStr, left - (double)2, top + (double)20);
-        } else {
-            MuseRenderer.drawString(currHeatStr + '/' + maxHeatStr + " C", 1, 10);
-        }
+            int numMeters = 1;
 
-        /*  Energy Meter ------------------------------------------------------*/
-        double currWater = AddonWaterUtils.getPlayerWater(player);
-        double maxWater = AddonWaterUtils.getMaxWater(player);
-        double currEnergy = ElectricItemUtils.getPlayerEnergy(player);
-        double maxEnergy = ElectricItemUtils.getMaxEnergy(player);
-
-        if (maxEnergy > 0) {
-            String currEnergyStr = MuseStringUtils.formatNumberShort(currEnergy);
-            String maxEnergyStr = MuseStringUtils.formatNumberShort(maxEnergy);
-
-            if (Config.useGraphicalMeters()) {
+            if (maxEnergy > 0) {
+                numMeters ++;
                 if (energy == null) {
                     energy = new EnergyMeter();
                 }
-                energy.draw(left, top, currEnergy / maxEnergy);
-                MuseRenderer.drawRightAlignedString(currEnergyStr, left - 2, top + 10);
             }
-            else {
-                MuseRenderer.drawString(currEnergyStr + '/' + maxEnergyStr + " \u1D60", 1, 1);
-            }
-        }
 
-        /* Water Meter --------------------------------------------------------*/
-        if (maxWater > 0 && drawWaterMeter ) {
-            String currWaterStr = MuseStringUtils.formatNumberShort(currWater);
-            String maxWaterStr = MuseStringUtils.formatNumberShort(maxWater);
-            if (Config.useGraphicalMeters()) {
+            if (heat == null) heat = new HeatMeter();
+
+            if (maxWater > 0 && drawWaterMeter ) {
+                numMeters ++;
                 if (water == null) {
                     water = new WaterMeter();
                 }
-                water.draw(left + 16, top, currWater / maxWater);
-                MuseRenderer.drawRightAlignedString(currWaterStr, left - 2, top + 30);
+            } else water = null;
+
+            if (maxPlasma > 0 && drawPlasmaMeter ){
+                numMeters ++;
+                if (plasma == null) {
+                    plasma = new PlasmaChargeMeter();
+                }
+            } else plasma = null;
+
+            double stringX = left - (double)(numMeters * 8) -2 ;
+            final int totalMeters = numMeters;
+
+            if (energy != null) {
+                energy.draw(left - (numMeters * 8), top, currEnergy / maxEnergy);
+                MuseRenderer.drawRightAlignedString(currEnergyStr, stringX  , top);
+                numMeters --;
             }
-            else {
-                MuseRenderer.drawString(currWaterStr + '/' + maxWaterStr + " buckets", 1, 19);
+
+            heat.draw(left - (numMeters * 8), top, currHeat / maxHeat);
+            MuseRenderer.drawRightAlignedString(currHeatStr, stringX, top + (totalMeters-numMeters) * 8);
+            numMeters --;
+
+            if (water != null) {
+                water.draw(left - (numMeters * 8), top, currWater / maxWater);
+                MuseRenderer.drawRightAlignedString(currWaterStr, stringX, top + (totalMeters-numMeters) * 8);
+                numMeters --;
+            }
+
+            if (plasma != null) {
+                plasma.draw(left - (numMeters * 8), top, currPlasma / maxPlasma);
+                MuseRenderer.drawRightAlignedString(currPlasmaStr, stringX, top + (totalMeters-numMeters) * 8);
+            }
+        } else {
+            int numReadouts = 0;
+            if (maxEnergy > 0) {
+                MuseRenderer.drawString(currEnergyStr + '/' + maxEnergyStr + " \u1D60", 2, 2 );
+                numReadouts += 1;
+            }
+
+            MuseRenderer.drawString(currHeatStr + '/' + maxHeatStr + " C", 2, 2 + (numReadouts * 9));
+            numReadouts += 1;
+
+            if (maxWater > 0 && drawWaterMeter ) {
+                MuseRenderer.drawString(currWaterStr + '/' + maxWaterStr + " buckets", 2, 2 + (numReadouts * 9));
+                numReadouts += 1;
+            }
+
+            if (maxPlasma > 0 && drawPlasmaMeter ) {
+                MuseRenderer.drawString(currPlasmaStr + '/' + maxPlasmaStr + "%", 2, 2 + (numReadouts * 9));
             }
         }
     }

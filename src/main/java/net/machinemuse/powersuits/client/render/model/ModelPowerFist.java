@@ -192,40 +192,6 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
             else isFiring = false;
 
             return originalModel;
-
-
-
-            //    public void setUpPowerFistVariables(EntityLivingBase entityLiving, EnumHandSide hand) {
-//        if (entityLiving != null && entityLiving instanceof EntityPlayer) {
-//            EntityPlayer player = (EntityPlayer) entityLiving;
-//            if (player.getPrimaryHand() == hand) {
-//                itemStack = player.getHeldItemMainhand();
-//                if (itemStack != null && player.isHandActive() && ModuleManager.itemHasActiveModule(itemStack, PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
-//                    isFiring = true;
-//                    int actualCount = (-player.getItemInUseCount() + 72000);
-//                    this.boltSize = actualCount > 50 ? 50 : actualCount;
-//                } else {
-//                    isFiring = false;
-//                    this.boltSize = 0;
-//                }
-//            } else {
-//                itemStack = entity.getHeldItemOffhand();
-//                isFiring = false;
-//                this.boltSize = 0;
-//            }
-//            if (itemStack != null) {
-//                if (itemStack.getItem() instanceof  IModularItemBase) {
-//                    IModularItemBase item = (IModularItemBase) itemStack.getItem();
-//                    colour = ((IModularItemBase) itemStack.getItem()).getColorFromItemStack(itemStack);
-//                    glow = ((IModularItemBase) itemStack.getItem()).getGlowFromItemStack(itemStack);
-//                }
-//            } else {
-//                colour = null;
-//                glow = null;
-//            }
-//        }
-//    }
-
         }
     }
 }

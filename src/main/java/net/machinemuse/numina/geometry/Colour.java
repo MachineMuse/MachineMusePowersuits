@@ -134,6 +134,7 @@ public class Colour {
         return new double[]{r, g, b, a};
     }
 
+    // format is 0xRRGGBB
     public String hexColour() {
         return hexDigits(r) + hexDigits(g) + hexDigits(b) + (a < 1 ? hexDigits(a) : "");
     }

@@ -10,6 +10,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -43,12 +44,125 @@ public abstract class ItemElectricArmor extends ItemArmor implements IModularIte
     public Colour getColorFromItemStack(ItemStack stack) {
         return ModularItemBase.getInstance().getColorFromItemStack(stack);
     }
+    //=================================================================================
+    @Override
+    public boolean hasColor(ItemStack stack) {
+        return true ;
+    }
 
-//    @SideOnly(Side.CLIENT)
-//    public boolean requiresMultipleRenderPasses() {
-//        return ModularItemBase.getInstance().requiresMultipleRenderPasses();
+    @Override
+    public int getColor(ItemStack stack) {
+        Colour c = this.getColorFromItemStack(stack);
+//        setColor(stack, c.getInt());
+
+        return c.getInt();
+    }
+
+//    @Override
+//    public void setColor(ItemStack stack, int color) {
+//        NBTTagCompound nbttagcompound = stack.getTagCompound();
+//
+//        if (nbttagcompound == null)
+//        {
+//            nbttagcompound = new NBTTagCompound();
+//            stack.setTagCompound(nbttagcompound);
+//        }
+//
+//        NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
+//
+//        if (!nbttagcompound.hasKey("display", 10))
+//        {
+//            nbttagcompound.setTag("display", nbttagcompound1);
+//        }
+//
+//        nbttagcompound1.setInteger("color", color);
 //    }
 
+    @Override
+    public boolean hasOverlay(ItemStack stack) {
+        return true;
+    }
+
+    //
+//    /**
+//     * Return the color for the specified armor ItemStack.
+//     */
+//    public int getColor(ItemStack stack)
+//    {
+//        if (this.material != ItemArmor.ArmorMaterial.LEATHER)
+//        {
+//            return 16777215;
+//        }
+//        else
+//        {
+//            NBTTagCompound nbttagcompound = stack.getTagCompound();
+//
+//            if (nbttagcompound != null)
+//            {
+//                NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
+//
+//                if (nbttagcompound1 != null && nbttagcompound1.hasKey("color", 3))
+//                {
+//                    return nbttagcompound1.getInteger("color");
+//                }
+//            }
+//
+//            return 10511680;
+//        }
+//    }
+//
+//    /**
+//     * Remove the color from the specified armor ItemStack.
+//     */
+//    public void removeColor(ItemStack stack)
+//    {
+//        if (this.material == ItemArmor.ArmorMaterial.LEATHER)
+//        {
+//            NBTTagCompound nbttagcompound = stack.getTagCompound();
+//
+//            if (nbttagcompound != null)
+//            {
+//                NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
+//
+//                if (nbttagcompound1.hasKey("color"))
+//                {
+//                    nbttagcompound1.removeTag("color");
+//                }
+//            }
+//        }
+//    }
+//
+//    /**
+//     * Sets the color of the specified armor ItemStack
+//     */
+//    public void setColor(ItemStack stack, int color)
+//    {
+//        if (this.material != ItemArmor.ArmorMaterial.LEATHER)
+//        {
+//            throw new UnsupportedOperationException("Can\'t dye non-leather!");
+//        }
+//        else
+//        {
+//            NBTTagCompound nbttagcompound = stack.getTagCompound();
+//
+//            if (nbttagcompound == null)
+//            {
+//                nbttagcompound = new NBTTagCompound();
+//                stack.setTagCompound(nbttagcompound);
+//            }
+//
+//            NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
+//
+//            if (!nbttagcompound.hasKey("display", 10))
+//            {
+//                nbttagcompound.setTag("display", nbttagcompound1);
+//            }
+//
+//            nbttagcompound1.setInteger("color", color);
+//        }
+//    }
+
+    //===========================================================================================
     @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> currentTipList, boolean advancedToolTips) {
         ModularItemBase.getInstance().addInformation(stack, playerIn, currentTipList, advancedToolTips);
