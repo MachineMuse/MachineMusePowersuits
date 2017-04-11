@@ -45,7 +45,6 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
     ItemCameraTransforms.TransformType cameraTransformType;
     ItemStack itemStack;
     Item item;
-    Colour glow;
     Colour colour;
     World world;
     EntityLivingBase entity;
@@ -59,7 +58,6 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
             iconModel = bakedModelIn;
         }
     }
-
 
     @Override
     public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformTypeIn) {
@@ -164,8 +162,6 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
             entity = entityIn;
             item = itemStack.getItem();
             colour = ((IModularItemBase) item).getColorFromItemStack(itemStack);
-            glow = ((IModularItemBase) item).getGlowFromItemStack(itemStack);
-
             if (entityIn instanceof EntityPlayer) {
                 if (itemStack != null && itemStack == entityIn.getHeldItemMainhand() && entityIn.isHandActive()
                         && ModuleManager.itemHasActiveModule(itemStack, PlasmaCannonModule.MODULE_PLASMA_CANNON)) {

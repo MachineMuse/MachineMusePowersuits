@@ -66,6 +66,11 @@ public class ModelHelper {
     static Map<Colour, List<BakedQuad>> coloredQuadList_powerFistLeftFiring = new HashMap<>();
     static Map<Colour, List<BakedQuad>> coloredQuadList_powerFistIcon = new HashMap<>();
 
+
+
+
+
+
     public static List<BakedQuad> getPowerFistQuadList(Colour colour){
         List<BakedQuad> bakedQuadList = coloredQuadList_powerFist.get(colour);
         if (bakedQuadList == null) {

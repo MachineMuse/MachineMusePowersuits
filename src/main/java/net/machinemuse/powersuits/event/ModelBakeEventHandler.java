@@ -1,12 +1,12 @@
 package net.machinemuse.powersuits.event;
 
-import net.machinemuse.powersuits.client.render.model.LuxCapModelHelper;
-import net.machinemuse.powersuits.client.render.model.ModelHelper;
-import net.machinemuse.powersuits.client.render.model.ModelLuxCapacitor;
-import net.machinemuse.powersuits.client.render.model.ModelPowerFist;
+import net.machinemuse.powersuits.client.render.model.*;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.MPSItems;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.registry.IRegistry;
 import net.minecraftforge.client.event.ModelBakeEvent;
@@ -54,6 +54,12 @@ public class ModelBakeEventHandler {
             storeLuxCapModel(facing);
         }
 
+        // set up armor icon models for coloring because that's how it used to work
+        setupArmorIcon(MPSItems.powerArmorHead, modelRegistry);
+        setupArmorIcon(MPSItems.powerArmorTorso, modelRegistry);
+        setupArmorIcon(MPSItems.powerArmorLegs, modelRegistry);
+        setupArmorIcon(MPSItems.powerArmorFeet, modelRegistry);
+
         // put this here because it might be fired late enough to actually work
         if (firstLoad) {
             firstLoad = false;
@@ -70,4 +76,13 @@ public class ModelBakeEventHandler {
             modelRegistry.putObject(luxCapacitorLocation, new ModelLuxCapacitor(modelIn));
         }
     }
+
+    public void setupArmorIcon(Item itemIn, IRegistry<ModelResourceLocation, IBakedModel> modelRegistryIn) {
+        ModelResourceLocation armorIconLocation = new ModelResourceLocation(itemIn.getRegistryName(), "inventory");
+        IBakedModel iconModel = modelRegistryIn.getObject(armorIconLocation);
+        modelRegistryIn.putObject(armorIconLocation, new ArmorIcon(iconModel));
+    }
+
+
+
 }
