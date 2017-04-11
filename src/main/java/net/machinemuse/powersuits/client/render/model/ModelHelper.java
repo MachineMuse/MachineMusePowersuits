@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.SimpleModelState;
@@ -39,8 +40,7 @@ import org.lwjgl.input.Keyboard;
 import javax.annotation.Nullable;
 import javax.vecmath.Vector3f;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @SideOnly(Side.CLIENT)
 public class ModelHelper {
@@ -58,6 +58,65 @@ public class ModelHelper {
     static IBakedModel powerFistFiring;
     static IBakedModel powerFistLeft;
     static IBakedModel powerFistLeftFiring;
+
+    // OBJ models have only one list and fetches when side == null
+    static Map<Colour, List<BakedQuad>> coloredQuadList_powerFist = new HashMap<>();
+    static Map<Colour, List<BakedQuad>> coloredQuadList_powerFistFiring = new HashMap<>();
+    static Map<Colour, List<BakedQuad>> coloredQuadList_powerFistLeft = new HashMap<>();
+    static Map<Colour, List<BakedQuad>> coloredQuadList_powerFistLeftFiring = new HashMap<>();
+    static Map<Colour, List<BakedQuad>> coloredQuadList_powerFistIcon = new HashMap<>();
+
+    public static List<BakedQuad> getPowerFistQuadList(Colour colour){
+        List<BakedQuad> bakedQuadList = coloredQuadList_powerFist.get(colour);
+        if (bakedQuadList == null) {
+            bakedQuadList = powerFist.getQuads(null, null, 0);
+            bakedQuadList = getColoredQuads(bakedQuadList, colour);
+            coloredQuadList_powerFist.put(colour, bakedQuadList);
+        }
+        return bakedQuadList;
+    }
+
+    public static List<BakedQuad> getpowerFistFiringQuadList(Colour colour){
+        List<BakedQuad> bakedQuadList = coloredQuadList_powerFistFiring.get(colour);
+        if (bakedQuadList == null) {
+            bakedQuadList = powerFistFiring.getQuads(null, null, 0);
+            bakedQuadList = getColoredQuads(bakedQuadList, colour);
+            coloredQuadList_powerFistFiring.put(colour, bakedQuadList);
+        }
+        return bakedQuadList;
+    }
+
+    public static List<BakedQuad> getpowerFistLeftQuadList(Colour colour){
+        List<BakedQuad> bakedQuadList = coloredQuadList_powerFistLeft.get(colour);
+        if (bakedQuadList == null) {
+            bakedQuadList = powerFistLeft.getQuads(null, null, 0);
+            bakedQuadList = getColoredQuads(bakedQuadList, colour);
+            coloredQuadList_powerFistLeft.put(colour, bakedQuadList);
+        }
+        return bakedQuadList;
+    }
+
+    public static List<BakedQuad> getpowerFistLeftFiringQuadList(Colour colour){
+        List<BakedQuad> bakedQuadList = coloredQuadList_powerFistLeftFiring.get(colour);
+        if (bakedQuadList == null) {
+            bakedQuadList = powerFistLeftFiring.getQuads(null, null, 0);
+            bakedQuadList = getColoredQuads(bakedQuadList, colour);
+            coloredQuadList_powerFistLeftFiring.put(colour, bakedQuadList);
+        }
+        return bakedQuadList;
+    }
+
+    public static List<BakedQuad> getPowerFistIconQuadList(IBakedModel iconModel, Colour colour){
+        List<BakedQuad> bakedQuadList = coloredQuadList_powerFistIcon.get(colour);
+        if (bakedQuadList == null) {
+            bakedQuadList = iconModel.getQuads(null, null,0);
+            bakedQuadList = getColoredQuads(bakedQuadList, colour);
+            coloredQuadList_powerFistIcon.put(colour, bakedQuadList);
+        }
+        return bakedQuadList;
+    }
+
+
 
 
     // One pass just to register the textures called from texture stitch event

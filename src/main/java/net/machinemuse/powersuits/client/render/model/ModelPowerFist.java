@@ -100,41 +100,25 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
         List<BakedQuad> quadList;
         switch (cameraTransformType) {
             case FIRST_PERSON_RIGHT_HAND:
-                if(isFiring)
-                    quadList = ModelHelper.powerFistFiring.getQuads(state, side, rand);
-                else
-                    quadList = ModelHelper.powerFist.getQuads(state, side, rand);
-                break;
-
             case THIRD_PERSON_RIGHT_HAND:
+            case GROUND:
                 if(isFiring)
-                    quadList = ModelHelper.powerFistFiring.getQuads(state, side, rand);
+                    quadList = ModelHelper.getpowerFistFiringQuadList(colour);
                 else
-                    quadList = ModelHelper.powerFist.getQuads(state, side, rand);
+                    quadList = ModelHelper.getPowerFistQuadList(colour);
                 break;
 
             case FIRST_PERSON_LEFT_HAND:
-                if(isFiring)
-                    quadList = ModelHelper.powerFistLeftFiring.getQuads(state, side, rand);
-                else
-                    quadList = ModelHelper.powerFistLeft.getQuads(state, side, rand);
-                break;
-
             case THIRD_PERSON_LEFT_HAND:
                 if(isFiring)
-                    quadList = ModelHelper.powerFistLeftFiring.getQuads(state, side, rand);
+                    quadList = ModelHelper.getpowerFistLeftFiringQuadList(colour);
                 else
-                    quadList = ModelHelper.powerFistLeft.getQuads(state, side, rand);
+                    quadList = ModelHelper.getpowerFistLeftQuadList(colour);
                 break;
-
-            case GROUND:
-                quadList = ModelHelper.powerFist.getQuads(state, side, rand);
-                break;
-
             default:
-                quadList = iconModel.getQuads(state, side, rand);
+                quadList = ModelHelper.getPowerFistIconQuadList(iconModel, colour);
         }
-        return ModelHelper.getColoredQuads(quadList, colour);
+        return quadList;
     }
 
     @Override
@@ -185,7 +169,7 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
             if (entityIn instanceof EntityPlayer) {
                 if (itemStack != null && itemStack == entityIn.getHeldItemMainhand() && entityIn.isHandActive()
                         && ModuleManager.itemHasActiveModule(itemStack, PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
-                        isFiring = true;
+                    isFiring = true;
                 }
                 else isFiring = false;
             }
