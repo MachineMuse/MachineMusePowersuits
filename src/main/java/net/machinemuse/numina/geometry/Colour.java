@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import javax.vecmath.Vector4f;
 import java.awt.*;
+import java.util.Objects;
 
 /**
  * A class representing an RGBA colour and various helper functions. Mainly to
@@ -160,5 +161,10 @@ public class Colour {
         colorVec.y = (float) g;
         colorVec.z = (float) b;
         return colorVec;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(this.getInt());
     }
 }

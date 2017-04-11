@@ -35,11 +35,15 @@ repositories {
 	maven {
             url "http://dvs1.progwml6.com/files/maven"
 	}
+    mavenCentral()
 }
 
 dependencies {
     // compile against the JEI API
     deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}:api"
+
+    compile group: 'com.google.guava', name: 'guava', version: '19.0'
+
     // at runtime, use the full JEI jar
     runtime "mezz.jei:jei_${minecraft_version}:${jei_version}"
 }

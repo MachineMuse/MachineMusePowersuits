@@ -19,10 +19,10 @@ public class TransparentArmorModule extends PowerModuleBase {
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.laserHologram, 1));
     }
 
-    @Override
-    public boolean isAllowed() {
-        return false;
-    }
+//    @Override
+//    public boolean isAllowed() {
+//        return false;
+//    }
 
     @Override
     public String getCategory() {

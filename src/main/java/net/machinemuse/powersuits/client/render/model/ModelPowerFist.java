@@ -1,5 +1,8 @@
 package net.machinemuse.powersuits.client.render.model;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableMap;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.geometry.Colour;
@@ -34,6 +37,7 @@ import javax.vecmath.Matrix4f;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.*;
 
@@ -42,22 +46,66 @@ import static net.minecraft.client.renderer.block.model.ItemCameraTransforms.Tra
  * Created by lehjr on 12/19/16.
  */
 public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
-    ItemCameraTransforms.TransformType cameraTransformType;
-    ItemStack itemStack;
-    Item item;
-    Colour colour;
-    World world;
-    EntityLivingBase entity;
-    boolean isFiring = false;
+    static ItemCameraTransforms.TransformType cameraTransformType;
+    static ItemStack itemStack;
+    static Item item;
+    static Colour colour;
+    static World world;
+    static EntityLivingBase entity;
+    static boolean isFiring = false;
 
-    IBakedModel iconModel;
+    static IBakedModel iconModel;
     public ModelPowerFist(IBakedModel bakedModelIn) {
+
         if (bakedModelIn instanceof ModelPowerFist) {
             iconModel = ((ModelPowerFist)bakedModelIn).iconModel;
         } else {
             iconModel = bakedModelIn;
         }
     }
+
+    static LoadingCache<Colour, List<BakedQuad>> powerFistIconCache = CacheBuilder.newBuilder()
+            .maximumSize(100)
+            .build(new CacheLoader<Colour, List<BakedQuad>>() {
+                public List<BakedQuad> load(Colour colour) { // no checked exception //  throws Exception {
+                    return ModelHelper.getColoredQuads(iconModel.getQuads(null, null,0), colour);
+                }
+            });
+
+    static LoadingCache<Colour, List<BakedQuad>> powerFistCache = CacheBuilder.newBuilder()
+            .maximumSize(100)
+            .build(new CacheLoader<Colour, List<BakedQuad>>() {
+                public List<BakedQuad> load(Colour colour) { // no checked exception //  throws Exception {
+                    return ModelHelper.getColoredQuads(ModelHelper.powerFist.getQuads(null, null,0), colour);
+                }
+            });
+
+
+    static LoadingCache<Colour, List<BakedQuad>> powerFistFiringCache = CacheBuilder.newBuilder()
+            .maximumSize(100)
+            .build(new CacheLoader<Colour, List<BakedQuad>>() {
+                public List<BakedQuad> load(Colour colour) { // no checked exception //  throws Exception {
+                    return ModelHelper.getColoredQuads(ModelHelper.powerFistFiring.getQuads(null, null,0), colour);
+                }
+            });
+
+
+    static LoadingCache<Colour, List<BakedQuad>> powerFistLeftCache = CacheBuilder.newBuilder()
+            .maximumSize(100)
+            .build(new CacheLoader<Colour, List<BakedQuad>>() {
+                public List<BakedQuad> load(Colour colour) { // no checked exception //  throws Exception {
+                    return ModelHelper.getColoredQuads(ModelHelper.powerFistLeft.getQuads(null, null,0), colour);
+                }
+            });
+
+
+    static LoadingCache<Colour, List<BakedQuad>> powerFistLeftFiringCache = CacheBuilder.newBuilder()
+            .maximumSize(100)
+            .build(new CacheLoader<Colour, List<BakedQuad>>() {
+                public List<BakedQuad> load(Colour colour) { // no checked exception //  throws Exception {
+                    return ModelHelper.getColoredQuads(ModelHelper.powerFistLeftFiring.getQuads(null, null,0), colour);
+                }
+            });
 
     @Override
     public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformTypeIn) {
@@ -101,20 +149,46 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
             case THIRD_PERSON_RIGHT_HAND:
             case GROUND:
                 if(isFiring)
-                    quadList = ModelHelper.getpowerFistFiringQuadList(colour);
+                    try {
+                        quadList = powerFistFiringCache.get(colour);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        quadList = Collections.EMPTY_LIST;
+                    }
                 else
-                    quadList = ModelHelper.getPowerFistQuadList(colour);
+                    try {
+                        quadList = ModelHelper.getPowerFistQuadList(colour);
+                        quadList = powerFistCache.get(colour);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        quadList = Collections.EMPTY_LIST;
+                    }
                 break;
 
             case FIRST_PERSON_LEFT_HAND:
             case THIRD_PERSON_LEFT_HAND:
                 if(isFiring)
-                    quadList = ModelHelper.getpowerFistLeftFiringQuadList(colour);
+                    try {
+                        quadList = powerFistFiringCache.get(colour);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        quadList = Collections.EMPTY_LIST;
+                    }
                 else
-                    quadList = ModelHelper.getpowerFistLeftQuadList(colour);
+                    try {
+                        quadList = powerFistLeftCache.get(colour);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        quadList = Collections.EMPTY_LIST;
+                    }
                 break;
             default:
-                quadList = ModelHelper.getPowerFistIconQuadList(iconModel, colour);
+                try {
+                    quadList = powerFistIconCache.get(colour);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    quadList = Collections.EMPTY_LIST;
+                }
         }
         return quadList;
     }
@@ -131,7 +205,6 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
 
     @Override
     public boolean isBuiltInRenderer() {
-//        return iconModel.isBuiltInRenderer();
         return false;
     }
 

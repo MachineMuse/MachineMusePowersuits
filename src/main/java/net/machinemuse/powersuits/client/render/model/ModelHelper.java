@@ -2,6 +2,9 @@ package net.machinemuse.powersuits.client.render.model;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.UnmodifiableIterator;
@@ -65,7 +68,6 @@ public class ModelHelper {
     static Map<Colour, List<BakedQuad>> coloredQuadList_powerFistLeft = new HashMap<>();
     static Map<Colour, List<BakedQuad>> coloredQuadList_powerFistLeftFiring = new HashMap<>();
     static Map<Colour, List<BakedQuad>> coloredQuadList_powerFistIcon = new HashMap<>();
-
 
 
 

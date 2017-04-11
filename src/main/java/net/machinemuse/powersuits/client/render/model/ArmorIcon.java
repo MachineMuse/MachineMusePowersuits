@@ -1,5 +1,8 @@
 package net.machinemuse.powersuits.client.render.model;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.item.IModularItemBase;
 import net.minecraft.block.state.IBlockState;
@@ -23,6 +26,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by leon on 4/10/17.
@@ -34,7 +38,7 @@ public class ArmorIcon implements IBakedModel, IPerspectiveAwareModel {
     Colour colour;
     World world;
     EntityLivingBase entity;
-    IBakedModel iconModel;
+    static IBakedModel iconModel;
     static Map<Colour, List<BakedQuad>> coloredQuadMap = new HashMap<>();
 
     public List<BakedQuad> getcoloredQuadList(Colour colour){
@@ -46,6 +50,14 @@ public class ArmorIcon implements IBakedModel, IPerspectiveAwareModel {
         }
         return bakedQuadList;
     }
+
+    static LoadingCache<Colour, List<BakedQuad>> armorIconCache = CacheBuilder.newBuilder()
+            .maximumSize(100)
+            .build(new CacheLoader<Colour, List<BakedQuad>>() {
+                public List<BakedQuad> load(Colour colour) { // no checked exception //  throws Exception {
+                    return ModelHelper.getColoredQuads(iconModel.getQuads(null, null,0), colour);
+                }
+            });
 
     public ArmorIcon(IBakedModel iconModelIn) {
         if (iconModelIn instanceof ArmorIcon)
@@ -68,7 +80,12 @@ public class ArmorIcon implements IBakedModel, IPerspectiveAwareModel {
     @Override
     public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
         if (side == null)
-            return getcoloredQuadList(colour);
+            try {
+                return armorIconCache.get(colour);
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
         return Collections.EMPTY_LIST;
     }
 
