@@ -6,7 +6,6 @@ import net.machinemuse.powersuits.common.MPSItems;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.registry.IRegistry;
 import net.minecraftforge.client.event.ModelBakeEvent;
@@ -30,6 +29,13 @@ public class ModelBakeEventHandler {
     private static boolean firstLoad = Boolean.parseBoolean(System.getProperty("fml.skipFirstModelBake", "true"));
     public static final ModelResourceLocation powerFistIconLocation = new ModelResourceLocation(Config.RESOURCE_PREFIX + "powerTool", "inventory");
     public static ModelPowerFist powerFistModel;
+
+    // Armor icons
+    public static final ModelResourceLocation powerArmorHeadModelLocation = new ModelResourceLocation(MPSItems.powerArmorHead.getRegistryName(), "inventory");
+    public static final ModelResourceLocation powerArmorChestModelLocation = new ModelResourceLocation(MPSItems.powerArmorTorso.getRegistryName(), "inventory");
+    public static final ModelResourceLocation powerArmorLegsModelLocation = new ModelResourceLocation(MPSItems.powerArmorLegs.getRegistryName(), "inventory");
+    public static final ModelResourceLocation powerArmorFeetModelLocation = new ModelResourceLocation(MPSItems.powerArmorFeet.getRegistryName(), "inventory");
+
 
     public static ModelBakeEventHandler getInstance() {
         return ourInstance;
@@ -55,10 +61,26 @@ public class ModelBakeEventHandler {
         }
 
         // set up armor icon models for coloring because that's how it used to work
-        setupArmorIcon(MPSItems.powerArmorHead, modelRegistry);
-        setupArmorIcon(MPSItems.powerArmorTorso, modelRegistry);
-        setupArmorIcon(MPSItems.powerArmorLegs, modelRegistry);
-        setupArmorIcon(MPSItems.powerArmorFeet, modelRegistry);
+        IBakedModel powerArmorHeadModel = modelRegistry.getObject(powerArmorHeadModelLocation);
+        IBakedModel powerArmorChestModel = modelRegistry.getObject(powerArmorChestModelLocation);
+        IBakedModel powerArmorLegsModel = modelRegistry.getObject(powerArmorLegsModelLocation);
+        IBakedModel powerArmorFeetModel = modelRegistry.getObject(powerArmorFeetModelLocation);
+
+        IBakedModel powerArmorIconModel = new ArmorIcon(powerArmorHeadModel,
+                                                        powerArmorChestModel,
+                                                        powerArmorLegsModel,
+                                                        powerArmorFeetModel);
+
+        modelRegistry.putObject(powerArmorHeadModelLocation, powerArmorIconModel);
+        modelRegistry.putObject(powerArmorChestModelLocation, powerArmorIconModel);
+        modelRegistry.putObject(powerArmorLegsModelLocation, powerArmorIconModel);
+        modelRegistry.putObject(powerArmorFeetModelLocation, powerArmorIconModel);
+
+
+//        setupArmorIcon(MPSItems.powerArmorHead, modelRegistry);
+//        setupArmorIcon(MPSItems.powerArmorTorso, modelRegistry);
+//        setupArmorIcon(MPSItems.powerArmorLegs, modelRegistry);
+//        setupArmorIcon(MPSItems.powerArmorFeet, modelRegistry);
 
         // put this here because it might be fired late enough to actually work
         if (firstLoad) {
@@ -78,9 +100,9 @@ public class ModelBakeEventHandler {
     }
 
     public void setupArmorIcon(Item itemIn, IRegistry<ModelResourceLocation, IBakedModel> modelRegistryIn) {
-        ModelResourceLocation armorIconLocation = new ModelResourceLocation(itemIn.getRegistryName(), "inventory");
-        IBakedModel iconModel = modelRegistryIn.getObject(armorIconLocation);
-        modelRegistryIn.putObject(armorIconLocation, new ArmorIcon(iconModel));
+//        ModelResourceLocation armorIconLocation = new ModelResourceLocation(itemIn.getRegistryName(), "inventory");
+//        IBakedModel iconModel = modelRegistryIn.getObject(armorIconLocation);
+//        modelRegistryIn.putObject(armorIconLocation, new ArmorIcon(iconModel));
     }
 
 

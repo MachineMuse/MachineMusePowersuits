@@ -4,7 +4,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.powersuits.item.IModularItemBase;
+import net.machinemuse.powersuits.item.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -38,39 +38,73 @@ public class ArmorIcon implements IBakedModel, IPerspectiveAwareModel {
     Colour colour;
     World world;
     EntityLivingBase entity;
-    static IBakedModel iconModel;
-    static Map<Colour, List<BakedQuad>> coloredQuadMap = new HashMap<>();
+    static IBakedModel headIconModel;
+    static IBakedModel chestIconModel;
+    static IBakedModel legsIconModel;
+    static IBakedModel feetIconModel;
 
-    public List<BakedQuad> getcoloredQuadList(Colour colour){
-        List<BakedQuad> bakedQuadList =coloredQuadMap.get(colour);
-        if (bakedQuadList == null) {
-            bakedQuadList = iconModel.getQuads(null, null, 0);
-            bakedQuadList = ModelHelper.getColoredQuads(bakedQuadList, colour);
-            coloredQuadMap.put(colour, bakedQuadList);
-        }
-        return bakedQuadList;
-    }
-
-    static LoadingCache<Colour, List<BakedQuad>> armorIconCache = CacheBuilder.newBuilder()
+    static LoadingCache<Colour, List<BakedQuad>> armorHeadIconCache = CacheBuilder.newBuilder()
             .maximumSize(100)
             .build(new CacheLoader<Colour, List<BakedQuad>>() {
                 public List<BakedQuad> load(Colour colour) { // no checked exception //  throws Exception {
-                    return ModelHelper.getColoredQuads(iconModel.getQuads(null, null,0), colour);
+                    return ModelHelper.getColoredQuads(headIconModel.getQuads(null, null,0), colour);
                 }
             });
 
-    public ArmorIcon(IBakedModel iconModelIn) {
-        if (iconModelIn instanceof ArmorIcon)
-            iconModel = ((ArmorIcon) iconModelIn).iconModel;
+    static LoadingCache<Colour, List<BakedQuad>> armorChestIconCache = CacheBuilder.newBuilder()
+            .maximumSize(100)
+            .build(new CacheLoader<Colour, List<BakedQuad>>() {
+                public List<BakedQuad> load(Colour colour) { // no checked exception //  throws Exception {
+                    return ModelHelper.getColoredQuads(chestIconModel.getQuads(null, null,0), colour);
+                }
+            });
+
+    static LoadingCache<Colour, List<BakedQuad>> armorLegsIconCache = CacheBuilder.newBuilder()
+            .maximumSize(100)
+            .build(new CacheLoader<Colour, List<BakedQuad>>() {
+                public List<BakedQuad> load(Colour colour) { // no checked exception //  throws Exception {
+                    return ModelHelper.getColoredQuads(legsIconModel.getQuads(null, null,0), colour);
+                }
+            });
+
+    static LoadingCache<Colour, List<BakedQuad>> armorFeetIconCache = CacheBuilder.newBuilder()
+            .maximumSize(100)
+            .build(new CacheLoader<Colour, List<BakedQuad>>() {
+                public List<BakedQuad> load(Colour colour) { // no checked exception //  throws Exception {
+                    return ModelHelper.getColoredQuads(feetIconModel.getQuads(null, null,0), colour);
+                }
+            });
+
+    public ArmorIcon(IBakedModel headIconModelIn,
+                     IBakedModel chestIconModelIn,
+                     IBakedModel legsIconModelIn,
+                     IBakedModel feetIconModelIn) {
+        if (headIconModelIn instanceof ArmorIcon)
+            headIconModel = ((ArmorIcon) headIconModelIn).headIconModel;
         else
-            iconModel = iconModelIn;
+            headIconModel = headIconModelIn;
+
+        if (chestIconModelIn instanceof ArmorIcon)
+            chestIconModel = ((ArmorIcon) chestIconModelIn).chestIconModel;
+        else
+            chestIconModel = chestIconModelIn;
+
+        if (legsIconModelIn instanceof ArmorIcon)
+            legsIconModel = ((ArmorIcon) legsIconModelIn).legsIconModel;
+        else
+            legsIconModel = legsIconModelIn;
+
+        if (feetIconModelIn instanceof ArmorIcon)
+            feetIconModel = ((ArmorIcon) feetIconModelIn).feetIconModel;
+        else
+            feetIconModel = feetIconModelIn;
     }
 
     @Override
     public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformTypeIn) {
         Matrix4f matrix;
-        if (iconModel != null && iconModel instanceof IPerspectiveAwareModel) {
-            matrix = ((IPerspectiveAwareModel) iconModel).handlePerspective(cameraTransformTypeIn).getValue();
+        if (headIconModel != null && headIconModel instanceof IPerspectiveAwareModel) {
+            matrix = ((IPerspectiveAwareModel) headIconModel).handlePerspective(cameraTransformTypeIn).getValue();
         } else {
             matrix = TRSRTransformation.identity().getMatrix();
         }
@@ -81,27 +115,33 @@ public class ArmorIcon implements IBakedModel, IPerspectiveAwareModel {
     public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
         if (side == null)
             try {
-                return armorIconCache.get(colour);
+                if( item instanceof ItemPowerArmorHelmet)
+                    return armorHeadIconCache.get(colour);
+                else if (item instanceof ItemPowerArmorChestplate)
+                    return armorChestIconCache.get(colour);
+                else if(item instanceof ItemPowerArmorLeggings)
+                    return armorLegsIconCache.get(colour);
+                else if (item instanceof ItemPowerArmorBoots)
+                    return armorFeetIconCache.get(colour);
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-
         return Collections.EMPTY_LIST;
     }
 
     @Override
     public boolean isAmbientOcclusion() {
-        return iconModel.isAmbientOcclusion();
+        return headIconModel.isAmbientOcclusion();
     }
 
     @Override
     public boolean isGui3d() {
-        return iconModel.isGui3d();
+        return headIconModel.isGui3d();
     }
 
     @Override
     public boolean isBuiltInRenderer() {
-        return iconModel.isBuiltInRenderer();
+        return headIconModel.isBuiltInRenderer();
     }
 
     @Override
@@ -111,7 +151,7 @@ public class ArmorIcon implements IBakedModel, IPerspectiveAwareModel {
 
     @Override
     public ItemCameraTransforms getItemCameraTransforms() {
-        return iconModel.getItemCameraTransforms();
+        return headIconModel.getItemCameraTransforms();
     }
 
     @Override
