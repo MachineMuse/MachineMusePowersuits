@@ -56,7 +56,6 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
 
     static IBakedModel iconModel;
     public ModelPowerFist(IBakedModel bakedModelIn) {
-
         if (bakedModelIn instanceof ModelPowerFist) {
             iconModel = ((ModelPowerFist)bakedModelIn).iconModel;
         } else {
@@ -143,6 +142,8 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
 
     @Override
     public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
+        if (side != null) return Collections.EMPTY_LIST;
+
         List<BakedQuad> quadList;
         switch (cameraTransformType) {
             case FIRST_PERSON_RIGHT_HAND:
