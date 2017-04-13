@@ -2,7 +2,9 @@ package net.machinemuse.powersuits.item;
 
 //import appeng.api.implementations.items.IAEWrench;
 
+import cofh.api.item.IToolHammer;
 import crazypants.enderio.api.tool.ITool;
+import forestry.api.arboriculture.IToolGrafter;
 import mekanism.api.IMekWrench;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
@@ -49,20 +51,20 @@ import java.util.List;
 @Optional.InterfaceList({
         @Optional.Interface(iface = "mekanism.api.IMekWrench", modid = "Mekanism", striprefs = true),
         @Optional.Interface(iface = "crazypants.enderio.api.tool.ITool", modid = "EnderIO", striprefs = true),
-//        @Optional.Interface(iface = "forestry.api.arboriculture.IToolGrafter", modid = "Forestry", striprefs = true),
+        @Optional.Interface(iface = "forestry.api.arboriculture.IToolGrafter", modid = "Forestry", striprefs = true),
 //        @Optional.Interface(iface = "mods.railcraft.api.core.items.IToolCrowbar", modid = "Railcraft", striprefs = true),
 //        @Optional.Interface(iface = "powercrystals.minefactoryreloaded.api.IMFRHammer", modid = "MineFactoryReloaded", striprefs = true),
-//        @Optional.Interface(iface = "cofh.api.item.IToolHammer", modid = "CoFHCore", striprefs = true),
+        @Optional.Interface(iface = "cofh.api.item.IToolHammer", modid = "CoFHCore", striprefs = true),
 //        @Optional.Interface(iface = "buildcraft.api.tools.IToolWrench", modid = "BuildCraft|Core", striprefs = true),
 //        @Optional.Interface(iface = "appeng.api.implementations.items.IAEWrench", modid = "appliedenergistics2", striprefs = true)
 })
 public class ItemPowerFist extends MPSItemElectricTool
         implements
-//        IToolGrafter,
-//        IToolHammer,
+        IToolGrafter,
+        IToolHammer,
 //        IToolCrowbar,
 ////        IAEWrench,
-////        IToolWrench,
+//        IToolWrench,
         ITool,
         IMekWrench,
         IModularItem,
@@ -268,28 +270,28 @@ public class ItemPowerFist extends MPSItemElectricTool
         return false;
   }
 
-//    /* TE Crescent Hammer */
-//    @Override
-//    public boolean isUsable(ItemStack itemStack, EntityLivingBase entityLivingBase, Entity entity) {
-//        return entityLivingBase instanceof EntityPlayer && this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
-//    }
-//    /* TE Crescent Hammer */
-//    @Override
-//    public boolean isUsable(ItemStack itemStack, EntityLivingBase entityLivingBase, BlockPos blockPos) {
-//        return entityLivingBase instanceof EntityPlayer && this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
-//    }
-//
-//    /* TE Crescent Hammer */
-//    @Override
-//    public void toolUsed(ItemStack itemStack, EntityLivingBase entityLivingBase, Entity entity) {
-//
-//    }
-//    /* TE Crescent Hammer */
-//
-//    @Override
-//    public void toolUsed(ItemStack itemStack, EntityLivingBase entityLivingBase, BlockPos blockPos) {
-//
-//    }
+    /* TE Crescent Hammer */
+    @Override
+    public boolean isUsable(ItemStack itemStack, EntityLivingBase entityLivingBase, Entity entity) {
+        return entityLivingBase instanceof EntityPlayer && this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
+    }
+    /* TE Crescent Hammer */
+    @Override
+    public boolean isUsable(ItemStack itemStack, EntityLivingBase entityLivingBase, BlockPos blockPos) {
+        return entityLivingBase instanceof EntityPlayer && this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
+    }
+
+    /* TE Crescent Hammer */
+    @Override
+    public void toolUsed(ItemStack itemStack, EntityLivingBase entityLivingBase, Entity entity) {
+
+    }
+
+    /* TE Crescent Hammer */
+    @Override
+    public void toolUsed(ItemStack itemStack, EntityLivingBase entityLivingBase, BlockPos blockPos) {
+
+    }
 //
 //    /* Railcraft Crowbar */
 //    @Override

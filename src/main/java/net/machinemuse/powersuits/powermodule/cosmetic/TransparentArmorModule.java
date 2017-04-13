@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.cosmetic;
 
 import net.machinemuse.api.IModularItem;
+import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -11,7 +12,7 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
-public class TransparentArmorModule extends PowerModuleBase {
+public class TransparentArmorModule extends PowerModuleBase implements IToggleableModule {
     public static final String MODULE_TRANSPARENT_ARMOR = "Transparent Armor";
 
     public TransparentArmorModule(List<IModularItem> validItems) {

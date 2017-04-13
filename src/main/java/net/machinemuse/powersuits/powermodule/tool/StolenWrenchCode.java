@@ -1,17 +1,35 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-//import cofh.api.block.IDismantleable;
-//import cofh.lib.util.helpers.BlockHelper;
-//import cofh.lib.util.helpers.ServerHelper;
-
+import cofh.api.block.IDismantleable;
+import cofh.lib.util.helpers.BlockHelper;
+import cofh.lib.util.helpers.ServerHelper;
+import ic2.api.tile.IWrenchable;
+import net.machinemuse.powersuits.common.ModCompatibility;
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.eventhandler.Event;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by MachineMuse on 9/7/2015.
  *
- * Unabashedly ripped off of the Prototype Omniwrench in Redstone Arsenal.
+ * Unabashedly ripped off of the Prototype Omniwrench in Redstone Arsenal, AGAIN!!!
  *
  */
 public class StolenWrenchCode {
@@ -19,94 +37,82 @@ public class StolenWrenchCode {
         // TBI, maybe?
     }
 
+    public static EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+        if(stack.getItemDamage() > 0) {
+            stack.setItemDamage(0);
+        }
 
-    // public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-    public static boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int hitSide, float hitX, float hitY, float hitZ) {
+//        if(!player.capabilities.isCreativeMode && this.getEnergyStored(stack) < this.getEnergyPerUse(stack)) {
+//            return EnumActionResult.PASS;
+//        }
 
-//        if (stack.getItemDamage() > 0) {
-//            stack.setItemDamage(0);
-//        }
-////        if (!player.capabilities.isCreativeMode && getEnergyStored(stack) < getEnergyPerUse(stack)) {
-////            return false;
-////        }
-//        Block block = world.getBlock(x, y, z);
-//
-//        if (block == null) {
-//            return false;
-//        }
-//        PlayerInteractEvent event = new PlayerInteractEvent(player, PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK, x, y, z, hitSide, world);
-//        if (MinecraftForge.EVENT_BUS.post(event) || event.getResult() == Event.Result.DENY || event.useBlock == Event.Result.DENY || event.useItem == Event.Result.DENY) {
-//            return false;
-//        }
-//        if (ModCompatibility.isRFAPILoaded() && ServerHelper.isServerWorld(world) && player.isSneaking() && block instanceof IDismantleable
-//                && ((IDismantleable) block).canDismantle(player, world, x, y, z)) {
-//            ((IDismantleable) block).dismantleBlock(player, world, x, y, z, false);
-//
-//            if (!player.capabilities.isCreativeMode) {
-//                useEnergy(stack, false);
-//            }
-//            return true;
-//        }
-////        if (BlockHelper.canRotate(block)) {
-////            if (player.isSneaking()) {
-////                world.setBlockMetadataWithNotify(x, y, z, BlockHelper.rotateVanillaBlockAlt(world, block, x, y, z), 3);
-////                world.playSoundEffect(x + 0.5, y + 0.5, z + 0.5, block.stepSound.getBreakSound(), 1.0F, 0.6F);
-////            } else {
-////                world.setBlockMetadataWithNotify(x, y, z, BlockHelper.rotateVanillaBlock(world, block, x, y, z), 3);
-////                world.playSoundEffect(x + 0.5, y + 0.5, z + 0.5, block.stepSound.getBreakSound(), 1.0F, 0.8F);
-////            }
-////            if (!player.capabilities.isCreativeMode) {
-////                useEnergy(stack, false);
-////            }
-////            return ServerHelper.isServerWorld(world);
-////        } else if (!player.isSneaking() && block.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(hitSide))) {
-////            if (!player.capabilities.isCreativeMode) {
-////                useEnergy(stack, false);
-////            }
-////            return ServerHelper.isServerWorld(world);
-////        }
-//        TileEntity tile = world.getTileEntity(x, y, z);
-//
-//        if (ModCompatibility.isIndustrialCraftLoaded() && tile instanceof IWrenchable) {
-//            IWrenchable wrenchable = (IWrenchable) tile;
-//
-//            if (player.isSneaking()) {
-//                hitSide = BlockHelper.SIDE_OPPOSITE[hitSide];
-//            }
-//            if (wrenchable.wrenchCanSetFacing(player, hitSide)) {
-//                if (ServerHelper.isServerWorld(world)) {
-//                    wrenchable.setFacing((short) hitSide);
-//                }
-//            } else if (wrenchable.wrenchCanRemove(player)) {
-//                ItemStack dropBlock = wrenchable.getWrenchDrop(player);
-//
-//                if (dropBlock != null) {
-//                    world.setBlockToAir(x, y, z);
-//                    if (ServerHelper.isServerWorld(world)) {
-//                        List<ItemStack> drops = block.getDrops(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
-//
-//                        if (drops.isEmpty()) {
-//                            drops.add(dropBlock);
-//                        } else {
-//                            drops.set(0, dropBlock);
-//                        }
-//                        for (ItemStack drop : drops) {
-//                            float f = 0.7F;
-//                            double x2 = world.rand.nextFloat() * f + (1.0F - f) * 0.5D;
-//                            double y2 = world.rand.nextFloat() * f + (1.0F - f) * 0.5D;
-//                            double z2 = world.rand.nextFloat() * f + (1.0F - f) * 0.5D;
-//                            EntityItem entity = new EntityItem(world, x + x2, y + y2, z + z2, drop);
-//                            entity.delayBeforeCanPickup = 10;
-//                            world.spawnEntityInWorld(entity);
-//                        }
-//                    }
-//                }
-//            }
-//            if (!player.capabilities.isCreativeMode) {
-//                useEnergy(stack, false);
-//            }
-//            return ServerHelper.isServerWorld(world);
-//        }
-        return false;
+        IBlockState state = world.getBlockState(pos);
+        Block block = state.getBlock();
+        TileEntity tile = world.getTileEntity(pos);
+        if(world.isAirBlock(pos))
+            return EnumActionResult.PASS;
+
+        PlayerInteractEvent.RightClickBlock event = new PlayerInteractEvent.RightClickBlock(player, hand, stack, pos, side, new Vec3d((double)hitX, (double)hitY, (double)hitZ));
+        if(MinecraftForge.EVENT_BUS.post(event) || event.getResult() == Event.Result.DENY || event.getUseItem() == Event.Result.DENY || event.getUseBlock() == Event.Result.DENY)
+            return EnumActionResult.PASS;
+
+        if (ModCompatibility.isRFAPILoaded() && ServerHelper.isServerWorld(world) && player.isSneaking() &&
+                block instanceof IDismantleable && ((IDismantleable)block).canDismantle(world, pos, state, player)) {
+            ((IDismantleable)block).dismantleBlock(world, pos, state, player, false);
+
+            if (!player.capabilities.isCreativeMode) {
+                useEnergy(stack, false);
+            }
+            return EnumActionResult.SUCCESS;
+        } else if(ModCompatibility.isIndustrialCraftLoaded() && block instanceof IWrenchable && block.hasTileEntity(state)) {
+            int hitSide = side.ordinal();
+            IWrenchable wrenchable = (IWrenchable)block;
+            if(player.isSneaking()) {
+                hitSide = BlockHelper.SIDE_OPPOSITE[hitSide];
+            }
+
+            if(wrenchable.setFacing(world, pos, EnumFacing.VALUES[hitSide], player)) {
+                return ServerHelper.isServerWorld(world)?EnumActionResult.SUCCESS:EnumActionResult.PASS;
+            } else if(wrenchable.wrenchCanRemove(world, pos, player)) {
+                int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
+                List<ItemStack> drops = wrenchable.getWrenchDrops(world, pos, state, tile, player, fortune);
+                if(!drops.isEmpty()) {
+                    world.setBlockToAir(pos);
+                    if(ServerHelper.isServerWorld(world)) {
+                        Iterator iterator = drops.iterator();
+
+                        while(iterator.hasNext()) {
+                            ItemStack drop = (ItemStack)iterator.next();
+                            float f = 0.7F;
+                            double x2 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
+                            double y2 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
+                            double z2 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
+                            EntityItem entity = new EntityItem(world, (double)pos.getX() + x2, (double)pos.getY() + y2, (double)pos.getZ() + z2, drop);
+                            entity.setPickupDelay(10);
+                            world.spawnEntityInWorld(entity);
+                        }
+                    }
+                    return ServerHelper.isServerWorld(world)?EnumActionResult.SUCCESS:EnumActionResult.PASS;
+                }
+                return EnumActionResult.PASS;
+            }
+        } else if(BlockHelper.canRotate(block)) {
+            world.setBlockState(pos, BlockHelper.rotateVanillaBlock(world, state, pos), 3);
+            if(!player.capabilities.isCreativeMode) {
+                useEnergy(stack, false);
+            }
+            player.swingArm(hand);
+            return ServerHelper.isServerWorld(world)?EnumActionResult.SUCCESS:EnumActionResult.PASS;
+        } else if(!player.isSneaking() && block.rotateBlock(world, pos, side)) {
+            if(!player.capabilities.isCreativeMode) {
+                useEnergy(stack, false);
+            }
+
+            player.swingArm(hand);
+            return ServerHelper.isServerWorld(world)?EnumActionResult.SUCCESS:EnumActionResult.PASS;
+        } else {
+            return EnumActionResult.PASS;
+        }
+        return EnumActionResult.PASS;
     }
 }

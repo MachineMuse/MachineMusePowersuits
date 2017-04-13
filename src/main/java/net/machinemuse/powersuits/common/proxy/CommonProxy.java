@@ -1,9 +1,6 @@
 package net.machinemuse.powersuits.common.proxy;
 
-import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.common.MPSGuiHandler;
-import net.machinemuse.powersuits.common.MPSItems;
-import net.machinemuse.powersuits.common.ModularPowersuits;
+import net.machinemuse.powersuits.common.*;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
@@ -64,6 +61,7 @@ public class CommonProxy {
     }
 
     public void postInit(FMLPostInitializationEvent event) {
+        ModCompatibility.registerModSpecificModules();
         Config.extractRecipes();
         Config.addCustomInstallCosts();
         Config.getConfig().save();

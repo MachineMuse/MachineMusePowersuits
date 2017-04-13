@@ -1,5 +1,8 @@
 package net.machinemuse.powersuits.client.render.model;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import net.machinemuse.numina.geometry.Colour;
@@ -58,7 +61,19 @@ public class LuxCapModelHelper {
     // The actual quad map
     private static Map<Map<Colour, EnumFacing>, List<BakedQuad>> luxCapColoredQuadMap = new HashMap<>();
 
-
+// todo use Guava chache
+//    static LoadingCache<Map<Colour, EnumFacing>, List<BakedQuad>> luxCapColoredQuadMapII = CacheBuilder.newBuilder()
+//            .maximumSize(40)
+//            .build(new CacheLoader<Map<Colour, EnumFacing>, List<BakedQuad>>() {
+//                @Override
+//                public List<BakedQuad> load(Map<Colour, EnumFacing> key) throws Exception {
+//                    return null;
+//                }
+//
+//                public List<BakedQuad> load(Colour colour) { // no checked exception //  throws Exception {
+//                    return ModelHelper.getColoredQuads(ModelHelper.powerFistFiring.getQuads(null, null,0), colour);
+//                }
+//            });
 
 
 

@@ -10,6 +10,7 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,10 +32,13 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
 
     // TODO Fixme put actual item.
     private static final ItemStack emulatedTool = new ItemStack(
-            Item.REGISTRY.getObject(new ResourceLocation("ic2", "electric_treetap")), 1);
-
+            Item.REGISTRY.getObject(new ResourceLocation("chisel", "chisel_iron")), 1);
     public ChiselModule(List<IModularItem> validItems) {
         super(validItems);
+        System.out.println("checking install cost of chisel module");
+        System.out.println("chisel item is null?: " + (emulatedTool == null));
+
+
         //        addInstallCost(new ItemStack(GameRegistry.findItem("minecraft", "obsidian"), 2)); // depreciated, left for now for reference
         addInstallCost(new ItemStack(Item.getItemFromBlock(Blocks.OBSIDIAN), 2));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
@@ -91,6 +95,6 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
-        return super.getIcon(item); // FIXME!!!
+        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(emulatedTool).getParticleTexture();
     }
 }

@@ -174,5 +174,4 @@ public class ArmorIcon implements IBakedModel, IPerspectiveAwareModel {
             return originalModel;
         }
     }
-
 }

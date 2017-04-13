@@ -38,15 +38,16 @@ public class ModCompatibility {
     }
 
     public static boolean isRFAPILoaded() {
-        return ModAPIManager.INSTANCE.hasAPI("CoFHAPI|energy");
+        return ModAPIManager.INSTANCE.hasAPI("cofhapi|energy");
     }
 
     public static boolean isCOFHLibLoaded() {
-        return ModAPIManager.INSTANCE.hasAPI("CoFHLib");
+        return ModAPIManager.INSTANCE.hasAPI("cofhlib");
     }
 
     public static boolean isCOFHCoreLoaded() {
-        return ModAPIManager.INSTANCE.hasAPI("CoFHCore");
+//        return ModAPIManager.INSTANCE.hasAPI("cofhcore");
+        return Loader.isModLoaded("cofhcore");
     }
 
     public static boolean isForestryLoaded() {
@@ -114,8 +115,11 @@ public class ModCompatibility {
         getRFRatio();
 
         // CoFH Lib - CoFHLib is included in CoFHCore
-        if (isCOFHLibLoaded()|| isCOFHCoreLoaded()) {
+        if (isCOFHCoreLoaded()) {
+            System.out.println("COFH core loaded up");
             ModuleManager.addModule(new OmniWrenchModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
+        }else {
+            System.out.println("COFH core not loaded");
         }
 
         // Thaumcraft

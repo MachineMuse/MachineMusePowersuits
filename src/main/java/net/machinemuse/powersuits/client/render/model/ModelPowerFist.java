@@ -64,7 +64,7 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
     }
 
     static LoadingCache<Colour, List<BakedQuad>> powerFistIconCache = CacheBuilder.newBuilder()
-            .maximumSize(100)
+            .maximumSize(20)
             .build(new CacheLoader<Colour, List<BakedQuad>>() {
                 public List<BakedQuad> load(Colour colour) { // no checked exception //  throws Exception {
                     return ModelHelper.getColoredQuads(iconModel.getQuads(null, null,0), colour);
@@ -72,7 +72,7 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
             });
 
     static LoadingCache<Colour, List<BakedQuad>> powerFistCache = CacheBuilder.newBuilder()
-            .maximumSize(100)
+            .maximumSize(20)
             .build(new CacheLoader<Colour, List<BakedQuad>>() {
                 public List<BakedQuad> load(Colour colour) { // no checked exception //  throws Exception {
                     return ModelHelper.getColoredQuads(ModelHelper.powerFist.getQuads(null, null,0), colour);
@@ -81,7 +81,7 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
 
 
     static LoadingCache<Colour, List<BakedQuad>> powerFistFiringCache = CacheBuilder.newBuilder()
-            .maximumSize(100)
+            .maximumSize(20)
             .build(new CacheLoader<Colour, List<BakedQuad>>() {
                 public List<BakedQuad> load(Colour colour) { // no checked exception //  throws Exception {
                     return ModelHelper.getColoredQuads(ModelHelper.powerFistFiring.getQuads(null, null,0), colour);
@@ -90,7 +90,7 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
 
 
     static LoadingCache<Colour, List<BakedQuad>> powerFistLeftCache = CacheBuilder.newBuilder()
-            .maximumSize(100)
+            .maximumSize(20)
             .build(new CacheLoader<Colour, List<BakedQuad>>() {
                 public List<BakedQuad> load(Colour colour) { // no checked exception //  throws Exception {
                     return ModelHelper.getColoredQuads(ModelHelper.powerFistLeft.getQuads(null, null,0), colour);
@@ -99,7 +99,7 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
 
 
     static LoadingCache<Colour, List<BakedQuad>> powerFistLeftFiringCache = CacheBuilder.newBuilder()
-            .maximumSize(100)
+            .maximumSize(20)
             .build(new CacheLoader<Colour, List<BakedQuad>>() {
                 public List<BakedQuad> load(Colour colour) { // no checked exception //  throws Exception {
                     return ModelHelper.getColoredQuads(ModelHelper.powerFistLeftFiring.getQuads(null, null,0), colour);
@@ -158,7 +158,7 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
                     }
                 else
                     try {
-                        quadList = ModelHelper.getPowerFistQuadList(colour);
+//                        quadList = ModelHelper.getPowerFistQuadList(colour);
                         quadList = powerFistCache.get(colour);
                     } catch (Exception e) {
                         e.printStackTrace();

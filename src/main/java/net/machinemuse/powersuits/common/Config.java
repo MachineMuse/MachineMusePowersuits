@@ -256,10 +256,10 @@ public class Config {
         addModule(new DiamondPlatingModule(ARMORONLY));
         addModule(new EnergyShieldModule(ARMORONLY));
         addModule(new HeatSinkModule(ARMORONLY));
-        addModule(new TransparentArmorModule(ARMORONLY));
 
 
         /* Cosmetic ----------------------------- */
+        addModule(new TransparentArmorModule(ARMORONLY));
         addModule(new CosmeticGlowModule(ARMORONLY));
         addModule(new CitizenJoeStyle(ARMORONLY));
         addModule(new HighPolyArmor(ARMORONLY));
@@ -295,7 +295,7 @@ public class Config {
         addModule(new FlintAndSteelModule(TOOLONLY));
         addModule(new LightningModule(TOOLONLY));
         addModule(new DimensionalRiftModule(TOOLONLY));
-        //        addModule(new OmniWrenchModule(TOOLONLY)) // Requires COFH lib/core
+//        addModule(new OmniWrenchModule(TOOLONLY)); // Requires COFH lib/core
 
 
         /* Helmet ------------------------------- */

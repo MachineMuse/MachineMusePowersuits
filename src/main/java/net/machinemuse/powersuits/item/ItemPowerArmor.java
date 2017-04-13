@@ -11,11 +11,13 @@ import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.cosmetic.CitizenJoeStyle;
 import net.machinemuse.powersuits.powermodule.cosmetic.HighPolyArmor;
 import net.machinemuse.powersuits.powermodule.cosmetic.TintModule;
+import net.machinemuse.powersuits.powermodule.cosmetic.TransparentArmorModule;
 import net.machinemuse.powersuits.powermodule.misc.InvisibilityModule;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.utils.render.GuiIcons;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -91,7 +93,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-        if (type == "overlay") // this is to allow a tint to be applied ot the armor
+        if (type == "overlay")  // this is to allow a tint to be applied ot the armor
             return Config.BLANK_ARMOR_MODEL_PATH;
 
         ItemStack armor = ((EntityPlayer) entity).getItemStackFromSlot(slot);
@@ -105,7 +107,10 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
                 }
             }
 
-            if (ModuleManager.itemHasActiveModule(armor, CitizenJoeStyle.CITIZEN_JOE_STYLE)) {
+            if (ModuleManager.itemHasActiveModule(stack, TransparentArmorModule.MODULE_TRANSPARENT_ARMOR))
+                return Config.BLANK_ARMOR_MODEL_PATH;
+
+            else if (ModuleManager.itemHasActiveModule(armor, CitizenJoeStyle.CITIZEN_JOE_STYLE)) {
                 if (slot == EntityEquipmentSlot.LEGS)
                     return Config.CITIZENJOE_ARMORPANTS_PATH;
                 else
@@ -119,8 +124,6 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         }
         return Config.BLANK_ARMOR_MODEL_PATH;
     }
-
-
 
     @Override
     public int getColor(ItemStack stack) {
