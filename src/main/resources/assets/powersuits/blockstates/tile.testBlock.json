@@ -11,80 +11,64 @@
       "model": "powersuits:tinkerTable.obj",
       "transform": {
         "thirdperson_righthand": {
-          "scale" : 0.0234375,
+          "scale" : 0.5,
           "translation": [0.0, 0.15625, 0.0],
           "rotation": [{"x": 75}, {"y": 45}]
         },
         "thirdperson_lefthand": {
-          "scale" : 0.0234375,
+          "scale" : 0.5,
           "rotation": [{"x": 75}, {"y": 45}]
         },
         "firstperson_righthand": {
-          "scale": 0.025
+          "scale": 0.5
         },
         "firstperson_lefthand": {
-          "scale": 0.025
+          "scale": 0.5
         },
         "gui": {
-          "scale": 0.0390625,
+          "scale": 0.75,
           "translation": [0.0, 0.025, 0.0],
           "rotation": [{"x":30}, {"y":225}]
         },
         "ground": {
-          "scale": 0.1563,
+          "scale": 0.5,
           "translation": [0.0, 0.1625, 0.0]
         },
         "fixed": {
-          "scale" : 0.03125
+          "scale" : 0.5
         }
       }
     }],
     "facing": {
-      "down": {
-        "model": "powersuits:tinkerTable.obj",
-        "transform": {
-          "translation": [0.02, -0.40, 0.02],
-          "scale" : 1
-        }
-      },
-      "up": {
-        "model": "powersuits:tinkerTable.obj",
-        "transform": {
-          "translation": [0.0, 0.40, 0.0],
-          "rotation": {"x": 180},
-          "scale" : 0.0625
-        }
-      },
       "north": {
         "model": "powersuits:tinkerTable.obj",
         "transform": {
           "translation": [0.02, -0.02, -0.4],
-          "rotation": {"x": 90},
-          "scale": 0.0625
+          "rotation": {"y": -90},
+          "scale": 1
         }
       },
       "south": {
         "model": "powersuits:tinkerTable.obj",
         "transform": {
           "translation": [0.02, 0.02, 0.4],
-          "rotation": {"x": 270},
-          "scale": 0.0625
+          "rotation": {"y": 90},
+          "scale": 1
         }
       },
       "west": {
         "model": "powersuits:tinkerTable.obj",
         "transform": {
           "translation": [-0.4, -0.02, 0.02],
-          "rotation": {"z": 270},
-          "scale" : 0.0625
+          "rotation": {"y": 180},
+          "scale" :1
         }
       },
       "east": {
         "model": "powersuits:tinkerTable.obj",
         "transform": {
           "translation": [0.4, 0.02, 0.02],
-          "rotation": {"z": 90},
-          "scale" : 0.0625
+          "scale" : 1
         }
       }
     }
