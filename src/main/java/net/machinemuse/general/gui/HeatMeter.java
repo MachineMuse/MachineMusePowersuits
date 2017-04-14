@@ -12,8 +12,8 @@ import net.minecraftforge.fluids.FluidRegistry;
 import org.lwjgl.opengl.GL11;
 
 public class HeatMeter {
-    final int xsize = 8;
-    final int ysize = 32;
+    final int xsize = 8; // width
+    final int ysize = 32; // height
 
     private static final ResourceLocation iconLocation = new ResourceLocation("minecraft", "blocks/magma");
 
@@ -32,7 +32,6 @@ public class HeatMeter {
     }
 
     public void drawFluid(double xpos, double ypos, double value, TextureAtlasSprite icon) {
-
         double bottomY = (ypos + ysize);
         double topY = (ypos + ysize * (1 - value));
         GL11.glPushMatrix();

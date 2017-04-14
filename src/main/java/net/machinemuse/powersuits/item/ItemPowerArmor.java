@@ -23,6 +23,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
@@ -96,7 +97,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         if (type == "overlay")  // this is to allow a tint to be applied ot the armor
             return Config.BLANK_ARMOR_MODEL_PATH;
 
-        ItemStack armor = ((EntityPlayer) entity).getItemStackFromSlot(slot);
+        ItemStack armor = ((EntityLivingBase) entity).getItemStackFromSlot(slot);
         if (armor.getItem() instanceof ItemPowerArmor) {
             if (entity instanceof EntityPlayer) {
                 ItemStack armorChest = ((EntityPlayer) entity).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
