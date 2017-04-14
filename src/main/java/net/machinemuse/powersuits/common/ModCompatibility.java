@@ -116,10 +116,7 @@ public class ModCompatibility {
 
         // CoFH Lib - CoFHLib is included in CoFHCore
         if (isCOFHCoreLoaded()) {
-            System.out.println("COFH core loaded up");
             ModuleManager.addModule(new OmniWrenchModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
-        }else {
-            System.out.println("COFH core not loaded");
         }
 
         // Thaumcraft
