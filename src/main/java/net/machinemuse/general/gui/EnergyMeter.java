@@ -21,8 +21,10 @@ public class EnergyMeter extends HeatMeter {
             Colour.RED.doGL();
         } else if (Math.random() / value < 1) {
             RenderState.texturelessOn();
-            MuseRenderer.drawMPDLightning(xpos + xsize * (Math.random() / 2 + 0.25), ypos + ysize * (1 - value), 1, xpos + xsize
-                    * (Math.random() / 2 + 0.25), ypos + ysize, 1, Colour.WHITE, 4, 1);
+//          MuseRenderer.drawMPDLightning(xpos + xsize * (Math.random() / 2 + 0.25), ypos + ysize * (1 - value), 1, xpos + xsize
+//                    * (Math.random() / 2 + 0.25), ypos + ysize, 1, Colour.WHITE, 4, 1);
+            MuseRenderer.drawMPDLightning(xpos + xsize * (1 - value), ypos + ysize * (Math.random() / 2 + 0.25), 1,
+           		xpos + xsize, ypos + ysize * (Math.random() / 2 + 0.25), 1, Colour.WHITE, 4, 1);
             RenderState.texturelessOff();
         }
         drawFluid(xpos, ypos, value, icon);

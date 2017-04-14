@@ -79,7 +79,7 @@ public class ModCompatibility {
     }
 
     public static boolean isCompactMachinesLoaded() {
-        return Loader.isModLoaded("CompactMachines");
+        return Loader.isModLoaded("cm2");
     }
 
     public static boolean isRenderPlayerAPILoaded() {
@@ -167,6 +167,7 @@ public class ModCompatibility {
             ModuleManager.addModule(new OmniProbeModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
         }
 
+        // TODO: on hold for now. Needs a conditional fiuld tank and handler. May not be worth it.
 //        // Compact Machines Personal Shrinking Device
 //        if (isCompactMachinesLoaded()) {
 //            ModuleManager.addModule(new PersonalShrinkingModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));

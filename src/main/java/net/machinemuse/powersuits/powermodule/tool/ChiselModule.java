@@ -35,10 +35,6 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
             Item.REGISTRY.getObject(new ResourceLocation("chisel", "chisel_iron")), 1);
     public ChiselModule(List<IModularItem> validItems) {
         super(validItems);
-        System.out.println("checking install cost of chisel module");
-        System.out.println("chisel item is null?: " + (emulatedTool == null));
-
-
         //        addInstallCost(new ItemStack(GameRegistry.findItem("minecraft", "obsidian"), 2)); // depreciated, left for now for reference
         addInstallCost(new ItemStack(Item.getItemFromBlock(Blocks.OBSIDIAN), 2));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
