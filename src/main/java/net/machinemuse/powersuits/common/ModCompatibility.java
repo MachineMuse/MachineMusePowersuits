@@ -34,7 +34,7 @@ public class ModCompatibility {
     }
 
     public static boolean isGalacticraftLoaded() {
-        return Loader.isModLoaded("GalacticraftCore");
+        return Loader.isModLoaded("galacticraftcore");
     }
 
     public static boolean isRFAPILoaded() {
