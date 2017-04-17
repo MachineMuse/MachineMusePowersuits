@@ -14,6 +14,7 @@ import java.util.Objects;
  */
 public class Colour {
     public static final Colour LIGHTBLUE = new Colour(0.5, 0.5, 1.0, 1.0);
+    public static final Colour BLUE = new Colour(0.0, 0.0, 1.0, 1.0);
     public static final Colour DARKBLUE = new Colour(0.0, 0.0, 0.5, 1.0);
     public static final Colour ORANGE = new Colour(0.9, 0.6, 0.2, 1.0);
     public static final Colour YELLOW = new Colour(0.0, 0.0, 0.5, 1.0);
@@ -21,8 +22,10 @@ public class Colour {
     public static final Colour BLACK = new Colour(0.0, 0.0, 0.0, 1.0);
     public static final Colour DARKGREY = new Colour(0.4, 0.4, 0.4, 1.0);
     public static final Colour RED = new Colour(1.0, 0.2, 0.2, 1.0);
-    public static final Colour DARKGREEN = new Colour(0.0, 0.8, 0.2, 1.0);
+    public static final Colour LIGHTGREEN = new Colour(0.5, 1.0, 0.5, 1.0);
     public static final Colour GREEN = new Colour(0.0, 1.0, 0.0, 1.0);
+    public static final Colour DARKGREEN = new Colour(0.0, 0.8, 0.2, 1.0);
+    public static final Colour PURPLE = new Colour(0.6, 0.1, 0.9, 1.0);
 
     /**
      * The RGBA values are stored as floats from 0.0F (nothing) to 1.0F (full
@@ -99,7 +102,6 @@ public class Colour {
     /**
      * Returns a colour with RGB set to the same value ie. a shade of grey.
      */
-
     public static Colour getGreyscale(float value, float alpha) {
         return new Colour(value, value, value, alpha);
     }
@@ -108,7 +110,6 @@ public class Colour {
      * Returns a colour at interval interval along a linear gradient from this
      * to target
      */
-
     public Colour interpolate(Colour target, double d) {
         double complement = 1 - d;
         return new Colour(this.r * complement + target.r * d, this.g * complement + target.g * d, this.b * complement + target.b * d, this.a
@@ -154,7 +155,7 @@ public class Colour {
         return r == o.r && g == o.g && b == o.b && a == o.a;
     }
 
-    public Vector4f toVector4f(){
+    public Vector4f toVector4f() {
         Vector4f colorVec = new Vector4f();
         colorVec.w = (float) a;
         colorVec.x = (float) r;

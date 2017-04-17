@@ -14,15 +14,23 @@ import org.lwjgl.opengl.GL11;
  * Created by leon on 4/9/17.
  */
 public class PlasmaChargeMeter extends HeatMeter {
-    public void draw(double xpos, double ypos, double value) {
-        MuseTextureUtils.pushTexture(MuseTextureUtils.TEXTURE_QUILT);
-        RenderState.blendingOn();
-        RenderState.on2D();
-        TextureAtlasSprite icon = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/prismarine_rough");
-        drawFluid(xpos, ypos, value, icon);
-        drawGlass(xpos, ypos);
-        RenderState.off2D();
-        RenderState.blendingOff();
-        MuseTextureUtils.popTexture();
-    }
+/*
+  Comment any "get" method to use the method from HeatMeter.
+  Uncomment to use the value in this file.
+*/
+/*
+	public double getAlpha() {
+		return 0.7;
+	}
+*/
+	public Colour getColour() {
+		//return Colour.WHITE;
+		return Colour.LIGHTGREEN;
+	}
+/*
+	public TextureAtlasSprite getTexture() {
+		return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/prismarine_rough");
+		//return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/snow");
+	}
+*/
 }
