@@ -49,9 +49,9 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
         if (player.isPotionActive(nightvision)) {
             nightVision = player.getActivePotionEffect(nightvision);
         }
-        if (5 < totalEnergy) {
+        if (totalEnergy > 5) {
             if (nightVision == null || nightVision.getDuration() < 210) {
-                player.addPotionEffect(new PotionEffect(nightvision, 500, -3));
+                player.addPotionEffect(new PotionEffect(nightvision, 500, -3, false, false));
                 ElectricItemUtils.drainPlayerEnergy(player, 5);
             }
         } else {
@@ -64,12 +64,12 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
         PotionEffect nightVision = null;
         if (player.isPotionActive(nightvision)) {
             nightVision = player.getActivePotionEffect(nightvision);
-        }
-        if (nightVision != null && nightVision.getAmplifier() == -3) {
-            if (player.worldObj.isRemote) {
-                player.removeActivePotionEffect(nightvision);
-            } else {
-                player.removePotionEffect(nightvision);
+            if (nightVision.getAmplifier() == -3) {
+                if (player.worldObj.isRemote) {
+                    player.removeActivePotionEffect(nightvision);
+                } else {
+                    player.removePotionEffect(nightvision);
+                }
             }
         }
     }
