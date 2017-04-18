@@ -44,29 +44,33 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         if (item == player.getItemStackFromSlot(EntityEquipmentSlot.LEGS)) { // now you actually have to wear these to get the speed boost
-            double motionX = player.posX - player.lastTickPosX;
-            double motionY = player.posY - player.lastTickPosY;
-            double motionZ = player.posZ - player.lastTickPosZ;
-            double horzMovement = Math.sqrt(motionX * motionX + motionZ * motionZ);
+//            double motionX = player.posX - player.lastTickPosX;
+//            double motionY = player.posY - player.lastTickPosY;
+//            double motionZ = player.posZ - player.lastTickPosZ;
+//            double horzMovement = Math.sqrt(motionX * motionX + motionZ * motionZ);
+
+            double horzMovement = player.distanceWalkedModified - player.prevDistanceWalkedModified;
             double totalEnergy = ElectricItemUtils.getPlayerEnergy(player);
-            if (player.isSprinting()) {
-                double exhaustion = Math.round(horzMovement * 100.0F) * 0.01;
-                double sprintCost = ModuleManager.computeModularProperty(item, SPRINT_ENERGY_CONSUMPTION);
-                if (sprintCost < totalEnergy) {
-                    double sprintMultiplier = ModuleManager.computeModularProperty(item, SPRINT_SPEED_MULTIPLIER);
-                    double exhaustionComp = ModuleManager.computeModularProperty(item, SPRINT_FOOD_COMPENSATION);
-                    ElectricItemUtils.drainPlayerEnergy(player, sprintCost * horzMovement * 5);
-                    setMovementModifier(item, sprintMultiplier * 1.2);
-                    player.getFoodStats().addExhaustion((float) (-0.01 * exhaustion * exhaustionComp));
-                    player.jumpMovementFactor = player.getAIMoveSpeed() * .2f;
-                }
-            } else {
-                double cost = ModuleManager.computeModularProperty(item, WALKING_ENERGY_CONSUMPTION);
-                if (cost < totalEnergy) {
-                    double walkMultiplier = ModuleManager.computeModularProperty(item, WALKING_SPEED_MULTIPLIER);
-                    ElectricItemUtils.drainPlayerEnergy(player, cost * horzMovement * 5);
-                    setMovementModifier(item, walkMultiplier);
-                    player.jumpMovementFactor = player.getAIMoveSpeed() * .2f;
+            if (horzMovement > 0) { // stop doing drain calculations when player hasn't moved
+                if (player.isSprinting()) {
+                    double exhaustion = Math.round(horzMovement * 100.0F) * 0.01;
+                    double sprintCost = ModuleManager.computeModularProperty(item, SPRINT_ENERGY_CONSUMPTION);
+                    if (sprintCost < totalEnergy) {
+                        double sprintMultiplier = ModuleManager.computeModularProperty(item, SPRINT_SPEED_MULTIPLIER);
+                        double exhaustionComp = ModuleManager.computeModularProperty(item, SPRINT_FOOD_COMPENSATION);
+                        ElectricItemUtils.drainPlayerEnergy(player, sprintCost * horzMovement * 5);
+                        setMovementModifier(item, sprintMultiplier * 1.2);
+                        player.getFoodStats().addExhaustion((float) (-0.01 * exhaustion * exhaustionComp));
+                        player.jumpMovementFactor = player.getAIMoveSpeed() * .2f;
+                    }
+                } else {
+                    double cost = ModuleManager.computeModularProperty(item, WALKING_ENERGY_CONSUMPTION);
+                    if (cost < totalEnergy) {
+                        double walkMultiplier = ModuleManager.computeModularProperty(item, WALKING_SPEED_MULTIPLIER);
+                        ElectricItemUtils.drainPlayerEnergy(player, cost * horzMovement * 5);
+                        setMovementModifier(item, walkMultiplier);
+                        player.jumpMovementFactor = player.getAIMoveSpeed() * .2f;
+                    }
                 }
             }
         } else

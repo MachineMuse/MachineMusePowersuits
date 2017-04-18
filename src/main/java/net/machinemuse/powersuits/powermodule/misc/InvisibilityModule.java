@@ -52,7 +52,7 @@ public class InvisibilityModule extends PowerModuleBase implements IPlayerTickMo
         }
         if (50 < totalEnergy) {
             if (invis == null || invis.getDuration() < 210) {
-                player.addPotionEffect(new PotionEffect(invisibility, 500, -3));
+                player.addPotionEffect(new PotionEffect(invisibility, 500, -3, false, false));
                 ElectricItemUtils.drainPlayerEnergy(player, 50);
             }
         } else {
