@@ -43,7 +43,7 @@
       "north": {
         "model": "powersuits:tinkerTable.obj",
         "transform": {
-          "translation": [0.02, -0.02, -0.4],
+          "translation": [0.00, 0.00, 0.00],
           "rotation": {"y": -90},
           "scale": 1
         }
@@ -51,7 +51,7 @@
       "south": {
         "model": "powersuits:tinkerTable.obj",
         "transform": {
-          "translation": [0.02, 0.02, 0.4],
+          "translation": [0.00, 0.00, 0.00],
           "rotation": {"y": 90},
           "scale": 1
         }
@@ -59,7 +59,7 @@
       "west": {
         "model": "powersuits:tinkerTable.obj",
         "transform": {
-          "translation": [-0.4, -0.02, 0.02],
+          "translation": [0.00, 0.00, 0.00],
           "rotation": {"y": 180},
           "scale" :1
         }
@@ -67,7 +67,7 @@
       "east": {
         "model": "powersuits:tinkerTable.obj",
         "transform": {
-          "translation": [0.4, 0.02, 0.02],
+          "translation": [0.00, 0.00, 0.00],
           "scale" : 1
         }
       }
