@@ -1,6 +1,7 @@
 package net.machinemuse.numina.mouse;
 
 import net.machinemuse.numina.item.IModeChangingItem;
+import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.item.ItemStack;
@@ -21,7 +22,9 @@ public final class MouseEventHandler {
             ItemStack stack = player.inventory.getCurrentItem();
             if (stack != null && stack.getItem() instanceof IModeChangingItem) {
                 IModeChangingItem item = (IModeChangingItem) stack.getItem();
-                if (player.isSneaking()) {
+//Replace this with check for correct hotbar key.\/
+//                if (player.isSneaking()) {
+                if (PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName()).hotbarKey) {
                     item.cycleMode(stack, player, e.getDwheel() / 120);
                     e.setCanceled(true);
                 }
