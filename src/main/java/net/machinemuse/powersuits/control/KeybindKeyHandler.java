@@ -72,35 +72,16 @@ public class KeybindKeyHandler {
             }
             //Originally this was hard-coded to "key >1 && key < 11", 
             //but this way will still work even if the keycodes for these keys change.
-            if (key == hotbarKeys[0].getKeyCode() || key == hotbarKeys[1].getKeyCode() || key == hotbarKeys[2].getKeyCode() || 
-            		key == hotbarKeys[3].getKeyCode() || key == hotbarKeys[4].getKeyCode() || key == hotbarKeys[5].getKeyCode() || 
-            		key == hotbarKeys[6].getKeyCode() || key == hotbarKeys[7].getKeyCode() || key == hotbarKeys[8].getKeyCode()) {
+            if (key == hotbarKeys[player.inventory.currentItem].getKeyCode()) {
             	PlayerInputMap.getInputMapFor(Minecraft.getMinecraft().thePlayer.getCommandSenderEntity().getName()).hotbarKey = true;
             }
         } else {
             if (Minecraft.getMinecraft().thePlayer != null && key == goDownKey.getKeyCode()) {
                 PlayerInputMap.getInputMapFor(Minecraft.getMinecraft().thePlayer.getCommandSenderEntity().getName()).downKey = false;
             }
-            if (key == hotbarKeys[0].getKeyCode() || key == hotbarKeys[1].getKeyCode() || key == hotbarKeys[2].getKeyCode() || 
-            		key == hotbarKeys[3].getKeyCode() || key == hotbarKeys[4].getKeyCode() || key == hotbarKeys[5].getKeyCode() || 
-            		key == hotbarKeys[6].getKeyCode() || key == hotbarKeys[7].getKeyCode() || key == hotbarKeys[8].getKeyCode()) {
+            if (key == hotbarKeys[player.inventory.currentItem].getKeyCode()) {
             	PlayerInputMap.getInputMapFor(Minecraft.getMinecraft().thePlayer.getCommandSenderEntity().getName()).hotbarKey = false;
             }
         }
     }
 }
-/*
-            ItemStack stack = player.inventory.getCurrentItem();
-            if (stack != null && stack.getItem() instanceof IModeChangingItem) {
-            player.inventory.getCurrentItem().getItem() instanceof IModeChangingItem
- */
-//player.inventory.currentItem
-/*
-public static int isHotbarKeyDown() {
-  KeyBinding[] bindings = Minecraft.getMinecraft().gameSettings.keyBindsHotbar;
-  for (int i = 0; i < bindings.length; i++)
-      if (bindings[i].isPressed())
-          return i;
-  return -1;
-}
-*/
