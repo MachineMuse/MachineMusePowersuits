@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.IRegistry;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.model.obj.OBJModel;
@@ -35,6 +36,10 @@ public class ModelBakeEventHandler {
     public static final ModelResourceLocation powerArmorChestModelLocation = new ModelResourceLocation(MPSItems.powerArmorTorso.getRegistryName(), "inventory");
     public static final ModelResourceLocation powerArmorLegsModelLocation = new ModelResourceLocation(MPSItems.powerArmorLegs.getRegistryName(), "inventory");
     public static final ModelResourceLocation powerArmorFeetModelLocation = new ModelResourceLocation(MPSItems.powerArmorFeet.getRegistryName(), "inventory");
+
+
+    public static final ModelResourceLocation  tinkerTable2Location = new ModelResourceLocation(Config.RESOURCE_PREFIX + "tile.testBlock", "inventory");
+
 
 
     public static ModelBakeEventHandler getInstance() {
@@ -75,6 +80,24 @@ public class ModelBakeEventHandler {
         modelRegistry.putObject(powerArmorChestModelLocation, powerArmorIconModel);
         modelRegistry.putObject(powerArmorLegsModelLocation, powerArmorIconModel);
         modelRegistry.putObject(powerArmorFeetModelLocation, powerArmorIconModel);
+
+        IBakedModel tinkerTableItem = modelRegistry.getObject(tinkerTable2Location);
+        modelRegistry.putObject(tinkerTable2Location, new ModelTinkerTable2(tinkerTableItem));
+
+        for (EnumFacing facing : EnumFacing.values()) {
+            if (facing != EnumFacing.UP && facing != EnumFacing.DOWN) {
+                ModelResourceLocation tinkerTableLocation =  new ModelResourceLocation(Config.RESOURCE_PREFIX + "tile.testBlock", "facing=" + facing.getName());
+                tinkerTableItem = modelRegistry.getObject(tinkerTableLocation);
+                modelRegistry.putObject(tinkerTableLocation, new ModelTinkerTable2(tinkerTableItem));
+            }
+        }
+
+
+
+
+
+
+
 
 
 //        setupArmorIcon(MPSItems.powerArmorHead, modelRegistry);

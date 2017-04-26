@@ -158,7 +158,6 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
                     }
                 else
                     try {
-//                        quadList = ModelHelper.getPowerFistQuadList(colour);
                         quadList = powerFistCache.get(colour);
                     } catch (Exception e) {
                         e.printStackTrace();
