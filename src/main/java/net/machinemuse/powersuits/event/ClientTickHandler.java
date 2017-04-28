@@ -6,6 +6,7 @@ import net.machinemuse.general.gui.HeatMeter;
 import net.machinemuse.general.gui.PlasmaChargeMeter;
 import net.machinemuse.general.gui.WaterMeter;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
+import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.common.Config;
@@ -213,26 +214,26 @@ public class ClientTickHandler {
     	double left = screen.getScaledWidth() - 34;
 
         // energy
-        double currEnergy = ElectricItemUtils.getPlayerEnergy(player);
         double maxEnergy = ElectricItemUtils.getMaxEnergy(player);
+        double currEnergy = ElectricItemUtils.getPlayerEnergy(player);
         String currEnergyStr = MuseStringUtils.formatNumberShort(currEnergy);
         String maxEnergyStr = MuseStringUtils.formatNumberShort(maxEnergy);
 
         // heat
-        double currHeat = MuseHeatUtils.getPlayerHeat(player);
         double maxHeat = MuseHeatUtils.getMaxHeat(player);
+        double currHeat = MuseHeatUtils.getPlayerHeat(player);
         String currHeatStr = MuseStringUtils.formatNumberShort(currHeat);
         String maxHeatStr = MuseStringUtils.formatNumberShort(maxHeat);
 
         // water
-        double currWater = WaterUtils.getPlayerWater(player);
         double maxWater = WaterUtils.getMaxWater(player);
+        double currWater = WaterUtils.getPlayerWater(player);
         String currWaterStr = MuseStringUtils.formatNumberShort(currWater);
         String maxWaterStr = MuseStringUtils.formatNumberShort(maxWater);
 
         // plasma
-        double currPlasma = PlasmaUtils.getPlayerPlasma(player);
         double maxPlasma = PlasmaUtils.getMaxPlasma(player);
+        double currPlasma = PlasmaUtils.getPlayerPlasma(player);
         String currPlasmaStr = MuseStringUtils.formatNumberShort(currPlasma);
         String maxPlasmaStr = MuseStringUtils.formatNumberShort(maxPlasma);
 
@@ -276,7 +277,7 @@ public class ClientTickHandler {
             }
 
 // 	    	heat.draw(left - (numMeters * 8), top, currHeat / maxHeat);
-            heat.draw(left, top + (totalMeters-numMeters) * 8, currHeat / maxHeat);
+            heat.draw(left, top + (totalMeters-numMeters) * 8, MuseMathUtils.clampDouble(currHeat, 0, maxHeat) / maxHeat);
             MuseRenderer.drawRightAlignedString(currHeatStr, stringX, top + (totalMeters-numMeters) * 8);
             numMeters --;
 
