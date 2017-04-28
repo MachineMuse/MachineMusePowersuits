@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.common;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
@@ -24,15 +24,16 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.input.Keyboard;
 
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+
+
 
 /**
  * Initial attempt at storing all tweakable/configurable values in one class.
@@ -208,6 +209,10 @@ public class Config {
 
     public static boolean useAdvancedOreScannerMessage() {
         return config.get(Configuration.CATEGORY_GENERAL, "Use Detailed Ore Scanner Message", true).getBoolean(true);
+    }
+
+    public static Map<Map<ResourceLocation, Integer>, Integer> getOreValues() {
+        return readOreValues();
     }
 
     public static boolean useOldAutoFeeder() {
@@ -450,5 +455,71 @@ public class Config {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /*
+     * Ore Value file parser for the OreScannerModule
+     */
+    private static Map<Map<ResourceLocation, Integer>, Integer> readOreValues() {
+        Map<Map<ResourceLocation, Integer>, Integer> oreValues = new HashMap<>();
+        String oreValuesFileName = "oreValues.json";
+        try {
+            File oreValuesFile = new File(configFolder, oreValuesFileName);
+            Gson gson = new Gson();
+            // if file does not exist, extract it
+            if (!oreValuesFile.exists()) {
+                InputStream src = CommonProxy.class.getClassLoader().getResourceAsStream(oreValuesFileName);
+                try {
+                    Files.copy(src, oreValuesFile.toPath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (oreValuesFile.exists()) {
+                DataInputStream is = new DataInputStream(new FileInputStream(oreValuesFile));
+                byte[] bytes = new byte[(int) oreValuesFile.length()];
+                is.readFully(bytes);
+                String string = Charset.defaultCharset().decode(ByteBuffer.wrap(bytes)).toString();
+                is.close();
+                JsonParser parser = new JsonParser();
+                JsonArray ja = (JsonArray) parser.parse(string);
+                Map<ResourceLocation, Integer> regNameMeta;
+                for (JsonElement jo : ja) {
+                    JsonObject j = (JsonObject) jo;
+                    int value;
+                    int meta;
+
+                    // every entry should have a value
+                    value = j.get("value").getAsInt();
+
+                    // check if this is an oredict entry
+                    JsonElement oredictName = j.get("oredictName");
+                    if (oredictName != null) {
+                        List<ItemStack> stacks = OreDictionary.getOres(oredictName.getAsString());
+                        for (ItemStack itemStack : stacks) {
+                            regNameMeta = new HashMap<>();
+                            meta = itemStack.getItemDamage();
+                            ResourceLocation regName = itemStack.getItem().getRegistryName();
+                            regNameMeta.put(regName, meta);
+                            oreValues.put(regNameMeta, value);
+                        }
+                    } else {
+                        // meta values are optional. Internally they are treated as 0
+                        meta = (j.get("meta") != null) ? j.get("meta").getAsInt(): 0;
+
+                        // if not an oredict entry then it should be a registry entry
+                        JsonElement registryName = j.get("registryName");
+                        regNameMeta = new HashMap<>();
+                        regNameMeta.put(new ResourceLocation(registryName.getAsString()), meta);
+                        oreValues.put(regNameMeta, value);
+                    }
+                }
+                MuseLogger.logDebug(string);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return oreValues;
     }
 }

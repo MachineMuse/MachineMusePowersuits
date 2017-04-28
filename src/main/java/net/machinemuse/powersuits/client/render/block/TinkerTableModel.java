@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.client.render.block;
 
 import net.machinemuse.numina.render.RenderState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;

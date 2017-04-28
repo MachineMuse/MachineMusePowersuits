@@ -6,9 +6,6 @@ import net.machinemuse.numina.geometry.DrawableMuseRect;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.utils.render.MuseRenderer;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 7:08 AM, 06/05/13
