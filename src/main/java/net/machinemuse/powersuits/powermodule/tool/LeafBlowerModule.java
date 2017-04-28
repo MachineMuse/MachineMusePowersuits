@@ -10,9 +10,12 @@ import net.machinemuse.powersuits.powermodule.PropertyModifierIntLinearAdditive;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
+import net.minecraft.block.*;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -21,6 +24,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.IShearable;
 
 import java.util.List;
 
@@ -80,45 +84,9 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
-    }
-
-    private boolean blockCheckAndHarvest(String blocktype, EntityPlayer player, World world, int x, int y, int z) {
-//        Block block = world.getBlock(x, y, z);
-//        int meta = world.getBlockMetadata(x, y, z);
-//        if (block == null)
-//            return false;
-//
-//        // Plants
-//        if (Objects.equals(blocktype, "plants") && (block instanceof BlockTallGrass || block instanceof BlockFlower) && block.canHarvestBlock(player, meta)) {
-//            block.harvestBlock(world, player, x, y, z, meta);
-//            world.setBlockToAir(x, y, z);
-//            return true;
-//        }
-//
-//        // Leaves
-//        if (Objects.equals(blocktype, "leaves") && block instanceof BlockLeaves && block.canHarvestBlock(player, meta)) {
-//            block.harvestBlock(world, player, x, y, z, meta);
-//            world.setBlockToAir(x, y, z);
-//            return true;
-//        }
-//
-//        // Snow
-//        if (Objects.equals(blocktype, "snow") && block instanceof BlockSnow && block.canHarvestBlock(player, meta)) {
-//            block.harvestBlock(world, player, x, y, z, meta);
-//            world.setBlockToAir(x, y, z);
-//        }
-        return false;
-    }
-
-    @Override
-    public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        /* FIXME: this really needs to be one radius for everything.
-
-         */
-
-
-
+        int radius = (int) ModuleManager.computeModularProperty(itemStackIn, RADIUS);
+        if (useBlower(radius, itemStackIn, playerIn, worldIn, playerIn.getPosition()))
+            return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
 
         //        Block blockID = world.getBlock(x, y, z);
 //        int plant = (int) ModuleManager.computeModularProperty(itemStack, PLANT_RADIUS);
@@ -132,21 +100,34 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
 //        useBlower(leaf, "leaves", itemStack, player, world,  x, y, z);
 //        // Snow
 //        useBlower(snow, "snow", itemStack, player, world,  x, y, z);
+
+
+
+        return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
+    }
+
+
+
+    @Override
+    public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         return EnumActionResult.PASS;
     }
 
-    private void useBlower(int radius, String blocktypename , ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z) {
+    private boolean useBlower(int radius, ItemStack itemStack, EntityPlayer player, World world, BlockPos pos) {
         int totalEnergyDrain = 0;
-        for (int i = -radius; i < radius; i++) {
-            for (int j = -radius; j < radius; j++) {
-                for (int k = -radius; k < radius; k++) {
-                    if (blockCheckAndHarvest(blocktypename, player, world, x + i, y + j, z + k)) {
+        BlockPos newPos;
+        for (int i = pos.getX() - radius; i < pos.getX() + radius ; i++) {
+            for (int j = pos.getY() - radius; j < pos.getY() + radius; j++) {
+                for (int k = pos.getZ() - radius; k < pos.getZ() + radius; k++) {
+                    newPos = new BlockPos(i, j, k);
+                    if (ToolHelpers.blockCheckAndHarvest(player, world, newPos)) {
                         totalEnergyDrain += ModuleManager.computeModularProperty(itemStack, LEAF_BLOWER_ENERGY_CONSUMPTION);
                     }
                 }
             }
         }
         ElectricItemUtils.drainPlayerEnergy(player, totalEnergyDrain);
+        return true;
     }
 
 

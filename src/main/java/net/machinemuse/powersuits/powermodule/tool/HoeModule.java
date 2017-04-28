@@ -59,11 +59,9 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
                 for (int j = (int) Math.floor(-radius); j < radius; j++) {
                     if (i * i + j * j < radius * radius) {
                         BlockPos newPos = pos.add(i, 0, j);
-
                         IBlockState iblockstate = worldIn.getBlockState(newPos);
                         Block block = iblockstate.getBlock();
-
-                        if (facing != EnumFacing.DOWN && worldIn.isAirBlock(newPos.up())) {
+                        if (facing != EnumFacing.DOWN && (worldIn.isAirBlock(newPos.up()) || ToolHelpers.blockCheckAndHarvest(playerIn, worldIn, newPos.up()))) {
                             if (block == Blocks.GRASS || block == Blocks.GRASS_PATH) {
                                 this.setBlock(itemStack, playerIn, worldIn, newPos, Blocks.FARMLAND.getDefaultState());
                             }
