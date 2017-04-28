@@ -37,7 +37,7 @@ public class MPSItems {
 
         tinkerTable = MPSRegistry.registerBlock(new BlockTinkerTable());
         luxCapacitor = MPSRegistry.registerBlock(new BlockLuxCapacitor());
-        testBlock = MPSRegistry.registerBlock(new TestBlock());
+//        testBlock = MPSRegistry.registerBlock(new TestBlock());
     }
 
     public static void populateComponents() {
