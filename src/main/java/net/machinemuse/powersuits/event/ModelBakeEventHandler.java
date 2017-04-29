@@ -37,6 +37,10 @@ public class ModelBakeEventHandler {
     public static final ModelResourceLocation powerArmorFeetModelLocation = new ModelResourceLocation(MPSItems.powerArmorFeet.getRegistryName(), "inventory");
 
 
+//    public static final ModelResourceLocation  tinkerTable2Location = new ModelResourceLocation(Config.RESOURCE_PREFIX + "tile.testBlock", "inventory");
+
+
+
     public static ModelBakeEventHandler getInstance() {
         return ourInstance;
     }
@@ -76,11 +80,17 @@ public class ModelBakeEventHandler {
         modelRegistry.putObject(powerArmorLegsModelLocation, powerArmorIconModel);
         modelRegistry.putObject(powerArmorFeetModelLocation, powerArmorIconModel);
 
+//        IBakedModel tinkerTableItem = modelRegistry.getObject(tinkerTable2Location);
+//        modelRegistry.putObject(tinkerTable2Location, new ModelTinkerTable2(tinkerTableItem));
+//
+//        for (EnumFacing facing : EnumFacing.values()) {
+//            if (facing != EnumFacing.UP && facing != EnumFacing.DOWN) {
+//                ModelResourceLocation tinkerTableLocation =  new ModelResourceLocation(Config.RESOURCE_PREFIX + "tile.testBlock", "facing=" + facing.getName());
+//                tinkerTableItem = modelRegistry.getObject(tinkerTableLocation);
+//                modelRegistry.putObject(tinkerTableLocation, new ModelTinkerTable2(tinkerTableItem));
+//            }
+//        }
 
-//        setupArmorIcon(MPSItems.powerArmorHead, modelRegistry);
-//        setupArmorIcon(MPSItems.powerArmorTorso, modelRegistry);
-//        setupArmorIcon(MPSItems.powerArmorLegs, modelRegistry);
-//        setupArmorIcon(MPSItems.powerArmorFeet, modelRegistry);
 
         // put this here because it might be fired late enough to actually work
         if (firstLoad) {
@@ -98,13 +108,4 @@ public class ModelBakeEventHandler {
             modelRegistry.putObject(luxCapacitorLocation, new ModelLuxCapacitor(modelIn));
         }
     }
-
-    public void setupArmorIcon(Item itemIn, IRegistry<ModelResourceLocation, IBakedModel> modelRegistryIn) {
-//        ModelResourceLocation armorIconLocation = new ModelResourceLocation(itemIn.getRegistryName(), "inventory");
-//        IBakedModel iconModel = modelRegistryIn.getObject(armorIconLocation);
-//        modelRegistryIn.putObject(armorIconLocation, new ArmorIcon(iconModel));
-    }
-
-
-
 }

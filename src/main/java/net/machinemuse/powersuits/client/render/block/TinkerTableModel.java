@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.client.render.block;
 
 import net.machinemuse.numina.render.RenderState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -183,9 +182,74 @@ public class TinkerTableModel extends ModelBase {
         setRotation(Wirelong1, 0F, 0F, 0F);
     }
 
+//    public void doRender(Entity entity, double x, double y, double z, float f1) {
+//        float f = 0.0625f;
+//        RenderState.blendingOn();
+//        int timestep = (int) ((System.currentTimeMillis()) % 10000);
+//        double angle = timestep * Math.PI / 5000.0;
+//        GL11.glPushMatrix();
+//        GL11.glRotatef(180.0f, 1.0f, 0, 0);
+//        GL11.glTranslatef(0.5f, -1.5f, -0.5f);
+//        middletable.render(f);
+//        uppertable.render(f);
+//        footbase.render(f);
+//        foot1.render(f);
+//        fatfoot2.render(f);
+//        fatfoot1.render(f);
+//        backsupport.render(f);
+//        tank3.render(f);
+//        tank2.render(f);
+//        tank1.render(f);
+//        wireshort4.render(f);
+//        wireshort3.render(f);
+//        wireshort2.render(f);
+//        Wireshort1.render(f);
+//        Wirelong1.render(f);
+//
+//        RenderState.glowOn();
+//        GL11.glPopMatrix();
+//        GL11.glPushMatrix();
+//        GL11.glTranslated(0.5f, 1.05f, 0.5f);
+//        GL11.glTranslated(0, 0.02f * Math.sin(angle * 3), 0);
+//        // GLRotate uses degrees instead of radians for some reason grr
+//        GL11.glRotatef((float) (angle * 57.2957795131), 0.0f, 1.0f, 0.0f);
+//        GL11.glRotatef(45f, 1.0f, 0.0f, 0.0f);
+//        // arctangent of 0.5.
+//        GL11.glRotatef(35.2643897f, 0, 1, 1);
+//        // cube.render(0.0625f);
+//        GL11.glColor4d(1, 1, 1, 0.8);
+//        cube.render(f / 2.0f);
+//        // cube.render(0.016000f);
+//        GL11.glPopMatrix();
+//        GL11.glPushMatrix();
+//        GL11.glRotatef(180.0f, 1.0f, 0, 0);
+//        GL11.glTranslatef(0.5f, -1.5f, -0.5f);
+//        screen3.render(f);
+//        screen2.render(f);
+//        screen1.render(f);
+//        particles.render(f);
+//        GL11.glPopMatrix();
+//
+//
+////        // testing
+////        GL11.glPushMatrix();
+////        if (Minecraft.getMinecraft().isFancyGraphicsEnabled()) {
+////            if (f1 != 0) {
+////                GL11.glDisable(GL11.GL_CULL_FACE);
+////                for (int i = 0; i < 1; i++) {
+////                    drawScanLine(angle);
+////                }
+////            }
+////        }
+////        GL11.glPopMatrix();
+//        // end testing
+//
+//        RenderState.glowOff();
+//        RenderState.blendingOff();
+//    }
+
     public void doRender(Entity entity, double x, double y, double z, float f1) {
         float f = 0.0625f;
-        RenderState.blendingOn();
         int timestep = (int) ((System.currentTimeMillis()) % 10000);
         double angle = timestep * Math.PI / 5000.0;
         GL11.glPushMatrix();
@@ -206,6 +270,7 @@ public class TinkerTableModel extends ModelBase {
         wireshort2.render(f);
         Wireshort1.render(f);
         Wirelong1.render(f);
+        particles.render(f);
 
         RenderState.glowOn();
         GL11.glPopMatrix();
@@ -225,12 +290,7 @@ public class TinkerTableModel extends ModelBase {
         GL11.glPushMatrix();
         GL11.glRotatef(180.0f, 1.0f, 0, 0);
         GL11.glTranslatef(0.5f, -1.5f, -0.5f);
-        screen3.render(f);
-        screen2.render(f);
-        screen1.render(f);
-        particles.render(f);
         GL11.glPopMatrix();
-
 
 //        // testing
 //        GL11.glPushMatrix();
@@ -246,7 +306,6 @@ public class TinkerTableModel extends ModelBase {
         // end testing
 
         RenderState.glowOff();
-        RenderState.blendingOff();
     }
 
     private void drawScanLine(double angle) {
@@ -258,9 +317,6 @@ public class TinkerTableModel extends ModelBase {
         GL11.glVertex3d(0.5, 1.05 + 0.02f * Math.sin(angle * 3), 0.5);
         GL11.glVertex3d(xtarg, 1.2f, ytarg);
         GL11.glEnd();
-
-
-
         // MuseRenderer.drawGradientRect3D(
         // Vec3.createVectorHelper(Math.floor(xtarg * 16.0) / 16.0, 1.201,
         // Math.floor(ytarg * 16.0) / 16.0),

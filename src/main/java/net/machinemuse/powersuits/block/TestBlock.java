@@ -3,7 +3,6 @@ package net.machinemuse.powersuits.block;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -12,11 +11,12 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
@@ -29,12 +29,7 @@ public class TestBlock extends Block {//BlockDirectional {
     public static final PropertyDirection FACING = BlockHorizontal.FACING;
     public TestBlock() {
         super(Material.CIRCUITS);
-//        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN));
         setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
-
-
-        // IMPORTANT: enabling default state with extended state like the line below causes model loading issues
-//        setDefaultState(((IExtendedBlockState) blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN)).withProperty(COLOR, defaultColor));
         setCreativeTab(Config.getCreativeTab());
         setUnlocalizedName(name);
         setRegistryName(ModularPowersuits.MODID, "tile." + name);
@@ -55,36 +50,7 @@ public class TestBlock extends Block {//BlockDirectional {
 
     @SuppressWarnings("deprecation")
     public boolean isFullyOpaque(IBlockState state) {
-//        return  state.getValue(FACING) == EnumFacing.UP || state.getValue(FACING) == EnumFacing.DOWN;
-        return false;
-    }
-
-//    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-//        worldIn.setBlockState(pos, (state.withProperty(FACING, getFacingFromEntity(pos, placer).getOpposite())), 2);
-//    }
-//
-//    public static EnumFacing getFacingFromEntity(BlockPos pos, EntityLivingBase entityIn) {
-//        if (MathHelper.abs((float)entityIn.posX - (float)pos.getX()) < 2.0F && MathHelper.abs((float)entityIn.posZ - (float)pos.getZ()) < 2.0F) {
-//            double d0 = entityIn.posY + (double)entityIn.getEyeHeight();
-//            if (d0 - (double)pos.getY() > 2.0D)
-//                return EnumFacing.UP;
-//
-//            if ((double)pos.getY() - d0 > 0.0D)
-//                return EnumFacing.DOWN;
-//        }
-//        return entityIn.getHorizontalFacing().getOpposite();
-//    }
-
-
-    @SuppressWarnings("deprecation")
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
-    }
-
-    @Override
-    public BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {FACING});
+        return true;
     }
 
     @SuppressWarnings("deprecation")
@@ -92,6 +58,23 @@ public class TestBlock extends Block {//BlockDirectional {
     public boolean isFullCube(IBlockState state) {
         return false;
     }
+
+    @SuppressWarnings("deprecation")
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    {
+        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
+    }
+
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getBlockLayer() {
+        return BlockRenderLayer.TRANSLUCENT;
+    }
+
+    @Override
+    public BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[] {FACING});
+    }
+
 
     @SuppressWarnings("deprecation")
     @Override
@@ -107,7 +90,7 @@ public class TestBlock extends Block {//BlockDirectional {
 
     @Override
     public boolean isVisuallyOpaque() {
-        return false;
+        return true;
     }
 
     @Override

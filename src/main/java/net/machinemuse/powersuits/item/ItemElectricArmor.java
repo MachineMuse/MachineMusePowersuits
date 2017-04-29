@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.item;
 
 //import appeng.api.config.AccessRestriction;
+
 import net.machinemuse.api.electricity.IMuseElectricItem;
 import net.machinemuse.api.electricity.MuseElectricItem;
 import net.machinemuse.numina.geometry.Colour;
@@ -10,7 +11,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

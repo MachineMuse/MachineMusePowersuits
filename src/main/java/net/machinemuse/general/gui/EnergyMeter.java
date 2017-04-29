@@ -1,13 +1,8 @@
 package net.machinemuse.general.gui;
 
 import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.utils.render.MuseRenderer;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidRegistry;
 import org.lwjgl.opengl.GL11;
 
 public class EnergyMeter extends HeatMeter {
