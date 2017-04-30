@@ -31,7 +31,7 @@ public class SwirlyMuseCircle {
         GL11.glRotatef((float) (-ratio * 360.0), 0, 0, 1);
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_CULL_FACE);
-        RenderState.arraysOnC();
+        RenderState.arraysOnColor();
         RenderState.texturelessOn();
         RenderState.blendingOn();
         GL11.glColorPointer(4, 0, colour);

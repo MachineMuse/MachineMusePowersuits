@@ -30,12 +30,12 @@ public final class RenderState {
     /**
      * Arrays on/off
      */
-    public static void arraysOnC() {
+    public static void arraysOnColor() {
         GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
         GL11.glEnableClientState(GL11.GL_COLOR_ARRAY);
     }
 
-    public static void arraysOnT() {
+    public static void arraysOnTexture() {
         GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
         GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
     }
@@ -100,9 +100,11 @@ public final class RenderState {
         GL11.glPopAttrib();
     }
 
+    /**
+     * Used primarily for model rendering to make a surface "glow"
+     */
     private static float lightmapLastX = .0f;
     private static float lightmapLastY = .0f;
-
     public static void glowOn() {
         GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
         lightmapLastX = OpenGlHelper.lastBrightnessX;

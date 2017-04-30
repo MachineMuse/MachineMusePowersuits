@@ -115,7 +115,6 @@ public class RenderEventHandler {
                     frame.draw();
                     MuseRenderer.drawString(kb.getLabel(), frame.left() + 1, frame.top() + 3, (kb.toggleval) ? Colour.RED : Colour.GREEN);
                     double x = frame.left() + stringwidth;
-
                     for (ClickableModule module:  kb.getBoundModules()) {
                         MuseTextureUtils.pushTexture(module.getModule().getStitchedTexture(null));
                         boolean active = false;
