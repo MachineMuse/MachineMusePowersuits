@@ -38,7 +38,7 @@ public class DrawableMuseCircle {
         GL11.glScaled(radius / detail, radius / detail, 1.0);
         RenderState.on2D();
         GL11.glEnable(GL11.GL_DEPTH_TEST);
-        RenderState.arraysOnC();
+        RenderState.arraysOnColor();
         RenderState.texturelessOn();
         RenderState.blendingOn();
         GL11.glColorPointer(4, 0, colour);

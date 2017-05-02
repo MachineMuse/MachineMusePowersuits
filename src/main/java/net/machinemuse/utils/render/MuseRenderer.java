@@ -12,10 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.PositionTextureVertex;
 import net.minecraft.client.model.TexturedQuad;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.RenderItem;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.ModelManager;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
@@ -71,12 +68,13 @@ public abstract class MuseRenderer {
      * Does the necessary openGL calls and calls the Minecraft font renderer to draw a string at the specified coords
      */
     public static void drawString(String s, double x, double y, Colour c) {
-        RenderHelper.disableStandardItemLighting();
-        RenderState.blendingOn();
-        RenderState.on2D();
+        // FIXME -- All of this stuff is commented out now in 1.10.2 because it is not needed and causes issues with transparencies of vanilla text, like the playerlevel number
+//        RenderHelper.disableStandardItemLighting();
+//        RenderState.blendingOn();
+//        RenderState.on2D();
         getFontRenderer().drawStringWithShadow(s, (int) x, (int) y, c.getInt());
-        RenderState.off2D();
-        RenderState.blendingOff();
+//        RenderState.off2D();
+//        RenderState.blendingOff();
     }
 
     /**
@@ -121,7 +119,7 @@ public abstract class MuseRenderer {
      */
     public static void drawRectPrism(double x, double d, double e, double f, double z, double g, float texturex, float texturey, float texturex2,
                                      float texturey2) {
-        RenderState.arraysOnT();
+        RenderState.arraysOnTexture();
         RenderState.texturelessOff();
         VertexBuffer vertexBuffer = Tessellator.getInstance().getBuffer();
 

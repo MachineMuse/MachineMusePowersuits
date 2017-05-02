@@ -81,7 +81,7 @@ public class DrawableMuseRect extends MuseRect {
         RenderState.on2D();
         RenderState.texturelessOn();
 
-        RenderState.arraysOnC();
+        RenderState.arraysOnColor();
 
         GL11.glColorPointer(4, 0, coloursInside);
         GL11.glVertexPointer(3, 0, vertices);
