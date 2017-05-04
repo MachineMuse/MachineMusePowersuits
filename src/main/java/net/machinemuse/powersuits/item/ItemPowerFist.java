@@ -3,6 +3,9 @@ package net.machinemuse.powersuits.item;
 //import appeng.api.implementations.items.IAEWrench;
 
 import cofh.api.item.IToolHammer;
+import com.raoulvdberge.refinedstorage.api.network.item.INetworkItem;
+import com.raoulvdberge.refinedstorage.api.network.item.INetworkItemHandler;
+import com.raoulvdberge.refinedstorage.api.network.item.INetworkItemProvider;
 import crazypants.enderio.api.tool.ITool;
 import forestry.api.arboriculture.IToolGrafter;
 import mekanism.api.IMekWrench;
@@ -16,6 +19,7 @@ import net.machinemuse.numina.item.ModeChangingItem;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.tool.GrafterModule;
 import net.machinemuse.powersuits.powermodule.tool.OmniWrenchModule;
+import net.machinemuse.powersuits.powermodule.tool.RefinedStorageWirelessModule;
 import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
@@ -33,6 +37,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,10 +56,12 @@ import java.util.List;
 @Optional.InterfaceList({
         @Optional.Interface(iface = "mekanism.api.IMekWrench", modid = "Mekanism", striprefs = true),
         @Optional.Interface(iface = "crazypants.enderio.api.tool.ITool", modid = "EnderIO", striprefs = true),
-        @Optional.Interface(iface = "forestry.api.arboriculture.IToolGrafter", modid = "Forestry", striprefs = true),
+        @Optional.Interface(iface = "forestry.api.arboriculture.IToolGrafter", modid = "forestry", striprefs = true),
+        @Optional.Interface(iface = "com.raoulvdberge.refinedstorage.api.network.item.INetworkItemProvider", modid = "refinedstorage", striprefs = true),
+
 //        @Optional.Interface(iface = "mods.railcraft.api.core.items.IToolCrowbar", modid = "Railcraft", striprefs = true),
 //        @Optional.Interface(iface = "powercrystals.minefactoryreloaded.api.IMFRHammer", modid = "MineFactoryReloaded", striprefs = true),
-        @Optional.Interface(iface = "cofh.api.item.IToolHammer", modid = "CoFHCore", striprefs = true),
+        @Optional.Interface(iface = "cofh.api.item.IToolHammer", modid = "cofhcore", striprefs = true),
 //        @Optional.Interface(iface = "buildcraft.api.tools.IToolWrench", modid = "BuildCraft|Core", striprefs = true),
 //        @Optional.Interface(iface = "appeng.api.implementations.items.IAEWrench", modid = "appliedenergistics2", striprefs = true)
 })
@@ -62,6 +69,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         implements
         IToolGrafter,
         IToolHammer,
+        INetworkItemProvider,
 //        IToolCrowbar,
 ////        IAEWrench,
 //        IToolWrench,
@@ -442,5 +450,11 @@ public class ItemPowerFist extends MPSItemElectricTool
     @Override
     public void givePlayerEnergy(EntityPlayer player, double joulesToGive) {
         ElectricItemUtils.givePlayerEnergy(player, joulesToGive);
+    }
+
+    @Override
+    @Nonnull
+    public INetworkItem provide(INetworkItemHandler handler, EntityPlayer player, ItemStack itemStackIn) {
+        return RefinedStorageWirelessModule.provide(handler, player, itemStackIn);
     }
 }
