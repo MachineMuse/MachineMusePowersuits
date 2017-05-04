@@ -2,7 +2,6 @@ package net.machinemuse.powersuits.common;
 
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
-import net.machinemuse.powersuits.block.TestBlock;
 import net.machinemuse.powersuits.item.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

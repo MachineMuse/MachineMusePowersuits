@@ -12,7 +12,6 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
@@ -26,6 +25,7 @@ import net.minecraft.world.World;
 import p455w0rd.wcg.items.NetworkItemWirelessCraftingGrid;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -98,9 +98,10 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
         EnumActionResult result = emulatedTool.onItemUse(playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
         NBTTagCompound tag2 = emulatedTool.getTagCompound();
 
+        // maybe loop through a set of string keys instead?
         if (tag2 != null) {
             if (tag2.hasKey("Initialized"))
-                tag.setInteger("Initialized", tag2.getInteger("Initialized"));
+                tag.setInteger("Initialized", 1);
 
             if (tag2.hasKey("SearchBoxMode"))
                 tag.setInteger("SearchBoxMode", tag2.getInteger("SearchBoxMode"));
@@ -147,25 +148,6 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(emulatedTool).getParticleTexture();
-    }
-
-    private boolean isValid(ItemStack stack) {
-        if (stack.getTagCompound() == null)
-            return false;
-
-        return stack.getTagCompound().hasKey("ViewType")
-                && stack.getTagCompound().hasKey("SortingDirection")
-                && stack.getTagCompound().hasKey("SortingType")
-                && stack.getTagCompound().hasKey("SearchBoxMode");
-    }
-
-    private boolean isSet(ItemStack stack) {
-        if (stack.getTagCompound() == null)
-            return false;
-        return stack.getTagCompound().hasKey("ControllerY")
-                && stack.getTagCompound().hasKey("ControllerY")
-                && stack.getTagCompound().hasKey("ControllerZ")
-                && stack.getTagCompound().hasKey("DimensionID");
     }
 
     private NBTTagCompound initializeDefaults(NBTTagCompound nbt) {

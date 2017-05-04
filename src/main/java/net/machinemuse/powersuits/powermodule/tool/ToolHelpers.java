@@ -69,6 +69,4 @@ public class ToolHelpers {
         }
         return false;
     }
-
-
 }
