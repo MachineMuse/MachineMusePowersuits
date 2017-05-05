@@ -34,19 +34,18 @@ import java.util.List;
 public class RefinedStorageWirelessModule extends PowerModuleBase implements IRightClickModule {
     public static final String MODULE_REF_STOR_WIRELESS = "Refined Storage Wireless Grid";
     public static final String REF_STOR_WIRELESS_ENERGY_CONSUMPTION = "Energy Consumption";
-    public static ItemStack emulatedTool;
+//    public static ItemStack emulatedTool;
     public static final ResourceLocation wirelessGridRegName = new ResourceLocation("refinedstorage", "wireless_grid");
     public static final ResourceLocation wirelessCraftingGridRegName = new ResourceLocation("refinedstorage", "wireless_crafting_grid");
 
     public RefinedStorageWirelessModule(List<IModularItem> validItems) {
         super(validItems);
-        if (ModCompatibility.isWirelessCraftingGridLoaded())
-            emulatedTool = new ItemStack( Item.REGISTRY.getObject(wirelessCraftingGridRegName), 1, 0);
-        else
-            emulatedTool = new ItemStack( Item.REGISTRY.getObject(wirelessGridRegName), 1, 0);
-
+//        if (ModCompatibility.isWirelessCraftingGridLoaded())
+//            emulatedTool = new ItemStack( Item.REGISTRY.getObject(wirelessCraftingGridRegName), 1, 0);
+//        else
+//            emulatedTool = new ItemStack( Item.REGISTRY.getObject(wirelessGridRegName), 1, 0);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
-        addInstallCost(emulatedTool);
+        addInstallCost(getEmulatedTool());
     }
 
     @Override
@@ -62,6 +61,8 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
     @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         NBTTagCompound tag = getModululeTag(itemStackIn);
+        ItemStack emulatedTool = getEmulatedTool();
+
         if (tag != null) {
             if (!isModuleTagValid(tag)) {
                 tag = initializeDefaults(tag);
@@ -94,6 +95,12 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
     @Override
     public EnumActionResult onItemUse(ItemStack itemStackIn, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         NBTTagCompound tag = getModululeTag(itemStackIn);
+        ItemStack emulatedTool = getEmulatedTool();
+
+
+        emulatedTool.setTagCompound(tag);
+
+
 
         EnumActionResult result = emulatedTool.onItemUse(playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
         NBTTagCompound tag2 = emulatedTool.getTagCompound();
@@ -147,7 +154,7 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(emulatedTool).getParticleTexture();
+        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(getEmulatedTool()).getParticleTexture();
     }
 
     private NBTTagCompound initializeDefaults(NBTTagCompound nbt) {
@@ -190,10 +197,18 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
 
     @Nonnull
     public static INetworkItem provide(INetworkItemHandler handler, EntityPlayer player, ItemStack itemStackIn) {
+        ItemStack emulatedTool = getEmulatedTool();
         NBTTagCompound tag = getModululeTag(itemStackIn);
         emulatedTool.setTagCompound(tag);
         if (ModCompatibility.isWirelessCraftingGridLoaded())
             return new NetworkItemWirelessCraftingGrid(handler, player, emulatedTool);
         return new NetworkItemWirelessGrid(handler, player, emulatedTool);
+    }
+
+    static ItemStack getEmulatedTool() {
+        if (ModCompatibility.isWirelessCraftingGridLoaded())
+            return new ItemStack( Item.REGISTRY.getObject(wirelessCraftingGridRegName), 1, 0);
+        else
+            return new ItemStack( Item.REGISTRY.getObject(wirelessGridRegName), 1, 0);
     }
 }
