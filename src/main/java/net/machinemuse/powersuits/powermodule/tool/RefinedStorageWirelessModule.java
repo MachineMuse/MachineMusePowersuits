@@ -96,12 +96,7 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
     public EnumActionResult onItemUse(ItemStack itemStackIn, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         NBTTagCompound tag = getModululeTag(itemStackIn);
         ItemStack emulatedTool = getEmulatedTool();
-
-
         emulatedTool.setTagCompound(tag);
-
-
-
         EnumActionResult result = emulatedTool.onItemUse(playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
         NBTTagCompound tag2 = emulatedTool.getTagCompound();
 

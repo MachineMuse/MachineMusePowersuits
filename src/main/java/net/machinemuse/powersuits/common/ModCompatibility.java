@@ -90,6 +90,10 @@ public class ModCompatibility {
         return Loader.isModLoaded("refinedstorage");
     }
 
+    public static boolean isScannableLoaded() {
+        return Loader.isModLoaded("scannable");
+    }
+
     public static boolean isWirelessCraftingGridLoaded() {
         return Loader.isModLoaded("wcg");
     }
@@ -191,5 +195,9 @@ public class ModCompatibility {
         if (isRefinedStorageLoaded()) {
             ModuleManager.addModule(new RefinedStorageWirelessModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
         }
+
+//        if (isScannableLoaded()) {
+//            ModuleManager.addModule(new ScannableModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
+//        }
     }
 }
