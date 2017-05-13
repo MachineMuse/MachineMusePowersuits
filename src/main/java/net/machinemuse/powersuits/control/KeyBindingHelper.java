@@ -32,7 +32,7 @@ public class KeyBindingHelper {
         try {
             return (getKeyBindingMap() != null) ? (getKeyBindingMap().lookupActive(key)!=null) : false;
         }
-        catch (Exception e) {
+        catch (Exception ignored) {
 
         }
         return false;
@@ -43,7 +43,7 @@ public class KeyBindingHelper {
             if (getKeyBindingMap() != null)
                 hash.removeKey(hash.lookupActive(key));
         }
-        catch (Exception e) {
+        catch (Exception ignored) {
 
         }
     }

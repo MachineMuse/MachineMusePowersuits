@@ -161,7 +161,7 @@ public class HighPolyArmor extends ModelBiped implements IArmorModel {
                         this.rightArmPose = ArmPose.BOW_AND_ARROW;
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         bipedHead.isHidden = false;

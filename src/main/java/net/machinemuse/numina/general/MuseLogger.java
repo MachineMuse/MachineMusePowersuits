@@ -19,7 +19,7 @@ public final class MuseLogger {
         boolean debugging = true;
         try {
             if (!NuminaConfig.isDebugging()) debugging = false;
-        } catch (Exception e){
+        } catch (Exception ignored){
         }
         if (debugging) logger.info(string);
     }

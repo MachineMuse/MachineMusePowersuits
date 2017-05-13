@@ -25,7 +25,7 @@ public class MusePacketRecipeUpdate extends MusePacket {
     public void handleClient(EntityPlayer player) {
         try {
             JSONRecipeList.loadRecipesFromString(recipe);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
     }

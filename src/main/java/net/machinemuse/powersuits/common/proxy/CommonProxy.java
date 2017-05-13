@@ -31,6 +31,7 @@ public class CommonProxy {
         File newConfig = new File(event.getModConfigurationDirectory() + "/machinemuse/powersuits.cfg");
         Config.init(new Configuration(newConfig));
         Config.setConfigFolderBase(event.getModConfigurationDirectory());
+        Config.extractRecipes();
         MPSItems.populateItems();
         MPSItems.populateComponents();
     }
@@ -62,7 +63,6 @@ public class CommonProxy {
 
     public void postInit(FMLPostInitializationEvent event) {
         ModCompatibility.registerModSpecificModules();
-        Config.extractRecipes();
         Config.addCustomInstallCosts();
         Config.getConfig().save();
     }
