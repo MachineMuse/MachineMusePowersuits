@@ -143,7 +143,7 @@ public class ModularItemBase extends Item implements IModularItemBase {
     @SideOnly(Side.CLIENT)
     @Override
     public String getToolTip(ItemStack itemStack) {
-        return itemStack.getTooltip(Minecraft.getMinecraft().thePlayer, false).toString();
+        return itemStack.getTooltip(Minecraft.getMinecraft().player, false).toString();
     }
 
     /* Industrialcraft 2 -------------------------------------------------------------------------- */

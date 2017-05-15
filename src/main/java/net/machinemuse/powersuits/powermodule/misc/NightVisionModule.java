@@ -65,7 +65,7 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
         if (player.isPotionActive(nightvision)) {
             nightVision = player.getActivePotionEffect(nightvision);
             if (nightVision.getAmplifier() == -3) {
-                if (player.worldObj.isRemote) {
+                if (player.world.isRemote) {
                     player.removeActivePotionEffect(nightvision);
                 } else {
                     player.removePotionEffect(nightvision);

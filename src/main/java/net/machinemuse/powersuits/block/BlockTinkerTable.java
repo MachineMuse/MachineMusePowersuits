@@ -51,8 +51,7 @@ public class BlockTinkerTable extends Block {
         GameRegistry.registerTileEntity(TileEntityTinkerTable.class, "tinkerTable");
     }
 
-    @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (playerIn.isSneaking())
             return false;
         if (worldIn.isRemote)
@@ -66,10 +65,10 @@ public class BlockTinkerTable extends Block {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
     }
 
-    @Override
-    public boolean isVisuallyOpaque() {
-        return false;
-    }
+//    @Override
+//    public boolean isOpaqueCube() {
+//        return false;
+//    }
 
     @SuppressWarnings("deprecation")
     @Override

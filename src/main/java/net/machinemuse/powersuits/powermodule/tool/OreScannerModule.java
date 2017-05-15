@@ -109,14 +109,14 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
 //                            (2 * (int) ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_Z) + 1) +
 //                            " --- Energy used: " + MuseStringUtils.formatNumberFromUnits(totalEnergy, "J")));
 
-                    player.addChatMessage(new TextComponentString("[Ore Scanner] Total ore value: " + totalValue + " --- Most valuable: " + highestvalueblockname + "\nSearch radius: " +
+                    player.sendMessage(new TextComponentString("[Ore Scanner] Total ore value: " + totalValue + " --- Most valuable: " + highestvalueblockname + "\nSearch radius: " +
                             (2 * (int) ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_X) + 1) + "x" +
                             (2 * (int) ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_Y) + 1) + "x" +
                             (2 * (int) ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_Z) + 1) +
                             " --- Energy used: " + MuseStringUtils.formatNumberFromUnits(totalEnergy, "J")));
                 } else {
 //                    player.addChatMessage(new TextComponentString("[Ore Scanner] Total ore value: " + totalValue + " --- Most valuable: " + highestValue));
-                    player.addChatMessage(new TextComponentString("[Ore Scanner] Total ore value: " + totalValue + " --- Most valuable: " + highestvalueblockname));
+                    player.sendMessage(new TextComponentString("[Ore Scanner] Total ore value: " + totalValue + " --- Most valuable: " + highestvalueblockname));
                 }
             }
         }

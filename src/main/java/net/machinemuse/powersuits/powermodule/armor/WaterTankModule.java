@@ -70,17 +70,17 @@ public class WaterTankModule extends PowerModuleBase implements IPlayerTickModul
         }
 
         // Fill tank if player is in water
-        Block block = player.worldObj.getBlockState(player.getPosition()).getBlock();
+        Block block = player.world.getBlockState(player.getPosition()).getBlock();
         if (((block == Blocks.WATER) || block == Blocks.FLOWING_WATER) && MuseItemUtils.getWaterLevel(item) < ModuleManager.computeModularProperty(item, WATER_TANK_SIZE)) {
             MuseItemUtils.setWaterLevel(item, MuseItemUtils.getWaterLevel(item) + 1);
         }
 
         // Fill tank if raining
-        int xCoord = MathHelper.floor_double(player.posX);
-        int zCoord = MathHelper.floor_double(player.posZ);
-        boolean isRaining = (player.worldObj.getBiomeForCoordsBody(player.getPosition()).getRainfall() > 0) && (player.worldObj.isRaining() || player.worldObj.isThundering());
-        if (isRaining && player.worldObj.canBlockSeeSky(player.getPosition().add(0,1,0))
-                && (player.worldObj.getTotalWorldTime() % 5) == 0 && MuseItemUtils.getWaterLevel(item) < ModuleManager.computeModularProperty(item, WATER_TANK_SIZE)) {
+        int xCoord = MathHelper.floor(player.posX);
+        int zCoord = MathHelper.floor(player.posZ);
+        boolean isRaining = (player.world.getBiomeForCoordsBody(player.getPosition()).getRainfall() > 0) && (player.world.isRaining() || player.world.isThundering());
+        if (isRaining && player.world.canBlockSeeSky(player.getPosition().add(0,1,0))
+                && (player.world.getTotalWorldTime() % 5) == 0 && MuseItemUtils.getWaterLevel(item) < ModuleManager.computeModularProperty(item, WATER_TANK_SIZE)) {
             MuseItemUtils.setWaterLevel(item, MuseItemUtils.getWaterLevel(item) + 1);
         }
 
@@ -91,7 +91,7 @@ public class WaterTankModule extends PowerModuleBase implements IPlayerTickModul
             MuseHeatUtils.coolPlayer(player, 1);
             MuseItemUtils.setWaterLevel(item, MuseItemUtils.getWaterLevel(item) - 1);
             for (int i = 0; i < 4; i++) {
-                player.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, player.posX, player.posY + 0.5, player.posZ, 0.0D, 0.0D, 0.0D);
+                player.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, player.posX, player.posY + 0.5, player.posZ, 0.0D, 0.0D, 0.0D);
             }
         }
     }

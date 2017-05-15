@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.common;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 /**
  * Ported to Java by lehjr on 11/3/16.
@@ -12,7 +13,7 @@ public class MPSCreativeTab extends CreativeTabs {
     }
 
     @Override
-    public Item getTabIconItem() {
-        return MPSItems.powerArmorHead;
+    public ItemStack getTabIconItem() {
+        return new ItemStack(MPSItems.powerArmorHead);
     }
 }

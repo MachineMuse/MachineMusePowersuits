@@ -62,13 +62,13 @@ public class ElectricItemUtils {
         if (stackInCost.getItem() instanceof ItemComponent) {
             switch(stackInCost.getItemDamage() - ItemComponent.lvcapacitor.getItemDamage()) {
                 case 0:
-                    return 20000 * stackInCost.stackSize;
+                    return 20000 * stackInCost.getCount();
                 case 1:
-                    return 100000 * stackInCost.stackSize;
+                    return 100000 * stackInCost.getCount();
                 case 2:
-                    return 750000 * stackInCost.stackSize;
+                    return 750000 * stackInCost.getCount();
                 case 3:
-                    return 1000000 * stackInCost.stackSize;
+                    return 1000000 * stackInCost.getCount();
                 default:
                     return 0;
             }

@@ -88,10 +88,10 @@ public class TestBlock extends Block {//BlockDirectional {
         return state.getValue(FACING).getIndex();
     }
 
-    @Override
-    public boolean isVisuallyOpaque() {
-        return true;
-    }
+//    @Override
+//    public boolean isVisuallyOpaque() {
+//        return true;
+//    }
 
     @Override
     public boolean hasTileEntity(IBlockState state) {

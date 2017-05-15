@@ -106,7 +106,7 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
         for(int i = 0; i < quantity; ++i) {
             EntityItem item = new EntityItem(world, ejectX, ejectY, ejectZ, resin.copy());
             item.setDefaultPickupDelay();
-            world.spawnEntityInWorld(item);
+            world.spawnEntity(item);
         }
     }
 

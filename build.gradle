@@ -130,7 +130,7 @@ curseforge {
   project {
     id = '235442'
     changelog = getGitChangelog()
-    addGameVersion '1.10.2'
+    addGameVersion '1.11.2'
     //relatedProject 'numina': 'requiredLibrary'
 
     if(branch == null) {

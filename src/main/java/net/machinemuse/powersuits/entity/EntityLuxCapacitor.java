@@ -77,16 +77,16 @@ public class EntityLuxCapacitor extends EntityThrowable implements IEntityAdditi
             int z = hitResult.getBlockPos().getZ() - dir.getFrontOffsetZ();
             if (y > 0) {
                 BlockPos blockPos = new BlockPos(x, y, z);
-                Block block = worldObj.getBlockState(blockPos).getBlock();
-                if (block == null || block.isAir(worldObj.getBlockState(blockPos), worldObj, blockPos)) {
-                    Block blockToStickTo = worldObj.getBlockState(new BlockPos(hitResult.getBlockPos().getX(),
+                Block block = world.getBlockState(blockPos).getBlock();
+                if (block == null || block.isAir(world.getBlockState(blockPos), world, blockPos)) {
+                    Block blockToStickTo = world.getBlockState(new BlockPos(hitResult.getBlockPos().getX(),
                             hitResult.getBlockPos().getY(), hitResult.getBlockPos().getZ())).getBlock();
-                    if (blockToStickTo.isNormalCube(worldObj.getBlockState(blockPos), worldObj, blockPos) &&
+                    if (blockToStickTo.isNormalCube(world.getBlockState(blockPos), world, blockPos) &&
                             !(blockToStickTo instanceof BlockLuxCapacitor) && color != null) {
                         // FIXME: disabled while working on models.
-                        worldObj.setBlockState(blockPos, ((IExtendedBlockState) MPSItems.luxCapacitor.getDefaultState().
+                        world.setBlockState(blockPos, ((IExtendedBlockState) MPSItems.luxCapacitor.getDefaultState().
                                 withProperty(FACING, dir)).withProperty(COLOR, color));
-                        worldObj.setTileEntity(blockPos, new TileEntityLuxCapacitor(color));
+                        world.setTileEntity(blockPos, new TileEntityLuxCapacitor(color));
 
                     } else {
                         for (EnumFacing d : EnumFacing.VALUES) {
@@ -94,13 +94,13 @@ public class EntityLuxCapacitor extends EntityThrowable implements IEntityAdditi
                             int yo = y + d.getFrontOffsetY();
                             int zo = z + d.getFrontOffsetZ();
                             BlockPos blockPos2 = new BlockPos(xo, yo, zo);
-                            blockToStickTo = worldObj.getBlockState( new BlockPos(xo, yo, zo)).getBlock();
+                            blockToStickTo = world.getBlockState( new BlockPos(xo, yo, zo)).getBlock();
                             // FIXME: disabled while working on models
-                            if (blockToStickTo.isNormalCube(worldObj.getBlockState(blockPos2), worldObj, blockPos) &&
+                            if (blockToStickTo.isNormalCube(world.getBlockState(blockPos2), world, blockPos) &&
                                     !(blockToStickTo instanceof BlockLuxCapacitor) && color != null) {
-                                worldObj.setBlockState(blockPos, ((IExtendedBlockState) MPSItems.luxCapacitor.getDefaultState().
+                                world.setBlockState(blockPos, ((IExtendedBlockState) MPSItems.luxCapacitor.getDefaultState().
                                         withProperty(FACING, dir)).withProperty(COLOR, color));
-                                worldObj.setTileEntity(blockPos, new TileEntityLuxCapacitor(color));
+                                world.setTileEntity(blockPos, new TileEntityLuxCapacitor(color));
                                 break;
                             }
                         }

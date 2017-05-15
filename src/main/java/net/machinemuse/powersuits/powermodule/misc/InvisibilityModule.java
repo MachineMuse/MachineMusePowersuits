@@ -67,7 +67,7 @@ public class InvisibilityModule extends PowerModuleBase implements IPlayerTickMo
             invis = player.getActivePotionEffect(invisibility);
         }
         if (invis != null && invis.getAmplifier() == -3) {
-            if (player.worldObj.isRemote) {
+            if (player.world.isRemote) {
                 player.removeActivePotionEffect(invisibility);
             } else {
                 player.removePotionEffect(invisibility);

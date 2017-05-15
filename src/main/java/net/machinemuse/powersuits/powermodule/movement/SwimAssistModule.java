@@ -71,22 +71,22 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
                 double swimAssistRate = ModuleManager.computeModularProperty(item, SWIM_BOOST_AMOUNT) * 0.05 * moveRatio;;
                 double swimEnergyConsumption = ModuleManager.computeModularProperty(item, SWIM_BOOST_ENERGY_CONSUMPTION);
                 if (swimEnergyConsumption < ElectricItemUtils.getPlayerEnergy(player)) {
-                    if (player.worldObj.isRemote && NuminaConfig.useSounds()) {
+                    if (player.world.isRemote && NuminaConfig.useSounds()) {
                         Musique.playerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST, SoundCategory.PLAYERS, 1.0f, 1.0f, true);
                     }
                     MusePlayerUtils.thrust(player, swimAssistRate, true);
                 } else {
-                    if (player.worldObj.isRemote && NuminaConfig.useSounds()) {
+                    if (player.world.isRemote && NuminaConfig.useSounds()) {
                         Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST);
                     }
                 }
             } else {
-                if (player.worldObj.isRemote && NuminaConfig.useSounds()) {
+                if (player.world.isRemote && NuminaConfig.useSounds()) {
                     Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST);
                 }
             }
         } else {
-            if (player.worldObj.isRemote && NuminaConfig.useSounds()) {
+            if (player.world.isRemote && NuminaConfig.useSounds()) {
                 Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST);
             }
         }
@@ -94,7 +94,7 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-        if (player.worldObj.isRemote && NuminaConfig.useSounds()) {
+        if (player.world.isRemote && NuminaConfig.useSounds()) {
             Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST);
         }
     }

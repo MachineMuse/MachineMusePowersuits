@@ -21,7 +21,7 @@ public class DeathEventHandler {
     public void onLivingDeath(LivingDeathEvent e) {
         EntityPlayer player = (EntityPlayer) e.getEntityLiving();
         e.setCanceled(true);
-        player.openGui(Numina.getInstance(), 0, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posZ);
+        player.openGui(Numina.getInstance(), 0, player.world, (int)player.posX, (int)player.posY, (int)player.posZ);
         MuseLogger.logDebug("Death");
 //        player.setHealth(10f)
     }
@@ -30,8 +30,8 @@ public class DeathEventHandler {
     public void onOpenGui(GuiOpenEvent e) {
         if (e.getGui() instanceof GuiGameOver) {
             e.setCanceled(true);
-            EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
-            player.openGui(Numina.getInstance(), 0, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posZ);
+            EntityPlayerSP player = Minecraft.getMinecraft().player;
+            player.openGui(Numina.getInstance(), 0, player.world, (int)player.posX, (int)player.posY, (int)player.posZ);
         }
     }
 }

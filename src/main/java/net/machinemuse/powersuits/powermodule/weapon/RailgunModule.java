@@ -98,7 +98,7 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
                 ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
                 MuseItemUtils.setDoubleOrRemove(itemStackIn, TIMER, 10);
                 MuseHeatUtils.heatPlayer(playerIn, ModuleManager.computeModularProperty(itemStackIn, HEAT));
-                RayTraceResult hitMOP = MusePlayerUtils.doCustomRayTrace(playerIn.worldObj, playerIn, true, range);
+                RayTraceResult hitMOP = MusePlayerUtils.doCustomRayTrace(playerIn.world, playerIn, true, range);
                 // TODO: actual railgun sound
                 worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
                 double damage = ModuleManager.computeModularProperty(itemStackIn, IMPULSE) / 100.0;

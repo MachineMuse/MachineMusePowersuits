@@ -171,7 +171,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
 
         if (equipmentSlot == this.armorType) {
-            multimap.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getAttributeUnlocalizedName(), new AttributeModifier(ARMOR_MODIFIERS[equipmentSlot.getIndex()], SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getAttributeUnlocalizedName(), 0.25, 0));
+            multimap.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), new AttributeModifier(ARMOR_MODIFIERS[equipmentSlot.getIndex()], SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), 0.25, 0));
         }
 
         return multimap;
@@ -227,7 +227,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
             }
             if (source.isFireDamage()) {
                 EntityPlayer player = (EntityPlayer) entity;
-                if (!source.equals(DamageSource.onFire) || MuseHeatUtils.getPlayerHeat(player) < MuseHeatUtils.getMaxHeat(player)) {
+                if (!source.equals(DamageSource.ON_FIRE) || MuseHeatUtils.getPlayerHeat(player) < MuseHeatUtils.getMaxHeat(player)) {
                     MuseHeatUtils.heatPlayer(player, damage);
                 }
             } else {

@@ -70,7 +70,7 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
                 double blue = ModuleManager.computeModularProperty(itemStackIn, BLUE);
 
                 EntityLuxCapacitor luxCapacitor = new EntityLuxCapacitor(worldIn, playerIn, new Colour(red, green, blue));
-                worldIn.spawnEntityInWorld(luxCapacitor);
+                worldIn.spawnEntity(luxCapacitor);
             }
             return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
         }

@@ -333,18 +333,18 @@ public class MusePlayerUtils {
         if ((int)player.posY > 128) { // If high in the air, increase cooling
             cool += 0.5;
         }
-        if (!player.worldObj.isDaytime() && "Desert".equals(getBiome(player).getBiomeName())) { // If nighttime and in the desert, increase cooling
+        if (!player.world.isDaytime() && "Desert".equals(getBiome(player).getBiomeName())) { // If nighttime and in the desert, increase cooling
             cool += 0.8;
         }
-        if (player.worldObj.isRaining()) {
+        if (player.world.isRaining()) {
             cool += 0.2;
         }
         return cool;
     }
 
     public static Biome getBiome(EntityPlayer player) {
-        Chunk chunk = player.worldObj.getChunkFromBlockCoords(player.getPosition());
-        return chunk.getBiome(new BlockPos((int) player.posX & 15, player.posY, (int) player.posZ & 15), player.worldObj.getBiomeProvider());
+        Chunk chunk = player.world.getChunkFromBlockCoords(player.getPosition());
+        return chunk.getBiome(new BlockPos((int) player.posX & 15, player.posY, (int) player.posZ & 15), player.world.getBiomeProvider());
     }
 
     public static void setFOVMult(EntityPlayer player, float fovmult) {

@@ -73,7 +73,7 @@ public class SimpleItemMaker implements IItemMaker {
             MuseLogger.logDebug("oredict name is: " + oredictName);
             try {
                 ItemStack stack = OreDictionary.getOres(oredictName).get(0).copy();
-                stack.stackSize = Math.min(newquantity, stack.getMaxStackSize());
+                stack.setCount(Math.min(newquantity, stack.getMaxStackSize()));
                 if(nbt != null) stack.setTagCompound(nbt);
                 return stack;
             } catch (Exception e) {

@@ -29,13 +29,13 @@ public class KeybindKeyHandler {
 
     @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event) {
-        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+        EntityPlayerSP player = Minecraft.getMinecraft().player;
         if (fovToggleKey.isPressed()){
             fovIsActive = !fovIsActive;
             if (fovIsActive)
-                player.addChatComponentMessage(new TextComponentString(I18n.format("fovfixtoggle.enabled")));
+                player.sendMessage(new TextComponentString(I18n.format("fovfixtoggle.enabled")));
             else
-                player.addChatComponentMessage(new TextComponentString(I18n.format("fovfixtoggle.disabled")));
+                player.sendMessage(new TextComponentString(I18n.format("fovfixtoggle.disabled")));
         }
     }
 }

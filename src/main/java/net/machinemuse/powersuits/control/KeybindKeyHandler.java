@@ -34,7 +34,7 @@ public class KeybindKeyHandler {
     public void onKeyInput(InputEvent.KeyInputEvent e) {
         int key = Keyboard.getEventKey();
         boolean pressed = Keyboard.getEventKeyState();
-        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+        EntityPlayerSP player = Minecraft.getMinecraft().player;
 
         // Only activate if there is a player to work with
         if (player == null) {
@@ -43,13 +43,13 @@ public class KeybindKeyHandler {
         if (pressed) {
             ModeChangingItem mci = new ModeChangingItem(player.inventory.getCurrentItem());
             if (key == openKeybindGUI.getKeyCode()) {
-                World world = Minecraft.getMinecraft().theWorld;
+                World world = Minecraft.getMinecraft().world;
                 if (Minecraft.getMinecraft().inGameHasFocus) {
                     player.openGui(ModularPowersuits.getInstance(), 1, world, 0, 0, 0);
                 }
             }
             if (key == openCosmeticGUI.getKeyCode()) {
-                World world = Minecraft.getMinecraft().theWorld;
+                World world = Minecraft.getMinecraft().world;
                 if (Minecraft.getMinecraft().inGameHasFocus) {
                     player.openGui(ModularPowersuits.getInstance(), 3, world, 0, 0, 0);
                 }
@@ -69,8 +69,8 @@ public class KeybindKeyHandler {
                 mci.cycleMode(player.inventory.getStackInSlot(player.inventory.currentItem), player, -1);
             }
         } else {
-            if (Minecraft.getMinecraft().thePlayer != null && key == goDownKey.getKeyCode()) {
-                PlayerInputMap.getInputMapFor(Minecraft.getMinecraft().thePlayer.getCommandSenderEntity().getName()).downKey = false;
+            if (Minecraft.getMinecraft().player != null && key == goDownKey.getKeyCode()) {
+                PlayerInputMap.getInputMapFor(Minecraft.getMinecraft().player.getCommandSenderEntity().getName()).downKey = false;
             }
         }
     }

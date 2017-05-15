@@ -60,7 +60,7 @@ public class EntityPlasmaBolt extends EntityThrowable implements IEntityAddition
         if (this.isInWater()) {
             this.setDead();
             for (int var3 = 0; var3 < this.size; ++var3) {
-                this.worldObj.spawnParticle(EnumParticleTypes.FLAME,
+                this.world.spawnParticle(EnumParticleTypes.FLAME,
                         this.posX + Math.random() * 1, this.posY + Math.random() * 1, this.posZ + Math.random()
                                 * 0.1,
                         0.0D, 0.0D, 0.0D);
@@ -113,11 +113,11 @@ public class EntityPlasmaBolt extends EntityThrowable implements IEntityAddition
                 break;
         }
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
-            boolean flag = this.worldObj.getGameRules().getBoolean("mobGriefing");
-            this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.size / 50.0f * 3 * this.explosiveness), flag);
+            boolean flag = this.world.getGameRules().getBoolean("mobGriefing");
+            this.world.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.size / 50.0f * 3 * this.explosiveness), flag);
         }
         for (int var3 = 0; var3 < 8; ++var3) {
-            this.worldObj.spawnParticle(EnumParticleTypes.FLAME,
+            this.world.spawnParticle(EnumParticleTypes.FLAME,
                     this.posX + Math.random() * 0.1, this.posY + Math.random() * 0.1, this.posZ + Math.random() * 0.1,
                     0.0D, 0.0D, 0.0D);
         }

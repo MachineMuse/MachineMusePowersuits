@@ -7,6 +7,9 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.HashMap;
@@ -110,13 +113,12 @@ public class ItemComponent extends Item {
    }
 
     /**
-     * returns a list of items with the same ID, but different meta (eg: dye
-     * returns 16 items). For creative tab.
+     * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
      */
-    @Override
-    public void getSubItems(Item item, CreativeTabs tab, List listToAddTo) {
+    @SideOnly(Side.CLIENT)
+    public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
         for (Integer meta : names.keySet()) {
-            listToAddTo.add(new ItemStack(this, 1, meta));
+            subItems.add(new ItemStack(this, 1, meta));
         }
     }
 }

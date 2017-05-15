@@ -37,7 +37,7 @@ public class MusePacketNameChangeRequest extends MusePacket {
     @SideOnly(Side.CLIENT)
     @Override
     public void handleClient(EntityPlayer player) {
-        EntityPlayer anotherPlayer = (EntityPlayer) player.worldObj.getEntityByID(entityID);
+        EntityPlayer anotherPlayer = (EntityPlayer) player.world.getEntityByID(entityID);
         anotherPlayer.refreshDisplayName();
     }
 

@@ -62,7 +62,7 @@ public class KeybindManager {
                 file.createNewFile();
             }
             writer = new BufferedWriter(new FileWriter(file));
-            List<IPowerModule> modulesToWrite = MuseItemUtils.getPlayerInstalledModules(Minecraft.getMinecraft().thePlayer);
+            List<IPowerModule> modulesToWrite = MuseItemUtils.getPlayerInstalledModules(Minecraft.getMinecraft().player);
             for (ClickableKeybinding keybinding : getInstance().keybindings) {
                 writer.write(keybinding.getKeyBinding().getKeyCode() + ":" + keybinding.getPosition().x() + ':' + keybinding.getPosition().y() + ':' + keybinding.displayOnHUD + ':' + keybinding.toggleval + '\n');
                 for (ClickableModule module : keybinding.getBoundModules()) {

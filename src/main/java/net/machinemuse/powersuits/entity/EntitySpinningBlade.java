@@ -85,7 +85,7 @@ public class EntitySpinningBlade extends EntityThrowable {
     @Override
     protected void onImpact(RayTraceResult hitResult) {
         if (hitResult.typeOfHit == RayTraceResult.Type.BLOCK) {
-            World world = this.worldObj;
+            World world = this.world;
             if (world == null) {
                 return;
             }
@@ -104,7 +104,7 @@ public class EntitySpinningBlade extends EntityThrowable {
                         double d2 = rand.nextFloat() * f + (1.0F - f) * 0.5D;
                         EntityItem entityitem = new EntityItem(world, hitResult.getBlockPos().getX() + d, hitResult.getBlockPos().getY() + d1, hitResult.getBlockPos().getZ() + d2, stack);
                         entityitem.setPickupDelay(10);
-                        world.spawnEntityInWorld(entityitem);
+                        world.spawnEntity(entityitem);
                     }
                     if (this.shootingEntity instanceof EntityPlayer) {
                         ((EntityPlayer) shootingEntity).addStat(StatList.getBlockStats(block), 1);
@@ -118,8 +118,8 @@ public class EntitySpinningBlade extends EntityThrowable {
             if (hitResult.entityHit instanceof IShearable) {
                 IShearable target = (IShearable) hitResult.entityHit;
                 Entity entity = hitResult.entityHit;
-                if (target.isShearable(this.shootingItem, entity.worldObj, entity.getPosition())) {
-                    List<ItemStack> drops = target.onSheared(this.shootingItem, entity.worldObj,
+                if (target.isShearable(this.shootingItem, entity.world, entity.getPosition())) {
+                    List<ItemStack> drops = target.onSheared(this.shootingItem, entity.world,
                             entity.getPosition (),
                             EnchantmentHelper.getEnchantmentLevel(Enchantment.getEnchantmentByLocation("fortune"), this.shootingItem));
 

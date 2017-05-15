@@ -66,11 +66,11 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack stack) {
         if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, MAGNET_ENERGY_CONSUMPTION)) {
-            if ((player.worldObj.getTotalWorldTime() % 20) == 0) {
+            if ((player.world.getTotalWorldTime() % 20) == 0) {
                 ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, MAGNET_ENERGY_CONSUMPTION));
             }
             int range = (int) ModuleManager.computeModularProperty(stack, MAGNET_RADIUS);
-            World world = player.worldObj;
+            World world = player.world;
             AxisAlignedBB bounds = player.getEntityBoundingBox().expand(range, range, range);
             if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
                 bounds.expand(0.2000000029802322D, 0.2000000029802322D, 0.2000000029802322D);
@@ -79,7 +79,7 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
                     for (EntityArrow arrow : arrows) {
                         if ((arrow.pickupStatus == EntityArrow.PickupStatus.ALLOWED) && (world.rand.nextInt(6) == 0)) {
                             EntityItem replacement = new EntityItem(world, arrow.posX, arrow.posY, arrow.posZ, new ItemStack(Items.ARROW));
-                            world.spawnEntityInWorld(replacement);
+                            world.spawnEntity(replacement);
                         }
                         world.removeEntity(arrow);
                     }
