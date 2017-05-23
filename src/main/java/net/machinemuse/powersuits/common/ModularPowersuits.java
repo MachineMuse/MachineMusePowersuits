@@ -13,8 +13,6 @@ import javax.annotation.Nonnull;
 import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
 import static net.machinemuse.powersuits.common.ModularPowersuits.VERSION;
 
-//import net.machinemuse.powersuits.powermodule.tool.TerminalHandler;
-
 /**
  * Main mod class. This is what Forge loads to get the mod up and running, both
  * server- and client-side.

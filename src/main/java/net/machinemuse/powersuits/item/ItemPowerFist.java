@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.item;
 
 //import appeng.api.implementations.items.IAEWrench;
 
+import appeng.api.implementations.items.IAEWrench;
 import cofh.api.item.IToolHammer;
 import com.raoulvdberge.refinedstorage.api.network.item.INetworkItem;
 import com.raoulvdberge.refinedstorage.api.network.item.INetworkItemHandler;
@@ -63,7 +64,7 @@ import java.util.List;
 //        @Optional.Interface(iface = "powercrystals.minefactoryreloaded.api.IMFRHammer", modid = "MineFactoryReloaded", striprefs = true),
         @Optional.Interface(iface = "cofh.api.item.IToolHammer", modid = "cofhcore", striprefs = true),
 //        @Optional.Interface(iface = "buildcraft.api.tools.IToolWrench", modid = "BuildCraft|Core", striprefs = true),
-//        @Optional.Interface(iface = "appeng.api.implementations.items.IAEWrench", modid = "appliedenergistics2", striprefs = true)
+        @Optional.Interface(iface = "appeng.api.implementations.items.IAEWrench", modid = "appliedenergistics2", striprefs = true)
 })
 public class ItemPowerFist extends MPSItemElectricTool
         implements
@@ -71,7 +72,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         IToolHammer,
         INetworkItemProvider,
 //        IToolCrowbar,
-////        IAEWrench,
+        IAEWrench,
 //        IToolWrench,
         ITool,
         IMekWrench,
@@ -337,11 +338,11 @@ public class ItemPowerFist extends MPSItemElectricTool
 //
 //    }
 
-//    /* AE wrench */
-//    @Override
-//    public boolean canWrench(ItemStack itemStack, EntityPlayer entityPlayer, BlockPos blockPos) {
-//        return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
-//    }
+    /* AE wrench */
+    @Override
+    public boolean canWrench(ItemStack itemStack, EntityPlayer entityPlayer, BlockPos blockPos) {
+        return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
+    }
 
 //    /* Buildcraft Wrench */
 //    @Override

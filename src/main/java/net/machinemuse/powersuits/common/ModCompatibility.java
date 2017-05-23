@@ -16,6 +16,10 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class ModCompatibility {
+    public static boolean isTechRebornLoaded() {
+        return Loader.isModLoaded("techreborn");
+    }
+
     public static boolean isGregTechLoaded() {
         return Loader.isModLoaded("gregtech");
     }
@@ -171,14 +175,14 @@ public class ModCompatibility {
             }
         }
 
-//        // Applied Energistics
-//        if (isAppengLoaded()) {
-//            ModuleManager.addModule(new AppEngWirelessModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
-//
-////            // Extra Cells 2
-////            if (isExtraCellsLoaded())
-////                ModuleManager.addModule(new AppEngWirelessFluidModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
-//        }
+        // Applied Energistics
+        if (isAppengLoaded()) {
+            ModuleManager.addModule(new AppEngWirelessModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
+
+//            // Extra Cells 2
+//            if (isExtraCellsLoaded())
+//                ModuleManager.addModule(new AppEngWirelessFluidModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
+        }
 
         // Multi-Mod Compatible OmniProbe
         if (isEnderIOLoaded() || isMFRLoaded() || isRailcraftLoaded()) {

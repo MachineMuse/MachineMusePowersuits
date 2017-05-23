@@ -7,6 +7,7 @@ import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.event.HarvestEventHandler;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.network.packets.MPSPacketList;
+import net.machinemuse.powersuits.powermodule.tool.TerminalHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -58,7 +59,7 @@ public class CommonProxy {
         EntityRegistry.registerModEntity(EntityLuxCapacitor.class, "entityLuxCapacitor", 2479, ModularPowersuits.getInstance(), 64, 20, true);
         MPSPacketList.registerPackets();
         NetworkRegistry.INSTANCE.registerGuiHandler(ModularPowersuits.getInstance(), MPSGuiHandler.getInstance());
-//        TerminalHandler.registerHandler(); // TODO: enable when Applied Energistics API ready for addons
+        TerminalHandler.registerHandler();
     }
 
     public void postInit(FMLPostInitializationEvent event) {

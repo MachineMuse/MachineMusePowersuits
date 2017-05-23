@@ -104,8 +104,13 @@ public class Config {
                 found=true;
                 copyRecipe("mps-thermalexpansion.recipes");
             }
-            // GregTech 2
-            if (ModCompatibility.isGregTechLoaded()) {
+
+            if (ModCompatibility.isTechRebornLoaded()) {
+                found=true;
+                copyRecipe("mps-TechReborn.recipes");
+
+                // GregTech 2
+            } else if (ModCompatibility.isGregTechLoaded()) {
                 found=true;
                 copyRecipe("mps-GT5.recipes");
 
@@ -115,18 +120,11 @@ public class Config {
                 copyRecipe("mps-ic2.recipes");
             }
 
-
-
-
             // EnderIO
             if (ModCompatibility.isEnderIOLoaded()) {
                 found=true;
                 copyRecipe("mps-enderio.recipes");
             }
-
-
-
-
 
             // Vanilla
             if(!found) {
