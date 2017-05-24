@@ -94,6 +94,14 @@ public class RadialSelectionFrame implements IGuiFrame {
         }
     }
 
+    public ClickableModule getSelectedModule() {
+        if (modeButtons.size() > selectedModule && selectedModule != -1) {
+            return modeButtons.get(selectedModule);
+        } else {
+            return null;
+        }
+    }
+
     @Override
     public void update(double mousex, double mousey) {
     	//Update items
@@ -103,16 +111,16 @@ public class RadialSelectionFrame implements IGuiFrame {
         	selectModule(mousex, mousey);
     	}
     	//Switch to selected mode
-		if (selectedModule != -1 && stack != null && stack.getItem() instanceof IModeChangingItem) {
-	    	((IModeChangingItem) stack.getItem()).setActiveMode(stack, modeButtons.get(selectedModule).getModule().getDataName());
-	    	PacketSender.sendToServer(new MusePacketModeChangeRequest(player, modeButtons.get(selectedModule).getModule().getDataName(), player.inventory.currentItem));
+		if (getSelectedModule() != null && stack != null && stack.getItem() instanceof IModeChangingItem) {
+	    	((IModeChangingItem) stack.getItem()).setActiveMode(stack, getSelectedModule().getModule().getDataName());
+	    	PacketSender.sendToServer(new MusePacketModeChangeRequest(player, getSelectedModule().getModule().getDataName(), player.inventory.currentItem));
 		}
     }
 
     private void drawSelection() {
-        ClickableModule module = modeButtons.get(selectedModule);
+        ClickableModule module = getSelectedModule();
         if (module != null) {
-            MusePoint2D pos = modeButtons.get(selectedModule).getPosition();
+            MusePoint2D pos = module.getPosition();
                 MuseRenderer.drawCircleAround(pos.x(), pos.y(), 10);
         }
     }
