@@ -1,7 +1,8 @@
 package net.machinemuse.numina.mouse;
 
+import org.lwjgl.input.Keyboard;
+
 import net.machinemuse.numina.item.IModeChangingItem;
-import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.item.ItemStack;
@@ -15,7 +16,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  * Ported to Java by lehjr on 10/22/16.
  */
 public final class MouseEventHandler {
-    @SubscribeEvent
+/*    @SubscribeEvent
     public void onMouseEvent(MouseEvent e) {
         if (e.getDwheel() != 0) {
             EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
@@ -24,11 +25,11 @@ public final class MouseEventHandler {
                 IModeChangingItem item = (IModeChangingItem) stack.getItem();
 //Replace this with check for correct hotbar key.\/
 //                if (player.isSneaking()) {
-                if (PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName()).hotbarKey) {
+                if (Keyboard.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindsHotbar[player.inventory.currentItem].getKeyCode())) {
                     item.cycleMode(stack, player, e.getDwheel() / 120);
                     e.setCanceled(true);
                 }
             }
         }
-    }
+    }*/
 }

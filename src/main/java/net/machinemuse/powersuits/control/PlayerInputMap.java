@@ -24,7 +24,6 @@ public class PlayerInputMap {
 	public boolean jumpKey;
 	public boolean sneakKey;
 	public boolean downKey;
-	public boolean hotbarKey;
 	public double motionX;
 	public double motionY;
 	public double motionZ;
@@ -45,7 +44,6 @@ public class PlayerInputMap {
 			stream.writeBoolean(jumpKey);
 			stream.writeBoolean(sneakKey);
 			stream.writeBoolean(downKey);
-			stream.writeBoolean(hotbarKey);
 			stream.writeDouble(motionX);
 			stream.writeDouble(motionY);
 			stream.writeDouble(motionZ);
@@ -63,7 +61,6 @@ public class PlayerInputMap {
 			jumpKey = stream.readBoolean();
 			sneakKey = stream.readBoolean();
 			downKey = stream.readBoolean();
-			hotbarKey = stream.readBoolean();
 			motionX = stream.readDouble();
 			motionY = stream.readDouble();
 			motionZ = stream.readDouble();
@@ -83,7 +80,6 @@ public class PlayerInputMap {
 					&& other.jumpKey == this.jumpKey
 					&& other.sneakKey == this.sneakKey
 					&& other.downKey == this.downKey
-					&& other.hotbarKey == this.hotbarKey
 					&& other.motionX == this.motionX
 					&& other.motionY == this.motionY
 					&& other.motionZ == this.motionZ;
@@ -98,7 +94,6 @@ public class PlayerInputMap {
 		jumpKey = master.jumpKey;
 		sneakKey = master.sneakKey;
 		downKey = master.downKey;
-		hotbarKey = master.hotbarKey;
 		motionX = master.motionX;
 		motionY = master.motionY;
 		motionZ = master.motionZ;
