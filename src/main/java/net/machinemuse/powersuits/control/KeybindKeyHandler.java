@@ -1,12 +1,12 @@
 package net.machinemuse.powersuits.control;
 
-import net.machinemuse.general.gui.GuiModeSelector;
+import net.machinemuse.numina.item.IModeChangingItem;
 import net.machinemuse.numina.item.ModeChangingItem;
 import net.machinemuse.powersuits.common.ModularPowersuits;
-import net.machinemuse.powersuits.item.ItemPowerFist;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -14,10 +14,8 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.io.IOException;
 
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 
 @SideOnly(Side.CLIENT)
 public class KeybindKeyHandler {
@@ -77,10 +75,13 @@ public class KeybindKeyHandler {
                 mci.cycleMode(player.inventory.getStackInSlot(player.inventory.currentItem), player, -1);
             }
             if (key == hotbarKeys[player.inventory.currentItem].getKeyCode()) {
-                World world = mc.theWorld;
-                if (mc.inGameHasFocus) {
-                	player.openGui(ModularPowersuits.getInstance(), 5, world, 0, 0, 0);
-                }
+            	ItemStack stack = player.inventory.getCurrentItem();
+            	if (stack != null && stack.getItem() instanceof IModeChangingItem) {
+                    World world = mc.theWorld;
+                    if (mc.inGameHasFocus) {
+                    	player.openGui(ModularPowersuits.getInstance(), 5, world, 0, 0, 0);
+                    }
+            	}
             }
         } else {
             if (player != null && key == goDownKey.getKeyCode()) {
