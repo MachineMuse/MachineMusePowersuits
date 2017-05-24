@@ -50,6 +50,8 @@ public final class MPSGuiHandler implements IGuiHandler {
                 return new CosmeticGui(player, x, y, z);
             case 4:
                 return new PortableCraftingGui(player, world, new BlockPos(x,y,z));
+            case 5:
+            	return new GuiModeSelector(player);
             default:
                 return null;
         }
