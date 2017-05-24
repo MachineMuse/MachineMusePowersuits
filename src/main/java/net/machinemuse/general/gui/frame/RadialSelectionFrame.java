@@ -58,11 +58,6 @@ public class RadialSelectionFrame implements IGuiFrame {
 
     private void loadItems() {
         if (player != null) {
-    		ItemStack stack = null;
-        	for (ItemStack itemStack : MuseItemUtils.getModularItemsInInventory(player)) {
-        		if (itemStack.getItem() instanceof ItemPowerFist)
-        			stack = itemStack;
-        	}
             List<IRightClickModule> modes = new ArrayList<>();
             for (IRightClickModule module : ModuleManager.getRightClickModules()) {
                 if (module.isValidForItem(stack))
