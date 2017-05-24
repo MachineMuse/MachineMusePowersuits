@@ -46,7 +46,6 @@ public class ModelHelper {
         new ModelHelper();
     }
 
-
     public static final ResourceLocation powerFistLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFist.obj");
     public static final ResourceLocation powerFistFiringLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistFiring.obj");
     public static final ResourceLocation powerFistLeftLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistLeft.obj");

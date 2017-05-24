@@ -104,16 +104,28 @@ public class Config {
                 found=true;
                 copyRecipe("mps-thermalexpansion.recipes");
             }
-            // Industrialcraft 2
-            if (ModCompatibility.isIndustrialCraftLoaded()) {
+
+            if (ModCompatibility.isTechRebornLoaded()) {
+                found=true;
+                copyRecipe("mps-TechReborn.recipes");
+
+                // GregTech 2
+            } else if (ModCompatibility.isGregTechLoaded()) {
+                found=true;
+                copyRecipe("mps-GT5.recipes");
+
+                // Industrialcraft 2
+            } else if (ModCompatibility.isIndustrialCraftLoaded()) {
                 found=true;
                 copyRecipe("mps-ic2.recipes");
             }
+
             // EnderIO
             if (ModCompatibility.isEnderIOLoaded()) {
                 found=true;
                 copyRecipe("mps-enderio.recipes");
             }
+
             // Vanilla
             if(!found) {
                 copyRecipe("mps-vanilla.recipes");
@@ -198,13 +210,6 @@ public class Config {
 
     public static void addModule(IPowerModule module) {
         ModuleManager.addModule(module);
-    }
-
-    /**
-     * The power drain for the Applied Energistics2 and ExtraCells2 wireless terminals
-     */
-    public static double appengMultiplier() {
-        return config.get(Configuration.CATEGORY_GENERAL, "Energy per AE", 5.0).getDouble(5.0);
     }
 
     public static boolean useAdvancedOreScannerMessage() {
@@ -300,7 +305,6 @@ public class Config {
         addModule(new FlintAndSteelModule(TOOLONLY));
         addModule(new LightningModule(TOOLONLY));
         addModule(new DimensionalRiftModule(TOOLONLY));
-//        addModule(new OmniWrenchModule(TOOLONLY)); // Requires COFH lib/core
 
 
         /* Helmet ------------------------------- */

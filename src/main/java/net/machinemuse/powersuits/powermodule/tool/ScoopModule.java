@@ -32,7 +32,7 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
     public static final String MODULE_SCOOP = "Scoop";
     public static final String SCOOP_HARVEST_SPEED = "Scoop Harvest Speed";
     public static final String SCOOP_ENERGY_CONSUMPTION = "Scoop Energy Consumption";
-    public static final ItemStack emulatedTool = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("Forestry", "emulatedTool")), 1);
+    public static final ItemStack emulatedTool = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("forestry", "scoop")), 1);
 
     public ScoopModule(List<IModularItem> validItems) {
         super(validItems);

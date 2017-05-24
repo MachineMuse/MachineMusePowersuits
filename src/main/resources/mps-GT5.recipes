@@ -3,7 +3,7 @@
     "ingredients" : [
       [ null, { "oredictName" : "gemEmerald" }, null ],
       [ { "oredictName" : "plateIron" }, { "oredictName" : "circuitBasic" }, { "oredictName" : "plateIron" } ],
-      [ null, { "registryName" : "IC2:blockMachine" }, null ]
+      [ null, { "registryName" : "ic2:resource", "meta" : 12 }, null ]
     ],
     "result" : {
       "registryName" : "powersuits:tile.tinkerTable"
@@ -90,9 +90,9 @@
   },
   {
     "ingredients" : [
-      [  null, { "registryName" : "IC2:itemPartCarbonPlate" }, { "registryName" : "IC2:itemPartCarbonPlate" } ],
-      [  { "registryName" : "IC2:itemPartCarbonPlate" }, { "registryName" : "IC2:itemPartCarbonPlate" }, { "oredictName" : "componentSolenoid" } ],
-      [  { "registryName" : "IC2:itemPartCarbonPlate" }, null, { "oredictName" : "ingotIron" } ]
+      [  null, { "oredictName" : "plateAlloyCarbon"  }, { "oredictName" : "plateAlloyCarbon"  } ],
+      [  { "oredictName" : "plateAlloyCarbon"  }, { "oredictName" : "plateAlloyCarbon"  }, { "oredictName" : "componentSolenoid" } ],
+      [  { "oredictName" : "plateAlloyCarbon"  }, null, { "oredictName" : "ingotIron" } ]
     ],
     "result" : {
       "oredictName" : "componentGliderWing"
@@ -152,7 +152,7 @@
     "ingredients" : [
       [  { "registryName" : "minecraft:wool" }, { "registryName" : "minecraft:wool" }, { "registryName" : "minecraft:wool" } ],
       [  { "registryName" : "minecraft:string" }, null, { "registryName" : "minecraft:string" } ],
-      [  { "registryName" : "IC2:itemPartCarbonPlate" }, null, { "registryName" : "IC2:itemPartCarbonPlate" } ]
+      [  { "oredictName" : "plateAlloyCarbon"  }, null, { "oredictName" : "plateAlloyCarbon"  } ]
     ],
     "result" : {
       "oredictName" : "componentParachute"
@@ -211,7 +211,7 @@
     "ingredients" : [
       [ { "oredictName" : "circuitAdvanced" }, { "oredictName" : "glassReinforced" }, { "oredictName" : "circuitAdvanced" } ],
       [ { "oredictName" : "glassReinforced" }, { "oredictName" : "circuitAdvanced" }, { "oredictName" : "glassReinforced" } ],
-      [ { "registryName" : "IC2:itemPartCarbonPlate" }, { "oredictName" : "glassReinforced" }, { "registryName" : "IC2:itemPartCarbonPlate" } ]
+      [ { "oredictName" : "plateAlloyCarbon"  }, { "oredictName" : "glassReinforced" }, { "oredictName" : "plateAlloyCarbon"  } ]
     ],
     "result" : {
       "oredictName" : "componentLaserEmitter"
@@ -219,9 +219,9 @@
   },
   {
     "ingredients" : [
-      [ { "registryName" : "IC2:itemPartCarbonPlate" }, { "registryName" : "IC2:itemPartCarbonPlate" }, { "registryName" : "IC2:itemPartCarbonPlate" } ],
-      [ { "registryName" : "IC2:itemPartCarbonPlate" }, { "registryName" : "IC2:itemPartCarbonPlate" }, { "registryName" : "IC2:itemPartCarbonPlate" } ],
-      [ { "registryName" : "IC2:itemPartCarbonPlate" }, { "registryName" : "IC2:itemPartCarbonPlate" }, { "registryName" : "IC2:itemPartCarbonPlate" } ]
+      [ { "oredictName" : "plateAlloyCarbon"  }, { "oredictName" : "plateAlloyCarbon"  }, { "oredictName" : "plateAlloyCarbon"  } ],
+      [ { "oredictName" : "plateAlloyCarbon"  }, { "oredictName" : "plateAlloyCarbon"  }, { "oredictName" : "plateAlloyCarbon"  } ],
+      [ { "oredictName" : "plateAlloyCarbon"  }, { "oredictName" : "plateAlloyCarbon"  }, { "oredictName" : "plateAlloyCarbon"  } ]
     ],
     "result" : {
       "oredictName" : "componentCarbonMyofiber"
@@ -241,8 +241,8 @@
   {
     "ingredients" : [
       [ null, { "registryName" : "minecraft:magma_cream" }, null ],
-      [ { "registryName" : "IC2:itemPartCarbonPlate" }, { "registryName" : "IC2:itemHarz" }, { "registryName" : "IC2:itemPartCarbonPlate" } ],
-      [ { "registryName" : "IC2:itemPartCarbonPlate" }, { "registryName" : "minecraft:magma_cream" }, { "registryName" : "IC2:itemPartCarbonPlate" } ]
+      [ { "oredictName" : "plateAlloyCarbon"  }, { "registryName" : "ic2:resource", "meta" : 4 }, { "oredictName" : "plateAlloyCarbon"  } ],
+      [ { "oredictName" : "plateAlloyCarbon"  }, { "registryName" : "minecraft:magma_cream" }, { "oredictName" : "plateAlloyCarbon"  } ]
     ],
     "result" : {
       "oredictName" : "componentMyofiberGel"
@@ -290,7 +290,7 @@
   {
     "ingredients" : [
       [ { "oredictName" : "itemRubber" }, { "oredictName" : "itemRubber" }, { "oredictName" : "itemRubber" } ],
-      [ { "registryName" : "IC2:blockAlloyGlass" }, null, { "registryName" : "IC2:blockAlloyGlass" } ],
+      [ { "oredictName" : "glassReinforced" }, null, { "oredictName" : "glassReinforced" } ],
       [ { "oredictName" : "itemRubber" }, { "oredictName" : "itemRubber" }, { "oredictName" : "itemRubber" } ]
     ],
     "result" : {
@@ -300,7 +300,7 @@
   {
     "ingredients" : [
       [ { "oredictName" : "dustLapis" }, { "oredictName" : "dustLapis" }, { "oredictName" : "dustLapis" } ],
-      [ { "registryName" : "IC2:itemCellEmpty", "meta" : 9 }, { "registryName" : "IC2:itemCellEmpty", "meta" : 9 }, { "registryName" : "IC2:itemCellEmpty", "meta" : 9 } ],
+      [ { "oredictName" : "cellEmpty" }, { "oredictName" : "cellEmpty" }, { "oredictName" : "cellEmpty" } ],
       [ null, { "registryName" : "minecraft:bucket" }, null ]
     ],
     "result" : {

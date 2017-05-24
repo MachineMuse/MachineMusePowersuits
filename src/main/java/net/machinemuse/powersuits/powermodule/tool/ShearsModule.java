@@ -20,6 +20,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
@@ -126,24 +127,23 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
         }
         Block block = state.getBlock();
 
-        if (block instanceof IShearable && ElectricItemUtils.getPlayerEnergy(((EntityPlayer)entityLiving)) > ModuleManager.computeModularProperty(itemStack, SHEARING_ENERGY_CONSUMPTION)) {
+        if (block instanceof IShearable && ElectricItemUtils.getPlayerEnergy(((EntityPlayer) entityLiving)) > ModuleManager.computeModularProperty(itemStack, SHEARING_ENERGY_CONSUMPTION)) {
             IShearable target = (IShearable) block;
             if (target.isShearable(itemStack, entityLiving.worldObj, pos)) {
-                List<ItemStack> drops = target.onSheared(itemStack, entityLiving.worldObj, pos,
-                        EnchantmentHelper.getEnchantmentLevel(Enchantment.getEnchantmentByLocation("fortune"), itemStack));
+                List<ItemStack> drops = target.onSheared(itemStack, entityLiving.worldObj, pos, EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemStack));
                 Random rand = new Random();
 
                 for (ItemStack stack : drops) {
                     float f = 0.7F;
-                    double d = rand.nextFloat() * f + (1.0F - f) * 0.5D;
-                    double d1 = rand.nextFloat() * f + (1.0F - f) * 0.5D;
-                    double d2 = rand.nextFloat() * f + (1.0F - f) * 0.5D;
-                    EntityItem entityitem = new EntityItem(entityLiving.worldObj, pos.getX() + d, pos.getY() + d1, pos.getZ() + d2, itemStack);
+                    double d = (double) (rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                    double d1 = (double) (rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                    double d2 = (double) (rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                    EntityItem entityitem = new EntityItem(entityLiving.worldObj, (double) pos.getX() + d, (double) pos.getY() + d1, (double) pos.getZ() + d2, stack);
                     entityitem.setDefaultPickupDelay(); // this is 10
-                    entityLiving.worldObj.spawnEntityInWorld(entityitem);
+                    entityitem.worldObj.spawnEntityInWorld(entityitem);
                 }
                 ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, ModuleManager.computeModularProperty(itemStack, SHEARING_ENERGY_CONSUMPTION));
-                ((EntityPlayer)(entityLiving)).addStat(StatList.getBlockStats(block), 1);
+                ((EntityPlayer) (entityLiving)).addStat(StatList.getBlockStats(block), 1);
                 return true;
             }
         }

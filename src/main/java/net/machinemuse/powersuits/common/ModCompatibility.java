@@ -16,9 +16,12 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class ModCompatibility {
+    public static boolean isTechRebornLoaded() {
+        return Loader.isModLoaded("techreborn");
+    }
 
     public static boolean isGregTechLoaded() {
-        return Loader.isModLoaded("gregtech_addon");
+        return Loader.isModLoaded("gregtech");
     }
 
     public static boolean isIndustrialCraftLoaded() {
@@ -51,7 +54,7 @@ public class ModCompatibility {
     }
 
     public static boolean isForestryLoaded() {
-        return Loader.isModLoaded("Forestry");
+        return Loader.isModLoaded("forestry");
     }
 
     public static boolean isChiselLoaded() {
@@ -86,6 +89,19 @@ public class ModCompatibility {
         return Loader.isModLoaded("RenderPlayerAPI");
     }
 
+
+    public static boolean isRefinedStorageLoaded() {
+        return Loader.isModLoaded("refinedstorage");
+    }
+
+    public static boolean isScannableLoaded() {
+        return Loader.isModLoaded("scannable");
+    }
+
+    public static boolean isWirelessCraftingGridLoaded() {
+        return Loader.isModLoaded("wcg");
+    }
+
     public static boolean enableThaumGogglesModule() {
         boolean defaultval = isThaumCraftLoaded();
         return Config.getConfig().get("Special Modules", "Thaumcraft Goggles Module", defaultval).getBoolean(defaultval);
@@ -103,6 +119,11 @@ public class ModCompatibility {
         return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per RF", 0.1).getDouble(0.1);
     }
 
+    // (Refined Storage) 1 RS = 1 RF
+    public static double getRSRatio() {
+        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per RS", 0.1).getDouble(0.1);
+    }
+
     // 1 MJ = 5 AE
     // 1 AE = 0.2 MJ
     public static double getAE2Ratio() {
@@ -113,6 +134,7 @@ public class ModCompatibility {
         // Make the energy ratios show up in config file
         getIC2Ratio();
         getRFRatio();
+        getRSRatio();
 
         // CoFH Lib - CoFHLib is included in CoFHCore
         if (isCOFHCoreLoaded()) {
@@ -153,14 +175,14 @@ public class ModCompatibility {
             }
         }
 
-//        // Applied Energistics
-//        if (isAppengLoaded()) {
-//            ModuleManager.addModule(new AppEngWirelessModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
-//
-////            // Extra Cells 2
-////            if (isExtraCellsLoaded())
-////                ModuleManager.addModule(new AppEngWirelessFluidModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
-//        }
+        // Applied Energistics
+        if (isAppengLoaded()) {
+            ModuleManager.addModule(new AppEngWirelessModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
+
+//            // Extra Cells 2
+//            if (isExtraCellsLoaded())
+//                ModuleManager.addModule(new AppEngWirelessFluidModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
+        }
 
         // Multi-Mod Compatible OmniProbe
         if (isEnderIOLoaded() || isMFRLoaded() || isRailcraftLoaded()) {
@@ -171,6 +193,15 @@ public class ModCompatibility {
 //        // Compact Machines Personal Shrinking Device
 //        if (isCompactMachinesLoaded()) {
 //            ModuleManager.addModule(new PersonalShrinkingModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
+//        }
+
+
+        if (isRefinedStorageLoaded()) {
+            ModuleManager.addModule(new RefinedStorageWirelessModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
+        }
+
+//        if (isScannableLoaded()) {
+//            ModuleManager.addModule(new ScannableModule(Collections.singletonList((IModularItem) MPSItems.powerTool)));
 //        }
     }
 }

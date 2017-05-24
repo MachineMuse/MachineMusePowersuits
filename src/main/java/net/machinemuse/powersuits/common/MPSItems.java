@@ -2,7 +2,6 @@ package net.machinemuse.powersuits.common;
 
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
-import net.machinemuse.powersuits.block.TestBlock;
 import net.machinemuse.powersuits.item.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -26,7 +25,6 @@ public class MPSItems {
 
 
     public static Item components;
-    public static Item dummies;
 
     public static void populateItems() {
         powerArmorHead = MPSRegistry.registerItem(new ItemPowerArmorHelmet(), "powerArmorHead", "powerArmorHelmet");
@@ -37,7 +35,6 @@ public class MPSItems {
 
         tinkerTable = MPSRegistry.registerBlock(new BlockTinkerTable());
         luxCapacitor = MPSRegistry.registerBlock(new BlockLuxCapacitor());
-//        testBlock = MPSRegistry.registerBlock(new TestBlock());
     }
 
     public static void populateComponents() {
