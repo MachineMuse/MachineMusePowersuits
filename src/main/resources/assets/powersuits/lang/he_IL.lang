@@ -1,31 +1,31 @@
-tile.luxCapacitor.name=מאחסן אור
-tile.tinkerTable.name=שולחן התעסקות לחליפות כוח
+tile.lux_capacitor.name=מאחסן אור
+tile.tinker_table.name=שולחן התעסקות לחליפות כוח
 
 itemGroup.powersuits=חליפות כוח
 
-item.powerArmorBoots.name=מגפי חליפת כוח
-item.powerArmorLeggings.name=מכנסי חליפת כוח
-item.powerArmorChestplate.name=שריון חליפת כוח
+item.power_armor_boots.name=מגפי חליפת כוח
+item.power_armor_leggings.name=מכנסי חליפת כוח
+item.power_armor_chestplate.name=שריון חליפת כוח
 item.powerArmorHelmet.name=קסדת חליפת כוח
-item.powerFist.name=זרוע כוח
+item.power_fist.name=זרוע כוח
 
-item.powerArmorComponent.componentWiring.name=מחברים
-item.powerArmorComponent.componentSolenoid.name=סולנואיד
-item.powerArmorComponent.componentServo.name=מנוע סרוו
-item.powerArmorComponent.componentGliderWing.name=כנף רחיפה
-item.powerArmorComponent.componentIonThruster.name=מדחפי יונים
-item.powerArmorComponent.componentLVCapacitor.name=מצבר מתח נמוך
-item.powerArmorComponent.componentMVCapacitor.name=מצבר מתח בינוני
-item.powerArmorComponent.componentHVCapacitor.name=מצבר מתח גבוה
-item.powerArmorComponent.componentParachute.name=מצנח
-item.powerArmorComponent.componentPlatingBasic.name=ציפוי בסיסי
-item.powerArmorComponent.componentPlatingAdvanced.name=ציפוי מתקדם
-item.powerArmorComponent.componentFieldEmitter.name=פולטן שדה כוח
-item.powerArmorComponent.componentLaserEmitter.name=מקרן הולוגרמה
-item.powerArmorComponent.componentCarbonMyofiber.name=סיבי פחמן
-item.powerArmorComponent.componentControlCircuit.name=מעגל בקרה
-item.powerArmorComponent.componentMyofiberGel.name=ג'ל סיבי
-item.powerArmorComponent.componentArtificialMuscle.name=שריר מלאכותי
+item.power_armor_component.component_wiring.name=מחברים
+item.power_armor_component.component_solenoid.name=סולנואיד
+item.power_armor_component.component_servo.name=מנוע סרוו
+item.power_armor_component.component_glider_wing.name=כנף רחיפה
+item.power_armor_component.component_ion_thruster.name=מדחפי יונים
+item.power_armor_component.component_lv_capacitor.name=מצבר מתח נמוך
+item.power_armor_component.component_mv_capacitor.name=מצבר מתח בינוני
+item.power_armor_component.component_hv_capacitor.name=מצבר מתח גבוה
+item.power_armor_component.component_parachute.name=מצנח
+item.power_armor_component.component_plating_basic.name=ציפוי בסיסי
+item.power_armor_component.component_plating_advanced.name=ציפוי מתקדם
+item.power_armor_component.component_field_emitter.name=פולטן שדה כוח
+item.power_armor_component.component_laser_emitter.name=מקרן הולוגרמה
+item.power_armor_component.component_carbon_myofiber.name=סיבי פחמן
+item.power_armor_component.component_control_circuit.name=מעגל בקרה
+item.power_armor_component.component_myofiber_gel.name=ג'ל סיבי
+item.power_armor_component.component_artificial_muscle.name=שריר מלאכותי
 
 module.basicPlating.name=ציפוי ברזל
 module.diamondPlating.name=ציפוי יהלום

@@ -6,7 +6,7 @@ import cofh.api.item.IToolHammer;
 import com.raoulvdberge.refinedstorage.api.network.item.INetworkItem;
 import com.raoulvdberge.refinedstorage.api.network.item.INetworkItemHandler;
 import com.raoulvdberge.refinedstorage.api.network.item.INetworkItemProvider;
-import crazypants.enderio.api.tool.ITool;
+//import crazypants.enderio.api.tool.ITool;
 import forestry.api.arboriculture.IToolGrafter;
 import mekanism.api.IMekWrench;
 import net.machinemuse.api.IModularItem;
@@ -73,7 +73,7 @@ public class ItemPowerFist extends MPSItemElectricTool
 //        IToolCrowbar,
 ////        IAEWrench,
 //        IToolWrench,
-        ITool,
+//        ITool,
         IMekWrench,
         IModularItem,
         IModeChangingItem {
@@ -202,11 +202,12 @@ public class ItemPowerFist extends MPSItemElectricTool
      * Called when the right click button is pressed
      */
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+        ItemStack itemStackIn = playerIn.getHeldItem(handIn);
         // Only one right click module should be active at a time.
         IPowerModule iPowerModulemodule = ModuleManager.getModule(getActiveMode(itemStackIn));
         if (iPowerModulemodule instanceof IRightClickModule) {
-            return ((IRightClickModule) iPowerModulemodule).onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+            return ((IRightClickModule) iPowerModulemodule).onItemRightClick(itemStackIn, worldIn, playerIn, handIn);
         }
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
@@ -236,21 +237,23 @@ public class ItemPowerFist extends MPSItemElectricTool
     }
 
     @Override
-    public EnumActionResult onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-        String mode = this.getActiveMode(itemStack);
+    public EnumActionResult onItemUseFirst(EntityPlayer playerIn, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand handIn) {
+        ItemStack itemStackIn = playerIn.getHeldItem(handIn);
+        String mode = this.getActiveMode(itemStackIn);
         IPowerModule module = ModuleManager.getModule(mode);
         if (module instanceof IRightClickModule)
-            return ((IRightClickModule)module).onItemUseFirst(itemStack, player, world, pos, side, hitX, hitY, hitZ, hand);
+            return ((IRightClickModule)module).onItemUseFirst(itemStackIn, playerIn, world, pos, side, hitX, hitY, hitZ, handIn);
         return EnumActionResult.PASS;
     }
 
     @Override
-    public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        String mode = this.getActiveMode(itemStack);
+    public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand handIn, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        ItemStack itemStackIn = playerIn.getHeldItem(handIn);
+        String mode = this.getActiveMode(itemStackIn);
         IPowerModule module2;
         IPowerModule module = module2 = ModuleManager.getModule(mode);
         if (module2 instanceof IRightClickModule) {
-            return ((IRightClickModule)module2).onItemUse(itemStack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+            return ((IRightClickModule)module2).onItemUse(itemStackIn, playerIn, worldIn, pos, handIn, facing, hitX, hitY, hitZ);
         }
         return EnumActionResult.PASS;
     }
@@ -354,23 +357,23 @@ public class ItemPowerFist extends MPSItemElectricTool
 //        return this.getActiveMode(player.getHeldItem()).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
 //    }
 
-    /* EnderIO Tool */
-    @Override
-    public void used(ItemStack itemStack, EntityPlayer entityPlayer, BlockPos blockPos) {
-
-    }
-
-    /* EnderIO Tool */
-    @Override
-    public boolean canUse(ItemStack itemStack, EntityPlayer entityPlayer, BlockPos blockPos) {
-        return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
-    }
-
-    /* EnderIO Tool */
-    @Override
-    public boolean shouldHideFacades(ItemStack itemStack, EntityPlayer entityPlayer) {
-        return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
-    }
+//    /* EnderIO Tool */
+//    @Override
+//    public void used(ItemStack itemStack, EntityPlayer entityPlayer, BlockPos blockPos) {
+//
+//    }
+//
+//    /* EnderIO Tool */
+//    @Override
+//    public boolean canUse(ItemStack itemStack, EntityPlayer entityPlayer, BlockPos blockPos) {
+//        return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
+//    }
+//
+//    /* EnderIO Tool */
+//    @Override
+//    public boolean shouldHideFacades(ItemStack itemStack, EntityPlayer entityPlayer) {
+//        return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
+//    }
 
     /* Mekanism Wrench */
     @Override

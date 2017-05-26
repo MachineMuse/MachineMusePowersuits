@@ -22,7 +22,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import p455w0rd.wcg.items.NetworkItemWirelessCraftingGrid;
+//import p455w0rd.wcg.items.NetworkItemWirelessCraftingGrid;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -75,7 +75,7 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
             int energy = (int)MuseMathUtils.clampDouble(ElectricItemUtils.getPlayerEnergy(playerIn) * ModCompatibility.getRSRatio(), 0, 3500);
             tag.setInteger("Energy", energy);
             emulatedTool.setTagCompound(tag);
-            ActionResult result = emulatedTool.getItem().onItemRightClick(emulatedTool, worldIn, playerIn, hand);
+            ActionResult result = emulatedTool.getItem().onItemRightClick(worldIn, playerIn, hand);
             double energyUsed = ((energy - emulatedTool.getTagCompound().getInteger("Energy")) * ModCompatibility.getRSRatio()) ;
 
 //            System.out.println("energy before: " + ElectricItemUtils.getPlayerEnergy(playerIn));
@@ -195,8 +195,8 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
         ItemStack emulatedTool = getEmulatedTool();
         NBTTagCompound tag = getModululeTag(itemStackIn);
         emulatedTool.setTagCompound(tag);
-        if (ModCompatibility.isWirelessCraftingGridLoaded())
-            return new NetworkItemWirelessCraftingGrid(handler, player, emulatedTool);
+//        if (ModCompatibility.isWirelessCraftingGridLoaded())
+//            return new NetworkItemWirelessCraftingGrid(handler, player, emulatedTool);
         return new NetworkItemWirelessGrid(handler, player, emulatedTool);
     }
 

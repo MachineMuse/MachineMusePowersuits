@@ -148,11 +148,11 @@ public class JSONRecipe implements IRecipe {
 
     @Override
     public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
-        ItemStack[] aitemstack = new ItemStack[inv.getSizeInventory()];
-        for (int i = 0; i < aitemstack.length; ++i)
-        {
+        NonNullList<ItemStack> aitemstack = NonNullList.create();
+//        ItemStack[] aitemstack = new ItemStack[inv.getSizeInventory()];
+        for (int i = 0; i < inv.getSizeInventory(); ++i) {
             ItemStack itemstack = inv.getStackInSlot(i);
-            aitemstack[i] = net.minecraftforge.common.ForgeHooks.getContainerItem(itemstack);
+            aitemstack.set(i, net.minecraftforge.common.ForgeHooks.getContainerItem(itemstack));
         }
         return aitemstack;
     }

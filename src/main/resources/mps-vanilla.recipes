@@ -6,55 +6,55 @@
       [ { "oredictName" : "ingotIron" }, { "oredictName" : "dyeBlue" }, { "oredictName" : "ingotIron" } ]
     ],
     "result" : {
-      "registryName" : "powersuits:tile.tinkerTable"
+      "registryName" : "powersuits:tile.tinker_table"
     }
   },
   {
     "ingredients" : [
       [ { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" } ],
-      [ { "oredictName" : "componentWiring" }, null, { "oredictName" : "componentWiring" } ]
+      [ { "oredictName" : "component_wiring" }, null, { "oredictName" : "component_wiring" } ]
     ],
     "result" : {
-      "registryName" : "powersuits:powerArmorHead"
+      "registryName" : "powersuits:power_armor_head"
     }
   },
   {
     "ingredients" : [
       [ { "oredictName" : "ingotIron" }, null, { "oredictName" : "ingotIron" } ],
-      [ { "oredictName" : "componentWiring" }, { "oredictName" : "ingotIron" }, { "oredictName" : "componentWiring" } ],
+      [ { "oredictName" : "component_wiring" }, { "oredictName" : "ingotIron" }, { "oredictName" : "component_wiring" } ],
       [ { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" } ]
     ],
     "result" : {
-      "registryName" : "powersuits:powerArmorTorso"
+      "registryName" : "powersuits:power_armor_torso"
     }
   },
   {
     "ingredients" : [
       [ { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" } ],
-      [ { "oredictName" : "componentWiring" }, null, { "oredictName" : "componentWiring" } ],
+      [ { "oredictName" : "component_wiring" }, null, { "oredictName" : "component_wiring" } ],
       [ { "oredictName" : "ingotIron" }, null, { "oredictName" : "ingotIron" } ]
     ],
     "result" : {
-      "registryName" : "powersuits:powerArmorLegs"
+      "registryName" : "powersuits:power_armor_legs"
     }
   },
   {
     "ingredients" : [
-      [ { "oredictName" : "componentWiring" }, null, { "oredictName" : "componentWiring" } ],
+      [ { "oredictName" : "component_wiring" }, null, { "oredictName" : "component_wiring" } ],
       [ { "oredictName" : "ingotIron" }, null, { "oredictName" : "ingotIron" } ]
     ],
     "result" : {
-      "registryName" : "powersuits:powerArmorFeet"
+      "registryName" : "powersuits:power_armor_feet"
     }
   },
   {
     "ingredients" : [
-      [ null, { "oredictName" : "componentWiring" }, null ],
-      [ { "oredictName" : "componentWiring" }, { "oredictName" : "ingotIron" }, null ],
-      [ null, { "oredictName" : "ingotIron" }, { "oredictName" : "componentWiring" } ]
+      [ null, { "oredictName" : "component_wiring" }, null ],
+      [ { "oredictName" : "component_wiring" }, { "oredictName" : "ingotIron" }, null ],
+      [ null, { "oredictName" : "ingotIron" }, { "oredictName" : "component_wiring" } ]
     ],
     "result" : {
-      "registryName" : "powersuits:powerTool"
+      "registryName" : "powersuits:power_tool"
     }
   },
   {
@@ -62,86 +62,86 @@
       [  {"oredictName" : "ingotGold" }, { "oredictName" : "dustRedstone" }, {"oredictName" : "ingotGold" } ]
     ],
     "result" : {
-      "oredictName" : "componentWiring",
+      "oredictName" : "component_wiring",
       "quantity" : 8
     }
   },
   {
     "ingredients" : [
-      [  {"oredictName" : "componentWiring" }, { "oredictName" : "ingotIron" }, {"oredictName" : "componentWiring" } ],
-      [  {"oredictName" : "componentWiring" }, { "oredictName" : "ingotIron" }, {"oredictName" : "componentWiring" } ],
-      [  {"oredictName" : "componentWiring" }, { "oredictName" : "ingotIron" }, {"oredictName" : "componentWiring" } ]
+      [  {"oredictName" : "component_wiring" }, { "oredictName" : "ingotIron" }, {"oredictName" : "component_wiring" } ],
+      [  {"oredictName" : "component_wiring" }, { "oredictName" : "ingotIron" }, {"oredictName" : "component_wiring" } ],
+      [  {"oredictName" : "component_wiring" }, { "oredictName" : "ingotIron" }, {"oredictName" : "component_wiring" } ]
     ],
     "result" : {
-      "oredictName" : "componentSolenoid"
+      "oredictName" : "component_solenoid"
     }
   },
   {
     "ingredients" : [
-      [  null, { "oredictName" : "componentSolenoid" }, null ],
-      [  { "oredictName" : "componentWiring" }, { "oredictName" : "ingotIron" }, { "oredictName" : "componentWiring" } ],
-      [  null, { "oredictName" : "componentSolenoid" }, null ]
+      [  null, { "oredictName" : "component_solenoid" }, null ],
+      [  { "oredictName" : "component_wiring" }, { "oredictName" : "ingotIron" }, { "oredictName" : "component_wiring" } ],
+      [  null, { "oredictName" : "component_solenoid" }, null ]
     ],
     "result" : {
-      "oredictName" : "componentServo"
+      "oredictName" : "component_servo"
     }
   },
   {
     "ingredients" : [
       [  null, { "oredictName" : "ingotIron" }, {"oredictName" : "ingotIron" } ],
-      [  {"oredictName" : "ingotIron" }, {"oredictName" : "ingotIron" }, {"oredictName" : "componentSolenoid" }],
+      [  {"oredictName" : "ingotIron" }, {"oredictName" : "ingotIron" }, {"oredictName" : "component_solenoid" }],
       [  {"oredictName" : "ingotIron" }, null, null]
     ],
     "result" : {
-      "oredictName" : "componentGliderWing"
+      "oredictName" : "component_glider_wing"
     }
   },
   {
     "ingredients" : [
-      [  null, { "oredictName" : "componentFieldEmitter" }, {"oredictName" : "componentSolenoid" } ],
+      [  null, { "oredictName" : "component_field_emitter" }, {"oredictName" : "component_solenoid" } ],
       [  {"oredictName" : "ingotIron" }, {"oredictName" : "dustGlowstone" }, null],
-      [  {"oredictName" : "componentWiring" }, {"oredictName" : "componentFieldEmitter" }, {"oredictName" : "componentSolenoid" } ]
+      [  {"oredictName" : "component_wiring" }, {"oredictName" : "component_field_emitter" }, {"oredictName" : "component_solenoid" } ]
     ],
     "result" : {
-      "oredictName" : "componentIonThruster"
+      "oredictName" : "component_ion_thruster"
     }
 
   },
   {
     "ingredients" : [
-      [  {"oredictName" : "componentWiring" }, { "registryName" : "minecraft:paper" }, {"oredictName" : "ingotIron" } ],
-      [  {"oredictName" : "componentWiring" }, null, {"oredictName" : "componentWiring" } ]
+      [  {"oredictName" : "component_wiring" }, { "registryName" : "minecraft:paper" }, {"oredictName" : "ingotIron" } ],
+      [  {"oredictName" : "component_wiring" }, null, {"oredictName" : "component_wiring" } ]
     ],
     "result" : {
-      "oredictName" : "componentLVCapacitor"
+      "oredictName" : "component_lv_capacitor"
     }
   },
   {
     "ingredients" : [
       [  {"oredictName" : "ingotGold" }, { "registryName" : "minecraft:paper" }, {"oredictName" : "dyeBlue" } ],
-      [  {"oredictName" : "componentWiring" }, null, {"oredictName" : "componentWiring" } ]
+      [  {"oredictName" : "component_wiring" }, null, {"oredictName" : "component_wiring" } ]
     ],
     "result" : {
-      "oredictName" : "componentMVCapacitor"
+      "oredictName" : "component_mv_capacitor"
     }
   },
   {
     "ingredients" : [
       [  {"registryName" : "minecraft:ender_pearl" }, { "registryName" : "minecraft:paper" }, {"oredictName" : "dustGlowstone" } ],
-      [  {"oredictName" : "componentWiring" }, null, {"oredictName" : "componentWiring" } ]
+      [  {"oredictName" : "component_wiring" }, null, {"oredictName" : "component_wiring" } ]
     ],
     "result" : {
-      "oredictName" : "componentHVCapacitor"
+      "oredictName" : "component_hv_capacitor"
     }
   },
   {
     "ingredients" : [
-      [  {"oredictName" : "componentWiring" }, { "oredictName" : "componentHVCapacitor" }, {"oredictName" : "componentWiring" } ],
-      [  {"oredictName" : "componentWiring" }, {"oredictName" : "componentComputerChip"}, {"oredictName" : "componentWiring" } ],
-      [  {"oredictName" : "componentWiring" }, { "oredictName" : "componentHVCapacitor" }, {"oredictName" : "componentWiring" } ]
+      [  {"oredictName" : "component_wiring" }, { "oredictName" : "component_hv_capacitor" }, {"oredictName" : "component_wiring" } ],
+      [  {"oredictName" : "component_wiring" }, {"oredictName" : "component_computer_chip"}, {"oredictName" : "component_wiring" } ],
+      [  {"oredictName" : "component_wiring" }, { "oredictName" : "component_hv_capacitor" }, {"oredictName" : "component_wiring" } ]
     ],
     "result" : {
-      "oredictName" : "componentEVCapacitor"
+      "oredictName" : "component_ev_capacitor"
     }
   },
   {
@@ -151,22 +151,22 @@
       [  {"oredictName" : "ingotIron" }, null, {"oredictName" : "ingotIron" } ]
     ],
     "result" : {
-      "oredictName" : "componentParachute"
+      "oredictName" : "component_parachute"
     }
   },
   {
     "ingredients" : [
       [ { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" } ],
-      [ { "oredictName" : "componentWiring" }, { "oredictName" : "ingotIron" } ],
+      [ { "oredictName" : "component_wiring" }, { "oredictName" : "ingotIron" } ],
       [ { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" } ]
     ],
     "result" : {
-      "oredictName" : "componentPlatingBasic"
+      "oredictName" : "component_plating_basic"
     }
   },
   {
     "ingredients" : [
-      [ { "oredictName" : "componentPlatingBasic" } ]
+      [ { "oredictName" : "component_plating_basic" } ]
     ],
     "result" : {
       "oredictName" : "ingotIron",
@@ -176,16 +176,16 @@
   {
     "ingredients" : [
       [ { "oredictName" : "gemDiamond" }, { "oredictName" : "gemDiamond" } ],
-      [ { "oredictName" : "componentWiring" }, { "oredictName" : "gemDiamond" } ],
+      [ { "oredictName" : "component_wiring" }, { "oredictName" : "gemDiamond" } ],
       [ { "oredictName" : "gemDiamond" }, { "oredictName" : "gemDiamond" } ]
     ],
     "result" : {
-      "oredictName" : "componentPlatingAdvanced"
+      "oredictName" : "component_plating_advanced"
     }
   },
   {
     "ingredients" : [
-      [ { "oredictName" : "componentPlatingAdvanced" } ]
+      [ { "oredictName" : "component_plating_advanced" } ]
     ],
     "result" : {
       "oredictName" : "gemDiamond",
@@ -194,23 +194,23 @@
   },
   {
     "ingredients" : [
-      [  {"oredictName" : "componentSolenoid" }, { "registryName" : "minecraft:ender_pearl" }, {"oredictName" : "componentSolenoid" } ],
-      [  {"registryName" : "minecraft:ender_pearl" }, { "oredictName" : "componentSolenoid" }, {"registryName" : "minecraft:ender_pearl" } ],
-      [  {"oredictName" : "componentSolenoid" }, { "registryName" : "minecraft:ender_pearl" }, {"oredictName" : "componentSolenoid" } ]
+      [  {"oredictName" : "component_solenoid" }, { "registryName" : "minecraft:ender_pearl" }, {"oredictName" : "component_solenoid" } ],
+      [  {"registryName" : "minecraft:ender_pearl" }, { "oredictName" : "component_solenoid" }, {"registryName" : "minecraft:ender_pearl" } ],
+      [  {"oredictName" : "component_solenoid" }, { "registryName" : "minecraft:ender_pearl" }, {"oredictName" : "component_solenoid" } ]
     ],
     "result" : {
-      "oredictName" : "componentFieldEmitter"
+      "oredictName" : "component_field_emitter"
     },
     "mirror" : true
   },
   {
     "ingredients" : [
       [ { "oredictName" : "dustGlowstone" }, { "oredictName" : "blockGlass" }, { "oredictName" : "dyeGreen" } ],
-      [ { "oredictName" : "blockGlass" }, { "oredictName" : "componentWiring" }, { "oredictName" : "blockGlass" } ],
+      [ { "oredictName" : "blockGlass" }, { "oredictName" : "component_wiring" }, { "oredictName" : "blockGlass" } ],
       [ { "oredictName" : "dyeBlue" }, { "oredictName" : "blockGlass" }, { "oredictName" : "dyeRed" } ]
     ],
     "result" : {
-      "oredictName" : "componentLaserEmitter"
+      "oredictName" : "component_laser_emitter"
     }
   },
   {
@@ -220,17 +220,17 @@
       [ { "oredictName" : "blockCoal" }, { "oredictName" : "blockCoal" }, { "oredictName" : "blockCoal" } ]
     ],
     "result" : {
-      "oredictName" : "componentCarbonMyofiber"
+      "oredictName" : "component_carbon_myofiber"
     }
   },
   {
     "ingredients" : [
-      [ { "oredictName" : "componentWiring" }, { "oredictName" : "dyeGreen" }, { "oredictName" : "ingotGold" } ],
+      [ { "oredictName" : "component_wiring" }, { "oredictName" : "dyeGreen" }, { "oredictName" : "ingotGold" } ],
       [ { "oredictName" : "dustRedstone" }, { "oredictName" : "dustGlowstone" }, { "oredictName" : "dyeGreen" } ],
-      [ { "oredictName" : "ingotGold" }, { "oredictName" : "dustRedstone" }, { "oredictName" : "componentWiring" } ]
+      [ { "oredictName" : "ingotGold" }, { "oredictName" : "dustRedstone" }, { "oredictName" : "component_wiring" } ]
     ],
     "result" : {
-      "oredictName" : "componentControlCircuit"
+      "oredictName" : "component_control_circuit"
     },
     "mirror" : true
   },
@@ -240,17 +240,17 @@
       [ { "oredictName" : "ingotIron" }, { "registryName" : "minecraft:magma_cream" }, { "oredictName" : "ingotIron" } ],
       [ { "oredictName" : "ingotIron" }, { "registryName" : "minecraft:magma_cream" }, { "oredictName" : "ingotIron" } ]		],
     "result" : {
-      "oredictName" : "componentMyofiberGel"
+      "oredictName" : "component_myofiber_gel"
     }
   },
   {
     "ingredients" : [
-      [ { "oredictName" : "componentCarbonMyofiber" }, { "oredictName" : "componentMyofiberGel" }, { "oredictName" : "componentCarbonMyofiber" } ],
-      [ { "oredictName" : "componentCarbonMyofiber" }, { "oredictName" : "componentMyofiberGel" }, { "oredictName" : "componentCarbonMyofiber" } ],
-      [ { "oredictName" : "componentCarbonMyofiber" }, { "oredictName" : "componentMyofiberGel" }, { "oredictName" : "componentCarbonMyofiber" } ]
+      [ { "oredictName" : "component_carbon_myofiber" }, { "oredictName" : "component_myofiber_gel" }, { "oredictName" : "component_carbon_myofiber" } ],
+      [ { "oredictName" : "component_carbon_myofiber" }, { "oredictName" : "component_myofiber_gel" }, { "oredictName" : "component_carbon_myofiber" } ],
+      [ { "oredictName" : "component_carbon_myofiber" }, { "oredictName" : "component_myofiber_gel" }, { "oredictName" : "component_carbon_myofiber" } ]
     ],
     "result" : {
-      "oredictName" : "componentArtificialMuscle"
+      "oredictName" : "component_artificial_muscle"
     }
   },
   {
@@ -260,27 +260,27 @@
       [ { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" } ]
     ],
     "result" : {
-      "oredictName" : "componentSolarPanel"
+      "oredictName" : "component_solar_panel"
     }
   },
   {
     "ingredients" : [
       [ { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" } ],
-      [ { "oredictName" : "componentSolenoid" }, { "oredictName" : "componentSolenoid" }, { "oredictName" : "componentSolenoid" } ],
+      [ { "oredictName" : "component_solenoid" }, { "oredictName" : "component_solenoid" }, { "oredictName" : "component_solenoid" } ],
       [ { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" } ]
     ],
     "result" : {
-      "oredictName" : "componentMagnet"
+      "oredictName" : "component_magnet"
     }
   },
   {
     "ingredients" : [
-      [ { "oredictName" : "dustRedstone" }, { "oredictName" : "componentSolenoid" }, { "oredictName" : "dustRedstone" } ],
+      [ { "oredictName" : "dustRedstone" }, { "oredictName" : "component_solenoid" }, { "oredictName" : "dustRedstone" } ],
       [ { "registryName" : "minecraft:comparator" }, { "oredictName" : "gemDiamond" }, { "registryName" : "minecraft:comparator" } ],
-      [ { "oredictName" : "dustRedstone" }, { "oredictName" : "componentSolenoid" }, { "oredictName" : "dustRedstone" } ]
+      [ { "oredictName" : "dustRedstone" }, { "oredictName" : "component_solenoid" }, { "oredictName" : "dustRedstone" } ]
     ],
     "result" : {
-      "oredictName" : "componentComputerChip"
+      "oredictName" : "component_computer_chip"
     }
   },
   {
@@ -290,7 +290,7 @@
       [ { "registryName" : "minecraft:wool", "meta" : 15 }, { "registryName" :  "minecraft:wool", "meta" : 15 }, { "registryName" : "minecraft:wool", "meta" : 15} ]
     ],
     "result" : {
-      "oredictName" : "componentRubberHose"
+      "oredictName" : "component_rubber_hose"
     }
   },
   {
@@ -300,7 +300,7 @@
       [ null, { "registryName" : "minecraft:bucket" }, null ]
     ],
     "result" : {
-      "oredictName" : "componentLiquidNitrogen"
+      "oredictName" : "component_liquid_nitrogen"
     }
   }
 ]

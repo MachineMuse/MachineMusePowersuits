@@ -94,7 +94,7 @@ public class MuseIcon {
     public static TextureAtlasSprite leafBlower;
     public static TextureAtlasSprite luxCapacitor;
     public static TextureAtlasSprite mffsFieldTeleporter;
-    public static TextureAtlasSprite ocTerminal;
+    public static TextureAtlasSprite oc_terminal;
     public static TextureAtlasSprite omniProbe;
     public static TextureAtlasSprite omniwrench;
     public static TextureAtlasSprite oreScanner;
@@ -118,7 +118,7 @@ public class MuseIcon {
 
     public static void registerIcons(TextureStitchEvent.Pre event) {
         /* Armor -------------------------------------------------------------------------------------- */
-        apiaristArmor = register(event, "modules/silkWisp");
+        apiaristArmor = register(event, "modules/silk_wisp");
         basicPlating = register(event,"modules/basicplating2");
         diamondPlating = register(event, "modules/advancedplating2");
         energyShield = register(event, "modules/energyshield");
@@ -163,7 +163,7 @@ public class MuseIcon {
         /* Movement ----------------------------------------------------------------------------------- */
         blinkDrive = register(event, "modules/alien");
         climbAssist = register(event, "modules/climbassist");
-        flightControl = register(event, "modules/FlightControlY");
+        flightControl = register(event, "modules/flight_control_y");
         glider = register(event, "modules/glider");
         jetBoots = register(event, "modules/jetboots");
         jetpack = register(event, "modules/jetpack");
@@ -175,8 +175,8 @@ public class MuseIcon {
 
         /* Tools -------------------------------------------------------------------------------------- */
         aoePickUpgrade = register(event, "modules/diamondupgrade1");
-        appengECWirelessFluid = register(event, "modules/ItemWirelessTerminalFluid");
-        appengWireless = register(event, "modules/ItemWirelessTerminal");
+        appengECWirelessFluid = register(event, "modules/item_wireless_terminal_fluid");
+        appengWireless = register(event, "modules/item_wireless_terminal");
         aquaAffinity = register(event, "modules/aquaaffinity");
         axe = register(event, "modules/toolaxe");
         chisel = register(event, "modules/toolpinch");
@@ -186,7 +186,7 @@ public class MuseIcon {
         leafBlower = register(event, "modules/leafblower");
         luxCapacitor = register(event, "modules/bluelight");
         mffsFieldTeleporter = register(event, "modules/fieldteleporter");
-        ocTerminal = register(event, "modules/ocTerminal");
+        oc_terminal = register(event, "modules/oc_terminal");
         omniProbe = register(event, "modules/omniprobe");
         omniwrench = register(event, "modules/omniwrench");
         oreScanner = register(event, "modules/orescanner");

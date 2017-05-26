@@ -47,7 +47,7 @@ public class LuxCapModelHelper {
     }
     // item model variant
     public static final ModelResourceLocation luxCapItemLocation = new ModelResourceLocation(MPSItems.luxCapacitor.getRegistryName(), "inventory");
-    private static final ResourceLocation lensModelLocation = new ResourceLocation(ModularPowersuits.MODID.toLowerCase(), "models/block/luxCapacitor/lightCore.obj");
+    private static final ResourceLocation lensModelLocation = new ResourceLocation(ModularPowersuits.MODID.toLowerCase(), "models/block/lux_capacitor/light_core.obj");
     private static List<BakedQuad> itemQuads = new ArrayList<>();
 
 
@@ -217,6 +217,6 @@ public class LuxCapModelHelper {
     }
 
     public static TextureAtlasSprite getParticleTexture() {
-        return Minecraft.getMinecraft().getTextureMapBlocks().registerSprite(new ResourceLocation(Config.RESOURCE_DOMAIN, "blocks/LuxCap"));
+        return Minecraft.getMinecraft().getTextureMapBlocks().registerSprite(new ResourceLocation(Config.RESOURCE_DOMAIN, "blocks/lux_cap"));
     }
 }

@@ -59,7 +59,7 @@ public class MuseTileEntity extends TileEntity {
 
     public ItemStack getItemStack(NBTTagCompound nbt, String name) {
         if (nbt.hasKey(name))
-            return ItemStack.loadItemStackFromNBT(nbt.getCompoundTag(name));
+            return new ItemStack(nbt.getCompoundTag(name));
         else
             return null;
     }

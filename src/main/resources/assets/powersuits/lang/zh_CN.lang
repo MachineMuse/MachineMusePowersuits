@@ -2,7 +2,7 @@ Made by users: crafteverywhere, 3TUSK, Joccob
 Last edited on 8/30/15 1:35 AM EST
 
 tile.luxCapacitor.name=光能容器
-tile.tinkerTable.name=动力装甲改装台
+tile.tinker_table.name=动力装甲改装台
 
 itemGroup.powersuits=模块化动力套装
 
@@ -12,7 +12,7 @@ item.powerArmorChestplate.name=动力护甲
 item.powerArmorHelmet.name=动力头盔
 item.powerFist.name=动力拳套
 
-item.powerArmorComponent.componentWiring.name=线材
+item.powerArmorComponent.component_wiring.name=线材
 item.powerArmorComponent.componentSolenoid.name=螺线管
 item.powerArmorComponent.componentServo.name=伺服马达
 item.powerArmorComponent.componentGliderWing.name=滑翔翼

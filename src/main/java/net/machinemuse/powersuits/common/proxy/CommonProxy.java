@@ -7,6 +7,8 @@ import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.event.HarvestEventHandler;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.network.packets.MPSPacketList;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -52,12 +54,23 @@ public class CommonProxy {
         Config.keybindHUDon();
         Config.keybindHUDx();
         Config.toggleModuleSpam();
-        EntityRegistry.registerModEntity(EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, ModularPowersuits.getInstance(), 64, 20, true);
-        EntityRegistry.registerModEntity(EntitySpinningBlade.class, "entitySpinningBlade", 2478, ModularPowersuits.getInstance(), 64, 20, true);
-        EntityRegistry.registerModEntity(EntityLuxCapacitor.class, "entityLuxCapacitor", 2479, ModularPowersuits.getInstance(), 64, 20, true);
+//        EntityRegistry.registerModEntity(EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, ModularPowersuits.getInstance(), 64, 20, true);
+        regModEntity("entityPlasmaBolt", EntityPlasmaBolt.class, 2477, 64, 20, true);
+
+//        EntityRegistry.registerModEntity(EntitySpinningBlade.class, "entitySpinningBlade", 2478, ModularPowersuits.getInstance(), 64, 20, true);
+        regModEntity("entitySpinningBlade", EntitySpinningBlade.class, 2478, 64, 20, true);
+
+//        EntityRegistry.registerModEntity(EntityLuxCapacitor.class, "entityLuxCapacitor", 2479, ModularPowersuits.getInstance(), 64, 20, true);
+        regModEntity("entityLuxCapacitor", EntityLuxCapacitor.class, 2479, 64, 20, true);
+
+        //  public static void registerModEntity(ResourceLocation registryName, Class<? extends Entity> entityClass, String entityName, int id, Object mod, int trackingRange, int updateFrequency, boolean sendsVelocityUpdates)
         MPSPacketList.registerPackets();
         NetworkRegistry.INSTANCE.registerGuiHandler(ModularPowersuits.getInstance(), MPSGuiHandler.getInstance());
 //        TerminalHandler.registerHandler(); // TODO: enable when Applied Energistics API ready for addons
+    }
+
+    private void regModEntity(String entityName, Class<? extends Entity> entityClass, int id, int trackingRange, int updateFrequency, boolean sendVelocityUpdates){
+        EntityRegistry.registerModEntity(new ResourceLocation(ModularPowersuits.MODID, entityName), entityClass, entityName, id, ModularPowersuits.getInstance(), trackingRange, updateFrequency, sendVelocityUpdates);
     }
 
     public void postInit(FMLPostInitializationEvent event) {

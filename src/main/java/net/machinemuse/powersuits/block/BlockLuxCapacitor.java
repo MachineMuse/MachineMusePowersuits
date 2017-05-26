@@ -38,7 +38,7 @@ public class BlockLuxCapacitor extends BlockDirectional {
     public static final IUnlistedProperty<Colour> COLOR = new IUnlistedProperty<Colour>() {
         @Override
         public String getName() {
-            return "luxCapColor";
+            return "lux_cap_color";
         }
 
         @Override
@@ -57,7 +57,7 @@ public class BlockLuxCapacitor extends BlockDirectional {
         }
     };
 
-    static final String name = "luxCapacitor";
+    static final String name = "lux_capacitor";
 
     public BlockLuxCapacitor() {
         super(Material.CIRCUITS);
@@ -155,10 +155,10 @@ public class BlockLuxCapacitor extends BlockDirectional {
         return state.getValue(FACING).getIndex();
     }
 
-    @Override
-    public boolean isVisuallyOpaque() {
-        return false;
-    }
+//    @Override
+//    public boolean isVisuallyOpaque() {
+//        return false;
+//    }
 
     @Override
     public boolean hasTileEntity(IBlockState state) {

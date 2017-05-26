@@ -85,11 +85,11 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerRenderers() {
         super.registerRenderers();
-        regRenderer(MPSItems.powerTool);
-        regRenderer(MPSItems.powerArmorHead);
-        regRenderer(MPSItems.powerArmorTorso);
-        regRenderer(MPSItems.powerArmorLegs);
-        regRenderer(MPSItems.powerArmorFeet);
+        regRenderer(MPSItems.power_tool);
+        regRenderer(MPSItems.power_armor_head);
+        regRenderer(MPSItems.power_armor_torso);
+        regRenderer(MPSItems.power_armor_legs);
+        regRenderer(MPSItems.power_armor_feet);
 
         Item components = MPSItems.components;
         if (components != null) {

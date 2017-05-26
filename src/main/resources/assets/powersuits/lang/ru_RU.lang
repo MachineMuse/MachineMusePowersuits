@@ -2,7 +2,7 @@ Made by users: Adaptivity
 Last edited on 9/08/15
 
 tile.luxCapacitor.name=Конденсатор света
-tile.tinkerTable.name=Верстак для создания силовой брони
+tile.tinker_table.name=Верстак для создания силовой брони
 
 itemGroup.powersuits=Modular Powersuits
 
@@ -12,8 +12,8 @@ item.powerArmorChestplate.name=Силовая кираса
 item.powerArmorHelmet.name=Силовой шлем
 item.powerFist.name=Силовой кулак
 
-item.powerArmorComponent.componentWiring.name=Провод
-item.powerArmorComponent.componentSolenoid.name=Соленоид
+item.powerArmorComponent.component_wiring.name=Провод
+item.powerArmorComponent.component_solenoid.name=Соленоид
 item.powerArmorComponent.componentServo.name=Серводвигатель
 item.powerArmorComponent.componentGliderWing.name=Планёрное крыло
 item.powerArmorComponent.componentIonThruster.name=Ионный двигатель

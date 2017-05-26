@@ -11,7 +11,7 @@
     "logoFile": "assets/powersuits/textures/logo.png",
     "screenshots": [ ],
     "parent": "",
-    "requiredMods": [ "Forge", "numina" ],
+    "requiredMods": [ "forge", "numina" ],
     "dependencies": [
         "Mekanism",
         "EnderIO",

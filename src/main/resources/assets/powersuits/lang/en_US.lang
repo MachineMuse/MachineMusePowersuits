@@ -1,42 +1,42 @@
 Made by users: Andrew2448, MachineMuse
 Last edited on 6/25/13 12:18AM EST
 
-tile.luxCapacitor.name=Lux Capacitor
-tile.tinkerTable.name=Power Armor Tinker Table
+tile.lux_capacitor.name=Lux Capacitor
+tile.tinker_table.name=Power Armor Tinker Table
 
 itemGroup.powersuits=Modular Powersuits
 
-item.powerArmorBoots.name=Power Armor Boots
-item.powerArmorLeggings.name=Power Armor Leggings
-item.powerArmorChestplate.name=Power Armor Chestplate
-item.powerArmorHelmet.name=Power Armor Helmet
-item.powerFist.name=Power Fist
+item.power_armor_boots.name=Power Armor Boots
+item.power_armor_leggings.name=Power Armor Leggings
+item.power_armor_chestplate.name=Power Armor Chestplate
+item.power_armor_helmet.name=Power Armor Helmet
+item.power_fist.name=Power Fist
 
-item.powerArmorComponent.componentWiring.name=Wiring
-item.powerArmorComponent.componentSolenoid.name=Solenoid
-item.powerArmorComponent.componentServo.name=Servo Motor
-item.powerArmorComponent.componentGliderWing.name=Glider Wing
-item.powerArmorComponent.componentIonThruster.name=Ion Thruster
-item.powerArmorComponent.componentLVCapacitor.name=LV Capacitor
-item.powerArmorComponent.componentMVCapacitor.name=MV Capacitor
-item.powerArmorComponent.componentHVCapacitor.name=HV Capacitor
-item.powerArmorComponent.componentEVCapacitor.name=EV Capacitor
-item.powerArmorComponent.componentParachute.name=Parachute
-item.powerArmorComponent.componentPlatingBasic.name=Basic Plating
-item.powerArmorComponent.componentPlatingAdvanced.name=Advanced Plating
-item.powerArmorComponent.componentFieldEmitter.name=Force Field Emitter
-item.powerArmorComponent.componentLaserEmitter.name=Hologram Emitter
-item.powerArmorComponent.componentCarbonMyofiber.name=Carbon Myofiber
-item.powerArmorComponent.componentControlCircuit.name=Control Circuit
-item.powerArmorComponent.componentMyofiberGel.name=Myofiber Gel
-item.powerArmorComponent.componentArtificialMuscle.name=Artificial Muscle
+item.power_armor_component.component_wiring.name=Wiring
+item.power_armor_component.component_solenoid.name=Solenoid
+item.power_armor_component.component_servo.name=Servo Motor
+item.power_armor_component.component_glider_wing.name=Glider Wing
+item.power_armor_component.component_ion_thruster.name=Ion Thruster
+item.power_armor_component.component_lv_capacitor.name=LV Capacitor
+item.power_armor_component.component_mv_capacitor.name=MV Capacitor
+item.power_armor_component.component_hv_capacitor.name=HV Capacitor
+item.power_armor_component.component_ev_capacitor.name=EV Capacitor
+item.power_armor_component.component_parachute.name=Parachute
+item.power_armor_component.component_plating_basic.name=Basic Plating
+item.power_armor_component.component_plating_advanced.name=Advanced Plating
+item.power_armor_component.component_field_emitter.name=Force Field Emitter
+item.power_armor_component.component_laser_emitter.name=Hologram Emitter
+item.power_armor_component.component_carbon_myofiber.name=Carbon Myofiber
+item.power_armor_component.component_control_circuit.name=Control Circuit
+item.power_armor_component.component_myofiber_gel.name=Myofiber Gel
+item.power_armor_component.component_artificial_muscle.name=Artificial Muscle
 
-item.powerArmorComponent.componentSolarPanel.name=Solar Panel
-item.powerArmorComponent.componentMagnet.name=Magnet
-item.powerArmorComponent.componentComputerChip.name=Computer Chip
-item.powerArmorComponent.componentLiquidNitrogen.name=Liquid Nitrogen Bucket
-item.powerArmorComponent.componentRubberHose.name=Insulated Rubber Hose
-item.powerArmorComponent.componentRawCarbon.name=Raw Carbon
+item.power_armor_component.component_solar_panel.name=Solar Panel
+item.power_armor_component.component_magnet.name=Magnet
+item.power_armor_component.component_computer_chip.name=Computer Chip
+item.power_armor_component.component_liquid_nitrogen.name=Liquid Nitrogen Bucket
+item.power_armor_component.component_rubber_hose.name=Insulated Rubber Hose
+item.power_armor_component.componentRawCarbon.name=Raw Carbon
 
 module.basicPlating.name=Iron Plating
 module.diamondPlating.name=Diamond Plating

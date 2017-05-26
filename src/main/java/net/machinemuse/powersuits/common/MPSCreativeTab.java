@@ -14,6 +14,6 @@ public class MPSCreativeTab extends CreativeTabs {
 
     @Override
     public ItemStack getTabIconItem() {
-        return new ItemStack(MPSItems.powerArmorHead);
+        return new ItemStack(MPSItems.power_armor_head);
     }
 }

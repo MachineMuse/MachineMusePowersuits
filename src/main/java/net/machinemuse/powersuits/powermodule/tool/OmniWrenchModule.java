@@ -63,7 +63,8 @@ public class OmniWrenchModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-        return StolenWrenchCode.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ, hand);
+//        return StolenWrenchCode.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ, hand);
+        return EnumActionResult.PASS;
     }
 
     @Override

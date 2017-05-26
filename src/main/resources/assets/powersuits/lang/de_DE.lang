@@ -1,36 +1,36 @@
 #Made by users: KazoBurg, Vexatos, Dongonzales
 #Last edited on 7/2/13
 
-tile.luxCapacitor.name=Luxkompensator
-tile.tinkerTable.name=Energierüstungsbasteltisch
+tile.lux_capacitor.name=Luxkompensator
+tile.tinker_table.name=Energierüstungsbasteltisch
 
-item.powerArmorBoots.name=Energiestiefel
-item.powerArmorLeggings.name=Energiehose
-item.powerArmorChestplate.name=Energiebrustplatte
+item.power_armor_boots.name=Energiestiefel
+item.power_armor_leggings.name=Energiehose
+item.power_armor_chestplate.name=Energiebrustplatte
 item.powerArmorHelmet.name=Energiehelm
-item.powerFist.name=Energiefaust
+item.power_fist.name=Energiefaust
 
-item.powerArmorComponent.componentWiring.name=Kabel
-item.powerArmorComponent.componentSolenoid.name=Magnetspule
-item.powerArmorComponent.componentServo.name=Servomotor
-item.powerArmorComponent.componentGliderWing.name=Gleiterflügel
-item.powerArmorComponent.componentIonThruster.name=Ionenbeschleuniger
-item.powerArmorComponent.componentLVCapacitor.name=LV-Kondensator
-item.powerArmorComponent.componentMVCapacitor.name=MV-Kondensator
-item.powerArmorComponent.componentHVCapacitor.name=HV-Kondensator
-item.powerArmorComponent.componentParachute.name=Fallschirm
-item.powerArmorComponent.componentPlatingBasic.name=Basisplatte
-item.powerArmorComponent.componentPlatingAdvanced.name=Fortgeschrittene Platte
-item.powerArmorComponent.componentFieldEmitter.name=Kraftfelderzeuger
-item.powerArmorComponent.componentLaserEmitter.name=Hologrammerzeuger
-item.powerArmorComponent.componentCarbonMyofiber.name=Karbonmyofaser
-item.powerArmorComponent.componentControlCircuit.name=Kontrollschaltkreis
-item.powerArmorComponent.componentMyofiberGel.name=Myofasergel
-item.powerArmorComponent.componentArtificialMuscle.name=Künstlicher Muskel
+item.power_armor_component.component_wiring.name=Kabel
+item.power_armor_component.component_solenoid.name=Magnetspule
+item.power_armor_component.component_servo.name=Servomotor
+item.power_armor_component.component_glider_wing.name=Gleiterflügel
+item.power_armor_component.component_ion_thruster.name=Ionenbeschleuniger
+item.power_armor_component.component_lv_capacitor.name=LV-Kondensator
+item.power_armor_component.component_mv_capacitor.name=MV-Kondensator
+item.power_armor_component.component_hv_capacitor.name=HV-Kondensator
+item.power_armor_component.component_parachute.name=Fallschirm
+item.power_armor_component.component_plating_basic.name=Basisplatte
+item.power_armor_component.component_plating_advanced.name=Fortgeschrittene Platte
+item.power_armor_component.component_field_emitter.name=Kraftfelderzeuger
+item.power_armor_component.component_laser_emitter.name=Hologrammerzeuger
+item.power_armor_component.component_carbon_myofiber.name=Karbonmyofaser
+item.power_armor_component.component_control_circuit.name=Kontrollschaltkreis
+item.power_armor_component.component_myofiber_gel.name=Myofasergel
+item.power_armor_component.component_artificial_muscle.name=Künstlicher Muskel
 
-item.powerArmorComponent.componentSolarPanel.name=Solarzelle
-item.powerArmorComponent.componentMagnet.name=Magnet
-item.powerArmorComponent.componentComputerChip.name=Mikroprozessor
+item.power_armor_component.component_solar_panel.name=Solarzelle
+item.power_armor_component.component_magnet.name=Magnet
+item.power_armor_component.component_computer_chip.name=Mikroprozessor
 
 module.basicPlating.name=Eisenplatte
 module.diamondPlating.name=Diamantplatte

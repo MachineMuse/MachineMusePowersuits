@@ -33,7 +33,7 @@ import javax.annotation.Nullable;
  * Ported to Java by lehjr on 10/21/16.
  */
 public class BlockTinkerTable extends Block {
-    public static final String name = "tinkerTable";
+    public static final String name = "tinker_table";
     public static final PropertyDirection FACING = BlockHorizontal.FACING;
     public BlockTinkerTable() {
         super(Material.IRON);
@@ -48,7 +48,7 @@ public class BlockTinkerTable extends Block {
         setUnlocalizedName(name);
         setRegistryName(ModularPowersuits.MODID, "tile."+ name);
         setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
-        GameRegistry.registerTileEntity(TileEntityTinkerTable.class, "tinkerTable");
+        GameRegistry.registerTileEntity(TileEntityTinkerTable.class, "tinker_table");
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {

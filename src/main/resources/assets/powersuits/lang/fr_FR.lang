@@ -2,7 +2,7 @@ Made by users: Mazdallier, AegisLesha, solomon56
 Last edited on 08/31/15
 
 tile.luxCapacitor.name=Condensateur Lux 
-tile.tinkerTable.name=Table de bricolage d'Armure énergétique 
+tile.tinker_table.name=Table de bricolage d'Armure énergétique
 
 itemGroup.powersuits=Armure énergétique modulaire 
 
@@ -12,8 +12,8 @@ item.powerArmorChestplate.name=Plastron d'Armure énergétique
 item.powerArmorHelmet.name=Casque d'Armure énergétique
 item.powerFist.name=Poing énergétique
 
-item.powerArmorComponent.componentWiring.name=Câblage
-item.powerArmorComponent.componentSolenoid.name=Solénoïde
+item.powerArmorComponent.component_wiring.name=Câblage
+item.powerArmorComponent.component_solenoid.name=Solénoïde
 item.powerArmorComponent.componentServo.name=Servo Moteur 
 item.powerArmorComponent.componentGliderWing.name=Ailes de planeur
 item.powerArmorComponent.componentIonThruster.name=Propulseur Ionique 

@@ -244,23 +244,23 @@ public class Config {
      */
     public static void loadPowerModules() {
         List<IModularItem> ARMORONLY = Arrays.asList(
-                (IModularItem)MPSItems.powerArmorHead,
-                (IModularItem)MPSItems.powerArmorTorso,
-                (IModularItem)MPSItems.powerArmorLegs,
-                (IModularItem)MPSItems.powerArmorFeet);
+                (IModularItem)MPSItems.power_armor_head,
+                (IModularItem)MPSItems.power_armor_torso,
+                (IModularItem)MPSItems.power_armor_legs,
+                (IModularItem)MPSItems.power_armor_feet);
 
         List<IModularItem> ALLITEMS = Arrays.asList(
-                (IModularItem)MPSItems.powerArmorHead,
-                (IModularItem)MPSItems.powerArmorTorso,
-                (IModularItem)MPSItems.powerArmorLegs,
-                (IModularItem)MPSItems.powerArmorFeet,
-                (IModularItem)MPSItems.powerTool);
+                (IModularItem)MPSItems.power_armor_head,
+                (IModularItem)MPSItems.power_armor_torso,
+                (IModularItem)MPSItems.power_armor_legs,
+                (IModularItem)MPSItems.power_armor_feet,
+                (IModularItem)MPSItems.power_tool);
 
-        List<IModularItem> HEADONLY = Collections.singletonList((IModularItem)MPSItems.powerArmorHead);
-        List<IModularItem> TORSOONLY = Collections.singletonList((IModularItem)MPSItems.powerArmorTorso);
-        List<IModularItem> LEGSONLY = Collections.singletonList((IModularItem)MPSItems.powerArmorLegs);
-        List<IModularItem> FEETONLY = Collections.singletonList((IModularItem)MPSItems.powerArmorFeet);
-        List<IModularItem> TOOLONLY = Collections.singletonList((IModularItem)MPSItems.powerTool);
+        List<IModularItem> HEADONLY = Collections.singletonList((IModularItem)MPSItems.power_armor_head);
+        List<IModularItem> TORSOONLY = Collections.singletonList((IModularItem)MPSItems.power_armor_torso);
+        List<IModularItem> LEGSONLY = Collections.singletonList((IModularItem)MPSItems.power_armor_legs);
+        List<IModularItem> FEETONLY = Collections.singletonList((IModularItem)MPSItems.power_armor_feet);
+        List<IModularItem> TOOLONLY = Collections.singletonList((IModularItem)MPSItems.power_tool);
 
         // FIXME: these need to be sorted
         /* Armor -------------------------------- */

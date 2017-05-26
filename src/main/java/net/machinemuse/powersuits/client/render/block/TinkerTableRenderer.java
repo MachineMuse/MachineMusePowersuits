@@ -16,7 +16,7 @@ import net.minecraft.util.ResourceLocation;
  * @author MachineMuse
  */
 public class TinkerTableRenderer extends TileEntitySpecialRenderer<TileEntityTinkerTable> {
-ResourceLocation texture = new ResourceLocation( Config.TEXTURE_PREFIX + "models/tinkerTable-solid.png");
+ResourceLocation texture = new ResourceLocation( Config.TEXTURE_PREFIX + "models/tinker_table_solid.png");
 
     protected final TinkerTableModel model;
 

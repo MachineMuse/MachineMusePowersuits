@@ -26,14 +26,14 @@ public class ModelBakeEventHandler {
     LuxCapModelHelper luxCapHeler = LuxCapModelHelper.getInstance();
     //FIXME there may only be one run. 2 runs not a guarantee
     private static boolean firstLoad = Boolean.parseBoolean(System.getProperty("fml.skipFirstModelBake", "true"));
-    public static final ModelResourceLocation powerFistIconLocation = new ModelResourceLocation(Config.RESOURCE_PREFIX + "powerTool", "inventory");
+    public static final ModelResourceLocation powerFistIconLocation = new ModelResourceLocation(Config.RESOURCE_PREFIX + "power_tool", "inventory");
     public static ModelPowerFist powerFistModel;
 
     // Armor icons
-    public static final ModelResourceLocation powerArmorHeadModelLocation = new ModelResourceLocation(MPSItems.powerArmorHead.getRegistryName(), "inventory");
-    public static final ModelResourceLocation powerArmorChestModelLocation = new ModelResourceLocation(MPSItems.powerArmorTorso.getRegistryName(), "inventory");
-    public static final ModelResourceLocation powerArmorLegsModelLocation = new ModelResourceLocation(MPSItems.powerArmorLegs.getRegistryName(), "inventory");
-    public static final ModelResourceLocation powerArmorFeetModelLocation = new ModelResourceLocation(MPSItems.powerArmorFeet.getRegistryName(), "inventory");
+    public static final ModelResourceLocation power_armor_headModelLocation = new ModelResourceLocation(MPSItems.power_armor_head.getRegistryName(), "inventory");
+    public static final ModelResourceLocation powerArmorChestModelLocation = new ModelResourceLocation(MPSItems.power_armor_torso.getRegistryName(), "inventory");
+    public static final ModelResourceLocation power_armor_legsModelLocation = new ModelResourceLocation(MPSItems.power_armor_legs.getRegistryName(), "inventory");
+    public static final ModelResourceLocation power_armor_feetModelLocation = new ModelResourceLocation(MPSItems.power_armor_feet.getRegistryName(), "inventory");
 
 
 //    public static final ModelResourceLocation  tinkerTable2Location = new ModelResourceLocation(Config.RESOURCE_PREFIX + "tile.testBlock", "inventory");
@@ -64,20 +64,20 @@ public class ModelBakeEventHandler {
         }
 
         // set up armor icon models for coloring because that's how it used to work
-        IBakedModel powerArmorHeadModel = modelRegistry.getObject(powerArmorHeadModelLocation);
+        IBakedModel power_armor_headModel = modelRegistry.getObject(power_armor_headModelLocation);
         IBakedModel powerArmorChestModel = modelRegistry.getObject(powerArmorChestModelLocation);
-        IBakedModel powerArmorLegsModel = modelRegistry.getObject(powerArmorLegsModelLocation);
-        IBakedModel powerArmorFeetModel = modelRegistry.getObject(powerArmorFeetModelLocation);
+        IBakedModel power_armor_legsModel = modelRegistry.getObject(power_armor_legsModelLocation);
+        IBakedModel power_armor_feetModel = modelRegistry.getObject(power_armor_feetModelLocation);
 
-        IBakedModel powerArmorIconModel = new ArmorIcon(powerArmorHeadModel,
+        IBakedModel powerArmorIconModel = new ArmorIcon(power_armor_headModel,
                                                         powerArmorChestModel,
-                                                        powerArmorLegsModel,
-                                                        powerArmorFeetModel);
+                                                        power_armor_legsModel,
+                                                        power_armor_feetModel);
 
-        modelRegistry.putObject(powerArmorHeadModelLocation, powerArmorIconModel);
+        modelRegistry.putObject(power_armor_headModelLocation, powerArmorIconModel);
         modelRegistry.putObject(powerArmorChestModelLocation, powerArmorIconModel);
-        modelRegistry.putObject(powerArmorLegsModelLocation, powerArmorIconModel);
-        modelRegistry.putObject(powerArmorFeetModelLocation, powerArmorIconModel);
+        modelRegistry.putObject(power_armor_legsModelLocation, powerArmorIconModel);
+        modelRegistry.putObject(power_armor_feetModelLocation, powerArmorIconModel);
 
 //        IBakedModel tinkerTableItem = modelRegistry.getObject(tinkerTable2Location);
 //        modelRegistry.putObject(tinkerTable2Location, new ModelTinkerTable2(tinkerTableItem));

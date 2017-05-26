@@ -120,10 +120,10 @@ public class MuseItemUtils {
             for (int i = 0; i < inventory.getSizeInventory(); i++) {
                 ItemStack stackInInventory = inventory.getStackInSlot(i);
                 if (isSameItem(stackInInventory, stackInCost)) {
-                    found += stackInInventory.stackSize;
+                    found += stackInInventory.getCount();
                 }
             }
-            if (found < stackInCost.stackSize) {
+            if (found < stackInCost.getCount()) {
                 return false;
             }
         }
@@ -133,14 +133,14 @@ public class MuseItemUtils {
     public static List<Integer> deleteFromInventory(List<ItemStack> cost, InventoryPlayer inventory) {
         List<Integer> slots = new LinkedList<>();
         for (ItemStack stackInCost : cost) {
-            int remaining = stackInCost.stackSize;
+            int remaining = stackInCost.getCount();
             for (int i = 0; i < inventory.getSizeInventory() && remaining > 0; i++) {
                 ItemStack stackInInventory = inventory.getStackInSlot(i);
                 if (isSameItem(stackInInventory, stackInCost)) {
-                    int numToTake = Math.min(stackInInventory.stackSize, remaining);
-                    stackInInventory.stackSize -= numToTake;
+                    int numToTake = Math.min(stackInInventory.getCount(), remaining);
+                    stackInInventory.setCount(stackInInventory.getCount() - numToTake);
                     remaining -= numToTake;
-                    if (stackInInventory.stackSize == 0) {
+                    if (stackInInventory.getCount() == 0) {
                         inventory.setInventorySlotContents(i, null);
                     }
                     slots.add(i);
@@ -154,10 +154,10 @@ public class MuseItemUtils {
         List<Integer> slots = new LinkedList<>();
         for (ItemStack stackInCost : workingUpgradeCost) {
             int found = 0;
-            for (int i = 0; i < inventory.getSizeInventory() && found < stackInCost.stackSize; i++) {
+            for (int i = 0; i < inventory.getSizeInventory() && found < stackInCost.getCount(); i++) {
                 ItemStack stackInInventory = inventory.getStackInSlot(i);
                 if (isSameItem(stackInInventory, stackInCost)) {
-                    found += stackInInventory.stackSize;
+                    found += stackInInventory.getCount();
                     slots.add(i);
                 }
             }
@@ -263,7 +263,7 @@ public class MuseItemUtils {
         } else if (!stack1.isStackable()) {
             return false;
         } else
-            return stack1.stackSize < stack1.getMaxStackSize();
+            return stack1.getCount() < stack1.getMaxStackSize();
     }
 
     public static boolean isSameItem(ItemStack stack1, ItemStack stack2) {
@@ -278,23 +278,23 @@ public class MuseItemUtils {
 
     public static void transferStackWithChance(ItemStack itemsToGive, ItemStack destinationStack, double chanceOfSuccess) {
         if (MuseItemUtils.isSameItem(itemsToGive, ItemComponent.lvcapacitor)) {
-            itemsToGive.stackSize = 0;
+            itemsToGive.setCount(0);
             return;
         }
         if (MuseItemUtils.isSameItem(itemsToGive, ItemComponent.mvcapacitor)) {
-            itemsToGive.stackSize = 0;
+            itemsToGive.setCount(0);
             return;
         }
         if (MuseItemUtils.isSameItem(itemsToGive, ItemComponent.hvcapacitor)) {
-            itemsToGive.stackSize = 0;
+            itemsToGive.setCount(0);
             return;
         }
 
         int maxSize = destinationStack.getMaxStackSize();
-        while (itemsToGive.stackSize > 0 && destinationStack.stackSize < maxSize) {
-            itemsToGive.stackSize -= 1;
+        while (itemsToGive.getCount() > 0 && destinationStack.getCount() < maxSize) {
+            itemsToGive.setCount(itemsToGive.getCount() - 1);
             if (MuseMathUtils.nextDouble() < chanceOfSuccess) {
-                destinationStack.stackSize += 1;
+                destinationStack.setCount(destinationStack.getCount() + 1);
             }
         }
     }
@@ -307,7 +307,7 @@ public class MuseItemUtils {
         Set<Integer> slots = new HashSet<>();
 
         // First try to add the items to existing stacks
-        for (int i = 0; i < player.inventory.getSizeInventory() && itemsToGive.stackSize > 0; i++) {
+        for (int i = 0; i < player.inventory.getSizeInventory() && itemsToGive.getCount() > 0; i++) {
             ItemStack currentStack = player.inventory.getStackInSlot(i);
             if (canStackTogether(currentStack, itemsToGive)) {
                 slots.add(i);
@@ -315,22 +315,22 @@ public class MuseItemUtils {
             }
         }
         // Then try to add the items to empty slots
-        for (int i = 0; i < player.inventory.getSizeInventory() && itemsToGive.stackSize > 0; i++) {
+        for (int i = 0; i < player.inventory.getSizeInventory() && itemsToGive.getCount() > 0; i++) {
             if (player.inventory.getStackInSlot(i) == null) {
                 ItemStack destination = new ItemStack(itemsToGive.getItem(), 0, itemsToGive.getItemDamage());
                 transferStackWithChance(itemsToGive, destination, chanceOfSuccess);
-                if (destination.stackSize > 0) {
+                if (destination.getCount()> 0) {
                     player.inventory.setInventorySlotContents(i, destination);
                     slots.add(i);
                 }
             }
         }
         // Finally spawn the items in the world.
-        if (itemsToGive.stackSize > 0) {
-            for (int i = 0; i < itemsToGive.stackSize; i++) {
+        if (itemsToGive.getCount() > 0) {
+            for (int i = 0; i < itemsToGive.getCount(); i++) {
                 if (MuseMathUtils.nextDouble() < chanceOfSuccess) {
                     ItemStack copyStack = itemsToGive.copy();
-                    copyStack.stackSize = 1;
+                    copyStack.setCount(1);
                     player.dropItem(copyStack, false);
                 }
             }
@@ -377,7 +377,7 @@ public class MuseItemUtils {
      */
     public static ItemStack copyAndResize(ItemStack stack, int number) {
         ItemStack copy = stack.copy();
-        copy.stackSize = number;
+        copy.setCount(number);
         return copy;
     }
 
@@ -393,7 +393,7 @@ public class MuseItemUtils {
             }
             for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
                 ItemStack invstack = player.inventory.getStackInSlot(i);
-                if (invstack != null && invstack.getItem() == itemstack.getItem() && invstack.isStackable() && invstack.stackSize < invstack.getMaxStackSize() && invstack.stackSize < player.inventory.getInventoryStackLimit() && (!invstack.getHasSubtypes() || invstack.getItemDamage() == itemstack.getItemDamage())) {
+                if (invstack != null && invstack.getItem() == itemstack.getItem() && invstack.isStackable() && invstack.getCount() < invstack.getMaxStackSize() && invstack.getCount() < player.inventory.getInventoryStackLimit() && (!invstack.getHasSubtypes() || invstack.getItemDamage() == itemstack.getItemDamage())) {
                     return true;
                 }
             }

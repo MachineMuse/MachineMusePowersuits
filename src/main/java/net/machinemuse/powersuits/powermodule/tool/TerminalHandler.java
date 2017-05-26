@@ -36,7 +36,7 @@
 //            return false;
 //        if(is.getUnlocalizedName() == null)
 //            return false;
-//        return is.getUnlocalizedName().equals("item.powerFist");
+//        return is.getUnlocalizedName().equals("item.power_fist");
 //    }
 //
 //    @Optional.Method(modid = "appliedenergistics2")

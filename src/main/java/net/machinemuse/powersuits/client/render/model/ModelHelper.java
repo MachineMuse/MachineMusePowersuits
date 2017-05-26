@@ -46,10 +46,10 @@ public class ModelHelper {
         new ModelHelper();
     }
 
-    public static final ResourceLocation powerFistLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFist.obj");
-    public static final ResourceLocation powerFistFiringLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistFiring.obj");
-    public static final ResourceLocation powerFistLeftLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistLeft.obj");
-    public static final ResourceLocation powerFistLeftFiringLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistFiringLeft.obj");
+    public static final ResourceLocation powerFistLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/power_fist/power_fist.obj");
+    public static final ResourceLocation powerFistFiringLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/power_fist/power_fist_firing.obj");
+    public static final ResourceLocation powerFistLeftLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/power_fist/power_fist_left.obj");
+    public static final ResourceLocation powerFistLeftFiringLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/power_fist/power_fist_firing_left.obj");
 
     static IBakedModel powerFist;
     static IBakedModel powerFistFiring;

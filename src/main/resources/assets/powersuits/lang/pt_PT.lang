@@ -1,34 +1,34 @@
 Made by users: EzerArch
 Last edited on 12/24/14 07:02AM GMT-2
 
-tile.luxCapacitor.name=Condensador de Luz
-tile.tinkerTable.name=Mesa de Trabalho Power Armor
+tile.lux_capacitor.name=Condensador de Luz
+tile.tinker_table.name=Mesa de Trabalho Power Armor
 
 itemGroup.powersuits=Modular Powersuits
 
-item.powerArmorBoots.name=Botas Power Armor
-item.powerArmorLeggings.name=Perneiras Power Armor
-item.powerArmorChestplate.name=Peitoral Power Armor
+item.power_armor_boots.name=Botas Power Armor
+item.power_armor_leggings.name=Perneiras Power Armor
+item.power_armor_chestplate.name=Peitoral Power Armor
 item.powerArmorHelmet.name=Capacete Power Armor
-item.powerFist.name=Power Fist
+item.power_fist.name=Power Fist
 
-item.powerArmorComponent.componentWiring.name=Fiação
-item.powerArmorComponent.componentSolenoid.name=Solenoide
-item.powerArmorComponent.componentServo.name=Servomotor
-item.powerArmorComponent.componentGliderWing.name=Asa de Planador
-item.powerArmorComponent.componentIonThruster.name=Propulsor Iónico
-item.powerArmorComponent.componentLVCapacitor.name=Condensador LV
-item.powerArmorComponent.componentMVCapacitor.name=Condensador MV
-item.powerArmorComponent.componentHVCapacitor.name=Condensador HV
-item.powerArmorComponent.componentParachute.name=Paraquedas
-item.powerArmorComponent.componentPlatingBasic.name=Blindagem Básica
-item.powerArmorComponent.componentPlatingAdvanced.name=Blindagem Avançada
-item.powerArmorComponent.componentFieldEmitter.name=Emissor de Campo de Força
-item.powerArmorComponent.componentLaserEmitter.name=Emissor de Holograma
-item.powerArmorComponent.componentCarbonMyofiber.name=Miofibra de Carbono	
-item.powerArmorComponent.componentControlCircuit.name=Circuito de Controle 
-item.powerArmorComponent.componentMyofiberGel.name=Gel de Miofibra
-item.powerArmorComponent.componentArtificialMuscle.name=Músculo Artificial
+item.power_armor_component.component_wiring.name=Fiação
+item.power_armor_component.component_solenoid.name=Solenoide
+item.power_armor_component.component_servo.name=Servomotor
+item.power_armor_component.component_glider_wing.name=Asa de Planador
+item.power_armor_component.component_ion_thruster.name=Propulsor Iónico
+item.power_armor_component.component_lv_capacitor.name=Condensador LV
+item.power_armor_component.component_mv_capacitor.name=Condensador MV
+item.power_armor_component.component_hv_capacitor.name=Condensador HV
+item.power_armor_component.component_parachute.name=Paraquedas
+item.power_armor_component.component_plating_basic.name=Blindagem Básica
+item.power_armor_component.component_plating_advanced.name=Blindagem Avançada
+item.power_armor_component.component_field_emitter.name=Emissor de Campo de Força
+item.power_armor_component.component_laser_emitter.name=Emissor de Holograma
+item.power_armor_component.component_carbon_myofiber.name=Miofibra de Carbono
+item.power_armor_component.component_control_circuit.name=Circuito de Controle
+item.power_armor_component.component_myofiber_gel.name=Gel de Miofibra
+item.power_armor_component.component_artificial_muscle.name=Músculo Artificial
 
 module.basicPlating.name=Blindagem de Ferro
 module.diamondPlating.name=Blindagem de Diamante

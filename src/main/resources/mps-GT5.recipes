@@ -6,7 +6,7 @@
       [ null, { "registryName" : "ic2:resource", "meta" : 12 }, null ]
     ],
     "result" : {
-      "registryName" : "powersuits:tile.tinkerTable"
+      "registryName" : "powersuits:tile.tinker_table"
     }
   },
   {
@@ -15,7 +15,7 @@
       [ { "oredictName" : "circuitBasic" }, null, { "oredictName" : "circuitBasic" } ]
     ],
     "result" : {
-      "registryName" : "powersuits:powerArmorHead"
+      "registryName" : "powersuits:power_armor_head"
     }
   },
   {
@@ -25,7 +25,7 @@
       [ { "oredictName" : "ingotSilver" }, { "oredictName" : "ingotSilver" }, { "oredictName" : "ingotSilver" } ]
     ],
     "result" : {
-      "registryName" : "powersuits:powerArmorTorso"
+      "registryName" : "powersuits:power_armor_torso"
     }
   },
   {
@@ -35,7 +35,7 @@
       [ { "oredictName" : "ingotSilver" }, null, { "oredictName" : "ingotSilver" } ]
     ],
     "result" : {
-      "registryName" : "powersuits:powerArmorLegs"
+      "registryName" : "powersuits:power_armor_legs"
     }
   },
   {
@@ -44,7 +44,7 @@
       [ { "oredictName" : "ingotSilver" }, null, { "oredictName" : "ingotSilver" } ]
     ],
     "result" : {
-      "registryName" : "powersuits:powerArmorFeet"
+      "registryName" : "powersuits:power_armor_feet"
     }
   },
   {
@@ -54,7 +54,7 @@
       [ null, { "oredictName" : "ingotSilver" }, { "oredictName" : "circuitBasic" } ]
     ],
     "result" : {
-      "registryName" : "powersuits:powerTool"
+      "registryName" : "powersuits:power_tool"
     }
   },
   {
@@ -64,48 +64,48 @@
       [ { "oredictName" : "wireCopper" }, { "oredictName" : "wireCopper" }, { "oredictName" : "wireCopper" } ]
     ],
     "result" : {
-      "oredictName" : "componentWiring",
+      "oredictName" : "component_wiring",
       "quantity" : 8
     }
   },
   {
     "ingredients" : [
-      [  { "oredictName" : "componentWiring" }, { "oredictName" : "plateIron" }, { "oredictName" : "componentWiring" } ],
-      [  { "oredictName" : "componentWiring" }, { "oredictName" : "circuitBasic" }, { "oredictName" : "componentWiring" } ],
-      [  { "oredictName" : "componentWiring" }, { "oredictName" : "plateIron" }, { "oredictName" : "componentWiring" } ]
+      [  { "oredictName" : "component_wiring" }, { "oredictName" : "plateIron" }, { "oredictName" : "component_wiring" } ],
+      [  { "oredictName" : "component_wiring" }, { "oredictName" : "circuitBasic" }, { "oredictName" : "component_wiring" } ],
+      [  { "oredictName" : "component_wiring" }, { "oredictName" : "plateIron" }, { "oredictName" : "component_wiring" } ]
     ],
     "result" : {
-      "oredictName" : "componentSolenoid"
+      "oredictName" : "component_solenoid"
     }
   },
   {
     "ingredients" : [
       [  { "oredictName" : "ingotSteel" }, { "oredictName" : "ingotBrass" }, { "oredictName" : "ingotSteel" } ],
-      [  { "oredictName" : "circuitAdvanced" }, { "oredictName" : "componentSolenoid" }, { "oredictName" : "circuitAdvanced" } ],
+      [  { "oredictName" : "circuitAdvanced" }, { "oredictName" : "component_solenoid" }, { "oredictName" : "circuitAdvanced" } ],
       [  { "oredictName" : "ingotSteel" }, { "oredictName" : "ingotBrass" }, { "oredictName" : "ingotSteel" } ]
     ],
     "result" : {
-      "oredictName" : "componentServo"
+      "oredictName" : "component_servo"
     }
   },
   {
     "ingredients" : [
       [  null, { "oredictName" : "plateAlloyCarbon"  }, { "oredictName" : "plateAlloyCarbon"  } ],
-      [  { "oredictName" : "plateAlloyCarbon"  }, { "oredictName" : "plateAlloyCarbon"  }, { "oredictName" : "componentSolenoid" } ],
+      [  { "oredictName" : "plateAlloyCarbon"  }, { "oredictName" : "plateAlloyCarbon"  }, { "oredictName" : "component_solenoid" } ],
       [  { "oredictName" : "plateAlloyCarbon"  }, null, { "oredictName" : "ingotIron" } ]
     ],
     "result" : {
-      "oredictName" : "componentGliderWing"
+      "oredictName" : "component_glider_wing"
     }
   },
   {
     "ingredients" : [
       [  { "oredictName" : "plateAlloyIridium" }, { "oredictName" : "wireGt02Superconductor" }, { "oredictName" : "plateAlloyIridium" } ],
-      [  { "oredictName" : "componentHVCapacitor" }, { "oredictName" : "componentFieldEmitter" }, { "oredictName" : "componentHVCapacitor" } ],
+      [  { "oredictName" : "component_hv_capacitor" }, { "oredictName" : "component_field_emitter" }, { "oredictName" : "component_hv_capacitor" } ],
       [  { "oredictName" : "plateAlloyIridium" }, null, { "oredictName" : "plateAlloyIridium" } ]
     ],
     "result" : {
-      "oredictName" : "componentIonThruster"
+      "oredictName" : "component_ion_thruster"
     }
   },
 
@@ -114,42 +114,42 @@
 
   {
     "ingredients" : [
-      [  { "oredictName" : "ingotSteel" }, { "oredictName" : "componentWiring" }, { "oredictName" : "ingotSteel" } ],
+      [  { "oredictName" : "ingotSteel" }, { "oredictName" : "component_wiring" }, { "oredictName" : "ingotSteel" } ],
       [  { "oredictName" : "ingotSteel" }, { "oredictName" : "batteryElite" }, { "oredictName" : "ingotSteel" } ],
       [  { "oredictName" : "ingotSteel" }, { "oredictName" : "batteryElite" }, { "oredictName" : "ingotSteel" } ]
     ],
     "result" : {
-      "oredictName" : "componentLVCapacitor"
+      "oredictName" : "component_lv_capacitor"
     }
   },
   {
     "ingredients" : [
-      [  { "oredictName" : "ingotNickel" }, { "oredictName" : "componentWiring" }, { "oredictName" : "ingotNickel" } ],
+      [  { "oredictName" : "ingotNickel" }, { "oredictName" : "component_wiring" }, { "oredictName" : "ingotNickel" } ],
       [  { "oredictName" : "ingotNickel" }, { "oredictName" : "batteryMaster" }, { "oredictName" : "ingotNickel" } ],
       [  { "oredictName" : "ingotNickel" }, { "oredictName" : "batteryMaster" }, { "oredictName" : "ingotNickel" } ]
     ],
     "result" : {
-      "oredictName" : "componentMVCapacitor"
+      "oredictName" : "component_mv_capacitor"
     }
   },
   {
     "ingredients" : [
-      [  { "oredictName" : "ingotChrome" }, { "oredictName" : "componentWiring" }, { "oredictName" : "ingotChrome" } ],
+      [  { "oredictName" : "ingotChrome" }, { "oredictName" : "component_wiring" }, { "oredictName" : "ingotChrome" } ],
       [  { "oredictName" : "ingotChrome" }, { "oredictName" : "batteryUltimate" }, { "oredictName" : "ingotChrome" } ],
       [  { "oredictName" : "ingotChrome" }, { "oredictName" : "batteryUltimate" }, { "oredictName" : "ingotChrome" } ]
     ],
     "result" : {
-      "oredictName" : "componentHVCapacitor"
+      "oredictName" : "component_hv_capacitor"
     }
   },
   {
     "ingredients" : [
-      [  {"oredictName" : "componentWiring" }, { "oredictName" : "componentHVCapacitor" }, {"oredictName" : "componentWiring" } ],
-      [  {"oredictName" : "componentWiring" }, {"oredictName" : "componentComputerChip"}, {"oredictName" : "componentWiring" } ],
-      [  {"oredictName" : "componentWiring" }, { "oredictName" : "componentHVCapacitor" }, {"oredictName" : "componentWiring" } ]
+      [  {"oredictName" : "component_wiring" }, { "oredictName" : "component_hv_capacitor" }, {"oredictName" : "component_wiring" } ],
+      [  {"oredictName" : "component_wiring" }, {"oredictName" : "component_computer_chip"}, {"oredictName" : "component_wiring" } ],
+      [  {"oredictName" : "component_wiring" }, { "oredictName" : "component_hv_capacitor" }, {"oredictName" : "component_wiring" } ]
     ],
     "result" : {
-      "oredictName" : "componentEVCapacitor"
+      "oredictName" : "component_ev_capacitor"
     }
   },
   {
@@ -159,7 +159,7 @@
       [  { "oredictName" : "plateAlloyCarbon"  }, null, { "oredictName" : "plateAlloyCarbon"  } ]
     ],
     "result" : {
-      "oredictName" : "componentParachute"
+      "oredictName" : "component_parachute"
     }
   },
   {
@@ -169,12 +169,12 @@
       [ { "oredictName" : "ingotNickel" }, { "oredictName" : "ingotNickel" } ]
     ],
     "result" : {
-      "oredictName" : "componentPlatingBasic"
+      "oredictName" : "component_plating_basic"
     }
   },
   {
     "ingredients" : [
-      [ { "oredictName" : "componentPlatingBasic" } ]
+      [ { "oredictName" : "component_plating_basic" } ]
     ],
     "result" : {
       "oredictName" : "ingotNickel",
@@ -188,12 +188,12 @@
       [ { "oredictName" : "plateAlloyIridium" }, { "oredictName" : "plateAlloyIridium" } ]
     ],
     "result" : {
-      "oredictName" : "componentPlatingAdvanced"
+      "oredictName" : "component_plating_advanced"
     }
   },
   {
     "ingredients" : [
-      [ { "oredictName" : "componentPlatingAdvanced" } ]
+      [ { "oredictName" : "component_plating_advanced" } ]
     ],
     "result" : {
       "oredictName" : "plateAlloyIridium",
@@ -202,12 +202,12 @@
   },
   {
     "ingredients" : [
-      [  {"oredictName" : "plateAlloyIridium" }, {"oredictName" : "componentSolenoid" }, {"oredictName" : "plateAlloyIridium" } ],
+      [  {"oredictName" : "plateAlloyIridium" }, {"oredictName" : "component_solenoid" }, {"oredictName" : "plateAlloyIridium" } ],
       [  {"oredictName" : "wireGt01Superconductor" }, { "oredictName" : "circuitElite" }, {"oredictName" : "wireGt01Superconductor" } ],
-      [  {"oredictName" : "plateAlloyIridium" }, {"oredictName" : "componentSolenoid" }, {"oredictName" : "plateAlloyIridium" } ]
+      [  {"oredictName" : "plateAlloyIridium" }, {"oredictName" : "component_solenoid" }, {"oredictName" : "plateAlloyIridium" } ]
     ],
     "result" : {
-      "oredictName" : "componentFieldEmitter"
+      "oredictName" : "component_field_emitter"
     },
     "mirror" : true
   },
@@ -218,7 +218,7 @@
       [ { "oredictName" : "plateAlloyCarbon"  }, { "oredictName" : "glassReinforced" }, { "oredictName" : "plateAlloyCarbon"  } ]
     ],
     "result" : {
-      "oredictName" : "componentLaserEmitter"
+      "oredictName" : "component_laser_emitter"
     }
   },
   {
@@ -228,17 +228,17 @@
       [ { "oredictName" : "plateAlloyCarbon"  }, { "oredictName" : "plateAlloyCarbon"  }, { "oredictName" : "plateAlloyCarbon"  } ]
     ],
     "result" : {
-      "oredictName" : "componentCarbonMyofiber"
+      "oredictName" : "component_carbon_myofiber"
     }
   },
   {
     "ingredients" : [
-      [ { "oredictName" : "componentWiring" }, { "oredictName" : "circuitAdvanced" }, { "oredictName" : "ingotElectrum" } ],
+      [ { "oredictName" : "component_wiring" }, { "oredictName" : "circuitAdvanced" }, { "oredictName" : "ingotElectrum" } ],
       [ { "oredictName" : "circuitData" }, { "oredictName" : "circuitElite" }, { "oredictName" : "circuitAdvanced" } ],
-      [ { "oredictName" : "ingotElectrum" }, { "oredictName" : "circuitData" }, { "oredictName" : "componentWiring" } ]
+      [ { "oredictName" : "ingotElectrum" }, { "oredictName" : "circuitData" }, { "oredictName" : "component_wiring" } ]
     ],
     "result" : {
-      "oredictName" : "componentControlCircuit"
+      "oredictName" : "component_control_circuit"
     },
     "mirror" : true
   },
@@ -249,17 +249,17 @@
       [ { "oredictName" : "plateAlloyCarbon"  }, { "registryName" : "minecraft:magma_cream" }, { "oredictName" : "plateAlloyCarbon"  } ]
     ],
     "result" : {
-      "oredictName" : "componentMyofiberGel"
+      "oredictName" : "component_myofiber_gel"
     }
   },
   {
     "ingredients" : [
-      [ { "oredictName" : "componentCarbonMyofiber" }, { "oredictName" : "itemRubber" }, { "oredictName" : "componentCarbonMyofiber" } ],
-      [ { "oredictName" : "componentCarbonMyofiber" }, { "oredictName" : "componentMyofiberGel" }, { "oredictName" : "componentCarbonMyofiber" } ],
-      [ { "oredictName" : "componentCarbonMyofiber" }, { "oredictName" : "componentMyofiberGel" }, { "oredictName" : "componentCarbonMyofiber" } ]
+      [ { "oredictName" : "component_carbon_myofiber" }, { "oredictName" : "itemRubber" }, { "oredictName" : "component_carbon_myofiber" } ],
+      [ { "oredictName" : "component_carbon_myofiber" }, { "oredictName" : "component_myofiber_gel" }, { "oredictName" : "component_carbon_myofiber" } ],
+      [ { "oredictName" : "component_carbon_myofiber" }, { "oredictName" : "component_myofiber_gel" }, { "oredictName" : "component_carbon_myofiber" } ]
     ],
     "result" : {
-      "oredictName" : "componentArtificialMuscle"
+      "oredictName" : "component_artificial_muscle"
     }
   },
   {
@@ -268,27 +268,27 @@
       [ { "oredictName" : "plateAlloyIridium" }, { "oredictName" : "circuitElite" }, { "oredictName" : "plateAlloyIridium" } ]
     ],
     "result" : {
-      "oredictName" : "componentSolarPanel"
+      "oredictName" : "component_solar_panel"
     }
   },
   {
     "ingredients" : [
       [ { "oredictName" : "ingotIron" }, { "oredictName" : "circuitAdvanced" }, { "oredictName" : "ingotIron" } ],
-      [ { "oredictName" : "componentSolenoid" }, { "oredictName" : "componentSolenoid" }, { "oredictName" : "componentSolenoid" } ],
+      [ { "oredictName" : "component_solenoid" }, { "oredictName" : "component_solenoid" }, { "oredictName" : "component_solenoid" } ],
       [ { "oredictName" : "ingotIron" }, { "oredictName" : "circuitElite" }, { "oredictName" : "ingotIron" } ]
     ],
     "result" : {
-      "oredictName" : "componentMagnet"
+      "oredictName" : "component_magnet"
     }
   },
   {
     "ingredients" : [
-      [ { "oredictName" : "wireGt01Superconductor" }, { "oredictName" : "componentFieldEmitter" }, { "oredictName" : "wireGt01Superconductor" } ],
-      [ { "oredictName" : "circuitElite" }, { "oredictName" : "componentControlCircuit" }, { "oredictName" : "circuitElite" } ],
-      [ { "oredictName" : "wireGt01Superconductor" }, { "oredictName" : "componentFieldEmitter" }, { "oredictName" : "wireGt01Superconductor" } ]
+      [ { "oredictName" : "wireGt01Superconductor" }, { "oredictName" : "component_field_emitter" }, { "oredictName" : "wireGt01Superconductor" } ],
+      [ { "oredictName" : "circuitElite" }, { "oredictName" : "component_control_circuit" }, { "oredictName" : "circuitElite" } ],
+      [ { "oredictName" : "wireGt01Superconductor" }, { "oredictName" : "component_field_emitter" }, { "oredictName" : "wireGt01Superconductor" } ]
     ],
     "result" : {
-      "oredictName" : "componentComputerChip"
+      "oredictName" : "component_computer_chip"
     }
   },
   {
@@ -298,7 +298,7 @@
       [ { "oredictName" : "itemRubber" }, { "oredictName" : "itemRubber" }, { "oredictName" : "itemRubber" } ]
     ],
     "result" : {
-      "oredictName" : "componentRubberHose"
+      "oredictName" : "component_rubber_hose"
     }
   },
   {
@@ -308,7 +308,7 @@
       [ null, { "registryName" : "minecraft:bucket" }, null ]
     ],
     "result" : {
-      "oredictName" : "componentLiquidNitrogen"
+      "oredictName" : "component_liquid_nitrogen"
     }
   }
 ]
