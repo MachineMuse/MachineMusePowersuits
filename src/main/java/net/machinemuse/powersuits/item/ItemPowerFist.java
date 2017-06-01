@@ -256,7 +256,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         return EnumActionResult.PASS;
     }
 
-    @Optional.Method(modid = "Forestry")
+    @Optional.Method(modid = "forestry")
     public float getSaplingModifier(ItemStack stack, World world, EntityPlayer player, BlockPos pos) {
         if (ModuleManager.itemHasActiveModule(stack, GrafterModule.MODULE_GRAFTER)) {
             ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, GrafterModule.GRAFTER_ENERGY_CONSUMPTION));

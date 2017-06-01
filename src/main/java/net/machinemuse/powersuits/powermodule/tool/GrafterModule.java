@@ -20,7 +20,7 @@ public class GrafterModule extends PowerModuleBase {
     public static final String MODULE_GRAFTER = "Grafter";
     public static final String GRAFTER_ENERGY_CONSUMPTION = "Grafter Energy Consumption";
     public static final String GRAFTER_HEAT_GENERATION = "Grafter Heat Generation";
-    private static ItemStack grafter = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("Forestry", "grafter")), 1);
+    private static ItemStack grafter = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("forestry", "grafter")), 1);
 
     public GrafterModule(List<IModularItem> validItems) {
         super(validItems);

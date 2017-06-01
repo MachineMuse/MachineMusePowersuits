@@ -13,6 +13,6 @@ import net.minecraftforge.fml.common.Optional;
  */
 @Optional.Interface(iface = "forestry.api.apiculture.IArmorApiarist", modid = "Forestry", striprefs = true)
 public interface IApiaristArmor extends IArmorApiarist {
-    @Optional.Method(modid = "Forestry")
+    @Optional.Method(modid = "forestry")
     boolean protectEntity(final EntityLivingBase player, final ItemStack armor, final String cause, final boolean doProtect);
 }

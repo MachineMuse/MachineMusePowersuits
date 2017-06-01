@@ -242,7 +242,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         }
     }
 
-    @Optional.Method(modid = "Forestry")
+    @Optional.Method(modid = "forestry")
     public boolean protectEntity(EntityLivingBase player, ItemStack armor, String cause, boolean doProtect) {
         return ApiaristArmor.getInstance().protectEntity(player, armor, cause, doProtect);
     }

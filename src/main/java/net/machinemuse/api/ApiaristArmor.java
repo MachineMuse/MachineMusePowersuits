@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.Optional;
  *
  * Ported to Java by lehjr on 11/4/16.
  */
-@Optional.Interface(iface = "forestry.api.apiculture.IArmorApiarist", modid = "Forestry", striprefs = true)
+@Optional.Interface(iface = "forestry.api.apiculture.IArmorApiarist", modid = "forestry", striprefs = true)
 public class ApiaristArmor implements IApiaristArmor {
     private static ApiaristArmor INSTANCE;
 
@@ -20,7 +20,7 @@ public class ApiaristArmor implements IApiaristArmor {
         return INSTANCE;
     }
 
-    @Optional.Method(modid = "Forestry")
+    @Optional.Method(modid = "forestry")
     @Override
     public boolean protectEntity(EntityLivingBase player, ItemStack armor, String cause, boolean doProtect) {
         return false;

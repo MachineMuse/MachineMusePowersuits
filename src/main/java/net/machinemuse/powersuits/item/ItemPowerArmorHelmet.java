@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.Optional;
  * Ported to Java by lehjr on 10/26/16.
  */
 
-@Optional.Interface(iface = "forestry.api.core.IArmorNaturalist", modid = "Forestry", striprefs = true)
+@Optional.Interface(iface = "forestry.api.core.IArmorNaturalist", modid = "forestry", striprefs = true)
 public class ItemPowerArmorHelmet extends ItemPowerArmor implements IArmorNaturalist {
     public final EntityEquipmentSlot armorType;
     public ItemPowerArmorHelmet() {
@@ -21,7 +21,7 @@ public class ItemPowerArmorHelmet extends ItemPowerArmor implements IArmorNatura
         this.armorType = EntityEquipmentSlot.HEAD;
     }
 
-    @Optional.Method(modid = "Forestry")
+    @Optional.Method(modid = "forestry")
     public boolean canSeePollination(final EntityPlayer player, final ItemStack helm, final boolean doSee) {
         return ModuleManager.itemHasActiveModule(helm, ApiaristArmorModule.MODULE_APIARIST_ARMOR);
     }
