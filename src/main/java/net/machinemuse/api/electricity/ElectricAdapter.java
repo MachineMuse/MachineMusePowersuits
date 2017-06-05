@@ -3,6 +3,7 @@ package net.machinemuse.api.electricity;
 //import appeng.api.implementations.items.IAEItemPowerStorage;
 import cofh.api.energy.IEnergyContainerItem;
 import ic2.api.item.IElectricItem;
+import mekanism.api.energy.IEnergizedItem;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,6 +18,8 @@ public abstract class ElectricAdapter {
         Item i = stack.getItem();
         if (i instanceof IMuseElectricItem) {
             return new MuseElectricAdapter(stack);
+        } else if (ModCompatibility.isMekanismLoaded() && i instanceof IEnergizedItem) {
+        	return new MekanismElectricAdapter(stack);
         } else if (ModCompatibility.isRFAPILoaded() && i instanceof IEnergyContainerItem) {
             return new TEElectricAdapter(stack);
         } else if (ModCompatibility.isIndustrialCraftLoaded() && i instanceof IElectricItem) {
