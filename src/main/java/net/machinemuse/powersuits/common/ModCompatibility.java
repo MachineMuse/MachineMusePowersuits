@@ -101,6 +101,11 @@ public class ModCompatibility {
     public static boolean isWirelessCraftingGridLoaded() {
         return Loader.isModLoaded("wcg");
     }
+    
+    public static boolean isMekanismLoaded() {
+    	System.out.println(Loader.isModLoaded("Mekanism"));
+    	return Loader.isModLoaded("Mekanism");
+    }
 
     public static boolean enableThaumGogglesModule() {
         boolean defaultval = isThaumCraftLoaded();
