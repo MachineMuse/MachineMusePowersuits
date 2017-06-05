@@ -40,9 +40,10 @@ public class GuiModeSelector extends MuseGui {
     @Override
     public void update() {
         super.update();
-        if (!Keyboard.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindsHotbar[player.inventory.currentItem].getKeyCode())) {
+        if (Keyboard.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindsHotbar[player.inventory.currentItem].getKeyCode())) {
         	//close animation
         	//TODO
+        } else {
         	//close Gui
         	try {
     			keyTyped('1',1);
