@@ -103,7 +103,6 @@ public class ModCompatibility {
     }
     
     public static boolean isMekanismLoaded() {
-    	System.out.println(Loader.isModLoaded("Mekanism"));
     	return Loader.isModLoaded("Mekanism");
     }
 
