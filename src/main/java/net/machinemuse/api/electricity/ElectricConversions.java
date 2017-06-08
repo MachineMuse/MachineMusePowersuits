@@ -37,6 +37,14 @@ public final class ElectricConversions {
         return rf * ModCompatibility.getRFRatio();
     }
 
+    /* Mekanism ------------------------------------------------------------------------------------ */
+    public static int museEnergyToMek(final double museEnergy) {
+        return (int) museEnergy;
+    }
+
+    public static double museEnergyFromMek(final int mj) {
+        return mj;
+    }
 
     /* Applied Energistics 2 ---------------------------------------------------------------------- */
     public static double museEnergyFromAE(final double ae) {

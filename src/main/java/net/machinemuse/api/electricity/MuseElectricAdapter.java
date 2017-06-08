@@ -23,22 +23,22 @@ public class MuseElectricAdapter extends ElectricAdapter {
     }
 
     @Override
-    public double getCurrentEnergy() {
-        return this.item().getCurrentEnergy(this.stack());
+    public double getCurrentMPSEnergy() {
+        return this.item().getCurrentMPSEnergy(this.stack());
     }
 
     @Override
-    public double getMaxEnergy() {
-        return this.item().getMaxEnergy(this.stack());
+    public double getMaxMPSEnergy() {
+        return this.item().getMaxMPSEnergy(this.stack());
     }
 
     @Override
-    public double drainEnergy(final double requested) {
-        return this.item().drainEnergyFrom(this.stack(), requested);
+    public double drainMPSEnergy(final double requested) {
+        return this.item().drainMPSEnergyFrom(this.stack(), requested);
     }
 
     @Override
-    public double giveEnergy(final double provided) {
-        return this.item().giveEnergyTo(this.stack(), provided);
+    public double giveMPSEnergy(final double provided) {
+        return this.item().giveMPSEnergyTo(this.stack(), provided);
     }
 }

@@ -236,7 +236,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
                 if (entity instanceof EntityPlayer) {
                     ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entity, drain);
                 } else {
-                    this.drainEnergyFrom(stack, drain);
+                    this.drainMPSEnergyFrom(stack, drain);
                 }
             }
         }

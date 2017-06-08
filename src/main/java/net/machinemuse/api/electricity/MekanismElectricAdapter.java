@@ -1,45 +1,59 @@
 package net.machinemuse.api.electricity;
 
-import cofh.api.energy.IEnergyContainerItem;
 import mekanism.api.energy.IEnergizedItem;
 import net.minecraft.item.ItemStack;
 
 
 public class MekanismElectricAdapter extends ElectricAdapter {
     private final ItemStack stack;
-    private final IEnergyContainerItem item;
+    private final IEnergizedItem item;
 
     public MekanismElectricAdapter(final ItemStack stack) {
         this.stack = stack;
-        this.item = (IEnergyContainerItem)stack.getItem();
+        this.item = (IEnergizedItem)stack.getItem();
     }
 
     public ItemStack stack() {
         return this.stack;
     }
 
-    public IEnergyContainerItem item() {
+    public IEnergizedItem item() {
         return this.item;
     }
 
     @Override
-    public double getCurrentEnergy() {
-    	IEnergizedItem item = (IEnergizedItem)this.stack.getItem();
-    	return item.canSend(this.stack) ? ElectricConversions.museEnergyFromRF(this.item().getEnergyStored(this.stack())) : 0;
+    public double getCurrentMPSEnergy() {
+        return this.item().canSend(this.stack()) ? (this.item().getEnergy(this.stack())) : 0;
     }
 
     @Override
-    public double getMaxEnergy() {
-        return ElectricConversions.museEnergyFromRF(this.item().getMaxEnergyStored(this.stack()));
+    public double getMaxMPSEnergy() {
+        return this.item().getMaxEnergy(this.stack());
     }
 
     @Override
-    public double drainEnergy(final double requested) {
-        return ElectricConversions.museEnergyFromRF(this.item().extractEnergy(this.stack(), ElectricConversions.museEnergyToRF(requested), false));
+    public double drainMPSEnergy(final double requested) {
+        double available = this.item().canSend(this.stack()) ? (this.item().getEnergy(this.stack())) : 0;
+        if (available > requested) {
+            this.item().setEnergy(this.stack(), available - requested);
+            return requested;
+        } else {
+            this.item().setEnergy(this.stack(), 0);
+            return available;
+        }
     }
 
     @Override
-    public double giveEnergy(final double provided) {
-        return ElectricConversions.museEnergyFromRF(this.item().receiveEnergy(this.stack(), ElectricConversions.museEnergyToRF(provided), false));
+    public double giveMPSEnergy(final double provided) {
+        double available = this.item().canSend(this.stack()) ? (this.item().getEnergy(this.stack())) : 0;
+        double max = this.item().getMaxEnergy(this.stack());
+
+        if (available + provided < max) {
+            this.item().setEnergy(this.stack(), available + provided);
+            return provided;
+        } else {
+            this.item().setEnergy(this.stack(), max);
+            return max - available;
+        }
     }
 }

@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
 import java.util.List;
 
-import static net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.*;
+import static net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.NONE;
 
 /**
  * Created by leon on 4/23/17.
@@ -41,8 +41,8 @@ public class ModelTinkerTable2 implements IBakedModel, IPerspectiveAwareModel {
     public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformTypeIn) {
         cameraTransformType = cameraTransformTypeIn;
 
-        if (cameraTransformType != FIRST_PERSON_RIGHT_HAND && cameraTransformType != GUI)
-            System.out.println("type is " + cameraTransformType.name());
+//        if (cameraTransformType != FIRST_PERSON_RIGHT_HAND && cameraTransformType != GUI)
+//            System.out.println("type is " + cameraTransformType.name());
 
 
 

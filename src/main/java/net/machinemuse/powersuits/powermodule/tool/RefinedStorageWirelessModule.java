@@ -25,7 +25,6 @@ import net.minecraft.world.World;
 import p455w0rd.wcg.items.NetworkItemWirelessCraftingGrid;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

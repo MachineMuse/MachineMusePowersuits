@@ -24,22 +24,22 @@ public class TEElectricAdapter extends ElectricAdapter {
     }
 
     @Override
-    public double getCurrentEnergy() {
+    public double getCurrentMPSEnergy() {
         return ElectricConversions.museEnergyFromRF(this.item().getEnergyStored(this.stack()));
     }
 
     @Override
-    public double getMaxEnergy() {
+    public double getMaxMPSEnergy() {
         return ElectricConversions.museEnergyFromRF(this.item().getMaxEnergyStored(this.stack()));
     }
 
     @Override
-    public double drainEnergy(final double requested) {
+    public double drainMPSEnergy(final double requested) {
         return ElectricConversions.museEnergyFromRF(this.item().extractEnergy(this.stack(), ElectricConversions.museEnergyToRF(requested), false));
     }
 
     @Override
-    public double giveEnergy(final double provided) {
+    public double giveMPSEnergy(final double provided) {
         return ElectricConversions.museEnergyFromRF(this.item().receiveEnergy(this.stack(), ElectricConversions.museEnergyToRF(provided), false));
     }
 }

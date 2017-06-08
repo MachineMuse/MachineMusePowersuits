@@ -24,18 +24,16 @@ public abstract class ElectricAdapter {
             return new TEElectricAdapter(stack);
         } else if (ModCompatibility.isIndustrialCraftLoaded() && i instanceof IElectricItem) {
             return new IC2ElectricAdapter(stack);
-//            } else if (ModCompatibility.isAppengLoaded() && i instanceof IAEItemPowerStorage) {
-//                return new AE2ElectricAdapter(stack);
         } else {
             return null;
         }
     }
 
-    public abstract double getCurrentEnergy();
+    public abstract double getCurrentMPSEnergy();
 
-    public abstract double getMaxEnergy();
+    public abstract double getMaxMPSEnergy();
 
-    public abstract double drainEnergy(double requested);
+    public abstract double drainMPSEnergy(double requested);
 
-    public abstract double giveEnergy(double provided);
+    public abstract double giveMPSEnergy(double provided);
 }

@@ -1,14 +1,5 @@
 package net.machinemuse.numina.mouse;
 
-import org.lwjgl.input.Keyboard;
-
-import net.machinemuse.numina.item.IModeChangingItem;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.event.MouseEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 12:40 PM, 9/5/13

@@ -8,13 +8,12 @@ import net.machinemuse.numina.geometry.SpiralPointToPoint2D;
 import net.machinemuse.numina.item.IModeChangingItem;
 import net.machinemuse.numina.network.MusePacketModeChangeRequest;
 import net.machinemuse.numina.network.PacketSender;
-import net.machinemuse.powersuits.item.ItemPowerFist;
-import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RadialSelectionFrame implements IGuiFrame {
     protected List<ClickableModule> modeButtons = new ArrayList<>();

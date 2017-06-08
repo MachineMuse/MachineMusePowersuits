@@ -9,7 +9,6 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
 
 import java.util.EnumMap;

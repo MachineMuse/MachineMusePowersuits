@@ -29,14 +29,14 @@ public class ElectricItemUtils {
     public static double getPlayerEnergy(EntityPlayer player) {
         double avail = 0.0;
         for (ElectricAdapter adapter: electricItemsEquipped(player))
-            avail += adapter.getCurrentEnergy();
+            avail += adapter.getCurrentMPSEnergy();
         return avail;
     }
 
     public static double getMaxEnergy(EntityPlayer player) {
         double avail = 0.0;
         for (ElectricAdapter adapter: electricItemsEquipped(player))
-            avail += adapter.getMaxEnergy();
+            avail += adapter.getMaxMPSEnergy();
         return avail;
     }
 
@@ -44,7 +44,7 @@ public class ElectricItemUtils {
         double drainleft = drainAmount;
         for (ElectricAdapter adapter: electricItemsEquipped(player))
             if (drainleft > 0)
-                drainleft = drainleft - adapter.drainEnergy(drainleft);
+                drainleft = drainleft - adapter.drainMPSEnergy(drainleft);
             else
                 break;
     }
@@ -53,7 +53,7 @@ public class ElectricItemUtils {
         double joulesleft = joulesToGive;
         for (ElectricAdapter adapter: electricItemsEquipped(player))
             if (joulesleft > 0) {
-                joulesleft = joulesleft - adapter.giveEnergy(joulesleft);
+                joulesleft = joulesleft - adapter.giveMPSEnergy(joulesleft);
             } else
                 break;
     }

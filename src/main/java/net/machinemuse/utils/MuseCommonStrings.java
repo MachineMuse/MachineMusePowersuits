@@ -63,8 +63,8 @@ public abstract class MuseCommonStrings {
         }
         ElectricAdapter adapter = ElectricAdapter.wrap(stack);
         if (adapter != null) {
-            String energyinfo = I18n.format("tooltip.energy") + " " + MuseStringUtils.formatNumberShort(adapter.getCurrentEnergy()) + '/'
-                    + MuseStringUtils.formatNumberShort(adapter.getMaxEnergy());
+            String energyinfo = I18n.format("tooltip.energy") + " " + MuseStringUtils.formatNumberShort(adapter.getCurrentMPSEnergy()) + '/'
+                    + MuseStringUtils.formatNumberShort(adapter.getMaxMPSEnergy());
             currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character,
                     MuseStringUtils.FormatCodes.Grey));
         }

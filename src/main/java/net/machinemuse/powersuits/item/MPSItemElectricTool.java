@@ -37,28 +37,28 @@ public class MPSItemElectricTool extends ItemTool implements IModularItemBase, I
     }
 
     @Override
-    public double getCurrentEnergy(ItemStack stack) {
-        return MuseElectricItem.getInstance().getCurrentEnergy(stack);
+    public double getCurrentMPSEnergy(ItemStack stack) {
+        return MuseElectricItem.getInstance().getCurrentMPSEnergy(stack);
     }
 
     @Override
-    public double getMaxEnergy(ItemStack stack) {
-        return MuseElectricItem.getInstance().getMaxEnergy(stack);
+    public double getMaxMPSEnergy(ItemStack stack) {
+        return MuseElectricItem.getInstance().getMaxMPSEnergy(stack);
     }
 
     @Override
-    public void setCurrentEnergy(ItemStack stack, double energy) {
-        MuseElectricItem.getInstance().setCurrentEnergy(stack, energy);
+    public void setCurrentMPSEnergy(ItemStack stack, double energy) {
+        MuseElectricItem.getInstance().setCurrentMPSEnergy(stack, energy);
     }
 
     @Override
-    public double drainEnergyFrom(ItemStack stack, double requested) {
-        return MuseElectricItem.getInstance().drainEnergyFrom(stack, requested);
+    public double drainMPSEnergyFrom(ItemStack stack, double requested) {
+        return MuseElectricItem.getInstance().drainMPSEnergyFrom(stack, requested);
     }
 
     @Override
-    public double giveEnergyTo(ItemStack stack, double provided) {
-        return MuseElectricItem.getInstance().giveEnergyTo(stack, provided);
+    public double giveMPSEnergyTo(ItemStack stack, double provided) {
+        return MuseElectricItem.getInstance().giveMPSEnergyTo(stack, provided);
     }
 
     @Override
@@ -153,31 +153,36 @@ public class MPSItemElectricTool extends ItemTool implements IModularItemBase, I
         return MuseElectricItem.getInstance().getMaxEnergyStored(theItem);
     }
 
-    /* Applied Energistics 2 ---------------------------------------------------------------------- */
-//    @Override
-//    public double injectAEPower(ItemStack stack, double ae) {
-//        return MuseElectricItem.getInstance().injectAEPower(stack, ae);
-//    }
-//
-//    @Override
-//    public double extractAEPower(ItemStack stack, double ae) {
-//        return MuseElectricItem.getInstance().extractAEPower(stack, ae);
-//    }
-//
-//    @Override
-//    public double getAEMaxPower(ItemStack stack) {
-//        return MuseElectricItem.getInstance().getAEMaxPower(stack);
-//    }
-//
-//    @Override
-//    public double getAECurrentPower(ItemStack stack) {
-//        return MuseElectricItem.getInstance().getAECurrentPower(stack);
-//    }
-//
-//    @Override
-//    public AccessRestriction getPowerFlow(ItemStack stack) {
-//        return MuseElectricItem.getInstance().getPowerFlow(stack);
-//    }
+    /* Mekanism ----------------------------------------------------------------------------------- */
+    @Override
+    public double getEnergy(ItemStack itemStack) {
+        return MuseElectricItem.getInstance().getEnergy(itemStack);
+    }
+
+    @Override
+    public void setEnergy(ItemStack itemStack, double v) {
+        MuseElectricItem.getInstance().setEnergy(itemStack, v);
+    }
+
+    @Override
+    public double getMaxEnergy(ItemStack itemStack) {
+        return MuseElectricItem.getInstance().getMaxEnergy(itemStack);
+    }
+
+    @Override
+    public double getMaxTransfer(ItemStack itemStack) {
+        return MuseElectricItem.getInstance().getMaxTransfer(itemStack);
+    }
+
+    @Override
+    public boolean canReceive(ItemStack itemStack) {
+        return MuseElectricItem.getInstance().canReceive(itemStack);
+    }
+
+    @Override
+    public boolean canSend(ItemStack itemStack) {
+        return MuseElectricItem.getInstance().canSend(itemStack);
+    }
 
     /* IModularItemBase ------------------------------------------------------------------------------ */
 

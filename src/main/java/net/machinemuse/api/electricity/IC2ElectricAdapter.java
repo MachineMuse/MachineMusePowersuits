@@ -25,22 +25,22 @@ public class IC2ElectricAdapter extends ElectricAdapter {
     }
 
     @Override
-    public double getCurrentEnergy() {
+    public double getCurrentMPSEnergy() {
         return ElectricConversions.museEnergyFromEU(ElectricItem.manager.getCharge(this.stack()));
     }
 
     @Override
-    public double getMaxEnergy() {
+    public double getMaxMPSEnergy() {
         return ElectricConversions.museEnergyFromEU(this.item().getMaxCharge(this.stack()));
     }
 
     @Override
-    public double drainEnergy(final double requested) {
+    public double drainMPSEnergy(final double requested) {
         return ElectricConversions.museEnergyFromEU(ElectricItem.manager.discharge(this.stack(), ElectricConversions.museEnergyToEU(requested), this.getTier(), true, false, false));
     }
 
     @Override
-    public double giveEnergy(final double provided) {
+    public double giveMPSEnergy(final double provided) {
         return ElectricConversions.museEnergyFromEU(ElectricItem.manager.charge(this.stack(), ElectricConversions.museEnergyToEU(provided), this.getTier(), true, false));
     }
 

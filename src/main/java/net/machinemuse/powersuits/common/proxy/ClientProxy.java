@@ -4,7 +4,6 @@ import net.machinemuse.general.sound.SoundDictionary;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.MusePacketModeChangeRequest;
 import net.machinemuse.numina.network.PacketSender;
-//import net.machinemuse.numina.render.RenderGameOverlayEventHandler;
 import net.machinemuse.powersuits.block.TileEntityTinkerTable;
 import net.machinemuse.powersuits.client.render.block.TinkerTableRenderer;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererLuxCapacitorEntity;
@@ -42,6 +41,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
+
+//import net.machinemuse.numina.render.RenderGameOverlayEventHandler;
 
 /**
  * Client side of the proxy.

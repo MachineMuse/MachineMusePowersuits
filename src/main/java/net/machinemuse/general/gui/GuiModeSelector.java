@@ -1,13 +1,12 @@
 package net.machinemuse.general.gui;
 
-import java.io.IOException;
-
-import org.lwjgl.input.Keyboard;
-
-import net.machinemuse.general.gui.frame.*;
+import net.machinemuse.general.gui.frame.RadialSelectionFrame;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import org.lwjgl.input.Keyboard;
+
+import java.io.IOException;
 
 public class GuiModeSelector extends MuseGui {
     EntityPlayer player;
