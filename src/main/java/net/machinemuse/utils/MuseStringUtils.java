@@ -8,8 +8,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class MuseStringUtils {
+    /*
+        http://www.petervis.com/electronics/SI_Prefix_Metric_System/pico_nano_micro_milli_Kilo_Mega_Giga_Tera.html
+
+        Prefix	Symbol	Decimal Multiplier
+        deca	da	10
+        hecto	h	100
+        kilo	k	1 000
+        mega	M	1 000 000
+        giga	G	1 000 000 000
+        tera	T	1 000 000 000 000
+        peta	P	1 000 000 000 000 000
+        exa	    E	1 000 000 000 000 000 000
+        zetta	Z	1 000 000 000 000 000 000 000
+        yotta	Y	1 000 000 000 000 000 000 000 000
+
+        deci	d	0.1
+        centi	c	0.01
+        milli	m	0.001
+        micro	µ	0.000 001
+        nano	n	0.000 000 001
+        pico	p	0.000 000 000 001
+        femto	f	0.000 000 000 000 001
+        atto	a	0.000 000 000 000 000 001
+        zepto	z	0.000 000 000 000 000 000 001
+        yocto	y	0.000 000 000 000 000 000 000 001
+
+*/
     // milli, micro, etc.
-    public static final char[] smallSuffixes = {'m', 'u', 'n', 'p', 'f', 'a', 'z', 'y'};
+    public static final char[] smallSuffixes = {'m', 'μ', 'n', 'p', 'f', 'a', 'z', 'y'};
     public static final char[] bigSuffixes = {'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'};
 
     /**
@@ -36,13 +63,19 @@ public abstract class MuseStringUtils {
         }
         if (exploded.length > 1) {
             int exponent = Integer.parseInt(exploded[1]);
+            int index;
             if (exponent > 0) {
-                retval += bigSuffixes[exponent / 3 - 1];
+                index = exponent / 3 - 1;
+                if (index > bigSuffixes.length -1)
+                    retval = "Infinite M";
+                else
+                    retval += bigSuffixes[index];
             } else if (exponent < 0) {
-                retval += smallSuffixes[exponent / -3 - 1];
+                index = exponent / -3 - 1;
+                retval += smallSuffixes[index];
             }
         }
-        return retval;
+        return retval + "J";
     }
 
     /**

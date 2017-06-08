@@ -79,8 +79,6 @@ public class ModularItemBase extends Item implements IModularItemBase {
         return string + '\t' + MuseStringUtils.formatNumberShort(value);
     }
 
-
-
     /* IModularItem ------------------------------------------------------------------------------- */
     @Override
     public List<String> getLongInfo(EntityPlayer player, ItemStack stack) {
