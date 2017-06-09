@@ -1,6 +1,3 @@
-Made by users: crafteverywhere, 3TUSK, Joccob
-Last edited on 8/30/15 1:35 AM EST
-
 tile.luxCapacitor.name=光能容器
 tile.tinkerTable.name=动力装甲改装台
 
@@ -20,6 +17,7 @@ item.powerArmorComponent.componentIonThruster.name=离子推进器
 item.powerArmorComponent.componentLVCapacitor.name=低压电容
 item.powerArmorComponent.componentMVCapacitor.name=中压电容
 item.powerArmorComponent.componentHVCapacitor.name=高压电容
+item.powerArmorComponent.componentEVCapacitor.name=超高压电容
 item.powerArmorComponent.componentParachute.name=降落伞
 item.powerArmorComponent.componentPlatingBasic.name=基础电镀板
 item.powerArmorComponent.componentPlatingAdvanced.name=高级电镀板
@@ -35,7 +33,7 @@ item.powerArmorComponent.componentMagnet.name=磁铁
 item.powerArmorComponent.componentComputerChip.name=电脑芯片
 item.powerArmorComponent.componentLiquidNitrogen.name=桶装液氮
 item.powerArmorComponent.componentRubberHose.name=绝缘橡胶管
-item.powerArmorComponent.componentRawCarbon.name=Raw Carbon
+item.powerArmorComponent.componentRawCarbon.name=生碳
 
 module.basicPlating.name=铁质电镀板
 module.diamondPlating.name=钻石电镀板
@@ -56,6 +54,8 @@ module.bladeLauncher.name=刀刃发射器
 module.basicBattery.name=基础电池
 module.eliteBattery.name=精英电池
 module.advancedBattery.name=高级电池
+module.ultimateBattery.name=终极电池
+module.coalGenerator.name=煤炭发电机
 module.parachute.name=降落伞
 module.glider.name=滑翔翼
 module.jetpack.name=喷气背包
@@ -78,6 +78,7 @@ module.tint.name=自定义色彩系统
 module.transparentArmor.name=透明化模块
 module.cosmeticGlow.name=发光模块
 module.mffsFieldTeleporter.name=MFFS力场传送器
+module.mffsFieldTeleporter.desc=一个能够将你传送通过MFFS力场的工具，只要能量足够就能用.
 module.grafter.name=剪枝器
 module.scoop.name=捕虫网
 module.apiaristArmor.name=养蜂员护甲
@@ -86,6 +87,7 @@ module.redstoneLaser.name=红石镭射模块
 module.aurameter.name=灵气探测模块
 module.airtightSeal.name=气密性模块
 module.citizenJoe.name=自定义皮肤模块
+module.3dArmor.name=3D护甲
 module.sonicWeapon.name=声波武器
 
 module.portableCraftingTable.name=内置装配台
@@ -101,6 +103,7 @@ module.flintAndSteel.name=打火石
 module.clock.name=钟表
 module.compass.name=罗盘
 module.lightningSummoner.name=闪雷召唤模块
+module.lightningSummoner.desc=让你能够消耗大量能源来召唤一条雷电.
 module.waterTank.name=储水模块
 module.teMultimeter.name=TE万用表
 module.appengWireless.name=AE无线终端模块
@@ -111,6 +114,8 @@ module.mechAssistance.name=机械辅助模块
 module.cmPSD.name=手持缩放仪
 module.omniProbe.name=标准多功能探测器
 module.dimRiftGen.name=空间裂缝发生器
+module.treetap.name=木龙头
+module.treetap.desc=可以将IC2的木龙头集成到你的动力工具上.
 
 module.basicPlating.desc=基础的电镀板,虽然沉重,但防护性能优良.
 module.diamondPlating.desc=高级电镀板更轻,更坚固,比基础的还硬,不过难以制造.
@@ -129,8 +134,10 @@ module.plasmaCannon.desc=在收容场中用电弧将空气加热至等离子态,
 module.railgun.desc=一个集成模块,可将投掷物用磁场加速至超音速,后座力极大.
 module.bladeLauncher.desc=可弹射出旋转(或者,剪切一切)的死亡之刃.
 module.basicBattery.desc=内置电池,这样物品就可以储存一定能量了.
+module.coalGenerator.desc=通过固态燃料产生能量.
 module.advancedBattery.desc=内置一个更高级的电池,可储存更多能量.
 module.eliteBattery.desc=内置一个最高级的电池,可储存大量能量.
+module.ultimateBattery.desc=实验性的极高能量存储设备，几乎不会爆炸（我这么认为）。不要相信那些恶毒的谣言，这东西可不是什么偷自外星人的技术.
 module.parachute.desc=增加一个降落伞,用于在降落时减速.在半空中潜行(默认按Shift)即可激活.
 module.glider.desc=加装些翅膀即可在下降时向前滑动.在降落时按Shift+前进(默认W)以激活.
 module.jetpack.desc=一个喷气背包可以让你想跳多久跳多久,或者说,至少在没电之前.
@@ -155,10 +162,14 @@ module.cosmeticGlow.desc=让你的装甲闪闪发光.
 module.hazmat.desc=保护你自己免于电流和辐射中毒. *必须全套配备才能有100%的保护效果*
 module.aurameter.desc=接上一些神秘护目镜来把他们植入你的头盔. (不会提供魔力减免)
 module.airtightSeal.desc=密封好套装以抵抗外界大气,让好你去其他星球探险.
+module.citizenJoe.desc=一种可选的护甲材质，由IC2论坛玩家c/o CitizenJoe制作.
+module.3dArmor.desc=打开3D护甲
 module.grafter.desc=一个集成到你动力全套上的林业剪枝器.
 module.scoop.desc=一个集成到你动力拳套上的林业捕虫网.
 module.apiaristArmor.desc=一套集成到你装备上的林业养蜂员护甲.
 module.chisel.desc=它无法让你雕刻方块,但至少它能让你收获它们.
+module.aoePickUpgrade.name=钻石钻头升级
+module.aoePickUpgrade.desc=一个升级工具，能够使镐模块同时挖掘3x3范围方块.
 
 module.portableCraftingTable.desc=一个更大的便携式合成台.
 module.kineticGenerator.desc=利用你的移动来进行发电.
@@ -172,7 +183,6 @@ module.mobRepulsor.desc=激活时会将怪物推开,但会持续消耗能量. �
 module.flintAndSteel.desc=一个使用能量点火的便携式打火石.
 module.clock.desc=一个无论你在何处,都能准确向你报时的钟表.可绑定快捷键.
 module.compass.desc=一个无论你在何处,都能准确向你告知方向的罗盘.可绑定快捷键.
-module.lightningSummoner.desc=让你能够消耗大量能源来召唤一条雷电.
 module.waterTank.desc=用于存储冷水,可在紧急情况下用于降温.
 module.teMultimeter.desc=一个整合至动力装甲中的标准多功能探测器.
 module.appengWireless.desc=一个整合至动力装甲中的应用能源无线终端.
@@ -211,8 +221,6 @@ gui.equippedTotals=装备总计
 gui.energyStorage=能量存储
 gui.weight=重量
 gui.armor=护甲
-
-nei.jsonShaped=JSON Shaped
 
 tooltip.pressShift=按下shift显示更多内容.
 tooltip.componentTooltip=在动力装甲改装台中使用.
