@@ -216,7 +216,7 @@ public class ClientTickHandler {
         // energy
         double maxEnergy = ElectricItemUtils.getMaxEnergy(player);
         double currEnergy = ElectricItemUtils.getPlayerEnergy(player);
-        String currEnergyStr = MuseStringUtils.formatNumberShort(currEnergy);
+        String currEnergyStr = MuseStringUtils.formatNumberShort(currEnergy) + "J";
         String maxEnergyStr = MuseStringUtils.formatNumberShort(maxEnergy);
 
         // heat

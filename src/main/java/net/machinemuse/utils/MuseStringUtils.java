@@ -75,7 +75,7 @@ public abstract class MuseStringUtils {
                 retval += smallSuffixes[index];
             }
         }
-        return retval + "J";
+        return retval;
     }
 
     /**
