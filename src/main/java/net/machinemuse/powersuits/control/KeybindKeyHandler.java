@@ -72,7 +72,7 @@ public class KeybindKeyHandler {
                 mc.playerController.updateController();
                 mci.cycleMode(player.inventory.getStackInSlot(player.inventory.currentItem), player, -1);
             }
-            if (key == hotbarKeys[player.inventory.currentItem].getKeyCode()) {
+            if (player.inventory.currentItem < hotbarKeys.length && key == hotbarKeys[player.inventory.currentItem].getKeyCode()) {
             	ItemStack stack = player.inventory.getCurrentItem();
             	if (stack != null && stack.getItem() instanceof IModeChangingItem) {
                     World world = mc.theWorld;
