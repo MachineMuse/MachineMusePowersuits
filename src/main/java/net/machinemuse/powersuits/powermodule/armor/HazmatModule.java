@@ -30,7 +30,8 @@ public class HazmatModule extends PowerModuleBase {
     }
 
     @Override
-    public String getUnlocalizedName() { return "hazmat";
+    public String getUnlocalizedName() {
+        return "hazmat";
     }
 
     @Override

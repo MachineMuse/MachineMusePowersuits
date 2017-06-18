@@ -42,10 +42,6 @@ public class StolenWrenchCode {
             stack.setItemDamage(0);
         }
 
-//        if(!player.capabilities.isCreativeMode && this.getEnergyStored(stack) < this.getEnergyPerUse(stack)) {
-//            return EnumActionResult.PASS;
-//        }
-
         IBlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
         TileEntity tile = world.getTileEntity(pos);

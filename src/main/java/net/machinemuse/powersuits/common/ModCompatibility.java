@@ -11,9 +11,11 @@ import net.machinemuse.powersuits.powermodule.tool.*;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModAPIManager;
+import net.minecraftforge.fml.common.ModContainer;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public class ModCompatibility {
     public static boolean isTechRebornLoaded() {
@@ -24,8 +26,41 @@ public class ModCompatibility {
         return Loader.isModLoaded("gregtech");
     }
 
+    // Industrialcraft common
     public static boolean isIndustrialCraftLoaded() {
         return Loader.isModLoaded("IC2");
+    }
+
+
+    public static final boolean isIndustrialCraftExpLoaded() {
+        if (!isIndustrialCraftLoaded())
+            return false;
+
+        List<ModContainer> list = Loader.instance().getModList();
+        for (ModContainer container : list) {
+            if (container.getModId().toLowerCase().equals("ic2")) {
+                if (container.getName().equals("IndustrialCraft 2"))
+                    return true;
+                return false;
+            }
+        }
+        return false;
+    }
+
+    // Industrialcraft 2 classic (note redundant code is intentional for "just in case")
+    public static final boolean isIndustrialCraftClassicLoaded() {
+        if (!isIndustrialCraftLoaded())
+            return false;
+
+        List<ModContainer> list = Loader.instance().getModList();
+        for (ModContainer container : list) {
+            if (container.getModId().toLowerCase().equals("ic2")) {
+                if (container.getName().equals("Industrial Craft Classic"))
+                    return true;
+                return false;
+            }
+        }
+        return false;
     }
 
     public static boolean isThaumCraftLoaded() {
@@ -152,7 +187,7 @@ public class ModCompatibility {
 
         //IPowerModule module = new MultimeterModule(Collections.singletonList((IModularItem) MPSItems.powerTool()));
 
-        // Hazmat
+        // Industrialcraft
         if (isIndustrialCraftLoaded()) {
             ModuleManager.addModule(new HazmatModule(Arrays.<IModularItem>asList((IModularItem)MPSItems.powerArmorHead, (IModularItem)MPSItems.powerArmorTorso, (IModularItem)MPSItems.powerArmorLegs, (IModularItem)MPSItems.powerArmorFeet)));
             ModuleManager.addModule(new TreetapModule(Collections.singletonList((IModularItem)MPSItems.powerTool)));

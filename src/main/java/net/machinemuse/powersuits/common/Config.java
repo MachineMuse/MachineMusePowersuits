@@ -114,10 +114,15 @@ public class Config {
                 found=true;
                 copyRecipe("mps-GT5.recipes");
 
-                // Industrialcraft 2
-            } else if (ModCompatibility.isIndustrialCraftLoaded()) {
+                // Industrialcraft 2 Exp
+            } else if (ModCompatibility.isIndustrialCraftExpLoaded()) {
                 found=true;
                 copyRecipe("mps-ic2.recipes");
+
+                // Industrialcraft Classic
+            } else if (ModCompatibility.isIndustrialCraftClassicLoaded()) {
+                found=true;
+                copyRecipe("mps-ic2-classic.recipes");
             }
 
             // EnderIO
