@@ -38,12 +38,12 @@ public final class ElectricConversions {
     }
 
     /* Mekanism ------------------------------------------------------------------------------------ */
-    public static int museEnergyToMek(final double museEnergy) {
-        return (int) museEnergy;
+    public static double museEnergyToMek(final double museEnergy) { // no current conversion rate
+        return Math.ceil(museEnergy / ModCompatibility.getMekRatio());
     }
 
-    public static double museEnergyFromMek(final int mj) {
-        return mj;
+    public static double museEnergyFromMek(final double mj) { // no current conversion rate
+        return mj * ModCompatibility.getMekRatio();
     }
 
     /* Applied Energistics 2 ---------------------------------------------------------------------- */

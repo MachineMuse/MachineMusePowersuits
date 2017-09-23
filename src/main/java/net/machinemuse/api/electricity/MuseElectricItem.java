@@ -207,22 +207,22 @@ public class MuseElectricItem extends Item implements IMuseElectricItem {
     /* Mekanism ----------------------------------------------------------------------------------- */
     @Override
     public double getEnergy(ItemStack itemStack) {
-        return getCurrentMPSEnergy(itemStack);
+        return ElectricConversions.museEnergyToMek(getCurrentMPSEnergy(itemStack));
     }
 
     @Override
     public void setEnergy(ItemStack itemStack, double v) {
-        giveMPSEnergyTo(itemStack, v);
+        setCurrentMPSEnergy(itemStack, ElectricConversions.museEnergyFromMek(v));
     }
 
     @Override
     public double getMaxEnergy(ItemStack itemStack) {
-        return getMaxMPSEnergy(itemStack);
+        return ElectricConversions.museEnergyToMek(getMaxMPSEnergy(itemStack));
     }
 
     @Override
     public double getMaxTransfer(ItemStack itemStack) {
-        return getMaxMPSEnergy(itemStack);
+        return ElectricConversions.museEnergyToMek(getMaxMPSEnergy(itemStack));
     }
 
     @Override

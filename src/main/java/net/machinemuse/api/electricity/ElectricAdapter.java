@@ -1,6 +1,5 @@
 package net.machinemuse.api.electricity;
 
-//import appeng.api.implementations.items.IAEItemPowerStorage;
 import cofh.api.energy.IEnergyContainerItem;
 import ic2.api.item.IElectricItem;
 import mekanism.api.energy.IEnergizedItem;

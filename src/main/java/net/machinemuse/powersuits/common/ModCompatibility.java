@@ -146,6 +146,11 @@ public class ModCompatibility {
         return Config.getConfig().get("Special Modules", "Thaumcraft Goggles Module", defaultval).getBoolean(defaultval);
     }
 
+    // 1MJ (MPS) = 1 MJ (Mekanism)
+    public static double getMekRatio() {
+        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per Mekanism MJ", 1D).getDouble(1D);
+    }
+
     // 1 MJ = 2.5 EU
     // 1 EU = 0.4 MJ
     public static double getIC2Ratio() {
