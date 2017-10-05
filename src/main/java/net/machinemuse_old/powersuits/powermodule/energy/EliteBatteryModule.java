@@ -1,0 +1,48 @@
+package net.machinemuse_old.powersuits.powermodule.energy;
+
+import net.machinemuse_old.api.IModularItem;
+import net.machinemuse_old.api.electricity.ElectricConversions;
+import net.machinemuse_old.general.gui.MuseIcon;
+import net.machinemuse_old.powersuits.item.ItemComponent;
+import net.machinemuse_old.powersuits.powermodule.PowerModuleBase;
+import net.machinemuse_old.utils.ElectricItemUtils;
+import net.machinemuse_old.utils.MuseCommonStrings;
+import net.machinemuse_old.utils.MuseItemUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.item.ItemStack;
+
+import java.util.List;
+
+public class EliteBatteryModule extends PowerModuleBase {
+    public static final String MODULE_BATTERY_ELITE = "Elite Battery";
+
+    public EliteBatteryModule(List<IModularItem> validItems) {
+        super(validItems);
+        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
+        addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 750000, "J");
+        addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g");
+        addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 4250000);
+        addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000);
+        addBaseProperty(ElectricConversions.IC2_TIER, 1);
+        addTradeoffProperty("IC2 Tier", ElectricConversions.IC2_TIER, 2);
+    }
+
+    @Override
+    public String getCategory() {
+        return MuseCommonStrings.CATEGORY_ENERGY;
+    }
+
+    @Override
+    public String getDataName() {
+        return MODULE_BATTERY_ELITE;
+    }
+
+    @Override
+    public String getUnlocalizedName() { return "eliteBattery";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.eliteBattery;
+    }
+}

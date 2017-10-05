@@ -1,0 +1,41 @@
+package net.machinemuse_old.powersuits.powermodule.cosmetic;
+
+import net.machinemuse_old.api.IModularItem;
+import net.machinemuse_old.general.gui.MuseIcon;
+import net.machinemuse_old.powersuits.powermodule.PowerModuleBase;
+import net.machinemuse_old.utils.MuseCommonStrings;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.item.ItemStack;
+
+import java.util.List;
+
+/**
+ * Modular Powersuits by MachineMuse
+ * Created by lehjr on 3/7/17.
+ */
+public class HighPolyArmor extends PowerModuleBase {
+    public static final String HighPolyArmor = "3D Armor";
+
+    public HighPolyArmor(List<IModularItem> validItems) {
+        super(validItems);
+    }
+
+    @Override
+    public String getCategory() {
+        return MuseCommonStrings.CATEGORY_COSMETIC;
+    }
+
+    @Override
+    public String getDataName() {
+        return HighPolyArmor;
+    }
+
+    @Override
+    public String getUnlocalizedName() { return "3dArmor";
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return MuseIcon.highPoly;
+    }
+}
