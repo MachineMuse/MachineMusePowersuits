@@ -3,6 +3,7 @@ package net.machinemuse.api.electricity;
 //import appeng.api.config.AccessRestriction;
 
 import ic2.api.item.ElectricItem;
+import mekanism.api.energy.IEnergizedItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseItemUtils;
@@ -109,6 +110,11 @@ public class MuseElectricItem extends Item implements IMuseElectricItem {
     }
 
     public boolean canProvideEnergy(ItemStack itemStack) {
+        if (itemStack != null) {
+            Item item = itemStack.getItem();
+            if (itemStack.getItem() instanceof IEnergizedItem)
+                return ((IEnergizedItem)item).canSend(itemStack);
+        }
         return true;
     }
 

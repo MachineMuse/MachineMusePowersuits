@@ -3,7 +3,6 @@ package net.machinemuse.api.electricity;
 import mekanism.api.energy.IEnergizedItem;
 import net.minecraft.item.ItemStack;
 
-// TODO: add configuration for setting Mekanism to MPS energy ratio
 public class MekanismElectricAdapter extends ElectricAdapter {
     private final ItemStack stack;
     private final IEnergizedItem item;
@@ -28,11 +27,13 @@ public class MekanismElectricAdapter extends ElectricAdapter {
 
     @Override
     public double getMaxMPSEnergy() {
-        return ElectricConversions.museEnergyFromMek(this.item().getMaxEnergy(this.stack()));
+        return this.item().canSend(this.stack()) ? (ElectricConversions.museEnergyFromMek(this.item().getMaxEnergy(this.stack()))) : 0;
     }
 
     @Override
     public double drainMPSEnergy(final double requested) {
+        if (!this.item.canSend(this.stack))
+            return 0;
         double mekRequested = ElectricConversions.museEnergyToMek(requested);
         double available = this.item().canSend(this.stack()) ? (this.item().getEnergy(this.stack())) : 0;
 
@@ -47,6 +48,8 @@ public class MekanismElectricAdapter extends ElectricAdapter {
 
     @Override
     public double giveMPSEnergy(final double provided) {
+        if (!this.item.canReceive(this.stack))
+            return 0;
         double mekProvided = ElectricConversions.museEnergyToMek(provided);
         double available = this.item().canSend(this.stack()) ? (this.item().getEnergy(this.stack())) : 0;
         double max = this.item().getMaxEnergy(this.stack());

@@ -76,11 +76,7 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
             emulatedTool.setTagCompound(tag);
             ActionResult result = emulatedTool.getItem().onItemRightClick(emulatedTool, worldIn, playerIn, hand);
             double energyUsed = ((energy - emulatedTool.getTagCompound().getInteger("Energy")) * ModCompatibility.getRSRatio()) ;
-
-//            System.out.println("energy before: " + ElectricItemUtils.getPlayerEnergy(playerIn));
             ElectricItemUtils.drainPlayerEnergy(playerIn, energyUsed);
-//            System.out.println("energy after: " + ElectricItemUtils.getPlayerEnergy(playerIn));
-//            System.out.println("drained energy: " + energyUsed);
             return ActionResult.newResult(result.getType(), itemStackIn);
         }
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);

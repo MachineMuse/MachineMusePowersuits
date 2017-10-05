@@ -18,7 +18,9 @@ public abstract class ElectricAdapter {
         if (i instanceof IMuseElectricItem) {
             return new MuseElectricAdapter(stack);
         } else if (ModCompatibility.isMekanismLoaded() && i instanceof IEnergizedItem) {
-        	return new MekanismElectricAdapter(stack);
+            if (!((IEnergizedItem) i).canSend(stack)) // don't count items that can't supply power
+                return null;
+            return new MekanismElectricAdapter(stack);
         } else if (ModCompatibility.isRFAPILoaded() && i instanceof IEnergyContainerItem) {
             return new TEElectricAdapter(stack);
         } else if (ModCompatibility.isIndustrialCraftLoaded() && i instanceof IElectricItem) {

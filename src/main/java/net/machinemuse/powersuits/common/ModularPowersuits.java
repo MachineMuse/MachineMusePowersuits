@@ -14,8 +14,7 @@ import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
 import static net.machinemuse.powersuits.common.ModularPowersuits.VERSION;
 
 /**
- * Main mod class. This is what Forge loads to get the mod up and running, both
- * server- and client-side.
+ * Modular Powersuits
  *
  * @author MachineMuse
  *
