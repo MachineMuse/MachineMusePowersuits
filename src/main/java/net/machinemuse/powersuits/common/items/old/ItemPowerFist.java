@@ -16,7 +16,6 @@ import net.machinemuse.numina.item.ModeChangingItem;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.powermodule.tool.GrafterModule;
 import net.machinemuse.powersuits.common.powermodule.tool.OmniWrenchModule;
-//import net.machinemuse.powersuits.common.powermodule.tool.RefinedStorageWirelessModule;
 import net.machinemuse.powersuits.common.powermodule.weapon.MeleeAssistModule;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
@@ -37,6 +36,8 @@ import net.minecraftforge.fml.common.Optional;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+
+//import net.machinemuse.powersuits.common.powermodule.tool.RefinedStorageWirelessModule;
 
 //import mods.railcraft.api.core.items.IToolCrowbar;
 

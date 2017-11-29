@@ -27,10 +27,16 @@ public class MuseItemTag {
             return null;
         }
 
-        NBTTagCompound stackTag = (stack.hasTagCompound()) ? stack.getTagCompound() : new NBTTagCompound();
-        stack.setTagCompound(stackTag);
-        NBTTagCompound properties = (stackTag.hasKey(NBTPREFIX)) ? stackTag.getCompoundTag(NBTPREFIX) : new NBTTagCompound();
-        stackTag.setTag(NBTPREFIX, properties);
-        return properties;
+        if (!stack.hasTagCompound())
+            stack.setTagCompound(new NBTTagCompound());
+
+        NBTTagCompound stackTag = stack.getTagCompound();
+
+        if (!stackTag.hasKey(NBTPREFIX)) {
+            stackTag.setTag(NBTPREFIX, new NBTTagCompound());
+            stack.setTagCompound(stackTag);
+        }
+
+        return stackTag.getCompoundTag(NBTPREFIX);
     }
 }

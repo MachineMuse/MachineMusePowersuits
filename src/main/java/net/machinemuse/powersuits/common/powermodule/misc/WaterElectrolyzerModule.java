@@ -4,10 +4,10 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
-import net.machinemuse.powersuits.client.events.MuseIcon;
 import net.machinemuse.general.sound.SoundDictionary;
-import net.machinemuse.numina.common.NuminaConfig;
 import net.machinemuse.numina.client.sound.Musique;
+import net.machinemuse.numina.common.NuminaSettings;
+import net.machinemuse.powersuits.client.events.MuseIcon;
 import net.machinemuse.powersuits.common.items.ItemComponent;
 import net.machinemuse.powersuits.common.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
@@ -53,7 +53,7 @@ public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerT
         double energyConsumption = ModuleManager.computeModularProperty(item, WATERBREATHING_ENERGY_CONSUMPTION);
         if (energy > energyConsumption && player.getAir() < 10) {
 
-            if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+            if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaSettings.useSounds) {
                 Musique.playClientSound(SoundDictionary.SOUND_EVENT_ELECTROLYZER, SoundCategory.PLAYERS, 1.0f, player.getPosition());
             }
             ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);

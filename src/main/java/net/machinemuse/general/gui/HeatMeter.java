@@ -1,9 +1,9 @@
 package net.machinemuse.general.gui;
 
-import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.client.render.MuseIconUtils;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
 import net.machinemuse.numina.client.render.RenderState;
+import net.machinemuse.numina.geometry.Colour;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraftforge.fml.relauncher.Side;

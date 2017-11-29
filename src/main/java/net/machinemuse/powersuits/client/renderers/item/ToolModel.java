@@ -7,9 +7,9 @@
 package net.machinemuse.powersuits.client.renderers.item;
 
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
 import net.machinemuse.numina.client.render.RenderState;
+import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.client.renderers.entity.EntityRendererPlasmaBolt;
 import net.machinemuse.powersuits.common.powermodule.weapon.PlasmaCannonModule;
 import net.minecraft.client.model.ModelBase;

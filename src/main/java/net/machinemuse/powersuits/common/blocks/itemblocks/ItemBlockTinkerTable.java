@@ -4,8 +4,6 @@ import net.machinemuse.powersuits.common.MuseConstants;
 import net.machinemuse.powersuits.common.blocks.BlockTinkerTable;
 import net.minecraft.item.ItemBlock;
 
-import static net.machinemuse.powersuits.common.MuseConstants.MODID;
-
 public class ItemBlockTinkerTable extends ItemBlock {
     private static ItemBlockTinkerTable ourInstance;
 

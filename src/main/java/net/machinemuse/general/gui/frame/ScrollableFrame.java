@@ -1,10 +1,10 @@
 package net.machinemuse.general.gui.frame;
 
+import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.DrawableMuseRect;
 import net.machinemuse.numina.geometry.MusePoint2D;
-import net.machinemuse.numina.client.render.RenderState;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 

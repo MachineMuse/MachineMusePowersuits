@@ -1,6 +1,6 @@
 package net.machinemuse.numina.general;
 
-import net.machinemuse.numina.common.NuminaConfig;
+import net.machinemuse.numina.common.NuminaSettings;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,7 +18,7 @@ public final class MuseLogger {
     public static void logDebug(String string) {
         boolean debugging = true;
         try {
-            if (!NuminaConfig.isDebugging()) debugging = false;
+            if (!NuminaSettings.isDebugging) debugging = false;
         } catch (Exception ignored){
         }
         if (debugging) logger.info(string);

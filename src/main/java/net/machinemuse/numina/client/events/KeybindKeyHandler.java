@@ -1,6 +1,6 @@
 package net.machinemuse.numina.client.events;
 
-import net.machinemuse.numina.common.NuminaConfig;
+import net.machinemuse.numina.common.NuminaSettings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.resources.I18n;
@@ -21,7 +21,9 @@ import org.lwjgl.input.Keyboard;
 @SideOnly(Side.CLIENT)
 public class KeybindKeyHandler {
     public static KeyBinding fovToggleKey = new KeyBinding(I18n.format("keybind.fovfixtoggle"), Keyboard.KEY_NONE, "Numina");
-    public boolean fovIsActive = NuminaConfig.fovFixDefaultState();
+
+    // TODO: change this to a capability and save via player nbt
+    public boolean fovIsActive = NuminaSettings.fovFixDefaultState;
 
     public KeybindKeyHandler() {
         ClientRegistry.registerKeyBinding(fovToggleKey);

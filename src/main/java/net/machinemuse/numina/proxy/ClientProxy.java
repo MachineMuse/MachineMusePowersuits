@@ -2,8 +2,8 @@ package net.machinemuse.numina.proxy;
 
 import net.machinemuse.numina.client.events.FOVUpdateEventHandler;
 import net.machinemuse.numina.client.events.KeybindKeyHandler;
-import net.machinemuse.numina.mouse.MouseEventHandler;
 import net.machinemuse.numina.client.render.RenderGameOverlayEventHandler;
+import net.machinemuse.numina.mouse.MouseEventHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 

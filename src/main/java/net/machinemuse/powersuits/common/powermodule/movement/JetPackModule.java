@@ -4,11 +4,11 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
-import net.machinemuse.powersuits.client.events.MuseIcon;
 import net.machinemuse.general.sound.SoundDictionary;
-import net.machinemuse.numina.common.NuminaConfig;
 import net.machinemuse.numina.client.sound.Musique;
+import net.machinemuse.numina.common.NuminaSettings;
 import net.machinemuse.powersuits.client.control.PlayerInputMap;
+import net.machinemuse.powersuits.client.events.MuseIcon;
 import net.machinemuse.powersuits.common.items.ItemComponent;
 import net.machinemuse.powersuits.common.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
@@ -72,24 +72,24 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
             thrust *= MusePlayerUtils.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
             if (hasFlightControl && thrust > 0) {
                 thrust = MusePlayerUtils.thrust(player, thrust, true);
-                if (player.world.isRemote && NuminaConfig.useSounds()) {
+                if (player.world.isRemote && NuminaSettings.useSounds) {
                         Musique.playerSound(player, SoundDictionary.SOUND_EVENT_JETPACK, SoundCategory.PLAYERS, (float) (thrust * 6.25), 1.0f, true);
                 }
                 ElectricItemUtils.drainPlayerEnergy(player, thrust * jetEnergy);
             } else if (jumpkey ){//&& player.motionY < 0.5) {
                 thrust = MusePlayerUtils.thrust(player, thrust, false);
-                if (player.world.isRemote && NuminaConfig.useSounds()) {
+                if (player.world.isRemote && NuminaSettings.useSounds) {
 
                     Musique.playerSound(player, SoundDictionary.SOUND_EVENT_JETPACK, SoundCategory.PLAYERS, (float) (thrust * 6.25), 1.0f, true);
                 }
                 ElectricItemUtils.drainPlayerEnergy(player, thrust * jetEnergy);
             } else {
-                if (player.world.isRemote && NuminaConfig.useSounds()) {
+                if (player.world.isRemote && NuminaSettings.useSounds) {
                     Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_JETPACK);
                 }
             }
         } else {
-            if (player.world.isRemote && NuminaConfig.useSounds()) {
+            if (player.world.isRemote && NuminaSettings.useSounds) {
                 Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_JETPACK);
             }
         }
@@ -97,7 +97,7 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-        if (player.world.isRemote && NuminaConfig.useSounds()) {
+        if (player.world.isRemote && NuminaSettings.useSounds) {
             Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_JETPACK);
         }
     }

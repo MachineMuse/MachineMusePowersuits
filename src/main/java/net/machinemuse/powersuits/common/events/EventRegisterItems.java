@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.common.events;
 
 
-import net.machinemuse.powersuits.common.items.*;
+import net.machinemuse.powersuits.common.items.ItemComponent;
 import net.machinemuse.powersuits.common.items.old.*;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;

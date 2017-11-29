@@ -6,14 +6,13 @@ import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.common.blocks.BlockLuxCapacitor;
 import net.machinemuse.powersuits.common.blocks.BlockTinkerTable;
-import net.machinemuse.powersuits.common.tileentities.TileEntityLuxCapacitor;
-import net.machinemuse.powersuits.common.tileentities.TileEntityTinkerTable;
 import net.machinemuse.powersuits.common.events.HarvestEventHandler;
 import net.machinemuse.powersuits.common.events.MovementManager;
+import net.machinemuse.powersuits.common.powermodule.tool.TerminalHandler;
+import net.machinemuse.powersuits.common.tileentities.TileEntityLuxCapacitor;
+import net.machinemuse.powersuits.common.tileentities.TileEntityTinkerTable;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.network.packets.MPSPacketList;
-import net.machinemuse.powersuits.common.powermodule.tool.TerminalHandler;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -22,7 +21,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import scala.reflect.internal.Trees;
 
 import java.io.File;
 

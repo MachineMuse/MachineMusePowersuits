@@ -5,9 +5,8 @@ package net.machinemuse.api.electricity;
 //import cofh.api.energy.IEnergyContainerItem;
 //import ic2.api.item.IElectricItemManager;
 //import ic2.api.item.ISpecialElectricItem;
+
 import mekanism.api.energy.IEnergizedItem;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Optional;
 

@@ -10,13 +10,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import static net.machinemuse.powersuits.common.MuseConstants.MODID;
-import static net.machinemuse.powersuits.common.MuseConstants.RESOURCE_PREFIX;
 
 /*
  * These are mostly icons for the Tinker Table GUI and PowerFist GUI

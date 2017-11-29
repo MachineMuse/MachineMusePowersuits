@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.entity;
 
 import io.netty.buffer.ByteBuf;
-import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.client.helpers.EnumColour;
 import net.machinemuse.powersuits.common.blocks.BlockLuxCapacitor;
 import net.machinemuse.powersuits.common.tileentities.TileEntityLuxCapacitor;

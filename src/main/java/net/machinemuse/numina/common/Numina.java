@@ -1,7 +1,7 @@
 package net.machinemuse.numina.common;
 
-import net.machinemuse.numina.proxy.CommonProxy;
 import net.machinemuse.numina.common.recipe.JSONRecipeList;
+import net.machinemuse.numina.proxy.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -12,8 +12,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
 import javax.annotation.Nonnull;
 import java.io.File;
 
-import static net.machinemuse.numina.common.Numina.MODID;
-import static net.machinemuse.numina.common.Numina.VERSION;
+import static net.machinemuse.numina.common.NuminaConstants.*;
 
 
 /**
@@ -22,11 +21,8 @@ import static net.machinemuse.numina.common.Numina.VERSION;
  *
  * Ported to Java by lehjr on 11/15/16.
  */
-@Mod(modid = MODID, version = VERSION)
+@Mod(modid = MODID, name = NAME, version = VERSION)
 public class Numina {
-    public static final String MODID = "numina";
-    public static final String VERSION = "@numina_version@";
-
     @SidedProxy(clientSide = "net.machinemuse.numina.proxy.ClientProxy", serverSide = "net.machinemuse.numina.proxy.ServerProxy")
     static CommonProxy proxy;
     public static File configDir = null;

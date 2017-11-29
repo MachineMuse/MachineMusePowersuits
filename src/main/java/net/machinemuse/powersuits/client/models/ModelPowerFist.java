@@ -38,7 +38,7 @@ public class ModelPowerFist implements IBakedModel {
 
     public ModelPowerFist(IBakedModel bakedModelIn) {
         if (bakedModelIn instanceof ModelPowerFist) {
-            this.iconModel = ((ModelPowerFist)bakedModelIn).iconModel;
+            this.iconModel = ((ModelPowerFist) bakedModelIn).iconModel;
         } else {
             this.iconModel = bakedModelIn;
         }
@@ -84,7 +84,7 @@ public class ModelPowerFist implements IBakedModel {
         return new PowerFistItemOverrideList();
     }
 
-    public class PowerFistItemOverrideList  extends ItemOverrideList {
+    public class PowerFistItemOverrideList extends ItemOverrideList {
         public PowerFistItemOverrideList() {
             super(Collections.EMPTY_LIST);
         }
@@ -100,10 +100,8 @@ public class ModelPowerFist implements IBakedModel {
                 if (itemStack != null && itemStack == entityIn.getHeldItemMainhand() && entityIn.isHandActive()
                         && ModuleManager.itemHasActiveModule(itemStack, PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
                     isFiring = true;
-                }
-                else isFiring = false;
-            }
-            else isFiring = false;
+                } else isFiring = false;
+            } else isFiring = false;
 
             return originalModel;
         }

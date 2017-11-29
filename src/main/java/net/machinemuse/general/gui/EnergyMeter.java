@@ -1,7 +1,7 @@
 package net.machinemuse.general.gui;
 
-import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.client.render.RenderState;
+import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.utils.render.MuseRenderer;
 import org.lwjgl.opengl.GL11;
 

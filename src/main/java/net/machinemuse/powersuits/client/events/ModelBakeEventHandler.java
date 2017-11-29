@@ -123,7 +123,7 @@ public class ModelBakeEventHandler {
 //    private void storeLuxCapModel(EnumFacing facing) {
 //        ModelResourceLocation luxCapacitorLocation = luxCapHeler.getLocationForFacing(facing);
 //        IBakedModel modelIn = modelRegistry.getObject(luxCapacitorLocation);
-//        if (modelIn instanceof OBJModel.OBJBakedModel) {
+//        if (modelIn instanceof OBJModelPlus.OBJBakedModelPus) {
 //            LuxCapModelHelper.getInstance().putLuxCapModels(facing, modelIn);
 //            modelRegistry.putObject(luxCapacitorLocation, new ModelLuxCapacitorOLD(modelIn));
 //        }

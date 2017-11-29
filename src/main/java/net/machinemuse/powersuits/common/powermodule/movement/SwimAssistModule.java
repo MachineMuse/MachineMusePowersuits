@@ -4,11 +4,11 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
-import net.machinemuse.powersuits.client.events.MuseIcon;
 import net.machinemuse.general.sound.SoundDictionary;
-import net.machinemuse.numina.common.NuminaConfig;
 import net.machinemuse.numina.client.sound.Musique;
+import net.machinemuse.numina.common.NuminaSettings;
 import net.machinemuse.powersuits.client.control.PlayerInputMap;
+import net.machinemuse.powersuits.client.events.MuseIcon;
 import net.machinemuse.powersuits.common.items.ItemComponent;
 import net.machinemuse.powersuits.common.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
@@ -71,22 +71,22 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
                 double swimAssistRate = ModuleManager.computeModularProperty(item, SWIM_BOOST_AMOUNT) * 0.05 * moveRatio;;
                 double swimEnergyConsumption = ModuleManager.computeModularProperty(item, SWIM_BOOST_ENERGY_CONSUMPTION);
                 if (swimEnergyConsumption < ElectricItemUtils.getPlayerEnergy(player)) {
-                    if (player.world.isRemote && NuminaConfig.useSounds()) {
+                    if (player.world.isRemote && NuminaSettings.useSounds) {
                         Musique.playerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST, SoundCategory.PLAYERS, 1.0f, 1.0f, true);
                     }
                     MusePlayerUtils.thrust(player, swimAssistRate, true);
                 } else {
-                    if (player.world.isRemote && NuminaConfig.useSounds()) {
+                    if (player.world.isRemote && NuminaSettings.useSounds) {
                         Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST);
                     }
                 }
             } else {
-                if (player.world.isRemote && NuminaConfig.useSounds()) {
+                if (player.world.isRemote && NuminaSettings.useSounds) {
                     Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST);
                 }
             }
         } else {
-            if (player.world.isRemote && NuminaConfig.useSounds()) {
+            if (player.world.isRemote && NuminaSettings.useSounds) {
                 Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST);
             }
         }
@@ -94,7 +94,7 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-        if (player.world.isRemote && NuminaConfig.useSounds()) {
+        if (player.world.isRemote && NuminaSettings.useSounds) {
             Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST);
         }
     }

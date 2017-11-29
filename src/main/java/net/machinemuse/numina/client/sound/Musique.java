@@ -1,6 +1,6 @@
 package net.machinemuse.numina.client.sound;
 
-import net.machinemuse.numina.common.NuminaConfig;
+import net.machinemuse.numina.common.NuminaSettings;
 import net.machinemuse.numina.general.MuseLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -36,7 +36,7 @@ public class Musique {
     }
 
     public static void playClientSound(SoundEvent soundEvt, SoundCategory categoryIn, float volumeIn, BlockPos posIn) {
-        if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+        if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaSettings.useSounds) {
             BlockPos pos = (posIn != null) ? posIn : Minecraft.getMinecraft().player.getPosition();
 
             // creates a sound
@@ -53,7 +53,7 @@ public class Musique {
     public static void playerSound(EntityPlayer player, SoundEvent soundEvt, SoundCategory categoryIn, float volume, Float pitch, Boolean continuous) {
         pitch = (pitch != null) ? pitch : 1.0F;
         continuous = (continuous != null) ? continuous : true;
-        if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+        if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaSettings.useSounds) {
             MovingSoundPlayer sound = soundMap.get(soundEvt);
 
             if (sound != null && (sound.isDonePlaying() || !sound.canRepeat())) {
@@ -72,7 +72,7 @@ public class Musique {
     }
 
     public static void stopPlayerSound(EntityPlayer player, SoundEvent soundEvt) {
-        if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+        if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaSettings.useSounds) {
             MovingSoundPlayer sound = soundMap.get(soundEvt);
             MuseLogger.logDebug("Sound stopped: " + soundEvt.getSoundName());
             if (sound != null) {

@@ -1,11 +1,13 @@
 package net.machinemuse.numina.network;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import com.google.common.collect.Maps;
 import io.netty.buffer.ByteBufInputStream;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageCodec;
 import net.machinemuse.numina.general.MuseLogger;
-import net.machinemuse.numina.scala.MuseNumericRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,12 +34,12 @@ import java.util.List;
 @ChannelHandler.Sharable
 public final class MusePacketHandler extends MessageToMessageCodec<FMLProxyPacket, MusePacket> {
     public static String networkChannelName;
-    public static MuseNumericRegistry<MusePackager> packagers;
+    public static BiMap<Integer, MusePackager> packagers;
     public static EnumMap<Side, FMLEmbeddedChannel> channels;
 
     private MusePacketHandler() {
         this.networkChannelName = "Numina";
-        this.packagers = new MuseNumericRegistry<>();
+        this.packagers = Maps.synchronizedBiMap(HashBiMap.create());
         this.channels = NetworkRegistry.INSTANCE.newChannel(this.networkChannelName, this);
     }
 

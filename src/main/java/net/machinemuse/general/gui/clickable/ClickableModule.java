@@ -2,10 +2,10 @@ package net.machinemuse.general.gui.clickable;
 
 import net.machinemuse.api.ILocalizeableModule;
 import net.machinemuse.api.IPowerModule;
-import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.client.render.MuseIconUtils;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
+import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.utils.MuseStringUtils;
 import net.machinemuse.utils.render.GuiIcons;
 import net.machinemuse.utils.render.MuseRenderer;

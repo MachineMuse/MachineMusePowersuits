@@ -1,12 +1,12 @@
 package net.machinemuse.utils.render;
 
 import net.machinemuse.general.gui.clickable.IClickable;
-import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.numina.geometry.MusePoint2D;
-import net.machinemuse.numina.geometry.SwirlyMuseCircle;
 import net.machinemuse.numina.client.render.BillboardHelper;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
 import net.machinemuse.numina.client.render.RenderState;
+import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.geometry.MusePoint2D;
+import net.machinemuse.numina.geometry.SwirlyMuseCircle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.PositionTextureVertex;

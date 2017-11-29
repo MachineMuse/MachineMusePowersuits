@@ -1,7 +1,6 @@
 package net.machinemuse.numina.common.tileentity;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -22,7 +21,6 @@ public abstract class MuseTileEntity extends TileEntity {
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         this.loadNBTData(pkt.getNbtCompound());
         this.world.markBlockRangeForRenderUpdate(this.getPos(), this.getPos());
-
 //        IBlockState state = getWorld().getBlockState(getPos());
 //        getWorld().notifyBlockUpdate(getPos(), state, state, 3);
     }

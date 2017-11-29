@@ -1,12 +1,9 @@
 package net.machinemuse.powersuits.client.events;
 
 import net.machinemuse.powersuits.client.models.ModelLuxCapacitor;
-//import net.machinemuse.powersuits.client.renderers.TinkerTableRenderer;
-import net.machinemuse.powersuits.client.modelspec.ModelSpecXMLReader;
 import net.machinemuse.powersuits.common.blocks.BlockLuxCapacitor;
 import net.machinemuse.powersuits.common.blocks.BlockTinkerTable;
 import net.machinemuse.powersuits.common.events.EventRegisterItems;
-import net.machinemuse.powersuits.common.items.old.ItemPowerFist;
 import net.machinemuse.powersuits.common.tileentities.TileEntityTinkerTable;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -17,9 +14,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.net.URL;
-
-import static com.google.common.io.Resources.getResource;
+//import net.machinemuse.powersuits.client.renderers.TinkerTableRenderer;
 
 @SideOnly(Side.CLIENT)
 public class EventRegisterRenderers {

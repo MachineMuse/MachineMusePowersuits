@@ -1,9 +1,9 @@
 package net.machinemuse.numina.common.events;
 
-import net.machinemuse.numina.network.MusePacketRecipeUpdate;
-import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.common.recipe.JSONRecipe;
 import net.machinemuse.numina.common.recipe.JSONRecipeList;
+import net.machinemuse.numina.network.MusePacketRecipeUpdate;
+import net.machinemuse.numina.network.PacketSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

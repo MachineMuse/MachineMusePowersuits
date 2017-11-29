@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.client.modelspec;
 
 import net.machinemuse.numina.scala.MuseRegistry;
-import net.machinemuse.powersuits.client.models.ModelHelper;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.common.model.TRSRTransformation;

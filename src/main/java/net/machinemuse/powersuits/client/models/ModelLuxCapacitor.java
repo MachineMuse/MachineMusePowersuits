@@ -14,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -24,26 +23,52 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import static net.minecraft.block.BlockDirectional.FACING;
 
 @SideOnly(Side.CLIENT)
 public class ModelLuxCapacitor implements IBakedModel {
-    public static ModelResourceLocation getModelResourceLocation(EnumFacing facing) {
-        return new ModelResourceLocation(BlockLuxCapacitor.getInstance().getRegistryName().toString(), "facing=" + facing.getName());
-    }
     public static final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(BlockLuxCapacitor.getInstance().getRegistryName().toString());
-    private LuxCapacitorItemOverrideList overrides;
-
-    protected Function<ResourceLocation, TextureAtlasSprite> textureGetter;
     public IBakedModel wrapper;
+    protected Function<ResourceLocation, TextureAtlasSprite> textureGetter;
     EnumColour colour;
-
+    Matrix4f defaultTransform;
+    private LuxCapacitorItemOverrideList overrides;
+    private Map<ItemCameraTransforms.TransformType, Matrix4f> cameraTransforms;
     public ModelLuxCapacitor() {
         this.overrides = new LuxCapacitorItemOverrideList();
         this.wrapper = this;
+        this.cameraTransforms = new HashMap<ItemCameraTransforms.TransformType, Matrix4f>() {{
+            put(ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND,
+                    ModelHelper.get(1.13F, 3.2F, 1.13F, -25F, -90F, 0F, 0.41F).getMatrix());
+
+            put(ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND,
+                    ModelHelper.get(0F, 2F, 3F, 0F, 0F, 45F, 0.5F).getMatrix());
+
+            put(ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND,
+                    ModelHelper.get(1.13F, 3.2F, 1.13F, -25F, -90F, 0F, 0.41F).getMatrix());
+
+            put(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND,
+                    ModelHelper.get(0F, 2F, 3F, 0F, 0F, 45F, 0.5F).getMatrix());
+
+            put(ItemCameraTransforms.TransformType.GUI,
+                    ModelHelper.get(0F, 2.75F, 0F, -45F, 0F, 45F, 0.75F).getMatrix());
+
+            put(ItemCameraTransforms.TransformType.GROUND,
+                    ModelHelper.get(0F, 2F, 0F, -90F, -0F, 0F, 0.5F).getMatrix());
+
+            put(ItemCameraTransforms.TransformType.FIXED,
+                    ModelHelper.get(0F, 0F, -7.5F, 0F, 180F, 0F, 1F).getMatrix());
+        }};
+        defaultTransform = ModelHelper.get(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F).getMatrix();
+    }
+
+    public static ModelResourceLocation getModelResourceLocation(EnumFacing facing) {
+        return new ModelResourceLocation(BlockLuxCapacitor.getInstance().getRegistryName().toString(), "facing=" + facing.getName());
     }
 
     @Override
@@ -59,24 +84,14 @@ public class ModelLuxCapacitor implements IBakedModel {
             facing = state.getValue(FACING);
             if (state instanceof IExtendedBlockState)
                 if (((IExtendedBlockState) state).getUnlistedProperties().containsKey(BlockLuxCapacitor.COLOUR))
-                    colour  = ((IExtendedBlockState) state).getValue(BlockLuxCapacitor.COLOUR);
+                    colour = ((IExtendedBlockState) state).getValue(BlockLuxCapacitor.COLOUR);
         }
         if (colour == null)
             colour = BlockLuxCapacitor.defaultColor;
-
-
-//        if (colour == null) {
-//            System.out.println("colour here is null!!!!");
-//
-//
-//            return Collections.emptyList();
-//        } else
-//            System.out.println("colour here: " + colour.getName());
-
         ColoredQuadHelperThingie helperThingie = new ColoredQuadHelperThingie(colour, facing);
 
         try {
-            return  ModelLuxCapacitorHelper.getInstance().luxCapColoredQuadMap.get(helperThingie);
+            return ModelLuxCapacitorHelper.getInstance().luxCapColoredQuadMap.get(helperThingie);
         } catch (ExecutionException e) {
             e.printStackTrace();
             return Collections.emptyList();
@@ -104,58 +119,16 @@ public class ModelLuxCapacitor implements IBakedModel {
     }
 
     @Override
-    public ItemCameraTransforms getItemCameraTransforms() {
-        return ItemCameraTransforms.DEFAULT;
-    }
-
-    @Override
     public ItemOverrideList getOverrides() {
         return this.overrides;
     }
 
     @Override
     public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
-        TRSRTransformation transform;
-        switch(cameraTransformType) {
-            case FIRST_PERSON_RIGHT_HAND:
-                transform = ModelHelper.get(1.13F, 3.2F, 1.13F, -25F, -90F, 0F, 0.41F);
-
-
-                break;
-
-            case THIRD_PERSON_RIGHT_HAND:
-                transform = ModelHelper.get(0F, 2F, 3F, 0F, 0F, 45F, 0.5F);
-                break;
-
-            case FIRST_PERSON_LEFT_HAND:
-                transform = ModelHelper.get(1.13F, 3.2F, 1.13F, -25F, -90F, 0F, 0.41F);
-                break;
-
-            case THIRD_PERSON_LEFT_HAND:
-                transform = ModelHelper.get(0F, 2F, 3F, 0F, 0F, 45F, 0.5F);
-                break;
-
-            case GUI:
-                transform = ModelHelper.get(0F, 2.75F, 0F, -45F, 0F, 45F, 0.75F);
-                break;
-
-            case GROUND:
-                transform = ModelHelper.get(0F, 2F, 0F, -90F, -0F, 0F, 0.5F);
-                break;
-
-            case FIXED:
-                transform = ModelHelper.get(0F, 0F, -7.5F, 0F, 180F, 0F, 1F);
-                break;
-
-            default:
-                transform = ModelHelper.get(0.0F, 0.0F, 0.0F,0.0F, 0.0F, 0.0F, 1.0F);
-                break;
-
-//            default:
+        Matrix4f transform = cameraTransforms.getOrDefault(cameraTransformType, defaultTransform);
 //                ModelHelper.transformCalibration();
 //                transform = ModelHelper.get(ModelHelper.xOffest, ModelHelper.yOffest, ModelHelper.zOffest, ModelHelper.xtap, ModelHelper.ytap, ModelHelper.ztap, ModelHelper.scalemodifier);
-        }
-        return Pair.of(this, transform.getMatrix());
+        return Pair.of(this, transform);
     }
 
     private class LuxCapacitorItemOverrideList extends ItemOverrideList {

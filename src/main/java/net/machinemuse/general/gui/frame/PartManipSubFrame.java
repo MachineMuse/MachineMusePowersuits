@@ -1,13 +1,13 @@
 package net.machinemuse.general.gui.frame;
 
 import net.machinemuse.general.gui.clickable.ClickableItem;
+import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MuseRect;
 import net.machinemuse.numina.geometry.MuseRelativeRect;
 import net.machinemuse.numina.network.PacketSender;
-import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.powersuits.client.modelspec.ModelPartSpec;
 import net.machinemuse.powersuits.client.modelspec.ModelRegistry;
 import net.machinemuse.powersuits.client.modelspec.ModelSpec;

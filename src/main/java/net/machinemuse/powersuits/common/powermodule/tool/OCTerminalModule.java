@@ -24,7 +24,7 @@ package net.machinemuse.powersuits.common.powermodule.tool;// package andrew.pow
 // //import li.cil.oc.common.item.Terminal;
 // import li.cil.oc.api.machine.Machine;
 // import li.cil.oc.common.component.Terminal;
-// import li.cil.oc.Settings;
+// import li.cil.oc.NuminaSettings;
 // import li.cil.oc.server.PacketSender;
 // import li.cil.oc.common.GuiType;
 // import li.cil.oc.client.GuiHandler;
@@ -111,7 +111,7 @@ package net.machinemuse.powersuits.common.powermodule.tool;// package andrew.pow
 //                             term.keys().$minus$eq(stack.getTagCompound().getString("oc:key"));
 //                         }
 //
-//                         int maxSize = Settings.get().terminalsPerTier()[(Math.min(2, server.tier()))];
+//                         int maxSize = NuminaSettings.get().terminalsPerTier()[(Math.min(2, server.tier()))];
 //
 //                         while (term.keys().size() >= maxSize) {
 //                             term.keys().remove(0);
@@ -152,7 +152,7 @@ package net.machinemuse.powersuits.common.powermodule.tool;// package andrew.pow
 //                                                 term.keys().$minus$eq(stack.getTagCompound().getString("oc:key"));
 //                                         }
 //
-//                                         int maxSize = Settings.get().terminalsPerTier()[(Math.min(2, server.tier()))];
+//                                         int maxSize = NuminaSettings.get().terminalsPerTier()[(Math.min(2, server.tier()))];
 //
 //                                         while (term.keys().size() >= maxSize) {
 //                                                 term.keys().remove(0);

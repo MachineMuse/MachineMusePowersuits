@@ -2,11 +2,11 @@ package net.machinemuse.general.gui.frame;
 
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.sound.SoundDictionary;
+import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.FlyFromPointToPoint2D;
 import net.machinemuse.numina.geometry.GradientAndArcCalculator;
 import net.machinemuse.numina.geometry.MusePoint2D;
-import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.entity.player.EntityPlayer;

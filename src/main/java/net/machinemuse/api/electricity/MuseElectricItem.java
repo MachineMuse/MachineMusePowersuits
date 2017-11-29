@@ -5,7 +5,6 @@ package net.machinemuse.api.electricity;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseItemUtils;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 

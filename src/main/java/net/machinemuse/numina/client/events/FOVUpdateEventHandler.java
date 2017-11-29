@@ -1,6 +1,6 @@
 package net.machinemuse.numina.client.events;
 
-import net.machinemuse.numina.common.NuminaConfig;
+import net.machinemuse.numina.common.NuminaSettings;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraftforge.client.event.FOVUpdateEvent;
@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class FOVUpdateEventHandler {
     @SubscribeEvent
     public void onFOVUpdate(FOVUpdateEvent e) {
-        if (NuminaConfig.useFOVFix()) {
+        if (NuminaSettings.useFOVFix) {
             IAttributeInstance attributeinstance = e.getEntity().getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
             e.setNewfov((float) (e.getFov() / ((attributeinstance.getAttributeValue() / e.getEntity().capabilities.getWalkSpeed() + 1.0) / 2.0)));
         }

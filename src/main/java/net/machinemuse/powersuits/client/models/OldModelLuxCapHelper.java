@@ -16,7 +16,7 @@ package net.machinemuse.powersuits.client.models;
 //import net.minecraft.util.ResourceLocation;
 //import net.minecraftforge.client.model.IModel;
 //import net.minecraftforge.client.model.obj.OBJLoader;
-//import net.minecraftforge.client.model.obj.OBJModel;
+//import net.minecraftforge.client.model.obj.OBJModelPlus;
 //import net.minecraftforge.common.property.IExtendedBlockState;
 //import net.minecraftforge.fml.relauncher.Side;
 //import net.minecraftforge.fml.relauncher.SideOnly;
@@ -83,7 +83,7 @@ package net.machinemuse.powersuits.client.models;
 //        IModel model = null;
 //        try {
 //            model = OBJLoader.INSTANCE.loadModel(lensModelLocation);
-//            model = ((OBJModel) model).process(ImmutableMap.copyOf(ImmutableMap.of("flip-v", "true")));
+//            model = ((OBJModelPlus) model).process(ImmutableMap.copyOf(ImmutableMap.of("flip-v", "true")));
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
@@ -95,10 +95,10 @@ package net.machinemuse.powersuits.client.models;
 //
 //        if (lensModel == null) {
 //            IBakedModel frameModel = luxCapCleanFrameModelMap.get(facing);
-//            if (frameModel != null && frameModel instanceof OBJModel.OBJBakedModel) {
+//            if (frameModel != null && frameModel instanceof OBJModelPlus.OBJBakedModelPus) {
 //                IModel model = getLensModel();
-//                if (model instanceof OBJModel) {
-//                    lensModel = model.bake(((OBJModel.OBJBakedModel) frameModel).getState(), DefaultVertexFormats.ITEM,
+//                if (model instanceof OBJModelPlus) {
+//                    lensModel = model.bake(((OBJModelPlus.OBJBakedModelPus) frameModel).getState(), DefaultVertexFormats.ITEM,
 //                            location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString()));
 //                }
 //            }
@@ -112,12 +112,12 @@ package net.machinemuse.powersuits.client.models;
 //
 //    // used in the ModelBakeEvent handler to load the untouched models into the cache
 //    public static void putLuxCapModels(EnumFacing facing, IBakedModel model) {
-//        if (model instanceof OBJModel.OBJBakedModel && luxCapCleanFrameModelMap.get(facing) == null) {
+//        if (model instanceof OBJModelPlus.OBJBakedModelPus && luxCapCleanFrameModelMap.get(facing) == null) {
 //            luxCapCleanFrameModelMap.put(facing, model);
 //
 //            // bake and load the lens models too
 //            IBakedModel lensModel = getBakedLensModelForFacing(facing);
-//            if (lensModel instanceof OBJModel.OBJBakedModel && luxCapCleanLensModelMap.get(facing) == null) {
+//            if (lensModel instanceof OBJModelPlus.OBJBakedModelPus && luxCapCleanLensModelMap.get(facing) == null) {
 //                luxCapCleanLensModelMap.put(facing, lensModel);
 //            }
 //        }

@@ -24,24 +24,8 @@ import static net.machinemuse.powersuits.common.blocks.BlockLuxCapacitor.FACING;
 
 @SideOnly(Side.CLIENT)
 public class ModelLuxCapacitorHelper {
-    private static ModelLuxCapacitorHelper INSTANCE;
-    public static ModelLuxCapacitorHelper getInstance() {
-        if (INSTANCE == null) {
-            synchronized (ModelLuxCapacitorHelper.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new ModelLuxCapacitorHelper();
-                }
-            }
-        }
-        return INSTANCE;
-    }
-
-    private ModelLuxCapacitorHelper() {
-    }
-
     private static final ResourceLocation baseModelLocation = new ResourceLocation(RESOURCE_PREFIX + "block/luxcapacitor/luxcapacitor_base.obj");
     private static final ResourceLocation lensModelLocation = new ResourceLocation(RESOURCE_PREFIX + "block/luxcapacitor/luxcapacitor_lens.obj");
-
     /*
      * Guava chache for the list of baked quads.
      * The "ColoredQuadHelperThingie" is just easier and cleaner than using multi level maps.
@@ -67,14 +51,14 @@ public class ModelLuxCapacitorHelper {
 
                     TRSRTransformation transform = new TRSRTransformation(facing);
                     IBakedModel bakedModel = ModelHelper.getBakedModel(baseModelLocation, transform);
-                    return bakedModel.getQuads(BlockLuxCapacitor.getInstance().getDefaultState().withProperty(FACING, facing), null, 0 );
+                    return bakedModel.getQuads(BlockLuxCapacitor.getInstance().getDefaultState().withProperty(FACING, facing), null, 0);
                 }
 
                 List<BakedQuad> getLensColoredQuads(EnumColour color, @Nullable EnumFacing facing) {
                     facing = (facing != null) ? facing : EnumFacing.NORTH;
                     TRSRTransformation transform = new TRSRTransformation(facing);
                     IBakedModel bakedModel = ModelHelper.getBakedModel(lensModelLocation, transform);
-                    List<BakedQuad> quads = bakedModel.getQuads(BlockLuxCapacitor.getInstance().getDefaultState().withProperty(FACING, facing), null, 0 );
+                    List<BakedQuad> quads = bakedModel.getQuads(BlockLuxCapacitor.getInstance().getDefaultState().withProperty(FACING, facing), null, 0);
                     return ModelHelper.getColoredQuads(quads, color.getColour());
                 }
 
@@ -92,4 +76,18 @@ public class ModelLuxCapacitorHelper {
                     return builder.build();
                 }
             });
+    private static ModelLuxCapacitorHelper INSTANCE;
+    private ModelLuxCapacitorHelper() {
+    }
+
+    public static ModelLuxCapacitorHelper getInstance() {
+        if (INSTANCE == null) {
+            synchronized (ModelLuxCapacitorHelper.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new ModelLuxCapacitorHelper();
+                }
+            }
+        }
+        return INSTANCE;
+    }
 }
