@@ -11,8 +11,10 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_DIAMOND_PLATING;
+
 public class DiamondPlatingModule extends PowerModuleBase {
-    public static final String MODULE_DIAMOND_PLATING = "Diamond Plating";
+
 
     public DiamondPlatingModule(List<IModularItem> validItems) {
         super(validItems);

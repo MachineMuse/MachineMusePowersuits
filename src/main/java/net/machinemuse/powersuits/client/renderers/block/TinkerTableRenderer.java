@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 
-import static net.machinemuse.powersuits.common.MuseConstants.TEXTURE_PREFIX;
+import static net.machinemuse.powersuits.common.MPSConstants.TEXTURE_PREFIX;
 
 /**
  * Rendering handler for the tinkertable

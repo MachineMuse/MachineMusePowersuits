@@ -3,7 +3,7 @@ package net.machinemuse.general.gui.frame;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.powersuits.common.powermodule.PowerModule;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
@@ -66,7 +66,7 @@ public class DetailedSummaryFrame extends ScrollableFrame {
             MuseRenderer.drawRightAlignedString(formattedValue, border.right() - margin, nexty + 9 * (namesList.size() - 1) / 2);
             nexty += 10*namesList.size()+1;
 
-            formattedValue = MuseStringUtils.wrapFormatTags(MuseStringUtils.formatNumberFromUnits(weight, PowerModule.getUnit(MuseCommonStrings.WEIGHT)), weight > Config.getWeightCapacity() ? MuseStringUtils.FormatCodes.Red : MuseStringUtils.FormatCodes.BrightGreen);
+            formattedValue = MuseStringUtils.wrapFormatTags(MuseStringUtils.formatNumberFromUnits(weight, PowerModule.getUnit(MuseCommonStrings.WEIGHT)), weight > MPSSettings.general.getWeightCapacity ? MuseStringUtils.FormatCodes.Red : MuseStringUtils.FormatCodes.BrightGreen);
             name = I18n.format("gui.weight");
             valueWidth = MuseRenderer.getStringWidth(formattedValue);
             allowedNameWidth = border.width() - valueWidth - margin * 2;

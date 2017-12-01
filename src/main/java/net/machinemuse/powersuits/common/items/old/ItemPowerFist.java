@@ -13,7 +13,8 @@ import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.numina.item.IModeChangingItem;
 import net.machinemuse.numina.item.ModeChangingItem;
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.MPSConstants;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.powersuits.common.powermodule.tool.GrafterModule;
 import net.machinemuse.powersuits.common.powermodule.tool.OmniWrenchModule;
 import net.machinemuse.powersuits.common.powermodule.weapon.MeleeAssistModule;
@@ -80,7 +81,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         super(0.0f, 0.0f, ToolMaterial.DIAMOND); // FIXME
         this.maxStackSize =1;
         this.setMaxDamage(0);
-        this.setCreativeTab(Config.getCreativeTab());
+        this.setCreativeTab(MPSSettings.getCreativeTab());
         this.setUnlocalizedName("powerFist");
     }
 
@@ -111,7 +112,7 @@ public class ItemPowerFist extends MPSItemElectricTool
             entityBeingHit.rotationYaw += 90.0f;
             entityBeingHit.rotationYaw %= 360.0f;
         }
-        if (entityDoingHitting instanceof EntityPlayer && ModuleManager.itemHasActiveModule(stack, MeleeAssistModule.MODULE_MELEE_ASSIST)) {
+        if (entityDoingHitting instanceof EntityPlayer && ModuleManager.itemHasActiveModule(stack, MPSConstants.MODULE_MELEE_ASSIST)) {
             EntityPlayer player = (EntityPlayer) entityDoingHitting;
             double drain = ModuleManager.computeModularProperty(stack, MeleeAssistModule.PUNCH_ENERGY);
             if (ElectricItemUtils.getPlayerEnergy(player) > drain) {

@@ -17,8 +17,10 @@ import net.minecraft.potion.PotionEffect;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_ACTIVE_CAMOUFLAGE;
+
 public class InvisibilityModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
-    public static final String MODULE_ACTIVE_CAMOUFLAGE = "Active Camouflage";
+
     private final Potion invisibility = Potion.getPotionFromResourceLocation("invisibility");
 
     public InvisibilityModule(List<IModularItem> validItems) {

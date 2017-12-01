@@ -8,7 +8,8 @@ import net.machinemuse.numina.client.render.MuseTextureUtils;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.DrawableMuseRect;
 import net.machinemuse.powersuits.client.control.KeybindManager;
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.MPSConstants;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.powersuits.common.powermodule.misc.BinocularsModule;
 import net.machinemuse.powersuits.common.powermodule.movement.FlightControlModule;
 import net.machinemuse.powersuits.common.powermodule.movement.GliderModule;
@@ -32,7 +33,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class RenderEventHandler {
     private static boolean ownFly;
-    private final DrawableMuseRect frame = new DrawableMuseRect(Config.keybindHUDx(), Config.keybindHUDy(), Config.keybindHUDx() + (double)16, Config.keybindHUDy() + (double)16, true, Colour.DARKGREEN.withAlpha(0.2), Colour.GREEN.withAlpha(0.2));
+    private final DrawableMuseRect frame = new DrawableMuseRect(MPSSettings.hud.keybindHUDx, MPSSettings.hud.keybindHUDy, MPSSettings.hud.keybindHUDx + (double)16, MPSSettings.hud.keybindHUDy + (double)16, true, Colour.DARKGREEN.withAlpha(0.2), Colour.GREEN.withAlpha(0.2));
 
     public RenderEventHandler() {
         this.ownFly = false;
@@ -78,10 +79,10 @@ public class RenderEventHandler {
     }
 
     private boolean playerHasFlightOn(EntityPlayer player) {
-        return ModuleManager.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), JetPackModule.MODULE_JETPACK) ||
-                ModuleManager.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), GliderModule.MODULE_GLIDER) ||
-                ModuleManager.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.FEET), JetBootsModule.MODULE_JETBOOTS) ||
-                ModuleManager.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.HEAD), FlightControlModule.MODULE_FLIGHT_CONTROL);
+        return ModuleManager.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), MPSConstants.MODULE_JETPACK) ||
+                ModuleManager.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), MPSConstants.MODULE_GLIDER) ||
+                ModuleManager.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.FEET), MPSConstants.MODULE_JETBOOTS) ||
+                ModuleManager.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.HEAD), MPSConstants.MODULE_FLIGHT_CONTROL);
     }
 
     @SubscribeEvent
@@ -110,12 +111,12 @@ public class RenderEventHandler {
     }
     @SideOnly(Side.CLIENT)
     public void drawKeybindToggles() {
-        if (Config.keybindHUDon()) {
+        if (MPSSettings.hud.keybindHUDon) {
             Minecraft mc = Minecraft.getMinecraft();
             EntityPlayerSP player = mc.player;
             ScaledResolution screen = new ScaledResolution(mc);
-            frame.setLeft(Config.keybindHUDx());
-            frame.setTop(Config.keybindHUDy());
+            frame.setLeft(MPSSettings.hud.keybindHUDx);
+            frame.setTop(MPSSettings.hud.keybindHUDy);
             frame.setBottom(frame.top() + 16);
             for (ClickableKeybinding kb:   KeybindManager.getKeybindings()) {
                 if (kb.displayOnHUD) {

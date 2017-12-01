@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.common.blocks;
 
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.ModularPowersuits;
-import net.machinemuse.powersuits.common.MuseConstants;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.powersuits.common.tileentities.TileEntityTinkerTable;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-import static net.machinemuse.powersuits.common.MuseConstants.MODID;
+import static net.machinemuse.powersuits.common.MPSConstants.MODID;
 
 public class BlockTinkerTable extends BlockContainer {
     public static final String name = "tinkertable";
@@ -39,14 +39,14 @@ public class BlockTinkerTable extends BlockContainer {
     private BlockTinkerTable() {
         super(Material.IRON);
         setSoundType(SoundType.METAL);
-        setCreativeTab(Config.getCreativeTab());
+        setCreativeTab(MPSSettings.getCreativeTab());
         setHardness(1.5F);
         setResistance(1000.0F);
         setHarvestLevel("pickaxe", 2);
         setLightOpacity(0);
         setLightLevel(0.4f);
         setTickRandomly(false);
-        setUnlocalizedName(MuseConstants.RESOURCE_PREFIX + name);
+        setUnlocalizedName(MPSConstants.RESOURCE_PREFIX + name);
         setRegistryName(MODID, name);
         setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
     }

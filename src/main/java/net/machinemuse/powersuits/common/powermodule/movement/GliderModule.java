@@ -19,9 +19,10 @@ import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
 
-public class GliderModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static final String MODULE_GLIDER = "Glider";
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_GLIDER;
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_PARACHUTE;
 
+public class GliderModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
     public GliderModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.gliderWing, 2));
@@ -54,7 +55,7 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
         boolean hasParachute = false;
         NuminaPlayerUtils.resetFloatKickTicks(player);
         if (torso != null && torso.getItem() instanceof IModularItem) {
-            hasParachute = ModuleManager.itemHasActiveModule(torso, ParachuteModule.MODULE_PARACHUTE);
+            hasParachute = ModuleManager.itemHasActiveModule(torso, MODULE_PARACHUTE);
         }
         if (sneakkey && player.motionY < 0 && (!hasParachute || forwardkey > 0)) {
             if (player.motionY < -0.1) {

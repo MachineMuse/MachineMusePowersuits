@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.common.powermodule;
 
 import net.machinemuse.api.*;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.Item;
@@ -26,7 +26,8 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
         this.propertyModifiers = new HashMap();
         this.defaultTag = new NBTTagCompound();
         this.defaultTag.setBoolean(MuseItemUtils.ONLINE, true);
-        this.isAllowed = Config.getConfig().get("Modules", name, true).getBoolean(true);
+//        this.isAllowed = MPSSettings.modules.getOrDefault(name, true);
+        this.isAllowed = MPSSettings.modules.getModuleAllowedorDefault(name, true);
     }
 
     public PowerModuleBase(List<IModularItem> validItems) {
@@ -35,7 +36,8 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
         this.propertyModifiers = new HashMap();
         this.defaultTag = new NBTTagCompound();
         this.defaultTag.setBoolean(MuseItemUtils.ONLINE, true);
-        this.isAllowed = Config.getConfig().get("Modules", getDataName(), true).getBoolean(true);
+//        this.isAllowed = MPSSettings.modules.getOrDefault(this.getDataName(), true);
+        this.isAllowed = MPSSettings.modules.getModuleAllowedorDefault(this.getDataName(), true);
     }
 
     @Override
@@ -95,14 +97,12 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
     }
 
     public PowerModuleBase addTradeoffProperty(String tradeoffName, String propertyName, double multiplier) {
-        double propFromConfig = Config.getConfig().get("Properties", getDataName() + '.' + propertyName + '.' + tradeoffName + ".multiplier", multiplier)
-                .getDouble(multiplier);
+        double propFromConfig = MPSSettings.modules.getPropertyDoubleorDefault(getDataName() + '.' + propertyName + '.' + tradeoffName + ".multiplier", multiplier);
         return addPropertyModifier(propertyName, new PropertyModifierLinearAdditive(tradeoffName, propFromConfig));
     }
 
     public PowerModuleBase addTradeoffProperty(String tradeoffName, String propertyName, double multiplier, String unit) {
-        double propFromConfig = Config.getConfig().get("Properties", getDataName() + '.' + propertyName + '.' + tradeoffName + ".multiplier", multiplier)
-                .getDouble(multiplier);
+        double propFromConfig = MPSSettings.modules.getPropertyDoubleorDefault(getDataName() + '.' + propertyName + '.' + tradeoffName + ".multiplier", multiplier);
         units.put(propertyName, unit);
         return addPropertyModifier(propertyName, new PropertyModifierLinearAdditive(tradeoffName, propFromConfig));
     }
@@ -129,12 +129,12 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
     }
 
     public PowerModuleBase addBaseProperty(String propertyName, double baseVal) {
-        double propFromConfig = Config.getConfig().get("Properties", getDataName() + '.' + propertyName + ".base", baseVal).getDouble(baseVal);
+        double propFromConfig = MPSSettings.modules.getPropertyDoubleorDefault(getDataName() + '.' + propertyName + ".base", baseVal);
         return addPropertyModifier(propertyName, new PropertyModifierFlatAdditive(propFromConfig));
     }
 
     public PowerModuleBase addBaseProperty(String propertyName, double baseVal, String unit) {
-        double propFromConfig = Config.getConfig().get("Properties", getDataName() + '.' + propertyName + ".base", baseVal).getDouble(baseVal);
+        double propFromConfig = MPSSettings.modules.getPropertyDoubleorDefault(getDataName() + '.' + propertyName + ".base", baseVal);
         units.put(propertyName, unit);
         return addPropertyModifier(propertyName, new PropertyModifierFlatAdditive(propFromConfig));
     }

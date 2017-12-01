@@ -13,9 +13,9 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
-public class AdvancedBatteryModule extends PowerModuleBase {
-    public static final String MODULE_BATTERY_ADVANCED = "Advanced Battery";
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_BATTERY_ADVANCED;
 
+public class AdvancedBatteryModule extends PowerModuleBase {
     public AdvancedBatteryModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.mvcapacitor, 1));

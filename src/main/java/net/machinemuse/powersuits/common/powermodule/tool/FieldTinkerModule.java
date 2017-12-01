@@ -21,6 +21,8 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_FIELD_TINKER;
+
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 3:14 PM, 4/30/13
@@ -28,6 +30,7 @@ import java.util.List;
  * Ported to Java by lehjr on 10/11/16.
  */
 public class FieldTinkerModule extends PowerModuleBase implements IRightClickModule {
+
     public FieldTinkerModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
@@ -41,7 +44,7 @@ public class FieldTinkerModule extends PowerModuleBase implements IRightClickMod
 
     @Override
     public String getDataName() {
-        return "Field Tinker Module";
+        return MODULE_FIELD_TINKER;
     }
 
     @Override

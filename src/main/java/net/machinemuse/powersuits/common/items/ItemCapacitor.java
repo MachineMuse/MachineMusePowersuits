@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.common.items;
 
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -36,7 +36,7 @@ public class ItemCapacitor extends Item {
         this.setUnlocalizedName("item.powerArmorCapacitor.");
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
-        this.setCreativeTab(Config.getCreativeTab());
+        this.setCreativeTab(MPSSettings.getCreativeTab());
         this.populate();
     }
 
@@ -49,14 +49,14 @@ public class ItemCapacitor extends Item {
     @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> currentTipList, ITooltipFlag flagIn) {
-        if (Config.doAdditionalInfo()) {
+        if (MPSSettings.doAdditionalInfo()) {
             String message =  I18n.format("tooltip.componentTooltip");
             message = MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic);
             currentTipList.add(message);
             String description = (descriptions.get(stack.getMetadata()) != null) ? descriptions.get(stack.getMetadata()) : "";
             currentTipList.addAll(MuseStringUtils.wrapStringToLength(description, 30));
         } else {
-            currentTipList.add(Config.additionalInfoInstructions());
+            currentTipList.add(MPSSettings.additionalInfoInstructions());
         }
     }
 

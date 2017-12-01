@@ -20,12 +20,13 @@ import net.minecraft.util.math.MathHelper;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_WATER_TANK;
+
 /**
  * Created by User: Andrew2448
  * 4:35 PM 6/21/13
  */
 public class WaterTankModule extends PowerModuleBase implements IPlayerTickModule {
-    public static final String MODULE_WATER_TANK = "Water Tank";
     public static final String WATER_TANK_SIZE = "Tank Size";
     public static final String ACTIVATION_PERCENT = "Heat Activation Percent";
     final ItemStack bucketWater = new ItemStack(Items.WATER_BUCKET);

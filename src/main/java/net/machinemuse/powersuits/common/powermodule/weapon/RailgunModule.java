@@ -23,10 +23,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_RAILGUN;
+
 public class RailgunModule extends PowerModuleBase implements IRightClickModule, IPlayerTickModule {
     // private List<String> particles;
     // private Iterator<String> iterator;
-    public static final String MODULE_RAILGUN = "Railgun";
+
     public static final String IMPULSE = "Railgun Total Impulse";
     public static final String ENERGY = "Railgun Energy Cost";
     public static final String HEAT = "Railgun Heat Emission";

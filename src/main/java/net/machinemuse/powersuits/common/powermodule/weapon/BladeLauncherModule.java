@@ -25,8 +25,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_BLADE_LAUNCHER;
+
 public class BladeLauncherModule extends PowerModuleBase implements IRightClickModule {
-    public static final String MODULE_BLADE_LAUNCHER = "Blade Launcher";
     public static final String BLADE_ENERGY = "Spinning Blade Energy Consumption";
     public static final String BLADE_DAMAGE = "Spinning Blade Damage";
 

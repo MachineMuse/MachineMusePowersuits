@@ -13,13 +13,13 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_CLOCK;
+
 /**
  * Created by User: Andrew2448
  * 11:12 PM 6/11/13
  */
 public class ClockModule extends PowerModuleBase implements IToggleableModule {
-
-    public static final String MODULE_CLOCK = "Clock";
     public static final ItemStack clock = new ItemStack(Items.CLOCK);
 
     public ClockModule(List<IModularItem> validItems) {

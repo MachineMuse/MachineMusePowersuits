@@ -21,11 +21,12 @@ import net.minecraft.nbt.NBTTagList;
 import java.util.List;
 import java.util.Objects;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_SPRINT_ASSIST;
+
 /**
  * Ported by leon on 10/18/16.
  */
 public class SprintAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static final String MODULE_SPRINT_ASSIST = "Sprint Assist";
     public static final String SPRINT_ENERGY_CONSUMPTION = "Sprint Energy Consumption";
     public static final String SPRINT_SPEED_MULTIPLIER = "Sprint Speed Multiplier";
     public static final String SPRINT_FOOD_COMPENSATION = "Sprint Exhaustion Compensation";

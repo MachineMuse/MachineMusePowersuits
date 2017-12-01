@@ -7,7 +7,8 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.client.renderers.item.ArmorModelInstance;
 import net.machinemuse.powersuits.client.renderers.item.IArmorModel;
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.MPSConstants;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.powersuits.common.powermodule.cosmetic.CitizenJoeStyle;
 import net.machinemuse.powersuits.common.powermodule.cosmetic.HighPolyArmor;
 import net.machinemuse.powersuits.common.powermodule.cosmetic.TintModule;
@@ -34,7 +35,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.UUID;
 
-import static net.machinemuse.powersuits.common.MuseConstants.*;
+import static net.machinemuse.powersuits.common.MPSConstants.*;
 
 /**
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.
@@ -53,7 +54,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
     public ItemPowerArmor(int renderIndex, EntityEquipmentSlot entityEquipmentSlot) {
         super(ArmorMaterial.IRON, renderIndex, entityEquipmentSlot);
         this.maxStackSize = 1;
-        this.setCreativeTab(Config.getCreativeTab());
+        this.setCreativeTab(MPSSettings.getCreativeTab());
     }
 
     public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
@@ -102,20 +103,20 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
                 ItemStack armorChest = ((EntityPlayer) entity).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
                 if (armorChest != null) {
                     if (armorChest.getItem() instanceof ItemPowerArmor)
-                        if (ModuleManager.itemHasActiveModule(armorChest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE))
+                        if (ModuleManager.itemHasActiveModule(armorChest, MPSConstants.MODULE_ACTIVE_CAMOUFLAGE))
                             return BLANK_ARMOR_MODEL_PATH;
                 }
             }
 
-            if (ModuleManager.itemHasActiveModule(stack, TransparentArmorModule.MODULE_TRANSPARENT_ARMOR))
+            if (ModuleManager.itemHasActiveModule(stack, MPSConstants.MODULE_TRANSPARENT_ARMOR))
                 return BLANK_ARMOR_MODEL_PATH;
 
-            else if (ModuleManager.itemHasActiveModule(armor, CitizenJoeStyle.CITIZEN_JOE_STYLE)) {
+            else if (ModuleManager.itemHasActiveModule(armor, MPSConstants.CITIZEN_JOE_STYLE)) {
                 if (slot == EntityEquipmentSlot.LEGS)
                     return CITIZENJOE_ARMORPANTS_PATH;
                 else
                     return CITIZENJOE_ARMOR_PATH;
-            } else if (!ModuleManager.itemHasActiveModule(armor, HighPolyArmor.HighPolyArmor)) {
+            } else if (!ModuleManager.itemHasActiveModule(armor, MPSConstants.HIGH_POLY_ARMOR)) {
                 if (slot == EntityEquipmentSlot.LEGS)
                     return SEBK_ARMORPANTS_PATH;
                 else
@@ -133,7 +134,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
     @Override
     public boolean hasOverlay(ItemStack stack) {
-        return ModuleManager.itemHasActiveModule(stack, TintModule.MODULE_TINT);
+        return ModuleManager.itemHasActiveModule(stack, MPSConstants.MODULE_TINT);
     }
 
     @SideOnly(Side.CLIENT)
@@ -141,7 +142,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
     public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStackArmor, EntityEquipmentSlot armorSlot, ModelBiped _default) {
         if (itemStackArmor != null) {
             // check if using 2d armor
-            if (!(ModuleManager.itemHasActiveModule(itemStackArmor, HighPolyArmor.HighPolyArmor))) {
+            if (!(ModuleManager.itemHasActiveModule(itemStackArmor, MPSConstants.HIGH_POLY_ARMOR))) {
                 return _default;
             }
 
@@ -152,7 +153,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
                     ItemStack armorChest = ((EntityPlayer) entityLiving).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
                     if (armorChest != null) {
                         if (armorChest.getItem() instanceof ItemPowerArmor)
-                            if (ModuleManager.itemHasActiveModule(armorChest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE))
+                            if (ModuleManager.itemHasActiveModule(armorChest, MPSConstants.MODULE_ACTIVE_CAMOUFLAGE))
                                 ((IArmorModel) model).setVisibleSection(null);
                     }
                 }
@@ -207,7 +208,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         if (energy > enerConsum) {
             totalArmor += enerArmor;
         }
-        totalArmor = Math.min(Config.getMaximumArmorPerPiece(), totalArmor);
+        totalArmor = Math.min(MPSSettings.general.getMaximumArmorPerPiece, totalArmor);
         return totalArmor;
     }
 

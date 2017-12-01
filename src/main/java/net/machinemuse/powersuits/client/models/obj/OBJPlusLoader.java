@@ -37,8 +37,10 @@ import java.util.Set;
  * Loader for OBJ models.
  * To enable your mod call instance.addDomain(modid).
  * If you need more control over accepted resources - extend the class, and register a new instance with ModelLoaderRegistry.
+ *
+ * Slightly modified version of Forge's loader because You cannot extend an Enum ^
  */
-public enum OBJLoader implements ICustomModelLoader {
+public enum OBJPlusLoader implements ICustomModelLoader {
     INSTANCE;
 
     private final Set<String> enabledDomains = new HashSet<>();
@@ -48,7 +50,7 @@ public enum OBJLoader implements ICustomModelLoader {
 
     public void addDomain(String domain) {
         enabledDomains.add(domain.toLowerCase());
-        FMLLog.log.info("OBJLoader: Domain {} has been added.", domain.toLowerCase());
+        FMLLog.log.info("OBJPlusLoader: Domain {} has been added.", domain.toLowerCase());
     }
 
     @Override

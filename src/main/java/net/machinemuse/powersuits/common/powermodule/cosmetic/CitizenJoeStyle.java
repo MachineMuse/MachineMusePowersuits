@@ -9,8 +9,10 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.CITIZEN_JOE_STYLE;
+
 public class CitizenJoeStyle extends PowerModuleBase {
-    public static final String CITIZEN_JOE_STYLE = "Citizen Joe Style";
+
 
     public CitizenJoeStyle(List<IModularItem> validItems) {
         super(validItems);

@@ -22,9 +22,9 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class InPlaceAssemblerModule extends PowerModuleBase implements IRightClickModule {
-    public static final String MODULE_PORTABLE_CRAFTING = "In-Place Assembler";
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_PORTABLE_CRAFTING;
 
+public class InPlaceAssemblerModule extends PowerModuleBase implements IRightClickModule {
     public InPlaceAssemblerModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));

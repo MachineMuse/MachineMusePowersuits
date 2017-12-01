@@ -15,7 +15,7 @@ import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.powersuits.client.control.KeyBindingHelper;
 import net.machinemuse.powersuits.client.control.KeybindKeyHandler;
 import net.machinemuse.powersuits.client.control.KeybindManager;
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.resources.I18n;
@@ -92,7 +92,7 @@ public class KeybindConfigFrame implements IGuiFrame {
 //            if (!KeyBinding.HASH.containsItem(key)) {
             if (!keyBindingHelper.keyBindingHasKey(key)) {
                 addKeybind(key, true);
-            } else if (Config.allowConflictingKeybinds()) {
+            } else if (MPSSettings.general.allowConflictingKeybinds) {
                 addKeybind(key, false);
             }
             selecting = false;
@@ -258,7 +258,7 @@ public class KeybindConfigFrame implements IGuiFrame {
 
     @Override
     public List<String> getToolTip(int x, int y) {
-        if (Config.doAdditionalInfo()) {
+        if (MPSSettings.doAdditionalInfo()) {
             for (ClickableModule module : modules) {
                 if (module.hitBox(x, y)) {
                     return module.getToolTip();
@@ -279,7 +279,7 @@ public class KeybindConfigFrame implements IGuiFrame {
 //                if (!KeyBinding.HASH.containsItem(key)) {
                 if (!keyBindingHelper.keyBindingHasKey(key)) {
                     addKeybind(key, true);
-                } else if (Config.allowConflictingKeybinds()) {
+                } else if (MPSSettings.general.allowConflictingKeybinds) {
                     addKeybind(key, false);
                 }
                 selecting = false;

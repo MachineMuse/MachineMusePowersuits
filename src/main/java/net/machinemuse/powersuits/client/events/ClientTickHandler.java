@@ -11,7 +11,8 @@ import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.client.control.KeybindManager;
 import net.machinemuse.powersuits.client.control.PlayerInputMap;
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.MPSConstants;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.powersuits.common.items.old.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.common.items.old.ItemPowerArmorHelmet;
 import net.machinemuse.powersuits.common.items.old.ItemPowerFist;
@@ -86,28 +87,28 @@ public class ClientTickHandler {
         if (player != null) {
             ItemStack helmet = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
             if (helmet != null && helmet.getItem() instanceof ItemPowerArmorHelmet) {
-                if (ModuleManager.itemHasActiveModule(helmet, AutoFeederModule.MODULE_AUTO_FEEDER)) {
-                    modules.add(AutoFeederModule.MODULE_AUTO_FEEDER);
+                if (ModuleManager.itemHasActiveModule(helmet, MPSConstants.MODULE_AUTO_FEEDER)) {
+                    modules.add(MPSConstants.MODULE_AUTO_FEEDER);
                 }
-                if (ModuleManager.itemHasActiveModule(helmet, ClockModule.MODULE_CLOCK)) {
-                    modules.add(ClockModule.MODULE_CLOCK);
+                if (ModuleManager.itemHasActiveModule(helmet, MPSConstants.MODULE_CLOCK)) {
+                    modules.add(MPSConstants.MODULE_CLOCK);
                 }
-                if (ModuleManager.itemHasActiveModule(helmet, CompassModule.MODULE_COMPASS)) {
-                    modules.add(CompassModule.MODULE_COMPASS);
+                if (ModuleManager.itemHasActiveModule(helmet, MPSConstants.MODULE_COMPASS)) {
+                    modules.add(MPSConstants.MODULE_COMPASS);
                 }
             }
 
             ItemStack chest = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
             if (chest != null && chest.getItem() instanceof ItemPowerArmorChestplate) {
-                if (ModuleManager.itemHasActiveModule(chest, WaterTankModule.MODULE_WATER_TANK)) {
-                    modules.add(WaterTankModule.MODULE_WATER_TANK);
+                if (ModuleManager.itemHasActiveModule(chest, MPSConstants.MODULE_WATER_TANK)) {
+                    modules.add(MPSConstants.MODULE_WATER_TANK);
                 }
             }
 
             ItemStack powerfist = player.getHeldItemMainhand();
             if (powerfist != null && powerfist.getItem() instanceof ItemPowerFist) {
-                if (ModuleManager.itemHasActiveModule(powerfist, PlasmaCannonModule.MODULE_PLASMA_CANNON))
-                    modules.add(PlasmaCannonModule.MODULE_PLASMA_CANNON);
+                if (ModuleManager.itemHasActiveModule(powerfist, MPSConstants.MODULE_PLASMA_CANNON))
+                    modules.add(MPSConstants.MODULE_PLASMA_CANNON);
             }
         }
     }
@@ -125,7 +126,7 @@ public class ClientTickHandler {
 
         double yBaseIcon;
         int yBaseString;
-        if (Config.useGraphicalMeters()) {
+        if (MPSSettings.hud.useGraphicalMeters) {
             yBaseIcon = 150.0;
             yBaseString = 155;
         } else {
@@ -141,7 +142,7 @@ public class ClientTickHandler {
                 Minecraft mc = Minecraft.getMinecraft();
                 ScaledResolution screen = new ScaledResolution(mc);
                 for (int i = 0; i < modules.size(); i++) {
-                    if (Objects.equals(modules.get(i), AutoFeederModule.MODULE_AUTO_FEEDER)) {
+                    if (Objects.equals(modules.get(i), MPSConstants.MODULE_AUTO_FEEDER)) {
                         int foodLevel = (int) MuseItemUtils.getFoodLevel(player.getItemStackFromSlot(EntityEquipmentSlot.HEAD));
                         String num = MuseStringUtils.formatNumberShort(foodLevel);
                         if (i == 0) {
@@ -151,10 +152,10 @@ public class ClientTickHandler {
                             MuseRenderer.drawString(num, 17, yBaseString + (yOffsetString * i));
                             MuseRenderer.drawItemAt(-1.0, yBaseIcon + (yOffsetIcon * i), food);
                         }
-                    } else if (Objects.equals(modules.get(i), ClockModule.MODULE_CLOCK)) {
+                    } else if (Objects.equals(modules.get(i), MPSConstants.MODULE_CLOCK)) {
                         long time = player.world.provider.getWorldTime();
                         long hour = ((time % 24000) / 1000);
-                        if (Config.use24hClock()) {
+                        if (MPSSettings.general.use24hClock) {
                             if (hour < 19) {
                                 hour += 6;
                             } else {
@@ -186,16 +187,16 @@ public class ClientTickHandler {
                             MuseRenderer.drawString(hour + ampm, 17, yBaseString + (yOffsetString * i));
                             MuseRenderer.drawItemAt(-1.0, yBaseIcon + (yOffsetIcon * i), clock);
                         }
-                    } else if (Objects.equals(modules.get(i), CompassModule.MODULE_COMPASS)) {
+                    } else if (Objects.equals(modules.get(i), MPSConstants.MODULE_COMPASS)) {
                         if (i == 0) {
                             MuseRenderer.drawItemAt(-1.0, yBaseIcon, compass);
                         } else {
                             MuseRenderer.drawItemAt(-1.0, yBaseIcon + (yOffsetIcon * i), compass);
                         }
-                    } else if (Objects.equals(modules.get(i), WaterTankModule.MODULE_WATER_TANK)) {
+                    } else if (Objects.equals(modules.get(i), MPSConstants.MODULE_WATER_TANK)) {
                         drawWaterMeter = true;
                     }
-                    else if (Objects.equals(modules.get(i), PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
+                    else if (Objects.equals(modules.get(i), MPSConstants.MODULE_PLASMA_CANNON)) {
                         drawPlasmaMeter = true;
                     }
                 }
@@ -238,7 +239,7 @@ public class ClientTickHandler {
         String currPlasmaStr = MuseStringUtils.formatNumberShort(currPlasma);
         String maxPlasmaStr = MuseStringUtils.formatNumberShort(maxPlasma);
 
-        if (Config.useGraphicalMeters()) {
+        if (MPSSettings.hud.useGraphicalMeters) {
             int numMeters = 1;
 
             if (maxEnergy > 0) {

@@ -9,8 +9,9 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_GLOW;
+
 public class CosmeticGlowModule extends PowerModuleBase {
-    public static final String MODULE_GLOW = "Glow Module";
     public static final String RED_GLOW = "Red Glow";
     public static final String GREEN_GLOW = "Green Glow";
     public static final String BLUE_GLOW = "Blue Glow";

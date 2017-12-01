@@ -20,11 +20,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_COAL_GEN;
+
 /**
  * Created by Eximius88 on 1/16/14.
  */
 public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
-    public static final String MODULE_COAL_GEN = "Coal Generator";
     public static final String COAL_ENERGY_GEN = "Energy per coal";
     public static final String COAL_HEAT_GEN = "Heat Generation";
     public static final String MAX_COAL_STORAGE = "Maximum storage amount";

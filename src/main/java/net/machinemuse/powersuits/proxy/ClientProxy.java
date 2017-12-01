@@ -4,8 +4,9 @@ import net.machinemuse.powersuits.client.events.EventRegisterRenderers;
 import net.machinemuse.powersuits.client.events.ModelBakeEventHandler;
 import net.machinemuse.powersuits.client.events.MuseIcon;
 import net.machinemuse.powersuits.client.events.RenderEventHandler;
+import net.machinemuse.powersuits.client.models.obj.OBJPlusLoader;
 import net.machinemuse.powersuits.client.modelspec.ModelSpecXMLReader;
-import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -13,14 +14,18 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import java.net.URL;
 
-import static net.machinemuse.powersuits.common.MuseConstants.MODID;
+import static net.machinemuse.powersuits.common.MPSConstants.MODID;
 
 public class ClientProxy extends CommonProxy {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
-        OBJLoader.INSTANCE.addDomain(MODID);
+        ModelLoaderRegistry.registerLoader(OBJPlusLoader.INSTANCE);
+        OBJPlusLoader.INSTANCE.addDomain(MODID.toLowerCase());
+
+
+
 
         //--------------------------------------------
 //        int nummatches = 0;

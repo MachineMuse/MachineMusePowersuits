@@ -26,8 +26,8 @@ package net.machinemuse.powersuits.client.models;
 //import java.util.List;
 //import java.util.Map;
 //
-//import static net.machinemuse.powersuits.common.MuseConstants.MODID;
-//import static net.machinemuse.powersuits.common.MuseConstants.RESOURCE_PREFIX;
+//import static net.machinemuse.powersuits.common.MPSConstants.MODID;
+//import static net.machinemuse.powersuits.common.MPSConstants.RESOURCE_PREFIX;
 //import static net.minecraft.block.BlockDirectional.FACING;
 //
 ///**

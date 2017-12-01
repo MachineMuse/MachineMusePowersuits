@@ -39,9 +39,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 import java.util.Random;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_SHEARS;
+
 public class ShearsModule extends PowerModuleBase implements IBlockBreakingModule, IRightClickModule {
     private static final ItemStack emulatedTool = new ItemStack(Items.SHEARS);
-    public static final String MODULE_SHEARS = "Shears";
     private static final String SHEARING_ENERGY_CONSUMPTION = "Shearing Energy Consumption";
     private static final String SHEARING_HARVEST_SPEED = "Shearing Harvest Speed";
 

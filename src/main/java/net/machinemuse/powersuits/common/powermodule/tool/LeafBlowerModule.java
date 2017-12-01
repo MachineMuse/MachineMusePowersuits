@@ -24,12 +24,14 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_LEAF_BLOWER;
+
 /**
  * Created by User: Andrew2448
  * 7:13 PM 4/21/13
  */
 public class LeafBlowerModule extends PowerModuleBase implements IRightClickModule {
-    private static final String MODULE_LEAF_BLOWER = "Leaf Blower";
+
     private static final String LEAF_BLOWER_ENERGY_CONSUMPTION = "Energy Consumption";
     private static final String RADIUS = "Radius";
 

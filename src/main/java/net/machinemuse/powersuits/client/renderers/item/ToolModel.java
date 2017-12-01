@@ -11,6 +11,7 @@ import net.machinemuse.numina.client.render.MuseTextureUtils;
 import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.client.renderers.entity.EntityRendererPlasmaBolt;
+import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.powermodule.weapon.PlasmaCannonModule;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -22,7 +23,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
-import static net.machinemuse.powersuits.common.MuseConstants.SEBK_TOOL_TEXTURE;
+import static net.machinemuse.powersuits.common.MPSConstants.SEBK_TOOL_TEXTURE;
 import static net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND;
 import static net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND;
 
@@ -599,7 +600,7 @@ public class ToolModel extends ModelBase {
 
     public void setPoseForPlayer(EntityPlayer player, ItemStack itemStack) {
         if (player.isHandActive() && player.inventory.getCurrentItem() == itemStack
-                && ModuleManager.itemHasActiveModule(player.inventory.getCurrentItem(), PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
+                && ModuleManager.itemHasActiveModule(player.inventory.getCurrentItem(), MPSConstants.MODULE_PLASMA_CANNON)) {
             setPose(1.5f, -1, 1.5f, -1, 1.5f, -1);
             int actualCount = (-player.getItemInUseCount() + 72000);
             this.boltSize = actualCount > 50 ? 50 : actualCount;

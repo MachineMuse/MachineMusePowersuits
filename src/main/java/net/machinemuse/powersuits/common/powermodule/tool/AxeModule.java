@@ -23,9 +23,11 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_AXE;
+
 
 public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
-    public static final String MODULE_AXE = "Axe";
+
     public static final String AXE_ENERGY_CONSUMPTION = "Axe Energy Consumption";
     public static final String AXE_HARVEST_SPEED = "Axe Harvest Speed";
     public static final String AXE_SEARCH_RADIUS = "Axe Search Radius";

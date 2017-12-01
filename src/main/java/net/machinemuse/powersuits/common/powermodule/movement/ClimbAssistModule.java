@@ -14,9 +14,9 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
-public class ClimbAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static final String MODULE_CLIMB_ASSIST = "Uphill Step Assist";
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_CLIMB_ASSIST;
 
+public class ClimbAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
     public ClimbAssistModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));

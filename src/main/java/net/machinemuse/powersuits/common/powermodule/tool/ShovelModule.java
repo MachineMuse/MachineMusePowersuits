@@ -23,8 +23,9 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_SHOVEL;
+
 public class ShovelModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
-    public static final String MODULE_SHOVEL = "Shovel";
     public static final String SHOVEL_HARVEST_SPEED = "Shovel Harvest Speed";
     public static final String SHOVEL_ENERGY_CONSUMPTION = "Shovel Energy Consumption";
     private static final ItemStack emulatedTool = new ItemStack(Items.IRON_SHOVEL);

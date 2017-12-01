@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import static net.machinemuse.powersuits.common.MuseConstants.NAME;
+import static net.machinemuse.powersuits.common.MPSConstants.NAME;
 
 
 public class PowersuitsCreativeTab extends CreativeTabs {

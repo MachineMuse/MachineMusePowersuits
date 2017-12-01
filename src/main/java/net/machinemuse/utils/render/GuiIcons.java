@@ -9,7 +9,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
-import static net.machinemuse.powersuits.common.MuseConstants.TEXTURE_PREFIX;
+import static net.machinemuse.powersuits.common.MPSConstants.TEXTURE_PREFIX;
 
 /**
  * Author: MachineMuse (Claire Semple)

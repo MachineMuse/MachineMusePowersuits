@@ -3,6 +3,8 @@ package net.machinemuse.powersuits.client.models;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.item.IModularItemBase;
 import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.powersuits.client.models.obj.OBJModelPlus;
+import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.events.EventRegisterItems;
 import net.machinemuse.powersuits.common.powermodule.weapon.PlasmaCannonModule;
 import net.minecraft.block.state.IBlockState;
@@ -22,6 +24,7 @@ import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @SideOnly(Side.CLIENT)
 public class ModelPowerFist implements IBakedModel {
@@ -33,15 +36,13 @@ public class ModelPowerFist implements IBakedModel {
     static World world;
     static EntityLivingBase entity;
     static boolean isFiring = false;
+    private Map<ItemCameraTransforms.TransformType, Matrix4f> cameraTransforms;
+    private OBJModelPlus.OBJBakedModelPus powerFistModel;
 
     static IBakedModel iconModel;
 
     public ModelPowerFist(IBakedModel bakedModelIn) {
-        if (bakedModelIn instanceof ModelPowerFist) {
-            this.iconModel = ((ModelPowerFist) bakedModelIn).iconModel;
-        } else {
-            this.iconModel = bakedModelIn;
-        }
+        this.iconModel = (bakedModelIn instanceof ModelPowerFist) ? ((ModelPowerFist) bakedModelIn).iconModel : bakedModelIn;
     }
 
     @Override
@@ -98,7 +99,7 @@ public class ModelPowerFist implements IBakedModel {
             colour = ((IModularItemBase) item).getColorFromItemStack(itemStack);
             if (entityIn instanceof EntityPlayer) {
                 if (itemStack != null && itemStack == entityIn.getHeldItemMainhand() && entityIn.isHandActive()
-                        && ModuleManager.itemHasActiveModule(itemStack, PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
+                        && ModuleManager.itemHasActiveModule(itemStack, MPSConstants.MODULE_PLASMA_CANNON)) {
                     isFiring = true;
                 } else isFiring = false;
             } else isFiring = false;

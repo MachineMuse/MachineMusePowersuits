@@ -13,9 +13,9 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
-public class EliteBatteryModule extends PowerModuleBase {
-    public static final String MODULE_BATTERY_ELITE = "Elite Battery";
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_BATTERY_ELITE;
 
+public class EliteBatteryModule extends PowerModuleBase {
     public EliteBatteryModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));

@@ -18,8 +18,9 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_SOLAR_GENERATOR;
+
 public class SolarGeneratorModule extends PowerModuleBase implements IPlayerTickModule {
-    public static final String MODULE_SOLAR_GENERATOR = "Solar Generator";
     public static final String SOLAR_ENERGY_GENERATION_DAY = "Daytime Energy Generation";
     public static final String SOLAR_ENERGY_GENERATION_NIGHT = "Nighttime Energy Generation";
 

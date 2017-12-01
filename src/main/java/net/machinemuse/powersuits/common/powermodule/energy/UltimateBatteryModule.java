@@ -13,11 +13,13 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_BATTERY_ULTIMATE;
+
 /**
  * Created by leon on 7/3/16.
  */
 public class UltimateBatteryModule extends PowerModuleBase {
-    public static final String MODULE_BATTERY_ULTIMATE = "Ultimate Battery";
+
 
     public UltimateBatteryModule(List<IModularItem> validItems) {
         super(validItems);

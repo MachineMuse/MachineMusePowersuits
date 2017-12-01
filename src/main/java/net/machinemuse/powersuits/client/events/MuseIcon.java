@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import static net.machinemuse.powersuits.common.MuseConstants.MODID;
+import static net.machinemuse.powersuits.common.MPSConstants.MODID;
 
 /*
  * These are mostly icons for the Tinker Table GUI and PowerFist GUI

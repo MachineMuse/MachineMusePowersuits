@@ -3,7 +3,7 @@ package net.machinemuse.utils;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.ElectricAdapter;
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.powersuits.common.items.old.ItemPowerFist;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -68,7 +68,7 @@ public abstract class MuseCommonStrings {
             currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character,
                     MuseStringUtils.FormatCodes.Grey));
         }
-        if (Config.doAdditionalInfo()) {
+        if (MPSSettings.doAdditionalInfo()) {
             List<String> installed = MuseCommonStrings.getItemInstalledModules(player, stack);
             if (installed.size() == 0) {
                 String message = I18n.format("tooltip.noModules");
@@ -78,7 +78,7 @@ public abstract class MuseCommonStrings {
                 currentTipList.addAll(installed);
             }
         } else {
-            currentTipList.add(Config.additionalInfoInstructions());
+            currentTipList.add(MPSSettings.additionalInfoInstructions());
         }
     }
 

@@ -6,7 +6,7 @@ import net.machinemuse.general.sound.SoundDictionary;
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.common.NuminaSettings;
 import net.machinemuse.numina.general.MuseMathUtils;
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
@@ -31,7 +31,7 @@ public class PlayerUpdateHandler {
 
             List<ItemStack> modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player);
             double totalWeight = MuseItemUtils.getPlayerWeight(player);
-            double weightCapacity = Config.getWeightCapacity();
+            double weightCapacity = MPSSettings.general.getWeightCapacity;
             for (ItemStack stack : modularItemsEquipped) {
                 if (stack.getTagCompound().hasKey("ench")) {
                     stack.getTagCompound().removeTag("ench");

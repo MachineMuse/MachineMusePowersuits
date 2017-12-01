@@ -23,9 +23,10 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_PICKAXE;
+
 
 public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
-    public static final String MODULE_PICKAXE = "Pickaxe";
     public static final String PICKAXE_HARVEST_SPEED = "Pickaxe Harvest Speed";
     public static final String PICKAXE_ENERGY_CONSUMPTION = "Pickaxe Energy Consumption";
     protected static final ItemStack emulatedTool = new ItemStack(Items.IRON_PICKAXE);

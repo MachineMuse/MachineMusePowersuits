@@ -5,7 +5,7 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.powersuits.client.events.MuseIcon;
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.powersuits.common.items.ItemComponent;
 import net.machinemuse.powersuits.common.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
@@ -22,8 +22,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_AUTO_FEEDER;
+
 public class AutoFeederModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static final String MODULE_AUTO_FEEDER = "Auto-Feeder";
     public static final String EATING_ENERGY_CONSUMPTION = "Eating Energy Consumption";
     public static final String EATING_EFFICIENCY = "Auto-Feeder Efficiency";
 
@@ -54,7 +55,7 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        if (Config.useOldAutoFeeder()) {
+        if (MPSSettings.general.useOldAutoFeeder) {
             IInventory inv = player.inventory;
             double foodLevel = MuseItemUtils.getFoodLevel(item);
             double saturationLevel = MuseItemUtils.getSaturationLevel(item);

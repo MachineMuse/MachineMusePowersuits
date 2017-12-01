@@ -22,8 +22,9 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_AQUA_AFFINITY;
+
 public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
-    public static final String MODULE_AQUA_AFFINITY = "Aqua Affinity";
     public static final String AQUA_AFFINITY_ENERGY_CONSUMPTION = "Underwater Energy Consumption";
     public static final String UNDERWATER_HARVEST_SPEED = "Underwater Harvest Speed";
 

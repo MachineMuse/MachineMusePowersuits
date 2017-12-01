@@ -11,9 +11,9 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
-public class EnergyShieldModule extends PowerModuleBase {
-    public static final String MODULE_ENERGY_SHIELD = "Energy Shield";
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_ENERGY_SHIELD;
 
+public class EnergyShieldModule extends PowerModuleBase {
     public EnergyShieldModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));

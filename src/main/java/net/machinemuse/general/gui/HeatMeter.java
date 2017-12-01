@@ -10,7 +10,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
-import static net.machinemuse.powersuits.common.MuseConstants.GLASS_TEXTURE;
+import static net.machinemuse.powersuits.common.MPSConstants.GLASS_TEXTURE;
 
 @SideOnly(Side.CLIENT)
 public class HeatMeter {

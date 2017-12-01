@@ -23,8 +23,9 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_DIAMOND_PICK_UPGRADE;
+
 public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
-    public static final String MODULE_DIAMOND_PICK_UPGRADE = "Diamond Drill Upgrade";
     public static final ItemStack emulatedTool = new ItemStack(Items.DIAMOND_PICKAXE);
 
     public DiamondPickUpgradeModule(List<IModularItem> validItems) {

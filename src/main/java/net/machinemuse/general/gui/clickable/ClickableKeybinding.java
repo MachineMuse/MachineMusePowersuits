@@ -4,7 +4,7 @@ import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.client.control.KeybindManager;
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.powersuits.network.packets.MusePacketToggleRequest;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MuseStringUtils;
@@ -70,7 +70,7 @@ public class ClickableKeybinding extends ClickableButton {
 
         for (ClickableModule module : boundModules) {
             String valstring = (toggleval) ? " on" : " off";
-            if ((FMLCommonHandler.instance().getEffectiveSide().equals(Side.CLIENT) && Config.toggleModuleSpam())) {
+            if ((FMLCommonHandler.instance().getEffectiveSide().equals(Side.CLIENT) && MPSSettings.hud.toggleModuleSpam)) {
                 player.sendMessage(new TextComponentString("Toggled " + module.getModule().getDataName() + valstring));
             }
             MuseItemUtils.toggleModuleForPlayer(player, module.getModule().getDataName(), toggleval);

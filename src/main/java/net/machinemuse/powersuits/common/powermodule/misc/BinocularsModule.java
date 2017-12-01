@@ -12,6 +12,8 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.BINOCULARS_MODULE;
+
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 1:08 AM, 4/24/13
@@ -19,7 +21,6 @@ import java.util.List;
  * Ported to Java by lehjr on 10/11/16.
  */
 public class BinocularsModule extends PowerModuleBase implements IToggleableModule {
-    public static final String BINOCULARS_MODULE = "Binoculars";
     public static final String FOV_MULTIPLIER = "Field of View";
 
     public BinocularsModule(List<IModularItem> validItems) {
@@ -36,7 +37,7 @@ public class BinocularsModule extends PowerModuleBase implements IToggleableModu
 
     @Override
     public String getDataName() {
-        return BinocularsModule.BINOCULARS_MODULE;
+        return BINOCULARS_MODULE;
     }
 
     @Override

@@ -16,11 +16,12 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_MECH_ASSISTANCE;
+
 /**
  * Created by Eximius88 on 1/17/14.
  */
 public class MechanicalAssistance extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
-    public static final String MODULE_MECH_ASSISTANCE = "Mechanical Assistance";
     public static final String ASSISTANCE = "Robotic Assistance";
     public static final String POWER_USAGE = "Power Usage";
 

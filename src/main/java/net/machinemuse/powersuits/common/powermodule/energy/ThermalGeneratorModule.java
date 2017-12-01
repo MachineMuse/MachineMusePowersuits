@@ -16,12 +16,13 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_THERMAL_GENERATOR;
+
 /**
  * Created by User: Andrew2448
  * 6:43 PM 4/23/13
  */
 public class ThermalGeneratorModule extends PowerModuleBase implements IPlayerTickModule {
-    public static final String MODULE_THERMAL_GENERATOR = "Thermal Generator";
     public static final String THERMAL_ENERGY_GENERATION = "Energy Generation";
 
     public ThermalGeneratorModule(List<IModularItem> validItems) {

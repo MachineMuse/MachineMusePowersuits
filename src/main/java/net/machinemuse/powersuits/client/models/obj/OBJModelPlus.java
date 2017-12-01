@@ -71,11 +71,9 @@ import java.util.stream.Collectors;
  *
  * Modular Powersuits treats "Groups" (IModelPart) as flexible parts that can be toggled, recolored, and lighting toggled.
  *
- *
  */
 public class OBJModelPlus implements IModel {
     private final ResourceLocation modelLocation;
-    //private Gson GSON = new GsonBuilder().create();
     private MaterialLibrary matLib;
     private CustomData customData;
 
@@ -109,7 +107,7 @@ public class OBJModelPlus implements IModel {
         TextureAtlasSprite missing = bakedTextureGetter.apply(new ResourceLocation("missingno"));
         for (Map.Entry<String, Material> e : matLib.materials.entrySet()) {
             if (e.getValue().getTexture().getTextureLocation().getResourcePath().startsWith("#")) {
-                FMLLog.log.fatal("OBJLoader: Unresolved texture '{}' for obj model '{}'", e.getValue().getTexture().getTextureLocation().getResourcePath(), modelLocation);
+                FMLLog.log.fatal("OBJPlusLoader: Unresolved texture '{}' for obj model '{}'", e.getValue().getTexture().getTextureLocation().getResourcePath(), modelLocation);
                 builder.put(e.getKey(), missing);
             } else {
                 builder.put(e.getKey(), bakedTextureGetter.apply(e.getValue().getTexture().getTextureLocation()));
@@ -347,11 +345,11 @@ public class OBJModelPlus implements IModel {
                     } else {
                         if (!unknownObjectCommands.contains(key)) {
                             unknownObjectCommands.add(key);
-                            FMLLog.log.info("OBJLoader.Parser: command '{}' (model: '{}') is not currently supported, skipping. Line: {} '{}'", key, objFrom, lineNum, currentLine);
+                            FMLLog.log.info("OBJPlusLoader.Parser: command '{}' (model: '{}') is not currently supported, skipping. Line: {} '{}'", key, objFrom, lineNum, currentLine);
                         }
                     }
                 } catch (RuntimeException e) {
-                    throw new RuntimeException(String.format("OBJLoader.Parser: Exception parsing line #%d: `%s`", lineNum, currentLine), e);
+                    throw new RuntimeException(String.format("OBJPlusLoader.Parser: Exception parsing line #%d: `%s`", lineNum, currentLine), e);
                 }
             }
 
@@ -526,7 +524,7 @@ public class OBJModelPlus implements IModel {
                 } else {
                     if (!unknownMaterialCommands.contains(key)) {
                         unknownMaterialCommands.add(key);
-                        FMLLog.log.info("OBJLoader.MaterialLibrary: key '{}' (model: '{}') is not currently supported, skipping", key, new ResourceLocation(domain, path));
+                        FMLLog.log.info("OBJPlusLoader.MaterialLibrary: key '{}' (model: '{}') is not currently supported, skipping", key, new ResourceLocation(domain, path));
                     }
                 }
             }
@@ -1160,7 +1158,7 @@ public class OBJModelPlus implements IModel {
             cachedBlockstate = blockState;
 
             /*
-             * updates visibility with animation property only. OBJState not implemented?
+             * Does OBJState pass this check?
              */
             if (blockState instanceof IExtendedBlockState) {
                 IExtendedBlockState exState = (IExtendedBlockState) blockState;

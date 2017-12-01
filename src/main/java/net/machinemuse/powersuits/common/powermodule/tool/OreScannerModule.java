@@ -4,7 +4,7 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.client.events.MuseIcon;
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.powersuits.common.items.ItemComponent;
 import net.machinemuse.powersuits.common.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.common.powermodule.PropertyModifierIntLinearAdditive;
@@ -31,8 +31,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_ORE_SCANNER;
+
 public class OreScannerModule extends PowerModuleBase implements IRightClickModule {
-    public static final String MODULE_ORE_SCANNER = "Ore Scanner";
     public static final String ORE_SCANNER_ENERGY_CONSUMPTION = "Energy Per Block";
     public static final String ORE_SCANNER_RADIUS_X = "X Radius";
     public static final String ORE_SCANNER_RADIUS_Y = "Y Radius";
@@ -104,7 +105,7 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
                 if (highestvalueblockname.isEmpty())
                     highestvalueblockname = "None";
 
-                if (Config.useAdvancedOreScannerMessage()) {
+                if (MPSSettings.general.useAdvancedOreScannerMessage) {
 //                    player.addChatMessage(new TextComponentString("[Ore Scanner] Total ore value: " + totalValue + " --- Most valuable: " + highestValue + "\nSearch radius: " +
 //                            (2 * (int) ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_X) + 1) + "x" +
 //                            (2 * (int) ModuleManager.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_Y) + 1) + "x" +
@@ -134,7 +135,7 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
                 return 0;
 
             if (oreValuemap.isEmpty())
-                oreValuemap = Config.getOreValues();
+                oreValuemap = MPSSettings.getOreValues();
 
             int meta = block.getMetaFromState(state);
             Map<ResourceLocation, Integer> regNameMeta = new HashMap<>();

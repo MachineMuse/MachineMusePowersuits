@@ -18,8 +18,9 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_JUMP_ASSIST;
+
 public class JumpAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static final String MODULE_JUMP_ASSIST = "Jump Assist";
     public static final String JUMP_ENERGY_CONSUMPTION = "Jump Energy Consumption";
     public static final String JUMP_MULTIPLIER = "Jump Boost";
     public static final String JUMP_FOOD_COMPENSATION = "Jump Exhaustion Compensation";

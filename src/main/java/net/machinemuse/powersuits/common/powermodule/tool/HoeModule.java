@@ -26,8 +26,9 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_HOE;
+
 public class HoeModule extends PowerModuleBase implements IPowerModule, IRightClickModule {
-    public static final String MODULE_HOE = "Rototiller";
     public static final String HOE_ENERGY_CONSUMPTION = "Hoe Energy Consumption";
     public static final String HOE_SEARCH_RADIUS = "Hoe Search Radius";
 

@@ -12,8 +12,10 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_HEAT_SINK;
+
 public class HeatSinkModule extends PowerModuleBase {
-    public static final String MODULE_HEAT_SINK = "Heat Sink";
+
     public static final String THICKNESS = "Thickness";
 
     public HeatSinkModule(List<IModularItem> validItems) {

@@ -5,7 +5,7 @@
 //import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 //import net.minecraft.tileentity.TileEntity;
 //
-//import static net.machinemuse.powersuits.common.MuseConstants.TINKERTABLE_TEXTURE_PATH;
+//import static net.machinemuse.powersuits.common.MPSConstants.TINKERTABLE_TEXTURE_PATH;
 //
 //public class TinkerTableRenderer extends TileEntitySpecialRenderer {
 //    protected TinkerTableModel model;

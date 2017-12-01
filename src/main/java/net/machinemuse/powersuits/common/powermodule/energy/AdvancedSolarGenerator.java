@@ -21,11 +21,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_ADVANCED_SOLAR_GENERATOR;
+
 /**
  * Created by Eximius88 on 1/12/14.
  */
 public class AdvancedSolarGenerator extends PowerModuleBase implements IPlayerTickModule {
-    public static final String MODULE_ADVANCED_SOLAR_GENERATOR = "Advanced Solar Generator";
+
     public static final String A_SOLAR_ENERGY_GENERATION_DAY = "Daytime Energy Generation";
     public static final String A_SOLAR_ENERGY_GENERATION_NIGHT = "Nighttime Energy Generation";
     public static final String SOLAR_HEAT_GENERATION_DAY = "Daytime Heat Generation";

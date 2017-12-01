@@ -9,8 +9,10 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_TINT;
+
 public class TintModule extends PowerModuleBase {
-    public static final String MODULE_TINT = "Custom Colour Module";
+
     public static final String RED_TINT = "Red Tint";
     public static final String GREEN_TINT = "Green Tint";
     public static final String BLUE_TINT = "Blue Tint";

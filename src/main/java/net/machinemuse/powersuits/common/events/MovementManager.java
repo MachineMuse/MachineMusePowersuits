@@ -4,6 +4,7 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.sound.SoundDictionary;
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.common.NuminaSettings;
+import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.items.old.ItemPowerArmor;
 import net.machinemuse.powersuits.common.powermodule.movement.JumpAssistModule;
 import net.machinemuse.powersuits.common.powermodule.movement.ShockAbsorberModule;
@@ -44,7 +45,7 @@ public class MovementManager {
             ItemStack stack = player.getItemStackFromSlot(EntityEquipmentSlot.LEGS);
 
             if (stack != null && stack.getItem() instanceof ItemPowerArmor
-                    && ModuleManager.itemHasActiveModule(stack, JumpAssistModule.MODULE_JUMP_ASSIST)) {
+                    && ModuleManager.itemHasActiveModule(stack, MPSConstants.MODULE_JUMP_ASSIST)) {
                 double jumpAssist = ModuleManager.computeModularProperty(stack, JumpAssistModule.JUMP_MULTIPLIER) * 2;
                 double drain = ModuleManager.computeModularProperty(stack, JumpAssistModule.JUMP_ENERGY_CONSUMPTION);
                 double avail = ElectricItemUtils.getPlayerEnergy(player);
@@ -71,7 +72,7 @@ public class MovementManager {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
             ItemStack boots = player.getItemStackFromSlot(EntityEquipmentSlot.FEET);
             if (boots != null) {
-                if (ModuleManager.itemHasActiveModule(boots, ShockAbsorberModule.MODULE_SHOCK_ABSORBER) && event.getDistance() > 3) {
+                if (ModuleManager.itemHasActiveModule(boots, MPSConstants.MODULE_SHOCK_ABSORBER) && event.getDistance() > 3) {
                     double distanceAbsorb = event.getDistance() * ModuleManager.computeModularProperty(boots, ShockAbsorberModule.SHOCK_ABSORB_MULTIPLIER);
                     if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaSettings.useSounds) {
                         Musique.playerSound(player, SoundDictionary.SOUND_EVENT_GUI_INSTALL, SoundCategory.PLAYERS, (float) (distanceAbsorb), (float)1, false);

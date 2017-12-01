@@ -11,8 +11,9 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_MELEE_ASSIST;
+
 public class MeleeAssistModule extends PowerModuleBase {
-    public static final String MODULE_MELEE_ASSIST = "Melee Assist";
     public static final String PUNCH_ENERGY = "Punch Energy Consumption";
     public static final String PUNCH_DAMAGE = "Melee Damage";
     public static final String PUNCH_KNOCKBACK = "Melee Knockback";

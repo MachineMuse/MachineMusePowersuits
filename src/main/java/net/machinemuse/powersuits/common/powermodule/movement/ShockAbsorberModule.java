@@ -13,8 +13,10 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_SHOCK_ABSORBER;
+
 public class ShockAbsorberModule extends PowerModuleBase implements IToggleableModule {
-    public static final String MODULE_SHOCK_ABSORBER = "Shock Absorber";
+
     public static final String SHOCK_ABSORB_MULTIPLIER = "Distance Reduction";
     public static final String SHOCK_ABSORB_ENERGY_CONSUMPTION = "Impact Energy consumption";
 

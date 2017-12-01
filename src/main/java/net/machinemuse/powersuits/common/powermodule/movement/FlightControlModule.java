@@ -12,8 +12,9 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_FLIGHT_CONTROL;
+
 public class FlightControlModule extends PowerModuleBase implements IToggleableModule {
-    public static final String MODULE_FLIGHT_CONTROL = "Flight Control";
     public static final String FLIGHT_VERTICALITY = "Y-look ratio";
 
     public FlightControlModule(List<IModularItem> validItems) {

@@ -22,9 +22,10 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_WATER_ELECTROLYZER;
+
 public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
     public static final String WATERBREATHING_ENERGY_CONSUMPTION = "Jolt Energy";
-    public static final String MODULE_WATER_ELECTROLYZER = "Water Electrolyzer";
 
     public WaterElectrolyzerModule(List<IModularItem> validItems) {
         super(validItems);

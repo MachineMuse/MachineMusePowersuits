@@ -1,0 +1,73 @@
+
+<modelSpec name="Power Fist Default" type="power fist" default="true">
+    <models>
+        <model file="powersuits:models/item/powerfist/powerfist.obj" textures="powersuits:models/tool2.png">
+            <trsrTransformation transform="0,0,0" rotation="0,0,0" scale="1,1,1" />
+            <binding slot="mainhand" target="RightHand" itemState="all">
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="mainarm" name="Main Arm"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="armorright" name="Armor Right"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="armorleft" name="Amor Left"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="wristtopright" name="Wrist Top Right"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="wristtopleft" name="Wrist Top Left"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="wristbottomright" name="Wrist Bottom Right"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="wristbottomleft" name="Wrist Bottom Left"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="fingerguard" name="Finger Guard"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="crystalholder" name="Crystal Holder"/>
+                <part defaultcolor="FFFFFF" defaultglow="true" defaultVisible="true" polygroup="crystal" name="Crystal"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="supportright1" name="Support Right 1"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="supportright2" name="Support Right 2"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="supportright3" name="Support Right 3"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="supportright4" name="Support Right 4"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="supportright5" name="Support Right 5"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="supportbaseright" name="Support Base Right"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="supportrightfront" name="Support Right Front"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="supportbaseleft" name="Support Base Left"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="supportleftfront" name="Support Left Front"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="supportleft1" name="Support Left 1"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="supportleft2" name="Support Left 2"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="supportleft3" name="Support Left 3"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="supportleft4" name="Support Left 4"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="supportleft5" name="Support Left 5"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="palm" name="Palm"/>
+            </binding>
+            <!--<itemCameraTransforms>-->
+            <!--<trsrTransformation type="thirdperson_righthand" transform="" rotation="" scale="" />-->
+            <!--<trsrTransformation type="thirdperson_lefthand" transform="" rotation="" scale="" />-->
+            <!--<trsrTransformation type="firstperson_righthand" transform="" rotation="" scale="" />-->
+            <!--<trsrTransformation type="firstperson_lefthand" transform="" rotation="" scale="" />-->
+            <!--<trsrTransformation type="head" transform="" rotation="" scale="" />-->
+            <!--<trsrTransformation type="gui" transform="" rotation="" scale="" />-->
+            <!--<trsrTransformation type="ground" transform="" rotation="" scale="" />-->
+            <!--<trsrTransformation type="fixed" transform="" rotation="" scale="" />-->
+            <!--</itemCameraTransforms>-->
+        </model>
+        <model file="powersuits:models/item/powerfist/powerfist_digits_fire.obj" textures="powersuits:models/tool2.png">
+            <binding slot="mainhand" target="RightHand" itemState="normal">
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="index1" name="Index 1"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="index2" name="Index 2"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="middlefinger1" name="Middle Finger 1"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="middlefinger2" name="Middle Finger 2"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="ringfinger1" name="Ring Finger 1"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="ringfinger2" name="Ring Finger 2"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="pinky1" name="Pinky 1"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="pinky2" name="Pinky 2"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="thumb1" name="Thumb 1"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="thumb2" name="Thumb 2"/>
+            </binding>
+        </model>
+        <model file="powersuits:models/item/powerfist/powerfist_digits.obj" textures="powersuits:models/tool2.png">
+            <binding slot="mainhand" target="RightHand" itemState="firing">
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="index1" name="Index 1"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="index2" name="Index 2"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="middlefinger1" name="Middle Finger 1"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="middlefinger2" name="Middle Finger 2"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="ringfinger1" name="Ring Finger 1"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="ringfinger2" name="Ring Finger 2"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="pinky1" name="Pinky 1"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="pinky2" name="Pinky 2"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="thumb1" name="Thumb 1"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="thumb2" name="Thumb 2"/>
+            </binding>
+        </model>
+    </models>
+</modelSpec>

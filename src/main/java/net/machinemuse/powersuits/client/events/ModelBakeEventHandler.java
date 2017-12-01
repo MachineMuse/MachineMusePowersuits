@@ -14,7 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.io.IOException;
 
-import static net.machinemuse.powersuits.common.MuseConstants.RESOURCE_PREFIX;
+import static net.machinemuse.powersuits.common.MPSConstants.RESOURCE_PREFIX;
 
 
 /**

@@ -344,6 +344,27 @@ public class ModelHelper {
  * for Wavefront models because it means that you can use a single material for the entire model
  * instead of unique ones for each group. It also means you don't nescessarily need a Wavefront model.
  */
+    public static List<BakedQuad> getColoredQuadsWithGlow(List<BakedQuad> quadList, Colour color, boolean glow) {
+        // diffuse lighting enabled = glow off
+        boolean diffuseLighting = !glow;
+        ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
+
+        for (BakedQuad quad : quadList) {
+            quad = colorQuad(color, quad);
+
+            if (diffuseLighting != quad.shouldApplyDiffuseLighting())
+                quad = new BakedQuad(quad.getVertexData(),
+                        quad.getTintIndex(),
+                        quad.getFace(),
+                        quad.getSprite(),
+                        diffuseLighting,
+                        quad.getFormat());
+
+            builder.add(quad);
+        }
+        return builder.build();
+    }
+
     public static List<BakedQuad> getColoredQuads(List<BakedQuad> quadList, Colour color) {
         ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
         for (BakedQuad quad : quadList) {

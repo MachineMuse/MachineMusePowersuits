@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.common.blocks.itemblocks;
 
-import net.machinemuse.powersuits.common.MuseConstants;
+import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.blocks.BlockTinkerTable;
 import net.minecraft.item.ItemBlock;
 
@@ -15,7 +15,7 @@ public class ItemBlockTinkerTable extends ItemBlock {
 
     private ItemBlockTinkerTable() {
         super(BlockTinkerTable.getInstance());
-        setUnlocalizedName(MuseConstants.RESOURCE_PREFIX + BlockTinkerTable.name);
+        setUnlocalizedName(MPSConstants.RESOURCE_PREFIX + BlockTinkerTable.name);
         setRegistryName(BlockTinkerTable.name);
         this.hasSubtypes = false;
     }

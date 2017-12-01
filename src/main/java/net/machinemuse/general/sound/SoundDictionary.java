@@ -5,7 +5,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import static net.machinemuse.powersuits.common.MuseConstants.MODID;
+import static net.machinemuse.powersuits.common.MPSConstants.MODID;
 
 public class SoundDictionary {
     public static SoundEvent SOUND_EVENT_GLIDER = registerSound("glider");

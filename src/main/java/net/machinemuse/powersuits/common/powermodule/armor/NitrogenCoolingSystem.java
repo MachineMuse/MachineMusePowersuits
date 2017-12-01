@@ -18,11 +18,12 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_NITROGEN_COOLING_SYSTEM;
+
 /**
  * Created by Eximius88 on 1/17/14.
  */
 public class NitrogenCoolingSystem extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
-    public static final String MODULE_NITROGEN_COOLING_SYSTEM = "Liquid Nitrogen Cooling System";
     public static final String COOLING_BONUS = "Cooling Bonus";
     public static final String ENERGY = "Energy Consumption";
 

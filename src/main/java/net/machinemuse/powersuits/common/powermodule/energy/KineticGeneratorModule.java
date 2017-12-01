@@ -18,8 +18,10 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_KINETIC_GENERATOR;
+
 public class KineticGeneratorModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
-    public static final String MODULE_KINETIC_GENERATOR = "Kinetic Generator";
+
     public static final String KINETIC_ENERGY_GENERATION = "Energy Per 5 Blocks";
     public static final String KINETIC_HEAT_GENERATION = "Heat Generation";
 

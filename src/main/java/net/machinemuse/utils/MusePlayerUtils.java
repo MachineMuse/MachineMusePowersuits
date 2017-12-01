@@ -6,7 +6,7 @@ import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.powersuits.client.control.PlayerInputMap;
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.powersuits.common.powermodule.movement.FlightControlModule;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -289,7 +289,7 @@ public class MusePlayerUtils {
 
         // Slow the player if they are going too fast
         double horzm2 = player.motionX * player.motionX + player.motionZ * player.motionZ;
-        double horzmlim = Config.getMaximumFlyingSpeedmps() * Config.getMaximumFlyingSpeedmps() / 400;
+        double horzmlim = MPSSettings.general.getMaximumFlyingSpeedmps * MPSSettings.general.getMaximumFlyingSpeedmps / 400;
         if (sneakkey && horzmlim > 0.05) {
             horzmlim = 0.05;
         }

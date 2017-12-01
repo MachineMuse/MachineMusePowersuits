@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import static net.machinemuse.powersuits.common.MuseConstants.RESOURCE_PREFIX;
+import static net.machinemuse.powersuits.common.MPSConstants.RESOURCE_PREFIX;
 import static net.machinemuse.powersuits.common.blocks.BlockLuxCapacitor.FACING;
 
 @SideOnly(Side.CLIENT)
@@ -59,7 +59,8 @@ public class ModelLuxCapacitorHelper {
                     TRSRTransformation transform = new TRSRTransformation(facing);
                     IBakedModel bakedModel = ModelHelper.getBakedModel(lensModelLocation, transform);
                     List<BakedQuad> quads = bakedModel.getQuads(BlockLuxCapacitor.getInstance().getDefaultState().withProperty(FACING, facing), null, 0);
-                    return ModelHelper.getColoredQuads(quads, color.getColour());
+//                    return ModelHelper.getColoredQuads(quads, color.getColour());
+                    return ModelHelper.getColoredQuadsWithGlow(quads, color.getColour(), true);
                 }
 
                 List<BakedQuad> getQuads(EnumColour color, @Nullable EnumFacing facing) {

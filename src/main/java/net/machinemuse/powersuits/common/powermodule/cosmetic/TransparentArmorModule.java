@@ -12,8 +12,10 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_TRANSPARENT_ARMOR;
+
 public class TransparentArmorModule extends PowerModuleBase implements IToggleableModule {
-    public static final String MODULE_TRANSPARENT_ARMOR = "Transparent Armor";
+
 
     public TransparentArmorModule(List<IModularItem> validItems) {
         super(validItems);

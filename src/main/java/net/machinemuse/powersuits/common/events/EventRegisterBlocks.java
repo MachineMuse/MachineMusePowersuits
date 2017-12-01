@@ -10,7 +10,7 @@ import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import static net.machinemuse.powersuits.common.MuseConstants.MODID;
+import static net.machinemuse.powersuits.common.MPSConstants.MODID;
 
 
 @Mod.EventBusSubscriber(modid = MODID)

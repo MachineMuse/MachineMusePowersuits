@@ -23,8 +23,9 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_BLINK_DRIVE;
+
 public class BlinkDriveModule extends PowerModuleBase implements IRightClickModule {
-    public static final String MODULE_BLINK_DRIVE = "Blink Drive";
     public static final String BLINK_DRIVE_ENERGY_CONSUMPTION = "Blink Drive Energy Consuption";
     public static final String BLINK_DRIVE_RANGE = "Blink Drive Range";
 

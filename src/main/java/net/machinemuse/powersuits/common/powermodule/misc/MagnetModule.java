@@ -27,8 +27,9 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_MAGNET;
+
 public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
-    public static final String MODULE_MAGNET = "Magnet";
     public static final String MAGNET_ENERGY_CONSUMPTION = "Energy Consumption";
 
     public static final String MAGNET_RADIUS = "Magnet Radius";

@@ -18,8 +18,9 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_COOLING_SYSTEM;
+
 public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
-    public static final String MODULE_COOLING_SYSTEM = "Cooling System";
     public static final String COOLING_BONUS = "Cooling Bonus";
     public static final String ENERGY = "Cooling System Energy Consumption";
 

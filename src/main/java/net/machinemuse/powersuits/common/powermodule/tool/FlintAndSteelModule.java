@@ -23,13 +23,13 @@ import net.minecraft.world.World;
 import java.util.List;
 import java.util.Random;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_FLINT_AND_STEEL;
+
 /**
  * Created by User: Andrew2448
  * 10:48 PM 6/11/13
  */
 public class FlintAndSteelModule extends PowerModuleBase implements IRightClickModule {
-
-    public static final String MODULE_FLINT_AND_STEEL = "Flint and Steel";
     public static final String IGNITION_ENERGY_CONSUMPTION = "Ignition Energy Consumption";
     public final ItemStack fas = new ItemStack(Items.FLINT_AND_STEEL);
     final Random ran = new Random();

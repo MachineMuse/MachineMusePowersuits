@@ -25,11 +25,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_DIMENSIONAL_RIFT;
+
 /**
  * Created by Eximius88 on 2/3/14.
  */
 public class DimensionalRiftModule extends PowerModuleBase implements IRightClickModule {
-    public static final String MODULE_DIMENSIONAL_RIFT = "Dimensional Tear Generator";
     public static final String DIMENSIONAL_RIFT_ENERGY_GENERATION = "Energy Consumption";
     public static final String DIMENSIONAL_RIFT_HEAT_GENERATION = "Heat Generation";
 

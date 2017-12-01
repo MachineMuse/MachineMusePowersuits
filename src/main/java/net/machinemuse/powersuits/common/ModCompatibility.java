@@ -143,36 +143,43 @@ public class ModCompatibility {
     }
 
     public static boolean enableThaumGogglesModule() {
-        boolean defaultval = isThaumCraftLoaded();
-        return Config.getConfig().get("Special Modules", "Thaumcraft Goggles Module", defaultval).getBoolean(defaultval);
+//        boolean defaultval = isThaumCraftLoaded();
+//        return Config.getConfig().get("Special Modules", "Thaumcraft Goggles Module", defaultval).getBoolean(defaultval);
+
+        return false;
     }
 
     // 1MJ (MPS) = 1 MJ (Mekanism)
     public static double getMekRatio() {
-        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per Mekanism MJ", 1D).getDouble(1D);
+//        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per Mekanism MJ", 1D).getDouble(1D);
+        return 1D;
     }
 
     // 1 MJ = 2.5 EU
     // 1 EU = 0.4 MJ
     public static double getIC2Ratio() {
-        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per IC2 EU", 0.4).getDouble(0.4);
+//        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per IC2 EU", 0.4).getDouble(0.4);
+        return 0.4;
     }
 
     // 1 MJ = 10 RF
     // 1 RF = 0.1 MJ
     public static double getRFRatio() {
-        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per RF", 0.1).getDouble(0.1);
+//        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per RF", 0.1).getDouble(0.1);
+        return 0.1;
     }
 
     // (Refined Storage) 1 RS = 1 RF
     public static double getRSRatio() {
-        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per RS", 0.1).getDouble(0.1);
+//        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per RS", 0.1).getDouble(0.1);
+        return 0.1;
     }
 
     // 1 MJ = 5 AE
     // 1 AE = 0.2 MJ
     public static double getAE2Ratio() {
-        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per AE", 0.2).getDouble(0.2);
+//        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per AE", 0.2).getDouble(0.2);
+        return 0.2;
     }
 
     public static void registerModSpecificModules() {

@@ -6,8 +6,8 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
-import static net.machinemuse.powersuits.common.MuseConstants.MODID;
-import static net.machinemuse.powersuits.common.MuseConstants.TEXTURE_PREFIX;
+import static net.machinemuse.powersuits.common.MPSConstants.MODID;
+import static net.machinemuse.powersuits.common.MPSConstants.TEXTURE_PREFIX;
 
 public class EntityRendererSpinningBlade extends MuseEntityRenderer<EntitySpinningBlade> {
     public EntityRendererSpinningBlade(RenderManager renderManager) {

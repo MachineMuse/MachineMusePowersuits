@@ -22,8 +22,9 @@ import net.minecraft.util.SoundCategory;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_SWIM_BOOST;
+
 public class SwimAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static final String MODULE_SWIM_BOOST = "Swim Boost";
     public static final String SWIM_BOOST_AMOUNT = "Underwater Movement Boost";
     public static final String SWIM_BOOST_ENERGY_CONSUMPTION = "Swim Boost Energy Consumption";
 

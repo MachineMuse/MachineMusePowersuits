@@ -4,6 +4,7 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.MuseElectricItem;
 import net.machinemuse.api.item.IModularItemBase;
 import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.powermodule.cosmetic.CosmeticGlowModule;
 import net.machinemuse.powersuits.common.powermodule.cosmetic.TintModule;
 import net.machinemuse.utils.ElectricItemUtils;
@@ -44,7 +45,7 @@ public class ModularItemBase extends Item implements IModularItemBase {
 
     @Override
     public Colour getGlowFromItemStack(ItemStack stack) {
-        if (!ModuleManager.itemHasActiveModule(stack, CosmeticGlowModule.MODULE_GLOW)) {
+        if (!ModuleManager.itemHasActiveModule(stack, MPSConstants.MODULE_GLOW)) {
             return Colour.LIGHTBLUE;
         }
         double computedred = ModuleManager.computeModularProperty(stack, CosmeticGlowModule.RED_GLOW);
@@ -56,7 +57,7 @@ public class ModularItemBase extends Item implements IModularItemBase {
 
     @Override
     public Colour getColorFromItemStack(ItemStack stack) {
-        if (!ModuleManager.itemHasActiveModule(stack, TintModule.MODULE_TINT)) {
+        if (!ModuleManager.itemHasActiveModule(stack, MPSConstants.MODULE_TINT)) {
             return Colour.WHITE;
         }
         double computedred = ModuleManager.computeModularProperty(stack, TintModule.RED_TINT);

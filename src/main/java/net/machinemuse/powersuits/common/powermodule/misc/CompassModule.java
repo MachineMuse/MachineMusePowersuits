@@ -13,13 +13,13 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_COMPASS;
+
 /**
  * Created by User: Andrew2448
  * 11:12 PM 6/11/13
  */
 public class CompassModule extends PowerModuleBase implements IToggleableModule {
-
-    public static final String MODULE_COMPASS = "Compass";
     public static final ItemStack compass = new ItemStack(Items.COMPASS);
 
     public CompassModule(List<IModularItem> validItems) {

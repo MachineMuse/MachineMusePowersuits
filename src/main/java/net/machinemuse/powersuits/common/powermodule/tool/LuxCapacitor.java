@@ -22,8 +22,9 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_LUX_CAPACITOR;
+
 public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
-    public static final String MODULE_LUX_CAPACITOR = "Lux Capacitor";
     public static final String ENERGY = "Lux Capacitor Energy Consumption";
 //    public static final String RED =  "Lux Capacitor Red Hue";
 //    public static final String GREEN = "Lux Capacitor Green Hue";

@@ -13,9 +13,9 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
-public class BasicBatteryModule extends PowerModuleBase {
-    public static final String MODULE_BATTERY_BASIC = "Basic Battery";
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_BATTERY_BASIC;
 
+public class BasicBatteryModule extends PowerModuleBase {
     public BasicBatteryModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.lvcapacitor, 1));

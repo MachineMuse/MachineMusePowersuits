@@ -22,12 +22,13 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_LIGHTNING;
+
 /**
  * Created by User: Andrew2448
  * 5:56 PM 6/14/13
  */
 public class LightningModule extends PowerModuleBase implements IRightClickModule {
-    public static final String MODULE_LIGHTNING = "Lightning Summoner";
     public static final String LIGHTNING_ENERGY_CONSUMPTION = "Energy Consumption";
     public static final String HEAT = "Heat Emission";
 

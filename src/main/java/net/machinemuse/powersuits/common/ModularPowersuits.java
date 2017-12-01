@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import javax.annotation.Nonnull;
 
-import static net.machinemuse.powersuits.common.MuseConstants.*;
+import static net.machinemuse.powersuits.common.MPSConstants.*;
 
 @Mod(modid = MODID, name = NAME, version = VERSION)//, acceptedMinecraftVersions = "[1.12.2]")
 public class ModularPowersuits {

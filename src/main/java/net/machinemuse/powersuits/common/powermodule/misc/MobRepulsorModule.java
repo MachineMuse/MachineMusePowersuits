@@ -27,12 +27,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.Iterator;
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_MOB_REPULSOR;
+
 /**
  * Created by User: Andrew2448
  * 8:26 PM 4/25/13
  */
 public class MobRepulsorModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
-    public static final String MODULE_MOB_REPULSOR = "Mob Repulsor";
     public static final String MOB_REPULSOR_ENERGY_CONSUMPTION = "Repulsor Energy Consumption";
 
     public MobRepulsorModule(List<IModularItem> validItems) {

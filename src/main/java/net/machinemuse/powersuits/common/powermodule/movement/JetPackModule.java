@@ -9,6 +9,7 @@ import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.common.NuminaSettings;
 import net.machinemuse.powersuits.client.control.PlayerInputMap;
 import net.machinemuse.powersuits.client.events.MuseIcon;
+import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.items.ItemComponent;
 import net.machinemuse.powersuits.common.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
@@ -23,8 +24,10 @@ import net.minecraft.util.SoundCategory;
 
 import java.util.List;
 
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_JETPACK;
+
 public class JetPackModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static final String MODULE_JETPACK = "Jetpack";
+
     public static final String JET_ENERGY_CONSUMPTION = "Jetpack Energy Consumption";
     public static final String JET_THRUST = "Jetpack Thrust";
 
@@ -61,7 +64,7 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
         boolean jumpkey = movementInput.jumpKey;
         ItemStack helmet = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
         boolean hasFlightControl = helmet != null && helmet.getItem() instanceof IModularItem
-                && ModuleManager.itemHasActiveModule(helmet, FlightControlModule.MODULE_FLIGHT_CONTROL);
+                && ModuleManager.itemHasActiveModule(helmet, MPSConstants.MODULE_FLIGHT_CONTROL);
         double jetEnergy = 0;
         double thrust = 0;
         jetEnergy += ModuleManager.computeModularProperty(item, JET_ENERGY_CONSUMPTION);

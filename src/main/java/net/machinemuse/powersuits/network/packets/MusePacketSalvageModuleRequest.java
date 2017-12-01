@@ -5,7 +5,7 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -60,7 +60,7 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
                 Set<Integer> slots = new HashSet<>();
                 ModuleManager.removeModule(stack, moduleName);
                 for (ItemStack refundItem : refund) {
-                    slots.addAll(MuseItemUtils.giveOrDropItemWithChance(refundItem.copy(), player, Config.getSalvageChance()));
+                    slots.addAll(MuseItemUtils.giveOrDropItemWithChance(refundItem.copy(), player, MPSSettings.general.getSalvageChance));
                 }
                 slots.add(itemSlot);
 

@@ -24,7 +24,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.List;
 
-import static net.machinemuse.powersuits.common.MuseConstants.LIGHTNING_TEXTURE;
+import static net.machinemuse.powersuits.common.MPSConstants.LIGHTNING_TEXTURE;
 
 /**
  * Contains a bunch of random OpenGL-related functions, accessed statically.

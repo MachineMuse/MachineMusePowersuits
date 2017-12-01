@@ -11,9 +11,9 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
-public class BasicPlatingModule extends PowerModuleBase {
-    public static final String MODULE_BASIC_PLATING = "Iron Plating";
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_BASIC_PLATING;
 
+public class BasicPlatingModule extends PowerModuleBase {
     public BasicPlatingModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.basicPlating, 1));

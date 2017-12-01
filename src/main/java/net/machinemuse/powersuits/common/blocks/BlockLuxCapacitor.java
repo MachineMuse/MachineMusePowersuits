@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.common.blocks;
 
 import net.machinemuse.powersuits.client.helpers.EnumColour;
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.powersuits.common.tileentities.TileEntityLuxCapacitor;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.SoundType;
@@ -24,7 +24,7 @@ import net.minecraftforge.common.property.IUnlistedProperty;
 
 import java.util.Random;
 
-import static net.machinemuse.powersuits.common.MuseConstants.MODID;
+import static net.machinemuse.powersuits.common.MPSConstants.MODID;
 
 public class BlockLuxCapacitor extends BlockDirectional {
     protected static final AxisAlignedBB LUXCAPACITOR_EAST_AABB = new AxisAlignedBB(0.75, 0.0625, 0.0625, 1.0, 0.9375, 0.9375);
@@ -75,7 +75,7 @@ public class BlockLuxCapacitor extends BlockDirectional {
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
         // IMPORTANT: enabling default state with extended state like the line below causes model loading issues
         //        setDefaultState(((IExtendedBlockState) blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN)).withProperty(COLOUR, defaultColor));
-        setCreativeTab(Config.getCreativeTab());
+        setCreativeTab(MPSSettings.getCreativeTab());
         setUnlocalizedName(name);
         setRegistryName(MODID, "tile." + name);
         setHardness(0.05F);

@@ -7,6 +7,7 @@ import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.powersuits.client.control.PlayerInputMap;
 import net.machinemuse.powersuits.client.events.MuseIcon;
+import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.items.ItemComponent;
 import net.machinemuse.powersuits.common.powermodule.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;
@@ -19,9 +20,9 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
-public class ParachuteModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static final String MODULE_PARACHUTE = "Parachute";
+import static net.machinemuse.powersuits.common.MPSConstants.MODULE_PARACHUTE;
 
+public class ParachuteModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
     public ParachuteModule(List<IModularItem> validItems) {
         super(validItems);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.parachute, 2));
@@ -51,7 +52,7 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
         boolean hasGlider = false;
         NuminaPlayerUtils.resetFloatKickTicks(player);
         if (torso != null && torso.getItem() instanceof IModularItem) {
-            hasGlider = ModuleManager.itemHasActiveModule(torso, GliderModule.MODULE_GLIDER);
+            hasGlider = ModuleManager.itemHasActiveModule(torso, MPSConstants.MODULE_GLIDER);
         }
         if (sneakkey && player.motionY < -0.1 && (!hasGlider || forwardkey <= 0)) {
             double totalVelocity = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ + player.motionY * player.motionY)
