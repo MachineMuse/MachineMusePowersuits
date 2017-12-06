@@ -2,16 +2,16 @@ package net.machinemuse.powersuits.common.config;
 
 
 import com.google.gson.*;
-import net.machinemuse.api.IModularItem;
+import jline.internal.Nullable;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.common.Numina;
 import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.powersuits.client.new_modelspec.ModelSpecXMLReader;
 import net.machinemuse.powersuits.common.InstallCost;
 import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.MPSCreativeTab;
 import net.machinemuse.powersuits.common.ModCompatibility;
-import net.machinemuse.powersuits.common.events.EventRegisterItems;
 import net.machinemuse.powersuits.common.powermodule.armor.*;
 import net.machinemuse.powersuits.common.powermodule.cosmetic.*;
 import net.machinemuse.powersuits.common.powermodule.energy.*;
@@ -26,12 +26,12 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -40,10 +40,15 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.input.Keyboard;
 
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static net.machinemuse.powersuits.common.MPSConstants.MODID;
 import static net.machinemuse.powersuits.common.events.EventRegisterItems.*;
@@ -403,13 +408,6 @@ public class MPSSettings {
         public boolean getModuleAllowedorDefault(String name, boolean allowed) {
             if (!allowedModules.containsKey(name))
                 allowedModules.put(name, allowed);
-
-            if (allowedModules.containsKey("test"))
-                System.out.println("test: " + allowedModules.get("test"));
-            else
-                System.out.println("testm: not found!!!");
-
-
             return allowedModules.get(name);
         }
 
@@ -624,8 +622,8 @@ public class MPSSettings {
 
 
     /*
- * Ore Value file parser for the OreScannerModule
- */
+     * Ore Value file parser for the OreScannerModule
+     */
     private static Map<Map<ResourceLocation, Integer>, Integer> readOreValues() {
         Map<Map<ResourceLocation, Integer>, Integer> oreValues = new HashMap<>();
         String oreValuesFileName = "oreValues.json";
@@ -735,23 +733,72 @@ public class MPSSettings {
     }
 
     public static void copyRecipe(String inFile) {
-        InputStream src = CommonProxy.class.getClassLoader().getResourceAsStream(inFile);
-        File dest = new File(Numina.configDir.toString() + "/machinemuse_old/recipes/" + inFile);
+        copyFile(inFile, new StringBuilder(recipeFolder.getAbsolutePath()).append(inFile).toString());
+    }
+
+    public static void copyFile(String inFile, String outFile) {
+        InputStream src = MPSSettings.class.getResourceAsStream(inFile);
+        File dest = new File(outFile);
         if(!dest.exists()) {
             try {
                 Files.copy(src, dest.toPath());
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                MuseLogger.logException("failed to copy file", e);
             }
         }
     }
 
+
+
+
+
+
+
     static File configFolder = null;
+    static File recipeFolder = null;
+    static File modelSpecFolder = null;
     public static void setConfigFolderBase(FMLPreInitializationEvent event) {
         configFolder = new File(event.getModConfigurationDirectory().getAbsolutePath() + "/machinemuse");
+        recipeFolder = new File(configFolder.getAbsolutePath().concat("/recipes/"));
+        modelSpecFolder = new File(configFolder.getAbsolutePath().concat("/modelSpec/"));
     }
 
-    @Mod.EventBusSubscriber
+    static boolean overwriteModelSpec = true; //FIXME: add config setting
+
+    /** ModelSpec --------------------------------------------------------------------------------- */
+    public static void extractModelSpecFiles() {
+        if (!modelSpecFolder.exists())
+            modelSpecFolder.mkdir();
+
+        String specJarFolderString = "/assets/powersuits/modelspec/";
+        URL specJarFolderURL = MPSSettings.class.getResource(specJarFolderString);
+        if (specJarFolderURL != null) {
+            try {
+                File dir = new File(specJarFolderURL.toURI());
+                for (File specFile :dir.listFiles()) {
+                    File target= new File(specJarFolderURL.getPath(), specFile.getName());
+                    if (!target.exists() || overwriteModelSpec)
+                        copyFile(specJarFolderString.concat(specFile.getName()), new StringBuilder(modelSpecFolder.getAbsolutePath()).append("/").append(specFile.getName()).toString());
+                }
+            } catch (URISyntaxException e) {
+                MuseLogger.logException("failed to read ModelSpec dir from jar", e);
+            }
+        }
+    }
+
+
+    public static void loadModelSpecs(@Nullable TextureStitchEvent event) {
+        for (File specFile : modelSpecFolder.listFiles()) {
+            ModelSpecXMLReader.parseFile(specFile, event);
+        }
+    }
+
+
+
+
+
+
+    @Mod.EventBusSubscriber(modid = MODID)
     public static class ConfigSyncHandler {
         @SubscribeEvent
         public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {

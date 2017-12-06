@@ -20,7 +20,7 @@ public class EnergyMeter extends HeatMeter {
 		return Colour.PURPLE;
 	}
 /*	
-	public TextureAtlasSprite getTexture() {
+	public TextureAtlasSprite getTextureLocationForSlot() {
 		//return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/portal");
 		return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/snow");
 	}

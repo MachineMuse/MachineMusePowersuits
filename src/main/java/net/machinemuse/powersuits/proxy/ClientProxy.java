@@ -6,16 +6,20 @@ import net.machinemuse.powersuits.client.events.MuseIcon;
 import net.machinemuse.powersuits.client.events.RenderEventHandler;
 import net.machinemuse.powersuits.client.models.obj.OBJPlusLoader;
 import net.machinemuse.powersuits.client.modelspec.ModelSpecXMLReader;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.net.URL;
 
 import static net.machinemuse.powersuits.common.MPSConstants.MODID;
 
+@SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
 
     @Override
@@ -23,7 +27,7 @@ public class ClientProxy extends CommonProxy {
         super.preInit(event);
         ModelLoaderRegistry.registerLoader(OBJPlusLoader.INSTANCE);
         OBJPlusLoader.INSTANCE.addDomain(MODID.toLowerCase());
-
+        MPSSettings.extractModelSpecFiles();
 
 
 
@@ -99,6 +103,9 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
+
+
+
 
         URL resource = ClientProxy.class.getResource("/assets/powersuits/models/item/armor/modelspec.xml");
         ModelSpecXMLReader.getINSTANCE().parseFile(resource);

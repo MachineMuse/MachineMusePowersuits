@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.client.events;
 
 import net.machinemuse.powersuits.client.models.ModelLuxCapacitor;
 import net.machinemuse.powersuits.client.models.ModelPowerFist;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.powersuits.common.events.EventRegisterItems;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -68,7 +69,7 @@ public class ModelBakeEventHandler {
         event.getModelRegistry().putObject(ModelPowerFist.modelResourceLocation, new ModelPowerFist(powerFistIcon));
 
 
-
+        MPSSettings.loadModelSpecs(null);
 
 //        modelRegistry = event.getModelRegistry();
 //

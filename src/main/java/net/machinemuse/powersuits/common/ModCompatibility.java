@@ -9,7 +9,6 @@ import net.machinemuse.powersuits.common.powermodule.armor.HazmatModule;
 import net.machinemuse.powersuits.common.powermodule.misc.AirtightSealModule;
 import net.machinemuse.powersuits.common.powermodule.misc.ThaumGogglesModule;
 import net.machinemuse.powersuits.common.powermodule.tool.*;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModAPIManager;
 import net.minecraftforge.fml.common.ModContainer;

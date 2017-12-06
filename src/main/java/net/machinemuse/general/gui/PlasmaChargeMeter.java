@@ -21,7 +21,7 @@ public class PlasmaChargeMeter extends HeatMeter {
 		return Colour.LIGHTGREEN;
 	}
 /*
-	public TextureAtlasSprite getTexture() {
+	public TextureAtlasSprite getTextureLocationForSlot() {
 		return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/prismarine_rough");
 		//return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/snow");
 	}

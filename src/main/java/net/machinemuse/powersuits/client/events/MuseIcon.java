@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.client.events;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -123,7 +124,7 @@ public class MuseIcon {
     public static TextureAtlasSprite plasmaCannon;
     public static TextureAtlasSprite railgun;
     public static TextureAtlasSprite sonicWeapon;
-    
+
     /* Things other than module icons ------------------------------------------------------------- */
     public static TextureAtlasSprite luxCapacitorTexture;
     public static TextureAtlasSprite test;
@@ -241,6 +242,8 @@ public class MuseIcon {
         luxCapacitorTexture = register(event, "models/luxcapacitor");
         test = register(event, "items/armor/diffuse");
 
+        //
+        MPSSettings.loadModelSpecs(event);
 
     }
 

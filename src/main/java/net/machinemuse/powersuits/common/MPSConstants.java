@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.common;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 
 /*

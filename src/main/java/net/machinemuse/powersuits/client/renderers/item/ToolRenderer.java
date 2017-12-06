@@ -145,7 +145,7 @@
 //        swingProgressy = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI);
 //        GL11.glRotatef(swingProgressy * 70.0F, 0.0F, 1.0F, 0.0F);
 //        GL11.glRotatef(-swingProgressx * 20.0F, 0.0F, 0.0F, 1.0F);
-////        GL11.glBindTexture(GL11.GL_TEXTURE_2D, mc.renderEngine.getTextureForDownloadableImage(mc.thePlayer.skinUrl, mc.thePlayer.getTexture()));
+////        GL11.glBindTexture(GL11.GL_TEXTURE_2D, mc.renderEngine.getTextureForDownloadableImage(mc.thePlayer.skinUrl, mc.thePlayer.getTextureLocationForSlot()));
 ////        mc.renderEngine.resetBoundTexture();
 //        GL11.glTranslatef(-1.0F, 3.6F, 3.5F);
 //        GL11.glRotatef(120.0F, 0.0F, 0.0F, 1.0F);

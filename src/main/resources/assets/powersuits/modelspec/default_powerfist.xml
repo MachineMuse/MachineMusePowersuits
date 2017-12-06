@@ -1,4 +1,3 @@
-
 <modelSpec name="Power Fist Default" type="power fist" default="true">
     <models>
         <model file="powersuits:models/item/powerfist/powerfist.obj" textures="powersuits:models/tool2.png">

@@ -2,7 +2,6 @@ package net.machinemuse.utils.render;
 
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.powersuits.common.MPSConstants;
-import net.machinemuse.powersuits.common.powermodule.weapon.PlasmaCannonModule;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 

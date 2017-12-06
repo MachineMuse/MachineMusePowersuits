@@ -16,6 +16,8 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import java.util.List;
@@ -26,6 +28,7 @@ import java.util.List;
  *
  * Ported to Java by lehjr on 11/6/16.
  */
+@SideOnly(Side.CLIENT)
 public class RenderPart extends ModelRenderer {
     ModelRenderer parent;
 

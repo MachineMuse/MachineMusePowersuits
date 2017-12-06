@@ -12,7 +12,6 @@ import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.client.renderers.entity.EntityRendererPlasmaBolt;
 import net.machinemuse.powersuits.common.MPSConstants;
-import net.machinemuse.powersuits.common.powermodule.weapon.PlasmaCannonModule;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;

@@ -6,7 +6,6 @@ import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.client.models.obj.OBJModelPlus;
 import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.events.EventRegisterItems;
-import net.machinemuse.powersuits.common.powermodule.weapon.PlasmaCannonModule;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
