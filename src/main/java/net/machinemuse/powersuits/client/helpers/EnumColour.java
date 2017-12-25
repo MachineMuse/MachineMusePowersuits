@@ -294,9 +294,9 @@ public enum EnumColour implements IStringSerializable {
     }
 
     public static EnumColour findClosestEnumColour(Colour colourIn) {
-        double distance = 0F;
+        double distance;
         double bestDistance = Double.MAX_VALUE;
-        Colour testColour = Colour.WHITE;
+        Colour testColour;
         EnumColour bestMatch = getColourEnumFromIndex(0);
 
         for (EnumColour testEnumColour : values()) {

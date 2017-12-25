@@ -42,8 +42,13 @@ public class MusePacketRecipeUpdate extends MusePacket {
 
     private static MusePacketRecipeUpdatePackager PACKAGERINSTANCE;
     public static MusePacketRecipeUpdatePackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketRecipeUpdatePackager();
+        if (PACKAGERINSTANCE == null) {
+            synchronized (MusePacketRecipeUpdatePackager.class) {
+                if (PACKAGERINSTANCE == null) {
+                    PACKAGERINSTANCE = new MusePacketRecipeUpdatePackager();
+                }
+            }
+        }
         return PACKAGERINSTANCE;
     }
 

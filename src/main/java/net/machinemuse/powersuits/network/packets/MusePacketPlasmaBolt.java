@@ -2,10 +2,10 @@
 //
 //import net.machinemuse_old.numina.network.MusePackager;
 //import net.machinemuse_old.numina.network.MusePacket;
-//import net.machinemuse_old.powersuits.entity.EntityPlasmaBolt;
+//import net.machinemuse_old.powersuits.entities.EntityPlasmaBolt;
 //import net.minecraft.client.Minecraft;
-//import net.minecraft.client.entity.EntityPlayerSP;
-//import net.minecraft.entity.player.EntityPlayer;
+//import net.minecraft.client.entities.EntityPlayerSP;
+//import net.minecraft.entities.player.EntityPlayer;
 //import net.minecraftforge.fml.relauncher.Side;
 //import net.minecraftforge.fml.relauncher.SideOnly;
 //
@@ -38,7 +38,7 @@
 //    public void write() {
 //        writeInt(entityID);
 //        writeDouble(size);
-//        System.out.println("entity ID here is: " + entityID);
+//        System.out.println("entities ID here is: " + entityID);
 //        System.out.println("size here is: " + size);
 //
 //    }
@@ -47,8 +47,8 @@
 //    @Override
 //    public void handleClient(EntityPlayerSP player) {
 //        try {
-//            EntityPlasmaBolt entity = (EntityPlasmaBolt) Minecraft.getMinecraft().theWorld.getEntityByID(entityID);
-//            entity.size = this.size;
+//            EntityPlasmaBolt entities = (EntityPlasmaBolt) Minecraft.getMinecraft().theWorld.getEntityByID(entityID);
+//            entities.size = this.size;
 //        }
 //        catch (Exception e){
 //
@@ -69,7 +69,7 @@
 //            int entityID = readInt(datain);
 //            double size = readDouble(datain);
 //
-//            System.out.println("entity ID here is: " + entityID);
+//            System.out.println("entities ID here is: " + entityID);
 //            System.out.println("size here is: " + size);
 //
 //

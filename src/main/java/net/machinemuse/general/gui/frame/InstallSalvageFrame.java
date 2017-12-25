@@ -1,11 +1,11 @@
 package net.machinemuse.general.gui.frame;
 
-import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.gui.clickable.ClickableButton;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.general.sound.SoundDictionary;
+import net.machinemuse.numina.api.item.IModule;
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
@@ -65,7 +65,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
         if (targetItem.getSelectedItem() != null
                 && targetModule.getSelectedModule() != null) {
             ItemStack stack = targetItem.getSelectedItem().getItem();
-            IPowerModule module = targetModule.getSelectedModule().getModule();
+            IModule module = targetModule.getSelectedModule().getModule();
             List<ItemStack> itemsToCheck = module.getInstallCost();
             double yoffset;
             if (!ModuleManager.itemHasModule(stack, module.getDataName())) {
@@ -101,7 +101,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 
     private void drawItems() {
         ItemStack stack = targetItem.getSelectedItem().getItem();
-        IPowerModule module = targetModule.getSelectedModule().getModule();
+        IModule module = targetModule.getSelectedModule().getModule();
         List<ItemStack> itemsToDraw = module.getInstallCost();
         double yoffset;
         if (!ModuleManager.itemHasModule(stack, module.getDataName())) {
@@ -122,7 +122,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
 
     private void drawButtons() {
         ItemStack stack = targetItem.getSelectedItem().getItem();
-        IPowerModule module = targetModule.getSelectedModule().getModule();
+        IModule module = targetModule.getSelectedModule().getModule();
         if (!ModuleManager.itemHasModule(stack, module.getDataName())) {
 
             installButton.setEnabled(player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(
@@ -139,7 +139,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
         ClickableModule selModule = targetModule.getSelectedModule();
         if (selItem != null && selModule != null) {
             ItemStack stack = selItem.getItem();
-            IPowerModule module = selModule.getModule();
+            IModule module = selModule.getModule();
 
             if (!ModuleManager.itemHasModule(stack, module.getDataName())) {
                 if (installButton.hitBox(x, y)) {
@@ -154,7 +154,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
     }
 
     private void doSalvage() {
-        IPowerModule module = targetModule.getSelectedModule().getModule();
+        IModule module = targetModule.getSelectedModule().getModule();
         MusePacket newpacket = new MusePacketSalvageModuleRequest(
                 player,
                 targetItem.getSelectedItem().inventorySlot,
@@ -168,7 +168,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
      */
     private void doInstall() {
         ItemStack stack = targetItem.getSelectedItem().getItem();
-        IPowerModule module = targetModule.getSelectedModule().getModule();
+        IModule module = targetModule.getSelectedModule().getModule();
         if (player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(module.getInstallCost(), player.inventory)) {
             Musique.playClientSound(SoundDictionary.SOUND_EVENT_GUI_INSTALL, SoundCategory.BLOCKS, 1, null);
             // Now send request to server to make it legit

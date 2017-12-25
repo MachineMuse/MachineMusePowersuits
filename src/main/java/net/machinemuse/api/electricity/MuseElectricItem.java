@@ -97,13 +97,13 @@ public class MuseElectricItem extends Item implements IMuseElectricItem {
 //    }
 //
 //    @Override
-//    public void chargeFromArmor(ItemStack itemStack, EntityLivingBase entity) {
-//        ElectricItem.rawManager.chargeFromArmor(itemStack, entity);
+//    public void chargeFromArmor(ItemStack itemStack, EntityLivingBase entities) {
+//        ElectricItem.rawManager.chargeFromArmor(itemStack, entities);
 //    }
 //
 //    @Override
-//    public boolean use(ItemStack itemStack, double amount, EntityLivingBase entity) {
-//        return ElectricItem.rawManager.use(itemStack, ElectricConversions.museEnergyToEU(amount), entity);
+//    public boolean use(ItemStack itemStack, double amount, EntityLivingBase entities) {
+//        return ElectricItem.rawManager.use(itemStack, ElectricConversions.museEnergyToEU(amount), entities);
 //    }
 //
 //    public boolean canProvideEnergy(ItemStack itemStack) {

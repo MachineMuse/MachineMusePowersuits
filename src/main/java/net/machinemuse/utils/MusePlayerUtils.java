@@ -7,7 +7,7 @@ import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.powersuits.client.control.PlayerInputMap;
 import net.machinemuse.powersuits.common.config.MPSSettings;
-import net.machinemuse.powersuits.common.powermodule.movement.FlightControlModule;
+import net.machinemuse.powersuits.common.items.modules.movement.FlightControlModule;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

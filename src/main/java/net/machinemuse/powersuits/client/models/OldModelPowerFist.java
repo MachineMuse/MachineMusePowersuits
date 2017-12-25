@@ -6,7 +6,7 @@
 //import net.machinemuse.api.ModuleManager;
 //import net.machinemuse.api.item.IModularItemBase;
 //import net.machinemuse.numina.geometry.Colour;
-//import net.machinemuse.powersuits.common.powermodule.weapon.PlasmaCannonModule;
+//import net.machinemuse.powersuits.common.items.modules.weapon.PlasmaCannonModule;
 //import net.minecraft.block.state.IBlockState;
 //import net.minecraft.client.renderer.block.model.BakedQuad;
 //import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -55,7 +55,7 @@
 //            .maximumSize(20)
 //            .build(new CacheLoader<Colour, List<BakedQuad>>() {
 //                public List<BakedQuad> load(Colour colour) { // no checked exception //  throws Exception {
-//                    return ModelHelper.getColoredQuads(ModelHelper.powerFist.getQuads(null, null,0), colour);
+//                    return ModelHelper.getColoredQuads(ModelHelper.powerfist.getQuads(null, null,0), colour);
 //                }
 //            });
 //

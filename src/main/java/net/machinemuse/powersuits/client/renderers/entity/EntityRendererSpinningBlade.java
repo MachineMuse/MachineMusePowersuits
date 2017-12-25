@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.renderers.entity;
 
 import net.machinemuse.numina.client.render.MuseTextureUtils;
-import net.machinemuse.powersuits.entity.EntitySpinningBlade;
+import net.machinemuse.powersuits.common.entities.EntitySpinningBlade;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;

@@ -4,7 +4,7 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.powersuits.common.config.MPSSettings;
-import net.machinemuse.powersuits.common.powermodule.PowerModule;
+import net.machinemuse.powersuits.common.items.modules.PowerModule;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;

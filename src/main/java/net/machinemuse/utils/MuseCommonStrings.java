@@ -1,8 +1,8 @@
 package net.machinemuse.utils;
 
-import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.ElectricAdapter;
+import net.machinemuse.numina.api.item.IModule;
 import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.powersuits.common.items.old.ItemPowerFist;
 import net.minecraft.client.resources.I18n;
@@ -99,7 +99,7 @@ public abstract class MuseCommonStrings {
     public static List<String> getItemInstalledModules(EntityPlayer player, ItemStack stack) {
         NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
         List<String> modules = new LinkedList();
-        for (IPowerModule module : ModuleManager.getValidModulesForItem(stack)) {
+        for (IModule module : ModuleManager.getValidModulesForItem(stack)) {
             if (ModuleManager.tagHasModule(itemTag, module.getDataName())) {
                 modules.add(module.getDataName());
             }

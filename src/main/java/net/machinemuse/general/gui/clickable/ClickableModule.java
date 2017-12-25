@@ -1,7 +1,7 @@
 package net.machinemuse.general.gui.clickable;
 
 import net.machinemuse.api.ILocalizeableModule;
-import net.machinemuse.api.IPowerModule;
+import net.machinemuse.numina.api.item.IModule;
 import net.machinemuse.numina.client.render.MuseIconUtils;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
 import net.machinemuse.numina.geometry.Colour;
@@ -26,9 +26,9 @@ public class ClickableModule extends Clickable {
     boolean allowed = true;
     boolean installed = false;
     final Colour checkmarkcolour = new Colour(0.0F, 0.667F, 0.0F, 1.0F);
-    IPowerModule module;
+    IModule module;
 
-    public ClickableModule(IPowerModule module, MusePoint2D position){
+    public ClickableModule(IModule module, MusePoint2D position){
         super(position);
         this.module = module;
     }
@@ -41,13 +41,13 @@ public class ClickableModule extends Clickable {
         return toolTipText;
     }
 
-    public String getLocalizedName(IPowerModule m) {
+    public String getLocalizedName(IModule m) {
         if (m instanceof ILocalizeableModule)
             return I18n.format("module." + ((ILocalizeableModule) m).getUnlocalizedName() + ".name");
         return "module has broken translation for localized name";
     }
 
-    public String getLocalizedDescription(IPowerModule m) {
+    public String getLocalizedDescription(IModule m) {
         if (m instanceof ILocalizeableModule)
             return I18n.format("module." + ((ILocalizeableModule) m).getUnlocalizedName() + ".desc");
         return "module has broken translation for description";
@@ -83,7 +83,7 @@ public class ClickableModule extends Clickable {
         return hitx && hity;
     }
 
-    public IPowerModule getModule() {
+    public IModule getModule() {
         return module;
     }
 

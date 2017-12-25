@@ -19,11 +19,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class DeathEventHandler {
     @SubscribeEvent
     public void onLivingDeath(LivingDeathEvent e) {
-        EntityPlayer player = (EntityPlayer) e.getEntityLiving();
-        e.setCanceled(true);
-        player.openGui(Numina.getInstance(), 0, player.world, (int)player.posX, (int)player.posY, (int)player.posZ);
-        MuseLogger.logDebug("Death");
-//        player.setHealth(10f)
+        if (e.getEntityLiving() instanceof EntityPlayer) {
+            MuseLogger.logDebug("Death");
+            EntityPlayer player = (EntityPlayer) e.getEntityLiving();
+            e.setCanceled(true);
+            player.openGui(Numina.getInstance(), 0, player.world, (int) player.posX, (int) player.posY, (int) player.posZ);
+        }
     }
 
     @SubscribeEvent
@@ -31,7 +32,9 @@ public class DeathEventHandler {
         if (e.getGui() instanceof GuiGameOver) {
             e.setCanceled(true);
             EntityPlayerSP player = Minecraft.getMinecraft().player;
-            player.openGui(Numina.getInstance(), 0, player.world, (int)player.posX, (int)player.posY, (int)player.posZ);
+            if (!player.isEntityAlive()) {
+                player.openGui(Numina.getInstance(), 0, player.world, (int)player.posX, (int)player.posY, (int)player.posZ);
+            }
         }
     }
 }

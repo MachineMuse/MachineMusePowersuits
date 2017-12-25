@@ -1,6 +1,6 @@
 package net.machinemuse.api.moduletrigger;
 
-import net.machinemuse.api.IPowerModule;
+import net.machinemuse.numina.api.item.IModule;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
-public interface IBlockBreakingModule extends IPowerModule {
+public interface IBlockBreakingModule extends IModule {
     /**
      * Return true if using the tool allows the block to drop as an item (e.g. diamond pickaxe on obsidian)
      *

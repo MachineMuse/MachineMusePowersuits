@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.client.control;
 
-import net.machinemuse.numina.item.IModeChangingItem;
+import net.machinemuse.numina.api.capabilties.item.IModeChangingItem;
 import net.machinemuse.numina.item.ModeChangingItem;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.client.Minecraft;

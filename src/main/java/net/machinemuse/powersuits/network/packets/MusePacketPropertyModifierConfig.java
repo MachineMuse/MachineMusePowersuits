@@ -1,13 +1,13 @@
 package net.machinemuse.powersuits.network.packets;
 
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.IPropertyModifier;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.numina.api.item.IModule;
+import net.machinemuse.numina.api.nbt.IPropertyModifier;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
-import net.machinemuse.powersuits.common.powermodule.PowerModuleBase;
-import net.machinemuse.powersuits.common.powermodule.PropertyModifierFlatAdditive;
-import net.machinemuse.powersuits.common.powermodule.PropertyModifierLinearAdditive;
+import net.machinemuse.powersuits.common.items.modules.PowerModuleBase;
+import net.machinemuse.powersuits.common.items.modules.PropertyModifierFlatAdditive;
+import net.machinemuse.powersuits.common.items.modules.PropertyModifierLinearAdditive;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -39,7 +39,7 @@ public class MusePacketPropertyModifierConfig extends MusePacket {
     @Override
     public void write() {
         writeInt(ModuleManager.getAllModules().size());
-        for (IPowerModule module : ModuleManager.getAllModules()) {
+        for (IModule module : ModuleManager.getAllModules()) {
             writeString(module.getDataName());
             writeBoolean(module.isAllowed());
             writeInt(module.getPropertyModifiers().size());
@@ -71,7 +71,7 @@ public class MusePacketPropertyModifierConfig extends MusePacket {
         for (int i = 0; i < numModules; i++) {
             String moduleName = d.readString(data);
             boolean allowed = d.readBoolean(data);
-            IPowerModule module = ModuleManager.getModule(moduleName);
+            IModule module = ModuleManager.getModule(moduleName);
             if (module instanceof PowerModuleBase)
                 ((PowerModuleBase) module).setIsAllowed(allowed);
             int numProps = d.readInt(data);
@@ -93,8 +93,13 @@ public class MusePacketPropertyModifierConfig extends MusePacket {
 
     private static MusePacketPropertyModifierConfigPackager PACKAGERINSTANCE;
     public static MusePacketPropertyModifierConfigPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketPropertyModifierConfigPackager();
+        if (PACKAGERINSTANCE == null) {
+            synchronized (MusePacketPropertyModifierConfigPackager.class) {
+                if (PACKAGERINSTANCE == null) {
+                    PACKAGERINSTANCE = new MusePacketPropertyModifierConfigPackager();
+                }
+            }
+        }
         return PACKAGERINSTANCE;
     }
 

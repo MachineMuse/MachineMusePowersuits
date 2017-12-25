@@ -1,12 +1,12 @@
 package net.machinemuse.general.gui.frame;
 
-import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.general.gui.MuseGui;
 import net.machinemuse.general.gui.clickable.ClickableButton;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.general.gui.clickable.IClickable;
+import net.machinemuse.numina.api.item.IModule;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
 import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.numina.geometry.Colour;
@@ -100,13 +100,13 @@ public class KeybindConfigFrame implements IGuiFrame {
     }
 
     public void refreshModules() {
-        List<IPowerModule> installedModules = MuseItemUtils.getPlayerInstalledModules(player);
+        List<IModule> installedModules = MuseItemUtils.getPlayerInstalledModules(player);
         List<MusePoint2D> points = GradientAndArcCalculator.pointsInLine(
                 installedModules.size(),
                 new MusePoint2D(ul.x() + 10, ul.y() + 10),
                 new MusePoint2D(ul.x() + 10, br.y() - 10));
         Iterator<MusePoint2D> pointIterator = points.iterator();
-        for (IPowerModule module : installedModules) {
+        for (IModule module : installedModules) {
             if (module instanceof IToggleableModule && !alreadyAdded(module)) {
                 ClickableModule clickie = new ClickableModule(module, pointIterator.next());
                 modules.add(clickie);
@@ -114,7 +114,7 @@ public class KeybindConfigFrame implements IGuiFrame {
         }
     }
 
-    public boolean alreadyAdded(IPowerModule module) {
+    public boolean alreadyAdded(IModule module) {
         for (ClickableModule clickie : modules) {
             if (clickie.getModule().getDataName().equals(module.getDataName())) {
                 return true;

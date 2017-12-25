@@ -4,7 +4,7 @@ import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.geometry.MuseRelativeRect;
 import net.machinemuse.powersuits.client.modelspec.ModelRegistry;
-import net.machinemuse.powersuits.client.modelspec.ModelSpec;
+import net.machinemuse.powersuits.client.modelspec.Spec;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 
@@ -73,11 +73,11 @@ public class PartManipContainer extends ScrollableFrame {
 
     public List<PartManipSubFrame> getModelframes() {
         List<PartManipSubFrame> modelframesList = new ArrayList<>();
-        Collection<ModelSpec> specCollection = ModelRegistry.getInstance().apply().values();
+        Collection<Spec> specCollection = ModelRegistry.getInstance().apply().values();
 
         PartManipSubFrame prev = null;
         PartManipSubFrame newframe;
-        for (ModelSpec modelspec : specCollection) {
+        for (Spec modelspec : specCollection) {
             newframe = createNewFrame(modelspec, prev);
             prev = newframe;
             modelframesList.add(newframe);
@@ -85,7 +85,7 @@ public class PartManipContainer extends ScrollableFrame {
         return modelframesList;
     }
 
-    public PartManipSubFrame createNewFrame(ModelSpec modelspec, PartManipSubFrame prev) {
+    public PartManipSubFrame createNewFrame(Spec modelspec, PartManipSubFrame prev) {
         MuseRelativeRect newborder = new MuseRelativeRect(this.topleft.x() + 4, this.topleft.y() + 4, this.bottomright.x(), this.topleft.y() + 10);
         newborder.setBelow((prev!= null) ? prev.border : null);
         return new PartManipSubFrame(modelspec, this.colourSelect, this.itemSelect, newborder);

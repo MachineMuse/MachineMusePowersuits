@@ -46,8 +46,13 @@ public class MusePacketPlayerUpdate extends MusePacket {
 
     private static MusePacketPlayerUpdatePackager PACKAGERINSTANCE;
     public static MusePacketPlayerUpdatePackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketPlayerUpdatePackager();
+        if (PACKAGERINSTANCE == null) {
+            synchronized (MusePacketPlayerUpdatePackager.class) {
+                if (PACKAGERINSTANCE == null) {
+                    PACKAGERINSTANCE = new MusePacketPlayerUpdatePackager();
+                }
+            }
+        }
         return PACKAGERINSTANCE;
     }
 

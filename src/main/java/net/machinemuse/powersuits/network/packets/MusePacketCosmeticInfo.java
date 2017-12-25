@@ -67,8 +67,13 @@ public class MusePacketCosmeticInfo extends MusePacket {
 
     private static MusePacketCosmeticInfoPackager PACKAGERINSTANCE;
     public static MusePacketCosmeticInfoPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketCosmeticInfoPackager();
+        if (PACKAGERINSTANCE == null) {
+            synchronized (MusePacketCosmeticInfoPackager.class) {
+                if (PACKAGERINSTANCE == null) {
+                    PACKAGERINSTANCE = new MusePacketCosmeticInfoPackager();
+                }
+            }
+        }
         return PACKAGERINSTANCE;
     }
 

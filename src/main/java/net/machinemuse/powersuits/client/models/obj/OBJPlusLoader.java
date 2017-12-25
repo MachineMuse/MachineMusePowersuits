@@ -19,6 +19,7 @@
 
 package net.machinemuse.powersuits.client.models.obj;
 
+import net.machinemuse.numina.general.MuseLogger;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
@@ -73,10 +74,15 @@ public enum OBJPlusLoader implements ICustomModelLoader {
             try {
                 resource = manager.getResource(file);
             } catch (FileNotFoundException e) {
+                MuseLogger.logException("failed to load model: ", e);
                 if (modelLocation.getResourcePath().startsWith("models/block/"))
                     resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/item/" + file.getResourcePath().substring("models/block/".length())));
                 else if (modelLocation.getResourcePath().startsWith("models/item/"))
                     resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/block/" + file.getResourcePath().substring("models/item/".length())));
+                else if (modelLocation.getResourcePath().startsWith("models/models/item/"))
+                    resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/item/" + file.getResourcePath().substring("models/models/item/".length())));
+                else if (modelLocation.getResourcePath().startsWith("models/models/block/"))
+                    resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/block/" + file.getResourcePath().substring("models/models/block/".length())));
                 else throw e;
             }
             OBJModelPlus.Parser parser = new OBJModelPlus.Parser(resource, manager);
@@ -84,6 +90,8 @@ public enum OBJPlusLoader implements ICustomModelLoader {
             try {
                 model = parser.parse();
             } catch (Exception e) {
+                MuseLogger.logException("failed to parse model: ", e);
+
                 errors.put(modelLocation, e);
             } finally {
                 cache.put(modelLocation, model);

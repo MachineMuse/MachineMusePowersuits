@@ -3,9 +3,9 @@ package net.machinemuse.general.gui.frame;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.general.gui.clickable.ClickableModule;
+import net.machinemuse.numina.api.capabilties.item.IModeChangingItem;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.geometry.SpiralPointToPoint2D;
-import net.machinemuse.numina.item.IModeChangingItem;
 import net.machinemuse.numina.network.MusePacketModeChangeRequest;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.utils.render.MuseRenderer;
@@ -98,7 +98,7 @@ public class RadialSelectionFrame implements IGuiFrame {
 
     @Override
     public void update(double mousex, double mousey) {
-    	//Update items
+    	//Update item
     	loadItems();
     	//Determine which mode is selected
     	if (System.currentTimeMillis() - spawnTime > 250) {

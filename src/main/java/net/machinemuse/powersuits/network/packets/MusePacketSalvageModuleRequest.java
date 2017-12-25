@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.network.packets;
 
-import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.numina.api.item.IModule;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
@@ -54,7 +54,7 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
         if (moduleName != null) {
             InventoryPlayer inventory = player.inventory;
             ItemStack stack = player.inventory.getStackInSlot(itemSlot);
-            IPowerModule moduleType = ModuleManager.getModule(moduleName);
+            IModule moduleType = ModuleManager.getModule(moduleName);
             List<ItemStack> refund = moduleType.getInstallCost();
             if (ModuleManager.itemHasModule(stack, moduleName)) {
                 Set<Integer> slots = new HashSet<>();
@@ -74,8 +74,13 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
 
     private static MusePacketSalvageModuleRequestPackager PACKAGERINSTANCE;
     public static MusePacketSalvageModuleRequestPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketSalvageModuleRequestPackager();
+        if (PACKAGERINSTANCE == null) {
+            synchronized (MusePacketSalvageModuleRequestPackager.class) {
+                if (PACKAGERINSTANCE == null) {
+                    PACKAGERINSTANCE = new MusePacketSalvageModuleRequestPackager();
+                }
+            }
+        }
         return PACKAGERINSTANCE;
     }
 

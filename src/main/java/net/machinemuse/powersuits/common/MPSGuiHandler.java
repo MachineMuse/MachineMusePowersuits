@@ -19,10 +19,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public final class MPSGuiHandler implements IGuiHandler {
     private static MPSGuiHandler INSTANCE;
-
     public static MPSGuiHandler getInstance() {
-        if (INSTANCE == null)
-            INSTANCE = new MPSGuiHandler();
+        if (INSTANCE == null) {
+            synchronized (MPSGuiHandler.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new MPSGuiHandler();
+                }
+            }
+        }
         return INSTANCE;
     }
 

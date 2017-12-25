@@ -50,8 +50,13 @@ public class MusePacketInventoryRefresh extends MusePacket {
 
     private static MusePacketInventoryRefreshPackager PACKAGERINSTANCE;
     public static MusePacketInventoryRefreshPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketInventoryRefreshPackager();
+        if (PACKAGERINSTANCE == null) {
+            synchronized (MusePacketInventoryRefreshPackager.class) {
+                if (PACKAGERINSTANCE == null) {
+                    PACKAGERINSTANCE = new MusePacketInventoryRefreshPackager();
+                }
+            }
+        }
         return PACKAGERINSTANCE;
     }
 

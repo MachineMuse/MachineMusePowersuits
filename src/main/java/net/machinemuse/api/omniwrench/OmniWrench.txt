@@ -5,7 +5,7 @@
 //import cpw.mods.fml.common.FMLCommonHandler
 //import mods.railcraft.api.core.items.IToolCrowbar
 //import net.machinemuse.api.IModularItem
-//import net.machinemuse.powersuits.common.powermodule.tool.{MFFSFieldTeleporterModule, OmniWrenchModule}
+//import net.machinemuse.powersuits.common.items.modules.tools.tool.{MFFSFieldTeleporterModule, OmniWrenchModule}
 //import net.machinemuse.utils.ElectricItemUtils
 //import net.minecraft.entity.item.EntityMinecart
 //import net.minecraft.entity.player.EntityPlayer

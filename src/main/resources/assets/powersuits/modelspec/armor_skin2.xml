@@ -1,0 +1,16 @@
+<modelSpec name="Citizen Joe Armor Skin" type="armor skin">
+    <textures>
+        <texture file="powersuits:items/armor/joearmor">
+            <binding slot="head" partName="citizen_joe_armor_skin_head" localizedName="Citizen Joe Armor Skin" defaultcolor="FFFFFF"/>
+        </texture>
+        <texture file="powersuits:items/armor/joearmor">
+            <binding slot="chest" partName="citizen_joe_armor_skin_chest" localizedName="Citizen Joe Armor Skin" defaultcolor="FFFFFF"/>
+        </texture>
+        <texture file="powersuits:items/armor/joearmorpants">
+            <binding slot="legs" partName="citizen_joe_armor_skin_legs" localizedName="Citizen Joe Armor Skin" defaultcolor="FFFFFF"/>
+        </texture>
+        <texture file="powersuits:items/armor/joearmor">
+            <binding slot="feet" partName="citizen_joe_armor_skin_feet" localizedName="Citizen Joe Armor Skin" defaultcolor="FFFFFF" />
+        </texture>
+    </textures>
+</modelSpec>

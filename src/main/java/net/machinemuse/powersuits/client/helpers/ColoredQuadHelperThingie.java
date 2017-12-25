@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.client.helpers;
 
+import com.google.common.base.Objects;
 import net.minecraft.util.EnumFacing;
 
 import javax.annotation.Nullable;
@@ -27,18 +28,15 @@ public class ColoredQuadHelperThingie {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof ColoredQuadHelperThingie)
-            return (((ColoredQuadHelperThingie) o).colour == this.colour) && (((ColoredQuadHelperThingie) o).facing == this.facing);
-        return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ColoredQuadHelperThingie that = (ColoredQuadHelperThingie) o;
+        return getColour() == that.getColour() &&
+                getFacing() == that.getFacing();
     }
 
-    /*
-     * only need 2 bytes here, one for the Enumfacing and one for the EnumColour
-     */
     @Override
     public int hashCode() {
-        int result = 0;
-        result = result | colour.getIndex();
-        return result | (((facing != null) ? facing.getIndex() : 6) <<  8);
+        return Objects.hashCode(getColour(), getFacing());
     }
 }

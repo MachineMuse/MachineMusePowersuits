@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.renderers.entity;
 
 
-import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
+import net.machinemuse.powersuits.common.entities.EntityLuxCapacitor;
 import net.minecraft.client.renderer.entity.RenderManager;
 
 public class EntityRendererLuxCapacitorEntity extends MuseEntityRenderer <EntityLuxCapacitor> {

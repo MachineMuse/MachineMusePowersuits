@@ -21,17 +21,6 @@ public class MuseFileUtils {
         new FileOutputStream(newFile).getChannel().transferFrom(new FileInputStream(oldFile).getChannel(), 0, Long.MAX_VALUE);
         MuseLogger.logDebug("Successfully moved MPS config to new location. :D");
     }
-
-
-
-
-
-
-
-
-
-
-
 }
 
 

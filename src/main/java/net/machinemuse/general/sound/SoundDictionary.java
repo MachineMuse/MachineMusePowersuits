@@ -3,11 +3,18 @@ package net.machinemuse.general.sound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 import static net.machinemuse.powersuits.common.MPSConstants.MODID;
 
+@Mod.EventBusSubscriber(modid = MODID, value = Side.CLIENT)
 public class SoundDictionary {
+    static {
+        new SoundDictionary();
+    }
+
     public static SoundEvent SOUND_EVENT_GLIDER = registerSound("glider");
     public static SoundEvent SOUND_EVENT_GUI_INSTALL = registerSound("gui_install");
     public static SoundEvent SOUND_EVENT_GUI_SELECT = registerSound("gui_select");
@@ -29,13 +36,12 @@ public class SoundDictionary {
                                         SOUND_EVENT_JUMP_ASSIST,
                                         SOUND_EVENT_MPS_BOOP,
                                         SOUND_EVENT_SWIM_ASSIST,
-                                        SOUND_EVENT_ELECTROLYZER
-        );
+                                        SOUND_EVENT_ELECTROLYZER);
     }
 
     private static SoundEvent registerSound(String soundName) {
         ResourceLocation location = new ResourceLocation(MODID, soundName);
-        SoundEvent event = new SoundEvent(location);
+        SoundEvent event = new SoundEvent(location).setRegistryName(location);
         return event;
     }
 }

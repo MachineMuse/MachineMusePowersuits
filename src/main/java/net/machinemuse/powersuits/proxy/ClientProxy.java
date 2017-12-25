@@ -5,7 +5,6 @@ import net.machinemuse.powersuits.client.events.ModelBakeEventHandler;
 import net.machinemuse.powersuits.client.events.MuseIcon;
 import net.machinemuse.powersuits.client.events.RenderEventHandler;
 import net.machinemuse.powersuits.client.models.obj.OBJPlusLoader;
-import net.machinemuse.powersuits.client.modelspec.ModelSpecXMLReader;
 import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
@@ -14,8 +13,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.net.URL;
 
 import static net.machinemuse.powersuits.common.MPSConstants.MODID;
 
@@ -107,10 +104,10 @@ public class ClientProxy extends CommonProxy {
 
 
 
-        URL resource = ClientProxy.class.getResource("/assets/powersuits/models/item/armor/modelspec.xml");
-        ModelSpecXMLReader.getINSTANCE().parseFile(resource);
-        URL otherResource = ClientProxy.class.getResource("/assets/powersuits/models/item/armor/armor2.xml");
-        ModelSpecXMLReader.getINSTANCE().parseFile(otherResource);
+//        URL resource = ClientProxy.class.getResource("/assets/powersuits/models/item/armor/modelspec.xml");
+//        ModelSpecXMLReader.getInstance().parseFile(resource);
+//        URL otherResource = ClientProxy.class.getResource("/assets/powersuits/models/item/armor/armor2.xml");
+//        ModelSpecXMLReader.getInstance().parseFile(otherResource);
 
     }
 }

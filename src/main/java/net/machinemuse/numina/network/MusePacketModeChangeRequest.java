@@ -1,6 +1,6 @@
 package net.machinemuse.numina.network;
 
-import net.machinemuse.numina.item.IModeChangingItem;
+import net.machinemuse.numina.api.capabilties.item.IModeChangingItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
@@ -39,7 +39,7 @@ public class MusePacketModeChangeRequest extends MusePacket {
     public void handleServer(EntityPlayerMP player) {
         if (slot > -1 && slot < 9) {
             ItemStack stack = player.inventory.mainInventory.get(slot);
-            if (stack != null) {
+            if (stack != ItemStack.EMPTY) {
                 Item item = stack.getItem();
                 if (item instanceof IModeChangingItem) {
                     List<String> modes = ((IModeChangingItem) item).getValidModes(stack);
@@ -53,8 +53,13 @@ public class MusePacketModeChangeRequest extends MusePacket {
 
     private static MusePacketModeChangeRequestPackager PACKAGERINSTANCE;
     public static MusePacketModeChangeRequestPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketModeChangeRequestPackager();
+        if (PACKAGERINSTANCE == null) {
+            synchronized (MusePacketModeChangeRequestPackager.class) {
+                if (PACKAGERINSTANCE == null) {
+                    PACKAGERINSTANCE = new MusePacketModeChangeRequestPackager();
+                }
+            }
+        }
         return PACKAGERINSTANCE;
     }
 

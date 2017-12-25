@@ -14,10 +14,7 @@ import static net.machinemuse.powersuits.common.MPSConstants.GLASS_TEXTURE;
 
 @SideOnly(Side.CLIENT)
 public class HeatMeter {
-//    final int xsize = 8; // width
-//    final int ysize = 32; // height
-
-	final int xsize = 32;
+    final int xsize = 32;
 	final int ysize = 8;
 	double meterStart, meterLevel, alpha;
 
@@ -26,12 +23,10 @@ public class HeatMeter {
 	}
 	
 	public Colour getColour() {
-		//return Colour.WHITE;
 		return Colour.RED;
 	}
 
 	public TextureAtlasSprite getTexture() {
-		//return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/magma");
 		return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/snow");
 	}
 
@@ -50,16 +45,6 @@ public class HeatMeter {
         GL11.glPushMatrix();
         GL11.glScaled(0.5, 0.5, 0.5);
 
-/*
-		//Original: Vertical, fill from bottom.		
-		meterStart = (ypos + ysize);
-		meterLevel = (ypos + ysize * (1 - value));
-			while (meterStart - 8 > meterLevel) {
-				MuseIconUtils.drawIconAt(xpos * 2, (meterStart - 8) * 2, icon, tint);
-				meterStart -= 8;
-			}
-		MuseIconUtils.drawIconPartial(xpos * 2, (meterStart - 8) * 2, icon, tint, 0, (meterLevel - meterStart + 8) * 2, 16, 16);
-*/
 		// New: Horizontal, fill from left.
 		meterStart = xpos;
 		meterLevel = (xpos + xsize * value);
@@ -79,12 +64,10 @@ public class HeatMeter {
         GL11.glTexCoord2d(0, 0);
         GL11.glVertex2d(xpos, ypos);
         GL11.glTexCoord2d(0, 1);
-//		GL11.glVertex2d(xpos, ypos + ysize);
 		GL11.glVertex2d(xpos + xsize, ypos);
         GL11.glTexCoord2d(1, 1);
         GL11.glVertex2d(xpos + xsize, ypos + ysize);
         GL11.glTexCoord2d(1, 0);
-//		GL11.glVertex2d(xpos + xsize, ypos);
 		GL11.glVertex2d(xpos, ypos + ysize);
         GL11.glEnd();
         MuseTextureUtils.popTexture();

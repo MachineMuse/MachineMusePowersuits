@@ -44,8 +44,13 @@ public class MusePacketNameChangeRequest extends MusePacket {
     private static MusePacketNameChangeRequestPackager PACKAGERINSTANCE;
 
     public static MusePacketNameChangeRequestPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketNameChangeRequestPackager();
+        if (PACKAGERINSTANCE == null) {
+            synchronized (MusePacketNameChangeRequestPackager.class) {
+                if (PACKAGERINSTANCE == null) {
+                    PACKAGERINSTANCE = new MusePacketNameChangeRequestPackager();
+                }
+            }
+        }
         return PACKAGERINSTANCE;
     }
 

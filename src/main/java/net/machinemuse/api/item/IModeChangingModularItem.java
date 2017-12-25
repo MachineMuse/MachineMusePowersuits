@@ -1,7 +1,7 @@
 //package net.machinemuse.powersuits.item;
 //
 //import net.machinemuse_old.numina.item.IModeChangingItem;
-//import net.minecraft.entity.player.EntityPlayer;
+//import net.minecraft.entities.player.EntityPlayer;
 //import net.minecraft.item.ItemStack;
 //
 //

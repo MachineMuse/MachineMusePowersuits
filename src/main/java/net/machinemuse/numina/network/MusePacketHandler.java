@@ -62,13 +62,13 @@ public final class MusePacketHandler extends MessageToMessageCodec<FMLProxyPacke
 
     public void decode(ChannelHandlerContext ctx, FMLProxyPacket msg, List<Object> out) {
         DataInputStream data = new DataInputStream((InputStream)new ByteBufInputStream(msg.payload()));
-        int packetType;
 
         INetHandler handler = msg.handler();
         try {
+            int packetType = data.readInt();
+
             if (handler instanceof NetHandlerPlayServer) {
                 EntityPlayerMP player = ((NetHandlerPlayServer) handler).player;
-                packetType = data.readInt();
                 MusePackager packagerServer = this.packagers.get(packetType);
                 MusePacket packetServer = packagerServer.read(data, player);
                 packetServer.handleServer(player);
@@ -78,7 +78,6 @@ public final class MusePacketHandler extends MessageToMessageCodec<FMLProxyPacke
                     throw new IOException("Error with (INetHandler) handler. Should be instance of NetHandlerPlayClient.");
                 }
                 EntityPlayer player = this.getClientPlayer();
-                packetType = data.readInt();
                 MusePackager packagerClient = this.packagers.get(packetType);
                 MusePacket packetClient = packagerClient.read(data, player);
                 packetClient.handleClient(player);

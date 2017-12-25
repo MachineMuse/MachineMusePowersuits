@@ -28,6 +28,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import net.machinemuse.powersuits.client.helpers.ModelTransformCalibration;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -52,6 +54,8 @@ import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.common.property.Properties;
 import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
@@ -72,6 +76,7 @@ import java.util.stream.Collectors;
  * Modular Powersuits treats "Groups" (IModelPart) as flexible parts that can be toggled, recolored, and lighting toggled.
  *
  */
+@SideOnly(Side.CLIENT)
 public class OBJModelPlus implements IModel {
     private final ResourceLocation modelLocation;
     private MaterialLibrary matLib;
@@ -186,6 +191,7 @@ public class OBJModelPlus implements IModel {
                         break;
                     case "flip-v":
                         this.flipV = Boolean.valueOf(e.getValue());
+                        break;
                 }
 
 //                if (e.getKey().equals("ambient"))
@@ -652,8 +658,6 @@ public class OBJModelPlus implements IModel {
 
     public static class Face {
         private Vertex[] verts = new Vertex[4];
-        //        private Normal[] norms = new Normal[4];
-//        private TextureCoordinate[] texCoords = new TextureCoordinate[4];
         private String materialName = Material.DEFAULT_NAME;
         private boolean isTri = false;
 
@@ -666,30 +670,6 @@ public class OBJModelPlus implements IModel {
             setMaterialName(materialName);
             checkData();
         }
-
-//        public Face(Vertex[] verts, Normal[] norms)
-//        {
-//            this(verts, norms, null);
-//        }
-
-//        public Face(Vertex[] verts, TextureCoordinate[] texCoords)
-//        {
-//            this(verts, null, texCoords);
-//        }
-
-//        public Face(Vertex[] verts, Normal[] norms, TextureCoordinate[] texCoords)
-//        {
-//            this(verts, norms, texCoords, Material.DEFAULT_NAME);
-//        }
-
-//        public Face(Vertex[] verts, Normal[] norms, TextureCoordinate[] texCoords, String materialName)
-//        {
-//            this.verts = verts != null && verts.length > 2 ? verts : null;
-//            this.norms = norms != null && norms.length > 2 ? norms : null;
-//            this.texCoords = texCoords != null && texCoords.length > 2 ? texCoords : null;
-//            setMaterialName(materialName);
-//            checkData();
-//        }
 
         private void checkData() {
             if (this.verts != null && this.verts.length == 3) {
@@ -721,45 +701,14 @@ public class OBJModelPlus implements IModel {
             return this.verts;
         }
 
-//        public boolean areUVsNormalized()
-//        {
-//            for (Vertex v : this.verts)
-//                if (!v.hasNormalizedUVs())
-//                    return false;
-//            return true;
-//        }
-
-//        public void normalizeUVs(float[] min, float[] max)
-//        {
-//            if (!this.areUVsNormalized())
-//            {
-//                for (int i = 0; i < this.verts.length; i++) {
-//                    TextureCoordinate texCoord = this.verts[i].getTextureCoordinate();
-//                    min[0] = texCoord.u < min[0] ? texCoord.u : min[0];
-//                    max[0] = texCoord.u > max[0] ? texCoord.u : max[0];
-//                    min[1] = texCoord.v < min[1] ? texCoord.v : min[1];
-//                    max[1] = texCoord.v > max[1] ? texCoord.v : max[1];
-//                }
-//
-//                for (Vertex v : this.verts) {
-//                    v.texCoord.u = (v.texCoord.u - min[0]) / (max[0] - min[0]);
-//                    v.texCoord.v = (v.texCoord.v - min[1]) / (max[1] - max[1]);
-//                }
-//            }
-//        }
 
         public Face bake(TRSRTransformation transform) {
             Matrix4f m = transform.getMatrix();
             Matrix3f mn = null;
             Vertex[] vertices = new Vertex[verts.length];
-//            Normal[] normals = norms != null ? new Normal[norms.length] : null;
-//            TextureCoordinate[] textureCoords = texCoords != null ? new TextureCoordinate[texCoords.length] : null;
 
             for (int i = 0; i < verts.length; i++) {
                 Vertex v = verts[i];
-//                Normal n = norms != null ? norms[i] : null;
-//                TextureCoordinate t = texCoords != null ? texCoords[i] : null;
-
                 Vector4f pos = new Vector4f(v.getPos()), newPos = new Vector4f();
                 pos.w = 1;
                 m.transform(pos, newPos);
@@ -780,9 +729,6 @@ public class OBJModelPlus implements IModel {
 
                 if (v.hasTextureCoordinate()) vertices[i].setTextureCoordinate(v.getTextureCoordinate());
                 else v.setTextureCoordinate(TextureCoordinate.getDefaultUVs()[i]);
-
-                //texCoords TODO
-//                if (t != null) textureCoords[i] = t;
             }
             return new Face(vertices, this.materialName);
         }
@@ -1060,22 +1006,18 @@ public class OBJModelPlus implements IModel {
         }
 
         @Override
-        public int hashCode() {
-            return Objects.hashCode(visibilityMap, parent, operation);
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            OBJState objState = (OBJState) o;
+            return Objects.equal(parent, objState.parent) &&
+                    Objects.equal(getVisibilityMap(), objState.getVisibilityMap()) &&
+                    operation == objState.operation;
         }
 
         @Override
-        public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
-                return false;
-            OBJState other = (OBJState) obj;
-            return Objects.equal(visibilityMap, other.visibilityMap) &&
-                    Objects.equal(parent, other.parent) &&
-                    operation == other.operation;
+        public int hashCode() {
+            return Objects.hashCode(parent, getVisibilityMap(), operation);
         }
 
         public enum Operation {
@@ -1118,6 +1060,7 @@ public class OBJModelPlus implements IModel {
         private Map<String, List<BakedQuad>> partQuadMap;
         private ImmutableMap<String, TextureAtlasSprite> textures;
         private IBlockState cachedBlockstate;
+        ModelTransformCalibration calibration;
 
         private final LoadingCache<IModelState, OBJBakedModelPus> cache = CacheBuilder.newBuilder().maximumSize(20).build(new CacheLoader<IModelState, OBJBakedModelPus>() {
             @Override
@@ -1134,6 +1077,8 @@ public class OBJModelPlus implements IModel {
             this.format = format;
             this.textures = textures;
             this.partQuadMap = new HashMap<>();
+            if (MPSSettings.modelconfig.modelSetup)
+                calibration = new ModelTransformCalibration();
         }
 
         public void scheduleRebake() {
@@ -1145,7 +1090,6 @@ public class OBJModelPlus implements IModel {
             return partQuadMap.get(partName);
         }
 
-        // FIXME: merge with getQuads
         @Override
         public List<BakedQuad> getQuads(IBlockState blockState, EnumFacing side, long rand) {
             if (side != null) return ImmutableList.of();
@@ -1173,12 +1117,9 @@ public class OBJModelPlus implements IModel {
             return ImmutableList.copyOf(partQuadMap.values().stream().flatMap(x -> x.stream()).collect(Collectors.toList()));
         }
 
-        // TODO: replace single quad list system with system for getting quads for eaach group independantly
-
         private ImmutableList<BakedQuad> buildQuads(IModelState modelState) {
             List<BakedQuad> quads = Lists.newArrayList();
             Collections.synchronizedSet(new LinkedHashSet<BakedQuad>());
-            Set<Face> faces = Collections.synchronizedSet(new LinkedHashSet<Face>());
             Map<String, Set<Face>> facesMap = Collections.synchronizedMap(new LinkedHashMap<>());
 
             Optional<TRSRTransformation> transform = Optional.empty();
@@ -1210,11 +1151,11 @@ public class OBJModelPlus implements IModel {
                 partQuadMap.put(group, getQuadsFromFaces(facesMap.get(group)));
 
             return ImmutableList.copyOf(partQuadMap.entrySet()
-                                        .stream()
-                                        .filter( entry -> visibleParts.contains(entry.getKey()))
-                                        .map(Map.Entry::getValue).collect(Collectors.toList())
-                                        .stream()
-                                        .flatMap(x -> x.stream()).collect(Collectors.toList()));
+                    .stream()
+                    .filter( entry -> visibleParts.contains(entry.getKey()))
+                    .map(Map.Entry::getValue).collect(Collectors.toList())
+                    .stream()
+                    .flatMap(x -> x.stream()).collect(Collectors.toList()));
         }
 
         private ImmutableList<BakedQuad> getQuadsFromFaces(Set<Face> faces) {
@@ -1228,18 +1169,23 @@ public class OBJModelPlus implements IModel {
                     }
                     sprite = ModelLoader.White.INSTANCE;
                 } else sprite = this.textures.get(f.getMaterialName());
-                UnpackedBakedQuad.Builder builder = new UnpackedBakedQuad.Builder(format);
-                builder.setContractUVs(true);
-                builder.setQuadOrientation(EnumFacing.getFacingFromVector(f.getNormal().x, f.getNormal().y, f.getNormal().z));
-                builder.setTexture(sprite);
-                Normal faceNormal = f.getNormal();
-                putVertexData(builder, f.verts[0], faceNormal, TextureCoordinate.getDefaultUVs()[0], sprite);
-                putVertexData(builder, f.verts[1], faceNormal, TextureCoordinate.getDefaultUVs()[1], sprite);
-                putVertexData(builder, f.verts[2], faceNormal, TextureCoordinate.getDefaultUVs()[2], sprite);
-                putVertexData(builder, f.verts[3], faceNormal, TextureCoordinate.getDefaultUVs()[3], sprite);
-                quads.add(builder.build());
+                quads.add(getQuadForFace(f));
             }
             return ImmutableList.copyOf(quads);
+        }
+
+        private BakedQuad getQuadForFace(Face f) {
+            UnpackedBakedQuad.Builder builder = new UnpackedBakedQuad.Builder(format);
+            builder.setContractUVs(true);
+            builder.setQuadOrientation(EnumFacing.getFacingFromVector(f.getNormal().x, f.getNormal().y, f.getNormal().z));
+            builder.setTexture(sprite);
+
+            Normal faceNormal = f.getNormal();
+            putVertexData(builder, f.verts[0], faceNormal, TextureCoordinate.getDefaultUVs()[0], sprite);
+            putVertexData(builder, f.verts[1], faceNormal, TextureCoordinate.getDefaultUVs()[1], sprite);
+            putVertexData(builder, f.verts[2], faceNormal, TextureCoordinate.getDefaultUVs()[2], sprite);
+            putVertexData(builder, f.verts[3], faceNormal, TextureCoordinate.getDefaultUVs()[3], sprite);
+            return builder.build();
         }
 
         private final void putVertexData(UnpackedBakedQuad.Builder builder, Vertex v, Normal faceNormal, TextureCoordinate defUV, TextureAtlasSprite sprite) {
@@ -1259,7 +1205,7 @@ public class OBJModelPlus implements IModel {
                             builder.put(e, 1, 1, 1, 1);
                         break;
                     case UV:
-                        if (!v.hasTextureCoordinate())
+                       if (!v.hasTextureCoordinate())
                             builder.put(e,
                                     sprite.getInterpolatedU(defUV.u * 16),
                                     sprite.getInterpolatedV((model.customData.flipV ? 1 - defUV.v : defUV.v) * 16),
@@ -1342,6 +1288,13 @@ public class OBJModelPlus implements IModel {
 
         @Override
         public Pair<? extends IBakedModel, Matrix4f> handlePerspective(TransformType cameraTransformType) {
+//            TRSRTransformation tr = state.apply(Optional.of(cameraTransformType)).orElse(calibration != null ? calibration.getTransform() : TRSRTransformation.identity());
+//            if(tr != TRSRTransformation.identity())
+//            {
+//                return Pair.of(this, TRSRTransformation.blockCornerToCenter(tr).getMatrix());
+//            }
+//            return Pair.of(this, null);
+
             return PerspectiveMapWrapper.handlePerspective(this, state, cameraTransformType);
         }
 
@@ -1355,4 +1308,6 @@ public class OBJModelPlus implements IModel {
             return ItemOverrideList.NONE;
         }
     }
+
+
 }

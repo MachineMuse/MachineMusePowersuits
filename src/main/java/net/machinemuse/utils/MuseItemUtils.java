@@ -1,13 +1,17 @@
 package net.machinemuse.utils;
 
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemTag;
+import net.machinemuse.numina.api.item.IModule;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.powersuits.client.modelspec.DefaultModelSpec;
+import net.machinemuse.powersuits.client.modelspec.ModelRegistry;
+import net.machinemuse.powersuits.client.modelspec.Spec;
 import net.machinemuse.powersuits.common.items.ItemComponent;
+import net.machinemuse.powersuits.common.items.old.ItemPowerArmor;
+import net.machinemuse.powersuits.common.items.old.ItemPowerFist;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -35,12 +39,11 @@ public class MuseItemUtils {
         return MuseItemTag.getMuseItemTag(stack);
     }
 
-    public static NBTTagCompound getMuseRenderTag(ItemStack stack, EntityEquipmentSlot armorSlot) {
+    public static NBTTagCompound getMuseRenderTag(ItemStack stack, EntityEquipmentSlot equipmentSlot) {
         NBTTagCompound tag = getMuseItemTag(stack);
         if (!tag.hasKey("render") || !(tag.getTag("render") instanceof NBTTagCompound)) {
-            MuseLogger.logDebug("TAG BREACH IMMINENT, PLEASE HOLD ONTO YOUR SEATBELTS");
             tag.removeTag("render");
-            tag.setTag("render", DefaultModelSpec.makeModelPrefs(stack, armorSlot));
+            tag.setTag("render", DefaultModelSpec.makeModelPrefs(stack, equipmentSlot));
         }
         return tag.getCompoundTag("render");
     }
@@ -48,14 +51,15 @@ public class MuseItemUtils {
     public static NBTTagCompound getMuseRenderTag(ItemStack stack) {
         NBTTagCompound tag = getMuseItemTag(stack);
         if (!tag.hasKey("render") || !(tag.getTag("render") instanceof NBTTagCompound)) {
+            MuseLogger.logDebug("TAG BREACH IMMINENT, PLEASE HOLD ONTO YOUR SEATBELTS");
             tag.removeTag("render");
-            tag.setTag("render", new NBTTagCompound());
+            tag.setTag("render", DefaultModelSpec.makeModelPrefs(stack));
         }
         return tag.getCompoundTag("render");
     }
 
     /**
-     * Scans a specified inventory for modular items.
+     * Scans a specified inventory for modular item.
      *
      * @param inv IInventory to scan.
      * @return A List of ItemStacks in the inventory which implement
@@ -78,7 +82,7 @@ public class MuseItemUtils {
     }
 
     /**
-     * Scans a specified inventory for modular items.
+     * Scans a specified inventory for modular item.
      *
      * @param inv IInventory to scan.
      * @return A List of inventory slots containing an IModularItem
@@ -96,23 +100,45 @@ public class MuseItemUtils {
     }
 
     /**
-     * Scans a specified inventory for modular items.
+     * Scans a specified player's inventory for equipped modular item.
      *
-     * @param inv IInventory to scan.
+     * @param player IInventory to scan.
      * @return A List of inventory slots containing an IModularItem
      */
     public static List<Integer> getEquiptedModularItemSlotsInInventory(EntityPlayer player) {
         ArrayList<Integer> slots = new ArrayList<>();
         for (EntityEquipmentSlot c : EntityEquipmentSlot.values()) {
-            ItemStack stack = player.getItemStackFromSlot(c);;
+            ItemStack stack = player.getItemStackFromSlot(c);
             if (stack != null && stack.getItem() instanceof IModularItem) {
-                for (int i=0; i<player.inventory.getSizeInventory(); i++) {
-                    if (stack.isItemEqual(player.inventory.getStackInSlot(i)))
+                if ((c.getSlotType() == EntityEquipmentSlot.Type.ARMOR && stack.getItem() instanceof ItemPowerArmor) ||
+                        (c.getSlotType() == EntityEquipmentSlot.Type.HAND && stack.getItem() instanceof ItemPowerFist)
+                    // TODO: shield?
+                        ) {
+                    int i = getSlotFor(player, stack);
+                    if (!slots.contains(i) && i != -1)
                         slots.add(i);
                 }
             }
         }
         return slots;
+    }
+
+    public static int getSlotFor(EntityPlayer player, ItemStack stack) {
+        for (int i = 0; i < player.inventory.getSizeInventory(); ++i) {
+            if (!player.inventory.getStackInSlot(i).isEmpty() && stackEqualExact(stack, player.inventory.getStackInSlot(i))) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
+    /**
+     * Checks item, NBT, and meta if the item is not damageable
+     */
+    public static boolean stackEqualExact(ItemStack stack1, ItemStack stack2)
+    {
+        return stack1.getItem() == stack2.getItem() && (!stack1.getHasSubtypes() || stack1.getMetadata() == stack2.getMetadata()) && ItemStack.areItemStackTagsEqual(stack1, stack2);
     }
 
     /**
@@ -127,7 +153,7 @@ public class MuseItemUtils {
     }
 
     /**
-     * Checks if the player has a copy of all of the items in
+     * Checks if the player has a copy of all of the item in
      * workingUpgradeCost.
      *
      * @param workingUpgradeCost
@@ -326,7 +352,7 @@ public class MuseItemUtils {
     public static Set<Integer> giveOrDropItemWithChance(ItemStack itemsToGive, EntityPlayer player, double chanceOfSuccess) {
         Set<Integer> slots = new HashSet<>();
 
-        // First try to add the items to existing stacks
+        // First try to add the item to existing stacks
         for (int i = 0; i < player.inventory.getSizeInventory() && itemsToGive.getCount() > 0; i++) {
             ItemStack currentStack = player.inventory.getStackInSlot(i);
             if (canStackTogether(currentStack, itemsToGive)) {
@@ -334,7 +360,7 @@ public class MuseItemUtils {
                 transferStackWithChance(itemsToGive, currentStack, chanceOfSuccess);
             }
         }
-        // Then try to add the items to empty slots
+        // Then try to add the item to empty slots
         for (int i = 0; i < player.inventory.getSizeInventory() && itemsToGive.getCount() > 0; i++) {
             if (player.inventory.getStackInSlot(i) == null) {
                 ItemStack destination = new ItemStack(itemsToGive.getItem(), 0, itemsToGive.getItemDamage());
@@ -345,7 +371,7 @@ public class MuseItemUtils {
                 }
             }
         }
-        // Finally spawn the items in the world.
+        // Finally spawn the item in the world.
         if (itemsToGive.getCount() > 0) {
             for (int i = 0; i < itemsToGive.getCount(); i++) {
                 if (MuseMathUtils.nextDouble() < chanceOfSuccess) {
@@ -367,11 +393,11 @@ public class MuseItemUtils {
         return weight;
     }
 
-    public static List<IPowerModule> getPlayerInstalledModules(EntityPlayer player) {
-        List<IPowerModule> installedModules = new ArrayList();
+    public static List<IModule> getPlayerInstalledModules(EntityPlayer player) {
+        List<IModule> installedModules = new ArrayList();
         for (ItemStack stack : MuseItemUtils.modularItemsEquipped(player)) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            for (IPowerModule module : ModuleManager.getValidModulesForItem(stack)) {
+            for (IModule module : ModuleManager.getValidModulesForItem(stack)) {
                 if (ModuleManager.tagHasModule(itemTag, module.getDataName())) {
                     installedModules.add(module);
                 }

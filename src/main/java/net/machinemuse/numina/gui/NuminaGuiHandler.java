@@ -14,6 +14,18 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * Ported to Java by lehjr on 10/10/16.
  */
 public class NuminaGuiHandler implements IGuiHandler {
+    private static NuminaGuiHandler INSTANCE;
+    public static NuminaGuiHandler getInstance() {
+        if (INSTANCE == null) {
+            synchronized (NuminaGuiHandler.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new NuminaGuiHandler();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+    
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         return null;

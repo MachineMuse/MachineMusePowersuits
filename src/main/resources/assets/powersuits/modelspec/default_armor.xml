@@ -1,61 +1,61 @@
 <modelSpec name="Armor Default" type="armor model" default="true">
     <models>
         <model file="powersuits:models/item/armor/mps_helm.obj" textures="powersuits:items/armor/diffuse">
-            <trsrTransformation transform="0,0,0" rotation="0,0,0" scale="1,1,1" />
+            <trsrTransformation translation="0,0,0" rotation="0,0,0" scale="1,1,1" />
             <binding slot="head" target="Head" itemState="all">
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="helm_main" name="Helmet"/>
-                <part defaultcolor="114EFF" defaultglow="true" defaultVisible="true" polygroup="visor" name="Visor"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="helm_tubes" name="Tubes"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="helm_tube_entry2" name="Right Tube Entry"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="helm_tube_entry1" name="Left Tube Entry"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="helm_main" localizedName="Helmet"/>
+                <part defaultcolor="114EFF" defaultglow="true" defaultVisible="true" partName="visor" localizedName="Visor"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="helm_tubes" localizedName="Tubes"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="helm_tube_entry2" localizedName="Right Tube Entry"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="helm_tube_entry1" localizedName="Left Tube Entry"/>
             </binding>
         </model>
         <model file="powersuits:models/item/armor/mps_chest.obj" textures="powersuits:items/armor/diffuse">
-            <trsrTransformation transform="0,0,0" rotation="0,0,0" scale="1,1,1" />
+            <trsrTransformation translation="0,0,0" rotation="0,0,0" scale="1,1,1" />
             <binding slot="chest" target="Body" itemState="all">
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="backpack" name="Backpack"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="polySurface36" name="Accessory"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="belt" name="Belt"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="chest_padding" name="Chest Padding"/>
-                <part defaultcolor="114EFF" defaultglow="true" defaultVisible="true" polygroup="crystal_belt" name="Belt Crystal"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="chest_main" name="Chest Plating"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="backpack" localizedName="Backpack"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="polySurface36" localizedName="Accessory"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="belt" localizedName="Belt"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="chest_padding" localizedName="Chest Padding"/>
+                <part defaultcolor="114EFF" defaultglow="true" defaultVisible="true" partName="crystal_belt" localizedName="Belt Crystal"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="chest_main" localizedName="Chest Plating"/>
             </binding>
         </model>
         <model file="powersuits:models/item/armor/jetpack.obj" textures="powersuits:items/armor/jetpack">
-            <trsrTransformation transform="0,0,0" rotation="0,0,0" scale="1,1,1" />
+            <trsrTransformation translation="0,0,0" rotation="0,0,0" scale="1,1,1" />
             <binding slot="chest" target="Body" itemState="jetpack">
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="default" name="Main"/>
-                <part defaultcolor="114EFF" defaultglow="false" defaultVisible="true" polygroup="jetpack5" name="Secondary"/>
-                <part defaultcolor="114EFF" defaultglow="true" defaultVisible="true" polygroup="jetpack_glow" name="Lights"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="default" localizedName="Main"/>
+                <part defaultcolor="114EFF" defaultglow="false" defaultVisible="true" partName="jetpack5" localizedName="Secondary"/>
+                <part defaultcolor="114EFF" defaultglow="true" defaultVisible="true" partName="jetpack_glow" localizedName="Lights"/>
             </binding>
         </model>
         <model file="powersuits:models/item/armor/mps_arms.obj" textures="powersuits:items/armor/diffuse">
-            <trsrTransformation transform="0,0,0" rotation="0,0,0" scale="1,1,1" />
+            <trsrTransformation translation="0,0,0" rotation="0,0,0" scale="1,1,1" />
             <binding slot="chest" target="RightArm" itemState="all">
-                <part defaultcolor="114EFF" defaultglow="true" defaultVisible="true" polygroup="crystal_shoulder_2" name="Right Shoulder Crystal"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="arms3" name="Right Arm"/>
+                <part defaultcolor="114EFF" defaultglow="true" defaultVisible="true" partName="crystal_shoulder_2" localizedName="Right Shoulder Crystal"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="arms3" localizedName="Right Arm"/>
             </binding>
             <binding slot="chest" target="LeftArm">
-                <part defaultcolor="114EFF" defaultglow="true" defaultVisible="true" polygroup="crystal_shoulder_1" name="Left Shoulder Crystal"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="arms2" name="Left Arm"/>
+                <part defaultcolor="114EFF" defaultglow="true" defaultVisible="true" partName="crystal_shoulder_1" localizedName="Left Shoulder Crystal"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="arms2" localizedName="Left Arm"/>
             </binding>
         </model>
         <model file="powersuits:models/item/armor/mps_pantaloons.obj" textures="powersuits:items/armor/diffuse">
-            <trsrTransformation transform="0,0,0" rotation="0,0,0" scale="1,1,1" />
+            <trsrTransformation translation="0,0,0" rotation="0,0,0" scale="1,1,1" />
             <binding slot="legs" target="LeftLeg" itemState="all">
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="leg2" name="Left Leg"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="leg2" localizedName="Left Leg"/>
             </binding>
             <binding slot="legs" target="RightLeg" itemState="all">
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="leg1" name="Right Leg"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="leg1" localizedName="Right Leg"/>
             </binding>
         </model>
         <model file="powersuits:models/item/armor/mps_boots.obj" defaultVisible="true" textures="powersuits:items/armor/diffuse">
-            <trsrTransformation transform="0,0,0" rotation="0,0,0" scale="1,1,1" />
+            <trsrTransformation translation="0,0,0" rotation="0,0,0" scale="1,1,1" />
             <binding slot="feet" target="RightLeg" itemState="all">
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="boots1" name="Right Boot"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="boots1" localizedName="Right Boot"/>
             </binding>
             <binding slot="feet" target="LeftLeg" itemState="all">
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" polygroup="boots2" name="Left Boot"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="boots2" localizedName="Left Boot"/>
             </binding>
         </model>
     </models>

@@ -24,14 +24,16 @@ public class HighPolyArmor extends ModelBiped implements IArmorModel {
     public NBTTagCompound renderSpec = null;
     public EntityEquipmentSlot visibleSection = EntityEquipmentSlot.HEAD;
 
-//    public ModelRenderer bipedEars;
-//    public ModelRenderer bipedCloak;
-
     private static HighPolyArmor INSTANCE;
 
     public static HighPolyArmor getInstance() {
-        if (INSTANCE == null)
-            INSTANCE = new HighPolyArmor();
+        if (INSTANCE == null) {
+            synchronized (HighPolyArmor.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new HighPolyArmor();
+                }
+            }
+        }
         return INSTANCE;
     }
 
@@ -90,16 +92,7 @@ public class HighPolyArmor extends ModelBiped implements IArmorModel {
         clearAndAddChildWithInitialOffsets(bipedRightLeg, 2, 12.0F, 0.0F);
         clearAndAddChildWithInitialOffsets(bipedLeftLeg, -2, 12.0F, 0.0F);
         bipedHeadwear.cubeList.clear();
-//        bipedEars.cubeList.clear();
-//        bipedCloak.cubeList.clear();
     }
-
-//    private void logModelParts(WavefrontObject model) {
-//        MuseLogger.logDebug(model.toString() + ":");
-//        for (GroupObject group : model.groupObjects) {
-//            MuseLogger.logDebug("-" + group.name);
-//        }
-//    }
 
     @Override
     public void setInitialOffsets(ModelRenderer r, float x, float y, float z) {
@@ -112,27 +105,15 @@ public class HighPolyArmor extends ModelBiped implements IArmorModel {
     public void prep(Entity entity, float par2, float par3, float par4, float par5, float par6, float scale) {
         try {
             EntityLivingBase entLive = (EntityLivingBase) entity;
-//            ItemStack itemstackMainHand = entLive.getHeldItemMainhand();
-            ItemStack itemstackOffHand = entLive.getHeldItemOffhand();
-
             ItemStack stack = entLive.getActiveItemStack();
 
-
+            // mainhand
             if (((EntityLivingBase) entity).hasItemInSlot(EntityEquipmentSlot.MAINHAND)) {
-//
-//                    itemstackMainHand != ItemStack.EMPTY) {
-//                System.out.println("main hand is not empty");
-//                System.out.println("stack: " + itemstackMainHand.getDisplayName());
-
-
-
                 if (getMainHand(entLive) == EnumHandSide.LEFT)
                     this.leftArmPose = ArmPose.ITEM;
                 else
                     this.rightArmPose = ArmPose.ITEM;
             } else {
-                System.out.println("main hand is empty");
-
                 if (getMainHand(entLive) == EnumHandSide.LEFT)
                     this.leftArmPose = ArmPose.EMPTY;
                 else
@@ -140,18 +121,12 @@ public class HighPolyArmor extends ModelBiped implements IArmorModel {
             }
 
             // the "offhand" is the other hand
-//            if (itemstackOffHand != ItemStack.EMPTY) {
             if (((EntityLivingBase) entity).hasItemInSlot(EntityEquipmentSlot.OFFHAND)) {
-                System.out.println("off hand is not empty");
-                System.out.println("stack: " + itemstackOffHand.getDisplayName());
-
                 if (getMainHand(entLive) == EnumHandSide.RIGHT)
                     this.leftArmPose = ArmPose.ITEM;
                 else
                     this.rightArmPose = ArmPose.ITEM;
             } else {
-                System.out.println("offhand is empty");
-
                 if (getMainHand(entLive) == EnumHandSide.RIGHT)
                     this.leftArmPose = ArmPose.EMPTY;
                 else

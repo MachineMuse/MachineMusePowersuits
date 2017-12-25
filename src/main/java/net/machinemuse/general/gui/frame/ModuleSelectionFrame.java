@@ -1,10 +1,10 @@
 package net.machinemuse.general.gui.frame;
 
-import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.general.sound.SoundDictionary;
+import net.machinemuse.numina.api.item.IModule;
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
@@ -21,7 +21,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
     protected Map<String, ModuleSelectionSubFrame> categories = new HashMap<>();
     protected List<ClickableModule> moduleButtons = new ArrayList<>();
     protected int selectedModule = -1;
-    protected IPowerModule prevSelection;
+    protected IModule prevSelection;
     protected ClickableItem lastItem;
     protected MuseRect lastPosition;
 
@@ -92,11 +92,11 @@ public class ModuleSelectionFrame extends ScrollableFrame {
             moduleButtons = new ArrayList<>();
             categories = new HashMap<>();
 
-            List<IPowerModule> workingModules = ModuleManager.getValidModulesForItem(selectedItem.getItem());
+            List<IModule> workingModules = ModuleManager.getValidModulesForItem(selectedItem.getItem());
 
             // Prune the list of disallowed modules, if not installed on this item.
-            for (Iterator<IPowerModule> it = workingModules.iterator(); it.hasNext(); ) {
-                IPowerModule module = it.next();
+            for (Iterator<IModule> it = workingModules.iterator(); it.hasNext(); ) {
+                IModule module = it.next();
                 if (!module.isAllowed() &&
                         !ModuleManager.itemHasModule(selectedItem.getItem(), module.getDataName())) {
                     it.remove();
@@ -105,7 +105,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 
             if (workingModules.size() > 0) {
                 this.selectedModule = -1;
-                for (IPowerModule module : workingModules) {
+                for (IModule module : workingModules) {
                     ModuleSelectionSubFrame frame = getOrCreateCategory(module.getCategory());
                     ClickableModule moduleClickable = frame.addModule(module);
                     // Indicate installed modules

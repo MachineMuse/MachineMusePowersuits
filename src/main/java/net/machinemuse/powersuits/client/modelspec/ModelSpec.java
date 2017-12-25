@@ -1,9 +1,7 @@
 package net.machinemuse.powersuits.client.modelspec;
 
-import net.machinemuse.numina.scala.MuseRegistry;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.util.math.Vec3d;
-import net.minecraftforge.common.model.TRSRTransformation;
+import com.google.common.base.Objects;
+import net.machinemuse.powersuits.client.models.obj.OBJModelPlus;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -11,32 +9,29 @@ import net.minecraftforge.common.model.TRSRTransformation;
  *
  * Ported to Java by lehjr on 11/8/16.
  */
-public class ModelSpec extends MuseRegistry<ModelPartSpec> {
-    private IBakedModel model;
-    public Vec3d offset;
-    public Vec3d rotation;
-    public TRSRTransformation transformation =  TRSRTransformation.identity();
+public class ModelSpec extends Spec {
+    private OBJModelPlus.OBJBakedModelPus model;
 
-
-    public static String filename;
-
-    // TODO: transformation should be same as that used to bake model
-    public ModelSpec(IBakedModel model, Vec3d offset, Vec3d rotation, String filename) {
+    public ModelSpec(OBJModelPlus.OBJBakedModelPus model, String name, boolean isDefault, EnumSpecType specType) {
+        super(name, isDefault, specType);
         this.model = model;
-        this.offset = offset;
-        this.rotation = rotation;
-        this.filename = filename;
     }
 
-    public IBakedModel getModel() {
+    public OBJModelPlus.OBJBakedModelPus getModel() {
         return model;
     }
 
-    public void applyOffsetAndRotation() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ModelSpec modelSpec = (ModelSpec) o;
+        return Objects.equal(getModel(), modelSpec.getModel());
     }
 
-    public String getOwnName() {
-        String name = ModelRegistry.getInstance().getName(this);
-        return (name != null) ? name : "";
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(super.hashCode(), getModel());
     }
 }

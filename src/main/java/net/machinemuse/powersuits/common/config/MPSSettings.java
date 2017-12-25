@@ -3,22 +3,21 @@ package net.machinemuse.powersuits.common.config;
 
 import com.google.gson.*;
 import jline.internal.Nullable;
-import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.numina.common.Numina;
+import net.machinemuse.numina.api.item.IModule;
 import net.machinemuse.numina.general.MuseLogger;
-import net.machinemuse.powersuits.client.new_modelspec.ModelSpecXMLReader;
+import net.machinemuse.powersuits.client.modelspec.ModelSpecXMLReader;
 import net.machinemuse.powersuits.common.InstallCost;
 import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.MPSCreativeTab;
 import net.machinemuse.powersuits.common.ModCompatibility;
-import net.machinemuse.powersuits.common.powermodule.armor.*;
-import net.machinemuse.powersuits.common.powermodule.cosmetic.*;
-import net.machinemuse.powersuits.common.powermodule.energy.*;
-import net.machinemuse.powersuits.common.powermodule.misc.*;
-import net.machinemuse.powersuits.common.powermodule.movement.*;
+import net.machinemuse.powersuits.common.items.modules.armor.*;
+import net.machinemuse.powersuits.common.items.modules.cosmetic.*;
+import net.machinemuse.powersuits.common.items.modules.energy.*;
+import net.machinemuse.powersuits.common.items.modules.misc.*;
+import net.machinemuse.powersuits.common.items.modules.movement.*;
+import net.machinemuse.powersuits.common.items.modules.weapon.*;
 import net.machinemuse.powersuits.common.powermodule.tool.*;
-import net.machinemuse.powersuits.common.powermodule.weapon.*;
 import net.machinemuse.powersuits.proxy.CommonProxy;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.resources.I18n;
@@ -40,7 +39,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.input.Keyboard;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.ByteBuffer;
@@ -62,8 +60,6 @@ public class MPSSettings {
             mpsCreativeTab = new MPSCreativeTab();
         return mpsCreativeTab;
     }
-
-
 
 
     public static General general = new General();
@@ -307,6 +303,30 @@ public class MPSSettings {
         public boolean fontAntiAliasing = false;
     }
 
+    // TOTO: Server side configs
+    public static ModelConfig modelconfig = new ModelConfig();
+    public static class ModelConfig{
+
+        @Config.Comment("Use this to enable model transform mapping from keyboard")
+        public boolean modelSetup = false;
+
+        @Config.Comment("Enable high polly armor models")
+        public boolean allowHighPollyArmorModels = false;
+
+        @Config.Comment("Enable custom high polly armor models")
+        public boolean allowCustomHighPollyArmor = false;
+
+        @Config.Comment("Enable high polly PowerFist models")
+        public boolean allowHighPollyPowerFistModels = false;
+
+        @Config.Comment("Enable custom high polly PowerFist models")
+        public boolean allowCustomHighPollyPowerFistModels = false;
+
+
+    }
+
+
+
 
     /**
      * Currently maps need to be initialized and populated at runtime otherwise the values are not read from the config file
@@ -440,7 +460,13 @@ public class MPSSettings {
     }
 
 
-    public static void addModule(IPowerModule module) {
+
+
+
+
+
+
+    public static void addModule(IModule module) {
 //        if(modules.isEmpty())
 //            modules.put(module.getDataName(), true);
 //        else if(!modules.keySet().contains(module.getDataName()))
@@ -786,17 +812,12 @@ public class MPSSettings {
         }
     }
 
-
+    @SideOnly(Side.CLIENT)
     public static void loadModelSpecs(@Nullable TextureStitchEvent event) {
         for (File specFile : modelSpecFolder.listFiles()) {
             ModelSpecXMLReader.parseFile(specFile, event);
         }
     }
-
-
-
-
-
 
     @Mod.EventBusSubscriber(modid = MODID)
     public static class ConfigSyncHandler {

@@ -4,7 +4,6 @@ import org.lwjgl.opengl.GL11;
 
 import javax.vecmath.Vector4f;
 import java.awt.*;
-import java.util.Objects;
 
 import static java.lang.Math.abs;
 
@@ -56,6 +55,13 @@ public class Colour {
         this.g = g/255.0F;
         this.b = b/255.0F;
         this.a = 1.0F;
+    }
+
+    public Colour(int r, int g, int b, int a) {
+        this.r = r/255.0F;
+        this.g = g/255.0F;
+        this.b = b/255.0F;
+        this.a = a == 0 ? a : 1;
     }
 
     /**
@@ -163,13 +169,6 @@ public class Colour {
         return new Color((float) r, (float) g, (float) b, (float) a);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o instanceof Colour)
-            return r == ((Colour) o).r && g == ((Colour) o).g && b == ((Colour) o).b && a == ((Colour) o).a;
-        return false;
-    }
-
     public Vector4f toVector4f() {
         Vector4f colorVec = new Vector4f();
         colorVec.w = (float) a;
@@ -180,8 +179,19 @@ public class Colour {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Colour colour = (Colour) o;
+        return Double.compare(colour.r, r) == 0 &&
+                Double.compare(colour.g, g) == 0 &&
+                Double.compare(colour.b, b) == 0 &&
+                Double.compare(colour.a, a) == 0;
+    }
+
+    @Override
     public int hashCode() {
-        return Objects.hashCode(this.getInt());
+        return com.google.common.base.Objects.hashCode(r, g, b, a);
     }
 
     public static double getColourDistance(Colour colour1, Colour colour2) {

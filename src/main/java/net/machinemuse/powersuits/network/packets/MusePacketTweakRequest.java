@@ -64,8 +64,13 @@ public class MusePacketTweakRequest extends MusePacket {
 
     private static MusePacketTweakRequestPackager PACKAGERINSTANCE;
     public static MusePacketTweakRequestPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketTweakRequestPackager();
+        if (PACKAGERINSTANCE == null) {
+            synchronized (MusePacketTweakRequestPackager.class) {
+                if (PACKAGERINSTANCE == null) {
+                    PACKAGERINSTANCE = new MusePacketTweakRequestPackager();
+                }
+            }
+        }
         return PACKAGERINSTANCE;
     }
 

@@ -29,7 +29,6 @@ import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.input.Keyboard;
 
 import javax.annotation.Nullable;
 import javax.vecmath.Vector3f;
@@ -38,78 +37,6 @@ import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class ModelHelper {
-    //    public static final ResourceLocation powerFistLocation = new ResourceLocation(RESOURCE_PREFIX, "models/item/powerFist/powerFist.obj");
-//    public static final ResourceLocation powerFistFiringLocation = new ResourceLocation(RESOURCE_PREFIX, "models/item/powerFist/powerFistFiring.obj");
-//    public static final ResourceLocation powerFistLeftLocation = new ResourceLocation(RESOURCE_PREFIX, "models/item/powerFist/powerFistLeft.obj");
-//    public static final ResourceLocation powerFistLeftFiringLocation = new ResourceLocation(RESOURCE_PREFIX, "models/item/powerFist/powerFistFiringLeft.obj");
-//
-//    static IBakedModel powerFist;
-//    static IBakedModel powerFistFiring;
-//    static IBakedModel powerFistLeft;
-//    static IBakedModel powerFistLeftFiring;
-//
-//    // One pass just to register the textures called from texture stitch event
-//    // another to register the models called from model bake event (second run)
-//    public static void loadArmorModels(boolean loadModels) {
-//        URL resource = ModelHelper.class.getResource("/assets/powersuits/models/item/armor/modelspec.xml");
-//        ModelSpecXMLReader.getINSTANCE().parseFile(resource, loadModels);
-//        URL otherResource = ModelHelper.class.getResource("/assets/powersuits/models/item/armor/armor2.xml");
-//        ModelSpecXMLReader.getINSTANCE().parseFile(otherResource, loadModels);
-//
-//        if (!loadModels) {
-//            try {
-//                MPSOBJLoader.INSTANCE.registerModelSprites(powerFistLocation);
-//                MPSOBJLoader.INSTANCE.registerModelSprites(powerFistFiringLocation);
-//                MPSOBJLoader.INSTANCE.registerModelSprites(powerFistLeftLocation);
-//                MPSOBJLoader.INSTANCE.registerModelSprites(powerFistLeftFiringLocation);
-//            } catch (Exception ignored) {
-//            }
-//        } else {
-//            powerFist = loadBakedModel(powerFistLocation);
-//            powerFistFiring = loadBakedModel(powerFistFiringLocation);
-//            powerFistLeft = loadBakedModel(powerFistLeftLocation);
-//            powerFistLeftFiring = loadBakedModel(powerFistLeftFiringLocation);
-//        }
-//    }
-//
-//    public static IModel getModel(ResourceLocation resource){
-//        IModel model = null;
-//        try {
-//            model = (OBJModelPlus) MPSOBJLoader.INSTANCE.loadModel(resource);
-//            model = ((OBJModelPlus) model).process(ImmutableMap.copyOf(ImmutableMap.of("flip-v", "true")));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            MuseLogger.logError("Model loading failed :( " + resource);
-//        }
-//        return model;
-//    }
-//
-//    public static IBakedModel loadBakedModel(ResourceLocation resource) {
-//        IModel model = getModel(resource);
-//        if (model != null) {
-//
-//            IBakedModel bakedModel = model.bake(model.getDefaultState(),
-//                    DefaultVertexFormats.ITEM,
-//                    new Function<ResourceLocation, TextureAtlasSprite>() {
-//                        public TextureAtlasSprite apply(ResourceLocation resourceLocation) {
-//                            return Minecraft.getMinecraft().getTextureMapBlocks().registerSprite(resourceLocation);
-//                        }
-//                    });
-//            return bakedModel;
-//        }
-//        return null;
-//    }
-//
-    //-----------------------
-    public static int xtap = 0;
-    public static int ytap = 0;
-    public static int ztap = 0;
-    public static float xOffest = 0;
-    public static float yOffest = 0;
-    public static float zOffest = 0;
-    public static float scalemodifier = 0.625f;
-    public static boolean tap;
-
     static {
         new ModelHelper();
     }
@@ -152,7 +79,6 @@ public class ModelHelper {
     }
 
     public static IModel getOBJModel(ResourceLocation location, int attempt) {
-
         IModel model;
         try {
             model = OBJLoader.INSTANCE.loadModel(location);
@@ -167,7 +93,6 @@ public class ModelHelper {
             MuseLogger.logError("Failed to load model. " + e);
         }
         return model;
-
     }
 
     public static IBakedModel getBakedModel(ResourceLocation modellocation, IModelState modelState) {
@@ -184,12 +109,12 @@ public class ModelHelper {
     }
 
     /*
-      * This is a slightly modified version of Forge's example (@author shadekiller666) for the Tesseract model.
-      * With this we can generate an extended blockstate to get the quads of any group in a model without
-      * having to rebake the model. In this perticular case, the setup is for gettting an extended state that
-      * will hide all groups but one. However, this can easily be altered to hide fewer parts if needed.
-      *
-      * The biggest issue with this setup is that the code. There is a better way out there
+     * This is a slightly modified version of Forge's example (@author shadekiller666) for the Tesseract model.
+     * With this we can generate an extended blockstate to get the quads of any group in a model without
+     * having to rebake the model. In this perticular case, the setup is for gettting an extended state that
+     * will hide all groups but one. However, this can easily be altered to hide fewer parts if needed.
+     *
+     * The biggest issue with this setup is that the code. There is a better way out there
      */
     @Nullable
     public static IExtendedBlockState getStateForPart(List<String> shownIn, OBJModel.OBJBakedModel objBakedModelIn, @Nullable TRSRTransformation transformation) {
@@ -235,165 +160,41 @@ public class ModelHelper {
         }
     }
 
-    //----------------------------------
     /*
-     * Only used for setting up scale, rotation, and relative placement coordinates
+     * Here we can color the quads using the setup below. This is better than changing material colors
+     * for Wavefront models because it means that you can use a single material for the entire model
+     * instead of unique ones for each group. It also means you don't nescessarily need a Wavefront model.
      */
-    public static void transformCalibration() {
-        int numsegments = 16;
-        if (!tap) {
-
-            if (Keyboard.isKeyDown(Keyboard.KEY_INSERT)) {
-                xOffest += 0.1;
-                tap = true;
-            }
-            if (Keyboard.isKeyDown(Keyboard.KEY_DELETE)) {
-                xOffest -= 0.1;
-                tap = true;
-            }
-
-            if (Keyboard.isKeyDown(Keyboard.KEY_HOME)) {
-                yOffest += 0.1;
-                tap = true;
-            }
-            if (Keyboard.isKeyDown(Keyboard.KEY_END)) {
-                yOffest -= 0.1;
-                tap = true;
-            }
-
-            if (Keyboard.isKeyDown(Keyboard.KEY_PRIOR)) {
-                zOffest += 0.1;
-                tap = true;
-            }
-            if (Keyboard.isKeyDown(Keyboard.KEY_NEXT)) {
-                zOffest -= 0.1;
-                tap = true;
-            }
-
-            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD1)) {
-                xtap += 1;
-                tap = true;
-            }
-            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD2)) {
-                ytap += 1;
-                tap = true;
-            }
-            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD3)) {
-                ztap += 1;
-                tap = true;
-            }
-            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD4)) {
-                xtap -= 1;
-                tap = true;
-            }
-            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD5)) {
-                ytap -= 1;
-                tap = true;
-            }
-            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD6)) {
-                ztap -= 1;
-                tap = true;
-            }
-            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD8)) {
-                xtap = 0;
-                ytap = 0;
-                ztap = 0;
-
-                xOffest = 0;
-                yOffest = 0;
-                zOffest = 0;
-
-                scalemodifier = 1;
-
-                tap = true;
-            }
-            // this probably needs a bit more work, int's are too big.
-            if (Keyboard.isKeyDown(Keyboard.KEY_SCROLL)) {
-                scalemodifier -= 0.01f;
-                tap = true;
-            }
-            if (Keyboard.isKeyDown(Keyboard.KEY_PAUSE)) {
-                scalemodifier += 0.01f;
-                tap = true;
-            }
-
-            if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD0)) {
-                System.out.println("xrot: " + xtap + ", yrot: " + ytap + ", zrot: " + ztap);
-
-                System.out.println("xOffest: " + xOffest + ", yOffest: " + yOffest + ", zOffest: " + zOffest);
-
-                System.out.println("scaleModifier: " + scalemodifier);
-
-                tap = true;
-            }
-        } else {
-            if (!Keyboard.isKeyDown(Keyboard.KEY_NUMPAD0) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD1) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD2)
-                    && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD3) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD4)
-                    && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD5) && !Keyboard.isKeyDown(Keyboard.KEY_NUMPAD6)) {
-                tap = false;
-            }
-            if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
-                tap = false;
-            }
-        }
-    }
-
-
-    /*
- * Here we can color the quads using the setup below. This is better than changing material colors
- * for Wavefront models because it means that you can use a single material for the entire model
- * instead of unique ones for each group. It also means you don't nescessarily need a Wavefront model.
- */
     public static List<BakedQuad> getColoredQuadsWithGlow(List<BakedQuad> quadList, Colour color, boolean glow) {
-        // diffuse lighting enabled = glow off
-        boolean diffuseLighting = !glow;
         ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
-
-        for (BakedQuad quad : quadList) {
-            quad = colorQuad(color, quad);
-
-            if (diffuseLighting != quad.shouldApplyDiffuseLighting())
-                quad = new BakedQuad(quad.getVertexData(),
-                        quad.getTintIndex(),
-                        quad.getFace(),
-                        quad.getSprite(),
-                        diffuseLighting,
-                        quad.getFormat());
-
-            builder.add(quad);
-        }
+        quadList.forEach(quad-> builder.add(colorQuad(color, quad, !glow)));
         return builder.build();
     }
 
     public static List<BakedQuad> getColoredQuads(List<BakedQuad> quadList, Colour color) {
         ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
         for (BakedQuad quad : quadList) {
-            builder.add(colorQuad(color, quad));
+            builder.add(colorQuad(color, quad, quad.shouldApplyDiffuseLighting()));
         }
         return builder.build();
     }
 
-    public static BakedQuad colorQuad(Colour color, BakedQuad quad) {
-        ColorTransformer transformer = new ColorTransformer(color, quad.getFormat());
+    public static BakedQuad colorQuad(Colour color, BakedQuad quad, boolean applyDifuse) {
+        ColorTransformer transformer = new ColorTransformer(color, quad.getFormat(), applyDifuse);
         quad.pipe(transformer);
         return transformer.build();
     }
 
     private static class ColorTransformer extends VertexTransformer {
         private final float r, g, b, a;
-
-        public ColorTransformer(Colour color, VertexFormat format) {
+        public ColorTransformer(Colour color, VertexFormat format, boolean applyDiffuse) {
             super(new UnpackedBakedQuad.Builder(format));
+            parent.setApplyDiffuseLighting(applyDiffuse);
+
             this.r = (float) color.r;
             this.g = (float) color.g;
             this.b = (float) color.b;
             this.a = (float) color.a;
-//            System.out.println("=======================================================");
-//            System.out.println("r: " + this.r);
-//            System.out.println("g: " + this.g);
-//            System.out.println("b: " + this.b);
-//            System.out.println("a: " + this.a);
-//            System.out.println("=======================================================");
         }
 
         @Override

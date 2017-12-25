@@ -1,11 +1,10 @@
 package net.machinemuse.api.electricity;
 
 //import appeng.api.config.AccessRestriction;
-//import appeng.api.implementations.items.IAEItemPowerStorage;
+//import appeng.api.implementations.item.IAEItemPowerStorage;
 //import cofh.api.energy.IEnergyContainerItem;
 //import ic2.api.item.IElectricItemManager;
 //import ic2.api.item.ISpecialElectricItem;
-
 import mekanism.api.energy.IEnergizedItem;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Optional;
@@ -73,10 +72,10 @@ public interface IMuseElectricItem extends
 //    IMuseElectricItem getManager(ItemStack stack);
 //
 //    @Override
-//    void chargeFromArmor(ItemStack itemStack, EntityLivingBase entity);
+//    void chargeFromArmor(ItemStack itemStack, EntityLivingBase entities);
 //
 //    @Override
-//    boolean use(ItemStack itemStack, double amount, EntityLivingBase entity);
+//    boolean use(ItemStack itemStack, double amount, EntityLivingBase entities);
 //
 //    boolean canProvideEnergy(ItemStack itemStack);
 //

@@ -1,16 +1,16 @@
 package net.machinemuse.general.gui.frame;
 
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.IPropertyModifier;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.general.gui.clickable.ClickableTinkerSlider;
+import net.machinemuse.numina.api.item.IModule;
+import net.machinemuse.numina.api.nbt.IPropertyModifier;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
-import net.machinemuse.powersuits.common.powermodule.PowerModule;
-import net.machinemuse.powersuits.common.powermodule.PropertyModifierLinearAdditive;
+import net.machinemuse.powersuits.common.items.modules.PowerModule;
+import net.machinemuse.powersuits.common.items.modules.PropertyModifierLinearAdditive;
 import net.machinemuse.powersuits.network.packets.MusePacketTweakRequest;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MuseStringUtils;
@@ -49,7 +49,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
         mousey /= SCALERATIO;
         if (itemTarget.getSelectedItem() != null && moduleTarget.getSelectedModule() != null) {
             ItemStack stack = itemTarget.getSelectedItem().getItem();
-            IPowerModule module = moduleTarget.getSelectedModule().getModule();
+            IModule module = moduleTarget.getSelectedModule().getModule();
             if (ModuleManager.itemHasModule(itemTarget.getSelectedItem().getItem(), moduleTarget.getSelectedModule().getModule().getDataName())) {
                 loadTweaks(stack, module);
             } else {
@@ -93,7 +93,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
         }
     }
 
-    private void loadTweaks(ItemStack stack, IPowerModule module) {
+    private void loadTweaks(ItemStack stack, IModule module) {
         NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
         NBTTagCompound moduleTag = itemTag.getCompoundTag(module.getDataName());
 
@@ -104,7 +104,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
         for (Map.Entry<String, List<IPropertyModifier>> property : propertyModifiers.entrySet()) {
             double currValue = 0;
             for (IPropertyModifier modifier : property.getValue()) {
-                currValue = modifier.applyModifier(moduleTag, currValue);
+                currValue = (double) modifier.applyModifier(moduleTag, currValue);
                 if (modifier instanceof PropertyModifierLinearAdditive) {
                     tweaks.add(((PropertyModifierLinearAdditive) modifier).getTradeoffName());
                 }
@@ -147,7 +147,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
     public void onMouseUp(double x, double y, int button) {
         if (selectedSlider != null && itemTarget.getSelectedItem() != null && moduleTarget.getSelectedModule() != null) {
             ClickableItem item = itemTarget.getSelectedItem();
-            IPowerModule module = moduleTarget.getSelectedModule().getModule();
+            IModule module = moduleTarget.getSelectedModule().getModule();
             MusePacket tweakRequest = new MusePacketTweakRequest(player, item.inventorySlot, module.getDataName(), selectedSlider.name(), selectedSlider.value());
             PacketSender.sendToServer(tweakRequest.getPacket131());
         }

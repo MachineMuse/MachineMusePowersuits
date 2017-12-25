@@ -33,7 +33,7 @@ public class EventRegisterItems {
     public static Item powerArmorTorso = itemInit(new ItemPowerArmorChestplate(), "powerarmor_torso", "powerArmorChestplate");
     public static Item powerArmorLegs = itemInit(new ItemPowerArmorLeggings(), "powerarmor_legs", "powerArmorLeggings");
     public static Item powerArmorFeet = itemInit(new ItemPowerArmorBoots(), "powerarmor_feet", "powerArmorBoots");
-    public static Item powerTool = itemInit(new ItemPowerFist(), "power_fist", "powerFist");
+    public static Item powerTool = itemInit(new ItemPowerFist(), "power_fist", "powerfist");
 
     // Keys for modules // TODO: switch to string based logic
     public static List<IModularItem> ARMORONLY;

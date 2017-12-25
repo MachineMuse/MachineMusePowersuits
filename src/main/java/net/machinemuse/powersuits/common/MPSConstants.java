@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.common;
 
+import net.machinemuse.powersuits.client.helpers.EnumColour;
 import net.minecraft.util.ResourceLocation;
 
 /*
@@ -10,7 +11,7 @@ public class MPSConstants {
     public static final String NAME = "MachineMuse's Modular Powersuits";
     public static final String VERSION = "1.10.0";
 
-
+    public static final int ENUM_COLOUR_WHITE_INDEX = EnumColour.WHITE.getIndex();
 
 
     public static final String RESOURCE_PREFIX = MODID + ":";

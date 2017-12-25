@@ -1,7 +1,7 @@
 package net.machinemuse.api.moduletrigger;
 
-import net.machinemuse.api.IPowerModule;
+import net.machinemuse.numina.api.item.IModule;
 
-public interface IToggleableModule extends IPowerModule {
+public interface IToggleableModule extends IModule {
 
 }

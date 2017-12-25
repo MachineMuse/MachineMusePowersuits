@@ -1,56 +1,36 @@
 package net.machinemuse.powersuits.client.modelspec;
 
-import net.machinemuse.powersuits.client.models.ModelHelper;
+import com.google.common.base.Objects;
 import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.client.model.obj.OBJModel;
-import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
  * Ported to Java by lehjr on 11/8/16.
  */
-public class ModelPartSpec {
-    public ModelSpec modelSpec;
-    public MorphTarget morph;
-    public String partName;
-    public EntityEquipmentSlot slot;
-    public int defaultcolourindex; // NOT A COLOR but an index of a list
+@SideOnly(Side.CLIENT)
+public class ModelPartSpec extends PartSpec {
     public boolean defaultglow;
-    public String displayName;
-    IExtendedBlockState extendedState;
-    List<BakedQuad> quadcache = new ArrayList<>();
 
-    public ModelPartSpec(ModelSpec modelSpec, MorphTarget morph, String partName, EntityEquipmentSlot slot, Integer defaultcolourindex, Boolean defaultglow, String displayName) {
-        this.modelSpec = modelSpec;
-        this.morph = morph;
-        this.partName = partName;
-        this.slot = slot;
-        this.defaultcolourindex = (defaultcolourindex != null) ? defaultcolourindex : 0;
+    public ModelPartSpec(ModelSpec modelSpec,
+                         Binding binding,
+                         String partName,
+                         String displayName,
+                         Integer defaultcolourindex,
+                         Boolean defaultglow) {
+        super(modelSpec, binding, partName, displayName, defaultcolourindex);
         this.defaultglow = (defaultglow != null) ? defaultglow : false;
-        this.displayName = displayName;
-        // Extended state is used to isolate the quads for the model "group"(part) associated with this
-        this.extendedState = ModelHelper.getStateForPart(Collections.singletonList(partName), (OBJModel.OBJBakedModel) modelSpec.getModel(), modelSpec.transformation);
     }
 
     public List<BakedQuad> getQuads() {
-        if (quadcache.isEmpty()) {
-            quadcache = modelSpec.getModel().getQuads(extendedState, null, 0);
-        }
-        return quadcache;
+        return ((ModelSpec)(this.spec)).getModel().getQuadsforPart(this.partName);
     }
 
-    public int getColourIndex(NBTTagCompound nbt) {
-        return nbt.hasKey("colourindex") ? nbt.getInteger("colourindex") : this.defaultcolourindex;
-    }
-
-    public void setColourIndex(NBTTagCompound nbt, int c) {
-        if (c == this.defaultcolourindex) nbt.removeTag("colourindex");
-        else nbt.setInteger("colourindex", c);
+    public boolean getGlow() {
+        return this.defaultglow;
     }
 
     public boolean getGlow(NBTTagCompound nbt) {
@@ -62,24 +42,22 @@ public class ModelPartSpec {
         else nbt.setBoolean("glow", g);
     }
 
-    public void setModel(NBTTagCompound nbt, ModelSpec model) {
-        String modelString = ModelRegistry.getInstance().inverse().get(model);
-        setModel(nbt, ((modelString != null) ? modelString : ""));
-    }
-
-    public void setModel(NBTTagCompound nbt, String modelname) {
-        nbt.setString("model", modelname);
-    }
-
-    public void setPart(NBTTagCompound nbt) {
-        nbt.setString("part", this.partName);
-    }
-
-    public NBTTagCompound multiSet(NBTTagCompound nbt, String tex, Boolean glow, Integer c) {
-        this.setPart(nbt);
-        this.setModel(nbt, this.modelSpec);
+    public NBTTagCompound multiSet(NBTTagCompound nbt, Integer colourIndex, Boolean glow) {
         this.setGlow(nbt, (glow != null) ? glow : false);
-        this.setColourIndex(nbt, (c != null) ? c : defaultcolourindex);
-        return nbt;
+        return super.multiSet(nbt, colourIndex);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ModelPartSpec that = (ModelPartSpec) o;
+        return defaultglow == that.defaultglow;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(super.hashCode(), defaultglow);
     }
 }

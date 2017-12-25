@@ -22,6 +22,9 @@ public class MusePacketColourInfo extends MusePacket {
     int itemSlot;
     int[] tagData;
 
+    // TODO !!!: convert to byte arrays and use byte to unsigned INT conversion for reading
+
+
     public MusePacketColourInfo(EntityPlayer player, int itemSlot, int[] tagData) {
         this.player = player;
         this.itemSlot = itemSlot;
@@ -50,8 +53,13 @@ public class MusePacketColourInfo extends MusePacket {
 
     private static MusePacketColourInfoPackager PACKAGERINSTANCE;
     public static MusePacketColourInfoPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketColourInfoPackager();
+        if (PACKAGERINSTANCE == null) {
+            synchronized (MusePacketColourInfoPackager.class) {
+                if (PACKAGERINSTANCE == null) {
+                    PACKAGERINSTANCE = new MusePacketColourInfoPackager();
+                }
+            }
+        }
         return PACKAGERINSTANCE;
     }
 

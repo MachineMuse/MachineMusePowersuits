@@ -6,14 +6,8 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 
 import java.util.Arrays;
 
-/**
- * Author: MachineMuse (Claire Semple)
- * Created: 2:09 AM, 29/04/13
- *
- * Ported to Java by lehjr on 11/8/16.
- */
 public enum MorphTarget {
-    Head("HEAD", EntityEquipmentSlot.HEAD),
+    Head("HEAD",EntityEquipmentSlot.HEAD),
     Body("BODY", EntityEquipmentSlot.CHEST),
     RightArm("RIGHTARM", EntityEquipmentSlot.CHEST),
     LeftArm("LEFTARM", EntityEquipmentSlot.CHEST),
@@ -36,6 +30,7 @@ public enum MorphTarget {
         this.name = name;
         this.slot = slot;
     }
+
 
     public ModelRenderer apply(ModelBiped m) {
         switch(this) {

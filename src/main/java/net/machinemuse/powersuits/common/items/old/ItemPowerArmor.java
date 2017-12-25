@@ -1,11 +1,10 @@
 package net.machinemuse.powersuits.common.items.old;
 
 import com.google.common.collect.Multimap;
-import net.machinemuse.api.ApiaristArmor;
 import net.machinemuse.api.IArmorTraits;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.powersuits.client.renderers.item.ArmorModelInstance;
+import net.machinemuse.powersuits.client.renderers.item.HighPolyArmor;
 import net.machinemuse.powersuits.client.renderers.item.IArmorModel;
 import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.config.MPSSettings;
@@ -24,7 +23,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor;
-import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -89,6 +87,9 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+        // TODO: get texture from NBT
+
+
         if (type == "overlay")  // this is to allow a tint to be applied ot the armor
             return BLANK_ARMOR_MODEL_PATH;
 
@@ -141,7 +142,10 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
                 return _default;
             }
 
-            ModelBiped model = ArmorModelInstance.getInstance();
+            //TODO: use config instead
+
+
+            ModelBiped model = HighPolyArmor.getInstance();
             ((IArmorModel) model).setVisibleSection(armorSlot);
             if (itemStackArmor != null) {
                 if (entityLiving instanceof EntityPlayer) {
@@ -238,9 +242,9 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
             }
         }
     }
-
-    @Optional.Method(modid = "forestry")
-    public boolean protectEntity(EntityLivingBase player, ItemStack armor, String cause, boolean doProtect) {
-        return ApiaristArmor.getInstance().protectEntity(player, armor, cause, doProtect);
-    }
+// TODO: capabilities
+//    @Optional.Method(modid = "forestry")
+//    public boolean protectEntity(EntityLivingBase player, ItemStack armor, String cause, boolean doProtect) {
+//        return ApiaristArmor.getInstance().protectEntity(player, armor, cause, doProtect);
+//    }
 }

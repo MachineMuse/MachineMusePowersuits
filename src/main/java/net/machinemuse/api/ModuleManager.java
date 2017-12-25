@@ -4,7 +4,8 @@ import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
-import net.machinemuse.numina.item.IModeChangingItem;
+import net.machinemuse.numina.api.capabilties.item.IModeChangingItem;
+import net.machinemuse.numina.api.item.IModule;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -19,14 +20,14 @@ public class ModuleManager {
     public static final String ONLINE = "Active";
 
     protected static final Map<String, List<ItemStack>> customInstallCosts = new HashMap<>();
-    protected static final Map<String, IPowerModule> moduleMap = new HashMap<>();
-    protected static final List<IPowerModule> moduleList = new ArrayList<>();
+    protected static final Map<String, IModule> moduleMap = new HashMap<>();
+    protected static final List<IModule> moduleList = new ArrayList<>();
     protected static final List<IPlayerTickModule> playerTickModules = new ArrayList<>();
     protected static final List<IRightClickModule> rightClickModules = new ArrayList<>();
     protected static final List<IToggleableModule> toggleableModules = new ArrayList<>();
     protected static final List<IBlockBreakingModule> blockBreakingModules = new ArrayList<>();
 
-    public static List<IPowerModule> getAllModules() {
+    public static List<IModule> getAllModules() {
         return moduleList;
     }
 
@@ -35,11 +36,11 @@ public class ModuleManager {
     }
 
     @Nullable
-    public static IPowerModule getModule(String key) {
+    public static IModule getModule(String key) {
         return moduleMap.get(key);
     }
 
-    public static void addModule(IPowerModule module) {
+    public static void addModule(IModule module) {
 
         moduleMap.put(module.getDataName(), module);
         moduleList.add(module);
@@ -60,7 +61,7 @@ public class ModuleManager {
     public static double computeModularProperty(ItemStack stack, String propertyName) {
         double propertyValue = 0;
         NBTTagCompound itemTag = MuseItemTag.getMuseItemTag(stack);
-        for (IPowerModule module : moduleList) {
+        for (IModule module : moduleList) {
             if (itemHasActiveModule(stack, module.getDataName())) {
                 propertyValue = module.applyPropertyModifiers(itemTag, propertyName, propertyValue);
             }
@@ -80,9 +81,9 @@ public class ModuleManager {
         return blockBreakingModules;
     }
 
-    public static List<IPowerModule> getValidModulesForItem(ItemStack stack) {
-        List<IPowerModule> validModules = new ArrayList();
-        for (IPowerModule module : getAllModules()) {
+    public static List<IModule> getValidModulesForItem(ItemStack stack) {
+        List<IModule> validModules = new ArrayList();
+        for (IModule module : getAllModules()) {
             if (module.isValidForItem(stack)) {
                 validModules.add(module);
             }
@@ -114,11 +115,11 @@ public class ModuleManager {
         return tagHasModule(MuseItemTag.getMuseItemTag(stack), moduleName);
     }
 
-    public static void tagAddModule(NBTTagCompound tag, IPowerModule module) {
+    public static void tagAddModule(NBTTagCompound tag, IModule module) {
         tag.setTag(module.getDataName(), module.getNewTag());
     }
 
-    public static void itemAddModule(ItemStack stack, IPowerModule moduleType) {
+    public static void itemAddModule(ItemStack stack, IModule moduleType) {
         tagAddModule(MuseItemTag.getMuseItemTag(stack), moduleType);
     }
 
@@ -136,7 +137,7 @@ public class ModuleManager {
     }
 
     public static boolean itemHasActiveModule(ItemStack itemStack, String moduleName) {
-        IPowerModule module = getModule(moduleName);
+        IModule module = getModule(moduleName);
         if (module == null || itemStack == null || !module.isAllowed() || !(itemStack.getItem() instanceof IModularItem)) {
             // playerEntity.sendChatToPlayer("Server has disallowed this module. Sorry!");
             return false;

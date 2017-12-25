@@ -42,8 +42,13 @@ public class MusePacketToggleRequest extends MusePacket {
 
     private static MusePacketToggleRequestPackager PACKAGERINSTANCE;
     public static MusePacketToggleRequestPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketToggleRequestPackager();
+        if (PACKAGERINSTANCE == null) {
+            synchronized (MusePacketToggleRequestPackager.class) {
+                if (PACKAGERINSTANCE == null) {
+                    PACKAGERINSTANCE = new MusePacketToggleRequestPackager();
+                }
+            }
+        }
         return PACKAGERINSTANCE;
     }
 

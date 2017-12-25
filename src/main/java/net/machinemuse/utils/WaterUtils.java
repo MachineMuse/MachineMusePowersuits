@@ -2,8 +2,8 @@ package net.machinemuse.utils;
 
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.powersuits.common.MPSConstants;
+import net.machinemuse.powersuits.common.items.modules.armor.WaterTankModule;
 import net.machinemuse.powersuits.common.items.old.ItemPowerArmorChestplate;
-import net.machinemuse.powersuits.common.powermodule.armor.WaterTankModule;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 

@@ -5,6 +5,8 @@ import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.DrawableMuseRect;
 import net.machinemuse.numina.geometry.MusePoint2D;
+import net.machinemuse.powersuits.client.renderers.item.HighPolyArmor;
+import net.machinemuse.powersuits.client.renderers.item.IArmorModel;
 import net.machinemuse.powersuits.common.items.old.ItemPowerArmor;
 import net.machinemuse.powersuits.common.items.old.ItemPowerFist;
 import net.machinemuse.utils.MuseItemUtils;
@@ -13,7 +15,9 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import org.lwjgl.input.Mouse;
 
@@ -47,8 +51,18 @@ public class ItemModelViewFrame implements IGuiFrame {
         this.border = new DrawableMuseRect(topleft, bottomright, borderColour, insideColour);
     }
 
-    EntityEquipmentSlot getArmorSlot() {
-        return ((ItemPowerArmor) getSelectedItem().getItem().getItem()).armorType;
+    EntityEquipmentSlot getEquipmentSlot() {
+        ItemStack selectedItem = getSelectedItem().getItem();
+        if (!selectedItem.isEmpty() && selectedItem.getItem() instanceof ItemPowerArmor)
+            return ((ItemPowerArmor) selectedItem.getItem()).armorType;
+
+        Minecraft mc = Minecraft.getMinecraft();
+        EntityPlayer player = mc.player;
+        ItemStack heldItem = player.getHeldItemOffhand();
+
+        if (!heldItem.isEmpty() && MuseItemUtils.stackEqualExact(selectedItem, heldItem))
+            return EntityEquipmentSlot.OFFHAND;
+        return EntityEquipmentSlot.MAINHAND;
     }
 
     ClickableItem getSelectedItem() {
@@ -56,7 +70,7 @@ public class ItemModelViewFrame implements IGuiFrame {
     }
 
     NBTTagCompound getRenderTag() {
-        return MuseItemUtils.getMuseRenderTag(getSelectedItem().getItem(), getArmorSlot());
+        return MuseItemUtils.getMuseRenderTag(getSelectedItem().getItem(), getEquipmentSlot());
     }
 
     @Override
@@ -111,45 +125,19 @@ public class ItemModelViewFrame implements IGuiFrame {
         }
     }
 
-    float getYforSlot(EntityEquipmentSlot slot) {
-        switch (slot) {
-            case HEAD:
-                return -0.40f;
-            case CHEST:
-                return -0.90f;
-            case LEGS:
-                return -1.20f;
-            case FEET:
-                return -1.35f;
-            default:
-                return 0;
-        }
-    }
-
     @Override
     public void draw() {
         Minecraft mc = Minecraft.getMinecraft();
         border.draw();
-        if (itemSelector.getSelectedItem() == null || !(getSelectedItem().getItem().getItem() instanceof ItemPowerArmor)
-                && !(getSelectedItem().getItem().getItem() instanceof ItemPowerFist))
+        if (itemSelector.getSelectedItem() == null)
             return;
-        // Old style rendering; Updated to use GLStateManager
-//        ((IArmorModel) ArmorModelInstance.getInstance()).setRenderSpec(MuseItemUtils.getMuseRenderTag(getSelectedItem().getItem(), getArmorSlot()));
-//        ((IArmorModel) ArmorModelInstance.getInstance()).setVisibleSection(this.getArmorSlot());
-//        GlStateManager.enableColorMaterial();
-//        GlStateManager.pushMatrix();
-//        GlStateManager.translate(border.centerx() + offsetx, border.centery() + offsety, 0);
-//        GlStateManager.scale(zoom, zoom, zoom);
-//        GlStateManager.clear(GL11.GL_DEPTH_BUFFER_BIT);
-//        GlStateManager.disableCull();
-//        GlStateManager.rotate((float) rotx, 1, 0, 0);
-//        GlStateManager.rotate((float) roty - 180, 0, 1, 0);
-//        GlStateManager.translate(0.0, getYforSlot(getArmorSlot()), 0.0);
-//        ArmorModelInstance.getInstance().render((Entity) mc.player, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0625f);
-//        GlStateManager.popMatrix();
-
-        //===================================================================
-
+        if (getSelectedItem().getItem().getItem() instanceof ItemPowerArmor) {
+            ((IArmorModel) HighPolyArmor.getInstance()).setRenderSpec(MuseItemUtils.getMuseRenderTag(getSelectedItem().getItem(), getEquipmentSlot()));
+            ((IArmorModel) HighPolyArmor.getInstance()).setVisibleSection(this.getEquipmentSlot());
+        } else if (getSelectedItem().getItem().getItem() instanceof ItemPowerFist) {
+            MuseItemUtils.getMuseRenderTag(getSelectedItem().getItem(), getEquipmentSlot());
+        } else
+            return;
 
         // set color to normal state
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

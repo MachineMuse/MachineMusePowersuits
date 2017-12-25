@@ -10,7 +10,7 @@ import net.machinemuse.numina.geometry.DrawableMuseRect;
 import net.machinemuse.powersuits.client.control.KeybindManager;
 import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.config.MPSSettings;
-import net.machinemuse.powersuits.common.powermodule.misc.BinocularsModule;
+import net.machinemuse.powersuits.common.items.modules.misc.BinocularsModule;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;

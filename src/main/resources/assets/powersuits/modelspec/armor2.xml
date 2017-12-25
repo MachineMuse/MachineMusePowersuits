@@ -1,46 +1,44 @@
 <modelSpec name="Armor 2" type="armor model">
     <models>
-        <model file="powersuits:models/item/armor/armor2.obj"
-               textures="powersuits:textures/item/armor/armor2diffuse.png">
+        <model file="powersuits:models/item/armor/armor2.obj" textures="powersuits:textures/item/armor/armor2diffuse.png">
             <binding slot="legs" target="LeftLeg">
-                <part defaultcolor="FFFFFF" defaultglow="false" polygroup="leggray" name="Left Leg Base"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" polygroup="legbit" name="Left Leg Protection"/>
-                <part defaultcolor="11d2ff" defaultglow="true" polygroup="legglow" name="Left Leg Light"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" partName="leggray" localizedName="Left Leg Base"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" partName="legbit" localizedName="Left Leg Protection"/>
+                <part defaultcolor="11d2ff" defaultglow="true" partName="legglow" localizedName="Left Leg Light"/>
             </binding>
             <binding slot="legs" target="RightLeg">
-                <part defaultcolor="FFFFFF" defaultglow="false" polygroup="leggray1" name="Right Leg Base"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" polygroup="legbit1" name="Right Leg Protection"/>
-                <part defaultcolor="11d2ff" defaultglow="true" polygroup="legglow1" name="Right Leg Light"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" partName="leggray1" localizedName="Right Leg Base"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" partName="legbit1" localizedName="Right Leg Protection"/>
+                <part defaultcolor="11d2ff" defaultglow="true" partName="legglow1" localizedName="Right Leg Light"/>
             </binding>
             <binding slot="feet" target="RightLeg">
-                <part defaultcolor="FFFFFF" defaultglow="false" polygroup="bootmain1" name="Right Boot"/>
-                <part defaultcolor="11d2ff" defaultglow="true" polygroup="bootglow1" name="Right Boot Glow"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" partName="bootmain1" localizedName="Right Boot"/>
+                <part defaultcolor="11d2ff" defaultglow="true" partName="bootglow1" localizedName="Right Boot Glow"/>
             </binding>
             <binding slot="feet" target="LeftLeg">
-                <part defaultcolor="FFFFFF" defaultglow="false" polygroup="bootmain" name="Left Boot"/>
-                <part defaultcolor="11d2ff" defaultglow="true" polygroup="bootglow" name="Left Boot Glow"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" partName="bootmain" localizedName="Left Boot"/>
+                <part defaultcolor="11d2ff" defaultglow="true" partName="bootglow" localizedName="Left Boot Glow"/>
             </binding>
             <binding slot="chest" target="Body">
-                <part defaultcolor="FFFFFF" defaultglow="false" polygroup="chestgray" name="Chest Base"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" polygroup="chestmain" name="Front Chest Protection"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" polygroup="chestback1" name="Back Chest Protection"/>
-                <part defaultcolor="11d2ff" defaultglow="true" polygroup="chestglowfront" name="Frontal Power Crystal"/>
-                <part defaultcolor="11d2ff" defaultglow="true" polygroup="chestglowback" name="Spinal Power Crystals"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" partName="chestgray" localizedName="Chest Base"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" partName="chestmain" localizedName="Front Chest Protection"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" partName="chestback1" localizedName="Back Chest Protection"/>
+                <part defaultcolor="11d2ff" defaultglow="true" partName="chestglowfront" localizedName="Frontal Power Crystal"/>
+                <part defaultcolor="11d2ff" defaultglow="true" partName="chestglowback" localizedName="Spinal Power Crystals"/>
             </binding>
             <binding slot="chest" target="RightArm">
-                <part defaultcolor="11d2ff" defaultglow="true" polygroup="armglow1" name="Shoulder Light"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" polygroup="armmain1"
-                      name="Arm and Shoulder Protection"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" polygroup="armgray1" name="Arm Base"/>
+                <part defaultcolor="11d2ff" defaultglow="true" partName="armglow1" localizedName="Shoulder Light"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" partName="armmain1" localizedName="Arm and Shoulder Protection"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" partName="armgray1" localizedName="Arm Base"/>
             </binding>
             <binding slot="chest" target="LeftArm">
-                <part defaultcolor="11d2ff" defaultglow="true" polygroup="armglow" name="Shoulder Light"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" polygroup="armmain" name="Arm and Shoulder Protection"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" polygroup="armgray" name="Arm Base"/>
+                <part defaultcolor="11d2ff" defaultglow="true" partName="armglow" localizedName="Shoulder Light"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" partName="armmain" localizedName="Arm and Shoulder Protection"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" partName="armgray" localizedName="Arm Base"/>
             </binding>
             <binding slot="head" target="Head">
-                <part defaultcolor="11d2ff" defaultglow="true" polygroup="helmetglow1" name="Helmet Tubes and Visor"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" polygroup="helmetmain" name="Helmet"/>
+                <part defaultcolor="11d2ff" defaultglow="true" partName="helmetglow1" localizedName="Helmet Tubes and Visor"/>
+                <part defaultcolor="FFFFFF" defaultglow="false" partName="helmetmain" localizedName="Helmet"/>
             </binding>
         </model>
     </models>

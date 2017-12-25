@@ -1,6 +1,6 @@
 package net.machinemuse.api.moduletrigger;
 
-import net.machinemuse.api.IPowerModule;
+import net.machinemuse.numina.api.item.IModule;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -11,7 +11,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public interface IRightClickModule extends IPowerModule {
+public interface IRightClickModule extends IModule {
     ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand);
 
     EnumActionResult onItemUse(

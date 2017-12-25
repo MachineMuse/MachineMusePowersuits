@@ -7,17 +7,17 @@ import cofh.api.item.IToolHammer;
 import forestry.api.arboriculture.IToolGrafter;
 import mekanism.api.IMekWrench;
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.numina.api.item.IModule;
 import net.machinemuse.numina.item.IModeChangingItem;
 import net.machinemuse.numina.item.ModeChangingItem;
 import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.config.MPSSettings;
+import net.machinemuse.powersuits.common.items.modules.weapon.MeleeAssistModule;
 import net.machinemuse.powersuits.common.powermodule.tool.GrafterModule;
 import net.machinemuse.powersuits.common.powermodule.tool.OmniWrenchModule;
-import net.machinemuse.powersuits.common.powermodule.weapon.MeleeAssistModule;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
@@ -33,12 +33,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-//import net.machinemuse.powersuits.common.powermodule.tool.RefinedStorageWirelessModule;
+//import net.machinemuse.powersuits.common.items.modules.tool.RefinedStorageWirelessModule;
 
 //import mods.railcraft.api.core.items.IToolCrowbar;
 
@@ -82,7 +84,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         this.maxStackSize =1;
         this.setMaxDamage(0);
         this.setCreativeTab(MPSSettings.getCreativeTab());
-        this.setUnlocalizedName("powerFist");
+        this.setUnlocalizedName("powerfist");
     }
 
     private ModeChangingItem getModeChangingItem() {
@@ -209,7 +211,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         // Only one right click module should be active at a time.
         ItemStack stack = new ItemStack(this);
 
-        IPowerModule iPowerModulemodule = ModuleManager.getModule(getActiveMode(stack));
+        IModule iPowerModulemodule = ModuleManager.getModule(getActiveMode(stack));
         if (iPowerModulemodule instanceof IRightClickModule) {
             return ((IRightClickModule) iPowerModulemodule).onItemRightClick(stack, worldIn, playerIn, handIn);
         }
@@ -231,7 +233,7 @@ public class ItemPowerFist extends MPSItemElectricTool
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
         String mode = this.getActiveMode(itemStack);
-        IPowerModule module = ModuleManager.getModule(mode);
+        IModule module = ModuleManager.getModule(mode);
         if (module != null)
             ((IRightClickModule)module).onPlayerStoppedUsing(itemStack, worldIn, entityLiving, timeLeft);
     }
@@ -244,7 +246,7 @@ public class ItemPowerFist extends MPSItemElectricTool
     public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         ItemStack stack = new ItemStack(this);
         String mode = this.getActiveMode(stack);
-        IPowerModule module = ModuleManager.getModule(mode);
+        IModule module = ModuleManager.getModule(mode);
         if (module instanceof IRightClickModule)
             return ((IRightClickModule)module).onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ, hand);
         return EnumActionResult.PASS;
@@ -255,8 +257,8 @@ public class ItemPowerFist extends MPSItemElectricTool
         ItemStack stack = new ItemStack(this);
 
         String mode = this.getActiveMode(stack);
-        IPowerModule module2;
-        IPowerModule module = module2 = ModuleManager.getModule(mode);
+        IModule module2;
+        IModule module = module2 = ModuleManager.getModule(mode);
         if (module2 instanceof IRightClickModule) {
             return ((IRightClickModule)module2).onItemUse(stack, player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
         }
@@ -390,11 +392,11 @@ public class ItemPowerFist extends MPSItemElectricTool
 
 
     /* IModeChangingItem -------------------------------------------------------------------------- */
-
+    @SideOnly(Side.CLIENT)
     @Nullable
     @Override
     public TextureAtlasSprite getModeIcon(String mode, ItemStack stack, EntityPlayer player) {
-        IPowerModule module = ModuleManager.getModule(mode);
+        IModule module = ModuleManager.getModule(mode);
         if (module != null)
             return module.getIcon(stack);
         return null;

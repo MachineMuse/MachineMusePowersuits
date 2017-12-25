@@ -2,9 +2,9 @@
 //
 //import net.minecraft.client.renderer.RenderBlocks;
 //import net.minecraft.client.renderer.texture.TextureManager;
-//import net.minecraft.entity.EntityLivingBase;
-//import net.minecraft.entity.item.EntityItem;
-//import net.minecraft.entity.player.EntityPlayer;
+//import net.minecraft.entities.EntityLivingBase;
+//import net.minecraft.entities.item.EntityItem;
+//import net.minecraft.entities.player.EntityPlayer;
 //import net.minecraft.item.ItemStack;
 //import net.minecraft.world.storage.MapData;
 //import net.minecraftforge.client.IItemRenderer;

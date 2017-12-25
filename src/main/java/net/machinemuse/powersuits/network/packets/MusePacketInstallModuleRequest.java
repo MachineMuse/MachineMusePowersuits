@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.network.packets;
 
-import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.numina.api.item.IModule;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
@@ -53,7 +53,7 @@ public class MusePacketInstallModuleRequest extends MusePacket {
         ItemStack stack = player.inventory.getStackInSlot(itemSlot);
         if (moduleName != null) {
             InventoryPlayer inventory = player.inventory;
-            IPowerModule moduleType = ModuleManager.getModule(moduleName);
+            IModule moduleType = ModuleManager.getModule(moduleName);
             if (moduleType == null || !moduleType.isAllowed()) {
                 player.sendMessage(new TextComponentString("Server has disallowed this module. Sorry!"));
                 return;
@@ -79,8 +79,13 @@ public class MusePacketInstallModuleRequest extends MusePacket {
 
     private static MusePacketInstallModuleRequestPackager PACKAGERINSTANCE;
     public static MusePacketInstallModuleRequestPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketInstallModuleRequestPackager();
+        if (PACKAGERINSTANCE == null) {
+            synchronized (MusePacketInstallModuleRequestPackager.class) {
+                if (PACKAGERINSTANCE == null) {
+                    PACKAGERINSTANCE = new MusePacketInstallModuleRequestPackager();
+                }
+            }
+        }
         return PACKAGERINSTANCE;
     }
 

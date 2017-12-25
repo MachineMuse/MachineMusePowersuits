@@ -24,7 +24,7 @@ public class TileEntityLuxCapacitor extends MuseTileEntity {
     @Override
     public void loadNBTData(NBTTagCompound nbt) {
         if (nbt.hasKey("c")) {
-            color = EnumColour.getColourEnumFromIndex(nbt.getByte("c"));
+            color = EnumColour.getColourEnumFromIndex(Byte.toUnsignedInt(nbt.getByte("c")));
         } else {
             MuseLogger.logDebug("No NBT found! D:");
         }

@@ -105,14 +105,14 @@
 //        ArrayList<ItemStack> result = new ArrayList<>();
 //        if (itemMap == null)
 //        {
-//            if (ItemList.items.isEmpty())
+//            if (ItemList.item.isEmpty())
 //            {
 //                ItemStack stack = ItemNameMappings.getItem(unlocalizedName);
 //                if (stack != null)
 //                    result.add(stack);
 //            } else {
 //                itemMap = new HashMap<>();
-//                for (ItemStack stack : ItemList.items)
+//                for (ItemStack stack : ItemList.item)
 //                {
 //                    String key = stack.getItem().getUnlocalizedName(stack);
 //                    if (!itemMap.containsKey(key))
@@ -208,7 +208,7 @@
 //        if (height == 0 || width == 0)
 //            return null;
 //
-//        Object[] items = new Object[height*width];
+//        Object[] item = new Object[height*width];
 //
 //        for (int y=0; y < height; y++) {
 //            if (recipe.ingredients[y] != null) {
@@ -221,11 +221,11 @@
 //                    }
 //                    if (item != null && item.isEmpty())
 //                        return null;
-//                    items[y * width + x] = item;
+//                    item[y * width + x] = item;
 //                }
 //            }
 //        }
 //
-//        return new CachedShapedRecipe(width, height, items, recipe.getRecipeOutput());
+//        return new CachedShapedRecipe(width, height, item, recipe.getRecipeOutput());
 //    }
 //}
