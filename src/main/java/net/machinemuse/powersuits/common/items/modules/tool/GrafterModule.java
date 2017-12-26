@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.common.powermodule.tool;
+package net.machinemuse.powersuits.common.items.modules.tool;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.powersuits.common.items.modules.PowerModuleBase;
@@ -8,6 +8,8 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -45,6 +47,7 @@ public class GrafterModule extends PowerModuleBase {
         return "grafter";
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(grafter).getParticleTexture();

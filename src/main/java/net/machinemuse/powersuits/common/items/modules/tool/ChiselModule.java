@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.common.powermodule.tool;
+package net.machinemuse.powersuits.common.items.modules.tool;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
@@ -22,6 +22,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -89,6 +91,7 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
         return emulatedTool; // FIXME TOO!!
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(emulatedTool).getParticleTexture();

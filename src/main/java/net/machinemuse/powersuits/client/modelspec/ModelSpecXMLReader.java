@@ -117,23 +117,21 @@ public class ModelSpecXMLReader {
     }
 
     public static void parseTextureSpec(Node specNode, TextureStitchEvent event, TextureSpec textureSpec) {
-        NodeList textures = specNode.getOwnerDocument().getElementsByTagName("texture");
-        for (int i = 0; i < textures.getLength(); i++) {
-            Node textureNode = textures.item(i);
-            if (textureNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element)textureNode;
-                String fileLocation = eElement.getAttribute("file");
-                if (event == null) {
-                    TextureSpec existingspec = (TextureSpec) ModelRegistry.getInstance().put(textureSpec.getName(), textureSpec);
+        // ModelBase textures are not registered.
+        if (event == null) {
+            TextureSpec existingspec = (TextureSpec) ModelRegistry.getInstance().put(textureSpec.getName(), textureSpec);
+            NodeList textures = specNode.getOwnerDocument().getElementsByTagName("texture");
+            for (int i = 0; i < textures.getLength(); i++) {
+                Node textureNode = textures.item(i);
+                if (textureNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element)textureNode;
+                    String fileLocation = eElement.getAttribute("file");
                     NodeList bindings = eElement.getElementsByTagName("binding");
                     for (int j = 0; j < bindings.getLength(); j++) {
-                        //FIXME: make this like ModelSpec and add a partSpec
                         Binding binding = getBinding(bindings.item(j));
                         getTexturePartSpec(existingspec, bindings.item(j), binding, fileLocation);
-
                     }
-                } else
-                    event.getMap().registerSprite(new ResourceLocation(fileLocation));
+                }
             }
         }
     }
@@ -158,7 +156,6 @@ public class ModelSpecXMLReader {
                             textures.add(texture);
                 } else {
                     String modelLocation = modelElement.getAttribute("file");
-
                     if(modelState == null) {
                         // check for item camera transforms, then fall back on single transform for model
                         NodeList cameraTransformList = ((Element) modelNode).getElementsByTagName("itemCameraTransforms");
@@ -221,16 +218,25 @@ public class ModelSpecXMLReader {
     public static void getModelPartSpec(ModelSpec modelSpec, Node partSpecNode, Binding binding) {
         Element partSpecElement = (Element) partSpecNode;
         String partname = validatePolygroup(partSpecElement.getAttribute("partName"), modelSpec);
-        String displayName = partSpecElement.getAttribute("unlocalizedName");
+        String displayName = partSpecElement.getAttribute("localizedName");
         boolean visible = Boolean.parseBoolean(partSpecElement.getAttribute("defaultVisible"));
         boolean glow = Boolean.parseBoolean(partSpecElement.getAttribute("defaultglow"));
         Colour colour = parseColour(partSpecElement.getAttribute("defaultcolor"));
         int enumColourIndex = colour!=null ? EnumColour.findClosestEnumColour(colour).getIndex() : MPSConstants.ENUM_COLOUR_WHITE_INDEX;
 
-        System.out.println("specName: " + modelSpec.getName());
-        System.out.println("spec Model: " + modelSpec.getModel().toString());
-        System.out.println("partName: " + partname);
-        System.out.println("entityEquipmentSlot: " + binding.getSlot().getName());
+        if (partname == null) {
+            System.out.println("partName is NULL!!");
+            System.out.println("localizedName: "+ displayName);
+            System.out.println("glow: " + glow);
+            System.out.println("colour: " + colour.hexColour());
+//            System.out.println();
+//            System.out.println();
+//            System.out.println();
+        }
+
+
+
+
 
         modelSpec.put(new ModelPartSpec(modelSpec,
                 binding,

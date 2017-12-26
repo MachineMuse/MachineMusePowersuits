@@ -3,7 +3,11 @@ package net.machinemuse.powersuits.common.items.old;
 import com.google.common.collect.Multimap;
 import net.machinemuse.api.IArmorTraits;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.general.NBTTagAccessor;
 import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.powersuits.client.modelspec.ModelRegistry;
+import net.machinemuse.powersuits.client.modelspec.PartSpec;
+import net.machinemuse.powersuits.client.modelspec.TexturePartSpec;
 import net.machinemuse.powersuits.client.renderers.item.HighPolyArmor;
 import net.machinemuse.powersuits.client.renderers.item.IArmorModel;
 import net.machinemuse.powersuits.common.MPSConstants;
@@ -87,36 +91,34 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-        // TODO: get texture from NBT
-
-
         if (type == "overlay")  // this is to allow a tint to be applied ot the armor
             return BLANK_ARMOR_MODEL_PATH;
 
         ItemStack armor = ((EntityLivingBase) entity).getItemStackFromSlot(slot);
         if (armor.getItem() instanceof ItemPowerArmor) {
-            if (entity instanceof EntityPlayer) {
-                ItemStack armorChest = ((EntityPlayer) entity).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-                if (armorChest != null) {
-                    if (armorChest.getItem() instanceof ItemPowerArmor)
-                        if (ModuleManager.itemHasActiveModule(armorChest, MPSConstants.MODULE_ACTIVE_CAMOUFLAGE))
-                            return BLANK_ARMOR_MODEL_PATH;
-                }
-            }
-
-            if (ModuleManager.itemHasActiveModule(stack, MPSConstants.MODULE_TRANSPARENT_ARMOR))
+            if (slot.equals(EntityEquipmentSlot.CHEST) && ModuleManager.itemHasActiveModule(armor, MPSConstants.MODULE_ACTIVE_CAMOUFLAGE))
                 return BLANK_ARMOR_MODEL_PATH;
 
-            else if (ModuleManager.itemHasActiveModule(armor, MPSConstants.CITIZEN_JOE_STYLE)) {
-                if (slot == EntityEquipmentSlot.LEGS)
-                    return CITIZENJOE_ARMORPANTS_PATH;
-                else
-                    return CITIZENJOE_ARMOR_PATH;
-            } else if (!ModuleManager.itemHasActiveModule(armor, MPSConstants.HIGH_POLY_ARMOR)) {
-                if (slot == EntityEquipmentSlot.LEGS)
-                    return SEBK_ARMORPANTS_PATH;
-                else
-                    return SEBK_ARMOR_PATH;
+            String texture = "";
+            NBTTagCompound renderSpec = MuseItemUtils.getMuseRenderTag(stack, slot);
+
+            if (entity.world.isRemote)
+                System.out.println("world is remote");
+            else
+                System.out.println("world is NOT remote");
+
+            System.out.println("renderSpec: " + renderSpec.toString());
+
+            for (NBTTagCompound nbt : NBTTagAccessor.getValues(renderSpec)) {
+                System.out.println("NBT: " + nbt.toString());
+
+
+                PartSpec partSpec = ModelRegistry.getInstance().getPart(nbt);
+                if (partSpec instanceof TexturePartSpec)
+                    texture = ((TexturePartSpec) partSpec).getTextureLocation();
+                System.out.println("texture location: " + texture);
+                if (!texture.equals(null) && !texture.equals(""))
+                    return texture;
             }
         }
         return BLANK_ARMOR_MODEL_PATH;
@@ -137,6 +139,11 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
     @Override
     public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStackArmor, EntityEquipmentSlot armorSlot, ModelBiped _default) {
         if (itemStackArmor != null) {
+
+
+
+
+
             // check if using 2d armor
             if (!(ModuleManager.itemHasActiveModule(itemStackArmor, MPSConstants.HIGH_POLY_ARMOR))) {
                 return _default;

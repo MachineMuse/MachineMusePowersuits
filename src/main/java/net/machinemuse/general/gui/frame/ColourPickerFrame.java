@@ -1,6 +1,7 @@
 package net.machinemuse.general.gui.frame;
 
 
+import net.machinemuse.api.IModularItem;
 import net.machinemuse.general.gui.clickable.ClickableSlider;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
@@ -23,6 +24,8 @@ import net.minecraft.nbt.NBTTagIntArray;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -37,10 +40,6 @@ public class ColourPickerFrame implements IGuiFrame {
     public ClickableSlider rslider;
     public ClickableSlider gslider;
     public ClickableSlider bslider;
-
-
-
-
     public ClickableSlider selectedSlider;
     public int selectedColour;
     public int decrAbove;
@@ -54,10 +53,6 @@ public class ColourPickerFrame implements IGuiFrame {
         this.gslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 24), this.border.width() - 10, I18n.format("gui.green"));
         this.bslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 40), this.border.width() - 10, I18n.format("gui.blue"));
 
-
-
-
-
         this.selectedSlider = null;
         this.selectedColour = 0;
         this.decrAbove = -1;
@@ -68,28 +63,28 @@ public class ColourPickerFrame implements IGuiFrame {
     }
 
     public NBTTagIntArray getOrCreateColourTag() {
-        if (this.itemSelector.getSelectedItem() == null) {
+        if (this.itemSelector.getSelectedItem() == null)
             return null;
-        }
+
         NBTTagCompound renderSpec = MuseItemUtils.getMuseRenderTag(this.itemSelector.getSelectedItem().getItem());
         if (renderSpec.hasKey("colours") && renderSpec.getTag("colours") instanceof NBTTagIntArray) {
             return (NBTTagIntArray) renderSpec.getTag("colours");
-        }
-        else {
+        } else {
             Item item = this.itemSelector.getSelectedItem().getItem().getItem();
+            int[] intArray;
             if (item instanceof ItemPowerArmor) {
                 ItemPowerArmor itemPowerArmor = (ItemPowerArmor)item;
-                int[] intArray = { itemPowerArmor.getColorFromItemStack(this.itemSelector.getSelectedItem().getItem()).getInt(),
-                                         itemPowerArmor.getGlowFromItemStack(this.itemSelector.getSelectedItem().getItem()).getInt() };
-                renderSpec.setIntArray("colours", intArray);
+                intArray = new int[]{itemPowerArmor.getColorFromItemStack(this.itemSelector.getSelectedItem().getItem()).getInt(),
+                        itemPowerArmor.getGlowFromItemStack(this.itemSelector.getSelectedItem().getItem()).getInt() };
             }
             else {
-                int[] intArray2 = new int[0];
-                renderSpec.setIntArray("colours", intArray2);
+                // TODO: powerfist
+                intArray = new int[0];
             }
+            renderSpec.setIntArray("colours", intArray);
             EntityPlayerSP player = Minecraft.getMinecraft().player;
             if (player.world.isRemote) {
-                PacketSender.sendToServer(new MusePacketColourInfo((EntityPlayer)player, this.itemSelector.getSelectedItem().inventorySlot, this.colours()));
+                PacketSender.sendToServer(new MusePacketColourInfo(player, this.itemSelector.getSelectedItem().inventorySlot, this.colours()));
             }
             return (NBTTagIntArray) renderSpec.getTag("colours");
         }
@@ -100,25 +95,16 @@ public class ColourPickerFrame implements IGuiFrame {
             return null;
         }
         NBTTagCompound renderSpec = MuseItemUtils.getMuseRenderTag(this.itemSelector.getSelectedItem().getItem());
-        renderSpec.setTag("colours", (NBTBase)new NBTTagIntArray(newarray));
+        renderSpec.setTag("colours", new NBTTagIntArray(newarray));
         EntityPlayerSP player = Minecraft.getMinecraft().player;
         if (player.world.isRemote) {
-            PacketSender.sendToServer(new MusePacketColourInfo((EntityPlayer)player, this.itemSelector.getSelectedItem().inventorySlot, this.colours()));
+            PacketSender.sendToServer(new MusePacketColourInfo(player, this.itemSelector.getSelectedItem().inventorySlot, this.colours()));
         }
         return (NBTTagIntArray) renderSpec.getTag("colours");
     }
 
     public ArrayList<Integer> importColours() {
-        return new ArrayList<Integer>();
-    }
-
-    public void refreshColours() {
-        //    getOrCreateColourTag.map(coloursTag => {
-        //      val colourints: Array[Int] = coloursTag.intArray
-        //      val colourset: HashSet[Int] = HashSet.empty ++ colours ++ colourints
-        //      val colourarray = colourset.toArray
-        //      coloursTag.intArray = colourarray
-        //    })
+        return new ArrayList<>();
     }
 
     @Override

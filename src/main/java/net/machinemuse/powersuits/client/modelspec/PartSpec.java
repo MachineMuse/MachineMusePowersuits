@@ -55,6 +55,16 @@ public class PartSpec {
         return nbt;
     }
 
+    /** ToNBT ------------------------------------------------------------------------------------- */
+    public NBTTagCompound toNBT() {
+        NBTTagCompound nbt = new NBTTagCompound();
+        nbt.setString("part", this.partName);
+        nbt.setString("model", spec.getOwnName());
+        if (this.defaultcolourindex != 0)
+            nbt.setInteger("colourindex", defaultcolourindex);
+        return nbt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

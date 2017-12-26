@@ -1,6 +1,6 @@
 <modelSpec name="Armor 2" type="armor model">
     <models>
-        <model file="powersuits:models/item/armor/armor2.obj" textures="powersuits:textures/item/armor/armor2diffuse.png">
+        <model file="powersuits:models/item/armor/armor2.obj" textures="powersuits:items/armor/armor2diffuse">
             <binding slot="legs" target="LeftLeg">
                 <part defaultcolor="FFFFFF" defaultglow="false" partName="leggray" localizedName="Left Leg Base"/>
                 <part defaultcolor="FFFFFF" defaultglow="false" partName="legbit" localizedName="Left Leg Protection"/>

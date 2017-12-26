@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.common.powermodule.tool;
+package net.machinemuse.powersuits.common.items.modules.tool;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
@@ -19,6 +19,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 import java.util.Random;
@@ -41,6 +43,7 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
         addBaseProperty(IGNITION_ENERGY_CONSUMPTION, 1000, "J");
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(fas).getParticleTexture();

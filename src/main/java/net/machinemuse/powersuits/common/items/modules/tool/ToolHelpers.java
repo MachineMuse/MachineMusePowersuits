@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.common.powermodule.tool;
+package net.machinemuse.powersuits.common.items.modules.tool;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;

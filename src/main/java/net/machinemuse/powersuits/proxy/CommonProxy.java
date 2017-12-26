@@ -11,7 +11,7 @@ import net.machinemuse.powersuits.common.entities.EntityPlasmaBolt;
 import net.machinemuse.powersuits.common.entities.EntitySpinningBlade;
 import net.machinemuse.powersuits.common.events.HarvestEventHandler;
 import net.machinemuse.powersuits.common.events.MovementManager;
-import net.machinemuse.powersuits.common.powermodule.tool.TerminalHandler;
+import net.machinemuse.powersuits.common.items.modules.tool.TerminalHandler;
 import net.machinemuse.powersuits.common.tileentities.TileEntityLuxCapacitor;
 import net.machinemuse.powersuits.common.tileentities.TileEntityTinkerTable;
 import net.machinemuse.powersuits.network.packets.MPSPacketList;

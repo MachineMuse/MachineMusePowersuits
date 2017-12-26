@@ -24,7 +24,6 @@
         <model file="powersuits:models/item/armor/jetpack.obj" textures="powersuits:items/armor/jetpack">
             <trsrTransformation translation="0,0,0" rotation="0,0,0" scale="1,1,1" />
             <binding slot="chest" target="Body" itemState="jetpack">
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="default" localizedName="Main"/>
                 <part defaultcolor="114EFF" defaultglow="false" defaultVisible="true" partName="jetpack5" localizedName="Secondary"/>
                 <part defaultcolor="114EFF" defaultglow="true" defaultVisible="true" partName="jetpack_glow" localizedName="Lights"/>
             </binding>

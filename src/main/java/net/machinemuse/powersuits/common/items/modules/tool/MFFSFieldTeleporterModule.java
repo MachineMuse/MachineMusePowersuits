@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.common.powermodule.tool;
+package net.machinemuse.powersuits.common.items.modules.tool;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.powersuits.client.events.MuseIcon;
@@ -8,6 +8,8 @@ import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -40,6 +42,7 @@ public class MFFSFieldTeleporterModule extends PowerModuleBase {
         return "mffsFieldTeleporter";
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.mffsFieldTeleporter;

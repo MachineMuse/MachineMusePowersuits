@@ -105,7 +105,6 @@ public class PartManipContainer extends ScrollableFrame {
         super.update(mousex, mousey);
         if (!Objects.equals(lastItemSlot, getItemSlot())) {
             lastItemSlot = getItemSlot();
-            colourSelect.refreshColours();
 
             double x = 0;
             for (PartManipSubFrame subframe : modelframes) {

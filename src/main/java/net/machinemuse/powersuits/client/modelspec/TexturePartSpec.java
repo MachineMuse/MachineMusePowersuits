@@ -1,7 +1,9 @@
 package net.machinemuse.powersuits.client.modelspec;
 
 import com.google.common.base.Objects;
+import net.machinemuse.powersuits.common.MPSConstants;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 
 public class TexturePartSpec extends PartSpec {
     String textureLocation;

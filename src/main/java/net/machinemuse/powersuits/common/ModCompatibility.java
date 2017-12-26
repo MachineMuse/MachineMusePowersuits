@@ -7,6 +7,7 @@ import net.machinemuse.powersuits.common.events.EventRegisterItems;
 import net.machinemuse.powersuits.common.items.modules.armor.HazmatModule;
 import net.machinemuse.powersuits.common.items.modules.misc.AirtightSealModule;
 import net.machinemuse.powersuits.common.items.modules.misc.ThaumGogglesModule;
+import net.machinemuse.powersuits.common.items.modules.tool.*;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModAPIManager;
 import net.minecraftforge.fml.common.ModContainer;
@@ -187,7 +188,7 @@ public class ModCompatibility {
 
         // CoFH Lib - CoFHLib is included in CoFHCore
         if (isCOFHCoreLoaded()) {
-            ModuleManager.addModule(new net.machinemuse.powersuits.common.powermodule.tool.OmniWrenchModule(Collections.singletonList((IModularItem) EventRegisterItems.getInstance().powerTool)));
+            ModuleManager.addModule(new OmniWrenchModule(Collections.singletonList((IModularItem) EventRegisterItems.getInstance().powerTool)));
         }
 
         // Thaumcraft
@@ -200,7 +201,7 @@ public class ModCompatibility {
         // Industrialcraft
         if (isIndustrialCraftLoaded()) {
             ModuleManager.addModule(new HazmatModule(Arrays.<IModularItem>asList((IModularItem)EventRegisterItems.getInstance().powerArmorHead, (IModularItem)EventRegisterItems.getInstance().powerArmorTorso, (IModularItem)EventRegisterItems.getInstance().powerArmorLegs, (IModularItem)EventRegisterItems.getInstance().powerArmorFeet)));
-            ModuleManager.addModule(new net.machinemuse.powersuits.common.powermodule.tool.TreetapModule(Collections.singletonList((IModularItem)EventRegisterItems.getInstance().powerTool)));
+            ModuleManager.addModule(new TreetapModule(Collections.singletonList((IModularItem)EventRegisterItems.getInstance().powerTool)));
         }
 
         // Galacticraft
@@ -210,8 +211,8 @@ public class ModCompatibility {
 
         // Forestry
         if (isForestryLoaded()) {
-            ModuleManager.addModule(new net.machinemuse.powersuits.common.powermodule.tool.GrafterModule(Collections.singletonList((IModularItem) EventRegisterItems.getInstance().powerTool)));
-            ModuleManager.addModule(new net.machinemuse.powersuits.common.powermodule.tool.ScoopModule(Collections.singletonList((IModularItem) EventRegisterItems.getInstance().powerTool)));
+            ModuleManager.addModule(new GrafterModule(Collections.singletonList((IModularItem) EventRegisterItems.getInstance().powerTool)));
+            ModuleManager.addModule(new ScoopModule(Collections.singletonList((IModularItem) EventRegisterItems.getInstance().powerTool)));
             // TODO: capabilities
             //            ModuleManager.addModule(new ApiaristArmorModule(Arrays.<IModularItem>asList((IModularItem)EventRegisterItems.getInstance().powerArmorHead, (IModularItem)EventRegisterItems.getInstance().powerArmorTorso, (IModularItem)EventRegisterItems.getInstance().powerArmorLegs, (IModularItem)EventRegisterItems.getInstance().powerArmorFeet)));
         }
@@ -219,7 +220,7 @@ public class ModCompatibility {
         // Chisel
         if(isChiselLoaded()) {
             try {
-                ModuleManager.addModule(new net.machinemuse.powersuits.common.powermodule.tool.ChiselModule(Collections.singletonList((IModularItem) EventRegisterItems.getInstance().powerTool)));
+                ModuleManager.addModule(new ChiselModule(Collections.singletonList((IModularItem) EventRegisterItems.getInstance().powerTool)));
             } catch(Exception e) {
                 MuseLogger.logException("Couldn't add Chisel module", e);
             }
@@ -227,7 +228,7 @@ public class ModCompatibility {
 
         // Applied Energistics
         if (isAppengLoaded()) {
-            ModuleManager.addModule(new net.machinemuse.powersuits.common.powermodule.tool.AppEngWirelessModule(Collections.singletonList((IModularItem) EventRegisterItems.getInstance().powerTool)));
+            ModuleManager.addModule(new AppEngWirelessModule(Collections.singletonList((IModularItem) EventRegisterItems.getInstance().powerTool)));
 
 //            // Extra Cells 2
 //            if (isExtraCellsLoaded())
@@ -236,7 +237,7 @@ public class ModCompatibility {
 
         // Multi-Mod Compatible OmniProbe
         if (isEnderIOLoaded() || isMFRLoaded() || isRailcraftLoaded()) {
-            ModuleManager.addModule(new net.machinemuse.powersuits.common.powermodule.tool.OmniProbeModule(Collections.singletonList((IModularItem) EventRegisterItems.getInstance().powerTool)));
+            ModuleManager.addModule(new OmniProbeModule(Collections.singletonList((IModularItem) EventRegisterItems.getInstance().powerTool)));
         }
 
         // TODO: on hold for now. Needs a conditional fiuld tank and handler. May not be worth it.

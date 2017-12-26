@@ -17,7 +17,7 @@ import net.machinemuse.powersuits.common.items.modules.energy.*;
 import net.machinemuse.powersuits.common.items.modules.misc.*;
 import net.machinemuse.powersuits.common.items.modules.movement.*;
 import net.machinemuse.powersuits.common.items.modules.weapon.*;
-import net.machinemuse.powersuits.common.powermodule.tool.*;
+import net.machinemuse.powersuits.common.items.modules.tool.*;
 import net.machinemuse.powersuits.proxy.CommonProxy;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.resources.I18n;
