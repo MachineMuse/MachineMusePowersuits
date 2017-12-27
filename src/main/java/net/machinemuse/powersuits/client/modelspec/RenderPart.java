@@ -38,22 +38,14 @@ public class RenderPart extends ModelRenderer {
     }
     @Override
     public void render(float scale) {
-        System.out.println("Rendering armor");
-
-
-
-        NBTTagCompound renderSpec = ((IArmorModel)(HighPolyArmor.getInstance())).getRenderSpec();
+        NBTTagCompound renderSpec = HighPolyArmor.getInstance().getRenderSpec();
         int[] colours = renderSpec.getIntArray("colours");
         int partColor;
         for (NBTTagCompound nbt : NBTTagAccessor.getValues(renderSpec)) {
-            System.out.println("NBT: ".concat(nbt.toString()));
-
-
             PartSpec partSpec = ModelRegistry.getInstance().getPart(nbt);
-
             if (partSpec != null && partSpec instanceof ModelPartSpec ) {
                 ModelPartSpec part = (ModelPartSpec) partSpec;
-                if (part.binding.getSlot() == ((IArmorModel)(HighPolyArmor.getInstance())).getVisibleSection() && part.binding.getTarget().apply(HighPolyArmor.getInstance()) == parent) {
+                if (part.binding.getSlot().equals(HighPolyArmor.getInstance().getVisibleSection()) && part.binding.getTarget().apply(HighPolyArmor.getInstance()).equals(parent)) {
                     List<BakedQuad> quadList = part.getQuads();
                     if (!quadList.isEmpty()) {
                         int ix = part.getColourIndex(nbt);
@@ -78,6 +70,7 @@ public class RenderPart extends ModelRenderer {
                         }
                         tess.draw();
                         GlStateManager.popMatrix();
+
                         //Glow stuff off
                         if (part.getGlow(nbt)) RenderState.glowOff();
                     }
@@ -87,11 +80,6 @@ public class RenderPart extends ModelRenderer {
     }
 
     private void applyTransform() {
-//        float degrad = (float) (180F / Math.PI);
-//        GL11.glTranslatef(rotationPointX, rotationPointY, rotationPointZ);
-//        GL11.glRotatef(rotateAngleZ * degrad, 0.0F, 0.0F, 1.0F);
-//        GL11.glRotatef(rotateAngleY * degrad, 0.0F, 1.0F, 0.0F);
-//        GL11.glRotatef(rotateAngleX * degrad, 1.0F, 0.0F, 0.0F);
         GlStateManager.rotate(180, 1.0F, 0.0F, 0.0F);
         GlStateManager.translate(offsetX, offsetY - 26, offsetZ);
     }

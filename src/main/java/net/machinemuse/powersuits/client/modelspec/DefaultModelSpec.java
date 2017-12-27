@@ -23,6 +23,8 @@ import java.util.List;
  * Special note: tried forEach() with a filter, but speed was up to 8 times slower
  *
  */
+// TODO: support for specs with custom models disabled. (ie: using spec tags for whole spec rather than using part tags)
+// TODO: support custom default colors
 @SideOnly(Side.CLIENT)
 public class DefaultModelSpec {
     public static NBTTagCompound makeModelPrefs(ItemStack stack) {

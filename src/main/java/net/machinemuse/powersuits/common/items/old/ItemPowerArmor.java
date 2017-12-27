@@ -101,22 +101,10 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
             String texture = "";
             NBTTagCompound renderSpec = MuseItemUtils.getMuseRenderTag(stack, slot);
-
-            if (entity.world.isRemote)
-                System.out.println("world is remote");
-            else
-                System.out.println("world is NOT remote");
-
-            System.out.println("renderSpec: " + renderSpec.toString());
-
             for (NBTTagCompound nbt : NBTTagAccessor.getValues(renderSpec)) {
-                System.out.println("NBT: " + nbt.toString());
-
-
                 PartSpec partSpec = ModelRegistry.getInstance().getPart(nbt);
                 if (partSpec instanceof TexturePartSpec)
                     texture = ((TexturePartSpec) partSpec).getTextureLocation();
-                System.out.println("texture location: " + texture);
                 if (!texture.equals(null) && !texture.equals(""))
                     return texture;
             }
@@ -139,24 +127,20 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
     @Override
     public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStackArmor, EntityEquipmentSlot armorSlot, ModelBiped _default) {
         if (itemStackArmor != null) {
-
-
-
-
-
             // check if using 2d armor
             if (!(ModuleManager.itemHasActiveModule(itemStackArmor, MPSConstants.HIGH_POLY_ARMOR))) {
                 return _default;
             }
+            // TODO: use config instead
+            // TODO: a
 
-            //TODO: use config instead
 
 
             ModelBiped model = HighPolyArmor.getInstance();
             ((IArmorModel) model).setVisibleSection(armorSlot);
             if (itemStackArmor != null) {
                 if (entityLiving instanceof EntityPlayer) {
-                    ItemStack armorChest = ((EntityPlayer) entityLiving).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+                    ItemStack armorChest = entityLiving.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
                     if (armorChest != null) {
                         if (armorChest.getItem() instanceof ItemPowerArmor)
                             if (ModuleManager.itemHasActiveModule(armorChest, MPSConstants.MODULE_ACTIVE_CAMOUFLAGE))
@@ -169,7 +153,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
                 }
                 ((IArmorModel) model).setRenderSpec(MuseItemUtils.getMuseRenderTag(itemStackArmor, armorSlot));
             }
-            return (ModelBiped) model;
+            return model;
         }
         return _default;
     }

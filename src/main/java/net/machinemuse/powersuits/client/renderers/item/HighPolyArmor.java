@@ -1,11 +1,14 @@
 package net.machinemuse.powersuits.client.renderers.item;
 
 import net.machinemuse.powersuits.client.modelspec.RenderPart;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EnumPlayerModelParts;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -67,12 +70,12 @@ public class HighPolyArmor extends ModelBiped implements IArmorModel {
      */
 
     @Override
-    public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float scale) {
-        prep(entity, par2, par3, par4, par5, par6, scale);
+    public void render(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+        prep(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         this.bipedBody.rotateAngleY = entity.rotationYaw;
-        setRotationAngles(par2, par3, par4, par5, par6, scale, entity);
-        super.render(entity, par2, par3, par4, par5, par6, scale);
-        post(entity, par2, par3, par4, par5, par6, scale);
+        setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entity);
+        super.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        post(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
     }
 
     @Override
@@ -102,55 +105,57 @@ public class HighPolyArmor extends ModelBiped implements IArmorModel {
     }
 
     @Override
-    public void prep(Entity entity, float par2, float par3, float par4, float par5, float par6, float scale) {
+    public void prep(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         try {
-            EntityLivingBase entLive = (EntityLivingBase) entity;
-            ItemStack stack = entLive.getActiveItemStack();
+            if (entity instanceof EntityLivingBase) {
+                EntityLivingBase entityLiving = (EntityLivingBase) entity;
 
-            // mainhand
-            if (((EntityLivingBase) entity).hasItemInSlot(EntityEquipmentSlot.MAINHAND)) {
-                if (getMainHand(entLive) == EnumHandSide.LEFT)
-                    this.leftArmPose = ArmPose.ITEM;
-                else
-                    this.rightArmPose = ArmPose.ITEM;
-            } else {
-                if (getMainHand(entLive) == EnumHandSide.LEFT)
-                    this.leftArmPose = ArmPose.EMPTY;
-                else
-                    this.rightArmPose = ArmPose.EMPTY;
-            }
+                ItemStack mainHandStack = entityLiving.getHeldItemMainhand();
+                ItemStack offHandStack = entityLiving.getHeldItemOffhand();
 
-            // the "offhand" is the other hand
-            if (((EntityLivingBase) entity).hasItemInSlot(EntityEquipmentSlot.OFFHAND)) {
-                if (getMainHand(entLive) == EnumHandSide.RIGHT)
-                    this.leftArmPose = ArmPose.ITEM;
-                else
-                    this.rightArmPose = ArmPose.ITEM;
-            } else {
-                if (getMainHand(entLive) == EnumHandSide.RIGHT)
-                    this.leftArmPose = ArmPose.EMPTY;
-                else
-                    this.rightArmPose = ArmPose.EMPTY;
-            }
+                ArmPose armPose1 = ArmPose.EMPTY;
+                ArmPose armPose2 = ArmPose.EMPTY;
 
-            isSneak = entLive.isSneaking();
-            isRiding = entLive.isRiding();
-            EntityPlayer entPlayer = (EntityPlayer) entLive;
-            if ((stack != ItemStack.EMPTY) && (entPlayer.getItemInUseCount() > 0)) {
-                EnumAction enumaction = stack.getItemUseAction();
-                if (enumaction == EnumAction.BLOCK) {
-                    if (getMainHand(entLive) == EnumHandSide.LEFT)
-                        this.leftArmPose = ArmPose.BLOCK;
-                    else
-                        this.rightArmPose = ArmPose.BLOCK;
-                } else if (enumaction == EnumAction.BOW) {
-                    if (getMainHand(entLive) == EnumHandSide.LEFT)
-                        this.leftArmPose = ArmPose.BOW_AND_ARROW;
-                    else
-                        this.rightArmPose = ArmPose.BOW_AND_ARROW;
+                if (!mainHandStack.isEmpty()) {
+                    armPose1 = ArmPose.ITEM;
+                    if (entityLiving.getItemInUseCount() > 0) {
+                        EnumAction enumaction = mainHandStack.getItemUseAction();
+                        if (enumaction == EnumAction.BLOCK) {
+                            armPose1 = ArmPose.BLOCK;
+                        } else if (enumaction == EnumAction.BOW) {
+                            armPose1 = ArmPose.BOW_AND_ARROW;
+                        }
+                    }
                 }
+
+                if (!offHandStack.isEmpty()) {
+                    armPose2 = ArmPose.ITEM;
+                    if (entityLiving.getItemInUseCount() > 0) {
+                        EnumAction enumaction1 = offHandStack.getItemUseAction();
+
+                        if (enumaction1 == EnumAction.BLOCK) {
+                            armPose2 = ArmPose.BLOCK;
+                        }
+                        // FORGE: fix MC-88356 allow offhand to use bow and arrow animation
+                        else if (enumaction1 == EnumAction.BOW) {
+                            armPose2 = ArmPose.BOW_AND_ARROW;
+                        }
+                    }
+                }
+
+                if (entityLiving.getPrimaryHand() == EnumHandSide.RIGHT) {
+                    this.rightArmPose = armPose1;
+                    this.leftArmPose = armPose2;
+                } else {
+                    this.rightArmPose = armPose2;
+                    this.leftArmPose = armPose1;
+                }
+
+                isSneak = entityLiving.isSneaking();
+                isRiding = entityLiving.isRiding();
             }
-        } catch (Exception ignored) {
+        }catch (Exception ignored) {
+
         }
 
         bipedHead.isHidden = false;
@@ -169,14 +174,9 @@ public class HighPolyArmor extends ModelBiped implements IArmorModel {
     }
 
     @Override
-    public void post(Entity entity, float par2, float par3, float par4, float par5, float par6, float scale) {
+    public void post(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         leftArmPose = ArmPose.EMPTY;
         rightArmPose = ArmPose.EMPTY;
         isSneak = false;
-    }
-
-    @Override
-    protected EnumHandSide getMainHand(Entity entityIn) {
-        return super.getMainHand(entityIn);
     }
 }
