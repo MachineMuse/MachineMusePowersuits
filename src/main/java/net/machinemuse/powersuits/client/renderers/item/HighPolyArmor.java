@@ -1,19 +1,20 @@
 package net.machinemuse.powersuits.client.renderers.item;
 
 import net.machinemuse.powersuits.client.modelspec.RenderPart;
+import net.machinemuse.powersuits.common.MPSConstants;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EnumPlayerModelParts;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.ResourceLocation;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -26,6 +27,7 @@ import net.minecraft.util.EnumHandSide;
 public class HighPolyArmor extends ModelBiped implements IArmorModel {
     public NBTTagCompound renderSpec = null;
     public EntityEquipmentSlot visibleSection = EntityEquipmentSlot.HEAD;
+    private static final float modelSize = 0.0F;
 
     private static HighPolyArmor INSTANCE;
 
@@ -71,9 +73,10 @@ public class HighPolyArmor extends ModelBiped implements IArmorModel {
 
     @Override
     public void render(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+//        if (entity instanceof AbstractClientPlayer)
+//            this.isSkinnyArms = ((AbstractClientPlayer) entity).getSkinType() == "slim";
         prep(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         this.bipedBody.rotateAngleY = entity.rotationYaw;
-        setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entity);
         super.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         post(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
     }
@@ -154,23 +157,25 @@ public class HighPolyArmor extends ModelBiped implements IArmorModel {
                 isSneak = entityLiving.isSneaking();
                 isRiding = entityLiving.isRiding();
             }
-        }catch (Exception ignored) {
+        } catch (Exception ignored) {
 
         }
+    }
 
-        bipedHead.isHidden = false;
-        bipedBody.isHidden = false;
-        bipedRightArm.isHidden = false;
-        bipedLeftArm.isHidden = false;
-        bipedRightLeg.isHidden = false;
-        bipedLeftLeg.isHidden = false;
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        bipedHead.showModel = visible;
+        bipedBody.showModel = visible;
+        bipedRightArm.showModel = visible;
+        bipedLeftArm.showModel = visible;
+        bipedRightLeg.showModel = visible;
+        bipedLeftLeg.showModel = visible;
+    }
 
-        bipedHead.showModel = true;
-        bipedBody.showModel = true;
-        bipedRightArm.showModel = true;
-        bipedLeftArm.showModel = true;
-        bipedRightLeg.showModel = true;
-        bipedLeftLeg.showModel = true;
+    void showPart(ModelRenderer mr, boolean shown) {
+      mr.showModel = shown;
+      mr.isHidden = !shown;
     }
 
     @Override

@@ -5,6 +5,8 @@ import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +18,7 @@ import java.util.Map;
  *
  * Ported to Java by lehjr on 10/19/16.
  */
+@SideOnly(Side.CLIENT)
 public class TabSelectFrame implements IGuiFrame {
     EntityPlayer p;
     MusePoint2D topleft;
@@ -60,8 +63,6 @@ public class TabSelectFrame implements IGuiFrame {
         for (ClickableButton b : buttons.keySet())
             b.draw();
     }
-
-    List<String> toolTip = new ArrayList<>();
 
     @Override
     public List<String> getToolTip(int x, int y) {

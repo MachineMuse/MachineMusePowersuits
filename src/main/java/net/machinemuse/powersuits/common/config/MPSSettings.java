@@ -54,6 +54,8 @@ import static net.machinemuse.powersuits.common.events.EventRegisterItems.*;
 @Config(modid = MODID, name = MPSConstants.CONFIG_FILE, category = "")
 @Config.LangKey(MPSConstants.CONFIG_TITLE)
 public class MPSSettings {
+    private MPSSettings() {}
+
     private static CreativeTabs mpsCreativeTab;
     public static CreativeTabs getCreativeTab() {
         if (mpsCreativeTab == null)
@@ -90,6 +92,7 @@ public class MPSSettings {
         @Config.Comment("Use a 24h clock instead of 12h")
         public boolean use24hClock = false;
 
+
         @Config.LangKey(MPSConstants.CONFIG_GENERAL_MAX_FLYING_SPEED)
         @Config.Comment("Maximum flight speed (in m/s)")
         public double getMaximumFlyingSpeedmps = 25.0;
@@ -110,11 +113,6 @@ public class MPSSettings {
         @Config.RangeDouble(min = 0, max = 1.0)
         public double getSalvageChance = 0.9;
 
-// no longer needed
-//        @Config.LangKey(MPSConstants.CONFIG_GENERAL_USE_MOUSE_WHEEL)
-//        @Config.Comment("Use Mousewheel to change modes")
-//        public static boolean useMouseWheel = true;
-
 
         @Config.LangKey(MPSConstants.CONFIG_GENERAL_USE_ADVANCED_ORE_SCANNER_MESSAGE)
         @Config.Comment("Use Detailed Ore Scanner Message")
@@ -134,9 +132,6 @@ public class MPSSettings {
         @Config.LangKey(MPSConstants.CONFIG_GENERAL_USE_HUD)
         @Config.Comment("Use HUD for certain modules (Auto Feeder, Compass, Clock, etc.")
         public static boolean useHUDStuff = true;
-
-
-
     }
 
     /*
@@ -178,52 +173,6 @@ public class MPSSettings {
         @Config.Comment("RF Energy per IC2 EU")
 //        @Config.RangeDouble(min = 0)
         public double rfEnergyPerIC2EU = 0.25;
-
-
-
-
-
-
-
-
-
-        // 1MJ (MPS) = 1 MJ (Mekanism)
-//        public static double getMekRatio() {
-//            return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per Mekanism MJ", 1D).getDouble(1D);
-//        }
-//
-//        // 1 MJ = 2.5 EU
-//        // 1 EU = 0.4 MJ
-//        public static double getIC2Ratio() {
-//            return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per IC2 EU", 0.4).getDouble(0.4);
-//        }
-//
-//        // 1 MJ = 10 RF
-//        // 1 RF = 0.1 MJ
-//        public static double getRFRatio() {
-//            return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per RF", 0.1).getDouble(0.1);
-//        }
-//
-//        // (Refined Storage) 1 RS = 1 RF
-//        public static double getRSRatio() {
-//            return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per RS", 0.1).getDouble(0.1);
-//        }
-//
-//        // 1 MJ = 5 AE
-//        // 1 AE = 0.2 MJ
-//        public static double getAE2Ratio() {
-//            return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per AE", 0.2).getDouble(0.2);
-//        }
-
-
-
-
-
-
-
-
-
-
     }
 
 
@@ -306,7 +255,6 @@ public class MPSSettings {
     // TOTO: Server side configs
     public static ModelConfig modelconfig = new ModelConfig();
     public static class ModelConfig{
-
         @Config.Comment("Use this to enable model transform mapping from keyboard")
         public boolean modelSetup = false;
 
@@ -316,14 +264,27 @@ public class MPSSettings {
         @Config.Comment("Enable custom high polly armor models")
         public boolean allowCustomHighPollyArmor = false;
 
-        @Config.Comment("Enable high polly PowerFist models")
-        public boolean allowHighPollyPowerFistModels = false;
+        // TODO: ? this would use boxes but ... meh
+//        @Config.Comment("Enable high polly PowerFist models")
+//        public boolean allowHighPollyPowerFistModels = false;
 
-        @Config.Comment("Enable custom high polly PowerFist models")
-        public boolean allowCustomHighPollyPowerFistModels = false;
-
-
+        @Config.Comment("Enable custom PowerFist models")
+        public boolean allowCustomPowerFistModels = false;
     }
+
+    public static boolean allowHighPollyArmorModels() {
+        return serverSettings != null ? serverSettings.allowHighPollyArmorModels : modelconfig.allowHighPollyArmorModels;
+    }
+
+    public static boolean allowCustomHighPollyArmor() {
+        return serverSettings != null ? serverSettings.allowCustomHighPollyArmorModels : modelconfig.allowCustomPowerFistModels;
+    }
+
+    public static boolean allowCustomPowerFistModels() {
+        return serverSettings != null ? serverSettings.allowCustomPowerFistModels : modelconfig.allowCustomPowerFistModels;
+    }
+
+
 
 
 
@@ -459,9 +420,18 @@ public class MPSSettings {
         }
     }
 
+    private static ServerSettings serverSettings;
+    public static void setServerSettings(@Nullable final ServerSettings serverSettings) {
+        MPSSettings.serverSettings = serverSettings;
+    }
+
+    @Nullable
+    public static final ServerSettings getServerSettings() {
+        return serverSettings;
+    }
 
 
-
+//========================================================
 
 
 

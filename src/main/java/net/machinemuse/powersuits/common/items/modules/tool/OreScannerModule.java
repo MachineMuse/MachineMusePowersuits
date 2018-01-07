@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.common.items.modules.tool;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
-import net.machinemuse.powersuits.client.events.MuseIcon;
+import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.powersuits.common.items.ItemComponent;
 import net.machinemuse.powersuits.common.items.modules.PowerModuleBase;

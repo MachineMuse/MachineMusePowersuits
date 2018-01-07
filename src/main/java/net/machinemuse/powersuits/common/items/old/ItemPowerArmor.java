@@ -4,7 +4,6 @@ import com.google.common.collect.Multimap;
 import net.machinemuse.api.IArmorTraits;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.general.NBTTagAccessor;
-import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.client.modelspec.ModelRegistry;
 import net.machinemuse.powersuits.client.modelspec.PartSpec;
 import net.machinemuse.powersuits.client.modelspec.TexturePartSpec;
@@ -32,7 +31,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.UUID;
 
-import static net.machinemuse.powersuits.common.MPSConstants.*;
+import static net.machinemuse.powersuits.common.MPSConstants.BLANK_ARMOR_MODEL_PATH;
 
 /**
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.
@@ -56,21 +55,20 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
     public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
         int priority = 0;
-        Label_0057:
-        {
+        thing:{
             if (source.isFireDamage()) {
                 DamageSource overheatDamage = MuseHeatUtils.overheatDamage;
                 if (source == null) {
                     if (overheatDamage == null) {
-                        break Label_0057;
+                        break thing;
                     }
                 } else if (source.equals(overheatDamage)) {
-                    break Label_0057;
+                    break thing;
                 }
                 return new ArmorProperties(priority, 0.25, (int) (25 * damage));
             }
         }
-        if (ModuleManager.itemHasModule(armor, "Radiation Shielding") && (source.damageType.equals("electricity") || source.damageType.equals("radiation"))) {
+        if (ModuleManager.itemHasModule(armor, MPSConstants.MODULE_HAZMAT) && (source.damageType.equals("electricity") || source.damageType.equals("radiation"))) {
             return new ArmorProperties(priority, 0.25, (int) (25 * damage));
         }
         double armorDouble2;
@@ -114,8 +112,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
     @Override
     public int getColor(ItemStack stack) {
-        Colour c = this.getColorFromItemStack(stack);
-        return c.getInt();
+        return this.getColorFromItemStack(stack).getColour().getInt();
     }
 
     @Override
@@ -126,33 +123,22 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
     @SideOnly(Side.CLIENT)
     @Override
     public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStackArmor, EntityEquipmentSlot armorSlot, ModelBiped _default) {
-        if (itemStackArmor != null) {
-            // check if using 2d armor
+        if (!itemStackArmor.isEmpty()) {
             if (!(ModuleManager.itemHasActiveModule(itemStackArmor, MPSConstants.HIGH_POLY_ARMOR))) {
                 return _default;
             }
-            // TODO: use config instead
-            // TODO: a
 
-
-
+            // TODO: find way to mix vanilla model the custom model
             ModelBiped model = HighPolyArmor.getInstance();
-            ((IArmorModel) model).setVisibleSection(armorSlot);
-            if (itemStackArmor != null) {
-                if (entityLiving instanceof EntityPlayer) {
-                    ItemStack armorChest = entityLiving.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-                    if (armorChest != null) {
-                        if (armorChest.getItem() instanceof ItemPowerArmor)
-                            if (ModuleManager.itemHasActiveModule(armorChest, MPSConstants.MODULE_ACTIVE_CAMOUFLAGE))
-                                ((IArmorModel) model).setVisibleSection(null);
-                    }
-                }
 
-                if (ModuleManager.itemHasActiveModule(itemStackArmor, "Transparent Armor")) {
-                    ((IArmorModel) model).setVisibleSection(null);
-                }
-                ((IArmorModel) model).setRenderSpec(MuseItemUtils.getMuseRenderTag(itemStackArmor, armorSlot));
-            }
+            ItemStack armorChest = entityLiving.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+            if (!armorChest.isEmpty() && armorChest.getItem() instanceof ItemPowerArmor &&
+                    ModuleManager.itemHasActiveModule(armorChest, MPSConstants.MODULE_ACTIVE_CAMOUFLAGE))
+                        ((IArmorModel) model).setVisibleSection(null);
+            else
+                ((IArmorModel) model).setVisibleSection(armorSlot);
+
+            ((IArmorModel) model).setRenderSpec(MuseItemUtils.getMuseRenderTag(itemStackArmor, armorSlot));
             return model;
         }
         return _default;

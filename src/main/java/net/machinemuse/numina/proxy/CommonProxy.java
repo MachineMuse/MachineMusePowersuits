@@ -1,9 +1,7 @@
 package net.machinemuse.numina.proxy;
 
 import net.machinemuse.numina.common.Numina;
-import net.machinemuse.numina.common.events.NuminaPlayerTracker;
 import net.machinemuse.numina.network.NuminaPackets;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -29,7 +27,7 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent event) {
         NuminaPackets.init();
-        MinecraftForge.EVENT_BUS.register(new NuminaPlayerTracker());
+//        MinecraftForge.EVENT_BUS.register(new NuminaPlayerTracker());
     }
 
     public void postInit(FMLPostInitializationEvent event) {

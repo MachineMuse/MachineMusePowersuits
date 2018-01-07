@@ -46,7 +46,30 @@ public class RichInputStream {
 
         } catch (IOException e) {
             MuseLogger.logException("PROBLEM READING DATA FROM PACKET D:", e);
-            return new int[0]; //TODO: Try returning "Null". It should crash horribly.
+            return new int[0];
+        }
+    }
+
+    /**
+     * Reads a series Bytes from the InputStream and returns an Array of them
+     */
+    public byte[] readByteArray() {
+        // TODO: Simplify in 1.10.2 (Java 8)
+        List<Byte> byteArrayList = new ArrayList<>();
+        try {
+            int arraySize = in.readInt();
+            for (byte k = 0; k < arraySize; k++)
+                byteArrayList.add(in.readByte());
+
+            byte[] byteArray = new byte[byteArrayList.size()];
+            for (int i = 0; i < byteArrayList.size(); i++) {
+                byteArray[i] = byteArrayList.get(i);
+            }
+            return byteArray;
+
+        } catch (IOException e) {
+            MuseLogger.logException("PROBLEM READING DATA FROM PACKET D:", e);
+            return new byte[0];
         }
     }
 

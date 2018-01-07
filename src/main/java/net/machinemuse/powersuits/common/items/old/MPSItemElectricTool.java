@@ -6,7 +6,7 @@ import com.google.common.collect.Sets;
 import net.machinemuse.api.electricity.IMuseElectricItem;
 import net.machinemuse.api.electricity.MuseElectricItem;
 import net.machinemuse.api.item.IModularItemBase;
-import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.powersuits.client.helpers.EnumColour;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -187,12 +187,7 @@ public class MPSItemElectricTool extends ItemTool implements IModularItemBase, I
     }
 
     @Override
-    public Colour getGlowFromItemStack(ItemStack stack) {
-        return ModularItemBase.getInstance().getGlowFromItemStack(stack);
-    }
-
-    @Override
-    public Colour getColorFromItemStack(ItemStack stack) {
+    public EnumColour getColorFromItemStack(ItemStack stack) {
         return ModularItemBase.getInstance().getColorFromItemStack(stack);
     }
 

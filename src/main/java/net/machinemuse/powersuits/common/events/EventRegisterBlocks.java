@@ -1,9 +1,9 @@
 package net.machinemuse.powersuits.common.events;
 
-import net.machinemuse.powersuits.common.blocks.BlockLuxCapacitor;
-import net.machinemuse.powersuits.common.blocks.BlockTinkerTable;
-import net.machinemuse.powersuits.common.blocks.itemblocks.ItemBlockLuxCapacitor;
-import net.machinemuse.powersuits.common.blocks.itemblocks.ItemBlockTinkerTable;
+import net.machinemuse.powersuits.common.block.BlockLuxCapacitor;
+import net.machinemuse.powersuits.common.block.BlockTinkerTable;
+import net.machinemuse.powersuits.common.block.itemblock.ItemBlockLuxCapacitor;
+import net.machinemuse.powersuits.common.block.itemblock.ItemBlockTinkerTable;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent.Register;

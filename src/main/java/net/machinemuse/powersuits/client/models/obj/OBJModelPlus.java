@@ -32,6 +32,7 @@ import net.machinemuse.powersuits.client.helpers.ModelTransformCalibration;
 import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.BakedQuadRetextured;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
@@ -1088,6 +1089,13 @@ public class OBJModelPlus implements IModel {
             if (partQuadMap.isEmpty())
                 quads = buildQuads(this.state);
             return partQuadMap.get(partName);
+        }
+
+        public List<BakedQuad> getRetexturedQuadsforPart(String partName, TextureAtlasSprite texture) {
+            ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
+            for (BakedQuad quad: getQuadsforPart(partName))
+                builder.add(new BakedQuadRetextured(quad, texture));
+            return builder.build();
         }
 
         @Override

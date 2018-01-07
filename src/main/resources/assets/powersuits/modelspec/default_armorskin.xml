@@ -1,16 +1,16 @@
-<modelSpec name="Default Armor Skin" type="armor skin" default="true">
+<modelSpec specName="default_armorskin" type="armor skin" default="true">
     <textures>
         <texture file="powersuits:textures/items/armor/sebkarmor.png">
-            <binding slot="head" partName="default_armor_skin_head" localizedName="Default Armor Skin" defaultcolor="FFFFFF" />
+            <binding slot="head"/>
         </texture>
         <texture file="powersuits:textures/items/armor/sebkarmor.png">
-            <binding slot="chest" partName="default_armor_skin_chest" localizedName="Default Armor Skin" defaultcolor="FFFFFF" />
+            <binding slot="chest"/>
         </texture>
         <texture file="powersuits:textures/items/armor/sebkarmorpants.png">
-            <binding slot="legs" partName="default_armor_skin_legs" localizedName="Default Armor Skin" defaultcolor="FFFFFF" />
+            <binding slot="legs"/>
         </texture>
         <texture file="powersuits:textures/items/armor/sebkarmor.png">
-            <binding slot="feet" partName="default_armor_skin_feet" localizedName="Default Armor Skin" defaultcolor="FFFFFF" />
+            <binding slot="feet"/>
         </texture>
     </textures>
 </modelSpec>

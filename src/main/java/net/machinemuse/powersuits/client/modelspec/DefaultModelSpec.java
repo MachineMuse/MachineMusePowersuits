@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.modelspec;
 
-import com.google.common.collect.Iterables;
-import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.api.ModuleManager;
+import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.items.old.ItemPowerArmor;
 import net.machinemuse.powersuits.common.items.old.ItemPowerFist;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -40,13 +40,22 @@ public class DefaultModelSpec {
                 if (stack.getItem() instanceof ItemPowerArmor) {
                     NBTTagCompound tempNBT;
                     for (PartSpec partSpec : spec.getPartSpecs()) {
-                        if (partSpec.binding.getSlot() == slot && partSpec.binding.getItemState().equals("all")) {
-                            // high poly armor handled in the ModelSpecXML Reader so no need to use config options here
-                            if (spec.getSpecType().equals(EnumSpecType.ARMOR_MODEL)) {
-                                tempNBT = ((ModelPartSpec) partSpec).multiSet(new NBTTagCompound(), partSpec.getDefaultColourIndex(), ((ModelPartSpec) partSpec).getGlow());
-                                prefArray.add(tempNBT);
+                        if (partSpec.binding.getSlot() == slot) {
+                            if (spec.getSpecType().equals(EnumSpecType.ARMOR_MODEL) &&
+                                    ModuleManager.itemHasActiveModule(stack, MPSConstants.HIGH_POLY_ARMOR)) {
+                                if (partSpec.binding.getItemState().equals("all") ||
+                                        (partSpec.binding.getItemState().equals("jetpack") &&
+                                                ModuleManager.itemHasModule(stack, MPSConstants.MODULE_JETPACK))) {
+
+                                    tempNBT = ((ModelPartSpec) partSpec).multiSet(new NBTTagCompound(),
+                                            partSpec.getDefaultColourIndex(),
+                                            ((ModelPartSpec) partSpec).getGlow());
+
+                                    prefArray.add(tempNBT);
+                                    }
                             } else if (spec.getSpecType().equals(EnumSpecType.ARMOR_SKIN)) {
-                                tempNBT = ((TexturePartSpec) partSpec).multiSet(new NBTTagCompound(), ((TexturePartSpec) partSpec).textureLocation, partSpec.getDefaultColourIndex());
+                                tempNBT = ((TexturePartSpec) partSpec).multiSet(new NBTTagCompound(),
+                                        partSpec.getDefaultColourIndex(), ((TexturePartSpec) partSpec).textureLocation);
                                 prefArray.add(tempNBT);
                             }
                         }
@@ -54,7 +63,8 @@ public class DefaultModelSpec {
                 } else if (stack.getItem() instanceof ItemPowerFist && spec.getSpecType().equals(EnumSpecType.POWER_FIST)) {
                     for (PartSpec partSpec : spec.getPartSpecs()) {
                         if (partSpec instanceof ModelPartSpec)
-                            prefArray.add(((ModelPartSpec) partSpec).multiSet(new NBTTagCompound(), partSpec.getDefaultColourIndex(), ((ModelPartSpec) partSpec).getGlow()));
+                            prefArray.add(((ModelPartSpec)partSpec).multiSet(new NBTTagCompound(),
+                                    partSpec.getDefaultColourIndex(), ((ModelPartSpec)partSpec).getGlow()));
                     }
                 }
             }

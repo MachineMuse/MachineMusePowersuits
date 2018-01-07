@@ -21,6 +21,8 @@ import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 
 import java.util.HashSet;
@@ -28,6 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+@SideOnly(Side.CLIENT)
 public class KeybindConfigFrame implements IGuiFrame {
     protected Set<ClickableModule> modules;
     protected IClickable selectedClickie;

@@ -11,17 +11,20 @@ import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.common.items.modules.PowerModule;
 import net.machinemuse.powersuits.common.items.modules.PropertyModifierLinearAdditive;
-import net.machinemuse.powersuits.network.packets.MusePacketTweakRequest;
+import net.machinemuse.powersuits.network.MusePacketTweakRequest;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MuseStringUtils;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import java.util.*;
 
+@SideOnly(Side.CLIENT)
 public class ModuleTweakFrame extends ScrollableFrame {
     protected static double SCALERATIO = 0.75;
     protected static int margin = 4;

@@ -11,9 +11,6 @@ public class MPSConstants {
     public static final String NAME = "MachineMuse's Modular Powersuits";
     public static final String VERSION = "1.10.0";
 
-    public static final int ENUM_COLOUR_WHITE_INDEX = EnumColour.WHITE.getIndex();
-
-
     public static final String RESOURCE_PREFIX = MODID + ":";
     public static final String TEXTURE_PREFIX = RESOURCE_PREFIX + "textures/";
     public static final String COMPONENTS_PREFIX = RESOURCE_PREFIX + "component/";
@@ -99,7 +96,7 @@ public class MPSConstants {
     public static final String MODULE_DIAMOND_PLATING = "Diamond Plating";
     public static final String MODULE_ENERGY_SHIELD = "Energy Shield";
     public static final String MODULE_HEAT_SINK = "Heat Sink";
-
+    public static final String MODULE_HAZMAT = "Radiation Shielding";
 
     // Cosmetic
     public static final String MODULE_TRANSPARENT_ARMOR = "Transparent Armor";

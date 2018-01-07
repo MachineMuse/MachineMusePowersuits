@@ -19,6 +19,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Mouse;
 
 import java.util.List;
@@ -29,6 +31,7 @@ import java.util.List;
  * <p>
  * Ported to Java by lehjr on 11/2/16.
  */
+@SideOnly(Side.CLIENT)
 public class ItemModelViewFrame implements IGuiFrame {
     ItemSelectionFrame itemSelector;
     DrawableMuseRect border;

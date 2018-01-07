@@ -5,7 +5,7 @@ import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.client.control.KeybindManager;
 import net.machinemuse.powersuits.common.config.MPSSettings;
-import net.machinemuse.powersuits.network.packets.MusePacketToggleRequest;
+import net.machinemuse.powersuits.network.MusePacketToggleRequest;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MuseStringUtils;
 import net.machinemuse.utils.render.MuseRenderer;

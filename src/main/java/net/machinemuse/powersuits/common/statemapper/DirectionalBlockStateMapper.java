@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.common.statemapper;
 
 import com.google.common.collect.Maps;
 import net.machinemuse.powersuits.client.models.ModelLuxCapacitor;
-import net.machinemuse.powersuits.common.blocks.BlockLuxCapacitor;
+import net.machinemuse.powersuits.common.block.BlockLuxCapacitor;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;

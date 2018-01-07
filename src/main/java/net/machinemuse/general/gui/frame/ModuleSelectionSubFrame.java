@@ -7,10 +7,13 @@ import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.geometry.MuseRect;
 import net.machinemuse.numina.geometry.MuseRelativeRect;
 import net.machinemuse.utils.render.MuseRenderer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@SideOnly(Side.CLIENT)
 public class ModuleSelectionSubFrame {
     protected List<ClickableModule> moduleButtons;
     protected MuseRelativeRect border;
@@ -22,12 +25,12 @@ public class ModuleSelectionSubFrame {
         this.moduleButtons = new ArrayList<ClickableModule>();
     }
 
-    // public void draw() {
-    // MuseRenderer.drawString(this.category, border.left(), border.top());
-    // for (ClickableModule clickie : moduleButtons) {
-    // clickie.draw();
-    // }
-    // }
+//    public void draw() {
+//        MuseRenderer.drawString(this.category, border.left(), border.top());
+//        for (ClickableModule clickie : moduleButtons) {
+//            clickie.draw();
+//        }
+//    }
 
     public ClickableModule addModule(IModule module) {
         ClickableModule clickie = new ClickableModule(module, new MusePoint2D(0, 0));
@@ -39,7 +42,7 @@ public class ModuleSelectionSubFrame {
     public void drawPartial(int min, int max) {
         refreshButtonPositions();
         double top = border.top();
-            MuseRenderer.drawString(this.category, border.left(), top);
+        MuseRenderer.drawString(this.category, border.left(), top);
         for (ClickableModule clickie : moduleButtons) {
             clickie.drawPartial(border.left(), min, border.right(), max);
         }

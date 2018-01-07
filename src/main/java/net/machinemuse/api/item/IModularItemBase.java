@@ -2,7 +2,7 @@ package net.machinemuse.api.item;
 
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.electricity.IMuseElectricItem;
-import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.powersuits.client.helpers.EnumColour;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
@@ -20,13 +20,10 @@ public interface IModularItemBase extends IModularItem, IMuseElectricItem {
     @SideOnly(Side.CLIENT)
     int getColorFromItemStack(ItemStack stack, int p1);
 
-    Colour getGlowFromItemStack(ItemStack stack);
-
-    Colour getColorFromItemStack(ItemStack stack);
+    EnumColour getColorFromItemStack(ItemStack stack);
 
     @SideOnly(Side.CLIENT)
     void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> currentTipList, boolean advancedToolTips);
-
 
     String formatInfo(String string, double value);
 

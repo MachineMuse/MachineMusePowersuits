@@ -5,7 +5,7 @@ import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.client.helpers.EnumColour;
 import net.machinemuse.powersuits.client.models.obj.OBJModelPlus;
-import net.machinemuse.powersuits.common.MPSConstants;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -73,7 +73,7 @@ public class ModelSpecXMLReader {
                         if(specNode.getNodeType() == Node.ELEMENT_NODE) {
                             Element eElement = (Element) specNode;
                             EnumSpecType specType = EnumSpecType.getTypeFromName(eElement.getAttribute("type"));
-                            String specName = eElement.getAttribute("name");
+                            String specName = eElement.getAttribute("specName");
 
                             IModelState modelState = null;
                             NodeList cameraTransformList = eElement.getElementsByTagName("itemCameraTransforms");
@@ -91,20 +91,28 @@ public class ModelSpecXMLReader {
 
                             switch(specType) {
                                 case POWER_FIST:
-                                    // TODO: MPSSettings stuff
-
-                                    parseModelSpec(specNode, event, EnumSpecType.POWER_FIST, modelState, specName, isDefault);
+                                    // only allow custom models if allowed by config
+                                    if (isDefault || MPSSettings.allowCustomPowerFistModels())
+                                        parseModelSpec(specNode, event, EnumSpecType.POWER_FIST, modelState, specName, isDefault);
                                     break;
 
                                 case ARMOR_MODEL:
-
-
-                                    parseModelSpec(specNode, event, EnumSpecType.ARMOR_MODEL, modelState, specName, isDefault);
+                                    // only allow these models if allowed by config
+                                    if (MPSSettings.allowHighPollyArmorModels()) {
+                                        // only allow custom models if allowed by config
+                                        if (isDefault || MPSSettings.allowCustomHighPollyArmor())
+                                            parseModelSpec(specNode, event, EnumSpecType.ARMOR_MODEL, modelState, specName, isDefault);
+                                    }
                                     break;
 
                                 case ARMOR_SKIN:
-                                    TextureSpec textureSpec = new TextureSpec(specName, isDefault);
-                                    parseTextureSpec(specNode, event, textureSpec);
+                                    if (event == null) {
+                                        TextureSpec textureSpec = new TextureSpec(specName, isDefault);
+                                        parseTextureSpec(specNode,textureSpec);
+                                    }
+                                    break;
+
+                                default:
                                     break;
                             }
                         }
@@ -116,21 +124,19 @@ public class ModelSpecXMLReader {
         }
     }
 
-    public static void parseTextureSpec(Node specNode, TextureStitchEvent event, TextureSpec textureSpec) {
+    public static void parseTextureSpec(Node specNode, TextureSpec textureSpec) {
         // ModelBase textures are not registered.
-        if (event == null) {
-            TextureSpec existingspec = (TextureSpec) ModelRegistry.getInstance().put(textureSpec.getName(), textureSpec);
-            NodeList textures = specNode.getOwnerDocument().getElementsByTagName("texture");
-            for (int i = 0; i < textures.getLength(); i++) {
-                Node textureNode = textures.item(i);
-                if (textureNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element)textureNode;
-                    String fileLocation = eElement.getAttribute("file");
-                    NodeList bindings = eElement.getElementsByTagName("binding");
-                    for (int j = 0; j < bindings.getLength(); j++) {
-                        Binding binding = getBinding(bindings.item(j));
-                        getTexturePartSpec(existingspec, bindings.item(j), binding, fileLocation);
-                    }
+        TextureSpec existingspec = (TextureSpec) ModelRegistry.getInstance().put(textureSpec.getName(), textureSpec);
+        NodeList textures = specNode.getOwnerDocument().getElementsByTagName("texture");
+        for (int i = 0; i < textures.getLength(); i++) {
+            Node textureNode = textures.item(i);
+            if (textureNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element)textureNode;
+                String fileLocation = eElement.getAttribute("file");
+                NodeList bindings = eElement.getElementsByTagName("binding");
+                for (int j = 0; j < bindings.getLength(); j++) {
+                    Binding binding = getBinding(bindings.item(j));
+                    getTexturePartSpec(existingspec, bindings.item(j), binding.getSlot(), fileLocation);
                 }
             }
         }
@@ -203,13 +209,38 @@ public class ModelSpecXMLReader {
     }
 
 
-    public static void getTexturePartSpec(TextureSpec textureSpec, Node bindingNode, Binding binding, String fileLocation) {
+    public static void getTexturePartSpec(TextureSpec textureSpec, Node bindingNode, EntityEquipmentSlot slot, String fileLocation) {
         Element partSpecElement = (Element) bindingNode;
-        String partname = partSpecElement.getAttribute("partName");
-        String displayName = partSpecElement.getAttribute("unlocalizedName");
         Colour colour = parseColour(partSpecElement.getAttribute("defaultcolor"));
-        int enumColourIndex = colour!=null ? EnumColour.findClosestEnumColour(colour).getIndex() : MPSConstants.ENUM_COLOUR_WHITE_INDEX;
-        textureSpec.put(new TexturePartSpec(textureSpec, binding, partname, displayName, fileLocation, enumColourIndex), partname);
+        EnumColour enumColour = colour!=null ? EnumColour.findClosestEnumColour(colour) : EnumColour.WHITE;
+
+        switch(slot) {
+            case HEAD:
+                textureSpec.put(EntityEquipmentSlot.HEAD.getName(),
+                        new TexturePartSpec(textureSpec,
+                                new Binding(null, EntityEquipmentSlot.HEAD, "all"),
+                                enumColour, EntityEquipmentSlot.HEAD.getName(), fileLocation));
+                break;
+
+            case CHEST:
+                textureSpec.put(EntityEquipmentSlot.CHEST.getName(),
+                        new TexturePartSpec(textureSpec,
+                                new Binding(null, EntityEquipmentSlot.CHEST, "all"),
+                                enumColour, EntityEquipmentSlot.CHEST.getName(), fileLocation));
+                break;
+
+            case LEGS:
+                textureSpec.put(EntityEquipmentSlot.LEGS.getName(),
+                        new TexturePartSpec(textureSpec, new Binding(null, EntityEquipmentSlot.LEGS, "all"),
+                                enumColour, EntityEquipmentSlot.LEGS.getName(), fileLocation));
+                break;
+
+            case FEET:
+                textureSpec.put(EntityEquipmentSlot.FEET.getName(),
+                        new TexturePartSpec(textureSpec, new Binding(null, EntityEquipmentSlot.FEET, "all"),
+                                enumColour, EntityEquipmentSlot.FEET.getName(), fileLocation));
+                break;
+        }
     }
 
     /**
@@ -218,32 +249,23 @@ public class ModelSpecXMLReader {
     public static void getModelPartSpec(ModelSpec modelSpec, Node partSpecNode, Binding binding) {
         Element partSpecElement = (Element) partSpecNode;
         String partname = validatePolygroup(partSpecElement.getAttribute("partName"), modelSpec);
-        String displayName = partSpecElement.getAttribute("localizedName");
-        boolean visible = Boolean.parseBoolean(partSpecElement.getAttribute("defaultVisible"));
         boolean glow = Boolean.parseBoolean(partSpecElement.getAttribute("defaultglow"));
         Colour colour = parseColour(partSpecElement.getAttribute("defaultcolor"));
-        int enumColourIndex = colour!=null ? EnumColour.findClosestEnumColour(colour).getIndex() : MPSConstants.ENUM_COLOUR_WHITE_INDEX;
+
+        // FIXME: add a byte array to the parent model spec, or some other way to track colors during init
+        EnumColour enumColour = colour!=null ? EnumColour.findClosestEnumColour(colour) : EnumColour.WHITE;
 
         if (partname == null) {
             System.out.println("partName is NULL!!");
-            System.out.println("localizedName: "+ displayName);
+            System.out.println("ModelSpec model: " + modelSpec.getName());
             System.out.println("glow: " + glow);
             System.out.println("colour: " + colour.hexColour());
-//            System.out.println();
-//            System.out.println();
-//            System.out.println();
-        }
-
-
-
-
-
-        modelSpec.put(new ModelPartSpec(modelSpec,
-                binding,
-                partname,
-                displayName,
-                enumColourIndex,
-                glow), partname);
+        } else
+            modelSpec.put(partname, new ModelPartSpec(modelSpec,
+                    binding,
+                    partname,
+                    enumColour,
+                    glow));
     }
 
     @Nullable
@@ -338,7 +360,7 @@ public class ModelSpecXMLReader {
             Color c = new Color(value);
             return new Colour(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha());
         } catch (Exception e){
-            return null;
+            return Colour.WHITE;
         }
     }
 }

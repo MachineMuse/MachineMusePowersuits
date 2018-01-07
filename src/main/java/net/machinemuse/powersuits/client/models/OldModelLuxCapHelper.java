@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.client.models;
 //import com.google.common.collect.ImmutableList;
 //import com.google.common.collect.ImmutableMap;
 //import net.machinemuse.numina.geometry.Colour;
-//import net.machinemuse.powersuits.common.blocks.BlockLuxCapacitor;
+//import net.machinemuse.powersuits.common.block.BlockLuxCapacitor;
 //import net.minecraft.block.state.IBlockState;
 //import net.minecraft.client.Minecraft;
 //import net.minecraft.client.renderer.block.model.BakedQuad;

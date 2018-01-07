@@ -7,11 +7,14 @@ import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import java.util.Arrays;
 import java.util.List;
 
+@SideOnly(Side.CLIENT)
 public class ItemInfoFrame extends ScrollableFrame {
     public static final double SCALEFACTOR = 1;
     protected ItemSelectionFrame target;

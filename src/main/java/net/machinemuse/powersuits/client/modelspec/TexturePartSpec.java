@@ -1,15 +1,27 @@
 package net.machinemuse.powersuits.client.modelspec;
 
 import com.google.common.base.Objects;
-import net.machinemuse.powersuits.common.MPSConstants;
+import net.machinemuse.powersuits.client.helpers.EnumColour;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
 
 public class TexturePartSpec extends PartSpec {
     String textureLocation;
-    public TexturePartSpec(Spec spec, Binding binding, String partName, String displayName, String textureLocation, Integer defaultcolourindex) {
-        super(spec, binding, partName, displayName, defaultcolourindex);
+    public TexturePartSpec(Spec spec,
+                           Binding binding,
+                           EnumColour enumColour,
+                           String partName,
+                           String textureLocation) {
+        super(spec, binding, partName, enumColour);
         this.textureLocation = textureLocation;
+    }
+
+    @Override
+    public String getDisaplayName() {
+        return I18n.format(new StringBuilder("textureSpec.")
+                .append(this.binding.getSlot().getName())
+                .append(".partName")
+                .toString());
     }
 
     public String getTextureLocation() {
@@ -21,9 +33,10 @@ public class TexturePartSpec extends PartSpec {
         this.textureLocation = textureLocation;
     }
 
-    public NBTTagCompound multiSet(NBTTagCompound nbt, String textureLocationIn, Integer colourindex) {
-        this.setTextureLocation(nbt, textureLocationIn != null ? textureLocationIn : textureLocation);
-        return super.multiSet(nbt, colourindex);
+    public NBTTagCompound multiSet(NBTTagCompound nbt, Integer colourindex, String textureLocationIn) {
+        super.multiSet(nbt, colourindex);
+        this.setTextureLocation(nbt, (textureLocationIn != null && !textureLocationIn.isEmpty()) ? textureLocationIn : textureLocation);
+        return nbt;
     }
 
     @Override

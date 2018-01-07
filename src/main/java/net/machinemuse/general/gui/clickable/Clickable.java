@@ -1,6 +1,8 @@
 package net.machinemuse.general.gui.clickable;
 
 import net.machinemuse.numina.geometry.MusePoint2D;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -9,6 +11,7 @@ import java.util.List;
  *
  * @author MachineMuse
  */
+@SideOnly(Side.CLIENT)
 public abstract class Clickable implements IClickable {
     protected MusePoint2D position;
 

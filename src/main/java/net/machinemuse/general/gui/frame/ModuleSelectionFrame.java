@@ -12,10 +12,13 @@ import net.machinemuse.numina.geometry.MuseRect;
 import net.machinemuse.numina.geometry.MuseRelativeRect;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.util.SoundCategory;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import java.util.*;
 
+@SideOnly(Side.CLIENT)
 public class ModuleSelectionFrame extends ScrollableFrame {
     protected ItemSelectionFrame target;
     protected Map<String, ModuleSelectionSubFrame> categories = new HashMap<>();

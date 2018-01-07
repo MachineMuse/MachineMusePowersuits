@@ -107,6 +107,10 @@ public class MusePackager {//implements IMusePackager {
         return RichInputStream.toRichStream(datain).readIntArray();
     }
 
+    public byte[] readByteArray(DataInputStream datain) {
+        return RichInputStream.toRichStream(datain).readByteArray();
+    }
+
     //@Override
     public String readString(DataInputStream datain) {
         return RichInputStream.toRichStream(datain).readString();

@@ -3,9 +3,12 @@ package net.machinemuse.general.gui.clickable;
 
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.utils.render.MuseRenderer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+@SideOnly(Side.CLIENT)
 public class ClickableLabel implements IClickable {
     protected String label;
     protected MusePoint2D position;

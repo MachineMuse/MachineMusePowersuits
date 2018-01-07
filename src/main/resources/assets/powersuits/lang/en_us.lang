@@ -12,6 +12,142 @@ item.powerArmorChestplate.name=Power Armor Chestplate
 item.powerArmorHelmet.name=Power Armor Helmet
 item.powerFist.name=Power Fist
 
+#model translations
+
+# POWER FIST
+modelSpec.default_powerfist.specName=Power Fist Default
+model.powerfist.modelName=PowerFist
+model.powerfist.mainarm.partName=Main Arm
+model.powerfist.armorright.partName=Armor Right
+model.powerfist.armorleft.partName=Amor Left
+model.powerfist.wristtopright.partName=Wrist Top Right
+model.powerfist.wristtopleft.partName=Wrist Top Left
+model.powerfist.wristbottomright.partName=Wrist Bottom Right
+model.powerfist.wristbottomleft.partName=Wrist Bottom Left
+model.powerfist.fingerguard.partName=Finger Guard
+model.powerfist.crystalholder.partName=Crystal Holder
+model.powerfist.crystal.partName=Crystal
+model.powerfist.supportright1.partName=Support Right 1
+model.powerfist.supportright2.partName=Support Right 2
+model.powerfist.supportright3.partName=Support Right 3
+model.powerfist.supportright4.partName=Support Right 4
+model.powerfist.supportright5.partName=Support Right 5
+model.powerfist.supportbaseright.partName=Support Base Right
+model.powerfist.supportrightfront.partName=Support Right Front
+model.powerfist.supportbaseleft.partName=Support Base Left
+model.powerfist.supportleftfront.partName=Support Left Front
+model.powerfist.supportleft1.partName=Support Left 1
+model.powerfist.supportleft2.partName=Support Left 2
+model.powerfist.supportleft3.partName=Support Left 3
+model.powerfist.supportleft4.partName=Support Left 4
+model.powerfist.supportleft5.partName=Support Left 5
+model.powerfist.palm.partName=Palm
+model.powerfist.index1_normal.partName=Index 1
+model.powerfist.index2_normal.partName=Index 2
+model.powerfist.middlefinger1_normal.partName=Middle Finger 1
+model.powerfist.middlefinger2_normal.partName=Middle Finger 2
+model.powerfist.ringfinger1_normal.partName=Ring Finger 1
+model.powerfist.ringfinger2_normal.partName=Ring Finger 2
+model.powerfist.pinky1_normal.partName=Pinky 1
+model.powerfist.pinky2_normal.partName=Pinky 2
+model.powerfist.thumb1_normal.partName=Thumb 1
+model.powerfist.thumb2_normal.partName=Thumb 2
+model.powerfist.index1_firing.partName=Index 1
+model.powerfist.index2_firing.partName=Index 2
+model.powerfist.middlefinger1_firing.partName=Middle Finger 1
+model.powerfist.middlefinger2_firing.partName=Middle Finger 2
+model.powerfist.ringfinger1_firing.partName=Ring Finger 1
+model.powerfist.ringfinger2_firing.partName=Ring Finger 2
+model.powerfist.pinky1_firing.partName=Pinky 1
+model.powerfist.pinky2_firing.partName=Pinky 2
+model.powerfist.thumb1_firing.partName=Thumb 1
+model.powerfist.thumb2_firing.partName=Thumb 2
+
+# ARMOR SKINS
+textureSpec.head.partName=Head
+textureSpec.chest.partName=Chest
+textureSpec.legs.partName=Legs
+textureSpec.feet.partName=Feet
+
+textureSpec.citizenjoe_armorskin.specName=Citizen Joe Armor Skin
+textureSpec.default_armorskin.specName=Default Armor Skin
+
+# DEFAULT ARMOR MODEL
+modelSpec.default_armor.specName=Default Armor
+model.mps_helm.modelName.Helmet
+model.mps_helm.helm_main.partName=Helmet
+model.mps_helm.visor.partName=Visor
+model.mps_helm.helm_tubes.partName=Tubes
+model.mps_helm.helm_tube_entry2.partName=Right Tube Entry
+model.mps_helm.helm_tube_entry1.partName=Left Tube Entry
+
+model.mps_chest.modelName=ChestPlate
+model.mps_chest.backpack.partName=Backpack
+model.mps_chest.polySurface36.partName=Accessory
+model.mps_chest.belt.partName=Belt
+model.mps_chest.chest_padding.partName=Chest Padding
+model.mps_chest.crystal_belt.partName=Belt Crystal
+model.mps_chest.chest_main.partName=Chest Plating
+
+model.jetpack.modelName=JetPack
+model.jetpack.jetpack5.partName=Secondary
+model.jetpack.jetpack_glow.partName=Lights
+
+model.mps_arms.modelName=Arms
+model.mps_arms.crystal_shoulder_2.partName=Right Shoulder Crystal
+model.mps_arms.arms3.partName=Right Arm
+model.mps_arms.crystal_shoulder_1.partName=Left Shoulder Crystal
+model.mps_arms.arms2.partName=Left Arm
+
+model.mps_pantaloons.modelName=Legs
+model.mps_pantaloons.leg2.partName=Left Leg
+model.mps_pantaloons.leg1.partName=Right Leg
+
+model.mps_boots.modelName=Boots
+model.mps_boots.boots1.partName=Right Boot
+model.mps_boots.boots2.partName=Left Boot
+
+# ARMOR MODEL 2
+modelSpec.armor2.specName=Armor 2
+model.armor2.modelName=Armor 2
+model.armor2.leggray.partname=Left Leg Base
+model.armor2.legbit.partname=Left Leg Protection
+model.armor2.legglow.partname=Left Leg Light
+model.armor2.leggray1.partname=Right Leg Base
+model.armor2.legbit1.partname=Right Leg Protection
+model.armor2.legglow1.partname=Right Leg Light
+model.armor2.bootmain1.partname=Right Boot
+model.armor2.bootglow1.partname=Right Boot Glow
+model.armor2.bootmain.partname=Left Boot
+model.armor2.bootglow.partname=Left Boot Glow
+model.armor2.chestgray.partname=Chest Base
+model.armor2.chestmain.partname=Front Chest Protection
+model.armor2.chestback1.partname=Back Chest Protection
+model.armor2.chestglowfront.partname=Frontal Power Crystal
+model.armor2.chestglowback.partname=Spinal Power Crystals
+model.armor2.armglow1.partname=Shoulder Light
+model.armor2.armmain1.partname=Arm and Shoulder Protection
+model.armor2.armgray1.partname=Arm Base
+model.armor2.armglow.partname=Shoulder Light
+model.armor2.armmain.partname=Arm and Shoulder Protection
+model.armor2.armgray.partname=Arm Base
+model.armor2.helmetglow1.partname=Helmet Tubes and Visor
+model.armor2.helmetmain.partname=Helmet
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 item.powerArmorComponent.componentWiring.name=Wiring
 item.powerArmorComponent.componentSolenoid.name=Solenoid
 item.powerArmorComponent.componentServo.name=Servo Motor

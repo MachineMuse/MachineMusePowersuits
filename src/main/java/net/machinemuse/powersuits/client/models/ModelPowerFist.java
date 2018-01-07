@@ -147,7 +147,7 @@ public class ModelPowerFist implements IBakedModel {
             world = worldIn;
             entity = entityIn;
             item = itemStack.getItem();
-            colour = ((IModularItemBase) item).getColorFromItemStack(itemStack);
+            colour = ((IModularItemBase) item).getColorFromItemStack(itemStack).getColour();
             // TODO: nbt based normal/firing tag
 
             if (entityIn instanceof EntityPlayer) {

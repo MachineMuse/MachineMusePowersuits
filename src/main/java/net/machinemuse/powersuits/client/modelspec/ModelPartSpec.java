@@ -1,7 +1,9 @@
 package net.machinemuse.powersuits.client.modelspec;
 
 import com.google.common.base.Objects;
+import net.machinemuse.powersuits.client.helpers.EnumColour;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -18,15 +20,20 @@ public class ModelPartSpec extends PartSpec {
     public ModelPartSpec(ModelSpec modelSpec,
                          Binding binding,
                          String partName,
-                         String displayName,
-                         Integer defaultcolourindex,
+                         EnumColour enumColour,
                          Boolean defaultglow) {
-        super(modelSpec, binding, partName, displayName, defaultcolourindex);
+        super(modelSpec, binding, partName, enumColour);
         this.defaultglow = (defaultglow != null) ? defaultglow : false;
     }
 
-    public List<BakedQuad> getQuads() {
-        return ((ModelSpec)(this.spec)).getModel().getQuadsforPart(this.partName);
+    @Override
+    public String getDisaplayName() {
+       return I18n.format(new StringBuilder("model.")
+                                            .append(this.spec.getOwnName())
+                                            .append(".")
+                                            .append(this.partName)
+                                            .append(".partName")
+                                            .toString());
     }
 
     public boolean getGlow() {
@@ -42,9 +49,14 @@ public class ModelPartSpec extends PartSpec {
         else nbt.setBoolean("glow", g);
     }
 
+    public List<BakedQuad> getQuads() {
+        return ((ModelSpec)(this.spec)).getModel().getQuadsforPart(this.partName);
+    }
+
     public NBTTagCompound multiSet(NBTTagCompound nbt, Integer colourIndex, Boolean glow) {
+        super.multiSet(nbt, colourIndex);
         this.setGlow(nbt, (glow != null) ? glow : false);
-        return super.multiSet(nbt, colourIndex);
+        return nbt;
     }
 
     @Override

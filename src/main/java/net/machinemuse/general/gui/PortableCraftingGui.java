@@ -1,6 +1,5 @@
 package net.machinemuse.general.gui;
 
-import net.machinemuse.general.gui.frame.PortableCraftingContainer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;

@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.client.modelspec;
 
+import com.google.common.collect.ImmutableList;
 import net.machinemuse.general.NBTTagAccessor;
 import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.numina.geometry.Colour;
@@ -15,6 +16,7 @@ import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -41,38 +43,52 @@ public class RenderPart extends ModelRenderer {
         NBTTagCompound renderSpec = HighPolyArmor.getInstance().getRenderSpec();
         int[] colours = renderSpec.getIntArray("colours");
         int partColor;
+        List<BakedQuad> quadList;
         for (NBTTagCompound nbt : NBTTagAccessor.getValues(renderSpec)) {
+            System.out.println("nbt: " + nbt.toString());
+
             PartSpec partSpec = ModelRegistry.getInstance().getPart(nbt);
-            if (partSpec != null && partSpec instanceof ModelPartSpec ) {
-                ModelPartSpec part = (ModelPartSpec) partSpec;
-                if (part.binding.getSlot().equals(HighPolyArmor.getInstance().getVisibleSection()) && part.binding.getTarget().apply(HighPolyArmor.getInstance()).equals(parent)) {
-                    List<BakedQuad> quadList = part.getQuads();
-                    if (!quadList.isEmpty()) {
-                        int ix = part.getColourIndex(nbt);
+
+
+            if (partSpec != null && partSpec instanceof ModelPartSpec) {
+                if (partSpec.binding.getSlot().equals(HighPolyArmor.getInstance().getVisibleSection())
+                        && partSpec.binding.getTarget().apply(HighPolyArmor.getInstance()).equals(parent)) {
+                        quadList = ((ModelPartSpec)partSpec).getQuads();
+
+
+                    if (quadList != null && !quadList.isEmpty()) {
+                        int ix = partSpec.getColourIndex(nbt);
                         if (ix < colours.length && ix >= 0) partColor = colours[ix];
                         else partColor = Colour.WHITE.getInt();
 
                         // GLOW stuff on
-                        if (part.getGlow(nbt)) RenderState.glowOn();
+                        if (((ModelPartSpec) partSpec).getGlow(nbt))
+                            RenderState.glowOn();
 
                         GlStateManager.pushMatrix();
                         GlStateManager.scale(scale, scale, scale);
                         applyTransform();
-                        Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+                        if (partSpec instanceof ModelPartSpec)
+                            Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+                        else if (partSpec instanceof TexturePartSpec)
+                            Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(((TexturePartSpec) partSpec).textureLocation));
+
 
                         Tessellator tess = Tessellator.getInstance();
                         BufferBuilder buffer = tess.getBuffer();
                         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.ITEM);
 
-                        for (BakedQuad quad : part.getQuads()) {
+                        for (BakedQuad quad : quadList) {
                             buffer.addVertexData(quad.getVertexData());
                             ForgeHooksClient.putQuadColor(buffer, quad, partColor);
                         }
+
                         tess.draw();
                         GlStateManager.popMatrix();
 
                         //Glow stuff off
-                        if (part.getGlow(nbt)) RenderState.glowOff();
+                        if (((ModelPartSpec) partSpec).getGlow(nbt))
+                            RenderState.glowOff();
                     }
                 }
             }

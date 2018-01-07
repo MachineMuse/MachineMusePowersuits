@@ -1,7 +1,11 @@
 package net.machinemuse.general.gui.frame;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import java.util.List;
 
+@SideOnly(Side.CLIENT)
 public interface IGuiFrame {
 	
 	void onMouseDown(double x, double y, int button);

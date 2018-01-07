@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.client.modelspec;
 import com.google.common.base.Objects;
 import net.machinemuse.numina.scala.MuseRegistry;
 
-public class Spec extends MuseRegistry<PartSpec> {
+public abstract class Spec extends MuseRegistry<PartSpec> {
     private final String name;
     private final boolean isDefault;
     private final EnumSpecType specType;
@@ -13,6 +13,8 @@ public class Spec extends MuseRegistry<PartSpec> {
         this.isDefault = isDefault;
         this.specType = specType;
     }
+
+    public abstract String getDisaplayName();
 
     public Iterable<PartSpec> getPartSpecs() {
         return this.elems();

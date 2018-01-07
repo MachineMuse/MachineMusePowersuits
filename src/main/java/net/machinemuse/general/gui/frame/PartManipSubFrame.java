@@ -1,5 +1,6 @@
 package net.machinemuse.general.gui.frame;
 
+import net.machinemuse.api.item.IModularItemBase;
 import net.machinemuse.general.gui.clickable.ClickableItem;
 import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.numina.general.MuseLogger;
@@ -8,12 +9,10 @@ import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MuseRect;
 import net.machinemuse.numina.geometry.MuseRelativeRect;
 import net.machinemuse.numina.network.PacketSender;
-import net.machinemuse.powersuits.client.modelspec.ModelPartSpec;
-import net.machinemuse.powersuits.client.modelspec.ModelRegistry;
-import net.machinemuse.powersuits.client.modelspec.PartSpec;
-import net.machinemuse.powersuits.client.modelspec.Spec;
+import net.machinemuse.powersuits.client.helpers.EnumColour;
+import net.machinemuse.powersuits.client.modelspec.*;
 import net.machinemuse.powersuits.common.items.old.ItemPowerArmor;
-import net.machinemuse.powersuits.network.packets.MusePacketCosmeticInfo;
+import net.machinemuse.powersuits.network.MusePacketCosmeticInfo;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.GuiIcons;
 import net.machinemuse.utils.render.MuseRenderer;
@@ -23,8 +22,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +37,7 @@ import java.util.stream.Collectors;
  *
  * Ported to Java by lehjr on 11/2/16.
  */
-
+@SideOnly(Side.CLIENT)
 public class PartManipSubFrame {
     public Spec model;
     public ColourPickerFrame colourframe;
@@ -48,10 +51,23 @@ public class PartManipSubFrame {
         this.colourframe = colourframe;
         this.itemSelector = itemSelector;
         this.border = border;
-        this.specs = model.apply().values().stream().filter(spec-> isValidArmor(getSelectedItem(), spec.binding.getSlot())).collect(Collectors.toList());
+        // this is actually 3 to 8 times SLOWER than the loop in getSpecs()
+//        this.specs = model.apply().values().stream().filter(spec-> isValidArmor(getSelectedItem(), spec.binding.getSlot())).collect(Collectors.toList());
+        this.specs = this.getSpecs();
         this.open = true;
     }
 
+    private List<PartSpec> getSpecs() {
+        List<PartSpec> specsArray = new ArrayList<>();
+        Iterator<PartSpec> specIt = model.apply().values().iterator();
+        PartSpec spec;
+        while (specIt.hasNext()) {
+            spec = specIt.next();
+            if (isValidArmor(getSelectedItem(), spec.binding.getSlot()))
+                specsArray.add(spec);
+        }
+        return specsArray;
+    }
 
     public EntityEquipmentSlot getEquipmentSlot() {
         ItemStack selectedItem = getSelectedItem().getItem();
@@ -100,9 +116,11 @@ public class PartManipSubFrame {
         }
         else {
             NBTTagCompound k = new NBTTagCompound();
-
             if (spec instanceof ModelPartSpec)
-                ((ModelPartSpec)spec).multiSet(k, null, null);
+                ((ModelPartSpec) spec).multiSet(k, null, null);
+            else if (spec instanceof TexturePartSpec)
+                ((TexturePartSpec) spec).multiSet(k, null, null);
+                // Fixme: What would this be?
             else
                 spec.multiSet(k, null);
             this.getRenderTag().setTag(name, k);
@@ -118,7 +136,7 @@ public class PartManipSubFrame {
 
     public void drawPartial(double min, double max) {
         if (specs.size() > 0) {
-            MuseRenderer.drawString(ModelRegistry.getInstance().getName(model), border.left() + 8, border.top());
+            MuseRenderer.drawString(model.getDisaplayName(), border.left() + 8, border.top());
             drawOpenArrow(min, max);
             if (open) {
                 int y = (int) (border.top() + 8);
@@ -149,26 +167,35 @@ public class PartManipSubFrame {
 
     public void drawSpecPartial(double x, double y, PartSpec spec, double ymino, double ymaxo) {
         NBTTagCompound tag = this.getSpecTag(spec);
-        int selcomp = spec instanceof ModelPartSpec ? (tag.hasNoTags() ? 0 : (((ModelPartSpec)spec).getGlow(tag) ? 2 : 1)) :0;
+
+        // FIXME: texture spec can have colour but not glow
+        // FIXME: texture spec also needs a way to toggle between texture specs (turn one on turn the other off)
+        // FIXME: active texture spec should set itemstack color
+
+
+        int selcomp = tag.hasNoTags() ? 0 : (spec instanceof ModelPartSpec && ((ModelPartSpec) spec).getGlow(tag) ? 2 : 1);
         int selcolour = spec.getColourIndex(tag);
         new GuiIcons.TransparentArmor(x, y, null, null, ymino, null, ymaxo);
         new GuiIcons.NormalArmor(x + 8, y, null, null, ymino, null, ymaxo);
 
-        new GuiIcons.GlowArmor(x + 16, y, null, null, ymino, null, ymaxo);
+        if (spec instanceof ModelPartSpec)
+            new GuiIcons.GlowArmor(x + 16, y, null, null, ymino, null, ymaxo);
 
         new GuiIcons.SelectedArmorOverlay(x + selcomp * 8, y, null, null, ymino, null, ymaxo);
 
+
         double acc = (x + 28);
-        for (int colour: colourframe.colours()) {
-            new GuiIcons.ArmourColourPatch(acc, y, new Colour(colour), null, ymino, null, ymaxo);
+        for (byte colour : colourframe.colours()) {
+            new GuiIcons.ArmourColourPatch(acc, y, EnumColour.getColourEnumFromIndex(Byte.toUnsignedInt(colour)).getColour(), null, ymino, null, ymaxo);
             acc += 8;
         }
+
         double textstartx = acc;
 
         if (selcomp > 0) {
             new GuiIcons.SelectedArmorOverlay(x + 28 + selcolour * 8, y, null, null, ymino, null, ymaxo);
         }
-        MuseRenderer.drawString(spec.displayName, textstartx + 4, y);
+        MuseRenderer.drawString(spec.getDisaplayName(), textstartx + 4, y);
     }
 
     public void drawOpenArrow(double min, double max) {
@@ -201,7 +228,7 @@ public class PartManipSubFrame {
     }
 
     public boolean tryMouseClick(double x, double y) {
-        EntityPlayerSP player;
+        EntityPlayerSP player = Minecraft.getMinecraft().player;
         NBTTagCompound tagdata;
         String tagname;
 
@@ -223,8 +250,6 @@ public class PartManipSubFrame {
                 case 0: {
                     NBTTagCompound renderTag = this.getRenderTag();
                     tagname = ModelRegistry.getInstance().makeName(spec);
-                    player = Minecraft.getMinecraft().player;
-                    renderTag.removeTag(ModelRegistry.getInstance().makeName(spec));
                     if (player.world.isRemote) {
                         PacketSender.sendToServer(new MusePacketCosmeticInfo(player, this.getSelectedItem().inventorySlot, tagname, new NBTTagCompound()).getPacket131());
                     }
@@ -234,10 +259,9 @@ public class PartManipSubFrame {
 
                 case 1: {
                     tagname = ModelRegistry.getInstance().makeName(spec);
-                    player = Minecraft.getMinecraft().player;
                     tagdata = this.getOrMakeSpecTag(spec);
                     if (spec instanceof ModelPartSpec)
-                        ((ModelPartSpec)spec).setGlow(tagdata, false);
+                        ((ModelPartSpec) spec).setGlow(tagdata, false);
                     if (player.world.isRemote) {
                         PacketSender.sendToServer(new MusePacketCosmeticInfo(player, this.getSelectedItem().inventorySlot, tagname, tagdata).getPacket131());
                     }
@@ -247,10 +271,9 @@ public class PartManipSubFrame {
 
                 case 2: {
                     tagname = ModelRegistry.getInstance().makeName(spec);
-                    player = Minecraft.getMinecraft().player;
                     tagdata = this.getOrMakeSpecTag(spec);
                     if (spec instanceof ModelPartSpec)
-                        ((ModelPartSpec)spec).setGlow(tagdata, true);
+                        ((ModelPartSpec) spec).setGlow(tagdata, true);
                     if (player.world.isRemote) {
                         PacketSender.sendToServer(new MusePacketCosmeticInfo(player, this.getSelectedItem().inventorySlot, tagname, tagdata).getPacket131());
                     }
@@ -267,9 +290,9 @@ public class PartManipSubFrame {
             int columnNumber = (int)((x - this.border.left() - 28) / 8);
             PartSpec spec = specs.get(Math.max(Math.min(lineNumber, specs.size() - 1), 0));
             tagname = ModelRegistry.getInstance().makeName(spec);
-            player = Minecraft.getMinecraft().player;
             tagdata = this.getOrMakeSpecTag(spec);
             spec.setColourIndex(tagdata, columnNumber);
+
             if (player.world.isRemote) {
                 PacketSender.sendToServer(new MusePacketCosmeticInfo(player, this.getSelectedItem().inventorySlot, tagname, tagdata).getPacket131());
             }

@@ -11,11 +11,14 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.SoundCategory;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+@SideOnly(Side.CLIENT)
 public class ItemSelectionFrame extends ScrollableFrame {
     protected List<ClickableItem> itemButtons;
     protected int selectedItemStack = -1;

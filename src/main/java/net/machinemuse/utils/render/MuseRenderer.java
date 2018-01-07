@@ -74,13 +74,7 @@ public abstract class MuseRenderer {
      * Does the necessary openGL calls and calls the Minecraft font renderer to draw a string at the specified coords
      */
     public static void drawString(String s, double x, double y, Colour c) {
-        // FIXME -- All of this stuff is commented out now in 1.10.2 because it is not needed and causes issues with transparencies of vanilla text, like the playerlevel number
-//        RenderHelper.disableStandardItemLighting();
-//        RenderState.blendingOn();
-//        RenderState.on2D();
         getFontRenderer().drawStringWithShadow(s, (int) x, (int) y, c.getInt());
-//        RenderState.off2D();
-//        RenderState.blendingOff();
     }
 
     /**
@@ -347,19 +341,10 @@ public abstract class MuseRenderer {
         GL11.glBegin(GL11.GL_LINE_STRIP);
         while (Math.abs(cx) < Math.abs(tx) && Math.abs(cy) < Math.abs(ty) && Math.abs(cz) < Math.abs(tz)) {
             colour.doGL();
-            // GL11.glLineWidth(1);
             cx += Math.random() * tx * jagfactor - 0.1 * tx;
             cy += Math.random() * ty * jagfactor - 0.1 * ty;
             cz += Math.random() * tz * jagfactor - 0.1 * tz;
             GL11.glVertex3d(x1 + cx, y1 + cy, z1 + cz);
-            //
-            // GL11.glLineWidth(3);
-            // colour.withAlpha(0.5).doGL();
-            // GL11.glVertex3d(ox, oy, oz);
-            //
-            // GL11.glLineWidth(5);
-            // colour.withAlpha(0.1).doGL();
-            // GL11.glVertex3d(x1 + cx, y1 + cy, z1 + cz);
         }
         GL11.glEnd();
         RenderState.off2D();

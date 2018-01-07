@@ -1,6 +1,5 @@
 package net.machinemuse.numina.network;
 
-import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufOutputStream;
 import io.netty.buffer.Unpooled;
 import net.machinemuse.numina.general.MuseLogger;
@@ -27,20 +26,20 @@ import java.util.zip.GZIPOutputStream;
  */
 public abstract class MusePacket
 {
-    private PacketBuffer bytes;
+    private PacketBuffer packetBuffer;
     private final DataOutputStream dataout;
 
     public MusePacket() {
-        this.bytes = new PacketBuffer(Unpooled.buffer());
-        this.dataout = new DataOutputStream(new ByteBufOutputStream(this.bytes));
+        this.packetBuffer = new PacketBuffer(Unpooled.buffer());
+        this.dataout = new DataOutputStream(new ByteBufOutputStream(this.packetBuffer));
     }
 
     public abstract MusePackager packager();
 
     public abstract void write();
 
-    public ByteBuf bytes() {
-        return this.bytes;
+    public PacketBuffer packetBuffer() {
+        return this.packetBuffer;
     }
 
     public DataOutputStream dataout() {
@@ -55,7 +54,7 @@ public abstract class MusePacket
     public FMLProxyPacket getFMLProxyPacket() throws IOException {
         this.dataout.writeInt((Integer) MusePacketHandler.packagers.inverse().get(this.packager()));
         this.write();
-        return new FMLProxyPacket(this.bytes, MusePacketHandler.networkChannelName);
+        return new FMLProxyPacket(this.packetBuffer, MusePacketHandler.networkChannelName);
     }
 
     public MusePacket getPacket131() {
@@ -87,6 +86,16 @@ public abstract class MusePacket
             this.dataout.writeInt(data.length);
             for (int k :  data)
                 dataout.writeInt(k);
+        } catch (IOException exception) {
+            MuseLogger.logException("PROBLEM WRITING DATA TO PACKET:", exception);
+        }
+    }
+
+    public void writeByteArray(byte[] data) {
+        try {
+            this.dataout.writeInt(data.length);
+            for (byte k :  data)
+                dataout.writeByte(k);
         } catch (IOException exception) {
             MuseLogger.logException("PROBLEM WRITING DATA TO PACKET:", exception);
         }

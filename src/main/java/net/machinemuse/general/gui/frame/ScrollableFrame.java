@@ -5,18 +5,22 @@ import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.DrawableMuseRect;
 import net.machinemuse.numina.geometry.MusePoint2D;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@SideOnly(Side.CLIENT)
 public class ScrollableFrame implements IGuiFrame {
     protected int totalsize;
     protected int currentscrollpixels;
     protected final int buttonsize = 5;
-    protected boolean scrollbarPicked = false;
-    protected boolean scrolldownPicked = false;
-    protected boolean scrollupPicked = false;
+//    protected boolean scrollbarPicked = false;
+//    protected boolean scrolldownPicked = false;
+//    protected boolean scrollupPicked = false;
     protected int lastdWheel = Mouse.getDWheel();
 
     protected DrawableMuseRect border;
@@ -94,7 +98,6 @@ public class ScrollableFrame implements IGuiFrame {
 
     @Override
     public List<String> getToolTip(int x, int y) {
-        // TODO Auto-generated method stub
         return null;
     }
 }

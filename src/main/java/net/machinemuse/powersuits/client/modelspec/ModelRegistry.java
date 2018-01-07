@@ -18,6 +18,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -99,7 +100,7 @@ public class ModelRegistry extends MuseRegistry<Spec> {
 
 
     /**
-     * FIXME: what happens with TextureSpec???
+     * FIXME: texture spec needs a model tag for this to work. Model tag does not have to be a real model, just a unique string for the spec k-v pair
      */
     public Spec getModel(NBTTagCompound nbt) {
         return get(nbt.getString("model"));

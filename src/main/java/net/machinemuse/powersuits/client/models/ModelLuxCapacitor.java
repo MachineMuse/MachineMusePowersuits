@@ -2,10 +2,10 @@ package net.machinemuse.powersuits.client.models;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
-import net.machinemuse.powersuits.client.events.MuseIcon;
+import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.client.helpers.ColoredQuadHelperThingie;
 import net.machinemuse.powersuits.client.helpers.EnumColour;
-import net.machinemuse.powersuits.common.blocks.BlockLuxCapacitor;
+import net.machinemuse.powersuits.common.block.BlockLuxCapacitor;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;

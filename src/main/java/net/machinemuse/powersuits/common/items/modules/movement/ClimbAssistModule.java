@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.common.items.modules.movement;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
-import net.machinemuse.powersuits.client.events.MuseIcon;
+import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.items.ItemComponent;
 import net.machinemuse.powersuits.common.items.modules.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;

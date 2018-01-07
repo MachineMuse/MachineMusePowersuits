@@ -5,6 +5,7 @@ package net.machinemuse.powersuits.common.items.old;
 import net.machinemuse.api.electricity.MuseElectricItem;
 import net.machinemuse.api.item.IModularItemBase;
 import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.powersuits.client.helpers.EnumColour;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
@@ -21,25 +22,14 @@ public abstract class ItemElectricArmor extends ItemArmor implements IModularIte
 {
     public ItemElectricArmor(ItemArmor.ArmorMaterial material, int renderIndexIn, EntityEquipmentSlot slot) {
         super(material, renderIndexIn, slot);
-//        MuseElectricItem$class.$init$(this);
-//        ModularItemBase$class.$init$(this);
     }
-
-//    @Override
-//    public String getToolTip(ItemStack itemStack) {
-//        return null;
-//    }
 
     @SideOnly(Side.CLIENT)
     public int getColorFromItemStack(ItemStack stack, int par2) {
         return ModularItemBase.getInstance().getColorFromItemStack(stack, par2);
     }
 
-    public Colour getGlowFromItemStack(ItemStack stack) {
-        return ModularItemBase.getInstance().getGlowFromItemStack(stack);
-    }
-
-    public Colour getColorFromItemStack(ItemStack stack) {
+    public EnumColour getColorFromItemStack(ItemStack stack) {
         return ModularItemBase.getInstance().getColorFromItemStack(stack);
     }
     //=================================================================================
@@ -50,117 +40,14 @@ public abstract class ItemElectricArmor extends ItemArmor implements IModularIte
 
     @Override
     public int getColor(ItemStack stack) {
-        Colour c = this.getColorFromItemStack(stack);
-//        setColor(stack, c.getInt());
-
-        return c.getInt();
+        return this.getColorFromItemStack(stack).getColour().getInt();
     }
-
-//    @Override
-//    public void setColor(ItemStack stack, int color) {
-//        NBTTagCompound nbttagcompound = stack.getTagCompound();
-//
-//        if (nbttagcompound == null)
-//        {
-//            nbttagcompound = new NBTTagCompound();
-//            stack.setTagCompound(nbttagcompound);
-//        }
-//
-//        NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
-//
-//        if (!nbttagcompound.hasKey("display", 10))
-//        {
-//            nbttagcompound.setTag("display", nbttagcompound1);
-//        }
-//
-//        nbttagcompound1.setInteger("color", color);
-//    }
 
     @Override
     public boolean hasOverlay(ItemStack stack) {
         return true;
     }
 
-    //
-//    /**
-//     * Return the color for the specified armor ItemStack.
-//     */
-//    public int getColor(ItemStack stack)
-//    {
-//        if (this.material != ItemArmor.ArmorMaterial.LEATHER)
-//        {
-//            return 16777215;
-//        }
-//        else
-//        {
-//            NBTTagCompound nbttagcompound = stack.getTagCompound();
-//
-//            if (nbttagcompound != null)
-//            {
-//                NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
-//
-//                if (nbttagcompound1 != null && nbttagcompound1.hasKey("color", 3))
-//                {
-//                    return nbttagcompound1.getInteger("color");
-//                }
-//            }
-//
-//            return 10511680;
-//        }
-//    }
-//
-//    /**
-//     * Remove the color from the specified armor ItemStack.
-//     */
-//    public void removeColor(ItemStack stack)
-//    {
-//        if (this.material == ItemArmor.ArmorMaterial.LEATHER)
-//        {
-//            NBTTagCompound nbttagcompound = stack.getTagCompound();
-//
-//            if (nbttagcompound != null)
-//            {
-//                NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
-//
-//                if (nbttagcompound1.hasKey("color"))
-//                {
-//                    nbttagcompound1.removeTag("color");
-//                }
-//            }
-//        }
-//    }
-//
-//    /**
-//     * Sets the color of the specified armor ItemStack
-//     */
-//    public void setColor(ItemStack stack, int color)
-//    {
-//        if (this.material != ItemArmor.ArmorMaterial.LEATHER)
-//        {
-//            throw new UnsupportedOperationException("Can\'t dye non-leather!");
-//        }
-//        else
-//        {
-//            NBTTagCompound nbttagcompound = stack.getTagCompound();
-//
-//            if (nbttagcompound == null)
-//            {
-//                nbttagcompound = new NBTTagCompound();
-//                stack.setTagCompound(nbttagcompound);
-//            }
-//
-//            NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
-//
-//            if (!nbttagcompound.hasKey("display", 10))
-//            {
-//                nbttagcompound.setTag("display", nbttagcompound1);
-//            }
-//
-//            nbttagcompound1.setInteger("color", color);
-//        }
-//    }
-
-    //===========================================================================================
     @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> currentTipList, boolean advancedToolTips) {
         ModularItemBase.getInstance().addInformation(stack, playerIn, currentTipList, advancedToolTips);

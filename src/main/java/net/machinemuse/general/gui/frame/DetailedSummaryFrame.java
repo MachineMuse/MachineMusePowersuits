@@ -13,10 +13,13 @@ import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import java.util.List;
 
+@SideOnly(Side.CLIENT)
 public class DetailedSummaryFrame extends ScrollableFrame {
     public static final double SCALEFACTOR = 1;
     protected EntityPlayer player;

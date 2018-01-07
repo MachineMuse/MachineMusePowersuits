@@ -1,66 +1,66 @@
-<modelSpec name="Power Fist Default" type="power fist" default="true">
+<modelSpec specName="default_powerfist" type="power fist" default="true">
     <itemCameraTransforms>
-        <trsrTransformation type="third_person_right_hand" translation="8, 8.01, 9" rotation="-15, 180, 0" scale="0.630, 0.630, 0.630" />
-        <trsrTransformation type="third_person_left_hand" translation="-2, 8.01, 9" rotation="-15, 180, 0" scale="-0.630, 0.630, 0.630" />
-        <trsrTransformation type="first_person_right_hand" translation="11.8, 8, 7" rotation="-16, -162, 0" scale="0.5, 0.5, 0.5" />
-        <trsrTransformation type="first_person_left_hand" translation="11.8, 8, 7" rotation="-16, -162, 0" scale="-0.5, 0.5, 0.5" />
-        <!--<trsrTransformation type="gui" translation="" rotation="" scale="" />-->
-        <trsrTransformation type="ground" translation="0, 5, 0" rotation="0,0,0" scale="0.630, 0.630, 0.630" />
-        <!--<trsrTransformation type="fixed" translation="" rotation="" scale="" />-->
-        <!--<trsrTransformation type="none" translation="" rotation="" scale="" />-->
+        <trsrTransformation type="third_person_right_hand" translation="8, 8.01, 9" rotation="-15, 180, 0" scale="0.630, 0.630, 0.630"/>
+        <trsrTransformation type="third_person_left_hand" translation="-2, 8.01, 9" rotation="-15, 180, 0" scale="-0.630, 0.630, 0.630"/>
+        <trsrTransformation type="first_person_right_hand" translation="11.8, 8, 7" rotation="-16, -162, 0" scale="0.5, 0.5, 0.5"/>
+        <trsrTransformation type="first_person_left_hand" translation="11.8, 8, 7" rotation="-16, -162, 0" scale="-0.5, 0.5, 0.5"/>
+        <!--<trsrTransformation type="gui" translation="" rotation="" scale=""/>-->
+        <trsrTransformation type="ground" translation="0, 5, 0" rotation="0,0,0" scale="0.630, 0.630, 0.630"/>
+        <!--<trsrTransformation type="fixed" translation="" rotation="" scale=""/>-->
+        <!--<trsrTransformation type="none" translation="" rotation="" scale=""/>-->
     </itemCameraTransforms>
     <models>
-        <model file="powersuits:models/item/powerfist/powerfist.obj" textures="powersuits:models/tool2">
-            <binding slot="mainhand" target="RightHand" itemState="all">
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="mainarm" localizedName="Main Arm"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="armorright" localizedName="Armor Right"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="armorleft" localizedName="Amor Left"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="wristtopright" localizedName="Wrist Top Right"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="wristtopleft" localizedName="Wrist Top Left"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="wristbottomright" localizedName="Wrist Bottom Right"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="wristbottomleft" localizedName="Wrist Bottom Left"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="fingerguard" localizedName="Finger Guard"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="crystalholder" localizedName="Crystal Holder"/>
-                <part defaultcolor="FFFFFF" defaultglow="true" defaultVisible="true" partName="crystal" localizedName="Crystal"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="supportright1" localizedName="Support Right 1"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="supportright2" localizedName="Support Right 2"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="supportright3" localizedName="Support Right 3"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="supportright4" localizedName="Support Right 4"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="supportright5" localizedName="Support Right 5"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="supportbaseright" localizedName="Support Base Right"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="supportrightfront" localizedName="Support Right Front"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="supportbaseleft" localizedName="Support Base Left"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="supportleftfront" localizedName="Support Left Front"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="supportleft1" localizedName="Support Left 1"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="supportleft2" localizedName="Support Left 2"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="supportleft3" localizedName="Support Left 3"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="supportleft4" localizedName="Support Left 4"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="supportleft5" localizedName="Support Left 5"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="palm" localizedName="Palm"/>
+        <model file="powersuits:models/item/powerfist/powerfist.obj" localizedName="PowerFist" textures="powersuits:models/tool2">
+            <binding slot="mainhand" target="RightHand">
+                <part partName="mainarm"/>
+                <part partName="armorright"/>
+                <part partName="armorleft"/>
+                <part partName="wristtopright"/>
+                <part partName="wristtopleft"/>
+                <part partName="wristbottomright"/>
+                <part partName="wristbottomleft"/>
+                <part partName="fingerguard"/>
+                <part partName="crystalholder"/>
+                <part defaultglow="true" partName="crystal"/>
+                <part partName="supportright1"/>
+                <part partName="supportright2"/>
+                <part partName="supportright3"/>
+                <part partName="supportright4"/>
+                <part partName="supportright5"/>
+                <part partName="supportbaseright"/>
+                <part partName="supportrightfront"/>
+                <part partName="supportbaseleft"/>
+                <part partName="supportleftfront"/>
+                <part partName="supportleft1"/>
+                <part partName="supportleft2"/>
+                <part partName="supportleft3"/>
+                <part partName="supportleft4"/>
+                <part partName="supportleft5"/>
+                <part partName="palm"/>
             </binding>
             <binding slot="mainhand" target="RightHand" itemState="normal">
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="index1_normal" localizedName="Index 1"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="index2_normal" localizedName="Index 2"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="middlefinger1_normal" localizedName="Middle Finger 1"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="middlefinger2_normal" localizedName="Middle Finger 2"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="ringfinger1_normal" localizedName="Ring Finger 1"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="ringfinger2_normal" localizedName="Ring Finger 2"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="pinky1_normal" localizedName="Pinky 1"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="pinky2_normal" localizedName="Pinky 2"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="thumb1_normal" localizedName="Thumb 1"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="thumb2_normal" localizedName="Thumb 2"/>
+                <part partName="index1_normal"/>
+                <part partName="index2_normal"/>
+                <part partName="middlefinger1_normal"/>
+                <part partName="middlefinger2_normal"/>
+                <part partName="ringfinger1_normal"/>
+                <part partName="ringfinger2_normal"/>
+                <part partName="pinky1_normal"/>
+                <part partName="pinky2_normal"/>
+                <part partName="thumb1_normal"/>
+                <part partName="thumb2_normal"/>
             </binding>
             <binding slot="mainhand" target="RightHand" itemState="firing">
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="index1_firing" localizedName="Index 1"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="index2_firing" localizedName="Index 2"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="middlefinger1_firing" localizedName="Middle Finger 1"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="middlefinger2_firing" localizedName="Middle Finger 2"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="ringfinger1_firing" localizedName="Ring Finger 1"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="ringfinger2_firing" localizedName="Ring Finger 2"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="pinky1_firing" localizedName="Pinky 1"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="pinky2_firing" localizedName="Pinky 2"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="thumb1_firing" localizedName="Thumb 1"/>
-                <part defaultcolor="FFFFFF" defaultglow="false" defaultVisible="true" partName="thumb2_firing" localizedName="Thumb 2"/>
+                <part partName="index1_firing"/>
+                <part partName="index2_firing"/>
+                <part partName="middlefinger1_firing"/>
+                <part partName="middlefinger2_firing"/>
+                <part partName="ringfinger1_firing"/>
+                <part partName="ringfinger2_firing"/>
+                <part partName="pinky1_firing"/>
+                <part partName="pinky2_firing"/>
+                <part partName="thumb1_firing"/>
+                <part partName="thumb2_firing"/>
             </binding>
         </model>
     </models>

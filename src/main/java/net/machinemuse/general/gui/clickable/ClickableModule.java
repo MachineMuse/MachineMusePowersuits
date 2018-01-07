@@ -10,6 +10,8 @@ import net.machinemuse.utils.MuseStringUtils;
 import net.machinemuse.utils.render.GuiIcons;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.resources.I18n;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ import java.util.List;
  *
  * Ported to Java by lehjr on 10/19/16.
  */
+@SideOnly(Side.CLIENT)
 public class ClickableModule extends Clickable {
     boolean allowed = true;
     boolean installed = false;

@@ -57,9 +57,10 @@ public class ModelHelper {
     }
 
     public static IModel getIModel(ResourceLocation location, int attempt) {
-        // powersuits:models/item/armor/mps_helm.obj
-        // powersuits:models/item/armor/mps_helm.obj
+        String domain = location.getResourceDomain();
+        String resourePath = location.getResourcePath().replaceFirst("^models/models", "models");
 
+        location = new ResourceLocation(domain, resourePath);
         IModel model;
         try {
             model = ModelLoaderRegistry.getModel(location);
@@ -79,6 +80,10 @@ public class ModelHelper {
     }
 
     public static IModel getOBJModel(ResourceLocation location, int attempt) {
+        String domain = location.getResourceDomain();
+        String resourePath = location.getResourcePath().replaceFirst("^models/models", "models");
+
+        location = new ResourceLocation(domain, resourePath);
         IModel model;
         try {
             model = OBJLoader.INSTANCE.loadModel(location);
@@ -86,7 +91,7 @@ public class ModelHelper {
         } catch (Exception e) {
             model = ModelLoaderRegistry.getMissingModel();
             if (attempt < 6) {
-                getIModel(location, attempt + 1);
+                getOBJModel(location, attempt + 1);
                 MuseLogger.logError("Model loading failed on attempt #" + attempt + "  :( " + location.toString());
             } else
                 return model;

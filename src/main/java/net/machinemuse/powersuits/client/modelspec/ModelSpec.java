@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.client.modelspec;
 
 import com.google.common.base.Objects;
 import net.machinemuse.powersuits.client.models.obj.OBJModelPlus;
+import net.minecraft.client.resources.I18n;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -15,6 +16,14 @@ public class ModelSpec extends Spec {
     public ModelSpec(OBJModelPlus.OBJBakedModelPus model, String name, boolean isDefault, EnumSpecType specType) {
         super(name, isDefault, specType);
         this.model = model;
+    }
+
+    @Override
+    public String getDisaplayName() {
+        return I18n.format(new StringBuilder("model.")
+                .append(this.getOwnName())
+                .append(".modelName")
+                .toString());
     }
 
     public OBJModelPlus.OBJBakedModelPus getModel() {

@@ -8,7 +8,7 @@ import net.machinemuse.general.sound.SoundDictionary;
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.common.NuminaSettings;
 import net.machinemuse.powersuits.client.control.PlayerInputMap;
-import net.machinemuse.powersuits.client.events.MuseIcon;
+import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.items.ItemComponent;
 import net.machinemuse.powersuits.common.items.modules.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;

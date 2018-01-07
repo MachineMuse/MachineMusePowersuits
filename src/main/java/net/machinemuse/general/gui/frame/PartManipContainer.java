@@ -6,6 +6,8 @@ import net.machinemuse.numina.geometry.MuseRelativeRect;
 import net.machinemuse.powersuits.client.modelspec.ModelRegistry;
 import net.machinemuse.powersuits.client.modelspec.Spec;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nullable;
@@ -20,6 +22,7 @@ import java.util.Objects;
  *
  * Ported to Java by lehjr on 11/9/16.
  */
+@SideOnly(Side.CLIENT)
 public class PartManipContainer extends ScrollableFrame {
     public ItemSelectionFrame itemSelect;
     public ColourPickerFrame colourSelect;
@@ -28,7 +31,7 @@ public class PartManipContainer extends ScrollableFrame {
     public Integer lastItemSlot;
     public int lastColour;
     public int lastColourIndex;
-    public List<PartManipSubFrame> modelframes = new ArrayList<>();
+    public List<PartManipSubFrame> modelframes;
 
     public PartManipContainer(ItemSelectionFrame itemSelect,
                               ColourPickerFrame colourSelect,

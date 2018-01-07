@@ -7,7 +7,7 @@ import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableList;
 import net.machinemuse.powersuits.client.helpers.ColoredQuadHelperThingie;
 import net.machinemuse.powersuits.client.helpers.EnumColour;
-import net.machinemuse.powersuits.common.blocks.BlockLuxCapacitor;
+import net.machinemuse.powersuits.common.block.BlockLuxCapacitor;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.util.EnumFacing;
@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 import static net.machinemuse.powersuits.common.MPSConstants.RESOURCE_PREFIX;
-import static net.machinemuse.powersuits.common.blocks.BlockLuxCapacitor.FACING;
+import static net.machinemuse.powersuits.common.block.BlockLuxCapacitor.FACING;
 
 @SideOnly(Side.CLIENT)
 public class ModelLuxCapacitorHelper {

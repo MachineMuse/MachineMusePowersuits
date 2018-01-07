@@ -4,12 +4,15 @@ import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.DrawableMuseRect;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.utils.render.MuseRenderer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
 /**
  * @author MachineMuse
  */
+@SideOnly(Side.CLIENT)
 public class ClickableButton extends Clickable {
     protected String label;
     protected MusePoint2D radius;
@@ -31,13 +34,6 @@ public class ClickableButton extends Clickable {
         this.setEnabled(enabled);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * machinemuse_old.powersuits.gui.Clickable#draw(net.minecraft.client.renderer
-     * .RenderEngine, machinemuse_old.powersuits.gui.MuseGui)
-     */
     @Override
     public void draw() {
         Colour topcolour;
@@ -59,12 +55,6 @@ public class ClickableButton extends Clickable {
         MuseRenderer.drawCenteredString(this.label, position.x(), position.y() - 4);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see machinemuse_old.powersuits.gui.Clickable#hitBox(int, int,
-     * machinemuse_old.powersuits.gui.MuseGui)
-     */
     @Override
     public boolean hitBox(double x, double y) {
         boolean hitx = Math.abs(position.x() - x) < radius.x();
@@ -72,11 +62,6 @@ public class ClickableButton extends Clickable {
         return hitx && hity;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see machinemuse_old.powersuits.gui.Clickable#getToolTip()
-     */
     @Override
     public List<String> getToolTip() {
         return null;

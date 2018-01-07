@@ -11,10 +11,13 @@ import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@SideOnly(Side.CLIENT)
 public class RadialSelectionFrame implements IGuiFrame {
     protected List<ClickableModule> modeButtons = new ArrayList<>();
     protected final long spawnTime;

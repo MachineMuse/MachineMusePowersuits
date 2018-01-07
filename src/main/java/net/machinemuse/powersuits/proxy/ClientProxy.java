@@ -1,9 +1,9 @@
 package net.machinemuse.powersuits.proxy;
 
-import net.machinemuse.powersuits.client.events.EventRegisterRenderers;
-import net.machinemuse.powersuits.client.events.ModelBakeEventHandler;
-import net.machinemuse.powersuits.client.events.MuseIcon;
-import net.machinemuse.powersuits.client.events.RenderEventHandler;
+import net.machinemuse.powersuits.client.event.EventRegisterRenderers;
+import net.machinemuse.powersuits.client.event.ModelBakeEventHandler;
+import net.machinemuse.powersuits.client.event.MuseIcon;
+import net.machinemuse.powersuits.client.event.RenderEventHandler;
 import net.machinemuse.powersuits.client.models.obj.OBJPlusLoader;
 import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
