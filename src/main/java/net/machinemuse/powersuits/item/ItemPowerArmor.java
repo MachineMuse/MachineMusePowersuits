@@ -57,19 +57,8 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
     public ISpecialArmor.ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
         int priority = 0;
-        Label_0057:
-        {
-            if (source.isFireDamage()) {
-                DamageSource overheatDamage = MuseHeatUtils.overheatDamage;
-                if (source == null) {
-                    if (overheatDamage == null) {
-                        break Label_0057;
-                    }
-                } else if (source.equals(overheatDamage)) {
-                    break Label_0057;
-                }
-                return new ISpecialArmor.ArmorProperties(priority, 0.25, (int) (25 * damage));
-            }
+        if (source.isFireDamage() && !(source == MuseHeatUtils.overheatDamage)) {
+            return new ISpecialArmor.ArmorProperties(priority, 0.25, (int) (25 * damage));
         }
         if (ModuleManager.itemHasModule(armor, "Radiation Shielding") && (source.damageType.equals("electricity") || source.damageType.equals("radiation"))) {
             return new ISpecialArmor.ArmorProperties(priority, 0.25, (int) (25 * damage));
