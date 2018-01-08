@@ -102,13 +102,10 @@ public class ClientProxy extends CommonProxy {
             }
         }
 
-        // TODO, eliminate as much TESR dependency as possible.
         regRenderer(Item.getItemFromBlock(MPSItems.tinkerTable));
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(MPSItems.tinkerTable), 0, TileEntityTinkerTable.class);
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(MPSItems.luxCapacitor), 0, LuxCapModelHelper.getInstance().luxCapItemLocation);
 
-//        // TODO: model testing block. Not a permanent addition
-//        regRenderer(Item.getItemFromBlock(MPSItems.testBlock));
         RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, EntityRendererSpinningBlade::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, EntityRendererPlasmaBolt::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityLuxCapacitor.class, EntityRendererLuxCapacitorEntity::new);
@@ -117,7 +114,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void sendModeChange(int dMode, String newMode) {
         EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
-//        RenderGameOverlayEventHandler.updateSwap((int) Math.signum(dMode));
         MusePacket modeChangePacket = new MusePacketModeChangeRequest(player, newMode, player.inventory.currentItem);
         PacketSender.sendToServer(modeChangePacket);
     }

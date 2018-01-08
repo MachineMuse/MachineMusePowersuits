@@ -34,9 +34,9 @@ public class MuseHeatUtils {
     }
 
     public static void coolPlayer(EntityPlayer player, double coolDegrees) {
+        coolDegrees = coolDegrees * 0.25;
         List<ItemStack> items = MuseItemUtils.getModularItemsInInventory(player);
         if (player.isHandActive()) {
-//        if (player.isUsingItem()) {
             items.remove(player.inventory.getCurrentItem());
         }
         for (ItemStack stack : items) {
@@ -58,7 +58,6 @@ public class MuseHeatUtils {
     public static void heatPlayer(EntityPlayer player, double heatDegrees) {
         List<ItemStack> items = MuseItemUtils.getModularItemsInInventory(player);
         if (player.isHandActive()) {
-//        if (player.isUsingItem()) {
             items.remove(player.inventory.getCurrentItem());
         }
         for (ItemStack stack : items) {

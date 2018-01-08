@@ -15,7 +15,7 @@ import java.io.File;
  */
 public final class NuminaConfig {
     static boolean hasWarned = false;
-    static Configuration config = null;
+    public static Configuration config = null;
 
     public static void init(final FMLPreInitializationEvent event) {
         if (config == null) {

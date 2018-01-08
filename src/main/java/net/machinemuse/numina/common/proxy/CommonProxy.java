@@ -24,10 +24,6 @@ public class CommonProxy {
         File recipesFolder = new File(Numina.getInstance().configDir, "machinemuse/recipes");
         recipesFolder.mkdirs();
         recipesFolder.mkdir();
-        //MinecraftForge.EVENT_BUS.register(PlayerTickHandler)
-        //    MinecraftForge.EVENT_BUS.register(DeathEventHandler)
-        //    NetworkRegistry.instance.registerGuiHandler(Numina.getInstance(), NuminaGuiHandler);
-
     }
 
     public void init(FMLInitializationEvent event) {

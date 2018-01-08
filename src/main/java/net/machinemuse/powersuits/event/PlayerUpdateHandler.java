@@ -32,6 +32,7 @@ public class PlayerUpdateHandler {
             List<ItemStack> modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player);
             double totalWeight = MuseItemUtils.getPlayerWeight(player);
             double weightCapacity = Config.getWeightCapacity();
+
             for (ItemStack stack : modularItemsEquipped) {
                 if (stack.getTagCompound().hasKey("ench")) {
                     stack.getTagCompound().removeTag("ench");
@@ -64,6 +65,8 @@ public class PlayerUpdateHandler {
                     player.motionX *= weightCapacity / totalWeight;
                     player.motionZ *= weightCapacity / totalWeight;
                 }
+
+                // Heat update
                 MuseHeatUtils.coolPlayer(player, MusePlayerUtils.getPlayerCoolingBasedOnMaterial(player));
                 double maxHeat = MuseHeatUtils.getMaxHeat(player);
                 double currHeat = MuseHeatUtils.getPlayerHeat(player);
@@ -73,6 +76,8 @@ public class PlayerUpdateHandler {
                 } else {
                     player.extinguish();
                 }
+
+                // Sound update
                 double velsq2 = MuseMathUtils.sumsq(player.motionX, player.motionY, player.motionZ) - 0.5;
                 if (player.worldObj.isRemote && NuminaConfig.useSounds()) {
                     if (player.isAirBorne && velsq2 > 0) {

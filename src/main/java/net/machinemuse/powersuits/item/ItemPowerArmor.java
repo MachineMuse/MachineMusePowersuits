@@ -57,7 +57,8 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
     public ISpecialArmor.ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
         int priority = 0;
-        if (source.isFireDamage() && !(source == MuseHeatUtils.overheatDamage)) {
+        // Fire damage is just heat based damage like fire or lava
+        if (source.isFireDamage() && !(source.equals(MuseHeatUtils.overheatDamage))) {
             return new ISpecialArmor.ArmorProperties(priority, 0.25, (int) (25 * damage));
         }
         if (ModuleManager.itemHasModule(armor, "Radiation Shielding") && (source.damageType.equals("electricity") || source.damageType.equals("radiation"))) {
@@ -137,7 +138,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
             ((IArmorModel) model).setVisibleSection(armorSlot);
             if (itemStackArmor != null) {
                 if (entityLiving instanceof EntityPlayer) {
-                    ItemStack armorChest = ((EntityPlayer) entityLiving).getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+                    ItemStack armorChest = entityLiving.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
                     if (armorChest != null) {
                         if (armorChest.getItem() instanceof ItemPowerArmor)
                             if (ModuleManager.itemHasActiveModule(armorChest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE))
@@ -150,7 +151,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
                 }
                 ((IArmorModel) model).setRenderSpec(MuseItemUtils.getMuseRenderTag(itemStackArmor, armorSlot));
             }
-            return (ModelBiped) model;
+            return model;
         }
         return _default;
     }
@@ -214,19 +215,19 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
             } else if (source.equals(overheatDamage)) {
                 return;
             }
+
+            // isFireDamage includes heat related damage sources such as lava
             if (source.isFireDamage()) {
                 EntityPlayer player = (EntityPlayer) entity;
-                if (!source.equals(DamageSource.onFire) || MuseHeatUtils.getPlayerHeat(player) < MuseHeatUtils.getMaxHeat(player)) {
+                if (!source.equals(DamageSource.onFire) || MuseHeatUtils.getPlayerHeat(player) < MuseHeatUtils.getMaxHeat(player))
                     MuseHeatUtils.heatPlayer(player, damage);
-                }
             } else {
                 double enerConsum = ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION);
                 double drain = enerConsum * damage;
-                if (entity instanceof EntityPlayer) {
+                if (entity instanceof EntityPlayer)
                     ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entity, drain);
-                } else {
+                else
                     this.drainMPSEnergyFrom(stack, drain);
-                }
             }
         }
     }

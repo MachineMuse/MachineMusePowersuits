@@ -221,27 +221,6 @@ public class ModelHelper {
         }
     }
 
-
-
-
-
-
-
-//
-//    public static BakedQuad getRetexturedQuad(BakedQuad quadIn, TextureAtlasSprite spriteIn) {
-//        spriteIn = (spriteIn != null) ? spriteIn : quadIn.getSprite();
-//        TextureAtlasSprite newSprite = Minecraft.getMinecraft().getTextureMapBlocks().registerSprite( new ResourceLocation(spriteIn.getIconName()));
-//        return new BakedQuadRetextured(quadIn, spriteIn);
-//    }
-//
-//    public static List<BakedQuad> getRetexturedQuadList(List<BakedQuad> quadsIn, TextureAtlasSprite spriteIn){
-//        List<BakedQuad> quadsOut = new ArrayList<>();
-//        for (BakedQuad quad: quadsIn) {
-//            quadsOut.add(getRetexturedQuad(quad, spriteIn));
-//        }
-//        return quadsOut;
-//    }
-
     /*
       * This is a slightly modified version of Forge's example (@author shadekiller666) for the Tesseract model.
       * With this we can generate an extended blockstate to get the quads of any group in a model without

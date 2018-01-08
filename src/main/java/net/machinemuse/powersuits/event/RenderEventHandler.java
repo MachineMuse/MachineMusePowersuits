@@ -29,6 +29,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import static net.machinemuse.powersuits.powermodule.misc.BinocularsModule.BINOCULARS_MODULE;
+
 /**
  * Ported to Java by lehjr on 10/24/16.
  */
@@ -86,7 +88,7 @@ public class RenderEventHandler {
     @SubscribeEvent
     public void onFOVUpdate(FOVUpdateEvent e) {
         ItemStack helmet = e.getEntity().getItemStackFromSlot(EntityEquipmentSlot.HEAD);
-        if (ModuleManager.itemHasActiveModule(helmet, "Binoculars")) {
+        if (ModuleManager.itemHasActiveModule(helmet, BINOCULARS_MODULE)) {
             e.setNewfov(e.getNewfov() / (float)ModuleManager.computeModularProperty(helmet, BinocularsModule.FOV_MULTIPLIER));
         }
     }
@@ -95,7 +97,7 @@ public class RenderEventHandler {
     @SubscribeEvent
     public void onPostRenderGameOverlayEvent(RenderGameOverlayEvent.Post e) {
         RenderGameOverlayEvent.ElementType elementType = e.getType();
-        if (RenderGameOverlayEvent.ElementType.HOTBAR.equals((Object)elementType)) {
+        if (RenderGameOverlayEvent.ElementType.HOTBAR.equals(elementType)) {
             this.drawKeybindToggles();
         }
     }

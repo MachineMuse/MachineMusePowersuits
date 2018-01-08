@@ -8,7 +8,6 @@ import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.powermodule.movement.FlightControlModule;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -323,19 +322,21 @@ public class MusePlayerUtils {
     }
 
     public static double getPlayerCoolingBasedOnMaterial(EntityPlayer player) {
-        double cool = 0;
-        if (player.isInWater()) {
-            cool += 0.5;
-        } else if (player.isInsideOfMaterial(Material.LAVA)) {
+        if (player.isInLava())
             return 0;
-        }
-        cool += ((2.0 - getBiome(player).getFloatTemperature(new BlockPos((int)player.posX, (int)player.posY, (int)player.posZ))/2)); // Algorithm that returns a value from 0.0 -> 1.0. Biome temperature is from 0.0 -> 2.0
-        if ((int)player.posY > 128) { // If high in the air, increase cooling
+
+        double cool = ((2.0 - getBiome(player).getFloatTemperature(new BlockPos((int)player.posX, (int)player.posY, (int)player.posZ))/2)); // Algorithm that returns a value from 0.0 -> 1.0. Biome temperature is from 0.0 -> 2.0
+        if (player.isInWater())
             cool += 0.5;
-        }
+
+        // If high in the air, increase cooling
+        if ((int)player.posY > 128)
+            cool += 0.5;
+
         if (!player.worldObj.isDaytime() && "Desert".equals(getBiome(player).getBiomeName())) { // If nighttime and in the desert, increase cooling
             cool += 0.8;
         }
+
         if (player.worldObj.isRaining()) {
             cool += 0.2;
         }
