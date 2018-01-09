@@ -53,7 +53,16 @@ public class CommonProxy {
         Config.getWeightCapacity();
         Config.keybindHUDon();
         Config.keybindHUDx();
+        Config.keybindHUDy();
         Config.toggleModuleSpam();
+        Config.useAdvancedOreScannerMessage();
+        Config.useOldAutoFeeder();
+        Config.useCheatyLeatherRecipe();
+        Config.useHUDStuff();
+        Config.use24hClock();
+        Config.fontDetail();
+        Config.fontURI();
+        Config.fontName();
         EntityRegistry.registerModEntity(EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, ModularPowersuits.getInstance(), 64, 20, true);
         EntityRegistry.registerModEntity(EntitySpinningBlade.class, "entitySpinningBlade", 2478, ModularPowersuits.getInstance(), 64, 20, true);
         EntityRegistry.registerModEntity(EntityLuxCapacitor.class, "entityLuxCapacitor", 2479, ModularPowersuits.getInstance(), 64, 20, true);

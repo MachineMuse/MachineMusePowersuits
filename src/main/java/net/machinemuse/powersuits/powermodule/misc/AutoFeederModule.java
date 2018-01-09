@@ -16,7 +16,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.FoodStats;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -52,74 +55,105 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
+        double foodLevel = MuseItemUtils.getFoodLevel(item);
+        double saturationLevel = MuseItemUtils.getSaturationLevel(item);
+        IInventory inv = player.inventory;
+        double eatingEnergyConsumption = ModuleManager.computeModularProperty(item, EATING_ENERGY_CONSUMPTION);
+        double efficiency = ModuleManager.computeModularProperty(item, EATING_EFFICIENCY);
+
+        FoodStats foodStats = player.getFoodStats();
+        int foodNeeded = 20 - foodStats.getFoodLevel();
+        float saturationNeeded = 20 - foodStats.getSaturationLevel();
+
+        // this consumes all food in the player's inventory and stores the stats in a buffer
         if (Config.useOldAutoFeeder()) {
-            IInventory inv = player.inventory;
-            double foodLevel = MuseItemUtils.getFoodLevel(item);
-            double saturationLevel = MuseItemUtils.getSaturationLevel(item);
-            double efficiency = ModuleManager.computeModularProperty(item, EATING_EFFICIENCY);
             for (int i = 0; i < inv.getSizeInventory(); i++) {
                 ItemStack stack = inv.getStackInSlot(i);
                 if (stack != null && stack.getItem() instanceof ItemFood) {
                     ItemFood food = (ItemFood) stack.getItem();
                     for (int a = 0; a < stack.stackSize; a++) {
-                        foodLevel += food.getHealAmount(stack);
-                        saturationLevel += food.getSaturationModifier(stack);
+                        foodLevel += food.getHealAmount(stack) * efficiency / 100.0;
+                        //  copied this from FoodStats.addStats()
+                        saturationLevel += Math.min(food.getHealAmount(stack) * food.getSaturationModifier(stack) * 2.0F, 20F) * efficiency / 100.0;
                     }
-                    foodLevel = foodLevel * efficiency / 100.0;
-                    saturationLevel = saturationLevel * efficiency / 100.0;
-                    MuseItemUtils.setFoodLevel(item, foodLevel);
-                    MuseItemUtils.setSaturationLevel(item, saturationLevel);
                     player.inventory.setInventorySlotContents(i, null);
                 }
             }
-            double eatingEnergyConsumption = ModuleManager.computeModularProperty(item, EATING_ENERGY_CONSUMPTION);
-            FoodStats foodStats = player.getFoodStats();
-            int foodNeeded = 20 - foodStats.getFoodLevel();
-            if (foodNeeded > 0 && (eatingEnergyConsumption * foodNeeded < ElectricItemUtils.getPlayerEnergy(player)) && MuseItemUtils.getFoodLevel(item) > foodNeeded) {
-                if (MuseItemUtils.getSaturationLevel(item) >= 1.0F) {
-                    foodStats.addStats(foodNeeded, 1.0F);
-                    MuseItemUtils.setSaturationLevel(item, MuseItemUtils.getSaturationLevel(item) - 1.0F);
-                } else {
-                    foodStats.addStats(foodNeeded, 0.0F);
-                }
-                MuseItemUtils.setFoodLevel(item, MuseItemUtils.getFoodLevel(item) - foodNeeded);
-                ElectricItemUtils.drainPlayerEnergy(player, eatingEnergyConsumption * foodNeeded);
-            }
+            MuseItemUtils.setFoodLevel(item, foodLevel);
+            MuseItemUtils.setSaturationLevel(item, saturationLevel);
+
         } else {
-            double totalEnergy = ElectricItemUtils.getPlayerEnergy(player);
-            IInventory inv = player.inventory;
-            double foodLevel = MuseItemUtils.getFoodLevel(item);
-            double saturationLevel = MuseItemUtils.getSaturationLevel(item);
-            double efficiency = ModuleManager.computeModularProperty(item, EATING_EFFICIENCY);
-            FoodStats foodStats = player.getFoodStats();
-            int foodNeeded = 20 - foodStats.getFoodLevel();
-            for (int i = 0; i < inv.getSizeInventory() && foodNeeded > foodLevel; i++) {
+            for (int i = 0; i < inv.getSizeInventory(); i++) {
+                // FIXME: comparing mixed primitive types?!? ...
+                if (foodNeeded < foodLevel && saturationNeeded < saturationLevel)
+                    break;
+
                 ItemStack stack = inv.getStackInSlot(i);
                 if (stack != null && stack.getItem() instanceof ItemFood) {
                     ItemFood food = (ItemFood) stack.getItem();
-                    for (; stack.stackSize > 0 && foodNeeded > foodLevel; stack.stackSize--) {
+                    for (; stack.stackSize > 0 && foodNeeded > foodLevel && saturationNeeded > saturationLevel; stack.stackSize--) {
                         foodLevel += food.getHealAmount(stack) * efficiency / 100.0;
-                        saturationLevel += food.getSaturationModifier(stack) * efficiency / 100.0;
+                        //  copied this from FoodStats.addStats()
+                        saturationLevel += Math.min(food.getHealAmount(stack) * food.getSaturationModifier(stack) * 2.0F, 20F) * efficiency / 100.0;
                     }
                     if (stack.stackSize == 0) {
                         player.inventory.setInventorySlotContents(i, null);
                     }
                 }
             }
-            double eatingEnergyConsumption = foodNeeded * ModuleManager.computeModularProperty(item, EATING_ENERGY_CONSUMPTION);
-            int foodConsumed = (int) Math.min(foodNeeded, Math.min(foodLevel, eatingEnergyConsumption * totalEnergy));
-            if (foodConsumed > 0) {
-                if (saturationLevel >= 1.0F) {
-                    foodStats.addStats(foodConsumed, 1.0F);
-                    saturationLevel -= 1.0F;
-                } else {
-                    foodStats.addStats(foodConsumed, 0.0F);
-                }
-                foodLevel -= foodConsumed;
-                ElectricItemUtils.drainPlayerEnergy(player, eatingEnergyConsumption * foodConsumed);
-            }
             MuseItemUtils.setFoodLevel(item, foodLevel);
             MuseItemUtils.setSaturationLevel(item, saturationLevel);
+        }
+
+        NBTTagCompound foodStatNBT = new NBTTagCompound();
+        // if player has enough power to even use this once
+
+        if (foodNeeded > 0 && MuseItemUtils.getFoodLevel(item) >= 1) {
+            int foodUsed = 0;
+            if (MuseItemUtils.getFoodLevel(item) >= foodNeeded && foodNeeded * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
+                foodUsed = foodNeeded;
+            } else if (foodNeeded - MuseItemUtils.getFoodLevel(item) * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
+                foodUsed = foodNeeded - (int)MuseItemUtils.getFoodLevel(item);
+            } else if (eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player) && MuseItemUtils.getFoodLevel(item) >= 1) {
+                foodUsed = 1;
+            }
+
+            if (foodUsed > 0) {
+                // populate the tag with the nbt data
+                foodStats.writeNBT(foodStatNBT);
+                foodStatNBT.setInteger("foodLevel",
+                        foodStatNBT.getInteger("foodLevel") + foodUsed);
+                // put the values back into foodstats
+                foodStats.readNBT(foodStatNBT);
+                // update value stored in buffer
+                MuseItemUtils.setFoodLevel(item, MuseItemUtils.getFoodLevel(item) - foodUsed);
+                // split the cost between using food and using saturation
+                ElectricItemUtils.drainPlayerEnergy(player, eatingEnergyConsumption * 0.5 * foodUsed);
+            }
+        }
+
+        if (saturationNeeded >= 1.0F) {
+            // using int for better precision
+            int saturationUsed = 0;
+            if (MuseItemUtils.getSaturationLevel(item) >= saturationNeeded && saturationNeeded * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
+                saturationUsed = (int) saturationNeeded;
+            } else if (saturationNeeded - MuseItemUtils.getSaturationLevel(item) * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
+                saturationUsed = (int)saturationNeeded - (int) MuseItemUtils.getSaturationLevel(item);
+            } else if (eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player) && MuseItemUtils.getFoodLevel(item) >= 1) {
+                saturationUsed = 1;
+            }
+
+            if (saturationUsed > 0) {
+                // populate the tag with the nbt data
+                foodStats.writeNBT(foodStatNBT);
+                foodStatNBT.setFloat("foodSaturationLevel", foodStatNBT.getFloat("foodSaturationLevel") + saturationUsed);
+                // put the values back into foodstats
+                foodStats.readNBT(foodStatNBT);
+                // update value stored in buffer
+                MuseItemUtils.setFoodLevel(item, MuseItemUtils.getSaturationLevel(item) - saturationUsed);
+                // split the cost between using food and using saturation
+                ElectricItemUtils.drainPlayerEnergy(player, eatingEnergyConsumption * 0.5 * saturationUsed);
+            }
         }
     }
 
@@ -127,6 +161,7 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.autoFeeder;

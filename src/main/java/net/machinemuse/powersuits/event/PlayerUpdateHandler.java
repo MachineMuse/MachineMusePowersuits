@@ -10,8 +10,11 @@ import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MusePlayerUtils;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -34,8 +37,25 @@ public class PlayerUpdateHandler {
             double weightCapacity = Config.getWeightCapacity();
 
             for (ItemStack stack : modularItemsEquipped) {
-                if (stack.getTagCompound().hasKey("ench")) {
-                    stack.getTagCompound().removeTag("ench");
+                // Temporary Advanced Rocketry hack Not the best way but meh.
+                NBTTagList tagList = stack.getEnchantmentTagList();
+                if (tagList != null && !tagList.hasNoTags()) {
+                    if (tagList.tagCount() == 1) {
+                        if (!(tagList.getCompoundTagAt(0).getShort("id") == 128))
+                            stack.getTagCompound().removeTag("ench");
+                    } else {
+                        NBTTagCompound ar = null;
+                        for (int i = 0; i < tagList.tagCount(); i++) {
+                            NBTTagCompound nbtTag = tagList.getCompoundTagAt(i);
+                            if ((nbtTag.getShort("id") == 128)) {
+                                ar = nbtTag;
+                            }
+                        }
+                        stack.getTagCompound().removeTag("ench");
+                        if (ar != null) {
+                            stack.getTagCompound().setTag("ench", ar);
+                        }
+                    }
                 }
             }
 
