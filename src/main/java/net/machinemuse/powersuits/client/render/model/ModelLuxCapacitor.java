@@ -11,6 +11,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
@@ -20,6 +22,7 @@ import java.util.List;
 /**
  * Ported to Java by lehjr on 12/27/16.
  */
+@SideOnly(Side.CLIENT)
 public class ModelLuxCapacitor implements IBakedModel, IPerspectiveAwareModel {
     private static final LuxCapModelHelper modelHelper = LuxCapModelHelper.getInstance();
     private static IBakedModel baseFrameModel; // used mainly for the Item model

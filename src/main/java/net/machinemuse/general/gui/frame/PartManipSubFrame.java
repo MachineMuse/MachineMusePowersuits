@@ -109,7 +109,7 @@ public class PartManipSubFrame {
         else {
             NBTTagCompound k = new NBTTagCompound();
             spec.multiSet(k, null, null, null);
-            this.getRenderTag().setTag(name, (NBTBase)k);
+            this.getRenderTag().setTag(name, k);
             compoundTag = k;
         }
         return compoundTag;

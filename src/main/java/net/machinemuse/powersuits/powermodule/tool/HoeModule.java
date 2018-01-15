@@ -23,6 +23,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -70,8 +72,10 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
                                 switch (iblockstate.getValue(BlockDirt.VARIANT)) {
                                     case DIRT:
                                         this.setBlock(itemStack, playerIn, worldIn, newPos, Blocks.FARMLAND.getDefaultState());
+                                        break;
                                     case COARSE_DIRT:
                                         this.setBlock(itemStack, playerIn, worldIn, newPos, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
+                                        break;
                                 }
                             }
                         }
@@ -117,6 +121,7 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
         return "hoe";
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(new ItemStack(Items.GOLDEN_HOE)).getParticleTexture();
