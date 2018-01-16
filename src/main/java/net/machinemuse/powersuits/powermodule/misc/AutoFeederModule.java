@@ -115,10 +115,13 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
         //   saturation buffer drains completely.
         if (foodNeeded > 0 && MuseItemUtils.getFoodLevel(item) >= 1) {
             int foodUsed = 0;
+            // if buffer has enough to fill player stat
             if (MuseItemUtils.getFoodLevel(item) >= foodNeeded && foodNeeded * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
                 foodUsed = foodNeeded;
-            } else if (foodNeeded - MuseItemUtils.getFoodLevel(item) * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
-                foodUsed = foodNeeded - (int)MuseItemUtils.getFoodLevel(item);
+            // if buffer has some but not enough to fill the player stat
+            } else if ((foodNeeded - MuseItemUtils.getFoodLevel(item)) > 0  && MuseItemUtils.getFoodLevel(item) * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
+                foodUsed = (int)MuseItemUtils.getFoodLevel(item);
+            // last resort where using just 1 unit from buffer
             } else if (eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player) && MuseItemUtils.getFoodLevel(item) >= 1) {
                 foodUsed = 1;
             }
@@ -134,14 +137,16 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
                 // split the cost between using food and using saturation
                 ElectricItemUtils.drainPlayerEnergy(player, eatingEnergyConsumption * 0.5 * foodUsed);
 
-
                 if (saturationNeeded >= 1.0D) {
                     // using int for better precision
                     int saturationUsed = 0;
+                    // if buffer has enough to fill player stat
                     if (MuseItemUtils.getSaturationLevel(item) >= saturationNeeded && saturationNeeded * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
                         saturationUsed = (int) saturationNeeded;
-                    } else if (saturationNeeded - MuseItemUtils.getSaturationLevel(item) * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
-                        saturationUsed = (int)saturationNeeded - (int) MuseItemUtils.getSaturationLevel(item);
+                    // if buffer has some but not enough to fill the player stat
+                    } else if ((saturationNeeded - MuseItemUtils.getSaturationLevel(item)) > 0  && MuseItemUtils.getSaturationLevel(item) * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
+                        saturationUsed = (int) MuseItemUtils.getSaturationLevel(item);
+                    // last resort where using just 1 unit from buffer
                     } else if (eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player) && MuseItemUtils.getSaturationLevel(item) >= 1) {
                         saturationUsed = 1;
                     }
