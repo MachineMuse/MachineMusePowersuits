@@ -84,13 +84,13 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
             MuseItemUtils.setSaturationLevel(item, saturationLevel);
         } else {
             for (int i = 0; i < inv.getSizeInventory(); i++) {
-                if (foodNeeded < foodLevel && saturationNeeded < saturationLevel)
+                if (foodNeeded < foodLevel)
                     break;
                 ItemStack stack = inv.getStackInSlot(i);
                 if (stack != null && stack.getItem() instanceof ItemFood) {
                     ItemFood food = (ItemFood) stack.getItem();
                     while (true) {
-                        if (foodNeeded > foodLevel || saturationNeeded > saturationLevel) {
+                        if (foodNeeded > foodLevel) {
                             foodLevel += food.getHealAmount(stack) * efficiency / 100.0;
                             //  copied this from FoodStats.addStats()
                             saturationLevel += Math.min(food.getHealAmount(stack) * (double)food.getSaturationModifier(stack) * 2.0D, 20D) * efficiency / 100.0;
@@ -110,8 +110,9 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
         }
 
         NBTTagCompound foodStatNBT = new NBTTagCompound();
-        // if player has enough power to even use this once
 
+        // only consume saturation if food is consumed. This keeps the food buffer from overloading with food while the
+        //   saturation buffer drains completely.
         if (foodNeeded > 0 && MuseItemUtils.getFoodLevel(item) >= 1) {
             int foodUsed = 0;
             if (MuseItemUtils.getFoodLevel(item) >= foodNeeded && foodNeeded * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
@@ -132,30 +133,31 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
                 MuseItemUtils.setFoodLevel(item, MuseItemUtils.getFoodLevel(item) - foodUsed);
                 // split the cost between using food and using saturation
                 ElectricItemUtils.drainPlayerEnergy(player, eatingEnergyConsumption * 0.5 * foodUsed);
-            }
-        }
 
-        if (saturationNeeded >= 1.0D) {
-            // using int for better precision
-            int saturationUsed = 0;
-            if (MuseItemUtils.getSaturationLevel(item) >= saturationNeeded && saturationNeeded * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
-                saturationUsed = (int) saturationNeeded;
-            } else if (saturationNeeded - MuseItemUtils.getSaturationLevel(item) * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
-                saturationUsed = (int)saturationNeeded - (int) MuseItemUtils.getSaturationLevel(item);
-            } else if (eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player) && MuseItemUtils.getSaturationLevel(item) >= 1) {
-                saturationUsed = 1;
-            }
 
-            if (saturationUsed > 0) {
-                // populate the tag with the nbt data
-                foodStats.writeNBT(foodStatNBT);
-                foodStatNBT.setFloat("foodSaturationLevel", foodStatNBT.getFloat("foodSaturationLevel") + saturationUsed);
-                // put the values back into foodstats
-                foodStats.readNBT(foodStatNBT);
-                // update value stored in buffer
-                MuseItemUtils.setSaturationLevel(item, MuseItemUtils.getSaturationLevel(item) - saturationUsed);
-                // split the cost between using food and using saturation
-                ElectricItemUtils.drainPlayerEnergy(player, eatingEnergyConsumption * 0.5 * saturationUsed);
+                if (saturationNeeded >= 1.0D) {
+                    // using int for better precision
+                    int saturationUsed = 0;
+                    if (MuseItemUtils.getSaturationLevel(item) >= saturationNeeded && saturationNeeded * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
+                        saturationUsed = (int) saturationNeeded;
+                    } else if (saturationNeeded - MuseItemUtils.getSaturationLevel(item) * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
+                        saturationUsed = (int)saturationNeeded - (int) MuseItemUtils.getSaturationLevel(item);
+                    } else if (eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player) && MuseItemUtils.getSaturationLevel(item) >= 1) {
+                        saturationUsed = 1;
+                    }
+
+                    if (saturationUsed > 0) {
+                        // populate the tag with the nbt data
+                        foodStats.writeNBT(foodStatNBT);
+                        foodStatNBT.setFloat("foodSaturationLevel", foodStatNBT.getFloat("foodSaturationLevel") + saturationUsed);
+                        // put the values back into foodstats
+                        foodStats.readNBT(foodStatNBT);
+                        // update value stored in buffer
+                        MuseItemUtils.setSaturationLevel(item, MuseItemUtils.getSaturationLevel(item) - saturationUsed);
+                        // split the cost between using food and using saturation
+                        ElectricItemUtils.drainPlayerEnergy(player, eatingEnergyConsumption * 0.5 * saturationUsed);
+                    }
+                }
             }
         }
     }
