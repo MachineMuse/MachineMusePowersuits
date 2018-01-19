@@ -18,13 +18,9 @@ public class MPSItems {
     public static Item powerArmorLegs;
     public static Item powerArmorFeet;
     public static Item powerTool;
+    public static Item components;
     public static Block tinkerTable;
     public static Block luxCapacitor;
-    public static Block testBlock;
-
-
-
-    public static Item components;
 
     public static void populateItems() {
         powerArmorHead = MPSRegistry.registerItem(new ItemPowerArmorHelmet(), "powerArmorHead", "powerArmorHelmet");

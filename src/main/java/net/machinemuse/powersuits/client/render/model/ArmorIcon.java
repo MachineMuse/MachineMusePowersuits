@@ -4,6 +4,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.powersuits.client.render.helpers.ModelHelper;
 import net.machinemuse.powersuits.item.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;

@@ -9,8 +9,8 @@ import net.machinemuse.powersuits.client.render.block.TinkerTableRenderer;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererLuxCapacitorEntity;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererPlasmaBolt;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererSpinningBlade;
-import net.machinemuse.powersuits.client.render.model.LuxCapModelHelper;
-import net.machinemuse.powersuits.client.render.model.MPSOBJLoader;
+import net.machinemuse.powersuits.client.render.model.ModelLuxCapacitor;
+import net.machinemuse.powersuits.client.render.model.obj.MPSOBJLoader;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.common.ModularPowersuits;
@@ -104,7 +104,7 @@ public class ClientProxy extends CommonProxy {
 
         regRenderer(Item.getItemFromBlock(MPSItems.tinkerTable));
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(MPSItems.tinkerTable), 0, TileEntityTinkerTable.class);
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(MPSItems.luxCapacitor), 0, LuxCapModelHelper.getInstance().luxCapItemLocation);
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(MPSItems.luxCapacitor), 0, ModelLuxCapacitor.modelResourceLocation);
 
         RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, EntityRendererSpinningBlade::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, EntityRendererPlasmaBolt::new);

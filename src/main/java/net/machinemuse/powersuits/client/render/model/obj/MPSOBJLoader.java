@@ -16,8 +16,9 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-package net.machinemuse.powersuits.client.render.model;
+package net.machinemuse.powersuits.client.render.model.obj;
 
+import net.machinemuse.numina.general.MuseLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
@@ -25,7 +26,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ICustomModelLoader;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -49,8 +49,8 @@ public enum MPSOBJLoader implements ICustomModelLoader {
 
     private IResourceManager manager;
     private final Set<String> enabledDomains = new HashSet<String>();
-    private final Map<ResourceLocation, OBJModel> cache = new HashMap<ResourceLocation, OBJModel>();
-    private final Map<ResourceLocation, Exception> errors = new HashMap<ResourceLocation, Exception>();
+    private final Map<ResourceLocation, OBJModelPlus> cache = new HashMap<>();
+    private final Map<ResourceLocation, Exception> errors = new HashMap<>();
 
     public void addDomain(String domain) {
         enabledDomains.add(domain.toLowerCase());
@@ -64,30 +64,35 @@ public enum MPSOBJLoader implements ICustomModelLoader {
     @Nullable
     private IModel loadModelWithoutCaching(ResourceLocation modelLocation) throws Exception {
         ResourceLocation file = new ResourceLocation(modelLocation.getResourceDomain(), modelLocation.getResourcePath());
-        OBJModel model = null;
+        OBJModelPlus model = null;
 
-        IResource resource = null;
+        IResource resource;
         try {
             resource = manager.getResource(file);
         } catch (FileNotFoundException e) {
+            MuseLogger.logException("failed to load model: ", e);
             if (modelLocation.getResourcePath().startsWith("models/block/"))
                 resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/item/" + file.getResourcePath().substring("models/block/".length())));
             else if (modelLocation.getResourcePath().startsWith("models/item/"))
                 resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/block/" + file.getResourcePath().substring("models/item/".length())));
+            else if (modelLocation.getResourcePath().startsWith("models/models/item/"))
+                resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/item/" + file.getResourcePath().substring("models/models/item/".length())));
+            else if (modelLocation.getResourcePath().startsWith("models/models/block/"))
+                resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/block/" + file.getResourcePath().substring("models/models/block/".length())));
             else throw e;
         }
-        OBJModel.Parser parser = new OBJModel.Parser(resource, manager);
+        OBJModelPlus.Parser parser = new OBJModelPlus.Parser(resource, manager);
         try {
             model = parser.parse();
         } catch (Exception e) {
             errors.put(modelLocation, e);
         }
-        return (IModel)model;
+        return model;
     }
 
     public void registerModelSprites(ResourceLocation modelLocation) throws Exception {
         try {
-            OBJModel model = (OBJModel) loadModelWithoutCaching(modelLocation);
+            OBJModelPlus model = (OBJModelPlus) loadModelWithoutCaching(modelLocation);
             if (model != null) {
                 Collection<ResourceLocation> spriteList = model.getTextures();
                 for (ResourceLocation spriteLocation: spriteList)
@@ -101,14 +106,15 @@ public enum MPSOBJLoader implements ICustomModelLoader {
     @Override
     public IModel loadModel(ResourceLocation modelLocation) throws Exception {
         ResourceLocation file = new ResourceLocation(modelLocation.getResourceDomain(), modelLocation.getResourcePath());
-        OBJModel model = null;
+         OBJModelPlus model = null;
         if (!cache.containsKey(file)) {
-            model = (OBJModel) loadModelWithoutCaching(file);
-            if (model!= null)
+            model = (OBJModelPlus) loadModelWithoutCaching(file);
+            if (model!= null) {
                 cache.put(file, model);
-            else
+            } else
                 throw new ModelLoaderRegistry.LoaderException("Error loading model previously: " + file, errors.get(modelLocation));
-        }
+        } else
+            model = cache.get(file);
         return model;
     }
 

@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import net.machinemuse.powersuits.client.render.model.ModelHelper;
+import net.machinemuse.powersuits.client.render.helpers.ModelHelper;
+import net.machinemuse.powersuits.client.render.model.obj.OBJModelPlus;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.property.IExtendedBlockState;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class ModelPartSpec {
         this.defaultglow = (defaultglow != null) ? defaultglow : false;
         this.displayName = displayName;
         // Extended state is used to isolate the quads for the model "group"(part) associated with this
-        this.extendedState = ModelHelper.getStateForPart(partName, (OBJModel.OBJBakedModel) modelSpec.getModel());
+        this.extendedState = ModelHelper.getStateForPart(partName, (OBJModelPlus.OBJBakedModelPus) modelSpec.getModel());
     }
 
     public List<BakedQuad> getQuads() {

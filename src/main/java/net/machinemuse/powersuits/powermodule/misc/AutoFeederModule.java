@@ -14,7 +14,6 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -64,7 +63,6 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
         FoodStats foodStats = player.getFoodStats();
         int foodNeeded = 20 - foodStats.getFoodLevel();
         double saturationNeeded = 20 - foodStats.getSaturationLevel();
-
 
         // this consumes all food in the player's inventory and stores the stats in a buffer
         if (Config.useOldAutoFeeder()) {

@@ -151,10 +151,6 @@ public class Colour {
         return new Color((float) r, (float) g, (float) b, (float) a);
     }
 
-    public boolean equals(Colour o) {
-        return r == o.r && g == o.g && b == o.b && a == o.a;
-    }
-
     public Vector4f toVector4f() {
         Vector4f colorVec = new Vector4f();
         colorVec.w = (float) a;
@@ -166,6 +162,21 @@ public class Colour {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(this.getInt());
+        return Objects.hash(r, g, b, a);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        final Colour other = (Colour) obj;
+        return Objects.equals(this.r, other.r)
+                && Objects.equals(this.g, other.g)
+                && Objects.equals(this.b, other.b)
+                && Objects.equals(this.a, other.a);
     }
 }

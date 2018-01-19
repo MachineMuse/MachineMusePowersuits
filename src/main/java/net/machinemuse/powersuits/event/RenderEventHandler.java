@@ -8,7 +8,7 @@ import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.DrawableMuseRect;
 import net.machinemuse.numina.render.MuseIconUtils;
 import net.machinemuse.numina.render.MuseTextureUtils;
-import net.machinemuse.powersuits.client.render.model.ModelHelper;
+import net.machinemuse.powersuits.client.render.helpers.ModelHelper;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.powermodule.misc.BinocularsModule;

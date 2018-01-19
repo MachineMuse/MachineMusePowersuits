@@ -1,6 +1,6 @@
 # Blender v2.78 (sub 0) OBJ File: ''
 # www.blender.org
-mtllib luxCapacitor.mtl
+mtllib luxcapacitor.mtl
 o poplight001
 v -3.433100 2.370300 3.433100
 v 3.433100 2.370300 3.433100

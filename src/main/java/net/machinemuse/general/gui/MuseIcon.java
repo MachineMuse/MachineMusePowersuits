@@ -114,6 +114,8 @@ public class MuseIcon {
     public static TextureAtlasSprite sonicWeapon;
     
     /* Things other than module icons ------------------------------------------------------------- */
+    public static TextureAtlasSprite luxCapacitorTexture;
+    public static TextureAtlasSprite powerFistTexture;
 
 
     public static void registerIcons(TextureStitchEvent.Pre event) {
@@ -204,6 +206,8 @@ public class MuseIcon {
         sonicWeapon = register(event,"modules/soundweapon");
 
         /* Things other than module icons ------------------------------------------------------------- */
+        luxCapacitorTexture = register(event, "models/luxcapacitor");
+        powerFistTexture = register(event, "models/tool2");
     }
 
     private static TextureAtlasSprite register(TextureStitchEvent.Pre event, String location) {

@@ -1,19 +1,17 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.scala.MuseRegistry;
-import net.machinemuse.powersuits.client.render.model.MPSOBJLoader;
+import net.machinemuse.powersuits.client.render.model.obj.MPSOBJLoader;
+import net.machinemuse.powersuits.client.render.model.obj.OBJModelPlus;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -40,8 +38,8 @@ public class ModelRegistry extends MuseRegistry<ModelSpec> {
     public IModel getModel(ResourceLocation resource){
         IModel model = null;
         try {
-            model = (OBJModel) MPSOBJLoader.INSTANCE.loadModel(resource);
-            model = ((OBJModel) model).process(ImmutableMap.copyOf(ImmutableMap.of("flip-v", "true")));
+            model = (OBJModelPlus) MPSOBJLoader.INSTANCE.loadModel(resource);
+            model = ((OBJModelPlus) model).process(ImmutableMap.of("flip-v", "true"));
         } catch (Exception e) {
             e.printStackTrace();
             MuseLogger.logError("Model loading failed :( " + resource);
@@ -60,11 +58,7 @@ public class ModelRegistry extends MuseRegistry<ModelSpec> {
     public IBakedModel wrap(ResourceLocation resource) {
         IModel model = getModel(resource);
         IBakedModel bakedModel = model.bake(model.getDefaultState(), DefaultVertexFormats.ITEM,
-                new Function<ResourceLocation, TextureAtlasSprite>() {
-                    public TextureAtlasSprite apply(ResourceLocation resourceLocation) {
-                        return Minecraft.getMinecraft().getTextureMapBlocks().registerSprite(resourceLocation);
-                    }
-                });
+                resourceLocation -> Minecraft.getMinecraft().getTextureMapBlocks().registerSprite(resourceLocation));
         return bakedModel;
     }
 

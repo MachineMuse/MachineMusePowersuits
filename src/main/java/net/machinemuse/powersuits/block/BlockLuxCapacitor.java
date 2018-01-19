@@ -2,7 +2,6 @@ package net.machinemuse.powersuits.block;
 
 
 import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.SoundType;
@@ -64,7 +63,7 @@ public class BlockLuxCapacitor extends BlockDirectional {
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN));
         // IMPORTANT: enabling default state with extended state like the line below causes model loading issues
 //        setDefaultState(((IExtendedBlockState) blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN)).withProperty(COLOR, defaultColor));
-        setCreativeTab(Config.getCreativeTab());
+//        setCreativeTab(Config.getCreativeTab());
         setUnlocalizedName(name);
         setRegistryName(ModularPowersuits.MODID, "tile." + name);
         setHardness(0.05F);

@@ -2,13 +2,13 @@ package net.machinemuse.powersuits.client.render.modelspec;
 
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.powersuits.client.render.model.MPSOBJLoader;
+import net.machinemuse.powersuits.client.render.model.obj.MPSOBJLoader;
+import net.machinemuse.powersuits.client.render.model.obj.OBJModelPlus;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
-import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.w3c.dom.Document;
@@ -92,7 +92,7 @@ public class ModelSpecXMLReader {
                 }
             } else {
                 IBakedModel bakedModel = ModelRegistry.getInstance().loadBakedModel(new ResourceLocation(file));
-                if (bakedModel != null && bakedModel instanceof OBJModel.OBJBakedModel) {
+                if (bakedModel != null && bakedModel instanceof OBJModelPlus.OBJBakedModelPus) {
                     ModelSpec modelspec = new ModelSpec(bakedModel, offset, rotation, file);
                     // ModelSpec modelspec = new ModelSpec(model, textures, offset, rotation, file);
 
@@ -140,7 +140,7 @@ public class ModelSpecXMLReader {
 
     @Nullable
     public String validatePolygroup(String s, ModelSpec m) {
-        return ((OBJModel.OBJBakedModel)m.getModel()).getModel().getMatLib().getGroups().keySet().contains(s) ? s : null;
+        return ((OBJModelPlus.OBJBakedModelPus)m.getModel()).getModel().getMatLib().getGroups().keySet().contains(s) ? s : null;
     }
 
     @Nullable

@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.block;
 
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
@@ -63,7 +64,7 @@ public class BlockTinkerTable extends Block {
     @SuppressWarnings("deprecation")
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
+        return MPSItems.luxCapacitor.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
     }
 
     @Override
