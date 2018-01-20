@@ -23,8 +23,8 @@ import static net.machinemuse.powersuits.common.Config.RESOURCE_PREFIX;
 
 @SideOnly(Side.CLIENT)
 public class ModelLuxCapacitor2Helper {
-    private static final ResourceLocation baseModelLocation = new ResourceLocation(RESOURCE_PREFIX + "models/block/luxcapacitor2/luxcapacitor_base.obj");
-    private static final ResourceLocation lensModelLocation = new ResourceLocation(RESOURCE_PREFIX + "models/block/luxcapacitor2/luxcapacitor_lens.obj");
+    private static final ResourceLocation baseModelLocation = new ResourceLocation(RESOURCE_PREFIX + "models/block/luxcapacitor/luxcapacitor_base.obj");
+    private static final ResourceLocation lensModelLocation = new ResourceLocation(RESOURCE_PREFIX + "models/block/luxcapacitor/luxcapacitor_lens.obj");
 
     /*
      * Guava chache for the list of baked quads.
