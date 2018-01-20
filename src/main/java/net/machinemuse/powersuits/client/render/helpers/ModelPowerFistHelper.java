@@ -79,7 +79,7 @@ public class ModelPowerFistHelper {
                 ModelHelper.get(11.8f, 8, 7, -16, -162, 0, 0.5f, 0.5f, 0.5f));
 
         builder.put(ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND,
-                ModelHelper.get(11.8f /* 1.8f */, 8, 7, 344, 198, 0, 0.5f, 0.5f, 0.5f));
+                ModelHelper.get(14.8f/*11.8f*/ /* 1.8f */, 8, 7, 344, 198, 0, 0.5f, 0.5f, 0.5f));
 
         builder.put(ItemCameraTransforms.TransformType.GROUND,
                 ModelHelper.get(0, 5, 0, 0, 0, 0, 0.630f));
