@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.client.modelspec;
 
 import com.google.common.collect.ImmutableMap;
 import net.machinemuse.numina.general.MuseLogger;
-import net.machinemuse.numina.scala.MuseRegistry;
+import net.machinemuse.numina.utils.MuseRegistry;
 import net.machinemuse.powersuits.client.models.obj.OBJModelPlus;
 import net.machinemuse.powersuits.client.models.obj.OBJPlusLoader;
 import net.machinemuse.utils.MuseStringUtils;
@@ -12,13 +12,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -113,6 +111,9 @@ public class ModelRegistry extends MuseRegistry<Spec> {
     public PartSpec getPart(NBTTagCompound nbt) {
         return getPart(nbt, getModel(nbt));
     }
+
+
+
 
     public NBTTagCompound getSpecTag(NBTTagCompound museRenderTag, PartSpec spec) {
         String name = makeName(spec);

@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.common;
 import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.general.MuseLogger;
-import net.machinemuse.powersuits.common.events.EventRegisterItems;
+import net.machinemuse.powersuits.common.event.EventRegisterItems;
 import net.machinemuse.powersuits.common.items.modules.armor.HazmatModule;
 import net.machinemuse.powersuits.common.items.modules.misc.AirtightSealModule;
 import net.machinemuse.powersuits.common.items.modules.misc.ThaumGogglesModule;

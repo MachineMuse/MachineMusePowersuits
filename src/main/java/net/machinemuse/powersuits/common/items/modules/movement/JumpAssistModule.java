@@ -6,7 +6,7 @@ import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.powersuits.client.control.PlayerInputMap;
 import net.machinemuse.powersuits.client.event.MuseIcon;
-import net.machinemuse.powersuits.common.events.MovementManager;
+import net.machinemuse.powersuits.common.event.MovementManager;
 import net.machinemuse.powersuits.common.items.ItemComponent;
 import net.machinemuse.powersuits.common.items.modules.PowerModuleBase;
 import net.machinemuse.utils.MuseCommonStrings;

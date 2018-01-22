@@ -100,14 +100,5 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
-
-
-
-
-//        URL resource = ClientProxy.class.getResource("/assets/powersuits/models/item/armor/modelspec.xml");
-//        ModelSpecXMLReader.getInstance().parseFile(resource);
-//        URL otherResource = ClientProxy.class.getResource("/assets/powersuits/models/item/armor/armor2.xml");
-//        ModelSpecXMLReader.getInstance().parseFile(otherResource);
-
     }
 }

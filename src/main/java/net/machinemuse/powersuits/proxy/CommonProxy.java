@@ -6,11 +6,12 @@ import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.common.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.common.block.BlockTinkerTable;
 import net.machinemuse.powersuits.common.config.MPSSettings;
+import net.machinemuse.powersuits.common.energy.MuseElectricItemManager;
 import net.machinemuse.powersuits.common.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.common.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.common.entity.EntitySpinningBlade;
-import net.machinemuse.powersuits.common.events.HarvestEventHandler;
-import net.machinemuse.powersuits.common.events.MovementManager;
+import net.machinemuse.powersuits.common.event.HarvestEventHandler;
+import net.machinemuse.powersuits.common.event.MovementManager;
 import net.machinemuse.powersuits.common.items.modules.tool.TerminalHandler;
 import net.machinemuse.powersuits.common.tileentities.TileEntityLuxCapacitor;
 import net.machinemuse.powersuits.common.tileentities.TileEntityTinkerTable;
@@ -32,6 +33,7 @@ public class CommonProxy {
         MPSSettings.extractRecipes();
         GameRegistry.registerTileEntity(TileEntityTinkerTable.class, BlockTinkerTable.name);
         GameRegistry.registerTileEntity(TileEntityLuxCapacitor.class, BlockLuxCapacitor.name);
+        MuseElectricItemManager.init();
     }
 
     public void init(FMLInitializationEvent event) {

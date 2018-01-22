@@ -1,43 +1,61 @@
 package net.machinemuse.powersuits.client.modelspec;
 
 import com.google.common.base.Objects;
-import net.machinemuse.powersuits.client.helpers.EnumColour;
 import net.minecraft.nbt.NBTTagCompound;
 
-import javax.annotation.Nullable;
-
+/**
+ * This is the base class for TexturePartSpec and ModelPartSpec.
+ * This class is not meant to be used directly.
+ */
 public class PartSpec {
-    EnumColour enumColourlour;
-    public Byte defaultcolourindex; // NOT A COLOR but an index of a list. Used for nbt data
+    final byte enumColourlourIndex; // default EnumColour index value
+    public Byte defaultColourArrayIndex; // index value of NBTByteArray (array of EnumColour indexes. Smaller than tracking duplicate values individually)
     public Spec spec;
-    public String partName;
-    public Binding binding;
+    final String partName;
+    final Binding binding;
 
     public PartSpec(Spec spec,
                     Binding binding,
                     String partName,
-                    EnumColour enumColour) {
+                    byte enumColourIndex) {
         this.spec = spec;
         this.partName = partName;
         this.binding = binding;
-        this.enumColourlour = enumColour;
+        this.enumColourlourIndex = enumColourIndex;
+    }
+
+    public Binding getBinding() {
+        return binding;
     }
 
     public String getDisaplayName() {
         return "";
     }
 
-    public int getDefaultColourIndex() {
-        return this.defaultcolourindex != null ? Byte.toUnsignedInt(this.defaultcolourindex) : 0 ;
+    public int getDefaultColourArrayIndex() {
+        return this.defaultColourArrayIndex != null ? Byte.toUnsignedInt(this.defaultColourArrayIndex) : 0 ;
+    }
+
+    public void setDefaultColourArrayIndex(byte index) {
+        defaultColourArrayIndex = index;
+    }
+
+    public byte getEnumColourIndex() {
+        return enumColourlourIndex;
     }
 
     public int getColourIndex(NBTTagCompound nbt) {
-        return nbt.hasKey("colourindex") ? Byte.toUnsignedInt(nbt.getByte("colourindex")) : getDefaultColourIndex();
+        return nbt.hasKey("colourindex") ? Byte.toUnsignedInt(nbt.getByte("colourindex")) : getDefaultColourArrayIndex();
     }
 
     public void setColourIndex(NBTTagCompound nbt, int c) {
-        if (c == getDefaultColourIndex()) nbt.removeTag("colourindex");
+        if (c == getDefaultColourArrayIndex()) nbt.removeTag("colourindex");
         else nbt.setByte("colourindex", (byte)c);
+    }
+
+    public void setColourIndex(NBTTagCompound nbt, byte c) {
+        if (c == getDefaultColourArrayIndex()) nbt.removeTag("colourindex");
+        else nbt.setByte("colourindex", c);
     }
 
     public void setPart(NBTTagCompound nbt) {
@@ -53,9 +71,9 @@ public class PartSpec {
         nbt.setString("model", modelname);
     }
 
-    public NBTTagCompound multiSet(NBTTagCompound nbt, Integer colourIndex) {
+    public NBTTagCompound multiSet(NBTTagCompound nbt, Byte colourIndex) {
         this.setPart(nbt);
-        this.setColourIndex(nbt, (colourIndex != null) ? colourIndex : (defaultcolourindex != null ? defaultcolourindex : 0));
+        this.setColourIndex(nbt, (colourIndex != null) ? (byte)colourIndex : (defaultColourArrayIndex != null ? defaultColourArrayIndex : 0));
         this.setModel(nbt, this.spec);
         return nbt;
     }
@@ -65,8 +83,8 @@ public class PartSpec {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PartSpec partSpec = (PartSpec) o;
-        return enumColourlour == partSpec.enumColourlour &&
-                Objects.equal(defaultcolourindex, partSpec.defaultcolourindex) &&
+        return enumColourlourIndex == partSpec.enumColourlourIndex &&
+                Objects.equal(defaultColourArrayIndex, partSpec.defaultColourArrayIndex) &&
                 Objects.equal(spec, partSpec.spec) &&
                 Objects.equal(partName, partSpec.partName) &&
                 Objects.equal(binding, partSpec.binding);
@@ -74,6 +92,6 @@ public class PartSpec {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(enumColourlour, defaultcolourindex, spec, partName, binding);
+        return Objects.hashCode(enumColourlourIndex, defaultColourArrayIndex, spec, partName, binding);
     }
 }

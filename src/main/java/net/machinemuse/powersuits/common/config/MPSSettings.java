@@ -12,12 +12,12 @@ import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.MPSCreativeTab;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.common.items.modules.armor.*;
-import net.machinemuse.powersuits.common.items.modules.cosmetic.*;
+import net.machinemuse.powersuits.common.items.modules.cosmetic.HighPolyArmor;
 import net.machinemuse.powersuits.common.items.modules.energy.*;
 import net.machinemuse.powersuits.common.items.modules.misc.*;
 import net.machinemuse.powersuits.common.items.modules.movement.*;
-import net.machinemuse.powersuits.common.items.modules.weapon.*;
 import net.machinemuse.powersuits.common.items.modules.tool.*;
+import net.machinemuse.powersuits.common.items.modules.weapon.*;
 import net.machinemuse.powersuits.proxy.CommonProxy;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.resources.I18n;
@@ -49,7 +49,7 @@ import java.util.List;
 import java.util.Map;
 
 import static net.machinemuse.powersuits.common.MPSConstants.MODID;
-import static net.machinemuse.powersuits.common.events.EventRegisterItems.*;
+import static net.machinemuse.powersuits.common.event.EventRegisterItems.*;
 
 @Config(modid = MODID, name = MPSConstants.CONFIG_FILE, category = "")
 @Config.LangKey(MPSConstants.CONFIG_TITLE)
@@ -308,11 +308,11 @@ public class MPSSettings {
 
 
                     /* Cosmetic ----------------------------- */
-                    put(MPSConstants.MODULE_TRANSPARENT_ARMOR, true);
-                    put(MPSConstants.MODULE_GLOW, true);
-                    put(MPSConstants.CITIZEN_JOE_STYLE, true);
+//                    put(MPSConstants.MODULE_TRANSPARENT_ARMOR, true);
+//                    put(MPSConstants.MODULE_GLOW, true);
+//                    put(MPSConstants.CITIZEN_JOE_STYLE, true);
                     put(MPSConstants.HIGH_POLY_ARMOR, true);
-                    put(MPSConstants.MODULE_TINT, true);
+//                    put(MPSConstants.MODULE_TINT, true);
 
 
                     /* Energy ------------------------------- */
@@ -466,12 +466,12 @@ public class MPSSettings {
 
 
         /* Cosmetic ----------------------------- */
-        addModule(new TransparentArmorModule(ARMORONLY));
-        addModule(new CosmeticGlowModule(ARMORONLY));
-        addModule(new CitizenJoeStyle(ARMORONLY));
+//        addModule(new TransparentArmorModule(ARMORONLY));
+//        addModule(new CosmeticGlowModule(ARMORONLY));
+//        addModule(new CitizenJoeStyle(ARMORONLY)); // obsolete, use directly in cosmetic menu
         addModule(new HighPolyArmor(ARMORONLY));
 //        addModule(new TintModule(TOOLONLY));
-        addModule(new TintModule(ALLITEMS));
+//        addModule(new TintModule(ALLITEMS)); // obsolete, set colors in cosmetic menu
 
 
         /* Energy ------------------------------- */

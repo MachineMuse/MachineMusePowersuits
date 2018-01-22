@@ -5,6 +5,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.UnmodifiableIterator;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.powersuits.client.models.obj.OBJModelPlus;
+import net.machinemuse.powersuits.client.models.obj.OBJPlusLoader;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.client.Minecraft;
@@ -16,8 +18,6 @@ import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.client.model.obj.OBJLoader;
-import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
 import net.minecraftforge.client.model.pipeline.VertexTransformer;
 import net.minecraftforge.common.model.IModelPart;
@@ -32,6 +32,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import javax.vecmath.Vector3f;
+import javax.vecmath.Vector4f;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,7 +73,6 @@ public class ModelHelper {
                 MuseLogger.logError("Model loading failed on attempt #" + attempt + "  :( " + location.toString());
             } else {
                 MuseLogger.logError("Failed to load model. " + e);
-
                 return getOBJModel(location, 0);
             }
         }
@@ -86,7 +86,7 @@ public class ModelHelper {
         location = new ResourceLocation(domain, resourePath);
         IModel model;
         try {
-            model = OBJLoader.INSTANCE.loadModel(location);
+            model = OBJPlusLoader.INSTANCE.loadModel(location);
             model = model.process(ImmutableMap.of("flip-v", "true"));
         } catch (Exception e) {
             model = ModelLoaderRegistry.getMissingModel();
@@ -122,7 +122,7 @@ public class ModelHelper {
      * The biggest issue with this setup is that the code. There is a better way out there
      */
     @Nullable
-    public static IExtendedBlockState getStateForPart(List<String> shownIn, OBJModel.OBJBakedModel objBakedModelIn, @Nullable TRSRTransformation transformation) {
+    public static IExtendedBlockState getStateForPart(List<String> shownIn, OBJModelPlus.OBJBakedModelPus objBakedModelIn, @Nullable TRSRTransformation transformation) {
         List<String> hidden = new ArrayList<>(objBakedModelIn.getModel().getMatLib().getGroups().keySet());
         if (transformation == null)
             transformation = TRSRTransformation.identity();
@@ -131,8 +131,8 @@ public class ModelHelper {
 
     @Nullable
     public static List<String> getPartNames(IBakedModel bakedModel) {
-        if (bakedModel != null && bakedModel instanceof OBJModel.OBJBakedModel)
-            return new ArrayList<String>(((OBJModel.OBJBakedModel) bakedModel).getModel().getMatLib().getGroups().keySet());
+        if (bakedModel != null && bakedModel instanceof OBJModelPlus.OBJBakedModelPus)
+            return new ArrayList<String>(((OBJModelPlus.OBJBakedModelPus) bakedModel).getModel().getMatLib().getGroups().keySet());
         return null;
     }
 
@@ -166,10 +166,22 @@ public class ModelHelper {
     }
 
     /*
-     * Here we can color the quads using the setup below. This is better than changing material colors
-     * for Wavefront models because it means that you can use a single material for the entire model
+     * Here we can color the quads or change the transform using the setup below.
+     * This is better than changing material colors for Wavefront models because it means that you can use a single material for the entire model
      * instead of unique ones for each group. It also means you don't nescessarily need a Wavefront model.
      */
+    public static List<BakedQuad> getColouredQuadsWithGlowAndTransform(List<BakedQuad> quadList, Colour colour, final TRSRTransformation transform, boolean glow) {
+        ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
+        quadList.forEach(quad-> builder.add(colouredQuadWithGlowAndTransform(colour, quad, !glow, transform)));
+        return builder.build();
+    }
+
+    public static BakedQuad colouredQuadWithGlowAndTransform(Colour colour, BakedQuad quad, boolean applyDifuse, TRSRTransformation transform) {
+        QuadTransformer transformer = new QuadTransformer(colour, transform, quad.getFormat(), applyDifuse);
+        quad.pipe(transformer);
+        return transformer.build();
+    }
+
     public static List<BakedQuad> getColoredQuadsWithGlow(List<BakedQuad> quadList, Colour color, boolean glow) {
         ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
         quadList.forEach(quad-> builder.add(colorQuad(color, quad, !glow)));
@@ -185,34 +197,59 @@ public class ModelHelper {
     }
 
     public static BakedQuad colorQuad(Colour color, BakedQuad quad, boolean applyDifuse) {
-        ColorTransformer transformer = new ColorTransformer(color, quad.getFormat(), applyDifuse);
+        QuadTransformer transformer = new QuadTransformer(color, quad.getFormat(), applyDifuse);
         quad.pipe(transformer);
         return transformer.build();
     }
 
-    private static class ColorTransformer extends VertexTransformer {
-        private final float r, g, b, a;
-        public ColorTransformer(Colour color, VertexFormat format, boolean applyDiffuse) {
-            super(new UnpackedBakedQuad.Builder(format));
-            parent.setApplyDiffuseLighting(applyDiffuse);
+    private static class QuadTransformer extends VertexTransformer {
+        Colour colour;
+        Boolean applyDiffuse;
+        TRSRTransformation transform;
 
-            this.r = (float) color.r;
-            this.g = (float) color.g;
-            this.b = (float) color.b;
-            this.a = (float) color.a;
+        public QuadTransformer(Colour colour, VertexFormat format, boolean applyDiffuse) {
+            super(new UnpackedBakedQuad.Builder(format));
+            this.colour = colour;
+            this.applyDiffuse = applyDiffuse;
+        }
+
+        public QuadTransformer(Colour colour, final TRSRTransformation transform, VertexFormat format, boolean applyDiffuse) {
+            super(new UnpackedBakedQuad.Builder(format));
+            this.transform = transform;
+            this.colour = colour;
+            this.applyDiffuse = applyDiffuse;
         }
 
         @Override
         public void put(int element, float... data) {
             VertexFormatElement.EnumUsage usage = parent.getVertexFormat().getElement(element).getUsage();
-            // transform normals and position
-            if (usage == VertexFormatElement.EnumUsage.COLOR && data.length >= 4) {
-                data[0] = r;
-                data[1] = g;
-                data[2] = b;
-                data[3] = a;
-            }
-            super.put(element, data);
+//            System.out.println("element: " + element);
+//            System.out.println("usage: " + usage.getDisplayName());
+            // change color
+            if(colour != null &&
+                    usage == VertexFormatElement.EnumUsage.COLOR &&
+                    data.length >= 4) {
+                data[0] = (float) colour.r;
+                data[1] = (float) colour.g;
+                data[2] = (float) colour.b;
+                data[3] = (float) colour.a;
+                super.put(element, data);
+                // transform normals and position
+            } else if (transform != null &&
+                    usage == VertexFormatElement.EnumUsage.POSITION &&
+                    data.length >= 4) {
+                float[] newData = new float[4];
+                Vector4f vec = new Vector4f(data);
+                transform.getMatrix().transform(vec);
+                vec.get(newData);
+                parent.put(element, newData);
+            } else
+                super.put(element, data);
+        }
+
+        @Override
+        public void setApplyDiffuseLighting(boolean diffuse) {
+            super.setApplyDiffuseLighting(applyDiffuse != null ? applyDiffuse : diffuse);
         }
 
         public UnpackedBakedQuad build() {

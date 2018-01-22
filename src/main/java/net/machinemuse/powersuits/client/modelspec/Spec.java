@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.modelspec;
 
 import com.google.common.base.Objects;
-import net.machinemuse.numina.scala.MuseRegistry;
+import net.machinemuse.numina.utils.MuseRegistry;
 
 public abstract class Spec extends MuseRegistry<PartSpec> {
     private final String name;
@@ -18,6 +18,13 @@ public abstract class Spec extends MuseRegistry<PartSpec> {
 
     public Iterable<PartSpec> getPartSpecs() {
         return this.elems();
+    }
+
+    public PartSpec getPart(String partName) {
+        for (PartSpec partSpec: this.elems())
+            if (partSpec.partName.equals(partName))
+                return partSpec;
+        return null;
     }
 
     public Iterable<String> getPartSpecNames() {

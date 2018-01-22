@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.common;
 
-import net.machinemuse.powersuits.client.helpers.EnumColour;
 import net.minecraft.util.ResourceLocation;
 
 /*
@@ -33,6 +32,22 @@ public class MPSConstants {
     public static final String CITIZENJOE_ARMOR_PATH = TEXTURE_PREFIX + "items/armor/joearmor.png";
     public static final String CITIZENJOE_ARMORPANTS_PATH = TEXTURE_PREFIX + "items/armor/joearmorpants.png";
     public static final String GLASS_TEXTURE = TEXTURE_PREFIX + "gui/glass.png";
+
+    /** NBT Tags ---------------------------------------------------------------------------------- */
+    public static final String NBT_RENDER_TAG = "render";
+    public static final String NBT_TEXTURESPEC_TAG = "texSpec";
+    public static final String NBT_SPECLIST_TAG = "specList";
+
+
+
+
+
+
+
+
+
+
+
 
 
     /** Config ------------------------------------------------------------------------------------ */

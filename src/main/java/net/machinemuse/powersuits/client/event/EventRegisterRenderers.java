@@ -1,15 +1,22 @@
 package net.machinemuse.powersuits.client.event;
 
 import net.machinemuse.powersuits.client.models.ModelLuxCapacitor;
+import net.machinemuse.powersuits.client.renderers.entity.EntityRendererLuxCapacitorEntity;
+import net.machinemuse.powersuits.client.renderers.entity.EntityRendererPlasmaBolt;
+import net.machinemuse.powersuits.client.renderers.entity.EntityRendererSpinningBlade;
 import net.machinemuse.powersuits.common.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.common.block.BlockTinkerTable;
-import net.machinemuse.powersuits.common.events.EventRegisterItems;
+import net.machinemuse.powersuits.common.entity.EntityLuxCapacitor;
+import net.machinemuse.powersuits.common.entity.EntityPlasmaBolt;
+import net.machinemuse.powersuits.common.entity.EntitySpinningBlade;
+import net.machinemuse.powersuits.common.event.EventRegisterItems;
 import net.machinemuse.powersuits.common.tileentities.TileEntityTinkerTable;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -47,14 +54,14 @@ public class EventRegisterRenderers {
 
 
         ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(BlockTinkerTable.getInstance()), 0, TileEntityTinkerTable.class);
-
-//        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLuxCapacitor.class, new TileEntityLuxCapacitorRenderer());
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(BlockLuxCapacitor.getInstance()), 0, ModelLuxCapacitor.modelResourceLocation);
 
 
         ModelLoader.setCustomModelResourceLocation(EventRegisterItems.powerTool, 0, new ModelResourceLocation(EventRegisterItems.powerTool.getRegistryName().toString()));
 
-
+        RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, EntityRendererSpinningBlade::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, EntityRendererPlasmaBolt::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityLuxCapacitor.class, EntityRendererLuxCapacitorEntity::new);
 
 
 //        Item item;

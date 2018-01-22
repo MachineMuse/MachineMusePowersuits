@@ -3,9 +3,6 @@ package net.machinemuse.powersuits.common.items.old;
 import com.google.common.collect.Multimap;
 import net.machinemuse.api.IArmorTraits;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.general.NBTTagAccessor;
-import net.machinemuse.powersuits.client.modelspec.ModelRegistry;
-import net.machinemuse.powersuits.client.modelspec.PartSpec;
 import net.machinemuse.powersuits.client.modelspec.TexturePartSpec;
 import net.machinemuse.powersuits.client.renderers.item.HighPolyArmor;
 import net.machinemuse.powersuits.client.renderers.item.IArmorModel;
@@ -93,48 +90,41 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
             return BLANK_ARMOR_MODEL_PATH;
 
         ItemStack armor = ((EntityLivingBase) entity).getItemStackFromSlot(slot);
+        // fixme: is this check really needed?
         if (armor.getItem() instanceof ItemPowerArmor) {
-            if (slot.equals(EntityEquipmentSlot.CHEST) && ModuleManager.itemHasActiveModule(armor, MPSConstants.MODULE_ACTIVE_CAMOUFLAGE))
+            if (ModuleManager.itemHasActiveModule(armor, MPSConstants.MODULE_ACTIVE_CAMOUFLAGE))
                 return BLANK_ARMOR_MODEL_PATH;
 
-            String texture = "";
-            NBTTagCompound renderSpec = MuseItemUtils.getMuseRenderTag(stack, slot);
-            for (NBTTagCompound nbt : NBTTagAccessor.getValues(renderSpec)) {
-                PartSpec partSpec = ModelRegistry.getInstance().getPart(nbt);
-                if (partSpec instanceof TexturePartSpec)
-                    texture = ((TexturePartSpec) partSpec).getTextureLocation();
-                if (!texture.equals(null) && !texture.equals(""))
-                    return texture;
-            }
+            TexturePartSpec partSpec = MuseItemUtils.getTexturePartSpec(stack, slot);
+            if (partSpec != null)
+                return partSpec.getTextureLocation();
         }
         return BLANK_ARMOR_MODEL_PATH;
     }
 
     @Override
     public int getColor(ItemStack stack) {
-        return this.getColorFromItemStack(stack).getColour().getInt();
+        return MuseItemUtils.getStackSingleColour(stack).getColour().getInt();
     }
 
     @Override
     public boolean hasOverlay(ItemStack stack) {
-        return ModuleManager.itemHasActiveModule(stack, MPSConstants.MODULE_TINT);
+        return hasColor(stack);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStackArmor, EntityEquipmentSlot armorSlot, ModelBiped _default) {
         if (!itemStackArmor.isEmpty()) {
-            if (!(ModuleManager.itemHasActiveModule(itemStackArmor, MPSConstants.HIGH_POLY_ARMOR))) {
+            if (!(ModuleManager.itemHasActiveModule(itemStackArmor, MPSConstants.HIGH_POLY_ARMOR)) ||
+                    MPSSettings.allowHighPollyArmorModels() && MPSSettings.allowCustomHighPollyArmor()) {
                 return _default;
             }
 
             // TODO: find way to mix vanilla model the custom model
             ModelBiped model = HighPolyArmor.getInstance();
-
-            ItemStack armorChest = entityLiving.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-            if (!armorChest.isEmpty() && armorChest.getItem() instanceof ItemPowerArmor &&
-                    ModuleManager.itemHasActiveModule(armorChest, MPSConstants.MODULE_ACTIVE_CAMOUFLAGE))
-                        ((IArmorModel) model).setVisibleSection(null);
+            if (ModuleManager.itemHasActiveModule(itemStackArmor, MPSConstants.MODULE_ACTIVE_CAMOUFLAGE))
+                ((IArmorModel) model).setVisibleSection(null);
             else
                 ((IArmorModel) model).setVisibleSection(armorSlot);
 
@@ -160,8 +150,11 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
     }
 
     public boolean hasColor(ItemStack stack) {
-        NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-        return ModuleManager.tagHasModule(itemTag, "Red Tint") || ModuleManager.tagHasModule(itemTag, "Green Tint") || ModuleManager.tagHasModule(itemTag, "Blue Tint");
+        if (!(ModuleManager.itemHasActiveModule(stack, MPSConstants.HIGH_POLY_ARMOR)) ||
+                MPSSettings.allowHighPollyArmorModels() && MPSSettings.allowCustomHighPollyArmor()) {
+            return true;
+        }
+        return false;
     }
 
     public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {

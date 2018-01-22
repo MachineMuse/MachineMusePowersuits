@@ -2,6 +2,7 @@ package net.machinemuse.numina.network;
 
 import io.netty.buffer.ByteBufOutputStream;
 import io.netty.buffer.Unpooled;
+import net.jpountz.lz4.LZ4BlockOutputStream;
 import net.machinemuse.numina.general.MuseLogger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -16,7 +17,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.zip.GZIPOutputStream;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -153,14 +153,17 @@ public abstract class MusePacket
         }
     }
 
-    /*
-     * "Borrowed" from 1.7.10
+    /**
+     * "adapted" from 1.7.10
      */
     public byte[] compress(NBTTagCompound nbt) {
+        // LZ4 adaptation
         ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
         try {
-            DataOutputStream dataoutputstream = new DataOutputStream(new GZIPOutputStream(bytearrayoutputstream));
+            DataOutputStream dataoutputstream = new DataOutputStream(new LZ4BlockOutputStream(bytearrayoutputstream));
             CompressedStreamTools.write(nbt, dataoutputstream);
+
+            // bytearrayoutputstream only updates if dataoutputstream closes
             dataoutputstream.close();
         } catch (IOException e) {
             e.printStackTrace();

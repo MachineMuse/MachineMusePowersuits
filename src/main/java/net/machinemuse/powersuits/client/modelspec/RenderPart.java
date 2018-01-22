@@ -1,11 +1,9 @@
 package net.machinemuse.powersuits.client.modelspec;
 
-import com.google.common.collect.ImmutableList;
-import net.machinemuse.general.NBTTagAccessor;
+import net.machinemuse.numina.utils.NBTTagAccessor;
 import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.client.renderers.item.HighPolyArmor;
-import net.machinemuse.powersuits.client.renderers.item.IArmorModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

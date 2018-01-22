@@ -4,6 +4,7 @@ import net.machinemuse.general.gui.frame.*;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.geometry.MuseRect;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -43,7 +44,7 @@ public class CosmeticGui extends MuseGui {
                 Colour.DARKBLUE.withAlpha(0.8F), player);
         frames.add(itemSelect);
 
-        ItemModelViewFrame renderframe = new ItemModelViewFrame(
+        PlayerModelViewFrame renderframe = new PlayerModelViewFrame(
                 itemSelect,
                 new MusePoint2D(absX(-0.75F), absY(-0.95f)),
                 new MusePoint2D(absX(0.15F), absY(-0.025f)),
@@ -59,13 +60,26 @@ public class CosmeticGui extends MuseGui {
                 itemSelect);
         frames.add(colourpicker);
 
-        PartManipContainer partframe = new PartManipContainer(
-                itemSelect, colourpicker,
-                new MusePoint2D(absX(-0.95F), absY(0.025f)),
-                new MusePoint2D(absX(+0.95F), absY(0.95f)),
-                Colour.LIGHTBLUE.withAlpha(0.8F),
-                Colour.DARKBLUE.withAlpha(0.8F));
-        frames.add(partframe);
+        if (!MPSSettings.allowCustomPowerFistModels() && !MPSSettings.allowCustomHighPollyArmor()) {
+//            if (1==2) {
+
+            SpecSelectContainer partframe = new SpecSelectContainer(
+                    itemSelect, colourpicker,
+                    new MusePoint2D(absX(-0.95F), absY(0.025f)),
+                    new MusePoint2D(absX(+0.95F), absY(0.95f)),
+                    Colour.LIGHTBLUE.withAlpha(0.8F),
+                    Colour.DARKBLUE.withAlpha(0.8F));
+            frames.add(partframe);
+        } else {
+            // TODO: conditional statement for default only
+            PartSpecManipContainer partframe = new PartSpecManipContainer(
+                    itemSelect, colourpicker,
+                    new MusePoint2D(absX(-0.95F), absY(0.025f)),
+                    new MusePoint2D(absX(+0.95F), absY(0.95f)),
+                    Colour.LIGHTBLUE.withAlpha(0.8F),
+                    Colour.DARKBLUE.withAlpha(0.8F));
+            frames.add(partframe);
+        }
 
         TabSelectFrame tabFrame = new TabSelectFrame(
                 player,

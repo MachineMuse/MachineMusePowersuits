@@ -10,7 +10,6 @@ import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.geometry.MuseRect;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.client.helpers.EnumColour;
-import net.machinemuse.powersuits.common.items.old.ItemPowerArmor;
 import net.machinemuse.powersuits.network.MusePacketColourInfo;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.GuiIcons;
@@ -24,7 +23,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

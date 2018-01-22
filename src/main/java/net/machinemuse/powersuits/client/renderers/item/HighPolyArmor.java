@@ -1,12 +1,8 @@
 package net.machinemuse.powersuits.client.renderers.item;
 
 import net.machinemuse.powersuits.client.modelspec.RenderPart;
-import net.machinemuse.powersuits.common.MPSConstants;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -14,7 +10,6 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHandSide;
-import net.minecraft.util.ResourceLocation;
 
 /**
  * Author: MachineMuse (Claire Semple)

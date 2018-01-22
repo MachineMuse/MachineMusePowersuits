@@ -8,6 +8,10 @@ buildscript {
         maven {
             url 'https://plugins.gradle.org/m2/'
         }
+
+        maven {
+            url 'https://mvnrepository.com/artifact/org.lz4/lz4-java'
+        }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
@@ -45,6 +49,14 @@ dependencies {
     
     // at runtime, use the full JEI jar
     runtime "mezz.jei:jei_${minecraft_version}:${jei_version}"
+
+
+
+
+    compile group: 'org.lz4', name: 'lz4-java', version: '1.4.1'
+
+
+
 }
 
 minecraft {

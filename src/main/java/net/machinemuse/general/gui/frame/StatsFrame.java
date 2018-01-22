@@ -1,6 +1,6 @@
 //package net.machinemuse.general.gui.frame;
 //
-//import net.machinemuse.general.NBTTagAccessor;
+//import net.machinemuse.numina.utils.NBTTagAccessor;
 //import net.machinemuse.numina.geometry.Colour;
 //import net.machinemuse.numina.geometry.MusePoint2D;
 //import net.machinemuse.utils.MuseItemUtils;

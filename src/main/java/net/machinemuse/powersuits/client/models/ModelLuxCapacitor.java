@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.client.models;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.client.helpers.ColoredQuadHelperThingie;
 import net.machinemuse.powersuits.client.helpers.EnumColour;
@@ -14,6 +15,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.SimpleModelState;
+import net.minecraftforge.common.model.IModelPart;
+import net.minecraftforge.common.model.IModelState;
+import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -23,9 +28,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 import static net.minecraft.block.BlockDirectional.FACING;
@@ -36,35 +40,38 @@ public class ModelLuxCapacitor implements IBakedModel {
     public IBakedModel wrapper;
     protected Function<ResourceLocation, TextureAtlasSprite> textureGetter;
     EnumColour colour;
-    Matrix4f defaultTransform;
     private LuxCapacitorItemOverrideList overrides;
-    private Map<ItemCameraTransforms.TransformType, Matrix4f> cameraTransforms;
+    final IModelState modelState;
+
     public ModelLuxCapacitor() {
         this.overrides = new LuxCapacitorItemOverrideList();
         this.wrapper = this;
-        this.cameraTransforms = new HashMap<ItemCameraTransforms.TransformType, Matrix4f>() {{
-            put(ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND,
-                    ModelHelper.get(1.13F, 3.2F, 1.13F, -25F, -90F, 0F, 0.41F).getMatrix());
+        this.modelState = getModelState();
+    }
 
-            put(ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND,
-                    ModelHelper.get(0F, 2F, 3F, 0F, 0F, 45F, 0.5F).getMatrix());
+    IModelState getModelState() {
+        ImmutableMap.Builder<IModelPart, TRSRTransformation> builder = ImmutableMap.builder();
+        builder.put(ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND,
+                ModelHelper.get(1.13F, 3.2F, 1.13F, -25F, -90F, 0F, 0.41F));
 
-            put(ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND,
-                    ModelHelper.get(1.13F, 3.2F, 1.13F, -25F, -90F, 0F, 0.41F).getMatrix());
+        builder.put(ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND,
+                ModelHelper.get(0F, 2F, 3F, 0F, 0F, 45F, 0.5F));
 
-            put(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND,
-                    ModelHelper.get(0F, 2F, 3F, 0F, 0F, 45F, 0.5F).getMatrix());
+        builder.put(ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND,
+                ModelHelper.get(1.13F, 3.2F, 1.13F, -25F, -90F, 0F, 0.41F));
 
-            put(ItemCameraTransforms.TransformType.GUI,
-                    ModelHelper.get(0F, 2.75F, 0F, -45F, 0F, 45F, 0.75F).getMatrix());
+        builder.put(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND,
+                ModelHelper.get(0F, 2F, 3F, 0F, 0F, 45F, 0.5F));
 
-            put(ItemCameraTransforms.TransformType.GROUND,
-                    ModelHelper.get(0F, 2F, 0F, -90F, -0F, 0F, 0.5F).getMatrix());
+        builder.put(ItemCameraTransforms.TransformType.GUI,
+                ModelHelper.get(0F, 2.75F, 0F, -45F, 0F, 45F, 0.75F));
 
-            put(ItemCameraTransforms.TransformType.FIXED,
-                    ModelHelper.get(0F, 0F, -7.5F, 0F, 180F, 0F, 1F).getMatrix());
-        }};
-        defaultTransform = ModelHelper.get(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F).getMatrix();
+        builder.put(ItemCameraTransforms.TransformType.GROUND,
+                ModelHelper.get(0F, 2F, 0F, -90F, -0F, 0F, 0.5F));
+
+        builder.put(ItemCameraTransforms.TransformType.FIXED,
+                ModelHelper.get(0F, 0F, -7.5F, 0F, 180F, 0F, 1F));
+        return new SimpleModelState(builder.build());
     }
 
     public static ModelResourceLocation getModelResourceLocation(EnumFacing facing) {
@@ -73,7 +80,6 @@ public class ModelLuxCapacitor implements IBakedModel {
 
     @Override
     public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
-        // AFAICT quads are only returned for null side
         if (side != null)
             return Collections.emptyList();
 
@@ -125,10 +131,11 @@ public class ModelLuxCapacitor implements IBakedModel {
 
     @Override
     public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
-        Matrix4f transform = cameraTransforms.getOrDefault(cameraTransformType, defaultTransform);
-//                ModelHelper.transformCalibration();
-//                transform = ModelHelper.get(ModelHelper.xOffest, ModelHelper.yOffest, ModelHelper.zOffest, ModelHelper.xtap, ModelHelper.ytap, ModelHelper.ztap, ModelHelper.scalemodifier);
-        return Pair.of(this, transform);
+        TRSRTransformation transform = modelState.apply(Optional.of(cameraTransformType)).orElse(TRSRTransformation.identity());
+        if(transform != TRSRTransformation.identity())
+            return Pair.of(this, transform.getMatrix());
+
+        return Pair.of(this, transform.getMatrix());
     }
 
     private class LuxCapacitorItemOverrideList extends ItemOverrideList {

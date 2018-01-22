@@ -31,6 +31,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -42,7 +43,6 @@ import java.util.List;
 @SideOnly(Side.CLIENT)
 public class ModelSpecXMLReader {
     private static ModelSpecXMLReader INSTANCE;
-
     public static ModelSpecXMLReader getInstance() {
         if (INSTANCE == null) {
             synchronized (ModelSpecXMLReader.class) {
@@ -75,25 +75,13 @@ public class ModelSpecXMLReader {
                             EnumSpecType specType = EnumSpecType.getTypeFromName(eElement.getAttribute("type"));
                             String specName = eElement.getAttribute("specName");
 
-                            IModelState modelState = null;
-                            NodeList cameraTransformList = eElement.getElementsByTagName("itemCameraTransforms");
-                            if (cameraTransformList.getLength() > 0) {
-                                Node cameraTransformNode = cameraTransformList.item(0);
-                                modelState = getIModelState(cameraTransformNode);
-                            } else {
-                                // Get the transform for the model and add to the registry
-                                NodeList transformNodeList = eElement.getElementsByTagName("trsrTransformation");
-                                if (transformNodeList.getLength() > 0)
-                                    modelState = getTransform(transformNodeList.item(0));
-                            }
-
                             boolean isDefault = (eElement.hasAttribute("default") ? Boolean.parseBoolean(eElement.getAttribute("default")) : false);
 
                             switch(specType) {
                                 case POWER_FIST:
                                     // only allow custom models if allowed by config
                                     if (isDefault || MPSSettings.allowCustomPowerFistModels())
-                                        parseModelSpec(specNode, event, EnumSpecType.POWER_FIST, modelState, specName, isDefault);
+                                        parseModelSpec(specNode, event, EnumSpecType.POWER_FIST, specName, isDefault);
                                     break;
 
                                 case ARMOR_MODEL:
@@ -101,7 +89,7 @@ public class ModelSpecXMLReader {
                                     if (MPSSettings.allowHighPollyArmorModels()) {
                                         // only allow custom models if allowed by config
                                         if (isDefault || MPSSettings.allowCustomHighPollyArmor())
-                                            parseModelSpec(specNode, event, EnumSpecType.ARMOR_MODEL, modelState, specName, isDefault);
+                                            parseModelSpec(specNode, event, EnumSpecType.ARMOR_MODEL, specName, isDefault);
                                     }
                                     break;
 
@@ -145,9 +133,11 @@ public class ModelSpecXMLReader {
     /**
      * Biggest difference between the ModelSpec for Armor vs PowerFist is that the armor models don't need item camera transforms
      */
-    public static void parseModelSpec(Node specNode, TextureStitchEvent event, EnumSpecType specType, IModelState modelState, String specName, boolean isDefault) {
+    public static void parseModelSpec(Node specNode, TextureStitchEvent event, EnumSpecType specType, String specName, boolean isDefault) {
         NodeList models = specNode.getOwnerDocument().getElementsByTagName("model");
         List<String> textures = new ArrayList<>();
+        IModelState modelState = null;
+
         for (int i=0; i < models.getLength(); i++) {
 
             Node modelNode = models.item(i);
@@ -162,26 +152,25 @@ public class ModelSpecXMLReader {
                             textures.add(texture);
                 } else {
                     String modelLocation = modelElement.getAttribute("file");
-                    if(modelState == null) {
-                        // check for item camera transforms, then fall back on single transform for model
-                        NodeList cameraTransformList = ((Element) modelNode).getElementsByTagName("itemCameraTransforms");
-                        if (cameraTransformList.getLength() > 0) {
-                            Node cameraTransformNode = cameraTransformList.item(0);
-                            modelState = getIModelState(cameraTransformNode);
-                        } else {
-                            // Get the transform for the model and add to the registry
-                            NodeList transformNodeList = ((Element) modelNode).getElementsByTagName("trsrTransformation");
-                            if (transformNodeList.getLength() > 0)
-                                modelState = getTransform(transformNodeList.item(0));
-                            else
-                                modelState = TRSRTransformation.identity();
-                        }
+                    // IModelStates should be per model, not per spec
+                    NodeList cameraTransformList = modelElement.getElementsByTagName("itemCameraTransforms");
+                    // check for item camera transforms, then fall back on single transform for model
+                    if (cameraTransformList.getLength() > 0) {
+                        Node cameraTransformNode = cameraTransformList.item(0);
+                        modelState = getIModelState(cameraTransformNode);
+                    } else {
+                        // Get the transform for the model and add to the registry
+                        NodeList transformNodeList = modelElement.getElementsByTagName("trsrTransformation");
+                        if (transformNodeList.getLength() > 0)
+                            modelState = getTransform(transformNodeList.item(0));
+                        else
+                            modelState= TRSRTransformation.identity();
                     }
 
                     OBJModelPlus.OBJBakedModelPus bakedModel = ModelRegistry.getInstance().loadBakedModel(new ResourceLocation(modelLocation), modelState);
                     // ModelSpec stuff
                     if (bakedModel != null && bakedModel instanceof OBJModelPlus.OBJBakedModelPus) {
-                        ModelSpec modelspec = new ModelSpec(bakedModel, specName, isDefault, specType);
+                        ModelSpec modelspec = new ModelSpec(bakedModel, modelState, specName, isDefault, specType);
                         ModelSpec existingspec = (ModelSpec) ModelRegistry.getInstance().put(MuseStringUtils.extractName(modelLocation), modelspec);
                         NodeList bindingNodeList = ((Element) modelNode).getElementsByTagName("binding");
                         if (bindingNodeList.getLength() > 0) {
@@ -189,7 +178,6 @@ public class ModelSpecXMLReader {
                                 Node bindingNode = bindingNodeList.item(k);
                                 Binding binding = getBinding(bindingNode);
                                 NodeList partNodeList = ((Element) bindingNode).getElementsByTagName("part");
-
                                 for(int j=0; j<partNodeList.getLength(); j++) {
                                     getModelPartSpec(existingspec, partNodeList.item(j), binding);
                                 }
@@ -208,39 +196,17 @@ public class ModelSpecXMLReader {
                 event.getMap().registerSprite(new ResourceLocation(texture));
     }
 
-
+    // since the skinned armor can't have more than one texture per EntityEquipmentSlot the TexturePartSpec is named after the slot
     public static void getTexturePartSpec(TextureSpec textureSpec, Node bindingNode, EntityEquipmentSlot slot, String fileLocation) {
         Element partSpecElement = (Element) bindingNode;
         Colour colour = parseColour(partSpecElement.getAttribute("defaultcolor"));
         EnumColour enumColour = colour!=null ? EnumColour.findClosestEnumColour(colour) : EnumColour.WHITE;
 
-        switch(slot) {
-            case HEAD:
-                textureSpec.put(EntityEquipmentSlot.HEAD.getName(),
-                        new TexturePartSpec(textureSpec,
-                                new Binding(null, EntityEquipmentSlot.HEAD, "all"),
-                                enumColour, EntityEquipmentSlot.HEAD.getName(), fileLocation));
-                break;
-
-            case CHEST:
-                textureSpec.put(EntityEquipmentSlot.CHEST.getName(),
-                        new TexturePartSpec(textureSpec,
-                                new Binding(null, EntityEquipmentSlot.CHEST, "all"),
-                                enumColour, EntityEquipmentSlot.CHEST.getName(), fileLocation));
-                break;
-
-            case LEGS:
-                textureSpec.put(EntityEquipmentSlot.LEGS.getName(),
-                        new TexturePartSpec(textureSpec, new Binding(null, EntityEquipmentSlot.LEGS, "all"),
-                                enumColour, EntityEquipmentSlot.LEGS.getName(), fileLocation));
-                break;
-
-            case FEET:
-                textureSpec.put(EntityEquipmentSlot.FEET.getName(),
-                        new TexturePartSpec(textureSpec, new Binding(null, EntityEquipmentSlot.FEET, "all"),
-                                enumColour, EntityEquipmentSlot.FEET.getName(), fileLocation));
-                break;
-        }
+        if (!Objects.equals(slot, null) && Objects.equals(slot.getSlotType(), EntityEquipmentSlot.Type.ARMOR))
+            textureSpec.put(slot.getName(),
+                    new TexturePartSpec(textureSpec,
+                            new Binding(null, slot, "all"),
+                            (byte)enumColour.getIndex(), slot.getName(), fileLocation));
     }
 
     /**
@@ -264,7 +230,7 @@ public class ModelSpecXMLReader {
             modelSpec.put(partname, new ModelPartSpec(modelSpec,
                     binding,
                     partname,
-                    enumColour,
+                    (byte)enumColour.getIndex(),
                     glow));
     }
 

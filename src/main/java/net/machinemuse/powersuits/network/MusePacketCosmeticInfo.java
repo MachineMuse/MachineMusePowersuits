@@ -9,8 +9,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.common.util.Constants;
 
 import java.io.DataInputStream;
+
+import static net.machinemuse.powersuits.common.MPSConstants.NBT_RENDER_TAG;
+import static net.machinemuse.powersuits.common.MPSConstants.NBT_SPECLIST_TAG;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -49,18 +54,24 @@ public class MusePacketCosmeticInfo extends MusePacket {
         if (tagName != null && stack != null && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
             NBTTagCompound renderTag;
-            if (!itemTag.hasKey("render")) {
+            if (!itemTag.hasKey(NBT_RENDER_TAG)) {
                 renderTag = new NBTTagCompound();
-                itemTag.setTag("render", renderTag);
+                itemTag.setTag(NBT_RENDER_TAG, renderTag);
             } else {
-                renderTag = itemTag.getCompoundTag("render");
+                renderTag = itemTag.getCompoundTag(NBT_RENDER_TAG);
             }
             if (tagData.hasNoTags()) {
                 MuseLogger.logDebug("Removing tag " + tagName);
                 renderTag.removeTag(tagName);
             } else {
-                MuseLogger.logDebug("Adding tag " + tagName + " : " + tagData);
-                renderTag.setTag(tagName, tagData);
+                if (tagName.equals(NBT_SPECLIST_TAG)) {
+                    NBTTagList tagList = tagData.getTagList(tagName, Constants.NBT.TAG_COMPOUND);
+                    MuseLogger.logDebug("Adding tagList " + tagName + " : " + tagList);
+                    renderTag.setTag(tagName, tagList);
+                } else {
+                    MuseLogger.logDebug("Adding tag " + tagName + " : " + tagData.toString());
+                    renderTag.setTag(tagName, tagData);
+                }
             }
         }
     }

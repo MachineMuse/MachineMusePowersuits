@@ -4,6 +4,10 @@ import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.block.BlockTinkerTable;
 import net.minecraft.item.ItemBlock;
 
+
+/*
+ * ItemBlock version of the Tinker Table
+ */
 public class ItemBlockTinkerTable extends ItemBlock {
     private static ItemBlockTinkerTable ourInstance;
 
@@ -19,6 +23,4 @@ public class ItemBlockTinkerTable extends ItemBlock {
         setRegistryName(BlockTinkerTable.name);
         this.hasSubtypes = false;
     }
-
-
 }

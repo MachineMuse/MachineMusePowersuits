@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.common;
 
-import net.machinemuse.powersuits.common.events.EventRegisterItems;
+import net.machinemuse.powersuits.common.event.EventRegisterItems;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 

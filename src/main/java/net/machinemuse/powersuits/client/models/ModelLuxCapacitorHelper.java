@@ -26,6 +26,7 @@ import static net.machinemuse.powersuits.common.block.BlockLuxCapacitor.FACING;
 public class ModelLuxCapacitorHelper {
     private static final ResourceLocation baseModelLocation = new ResourceLocation(RESOURCE_PREFIX + "block/luxcapacitor/luxcapacitor_base.obj");
     private static final ResourceLocation lensModelLocation = new ResourceLocation(RESOURCE_PREFIX + "block/luxcapacitor/luxcapacitor_lens.obj");
+
     /*
      * Guava chache for the list of baked quads.
      * The "ColoredQuadHelperThingie" is just easier and cleaner than using multi level maps.
@@ -59,7 +60,6 @@ public class ModelLuxCapacitorHelper {
                     TRSRTransformation transform = new TRSRTransformation(facing);
                     IBakedModel bakedModel = ModelHelper.getBakedModel(lensModelLocation, transform);
                     List<BakedQuad> quads = bakedModel.getQuads(BlockLuxCapacitor.getInstance().getDefaultState().withProperty(FACING, facing), null, 0);
-//                    return ModelHelper.getColoredQuads(quads, color.getColour());
                     return ModelHelper.getColoredQuadsWithGlow(quads, color.getColour(), true);
                 }
 
@@ -68,12 +68,10 @@ public class ModelLuxCapacitorHelper {
                     List<BakedQuad> lensList = getLensColoredQuads(color, facing);
 
                     ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
-                    for (BakedQuad quad : frameList) {
+                    for (BakedQuad quad : frameList)
                         builder.add(quad);
-                    }
-                    for (BakedQuad quad : lensList) {
+                    for (BakedQuad quad : lensList)
                         builder.add(quad);
-                    }
                     return builder.build();
                 }
             });

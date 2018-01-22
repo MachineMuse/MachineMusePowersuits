@@ -3,6 +3,9 @@ package net.machinemuse.powersuits.common.block.itemblock;
 import net.machinemuse.powersuits.common.block.BlockLuxCapacitor;
 import net.minecraft.item.ItemBlock;
 
+/*
+ * ItemBlock verison of the LuxCapacitor
+ */
 public class ItemBlockLuxCapacitor extends ItemBlock {
     private static ItemBlockLuxCapacitor ourInstance;
 

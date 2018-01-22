@@ -4,7 +4,6 @@ package net.machinemuse.powersuits.common.items.old;
 
 import net.machinemuse.api.electricity.MuseElectricItem;
 import net.machinemuse.api.item.IModularItemBase;
-import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.client.helpers.EnumColour;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;

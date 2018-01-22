@@ -34,10 +34,6 @@ public class BlockLuxCapacitor extends BlockDirectional {
     protected static final AxisAlignedBB LUXCAPACITOR_UP_AABB = new AxisAlignedBB(0.0625, 0.75, 0.0625, 0.9375, 1.0, 0.9375);
     protected static final AxisAlignedBB LUXCAPACITOR_DOWN_AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.25, 0.9375);
 
-
-    //TODO: move direction to tileentity
-
-
     public static final EnumColour defaultColor = EnumColour.BLUEVIOLET;
 
     public static final IUnlistedProperty<EnumColour> COLOUR = new IUnlistedProperty<EnumColour>() {
@@ -110,7 +106,7 @@ public class BlockLuxCapacitor extends BlockDirectional {
     @SuppressWarnings("deprecation")
     @Override
     public boolean isOpaqueCube(IBlockState state) {
-        return false; //state.getValue(FACING) == EnumFacing.UP || state.getValue(FACING) == EnumFacing.DOWN;
+        return false;
     }
 
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {

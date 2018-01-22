@@ -56,7 +56,7 @@ public enum EnumColour implements IStringSerializable {
     MAGENTA(48,(new Colour(255,0,255)),"magenta"),
     MAGENTA_2(49,(new Colour(238,0,238)),"magenta 2"),
     MAGENTA_3(50,(new Colour(205,0,205)),"magenta 3"),
-    PURPLE(51,(new Colour(128,0,128)),"purple*"),
+    PURPLE(51,(new Colour(128,0,128)),"purple"),
     MEDIUMORCHID(52,(new Colour(186,85,211)),"mediumorchid"),
     MEDIUMORCHID_1(53,(new Colour(224,102,255)),"mediumorchid 1"),
     MEDIUMORCHID_2(54,(new Colour(209,95,238)),"mediumorchid 2"),

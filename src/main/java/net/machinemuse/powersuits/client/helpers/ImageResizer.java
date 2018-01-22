@@ -1,13 +1,10 @@
 package net.machinemuse.powersuits.client.helpers;
 
-import java.awt.Graphics2D;
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-import javax.imageio.ImageIO;
 
 /**
  * This program demonstrates how to resize an image.

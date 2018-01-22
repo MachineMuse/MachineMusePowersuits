@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.client.modelspec;
 
 import com.google.common.base.Objects;
-import net.machinemuse.powersuits.client.helpers.EnumColour;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,9 +19,9 @@ public class ModelPartSpec extends PartSpec {
     public ModelPartSpec(ModelSpec modelSpec,
                          Binding binding,
                          String partName,
-                         EnumColour enumColour,
+                         byte enumColourIndex,
                          Boolean defaultglow) {
-        super(modelSpec, binding, partName, enumColour);
+        super(modelSpec, binding, partName, enumColourIndex);
         this.defaultglow = (defaultglow != null) ? defaultglow : false;
     }
 
@@ -53,7 +52,7 @@ public class ModelPartSpec extends PartSpec {
         return ((ModelSpec)(this.spec)).getModel().getQuadsforPart(this.partName);
     }
 
-    public NBTTagCompound multiSet(NBTTagCompound nbt, Integer colourIndex, Boolean glow) {
+    public NBTTagCompound multiSet(NBTTagCompound nbt, Byte colourIndex, Boolean glow) {
         super.multiSet(nbt, colourIndex);
         this.setGlow(nbt, (glow != null) ? glow : false);
         return nbt;

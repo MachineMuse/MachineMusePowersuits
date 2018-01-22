@@ -12,7 +12,6 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -67,7 +66,6 @@ public class BlockTinkerTable extends BlockContainer {
         return false;
     }
 
-
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState();
@@ -81,25 +79,6 @@ public class BlockTinkerTable extends BlockContainer {
              playerIn.openGui(ModularPowersuits.getInstance(), 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
         return true;
     }
-
-    @SuppressWarnings("deprecation")
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
-    }
-
-//        @Override
-//        public boolean isVisuallyOpaque() {
-//            return false;
-//        }
-//
-//        @SuppressWarnings("deprecation")
-//        @Override
-//        public boolean isOpaqueCube(IBlockState state) {
-//            return false;
-//        }
-//
-
 
     @SuppressWarnings("deprecation")
     @Override
@@ -124,7 +103,6 @@ public class BlockTinkerTable extends BlockContainer {
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return ((EnumFacing)state.getValue(FACING)).getIndex();
+        return state.getValue(FACING).getIndex();
     }
-
 }

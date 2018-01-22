@@ -71,7 +71,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * This is a tweaked version of the OBJModelPlus class from Forge.
+ * This is a tweaked version of the OBJModel class from Forge.
  * This provides a simpler means of getting quads for a specific group without "re-baking"
  *
  * Modular Powersuits treats "Groups" (IModelPart) as flexible parts that can be toggled, recolored, and lighting toggled.

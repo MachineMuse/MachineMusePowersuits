@@ -1,8 +1,8 @@
-# Blender MTL File: 'None'
+# Blender MTL File: 'powerFist.blend'
 # Material Count: 1
 
-newmtl Material.001
-Ka 0.000000 0.000000 0.000000
-Kd 0.800000 0.800000 0.800000
+newmtl initialShadingGroup
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
 d 1.000000
 map_Kd powersuits:models/tool2

@@ -1,18 +1,16 @@
 package net.machinemuse.powersuits.client.modelspec;
 
 import com.google.common.base.Objects;
-import net.machinemuse.powersuits.client.helpers.EnumColour;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.nbt.NBTTagCompound;
 
 public class TexturePartSpec extends PartSpec {
     String textureLocation;
     public TexturePartSpec(Spec spec,
                            Binding binding,
-                           EnumColour enumColour,
+                           byte enumColourIndex,
                            String partName,
                            String textureLocation) {
-        super(spec, binding, partName, enumColour);
+        super(spec, binding, partName, enumColourIndex);
         this.textureLocation = textureLocation;
     }
 
@@ -26,17 +24,6 @@ public class TexturePartSpec extends PartSpec {
 
     public String getTextureLocation() {
         return textureLocation;
-    }
-
-    public void setTextureLocation(NBTTagCompound nbt, String textureLocation) {
-        nbt.setString("texture", textureLocation);
-        this.textureLocation = textureLocation;
-    }
-
-    public NBTTagCompound multiSet(NBTTagCompound nbt, Integer colourindex, String textureLocationIn) {
-        super.multiSet(nbt, colourindex);
-        this.setTextureLocation(nbt, (textureLocationIn != null && !textureLocationIn.isEmpty()) ? textureLocationIn : textureLocation);
-        return nbt;
     }
 
     @Override

@@ -17,8 +17,8 @@ public enum MorphTarget {
     LeftFoot("LEFTFOOT", EntityEquipmentSlot.FEET),
 
     /**
-     * Note that these may be reversed and special checks are needed for rendering asymmetrical
-     * models where negative scale is used for opposite hand variant
+     * Note that these may be reversed and special checks are needed for rendering
+     * hand-dependant models.
      */
     RightHand("RIGHTHAND", EntityEquipmentSlot.MAINHAND),
     Lefthand("LEFTHAND", EntityEquipmentSlot.OFFHAND);
@@ -30,7 +30,6 @@ public enum MorphTarget {
         this.name = name;
         this.slot = slot;
     }
-
 
     public ModelRenderer apply(ModelBiped m) {
         switch(this) {

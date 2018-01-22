@@ -29,7 +29,7 @@ package net.machinemuse.powersuits.common.powermodule.tool;// package andrew.pow
 // import li.cil.oc.common.GuiType;
 // import li.cil.oc.client.GuiHandler;
 // import li.cil.oc.common.Tier;
-// //import scala.Enumeration.Value;
+// //import utils.Enumeration.Value;
 // import com.typesafe.config.Config;
 // import java.util.List;
 // import java.util.ArrayList;
@@ -121,7 +121,7 @@ package net.machinemuse.powersuits.common.powermodule.tool;// package andrew.pow
 //
 //                         term.connect(machine.node());
 //
-//                         PacketSender.sendServerState(rack, slot, scala.Option.apply((EntityPlayerMP) player));
+//                         PacketSender.sendServerState(rack, slot, utils.Option.apply((EntityPlayerMP) player));
 //       stack.getTagCompound().setString("oc:key", key);
 //                         stack.getTagCompound().setString("oc:server", machine.node().address());
 //                         player.inventory.markDirty();
@@ -162,7 +162,7 @@ package net.machinemuse.powersuits.common.powermodule.tool;// package andrew.pow
 //
 //                                         term.connect(machine.node());
 //
-//                                         PacketSender.sendServerState(rack, slot, scala.Option.apply((EntityPlayerMP) player));
+//                                         PacketSender.sendServerState(rack, slot, utils.Option.apply((EntityPlayerMP) player));
 //                                         stack.getTagCompound().setString("oc:key", key);
 //                                         stack.getTagCompound().setString("oc:server", machine.node().address());
 //                                         player.inventory.markDirty();

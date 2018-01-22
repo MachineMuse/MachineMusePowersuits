@@ -1,15 +1,11 @@
 package net.machinemuse.powersuits.common.items.old;
 
-import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.electricity.MuseElectricItem;
 import net.machinemuse.api.item.IModularItemBase;
-import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.client.helpers.EnumColour;
-import net.machinemuse.powersuits.common.MPSConstants;
-import net.machinemuse.powersuits.common.items.modules.cosmetic.CosmeticGlowModule;
-import net.machinemuse.powersuits.common.items.modules.cosmetic.TintModule;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
+import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -19,8 +15,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static net.machinemuse.numina.general.MuseMathUtils.clampDouble;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -46,16 +40,7 @@ public class ModularItemBase extends Item implements IModularItemBase {
 
     @Override
     public EnumColour getColorFromItemStack(ItemStack stack) {
-        Colour colour;
-        if (!ModuleManager.itemHasActiveModule(stack, MPSConstants.MODULE_TINT))
-            colour = Colour.WHITE;
-        else {
-            double computedred = ModuleManager.computeModularProperty(stack, TintModule.RED_TINT);
-            double computedgreen = ModuleManager.computeModularProperty(stack, TintModule.GREEN_TINT);
-            double computedblue = ModuleManager.computeModularProperty(stack, TintModule.BLUE_TINT);
-            colour = new Colour(clampDouble(computedred, 0, 1), clampDouble(computedgreen, 0, 1), clampDouble(computedblue, 0, 1), 1.0F);
-        }
-        return EnumColour.findClosestEnumColour(colour);
+        return MuseItemUtils.getStackSingleColour(stack);
     }
 
     @Override
@@ -126,78 +111,6 @@ public class ModularItemBase extends Item implements IModularItemBase {
     public double giveMPSEnergyTo(ItemStack stack, double provided) {
         return MuseElectricItem.getInstance().giveMPSEnergyTo(stack, provided);
     }
-
-//    @SideOnly(Side.CLIENT)
-//    @Override
-//    public String getToolTip(ItemStack itemStack) {
-//        return itemStack.getTooltip(Minecraft.getMinecraft().player, NORMAL).toString();
-//    }
-
-    /* Industrialcraft 2 -------------------------------------------------------------------------- */
-//    @Override
-//    public IMuseElectricItem getManager(ItemStack stack) {
-//        return MuseElectricItem.getInstance().getManager(stack);
-//    }
-//
-//    @Override
-//    public void chargeFromArmor(ItemStack itemStack, EntityLivingBase entity) {
-//        MuseElectricItem.getInstance().chargeFromArmor(itemStack, entity);
-//    }
-//
-//    @Override
-//    public boolean use(ItemStack itemStack, double amount, EntityLivingBase entity) {
-//        return MuseElectricItem.getInstance().use(itemStack, amount, entity);
-//    }
-//
-//    @Override
-//    public boolean canProvideEnergy(ItemStack itemStack) {
-//        return MuseElectricItem.getInstance().canProvideEnergy(itemStack);
-//    }
-//
-//    @Override
-//    public double getCharge(ItemStack itemStack) {
-//        return MuseElectricItem.getInstance().getCharge(itemStack);
-//    }
-//
-//    @Override
-//    public double getMaxCharge(ItemStack itemStack) {
-//        return MuseElectricItem.getInstance().getMaxCharge(itemStack);
-//    }
-//
-//    @Override
-//    public int getTier(ItemStack itemStack) {
-//        return MuseElectricItem.getInstance().getTier(itemStack);
-//    }
-//
-//    @Override
-//    public double getTransferLimit(ItemStack itemStack) {
-//        return MuseElectricItem.getInstance().getTransferLimit(itemStack);
-//    }
-//
-//    @Override
-//    public double charge(ItemStack itemStack, double amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
-//        return MuseElectricItem.getInstance().charge(itemStack, amount, tier, ignoreTransferLimit, simulate);
-//    }
-//
-//    @Override
-//    public double discharge(ItemStack itemStack, double amount, int tier, boolean ignoreTransferLimit, boolean externally, boolean simulate) {
-//        return MuseElectricItem.getInstance().discharge(itemStack, amount, tier, ignoreTransferLimit, externally, simulate);
-//    }
-//
-//    @Override
-//    public boolean canUse(ItemStack itemStack, double amount) {
-//        return MuseElectricItem.getInstance().canUse(itemStack, amount);
-//    }
-//
-//    @Override
-//    public Item getChargedItem(ItemStack itemStack) {
-//        return MuseElectricItem.getInstance().getChargedItem(itemStack);
-//    }
-//
-//    @Override
-//    public Item getEmptyItem(ItemStack itemStack) {
-//        return MuseElectricItem.getInstance().getEmptyItem(itemStack);
-//    }
 
 
     /* Thermal Expansion -------------------------------------------------------------------------- */

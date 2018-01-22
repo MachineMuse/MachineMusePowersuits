@@ -3,7 +3,7 @@
         <texture file="powersuits:textures/items/armor/joearmor.png">
             <binding slot="head"/>
         </texture>
-        <texture file="powersuits:textures/items/armor/joearmo.pngr">
+        <texture file="powersuits:textures/items/armor/joearmor.png">
             <binding slot="chest"/>
         </texture>
         <texture file="powersuits:textures/items/armor/joearmorpants.png">

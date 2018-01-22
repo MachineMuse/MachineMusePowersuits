@@ -6,9 +6,10 @@ import net.machinemuse.api.MuseItemTag;
 import net.machinemuse.numina.api.item.IModule;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.general.MuseMathUtils;
+import net.machinemuse.powersuits.client.helpers.EnumColour;
 import net.machinemuse.powersuits.client.modelspec.DefaultModelSpec;
 import net.machinemuse.powersuits.client.modelspec.ModelRegistry;
-import net.machinemuse.powersuits.client.modelspec.Spec;
+import net.machinemuse.powersuits.client.modelspec.TexturePartSpec;
 import net.machinemuse.powersuits.common.items.ItemComponent;
 import net.machinemuse.powersuits.common.items.old.ItemPowerArmor;
 import net.machinemuse.powersuits.common.items.old.ItemPowerFist;
@@ -23,7 +24,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
+import javax.annotation.Nullable;
 import java.util.*;
+
+import static net.machinemuse.powersuits.common.MPSConstants.NBT_RENDER_TAG;
+import static net.machinemuse.powersuits.common.MPSConstants.NBT_TEXTURESPEC_TAG;
 
 public class MuseItemUtils {
     public static final String ONLINE = "Active";
@@ -41,21 +46,68 @@ public class MuseItemUtils {
 
     public static NBTTagCompound getMuseRenderTag(ItemStack stack, EntityEquipmentSlot equipmentSlot) {
         NBTTagCompound tag = getMuseItemTag(stack);
-        if (!tag.hasKey("render") || !(tag.getTag("render") instanceof NBTTagCompound)) {
-            tag.removeTag("render");
-            tag.setTag("render", DefaultModelSpec.makeModelPrefs(stack, equipmentSlot));
+        if (!tag.hasKey(NBT_RENDER_TAG) || !(tag.getTag(NBT_RENDER_TAG) instanceof NBTTagCompound)) {
+            tag.removeTag(NBT_RENDER_TAG);
+            tag.setTag(NBT_RENDER_TAG, DefaultModelSpec.makeModelPrefs(stack, equipmentSlot));
         }
-        return tag.getCompoundTag("render");
+        return tag.getCompoundTag(NBT_RENDER_TAG);
     }
 
     public static NBTTagCompound getMuseRenderTag(ItemStack stack) {
+        if (!stack.isEmpty() && stack.getItem() instanceof ItemPowerArmor)
+            return getMuseRenderTag(stack, ((ItemPowerArmor) stack.getItem()).armorType);
+
         NBTTagCompound tag = getMuseItemTag(stack);
-        if (!tag.hasKey("render") || !(tag.getTag("render") instanceof NBTTagCompound)) {
+        if (!tag.hasKey(NBT_RENDER_TAG) || !(tag.getTag(NBT_RENDER_TAG) instanceof NBTTagCompound)) {
             MuseLogger.logDebug("TAG BREACH IMMINENT, PLEASE HOLD ONTO YOUR SEATBELTS");
-            tag.removeTag("render");
-            tag.setTag("render", DefaultModelSpec.makeModelPrefs(stack));
+            tag.removeTag(NBT_RENDER_TAG);
+            tag.setTag(NBT_RENDER_TAG, DefaultModelSpec.makeModelPrefs(stack));
         }
-        return tag.getCompoundTag("render");
+        return tag.getCompoundTag(NBT_RENDER_TAG);
+    }
+
+    @Nullable
+    public static TexturePartSpec getTexturePartSpec(ItemStack stack, EntityEquipmentSlot slot) {
+        NBTTagCompound renderSpec = getMuseRenderTag(stack, slot);
+        if (renderSpec.hasKey(NBT_TEXTURESPEC_TAG))
+            try {
+                NBTTagCompound texSpecTag = renderSpec.getCompoundTag(NBT_TEXTURESPEC_TAG);
+                return (TexturePartSpec) ModelRegistry.getInstance().get(texSpecTag.getString("model")).getPart(slot.getName());
+            } catch (Exception ignored) {
+
+            }
+        return null;
+    }
+
+    public static EnumColour getStackSingleColour(ItemStack stack) {
+        NBTTagCompound renderTag = MuseItemUtils.getMuseRenderTag(stack);
+        int colourArrayIndex;
+        byte[] colours;
+
+        if (renderTag.hasKey("colours"))
+            colours = renderTag.getByteArray("colours");
+        else
+            colours = new byte[] {(byte)EnumColour.WHITE.getIndex()};
+
+        if (stack.getItem() instanceof ItemPowerArmor) {
+            EntityEquipmentSlot slot = ((ItemPowerArmor) stack.getItem()).armorType;
+            NBTTagCompound renderSpec = MuseItemUtils.getMuseRenderTag(stack, slot);
+            if (renderSpec.hasKey("texSpec")) {
+                NBTTagCompound texSpecTag = renderSpec.getCompoundTag("texSpec");
+                if (texSpecTag.hasKey("colourindex"))
+                    colourArrayIndex = Byte.toUnsignedInt(texSpecTag.getByte("colourindex"));
+                else
+                    colourArrayIndex = 0;
+                return EnumColour.getColourEnumFromIndex(Byte.toUnsignedInt(colours[Math.min(colourArrayIndex, colours.length -1)]));
+            }
+            return EnumColour.WHITE;
+        }
+
+        if (renderTag.hasNoTags())
+            renderTag = getMuseRenderTag(stack);
+        if (!renderTag.hasKey("enumColourIDX"))
+            renderTag.setByte("enumColourIDX", (byte)EnumColour.WHITE.getIndex());
+        return EnumColour.getColourEnumFromIndex(Byte.toUnsignedInt(renderTag.getByte("enumColourIDX")));
     }
 
     /**
