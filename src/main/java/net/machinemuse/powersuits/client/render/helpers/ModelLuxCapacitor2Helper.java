@@ -37,14 +37,6 @@ public class ModelLuxCapacitor2Helper {
                 public List<BakedQuad> load(ColoredQuadHelperThingie key) throws Exception {
                     return getQuads(key.getColour(), key.getFacing());
                 }
-//
-//                public IBakedModel getBase(@Nullable EnumFacing facing) {
-//                    return ModelHelper.getBakedModel(baseModelLocation, new TRSRTransformation((facing != null) ? facing : EnumFacing.DOWN));
-//                }
-//
-//                public IBakedModel getLens(@Nullable EnumFacing facing) {
-//                    return ModelHelper.getBakedModel(lensModelLocation, new TRSRTransformation((facing != null) ? facing : EnumFacing.DOWN));
-//                }
 
                 List<BakedQuad> getBaseQuads(@Nullable EnumFacing facing) {
                     facing = (facing != null) ? facing : EnumFacing.DOWN;

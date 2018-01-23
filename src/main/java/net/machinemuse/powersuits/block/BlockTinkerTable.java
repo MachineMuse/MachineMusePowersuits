@@ -29,13 +29,14 @@ import javax.annotation.Nullable;
  * (eventually) and provide a way for the player to access the TinkerTable GUI.
  *
  * @author MachineMuse
- *
- *
+ * <p>
+ * <p>
  * Ported to Java by lehjr on 10/21/16.
  */
 public class BlockTinkerTable extends Block {
     public static final String name = "tinkerTable";
     public static final PropertyDirection FACING = BlockHorizontal.FACING;
+
     public BlockTinkerTable() {
         super(Material.IRON);
         setHardness(1.5F);
@@ -47,7 +48,7 @@ public class BlockTinkerTable extends Block {
         setLightLevel(0.4f);
         setTickRandomly(false);
         setUnlocalizedName(name);
-        setRegistryName(ModularPowersuits.MODID, "tile."+ name);
+        setRegistryName(ModularPowersuits.MODID, "tile." + name);
         setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
         GameRegistry.registerTileEntity(TileEntityTinkerTable.class, "tinkerTable");
     }
@@ -62,9 +63,8 @@ public class BlockTinkerTable extends Block {
     }
 
     @SuppressWarnings("deprecation")
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-        return MPSItems.luxCapacitor.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return MPSItems.tinkerTable.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
     }
 
     @Override
@@ -103,11 +103,11 @@ public class BlockTinkerTable extends Block {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {FACING});
+        return new BlockStateContainer(this, new IProperty[]{FACING});
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return ((EnumFacing)state.getValue(FACING)).getIndex();
+        return ((EnumFacing) state.getValue(FACING)).getIndex();
     }
 }
