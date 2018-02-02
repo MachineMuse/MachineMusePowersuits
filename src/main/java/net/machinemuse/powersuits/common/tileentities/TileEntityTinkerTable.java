@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.common.tileentities;
 
 import net.machinemuse.numina.common.tileentity.MuseTileEntity;
-import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 

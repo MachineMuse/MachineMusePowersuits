@@ -2,9 +2,9 @@ package net.machinemuse.powersuits.common.items.old;
 
 //import appeng.api.config.AccessRestriction;
 
-import net.machinemuse.api.electricity.MuseElectricItem;
-import net.machinemuse.api.item.IModularItemBase;
-import net.machinemuse.powersuits.client.helpers.EnumColour;
+import net.machinemuse.powersuits.api.electricity.MuseElectricItem;
+import net.machinemuse.numina.api.item.IModularItemBase;
+import net.machinemuse.numina.geometry.EnumColour;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;

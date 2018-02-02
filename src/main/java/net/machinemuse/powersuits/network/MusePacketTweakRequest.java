@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.network;
 
-import net.machinemuse.api.ModuleManager;
+import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;

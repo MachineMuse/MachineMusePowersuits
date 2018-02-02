@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.modelspec;
 
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.powersuits.client.helpers.EnumColour;
+import net.machinemuse.numina.api.module.ModuleManager;
+import net.machinemuse.numina.geometry.EnumColour;
 import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.powersuits.common.items.old.ItemPowerArmor;
@@ -11,7 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagByteArray;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.ArrayUtils;

@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.common.event;
 
 
-import net.machinemuse.api.IModularItem;
+import net.machinemuse.numina.api.item.IModularItem;
 import net.machinemuse.powersuits.common.items.ItemComponent;
 import net.machinemuse.powersuits.common.items.old.*;
 import net.minecraft.item.Item;

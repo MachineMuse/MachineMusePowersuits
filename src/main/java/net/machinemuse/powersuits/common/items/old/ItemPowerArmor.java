@@ -1,17 +1,17 @@
 package net.machinemuse.powersuits.common.items.old;
 
 import com.google.common.collect.Multimap;
-import net.machinemuse.api.IArmorTraits;
-import net.machinemuse.api.ModuleManager;
+import net.machinemuse.powersuits.api.IArmorTraits;
+import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.modelspec.TexturePartSpec;
 import net.machinemuse.powersuits.client.renderers.item.HighPolyArmor;
 import net.machinemuse.powersuits.client.renderers.item.IArmorModel;
 import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.config.MPSSettings;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseHeatUtils;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
+import net.machinemuse.numina.utils.string.MuseCommonStrings;
+import net.machinemuse.numina.utils.heat.MuseHeatUtils;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

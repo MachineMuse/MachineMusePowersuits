@@ -1,14 +1,14 @@
 package net.machinemuse.powersuits.common.event;
 
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.general.sound.SoundDictionary;
+import net.machinemuse.numina.api.module.ModuleManager;
+import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.common.NuminaSettings;
 import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.items.modules.movement.JumpAssistModule;
 import net.machinemuse.powersuits.common.items.modules.movement.ShockAbsorberModule;
 import net.machinemuse.powersuits.common.items.old.ItemPowerArmor;
-import net.machinemuse.utils.ElectricItemUtils;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;

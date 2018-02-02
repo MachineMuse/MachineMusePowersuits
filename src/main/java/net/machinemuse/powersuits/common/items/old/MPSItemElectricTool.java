@@ -3,10 +3,10 @@ package net.machinemuse.powersuits.common.items.old;
 //import appeng.api.config.AccessRestriction;
 
 import com.google.common.collect.Sets;
-import net.machinemuse.api.electricity.IMuseElectricItem;
-import net.machinemuse.api.electricity.MuseElectricItem;
-import net.machinemuse.api.item.IModularItemBase;
-import net.machinemuse.powersuits.client.helpers.EnumColour;
+import net.machinemuse.powersuits.api.electricity.IMuseElectricItem;
+import net.machinemuse.powersuits.api.electricity.MuseElectricItem;
+import net.machinemuse.numina.api.item.IModularItemBase;
+import net.machinemuse.numina.geometry.EnumColour;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;

@@ -1,14 +1,14 @@
 package net.machinemuse.powersuits.common.items.modules.tool;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.ModuleManager;
+import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.api.item.IModule;
 import net.machinemuse.powersuits.common.items.ItemComponent;
 import net.machinemuse.powersuits.common.items.modules.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
+import net.machinemuse.numina.utils.string.MuseCommonStrings;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.state.IBlockState;

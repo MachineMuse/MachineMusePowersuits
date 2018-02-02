@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.common.entity;
 
-import net.machinemuse.api.ModuleManager;
+import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.items.modules.weapon.BladeLauncherModule;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;

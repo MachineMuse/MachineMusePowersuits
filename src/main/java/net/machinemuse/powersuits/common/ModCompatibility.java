@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.common;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.ModuleManager;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.powersuits.common.event.EventRegisterItems;
 import net.machinemuse.powersuits.common.items.modules.armor.HazmatModule;
 import net.machinemuse.powersuits.common.items.modules.misc.AirtightSealModule;

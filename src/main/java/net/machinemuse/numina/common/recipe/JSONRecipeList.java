@@ -3,7 +3,7 @@ package net.machinemuse.numina.common.recipe;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import com.google.gson.Gson;
-import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.utils.MuseLogger;
 
 import java.io.*;
 import java.net.URL;

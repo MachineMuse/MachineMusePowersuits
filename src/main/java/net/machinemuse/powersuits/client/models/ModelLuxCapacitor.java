@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.client.helpers.ColoredQuadHelperThingie;
-import net.machinemuse.powersuits.client.helpers.EnumColour;
+import net.machinemuse.numina.geometry.EnumColour;
 import net.machinemuse.powersuits.common.block.BlockLuxCapacitor;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.*;

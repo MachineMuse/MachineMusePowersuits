@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.common.items.modules;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IRightClickModule;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

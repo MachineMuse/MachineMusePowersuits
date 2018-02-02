@@ -1,13 +1,13 @@
 package net.machinemuse.powersuits.common.item.armor;
 
 import cofh.redstoneflux.api.IEnergyContainerItem;
-import net.machinemuse.api.ModuleManager;
+import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.config.MPSSettings;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseHeatUtils;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
+import net.machinemuse.numina.utils.string.MuseCommonStrings;
+import net.machinemuse.numina.utils.heat.MuseHeatUtils;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;

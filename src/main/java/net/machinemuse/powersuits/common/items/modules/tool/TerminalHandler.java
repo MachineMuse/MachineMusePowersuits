@@ -5,7 +5,7 @@ import appeng.api.config.*;
 import appeng.api.features.IWirelessTermHandler;
 import appeng.api.util.IConfigManager;
 import net.machinemuse.powersuits.common.ModCompatibility;
-import net.machinemuse.utils.ElectricItemUtils;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

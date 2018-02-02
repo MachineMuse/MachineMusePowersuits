@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.client.event;
 
-import net.machinemuse.api.ModuleManager;
+import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.numina.client.render.MuseIconUtils;
@@ -11,8 +11,8 @@ import net.machinemuse.powersuits.client.control.KeybindManager;
 import net.machinemuse.powersuits.common.MPSConstants;
 import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.powersuits.common.items.modules.misc.BinocularsModule;
-import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.render.MuseRenderer;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;

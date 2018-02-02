@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.common.items.modules;
 
 import net.machinemuse.numina.api.nbt.IPropertyModifier;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class PropertyModifierLinearAdditive implements IPropertyModifier<Double> {

@@ -6,7 +6,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableList;
 import net.machinemuse.powersuits.client.helpers.ColoredQuadHelperThingie;
-import net.machinemuse.powersuits.client.helpers.EnumColour;
+import net.machinemuse.numina.geometry.EnumColour;
 import net.machinemuse.powersuits.common.block.BlockLuxCapacitor;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;

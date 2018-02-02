@@ -1,15 +1,15 @@
 package net.machinemuse.powersuits.common.event;
 
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IPlayerTickModule;
-import net.machinemuse.general.sound.SoundDictionary;
+import net.machinemuse.numina.api.module.ModuleManager;
+import net.machinemuse.numina.api.module.IPlayerTickModule;
+import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.common.NuminaSettings;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.powersuits.common.config.MPSSettings;
-import net.machinemuse.utils.MuseHeatUtils;
-import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.MusePlayerUtils;
+import net.machinemuse.numina.utils.heat.MuseHeatUtils;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.numina.utils.player.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;

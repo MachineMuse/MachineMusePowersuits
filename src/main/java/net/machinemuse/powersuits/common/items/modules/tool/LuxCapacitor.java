@@ -1,13 +1,13 @@
 package net.machinemuse.powersuits.common.items.modules.tool;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.ModuleManager;
+import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.items.modules.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseHeatUtils;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
+import net.machinemuse.numina.utils.string.MuseCommonStrings;
+import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

@@ -1,7 +1,7 @@
 package net.machinemuse.numina.network;
 
 import net.jpountz.lz4.LZ4BlockInputStream;
-import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTSizeTracker;

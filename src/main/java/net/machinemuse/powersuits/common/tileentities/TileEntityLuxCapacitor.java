@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.common.tileentities;
 
 import net.machinemuse.numina.common.tileentity.MuseTileEntity;
-import net.machinemuse.numina.general.MuseLogger;
-import net.machinemuse.powersuits.client.helpers.EnumColour;
+import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.geometry.EnumColour;
 import net.machinemuse.powersuits.common.block.BlockLuxCapacitor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.property.IExtendedBlockState;

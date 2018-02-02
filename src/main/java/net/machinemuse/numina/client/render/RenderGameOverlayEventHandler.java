@@ -1,6 +1,6 @@
 package net.machinemuse.numina.client.render;
 
-import net.machinemuse.numina.api.capabilties.item.IModeChangingItem;
+import net.machinemuse.numina.api.item.IModeChangingItem;
 import net.machinemuse.numina.geometry.Colour;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;

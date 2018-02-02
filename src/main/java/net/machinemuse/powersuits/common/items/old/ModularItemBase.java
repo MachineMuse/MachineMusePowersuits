@@ -1,12 +1,12 @@
 package net.machinemuse.powersuits.common.items.old;
 
-import net.machinemuse.api.electricity.MuseElectricItem;
-import net.machinemuse.api.item.IModularItemBase;
-import net.machinemuse.powersuits.client.helpers.EnumColour;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.MuseStringUtils;
+import net.machinemuse.powersuits.api.electricity.MuseElectricItem;
+import net.machinemuse.numina.api.item.IModularItemBase;
+import net.machinemuse.numina.geometry.EnumColour;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
+import net.machinemuse.numina.utils.string.MuseCommonStrings;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.numina.utils.string.MuseStringUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

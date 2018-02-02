@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.modelspec;
 
 import com.google.common.base.Objects;
-import net.machinemuse.numina.utils.MuseRegistry;
+import net.machinemuse.numina.utils.map.MuseRegistry;
 
 public abstract class Spec extends MuseRegistry<PartSpec> {
     private final String name;

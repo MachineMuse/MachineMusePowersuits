@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.common.capabilities.heat;
 
-import net.machinemuse.api.ModuleManager;
+import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSSettings;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;

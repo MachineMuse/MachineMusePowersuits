@@ -1,11 +1,11 @@
 package net.machinemuse.powersuits.client.modelspec;
 
 import com.google.common.collect.ImmutableMap;
-import net.machinemuse.numina.general.MuseLogger;
-import net.machinemuse.numina.utils.MuseRegistry;
+import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.utils.map.MuseRegistry;
 import net.machinemuse.powersuits.client.models.obj.OBJModelPlus;
 import net.machinemuse.powersuits.client.models.obj.OBJPlusLoader;
-import net.machinemuse.utils.MuseStringUtils;
+import net.machinemuse.numina.utils.string.MuseStringUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.nbt.NBTTagCompound;

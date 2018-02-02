@@ -1,13 +1,13 @@
 package net.machinemuse.powersuits.common.items.modules;
 
-import net.machinemuse.api.ILocalizeableModule;
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
+import net.machinemuse.numina.api.module.ILocalizeableModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.api.item.IModule;
 import net.machinemuse.numina.api.nbt.IPropertyModifier;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
 import net.machinemuse.powersuits.common.config.MPSSettings;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.client.models;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.UnmodifiableIterator;
-import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.client.models.obj.OBJModelPlus;
 import net.machinemuse.powersuits.client.models.obj.OBJPlusLoader;

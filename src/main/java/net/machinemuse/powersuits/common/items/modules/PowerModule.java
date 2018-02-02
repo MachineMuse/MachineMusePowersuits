@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.common.items.modules;
 
-import net.machinemuse.api.IModularItem;
+import net.machinemuse.numina.api.item.IModularItem;
 
 import java.util.List;
 

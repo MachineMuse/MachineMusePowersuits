@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.common.items;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.powersuits.common.items.modules.PowerModule;
 
 import java.util.List;

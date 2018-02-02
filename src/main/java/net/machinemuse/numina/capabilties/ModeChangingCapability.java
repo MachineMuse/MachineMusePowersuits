@@ -1,6 +1,6 @@
 package net.machinemuse.numina.capabilties;
 
-import net.machinemuse.numina.api.capabilties.item.IModeChangingItem;
+import net.machinemuse.numina.api.item.IModeChangingItem;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;

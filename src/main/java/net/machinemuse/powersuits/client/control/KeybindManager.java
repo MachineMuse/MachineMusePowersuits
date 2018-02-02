@@ -1,12 +1,12 @@
 package net.machinemuse.powersuits.client.control;
 
-import net.machinemuse.api.ModuleManager;
+import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.general.gui.clickable.ClickableModule;
 import net.machinemuse.numina.api.item.IModule;
-import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.geometry.MusePoint2D;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.common.Loader;

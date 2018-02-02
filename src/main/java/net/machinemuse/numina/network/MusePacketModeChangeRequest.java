@@ -1,6 +1,6 @@
 package net.machinemuse.numina.network;
 
-import net.machinemuse.numina.api.capabilties.item.IModeChangingItem;
+import net.machinemuse.numina.api.item.IModeChangingItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;

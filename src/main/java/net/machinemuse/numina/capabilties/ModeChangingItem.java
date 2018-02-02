@@ -1,6 +1,6 @@
 package net.machinemuse.numina.capabilties;
 
-import net.machinemuse.numina.api.capabilties.item.IModeChangingItem;
+import net.machinemuse.numina.api.item.IModeChangingItem;
 import net.machinemuse.numina.item.NuminaItemUtils;
 import net.machinemuse.numina.network.MusePacketModeChangeRequest;
 import net.machinemuse.numina.network.PacketSender;

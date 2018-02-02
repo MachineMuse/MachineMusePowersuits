@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.common.event;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.ModuleManager;
+import net.machinemuse.numina.api.module.IBlockBreakingModule;
 import net.machinemuse.powersuits.common.items.old.ItemPowerFist;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

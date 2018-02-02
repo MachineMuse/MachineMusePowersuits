@@ -1,6 +1,8 @@
 package net.machinemuse.powersuits.common;
 
-import net.machinemuse.general.gui.*;
+import net.machinemuse.powersuits.client.gui.PortableCraftingContainer;
+import net.machinemuse.powersuits.client.gui.PortableCraftingGui;
+import net.machinemuse.powersuits.client.gui.tinker.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

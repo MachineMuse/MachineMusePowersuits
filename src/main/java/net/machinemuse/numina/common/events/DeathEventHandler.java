@@ -1,7 +1,7 @@
 package net.machinemuse.numina.common.events;
 
 import net.machinemuse.numina.common.Numina;
-import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiGameOver;

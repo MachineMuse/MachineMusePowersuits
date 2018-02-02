@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.client.helpers;
 
 import com.google.common.base.Objects;
+import net.machinemuse.numina.geometry.EnumColour;
 import net.minecraft.util.EnumFacing;
 
 import javax.annotation.Nullable;

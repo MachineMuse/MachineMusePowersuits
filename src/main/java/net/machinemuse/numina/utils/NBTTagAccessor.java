@@ -3,7 +3,6 @@
  */
 package net.machinemuse.numina.utils;
 
-import net.machinemuse.numina.general.MuseLogger;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 

@@ -1,13 +1,13 @@
 package net.machinemuse.powersuits.common.items.modules.tool;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
-import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IBlockBreakingModule;
+import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.items.ItemComponent;
 import net.machinemuse.powersuits.common.items.modules.PowerModuleBase;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.numina.utils.string.MuseCommonStrings;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;

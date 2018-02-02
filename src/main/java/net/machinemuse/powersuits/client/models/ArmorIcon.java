@@ -3,7 +3,7 @@
 //import com.google.common.cache.CacheBuilder;
 //import com.google.common.cache.CacheLoader;
 //import com.google.common.cache.LoadingCache;
-//import net.machinemuse.api.item.IModularItemBase;
+//import net.machinemuse.numina.api.item.IModularItemBase;
 //import net.machinemuse.numina.geometry.Colour;
 //import net.machinemuse.powersuits.common.items.old.ItemPowerArmorBoots;
 //import net.machinemuse.powersuits.common.items.old.ItemPowerArmorChestplate;

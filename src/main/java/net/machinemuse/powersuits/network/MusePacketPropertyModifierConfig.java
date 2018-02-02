@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.network;
 
-import net.machinemuse.api.ModuleManager;
+import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.api.item.IModule;
 import net.machinemuse.numina.api.nbt.IPropertyModifier;
 import net.machinemuse.numina.network.MusePackager;

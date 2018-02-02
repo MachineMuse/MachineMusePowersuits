@@ -1,12 +1,12 @@
 package net.machinemuse.powersuits.client.modelspec;
 
 import com.google.common.collect.ImmutableMap;
-import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.powersuits.client.helpers.EnumColour;
+import net.machinemuse.numina.geometry.EnumColour;
 import net.machinemuse.powersuits.client.models.obj.OBJModelPlus;
 import net.machinemuse.powersuits.common.config.MPSSettings;
-import net.machinemuse.utils.MuseStringUtils;
+import net.machinemuse.numina.utils.string.MuseStringUtils;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.ResourceLocation;
