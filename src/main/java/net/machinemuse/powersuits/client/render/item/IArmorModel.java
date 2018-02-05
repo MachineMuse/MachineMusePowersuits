@@ -10,7 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
  */
 public interface IArmorModel {
     NBTTagCompound renderSpec = null;
-    int visibleSection = 0;
+    EntityEquipmentSlot visibleSection = EntityEquipmentSlot.HEAD;
 
     NBTTagCompound getRenderSpec();
 
@@ -26,7 +26,7 @@ public interface IArmorModel {
 
     void setInitialOffsets(ModelRenderer r, float x, float y, float z);
 
-    void prep(Entity entity, float par2, float par3, float par4, float par5, float par6, float scale);
+    void prep(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale);
 
-    void post(Entity entity, float par2, float par3, float par4, float par5, float par6, float scale);
+    void post(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale);
 }

@@ -59,7 +59,7 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
                 return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
             }
         }
-        return new ActionResult(EnumActionResult.PASS, this);
+        return new ActionResult(EnumActionResult.PASS, itemStackIn);
     }
 
     @Override

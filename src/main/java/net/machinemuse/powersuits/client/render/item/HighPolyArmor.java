@@ -25,9 +25,6 @@ public class HighPolyArmor extends ModelBiped implements IArmorModel {
     public NBTTagCompound renderSpec = null;
     public EntityEquipmentSlot visibleSection = EntityEquipmentSlot.HEAD;
 
-//    public ModelRenderer bipedEars;
-//    public ModelRenderer bipedCloak;
-
     private static HighPolyArmor INSTANCE;
 
     public static HighPolyArmor getInstance() {
@@ -66,12 +63,12 @@ public class HighPolyArmor extends ModelBiped implements IArmorModel {
      */
 
     @Override
-    public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float scale) {
-        prep(entity, par2, par3, par4, par5, par6, scale);
-        this.bipedBody.rotateAngleY = entity.rotationYaw;
-        setRotationAngles(par2, par3, par4, par5, par6, scale, entity);
-        super.render(entity, par2, par3, par4, par5, par6, scale);
-        post(entity, par2, par3, par4, par5, par6, scale);
+    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+        prep(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        this.bipedBody.rotateAngleY = entityIn.rotationYaw;
+        setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
+        super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        post(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
     }
 
     @Override
@@ -95,13 +92,6 @@ public class HighPolyArmor extends ModelBiped implements IArmorModel {
 //        bipedCloak.cubeList.clear();
     }
 
-//    private void logModelParts(WavefrontObject model) {
-//        MuseLogger.logDebug(model.toString() + ":");
-//        for (GroupObject group : model.groupObjects) {
-//            MuseLogger.logDebug("-" + group.name);
-//        }
-//    }
-
     @Override
     public void setInitialOffsets(ModelRenderer r, float x, float y, float z) {
         r.offsetX = x;
@@ -110,9 +100,9 @@ public class HighPolyArmor extends ModelBiped implements IArmorModel {
     }
 
     @Override
-    public void prep(Entity entity, float par2, float par3, float par4, float par5, float par6, float scale) {
+    public void prep(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         try {
-            EntityLivingBase entLive = (EntityLivingBase) entity;
+            EntityLivingBase entLive = (EntityLivingBase) entityIn;
             ItemStack stack = entLive.getActiveItemStack();
 
             ItemStack itemstackMainHand = entLive.getHeldItemMainhand();
@@ -180,7 +170,7 @@ public class HighPolyArmor extends ModelBiped implements IArmorModel {
     }
 
     @Override
-    public void post(Entity entity, float par2, float par3, float par4, float par5, float par6, float scale) {
+    public void post(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         leftArmPose = ArmPose.EMPTY;
         rightArmPose = ArmPose.EMPTY;
         isSneak = false;

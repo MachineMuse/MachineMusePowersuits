@@ -124,7 +124,6 @@ public class ModCompatibility {
         return Loader.isModLoaded("RenderPlayerAPI");
     }
 
-
     public static boolean isRefinedStorageLoaded() {
         return Loader.isModLoaded("refinedstorage");
     }
@@ -136,9 +135,9 @@ public class ModCompatibility {
     public static boolean isWirelessCraftingGridLoaded() {
         return Loader.isModLoaded("wcg");
     }
-    
+
     public static boolean isMekanismLoaded() {
-    	return Loader.isModLoaded("Mekanism");
+        return Loader.isModLoaded("Mekanism");
     }
 
     public static boolean enableThaumGogglesModule() {

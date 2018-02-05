@@ -138,13 +138,13 @@ public class ModularItemBase extends Item implements IModularItemBase {
         return MuseElectricItem.getInstance().giveMPSEnergyTo(stack, provided);
     }
 
+    /* Industrialcraft 2 -------------------------------------------------------------------------- */
     @SideOnly(Side.CLIENT)
     @Override
     public String getToolTip(ItemStack itemStack) {
         return itemStack.getTooltip(Minecraft.getMinecraft().thePlayer, false).toString();
     }
 
-    /* Industrialcraft 2 -------------------------------------------------------------------------- */
     @Override
     public IMuseElectricItem getManager(ItemStack stack) {
         return MuseElectricItem.getInstance().getManager(stack);

@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.common.proxy;
 
+import api.player.model.ModelPlayerAPI;
 import net.machinemuse.general.sound.SoundDictionary;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.MusePacketModeChangeRequest;
@@ -9,11 +10,12 @@ import net.machinemuse.powersuits.client.render.block.TinkerTableRenderer;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererLuxCapacitorEntity;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererPlasmaBolt;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererSpinningBlade;
+import net.machinemuse.powersuits.client.render.item.SMovingArmorModel;
 import net.machinemuse.powersuits.client.render.model.ModelLuxCapacitor;
 import net.machinemuse.powersuits.client.render.model.obj.MPSOBJLoader;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MPSItems;
-import net.machinemuse.powersuits.common.ModularPowersuits;
+import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.control.KeybindKeyHandler;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
@@ -42,6 +44,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
+import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
+
 //import net.machinemuse.numina.render.RenderGameOverlayEventHandler;
 
 /**
@@ -57,7 +61,7 @@ public class ClientProxy extends CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
         ModelLoaderRegistry.registerLoader(MPSOBJLoader.INSTANCE);
-        MPSOBJLoader.INSTANCE.addDomain(ModularPowersuits.MODID.toLowerCase());
+        MPSOBJLoader.INSTANCE.addDomain(MODID.toLowerCase());
     }
 
     @Override
@@ -109,6 +113,11 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, EntityRendererSpinningBlade::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, EntityRendererPlasmaBolt::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityLuxCapacitor.class, EntityRendererLuxCapacitorEntity::new);
+
+
+        if (ModCompatibility.isRenderPlayerAPILoaded()) {
+            ModelPlayerAPI.register(MODID, SMovingArmorModel.class);
+        }
     }
 
     @Override
