@@ -64,9 +64,11 @@ public class ClickableModule extends Clickable {
     public void drawPartial(double xmino, double ymino, double xmaxo, double ymaxo) {
         double left = getPosition().x() - 8;
         double top = getPosition().y() - 8;
-        MuseTextureUtils.pushTexture(getModule().getStitchedTexture(null));
+
+        MuseTextureUtils.pushTexture(MuseTextureUtils.TEXTURE_QUILT);
         MuseIconUtils.drawIconAt(left, top, getModule().getIcon(null), Colour.WHITE);
         MuseTextureUtils.popTexture();
+
         if (!allowed) {
             String string = MuseStringUtils.wrapFormatTags("x", MuseStringUtils.FormatCodes.DarkRed);
             MuseRenderer.drawString(string, getPosition().x() + 3, getPosition().y() + 1);

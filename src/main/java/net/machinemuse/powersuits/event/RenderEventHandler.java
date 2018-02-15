@@ -118,9 +118,8 @@ public class RenderEventHandler {
                     MuseRenderer.drawString(kb.getLabel(), frame.left() + 1, frame.top() + 3, (kb.toggleval) ? Colour.RED : Colour.GREEN);
                     double x = frame.left() + stringwidth;
                     for (ClickableModule module:  kb.getBoundModules()) {
-                        MuseTextureUtils.pushTexture(module.getModule().getStitchedTexture(null));
+                        MuseTextureUtils.pushTexture(MuseTextureUtils.TEXTURE_QUILT);
                         boolean active = false;
-
                         for (ItemStack stack : MuseItemUtils.modularItemsEquipped(player)) {
                             if (ModuleManager.itemHasActiveModule(stack, module.getModule().getDataName()))
                                 active = true;

@@ -12,8 +12,6 @@ public interface IPowerModule {
 
 	TextureAtlasSprite getIcon(ItemStack item);
 
-	String getStitchedTexture(ItemStack item);
-
 	String getCategory();
 
 	boolean isValidForItem(ItemStack stack);

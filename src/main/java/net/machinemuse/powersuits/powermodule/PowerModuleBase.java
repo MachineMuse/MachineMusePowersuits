@@ -38,6 +38,11 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
         this.isAllowed = Config.getConfig().get("Modules", getDataName(), true).getBoolean(true);
     }
 
+    public static String getUnit(String propertyName) {
+        String unit = units.get(propertyName);
+        return unit == null ? "" : unit;
+    }
+
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return icon;
@@ -139,13 +144,8 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
         return addPropertyModifier(propertyName, new PropertyModifierFlatAdditive(propFromConfig));
     }
 
-    public boolean equals(PowerModule other) {
+    public boolean equals(PowerModuleBase other) {
         return other != null && other.getDataName().equals(this.getDataName());
-    }
-
-    @Override
-    public String getStitchedTexture(ItemStack item) {
-        return MuseTextureUtils.TEXTURE_QUILT;
     }
 
     @Override

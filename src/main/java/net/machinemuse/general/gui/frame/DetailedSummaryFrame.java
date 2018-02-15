@@ -4,7 +4,7 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.powermodule.PowerModule;
+import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
@@ -55,7 +55,7 @@ public class DetailedSummaryFrame extends ScrollableFrame {
             nexty += 10;
 
 
-            String formattedValue = MuseStringUtils.formatNumberFromUnits(energy, PowerModule.getUnit(ElectricItemUtils.MAXIMUM_ENERGY));
+            String formattedValue = MuseStringUtils.formatNumberFromUnits(energy, PowerModuleBase.getUnit(ElectricItemUtils.MAXIMUM_ENERGY));
             String name = I18n.format("gui.energyStorage");
             double valueWidth = MuseRenderer.getStringWidth(formattedValue);
             double allowedNameWidth = border.width() - valueWidth - margin * 2;
@@ -66,7 +66,7 @@ public class DetailedSummaryFrame extends ScrollableFrame {
             MuseRenderer.drawRightAlignedString(formattedValue, border.right() - margin, nexty + 9 * (namesList.size() - 1) / 2);
             nexty += 10*namesList.size()+1;
 
-            formattedValue = MuseStringUtils.wrapFormatTags(MuseStringUtils.formatNumberFromUnits(weight, PowerModule.getUnit(MuseCommonStrings.WEIGHT)), weight > Config.getWeightCapacity() ? MuseStringUtils.FormatCodes.Red : MuseStringUtils.FormatCodes.BrightGreen);
+            formattedValue = MuseStringUtils.wrapFormatTags(MuseStringUtils.formatNumberFromUnits(weight, PowerModuleBase.getUnit(MuseCommonStrings.WEIGHT)), weight > Config.getWeightCapacity() ? MuseStringUtils.FormatCodes.Red : MuseStringUtils.FormatCodes.BrightGreen);
             name = I18n.format("gui.weight");
             valueWidth = MuseRenderer.getStringWidth(formattedValue);
             allowedNameWidth = border.width() - valueWidth - margin * 2;

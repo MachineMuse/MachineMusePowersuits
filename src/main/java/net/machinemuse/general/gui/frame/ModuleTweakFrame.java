@@ -10,7 +10,7 @@ import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.network.packets.MusePacketTweakRequest;
-import net.machinemuse.powersuits.powermodule.PowerModule;
+import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.powermodule.PropertyModifierLinearAdditive;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MuseStringUtils;
@@ -77,7 +77,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
             }
             int nexty = (int) (sliders.size() * 20 + border.top() + 23);
             for (Map.Entry<String, Double> property : propertyStrings.entrySet()) {
-                String formattedValue = MuseStringUtils.formatNumberFromUnits(property.getValue(), PowerModule.getUnit(property.getKey()));
+                String formattedValue = MuseStringUtils.formatNumberFromUnits(property.getValue(), PowerModuleBase.getUnit(property.getKey()));
                 String name = property.getKey();
                 double valueWidth = MuseRenderer.getStringWidth(formattedValue);
                 double allowedNameWidth = border.width() - valueWidth - margin * 2;
