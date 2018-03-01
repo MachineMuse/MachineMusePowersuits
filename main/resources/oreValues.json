@@ -1,0 +1,28 @@
+[
+  { "oredictName" : "oreCoal", "value" : 1 },
+  { "oredictName" : "oreIron", "value" : 4 },
+  { "oredictName" : "oreGold", "value" : 6 },
+  { "oredictName" : "oreRedstone", "value" : 3 },
+  { "oredictName" : "oreDiamond", "value" : 16 },
+  { "oredictName" : "oreEmerald", "value" : 18 },
+  { "oredictName" : "oreLapis", "value" : 12 },
+  { "oredictName" : "oreNetherQuartz", "value" : 8 },
+  { "oredictName" : "oreCopper", "value" : 4 },
+  { "oredictName" : "oreTin", "value" : 5 },
+  { "oredictName" : "oreSilver", "value" : 5 },
+  { "oredictName" : "oreLead", "value" : 6 },
+  { "oredictName" : "oreNickel", "value" : 14 },
+  { "oredictName" : "orePlatinum", "value" : 8 },
+  { "oredictName" : "oreZinc", "value" : 1 },
+  { "oredictName" : "oreApatite", "value" : 2 },
+  { "oredictName" : "oreUranium", "value" : 14 },
+  { "oredictName" : "oreXychorium", "value" : 2 },
+  { "oredictName" : "oreNaturalAluminum", "value" : 3 },
+  { "oredictName" : "oreCertusQuartz", "value" : 5 },
+  { "registryName" : "ic2:resource", "meta" : 4, "value" : 3, "comment" : "oreUranium" }
+
+
+
+
+]
+

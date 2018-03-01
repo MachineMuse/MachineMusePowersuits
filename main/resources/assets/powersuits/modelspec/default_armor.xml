@@ -1,0 +1,61 @@
+<modelSpec specName="default_armor" type="armor model" default="true">
+    <models>
+        <model file="powersuits:models/item/armor/mps_helm.obj" textures="powersuits:items/armor/diffuse">
+            <trsrTransformation translation="0,0,0" rotation="0,0,0" scale="1,1,1"/>
+            <binding slot="head" target="Head">
+                <part partName="helm_main"/>
+                <part defaultcolor="114EFF" defaultglow="true"  partName="visor"/>
+                <part partName="helm_tubes"/>
+                <part partName="helm_tube_entry2"/>
+                <part partName="helm_tube_entry1"/>
+            </binding>
+        </model>
+        <model file="powersuits:models/item/armor/mps_chest.obj" textures="powersuits:items/armor/diffuse">
+            <trsrTransformation translation="0,0,0" rotation="0,0,0" scale="1,1,1"/>
+            <binding slot="chest" target="Body">
+                <part partName="backpack"/>
+                <part partName="polySurface36"/>
+                <part partName="belt"/>
+                <part partName="chest_padding"/>
+                <part defaultcolor="114EFF" defaultglow="true" partName="crystal_belt"/>
+                <part partName="chest_main"/>
+            </binding>
+        </model>
+        <model file="powersuits:models/item/armor/jetpack.obj" textures="powersuits:items/armor/jetpack">
+            <trsrTransformation translation="0,0,0" rotation="0,0,0" scale="1,1,1"/>
+            <binding slot="chest" target="Body" itemState="jetpack">
+                <part defaultcolor="114EFF" partName="jetpack5"/>
+                <part defaultcolor="114EFF" defaultglow="true" partName="jetpack_glow"/>
+            </binding>
+        </model>
+        <model file="powersuits:models/item/armor/mps_arms.obj" textures="powersuits:items/armor/diffuse">
+            <trsrTransformation translation="0,0,0" rotation="0,0,0" scale="1,1,1"/>
+            <binding slot="chest" target="RightArm">
+                <part defaultcolor="114EFF" defaultglow="true" partName="crystal_shoulder_2"/>
+                <part partName="arms3"/>
+            </binding>
+            <binding slot="chest" target="LeftArm">
+                <part defaultcolor="114EFF" defaultglow="true" partName="crystal_shoulder_1"/>
+                <part partName="arms2"/>
+            </binding>
+        </model>
+        <model file="powersuits:models/item/armor/mps_pantaloons.obj" textures="powersuits:items/armor/diffuse">
+            <trsrTransformation translation="0,0,0" rotation="0,0,0" scale="1,1,1"/>
+            <binding slot="legs" target="LeftLeg">
+                <part partName="leg2"/>
+            </binding>
+            <binding slot="legs" target="RightLeg">
+                <part partName="leg1"/>
+            </binding>
+        </model>
+        <model file="powersuits:models/item/armor/mps_boots.obj" textures="powersuits:items/armor/diffuse">
+            <trsrTransformation translation="0,0,0" rotation="0,0,0" scale="1,1,1"/>
+            <binding slot="feet" target="RightLeg">
+                <part partName="boots1"/>
+            </binding>
+            <binding slot="feet" target="LeftLeg">
+                <part partName="boots2"/>
+            </binding>
+        </model>
+    </models>
+</modelSpec>

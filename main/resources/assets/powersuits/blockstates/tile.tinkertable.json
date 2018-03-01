@@ -1,0 +1,73 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "all": "textures/models/powersuitsworkbench",
+      "particle": "blocks/iron_block"
+    },
+    "custom": { "flip-v": true }
+  },
+  "variants": {
+    "inventory": [{
+      "model": "powersuits:powerarmor_workbench.obj",
+      "transform": {
+        "thirdperson_righthand": {
+          "scale" : 0.0234375,
+          "translation": [0.0, 0.15625, 0.0],
+          "rotation": [{"x": 75}, {"y": 45}]
+        },
+        "thirdperson_lefthand": {
+          "scale" : 0.0234375,
+          "rotation": [{"x": 75}, {"y": 45}]
+        },
+        "firstperson_righthand": {
+          "scale": 0.025
+        },
+        "firstperson_lefthand": {
+          "scale": 0.025
+        },
+        "gui": {
+          "scale": 0.5,
+          "translation": [0.0, 0.025, 0.0],
+          "rotation": [{"x":30}, {"y":225}]
+        },
+        "ground": {
+          "scale": 0.1563,
+          "translation": [0.0, 0.1625, 0.0]
+        },
+        "fixed": {
+          "scale" : 0.03125
+        }
+      }
+    }],
+    "facing": {
+      "north": {
+        "model": "powersuits:powerarmor_workbench.obj",
+        "transform": {
+          "scale": 1
+        }
+      },
+      "south": {
+        "model": "powersuits:powerarmor_workbench.obj",
+        "transform": {
+          "rotation": {"x": 180},
+          "scale": 1
+        }
+      },
+      "west": {
+        "model": "powersuits:powerarmor_workbench.obj",
+        "transform": {
+          "rotation": {"x": 270},
+          "scale" : 1
+        }
+      },
+      "east": {
+        "model": "powersuits:powerarmor_workbench.obj",
+        "transform": {
+          "rotation": {"x": 90},
+          "scale" : 1
+        }
+      }
+    }
+  }
+}
