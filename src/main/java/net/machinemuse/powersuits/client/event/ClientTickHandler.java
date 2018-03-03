@@ -6,6 +6,8 @@ import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.module.helpers.AutoFeederHelper;
+import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.numina.utils.string.MuseStringUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.client.gui.hud.EnergyMeter;
 import net.machinemuse.powersuits.client.gui.hud.HeatMeter;
@@ -19,12 +21,10 @@ import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorHelmet;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
-import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.machinemuse.powersuits.utils.PlasmaUtils;
 import net.machinemuse.powersuits.utils.WaterUtils;
 import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseItemUtils;
-import net.machinemuse.numina.utils.string.MuseStringUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
@@ -217,7 +217,7 @@ public class ClientTickHandler {
         // energy
         double maxEnergy = ElectricItemUtils.getMaxPlayerEnergy(player);
         double currEnergy = ElectricItemUtils.getPlayerEnergy(player);
-        String currEnergyStr = MuseStringUtils.formatNumberShort(currEnergy) + "J";
+        String currEnergyStr = MuseStringUtils.formatNumberShort(currEnergy) + "RF";
         String maxEnergyStr = MuseStringUtils.formatNumberShort(maxEnergy);
 
         // heat

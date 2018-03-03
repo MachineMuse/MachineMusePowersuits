@@ -4,8 +4,8 @@ import net.machinemuse.numina.api.module.IModule;
 import net.machinemuse.numina.math.geometry.MusePoint2D;
 import net.machinemuse.numina.math.geometry.MuseRect;
 import net.machinemuse.numina.math.geometry.MuseRelativeRect;
-import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
 import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
 
 import java.util.ArrayList;
 import java.util.List;

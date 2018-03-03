@@ -91,7 +91,7 @@
 //
 //        info.add("Detailed Summary");
 //        info.add(formatInfo("Armor", getArmorDouble(player, stack)));
-//        info.add(formatInfo("Energy Storage", getCurrentMPSEnergy(stack)) + 'J');
+//        info.add(formatInfo("Energy Storage", getEnergyStored(stack)) + 'J');
 //        info.add(formatInfo("Weight", WeightHelper.getTotalWeight(stack)) + 'g');
 //        return info;
 //    }
@@ -119,28 +119,28 @@
 //
 //    /* MuseElectricItem --------------------------------------------------------------------------- */
 //    @Override
-//    public double getCurrentMPSEnergy(ItemStack stack) {
-//        return MuseElectricItem.getInstance().getCurrentMPSEnergy(stack);
+//    public double getEnergyStored(ItemStack stack) {
+//        return MuseElectricItem.getInstance().getEnergyStored(stack);
 //    }
 //
 //    @Override
-//    public double getMaxMPSEnergy(ItemStack stack) {
-//        return MuseElectricItem.getInstance().getCurrentMPSEnergy(stack);
+//    public double getMaxEnergyStored(ItemStack stack) {
+//        return MuseElectricItem.getInstance().getEnergyStored(stack);
 //    }
 //
 //    @Override
-//    public void setCurrentMPSEnergy(ItemStack stack, double energy) {
-//        MuseElectricItem.getInstance().setCurrentMPSEnergy(stack, energy);
+//    public void setCurrentEnergy(ItemStack stack, double energy) {
+//        MuseElectricItem.getInstance().setCurrentEnergy(stack, energy);
 //    }
 //
 //    @Override
-//    public double drainMPSEnergyFrom(ItemStack stack, double requested) {
-//        return MuseElectricItem.getInstance().drainMPSEnergyFrom(stack, requested);
+//    public double extractEnergy(ItemStack stack, double requested) {
+//        return MuseElectricItem.getInstance().extractEnergy(stack, requested);
 //    }
 //
 //    @Override
-//    public double giveMPSEnergyTo(ItemStack stack, double provided) {
-//        return MuseElectricItem.getInstance().giveMPSEnergyTo(stack, provided);
+//    public double receiveEnergy(ItemStack stack, double provided) {
+//        return MuseElectricItem.getInstance().receiveEnergy(stack, provided);
 //    }
 //
 //    /* Industrialcraft 2 -------------------------------------------------------------------------- */

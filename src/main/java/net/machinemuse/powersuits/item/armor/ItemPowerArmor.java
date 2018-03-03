@@ -13,8 +13,8 @@ import net.machinemuse.powersuits.client.model.item.armor.ArmorModelInstance;
 import net.machinemuse.powersuits.client.model.item.armor.IArmorModel;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.module.environmental.ApiaristArmorModule;
-import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
+import net.machinemuse.utils.ElectricItemUtils;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -226,7 +226,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements IApiar
                 if (entity instanceof EntityPlayer)
                     ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entity, drain);
                 else
-                    this.drainMPSEnergyFrom(stack, drain);
+                    this.extractEnergy(stack, drain, false);
             }
         }
     }

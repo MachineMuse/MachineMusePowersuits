@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.item.module.weapon;
 
 
+import net.machinemuse.item.powersuits.module.PowerModuleBase;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.api.module.ModuleManager;
@@ -9,9 +10,8 @@ import net.machinemuse.numina.utils.misc.RayTraceUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.machinemuse.item.powersuits.module.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
+import net.machinemuse.utils.ElectricItemUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
@@ -49,12 +49,21 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
 
     @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+        System.out.println("player energy before: " + ElectricItemUtils.getPlayerEnergy(playerIn));
+
         if (hand == EnumHand.MAIN_HAND) {
             try {
                 double range = 64;
                 int energyConsumption = ModuleManager.getInstance().computeModularPropertyInteger(itemStackIn, LIGHTNING_ENERGY_CONSUMPTION);
+
+                System.out.println("energy usage: " + energyConsumption);
+
                 if (energyConsumption < ElectricItemUtils.getPlayerEnergy(playerIn)) {
-                    ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
+                    System.out.println("drained energy: " + ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption));
+
+                    System.out.println("player energy after: " + ElectricItemUtils.getPlayerEnergy(playerIn));
+
+
                     MuseHeatUtils.heatPlayerLegacy(playerIn, ModuleManager.getInstance().computeModularPropertyDouble(itemStackIn, HEAT));
                     RayTraceResult raytraceResult = RayTraceUtils.doCustomRayTrace(playerIn.world, playerIn, true, range);
                     worldIn.spawnEntity(new EntityLightningBolt(playerIn.world, raytraceResult.hitVec.x, raytraceResult.hitVec.y, raytraceResult.hitVec.z, false));

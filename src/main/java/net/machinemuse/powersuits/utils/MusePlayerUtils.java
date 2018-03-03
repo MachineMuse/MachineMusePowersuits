@@ -2,9 +2,9 @@ package net.machinemuse.powersuits.utils;
 
 import net.machinemuse.numina.api.item.IMuseItem;
 import net.machinemuse.numina.api.module.ModuleManager;
-import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.math.MuseMathUtils;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.module.movement.FlightControlModule;

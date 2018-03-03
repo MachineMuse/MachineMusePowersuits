@@ -49,7 +49,7 @@ public class ElectricItemUtils {
     public static int getPlayerEnergy(EntityPlayer player) {
         int avail = 0;
         for (ElectricAdapter adapter : getElectricItemsEquipped(player))
-            avail += adapter.getCurrentMPSEnergy();
+            avail += adapter.getEnergyStored();
         return avail;
     }
 
@@ -61,7 +61,7 @@ public class ElectricItemUtils {
     public static int getMaxPlayerEnergy(EntityPlayer player) {
         int max = 0;
         for (ElectricAdapter adapter : getElectricItemsEquipped(player))
-            max += adapter.getMaxMPSEnergy();
+            max += adapter.getMaxEnergyStored();
         return max;
     }
 
@@ -78,7 +78,7 @@ public class ElectricItemUtils {
         int drainLeft = drainAmount;
         for (ElectricAdapter adapter : getElectricItemsEquipped(player))
             if (drainLeft > 0)
-                drainLeft = drainLeft - adapter.drainMPSEnergy(drainLeft);
+                drainLeft = drainLeft - adapter.extractEnergy(drainLeft, false);
             else
                 break;
         return drainAmount - drainLeft;
@@ -97,7 +97,7 @@ public class ElectricItemUtils {
         int rfleft = rfToGive;
         for (ElectricAdapter adapter: getElectricItemsEquipped(player))
             if (rfleft > 0) {
-                rfleft = rfleft - adapter.giveMPSEnergy(rfleft);
+                rfleft = rfleft - adapter.receiveEnergy(rfleft, false);
             } else
                 break;
         return rfToGive - rfleft;
@@ -109,7 +109,7 @@ public class ElectricItemUtils {
      * // FIXME... don't reference MPS from Numina
      */
     public static int getTierForItem(@Nonnull ItemStack itemStack) {
-        int maxEnergy = ElectricAdapter.wrap(itemStack).getMaxMPSEnergy();
+        int maxEnergy = ElectricAdapter.wrap(itemStack).getMaxEnergyStored();
         if (maxEnergy <= NuminaConfig.getTier1MaxRF())
             return 1;
         else if (maxEnergy <= NuminaConfig.getTier2MaxRF())

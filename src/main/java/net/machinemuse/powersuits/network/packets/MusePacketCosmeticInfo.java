@@ -1,9 +1,9 @@
 package net.machinemuse.powersuits.network.packets;
 
 import net.machinemuse.numina.api.item.IMuseItem;
-import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

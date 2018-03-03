@@ -2,15 +2,15 @@ package net.machinemuse.powersuits.client.gui.tinker.frame;
 
 import net.machinemuse.numina.api.module.IModule;
 import net.machinemuse.numina.api.module.ModuleManager;
+import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.math.geometry.Colour;
 import net.machinemuse.numina.math.geometry.MusePoint2D;
 import net.machinemuse.numina.math.geometry.MuseRect;
 import net.machinemuse.numina.math.geometry.MuseRelativeRect;
-import net.machinemuse.numina.client.sound.Musique;
+import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
-import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.minecraft.util.SoundCategory;
 import org.lwjgl.opengl.GL11;
 

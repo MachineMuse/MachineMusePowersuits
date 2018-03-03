@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.network.packets;
 
+import net.machinemuse.item.powersuits.module.PowerModuleBase;
 import net.machinemuse.numina.api.module.IModule;
 import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.api.nbt.IPropertyModifier;
@@ -7,7 +8,6 @@ import net.machinemuse.numina.api.nbt.PropertyModifierFlatAdditiveDouble;
 import net.machinemuse.numina.api.nbt.PropertyModifierLinearAdditiveDouble;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
-import net.machinemuse.item.powersuits.module.PowerModuleBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

@@ -4,11 +4,11 @@ import com.google.gson.*;
 import jline.internal.Nullable;
 import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.utils.string.MuseStringUtils;
 import net.machinemuse.powersuits.client.render.modelspec.ModelSpecXMLReader;
 import net.machinemuse.powersuits.common.InstallCost;
 import net.machinemuse.powersuits.common.MPSCreativeTab;
 import net.machinemuse.powersuits.proxy.CommonProxy;
-import net.machinemuse.numina.utils.string.MuseStringUtils;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -98,20 +98,20 @@ public class MPSConfig {
 
 
     /** Energy ------------------------------------------------------------------------------------ */
-    public int maxEnergyLVCapacitor() {
-        return MPSSettings.getServerSettings() != null ? MPSSettings.getServerSettings().maxEnergyLVCapacitor : MPSSettings.energy.maxEnergyLVCapacitor;
+    public int maxEnergyBasicBattery() {
+        return MPSSettings.getServerSettings() != null ? MPSSettings.getServerSettings().maxEnergyBasicBattery : MPSSettings.energy.maxEnergyBasicBattery;
     }
 
-    public int maxEnergyMVCapacitor() {
-        return MPSSettings.getServerSettings() != null ? MPSSettings.getServerSettings().maxEnergyMVCapacitor : MPSSettings.energy.maxEnergyMVCapacitor;
+    public int maxEnergyAdvancedBattery() {
+        return MPSSettings.getServerSettings() != null ? MPSSettings.getServerSettings().maxEnergyAdvancedBattery : MPSSettings.energy.maxEnergyAdvancedBattery;
     }
 
-    public int maxEnergyHVCapacitor() {
-        return MPSSettings.getServerSettings() != null ? MPSSettings.getServerSettings().maxEnergyHVCapacitor : MPSSettings.energy.maxEnergyHVCapacitor;
+    public int maxEnergyEliteBattery() {
+        return MPSSettings.getServerSettings() != null ? MPSSettings.getServerSettings().maxEnergyEliteBattery : MPSSettings.energy.maxEnergyEliteBattery;
     }
 
-    public int maxEnergyEVCapacitor() {
-        return MPSSettings.getServerSettings() != null ? MPSSettings.getServerSettings().maxEnergyEVCapacitor : MPSSettings.energy.maxEnergyEVCapacitor;
+    public int maxEnergyUltimateBattery() {
+        return MPSSettings.getServerSettings() != null ? MPSSettings.getServerSettings().maxEnergyUltimateBattery : MPSSettings.energy.maxEnergyUltimateBattery;
     }
 
     public double rfEnergyPerIC2EU() {

@@ -2,8 +2,8 @@ package net.machinemuse.powersuits.control;
 
 import net.machinemuse.numina.api.module.IModule;
 import net.machinemuse.numina.api.module.ModuleManager;
-import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.math.geometry.MusePoint2D;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
 import net.minecraft.client.Minecraft;

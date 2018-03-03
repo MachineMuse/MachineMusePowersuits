@@ -22,6 +22,8 @@ public class ForgeEnergyItemWrapper extends EnergyStorage implements IEnergyStor
         super(capacity, maxTransfer, maxTransfer, energy);
         this.container = container;
     }
+
+
 //  public EnergyStorage(int capacity, int maxReceive, int maxExtract, int energy)
     public ForgeEnergyItemWrapper(@Nonnull ItemStack container, int capacity, int maxReceive, int maxExtract, int energy) {
         super(capacity, maxReceive, maxExtract, energy);
@@ -96,7 +98,7 @@ public class ForgeEnergyItemWrapper extends EnergyStorage implements IEnergyStor
     public NBTTagCompound serializeNBT() {
         NBTTagCompound nbtOut = new NBTTagCompound();
         nbtOut.setInteger(NuminaNBTConstants.CURRENT_ENERGY, energy);
-        nbtOut.setInteger(NuminaNBTConstants.MAXIMUM_ENERGY, energy);
+        nbtOut.setInteger(NuminaNBTConstants.MAXIMUM_ENERGY, capacity);
         return nbtOut;
     }
 

@@ -29,10 +29,10 @@ public final class MPSServerSettings {
     public final int maxModuleCountArmorFeet;
 
     /** Energy ------------------------------------------------------------------------------------ */
-    public final int maxEnergyLVCapacitor;
-    public final int maxEnergyMVCapacitor;
-    public final int maxEnergyHVCapacitor;
-    public final int maxEnergyEVCapacitor;
+    public final int maxEnergyBasicBattery;
+    public final int maxEnergyAdvancedBattery;
+    public final int maxEnergyEliteBattery;
+    public final int maxEnergyUltimateBattery;
     public final double rfEnergyPerIC2EU;
 
     /** Heat -------------------------------------------------------------------------------------- */
@@ -120,10 +120,10 @@ public final class MPSServerSettings {
         maxModuleCountArmorFeet = MPSSettings.inventory.maxModuleCountArmorFeet;
 
         /** Energy -------------------------------------------------------------------------------- */
-        maxEnergyLVCapacitor = MPSSettings.energy.maxEnergyLVCapacitor;
-        maxEnergyMVCapacitor = MPSSettings.energy.maxEnergyMVCapacitor;
-        maxEnergyHVCapacitor = MPSSettings.energy.maxEnergyHVCapacitor;
-        maxEnergyEVCapacitor = MPSSettings.energy.maxEnergyEVCapacitor;
+        maxEnergyBasicBattery = MPSSettings.energy.maxEnergyBasicBattery;
+        maxEnergyAdvancedBattery = MPSSettings.energy.maxEnergyAdvancedBattery;
+        maxEnergyEliteBattery = MPSSettings.energy.maxEnergyEliteBattery;
+        maxEnergyUltimateBattery = MPSSettings.energy.maxEnergyUltimateBattery;
         rfEnergyPerIC2EU = MPSSettings.energy.rfEnergyPerIC2EU;
 
         /** Heat ---------------------------------------------------------------------------------- */
@@ -170,10 +170,10 @@ public final class MPSServerSettings {
         maxModuleCountArmorFeet= MusePackager.getInstance().readInt(datain);
 
         /** Energy ---------------------------------------------------------------- */
-        maxEnergyLVCapacitor = MusePackager.getInstance().readInt(datain);
-        maxEnergyMVCapacitor = MusePackager.getInstance().readInt(datain);
-        maxEnergyHVCapacitor = MusePackager.getInstance().readInt(datain);
-        maxEnergyEVCapacitor = MusePackager.getInstance().readInt(datain);
+        maxEnergyBasicBattery = MusePackager.getInstance().readInt(datain);
+        maxEnergyAdvancedBattery = MusePackager.getInstance().readInt(datain);
+        maxEnergyEliteBattery = MusePackager.getInstance().readInt(datain);
+        maxEnergyUltimateBattery = MusePackager.getInstance().readInt(datain);
         rfEnergyPerIC2EU = MusePackager.getInstance().readDouble(datain);
 
         /** Heat -------------------------------------------------------------------------------------- */
@@ -221,10 +221,10 @@ public final class MPSServerSettings {
         packet.writeInt(maxModuleCountArmorFeet);
 
         /** Energy ---------------------------------------------------------------- */
-        packet.writeInt(maxEnergyLVCapacitor);
-        packet.writeInt(maxEnergyMVCapacitor);
-        packet.writeInt(maxEnergyHVCapacitor);
-        packet.writeInt(maxEnergyEVCapacitor);
+        packet.writeInt(maxEnergyBasicBattery);
+        packet.writeInt(maxEnergyAdvancedBattery);
+        packet.writeInt(maxEnergyEliteBattery);
+        packet.writeInt(maxEnergyUltimateBattery);
         packet.writeDouble(rfEnergyPerIC2EU);
 
         /** Heat -------------------------------------------------------------------------------------- */

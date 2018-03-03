@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.event;
 
 import net.machinemuse.numina.api.module.ModuleManager;
-import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.numina.client.sound.Musique;
+import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;

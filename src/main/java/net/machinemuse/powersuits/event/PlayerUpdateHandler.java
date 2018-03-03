@@ -2,9 +2,9 @@ package net.machinemuse.powersuits.event;
 
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.ModuleManager;
+import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.numina.math.MuseMathUtils;
-import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.module.helpers.WeightHelper;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;

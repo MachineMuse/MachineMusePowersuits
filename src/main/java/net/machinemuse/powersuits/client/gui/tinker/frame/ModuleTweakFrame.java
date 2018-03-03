@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
+import net.machinemuse.item.powersuits.module.PowerModuleBase;
 import net.machinemuse.numina.api.module.IModule;
 import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.api.nbt.*;
@@ -7,14 +8,13 @@ import net.machinemuse.numina.math.geometry.Colour;
 import net.machinemuse.numina.math.geometry.MusePoint2D;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
+import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.numina.utils.string.MuseStringUtils;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableTinkerSlider;
 import net.machinemuse.powersuits.network.packets.MusePacketTweakRequestDouble;
 import net.machinemuse.powersuits.network.packets.MusePacketTweakRequestInteger;
-import net.machinemuse.item.powersuits.module.PowerModuleBase;
-import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
-import net.machinemuse.numina.utils.string.MuseStringUtils;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

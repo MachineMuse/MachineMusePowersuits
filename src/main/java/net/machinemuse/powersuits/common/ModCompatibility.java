@@ -63,7 +63,7 @@ public class ModCompatibility {
     }
 
     public static boolean isThaumCraftLoaded() {
-        return Loader.isModLoaded("Thaumcraft");
+        return Loader.isModLoaded("thaumcraft");
     }
 
     public static boolean isThermalExpansionLoaded() {
@@ -75,7 +75,7 @@ public class ModCompatibility {
     }
 
     public static boolean isRFAPILoaded() {
-        return ModAPIManager.INSTANCE.hasAPI("cofhapi|energy");
+        return ModAPIManager.INSTANCE.hasAPI("redstoneflux");
     }
 
     public static boolean isCOFHLibLoaded() {
@@ -96,7 +96,7 @@ public class ModCompatibility {
     }
 
     public static boolean isEnderIOLoaded() {
-        return Loader.isModLoaded("EnderIO");
+        return Loader.isModLoaded("enderio");
     }
 
     public static boolean isAppengLoaded() {
@@ -112,7 +112,7 @@ public class ModCompatibility {
     }
 
     public static boolean isRailcraftLoaded() {
-        return Loader.isModLoaded("Railcraft");
+        return Loader.isModLoaded("railcraft");
     }
 
     public static boolean isCompactMachinesLoaded() {
@@ -136,7 +136,7 @@ public class ModCompatibility {
     }
 
     public static boolean isMekanismLoaded() {
-        return Loader.isModLoaded("Mekanism");
+        return Loader.isModLoaded("mekanism");
     }
 
     public static boolean enableThaumGogglesModule() {

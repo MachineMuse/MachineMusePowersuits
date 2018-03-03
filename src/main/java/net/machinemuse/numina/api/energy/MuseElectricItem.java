@@ -35,7 +35,7 @@
 //     * @param stack ItemStack to set
 //     * @return Current energy level
 //     */
-//    public double getCurrentMPSEnergy(ItemStack stack) {
+//    public double getEnergyStored(ItemStack stack) {
 //        return MuseItemUtils.getDoubleOrZero(stack, ElectricItemUtils.CURRENT_ENERGY);
 //    }
 //
@@ -45,7 +45,7 @@
 //     * @param stack ItemStack to set
 //     * @return Maximum energy level
 //     */
-//    public double getMaxMPSEnergy(ItemStack stack) {
+//    public double getMaxEnergyStored(ItemStack stack) {
 //        return ModuleManager.getInstance().computeModularPropertyDouble(stack, ElectricItemUtils.MAXIMUM_ENERGY);
 //    }
 //
@@ -55,8 +55,8 @@
 //     * @param stack ItemStack to set
 //     * @param energy Level to set it to
 //     */
-//    public void setCurrentMPSEnergy(ItemStack stack, double energy) {
-//        MuseItemUtils.setDoubleOrRemove(stack, ElectricItemUtils.CURRENT_ENERGY, Math.min(energy, getMaxMPSEnergy(stack)));
+//    public void setCurrentEnergy(ItemStack stack, double energy) {
+//        MuseItemUtils.setDoubleOrRemove(stack, ElectricItemUtils.CURRENT_ENERGY, Math.min(energy, getMaxEnergyStored(stack)));
 //    }
 //
 //    /**
@@ -66,13 +66,13 @@
 //     * @param requested Amount of energy to drain
 //     * @return Amount of energy successfully drained
 //     */
-//    public double drainMPSEnergyFrom(ItemStack stack, double requested) {
-//        double available = getCurrentMPSEnergy(stack);
+//    public double extractEnergy(ItemStack stack, double requested) {
+//        double available = getEnergyStored(stack);
 //        if (available > requested) {
-//            setCurrentMPSEnergy(stack, available - requested);
+//            setCurrentEnergy(stack, available - requested);
 //            return requested;
 //        } else {
-//            setCurrentMPSEnergy(stack, 0);
+//            setCurrentEnergy(stack, 0);
 //            return available;
 //        }
 //    }
@@ -84,15 +84,15 @@
 //     * @param provided Amount of energy to add
 //     * @return Amount of energy added
 //     */
-//    public double giveMPSEnergyTo(ItemStack stack, double provided) {
-//        double available = getCurrentMPSEnergy(stack);
-//        double max = getMaxMPSEnergy(stack);
+//    public double receiveEnergy(ItemStack stack, double provided) {
+//        double available = getEnergyStored(stack);
+//        double max = getMaxEnergyStored(stack);
 //
 //        if (available + provided < max) {
-//            setCurrentMPSEnergy(stack, available + provided);
+//            setCurrentEnergy(stack, available + provided);
 //            return provided;
 //        } else {
-//            setCurrentMPSEnergy(stack, max);
+//            setCurrentEnergy(stack, max);
 //            return max - available;
 //        }
 //    }
@@ -123,11 +123,11 @@
 //
 //    @Override
 //    public double getCharge(ItemStack itemStack) {
-//        return ElectricConversions.museEnergyToEU(getCurrentMPSEnergy(itemStack));
+//        return ElectricConversions.museEnergyToEU(getEnergyStored(itemStack));
 //    }
 //
 //    public double getMaxCharge(ItemStack itemStack) {
-//        return ElectricConversions.museEnergyToEU(getMaxMPSEnergy(itemStack));
+//        return ElectricConversions.museEnergyToEU(getMaxEnergyStored(itemStack));
 //    }
 //
 //    public int getTier(ItemStack itemStack) {
@@ -135,34 +135,34 @@
 //    }
 //
 //    public double getTransferLimit(ItemStack itemStack) {
-//        return ElectricConversions.museEnergyToEU(Math.sqrt(getMaxMPSEnergy(itemStack)));
+//        return ElectricConversions.museEnergyToEU(Math.sqrt(getMaxEnergyStored(itemStack)));
 //    }
 //
 //    @Override
 //    public double charge(ItemStack itemStack, double amount, int tier, boolean ignoreTransferLimit, boolean simulate){
-//        double current = getCurrentMPSEnergy(itemStack);
+//        double current = getEnergyStored(itemStack);
 //        double transfer = (ignoreTransferLimit || amount < getTransferLimit(itemStack)) ? ElectricConversions.museEnergyFromEU(amount) : getTransferLimit(itemStack);
-//        double given = giveMPSEnergyTo(itemStack, transfer);
+//        double given = receiveEnergy(itemStack, transfer);
 //        if (simulate) {
-//            setCurrentMPSEnergy(itemStack, current);
+//            setCurrentEnergy(itemStack, current);
 //        }
 //        return ElectricConversions.museEnergyToEU(given);
 //    }
 //
 //    @Override
 //    public double discharge(ItemStack itemStack, double amount, int tier, boolean ignoreTransferLimit, boolean externally, boolean simulate) {
-//        double current = getCurrentMPSEnergy(itemStack);
+//        double current = getEnergyStored(itemStack);
 //        double transfer = (ignoreTransferLimit || amount < getTransferLimit(itemStack)) ? ElectricConversions.museEnergyFromEU(amount) : getTransferLimit(itemStack);
-//        double taken = drainMPSEnergyFrom(itemStack, transfer);
+//        double taken = extractEnergy(itemStack, transfer);
 //        if (simulate) {
-//            setCurrentMPSEnergy(itemStack, current);
+//            setCurrentEnergy(itemStack, current);
 //        }
 //        return ElectricConversions.museEnergyToEU(taken);
 //    }
 //
 //    @Override
 //    public boolean canUse(ItemStack itemStack, double amount) {
-//        return ElectricConversions.museEnergyFromEU(amount) < getCurrentMPSEnergy(itemStack);
+//        return ElectricConversions.museEnergyFromEU(amount) < getEnergyStored(itemStack);
 //    }
 //
 //    @Override
@@ -182,31 +182,31 @@
 //
 //    /* Thermal Expansion -------------------------------------------------------------------------- */
 //    public int receiveEnergy(ItemStack stack, int energy, boolean simulate) {
-//        double current = getCurrentMPSEnergy(stack);
+//        double current = getEnergyStored(stack);
 //        double receivedME = ElectricConversions.museEnergyFromRF(energy);
-//        double eatenME = giveMPSEnergyTo(stack, receivedME);
+//        double eatenME = receiveEnergy(stack, receivedME);
 //        if (simulate) {
-//            setCurrentMPSEnergy(stack, current);
+//            setCurrentEnergy(stack, current);
 //        }
 //        return ElectricConversions.museEnergyToRF(eatenME);
 //    }
 //
 //    public int extractEnergy(ItemStack stack, int energy, boolean simulate) {
-//        double current = getCurrentMPSEnergy(stack);
+//        double current = getEnergyStored(stack);
 //        double requesteddME = ElectricConversions.museEnergyFromRF(energy);
-//        double takenME = drainMPSEnergyFrom(stack, requesteddME);
+//        double takenME = extractEnergy(stack, requesteddME);
 //        if (simulate) {
-//            setCurrentMPSEnergy(stack, current);
+//            setCurrentEnergy(stack, current);
 //        }
 //        return ElectricConversions.museEnergyToRF(takenME);
 //    }
 //
 //    public int getEnergyStored(ItemStack theItem) {
-//        return ElectricConversions.museEnergyToRF(getCurrentMPSEnergy(theItem));
+//        return ElectricConversions.museEnergyToRF(getEnergyStored(theItem));
 //    }
 //
 //    public int getMaxEnergyStored(ItemStack theItem) {
-//        return ElectricConversions.museEnergyToRF(getMaxMPSEnergy(theItem));
+//        return ElectricConversions.museEnergyToRF(getMaxEnergyStored(theItem));
 //    }
 //
 //    public int getMaxDamage(ItemStack itemStack) {
@@ -216,22 +216,22 @@
 //    /* Mekanism ----------------------------------------------------------------------------------- */
 //    @Override
 //    public double getEnergy(ItemStack itemStack) {
-//        return ElectricConversions.museEnergyToMek(getCurrentMPSEnergy(itemStack));
+//        return ElectricConversions.museEnergyToMek(getEnergyStored(itemStack));
 //    }
 //
 //    @Override
 //    public void setEnergy(ItemStack itemStack, double v) {
-//        setCurrentMPSEnergy(itemStack, ElectricConversions.museEnergyFromMek(v));
+//        setCurrentEnergy(itemStack, ElectricConversions.museEnergyFromMek(v));
 //    }
 //
 //    @Override
 //    public double getMaxEnergy(ItemStack itemStack) {
-//        return ElectricConversions.museEnergyToMek(getMaxMPSEnergy(itemStack));
+//        return ElectricConversions.museEnergyToMek(getMaxEnergyStored(itemStack));
 //    }
 //
 //    @Override
 //    public double getMaxTransfer(ItemStack itemStack) {
-//        return ElectricConversions.museEnergyToMek(getMaxMPSEnergy(itemStack));
+//        return ElectricConversions.museEnergyToMek(getMaxEnergyStored(itemStack));
 //    }
 //
 //    @Override

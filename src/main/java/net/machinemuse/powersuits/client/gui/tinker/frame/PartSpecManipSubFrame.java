@@ -1,19 +1,19 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
-import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.numina.math.MuseMathUtils;
 import net.machinemuse.numina.math.geometry.Colour;
 import net.machinemuse.numina.math.geometry.MuseRect;
 import net.machinemuse.numina.math.geometry.MuseRelativeRect;
 import net.machinemuse.numina.network.PacketSender;
-import net.machinemuse.numina.client.render.RenderState;
+import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.client.gui.tinker.GuiIcons;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.client.render.modelspec.*;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.machinemuse.powersuits.network.packets.MusePacketCosmeticInfo;
-import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;

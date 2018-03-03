@@ -1,15 +1,20 @@
 package net.machinemuse.powersuits.capabilities;
 
 import forestry.api.apiculture.ApicultureCapabilities;
+import net.machinemuse.numina.api.capability_ports.itemwrapper.ForgeEnergyItemContainerWrapper;
 import net.machinemuse.numina.api.capability_ports.itemwrapper.ModeChangingItemWrapper;
 import net.machinemuse.numina.api.capability_ports.itemwrapper.ModularItemWrapper;
 import net.machinemuse.numina.api.capability_ports.itemwrapper.MuseHeatItemWrapper;
 import net.machinemuse.numina.api.constants.NuminaNBTConstants;
+import net.machinemuse.numina.api.energy.IMuseElectricItem;
 import net.machinemuse.numina.api.energy.forge.ForgeEnergyItemWrapper;
-import net.machinemuse.numina.api.item.IMuseItem;
 import net.machinemuse.numina.capabilities.CapabilityHeat;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.armor.*;
+import net.machinemuse.powersuits.item.module.energy.AdvancedBatteryModule;
+import net.machinemuse.powersuits.item.module.energy.BasicBatteryModule;
+import net.machinemuse.powersuits.item.module.energy.EliteBatteryModule;
+import net.machinemuse.powersuits.item.module.energy.UltimateBatteryModule;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.minecraft.item.Item;
@@ -28,13 +33,14 @@ public final class MPSCapProvider implements ICapabilityProvider {
 
     MuseHeatItemWrapper heatWrapper;
     ForgeEnergyItemWrapper energyWrapper;
+    ForgeEnergyItemContainerWrapper energyContainerWrapper;
     boolean apiarist_module_installed = false;
     ModularItemWrapper modularItemWrapper;
     ModeChangingItemWrapper modeChangingItemWrapper;
 
     public MPSCapProvider(final ItemStack container, NBTTagCompound nbt) {
         this.container = container;
-        if (container != null && container.getItem() instanceof IMuseItem) {
+        if (container != null && container.getItem() instanceof IMuseElectricItem ) {
             NBTTagCompound containerNBT = MuseItemUtils.getMuseItemTag(container);
             Item item = container.getItem();
 
@@ -47,28 +53,41 @@ public final class MPSCapProvider implements ICapabilityProvider {
             int maxHeatTransfer = 0;
             int maxModuleSlots = 0;
 
-        if (item instanceof ItemPowerFist) {
-            modeChangingItemWrapper = null;
-            modularItemWrapper = new ModularItemWrapper(container, 50); // TODO
-        } else if (item instanceof ItemPowerArmor) {
-            modeChangingItemWrapper = new ModeChangingItemWrapper(container, 30); // TODO
-            modularItemWrapper = null;
+            if (item instanceof ItemPowerFist) {
+                modeChangingItemWrapper = null;
+                modularItemWrapper = new ModularItemWrapper(container, 50, containerNBT.getCompoundTag("modules")); // TODO
+            } else if (item instanceof ItemPowerArmor) {
+                modeChangingItemWrapper = new ModeChangingItemWrapper(container, 30, containerNBT.getCompoundTag("modules")); // TODO
+                modularItemWrapper = null;
+            } else {
+                if (item instanceof BasicBatteryModule)
+                    maxEnergy = MPSConfig.getInstance().maxEnergyBasicBattery();
+                else if (item instanceof AdvancedBatteryModule)
+                    maxEnergy = MPSConfig.getInstance().maxEnergyAdvancedBattery();
+                else if (item instanceof EliteBatteryModule)
+                    maxEnergy = MPSConfig.getInstance().maxEnergyEliteBattery();
+                else if (item instanceof UltimateBatteryModule)
+                    maxEnergy = MPSConfig.getInstance().maxEnergyUltimateBattery();
 
-        } else {
-            modeChangingItemWrapper = null;
-            modularItemWrapper = null;
-        }
+                if (containerNBT.hasKey(NuminaNBTConstants.CURRENT_ENERGY))
+                    currentEnergy = containerNBT.getInteger(NuminaNBTConstants.CURRENT_ENERGY);
+                else
+                    containerNBT.setInteger(NuminaNBTConstants.CURRENT_ENERGY, 0);
 
-
-
-
-
-
-            if (containerNBT.hasKey(NuminaNBTConstants.CURRENT_ENERGY)) {
-                currentEnergy = containerNBT.getInteger(NuminaNBTConstants.CURRENT_ENERGY);
                 if (containerNBT.hasKey(NuminaNBTConstants.MAXIMUM_ENERGY))
-                    maxEnergyTransfer = maxEnergy = containerNBT.getInteger(NuminaNBTConstants.MAXIMUM_ENERGY);
+                        maxEnergyTransfer = maxEnergy = containerNBT.getInteger(NuminaNBTConstants.MAXIMUM_ENERGY);
+                else
+                    containerNBT.setInteger(NuminaNBTConstants.MAXIMUM_ENERGY, maxEnergy);
+
+
+
+
+                modeChangingItemWrapper = null;
+                modularItemWrapper = null;
             }
+
+
+
 
             if (containerNBT.hasKey(NuminaNBTConstants.CURRENT_HEAT)) {
                 currentHeat = containerNBT.getInteger(NuminaNBTConstants.CURRENT_HEAT);
@@ -91,7 +110,14 @@ public final class MPSCapProvider implements ICapabilityProvider {
                 containerNBT.setInteger(NuminaNBTConstants.MAXIMUM_HEAT, maxHeat);
             }
             heatWrapper = new MuseHeatItemWrapper(container, maxHeat, maxHeatTransfer, currentHeat);
-            energyWrapper = new ForgeEnergyItemWrapper(container, maxEnergy, maxEnergyTransfer, currentEnergy);
+            if (modularItemWrapper != null) {
+                energyContainerWrapper = new ForgeEnergyItemContainerWrapper(container, modularItemWrapper);
+                energyWrapper = null;
+            } else if (modeChangingItemWrapper != null) {
+                energyContainerWrapper = new ForgeEnergyItemContainerWrapper(container, modeChangingItemWrapper);
+                energyWrapper = null;
+            } else
+                energyWrapper = new ForgeEnergyItemWrapper(container, maxEnergy, maxEnergyTransfer, currentEnergy);
         } else {
             heatWrapper = null;
             energyWrapper = null;
@@ -128,16 +154,25 @@ public final class MPSCapProvider implements ICapabilityProvider {
         }
 
         if (capability == CapabilityEnergy.ENERGY) {
-            energyWrapper.updateFromNBT();
-            return (T) energyWrapper;
+            if (energyWrapper != null) {
+                energyWrapper.updateFromNBT();
+                return (T) energyWrapper;
+            } else if (energyContainerWrapper != null) {
+                if (modularItemWrapper != null) {
+                    modularItemWrapper.updateFromNBT();
+                } else {
+                    modeChangingItemWrapper.updateFromNBT();
+                }
+                return (T) energyContainerWrapper;
+            }
         }
 
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             if (modularItemWrapper != null) {
-
+                modularItemWrapper.updateFromNBT();
                 return (T) modularItemWrapper;
             } else {
-
+                modeChangingItemWrapper.updateFromNBT();
                 return (T) modeChangingItemWrapper;
             }
         }

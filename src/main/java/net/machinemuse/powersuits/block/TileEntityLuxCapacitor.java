@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.block;
 
-import net.machinemuse.numina.utils.MuseLogger;
-import net.machinemuse.numina.math.geometry.Colour;
 import net.machinemuse.numina.common.tileentity.MuseTileEntity;
+import net.machinemuse.numina.math.geometry.Colour;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.property.IExtendedBlockState;
 

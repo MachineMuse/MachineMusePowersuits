@@ -147,28 +147,28 @@ public class MPSSettings {
     public static final Energy energy = new Energy();
     public static class Energy {
         // basic capacitor (100KJ or 1M-RF)
-        @Config.LangKey(MPSConfigConstants.CONFIG_MAX_ENERGY_LV_CAPACITOR)
-        @Config.Comment("Amount of RF energy that the LV Capacitor can store.")
+        @Config.LangKey(MPSConfigConstants.CONFIG_MAX_ENERGY_BASIC_BATTERY)
+        @Config.Comment("Amount of RF energy that the Basic Battery can store.")
         @Config.RangeInt(min = 0)
-        public int maxEnergyLVCapacitor = (int) (1 * Math.pow(10, 6));
+        public int maxEnergyBasicBattery = (int) (1 * Math.pow(10, 6));
 
         // advanced capacitor (500KJ or 5M-RF)
-        @Config.LangKey(MPSConfigConstants.CONFIG_MAX_ENERGY_MV_CAPACITOR)
-        @Config.Comment("Amount of RF energy that the MV Capacitor can store.")
+        @Config.LangKey(MPSConfigConstants.CONFIG_MAX_ENERGY_ADVANCED_BATTERY)
+        @Config.Comment("Amount of RF energy that the Advanced Battery can store.")
         @Config.RangeInt(min = 0)
-        public int maxEnergyMVCapacitor = (int) (5 * Math.pow(10, 6));
+        public int maxEnergyAdvancedBattery = (int) (5 * Math.pow(10, 6));
 
         // elite capacitor (5MJ or 50M-RF)
-        @Config.LangKey(MPSConfigConstants.CONFIG_MAX_ENERGY_HV_CAPACITOR)
-        @Config.Comment("Amount of RF energy that the HV Capacitor can store.")
+        @Config.LangKey(MPSConfigConstants.CONFIG_MAX_ENERGY_ELITE_BATTERY)
+        @Config.Comment("Amount of RF energy that the Elite Battery can store.")
         @Config.RangeInt(min = 0)
-        public int maxEnergyHVCapacitor = (int) (5 * Math.pow(10, 7));
+        public int maxEnergyEliteBattery = (int) (5 * Math.pow(10, 7));
 
         // ultimate capacitor (10MJ or 100M-RF)
-        @Config.LangKey(MPSConfigConstants.CONFIG_MAX_ENERGY_EV_CAPACITOR)
-        @Config.Comment("Amount of RF energy that the EV Capacitor can store.")
+        @Config.LangKey(MPSConfigConstants.CONFIG_MAX_ENERGY_ULTIMATE_BATTERY)
+        @Config.Comment("Amount of RF energy that the Ultimate Battery can store.")
         @Config.RangeInt(min = 0)
-        public int maxEnergyEVCapacitor = (int) (1 * Math.pow(10, 8));
+        public int maxEnergyUltimateBattery = (int) (1 * Math.pow(10, 8));
 
 
         @Config.LangKey(MPSConfigConstants.CONFIG_RF_ENERGY_PER_IC2_EU)

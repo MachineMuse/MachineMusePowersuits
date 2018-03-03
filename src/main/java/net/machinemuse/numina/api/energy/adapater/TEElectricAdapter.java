@@ -24,22 +24,22 @@ public class TEElectricAdapter extends ElectricAdapter {
     }
 
     @Override
-    public int getCurrentMPSEnergy() {
+    public int getEnergyStored() {
         return this.item().getEnergyStored(this.itemStack);
     }
 
     @Override
-    public int getMaxMPSEnergy() {
+    public int getMaxEnergyStored() {
         return this.item().getMaxEnergyStored(this.itemStack);
     }
 
     @Override
-    public int drainMPSEnergy(int requested) {
-        return this.item().extractEnergy(this.itemStack, requested, false);
+    public int extractEnergy(int requested, boolean simulate) {
+        return this.item().extractEnergy(this.itemStack, requested, simulate);
     }
 
     @Override
-    public int giveMPSEnergy(int provided) {
-        return this.item().receiveEnergy(this.itemStack, provided, false);
+    public int receiveEnergy(int provided, boolean simulate) {
+        return this.item().receiveEnergy(this.itemStack, provided, simulate);
     }
 }

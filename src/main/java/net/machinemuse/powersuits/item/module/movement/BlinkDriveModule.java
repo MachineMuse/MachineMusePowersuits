@@ -1,18 +1,18 @@
 package net.machinemuse.powersuits.item.module.movement;
 
+import net.machinemuse.item.powersuits.module.PowerModuleBase;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.api.module.ModuleManager;
-import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.misc.RayTraceUtils;
 import net.machinemuse.numina.utils.module.helpers.BlinkDriveHelper;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.machinemuse.item.powersuits.module.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
+import net.machinemuse.utils.ElectricItemUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

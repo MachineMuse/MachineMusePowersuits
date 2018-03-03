@@ -1,11 +1,11 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
-import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.math.geometry.Colour;
 import net.machinemuse.numina.math.geometry.DrawableMuseRect;
 import net.machinemuse.numina.math.geometry.MusePoint2D;
 import net.machinemuse.numina.math.geometry.MuseRect;
 import net.machinemuse.numina.network.PacketSender;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.powersuits.client.gui.tinker.GuiIcons;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableSlider;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;

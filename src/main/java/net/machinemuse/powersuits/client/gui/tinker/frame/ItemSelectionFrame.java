@@ -1,13 +1,13 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
+import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.math.geometry.Colour;
 import net.machinemuse.numina.math.geometry.FlyFromPointToPoint2D;
 import net.machinemuse.numina.math.geometry.GradientAndArcCalculator;
 import net.machinemuse.numina.math.geometry.MusePoint2D;
-import net.machinemuse.numina.client.sound.Musique;
+import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
-import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.SoundCategory;

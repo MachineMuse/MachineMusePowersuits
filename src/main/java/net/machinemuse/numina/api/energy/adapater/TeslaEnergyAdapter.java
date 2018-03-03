@@ -20,22 +20,22 @@ public class TeslaEnergyAdapter extends ElectricAdapter {
     }
 
     @Override
-    public int getCurrentMPSEnergy() {
+    public int getEnergyStored() {
         return holder != null ? (int) holder.getStoredPower() : 0;
     }
 
     @Override
-    public int getMaxMPSEnergy() {
+    public int getMaxEnergyStored() {
         return holder != null ? (int) holder.getCapacity() : 0;
     }
 
     @Override
-    public int drainMPSEnergy(int requested) {
-        return producer != null ? (int) producer.takePower(requested, false) : 0;
+    public int extractEnergy(int requested, boolean simulate) {
+        return producer != null ? (int) producer.takePower(requested, simulate) : 0;
     }
 
     @Override
-    public int giveMPSEnergy(int provided) {
-        return consumer != null ? (int) consumer.givePower(provided, false) : 0;
+    public int receiveEnergy(int provided, boolean simulate) {
+        return consumer != null ? (int) consumer.givePower(provided, simulate) : 0;
     }
 }

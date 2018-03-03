@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
+import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.numina.math.MuseMathUtils;
 import net.machinemuse.numina.math.geometry.Colour;
 import net.machinemuse.numina.math.geometry.DrawableMuseRect;
 import net.machinemuse.numina.math.geometry.MusePoint2D;
-import net.machinemuse.numina.client.render.RenderState;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 

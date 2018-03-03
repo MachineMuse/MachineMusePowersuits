@@ -33,10 +33,10 @@ public class MPSConfigConstants {
 
     // Energy
     public static final String CONFIG_PREFIX_ENERGY = CONFIG_PREFIX + "energy.";
-    public static final String CONFIG_MAX_ENERGY_LV_CAPACITOR = CONFIG_PREFIX_ENERGY + "maxEnergyLVCapacitor";
-    public static final String CONFIG_MAX_ENERGY_MV_CAPACITOR = CONFIG_PREFIX_ENERGY + "maxEnergyMVCapacitor";
-    public static final String CONFIG_MAX_ENERGY_HV_CAPACITOR = CONFIG_PREFIX_ENERGY + "maxEnergyHVCapacitor";
-    public static final String CONFIG_MAX_ENERGY_EV_CAPACITOR = CONFIG_PREFIX_ENERGY + "maxEnergyEVCapacitor";
+    public static final String CONFIG_MAX_ENERGY_BASIC_BATTERY = CONFIG_PREFIX_ENERGY + "maxEnergyBasicBattery";
+    public static final String CONFIG_MAX_ENERGY_ADVANCED_BATTERY = CONFIG_PREFIX_ENERGY + "maxEnergyAdvancedBattery";
+    public static final String CONFIG_MAX_ENERGY_ELITE_BATTERY = CONFIG_PREFIX_ENERGY + "maxEnergyEliteBattery";
+    public static final String CONFIG_MAX_ENERGY_ULTIMATE_BATTERY = CONFIG_PREFIX_ENERGY + "maxEnergyUltimateBattery";
     public static final String CONFIG_RF_ENERGY_PER_IC2_EU = CONFIG_PREFIX_ENERGY + "RFEnergyPerIC2EU";
 
     // Heat

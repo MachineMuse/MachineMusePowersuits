@@ -5,8 +5,8 @@ import net.machinemuse.numina.api.energy.adapater.ElectricAdapter;
 import net.machinemuse.numina.api.item.IMuseItem;
 import net.machinemuse.numina.api.module.IModule;
 import net.machinemuse.numina.api.module.ModuleManager;
-import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.math.MuseMathUtils;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.string.MuseStringUtils;
 import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
 import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec;
@@ -290,8 +290,8 @@ public class MuseItemUtils {
         }
         ElectricAdapter adapter = ElectricAdapter.wrap(stack);
         if (adapter != null) {
-            String energyinfo = I18n.format("tooltip.energy") + " " + MuseStringUtils.formatNumberShort(adapter.getCurrentMPSEnergy()) + '/'
-                    + MuseStringUtils.formatNumberShort(adapter.getMaxMPSEnergy());
+            String energyinfo = I18n.format("tooltip.energy") + " " + MuseStringUtils.formatNumberShort(adapter.getEnergyStored()) + '/'
+                    + MuseStringUtils.formatNumberShort(adapter.getMaxEnergyStored());
             currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character,
                     MuseStringUtils.FormatCodes.Grey));
         }

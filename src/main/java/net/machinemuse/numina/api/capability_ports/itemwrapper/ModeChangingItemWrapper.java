@@ -17,8 +17,8 @@ public class ModeChangingItemWrapper extends ModularItemWrapper implements IMode
     public static final String TAG_MODE = "mode";
     int activeMode = -1;
 
-    public ModeChangingItemWrapper(ItemStack container, int slotCount) {
-        super(container, slotCount);
+    public ModeChangingItemWrapper(ItemStack container, int slotCount, NBTTagCompound nbt) {
+        super(container, slotCount, nbt);
     }
 
     @Nullable

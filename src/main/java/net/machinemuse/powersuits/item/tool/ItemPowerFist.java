@@ -488,7 +488,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         List<String> info = new ArrayList<>();
         info.add("Detailed Summary");
         info.add(formatInfo("Armor", getArmorDouble(player, stack)));
-        info.add(formatInfo("Energy Storage", getCurrentMPSEnergy(stack)) + 'J');
+        info.add(formatInfo("Energy Storage", this.getEnergyStored(stack)) + 'J');
         info.add(formatInfo("Weight", WeightHelper.getTotalWeight(stack)) + 'g');
         return info;
     }

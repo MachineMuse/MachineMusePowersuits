@@ -1,11 +1,11 @@
 package net.machinemuse.numina.utils.render;
 
-import net.machinemuse.numina.math.geometry.Colour;
-import net.machinemuse.numina.math.geometry.MusePoint2D;
-import net.machinemuse.numina.math.geometry.SwirlyMuseCircle;
 import net.machinemuse.numina.client.render.BillboardHelper;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
 import net.machinemuse.numina.client.render.RenderState;
+import net.machinemuse.numina.math.geometry.Colour;
+import net.machinemuse.numina.math.geometry.MusePoint2D;
+import net.machinemuse.numina.math.geometry.SwirlyMuseCircle;
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.IClickable;
 import net.minecraft.client.Minecraft;

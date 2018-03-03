@@ -1,16 +1,16 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
+import net.machinemuse.item.powersuits.module.PowerModuleBase;
 import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.math.geometry.Colour;
 import net.machinemuse.numina.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.module.helpers.WeightHelper;
+import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.numina.utils.string.MuseStringUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.machinemuse.item.powersuits.module.PowerModuleBase;
-import net.machinemuse.numina.utils.render.MuseRenderer;
-import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
-import net.machinemuse.numina.utils.string.MuseStringUtils;
+import net.machinemuse.utils.ElectricItemUtils;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

@@ -1,13 +1,13 @@
 package net.machinemuse.powersuits.client.gui.tinker.clickable;
 
 import net.machinemuse.numina.api.module.IModule;
-import net.machinemuse.numina.math.geometry.Colour;
-import net.machinemuse.numina.math.geometry.MusePoint2D;
 import net.machinemuse.numina.client.render.MuseIconUtils;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
-import net.machinemuse.powersuits.client.gui.tinker.GuiIcons;
+import net.machinemuse.numina.math.geometry.Colour;
+import net.machinemuse.numina.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.numina.utils.string.MuseStringUtils;
+import net.machinemuse.powersuits.client.gui.tinker.GuiIcons;
 import net.minecraft.client.resources.I18n;
 
 import java.util.ArrayList;

@@ -14,22 +14,44 @@ public class ForgeEnergyAdapter extends ElectricAdapter {
     }
 
     @Override
-    public int getCurrentMPSEnergy() {
+    public int getEnergyStored() {
         return energyStorage != null ? energyStorage.getEnergyStored() : 0;
     }
 
     @Override
-    public int getMaxMPSEnergy() {
+    public int getMaxEnergyStored() {
         return energyStorage != null ? energyStorage.getMaxEnergyStored() : 0;
     }
 
     @Override
-    public int drainMPSEnergy(int requested) {
-        return energyStorage != null ? energyStorage.extractEnergy(requested, false) : 0;
+    public int extractEnergy(int requested, boolean simulate) {
+        if(requested == 0)
+            return 0;
+
+        System.out.println("can drain: " + energyStorage.canExtract());
+
+        int energyExtracted = energyStorage != null ? energyStorage.extractEnergy(requested, simulate) : 0;
+        if (energyStorage == null)
+            System.out.println("Energy storage is null!!!!");
+
+        System.out.println("energy requested " + requested);
+        System.out.println("simulate: " + simulate);
+
+        System.out.println("energy extracted: " + energyExtracted);
+        return energyExtracted;
+
+
+
+//        return energyStorage != null ? energyStorage.extractEnergy(requested, simulate) : 0;
     }
 
     @Override
-    public int giveMPSEnergy(int provided) {
-        return energyStorage != null ? energyStorage.receiveEnergy(provided, false) : 0;
+    public int receiveEnergy(int provided, boolean simulate) {
+        int recievedEnergy= energyStorage != null ? energyStorage.receiveEnergy(provided, simulate) : 0;
+
+        System.out.println("recieved Energy: " + recievedEnergy);
+        return recievedEnergy;
+
+//        return energyStorage != null ? energyStorage.receiveEnergy(provided, simulate) : 0;
     }
 }

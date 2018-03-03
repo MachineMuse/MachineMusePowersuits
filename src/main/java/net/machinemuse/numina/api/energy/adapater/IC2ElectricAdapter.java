@@ -22,22 +22,22 @@ public class IC2ElectricAdapter extends ElectricAdapter {
     }
 
     @Override
-    public int getCurrentMPSEnergy() {
+    public int getEnergyStored() {
         return ElectricConversions.museEnergyFromEU(ElectricItem.manager.getCharge(this.itemStack));
     }
 
     @Override
-    public int getMaxMPSEnergy() {
+    public int getMaxEnergyStored() {
         return ElectricConversions.museEnergyFromEU(this.item.getMaxCharge(this.itemStack));
     }
 
     @Override
-    public int drainMPSEnergy(int requested) {
-        return ElectricConversions.museEnergyFromEU(ElectricItem.manager.discharge(this.itemStack, ElectricConversions.museEnergyToEU(requested), this.getTier(), true, false, false));
+    public int extractEnergy(int requested, boolean simulate) {
+        return ElectricConversions.museEnergyFromEU(ElectricItem.manager.discharge(this.itemStack, ElectricConversions.museEnergyToEU(requested), this.getTier(), true, false, simulate));
     }
 
     @Override
-    public int giveMPSEnergy(int provided) {
-        return ElectricConversions.museEnergyFromEU(ElectricItem.manager.charge(this.itemStack, ElectricConversions.museEnergyToEU(provided), this.getTier(), true, false));
+    public int receiveEnergy(int provided, boolean simulate) {
+        return ElectricConversions.museEnergyFromEU(ElectricItem.manager.charge(this.itemStack, ElectricConversions.museEnergyToEU(provided), this.getTier(), true, simulate));
     }
 }

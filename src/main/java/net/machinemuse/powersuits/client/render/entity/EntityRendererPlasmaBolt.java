@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.client.render.entity;
 
+import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.numina.math.geometry.Colour;
 import net.machinemuse.numina.math.geometry.DrawableMuseCircle;
-import net.machinemuse.numina.client.render.RenderState;
-import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.RenderManager;
 import org.lwjgl.opengl.GL11;
