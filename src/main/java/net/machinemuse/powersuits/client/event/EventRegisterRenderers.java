@@ -124,7 +124,7 @@ public class EventRegisterRenderers {
         regRenderModule(mpsItems.module_diamond_pick_upgrade, "tool", "diamond_pick_upgrade");
         regRenderModule(mpsItems.module_aoe_pick_upgrade, "tool", "aoe_pick_upgrade");
         regRenderModule(mpsItems.module_axe, "tool", "axe");
-        regRenderModule(mpsItems.module_shears, "tool", "module_shears");
+        regRenderModule(mpsItems.module_shears, new ResourceLocation("minecraft", "shears"));
         regRenderModule(mpsItems.module_shovel, "tool", "shovel");
         regRenderModule(mpsItems.module_appeng_ec_wireless_fluid, "tool", "appeng_ec_wireless_fluid");
         regRenderModule(mpsItems.module_appeng_wireless, "tool", "appeng_wireless");
@@ -132,30 +132,23 @@ public class EventRegisterRenderers {
         regRenderModule(mpsItems.module_chisel, "tool", "chisel");
         regRenderModule(mpsItems.module_dim_rift_gen, "tool", "dim_rift_gen");
         regRenderModule(mpsItems.module_field_tinkerer, "tool", "field_tinkerer");
-        regRenderModule(mpsItems.module_flint_and_steel, "tool", "flint_and_steel");
-        regRenderModule(mpsItems.module_grafter, "tool", "grafter");
-        regRenderModule(mpsItems.module_hoe, "tool", "hoe");
+        regRenderModule(mpsItems.module_flint_and_steel, new ResourceLocation("minecraft", "flint_and_steel"));
+        regRenderModule(mpsItems.module_grafter, new ResourceLocation("forestry", "grafter"));
+        regRenderModule(mpsItems.module_hoe, new ResourceLocation("minecraft", "golden_hoe"));
         regRenderModule(mpsItems.module_leafblower, "tool", "leafblower");
         regRenderModule(mpsItems.module_luxcaplauncher, "tool", "luxcaplauncher");
         regRenderModule(mpsItems.module_mffsfieldteleporter, "tool", "mffsfieldteleporter");
 // regRenderModule(mpsItems.module_octerminal, "tool", "octerminal);
         regRenderModule(mpsItems.module_omniprobe, "tool", "omniprobe");
-        regRenderModule(mpsItems.module_omniwrench, "tool", "ore_scanner");
+        regRenderModule(mpsItems.module_omniwrench, "tool", "omniwrench");
         regRenderModule(mpsItems.module_ore_scanner, "tool", "ore_scanner");
-        regRenderModule(mpsItems.module_cmpsd, "tool", "cmpsd");
-        regRenderModule(mpsItems.module_portable_crafting_table, "tool", "portable_crafting_table");
-
-
-        regRenderModule(mpsItems.module_refinedstoragewirelessgrid, "tool", "refinedstoragewirelessgrid");
-
-
-
-
+        regRenderModule(mpsItems.module_cmpsd, new ResourceLocation("cm2", "psd"));
+        regRenderModule(mpsItems.module_portable_crafting_table, new ResourceLocation("minecraft", "crafting_table"));
+        regRenderModule(mpsItems.module_refinedstoragewirelessgrid, //"tool", "refinedstoragewirelessgrid");
+        new ResourceLocation("refinedstorage", "wireless_grid"));
 
         regRenderModule(mpsItems.module_scoop, new ResourceLocation("forestry", "scoop"));
         regRenderModule(mpsItems.module_tree_tap, new ResourceLocation("ic2", "tool/electric/electric_treetap"));
-
-
 
         // Weapon ---------------------------------------------------------------------------------
         regRenderModule(mpsItems.module_blade_launcher, "weapon", "blade_launcher");
@@ -194,8 +187,12 @@ public class EventRegisterRenderers {
     }
 
     private void regRenderModule(Item item, ResourceLocation resLocation) {
+        regRenderModule(item, resLocation, 0);
+    }
+
+    private void regRenderModule(Item item, ResourceLocation resLocation, int meta) {
         ModelResourceLocation location =  new ModelResourceLocation(resLocation, "inventory");
-        ModelLoader.setCustomModelResourceLocation(item, 0,location);
+        ModelLoader.setCustomModelResourceLocation(item, meta,location);
     }
 
 }

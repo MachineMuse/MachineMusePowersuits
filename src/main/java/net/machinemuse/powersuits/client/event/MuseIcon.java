@@ -178,7 +178,7 @@ public class MuseIcon {
 
         /* Tools -------------------------------------------------------------------------------------- */
         aoePickUpgrade = register(event, "module/diamondupgrade1");
-        appengECWirelessFluid = register(event, "module/ItemWirelessTerminalFluid");
+        appengECWirelessFluid = register(event, "module/itemwirelessterminalfluid");
         appengWireless = register(event, "module/ItemWirelessTerminal");
         aquaAffinity = register(event, "module/aquaaffinity");
         axe = register(event, "module/toolaxe");

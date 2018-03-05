@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "powersuits:module/silkwisp"
+    "layer0": "powersuits:module/aquaaffinity"
   }
 }
