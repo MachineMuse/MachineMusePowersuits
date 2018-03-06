@@ -2,6 +2,7 @@ package net.machinemuse.numina.api.capability_ports.itemwrapper;
 
 import net.machinemuse.numina.api.capability_ports.inventory.IModularItemCapability;
 import net.machinemuse.numina.api.constants.NuminaModuleConstants;
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class ModularItemWrapper extends ItemStackHandler implements IModularItemCapability {
     protected ItemStack container;
-    private static final String TAG_MODULES = "modules";
+
     int slotCount;
 
     public ModularItemWrapper(@Nonnull ItemStack container, int slotCount, NBTTagCompound nbt) {
@@ -167,8 +168,8 @@ public class ModularItemWrapper extends ItemStackHandler implements IModularItem
 
     public void updateFromNBT() {
         final NBTTagCompound nbt = MuseItemUtils.getMuseItemTag(container);
-        if (nbt != null && nbt.hasKey(TAG_MODULES, Constants.NBT.TAG_COMPOUND)) {
-            deserializeNBT((NBTTagCompound) nbt.getTag(TAG_MODULES));
+        if (nbt != null && nbt.hasKey(NuminaNBTConstants.TAG_MODULES, Constants.NBT.TAG_COMPOUND)) {
+            deserializeNBT((NBTTagCompound) nbt.getTag(NuminaNBTConstants.TAG_MODULES));
 
             if (stacks.size() != slotCount) {
                 final List<ItemStack> oldStacks = new ArrayList<>(stacks);
@@ -204,6 +205,6 @@ public class ModularItemWrapper extends ItemStackHandler implements IModularItem
         NBTTagCompound nbt = MuseItemUtils.getMuseItemTag(container);
 
         System.out.println("nbt: " + nbt) ;
-        nbt.setTag(TAG_MODULES, serializeNBT());
+        nbt.setTag(NuminaNBTConstants.TAG_MODULES, serializeNBT());
     }
 }

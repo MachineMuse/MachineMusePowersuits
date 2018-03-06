@@ -1,7 +1,11 @@
 package net.machinemuse.numina.api.capability_ports.itemwrapper;
 
 import net.machinemuse.numina.api.capability_ports.inventory.IModeChangingItemCapability;
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.numina.network.MusePacketModeChangeRequest;
+import net.machinemuse.numina.network.PacketSender;
+import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,21 +25,34 @@ public class ModeChangingItemWrapper extends ModularItemWrapper implements IMode
         super(container, slotCount, nbt);
     }
 
+    public void updateFromNBT() {
+        final NBTTagCompound nbt = MuseItemUtils.getMuseItemTag(container);
+        if (nbt != null && nbt.hasKey(NuminaNBTConstants.TAG_MODULES, Constants.NBT.TAG_COMPOUND)) {
+            deserializeNBT((NBTTagCompound) nbt.getTag(NuminaNBTConstants.TAG_MODULES));
+
+            if (stacks.size() != slotCount) {
+                final List<ItemStack> oldStacks = new ArrayList<>(stacks);
+                setSize(slotCount); // FIXME : use config reference?
+                final int count = Math.min(slotCount, oldStacks.size());
+                for (int slot = 0; slot < count; slot++) {
+                    stacks.set(slot, oldStacks.get(slot));
+                }
+            }
+        }
+    }
+
     @Nullable
     @Override
     public TextureAtlasSprite getModeIcon(int modeIndex) {
         if (modeIndex == -1)
             return null;
-        System.out.println("mode index: " + modeIndex);
-
-
         return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(getStackInSlot(modeIndex)).getParticleTexture();
     }
 
     @Override
     public List<Integer> getValidModes() {
         List<Integer>moduleIndexes = new ArrayList<>();
-        for(int i=1; i < getSlots();  i++) {
+        for(int i=0; i < getSlots();  i++) {
             if (getStackInSlot(i).getItem() instanceof IRightClickModule)
                 moduleIndexes.add(i);
         }
@@ -44,14 +61,12 @@ public class ModeChangingItemWrapper extends ModularItemWrapper implements IMode
 
     @Override
     public boolean isValidMode(String mode) {
-        for(int i=1; i < getSlots();  i++) {
+        for(int i=0; i < getSlots();  i++) {
             ItemStack module = getStackInSlot(i);
             if (!module.isEmpty() && module.getItem() instanceof IRightClickModule && module.getUnlocalizedName().equals(mode))
                 return true;
         }
         return false;
-
-
     }
 
     @Override
@@ -62,15 +77,12 @@ public class ModeChangingItemWrapper extends ModularItemWrapper implements IMode
 
     @Override
     public int getActiveMode() {
-        NBTTagCompound nbt = this.serializeNBT();
-        if (nbt.hasKey(TAG_MODE, Constants.NBT.TAG_INT))
-            return nbt.getInteger(TAG_MODE);
-        return -1;
+        return activeMode;
     }
 
     @Override
     public void setActiveMode(String unLocalizedName) {
-        for(int i=1; i < getSlots();  i++) {
+        for(int i=0; i < getSlots();  i++) {
             ItemStack module = getStackInSlot(i);
             if (!module.isEmpty() && module.getUnlocalizedName().equals(unLocalizedName))
                 setActiveMode(i);
@@ -79,10 +91,14 @@ public class ModeChangingItemWrapper extends ModularItemWrapper implements IMode
 
     @Override
     public void setActiveMode(int newMode) {
-        NBTTagCompound nbt = this.serializeNBT();
-        nbt.setInteger(TAG_MODE, newMode);
-        this.deserializeNBT(nbt);
+        final NBTTagCompound nbt = MuseItemUtils.getMuseItemTag(container);
+        if (nbt != null && nbt.hasKey(NuminaNBTConstants.TAG_MODULES, Constants.NBT.TAG_COMPOUND)) {
+            NBTTagCompound moduleNBT = (NBTTagCompound) nbt.getTag(NuminaNBTConstants.TAG_MODULES);
+            moduleNBT.setInteger(TAG_MODE, newMode);
+            deserializeNBT(moduleNBT);
+        }
     }
+
     @Override
     public void cycleMode(EntityPlayer player, int dMode) {
         List<Integer> modes = this.getValidModes();
@@ -124,7 +140,7 @@ public class ModeChangingItemWrapper extends ModularItemWrapper implements IMode
     @Override
     public NBTTagCompound serializeNBT() {
         NBTTagCompound nbt = super.serializeNBT();
-        nbt.setInteger(TAG_MODE,this.activeMode);
+        nbt.setInteger(TAG_MODE, this.activeMode);
         return nbt;
     }
 
@@ -137,4 +153,3 @@ public class ModeChangingItemWrapper extends ModularItemWrapper implements IMode
         super.deserializeNBT(nbt);
     }
 }
-

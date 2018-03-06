@@ -77,13 +77,6 @@ public class RenderGameOverlayEventHandler {
         if (!stack.isEmpty()) {
             IItemHandler modeChangingCapability = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
             if (modeChangingCapability instanceof IModeChangingItemCapability) {
-
-
-                System.out.println("active mode index: " + ((IModeChangingItemCapability) modeChangingCapability).getActiveMode());
-
-                System.out.println("installed Module list size: " + ((IModeChangingItemCapability) modeChangingCapability).getInstalledModuleNames().size());
-
-
                 TextureAtlasSprite currentMode = ((IModeChangingItemCapability) modeChangingCapability).getModeIcon(((IModeChangingItemCapability) modeChangingCapability).getActiveMode());
 
                 if (currentMode != null) {

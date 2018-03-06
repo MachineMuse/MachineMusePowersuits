@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.capabilities;
 
 import net.machinemuse.numina.api.constants.NuminaNBTConstants;
-import net.machinemuse.numina.api.energy.forge.ForgeEnergyItemWrapper;
+import net.machinemuse.numina.api.capability_ports.itemwrapper.ForgeEnergyItemWrapper;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.module.energy.AdvancedBatteryModule;
 import net.machinemuse.powersuits.item.module.energy.BasicBatteryModule;

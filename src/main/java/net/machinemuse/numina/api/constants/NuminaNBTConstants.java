@@ -4,6 +4,11 @@ public class NuminaNBTConstants {
     // main mod NBT tag
     public static final String NBTPREFIX = "mmmpsmod";// FIXME? if this is a common tag to be used for all MachineMuse's mods, then it should be mmmod
 
+    // ModularItemHandler tag
+    public static final String TAG_MODULES = "modules";
+
+
+
     // heat parent tag
     public static final String TAG_HEAT = "Heat"; // parent tag
 

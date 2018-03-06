@@ -7,14 +7,9 @@ import net.machinemuse.numina.api.capability_ports.itemwrapper.ModularItemWrappe
 import net.machinemuse.numina.api.capability_ports.itemwrapper.MuseHeatItemWrapper;
 import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.energy.IMuseElectricItem;
-import net.machinemuse.numina.api.energy.forge.ForgeEnergyItemWrapper;
 import net.machinemuse.numina.capabilities.CapabilityHeat;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.armor.*;
-import net.machinemuse.powersuits.item.module.energy.AdvancedBatteryModule;
-import net.machinemuse.powersuits.item.module.energy.BasicBatteryModule;
-import net.machinemuse.powersuits.item.module.energy.EliteBatteryModule;
-import net.machinemuse.powersuits.item.module.energy.UltimateBatteryModule;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.minecraft.item.Item;

@@ -10,7 +10,12 @@ import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
 
-public class ForgeEnergyItemContainerWrapper extends EnergyStorage implements IEnergyStorage {
+/**
+ * Note that this class does not update any NBT tag data itself, but rather is just part of a wrapper for
+ * power storage devices in the item's inventory
+ *
+ */
+public class ForgeEnergyItemContainerWrapper extends EnergyStorage {
     IItemHandler itemHandler;
     ItemStack container;
 
