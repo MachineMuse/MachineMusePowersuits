@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.utils;
 
+import net.machinemuse.numina.api.capability_ports.inventory.IModularItemCapability;
 import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.energy.adapater.ElectricAdapter;
 import net.machinemuse.numina.api.item.IMuseItem;
@@ -23,9 +24,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -253,19 +257,13 @@ public class MuseItemUtils {
         return moduleTag.getDouble(propertyName);
     }
 
-
-    public static List<String> getItemInstalledModules(EntityPlayer player, ItemStack stack) {
-        NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-        List<String> modules = new LinkedList();
-        for (IModule module : ModuleManager.getInstance().getValidModulesForItem(stack)) {
-            if (ModuleManager.getInstance().tagHasModule(itemTag, module.getUnlocalizedName())) {
-                modules.add(module.getUnlocalizedName());
-            }
+    public static List<String> getItemInstalledModules(ItemStack stack) {
+        IItemHandler modularItemCap = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+        if (modularItemCap instanceof IModularItemCapability) {
+            return ((IModularItemCapability) modularItemCap).getInstalledModuleNames();
         }
-        return modules;
+        return new ArrayList<String>();
     }
-
-
 
     /**
      * Adds information to the item's tooltip when 'getting' it.
@@ -296,7 +294,7 @@ public class MuseItemUtils {
                     MuseStringUtils.FormatCodes.Grey));
         }
         if (MPSConfig.getInstance().doAdditionalInfo()) {
-            List<String> installed = getItemInstalledModules(player, stack);
+            List<String> installed = getItemInstalledModules(stack);
             if (installed.size() == 0) {
                 String message = I18n.format("tooltip.noModules");
                 currentTipList.addAll(MuseStringUtils.wrapStringToLength(message, 30));
@@ -418,6 +416,21 @@ public class MuseItemUtils {
         }
         return modulars;
     }
+
+    public static List<ItemStack> modularItemCapsEquipped(EntityPlayer player) {
+        List<ItemStack> modulars = new ArrayList<>();
+        for (EntityEquipmentSlot slot :EntityEquipmentSlot.values()) {
+            ItemStack stack = player.getItemStackFromSlot(slot);
+
+            if (!stack.isEmpty()) {
+                IItemHandler modularItemCap = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+                if (modularItemCap instanceof IModularItemCapability)
+                    modulars.add(stack);
+            }
+        }
+        return modulars;
+    }
+
 
     public static boolean canStackTogether(ItemStack stack1, ItemStack stack2) {
         if (!isSameItem(stack1, stack2)) {

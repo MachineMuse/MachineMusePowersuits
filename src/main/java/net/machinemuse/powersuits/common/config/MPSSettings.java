@@ -14,6 +14,7 @@ import net.machinemuse.powersuits.common.InstallCost;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.proxy.CommonProxy;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -336,104 +337,104 @@ public class MPSSettings {
         public Map<String, Boolean> allowedModules = //new HashMap<>();
                 new HashMap<String, Boolean>() {{
                     // Debug ----------------------------------------------------------------------
-                    put(MPSModuleConstants.MODULE_DEBUG, true);
+                    put("item." + MPSModuleConstants.MODULE_DEBUG, true);
 
                     // Armor ----------------------------------------------------------------------
-                    put(MPSModuleConstants.MODULE_LEATHER_PLATING, true);
-                    put(MPSModuleConstants.MODULE_IRON_PLATING, true);
-                    put(MPSModuleConstants.MODULE_DIAMOND_PLATING, true);
-                    put(MPSModuleConstants.MODULE_ENERGY_SHIELD, true );
+                    put("item." + MPSModuleConstants.MODULE_LEATHER_PLATING, true);
+                    put("item." + MPSModuleConstants.MODULE_IRON_PLATING, true);
+                    put("item." + MPSModuleConstants.MODULE_DIAMOND_PLATING, true);
+                    put("item." + MPSModuleConstants.MODULE_ENERGY_SHIELD, true );
 
                     // Cosmetic -------------------------------------------------------------------
-                    put(MPSModuleConstants.MODULE_CITIZEN_JOE_STYLE, true );
-                    put(MPSModuleConstants.MODULE_GLOW, true );
-                    put(MPSModuleConstants.MODULE_HIGH_POLY_ARMOR, true );
-                    put(MPSModuleConstants.MODULE_TINT, true );
-                    put(MPSModuleConstants.MODULE_TRANSPARENT_ARMOR, true );
+                    put("item." + MPSModuleConstants.MODULE_CITIZEN_JOE_STYLE, true );
+                    put("item." + MPSModuleConstants.MODULE_GLOW, true );
+                    put("item." + MPSModuleConstants.MODULE_HIGH_POLY_ARMOR, true );
+                    put("item." + MPSModuleConstants.MODULE_TINT, true );
+                    put("item." + MPSModuleConstants.MODULE_TRANSPARENT_ARMOR, true );
 
                     // Energy ---------------------------------------------------------------------
-                    put(MPSModuleConstants.MODULE_BATTERY_ADVANCED, true );
-                    put(MPSModuleConstants.MODULE_ADVANCED_SOLAR_GENERATOR, true );
-                    put(MPSModuleConstants.MODULE_BATTERY_BASIC, true );
-                    put(MPSModuleConstants.MODULE_COAL_GEN, true );
-                    put(MPSModuleConstants.MODULE_BATTERY_ELITE, true );
-                    put(MPSModuleConstants.MODULE_KINETIC_GENERATOR, true );
-                    put(MPSModuleConstants.MODULE_SOLAR_GENERATOR, true );
-                    put(MPSModuleConstants.MODULE_THERMAL_GENERATOR, true );
-                    put(MPSModuleConstants.MODULE_BATTERY_ULTIMATE, true );
+                    put("item." + MPSModuleConstants.MODULE_BATTERY_ADVANCED, true );
+                    put("item." + MPSModuleConstants.MODULE_ADVANCED_SOLAR_GENERATOR, true );
+                    put("item." + MPSModuleConstants.MODULE_BATTERY_BASIC, true );
+                    put("item." + MPSModuleConstants.MODULE_COAL_GEN, true );
+                    put("item." + MPSModuleConstants.MODULE_BATTERY_ELITE, true );
+                    put("item." + MPSModuleConstants.MODULE_KINETIC_GENERATOR, true );
+                    put("item." + MPSModuleConstants.MODULE_SOLAR_GENERATOR, true );
+                    put("item." + MPSModuleConstants.MODULE_THERMAL_GENERATOR, true );
+                    put("item." + MPSModuleConstants.MODULE_BATTERY_ULTIMATE, true );
 
                     // Environmental --------------------------------------------------------------
-                    put(MPSModuleConstants.AIRTIGHT_SEAL_MODULE, true );
-                    put(MPSModuleConstants.MODULE_APIARIST_ARMOR, true );
-                    put(MPSModuleConstants.MODULE_AUTO_FEEDER, true );
-                    put(MPSModuleConstants.MODULE_COOLING_SYSTEM, true );
-                    put(MPSModuleConstants.MODULE_HAZMAT, true );
-                    put(MPSModuleConstants.MODULE_HEAT_SINK, true );
-                    put(MPSModuleConstants.MODULE_MECH_ASSISTANCE, true );
-                    put(MPSModuleConstants.MODULE_MOB_REPULSOR, true );
-                    put(MPSModuleConstants.MODULE_NITROGEN_COOLING_SYSTEM, true );
-                    put(MPSModuleConstants.MODULE_WATER_ELECTROLYZER, true );
-                    put(MPSModuleConstants.MODULE_WATER_TANK, true );
+                    put("item." + MPSModuleConstants.AIRTIGHT_SEAL_MODULE, true );
+                    put("item." + MPSModuleConstants.MODULE_APIARIST_ARMOR, true );
+                    put("item." + MPSModuleConstants.MODULE_AUTO_FEEDER, true );
+                    put("item." + MPSModuleConstants.MODULE_COOLING_SYSTEM, true );
+                    put("item." + MPSModuleConstants.MODULE_HAZMAT, true );
+                    put("item." + MPSModuleConstants.MODULE_HEAT_SINK, true );
+                    put("item." + MPSModuleConstants.MODULE_MECH_ASSISTANCE, true );
+                    put("item." + MPSModuleConstants.MODULE_MOB_REPULSOR, true );
+                    put("item." + MPSModuleConstants.MODULE_NITROGEN_COOLING_SYSTEM, true );
+                    put("item." + MPSModuleConstants.MODULE_WATER_ELECTROLYZER, true );
+                    put("item." + MPSModuleConstants.MODULE_WATER_TANK, true );
 
                     // Movement -------------------------------------------------------------------
-                    put(MPSModuleConstants.MODULE_BLINK_DRIVE, true );
-                    put(MPSModuleConstants.MODULE_CLIMB_ASSIST, true );
-                    put(MPSModuleConstants.MODULE_FLIGHT_CONTROL, true );
-                    put(MPSModuleConstants.MODULE_GLIDER, true );
-                    put(MPSModuleConstants.MODULE_JETBOOTS, true );
-                    put(MPSModuleConstants.MODULE_JETPACK, true );
-                    put(MPSModuleConstants.MODULE_JUMP_ASSIST, true );
-                    put(MPSModuleConstants.MODULE_PARACHUTE, true );
-                    put(MPSModuleConstants.MODULE_SHOCK_ABSORBER, true );
-                    put(MPSModuleConstants.MODULE_SPRINT_ASSIST, true );
-                    put(MPSModuleConstants.MODULE_SWIM_BOOST, true );
+                    put("item." + MPSModuleConstants.MODULE_BLINK_DRIVE, true );
+                    put("item." + MPSModuleConstants.MODULE_CLIMB_ASSIST, true );
+                    put("item." + MPSModuleConstants.MODULE_FLIGHT_CONTROL, true );
+                    put("item." + MPSModuleConstants.MODULE_GLIDER, true );
+                    put("item." + MPSModuleConstants.MODULE_JETBOOTS, true );
+                    put("item." + MPSModuleConstants.MODULE_JETPACK, true );
+                    put("item." + MPSModuleConstants.MODULE_JUMP_ASSIST, true );
+                    put("item." + MPSModuleConstants.MODULE_PARACHUTE, true );
+                    put("item." + MPSModuleConstants.MODULE_SHOCK_ABSORBER, true );
+                    put("item." + MPSModuleConstants.MODULE_SPRINT_ASSIST, true );
+                    put("item." + MPSModuleConstants.MODULE_SWIM_BOOST, true );
 
                     // Special --------------------------------------------------------------------
-                    put(MPSModuleConstants.MODULE_CLOCK, true );
-                    put(MPSModuleConstants.MODULE_COMPASS, true );
-                    put(MPSModuleConstants.MODULE_ACTIVE_CAMOUFLAGE, true );
-                    put(MPSModuleConstants.MODULE_MAGNET, true );
+                    put("item." + MPSModuleConstants.MODULE_CLOCK, true );
+                    put("item." + MPSModuleConstants.MODULE_COMPASS, true );
+                    put("item." + MPSModuleConstants.MODULE_ACTIVE_CAMOUFLAGE, true );
+                    put("item." + MPSModuleConstants.MODULE_MAGNET, true );
 
                     // Vision ---------------------------------------------------------------------
-                    put(MPSModuleConstants.BINOCULARS_MODULE, true );
-                    put(MPSModuleConstants.MODULE_NIGHT_VISION, true );
-                    put(MPSModuleConstants.MODULE_THAUM_GOGGLES, true );
+                    put("item." + MPSModuleConstants.BINOCULARS_MODULE, true );
+                    put("item." + MPSModuleConstants.MODULE_NIGHT_VISION, true ); // done via mod compat
+                    put("item." + MPSModuleConstants.MODULE_THAUM_GOGGLES, true );
 
                     // Tools --------------------------------------------------------------------------------------
-                    put(MPSModuleConstants.MODULE_AOE_PICK_UPGRADE, true );
-                    put(MPSModuleConstants.MODULE_APPENG_EC_WIRELESS_FLUID, true );
-                    put(MPSModuleConstants.MODULE_APPENG_WIRELESS, true );
-                    put(MPSModuleConstants.MODULE_AQUA_AFFINITY, true );
-                    put(MPSModuleConstants.MODULE_AXE, true );
-                    put(MPSModuleConstants.MODULE_CHISEL, true );
-                    put(MPSModuleConstants.MODULE_DIAMOND_PICK_UPGRADE, true );
-                    put(MPSModuleConstants.MODULE_DIMENSIONAL_RIFT, true );
-                    put(MPSModuleConstants.MODULE_FIELD_TINKER, true );
-                    put(MPSModuleConstants.MODULE_FLINT_AND_STEEL, true );
-                    put(MPSModuleConstants.MODULE_GRAFTER, true );
-                    put(MPSModuleConstants.MODULE_HOE, true );
-                    put(MPSModuleConstants.MODULE_LEAF_BLOWER, true );
-                    put(MPSModuleConstants.MODULE_LUX_CAPACITOR, true );
-                    put(MPSModuleConstants.MODULE_FIELD_TELEPORTER, true );
-                    put(MPSModuleConstants.MODULE_OC_TERMINAL, true );
-                    put(MPSModuleConstants.MODULE_OMNIPROBE, true );
-                    put(MPSModuleConstants.MODULE_OMNI_WRENCH, true );
-                    put(MPSModuleConstants.MODULE_ORE_SCANNER, true );
-                    put(MPSModuleConstants.MODULE_CM_PSD, true );
-                    put(MPSModuleConstants.MODULE_PICKAXE, true );
-                    put(MPSModuleConstants.MODULE_PORTABLE_CRAFTING, true );
-                    put(MPSModuleConstants.MODULE_REF_STOR_WIRELESS, true );
-                    put(MPSModuleConstants.MODULE_SCOOP, true );
-                    put(MPSModuleConstants.MODULE_SHEARS, true );
-                    put(MPSModuleConstants.MODULE_SHOVEL, true );
-                    put(MPSModuleConstants.MODULE_TREETAP, true );
+                    put("item." + MPSModuleConstants.MODULE_AOE_PICK_UPGRADE, true );
+                    put("item." + MPSModuleConstants.MODULE_APPENG_EC_WIRELESS_FLUID, true );
+                    put("item." + MPSModuleConstants.MODULE_APPENG_WIRELESS, true );
+                    put("item." + MPSModuleConstants.MODULE_AQUA_AFFINITY, true );
+                    put("item." + MPSModuleConstants.MODULE_AXE, true );
+                    put("item." + MPSModuleConstants.MODULE_CHISEL, true );
+                    put("item." + MPSModuleConstants.MODULE_DIAMOND_PICK_UPGRADE, true );
+                    put("item." + MPSModuleConstants.MODULE_DIMENSIONAL_RIFT, true );
+                    put("item." + MPSModuleConstants.MODULE_FIELD_TINKER, true );
+                    put("item." + MPSModuleConstants.MODULE_FLINT_AND_STEEL, true );
+                    put("item." + MPSModuleConstants.MODULE_GRAFTER, true );
+                    put("item." + MPSModuleConstants.MODULE_HOE, true );
+                    put("item." + MPSModuleConstants.MODULE_LEAF_BLOWER, true );
+                    put("item." + MPSModuleConstants.MODULE_LUX_CAPACITOR, true );
+                    put("item." + MPSModuleConstants.MODULE_FIELD_TELEPORTER, true );
+                    put("item." + MPSModuleConstants.MODULE_OC_TERMINAL, true );
+                    put("item." + MPSModuleConstants.MODULE_OMNIPROBE, true );
+                    put("item." + MPSModuleConstants.MODULE_OMNI_WRENCH, true );
+                    put("item." + MPSModuleConstants.MODULE_ORE_SCANNER, true );
+                    put("item." + MPSModuleConstants.MODULE_CM_PSD, true );
+                    put("item." + MPSModuleConstants.MODULE_PICKAXE, true );
+                    put("item." + MPSModuleConstants.MODULE_PORTABLE_CRAFTING, true );
+                    put("item." + MPSModuleConstants.MODULE_REF_STOR_WIRELESS, true );
+                    put("item." + MPSModuleConstants.MODULE_SCOOP, true );
+                    put("item." + MPSModuleConstants.MODULE_SHEARS, true );
+                    put("item." + MPSModuleConstants.MODULE_SHOVEL, true );
+                    put("item." + MPSModuleConstants.MODULE_TREETAP, true );
 
                     // Weapons ------------------------------------------------------------------------------------
-                    put(MPSModuleConstants.MODULE_BLADE_LAUNCHER , true );
-                    put(MPSModuleConstants.MODULE_LIGHTNING, true );
-                    put(MPSModuleConstants.MODULE_MELEE_ASSIST, true );
-                    put(MPSModuleConstants.MODULE_PLASMA_CANNON, true );
-                    put(MPSModuleConstants.MODULE_RAILGUN, true );
+                    put("item." + MPSModuleConstants.MODULE_BLADE_LAUNCHER , true );
+                    put("item." + MPSModuleConstants.MODULE_LIGHTNING, true );
+                    put("item." + MPSModuleConstants.MODULE_MELEE_ASSIST, true );
+                    put("item." + MPSModuleConstants.MODULE_PLASMA_CANNON, true );
+                    put("item." + MPSModuleConstants.MODULE_RAILGUN, true );
                 }};
 
 
@@ -506,7 +507,7 @@ public class MPSSettings {
 //        else if(!module.keySet().contains(module.getDataName()))
 //            module.put(module.getDataName(), true);
 //        else
-        ModuleManager.getInstance().addModule(module);
+        ModuleManager.getInstance().addModule(new ItemStack((Item)module));
 //        try {
 //            getOrDefaultModuleAllowed(module.getDataName(), true);
 //        } catch (Exception e) {
@@ -549,10 +550,10 @@ public class MPSSettings {
 
         // Environmental --------------------------------------------------------------------------
         addModule((IModule) mpsItems.module_autofeeder);
-        addModule((IModule) mpsItems.module_airtight_seal);
-        addModule((IModule) mpsItems.module_apiarist_armor);
+//        addModule((IModule) mpsItems.module_airtight_seal); // mod compat
+//        addModule((IModule) mpsItems.module_apiarist_armor); // mod compat
         addModule((IModule) mpsItems.module_cooling_system);
-        addModule((IModule) mpsItems.module_hazmat);
+//        addModule((IModule) mpsItems.module_hazmat); // done via mod compat
         addModule((IModule) mpsItems.module_mechanical_assistance);
         addModule((IModule) mpsItems.module_mob_repulsor);
         addModule((IModule) mpsItems.module_heat_sink);
@@ -581,7 +582,7 @@ public class MPSSettings {
 
         // Vision ---------------------------------------------------------------------------------
         addModule((IModule) mpsItems.module_binnoculars);
-        addModule((IModule) mpsItems.module_night_vision);
+//        addModule((IModule) mpsItems.module_night_vision); // done via mod compat
         addModule((IModule) mpsItems.module_aurameter);
 
         // Tools ----------------------------------------------------------------------------------
@@ -591,10 +592,10 @@ public class MPSSettings {
         addModule((IModule) mpsItems.module_axe);
         addModule((IModule) mpsItems.module_shears);
         addModule((IModule) mpsItems.module_shovel);
-        addModule((IModule) mpsItems.module_appeng_ec_wireless_fluid);
-        addModule((IModule) mpsItems.module_appeng_wireless);
+//        addModule((IModule) mpsItems.module_appeng_ec_wireless_fluid); // mod compat
+//        addModule((IModule) mpsItems.module_appeng_wireless); // mod compat
         addModule((IModule) mpsItems.module_aqua_affinity);
-        addModule((IModule) mpsItems.module_chisel);
+//        addModule((IModule) mpsItems.module_chisel); // mod compat
         addModule((IModule) mpsItems.module_dim_rift_gen);
         addModule((IModule) mpsItems.module_field_tinkerer);
         addModule((IModule) mpsItems.module_flint_and_steel);
@@ -604,17 +605,17 @@ public class MPSSettings {
         addModule((IModule) mpsItems.module_luxcaplauncher);
         addModule((IModule) mpsItems.module_mffsfieldteleporter);
 //    module_octerminal);
-        addModule((IModule) mpsItems.module_omniprobe);
-        addModule((IModule) mpsItems.module_omniwrench);
+//        addModule((IModule) mpsItems.module_omniprobe); // mod compat
+//        addModule((IModule) mpsItems.module_omniwrench); // done via mod compat
         addModule((IModule) mpsItems.module_ore_scanner);
-        addModule((IModule) mpsItems.module_cmpsd);
+//        addModule((IModule) mpsItems.module_cmpsd); // mod compat
         addModule((IModule) mpsItems.module_portable_crafting_table);
-        addModule((IModule) mpsItems.module_refinedstoragewirelessgrid);
-        addModule((IModule) mpsItems.module_scoop);
+//        addModule((IModule) mpsItems.module_refinedstoragewirelessgrid); // mod compat
+//        addModule((IModule) mpsItems.module_scoop); // mod compat
         addModule((IModule) mpsItems.module_tree_tap);
         addModule((IModule) mpsItems.module_refinedstoragewirelessgrid);
         addModule((IModule) mpsItems.module_scoop);
-        addModule((IModule) mpsItems.module_tree_tap);
+//        addModule((IModule) mpsItems.module_tree_tap); // done via mod compat
 
         // Weapon ---------------------------------------------------------------------------------
         addModule((IModule) mpsItems.module_blade_launcher);

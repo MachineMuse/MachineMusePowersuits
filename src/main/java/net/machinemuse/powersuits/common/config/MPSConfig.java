@@ -248,22 +248,11 @@ public class MPSConfig {
 
     /** Modules ----------------------------------------------------------------------------------- */
 
-
-
-
-
-    public boolean getModuleAllowedorDefault(String name, boolean allowed) {
+    public boolean getModuleAllowed(String name) {
         if (MPSSettings.getServerSettings() != null) {
-            if (!MPSSettings.getServerSettings().allowedModules.containsKey(name)) {
-                MPSSettings.getServerSettings().allowedModules.put(name, allowed);
-                System.out.println("Module not found in server config: " + name);
-            }
-            return MPSSettings.getServerSettings().allowedModules.get(name);
-
+            return MPSSettings.getServerSettings().allowedModules.getOrDefault(name, false);
         } else {
-            if (!MPSSettings.modules.allowedModules.containsKey(name))
-                MPSSettings.modules.allowedModules.put(name, allowed);
-            return MPSSettings.modules.allowedModules.get(name);
+            return MPSSettings.modules.allowedModules.getOrDefault(name, false);
         }
     }
 //

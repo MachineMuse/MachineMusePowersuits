@@ -8,7 +8,10 @@ import net.machinemuse.numina.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.numina.utils.string.MuseStringUtils;
 import net.machinemuse.powersuits.client.gui.tinker.GuiIcons;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +28,9 @@ public class ClickableModule extends Clickable {
     boolean allowed = true;
     boolean installed = false;
     final Colour checkmarkcolour = new Colour(0.0F, 0.667F, 0.0F, 1.0F);
-    IModule module;
+    ItemStack module;
 
-    public ClickableModule(IModule module, MusePoint2D position){
+    public ClickableModule(ItemStack module, MusePoint2D position){
         super(position);
         this.module = module;
     }
@@ -40,11 +43,11 @@ public class ClickableModule extends Clickable {
         return toolTipText;
     }
 
-    public String getLocalizedName(IModule m) {
+    public String getLocalizedName(ItemStack m) {
             return I18n.format( m.getUnlocalizedName() + ".name");
     }
 
-    public String getLocalizedDescription(IModule m) {
+    public String getLocalizedDescription(ItemStack m) {
             return I18n.format( m.getUnlocalizedName() + ".desc");
     }
 
@@ -61,7 +64,10 @@ public class ClickableModule extends Clickable {
         double top = getPosition().y() - 8;
 
         MuseTextureUtils.pushTexture(MuseTextureUtils.TEXTURE_QUILT);
-        MuseIconUtils.drawIconAt(left, top, getModule().getIcon(null), Colour.WHITE);
+        MuseIconUtils.drawIconAt(left, top,
+//                getModule().getIcon(null),
+                Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(getModule()).getParticleTexture(),
+                Colour.WHITE);
         MuseTextureUtils.popTexture();
 
         if (!allowed) {
@@ -80,7 +86,7 @@ public class ClickableModule extends Clickable {
         return hitx && hity;
     }
 
-    public IModule getModule() {
+    public ItemStack getModule() {
         return module;
     }
 

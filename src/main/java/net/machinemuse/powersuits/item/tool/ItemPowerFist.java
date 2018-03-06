@@ -7,26 +7,23 @@ import com.raoulvdberge.refinedstorage.api.network.item.INetworkItemHandler;
 import com.raoulvdberge.refinedstorage.api.network.item.INetworkItemProvider;
 import forestry.api.arboriculture.IToolGrafter;
 import mekanism.api.IMekWrench;
+import net.machinemuse.numina.api.capability_ports.inventory.IModeChangingItemCapability;
 import net.machinemuse.numina.api.item.IMuseItem;
 import net.machinemuse.numina.api.module.IBlockBreakingModule;
-import net.machinemuse.numina.api.module.IModule;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.item.IModeChangingItem;
-import net.machinemuse.numina.network.MusePacketModeChangeRequest;
-import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
-import net.machinemuse.numina.utils.item.NuminaItemUtils;
 import net.machinemuse.numina.utils.module.helpers.WeightHelper;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.capabilities.MPSCapProvider;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.module.tool.GrafterModule;
+import net.machinemuse.powersuits.item.module.tool.OmniWrenchModule;
 import net.machinemuse.powersuits.item.module.tool.RefinedStorageWirelessModule;
 import net.machinemuse.powersuits.item.module.weapon.MeleeAssistModule;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -39,9 +36,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,7 +79,8 @@ public class ItemPowerFist extends MPSItemElectricTool
 //        ITool,
         IMekWrench,
         IMuseItem,
-        IModeChangingItem {
+        IModeChangingItem
+{
     public ItemPowerFist() {
         super(0.0f, 0.0f, ToolMaterial.DIAMOND); // FIXME
         this.setMaxStackSize(1);
@@ -148,9 +147,9 @@ public class ItemPowerFist extends MPSItemElectricTool
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
         if (entityLiving instanceof EntityPlayer) {
-            for (IBlockBreakingModule module : ModuleManager.getInstance().getBlockBreakingModules()) {
+            for (ItemStack module : ModuleManager.getInstance().getBlockBreakingModules()) {
                 if (ModuleManager.getInstance().itemHasActiveModule(stack, module.getUnlocalizedName())) {
-                    if (module.onBlockDestroyed(stack, worldIn, state, pos, entityLiving)) {
+                    if (module.getItem().onBlockDestroyed(stack, worldIn, state, pos, entityLiving)) {
                         return true;
                     }
                 }
@@ -217,9 +216,12 @@ public class ItemPowerFist extends MPSItemElectricTool
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
         ItemStack itemStackIn = playerIn.getHeldItem(hand);
         // Only one right click module should be active at a time.
-        IModule IModulemodule = ModuleManager.getInstance().getModule(getActiveMode(itemStackIn));
-        if (IModulemodule instanceof IRightClickModule) {
-            return ((IRightClickModule) IModulemodule).onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+        IItemHandler modeChangingCapability = itemStackIn.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+        if (modeChangingCapability != null && modeChangingCapability instanceof IModeChangingItemCapability) {
+            ItemStack module = ((IModeChangingItemCapability) modeChangingCapability).getActiveModule();
+            if (module.getItem() instanceof IRightClickModule) {
+                return ((IRightClickModule) module.getItem()).onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+            }
         }
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
@@ -237,11 +239,13 @@ public class ItemPowerFist extends MPSItemElectricTool
      * Called when the right click button is released
      */
     @Override
-    public void onPlayerStoppedUsing(ItemStack itemStack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
-        String mode = this.getActiveMode(itemStack);
-        IModule module = ModuleManager.getInstance().getModule(mode);
-        if (module != null)
-            ((IRightClickModule)module).onPlayerStoppedUsing(itemStack, worldIn, entityLiving, timeLeft);
+    public void onPlayerStoppedUsing(ItemStack itemStackIn, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
+        IItemHandler modeChangingCapability = itemStackIn.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+        if (modeChangingCapability != null && modeChangingCapability instanceof IModeChangingItemCapability) {
+            ItemStack module = ((IModeChangingItemCapability) modeChangingCapability).getActiveModule();
+            if (!module.isEmpty())
+                module.getItem().onPlayerStoppedUsing(itemStackIn, worldIn, entityLiving, timeLeft);
+        }
     }
 
     public boolean shouldPassSneakingClickToBlock(World world, int x, int y, int z) {
@@ -251,21 +255,23 @@ public class ItemPowerFist extends MPSItemElectricTool
     @Override
     public EnumActionResult onItemUseFirst(EntityPlayer playerIn, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         ItemStack itemStackIn = playerIn.getHeldItem(hand);
-        String mode = this.getActiveMode(itemStackIn);
-        IModule module = ModuleManager.getInstance().getModule(mode);
-        if (module instanceof IRightClickModule)
-            return ((IRightClickModule)module).onItemUseFirst(itemStackIn, playerIn, world, pos, side, hitX, hitY, hitZ, hand);
+        IItemHandler modeChangingCapability = itemStackIn.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+        if (modeChangingCapability != null && modeChangingCapability instanceof IModeChangingItemCapability) {
+            ItemStack module = ((IModeChangingItemCapability) modeChangingCapability).getActiveModule();
+            if (module.getItem() instanceof IRightClickModule)
+                return ((IRightClickModule)module.getItem()).onItemUseFirst(itemStackIn, playerIn, world, pos, side, hitX, hitY, hitZ, hand);
+        }
         return EnumActionResult.PASS;
     }
 
     @Override
     public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         ItemStack itemStackIn = playerIn.getHeldItem(hand);
-        String mode = this.getActiveMode(itemStackIn);
-        IModule module2;
-        IModule module = module2 = ModuleManager.getInstance().getModule(mode);
-        if (module2 instanceof IRightClickModule) {
-            return ((IRightClickModule)module2).onItemUse(itemStackIn, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+        IItemHandler modeChangingCapability = itemStackIn.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+        if (modeChangingCapability != null && modeChangingCapability instanceof IModeChangingItemCapability) {
+            ItemStack module = ((IModeChangingItemCapability) modeChangingCapability).getActiveModule();
+            if (module.getItem() instanceof IRightClickModule)
+                return ((IRightClickModule) module.getItem()).onItemUse(itemStackIn, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
         }
         return EnumActionResult.PASS;
     }
@@ -285,8 +291,8 @@ public class ItemPowerFist extends MPSItemElectricTool
         if(state.getMaterial().isToolNotRequired())
             return true;
 
-        for (IBlockBreakingModule module : ModuleManager.getInstance().getBlockBreakingModules()) {
-            if (ModuleManager.getInstance().itemHasActiveModule(stack, module.getUnlocalizedName()) && module.canHarvestBlock(stack, state, player)) {
+        for (ItemStack module : ModuleManager.getInstance().getBlockBreakingModules()) {
+            if (ModuleManager.getInstance().itemHasActiveModule(stack, module.getUnlocalizedName()) && ((IBlockBreakingModule)module.getItem()).canHarvestBlock(stack, state, player)) {
                 return true;
             }
         }
@@ -295,14 +301,24 @@ public class ItemPowerFist extends MPSItemElectricTool
 
     /* TE Crescent Hammer */
     @Override
-    public boolean isUsable(ItemStack itemStack, EntityLivingBase entityLivingBase, Entity entity) {
-        return entityLivingBase instanceof EntityPlayer && this.getActiveMode(itemStack).equals(MPSModuleConstants.MODULE_OMNI_WRENCH);
+    public boolean isUsable(ItemStack itemStackIn, EntityLivingBase entityLivingBase, Entity entity) {
+        IItemHandler modeChangingCapability = itemStackIn.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+        if (modeChangingCapability != null && modeChangingCapability instanceof IModeChangingItemCapability) {
+            return entityLivingBase instanceof EntityPlayer &&
+                    (((IModeChangingItemCapability) modeChangingCapability).getActiveModule().getItem() instanceof OmniWrenchModule);
+        }
+        return false;
     }
 
     /* TE Crescent Hammer */
     @Override
-    public boolean isUsable(ItemStack itemStack, EntityLivingBase entityLivingBase, BlockPos blockPos) {
-        return entityLivingBase instanceof EntityPlayer && this.getActiveMode(itemStack).equals(MPSModuleConstants.MODULE_OMNI_WRENCH);
+    public boolean isUsable(ItemStack itemStackIn, EntityLivingBase entityLivingBase, BlockPos blockPos) {
+        IItemHandler modeChangingCapability = itemStackIn.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+        if (modeChangingCapability != null && modeChangingCapability instanceof IModeChangingItemCapability) {
+            return entityLivingBase instanceof EntityPlayer &&
+                    (((IModeChangingItemCapability) modeChangingCapability).getActiveModule().getItem() instanceof OmniWrenchModule);
+        }
+        return false;
     }
 
     /* TE Crescent Hammer */
@@ -355,8 +371,12 @@ public class ItemPowerFist extends MPSItemElectricTool
 
     /* AE wrench */
     @Override
-    public boolean canWrench(ItemStack itemStack, EntityPlayer entityPlayer, BlockPos blockPos) {
-        return this.getActiveMode(itemStack).equals(MPSModuleConstants.MODULE_OMNI_WRENCH);
+    public boolean canWrench(ItemStack itemStackIn, EntityPlayer entityPlayer, BlockPos blockPos) {
+        IItemHandler modeChangingCapability = itemStackIn.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+        if (modeChangingCapability != null && modeChangingCapability instanceof IModeChangingItemCapability) {
+            return (((IModeChangingItemCapability) modeChangingCapability).getActiveModule().getItem() instanceof OmniWrenchModule);
+        }
+        return false;
     }
 
 //
@@ -395,86 +415,91 @@ public class ItemPowerFist extends MPSItemElectricTool
 
     /* Mekanism Wrench */
     @Override
-    public boolean canUseWrench(ItemStack itemStack, EntityPlayer entityPlayer, BlockPos blockPos) {
-        return this.getActiveMode(itemStack).equals(MPSModuleConstants.MODULE_OMNI_WRENCH);
+    public boolean canUseWrench(ItemStack itemStackIn, EntityPlayer entityPlayer, BlockPos blockPos) {
+        IItemHandler modeChangingCapability = itemStackIn.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+        if (modeChangingCapability != null && modeChangingCapability instanceof IModeChangingItemCapability) {
+            return (((IModeChangingItemCapability) modeChangingCapability).getActiveModule().getItem() instanceof OmniWrenchModule);
+        }
+        return false;
     }
 
 
     /* IModeChangingItem -------------------------------------------------------------------------- */
 
-    @Nullable
-    @Override
-    public TextureAtlasSprite getModeIcon(String mode, ItemStack stack, EntityPlayer player) {
-        IModule module = ModuleManager.getInstance().getModule(mode);
-        if (module != null)
-            return module.getIcon(stack);
-        return null;
-    }
-
-    @Override
-    public List<String> getValidModes(ItemStack stack) {
-        List<String> modes = new ArrayList<>();
-        for (IRightClickModule module : ModuleManager.getInstance().getRightClickModules()) {
-            if (module.isValidForItem(stack))
-                if (ModuleManager.getInstance().itemHasModule(stack, module.getUnlocalizedName()))
-                    modes.add(module.getUnlocalizedName());
-        }
-        return modes;
-    }
-
-    @Override
-    public String getActiveMode(ItemStack stack) {
-        String modeFromNBT = NuminaItemUtils.getTagCompound(stack).getString("mode");
-        if (modeFromNBT.isEmpty()) {
-            List<String> validModes = getValidModes(stack);
-            return (validModes!=null && (validModes.size() > 0) ? validModes.get(0) : "");
-        }
-        else {
-            return modeFromNBT;
-        }
-    }
-
-    @Override
-    public void setActiveMode(ItemStack stack, String newMode) {
-        NuminaItemUtils.getTagCompound(stack).setString("mode", newMode);
-    }
-
-    @Override
-    public void cycleMode(ItemStack stack, EntityPlayer player, int dMode) {
-        List<String> modes = this.getValidModes(stack);
-        if (modes.size() > 0) {
-            int newindex = clampMode(modes.indexOf(this.getActiveMode(stack)) + dMode, modes.size());
-            String newmode = (String)modes.get(newindex);
-            this.setActiveMode(stack, newmode);
-            PacketSender.sendToServer(new MusePacketModeChangeRequest(player, newmode, player.inventory.currentItem));
-        }
-    }
-
-    private static int clampMode(int selection, int modesSize) {
-        return (selection > 0) ? (selection % modesSize) : ((selection + modesSize * -selection) % modesSize);
-    }
-
-
-    /* nextMode and prevMode are used for getting the icons to display in the mode selection */
-    @Override
-    public String nextMode(ItemStack stack, EntityPlayer player) {
-        List<String> modes = getValidModes(stack);
-        if (modes.size() > 0) {
-            int newindex = clampMode(modes.indexOf(getActiveMode(stack)) + 1, modes.size());
-            return (String)modes.get(newindex);
-        }
-        else return "";
-    }
-
-    @Override
-    public String prevMode(ItemStack stack, EntityPlayer player) {
-        List<String> modes = this.getValidModes(stack);
-        if (modes.size() > 0) {
-            int newindex = clampMode(modes.indexOf(getActiveMode(stack)) - 1, modes.size());
-            return (String)modes.get(newindex);
-        }
-        else return "";
-    }
+//    @Nullable
+//    @Override
+//    @SideOnly(Side.CLIENT)
+//    public TextureAtlasSprite getModeIcon(String mode, ItemStack stack, EntityPlayer player) {
+//        ItemStack module = ModuleManager.getInstance().getModule(mode);
+//        if (module != null)
+//            return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(module).getParticleTexture();
+//        return null;
+//    }
+//
+//    @Override
+//    public List<String> getValidModes(ItemStack stack) {
+//        List<String> modes = new ArrayList<>();
+//        for (ItemStack module : ModuleManager.getInstance().getRightClickModules()) {
+//            if (((IRightClickModule)module.getItem()).isValidForItem(stack))
+//                if (ModuleManager.getInstance().itemHasModule(stack, module.getUnlocalizedName()))
+//                    modes.add(module.getUnlocalizedName());
+//        }
+//        return modes;
+//    }
+//
+//    @Override
+//    public String getActiveMode(ItemStack stack) {
+//        String modeFromNBT = NuminaItemUtils.getTagCompound(stack).getString("mode");
+//        if (modeFromNBT.isEmpty()) {
+//            List<String> validModes = getValidModes(stack);
+//            return (validModes!=null && (validModes.size() > 0) ? validModes.get(0) : "");
+//        }
+//        else {
+//            return modeFromNBT;
+//        }
+//    }
+//
+//    @Override
+//    public void setActiveMode(ItemStack stack, String newMode) {
+//        NuminaItemUtils.getTagCompound(stack).setString("mode", newMode);
+//    }
+//
+//    @Override
+//    public void cycleMode(ItemStack stack, EntityPlayer player, int dMode) {
+//        List<String> modes = this.getValidModes(stack);
+//        if (modes.size() > 0) {
+//            int newindex = clampMode(modes.indexOf(this.getActiveMode(stack)) + dMode, modes.size());
+//            String newmode = (String)modes.get(newindex);
+//            this.setActiveMode(stack, newmode);
+//            PacketSender.sendToServer(new MusePacketModeChangeRequest(player, newmode, player.inventory.currentItem));
+//        }
+//    }
+//
+//    private static int clampMode(int selection, int modesSize) {
+//        return (selection > 0) ? (selection % modesSize) : ((selection + modesSize * -selection) % modesSize);
+//    }
+//
+//
+//    /* nextMode and prevMode are used for getting the icons to display in the mode selection */
+//    @Override
+//    public String nextMode(ItemStack stack, EntityPlayer player) {
+//        List<String> modes = getValidModes(stack);
+//        if (modes.size() > 0) {
+//            int newindex = clampMode(modes.indexOf(getActiveMode(stack)) + 1, modes.size());
+//            return (String)modes.get(newindex);
+//        }
+//        else return "";
+//    }
+//
+//    @Override
+//    public String prevMode(ItemStack stack, EntityPlayer player) {
+//        List<String> modes = this.getValidModes(stack);
+//        if (modes.size() > 0) {
+//            int newindex = clampMode(modes.indexOf(getActiveMode(stack)) - 1, modes.size());
+//            return (String)modes.get(newindex);
+//        }
+//        else return "";
+//    }
 
     @Override
     @Nonnull

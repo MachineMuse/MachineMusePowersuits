@@ -1,10 +1,13 @@
 package net.machinemuse.numina.network;
 
+import net.machinemuse.numina.api.capability_ports.inventory.IModeChangingItemCapability;
 import net.machinemuse.numina.item.IModeChangingItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 import java.io.DataInputStream;
 import java.util.List;
@@ -39,12 +42,11 @@ public class MusePacketModeChangeRequest extends MusePacket {
     public void handleServer(EntityPlayerMP player) {
         if (slot > -1 && slot < 9) {
             ItemStack stack = player.inventory.mainInventory.get(slot);
-            if (!stack.isEmpty()) {
-                Item item = stack.getItem();
-                if (item instanceof IModeChangingItem) {
-                    List<String> modes = ((IModeChangingItem) item).getValidModes(stack);
-                    if (modes.contains(mode)) {
-                        ((IModeChangingItem) item).setActiveMode(stack, mode);
+            if (!stack.isEmpty() && stack.getItem() instanceof IModeChangingItem) {
+                IItemHandler modeChangingCapability = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+                if (modeChangingCapability != null && modeChangingCapability instanceof IModeChangingItemCapability) {
+                    if (((IModeChangingItemCapability) modeChangingCapability).isValidMode(mode)) {
+                        ((IModeChangingItemCapability) modeChangingCapability).setActiveMode(mode);
                     }
                 }
             }

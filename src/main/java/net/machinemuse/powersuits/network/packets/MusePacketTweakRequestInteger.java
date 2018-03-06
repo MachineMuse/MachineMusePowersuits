@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.network.packets;
 
+import net.machinemuse.numina.api.capability_ports.inventory.IModularItemCapability;
 import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
@@ -8,6 +9,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 import java.io.DataInputStream;
 
@@ -53,10 +56,11 @@ public class MusePacketTweakRequestInteger extends MusePacket {
     public void handleServer(EntityPlayerMP player) {
         if (moduleName != null && tweakName != null) {
             ItemStack stack = player.inventory.getStackInSlot(itemSlot);
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            if (itemTag != null && ModuleManager.getInstance().tagHasModule(itemTag, moduleName)) {
-                NBTTagCompound moduleTag = itemTag.getCompoundTag(moduleName);
-                moduleTag.setInteger(tweakName, tweakValue);
+            IItemHandler modularItemCap = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+            if (modularItemCap instanceof IModularItemCapability) {
+                if (((IModularItemCapability) modularItemCap).isModuleInstalled(moduleName)) {
+                    ((IModularItemCapability) modularItemCap).setModuleTweakInteger(moduleName, tweakName, tweakValue);
+                }
             }
         }
     }

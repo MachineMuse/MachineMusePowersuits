@@ -8,7 +8,7 @@
 //import li.cil.oc.common.tileentity.Rack;
 //import li.cil.oc.server.PacketSender;
 //import li.cil.oc.server.component.Server;
-//import net.machinemuse.item.powersuits.module.PowerModuleBase;
+//import net.machinemuse.powersuits.item.module.PowerModuleBase;
 //import net.machinemuse.numina.api.module.EnumModuleTarget;
 //import net.machinemuse.numina.api.module.IRightClickModule;
 //import net.machinemuse.powersuits.api.constants.MPSModuleConstants;

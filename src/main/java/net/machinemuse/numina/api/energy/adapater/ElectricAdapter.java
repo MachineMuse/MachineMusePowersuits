@@ -17,39 +17,28 @@ import javax.annotation.Nullable;
 public abstract class ElectricAdapter {
     @Nullable
     public static ElectricAdapter wrap(@Nonnull ItemStack itemStack) {
-        if (itemStack == null || itemStack.isEmpty())
+        if (itemStack.isEmpty())
             return null;
         Item i = itemStack.getItem();
 
-        System.out.println(itemStack.getTagCompound());
-
         // Forge Energy
         if (itemStack.hasCapability(CapabilityEnergy.ENERGY, null)) {
-            System.out.println("using forge energy");
-
             return new ForgeEnergyAdapter(itemStack);
 
             // TESLA (need all 3 in order to get power in and out)
         } else if (itemStack.hasCapability(TeslaCapabilities.CAPABILITY_HOLDER, null) &&
                 itemStack.hasCapability(TeslaCapabilities.CAPABILITY_CONSUMER, null) &&
                 itemStack.hasCapability(TeslaCapabilities.CAPABILITY_PRODUCER, null)) {
-
-            System.out.println("using Tesla energy");
             return new TeslaEnergyAdapter(itemStack);
 
             // RF API
         } else if (ModCompatibility.isRFAPILoaded() && i instanceof IEnergyContainerItem) {
-            System.out.println("using RF energy");
             return new TEElectricAdapter(itemStack);
 
             // Industrialcraft
         } else if (ModCompatibility.isIndustrialCraftLoaded() && i instanceof IElectricItem) {
-            System.out.println("using Industrialcraft energy");
-
             return new IC2ElectricAdapter(itemStack);
         } else {
-            System.out.println("NO MATCHING POWER INTERFACE!!!");
-
             return null;
         }
     }

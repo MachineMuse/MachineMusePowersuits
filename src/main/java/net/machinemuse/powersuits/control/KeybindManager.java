@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.control;
 
-import net.machinemuse.numina.api.module.IModule;
 import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.MuseLogger;
@@ -8,6 +7,7 @@ import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableKeybindin
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
 import org.lwjgl.input.Keyboard;
 
@@ -61,7 +61,9 @@ public class KeybindManager {
                 file.createNewFile();
             }
             writer = new BufferedWriter(new FileWriter(file));
-            List<IModule> modulesToWrite = ModuleManager.getInstance().getPlayerInstalledModules(Minecraft.getMinecraft().player);
+//            List<IModule> modulesToWrite = ModuleManager.getInstance().getPlayerInstalledModules(Minecraft.getMinecraft().player);
+            List<ItemStack> modulesToWrite = ModuleManager.getInstance().getPlayerInstalledModules(Minecraft.getMinecraft().player);
+
             for (ClickableKeybinding keybinding : getInstance().keybindings) {
                 writer.write(keybinding.getKeyBinding().getKeyCode() + ":" + keybinding.getPosition().x() + ':' + keybinding.getPosition().y() + ':' + keybinding.displayOnHUD + ':' + keybinding.toggleval + '\n');
                 for (ClickableModule module : keybinding.getBoundModules()) {
@@ -114,12 +116,11 @@ public class KeybindManager {
                 } else if (line.contains("~") && workingKeybinding != null) {
                     String[] exploded = line.split("~");
                     MusePoint2D position = new MusePoint2D(Double.parseDouble(exploded[1]), Double.parseDouble(exploded[2]));
-                    IModule module = ModuleManager.getInstance().getModule(exploded[0]);
+                    ItemStack module = ModuleManager.getInstance().getModule(exploded[0]);
                     if (module != null) {
                         ClickableModule cmodule = new ClickableModule(module, position);
                         workingKeybinding.bindModule(cmodule);
                     }
-
                 }
             }
             reader.close();

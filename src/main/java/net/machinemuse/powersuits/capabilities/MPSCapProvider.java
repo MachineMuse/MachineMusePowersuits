@@ -32,7 +32,6 @@ public final class MPSCapProvider implements ICapabilityProvider {
     ItemStack container;
 
     MuseHeatItemWrapper heatWrapper;
-    ForgeEnergyItemWrapper energyWrapper;
     ForgeEnergyItemContainerWrapper energyContainerWrapper;
     boolean apiarist_module_installed = false;
     ModularItemWrapper modularItemWrapper;
@@ -43,10 +42,6 @@ public final class MPSCapProvider implements ICapabilityProvider {
         if (container != null && container.getItem() instanceof IMuseElectricItem ) {
             NBTTagCompound containerNBT = MuseItemUtils.getMuseItemTag(container);
             Item item = container.getItem();
-
-            int currentEnergy = 0;
-            int maxEnergy = 0;
-            int maxEnergyTransfer = 0;
 
             int currentHeat = 0;
             int maxHeat = 0;
@@ -60,67 +55,40 @@ public final class MPSCapProvider implements ICapabilityProvider {
                 modeChangingItemWrapper = new ModeChangingItemWrapper(container, 30, containerNBT.getCompoundTag("modules")); // TODO
                 modularItemWrapper = null;
             } else {
-                if (item instanceof BasicBatteryModule)
-                    maxEnergy = MPSConfig.getInstance().maxEnergyBasicBattery();
-                else if (item instanceof AdvancedBatteryModule)
-                    maxEnergy = MPSConfig.getInstance().maxEnergyAdvancedBattery();
-                else if (item instanceof EliteBatteryModule)
-                    maxEnergy = MPSConfig.getInstance().maxEnergyEliteBattery();
-                else if (item instanceof UltimateBatteryModule)
-                    maxEnergy = MPSConfig.getInstance().maxEnergyUltimateBattery();
-
-                if (containerNBT.hasKey(NuminaNBTConstants.CURRENT_ENERGY))
-                    currentEnergy = containerNBT.getInteger(NuminaNBTConstants.CURRENT_ENERGY);
-                else
-                    containerNBT.setInteger(NuminaNBTConstants.CURRENT_ENERGY, 0);
-
-                if (containerNBT.hasKey(NuminaNBTConstants.MAXIMUM_ENERGY))
-                        maxEnergyTransfer = maxEnergy = containerNBT.getInteger(NuminaNBTConstants.MAXIMUM_ENERGY);
-                else
-                    containerNBT.setInteger(NuminaNBTConstants.MAXIMUM_ENERGY, maxEnergy);
-
-
-
-
                 modeChangingItemWrapper = null;
                 modularItemWrapper = null;
             }
 
+            if (modeChangingItemWrapper != null || modularItemWrapper!= null) {
+                if (containerNBT.hasKey(NuminaNBTConstants.CURRENT_HEAT)) {
+                    currentHeat = containerNBT.getInteger(NuminaNBTConstants.CURRENT_HEAT);
+                    if (containerNBT.hasKey(NuminaNBTConstants.MAXIMUM_HEAT))
+                        maxHeatTransfer = maxHeat = containerNBT.getInteger(NuminaNBTConstants.MAXIMUM_HEAT);
+                } else {
+                    if (item instanceof ItemPowerArmorHelmet)
+                        maxHeat = MPSConfig.getInstance().maxHeatPowerArmorHelmet();
+                    else if (item instanceof ItemPowerArmorChestplate)
+                        maxHeat = MPSConfig.getInstance().maxHeatPowerArmorChestplate();
+                    else if (item instanceof ItemPowerArmorLeggings)
+                        maxHeat = MPSConfig.getInstance().maxHeatPowerArmorLeggings();
+                    else if (item instanceof ItemPowerArmorBoots)
+                        maxHeat = MPSConfig.getInstance().maxHeatPowerArmorBoots();
+                    else if (item instanceof ItemPowerFist)
+                        maxHeat = MPSConfig.getInstance().maxHeatPowerFist();
 
-
-
-            if (containerNBT.hasKey(NuminaNBTConstants.CURRENT_HEAT)) {
-                currentHeat = containerNBT.getInteger(NuminaNBTConstants.CURRENT_HEAT);
-                if (containerNBT.hasKey(NuminaNBTConstants.MAXIMUM_HEAT))
-                    maxHeatTransfer = maxHeat = containerNBT.getInteger(NuminaNBTConstants.MAXIMUM_HEAT);
-            } else {
-
-                if (item instanceof ItemPowerArmorHelmet)
-                    maxHeat = MPSConfig.getInstance().maxHeatPowerArmorHelmet();
-                else if (item instanceof ItemPowerArmorChestplate)
-                    maxHeat = MPSConfig.getInstance().maxHeatPowerArmorChestplate();
-                else if (item instanceof ItemPowerArmorLeggings)
-                    maxHeat = MPSConfig.getInstance().maxHeatPowerArmorLeggings();
-                else if (item instanceof ItemPowerArmorBoots)
-                    maxHeat = MPSConfig.getInstance().maxHeatPowerArmorBoots();
-                else if (item instanceof ItemPowerFist)
-                    maxHeat = MPSConfig.getInstance().maxHeatPowerFist();
-
-                containerNBT.setInteger(NuminaNBTConstants.CURRENT_HEAT, 0);
-                containerNBT.setInteger(NuminaNBTConstants.MAXIMUM_HEAT, maxHeat);
+                    containerNBT.setInteger(NuminaNBTConstants.CURRENT_HEAT, 0);
+                    containerNBT.setInteger(NuminaNBTConstants.MAXIMUM_HEAT, maxHeat);
+                }
+                heatWrapper = new MuseHeatItemWrapper(container, maxHeat, maxHeatTransfer, currentHeat);
             }
-            heatWrapper = new MuseHeatItemWrapper(container, maxHeat, maxHeatTransfer, currentHeat);
             if (modularItemWrapper != null) {
                 energyContainerWrapper = new ForgeEnergyItemContainerWrapper(container, modularItemWrapper);
-                energyWrapper = null;
             } else if (modeChangingItemWrapper != null) {
                 energyContainerWrapper = new ForgeEnergyItemContainerWrapper(container, modeChangingItemWrapper);
-                energyWrapper = null;
-            } else
-                energyWrapper = new ForgeEnergyItemWrapper(container, maxEnergy, maxEnergyTransfer, currentEnergy);
+            }
         } else {
             heatWrapper = null;
-            energyWrapper = null;
+
         }
     }
 
@@ -148,16 +116,13 @@ public final class MPSCapProvider implements ICapabilityProvider {
 
     @Override
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
-        if (capability == CapabilityHeat.HEAT) {
+        if (capability == CapabilityHeat.HEAT && heatWrapper != null) {
             heatWrapper.updateFromNBT();
             return (T) heatWrapper;
         }
 
         if (capability == CapabilityEnergy.ENERGY) {
-            if (energyWrapper != null) {
-                energyWrapper.updateFromNBT();
-                return (T) energyWrapper;
-            } else if (energyContainerWrapper != null) {
+            if (energyContainerWrapper != null) {
                 if (modularItemWrapper != null) {
                     modularItemWrapper.updateFromNBT();
                 } else {
@@ -171,7 +136,7 @@ public final class MPSCapProvider implements ICapabilityProvider {
             if (modularItemWrapper != null) {
                 modularItemWrapper.updateFromNBT();
                 return (T) modularItemWrapper;
-            } else {
+            } else if (modeChangingItemWrapper != null){
                 modeChangingItemWrapper.updateFromNBT();
                 return (T) modeChangingItemWrapper;
             }

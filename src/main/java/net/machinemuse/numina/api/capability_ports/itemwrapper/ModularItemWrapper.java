@@ -1,9 +1,11 @@
 package net.machinemuse.numina.api.capability_ports.itemwrapper;
 
 import net.machinemuse.numina.api.capability_ports.inventory.IModularItemCapability;
+import net.machinemuse.numina.api.constants.NuminaModuleConstants;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -22,6 +24,126 @@ public class ModularItemWrapper extends ItemStackHandler implements IModularItem
         this.slotCount = slotCount;
         if (nbt != null)
             deserializeNBT(nbt);
+    }
+
+    @Override
+    public boolean isModuleOnline(String unLocalizedName) {
+        for (int i= 0; i < slotCount; i ++) {
+            ItemStack module = getStackInSlot(i);
+            if (!module.isEmpty()) {
+                if (module.getUnlocalizedName().equals(unLocalizedName)) {
+                    NBTTagCompound nbt = MuseItemUtils.getMuseItemTag(module);
+                    if (nbt.hasKey(NuminaModuleConstants.ONLINE))
+                        return nbt.getBoolean(NuminaModuleConstants.ONLINE);
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void toggleModule(String unLocalizedName, boolean online) {
+        for (int i= 0; i < slotCount; i ++) {
+            ItemStack module = getStackInSlot(i);
+            if (!module.isEmpty()) {
+                if (module.getUnlocalizedName().equals(unLocalizedName)) {
+                    NBTTagCompound nbt = MuseItemUtils.getMuseItemTag(module);
+                    nbt.setBoolean(NuminaModuleConstants.ONLINE, online);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void setModuleTweakInteger(String unLocalizedName, String tweakName, int teakVal) {
+        for (int i= 0; i < slotCount; i ++) {
+            ItemStack module = getStackInSlot(i);
+            if (!module.isEmpty()) {
+                if (module.getUnlocalizedName().equals(unLocalizedName)) {
+                    NBTTagCompound nbt = MuseItemUtils.getMuseItemTag(module);
+                    nbt.setInteger(tweakName, teakVal);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void setModuleTweakDouble(String unLocalizedName, String tweakName, double teakVal) {
+        for (int i= 0; i < slotCount; i ++) {
+            ItemStack module = getStackInSlot(i);
+            if (!module.isEmpty()) {
+                if (module.getUnlocalizedName().equals(unLocalizedName)) {
+                    NBTTagCompound nbt = MuseItemUtils.getMuseItemTag(module);
+                    nbt.setDouble(tweakName, teakVal);
+                }
+            }
+        }
+    }
+
+    @Override
+    public List<String> getInstalledModuleNames() {
+        List<String> moduleNames = new ArrayList<>();
+        for (int i= 0; i < slotCount; i ++) {
+            ItemStack module = getStackInSlot(i);
+            if (!module.isEmpty()) {
+                moduleNames.add(module.getUnlocalizedName());
+            }
+        }
+        return moduleNames;
+    }
+
+    @Override
+    public NonNullList<ItemStack> getInstallledModules() {
+        return stacks;
+    }
+
+    @Override
+    public boolean isModuleInstalled(String unLocalizedName) {
+        for (int i= 0; i < slotCount; i ++) {
+            ItemStack stack = getStackInSlot(i);
+            if (!stack.isEmpty() && stack.getUnlocalizedName().equals(unLocalizedName))
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isModuleInstalled(@Nonnull ItemStack module) {
+        for (int i= 0; i < slotCount; i ++) {
+            ItemStack stack = getStackInSlot(i);
+            if (!stack.isEmpty() && stack.getUnlocalizedName().equals(module.getUnlocalizedName()))
+                return true;
+        }
+        return false;
+    }
+
+    @Nonnull
+    @Override
+    public ItemStack installModule(@Nonnull ItemStack module) {
+        if (isModuleInstalled(module))
+            return module;
+
+        for (int i= 0; i < slotCount; i ++) {
+            if (getStackInSlot(i).isEmpty())
+                return insertItem(i, module, false);
+        }
+        return module;
+    }
+
+    @Nonnull
+    @Override
+    public NonNullList<ItemStack> removeModule(String moduleName) {
+
+
+
+        // TODO: return module and install costs
+
+
+        List<ItemStack> retList = new ArrayList<>();
+        retList.add(ItemStack.EMPTY);
+
+        return NonNullList.withSize(1, ItemStack.EMPTY);
     }
 
     @Nonnull

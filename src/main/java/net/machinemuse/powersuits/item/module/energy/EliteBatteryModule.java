@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.item.module.energy;
 
-import net.machinemuse.item.powersuits.module.PowerModuleBase;
+import net.machinemuse.powersuits.capabilities.MPSBatteryCapabilityProvider;
+import net.machinemuse.powersuits.item.module.PowerModuleBase;
 import net.machinemuse.numina.api.energy.ElectricConversions;
 import net.machinemuse.numina.api.energy.IMuseElectricItem;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
@@ -31,12 +32,12 @@ public class EliteBatteryModule extends PowerModuleBase implements IMuseElectric
     public EliteBatteryModule(String resourceDommain, String UnlocalizedName) {
         super(EnumModuleTarget.ALLITEMS, resourceDommain, UnlocalizedName);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
-        addBasePropertyDouble(ElectricItemUtils.MAXIMUM_ENERGY, 750000, "J");
-        addBasePropertyDouble(MPSModuleConstants.WEIGHT, 2000, "g");
-        addTradeoffPropertyDouble("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 4250000);
-        addTradeoffPropertyDouble("Battery Size", MPSModuleConstants.WEIGHT, 8000);
-        addBasePropertyDouble(ElectricConversions.IC2_TIER, 1);
-        addTradeoffPropertyDouble("IC2 Tier", ElectricConversions.IC2_TIER, 2);
+//        addBasePropertyDouble(ElectricItemUtils.MAXIMUM_ENERGY, 750000, "J");
+//        addBasePropertyDouble(MPSModuleConstants.WEIGHT, 2000, "g");
+//        addTradeoffPropertyDouble("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 4250000);
+//        addTradeoffPropertyDouble("Battery Size", MPSModuleConstants.WEIGHT, 8000);
+//        addBasePropertyDouble(ElectricConversions.IC2_TIER, 1);
+//        addTradeoffPropertyDouble("IC2 Tier", ElectricConversions.IC2_TIER, 2);
     }
 
     @Override
@@ -52,7 +53,7 @@ public class EliteBatteryModule extends PowerModuleBase implements IMuseElectric
     @Nullable
     @Override
     public ICapabilityProvider initCapabilities(final ItemStack stack, @Nullable final NBTTagCompound nbt) {
-        return new MPSCapProvider(stack, stack.getTagCompound());
+        return new MPSBatteryCapabilityProvider(stack);
     }
 
     @SideOnly(Side.CLIENT)

@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
-import net.machinemuse.item.powersuits.module.PowerModuleBase;
+import net.machinemuse.powersuits.item.module.PowerModuleBase;
 import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.math.geometry.Colour;
 import net.machinemuse.numina.math.geometry.MusePoint2D;

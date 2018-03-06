@@ -7,7 +7,7 @@ import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.utils.misc.RayTraceUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.machinemuse.item.powersuits.module.PowerModuleBase;
+import net.machinemuse.powersuits.item.module.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.minecraft.block.Block;

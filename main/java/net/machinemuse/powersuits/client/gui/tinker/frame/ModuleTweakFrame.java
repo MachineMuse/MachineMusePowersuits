@@ -11,7 +11,7 @@ import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableTinkerSlider;
 import net.machinemuse.powersuits.network.packets.MusePacketTweakRequestDouble;
 import net.machinemuse.powersuits.network.packets.MusePacketTweakRequestInteger;
-import net.machinemuse.item.powersuits.module.PowerModuleBase;
+import net.machinemuse.powersuits.item.module.PowerModuleBase;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.machinemuse.numina.utils.string.MuseStringUtils;

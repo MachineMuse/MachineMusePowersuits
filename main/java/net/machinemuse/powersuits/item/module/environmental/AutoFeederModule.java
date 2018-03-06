@@ -8,7 +8,7 @@ import net.machinemuse.numina.utils.module.helpers.AutoFeederHelper;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.machinemuse.item.powersuits.module.PowerModuleBase;
+import net.machinemuse.powersuits.item.module.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;

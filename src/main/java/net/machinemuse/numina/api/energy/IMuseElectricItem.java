@@ -43,7 +43,7 @@ public interface IMuseElectricItem
         if (itemStack.isEmpty() || !(itemStack.getItem() instanceof IMuseElectricItem))
             return 0;
         IMuseElectricItem iMuseElectricItem = (IMuseElectricItem) itemStack.getItem();
-        return ElectricConversions.museEnergyToEU(Math.sqrt(iMuseElectricItem.getMaxEnergyStored(itemStack)));
+        return ElectricConversions.museEnergyToEU(iMuseElectricItem.getMaxEnergyStored(itemStack) * 0.75);
     }
 
     @Override

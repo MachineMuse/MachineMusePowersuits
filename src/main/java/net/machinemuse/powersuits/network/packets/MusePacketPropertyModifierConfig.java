@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.network.packets;
 
-import net.machinemuse.item.powersuits.module.PowerModuleBase;
+import net.machinemuse.powersuits.item.module.PowerModuleBase;
 import net.machinemuse.numina.api.module.IModule;
 import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.api.nbt.IPropertyModifier;
@@ -9,6 +9,7 @@ import net.machinemuse.numina.api.nbt.PropertyModifierLinearAdditiveDouble;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -39,11 +40,11 @@ public class MusePacketPropertyModifierConfig extends MusePacket {
     @Override
     public void write() {
         writeInt(ModuleManager.getInstance().getAllModules().size());
-        for (IModule module : ModuleManager.getInstance().getAllModules()) {
+        for (ItemStack module : ModuleManager.getInstance().getAllModules()) {
             writeString(module.getUnlocalizedName());
-            writeBoolean(module.isAllowed());
-            writeInt(module.getPropertyModifiers().size());
-            for (Map.Entry<String, List<IPropertyModifier>> entry: module.getPropertyModifiers().entrySet()) {
+            writeBoolean(((IModule)module.getItem()).isAllowed());
+            writeInt(((IModule)module.getItem()).getPropertyModifiers().size());
+            for (Map.Entry<String, List<IPropertyModifier>> entry: ((IModule)module.getItem()).getPropertyModifiers().entrySet()) {
                 writeString(entry.getKey()); // propertyName
                 List<IPropertyModifier> propmodlist = entry.getValue();
                 writeInt(propmodlist.size());
@@ -71,14 +72,14 @@ public class MusePacketPropertyModifierConfig extends MusePacket {
         for (int i = 0; i < numModules; i++) {
             String moduleName = d.readString(data);
             boolean allowed = d.readBoolean(data);
-            IModule module = ModuleManager.getInstance().getModule(moduleName);
-            if (module instanceof PowerModuleBase)
-                ((PowerModuleBase) module).setIsAllowed(allowed);
+            ItemStack module = ModuleManager.getInstance().getModule(moduleName);
+            if (module.getItem() instanceof PowerModuleBase)
+                ((PowerModuleBase) module.getItem()).setIsAllowed(allowed);
             int numProps = d.readInt(data);
             for (int j = 0; j < numProps; j++ ) {
                 String propName = d.readString(data);
                 int numModifiers = d.readInt(data);
-                List<IPropertyModifier> proplist = module.getPropertyModifiers().get(propName);
+                List<IPropertyModifier> proplist = ((IModule)module.getItem()).getPropertyModifiers().get(propName);
                 for (int m = 0; m < numModifiers; m++) {
                     IPropertyModifier propMod = proplist.get(m);
                     if (propMod instanceof PropertyModifierFlatAdditiveDouble)

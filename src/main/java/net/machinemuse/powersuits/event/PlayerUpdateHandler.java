@@ -60,19 +60,19 @@ public class PlayerUpdateHandler {
             }
 
             boolean foundItemWithModule;
-            for (IPlayerTickModule module : ModuleManager.getInstance().getPlayerTickModules()) {
+            for (ItemStack module : ModuleManager.getInstance().getPlayerTickModules()) {
                 foundItemWithModule = false;
                 for (ItemStack itemStack : modularItemsEquipped) {
-                    if (module.isValidForItem(itemStack)) {
+                    if (((IPlayerTickModule)module.getItem()).isValidForItem(itemStack)) {
                         if (ModuleManager.getInstance().itemHasActiveModule(itemStack, module.getUnlocalizedName())) {
-                            module.onPlayerTickActive(player, itemStack);
+                            ((IPlayerTickModule)module.getItem()).onPlayerTickActive(player, itemStack);
                             foundItemWithModule = true;
                         }
                     }
                 }
                 if (!foundItemWithModule) {
                     for (ItemStack itemStack : modularItemsEquipped) {
-                        module.onPlayerTickInactive(player, itemStack);
+                        ((IPlayerTickModule)module.getItem()).onPlayerTickInactive(player, itemStack);
                     }
                 }
             }

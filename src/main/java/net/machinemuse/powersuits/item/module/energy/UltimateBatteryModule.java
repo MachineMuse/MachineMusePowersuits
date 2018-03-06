@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.item.module.energy;
 
-import net.machinemuse.item.powersuits.module.PowerModuleBase;
+import net.machinemuse.powersuits.capabilities.MPSBatteryCapabilityProvider;
+import net.machinemuse.powersuits.item.module.PowerModuleBase;
 import net.machinemuse.numina.api.energy.IMuseElectricItem;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.utils.string.MuseStringUtils;
@@ -56,7 +57,7 @@ public class UltimateBatteryModule extends PowerModuleBase implements IMuseElect
     @Nullable
     @Override
     public ICapabilityProvider initCapabilities(final ItemStack stack, @Nullable final NBTTagCompound nbt) {
-        return new MPSCapProvider(stack, stack.getTagCompound());
+        return new MPSBatteryCapabilityProvider(stack);
     }
 
     @SideOnly(Side.CLIENT)

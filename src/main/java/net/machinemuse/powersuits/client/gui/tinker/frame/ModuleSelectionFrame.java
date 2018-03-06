@@ -11,6 +11,7 @@ import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import org.lwjgl.opengl.GL11;
 
@@ -21,7 +22,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
     protected Map<String, ModuleSelectionSubFrame> categories = new HashMap<>();
     protected List<ClickableModule> moduleButtons = new ArrayList<>();
     protected int selectedModule = -1;
-    protected IModule prevSelection;
+    protected ItemStack prevSelection;
     protected ClickableItem lastItem;
     protected MuseRect lastPosition;
 
@@ -92,12 +93,12 @@ public class ModuleSelectionFrame extends ScrollableFrame {
             moduleButtons = new ArrayList<>();
             categories = new HashMap<>();
 
-            List<IModule> workingModules = ModuleManager.getInstance().getValidModulesForItem(selectedItem.getItem());
+            List<ItemStack> workingModules = ModuleManager.getInstance().getValidModulesForItem(selectedItem.getItem());
 
             // Prune the list of disallowed module, if not installed on this item.
-            for (Iterator<IModule> it = workingModules.iterator(); it.hasNext(); ) {
-                IModule module = it.next();
-                if (!module.isAllowed() &&
+            for (Iterator<ItemStack> it = workingModules.iterator(); it.hasNext(); ) {
+                ItemStack module = it.next();
+                if (!((IModule)module.getItem()).isAllowed() &&
                         !ModuleManager.getInstance().itemHasModule(selectedItem.getItem(), module.getUnlocalizedName())) {
                     it.remove();
                 }
@@ -105,11 +106,11 @@ public class ModuleSelectionFrame extends ScrollableFrame {
 
             if (workingModules.size() > 0) {
                 this.selectedModule = -1;
-                for (IModule module : workingModules) {
-                    ModuleSelectionSubFrame frame = getOrCreateCategory(module.getCategory());
+                for (ItemStack module : workingModules) {
+                    ModuleSelectionSubFrame frame = getOrCreateCategory(((IModule)module.getItem()).getCategory());
                     ClickableModule moduleClickable = frame.addModule(module);
                     // Indicate installed module
-                    if (!module.isAllowed()) {
+                    if (!((IModule)module.getItem()).isAllowed()) {
                         // If a disallowed module made it to the list, indicate
                         // it as disallowed
                         moduleClickable.setAllowed(false);

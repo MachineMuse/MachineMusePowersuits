@@ -8,7 +8,7 @@ import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
-import net.machinemuse.item.powersuits.module.PowerModuleBase;
+import net.machinemuse.powersuits.item.module.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;

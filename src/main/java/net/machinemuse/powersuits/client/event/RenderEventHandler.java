@@ -124,7 +124,10 @@ public class RenderEventHandler {
                                 active = true;
                         }
 
-                        MuseIconUtils.drawIconAt(x, frame.top(), module.getModule().getIcon(null), (active) ? Colour.WHITE : Colour.DARKGREY.withAlpha(0.5));
+                        MuseIconUtils.drawIconAt(x, frame.top(),
+                                Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(module.getModule()).getParticleTexture(),
+//                                module.getModule().getIcon(null),
+                                (active) ? Colour.WHITE : Colour.DARKGREY.withAlpha(0.5));
                         MuseTextureUtils.popTexture();
                         x += 16;
                     }

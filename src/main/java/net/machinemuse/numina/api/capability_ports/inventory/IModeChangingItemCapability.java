@@ -2,6 +2,7 @@ package net.machinemuse.numina.api.capability_ports.inventory;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -21,7 +22,13 @@ public interface IModeChangingItemCapability extends IModularItemCapability {
 
     List<Integer> getValidModes();
 
+    boolean isValidMode(String mode);
+
+    ItemStack getActiveModule();
+
     int getActiveMode();
+
+    void setActiveMode(String unLocalizedName);
 
     void setActiveMode(int newMode);
 

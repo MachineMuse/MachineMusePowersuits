@@ -7,7 +7,7 @@ import net.machinemuse.numina.api.nbt.PropertyModifierFlatAdditiveDouble;
 import net.machinemuse.numina.api.nbt.PropertyModifierLinearAdditiveDouble;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
-import net.machinemuse.item.powersuits.module.PowerModuleBase;
+import net.machinemuse.powersuits.item.module.PowerModuleBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

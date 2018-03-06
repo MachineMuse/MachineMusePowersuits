@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
-import net.machinemuse.numina.api.module.IModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
@@ -21,6 +20,7 @@ import net.machinemuse.powersuits.control.KeybindManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import org.lwjgl.input.Keyboard;
 
 import java.util.HashSet;
@@ -100,21 +100,21 @@ public class KeybindConfigFrame implements IGuiFrame {
     }
 
     public void refreshModules() {
-        List<IModule> installedModules = ModuleManager.getInstance().getPlayerInstalledModules(player);
+        List<ItemStack> installedModules = ModuleManager.getInstance().getPlayerInstalledModules(player);
         List<MusePoint2D> points = GradientAndArcCalculator.pointsInLine(
                 installedModules.size(),
                 new MusePoint2D(ul.x() + 10, ul.y() + 10),
                 new MusePoint2D(ul.x() + 10, br.y() - 10));
         Iterator<MusePoint2D> pointIterator = points.iterator();
-        for (IModule module : installedModules) {
-            if (module instanceof IToggleableModule && !alreadyAdded(module)) {
+        for (ItemStack module : installedModules) {
+            if (module.getItem() instanceof IToggleableModule && !alreadyAdded(module)) {
                 ClickableModule clickie = new ClickableModule(module, pointIterator.next());
                 modules.add(clickie);
             }
         }
     }
 
-    public boolean alreadyAdded(IModule module) {
+    public boolean alreadyAdded(ItemStack module) {
         for (ClickableModule clickie : modules) {
             if (clickie.getModule().getUnlocalizedName().equals(module.getUnlocalizedName())) {
                 return true;

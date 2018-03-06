@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
-import net.machinemuse.item.powersuits.module.PowerModuleBase;
+import net.machinemuse.powersuits.item.module.PowerModuleBase;
 import net.machinemuse.numina.api.module.IModule;
 import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.api.nbt.*;
@@ -50,7 +50,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
         mousey /= SCALERATIO;
         if (itemTarget.getSelectedItem() != null && moduleTarget.getSelectedModule() != null) {
             ItemStack stack = itemTarget.getSelectedItem().getItem();
-            IModule module = moduleTarget.getSelectedModule().getModule();
+            ItemStack module = moduleTarget.getSelectedModule().getModule();
             if (ModuleManager.getInstance().itemHasModule(itemTarget.getSelectedItem().getItem(), moduleTarget.getSelectedModule().getModule().getUnlocalizedName())) {
                 loadTweaks(stack, module);
             } else {
@@ -112,14 +112,14 @@ public class ModuleTweakFrame extends ScrollableFrame {
         }
     }
 
-    private void loadTweaks(ItemStack stack, IModule module) {
+    private void loadTweaks(ItemStack stack, ItemStack module) {
         NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
         NBTTagCompound moduleTag = itemTag.getCompoundTag(module.getUnlocalizedName());
 
         propertyStringsDouble = new HashMap();
         propertyStringsInt = new HashMap<>();
         Set<String> tweaks = new HashSet<>();
-        Map<String, List<IPropertyModifier>> propertyModifiers = module.getPropertyModifiers();
+        Map<String, List<IPropertyModifier>> propertyModifiers = ((IModule)module.getItem()).getPropertyModifiers();
         for (Map.Entry<String, List<IPropertyModifier>> property : propertyModifiers.entrySet()) {
             double currValueDouble = 0;
             for (IPropertyModifier modifier : property.getValue()) {
@@ -187,7 +187,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
     public void onMouseUp(double x, double y, int button) {
         if (selectedSlider != null && itemTarget.getSelectedItem() != null && moduleTarget.getSelectedModule() != null) {
             ClickableItem item = itemTarget.getSelectedItem();
-            IModule module = moduleTarget.getSelectedModule().getModule();
+            ItemStack module = moduleTarget.getSelectedModule().getModule();
             String tweakName = selectedSlider.name();
 
             // TODO:

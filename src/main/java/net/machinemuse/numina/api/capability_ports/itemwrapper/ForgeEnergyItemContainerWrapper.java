@@ -1,7 +1,9 @@
 package net.machinemuse.numina.api.capability_ports.itemwrapper;
 
+import net.machinemuse.numina.api.capability_ports.inventory.IModularItemCapability;
 import net.machinemuse.numina.api.energy.adapater.ElectricAdapter;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.IItemHandler;
@@ -19,76 +21,70 @@ public class ForgeEnergyItemContainerWrapper extends EnergyStorage implements IE
     }
 
     @Override
-    public int receiveEnergy(int maxReceive, boolean simulate) {
-        if (itemHandler != null) {
-            ItemStack container2 = itemHandler.getStackInSlot(0);
-            ElectricAdapter adapter = ElectricAdapter.wrap(container2);
-            return adapter != null ? adapter.receiveEnergy(maxReceive, simulate) : 0;
+    public int receiveEnergy(int energyProvided, boolean simulate) {
+        if (itemHandler != null && itemHandler instanceof IModularItemCapability) {
+            int energyLeft = energyProvided;
+            for (ItemStack module : ((IModularItemCapability) itemHandler).getInstallledModules()) {
+                if (energyLeft > 0) {
+                    ElectricAdapter adapter = ElectricAdapter.wrap(module);
+                    energyLeft = adapter != null ? energyLeft - adapter.receiveEnergy(energyLeft, simulate) : energyLeft;
+                } else
+                    break;
+            }
+            return energyProvided - energyLeft;
         }
         return 0;
     }
 
     @Override
-    public int extractEnergy(int maxExtract, boolean simulate) {
-        System.out.println("extracting energy: " + maxExtract);
-
-
-        if (itemHandler != null) {
-
-            System.out.println("extracting energy: " + maxExtract);
-
-
-            ItemStack container2 = itemHandler.getStackInSlot(0);
-            ElectricAdapter adapter = ElectricAdapter.wrap(container2);
-
-            int drained = adapter != null ? adapter.extractEnergy(maxReceive, simulate) : 0;
-
-            System.out.println("drained: " + drained);
-            return drained;
-
-
-//            return adapter != null ? adapter.extractEnergy(maxReceive, simulate) : 0;
+    public int extractEnergy(int energyRequested, boolean simulate) {
+        if (itemHandler != null && itemHandler instanceof IModularItemCapability) {
+            int energyLeft = energyRequested;
+            for (ItemStack module : ((IModularItemCapability) itemHandler).getInstallledModules()) {
+                if (energyLeft > 0) {
+                    ElectricAdapter adapter = ElectricAdapter.wrap(module);
+                    energyLeft = adapter != null ? energyLeft - adapter.extractEnergy(energyLeft, simulate) : energyLeft;
+                } else
+                    break;
+            }
+            return energyRequested - energyLeft;
         }
         return 0;
     }
 
     @Override
     public int getEnergyStored() {
-        if (itemHandler != null) {
-            ItemStack container2 = itemHandler.getStackInSlot(0);
-            ElectricAdapter adapter = ElectricAdapter.wrap(container2);
-            return adapter != null ? adapter.getEnergyStored() : 0;
+        int energyStored = 0;
+
+        if (itemHandler != null && itemHandler instanceof IModularItemCapability) {
+            for (ItemStack module : ((IModularItemCapability) itemHandler).getInstallledModules()) {
+                    ElectricAdapter adapter = ElectricAdapter.wrap(module);
+                    energyStored += adapter != null ? adapter.getEnergyStored() : 0;
+            }
         }
-        return 0;
+        return energyStored;
     }
 
     @Override
     public int getMaxEnergyStored() {
-        if (itemHandler != null) {
-            ItemStack container2 = itemHandler.getStackInSlot(0);
-            ElectricAdapter adapter = ElectricAdapter.wrap(container2);
-            return adapter != null ? adapter.getMaxEnergyStored() : 0;
+        int maxEnergyStored = 0;
+
+        if (itemHandler != null && itemHandler instanceof IModularItemCapability) {
+            for (ItemStack module : ((IModularItemCapability) itemHandler).getInstallledModules()) {
+                ElectricAdapter adapter = ElectricAdapter.wrap(module);
+                maxEnergyStored += adapter != null ? adapter.getMaxEnergyStored() : 0;
+            }
         }
-        return 0;
+        return maxEnergyStored;
     }
 
     @Override
     public boolean canExtract() {
-        if (itemHandler != null) {
-            ItemStack container2 = itemHandler.getStackInSlot(0);
-            ElectricAdapter adapter = ElectricAdapter.wrap(container2);
-            return adapter != null ? adapter.getEnergyStored() > 0 : false;
-        }
-        return false;
+        return getEnergyStored() > 0;
     }
 
     @Override
     public boolean canReceive() {
-        if (itemHandler != null) {
-            ItemStack container2 = itemHandler.getStackInSlot(0);
-            ElectricAdapter adapter = ElectricAdapter.wrap(container2);
-            return adapter != null ? (adapter.getMaxEnergyStored() - adapter.getEnergyStored()) > 0 : false;
-        }
-        return false;
+        return getMaxEnergyStored() > getEnergyStored();
     }
 }

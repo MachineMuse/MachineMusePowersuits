@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.control;
 
+import net.machinemuse.numina.api.capability_ports.inventory.IModeChangingItemCapability;
 import net.machinemuse.numina.item.IModeChangingItem;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.client.Minecraft;
@@ -13,6 +14,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import org.lwjgl.input.Keyboard;
 
 @SideOnly(Side.CLIENT)
@@ -46,24 +49,24 @@ public class KeybindKeyHandler {
         }
         if (pressed) {
             ItemStack itemStack = player.inventory.getCurrentItem();
-            if (!itemStack.isEmpty() && itemStack.getItem() instanceof IModeChangingItem) {
-                Item mci = itemStack.getItem();
-                /* cycleToolBackward/cycleToolForward only seem to be used if actual keys are assigned instead of mouse-wheel */
-                if (key == cycleToolBackward.getKeyCode()) {
-                    mc.playerController.updateController();
-                    ((IModeChangingItem)mci).cycleMode(player.inventory.getStackInSlot(player.inventory.currentItem), player, 1);
+            if (!itemStack.isEmpty()) {
+                IItemHandler modeChangingCapability = itemStack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+                if (modeChangingCapability != null && modeChangingCapability instanceof IModeChangingItemCapability) {
+                    /* cycleToolBackward/cycleToolForward only seem to be used if actual keys are assigned instead of mouse-wheel */
+                    if (key == cycleToolBackward.getKeyCode()) {
+                        mc.playerController.updateController();
+                        ((IModeChangingItemCapability) modeChangingCapability).cycleMode(player, 1);
+                    }
+                    if (key == cycleToolForward.getKeyCode()) {
+                        mc.playerController.updateController();
+                        ((IModeChangingItemCapability) modeChangingCapability).cycleMode(player, -1);
+                    }
 
-                }
-                if (key == cycleToolForward.getKeyCode()) {
-                    mc.playerController.updateController();
-                    ((IModeChangingItem)mci).cycleMode(player.inventory.getStackInSlot(player.inventory.currentItem), player, -1);
-                }
-
-
-                if (player.inventory.currentItem < hotbarKeys.length && key == hotbarKeys[player.inventory.currentItem].getKeyCode()) {
-                    World world = mc.world;
-                    if (mc.inGameHasFocus) {
-                        player.openGui(ModularPowersuits.getInstance(), 5, world, 0, 0, 0);
+                    if (player.inventory.currentItem < hotbarKeys.length && key == hotbarKeys[player.inventory.currentItem].getKeyCode()) {
+                        World world = mc.world;
+                        if (mc.inGameHasFocus) {
+                            player.openGui(ModularPowersuits.getInstance(), 5, world, 0, 0, 0);
+                        }
                     }
                 }
             }

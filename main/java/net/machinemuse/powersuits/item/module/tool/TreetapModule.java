@@ -5,7 +5,7 @@ import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.ModCompatibility;
-import net.machinemuse.item.powersuits.module.PowerModuleBase;
+import net.machinemuse.powersuits.item.module.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;

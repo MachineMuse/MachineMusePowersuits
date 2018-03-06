@@ -171,8 +171,11 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements IApiar
     }
 
     public boolean hasColor(ItemStack stack) {
-        NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-        return ModuleManager.getInstance().tagHasModule(itemTag, "Red Tint") || ModuleManager.getInstance().tagHasModule(itemTag, "Green Tint") || ModuleManager.getInstance().tagHasModule(itemTag, "Blue Tint");
+        // FIXME!!
+//        NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+//        return ModuleManager.getInstance().tagHasModule(itemTag, "Red Tint") || ModuleManager.getInstance().tagHasModule(itemTag, "Green Tint") || ModuleManager.getInstance().tagHasModule(itemTag, "Blue Tint");
+        return false;
+
     }
 
     public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {

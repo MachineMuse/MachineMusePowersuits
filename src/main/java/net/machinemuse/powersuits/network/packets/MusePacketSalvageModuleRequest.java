@@ -54,8 +54,8 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
         if (moduleName != null) {
             InventoryPlayer inventory = player.inventory;
             ItemStack stack = player.inventory.getStackInSlot(itemSlot);
-            IModule moduleType = ModuleManager.getInstance().getModule(moduleName);
-            List<ItemStack> refund = moduleType.getInstallCost();
+            ItemStack moduleType = ModuleManager.getInstance().getModule(moduleName);
+            List<ItemStack> refund = ((IModule)moduleType.getItem()).getInstallCost();
             if (ModuleManager.getInstance().itemHasModule(stack, moduleName)) {
                 Set<Integer> slots = new HashSet<>();
                 ModuleManager.getInstance().removeModule(stack, moduleName);

@@ -30,7 +30,7 @@ public class NuminaItemUtils {
         List<ItemStack> capablityStackList = new ArrayList<>();
         for(int i=0; i< entityPlayer.inventory.getSizeInventory(); i++) {
             ItemStack stack = entityPlayer.inventory.getStackInSlot(i);
-            if (stack != null && stack.hasCapability(capability, null))
+            if (!stack.isEmpty() && stack.hasCapability(capability, null))
                 capablityStackList.add(stack);
         }
         return capablityStackList;
@@ -40,7 +40,7 @@ public class NuminaItemUtils {
         List<ItemStack> capablityStackList = new ArrayList<>();
         for (EntityEquipmentSlot slot : EntityEquipmentSlot.values()) {
             ItemStack stack = entityPlayer.getItemStackFromSlot(slot);
-            if (stack != null && stack.hasCapability(capability, null))
+            if (!stack.isEmpty() && stack.hasCapability(capability, null))
                 capablityStackList.add(stack);
         }
         return capablityStackList;

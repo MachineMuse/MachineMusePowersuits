@@ -1,4 +1,4 @@
-package net.machinemuse.item.powersuits.module;
+package net.machinemuse.powersuits.item.module;
 
 import net.machinemuse.numina.api.constants.NuminaModuleConstants;
 import net.machinemuse.numina.api.item.IMuseItem;
@@ -37,7 +37,7 @@ public abstract class PowerModuleBase extends Item implements IModule {
         this.propertyModifiers = new HashMap();
         this.defaultTag = new NBTTagCompound();
         this.defaultTag.setBoolean(NuminaModuleConstants.ONLINE, true);
-        this.isAllowed = MPSConfig.getInstance().getModuleAllowedorDefault(getUnlocalizedName(), true);
+        this.isAllowed = MPSConfig.getInstance().getModuleAllowed(getUnlocalizedName());
     }
 
 //    // Item transition compat

@@ -125,7 +125,7 @@ public class MPSModuleConstants {
     // Weapons ------------------------------------------------------------------------------------
     public static final String MODULE_BLADE_LAUNCHER = MODULE_PREFIX + "bladeLauncher";
     public static final String MODULE_LIGHTNING = MODULE_PREFIX + "lightningSummoner";
-    public static final String MODULE_MELEE_ASSIST =  "meleeAssist";
+    public static final String MODULE_MELEE_ASSIST =  MODULE_PREFIX + "meleeAssist";
     public static final String MODULE_PLASMA_CANNON = MODULE_PREFIX + "plasmaCannon";
     public static final String MODULE_RAILGUN = MODULE_PREFIX + "railgun";
 }

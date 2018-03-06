@@ -13,7 +13,7 @@ import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.machinemuse.item.powersuits.module.PowerModuleBase;
+import net.machinemuse.powersuits.item.module.PowerModuleBase;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.machinemuse.powersuits.utils.MusePlayerUtils;

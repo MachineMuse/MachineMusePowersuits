@@ -40,11 +40,38 @@ public class ModeChangingItemWrapper extends ModularItemWrapper implements IMode
     }
 
     @Override
+    public boolean isValidMode(String mode) {
+        for(int i=1; i < getSlots();  i++) {
+            ItemStack module = getStackInSlot(i);
+            if (!module.isEmpty() && module.getItem() instanceof IRightClickModule && module.getUnlocalizedName().equals(mode))
+                return true;
+        }
+        return false;
+
+
+    }
+
+    @Override
+    public ItemStack getActiveModule() {
+        int activeModeIndex = getActiveMode();
+        return activeModeIndex != -1 ? getStackInSlot(activeModeIndex) : ItemStack.EMPTY;
+    }
+
+    @Override
     public int getActiveMode() {
         NBTTagCompound nbt = this.serializeNBT();
         if (nbt.hasKey(TAG_MODE, Constants.NBT.TAG_INT))
             return nbt.getInteger(TAG_MODE);
         return -1;
+    }
+
+    @Override
+    public void setActiveMode(String unLocalizedName) {
+        for(int i=1; i < getSlots();  i++) {
+            ItemStack module = getStackInSlot(i);
+            if (!module.isEmpty() && module.getUnlocalizedName().equals(unLocalizedName))
+                setActiveMode(i);
+        }
     }
 
     @Override

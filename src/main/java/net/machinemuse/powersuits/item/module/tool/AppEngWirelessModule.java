@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.item.module.tool;
 
 import appeng.api.AEApi;
-import net.machinemuse.item.powersuits.module.PowerModuleBase;
+import net.machinemuse.powersuits.item.module.PowerModuleBase;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;

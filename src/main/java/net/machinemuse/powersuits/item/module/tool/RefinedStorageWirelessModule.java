@@ -4,7 +4,7 @@ import com.raoulvdberge.refinedstorage.api.network.item.INetworkItem;
 import com.raoulvdberge.refinedstorage.api.network.item.INetworkItemHandler;
 import com.raoulvdberge.refinedstorage.apiimpl.network.item.NetworkItemWirelessGrid;
 import com.raoulvdberge.refinedstorageaddons.apiimpl.network.item.NetworkItemWirelessCraftingGrid;
-import net.machinemuse.item.powersuits.module.PowerModuleBase;
+import net.machinemuse.powersuits.item.module.PowerModuleBase;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.math.MuseMathUtils;

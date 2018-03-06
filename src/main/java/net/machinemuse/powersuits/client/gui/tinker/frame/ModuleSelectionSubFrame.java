@@ -6,6 +6,7 @@ import net.machinemuse.numina.math.geometry.MuseRect;
 import net.machinemuse.numina.math.geometry.MuseRelativeRect;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
+import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class ModuleSelectionSubFrame {
     // }
     // }
 
-    public ClickableModule addModule(IModule module) {
+    public ClickableModule addModule(ItemStack module) {
         ClickableModule clickie = new ClickableModule(module, new MusePoint2D(0, 0));
         this.moduleButtons.add(clickie);
         // refreshButtonPositions();

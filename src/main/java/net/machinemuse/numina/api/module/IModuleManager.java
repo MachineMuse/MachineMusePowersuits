@@ -1,54 +1,50 @@
 package net.machinemuse.numina.api.module;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public interface IModuleManager {
-    List<IModule> getAllModules();
+    List<ItemStack> getAllModules();
 
-    List<IPlayerTickModule> getPlayerTickModules();
+    List<ItemStack> getPlayerTickModules();
 
-    @Nullable
-    IModule getModule(String key);
+    @Nonnull
+    ItemStack getModule(String key);
 
-    void addModule(IModule module);
+    void addModule(@Nonnull ItemStack module);
 
-    double computeModularPropertyDouble(ItemStack stack, String propertyName);
+    double computeModularPropertyDouble(@Nonnull ItemStack stack, String propertyName);
 
-    int computeModularPropertyInteger(ItemStack stack, String propertyName);
+    int computeModularPropertyInteger(@Nonnull ItemStack stack, String propertyName);
 
-    List<IRightClickModule> getRightClickModules();
+    List<ItemStack> getRightClickModules();
 
-    List<IToggleableModule> getToggleableModules();
+    List<ItemStack> getToggleableModules();
 
-    List<IBlockBreakingModule> getBlockBreakingModules();
+    List<ItemStack> getBlockBreakingModules();
 
-    List<IModule> getValidModulesForItem(ItemStack stack);
+    List<ItemStack> getValidModulesForItem(@Nonnull ItemStack stack);
 
-    boolean tagHasModule(NBTTagCompound tag, String moduleName);
+    boolean itemHasModule(@Nonnull ItemStack stack, String moduleName);
 
-    boolean isModuleOnline(NBTTagCompound itemTag, String moduleName);
+    ItemStack itemAddModule(@Nonnull ItemStack stack, @Nonnull ItemStack moduleType);
 
-    void toggleModule(NBTTagCompound itemTag, String name, boolean toggleval);
+    NonNullList<ItemStack> removeModule(@Nonnull ItemStack stack, String moduleName);
 
-    boolean itemHasModule(ItemStack stack, String moduleName);
+    boolean itemHasActiveModule(@Nonnull ItemStack itemStack, String moduleName);
 
-    void tagAddModule(NBTTagCompound tag, IModule module);
+    void toggleModuleForPlayer(EntityPlayer player, String name, boolean toggleval);
 
-    void itemAddModule(ItemStack stack, IModule moduleType);
-
-    boolean removeModule(NBTTagCompound tag, String moduleName);
-
-    boolean removeModule(ItemStack stack, String moduleName);
-
-    boolean itemHasActiveModule(ItemStack itemStack, String moduleName);
+    NonNullList<ItemStack> getPlayerInstalledModules(EntityPlayer player);
 
     boolean hasCustomInstallCost(String dataName);
 
     List<ItemStack> getCustomInstallCost(String dataName);
 
-    void addCustomInstallCost(String moduleName, ItemStack stack);
+    void addCustomInstallCost(String moduleName, @Nonnull ItemStack stack);
 }

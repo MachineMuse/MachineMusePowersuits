@@ -49,6 +49,13 @@ public class ForgeEnergyAdapter extends ElectricAdapter {
     public int receiveEnergy(int provided, boolean simulate) {
         int recievedEnergy= energyStorage != null ? energyStorage.receiveEnergy(provided, simulate) : 0;
 
+        if (energyStorage == null)
+            System.out.println("Energy storage is null!!!!");
+
+        System.out.println("energy provided " + provided);
+        System.out.println("simulate: " + simulate);
+
+
         System.out.println("recieved Energy: " + recievedEnergy);
         return recievedEnergy;
 

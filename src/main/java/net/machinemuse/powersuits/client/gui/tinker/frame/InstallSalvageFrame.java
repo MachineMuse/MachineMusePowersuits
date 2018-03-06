@@ -64,8 +64,8 @@ public class InstallSalvageFrame extends ScrollableFrame {
         if (targetItem.getSelectedItem() != null
                 && targetModule.getSelectedModule() != null) {
             ItemStack stack = targetItem.getSelectedItem().getItem();
-            IModule module = targetModule.getSelectedModule().getModule();
-            List<ItemStack> itemsToCheck = module.getInstallCost();
+            ItemStack module = targetModule.getSelectedModule().getModule();
+            List<ItemStack> itemsToCheck = ((IModule)module.getItem()).getInstallCost();
             double yoffset;
             if (!ModuleManager.getInstance().itemHasModule(stack, module.getUnlocalizedName())) {
                 yoffset = border.top() + 4;
@@ -100,8 +100,8 @@ public class InstallSalvageFrame extends ScrollableFrame {
 
     private void drawItems() {
         ItemStack stack = targetItem.getSelectedItem().getItem();
-        IModule module = targetModule.getSelectedModule().getModule();
-        List<ItemStack> itemsToDraw = module.getInstallCost();
+        ItemStack module = targetModule.getSelectedModule().getModule();
+        List<ItemStack> itemsToDraw = ((IModule)module.getItem()).getInstallCost();
         double yoffset;
         if (!ModuleManager.getInstance().itemHasModule(stack, module.getUnlocalizedName())) {
             yoffset = border.top() + 4;
@@ -121,11 +121,11 @@ public class InstallSalvageFrame extends ScrollableFrame {
 
     private void drawButtons() {
         ItemStack stack = targetItem.getSelectedItem().getItem();
-        IModule module = targetModule.getSelectedModule().getModule();
+        ItemStack module = targetModule.getSelectedModule().getModule();
         if (!ModuleManager.getInstance().itemHasModule(stack, module.getUnlocalizedName())) {
 
             installButton.setEnabled(player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(
-                    module.getInstallCost(), player.inventory));
+                    ((IModule)module.getItem()).getInstallCost(), player.inventory));
             installButton.draw();
         } else {
             salvageButton.draw();
@@ -138,7 +138,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
         ClickableModule selModule = targetModule.getSelectedModule();
         if (selItem != null && selModule != null) {
             ItemStack stack = selItem.getItem();
-            IModule module = selModule.getModule();
+            ItemStack module = selModule.getModule();
 
             if (!ModuleManager.getInstance().itemHasModule(stack, module.getUnlocalizedName())) {
                 if (installButton.hitBox(x, y)) {
@@ -153,7 +153,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
     }
 
     private void doSalvage() {
-        IModule module = targetModule.getSelectedModule().getModule();
+        ItemStack module = targetModule.getSelectedModule().getModule();
         MusePacket newpacket = new MusePacketSalvageModuleRequest(
                 player,
                 targetItem.getSelectedItem().inventorySlot,
@@ -167,8 +167,8 @@ public class InstallSalvageFrame extends ScrollableFrame {
      */
     private void doInstall() {
         ItemStack stack = targetItem.getSelectedItem().getItem();
-        IModule module = targetModule.getSelectedModule().getModule();
-        if (player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(module.getInstallCost(), player.inventory)) {
+        ItemStack module = targetModule.getSelectedModule().getModule();
+        if (player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(((IModule)module.getItem()).getInstallCost(), player.inventory)) {
             Musique.playClientSound(SoundDictionary.SOUND_EVENT_GUI_INSTALL, SoundCategory.BLOCKS, 1, null);
             // Now send request to server to make it legit
             MusePacket newpacket = new MusePacketInstallModuleRequest(

@@ -10,10 +10,12 @@ import net.machinemuse.powersuits.item.module.environmental.ApiaristArmorModule;
 import net.machinemuse.powersuits.item.module.environmental.HazmatModule;
 import net.machinemuse.powersuits.item.module.tool.*;
 import net.machinemuse.powersuits.item.module.vision.NightVisionModule;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModAPIManager;
 import net.minecraftforge.fml.common.ModContainer;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ModCompatibility {
@@ -140,8 +142,7 @@ public class ModCompatibility {
     }
 
     public static boolean enableThaumGogglesModule() {
-        boolean defaultval = isThaumCraftLoaded();
-        return MPSConfig.getInstance().getModuleAllowedorDefault(MPSModuleConstants.MODULE_THAUM_GOGGLES, defaultval);
+        return  isThaumCraftLoaded() ? MPSConfig.getInstance().getModuleAllowed("item." + MPSModuleConstants.MODULE_THAUM_GOGGLES) : false;
     }
 
     // 1MJ (MPS) = 1 MJ (Mekanism)
@@ -180,38 +181,38 @@ public class ModCompatibility {
 
         // CoFH Lib - CoFHLib is included in CoFHCore
         if (isCOFHCoreLoaded()) {
-            ModuleManager.getInstance().addModule(new OmniWrenchModule("omniwrench", MPSModuleConstants.MODULE_OMNI_WRENCH));
+            ModuleManager.getInstance().addModule(new ItemStack(MPSItems.getInstance().module_omniwrench));
         }
 
         // Thaumcraft
         if (isThaumCraftLoaded() && enableThaumGogglesModule()) {
-            ModuleManager.getInstance().addModule(new NightVisionModule("night_vision", MPSModuleConstants.MODULE_NIGHT_VISION));
+            ModuleManager.getInstance().addModule(new ItemStack(MPSItems.getInstance().module_night_vision));
         }
 
         //IModule module = new MultimeterModule(Collections.singletonList((IMuseItem) MPSItems.powerfist()));
 
         // Industrialcraft
         if (isIndustrialCraftLoaded()) {
-            ModuleManager.getInstance().addModule(new HazmatModule("hazmat", MPSModuleConstants.MODULE_HAZMAT));
-            ModuleManager.getInstance().addModule(new TreetapModule("tree_tap", MPSModuleConstants.MODULE_TREETAP));
+            ModuleManager.getInstance().addModule(new ItemStack(MPSItems.getInstance().module_hazmat));
+            ModuleManager.getInstance().addModule(new ItemStack(MPSItems.getInstance().module_tree_tap));
         }
 
         // Galacticraft
         if (isGalacticraftLoaded()) {
-            ModuleManager.getInstance().addModule(new AirtightSealModule("airtight_seal", MPSModuleConstants.AIRTIGHT_SEAL_MODULE));
+            ModuleManager.getInstance().addModule(new ItemStack(MPSItems.getInstance().module_airtight_seal));
         }
 
         // Forestry
         if (isForestryLoaded()) {
-            ModuleManager.getInstance().addModule(new GrafterModule("grafter", MPSModuleConstants.MODULE_GRAFTER));
-            ModuleManager.getInstance().addModule(new ScoopModule("scoop", MPSModuleConstants.MODULE_SCOOP));
-            ModuleManager.getInstance().addModule(new ApiaristArmorModule("apiarist_armor", MPSModuleConstants.MODULE_APIARIST_ARMOR));
+            ModuleManager.getInstance().addModule(new ItemStack(MPSItems.getInstance().module_grafter));
+            ModuleManager.getInstance().addModule(new ItemStack(MPSItems.getInstance().module_scoop));
+            ModuleManager.getInstance().addModule(new ItemStack(MPSItems.getInstance().module_apiarist_armor));
         }
 
         // Chisel
         if(isChiselLoaded()) {
             try {
-                ModuleManager.getInstance().addModule(new ChiselModule("chisel", MPSModuleConstants.MODULE_CHISEL));
+                ModuleManager.getInstance().addModule(new ItemStack(MPSItems.getInstance().module_chisel));
             } catch(Exception e) {
                 MuseLogger.logException("Couldn't add Chisel module", e);
             }
@@ -219,30 +220,26 @@ public class ModCompatibility {
 
         // Applied Energistics
         if (isAppengLoaded()) {
-            ModuleManager.getInstance().addModule(new AppEngWirelessModule("appeng_wireless", MPSModuleConstants.MODULE_APPENG_WIRELESS));
-
-
-//            // Extra Cells 2
-//            if (isExtraCellsLoaded())
-//                ModuleManager.addModule(new AppEngWirelessFluidModule(Collections.singletonList((IMuseItem) MPSItems.powerfist)));
-//        addModule(new AppEngWirelessFluidModule("appeng_ec_wireless_fluid", MPSModuleConstants.MODULE_APPENG_EC_WIRELESS_FLUID));
-//
+            ModuleManager.getInstance().addModule(new ItemStack(MPSItems.getInstance().module_appeng_wireless));
+            // Extra Cells 2
+            if (isExtraCellsLoaded())
+                ModuleManager.getInstance().addModule(new ItemStack(MPSItems.getInstance().module_appeng_ec_wireless_fluid));
         }
 
         // Multi-Mod Compatible OmniProbe
         if (isEnderIOLoaded() || isMFRLoaded() || isRailcraftLoaded()) {
-            ModuleManager.getInstance().addModule(new OmniProbeModule("omniprobe", MPSModuleConstants.MODULE_OMNIPROBE));
+            ModuleManager.getInstance().addModule(new ItemStack(MPSItems.getInstance().module_omniprobe));
         }
 
         // TODO: on hold for now. Needs a conditional fiuld tank and handler. May not be worth it.
-//        // Compact Machines Personal Shrinking Device
-//        if (isCompactMachinesLoaded()) {
-//            ModuleManager.addModule(new PersonalShrinkingModule(Collections.singletonList((IMuseItem) MPSItems.powerfist)));
-//        }
+        // Compact Machines Personal Shrinking Device
+        if (isCompactMachinesLoaded()) {
+            ModuleManager.getInstance().addModule(new ItemStack(MPSItems.getInstance().module_cmpsd));
+        }
 
 
         if (isRefinedStorageLoaded()) {
-            ModuleManager.getInstance().addModule(new RefinedStorageWirelessModule("refinedstoragewirelessgrid", MPSModuleConstants.MODULE_REF_STOR_WIRELESS));
+            ModuleManager.getInstance().addModule(new ItemStack(MPSItems.getInstance().module_refinedstoragewirelessgrid));
         }
 
 //        if (isScannableLoaded()) {

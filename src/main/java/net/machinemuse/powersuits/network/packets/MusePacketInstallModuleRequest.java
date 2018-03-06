@@ -53,12 +53,12 @@ public class MusePacketInstallModuleRequest extends MusePacket {
         ItemStack stack = player.inventory.getStackInSlot(itemSlot);
         if (moduleName != null) {
             InventoryPlayer inventory = player.inventory;
-            IModule moduleType = ModuleManager.getInstance().getModule(moduleName);
-            if (moduleType == null || !moduleType.isAllowed()) {
+            ItemStack moduleType = ModuleManager.getInstance().getModule(moduleName);
+            if (moduleType == null || !((IModule)moduleType.getItem()).isAllowed()) {
                 player.sendMessage(new TextComponentString("Server has disallowed this module. Sorry!"));
                 return;
             }
-            List<ItemStack> cost = moduleType.getInstallCost();
+            List<ItemStack> cost = ((IModule)moduleType.getItem()).getInstallCost();
             if ((!ModuleManager.getInstance().itemHasModule(stack, moduleName) && MuseItemUtils.hasInInventory(cost, player.inventory)) || player.capabilities.isCreativeMode) {
                 ModuleManager.getInstance().itemAddModule(stack, moduleType);
                 for (ItemStack stackInCost : cost) {
