@@ -27,38 +27,11 @@ public class ForgeEnergyAdapter extends ElectricAdapter {
     public int extractEnergy(int requested, boolean simulate) {
         if(requested == 0)
             return 0;
-
-        System.out.println("can drain: " + energyStorage.canExtract());
-
-        int energyExtracted = energyStorage != null ? energyStorage.extractEnergy(requested, simulate) : 0;
-        if (energyStorage == null)
-            System.out.println("Energy storage is null!!!!");
-
-        System.out.println("energy requested " + requested);
-        System.out.println("simulate: " + simulate);
-
-        System.out.println("energy extracted: " + energyExtracted);
-        return energyExtracted;
-
-
-
-//        return energyStorage != null ? energyStorage.extractEnergy(requested, simulate) : 0;
+        return energyStorage != null ? energyStorage.extractEnergy(requested, simulate) : 0;
     }
 
     @Override
     public int receiveEnergy(int provided, boolean simulate) {
-        int recievedEnergy= energyStorage != null ? energyStorage.receiveEnergy(provided, simulate) : 0;
-
-        if (energyStorage == null)
-            System.out.println("Energy storage is null!!!!");
-
-        System.out.println("energy provided " + provided);
-        System.out.println("simulate: " + simulate);
-
-
-        System.out.println("recieved Energy: " + recievedEnergy);
-        return recievedEnergy;
-
-//        return energyStorage != null ? energyStorage.receiveEnergy(provided, simulate) : 0;
+        return energyStorage != null ? energyStorage.receiveEnergy(provided, simulate) : 0;
     }
 }

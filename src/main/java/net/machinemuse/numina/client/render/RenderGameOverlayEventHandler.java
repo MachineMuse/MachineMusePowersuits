@@ -1,13 +1,15 @@
 package net.machinemuse.numina.client.render;
 
 import net.machinemuse.numina.api.capability_ports.inventory.IModeChangingItemCapability;
+import net.machinemuse.numina.api.capability_ports.inventory.IModularItemCapability;
+import net.machinemuse.numina.api.capability_ports.itemwrapper.ModeChangingItemWrapper;
+import net.machinemuse.numina.api.capability_ports.itemwrapper.ModularItemWrapper;
 import net.machinemuse.numina.item.IModeChangingItem;
 import net.machinemuse.numina.math.geometry.Colour;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.ForgeHooks;
@@ -22,11 +24,6 @@ import net.minecraftforge.items.IItemHandler;
  * Ported to Java by lehjr on 10/25/16.
  */
 public class RenderGameOverlayEventHandler {
-
-    static {
-        new RenderGameOverlayEventHandler();
-    }
-
     @SubscribeEvent
     public void onPreRenderGameOverlayEvent(final RenderGameOverlayEvent.Pre e) {
 //        switch (e.type) {
@@ -79,33 +76,41 @@ public class RenderGameOverlayEventHandler {
         ItemStack stack = player.inventory.getCurrentItem();
         if (!stack.isEmpty()) {
             IItemHandler modeChangingCapability = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-            if (modeChangingCapability != null && modeChangingCapability instanceof IModeChangingItemCapability) {
-                IModeChangingItem item = (IModeChangingItem)(stack.getItem());
-                ScaledResolution screen = new ScaledResolution(mc);
-                MuseTextureUtils.pushTexture(MuseTextureUtils.TEXTURE_QUILT);
-                RenderState.blendingOn();
-                ItemStack module = ((IModeChangingItemCapability) modeChangingCapability).getActiveModule();
-                TextureAtlasSprite currentMode = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(module).getParticleTexture();
-                double currX;
-                double currY;
-                int sw = screen.getScaledWidth();
-                int sh = screen.getScaledHeight();
-                int baroffset = 22;
-                if (!player.capabilities.isCreativeMode) {
-                    baroffset += 16;
-                    if (ForgeHooks.getTotalArmorValue(player) > 0) {
-                        baroffset += 8;
+            if (modeChangingCapability instanceof IModeChangingItemCapability) {
+
+
+                System.out.println("active mode index: " + ((IModeChangingItemCapability) modeChangingCapability).getActiveMode());
+
+                System.out.println("installed Module list size: " + ((IModeChangingItemCapability) modeChangingCapability).getInstalledModuleNames().size());
+
+
+                TextureAtlasSprite currentMode = ((IModeChangingItemCapability) modeChangingCapability).getModeIcon(((IModeChangingItemCapability) modeChangingCapability).getActiveMode());
+
+                if (currentMode != null) {
+                    ScaledResolution screen = new ScaledResolution(mc);
+                    MuseTextureUtils.pushTexture(MuseTextureUtils.TEXTURE_QUILT);
+                    RenderState.blendingOn();
+                    double currX;
+                    double currY;
+                    int sw = screen.getScaledWidth();
+                    int sh = screen.getScaledHeight();
+                    int baroffset = 22;
+                    if (!player.capabilities.isCreativeMode) {
+                        baroffset += 16;
+                        if (ForgeHooks.getTotalArmorValue(player) > 0) {
+                            baroffset += 8;
+                        }
                     }
+                    RenderState.scissorsOn(0, 0, sw, sh - baroffset);
+                    baroffset = screen.getScaledHeight() - baroffset;
+                    currX = sw / 2.0 - 89.0 + 20.0 * i;
+                    currY = baroffset - 18;
+                    drawIcon(currX, currY, currentMode, 0.8);
+                    RenderState.scissorsOff();
+                    RenderState.blendingOff();
+                    MuseTextureUtils.popTexture();
+                    Colour.WHITE.doGL();
                 }
-                RenderState.scissorsOn(0, 0, sw, sh - baroffset);
-                baroffset = screen.getScaledHeight() - baroffset;
-                currX = sw / 2.0 - 89.0 + 20.0 * i;
-                currY = baroffset - 18;
-                drawIcon(currX, currY, currentMode, 0.8);
-                RenderState.scissorsOff();
-                RenderState.blendingOff();
-                MuseTextureUtils.popTexture();
-                Colour.WHITE.doGL();
             }
         }
     }

@@ -27,8 +27,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-//import net.machinemuse.numina.client.render.RenderGameOverlayEventHandler;
-
 /**
  * Client side of the proxy.
  *

@@ -5,8 +5,6 @@ import net.machinemuse.numina.event.FOVUpdateEventHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
-//import net.machinemuse.numina.event.KeybindKeyHandler;
-
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 11:57 AM, 9/3/13

@@ -49,11 +49,11 @@ public final class MPSCapProvider implements ICapabilityProvider {
             int maxModuleSlots = 0;
 
             if (item instanceof ItemPowerFist) {
-                modeChangingItemWrapper = null;
-                modularItemWrapper = new ModularItemWrapper(container, 50, containerNBT.getCompoundTag("modules")); // TODO
-            } else if (item instanceof ItemPowerArmor) {
-                modeChangingItemWrapper = new ModeChangingItemWrapper(container, 30, containerNBT.getCompoundTag("modules")); // TODO
+                modeChangingItemWrapper = new ModeChangingItemWrapper(container, 50, containerNBT.getCompoundTag("modules")); // TODO
                 modularItemWrapper = null;
+            } else if (item instanceof ItemPowerArmor) {
+                modeChangingItemWrapper = null;
+                modularItemWrapper = new ModularItemWrapper(container, 30, containerNBT.getCompoundTag("modules")); // TODO
             } else {
                 modeChangingItemWrapper = null;
                 modularItemWrapper = null;

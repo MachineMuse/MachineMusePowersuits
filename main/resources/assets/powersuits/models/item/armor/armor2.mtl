@@ -1,7 +1,0 @@
-# Blender MTL File: 'None'
-# Material Count: 1
-
-newmtl initialShadingGroup
-Ka 1.000000 1.000000 1.000000
-Kd 0.640000 0.640000 0.640000
-map_Kd powersuits:items/armor/armor2diffuse
