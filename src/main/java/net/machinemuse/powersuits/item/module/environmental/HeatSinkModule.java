@@ -24,9 +24,4 @@ public class HeatSinkModule extends PowerModuleBase {
     public String getCategory() {
         return MPSModuleConstants.CATEGORY_ENVIRONMENTAL;
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.heatSink;
-    }
 }

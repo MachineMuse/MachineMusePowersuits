@@ -20,9 +20,4 @@ public class HighPolyArmor extends PowerModuleBase {
     public String getCategory() {
         return MPSModuleConstants.CATEGORY_COSMETIC;
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.highPoly;
-    }
 }

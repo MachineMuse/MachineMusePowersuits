@@ -34,9 +34,4 @@ public class ClimbAssistModule extends PowerModuleBase implements IToggleableMod
             player.stepHeight = 0.5001F;
         }
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.climbAssist;
-    }
 }

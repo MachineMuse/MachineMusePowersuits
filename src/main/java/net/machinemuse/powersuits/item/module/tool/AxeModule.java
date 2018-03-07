@@ -73,9 +73,4 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
     public ItemStack getEmulatedTool() {
         return emulatedTool;
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.axe;
-    }
 }

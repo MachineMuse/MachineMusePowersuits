@@ -81,9 +81,4 @@ public class PersonalShrinkingModule extends PowerModuleBase implements IRightCl
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
 
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(cpmPSD).getParticleTexture();
-    }
 }

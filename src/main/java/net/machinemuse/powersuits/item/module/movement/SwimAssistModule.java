@@ -86,9 +86,4 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
             Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST);
         }
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.swimAssist;
-    }
 }

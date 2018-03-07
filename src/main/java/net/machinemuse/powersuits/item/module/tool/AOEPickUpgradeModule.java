@@ -53,9 +53,4 @@ public class AOEPickUpgradeModule extends PowerModuleBase implements IBlockBreak
     public ItemStack getEmulatedTool() {
         return null; // FIXME
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.aoePickUpgrade;
-    }
 }

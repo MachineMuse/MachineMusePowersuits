@@ -30,9 +30,4 @@ public class MeleeAssistModule extends PowerModuleBase {
     public String getCategory() {
         return MPSModuleConstants.CATEGORY_WEAPON;
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.meleeAssist;
-    }
 }

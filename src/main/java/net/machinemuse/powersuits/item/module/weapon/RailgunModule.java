@@ -144,9 +144,4 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.railgun;
-    }
 }

@@ -60,9 +60,4 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.glider;
-    }
 }

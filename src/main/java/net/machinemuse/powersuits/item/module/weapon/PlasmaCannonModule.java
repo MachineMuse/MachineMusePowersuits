@@ -87,9 +87,4 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
             }
         }
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.plasmaCannon;
-    }
 }

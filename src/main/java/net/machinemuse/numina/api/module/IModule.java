@@ -9,34 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 public interface IModule {
-//    // Item transition compat
-//    PowerModuleBase setRegistryName(String resourceDomain, String resourcePath);
-//
-//    // Item transition compat
-//    PowerModuleBase setRegistryName(String registryName);
-//
-//    // Item transition compat
-//    ResourceLocation getRegistryName();
-//
-//    // Item transition compat
-//    PowerModuleBase setUnlocalizedName(String unlocalizedName);
-
-
-
-
-
-
-
-
-
-
-
 
 	EnumModuleTarget getTarget();
 
 	List<ItemStack> getInstallCost();
-
-	TextureAtlasSprite getIcon(ItemStack item);
 
 	String getCategory();
 

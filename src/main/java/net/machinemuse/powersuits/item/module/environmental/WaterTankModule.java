@@ -42,11 +42,6 @@ public class WaterTankModule extends PowerModuleBase implements IPlayerTickModul
     }
 
     @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(bucketWater).getParticleTexture();
-    }
-
-    @Override
     public String getCategory() {
         return MPSModuleConstants.CATEGORY_ENVIRONMENTAL;
     }

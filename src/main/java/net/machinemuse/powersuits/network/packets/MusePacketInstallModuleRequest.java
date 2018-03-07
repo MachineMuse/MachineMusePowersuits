@@ -54,7 +54,7 @@ public class MusePacketInstallModuleRequest extends MusePacket {
         if (moduleName != null) {
             InventoryPlayer inventory = player.inventory;
             ItemStack moduleType = ModuleManager.getInstance().getModule(moduleName);
-            if (moduleType == null || !((IModule)moduleType.getItem()).isAllowed()) {
+            if (moduleType.isEmpty() || !((IModule)moduleType.getItem()).isAllowed()) {
                 player.sendMessage(new TextComponentString("Server has disallowed this module. Sorry!"));
                 return;
             }

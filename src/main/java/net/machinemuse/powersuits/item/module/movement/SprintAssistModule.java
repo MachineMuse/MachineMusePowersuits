@@ -121,9 +121,4 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
     public String getCategory() {
         return MPSModuleConstants.CATEGORY_MOVEMENT;
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.sprintAssist;
-    }
 }

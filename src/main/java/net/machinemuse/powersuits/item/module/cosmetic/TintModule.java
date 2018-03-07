@@ -23,9 +23,4 @@ public class TintModule extends PowerModuleBase {
     public String getCategory() {
         return MPSModuleConstants.CATEGORY_COSMETIC;
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.tint;
-    }
 }

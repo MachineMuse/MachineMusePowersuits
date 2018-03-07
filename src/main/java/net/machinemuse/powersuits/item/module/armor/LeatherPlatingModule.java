@@ -24,9 +24,4 @@ public class LeatherPlatingModule extends PowerModuleBase {
     public String getCategory() {
         return MPSModuleConstants.CATEGORY_ARMOR;
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.basicPlating;
-    }
 }

@@ -119,9 +119,4 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
     public String getCategory() {
         return MPSModuleConstants.CATEGORY_TOOL;
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(emulatedTool).getParticleTexture();
-    }
 }

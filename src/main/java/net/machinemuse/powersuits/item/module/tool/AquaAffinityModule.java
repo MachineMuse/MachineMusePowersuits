@@ -67,9 +67,4 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
     public ItemStack getEmulatedTool() {
         return null;
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.aquaAffinity;
-    }
 }

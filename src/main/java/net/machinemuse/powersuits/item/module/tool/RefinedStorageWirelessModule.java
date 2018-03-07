@@ -135,11 +135,6 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
     }
 
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(getEmulatedTool()).getParticleTexture();
-    }
-
     private NBTTagCompound initializeDefaults(NBTTagCompound nbt) {
         if (nbt == null)
             nbt = new NBTTagCompound();

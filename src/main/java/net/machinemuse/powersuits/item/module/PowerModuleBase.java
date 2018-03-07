@@ -26,7 +26,6 @@ public abstract class PowerModuleBase extends Item implements IModule {
     protected static Map<String, String> units = new HashMap<>();
     protected NBTTagCompound defaultTag;
     protected boolean isAllowed;
-    protected TextureAtlasSprite icon;
     protected EnumModuleTarget moduleTarget;
 
     public PowerModuleBase(EnumModuleTarget moduleTarget, String resourceDommain, String unlocalizedName) {
@@ -39,34 +38,6 @@ public abstract class PowerModuleBase extends Item implements IModule {
         this.defaultTag.setBoolean(NuminaModuleConstants.ONLINE, true);
         this.isAllowed = MPSConfig.getInstance().getModuleAllowed(getUnlocalizedName());
     }
-
-//    // Item transition compat
-//    public PowerModuleBase setRegistryName(String resourceDomain, String resourcePath) {
-//        this.registryName = new ResourceLocation(resourceDomain, resourcePath);
-//        return this;
-//    }
-//
-//    // Item transition compat
-//    public PowerModuleBase setRegistryName(String registryName) {
-//        this.registryName = new ResourceLocation(registryName);
-//        return this;
-//    }
-//
-//    // Item transition compat
-//    public ResourceLocation getRegistryName() {
-//        return this.registryName;
-//    }
-//
-//    // Item transition compat
-//    public PowerModuleBase setUnlocalizedName(String unlocalizedName) {
-//        this.unlocalizedName = unlocalizedName;
-//        return this;
-//    }
-//
-//    @Override
-//    public String getUnlocalizedName() {
-//        return this.unlocalizedName;
-//    }
 
     @Override
     public EnumModuleTarget getTarget() {
@@ -120,11 +91,6 @@ public abstract class PowerModuleBase extends Item implements IModule {
     @Override
     public Map<String, List<IPropertyModifier>> getPropertyModifiers() {
         return propertyModifiers;
-    }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return icon;
     }
 
     @Override

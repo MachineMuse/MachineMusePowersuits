@@ -43,11 +43,6 @@ public class BasicBatteryModule extends PowerModuleBase implements IMuseElectric
         return MPSModuleConstants.CATEGORY_ENERGY;
     }
 
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.basicBattery;
-    }
-
     @Nullable
     @Override
     public ICapabilityProvider initCapabilities(final ItemStack stack, @Nullable final NBTTagCompound nbt) {

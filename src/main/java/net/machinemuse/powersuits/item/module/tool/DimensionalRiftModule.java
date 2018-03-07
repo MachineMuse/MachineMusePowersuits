@@ -90,9 +90,4 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.dimRiftGen;
-    }
 }

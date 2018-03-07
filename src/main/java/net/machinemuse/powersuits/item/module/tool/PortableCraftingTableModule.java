@@ -52,9 +52,4 @@ public class PortableCraftingTableModule extends PowerModuleBase implements IRig
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
 
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.portableCraftingTable;
-    }
 }

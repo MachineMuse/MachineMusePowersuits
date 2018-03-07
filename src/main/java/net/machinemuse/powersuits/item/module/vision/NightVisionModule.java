@@ -60,9 +60,4 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
             }
         }
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.nightVision;
-    }
 }

@@ -71,9 +71,4 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
             }
         }
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.bladeLauncher;
-    }
 }

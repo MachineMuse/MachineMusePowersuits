@@ -148,11 +148,6 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(emulatedTool).getParticleTexture();
-    }
-
-    @Override
     public ItemStack getEmulatedTool() {
         return emulatedTool;
     }

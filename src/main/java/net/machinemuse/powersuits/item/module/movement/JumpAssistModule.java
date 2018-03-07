@@ -53,9 +53,4 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.jumpAssist;
-    }
 }

@@ -65,9 +65,4 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
     public ItemStack getEmulatedTool() {
         return emulatedTool;
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.diamondPickUpgrade;
-    }
 }

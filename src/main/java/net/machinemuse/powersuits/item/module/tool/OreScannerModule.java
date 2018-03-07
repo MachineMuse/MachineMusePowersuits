@@ -171,9 +171,4 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
 
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.oreScanner;
-    }
 }

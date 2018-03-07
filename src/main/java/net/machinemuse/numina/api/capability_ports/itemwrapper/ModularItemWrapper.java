@@ -135,16 +135,23 @@ public class ModularItemWrapper extends ItemStackHandler implements IModularItem
     @Nonnull
     @Override
     public NonNullList<ItemStack> removeModule(String moduleName) {
-
-
-
-        // TODO: return module and install costs
-
-
         List<ItemStack> retList = new ArrayList<>();
-        retList.add(ItemStack.EMPTY);
 
-        return NonNullList.withSize(1, ItemStack.EMPTY);
+        for (int i= 0; i < slotCount; i ++) {
+            ItemStack module = getStackInSlot(i);
+            if (!module.isEmpty() && moduleName.equals(module.getUnlocalizedName())) {
+                retList.add(extractItem(i, getStackInSlot(i).getCount(), false));
+            }
+        }
+
+        if(retList.isEmpty())
+            return NonNullList.withSize(1, ItemStack.EMPTY);
+        NonNullList nonNullList = NonNullList.withSize(retList.size(), ItemStack.EMPTY);
+
+        for (int i=0; i< retList.size(); i++) {
+            nonNullList.set(i, retList.get(i));
+        }
+        return nonNullList;
     }
 
     @Nonnull

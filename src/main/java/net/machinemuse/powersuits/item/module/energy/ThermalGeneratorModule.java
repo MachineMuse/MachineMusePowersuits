@@ -61,9 +61,4 @@ public class ThermalGeneratorModule extends PowerModuleBase implements IPlayerTi
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.thermalGenerator;
-    }
 }

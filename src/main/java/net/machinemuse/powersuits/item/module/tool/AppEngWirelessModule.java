@@ -59,9 +59,4 @@ public class AppEngWirelessModule extends PowerModuleBase implements IRightClick
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
 
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.appengWireless;
-    }
 }

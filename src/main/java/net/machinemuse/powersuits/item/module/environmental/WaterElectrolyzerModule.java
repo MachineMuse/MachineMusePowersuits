@@ -50,9 +50,4 @@ public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerT
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.waterElectrolyzer;
-    }
 }

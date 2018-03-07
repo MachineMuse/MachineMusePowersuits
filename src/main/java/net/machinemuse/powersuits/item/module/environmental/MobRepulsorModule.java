@@ -114,9 +114,4 @@ public class MobRepulsorModule extends PowerModuleBase implements IPlayerTickMod
             }
         }
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.mobRepulsor;
-    }
 }

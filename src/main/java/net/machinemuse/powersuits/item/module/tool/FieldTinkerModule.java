@@ -57,9 +57,4 @@ public class FieldTinkerModule extends PowerModuleBase implements IRightClickMod
         playerIn.openGui(ModularPowersuits.getInstance(), 2, worldIn, (int)playerIn.posX, (int)playerIn.posY, (int)playerIn.posZ);
         return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.fieldTinkerer;
-    }
 }

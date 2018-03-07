@@ -39,11 +39,6 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
     }
 
     @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(fas).getParticleTexture();
-    }
-
-    @Override
     public String getCategory() {
         return MPSModuleConstants.CATEGORY_TOOL;
     }

@@ -71,9 +71,4 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
     public ItemStack getEmulatedTool() {
         return emulatedTool;
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.shovel;
-    }
 }

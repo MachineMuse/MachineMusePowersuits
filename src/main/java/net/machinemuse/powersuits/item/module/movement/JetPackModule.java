@@ -90,9 +90,4 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
             Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_JETPACK);
         }
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.jetpack;
-    }
 }

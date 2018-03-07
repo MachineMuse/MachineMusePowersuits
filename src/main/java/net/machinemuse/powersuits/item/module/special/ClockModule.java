@@ -25,11 +25,6 @@ public class ClockModule extends PowerModuleBase implements IToggleableModule {
     }
 
     @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(clock).getParticleTexture();
-    }
-
-    @Override
     public String getCategory() {
         return MPSModuleConstants.CATEGORY_SPECIAL;
     }

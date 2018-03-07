@@ -31,9 +31,4 @@ public class ThaumGogglesModule extends PowerModuleBase implements IToggleableMo
     public String getCategory() {
         return MPSModuleConstants.CATEGORY_SPECIAL;
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.aurameter;
-    }
 }

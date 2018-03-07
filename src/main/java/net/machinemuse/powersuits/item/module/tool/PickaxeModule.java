@@ -73,9 +73,4 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
     public ItemStack getEmulatedTool() {
         return emulatedTool;
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.pickaxe;
-    }
 }

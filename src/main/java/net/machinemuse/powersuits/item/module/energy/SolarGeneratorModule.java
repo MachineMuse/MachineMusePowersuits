@@ -61,9 +61,4 @@ public class SolarGeneratorModule extends PowerModuleBase implements IPlayerTick
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.solarGenerator;
-    }
 }

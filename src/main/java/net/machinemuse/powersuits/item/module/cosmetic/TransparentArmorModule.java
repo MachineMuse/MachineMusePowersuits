@@ -20,9 +20,4 @@ public class TransparentArmorModule extends PowerModuleBase implements IToggleab
     public String getCategory() {
         return MPSModuleConstants.CATEGORY_COSMETIC;
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.transparentArmor;
-    }
 }

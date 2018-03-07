@@ -67,9 +67,4 @@ public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule,
     public String getCategory() {
         return MPSModuleConstants.CATEGORY_ENERGY;
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.coalGenerator;
-    }
 }

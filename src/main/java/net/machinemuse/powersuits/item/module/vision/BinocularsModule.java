@@ -30,9 +30,4 @@ public class BinocularsModule extends PowerModuleBase implements IToggleableModu
     public String getCategory() {
         return MPSModuleConstants.CATEGORY_VISION;
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.binoculars;
-    }
 }

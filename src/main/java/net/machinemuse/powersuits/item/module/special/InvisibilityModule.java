@@ -61,9 +61,4 @@ public class InvisibilityModule extends PowerModuleBase implements IPlayerTickMo
             }
         }
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.invisibility;
-    }
 }

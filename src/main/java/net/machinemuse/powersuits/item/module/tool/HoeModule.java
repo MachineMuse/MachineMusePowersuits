@@ -106,10 +106,4 @@ public class HoeModule extends PowerModuleBase implements IModule, IRightClickMo
     public String getCategory() {
         return MPSModuleConstants.CATEGORY_TOOL;
     }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(new ItemStack(Items.GOLDEN_HOE)).getParticleTexture();
-    }
 }

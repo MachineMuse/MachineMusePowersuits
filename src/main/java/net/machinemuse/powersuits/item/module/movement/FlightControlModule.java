@@ -23,9 +23,4 @@ public class FlightControlModule extends PowerModuleBase implements IToggleableM
     public String getCategory() {
         return MPSModuleConstants.CATEGORY_SPECIAL;
     }
-
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.flightControl;
-    }
 }

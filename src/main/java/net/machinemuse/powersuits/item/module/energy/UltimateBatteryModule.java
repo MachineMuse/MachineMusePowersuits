@@ -49,11 +49,6 @@ public class UltimateBatteryModule extends PowerModuleBase implements IMuseElect
         return MPSModuleConstants.CATEGORY_ENERGY;
     }
 
-    @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.ultimateBattery;
-    }
-
     @Nullable
     @Override
     public ICapabilityProvider initCapabilities(final ItemStack stack, @Nullable final NBTTagCompound nbt) {
