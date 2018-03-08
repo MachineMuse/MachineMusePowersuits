@@ -1,10 +1,12 @@
 package net.machinemuse.numina.utils.heat;
 
+import net.machinemuse.numina.api.capability_ports.heat.IHeatStorage;
 import net.machinemuse.numina.capabilities.CapabilityHeat;
 import net.machinemuse.numina.utils.item.NuminaItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.NonNullList;
 
 import java.util.List;
 
@@ -61,21 +63,18 @@ public class MuseHeatUtils {
     }
 
     //---------------------------------------------------------------------------------------------
-    public static final String MAXIMUM_HEAT = "Maximum Heat";
-    public static final String CURRENT_HEAT = "Current Heat";
-
 
     /**
      * Gets all the equipped items that use the heat capability
      */
-    public static List<ItemStack> getHeatableItemsEquipped(EntityPlayer player) {
+    public static NonNullList<ItemStack> getHeatableItemsEquipped(EntityPlayer player) {
         return NuminaItemUtils.getEquipedItemsInInventoryWithCapabilities(player, CapabilityHeat.HEAT);
     }
 
     /**
      * Gets all the items in the player's inventory that use the heat capability
      */
-    public static List<ItemStack> getAllHeatableItems(EntityPlayer player) {
+    public static NonNullList<ItemStack> getAllHeatableItems(EntityPlayer player) {
         return NuminaItemUtils.getAllItemsInInventoryWithCapabilities(player, CapabilityHeat.HEAT);
     }
 
@@ -83,8 +82,9 @@ public class MuseHeatUtils {
      * Gets the heat from the ItemStack
      */
     public static int getItemHeat(ItemStack itemStack) {
-        if (itemStack.hasCapability(CapabilityHeat.HEAT, null))
-            return itemStack.getCapability(CapabilityHeat.HEAT, null).getHeatStored();
+        IHeatStorage heatCapability = itemStack.getCapability(CapabilityHeat.HEAT, null);
+        if (heatCapability != null)
+            return heatCapability.getHeatStored();
         return 0;
     }
 
@@ -92,8 +92,9 @@ public class MuseHeatUtils {
      * Gets the heat from the ItemStack
      */
     public static int getMaxItemHeat(ItemStack itemStack) {
-        if (itemStack.hasCapability(CapabilityHeat.HEAT, null))
-            return itemStack.getCapability(CapabilityHeat.HEAT, null).getMaxHeatStored();
+        IHeatStorage heatCapability = itemStack.getCapability(CapabilityHeat.HEAT, null);
+        if (heatCapability != null)
+            return  heatCapability.getMaxHeatStored();
         return 0;
     }
 
@@ -131,7 +132,7 @@ public class MuseHeatUtils {
      */
     public static int heatPlayer(EntityPlayer player, int heatJoules) {
         int joulesLeft = heatJoules;
-        List<ItemStack> items = getAllHeatableItems(player);
+        NonNullList<ItemStack> items = getAllHeatableItems(player);
 
         // max out the heat for the current item first
         if (player.isHandActive() && items.contains(player.inventory.getCurrentItem())) {
@@ -152,7 +153,10 @@ public class MuseHeatUtils {
      * Removes heat from the ItemStack. Returns quantity of heat that was removed.
      */
     public static int coolItem(ItemStack itemStack, int coolJoules) {
-        return itemStack.getCapability(CapabilityHeat.HEAT, null).extractHeat(coolJoules, false);
+        IHeatStorage heatCapability = itemStack.getCapability(CapabilityHeat.HEAT, null);
+        if (heatCapability != null)
+            return heatCapability.extractHeat(coolJoules, false);
+        return 0;
     }
 
     /**

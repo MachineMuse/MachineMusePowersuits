@@ -4,6 +4,7 @@ import net.machinemuse.numina.api.item.IMuseItem;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.utils.nbt.NuminaNBTUtils;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -47,7 +48,7 @@ public class MusePacketCosmeticInfo extends MusePacket {
     public void handleServer(EntityPlayerMP player) {
         ItemStack stack = player.inventory.getStackInSlot(itemSlot);
         if (tagName != null && stack != null && stack.getItem() instanceof IMuseItem) {
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+            NBTTagCompound itemTag = NuminaNBTUtils.getMuseItemTag(stack);
             NBTTagCompound renderTag;
             if (!itemTag.hasKey("render")) {
                 renderTag = new NBTTagCompound();

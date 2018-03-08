@@ -13,6 +13,7 @@ import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
@@ -64,7 +65,7 @@ public class RadialSelectionFrame implements IGuiFrame {
 
     private void loadItems() {
         if (player != null) {
-            List<ItemStack> modes = new ArrayList<>();
+            NonNullList<ItemStack> modes = NonNullList.create();
             for (ItemStack module : ModuleManager.getInstance().getRightClickModules()) {
                 if (((IModule)module.getItem()).isValidForItem(stack))
                     if (ModuleManager.getInstance().itemHasModule(stack, module.getUnlocalizedName()))

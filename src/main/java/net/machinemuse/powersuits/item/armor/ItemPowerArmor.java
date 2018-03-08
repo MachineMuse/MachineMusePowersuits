@@ -5,6 +5,8 @@ import net.machinemuse.numina.api.item.IArmorTraits;
 import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.math.geometry.Colour;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
+import net.machinemuse.numina.utils.nbt.MPSRenderTag;
+import net.machinemuse.numina.utils.nbt.NuminaNBTUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.machinemuse.powersuits.api.item.IApiaristArmor;
@@ -14,7 +16,7 @@ import net.machinemuse.powersuits.client.model.item.armor.IArmorModel;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.module.environmental.ApiaristArmorModule;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
-import net.machinemuse.utils.ElectricItemUtils;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -148,7 +150,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements IApiar
                 if (ModuleManager.getInstance().itemHasActiveModule(itemStackArmor, "Transparent Armor")) {
                     ((IArmorModel) model).setVisibleSection(null);
                 }
-                ((IArmorModel) model).setRenderSpec(MuseItemUtils.getMuseRenderTag(itemStackArmor, armorSlot));
+                ((IArmorModel) model).setRenderSpec(MPSRenderTag.getMuseRenderTag(itemStackArmor, armorSlot));
             }
             return model;
         }
@@ -189,7 +191,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements IApiar
     @Override
     public double getArmorDouble(EntityPlayer player, ItemStack stack) {
         double totalArmor = 0.0;
-        NBTTagCompound props = MuseItemUtils.getMuseItemTag(stack);
+        NBTTagCompound props = NuminaNBTUtils.getMuseItemTag(stack);
         double energy = ElectricItemUtils.getPlayerEnergy(player);
         double physArmor = ModuleManager.getInstance().computeModularPropertyDouble(stack, MPSModuleConstants.ARMOR_VALUE_PHYSICAL);
         double enerArmor = ModuleManager.getInstance().computeModularPropertyDouble(stack, MPSModuleConstants.ARMOR_VALUE_ENERGY);
@@ -207,7 +209,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements IApiar
      * handles being damaged.
      */
     public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
-        NBTTagCompound itemProperties = MuseItemUtils.getMuseItemTag(stack);
+        NBTTagCompound itemProperties = NuminaNBTUtils.getMuseItemTag(stack);
         if (entity instanceof EntityPlayer) {
             DamageSource overheatDamage = MuseHeatUtils.overheatDamage;
             if (source == null) {

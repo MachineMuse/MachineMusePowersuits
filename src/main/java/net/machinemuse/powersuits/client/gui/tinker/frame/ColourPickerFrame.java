@@ -6,6 +6,7 @@ import net.machinemuse.numina.math.geometry.MusePoint2D;
 import net.machinemuse.numina.math.geometry.MuseRect;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.utils.nbt.MPSRenderTag;
 import net.machinemuse.powersuits.client.gui.tinker.GuiIcons;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableSlider;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
@@ -59,7 +60,7 @@ public class ColourPickerFrame implements IGuiFrame {
         if (this.itemSelector.getSelectedItem() == null) {
             return null;
         }
-        NBTTagCompound renderSpec = MuseItemUtils.getMuseRenderTag(this.itemSelector.getSelectedItem().getItem());
+        NBTTagCompound renderSpec = MPSRenderTag.getMuseRenderTag(this.itemSelector.getSelectedItem().getItem());
         if (renderSpec.hasKey("colours") && renderSpec.getTag("colours") instanceof NBTTagIntArray) {
             return (NBTTagIntArray) renderSpec.getTag("colours");
         }
@@ -87,7 +88,7 @@ public class ColourPickerFrame implements IGuiFrame {
         if (this.itemSelector.getSelectedItem() == null) {
             return null;
         }
-        NBTTagCompound renderSpec = MuseItemUtils.getMuseRenderTag(this.itemSelector.getSelectedItem().getItem());
+        NBTTagCompound renderSpec = MPSRenderTag.getMuseRenderTag(this.itemSelector.getSelectedItem().getItem());
         renderSpec.setTag("colours", (NBTBase)new NBTTagIntArray(newarray));
         EntityPlayerSP player = Minecraft.getMinecraft().player;
         if (player.world.isRemote) {

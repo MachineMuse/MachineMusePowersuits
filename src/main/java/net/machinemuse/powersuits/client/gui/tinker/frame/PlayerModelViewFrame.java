@@ -4,6 +4,7 @@ import net.machinemuse.numina.math.MuseMathUtils;
 import net.machinemuse.numina.math.geometry.Colour;
 import net.machinemuse.numina.math.geometry.DrawableMuseRect;
 import net.machinemuse.numina.math.geometry.MusePoint2D;
+import net.machinemuse.numina.utils.nbt.MPSRenderTag;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.client.model.item.armor.ArmorModelInstance;
 import net.machinemuse.powersuits.client.model.item.armor.IArmorModel;
@@ -72,7 +73,7 @@ public class PlayerModelViewFrame implements IGuiFrame {
     }
 
     NBTTagCompound getRenderTag() {
-        return MuseItemUtils.getMuseRenderTag(getSelectedItem().getItem(), getEquipmentSlot());
+        return MPSRenderTag.getMuseRenderTag(getSelectedItem().getItem(), getEquipmentSlot());
     }
 
     @Override
@@ -134,10 +135,10 @@ public class PlayerModelViewFrame implements IGuiFrame {
         if (itemSelector.getSelectedItem() == null)
             return;
         if (getSelectedItem().getItem().getItem() instanceof ItemPowerArmor) {
-            ((IArmorModel)ArmorModelInstance.getInstance()).setRenderSpec(MuseItemUtils.getMuseRenderTag(getSelectedItem().getItem(), getEquipmentSlot()));
+            ((IArmorModel)ArmorModelInstance.getInstance()).setRenderSpec(MPSRenderTag.getMuseRenderTag(getSelectedItem().getItem(), getEquipmentSlot()));
             ((IArmorModel)ArmorModelInstance.getInstance()).setVisibleSection(this.getEquipmentSlot());
         } else if (getSelectedItem().getItem().getItem() instanceof ItemPowerFist) {
-            MuseItemUtils.getMuseRenderTag(getSelectedItem().getItem(), getEquipmentSlot());
+            MPSRenderTag.getMuseRenderTag(getSelectedItem().getItem(), getEquipmentSlot());
         } else
             return;
 

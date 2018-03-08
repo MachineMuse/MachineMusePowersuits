@@ -5,7 +5,7 @@
 //import ic2.api.item.ElectricItem;
 //import mekanism.api.energy.IEnergizedItem;
 //import net.machinemuse.numina.api.module.ModuleManager;
-//import net.machinemuse.utils.ElectricItemUtils;
+//import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 //import net.machinemuse.powersuits.utils.MuseItemUtils;
 //import net.minecraft.entity.EntityLivingBase;
 //import net.minecraft.item.Item;

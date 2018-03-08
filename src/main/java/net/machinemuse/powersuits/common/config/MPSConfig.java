@@ -13,6 +13,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -407,7 +408,7 @@ public class MPSConfig {
                     // check if this is an oredict entry
                     JsonElement oredictName = j.get("oredictName");
                     if (oredictName != null) {
-                        List<ItemStack> stacks = OreDictionary.getOres(oredictName.getAsString());
+                        NonNullList<ItemStack> stacks = OreDictionary.getOres(oredictName.getAsString());
                         for (ItemStack itemStack : stacks) {
                             regNameMeta = new HashMap<>();
                             meta = itemStack.getItemDamage();

@@ -2,18 +2,13 @@ package net.machinemuse.powersuits.item.module.energy;
 
 import net.machinemuse.powersuits.capabilities.MPSBatteryCapabilityProvider;
 import net.machinemuse.powersuits.item.module.PowerModuleBase;
-import net.machinemuse.numina.api.energy.ElectricConversions;
 import net.machinemuse.numina.api.energy.IMuseElectricItem;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.utils.string.MuseStringUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.capabilities.MPSCapProvider;
-import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;

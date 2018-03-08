@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.capabilities.Capability;
 
 import java.util.ArrayList;
@@ -16,18 +17,8 @@ import java.util.List;
  * Ported to Java by lehjr on 10/22/16.
  */
 public class NuminaItemUtils {
-    public static NBTTagCompound getTagCompound(ItemStack stack) {
-        if(stack.hasTagCompound())    {
-            return stack.getTagCompound();
-        } else {
-            NBTTagCompound tag = new NBTTagCompound();
-            stack.setTagCompound(tag);
-            return tag;
-        }
-    }
-
-    public static List<ItemStack> getAllItemsInInventoryWithCapabilities(EntityPlayer entityPlayer, Capability capability) {
-        List<ItemStack> capablityStackList = new ArrayList<>();
+    public static NonNullList<ItemStack> getAllItemsInInventoryWithCapabilities(EntityPlayer entityPlayer, Capability capability) {
+        NonNullList<ItemStack> capablityStackList =  NonNullList.create();
         for(int i=0; i< entityPlayer.inventory.getSizeInventory(); i++) {
             ItemStack stack = entityPlayer.inventory.getStackInSlot(i);
             if (!stack.isEmpty() && stack.hasCapability(capability, null))
@@ -36,8 +27,9 @@ public class NuminaItemUtils {
         return capablityStackList;
     }
 
-    public static List<ItemStack> getEquipedItemsInInventoryWithCapabilities(EntityPlayer entityPlayer, Capability capability) {
-        List<ItemStack> capablityStackList = new ArrayList<>();
+    public static NonNullList<ItemStack> getEquipedItemsInInventoryWithCapabilities(EntityPlayer entityPlayer, Capability capability) {
+        NonNullList<ItemStack> capablityStackList =  NonNullList.create();
+
         for (EntityEquipmentSlot slot : EntityEquipmentSlot.values()) {
             ItemStack stack = entityPlayer.getItemStackFromSlot(slot);
             if (!stack.isEmpty() && stack.hasCapability(capability, null))

@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 
 import java.io.DataInputStream;
 import java.util.HashSet;
@@ -58,7 +59,7 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
 
 
             // Fixme: moce install costs to config
-            List<ItemStack> refund = ((IModule)module.getItem()).getInstallCost();
+            NonNullList<ItemStack> refund = ((IModule)module.getItem()).getInstallCost();
             if (ModuleManager.getInstance().itemHasModule(stack, moduleName)) {
                 Set<Integer> slots = new HashSet<>();
                 ModuleManager.getInstance().removeModule(stack, moduleName);

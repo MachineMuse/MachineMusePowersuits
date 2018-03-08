@@ -5,12 +5,14 @@ import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.network.MusePacketModeChangeRequest;
 import net.machinemuse.numina.network.PacketSender;
+import net.machinemuse.numina.utils.nbt.NuminaNBTUtils;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nullable;
@@ -26,12 +28,13 @@ public class ModeChangingItemWrapper extends ModularItemWrapper implements IMode
     }
 
     public void updateFromNBT() {
-        final NBTTagCompound nbt = MuseItemUtils.getMuseItemTag(container);
+        final NBTTagCompound nbt = NuminaNBTUtils.getMuseItemTag(container);
         if (nbt != null && nbt.hasKey(NuminaNBTConstants.TAG_MODULES, Constants.NBT.TAG_COMPOUND)) {
             deserializeNBT((NBTTagCompound) nbt.getTag(NuminaNBTConstants.TAG_MODULES));
 
+            // TODO: is this even needed???
             if (stacks.size() != slotCount) {
-                final List<ItemStack> oldStacks = new ArrayList<>(stacks);
+                final NonNullList<ItemStack> oldStacks = stacks;
                 setSize(slotCount); // FIXME : use config reference?
                 final int count = Math.min(slotCount, oldStacks.size());
                 for (int slot = 0; slot < count; slot++) {
@@ -91,7 +94,7 @@ public class ModeChangingItemWrapper extends ModularItemWrapper implements IMode
 
     @Override
     public void setActiveMode(int newMode) {
-        final NBTTagCompound nbt = MuseItemUtils.getMuseItemTag(container);
+        final NBTTagCompound nbt = NuminaNBTUtils.getMuseItemTag(container);
         if (nbt != null && nbt.hasKey(NuminaNBTConstants.TAG_MODULES, Constants.NBT.TAG_COMPOUND)) {
             NBTTagCompound moduleNBT = (NBTTagCompound) nbt.getTag(NuminaNBTConstants.TAG_MODULES);
             moduleNBT.setInteger(TAG_MODE, newMode);

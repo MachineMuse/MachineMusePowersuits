@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.network.packets;
 import net.machinemuse.numina.api.item.IMuseItem;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
+import net.machinemuse.numina.utils.nbt.MPSRenderTag;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -43,7 +44,7 @@ public class MusePacketColourInfo extends MusePacket {
     public void handleServer(EntityPlayerMP player) {
         ItemStack stack = player.inventory.getStackInSlot(itemSlot);
         if (stack != null && stack.getItem() instanceof IMuseItem) {
-            NBTTagCompound renderTag = MuseItemUtils.getMuseRenderTag(stack);
+            NBTTagCompound renderTag = MPSRenderTag.getMuseRenderTag(stack);
             renderTag.setIntArray("colours", tagData);
         }
     }

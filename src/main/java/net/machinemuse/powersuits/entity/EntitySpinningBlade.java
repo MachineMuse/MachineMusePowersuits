@@ -119,6 +119,7 @@ public class EntitySpinningBlade extends EntityThrowable {
                 IShearable target = (IShearable) hitResult.entityHit;
                 Entity entity = hitResult.entityHit;
                 if (target.isShearable(this.shootingItem, entity.world, entity.getPosition())) {
+                    // FIXME: this should be NonNullList but isn't in Forge
                     List<ItemStack> drops = target.onSheared(this.shootingItem, entity.world,
                             entity.getPosition (),
                             EnchantmentHelper.getEnchantmentLevel(Enchantment.getEnchantmentByLocation("fortune"), this.shootingItem));

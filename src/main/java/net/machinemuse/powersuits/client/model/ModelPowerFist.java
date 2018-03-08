@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.client.model;
 import com.google.common.collect.ImmutableList;
 import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.math.geometry.Colour;
+import net.machinemuse.numina.utils.nbt.MPSRenderTag;
 import net.machinemuse.numina.utils.nbt.NBTTagAccessor;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
@@ -235,7 +236,7 @@ public class ModelPowerFist implements IBakedModel {
         @Override
         public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stackIn, World worldIn, EntityLivingBase entityIn) {
             itemStack = stackIn;
-            renderSpec =  MuseItemUtils.getMuseRenderTag(stackIn);
+            renderSpec =  MPSRenderTag.getMuseRenderTag(stackIn);
             world = worldIn;
             entity = entityIn;
             item = itemStack.getItem();

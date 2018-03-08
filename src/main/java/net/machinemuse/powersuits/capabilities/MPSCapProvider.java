@@ -8,6 +8,7 @@ import net.machinemuse.numina.api.capability_ports.itemwrapper.MuseHeatItemWrapp
 import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.energy.IMuseElectricItem;
 import net.machinemuse.numina.capabilities.CapabilityHeat;
+import net.machinemuse.numina.utils.nbt.NuminaNBTUtils;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.armor.*;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
@@ -35,7 +36,7 @@ public final class MPSCapProvider implements ICapabilityProvider {
     public MPSCapProvider(final ItemStack container, NBTTagCompound nbt) {
         this.container = container;
         if (container != null && container.getItem() instanceof IMuseElectricItem ) {
-            NBTTagCompound containerNBT = MuseItemUtils.getMuseItemTag(container);
+            NBTTagCompound containerNBT = NuminaNBTUtils.getMuseItemTag(container);
             Item item = container.getItem();
 
             int currentHeat = 0;

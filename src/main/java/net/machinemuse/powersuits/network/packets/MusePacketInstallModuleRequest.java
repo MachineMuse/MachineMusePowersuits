@@ -6,11 +6,12 @@ import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
-import net.machinemuse.utils.ElectricItemUtils;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextComponentString;
 
 import java.io.DataInputStream;
@@ -58,7 +59,7 @@ public class MusePacketInstallModuleRequest extends MusePacket {
                 player.sendMessage(new TextComponentString("Server has disallowed this module. Sorry!"));
                 return;
             }
-            List<ItemStack> cost = ((IModule)moduleType.getItem()).getInstallCost();
+            NonNullList<ItemStack> cost = ((IModule)moduleType.getItem()).getInstallCost();
             if ((!ModuleManager.getInstance().itemHasModule(stack, moduleName) && MuseItemUtils.hasInInventory(cost, player.inventory)) || player.capabilities.isCreativeMode) {
                 ModuleManager.getInstance().itemAddModule(stack, moduleType);
                 for (ItemStack stackInCost : cost) {

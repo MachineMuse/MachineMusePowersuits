@@ -1,17 +1,19 @@
-package net.machinemuse.numina.utils.module.helpers;
+package net.machinemuse.powersuits.utils.module.helpers;
 
 import net.machinemuse.numina.api.item.IMuseItem;
-import net.machinemuse.powersuits.utils.MuseItemUtils;
+import net.machinemuse.numina.utils.nbt.NuminaNBTUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import javax.annotation.Nonnull;
 
 public class TorchPlacerHelper {
+    public static final String TAG_TORCH = "Torch";
+
     public static int getTorchLevel(@Nonnull ItemStack stack) {
         if (!stack.isEmpty() && stack.getItem() instanceof IMuseItem) {
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            Integer torchLevel = itemTag.getInteger("Torch");
+            NBTTagCompound itemTag = NuminaNBTUtils.getMuseItemTag(stack);
+            Integer torchLevel = itemTag.getInteger(TAG_TORCH);
             if (torchLevel != null) {
                 return torchLevel;
             }
@@ -21,8 +23,8 @@ public class TorchPlacerHelper {
 
     public static void setTorchLevel(@Nonnull ItemStack stack, int i) {
         if (!stack.isEmpty() && stack.getItem() instanceof IMuseItem) {
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            itemTag.setInteger("Torch", i);
+            NBTTagCompound itemTag = NuminaNBTUtils.getMuseItemTag(stack);
+            itemTag.setInteger(TAG_TORCH, i);
         }
     }
 }

@@ -1,6 +1,7 @@
 package net.machinemuse.numina.api.capability_ports.itemwrapper;
 
 import net.machinemuse.numina.api.constants.NuminaNBTConstants;
+import net.machinemuse.numina.utils.nbt.NuminaNBTUtils;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,7 +21,7 @@ public class ForgeEnergyItemWrapper extends EnergyStorage implements INBTSeriali
     }
 
     public void updateFromNBT() {
-        final NBTTagCompound nbt = MuseItemUtils.getMuseItemTag(container);
+        final NBTTagCompound nbt = NuminaNBTUtils.getMuseItemTag(container);
         NBTTagCompound nbtOut = new NBTTagCompound();
         if(nbt.hasKey(NuminaNBTConstants.CURRENT_ENERGY, Constants.NBT.TAG_INT)) {
             nbtOut.setInteger(NuminaNBTConstants.CURRENT_ENERGY, nbt.getInteger(NuminaNBTConstants.CURRENT_ENERGY));
@@ -37,7 +38,7 @@ public class ForgeEnergyItemWrapper extends EnergyStorage implements INBTSeriali
     public int receiveEnergy(final int maxReceive, final boolean simulate) {
         final int energyReceived = super.receiveEnergy(maxReceive, simulate);
         if (!simulate && energyReceived != 0) {
-            final NBTTagCompound nbt = MuseItemUtils.getMuseItemTag(container);
+            final NBTTagCompound nbt = NuminaNBTUtils.getMuseItemTag(container);
             NBTTagCompound nbtIn = serializeNBT();
             nbt.setInteger(NuminaNBTConstants.CURRENT_ENERGY, nbtIn.getInteger(NuminaNBTConstants.CURRENT_ENERGY));
             nbt.setInteger(NuminaNBTConstants.MAXIMUM_ENERGY, nbtIn.getInteger(NuminaNBTConstants.MAXIMUM_ENERGY));
@@ -49,7 +50,7 @@ public class ForgeEnergyItemWrapper extends EnergyStorage implements INBTSeriali
     public int extractEnergy(final int maxExtract, final boolean simulate) {
         final int energyExtracted = super.extractEnergy(maxExtract, simulate);
         if (!simulate && energyExtracted != 0) {
-            final NBTTagCompound nbt = MuseItemUtils.getMuseItemTag(container);
+            final NBTTagCompound nbt = NuminaNBTUtils.getMuseItemTag(container);
             NBTTagCompound nbtIn = serializeNBT();
             nbt.setInteger(NuminaNBTConstants.CURRENT_ENERGY, nbtIn.getInteger(NuminaNBTConstants.CURRENT_ENERGY));
             nbt.setInteger(NuminaNBTConstants.MAXIMUM_ENERGY, nbtIn.getInteger(NuminaNBTConstants.MAXIMUM_ENERGY));

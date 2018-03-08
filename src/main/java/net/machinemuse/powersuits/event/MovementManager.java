@@ -8,7 +8,7 @@ import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.item.module.movement.JumpAssistModule;
 import net.machinemuse.powersuits.item.module.movement.ShockAbsorberModule;
-import net.machinemuse.utils.ElectricItemUtils;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;

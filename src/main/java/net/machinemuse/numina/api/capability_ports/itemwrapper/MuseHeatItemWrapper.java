@@ -2,6 +2,7 @@ package net.machinemuse.numina.api.capability_ports.itemwrapper;
 
 import net.machinemuse.numina.api.capability_ports.heat.HeatStorage;
 import net.machinemuse.numina.api.constants.NuminaNBTConstants;
+import net.machinemuse.numina.utils.nbt.NuminaNBTUtils;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -29,7 +30,7 @@ public class MuseHeatItemWrapper extends HeatStorage implements INBTSerializable
     }
 
     private void updateContainerNBT() {
-        NBTTagCompound containerNBT = MuseItemUtils.getMuseItemTag(container);
+        NBTTagCompound containerNBT = NuminaNBTUtils.getMuseItemTag(container);
         NBTTagCompound nbt = serializeNBT();
 
         if (nbt.hasKey(NuminaNBTConstants.CURRENT_HEAT, Constants.NBT.TAG_INT))

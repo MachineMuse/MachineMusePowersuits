@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.item.module.environmental;
 
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.powersuits.item.module.PowerModuleBase;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
@@ -17,7 +18,7 @@ public class HeatSinkModule extends PowerModuleBase {
         super(EnumModuleTarget.ARMORONLY, resourceDommain, UnlocalizedName);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.basicPlating, 1));
         addTradeoffPropertyDouble(THICKNESS, MPSModuleConstants.WEIGHT, 5000, "g");
-        addTradeoffPropertyDouble(THICKNESS, MuseHeatUtils.MAXIMUM_HEAT, 150, "");
+        addTradeoffPropertyDouble(THICKNESS, NuminaNBTConstants.MAXIMUM_HEAT, 150, "");
     }
 
     @Override

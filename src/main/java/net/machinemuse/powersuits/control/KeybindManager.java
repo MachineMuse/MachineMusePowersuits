@@ -8,6 +8,7 @@ import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.Loader;
 import org.lwjgl.input.Keyboard;
 
@@ -61,8 +62,7 @@ public class KeybindManager {
                 file.createNewFile();
             }
             writer = new BufferedWriter(new FileWriter(file));
-//            List<IModule> modulesToWrite = ModuleManager.getInstance().getPlayerInstalledModules(Minecraft.getMinecraft().player);
-            List<ItemStack> modulesToWrite = ModuleManager.getInstance().getPlayerInstalledModules(Minecraft.getMinecraft().player);
+//            NonNullList<ItemStack> modulesToWrite = ModuleManager.getInstance().getPlayerInstalledModules(Minecraft.getMinecraft().player);
 
             for (ClickableKeybinding keybinding : getInstance().keybindings) {
                 writer.write(keybinding.getKeyBinding().getKeyCode() + ":" + keybinding.getPosition().x() + ':' + keybinding.getPosition().y() + ':' + keybinding.displayOnHUD + ':' + keybinding.toggleval + '\n');

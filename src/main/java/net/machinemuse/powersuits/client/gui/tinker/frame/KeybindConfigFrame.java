@@ -21,6 +21,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import org.lwjgl.input.Keyboard;
 
 import java.util.HashSet;
@@ -100,7 +101,7 @@ public class KeybindConfigFrame implements IGuiFrame {
     }
 
     public void refreshModules() {
-        List<ItemStack> installedModules = ModuleManager.getInstance().getPlayerInstalledModules(player);
+        NonNullList<ItemStack> installedModules = ModuleManager.getInstance().getPlayerInstalledModules(player);
         List<MusePoint2D> points = GradientAndArcCalculator.pointsInLine(
                 installedModules.size(),
                 new MusePoint2D(ul.x() + 10, ul.y() + 10),

@@ -11,7 +11,7 @@ import net.machinemuse.numina.utils.string.MuseStringUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
-import net.machinemuse.utils.ElectricItemUtils;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

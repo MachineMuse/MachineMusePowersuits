@@ -7,14 +7,12 @@ import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.api.nbt.PropertyModifierIntLinearAdditive;
 import net.machinemuse.numina.utils.string.MuseStringUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
-import net.machinemuse.utils.ElectricItemUtils;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -49,7 +47,7 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 2));
     }
 
-    private static final ArrayList<List<ItemStack>> ores = new ArrayList<>();
+    private static final NonNullList<ItemStack> ores = NonNullList.create();
     private static final HashMap<List, String> oreMap = new HashMap();
     private static final HashMap<String, Integer> valueMap = new HashMap();
 

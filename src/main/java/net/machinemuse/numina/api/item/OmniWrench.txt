@@ -6,7 +6,7 @@
 //import mods.railcraft.api.core.items.IToolCrowbar
 //import net.machinemuse.numina.api.item.IMuseItem
 //import net.machinemuse.powersuits.item.module.tool.{MFFSFieldTeleporterModule, OmniWrenchModule}
-//import net.machinemuse.utils.ElectricItemUtils
+//import net.machinemuse.numina.utils.energy.ElectricItemUtils
 //import net.minecraft.entity.item.EntityMinecart
 //import net.minecraft.entity.player.EntityPlayer
 //import net.minecraft.item.ItemStack

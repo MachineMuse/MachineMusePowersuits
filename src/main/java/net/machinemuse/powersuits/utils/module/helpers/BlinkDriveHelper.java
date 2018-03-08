@@ -1,4 +1,4 @@
-package net.machinemuse.numina.utils.module.helpers;
+package net.machinemuse.powersuits.utils.module.helpers;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

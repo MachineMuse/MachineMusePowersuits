@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
+import net.machinemuse.numina.utils.nbt.NuminaNBTUtils;
 import net.machinemuse.powersuits.item.module.PowerModuleBase;
 import net.machinemuse.numina.api.module.IModule;
 import net.machinemuse.numina.api.module.ModuleManager;
@@ -113,7 +114,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
     }
 
     private void loadTweaks(ItemStack stack, ItemStack module) {
-        NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+        NBTTagCompound itemTag = NuminaNBTUtils.getMuseItemTag(stack);
         NBTTagCompound moduleTag = itemTag.getCompoundTag(module.getUnlocalizedName());
 
         propertyStringsDouble = new HashMap();

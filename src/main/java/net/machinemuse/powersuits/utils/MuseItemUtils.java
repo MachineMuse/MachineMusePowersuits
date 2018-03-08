@@ -8,6 +8,7 @@ import net.machinemuse.numina.api.module.IModule;
 import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.math.MuseMathUtils;
 import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.utils.nbt.NuminaNBTUtils;
 import net.machinemuse.numina.utils.string.MuseStringUtils;
 import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
 import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec;
@@ -23,6 +24,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.Constants;
@@ -35,57 +37,9 @@ import javax.annotation.Nonnull;
 import java.util.*;
 
 public class MuseItemUtils {
-    /**
-     * Gets or creates stack.getTagCompound().getTag(NBTPREFIX)
-     *
-     * @param stack
-     * @return an NBTTagCompound, may be newly created. If stack is empty,
-     *         returns empty tag.
-     */
-    public static NBTTagCompound getMuseItemTag(@Nonnull ItemStack stack) {
-        if (stack.isEmpty()) {
-            return new NBTTagCompound();
-        }
 
-        NBTTagCompound stackTag;
-        if (stack.hasTagCompound())
-            stackTag = stack.getTagCompound();
-        else {
-            stackTag = new NBTTagCompound();
-            stack.setTagCompound(stackTag);
-        }
 
-        NBTTagCompound properties;
-        if (stackTag.hasKey(NuminaNBTConstants.NBTPREFIX))
-            properties = stackTag.getCompoundTag(NuminaNBTConstants.NBTPREFIX);
-        else {
-            properties = new NBTTagCompound();
-            stackTag.setTag(NuminaNBTConstants.NBTPREFIX, properties);
-        }
-        return properties;
-    }
 
-    public static NBTTagCompound getMuseRenderTag(@Nonnull ItemStack stack, EntityEquipmentSlot armorSlot) {
-        NBTTagCompound tag = getMuseItemTag(stack);
-        if (!tag.hasKey(MPSNBTConstants.NBT_RENDER_TAG, Constants.NBT.TAG_COMPOUND)) {
-            MuseLogger.logDebug("TAG BREACH IMMINENT, PLEASE HOLD ONTO YOUR SEATBELTS");
-            tag.removeTag(MPSNBTConstants.NBT_RENDER_TAG);
-            tag.setTag(MPSNBTConstants.NBT_RENDER_TAG, DefaultModelSpec.makeModelPrefs(stack, armorSlot));
-        }
-        return tag.getCompoundTag(MPSNBTConstants.NBT_RENDER_TAG);
-    }
-
-    public static NBTTagCompound getMuseRenderTag(@Nonnull ItemStack stack) {
-        if (!stack.isEmpty() && stack.getItem() instanceof ItemPowerArmor)
-            return getMuseRenderTag(stack, ((ItemPowerArmor) stack.getItem()).armorType);
-
-        NBTTagCompound tag = getMuseItemTag(stack);
-        if (!tag.hasKey(MPSNBTConstants.NBT_RENDER_TAG, Constants.NBT.TAG_COMPOUND)) {
-            tag.removeTag(MPSNBTConstants.NBT_RENDER_TAG);
-            tag.setTag(MPSNBTConstants.NBT_RENDER_TAG, new NBTTagCompound());
-        }
-        return tag.getCompoundTag(MPSNBTConstants.NBT_RENDER_TAG);
-    }
 
     /**
      * Scans a specified inventory for modular items.
@@ -94,8 +48,8 @@ public class MuseItemUtils {
      * @return A List of ItemStacks in the inventory which implement
      *         IMuseItem
      */
-    public static List<ItemStack> getModularItemsInInventory(IInventory inv) {
-        ArrayList<ItemStack> stacks = new ArrayList<>();
+    public static NonNullList<ItemStack> getModularItemsInInventory(IInventory inv) {
+        NonNullList<ItemStack> stacks = NonNullList.create();
 
         for (int i = 0; i < inv.getSizeInventory(); i++) {
             ItemStack stack = inv.getStackInSlot(i);
@@ -106,12 +60,12 @@ public class MuseItemUtils {
         return stacks;
     }
 
-    public static List<ItemStack> getModularItemsInInventory(EntityPlayer player) {
+    public static NonNullList<ItemStack> getModularItemsInInventory(EntityPlayer player) {
         return getModularItemsInInventory(player.inventory);
     }
 
-    public static List<ItemStack> getModularItemsEquipped(EntityPlayer player) {
-        ArrayList<ItemStack> stacks = new ArrayList<>();
+    public static NonNullList<ItemStack> getModularItemsEquipped(EntityPlayer player) {
+        NonNullList<ItemStack> stacks = NonNullList.create();
         for(EntityEquipmentSlot slot : EntityEquipmentSlot.values()) {
             ItemStack stack = player.getItemStackFromSlot(slot);
             if (!stack.isEmpty() && stack.getItem() instanceof IMuseItem) {
@@ -199,7 +153,7 @@ public class MuseItemUtils {
      * @param inventory
      * @return
      */
-    public static boolean hasInInventory(List<ItemStack> workingUpgradeCost, InventoryPlayer inventory) {
+    public static boolean hasInInventory(NonNullList<ItemStack> workingUpgradeCost, InventoryPlayer inventory) {
         for (ItemStack stackInCost : workingUpgradeCost) {
             int found = 0;
             for (int i = 0; i < inventory.getSizeInventory(); i++) {
@@ -215,7 +169,7 @@ public class MuseItemUtils {
         return true;
     }
 
-    public static List<Integer> deleteFromInventory(List<ItemStack> cost, InventoryPlayer inventory) {
+    public static List<Integer> deleteFromInventory(NonNullList<ItemStack> cost, InventoryPlayer inventory) {
         List<Integer> slots = new LinkedList<>();
         for (ItemStack stackInCost : cost) {
             int remaining = stackInCost.getCount();
@@ -235,7 +189,7 @@ public class MuseItemUtils {
         return slots;
     }
 
-    public static List<Integer> findInInventoryForCost(List<ItemStack> workingUpgradeCost, InventoryPlayer inventory) {
+    public static List<Integer> findInInventoryForCost(NonNullList<ItemStack> workingUpgradeCost, InventoryPlayer inventory) {
         List<Integer> slots = new LinkedList<>();
         for (ItemStack stackInCost : workingUpgradeCost) {
             int found = 0;
@@ -352,7 +306,7 @@ public class MuseItemUtils {
      * returns the value if it exists, otherwise 0.
      */
     public static double getDoubleOrZero(ItemStack stack, String string) {
-        return getDoubleOrZero(getMuseItemTag(stack), string);
+        return getDoubleOrZero(NuminaNBTUtils.getMuseItemTag(stack), string);
     }
 
     /**
@@ -374,7 +328,7 @@ public class MuseItemUtils {
      * would be zero.
      */
     public static void setDoubleOrRemove(ItemStack stack, String string, double value) {
-        setDoubleOrRemove(getMuseItemTag(stack), string, value);
+        setDoubleOrRemove(NuminaNBTUtils.getMuseItemTag(stack), string, value);
     }
 
     public static String getStringOrNull(NBTTagCompound itemProperties, String key) {
@@ -388,7 +342,7 @@ public class MuseItemUtils {
     }
 
     public static String getStringOrNull(ItemStack stack, String key) {
-        return getStringOrNull(getMuseItemTag(stack), key);
+        return getStringOrNull(NuminaNBTUtils.getMuseItemTag(stack), key);
     }
 
     public static void setStringOrNull(NBTTagCompound itemProperties, String key, String value) {
@@ -402,11 +356,11 @@ public class MuseItemUtils {
     }
 
     public static void setStringOrNull(ItemStack stack, String key, String value) {
-        setStringOrNull(getMuseItemTag(stack), key, value);
+        setStringOrNull(NuminaNBTUtils.getMuseItemTag(stack), key, value);
     }
 
-    public static List<ItemStack> modularItemsEquipped(EntityPlayer player) {
-        List<ItemStack> modulars = new ArrayList<>();
+    public static NonNullList<ItemStack> modularItemsEquipped(EntityPlayer player) {
+        NonNullList<ItemStack> modulars = NonNullList.create();
         for (EntityEquipmentSlot slot :EntityEquipmentSlot.values()) {
             ItemStack stack = player.getItemStackFromSlot(slot);
 
@@ -417,8 +371,8 @@ public class MuseItemUtils {
         return modulars;
     }
 
-    public static List<ItemStack> modularItemCapsEquipped(EntityPlayer player) {
-        List<ItemStack> modulars = new ArrayList<>();
+    public static NonNullList<ItemStack> modularItemCapsEquipped(EntityPlayer player) {
+        NonNullList<ItemStack> modulars = NonNullList.create();
         for (EntityEquipmentSlot slot :EntityEquipmentSlot.values()) {
             ItemStack stack = player.getItemStackFromSlot(slot);
 

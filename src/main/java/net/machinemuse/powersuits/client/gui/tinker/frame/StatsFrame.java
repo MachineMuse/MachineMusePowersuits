@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.client.gui.tinker.frame;
 import net.machinemuse.numina.math.geometry.Colour;
 import net.machinemuse.numina.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.nbt.NBTTagAccessor;
+import net.machinemuse.numina.utils.nbt.NuminaNBTUtils;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.minecraft.item.ItemStack;
@@ -21,7 +22,7 @@ public class StatsFrame extends ScrollableFrame {
                       Colour borderColour, Colour insideColour, ItemStack stack) {
         super(topleft, bottomright, borderColour, insideColour);
         this.stack = stack;
-        this.properties = MuseItemUtils.getMuseItemTag(stack);
+        this.properties = NuminaNBTUtils.getMuseItemTag(stack);
         this.propertiesToList = NBTTagAccessor.getMap(properties).keySet();
     }
 

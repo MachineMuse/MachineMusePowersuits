@@ -15,6 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -32,7 +33,7 @@ public class PlayerUpdateHandler {
         if (e.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) e.getEntity();
 
-            List<ItemStack> modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player);
+            NonNullList<ItemStack> modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player);
             double totalWeight = WeightHelper.getPlayerWeight(player);
             double weightCapacity = MPSConfig.getInstance().getWeightCapacity();
 

@@ -22,7 +22,7 @@ import net.machinemuse.powersuits.item.module.tool.GrafterModule;
 import net.machinemuse.powersuits.item.module.tool.OmniWrenchModule;
 import net.machinemuse.powersuits.item.module.tool.RefinedStorageWirelessModule;
 import net.machinemuse.powersuits.item.module.weapon.MeleeAssistModule;
-import net.machinemuse.utils.ElectricItemUtils;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

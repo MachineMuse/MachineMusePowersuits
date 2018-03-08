@@ -9,9 +9,9 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public interface IModuleManager {
-    List<ItemStack> getAllModules();
+    NonNullList<ItemStack> getAllModules();
 
-    List<ItemStack> getPlayerTickModules();
+    NonNullList<ItemStack> getPlayerTickModules();
 
     @Nonnull
     ItemStack getModule(String key);
@@ -22,13 +22,13 @@ public interface IModuleManager {
 
     int computeModularPropertyInteger(@Nonnull ItemStack stack, String propertyName);
 
-    List<ItemStack> getRightClickModules();
+    NonNullList<ItemStack> getRightClickModules();
 
-    List<ItemStack> getToggleableModules();
+    NonNullList<ItemStack> getToggleableModules();
 
-    List<ItemStack> getBlockBreakingModules();
+    NonNullList<ItemStack> getBlockBreakingModules();
 
-    List<ItemStack> getValidModulesForItem(@Nonnull ItemStack stack);
+    NonNullList<ItemStack> getValidModulesForItem(@Nonnull ItemStack stack);
 
     boolean itemHasModule(@Nonnull ItemStack stack, String moduleName);
 
@@ -44,7 +44,7 @@ public interface IModuleManager {
 
     boolean hasCustomInstallCost(String dataName);
 
-    List<ItemStack> getCustomInstallCost(String dataName);
+    NonNullList<ItemStack> getCustomInstallCost(String dataName);
 
     void addCustomInstallCost(String moduleName, @Nonnull ItemStack stack);
 }

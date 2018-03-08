@@ -2,7 +2,7 @@ package net.machinemuse.numina.api.energy;
 
 import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.powersuits.common.ModCompatibility;
-import net.machinemuse.utils.ElectricItemUtils;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.minecraft.item.ItemStack;
 
 /**

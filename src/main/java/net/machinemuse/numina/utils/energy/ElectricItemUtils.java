@@ -1,4 +1,4 @@
-package net.machinemuse.utils;
+package net.machinemuse.numina.utils.energy;
 
 import net.machinemuse.numina.api.energy.adapater.ElectricAdapter;
 import net.machinemuse.numina.common.config.NuminaConfig;

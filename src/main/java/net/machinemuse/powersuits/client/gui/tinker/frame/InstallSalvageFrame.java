@@ -19,6 +19,7 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -65,7 +66,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
                 && targetModule.getSelectedModule() != null) {
             ItemStack stack = targetItem.getSelectedItem().getItem();
             ItemStack module = targetModule.getSelectedModule().getModule();
-            List<ItemStack> itemsToCheck = ((IModule)module.getItem()).getInstallCost();
+            NonNullList<ItemStack> itemsToCheck = ((IModule)module.getItem()).getInstallCost();
             double yoffset;
             if (!ModuleManager.getInstance().itemHasModule(stack, module.getUnlocalizedName())) {
                 yoffset = border.top() + 4;
@@ -101,7 +102,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
     private void drawItems() {
         ItemStack stack = targetItem.getSelectedItem().getItem();
         ItemStack module = targetModule.getSelectedModule().getModule();
-        List<ItemStack> itemsToDraw = ((IModule)module.getItem()).getInstallCost();
+        NonNullList<ItemStack> itemsToDraw = ((IModule)module.getItem()).getInstallCost();
         double yoffset;
         if (!ModuleManager.getInstance().itemHasModule(stack, module.getUnlocalizedName())) {
             yoffset = border.top() + 4;

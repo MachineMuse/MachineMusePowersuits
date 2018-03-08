@@ -4,7 +4,9 @@ import net.machinemuse.numina.api.nbt.IPropertyModifier;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Map;
 
@@ -12,11 +14,11 @@ public interface IModule {
 
 	EnumModuleTarget getTarget();
 
-	List<ItemStack> getInstallCost();
+	NonNullList<ItemStack> getInstallCost();
 
 	String getCategory();
 
-	boolean isValidForItem(ItemStack stack);
+	boolean isValidForItem(@Nonnull ItemStack stack);
 
 	NBTTagCompound getNewTag();
 

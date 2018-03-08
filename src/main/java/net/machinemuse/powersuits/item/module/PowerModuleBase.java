@@ -16,12 +16,13 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 
 import javax.annotation.Nullable;
 import java.util.*;
 
 public abstract class PowerModuleBase extends Item implements IModule {
-    protected List<ItemStack> defaultInstallCost;
+    protected NonNullList<ItemStack> defaultInstallCost;
     protected Map<String, List<IPropertyModifier>> propertyModifiers;
     protected static Map<String, String> units = new HashMap<>();
     protected NBTTagCompound defaultTag;
@@ -32,7 +33,7 @@ public abstract class PowerModuleBase extends Item implements IModule {
         this.moduleTarget = moduleTarget;
         this.setRegistryName(MPSModConstants.MODID, resourceDommain);
         this.setUnlocalizedName(unlocalizedName);
-        this.defaultInstallCost = new ArrayList();
+        this.defaultInstallCost = NonNullList.create();
         this.propertyModifiers = new HashMap();
         this.defaultTag = new NBTTagCompound();
         this.defaultTag.setBoolean(NuminaModuleConstants.ONLINE, true);
@@ -50,7 +51,7 @@ public abstract class PowerModuleBase extends Item implements IModule {
     }
 
     @Override
-    public List<ItemStack> getInstallCost() {
+    public NonNullList<ItemStack> getInstallCost() {
         if(ModuleManager.getInstance().hasCustomInstallCost(this.getUnlocalizedName())) {
             return ModuleManager.getInstance().getCustomInstallCost(this.getUnlocalizedName());
         } else {

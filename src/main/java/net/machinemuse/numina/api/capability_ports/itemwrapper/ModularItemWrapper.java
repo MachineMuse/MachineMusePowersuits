@@ -3,6 +3,7 @@ package net.machinemuse.numina.api.capability_ports.itemwrapper;
 import net.machinemuse.numina.api.capability_ports.inventory.IModularItemCapability;
 import net.machinemuse.numina.api.constants.NuminaModuleConstants;
 import net.machinemuse.numina.api.constants.NuminaNBTConstants;
+import net.machinemuse.numina.utils.nbt.NuminaNBTUtils;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -33,7 +34,7 @@ public class ModularItemWrapper extends ItemStackHandler implements IModularItem
             ItemStack module = getStackInSlot(i);
             if (!module.isEmpty()) {
                 if (module.getUnlocalizedName().equals(unLocalizedName)) {
-                    NBTTagCompound nbt = MuseItemUtils.getMuseItemTag(module);
+                    NBTTagCompound nbt = NuminaNBTUtils.getMuseItemTag(module);
                     if (nbt.hasKey(NuminaModuleConstants.ONLINE))
                         return nbt.getBoolean(NuminaModuleConstants.ONLINE);
                     return false;
@@ -49,7 +50,7 @@ public class ModularItemWrapper extends ItemStackHandler implements IModularItem
             ItemStack module = getStackInSlot(i);
             if (!module.isEmpty()) {
                 if (module.getUnlocalizedName().equals(unLocalizedName)) {
-                    NBTTagCompound nbt = MuseItemUtils.getMuseItemTag(module);
+                    NBTTagCompound nbt = NuminaNBTUtils.getMuseItemTag(module);
                     nbt.setBoolean(NuminaModuleConstants.ONLINE, online);
                 }
             }
@@ -62,7 +63,7 @@ public class ModularItemWrapper extends ItemStackHandler implements IModularItem
             ItemStack module = getStackInSlot(i);
             if (!module.isEmpty()) {
                 if (module.getUnlocalizedName().equals(unLocalizedName)) {
-                    NBTTagCompound nbt = MuseItemUtils.getMuseItemTag(module);
+                    NBTTagCompound nbt = NuminaNBTUtils.getMuseItemTag(module);
                     nbt.setInteger(tweakName, teakVal);
                 }
             }
@@ -75,7 +76,7 @@ public class ModularItemWrapper extends ItemStackHandler implements IModularItem
             ItemStack module = getStackInSlot(i);
             if (!module.isEmpty()) {
                 if (module.getUnlocalizedName().equals(unLocalizedName)) {
-                    NBTTagCompound nbt = MuseItemUtils.getMuseItemTag(module);
+                    NBTTagCompound nbt = NuminaNBTUtils.getMuseItemTag(module);
                     nbt.setDouble(tweakName, teakVal);
                 }
             }
@@ -135,7 +136,7 @@ public class ModularItemWrapper extends ItemStackHandler implements IModularItem
     @Nonnull
     @Override
     public NonNullList<ItemStack> removeModule(String moduleName) {
-        List<ItemStack> retList = new ArrayList<>();
+        NonNullList<ItemStack> retList = NonNullList.create();
 
         for (int i= 0; i < slotCount; i ++) {
             ItemStack module = getStackInSlot(i);
@@ -143,43 +144,17 @@ public class ModularItemWrapper extends ItemStackHandler implements IModularItem
                 retList.add(extractItem(i, getStackInSlot(i).getCount(), false));
             }
         }
-
-        if(retList.isEmpty())
-            return NonNullList.withSize(1, ItemStack.EMPTY);
-        NonNullList nonNullList = NonNullList.withSize(retList.size(), ItemStack.EMPTY);
-
-        for (int i=0; i< retList.size(); i++) {
-            nonNullList.set(i, retList.get(i));
-        }
-        return nonNullList;
-    }
-
-    @Nonnull
-    @Override
-    public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-        System.out.println("trying to insert item");
-/*
- itemTag: {"Maximum Heat":900000,"Current Heat":0,item.powersuits.module.debugModule:{Active:1b},render:{}}
-
- */
-
-        if (stack.isEmpty())
-            System.out.println("stack is empty!!!");
-        else
-            System.out.println("stack is NOT empty!!!");
-
-        System.out.println("serialize: " + serializeNBT());
-
-        return super.insertItem(slot, stack, simulate);
+        return retList;
     }
 
     public void updateFromNBT() {
-        final NBTTagCompound nbt = MuseItemUtils.getMuseItemTag(container);
+        final NBTTagCompound nbt = NuminaNBTUtils.getMuseItemTag(container);
         if (nbt != null && nbt.hasKey(NuminaNBTConstants.TAG_MODULES, Constants.NBT.TAG_COMPOUND)) {
             deserializeNBT((NBTTagCompound) nbt.getTag(NuminaNBTConstants.TAG_MODULES));
 
+            // todo: is this even needed??
             if (stacks.size() != slotCount) {
-                final List<ItemStack> oldStacks = new ArrayList<>(stacks);
+                final NonNullList<ItemStack> oldStacks = stacks;
                 setSize(slotCount); // FIXME : use config reference?
                 final int count = Math.min(slotCount, oldStacks.size());
                 for (int slot = 0; slot < count; slot++) {
@@ -209,9 +184,7 @@ public class ModularItemWrapper extends ItemStackHandler implements IModularItem
     @Override
     protected void onContentsChanged(final int slot) {
         super.onContentsChanged(slot);
-        NBTTagCompound nbt = MuseItemUtils.getMuseItemTag(container);
-
-        System.out.println("nbt: " + nbt) ;
+        NBTTagCompound nbt = NuminaNBTUtils.getMuseItemTag(container);
         nbt.setTag(NuminaNBTConstants.TAG_MODULES, serializeNBT());
     }
 }

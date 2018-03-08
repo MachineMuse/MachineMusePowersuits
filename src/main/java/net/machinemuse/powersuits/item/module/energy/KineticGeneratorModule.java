@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.item.module.energy;
 
 
+import net.machinemuse.numina.utils.nbt.NuminaNBTUtils;
 import net.machinemuse.powersuits.item.module.PowerModuleBase;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
@@ -8,11 +9,9 @@ import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -40,7 +39,7 @@ public class KineticGeneratorModule extends PowerModuleBase implements IPlayerTi
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         if (!player.isAirBorne) {
-            NBTTagCompound tag = MuseItemUtils.getMuseItemTag(item);
+            NBTTagCompound tag = NuminaNBTUtils.getMuseItemTag(item);
             boolean isNotWalking = (player.getRidingEntity() != null) || (player.isInWater());
             if ((!tag.hasKey("x")) || (isNotWalking))
                 tag.setInteger("x", (int) player.posX);

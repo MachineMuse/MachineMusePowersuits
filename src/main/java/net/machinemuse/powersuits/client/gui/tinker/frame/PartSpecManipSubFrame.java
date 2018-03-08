@@ -7,6 +7,8 @@ import net.machinemuse.numina.math.geometry.MuseRect;
 import net.machinemuse.numina.math.geometry.MuseRelativeRect;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.utils.nbt.MPSRenderTag;
+import net.machinemuse.numina.utils.nbt.NuminaNBTUtils;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.client.gui.tinker.GuiIcons;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableItem;
@@ -98,11 +100,11 @@ public class PartSpecManipSubFrame {
     }
 
     public NBTTagCompound getRenderTag() {
-        return MuseItemUtils.getMuseRenderTag(this.getSelectedItem().getItem(), this.getEquipmentSlot());
+        return MPSRenderTag.getMuseRenderTag(this.getSelectedItem().getItem(), this.getEquipmentSlot());
     }
 
     public NBTTagCompound getItemTag() {
-        return MuseItemUtils.getMuseItemTag(this.getSelectedItem().getItem());
+        return NuminaNBTUtils.getMuseItemTag(this.getSelectedItem().getItem());
     }
 
     public boolean isValidItem(ClickableItem clickie, EntityEquipmentSlot slot) {

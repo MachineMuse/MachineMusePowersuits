@@ -12,6 +12,7 @@ import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import org.lwjgl.opengl.GL11;
 
@@ -93,7 +94,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
             moduleButtons = new ArrayList<>();
             categories = new HashMap<>();
 
-            List<ItemStack> workingModules = ModuleManager.getInstance().getValidModulesForItem(selectedItem.getItem());
+            NonNullList<ItemStack> workingModules = ModuleManager.getInstance().getValidModulesForItem(selectedItem.getItem());
 
             // Prune the list of disallowed module, if not installed on this item.
             for (Iterator<ItemStack> it = workingModules.iterator(); it.hasNext(); ) {

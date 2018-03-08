@@ -2,6 +2,7 @@ package net.machinemuse.numina.item;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.NonNullList;
 
 import java.util.List;
 
@@ -23,9 +24,9 @@ public interface IInventoriedItem
 
     NBTTagList getContentsAsNBTTagList(ItemStack p0);
 
-    List<ItemStack> getContents(ItemStack p0);
+    NonNullList<ItemStack> getContents(ItemStack p0);
 
-    void setContents(ItemStack p0, List<ItemStack> p1);
+    void setContents(ItemStack p0, NonNullList<ItemStack> p1);
 
     void insertItem(ItemStack p0, ItemStack p1);
 

@@ -3,6 +3,7 @@ package net.machinemuse.numina.api.module;
 import net.machinemuse.numina.api.capability_ports.inventory.IModeChangingItemCapability;
 import net.machinemuse.numina.api.capability_ports.inventory.IModularItemCapability;
 import net.machinemuse.numina.api.item.IMuseItem;
+import net.machinemuse.numina.utils.nbt.NuminaNBTUtils;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -29,21 +30,21 @@ public class ModuleManager implements IModuleManager {
         return INSTANCE;
     }
 
-    protected static final Map<String, List<ItemStack>> customInstallCosts = new HashMap<>();
+    protected static final Map<String, NonNullList<ItemStack>> customInstallCosts = new HashMap<>();
     protected static final Map<String, ItemStack> moduleMap = new HashMap<>();
-    protected static final List<ItemStack> moduleList = new ArrayList<>();
-    protected static final List<ItemStack> playerTickModules = new ArrayList<>();
-    protected static final List<ItemStack> rightClickModules = new ArrayList<>();
-    protected static final List<ItemStack> toggleableModules = new ArrayList<>();
-    protected static final List<ItemStack> blockBreakingModules = new ArrayList<>();
+    protected static final NonNullList<ItemStack> moduleList = NonNullList.create();
+    protected static final NonNullList<ItemStack> playerTickModules = NonNullList.create();
+    protected static final NonNullList<ItemStack> rightClickModules = NonNullList.create();
+    protected static final NonNullList<ItemStack> toggleableModules = NonNullList.create();
+    protected static final NonNullList<ItemStack> blockBreakingModules = NonNullList.create();
 
     @Override
-    public List<ItemStack> getAllModules() {
+    public NonNullList<ItemStack> getAllModules() {
         return moduleList;
     }
 
     @Override
-    public List<ItemStack> getPlayerTickModules() {
+    public NonNullList<ItemStack> getPlayerTickModules() {
         return playerTickModules;
     }
 
@@ -74,7 +75,7 @@ public class ModuleManager implements IModuleManager {
     @Override
     public double computeModularPropertyDouble(ItemStack stack, String propertyName) {
         double propertyValue = 0;
-        NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+        NBTTagCompound itemTag = NuminaNBTUtils.getMuseItemTag(stack);
         for (ItemStack module : moduleList) {
             if (itemHasActiveModule(stack, module.getUnlocalizedName())) {
                 propertyValue = ((IModule)module.getItem()).applyPropertyModifiersDouble(itemTag, propertyName, propertyValue);
@@ -86,7 +87,7 @@ public class ModuleManager implements IModuleManager {
     @Override
     public int computeModularPropertyInteger(ItemStack stack, String propertyName) {
         int propertyValue = 0;
-        NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+        NBTTagCompound itemTag = NuminaNBTUtils.getMuseItemTag(stack);
         for (ItemStack module : moduleList) {
             if (itemHasActiveModule(stack, module.getUnlocalizedName())) {
                 propertyValue = ((IModule)module.getItem()).applyPropertyModifiersInt(itemTag, propertyName, propertyValue);
@@ -96,23 +97,23 @@ public class ModuleManager implements IModuleManager {
     }
 
     @Override
-    public List<ItemStack> getRightClickModules() {
+    public NonNullList<ItemStack> getRightClickModules() {
         return rightClickModules;
     }
 
     @Override
-    public List<ItemStack> getToggleableModules() {
+    public NonNullList<ItemStack> getToggleableModules() {
         return toggleableModules;
     }
 
     @Override
-    public List<ItemStack> getBlockBreakingModules() {
+    public NonNullList<ItemStack> getBlockBreakingModules() {
         return blockBreakingModules;
     }
 
     @Override
-    public List<ItemStack> getValidModulesForItem(ItemStack stack) {
-        List<ItemStack> validModules = new ArrayList();
+    public NonNullList<ItemStack> getValidModulesForItem(ItemStack stack) {
+        NonNullList<ItemStack> validModules = NonNullList.create();
         for (ItemStack module : getAllModules()) {
             if (((IModule)module.getItem()).isValidForItem(stack)) {
                 validModules.add(module);
@@ -177,7 +178,8 @@ public class ModuleManager implements IModuleManager {
 
     @Override
     public NonNullList<ItemStack> getPlayerInstalledModules(EntityPlayer player) {
-        List<ItemStack> installedModules = new ArrayList();
+        NonNullList<ItemStack> installedModules = NonNullList.create();
+
         for (ItemStack stack : MuseItemUtils.modularItemCapsEquipped(player)) {
             IItemHandler modularItemCap = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
             if (modularItemCap instanceof IModularItemCapability) {
@@ -187,15 +189,7 @@ public class ModuleManager implements IModuleManager {
                 }
             }
         }
-
-        if(installedModules.isEmpty())
-            return NonNullList.withSize(1, ItemStack.EMPTY);
-
-        NonNullList<ItemStack> retList = NonNullList.withSize(installedModules.size(), ItemStack.EMPTY);
-        for (int i=0; i< installedModules.size(); i++) {
-            retList.set(i, installedModules.get(i));
-        }
-        return retList;
+        return installedModules;
     }
 
     @Override
@@ -204,7 +198,7 @@ public class ModuleManager implements IModuleManager {
     }
 
     @Override
-    public List<ItemStack> getCustomInstallCost(String unLocalizedName) {
+    public NonNullList<ItemStack> getCustomInstallCost(String unLocalizedName) {
         return customInstallCosts.get(unLocalizedName);
     }
 
@@ -213,7 +207,7 @@ public class ModuleManager implements IModuleManager {
         if(customInstallCosts.containsKey(moduleName)) {
             customInstallCosts.get(moduleName).add(stack);
         } else {
-            customInstallCosts.put(moduleName, new ArrayList<ItemStack>());
+            customInstallCosts.put(moduleName, NonNullList.create());
             customInstallCosts.get(moduleName).add(stack);
         }
     }

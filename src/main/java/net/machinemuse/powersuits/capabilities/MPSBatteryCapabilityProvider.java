@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.capabilities;
 
 import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.capability_ports.itemwrapper.ForgeEnergyItemWrapper;
+import net.machinemuse.numina.utils.nbt.NuminaNBTUtils;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.module.energy.AdvancedBatteryModule;
 import net.machinemuse.powersuits.item.module.energy.BasicBatteryModule;
@@ -25,7 +26,7 @@ public class MPSBatteryCapabilityProvider implements ICapabilityProvider {
 
     public MPSBatteryCapabilityProvider(@Nonnull ItemStack container) {
         this.container = container;
-        NBTTagCompound containerNBT = MuseItemUtils.getMuseItemTag(container);
+        NBTTagCompound containerNBT = NuminaNBTUtils.getMuseItemTag(container);
         Item item = container.getItem();
 
         int currentEnergy = 0;
