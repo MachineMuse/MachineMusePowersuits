@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.powersuits.item.module.PowerModuleBase;
 import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.math.geometry.Colour;
@@ -38,7 +39,7 @@ public class DetailedSummaryFrame extends ScrollableFrame {
         energy = 0;
         armor = 0;
         for(ItemStack stack : MuseItemUtils.modularItemsEquipped(player)) {
-            energy += ModuleManager.getInstance().computeModularPropertyDouble(stack, ElectricItemUtils.MAXIMUM_ENERGY);
+            energy += ElectricItemUtils.getItemEnergy(stack);
             armor += ModuleManager.getInstance().computeModularPropertyDouble(stack, MPSModuleConstants.ARMOR_VALUE_PHYSICAL);
             armor += ModuleManager.getInstance().computeModularPropertyDouble(stack, MPSModuleConstants.ARMOR_VALUE_ENERGY);
         }
@@ -55,8 +56,7 @@ public class DetailedSummaryFrame extends ScrollableFrame {
             MuseRenderer.drawCenteredString(I18n.format("gui.equippedTotals"), (border.left() + border.right())/2, nexty);
             nexty += 10;
 
-
-            String formattedValue = MuseStringUtils.formatNumberFromUnits(energy, PowerModuleBase.getUnit(ElectricItemUtils.MAXIMUM_ENERGY));
+            String formattedValue = MuseStringUtils.formatNumberFromUnits(energy, PowerModuleBase.getUnit(NuminaNBTConstants.MAXIMUM_ENERGY));
             String name = I18n.format("gui.energyStorage");
             double valueWidth = MuseRenderer.getStringWidth(formattedValue);
             double allowedNameWidth = border.width() - valueWidth - margin * 2;

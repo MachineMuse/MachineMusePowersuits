@@ -180,14 +180,18 @@ public class ModuleManager implements IModuleManager {
         List<ItemStack> installedModules = new ArrayList();
         for (ItemStack stack : MuseItemUtils.modularItemCapsEquipped(player)) {
             IItemHandler modularItemCap = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-            if (modularItemCap instanceof IModularItemCapability)
-                installedModules.addAll(((IModularItemCapability)installedModules).getInstallledModules());
+            if (modularItemCap instanceof IModularItemCapability) {
+                for (ItemStack module : ((IModularItemCapability) modularItemCap).getInstallledModules()) {
+                    if (!module.isEmpty())
+                        installedModules.add(module);
+                }
+            }
         }
 
         if(installedModules.isEmpty())
             return NonNullList.withSize(1, ItemStack.EMPTY);
 
-        NonNullList retList = NonNullList.withSize(installedModules.size(), ItemStack.EMPTY);
+        NonNullList<ItemStack> retList = NonNullList.withSize(installedModules.size(), ItemStack.EMPTY);
         for (int i=0; i< installedModules.size(); i++) {
             retList.set(i, installedModules.get(i));
         }

@@ -15,9 +15,6 @@ import java.util.List;
  * Ported to Java by lehjr on 10/18/16.
  */
 public class ElectricItemUtils {
-    public static final String MAXIMUM_ENERGY = "Maximum Energy";
-    public static final String CURRENT_ENERGY = "Current Energy";
-
     public static List<ElectricAdapter> electricItemsEquipped(EntityPlayer player) {
         List<ElectricAdapter> electrics = new ArrayList<>();
         for (int i  = 0; i < player.inventory.getSizeInventory(); i++) {
@@ -103,24 +100,39 @@ public class ElectricItemUtils {
         return rfToGive - rfleft;
     }
 
+    public static int getItemEnergy(@Nonnull ItemStack itemStack) {
+        ElectricAdapter adapter = ElectricAdapter.wrap(itemStack);
+        return (adapter != null) ? adapter.getEnergyStored() : 0;
+    }
+
+    public static int getItemMaxEnergy(@Nonnull ItemStack itemStack) {
+        ElectricAdapter adapter = ElectricAdapter.wrap(itemStack);
+        return (adapter != null) ? adapter.getMaxEnergyStored() : 0;
+    }
+
     /**
      * Used for getting the tier of an ItemStack. Used for various functions
      *
      * // FIXME... don't reference MPS from Numina
      */
     public static int getTierForItem(@Nonnull ItemStack itemStack) {
-        int maxEnergy = ElectricAdapter.wrap(itemStack).getMaxEnergyStored();
-        if (maxEnergy <= NuminaConfig.getTier1MaxRF())
-            return 1;
-        else if (maxEnergy <= NuminaConfig.getTier2MaxRF())
-            return 2;
-        else if (maxEnergy <= NuminaConfig.getTier3MaxRF())
-            return 3;
-        else if (maxEnergy <= NuminaConfig.getTier4MaxRF())
-            return 4;
-        return 5;
+        ElectricAdapter adapter = ElectricAdapter.wrap(itemStack);
+        if (adapter != null) {
+            int maxEnergy = adapter.getMaxEnergyStored();
+            if (maxEnergy <= NuminaConfig.getTier1MaxRF())
+                return 1;
+            else if (maxEnergy <= NuminaConfig.getTier2MaxRF())
+                return 2;
+            else if (maxEnergy <= NuminaConfig.getTier3MaxRF())
+                return 3;
+            else if (maxEnergy <= NuminaConfig.getTier4MaxRF())
+                return 4;
+            return 5;
+        }
+        return 0;
     }
 
+    // used for installing battery modules and adding small amount of power to them
     @Deprecated
     public static int jouleValueOfComponent(ItemStack stackInCost) {
         if (stackInCost.getItem() instanceof ItemComponent) {
