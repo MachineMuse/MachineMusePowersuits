@@ -75,10 +75,10 @@ public class ModuleManager implements IModuleManager {
     @Override
     public double computeModularPropertyDouble(ItemStack stack, String propertyName) {
         double propertyValue = 0;
-        NBTTagCompound itemTag = NuminaNBTUtils.getMuseItemTag(stack);
         for (ItemStack module : moduleList) {
             if (itemHasActiveModule(stack, module.getUnlocalizedName())) {
-                propertyValue = ((IModule)module.getItem()).applyPropertyModifiersDouble(itemTag, propertyName, propertyValue);
+                NBTTagCompound moduleTag = NuminaNBTUtils.getMuseItemTag(module);
+                propertyValue = ((IModule)module.getItem()).applyPropertyModifiersDouble(moduleTag, propertyName, propertyValue);
             }
         }
         return propertyValue;
@@ -87,10 +87,10 @@ public class ModuleManager implements IModuleManager {
     @Override
     public int computeModularPropertyInteger(ItemStack stack, String propertyName) {
         int propertyValue = 0;
-        NBTTagCompound itemTag = NuminaNBTUtils.getMuseItemTag(stack);
         for (ItemStack module : moduleList) {
             if (itemHasActiveModule(stack, module.getUnlocalizedName())) {
-                propertyValue = ((IModule)module.getItem()).applyPropertyModifiersInt(itemTag, propertyName, propertyValue);
+                NBTTagCompound moduleTag = NuminaNBTUtils.getMuseItemTag(module);
+                propertyValue = ((IModule)module.getItem()).applyPropertyModifiersInt(moduleTag, propertyName, propertyValue);
             }
         }
         return propertyValue;

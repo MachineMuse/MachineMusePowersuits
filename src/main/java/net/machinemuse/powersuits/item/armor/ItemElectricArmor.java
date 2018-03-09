@@ -12,15 +12,18 @@ import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.item.module.cosmetic.CosmeticGlowModule;
 import net.machinemuse.powersuits.item.module.cosmetic.TintModule;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,8 +68,8 @@ public abstract class ItemElectricArmor extends ItemArmor implements IMuseItem, 
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
-        MuseItemUtils.addInformation(stack, player, currentTipList, advancedToolTips);
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        MuseItemUtils.addInformation(stack, tooltip, flagIn);
     }
 
     @Override

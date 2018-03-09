@@ -1,11 +1,14 @@
 package net.machinemuse.numina.api.item;
 
 import net.machinemuse.numina.math.geometry.Colour;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -34,7 +37,7 @@ public interface IMuseItem {
     Colour getColorFromItemStack(ItemStack stack);
 
     @SideOnly(Side.CLIENT)
-    void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> currentTipList, boolean advancedToolTips);
+    void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn);
 
     String formatInfo(String string, double value);
 

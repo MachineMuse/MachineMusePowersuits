@@ -14,13 +14,18 @@ import net.machinemuse.powersuits.item.module.cosmetic.CosmeticGlowModule;
 import net.machinemuse.powersuits.item.module.cosmetic.TintModule;
 import net.machinemuse.powersuits.utils.MuseItemUtils;
 import net.minecraft.block.Block;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
+import net.minecraft.world.World;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -73,8 +78,8 @@ public class MPSItemElectricTool extends ItemTool implements IMuseItem, IMuseEle
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
-        MuseItemUtils.addInformation(stack, player, currentTipList, advancedToolTips);
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        MuseItemUtils.addInformation(stack, tooltip, flagIn);
     }
 
     @Override
@@ -92,6 +97,21 @@ public class MPSItemElectricTool extends ItemTool implements IMuseItem, IMuseEle
         info.add(formatInfo("Energy Storage", this.getEnergyStored(stack)) + 'J');
         info.add(formatInfo("Weight", WeightHelper.getTotalWeight(stack)) + 'g');
         return info;
+    }
+
+    @Override
+    public boolean showDurabilityBar(final ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public double getDurabilityForDisplay(final ItemStack stack) {
+        final IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
+        if (energyStorage == null) {
+            return 1;
+        }
+
+        return 1 - energyStorage.getEnergyStored() / (float) energyStorage.getMaxEnergyStored();
     }
 
     @Override

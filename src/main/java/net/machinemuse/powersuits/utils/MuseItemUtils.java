@@ -1,22 +1,17 @@
 package net.machinemuse.powersuits.utils;
 
 import net.machinemuse.numina.api.capability_ports.inventory.IModularItemCapability;
-import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.energy.adapater.ElectricAdapter;
 import net.machinemuse.numina.api.item.IMuseItem;
-import net.machinemuse.numina.api.module.IModule;
-import net.machinemuse.numina.api.module.ModuleManager;
 import net.machinemuse.numina.math.MuseMathUtils;
-import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.nbt.NuminaNBTUtils;
 import net.machinemuse.numina.utils.string.MuseStringUtils;
-import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
-import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -26,8 +21,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -221,17 +214,14 @@ public class MuseItemUtils {
 
     /**
      * Adds information to the item's tooltip when 'getting' it.
-     *
      * @param stack            The itemstack to get the tooltip for
-     * @param player           The player (client) viewing the tooltip
      * @param currentTipList   A list of strings containing the existing tooltip. When
-     *                         passed, it will just contain the name of the item;
-     *                         enchantments and lore are
-     *                         appended afterwards.
+ *                         passed, it will just contain the name of the item;
+ *                         enchantments and lore are
+ *                         appended afterwards.
      * @param advancedToolTips Whether or not the player has 'advanced tooltips' turned on in
-     *                         their settings.
      */
-    public static void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
+    public static void addInformation(ItemStack stack, List currentTipList, ITooltipFlag advancedToolTips) {
         if (stack.getItem() instanceof ItemPowerFist) {
             String mode = MuseItemUtils.getStringOrNull(stack, "Mode");
             if (mode != null) {
@@ -249,12 +239,16 @@ public class MuseItemUtils {
         }
         if (MPSConfig.getInstance().doAdditionalInfo()) {
             List<String> installed = getItemInstalledModules(stack);
-            if (installed.size() == 0) {
+            List<String> installedLocalized = new ArrayList<>();
+            for (String unlocalizedName : installed) {
+                installedLocalized.add(I18n.format(unlocalizedName+ ".name"));
+            }
+            if (installedLocalized.size() == 0) {
                 String message = I18n.format("tooltip.noModules");
                 currentTipList.addAll(MuseStringUtils.wrapStringToLength(message, 30));
             } else {
                 currentTipList.add(I18n.format("tooltip.installedModules"));
-                currentTipList.addAll(installed);
+                currentTipList.addAll(installedLocalized);
             }
         } else {
             currentTipList.add(MPSConfig.getInstance().additionalInfoInstructions());
