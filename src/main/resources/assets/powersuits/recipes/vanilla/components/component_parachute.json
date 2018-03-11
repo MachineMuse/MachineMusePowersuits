@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "S S",
+    "I I"
+  ],
+  "key": {
+    "W" : {
+      "type": "forge:ore_dict",
+      "ore": "blockWool"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "string"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    }
+  },
+  "result": {
+    "item" : "powersuits:powerarmorcomponent",
+    "data" : 9
+  }
+}

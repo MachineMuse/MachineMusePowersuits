@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " FS",
+    "IG ",
+    "WFS"
+  ],
+  "key": {
+    "F" : {
+      "type": "forge:ore_dict",
+      "ore": "componentFieldEmitter"
+    },
+    "S" : {
+      "type": "forge:ore_dict",
+      "ore": "componentSolenoid"
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "dustGlowstone"
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    }
+  },
+  "result": {
+    "item" : "powersuits:powerarmorcomponent",
+    "data" : 4
+  }
+}

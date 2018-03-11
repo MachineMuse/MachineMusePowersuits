@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GPB",
+    "W W"
+  ],
+  "key": {
+    "G" : {
+      "type": "forge:ore_dict",
+      "ore": "ingotGold"
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "P": {
+      "type": "forge:ore_dict",
+      "ore": "paper"
+    },
+    "B": {
+      "type": "forge:ore_dict",
+      "ore": "dyeBlue"
+    }
+  },
+  "result": {
+    "item" : "powersuits:powerarmorcomponent",
+    "data" : 6
+  }
+}

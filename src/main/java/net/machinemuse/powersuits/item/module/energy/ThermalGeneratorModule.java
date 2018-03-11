@@ -32,7 +32,7 @@ public class ThermalGeneratorModule extends PowerModuleBase implements IPlayerTi
 //            addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
 //        } else {
             addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 2));
-            addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.basicPlating, 1));
+            addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.ironPlating, 1));
 //        }
     }
 

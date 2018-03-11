@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " II",
+    "IIS",
+    "I  "
+  ],
+  "key": {
+    "S" : {
+      "type": "forge:ore_dict",
+      "ore": "componentSolenoid"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    }
+  },
+  "result": {
+    "item" : "powersuits:powerarmorcomponent",
+    "data" : 3
+  }
+}

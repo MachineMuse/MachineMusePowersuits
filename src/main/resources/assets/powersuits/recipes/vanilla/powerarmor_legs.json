@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "W W",
+    "I I"
+  ],
+  "key": {
+    "I" : {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    "W" : {
+      "type": "forge:ore_dict",
+      "ore" : "componentWiring"
+    }
+  },
+  "result": {
+    "item": "powersuits:powerarmor_legs"
+  }
+}

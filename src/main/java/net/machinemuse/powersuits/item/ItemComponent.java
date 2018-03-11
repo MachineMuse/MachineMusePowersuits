@@ -39,8 +39,8 @@ public class ItemComponent extends Item {
     public static ItemStack mvcapacitor;
     public static ItemStack hvcapacitor;
     public static ItemStack evcapacitor;
-    public static ItemStack basicPlating;
-    public static ItemStack advancedPlating;
+    public static ItemStack ironPlating;
+    public static ItemStack diamonddPlating;
     public static ItemStack fieldEmitter;
     public static ItemStack laserHologram;
     public static ItemStack carbonMyofiber;
@@ -50,7 +50,7 @@ public class ItemComponent extends Item {
     public static ItemStack magnet;
     public static ItemStack solarPanel;
     public static ItemStack computerChip;
-    public static ItemStack liquidNitrogen;
+    public static ItemStack liquidNitrogen; // FIXME
     public static ItemStack rubberHose;
 
 //    public ItemComponent() {
@@ -63,7 +63,7 @@ public class ItemComponent extends Item {
 
     private ItemComponent() {
         this.maxStackSize = 64;
-        this.setRegistryName("item.powerArmorComponent");
+        this.setRegistryName("powerarmorcomponent");
         this.setUnlocalizedName("item.powerArmorComponent.");
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
@@ -105,14 +105,14 @@ public class ItemComponent extends Item {
         hvcapacitor = addComponent(7, "componentHVCapacitor", "A synthetic crystal device which can store and release massive amounts of energy.");
         evcapacitor = addComponent(8, "componentEVCapacitor", "The most advanced energy storage device ever created. Now 15% less likely to randomly explode!");
         parachute = addComponent(9, "componentParachute", "A simple reusable parachute which can be deployed and recovered in midair.");
-        basicPlating = addComponent(10, "componentPlatingBasic", "Some carefully-arranged metal armor plates.");
-        advancedPlating = addComponent(11, "componentPlatingAdvanced", "Some carefully-arranged armor plates of a rare and stronger material");
+        ironPlating = addComponent(10, "componentPlatingIron", "Some carefully-arranged metal armor plates.");
+        diamonddPlating = addComponent(11, "componentPlatingDiamond", "Some carefully-arranged armor plates of a rare and stronger material");
         fieldEmitter = addComponent(12, "componentFieldEmitter", "An advanced device which directly manipulates electromagnetic and gravitational fields in an area.");
         laserHologram = addComponent(13, "componentLaserEmitter", "A multicoloured laser array which can cheaply alter the appearance of something.");
         carbonMyofiber = addComponent(14,"componentCarbonMyofiber", "A small bundle of carbon fibers, refined for use in artificial muscles.");
         controlCircuit = addComponent(15, "componentControlCircuit", "A simple networkable microcontroller for coordinating an individual component.");
         myofiberGel = addComponent(16, "componentMyofiberGel", "A thick, conductive paste, perfect for fitting between myofibers in an artificial muscle.");
-        artificialMuscle = addComponent(17, "componentArtificialMuscle", "An electrical, artificial muscle, with less range of movement than human muscle but orders of magnitude more strength.");
+        artificialMuscle = addComponent(17, "componentArtificialMuscle", "An electrica`l, artificial muscle, with less range of movement than human muscle but orders of magnitude more strength.");
         solarPanel = addComponent(18, "componentSolarPanel", "A light sensitive device that will generate electricity from the sun.");
         magnet = addComponent(19, "componentMagnet", "A metallic device that generates a magnetic field which pulls items towards the player.");
         computerChip = addComponent(20, "componentComputerChip", "An upgraded control circuit that contains a CPU which is capable of more advanced calculations.");

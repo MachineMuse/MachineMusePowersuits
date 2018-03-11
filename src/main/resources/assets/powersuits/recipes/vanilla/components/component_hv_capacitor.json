@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EPG",
+    "W W"
+  ],
+  "key": {
+    "E" : {
+      "type": "forge:ore_dict",
+      "ore": "enderpearl"
+    },
+    "P": {
+      "type": "forge:ore_dict",
+      "ore": "paper"
+    },
+    "G" : {
+      "type": "forge:ore_dict",
+      "ore": "dustGlowstone"
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    }
+  },
+  "result": {
+    "item" : "powersuits:powerarmorcomponent",
+    "data" : 7
+  }
+}

@@ -92,11 +92,6 @@ public abstract class PowerModuleBase extends Item implements IModule {
     }
 
     @Override
-    public Map<String, List<IPropertyModifier>> getPropertyModifiers() {
-        return propertyModifiers;
-    }
-
-    @Override
     public NBTTagCompound getNewTag() {
         return defaultTag.copy();
     }
@@ -108,6 +103,11 @@ public abstract class PowerModuleBase extends Item implements IModule {
 
     public void setIsAllowed(boolean allowed) {
         this.isAllowed = allowed;
+    }
+
+    @Override
+    public Map<String, List<IPropertyModifier>> getPropertyModifiers() {
+        return propertyModifiers;
     }
 
     public PowerModuleBase addPropertyModifier(String propertyName, IPropertyModifier modifier) {
