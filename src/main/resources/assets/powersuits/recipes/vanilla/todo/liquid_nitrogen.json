@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IBI",
+    "WWW",
+    "PWP"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:ice"
+    },
+    "P" : {
+      "item": "minecraft:packed_ice"
+    },
+    "W" : {
+      "item": "minecraft:water_bucket"
+    },
+    "B" : {
+      "item": "minecraft:bucket"
+    }
+  },
+  "result": {
+    "item" : "forge:bucketfilled",
+    "nbt" : {"FluidName": "liquid_nitrogen", "Amount" : 1000}
+  }
+}

@@ -3,8 +3,10 @@ package net.machinemuse.powersuits.common;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
+import net.machinemuse.powersuits.block.fluid.BlockLiquidNitrogen;
 import net.machinemuse.powersuits.block.itemblock.ItemBlockLuxCapacitor;
 import net.machinemuse.powersuits.block.itemblock.ItemBlockTinkerTable;
+import net.machinemuse.powersuits.fluid.FluidLiquidNitrogen;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
@@ -30,12 +32,16 @@ import net.machinemuse.powersuits.item.module.vision.ThaumGogglesModule;
 import net.machinemuse.powersuits.item.module.weapon.*;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.block.Block;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.awt.*;
 
 import static net.machinemuse.powersuits.api.constants.MPSModConstants.MODID;
 
@@ -167,7 +173,6 @@ public class MPSItems {
     public static Item module_plasma_cannon = new PlasmaCannonModule("plasma_cannon", MPSModuleConstants.MODULE_PLASMA_CANNON);
     public static Item module_railgun = new RailgunModule("railgun", MPSModuleConstants.MODULE_RAILGUN);
 
-
     @SubscribeEvent
     public static void regigisterItems(RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(
@@ -286,9 +291,6 @@ public class MPSItems {
 
     }
 
-
-
-
     private static Item itemRegister(Item item, String regName, String unlocalizedName) {
         // including the ModID in the unlocalized name helps keep the names unique so they can be used as keys for maps
         item.setUnlocalizedName(new StringBuilder(MODID).append(".").append(unlocalizedName).toString());
@@ -300,6 +302,8 @@ public class MPSItems {
     public static void initBlocks(RegistryEvent.Register<Block> event) {
         event.getRegistry().register(BlockTinkerTable.getInstance());
         event.getRegistry().register(BlockLuxCapacitor.getInstance());
+//        event.getRegistry().register(new BlockLiquidNitrogen()); // TODO?
+
     }
 
     @SubscribeEvent

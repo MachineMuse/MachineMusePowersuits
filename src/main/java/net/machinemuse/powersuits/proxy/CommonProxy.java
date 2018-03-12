@@ -1,9 +1,7 @@
 package net.machinemuse.powersuits.proxy;
 
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
-import net.machinemuse.powersuits.common.MPSGuiHandler;
-import net.machinemuse.powersuits.common.ModCompatibility;
-import net.machinemuse.powersuits.common.ModularPowersuits;
+import net.machinemuse.powersuits.common.*;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
@@ -38,6 +36,8 @@ public class CommonProxy {
 //        Config.init(new Configuration(newConfig));
 
         MPSConfig.getInstance().setConfigFolderBase(event);
+        MPSFluid.getInstance().registerFluids();
+
 
 //        Config.setConfigFolderBase(event.getModConfigurationDirectory());
 //        Config.extractRecipes();

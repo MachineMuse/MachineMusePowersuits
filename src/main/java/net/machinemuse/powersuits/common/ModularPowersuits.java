@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.common;
 
 import net.machinemuse.powersuits.proxy.CommonProxy;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -24,6 +25,10 @@ import static net.machinemuse.powersuits.api.constants.MPSModConstants.VERSION;
 public final class ModularPowersuits {
     @Nonnull
     private static ModularPowersuits INSTANCE;
+
+    private ModularPowersuits() {
+        FluidRegistry.enableUniversalBucket();
+    }
 
     @Nonnull
     @Mod.InstanceFactory

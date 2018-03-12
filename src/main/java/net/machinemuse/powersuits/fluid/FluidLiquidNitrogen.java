@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.fluid;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 import java.awt.*;
 
@@ -11,13 +11,10 @@ public class FluidLiquidNitrogen extends Fluid {
         super(fluidName, still, flowing, color);
     }
 
-    public FluidLiquidNitrogen(String fluidName, ResourceLocation still, ResourceLocation flowing, int color) {
-        super(fluidName, still, flowing, color);
+    @Override
+    public boolean doesVaporize(FluidStack fluidStack) {
+        return true;
     }
 
-    public FluidLiquidNitrogen(String fluidName, ResourceLocation still, ResourceLocation flowing) {
-        super(fluidName, still, flowing);
 
-        FluidRegistry.registerFluid(this);
-    }
 }
