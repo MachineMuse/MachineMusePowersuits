@@ -70,7 +70,7 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
                 ItemStack stack = inv.getStackInSlot(i);
                 if (stack != null && stack.getItem() instanceof ItemFood) {
                     ItemFood food = (ItemFood) stack.getItem();
-                    for (int a = 0; a < stack.stackSize; a++) {
+                    for (int a = 0; a < stack.getCount(); a++) {
                         foodLevel += food.getHealAmount(stack) * efficiency / 100.0;
                         //  copied this from FoodStats.addStats()
                         saturationLevel += Math.min(food.getHealAmount(stack) * food.getSaturationModifier(stack) * 2.0F, 20F) * efficiency / 100.0;
@@ -92,8 +92,8 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
                             foodLevel += food.getHealAmount(stack) * efficiency / 100.0;
                             //  copied this from FoodStats.addStats()
                             saturationLevel += Math.min(food.getHealAmount(stack) * (double)food.getSaturationModifier(stack) * 2.0D, 20D) * efficiency / 100.0;
-                            stack.stackSize--;
-                            if (stack.stackSize == 0) {
+                            stack.setCount(stack.getCount() - 1);
+                            if (stack.getCount() == 0) {
                                 player.inventory.setInventorySlotContents(i, null);
                                 break;
                             } else

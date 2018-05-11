@@ -53,7 +53,8 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+        ItemStack itemStackIn = playerIn.getHeldItem(hand);
         SoundEvent enderman_portal =  SoundEvent.REGISTRY.getObject(new ResourceLocation("entity.endermen.teleport"));
         double range = ModuleManager.computeModularProperty(itemStackIn, BLINK_DRIVE_RANGE);
         double energyConsumption = ModuleManager.computeModularProperty(itemStackIn, BLINK_DRIVE_ENERGY_CONSUMPTION);
@@ -62,7 +63,7 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
             ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
             worldIn.playSound(playerIn, playerIn.getPosition(), enderman_portal, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
              MuseLogger.logDebug("Range: " + range);
-            RayTraceResult hitRayTrace = MusePlayerUtils.doCustomRayTrace(playerIn.worldObj, playerIn, true, range);
+            RayTraceResult hitRayTrace = MusePlayerUtils.doCustomRayTrace(playerIn.world, playerIn, true, range);
 
             MuseLogger.logDebug("Hit:" + hitRayTrace);
             MusePlayerUtils.teleportEntity(playerIn, hitRayTrace);
@@ -73,12 +74,12 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
     }
 
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         return EnumActionResult.PASS;
     }
 
     @Override
-    public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         return EnumActionResult.PASS;
     }
 

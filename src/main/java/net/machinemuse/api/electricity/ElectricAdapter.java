@@ -1,6 +1,6 @@
 package net.machinemuse.api.electricity;
 
-import cofh.api.energy.IEnergyContainerItem;
+import cofh.redstoneflux.api.IEnergyContainerItem;
 import ic2.api.item.IElectricItem;
 import mekanism.api.energy.IEnergizedItem;
 import net.machinemuse.powersuits.common.ModCompatibility;

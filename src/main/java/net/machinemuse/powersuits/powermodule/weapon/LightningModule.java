@@ -57,7 +57,8 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
     }
 
     @Override
-    public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+        ItemStack itemStackIn = playerIn.getHeldItem(hand);
         if (hand == EnumHand.MAIN_HAND) {
             try {
                 double range = 64;
@@ -65,8 +66,8 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
                 if (energyConsumption < ElectricItemUtils.getPlayerEnergy(playerIn)) {
                     ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
                     MuseHeatUtils.heatPlayer(playerIn, ModuleManager.computeModularProperty(itemStackIn, HEAT));
-                    RayTraceResult raytraceResult = MusePlayerUtils.doCustomRayTrace(playerIn.worldObj, playerIn, true, range);
-                    worldIn.spawnEntityInWorld(new EntityLightningBolt(playerIn.worldObj, raytraceResult.hitVec.xCoord, raytraceResult.hitVec.yCoord, raytraceResult.hitVec.zCoord, false));
+                    RayTraceResult raytraceResult = MusePlayerUtils.doCustomRayTrace(playerIn.world, playerIn, true, range);
+                    worldIn.spawnEntity(new EntityLightningBolt(playerIn.world, raytraceResult.hitVec.x, raytraceResult.hitVec.y, raytraceResult.hitVec.z, false));
                 }
             } catch (Exception ignored) {
                 return ActionResult.newResult(EnumActionResult.FAIL, itemStackIn);
@@ -77,12 +78,12 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
     }
 
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         return EnumActionResult.PASS;
     }
 
     @Override
-    public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         return EnumActionResult.PASS;
     }
 

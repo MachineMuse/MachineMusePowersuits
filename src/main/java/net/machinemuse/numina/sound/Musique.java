@@ -37,7 +37,7 @@ public class Musique {
 
     public static void playClientSound(SoundEvent soundEvt, SoundCategory categoryIn, float volumeIn, BlockPos posIn) {
         if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
-            BlockPos pos = (posIn != null) ? posIn : Minecraft.getMinecraft().thePlayer.getPosition();
+            BlockPos pos = (posIn != null) ? posIn : Minecraft.getMinecraft().player.getPosition();
 
             // creates a sound
             PositionedSoundRecord sound = new PositionedSoundRecord(soundEvt, categoryIn, volumeIn, 1.0F, pos);

@@ -33,9 +33,9 @@ public class MPSTeleporter extends Teleporter {
 
 
     public void placeInPortal(Entity entityIn, float rotationYaw) {
-//        int x = MathHelper.floor_double(entityIn.posX);
-//        int y = MathHelper.floor_double(entityIn.posY) - 1;
-//        int z = MathHelper.floor_double(entityIn.posZ);
+//        int x = MathHelper.floor(entityIn.posX);
+//        int y = MathHelper.floor(entityIn.posY) - 1;
+//        int z = MathHelper.floor(entityIn.posZ);
 
         if (!this.placeInExistingPortal(entityIn, rotationYaw)) {
             if (this.worldServerInstance.provider.getDimensionType().getId() != -1) {
@@ -52,9 +52,9 @@ public class MPSTeleporter extends Teleporter {
     public boolean placeInExistingPortal(Entity entityIn, float rotationYaw) {
 
         // TODO: check this whole thing
-        int x = MathHelper.floor_double(entityIn.posX);
-        int y = MathHelper.floor_double(entityIn.posY) - 1;
-        int z = MathHelper.floor_double(entityIn.posZ);
+        int x = MathHelper.floor(entityIn.posX);
+        int y = MathHelper.floor(entityIn.posY) - 1;
+        int z = MathHelper.floor(entityIn.posZ);
 
         TileEntity destPortal = null;
         for (int s = 0; (s <= 5) && (destPortal == null); s++) {
@@ -85,9 +85,9 @@ public class MPSTeleporter extends Teleporter {
     }
 
     public boolean makePortal(Entity entity) {
-        int ex = MathHelper.floor_double(entity.posX);
-        int ey = MathHelper.floor_double(entity.posY) - 1;
-        int ez = MathHelper.floor_double(entity.posZ);
+        int ex = MathHelper.floor(entity.posX);
+        int ey = MathHelper.floor(entity.posY) - 1;
+        int ez = MathHelper.floor(entity.posZ);
 
         ey /= 5;
         ey += 22;

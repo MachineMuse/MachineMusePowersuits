@@ -166,7 +166,7 @@ public class MuseElectricItem extends Item implements IMuseElectricItem {
     public String getToolTip(ItemStack itemStack) {
         return "";
 
-//        return itemStack.getTooltip(Minecraft.getMinecraft().thePlayer, false).toString();
+//        return itemStack.getTooltip(Minecraft.getMinecraft().player, false).toString();
     }
 
     public Item getChargedItem(ItemStack itemStack) {

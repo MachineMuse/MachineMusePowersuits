@@ -24,9 +24,9 @@ public class JEINuminaWrapper extends BlankRecipeWrapper implements IShapedCraft
         for(Object input : recipe.ingredients) {
             if(input instanceof ItemStack) {
                 ItemStack itemStack = (ItemStack)input;
-                if(itemStack.stackSize != 1)
+                if(itemStack.getCount() != 1)
                 {
-                    itemStack.stackSize = 1;
+                    itemStack.setCount(1);
                 }
             }
         }

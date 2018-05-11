@@ -94,13 +94,13 @@ public class ItemPowerFist extends MPSItemElectricTool
         return this.modeChangingItem;
     }
 
-    /**
-     * FORGE: Overridden to allow custom tool effectiveness
-     */
-    @Override
-    public float getStrVsBlock(ItemStack stack, IBlockState state) {
-        return 1.0f;
-    }
+//    /**
+//     * FORGE: Overridden to allow custom tool effectiveness
+//     */
+//    @Override
+//    public float getStrVsBlock(ItemStack stack, IBlockState state) {
+//        return 1.0f;
+//    }
 
     /**
      * Current implementations of this method in child classes do not use the
@@ -122,7 +122,7 @@ public class ItemPowerFist extends MPSItemElectricTool
                 DamageSource damageSource = DamageSource.causePlayerDamage(player);
                 if (entityBeingHit.attackEntityFrom(damageSource, (float) (int) damage)) {
                     Vec3d lookVec = player.getLookVec();
-                    entityBeingHit.addVelocity(lookVec.xCoord * knockback, Math.abs(lookVec.yCoord + 0.2f) * knockback, lookVec.zCoord * knockback);
+                    entityBeingHit.addVelocity(lookVec.x * knockback, Math.abs(lookVec.y + 0.2f) * knockback, lookVec.z * knockback);
                 }
             }
         }
@@ -199,15 +199,18 @@ public class ItemPowerFist extends MPSItemElectricTool
         return 72000;
     }
 
+
+
     /**
      * Called when the right click button is pressed
      */
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+        ItemStack itemStackIn = playerIn.getHeldItem(handIn);
         // Only one right click module should be active at a time.
         IPowerModule iPowerModulemodule = ModuleManager.getModule(getActiveMode(itemStackIn));
         if (iPowerModulemodule instanceof IRightClickModule) {
-            return ((IRightClickModule) iPowerModulemodule).onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+            return ((IRightClickModule) iPowerModulemodule).onItemRightClick(worldIn, playerIn, handIn);
         }
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
@@ -237,21 +240,21 @@ public class ItemPowerFist extends MPSItemElectricTool
     }
 
     @Override
-    public EnumActionResult onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-        String mode = this.getActiveMode(itemStack);
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+        String mode = this.getActiveMode(player.getHeldItem(hand));
         IPowerModule module = ModuleManager.getModule(mode);
         if (module instanceof IRightClickModule)
-            return ((IRightClickModule)module).onItemUseFirst(itemStack, player, world, pos, side, hitX, hitY, hitZ, hand);
+            return ((IRightClickModule)module).onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand);
         return EnumActionResult.PASS;
     }
 
     @Override
-    public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        String mode = this.getActiveMode(itemStack);
+    public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        String mode = this.getActiveMode(playerIn.getHeldItem(hand));
         IPowerModule module2;
         IPowerModule module = module2 = ModuleManager.getModule(mode);
         if (module2 instanceof IRightClickModule) {
-            return ((IRightClickModule)module2).onItemUse(itemStack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+            return ((IRightClickModule)module2).onItemUse(playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
         }
         return EnumActionResult.PASS;
     }
@@ -357,14 +360,14 @@ public class ItemPowerFist extends MPSItemElectricTool
 
     /* EnderIO Tool */
     @Override
-    public void used(ItemStack itemStack, EntityPlayer entityPlayer, BlockPos blockPos) {
+    public void used(@Nonnull EnumHand enumHand, @Nonnull EntityPlayer entityPlayer, @Nonnull BlockPos blockPos) {
 
     }
 
     /* EnderIO Tool */
     @Override
-    public boolean canUse(ItemStack itemStack, EntityPlayer entityPlayer, BlockPos blockPos) {
-        return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
+    public boolean canUse(@Nonnull EnumHand enumHand, @Nonnull EntityPlayer entityPlayer, @Nonnull BlockPos blockPos) {
+        return this.getActiveMode(entityPlayer.getHeldItem(enumHand)).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
 
     /* EnderIO Tool */

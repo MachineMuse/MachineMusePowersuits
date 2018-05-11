@@ -46,11 +46,11 @@ public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule,
             for (int i = 0; i < inv.getSizeInventory(); i++) {
                 ItemStack stack = inv.getStackInSlot(i);
                 if (stack != null && stack.getItem() == Items.COAL) {
-                    int loopTimes = coalNeeded < stack.stackSize ? coalNeeded : stack.stackSize;
+                    int loopTimes = coalNeeded < stack.getCount() ? coalNeeded : stack.getCount();
                     for (int i2 = 0; i2 < loopTimes; i2++) {
                         MuseItemUtils.setCoalLevel(item, MuseItemUtils.getCoalLevel(item) + 1);
                         player.inventory.decrStackSize(i, 1);
-                        if (stack.stackSize == 0) {
+                        if (stack.getCount() == 0) {
                             player.inventory.setInventorySlotContents(i, null);
                         }
                     }

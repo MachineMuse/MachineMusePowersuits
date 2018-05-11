@@ -8,9 +8,9 @@ import net.machinemuse.powersuits.client.render.item.IArmorModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -61,7 +61,7 @@ public class RenderPart extends ModelRenderer {
                         part.modelSpec.applyOffsetAndRotation(); // not yet implemented
 
                         Tessellator tess = Tessellator.getInstance();
-                        VertexBuffer buffer = tess.getBuffer();
+                        BufferBuilder buffer = tess.getBuffer();
                         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.ITEM);
 
                         for (BakedQuad quad : part.getQuads()) {

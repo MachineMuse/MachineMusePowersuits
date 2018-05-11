@@ -23,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -43,20 +44,22 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
     }
 
     @Override
-    public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+        ItemStack itemStackIn = playerIn.getHeldItem(hand);
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
 
     @Override
-    public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        double energyConsumed = ModuleManager.computeModularProperty(itemStack, HOE_ENERGY_CONSUMPTION);
-        if (!playerIn.canPlayerEdit(pos, facing, itemStack) || ElectricItemUtils.getPlayerEnergy(playerIn) < energyConsumed) {
+    public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        ItemStack itemStackIn = playerIn.getHeldItem(hand);
+        double energyConsumed = ModuleManager.computeModularProperty(itemStackIn, HOE_ENERGY_CONSUMPTION);
+        if (!playerIn.canPlayerEdit(pos, facing, itemStackIn) || ElectricItemUtils.getPlayerEnergy(playerIn) < energyConsumed) {
             return EnumActionResult.FAIL;
         } else {
-            int hook = net.minecraftforge.event.ForgeEventFactory.onHoeUse(itemStack, playerIn, worldIn, pos);
+            int hook = ForgeEventFactory.onHoeUse(itemStackIn, playerIn, worldIn, pos);
             if (hook != 0) return hook > 0 ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
 
-            double radius = (int) ModuleManager.computeModularProperty(itemStack, HOE_SEARCH_RADIUS);
+            double radius = (int) ModuleManager.computeModularProperty(itemStackIn, HOE_SEARCH_RADIUS);
             for (int i = (int) Math.floor(-radius); i < radius; i++) {
                 for (int j = (int) Math.floor(-radius); j < radius; j++) {
                     if (i * i + j * j < radius * radius) {
@@ -65,16 +68,16 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
                         Block block = iblockstate.getBlock();
                         if (facing != EnumFacing.DOWN && (worldIn.isAirBlock(newPos.up()) || ToolHelpers.blockCheckAndHarvest(playerIn, worldIn, newPos.up()))) {
                             if (block == Blocks.GRASS || block == Blocks.GRASS_PATH) {
-                                this.setBlock(itemStack, playerIn, worldIn, newPos, Blocks.FARMLAND.getDefaultState());
+                                this.setBlock(itemStackIn, playerIn, worldIn, newPos, Blocks.FARMLAND.getDefaultState());
                             }
 
                             if (block == Blocks.DIRT) {
                                 switch (iblockstate.getValue(BlockDirt.VARIANT)) {
                                     case DIRT:
-                                        this.setBlock(itemStack, playerIn, worldIn, newPos, Blocks.FARMLAND.getDefaultState());
+                                        this.setBlock(itemStackIn, playerIn, worldIn, newPos, Blocks.FARMLAND.getDefaultState());
                                         break;
                                     case COARSE_DIRT:
-                                        this.setBlock(itemStack, playerIn, worldIn, newPos, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
+                                        this.setBlock(itemStackIn, playerIn, worldIn, newPos, Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
                                         break;
                                 }
                             }
@@ -97,7 +100,7 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
     }
 
     @Override
-    public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         return EnumActionResult.PASS;
     }
 

@@ -113,8 +113,8 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
 
             // add knockback resistance back because it doesn't show in tooltip after AttributeModifiers tag is added
             modifiers.appendTag(new AttributeModifier(0, TAGUUID, 0.25,
-                    SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getAttributeUnlocalizedName(),
-                    SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getAttributeUnlocalizedName(), EntityEquipmentSlot.LEGS).toNBT());
+                    SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(),
+                    SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), EntityEquipmentSlot.LEGS).toNBT());
 
         }
     }

@@ -17,6 +17,7 @@ import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.relauncher.Side;
@@ -76,7 +77,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
                         + (border.left() + border.right()) / 2;
                 if (xoffset + 16 * itemsToCheck.size() > x && xoffset < x) {
                     int index = (int) (x - xoffset) / 16;
-                    return (List<String>) itemsToCheck.get(index).getTooltip(player, false);
+                    return (List<String>) itemsToCheck.get(index).getTooltip(player, ITooltipFlag.TooltipFlags.NORMAL);
                 }
             }
         }

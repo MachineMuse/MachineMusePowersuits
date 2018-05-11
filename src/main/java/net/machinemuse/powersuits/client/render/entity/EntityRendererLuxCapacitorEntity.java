@@ -6,8 +6,8 @@ import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -35,7 +35,7 @@ public class EntityRendererLuxCapacitorEntity extends MuseEntityRenderer <Entity
             GL11.glTranslated(x, y, z);
             Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             Tessellator tess = Tessellator.getInstance();
-            VertexBuffer buffer = tess.getBuffer();
+            BufferBuilder buffer = tess.getBuffer();
             buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.ITEM);
             for (BakedQuad quad : luxCapacitorModel.getQuads(blockState, null, 0)) {
                 buffer.addVertexData(quad.getVertexData());

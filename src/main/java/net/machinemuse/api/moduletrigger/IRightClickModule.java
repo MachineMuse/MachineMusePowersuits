@@ -12,13 +12,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public interface IRightClickModule extends IPowerModule {
-    ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand);
+    ActionResult onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand);
 
     EnumActionResult onItemUse(
-            ItemStack stack, EntityPlayer playerIn, World worldIn,
+            EntityPlayer playerIn, World worldIn,
             BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ);
 
-    EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world,
+    EnumActionResult onItemUseFirst(EntityPlayer player, World world,
                                     BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand);
 
     void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft);

@@ -51,19 +51,20 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
     }
 
     @Override
-    public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+        ItemStack itemStackIn = playerIn.getHeldItem(hand);
         if ((playerIn.getRidingEntity() == null) && (playerIn.getPassengers().isEmpty()) && ((playerIn instanceof EntityPlayerMP))) {
-            EntityPlayerMP thePlayer = (EntityPlayerMP) playerIn;
-            if (thePlayer.dimension != -1) {
-                thePlayer.setLocationAndAngles(0.5D, thePlayer.posY, 0.5D, thePlayer.rotationYaw, thePlayer.rotationPitch);
-                thePlayer.mcServer.getPlayerList().transferPlayerToDimension(thePlayer, -1, new MPSTeleporter(thePlayer.mcServer.worldServerForDimension(-1)));
-                ElectricItemUtils.drainPlayerEnergy(thePlayer, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_ENERGY_GENERATION));
-                MuseHeatUtils.heatPlayer(thePlayer, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_HEAT_GENERATION));
-            } else if (thePlayer.dimension == -1 || thePlayer.dimension == 1)
-                thePlayer.setLocationAndAngles(0.5D, thePlayer.posY, 0.5D, thePlayer.rotationYaw, thePlayer.rotationPitch);
-            thePlayer.mcServer.getPlayerList().transferPlayerToDimension(thePlayer, 0, new MPSTeleporter(thePlayer.mcServer.worldServerForDimension(0)));
-            if (thePlayer.dimension == 0) {
-                BlockPos coords = (thePlayer instanceof EntityPlayer) ? (thePlayer).getBedLocation(thePlayer.dimension) : null;
+            EntityPlayerMP player = (EntityPlayerMP) playerIn;
+            if (player.dimension != -1) {
+                player.setLocationAndAngles(0.5D, player.posY, 0.5D, player.rotationYaw, player.rotationPitch);
+                player.mcServer.getPlayerList().transferPlayerToDimension(player, -1, new MPSTeleporter(player.mcServer.getWorld(-1)));
+                ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_ENERGY_GENERATION));
+                MuseHeatUtils.heatPlayer(player, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_HEAT_GENERATION));
+            } else if (player.dimension == -1 || player.dimension == 1)
+                player.setLocationAndAngles(0.5D, player.posY, 0.5D, player.rotationYaw, player.rotationPitch);
+            player.mcServer.getPlayerList().transferPlayerToDimension(player, 0, new MPSTeleporter(player.mcServer.getWorld(0)));
+            if (player.dimension == 0) {
+                BlockPos coords = (player instanceof EntityPlayer) ? (player).getBedLocation(player.dimension) : null;
                 if ((coords == null) || ((coords.getX() == 0) && (coords.getY() == 0) && (coords.getZ() == 0))) {
                     coords = worldIn.getSpawnPoint();
                 }
@@ -72,21 +73,21 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
                         (worldIn.getBlockState(new BlockPos(coords.getX(), yPos + 1, coords.getZ())) != Blocks.AIR)) {
                     yPos++;
                 }
-                (thePlayer).setPositionAndUpdate(coords.getX() + 0.5D, yPos, coords.getZ() + 0.5D);
+                (player).setPositionAndUpdate(coords.getX() + 0.5D, yPos, coords.getZ() + 0.5D);
             }
-            ElectricItemUtils.drainPlayerEnergy(thePlayer, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_ENERGY_GENERATION));
-            MuseHeatUtils.heatPlayer(thePlayer, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_HEAT_GENERATION));
+            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_ENERGY_GENERATION));
+            MuseHeatUtils.heatPlayer(player, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_HEAT_GENERATION));
         }
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
 
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         return EnumActionResult.PASS;
     }
 
     @Override
-    public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         return EnumActionResult.PASS;
     }
 

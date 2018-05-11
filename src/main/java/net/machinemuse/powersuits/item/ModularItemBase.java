@@ -11,6 +11,7 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -142,7 +143,7 @@ public class ModularItemBase extends Item implements IModularItemBase {
     @SideOnly(Side.CLIENT)
     @Override
     public String getToolTip(ItemStack itemStack) {
-        return itemStack.getTooltip(Minecraft.getMinecraft().thePlayer, false).toString();
+        return itemStack.getTooltip(Minecraft.getMinecraft().player, ITooltipFlag.TooltipFlags.NORMAL).toString();
     }
 
     @Override

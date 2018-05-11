@@ -219,7 +219,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
             // isFireDamage includes heat related damage sources such as lava
             if (source.isFireDamage()) {
                 EntityPlayer player = (EntityPlayer) entity;
-                if (!source.equals(DamageSource.onFire) || MuseHeatUtils.getPlayerHeat(player) < MuseHeatUtils.getMaxHeat(player))
+                if (!source.equals(DamageSource.ON_FIRE) || MuseHeatUtils.getPlayerHeat(player) < MuseHeatUtils.getMaxHeat(player))
                     MuseHeatUtils.heatPlayer(player, damage);
             } else {
                 double enerConsum = ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION);

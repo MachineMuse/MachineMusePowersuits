@@ -60,10 +60,10 @@ public class MobRepulsorModule extends PowerModuleBase implements IPlayerTickMod
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(item, MOB_REPULSOR_ENERGY_CONSUMPTION)) {
-            if (player.worldObj.getTotalWorldTime() % 20 == 0) {
+            if (player.world.getTotalWorldTime() % 20 == 0) {
                 ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(item, MOB_REPULSOR_ENERGY_CONSUMPTION));
             }
-            repulse(player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
+            repulse(player.world, (int) player.posX, (int) player.posY, (int) player.posZ);
         }
     }
 

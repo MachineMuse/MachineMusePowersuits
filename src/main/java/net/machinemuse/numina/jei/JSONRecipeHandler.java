@@ -19,11 +19,6 @@ public class JSONRecipeHandler implements IRecipeHandler<JSONRecipe> {
     }
 
     @Override
-    public String getRecipeCategoryUid() {
-        return VanillaRecipeCategoryUid.CRAFTING;
-    }
-
-    @Override
     public String getRecipeCategoryUid(JSONRecipe recipe) {
         return VanillaRecipeCategoryUid.CRAFTING;
     }

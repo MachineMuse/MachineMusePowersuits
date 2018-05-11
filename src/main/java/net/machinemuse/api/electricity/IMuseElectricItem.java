@@ -1,8 +1,8 @@
 package net.machinemuse.api.electricity;
 
-//import appeng.api.config.AccessRestriction;
-//import appeng.api.implementations.items.IAEItemPowerStorage;
-import cofh.api.energy.IEnergyContainerItem;
+import appeng.api.config.AccessRestriction;
+import appeng.api.implementations.items.IAEItemPowerStorage;
+import cofh.redstoneflux.api.IEnergyContainerItem;
 import ic2.api.item.IElectricItemManager;
 import ic2.api.item.ISpecialElectricItem;
 import mekanism.api.energy.IEnergizedItem;

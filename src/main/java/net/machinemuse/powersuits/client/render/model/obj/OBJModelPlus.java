@@ -52,7 +52,6 @@ import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.logging.log4j.core.helpers.Strings;
 
 import javax.annotation.Nullable;
 import javax.vecmath.*;

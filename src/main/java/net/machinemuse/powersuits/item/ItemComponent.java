@@ -3,12 +3,16 @@ package net.machinemuse.powersuits.item;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +62,7 @@ public class ItemComponent extends Item {
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> currentTipList, ITooltipFlag flagIn) {
         if (Config.doAdditionalInfo()) {
             String message =  I18n.format("tooltip.componentTooltip");
             message = MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic);
@@ -114,9 +118,9 @@ public class ItemComponent extends Item {
      * returns 16 items). For creative tab.
      */
     @Override
-    public void getSubItems(Item item, CreativeTabs tab, List listToAddTo) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         for (Integer meta : names.keySet()) {
-            listToAddTo.add(new ItemStack(this, 1, meta));
+            items.add(new ItemStack(this, 1, meta));
         }
     }
 }

@@ -62,7 +62,7 @@ public class ClientTickHandler {
                 kb.doToggleTick();
             }
         } else {
-            EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+            EntityPlayerSP player = Minecraft.getMinecraft().player;
             if (player != null && MuseItemUtils.getModularItemsInInventory(player).size() > 0) {
                 PlayerInputMap inputmap = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
                 inputmap.forwardKey = Math.signum(player.movementInput.moveForward);
@@ -133,7 +133,7 @@ public class ClientTickHandler {
         }
 
         if (event.phase == TickEvent.Phase.END) {
-            EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+            EntityPlayer player = Minecraft.getMinecraft().player;
             modules = new ArrayList<String>();
             findInstalledModules(player);
             if (player != null && Minecraft.getMinecraft().isGuiEnabled() && MuseItemUtils.modularItemsEquipped(player).size() > 0 && Minecraft.getMinecraft().currentScreen == null) {
@@ -151,7 +151,7 @@ public class ClientTickHandler {
                             MuseRenderer.drawItemAt(-1.0, yBaseIcon + (yOffsetIcon * i), food);
                         }
                     } else if (Objects.equals(modules.get(i), ClockModule.MODULE_CLOCK)) {
-                        long time = player.worldObj.provider.getWorldTime();
+                        long time = player.world.provider.getWorldTime();
                         long hour = ((time % 24000) / 1000);
                         if (Config.use24hClock()) {
                             if (hour < 19) {

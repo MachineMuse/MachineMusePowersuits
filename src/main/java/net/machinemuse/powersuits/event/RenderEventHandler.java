@@ -105,7 +105,7 @@ public class RenderEventHandler {
     public void drawKeybindToggles() {
         if (Config.keybindHUDon()) {
             Minecraft mc = Minecraft.getMinecraft();
-            EntityPlayerSP player = mc.thePlayer;
+            EntityPlayerSP player = mc.player;
             ScaledResolution screen = new ScaledResolution(mc);
             frame.setLeft(Config.keybindHUDx());
             frame.setTop(Config.keybindHUDy());

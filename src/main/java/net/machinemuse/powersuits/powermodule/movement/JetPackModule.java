@@ -72,24 +72,24 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
             thrust *= MusePlayerUtils.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
             if (hasFlightControl && thrust > 0) {
                 thrust = MusePlayerUtils.thrust(player, thrust, true);
-                if (player.worldObj.isRemote && NuminaConfig.useSounds()) {
+                if (player.world.isRemote && NuminaConfig.useSounds()) {
                         Musique.playerSound(player, SoundDictionary.SOUND_EVENT_JETPACK, SoundCategory.PLAYERS, (float) (thrust * 6.25), 1.0f, true);
                 }
                 ElectricItemUtils.drainPlayerEnergy(player, thrust * jetEnergy);
             } else if (jumpkey ){//&& player.motionY < 0.5) {
                 thrust = MusePlayerUtils.thrust(player, thrust, false);
-                if (player.worldObj.isRemote && NuminaConfig.useSounds()) {
+                if (player.world.isRemote && NuminaConfig.useSounds()) {
 
                     Musique.playerSound(player, SoundDictionary.SOUND_EVENT_JETPACK, SoundCategory.PLAYERS, (float) (thrust * 6.25), 1.0f, true);
                 }
                 ElectricItemUtils.drainPlayerEnergy(player, thrust * jetEnergy);
             } else {
-                if (player.worldObj.isRemote && NuminaConfig.useSounds()) {
+                if (player.world.isRemote && NuminaConfig.useSounds()) {
                     Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_JETPACK);
                 }
             }
         } else {
-            if (player.worldObj.isRemote && NuminaConfig.useSounds()) {
+            if (player.world.isRemote && NuminaConfig.useSounds()) {
                 Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_JETPACK);
             }
         }
@@ -97,7 +97,7 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-        if (player.worldObj.isRemote && NuminaConfig.useSounds()) {
+        if (player.world.isRemote && NuminaConfig.useSounds()) {
             Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_JETPACK);
         }
     }

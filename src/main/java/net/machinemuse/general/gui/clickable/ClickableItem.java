@@ -41,7 +41,7 @@ public class ClickableItem extends Clickable {
 
     @Override
     public List<String> getToolTip() {
-        return item.getTooltip(Minecraft.getMinecraft().thePlayer, false);
+        return item.getTooltip(Minecraft.getMinecraft().player, false);
     }
 
     /**
@@ -53,7 +53,7 @@ public class ClickableItem extends Clickable {
         MuseRenderer.drawItemAt(
                 getPosition().x() - offsetx,
                 getPosition().y() - offsety, item);
-        if (inventorySlot > 35 || Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem() == item) {
+        if (inventorySlot > 35 || Minecraft.getMinecraft().player.inventory.getCurrentItem() == item) {
             MuseRenderer.drawString("e", getPosition().x() + 3, getPosition().y() + 1, Colour.DARKGREEN);
         }
     }

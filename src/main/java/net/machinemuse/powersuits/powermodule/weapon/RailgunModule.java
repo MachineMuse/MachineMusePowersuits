@@ -70,11 +70,11 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
         double yoffset = -.2;
         double zoffset = 0.3f;
         Vec3d horzdir = direction.normalize();
-        horzdir = new Vec3d(horzdir.xCoord, 0, horzdir.zCoord);
+        horzdir = new Vec3d(horzdir.x, 0, horzdir.z);
         horzdir = horzdir.normalize();
-        double cx = source.posX + direction.xCoord * xoffset - direction.yCoord * horzdir.xCoord * yoffset - horzdir.zCoord * zoffset;
-        double cy = source.posY + source.getEyeHeight() + direction.yCoord * xoffset + (1 - Math.abs(direction.yCoord)) * yoffset;
-        double cz = source.posZ + direction.zCoord * xoffset - direction.yCoord * horzdir.zCoord * yoffset + horzdir.xCoord * zoffset;
+        double cx = source.posX + direction.x * xoffset - direction.y * horzdir.x * yoffset - horzdir.z * zoffset;
+        double cy = source.posY + source.getEyeHeight() + direction.y * xoffset + (1 - Math.abs(direction.y)) * yoffset;
+        double cz = source.posZ + direction.z * xoffset - direction.y * horzdir.z * yoffset + horzdir.x * zoffset;
         double dx = x - cx;
         double dy = y - cy;
         double dz = z - cz;
@@ -89,7 +89,8 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
     }
 
     @Override
-    public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+        ItemStack itemStackIn = playerIn.getHeldItem(hand);
         if (hand == EnumHand.MAIN_HAND) {
             double range = 64;
             double timer = MuseItemUtils.getDoubleOrZero(itemStackIn, TIMER);
@@ -98,7 +99,7 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
                 ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
                 MuseItemUtils.setDoubleOrRemove(itemStackIn, TIMER, 10);
                 MuseHeatUtils.heatPlayer(playerIn, ModuleManager.computeModularProperty(itemStackIn, HEAT));
-                RayTraceResult hitMOP = MusePlayerUtils.doCustomRayTrace(playerIn.worldObj, playerIn, true, range);
+                RayTraceResult hitMOP = MusePlayerUtils.doCustomRayTrace(playerIn.world, playerIn, true, range);
                 // TODO: actual railgun sound
                 worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
                 double damage = ModuleManager.computeModularProperty(itemStackIn, IMPULSE) / 100.0;
@@ -107,20 +108,19 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
                 if (hitMOP != null) {
                     switch (hitMOP.typeOfHit) {
                         case ENTITY:
-                            drawParticleStreamTo(playerIn, worldIn, hitMOP.hitVec.xCoord, hitMOP.hitVec.yCoord, hitMOP.hitVec.zCoord);
+                            drawParticleStreamTo(playerIn, worldIn, hitMOP.hitVec.x, hitMOP.hitVec.y, hitMOP.hitVec.z);
                             DamageSource damageSource = DamageSource.causePlayerDamage(playerIn);
                             if (hitMOP.entityHit.attackEntityFrom(damageSource, (int) damage)) {
-                                hitMOP.entityHit.addVelocity(lookVec.xCoord * knockback, Math.abs(lookVec.yCoord + 0.2f) * knockback, lookVec.zCoord
-                                        * knockback);
+                                hitMOP.entityHit.addVelocity(lookVec.x * knockback, Math.abs(lookVec.y + 0.2f) * knockback, lookVec.z * knockback);
                             }
                             break;
                         case BLOCK:
-                            drawParticleStreamTo(playerIn, worldIn, hitMOP.hitVec.xCoord, hitMOP.hitVec.yCoord, hitMOP.hitVec.zCoord);
+                            drawParticleStreamTo(playerIn, worldIn, hitMOP.hitVec.x, hitMOP.hitVec.y, hitMOP.hitVec.z);
                             break;
                         default:
                             break;
                     }
-                    playerIn.addVelocity(-lookVec.xCoord * knockback, Math.abs(-lookVec.yCoord + 0.2f) * knockback, -lookVec.zCoord * knockback);
+                    playerIn.addVelocity(-lookVec.x * knockback, Math.abs(-lookVec.y + 0.2f) * knockback, -lookVec.z * knockback);
 
                     worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
                 }
@@ -132,12 +132,12 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
     }
 
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         return EnumActionResult.PASS;
     }
 
     @Override
-    public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         return EnumActionResult.PASS;
     }
 

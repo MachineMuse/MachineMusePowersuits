@@ -84,22 +84,23 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
     }
 
     @Override
-    public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+        ItemStack itemStackIn = playerIn.getHeldItem(hand);
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
 
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         return EnumActionResult.PASS;
     }
 
     @Override
-    public EnumActionResult onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         int block = Block.getIdFromBlock(world.getBlockState(pos).getBlock());
 
         if (Loader.isModLoaded("MineFactoryReloaded")) {
             if (block == Block.getIdFromBlock(Block.REGISTRY.getObject(new ResourceLocation("MineFactoryReloaded", "cable.redstone"))))
-                return rednetMeter.getItem().onItemUseFirst(itemStack, player, world, pos, side, hitX, hitY, hitZ, EnumHand.MAIN_HAND);
+                return rednetMeter.getItem().onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, EnumHand.MAIN_HAND);
         }
 
         if (Loader.isModLoaded("Railcraft")) {
@@ -107,13 +108,13 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
                     (block == Block.getIdFromBlock(Block.REGISTRY.getObject(new ResourceLocation("Railcraft", "tile.railcraft.track")))) ||
                     (block == Block.getIdFromBlock(Block.REGISTRY.getObject(new ResourceLocation("Railcraft", "tile.railcraft.machine.epsilon")))) ||
                     (block == Block.getIdFromBlock(Block.REGISTRY.getObject(new ResourceLocation("Railcraft", "tile.railcraft.machine.delta"))))) {
-                return rcMeter.getItem().onItemUseFirst(itemStack, player, world, pos, side, hitX, hitY, hitZ, EnumHand.MAIN_HAND);
+                return rcMeter.getItem().onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, EnumHand.MAIN_HAND);
             }
         }
 
         if (Loader.isModLoaded("EnderIO")) {
             if (block == Block.getIdFromBlock(Block.REGISTRY.getObject(new ResourceLocation("EnderIO", "blockConduitBundle")))) {
-                return conduitProbe.getItem().onItemUse(itemStack, player, world, pos, EnumHand.MAIN_HAND, side, hitX, hitY, hitZ);
+                return conduitProbe.getItem().onItemUse(player, world, pos, EnumHand.MAIN_HAND, side, hitX, hitY, hitZ);
             }
         }
         return EnumActionResult.PASS;
