@@ -7,10 +7,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,29 +131,39 @@ public class JSONRecipe implements IRecipe {
         return result.makeItem(inventoryCrafting);
     }
 
+    /**
+     * Used to determine if this recipe can fit in a grid of the given width/height
+     *
+     * @param width
+     * @param height
+     */
     @Override
-    public int getRecipeSize() {
-        if (ingredients == null) return 0;
-        int size = 0;
-        for (IItemMatcher[] row : ingredients) {
-            if (row != null) {
-                for (IItemMatcher cell : row) {
-                    if (cell != null) {
-                        size++;
-                    }
-                }
-            }
-        }
-        return size;
+    public boolean canFit(int width, int height) {
+        return false;
     }
 
+//    @Override
+//    public int getRecipeSize() {
+//        if (ingredients == null) return 0;
+//        int size = 0;
+//        for (IItemMatcher[] row : ingredients) {
+//            if (row != null) {
+//                for (IItemMatcher cell : row) {
+//                    if (cell != null) {
+//                        size++;
+//                    }
+//                }
+//            }
+//        }
+//        return size;
+//    }
+
     @Override
-    public ItemStack[] getRemainingItems(InventoryCrafting inv) {
-        ItemStack[] aitemstack = new ItemStack[inv.getSizeInventory()];
-        for (int i = 0; i < aitemstack.length; ++i)
-        {
+    public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
+        NonNullList<ItemStack> aitemstack = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+        for (int i = 0; i < aitemstack.size(); ++i) {
             ItemStack itemstack = inv.getStackInSlot(i);
-            aitemstack[i] = net.minecraftforge.common.ForgeHooks.getContainerItem(itemstack);
+            aitemstack.set(i, net.minecraftforge.common.ForgeHooks.getContainerItem(itemstack));
         }
         return aitemstack;
     }
@@ -278,5 +290,43 @@ public class JSONRecipe implements IRecipe {
             MuseLogger.logError("cell.nbtString: " + cell.nbtString);
         }
         return result;
+    }
+
+    /**
+     * Sets a unique name for this Item. This should be used for uniquely identify the instance of the Item.
+     * This is the valid replacement for the atrocious 'getUnlocalizedName().substring(6)' stuff that everyone does.
+     * Unlocalized names have NOTHING to do with unique identifiers. As demonstrated by vanilla blocks and items.
+     * <p>
+     * The supplied name will be prefixed with the currently active mod's modId.
+     * If the supplied name already has a prefix that is different, it will be used and a warning will be logged.
+     * <p>
+     * If a name already exists, or this Item is already registered in a registry, then an IllegalStateException is thrown.
+     * <p>
+     * Returns 'this' to allow for chaining.
+     *
+     * @param name Unique registry name
+     * @return This instance
+     */
+    @Override
+    public IRecipe setRegistryName(ResourceLocation name) {
+        return null;
+    }
+
+    /**
+     * A unique identifier for this entry, if this entry is registered already it will return it's official registry name.
+     * Otherwise it will return the name set in setRegistryName().
+     * If neither are valid null is returned.
+     *
+     * @return Unique identifier or null.
+     */
+    @Nullable
+    @Override
+    public ResourceLocation getRegistryName() {
+        return null;
+    }
+
+    @Override
+    public Class<IRecipe> getRegistryType() {
+        return null;
     }
 }

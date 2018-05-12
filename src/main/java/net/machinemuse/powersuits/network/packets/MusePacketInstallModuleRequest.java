@@ -55,7 +55,7 @@ public class MusePacketInstallModuleRequest extends MusePacket {
             InventoryPlayer inventory = player.inventory;
             IPowerModule moduleType = ModuleManager.getModule(moduleName);
             if (moduleType == null || !moduleType.isAllowed()) {
-                player.addChatComponentMessage(new TextComponentString("Server has disallowed this module. Sorry!"));
+                player.sendMessage(new TextComponentString("Server has disallowed this module. Sorry!"));
                 return;
             }
             List<ItemStack> cost = moduleType.getInstallCost();

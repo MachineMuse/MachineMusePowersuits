@@ -5,6 +5,7 @@ import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public class ClickableItem extends Clickable {
 
     @Override
     public List<String> getToolTip() {
-        return item.getTooltip(Minecraft.getMinecraft().player, false);
+        return item.getTooltip(Minecraft.getMinecraft().player, ITooltipFlag.TooltipFlags.NORMAL);
     }
 
     /**

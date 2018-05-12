@@ -69,7 +69,7 @@ public class ClickableKeybinding extends ClickableButton {
         for (ClickableModule module : boundModules) {
             String valstring = (toggleval) ? " on" : " off";
             if ((FMLCommonHandler.instance().getEffectiveSide().equals(Side.CLIENT) && Config.toggleModuleSpam())) {
-                player.addChatMessage(new TextComponentString("Toggled " + module.getModule().getDataName() + valstring));
+                player.sendMessage(new TextComponentString("Toggled " + module.getModule().getDataName() + valstring));
             }
             MuseItemUtils.toggleModuleForPlayer(player, module.getModule().getDataName(), toggleval);
             MusePacketToggleRequest toggleRequest = new MusePacketToggleRequest(player, module.getModule().getDataName(), toggleval);

@@ -155,11 +155,6 @@ public class BlockLuxCapacitor extends BlockDirectional {
     }
 
     @Override
-    public boolean isVisuallyOpaque() {
-        return false;
-    }
-
-    @Override
     public boolean hasTileEntity(IBlockState state) {
         return true;
     }

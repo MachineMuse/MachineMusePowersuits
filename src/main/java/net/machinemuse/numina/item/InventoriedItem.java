@@ -62,7 +62,7 @@ public class InventoriedItem implements IInventoriedItem {
         NBTTagList list = this.getContentsAsNBTTagList(stack);
         List<ItemStack> stackList = new ArrayList<>();
         for (int i = 0; i < list.tagCount(); i++) {
-            stackList.add(ItemStack.loadItemStackFromNBT(list.getCompoundTagAt(i)));
+            stackList.add(new ItemStack(list.getCompoundTagAt(i)));
         }
         return stackList;
     }
