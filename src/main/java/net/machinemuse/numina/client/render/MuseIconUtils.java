@@ -1,7 +1,7 @@
 package net.machinemuse.numina.render;
 
 import net.machinemuse.numina.general.MuseMathUtils;
-import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.math.geometry.Colour;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
