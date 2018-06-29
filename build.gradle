@@ -1,26 +1,29 @@
 buildscript {
-	repositories {
-		jcenter()
-		maven {
-                url 'http://files.minecraftforge.net/maven'
+    repositories {
+        jcenter()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
         }
-		maven {
-                url 'https://plugins.gradle.org/m2/'
+        maven {
+            url 'https://plugins.gradle.org/m2/'
         }
-	}
-	dependencies {
-		classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
-		classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.0.8'
-	}
-}
 
-apply plugin: 'scala'
+        maven {
+            url 'https://mvnrepository.com/artifact/org.lz4/lz4-java'
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
+}
 apply plugin: 'net.minecraftforge.gradle.forge'
-apply plugin: 'com.matthewprenger.cursegradle'
 apply plugin: 'idea'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+}
 
 def buildnumber = System.getenv("BUILD_NUMBER")
 def travisbuildnumber = (System.getenv("TRAVIS_BUILD_NUMBER") ?: -000).toInteger() + 00
@@ -42,10 +45,18 @@ dependencies {
     // compile against the JEI API
     deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}:api"
 
-    compile group: 'com.google.guava', name: 'guava', version: '19.0'
-
+    compile group: 'com.google.guava', name: 'guava', version: '22.0'
+    
     // at runtime, use the full JEI jar
     runtime "mezz.jei:jei_${minecraft_version}:${jei_version}"
+
+
+
+
+    compile group: 'org.lz4', name: 'lz4-java', version: '1.4.1'
+
+
+
 }
 
 minecraft {
@@ -102,48 +113,7 @@ task copyToLib(type: Copy) {
     }
 }
 
-def getGitChangelog = { ->
-    try {
-        def stdout = new ByteArrayOutputStream()
-        def gitHash = System.getenv("GIT_COMMIT")
-        def gitPrevHash = System.getenv("GIT_PREVIOUS_COMMIT")
-        if(gitHash && gitPrevHash) {
-            exec {
-                commandLine 'git', 'log', '--pretty=tformat:%s - %aN', '' + gitPrevHash + '...' + gitHash
-                standardOutput = stdout
-            }
-            return stdout.toString().trim()
-        } else {
-            return "";
-        }
-    } catch(ignored) {
-        return "";
-    }
-}
-
 build.dependsOn(copyToLib)
-
-curseforge {
-    apiKey = project.hasProperty('curseForgeApiKey') ? project.curseForgeApiKey : ''
-    def branch = System.getenv("GIT_BRANCH")
-
-  project {
-    id = '235442'
-    changelog = getGitChangelog()
-    addGameVersion '1.10.2'
-    //relatedProject 'numina': 'requiredLibrary'
-
-    if(branch == null) {
-        releaseType = 'alpha'
-    } else if(branch.equals("origin/experimental")) {
-        releaseType = 'beta'
-    } else if(branch.equals("origin/master")) {
-        releaseType = 'release'
-    } else {
-        releaseType = 'alpha'
-    }    
-  }    
-}
 
 idea {
     module {
