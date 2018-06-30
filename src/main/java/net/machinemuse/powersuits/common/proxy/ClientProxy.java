@@ -8,6 +8,7 @@ import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.block.TileEntityTinkerTable;
+import net.machinemuse.powersuits.client.event.EventRegisterRenderers;
 import net.machinemuse.powersuits.client.model.obj.OBJPlusLoader;
 import net.machinemuse.powersuits.client.render.block.TinkerTableRenderer;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererLuxCapacitorEntity;
@@ -87,6 +88,7 @@ public class ClientProxy extends CommonProxy {
         MinecraftForge.EVENT_BUS.register(new SoundDictionary());
         MinecraftForge.EVENT_BUS.register(new RenderEventHandler());
         MinecraftForge.EVENT_BUS.register(ModelBakeEventHandler.getInstance());
+        MinecraftForge.EVENT_BUS.register(new EventRegisterRenderers());
     }
 
     @Override
