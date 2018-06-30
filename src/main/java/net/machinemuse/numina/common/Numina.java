@@ -1,7 +1,6 @@
 package net.machinemuse.numina.common;
 
 import net.machinemuse.numina.common.proxy.CommonProxy;
-import net.machinemuse.numina.recipe.JSONRecipeList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -56,7 +55,7 @@ public class Numina {
     @Mod.EventHandler
     private void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
-        JSONRecipeList.loadRecipesFromDir(Numina.getInstance().configDir.toString() + "/machinemuse/recipes/");
+//        JSONRecipeList.loadRecipesFromDir(Numina.getInstance().configDir.toString() + "/machinemuse/recipes/");
     }
 
     @Mod.EventHandler

@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
 import net.machinemuse.numina.scala.MuseRegistry;
+import net.machinemuse.powersuits.client.model.obj.OBJModelPlus;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.util.math.Vec3d;
 
@@ -11,19 +12,19 @@ import net.minecraft.util.math.Vec3d;
  * Ported to Java by lehjr on 11/8/16.
  */
 public class ModelSpec extends MuseRegistry<ModelPartSpec> {
-    private IBakedModel model;
+    private OBJModelPlus.OBJBakedModelPus model;
     public Vec3d offset;
     public Vec3d rotation;
     public static String filename;
 
-    public ModelSpec(IBakedModel model, Vec3d offset, Vec3d rotation, String filename) {
+    public ModelSpec(OBJModelPlus.OBJBakedModelPus model, Vec3d offset, Vec3d rotation, String filename) {
         this.model = model;
         this.offset = offset;
         this.rotation = rotation;
         this.filename = filename;
     }
 
-    public IBakedModel getModel() {
+    public OBJModelPlus.OBJBakedModelPus getModel() {
         return model;
     }
 

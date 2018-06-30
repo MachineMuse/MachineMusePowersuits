@@ -20,7 +20,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -35,7 +34,7 @@ import java.util.List;
  * Created by lehjr on 12/19/16.
  */
 @SideOnly(Side.CLIENT)
-public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
+public class ModelPowerFist implements IBakedModel {
     static ItemCameraTransforms.TransformType cameraTransformType;
     static ItemStack itemStack;
     static Item item;
@@ -48,10 +47,15 @@ public class ModelPowerFist implements IBakedModel, IPerspectiveAwareModel {
     @Override
     public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformTypeIn) {
         cameraTransformType = cameraTransformTypeIn;
-        TRSRTransformation transform = ModelPowerFistHelper.getInstance().powerfistState.apply(Optional.of(cameraTransformType)).or(TRSRTransformation.identity());
-        if(transform != TRSRTransformation.identity())
-            return Pair.of(this, TRSRTransformation.blockCornerToCenter(transform).getMatrix());
-        return Pair.of(this, ((IPerspectiveAwareModel) iconModel).handlePerspective(cameraTransformTypeIn).getValue());
+        switch(cameraTransformType) {
+            case FIRST_PERSON_LEFT_HAND:
+            case THIRD_PERSON_LEFT_HAND:
+            case FIRST_PERSON_RIGHT_HAND:
+            case THIRD_PERSON_RIGHT_HAND:
+                return Pair.of(this, TRSRTransformation.blockCornerToCenter(TRSRTransformation.identity()).getMatrix());
+            default:
+                return iconModel.handlePerspective(cameraTransformType);
+        }
     }
 
     @Override

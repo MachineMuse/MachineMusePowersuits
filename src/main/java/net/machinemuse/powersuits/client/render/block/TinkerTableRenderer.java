@@ -5,6 +5,7 @@ package net.machinemuse.powersuits.client.render.block;
 
 import net.machinemuse.powersuits.block.TileEntityTinkerTable;
 import net.machinemuse.powersuits.common.Config;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.EnumFacing;
@@ -25,7 +26,7 @@ ResourceLocation texture = new ResourceLocation( Config.TEXTURE_PREFIX + "models
     }
 
     @Override
-    public void renderTileEntityAt(TileEntityTinkerTable te, double x, double y, double z, float partialTicks, int destroyStage) {
+    public void render(TileEntityTinkerTable te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         this.bindTexture(texture);
         GlStateManager.pushMatrix();
         if (te != null) {

@@ -45,11 +45,11 @@ public class ToolHelpers {
         if (effectiveTool == null) {
             Item.ToolMaterial material;
             if (emulatedTool.getItem() instanceof ItemTool) {
-                material = ((ItemTool) emulatedTool.getItem()).getToolMaterial();
+                material = Item.ToolMaterial.valueOf(((ItemTool) emulatedTool.getItem()).getToolMaterialName());
             } else {
                 material = Item.ToolMaterial.IRON;
-            }
-            if (emulatedTool.getStrVsBlock(state) >= material.getEfficiencyOnProperMaterial())
+                }
+            if (emulatedTool.getDestroySpeed(state) >= material.getEfficiency())
                 return true;
         }
         return false;

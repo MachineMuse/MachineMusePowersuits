@@ -1,6 +1,5 @@
 package net.machinemuse.numina.network;
 
-import net.machinemuse.numina.recipe.JSONRecipeList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -24,7 +23,7 @@ public class MusePacketRecipeUpdate extends MusePacket {
     @Override
     public void handleClient(EntityPlayer player) {
         try {
-            JSONRecipeList.loadRecipesFromString(recipe);
+//            JSONRecipeList.loadRecipesFromString(recipe);
         } catch (Exception ignored) {
 
         }

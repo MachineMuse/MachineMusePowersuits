@@ -62,7 +62,7 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
             ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
             worldIn.playSound(playerIn, playerIn.getPosition(), enderman_portal, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
              MuseLogger.logDebug("Range: " + range);
-            RayTraceResult hitRayTrace = MusePlayerUtils.doCustomRayTrace(playerIn.worldObj, playerIn, true, range);
+            RayTraceResult hitRayTrace = MusePlayerUtils.doCustomRayTrace(playerIn.world, playerIn, true, range);
 
             MuseLogger.logDebug("Hit:" + hitRayTrace);
             MusePlayerUtils.teleportEntity(playerIn, hitRayTrace);

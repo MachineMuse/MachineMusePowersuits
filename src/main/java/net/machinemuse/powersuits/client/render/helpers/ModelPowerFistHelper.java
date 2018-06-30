@@ -7,7 +7,7 @@ import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.powersuits.client.render.model.obj.MPSOBJLoader;
+import net.machinemuse.powersuits.client.helper.ModelHelper;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.event.ModelBakeEventHandler;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -22,8 +22,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
-
-import static net.machinemuse.powersuits.client.render.helpers.ModelHelper.loadBakedModel;
 
 @SideOnly(Side.CLIENT)
 public class ModelPowerFistHelper {
@@ -45,23 +43,24 @@ public class ModelPowerFistHelper {
     public static void loadPowerFistModels(boolean loadModels) {
         if (!loadModels) {
             try {
-                MPSOBJLoader.INSTANCE.registerModelSprites(powerFistLocation);
-                MPSOBJLoader.INSTANCE.registerModelSprites(powerFistFingersNormalLocation);
-                MPSOBJLoader.INSTANCE.registerModelSprites(powerFistFingersFiringLocation);
-
-                MPSOBJLoader.INSTANCE.registerModelSprites(powerFistLeftLocation);
-                MPSOBJLoader.INSTANCE.registerModelSprites(powerFistFingersLeftNormalLocation);
-                MPSOBJLoader.INSTANCE.registerModelSprites(powerFistFingersLeftFiringLocation);
+                // FIXME: register textures from XML loader
+//                OBJPlusLoader.INSTANCE.registerModelSprites(powerFistLocation);
+//                OBJPlusLoader.INSTANCE.registerModelSprites(powerFistFingersNormalLocation);
+//                OBJPlusLoader.INSTANCE.registerModelSprites(powerFistFingersFiringLocation);
+//
+//                OBJPlusLoader.INSTANCE.registerModelSprites(powerFistLeftLocation);
+//                OBJPlusLoader.INSTANCE.registerModelSprites(powerFistFingersLeftNormalLocation);
+//                OBJPlusLoader.INSTANCE.registerModelSprites(powerFistFingersLeftFiringLocation);
             } catch (Exception ignored) {
             }
         } else {
-            powerFist = loadBakedModel(powerFistLocation);
-            powerFistFingers = loadBakedModel(powerFistFingersNormalLocation);
-            powerFistFingersFiring = loadBakedModel(powerFistFingersFiringLocation);
+            powerFist = ModelHelper.loadBakedModel(powerFistLocation);
+            powerFistFingers = ModelHelper.loadBakedModel(powerFistFingersNormalLocation);
+            powerFistFingersFiring = ModelHelper.loadBakedModel(powerFistFingersFiringLocation);
 
-            powerFistLeft = loadBakedModel(powerFistLeftLocation);
-            powerFistFingersLeft = loadBakedModel(powerFistFingersLeftNormalLocation);
-            powerFistFingersLeftFiring = loadBakedModel(powerFistFingersLeftFiringLocation);
+            powerFistLeft = ModelHelper.loadBakedModel(powerFistLeftLocation);
+            powerFistFingersLeft = ModelHelper.loadBakedModel(powerFistFingersLeftNormalLocation);
+            powerFistFingersLeftFiring = ModelHelper.loadBakedModel(powerFistFingersLeftFiringLocation);
         }
     }
 

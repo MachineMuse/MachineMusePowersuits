@@ -67,7 +67,7 @@ public class PersonalShrinkingModule extends PowerModuleBase implements IRightCl
 
     @Override
     public EnumActionResult onItemUseFirst(ItemStack itemStackIn, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-        return cpmPSD.getItem().onItemUseFirst(itemStackIn, player, world, pos, side, hitX, hitY, hitZ, hand);
+        return cpmPSD.getItem().onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.event;
 
-import net.machinemuse.powersuits.client.render.helpers.ModelHelper;
+import net.machinemuse.powersuits.client.helper.ModelHelper;
 import net.machinemuse.powersuits.client.render.model.ArmorIcon;
 import net.machinemuse.powersuits.client.render.model.ModelLuxCapacitor;
 import net.machinemuse.powersuits.client.render.model.ModelPowerFist;
@@ -81,7 +81,7 @@ public class ModelBakeEventHandler {
         if (firstLoad) {
             firstLoad = false;
         } else {
-            ModelHelper.loadArmorModels(true);
+            ModelHelper.loadArmorModels(null);
         }
     }
 }

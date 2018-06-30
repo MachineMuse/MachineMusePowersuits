@@ -45,7 +45,7 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         Vec3d playerHorzFacing = player.getLookVec();
-        playerHorzFacing = new Vec3d(playerHorzFacing.xCoord, 0, playerHorzFacing.zCoord);
+        playerHorzFacing = new Vec3d(playerHorzFacing.x, 0, playerHorzFacing.z);
         playerHorzFacing.normalize();
         PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
         boolean sneakkey = movementInput.sneakKey;
@@ -61,8 +61,8 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
                 float vol = (float)( player.motionX*player.motionX + player.motionZ * player.motionZ);
                 double motionYchange = Math.min(0.08, -0.1 - player.motionY);
                 player.motionY += motionYchange;
-                player.motionX += playerHorzFacing.xCoord * motionYchange;
-                player.motionZ += playerHorzFacing.zCoord * motionYchange;
+                player.motionX += playerHorzFacing.x * motionYchange;
+                player.motionZ += playerHorzFacing.z * motionYchange;
 
                 // sprinting speed
                 player.jumpMovementFactor += 0.03f;

@@ -34,10 +34,22 @@ import javax.annotation.Nullable;
  * Ported to Java by lehjr on 10/21/16.
  */
 public class BlockTinkerTable extends Block {
-    public static final String name = "tinkerTable";
+    public static final String name = "tinkertable";
     public static final PropertyDirection FACING = BlockHorizontal.FACING;
 
-    public BlockTinkerTable() {
+    private volatile static BlockTinkerTable INSTANCE;
+    public static BlockTinkerTable getInstance() {
+        if (INSTANCE == null) {
+            synchronized (BlockTinkerTable.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new BlockTinkerTable();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+
+    private BlockTinkerTable() {
         super(Material.IRON);
         setHardness(1.5F);
         setResistance(1000.0F);
@@ -54,7 +66,7 @@ public class BlockTinkerTable extends Block {
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (playerIn.isSneaking())
             return false;
         if (worldIn.isRemote)
@@ -64,13 +76,13 @@ public class BlockTinkerTable extends Block {
 
     @SuppressWarnings("deprecation")
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        return MPSItems.tinkerTable.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
+        return getInstance().getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
     }
 
-    @Override
-    public boolean isVisuallyOpaque() {
-        return false;
-    }
+//    @Override
+//    public boolean isVisuallyOpaque() {
+//        return false;
+//    }
 
     @SuppressWarnings("deprecation")
     @Override

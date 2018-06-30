@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.common.proxy;
 
+import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.common.*;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
@@ -8,6 +9,7 @@ import net.machinemuse.powersuits.event.HarvestEventHandler;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.network.packets.MPSPacketList;
 import net.machinemuse.powersuits.powermodule.tool.TerminalHandler;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -17,6 +19,8 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 import java.io.File;
+
+import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
 
 /**
  * Common side of the proxy. Provides functions which
@@ -33,8 +37,6 @@ public class CommonProxy {
         Config.init(new Configuration(newConfig));
         Config.setConfigFolderBase(event.getModConfigurationDirectory());
         Config.extractRecipes();
-        MPSItems.populateItems();
-        MPSItems.populateComponents();
     }
 
     public void init(FMLInitializationEvent event) {
@@ -63,9 +65,9 @@ public class CommonProxy {
         Config.fontDetail();
         Config.fontURI();
         Config.fontName();
-        EntityRegistry.registerModEntity(EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, ModularPowersuits.getInstance(), 64, 20, true);
-        EntityRegistry.registerModEntity(EntitySpinningBlade.class, "entitySpinningBlade", 2478, ModularPowersuits.getInstance(), 64, 20, true);
-        EntityRegistry.registerModEntity(EntityLuxCapacitor.class, "entityLuxCapacitor", 2479, ModularPowersuits.getInstance(), 64, 20, true);
+        EntityRegistry.registerModEntity(new ResourceLocation(MODID, "entityPlasmaBolt"), EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, ModularPowersuits.getInstance(), 64, 20, true);
+        EntityRegistry.registerModEntity(new ResourceLocation(MODID, "entitySpinningBlade"), EntitySpinningBlade.class, "entitySpinningBlade", 2478, ModularPowersuits.getInstance(), 64, 20, true);
+        EntityRegistry.registerModEntity(BlockLuxCapacitor.getInstance().getRegistryName(), EntityLuxCapacitor.class, "entityLuxCapacitor", 2479, ModularPowersuits.getInstance(), 64, 20, true);
         MPSPacketList.registerPackets();
         NetworkRegistry.INSTANCE.registerGuiHandler(ModularPowersuits.getInstance(), MPSGuiHandler.getInstance());
         TerminalHandler.registerHandler();

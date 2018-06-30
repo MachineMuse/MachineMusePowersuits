@@ -1,16 +1,13 @@
 package net.machinemuse.powersuits.client.render.model;
 
 import com.google.common.base.Function;
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
-import net.machinemuse.powersuits.client.render.helpers.ColoredQuadHelperThingie;
-import net.machinemuse.powersuits.client.render.helpers.ModelHelper;
-import net.machinemuse.powersuits.client.render.helpers.ModelLuxCapacitor2Helper;
-import net.machinemuse.powersuits.common.MPSItems;
+import net.machinemuse.powersuits.client.helper.ModelHelper;
+import net.machinemuse.powersuits.client.helper.ModelLuxCapacitorHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -19,7 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.common.model.IModelPart;
 import net.minecraftforge.common.model.IModelState;
@@ -34,13 +30,14 @@ import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 import static net.minecraft.block.BlockDirectional.FACING;
 
 @SideOnly(Side.CLIENT)
-public class ModelLuxCapacitor implements IBakedModel, IPerspectiveAwareModel {
-    public static final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(MPSItems.luxCapacitor.getRegistryName().toString());
+public class ModelLuxCapacitor implements IBakedModel {
+    public static final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(BlockLuxCapacitor.getInstance().getRegistryName().toString());
     public IBakedModel wrapper;
     protected Function<ResourceLocation, TextureAtlasSprite> textureGetter;
     Colour colour;
@@ -66,8 +63,9 @@ public class ModelLuxCapacitor implements IBakedModel, IPerspectiveAwareModel {
 
         builder.put(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND,
                 ModelHelper.get(0F, 2F, 3F, 0F, 0F, 45F, 0.5F));
+
         builder.put(ItemCameraTransforms.TransformType.GUI,
-                ModelHelper.get(0F, 2.75F, 0F, -30F, 0F, 45F, 0.75F));
+                ModelHelper.get(0F, 2.75F, 0F, -45F, 0F, 45F, 0.75F));
 
         builder.put(ItemCameraTransforms.TransformType.GROUND,
                 ModelHelper.get(0F, 2F, 0F, -90F, -0F, 0F, 0.5F));
@@ -78,7 +76,7 @@ public class ModelLuxCapacitor implements IBakedModel, IPerspectiveAwareModel {
     }
 
     public static ModelResourceLocation getModelResourceLocation(EnumFacing facing) {
-        return new ModelResourceLocation(MPSItems.luxCapacitor.getRegistryName().toString(), "facing=" + facing.getName());
+        return new ModelResourceLocation(BlockLuxCapacitor.getInstance().getRegistryName().toString(), "facing=" + facing.getName());
     }
 
     @Override
@@ -97,10 +95,10 @@ public class ModelLuxCapacitor implements IBakedModel, IPerspectiveAwareModel {
         }
         if (colour == null)
             colour = BlockLuxCapacitor.defaultColor;
-        ColoredQuadHelperThingie helperThingie = new ColoredQuadHelperThingie(colour, facing);
+        net.machinemuse.powersuits.client.helper.ColoredQuadHelperThingie helperThingie = new net.machinemuse.powersuits.client.helper.ColoredQuadHelperThingie(colour, facing);
 
         try {
-            return ModelLuxCapacitor2Helper.getInstance().luxCapColoredQuadMap.get(helperThingie);
+            return ModelLuxCapacitorHelper.INSTANCE.luxCapColoredQuadMap.get(helperThingie);
         } catch (ExecutionException e) {
             e.printStackTrace();
             return Collections.emptyList();
@@ -128,18 +126,13 @@ public class ModelLuxCapacitor implements IBakedModel, IPerspectiveAwareModel {
     }
 
     @Override
-    public ItemCameraTransforms getItemCameraTransforms() {
-        return null;
-    }
-
-    @Override
     public ItemOverrideList getOverrides() {
         return this.overrides;
     }
 
     @Override
     public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
-        TRSRTransformation transform = modelState.apply(Optional.of(cameraTransformType)).or(TRSRTransformation.identity());
+        TRSRTransformation transform = modelState.apply(Optional.of(cameraTransformType)).orElse(TRSRTransformation.identity());
         if(transform != TRSRTransformation.identity())
             return Pair.of(this, transform.getMatrix());
 

@@ -20,7 +20,7 @@ public class GuiGameOverPlus extends GuiScreen {
     @Override
     public void initGui() {
         this.buttonList.clear();
-        if (this.mc.theWorld.getWorldInfo().isHardcoreModeEnabled()) {
+        if (this.mc.world.getWorldInfo().isHardcoreModeEnabled()) {
             if (this.mc.isIntegratedServerRunning()) {
                 addButton(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 96, I18n.format("deathScreen.deleteWorld")));
             } else {
@@ -57,15 +57,15 @@ public class GuiGameOverPlus extends GuiScreen {
     protected void actionPerformed(GuiButton par1GuiButton) {
         switch(par1GuiButton.id) {
             case 1:
-                this.mc.thePlayer.respawnPlayer();
+                this.mc.player.respawnPlayer();
                 this.mc.displayGuiScreen(null);
             case 2:
-                this.mc.theWorld.sendQuittingDisconnectingPacket();
+                this.mc.world.sendQuittingDisconnectingPacket();
                 this.mc.loadWorld(null);
                 this.mc.displayGuiScreen(new GuiMainMenu());
             case 3:
-                this.mc.thePlayer.setHealth(10f);
-                this.mc.thePlayer.isDead = false;
+                this.mc.player.setHealth(10f);
+                this.mc.player.isDead = false;
                 this.mc.displayGuiScreen(null);
         }
     }
@@ -78,13 +78,13 @@ public class GuiGameOverPlus extends GuiScreen {
         this.drawGradientRect(0, 0, this.width, this.height, 1615855616, -1602211792);
         GL11.glPushMatrix();
         GL11.glScalef(2.0F, 2.0F, 2.0F);
-        Boolean flag = this.mc.theWorld.getWorldInfo().isHardcoreModeEnabled();
-        this.drawCenteredString(this.fontRendererObj, flag ? I18n.format("deathScreen.title.hardcore", new Object[0]) : I18n.format("deathScreen.title", new Object[0]), this.width / 2 / 2, 30, 16777215);
+        Boolean flag = this.mc.world.getWorldInfo().isHardcoreModeEnabled();
+        this.drawCenteredString(this.fontRenderer, flag ? I18n.format("deathScreen.title.hardcore", new Object[0]) : I18n.format("deathScreen.title", new Object[0]), this.width / 2 / 2, 30, 16777215);
         GL11.glPopMatrix();
         if (flag) {
-            this.drawCenteredString(this.fontRendererObj, I18n.format("deathScreen.hardcoreInfo"), this.width / 2, 144, 16777215);
+            this.drawCenteredString(this.fontRenderer, I18n.format("deathScreen.hardcoreInfo"), this.width / 2, 144, 16777215);
         }
-        this.drawCenteredString(this.fontRendererObj, I18n.format("deathScreen.score") + ": " + TextFormatting.YELLOW + this.mc.thePlayer.getScore(), this.width / 2, 100, 16777215);
+        this.drawCenteredString(this.fontRenderer, I18n.format("deathScreen.score") + ": " + TextFormatting.YELLOW + this.mc.player.getScore(), this.width / 2, 100, 16777215);
         super.drawScreen(par1, par2, par3);
     }
 

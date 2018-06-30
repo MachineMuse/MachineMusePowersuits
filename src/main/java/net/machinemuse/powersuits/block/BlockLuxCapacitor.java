@@ -56,9 +56,21 @@ public class BlockLuxCapacitor extends BlockDirectional {
         }
     };
 
-    static final String name = "luxCapacitor";
+    public static final String name = "luxcapacitor";
+    private volatile static BlockLuxCapacitor INSTANCE;
 
-    public BlockLuxCapacitor() {
+    public static BlockLuxCapacitor getInstance() {
+        if (INSTANCE == null) {
+            synchronized (BlockLuxCapacitor.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new BlockLuxCapacitor();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+
+    private BlockLuxCapacitor() {
         super(Material.CIRCUITS);
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN));
         // IMPORTANT: enabling default state with extended state like the line below causes model loading issues
@@ -153,11 +165,11 @@ public class BlockLuxCapacitor extends BlockDirectional {
     {
         return state.getValue(FACING).getIndex();
     }
-
-    @Override
-    public boolean isVisuallyOpaque() {
-        return false;
-    }
+//
+//    @Override
+//    public boolean isVisuallyOpaque() {
+//        return false;
+//    }
 
     @Override
     public boolean hasTileEntity(IBlockState state) {

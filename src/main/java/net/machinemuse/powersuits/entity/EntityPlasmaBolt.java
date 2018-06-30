@@ -35,19 +35,19 @@ public class EntityPlasmaBolt extends EntityThrowable implements IEntityAddition
         this.damagingness = damagingnessIn;
         Vec3d direction = shootingEntity.getLookVec().normalize();
         double scale = 1.0;
-        this.motionX = direction.xCoord * scale;
-        this.motionY = direction.yCoord * scale;
-        this.motionZ = direction.zCoord * scale;
+        this.motionX = direction.x * scale;
+        this.motionY = direction.y * scale;
+        this.motionZ = direction.z * scale;
         double r = this.size / 50.0;
-        double xoffset = 1.3f + r - direction.yCoord * shootingEntity.getEyeHeight();
+        double xoffset = 1.3f + r - direction.y * shootingEntity.getEyeHeight();
         double yoffset = -.2;
         double zoffset = 0.3f;
-        double horzScale = Math.sqrt(direction.xCoord * direction.xCoord + direction.zCoord * direction.zCoord);
-        double horzx = direction.xCoord / horzScale;
-        double horzz = direction.zCoord / horzScale;
-        this.posX = shootingEntity.posX + direction.xCoord * xoffset - direction.yCoord * horzx * yoffset - horzz * zoffset;
-        this.posY = shootingEntity.posY + shootingEntity.getEyeHeight() + direction.yCoord * xoffset + (1 - Math.abs(direction.yCoord)) * yoffset;
-        this.posZ = shootingEntity.posZ + direction.zCoord * xoffset - direction.yCoord * horzz * yoffset + horzx * zoffset;
+        double horzScale = Math.sqrt(direction.x * direction.x + direction.z * direction.z);
+        double horzx = direction.x / horzScale;
+        double horzz = direction.z / horzScale;
+        this.posX = shootingEntity.posX + direction.x * xoffset - direction.y * horzx * yoffset - horzz * zoffset;
+        this.posY = shootingEntity.posY + shootingEntity.getEyeHeight() + direction.y * xoffset + (1 - Math.abs(direction.y)) * yoffset;
+        this.posZ = shootingEntity.posZ + direction.z * xoffset - direction.y * horzz * yoffset + horzx * zoffset;
         this.setEntityBoundingBox(new AxisAlignedBB(posX - r, posY - r, posZ - r, posX + r, posY + r, posZ + r));
     }
 
@@ -60,7 +60,7 @@ public class EntityPlasmaBolt extends EntityThrowable implements IEntityAddition
         if (this.isInWater()) {
             this.setDead();
             for (int var3 = 0; var3 < this.size; ++var3) {
-                this.worldObj.spawnParticle(EnumParticleTypes.FLAME,
+                this.world.spawnParticle(EnumParticleTypes.FLAME,
                         this.posX + Math.random() * 1, this.posY + Math.random() * 1, this.posZ + Math.random()
                                 * 0.1,
                         0.0D, 0.0D, 0.0D);
@@ -113,11 +113,11 @@ public class EntityPlasmaBolt extends EntityThrowable implements IEntityAddition
                 break;
         }
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
-            boolean flag = this.worldObj.getGameRules().getBoolean("mobGriefing");
-            this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.size / 50.0f * 3 * this.explosiveness), flag);
+            boolean flag = this.world.getGameRules().getBoolean("mobGriefing");
+            this.world.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.size / 50.0f * 3 * this.explosiveness), flag);
         }
         for (int var3 = 0; var3 < 8; ++var3) {
-            this.worldObj.spawnParticle(EnumParticleTypes.FLAME,
+            this.world.spawnParticle(EnumParticleTypes.FLAME,
                     this.posX + Math.random() * 0.1, this.posY + Math.random() * 0.1, this.posZ + Math.random() * 0.1,
                     0.0D, 0.0D, 0.0D);
         }

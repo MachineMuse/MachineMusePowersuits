@@ -3,8 +3,8 @@ package net.machinemuse.powersuits.client.render.modelspec;
 import com.google.common.collect.ImmutableMap;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.scala.MuseRegistry;
-import net.machinemuse.powersuits.client.render.model.obj.MPSOBJLoader;
-import net.machinemuse.powersuits.client.render.model.obj.OBJModelPlus;
+import net.machinemuse.powersuits.client.model.obj.OBJPlusLoader;
+import net.machinemuse.powersuits.client.model.obj.OBJModelPlus;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -38,7 +38,7 @@ public class ModelRegistry extends MuseRegistry<ModelSpec> {
     public IModel getModel(ResourceLocation resource){
         IModel model = null;
         try {
-            model = (OBJModelPlus) MPSOBJLoader.INSTANCE.loadModel(resource);
+            model = (OBJModelPlus) OBJPlusLoader.INSTANCE.loadModel(resource);
             model = ((OBJModelPlus) model).process(ImmutableMap.of("flip-v", "true"));
         } catch (Exception e) {
             e.printStackTrace();

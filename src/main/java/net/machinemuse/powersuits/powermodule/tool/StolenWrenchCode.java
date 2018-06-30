@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
 import cofh.api.block.IDismantleable;
-import cofh.lib.util.helpers.BlockHelper;
-import cofh.lib.util.helpers.ServerHelper;
+import cofh.core.util.helpers.BlockHelper;
+import cofh.core.util.helpers.ServerHelper;
 import ic2.api.tile.IWrenchable;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.minecraft.block.Block;
@@ -48,7 +48,7 @@ public class StolenWrenchCode {
         if(world.isAirBlock(pos))
             return EnumActionResult.PASS;
 
-        PlayerInteractEvent.RightClickBlock event = new PlayerInteractEvent.RightClickBlock(player, hand, stack, pos, side, new Vec3d((double)hitX, (double)hitY, (double)hitZ));
+        PlayerInteractEvent.RightClickBlock event = new PlayerInteractEvent.RightClickBlock(player, hand, pos, side, new Vec3d((double)hitX, (double)hitY, (double)hitZ));
         if(MinecraftForge.EVENT_BUS.post(event) || event.getResult() == Event.Result.DENY || event.getUseItem() == Event.Result.DENY || event.getUseBlock() == Event.Result.DENY)
             return EnumActionResult.PASS;
 
@@ -85,7 +85,7 @@ public class StolenWrenchCode {
                             double z2 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
                             EntityItem entity = new EntityItem(world, (double)pos.getX() + x2, (double)pos.getY() + y2, (double)pos.getZ() + z2, drop);
                             entity.setPickupDelay(10);
-                            world.spawnEntityInWorld(entity);
+                            world.spawnEntity(entity);
                         }
                     }
                     return ServerHelper.isServerWorld(world)?EnumActionResult.SUCCESS:EnumActionResult.PASS;

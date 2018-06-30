@@ -55,7 +55,7 @@ public final class MusePacketHandler extends MessageToMessageCodec<FMLProxyPacke
 
     @SideOnly(Side.CLIENT)
     private EntityPlayer getClientPlayer() {
-        return Minecraft.getMinecraft().thePlayer;
+        return Minecraft.getMinecraft().player;
     }
 
     public void decode(ChannelHandlerContext ctx, FMLProxyPacket msg, List<Object> out) {
@@ -65,7 +65,7 @@ public final class MusePacketHandler extends MessageToMessageCodec<FMLProxyPacke
         INetHandler handler = msg.handler();
         try {
             if (handler instanceof NetHandlerPlayServer) {
-                EntityPlayerMP player = ((NetHandlerPlayServer) handler).playerEntity;
+                EntityPlayerMP player = ((NetHandlerPlayServer) handler).player;
                 packetType = data.readInt();
                 MusePackager packagerServer = this.packagers.get(packetType);
                 MusePacket packetServer = packagerServer.read(data, player);

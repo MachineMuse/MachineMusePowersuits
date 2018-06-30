@@ -8,7 +8,7 @@ import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.DrawableMuseRect;
 import net.machinemuse.numina.render.MuseIconUtils;
 import net.machinemuse.numina.render.MuseTextureUtils;
-import net.machinemuse.powersuits.client.render.helpers.ModelHelper;
+import net.machinemuse.powersuits.client.helper.ModelHelper;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.powermodule.misc.BinocularsModule;
@@ -46,7 +46,7 @@ public class RenderEventHandler {
     @SubscribeEvent
     public void preTextureStitch(TextureStitchEvent.Pre event) {
         MuseIcon.registerIcons(event);
-        ModelHelper.loadArmorModels(false);
+        ModelHelper.loadArmorModels(event);
     }
 
     @SideOnly(Side.CLIENT)
@@ -105,7 +105,7 @@ public class RenderEventHandler {
     public void drawKeybindToggles() {
         if (Config.keybindHUDon()) {
             Minecraft mc = Minecraft.getMinecraft();
-            EntityPlayerSP player = mc.thePlayer;
+            EntityPlayerSP player = mc.player;
             ScaledResolution screen = new ScaledResolution(mc);
             frame.setLeft(Config.keybindHUDx());
             frame.setTop(Config.keybindHUDy());

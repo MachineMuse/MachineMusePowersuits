@@ -17,12 +17,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-package net.machinemuse.powersuits.client.render.model.obj;
+package net.machinemuse.powersuits.client.model.obj;
 
-import com.google.common.base.Charsets;
-import com.google.common.base.Function;
 import com.google.common.base.Objects;
-import com.google.common.base.Optional;
+import com.google.common.base.Strings;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -30,16 +28,23 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import net.machinemuse.powersuits.client.helper.ModelTransformCalibration;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.*;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.BakedQuadRetextured;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
+import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.*;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelStateComposition;
+import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
 import net.minecraftforge.common.model.IModelPart;
 import net.minecraftforge.common.model.IModelState;
@@ -52,7 +57,6 @@ import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.logging.log4j.core.helpers.Strings;
 
 import javax.annotation.Nullable;
 import javax.vecmath.*;
@@ -61,20 +65,21 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * This is a tweaked version of the OBJModelPlus class from Forge.
+ * This is a tweaked version of the OBJModel class from Forge.
  * This provides a simpler means of getting quads for a specific group without "re-baking"
- * <p>
+ *
  * Modular Powersuits treats "Groups" (IModelPart) as flexible parts that can be toggled, recolored, and lighting toggled.
+ *
  */
 @SideOnly(Side.CLIENT)
-public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
-    //private Gson GSON = new GsonBuilder().create();
-    private MaterialLibrary matLib;
+public class OBJModelPlus implements IModel {
     private final ResourceLocation modelLocation;
+    private MaterialLibrary matLib;
     private CustomData customData;
 
     public OBJModelPlus(MaterialLibrary matLib, ResourceLocation modelLocation) {
@@ -85,11 +90,6 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
         this.matLib = matLib;
         this.modelLocation = modelLocation;
         this.customData = customData;
-    }
-
-    @Override
-    public Collection<ResourceLocation> getDependencies() {
-        return Collections.emptyList();
     }
 
     @Override
@@ -112,7 +112,7 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
         TextureAtlasSprite missing = bakedTextureGetter.apply(new ResourceLocation("missingno"));
         for (Map.Entry<String, Material> e : matLib.materials.entrySet()) {
             if (e.getValue().getTexture().getTextureLocation().getResourcePath().startsWith("#")) {
-                FMLLog.severe("OBJLoader: Unresolved texture '%s' for obj model '%s'", e.getValue().getTexture().getTextureLocation().getResourcePath(), modelLocation);
+                FMLLog.log.fatal("OBJPlusLoader: Unresolved texture '{}' for obj model '{}'", e.getValue().getTexture().getTextureLocation().getResourcePath(), modelLocation);
                 builder.put(e.getKey(), missing);
             } else {
                 builder.put(e.getKey(), bakedTextureGetter.apply(e.getValue().getTexture().getTextureLocation()));
@@ -128,12 +128,39 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
 
     @Override
     public IModel process(ImmutableMap<String, String> customData) {
-        return new OBJModelPlus(this.matLib, this.modelLocation, new CustomData(this.customData, customData));
+        OBJModelPlus ret = new OBJModelPlus(this.matLib, this.modelLocation, new CustomData(this.customData, customData));
+        return ret;
     }
 
     @Override
     public IModel retexture(ImmutableMap<String, String> textures) {
-        return new OBJModelPlus(this.matLib.makeLibWithReplacements(textures), this.modelLocation, this.customData);
+        OBJModelPlus ret = new OBJModelPlus(this.matLib.makeLibWithReplacements(textures), this.modelLocation, this.customData);
+        return ret;
+    }
+
+    @Deprecated
+    public enum OBJProperty implements IUnlistedProperty<OBJState> {
+        INSTANCE;
+
+        @Override
+        public String getName() {
+            return "OBJProperty";
+        }
+
+        @Override
+        public boolean isValid(OBJState value) {
+            return value instanceof OBJState;
+        }
+
+        @Override
+        public Class<OBJState> getType() {
+            return OBJState.class;
+        }
+
+        @Override
+        public String valueToString(OBJState value) {
+            return value.toString();
+        }
     }
 
     static class CustomData {
@@ -155,7 +182,7 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
 
         public void process(ImmutableMap<String, String> customData) {
             for (Map.Entry<String, String> e : customData.entrySet()) {
-                switch (e.getKey().toLowerCase()) {
+                switch(e.getKey().toLowerCase()) {
                     case "ambient":
                         this.ambientOcclusion = Boolean.valueOf(e.getValue());
                         break;
@@ -166,13 +193,22 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
                         this.flipV = Boolean.valueOf(e.getValue());
                         break;
                 }
+
+//                if (e.getKey().equals("ambient"))
+//                    this.ambientOcclusion = Boolean.valueOf(e.getValue());
+//                else if (e.getKey().equals("gui3d"))
+//                    this.gui3d = Boolean.valueOf(e.getValue());
+//                /*else if (e.getKey().equals("modifyUVs"))
+//                    this.modifyUVs = Boolean.valueOf(e.getValue());*/
+//                else if (e.getKey().equals("flip-v"))
+//                    this.flipV = Boolean.valueOf(e.getValue());
             }
         }
     }
 
     public static class Parser {
         private static final Pattern WHITE_SPACE = Pattern.compile("\\s+");
-        private static Set<String> unknownObjectCommands = new HashSet<>();
+        private static Set<String> unknownObjectCommands = new HashSet<String>();
         public MaterialLibrary materialLibrary = new MaterialLibrary();
         private IResourceManager manager;
         private InputStreamReader objStream;
@@ -195,7 +231,8 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
             return this.groupList;
         }
 
-        private float[] parseFloats(String[] data) { // Helper converting strings to floats
+        private float[] parseFloats(String[] data) // Helper converting strings to floats
+        {
             float[] ret = new float[data.length];
             for (int i = 0; i < data.length; i++)
                 ret[i] = Float.parseFloat(data[i]);
@@ -216,6 +253,7 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
                 if (currentLine == null) break;
                 currentLine.trim();
                 if (currentLine.isEmpty() || currentLine.startsWith("#")) continue;
+
                 try {
                     String[] fields = WHITE_SPACE.split(currentLine, 2);
                     String key = fields[0];
@@ -228,16 +266,19 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
                         if (this.materialLibrary.materials.containsKey(data)) {
                             material = this.materialLibrary.materials.get(data);
                         } else {
-                            FMLLog.severe("OBJModelPlus.Parser: (Model: '{}', Line: {}) material '{}' referenced but was not found", objFrom, lineNum, data);
+                            FMLLog.log.error("OBJModelPlus.Parser: (Model: '{}', Line: {}) material '{}' referenced but was not found", objFrom, lineNum, data);
                         }
                         usemtlCounter++;
-                    } else if (key.equalsIgnoreCase("v")) { // Vertices: x y z [w] - w Defaults to 1.0
+                    } else if (key.equalsIgnoreCase("v")) // Vertices: x y z [w] - w Defaults to 1.0
+                    {
                         float[] coords = parseFloats(splitData);
                         Vector4f pos = new Vector4f(coords[0], coords[1], coords[2], coords.length == 4 ? coords[3] : 1.0F);
                         this.vertices.add(new Vertex(pos, material));
-                    } else if (key.equalsIgnoreCase("vn")) { // Vertex normals: x y z
+                    } else if (key.equalsIgnoreCase("vn")) // Vertex normals: x y z
+                    {
                         this.normals.add(new Normal(parseFloats(splitData)));
-                    } else if (key.equalsIgnoreCase("vt")) { // Vertex Textures: u [v] [w] - v/w Defaults to 0
+                    } else if (key.equalsIgnoreCase("vt")) // Vertex Textures: u [v] [w] - v/w Defaults to 0
+                    {
                         float[] coords = parseFloats(splitData);
                         TextureCoordinate texCoord = new TextureCoordinate(coords[0],
                                 coords.length >= 2 ? coords[1] : 0.0F,
@@ -245,9 +286,10 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
                         if (texCoord.u < 0.0f || texCoord.u > 1.0f || texCoord.v < 0.0f || texCoord.v > 1.0f)
                             throw new UVsOutOfBoundsException(this.objFrom);
                         this.texCoords.add(texCoord);
-                    } else if (key.equalsIgnoreCase("f")) {// Face Elements: f v1[/vt1][/vn1] ...
+                    } else if (key.equalsIgnoreCase("f")) // Face Elements: f v1[/vt1][/vn1] ...
+                    {
                         if (splitData.length > 4)
-                            FMLLog.warning("OBJModelPlus.Parser: found a face ('f') with more than 4 vertices, only the first 4 of these vertices will be rendered!");
+                            FMLLog.log.warn("OBJModelPlus.Parser: found a face ('f') with more than 4 vertices, only the first 4 of these vertices will be rendered!");
 
                         List<Vertex> v = Lists.newArrayListWithCapacity(splitData.length);
 
@@ -255,8 +297,8 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
                             String[] pts = splitData[i].split("/");
 
                             int vert = Integer.parseInt(pts[0]);
-                            Integer texture = pts.length < 2 || Strings.isEmpty(pts[1]) ? null : Integer.parseInt(pts[1]);
-                            Integer normal = pts.length < 3 || Strings.isEmpty(pts[2]) ? null : Integer.parseInt(pts[2]);
+                            Integer texture = pts.length < 2 || Strings.isNullOrEmpty(pts[1]) ? null : Integer.parseInt(pts[1]);
+                            Integer normal = pts.length < 3 || Strings.isNullOrEmpty(pts[2]) ? null : Integer.parseInt(pts[2]);
 
                             vert = vert < 0 ? this.vertices.size() - 1 : vert - 1;
                             Vertex newV = new Vertex(new Vector4f(this.vertices.get(vert).getPos()), this.vertices.get(vert).getMaterial());
@@ -309,25 +351,28 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
                     } else {
                         if (!unknownObjectCommands.contains(key)) {
                             unknownObjectCommands.add(key);
-                            FMLLog.info("OBJLoader.Parser: command '%s' (model: '%s') is not currently supported, skipping. Line: %d '%s'", key, objFrom, lineNum, currentLine);
+                            FMLLog.log.info("OBJPlusLoader.Parser: command '{}' (model: '{}') is not currently supported, skipping. Line: {} '{}'", key, objFrom, lineNum, currentLine);
                         }
                     }
-
                 } catch (RuntimeException e) {
-                    throw new RuntimeException(String.format("OBJLoader.Parser: Exception parsing line #%d: `%s`", lineNum, currentLine), e);
+                    throw new RuntimeException(String.format("OBJPlusLoader.Parser: Exception parsing line #%d: `%s`", lineNum, currentLine), e);
                 }
             }
+
             return new OBJModelPlus(this.materialLibrary, this.objFrom);
         }
     }
 
     public static class MaterialLibrary {
         private static final Pattern WHITE_SPACE = Pattern.compile("\\s+");
-        private Set<String> unknownMaterialCommands = new HashSet<>();
-        private Map<String, Material> materials = new HashMap<>();
-        private Map<String, Group> groups = new HashMap<>();
+        private Set<String> unknownMaterialCommands = new HashSet<String>();
+        private Map<String, Material> materials = new HashMap<String, Material>();
+        private Map<String, Group> groups = new HashMap<String, Group>();
         private InputStreamReader mtlStream;
         private BufferedReader mtlReader;
+
+//        private float[] minUVBounds = new float[] {0.0f, 0.0f};
+//        private float[] maxUVBounds = new float[] {1.0f, 1.0f};
 
         public MaterialLibrary() {
             this.groups.put(Group.DEFAULT_NAME, new Group(Group.DEFAULT_NAME, null));
@@ -366,8 +411,28 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
             ret.groups = this.groups;
             ret.mtlStream = this.mtlStream;
             ret.mtlReader = this.mtlReader;
+//            ret.minUVBounds = this.minUVBounds;
+//            ret.maxUVBounds = this.maxUVBounds;
             return ret;
         }
+
+//        public float[] getMinUVBounds()
+//        {
+//            return this.minUVBounds;
+//        }
+
+//        public float[] getMaxUVBounds()
+//        {
+//            return this.maxUVBounds;
+//        }
+
+//        public void setUVBounds(float minU, float maxU, float minV, float maxV)
+//        {
+//            this.minUVBounds[0] = minU;
+//            this.maxUVBounds[0] = maxU;
+//            this.minUVBounds[1] = minV;
+//            this.maxUVBounds[1] = maxV;
+//        }
 
         public Map<String, Group> getGroups() {
             return this.groups;
@@ -405,7 +470,7 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
             String domain = from.getResourceDomain();
             if (!path.contains("/"))
                 path = from.getResourcePath().substring(0, from.getResourcePath().lastIndexOf("/") + 1) + path;
-            mtlStream = new InputStreamReader(manager.getResource(new ResourceLocation(domain, path)).getInputStream(), Charsets.UTF_8);
+            mtlStream = new InputStreamReader(manager.getResource(new ResourceLocation(domain, path)).getInputStream(), StandardCharsets.UTF_8);
             mtlReader = new BufferedReader(mtlStream);
 
             String currentLine = "";
@@ -438,9 +503,8 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
                         hasSetColor = true;
                         material.setColor(color);
                     } else {
-                        FMLLog.info("OBJModelPlus: A color has already been defined for material '%s' in '%s'. The color defined by key '%s' will not be applied!", material.getName(), new ResourceLocation(domain, path).toString(), key);
+                        FMLLog.log.info("OBJModelPlus: A color has already been defined for material '{}' in '{}'. The color defined by key '{}' will not be applied!", material.getName(), new ResourceLocation(domain, path).toString(), key);
                     }
-
                 } else if (key.equalsIgnoreCase("map_Ka") || key.equalsIgnoreCase("map_Kd") || key.equalsIgnoreCase("map_Ks")) {
                     if (key.equalsIgnoreCase("map_Kd") || !hasSetTexture) {
                         if (data.contains(" ")) {
@@ -455,7 +519,7 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
                             material.setTexture(texture);
                         }
                     } else {
-                        FMLLog.info("OBJModelPlus: A texture has already been defined for material '%s' in '%s'. The texture defined by key '%s' will not be applied!", material.getName(), new ResourceLocation(domain, path).toString(), key);
+                        FMLLog.log.info("OBJModelPlus: A texture has already been defined for material '{}' in '{}'. The texture defined by key '{}' will not be applied!", material.getName(), new ResourceLocation(domain, path).toString(), key);
                     }
                 } else if (key.equalsIgnoreCase("d") || key.equalsIgnoreCase("Tr")) {
                     //d <-optional key here> float[0.0:1.0, 1.0]
@@ -466,13 +530,12 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
                 } else {
                     if (!unknownMaterialCommands.contains(key)) {
                         unknownMaterialCommands.add(key);
-                        FMLLog.info("OBJLoader.MaterialLibrary: key '%s' (model: '%s') is not currently supported, skipping", key, new ResourceLocation(domain, path));
+                        FMLLog.log.info("OBJPlusLoader.MaterialLibrary: key '{}' (model: '{}') is not currently supported, skipping", key, new ResourceLocation(domain, path));
                     }
                 }
             }
         }
     }
-
 
     public static class Material {
         public static final String WHITE_NAME = "OBJModelPlus.White.Texture.Name";
@@ -499,28 +562,28 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
             this.name = name != null ? name : DEFAULT_NAME;
         }
 
-        public void setName(String name) {
-            this.name = name != null ? name : DEFAULT_NAME;
-        }
-
         public String getName() {
             return this.name;
         }
 
-        public void setColor(Vector4f color) {
-            this.color = color;
+        public void setName(String name) {
+            this.name = name != null ? name : DEFAULT_NAME;
         }
 
         public Vector4f getColor() {
             return this.color;
         }
 
-        public void setTexture(Texture texture) {
-            this.texture = texture;
+        public void setColor(Vector4f color) {
+            this.color = color;
         }
 
         public Texture getTexture() {
             return this.texture;
+        }
+
+        public void setTexture(Texture texture) {
+            this.texture = texture;
         }
 
         public boolean isWhite() {
@@ -560,36 +623,36 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
             return loc;
         }
 
-        public void setPath(String path) {
-            this.path = path;
-        }
-
         public String getPath() {
             return this.path;
         }
 
-        public void setPosition(Vector2f position) {
-            this.position = position;
+        public void setPath(String path) {
+            this.path = path;
         }
 
         public Vector2f getPosition() {
             return this.position;
         }
 
-        public void setScale(Vector2f scale) {
-            this.scale = scale;
+        public void setPosition(Vector2f position) {
+            this.position = position;
         }
 
         public Vector2f getScale() {
             return this.scale;
         }
 
-        public void setRotation(float rotation) {
-            this.rotation = rotation;
+        public void setScale(Vector2f scale) {
+            this.scale = scale;
         }
 
         public float getRotation() {
             return this.rotation;
+        }
+
+        public void setRotation(float rotation) {
+            this.rotation = rotation;
         }
     }
 
@@ -615,12 +678,12 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
             }
         }
 
-        public void setMaterialName(String materialName) {
-            this.materialName = materialName != null && !materialName.isEmpty() ? materialName : this.materialName;
-        }
-
         public String getMaterialName() {
             return this.materialName;
+        }
+
+        public void setMaterialName(String materialName) {
+            this.materialName = materialName != null && !materialName.isEmpty() ? materialName : this.materialName;
         }
 
         public boolean isTriangles() {
@@ -638,6 +701,7 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
             return this.verts;
         }
 
+
         public Face bake(TRSRTransformation transform) {
             Matrix4f m = transform.getMatrix();
             Matrix3f mn = null;
@@ -649,6 +713,7 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
                 pos.w = 1;
                 m.transform(pos, newPos);
                 vertices[i] = new Vertex(newPos, v.getMaterial());
+
                 if (v.hasNormal()) {
                     if (mn == null) {
                         mn = new Matrix3f();
@@ -661,11 +726,13 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
                     newNormal.normalize();
                     vertices[i].setNormal(new Normal(newNormal));
                 }
+
                 if (v.hasTextureCoordinate()) vertices[i].setTextureCoordinate(v.getTextureCoordinate());
                 else v.setTextureCoordinate(TextureCoordinate.getDefaultUVs()[i]);
             }
             return new Face(vertices, this.materialName);
         }
+
         public Normal getNormal() {
             Vector3f a = this.verts[2].getPos3();
             a.sub(this.verts[0].getPos3());
@@ -688,12 +755,12 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
             this.material = material;
         }
 
-        public void setPos(Vector4f position) {
-            this.position = position;
-        }
-
         public Vector4f getPos() {
             return this.position;
+        }
+
+        public void setPos(Vector4f position) {
+            this.position = position;
         }
 
         public Vector3f getPos3() {
@@ -704,32 +771,37 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
             return this.normal != null;
         }
 
-        public void setNormal(Normal normal) {
-            this.normal = normal;
-        }
-
         public Normal getNormal() {
             return this.normal;
+        }
+
+        public void setNormal(Normal normal) {
+            this.normal = normal;
         }
 
         public boolean hasTextureCoordinate() {
             return this.texCoord != null;
         }
 
-        public void setTextureCoordinate(TextureCoordinate texCoord) {
-            this.texCoord = texCoord;
-        }
-
         public TextureCoordinate getTextureCoordinate() {
             return this.texCoord;
         }
 
-        public void setMaterial(Material material) {
-            this.material = material;
+        public void setTextureCoordinate(TextureCoordinate texCoord) {
+            this.texCoord = texCoord;
         }
+
+//        public boolean hasNormalizedUVs()
+//        {
+//            return this.texCoord.u >= 0.0f && this.texCoord.u <= 1.0f && this.texCoord.v >= 0.0f && this.texCoord.v <= 1.0f;
+//        }
 
         public Material getMaterial() {
             return this.material;
+        }
+
+        public void setMaterial(Material material) {
+            this.material = material;
         }
 
         @Override
@@ -789,10 +861,6 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
             this.w = w;
         }
 
-        public Vector3f getData() {
-            return new Vector3f(this.u, this.v, this.w);
-        }
-
         public static TextureCoordinate[] getDefaultUVs() {
             TextureCoordinate[] texCoords = new TextureCoordinate[4];
             texCoords[0] = new TextureCoordinate(0.0f, 0.0f, 1.0f);
@@ -801,6 +869,10 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
             texCoords[3] = new TextureCoordinate(0.0f, 1.0f, 1.0f);
             return texCoords;
         }
+
+        public Vector3f getData() {
+            return new Vector3f(this.u, this.v, this.w);
+        }
     }
 
     @Deprecated
@@ -808,18 +880,24 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
         public static final String DEFAULT_NAME = "OBJModelPlus.Default.Element.Name";
         public static final String ALL = "OBJModelPlus.Group.All.Key";
         public static final String ALL_EXCEPT = "OBJModelPlus.Group.All.Except.Key";
-        private String name;
-        private LinkedHashSet<Face> faces;
+        public float[] minUVBounds = new float[]{0.0f, 0.0f};
+        public float[] maxUVBounds = new float[]{1.0f, 1.0f};
+        private String name = DEFAULT_NAME;
+        private LinkedHashSet<Face> faces = new LinkedHashSet<Face>();
 
-        public Group(String name, LinkedHashSet<Face> faces) {
+//        public float[] minUVBounds = new float[] {0.0f, 0.0f};
+//        public float[] maxUVBounds = new float[] {1.0f, 1.0f};
+
+        public Group(String name, @Nullable LinkedHashSet<Face> faces) {
             this.name = name != null ? name : DEFAULT_NAME;
-            this.faces = faces == null ? new LinkedHashSet<>() : faces;
+            this.faces = faces == null ? new LinkedHashSet<Face>() : faces;
         }
 
         public LinkedHashSet<Face> applyTransform(Optional<TRSRTransformation> transform) {
-            LinkedHashSet<Face> faceSet = new LinkedHashSet<>();
+            LinkedHashSet<Face> faceSet = new LinkedHashSet<Face>();
             for (Face f : this.faces) {
-                faceSet.add(f.bake(transform.or(TRSRTransformation.identity())));
+//                if (minUVBounds != null && maxUVBounds != null) f.normalizeUVs(minUVBounds, maxUVBounds);
+                faceSet.add(f.bake(transform.orElse(TRSRTransformation.identity())));
             }
             return faceSet;
         }
@@ -847,22 +925,22 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
 
     @Deprecated
     public static class OBJState implements IModelState {
-        protected Map<String, Boolean> visibilityMap = Maps.newHashMap();
         public IModelState parent;
+        protected Map<String, Boolean> visibilityMap = Maps.newHashMap();
         protected Operation operation = Operation.SET_TRUE;
 
         public OBJState(List<String> visibleGroups, boolean visibility) {
             this(visibleGroups, visibility, TRSRTransformation.identity());
         }
 
-        public OBJState(List<String> visibleGroups, boolean visibility, IModelState parent) {
-            this.parent = parent;
-            for (String s : visibleGroups) this.visibilityMap.put(s, visibility);
-        }
-
         public OBJState(Map<String, Boolean> visibleGroups, IModelState parent) {
             this.parent = parent;
             this.visibilityMap.putAll(visibleGroups);
+        }
+
+        public OBJState(List<String> visibleGroups, boolean visibility, IModelState parent) {
+            this.parent = parent;
+            for (String s : visibleGroups) this.visibilityMap.put(s, visibility);
         }
 
         @Nullable
@@ -872,9 +950,10 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
             return parent;
         }
 
+        @Override
         public Optional<TRSRTransformation> apply(Optional<? extends IModelPart> part) {
             if (parent != null) return parent.apply(part);
-            return Optional.absent();
+            return Optional.empty();
         }
 
         public Map<String, Boolean> getVisibilityMap() {
@@ -927,22 +1006,18 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
         }
 
         @Override
-        public int hashCode() {
-            return Objects.hashCode(visibilityMap, parent, operation);
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            OBJState objState = (OBJState) o;
+            return Objects.equal(parent, objState.parent) &&
+                    Objects.equal(getVisibilityMap(), objState.getVisibilityMap()) &&
+                    operation == objState.operation;
         }
 
         @Override
-        public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
-                return false;
-            OBJState other = (OBJState) obj;
-            return Objects.equal(visibilityMap, other.visibilityMap) &&
-                    Objects.equal(parent, other.parent) &&
-                    operation == other.operation;
+        public int hashCode() {
+            return Objects.hashCode(parent, getVisibilityMap(), operation);
         }
 
         public enum Operation {
@@ -967,39 +1042,25 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
         }
     }
 
-    @Deprecated
-    public enum OBJProperty implements IUnlistedProperty<OBJState> {
-        INSTANCE;
+    @SuppressWarnings("serial")
+    public static class UVsOutOfBoundsException extends RuntimeException {
+        public ResourceLocation modelLocation;
 
-        public String getName() {
-            return "OBJProperty";
-        }
-
-        @Override
-        public boolean isValid(OBJState value) {
-            return value instanceof OBJState;
-        }
-
-        @Override
-        public Class<OBJState> getType() {
-            return OBJState.class;
-        }
-
-        @Override
-        public String valueToString(OBJState value) {
-            return value.toString();
+        public UVsOutOfBoundsException(ResourceLocation modelLocation) {
+            super(String.format("Model '%s' has UVs ('vt') out of bounds 0-1! The missing model will be used instead. Support for UV processing will be added to the OBJ loader in the future.", modelLocation));
+            this.modelLocation = modelLocation;
         }
     }
 
-    public class OBJBakedModelPus implements IPerspectiveAwareModel {
+    public class OBJBakedModelPus implements IBakedModel {
         private final OBJModelPlus model;
-        private IModelState state;
-        private IBlockState cachedBlockstate;
         private final VertexFormat format;
+        private IModelState state;
         private ImmutableList<BakedQuad> quads;
         private Map<String, List<BakedQuad>> partQuadMap;
         private ImmutableMap<String, TextureAtlasSprite> textures;
-        private TextureAtlasSprite sprite = ModelLoader.White.INSTANCE;
+        private IBlockState cachedBlockstate;
+        ModelTransformCalibration calibration;
 
         private final LoadingCache<IModelState, OBJBakedModelPus> cache = CacheBuilder.newBuilder().maximumSize(20).build(new CacheLoader<IModelState, OBJBakedModelPus>() {
             @Override
@@ -1007,6 +1068,7 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
                 return new OBJBakedModelPus(model, state, format, textures);
             }
         });
+        private TextureAtlasSprite sprite = ModelLoader.White.INSTANCE;
 
         public OBJBakedModelPus(OBJModelPlus model, IModelState state, VertexFormat format, ImmutableMap<String, TextureAtlasSprite> textures) {
             this.model = model;
@@ -1015,6 +1077,8 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
             this.format = format;
             this.textures = textures;
             this.partQuadMap = new HashMap<>();
+//            if (MPSSettings.modelconfig.modelSetup) // FIXME!!
+//                calibration = new ModelTransformCalibration();
         }
 
         public void scheduleRebake() {
@@ -1028,19 +1092,21 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
 
         public List<BakedQuad> getRetexturedQuadsforPart(String partName, TextureAtlasSprite texture) {
             ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
-            for (BakedQuad quad : getQuadsforPart(partName))
+            for (BakedQuad quad: getQuadsforPart(partName))
                 builder.add(new BakedQuadRetextured(quad, texture));
             return builder.build();
         }
 
         @Override
         public List<BakedQuad> getQuads(IBlockState blockState, EnumFacing side, long rand) {
-            if (side != null)
-                return ImmutableList.of();
-            if (blockState != null)
-                cachedBlockstate = blockState;
-            if (partQuadMap.isEmpty() || quads == null || quads.isEmpty())
+            if (side != null) return ImmutableList.of();
+            if (partQuadMap.isEmpty())
                 quads = buildQuads(this.state);
+
+            if (blockState == null || blockState == cachedBlockstate)
+                return quads;
+
+            cachedBlockstate = blockState;
 
             /*
              * Does OBJState pass this check?
@@ -1055,8 +1121,7 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
                     }
                 }
             }
-//            return ImmutableList.copyOf(partQuadMap.values().stream().flatMap(x -> x.stream()).collect(Collectors.toList()));
-            return quads;
+            return ImmutableList.copyOf(partQuadMap.values().stream().flatMap(x -> x.stream()).collect(Collectors.toList()));
         }
 
         private ImmutableList<BakedQuad> buildQuads(IModelState modelState) {
@@ -1064,34 +1129,37 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
             Collections.synchronizedSet(new LinkedHashSet<BakedQuad>());
             Map<String, Set<Face>> facesMap = Collections.synchronizedMap(new LinkedHashMap<>());
 
-            Optional<TRSRTransformation> transform = Optional.absent();
+            Optional<TRSRTransformation> transform = Optional.empty();
 
             List<String> visibleParts;
-
             OBJState state = (modelState instanceof OBJState) ? (OBJState) modelState : null;
+
 
             //Fixed: moved all the visibility code out of the group loop
             if (state != null) {
                 updateStateVisibilityMap(state);
-                visibleParts = state.visibilityMap.keySet().stream().filter(key -> state.visibilityMap.get(key)).collect(Collectors.toList());
-            } else {
+                visibleParts = state.visibilityMap.keySet().stream().filter(key-> state.visibilityMap.get(key)).collect(Collectors.toList());
+            } else
                 visibleParts = this.model.getMatLib().getGroups().keySet().stream().filter(name ->
                         !(modelState.apply(Optional.of(Models.getHiddenModelPart(ImmutableList.of(
                                 this.model.getMatLib().getGroups().get(name).getName())))).isPresent())).collect(Collectors.toList());
-            }
 
             for (Group g : this.model.getMatLib().getGroups().values()) {
+//                g.minUVBounds = this.model.getMatLib().minUVBounds;
+//                g.maxUVBounds = this.model.getMatLib().maxUVBounds;
+//                FMLLog.info("Group: %s u: [%f, %f] v: [%f, %f]", g.name, g.minUVBounds[0], g.maxUVBounds[0], g.minUVBounds[1], g.maxUVBounds[1]);
+
                 if (state == null)
-                    transform = modelState.apply(Optional.absent());
+                    transform = modelState.apply(Optional.empty());
                 facesMap.put(g.name, g.applyTransform(transform));
             }
 
-            for (String group : facesMap.keySet())
+            for (String group: facesMap.keySet())
                 partQuadMap.put(group, getQuadsFromFaces(facesMap.get(group)));
 
             return ImmutableList.copyOf(partQuadMap.entrySet()
                     .stream()
-                    .filter(entry -> visibleParts.contains(entry.getKey()))
+                    .filter( entry -> visibleParts.contains(entry.getKey()))
                     .map(Map.Entry::getValue).collect(Collectors.toList())
                     .stream()
                     .flatMap(x -> x.stream()).collect(Collectors.toList()));
@@ -1187,34 +1255,6 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
             return this.sprite;
         }
 
-        @Override
-        public ItemCameraTransforms getItemCameraTransforms() {
-            return ItemCameraTransforms.DEFAULT;
-        }
-
-        // FIXME: merge with getQuads
-        /* @Override
-        public OBJBakedModelPus handleBlockState(IBlockState state)
-        {
-            if (state instanceof IExtendedBlockState)
-            {
-                IExtendedBlockState exState = (IExtendedBlockState) state;
-                if (exState.getUnlistedNames().contains(OBJProperty.instance))
-                {
-                    OBJState s = exState.getValue(OBJProperty.instance);
-                    if (s != null)
-                    {
-                        if (s.visibilityMap.containsKey(Group.ALL) || s.visibilityMap.containsKey(Group.ALL_EXCEPT))
-                        {
-                            this.updateStateVisibilityMap(s);
-                        }
-                        return getCachedModel(s);
-                    }
-                }
-            }
-            return this;
-        }*/
-
         private void updateStateVisibilityMap(OBJState state) {
             if (state.visibilityMap.containsKey(Group.ALL)) {
                 boolean operation = state.visibilityMap.get(Group.ALL);
@@ -1237,15 +1277,6 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
             }
         }
 
-
-
-
-
-
-
-
-
-
         public OBJBakedModelPus getCachedModel(IModelState state) {
             return cache.getUnchecked(state);
         }
@@ -1264,7 +1295,14 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
 
         @Override
         public Pair<? extends IBakedModel, Matrix4f> handlePerspective(TransformType cameraTransformType) {
-            return IPerspectiveAwareModel.MapWrapper.handlePerspective(this, state, cameraTransformType);
+//            TRSRTransformation tr = state.apply(Optional.of(cameraTransformType)).orElse(calibration != null ? calibration.getTransform() : TRSRTransformation.identity());
+//            if(tr != TRSRTransformation.identity())
+//            {
+//                return Pair.of(this, TRSRTransformation.blockCornerToCenter(tr).getMatrix());
+//            }
+//            return Pair.of(this, null);
+
+            return PerspectiveMapWrapper.handlePerspective(this, state, cameraTransformType);
         }
 
         @Override
@@ -1278,18 +1316,5 @@ public class OBJModelPlus implements IRetexturableModel, IModelCustomData {
         }
     }
 
-    @SuppressWarnings("serial")
-    public static class UVsOutOfBoundsException extends RuntimeException {
-        public ResourceLocation modelLocation;
 
-        public UVsOutOfBoundsException(ResourceLocation modelLocation) {
-            super(String.format("Model '%s' has UVs ('vt') out of bounds 0-1! The missing model will be used instead. Support for UV processing will be added to the OBJ loader in the future.", modelLocation));
-            this.modelLocation = modelLocation;
-        }
-    }
-
-    @Override
-    public IModelState getDefaultState() {
-        return TRSRTransformation.identity();
-    }
 }

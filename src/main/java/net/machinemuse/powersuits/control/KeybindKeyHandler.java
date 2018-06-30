@@ -37,7 +37,7 @@ public class KeybindKeyHandler {
         int key = Keyboard.getEventKey();
         boolean pressed = Keyboard.getEventKeyState();
         Minecraft mc = Minecraft.getMinecraft();
-        EntityPlayerSP player = mc.thePlayer;
+        EntityPlayerSP player = mc.player;
     	KeyBinding[] hotbarKeys = mc.gameSettings.keyBindsHotbar;
 
         // Only activate if there is a player to work with
@@ -47,13 +47,13 @@ public class KeybindKeyHandler {
         if (pressed) {
             ModeChangingItem mci = new ModeChangingItem(player.inventory.getCurrentItem());
             if (key == openKeybindGUI.getKeyCode()) {
-                World world = mc.theWorld;
+                World world = mc.world;
                 if (mc.inGameHasFocus) {
                     player.openGui(ModularPowersuits.getInstance(), 1, world, 0, 0, 0);
                 }
             }
             if (key == openCosmeticGUI.getKeyCode()) {
-                World world = mc.theWorld;
+                World world = mc.world;
                 if (mc.inGameHasFocus) {
                     player.openGui(ModularPowersuits.getInstance(), 3, world, 0, 0, 0);
                 }
@@ -75,7 +75,7 @@ public class KeybindKeyHandler {
             if (player.inventory.currentItem < hotbarKeys.length && key == hotbarKeys[player.inventory.currentItem].getKeyCode()) {
             	ItemStack stack = player.inventory.getCurrentItem();
             	if (stack != null && stack.getItem() instanceof IModeChangingItem) {
-                    World world = mc.theWorld;
+                    World world = mc.world;
                     if (mc.inGameHasFocus) {
                     	player.openGui(ModularPowersuits.getInstance(), 5, world, 0, 0, 0);
                     }

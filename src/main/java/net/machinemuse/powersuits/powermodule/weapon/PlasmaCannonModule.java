@@ -93,7 +93,7 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
                     double damagingness = ModuleManager.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE);
 
                     EntityPlasmaBolt plasmaBolt = new EntityPlasmaBolt(worldIn, player, explosiveness, damagingness, chargeTicks);
-                    worldIn.spawnEntityInWorld(plasmaBolt);
+                    worldIn.spawnEntity(plasmaBolt);
                     // switched to IEntityAdditionalSpawnData
                     //MusePacketPlasmaBolt packet = new MusePacketPlasmaBolt(player, plasmaBolt.getEntityId(), plasmaBolt.size);
                     //PacketSender.sendToAll(packet);

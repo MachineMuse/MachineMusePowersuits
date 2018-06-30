@@ -55,7 +55,7 @@ public class RichInputStream {
      */
     public ItemStack readItemStack() {
         NBTTagCompound tag = readNBTTagCompound();
-        return (tag == null) ? null : ItemStack.loadItemStackFromNBT(tag);
+        return (tag == null) ? null : new ItemStack(tag);
     }
 
     /**

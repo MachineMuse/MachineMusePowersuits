@@ -2,13 +2,14 @@ package net.machinemuse.powersuits.client.render.modelspec;
 
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.powersuits.client.render.model.obj.MPSOBJLoader;
-import net.machinemuse.powersuits.client.render.model.obj.OBJModelPlus;
+import net.machinemuse.powersuits.client.model.obj.OBJPlusLoader;
+import net.machinemuse.powersuits.client.model.obj.OBJModelPlus;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.w3c.dom.Document;
@@ -21,6 +22,7 @@ import javax.annotation.Nullable;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
+import java.io.File;
 import java.net.URL;
 
 import static net.machinemuse.powersuits.client.render.modelspec.MorphTarget.*;
@@ -32,27 +34,38 @@ import static net.machinemuse.powersuits.client.render.modelspec.MorphTarget.*;
  * Ported to Java by lehjr on 11/8/16.
  */
 @SideOnly(Side.CLIENT)
-public class ModelSpecXMLReader {
-    boolean registerModels;
+public enum ModelSpecXMLReader {
+    INSTANCE;
 
-    private ModelSpecXMLReader() {
-    }
-
-    private static ModelSpecXMLReader INSTANCE;
-
-    public static ModelSpecXMLReader getINSTANCE() {
-        if (INSTANCE == null)
-            INSTANCE = new ModelSpecXMLReader();
-        return INSTANCE;
-    }
-
-    public void parseFile(URL file, boolean registerModelsIn) {
-        this.registerModels = registerModelsIn;
-
+    public void parseFile(URL file, @Nullable TextureStitchEvent event) {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document xml = dBuilder.parse(new InputSource(file.openStream()));
+            parseXML(xml, event);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void parseFile(File file, @Nullable TextureStitchEvent event) {
+        if (file.exists()) {
+            try {
+                DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder dBuilder = null;
+                dBuilder = dbFactory.newDocumentBuilder();
+                Document xml = dBuilder.parse(file);
+                parseXML(xml, event);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void parseXML(Document xml, @Nullable TextureStitchEvent event) {
+
+        try {
             xml.getDocumentElement().normalize();
 
             NodeList modelNodeList = xml.getElementsByTagName("model");
@@ -60,7 +73,7 @@ public class ModelSpecXMLReader {
                 Node modelNode = modelNodeList.item(temp);
 
                 if (modelNode.getNodeType() == Node.ELEMENT_NODE) {
-                    parseModel(modelNode);
+                    parseModel(modelNode, event);
                 }
             }
         } catch (Exception e) {
@@ -68,9 +81,9 @@ public class ModelSpecXMLReader {
         }
     }
 
-    public void parseModel(Node modelnode) {
+    public void parseModel(Node modelnode, @Nullable TextureStitchEvent event) {
         String file;
-//        String[] texturesArray;
+        String[] texturesArray;
         Vec3d offset;
         Vec3d rotation;
 
@@ -78,22 +91,23 @@ public class ModelSpecXMLReader {
             Element eElement = (Element) modelnode;
             file = eElement.getAttribute("file");
             // this is just used for texture registration now.
-//            texturesArray = eElement.getAttribute("textures").split(",");
+            texturesArray = eElement.getAttribute("textures").split(",");
 
             // These are null because they are not used in the files
             offset = parseVector(eElement.getAttribute("offset"));
             rotation = parseVector(eElement.getAttribute("rotation"));
 
             // register the textures
-            if (!registerModels) {
+            if (event != null) {
                 try {
-                    MPSOBJLoader.INSTANCE.registerModelSprites(new ResourceLocation(file));
+                    for (String texture : texturesArray)
+                        event.getMap().registerSprite(new ResourceLocation(texture));
                 } catch (Exception ignored) {
                 }
             } else {
                 IBakedModel bakedModel = ModelRegistry.getInstance().loadBakedModel(new ResourceLocation(file));
                 if (bakedModel != null && bakedModel instanceof OBJModelPlus.OBJBakedModelPus) {
-                    ModelSpec modelspec = new ModelSpec(bakedModel, offset, rotation, file);
+                    ModelSpec modelspec = new ModelSpec((OBJModelPlus.OBJBakedModelPus) bakedModel, offset, rotation, file);
                     // ModelSpec modelspec = new ModelSpec(model, textures, offset, rotation, file);
 
                     ModelSpec existingspec = ModelRegistry.getInstance().put(MuseStringUtils.extractName(file), modelspec);
@@ -163,8 +177,8 @@ public class ModelSpecXMLReader {
     }
 
     /*
-    * TODO: try something else.
-    */
+     * TODO: try something else.
+     */
     EntityEquipmentSlot parseEquipmentSlot(String s) {
         switch (s.toUpperCase()) {
             case "HEAD": return EntityEquipmentSlot.HEAD;

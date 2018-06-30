@@ -99,7 +99,7 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
 
         if (Loader.isModLoaded("MineFactoryReloaded")) {
             if (block == Block.getIdFromBlock(Block.REGISTRY.getObject(new ResourceLocation("MineFactoryReloaded", "cable.redstone"))))
-                return rednetMeter.getItem().onItemUseFirst(itemStack, player, world, pos, side, hitX, hitY, hitZ, EnumHand.MAIN_HAND);
+                return rednetMeter.getItem().onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, EnumHand.MAIN_HAND);
         }
 
         if (Loader.isModLoaded("Railcraft")) {
@@ -107,13 +107,13 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
                     (block == Block.getIdFromBlock(Block.REGISTRY.getObject(new ResourceLocation("Railcraft", "tile.railcraft.track")))) ||
                     (block == Block.getIdFromBlock(Block.REGISTRY.getObject(new ResourceLocation("Railcraft", "tile.railcraft.machine.epsilon")))) ||
                     (block == Block.getIdFromBlock(Block.REGISTRY.getObject(new ResourceLocation("Railcraft", "tile.railcraft.machine.delta"))))) {
-                return rcMeter.getItem().onItemUseFirst(itemStack, player, world, pos, side, hitX, hitY, hitZ, EnumHand.MAIN_HAND);
+                return rcMeter.getItem().onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, EnumHand.MAIN_HAND);
             }
         }
 
         if (Loader.isModLoaded("EnderIO")) {
             if (block == Block.getIdFromBlock(Block.REGISTRY.getObject(new ResourceLocation("EnderIO", "blockConduitBundle")))) {
-                return conduitProbe.getItem().onItemUse(itemStack, player, world, pos, EnumHand.MAIN_HAND, side, hitX, hitY, hitZ);
+                return conduitProbe.getItem().onItemUse(player, world, pos, EnumHand.MAIN_HAND, side, hitX, hitY, hitZ);
             }
         }
         return EnumActionResult.PASS;

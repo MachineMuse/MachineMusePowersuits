@@ -1,10 +1,11 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import net.machinemuse.powersuits.client.render.helpers.ModelHelper;
-import net.machinemuse.powersuits.client.render.model.obj.OBJModelPlus;
+import net.machinemuse.powersuits.client.helper.ModelHelper;
+import net.machinemuse.powersuits.client.model.obj.OBJModelPlus;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.common.property.IExtendedBlockState;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class ModelPartSpec {
     public int defaultcolourindex; // NOT A COLOR but an index of a list
     public boolean defaultglow;
     public String displayName;
-    IExtendedBlockState extendedState;
+//    IExtendedBlockState extendedState;
     List<BakedQuad> quadcache = new ArrayList<>();
 
     public ModelPartSpec(ModelSpec modelSpec, MorphTarget morph, String partName, EntityEquipmentSlot slot, Integer defaultcolourindex, Boolean defaultglow, String displayName) {
@@ -33,12 +34,12 @@ public class ModelPartSpec {
         this.defaultglow = (defaultglow != null) ? defaultglow : false;
         this.displayName = displayName;
         // Extended state is used to isolate the quads for the model "group"(part) associated with this
-        this.extendedState = ModelHelper.getStateForPart(partName, (OBJModelPlus.OBJBakedModelPus) modelSpec.getModel());
+//        this.extendedState = ModelHelper.getStateForPart(partName, (OBJModelPlus.OBJBakedModelPus) modelSpec.getModel(), TRSRTransformation.identity());
     }
 
     public List<BakedQuad> getQuads() {
         if (quadcache.isEmpty()) {
-            quadcache = modelSpec.getModel().getQuads(extendedState, null, 0);
+            quadcache = modelSpec.getModel().getQuadsforPart(this.partName);
         }
         return quadcache;
     }

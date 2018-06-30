@@ -80,7 +80,7 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
             if (ElectricItemUtils.getPlayerEnergy((EntityPlayer) entityLiving) > energyConsumption) {
                 ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, energyConsumption);
                 EntitySpinningBlade blade = new EntitySpinningBlade(worldIn, entityLiving);
-                worldIn.spawnEntityInWorld(blade);
+                worldIn.spawnEntity(blade);
             }
         }
     }

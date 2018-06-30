@@ -5,14 +5,16 @@ import net.machinemuse.general.sound.SoundDictionary;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.MusePacketModeChangeRequest;
 import net.machinemuse.numina.network.PacketSender;
+import net.machinemuse.powersuits.block.BlockLuxCapacitor;
+import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.block.TileEntityTinkerTable;
+import net.machinemuse.powersuits.client.model.obj.OBJPlusLoader;
 import net.machinemuse.powersuits.client.render.block.TinkerTableRenderer;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererLuxCapacitorEntity;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererPlasmaBolt;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererSpinningBlade;
 import net.machinemuse.powersuits.client.render.item.SMovingArmorModel;
 import net.machinemuse.powersuits.client.render.model.ModelLuxCapacitor;
-import net.machinemuse.powersuits.client.render.model.obj.MPSOBJLoader;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.common.ModCompatibility;
@@ -60,8 +62,8 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
-        ModelLoaderRegistry.registerLoader(MPSOBJLoader.INSTANCE);
-        MPSOBJLoader.INSTANCE.addDomain(MODID.toLowerCase());
+        ModelLoaderRegistry.registerLoader(OBJPlusLoader.INSTANCE);
+        OBJPlusLoader.INSTANCE.addDomain(MODID.toLowerCase());
     }
 
     @Override
@@ -90,25 +92,25 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerRenderers() {
         super.registerRenderers();
-        regRenderer(MPSItems.powerTool);
-        regRenderer(MPSItems.powerArmorHead);
-        regRenderer(MPSItems.powerArmorTorso);
-        regRenderer(MPSItems.powerArmorLegs);
-        regRenderer(MPSItems.powerArmorFeet);
+//        regRenderer(MPSItems.INSTANCE.powerFist);
+//        regRenderer(MPSItems.INSTANCE.powerArmorHead);
+//        regRenderer(MPSItems.INSTANCE.powerArmorTorso);
+//        regRenderer(MPSItems.INSTANCE.powerArmorLegs);
+//        regRenderer(MPSItems.INSTANCE.powerArmorFeet);
+//
+//        Item components = MPSItems.components;
+//        if (components != null) {
+//            for (Integer  meta : ((ItemComponent)components).names.keySet()) {
+//                String oredictName = ((ItemComponent)components).names.get(meta);
+//                ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation(Config.COMPONENTS_PREFIX + oredictName, "inventory");
+//                ModelLoader.setCustomModelResourceLocation(components, meta, itemModelResourceLocation);
+//                OreDictionary.registerOre(oredictName, new ItemStack(components, 1, meta));
+//            }
+//        }
 
-        Item components = MPSItems.components;
-        if (components != null) {
-            for (Integer  meta : ((ItemComponent)components).names.keySet()) {
-                String oredictName = ((ItemComponent)components).names.get(meta);
-                ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation(Config.COMPONENTS_PREFIX + oredictName, "inventory");
-                ModelLoader.setCustomModelResourceLocation(components, meta, itemModelResourceLocation);
-                OreDictionary.registerOre(oredictName, new ItemStack(components, 1, meta));
-            }
-        }
-
-        regRenderer(Item.getItemFromBlock(MPSItems.tinkerTable));
-        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(MPSItems.tinkerTable), 0, TileEntityTinkerTable.class);
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(MPSItems.luxCapacitor), 0, ModelLuxCapacitor.modelResourceLocation);
+        regRenderer(Item.getItemFromBlock(BlockTinkerTable.getInstance()));
+        ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(BlockTinkerTable.getInstance()), 0, TileEntityTinkerTable.class);
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(BlockLuxCapacitor.getInstance()), 0, ModelLuxCapacitor.modelResourceLocation);
 
         RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, EntityRendererSpinningBlade::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, EntityRendererPlasmaBolt::new);
@@ -122,7 +124,7 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void sendModeChange(int dMode, String newMode) {
-        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+        EntityPlayerSP player = Minecraft.getMinecraft().player;
         MusePacket modeChangePacket = new MusePacketModeChangeRequest(player, newMode, player.inventory.currentItem);
         PacketSender.sendToServer(modeChangePacket);
     }

@@ -60,7 +60,7 @@ public class ThermalGeneratorModule extends PowerModuleBase implements IPlayerTi
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         double currentHeat = MuseHeatUtils.getPlayerHeat(player);
         double maxHeat = MuseHeatUtils.getMaxHeat(player);
-        if (player.worldObj.getTotalWorldTime() % 20 == 0) {
+        if (player.world.getTotalWorldTime() % 20 == 0) {
             if (player.isBurning()) {
                 ElectricItemUtils.givePlayerEnergy(player, 4 * ModuleManager.computeModularProperty(item, THERMAL_ENERGY_GENERATION));
             } else if (currentHeat >= 200) {

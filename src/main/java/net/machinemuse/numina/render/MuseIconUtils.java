@@ -3,8 +3,8 @@ package net.machinemuse.numina.render;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.geometry.Colour;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import org.lwjgl.opengl.GL11;
@@ -57,8 +57,8 @@ public class MuseIconUtils {
         }
 
         Tessellator tess = Tessellator.getInstance();
-        VertexBuffer vertexBuffer = tess.getBuffer();
-        vertexBuffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+        BufferBuilder bufferBuilder = tess.getBuffer();
+        bufferBuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 
         float u1 = icon1.getMinU();
         float v1 = icon1.getMinV();
@@ -70,21 +70,21 @@ public class MuseIconUtils {
         double xoffset2 = right * (u2 - u1) / 16.0f;
         double yoffset2 = bottom * (v2 - v1) / 16.0f;
 
-        vertexBuffer.pos(x + left, y + top, 0);
-        vertexBuffer.tex(u1 + xoffset1, v1 + yoffset1);
-        vertexBuffer.endVertex();
+        bufferBuilder.pos(x + left, y + top, 0);
+        bufferBuilder.tex(u1 + xoffset1, v1 + yoffset1);
+        bufferBuilder.endVertex();
 
-        vertexBuffer.pos(x + left, y + bottom, 0);
-        vertexBuffer.tex(u1 + xoffset1, v1 + yoffset2);
-        vertexBuffer.endVertex();
+        bufferBuilder.pos(x + left, y + bottom, 0);
+        bufferBuilder.tex(u1 + xoffset1, v1 + yoffset2);
+        bufferBuilder.endVertex();
 
-        vertexBuffer.pos(x + right, y + bottom, 0);
-        vertexBuffer.tex(u1 + xoffset2, v1 + yoffset2);
-        vertexBuffer.endVertex();
+        bufferBuilder.pos(x + right, y + bottom, 0);
+        bufferBuilder.tex(u1 + xoffset2, v1 + yoffset2);
+        bufferBuilder.endVertex();
 
-        vertexBuffer.pos(x + right, y + top, 0);
-        vertexBuffer.tex(u1 + xoffset2, v1 + yoffset1);
-        vertexBuffer.endVertex();
+        bufferBuilder.pos(x + right, y + top, 0);
+        bufferBuilder.tex(u1 + xoffset2, v1 + yoffset1);
+        bufferBuilder.endVertex();
 
         tess.draw();
         RenderState.blendingOff();

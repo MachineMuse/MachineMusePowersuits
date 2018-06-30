@@ -1,6 +1,6 @@
 package net.machinemuse.api.electricity;
 
-import cofh.api.energy.IEnergyContainerItem;
+import cofh.redstoneflux.api.IEnergyContainerItem;
 import net.minecraft.item.ItemStack;
 
 /**

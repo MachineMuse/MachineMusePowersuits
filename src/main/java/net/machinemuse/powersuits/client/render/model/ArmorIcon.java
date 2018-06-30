@@ -4,7 +4,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.powersuits.client.render.helpers.ModelHelper;
+import net.machinemuse.powersuits.client.helper.ModelHelper;
 import net.machinemuse.powersuits.item.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -17,7 +17,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.common.model.TRSRTransformation;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -30,7 +29,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by leon on 4/10/17.
  */
-public class ArmorIcon implements IBakedModel, IPerspectiveAwareModel {
+public class ArmorIcon implements IBakedModel {
     ItemCameraTransforms.TransformType cameraTransformType;
     ItemStack itemStack;
     Item item;
@@ -102,8 +101,8 @@ public class ArmorIcon implements IBakedModel, IPerspectiveAwareModel {
     @Override
     public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformTypeIn) {
         Matrix4f matrix;
-        if (headIconModel != null && headIconModel instanceof IPerspectiveAwareModel) {
-            matrix = ((IPerspectiveAwareModel) headIconModel).handlePerspective(cameraTransformTypeIn).getValue();
+        if (headIconModel != null) {
+            matrix = headIconModel.handlePerspective(cameraTransformTypeIn).getValue();
         } else {
             matrix = TRSRTransformation.identity().getMatrix();
         }

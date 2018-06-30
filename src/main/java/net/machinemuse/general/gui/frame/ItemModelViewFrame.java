@@ -127,7 +127,7 @@ public class ItemModelViewFrame implements IGuiFrame {
         GL11.glRotatef((float) rotx, 1, 0, 0);
         GL11.glRotatef((float) roty - 180, 0, 1, 0);
         GL11.glTranslated(0.0, getYforSlot(getArmorSlot()), 0.0);
-        ArmorModelInstance.getInstance().render((Entity)mc.thePlayer, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0625f);
+        ArmorModelInstance.getInstance().render((Entity)mc.player, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0625f);
         GL11.glPopMatrix();
     }
 
