@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 
 import java.io.DataInputStream;
 import java.util.HashSet;
@@ -55,7 +56,7 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
             InventoryPlayer inventory = player.inventory;
             ItemStack stack = player.inventory.getStackInSlot(itemSlot);
             IPowerModule moduleType = ModuleManager.getModule(moduleName);
-            List<ItemStack> refund = moduleType.getInstallCost();
+            NonNullList<ItemStack> refund = moduleType.getInstallCost();
             if (ModuleManager.itemHasModule(stack, moduleName)) {
                 Set<Integer> slots = new HashSet<>();
                 ModuleManager.removeModule(stack, moduleName);

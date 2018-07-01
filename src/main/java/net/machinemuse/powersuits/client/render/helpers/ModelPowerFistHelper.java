@@ -25,7 +25,7 @@ import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class ModelPowerFistHelper {
-    public static final ResourceLocation powerFistLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFist.obj");
+    public static final ResourceLocation powerFistLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerfist.obj");
     public static final ResourceLocation powerFistFingersNormalLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistFingersNormal.obj");
     public static final ResourceLocation powerFistFingersFiringLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistFingersFiring.obj");
 

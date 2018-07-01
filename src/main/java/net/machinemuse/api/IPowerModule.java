@@ -3,12 +3,13 @@ package net.machinemuse.api;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 
 import java.util.List;
 import java.util.Map;
 
 public interface IPowerModule {
-	List<ItemStack> getInstallCost();
+	NonNullList<ItemStack> getInstallCost();
 
 	TextureAtlasSprite getIcon(ItemStack item);
 

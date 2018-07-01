@@ -1,18 +1,18 @@
 package net.machinemuse.powersuits.powermodule;
 
 import net.machinemuse.api.*;
-import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 
 import java.util.*;
 
 public abstract class PowerModuleBase implements ILocalizeableModule {
-    protected List<ItemStack> defaultInstallCost;
+    protected NonNullList<ItemStack> defaultInstallCost;
     protected List<IModularItem> validItems;
     protected Map<String, List<IPropertyModifier>> propertyModifiers;
     protected static Map<String, String> units = new HashMap<>();
@@ -22,7 +22,7 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
 
     public PowerModuleBase(String name, List<IModularItem> validItems) {
         this.validItems = validItems;
-        this.defaultInstallCost = new ArrayList();
+        this.defaultInstallCost = NonNullList.create();
         this.propertyModifiers = new HashMap();
         this.defaultTag = new NBTTagCompound();
         this.defaultTag.setBoolean(MuseItemUtils.ONLINE, true);
@@ -31,7 +31,7 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
 
     public PowerModuleBase(List<IModularItem> validItems) {
         this.validItems = validItems;
-        this.defaultInstallCost = new ArrayList();
+        this.defaultInstallCost = NonNullList.create();
         this.propertyModifiers = new HashMap();
         this.defaultTag = new NBTTagCompound();
         this.defaultTag.setBoolean(MuseItemUtils.ONLINE, true);
@@ -49,7 +49,7 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
     }
 
     @Override
-    public List<ItemStack> getInstallCost() {
+    public NonNullList<ItemStack> getInstallCost() {
         if(ModuleManager.hasCustomInstallCost(this.getDataName())) {
             return ModuleManager.getCustomInstallCost(this.getDataName());
         } else {

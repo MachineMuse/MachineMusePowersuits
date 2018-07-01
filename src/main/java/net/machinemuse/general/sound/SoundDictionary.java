@@ -18,15 +18,15 @@ public class SoundDictionary {
     }
 
     private static final String SOUND_PREFIX = "powersuits:";
-    public static SoundEvent SOUND_EVENT_GLIDER = registerSound("Glider");
-    public static SoundEvent SOUND_EVENT_GUI_INSTALL = registerSound("GUIInstall");
-    public static SoundEvent SOUND_EVENT_GUI_SELECT = registerSound("MMMPSboop");
-    public static SoundEvent SOUND_EVENT_JETBOOTS = registerSound("JetBoots");
-    public static SoundEvent SOUND_EVENT_JETPACK = registerSound("Jetpack");
-    public static SoundEvent SOUND_EVENT_JUMP_ASSIST = registerSound("JumpAssist");
+    public static SoundEvent SOUND_EVENT_GLIDER = registerSound("glider");
+    public static SoundEvent SOUND_EVENT_GUI_INSTALL = registerSound("gui_install");
+    public static SoundEvent SOUND_EVENT_GUI_SELECT = registerSound("mmmps_boop");
+    public static SoundEvent SOUND_EVENT_JETBOOTS = registerSound("jet_boots");
+    public static SoundEvent SOUND_EVENT_JETPACK = registerSound("jetpack");
+    public static SoundEvent SOUND_EVENT_JUMP_ASSIST = registerSound("jump_assist");
     public static SoundEvent SOUND_EVENT_MPS_BOOP = registerSound("mps_boop");
-    public static SoundEvent SOUND_EVENT_SWIM_ASSIST = registerSound("SwimAssist");
-    public static SoundEvent SOUND_EVENT_ELECTROLYZER = registerSound("WaterElectrolyzer");
+    public static SoundEvent SOUND_EVENT_SWIM_ASSIST = registerSound("swim_assist");
+    public static SoundEvent SOUND_EVENT_ELECTROLYZER = registerSound("water_electrolyzer");
 
     @SubscribeEvent
     public static void registerSoundEvent(RegistryEvent.Register<SoundEvent> event) {

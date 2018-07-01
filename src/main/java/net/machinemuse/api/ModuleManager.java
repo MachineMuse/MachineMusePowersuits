@@ -7,6 +7,7 @@ import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.numina.item.IModeChangingItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class ModuleManager {
 
     public static final String ONLINE = "Active";
 
-    protected static final Map<String, List<ItemStack>> customInstallCosts = new HashMap<>();
+    protected static final Map<String, NonNullList<ItemStack>> customInstallCosts = new HashMap<>();
     protected static final Map<String, IPowerModule> moduleMap = new HashMap<>();
     protected static final List<IPowerModule> moduleList = new ArrayList<>();
     protected static final List<IPlayerTickModule> playerTickModules = new ArrayList<>();
@@ -156,7 +157,7 @@ public class ModuleManager {
         return customInstallCosts.containsKey(dataName);
     }
 
-    public static List<ItemStack> getCustomInstallCost(String dataName) {
+    public static NonNullList<ItemStack> getCustomInstallCost(String dataName) {
         return customInstallCosts.get(dataName);
     }
 
@@ -164,7 +165,7 @@ public class ModuleManager {
         if(customInstallCosts.containsKey(moduleName)) {
             customInstallCosts.get(moduleName).add(stack);
         } else {
-            customInstallCosts.put(moduleName, new ArrayList<ItemStack>());
+            customInstallCosts.put(moduleName, NonNullList.create());
             customInstallCosts.get(moduleName).add(stack);
         }
     }

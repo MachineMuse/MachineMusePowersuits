@@ -1,6 +1,7 @@
 # Blender v2.76 (sub 0) OBJ File: ''
 # www.blender.org
-mtllib tinkerTable.mtl
+mtllib tinkert
+able.mtl
 o fatfoot1
 v 0.368333 0.012411 0.625000
 v 0.368333 0.199911 0.625000

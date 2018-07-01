@@ -15,10 +15,12 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 public class MuseItemUtils {
@@ -31,11 +33,11 @@ public class MuseItemUtils {
      * @return an NBTTagCompound, may be newly created. If stack is null,
      *         returns null.
      */
-    public static NBTTagCompound getMuseItemTag(ItemStack stack) {
+    public static NBTTagCompound getMuseItemTag(@Nonnull ItemStack stack) {
         return MuseItemTag.getMuseItemTag(stack);
     }
 
-    public static NBTTagCompound getMuseRenderTag(ItemStack stack, EntityEquipmentSlot armorSlot) {
+    public static NBTTagCompound getMuseRenderTag(@Nonnull ItemStack stack, EntityEquipmentSlot armorSlot) {
         NBTTagCompound tag = getMuseItemTag(stack);
         if (!tag.hasKey("render") || !(tag.getTag("render") instanceof NBTTagCompound)) {
             MuseLogger.logDebug("TAG BREACH IMMINENT, PLEASE HOLD ONTO YOUR SEATBELTS");
@@ -45,7 +47,7 @@ public class MuseItemUtils {
         return tag.getCompoundTag("render");
     }
 
-    public static NBTTagCompound getMuseRenderTag(ItemStack stack) {
+    public static NBTTagCompound getMuseRenderTag(@Nonnull ItemStack stack) {
         NBTTagCompound tag = getMuseItemTag(stack);
         if (!tag.hasKey("render") || !(tag.getTag("render") instanceof NBTTagCompound)) {
             tag.removeTag("render");
@@ -61,19 +63,19 @@ public class MuseItemUtils {
      * @return A List of ItemStacks in the inventory which implement
      *         IModularItem
      */
-    public static List<ItemStack> getModularItemsInInventory(IInventory inv) {
-        ArrayList<ItemStack> stacks = new ArrayList<>();
+    public static NonNullList<ItemStack> getModularItemsInInventory(IInventory inv) {
+        NonNullList<ItemStack> stacks = NonNullList.create();
 
         for (int i = 0; i < inv.getSizeInventory(); i++) {
             ItemStack stack = inv.getStackInSlot(i);
-            if (stack != null && stack.getItem() instanceof IModularItem) {
+            if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
                 stacks.add(stack);
             }
         }
         return stacks;
     }
 
-    public static List<ItemStack> getModularItemsInInventory(EntityPlayer player) {
+    public static NonNullList<ItemStack> getModularItemsInInventory(EntityPlayer player) {
         return getModularItemsInInventory(player.inventory);
     }
 
@@ -88,7 +90,7 @@ public class MuseItemUtils {
 
         for (int i = 0; i < inv.getSizeInventory(); i++) {
             ItemStack stack = inv.getStackInSlot(i);
-            if (stack != null && stack.getItem() instanceof IModularItem) {
+            if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
                 slots.add(i);
             }
         }
@@ -130,7 +132,7 @@ public class MuseItemUtils {
         return true;
     }
 
-    public static List<Integer> deleteFromInventory(List<ItemStack> cost, InventoryPlayer inventory) {
+    public static List<Integer> deleteFromInventory(NonNullList<ItemStack> cost, InventoryPlayer inventory) {
         List<Integer> slots = new LinkedList<>();
         for (ItemStack stackInCost : cost) {
             int remaining = stackInCost.getCount();
@@ -141,7 +143,7 @@ public class MuseItemUtils {
                     stackInInventory.setCount(stackInInventory.getCount() - numToTake);
                     remaining -= numToTake;
                     if (stackInInventory.getCount() == 0) {
-                        inventory.setInventorySlotContents(i, null);
+                        inventory.setInventorySlotContents(i, ItemStack.EMPTY);
                     }
                     slots.add(i);
                 }
@@ -204,11 +206,11 @@ public class MuseItemUtils {
      * Sets the given itemstack's modular property, or removes it if the value
      * would be zero.
      */
-    public static void setDoubleOrRemove(ItemStack stack, String string, double value) {
+    public static void setDoubleOrRemove(@Nonnull ItemStack stack, String string, double value) {
         setDoubleOrRemove(getMuseItemTag(stack), string, value);
     }
 
-    public static String getStringOrNull(NBTTagCompound itemProperties, String key) {
+    public static String getStringOrNull(@Nonnull NBTTagCompound itemProperties, String key) {
         String value = null;
         if (itemProperties != null) {
             if (itemProperties.hasKey(key)) {
@@ -218,7 +220,7 @@ public class MuseItemUtils {
         return value;
     }
 
-    public static String getStringOrNull(ItemStack stack, String key) {
+    public static String getStringOrNull(@Nonnull ItemStack stack, String key) {
         return getStringOrNull(getMuseItemTag(stack), key);
     }
 
@@ -232,7 +234,7 @@ public class MuseItemUtils {
         }
     }
 
-    public static void setStringOrNull(ItemStack stack, String key, String value) {
+    public static void setStringOrNull(@Nonnull ItemStack stack, String key, String value) {
         setStringOrNull(getMuseItemTag(stack), key, value);
     }
 
@@ -240,7 +242,7 @@ public class MuseItemUtils {
         List<ItemStack> modulars = new ArrayList(5);
         ItemStack[] equipped = itemsEquipped(player);
         for (ItemStack stack : equipped) {
-            if (stack != null && stack.getItem() instanceof IModularItem) {
+            if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
                 modulars.add(stack);
             }
         }
@@ -257,7 +259,7 @@ public class MuseItemUtils {
 //                player.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND) // todo ?
     }
 
-    public static boolean canStackTogether(ItemStack stack1, ItemStack stack2) {
+    public static boolean canStackTogether(@Nonnull ItemStack stack1, @Nonnull ItemStack stack2) {
         if (!isSameItem(stack1, stack2)) {
             return false;
         } else if (!stack1.isStackable()) {
@@ -266,8 +268,8 @@ public class MuseItemUtils {
             return stack1.getCount() < stack1.getMaxStackSize();
     }
 
-    public static boolean isSameItem(ItemStack stack1, ItemStack stack2) {
-        if (stack1 == null || stack2 == null) {
+    public static boolean isSameItem(@Nonnull ItemStack stack1, @Nonnull ItemStack stack2) {
+        if (stack1.isEmpty() || stack2.isEmpty()) {
             return false;
         } else if (stack1.getItem() != stack2.getItem()) {
             return false;
@@ -276,7 +278,7 @@ public class MuseItemUtils {
                     && (stack1.getItemDamage() != stack2.getItemDamage()));
     }
 
-    public static void transferStackWithChance(ItemStack itemsToGive, ItemStack destinationStack, double chanceOfSuccess) {
+    public static void transferStackWithChance(@Nonnull ItemStack itemsToGive, @Nonnull ItemStack destinationStack, double chanceOfSuccess) {
         if (isSameItem(itemsToGive, ItemComponent.lvcapacitor)) {
             itemsToGive.setCount(0);
             return;
@@ -303,11 +305,11 @@ public class MuseItemUtils {
         }
     }
 
-    public static Set<Integer> giveOrDropItems(ItemStack itemsToGive, EntityPlayer player) {
+    public static Set<Integer> giveOrDropItems(@Nonnull ItemStack itemsToGive, EntityPlayer player) {
         return giveOrDropItemWithChance(itemsToGive, player, 1.0);
     }
 
-    public static Set<Integer> giveOrDropItemWithChance(ItemStack itemsToGive, EntityPlayer player, double chanceOfSuccess) {
+    public static Set<Integer> giveOrDropItemWithChance(@Nonnull ItemStack itemsToGive, EntityPlayer player, double chanceOfSuccess) {
         Set<Integer> slots = new HashSet<>();
 
         // First try to add the items to existing stacks
@@ -378,7 +380,7 @@ public class MuseItemUtils {
      * @param number New Stacksize
      * @return A new itemstack with the specified properties
      */
-    public static ItemStack copyAndResize(ItemStack stack, int number) {
+    public static ItemStack copyAndResize(@Nonnull ItemStack stack, int number) {
         ItemStack copy = stack.copy();
         copy.setCount(number);
         return copy;
@@ -391,9 +393,9 @@ public class MuseItemUtils {
      * @param itemstack
      * @return
      */
-    public static boolean canItemFitInInventory(EntityPlayer player, ItemStack itemstack) {
+    public static boolean canItemFitInInventory(EntityPlayer player, @Nonnull ItemStack itemstack) {
         for (int i = 0; i < player.inventory.getSizeInventory() - 4; i++) {
-            if (player.inventory.getStackInSlot(i) == null) {
+            if (player.inventory.getStackInSlot(i).isEmpty()) {
                 return true;
             }
         }
@@ -411,23 +413,23 @@ public class MuseItemUtils {
         return false;
     }
 
-    public static double getFoodLevel(ItemStack stack) {
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+    public static double getFoodLevel(@Nonnull ItemStack stack) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
             return itemTag.getDouble("Food");
         }
         return 0.0;
     }
 
-    public static void setFoodLevel(ItemStack stack, double d) {
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+    public static void setFoodLevel(@Nonnull ItemStack stack, double d) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
             itemTag.setDouble("Food", d);
         }
     }
 
-    public static double getSaturationLevel(ItemStack stack) {
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+    public static double getSaturationLevel(@Nonnull ItemStack stack) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
             Double saturationLevel = itemTag.getDouble("Saturation");
             if (saturationLevel != null) {
@@ -444,8 +446,8 @@ public class MuseItemUtils {
         }
     }
 
-    public static int getTorchLevel(ItemStack stack) {
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+    public static int getTorchLevel(@Nonnull ItemStack stack) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
             Integer torchLevel = itemTag.getInteger("Torch");
             if (torchLevel != null) {
@@ -455,15 +457,15 @@ public class MuseItemUtils {
         return 0;
     }
 
-    public static void setTorchLevel(ItemStack stack, int i) {
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+    public static void setTorchLevel(@Nonnull ItemStack stack, int i) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
             itemTag.setInteger("Torch", i);
         }
     }
 
-    public static double getWaterLevel(ItemStack stack) {
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+    public static double getWaterLevel(@Nonnull ItemStack stack) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
             Double waterLevel = itemTag.getDouble("Water");
             if (waterLevel != null) {
@@ -473,22 +475,22 @@ public class MuseItemUtils {
         return 0;
     }
 
-    public static void setWaterLevel(ItemStack stack, double d) {
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+    public static void setWaterLevel(@Nonnull ItemStack stack, double d) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
             itemTag.setDouble("Water", d);
         }
     }
 
-    public static void setLiquid(ItemStack stack, String name) {
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+    public static void setLiquid(@Nonnull ItemStack stack, String name) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
             itemTag.setString("Liquid", name);
         }
     }
 
-    public static String getLiquid(ItemStack stack) {
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+    public static String getLiquid(@Nonnull ItemStack stack) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
             String s = itemTag.getString("Liquid");
             if (s != null) {
@@ -498,8 +500,8 @@ public class MuseItemUtils {
         return "";
     }
 
-    public static int getCoalLevel(ItemStack stack) {
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+    public static int getCoalLevel(@Nonnull ItemStack stack) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
             Integer coalLevel = itemTag.getInteger("Coal");
             if (coalLevel != null) {
@@ -508,15 +510,15 @@ public class MuseItemUtils {
         }
         return 0;
     }
-    public static void setCoalLevel(ItemStack stack, int i) {
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+    public static void setCoalLevel(@Nonnull ItemStack stack, int i) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
             itemTag.setInteger("Coal", i);
         }
     }
 
-    public static String getEIONoCompete(ItemStack stack) {
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+    public static String getEIONoCompete(@Nonnull ItemStack stack) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
             if (itemTag != null) {
                 return itemTag.getString("eioNoCompete");
@@ -527,15 +529,15 @@ public class MuseItemUtils {
         return "";
     }
 
-    public static void setEIONoCompete(ItemStack stack, String s) {
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+    public static void setEIONoCompete(@Nonnull ItemStack stack, String s) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
             itemTag.setString("eioNoCompete", s);
         }
     }
 
-    public static boolean getEIOFacadeTransparency(ItemStack stack) {
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+    public static boolean getEIOFacadeTransparency(@Nonnull ItemStack stack) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
             if (itemTag != null) {
                 return itemTag.getBoolean("eioFacadeTransparency");
@@ -544,29 +546,29 @@ public class MuseItemUtils {
         return false;
     }
 
-    public static void setEIOFacadeTransparency(ItemStack stack, boolean b) {
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+    public static void setEIOFacadeTransparency(@Nonnull ItemStack stack, boolean b) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
             itemTag.setBoolean("eioFacadeTransparency", b);
         }
     }
 
-    public static NBTTagCompound getFluidTermTag(ItemStack stack) {
+    public static NBTTagCompound getFluidTermTag(@Nonnull ItemStack stack) {
         NBTTagCompound ret = null;
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             ret = MuseItemUtils.getMuseItemTag(stack).getCompoundTag("AppEng EC Wireless Fluid Terminal");
         }
         return ret;
     }
 
-    public static void setFluidTermTag(ItemStack stack, NBTTagCompound tag) {
+    public static void setFluidTermTag(@Nonnull ItemStack stack, NBTTagCompound tag) {
         NBTTagCompound t = MuseItemUtils.getMuseItemTag(stack);
         t.setTag("AppEng EC Wireless Fluid Terminal", tag);
         stack.getTagCompound().setTag(MuseItemTag.NBTPREFIX, t);
     }
 
     public static boolean getCanShrink(ItemStack stack) {
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = stack.getTagCompound();
             NBTTagCompound cmTag = ((itemTag.hasKey("CompactMachines")) ? itemTag.getCompoundTag("CompactMachines") : null);
             if (cmTag != null && cmTag.hasKey("canShrink")) {
@@ -576,8 +578,8 @@ public class MuseItemUtils {
         return false;
     }
 
-    public static void setCanShrink(ItemStack stack, boolean b) {
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+    public static void setCanShrink(@Nonnull ItemStack stack, boolean b) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = stack.getTagCompound();
             NBTTagCompound cmTag = ((itemTag.hasKey("CompactMachines")) ? itemTag.getCompoundTag("CompactMachines") : (new NBTTagCompound()));
             cmTag.setBoolean("canShrink", b);
@@ -585,7 +587,7 @@ public class MuseItemUtils {
         }
     }
 
-    public static NBTTagCompound getNBTTag(ItemStack itemStack) {
+    public static NBTTagCompound getNBTTag(@Nonnull ItemStack itemStack) {
         NBTTagCompound tag = itemStack.getTagCompound();
 
         if (tag == null) {
