@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import net.machinemuse.general.NBTTagAccessor;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.client.render.item.ArmorModelInstance;
 import net.machinemuse.powersuits.client.render.item.IArmorModel;
+import net.machinemuse.utils.NBTTagAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -42,29 +42,28 @@ public class RenderPart extends ModelRenderer {
         int[] colours = renderSpec.getIntArray("colours");
         int partColor;
         for (NBTTagCompound nbt : NBTTagAccessor.getValues(renderSpec)) {
-            ModelPartSpec part = ModelRegistry.getInstance().getPart(nbt);
-            if (part !=null) {
-                if (part.slot == ((IArmorModel)(ArmorModelInstance.getInstance())).getVisibleSection() && part.morph.apply(ArmorModelInstance.getInstance()) == parent) {
-                    List<BakedQuad> quadList = part.getQuads();
+            PartSpecBase part = ModelRegistry.getInstance().getPart(nbt);
+            if (part !=null && part instanceof ModelPartSpec) {
+                if (part.binding.getSlot() == ((IArmorModel)(ArmorModelInstance.getInstance())).getVisibleSection()
+                        && part.binding.getTarget().apply(ArmorModelInstance.getInstance()) == parent) {
+                    List<BakedQuad> quadList = ((ModelPartSpec)part).getQuads();
                     if (!quadList.isEmpty()) {
                         int ix = part.getColourIndex(nbt);
                         if (ix < colours.length && ix >= 0) partColor = colours[ix];
                         else partColor = Colour.WHITE.getInt();
 
                         // GLOW stuff on
-                        if (part.getGlow(nbt)) RenderState.glowOn();
+                        if (((ModelPartSpec)part).getGlow(nbt)) RenderState.glowOn();
 
                         GlStateManager.pushMatrix();
                         GlStateManager.scale(scale, scale, scale);
                         applyTransform();
                         Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-                        part.modelSpec.applyOffsetAndRotation(); // not yet implemented
-
                         Tessellator tess = Tessellator.getInstance();
                         BufferBuilder buffer = tess.getBuffer();
                         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.ITEM);
 
-                        for (BakedQuad quad : part.getQuads()) {
+                        for (BakedQuad quad : ((ModelPartSpec)part).getQuads()) {
                             buffer.addVertexData(quad.getVertexData());
                             ForgeHooksClient.putQuadColor(buffer, quad, partColor);
                         }
@@ -73,7 +72,8 @@ public class RenderPart extends ModelRenderer {
                         GlStateManager.popMatrix();
 
                         //Glow stuff off
-                        if (part.getGlow(nbt)) RenderState.glowOff();
+                        if (((ModelPartSpec)part).getGlow(nbt))
+                            RenderState.glowOff();
                     }
                 }
             }

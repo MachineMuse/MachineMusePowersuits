@@ -161,8 +161,7 @@ public class BlockLuxCapacitor extends BlockDirectional {
     }
 
     @Override
-    public int getMetaFromState(IBlockState state)
-    {
+    public int getMetaFromState(IBlockState state) {
         return state.getValue(FACING).getIndex();
     }
 //

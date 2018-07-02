@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.network.packets;
 
-import net.machinemuse.general.gui.MuseGui;
+import net.machinemuse.powersuits.client.gui.MuseGui;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.minecraft.client.Minecraft;

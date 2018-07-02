@@ -7,6 +7,7 @@ import net.machinemuse.powersuits.block.itemblock.ItemBlockTinkerTable;
 import net.machinemuse.powersuits.item.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -42,15 +43,16 @@ public enum MPSItems {
                 powerArmorLegs,
                 powerArmorFeet,
                 powerFist,
-                components);
+                components,
+
+                ItemBlockTinkerTable.getInstance(),
+                ItemBlockLuxCapacitor.getInstance()
+                );
 
 
         ((ItemComponent)components).populate();
         ((ItemComponent)components).registerOres();
     }
-
-
-
 
     private static Item itemRegister(Item item, String regName, String unlocalizedName) {
         // including the ModID in the unlocalized name helps keep the names unique so they can be used as keys for maps
@@ -65,11 +67,5 @@ public enum MPSItems {
         event.getRegistry().register(BlockLuxCapacitor.getInstance());
 //        event.getRegistry().register(new BlockLiquidNitrogen()); // TODO?
 
-    }
-
-    @SubscribeEvent
-    public static void initBlockItems(RegistryEvent.Register<Item> event) {
-        event.getRegistry().register(ItemBlockTinkerTable.getInstance());
-        event.getRegistry().register(ItemBlockLuxCapacitor.getInstance());
     }
  }

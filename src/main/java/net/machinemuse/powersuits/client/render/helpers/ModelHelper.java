@@ -57,7 +57,7 @@
 //        ModelPowerFistHelper.getInstance().loadPowerFistModels(loadModels);
 //    }
 //
-//    public static IModel getModel(ResourceLocation resource){
+//    public static IModel getIModel(ResourceLocation resource){
 //        IModel model = null;
 //        try {
 //            model = (OBJModelPlus) OBJPlusLoader.INSTANCE.loadModel(resource);
@@ -70,7 +70,7 @@
 //    }
 //
 //    public static IBakedModel loadBakedModel(ResourceLocation resource, IModelState state) {
-//        IModel model = getModel(resource);
+//        IModel model = getIModel(resource);
 //        if (model != null) {
 //            IBakedModel bakedModel = model.bake(state,
 //                    DefaultVertexFormats.ITEM,
@@ -85,7 +85,7 @@
 //    }
 //
 //    public static IBakedModel loadBakedModel(ResourceLocation resource) {
-//        IModel model = getModel(resource);
+//        IModel model = getIModel(resource);
 //        if (model != null) {
 //            IBakedModel bakedModel = model.bake(model.getDefaultState(),
 //                    DefaultVertexFormats.ITEM,
@@ -100,7 +100,7 @@
 //    }
 //
 //    public static IBakedModel getBakedModel(ResourceLocation modellocation, IModelState modelState) {
-//        IModel model = getModel(modellocation);
+//        IModel model = getIModel(modellocation);
 //
 //        try {
 //            return model.bake(modelState, DefaultVertexFormats.ITEM,
@@ -122,7 +122,7 @@
 //     */
 //    @Nullable
 //    public static IExtendedBlockState getStateForPart(String shownIn, OBJModelPlus.OBJBakedModelPus objBakedModelIn) {
-//        List<String> hidden = new ArrayList<>(objBakedModelIn.getModel().getMatLib().getGroups().keySet());
+//        List<String> hidden = new ArrayList<>(objBakedModelIn.getIModel().getMatLib().getGroups().keySet());
 //        return getStateForPart(shownIn, hidden);
 //    }
 //

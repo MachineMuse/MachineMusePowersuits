@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.client.render.model;
 
-import com.google.common.base.Optional;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
@@ -78,7 +77,7 @@ public class ModelPowerFist implements IBakedModel {
     @Override
     public boolean isGui3d() {
         if (iconModel == null)
-            iconModel = ModelBakeEventHandler.getInstance().powerFistIconModel;
+            iconModel = ModelBakeEventHandler.INSTANCE.powerFistIconModel;
         return iconModel.isGui3d();
     }
 

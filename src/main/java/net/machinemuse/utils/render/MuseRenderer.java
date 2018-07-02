@@ -1,6 +1,6 @@
 package net.machinemuse.utils.render;
 
-import net.machinemuse.general.gui.clickable.IClickable;
+import net.machinemuse.powersuits.client.gui.tinker.clickable.IClickable;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.geometry.SwirlyMuseCircle;

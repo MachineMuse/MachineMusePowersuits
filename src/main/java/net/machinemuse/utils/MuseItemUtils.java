@@ -598,6 +598,18 @@ public class MuseItemUtils {
         return tag;
     }
 
+
+
+
+
+    /**
+     * Checks item, NBT, and meta if the item is not damageable
+     */
+    public static boolean stackEqualExact(ItemStack stack1, ItemStack stack2) {
+        return stack1.getItem() == stack2.getItem() && (!stack1.getHasSubtypes() || stack1.getMetadata() == stack2.getMetadata()) && ItemStack.areItemStackTagsEqual(stack1, stack2);
+    }
+
+
     public static boolean isClientWorld(World world) {
         return world.isRemote;
     }

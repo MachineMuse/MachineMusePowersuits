@@ -22,16 +22,8 @@ import java.io.IOException;
  * Ported to Java by lehjr on 12/22/16.
  */
 @SideOnly(Side.CLIENT)
-public class ModelBakeEventHandler {
-    private static ModelBakeEventHandler INSTANCE;
-    public static ModelBakeEventHandler getInstance() {
-        if (INSTANCE == null) synchronized (ModelBakeEventHandler.class) {
-            if (INSTANCE == null) INSTANCE = new ModelBakeEventHandler();
-        }
-        return INSTANCE;
-    }
-    private ModelBakeEventHandler() {
-    }
+public enum ModelBakeEventHandler {
+    INSTANCE;
 
     private static IRegistry<ModelResourceLocation, IBakedModel> modelRegistry;
     //FIXME there may only be one run. 2 runs not a guarantee
@@ -40,10 +32,10 @@ public class ModelBakeEventHandler {
     public static IBakedModel powerFistIconModel;
 
     // Armor icons
-    public static final ModelResourceLocation powerArmorHeadModelLocation = new ModelResourceLocation(MPSItems.powerArmorHead.getRegistryName(), "inventory");
-    public static final ModelResourceLocation powerArmorChestModelLocation = new ModelResourceLocation(MPSItems.powerArmorTorso.getRegistryName(), "inventory");
-    public static final ModelResourceLocation powerArmorLegsModelLocation = new ModelResourceLocation(MPSItems.powerArmorLegs.getRegistryName(), "inventory");
-    public static final ModelResourceLocation powerArmorFeetModelLocation = new ModelResourceLocation(MPSItems.powerArmorFeet.getRegistryName(), "inventory");
+    public static final ModelResourceLocation powerArmorHeadModelLocation = new ModelResourceLocation(MPSItems.INSTANCE.powerArmorHead.getRegistryName(), "inventory");
+    public static final ModelResourceLocation powerArmorChestModelLocation = new ModelResourceLocation(MPSItems.INSTANCE.powerArmorTorso.getRegistryName(), "inventory");
+    public static final ModelResourceLocation powerArmorLegsModelLocation = new ModelResourceLocation(MPSItems.INSTANCE.powerArmorLegs.getRegistryName(), "inventory");
+    public static final ModelResourceLocation powerArmorFeetModelLocation = new ModelResourceLocation(MPSItems.INSTANCE.powerArmorFeet.getRegistryName(), "inventory");
 
     @SubscribeEvent
     public void onModelBake(ModelBakeEvent event) throws IOException {
@@ -77,11 +69,11 @@ public class ModelBakeEventHandler {
         modelRegistry.putObject(powerArmorFeetModelLocation, powerArmorIconModel);
 
 
-        // put this here because it might be fired late enough to actually work
-        if (firstLoad) {
-            firstLoad = false;
-        } else {
+//        // put this here because it might be fired late enough to actually work
+//        if (firstLoad) {
+//            firstLoad = false;
+//        } else {
             ModelHelper.loadArmorModels(null);
-        }
+//        }
     }
 }

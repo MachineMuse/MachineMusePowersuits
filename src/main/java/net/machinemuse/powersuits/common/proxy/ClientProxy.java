@@ -1,14 +1,12 @@
 package net.machinemuse.powersuits.common.proxy;
 
 import api.player.model.ModelPlayerAPI;
-import net.machinemuse.general.sound.SoundDictionary;
+import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.MusePacketModeChangeRequest;
 import net.machinemuse.numina.network.PacketSender;
-import net.machinemuse.powersuits.block.TileEntityTinkerTable;
 import net.machinemuse.powersuits.client.event.EventRegisterRenderers;
 import net.machinemuse.powersuits.client.model.obj.OBJPlusLoader;
-import net.machinemuse.powersuits.client.render.block.TinkerTableRenderer;
 import net.machinemuse.powersuits.client.render.item.SMovingArmorModel;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.control.KeybindKeyHandler;
@@ -21,7 +19,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -49,7 +46,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void init(FMLInitializationEvent event) {
         super.init(event);
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTinkerTable.class, new TinkerTableRenderer());
     }
 
     @Override
@@ -66,7 +62,7 @@ public class ClientProxy extends CommonProxy {
         MinecraftForge.EVENT_BUS.register(new ClientTickHandler());
         MinecraftForge.EVENT_BUS.register(new SoundDictionary());
         MinecraftForge.EVENT_BUS.register(new RenderEventHandler());
-        MinecraftForge.EVENT_BUS.register(ModelBakeEventHandler.getInstance());
+        MinecraftForge.EVENT_BUS.register(ModelBakeEventHandler.INSTANCE);
         MinecraftForge.EVENT_BUS.register(new EventRegisterRenderers());
     }
 

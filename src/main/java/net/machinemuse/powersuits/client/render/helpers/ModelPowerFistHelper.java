@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.common.model.IModelPart;
 import net.minecraftforge.common.model.IModelState;
@@ -25,13 +26,13 @@ import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class ModelPowerFistHelper {
-    public static final ResourceLocation powerFistLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerfist.obj");
-    public static final ResourceLocation powerFistFingersNormalLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistFingersNormal.obj");
-    public static final ResourceLocation powerFistFingersFiringLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistFingersFiring.obj");
+    public static final ResourceLocation powerFistLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerfist/powerfist.obj");
+    public static final ResourceLocation powerFistFingersNormalLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerfist/powerfist_fingers_normal.obj");
+    public static final ResourceLocation powerFistFingersFiringLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerfist/powerfist_fingers_firing.obj");
 
-    public static final ResourceLocation powerFistLeftLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistLeft.obj");
-    public static final ResourceLocation powerFistFingersLeftNormalLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistFingersNormalLeft.obj");
-    public static final ResourceLocation powerFistFingersLeftFiringLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistFingersFiringLeft.obj");
+    public static final ResourceLocation powerFistLeftLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerfist_left.obj");
+    public static final ResourceLocation powerFistFingersLeftNormalLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerfist/powerfist_fingers_normal_left.obj");
+    public static final ResourceLocation powerFistFingersLeftFiringLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerfist/powerfist_fingers_firing_left.obj");
 
     public static IBakedModel powerFist;
     public static IBakedModel powerFistFingers;
@@ -40,8 +41,8 @@ public class ModelPowerFistHelper {
     public static IBakedModel powerFistFingersLeft;
     public static IBakedModel powerFistFingersLeftFiring;
 
-    public static void loadPowerFistModels(boolean loadModels) {
-        if (!loadModels) {
+    public static void loadPowerFistModels(TextureStitchEvent event) {
+        if (event != null) {
             try {
                 // FIXME: register textures from XML loader
 //                OBJPlusLoader.INSTANCE.registerModelSprites(powerFistLocation);

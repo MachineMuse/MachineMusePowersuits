@@ -1,15 +1,18 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
+import com.google.common.collect.ImmutableMap;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.powersuits.client.model.obj.OBJPlusLoader;
 import net.machinemuse.powersuits.client.model.obj.OBJModelPlus;
 import net.machinemuse.utils.MuseStringUtils;
-import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.client.model.SimpleModelState;
+import net.minecraftforge.common.model.IModelPart;
+import net.minecraftforge.common.model.IModelState;
+import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.w3c.dom.Document;
@@ -19,13 +22,16 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import javax.annotation.Nullable;
+import javax.vecmath.Vector3f;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
 import java.io.File;
 import java.net.URL;
-
-import static net.machinemuse.powersuits.client.render.modelspec.MorphTarget.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -37,7 +43,7 @@ import static net.machinemuse.powersuits.client.render.modelspec.MorphTarget.*;
 public enum ModelSpecXMLReader {
     INSTANCE;
 
-    public void parseFile(URL file, @Nullable TextureStitchEvent event) {
+    public static void parseFile(URL file, @Nullable TextureStitchEvent event) {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -49,7 +55,7 @@ public enum ModelSpecXMLReader {
         }
     }
 
-    public void parseFile(File file, @Nullable TextureStitchEvent event) {
+    public static void parseFile(File file, @Nullable TextureStitchEvent event) {
         if (file.exists()) {
             try {
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -63,168 +69,267 @@ public enum ModelSpecXMLReader {
         }
     }
 
-    public void parseXML(Document xml, @Nullable TextureStitchEvent event) {
+    public static void parseXML(Document xml, @Nullable TextureStitchEvent event) {
+        if (xml != null) {
+            try {
+                xml.normalizeDocument();
 
-        try {
-            xml.getDocumentElement().normalize();
+                if (xml.hasChildNodes()) {
+                    NodeList specList = xml.getElementsByTagName("modelspec");
+                    for(int i = 0; i< specList.getLength(); i++) {
+                        Node specNode = specList.item(i);
+                        if(specNode.getNodeType() == Node.ELEMENT_NODE) {
+                            Element eElement = (Element) specNode;
+                            EnumSpecType specType = EnumSpecType.getTypeFromName(eElement.getAttribute("type"));
+                            String specName = eElement.getAttribute("specName");
 
-            NodeList modelNodeList = xml.getElementsByTagName("model");
-            for (int temp = 0; temp < modelNodeList.getLength(); temp++) {
-                Node modelNode = modelNodeList.item(temp);
+                            boolean isDefault = (eElement.hasAttribute("default") ? Boolean.parseBoolean(eElement.getAttribute("default")) : false);
 
-                if (modelNode.getNodeType() == Node.ELEMENT_NODE) {
-                    parseModel(modelNode, event);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+                            switch(specType) {
+                                case POWER_FIST:
+                                    // only allow custom models if allowed by config
+                                    if (isDefault /* || MPSConfig.INSTANCE.allowCustomPowerFistModels()*/)
+                                        parseModelSpec(specNode, event, EnumSpecType.POWER_FIST, specName, isDefault);
+                                    break;
 
-    public void parseModel(Node modelnode, @Nullable TextureStitchEvent event) {
-        String file;
-        String[] texturesArray;
-        Vec3d offset;
-        Vec3d rotation;
+                                case ARMOR_MODEL:
+                                    // only allow these models if allowed by config
+                                    if (1==1 /*MPSConfig.INSTANCE.allowHighPollyArmorModels() */) {
+                                        // only allow custom models if allowed by config
+                                        if (isDefault /* || MPSConfig.INSTANCE.allowCustomHighPollyArmor() */)
+                                            parseModelSpec(specNode, event, EnumSpecType.ARMOR_MODEL, specName, isDefault);
+                                    }
+                                    break;
 
-        if (modelnode.getNodeType() == Node.ELEMENT_NODE) {
-            Element eElement = (Element) modelnode;
-            file = eElement.getAttribute("file");
-            // this is just used for texture registration now.
-            texturesArray = eElement.getAttribute("textures").split(",");
+                                case ARMOR_SKIN:
+                                    if (event == null) {
+                                        TextureSpec textureSpec = new TextureSpec(specName, isDefault);
+                                        parseTextureSpec(specNode,textureSpec);
+                                    }
+                                    break;
 
-            // These are null because they are not used in the files
-            offset = parseVector(eElement.getAttribute("offset"));
-            rotation = parseVector(eElement.getAttribute("rotation"));
-
-            // register the textures
-            if (event != null) {
-                try {
-                    for (String texture : texturesArray)
-                        event.getMap().registerSprite(new ResourceLocation(texture));
-                } catch (Exception ignored) {
-                }
-            } else {
-                IBakedModel bakedModel = ModelRegistry.getInstance().loadBakedModel(new ResourceLocation(file));
-                if (bakedModel != null && bakedModel instanceof OBJModelPlus.OBJBakedModelPus) {
-                    ModelSpec modelspec = new ModelSpec((OBJModelPlus.OBJBakedModelPus) bakedModel, offset, rotation, file);
-                    // ModelSpec modelspec = new ModelSpec(model, textures, offset, rotation, file);
-
-                    ModelSpec existingspec = ModelRegistry.getInstance().put(MuseStringUtils.extractName(file), modelspec);
-                    NodeList bindingNodeList = eElement.getElementsByTagName("binding");
-                    for (int temp = 0; temp < bindingNodeList.getLength(); temp++) {
-                        Node bindingnode = bindingNodeList.item(temp);
-                        parseBinding(bindingnode, existingspec);
+                                default:
+                                    break;
+                            }
+                        }
                     }
-                } else {
-                    MuseLogger.logError("Model file " + file + " not found! D:");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void parseTextureSpec(Node specNode, TextureSpec textureSpec) {
+        // ModelBase textures are not registered.
+        TextureSpec existingspec = (TextureSpec) ModelRegistry.getInstance().put(textureSpec.getName(), textureSpec);
+        NodeList textures = specNode.getOwnerDocument().getElementsByTagName("texture");
+        for (int i = 0; i < textures.getLength(); i++) {
+            Node textureNode = textures.item(i);
+            if (textureNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element)textureNode;
+                String fileLocation = eElement.getAttribute("file");
+                NodeList bindings = eElement.getElementsByTagName("binding");
+                for (int j = 0; j < bindings.getLength(); j++) {
+                    SpecBinding binding = getBinding(bindings.item(j));
+                    getTexturePartSpec(existingspec, bindings.item(j), binding.getSlot(), fileLocation);
                 }
             }
         }
     }
 
-    public void parseBinding(Node bindingnode, ModelSpec modelspec) {
-        if (bindingnode.getNodeType() == Node.ELEMENT_NODE) {
-            Element eElement = (Element) bindingnode;
-            EntityEquipmentSlot slot = parseEquipmentSlot(eElement.getAttribute("slot"));
-            MorphTarget target = parseTarget(eElement.getAttribute("target"));
-            NodeList partNodeList = eElement.getElementsByTagName("part");
-            for (int temp = 0; temp < partNodeList.getLength(); temp++) {
-                Node partnode = partNodeList.item(temp);
-                parseParts(partnode, modelspec, slot, target);
-            }
-        }
-    }
-
-    public void parseParts(Node partNode, ModelSpec modelspec, EntityEquipmentSlot slot, MorphTarget target) {
-        if (partNode.getNodeType() == Node.ELEMENT_NODE) {
-            Element eElement = (Element) partNode;
-            Colour defaultcolor = parseColour(eElement.getAttribute("defaultcolor")); // not currently used
-            Boolean defaultglow = parseBool(eElement.getAttribute("defaultglow"));
-            String name = eElement.getAttribute("name");
-            String polygroup = validatePolygroup(eElement.getAttribute("polygroup"), modelspec);
-
-            if (polygroup != null) {
-                ModelPartSpec partspec = new ModelPartSpec(modelspec, target, polygroup, slot, 0,
-                        (defaultglow != null) ? defaultglow :false, name);
-                modelspec.put(polygroup, partspec);
-            }
-        }
-    }
-
-    @Nullable
-    public String validatePolygroup(String s, ModelSpec m) {
-        return ((OBJModelPlus.OBJBakedModelPus)m.getModel()).getModel().getMatLib().getGroups().keySet().contains(s) ? s : null;
-    }
-
-    @Nullable
-    public Boolean parseBool(String s) {
-        try {
-            return Boolean.parseBoolean(s);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    @Nullable
-    public Colour parseColour(String s) {
-        try {
-            Color c = Color.decode(s);
-            return new Colour(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha());
-        } catch (Exception e){
-            return null;
-        }
-    }
-
-    /*
-     * TODO: try something else.
+    /**
+     * Biggest difference between the ModelSpec for Armor vs PowerFist is that the armor models don't need item camera transforms
      */
-    EntityEquipmentSlot parseEquipmentSlot(String s) {
-        switch (s.toUpperCase()) {
-            case "HEAD": return EntityEquipmentSlot.HEAD;
-            case "CHEST": return EntityEquipmentSlot.CHEST;
-            case "LEGS": return EntityEquipmentSlot.LEGS;
-            case "FEET": return EntityEquipmentSlot.FEET;
-            // Left and right hand would have been better.
-//            case "OFFHAND": return EntityEquipmentSlot.OFFHAND;
-//            case "MAINHAND": return EntityEquipmentSlot.MAINHAND;
-            default: return null;
+    public static void parseModelSpec(Node specNode, TextureStitchEvent event, EnumSpecType specType, String specName, boolean isDefault) {
+        NodeList models = specNode.getOwnerDocument().getElementsByTagName("model");
+        java.util.List<String> textures = new ArrayList<>();
+        IModelState modelState = null;
+
+        for (int i=0; i < models.getLength(); i++) {
+
+            Node modelNode = models.item(i);
+            if (modelNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element modelElement = (Element)modelNode;
+
+                // Register textures
+                if (event != null) {
+                    List<String> tempTextures = Arrays.asList(modelElement.getAttribute("textures").split(","));
+                    for (String texture: tempTextures)
+                        if (!(textures.contains(texture)))
+                            textures.add(texture);
+                } else {
+                    String modelLocation = modelElement.getAttribute("file");
+                    // IModelStates should be per model, not per spec
+                    NodeList cameraTransformList = modelElement.getElementsByTagName("itemCameraTransforms");
+                    // check for item camera transforms, then fall back on single transform for model
+                    if (cameraTransformList.getLength() > 0) {
+                        Node cameraTransformNode = cameraTransformList.item(0);
+                        modelState = getIModelState(cameraTransformNode);
+                    } else {
+                        // Get the transform for the model and add to the registry
+                        NodeList transformNodeList = modelElement.getElementsByTagName("trsrTransformation");
+                        if (transformNodeList.getLength() > 0)
+                            modelState = getTransform(transformNodeList.item(0));
+                        else
+                            modelState= TRSRTransformation.identity();
+                    }
+
+                    OBJModelPlus.OBJBakedModelPus bakedModel = ModelRegistry.getInstance().loadBakedModel(new ResourceLocation(modelLocation), modelState);
+                    // ModelSpec stuff
+                    if (bakedModel != null && bakedModel instanceof OBJModelPlus.OBJBakedModelPus) {
+                        ModelSpec modelspec = new ModelSpec(bakedModel, modelState, specName, isDefault, specType);
+                        ModelSpec existingspec = (ModelSpec) ModelRegistry.getInstance().put(MuseStringUtils.extractName(modelLocation), modelspec);
+                        NodeList bindingNodeList = ((Element) modelNode).getElementsByTagName("binding");
+                        if (bindingNodeList.getLength() > 0) {
+                            for (int k = 0; k < bindingNodeList.getLength(); k++) {
+                                Node bindingNode = bindingNodeList.item(k);
+                                SpecBinding binding = getBinding(bindingNode);
+                                NodeList partNodeList = ((Element) bindingNode).getElementsByTagName("part");
+                                for(int j=0; j<partNodeList.getLength(); j++) {
+                                    getModelPartSpec(existingspec, partNodeList.item(j), binding);
+                                }
+                            }
+                        }
+                    } else {
+                        MuseLogger.logError("Model file " + modelLocation + " not found! D:");
+                    }
+                }
+            }
         }
+
+        // Register textures
+        if (event != null)
+            for (String texture : textures)
+                event.getMap().registerSprite(new ResourceLocation(texture));
+    }
+
+    // since the skinned armor can't have more than one texture per EntityEquipmentSlot the TexturePartSpec is named after the slot
+    public static void getTexturePartSpec(TextureSpec textureSpec, Node bindingNode, EntityEquipmentSlot slot, String fileLocation) {
+        Element partSpecElement = (Element) bindingNode;
+        Colour colour = parseColour(partSpecElement.getAttribute("defaultcolor"));
+
+        if (!Objects.equals(slot, null) && Objects.equals(slot.getSlotType(), EntityEquipmentSlot.Type.ARMOR))
+            textureSpec.put(slot.getName(),
+                    new TexturePartSpec(textureSpec,
+                            new SpecBinding(null, slot, "all"),
+                            colour.getInt(), slot.getName(), fileLocation));
+    }
+
+    /**
+     * ModelPartSpec is a group of settings for each model part
+     */
+    public static void getModelPartSpec(ModelSpec modelSpec, Node partSpecNode, SpecBinding binding) {
+        Element partSpecElement = (Element) partSpecNode;
+        String partname = validatePolygroup(partSpecElement.getAttribute("partName"), modelSpec);
+        boolean glow = Boolean.parseBoolean(partSpecElement.getAttribute("defaultglow"));
+        Colour colour = parseColour(partSpecElement.getAttribute("defaultcolor"));
+        if (partname == null) {
+            System.out.println("partName is NULL!!");
+            System.out.println("ModelSpec model: " + modelSpec.getName());
+            System.out.println("glow: " + glow);
+            System.out.println("colour: " + colour.hexColour());
+        } else
+            modelSpec.put(partname, new ModelPartSpec(modelSpec,
+                    binding,
+                    partname,
+                    colour.getInt(),
+                    glow));
     }
 
     @Nullable
-    public MorphTarget parseTarget(String s) {
-        switch (s.toLowerCase()) {
-            case "head": return Head;
-            case "body": return Body;
-            case "leftarm": return LeftArm;
-            case "rightarm": return RightArm;
-            case "leftleg": return LeftLeg;
-            case "rightleg": return RightLeg;
-//            case "cloak": return Cloak;
-            default: return null;
+    public static String validatePolygroup(String s, ModelSpec m) {
+        return m.getModel().getModel().getMatLib().getGroups().keySet().contains(s) ? s : null;
+    }
+
+    /**
+     * This gets the map of TransformType, TRSRTransformation> used for handheld items
+     * @param itemCameraTransformsNode
+     * @return
+     */
+    public static IModelState getIModelState(Node itemCameraTransformsNode) {
+        ImmutableMap.Builder<IModelPart, TRSRTransformation> builder = ImmutableMap.builder();
+        NodeList transformationList = ((Element)itemCameraTransformsNode).getElementsByTagName("trsrTransformation");
+        for (int i = 0; i < transformationList.getLength(); i++) {
+            Node transformationNode = transformationList.item(i);
+            ItemCameraTransforms.TransformType transformType =
+                    ItemCameraTransforms.TransformType.valueOf(((Element) transformationNode).getAttribute("type").toUpperCase());
+            TRSRTransformation trsrTransformation = getTransform(transformationNode);
+            builder.put(transformType, trsrTransformation);
         }
+        return new SimpleModelState(builder.build());
+    }
+
+    /**
+     * This gets the transforms for baking the models. TRSRTransformation is also used for item camera transforms to alter the
+     * position, scale, and translation of a held/dropped/framed item
+     *
+     * @param transformationNode
+     * @return
+     */
+    public static TRSRTransformation getTransform(Node transformationNode) {
+        Vector3f translation = parseVector(((Element) transformationNode).getAttribute("translation"));
+        Vector3f rotation = parseVector(((Element) transformationNode).getAttribute("rotation"));
+        Vector3f scale = parseVector(((Element) transformationNode).getAttribute("scale"));
+        return getTransform(translation, rotation, scale);
+    }
+
+    /**
+     * SpecBinding is a subset if settings for the ModelPartSpec
+     */
+    public static SpecBinding getBinding(Node bindingNode) {
+        return new SpecBinding(
+                (((Element) bindingNode).hasAttribute("target")) ?
+                        MorphTarget.getMorph(((Element) bindingNode).getAttribute("target")) : null,
+                (((Element) bindingNode).hasAttribute("slot")) ?
+                        EntityEquipmentSlot.fromString(((Element) bindingNode).getAttribute("slot").toLowerCase()) : null,
+                (((Element) bindingNode).hasAttribute("itemState")) ?
+                        ((Element) bindingNode).getAttribute("itemState"): "all"
+        );
+    }
+
+    /**
+     * Simple transformation for armor models. Powerfist (and shield?) will need one of these for every conceivable case except GUI which will be an icon
+     */
+    public static TRSRTransformation getTransform(@Nullable Vector3f translation, @Nullable Vector3f rotation, @Nullable Vector3f scale) {
+        if (translation == null)
+            translation = new Vector3f(0, 0, 0);
+        if (rotation == null)
+            rotation = new Vector3f(0, 0, 0);
+        if (scale == null)
+            scale = new Vector3f(1, 1, 1);
+
+        return new TRSRTransformation(
+                // Transform
+                new Vector3f(translation.x / 16, translation.y / 16, translation.z / 16),
+                // Angles
+                TRSRTransformation.quatFromXYZDegrees(rotation),
+                // Scale
+                scale,
+                null);
     }
 
     @Nullable
-    public Integer parseInt(String s) {
-        try {
-            return Integer.parseInt(s);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    @Nullable
-    public Vec3d parseVector(String s) {
+    public static Vector3f parseVector(String s) {
         try {
             String[] ss = s.split(",");
-            double x = Double.parseDouble(ss[0]);
-            double y = Double.parseDouble(ss[1]);
-            double z = Double.parseDouble(ss[2]);
-            return new Vec3d(x, y, z);
+            float x = Float.parseFloat(ss[0]);
+            float y = Float.parseFloat(ss[1]);
+            float z = Float.parseFloat(ss[2]);
+            return new Vector3f(x, y, z);
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    @Nullable
+    public static Colour parseColour(String s) {
+        try {
+            int value = Integer.parseInt(s, 16);
+            Color c = new Color(value);
+            return new Colour(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha());
+        } catch (Exception e){
+            return Colour.WHITE;
         }
     }
 }

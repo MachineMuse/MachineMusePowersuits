@@ -3,17 +3,20 @@ package net.machinemuse.powersuits.client.render.modelspec;
 import com.google.common.collect.ImmutableMap;
 import net.machinemuse.numina.general.MuseLogger;
 import net.machinemuse.numina.scala.MuseRegistry;
-import net.machinemuse.powersuits.client.model.obj.OBJPlusLoader;
 import net.machinemuse.powersuits.client.model.obj.OBJModelPlus;
+import net.machinemuse.powersuits.client.model.obj.OBJPlusLoader;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -24,62 +27,96 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * Note: make sure to have null checks in place.
  */
 @SideOnly(Side.CLIENT)
-public class ModelRegistry extends MuseRegistry<ModelSpec> {
+public class ModelRegistry extends MuseRegistry<SpecBase> {
     private ModelRegistry(){
     }
     private static ModelRegistry INSTANCE;
 
     public static ModelRegistry getInstance() {
-        if (INSTANCE == null)
-            INSTANCE = new ModelRegistry();
+        if (INSTANCE == null) {
+            synchronized (ModelRegistry.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new ModelRegistry();
+                }
+            }
+        }
         return INSTANCE;
     }
 
-    public IModel getModel(ResourceLocation resource){
-        IModel model = null;
+    public static OBJModelPlus getIModel(ResourceLocation location, int attempt) {
+        String domain = location.getResourceDomain();
+        String resourePath = location.getResourcePath().replaceFirst("^models/models", "models");
+
+        location = new ResourceLocation(domain, resourePath);
+        IModel model;
         try {
-            model = (OBJModelPlus) OBJPlusLoader.INSTANCE.loadModel(resource);
+            model = OBJPlusLoader.INSTANCE.loadModel(location);
             model = ((OBJModelPlus) model).process(ImmutableMap.of("flip-v", "true"));
         } catch (Exception e) {
-            e.printStackTrace();
-            MuseLogger.logError("Model loading failed :( " + resource);
+            model = ModelLoaderRegistry.getMissingModel();
+            if (attempt < 6) {
+                getIModel(location, attempt + 1);
+                MuseLogger.logError("Model loading failed on attempt #" + attempt + "  :( " + location.toString());
+            } else
+                return (OBJModelPlus) model;
+            MuseLogger.logError("Failed to load model. " + e);
         }
-        return model;
+        return (OBJModelPlus) model;
     }
 
-    public IBakedModel loadBakedModel(ResourceLocation resource) {
+    /**
+     * TextureSpec does not have an IModelState so this is relatively safe
+     */
+    public OBJModelPlus.OBJBakedModelPus loadBakedModel(ResourceLocation resource, IModelState modelState) {
         String name = MuseStringUtils.extractName(resource);
-        ModelSpec spec = get(name);
+        SpecBase spec = get(name);
         if (spec == null)
-            return wrap(resource);
-        return spec.getModel();
+            return wrap(resource, modelState);
+        return ((ModelSpec)(spec)).getModel();
     }
 
-    public IBakedModel wrap(ResourceLocation resource) {
-        IModel model = getModel(resource);
-        IBakedModel bakedModel = model.bake(model.getDefaultState(), DefaultVertexFormats.ITEM,
-                resourceLocation -> Minecraft.getMinecraft().getTextureMapBlocks().registerSprite(resourceLocation));
-        return bakedModel;
+    @Nullable
+    public static OBJModelPlus.OBJBakedModelPus wrap(ResourceLocation modellocation, IModelState modelState) {
+        OBJModelPlus model = getIModel(modellocation, 0);
+
+        try {
+            return (OBJModelPlus.OBJBakedModelPus) model.bake(modelState, DefaultVertexFormats.ITEM,
+                    location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString()));
+        } catch (Exception e) {
+            MuseLogger.logError("Failed to bake model. " + e);
+        }
+        return null;
     }
 
-    public ModelSpec getModel(NBTTagCompound nbt) {
+    public Iterable<SpecBase> getSpecs() {
+        return this.elems();
+    }
+
+    public Iterable<String> getNames() {
+        return this.names();
+    }
+
+    /**
+     * FIXME: texture spec needs a model tag for this to work. Model tag does not have to be a real model, just a unique string for the spec k-v pair
+     */
+    public SpecBase getModel(NBTTagCompound nbt) {
         return get(nbt.getString("model"));
     }
 
-    public ModelPartSpec getPart(NBTTagCompound nbt, ModelSpec model) {
+    public PartSpecBase getPart(NBTTagCompound nbt, SpecBase model) {
         return model.get(nbt.getString("part"));
     }
 
-    public ModelPartSpec getPart(NBTTagCompound nbt) {
+    public PartSpecBase getPart(NBTTagCompound nbt) {
         return getPart(nbt, getModel(nbt));
     }
 
-    public NBTTagCompound getSpecTag(NBTTagCompound museRenderTag, ModelPartSpec spec) {
+    public NBTTagCompound getSpecTag(NBTTagCompound museRenderTag, PartSpecBase spec) {
         String name = makeName(spec);
         return (museRenderTag.hasKey(name)) ? (museRenderTag.getCompoundTag(name)) : null;
     }
 
-    public String makeName(ModelPartSpec spec) {
-        return spec.modelSpec.getOwnName() + "." + spec.partName;
+    public String makeName(PartSpecBase spec) {
+        return spec.spec.getOwnName() + "." + spec.partName;
     }
 }
