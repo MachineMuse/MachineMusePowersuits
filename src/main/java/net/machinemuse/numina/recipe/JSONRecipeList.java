@@ -3,7 +3,7 @@
 //import com.google.common.base.Charsets;
 //import com.google.common.io.Resources;
 //import com.google.gson.Gson;
-//import net.machinemuse.numina.general.MuseLogger;
+//import net.machinemuse.numina.utils.MuseLogger;
 //import net.minecraft.item.crafting.CraftingManager;
 //import net.minecraft.item.crafting.IRecipe;
 //

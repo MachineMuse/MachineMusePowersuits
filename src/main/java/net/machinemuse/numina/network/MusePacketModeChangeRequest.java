@@ -25,7 +25,7 @@ public class MusePacketModeChangeRequest extends MusePacket {
     }
 
     @Override
-    public MusePackager packager() {
+    public IMusePackager packager() {
         return getPackagerInstance();
     }
 
@@ -51,14 +51,13 @@ public class MusePacketModeChangeRequest extends MusePacket {
         }
     }
 
-    private static MusePacketModeChangeRequestPackager PACKAGERINSTANCE;
     public static MusePacketModeChangeRequestPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketModeChangeRequestPackager();
-        return PACKAGERINSTANCE;
+        return MusePacketModeChangeRequestPackager.INSTANCE;
     }
 
-    public static class MusePacketModeChangeRequestPackager extends MusePackager {
+    public enum MusePacketModeChangeRequestPackager implements IMusePackager {
+        INSTANCE;
+
         @Override
         public MusePacket read(DataInputStream datain, EntityPlayer player) {
             int slot = readInt(datain);

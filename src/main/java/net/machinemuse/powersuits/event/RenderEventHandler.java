@@ -1,13 +1,13 @@
 package net.machinemuse.powersuits.event;
 
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.powersuits.client.event.MuseIcon;
-import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableKeybinding;
-import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.DrawableMuseRect;
 import net.machinemuse.numina.render.MuseIconUtils;
 import net.machinemuse.numina.render.MuseTextureUtils;
+import net.machinemuse.powersuits.client.event.MuseIcon;
+import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableKeybinding;
+import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
 import net.machinemuse.powersuits.client.helper.ModelHelper;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.control.KeybindManager;

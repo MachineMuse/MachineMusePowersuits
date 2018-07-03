@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.block;
 
-import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.tileentity.MuseTileEntity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;

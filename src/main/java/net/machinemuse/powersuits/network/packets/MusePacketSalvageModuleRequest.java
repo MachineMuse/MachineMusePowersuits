@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.network.packets;
 
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.numina.network.MusePackager;
+import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.common.Config;
@@ -15,7 +15,6 @@ import net.minecraft.util.NonNullList;
 
 import java.io.DataInputStream;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -40,7 +39,7 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
     }
 
     @Override
-    public MusePackager packager() {
+    public IMusePackager packager() {
         return getPackagerInstance();
     }
 
@@ -75,12 +74,12 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
 
     private static MusePacketSalvageModuleRequestPackager PACKAGERINSTANCE;
     public static MusePacketSalvageModuleRequestPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketSalvageModuleRequestPackager();
-        return PACKAGERINSTANCE;
+        return  MusePacketSalvageModuleRequestPackager.INSTANCE;
     }
 
-    public static class MusePacketSalvageModuleRequestPackager extends MusePackager {
+    public enum MusePacketSalvageModuleRequestPackager implements IMusePackager {
+        INSTANCE;
+
         @Override
         public MusePacket read(DataInputStream datain, EntityPlayer player) {
             int itemSlot = readInt(datain);

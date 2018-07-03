@@ -2,10 +2,10 @@ package net.machinemuse.powersuits.control;
 
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
-import net.machinemuse.numina.general.MuseLogger;
-import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;

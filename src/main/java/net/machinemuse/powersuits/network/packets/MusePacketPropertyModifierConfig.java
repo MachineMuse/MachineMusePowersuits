@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.network.packets;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.IPropertyModifier;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.numina.network.MusePackager;
+import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.powermodule.PropertyModifierFlatAdditive;
@@ -32,7 +32,7 @@ public class MusePacketPropertyModifierConfig extends MusePacket {
     }
 
     @Override
-    public MusePackager packager() {
+    public IMusePackager packager() {
         return getPackagerInstance();
     }
 
@@ -66,7 +66,7 @@ public class MusePacketPropertyModifierConfig extends MusePacket {
     @SideOnly(Side.CLIENT)
     @Override
     public void handleClient(EntityPlayer player) {
-        MusePackager d = MusePacketPropertyModifierConfigPackager.getInstance();
+        IMusePackager d = getPackagerInstance();
         int numModules = d.readInt(data);
         for (int i = 0; i < numModules; i++) {
             String moduleName = d.readString(data);
@@ -91,14 +91,13 @@ public class MusePacketPropertyModifierConfig extends MusePacket {
         }
     }
 
-    private static MusePacketPropertyModifierConfigPackager PACKAGERINSTANCE;
     public static MusePacketPropertyModifierConfigPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketPropertyModifierConfigPackager();
-        return PACKAGERINSTANCE;
+        return MusePacketPropertyModifierConfigPackager.INSTANCE;
     }
 
-    public static class MusePacketPropertyModifierConfigPackager extends MusePackager {
+    public enum MusePacketPropertyModifierConfigPackager implements IMusePackager {
+        INSTANCE;
+
         @Override
         public MusePacket read(DataInputStream datain, EntityPlayer player) {
             return new MusePacketPropertyModifierConfig(player, datain);

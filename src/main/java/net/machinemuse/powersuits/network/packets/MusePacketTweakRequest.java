@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.network.packets;
 
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.general.MuseMathUtils;
-import net.machinemuse.numina.network.MusePackager;
+import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -38,7 +38,7 @@ public class MusePacketTweakRequest extends MusePacket {
     }
 
     @Override
-    public MusePackager packager() {
+    public IMusePackager packager() {
         return getPackagerInstance();
     }
 
@@ -62,14 +62,13 @@ public class MusePacketTweakRequest extends MusePacket {
         }
     }
 
-    private static MusePacketTweakRequestPackager PACKAGERINSTANCE;
     public static MusePacketTweakRequestPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketTweakRequestPackager();
-        return PACKAGERINSTANCE;
+        return MusePacketTweakRequestPackager.INSTANCE;
     }
 
-    public static class MusePacketTweakRequestPackager extends MusePackager {
+    public enum MusePacketTweakRequestPackager implements IMusePackager {
+        INSTANCE;
+
         @Override
         public MusePacket read(DataInputStream datain, EntityPlayer player) {
             int itemSlot = readInt(datain);

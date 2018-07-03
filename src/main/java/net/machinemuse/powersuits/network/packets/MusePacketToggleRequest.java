@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.network.packets;
 
-import net.machinemuse.numina.network.MusePackager;
+import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,7 +25,7 @@ public class MusePacketToggleRequest extends MusePacket{
     }
 
     @Override
-    public MusePackager packager() {
+    public IMusePackager packager() {
         return getPackagerInstance();
     }
 
@@ -47,7 +47,7 @@ public class MusePacketToggleRequest extends MusePacket{
         return PACKAGERINSTANCE;
     }
 
-    public static class MusePacketToggleRequestPackager extends MusePackager {
+    public static class MusePacketToggleRequestPackager implements IMusePackager {
         @Override
         public MusePacket read(DataInputStream datain, EntityPlayer player) {
             String module = readString(datain);

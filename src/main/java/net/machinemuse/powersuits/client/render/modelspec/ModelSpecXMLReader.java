@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
 import com.google.common.collect.ImmutableMap;
-import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.client.model.obj.OBJModelPlus;
 import net.machinemuse.utils.MuseStringUtils;
@@ -47,9 +47,9 @@ public enum ModelSpecXMLReader {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            InputSource x = new InputSource(file.openStream());
             Document xml = dBuilder.parse(new InputSource(file.openStream()));
             parseXML(xml, event);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -74,8 +74,18 @@ public enum ModelSpecXMLReader {
             try {
                 xml.normalizeDocument();
 
+
+                System.out.println("document: " + xml.getDocumentURI());
+
+
                 if (xml.hasChildNodes()) {
-                    NodeList specList = xml.getElementsByTagName("modelspec");
+
+
+                    NodeList specList = xml.getElementsByTagName("modelSpec");
+
+                    System.out.println("XML reader: specList.getLength(): " + specList.getLength());
+
+
                     for(int i = 0; i< specList.getLength(); i++) {
                         Node specNode = specList.item(i);
                         if(specNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -84,6 +94,10 @@ public enum ModelSpecXMLReader {
                             String specName = eElement.getAttribute("specName");
 
                             boolean isDefault = (eElement.hasAttribute("default") ? Boolean.parseBoolean(eElement.getAttribute("default")) : false);
+
+
+
+
 
                             switch(specType) {
                                 case POWER_FIST:
@@ -113,7 +127,8 @@ public enum ModelSpecXMLReader {
                             }
                         }
                     }
-                }
+                } else
+                    System.out.println("XML reader: document has no nodes!!!!");
             } catch (Exception e) {
                 e.printStackTrace();
             }

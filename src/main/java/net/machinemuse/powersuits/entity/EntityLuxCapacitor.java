@@ -4,7 +4,6 @@ import io.netty.buffer.ByteBuf;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
-import net.machinemuse.powersuits.common.MPSItems;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;

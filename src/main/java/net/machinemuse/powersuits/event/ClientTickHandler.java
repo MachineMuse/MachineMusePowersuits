@@ -1,14 +1,14 @@
 package net.machinemuse.powersuits.event;
 
 import net.machinemuse.api.ModuleManager;
+import net.machinemuse.numina.general.MuseMathUtils;
+import net.machinemuse.numina.network.MusePacket;
+import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.client.gui.hud.EnergyMeter;
 import net.machinemuse.powersuits.client.gui.hud.HeatMeter;
 import net.machinemuse.powersuits.client.gui.hud.PlasmaChargeMeter;
 import net.machinemuse.powersuits.client.gui.hud.WaterMeter;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableKeybinding;
-import net.machinemuse.numina.general.MuseMathUtils;
-import net.machinemuse.numina.network.MusePacket;
-import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.control.PlayerInputMap;

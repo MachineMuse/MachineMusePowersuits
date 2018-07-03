@@ -1,12 +1,12 @@
 package net.machinemuse.utils.render;
 
-import net.machinemuse.powersuits.client.gui.tinker.clickable.IClickable;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.numina.geometry.MusePoint2D;
 import net.machinemuse.numina.geometry.SwirlyMuseCircle;
 import net.machinemuse.numina.render.BillboardHelper;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;
+import net.machinemuse.powersuits.client.gui.tinker.clickable.IClickable;
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;

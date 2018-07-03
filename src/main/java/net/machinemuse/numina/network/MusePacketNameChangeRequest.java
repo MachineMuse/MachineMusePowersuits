@@ -24,7 +24,7 @@ public class MusePacketNameChangeRequest extends MusePacket {
     }
 
     @Override
-    public MusePackager packager() {
+    public IMusePackager packager() {
         return getPackagerInstance();
     }
 
@@ -41,15 +41,13 @@ public class MusePacketNameChangeRequest extends MusePacket {
         anotherPlayer.refreshDisplayName();
     }
 
-    private static MusePacketNameChangeRequestPackager PACKAGERINSTANCE;
-
     public static MusePacketNameChangeRequestPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketNameChangeRequestPackager();
-        return PACKAGERINSTANCE;
+        return MusePacketNameChangeRequestPackager.INSTANCE;
     }
 
-    public static class MusePacketNameChangeRequestPackager extends MusePackager {
+    public enum MusePacketNameChangeRequestPackager implements IMusePackager {
+        INSTANCE;
+
         @Override
         public MusePacket read(DataInputStream datain, EntityPlayer player) {
             String username = readString(datain);

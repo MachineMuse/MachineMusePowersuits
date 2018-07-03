@@ -49,7 +49,7 @@ public class DefaultModelSpec {
         System.out.println("slot: " + slot.getName());
         System.out.println("stack: " + stack.getUnlocalizedName());
 
-
+        System.out.println("modelk reg size: " + ModelRegistry.getInstance().getSpecs().toString());
 
         List<NBTTagCompound> prefArray = new ArrayList<>();
 
@@ -64,6 +64,12 @@ public class DefaultModelSpec {
 
         // temp data holder
         NBTTagCompound tempNBT;
+
+
+
+
+
+
         for (SpecBase spec : ModelRegistry.getInstance().getSpecs()) {
             System.out.println("SpecStuff =============================================");
             System.out.println(spec.getDisaplayName());

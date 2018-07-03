@@ -1,9 +1,9 @@
 package net.machinemuse.powersuits.event;
 
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.numina.common.NuminaConfig;
 import net.machinemuse.numina.sound.Musique;
+import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.item.ItemPowerArmor;
 import net.machinemuse.powersuits.powermodule.movement.JumpAssistModule;
 import net.machinemuse.powersuits.powermodule.movement.ShockAbsorberModule;

@@ -7,7 +7,6 @@ import net.machinemuse.powersuits.block.itemblock.ItemBlockTinkerTable;
 import net.machinemuse.powersuits.item.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;

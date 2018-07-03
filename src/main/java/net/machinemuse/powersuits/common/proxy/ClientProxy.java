@@ -1,13 +1,13 @@
 package net.machinemuse.powersuits.common.proxy;
 
 import api.player.model.ModelPlayerAPI;
-import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.MusePacketModeChangeRequest;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.client.event.EventRegisterRenderers;
 import net.machinemuse.powersuits.client.model.obj.OBJPlusLoader;
 import net.machinemuse.powersuits.client.render.item.SMovingArmorModel;
+import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.control.KeybindKeyHandler;
 import net.machinemuse.powersuits.control.KeybindManager;

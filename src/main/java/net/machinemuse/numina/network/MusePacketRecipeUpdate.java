@@ -30,7 +30,7 @@ public class MusePacketRecipeUpdate extends MusePacket {
     }
 
     @Override
-    public MusePackager packager() {
+    public IMusePackager packager() {
         return getPackagerInstance();
     }
 
@@ -39,14 +39,13 @@ public class MusePacketRecipeUpdate extends MusePacket {
         writeString(recipe);
     }
 
-    private static MusePacketRecipeUpdatePackager PACKAGERINSTANCE;
     public static MusePacketRecipeUpdatePackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketRecipeUpdatePackager();
-        return PACKAGERINSTANCE;
+        return MusePacketRecipeUpdatePackager.INSTANCE;
     }
 
-    public static class MusePacketRecipeUpdatePackager extends MusePackager {
+    public enum MusePacketRecipeUpdatePackager implements IMusePackager {
+        INSTANCE;
+
         @Override
         public MusePacket read(DataInputStream datain, EntityPlayer player) {
             String recipe = readString(datain);

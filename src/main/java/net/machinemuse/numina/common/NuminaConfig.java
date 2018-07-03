@@ -1,6 +1,6 @@
 package net.machinemuse.numina.common;
 
-import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;

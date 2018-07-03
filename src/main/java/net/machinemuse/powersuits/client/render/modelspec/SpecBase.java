@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
 import com.google.common.base.Objects;
-import net.machinemuse.numina.scala.MuseRegistry;
+import net.machinemuse.numina.utils.map.MuseRegistry;
 
 /**
  * Author: MachineMuse (Claire Semple)

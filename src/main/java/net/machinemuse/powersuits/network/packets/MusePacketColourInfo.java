@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.network.packets;
 
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.numina.network.MusePackager;
+import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,7 +29,7 @@ public class MusePacketColourInfo extends MusePacket {
     }
 
     @Override
-    public MusePackager packager() {
+    public IMusePackager packager() {
         return getPackagerInstance();
     }
 
@@ -48,14 +48,13 @@ public class MusePacketColourInfo extends MusePacket {
         }
     }
 
-    private static MusePacketColourInfoPackager PACKAGERINSTANCE;
     public static MusePacketColourInfoPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketColourInfoPackager();
-        return PACKAGERINSTANCE;
+        return MusePacketColourInfoPackager.INSTANCE;
     }
 
-    public static class MusePacketColourInfoPackager extends MusePackager {
+    public enum MusePacketColourInfoPackager implements IMusePackager {
+        INSTANCE;
+
         @Override
         public MusePacket read(DataInputStream datain, EntityPlayer player) {
             int itemSlot = readInt(datain);

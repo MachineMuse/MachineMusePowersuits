@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.network.packets;
 
 import net.machinemuse.api.IModularItem;
-import net.machinemuse.numina.general.MuseLogger;
-import net.machinemuse.numina.network.MusePackager;
+import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,7 +32,7 @@ public class MusePacketCosmeticInfo extends MusePacket {
     }
 
     @Override
-    public MusePackager packager() {
+    public IMusePackager packager() {
         return getPackagerInstance();
     }
 
@@ -65,14 +65,13 @@ public class MusePacketCosmeticInfo extends MusePacket {
         }
     }
 
-    private static MusePacketCosmeticInfoPackager PACKAGERINSTANCE;
     public static MusePacketCosmeticInfoPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketCosmeticInfoPackager();
-        return PACKAGERINSTANCE;
+        return MusePacketCosmeticInfoPackager.INSTANCE;
     }
 
-    public static class MusePacketCosmeticInfoPackager extends MusePackager {
+    public enum MusePacketCosmeticInfoPackager implements IMusePackager {
+        INSTANCE;
+
         @Override
         public MusePacket read(DataInputStream datain, EntityPlayer player) {
             int itemSlot = readInt(datain);

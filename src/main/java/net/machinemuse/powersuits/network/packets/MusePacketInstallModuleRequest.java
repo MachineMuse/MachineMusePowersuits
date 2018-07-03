@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.network.packets;
 
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.numina.network.MusePackager;
+import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.utils.ElectricItemUtils;
@@ -39,7 +39,7 @@ public class MusePacketInstallModuleRequest extends MusePacket {
     }
 
     @Override
-    public MusePackager packager() {
+    public IMusePackager packager() {
         return getPackagerInstance();
     }
 
@@ -78,14 +78,13 @@ public class MusePacketInstallModuleRequest extends MusePacket {
         }
     }
 
-    private static MusePacketInstallModuleRequestPackager PACKAGERINSTANCE;
     public static MusePacketInstallModuleRequestPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketInstallModuleRequestPackager();
-        return PACKAGERINSTANCE;
+        return MusePacketInstallModuleRequestPackager.INSTANCE;
     }
 
-    public static class MusePacketInstallModuleRequestPackager extends MusePackager {
+    public enum MusePacketInstallModuleRequestPackager implements IMusePackager {
+        INSTANCE;
+
         @Override
         public MusePacket read(DataInputStream datain, EntityPlayer player) {
             int itemSlot = readInt(datain);

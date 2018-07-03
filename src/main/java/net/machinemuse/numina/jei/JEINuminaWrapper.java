@@ -3,7 +3,7 @@
 //import mezz.jei.api.ingredients.IIngredients;
 //import mezz.jei.api.recipe.BlankRecipeWrapper;
 //import mezz.jei.api.recipe.wrapper.IShapedCraftingRecipeWrapper;
-//import net.machinemuse.numina.general.MuseLogger;
+//import net.machinemuse.numina.utils.MuseLogger;
 //import net.machinemuse.numina.recipe.JSONRecipe;
 //import net.minecraft.item.ItemStack;
 //

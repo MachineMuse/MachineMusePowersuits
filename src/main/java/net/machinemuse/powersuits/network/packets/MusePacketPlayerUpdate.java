@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.network.packets;
 
-import net.machinemuse.numina.network.MusePackager;
+import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.control.PlayerInputMap;
@@ -25,7 +25,7 @@ public class MusePacketPlayerUpdate extends MusePacket {
     }
 
     @Override
-    public MusePackager packager() {
+    public IMusePackager packager() {
         return getPackagerInstance();
     }
 
@@ -44,14 +44,13 @@ public class MusePacketPlayerUpdate extends MusePacket {
         PacketSender.sendToAllAround(updatePacket, player, 128);
     }
 
-    private static MusePacketPlayerUpdatePackager PACKAGERINSTANCE;
     public static MusePacketPlayerUpdatePackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketPlayerUpdatePackager();
-        return PACKAGERINSTANCE;
+        return MusePacketPlayerUpdatePackager.INSTANCE;
     }
 
-    public static class MusePacketPlayerUpdatePackager extends MusePackager {
+    public enum MusePacketPlayerUpdatePackager implements IMusePackager {
+        INSTANCE;
+
         @Override
         public MusePacket read(DataInputStream datain, EntityPlayer player) {
             String username = readString(datain);

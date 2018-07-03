@@ -1,7 +1,10 @@
 package net.machinemuse.powersuits.common.proxy;
 
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
-import net.machinemuse.powersuits.common.*;
+import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.MPSGuiHandler;
+import net.machinemuse.powersuits.common.ModCompatibility;
+import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;

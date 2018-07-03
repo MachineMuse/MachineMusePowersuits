@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.render.model;
 
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.geometry.Colour;
 import net.machinemuse.powersuits.client.render.helpers.ModelPowerFistHelper;
 import net.machinemuse.powersuits.event.ModelBakeEventHandler;

@@ -3,7 +3,8 @@ package net.machinemuse.numina.network;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufOutputStream;
 import io.netty.buffer.Unpooled;
-import net.machinemuse.numina.general.MuseLogger;
+import net.jpountz.lz4.LZ4BlockOutputStream;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -17,7 +18,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.zip.GZIPOutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -35,7 +37,7 @@ public abstract class MusePacket
         this.dataout = new DataOutputStream(new ByteBufOutputStream(this.bytes));
     }
 
-    public abstract MusePackager packager();
+    public abstract IMusePackager packager();
 
     public abstract void write();
 
@@ -144,14 +146,17 @@ public abstract class MusePacket
         }
     }
 
-    /*
-     * "Borrowed" from 1.7.10
+    /**
+     * "adapted" from 1.7.10
      */
     public byte[] compress(NBTTagCompound nbt) {
+        // LZ4 adaptation
         ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
         try {
-            DataOutputStream dataoutputstream = new DataOutputStream(new GZIPOutputStream(bytearrayoutputstream));
+            DataOutputStream dataoutputstream = new DataOutputStream(new LZ4BlockOutputStream(bytearrayoutputstream));
             CompressedStreamTools.write(nbt, dataoutputstream);
+
+            // bytearrayoutputstream only updates if dataoutputstream closes
             dataoutputstream.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -168,5 +173,52 @@ public abstract class MusePacket
         } catch (IOException exception) {
             MuseLogger.logException("PROBLEM WRITING DATA TO PACKET:", exception);
         }
+    }
+
+    /**
+     * DecompiledPixelLauncher (package com.google.research.reflection.common)
+     */
+    public void writeMap(final Map map) {
+        try {
+            dataout.writeInt(map.size());
+            for (final Object key : map.keySet()) {
+                writeObject(key);
+                writeObject(map.get(key));
+            }
+        }catch (Exception exception) {
+            MuseLogger.logException("PROBLEM WRITING DATA TO PACKET:", exception);
+        }
+    }
+
+    // Used for writing map to packets
+    private void writeObject(final Object o) throws IOException {
+        int i = 0;
+        if (o instanceof Byte)
+            dataout.writeByte((Byte) o);
+        else if (o instanceof Integer)
+            dataout.writeInt((int) o);
+        else if (o instanceof Long)
+            dataout.writeLong((long) o);
+        else if (o instanceof Float)
+            dataout.writeFloat((float) o);
+        else if (o instanceof String)
+            dataout.writeUTF((String) o);
+        if (o instanceof float[]) {
+            final float[] array = (float[]) o;
+            dataout.writeInt(array.length);
+            while (i < array.length) {
+                dataout.writeFloat(array[i]);
+                ++i;
+            }
+        } else if (o instanceof int[]) {
+            final int[] array2 = (int[]) o;
+            dataout.writeInt(array2.length);
+            while (i < array2.length) {
+                dataout.writeInt(array2[i]);
+                ++i;
+            }
+        } else if (o instanceof HashMap)
+            writeMap((Map) o);
+        else throw new TypeNotPresentException(o.getClass().getName(), new Throwable("map key or value type handler not found!!"));
     }
 }

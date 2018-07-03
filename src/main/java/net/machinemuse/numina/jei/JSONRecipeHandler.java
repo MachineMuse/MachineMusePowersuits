@@ -3,7 +3,7 @@
 //import mezz.jei.api.recipe.IRecipeHandler;
 //import mezz.jei.api.recipe.IRecipeWrapper;
 //import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
-//import net.machinemuse.numina.general.MuseLogger;
+//import net.machinemuse.numina.utils.MuseLogger;
 //import net.machinemuse.numina.recipe.JSONRecipe;
 //
 //import javax.annotation.Nonnull;

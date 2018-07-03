@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
 import com.google.common.collect.ImmutableMap;
-import net.machinemuse.numina.general.MuseLogger;
-import net.machinemuse.numina.scala.MuseRegistry;
+import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.utils.map.MuseRegistry;
 import net.machinemuse.powersuits.client.model.obj.OBJModelPlus;
 import net.machinemuse.powersuits.client.model.obj.OBJPlusLoader;
 import net.machinemuse.utils.MuseStringUtils;
