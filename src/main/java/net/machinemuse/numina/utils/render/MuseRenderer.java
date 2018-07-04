@@ -1,13 +1,12 @@
-package net.machinemuse.utils.render;
+package net.machinemuse.numina.utils.render;
 
-import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.numina.geometry.MusePoint2D;
-import net.machinemuse.numina.geometry.SwirlyMuseCircle;
+import net.machinemuse.numina.api.gui.IClickable;
 import net.machinemuse.numina.render.BillboardHelper;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;
-import net.machinemuse.powersuits.client.gui.tinker.clickable.IClickable;
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
+import net.machinemuse.numina.utils.math.geometry.SwirlyMuseCircle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.PositionTextureVertex;
@@ -22,6 +21,8 @@ import net.minecraft.util.math.Vec3d;
 import org.lwjgl.opengl.GL11;
 
 import java.util.List;
+
+import static net.machinemuse.numina.api.constants.NuminaConstants.LIGHTNING_TEXTURE;
 
 /**
  * Contains a bunch of random OpenGL-related functions, accessed statically.
@@ -277,7 +278,7 @@ public abstract class MuseRenderer {
         double jagfactor = 0.3;
         RenderState.on2D();
         GL11.glEnable(GL11.GL_DEPTH_TEST);
-        MuseTextureUtils.pushTexture(Config.LIGHTNING_TEXTURE);
+        MuseTextureUtils.pushTexture(LIGHTNING_TEXTURE);
         RenderState.blendingOn();
         colour.doGL();
         GL11.glBegin(GL11.GL_QUADS);
@@ -302,7 +303,7 @@ public abstract class MuseRenderer {
     }
 
     public static void drawLightningBetweenPoints(double x1, double y1, double z1, double x2, double y2, double z2, int index) {
-        MuseTextureUtils.pushTexture(Config.LIGHTNING_TEXTURE);
+        MuseTextureUtils.pushTexture(LIGHTNING_TEXTURE);
         double u1 = index / 50.0;
         double u2 = u1 + 0.02;
         double px = (y1 - y2) * 0.125;

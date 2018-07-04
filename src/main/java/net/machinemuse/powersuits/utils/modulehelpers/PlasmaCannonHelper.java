@@ -1,4 +1,4 @@
-package net.machinemuse.utils.render;
+package net.machinemuse.powersuits.utils.modulehelpers;
 
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 /**
  * Created by leon on 4/9/17.
  */
-public class PlasmaUtils {
+public class PlasmaCannonHelper {
     public static int getPlayerPlasma(EntityPlayer player) {
         ItemStack powerfist = player.getHeldItemMainhand();
         if (powerfist != null && player.isHandActive() && ModuleManager.itemHasActiveModule(powerfist, PlasmaCannonModule.MODULE_PLASMA_CANNON)) {

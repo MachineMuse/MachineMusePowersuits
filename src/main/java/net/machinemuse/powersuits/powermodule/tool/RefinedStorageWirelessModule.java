@@ -146,6 +146,11 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
         return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(getEmulatedTool()).getParticleTexture();
     }
 
+    @Override
+    public String getUnlocalizedName() {
+        return "refinedStorageWireless";
+    }
+
     private NBTTagCompound initializeDefaults(NBTTagCompound nbt) {
         if (nbt == null)
             nbt = new NBTTagCompound();

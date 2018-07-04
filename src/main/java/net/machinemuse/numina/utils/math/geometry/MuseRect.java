@@ -1,4 +1,4 @@
-package net.machinemuse.numina.geometry;
+package net.machinemuse.numina.utils.math.geometry;
 
 public class MuseRect {
     MusePoint2D ul;

@@ -1,9 +1,15 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
 import appeng.api.AEApi;
-import appeng.api.config.*;
+import appeng.api.config.Settings;
+import appeng.api.config.SortDir;
+import appeng.api.config.SortOrder;
+import appeng.api.config.ViewItems;
 import appeng.api.features.IWirelessTermHandler;
 import appeng.api.util.IConfigManager;
+import extracells.api.ECApi;
+import extracells.api.IWirelessFluidTermHandler;
+import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.Optional;
 
+import javax.annotation.Nonnull;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Set;
@@ -23,44 +30,45 @@ import java.util.Set;
         @Optional.Interface(iface = "appeng.api.features.IWirelessTermHandler", modid = "appliedenergistics2", striprefs = true)
 })
 public class TerminalHandler implements
-        IWirelessTermHandler {
-    //, IWirelessFluidTermHandler {
+        IWirelessTermHandler, IWirelessFluidTermHandler {
+
     @Optional.Method(modid = "appliedenergistics2")
     @Override
-    public boolean canHandle(ItemStack is) {
-        if(is == null)
+    public boolean canHandle(@Nonnull ItemStack is) {
+        if (is.isEmpty() || is.getUnlocalizedName() == null)
             return false;
-        if(is.getUnlocalizedName() == null)
-            return false;
-        return is.getUnlocalizedName().equals("item.powerFist");
+        return is.getUnlocalizedName().equals(MPSItems.INSTANCE.powerFist.getUnlocalizedName());
     }
 
     @Optional.Method(modid = "appliedenergistics2")
     @Override
-    public boolean usePower(EntityPlayer entityPlayer, double v, ItemStack itemStack) {
-        boolean ret = false;
-        if (( v * ModCompatibility.getAE2Ratio() ) < ( ElectricItemUtils.getPlayerEnergy( entityPlayer ) * ModCompatibility.getAE2Ratio() ))
-        {
-            ElectricItemUtils.drainPlayerEnergy(entityPlayer, ( v * ModCompatibility.getAE2Ratio() ) );
-            ret = true;
+    public boolean usePower(EntityPlayer entityPlayer, double v, @Nonnull ItemStack itemStack) {
+        if ((v * ModCompatibility.getAE2Ratio()) < (ElectricItemUtils.getPlayerEnergy(entityPlayer) * ModCompatibility.getAE2Ratio())) {
+            ElectricItemUtils.drainPlayerEnergy(entityPlayer, (v * ModCompatibility.getAE2Ratio()));
+            return true;
         }
-
-        return ret;
+        return false;
     }
 
     @Optional.Method(modid = "appliedenergistics2")
     @Override
-    public boolean hasPower(EntityPlayer entityPlayer, double v, ItemStack itemStack) {
-        return (( v * ModCompatibility.getAE2Ratio() ) < ( ElectricItemUtils.getPlayerEnergy(entityPlayer) * ModCompatibility.getAE2Ratio() ));
+    public boolean hasPower(EntityPlayer entityPlayer, double v, @Nonnull ItemStack itemStack) {
+        return ((v * ModCompatibility.getAE2Ratio()) < (ElectricItemUtils.getPlayerEnergy(entityPlayer) * ModCompatibility.getAE2Ratio()));
+    }
+
+    @Optional.Method(modid = "extracells")
+    @Override
+    public boolean isItemNormalWirelessTermToo(@Nonnull ItemStack is) {
+        return true;
     }
 
     @Optional.Method(modid = "appliedenergistics2")
     @Override
-    public IConfigManager getConfigManager(ItemStack itemStack) {
+    public IConfigManager getConfigManager(@Nonnull ItemStack itemStack) {
         IConfigManager config = new WirelessConfig(itemStack);
-        config.registerSetting( Settings.SORT_BY, SortOrder.NAME );
-        config.registerSetting( Settings.VIEW_MODE, ViewItems.ALL );
-        config.registerSetting( Settings.SORT_DIRECTION, SortDir.ASCENDING );
+        config.registerSetting(Settings.SORT_BY, SortOrder.NAME);
+        config.registerSetting(Settings.VIEW_MODE, ViewItems.ALL);
+        config.registerSetting(Settings.SORT_DIRECTION, SortDir.ASCENDING);
 
         config.readFromNBT(itemStack.getTagCompound());
         return config;
@@ -68,26 +76,20 @@ public class TerminalHandler implements
 
     @Optional.Method(modid = "appliedenergistics2")
     @Override
-    public String getEncryptionKey(ItemStack item) {
-        {
-            if (item == null) {
-                return null;
-            }
+    public String getEncryptionKey(@Nonnull ItemStack item) {
+        if (!item.isEmpty()) {
             NBTTagCompound tag = openNbtData(item);
             if (tag != null) {
                 return tag.getString("encKey");
             }
-            return null;
         }
+        return null;
     }
 
     @Optional.Method(modid = "appliedenergistics2")
     @Override
-    public void setEncryptionKey(ItemStack item, String encKey, String name) {
-        {
-            if (item == null) {
-                return;
-            }
+    public void setEncryptionKey(@Nonnull ItemStack item, String encKey, String name) {
+        if (!item.isEmpty()) {
             NBTTagCompound tag = openNbtData(item);
             if (tag != null) {
                 tag.setString("encKey", encKey);
@@ -95,58 +97,41 @@ public class TerminalHandler implements
         }
     }
 
-//    @Optional.Method(modid = "extracells")
-//    @Override
-//    public boolean isItemNormalWirelessTermToo(ItemStack is) {
-//        return true;
-//    }
-
-    @Optional.Method(modid = "appliedenergistics2")
-    private static void registerAEHandler(TerminalHandler handler){
-        AEApi.instance().registries().wireless().registerWirelessHandler(handler);
-    }
-
-//    @Optional.Method(modid = "extracells")
-//    private static void registerECHandler(TerminalHandler handler){
-//        ECApi.instance().registerWirelessFluidTermHandler(handler);
-//    }
-
     public static void registerHandler() {
         if (ModCompatibility.isAppengLoaded()) {
             TerminalHandler handler = new TerminalHandler();
             registerAEHandler(handler);
-//            if (Loader.isModLoaded("extracells")) {
-//                registerECHandler(handler);
-//            }
+            if (ModCompatibility.isExtraCellsLoaded()) {
+                registerECHandler(handler);
+            }
         }
     }
 
-    public static NBTTagCompound openNbtData(ItemStack item) {
+    @Optional.Method(modid = "appliedenergistics2")
+    private static void registerAEHandler(TerminalHandler handler) {
+        AEApi.instance().registries().wireless().registerWirelessHandler(handler);
+    }
+
+    @Optional.Method(modid = "extracells")
+    private static void registerECHandler(TerminalHandler handler) {
+        ECApi.instance().registerWirelessTermHandler(handler);
+    }
+
+    public static NBTTagCompound openNbtData(@Nonnull ItemStack item) {
         NBTTagCompound compound = item.getTagCompound();
-        if (compound == null) {
+        if (compound == null)
             item.setTagCompound(compound = new NBTTagCompound());
-        }
         return compound;
     }
 
     @Optional.Interface(iface = "appeng.api.util.IConfigManager", modid = "appliedenergistics2", striprefs = true)
     class WirelessConfig implements IConfigManager {
-
         private final Map<Settings, Enum<?>> enums = new EnumMap<>(Settings.class);
 
         final ItemStack stack;
 
-        public WirelessConfig(ItemStack itemStack) {
-            stack = itemStack;
-        }
-
-        @Optional.Method(modid = "appliedenergistics2")
-        @Override
-        public Enum<?> getSetting(Settings arg0) {
-            if(enums.containsKey(arg0)) {
-                return enums.get(arg0);
-            }
-            return null;
+        public WirelessConfig(@Nonnull ItemStack itemStack) {
+            this.stack = itemStack;
         }
 
         @Optional.Method(modid = "appliedenergistics2")
@@ -157,75 +142,59 @@ public class TerminalHandler implements
 
         @Optional.Method(modid = "appliedenergistics2")
         @Override
-        public Enum putSetting(Settings arg0, Enum arg1) {
-            enums.put(arg0, arg1);
+        public void registerSetting(Settings settings, Enum<?> anEnum) {
+            if (!enums.containsKey(settings)) {
+                putSetting(settings, anEnum);
+            }
+        }
+
+        @Optional.Method(modid = "appliedenergistics2")
+        @Override
+        public Enum<?> getSetting(Settings settings) {
+            if (enums.containsKey(settings)) {
+                return enums.get(settings);
+            }
+            return null;
+        }
+
+        @Optional.Method(modid = "appliedenergistics2")
+        @Override
+        public Enum<?> putSetting(Settings settings, Enum<?> anEnum) {
+                        enums.put(settings, anEnum);
             writeToNBT(stack.getTagCompound());
-            return arg1;
+            return anEnum;
         }
 
         @Optional.Method(modid = "appliedenergistics2")
         @Override
-        public void registerSetting(Settings arg0, Enum arg1) {
-            if(!enums.containsKey(arg0)) {
-                putSetting(arg0, arg1);
-            }
-        }
-
-        @Optional.Method(modid = "appliedenergistics2")
-        @Override
-        public void readFromNBT(NBTTagCompound tagCompound)
-        {
-            NBTTagCompound tag = null;
-            if(tagCompound.hasKey("configWirelessTerminal")) {
-                tag = tagCompound.getCompoundTag("configWirelessTerminal");
-            }
-
-            if(tag == null)
-                return;
-
-            for (Settings key : enums.keySet())
-            {
-                try
-                {
-                    if ( tag.hasKey( key.name() ) )
-                    {
-                        String value = tag.getString( key.name() );
-
-                        // Provides an upgrade path for the rename of this value in the API between rv1 and rv2
-                        //TODO implement on rv2 update
-                        if( value.equals( "EXTACTABLE_ONLY" ) ){
-                            value = StorageFilter.EXTRACTABLE_ONLY.toString();
-                        } else if( value.equals( "STOREABLE_AMOUNT" ) ) {
-                            value = LevelEmitterMode.STORABLE_AMOUNT.toString();
-                        }
-
-                        Enum oldValue = enums.get( key );
-
-                        Enum newValue = Enum.valueOf( oldValue.getClass(), value );
-
-                        putSetting( key, newValue );
-                    }
-                }
-                catch (IllegalArgumentException ignored)
-                {
-                }
-            }
-        }
-
-        @Optional.Method(modid = "appliedenergistics2")
-        @Override
-        public void writeToNBT(NBTTagCompound tagCompound)
-        {
+        public void writeToNBT(NBTTagCompound tagCompound) {
             NBTTagCompound tag = new NBTTagCompound();
-            if(tagCompound.hasKey("configWirelessTerminal")) {
+            if (tagCompound.hasKey("configWirelessTerminal"))
                 tag = tagCompound.getCompoundTag("configWirelessTerminal");
-            }
 
             for (Enum e : enums.keySet())
-            {
-                tag.setString( e.name(), enums.get( e ).toString() );
-            }
+                tag.setString(e.name(), enums.get(e).toString());
             tagCompound.setTag("configWirelessTerminal", tag);
+        }
+
+        @Optional.Method(modid = "appliedenergistics2")
+        @Override
+        public void readFromNBT(NBTTagCompound tagCompound) {
+            if (tagCompound.hasKey("configWirelessTerminal")) {
+                NBTTagCompound tag = tagCompound.getCompoundTag("configWirelessTerminal");
+
+                for (Settings key : enums.keySet()) {
+                    try {
+                        if (tag.hasKey(key.name())) {
+                            String value = tag.getString(key.name());
+                            Enum oldValue = enums.get(key);
+                            Enum newValue = Enum.valueOf(oldValue.getClass(), value);
+                            putSetting(key, newValue);
+                        }
+                    } catch (IllegalArgumentException ignored) {
+                    }
+                }
+            }
         }
     }
 }

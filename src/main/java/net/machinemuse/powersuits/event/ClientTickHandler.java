@@ -22,8 +22,8 @@ import net.machinemuse.powersuits.powermodule.misc.ClockModule;
 import net.machinemuse.powersuits.powermodule.misc.CompassModule;
 import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
 import net.machinemuse.utils.*;
-import net.machinemuse.utils.render.MuseRenderer;
-import net.machinemuse.utils.render.PlasmaUtils;
+import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.utils.modulehelpers.PlasmaCannonHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
@@ -232,8 +232,8 @@ public class ClientTickHandler {
         String maxWaterStr = MuseStringUtils.formatNumberShort(maxWater);
 
         // plasma
-        double maxPlasma = PlasmaUtils.getMaxPlasma(player);
-        double currPlasma = PlasmaUtils.getPlayerPlasma(player);
+        double maxPlasma = PlasmaCannonHelper.getMaxPlasma(player);
+        double currPlasma = PlasmaCannonHelper.getPlayerPlasma(player);
         String currPlasmaStr = MuseStringUtils.formatNumberShort(currPlasma);
         String maxPlasmaStr = MuseStringUtils.formatNumberShort(maxPlasma);
 

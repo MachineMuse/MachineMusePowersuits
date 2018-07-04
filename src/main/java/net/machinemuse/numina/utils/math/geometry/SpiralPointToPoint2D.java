@@ -1,4 +1,4 @@
-package net.machinemuse.numina.geometry;
+package net.machinemuse.numina.utils.math.geometry;
 
 public class SpiralPointToPoint2D extends MusePoint2D {
     protected final MusePoint2D center;

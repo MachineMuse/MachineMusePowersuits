@@ -31,16 +31,12 @@ public class MusePacketRecipeUpdate extends MusePacket {
 
     @Override
     public IMusePackager packager() {
-        return getPackagerInstance();
+        return MusePacketRecipeUpdatePackager.INSTANCE;
     }
 
     @Override
     public void write() {
         writeString(recipe);
-    }
-
-    public static MusePacketRecipeUpdatePackager getPackagerInstance() {
-        return MusePacketRecipeUpdatePackager.INSTANCE;
     }
 
     public enum MusePacketRecipeUpdatePackager implements IMusePackager {

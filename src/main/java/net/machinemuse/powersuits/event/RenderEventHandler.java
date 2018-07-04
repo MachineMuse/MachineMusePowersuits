@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.event;
 
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.numina.geometry.DrawableMuseRect;
+import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.numina.utils.math.geometry.DrawableMuseRect;
 import net.machinemuse.numina.render.MuseIconUtils;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.powersuits.client.event.MuseIcon;
@@ -17,7 +17,7 @@ import net.machinemuse.powersuits.powermodule.movement.GliderModule;
 import net.machinemuse.powersuits.powermodule.movement.JetBootsModule;
 import net.machinemuse.powersuits.powermodule.movement.JetPackModule;
 import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.render.MuseRenderer;
+import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
@@ -112,7 +112,7 @@ public class RenderEventHandler {
             frame.setBottom(frame.top() + 16);
             for (ClickableKeybinding kb:   KeybindManager.getKeybindings()) {
                 if (kb.displayOnHUD) {
-                    double stringwidth = net.machinemuse.utils.render.MuseRenderer.getStringWidth(kb.getLabel());
+                    double stringwidth = MuseRenderer.getStringWidth(kb.getLabel());
                     frame.setWidth(stringwidth + kb.getBoundModules().size() * 16);
                     frame.draw();
                     MuseRenderer.drawString(kb.getLabel(), frame.left() + 1, frame.top() + 3, (kb.toggleval) ? Colour.RED : Colour.GREEN);

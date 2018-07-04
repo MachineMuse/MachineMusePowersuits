@@ -1,4 +1,4 @@
-package net.machinemuse.numina.geometry;
+package net.machinemuse.numina.utils.math.geometry;
 
 public class FlyFromPointToPoint2D extends MusePoint2D {
     protected final MusePoint2D prev;

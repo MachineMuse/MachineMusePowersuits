@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
-import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.numina.geometry.MusePoint2D;
-import net.machinemuse.numina.geometry.MuseRelativeRect;
+import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
+import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
 import net.machinemuse.powersuits.client.render.modelspec.ModelRegistry;
 import net.machinemuse.powersuits.client.render.modelspec.SpecBase;
 import net.minecraft.item.ItemStack;

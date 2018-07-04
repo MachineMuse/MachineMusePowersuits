@@ -11,8 +11,8 @@ import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
 import javax.annotation.Nonnull;
 import java.io.File;
 
-import static net.machinemuse.numina.common.Numina.MODID;
-import static net.machinemuse.numina.common.Numina.VERSION;
+import static net.machinemuse.numina.api.constants.NuminaConstants.MODID;
+import static net.machinemuse.numina.api.constants.NuminaConstants.VERSION;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -21,22 +21,16 @@ import static net.machinemuse.numina.common.Numina.VERSION;
  * Ported to Java by lehjr on 11/15/16.
  */
 @Mod(modid = MODID, version = VERSION)
-public class Numina {
-    public static final String MODID = "numina";
-    public static final String VERSION = "@numina_version@";
+public enum Numina {
+    INSTANCE;
 
     @SidedProxy(clientSide = "net.machinemuse.numina.common.proxy.ClientProxy", serverSide = "net.machinemuse.numina.common.proxy.ServerProxy")
     static CommonProxy proxy;
     public static File configDir = null;
 
     @Nonnull
-    private static Numina INSTANCE;
-
-    @Nonnull
     @Mod.InstanceFactory
     public static Numina getInstance() {
-        if (INSTANCE == null)
-            INSTANCE = new Numina();
         return INSTANCE;
     }
 

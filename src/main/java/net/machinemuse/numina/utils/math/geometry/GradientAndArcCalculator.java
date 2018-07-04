@@ -1,5 +1,6 @@
-package net.machinemuse.numina.geometry;
+package net.machinemuse.numina.utils.math.geometry;
 
+import net.machinemuse.numina.utils.math.Colour;
 import org.lwjgl.BufferUtils;
 
 import java.nio.DoubleBuffer;

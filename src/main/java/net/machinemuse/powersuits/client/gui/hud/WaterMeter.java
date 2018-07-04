@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.client.gui.hud;
 
-import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.utils.math.Colour;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraftforge.fluids.FluidRegistry;

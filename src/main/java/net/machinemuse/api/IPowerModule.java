@@ -9,21 +9,23 @@ import java.util.List;
 import java.util.Map;
 
 public interface IPowerModule {
-	NonNullList<ItemStack> getInstallCost();
+    NonNullList<ItemStack> getInstallCost();
 
-	TextureAtlasSprite getIcon(ItemStack item);
+    TextureAtlasSprite getIcon(ItemStack item);
 
-	String getCategory();
+    String getCategory();
 
-	boolean isValidForItem(ItemStack stack);
+    boolean isValidForItem(ItemStack stack);
 
-	String getDataName();
+    String getDataName();
 
-	double applyPropertyModifiers(NBTTagCompound itemTag, String propertyName, double propertyValue);
+    String getUnlocalizedName();
 
-	NBTTagCompound getNewTag();
+    double applyPropertyModifiers(NBTTagCompound itemTag, String propertyName, double propertyValue);
 
-	Map<String, List<IPropertyModifier>> getPropertyModifiers();
+    NBTTagCompound getNewTag();
 
-	boolean isAllowed();
+    Map<String, List<IPropertyModifier>> getPropertyModifiers();
+
+    boolean isAllowed();
 }

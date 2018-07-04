@@ -8,8 +8,9 @@ package net.machinemuse.numina.network;
  */
 public class NuminaPackets {
     public static void init() {
-        MusePacketHandler.packagers.put(20, MusePacketNameChangeRequest.getPackagerInstance());
-        MusePacketHandler.packagers.put(21, MusePacketModeChangeRequest.getPackagerInstance());
-        MusePacketHandler.packagers.put(22, MusePacketRecipeUpdate.getPackagerInstance());
+        MusePacketHandler.packagers.put(20, MusePacketNameChangeRequest.MusePacketNameChangeRequestPackager.INSTANCE);
+        MusePacketHandler.packagers.put(21, MusePacketModeChangeRequest.MusePacketModeChangeRequestPackager.INSTANCE);
+        MusePacketHandler.packagers.put(22, MusePacketRecipeUpdate.MusePacketRecipeUpdatePackager.INSTANCE);
+        MusePacketHandler.packagers.put(23, NuminaPacketConfig.MusePacketConfigPackager.INSTANCE);
     }
 }

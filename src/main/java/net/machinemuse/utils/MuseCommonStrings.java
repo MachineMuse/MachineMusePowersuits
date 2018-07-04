@@ -2,7 +2,7 @@ package net.machinemuse.utils;
 
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.electricity.ElectricAdapter;
+import net.machinemuse.api.electricity.adapter.ElectricAdapter;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemPowerFist;
 import net.minecraft.client.resources.I18n;

@@ -4,7 +4,7 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
-import net.machinemuse.numina.common.NuminaConfig;
+import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;

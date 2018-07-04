@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
-import net.machinemuse.numina.geometry.MusePoint2D;
+import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableButton;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.client.resources.I18n;

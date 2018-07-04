@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.powersuits.client.render.item.ArmorModelInstance;
 import net.machinemuse.powersuits.client.render.item.IArmorModel;

@@ -16,7 +16,6 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.numina.item.IModeChangingItem;
-import net.machinemuse.numina.item.ModeChangingItem;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.tool.GrafterModule;
 import net.machinemuse.powersuits.powermodule.tool.OmniWrenchModule;
@@ -26,7 +25,6 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,7 +38,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,7 +76,6 @@ public class ItemPowerFist extends MPSItemElectricTool
         IMekWrench,
         IModularItem,
         IModeChangingItem {
-    private static ModeChangingItem modeChangingItem;
 
     public ItemPowerFist() {
         super(0.0f, 0.0f, ToolMaterial.DIAMOND); // FIXME
@@ -89,11 +85,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         this.setUnlocalizedName("powerFist");
     }
 
-    private ModeChangingItem getModeChangingItem() {
-        if (this.modeChangingItem == null)
-            this.modeChangingItem = new ModeChangingItem(this);
-        return this.modeChangingItem;
-    }
+
 
     /**
      * FORGE: Overridden to allow custom tool effectiveness
@@ -388,50 +380,11 @@ public class ItemPowerFist extends MPSItemElectricTool
 
     /* IModeChangingItem -------------------------------------------------------------------------- */
 
-    @Nullable
-    @Override
-    public TextureAtlasSprite getModeIcon(String mode, ItemStack stack, EntityPlayer player) {
-        IPowerModule module = ModuleManager.getModule(mode);
-        if (module != null)
-            return module.getIcon(stack);
-        return null;
-    }
 
-    @Override
-    public List<String> getValidModes(ItemStack stack) {
-        List<String> modes = new ArrayList<>();
-        for (IRightClickModule module : ModuleManager.getRightClickModules()) {
-            if (module.isValidForItem(stack))
-                if (ModuleManager.itemHasModule(stack, module.getDataName()))
-                    modes.add(module.getDataName());
-        }
-        return modes;
-    }
 
-    @Override
-    public String getActiveMode(ItemStack stack) {
-        return this.getModeChangingItem().getActiveMode(stack);
-    }
 
-    @Override
-    public void setActiveMode(ItemStack stack, String newMode) {
-        this.getModeChangingItem().setActiveMode(stack, newMode);
-    }
 
-    @Override
-    public void cycleMode(ItemStack stack, EntityPlayer player, int dMode) {
-        this.getModeChangingItem().cycleMode(stack, player, dMode);
-    }
 
-    @Override
-    public String nextMode(ItemStack stack, EntityPlayer player) {
-        return this.getModeChangingItem().nextMode(stack, player);
-    }
-
-    @Override
-    public String prevMode(ItemStack stack, EntityPlayer player) {
-        return this.getModeChangingItem().prevMode(stack, player);
-    }
 
     /* IModularItem ------------------------------------------------------------------------------- */
     @Override // FIXME: check to see if this is needed or not.
@@ -442,21 +395,6 @@ public class ItemPowerFist extends MPSItemElectricTool
         info.add(formatInfo("Energy Storage", getCurrentMPSEnergy(stack)) + 'J');
         info.add(formatInfo("Weight", MuseCommonStrings.getTotalWeight(stack)) + 'g');
         return info;
-    }
-
-    @Override
-    public double getPlayerEnergy(EntityPlayer player) {
-        return ElectricItemUtils.getPlayerEnergy(player);
-    }
-
-    @Override
-    public void drainPlayerEnergy(EntityPlayer player, double drainAmount) {
-        ElectricItemUtils.drainPlayerEnergy(player, drainAmount);
-    }
-
-    @Override
-    public void givePlayerEnergy(EntityPlayer player, double joulesToGive) {
-        ElectricItemUtils.givePlayerEnergy(player, joulesToGive);
     }
 
     @Override

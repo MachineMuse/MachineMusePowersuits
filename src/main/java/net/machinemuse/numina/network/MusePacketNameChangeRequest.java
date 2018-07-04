@@ -25,7 +25,7 @@ public class MusePacketNameChangeRequest extends MusePacket {
 
     @Override
     public IMusePackager packager() {
-        return getPackagerInstance();
+        return MusePacketNameChangeRequestPackager.INSTANCE;
     }
 
     @Override
@@ -39,10 +39,6 @@ public class MusePacketNameChangeRequest extends MusePacket {
     public void handleClient(EntityPlayer player) {
         EntityPlayer anotherPlayer = (EntityPlayer) player.world.getEntityByID(entityID);
         anotherPlayer.refreshDisplayName();
-    }
-
-    public static MusePacketNameChangeRequestPackager getPackagerInstance() {
-        return MusePacketNameChangeRequestPackager.INSTANCE;
     }
 
     public enum MusePacketNameChangeRequestPackager implements IMusePackager {

@@ -1,4 +1,4 @@
-package net.machinemuse.numina.geometry;
+package net.machinemuse.numina.utils.math;
 
 import org.lwjgl.opengl.GL11;
 

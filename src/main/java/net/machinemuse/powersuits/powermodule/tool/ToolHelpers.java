@@ -25,7 +25,7 @@ import java.util.Set;
 public class ToolHelpers {
     public static boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
         String tool = state.getBlock().getHarvestTool(state);
-        if (stack == null || tool == null) return false;
+        if (stack.isEmpty() || tool == null) return false;
         return stack.getItem().getHarvestLevel(stack, tool, null, null) >= state.getBlock().getHarvestLevel(state);
     }
 

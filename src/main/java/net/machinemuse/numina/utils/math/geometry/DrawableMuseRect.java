@@ -1,6 +1,7 @@
-package net.machinemuse.numina.geometry;
+package net.machinemuse.numina.utils.math.geometry;
 
 import net.machinemuse.numina.render.RenderState;
+import net.machinemuse.numina.utils.math.Colour;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 

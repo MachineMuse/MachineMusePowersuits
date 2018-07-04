@@ -1,8 +1,11 @@
 package net.machinemuse.api;
 
+import net.machinemuse.utils.ElectricItemUtils;
+import net.machinemuse.utils.MuseCommonStrings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,13 +25,16 @@ public interface IModularItem {
      */
     List<String> getLongInfo(EntityPlayer player, ItemStack stack);
 
+
     /**
      * Returns the amount of energy contained in the player's inventory.
      *
      * @param player
      * @return
      */
-    double getPlayerEnergy(EntityPlayer player);
+    default double getPlayerEnergy(EntityPlayer player) {
+        return ElectricItemUtils.getPlayerEnergy(player);
+    }
 
     /**
      * Drains the amount of energy from the player's inventory.
@@ -37,7 +43,9 @@ public interface IModularItem {
      * @param drainAmount
      * @return
      */
-    void drainPlayerEnergy(EntityPlayer player, double drainAmount);
+    default void drainPlayerEnergy(EntityPlayer player, double drainAmount) {
+        ElectricItemUtils.drainPlayerEnergy(player, drainAmount);
+    }
 
     /**
      * Adds the amount of energy to the player's inventory.
@@ -46,5 +54,7 @@ public interface IModularItem {
      * @param joulesToGive
      * @return
      */
-    void givePlayerEnergy(EntityPlayer player, double joulesToGive);
+    default void givePlayerEnergy(EntityPlayer player, double joulesToGive) {
+        ElectricItemUtils.givePlayerEnergy(player, joulesToGive);
+    }
 }

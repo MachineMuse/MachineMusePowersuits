@@ -1,4 +1,4 @@
-package net.machinemuse.api.electricity;
+package net.machinemuse.api.electricity.adapter;
 
 import net.minecraft.item.ItemStack;
 

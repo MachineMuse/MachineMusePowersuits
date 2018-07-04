@@ -14,14 +14,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public abstract class PowerModuleBase implements ILocalizeableModule {
+public abstract class PowerModuleBase implements IPowerModule {
     protected NonNullList<ItemStack> defaultInstallCost;
     protected List<IModularItem> validItems;
     protected Map<String, List<IPropertyModifier>> propertyModifiers;
     protected static Map<String, String> units = new HashMap<>();
     protected NBTTagCompound defaultTag;
     protected boolean isAllowed;
-    protected TextureAtlasSprite icon;
 
     public PowerModuleBase(String name, List<IModularItem> validItems) {
         this.validItems = validItems;
@@ -47,9 +46,7 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
     }
 
     @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return icon;
-    }
+    public abstract TextureAtlasSprite getIcon(ItemStack item);
 
     @Override
     public NonNullList<ItemStack> getInstallCost() {
@@ -152,7 +149,5 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
     }
 
     @Override
-    public String getUnlocalizedName() {
-        return "Unknown Module";
-    }
+    public abstract String getUnlocalizedName();
 }

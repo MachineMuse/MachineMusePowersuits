@@ -6,7 +6,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.client.helper.ModelHelper;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.event.ModelBakeEventHandler;

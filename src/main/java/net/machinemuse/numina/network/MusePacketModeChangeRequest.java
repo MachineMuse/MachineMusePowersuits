@@ -26,7 +26,7 @@ public class MusePacketModeChangeRequest extends MusePacket {
 
     @Override
     public IMusePackager packager() {
-        return getPackagerInstance();
+        return MusePacketModeChangeRequestPackager.INSTANCE;
     }
 
     @Override
@@ -49,10 +49,6 @@ public class MusePacketModeChangeRequest extends MusePacket {
                 }
             }
         }
-    }
-
-    public static MusePacketModeChangeRequestPackager getPackagerInstance() {
-        return MusePacketModeChangeRequestPackager.INSTANCE;
     }
 
     public enum MusePacketModeChangeRequestPackager implements IMusePackager {

@@ -4,7 +4,7 @@ import com.google.common.collect.Multimap;
 import net.machinemuse.api.ApiaristArmor;
 import net.machinemuse.api.IArmorTraits;
 import net.machinemuse.api.ModuleManager;
-import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.client.render.item.ArmorModelInstance;
 import net.machinemuse.powersuits.client.render.item.IArmorModel;
 import net.machinemuse.powersuits.common.Config;

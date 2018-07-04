@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.client.render.modelspec;
 
 import com.google.common.collect.ImmutableMap;
 import net.machinemuse.numina.utils.MuseLogger;
-import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.client.model.obj.OBJModelPlus;
 import net.machinemuse.utils.MuseStringUtils;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;

@@ -2,13 +2,13 @@ package net.machinemuse.powersuits.client.gui.tinker.frame;
 
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
-import net.machinemuse.numina.geometry.MusePoint2D;
-import net.machinemuse.numina.geometry.SpiralPointToPoint2D;
+import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
+import net.machinemuse.numina.utils.math.geometry.SpiralPointToPoint2D;
 import net.machinemuse.numina.item.IModeChangingItem;
 import net.machinemuse.numina.network.MusePacketModeChangeRequest;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
-import net.machinemuse.utils.render.MuseRenderer;
+import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 

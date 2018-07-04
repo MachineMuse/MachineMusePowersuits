@@ -1,4 +1,4 @@
-package net.machinemuse.numina.geometry;
+package net.machinemuse.numina.utils.math.geometry;
 
 /**
  * Base class for Points. The main reason for this is to have a

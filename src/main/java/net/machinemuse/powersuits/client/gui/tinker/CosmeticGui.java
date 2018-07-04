@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.client.gui.tinker;
 
-import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.numina.geometry.MusePoint2D;
-import net.machinemuse.numina.geometry.MuseRect;
+import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
+import net.machinemuse.numina.utils.math.geometry.MuseRect;
 import net.machinemuse.powersuits.client.gui.MuseGui;
 import net.machinemuse.powersuits.client.gui.tinker.frame.*;
 import net.minecraft.entity.player.EntityPlayer;

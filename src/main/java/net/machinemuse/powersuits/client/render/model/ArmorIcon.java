@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.client.render.model;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.client.helper.ModelHelper;
 import net.machinemuse.powersuits.item.*;
 import net.minecraft.block.state.IBlockState;

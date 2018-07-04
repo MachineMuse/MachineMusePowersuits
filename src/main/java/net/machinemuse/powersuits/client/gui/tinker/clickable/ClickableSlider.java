@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.client.gui.tinker.clickable;
 
 import net.machinemuse.numina.general.MuseMathUtils;
-import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.numina.geometry.DrawableMuseRect;
-import net.machinemuse.numina.geometry.MusePoint2D;
-import net.machinemuse.utils.render.MuseRenderer;
+import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.numina.utils.math.geometry.DrawableMuseRect;
+import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
+import net.machinemuse.numina.utils.render.MuseRenderer;
 
 /**
  * Author: MachineMuse (Claire Semple)

@@ -1,7 +1,8 @@
-package net.machinemuse.api.electricity;
+package net.machinemuse.api.electricity.adapter;
 
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
+import net.machinemuse.api.electricity.ElectricConversions;
 import net.minecraft.item.ItemStack;
 
 /**

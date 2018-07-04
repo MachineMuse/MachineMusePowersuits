@@ -1,14 +1,13 @@
 package net.machinemuse.powersuits.client.gui.tinker.clickable;
 
-import net.machinemuse.api.ILocalizeableModule;
 import net.machinemuse.api.IPowerModule;
-import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.numina.geometry.MusePoint2D;
+import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.render.MuseIconUtils;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.utils.MuseStringUtils;
-import net.machinemuse.utils.render.GuiIcons;
-import net.machinemuse.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.client.gui.GuiIcons;
+import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.minecraft.client.resources.I18n;
 
 import java.util.ArrayList;
@@ -42,15 +41,11 @@ public class ClickableModule extends Clickable {
     }
 
     public String getLocalizedName(IPowerModule m) {
-        if (m instanceof ILocalizeableModule)
-            return I18n.format("module." + ((ILocalizeableModule) m).getUnlocalizedName() + ".name");
-        return "module has broken translation for localized name";
+        return I18n.format("module." + m.getUnlocalizedName() + ".name");
     }
 
     public String getLocalizedDescription(IPowerModule m) {
-        if (m instanceof ILocalizeableModule)
-            return I18n.format("module." + ((ILocalizeableModule) m).getUnlocalizedName() + ".desc");
-        return "module has broken translation for description";
+        return I18n.format("module." + m.getUnlocalizedName() + ".desc");
     }
 
     @Override

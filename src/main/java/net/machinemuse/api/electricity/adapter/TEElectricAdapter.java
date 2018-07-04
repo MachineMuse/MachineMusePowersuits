@@ -1,6 +1,7 @@
-package net.machinemuse.api.electricity;
+package net.machinemuse.api.electricity.adapter;
 
 import cofh.redstoneflux.api.IEnergyContainerItem;
+import net.machinemuse.api.electricity.ElectricConversions;
 import net.minecraft.item.ItemStack;
 
 /**

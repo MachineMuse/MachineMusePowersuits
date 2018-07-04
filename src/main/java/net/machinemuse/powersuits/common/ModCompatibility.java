@@ -222,9 +222,9 @@ public class ModCompatibility {
         if (isAppengLoaded()) {
             ModuleManager.addModule(new AppEngWirelessModule(Collections.singletonList((IModularItem) MPSItems.INSTANCE.powerFist)));
 
-//            // Extra Cells 2
-//            if (isExtraCellsLoaded())
-//                ModuleManager.addModule(new AppEngWirelessFluidModule(Collections.singletonList((IModularItem) MPSItems.INSTANCE.powerFist)));
+            // Extra Cells 2
+            if (isExtraCellsLoaded())
+                ModuleManager.addModule(new AppEngWirelessFluidModule(Collections.singletonList((IModularItem) MPSItems.INSTANCE.powerFist)));
         }
 
         // Multi-Mod Compatible OmniProbe

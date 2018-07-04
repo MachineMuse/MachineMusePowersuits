@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.client.gui.hud;
 
-import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.render.MuseIconUtils;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;

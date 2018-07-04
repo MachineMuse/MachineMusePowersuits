@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.client.render.model;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.client.helper.ModelHelper;

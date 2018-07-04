@@ -1,7 +1,6 @@
 package net.machinemuse.numina.common.proxy;
 
 import net.machinemuse.numina.common.Numina;
-import net.machinemuse.numina.common.NuminaConfig;
 import net.machinemuse.numina.event.NuminaPlayerTracker;
 import net.machinemuse.numina.network.NuminaPackets;
 import net.minecraftforge.common.MinecraftForge;
@@ -19,8 +18,7 @@ import java.io.File;
  */
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
-        NuminaConfig.init(event);
-        Numina.getInstance().configDir = event.getModConfigurationDirectory();
+        Numina.INSTANCE.configDir = event.getModConfigurationDirectory();
         File recipesFolder = new File(Numina.getInstance().configDir, "machinemuse/recipes");
         recipesFolder.mkdirs();
         recipesFolder.mkdir();

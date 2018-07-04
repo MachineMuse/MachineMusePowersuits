@@ -1,6 +1,6 @@
 package net.machinemuse.utils;
 
-import net.machinemuse.utils.render.MuseRenderer;
+import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.minecraft.util.ResourceLocation;
 
 import java.text.DecimalFormat;

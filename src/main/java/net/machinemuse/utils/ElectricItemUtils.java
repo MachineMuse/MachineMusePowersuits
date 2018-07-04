@@ -1,6 +1,6 @@
 package net.machinemuse.utils;
 
-import net.machinemuse.api.electricity.ElectricAdapter;
+import net.machinemuse.api.electricity.adapter.ElectricAdapter;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

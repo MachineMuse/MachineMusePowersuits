@@ -1,4 +1,4 @@
-package net.machinemuse.numina.geometry;
+package net.machinemuse.numina.utils.math.geometry;
 
 public class MuseRelativeRect extends MuseRect {
     protected MuseRect belowme;

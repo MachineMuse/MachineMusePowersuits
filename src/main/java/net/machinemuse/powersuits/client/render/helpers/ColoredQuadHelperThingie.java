@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.render.helpers;
 
 import com.google.common.base.Objects;
-import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.utils.math.Colour;
 import net.minecraft.util.EnumFacing;
 
 import javax.annotation.Nullable;

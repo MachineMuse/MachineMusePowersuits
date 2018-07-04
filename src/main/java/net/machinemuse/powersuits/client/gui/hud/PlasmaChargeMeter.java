@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.client.gui.hud;
 
-import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.utils.math.Colour;
 
 /**
  * Created by leon on 4/9/17.

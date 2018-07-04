@@ -1,12 +1,10 @@
 package net.machinemuse.powersuits.control;
 
 import net.machinemuse.numina.item.IModeChangingItem;
-import net.machinemuse.numina.item.ModeChangingItem;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -38,14 +36,36 @@ public class KeybindKeyHandler {
         boolean pressed = Keyboard.getEventKeyState();
         Minecraft mc = Minecraft.getMinecraft();
         EntityPlayerSP player = mc.player;
-    	KeyBinding[] hotbarKeys = mc.gameSettings.keyBindsHotbar;
+        KeyBinding[] hotbarKeys = mc.gameSettings.keyBindsHotbar;
 
         // Only activate if there is a player to work with
         if (player == null) {
             return;
         }
         if (pressed) {
-            ModeChangingItem mci = new ModeChangingItem(player.inventory.getCurrentItem());
+            if (player.inventory.getCurrentItem().getItem() instanceof IModeChangingItem ) {
+                IModeChangingItem mci = (IModeChangingItem)player.inventory.getCurrentItem().getItem();
+
+                /* cycleToolBackward/cycleToolForward only seem to be used if actual keys are assigned instead of mouse-wheel */
+                if (key == cycleToolBackward.getKeyCode()) {
+                    mc.playerController.updateController();
+                    mci.cycleMode(player.inventory.getStackInSlot(player.inventory.currentItem), player, 1);
+                }
+
+                if (key == cycleToolForward.getKeyCode()) {
+                    mc.playerController.updateController();
+                    mci.cycleMode(player.inventory.getStackInSlot(player.inventory.currentItem), player, -1);
+                }
+
+                if (player.inventory.currentItem < hotbarKeys.length && key == hotbarKeys[player.inventory.currentItem].getKeyCode()) {
+                    World world = mc.world;
+                    if (mc.inGameHasFocus) {
+                        player.openGui(ModularPowersuits.getInstance(), 5, world, 0, 0, 0);
+                    }
+                }
+            }
+
+
             if (key == openKeybindGUI.getKeyCode()) {
                 World world = mc.world;
                 if (mc.inGameHasFocus) {
@@ -60,26 +80,6 @@ public class KeybindKeyHandler {
             }
             if (key == goDownKey.getKeyCode()) {
                 PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName()).downKey = true; // TODO: is this correct?
-            }
-
-            /* cycleToolBackward/cycleToolForward only seem to be used if actual keys are assigned instead of mouse-wheel */
-            if (key == cycleToolBackward.getKeyCode()) {
-                mc.playerController.updateController();
-                mci.cycleMode(player.inventory.getStackInSlot(player.inventory.currentItem), player, 1);
-
-            }
-            if (key == cycleToolForward.getKeyCode()) {
-                mc.playerController.updateController();
-                mci.cycleMode(player.inventory.getStackInSlot(player.inventory.currentItem), player, -1);
-            }
-            if (player.inventory.currentItem < hotbarKeys.length && key == hotbarKeys[player.inventory.currentItem].getKeyCode()) {
-            	ItemStack stack = player.inventory.getCurrentItem();
-            	if (stack != null && stack.getItem() instanceof IModeChangingItem) {
-                    World world = mc.world;
-                    if (mc.inGameHasFocus) {
-                    	player.openGui(ModularPowersuits.getInstance(), 5, world, 0, 0, 0);
-                    }
-            	}
             }
         } else {
             if (player != null && key == goDownKey.getKeyCode()) {
