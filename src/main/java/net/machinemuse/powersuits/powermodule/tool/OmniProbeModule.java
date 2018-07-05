@@ -7,6 +7,7 @@ import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
+import net.machinemuse.powersuits.utils.modulehelpers.OmniProbeHelper;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
@@ -120,24 +121,24 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
     }
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        if (!MuseItemUtils.getEIOFacadeTransparency(item)) {
-            MuseItemUtils.setEIONoCompete(item, MODULE_OMNIPROBE);
-            MuseItemUtils.setEIOFacadeTransparency(item, true);
+        if (!OmniProbeHelper.getEIOFacadeTransparency(item)) {
+            OmniProbeHelper.setEIONoCompete(item, MODULE_OMNIPROBE);
+            OmniProbeHelper.setEIOFacadeTransparency(item, true);
         }
     }
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-        if ((MuseItemUtils.getEIONoCompete(item) != null) && (!MuseItemUtils.getEIONoCompete(item).isEmpty())) {
-            if (MuseItemUtils.getEIONoCompete(item).equals(MODULE_OMNIPROBE)) {
-                MuseItemUtils.setEIONoCompete(item, "");
-                if (MuseItemUtils.getEIOFacadeTransparency(item)) {
-                    MuseItemUtils.setEIOFacadeTransparency(item, false);
+        if ((OmniProbeHelper.getEIONoCompete(item) != null) && (!OmniProbeHelper.getEIONoCompete(item).isEmpty())) {
+            if (OmniProbeHelper.getEIONoCompete(item).equals(MODULE_OMNIPROBE)) {
+                OmniProbeHelper.setEIONoCompete(item, "");
+                if (OmniProbeHelper.getEIOFacadeTransparency(item)) {
+                    OmniProbeHelper.setEIOFacadeTransparency(item, false);
                 }
             }
         } else {
-            if (MuseItemUtils.getEIOFacadeTransparency(item)) {
-                MuseItemUtils.setEIOFacadeTransparency(item, false);
+            if (OmniProbeHelper.getEIOFacadeTransparency(item)) {
+                OmniProbeHelper.setEIOFacadeTransparency(item, false);
             }
         }
     }

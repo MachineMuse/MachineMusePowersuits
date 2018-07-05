@@ -7,6 +7,7 @@ import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
+import net.machinemuse.powersuits.utils.modulehelpers.DimensionalRiftHelper;
 import net.machinemuse.utils.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
@@ -37,7 +38,7 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
         addBaseProperty(DIMENSIONAL_RIFT_ENERGY_GENERATION, 20000);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
-        this.defaultTag.setBoolean(MuseItemUtils.ONLINE, false);
+        this.defaultTag.setBoolean(MuseItemUtils.TAG_ONLINE, false);
     }
 
     @Override
@@ -56,12 +57,12 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
             EntityPlayerMP player = (EntityPlayerMP) playerIn;
             if (player.dimension != -1) {
                 player.setLocationAndAngles(0.5D, player.posY, 0.5D, player.rotationYaw, player.rotationPitch);
-                player.mcServer.getPlayerList().transferPlayerToDimension(player, -1, new MPSTeleporter(player.mcServer.getWorld(-1)));
+                player.mcServer.getPlayerList().transferPlayerToDimension(player, -1, new DimensionalRiftHelper(player.mcServer.getWorld(-1)));
                 ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_ENERGY_GENERATION));
                 MuseHeatUtils.heatPlayer(player, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_HEAT_GENERATION));
             } else if (player.dimension == -1 || player.dimension == 1)
                 player.setLocationAndAngles(0.5D, player.posY, 0.5D, player.rotationYaw, player.rotationPitch);
-            player.mcServer.getPlayerList().transferPlayerToDimension(player, 0, new MPSTeleporter(player.mcServer.getWorld(0)));
+            player.mcServer.getPlayerList().transferPlayerToDimension(player, 0, new DimensionalRiftHelper(player.mcServer.getWorld(0)));
             if (player.dimension == 0) {
                 BlockPos coords = (player instanceof EntityPlayer) ? (player).getBedLocation(player.dimension) : null;
                 if ((coords == null) || ((coords.getX() == 0) && (coords.getY() == 0) && (coords.getZ() == 0))) {

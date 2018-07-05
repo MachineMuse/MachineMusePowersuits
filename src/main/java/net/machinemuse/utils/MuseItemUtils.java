@@ -4,8 +4,8 @@ import net.machinemuse.api.IModularItem;
 import net.machinemuse.api.IPowerModule;
 import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.MuseItemTag;
-import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.general.MuseMathUtils;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,7 +24,8 @@ import javax.annotation.Nonnull;
 import java.util.*;
 
 public class MuseItemUtils {
-    public static final String ONLINE = "Active";
+    public static final String TAG_ONLINE = "Active";
+    public static final String TAG_RENDER = "render";
 
     /**
      * Gets or creates stack.getTagCompound().getTag(NBTPREFIX)
@@ -39,21 +40,21 @@ public class MuseItemUtils {
 
     public static NBTTagCompound getMuseRenderTag(@Nonnull ItemStack stack, EntityEquipmentSlot armorSlot) {
         NBTTagCompound tag = getMuseItemTag(stack);
-        if (!tag.hasKey("render") || !(tag.getTag("render") instanceof NBTTagCompound)) {
+        if (!tag.hasKey(TAG_RENDER) || !(tag.getTag(TAG_RENDER) instanceof NBTTagCompound)) {
             MuseLogger.logDebug("TAG BREACH IMMINENT, PLEASE HOLD ONTO YOUR SEATBELTS");
-            tag.removeTag("render");
-            tag.setTag("render", DefaultModelSpec.makeModelPrefs(stack, armorSlot));
+            tag.removeTag(TAG_RENDER);
+            tag.setTag(TAG_RENDER, DefaultModelSpec.makeModelPrefs(stack, armorSlot));
         }
-        return tag.getCompoundTag("render");
+        return tag.getCompoundTag(TAG_RENDER);
     }
 
     public static NBTTagCompound getMuseRenderTag(@Nonnull ItemStack stack) {
         NBTTagCompound tag = getMuseItemTag(stack);
-        if (!tag.hasKey("render") || !(tag.getTag("render") instanceof NBTTagCompound)) {
-            tag.removeTag("render");
-            tag.setTag("render", new NBTTagCompound());
+        if (!tag.hasKey(TAG_RENDER) || !(tag.getTag(TAG_RENDER) instanceof NBTTagCompound)) {
+            tag.removeTag(TAG_RENDER);
+            tag.setTag(TAG_RENDER, new NBTTagCompound());
         }
-        return tag.getCompoundTag("render");
+        return tag.getCompoundTag(TAG_RENDER);
     }
 
     /**
@@ -413,179 +414,29 @@ public class MuseItemUtils {
         return false;
     }
 
-    public static double getFoodLevel(@Nonnull ItemStack stack) {
-        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            return itemTag.getDouble("Food");
-        }
-        return 0.0;
+    /**
+     * Checks item, NBT, and meta if the item is not damageable
+     */
+    public static boolean stackEqualExact(ItemStack stack1, ItemStack stack2) {
+        return stack1.getItem() == stack2.getItem() && (!stack1.getHasSubtypes() || stack1.getMetadata() == stack2.getMetadata()) && ItemStack.areItemStackTagsEqual(stack1, stack2);
     }
 
-    public static void setFoodLevel(@Nonnull ItemStack stack, double d) {
-        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            itemTag.setDouble("Food", d);
-        }
-    }
 
-    public static double getSaturationLevel(@Nonnull ItemStack stack) {
-        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            Double saturationLevel = itemTag.getDouble("Saturation");
-            if (saturationLevel != null) {
-                return saturationLevel;
-            }
-        }
-        return 0.0F;
-    }
+//    public static NBTTagCompound getFluidTermTag(@Nonnull ItemStack stack) {
+//        NBTTagCompound ret = null;
+//        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
+//            ret = MuseItemUtils.getMuseItemTag(stack).getCompoundTag("AppEng EC Wireless Fluid Terminal");
+//        }
+//        return ret;
+//    }
+//
+//    public static void setFluidTermTag(@Nonnull ItemStack stack, NBTTagCompound tag) {
+//        NBTTagCompound t = MuseItemUtils.getMuseItemTag(stack);
+//        t.setTag("AppEng EC Wireless Fluid Terminal", tag);
+//        stack.getTagCompound().setTag(MuseItemTag.NBTPREFIX, t);
+//    }
 
-    public static void setSaturationLevel(ItemStack stack, double d) {
-        if (stack != null && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            itemTag.setDouble("Saturation", d);
-        }
-    }
 
-    public static int getTorchLevel(@Nonnull ItemStack stack) {
-        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            Integer torchLevel = itemTag.getInteger("Torch");
-            if (torchLevel != null) {
-                return torchLevel;
-            }
-        }
-        return 0;
-    }
-
-    public static void setTorchLevel(@Nonnull ItemStack stack, int i) {
-        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            itemTag.setInteger("Torch", i);
-        }
-    }
-
-    public static double getWaterLevel(@Nonnull ItemStack stack) {
-        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            Double waterLevel = itemTag.getDouble("Water");
-            if (waterLevel != null) {
-                return waterLevel;
-            }
-        }
-        return 0;
-    }
-
-    public static void setWaterLevel(@Nonnull ItemStack stack, double d) {
-        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            itemTag.setDouble("Water", d);
-        }
-    }
-
-    public static void setLiquid(@Nonnull ItemStack stack, String name) {
-        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            itemTag.setString("Liquid", name);
-        }
-    }
-
-    public static String getLiquid(@Nonnull ItemStack stack) {
-        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            String s = itemTag.getString("Liquid");
-            if (s != null) {
-                return s;
-            }
-        }
-        return "";
-    }
-
-    public static int getCoalLevel(@Nonnull ItemStack stack) {
-        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            Integer coalLevel = itemTag.getInteger("Coal");
-            if (coalLevel != null) {
-                return coalLevel;
-            }
-        }
-        return 0;
-    }
-    public static void setCoalLevel(@Nonnull ItemStack stack, int i) {
-        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            itemTag.setInteger("Coal", i);
-        }
-    }
-
-    public static String getEIONoCompete(@Nonnull ItemStack stack) {
-        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            if (itemTag != null) {
-                return itemTag.getString("eioNoCompete");
-            } else {
-                return "";
-            }
-        }
-        return "";
-    }
-
-    public static void setEIONoCompete(@Nonnull ItemStack stack, String s) {
-        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            itemTag.setString("eioNoCompete", s);
-        }
-    }
-
-    public static boolean getEIOFacadeTransparency(@Nonnull ItemStack stack) {
-        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            if (itemTag != null) {
-                return itemTag.getBoolean("eioFacadeTransparency");
-            }
-        }
-        return false;
-    }
-
-    public static void setEIOFacadeTransparency(@Nonnull ItemStack stack, boolean b) {
-        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            itemTag.setBoolean("eioFacadeTransparency", b);
-        }
-    }
-
-    public static NBTTagCompound getFluidTermTag(@Nonnull ItemStack stack) {
-        NBTTagCompound ret = null;
-        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-            ret = MuseItemUtils.getMuseItemTag(stack).getCompoundTag("AppEng EC Wireless Fluid Terminal");
-        }
-        return ret;
-    }
-
-    public static void setFluidTermTag(@Nonnull ItemStack stack, NBTTagCompound tag) {
-        NBTTagCompound t = MuseItemUtils.getMuseItemTag(stack);
-        t.setTag("AppEng EC Wireless Fluid Terminal", tag);
-        stack.getTagCompound().setTag(MuseItemTag.NBTPREFIX, t);
-    }
-
-    public static boolean getCanShrink(ItemStack stack) {
-        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = stack.getTagCompound();
-            NBTTagCompound cmTag = ((itemTag.hasKey("CompactMachines")) ? itemTag.getCompoundTag("CompactMachines") : null);
-            if (cmTag != null && cmTag.hasKey("canShrink")) {
-                return cmTag.getBoolean("canShrink");
-            }
-        }
-        return false;
-    }
-
-    public static void setCanShrink(@Nonnull ItemStack stack, boolean b) {
-        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = stack.getTagCompound();
-            NBTTagCompound cmTag = ((itemTag.hasKey("CompactMachines")) ? itemTag.getCompoundTag("CompactMachines") : (new NBTTagCompound()));
-            cmTag.setBoolean("canShrink", b);
-            itemTag.setTag("CompactMachines", cmTag);
-        }
-    }
 
     public static NBTTagCompound getNBTTag(@Nonnull ItemStack itemStack) {
         NBTTagCompound tag = itemStack.getTagCompound();
@@ -602,12 +453,7 @@ public class MuseItemUtils {
 
 
 
-    /**
-     * Checks item, NBT, and meta if the item is not damageable
-     */
-    public static boolean stackEqualExact(ItemStack stack1, ItemStack stack2) {
-        return stack1.getItem() == stack2.getItem() && (!stack1.getHasSubtypes() || stack1.getMetadata() == stack2.getMetadata()) && ItemStack.areItemStackTagsEqual(stack1, stack2);
-    }
+
 
 
     public static boolean isClientWorld(World world) {

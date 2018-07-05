@@ -1,4 +1,4 @@
-package net.machinemuse.utils;
+package net.machinemuse.powersuits.utils.modulehelpers;
 
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
@@ -14,35 +14,21 @@ import net.minecraft.world.Teleporter;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 
-import java.util.Random;
-
-public class MPSTeleporter extends Teleporter {
+public class DimensionalRiftHelper extends Teleporter {
     private final WorldServer worldServerInstance;
 
     private final Long2ObjectMap<PortalPosition> destinationCoordinateCache = new Long2ObjectOpenHashMap();
 
-    public MPSTeleporter(WorldServer par1WorldServer) {
+    public DimensionalRiftHelper(WorldServer par1WorldServer) {
         super(par1WorldServer);
         this.worldServerInstance = par1WorldServer;
-        Random random = new Random(par1WorldServer.getSeed());
     }
 
-
-    // TODO: Check everything!!!!
-
-
-
     public void placeInPortal(Entity entityIn, float rotationYaw) {
-//        int x = MathHelper.floor_double(entityIn.posX);
-//        int y = MathHelper.floor_double(entityIn.posY) - 1;
-//        int z = MathHelper.floor_double(entityIn.posZ);
-
         if (!this.placeInExistingPortal(entityIn, rotationYaw)) {
             if (this.worldServerInstance.provider.getDimensionType().getId() != -1) {
                 BlockPos otherpos = this.worldServerInstance.getTopSolidOrLiquidBlock(new BlockPos(entityIn).add(0, -1, 0));
-//                entityIn.setLocationAndAngles(x, y, z, rotationYaw, 0.0F);
                 entityIn.setLocationAndAngles(otherpos.getX(), otherpos.getY(), otherpos.getZ(), rotationYaw, 0.0F);
-
             } else {
                 makePortal(entityIn);
             }
@@ -123,8 +109,7 @@ public class MPSTeleporter extends Teleporter {
             ObjectIterator<PortalPosition> objectiterator = this.destinationCoordinateCache.values().iterator();
 
             while (objectiterator.hasNext()) {
-                PortalPosition portalposition = (PortalPosition)objectiterator.next();
-
+                PortalPosition portalposition = objectiterator.next();
                 if (portalposition == null || portalposition.lastUpdateTime < i) {
                     objectiterator.remove();
                 }

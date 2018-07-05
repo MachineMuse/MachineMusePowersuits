@@ -5,6 +5,7 @@ import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
+import net.machinemuse.powersuits.utils.modulehelpers.PersonalShrinkingModuleHelper;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.Minecraft;
@@ -72,15 +73,15 @@ public class PersonalShrinkingModule extends PowerModuleBase implements IRightCl
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        if (!MuseItemUtils.getCanShrink(item)) {
-            MuseItemUtils.setCanShrink(item, true);
+        if (!PersonalShrinkingModuleHelper.getCanShrink(item)) {
+            PersonalShrinkingModuleHelper.setCanShrink(item, true);
         }
     }
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-        if (MuseItemUtils.getCanShrink(item)) {
-            MuseItemUtils.setCanShrink(item, false);
+        if (PersonalShrinkingModuleHelper.getCanShrink(item)) {
+            PersonalShrinkingModuleHelper.setCanShrink(item, false);
         }
     }
 

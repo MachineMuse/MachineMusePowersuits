@@ -5,6 +5,7 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IPlayerTickModule;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
+import net.machinemuse.powersuits.utils.modulehelpers.FluidUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.machinemuse.utils.MuseItemUtils;
@@ -65,14 +66,14 @@ public class WaterTankModule extends PowerModuleBase implements IPlayerTickModul
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        if (MuseItemUtils.getWaterLevel(item) > ModuleManager.computeModularProperty(item, WATER_TANK_SIZE)) {
-            MuseItemUtils.setWaterLevel(item, ModuleManager.computeModularProperty(item, WATER_TANK_SIZE));
+        if (FluidUtils.getWaterLevel(item) > ModuleManager.computeModularProperty(item, WATER_TANK_SIZE)) {
+            FluidUtils.setWaterLevel(item, ModuleManager.computeModularProperty(item, WATER_TANK_SIZE));
         }
 
         // Fill tank if player is in water
         Block block = player.world.getBlockState(player.getPosition()).getBlock();
-        if (((block == Blocks.WATER) || block == Blocks.FLOWING_WATER) && MuseItemUtils.getWaterLevel(item) < ModuleManager.computeModularProperty(item, WATER_TANK_SIZE)) {
-            MuseItemUtils.setWaterLevel(item, MuseItemUtils.getWaterLevel(item) + 1);
+        if (((block == Blocks.WATER) || block == Blocks.FLOWING_WATER) && FluidUtils.getWaterLevel(item) < ModuleManager.computeModularProperty(item, WATER_TANK_SIZE)) {
+            FluidUtils.setWaterLevel(item, FluidUtils.getWaterLevel(item) + 1);
         }
 
         // Fill tank if raining
@@ -80,16 +81,16 @@ public class WaterTankModule extends PowerModuleBase implements IPlayerTickModul
         int zCoord = MathHelper.floor(player.posZ);
         boolean isRaining = (player.world.getBiomeForCoordsBody(player.getPosition()).getRainfall() > 0) && (player.world.isRaining() || player.world.isThundering());
         if (isRaining && player.world.canBlockSeeSky(player.getPosition().add(0,1,0))
-                && (player.world.getTotalWorldTime() % 5) == 0 && MuseItemUtils.getWaterLevel(item) < ModuleManager.computeModularProperty(item, WATER_TANK_SIZE)) {
-            MuseItemUtils.setWaterLevel(item, MuseItemUtils.getWaterLevel(item) + 1);
+                && (player.world.getTotalWorldTime() % 5) == 0 && FluidUtils.getWaterLevel(item) < ModuleManager.computeModularProperty(item, WATER_TANK_SIZE)) {
+            FluidUtils.setWaterLevel(item, FluidUtils.getWaterLevel(item) + 1);
         }
 
         // Apply cooling
         double currentHeat = MuseHeatUtils.getPlayerHeat(player);
         double maxHeat = MuseHeatUtils.getMaxHeat(player);
-        if ((currentHeat / maxHeat) >= ModuleManager.computeModularProperty(item, ACTIVATION_PERCENT) && MuseItemUtils.getWaterLevel(item) > 0) {
+        if ((currentHeat / maxHeat) >= ModuleManager.computeModularProperty(item, ACTIVATION_PERCENT) && FluidUtils.getWaterLevel(item) > 0) {
             MuseHeatUtils.coolPlayer(player, 1);
-            MuseItemUtils.setWaterLevel(item, MuseItemUtils.getWaterLevel(item) - 1);
+            FluidUtils.setWaterLevel(item, FluidUtils.getWaterLevel(item) - 1);
             for (int i = 0; i < 4; i++) {
                 player.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, player.posX, player.posY + 0.5, player.posZ, 0.0D, 0.0D, 0.0D);
             }

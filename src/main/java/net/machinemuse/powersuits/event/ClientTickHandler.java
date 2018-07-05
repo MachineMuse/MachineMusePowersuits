@@ -21,6 +21,8 @@ import net.machinemuse.powersuits.powermodule.misc.AutoFeederModule;
 import net.machinemuse.powersuits.powermodule.misc.ClockModule;
 import net.machinemuse.powersuits.powermodule.misc.CompassModule;
 import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
+import net.machinemuse.powersuits.utils.modulehelpers.AutoFeederHelper;
+import net.machinemuse.powersuits.utils.modulehelpers.FluidUtils;
 import net.machinemuse.utils.*;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.utils.modulehelpers.PlasmaCannonHelper;
@@ -141,7 +143,7 @@ public class ClientTickHandler {
                 ScaledResolution screen = new ScaledResolution(mc);
                 for (int i = 0; i < modules.size(); i++) {
                     if (Objects.equals(modules.get(i), AutoFeederModule.MODULE_AUTO_FEEDER)) {
-                        int foodLevel = (int) MuseItemUtils.getFoodLevel(player.getItemStackFromSlot(EntityEquipmentSlot.HEAD));
+                        int foodLevel = (int) AutoFeederHelper.getFoodLevel(player.getItemStackFromSlot(EntityEquipmentSlot.HEAD));
                         String num = MuseStringUtils.formatNumberShort(foodLevel);
                         if (i == 0) {
                             MuseRenderer.drawString(num, 17, yBaseString);
@@ -226,8 +228,8 @@ public class ClientTickHandler {
         String maxHeatStr = MuseStringUtils.formatNumberShort(maxHeat);
 
         // water
-        double maxWater = WaterUtils.getMaxWater(player);
-        double currWater = WaterUtils.getPlayerWater(player);
+        double maxWater = FluidUtils.getMaxWater(player);
+        double currWater = FluidUtils.getPlayerWater(player);
         String currWaterStr = MuseStringUtils.formatNumberShort(currWater);
         String maxWaterStr = MuseStringUtils.formatNumberShort(maxWater);
 

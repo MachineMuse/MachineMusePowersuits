@@ -8,6 +8,7 @@ import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
+import net.machinemuse.powersuits.utils.modulehelpers.AutoFeederHelper;
 import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
@@ -55,8 +56,8 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        double foodLevel = MuseItemUtils.getFoodLevel(item);
-        double saturationLevel = MuseItemUtils.getSaturationLevel(item);
+        double foodLevel = AutoFeederHelper.getFoodLevel(item);
+        double saturationLevel = AutoFeederHelper.getSaturationLevel(item);
         IInventory inv = player.inventory;
         double eatingEnergyConsumption = ModuleManager.computeModularProperty(item, EATING_ENERGY_CONSUMPTION);
         double efficiency = ModuleManager.computeModularProperty(item, EATING_EFFICIENCY);
@@ -78,8 +79,8 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
                     player.inventory.setInventorySlotContents(i, null);
                 }
             }
-            MuseItemUtils.setFoodLevel(item, foodLevel);
-            MuseItemUtils.setSaturationLevel(item, saturationLevel);
+            AutoFeederHelper.setFoodLevel(item, foodLevel);
+            AutoFeederHelper.setSaturationLevel(item, saturationLevel);
         } else {
             for (int i = 0; i < inv.getSizeInventory(); i++) {
                 if (foodNeeded < foodLevel)
@@ -103,24 +104,24 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
                     }
                 }
             }
-            MuseItemUtils.setFoodLevel(item, foodLevel);
-            MuseItemUtils.setSaturationLevel(item, saturationLevel);
+            AutoFeederHelper.setFoodLevel(item, foodLevel);
+            AutoFeederHelper.setSaturationLevel(item, saturationLevel);
         }
 
         NBTTagCompound foodStatNBT = new NBTTagCompound();
 
         // only consume saturation if food is consumed. This keeps the food buffer from overloading with food while the
         //   saturation buffer drains completely.
-        if (foodNeeded > 0 && MuseItemUtils.getFoodLevel(item) >= 1) {
+        if (foodNeeded > 0 && AutoFeederHelper.getFoodLevel(item) >= 1) {
             int foodUsed = 0;
             // if buffer has enough to fill player stat
-            if (MuseItemUtils.getFoodLevel(item) >= foodNeeded && foodNeeded * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
+            if (AutoFeederHelper.getFoodLevel(item) >= foodNeeded && foodNeeded * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
                 foodUsed = foodNeeded;
             // if buffer has some but not enough to fill the player stat
-            } else if ((foodNeeded - MuseItemUtils.getFoodLevel(item)) > 0  && MuseItemUtils.getFoodLevel(item) * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
-                foodUsed = (int)MuseItemUtils.getFoodLevel(item);
+            } else if ((foodNeeded - AutoFeederHelper.getFoodLevel(item)) > 0  && AutoFeederHelper.getFoodLevel(item) * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
+                foodUsed = (int)AutoFeederHelper.getFoodLevel(item);
             // last resort where using just 1 unit from buffer
-            } else if (eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player) && MuseItemUtils.getFoodLevel(item) >= 1) {
+            } else if (eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player) && AutoFeederHelper.getFoodLevel(item) >= 1) {
                 foodUsed = 1;
             }
             if (foodUsed > 0) {
@@ -131,7 +132,7 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
                 // put the values back into foodstats
                 foodStats.readNBT(foodStatNBT);
                 // update value stored in buffer
-                MuseItemUtils.setFoodLevel(item, MuseItemUtils.getFoodLevel(item) - foodUsed);
+                AutoFeederHelper.setFoodLevel(item, AutoFeederHelper.getFoodLevel(item) - foodUsed);
                 // split the cost between using food and using saturation
                 ElectricItemUtils.drainPlayerEnergy(player, eatingEnergyConsumption * 0.5 * foodUsed);
 
@@ -139,13 +140,13 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
                     // using int for better precision
                     int saturationUsed = 0;
                     // if buffer has enough to fill player stat
-                    if (MuseItemUtils.getSaturationLevel(item) >= saturationNeeded && saturationNeeded * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
+                    if (AutoFeederHelper.getSaturationLevel(item) >= saturationNeeded && saturationNeeded * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
                         saturationUsed = (int) saturationNeeded;
                     // if buffer has some but not enough to fill the player stat
-                    } else if ((saturationNeeded - MuseItemUtils.getSaturationLevel(item)) > 0  && MuseItemUtils.getSaturationLevel(item) * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
-                        saturationUsed = (int) MuseItemUtils.getSaturationLevel(item);
+                    } else if ((saturationNeeded - AutoFeederHelper.getSaturationLevel(item)) > 0  && AutoFeederHelper.getSaturationLevel(item) * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
+                        saturationUsed = (int) AutoFeederHelper.getSaturationLevel(item);
                     // last resort where using just 1 unit from buffer
-                    } else if (eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player) && MuseItemUtils.getSaturationLevel(item) >= 1) {
+                    } else if (eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player) && AutoFeederHelper.getSaturationLevel(item) >= 1) {
                         saturationUsed = 1;
                     }
 
@@ -156,7 +157,7 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
                         // put the values back into foodstats
                         foodStats.readNBT(foodStatNBT);
                         // update value stored in buffer
-                        MuseItemUtils.setSaturationLevel(item, MuseItemUtils.getSaturationLevel(item) - saturationUsed);
+                        AutoFeederHelper.setSaturationLevel(item, AutoFeederHelper.getSaturationLevel(item) - saturationUsed);
                         // split the cost between using food and using saturation
                         ElectricItemUtils.drainPlayerEnergy(player, eatingEnergyConsumption * 0.5 * saturationUsed);
                     }

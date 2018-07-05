@@ -7,6 +7,7 @@ import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
+import net.machinemuse.powersuits.utils.modulehelpers.CoalGenHelper;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -41,20 +42,20 @@ public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule,
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         IInventory inv = player.inventory;
-        int coalNeeded = (int) ModuleManager.computeModularProperty(item, MAX_COAL_STORAGE) - MuseItemUtils.getCoalLevel(item);
+        int coalNeeded = (int) ModuleManager.computeModularProperty(item, MAX_COAL_STORAGE) - CoalGenHelper.getCoalLevel(item);
         if (coalNeeded > 0) {
             for (int i = 0; i < inv.getSizeInventory(); i++) {
                 ItemStack stack = inv.getStackInSlot(i);
                 if (stack != null && stack.getItem() == Items.COAL) {
                     int loopTimes = coalNeeded < stack.getCount() ? coalNeeded : stack.getCount();
                     for (int i2 = 0; i2 < loopTimes; i2++) {
-                        MuseItemUtils.setCoalLevel(item, MuseItemUtils.getCoalLevel(item) + 1);
+                        CoalGenHelper.setCoalLevel(item, CoalGenHelper.getCoalLevel(item) + 1);
                         player.inventory.decrStackSize(i, 1);
                         if (stack.getCount() == 0) {
                             player.inventory.setInventorySlotContents(i, null);
                         }
                     }
-                    if (ModuleManager.computeModularProperty(item, MAX_COAL_STORAGE) - MuseItemUtils.getCoalLevel(item) < 1) {
+                    if (ModuleManager.computeModularProperty(item, MAX_COAL_STORAGE) - CoalGenHelper.getCoalLevel(item) < 1) {
                         i = inv.getSizeInventory() + 1;
                     }
                 }

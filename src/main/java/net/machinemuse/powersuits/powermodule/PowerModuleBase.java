@@ -27,7 +27,7 @@ public abstract class PowerModuleBase implements IPowerModule {
         this.defaultInstallCost = NonNullList.create();
         this.propertyModifiers = new HashMap();
         this.defaultTag = new NBTTagCompound();
-        this.defaultTag.setBoolean(MuseItemUtils.ONLINE, true);
+        this.defaultTag.setBoolean(MuseItemUtils.TAG_ONLINE, true);
         this.isAllowed = Config.getConfig().get("Modules", name, true).getBoolean(true);
     }
 
@@ -36,7 +36,7 @@ public abstract class PowerModuleBase implements IPowerModule {
         this.defaultInstallCost = NonNullList.create();
         this.propertyModifiers = new HashMap();
         this.defaultTag = new NBTTagCompound();
-        this.defaultTag.setBoolean(MuseItemUtils.ONLINE, true);
+        this.defaultTag.setBoolean(MuseItemUtils.TAG_ONLINE, true);
         this.isAllowed = Config.getConfig().get("Modules", getDataName(), true).getBoolean(true);
     }
 
