@@ -1,6 +1,8 @@
 package net.machinemuse.powersuits.item;
 
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.config.MPSConfig;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -64,7 +66,7 @@ public class ItemComponent extends Item {
         this.setUnlocalizedName("item.powerArmorComponent.");
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
-        this.setCreativeTab(Config.getCreativeTab());
+        this.setCreativeTab(MPSConfig.INSTANCE.getCreativeTab());
 //        this.setCreativeTab(MPSConfig.INSTANCE.getCreativeTab());
         this.populate();
     }
@@ -84,14 +86,14 @@ public class ItemComponent extends Item {
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> currentTipList, ITooltipFlag flagIn) {
-        if (Config.doAdditionalInfo()) {
+        if (MPSConfig.INSTANCE.doAdditionalInfo()) {
             String message =  I18n.format("tooltip.componentTooltip");
             message = MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic);
             currentTipList.add(message);
             String description = (descriptions.get(stack.getMetadata()) != null) ? descriptions.get(stack.getMetadata()) : "";
             currentTipList.addAll(MuseStringUtils.wrapStringToLength(description, 30));
         } else {
-            currentTipList.add(Config.additionalInfoInstructions());
+            currentTipList.add(MuseCommonStrings.additionalInfoInstructions());
         }
     }
 

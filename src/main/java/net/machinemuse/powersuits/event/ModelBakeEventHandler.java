@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.event;
 
+import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.machinemuse.powersuits.client.helper.ModelHelper;
 import net.machinemuse.powersuits.client.render.model.ArmorIcon;
 import net.machinemuse.powersuits.client.render.model.ModelLuxCapacitor;
@@ -28,7 +29,7 @@ public enum ModelBakeEventHandler {
     private static IRegistry<ModelResourceLocation, IBakedModel> modelRegistry;
     //FIXME there may only be one run. 2 runs not a guarantee
     private static boolean firstLoad = Boolean.parseBoolean(System.getProperty("fml.skipFirstModelBake", "true"));
-    public static final ModelResourceLocation powerFistIconLocation = new ModelResourceLocation(Config.RESOURCE_PREFIX + "powerTool", "inventory");
+    public static final ModelResourceLocation powerFistIconLocation = new ModelResourceLocation(MPSResourceConstants.RESOURCE_PREFIX + "powerTool", "inventory");
     public static IBakedModel powerFistIconModel;
 
     // Armor icons

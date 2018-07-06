@@ -4,10 +4,12 @@ import com.google.common.collect.Multimap;
 import net.machinemuse.numina.api.item.IArmorTraits;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
+import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.render.item.ArmorModelInstance;
 import net.machinemuse.powersuits.client.render.item.IArmorModel;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.powermodule.armor.ApiaristArmorModule;
 import net.machinemuse.powersuits.powermodule.cosmetic.CitizenJoeStyle;
 import net.machinemuse.powersuits.powermodule.cosmetic.HighPolyArmor;
@@ -54,7 +56,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
     public ItemPowerArmor(int renderIndex, EntityEquipmentSlot entityEquipmentSlot) {
         super(ItemArmor.ArmorMaterial.IRON, renderIndex, entityEquipmentSlot);
         this.setMaxStackSize(1);
-        this.setCreativeTab(Config.getCreativeTab());
+        this.setCreativeTab(MPSConfig.INSTANCE.getCreativeTab());
     }
 
     public ISpecialArmor.ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
@@ -85,7 +87,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
         if (type == "overlay")  // this is to allow a tint to be applied ot the armor
-            return Config.BLANK_ARMOR_MODEL_PATH;
+            return MPSResourceConstants.BLANK_ARMOR_MODEL_PATH;
 
         ItemStack armor = ((EntityLivingBase) entity).getItemStackFromSlot(slot);
         if (armor.getItem() instanceof ItemPowerArmor) {
@@ -94,26 +96,26 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
                 if (armorChest != null) {
                     if (armorChest.getItem() instanceof ItemPowerArmor)
                         if (ModuleManager.INSTANCE.itemHasActiveModule(armorChest, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE))
-                            return Config.BLANK_ARMOR_MODEL_PATH;
+                            return MPSResourceConstants.BLANK_ARMOR_MODEL_PATH;
                 }
             }
 
             if (ModuleManager.INSTANCE.itemHasActiveModule(stack, TransparentArmorModule.MODULE_TRANSPARENT_ARMOR))
-                return Config.BLANK_ARMOR_MODEL_PATH;
+                return MPSResourceConstants.BLANK_ARMOR_MODEL_PATH;
 
             else if (ModuleManager.INSTANCE.itemHasActiveModule(armor, CitizenJoeStyle.CITIZEN_JOE_STYLE)) {
                 if (slot == EntityEquipmentSlot.LEGS)
-                    return Config.CITIZENJOE_ARMORPANTS_PATH;
+                    return MPSResourceConstants.CITIZENJOE_ARMORPANTS_PATH;
                 else
-                    return Config.CITIZENJOE_ARMOR_PATH;
+                    return MPSResourceConstants.CITIZENJOE_ARMOR_PATH;
             } else if (!ModuleManager.INSTANCE.itemHasActiveModule(armor, HighPolyArmor.HighPolyArmor)) {
                 if (slot == EntityEquipmentSlot.LEGS)
-                    return Config.SEBK_ARMORPANTS_PATH;
+                    return MPSResourceConstants.SEBK_ARMORPANTS_PATH;
                 else
-                    return Config.SEBK_ARMOR_PATH;
+                    return MPSResourceConstants.SEBK_ARMOR_PATH;
             }
         }
-        return Config.BLANK_ARMOR_MODEL_PATH;
+        return MPSResourceConstants.BLANK_ARMOR_MODEL_PATH;
     }
 
     @Override
@@ -198,7 +200,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         if (energy > enerConsum) {
             totalArmor += enerArmor;
         }
-        totalArmor = Math.min(Config.getMaximumArmorPerPiece(), totalArmor);
+        totalArmor = Math.min(MPSConfig.INSTANCE.getMaximumArmorPerPiece(), totalArmor);
         return totalArmor;
     }
 

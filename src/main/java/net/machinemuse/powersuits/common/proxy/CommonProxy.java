@@ -39,7 +39,8 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         File newConfig = new File(event.getModConfigurationDirectory() + "/machinemuse/powersuits.cfg");
         Config.init(new Configuration(newConfig));
-        Config.setConfigFolderBase(event.getModConfigurationDirectory());
+
+
         Config.extractRecipes();
 
 
@@ -49,28 +50,20 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent event) {
         Config.loadPowerModules();
-        Config.getMaximumArmorPerPiece();
-        Config.useMouseWheel();
-        Config.useGraphicalMeters();
-        Config.getSalvageChance();
+
+
         Config.baseMaxHeat();
-        Config.getWeightCapacity();
-        Config.keybindHUDon();
-        Config.keybindHUDx();
-        Config.keybindHUDy();
-        Config.toggleModuleSpam();
-        Config.useAdvancedOreScannerMessage();
-        Config.useOldAutoFeeder();
-        Config.useCheatyLeatherRecipe();
-        Config.useHUDStuff();
+        Config.useAdvancedOreScannerMessage(); // Fixme: obsolete
+
+
+
+
         EntityRegistry.registerModEntity(new ResourceLocation(MODID, "entityPlasmaBolt"), EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, ModularPowersuits.getInstance(), 64, 20, true);
         EntityRegistry.registerModEntity(new ResourceLocation(MODID, "entitySpinningBlade"), EntitySpinningBlade.class, "entitySpinningBlade", 2478, ModularPowersuits.getInstance(), 64, 20, true);
         EntityRegistry.registerModEntity(BlockLuxCapacitor.getInstance().getRegistryName(), EntityLuxCapacitor.class, "entityLuxCapacitor", 2479, ModularPowersuits.getInstance(), 64, 20, true);
         MPSPacketList.registerPackets();
         NetworkRegistry.INSTANCE.registerGuiHandler(ModularPowersuits.getInstance(), MPSGuiHandler.getInstance());
         TerminalHandler.registerHandler();
-
-
         MinecraftForge.EVENT_BUS.register(new PlayerLoginHandlerThingy()); // doesn't seem to work if fired preinit
     }
 
@@ -86,6 +79,4 @@ public class CommonProxy {
     }
 
     public void registerRenderers() {}
-
-    public void sendModeChange(int dMode, String newMode) {}
 }

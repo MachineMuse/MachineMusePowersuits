@@ -45,47 +45,8 @@ import java.util.*;
  * Ported to Java by lehjr on 11/14/16.
  */
 public class Config {
-    public static final String RESOURCE_DOMAIN = ModularPowersuits.MODID.toLowerCase();
-    public static final String RESOURCE_PREFIX = RESOURCE_DOMAIN + ":";
-    public static final String TEXTURE_PREFIX = "powersuits:textures/";
-    public static final String COMPONENTS_PREFIX = "powersuits:component/";
-    public static final String SOUND_PREFIX = RESOURCE_PREFIX + "sound/";
-    public static final String LANG_PREFIX = RESOURCE_PREFIX + "lang/";
-    public static final String SEBK_ARMOR_PATH = TEXTURE_PREFIX + "items/armor/sebkarmor.png";
-    public static final String SEBK_ARMORPANTS_PATH = TEXTURE_PREFIX + "items/armor/sebkarmorpants.png";
-    public static final String TINKERTABLE_TEXTURE_PATH = TEXTURE_PREFIX + "models/tinkertable_tx.png";
-    public static final String ARMOR_TEXTURE_PATH = TEXTURE_PREFIX + "items/armor/diffuse.png";
-    public static final String BLANK_ARMOR_MODEL_PATH = TEXTURE_PREFIX + "items/armor/blankarmor.png";
-    public static final String SEBK_TOOL_TEXTURE = TEXTURE_PREFIX + "models/tool.png";
-    public static final String CITIZENJOE_ARMOR_PATH = TEXTURE_PREFIX + "items/armor/joearmor.png";
-    public static final String CITIZENJOE_ARMORPANTS_PATH = TEXTURE_PREFIX + "items/armor/joearmorpants.png";
-    public static final String GLASS_TEXTURE = TEXTURE_PREFIX + "gui/glass.png";
-    static File configFolder = null;
-    private static MPSCreativeTab mpsCreativeTab;
-
-
     private static Configuration config = null;
-    public static boolean canUseShaders = false;
 
-    public static boolean keybindHUDon() {
-        return config.get("HUD", "Display HUD", true).getBoolean();
-    }
-
-    public static double keybindHUDx() {
-        return config.get("HUD", "x position", 8.0).getDouble();
-    }
-
-    public static double keybindHUDy() {
-        return config.get("HUD", "y position", 32.0).getDouble();
-    }
-
-    public static boolean toggleModuleSpam() {
-        return config.get("HUD", "Chat message when toggling modules", false).getBoolean();
-    }
-
-    public static double getWeightCapacity() {
-        return config.get(Configuration.CATEGORY_GENERAL, "Weight Limit (grams)", 25000.0).getDouble();
-    }
 
     /**
      * Called in post-init. Extracts recipes if the configuration value is not found.
@@ -139,7 +100,7 @@ public class Config {
 
     public static void copyRecipe(String inFile) {
         InputStream src = CommonProxy.class.getClassLoader().getResourceAsStream(inFile);
-        File dest = new File(Numina.configDir.toString() + "/machinemuse/recipes/" + inFile);
+        File dest = new File(Numina.INSTANCE.configDir, "/recipes/" + inFile);
         if(!dest.exists()) {
             try {
                 Files.copy(src, dest.toPath());
@@ -162,55 +123,6 @@ public class Config {
         config.save();
     }
 
-    /**
-     * The packet channel for this mod. We will only listen for and send packets
-     * on this 'channel'. Max of 16 characters.
-     *
-     * @return
-     */
-    public static String getNetworkChannelName() {
-        return "powerSuits";
-    }
-
-    /**
-     * The default creative tab to add all these items to. This behaviour may
-     * change if more items are added, but for now there are only 5 items and 1
-     * block, so misc is the most appropriate target.
-     *
-     * @return
-     */
-    public static CreativeTabs getCreativeTab() {
-        if (mpsCreativeTab == null)
-            mpsCreativeTab = new MPSCreativeTab();
-        return mpsCreativeTab;
-    }
-
-    /**
-     * Chance of each item being returned when salvaged.
-     *
-     * @return percent chance, 0.0 to 1.0
-     */
-    public static double getSalvageChance() {
-        return config.get(Configuration.CATEGORY_GENERAL, "Salvage Ratio", 0.9).getDouble(0.9);
-    }
-
-    /**
-     * The maximum amount of armor contribution allowed per armor piece. Total
-     * armor when the full set is worn can never exceed 4 times this amount.
-     *
-     * @return
-     */
-    public static double getMaximumArmorPerPiece() {
-        return Math.max(0.0, config.get(Configuration.CATEGORY_GENERAL, "Maximum Armor per Piece", 6.0).getDouble(6.0));
-    }
-
-    public static boolean useMouseWheel() {
-        return config.get(Configuration.CATEGORY_GENERAL, "Use Mousewheel to change modes", true).getBoolean(true);
-    }
-
-    public static void addModule(IPowerModule module) {
-        ModuleManager.INSTANCE.addModule(module);
-    }
 
     public static boolean useAdvancedOreScannerMessage() {
         return config.get(Configuration.CATEGORY_GENERAL, "Use Detailed Ore Scanner Message", true).getBoolean(true);
@@ -220,21 +132,10 @@ public class Config {
         return readOreValues();
     }
 
-    public static boolean useOldAutoFeeder() {
-        return config.get(Configuration.CATEGORY_GENERAL, "Use Old Auto Feeder Method", false).getBoolean(false);
-    }
 
-    public static boolean useCheatyLeatherRecipe() {
-        return config.get(Configuration.CATEGORY_GENERAL, "Use Cheaty Leather Recipe (Requires Thermal Expansion)", true).getBoolean(true);
+    public static void addModule(IPowerModule module) {
+        ModuleManager.INSTANCE.addModule(module);
     }
-
-    public static boolean useHUDStuff() {
-        return config.get(Configuration.CATEGORY_GENERAL, "Use HUD for certain modules (Auto Feeder, Compass, Clock, etc.", true).getBoolean(true);
-    }
-
-//    public static boolean use24hClock() {
-//        return config.get(Configuration.CATEGORY_GENERAL, "Use a 24h clock instead of 12h", false).getBoolean(false);
-//    }
 
     /**
      * Load all the modules in the config file into memory. Eventually. For now,
@@ -351,31 +252,17 @@ public class Config {
         return config;
     }
 
-    public static boolean doAdditionalInfo() {
-        return FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT && Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
-    }
 
-    @SideOnly(Side.CLIENT)
-    public static String additionalInfoInstructions() {
-        String message = I18n.format("tooltip.pressShift");
-        return MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic);
-    }
 
-    public static boolean useGraphicalMeters() {
-        return config.get(Configuration.CATEGORY_GENERAL, "Use Graphical Meters", true).getBoolean(true);
-    }
+
 
     public static double baseMaxHeat() {
         return config.get(Configuration.CATEGORY_GENERAL, "Base Heat Cap", 50.0).getDouble(50.0);
     }
 
-    public static void setConfigFolderBase(File folder) {
-        configFolder = new File(folder.getAbsolutePath() + "/machinemuse");
-    }
-
     public static void addCustomInstallCosts() {
         try {
-            File installCostFile = new File(configFolder, "custominstallcosts.json");
+            File installCostFile = new File(Numina.INSTANCE.configDir, "custominstallcosts.json");
             Gson gson = new Gson();
             if (installCostFile.exists()) {
                 DataInputStream is = new DataInputStream(new FileInputStream(installCostFile));
@@ -436,7 +323,7 @@ public class Config {
         Map<Map<ResourceLocation, Integer>, Integer> oreValues = new HashMap<>();
         String oreValuesFileName = "oreValues.json";
         try {
-            File oreValuesFile = new File(configFolder, oreValuesFileName);
+            File oreValuesFile = new File(Numina.INSTANCE.configDir, oreValuesFileName);
             Gson gson = new Gson();
             // if file does not exist, extract it
             if (!oreValuesFile.exists()) {

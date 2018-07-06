@@ -7,6 +7,7 @@ import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.machinemuse.powersuits.client.helper.ModelHelper;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.event.ModelBakeEventHandler;
@@ -28,13 +29,13 @@ import java.util.List;
 public enum ModelPowerFistHelper {
     INSTANCE;
 
-    public static final ResourceLocation powerFistLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerfist/powerfist.obj");
-    public static final ResourceLocation powerFistFingersNormalLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerfist/powerfist_fingers_normal.obj");
-    public static final ResourceLocation powerFistFingersFiringLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerfist/powerfist_fingers_firing.obj");
+    public static final ResourceLocation powerFistLocation = new ResourceLocation(MPSResourceConstants.RESOURCE_DOMAIN, "models/item/powerfist/powerfist.obj");
+    public static final ResourceLocation powerFistFingersNormalLocation = new ResourceLocation(MPSResourceConstants.RESOURCE_DOMAIN, "models/item/powerfist/powerfist_fingers_normal.obj");
+    public static final ResourceLocation powerFistFingersFiringLocation = new ResourceLocation(MPSResourceConstants.RESOURCE_DOMAIN, "models/item/powerfist/powerfist_fingers_firing.obj");
 
-    public static final ResourceLocation powerFistLeftLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerfist_left.obj");
-    public static final ResourceLocation powerFistFingersLeftNormalLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerfist/powerfist_fingers_normal_left.obj");
-    public static final ResourceLocation powerFistFingersLeftFiringLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerfist/powerfist_fingers_firing_left.obj");
+    public static final ResourceLocation powerFistLeftLocation = new ResourceLocation(MPSResourceConstants.RESOURCE_DOMAIN, "models/item/powerFist/powerfist_left.obj");
+    public static final ResourceLocation powerFistFingersLeftNormalLocation = new ResourceLocation(MPSResourceConstants.RESOURCE_DOMAIN, "models/item/powerfist/powerfist_fingers_normal_left.obj");
+    public static final ResourceLocation powerFistFingersLeftFiringLocation = new ResourceLocation(MPSResourceConstants.RESOURCE_DOMAIN, "models/item/powerfist/powerfist_fingers_firing_left.obj");
 
     public static IBakedModel powerFist;
     public static IBakedModel powerFistFingers;

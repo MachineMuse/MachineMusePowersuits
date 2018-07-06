@@ -229,7 +229,7 @@ nei.jsonShaped=JSON Shaped
 
 tooltip.pressShift=Press SHIFT for more information.
 tooltip.componentTooltip=For use in Tinker Table.
-tooltip.changeModes=Change modes: Sneak+mousewheel.
+tooltip.changeModes=Change modes: Press and hold the number of the hotbar slot the PowerFist is in.
 tooltip.energy=Energy:
 tooltip.noModules=No installed modules! This item is useless until you add some modules at a Tinker Table.
 tooltip.installedModules=Installed Modules:

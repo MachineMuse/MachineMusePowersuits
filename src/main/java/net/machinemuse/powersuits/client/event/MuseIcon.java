@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.client.event;
 
 
+import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
@@ -211,6 +212,6 @@ public class MuseIcon {
     }
 
     private static TextureAtlasSprite register(TextureStitchEvent.Pre event, String location) {
-        return event.getMap().registerSprite(new ResourceLocation(Config.RESOURCE_DOMAIN, location));
+        return event.getMap().registerSprite(new ResourceLocation(MPSResourceConstants.RESOURCE_DOMAIN, location));
     }
 }

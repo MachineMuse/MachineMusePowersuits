@@ -27,18 +27,17 @@ public interface IModeChangingItem {
     List<String> getValidModes(ItemStack stack);
 
     default String getActiveMode(ItemStack stack) {
-        String modeFromNBT = MuseNBTUtils.getNBTTag(stack).getString(NuminaNBTConstants.TAG_MODE);
+        String modeFromNBT = MuseNBTUtils.getMuseItemTag(stack).getString(NuminaNBTConstants.TAG_MODE);
         if (modeFromNBT.isEmpty()) {
             List<String> validModes = getValidModes(stack);
             return (validModes!=null && (validModes.size() > 0) ? validModes.get(0) : "");
         }
-        else {
+        else
             return modeFromNBT;
-        }
     }
 
     default void setActiveMode(ItemStack stack, String newMode) {
-        MuseNBTUtils.getNBTTag(stack).setString(NuminaNBTConstants.TAG_MODE, newMode);
+        MuseNBTUtils.getMuseItemTag(stack).setString(NuminaNBTConstants.TAG_MODE, newMode);
     }
 
     default void cycleMode(ItemStack stack, EntityPlayer player, int dMode) {

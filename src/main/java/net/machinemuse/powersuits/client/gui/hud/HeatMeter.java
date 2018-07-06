@@ -4,6 +4,7 @@ import net.machinemuse.numina.render.MuseIconUtils;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -69,7 +70,7 @@ public class HeatMeter {
     }
 
     public void drawGlass(double xpos, double ypos) {
-        MuseTextureUtils.pushTexture(Config.GLASS_TEXTURE);
+        MuseTextureUtils.pushTexture(MPSResourceConstants.GLASS_TEXTURE);
 		Colour.WHITE.doGL();
         GL11.glBegin(GL11.GL_QUADS);
         GL11.glTexCoord2d(0, 0);

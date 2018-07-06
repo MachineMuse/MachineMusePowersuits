@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.block;
 
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModularPowersuits;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -47,7 +48,7 @@ public class BlockTinkerTable extends BlockHorizontal {
         setHardness(1.5F);
         setResistance(1000.0F);
         setHarvestLevel("pickaxe", 2);
-        setCreativeTab(Config.getCreativeTab());
+        setCreativeTab(MPSConfig.INSTANCE.getCreativeTab());
         setSoundType(SoundType.METAL);
         setLightOpacity(0);
         setLightLevel(0.4f);

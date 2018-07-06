@@ -130,7 +130,7 @@ public class ClientTickHandler {
 
         double yBaseIcon;
         int yBaseString;
-        if (Config.useGraphicalMeters()) {
+        if (MPSConfig.INSTANCE.useGraphicalMeters()) {
             yBaseIcon = 150.0;
             yBaseString = 155;
         } else {
@@ -243,7 +243,7 @@ public class ClientTickHandler {
         String currPlasmaStr = MuseStringUtils.formatNumberShort(currPlasma);
         String maxPlasmaStr = MuseStringUtils.formatNumberShort(maxPlasma);
 
-        if (Config.useGraphicalMeters()) {
+        if (MPSConfig.INSTANCE.useGraphicalMeters()) {
             int numMeters = 1;
 
             if (maxEnergy > 0) {

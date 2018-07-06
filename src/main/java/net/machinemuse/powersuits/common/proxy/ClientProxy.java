@@ -74,11 +74,4 @@ public class ClientProxy extends CommonProxy {
             ModelPlayerAPI.register(MODID, SMovingArmorModel.class);
         }
     }
-
-    @Override
-    public void sendModeChange(int dMode, String newMode) {
-        EntityPlayerSP player = Minecraft.getMinecraft().player;
-        MusePacket modeChangePacket = new MusePacketModeChangeRequest(player, newMode, player.inventory.currentItem);
-        PacketSender.sendToServer(modeChangePacket);
-    }
 }

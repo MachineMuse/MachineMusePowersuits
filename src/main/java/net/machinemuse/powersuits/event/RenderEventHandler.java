@@ -12,6 +12,7 @@ import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableKeybindin
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
 import net.machinemuse.powersuits.client.helper.ModelHelper;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.powermodule.misc.BinocularsModule;
 import net.machinemuse.powersuits.powermodule.movement.FlightControlModule;
@@ -36,7 +37,9 @@ import static net.machinemuse.powersuits.powermodule.misc.BinocularsModule.BINOC
  */
 public class RenderEventHandler {
     private static boolean ownFly;
-    private final DrawableMuseRect frame = new DrawableMuseRect(Config.keybindHUDx(), Config.keybindHUDy(), Config.keybindHUDx() + (double)16, Config.keybindHUDy() + (double)16, true, Colour.DARKGREEN.withAlpha(0.2), Colour.GREEN.withAlpha(0.2));
+    private static final MPSConfig config = MPSConfig.INSTANCE;
+
+    private final DrawableMuseRect frame = new DrawableMuseRect(config.keybindHUDx(), config.keybindHUDy(), config.keybindHUDx() + (double)16, config.keybindHUDy() + (double)16, true, Colour.DARKGREEN.withAlpha(0.2), Colour.GREEN.withAlpha(0.2));
 
     public RenderEventHandler() {
         this.ownFly = false;
@@ -103,12 +106,12 @@ public class RenderEventHandler {
     }
     @SideOnly(Side.CLIENT)
     public void drawKeybindToggles() {
-        if (Config.keybindHUDon()) {
+        if (config.keybindHUDon()) {
             Minecraft mc = Minecraft.getMinecraft();
             EntityPlayerSP player = mc.player;
             ScaledResolution screen = new ScaledResolution(mc);
-            frame.setLeft(Config.keybindHUDx());
-            frame.setTop(Config.keybindHUDy());
+            frame.setLeft(config.keybindHUDx());
+            frame.setTop(config.keybindHUDy());
             frame.setBottom(frame.top() + 16);
             for (ClickableKeybinding kb:   KeybindManager.getKeybindings()) {
                 if (kb.displayOnHUD) {

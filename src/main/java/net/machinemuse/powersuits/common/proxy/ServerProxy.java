@@ -43,7 +43,4 @@ public class ServerProxy extends CommonProxy{
     public void registerRenderers() {
         super.registerRenderers();
     }
-
-    @Override
-    public void sendModeChange(int dMode, String newMode) {}
 }

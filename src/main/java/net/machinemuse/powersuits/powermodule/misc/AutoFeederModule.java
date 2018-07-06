@@ -7,6 +7,7 @@ import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
@@ -66,7 +67,7 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
         double saturationNeeded = 20 - foodStats.getSaturationLevel();
 
         // this consumes all food in the player's inventory and stores the stats in a buffer
-        if (Config.useOldAutoFeeder()) {
+        if (MPSConfig.INSTANCE.useOldAutoFeeder()) {
             for (int i = 0; i < inv.getSizeInventory(); i++) {
                 ItemStack stack = inv.getStackInSlot(i);
                 if (stack != null && stack.getItem() instanceof ItemFood) {

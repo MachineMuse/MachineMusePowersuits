@@ -9,6 +9,7 @@ import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.machinemuse.powersuits.utils.MusePlayerUtils;
 import net.machinemuse.powersuits.utils.PlayerWeightUtils;
@@ -35,7 +36,7 @@ public class PlayerUpdateHandler {
 
             List<ItemStack> modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player);
             double totalWeight = PlayerWeightUtils.getPlayerWeight(player);
-            double weightCapacity = Config.getWeightCapacity();
+            double weightCapacity = MPSConfig.INSTANCE.getWeightCapacity();
 
             for (ItemStack stack : modularItemsEquipped) {
                 // Temporary Advanced Rocketry hack Not the best way but meh.

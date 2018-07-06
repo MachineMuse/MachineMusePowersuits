@@ -259,7 +259,7 @@ public class KeybindConfigFrame implements IGuiFrame {
 
     @Override
     public List<String> getToolTip(int x, int y) {
-        if (Config.doAdditionalInfo()) {
+        if (MPSConfig.INSTANCE.doAdditionalInfo()) {
             for (ClickableModule module : modules) {
                 if (module.hitBox(x, y)) {
                     return module.getToolTip();

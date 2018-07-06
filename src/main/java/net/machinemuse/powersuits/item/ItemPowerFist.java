@@ -17,6 +17,7 @@ import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.powermodule.tool.GrafterModule;
 import net.machinemuse.powersuits.powermodule.tool.OmniWrenchModule;
 import net.machinemuse.powersuits.powermodule.tool.RefinedStorageWirelessModule;
@@ -86,7 +87,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         super(0.0f, 0.0f, ToolMaterial.DIAMOND); // FIXME
         this.setMaxStackSize(1);
         this.setMaxDamage(0);
-        this.setCreativeTab(Config.getCreativeTab());
+        this.setCreativeTab(MPSConfig.INSTANCE.getCreativeTab());
     }
 
 
