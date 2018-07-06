@@ -2,7 +2,6 @@ package net.machinemuse.numina.utils.math.geometry;
 
 import net.machinemuse.numina.render.RenderState;
 import net.machinemuse.numina.utils.math.Colour;
-import net.machinemuse.numina.utils.math.geometry.GradientAndArcCalculator;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.DoubleBuffer;

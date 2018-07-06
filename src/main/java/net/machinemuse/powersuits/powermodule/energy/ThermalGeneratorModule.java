@@ -1,16 +1,16 @@
 package net.machinemuse.powersuits.powermodule.energy;
 
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IPlayerTickModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IPlayerTickModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseHeatUtils;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
+import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -62,11 +62,11 @@ public class ThermalGeneratorModule extends PowerModuleBase implements IPlayerTi
         double maxHeat = MuseHeatUtils.getMaxHeat(player);
         if (player.world.getTotalWorldTime() % 20 == 0) {
             if (player.isBurning()) {
-                ElectricItemUtils.givePlayerEnergy(player, 4 * ModuleManager.computeModularProperty(item, THERMAL_ENERGY_GENERATION));
+                ElectricItemUtils.givePlayerEnergy(player, 4 * ModuleManager.INSTANCE.computeModularProperty(item, THERMAL_ENERGY_GENERATION));
             } else if (currentHeat >= 200) {
-                ElectricItemUtils.givePlayerEnergy(player, 2 * ModuleManager.computeModularProperty(item, THERMAL_ENERGY_GENERATION));
+                ElectricItemUtils.givePlayerEnergy(player, 2 * ModuleManager.INSTANCE.computeModularProperty(item, THERMAL_ENERGY_GENERATION));
             } else if ((currentHeat / maxHeat) >= 0.5) {
-                ElectricItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(item, THERMAL_ENERGY_GENERATION));
+                ElectricItemUtils.givePlayerEnergy(player, ModuleManager.INSTANCE.computeModularProperty(item, THERMAL_ENERGY_GENERATION));
             }
         }
     }

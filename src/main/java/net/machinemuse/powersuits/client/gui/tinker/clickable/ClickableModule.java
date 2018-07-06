@@ -1,13 +1,13 @@
 package net.machinemuse.powersuits.client.gui.tinker.clickable;
 
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.numina.utils.math.Colour;
-import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
+import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.render.MuseIconUtils;
 import net.machinemuse.numina.render.MuseTextureUtils;
-import net.machinemuse.utils.MuseStringUtils;
-import net.machinemuse.powersuits.client.gui.GuiIcons;
+import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.client.gui.GuiIcons;
+import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.minecraft.client.resources.I18n;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class ClickableModule extends Clickable {
 
     @Override
     public List<String> getToolTip() {
-        List<String> toolTipText = new ArrayList<String>();
+        List<String> toolTipText = new ArrayList<>();
         toolTipText.add(getLocalizedName(getModule()));
         toolTipText.addAll(MuseStringUtils.wrapStringToLength(getLocalizedDescription(getModule()), 30));
         return toolTipText;

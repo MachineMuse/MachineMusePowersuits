@@ -39,6 +39,10 @@ public class MusePacketRecipeUpdate extends MusePacket {
         writeString(recipe);
     }
 
+    public static MusePacketRecipeUpdatePackager getPackagerInstance() {
+        return MusePacketRecipeUpdatePackager.INSTANCE;
+    }
+
     public enum MusePacketRecipeUpdatePackager implements IMusePackager {
         INSTANCE;
 

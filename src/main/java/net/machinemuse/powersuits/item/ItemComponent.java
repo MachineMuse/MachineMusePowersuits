@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.item;
 
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.utils.MuseStringUtils;
+import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;

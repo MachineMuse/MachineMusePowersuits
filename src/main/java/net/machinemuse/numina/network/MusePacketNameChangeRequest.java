@@ -41,6 +41,10 @@ public class MusePacketNameChangeRequest extends MusePacket {
         anotherPlayer.refreshDisplayName();
     }
 
+    public static MusePacketNameChangeRequestPackager getPackagerInstance() {
+        return MusePacketNameChangeRequestPackager.INSTANCE;
+    }
+
     public enum MusePacketNameChangeRequestPackager implements IMusePackager {
         INSTANCE;
 

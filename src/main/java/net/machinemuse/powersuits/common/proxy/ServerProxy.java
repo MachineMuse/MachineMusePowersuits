@@ -37,7 +37,6 @@ public class ServerProxy extends CommonProxy{
     public void registerEvents() {
         super.registerEvents();
         MinecraftForge.EVENT_BUS.register(new PlayerUpdateHandler());
-        MinecraftForge.EVENT_BUS.register(new PlayerLoginHandlerThingy());
     }
 
     @Override

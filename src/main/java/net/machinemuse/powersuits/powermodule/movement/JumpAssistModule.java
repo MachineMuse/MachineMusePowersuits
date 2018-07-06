@@ -1,17 +1,18 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.moduletrigger.IPlayerTickModule;
-import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IPlayerTickModule;
+import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.MusePlayerUtils;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
+import net.machinemuse.powersuits.utils.MusePlayerUtils;
+import net.machinemuse.powersuits.utils.PlayerWeightUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -53,7 +54,7 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
         if (jumpkey) {
             double multiplier = MovementManager.getPlayerJumpMultiplier(player);
             if (multiplier > 0) {
-                player.motionY += 0.15 * Math.min(multiplier, 1) * MusePlayerUtils.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
+                player.motionY += 0.15 * Math.min(multiplier, 1) * MusePlayerUtils.getWeightPenaltyRatio(PlayerWeightUtils.getPlayerWeight(player), 25000);
                 MovementManager.setPlayerJumpTicks(player, multiplier - 1);
             }
             player.jumpMovementFactor = player.getAIMoveSpeed() * .2f;

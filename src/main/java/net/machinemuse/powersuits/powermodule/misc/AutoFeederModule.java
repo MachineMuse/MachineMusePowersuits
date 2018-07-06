@@ -1,17 +1,17 @@
 package net.machinemuse.powersuits.powermodule.misc;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IPlayerTickModule;
-import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IPlayerTickModule;
+import net.machinemuse.numina.api.module.IToggleableModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.machinemuse.powersuits.utils.modulehelpers.AutoFeederHelper;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -59,8 +59,8 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
         double foodLevel = AutoFeederHelper.getFoodLevel(item);
         double saturationLevel = AutoFeederHelper.getSaturationLevel(item);
         IInventory inv = player.inventory;
-        double eatingEnergyConsumption = ModuleManager.computeModularProperty(item, EATING_ENERGY_CONSUMPTION);
-        double efficiency = ModuleManager.computeModularProperty(item, EATING_EFFICIENCY);
+        double eatingEnergyConsumption = ModuleManager.INSTANCE.computeModularProperty(item, EATING_ENERGY_CONSUMPTION);
+        double efficiency = ModuleManager.INSTANCE.computeModularProperty(item, EATING_EFFICIENCY);
         FoodStats foodStats = player.getFoodStats();
         int foodNeeded = 20 - foodStats.getFoodLevel();
         double saturationNeeded = 20 - foodStats.getSaturationLevel();

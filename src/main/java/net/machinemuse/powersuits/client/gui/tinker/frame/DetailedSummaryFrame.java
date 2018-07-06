@@ -1,15 +1,16 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
-import net.machinemuse.api.ModuleManager;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
+import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.MuseStringUtils;
-import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
+import net.machinemuse.powersuits.utils.MuseStringUtils;
+import net.machinemuse.powersuits.utils.PlayerWeightUtils;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -33,13 +34,13 @@ public class DetailedSummaryFrame extends ScrollableFrame {
 
     @Override
     public void update(double mousex, double mousey) {
-        weight = MuseItemUtils.getPlayerWeight(player);
+        weight = PlayerWeightUtils.getPlayerWeight(player);
         energy = 0;
         armor = 0;
         for(ItemStack stack : MuseItemUtils.modularItemsEquipped(player)) {
-            energy += ModuleManager.computeModularProperty(stack, ElectricItemUtils.MAXIMUM_ENERGY);
-            armor += ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_VALUE_PHYSICAL);
-            armor += ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_VALUE_ENERGY);
+            energy += ModuleManager.INSTANCE.computeModularProperty(stack, ElectricItemUtils.MAXIMUM_ENERGY);
+            armor += ModuleManager.INSTANCE.computeModularProperty(stack, MuseCommonStrings.ARMOR_VALUE_PHYSICAL);
+            armor += ModuleManager.INSTANCE.computeModularProperty(stack, MuseCommonStrings.ARMOR_VALUE_ENERGY);
         }
     }
 

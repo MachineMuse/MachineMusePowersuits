@@ -1,16 +1,16 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
+import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.DrawableMuseRect;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRect;
-import net.machinemuse.numina.network.PacketSender;
+import net.machinemuse.powersuits.client.gui.GuiIcons;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableSlider;
 import net.machinemuse.powersuits.item.ItemPowerArmor;
 import net.machinemuse.powersuits.network.packets.MusePacketColourInfo;
-import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.powersuits.client.gui.GuiIcons;
+import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.resources.I18n;
@@ -59,7 +59,7 @@ public class ColourPickerFrame implements IGuiFrame {
         if (this.itemSelector.getSelectedItem() == null) {
             return null;
         }
-        NBTTagCompound renderSpec = MuseItemUtils.getMuseRenderTag(this.itemSelector.getSelectedItem().getItem());
+        NBTTagCompound renderSpec = MPSNBTUtils.getMuseRenderTag(this.itemSelector.getSelectedItem().getItem());
         if (renderSpec.hasKey("colours") && renderSpec.getTag("colours") instanceof NBTTagIntArray) {
             return (NBTTagIntArray) renderSpec.getTag("colours");
         }
@@ -87,7 +87,7 @@ public class ColourPickerFrame implements IGuiFrame {
         if (this.itemSelector.getSelectedItem() == null) {
             return null;
         }
-        NBTTagCompound renderSpec = MuseItemUtils.getMuseRenderTag(this.itemSelector.getSelectedItem().getItem());
+        NBTTagCompound renderSpec = MPSNBTUtils.getMuseRenderTag(this.itemSelector.getSelectedItem().getItem());
         renderSpec.setTag("colours", (NBTBase)new NBTTagIntArray(newarray));
         EntityPlayerSP player = Minecraft.getMinecraft().player;
         if (player.world.isRemote) {

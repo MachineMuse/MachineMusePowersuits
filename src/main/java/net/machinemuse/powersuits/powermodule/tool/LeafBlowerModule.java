@@ -1,15 +1,15 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.powermodule.PropertyModifierIntLinearAdditive;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -80,14 +80,14 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        int radius = (int) ModuleManager.computeModularProperty(itemStackIn, RADIUS);
+        int radius = (int) ModuleManager.INSTANCE.computeModularProperty(itemStackIn, RADIUS);
         if (useBlower(radius, itemStackIn, playerIn, worldIn, playerIn.getPosition()))
             return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
 
         //        Block blockID = world.getBlock(x, y, z);
-//        int plant = (int) ModuleManager.computeModularProperty(itemStack, PLANT_RADIUS);
-//        int leaf = (int) ModuleManager.computeModularProperty(itemStack, LEAF_RADIUS);
-//        int snow = (int) ModuleManager.computeModularProperty(itemStack, SNOW_RADIUS);
+//        int plant = (int) ModuleManager.INSTANCE.computeModularProperty(itemStack, PLANT_RADIUS);
+//        int leaf = (int) ModuleManager.INSTANCE.computeModularProperty(itemStack, LEAF_RADIUS);
+//        int snow = (int) ModuleManager.INSTANCE.computeModularProperty(itemStack, SNOW_RADIUS);
 //        int totalEnergyDrain = 0;
 //
 //        // Plants
@@ -115,7 +115,7 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
                 for (int k = pos.getZ() - radius; k < pos.getZ() + radius; k++) {
                     newPos = new BlockPos(i, j, k);
                     if (ToolHelpers.blockCheckAndHarvest(player, world, newPos)) {
-                        totalEnergyDrain += ModuleManager.computeModularProperty(itemStack, LEAF_BLOWER_ENERGY_CONSUMPTION);
+                        totalEnergyDrain += ModuleManager.INSTANCE.computeModularProperty(itemStack, LEAF_BLOWER_ENERGY_CONSUMPTION);
                     }
                 }
             }

@@ -1,14 +1,14 @@
 package net.machinemuse.powersuits.powermodule.armor;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IPlayerTickModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IPlayerTickModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
+import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.machinemuse.powersuits.utils.modulehelpers.FluidUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseHeatUtils;
-import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -66,13 +66,13 @@ public class WaterTankModule extends PowerModuleBase implements IPlayerTickModul
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        if (FluidUtils.getWaterLevel(item) > ModuleManager.computeModularProperty(item, WATER_TANK_SIZE)) {
-            FluidUtils.setWaterLevel(item, ModuleManager.computeModularProperty(item, WATER_TANK_SIZE));
+        if (FluidUtils.getWaterLevel(item) > ModuleManager.INSTANCE.computeModularProperty(item, WATER_TANK_SIZE)) {
+            FluidUtils.setWaterLevel(item, ModuleManager.INSTANCE.computeModularProperty(item, WATER_TANK_SIZE));
         }
 
         // Fill tank if player is in water
         Block block = player.world.getBlockState(player.getPosition()).getBlock();
-        if (((block == Blocks.WATER) || block == Blocks.FLOWING_WATER) && FluidUtils.getWaterLevel(item) < ModuleManager.computeModularProperty(item, WATER_TANK_SIZE)) {
+        if (((block == Blocks.WATER) || block == Blocks.FLOWING_WATER) && FluidUtils.getWaterLevel(item) < ModuleManager.INSTANCE.computeModularProperty(item, WATER_TANK_SIZE)) {
             FluidUtils.setWaterLevel(item, FluidUtils.getWaterLevel(item) + 1);
         }
 
@@ -81,14 +81,14 @@ public class WaterTankModule extends PowerModuleBase implements IPlayerTickModul
         int zCoord = MathHelper.floor(player.posZ);
         boolean isRaining = (player.world.getBiomeForCoordsBody(player.getPosition()).getRainfall() > 0) && (player.world.isRaining() || player.world.isThundering());
         if (isRaining && player.world.canBlockSeeSky(player.getPosition().add(0,1,0))
-                && (player.world.getTotalWorldTime() % 5) == 0 && FluidUtils.getWaterLevel(item) < ModuleManager.computeModularProperty(item, WATER_TANK_SIZE)) {
+                && (player.world.getTotalWorldTime() % 5) == 0 && FluidUtils.getWaterLevel(item) < ModuleManager.INSTANCE.computeModularProperty(item, WATER_TANK_SIZE)) {
             FluidUtils.setWaterLevel(item, FluidUtils.getWaterLevel(item) + 1);
         }
 
         // Apply cooling
         double currentHeat = MuseHeatUtils.getPlayerHeat(player);
         double maxHeat = MuseHeatUtils.getMaxHeat(player);
-        if ((currentHeat / maxHeat) >= ModuleManager.computeModularProperty(item, ACTIVATION_PERCENT) && FluidUtils.getWaterLevel(item) > 0) {
+        if ((currentHeat / maxHeat) >= ModuleManager.INSTANCE.computeModularProperty(item, ACTIVATION_PERCENT) && FluidUtils.getWaterLevel(item) > 0) {
             MuseHeatUtils.coolPlayer(player, 1);
             FluidUtils.setWaterLevel(item, FluidUtils.getWaterLevel(item) - 1);
             for (int i = 0; i < 4; i++) {

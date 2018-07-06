@@ -6,11 +6,11 @@ tile.tinkerTable.name=Верстак для создания силовой бр
 
 itemGroup.powersuits=Modular Powersuits
 
-item.powerArmorBoots.name=Силовые ботинки
-item.powerArmorLeggings.name=Силовые поножи
-item.powerArmorChestplate.name=Силовая кираса
-item.powerArmorHelmet.name=Силовой шлем
-item.powerFist.name=Силовой кулак
+item.powersuits.powerArmorBoots.name=Силовые ботинки
+item.powersuits.powerArmorLeggings.name=Силовые поножи
+item.powersuits.powerArmorChestplate.name=Силовая кираса
+item.powersuits.powerArmorHelmet.name=Силовой шлем
+item.powersuits.powerFist.name=Силовой кулак
 
 item.powerArmorComponent.componentWiring.name=Провод
 item.powerArmorComponent.componentSolenoid.name=Соленоид

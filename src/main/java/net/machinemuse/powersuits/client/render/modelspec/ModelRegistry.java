@@ -5,7 +5,7 @@ import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.map.MuseRegistry;
 import net.machinemuse.powersuits.client.model.obj.OBJModelPlus;
 import net.machinemuse.powersuits.client.model.obj.OBJPlusLoader;
-import net.machinemuse.utils.MuseStringUtils;
+import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.nbt.NBTTagCompound;

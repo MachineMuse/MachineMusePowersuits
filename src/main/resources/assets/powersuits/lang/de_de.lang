@@ -4,11 +4,11 @@
 tile.luxCapacitor.name=Luxkompensator
 tile.tinkerTable.name=Energierüstungsbasteltisch
 
-item.powerArmorBoots.name=Energiestiefel
-item.powerArmorLeggings.name=Energiehose
-item.powerArmorChestplate.name=Energiebrustplatte
-item.powerArmorHelmet.name=Energiehelm
-item.powerFist.name=Energiefaust
+item.powersuits.powerArmorBoots.name=Energiestiefel
+item.powersuits.powerArmorLeggings.name=Energiehose
+item.powersuits.powerArmorChestplate.name=Energiebrustplatte
+item.powersuits.powerArmorHelmet.name=Energiehelm
+item.powersuits.powerFist.name=Energiefaust
 
 item.powerArmorComponent.componentWiring.name=Kabel
 item.powerArmorComponent.componentSolenoid.name=Magnetspule

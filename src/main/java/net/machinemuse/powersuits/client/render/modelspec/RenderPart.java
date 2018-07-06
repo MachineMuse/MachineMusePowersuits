@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.render.RenderState;
+import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.client.render.item.ArmorModelInstance;
 import net.machinemuse.powersuits.client.render.item.IArmorModel;
-import net.machinemuse.utils.NBTTagAccessor;
+import net.machinemuse.powersuits.utils.nbt.NBTTagAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

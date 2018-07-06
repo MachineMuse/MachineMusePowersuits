@@ -1,14 +1,15 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
-import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
-import net.machinemuse.numina.utils.math.geometry.SpiralPointToPoint2D;
-import net.machinemuse.numina.item.IModeChangingItem;
+import net.machinemuse.numina.api.item.IModeChangingItem;
+import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.network.MusePacketModeChangeRequest;
 import net.machinemuse.numina.network.PacketSender;
-import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
+import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
+import net.machinemuse.numina.utils.math.geometry.SpiralPointToPoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -58,10 +59,10 @@ public class RadialSelectionFrame implements IGuiFrame {
     private void loadItems() {
         if (player != null) {
             List<IRightClickModule> modes = new ArrayList<>();
-            for (IRightClickModule module : ModuleManager.getRightClickModules()) {
+            for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IRightClickModule.class)) {
                 if (module.isValidForItem(stack))
-                    if (ModuleManager.itemHasModule(stack, module.getDataName()))
-                        modes.add(module);
+                    if (ModuleManager.INSTANCE.itemHasModule(stack, module.getDataName()))
+                        modes.add((IRightClickModule) module);
             }
 
             int modeNum = 0;

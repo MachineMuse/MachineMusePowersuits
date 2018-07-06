@@ -1,12 +1,12 @@
 package net.machinemuse.powersuits.network.packets;
 
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.ModuleManager;
+import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -54,11 +54,11 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
         if (moduleName != null) {
             InventoryPlayer inventory = player.inventory;
             ItemStack stack = player.inventory.getStackInSlot(itemSlot);
-            IPowerModule moduleType = ModuleManager.getModule(moduleName);
+            IPowerModule moduleType = ModuleManager.INSTANCE.getModule(moduleName);
             NonNullList<ItemStack> refund = moduleType.getInstallCost();
-            if (ModuleManager.itemHasModule(stack, moduleName)) {
+            if (ModuleManager.INSTANCE.itemHasModule(stack, moduleName)) {
                 Set<Integer> slots = new HashSet<>();
-                ModuleManager.removeModule(stack, moduleName);
+                ModuleManager.INSTANCE.removeModule(stack, moduleName);
                 for (ItemStack refundItem : refund) {
                     slots.addAll(MuseItemUtils.giveOrDropItemWithChance(refundItem.copy(), player, Config.getSalvageChance()));
                 }

@@ -28,7 +28,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  * Ported to Java by lehjr on 10/21/16.
  */
 public class BlockTinkerTable extends BlockHorizontal {
-    public static final String name = "tinkertable";
+    public static final String name = "tinkerTable";
 
     private volatile static BlockTinkerTable INSTANCE;
     public static BlockTinkerTable getInstance() {
@@ -53,7 +53,7 @@ public class BlockTinkerTable extends BlockHorizontal {
         setLightLevel(0.4f);
         setTickRandomly(false);
         setUnlocalizedName(name);
-        setRegistryName(ModularPowersuits.MODID, "tile." + name);
+        setRegistryName(ModularPowersuits.MODID, "tile." + name.toLowerCase());
         setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
         GameRegistry.registerTileEntity(TileEntityTinkerTable.class, name);
     }

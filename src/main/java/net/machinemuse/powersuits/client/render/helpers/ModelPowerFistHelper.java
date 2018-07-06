@@ -25,7 +25,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 
 @SideOnly(Side.CLIENT)
-public class ModelPowerFistHelper {
+public enum ModelPowerFistHelper {
+    INSTANCE;
+
     public static final ResourceLocation powerFistLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerfist/powerfist.obj");
     public static final ResourceLocation powerFistFingersNormalLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerfist/powerfist_fingers_normal.obj");
     public static final ResourceLocation powerFistFingersFiringLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerfist/powerfist_fingers_firing.obj");
@@ -162,21 +164,5 @@ public class ModelPowerFistHelper {
         public int hashCode() {
             return Objects.hashCode(getColour(), getTransformType(), firing);
         }
-    }
-
-    private static ModelPowerFistHelper INSTANCE;
-
-    public static ModelPowerFistHelper getInstance() {
-        if (INSTANCE == null) {
-            synchronized (ModelPowerFistHelper.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new ModelPowerFistHelper();
-                }
-            }
-        }
-        return INSTANCE;
-    }
-
-    private ModelPowerFistHelper() {
     }
 }

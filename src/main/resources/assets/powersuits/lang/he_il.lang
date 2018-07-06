@@ -3,11 +3,11 @@ tile.tinkerTable.name=שולחן התעסקות לחליפות כוח
 
 itemGroup.powersuits=חליפות כוח
 
-item.powerArmorBoots.name=מגפי חליפת כוח
-item.powerArmorLeggings.name=מכנסי חליפת כוח
-item.powerArmorChestplate.name=שריון חליפת כוח
-item.powerArmorHelmet.name=קסדת חליפת כוח
-item.powerFist.name=זרוע כוח
+item.powersuits.powerArmorBoots.name=מגפי חליפת כוח
+item.powersuits.powerArmorLeggings.name=מכנסי חליפת כוח
+item.powersuits.powerArmorChestplate.name=שריון חליפת כוח
+item.powersuits.powerArmorHelmet.name=קסדת חליפת כוח
+item.powersuits.powerFist.name=זרוע כוח
 
 item.powerArmorComponent.componentWiring.name=מחברים
 item.powerArmorComponent.componentSolenoid.name=סולנואיד

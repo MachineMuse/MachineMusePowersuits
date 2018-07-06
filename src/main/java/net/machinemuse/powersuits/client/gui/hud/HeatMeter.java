@@ -1,9 +1,9 @@
 package net.machinemuse.powersuits.client.gui.hud;
 
-import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.render.MuseIconUtils;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.numina.render.RenderState;
+import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.common.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;

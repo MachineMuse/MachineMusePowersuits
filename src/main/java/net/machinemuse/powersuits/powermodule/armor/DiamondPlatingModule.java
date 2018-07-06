@@ -1,11 +1,11 @@
 package net.machinemuse.powersuits.powermodule.armor;
 
-import net.machinemuse.api.IModularItem;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
 

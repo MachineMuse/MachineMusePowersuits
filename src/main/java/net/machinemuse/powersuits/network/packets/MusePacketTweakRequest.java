@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.network.packets;
 
-import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -54,8 +54,8 @@ public class MusePacketTweakRequest extends MusePacket {
     public void handleServer(EntityPlayerMP player) {
         if (moduleName != null && tweakName != null) {
             ItemStack stack = player.inventory.getStackInSlot(itemSlot);
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
-            if (itemTag != null && ModuleManager.tagHasModule(itemTag, moduleName)) {
+            NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
+            if (itemTag != null && ModuleManager.INSTANCE.tagHasModule(itemTag, moduleName)) {
                 NBTTagCompound moduleTag = itemTag.getCompoundTag(moduleName);
                 moduleTag.setDouble(tweakName, MuseMathUtils.clampDouble(tweakValue, 0, 1));
             }

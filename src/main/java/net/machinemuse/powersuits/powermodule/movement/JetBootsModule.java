@@ -1,20 +1,21 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IPlayerTickModule;
-import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IPlayerTickModule;
+import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.numina.sound.Musique;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.MusePlayerUtils;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
+import net.machinemuse.powersuits.utils.MusePlayerUtils;
+import net.machinemuse.powersuits.utils.PlayerWeightUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -63,12 +64,12 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
         PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
         boolean jumpkey = movementInput.jumpKey;
         ItemStack helmet = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
-        boolean hasFlightControl = ModuleManager.itemHasActiveModule(helmet, FlightControlModule.MODULE_FLIGHT_CONTROL);
-        double jetEnergy = ModuleManager.computeModularProperty(item, JET_ENERGY_CONSUMPTION);
-        double thrust = ModuleManager.computeModularProperty(item, JET_THRUST);
+        boolean hasFlightControl = ModuleManager.INSTANCE.itemHasActiveModule(helmet, FlightControlModule.MODULE_FLIGHT_CONTROL);
+        double jetEnergy = ModuleManager.INSTANCE.computeModularProperty(item, JET_ENERGY_CONSUMPTION);
+        double thrust = ModuleManager.INSTANCE.computeModularProperty(item, JET_THRUST);
 
         if (jetEnergy < ElectricItemUtils.getPlayerEnergy(player)) {
-            thrust *= MusePlayerUtils.getWeightPenaltyRatio(MuseItemUtils.getPlayerWeight(player), 25000);
+            thrust *= MusePlayerUtils.getWeightPenaltyRatio(PlayerWeightUtils.getPlayerWeight(player), 25000);
             if (hasFlightControl && thrust > 0) {
                 thrust = MusePlayerUtils.thrust(player, thrust, true);
                 if ((player.world.isRemote) && NuminaConfig.useSounds()) {

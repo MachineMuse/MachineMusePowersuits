@@ -3,12 +3,12 @@ package net.machinemuse.powersuits.powermodule.tool;// package andrew.powersuits
 // import cpw.mods.fml.common.registry.GameRegistry;
 // import cpw.mods.fml.common.network.NetworkRegistry;
 // import cpw.mods.fml.common.Loader;
-// import net.machinemuse.api.IModularItem;
-// import net.machinemuse.api.moduletrigger.IRightClickModule;
+// import net.machinemuse.numina.api.item.IModularItem;
+// import net.machinemuse.numina.api.module.IRightClickModule;
 // import net.machinemuse.powersuits.item.ItemComponent;
 // import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-// import net.machinemuse.utils.MuseCommonStrings;
-// import net.machinemuse.utils.MuseItemUtils;
+// import net.machinemuse.powersuits.utils.MuseCommonStrings;
+// import net.machinemuse.numina.utils.item.MuseItemUtils;
 // import net.minecraft.entity.player.EntityPlayer;
 // import net.minecraft.entity.player.EntityPlayerMP;
 // import net.minecraft.item.ItemStack;

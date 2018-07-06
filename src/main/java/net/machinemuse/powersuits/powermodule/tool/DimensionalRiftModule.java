@@ -1,14 +1,17 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
+import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.machinemuse.powersuits.utils.modulehelpers.DimensionalRiftHelper;
-import net.machinemuse.utils.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,6 +27,8 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import static net.machinemuse.numina.api.constants.NuminaNBTConstants.TAG_ONLINE;
+
 /**
  * Created by Eximius88 on 2/3/14.
  */
@@ -38,7 +43,7 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
         addBaseProperty(DIMENSIONAL_RIFT_ENERGY_GENERATION, 20000);
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
-        this.defaultTag.setBoolean(MuseItemUtils.TAG_ONLINE, false);
+        this.defaultTag.setBoolean(TAG_ONLINE, false);
     }
 
     @Override
@@ -58,8 +63,8 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
             if (player.dimension != -1) {
                 player.setLocationAndAngles(0.5D, player.posY, 0.5D, player.rotationYaw, player.rotationPitch);
                 player.mcServer.getPlayerList().transferPlayerToDimension(player, -1, new DimensionalRiftHelper(player.mcServer.getWorld(-1)));
-                ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_ENERGY_GENERATION));
-                MuseHeatUtils.heatPlayer(player, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_HEAT_GENERATION));
+                ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_ENERGY_GENERATION));
+                MuseHeatUtils.heatPlayer(player, ModuleManager.INSTANCE.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_HEAT_GENERATION));
             } else if (player.dimension == -1 || player.dimension == 1)
                 player.setLocationAndAngles(0.5D, player.posY, 0.5D, player.rotationYaw, player.rotationPitch);
             player.mcServer.getPlayerList().transferPlayerToDimension(player, 0, new DimensionalRiftHelper(player.mcServer.getWorld(0)));
@@ -75,8 +80,8 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
                 }
                 (player).setPositionAndUpdate(coords.getX() + 0.5D, yPos, coords.getZ() + 0.5D);
             }
-            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_ENERGY_GENERATION));
-            MuseHeatUtils.heatPlayer(player, ModuleManager.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_HEAT_GENERATION));
+            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_ENERGY_GENERATION));
+            MuseHeatUtils.heatPlayer(player, ModuleManager.INSTANCE.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_HEAT_GENERATION));
         }
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }

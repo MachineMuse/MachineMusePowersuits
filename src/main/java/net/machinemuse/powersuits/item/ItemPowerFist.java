@@ -10,21 +10,23 @@ import com.raoulvdberge.refinedstorage.api.network.item.INetworkItemProvider;
 import crazypants.enderio.api.tool.ITool;
 import forestry.api.arboriculture.IToolGrafter;
 import mekanism.api.IMekWrench;
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
-import net.machinemuse.numina.item.IModeChangingItem;
+import net.machinemuse.numina.api.item.IModeChangingItem;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IBlockBreakingModule;
+import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.powermodule.tool.GrafterModule;
 import net.machinemuse.powersuits.powermodule.tool.OmniWrenchModule;
 import net.machinemuse.powersuits.powermodule.tool.RefinedStorageWirelessModule;
 import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseHeatUtils;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
+import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,8 +38,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,7 +87,6 @@ public class ItemPowerFist extends MPSItemElectricTool
         this.setMaxStackSize(1);
         this.setMaxDamage(0);
         this.setCreativeTab(Config.getCreativeTab());
-        this.setUnlocalizedName("powerFist");
     }
 
 
@@ -101,17 +105,17 @@ public class ItemPowerFist extends MPSItemElectricTool
      */
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase entityBeingHit, EntityLivingBase entityDoingHitting) {
-        if (ModuleManager.itemHasActiveModule(stack, OmniWrenchModule.MODULE_OMNI_WRENCH)) {
+        if (ModuleManager.INSTANCE.itemHasActiveModule(stack, OmniWrenchModule.MODULE_OMNI_WRENCH)) {
             entityBeingHit.rotationYaw += 90.0f;
             entityBeingHit.rotationYaw %= 360.0f;
         }
-        if (entityDoingHitting instanceof EntityPlayer && ModuleManager.itemHasActiveModule(stack, MeleeAssistModule.MODULE_MELEE_ASSIST)) {
+        if (entityDoingHitting instanceof EntityPlayer && ModuleManager.INSTANCE.itemHasActiveModule(stack, MeleeAssistModule.MODULE_MELEE_ASSIST)) {
             EntityPlayer player = (EntityPlayer) entityDoingHitting;
-            double drain = ModuleManager.computeModularProperty(stack, MeleeAssistModule.PUNCH_ENERGY);
+            double drain = ModuleManager.INSTANCE.computeModularProperty(stack, MeleeAssistModule.PUNCH_ENERGY);
             if (ElectricItemUtils.getPlayerEnergy(player) > drain) {
                 ElectricItemUtils.drainPlayerEnergy(player, drain);
-                double damage = ModuleManager.computeModularProperty(stack, MeleeAssistModule.PUNCH_DAMAGE);
-                double knockback = ModuleManager.computeModularProperty(stack, MeleeAssistModule.PUNCH_KNOCKBACK);
+                double damage = ModuleManager.INSTANCE.computeModularProperty(stack, MeleeAssistModule.PUNCH_DAMAGE);
+                double knockback = ModuleManager.INSTANCE.computeModularProperty(stack, MeleeAssistModule.PUNCH_KNOCKBACK);
                 DamageSource damageSource = DamageSource.causePlayerDamage(player);
                 if (entityBeingHit.attackEntityFrom(damageSource, (float) (int) damage)) {
                     Vec3d lookVec = player.getLookVec();
@@ -130,9 +134,9 @@ public class ItemPowerFist extends MPSItemElectricTool
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
         if (entityLiving instanceof EntityPlayer) {
-            for (IBlockBreakingModule module : ModuleManager.getBlockBreakingModules()) {
-                if (ModuleManager.itemHasActiveModule(stack, module.getDataName())) {
-                    if (module.onBlockDestroyed(stack, worldIn, state, pos, entityLiving)) {
+            for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IBlockBreakingModule.class)) {
+                if (ModuleManager.INSTANCE.itemHasActiveModule(stack, module.getDataName())) {
+                    if (((IBlockBreakingModule)module).onBlockDestroyed(stack, worldIn, state, pos, entityLiving)) {
                         return true;
                     }
                 }
@@ -152,7 +156,7 @@ public class ItemPowerFist extends MPSItemElectricTool
      * @return the damage
      */
     public float getDamageVsEntity(Entity par1Entity, ItemStack itemStack) {
-        return (float) ModuleManager.computeModularProperty(itemStack, MeleeAssistModule.PUNCH_DAMAGE);
+        return (float) ModuleManager.INSTANCE.computeModularProperty(itemStack, MeleeAssistModule.PUNCH_DAMAGE);
     }
 
     @Override
@@ -200,7 +204,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         ItemStack itemStackIn = playerIn.getHeldItem(handIn);
 
         // Only one right click module should be active at a time.
-        IPowerModule iPowerModulemodule = ModuleManager.getModule(getActiveMode(itemStackIn));
+        IPowerModule iPowerModulemodule = ModuleManager.INSTANCE.getModule(getActiveMode(itemStackIn));
         if (iPowerModulemodule instanceof IRightClickModule) {
             return ((IRightClickModule) iPowerModulemodule).onItemRightClick(itemStackIn, worldIn, playerIn, handIn);
         }
@@ -222,7 +226,7 @@ public class ItemPowerFist extends MPSItemElectricTool
     @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
         String mode = this.getActiveMode(itemStack);
-        IPowerModule module = ModuleManager.getModule(mode);
+        IPowerModule module = ModuleManager.INSTANCE.getModule(mode);
         if (module != null)
             ((IRightClickModule)module).onPlayerStoppedUsing(itemStack, worldIn, entityLiving, timeLeft);
     }
@@ -236,7 +240,7 @@ public class ItemPowerFist extends MPSItemElectricTool
     public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         ItemStack itemStack = player.getHeldItem(hand);
         String mode = this.getActiveMode(itemStack);
-        IPowerModule module = ModuleManager.getModule(mode);
+        IPowerModule module = ModuleManager.INSTANCE.getModule(mode);
         if (module instanceof IRightClickModule)
             return ((IRightClickModule)module).onItemUseFirst(itemStack, player, world, pos, side, hitX, hitY, hitZ, hand);
         return EnumActionResult.PASS;
@@ -247,7 +251,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         ItemStack itemStack = player.getHeldItem(hand);
         String mode = this.getActiveMode(itemStack);
         IPowerModule module2;
-        IPowerModule module = module2 = ModuleManager.getModule(mode);
+        IPowerModule module = module2 = ModuleManager.INSTANCE.getModule(mode);
         if (module2 instanceof IRightClickModule) {
             return ((IRightClickModule)module2).onItemUse(itemStack, player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
         }
@@ -256,9 +260,9 @@ public class ItemPowerFist extends MPSItemElectricTool
 
     @Optional.Method(modid = "forestry")
     public float getSaplingModifier(ItemStack stack, World world, EntityPlayer player, BlockPos pos) {
-        if (ModuleManager.itemHasActiveModule(stack, GrafterModule.MODULE_GRAFTER)) {
-            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(stack, GrafterModule.GRAFTER_ENERGY_CONSUMPTION));
-            MuseHeatUtils.heatPlayer(player, ModuleManager.computeModularProperty(stack, GrafterModule.GRAFTER_HEAT_GENERATION));
+        if (ModuleManager.INSTANCE.itemHasActiveModule(stack, GrafterModule.MODULE_GRAFTER)) {
+            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.computeModularProperty(stack, GrafterModule.GRAFTER_ENERGY_CONSUMPTION));
+            MuseHeatUtils.heatPlayer(player, ModuleManager.INSTANCE.computeModularProperty(stack, GrafterModule.GRAFTER_HEAT_GENERATION));
             return 100.0f;
         }
         return 0.0f;
@@ -269,13 +273,13 @@ public class ItemPowerFist extends MPSItemElectricTool
         if(state.getMaterial().isToolNotRequired())
             return true;
 
-        for (IBlockBreakingModule module : ModuleManager.getBlockBreakingModules()) {
-            if (ModuleManager.itemHasActiveModule(stack, module.getDataName()) && module.canHarvestBlock(stack, state, player)) {
+        for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IBlockBreakingModule.class)) {
+            if (ModuleManager.INSTANCE.itemHasActiveModule(stack, module.getDataName()) && ((IBlockBreakingModule)module).canHarvestBlock(stack, state, player)) {
                 return true;
             }
         }
         return false;
-  }
+    }
 
     /* TE Crescent Hammer */
     @Override
@@ -377,29 +381,32 @@ public class ItemPowerFist extends MPSItemElectricTool
         return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
 
+    @Override
+    @Nonnull
+    @Optional.Method(modid = "refinedstorage")
+    public INetworkItem provide(INetworkItemHandler handler, EntityPlayer player, ItemStack itemStackIn) {
+        return RefinedStorageWirelessModule.provide(handler, player, itemStackIn);
+    }
+
 
     /* IModeChangingItem -------------------------------------------------------------------------- */
-
-
-
-
-
-
-
-    /* IModularItem ------------------------------------------------------------------------------- */
-    @Override // FIXME: check to see if this is needed or not.
-    public List<String> getLongInfo(EntityPlayer player, ItemStack stack) {
-        List<String> info = new ArrayList<>();
-        info.add("Detailed Summary");
-        info.add(formatInfo("Armor", getArmorDouble(player, stack)));
-        info.add(formatInfo("Energy Storage", getCurrentMPSEnergy(stack)) + 'J');
-        info.add(formatInfo("Weight", MuseCommonStrings.getTotalWeight(stack)) + 'g');
-        return info;
+    @Nullable
+    @Override
+    public TextureAtlasSprite getModeIcon(String mode, ItemStack stack, EntityPlayer player) {
+        IPowerModule module = ModuleManager.INSTANCE.getModule(mode);
+        if (module != null)
+            return module.getIcon(stack);
+        return null;
     }
 
     @Override
-    @Nonnull
-    public INetworkItem provide(INetworkItemHandler handler, EntityPlayer player, ItemStack itemStackIn) {
-        return RefinedStorageWirelessModule.provide(handler, player, itemStackIn);
+    public List<String> getValidModes(ItemStack stack) {
+        List<String> modes = new ArrayList<>();
+        for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IRightClickModule.class)) {
+            if (module.isValidForItem(stack))
+                if (ModuleManager.INSTANCE.itemHasModule(stack, module.getDataName()))
+                    modes.add(module.getDataName());
+        }
+        return modes;
     }
 }

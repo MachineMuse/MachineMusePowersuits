@@ -3,11 +3,11 @@ tile.tinkerTable.name=动力装甲改装台
 
 itemGroup.powersuits=模块化动力套装
 
-item.powerArmorBoots.name=动力靴子
-item.powerArmorLeggings.name=动力护腿
-item.powerArmorChestplate.name=动力护甲
-item.powerArmorHelmet.name=动力头盔
-item.powerFist.name=动力拳套
+item.powersuits.powerArmorBoots.name=动力靴子
+item.powersuits.powerArmorLeggings.name=动力护腿
+item.powersuits.powerArmorChestplate.name=动力护甲
+item.powersuits.powerArmorHelmet.name=动力头盔
+item.powersuits.powerFist.name=动力拳套
 
 item.powerArmorComponent.componentWiring.name=线材
 item.powerArmorComponent.componentSolenoid.name=螺线管

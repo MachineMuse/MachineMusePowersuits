@@ -1,13 +1,17 @@
 package net.machinemuse.powersuits.powermodule.weapon;
 
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.*;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
+import net.machinemuse.powersuits.utils.MuseHeatUtils;
+import net.machinemuse.powersuits.utils.MusePlayerUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
@@ -61,10 +65,10 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
         if (hand == EnumHand.MAIN_HAND) {
             try {
                 double range = 64;
-                double energyConsumption = ModuleManager.computeModularProperty(itemStackIn, LIGHTNING_ENERGY_CONSUMPTION);
+                double energyConsumption = ModuleManager.INSTANCE.computeModularProperty(itemStackIn, LIGHTNING_ENERGY_CONSUMPTION);
                 if (energyConsumption < ElectricItemUtils.getPlayerEnergy(playerIn)) {
                     ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
-                    MuseHeatUtils.heatPlayer(playerIn, ModuleManager.computeModularProperty(itemStackIn, HEAT));
+                    MuseHeatUtils.heatPlayer(playerIn, ModuleManager.INSTANCE.computeModularProperty(itemStackIn, HEAT));
                     RayTraceResult raytraceResult = MusePlayerUtils.doCustomRayTrace(playerIn.world, playerIn, true, range);
                     worldIn.spawnEntity(new EntityLightningBolt(playerIn.world, raytraceResult.hitVec.x, raytraceResult.hitVec.y, raytraceResult.hitVec.z, false));
                 }

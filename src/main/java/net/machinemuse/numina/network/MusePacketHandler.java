@@ -36,6 +36,18 @@ public final class MusePacketHandler extends MessageToMessageCodec<FMLProxyPacke
     public static String networkChannelName;
     public static BiMap<Integer, IMusePackager> packagers;
     public static EnumMap<Side, FMLEmbeddedChannel> channels;
+    private volatile static MusePacketHandler INSTANCE;
+
+    public static MusePacketHandler getInstance() {
+        if (INSTANCE == null) {
+            synchronized (MusePacketHandler.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new MusePacketHandler();
+                }
+            }
+        }
+        return INSTANCE;
+    }
 
     private MusePacketHandler() {
         this.networkChannelName = "Numina";
@@ -43,9 +55,14 @@ public final class MusePacketHandler extends MessageToMessageCodec<FMLProxyPacke
         this.channels = NetworkRegistry.INSTANCE.newChannel(this.networkChannelName, this);
     }
 
-    static {
-        new MusePacketHandler();
+    public void addPackager(IMusePackager packagerIn) {
+        // checks the map to see if the packager is already listed
+        if (!packagers.inverse().containsKey(packagerIn)) {
+            packagers.put(packagers.size(), packagerIn);
+            }
     }
+
+
 
     public void encode(ChannelHandlerContext ctx, MusePacket msg, List<Object> out) {
         try {

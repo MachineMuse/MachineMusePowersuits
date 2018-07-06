@@ -1,15 +1,15 @@
 package net.machinemuse.powersuits.powermodule.energy;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IPlayerTickModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IPlayerTickModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseHeatUtils;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
+import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -72,11 +72,11 @@ public class AdvancedSolarGenerator extends PowerModuleBase implements IPlayerTi
             boolean moonVisible = !world.isDaytime() && !isRaining && world.canBlockSeeSky(player.getPosition().add(0,1,0));
             if (!world.isRemote && !world.provider.hasSkyLight() && (world.getTotalWorldTime() % 80) == 0) {
                 if (sunVisible) {
-                    ElectricItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(item, A_SOLAR_ENERGY_GENERATION_DAY));
-                    MuseHeatUtils.heatPlayer(player, ModuleManager.computeModularProperty(item, SOLAR_HEAT_GENERATION_DAY) / 2);
+                    ElectricItemUtils.givePlayerEnergy(player, ModuleManager.INSTANCE.computeModularProperty(item, A_SOLAR_ENERGY_GENERATION_DAY));
+                    MuseHeatUtils.heatPlayer(player, ModuleManager.INSTANCE.computeModularProperty(item, SOLAR_HEAT_GENERATION_DAY) / 2);
                 } else if (moonVisible) {
-                    ElectricItemUtils.givePlayerEnergy(player, ModuleManager.computeModularProperty(item, A_SOLAR_ENERGY_GENERATION_NIGHT));
-                    MuseHeatUtils.heatPlayer(player, ModuleManager.computeModularProperty(item, SOLAR_HEAT_GENERATION_NIGHT) / 2);
+                    ElectricItemUtils.givePlayerEnergy(player, ModuleManager.INSTANCE.computeModularProperty(item, A_SOLAR_ENERGY_GENERATION_NIGHT));
+                    MuseHeatUtils.heatPlayer(player, ModuleManager.INSTANCE.computeModularProperty(item, SOLAR_HEAT_GENERATION_NIGHT) / 2);
                 }
             }
         }

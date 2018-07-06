@@ -35,8 +35,6 @@ public abstract class MuseRenderer {
 
     protected static SwirlyMuseCircle selectionCircle;
 
-    public static final String ICON_PREFIX = "powersuits:";
-
     /**
      * Does the rotating green circle around the selection, e.g. in GUI.
      *

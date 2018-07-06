@@ -1,12 +1,12 @@
 package net.machinemuse.powersuits.network.packets;
 
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.ModuleManager;
+import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -54,14 +54,14 @@ public class MusePacketInstallModuleRequest extends MusePacket {
         ItemStack stack = player.inventory.getStackInSlot(itemSlot);
         if (moduleName != null) {
             InventoryPlayer inventory = player.inventory;
-            IPowerModule moduleType = ModuleManager.getModule(moduleName);
+            IPowerModule moduleType = ModuleManager.INSTANCE.getModule(moduleName);
             if (moduleType == null || !moduleType.isAllowed()) {
                 player.sendMessage(new TextComponentString("Server has disallowed this module. Sorry!"));
                 return;
             }
             NonNullList<ItemStack> cost = moduleType.getInstallCost();
-            if ((!ModuleManager.itemHasModule(stack, moduleName) && MuseItemUtils.hasInInventory(cost, player.inventory)) || player.capabilities.isCreativeMode) {
-                ModuleManager.itemAddModule(stack, moduleType);
+            if ((!ModuleManager.INSTANCE.itemHasModule(stack, moduleName) && MuseItemUtils.hasInInventory(cost, player.inventory)) || player.capabilities.isCreativeMode) {
+                ModuleManager.INSTANCE.itemAddModule(stack, moduleType);
                 for (ItemStack stackInCost : cost) {
                     ElectricItemUtils.givePlayerEnergy(player, ElectricItemUtils.jouleValueOfComponent(stackInCost));
                 }

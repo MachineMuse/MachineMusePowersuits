@@ -2,12 +2,12 @@ package net.machinemuse.powersuits.client.gui.tinker;
 
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
+import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.client.gui.MuseGui;
 import net.machinemuse.powersuits.client.gui.tinker.frame.DetailedSummaryFrame;
 import net.machinemuse.powersuits.client.gui.tinker.frame.ItemSelectionFrame;
 import net.machinemuse.powersuits.client.gui.tinker.frame.ModuleSelectionFrame;
 import net.machinemuse.powersuits.client.gui.tinker.frame.ModuleTweakFrame;
-import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;

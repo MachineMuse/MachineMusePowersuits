@@ -1,15 +1,15 @@
 package net.machinemuse.powersuits.client.gui.tinker.clickable;
 
+import net.machinemuse.numina.api.gui.IClickable;
+import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
-import net.machinemuse.numina.network.PacketSender;
-import net.machinemuse.numina.api.gui.IClickable;
+import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.network.packets.MusePacketToggleRequest;
-import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.MuseStringUtils;
-import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.settings.KeyBinding;
@@ -72,7 +72,7 @@ public class ClickableKeybinding extends ClickableButton {
             if ((FMLCommonHandler.instance().getEffectiveSide().equals(Side.CLIENT) && Config.toggleModuleSpam())) {
                 player.sendMessage(new TextComponentString("Toggled " + module.getModule().getDataName() + valstring));
             }
-            MuseItemUtils.toggleModuleForPlayer(player, module.getModule().getDataName(), toggleval);
+            ModuleManager.INSTANCE.toggleModuleForPlayer(player, module.getModule().getDataName(), toggleval);
             MusePacketToggleRequest toggleRequest = new MusePacketToggleRequest(player, module.getModule().getDataName(), toggleval);
             PacketSender.sendToServer(toggleRequest);
         }

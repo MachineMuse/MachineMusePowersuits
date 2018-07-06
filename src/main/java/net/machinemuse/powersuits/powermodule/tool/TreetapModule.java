@@ -1,12 +1,12 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -84,18 +84,18 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
         try {
             // IC2 Classic
             if (isIC2Classic) {
-                if (block == rubber_wood && ModuleManager.computeModularProperty(itemStack, TREETAP_ENERGY_CONSUMPTION) < ElectricItemUtils.getPlayerEnergy(player)) {
+                if (block == rubber_wood && ModuleManager.INSTANCE.computeModularProperty(itemStack, TREETAP_ENERGY_CONSUMPTION) < ElectricItemUtils.getPlayerEnergy(player)) {
                     if (attemptExtract.invoke( "attemptExtract", null, player, world, pos, facing, null).equals(true)) {
-                        ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemStack, TREETAP_ENERGY_CONSUMPTION));
+                        ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.computeModularProperty(itemStack, TREETAP_ENERGY_CONSUMPTION));
                         return EnumActionResult.SUCCESS;
                     }
                 }
             }
             // IC2 Experimental
             else {
-                if (block == rubber_wood && ModuleManager.computeModularProperty(itemStack, TREETAP_ENERGY_CONSUMPTION) < ElectricItemUtils.getPlayerEnergy(player)) {
+                if (block == rubber_wood && ModuleManager.INSTANCE.computeModularProperty(itemStack, TREETAP_ENERGY_CONSUMPTION) < ElectricItemUtils.getPlayerEnergy(player)) {
                     if (attemptExtract.invoke( "attemptExtract", player, world, pos, facing, state, null).equals(true)) {
-                        ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemStack, TREETAP_ENERGY_CONSUMPTION));
+                        ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.computeModularProperty(itemStack, TREETAP_ENERGY_CONSUMPTION));
                         return EnumActionResult.SUCCESS;
                     }
                 }

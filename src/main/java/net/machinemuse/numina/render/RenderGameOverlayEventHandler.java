@@ -1,7 +1,7 @@
 package net.machinemuse.numina.render;
 
+import net.machinemuse.numina.api.item.IModeChangingItem;
 import net.machinemuse.numina.utils.math.Colour;
-import net.machinemuse.numina.item.IModeChangingItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;

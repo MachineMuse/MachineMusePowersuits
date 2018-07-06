@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -23,12 +24,13 @@ public class ClickableItem extends Clickable {
     public int inventorySlot;
     protected ItemStack item;
 
-    public ClickableItem(ItemStack item, MusePoint2D pos, int inventorySlot) {
+    public ClickableItem(@Nonnull ItemStack item, MusePoint2D pos, int inventorySlot) {
         super(pos);
         this.inventorySlot = inventorySlot;
         this.item = item;
     }
 
+    @Nonnull
     public ItemStack getItem() {
         return item;
     }

@@ -44,7 +44,7 @@ public class CosmeticGui extends MuseGui {
                 Colour.DARKBLUE.withAlpha(0.8F), player);
         frames.add(itemSelect);
 
-        ItemModelViewFrame renderframe = new ItemModelViewFrame(
+        PlayerModelViewFrame renderframe = new PlayerModelViewFrame(
                 itemSelect,
                 new MusePoint2D(absX(-0.75F), absY(-0.95f)),
                 new MusePoint2D(absX(0.15F), absY(-0.025f)),

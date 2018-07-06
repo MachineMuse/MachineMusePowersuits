@@ -7,10 +7,13 @@ package net.machinemuse.numina.network;
  * Ported to Java by lehjr on 10/22/16.
  */
 public class NuminaPackets {
+    static final MusePacketHandler handler = MusePacketHandler.getInstance();
+
     public static void init() {
-        MusePacketHandler.packagers.put(20, MusePacketNameChangeRequest.MusePacketNameChangeRequestPackager.INSTANCE);
-        MusePacketHandler.packagers.put(21, MusePacketModeChangeRequest.MusePacketModeChangeRequestPackager.INSTANCE);
-        MusePacketHandler.packagers.put(22, MusePacketRecipeUpdate.MusePacketRecipeUpdatePackager.INSTANCE);
-        MusePacketHandler.packagers.put(23, NuminaPacketConfig.MusePacketConfigPackager.INSTANCE);
+        handler.addPackager(MusePacketNameChangeRequest.getPackagerInstance());
+        handler.addPackager(MusePacketModeChangeRequest.getPackagerInstance());
+        handler.addPackager(MusePacketModeChangeRequest.getPackagerInstance());
+        handler.addPackager(MusePacketRecipeUpdate.getPackagerInstance());
+        handler.addPackager(NuminaPacketConfig.getPackagerInstance());
     }
 }

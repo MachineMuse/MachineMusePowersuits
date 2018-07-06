@@ -1,15 +1,15 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IPlayerTickModule;
-import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IPlayerTickModule;
+import net.machinemuse.numina.api.module.IToggleableModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
@@ -54,19 +54,19 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
             if (horzMovement > 0) { // stop doing drain calculations when player hasn't moved
                 if (player.isSprinting()) {
                     double exhaustion = Math.round(horzMovement * 100.0F) * 0.01;
-                    double sprintCost = ModuleManager.computeModularProperty(item, SPRINT_ENERGY_CONSUMPTION);
+                    double sprintCost = ModuleManager.INSTANCE.computeModularProperty(item, SPRINT_ENERGY_CONSUMPTION);
                     if (sprintCost < totalEnergy) {
-                        double sprintMultiplier = ModuleManager.computeModularProperty(item, SPRINT_SPEED_MULTIPLIER);
-                        double exhaustionComp = ModuleManager.computeModularProperty(item, SPRINT_FOOD_COMPENSATION);
+                        double sprintMultiplier = ModuleManager.INSTANCE.computeModularProperty(item, SPRINT_SPEED_MULTIPLIER);
+                        double exhaustionComp = ModuleManager.INSTANCE.computeModularProperty(item, SPRINT_FOOD_COMPENSATION);
                         ElectricItemUtils.drainPlayerEnergy(player, sprintCost * horzMovement * 5);
                         setMovementModifier(item, sprintMultiplier * 1.2);
                         player.getFoodStats().addExhaustion((float) (-0.01 * exhaustion * exhaustionComp));
                         player.jumpMovementFactor = player.getAIMoveSpeed() * .2f;
                     }
                 } else {
-                    double cost = ModuleManager.computeModularProperty(item, WALKING_ENERGY_CONSUMPTION);
+                    double cost = ModuleManager.INSTANCE.computeModularProperty(item, WALKING_ENERGY_CONSUMPTION);
                     if (cost < totalEnergy) {
-                        double walkMultiplier = ModuleManager.computeModularProperty(item, WALKING_SPEED_MULTIPLIER);
+                        double walkMultiplier = ModuleManager.INSTANCE.computeModularProperty(item, WALKING_SPEED_MULTIPLIER);
                         ElectricItemUtils.drainPlayerEnergy(player, cost * horzMovement * 5);
                         setMovementModifier(item, walkMultiplier);
                         player.jumpMovementFactor = player.getAIMoveSpeed() * .2f;

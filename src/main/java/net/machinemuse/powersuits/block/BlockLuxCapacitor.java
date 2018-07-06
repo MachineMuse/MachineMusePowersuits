@@ -56,7 +56,7 @@ public class BlockLuxCapacitor extends BlockDirectional {
         }
     };
 
-    public static final String name = "luxcapacitor";
+    public static final String name = "luxCapacitor";
     private volatile static BlockLuxCapacitor INSTANCE;
 
     public static BlockLuxCapacitor getInstance() {
@@ -77,7 +77,7 @@ public class BlockLuxCapacitor extends BlockDirectional {
 //        setDefaultState(((IExtendedBlockState) blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN)).withProperty(COLOR, defaultColor));
 //        setCreativeTab(Config.getCreativeTab());
         setUnlocalizedName(name);
-        setRegistryName(ModularPowersuits.MODID, "tile." + name);
+        setRegistryName(ModularPowersuits.MODID, "tile." + name.toLowerCase());
         setHardness(0.05F);
         setResistance(10.0F);
         setSoundType(SoundType.METAL);

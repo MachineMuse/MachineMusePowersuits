@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.client.render.model;
 
-import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.render.helpers.ModelPowerFistHelper;
 import net.machinemuse.powersuits.event.ModelBakeEventHandler;
 import net.machinemuse.powersuits.item.IModularItemBase;
@@ -61,7 +61,7 @@ public class ModelPowerFist implements IBakedModel {
     public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
         if (side != null) return Collections.EMPTY_LIST;
         try {
-            return ModelPowerFistHelper.getInstance().colouredPowerFistQuadMap.get(
+            return ModelPowerFistHelper.INSTANCE.colouredPowerFistQuadMap.get(
                     new ModelPowerFistHelper.PowerFistQuadMapKey(colour, cameraTransformType, isFiring));
         } catch (Exception e) {
             MuseLogger.logException("failed to load get quads from cache: ", e);
@@ -115,7 +115,7 @@ public class ModelPowerFist implements IBakedModel {
             colour = ((IModularItemBase) item).getColorFromItemStack(itemStack);
             if (entityIn instanceof EntityPlayer) {
                 if (itemStack != null && itemStack == entityIn.getHeldItemMainhand() && entityIn.isHandActive()
-                        && ModuleManager.itemHasActiveModule(itemStack, PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
+                        && ModuleManager.INSTANCE.itemHasActiveModule(itemStack, PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
                     isFiring = true;
                 }
                 else isFiring = false;

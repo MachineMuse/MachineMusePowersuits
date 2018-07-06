@@ -1,20 +1,20 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.numina.utils.math.Colour;
-import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
+import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.sound.Musique;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
+import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableButton;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.network.packets.MusePacketInstallModuleRequest;
 import net.machinemuse.powersuits.network.packets.MusePacketSalvageModuleRequest;
-import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -67,7 +67,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
             IPowerModule module = targetModule.getSelectedModule().getModule();
             List<ItemStack> itemsToCheck = module.getInstallCost();
             double yoffset;
-            if (!ModuleManager.itemHasModule(stack, module.getDataName())) {
+            if (!ModuleManager.INSTANCE.itemHasModule(stack, module.getDataName())) {
                 yoffset = border.top() + 4;
             } else {
                 yoffset = border.bottom() - 20;
@@ -103,7 +103,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
         IPowerModule module = targetModule.getSelectedModule().getModule();
         List<ItemStack> itemsToDraw = module.getInstallCost();
         double yoffset;
-        if (!ModuleManager.itemHasModule(stack, module.getDataName())) {
+        if (!ModuleManager.INSTANCE.itemHasModule(stack, module.getDataName())) {
             yoffset = border.top() + 4;
         } else {
             yoffset = border.bottom() - 20;
@@ -122,7 +122,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
     private void drawButtons() {
         ItemStack stack = targetItem.getSelectedItem().getItem();
         IPowerModule module = targetModule.getSelectedModule().getModule();
-        if (!ModuleManager.itemHasModule(stack, module.getDataName())) {
+        if (!ModuleManager.INSTANCE.itemHasModule(stack, module.getDataName())) {
 
             installButton.setEnabled(player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(
                     module.getInstallCost(), player.inventory));
@@ -140,7 +140,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
             ItemStack stack = selItem.getItem();
             IPowerModule module = selModule.getModule();
 
-            if (!ModuleManager.itemHasModule(stack, module.getDataName())) {
+            if (!ModuleManager.INSTANCE.itemHasModule(stack, module.getDataName())) {
                 if (installButton.hitBox(x, y)) {
                     doInstall();
                 }

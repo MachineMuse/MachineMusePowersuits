@@ -1,20 +1,22 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
-import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.general.MuseMathUtils;
+import net.machinemuse.numina.network.PacketSender;
+import net.machinemuse.numina.render.RenderState;
+import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MuseRect;
 import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
-import net.machinemuse.numina.network.PacketSender;
-import net.machinemuse.numina.render.RenderState;
+import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
+import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.client.gui.GuiIcons;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.client.render.modelspec.*;
 import net.machinemuse.powersuits.item.ItemPowerArmor;
 import net.machinemuse.powersuits.item.ItemPowerFist;
 import net.machinemuse.powersuits.network.packets.MusePacketCosmeticInfo;
-import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.powersuits.client.gui.GuiIcons;
-import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
@@ -95,11 +97,11 @@ public class PartSpecManipSubFrame {
     }
 
     public NBTTagCompound getRenderTag() {
-        return MuseItemUtils.getMuseRenderTag(this.getSelectedItem().getItem(), this.getEquipmentSlot());
+        return MPSNBTUtils.getMuseRenderTag(this.getSelectedItem().getItem(), this.getEquipmentSlot());
     }
 
     public NBTTagCompound getItemTag() {
-        return MuseItemUtils.getMuseItemTag(this.getSelectedItem().getItem());
+        return MuseNBTUtils.getMuseItemTag(this.getSelectedItem().getItem());
     }
 
     public boolean isValidItem(ClickableItem clickie, EntityEquipmentSlot slot) {

@@ -1,6 +1,6 @@
 package net.machinemuse.numina.network;
 
-import net.machinemuse.numina.item.IModeChangingItem;
+import net.machinemuse.numina.api.item.IModeChangingItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
@@ -49,6 +49,10 @@ public class MusePacketModeChangeRequest extends MusePacket {
                 }
             }
         }
+    }
+
+    public static MusePacketModeChangeRequestPackager getPackagerInstance() {
+        return MusePacketModeChangeRequestPackager.INSTANCE;
     }
 
     public enum MusePacketModeChangeRequestPackager implements IMusePackager {

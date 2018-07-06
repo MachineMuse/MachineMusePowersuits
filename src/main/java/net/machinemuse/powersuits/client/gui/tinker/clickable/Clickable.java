@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.gui.tinker.clickable;
 
-import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.api.gui.IClickable;
+import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 
 import java.util.List;
 

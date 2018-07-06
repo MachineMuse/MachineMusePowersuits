@@ -1,11 +1,11 @@
 package net.machinemuse.powersuits.common;
 
 import com.google.gson.*;
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.ModuleManager;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.common.Numina;
 import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.proxy.CommonProxy;
 import net.machinemuse.powersuits.powermodule.armor.*;
 import net.machinemuse.powersuits.powermodule.cosmetic.*;
@@ -14,7 +14,7 @@ import net.machinemuse.powersuits.powermodule.misc.*;
 import net.machinemuse.powersuits.powermodule.movement.*;
 import net.machinemuse.powersuits.powermodule.tool.*;
 import net.machinemuse.powersuits.powermodule.weapon.*;
-import net.machinemuse.utils.MuseStringUtils;
+import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -204,16 +204,12 @@ public class Config {
         return Math.max(0.0, config.get(Configuration.CATEGORY_GENERAL, "Maximum Armor per Piece", 6.0).getDouble(6.0));
     }
 
-    public static double getMaximumFlyingSpeedmps() {
-        return config.get(Configuration.CATEGORY_GENERAL, "Maximum flight speed (in m/s)", 25.0).getDouble(25.0);
-    }
-
     public static boolean useMouseWheel() {
         return config.get(Configuration.CATEGORY_GENERAL, "Use Mousewheel to change modes", true).getBoolean(true);
     }
 
     public static void addModule(IPowerModule module) {
-        ModuleManager.addModule(module);
+        ModuleManager.INSTANCE.addModule(module);
     }
 
     public static boolean useAdvancedOreScannerMessage() {
@@ -236,9 +232,9 @@ public class Config {
         return config.get(Configuration.CATEGORY_GENERAL, "Use HUD for certain modules (Auto Feeder, Compass, Clock, etc.", true).getBoolean(true);
     }
 
-    public static boolean use24hClock() {
-        return config.get(Configuration.CATEGORY_GENERAL, "Use a 24h clock instead of 12h", false).getBoolean(false);
-    }
+//    public static boolean use24hClock() {
+//        return config.get(Configuration.CATEGORY_GENERAL, "Use a 24h clock instead of 12h", false).getBoolean(false);
+//    }
 
     /**
      * Load all the modules in the config file into memory. Eventually. For now,
@@ -373,38 +369,6 @@ public class Config {
         return config.get(Configuration.CATEGORY_GENERAL, "Base Heat Cap", 50.0).getDouble(50.0);
     }
 
-    public static boolean allowConflictingKeybinds() {
-        return config.get(Configuration.CATEGORY_GENERAL, "Allow Conflicting Keybinds", true).getBoolean(true);
-    }
-
-    public static boolean useCustomFonts() {
-        return config.get("Font", "Use Custom Font Engine", true).getBoolean(true);
-    }
-
-    public static double fontDetail() {
-        return config.get("Font", "Font Detail Multiplier", 4).getDouble(4);
-    }
-
-    public static String fontURI() {
-        return config.get("Font", "Font URI", Config.RESOURCE_PREFIX + "fonts/cra.ttf").getString();
-    }
-
-    public static String fontName() {
-        return config.get("Font", "Native Font Name (Overrides URI)", "").getString();
-    }
-
-    public static boolean fontAntiAliasing() {
-        return config.get("Font", "Font Anti-Aliasing", false).getBoolean(false);
-    }
-
-    public static int glowMultiplier() {
-        return config.get("Graphics", "Bloom Multiplier", 3).getInt(3);
-    }
-
-    public static boolean useShaders() {
-        return config.get("Graphics", "Use Pixel/Vertex Shaders", true).getBoolean(true);
-    }
-
     public static void setConfigFolderBase(File folder) {
         configFolder = new File(folder.getAbsolutePath() + "/machinemuse");
     }
@@ -431,8 +395,8 @@ public class Config {
                         int metadata = (cost.itemMetadata == null) ? 0 : cost.itemMetadata;
                         int quantity = (cost.itemQuantity == null) ? 1 : cost.itemQuantity;
                         ItemStack stack = new ItemStack(item, quantity, metadata);
-                        if(stack != null) {
-                            ModuleManager.addCustomInstallCost(moduleName, stack);
+                        if(!stack.isEmpty()) {
+                            ModuleManager.INSTANCE.addCustomInstallCost(moduleName, stack);
                         } else {
                             MuseLogger.logError("Invalid Itemstack in custom install cost. Module [" + cost.moduleName + "], item [" + cost.itemName + "]");
                         }

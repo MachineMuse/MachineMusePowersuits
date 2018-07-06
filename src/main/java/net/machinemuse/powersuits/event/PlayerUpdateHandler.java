@@ -1,15 +1,17 @@
 package net.machinemuse.powersuits.event;
 
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IPlayerTickModule;
+import net.machinemuse.numina.api.module.IPlayerTickModule;
+import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.sound.Musique;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.utils.MuseHeatUtils;
-import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.MusePlayerUtils;
+import net.machinemuse.powersuits.utils.MuseHeatUtils;
+import net.machinemuse.powersuits.utils.MusePlayerUtils;
+import net.machinemuse.powersuits.utils.PlayerWeightUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -32,7 +34,7 @@ public class PlayerUpdateHandler {
             EntityPlayer player = (EntityPlayer) e.getEntity();
 
             List<ItemStack> modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player);
-            double totalWeight = MuseItemUtils.getPlayerWeight(player);
+            double totalWeight = PlayerWeightUtils.getPlayerWeight(player);
             double weightCapacity = Config.getWeightCapacity();
 
             for (ItemStack stack : modularItemsEquipped) {
@@ -59,19 +61,19 @@ public class PlayerUpdateHandler {
             }
 
             boolean foundItemWithModule;
-            for (IPlayerTickModule module : ModuleManager.getPlayerTickModules()) {
+            for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IPlayerTickModule.class)) {
                 foundItemWithModule = false;
                 for (ItemStack itemStack : modularItemsEquipped) {
                     if (module.isValidForItem(itemStack)) {
-                        if (ModuleManager.itemHasActiveModule(itemStack, module.getDataName())) {
-                            module.onPlayerTickActive(player, itemStack);
+                        if (ModuleManager.INSTANCE.itemHasActiveModule(itemStack, module.getDataName())) {
+                            ((IPlayerTickModule)module).onPlayerTickActive(player, itemStack);
                             foundItemWithModule = true;
                         }
                     }
                 }
                 if (!foundItemWithModule) {
                     for (ItemStack itemStack : modularItemsEquipped) {
-                        module.onPlayerTickInactive(player, itemStack);
+                        ((IPlayerTickModule)module).onPlayerTickInactive(player, itemStack);
                     }
                 }
             }

@@ -6,11 +6,11 @@ tile.tinkerTable.name=Table de bricolage d'Armure énergétique
 
 itemGroup.powersuits=Armure énergétique modulaire 
 
-item.powerArmorBoots.name=Bottes d'Armure énergétique 
-item.powerArmorLeggings.name=Pantalon d'Armure énergétique
-item.powerArmorChestplate.name=Plastron d'Armure énergétique 
-item.powerArmorHelmet.name=Casque d'Armure énergétique
-item.powerFist.name=Poing énergétique
+item.powersuits.powerArmorBoots.name=Bottes d'Armure énergétique
+item.powersuits.powerArmorLeggings.name=Pantalon d'Armure énergétique
+item.powersuits.powerArmorChestplate.name=Plastron d'Armure énergétique
+item.powersuits.powerArmorHelmet.name=Casque d'Armure énergétique
+item.powersuits.powerFist.name=Poing énergétique
 
 item.powerArmorComponent.componentWiring.name=Câblage
 item.powerArmorComponent.componentSolenoid.name=Solénoïde

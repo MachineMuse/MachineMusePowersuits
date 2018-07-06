@@ -1,8 +1,9 @@
 package net.machinemuse.powersuits.event;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IBlockBreakingModule;
+import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.item.ItemPowerFist;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,12 +33,12 @@ public class HarvestEventHandler {
         if (stack != null && stack.getItem() instanceof IModularItem) {
             // TODO: add a way to look for the actual tool required instead of looping through multiple checks.
 
-            for (IBlockBreakingModule module : ModuleManager.getBlockBreakingModules()) {
-                if (ModuleManager.itemHasActiveModule(stack, module.getDataName()) && module.canHarvestBlock(stack, state, player)) {
+            for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IBlockBreakingModule.class)) {
+                if (ModuleManager.INSTANCE.itemHasActiveModule(stack, module.getDataName()) && ((IBlockBreakingModule)module).canHarvestBlock(stack, state, player)) {
                     if (event.getNewSpeed() == 0) {
                         event.setNewSpeed(1);
                     }
-                    module.handleBreakSpeed(event);
+                    ((IBlockBreakingModule)module).handleBreakSpeed(event);
                 }
             }
         }

@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.item.ItemPowerArmor;
 import net.machinemuse.powersuits.item.ItemPowerFist;
 import net.minecraft.inventory.EntityEquipmentSlot;

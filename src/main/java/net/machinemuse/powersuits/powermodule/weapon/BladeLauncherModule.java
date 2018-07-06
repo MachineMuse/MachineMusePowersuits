@@ -1,15 +1,15 @@
 package net.machinemuse.powersuits.powermodule.weapon;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -54,7 +54,7 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
     @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         if (hand == EnumHand.MAIN_HAND) {
-            if (ElectricItemUtils.getPlayerEnergy(playerIn) > ModuleManager.computeModularProperty(itemStackIn, BLADE_ENERGY)) {
+            if (ElectricItemUtils.getPlayerEnergy(playerIn) > ModuleManager.INSTANCE.computeModularProperty(itemStackIn, BLADE_ENERGY)) {
                 playerIn.setActiveHand(hand);
                 return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
             }
@@ -76,7 +76,7 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
     public void onPlayerStoppedUsing(ItemStack itemStack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
         // int chargeTicks = Math.max(itemStack.getMaxItemUseDuration() - par4, 10);
         if (!worldIn.isRemote) {
-            double energyConsumption = ModuleManager.computeModularProperty(itemStack, BLADE_ENERGY);
+            double energyConsumption = ModuleManager.INSTANCE.computeModularProperty(itemStack, BLADE_ENERGY);
             if (ElectricItemUtils.getPlayerEnergy((EntityPlayer) entityLiving) > energyConsumption) {
                 ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, energyConsumption);
                 EntitySpinningBlade blade = new EntitySpinningBlade(worldIn, entityLiving);

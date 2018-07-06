@@ -11,7 +11,7 @@ import extracells.api.ECApi;
 import extracells.api.IWirelessFluidTermHandler;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.common.ModCompatibility;
-import net.machinemuse.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

@@ -1,8 +1,10 @@
 package net.machinemuse.powersuits.powermodule;
 
-import net.machinemuse.api.*;
+import net.machinemuse.numina.api.nbt.IPropertyModifier;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,6 +15,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import static net.machinemuse.numina.api.constants.NuminaNBTConstants.TAG_ONLINE;
 
 public abstract class PowerModuleBase implements IPowerModule {
     protected NonNullList<ItemStack> defaultInstallCost;
@@ -27,7 +31,7 @@ public abstract class PowerModuleBase implements IPowerModule {
         this.defaultInstallCost = NonNullList.create();
         this.propertyModifiers = new HashMap();
         this.defaultTag = new NBTTagCompound();
-        this.defaultTag.setBoolean(MuseItemUtils.TAG_ONLINE, true);
+        this.defaultTag.setBoolean(TAG_ONLINE, true);
         this.isAllowed = Config.getConfig().get("Modules", name, true).getBoolean(true);
     }
 
@@ -36,7 +40,7 @@ public abstract class PowerModuleBase implements IPowerModule {
         this.defaultInstallCost = NonNullList.create();
         this.propertyModifiers = new HashMap();
         this.defaultTag = new NBTTagCompound();
-        this.defaultTag.setBoolean(MuseItemUtils.TAG_ONLINE, true);
+        this.defaultTag.setBoolean(TAG_ONLINE, true);
         this.isAllowed = Config.getConfig().get("Modules", getDataName(), true).getBoolean(true);
     }
 
@@ -50,8 +54,8 @@ public abstract class PowerModuleBase implements IPowerModule {
 
     @Override
     public NonNullList<ItemStack> getInstallCost() {
-        if(ModuleManager.hasCustomInstallCost(this.getDataName())) {
-            return ModuleManager.getCustomInstallCost(this.getDataName());
+        if(ModuleManager.INSTANCE.hasCustomInstallCost(this.getDataName())) {
+            return ModuleManager.INSTANCE.getCustomInstallCost(this.getDataName());
         } else {
             return defaultInstallCost;
         }

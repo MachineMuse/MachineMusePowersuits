@@ -1,13 +1,13 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IBlockBreakingModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -65,7 +65,7 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
     @Override
     public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
         if (ToolHelpers.isEffectiveTool(state, emulatedTool)) {
-            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SCOOP_ENERGY_CONSUMPTION)) {
+            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.INSTANCE.computeModularProperty(stack, SCOOP_ENERGY_CONSUMPTION)) {
                 return true;
             }
         }
@@ -75,7 +75,7 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
         if (ForgeHooks.canToolHarvestBlock(worldIn, pos, emulatedTool)) {
-            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, ModuleManager.computeModularProperty(stack, SCOOP_ENERGY_CONSUMPTION));
+            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, ModuleManager.INSTANCE.computeModularProperty(stack, SCOOP_ENERGY_CONSUMPTION));
             return true;
         }
         return false;
@@ -84,7 +84,7 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
         event.setNewSpeed((float) (event.getNewSpeed() *
-                ModuleManager.computeModularProperty(event.getEntityPlayer().inventory.getCurrentItem(), SCOOP_HARVEST_SPEED)));
+                ModuleManager.INSTANCE.computeModularProperty(event.getEntityPlayer().inventory.getCurrentItem(), SCOOP_HARVEST_SPEED)));
     }
 
     @Override

@@ -1,15 +1,18 @@
 package net.machinemuse.powersuits.event;
 
-import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.gui.hud.EnergyMeter;
 import net.machinemuse.powersuits.client.gui.hud.HeatMeter;
 import net.machinemuse.powersuits.client.gui.hud.PlasmaChargeMeter;
 import net.machinemuse.powersuits.client.gui.hud.WaterMeter;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemPowerArmorChestplate;
@@ -21,10 +24,11 @@ import net.machinemuse.powersuits.powermodule.misc.AutoFeederModule;
 import net.machinemuse.powersuits.powermodule.misc.ClockModule;
 import net.machinemuse.powersuits.powermodule.misc.CompassModule;
 import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.MuseHeatUtils;
+import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.machinemuse.powersuits.utils.modulehelpers.AutoFeederHelper;
 import net.machinemuse.powersuits.utils.modulehelpers.FluidUtils;
-import net.machinemuse.utils.*;
-import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.utils.modulehelpers.PlasmaCannonHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -87,27 +91,27 @@ public class ClientTickHandler {
         if (player != null) {
             ItemStack helmet = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
             if (helmet != null && helmet.getItem() instanceof ItemPowerArmorHelmet) {
-                if (ModuleManager.itemHasActiveModule(helmet, AutoFeederModule.MODULE_AUTO_FEEDER)) {
+                if (ModuleManager.INSTANCE.itemHasActiveModule(helmet, AutoFeederModule.MODULE_AUTO_FEEDER)) {
                     modules.add(AutoFeederModule.MODULE_AUTO_FEEDER);
                 }
-                if (ModuleManager.itemHasActiveModule(helmet, ClockModule.MODULE_CLOCK)) {
+                if (ModuleManager.INSTANCE.itemHasActiveModule(helmet, ClockModule.MODULE_CLOCK)) {
                     modules.add(ClockModule.MODULE_CLOCK);
                 }
-                if (ModuleManager.itemHasActiveModule(helmet, CompassModule.MODULE_COMPASS)) {
+                if (ModuleManager.INSTANCE.itemHasActiveModule(helmet, CompassModule.MODULE_COMPASS)) {
                     modules.add(CompassModule.MODULE_COMPASS);
                 }
             }
 
             ItemStack chest = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
             if (chest != null && chest.getItem() instanceof ItemPowerArmorChestplate) {
-                if (ModuleManager.itemHasActiveModule(chest, WaterTankModule.MODULE_WATER_TANK)) {
+                if (ModuleManager.INSTANCE.itemHasActiveModule(chest, WaterTankModule.MODULE_WATER_TANK)) {
                     modules.add(WaterTankModule.MODULE_WATER_TANK);
                 }
             }
 
             ItemStack powerfist = player.getHeldItemMainhand();
             if (powerfist != null && powerfist.getItem() instanceof ItemPowerFist) {
-                if (ModuleManager.itemHasActiveModule(powerfist, PlasmaCannonModule.MODULE_PLASMA_CANNON))
+                if (ModuleManager.INSTANCE.itemHasActiveModule(powerfist, PlasmaCannonModule.MODULE_PLASMA_CANNON))
                     modules.add(PlasmaCannonModule.MODULE_PLASMA_CANNON);
             }
         }
@@ -155,7 +159,7 @@ public class ClientTickHandler {
                     } else if (Objects.equals(modules.get(i), ClockModule.MODULE_CLOCK)) {
                         long time = player.world.provider.getWorldTime();
                         long hour = ((time % 24000) / 1000);
-                        if (Config.use24hClock()) {
+                        if (MPSConfig.INSTANCE.use24hClock()) {
                             if (hour < 19) {
                                 hour += 6;
                             } else {

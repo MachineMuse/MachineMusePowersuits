@@ -1,15 +1,15 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
-import net.machinemuse.api.moduletrigger.IToggleableModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IBlockBreakingModule;
+import net.machinemuse.numina.api.module.IToggleableModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -60,7 +60,7 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
         if (entityLiving.isInsideOfMaterial(Material.WATER) || !entityLiving.onGround) {
             ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving,
-                    ModuleManager.computeModularProperty(stack, AQUA_AFFINITY_ENERGY_CONSUMPTION));
+                    ModuleManager.INSTANCE.computeModularProperty(stack, AQUA_AFFINITY_ENERGY_CONSUMPTION));
         }
         return true;
     }
@@ -71,8 +71,8 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
         ItemStack stack = player.inventory.getCurrentItem();
         if (event.getNewSpeed() > 1
                 && (player.isInsideOfMaterial(Material.WATER) || !player.onGround)
-                && ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, AQUA_AFFINITY_ENERGY_CONSUMPTION)) {
-            event.setNewSpeed((float) (event.getNewSpeed() * 5 * ModuleManager.computeModularProperty(stack, UNDERWATER_HARVEST_SPEED)));
+                && ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.INSTANCE.computeModularProperty(stack, AQUA_AFFINITY_ENERGY_CONSUMPTION)) {
+            event.setNewSpeed((float) (event.getNewSpeed() * 5 * ModuleManager.INSTANCE.computeModularProperty(stack, UNDERWATER_HARVEST_SPEED)));
         }
     }
 

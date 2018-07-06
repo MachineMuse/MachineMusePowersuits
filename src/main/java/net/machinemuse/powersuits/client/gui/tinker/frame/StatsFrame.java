@@ -1,10 +1,11 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
+import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
-import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.NBTTagAccessor;
+import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.utils.nbt.NBTTagAccessor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import org.lwjgl.opengl.GL11;
@@ -21,7 +22,7 @@ public class StatsFrame extends ScrollableFrame {
                       Colour borderColour, Colour insideColour, ItemStack stack) {
         super(topleft, bottomright, borderColour, insideColour);
         this.stack = stack;
-        this.properties = MuseItemUtils.getMuseItemTag(stack);
+        this.properties = MuseNBTUtils.getMuseItemTag(stack);
         this.propertiesToList = NBTTagAccessor.getMap(properties).keySet();
     }
 

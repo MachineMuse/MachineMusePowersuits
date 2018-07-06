@@ -3,14 +3,16 @@ package net.machinemuse.powersuits.item;
 //import appeng.api.config.AccessRestriction;
 
 import net.machinemuse.numina.utils.math.Colour;
-import net.minecraft.entity.player.EntityPlayer;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -44,4 +46,11 @@ public abstract class ItemElectricArmor extends ItemArmor implements IModularIte
     public boolean hasOverlay(ItemStack stack) {
         return true;
     }
+
+
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> currentTipList, ITooltipFlag flagIn) {
+        MuseCommonStrings.addInformation(stack, worldIn, currentTipList, flagIn);
+    }
+
 }

@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.entity;
 
-import net.machinemuse.api.ModuleManager;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.powermodule.weapon.BladeLauncherModule;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
@@ -38,7 +38,7 @@ public class EntitySpinningBlade extends EntityThrowable {
         if (shootingEntity instanceof EntityPlayer) {
             this.shootingItem = ((EntityPlayer) shootingEntity).inventory.getCurrentItem();
             if (this.shootingItem != null) {
-                this.damage = ModuleManager.computeModularProperty(shootingItem, BladeLauncherModule.BLADE_DAMAGE);
+                this.damage = ModuleManager.INSTANCE.computeModularProperty(shootingItem, BladeLauncherModule.BLADE_DAMAGE);
             }
         }
         Vec3d direction = shootingEntity.getLookVec().normalize();

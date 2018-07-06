@@ -1,20 +1,20 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.IPropertyModifier;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.numina.utils.math.Colour;
-import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
+import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.numina.api.nbt.IPropertyModifier;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
+import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
+import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
+import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableTinkerSlider;
 import net.machinemuse.powersuits.network.packets.MusePacketTweakRequest;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.powermodule.PropertyModifierLinearAdditive;
-import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.MuseStringUtils;
-import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -50,7 +50,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
         if (itemTarget.getSelectedItem() != null && moduleTarget.getSelectedModule() != null) {
             ItemStack stack = itemTarget.getSelectedItem().getItem();
             IPowerModule module = moduleTarget.getSelectedModule().getModule();
-            if (ModuleManager.itemHasModule(itemTarget.getSelectedItem().getItem(), moduleTarget.getSelectedModule().getModule().getDataName())) {
+            if (ModuleManager.INSTANCE.itemHasModule(itemTarget.getSelectedItem().getItem(), moduleTarget.getSelectedModule().getModule().getDataName())) {
                 loadTweaks(stack, module);
             } else {
                 sliders = null;
@@ -94,7 +94,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
     }
 
     private void loadTweaks(ItemStack stack, IPowerModule module) {
-        NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+        NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
         NBTTagCompound moduleTag = itemTag.getCompoundTag(module.getDataName());
 
         propertyStrings = new HashMap();

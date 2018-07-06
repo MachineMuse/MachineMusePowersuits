@@ -1,16 +1,16 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.ModuleManager;
+import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.numina.sound.Musique;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRect;
 import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
-import net.machinemuse.numina.sound.Musique;
+import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
-import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.minecraft.util.SoundCategory;
 import org.lwjgl.opengl.GL11;
 
@@ -92,13 +92,12 @@ public class ModuleSelectionFrame extends ScrollableFrame {
             moduleButtons = new ArrayList<>();
             categories = new HashMap<>();
 
-            List<IPowerModule> workingModules = ModuleManager.getValidModulesForItem(selectedItem.getItem());
+            List<IPowerModule> workingModules = ModuleManager.INSTANCE.getValidModulesForItem(selectedItem.getItem());
 
             // Prune the list of disallowed modules, if not installed on this item.
             for (Iterator<IPowerModule> it = workingModules.iterator(); it.hasNext(); ) {
                 IPowerModule module = it.next();
-                if (!module.isAllowed() &&
-                        !ModuleManager.itemHasModule(selectedItem.getItem(), module.getDataName())) {
+                if (!module.isAllowed() && !ModuleManager.INSTANCE.itemHasModule(selectedItem.getItem(), module.getDataName())) {
                     it.remove();
                 }
             }
@@ -113,7 +112,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
                         // If a disallowed module made it to the list, indicate
                         // it as disallowed
                         moduleClickable.setAllowed(false);
-                    } else if (ModuleManager.itemHasModule(selectedItem.getItem(), module.getDataName())) {
+                    } else if (ModuleManager.INSTANCE.itemHasModule(selectedItem.getItem(), module.getDataName())) {
                         moduleClickable.setInstalled(true);
                     }
                     if (moduleClickable.getModule().equals(this.prevSelection)) {

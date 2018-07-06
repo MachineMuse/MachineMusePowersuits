@@ -1,15 +1,15 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseHeatUtils;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
+import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -60,14 +60,14 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         playerIn.setActiveHand(hand);
         if (!worldIn.isRemote) {
-            double energyConsumption = ModuleManager.computeModularProperty(itemStackIn, ENERGY);
+            double energyConsumption = ModuleManager.INSTANCE.computeModularProperty(itemStackIn, ENERGY);
              MuseHeatUtils.heatPlayer(playerIn, energyConsumption / 500);
             if (ElectricItemUtils.getPlayerEnergy(playerIn) > energyConsumption) {
                 ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
 
-                double red = ModuleManager.computeModularProperty(itemStackIn, RED);
-                double green = ModuleManager.computeModularProperty(itemStackIn, GREEN);
-                double blue = ModuleManager.computeModularProperty(itemStackIn, BLUE);
+                double red = ModuleManager.INSTANCE.computeModularProperty(itemStackIn, RED);
+                double green = ModuleManager.INSTANCE.computeModularProperty(itemStackIn, GREEN);
+                double blue = ModuleManager.INSTANCE.computeModularProperty(itemStackIn, BLUE);
 
                 EntityLuxCapacitor luxCapacitor = new EntityLuxCapacitor(worldIn, playerIn, new Colour(red, green, blue));
                 worldIn.spawnEntity(luxCapacitor);

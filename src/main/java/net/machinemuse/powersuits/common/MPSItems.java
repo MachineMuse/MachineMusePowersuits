@@ -29,7 +29,7 @@ public enum MPSItems {
     public static Item powerArmorLegs = itemRegister(new ItemPowerArmorLeggings(), "powerarmor_legs", "powerArmorLeggings");
     public static Item powerArmorFeet = itemRegister(new ItemPowerArmorBoots(), "powerarmor_feet", "powerArmorBoots");
     // HandHeld -----------------------------------------------------------------------------------
-    public static Item powerFist = itemRegister(new ItemPowerFist(), "power_fist", "powerfist");
+    public static Item powerFist = itemRegister(new ItemPowerFist(), "power_fist", "powerFist");
 
     // Components ---------------------------------------------------------------------------------
     public static Item components = ItemComponent.getInstance();

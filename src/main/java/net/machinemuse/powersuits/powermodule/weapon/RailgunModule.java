@@ -1,13 +1,17 @@
 package net.machinemuse.powersuits.powermodule.weapon;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IPlayerTickModule;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IPlayerTickModule;
+import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.*;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
+import net.machinemuse.powersuits.utils.MuseHeatUtils;
+import net.machinemuse.powersuits.utils.MusePlayerUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -93,15 +97,15 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
         if (hand == EnumHand.MAIN_HAND) {
             double range = 64;
             double timer = MuseItemUtils.getDoubleOrZero(itemStackIn, TIMER);
-            double energyConsumption = ModuleManager.computeModularProperty(itemStackIn, ENERGY);
+            double energyConsumption = ModuleManager.INSTANCE.computeModularProperty(itemStackIn, ENERGY);
             if (ElectricItemUtils.getPlayerEnergy(playerIn) > energyConsumption && timer == 0) {
                 ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
                 MuseItemUtils.setDoubleOrRemove(itemStackIn, TIMER, 10);
-                MuseHeatUtils.heatPlayer(playerIn, ModuleManager.computeModularProperty(itemStackIn, HEAT));
+                MuseHeatUtils.heatPlayer(playerIn, ModuleManager.INSTANCE.computeModularProperty(itemStackIn, HEAT));
                 RayTraceResult hitMOP = MusePlayerUtils.doCustomRayTrace(playerIn.world, playerIn, true, range);
                 // TODO: actual railgun sound
                 worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
-                double damage = ModuleManager.computeModularProperty(itemStackIn, IMPULSE) / 100.0;
+                double damage = ModuleManager.INSTANCE.computeModularProperty(itemStackIn, IMPULSE) / 100.0;
                 double knockback = damage / 20.0;
                 Vec3d lookVec = playerIn.getLookVec();
                 if (hitMOP != null) {

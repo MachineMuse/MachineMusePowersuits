@@ -1,13 +1,13 @@
 package net.machinemuse.powersuits.event;
 
-import net.machinemuse.api.ModuleManager;
 import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.numina.sound.Musique;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.item.ItemPowerArmor;
 import net.machinemuse.powersuits.powermodule.movement.JumpAssistModule;
 import net.machinemuse.powersuits.powermodule.movement.ShockAbsorberModule;
-import net.machinemuse.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -44,9 +44,9 @@ public class MovementManager {
             ItemStack stack = player.getItemStackFromSlot(EntityEquipmentSlot.LEGS);
 
             if (stack != null && stack.getItem() instanceof ItemPowerArmor
-                    && ModuleManager.itemHasActiveModule(stack, JumpAssistModule.MODULE_JUMP_ASSIST)) {
-                double jumpAssist = ModuleManager.computeModularProperty(stack, JumpAssistModule.JUMP_MULTIPLIER) * 2;
-                double drain = ModuleManager.computeModularProperty(stack, JumpAssistModule.JUMP_ENERGY_CONSUMPTION);
+                    && ModuleManager.INSTANCE.itemHasActiveModule(stack, JumpAssistModule.MODULE_JUMP_ASSIST)) {
+                double jumpAssist = ModuleManager.INSTANCE.computeModularProperty(stack, JumpAssistModule.JUMP_MULTIPLIER) * 2;
+                double drain = ModuleManager.INSTANCE.computeModularProperty(stack, JumpAssistModule.JUMP_ENERGY_CONSUMPTION);
                 double avail = ElectricItemUtils.getPlayerEnergy(player);
                 if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
                     Musique.playerSound(player, SoundDictionary.SOUND_EVENT_JUMP_ASSIST, SoundCategory.PLAYERS, (float) (jumpAssist / 8.0), (float) 1, false);
@@ -54,7 +54,7 @@ public class MovementManager {
                 if (drain < avail) {
                     ElectricItemUtils.drainPlayerEnergy(player, drain);
                     setPlayerJumpTicks(player, jumpAssist);
-                    double jumpCompensationRatio = ModuleManager.computeModularProperty(stack, JumpAssistModule.JUMP_FOOD_COMPENSATION);
+                    double jumpCompensationRatio = ModuleManager.INSTANCE.computeModularProperty(stack, JumpAssistModule.JUMP_FOOD_COMPENSATION);
                     if (player.isSprinting()) {
                         player.getFoodStats().addExhaustion((float) (-0.8 * jumpCompensationRatio));
                     } else {
@@ -71,13 +71,13 @@ public class MovementManager {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
             ItemStack boots = player.getItemStackFromSlot(EntityEquipmentSlot.FEET);
             if (boots != null) {
-                if (ModuleManager.itemHasActiveModule(boots, ShockAbsorberModule.MODULE_SHOCK_ABSORBER) && event.getDistance() > 3) {
-                    double distanceAbsorb = event.getDistance() * ModuleManager.computeModularProperty(boots, ShockAbsorberModule.SHOCK_ABSORB_MULTIPLIER);
+                if (ModuleManager.INSTANCE.itemHasActiveModule(boots, ShockAbsorberModule.MODULE_SHOCK_ABSORBER) && event.getDistance() > 3) {
+                    double distanceAbsorb = event.getDistance() * ModuleManager.INSTANCE.computeModularProperty(boots, ShockAbsorberModule.SHOCK_ABSORB_MULTIPLIER);
                     if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
                         Musique.playerSound(player, SoundDictionary.SOUND_EVENT_GUI_INSTALL, SoundCategory.PLAYERS, (float) (distanceAbsorb), (float)1, false);
                     }
 
-                    double drain = distanceAbsorb * ModuleManager.computeModularProperty(boots, ShockAbsorberModule.SHOCK_ABSORB_ENERGY_CONSUMPTION);
+                    double drain = distanceAbsorb * ModuleManager.INSTANCE.computeModularProperty(boots, ShockAbsorberModule.SHOCK_ABSORB_ENERGY_CONSUMPTION);
                     double avail = ElectricItemUtils.getPlayerEnergy(player);
                     if (drain < avail) {
                         ElectricItemUtils.drainPlayerEnergy(player, drain);

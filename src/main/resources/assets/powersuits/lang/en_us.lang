@@ -6,11 +6,11 @@ tile.tinkerTable.name=Power Armor Tinker Table
 
 itemGroup.powersuits=Modular Powersuits
 
-item.powerArmorBoots.name=Power Armor Boots
-item.powerArmorLeggings.name=Power Armor Leggings
-item.powerArmorChestplate.name=Power Armor Chestplate
-item.powerArmorHelmet.name=Power Armor Helmet
-item.powerFist.name=Power Fist
+item.powersuits.powerArmorBoots.name=Power Armor Boots
+item.powersuits.powerArmorLeggings.name=Power Armor Leggings
+item.powersuits.powerArmorChestplate.name=Power Armor Chestplate
+item.powersuits.powerArmorHelmet.name=Power Armor Helmet
+item.powersuits.powerFist.name=Power Fist
 
 item.powerArmorComponent.componentWiring.name=Wiring
 item.powerArmorComponent.componentSolenoid.name=Solenoid

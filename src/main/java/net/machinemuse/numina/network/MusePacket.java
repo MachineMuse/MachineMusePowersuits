@@ -55,7 +55,7 @@ public abstract class MusePacket
      * @return Packet250CustomPayload
      */
     public FMLProxyPacket getFMLProxyPacket() throws IOException {
-        this.dataout.writeInt((Integer) MusePacketHandler.packagers.inverse().get(this.packager()));
+        this.dataout.writeInt(MusePacketHandler.getInstance().packagers.inverse().get(this.packager()));
         this.write();
         return new FMLProxyPacket(this.bytes, MusePacketHandler.networkChannelName);
     }

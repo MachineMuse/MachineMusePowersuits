@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.powermodule;
 
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class PropertyModifierIntLinearAdditive extends PropertyModifierLinearAdditive {

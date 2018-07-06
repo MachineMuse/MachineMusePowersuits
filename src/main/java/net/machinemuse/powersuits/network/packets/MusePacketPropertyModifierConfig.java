@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.network.packets;
 
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.IPropertyModifier;
-import net.machinemuse.api.ModuleManager;
+import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.numina.api.nbt.IPropertyModifier;
 import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.powermodule.PropertyModifierFlatAdditive;
 import net.machinemuse.powersuits.powermodule.PropertyModifierLinearAdditive;
@@ -38,8 +38,8 @@ public class MusePacketPropertyModifierConfig extends MusePacket {
 
     @Override
     public void write() {
-        writeInt(ModuleManager.getAllModules().size());
-        for (IPowerModule module : ModuleManager.getAllModules()) {
+        writeInt(ModuleManager.INSTANCE.getAllModules().size());
+        for (IPowerModule module : ModuleManager.INSTANCE.getAllModules()) {
             writeString(module.getDataName());
             writeBoolean(module.isAllowed());
             writeInt(module.getPropertyModifiers().size());
@@ -71,7 +71,7 @@ public class MusePacketPropertyModifierConfig extends MusePacket {
         for (int i = 0; i < numModules; i++) {
             String moduleName = d.readString(data);
             boolean allowed = d.readBoolean(data);
-            IPowerModule module = ModuleManager.getModule(moduleName);
+            IPowerModule module = ModuleManager.INSTANCE.getModule(moduleName);
             if (module instanceof PowerModuleBase)
                 ((PowerModuleBase) module).setIsAllowed(allowed);
             int numProps = d.readInt(data);
