@@ -1,12 +1,12 @@
 package net.machinemuse.numina.network;
 
+import io.netty.buffer.ByteBufInputStream;
 import net.machinemuse.numina.api.item.IModeChangingItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import java.io.DataInputStream;
 import java.util.List;
 
 /**
@@ -59,7 +59,7 @@ public class MusePacketModeChangeRequest extends MusePacket {
         INSTANCE;
 
         @Override
-        public MusePacket read(DataInputStream datain, EntityPlayer player) {
+        public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
             int slot = readInt(datain);
             String mode = readString(datain);
             return new MusePacketModeChangeRequest(player, mode, slot);

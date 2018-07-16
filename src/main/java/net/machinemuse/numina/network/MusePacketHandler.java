@@ -78,12 +78,11 @@ public final class MusePacketHandler extends MessageToMessageCodec<FMLProxyPacke
     }
 
     public void decode(ChannelHandlerContext ctx, FMLProxyPacket msg, List<Object> out) {
-        DataInputStream data = new DataInputStream((InputStream)new ByteBufInputStream(msg.payload()));
-
+        //        DataInputStream data = new DataInputStream((InputStream)new ByteBufInputStream(msg.payload()));
+        ByteBufInputStream data = new ByteBufInputStream(msg.payload());
         INetHandler handler = msg.handler();
         try {
             int packetType = data.readInt();
-
             if (handler instanceof NetHandlerPlayServer) {
                 EntityPlayerMP player = ((NetHandlerPlayServer) handler).player;
                 IMusePackager packagerServer = this.packagers.get(packetType);

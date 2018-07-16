@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.item;
 
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.machinemuse.powersuits.utils.MuseStringUtils;

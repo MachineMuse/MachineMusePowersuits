@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.network.packets;
 
+import io.netty.buffer.ByteBufInputStream;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
@@ -9,8 +10,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-
-import java.io.DataInputStream;
 
 /**
  * Packet for requesting to purchase an upgrade. Player-to-server. Server
@@ -70,7 +69,7 @@ public class MusePacketTweakRequest extends MusePacket {
         INSTANCE;
 
         @Override
-        public MusePacket read(DataInputStream datain, EntityPlayer player) {
+        public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
             int itemSlot = readInt(datain);
             String moduleName = readString(datain);
             String tweakName = readString(datain);

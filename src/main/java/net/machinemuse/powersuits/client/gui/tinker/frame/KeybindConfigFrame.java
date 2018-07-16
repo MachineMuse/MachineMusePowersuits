@@ -14,7 +14,6 @@ import net.machinemuse.powersuits.client.gui.MuseGui;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableButton;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.KeyBindingHelper;
 import net.machinemuse.powersuits.control.KeybindKeyHandler;

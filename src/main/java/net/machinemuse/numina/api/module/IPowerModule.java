@@ -4,17 +4,20 @@ import net.machinemuse.numina.api.nbt.IPropertyModifier;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.NonNullList;
 
 import java.util.List;
 import java.util.Map;
 
 public interface IPowerModule {
-    NonNullList<ItemStack> getInstallCost();
+    /**
+     * Returns the enum corresponding to the EntityEquipment slot that the parent item (Head, Chest... ALL.. )
+     * @return
+     */
+    EnumModuleTarget getTarget();
 
     TextureAtlasSprite getIcon(ItemStack item);
 
-    String getCategory();
+    EnumModuleCategory getCategory();
 
     boolean isValidForItem(ItemStack stack);
 

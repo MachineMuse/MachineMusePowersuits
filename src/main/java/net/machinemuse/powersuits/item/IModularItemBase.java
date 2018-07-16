@@ -1,24 +1,16 @@
 package net.machinemuse.powersuits.item;
 
-import net.machinemuse.powersuits.api.electricity.adapter.IMuseElectricItem;
 import net.machinemuse.numina.api.item.IModularItem;
 import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.powersuits.api.electricity.adapter.IMuseElectricItem;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.powermodule.cosmetic.CosmeticGlowModule;
 import net.machinemuse.powersuits.powermodule.cosmetic.TintModule;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.machinemuse.powersuits.utils.MuseStringUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 import static net.machinemuse.numina.general.MuseMathUtils.clampDouble;
 

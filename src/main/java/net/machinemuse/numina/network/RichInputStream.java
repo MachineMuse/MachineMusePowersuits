@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.zip.GZIPInputStream;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -86,13 +87,14 @@ public class RichInputStream {
         return (tag == null) ? null : new ItemStack(tag);
     }
 
+
     /**
      * Load the compressed compound from the inputstream.
      */
     public static NBTTagCompound readCompressed(InputStream is) throws IOException {
-//        DataInputStream datainputstream = new DataInputStream(new BufferedInputStream(new GZIPInputStream(is)));
+        DataInputStream datainputstream = new DataInputStream(new BufferedInputStream(new GZIPInputStream(is)));
         // LZ4 adaptation of vanilla method
-        DataInputStream datainputstream = new DataInputStream(new BufferedInputStream(new LZ4BlockInputStream(is)));
+//        DataInputStream datainputstream = new DataInputStream(new BufferedInputStream(new LZ4BlockInputStream(is)));
         NBTTagCompound nbttagcompound;
 
         try {
@@ -110,6 +112,8 @@ public class RichInputStream {
         short length;
         try {
             length = in.readShort();
+
+
             return (length != -1) ? readCompressed(in) : null;
         } catch (IOException e) {
             MuseLogger.logException("PROBLEM READING DATA FROM PACKET D:", e);
@@ -133,8 +137,8 @@ public class RichInputStream {
      * DecompiledPixelLauncher (package com.google.research.reflection.common)
      */
     public static HashMap getMapFromStream(final DataInputStream datain, final Class keyClass, final Class valueClass) {
+        final HashMap<Object, Object> hashMap = new HashMap<>();
         try {
-            final HashMap<Object, Object> hashMap = new HashMap<>();
             for (int int1 = datain.readInt(), i = 0; i < int1; ++i) {
                 hashMap.put(readObject(datain, keyClass), readObject(datain, valueClass));
             }
@@ -142,16 +146,22 @@ public class RichInputStream {
         } catch (Exception e) {
 
         }
-        return null;
+        return hashMap;
     }
 
     private static Object readObject(final DataInputStream dataInputStream, final Class clazz) throws IOException {
         int i = 0;
+        if (clazz == Boolean.class) {
+            return dataInputStream.readBoolean();
+        }
         if (clazz == Integer.class) {
             return dataInputStream.readInt();
         }
         if (clazz == Long.class) {
             return dataInputStream.readLong();
+        }
+        if (clazz == Double.class) {
+            return dataInputStream.readDouble();
         }
         if (clazz == Float.class) {
             return dataInputStream.readFloat();

@@ -4,20 +4,19 @@ import com.google.common.collect.Multimap;
 import net.machinemuse.numina.api.item.IArmorTraits;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.render.item.ArmorModelInstance;
 import net.machinemuse.powersuits.client.render.item.IArmorModel;
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.machinemuse.powersuits.powermodule.armor.ApiaristArmorModule;
 import net.machinemuse.powersuits.powermodule.cosmetic.CitizenJoeStyle;
 import net.machinemuse.powersuits.powermodule.cosmetic.HighPolyArmor;
 import net.machinemuse.powersuits.powermodule.cosmetic.TintModule;
 import net.machinemuse.powersuits.powermodule.cosmetic.TransparentArmorModule;
+import net.machinemuse.powersuits.powermodule.environmental.ApiaristArmorModule;
 import net.machinemuse.powersuits.powermodule.misc.InvisibilityModule;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.client.model.ModelBiped;
@@ -193,9 +192,9 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         double totalArmor = 0.0;
         NBTTagCompound props = MuseNBTUtils.getMuseItemTag(stack);
         double energy = ElectricItemUtils.getPlayerEnergy(player);
-        double physArmor = ModuleManager.INSTANCE.computeModularProperty(stack, MuseCommonStrings.ARMOR_VALUE_PHYSICAL);
-        double enerArmor = ModuleManager.INSTANCE.computeModularProperty(stack, MuseCommonStrings.ARMOR_VALUE_ENERGY);
-        double enerConsum = ModuleManager.INSTANCE.computeModularProperty(stack, MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION);
+        double physArmor = ModuleManager.INSTANCE.computeModularProperty(stack, MPSModuleConstants.ARMOR_VALUE_PHYSICAL);
+        double enerArmor = ModuleManager.INSTANCE.computeModularProperty(stack, MPSModuleConstants.ARMOR_VALUE_ENERGY);
+        double enerConsum = ModuleManager.INSTANCE.computeModularProperty(stack, MPSModuleConstants.ARMOR_ENERGY_CONSUMPTION);
         totalArmor += physArmor;
         if (energy > enerConsum) {
             totalArmor += enerArmor;
@@ -226,7 +225,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
                 if (!source.equals(DamageSource.ON_FIRE) || MuseHeatUtils.getPlayerHeat(player) < MuseHeatUtils.getMaxHeat(player))
                     MuseHeatUtils.heatPlayer(player, damage);
             } else {
-                double enerConsum = ModuleManager.INSTANCE.computeModularProperty(stack, MuseCommonStrings.ARMOR_ENERGY_CONSUMPTION);
+                double enerConsum = ModuleManager.INSTANCE.computeModularProperty(stack, MPSModuleConstants.ARMOR_ENERGY_CONSUMPTION);
                 double drain = enerConsum * damage;
                 if (entity instanceof EntityPlayer)
                     ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entity, drain);

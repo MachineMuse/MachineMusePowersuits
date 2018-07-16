@@ -1,22 +1,18 @@
 package net.machinemuse.powersuits.common.proxy;
 
 import api.player.model.ModelPlayerAPI;
-import net.machinemuse.numina.network.MusePacket;
-import net.machinemuse.numina.network.MusePacketModeChangeRequest;
-import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.client.event.EventRegisterRenderers;
 import net.machinemuse.powersuits.client.model.obj.OBJPlusLoader;
 import net.machinemuse.powersuits.client.render.item.SMovingArmorModel;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.common.ModCompatibility;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.KeybindKeyHandler;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.event.ClientTickHandler;
 import net.machinemuse.powersuits.event.ModelBakeEventHandler;
 import net.machinemuse.powersuits.event.PlayerUpdateHandler;
 import net.machinemuse.powersuits.event.RenderEventHandler;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -52,6 +48,7 @@ public class ClientProxy extends CommonProxy {
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
         KeybindManager.readInKeybinds();
+        MPSConfig.INSTANCE.configDoubleKVGen();
     }
 
     @Override

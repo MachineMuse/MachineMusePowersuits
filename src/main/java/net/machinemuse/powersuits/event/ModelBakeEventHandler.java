@@ -5,7 +5,6 @@ import net.machinemuse.powersuits.client.helper.ModelHelper;
 import net.machinemuse.powersuits.client.render.model.ArmorIcon;
 import net.machinemuse.powersuits.client.render.model.ModelLuxCapacitor;
 import net.machinemuse.powersuits.client.render.model.ModelPowerFist;
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;

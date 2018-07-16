@@ -3,11 +3,14 @@ package net.machinemuse.powersuits.powermodule.tool;
 import com.raoulvdberge.refinedstorage.api.network.item.INetworkItem;
 import com.raoulvdberge.refinedstorage.api.network.item.INetworkItemHandler;
 import com.raoulvdberge.refinedstorage.apiimpl.network.item.NetworkItemWirelessGrid;
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.ModCompatibility;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
@@ -24,7 +27,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 
 /**
  * Created by leon on 4/26/17.
@@ -36,19 +38,19 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
     public static final ResourceLocation wirelessGridRegName = new ResourceLocation("refinedstorage", "wireless_grid");
     public static final ResourceLocation wirelessCraftingGridRegName = new ResourceLocation("refinedstorage", "wireless_crafting_grid");
 
-    public RefinedStorageWirelessModule(List<IModularItem> validItems) {
-        super(validItems);
+    public RefinedStorageWirelessModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
 //        if (ModCompatibility.isWirelessCraftingGridLoaded())
 //            emulatedTool = new ItemStack( Item.REGISTRY.getObject(wirelessCraftingGridRegName), 1, 0);
 //        else
 //            emulatedTool = new ItemStack( Item.REGISTRY.getObject(wirelessGridRegName), 1, 0);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
-        addInstallCost(getEmulatedTool());
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), getEmulatedTool());
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_TOOL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_TOOL;
     }
 
     @Override
@@ -70,11 +72,11 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
                 return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
             }
 
-            int energy = (int)MuseMathUtils.clampDouble(ElectricItemUtils.getPlayerEnergy(playerIn) * ModCompatibility.getRSRatio(), 0, 3500);
+            int energy = (int)MuseMathUtils.clampDouble(ElectricItemUtils.getPlayerEnergy(playerIn) * MPSConfig.INSTANCE.getRSRatio(), 0, 3500);
             tag.setInteger("Energy", energy);
             emulatedTool.setTagCompound(tag);
             ActionResult result = emulatedTool.getItem().onItemRightClick(worldIn, playerIn, hand);
-            double energyUsed = ((energy - emulatedTool.getTagCompound().getInteger("Energy")) * ModCompatibility.getRSRatio()) ;
+            double energyUsed = ((energy - emulatedTool.getTagCompound().getInteger("Energy")) * MPSConfig.INSTANCE.getRSRatio()) ;
             ElectricItemUtils.drainPlayerEnergy(playerIn, energyUsed);
             return ActionResult.newResult(result.getType(), itemStackIn);
         }

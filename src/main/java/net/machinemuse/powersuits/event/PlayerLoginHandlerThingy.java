@@ -2,7 +2,6 @@ package net.machinemuse.powersuits.event;
 
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.network.packets.MPSPacketConfig;
-import net.machinemuse.powersuits.network.packets.MusePacketPropertyModifierConfig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -26,8 +25,5 @@ public final class PlayerLoginHandlerThingy {
             // sync config settings between client and server
             PacketSender.sendTo(new MPSPacketConfig(player), (EntityPlayerMP) player);
         }
-
-        // TODO: with the new config system, this could become obsolete
-        PacketSender.sendTo(new MusePacketPropertyModifierConfig(player, null), (EntityPlayerMP)player);
     }
 }

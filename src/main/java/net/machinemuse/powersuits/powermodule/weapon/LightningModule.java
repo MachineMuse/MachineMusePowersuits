@@ -1,7 +1,8 @@
 package net.machinemuse.powersuits.powermodule.weapon;
 
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.module.ModuleManager;
@@ -9,7 +10,6 @@ import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.machinemuse.powersuits.utils.MusePlayerUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -25,8 +25,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 /**
  * Created by User: Andrew2448
  * 5:56 PM 6/14/13
@@ -36,18 +34,18 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
     public static final String LIGHTNING_ENERGY_CONSUMPTION = "Energy Consumption";
     public static final String HEAT = "Heat Emission";
 
-    public LightningModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 2));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
+    public LightningModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.solenoid, 2));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
         addBaseProperty(LIGHTNING_ENERGY_CONSUMPTION, 490000, "");
         addBaseProperty(HEAT, 100, "");
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_WEAPON;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_WEAPON;
     }
 
     @Override

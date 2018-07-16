@@ -1,13 +1,13 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
@@ -20,7 +20,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -34,10 +33,10 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
     public final ItemStack fas = new ItemStack(Items.FLINT_AND_STEEL);
     final Random ran = new Random();
 
-    public FlintAndSteelModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 1));
-        addInstallCost(fas);
+    public FlintAndSteelModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), fas);
         addBaseProperty(IGNITION_ENERGY_CONSUMPTION, 1000, "J");
     }
 
@@ -47,8 +46,8 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_TOOL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_TOOL;
     }
 
     @Override

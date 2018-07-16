@@ -19,6 +19,7 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -65,7 +66,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
                 && targetModule.getSelectedModule() != null) {
             ItemStack stack = targetItem.getSelectedItem().getItem();
             IPowerModule module = targetModule.getSelectedModule().getModule();
-            List<ItemStack> itemsToCheck = module.getInstallCost();
+            NonNullList<ItemStack> itemsToCheck = ModuleManager.INSTANCE.getInstallCost(module.getDataName());
             double yoffset;
             if (!ModuleManager.INSTANCE.itemHasModule(stack, module.getDataName())) {
                 yoffset = border.top() + 4;
@@ -101,7 +102,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
     private void drawItems() {
         ItemStack stack = targetItem.getSelectedItem().getItem();
         IPowerModule module = targetModule.getSelectedModule().getModule();
-        List<ItemStack> itemsToDraw = module.getInstallCost();
+        NonNullList<ItemStack> itemsToDraw = ModuleManager.INSTANCE.getInstallCost(module.getDataName());
         double yoffset;
         if (!ModuleManager.INSTANCE.itemHasModule(stack, module.getDataName())) {
             yoffset = border.top() + 4;
@@ -125,7 +126,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
         if (!ModuleManager.INSTANCE.itemHasModule(stack, module.getDataName())) {
 
             installButton.setEnabled(player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(
-                    module.getInstallCost(), player.inventory));
+                    ModuleManager.INSTANCE.getInstallCost(module.getDataName()), player.inventory));
             installButton.draw();
         } else {
             salvageButton.draw();
@@ -168,7 +169,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
     private void doInstall() {
         ItemStack stack = targetItem.getSelectedItem().getItem();
         IPowerModule module = targetModule.getSelectedModule().getModule();
-        if (player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(module.getInstallCost(), player.inventory)) {
+        if (player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(ModuleManager.INSTANCE.getInstallCost(module.getDataName()), player.inventory)) {
             Musique.playClientSound(SoundDictionary.SOUND_EVENT_GUI_INSTALL, SoundCategory.BLOCKS, 1, null);
             // Now send request to server to make it legit
             MusePacket newpacket = new MusePacketInstallModuleRequest(

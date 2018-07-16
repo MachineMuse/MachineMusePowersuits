@@ -1,8 +1,10 @@
 package net.machinemuse.powersuits.powermodule.misc;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -20,20 +22,18 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 public class InPlaceAssemblerModule extends PowerModuleBase implements IRightClickModule {
     public static final String MODULE_PORTABLE_CRAFTING = "In-Place Assembler";
 
-    public InPlaceAssemblerModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
-        addInstallCost(new ItemStack(Blocks.CRAFTING_TABLE, 1));
+    public InPlaceAssemblerModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Blocks.CRAFTING_TABLE, 1));
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_SPECIAL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_SPECIAL;
     }
 
     @Override

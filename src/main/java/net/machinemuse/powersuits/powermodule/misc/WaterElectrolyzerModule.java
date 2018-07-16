@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.misc;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.common.config.NuminaConfig;
@@ -20,21 +21,19 @@ import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
-import java.util.List;
-
 public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
     public static final String WATERBREATHING_ENERGY_CONSUMPTION = "Jolt Energy";
     public static final String MODULE_WATER_ELECTROLYZER = "Water Electrolyzer";
 
-    public WaterElectrolyzerModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.lvcapacitor, 1));
+    public WaterElectrolyzerModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.lvcapacitor, 1));
         addBaseProperty(WaterElectrolyzerModule.WATERBREATHING_ENERGY_CONSUMPTION, 1000, "J");
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_ENVIRONMENTAL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_ENVIRONMENTAL;
     }
 
     @Override

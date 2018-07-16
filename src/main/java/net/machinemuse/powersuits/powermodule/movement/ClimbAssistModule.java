@@ -1,9 +1,11 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -12,19 +14,17 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-import java.util.List;
-
 public class ClimbAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
     public static final String MODULE_CLIMB_ASSIST = "Uphill Step Assist";
 
-    public ClimbAssistModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
+    public ClimbAssistModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_MOVEMENT;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_MOVEMENT;
     }
 
     @Override

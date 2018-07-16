@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.weapon;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
@@ -10,7 +11,6 @@ import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
@@ -23,8 +23,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 //import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
 
 public class PlasmaCannonModule extends PowerModuleBase implements IRightClickModule {
@@ -33,21 +31,21 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
     public static final String PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE = "Plasma Damage At Full Charge";
     public static final String PLASMA_CANNON_EXPLOSIVENESS = "Plasma Explosiveness";
 
-    public PlasmaCannonModule(List<IModularItem> validItems) {
-        super(validItems);
+    public PlasmaCannonModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
         addBaseProperty(PLASMA_CANNON_ENERGY_PER_TICK, 10, "J");
         addBaseProperty(PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 2, "pt");
         addTradeoffProperty("Amperage", PLASMA_CANNON_ENERGY_PER_TICK, 150, "J");
         addTradeoffProperty("Amperage", PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 38, "pt");
         addTradeoffProperty("Voltage", PLASMA_CANNON_ENERGY_PER_TICK, 50, "J");
         addTradeoffProperty("Voltage", PLASMA_CANNON_EXPLOSIVENESS, 0.5, "Creeper");
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 2));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 2));
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_WEAPON;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_WEAPON;
     }
 
     @Override

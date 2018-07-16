@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.numina.utils.MuseLogger;
@@ -21,26 +22,24 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 public class BlinkDriveModule extends PowerModuleBase implements IRightClickModule {
     public static final String MODULE_BLINK_DRIVE = "Blink Drive";
     public static final String BLINK_DRIVE_ENERGY_CONSUMPTION = "Blink Drive Energy Consuption";
     public static final String BLINK_DRIVE_RANGE = "Blink Drive Range";
 
-    public BlinkDriveModule(List<IModularItem> validItems) {
-        super(validItems);
+    public BlinkDriveModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
         addBaseProperty(BLINK_DRIVE_ENERGY_CONSUMPTION, 1000, "J");
         addBaseProperty(BLINK_DRIVE_RANGE, 5, "m");
         addTradeoffProperty("Range", BLINK_DRIVE_ENERGY_CONSUMPTION, 3000);
         addTradeoffProperty("Range", BLINK_DRIVE_RANGE, 59);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 1));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_MOVEMENT;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_MOVEMENT;
     }
 
     @Override

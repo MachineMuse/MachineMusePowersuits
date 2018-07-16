@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.network.packets;
 
+import io.netty.buffer.ByteBufInputStream;
 import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
@@ -14,7 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextComponentString;
 
-import java.io.DataInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +59,7 @@ public class MusePacketInstallModuleRequest extends MusePacket {
                 player.sendMessage(new TextComponentString("Server has disallowed this module. Sorry!"));
                 return;
             }
-            NonNullList<ItemStack> cost = moduleType.getInstallCost();
+            NonNullList<ItemStack> cost = ModuleManager.INSTANCE.getInstallCost(moduleName);
             if ((!ModuleManager.INSTANCE.itemHasModule(stack, moduleName) && MuseItemUtils.hasInInventory(cost, player.inventory)) || player.capabilities.isCreativeMode) {
                 ModuleManager.INSTANCE.itemAddModule(stack, moduleType);
                 for (ItemStack stackInCost : cost) {
@@ -86,7 +86,7 @@ public class MusePacketInstallModuleRequest extends MusePacket {
         INSTANCE;
 
         @Override
-        public MusePacket read(DataInputStream datain, EntityPlayer player) {
+        public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
             int itemSlot = readInt(datain);
             String moduleName = readString(datain);
             return new MusePacketInstallModuleRequest(player, itemSlot, moduleName);

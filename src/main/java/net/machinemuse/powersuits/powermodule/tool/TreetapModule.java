@@ -1,12 +1,12 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -40,8 +40,8 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
 
     public static ItemStack treetap;
 
-    public TreetapModule(List<IModularItem> validItems) {
-        super(validItems);
+    public TreetapModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
         if (ModCompatibility.isIndustrialCraftClassicLoaded()) {
             emulatedTool = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("ic2", "itemTreetapElectric")), 1);
             treetap = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("ic2", "itemTreetap")), 1);
@@ -68,7 +68,7 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
             isIC2Classic = false;
         }
         addBaseProperty(TREETAP_ENERGY_CONSUMPTION, 100);
-        addInstallCost(emulatedTool);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(),emulatedTool);
     }
 
     @Override
@@ -118,8 +118,8 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_TOOL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_TOOL;
     }
 
     @Override

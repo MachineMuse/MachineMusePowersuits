@@ -1,10 +1,12 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.event.MovementManager;
@@ -17,24 +19,22 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-import java.util.List;
-
 public class JumpAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
     public static final String MODULE_JUMP_ASSIST = "Jump Assist";
     public static final String JUMP_ENERGY_CONSUMPTION = "Jump Energy Consumption";
     public static final String JUMP_MULTIPLIER = "Jump Boost";
     public static final String JUMP_FOOD_COMPENSATION = "Jump Exhaustion Compensation";
 
-    public JumpAssistModule(List<IModularItem> validItems) {
-        super(validItems);
+    public JumpAssistModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
         addSimpleTradeoff(this, "Power", JUMP_ENERGY_CONSUMPTION, "J", 0, 25, JUMP_MULTIPLIER, "%", 1, 4);
         addSimpleTradeoff(this, "Compensation", JUMP_ENERGY_CONSUMPTION, "J", 0, 5, JUMP_FOOD_COMPENSATION, "%", 0, 1);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 4));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 4));
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_MOVEMENT;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_MOVEMENT;
     }
 
     @Override

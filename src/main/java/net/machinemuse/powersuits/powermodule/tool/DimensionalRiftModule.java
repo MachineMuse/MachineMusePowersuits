@@ -1,7 +1,8 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.module.ModuleManager;
@@ -25,8 +26,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 import static net.machinemuse.numina.api.constants.NuminaNBTConstants.TAG_ONLINE;
 
 /**
@@ -37,18 +36,18 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
     public static final String DIMENSIONAL_RIFT_ENERGY_GENERATION = "Energy Consumption";
     public static final String DIMENSIONAL_RIFT_HEAT_GENERATION = "Heat Generation";
 
-    public DimensionalRiftModule(List<IModularItem> validItems) {
-        super(validItems);
+    public DimensionalRiftModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
         addBaseProperty(DIMENSIONAL_RIFT_HEAT_GENERATION, 55);
         addBaseProperty(DIMENSIONAL_RIFT_ENERGY_GENERATION, 20000);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         this.defaultTag.setBoolean(TAG_ONLINE, false);
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_TOOL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_TOOL;
     }
 
     @Override

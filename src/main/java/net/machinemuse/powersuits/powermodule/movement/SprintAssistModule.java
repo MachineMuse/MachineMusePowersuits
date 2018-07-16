@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
@@ -18,7 +19,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -33,12 +33,12 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
     public static final String WALKING_SPEED_MULTIPLIER = "Walking Speed Multiplier";
     public static final UUID TAGUUID = new UUID(-7931854408382894632L, -8160638015224787553L);
 
-    public SprintAssistModule(List<IModularItem> validItems) {
-        super(validItems);
+    public SprintAssistModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
         addSimpleTradeoff(this, "Power", SPRINT_ENERGY_CONSUMPTION, "J", 0, 10, SPRINT_SPEED_MULTIPLIER, "%", 1, 2);
         addSimpleTradeoff(this, "Compensation", SPRINT_ENERGY_CONSUMPTION, "J", 0, 2, SPRINT_FOOD_COMPENSATION, "%", 0, 1);
         addSimpleTradeoff(this, "Walking Assist", WALKING_ENERGY_CONSUMPTION, "J", 0, 10, WALKING_SPEED_MULTIPLIER, "%", 1, 1);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 4));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 4));
     }
 
     @Override
@@ -120,8 +120,8 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_MOVEMENT;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_MOVEMENT;
     }
 
     @Override

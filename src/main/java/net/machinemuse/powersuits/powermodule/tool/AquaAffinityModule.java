@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IBlockBreakingModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
@@ -20,16 +21,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
-import java.util.List;
-
 public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
     public static final String MODULE_AQUA_AFFINITY = "Aqua Affinity";
     public static final String AQUA_AFFINITY_ENERGY_CONSUMPTION = "Underwater Energy Consumption";
     public static final String UNDERWATER_HARVEST_SPEED = "Underwater Harvest Speed";
 
-    public AquaAffinityModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 1));
+    public AquaAffinityModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 1));
         addBaseProperty(AQUA_AFFINITY_ENERGY_CONSUMPTION, 0, "J");
         addBaseProperty(UNDERWATER_HARVEST_SPEED, 0.2, "%");
         addTradeoffProperty("Power", AQUA_AFFINITY_ENERGY_CONSUMPTION, 100);
@@ -37,8 +36,8 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_SPECIAL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_SPECIAL;
     }
 
     @Override

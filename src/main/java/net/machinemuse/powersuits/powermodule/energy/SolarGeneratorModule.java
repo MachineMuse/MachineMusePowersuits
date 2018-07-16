@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.energy;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.module.ModuleManager;
@@ -16,24 +17,22 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 public class SolarGeneratorModule extends PowerModuleBase implements IPlayerTickModule {
     public static final String MODULE_SOLAR_GENERATOR = "Solar Generator";
     public static final String SOLAR_ENERGY_GENERATION_DAY = "Daytime Energy Generation";
     public static final String SOLAR_ENERGY_GENERATION_NIGHT = "Nighttime Energy Generation";
 
-    public SolarGeneratorModule(List<IModularItem> validItems) {
-        super(validItems);
+    public SolarGeneratorModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
         addBaseProperty(SOLAR_ENERGY_GENERATION_DAY, 1500);
         addBaseProperty(SOLAR_ENERGY_GENERATION_NIGHT, 150);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solarPanel, 1));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 2));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.solarPanel, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 2));
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_ENERGY;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_ENERGY;
     }
 
     @Override

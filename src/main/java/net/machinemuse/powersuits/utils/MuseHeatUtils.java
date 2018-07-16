@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.utils;
 
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.module.ModuleManager;
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -27,7 +27,7 @@ public class MuseHeatUtils {
         for (ItemStack stack : MuseItemUtils.getModularItemsInInventory(player)) {
             avail += getMaxHeat(stack);
         }
-        return avail + Config.baseMaxHeat();
+        return avail + MPSConfig.INSTANCE.baseMaxHeat();
     }
 
     public static double getMaxHeat(ItemStack stack) {

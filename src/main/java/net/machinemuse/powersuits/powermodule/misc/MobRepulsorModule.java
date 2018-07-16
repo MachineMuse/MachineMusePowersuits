@@ -1,10 +1,12 @@
 package net.machinemuse.powersuits.powermodule.misc;
 
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -34,17 +36,17 @@ public class MobRepulsorModule extends PowerModuleBase implements IPlayerTickMod
     public static final String MODULE_MOB_REPULSOR = "Mob Repulsor";
     public static final String MOB_REPULSOR_ENERGY_CONSUMPTION = "Repulsor Energy Consumption";
 
-    public MobRepulsorModule(List<IModularItem> validItems) {
-        super(validItems);
+    public MobRepulsorModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
         addBaseProperty(MOB_REPULSOR_ENERGY_CONSUMPTION, 250);
-        addBaseProperty(MuseCommonStrings.WEIGHT, 2000);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.magnet, 1));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
+        addBaseProperty(MPSModuleConstants.WEIGHT, 2000);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.magnet, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_ENVIRONMENTAL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_ENVIRONMENTAL;
     }
 
     @Override

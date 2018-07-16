@@ -1,15 +1,14 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-
-import java.util.List;
 
 /**
  * Created by User: Andrew
@@ -22,17 +21,17 @@ public class GrafterModule extends PowerModuleBase {
     public static final String GRAFTER_HEAT_GENERATION = "Grafter Heat Generation";
     private static ItemStack grafter = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("forestry", "grafter")), 1);
 
-    public GrafterModule(List<IModularItem> validItems) {
-        super(validItems);
+    public GrafterModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
 //        ItemStack stack = GameRegistry.findItemStack("Forestry", "grafter", 1);
-        addInstallCost(grafter);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), grafter);
         addBaseProperty(GRAFTER_ENERGY_CONSUMPTION, 1000, "J");
         addBaseProperty(GRAFTER_HEAT_GENERATION, 20);
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_TOOL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_TOOL;
     }
 
     @Override

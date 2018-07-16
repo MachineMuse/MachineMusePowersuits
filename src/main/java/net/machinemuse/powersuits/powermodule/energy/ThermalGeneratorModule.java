@@ -1,9 +1,11 @@
 package net.machinemuse.powersuits.powermodule.energy;
 
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -15,8 +17,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-import java.util.List;
-
 /**
  * Created by User: Andrew2448
  * 6:43 PM 4/23/13
@@ -25,25 +25,25 @@ public class ThermalGeneratorModule extends PowerModuleBase implements IPlayerTi
     public static final String MODULE_THERMAL_GENERATOR = "Thermal Generator";
     public static final String THERMAL_ENERGY_GENERATION = "Energy Generation";
 
-    public ThermalGeneratorModule(List<IModularItem> validItems) {
-        super(validItems);
+    public ThermalGeneratorModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
         addBaseProperty(THERMAL_ENERGY_GENERATION, 25);
-        addBaseProperty(MuseCommonStrings.WEIGHT, 1000);
+        addBaseProperty(MPSModuleConstants.WEIGHT, 1000);
         addTradeoffProperty("Energy Generated", THERMAL_ENERGY_GENERATION, 25, " Joules");
-        addTradeoffProperty("Energy Generated", MuseCommonStrings.WEIGHT, 1000, "g");
+        addTradeoffProperty("Energy Generated", MPSModuleConstants.WEIGHT, 1000, "g");
 // Fixme: and maybe add options for a Magmatic Dynamo and maybe a stirling generator
 //        if (ModCompatibility.isIndustrialCraftLoaded()) {
-//            addInstallCost(ModCompatibility.getIC2Item("geothermalGenerator"));
-//            addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
+//            ModuleManager.INSTANCE.addInstallCost(getDataName(),ModCompatibility.getIC2Item("geothermalGenerator"));
+//            ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
 //        } else {
-            addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 2));
-            addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.basicPlating, 1));
+            ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 2));
+            ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.basicPlating, 1));
 //        }
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_ENERGY;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_ENERGY;
     }
 
     @Override

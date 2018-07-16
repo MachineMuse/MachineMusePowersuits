@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.common.config.NuminaConfig;
@@ -24,16 +25,14 @@ import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
-import java.util.List;
-
 public class JetBootsModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
     public static final String MODULE_JETBOOTS = "Jet Boots";
     public static final String JET_ENERGY_CONSUMPTION = "Jetboots Energy Consumption";
     public static final String JET_THRUST = "Jetboots Thrust";
 
-    public JetBootsModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 2));
+    public JetBootsModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 2));
         addBaseProperty(JET_ENERGY_CONSUMPTION, 0);
         addBaseProperty(JET_THRUST, 0);
         addTradeoffProperty("Thrust", JET_ENERGY_CONSUMPTION, 75);
@@ -41,8 +40,8 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_MOVEMENT;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_MOVEMENT;
     }
 
     @Override

@@ -21,7 +21,7 @@ public class MPSPacketList {
         handler.addPackager( MusePacketToggleRequest.getPackagerInstance() );
 //        handler.addPackage( MusePacketPlasmaBolt.getPackagerInstance() );
         handler.addPackager( MusePacketColourInfo.getPackagerInstance() );
-        handler.addPackager( MusePacketPropertyModifierConfig.getPackagerInstance() );
+//        handler.addPackager( MusePacketPropertyModifierConfig.getPackagerInstance() );
         handler.addPackager( MPSPacketConfig.getPackagerInstance() );
     }
 }

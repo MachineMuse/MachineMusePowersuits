@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.weapon;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.module.ModuleManager;
@@ -9,7 +10,6 @@ import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,24 +21,22 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 public class BladeLauncherModule extends PowerModuleBase implements IRightClickModule {
     public static final String MODULE_BLADE_LAUNCHER = "Blade Launcher";
     public static final String BLADE_ENERGY = "Spinning Blade Energy Consumption";
     public static final String BLADE_DAMAGE = "Spinning Blade Damage";
 
-    public BladeLauncherModule(List<IModularItem> validItems) {
-        super(validItems);
+    public BladeLauncherModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
         addBaseProperty(BLADE_ENERGY, 500, "J");
         addBaseProperty(BLADE_DAMAGE, 6, "pt");
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 1));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.mvcapacitor, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.mvcapacitor, 1));
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_WEAPON;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_WEAPON;
     }
 
     @Override

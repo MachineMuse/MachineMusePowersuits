@@ -1,6 +1,7 @@
-package net.machinemuse.powersuits.powermodule.armor;
+package net.machinemuse.powersuits.powermodule.environmental;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
@@ -15,8 +16,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-import java.util.List;
-
 /**
  * Created by Eximius88 on 1/17/14.
  */
@@ -25,13 +24,13 @@ public class NitrogenCoolingSystem extends PowerModuleBase implements IPlayerTic
     public static final String COOLING_BONUS = "Cooling Bonus";
     public static final String ENERGY = "Energy Consumption";
 
-    public NitrogenCoolingSystem(List<IModularItem> validItems) {
-        super(validItems);
-        //addInstallCost(new ItemStack(Item.netherStar, 1));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.liquidNitrogen, 1));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.rubberHose, 2));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.computerChip, 2));
+    public NitrogenCoolingSystem(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        //ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Item.netherStar, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.liquidNitrogen, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.rubberHose, 2));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.computerChip, 2));
         addTradeoffProperty("Power", COOLING_BONUS, 7, "%");
         addTradeoffProperty("Power", ENERGY, 16, "J/t");
     }
@@ -49,8 +48,8 @@ public class NitrogenCoolingSystem extends PowerModuleBase implements IPlayerTic
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_ENVIRONMENTAL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_ENVIRONMENTAL;
     }
 
     @Override

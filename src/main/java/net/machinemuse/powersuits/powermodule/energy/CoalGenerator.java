@@ -1,9 +1,11 @@
 package net.machinemuse.powersuits.powermodule.energy;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -17,8 +19,6 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
-import java.util.List;
-
 /**
  * Created by Eximius88 on 1/16/14.
  */
@@ -29,14 +29,14 @@ public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule,
     public static final String MAX_COAL_STORAGE = "Maximum storage amount";
 
 
-    public CoalGenerator(List<IModularItem> validItems) {
-        super(validItems);
+    public CoalGenerator(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
         addBaseProperty(MAX_COAL_STORAGE, 128);
         addBaseProperty(COAL_HEAT_GEN, 2.5);
-        addBaseProperty(MuseCommonStrings.WEIGHT, 500);
+        addBaseProperty(MPSModuleConstants.WEIGHT, 500);
         addBaseProperty(COAL_ENERGY_GEN, 300);
-        addInstallCost(new ItemStack(Blocks.FURNACE));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Blocks.FURNACE));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
     }
 
     @Override
@@ -68,8 +68,8 @@ public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule,
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_ENERGY;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_ENERGY;
     }
 
     @Override

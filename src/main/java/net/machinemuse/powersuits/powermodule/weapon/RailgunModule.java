@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.weapon;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
@@ -9,7 +10,6 @@ import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.machinemuse.powersuits.utils.MusePlayerUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -23,27 +23,17 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 public class RailgunModule extends PowerModuleBase implements IRightClickModule, IPlayerTickModule {
-    // private List<String> particles;
-    // private Iterator<String> iterator;
     public static final String MODULE_RAILGUN = "Railgun";
     public static final String IMPULSE = "Railgun Total Impulse";
     public static final String ENERGY = "Railgun Energy Cost";
     public static final String HEAT = "Railgun Heat Emission";
     public static final String TIMER = "cooldown";
 
-    public RailgunModule(List<IModularItem> validItems) {
-        super(validItems);
-        // particles = Arrays.asList("smoke", "snowballpoof", "portal",
-        // "splash", "bubble", "townaura",
-        // "hugeexplosion", "flame", "heart", "crit", "magicCrit", "note",
-        // "enchantmenttable", "lava", "footstep", "reddust", "dripWater",
-        // "dripLava", "slime");
-        // iterator = particles.iterator();
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 6));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
+    public RailgunModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 6));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
         addBaseProperty(IMPULSE, 500, "Ns");
         addBaseProperty(ENERGY, 500, "J");
         addBaseProperty(HEAT, 2, "");
@@ -53,8 +43,8 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_WEAPON;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_WEAPON;
     }
 
     @Override

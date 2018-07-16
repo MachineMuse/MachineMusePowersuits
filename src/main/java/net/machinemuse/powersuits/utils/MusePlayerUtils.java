@@ -5,7 +5,6 @@ import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.powersuits.api.module.ModuleManager;
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.powermodule.movement.FlightControlModule;

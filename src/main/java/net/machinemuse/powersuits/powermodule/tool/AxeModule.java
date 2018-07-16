@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IBlockBreakingModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
@@ -21,8 +22,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
-import java.util.List;
-
 
 public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
     public static final String MODULE_AXE = "Axe";
@@ -32,9 +31,9 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
     private static final ItemStack emulatedTool = new ItemStack(Items.IRON_AXE);
 
 
-    public AxeModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
+    public AxeModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBaseProperty(AXE_ENERGY_CONSUMPTION, 50, "J");
         addBaseProperty(AXE_HARVEST_SPEED, 8, "x");
         addTradeoffProperty("Overclock", AXE_ENERGY_CONSUMPTION, 950);
@@ -45,8 +44,8 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_TOOL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_TOOL;
     }
 
     @Override

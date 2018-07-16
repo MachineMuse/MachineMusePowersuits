@@ -1,20 +1,17 @@
 package net.machinemuse.powersuits.common;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.powersuits.api.module.ModuleManager;
-import net.machinemuse.powersuits.powermodule.armor.ApiaristArmorModule;
-import net.machinemuse.powersuits.powermodule.armor.HazmatModule;
-import net.machinemuse.powersuits.powermodule.misc.AirtightSealModule;
+import net.machinemuse.powersuits.powermodule.environmental.ApiaristArmorModule;
+import net.machinemuse.powersuits.powermodule.environmental.HazmatModule;
+import net.machinemuse.powersuits.powermodule.environmental.AirtightSealModule;
 import net.machinemuse.powersuits.powermodule.misc.ThaumGogglesModule;
 import net.machinemuse.powersuits.powermodule.tool.*;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModAPIManager;
 import net.minecraftforge.fml.common.ModContainer;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class ModCompatibility {
@@ -142,77 +139,52 @@ public class ModCompatibility {
 
     public static boolean enableThaumGogglesModule() {
         boolean defaultval = isThaumCraftLoaded();
-        return Config.getConfig().get("Special Modules", "Thaumcraft Goggles Module", defaultval).getBoolean(defaultval);
+//        return Config.getConfig().get("Special Modules", "Thaumcraft Goggles Module", defaultval).getBoolean(defaultval);
+        return false;
     }
 
-    // 1MJ (MPS) = 1 MJ (Mekanism)
-    public static double getMekRatio() {
-        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per Mekanism MJ", 1D).getDouble(1D);
-    }
 
-    // 1 MJ = 2.5 EU
-    // 1 EU = 0.4 MJ
-    public static double getIC2Ratio() {
-        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per IC2 EU", 0.4).getDouble(0.4);
-    }
 
-    // 1 MJ = 10 RF
-    // 1 RF = 0.1 MJ
-    public static double getRFRatio() {
-        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per RF", 0.1).getDouble(0.1);
-    }
 
-    // (Refined Storage) 1 RS = 1 RF
-    public static double getRSRatio() {
-        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per RS", 0.1).getDouble(0.1);
-    }
 
-    // 1 MJ = 5 AE
-    // 1 AE = 0.2 MJ
-    public static double getAE2Ratio() {
-        return Config.getConfig().get(Configuration.CATEGORY_GENERAL, "Energy per AE", 0.2).getDouble(0.2);
-    }
+
 
     public static void registerModSpecificModules() {
-        // Make the energy ratios show up in config file
-        getIC2Ratio();
-        getRFRatio();
-        getRSRatio();
 
         // CoFH Lib - CoFHLib is included in CoFHCore
         if (isCOFHCoreLoaded()) {
-            ModuleManager.INSTANCE.addModule(new OmniWrenchModule(Collections.singletonList((IModularItem) MPSItems.INSTANCE.powerFist)));
+            ModuleManager.INSTANCE.addModule(new OmniWrenchModule(EnumModuleTarget.TOOLONLY));
         }
 
         // Thaumcraft
         if (isThaumCraftLoaded() && enableThaumGogglesModule()) {
-            ModuleManager.INSTANCE.addModule(new ThaumGogglesModule(Collections.singletonList((IModularItem) MPSItems.INSTANCE.powerArmorHead)));
+            ModuleManager.INSTANCE.addModule(new ThaumGogglesModule(EnumModuleTarget.HEADONLY));
         }
 
         //IPowerModule module = new MultimeterModule(Collections.singletonList((IModularItem) MPSItems.INSTANCE.powerFist()));
 
         // Industrialcraft
         if (isIndustrialCraftLoaded()) {
-            ModuleManager.INSTANCE.addModule(new HazmatModule(Arrays.<IModularItem>asList((IModularItem)MPSItems.INSTANCE.powerArmorHead, (IModularItem)MPSItems.INSTANCE.powerArmorTorso, (IModularItem)MPSItems.INSTANCE.powerArmorLegs, (IModularItem)MPSItems.INSTANCE.powerArmorFeet)));
-            ModuleManager.INSTANCE.addModule(new TreetapModule(Collections.singletonList((IModularItem)MPSItems.INSTANCE.powerFist)));
+            ModuleManager.INSTANCE.addModule(new HazmatModule(EnumModuleTarget.ARMORONLY));
+            ModuleManager.INSTANCE.addModule(new TreetapModule(EnumModuleTarget.TOOLONLY));
         }
 
         // Galacticraft
         if (isGalacticraftLoaded()) {
-            ModuleManager.INSTANCE.addModule(new AirtightSealModule(Collections.singletonList((IModularItem) MPSItems.INSTANCE.powerArmorHead)));
+            ModuleManager.INSTANCE.addModule(new AirtightSealModule(EnumModuleTarget.HEADONLY));
         }
 
         // Forestry
         if (isForestryLoaded()) {
-            ModuleManager.INSTANCE.addModule(new GrafterModule(Collections.singletonList((IModularItem) MPSItems.INSTANCE.powerFist)));
-            ModuleManager.INSTANCE.addModule(new ScoopModule(Collections.singletonList((IModularItem) MPSItems.INSTANCE.powerFist)));
-            ModuleManager.INSTANCE.addModule(new ApiaristArmorModule(Arrays.<IModularItem>asList((IModularItem)MPSItems.INSTANCE.powerArmorHead, (IModularItem)MPSItems.INSTANCE.powerArmorTorso, (IModularItem)MPSItems.INSTANCE.powerArmorLegs, (IModularItem)MPSItems.INSTANCE.powerArmorFeet)));
+            ModuleManager.INSTANCE.addModule(new GrafterModule(EnumModuleTarget.TOOLONLY));
+            ModuleManager.INSTANCE.addModule(new ScoopModule(EnumModuleTarget.TOOLONLY));
+            ModuleManager.INSTANCE.addModule(new ApiaristArmorModule(EnumModuleTarget.ARMORONLY));
         }
 
         // Chisel
         if(isChiselLoaded()) {
             try {
-                ModuleManager.INSTANCE.addModule(new ChiselModule(Collections.singletonList((IModularItem) MPSItems.INSTANCE.powerFist)));
+                ModuleManager.INSTANCE.addModule(new ChiselModule(EnumModuleTarget.TOOLONLY));
             } catch(Exception e) {
                 MuseLogger.logException("Couldn't add Chisel module", e);
             }
@@ -220,16 +192,16 @@ public class ModCompatibility {
 
         // Applied Energistics
         if (isAppengLoaded()) {
-            ModuleManager.INSTANCE.addModule(new AppEngWirelessModule(Collections.singletonList((IModularItem) MPSItems.INSTANCE.powerFist)));
+            ModuleManager.INSTANCE.addModule(new AppEngWirelessModule(EnumModuleTarget.TOOLONLY));
 
             // Extra Cells 2
             if (isExtraCellsLoaded())
-                ModuleManager.INSTANCE.addModule(new AppEngWirelessFluidModule(Collections.singletonList((IModularItem) MPSItems.INSTANCE.powerFist)));
+                ModuleManager.INSTANCE.addModule(new AppEngWirelessFluidModule(EnumModuleTarget.TOOLONLY));
         }
 
         // Multi-Mod Compatible OmniProbe
         if (isEnderIOLoaded() || isMFRLoaded() || isRailcraftLoaded()) {
-            ModuleManager.INSTANCE.addModule(new OmniProbeModule(Collections.singletonList((IModularItem) MPSItems.INSTANCE.powerFist)));
+            ModuleManager.INSTANCE.addModule(new OmniProbeModule(EnumModuleTarget.TOOLONLY));
         }
 
         // TODO: on hold for now. Needs a conditional fiuld tank and handler. May not be worth it.
@@ -240,7 +212,7 @@ public class ModCompatibility {
 
 
         if (isRefinedStorageLoaded()) {
-            ModuleManager.INSTANCE.addModule(new RefinedStorageWirelessModule(Collections.singletonList((IModularItem) MPSItems.INSTANCE.powerFist)));
+            ModuleManager.INSTANCE.addModule(new RefinedStorageWirelessModule(EnumModuleTarget.TOOLONLY));
         }
 
 //        if (isScannableLoaded()) {

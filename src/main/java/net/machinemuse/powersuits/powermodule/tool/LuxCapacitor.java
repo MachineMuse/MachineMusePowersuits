@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.api.module.ModuleManager;
@@ -8,7 +9,6 @@ import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
@@ -22,8 +22,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
     public static final String MODULE_LUX_CAPACITOR = "Lux Capacitor";
     public static final String ENERGY = "Lux Capacitor Energy Consumption";
@@ -31,10 +29,10 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
     public static final String GREEN = "Lux Capacitor Green Hue";
     public static final String BLUE = "Lux Capacitor Blue Hue";
 
-    public LuxCapacitor(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(new ItemStack(Items.GLOWSTONE_DUST, 1));
-        addInstallCost(new ItemStack(Items.IRON_INGOT, 2));
+    public LuxCapacitor(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Items.GLOWSTONE_DUST, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Items.IRON_INGOT, 2));
         addBaseProperty(ENERGY, 100, "J");
         addTradeoffProperty("Red", RED, 1, "%");
         addTradeoffProperty("Green", GREEN, 1, "%");
@@ -42,8 +40,8 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_TOOL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_TOOL;
     }
 
     @Override

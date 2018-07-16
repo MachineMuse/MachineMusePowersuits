@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
@@ -26,16 +27,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
-
 public class HoeModule extends PowerModuleBase implements IPowerModule, IRightClickModule {
     public static final String MODULE_HOE = "Rototiller";
     public static final String HOE_ENERGY_CONSUMPTION = "Hoe Energy Consumption";
     public static final String HOE_SEARCH_RADIUS = "Hoe Search Radius";
 
-    public HoeModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
+    public HoeModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
 
         addBaseProperty(HOE_ENERGY_CONSUMPTION, 50);
         addTradeoffProperty("Search Radius", HOE_ENERGY_CONSUMPTION, 950);
@@ -107,8 +106,8 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_TOOL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_TOOL;
     }
 
     @Override

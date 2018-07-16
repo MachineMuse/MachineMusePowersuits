@@ -1,13 +1,12 @@
 package net.machinemuse.powersuits.powermodule.cosmetic;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
-
-import java.util.List;
 
 /**
  * Modular Powersuits by MachineMuse
@@ -16,13 +15,13 @@ import java.util.List;
 public class HighPolyArmor extends PowerModuleBase {
     public static final String HighPolyArmor = "3D Armor";
 
-    public HighPolyArmor(List<IModularItem> validItems) {
-        super(validItems);
+    public HighPolyArmor(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_COSMETIC;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_COSMETIC;
     }
 
     @Override

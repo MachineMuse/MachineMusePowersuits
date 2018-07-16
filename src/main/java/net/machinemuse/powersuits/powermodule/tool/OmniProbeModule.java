@@ -1,9 +1,11 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -22,8 +24,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Loader;
 
-import java.util.List;
-
 //import mrtjp.projectred.transmission.bundledwires.TWireCommons;
 
 /**
@@ -41,9 +41,9 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
     private ItemStack prDebugger;
 //    private ItemStack teMultimeter;
 
-    public OmniProbeModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 4));
+    public OmniProbeModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 4));
         ItemStack tHighest = new ItemStack(Items.COMPARATOR);
 
         if (ModCompatibility.isMFRLoaded()) {
@@ -66,12 +66,12 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
             conduitProbe = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("EnderIO", "itemConduitProbe")), 1);
             tHighest = conduitProbe;
         }
-        addInstallCost(tHighest);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), tHighest);
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_TOOL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_TOOL;
     }
 
     @Override

@@ -1,6 +1,8 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
 import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.common.config.NuminaConfig;
@@ -13,7 +15,6 @@ import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.machinemuse.powersuits.utils.MusePlayerUtils;
 import net.machinemuse.powersuits.utils.PlayerWeightUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -22,16 +23,14 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 
-import java.util.List;
-
 public class JetPackModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
     public static final String MODULE_JETPACK = "Jetpack";
     public static final String JET_ENERGY_CONSUMPTION = "Jetpack Energy Consumption";
     public static final String JET_THRUST = "Jetpack Thrust";
 
-    public JetPackModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 4));
+    public JetPackModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 4));
         addBaseProperty(JET_ENERGY_CONSUMPTION, 0, "J/t");
         addBaseProperty(JET_THRUST, 0, "N");
         addTradeoffProperty("Thrust", JET_ENERGY_CONSUMPTION, 150);
@@ -39,8 +38,8 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_MOVEMENT;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_MOVEMENT;
     }
 
     @Override

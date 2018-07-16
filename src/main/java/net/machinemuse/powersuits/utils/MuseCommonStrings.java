@@ -1,15 +1,14 @@
 package net.machinemuse.powersuits.utils;
 
-import net.machinemuse.numina.api.item.IModeChangingItem;
-import net.machinemuse.powersuits.api.electricity.adapter.ElectricAdapter;
 import net.machinemuse.numina.api.constants.NuminaNBTConstants;
+import net.machinemuse.numina.api.item.IModeChangingItem;
 import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.powersuits.api.electricity.adapter.ElectricAdapter;
 import net.machinemuse.powersuits.api.module.ModuleManager;
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.machinemuse.powersuits.item.ItemPowerFist;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -25,13 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class MuseCommonStrings {
-    /**
-     * String literals as constants to eliminate case sensitivity issues etc.
-     */
-    public static final String ARMOR_VALUE_PHYSICAL = "Armor (Physical)";
-    public static final String ARMOR_VALUE_ENERGY = "Armor (Energy)";
-    public static final String ARMOR_ENERGY_CONSUMPTION = "Energy Per Damage";
-    public static final String WEIGHT = "Weight";
+
 
     /**
      * Module names
@@ -117,7 +110,7 @@ public abstract class MuseCommonStrings {
     }
 
     public static double getTotalWeight(ItemStack stack) {
-        return ModuleManager.INSTANCE.computeModularProperty(stack, MuseCommonStrings.WEIGHT);
+        return ModuleManager.INSTANCE.computeModularProperty(stack, MPSModuleConstants.WEIGHT);
     }
 
     public static List<String> getItemInstalledModules(EntityPlayer player, ItemStack stack) {

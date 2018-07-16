@@ -1,10 +1,7 @@
 package net.machinemuse.powersuits.common.proxy;
 
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
-import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.powersuits.common.MPSGuiHandler;
-import net.machinemuse.powersuits.common.ModCompatibility;
-import net.machinemuse.powersuits.common.ModularPowersuits;
+import net.machinemuse.powersuits.common.*;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
@@ -37,11 +34,11 @@ import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
  */
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
-        File newConfig = new File(event.getModConfigurationDirectory() + "/machinemuse/powersuits.cfg");
-        Config.init(new Configuration(newConfig));
+//        File newConfig = new File(event.getModConfigurationDirectory() + "/machinemuse/powersuits.cfg");
+//        Config.init(new Configuration(newConfig));
 
 
-        Config.extractRecipes();
+//        Config.extractRecipes();
 
 
 
@@ -49,11 +46,10 @@ public class CommonProxy {
     }
 
     public void init(FMLInitializationEvent event) {
-        Config.loadPowerModules();
+        MPSModules.loadPowerModules();
 
 
-        Config.baseMaxHeat();
-        Config.useAdvancedOreScannerMessage(); // Fixme: obsolete
+//        Config.useAdvancedOreScannerMessage(); // Fixme: obsolete
 
 
 
@@ -69,8 +65,8 @@ public class CommonProxy {
 
     public void postInit(FMLPostInitializationEvent event) {
         ModCompatibility.registerModSpecificModules();
-        Config.addCustomInstallCosts();
-        Config.getConfig().save();
+//        Config.addCustomInstallCosts(); // Fixme: replace with similar function in MPSConfig
+//        Config.getConfig().save();
     }
 
     public void registerEvents(){

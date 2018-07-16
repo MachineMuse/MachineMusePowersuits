@@ -1,13 +1,12 @@
 package net.machinemuse.powersuits.powermodule.cosmetic;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
-
-import java.util.List;
 
 public class CosmeticGlowModule extends PowerModuleBase {
     public static final String MODULE_GLOW = "Glow Module";
@@ -15,8 +14,8 @@ public class CosmeticGlowModule extends PowerModuleBase {
     public static final String GREEN_GLOW = "Green Glow";
     public static final String BLUE_GLOW = "Blue Glow";
 
-    public CosmeticGlowModule(List<IModularItem> validItems) {
-        super(validItems);
+    public CosmeticGlowModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
         addTradeoffProperty("Red Glow", RED_GLOW, 1, "%");
         addTradeoffProperty("Green Glow", GREEN_GLOW, 1, "%");
         addTradeoffProperty("Blue Glow", BLUE_GLOW, 1, "%");
@@ -28,8 +27,8 @@ public class CosmeticGlowModule extends PowerModuleBase {
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_COSMETIC;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_COSMETIC;
     }
 
     @Override

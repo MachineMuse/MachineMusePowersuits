@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IBlockBreakingModule;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
@@ -43,10 +44,10 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
     private static final String SHEARING_ENERGY_CONSUMPTION = "Shearing Energy Consumption";
     private static final String SHEARING_HARVEST_SPEED = "Shearing Harvest Speed";
 
-    public ShearsModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(new ItemStack(Items.IRON_INGOT, 2));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
+    public ShearsModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(),new ItemStack(Items.IRON_INGOT, 2));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBaseProperty(SHEARING_ENERGY_CONSUMPTION, 50, "J");
         addBaseProperty(SHEARING_HARVEST_SPEED, 8, "x");
         addTradeoffProperty("Overclock", SHEARING_ENERGY_CONSUMPTION, 950);
@@ -54,8 +55,8 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_TOOL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_TOOL;
     }
 
     @Override

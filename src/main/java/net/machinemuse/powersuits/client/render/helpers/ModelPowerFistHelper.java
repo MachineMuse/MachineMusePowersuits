@@ -9,7 +9,6 @@ import com.google.common.collect.ImmutableMap;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.machinemuse.powersuits.client.helper.ModelHelper;
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.event.ModelBakeEventHandler;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;

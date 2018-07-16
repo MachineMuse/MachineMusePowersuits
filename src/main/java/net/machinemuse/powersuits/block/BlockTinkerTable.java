@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.block;
 
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.minecraft.block.BlockHorizontal;

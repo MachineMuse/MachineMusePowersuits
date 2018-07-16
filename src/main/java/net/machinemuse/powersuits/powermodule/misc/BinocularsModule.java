@@ -1,16 +1,16 @@
 package net.machinemuse.powersuits.powermodule.misc;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
-
-import java.util.List;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -22,16 +22,16 @@ public class BinocularsModule extends PowerModuleBase implements IToggleableModu
     public static final String BINOCULARS_MODULE = "Binoculars";
     public static final String FOV_MULTIPLIER = "Field of View";
 
-    public BinocularsModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.laserHologram, 1));
+    public BinocularsModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.laserHologram, 1));
         addBaseProperty(BinocularsModule.FOV_MULTIPLIER, 0.5);
         addTradeoffProperty("FOV multiplier", BinocularsModule.FOV_MULTIPLIER, 9.5, "%");
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_VISION;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_VISION;
     }
 
     @Override

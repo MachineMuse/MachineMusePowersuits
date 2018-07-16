@@ -1,9 +1,11 @@
-package net.machinemuse.powersuits.powermodule.armor;
+package net.machinemuse.powersuits.powermodule.movement;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -14,8 +16,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-import java.util.List;
-
 /**
  * Created by Eximius88 on 1/17/14.
  */
@@ -25,16 +25,16 @@ public class MechanicalAssistance extends PowerModuleBase implements IPlayerTick
     public static final String POWER_USAGE = "Power Usage";
 
 
-    public MechanicalAssistance(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.artificialMuscle, 4));
+    public MechanicalAssistance(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.artificialMuscle, 4));
         addTradeoffProperty(ASSISTANCE, POWER_USAGE, 500, " Joules/Tick");
-        addTradeoffProperty(ASSISTANCE, MuseCommonStrings.WEIGHT, -10000);
+        addTradeoffProperty(ASSISTANCE, MPSModuleConstants.WEIGHT, -10000);
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_ARMOR;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_ARMOR;
     }
 
     @Override

@@ -1,9 +1,11 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.MuseCommonStrings;
@@ -19,8 +21,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 /**
  * Created by User: Korynkai
  * 5:41 PM 2014-11-19
@@ -32,18 +32,18 @@ import java.util.List;
 public class PersonalShrinkingModule extends PowerModuleBase implements IRightClickModule, IPlayerTickModule {
     public static final String MODULE_CM_PSD = "Personal Shrinking Device";
     private final ItemStack cpmPSD = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("cm2", "psd")), 1);
-    public PersonalShrinkingModule(List<IModularItem> validItems) {
-        super(validItems);
+    public PersonalShrinkingModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
         NBTTagCompound nbt = new NBTTagCompound();
         nbt.setInteger("fluid", 4000);
         cpmPSD.setTagCompound(nbt);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 4));
-        addInstallCost(cpmPSD);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 4));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), cpmPSD);
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_TOOL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_TOOL;
     }
 
     @Override

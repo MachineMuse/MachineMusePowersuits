@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IBlockBreakingModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
@@ -21,21 +22,19 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
-import java.util.List;
-
 public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
     public static final String MODULE_DIAMOND_PICK_UPGRADE = "Diamond Drill Upgrade";
     public static final ItemStack emulatedTool = new ItemStack(Items.DIAMOND_PICKAXE);
 
-    public DiamondPickUpgradeModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
-        addInstallCost(new ItemStack(Items.DIAMOND, 3));
+    public DiamondPickUpgradeModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Items.DIAMOND, 3));
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_SPECIAL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_SPECIAL;
     }
 
     @Override

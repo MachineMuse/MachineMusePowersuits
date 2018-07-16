@@ -105,7 +105,7 @@ public class ModuleSelectionFrame extends ScrollableFrame {
             if (workingModules.size() > 0) {
                 this.selectedModule = -1;
                 for (IPowerModule module : workingModules) {
-                    ModuleSelectionSubFrame frame = getOrCreateCategory(module.getCategory());
+                    ModuleSelectionSubFrame frame = getOrCreateCategory(module.getCategory().getName());
                     ClickableModule moduleClickable = frame.addModule(module);
                     // Indicate installed modules
                     if (!module.isAllowed()) {

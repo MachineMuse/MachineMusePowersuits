@@ -47,7 +47,7 @@ package net.machinemuse.powersuits.powermodule.tool;// package andrew.powersuits
 // public static final String MODULE_OC_TERMINAL = "OC Terminal";
 // private ItemStack terminal;
 //
-// public OCTerminalModule(List<IModularItem> validItems) {
+// public OCTerminalModule(((EnumModuleTarget moduleTarget))) {
 //         super(validItems);
 //         addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 4));
 //         terminal = API.items.get("terminal").createItemStack(1);

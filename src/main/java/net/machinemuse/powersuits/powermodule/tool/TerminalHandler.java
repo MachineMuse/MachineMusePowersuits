@@ -11,6 +11,7 @@ import extracells.api.ECApi;
 import extracells.api.IWirelessFluidTermHandler;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.common.ModCompatibility;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -43,8 +44,8 @@ public class TerminalHandler implements
     @Optional.Method(modid = "appliedenergistics2")
     @Override
     public boolean usePower(EntityPlayer entityPlayer, double v, @Nonnull ItemStack itemStack) {
-        if ((v * ModCompatibility.getAE2Ratio()) < (ElectricItemUtils.getPlayerEnergy(entityPlayer) * ModCompatibility.getAE2Ratio())) {
-            ElectricItemUtils.drainPlayerEnergy(entityPlayer, (v * ModCompatibility.getAE2Ratio()));
+        if ((v * MPSConfig.INSTANCE.getAE2Ratio()) < (ElectricItemUtils.getPlayerEnergy(entityPlayer) * MPSConfig.INSTANCE.getAE2Ratio())) {
+            ElectricItemUtils.drainPlayerEnergy(entityPlayer, (v * MPSConfig.INSTANCE.getAE2Ratio()));
             return true;
         }
         return false;
@@ -53,7 +54,7 @@ public class TerminalHandler implements
     @Optional.Method(modid = "appliedenergistics2")
     @Override
     public boolean hasPower(EntityPlayer entityPlayer, double v, @Nonnull ItemStack itemStack) {
-        return ((v * ModCompatibility.getAE2Ratio()) < (ElectricItemUtils.getPlayerEnergy(entityPlayer) * ModCompatibility.getAE2Ratio()));
+        return ((v * MPSConfig.INSTANCE.getAE2Ratio()) < (ElectricItemUtils.getPlayerEnergy(entityPlayer) * MPSConfig.INSTANCE.getAE2Ratio()));
     }
 
     @Optional.Method(modid = "extracells")

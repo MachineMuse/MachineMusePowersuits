@@ -1,12 +1,12 @@
 package net.machinemuse.powersuits.powermodule.misc;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -23,26 +23,24 @@ import net.minecraft.util.FoodStats;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
-
 public class AutoFeederModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
     public static final String MODULE_AUTO_FEEDER = "Auto-Feeder";
     public static final String EATING_ENERGY_CONSUMPTION = "Eating Energy Consumption";
     public static final String EATING_EFFICIENCY = "Auto-Feeder Efficiency";
 
-    public AutoFeederModule(List<IModularItem> validItems) {
-        super(validItems);
+    public AutoFeederModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
         addBaseProperty(EATING_ENERGY_CONSUMPTION, 100);
         addBaseProperty(EATING_EFFICIENCY, 50);
         addTradeoffProperty("Efficiency", EATING_ENERGY_CONSUMPTION, 100);
         addTradeoffProperty("Efficiency", EATING_EFFICIENCY, 50);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_ENVIRONMENTAL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_ENVIRONMENTAL;
     }
 
     @Override

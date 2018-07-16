@@ -22,7 +22,7 @@
 //
 //    public static final String MODULE_SONIC_WEAPON = "Sonic Weapon";
 //
-//    public SonicWeaponModule(List<IModularItem> validItems) {
+//    public SonicWeaponModule(EnumModuleTarget moduleTarget) { {
 //        super(validItems);
 //    }
 //

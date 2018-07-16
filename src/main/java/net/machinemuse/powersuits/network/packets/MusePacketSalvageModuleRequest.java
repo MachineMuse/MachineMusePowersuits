@@ -1,12 +1,12 @@
 package net.machinemuse.powersuits.network.packets;
 
+import io.netty.buffer.ByteBufInputStream;
 import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.module.ModuleManager;
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -14,7 +14,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 
-import java.io.DataInputStream;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -56,7 +55,7 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
             InventoryPlayer inventory = player.inventory;
             ItemStack stack = player.inventory.getStackInSlot(itemSlot);
             IPowerModule moduleType = ModuleManager.INSTANCE.getModule(moduleName);
-            NonNullList<ItemStack> refund = moduleType.getInstallCost();
+            NonNullList<ItemStack> refund = ModuleManager.INSTANCE.getInstallCost(moduleName);
             if (ModuleManager.INSTANCE.itemHasModule(stack, moduleName)) {
                 Set<Integer> slots = new HashSet<>();
                 ModuleManager.INSTANCE.removeModule(stack, moduleName);
@@ -82,7 +81,7 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
         INSTANCE;
 
         @Override
-        public MusePacket read(DataInputStream datain, EntityPlayer player) {
+        public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
             int itemSlot = readInt(datain);
             String moduleName = readString(datain);
             return new MusePacketSalvageModuleRequest(player, itemSlot, moduleName);

@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IBlockBreakingModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.module.ModuleManager;
@@ -21,8 +22,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
-import java.util.List;
-
 /**
  * Created by User: Sergey Popov aka Pinkbyte
  * Date: 9/08/15
@@ -34,17 +33,17 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
     public static final String SCOOP_ENERGY_CONSUMPTION = "Scoop Energy Consumption";
     public static final ItemStack emulatedTool = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("forestry", "scoop")), 1);
 
-    public ScoopModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(emulatedTool);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
+    public ScoopModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(),emulatedTool);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBaseProperty(SCOOP_ENERGY_CONSUMPTION, 2000, "J");
         addBaseProperty(SCOOP_HARVEST_SPEED, 5, "x");
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_TOOL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_ARMOR.CATEGORY_TOOL;
     }
 
     @Override

@@ -1,8 +1,10 @@
-package net.machinemuse.powersuits.powermodule.armor;
+package net.machinemuse.powersuits.powermodule.environmental;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -19,8 +21,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.MathHelper;
 
-import java.util.List;
-
 /**
  * Created by User: Andrew2448
  * 4:35 PM 6/21/13
@@ -31,17 +31,17 @@ public class WaterTankModule extends PowerModuleBase implements IPlayerTickModul
     public static final String ACTIVATION_PERCENT = "Heat Activation Percent";
     final ItemStack bucketWater = new ItemStack(Items.WATER_BUCKET);
 
-    public WaterTankModule(List<IModularItem> validItems) {
-        super(validItems);
+    public WaterTankModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
         addBaseProperty(WATER_TANK_SIZE, 200);
-        addBaseProperty(MuseCommonStrings.WEIGHT, 1000);
+        addBaseProperty(MPSModuleConstants.WEIGHT, 1000);
         addBaseProperty(ACTIVATION_PERCENT, 0.5);
         addTradeoffProperty("Activation Percent", ACTIVATION_PERCENT, 0.5, "%");
         addTradeoffProperty("Tank Size", WATER_TANK_SIZE, 800, " buckets");
-        addTradeoffProperty("Tank Size", MuseCommonStrings.WEIGHT, 4000, "g");
-        addInstallCost(bucketWater);
-        addInstallCost(new ItemStack(Blocks.GLASS, 8));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 2));
+        addTradeoffProperty("Tank Size", MPSModuleConstants.WEIGHT, 4000, "g");
+        ModuleManager.INSTANCE.addInstallCost(getDataName(),bucketWater);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(),new ItemStack(Blocks.GLASS, 8));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 2));
     }
 
     @Override
@@ -50,8 +50,8 @@ public class WaterTankModule extends PowerModuleBase implements IPlayerTickModul
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_ENVIRONMENTAL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_ENVIRONMENTAL;
     }
 
     @Override

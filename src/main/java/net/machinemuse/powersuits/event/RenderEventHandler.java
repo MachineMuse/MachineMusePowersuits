@@ -11,7 +11,6 @@ import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
 import net.machinemuse.powersuits.client.helper.ModelHelper;
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.powermodule.misc.BinocularsModule;

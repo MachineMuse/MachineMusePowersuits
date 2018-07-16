@@ -1,16 +1,18 @@
 package net.machinemuse.powersuits.powermodule;
 
-import net.machinemuse.numina.api.nbt.IPropertyModifier;
 import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPowerModule;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.numina.api.nbt.IPropertyModifier;
 import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.powersuits.common.config.MPSConfig;
+import net.machinemuse.powersuits.item.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.NonNullList;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,29 +21,26 @@ import java.util.Map;
 import static net.machinemuse.numina.api.constants.NuminaNBTConstants.TAG_ONLINE;
 
 public abstract class PowerModuleBase implements IPowerModule {
-    protected NonNullList<ItemStack> defaultInstallCost;
-    protected List<IModularItem> validItems;
+    EnumModuleTarget moduleTarget;
     protected Map<String, List<IPropertyModifier>> propertyModifiers;
     protected static Map<String, String> units = new HashMap<>();
     protected NBTTagCompound defaultTag;
     protected boolean isAllowed;
 
-    public PowerModuleBase(String name, List<IModularItem> validItems) {
-        this.validItems = validItems;
-        this.defaultInstallCost = NonNullList.create();
+    public PowerModuleBase(String dataNameIn, EnumModuleTarget moduleTargetIn) {
+        this.moduleTarget = moduleTargetIn;
         this.propertyModifiers = new HashMap();
         this.defaultTag = new NBTTagCompound();
         this.defaultTag.setBoolean(TAG_ONLINE, true);
-        this.isAllowed = Config.getConfig().get("Modules", name, true).getBoolean(true);
+        this.isAllowed = MPSConfig.INSTANCE.getModuleAllowedorDefault(dataNameIn, true);
     }
 
-    public PowerModuleBase(List<IModularItem> validItems) {
-        this.validItems = validItems;
-        this.defaultInstallCost = NonNullList.create();
+    public PowerModuleBase(EnumModuleTarget moduleTargetIn) {
+        this.moduleTarget = moduleTargetIn;
         this.propertyModifiers = new HashMap();
         this.defaultTag = new NBTTagCompound();
         this.defaultTag.setBoolean(TAG_ONLINE, true);
-        this.isAllowed = Config.getConfig().get("Modules", getDataName(), true).getBoolean(true);
+        this.isAllowed = this.isAllowed = MPSConfig.INSTANCE.getModuleAllowedorDefault(getDataName(), true);
     }
 
     public static String getUnit(String propertyName) {
@@ -50,26 +49,35 @@ public abstract class PowerModuleBase implements IPowerModule {
     }
 
     @Override
+    public EnumModuleTarget getTarget() {
+        return this.moduleTarget;
+    }
+
+    @Override
     public abstract TextureAtlasSprite getIcon(ItemStack item);
 
     @Override
-    public NonNullList<ItemStack> getInstallCost() {
-        if(ModuleManager.INSTANCE.hasCustomInstallCost(this.getDataName())) {
-            return ModuleManager.INSTANCE.getCustomInstallCost(this.getDataName());
-        } else {
-            return defaultInstallCost;
-        }
-    }
-
-    public PowerModuleBase addInstallCost(ItemStack stack) {
-        this.defaultInstallCost.add(stack);
-        return this;
-    }
-
-    @Override
-    public boolean isValidForItem(ItemStack stack) {
+    public boolean isValidForItem(@Nonnull ItemStack stack) {
+        if (stack.isEmpty() || !(stack.getItem() instanceof IModularItem))
+            return false;
         Item item = stack.getItem();
-        return item instanceof IModularItem && this.validItems.contains(item);
+        switch (getTarget()) {
+            case ALLITEMS:
+                return true;
+            case TOOLONLY:
+                return item instanceof ItemPowerFist;
+            case ARMORONLY:
+                return item instanceof ItemPowerArmor;
+            case HEADONLY:
+                return item instanceof ItemPowerArmorHelmet;
+            case TORSOONLY:
+                return item instanceof ItemPowerArmorChestplate;
+            case LEGSONLY:
+                return item instanceof ItemPowerArmorLeggings;
+            case FEETONLY:
+                return item instanceof ItemPowerArmorBoots;
+        }
+        return false;
     }
 
     @Override
@@ -104,17 +112,15 @@ public abstract class PowerModuleBase implements IPowerModule {
     }
 
     public PowerModuleBase addTradeoffProperty(String tradeoffName, String propertyName, double multiplier) {
-        double propFromConfig = Config.getConfig().get("Properties", getDataName() + '.' + propertyName + '.' + tradeoffName + ".multiplier", multiplier)
-                .getDouble(multiplier);
+        String key = new StringBuilder(getDataName()).append('.').append(propertyName).append('.').append(tradeoffName).append(".multiplier").toString();
+        double propFromConfig = MPSConfig.INSTANCE.getPropertyDoubleOrDefault(key, multiplier);
         return addPropertyModifier(propertyName, new PropertyModifierLinearAdditive(tradeoffName, propFromConfig));
     }
 
     public PowerModuleBase addTradeoffProperty(String tradeoffName, String propertyName, double multiplier, String unit) {
-        double propFromConfig = Config.getConfig().get("Properties", getDataName() + '.' + propertyName + '.' + tradeoffName + ".multiplier", multiplier)
-                .getDouble(multiplier);
         units.put(propertyName, unit);
-        return addPropertyModifier(propertyName, new PropertyModifierLinearAdditive(tradeoffName, propFromConfig));
-    }
+        return addTradeoffProperty(tradeoffName, propertyName, multiplier);
+        }
 
     public PowerModuleBase addPropertyModifier(String propertyName, IPropertyModifier modifier) {
         List<IPropertyModifier> modifiers = propertyModifiers.get(propertyName);
@@ -138,14 +144,14 @@ public abstract class PowerModuleBase implements IPowerModule {
     }
 
     public PowerModuleBase addBaseProperty(String propertyName, double baseVal) {
-        double propFromConfig = Config.getConfig().get("Properties", getDataName() + '.' + propertyName + ".base", baseVal).getDouble(baseVal);
+        String key = new StringBuilder(getDataName()).append('.').append(propertyName).append(".base").toString();
+        double propFromConfig = MPSConfig.INSTANCE.getPropertyDoubleOrDefault(key, baseVal);
         return addPropertyModifier(propertyName, new PropertyModifierFlatAdditive(propFromConfig));
     }
 
     public PowerModuleBase addBaseProperty(String propertyName, double baseVal, String unit) {
-        double propFromConfig = Config.getConfig().get("Properties", getDataName() + '.' + propertyName + ".base", baseVal).getDouble(baseVal);
         units.put(propertyName, unit);
-        return addPropertyModifier(propertyName, new PropertyModifierFlatAdditive(propFromConfig));
+        return addBaseProperty(propertyName, baseVal);
     }
 
     public boolean equals(PowerModuleBase other) {

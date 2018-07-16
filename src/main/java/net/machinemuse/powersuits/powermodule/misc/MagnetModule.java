@@ -1,9 +1,11 @@
 package net.machinemuse.powersuits.powermodule.misc;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -33,12 +35,12 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
 
     public static final String MAGNET_RADIUS = "Magnet Radius";
 
-    public MagnetModule(List<IModularItem> validItems) {
-        super(validItems);
-        addBaseProperty(MuseCommonStrings.WEIGHT, 1000);
+    public MagnetModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        addBaseProperty(MPSModuleConstants.WEIGHT, 1000);
         addBaseProperty(MAGNET_RADIUS, 5);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.magnet, 2));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.magnet, 2));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         addBaseProperty(MAGNET_ENERGY_CONSUMPTION, 200);
         addIntTradeoffProperty(MAGNET_RADIUS, MAGNET_RADIUS, 10, "m", 1, 0);
     }
@@ -49,8 +51,8 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_SPECIAL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_SPECIAL;
     }
 
     @Override

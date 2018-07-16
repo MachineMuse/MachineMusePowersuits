@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.powermodule.misc;
 
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
@@ -16,24 +17,22 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-import java.util.List;
-
 public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
     public static final String MODULE_COOLING_SYSTEM = "Cooling System";
     public static final String COOLING_BONUS = "Cooling Bonus";
     public static final String ENERGY = "Cooling System Energy Consumption";
 
-    public CoolingSystemModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(new ItemStack(Items.ENDER_EYE, 4));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
+    public CoolingSystemModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Items.ENDER_EYE, 4));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         addTradeoffProperty("Power", COOLING_BONUS, 4, "%");
         addTradeoffProperty("Power", ENERGY, 10, "J/t");
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_ENVIRONMENTAL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_ENVIRONMENTAL;
     }
 
     @Override
