@@ -190,6 +190,7 @@ public class PartSpecManipSubFrame {
 
     public void drawSpecPartial(double x, double y, PartSpecBase partSpec, double ymino, double ymaxo) {
         NBTTagCompound tag = this.getSpecTag(partSpec);
+
         int selcomp = tag.hasNoTags() ? 0 : (partSpec instanceof ModelPartSpec && ((ModelPartSpec) partSpec).getGlow(tag) ? 2 : 1);
         int selcolour = partSpec.getColourIndex(tag);
         new GuiIcons.TransparentArmor(x, y, null, null, ymino, null, ymaxo);
@@ -209,6 +210,7 @@ public class PartSpecManipSubFrame {
 
         if (selcomp > 0)
             new GuiIcons.SelectedArmorOverlay(x + 28 + selcolour * 8, y, null, null, ymino, null, ymaxo);
+
         MuseRenderer.drawString(partSpec.getDisaplayName(), textstartx + 4, y);
     }
 

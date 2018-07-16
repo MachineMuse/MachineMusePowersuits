@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.client.render.modelspec;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.ItemPowerArmor;
 import net.machinemuse.powersuits.item.ItemPowerFist;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -111,8 +112,12 @@ public class DefaultModelSpec {
                         if (partSpec.binding.getSlot() == slot) {
                             // if high poly armor model and is allowed
                             if (spec.getSpecType().equals(EnumSpecType.ARMOR_MODEL) &&
-                                    ModuleManager.INSTANCE.itemHasActiveModule(stack, MODULE_HIGH_POLY_ARMOR) /* &&
-                                    MPSConfig.INSTANCE.allowHighPollyArmorModels() */) {
+                                    // FIXME: cosmetic modules to be phased out.
+//                                    ModuleManager.INSTANCE.itemHasActiveModule(stack, MODULE_HIGH_POLY_ARMOR)
+                                    MPSConfig.INSTANCE.allowHighPollyArmorModels() ) {
+
+
+
                                 if (partSpec.binding.getItemState().equals("all") ||
                                         (partSpec.binding.getItemState().equals("jetpack") &&
                                                 ModuleManager.INSTANCE.itemHasModule(stack, MODULE_JETPACK))) {

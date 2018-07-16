@@ -19,8 +19,10 @@ public abstract class PartSpecBase {
         this.spec = spec;
         this.partName = partName;
         this.binding = binding;
-        this.defaultcolourindex = (defaultcolourindex != null) ? defaultcolourindex : 0;
-//        this.displayName = displayName; // use translation file
+        if (defaultcolourindex != null && defaultcolourindex >= 0)
+            this.defaultcolourindex =  defaultcolourindex;
+        else
+            this.defaultcolourindex = 0;
     }
 
     public SpecBinding getBinding() {
