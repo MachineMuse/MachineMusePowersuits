@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.client.gui.hud;
 
-import net.machinemuse.numina.render.RenderState;
+import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import org.lwjgl.opengl.GL11;

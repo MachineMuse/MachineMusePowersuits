@@ -16,7 +16,7 @@ public class HazmatModule extends PowerModuleBase {
 
     public HazmatModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.basicPlating, 3));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.ironPlating, 3));
         addBaseProperty(MPSModuleConstants.WEIGHT, 0.5);
     }
 

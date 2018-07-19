@@ -4,8 +4,8 @@ import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.machinemuse.powersuits.item.ItemPowerArmor;
-import net.machinemuse.powersuits.item.ItemPowerFist;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
+import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,7 +18,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.machinemuse.powersuits.api.constants.MPSModuleConstants.MODULE_HIGH_POLY_ARMOR;
 import static net.machinemuse.powersuits.powermodule.movement.JetPackModule.MODULE_JETPACK;
 
 /**

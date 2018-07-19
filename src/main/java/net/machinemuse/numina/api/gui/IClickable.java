@@ -5,7 +5,6 @@ import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import java.util.List;
 
 public interface IClickable {
-
 	void draw();
 
 	void move(double x, double y);

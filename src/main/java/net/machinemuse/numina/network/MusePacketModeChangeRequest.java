@@ -15,7 +15,7 @@ import java.util.List;
  *
  * Ported to Java by lehjr on 11/14/16.
  */
-public class MusePacketModeChangeRequest extends MusePacket {
+public final class MusePacketModeChangeRequest extends MusePacket {
     String mode;
     int slot;
 

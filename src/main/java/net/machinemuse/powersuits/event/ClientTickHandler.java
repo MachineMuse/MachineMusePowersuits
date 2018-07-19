@@ -14,9 +14,9 @@ import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableKeybindin
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.control.PlayerInputMap;
-import net.machinemuse.powersuits.item.ItemPowerArmorChestplate;
-import net.machinemuse.powersuits.item.ItemPowerArmorHelmet;
-import net.machinemuse.powersuits.item.ItemPowerFist;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorHelmet;
+import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
 import net.machinemuse.powersuits.powermodule.environmental.WaterTankModule;
 import net.machinemuse.powersuits.powermodule.misc.AutoFeederModule;

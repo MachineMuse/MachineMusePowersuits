@@ -87,4 +87,9 @@ public class MusePoint2D {
     public MusePoint2D copy() {
         return new MusePoint2D(this.x(), this.y());
     }
+
+    @Override
+    public String toString() {
+        return String.format("x: " + x + ", y: " + y);
+    }
 }

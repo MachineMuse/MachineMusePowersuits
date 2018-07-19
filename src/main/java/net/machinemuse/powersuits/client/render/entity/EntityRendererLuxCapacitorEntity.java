@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.client.render.entity;
 
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
-import net.machinemuse.powersuits.client.render.model.ModelLuxCapacitor;
+import net.machinemuse.powersuits.client.model.block.ModelLuxCapacitor;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.client.Minecraft;

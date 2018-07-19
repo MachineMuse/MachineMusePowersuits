@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.client.gui.hud;
 
-import net.machinemuse.numina.render.MuseIconUtils;
-import net.machinemuse.numina.render.MuseTextureUtils;
-import net.machinemuse.numina.render.RenderState;
+import net.machinemuse.numina.client.render.MuseIconUtils;
+import net.machinemuse.numina.client.render.MuseTextureUtils;
+import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.minecraft.client.Minecraft;

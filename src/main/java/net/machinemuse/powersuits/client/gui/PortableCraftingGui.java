@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.client.gui;
 
-import net.machinemuse.powersuits.client.gui.tinker.frame.PortableCraftingContainer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;

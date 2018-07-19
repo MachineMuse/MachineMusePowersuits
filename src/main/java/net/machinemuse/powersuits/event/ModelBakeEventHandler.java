@@ -2,9 +2,9 @@ package net.machinemuse.powersuits.event;
 
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.machinemuse.powersuits.client.helper.ModelHelper;
-import net.machinemuse.powersuits.client.render.model.ArmorIcon;
-import net.machinemuse.powersuits.client.render.model.ModelLuxCapacitor;
-import net.machinemuse.powersuits.client.render.model.ModelPowerFist;
+import net.machinemuse.powersuits.client.model.item.ArmorIcon;
+import net.machinemuse.powersuits.client.model.block.ModelLuxCapacitor;
+import net.machinemuse.powersuits.client.model.item.ModelPowerFist;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -28,7 +28,8 @@ public enum ModelBakeEventHandler {
     private static IRegistry<ModelResourceLocation, IBakedModel> modelRegistry;
     //FIXME there may only be one run. 2 runs not a guarantee
     private static boolean firstLoad = Boolean.parseBoolean(System.getProperty("fml.skipFirstModelBake", "true"));
-    public static final ModelResourceLocation powerFistIconLocation = new ModelResourceLocation(MPSResourceConstants.RESOURCE_PREFIX + "powerTool", "inventory");
+    public static final ModelResourceLocation powerFistIconLocation = new ModelResourceLocation(MPSItems.INSTANCE.powerFist.getRegistryName().toString(), "inventory");
+
     public static IBakedModel powerFistIconModel;
 
     // Armor icons
@@ -50,7 +51,7 @@ public enum ModelBakeEventHandler {
 
         // Power Fist
         powerFistIconModel = modelRegistry.getObject(powerFistIconLocation);
-        modelRegistry.putObject(powerFistIconLocation, ModelPowerFist.getInstance());
+        modelRegistry.putObject(powerFistIconLocation, new ModelPowerFist(powerFistIconModel));
 
         // set up armor icon models for coloring because that's how it used to work
         IBakedModel powerArmorHeadModel = modelRegistry.getObject(powerArmorHeadModelLocation);

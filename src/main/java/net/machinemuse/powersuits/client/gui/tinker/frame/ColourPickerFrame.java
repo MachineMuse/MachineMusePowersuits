@@ -8,7 +8,7 @@ import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRect;
 import net.machinemuse.powersuits.client.gui.GuiIcons;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableSlider;
-import net.machinemuse.powersuits.item.ItemPowerArmor;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.network.packets.MusePacketColourInfo;
 import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.client.Minecraft;

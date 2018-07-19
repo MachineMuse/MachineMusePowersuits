@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.client.render.entity;
 
-import net.machinemuse.numina.render.MuseTextureUtils;
+import net.machinemuse.numina.client.render.MuseTextureUtils;
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;

@@ -23,14 +23,11 @@ public class ItemComponent extends Item {
     public static ItemComponent getInstance() {
         if (INSTANCE == null) {
             synchronized (ItemComponent.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new ItemComponent();
-                }
+                if (INSTANCE == null) INSTANCE = new ItemComponent();
             }
         }
         return INSTANCE;
     }
-
 
     public static Map<Integer, String> descriptions = new HashMap<>();
     public static Map<Integer, String> names = new HashMap<>();
@@ -45,8 +42,8 @@ public class ItemComponent extends Item {
     public static ItemStack mvcapacitor;
     public static ItemStack hvcapacitor;
     public static ItemStack evcapacitor;
-    public static ItemStack basicPlating;
-    public static ItemStack advancedPlating;
+    public static ItemStack ironPlating;
+    public static ItemStack diamonddPlating;
     public static ItemStack fieldEmitter;
     public static ItemStack laserHologram;
     public static ItemStack carbonMyofiber;
@@ -56,7 +53,7 @@ public class ItemComponent extends Item {
     public static ItemStack magnet;
     public static ItemStack solarPanel;
     public static ItemStack computerChip;
-    public static ItemStack liquidNitrogen;
+    public static ItemStack liquidNitrogen; // FIXME
     public static ItemStack rubberHose;
 
     private ItemComponent() {
@@ -66,7 +63,6 @@ public class ItemComponent extends Item {
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setCreativeTab(MPSConfig.INSTANCE.getCreativeTab());
-//        this.setCreativeTab(MPSConfig.INSTANCE.getCreativeTab());
         this.populate();
     }
 
@@ -109,8 +105,8 @@ public class ItemComponent extends Item {
         hvcapacitor = addComponent(7, "componentHVCapacitor", "A synthetic crystal device which can store and release massive amounts of energy.");
         evcapacitor = addComponent(8, "componentEVCapacitor", "The most advanced energy storage device ever created. Now 15% less likely to randomly explode!");
         parachute = addComponent(9, "componentParachute", "A simple reusable parachute which can be deployed and recovered in midair.");
-        basicPlating = addComponent(10, "componentPlatingBasic", "Some carefully-arranged metal armor plates.");
-        advancedPlating = addComponent(11, "componentPlatingAdvanced", "Some carefully-arranged armor plates of a rare and stronger material");
+        ironPlating = addComponent(10, "componentPlatingIron", "Some carefully-arranged metal armor plates.");
+        diamonddPlating = addComponent(11, "componentPlatingDiamond", "Some carefully-arranged armor plates of a rare and stronger material");
         fieldEmitter = addComponent(12, "componentFieldEmitter", "An advanced device which directly manipulates electromagnetic and gravitational fields in an area.");
         laserHologram = addComponent(13, "componentLaserEmitter", "A multicoloured laser array which can cheaply alter the appearance of something.");
         carbonMyofiber = addComponent(14,"componentCarbonMyofiber", "A small bundle of carbon fibers, refined for use in artificial muscles.");
@@ -133,7 +129,7 @@ public class ItemComponent extends Item {
             unlocalizedName = "";
 
         return "item.powerArmorComponent." + unlocalizedName;
-    }
+   }
 
     /**
      * returns a list of items with the same ID, but different meta (eg: dye

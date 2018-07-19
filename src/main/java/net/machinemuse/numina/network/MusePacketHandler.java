@@ -62,8 +62,6 @@ public final class MusePacketHandler extends MessageToMessageCodec<FMLProxyPacke
             }
     }
 
-
-
     public void encode(ChannelHandlerContext ctx, MusePacket msg, List<Object> out) {
         try {
             out.add(msg.getFMLProxyPacket());
@@ -78,7 +76,6 @@ public final class MusePacketHandler extends MessageToMessageCodec<FMLProxyPacke
     }
 
     public void decode(ChannelHandlerContext ctx, FMLProxyPacket msg, List<Object> out) {
-        //        DataInputStream data = new DataInputStream((InputStream)new ByteBufInputStream(msg.payload()));
         ByteBufInputStream data = new ByteBufInputStream(msg.payload());
         INetHandler handler = msg.handler();
         try {

@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.common.proxy;
 import api.player.model.ModelPlayerAPI;
 import net.machinemuse.powersuits.client.event.EventRegisterRenderers;
 import net.machinemuse.powersuits.client.model.obj.OBJPlusLoader;
-import net.machinemuse.powersuits.client.render.item.SMovingArmorModel;
+import net.machinemuse.powersuits.client.model.item.armor.SMovingArmorModel;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.common.config.MPSConfig;

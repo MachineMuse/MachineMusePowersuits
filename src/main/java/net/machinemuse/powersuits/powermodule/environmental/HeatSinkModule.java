@@ -19,7 +19,7 @@ public class HeatSinkModule extends PowerModuleBase {
 
     public HeatSinkModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.basicPlating, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.ironPlating, 1));
         addTradeoffProperty(THICKNESS, MPSModuleConstants.WEIGHT, 5000, "g");
         addTradeoffProperty(THICKNESS, MuseHeatUtils.MAXIMUM_HEAT, 150, "");
     }
