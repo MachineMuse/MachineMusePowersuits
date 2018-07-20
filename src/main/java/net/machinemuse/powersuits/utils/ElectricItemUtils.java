@@ -12,9 +12,6 @@ import java.util.List;
  * Ported to Java by lehjr on 10/18/16.
  */
 public class ElectricItemUtils {
-    public static final String MAXIMUM_ENERGY = "Maximum Energy";
-    public static final String CURRENT_ENERGY = "Current Energy";
-
     public static List<ElectricAdapter> electricItemsEquipped(EntityPlayer player) {
         List<ElectricAdapter> electrics = new ArrayList<>();
         for (int i  = 0; i < player.inventory.getSizeInventory(); i++) {

@@ -52,12 +52,6 @@ public interface IModularItemBase extends IModularItem, IMuseElectricItem {
         return string + '\t' + MuseStringUtils.formatNumberShort(value);
     }
 
-//    @SideOnly(Side.CLIENT)
-//    @Override
-//    default String getToolTip(ItemStack itemStack) {
-//        return itemStack.getTooltip(Minecraft.getMinecraft().player, ITooltipFlag.TooltipFlags.NORMAL).toString();
-//    }
-
     default double getArmorDouble(EntityPlayer player, ItemStack stack) {
         return 0;
     }

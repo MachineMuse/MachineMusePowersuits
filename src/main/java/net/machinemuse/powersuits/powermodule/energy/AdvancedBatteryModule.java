@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.powermodule.energy;
 
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
@@ -20,9 +21,9 @@ public class AdvancedBatteryModule extends PowerModuleBase {
     public AdvancedBatteryModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.mvcapacitor, 1));
-        addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 100000, "J");
+        addBaseProperty(NuminaNBTConstants.MAXIMUM_ENERGY, 100000, "J");
         addBaseProperty(MPSModuleConstants.WEIGHT, 2000, "g");
-        addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 400000);
+        addTradeoffProperty("Battery Size", NuminaNBTConstants.MAXIMUM_ENERGY, 400000);
         addTradeoffProperty("Battery Size", MPSModuleConstants.WEIGHT, 8000);
         addBaseProperty(ElectricConversions.IC2_TIER, 1);
         addTradeoffProperty("IC2 Tier", ElectricConversions.IC2_TIER, 2);

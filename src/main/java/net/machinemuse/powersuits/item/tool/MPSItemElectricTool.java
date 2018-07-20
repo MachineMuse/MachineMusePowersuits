@@ -3,8 +3,10 @@ package net.machinemuse.powersuits.item.tool;
 //import appeng.api.config.AccessRestriction;
 
 import com.google.common.collect.Sets;
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.powersuits.api.electricity.adapter.IMuseElectricItem;
 import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.item.IModularItemBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.block.Block;
@@ -14,6 +16,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.world.World;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -25,7 +29,7 @@ import java.util.Set;
 /**
  * Ported to Java by lehjr on 11/4/16.
  */
-public class MPSItemElectricTool extends ItemTool implements IMuseElectricItem {
+public class MPSItemElectricTool extends ItemTool implements IModularItemBase, IMuseElectricItem {
     public static final Set<Block> blocksEffectiveOn = Sets.newHashSet(new Block[] {
             Blocks.COBBLESTONE, Blocks.DOUBLE_STONE_SLAB, Blocks.STONE_SLAB, Blocks.STONE_SLAB2, Blocks.STONE, Blocks.SANDSTONE,
             Blocks.MOSSY_COBBLESTONE, Blocks.IRON_ORE, Blocks.IRON_BLOCK, Blocks.COAL_ORE, Blocks.GOLD_BLOCK, Blocks.GOLD_ORE,
@@ -55,6 +59,20 @@ public class MPSItemElectricTool extends ItemTool implements IMuseElectricItem {
 
     @Override
     public double getMaxMPSEnergy(@Nonnull ItemStack stack) {
-        return ModuleManager.INSTANCE.computeModularProperty(stack, ElectricItemUtils.MAXIMUM_ENERGY);
+        return ModuleManager.INSTANCE.computeModularProperty(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
+    }
+
+    @Override
+    public boolean showDurabilityBar(final ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public double getDurabilityForDisplay(final ItemStack stack) {
+        final IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
+        if (energyStorage == null) {
+            return 1;
+        }
+        return 1 - energyStorage.getEnergyStored() / (float) energyStorage.getMaxEnergyStored();
     }
 }

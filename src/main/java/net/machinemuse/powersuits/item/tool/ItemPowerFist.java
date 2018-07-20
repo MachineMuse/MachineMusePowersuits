@@ -16,6 +16,7 @@ import net.machinemuse.numina.api.module.IBlockBreakingModule;
 import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.capabilities.MPSCapProvider;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.IModularItemBase;
 import net.machinemuse.powersuits.powermodule.tool.GrafterModule;
@@ -31,11 +32,13 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.common.Optional;
 
 import javax.annotation.Nonnull;
@@ -68,7 +71,6 @@ import java.util.List;
 })
 public class ItemPowerFist extends MPSItemElectricTool
         implements
-        IModularItemBase,
         IToolGrafter,
         IToolHammer,
         INetworkItemProvider,
@@ -406,5 +408,12 @@ public class ItemPowerFist extends MPSItemElectricTool
                     modes.add(module.getDataName());
         }
         return modes;
+    }
+
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
+
+        // NBT provided here is empty or null, so it's useless for this.
+        return new MPSCapProvider(stack);
     }
 }

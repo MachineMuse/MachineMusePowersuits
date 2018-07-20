@@ -1,12 +1,14 @@
 package net.machinemuse.powersuits.item.armor;
 
 import com.google.common.collect.Multimap;
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.item.IArmorTraits;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.capabilities.MPSCapProvider;
 import net.machinemuse.powersuits.client.model.item.armor.ArmorModelInstance;
 import net.machinemuse.powersuits.client.model.item.armor.IArmorModel;
 import net.machinemuse.powersuits.common.config.MPSConfig;
@@ -29,6 +31,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -222,6 +227,30 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
     @Override
     public double getMaxMPSEnergy(@Nonnull ItemStack stack) {
-        return ModuleManager.INSTANCE.computeModularProperty(stack, ElectricItemUtils.MAXIMUM_ENERGY);
+        return ModuleManager.INSTANCE.computeModularProperty(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
     }
+
+
+    @Override
+    public boolean showDurabilityBar(final ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public double getDurabilityForDisplay(final ItemStack stack) {
+        final IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
+        if (energyStorage == null) {
+            return 1;
+        }
+        return 1 - energyStorage.getEnergyStored() / (float) energyStorage.getMaxEnergyStored();
+    }
+
+
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
+
+        // NBT provided here is empty or null, so it's useless for this.
+        return new MPSCapProvider(stack);
+    }
+
 }

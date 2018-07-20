@@ -21,24 +21,33 @@ public abstract class ElectricAdapter {
             return null;
         Item i = itemStack.getItem();
         if (i instanceof IMuseElectricItem) {
+//
+//            System.out.println("MuseElectricItem");
             return new MuseElectricAdapter(itemStack);
 
         // Forge Energy
         } else if (itemStack.hasCapability(CapabilityEnergy.ENERGY, null)) {
+//            System.out.println("Forge Energy");
+
                 return new ForgeEnergyAdapter(itemStack);
 
         // TESLA (need all 3 in order to get power in and out)
         } else if (itemStack.hasCapability(TeslaCapabilities.CAPABILITY_HOLDER, null) &&
                 itemStack.hasCapability(TeslaCapabilities.CAPABILITY_CONSUMER, null) &&
                 itemStack.hasCapability(TeslaCapabilities.CAPABILITY_PRODUCER, null)) {
+
+//            System.out.println("Tesla energy");
             return new TeslaEnergyAdapter(itemStack);
 
         // RF API
         } else if (ModCompatibility.isRFAPILoaded() && i instanceof IEnergyContainerItem) {
+
+//            System.out.println("RF API");
             return new TEElectricAdapter(itemStack);
 
         // Industrialcraft
         } else if (ModCompatibility.isIndustrialCraftLoaded() && i instanceof IElectricItem) {
+//            System.out.println("IC2 energy");
             return new IC2ElectricAdapter(itemStack);
         } else {
             return null;

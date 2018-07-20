@@ -8,6 +8,7 @@ import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItemManager;
 import ic2.api.item.ISpecialElectricItem;
 import mekanism.api.energy.IEnergizedItem;
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.electricity.ElectricConversions;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
@@ -42,7 +43,7 @@ public interface IMuseElectricItem
      * @return Current energy level
      */
     default double getCurrentMPSEnergy(@Nonnull ItemStack stack) {
-        return MuseItemUtils.getDoubleOrZero(stack, ElectricItemUtils.CURRENT_ENERGY);
+        return MuseItemUtils.getDoubleOrZero(stack, NuminaNBTConstants.CURRENT_ENERGY);
     }
 
     /**
@@ -63,7 +64,7 @@ public interface IMuseElectricItem
      * @param energy Level to set it to
      */
     default void setCurrentMPSEnergy(@Nonnull ItemStack stack, double energy) {
-        MuseItemUtils.setDoubleOrRemove(stack, ElectricItemUtils.CURRENT_ENERGY, Math.min(energy, getMaxMPSEnergy(stack)));
+        MuseItemUtils.setDoubleOrRemove(stack, NuminaNBTConstants.CURRENT_ENERGY, Math.min(energy, getMaxMPSEnergy(stack)));
     }
 
     /**
