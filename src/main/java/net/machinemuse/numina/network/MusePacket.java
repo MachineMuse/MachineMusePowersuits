@@ -220,26 +220,11 @@ public abstract class MusePacket {
      *
      */
     public void writeMap(@Nonnull final Map map, boolean compressOrNot) {
-//        System.out.println("Map size: " + map.size());
         byte[] bytes = writeMapToBytes(map);
-//        System.out.println("Map size in uncompressed bytes: " + bytes.length);
-
         try {
             if (compressOrNot) {
-//
-//                System.out.println("Map size compressed LZ4: " + compressBytesLZ4(bytes).length);
-//                System.out.println("Map size compressed GZip: " + compressBytesGZip(bytes).length);
-
-
 //                bytes = compressBytesLZ4(bytes);
                 bytes = compressBytesGZip(bytes);
-
-
-
-
-
-
-//                System.out.println("Map size compressed: " + bytes.length);
             }
             bytesOut.writeBoolean(compressOrNot);
             bytesOut.writeInt(bytes.length); // FIXME: is this needed?
@@ -250,6 +235,8 @@ public abstract class MusePacket {
     }
 
     /**
+     *
+     * Note, the only reason to write the map to ByteArrayOutputStream is for getting the data size to write out.
      *
      * @param map
      * @return
@@ -264,6 +251,7 @@ public abstract class MusePacket {
                 writeObjectToStream(dos, (map.get(key)));
             }
             // bytearrayoutputstream only updates if dataoutputstream closes
+            dos.flush();
             dos.close();
         } catch (IOException exception) {
             MuseLogger.logException("PROBLEM WRITING DATA TO PACKET:", exception);
@@ -328,13 +316,13 @@ public abstract class MusePacket {
         return new byte[0];
     }
 
-    byte[] compressBytesLZ4(final byte[] data) {
-//        LZ4Factory lz4Factory = LZ4Factory.safeInstance();
-        LZ4Factory lz4Factory = LZ4Factory.fastestInstance();
-        LZ4Compressor fastCompressor = lz4Factory.fastCompressor();
-        int maxCompressedLength = fastCompressor.maxCompressedLength(data.length);
-        byte[] comp = new byte[maxCompressedLength];
-        int compressedLength = fastCompressor.compress(data, 0, data.length, comp, 0, maxCompressedLength);
-        return Arrays.copyOf(comp, compressedLength);
-    }
+//    byte[] compressBytesLZ4(final byte[] data) {
+////        LZ4Factory lz4Factory = LZ4Factory.safeInstance();
+//        LZ4Factory lz4Factory = LZ4Factory.fastestInstance();
+//        LZ4Compressor fastCompressor = lz4Factory.fastCompressor(); // TODO: is one of the other compression settings a better option?
+//        int maxCompressedLength = fastCompressor.maxCompressedLength(data.length);
+//        byte[] comp = new byte[maxCompressedLength];
+//        int compressedLength = fastCompressor.compress(data, 0, data.length, comp, 0, maxCompressedLength);
+//        return Arrays.copyOf(comp, compressedLength);
+//    }
 }
