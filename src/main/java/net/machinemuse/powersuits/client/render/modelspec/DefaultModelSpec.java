@@ -49,7 +49,7 @@ public class DefaultModelSpec {
         System.out.println("slot: " + slot.getName());
         System.out.println("stack: " + stack.getUnlocalizedName());
 
-        System.out.println("modelk reg size: " + ModelRegistry.getInstance().getSpecs().toString());
+        System.out.println("model reg size: " + ModelRegistry.getInstance().getSpecs().toString());
 
         List<NBTTagCompound> prefArray = new ArrayList<>();
 

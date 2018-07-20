@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.client.model.obj.OBJModelPlus;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -73,11 +74,6 @@ public enum ModelSpecXMLReader {
         if (xml != null) {
             try {
                 xml.normalizeDocument();
-
-
-                System.out.println("document: " + xml.getDocumentURI());
-
-
                 if (xml.hasChildNodes()) {
 
 
@@ -95,14 +91,10 @@ public enum ModelSpecXMLReader {
 
                             boolean isDefault = (eElement.hasAttribute("default") ? Boolean.parseBoolean(eElement.getAttribute("default")) : false);
 
-
-
-
-
                             switch(specType) {
                                 case POWER_FIST:
                                     // only allow custom models if allowed by config
-                                    if (isDefault /* || MPSConfig.INSTANCE.allowCustomPowerFistModels()*/)
+                                    if (isDefault || MPSConfig.INSTANCE.allowCustomPowerFistModels())
                                         parseModelSpec(specNode, event, EnumSpecType.POWER_FIST, specName, isDefault);
                                     break;
 
@@ -110,7 +102,7 @@ public enum ModelSpecXMLReader {
                                     // only allow these models if allowed by config
                                     if (1==1 /*MPSConfig.INSTANCE.allowHighPollyArmorModels() */) {
                                         // only allow custom models if allowed by config
-                                        if (isDefault /* || MPSConfig.INSTANCE.allowCustomHighPollyArmor() */)
+                                        if (isDefault || MPSConfig.INSTANCE.allowCustomHighPollyArmor())
                                             parseModelSpec(specNode, event, EnumSpecType.ARMOR_MODEL, specName, isDefault);
                                     }
                                     break;

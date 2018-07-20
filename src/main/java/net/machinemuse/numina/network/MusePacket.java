@@ -6,7 +6,6 @@ import io.netty.buffer.Unpooled;
 import net.jpountz.lz4.LZ4BlockOutputStream;
 import net.jpountz.lz4.LZ4Compressor;
 import net.jpountz.lz4.LZ4Factory;
-import net.jpountz.lz4.LZ4SafeDecompressor;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -147,14 +146,15 @@ public abstract class MusePacket {
     /**
      * Writes a compressed NBTTagCompound to the OutputStream
      */
-    public void writeNBTTagCompound(NBTTagCompound nbt) {
+    public void writeNBTTagCompound(final NBTTagCompound nbt) {
         try {
             if (nbt == null) {
-                this.bytesOut.writeShort(-1);
+                this.bytesOut.writeInt(-1);
             }
             else {
-                byte[] compressednbt = compressLZ4(nbt); // Int needed in "for loop" for LZ4 decompressor
-                this.bytesOut.writeInt((short)compressednbt.length);
+//                byte[] compressednbt = compressLZ4(nbt);
+                byte[] compressednbt = compressGZip(nbt);
+//                this.bytesOut.writeInt(compressednbt.length); // needed for LZ4 decompression
                 this.bytesOut.write(compressednbt);
             }
         } catch (IOException exception) {
@@ -167,9 +167,10 @@ public abstract class MusePacket {
      */
     public void writeItemStack(@Nonnull ItemStack stack) {
         try {
-            if (stack == null) {
-                this.bytesOut.writeShort(-1);
+            if (stack.isEmpty()) {
+                this.bytesOut.writeBoolean(false);
             } else {
+                this.bytesOut.writeBoolean(true);
                 NBTTagCompound nbt = new NBTTagCompound();
                 stack.writeToNBT(nbt);
                 this.writeNBTTagCompound(nbt);
@@ -219,20 +220,30 @@ public abstract class MusePacket {
      *
      */
     public void writeMap(@Nonnull final Map map, boolean compressOrNot) {
-        System.out.println("Map size: " + map.size());
-
+//        System.out.println("Map size: " + map.size());
         byte[] bytes = writeMapToBytes(map);
-        System.out.println("Map size in uncompressed bytes: " + bytes.length);
+//        System.out.println("Map size in uncompressed bytes: " + bytes.length);
 
         try {
             if (compressOrNot) {
-                bytes = compress(bytes);
-                System.out.println("Map size compressed: " + bytes.length);
+//
+//                System.out.println("Map size compressed LZ4: " + compressBytesLZ4(bytes).length);
+//                System.out.println("Map size compressed GZip: " + compressBytesGZip(bytes).length);
+
+
+//                bytes = compressBytesLZ4(bytes);
+                bytes = compressBytesGZip(bytes);
+
+
+
+
+
+
+//                System.out.println("Map size compressed: " + bytes.length);
             }
             bytesOut.writeBoolean(compressOrNot);
             bytesOut.writeInt(bytes.length); // FIXME: is this needed?
             bytesOut.write(bytes);
-
         } catch (Exception exception) {
             MuseLogger.logException("PROBLEM WRITING DATA TO PACKET:", exception);
         }
@@ -302,7 +313,22 @@ public abstract class MusePacket {
 
 
     // https://stackoverflow.com/questions/37204975/decompressing-byte-using-lz4
-    byte[] compress(final byte[] data) {
+    byte[] compressBytesGZip(final byte[] data) {
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        byte[] bytes = new byte[0];
+        try {
+            GZIPOutputStream compressedStream = new GZIPOutputStream(outStream);
+            compressedStream.write(data);
+            compressedStream.flush();
+            compressedStream.close();
+            return outStream.toByteArray();
+        } catch (Exception e) {
+
+        }
+        return new byte[0];
+    }
+
+    byte[] compressBytesLZ4(final byte[] data) {
 //        LZ4Factory lz4Factory = LZ4Factory.safeInstance();
         LZ4Factory lz4Factory = LZ4Factory.fastestInstance();
         LZ4Compressor fastCompressor = lz4Factory.fastCompressor();

@@ -193,7 +193,7 @@ public class ModelPowerFist implements IBakedModel {
 
         // TODO: get quads for default powerfist model without custom settings
         ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
-        byte[] colours = renderSpec.getByteArray("colours");
+        int[] colours = renderSpec.getIntArray("colours"); // TODO: fix color array to include at least white
         Colour partColor;
         TRSRTransformation transform;
 
@@ -239,9 +239,25 @@ public class ModelPowerFist implements IBakedModel {
                     String itemState = partSpec.getBinding().getItemState();
 
                     int ix = partSpec.getColourIndex(nbt);
-//                    if (ix < colours.length && ix >= 0) partColor = Colour.s[ix])).getColour();
+
+//                    if (renderSpec.hasKey("colours"))
+//                        System.out.println(renderSpec.getTag("colours"));
 //                    else
-                    partColor = Colour.WHITE;
+//                        System.out.println("no colours found");
+
+
+
+//                    if (ix < colours.length && ix >= 0)
+//                        partColor = new Colour(colours[Intege
+//
+//
+//                                ix])
+//
+//
+//
+//                                .getColour();
+//                    else
+                        partColor = Colour.WHITE;
                     boolean glow = ((ModelPartSpec) partSpec).getGlow(nbt);
 
                     if ((!isFiring && (itemState.equals("all") || itemState.equals("normal"))) ||
