@@ -105,39 +105,36 @@ public class HighPolyArmor extends ModelBiped implements IArmorModel {
             EntityLivingBase entLive = (EntityLivingBase) entityIn;
             ItemStack stack = entLive.getActiveItemStack();
 
-            ItemStack itemstackMainHand = entLive.getHeldItemMainhand();
-            ItemStack itemstackOffHand = entLive.getHeldItemOffhand();
-
-            if (itemstackMainHand != null) {
-                if (getMainHand(entLive) == EnumHandSide.LEFT)
-                    this.leftArmPose = ArmPose.ITEM;
-                else
-                    this.rightArmPose = ArmPose.ITEM;
-            } else {
-                if (getMainHand(entLive) == EnumHandSide.LEFT)
-                    this.leftArmPose = ArmPose.EMPTY;
-                else
+            // set pose for main hand, whichever hand that is
+            if (entLive.getHeldItemMainhand().isEmpty()) {
+                if (getMainHand(entLive) == EnumHandSide.RIGHT)
                     this.rightArmPose = ArmPose.EMPTY;
+                else
+                    this.leftArmPose = ArmPose.EMPTY;
+            } else {
+                if (getMainHand(entLive) == EnumHandSide.RIGHT)
+                    this.rightArmPose = ArmPose.ITEM;
+                else
+                    this.leftArmPose = ArmPose.ITEM;
             }
 
             // the "offhand" is the other hand
-            if (itemstackOffHand != null) {
+            if (entLive.getHeldItemOffhand().isEmpty()) {
                 if (getMainHand(entLive) == EnumHandSide.RIGHT)
-                    this.leftArmPose = ArmPose.ITEM;
+                    this.rightArmPose = ArmPose.EMPTY;
                 else
-                    this.rightArmPose = ArmPose.ITEM;
+                    this.leftArmPose = ArmPose.EMPTY;
             } else {
                 if (getMainHand(entLive) == EnumHandSide.RIGHT)
-                    this.leftArmPose = ArmPose.EMPTY;
+                    this.rightArmPose = ArmPose.ITEM;
                 else
-                    this.rightArmPose = ArmPose.EMPTY;
+                    this.leftArmPose = ArmPose.ITEM;
             }
 
             isSneak = entLive.isSneaking();
             isRiding = entLive.isRiding();
             EntityPlayer entPlayer = (EntityPlayer) entLive;
-            if ((stack != null) && (entPlayer.getItemInUseCount() > 0))
-            {
+            if ((!stack.isEmpty()) && (entPlayer.getItemInUseCount() > 0)) {
                 EnumAction enumaction = stack.getItemUseAction();
                 if (enumaction == EnumAction.BLOCK) {
                     if (getMainHand(entLive) == EnumHandSide.LEFT)
