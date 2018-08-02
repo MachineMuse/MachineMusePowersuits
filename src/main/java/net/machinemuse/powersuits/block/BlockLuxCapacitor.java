@@ -33,7 +33,7 @@ public class BlockLuxCapacitor extends BlockDirectional {
     protected static final AxisAlignedBB LUXCAPACITOR_UP_AABB = new AxisAlignedBB(0.0625, 0.75, 0.0625, 0.9375, 1.0, 0.9375);
     protected static final AxisAlignedBB LUXCAPACITOR_DOWN_AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.25, 0.9375);
 
-    public static final Colour defaultColor = new Colour(0.4F, 0.2F, 0.9F);
+    public static final Colour defaultColor = new Colour(0.4D, 0.2D, 0.9D);
     public static final IUnlistedProperty<Colour> COLOR = new IUnlistedProperty<Colour>() {
         @Override
         public String getName() {

@@ -1,7 +1,11 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import com.google.common.base.Objects;
 import net.machinemuse.numina.utils.map.MuseRegistry;
+import net.machinemuse.numina.utils.math.Colour;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -13,8 +17,11 @@ public abstract class SpecBase extends MuseRegistry<PartSpecBase> {
     private final String name;
     private final boolean isDefault;
     private final EnumSpecType specType;
+    private List<Integer> colours = new ArrayList() {{
+       add(Colour.WHITE.getInt());
+    }};
 
-    public SpecBase(String name, boolean isDefault, EnumSpecType specType) {
+    public SpecBase(final String name, final boolean isDefault, final EnumSpecType specType) {
         this.name = name;
         this.isDefault = isDefault;
         this.specType = specType;
@@ -26,6 +33,10 @@ public abstract class SpecBase extends MuseRegistry<PartSpecBase> {
         return this.elems();
     }
 
+    /**
+     * returns the parent spec name
+     * @return
+     */
     public String getName() {
         return name;
     }
@@ -38,23 +49,45 @@ public abstract class SpecBase extends MuseRegistry<PartSpecBase> {
         return specType;
     }
 
-    public String getOwnName() {
-        String name = ModelRegistry.getInstance().getName(this);
-        return (name != null) ? name : "";
+    public List<Integer> getColours() {
+        return colours;
     }
+
+    /**
+     * Only adds the colour if it doesn't already exist.
+     *
+     * @param colour
+     * @return returns the index of the colour
+     */
+    public int addColourIfNotExist(Colour colour) {
+        int colourInt = colour.getInt();
+        if (!colours.contains(colourInt)){
+            colours.add(colourInt);
+            return colours.size() -1; // index of last entry
+        } else
+            return colours.indexOf(colourInt);
+    }
+
+    /**
+     * returns the short name of the model. Used for NBT tags
+     * Implement on top level classes due to equals and hash checks will make this fail here
+     * @return
+     */
+    public abstract String getOwnName();
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SpecBase spec = (SpecBase) o;
-        return isDefault() == spec.isDefault() &&
-                Objects.equal(getName(), spec.getName()) &&
-                getSpecType() == spec.getSpecType();
+        SpecBase specBase = (SpecBase) o;
+        return isDefault == specBase.isDefault &&
+                Objects.equals(name, specBase.name) &&
+                specType == specBase.specType &&
+                Objects.equals(colours, specBase.colours);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getName(), isDefault(), getSpecType());
+        return Objects.hash(name, isDefault, specType, colours);
     }
 }

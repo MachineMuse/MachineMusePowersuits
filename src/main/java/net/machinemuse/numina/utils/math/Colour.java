@@ -1,7 +1,9 @@
 package net.machinemuse.numina.utils.math;
 
+import net.machinemuse.numina.utils.MuseLogger;
 import org.lwjgl.opengl.GL11;
 
+import javax.vecmath.Vector4d;
 import javax.vecmath.Vector4f;
 import java.awt.*;
 import java.util.Objects;
@@ -28,7 +30,7 @@ public class Colour {
     public static final Colour PURPLE = new Colour(0.6, 0.1, 0.9, 1.0);
 
     /**
-     * The RGBA values are stored as floats from 0.0F (nothing) to 1.0F (full
+     * The RGBA values are stored as doubles from 0.0D (nothing) to 1.0D (full
      * saturation/opacity)
      */
     public final double r;
@@ -56,26 +58,28 @@ public class Colour {
         this.a = 1.0;
     }
 
-    /**
-     * Secondary constructor. Sets RGB accordingly and sets alpha to 1.0F (full
-     * opacity)
-     */
-    public Colour(float r, float g, float b) {
-        this(r, g, b, 1.0F);
-    }
+//    /**
+//     * Secondary constructor. Sets RGB accordingly and sets alpha to 1.0F (full
+//     * opacity)
+//     */
+//    public Colour(float r, float g, float b) {
+//        this(r, g, b, 1.0F);
+//    }
 
     /**
      * Takes colours in the integer format that Minecraft uses, and converts.
      */
     public Colour(int c) {
-        this.a = (c >> 24 & 255) / 255.0F;
-        this.r = (c >> 16 & 255) / 255.0F;
-        this.g = (c >> 8 & 255) / 255.0F;
-        this.b = (c & 255) / 255.0F;
+        this.a = (c >> 24 & 0xFF)/ 255.0D;
+        this.r = (c >> 16 & 0xFF) / 255.0D;
+        this.g = (c >> 8 & 0xFF) / 255.0D;
+        this.b = (c & 0xFF) / 255.0D;
     }
 
     /**
      * Returns this colour as an int in Minecraft's format (I think)
+     *
+     * note: full values for RGBA will yield -1
      *
      * @return int value of this colour
      */
@@ -85,7 +89,6 @@ public class Colour {
         val = val | ((int) (r * 255) << 16);
         val = val | ((int) (g * 255) << 8);
         val = val | ((int) (b * 255));
-
         return val;
     }
 
@@ -136,15 +139,34 @@ public class Colour {
         return new double[]{r, g, b, a};
     }
 
-    // format is 0xRRGGBB
+    // format is 0xRRGGBBAA
     public String hexColour() {
-        return hexDigits(r) + hexDigits(g) + hexDigits(b) + (a < 1 ? hexDigits(a) : "");
+//        return hexDigits(r) + hexDigits(g) + hexDigits(b) + (a < 1 ? hexDigits(a) : "");
+        return hexDigits(r) + hexDigits(g) + hexDigits(b) + (a > 0 ? hexDigits(a) : "");
+//        return Integer.toHexString(getInt()).toUpperCase();
     }
 
     public String hexDigits(double x) {
         int y = (int) (x * 255);
         String hexDigits = "0123456789ABCDEF";
         return hexDigits.charAt(y / 16) + "" + hexDigits.charAt(y % 16);
+    }
+
+    /**
+     * Handles RRGGBB and RRGGBBAA hex strings
+     * @param hexString
+     * @return new colour based on value or default of white if error
+     */
+    public static Colour fromHexString(String hexString) {
+        try {
+            if (hexString == null || hexString.isEmpty())
+                return WHITE;
+            return new Colour((int) Long.parseLong(hexString, 16));
+
+        } catch (Exception e) {
+            MuseLogger.logException("Failed to generate colour from Hex: " , e);
+        }
+        return WHITE;
     }
 
     public Color awtColor() {
@@ -161,22 +183,28 @@ public class Colour {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(r, g, b, a);
+    public String toString() {
+        return "Colour{" +
+                "r=" + r +
+                ", g=" + g +
+                ", b=" + b +
+                ", a=" + a +
+                '}';
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        final Colour other = (Colour) obj;
-        return Objects.equals(this.r, other.r)
-                && Objects.equals(this.g, other.g)
-                && Objects.equals(this.b, other.b)
-                && Objects.equals(this.a, other.a);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Colour colour = (Colour) o;
+        return Double.compare(colour.r, r) == 0 &&
+                Double.compare(colour.g, g) == 0 &&
+                Double.compare(colour.b, b) == 0 &&
+                Double.compare(colour.a, a) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(r, g, b, a);
     }
 }

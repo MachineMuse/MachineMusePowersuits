@@ -26,7 +26,6 @@ import javax.annotation.Nullable;
 import javax.vecmath.Vector3f;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.awt.*;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -75,13 +74,7 @@ public enum ModelSpecXMLReader {
             try {
                 xml.normalizeDocument();
                 if (xml.hasChildNodes()) {
-
-
                     NodeList specList = xml.getElementsByTagName("modelSpec");
-
-                    System.out.println("XML reader: specList.getLength(): " + specList.getLength());
-
-
                     for(int i = 0; i< specList.getLength(); i++) {
                         Node specNode = specList.item(i);
                         if(specNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -94,16 +87,14 @@ public enum ModelSpecXMLReader {
                             switch(specType) {
                                 case POWER_FIST:
                                     // only allow custom models if allowed by config
-                                    if (isDefault || MPSConfig.INSTANCE.allowCustomPowerFistModels())
+//                                    if (isDefault || MPSConfig.INSTANCE.allowCustomPowerFistModels())
                                         parseModelSpec(specNode, event, EnumSpecType.POWER_FIST, specName, isDefault);
                                     break;
 
                                 case ARMOR_MODEL:
                                     // only allow these models if allowed by config
-                                    if (1==1 /*MPSConfig.INSTANCE.allowHighPollyArmorModels() */) {
-                                        // only allow custom models if allowed by config
-                                        if (isDefault || MPSConfig.INSTANCE.allowCustomHighPollyArmor())
-                                            parseModelSpec(specNode, event, EnumSpecType.ARMOR_MODEL, specName, isDefault);
+                                    if (MPSConfig.INSTANCE.allowHighPollyArmorModels()) {
+                                        parseModelSpec(specNode, event, EnumSpecType.ARMOR_MODEL, specName, isDefault);
                                     }
                                     break;
 
@@ -186,7 +177,7 @@ public enum ModelSpecXMLReader {
                     // ModelSpec stuff
                     if (bakedModel != null && bakedModel instanceof OBJModelPlus.OBJBakedModelPus) {
                         ModelSpec modelspec = new ModelSpec(bakedModel, modelState, specName, isDefault, specType);
-                        ModelSpec existingspec = (ModelSpec) ModelRegistry.getInstance().put(MuseStringUtils.extractName(modelLocation), modelspec);
+
                         NodeList bindingNodeList = ((Element) modelNode).getElementsByTagName("binding");
                         if (bindingNodeList.getLength() > 0) {
                             for (int k = 0; k < bindingNodeList.getLength(); k++) {
@@ -194,10 +185,13 @@ public enum ModelSpecXMLReader {
                                 SpecBinding binding = getBinding(bindingNode);
                                 NodeList partNodeList = ((Element) bindingNode).getElementsByTagName("part");
                                 for(int j=0; j<partNodeList.getLength(); j++) {
-                                    getModelPartSpec(existingspec, partNodeList.item(j), binding);
+                                    getModelPartSpec(modelspec, partNodeList.item(j), binding);
                                 }
                             }
                         }
+
+                        ModelRegistry.getInstance().put(MuseStringUtils.extractName(modelLocation), modelspec);
+
                     } else {
                         MuseLogger.logError("Model file " + modelLocation + " not found! D:");
                     }
@@ -214,13 +208,14 @@ public enum ModelSpecXMLReader {
     // since the skinned armor can't have more than one texture per EntityEquipmentSlot the TexturePartSpec is named after the slot
     public static void getTexturePartSpec(TextureSpec textureSpec, Node bindingNode, EntityEquipmentSlot slot, String fileLocation) {
         Element partSpecElement = (Element) bindingNode;
-        Colour colour = parseColour(partSpecElement.getAttribute("defaultcolor"));
+        Colour colour = partSpecElement.hasAttribute("defaultColor") ?
+                parseColour(partSpecElement.getAttribute("defaultColor")) : Colour.WHITE;
 
         if (!Objects.equals(slot, null) && Objects.equals(slot.getSlotType(), EntityEquipmentSlot.Type.ARMOR))
             textureSpec.put(slot.getName(),
                     new TexturePartSpec(textureSpec,
                             new SpecBinding(null, slot, "all"),
-                            colour.getInt(), slot.getName(), fileLocation));
+                            textureSpec.addColourIfNotExist(colour), slot.getName(), fileLocation));
     }
 
     /**
@@ -230,7 +225,9 @@ public enum ModelSpecXMLReader {
         Element partSpecElement = (Element) partSpecNode;
         String partname = validatePolygroup(partSpecElement.getAttribute("partName"), modelSpec);
         boolean glow = Boolean.parseBoolean(partSpecElement.getAttribute("defaultglow"));
-        Colour colour = parseColour(partSpecElement.getAttribute("defaultcolor"));
+        Colour colour = partSpecElement.hasAttribute("defaultColor") ?
+                parseColour(partSpecElement.getAttribute("defaultColor")) : Colour.WHITE;
+
         if (partname == null) {
             System.out.println("partName is NULL!!");
             System.out.println("ModelSpec model: " + modelSpec.getName());
@@ -240,7 +237,7 @@ public enum ModelSpecXMLReader {
             modelSpec.put(partname, new ModelPartSpec(modelSpec,
                     binding,
                     partname,
-                    colour.getInt(),
+                    modelSpec.addColourIfNotExist(colour),
                     glow));
     }
 
@@ -329,14 +326,7 @@ public enum ModelSpecXMLReader {
         }
     }
 
-    @Nullable
-    public static Colour parseColour(String s) {
-        try {
-            int value = Integer.parseInt(s, 16);
-            Color c = new Color(value);
-            return new Colour(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha());
-        } catch (Exception e){
-            return Colour.WHITE;
-        }
+    public static Colour parseColour(String colourString) {
+        return Colour.fromHexString(colourString);
     }
 }

@@ -66,7 +66,6 @@ public class ModelPowerFist implements IBakedModel {
         calibration = new ModelTransformCalibration();
     }
 
-
     /**
      * this is great for single models or those that share the exact same transforms for the different camera transform
      * type. However, when dealing with quads from different models, it's useless.
@@ -191,72 +190,28 @@ public class ModelPowerFist implements IBakedModel {
                 return iconModel.getQuads(state, side, rand);
         }
 
-        // TODO: get quads for default powerfist model without custom settings
         ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
-        int[] colours = renderSpec.getIntArray("colours"); // TODO: fix color array to include at least white
+        int[] colours = renderSpec.getIntArray("colours");
         Colour partColor;
         TRSRTransformation transform;
 
+        for (NBTTagCompound nbt : NBTTagAccessor.getValues(renderSpec)) {
+            PartSpecBase partSpec = ModelRegistry.getInstance().getPart(nbt);
+            if (partSpec instanceof ModelPartSpec) {
 
-        if (!MPSConfig.INSTANCE.allowCustomPowerFistModels()) {
-            // Model customization disabled.
-            if (renderSpec.hasKey(MPSNBTConstants.NBT_SPECLIST_TAG)) {
-                NBTTagList modelList = renderSpec.getTagList(MPSNBTConstants.NBT_SPECLIST_TAG, Constants.NBT.TAG_COMPOUND);
-                NBTTagCompound modelTag;
-                ModelSpec modelspec;
+                // only process this part if it's for the correct hand
+                if (partSpec.getBinding().getTarget().name().toUpperCase().equals(
+                        modelcameraTransformType.equals(ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND) ||
+                                modelcameraTransformType.equals(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND) ?
+                                "LEFTHAND" : "RIGHTHAND")) {
 
-                // using traditional loops here due to speed penalty of
-                for (int i = 0; i < modelList.tagCount(); i++) {
-                    modelTag = modelList.getCompoundTagAt(i);
-                    if (modelTag.hasKey("model")) {
-                        modelspec = (ModelSpec) ModelRegistry.getInstance().get(modelTag.getString("model"));
-//                        colour = EnumColour.getColourEnumFromIndex(modelspec.getColourIndex(modelTag)).getColour();
-                        transform = modelspec.getTransform(modelcameraTransformType);
-                        OBJModelPlus.OBJBakedModelPus model = modelspec.getModel();
-
-                        for (Map.Entry<String, PartSpecBase> entry : modelspec.apply().entrySet()) {
-                            // if the model side matches the hand
-                            if (entry.getValue().getBinding().getTarget().name().toUpperCase().equals(
-                                    modelcameraTransformType.equals(ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND) ||
-                                            modelcameraTransformType.equals(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND) ?
-                                            "LEFTHAND" : "RIGHTHAND") &&
-                                    // and if the model state matches the item state
-                                    (entry.getValue().getBinding().getItemState().equals(isFiring ? "firing" : "normal") ||
-                                            entry.getValue().getBinding().getItemState().equals("all"))) {
-                                builder.addAll(ModelHelper.getColouredQuadsWithGlowAndTransform(model.getQuadsforPart(entry.getKey()), colour, transform, true));
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            for (NBTTagCompound nbt : NBTTagAccessor.getValues(renderSpec)) {
-                PartSpecBase partSpec = ModelRegistry.getInstance().getPart(nbt);
-                if (partSpec instanceof ModelPartSpec) {
                     transform = ((ModelSpec)partSpec.spec).getTransform(modelcameraTransformType);
-
-                    // TODO: Enumcolour stuff
                     String itemState = partSpec.getBinding().getItemState();
 
                     int ix = partSpec.getColourIndex(nbt);
-
-//                    if (renderSpec.hasKey("colours"))
-//                        System.out.println(renderSpec.getTag("colours"));
-//                    else
-//                        System.out.println("no colours found");
-
-
-
-//                    if (ix < colours.length && ix >= 0)
-//                        partColor = new Colour(colours[Intege
-//
-//
-//                                ix])
-//
-//
-//
-//                                .getColour();
-//                    else
+                    if (ix < colours.length && ix >= 0)
+                        partColor = new Colour(colours[ix]);
+                    else
                         partColor = Colour.WHITE;
                     boolean glow = ((ModelPartSpec) partSpec).getGlow(nbt);
 
@@ -268,17 +223,6 @@ public class ModelPowerFist implements IBakedModel {
         }
         return builder.build();
     }
-
-
-
-
-
-
-
-
-
-
-
 
     @Override
     public ItemOverrideList getOverrides() {

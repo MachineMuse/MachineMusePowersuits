@@ -17,6 +17,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -30,7 +31,7 @@ import javax.annotation.Nullable;
 public class ModelRegistry extends MuseRegistry<SpecBase> {
     private ModelRegistry(){
     }
-    private static ModelRegistry INSTANCE;
+    private static volatile ModelRegistry INSTANCE;
 
     public static ModelRegistry getInstance() {
         if (INSTANCE == null) {

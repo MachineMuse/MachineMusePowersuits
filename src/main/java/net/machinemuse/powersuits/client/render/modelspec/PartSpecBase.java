@@ -1,21 +1,22 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import com.google.common.base.Objects;
 import net.minecraft.nbt.NBTTagCompound;
+
+import java.util.Objects;
 
 /**
  * Ported to Java by lehjr on 11/8/16.
  */
 public abstract class PartSpecBase {
-    public SpecBase spec;
+    public final SpecBase spec;
     final String partName;
     final SpecBinding binding;
     Integer defaultcolourindex; // index value of NBTIntArray (array of colours as Int's.)
 
-    public PartSpecBase(SpecBase spec,
-                        SpecBinding binding,
-                        String partName,
-                        Integer defaultcolourindex) {
+    public PartSpecBase(final SpecBase spec,
+                        final SpecBinding binding,
+                        final String partName,
+                        final Integer defaultcolourindex) {
         this.spec = spec;
         this.partName = partName;
         this.binding = binding;
@@ -41,7 +42,7 @@ public abstract class PartSpecBase {
     }
 
     public void setModel(NBTTagCompound nbt, SpecBase model) {
-        String modelString = ModelRegistry.getInstance().inverse().get(model);
+        String modelString = ModelRegistry.getInstance().getName(model);
         setModel(nbt, ((modelString != null) ? modelString : ""));
     }
 
@@ -53,10 +54,10 @@ public abstract class PartSpecBase {
         nbt.setString("part", this.partName);
     }
 
-    public NBTTagCompound multiSet(NBTTagCompound nbt, Integer colourInt) {
+    public NBTTagCompound multiSet(NBTTagCompound nbt, Integer colourIndex) {
         this.setPart(nbt);
         this.setModel(nbt, this.spec);
-        this.setColourIndex(nbt, (colourInt != null) ? colourInt : defaultcolourindex);
+        this.setColourIndex(nbt, (colourIndex != null) ? colourIndex : defaultcolourindex);
         return nbt;
     }
 
@@ -64,15 +65,15 @@ public abstract class PartSpecBase {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PartSpecBase partSpec = (PartSpecBase) o;
-        return Objects.equal(spec, partSpec.spec) &&
-                Objects.equal(partName, partSpec.partName) &&
-                Objects.equal(getBinding(), partSpec.getBinding()) &&
-                Objects.equal(defaultcolourindex, partSpec.defaultcolourindex);
+        PartSpecBase that = (PartSpecBase) o;
+        return Objects.equals(spec, that.spec) &&
+                Objects.equals(partName, that.partName) &&
+                Objects.equals(binding, that.binding) &&
+                Objects.equals(defaultcolourindex, that.defaultcolourindex);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(spec, partName, getBinding(), defaultcolourindex);
+        return Objects.hash(spec, partName, binding, defaultcolourindex);
     }
 }

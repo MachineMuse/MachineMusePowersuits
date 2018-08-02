@@ -65,7 +65,7 @@ public class PartSpecManipSubFrame {
      */
     private List<PartSpecBase> getPartSpecs() {
         List<PartSpecBase> specsArray = new ArrayList<>();
-        Iterator<PartSpecBase> specIt = model.apply().values().iterator();
+        Iterator<PartSpecBase> specIt = model.getPartSpecs().iterator();
         PartSpecBase spec;
         while (specIt.hasNext()) {
             spec = specIt.next();

@@ -253,12 +253,12 @@ public abstract class MuseStringUtils {
     public static String extractName(ResourceLocation resource) {
         String filename = resource.toString();
         int ix = Math.max(filename.lastIndexOf('/'), Math.max(filename.lastIndexOf('\\'), filename.lastIndexOf(':'))) + 1;
-        return filename.substring(ix, filename.lastIndexOf('.'));
+        return filename.substring(ix, filename.lastIndexOf('.')).trim();
     }
 
     public static String extractName(String filename) {
         int ix = Math.max(filename.lastIndexOf('/'), Math.max(filename.lastIndexOf('\\'), filename.lastIndexOf(':'))) + 1;
-        return filename.substring(ix, filename.lastIndexOf('.'));
+        return filename.substring(ix, filename.lastIndexOf('.')).trim();
     }
 
     /**
