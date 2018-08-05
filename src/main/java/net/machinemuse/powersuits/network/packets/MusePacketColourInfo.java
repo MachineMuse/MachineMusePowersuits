@@ -1,6 +1,8 @@
 package net.machinemuse.powersuits.network.packets;
 
+import com.google.common.primitives.Ints;
 import io.netty.buffer.ByteBufInputStream;
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.item.IModularItem;
 import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
@@ -9,6 +11,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+
+import java.util.List;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -41,9 +45,9 @@ public class MusePacketColourInfo extends MusePacket {
     @Override
     public void handleServer(EntityPlayerMP player) {
         ItemStack stack = player.inventory.getStackInSlot(itemSlot);
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             NBTTagCompound renderTag = MPSNBTUtils.getMuseRenderTag(stack);
-            renderTag.setIntArray("colours", tagData);
+            renderTag.setIntArray(NuminaNBTConstants.TAG_COLOURS, tagData);
         }
     }
 

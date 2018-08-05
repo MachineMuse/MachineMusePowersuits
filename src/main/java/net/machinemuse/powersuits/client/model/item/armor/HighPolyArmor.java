@@ -168,9 +168,9 @@ public class HighPolyArmor extends ModelBiped implements IArmorModel {
 
     @Override
     public void post(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        leftArmPose = ArmPose.EMPTY;
-        rightArmPose = ArmPose.EMPTY;
-        isSneak = false;
+//        leftArmPose = ArmPose.EMPTY;
+//        rightArmPose = ArmPose.EMPTY;
+//        isSneak = false;
     }
 
     @Override

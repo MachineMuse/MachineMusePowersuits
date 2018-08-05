@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.client.render.RenderState;
@@ -28,6 +29,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -123,7 +125,7 @@ public class PartSpecManipSubFrame {
         // Only one TexturePartSpec is allowed at a time, so figure out if this one is enabled
         if (partSpec instanceof TexturePartSpec && this.getRenderTag().hasKey(NBT_TEXTURESPEC_TAG)) {
             NBTTagCompound texSpecTag = this.getRenderTag().getCompoundTag(NBT_TEXTURESPEC_TAG);
-            if (partSpec.spec.getOwnName().equals(texSpecTag.getString("model"))) {
+            if (partSpec.spec.getOwnName().equals(texSpecTag.getString(NuminaNBTConstants.TAG_MODEL))) {
                 return getRenderTag().getCompoundTag(NBT_TEXTURESPEC_TAG);
             }
         }
@@ -190,7 +192,6 @@ public class PartSpecManipSubFrame {
 
     public void drawSpecPartial(double x, double y, PartSpecBase partSpec, double ymino, double ymaxo) {
         NBTTagCompound tag = this.getSpecTag(partSpec);
-
         int selcomp = tag.hasNoTags() ? 0 : (partSpec instanceof ModelPartSpec && ((ModelPartSpec) partSpec).getGlow(tag) ? 2 : 1);
         int selcolour = partSpec.getColourIndex(tag);
         new GuiIcons.TransparentArmor(x, y, null, null, ymino, null, ymaxo);

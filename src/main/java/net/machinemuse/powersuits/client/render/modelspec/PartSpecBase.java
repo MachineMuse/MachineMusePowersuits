@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.Objects;
@@ -47,11 +48,11 @@ public abstract class PartSpecBase {
     }
 
     public void setModel(NBTTagCompound nbt, String modelname) {
-        nbt.setString("model", modelname);
+        nbt.setString(NuminaNBTConstants.TAG_MODEL, modelname);
     }
 
     public void setPart(NBTTagCompound nbt) {
-        nbt.setString("part", this.partName);
+        nbt.setString(NuminaNBTConstants.TAG_PART, this.partName);
     }
 
     public NBTTagCompound multiSet(NBTTagCompound nbt, Integer colourIndex) {

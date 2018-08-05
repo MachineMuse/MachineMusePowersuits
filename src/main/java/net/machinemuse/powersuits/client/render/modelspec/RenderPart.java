@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.client.model.item.armor.ArmorModelInstance;
@@ -20,7 +21,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -39,7 +42,8 @@ public class RenderPart extends ModelRenderer {
     @Override
     public void render(float scale) {
         NBTTagCompound renderSpec = ((IArmorModel)(ArmorModelInstance.getInstance())).getRenderSpec();
-        int[] colours = renderSpec.getIntArray("colours");
+        int[] colours = renderSpec.getIntArray(NuminaNBTConstants.TAG_COLOURS);
+
         int partColor;
         for (NBTTagCompound nbt : NBTTagAccessor.getValues(renderSpec)) {
             PartSpecBase part = ModelRegistry.getInstance().getPart(nbt);
@@ -49,11 +53,14 @@ public class RenderPart extends ModelRenderer {
                     List<BakedQuad> quadList = ((ModelPartSpec)part).getQuads();
                     if (!quadList.isEmpty()) {
                         int ix = part.getColourIndex(nbt);
+
+                        // checks the range of the index to avoid errors OpenGL or crashing
                         if (ix < colours.length && ix >= 0) partColor = colours[ix];
                         else partColor = Colour.WHITE.getInt();
 
                         // GLOW stuff on
-                        if (((ModelPartSpec)part).getGlow(nbt)) RenderState.glowOn();
+                        if (((ModelPartSpec)part).getGlow(nbt))
+                            RenderState.glowOn();
 
                         GlStateManager.pushMatrix();
                         GlStateManager.scale(scale, scale, scale);

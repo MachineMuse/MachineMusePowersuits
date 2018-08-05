@@ -89,7 +89,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
     @Override
     public String getArmorTexture(ItemStack armor, Entity entity, EntityEquipmentSlot slot, String type) {
-        if (type == "overlay")  // this is to allow a tint to be applied ot the armor
+        if (type == "overlay")  // this is to allow a tint to be applied tot the armor
             return MPSResourceConstants.BLANK_ARMOR_MODEL_PATH;
         if (armor.getItem() instanceof ItemPowerArmor) {
             if ((slot == EntityEquipmentSlot.CHEST && ModuleManager.INSTANCE.itemHasActiveModule(armor, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) ||
@@ -100,15 +100,15 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         return MPSResourceConstants.BLANK_ARMOR_MODEL_PATH;
     }
 
-    @Override
-    public int getColor(ItemStack stack) {
-        Colour c = this.getColorFromItemStack(stack);
-        return c.getInt();
-    }
+//    @Override
+//    public int getColor(ItemStack stack) {
+//        Colour c = this.getColorFromItemStack(stack);
+//        return c.getInt();
+//    }
 
     @Override
     public boolean hasOverlay(ItemStack stack) {
-        return ModuleManager.INSTANCE.itemHasActiveModule(stack, TintModule.MODULE_TINT);
+        return true;
     }
 
     @SideOnly(Side.CLIENT)
@@ -129,7 +129,6 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
             }
 
             ((IArmorModel) model).setRenderSpec(MPSNBTUtils.getMuseRenderTag(armor, armorSlot));
-
             return model;
         }
         return _default;
@@ -153,8 +152,10 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
     @Override
     public boolean hasColor(ItemStack stack) {
-        NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
-        return ModuleManager.INSTANCE.tagHasModule(itemTag, "Red Tint") || ModuleManager.INSTANCE.tagHasModule(itemTag, "Green Tint") || ModuleManager.INSTANCE.tagHasModule(itemTag, "Blue Tint");
+//        if (MPSNBTUtils.hasHighPolyModel(stack, ((ItemPowerArmor) stack.getItem()).armorType)) {
+//            return false;
+//        }
+        return true;
     }
 
     @Override
@@ -230,7 +231,6 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         return ModuleManager.INSTANCE.computeModularProperty(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
     }
 
-
     @Override
     public boolean showDurabilityBar(final ItemStack stack) {
         return true;
@@ -245,12 +245,9 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         return 1 - energyStorage.getEnergyStored() / (float) energyStorage.getMaxEnergyStored();
     }
 
-
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
-
         // NBT provided here is empty or null, so it's useless for this.
         return new MPSCapProvider(stack);
     }
-
 }

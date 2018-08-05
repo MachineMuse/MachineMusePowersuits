@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.client.model.item;
 
 import com.google.common.collect.ImmutableList;
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
@@ -191,7 +192,7 @@ public class ModelPowerFist implements IBakedModel {
         }
 
         ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
-        int[] colours = renderSpec.getIntArray("colours");
+        int[] colours = renderSpec.getIntArray(NuminaNBTConstants.TAG_COLOURS);
         Colour partColor;
         TRSRTransformation transform;
 

@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.network.packets;
 
 import io.netty.buffer.ByteBufInputStream;
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.item.IModularItem;
 import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
@@ -45,14 +46,14 @@ public class MusePacketCosmeticInfo extends MusePacket {
     @Override
     public void handleServer(EntityPlayerMP player) {
         ItemStack stack = player.inventory.getStackInSlot(itemSlot);
-        if (tagName != null && stack != null && stack.getItem() instanceof IModularItem) {
+        if (tagName != null && !stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
             NBTTagCompound renderTag;
-            if (!itemTag.hasKey("render")) {
+            if (!itemTag.hasKey(NuminaNBTConstants.TAG_RENDER)) {
                 renderTag = new NBTTagCompound();
-                itemTag.setTag("render", renderTag);
+                itemTag.setTag(NuminaNBTConstants.TAG_RENDER, renderTag);
             } else {
-                renderTag = itemTag.getCompoundTag("render");
+                renderTag = itemTag.getCompoundTag(NuminaNBTConstants.TAG_RENDER);
             }
             if (tagData.hasNoTags()) {
                 MuseLogger.logDebug("Removing tag " + tagName);

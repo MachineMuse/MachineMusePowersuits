@@ -1,5 +1,7 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
+import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
@@ -52,7 +54,7 @@ public class DefaultModelSpec {
         NBTTagCompound texSpecTag = new NBTTagCompound();
 
         // List of EnumColour indexes
-        List<Integer> colours = colours =  new ArrayList();
+        List<Integer> colours = new ArrayList<>();
 
         // temp data holder
         NBTTagCompound tempNBT;
@@ -60,39 +62,47 @@ public class DefaultModelSpec {
         for (SpecBase spec : ModelRegistry.getInstance().getSpecs()) {
             // Only generate NBT data from Specs marked as "default"
             if (spec.isDefault()) {
-                colours = spec.getColours(); // needed to get actual colour value for index setting
 
                 /** Power Fist -------------------------------------------------------------------- */
                 if (stack.getItem() instanceof ItemPowerFist && spec.getSpecType().equals(EnumSpecType.POWER_FIST)) {
+                    colours = addNewColourstoList(colours, spec.getColours()); // merge new color int arrays in
+
                     for (PartSpecBase partSpec : spec.getPartSpecs()) {
                         if (partSpec instanceof ModelPartSpec) {
                             prefArray.add(((ModelPartSpec) partSpec).multiSet(new NBTTagCompound(),
-                                    partSpec.defaultcolourindex, ((ModelPartSpec) partSpec).getGlow()));
+                                    getNewColourIndex(colours, spec.getColours(), partSpec.defaultcolourindex),
+                                    ((ModelPartSpec) partSpec).getGlow()));
                         }
                     }
 
                     /** Power Armor ------------------------------------------------------------------- */
                 } else if (stack.getItem() instanceof ItemPowerArmor) {
+                    colours = addNewColourstoList(colours, spec.getColours()); // merge new color int arrays in
 
                     // Armor Skin
                     if (spec.getSpecType().equals(EnumSpecType.ARMOR_SKIN) && spec.get(slot.getName()) != null) {
                         // only a single texture per equipment slot can be used at a time
-                        texSpecTag = spec.get(slot.getName()).multiSet(new NBTTagCompound(), spec.get(slot.getName()).defaultcolourindex);
+                        texSpecTag = spec.get(slot.getName()).multiSet(new NBTTagCompound(),
+                                getNewColourIndex(colours, spec.getColours(), spec.get(slot.getName()).defaultcolourindex));
                     }
 
                     // Armor models
                     else if (spec.getSpecType().equals(EnumSpecType.ARMOR_MODEL) && MPSConfig.INSTANCE.allowHighPollyArmorModels() ) {
 
                         for (PartSpecBase partSpec : spec.getPartSpecs()) {
+
+                            if (partSpec.partName == "visor")
+                                System.out.println("helm original index");
+
+
                             if (partSpec.binding.getSlot() == slot) {
 
                                 // jet pack model not displayed by default
                                 if (partSpec.binding.getItemState().equals("all") ||
                                         (partSpec.binding.getItemState().equals("jetpack") &&
                                                 ModuleManager.INSTANCE.itemHasModule(stack, MODULE_JETPACK))) {
-
                                     prefArray.add(((ModelPartSpec) partSpec).multiSet(new NBTTagCompound(),
-                                            partSpec.defaultcolourindex,
+                                            getNewColourIndex(colours, spec.getColours(), partSpec.defaultcolourindex),
                                             ((ModelPartSpec) partSpec).getGlow()));
                                 }
                             }
@@ -104,7 +114,7 @@ public class DefaultModelSpec {
 
         NBTTagCompound nbt = new NBTTagCompound();
         for (NBTTagCompound elem : prefArray) {
-            nbt.setTag(elem.getString("model") + "." + elem.getString("part"), elem);
+            nbt.setTag(elem.getString(NuminaNBTConstants.TAG_MODEL) + "." + elem.getString(NuminaNBTConstants.TAG_PART), elem);
         }
 
         if (!specList.hasNoTags())
@@ -113,10 +123,27 @@ public class DefaultModelSpec {
         if (!texSpecTag.hasNoTags())
             nbt.setTag(MPSNBTConstants.NBT_TEXTURESPEC_TAG, texSpecTag);
 
-        nbt.setTag("colours", new NBTTagIntArray(colours));
-
-        System.out.println("nbt: " + nbt.toString());
+        nbt.setTag(NuminaNBTConstants.TAG_COLOURS, new NBTTagIntArray(colours));
 
         return nbt;
+    }
+
+    /**
+     * When dealing with possibly multiple specs and color lists, new list needs to be created, since there is only one list per item.
+     *
+     */
+    static List<Integer> addNewColourstoList(List<Integer> colours, List<Integer> coloursToAdd) {
+        for (Integer i : coloursToAdd) {
+            if (!colours.contains(i))
+                colours.add(i);
+        }
+        return colours;
+    }
+
+    /**
+     * new array means setting a new array index for the same value
+     */
+    public static int getNewColourIndex(List<Integer> colours, List<Integer> oldColours, Integer index) {
+        return colours.indexOf(oldColours.get(index != null ? index : 0));
     }
 }

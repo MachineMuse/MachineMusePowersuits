@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
 import com.google.common.collect.ImmutableMap;
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.map.MuseRegistry;
 import net.machinemuse.powersuits.client.model.obj.OBJModelPlus;
@@ -101,11 +102,11 @@ public class ModelRegistry extends MuseRegistry<SpecBase> {
      * FIXME: texture spec needs a model tag for this to work. Model tag does not have to be a real model, just a unique string for the spec k-v pair
      */
     public SpecBase getModel(NBTTagCompound nbt) {
-        return get(nbt.getString("model"));
+        return get(nbt.getString(NuminaNBTConstants.TAG_MODEL));
     }
 
     public PartSpecBase getPart(NBTTagCompound nbt, SpecBase model) {
-        return model.get(nbt.getString("part"));
+        return model.get(nbt.getString(NuminaNBTConstants.TAG_PART));
     }
 
     public PartSpecBase getPart(NBTTagCompound nbt) {

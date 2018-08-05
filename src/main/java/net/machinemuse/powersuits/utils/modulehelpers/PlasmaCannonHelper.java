@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 public class PlasmaCannonHelper {
     public static int getPlayerPlasma(EntityPlayer player) {
         ItemStack powerfist = player.getHeldItemMainhand();
-        if (powerfist != null && player.isHandActive() && ModuleManager.INSTANCE.itemHasActiveModule(powerfist, PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
+        if (!powerfist.isEmpty() && player.isHandActive() && ModuleManager.INSTANCE.itemHasActiveModule(powerfist, PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
             int actualCount = (-player.getItemInUseCount() + 72000);
             return (actualCount > 50 ? 50 : actualCount) * 2;
         }
@@ -20,7 +20,7 @@ public class PlasmaCannonHelper {
 
     public static int getMaxPlasma(EntityPlayer player) {
         ItemStack powerfist = player.getHeldItemMainhand();
-        if (powerfist != null && player.isHandActive() && ModuleManager.INSTANCE.itemHasActiveModule(powerfist, PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
+        if (!powerfist.isEmpty() && player.isHandActive() && ModuleManager.INSTANCE.itemHasActiveModule(powerfist, PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
             return 100;
         }
         return 0;

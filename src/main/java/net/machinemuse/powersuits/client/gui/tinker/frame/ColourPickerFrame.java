@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.math.Colour;
@@ -16,13 +17,13 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagIntArray;
-import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -36,6 +37,8 @@ public class ColourPickerFrame implements IGuiFrame {
     public ClickableSlider rslider;
     public ClickableSlider gslider;
     public ClickableSlider bslider;
+    public ClickableSlider aslider;
+
     public ClickableSlider selectedSlider;
     public int selectedColour;
     public int decrAbove;
@@ -43,9 +46,10 @@ public class ColourPickerFrame implements IGuiFrame {
     public ColourPickerFrame(MuseRect borderRef, Colour insideColour, Colour borderColour, ItemSelectionFrame itemSelector) {
         this.itemSelector = itemSelector;
         this.border = new DrawableMuseRect(borderRef, insideColour, borderColour);
-        this.rslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 8), this.border.width() - 10, I18n.format("gui.red"));
-        this.gslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 24), this.border.width() - 10, I18n.format("gui.green"));
-        this.bslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 40), this.border.width() - 10, I18n.format("gui.blue"));
+        this.rslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 4), this.border.width() - 10, I18n.format("gui.red"));
+        this.gslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 20), this.border.width() - 10, I18n.format("gui.green"));
+        this.bslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 36), this.border.width() - 10, I18n.format("gui.blue"));
+        this.aslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 52), this.border.width() - 10, I18n.format("gui.alpha"));
         this.selectedSlider = null;
         this.selectedColour = 0;
         this.decrAbove = -1;
@@ -59,41 +63,41 @@ public class ColourPickerFrame implements IGuiFrame {
         if (this.itemSelector.getSelectedItem() == null) {
             return null;
         }
+
         NBTTagCompound renderSpec = MPSNBTUtils.getMuseRenderTag(this.itemSelector.getSelectedItem().getItem());
-        if (renderSpec.hasKey("colours") && renderSpec.getTag("colours") instanceof NBTTagIntArray) {
-            return (NBTTagIntArray) renderSpec.getTag("colours");
+        if (renderSpec.hasKey(NuminaNBTConstants.TAG_COLOURS) && renderSpec.getTag(NuminaNBTConstants.TAG_COLOURS) instanceof NBTTagIntArray) {
+            return (NBTTagIntArray) renderSpec.getTag(NuminaNBTConstants.TAG_COLOURS);
         }
         else {
             Item item = this.itemSelector.getSelectedItem().getItem().getItem();
             if (item instanceof ItemPowerArmor) {
                 ItemPowerArmor itemPowerArmor = (ItemPowerArmor)item;
-                int[] intArray = { itemPowerArmor.getColorFromItemStack(this.itemSelector.getSelectedItem().getItem()).getInt(),
-                                         itemPowerArmor.getGlowFromItemStack(this.itemSelector.getSelectedItem().getItem()).getInt() };
-                renderSpec.setIntArray("colours", intArray);
+                int[] intArray = { itemPowerArmor.getColorFromItemStack(this.itemSelector.getSelectedItem().getItem()).getInt() };
+                renderSpec.setIntArray(NuminaNBTConstants.TAG_COLOURS, intArray);
             }
             else {
-                int[] intArray2 = new int[0];
-                renderSpec.setIntArray("colours", intArray2);
+                int[] intArray2 = new int[] {Colour.WHITE.getInt()};
+                renderSpec.setIntArray(NuminaNBTConstants.TAG_COLOURS, intArray2);
             }
             EntityPlayerSP player = Minecraft.getMinecraft().player;
             if (player.world.isRemote) {
                 PacketSender.sendToServer(new MusePacketColourInfo((EntityPlayer)player, this.itemSelector.getSelectedItem().inventorySlot, this.colours()));
             }
-            return (NBTTagIntArray) renderSpec.getTag("colours");
+            return (NBTTagIntArray) renderSpec.getTag(NuminaNBTConstants.TAG_COLOURS);
         }
     }
 
-    public NBTTagIntArray setColourTagMaybe(int[] newarray) {
+    public NBTTagIntArray setColourTagMaybe(List<Integer> intList) {
         if (this.itemSelector.getSelectedItem() == null) {
             return null;
         }
         NBTTagCompound renderSpec = MPSNBTUtils.getMuseRenderTag(this.itemSelector.getSelectedItem().getItem());
-        renderSpec.setTag("colours", (NBTBase)new NBTTagIntArray(newarray));
+        renderSpec.setTag(NuminaNBTConstants.TAG_COLOURS, new NBTTagIntArray(intList));
         EntityPlayerSP player = Minecraft.getMinecraft().player;
         if (player.world.isRemote) {
             PacketSender.sendToServer(new MusePacketColourInfo((EntityPlayer)player, this.itemSelector.getSelectedItem().inventorySlot, this.colours()));
         }
-        return (NBTTagIntArray) renderSpec.getTag("colours");
+        return (NBTTagIntArray) renderSpec.getTag(NuminaNBTConstants.TAG_COLOURS);
     }
 
     public ArrayList<Integer> importColours() {
@@ -120,7 +124,9 @@ public class ColourPickerFrame implements IGuiFrame {
         if (this.selectedSlider != null) {
             this.selectedSlider.setValueByX(mousex);
             if (colours().length > selectedColour) {
-                colours()[selectedColour] = Colour.getInt(rslider.value(), gslider.value(), bslider.value(), 1.0);
+//                colours()[selectedColour] = Colour.getInt(rslider.value(), gslider.value(), bslider.value(), 1.0);
+                colours()[selectedColour] = Colour.getInt(rslider.value(), gslider.value(), bslider.value(), aslider.value());
+
                 EntityPlayerSP player = Minecraft.getMinecraft().player;
                 if (player.world.isRemote)
                     PacketSender.sendToServer(new MusePacketColourInfo(player, itemSelector.getSelectedItem().inventorySlot, colours()));
@@ -134,6 +140,8 @@ public class ColourPickerFrame implements IGuiFrame {
         this.rslider.draw();
         this.gslider.draw();
         this.bslider.draw();
+        this.aslider.draw();
+
         for (int i = 0; i <  colours().length; i++) {
             new GuiIcons.ArmourColourPatch(border.left() + 8 + i * 8, border.bottom() - 16, new Colour(colours()[i]), null, null, null, null);
         }
@@ -153,6 +161,7 @@ public class ColourPickerFrame implements IGuiFrame {
         this.rslider.setValue(c.r);
         this.gslider.setValue(c.g);
         this.bslider.setValue(c.b);
+        this.aslider.setValue(c.a);
         this.selectedColour = i;
     }
 
@@ -164,40 +173,34 @@ public class ColourPickerFrame implements IGuiFrame {
             this.selectedSlider = this.gslider;
         else if (this.bslider.hitBox(x, y))
             this.selectedSlider = this.bslider;
+        else if (this.aslider.hitBox(x, y))
+            this.selectedSlider = this.aslider;
         else
             this.selectedSlider = null;
 
-        // add
+        // add color
         if (y > this.border.bottom() - 16 && y < this.border.bottom() - 8) {
             int colourCol = (int)(x - this.border.left() - 8.0) / 8;
             if (colourCol >= 0 && colourCol < colours().length) {
                 this.onSelectColour(colourCol);
             } else if (colourCol == this.colours().length) {
                 MuseLogger.logDebug("Adding");
-                setColourTagMaybe(ArrayUtils.add(getIntArray(getOrCreateColourTag()), Colour.WHITE.getInt()));
+
+                List<Integer> intList = Arrays.stream(getIntArray(getOrCreateColourTag())).boxed().collect(Collectors.toList());
+                intList.add(Colour.WHITE.getInt());
+                setColourTagMaybe(intList);
             }
         }
 
-        // remove
+        // remove color
         if (y > border.bottom() - 24 && y < border.bottom() - 16 && x > border.left() + 8 + selectedColour * 8 && x < border.left() + 16 + selectedColour * 8) {
             NBTTagIntArray nbtTagIntArray = getOrCreateColourTag();
+            List<Integer> intList = Arrays.stream(getIntArray(nbtTagIntArray)).boxed().collect(Collectors.toList());
 
-            int[] intArray = getIntArray(nbtTagIntArray);
-            if (intArray.length > 1) {
-                /* TODO - for 1.10.2 and above, simplyfy with Java 8 collections and streams. Seriously, all this to remove an element fron an int array*/
-                List<Integer> integerArray = new ArrayList<>();
-                int intToRemove = intArray[selectedColour];
-                for (int anIntArray : intArray) {
-                    if (anIntArray != intToRemove)
-                        integerArray.add(anIntArray);
-                }
-                int[] newIntArray = new int[integerArray.size()];
-                int j = 0;
-                for (Integer i : integerArray) {
-                    newIntArray[j] = i;
-                    j+=1;
-                }
-                setColourTagMaybe(newIntArray);
+            if (intList.size() > 1) {
+                intList.remove(selectedColour); // with integer list, will default to index rather than value
+
+                setColourTagMaybe(intList);
 
                 decrAbove = selectedColour;
                 if (selectedColour == getIntArray(nbtTagIntArray).length) {

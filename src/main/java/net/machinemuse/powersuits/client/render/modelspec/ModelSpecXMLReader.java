@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
 import com.google.common.collect.ImmutableMap;
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.client.model.obj.OBJModelPlus;
@@ -140,7 +141,7 @@ public enum ModelSpecXMLReader {
      * Biggest difference between the ModelSpec for Armor vs PowerFist is that the armor models don't need item camera transforms
      */
     public static void parseModelSpec(Node specNode, TextureStitchEvent event, EnumSpecType specType, String specName, boolean isDefault) {
-        NodeList models = specNode.getOwnerDocument().getElementsByTagName("model");
+        NodeList models = specNode.getOwnerDocument().getElementsByTagName(NuminaNBTConstants.TAG_MODEL);
         java.util.List<String> textures = new ArrayList<>();
         IModelState modelState = null;
 
@@ -183,7 +184,7 @@ public enum ModelSpecXMLReader {
                             for (int k = 0; k < bindingNodeList.getLength(); k++) {
                                 Node bindingNode = bindingNodeList.item(k);
                                 SpecBinding binding = getBinding(bindingNode);
-                                NodeList partNodeList = ((Element) bindingNode).getElementsByTagName("part");
+                                NodeList partNodeList = ((Element) bindingNode).getElementsByTagName(NuminaNBTConstants.TAG_PART);
                                 for(int j=0; j<partNodeList.getLength(); j++) {
                                     getModelPartSpec(modelspec, partNodeList.item(j), binding);
                                 }
@@ -211,6 +212,9 @@ public enum ModelSpecXMLReader {
         Colour colour = partSpecElement.hasAttribute("defaultColor") ?
                 parseColour(partSpecElement.getAttribute("defaultColor")) : Colour.WHITE;
 
+        if (colour.a == 0)
+            colour = colour.withAlpha(1.0);
+
         if (!Objects.equals(slot, null) && Objects.equals(slot.getSlotType(), EntityEquipmentSlot.Type.ARMOR))
             textureSpec.put(slot.getName(),
                     new TexturePartSpec(textureSpec,
@@ -227,6 +231,9 @@ public enum ModelSpecXMLReader {
         boolean glow = Boolean.parseBoolean(partSpecElement.getAttribute("defaultglow"));
         Colour colour = partSpecElement.hasAttribute("defaultColor") ?
                 parseColour(partSpecElement.getAttribute("defaultColor")) : Colour.WHITE;
+
+        if (colour.a == 0)
+            colour = colour.withAlpha(1.0);
 
         if (partname == null) {
             System.out.println("partName is NULL!!");

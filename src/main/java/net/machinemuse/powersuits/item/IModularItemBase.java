@@ -1,16 +1,27 @@
 package net.machinemuse.powersuits.item;
 
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
 import net.machinemuse.powersuits.api.electricity.adapter.IMuseElectricItem;
 import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.client.render.modelspec.ModelRegistry;
+import net.machinemuse.powersuits.client.render.modelspec.TexturePartSpec;
 import net.machinemuse.powersuits.powermodule.cosmetic.CosmeticGlowModule;
 import net.machinemuse.powersuits.powermodule.cosmetic.TintModule;
 import net.machinemuse.powersuits.utils.MuseStringUtils;
+import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
+import net.machinemuse.powersuits.utils.nbt.NBTTagAccessor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 import static net.machinemuse.numina.general.MuseMathUtils.clampDouble;
 
@@ -21,31 +32,20 @@ import static net.machinemuse.numina.general.MuseMathUtils.clampDouble;
  * Ported to Java by lehjr on 11/4/16.
  */
 public interface IModularItemBase extends IModularItem, IMuseElectricItem {
-    @SideOnly(Side.CLIENT)
-    default int getColorFromItemStack(ItemStack stack, int par2) {
-        return getColorFromItemStack(stack).getInt();
-    }
-
-    default Colour getGlowFromItemStack(ItemStack stack) {
-        if (!ModuleManager.INSTANCE.itemHasActiveModule(stack, CosmeticGlowModule.MODULE_GLOW)) {
-            return Colour.LIGHTBLUE;
-        }
-        double computedred = ModuleManager.INSTANCE.computeModularProperty(stack, CosmeticGlowModule.RED_GLOW);
-        double computedgreen = ModuleManager.INSTANCE.computeModularProperty(stack, CosmeticGlowModule.GREEN_GLOW);
-        double computedblue = ModuleManager.INSTANCE.computeModularProperty(stack, CosmeticGlowModule.BLUE_GLOW);
-        Colour colour = new Colour(clampDouble(computedred, 0, 1), clampDouble(computedgreen, 0, 1), clampDouble(computedblue, 0, 1), 0.8);
-        return colour;
-    }
-
     default Colour getColorFromItemStack(ItemStack stack) {
-        if (!ModuleManager.INSTANCE.itemHasActiveModule(stack, TintModule.MODULE_TINT)) {
-            return Colour.WHITE;
+        try {
+            NBTTagCompound renderTag = MPSNBTUtils.getMuseRenderTag(stack);
+            if (renderTag.hasKey(MPSNBTConstants.NBT_TEXTURESPEC_TAG)) {
+                TexturePartSpec partSpec = (TexturePartSpec) ModelRegistry.getInstance().getPart(renderTag.getCompoundTag(MPSNBTConstants.NBT_TEXTURESPEC_TAG));
+                NBTTagCompound specTag = renderTag.getCompoundTag(MPSNBTConstants.NBT_TEXTURESPEC_TAG);
+                int index = partSpec.getColourIndex(specTag);
+                int[] colours = renderTag.getIntArray(NuminaNBTConstants.TAG_COLOURS);
+                return new Colour(colours[index]);
+            }
+        } catch (Exception e ) {
+            MuseLogger.logException("something failed here: ", e);
         }
-        double computedred = ModuleManager.INSTANCE.computeModularProperty(stack, TintModule.RED_TINT);
-        double computedgreen = ModuleManager.INSTANCE.computeModularProperty(stack, TintModule.GREEN_TINT);
-        double computedblue = ModuleManager.INSTANCE.computeModularProperty(stack, TintModule.BLUE_TINT);
-        Colour colour = new Colour(clampDouble(computedred, 0, 1), clampDouble(computedgreen, 0, 1), clampDouble(computedblue, 0, 1), 1.0F);
-        return colour;
+        return Colour.WHITE;
     }
 
     default String formatInfo(String string, double value) {

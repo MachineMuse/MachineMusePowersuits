@@ -29,7 +29,6 @@ public abstract class ItemElectricArmor extends ItemArmor implements IModularIte
         return null;
     }
 
-    //=================================================================================
     @Override
     public boolean hasColor(ItemStack stack) {
         return true ;
@@ -38,8 +37,6 @@ public abstract class ItemElectricArmor extends ItemArmor implements IModularIte
     @Override
     public int getColor(ItemStack stack) {
         Colour c = this.getColorFromItemStack(stack);
-//        setColor(stack, c.getInt());
-
         return c.getInt();
     }
 
@@ -48,10 +45,8 @@ public abstract class ItemElectricArmor extends ItemArmor implements IModularIte
         return true;
     }
 
-
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> currentTipList, ITooltipFlag flagIn) {
         MuseCommonStrings.addInformation(stack, worldIn, currentTipList, flagIn);
     }
-
 }

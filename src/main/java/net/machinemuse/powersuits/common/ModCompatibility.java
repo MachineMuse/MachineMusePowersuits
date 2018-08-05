@@ -118,7 +118,11 @@ public class ModCompatibility {
     }
 
     public static boolean isRenderPlayerAPILoaded() {
-        return Loader.isModLoaded("renderplayerapi");
+
+        System.out.println("is renderplayer api loaded: " + Loader.isModLoaded("RenderPlayerAPIPlugin"));
+
+
+        return Loader.isModLoaded("RenderPlayerAPIPlugin");
     }
 
     public static boolean isRefinedStorageLoaded() {
