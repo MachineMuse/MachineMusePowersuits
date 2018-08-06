@@ -1,13 +1,5 @@
 
-  {
-    "ingredients" : [
-      [ { "registryName" : "ic2:plate", "meta" : 3 }, { "registryName" : "ic2:plate", "meta" : 3 }, { "registryName" : "ic2:plate", "meta" : 3 } ],
-      [ { "oredictName" : "circuitBasic" }, null, { "oredictName" : "circuitBasic" } ]
-    ],
-    "result" : {
-      "registryName" : "powersuits:powerArmorHead"
-    }
-  },
+
   {
     "ingredients" : [
       [ { "registryName" : "ic2:plate", "meta" : 3 }, null, { "registryName" : "ic2:plate", "meta" : 3 } ],
@@ -18,35 +10,9 @@
       "registryName" : "powersuits:powerArmorTorso"
     }
   },
-  {
-    "ingredients" : [
-      [ { "registryName" : "ic2:plate", "meta" : 3 }, { "registryName" : "ic2:plate", "meta" : 3 }, { "registryName" : "ic2:plate", "meta" : 3 } ],
-      [ { "oredictName" : "circuitBasic" }, null, { "oredictName" : "circuitBasic" } ],
-      [ { "registryName" : "ic2:plate", "meta" : 3 }, null, { "registryName" : "ic2:plate", "meta" : 3 } ]
-    ],
-    "result" : {
-      "registryName" : "powersuits:powerArmorLegs"
-    }
-  },
-  {
-    "ingredients" : [
-      [ { "oredictName" : "circuitBasic" }, null, { "oredictName" : "circuitBasic" } ],
-      [ { "registryName" : "ic2:plate", "meta" : 3 }, null, { "registryName" : "ic2:plate", "meta" : 3 } ]
-    ],
-    "result" : {
-      "registryName" : "powersuits:powerArmorFeet"
-    }
-  },
-  {
-    "ingredients" : [
-      [ null, { "oredictName" : "circuitBasic" }, null ],
-      [ { "oredictName" : "circuitBasic" }, { "registryName" : "ic2:plate", "meta" : 3 }, null ],
-      [ null, { "registryName" : "ic2:plate", "meta" : 3 }, { "oredictName" : "circuitBasic" } ]
-    ],
-    "result" : {
-      "registryName" : "powersuits:powerTool"
-    }
-  },
+
+
+
   {
     "ingredients" : [
       [ { "registryName" : "ic2:cable","nbtString" : "{type:0B, insulation:0B}" }, { "oredictName" : "dustRedstone" }, { "registryName" : "ic2:cable","nbtString" : "{type:0B, insulation:0B}" } ],
@@ -213,26 +179,9 @@
     }
   },
   {
-    "ingredients" : [
-      [ { "registryName" : "ic2:crafting", "meta" : 15 }, { "registryName" : "ic2:crafting", "meta" : 15 }, { "registryName" : "ic2:crafting", "meta" : 15 } ],
-      [ { "registryName" : "ic2:crafting", "meta" : 15 }, { "registryName" : "ic2:crafting", "meta" : 15 }, { "registryName" : "ic2:crafting", "meta" : 15 } ],
-      [ { "registryName" : "ic2:crafting", "meta" : 15 }, { "registryName" : "ic2:crafting", "meta" : 15 }, { "registryName" : "ic2:crafting", "meta" : 15 } ]
-    ],
-    "result" : {
-      "oredictName" : "componentCarbonMyofiber"
-    }
+
   },
-  {
-    "ingredients" : [
-      [ { "oredictName" : "componentWiring" }, { "oredictName" : "dyeGreen" }, { "oredictName" : "ingotGold" } ],
-      [ { "oredictName" : "dustRedstone" }, { "oredictName" : "circuitBasic" }, { "oredictName" : "dyeGreen" } ],
-      [ { "oredictName" : "ingotGold" }, { "oredictName" : "dustRedstone" }, { "oredictName" : "componentWiring" } ]
-    ],
-    "result" : {
-      "oredictName" : "componentControlCircuit"
-    },
-    "mirror" : true
-  },
+
   {
     "ingredients" : [
       [ null, { "registryName" : "minecraft:magma_cream" }, null ],
@@ -243,16 +192,7 @@
       "oredictName" : "componentMyofiberGel"
     }
   },
-  {
-    "ingredients" : [
-      [ { "oredictName" : "componentCarbonMyofiber" }, { "oredictName" : "itemRubber" }, { "oredictName" : "componentCarbonMyofiber" } ],
-      [ { "oredictName" : "componentCarbonMyofiber" }, { "oredictName" : "componentMyofiberGel" }, { "oredictName" : "componentCarbonMyofiber" } ],
-      [ { "oredictName" : "componentCarbonMyofiber" }, { "oredictName" : "componentMyofiberGel" }, { "oredictName" : "componentCarbonMyofiber" } ]
-    ],
-    "result" : {
-      "oredictName" : "componentArtificialMuscle"
-    }
-  },
+
   {
     "ingredients" : [
       [ { "oredictName" : "dyeBlue" }, { "oredictName" : "blockGlass" }, { "oredictName" : "dyeBlue" } ],
@@ -273,16 +213,7 @@
       "oredictName" : "componentMagnet"
     }
   },
-  {
-    "ingredients" : [
-      [ { "registryName" : "ic2:cable","nbtString" : "{type:0B, insulation:0B}" }, { "oredictName" : "componentSolenoid" }, { "registryName" : "ic2:cable","nbtString" : "{type:0B, insulation:0B}" } ],
-      [ { "oredictName" : "circuitAdvanced" }, { "registryName" : "ic2:advanced_scanner", "meta" : 26 }, { "oredictName" : "circuitAdvanced" } ],
-      [ { "registryName" : "ic2:cable","nbtString" : "{type:0B, insulation:0B}" }, { "oredictName" : "componentSolenoid" }, { "registryName" : "ic2:cable","nbtString" : "{type:0B, insulation:0B}" } ]
-    ],
-    "result" : {
-      "oredictName" : "componentComputerChip"
-    }
-  },
+
   {
     "ingredients" : [
       [ { "oredictName" : "itemRubber" }, { "oredictName" : "itemRubber" }, { "oredictName" : "itemRubber" } ],

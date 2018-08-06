@@ -147,12 +147,6 @@ public class ModCompatibility {
         return false;
     }
 
-
-
-
-
-
-
     public static void registerModSpecificModules() {
 
         // CoFH Lib - CoFHLib is included in CoFHCore
