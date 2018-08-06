@@ -1,14 +1,4 @@
-[
-  {
-    "ingredients" : [
-      [ null, { "oredictName" : "gemEmerald" }, null ],
-      [ { "oredictName" : "plateIron" }, { "oredictName" : "circuitBasic" }, { "oredictName" : "plateIron" } ],
-      [ null, { "registryName" : "ic2:resource", "meta" : 12 }, null ]
-    ],
-    "result" : {
-      "registryName" : "powersuits:tile.tinkerTable"
-    }
-  },
+
   {
     "ingredients" : [
       [ { "registryName" : "ic2:plate", "meta" : 3 }, { "registryName" : "ic2:plate", "meta" : 3 }, { "registryName" : "ic2:plate", "meta" : 3 } ],

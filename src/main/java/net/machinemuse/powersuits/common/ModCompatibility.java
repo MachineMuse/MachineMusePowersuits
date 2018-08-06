@@ -94,7 +94,7 @@ public class ModCompatibility {
     }
 
     public static boolean isEnderIOLoaded() {
-        return Loader.isModLoaded("EnderIO");
+        return Loader.isModLoaded("enderio");
     }
 
     public static boolean isAppengLoaded() {
