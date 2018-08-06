@@ -1,0 +1,26 @@
+{
+  "conditions" : [
+    {
+      "type" : "powersuits:ic2_recipes_enabled",
+      "value" : true
+    } ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "CI ",
+    " IC"
+  ],
+  "key": {
+    "C" : {
+      "type": "forge:ore_dict",
+      "ore": "circuitBasic"
+    },
+    "I" : {
+      "type": "forge:ore_dict",
+      "ore": "plateIron"
+    }
+  },
+  "result": {
+    "item": "powersuits:power_fist"
+  }
+}

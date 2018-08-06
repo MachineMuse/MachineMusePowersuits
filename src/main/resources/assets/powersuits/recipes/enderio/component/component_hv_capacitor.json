@@ -1,0 +1,26 @@
+{
+  "conditions" : [
+    {
+      "type" : "powersuits:enderio_recipes_enabled",
+      "value" : true
+    } ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WBW",
+    "W W"
+  ],
+  "key": {
+    "B" : {
+      "item": "enderio:item_basic_capacitor",
+      "data" : 2
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    }
+  },
+  "result": {
+    "item" : "powersuits:powerarmorcomponent",
+    "data" : 7
+  }
+}

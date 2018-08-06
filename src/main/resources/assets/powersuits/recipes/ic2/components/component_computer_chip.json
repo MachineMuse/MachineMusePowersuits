@@ -1,0 +1,41 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:ic2_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CSC",
+    "A!A",
+    "CSC"
+  ],
+  "key": {
+    "C": {
+      "type": "minecraft:item_nbt",
+      "item": "ic2:cable",
+      "data" : 0,
+      "nbt": {
+        "type": 0,
+        "insulation": 0
+      }
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "componentSolenoid"
+    },
+    "A": {
+      "type": "forge:ore_dict",
+      "ore": "circuitAdvanced"
+    },
+    "!": {
+      "item": "ic2:advanced_scanner",
+      "data": 26
+    }
+  },
+  "result": {
+    "item" : "powersuits:powerarmorcomponent",
+    "data" : 20
+  }
+}

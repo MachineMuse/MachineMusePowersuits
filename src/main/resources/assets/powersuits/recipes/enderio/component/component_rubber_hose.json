@@ -1,0 +1,27 @@
+{
+  "conditions" : [
+    {
+      "type" : "powersuits:enderio_recipes_enabled",
+      "value" : true
+    } ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BBB",
+    "H H",
+    "BBB"
+  ],
+  "key": {
+    "B" : {
+      "type": "forge:ore_dict",
+      "ore": "ballDarkSteel"
+    },
+    "H" : {
+      "type": "forge:ore_dict",
+      "ore": "blockGlassHardened"
+    }
+  },
+  "result": {
+    "item" : "powersuits:powerarmorcomponent",
+    "data" : 17
+  }
+}

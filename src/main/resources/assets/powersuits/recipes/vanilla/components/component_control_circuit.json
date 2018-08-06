@@ -1,0 +1,39 @@
+{
+  "conditions" : [
+    {
+      "type" : "powersuits:vanilla_recipes_enabled",
+      "value" : true
+    } ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "W!W",
+    "R@!",
+    "GRW"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "!" : {
+      "type": "forge:ore_dict",
+      "ore": "dyeGreen"
+    },
+    "@" : {
+      "type": "forge:ore_dict",
+      "ore": "dustGlowstone"
+    },
+    "R" : {
+      "type": "forge:ore_dict",
+      "ore": "dustRedstone"
+    },
+    "G" : {
+      "type": "forge:ore_dict",
+      "ore": "ingotGold"
+    }
+  },
+  "result": {
+    "item" : "powersuits:powerarmorcomponent",
+    "data" : 15
+  }
+}

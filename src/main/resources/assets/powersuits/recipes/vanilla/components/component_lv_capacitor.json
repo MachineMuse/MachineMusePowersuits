@@ -1,0 +1,30 @@
+{
+  "conditions" : [
+    {
+      "type" : "powersuits:vanilla_recipes_enabled",
+      "value" : true
+    } ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WPI",
+    "W W"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "P": {
+      "type": "forge:ore_dict",
+      "ore": "paper"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    }
+  },
+  "result": {
+    "item" : "powersuits:powerarmorcomponent",
+    "data" : 5
+  }
+}

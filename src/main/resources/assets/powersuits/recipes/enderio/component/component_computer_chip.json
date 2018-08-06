@@ -1,0 +1,35 @@
+{
+  "conditions" : [
+    {
+      "type" : "powersuits:enderio_recipes_enabled",
+      "value" : true
+    } ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CSC",
+    "BPB",
+    "CSC"
+  ],
+  "key": {
+    "C": {
+      "item" : "enderio:item_power_conduit",
+      "data" : 1
+    },
+    "B" : {
+      "item": "enderio:item_basic_capacitor",
+      "data" : 1
+    },
+    "S" : {
+      "type": "forge:ore_dict",
+      "ore" : "componentSolenoid"
+    },
+    "P" : {
+      "item" : "enderio:item_conduit_probe",
+      "data" : 0
+    }
+  },
+  "result": {
+    "item" : "powersuits:powerarmorcomponent",
+    "data" : 20
+  }
+}

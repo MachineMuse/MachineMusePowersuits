@@ -1,0 +1,31 @@
+{
+  "conditions" : [
+    {
+      "type" : "powersuits:enderio_recipes_enabled",
+      "value" : true
+    } ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WIW",
+    "WEW",
+    "WIW"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    "E" : {
+      "type": "forge:ore_dict",
+      "ore": "ingotEnergeticAlloy"
+    }
+  },
+  "result": {
+    "item" : "powersuits:powerarmorcomponent",
+    "data" : 1
+  }
+}
