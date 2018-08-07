@@ -1,9 +1,10 @@
 {
-  "conditions" : [
+  "conditions": [
     {
-      "type" : "powersuits:vanilla_recipes_enabled",
-      "value" : true
-    } ],
+      "type": "powersuits:vanilla_recipes_enabled",
+      "value": true
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " FS",
@@ -11,11 +12,11 @@
     "WFS"
   ],
   "key": {
-    "F" : {
+    "F": {
       "type": "forge:ore_dict",
       "ore": "componentFieldEmitter"
     },
-    "S" : {
+    "S": {
       "type": "forge:ore_dict",
       "ore": "componentSolenoid"
     },
@@ -33,7 +34,7 @@
     }
   },
   "result": {
-    "item" : "powersuits:powerarmorcomponent",
-    "data" : 4
+    "item": "powersuits:powerarmorcomponent",
+    "data": 4
   }
 }

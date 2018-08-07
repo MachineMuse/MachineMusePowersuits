@@ -1,9 +1,10 @@
 {
-  "conditions" : [
+  "conditions": [
     {
-      "type" : "powersuits:ic2_recipes_enabled",
-      "value" : true
-    } ],
+      "type": "powersuits:ic2_recipes_enabled",
+      "value": true
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "III",
@@ -11,11 +12,11 @@
     "I I"
   ],
   "key": {
-    "C" : {
+    "C": {
       "type": "forge:ore_dict",
       "ore": "circuitBasic"
     },
-    "I" : {
+    "I": {
       "type": "forge:ore_dict",
       "ore": "plateIron"
     }

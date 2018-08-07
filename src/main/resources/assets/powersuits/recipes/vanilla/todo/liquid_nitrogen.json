@@ -1,9 +1,10 @@
 {
-  "conditions" : [
+  "conditions": [
     {
-      "type" : "powersuits:vanilla_recipes_enabled",
-      "value" : true
-    } ],
+      "type": "powersuits:vanilla_recipes_enabled",
+      "value": true
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "IBI",
@@ -14,18 +15,21 @@
     "I": {
       "item": "minecraft:ice"
     },
-    "P" : {
+    "P": {
       "item": "minecraft:packed_ice"
     },
-    "W" : {
+    "W": {
       "item": "minecraft:water_bucket"
     },
-    "B" : {
+    "B": {
       "item": "minecraft:bucket"
     }
   },
   "result": {
-    "item" : "forge:bucketfilled",
-    "nbt" : {"FluidName": "liquid_nitrogen", "Amount" : 1000}
+    "item": "forge:bucketfilled",
+    "nbt": {
+      "FluidName": "liquid_nitrogen",
+      "Amount": 1000
+    }
   }
 }

@@ -1,9 +1,10 @@
 {
-  "conditions" : [
+  "conditions": [
     {
-      "type" : "powersuits:enderio_recipes_enabled",
-      "value" : true
-    } ],
+      "type": "powersuits:enderio_recipes_enabled",
+      "value": true
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "PRP"
@@ -19,8 +20,8 @@
     }
   },
   "result": {
-    "item" : "powersuits:powerarmorcomponent",
-    "data" : 0,
-    "count" : 8
+    "item": "powersuits:powerarmorcomponent",
+    "data": 0,
+    "count": 8
   }
 }

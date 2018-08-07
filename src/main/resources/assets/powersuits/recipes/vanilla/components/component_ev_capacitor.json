@@ -1,9 +1,10 @@
 {
-  "conditions" : [
+  "conditions": [
     {
-      "type" : "powersuits:vanilla_recipes_enabled",
-      "value" : true
-    } ],
+      "type": "powersuits:vanilla_recipes_enabled",
+      "value": true
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "WHW",
@@ -15,17 +16,17 @@
       "type": "forge:ore_dict",
       "ore": "componentWiring"
     },
-    "H" : {
+    "H": {
       "type": "forge:ore_dict",
       "ore": "componentHVCapacitor"
     },
-    "C" : {
+    "C": {
       "type": "forge:ore_dict",
       "ore": "componentComputerChip"
     }
   },
   "result": {
-    "item" : "powersuits:powerarmorcomponent",
-    "data" : 8
+    "item": "powersuits:powerarmorcomponent",
+    "data": 8
   }
 }

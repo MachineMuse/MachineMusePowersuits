@@ -1,9 +1,10 @@
 {
-  "conditions" : [
+  "conditions": [
     {
-      "type" : "powersuits:enderio_recipes_enabled",
-      "value" : true
-    } ],
+      "type": "powersuits:enderio_recipes_enabled",
+      "value": true
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " HH",
@@ -11,7 +12,7 @@
     "H I"
   ],
   "key": {
-    "S" : {
+    "S": {
       "type": "forge:ore_dict",
       "ore": "componentSolenoid"
     },
@@ -19,13 +20,13 @@
       "type": "forge:ore_dict",
       "ore": "ingotEnergeticAlloy"
     },
-    "H" : {
+    "H": {
       "type": "forge:ore_dict",
       "ore": "blockGlassHardened"
     }
   },
   "result": {
-    "item" : "powersuits:powerarmorcomponent",
-    "data" : 3
+    "item": "powersuits:powerarmorcomponent",
+    "data": 3
   }
 }

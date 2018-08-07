@@ -1,9 +1,10 @@
 {
-  "conditions" : [
+  "conditions": [
     {
-      "type" : "powersuits:vanilla_recipes_enabled",
-      "value" : true
-    } ],
+      "type": "powersuits:vanilla_recipes_enabled",
+      "value": true
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "P"
@@ -16,6 +17,6 @@
   },
   "result": {
     "item": "minecraft:iron_ingot",
-    "count" : 5
+    "count": 5
   }
 }

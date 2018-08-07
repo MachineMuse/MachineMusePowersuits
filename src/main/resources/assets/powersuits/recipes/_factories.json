@@ -1,11 +1,11 @@
 {
   "conditions": {
-    "enderio_recipes_enabled" : "net.machinemuse.powersuits.recipe.MPSRecipeConditionFactory",
-    "gregtech_recipes_enabled" : "net.machinemuse.powersuits.recipe.MPSRecipeConditionFactory",
-    "ic2_recipes_enabled" : "net.machinemuse.powersuits.recipe.MPSRecipeConditionFactory",
-    "ic2_classic_recipes_enabled" : "net.machinemuse.powersuits.recipe.MPSRecipeConditionFactory",
-    "tech_reborn_recipes_enabled" : "net.machinemuse.powersuits.recipe.MPSRecipeConditionFactory",
-    "thermal;_expansion_recipes_enabled" : "net.machinemuse.powersuits.recipe.MPSRecipeConditionFactory",
-    "vanilla_recipes_enabled" : "net.machinemuse.powersuits.recipe.MPSRecipeConditionFactory"
+    "enderio_recipes_enabled": "net.machinemuse.powersuits.recipe.MPSRecipeConditionFactory",
+    "gregtech_recipes_enabled": "net.machinemuse.powersuits.recipe.MPSRecipeConditionFactory",
+    "ic2_recipes_enabled": "net.machinemuse.powersuits.recipe.MPSRecipeConditionFactory",
+    "ic2_classic_recipes_enabled": "net.machinemuse.powersuits.recipe.MPSRecipeConditionFactory",
+    "tech_reborn_recipes_enabled": "net.machinemuse.powersuits.recipe.MPSRecipeConditionFactory",
+    "thermal;_expansion_recipes_enabled": "net.machinemuse.powersuits.recipe.MPSRecipeConditionFactory",
+    "vanilla_recipes_enabled": "net.machinemuse.powersuits.recipe.MPSRecipeConditionFactory"
   }
 }

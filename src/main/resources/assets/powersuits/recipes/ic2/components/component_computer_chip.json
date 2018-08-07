@@ -15,7 +15,7 @@
     "C": {
       "type": "minecraft:item_nbt",
       "item": "ic2:cable",
-      "data" : 0,
+      "data": 0,
       "nbt": {
         "type": 0,
         "insulation": 0
@@ -35,7 +35,7 @@
     }
   },
   "result": {
-    "item" : "powersuits:powerarmorcomponent",
-    "data" : 20
+    "item": "powersuits:powerarmorcomponent",
+    "data": 20
   }
 }

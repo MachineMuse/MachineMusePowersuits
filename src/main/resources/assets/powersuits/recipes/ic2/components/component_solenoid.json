@@ -1,0 +1,32 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:ic2_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WIW",
+    "WCW",
+    "WIW"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "plateIron"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "circuitBasic"
+    }
+  },
+  "result": {
+    "item": "powersuits:powerarmorcomponent",
+    "data": 1
+  }
+}

@@ -1,9 +1,10 @@
 {
-  "conditions" : [
+  "conditions": [
     {
-      "type" : "powersuits:vanilla_recipes_enabled",
-      "value" : true
-    } ],
+      "type": "powersuits:vanilla_recipes_enabled",
+      "value": true
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " W ",
@@ -11,13 +12,13 @@
     " IW"
   ],
   "key": {
-    "I" : {
+    "I": {
       "type": "forge:ore_dict",
       "ore": "ingotIron"
     },
-    "W" : {
+    "W": {
       "type": "forge:ore_dict",
-      "ore" : "componentWiring"
+      "ore": "componentWiring"
     }
   },
   "result": {

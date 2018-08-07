@@ -1,9 +1,10 @@
 {
-  "conditions" : [
+  "conditions": [
     {
-      "type" : "powersuits:enderio_recipes_enabled",
-      "value" : true
-    } ],
+      "type": "powersuits:enderio_recipes_enabled",
+      "value": true
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "W!S",
@@ -15,25 +16,25 @@
       "type": "forge:ore_dict",
       "ore": "componentWiring"
     },
-    "!" : {
+    "!": {
       "type": "forge:ore_dict",
       "ore": "dyeGreen"
     },
-    "S" : {
+    "S": {
       "type": "forge:ore_dict",
       "ore": "ingotElectricalSteel"
     },
-    "R" : {
+    "R": {
       "type": "forge:ore_dict",
       "ore": "dustRedstone"
     },
-    "B" : {
+    "B": {
       "item": "enderio:item_basic_capacitor",
-      "data" : 1
+      "data": 1
     }
   },
   "result": {
-    "item" : "powersuits:powerarmorcomponent",
-    "data" : 15
+    "item": "powersuits:powerarmorcomponent",
+    "data": 15
   }
 }

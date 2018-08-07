@@ -1,26 +1,28 @@
 {
-  "conditions" : [
+  "conditions": [
     {
-      "type" : "powersuits:vanilla_recipes_enabled",
-      "value" : true
-    } ],
+      "type": "powersuits:vanilla_recipes_enabled",
+      "value": true
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "IBI",
     "BEB",
-    "IBI"  ],
+    "IBI"
+  ],
   "key": {
-    "I" : {
+    "I": {
       "type": "forge:ore_dict",
       "ore": "ingotIron"
     },
-    "B" : {
+    "B": {
       "type": "forge:ore_dict",
-      "ore" : "dyeBlue"
+      "ore": "dyeBlue"
     },
-    "E" : {
+    "E": {
       "type": "forge:ore_dict",
-      "ore" : "gemEmerald"
+      "ore": "gemEmerald"
     }
   },
   "result": {

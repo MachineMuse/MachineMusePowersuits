@@ -1,9 +1,10 @@
 {
-  "conditions" : [
+  "conditions": [
     {
-      "type" : "powersuits:enderio_recipes_enabled",
-      "value" : true
-    } ],
+      "type": "powersuits:enderio_recipes_enabled",
+      "value": true
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "BGB",
@@ -27,13 +28,13 @@
       "type": "forge:ore_dict",
       "ore": "ingotRedstoneAlloy"
     },
-    "S" : {
+    "S": {
       "type": "forge:ore_dict",
-      "ore" : "itemSilicon"
+      "ore": "itemSilicon"
     }
   },
   "result": {
-    "item" : "powersuits:powerarmorcomponent",
-    "data" : 18
+    "item": "powersuits:powerarmorcomponent",
+    "data": 18
   }
 }

@@ -1,9 +1,10 @@
 {
-  "conditions" : [
+  "conditions": [
     {
-      "type" : "powersuits:enderio_recipes_enabled",
-      "value" : true
-    } ],
+      "type": "powersuits:enderio_recipes_enabled",
+      "value": true
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "IBI",
@@ -11,17 +12,17 @@
     "IBI"
   ],
   "key": {
-    "B" : {
+    "B": {
       "type": "forge:ore_dict",
       "ore": "ballDarkSteel"
     },
-    "I" : {
+    "I": {
       "type": "forge:ore_dict",
-      "ore" : "ingotDarkSteel"
+      "ore": "ingotDarkSteel"
     }
   },
   "result": {
-    "item" : "powersuits:powerarmorcomponent",
-    "data" : 14
+    "item": "powersuits:powerarmorcomponent",
+    "data": 14
   }
 }

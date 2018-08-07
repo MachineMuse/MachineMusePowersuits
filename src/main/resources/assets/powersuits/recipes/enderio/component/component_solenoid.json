@@ -1,9 +1,10 @@
 {
-  "conditions" : [
+  "conditions": [
     {
-      "type" : "powersuits:enderio_recipes_enabled",
-      "value" : true
-    } ],
+      "type": "powersuits:enderio_recipes_enabled",
+      "value": true
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "WIW",
@@ -19,13 +20,13 @@
       "type": "forge:ore_dict",
       "ore": "ingotIron"
     },
-    "E" : {
+    "E": {
       "type": "forge:ore_dict",
       "ore": "ingotEnergeticAlloy"
     }
   },
   "result": {
-    "item" : "powersuits:powerarmorcomponent",
-    "data" : 1
+    "item": "powersuits:powerarmorcomponent",
+    "data": 1
   }
 }

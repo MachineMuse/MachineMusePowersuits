@@ -1,9 +1,10 @@
 {
-  "conditions" : [
+  "conditions": [
     {
-      "type" : "powersuits:enderio_recipes_enabled",
-      "value" : true
-    } ],
+      "type": "powersuits:enderio_recipes_enabled",
+      "value": true
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "CDC",
@@ -11,7 +12,7 @@
     "CCC"
   ],
   "key": {
-    "D" : {
+    "D": {
       "type": "forge:ore_dict",
       "ore": "ballDarkSteel"
     },
@@ -21,7 +22,7 @@
     }
   },
   "result": {
-    "item" : "powersuits:powerarmorcomponent",
-    "data" : 17
+    "item": "powersuits:powerarmorcomponent",
+    "data": 17
   }
 }

@@ -1,9 +1,10 @@
 {
-  "conditions" : [
+  "conditions": [
     {
-      "type" : "powersuits:enderio_recipes_enabled",
-      "value" : true
-    } ],
+      "type": "powersuits:enderio_recipes_enabled",
+      "value": true
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "WBW",
@@ -14,13 +15,13 @@
       "type": "forge:ore_dict",
       "ore": "componentWiring"
     },
-    "B" : {
+    "B": {
       "item": "enderio:item_basic_capacitor",
-      "data" : 0
+      "data": 0
     }
   },
   "result": {
-    "item" : "powersuits:powerarmorcomponent",
-    "data" : 5
+    "item": "powersuits:powerarmorcomponent",
+    "data": 5
   }
 }

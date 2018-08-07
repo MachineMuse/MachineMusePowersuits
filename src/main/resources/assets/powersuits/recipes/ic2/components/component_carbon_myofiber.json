@@ -1,9 +1,10 @@
 {
-  "conditions" : [
+  "conditions": [
     {
-      "type" : "powersuits:ic2_recipes_enabled",
-      "value" : true
-    } ],
+      "type": "powersuits:ic2_recipes_enabled",
+      "value": true
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "CCC",
@@ -11,13 +12,13 @@
     "CCC"
   ],
   "key": {
-    "C" : {
+    "C": {
       "item": "ic2:crafting",
-      "data" : 15
+      "data": 15
     }
   },
   "result": {
-    "item" : "powersuits:powerarmorcomponent",
-    "data" : 14
+    "item": "powersuits:powerarmorcomponent",
+    "data": 14
   }
 }

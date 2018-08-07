@@ -1,9 +1,10 @@
 {
-  "conditions" : [
+  "conditions": [
     {
-      "type" : "powersuits:vanilla_recipes_enabled",
-      "value" : true
-    } ],
+      "type": "powersuits:vanilla_recipes_enabled",
+      "value": true
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "SES",
@@ -11,17 +12,17 @@
     "SES"
   ],
   "key": {
-    "E" : {
+    "E": {
       "type": "forge:ore_dict",
       "ore": "enderpearl"
     },
-    "S" : {
+    "S": {
       "type": "forge:ore_dict",
       "ore": "componentSolenoid"
     }
   },
   "result": {
-    "item" : "powersuits:powerarmorcomponent",
-    "data" : 12
+    "item": "powersuits:powerarmorcomponent",
+    "data": 12
   }
 }

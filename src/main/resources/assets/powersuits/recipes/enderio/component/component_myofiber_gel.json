@@ -1,9 +1,10 @@
 {
-  "conditions" : [
+  "conditions": [
     {
-      "type" : "powersuits:enderio_recipes_enabled",
-      "value" : true
-    } ],
+      "type": "powersuits:enderio_recipes_enabled",
+      "value": true
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " M ",
@@ -14,17 +15,17 @@
     "M": {
       "item": "minecraft:magma_cream"
     },
-    "I" : {
+    "I": {
       "type": "forge:ore_dict",
-      "ore" : "ingotDarkSteel"
+      "ore": "ingotDarkSteel"
     },
-    "B" : {
+    "B": {
       "type": "forge:ore_dict",
       "ore": "ballDarkSteel"
     }
   },
   "result": {
-    "item" : "powersuits:powerarmorcomponent",
-    "data" : 16
+    "item": "powersuits:powerarmorcomponent",
+    "data": 16
   }
 }
