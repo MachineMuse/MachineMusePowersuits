@@ -1,28 +1,29 @@
 {
   "conditions": [
     {
-      "type": "powersuits:enderio_recipes_enabled",
+      "type": "powersuits:thermal_expansion_recipes_enabled",
       "value": true
     }
   ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "BBB",
-    "H H",
-    "BBB"
+    "CCC",
+    "SSS",
+    "CCC"
   ],
   "key": {
-    "B": {
+    "C": {
       "type": "forge:ore_dict",
-      "ore": "ballDarkSteel"
+      "ore": "ingotCopper"
     },
-    "H": {
+    "S": {
       "type": "forge:ore_dict",
-      "ore": "blockGlassHardened"
+      "ore": "ingotSilver"
     }
   },
   "result": {
     "item": "powersuits:powerarmorcomponent",
-    "data": 21
+    "data": 0,
+    "count": 8
   }
 }

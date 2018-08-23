@@ -42,7 +42,7 @@ public class MPSRecipeConditionFactory implements IConditionFactory {
             }
 
             // Thermal Expansion
-            if (key.equals("powersuits:thermal;_expansion_recipes_enabled")) {
+            if (key.equals("powersuits:thermal_expansion_recipes_enabled")) {
                 return () -> ModCompatibility.isThermalExpansionLoaded() == value;
             }
 

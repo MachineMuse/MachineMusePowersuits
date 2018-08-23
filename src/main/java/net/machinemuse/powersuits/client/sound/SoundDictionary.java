@@ -22,7 +22,7 @@ public class SoundDictionary {
     public static SoundEvent SOUND_EVENT_JETBOOTS = registerSound("jet_boots");
     public static SoundEvent SOUND_EVENT_JETPACK = registerSound("jetpack");
     public static SoundEvent SOUND_EVENT_JUMP_ASSIST = registerSound("jump_assist");
-    public static SoundEvent SOUND_EVENT_MPS_BOOP = registerSound("mps_boop");
+    public static SoundEvent SOUND_EVENT_MPS_BOOP = registerSound("mmmps_boop");
     public static SoundEvent SOUND_EVENT_SWIM_ASSIST = registerSound("swim_assist");
     public static SoundEvent SOUND_EVENT_ELECTROLYZER = registerSound("water_electrolyzer");
 

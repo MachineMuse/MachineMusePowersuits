@@ -1,0 +1,28 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:thermal_expansion_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WFW",
+    "W W"
+  ],
+  "key": {
+    "F": {
+      "item": "thermalexpansion:frame",
+      "data": 128,
+      "comment": "energy cell frame"
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    }
+  },
+  "result": {
+    "item": "powersuits:powerarmorcomponent",
+    "data": 7
+  }
+}

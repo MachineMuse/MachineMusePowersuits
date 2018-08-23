@@ -1,28 +1,27 @@
 {
   "conditions": [
     {
-      "type": "powersuits:vanilla_recipes_enabled",
+      "type": "powersuits:thermal_expansion_recipes_enabled",
       "value": true
     }
   ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "WWW",
-    "G G",
-    "WWW"
+    " W ",
+    "WI ",
+    " IW"
   ],
   "key": {
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotElectrum"
+    },
     "W": {
       "type": "forge:ore_dict",
-      "ore": "blockWoolBlack"
-    },
-    "G": {
-      "type": "forge:ore_dict",
-      "ore": "blockGlass"
+      "ore": "componentWiring"
     }
   },
   "result": {
-    "item": "powersuits:powerarmorcomponent",
-    "data": 21
+    "item": "powersuits:power_fist"
   }
 }

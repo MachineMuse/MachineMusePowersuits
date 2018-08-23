@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.item.tool;
 //import appeng.api.implementations.items.IAEWrench;
 
 import appeng.api.implementations.items.IAEWrench;
+import buildcraft.api.tools.IToolWrench;
 import cofh.api.item.IToolHammer;
 import com.raoulvdberge.refinedstorage.api.network.item.INetworkItem;
 import com.raoulvdberge.refinedstorage.api.network.item.INetworkItemHandler;
@@ -33,6 +34,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -64,7 +66,7 @@ import java.util.List;
 //        @Optional.Interface(iface = "mods.railcraft.api.core.items.IToolCrowbar", modid = "Railcraft", striprefs = true),
 //        @Optional.Interface(iface = "powercrystals.minefactoryreloaded.api.IMFRHammer", modid = "MineFactoryReloaded", striprefs = true),
         @Optional.Interface(iface = "cofh.api.item.IToolHammer", modid = "cofhcore", striprefs = true),
-//        @Optional.Interface(iface = "buildcraft.api.tools.IToolWrench", modid = "BuildCraft|Core", striprefs = true),
+        @Optional.Interface(iface = "buildcraft.api.tools.IToolWrench", modid = "BuildCraft|Core", striprefs = true),
         @Optional.Interface(iface = "appeng.api.implementations.items.IAEWrench", modid = "appliedenergistics2", striprefs = true)
 })
 public class ItemPowerFist extends MPSItemElectricTool
@@ -74,7 +76,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         INetworkItemProvider,
 //        IToolCrowbar,
         IAEWrench,
-//        IToolWrench,
+        IToolWrench,
         ITool,
         IMekWrench,
         IModularItem,
@@ -356,16 +358,17 @@ public class ItemPowerFist extends MPSItemElectricTool
         return this.getActiveMode(itemStack).equals(MPSModuleConstants.MODULE_OMNI_WRENCH__DATANAME);
     }
 
-//    /* Buildcraft Wrench */
-//    @Override
-//    public void wrenchUsed(EntityPlayer player, int i, int i1, int i2) {
-//    }
-//
-//    /* Buildcraft Wrench */
-//    @Override
-//    public boolean canWrench(EntityPlayer player, int i, int i1, int i2) {
-//        return this.getActiveMode(player.getHeldItem()).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
-//    }
+    /* Buildcraft Wrench */
+    @Override
+    public void wrenchUsed(EntityPlayer entityPlayer, EnumHand enumHand, ItemStack itemStack, RayTraceResult rayTraceResult) {
+
+    }
+
+    /* Buildcraft Wrench */
+    @Override
+    public boolean canWrench(EntityPlayer entityPlayer, EnumHand enumHand, ItemStack itemStack, RayTraceResult rayTraceResult) {
+        return this.getActiveMode(entityPlayer.getHeldItem(enumHand)).equals(MPSModuleConstants.MODULE_OMNI_WRENCH__DATANAME);
+    }
 
     /* EnderIO Tool */
     @Override

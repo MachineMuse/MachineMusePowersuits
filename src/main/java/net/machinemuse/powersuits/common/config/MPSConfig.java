@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.common.config;
 
-import jline.internal.Nullable;
 import net.machinemuse.numina.common.Numina;
 import net.machinemuse.powersuits.common.MPSCreativeTab;
 import net.minecraft.creativetab.CreativeTabs;
@@ -9,6 +8,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import org.apache.commons.io.FileUtils;
 import org.lwjgl.input.Keyboard;
 
+import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
