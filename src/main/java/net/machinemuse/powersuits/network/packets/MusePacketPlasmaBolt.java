@@ -47,7 +47,7 @@
 //    @Override
 //    public void handleClient(EntityPlayerSP player) {
 //        try {
-//            EntityPlasmaBolt entity = (EntityPlasmaBolt) Minecraft.getMinecraft().theWorld.getEntityByID(entityID);
+//            EntityPlasmaBolt entity = (EntityPlasmaBolt) Minecraft.getMinecraft().world.getEntityByID(entityID);
 //            entity.size = this.size;
 //        }
 //        catch (Exception e){

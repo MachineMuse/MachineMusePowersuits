@@ -1,12 +1,13 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
+import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -30,8 +31,6 @@ import java.util.List;
  */
 
 public class TreetapModule extends PowerModuleBase implements IRightClickModule {
-    public static final String MODULE_TREETAP = "Treetap";
-    public static final String TREETAP_ENERGY_CONSUMPTION = "Energy Consumption";
     public static ItemStack resin;
     public static Block rubber_wood;
     public static ItemStack emulatedTool;
@@ -40,8 +39,8 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
 
     public static ItemStack treetap;
 
-    public TreetapModule(List<IModularItem> validItems) {
-        super(validItems);
+    public TreetapModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
         if (ModCompatibility.isIndustrialCraftClassicLoaded()) {
             emulatedTool = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("ic2", "itemTreetapElectric")), 1);
             treetap = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("ic2", "itemTreetap")), 1);
@@ -67,8 +66,8 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
             }
             isIC2Classic = false;
         }
-        addBaseProperty(TREETAP_ENERGY_CONSUMPTION, 100);
-        addInstallCost(emulatedTool);
+        addBasePropertyInteger(MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION, 1000);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(),emulatedTool);
     }
 
     @Override
@@ -84,18 +83,18 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
         try {
             // IC2 Classic
             if (isIC2Classic) {
-                if (block == rubber_wood && ModuleManager.computeModularProperty(itemStack, TREETAP_ENERGY_CONSUMPTION) < ElectricItemUtils.getPlayerEnergy(player)) {
+                if (block == rubber_wood && ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION) < ElectricItemUtils.getPlayerEnergy(player)) {
                     if (attemptExtract.invoke( "attemptExtract", null, player, world, pos, facing, null).equals(true)) {
-                        ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemStack, TREETAP_ENERGY_CONSUMPTION));
+                        ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.getOrSetModularPropertyInteger(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION));
                         return EnumActionResult.SUCCESS;
                     }
                 }
             }
             // IC2 Experimental
             else {
-                if (block == rubber_wood && ModuleManager.computeModularProperty(itemStack, TREETAP_ENERGY_CONSUMPTION) < ElectricItemUtils.getPlayerEnergy(player)) {
+                if (block == rubber_wood && ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION) < ElectricItemUtils.getPlayerEnergy(player)) {
                     if (attemptExtract.invoke( "attemptExtract", player, world, pos, facing, state, null).equals(true)) {
-                        ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.computeModularProperty(itemStack, TREETAP_ENERGY_CONSUMPTION));
+                        ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.getOrSetModularPropertyInteger(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION));
                         return EnumActionResult.SUCCESS;
                     }
                 }
@@ -118,18 +117,13 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_TOOL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_TOOL;
     }
 
     @Override
     public String getDataName() {
-        return MODULE_TREETAP;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "treetap";
+        return MPSModuleConstants.MODULE_TREETAP__DATANAME;
     }
 
     @Override

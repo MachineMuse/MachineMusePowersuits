@@ -1,19 +1,21 @@
 package net.machinemuse.powersuits.network.packets;
 
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.numina.network.MusePackager;
+import io.netty.buffer.ByteBufInputStream;
+import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextComponentString;
 
-import java.io.DataInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +40,7 @@ public class MusePacketInstallModuleRequest extends MusePacket {
     }
 
     @Override
-    public MusePackager packager() {
+    public IMusePackager packager() {
         return getPackagerInstance();
     }
 
@@ -53,16 +55,19 @@ public class MusePacketInstallModuleRequest extends MusePacket {
         ItemStack stack = player.inventory.getStackInSlot(itemSlot);
         if (moduleName != null) {
             InventoryPlayer inventory = player.inventory;
-            IPowerModule moduleType = ModuleManager.getModule(moduleName);
+            IPowerModule moduleType = ModuleManager.INSTANCE.getModule(moduleName);
             if (moduleType == null || !moduleType.isAllowed()) {
-                player.addChatComponentMessage(new TextComponentString("Server has disallowed this module. Sorry!"));
+                player.sendMessage(new TextComponentString("Server has disallowed this module. Sorry!"));
                 return;
             }
-            List<ItemStack> cost = moduleType.getInstallCost();
-            if ((!ModuleManager.itemHasModule(stack, moduleName) && MuseItemUtils.hasInInventory(cost, player.inventory)) || player.capabilities.isCreativeMode) {
-                ModuleManager.itemAddModule(stack, moduleType);
+            NonNullList<ItemStack> cost = ModuleManager.INSTANCE.getInstallCost(moduleName);
+            if ((!ModuleManager.INSTANCE.itemHasModule(stack, moduleName) && MuseItemUtils.hasInInventory(cost, player.inventory)) || player.capabilities.isCreativeMode) {
+                MuseNBTUtils.removeMuseValuesTag(stack);
+
+
+                ModuleManager.INSTANCE.itemAddModule(stack, moduleType);
                 for (ItemStack stackInCost : cost) {
-                    ElectricItemUtils.givePlayerEnergy(player, ElectricItemUtils.jouleValueOfComponent(stackInCost));
+                    ElectricItemUtils.givePlayerEnergy(player, ElectricItemUtils.rfValueOfComponent(stackInCost));
                 }
                 List<Integer> slotsToUpdate = new ArrayList<>();
                 if (!player.capabilities.isCreativeMode) {
@@ -77,16 +82,15 @@ public class MusePacketInstallModuleRequest extends MusePacket {
         }
     }
 
-    private static MusePacketInstallModuleRequestPackager PACKAGERINSTANCE;
     public static MusePacketInstallModuleRequestPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketInstallModuleRequestPackager();
-        return PACKAGERINSTANCE;
+        return MusePacketInstallModuleRequestPackager.INSTANCE;
     }
 
-    public static class MusePacketInstallModuleRequestPackager extends MusePackager {
+    public enum MusePacketInstallModuleRequestPackager implements IMusePackager {
+        INSTANCE;
+
         @Override
-        public MusePacket read(DataInputStream datain, EntityPlayer player) {
+        public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
             int itemSlot = readInt(datain);
             String moduleName = readString(datain);
             return new MusePacketInstallModuleRequest(player, itemSlot, moduleName);

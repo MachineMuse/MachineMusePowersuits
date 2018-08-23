@@ -1,16 +1,16 @@
 package net.machinemuse.powersuits.network.packets;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.numina.general.MuseLogger;
-import net.machinemuse.numina.network.MusePackager;
+import io.netty.buffer.ByteBufInputStream;
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-
-import java.io.DataInputStream;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -32,7 +32,7 @@ public class MusePacketCosmeticInfo extends MusePacket {
     }
 
     @Override
-    public MusePackager packager() {
+    public IMusePackager packager() {
         return getPackagerInstance();
     }
 
@@ -46,14 +46,14 @@ public class MusePacketCosmeticInfo extends MusePacket {
     @Override
     public void handleServer(EntityPlayerMP player) {
         ItemStack stack = player.inventory.getStackInSlot(itemSlot);
-        if (tagName != null && stack != null && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = MuseItemUtils.getMuseItemTag(stack);
+        if (tagName != null && !stack.isEmpty() && stack.getItem() instanceof IModularItem) {
+            NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
             NBTTagCompound renderTag;
-            if (!itemTag.hasKey("render")) {
+            if (!itemTag.hasKey(NuminaNBTConstants.TAG_RENDER)) {
                 renderTag = new NBTTagCompound();
-                itemTag.setTag("render", renderTag);
+                itemTag.setTag(NuminaNBTConstants.TAG_RENDER, renderTag);
             } else {
-                renderTag = itemTag.getCompoundTag("render");
+                renderTag = itemTag.getCompoundTag(NuminaNBTConstants.TAG_RENDER);
             }
             if (tagData.hasNoTags()) {
                 MuseLogger.logDebug("Removing tag " + tagName);
@@ -65,16 +65,15 @@ public class MusePacketCosmeticInfo extends MusePacket {
         }
     }
 
-    private static MusePacketCosmeticInfoPackager PACKAGERINSTANCE;
     public static MusePacketCosmeticInfoPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketCosmeticInfoPackager();
-        return PACKAGERINSTANCE;
+        return MusePacketCosmeticInfoPackager.INSTANCE;
     }
 
-    public static class MusePacketCosmeticInfoPackager extends MusePackager {
+    public enum MusePacketCosmeticInfoPackager implements IMusePackager {
+        INSTANCE;
+
         @Override
-        public MusePacket read(DataInputStream datain, EntityPlayer player) {
+        public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
             int itemSlot = readInt(datain);
             String tagName = readString(datain);
             NBTTagCompound tagData = readNBTTagCompound(datain);

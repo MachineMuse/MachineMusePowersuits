@@ -1,15 +1,16 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
-import net.machinemuse.api.moduletrigger.IToggleableModule;
-import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
+import net.machinemuse.numina.api.module.IBlockBreakingModule;
+import net.machinemuse.numina.api.module.IToggleableModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
@@ -21,45 +22,33 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
-import java.util.List;
-
 
 public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
-    public static final String MODULE_PICKAXE = "Pickaxe";
-    public static final String PICKAXE_HARVEST_SPEED = "Pickaxe Harvest Speed";
-    public static final String PICKAXE_ENERGY_CONSUMPTION = "Pickaxe Energy Consumption";
     protected static final ItemStack emulatedTool = new ItemStack(Items.IRON_PICKAXE);
-
-
-    public PickaxeModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(new ItemStack(Items.IRON_INGOT, 3));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
-        addBaseProperty(PICKAXE_ENERGY_CONSUMPTION, 50, "J");
-        addBaseProperty(PICKAXE_HARVEST_SPEED, 8, "x");
-        addTradeoffProperty("Overclock", PICKAXE_ENERGY_CONSUMPTION, 950);
-        addTradeoffProperty("Overclock", PICKAXE_HARVEST_SPEED, 22);
+    public PickaxeModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Items.IRON_INGOT, 3));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
+        addBasePropertyDouble(MPSModuleConstants.PICKAXE_ENERGY_CONSUMPTION, 500, "RF");
+        addBasePropertyDouble(MPSModuleConstants.PICKAXE_HARVEST_SPEED, 8, "x");
+        addTradeoffPropertyDouble("Overclock", MPSModuleConstants.PICKAXE_ENERGY_CONSUMPTION, 950);
+        addTradeoffPropertyDouble("Overclock", MPSModuleConstants.PICKAXE_HARVEST_SPEED, 52);
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_TOOL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_TOOL;
     }
 
     @Override
     public String getDataName() {
-        return MODULE_PICKAXE;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "pickaxe";
+        return MPSModuleConstants.MODULE_PICKAXE__DATANAME;
     }
 
     @Override
     public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
         if (ToolHelpers.isEffectiveTool(state, emulatedTool)) {
-            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, PICKAXE_ENERGY_CONSUMPTION)) {
+            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.PICKAXE_ENERGY_CONSUMPTION)) {
                 return true;
             }
         }
@@ -70,7 +59,7 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
         // this does a check using ActualBlockstate, something we can't do without BlockPos
         if (ForgeHooks.canToolHarvestBlock(worldIn, pos, emulatedTool)) {
-            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, ModuleManager.computeModularProperty(stack, PICKAXE_ENERGY_CONSUMPTION));
+            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.PICKAXE_ENERGY_CONSUMPTION));
             return true;
         }
         return false;
@@ -78,7 +67,11 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-        event.setNewSpeed((float) (event.getNewSpeed() * ModuleManager.computeModularProperty(event.getEntityPlayer().inventory.getCurrentItem(), PICKAXE_HARVEST_SPEED)));
+        event.setNewSpeed((float) (event.getNewSpeed() * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(event.getEntityPlayer().inventory.getCurrentItem(), MPSModuleConstants.PICKAXE_HARVEST_SPEED)));
+        System.out.println("original speed: " + event.getOriginalSpeed());
+        System.out.println("new speed: " + event.getNewSpeed());
+
+
     }
 
     @Override

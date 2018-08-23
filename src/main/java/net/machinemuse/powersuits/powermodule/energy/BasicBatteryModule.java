@@ -1,45 +1,34 @@
 package net.machinemuse.powersuits.powermodule.energy;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.electricity.ElectricConversions;
-import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
 
-import java.util.List;
-
 public class BasicBatteryModule extends PowerModuleBase {
-    public static final String MODULE_BATTERY_BASIC = "Basic Battery";
-
-    public BasicBatteryModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.lvcapacitor, 1));
-        addBaseProperty(ElectricItemUtils.MAXIMUM_ENERGY, 20000, "J");
-        addBaseProperty(MuseCommonStrings.WEIGHT, 2000, "g");
-        addTradeoffProperty("Battery Size", ElectricItemUtils.MAXIMUM_ENERGY, 80000);
-        addTradeoffProperty("Battery Size", MuseCommonStrings.WEIGHT, 8000);
-        addBaseProperty(ElectricConversions.IC2_TIER, 1);
-        addTradeoffProperty("IC2 Tier", ElectricConversions.IC2_TIER, 2);
+    public BasicBatteryModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.lvcapacitor, 1));
+        addBasePropertyInteger(NuminaNBTConstants.MAXIMUM_ENERGY, 200000, "RF");
+        addTradeoffPropertyInteger(MPSModuleConstants.BATTERY_SIZE, NuminaNBTConstants.MAXIMUM_ENERGY, 800000);
+        addTradeoffPropertyInteger(MPSModuleConstants.BATTERY_SIZE, MPSModuleConstants.SLOT_POINTS, 3);
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_ENERGY;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_ENERGY;
     }
 
     @Override
     public String getDataName() {
-        return MODULE_BATTERY_BASIC;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "basicBattery";
+        return MPSModuleConstants.MODULE_BATTERY_BASIC__DATANAME;
     }
 
     @Override

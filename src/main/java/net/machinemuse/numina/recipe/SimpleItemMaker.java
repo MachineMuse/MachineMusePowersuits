@@ -1,6 +1,6 @@
 package net.machinemuse.numina.recipe;
 
-import net.machinemuse.numina.general.MuseLogger;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -73,7 +73,7 @@ public class SimpleItemMaker implements IItemMaker {
             MuseLogger.logDebug("oredict name is: " + oredictName);
             try {
                 ItemStack stack = OreDictionary.getOres(oredictName).get(0).copy();
-                stack.stackSize = Math.min(newquantity, stack.getMaxStackSize());
+                stack.setCount(Math.min(newquantity, stack.getMaxStackSize()));
                 if(nbt != null) stack.setTagCompound(nbt);
                 return stack;
             } catch (Exception e) {

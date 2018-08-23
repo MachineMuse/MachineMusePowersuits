@@ -1,14 +1,17 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.moduletrigger.IPlayerTickModule;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
-import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
+import net.machinemuse.numina.api.module.IPlayerTickModule;
+import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.powersuits.utils.modulehelpers.OmniProbeHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
@@ -21,8 +24,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Loader;
 
-import java.util.List;
-
 //import mrtjp.projectred.transmission.bundledwires.TWireCommons;
 
 /**
@@ -32,7 +33,6 @@ import java.util.List;
  * TODO: Fix ProjectRed (may require PR to ProjectRed)
  */
 public class OmniProbeModule extends PowerModuleBase implements IRightClickModule, IPlayerTickModule {
-    public static final String MODULE_OMNIPROBE = "Prototype OmniProbe";
     private ItemStack conduitProbe;
     private ItemStack rednetMeter;
     private ItemStack cpmPSD;
@@ -40,9 +40,9 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
     private ItemStack prDebugger;
 //    private ItemStack teMultimeter;
 
-    public OmniProbeModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 4));
+    public OmniProbeModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 4));
         ItemStack tHighest = new ItemStack(Items.COMPARATOR);
 
         if (ModCompatibility.isMFRLoaded()) {
@@ -65,17 +65,17 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
             conduitProbe = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("EnderIO", "itemConduitProbe")), 1);
             tHighest = conduitProbe;
         }
-        addInstallCost(tHighest);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), tHighest);
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_TOOL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_TOOL;
     }
 
     @Override
     public String getDataName() {
-        return MODULE_OMNIPROBE;
+        return MPSModuleConstants.MODULE_OMNIPROBE__DATANAME;
     }
 
     @Override
@@ -99,7 +99,7 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
 
         if (Loader.isModLoaded("MineFactoryReloaded")) {
             if (block == Block.getIdFromBlock(Block.REGISTRY.getObject(new ResourceLocation("MineFactoryReloaded", "cable.redstone"))))
-                return rednetMeter.getItem().onItemUseFirst(itemStack, player, world, pos, side, hitX, hitY, hitZ, EnumHand.MAIN_HAND);
+                return rednetMeter.getItem().onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, EnumHand.MAIN_HAND);
         }
 
         if (Loader.isModLoaded("Railcraft")) {
@@ -107,37 +107,37 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
                     (block == Block.getIdFromBlock(Block.REGISTRY.getObject(new ResourceLocation("Railcraft", "tile.railcraft.track")))) ||
                     (block == Block.getIdFromBlock(Block.REGISTRY.getObject(new ResourceLocation("Railcraft", "tile.railcraft.machine.epsilon")))) ||
                     (block == Block.getIdFromBlock(Block.REGISTRY.getObject(new ResourceLocation("Railcraft", "tile.railcraft.machine.delta"))))) {
-                return rcMeter.getItem().onItemUseFirst(itemStack, player, world, pos, side, hitX, hitY, hitZ, EnumHand.MAIN_HAND);
+                return rcMeter.getItem().onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, EnumHand.MAIN_HAND);
             }
         }
 
         if (Loader.isModLoaded("EnderIO")) {
             if (block == Block.getIdFromBlock(Block.REGISTRY.getObject(new ResourceLocation("EnderIO", "blockConduitBundle")))) {
-                return conduitProbe.getItem().onItemUse(itemStack, player, world, pos, EnumHand.MAIN_HAND, side, hitX, hitY, hitZ);
+                return conduitProbe.getItem().onItemUse(player, world, pos, EnumHand.MAIN_HAND, side, hitX, hitY, hitZ);
             }
         }
         return EnumActionResult.PASS;
     }
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        if (!MuseItemUtils.getEIOFacadeTransparency(item)) {
-            MuseItemUtils.setEIONoCompete(item, MODULE_OMNIPROBE);
-            MuseItemUtils.setEIOFacadeTransparency(item, true);
+        if (!OmniProbeHelper.getEIOFacadeTransparency(item)) {
+            OmniProbeHelper.setEIONoCompete(item, MPSModuleConstants.MODULE_OMNIPROBE__DATANAME);
+            OmniProbeHelper.setEIOFacadeTransparency(item, true);
         }
     }
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-        if ((MuseItemUtils.getEIONoCompete(item) != null) && (!MuseItemUtils.getEIONoCompete(item).isEmpty())) {
-            if (MuseItemUtils.getEIONoCompete(item).equals(MODULE_OMNIPROBE)) {
-                MuseItemUtils.setEIONoCompete(item, "");
-                if (MuseItemUtils.getEIOFacadeTransparency(item)) {
-                    MuseItemUtils.setEIOFacadeTransparency(item, false);
+        if ((OmniProbeHelper.getEIONoCompete(item) != null) && (!OmniProbeHelper.getEIONoCompete(item).isEmpty())) {
+            if (OmniProbeHelper.getEIONoCompete(item).equals(MPSModuleConstants.MODULE_OMNIPROBE__DATANAME)) {
+                OmniProbeHelper.setEIONoCompete(item, "");
+                if (OmniProbeHelper.getEIOFacadeTransparency(item)) {
+                    OmniProbeHelper.setEIOFacadeTransparency(item, false);
                 }
             }
         } else {
-            if (MuseItemUtils.getEIOFacadeTransparency(item)) {
-                MuseItemUtils.setEIOFacadeTransparency(item, false);
+            if (OmniProbeHelper.getEIOFacadeTransparency(item)) {
+                OmniProbeHelper.setEIOFacadeTransparency(item, false);
             }
         }
     }

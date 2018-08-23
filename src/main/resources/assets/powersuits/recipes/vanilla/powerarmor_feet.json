@@ -1,0 +1,26 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:vanilla_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "W W",
+    "I I"
+  ],
+  "key": {
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    }
+  },
+  "result": {
+    "item": "powersuits:powerarmor_feet"
+  }
+}

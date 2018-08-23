@@ -1,0 +1,22 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:vanilla_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "P"
+  ],
+  "key": {
+    "P": {
+      "type": "forge:ore_dict",
+      "ore": "componentPlatingDiamond"
+    }
+  },
+  "result": {
+    "item": "minecraft:iron_ingot",
+    "count": 5
+  }
+}

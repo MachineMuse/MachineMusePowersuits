@@ -1,11 +1,9 @@
 package net.machinemuse.numina.network;
 
-import net.machinemuse.numina.recipe.JSONRecipeList;
+import io.netty.buffer.ByteBufInputStream;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.io.DataInputStream;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -24,15 +22,15 @@ public class MusePacketRecipeUpdate extends MusePacket {
     @Override
     public void handleClient(EntityPlayer player) {
         try {
-            JSONRecipeList.loadRecipesFromString(recipe);
+//            JSONRecipeList.loadRecipesFromString(recipe);
         } catch (Exception ignored) {
 
         }
     }
 
     @Override
-    public MusePackager packager() {
-        return getPackagerInstance();
+    public IMusePackager packager() {
+        return MusePacketRecipeUpdatePackager.INSTANCE;
     }
 
     @Override
@@ -40,16 +38,15 @@ public class MusePacketRecipeUpdate extends MusePacket {
         writeString(recipe);
     }
 
-    private static MusePacketRecipeUpdatePackager PACKAGERINSTANCE;
     public static MusePacketRecipeUpdatePackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketRecipeUpdatePackager();
-        return PACKAGERINSTANCE;
+        return MusePacketRecipeUpdatePackager.INSTANCE;
     }
 
-    public static class MusePacketRecipeUpdatePackager extends MusePackager {
+    public enum MusePacketRecipeUpdatePackager implements IMusePackager {
+        INSTANCE;
+
         @Override
-        public MusePacket read(DataInputStream datain, EntityPlayer player) {
+        public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
             String recipe = readString(datain);
             return new MusePacketRecipeUpdate(player, recipe);
         }

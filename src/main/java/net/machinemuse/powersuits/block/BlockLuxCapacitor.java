@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.block;
 
 
-import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.SoundType;
@@ -33,7 +33,7 @@ public class BlockLuxCapacitor extends BlockDirectional {
     protected static final AxisAlignedBB LUXCAPACITOR_UP_AABB = new AxisAlignedBB(0.0625, 0.75, 0.0625, 0.9375, 1.0, 0.9375);
     protected static final AxisAlignedBB LUXCAPACITOR_DOWN_AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.25, 0.9375);
 
-    public static final Colour defaultColor = new Colour(0.4F, 0.2F, 0.9F);
+    public static final Colour defaultColor = new Colour(0.4D, 0.2D, 0.9D);
     public static final IUnlistedProperty<Colour> COLOR = new IUnlistedProperty<Colour>() {
         @Override
         public String getName() {
@@ -56,16 +56,28 @@ public class BlockLuxCapacitor extends BlockDirectional {
         }
     };
 
-    static final String name = "luxCapacitor";
+    public static final String name = "luxCapacitor";
+    private volatile static BlockLuxCapacitor INSTANCE;
 
-    public BlockLuxCapacitor() {
+    public static BlockLuxCapacitor getInstance() {
+        if (INSTANCE == null) {
+            synchronized (BlockLuxCapacitor.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new BlockLuxCapacitor();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+
+    private BlockLuxCapacitor() {
         super(Material.CIRCUITS);
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN));
         // IMPORTANT: enabling default state with extended state like the line below causes model loading issues
 //        setDefaultState(((IExtendedBlockState) blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN)).withProperty(COLOR, defaultColor));
 //        setCreativeTab(Config.getCreativeTab());
         setUnlocalizedName(name);
-        setRegistryName(ModularPowersuits.MODID, "tile." + name);
+        setRegistryName(ModularPowersuits.MODID, "tile." + name.toLowerCase());
         setHardness(0.05F);
         setResistance(10.0F);
         setSoundType(SoundType.METAL);
@@ -149,15 +161,14 @@ public class BlockLuxCapacitor extends BlockDirectional {
     }
 
     @Override
-    public int getMetaFromState(IBlockState state)
-    {
+    public int getMetaFromState(IBlockState state) {
         return state.getValue(FACING).getIndex();
     }
-
-    @Override
-    public boolean isVisuallyOpaque() {
-        return false;
-    }
+//
+//    @Override
+//    public boolean isVisuallyOpaque() {
+//        return false;
+//    }
 
     @Override
     public boolean hasTileEntity(IBlockState state) {

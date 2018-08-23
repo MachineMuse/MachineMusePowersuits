@@ -1,0 +1,33 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:thermal_expansion_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " S ",
+    "WIW",
+    " S "
+  ],
+  "key": {
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "componentSolenoid"
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "I": {
+      "item":  "thermalfoundation:material",
+      "data": 512,
+      "comment": "redstone servo"
+    }
+  },
+  "result": {
+    "item": "powersuits:powerarmorcomponent",
+    "data": 2
+  }
+}

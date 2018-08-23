@@ -6,14 +6,15 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.powersuits.client.render.model.obj.MPSOBJLoader;
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
+import net.machinemuse.powersuits.client.helper.ModelHelper;
 import net.machinemuse.powersuits.event.ModelBakeEventHandler;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.common.model.IModelPart;
 import net.minecraftforge.common.model.IModelState;
@@ -23,17 +24,17 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
-import static net.machinemuse.powersuits.client.render.helpers.ModelHelper.loadBakedModel;
-
 @SideOnly(Side.CLIENT)
-public class ModelPowerFistHelper {
-    public static final ResourceLocation powerFistLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFist.obj");
-    public static final ResourceLocation powerFistFingersNormalLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistFingersNormal.obj");
-    public static final ResourceLocation powerFistFingersFiringLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistFingersFiring.obj");
+public enum ModelPowerFistHelper {
+    INSTANCE;
 
-    public static final ResourceLocation powerFistLeftLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistLeft.obj");
-    public static final ResourceLocation powerFistFingersLeftNormalLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistFingersNormalLeft.obj");
-    public static final ResourceLocation powerFistFingersLeftFiringLocation = new ResourceLocation(Config.RESOURCE_DOMAIN, "models/item/powerFist/powerFistFingersFiringLeft.obj");
+    public static final ResourceLocation powerFistLocation = new ResourceLocation(MPSResourceConstants.RESOURCE_DOMAIN, "models/item/powerfist/powerfist.obj");
+    public static final ResourceLocation powerFistFingersNormalLocation = new ResourceLocation(MPSResourceConstants.RESOURCE_DOMAIN, "models/item/powerfist/powerfist_fingers_normal.obj");
+    public static final ResourceLocation powerFistFingersFiringLocation = new ResourceLocation(MPSResourceConstants.RESOURCE_DOMAIN, "models/item/powerfist/powerfist_fingers_firing.obj");
+
+    public static final ResourceLocation powerFistLeftLocation = new ResourceLocation(MPSResourceConstants.RESOURCE_DOMAIN, "models/item/powerFist/powerfist_left.obj");
+    public static final ResourceLocation powerFistFingersLeftNormalLocation = new ResourceLocation(MPSResourceConstants.RESOURCE_DOMAIN, "models/item/powerfist/powerfist_fingers_normal_left.obj");
+    public static final ResourceLocation powerFistFingersLeftFiringLocation = new ResourceLocation(MPSResourceConstants.RESOURCE_DOMAIN, "models/item/powerfist/powerfist_fingers_firing_left.obj");
 
     public static IBakedModel powerFist;
     public static IBakedModel powerFistFingers;
@@ -42,26 +43,27 @@ public class ModelPowerFistHelper {
     public static IBakedModel powerFistFingersLeft;
     public static IBakedModel powerFistFingersLeftFiring;
 
-    public static void loadPowerFistModels(boolean loadModels) {
-        if (!loadModels) {
+    public static void loadPowerFistModels(TextureStitchEvent event) {
+        if (event != null) {
             try {
-                MPSOBJLoader.INSTANCE.registerModelSprites(powerFistLocation);
-                MPSOBJLoader.INSTANCE.registerModelSprites(powerFistFingersNormalLocation);
-                MPSOBJLoader.INSTANCE.registerModelSprites(powerFistFingersFiringLocation);
-
-                MPSOBJLoader.INSTANCE.registerModelSprites(powerFistLeftLocation);
-                MPSOBJLoader.INSTANCE.registerModelSprites(powerFistFingersLeftNormalLocation);
-                MPSOBJLoader.INSTANCE.registerModelSprites(powerFistFingersLeftFiringLocation);
+                // FIXME: register textures from XML loader
+//                OBJPlusLoader.INSTANCE.registerModelSprites(powerFistLocation);
+//                OBJPlusLoader.INSTANCE.registerModelSprites(powerFistFingersNormalLocation);
+//                OBJPlusLoader.INSTANCE.registerModelSprites(powerFistFingersFiringLocation);
+//
+//                OBJPlusLoader.INSTANCE.registerModelSprites(powerFistLeftLocation);
+//                OBJPlusLoader.INSTANCE.registerModelSprites(powerFistFingersLeftNormalLocation);
+//                OBJPlusLoader.INSTANCE.registerModelSprites(powerFistFingersLeftFiringLocation);
             } catch (Exception ignored) {
             }
         } else {
-            powerFist = loadBakedModel(powerFistLocation);
-            powerFistFingers = loadBakedModel(powerFistFingersNormalLocation);
-            powerFistFingersFiring = loadBakedModel(powerFistFingersFiringLocation);
+            powerFist = ModelHelper.loadBakedModel(powerFistLocation);
+            powerFistFingers = ModelHelper.loadBakedModel(powerFistFingersNormalLocation);
+            powerFistFingersFiring = ModelHelper.loadBakedModel(powerFistFingersFiringLocation);
 
-            powerFistLeft = loadBakedModel(powerFistLeftLocation);
-            powerFistFingersLeft = loadBakedModel(powerFistFingersLeftNormalLocation);
-            powerFistFingersLeftFiring = loadBakedModel(powerFistFingersLeftFiringLocation);
+            powerFistLeft = ModelHelper.loadBakedModel(powerFistLeftLocation);
+            powerFistFingersLeft = ModelHelper.loadBakedModel(powerFistFingersLeftNormalLocation);
+            powerFistFingersLeftFiring = ModelHelper.loadBakedModel(powerFistFingersLeftFiringLocation);
         }
     }
 
@@ -162,21 +164,5 @@ public class ModelPowerFistHelper {
         public int hashCode() {
             return Objects.hashCode(getColour(), getTransformType(), firing);
         }
-    }
-
-    private static ModelPowerFistHelper INSTANCE;
-
-    public static ModelPowerFistHelper getInstance() {
-        if (INSTANCE == null) {
-            synchronized (ModelPowerFistHelper.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new ModelPowerFistHelper();
-                }
-            }
-        }
-        return INSTANCE;
-    }
-
-    private ModelPowerFistHelper() {
     }
 }

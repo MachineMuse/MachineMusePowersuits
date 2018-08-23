@@ -1,15 +1,16 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IPlayerTickModule;
-import net.machinemuse.api.moduletrigger.IToggleableModule;
-import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
+import net.machinemuse.numina.api.module.IPlayerTickModule;
+import net.machinemuse.numina.api.module.IToggleableModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,56 +19,45 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
  * Ported by leon on 10/18/16.
  */
 public class SprintAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static final String MODULE_SPRINT_ASSIST = "Sprint Assist";
-    public static final String SPRINT_ENERGY_CONSUMPTION = "Sprint Energy Consumption";
-    public static final String SPRINT_SPEED_MULTIPLIER = "Sprint Speed Multiplier";
-    public static final String SPRINT_FOOD_COMPENSATION = "Sprint Exhaustion Compensation";
-    public static final String WALKING_ENERGY_CONSUMPTION = "Walking Energy Consumption";
-    public static final String WALKING_SPEED_MULTIPLIER = "Walking Speed Multiplier";
+
     public static final UUID TAGUUID = new UUID(-7931854408382894632L, -8160638015224787553L);
 
-    public SprintAssistModule(List<IModularItem> validItems) {
-        super(validItems);
-        addSimpleTradeoff(this, "Power", SPRINT_ENERGY_CONSUMPTION, "J", 0, 10, SPRINT_SPEED_MULTIPLIER, "%", 1, 2);
-        addSimpleTradeoff(this, "Compensation", SPRINT_ENERGY_CONSUMPTION, "J", 0, 2, SPRINT_FOOD_COMPENSATION, "%", 0, 1);
-        addSimpleTradeoff(this, "Walking Assist", WALKING_ENERGY_CONSUMPTION, "J", 0, 10, WALKING_SPEED_MULTIPLIER, "%", 1, 1);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 4));
+    public SprintAssistModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        addSimpleTradeoffDouble(this, "Power", MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, "J", 0, 10, MPSModuleConstants.SPRINT_SPEED_MULTIPLIER, "%", 1, 2);
+        addSimpleTradeoffDouble(this, "Compensation", MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, "J", 0, 2, MPSModuleConstants.SPRINT_FOOD_COMPENSATION, "%", 0, 1);
+        addSimpleTradeoffDouble(this, "Walking Assist", MPSModuleConstants.WALKING_ENERGY_CONSUMPTION, "J", 0, 10, MPSModuleConstants.WALKING_SPEED_MULTIPLIER, "%", 1, 1);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 4));
     }
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         if (item == player.getItemStackFromSlot(EntityEquipmentSlot.LEGS)) { // now you actually have to wear these to get the speed boost
-//            double motionX = player.posX - player.lastTickPosX;
-//            double motionY = player.posY - player.lastTickPosY;
-//            double motionZ = player.posZ - player.lastTickPosZ;
-//            double horzMovement = Math.sqrt(motionX * motionX + motionZ * motionZ);
-
             double horzMovement = player.distanceWalkedModified - player.prevDistanceWalkedModified;
             double totalEnergy = ElectricItemUtils.getPlayerEnergy(player);
             if (horzMovement > 0) { // stop doing drain calculations when player hasn't moved
                 if (player.isSprinting()) {
                     double exhaustion = Math.round(horzMovement * 100.0F) * 0.01;
-                    double sprintCost = ModuleManager.computeModularProperty(item, SPRINT_ENERGY_CONSUMPTION);
+                    double sprintCost = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION);
                     if (sprintCost < totalEnergy) {
-                        double sprintMultiplier = ModuleManager.computeModularProperty(item, SPRINT_SPEED_MULTIPLIER);
-                        double exhaustionComp = ModuleManager.computeModularProperty(item, SPRINT_FOOD_COMPENSATION);
-                        ElectricItemUtils.drainPlayerEnergy(player, sprintCost * horzMovement * 5);
+                        double sprintMultiplier = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.SPRINT_SPEED_MULTIPLIER);
+                        double exhaustionComp = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.SPRINT_FOOD_COMPENSATION);
+                        ElectricItemUtils.drainPlayerEnergy(player, (int) (sprintCost * horzMovement * 5));
                         setMovementModifier(item, sprintMultiplier * 1.2);
                         player.getFoodStats().addExhaustion((float) (-0.01 * exhaustion * exhaustionComp));
                         player.jumpMovementFactor = player.getAIMoveSpeed() * .2f;
                     }
                 } else {
-                    double cost = ModuleManager.computeModularProperty(item, WALKING_ENERGY_CONSUMPTION);
+                    double cost = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.WALKING_ENERGY_CONSUMPTION);
                     if (cost < totalEnergy) {
-                        double walkMultiplier = ModuleManager.computeModularProperty(item, WALKING_SPEED_MULTIPLIER);
-                        ElectricItemUtils.drainPlayerEnergy(player, cost * horzMovement * 5);
+                        double walkMultiplier = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.WALKING_SPEED_MULTIPLIER);
+                        ElectricItemUtils.drainPlayerEnergy(player, (int) (cost * horzMovement * 5));
                         setMovementModifier(item, walkMultiplier);
                         player.jumpMovementFactor = player.getAIMoveSpeed() * .2f;
                     }
@@ -113,25 +103,19 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
 
             // add knockback resistance back because it doesn't show in tooltip after AttributeModifiers tag is added
             modifiers.appendTag(new AttributeModifier(0, TAGUUID, 0.25,
-                    SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getAttributeUnlocalizedName(),
-                    SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getAttributeUnlocalizedName(), EntityEquipmentSlot.LEGS).toNBT());
-
+                    SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(),
+                    SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), EntityEquipmentSlot.LEGS).toNBT());
         }
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_MOVEMENT;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_MOVEMENT;
     }
 
     @Override
     public String getDataName() {
-        return MODULE_SPRINT_ASSIST;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "sprintAssist";
+        return MPSModuleConstants.MODULE_SPRINT_ASSIST__DATANAME;
     }
 
     @Override

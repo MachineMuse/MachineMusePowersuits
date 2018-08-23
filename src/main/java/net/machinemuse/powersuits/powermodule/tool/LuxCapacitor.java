@@ -1,15 +1,16 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
-import net.machinemuse.general.gui.MuseIcon;
-import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
+import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseHeatUtils;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,55 +23,42 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
-    public static final String MODULE_LUX_CAPACITOR = "Lux Capacitor";
-    public static final String ENERGY = "Lux Capacitor Energy Consumption";
-    public static final String RED =  "Lux Capacitor Red Hue";
-    public static final String GREEN = "Lux Capacitor Green Hue";
-    public static final String BLUE = "Lux Capacitor Blue Hue";
-
-    public LuxCapacitor(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(new ItemStack(Items.GLOWSTONE_DUST, 1));
-        addInstallCost(new ItemStack(Items.IRON_INGOT, 2));
-        addBaseProperty(ENERGY, 100, "J");
-        addTradeoffProperty("Red", RED, 1, "%");
-        addTradeoffProperty("Green", GREEN, 1, "%");
-        addTradeoffProperty("Blue", BLUE, 1, "%");
+    public LuxCapacitor(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Items.GLOWSTONE_DUST, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Items.IRON_INGOT, 2));
+        addBasePropertyDouble(MPSModuleConstants.LUX_CAPACITOR_ENERGY_CONSUMPTION, 100, "J");
+        addTradeoffPropertyDouble("Red", MPSModuleConstants.LUX_CAPACITOR_RED_HUE, 1, "%");
+        addTradeoffPropertyDouble("Green", MPSModuleConstants.LUX_CAPACITOR_GREEN_HUE, 1, "%");
+        addTradeoffPropertyDouble("Blue", MPSModuleConstants.LUX_CAPACITOR_BLUE_HUE, 1, "%");
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_TOOL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_TOOL;
     }
 
     @Override
     public String getDataName() {
-        return MODULE_LUX_CAPACITOR;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "luxCapacitor";
+        return MPSModuleConstants.MODULE_LUX_CAPACITOR__DATANAME;
     }
 
     @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         playerIn.setActiveHand(hand);
         if (!worldIn.isRemote) {
-            double energyConsumption = ModuleManager.computeModularProperty(itemStackIn, ENERGY);
+            double energyConsumption = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.LUX_CAPACITOR_ENERGY_CONSUMPTION);
              MuseHeatUtils.heatPlayer(playerIn, energyConsumption / 500);
             if (ElectricItemUtils.getPlayerEnergy(playerIn) > energyConsumption) {
-                ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
+                ElectricItemUtils.drainPlayerEnergy(playerIn, (int) energyConsumption);
 
-                double red = ModuleManager.computeModularProperty(itemStackIn, RED);
-                double green = ModuleManager.computeModularProperty(itemStackIn, GREEN);
-                double blue = ModuleManager.computeModularProperty(itemStackIn, BLUE);
+                double red = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.LUX_CAPACITOR_RED_HUE);
+                double green = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.LUX_CAPACITOR_GREEN_HUE);
+                double blue = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.LUX_CAPACITOR_BLUE_HUE);
 
                 EntityLuxCapacitor luxCapacitor = new EntityLuxCapacitor(worldIn, playerIn, new Colour(red, green, blue));
-                worldIn.spawnEntityInWorld(luxCapacitor);
+                worldIn.spawnEntity(luxCapacitor);
             }
             return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
         }

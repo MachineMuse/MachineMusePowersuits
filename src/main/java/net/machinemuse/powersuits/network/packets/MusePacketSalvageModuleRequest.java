@@ -1,20 +1,21 @@
 package net.machinemuse.powersuits.network.packets;
 
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.numina.network.MusePackager;
+import io.netty.buffer.ByteBufInputStream;
+import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
-import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
+import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 
-import java.io.DataInputStream;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -39,7 +40,7 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
     }
 
     @Override
-    public MusePackager packager() {
+    public IMusePackager packager() {
         return getPackagerInstance();
     }
 
@@ -54,13 +55,14 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
         if (moduleName != null) {
             InventoryPlayer inventory = player.inventory;
             ItemStack stack = player.inventory.getStackInSlot(itemSlot);
-            IPowerModule moduleType = ModuleManager.getModule(moduleName);
-            List<ItemStack> refund = moduleType.getInstallCost();
-            if (ModuleManager.itemHasModule(stack, moduleName)) {
+            IPowerModule moduleType = ModuleManager.INSTANCE.getModule(moduleName);
+            NonNullList<ItemStack> refund = ModuleManager.INSTANCE.getInstallCost(moduleName);
+            if (ModuleManager.INSTANCE.itemHasModule(stack, moduleName)) {
+                MuseNBTUtils.removeMuseValuesTag(stack);
                 Set<Integer> slots = new HashSet<>();
-                ModuleManager.removeModule(stack, moduleName);
+                ModuleManager.INSTANCE.removeModule(stack, moduleName);
                 for (ItemStack refundItem : refund) {
-                    slots.addAll(MuseItemUtils.giveOrDropItemWithChance(refundItem.copy(), player, Config.getSalvageChance()));
+                    slots.addAll(MuseItemUtils.giveOrDropItemWithChance(refundItem.copy(), player, MPSConfig.INSTANCE.getSalvageChance()));
                 }
                 slots.add(itemSlot);
 
@@ -72,16 +74,15 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
         }
     }
 
-    private static MusePacketSalvageModuleRequestPackager PACKAGERINSTANCE;
     public static MusePacketSalvageModuleRequestPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketSalvageModuleRequestPackager();
-        return PACKAGERINSTANCE;
+        return  MusePacketSalvageModuleRequestPackager.INSTANCE;
     }
 
-    public static class MusePacketSalvageModuleRequestPackager extends MusePackager {
+    public enum MusePacketSalvageModuleRequestPackager implements IMusePackager {
+        INSTANCE;
+
         @Override
-        public MusePacket read(DataInputStream datain, EntityPlayer player) {
+        public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
             int itemSlot = readInt(datain);
             String moduleName = readString(datain);
             return new MusePacketSalvageModuleRequest(player, itemSlot, moduleName);

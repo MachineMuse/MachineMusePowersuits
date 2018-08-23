@@ -1,6 +1,6 @@
 package net.machinemuse.numina.event;
 
-import net.machinemuse.numina.common.NuminaConfig;
+import net.machinemuse.numina.common.config.NuminaConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.resources.I18n;
@@ -43,13 +43,13 @@ public class FOVUpdateEventHandler {
     @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event) {
         if (NuminaConfig.useFOVFix()) {
-            EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+            EntityPlayerSP player = Minecraft.getMinecraft().player;
             if (fovToggleKey.isPressed()){
                 fovIsActive = !fovIsActive;
                 if (fovIsActive)
-                    player.addChatComponentMessage(new TextComponentString(I18n.format("fovfixtoggle.enabled")));
+                    player.sendMessage(new TextComponentString(I18n.format("fovfixtoggle.enabled")));
                 else
-                    player.addChatComponentMessage(new TextComponentString(I18n.format("fovfixtoggle.disabled")));
+                    player.sendMessage(new TextComponentString(I18n.format("fovfixtoggle.disabled")));
             }
         }
     }

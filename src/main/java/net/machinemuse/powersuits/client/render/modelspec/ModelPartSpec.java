@@ -1,55 +1,42 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import net.machinemuse.powersuits.client.render.helpers.ModelHelper;
-import net.machinemuse.powersuits.client.render.model.obj.OBJModelPlus;
 import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Ported to Java by lehjr on 11/8/16.
  */
-public class ModelPartSpec {
-    public ModelSpec modelSpec;
-    public MorphTarget morph;
-    public String partName;
-    public EntityEquipmentSlot slot;
-    public int defaultcolourindex; // NOT A COLOR but an index of a list
-    public boolean defaultglow;
-    public String displayName;
-    IExtendedBlockState extendedState;
-    List<BakedQuad> quadcache = new ArrayList<>();
+@SideOnly(Side.CLIENT)
+public class ModelPartSpec extends PartSpecBase {
+    private final boolean defaultglow;
 
-    public ModelPartSpec(ModelSpec modelSpec, MorphTarget morph, String partName, EntityEquipmentSlot slot, Integer defaultcolourindex, Boolean defaultglow, String displayName) {
-        this.modelSpec = modelSpec;
-        this.morph = morph;
-        this.partName = partName;
-        this.slot = slot;
-        this.defaultcolourindex = (defaultcolourindex != null) ? defaultcolourindex : 0;
+    public ModelPartSpec(final ModelSpec modelSpec,
+                         final SpecBinding binding,
+                         final String partName,
+                         final Integer defaultcolourindex,
+                         final Boolean defaultglow) {
+        super(modelSpec, binding, partName, defaultcolourindex);
         this.defaultglow = (defaultglow != null) ? defaultglow : false;
-        this.displayName = displayName;
-        // Extended state is used to isolate the quads for the model "group"(part) associated with this
-        this.extendedState = ModelHelper.getStateForPart(partName, (OBJModelPlus.OBJBakedModelPus) modelSpec.getModel());
     }
 
-    public List<BakedQuad> getQuads() {
-        if (quadcache.isEmpty()) {
-            quadcache = modelSpec.getModel().getQuads(extendedState, null, 0);
-        }
-        return quadcache;
+    @Override
+    public String getDisaplayName() {
+        return I18n.format(new StringBuilder("model.")
+                .append(this.spec.getOwnName())
+                .append(".")
+                .append(this.partName)
+                .append(".partName")
+                .toString());
     }
 
-    public int getColourIndex(NBTTagCompound nbt) {
-        return nbt.hasKey("colourindex") ? nbt.getInteger("colourindex") : this.defaultcolourindex;
-    }
-
-    public void setColourIndex(NBTTagCompound nbt, int c) {
-        if (c == this.defaultcolourindex) nbt.removeTag("colourindex");
-        else nbt.setInteger("colourindex", c);
+    public boolean getGlow() {
+        return this.defaultglow;
     }
 
     public boolean getGlow(NBTTagCompound nbt) {
@@ -61,24 +48,28 @@ public class ModelPartSpec {
         else nbt.setBoolean("glow", g);
     }
 
-    public void setModel(NBTTagCompound nbt, ModelSpec model) {
-        String modelString = ModelRegistry.getInstance().inverse().get(model);
-        setModel(nbt, ((modelString != null) ? modelString : ""));
+    public List<BakedQuad> getQuads() {
+        return ((ModelSpec)(this.spec)).getModel().getQuadsforPart(this.partName);
     }
 
-    public void setModel(NBTTagCompound nbt, String modelname) {
-        nbt.setString("model", modelname);
-    }
-
-    public void setPart(NBTTagCompound nbt) {
-        nbt.setString("part", this.partName);
-    }
-
-    public NBTTagCompound multiSet(NBTTagCompound nbt, String tex, Boolean glow, Integer c) {
-        this.setPart(nbt);
-        this.setModel(nbt, this.modelSpec);
+    public NBTTagCompound multiSet(NBTTagCompound nbt, Integer colourIndex, Boolean glow) {
+        super.multiSet(nbt, colourIndex);
         this.setGlow(nbt, (glow != null) ? glow : false);
-        this.setColourIndex(nbt, (c != null) ? c : defaultcolourindex);
         return nbt;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ModelPartSpec that = (ModelPartSpec) o;
+        return defaultglow == that.defaultglow;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), defaultglow);
+    }
 }
+

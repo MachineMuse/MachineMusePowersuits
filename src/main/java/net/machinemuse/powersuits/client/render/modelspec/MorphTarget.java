@@ -2,6 +2,9 @@ package net.machinemuse.powersuits.client.render.modelspec;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.inventory.EntityEquipmentSlot;
+
+import java.util.Arrays;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -10,39 +13,60 @@ import net.minecraft.client.model.ModelRenderer;
  * Ported to Java by lehjr on 11/8/16.
  */
 public enum MorphTarget {
-//    Cloak,
-    Head,
-    Body,
-    RightArm,
-    LeftArm,
-    RightLeg,
-    LeftLeg;
+    Head("HEAD", EntityEquipmentSlot.HEAD),
+    Body("BODY", EntityEquipmentSlot.CHEST),
+    RightArm("RIGHTARM", EntityEquipmentSlot.CHEST),
+    LeftArm("LEFTARM", EntityEquipmentSlot.CHEST),
+    RightLeg("RIGHTLEG", EntityEquipmentSlot.LEGS),
+    LeftLeg("LEFTLEG", EntityEquipmentSlot.LEGS),
+    RightFoot("RIGHTFOOT", EntityEquipmentSlot.FEET),
+    LeftFoot("LEFTFOOT", EntityEquipmentSlot.FEET),
+
+    /**
+     * Note that these may be reversed and special checks are needed for rendering
+     * hand-dependant models.
+     */
+    RightHand("RIGHTHAND", EntityEquipmentSlot.MAINHAND),
+    Lefthand("LEFTHAND", EntityEquipmentSlot.OFFHAND);
+
+    String name;
+    EntityEquipmentSlot slot;
+
+    MorphTarget(String name, EntityEquipmentSlot slot) {
+        this.name = name;
+        this.slot = slot;
+    }
 
     public ModelRenderer apply(ModelBiped m) {
         switch(this) {
-//            case Cloak:
-//                return m.bipedCloak;
-
             case Head:
                 return m.bipedHead;
 
             case Body:
                 return m.bipedBody;
 
+            case RightHand:
             case RightArm:
                 return m.bipedRightArm;
 
+            case Lefthand:
             case LeftArm:
                 return m.bipedLeftArm;
 
+            case RightFoot:
             case RightLeg:
                 return m.bipedRightLeg;
 
+            case LeftFoot:
             case LeftLeg:
                 return m.bipedLeftLeg;
 
             default:
                 return null;
         }
+    }
+
+    public static MorphTarget getMorph(final String name) {
+        return Arrays.stream(values()).filter(morph -> name.toUpperCase().equals(morph.name)).findAny().orElseGet(null);
     }
 }

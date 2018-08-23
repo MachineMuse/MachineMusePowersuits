@@ -1,51 +1,44 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IPlayerTickModule;
-import net.machinemuse.api.moduletrigger.IToggleableModule;
-import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
+import net.machinemuse.numina.api.module.IPlayerTickModule;
+import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Vec3d;
 
-import java.util.List;
-
 public class GliderModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static final String MODULE_GLIDER = "Glider";
-
-    public GliderModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.gliderWing, 2));
+    public GliderModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.gliderWing, 2));
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_MOVEMENT;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_MOVEMENT;
     }
 
     @Override
     public String getDataName() {
-        return MODULE_GLIDER;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "glider";
+        return MPSModuleConstants.MODULE_GLIDER__DATANAME;
     }
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         Vec3d playerHorzFacing = player.getLookVec();
-        playerHorzFacing = new Vec3d(playerHorzFacing.xCoord, 0, playerHorzFacing.zCoord);
+        playerHorzFacing = new Vec3d(playerHorzFacing.x, 0, playerHorzFacing.z);
         playerHorzFacing.normalize();
         PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
         boolean sneakkey = movementInput.sneakKey;
@@ -54,15 +47,15 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
         boolean hasParachute = false;
         NuminaPlayerUtils.resetFloatKickTicks(player);
         if (torso != null && torso.getItem() instanceof IModularItem) {
-            hasParachute = ModuleManager.itemHasActiveModule(torso, ParachuteModule.MODULE_PARACHUTE);
+            hasParachute = ModuleManager.INSTANCE.itemHasActiveModule(torso, MPSModuleConstants.MODULE_PARACHUTE__DATANAME);
         }
         if (sneakkey && player.motionY < 0 && (!hasParachute || forwardkey > 0)) {
             if (player.motionY < -0.1) {
                 float vol = (float)( player.motionX*player.motionX + player.motionZ * player.motionZ);
                 double motionYchange = Math.min(0.08, -0.1 - player.motionY);
                 player.motionY += motionYchange;
-                player.motionX += playerHorzFacing.xCoord * motionYchange;
-                player.motionZ += playerHorzFacing.zCoord * motionYchange;
+                player.motionX += playerHorzFacing.x * motionYchange;
+                player.motionZ += playerHorzFacing.z * motionYchange;
 
                 // sprinting speed
                 player.jumpMovementFactor += 0.03f;

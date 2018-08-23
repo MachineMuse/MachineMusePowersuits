@@ -1,132 +1,147 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.powersuits.client.render.model.obj.MPSOBJLoader;
-import net.machinemuse.powersuits.client.render.model.obj.OBJModelPlus;
-import net.machinemuse.powersuits.item.ItemPowerArmor;
-import net.machinemuse.utils.MuseStringUtils;
-import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
+import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.config.MPSConfig;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
+import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.nbt.NBTTagIntArray;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static net.machinemuse.powersuits.client.render.modelspec.MorphTarget.*;
 
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 9:11 AM, 29/04/13
  *
  * Ported to Java by lehjr on 11/8/16.
+ * rewritten to be custom model compatible by lehjr on 12/26/17
+ *
+ * Special note: tried forEach() with a filter, but speed was up to 8 times slower
  */
+@SideOnly(Side.CLIENT)
 public class DefaultModelSpec {
-    public static Colour normalcolour = Colour.WHITE;
-    public static Colour glowcolour = new Colour(17.0 / 255, 78.0 / 255, 1, 1);
-
-    public static ModelSpec[] loadDefaultModel() {
-        List<ModelSpec> defaultSpecList = new ArrayList<>();
-
-        /* Head ----------------------- */
-        ModelSpec headModel = loadModel(new ResourceLocation("powersuits:models/mps_helm.obj"));
-        makeEntries(Head, EntityEquipmentSlot.HEAD, 0, false, "helm_main;helm_tube_entry1;helm_tubes;helm_tube_entry2".split(";"), headModel);
-        makeEntries(Head, EntityEquipmentSlot.HEAD, 1, true, "visor".split(";"), headModel);
-        defaultSpecList.add(headModel);
-
-        /* Arms ----------------------- */
-        ModelSpec armsModel = loadModel(new ResourceLocation("powersuits:models/mps_arms.obj"));
-        makeEntries(RightArm, EntityEquipmentSlot.CHEST, 0, false, "arms3".split(";"),armsModel);
-        makeEntries(RightArm, EntityEquipmentSlot.CHEST, 1, true, "crystal_shoulder_2".split(";"), armsModel);
-        makeEntries(LeftArm, EntityEquipmentSlot.CHEST, 0, false, "arms2".split(";"), armsModel);
-        makeEntries(LeftArm, EntityEquipmentSlot.CHEST, 1, true, "crystal_shoulder_1".split(";"), armsModel);
-        defaultSpecList.add(armsModel);
-
-        /* Body ----------------------- */
-        ModelSpec bodyModel = loadModel(new ResourceLocation("powersuits:models/mps_chest.obj"));
-        makeEntries(Body, EntityEquipmentSlot.CHEST, 0, false, "belt;chest_main;polySurface36;backpack;chest_padding".split(";"), bodyModel);
-        makeEntries(Body, EntityEquipmentSlot.CHEST, 1, true, "crystal_belt".split(";"), bodyModel);
-        defaultSpecList.add(bodyModel);
-
-        /* Legs ----------------------- */
-        ModelSpec legsModel = loadModel(new ResourceLocation("powersuits:models/mps_pantaloons.obj"));
-        makeEntries(RightLeg, EntityEquipmentSlot.LEGS, 0, false, "leg1".split(";"), legsModel);
-        makeEntries(LeftLeg, EntityEquipmentSlot.LEGS, 0, false, "leg2".split(";"), legsModel);
-        defaultSpecList.add(legsModel);
-
-        /* Feet ----------------------- */
-        ModelSpec feetModel = loadModel(new ResourceLocation("powersuits:models/mps_boots.obj"));
-        makeEntries(RightLeg, EntityEquipmentSlot.FEET, 0, false, "boots1".split(";"), feetModel);
-        makeEntries(LeftLeg, EntityEquipmentSlot.FEET, 0, false, "boots2".split(";"), feetModel);
-        defaultSpecList.add(feetModel);
-
-        return (ModelSpec[]) defaultSpecList.toArray();
-    }
-
-    public static ModelSpec loadModel(ResourceLocation file)  {
-        // TODO: this may or may not fail. Not sure how late textures can be registered.
-        try {
-            MPSOBJLoader.INSTANCE.registerModelSprites(file); //<-- this registers the textures without caching the model
-            IBakedModel model = ModelRegistry.getInstance().loadBakedModel(file);
-            if (model != null && model instanceof OBJModelPlus.OBJBakedModelPus) {
-                return (ModelRegistry.getInstance().put(MuseStringUtils.extractName(file), new ModelSpec(model, null, null, file.toString())));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    public static NBTTagCompound makeModelPrefs(ItemStack stack) {
+        if (stack != null) {
+            if (stack.getItem() instanceof ItemPowerArmor)
+                return makeModelPrefs(stack, ((ItemPowerArmor) stack.getItem()).armorType);
+            if (stack.getItem() instanceof ItemPowerFist)
+                return makeModelPrefs(stack, EntityEquipmentSlot.MAINHAND);
         }
-        return null;
-    }
-
-    public static void makeEntries(MorphTarget target, EntityEquipmentSlot slot, int colourIndex, Boolean glow, String[] names, ModelSpec model) {
-        for (String name: names)
-            model.put(name, new ModelPartSpec(model, target, name, slot, colourIndex, glow, name));
+        return new NBTTagCompound();
     }
 
     public static NBTTagCompound makeModelPrefs(ItemStack stack, EntityEquipmentSlot slot) {
-        ItemPowerArmor item = (ItemPowerArmor) stack.getItem();
-        Colour normalcolour = item.getColorFromItemStack(stack);
-        Colour glowcolour = item.getGlowFromItemStack(stack);
-        List<NBTTagCompound> list = new ArrayList<>();
+        if (stack.isEmpty())
+            return new NBTTagCompound();
 
-        switch (slot) {
-            case HEAD:
-                list.addAll(makePrefs("mps_helm", "helm_main;helm_tube_entry1;helm_tubes;helm_tube_entry2".split(";"), 0, false));
-                list.addAll(makePrefs("mps_helm", "visor".split(";"), 1, true));
-                break;
+        List<NBTTagCompound> prefArray = new ArrayList<>();
 
-            case CHEST:
-                list.addAll(makePrefs("mps_arms", "arms2;arms3".split(";"), 0, false));
-                list.addAll(makePrefs("mps_arms", "crystal_shoulder_2;crystal_shoulder_1".split(";"), 1, true));
-                list.addAll(makePrefs("mps_chest", "belt;chest_main;polySurface36;backpack;chest_padding".split(";"), 0, false));
-                list.addAll(makePrefs("mps_chest", "crystal_belt".split(";"), 1, true));
-                break;
+        // ModelPartSpecs
+        NBTTagList specList = new NBTTagList();
 
-            case LEGS:
-                list.addAll(makePrefs("mps_pantaloons", "leg1;leg2".split(";"), 0, false));
-                break;
+        // TextureSpecBase (only one texture visible at a time)
+        NBTTagCompound texSpecTag = new NBTTagCompound();
 
-            case FEET:
-                list.addAll(makePrefs("mps_boots", "boots1;boots2".split(";"), 0, false));
-                break;
+        // List of EnumColour indexes
+        List<Integer> colours = new ArrayList<>();
+
+        // temp data holder
+        NBTTagCompound tempNBT;
+
+        for (SpecBase spec : ModelRegistry.getInstance().getSpecs()) {
+            // Only generate NBT data from Specs marked as "default"
+            if (spec.isDefault()) {
+
+                /** Power Fist -------------------------------------------------------------------- */
+                if (stack.getItem() instanceof ItemPowerFist && spec.getSpecType().equals(EnumSpecType.POWER_FIST)) {
+                    colours = addNewColourstoList(colours, spec.getColours()); // merge new color int arrays in
+
+                    for (PartSpecBase partSpec : spec.getPartSpecs()) {
+                        if (partSpec instanceof ModelPartSpec) {
+                            prefArray.add(((ModelPartSpec) partSpec).multiSet(new NBTTagCompound(),
+                                    getNewColourIndex(colours, spec.getColours(), partSpec.defaultcolourindex),
+                                    ((ModelPartSpec) partSpec).getGlow()));
+                        }
+                    }
+
+                    /** Power Armor ------------------------------------------------------------------- */
+                } else if (stack.getItem() instanceof ItemPowerArmor) {
+                    colours = addNewColourstoList(colours, spec.getColours()); // merge new color int arrays in
+
+                    // Armor Skin
+                    if (spec.getSpecType().equals(EnumSpecType.ARMOR_SKIN) && spec.get(slot.getName()) != null) {
+                        // only a single texture per equipment slot can be used at a time
+                        texSpecTag = spec.get(slot.getName()).multiSet(new NBTTagCompound(),
+                                getNewColourIndex(colours, spec.getColours(), spec.get(slot.getName()).defaultcolourindex));
+                    }
+
+                    // Armor models
+                    else if (spec.getSpecType().equals(EnumSpecType.ARMOR_MODEL) && MPSConfig.INSTANCE.allowHighPollyArmorModels() ) {
+
+                        for (PartSpecBase partSpec : spec.getPartSpecs()) {
+
+                            if (partSpec.partName == "visor")
+                                System.out.println("helm original index");
+
+
+                            if (partSpec.binding.getSlot() == slot) {
+
+                                // jet pack model not displayed by default
+                                if (partSpec.binding.getItemState().equals("all") ||
+                                        (partSpec.binding.getItemState().equals("jetpack") &&
+                                                ModuleManager.INSTANCE.itemHasModule(stack, MPSModuleConstants.MODULE_JETPACK__DATANAME))) {
+                                    prefArray.add(((ModelPartSpec) partSpec).multiSet(new NBTTagCompound(),
+                                            getNewColourIndex(colours, spec.getColours(), partSpec.defaultcolourindex),
+                                            ((ModelPartSpec) partSpec).getGlow()));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
+
         NBTTagCompound nbt = new NBTTagCompound();
-        for (NBTTagCompound elem: list) {
-            nbt.setTag(elem.getString("model") + "." + elem.getString("part"), elem);
+        for (NBTTagCompound elem : prefArray) {
+            nbt.setTag(elem.getString(NuminaNBTConstants.TAG_MODEL) + "." + elem.getString(NuminaNBTConstants.TAG_PART), elem);
         }
+
+        if (!specList.hasNoTags())
+            nbt.setTag(MPSNBTConstants.NBT_SPECLIST_TAG, specList);
+
+        if (!texSpecTag.hasNoTags())
+            nbt.setTag(MPSNBTConstants.NBT_TEXTURESPEC_TAG, texSpecTag);
+
+        nbt.setTag(NuminaNBTConstants.TAG_COLOURS, new NBTTagIntArray(colours));
+
         return nbt;
     }
 
-    public static List<NBTTagCompound> makePrefs(String modelname, String[] partnames, int colour, boolean glow) {
-        List<NBTTagCompound> prefArray = new ArrayList<>();
-        ModelSpec model = ModelRegistry.getInstance().get(modelname);
-        for (String name: partnames) {
-            prefArray.add(makePref(model.get(name), colour, glow));
+    /**
+     * When dealing with possibly multiple specs and color lists, new list needs to be created, since there is only one list per item.
+     *
+     */
+    static List<Integer> addNewColourstoList(List<Integer> colours, List<Integer> coloursToAdd) {
+        for (Integer i : coloursToAdd) {
+            if (!colours.contains(i))
+                colours.add(i);
         }
-        return prefArray;
+        return colours;
     }
 
-    public static NBTTagCompound makePref(ModelPartSpec partSpec, Integer colourindex, Boolean glow) {
-        return partSpec.multiSet(new NBTTagCompound(), null, glow, colourindex);
+    /**
+     * new array means setting a new array index for the same value
+     */
+    public static int getNewColourIndex(List<Integer> colours, List<Integer> oldColours, Integer index) {
+        return colours.indexOf(oldColours.get(index != null ? index : 0));
     }
 }

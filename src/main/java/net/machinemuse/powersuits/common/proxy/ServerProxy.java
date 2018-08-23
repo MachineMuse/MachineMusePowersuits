@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.common.proxy;
 
-import net.machinemuse.powersuits.event.PlayerLoginHandlerThingy;
 import net.machinemuse.powersuits.event.PlayerUpdateHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -37,14 +36,10 @@ public class ServerProxy extends CommonProxy{
     public void registerEvents() {
         super.registerEvents();
         MinecraftForge.EVENT_BUS.register(new PlayerUpdateHandler());
-        MinecraftForge.EVENT_BUS.register(new PlayerLoginHandlerThingy());
     }
 
     @Override
     public void registerRenderers() {
         super.registerRenderers();
     }
-
-    @Override
-    public void sendModeChange(int dMode, String newMode) {}
 }

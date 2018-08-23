@@ -1,13 +1,14 @@
 package net.machinemuse.powersuits.network.packets;
 
-import net.machinemuse.numina.network.MusePackager;
+import io.netty.buffer.ByteBufInputStream;
+import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 
-import java.io.DataInputStream;
+import java.io.DataOutputStream;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -25,14 +26,15 @@ public class MusePacketPlayerUpdate extends MusePacket {
     }
 
     @Override
-    public MusePackager packager() {
+    public IMusePackager packager() {
         return getPackagerInstance();
     }
 
     @Override
     public void write() {
         writeString(player.getCommandSenderEntity().getName());
-        inputMap.writeToStream(dataout());
+//        inputMap.writeToStream(dataout());
+        inputMap.writeToStream(new DataOutputStream(bytesOut()));
     }
 
     @Override
@@ -44,16 +46,15 @@ public class MusePacketPlayerUpdate extends MusePacket {
         PacketSender.sendToAllAround(updatePacket, player, 128);
     }
 
-    private static MusePacketPlayerUpdatePackager PACKAGERINSTANCE;
     public static MusePacketPlayerUpdatePackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketPlayerUpdatePackager();
-        return PACKAGERINSTANCE;
+        return MusePacketPlayerUpdatePackager.INSTANCE;
     }
 
-    public static class MusePacketPlayerUpdatePackager extends MusePackager {
+    public enum MusePacketPlayerUpdatePackager implements IMusePackager {
+        INSTANCE;
+
         @Override
-        public MusePacket read(DataInputStream datain, EntityPlayer player) {
+        public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
             String username = readString(datain);
             PlayerInputMap inputMap = PlayerInputMap.getInputMapFor(username);
             inputMap.readFromStream(datain);

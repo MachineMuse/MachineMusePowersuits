@@ -1,19 +1,34 @@
 package net.machinemuse.powersuits.item;
 
-import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.utils.MuseStringUtils;
+import net.machinemuse.powersuits.common.config.MPSConfig;
+import net.machinemuse.powersuits.utils.MuseCommonStrings;
+import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ItemComponent extends Item {
+    private volatile static ItemComponent INSTANCE;
+
+    public static ItemComponent getInstance() {
+        if (INSTANCE == null) {
+            synchronized (ItemComponent.class) {
+                if (INSTANCE == null) INSTANCE = new ItemComponent();
+            }
+        }
+        return INSTANCE;
+    }
+
     public static Map<Integer, String> descriptions = new HashMap<>();
     public static Map<Integer, String> names = new HashMap<>();
 
@@ -27,8 +42,8 @@ public class ItemComponent extends Item {
     public static ItemStack mvcapacitor;
     public static ItemStack hvcapacitor;
     public static ItemStack evcapacitor;
-    public static ItemStack basicPlating;
-    public static ItemStack advancedPlating;
+    public static ItemStack ironPlating;
+    public static ItemStack diamonddPlating;
     public static ItemStack fieldEmitter;
     public static ItemStack laserHologram;
     public static ItemStack carbonMyofiber;
@@ -38,35 +53,42 @@ public class ItemComponent extends Item {
     public static ItemStack magnet;
     public static ItemStack solarPanel;
     public static ItemStack computerChip;
-    public static ItemStack liquidNitrogen;
+    public static ItemStack liquidNitrogen; // FIXME
     public static ItemStack rubberHose;
 
-    public ItemComponent() {
-        super();
+    private ItemComponent() {
+        this.maxStackSize = 64;
+        this.setRegistryName("powerarmorcomponent");
+        this.setUnlocalizedName("item.powerArmorComponent.");
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
-        this.setCreativeTab(Config.getCreativeTab());
-        this.setUnlocalizedName("item.powerArmorComponent.");
+        this.setCreativeTab(MPSConfig.INSTANCE.getCreativeTab());
+        this.populate();
     }
 
     public ItemStack addComponent(int meta, String oredictName, String description) {
         ItemStack stack = new ItemStack(this, 1, meta);
         names.put(meta, oredictName);
-        OreDictionary.registerOre(oredictName, stack);
         descriptions.put(meta, description);
         return stack;
     }
 
+    public void registerOres() {
+        for (int meta : names.keySet()) {
+            OreDictionary.registerOre(names.get(meta), new ItemStack(this, 1, meta));
+        }
+    }
+
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
-        if (Config.doAdditionalInfo()) {
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> currentTipList, ITooltipFlag flagIn) {
+        if (MPSConfig.INSTANCE.doAdditionalInfo()) {
             String message =  I18n.format("tooltip.componentTooltip");
             message = MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic);
             currentTipList.add(message);
             String description = (descriptions.get(stack.getMetadata()) != null) ? descriptions.get(stack.getMetadata()) : "";
             currentTipList.addAll(MuseStringUtils.wrapStringToLength(description, 30));
         } else {
-            currentTipList.add(Config.additionalInfoInstructions());
+            currentTipList.add(MuseCommonStrings.additionalInfoInstructions());
         }
     }
 
@@ -83,8 +105,8 @@ public class ItemComponent extends Item {
         hvcapacitor = addComponent(7, "componentHVCapacitor", "A synthetic crystal device which can store and release massive amounts of energy.");
         evcapacitor = addComponent(8, "componentEVCapacitor", "The most advanced energy storage device ever created. Now 15% less likely to randomly explode!");
         parachute = addComponent(9, "componentParachute", "A simple reusable parachute which can be deployed and recovered in midair.");
-        basicPlating = addComponent(10, "componentPlatingBasic", "Some carefully-arranged metal armor plates.");
-        advancedPlating = addComponent(11, "componentPlatingAdvanced", "Some carefully-arranged armor plates of a rare and stronger material");
+        ironPlating = addComponent(10, "componentPlatingIron", "Some carefully-arranged metal armor plates.");
+        diamonddPlating = addComponent(11, "componentPlatingDiamond", "Some carefully-arranged armor plates of a rare and stronger material");
         fieldEmitter = addComponent(12, "componentFieldEmitter", "An advanced device which directly manipulates electromagnetic and gravitational fields in an area.");
         laserHologram = addComponent(13, "componentLaserEmitter", "A multicoloured laser array which can cheaply alter the appearance of something.");
         carbonMyofiber = addComponent(14,"componentCarbonMyofiber", "A small bundle of carbon fibers, refined for use in artificial muscles.");
@@ -114,9 +136,9 @@ public class ItemComponent extends Item {
      * returns 16 items). For creative tab.
      */
     @Override
-    public void getSubItems(Item item, CreativeTabs tab, List listToAddTo) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         for (Integer meta : names.keySet()) {
-            listToAddTo.add(new ItemStack(this, 1, meta));
+            items.add(new ItemStack(this, 1, meta));
         }
     }
 }

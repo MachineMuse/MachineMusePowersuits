@@ -10,7 +10,7 @@ public final class MouseEventHandler {
 /*    @SubscribeEvent
     public void onMouseEvent(MouseEvent e) {
         if (e.getDwheel() != 0) {
-            EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+            EntityPlayerSP player = Minecraft.getMinecraft().player;
             ItemStack stack = player.inventory.getCurrentItem();
             if (stack != null && stack.getItem() instanceof IModeChangingItem) {
                 IModeChangingItem item = (IModeChangingItem) stack.getItem();

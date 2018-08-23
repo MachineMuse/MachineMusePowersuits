@@ -1,15 +1,16 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
+import net.machinemuse.numina.api.module.IBlockBreakingModule;
+import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.MusePlayerUtils;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.MusePlayerUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -39,38 +40,27 @@ import java.util.Random;
 
 public class ShearsModule extends PowerModuleBase implements IBlockBreakingModule, IRightClickModule {
     private static final ItemStack emulatedTool = new ItemStack(Items.SHEARS);
-    public static final String MODULE_SHEARS = "Shears";
-    private static final String SHEARING_ENERGY_CONSUMPTION = "Shearing Energy Consumption";
-    private static final String SHEARING_HARVEST_SPEED = "Shearing Harvest Speed";
-
-    public ShearsModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(new ItemStack(Items.IRON_INGOT, 2));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
-        addBaseProperty(SHEARING_ENERGY_CONSUMPTION, 50, "J");
-        addBaseProperty(SHEARING_HARVEST_SPEED, 8, "x");
-        addTradeoffProperty("Overclock", SHEARING_ENERGY_CONSUMPTION, 950);
-        addTradeoffProperty("Overclock", SHEARING_HARVEST_SPEED, 22);
+    public ShearsModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(),new ItemStack(Items.IRON_INGOT, 2));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
+        addBasePropertyInteger(MPSModuleConstants.SHEARING_ENERGY_CONSUMPTION, 1000, "RF");
+        addBasePropertyInteger(MPSModuleConstants.SHEARING_HARVEST_SPEED, 8, "x");
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_TOOL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_TOOL;
     }
 
     @Override
     public String getDataName() {
-        return MODULE_SHEARS;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "shears";
+        return MPSModuleConstants.MODULE_SHEARS__DATANAME;
     }
 
     @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        if (playerIn.worldObj.isRemote) {
+        if (playerIn.world.isRemote) {
             return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
         }
         RayTraceResult rayTraceResult = MusePlayerUtils.raytraceEntities(worldIn, playerIn, false, 8);
@@ -78,8 +68,8 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
         if (rayTraceResult != null && rayTraceResult.entityHit instanceof IShearable) {
             IShearable target = (IShearable) rayTraceResult.entityHit;
             Entity entity = rayTraceResult.entityHit;
-            if (target.isShearable(itemStackIn, entity.worldObj, new BlockPos(entity))) {
-                List<ItemStack> drops = target.onSheared(itemStackIn, entity.worldObj, new BlockPos(entity),
+            if (target.isShearable(itemStackIn, entity.world, new BlockPos(entity))) {
+                List<ItemStack> drops = target.onSheared(itemStackIn, entity.world, new BlockPos(entity),
                         EnchantmentHelper.getEnchantmentLevel(Enchantment.getEnchantmentByLocation("fortune"), itemStackIn));
                 Random rand = new Random();
                 for (ItemStack drop : drops) {
@@ -88,7 +78,7 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
                     ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
                     ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
                 }
-                ElectricItemUtils.drainPlayerEnergy(playerIn, ModuleManager.computeModularProperty(itemStackIn, SHEARING_ENERGY_CONSUMPTION));
+                ElectricItemUtils.drainPlayerEnergy(playerIn, ModuleManager.INSTANCE.getOrSetModularPropertyInteger(itemStackIn, MPSModuleConstants.SHEARING_ENERGY_CONSUMPTION));
                 return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
             }
         }
@@ -113,7 +103,7 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
     @Override
     public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
         if (ToolHelpers.isEffectiveTool(state, emulatedTool)) {
-            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SHEARING_ENERGY_CONSUMPTION)) {
+            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.SHEARING_ENERGY_CONSUMPTION)) {
                 return true;
             }
         }
@@ -122,15 +112,15 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public boolean onBlockDestroyed(ItemStack itemStack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-        if (entityLiving.worldObj.isRemote) {
+        if (entityLiving.world.isRemote) {
             return false;
         }
         Block block = state.getBlock();
 
-        if (block instanceof IShearable && ElectricItemUtils.getPlayerEnergy(((EntityPlayer) entityLiving)) > ModuleManager.computeModularProperty(itemStack, SHEARING_ENERGY_CONSUMPTION)) {
+        if (block instanceof IShearable && ElectricItemUtils.getPlayerEnergy(((EntityPlayer) entityLiving)) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.SHEARING_ENERGY_CONSUMPTION)) {
             IShearable target = (IShearable) block;
-            if (target.isShearable(itemStack, entityLiving.worldObj, pos)) {
-                List<ItemStack> drops = target.onSheared(itemStack, entityLiving.worldObj, pos, EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemStack));
+            if (target.isShearable(itemStack, entityLiving.world, pos)) {
+                List<ItemStack> drops = target.onSheared(itemStack, entityLiving.world, pos, EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemStack));
                 Random rand = new Random();
 
                 for (ItemStack stack : drops) {
@@ -138,11 +128,11 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
                     double d = (double) (rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
                     double d1 = (double) (rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
                     double d2 = (double) (rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-                    EntityItem entityitem = new EntityItem(entityLiving.worldObj, (double) pos.getX() + d, (double) pos.getY() + d1, (double) pos.getZ() + d2, stack);
+                    EntityItem entityitem = new EntityItem(entityLiving.world, (double) pos.getX() + d, (double) pos.getY() + d1, (double) pos.getZ() + d2, stack);
                     entityitem.setDefaultPickupDelay(); // this is 10
-                    entityitem.worldObj.spawnEntityInWorld(entityitem);
+                    entityitem.world.spawnEntity(entityitem);
                 }
-                ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, ModuleManager.computeModularProperty(itemStack, SHEARING_ENERGY_CONSUMPTION));
+                ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, ModuleManager.INSTANCE.getOrSetModularPropertyInteger(itemStack, MPSModuleConstants.SHEARING_ENERGY_CONSUMPTION));
                 ((EntityPlayer) (entityLiving)).addStat(StatList.getBlockStats(block), 1);
                 return true;
             }
@@ -154,7 +144,7 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
     public void handleBreakSpeed(BreakSpeed event) {
 //        // TODO: MAKE NOT STUPID ?
         float defaultEffectiveness = 8;
-        double ourEffectiveness = ModuleManager.computeModularProperty(event.getEntityPlayer().inventory.getCurrentItem(), SHEARING_HARVEST_SPEED);
+        double ourEffectiveness = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(event.getEntityPlayer().inventory.getCurrentItem(), MPSModuleConstants.SHEARING_HARVEST_SPEED);
         event.setNewSpeed((float) (event.getNewSpeed() *Math.max(defaultEffectiveness, ourEffectiveness)));
     }
 

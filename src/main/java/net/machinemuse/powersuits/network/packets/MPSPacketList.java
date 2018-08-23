@@ -9,20 +9,21 @@ import net.machinemuse.numina.network.MusePacketHandler;
  * Ported to Java by lehjr on 10/28/16.
  */
 public class MPSPacketList {
-    static {
-        new MPSPacketList();
-    }
+    static final MusePacketHandler handler = MusePacketHandler.getInstance();
 
     public static void registerPackets() {
-        MusePacketHandler.packagers.put(1, MusePacketInventoryRefresh.getPackagerInstance());
-        MusePacketHandler.packagers.put(2, MusePacketInstallModuleRequest.getPackagerInstance());
-        MusePacketHandler.packagers.put(3, MusePacketSalvageModuleRequest.getPackagerInstance());
-        MusePacketHandler.packagers.put(4, MusePacketTweakRequest.getPackagerInstance());
-        MusePacketHandler.packagers.put(5, MusePacketCosmeticInfo.getPackagerInstance());
-        MusePacketHandler.packagers.put(6, MusePacketPlayerUpdate.getPackagerInstance());
-        MusePacketHandler.packagers.put(7, MusePacketToggleRequest.getPackagerInstance());
-//        MusePacketHandler.packagers.put(8, MusePacketPlasmaBolt.getPackagerInstance());
-        MusePacketHandler.packagers.put(10, MusePacketColourInfo.getPackagerInstance());
-        MusePacketHandler.packagers.put(11, MusePacketPropertyModifierConfig.getPackagerInstance());
+        handler.addPackager( MusePacketInventoryRefresh.getPackagerInstance() );
+        handler.addPackager( MusePacketInstallModuleRequest.getPackagerInstance() );
+        handler.addPackager( MusePacketSalvageModuleRequest.getPackagerInstance() );
+        handler.addPackager( MusePacketTweakRequestDouble.getPackagerInstance() );
+        handler.addPackager( MusePacketTweakRequestInteger.getPackagerInstance() );
+
+        handler.addPackager( MusePacketCosmeticInfo.getPackagerInstance() );
+        handler.addPackager( MusePacketPlayerUpdate.getPackagerInstance() );
+        handler.addPackager( MusePacketToggleRequest.getPackagerInstance() );
+//        handler.addPackage( MusePacketPlasmaBolt.getPackagerInstance() );
+        handler.addPackager( MusePacketColourInfo.getPackagerInstance() );
+//        handler.addPackager( MusePacketPropertyModifierConfig.getPackagerInstance() );
+        handler.addPackager( MPSPacketConfig.getPackagerInstance() );
     }
 }

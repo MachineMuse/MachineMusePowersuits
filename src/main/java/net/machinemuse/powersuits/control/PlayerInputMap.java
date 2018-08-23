@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.control;
 
-import java.io.DataInputStream;
+import io.netty.buffer.ByteBufInputStream;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -54,7 +55,7 @@ public class PlayerInputMap {
 		}
 	}
 
-	public boolean readFromStream(DataInputStream stream) {
+	public boolean readFromStream(ByteBufInputStream stream) {
 		try {
 			forwardKey = stream.readFloat();
 			strafeKey = stream.readFloat();

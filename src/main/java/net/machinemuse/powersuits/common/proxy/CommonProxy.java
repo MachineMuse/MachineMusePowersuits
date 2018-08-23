@@ -1,22 +1,27 @@
 package net.machinemuse.powersuits.common.proxy;
 
-import net.machinemuse.powersuits.common.*;
+import net.machinemuse.powersuits.block.BlockLuxCapacitor;
+import net.machinemuse.powersuits.common.MPSGuiHandler;
+import net.machinemuse.powersuits.common.MPSModules;
+import net.machinemuse.powersuits.common.ModCompatibility;
+import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.event.HarvestEventHandler;
 import net.machinemuse.powersuits.event.MovementManager;
+import net.machinemuse.powersuits.event.PlayerLoginHandlerThingy;
 import net.machinemuse.powersuits.network.packets.MPSPacketList;
 import net.machinemuse.powersuits.powermodule.tool.TerminalHandler;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
-import java.io.File;
+import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
 
 /**
  * Common side of the proxy. Provides functions which
@@ -29,52 +34,39 @@ import java.io.File;
  */
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
-        File newConfig = new File(event.getModConfigurationDirectory() + "/machinemuse/powersuits.cfg");
-        Config.init(new Configuration(newConfig));
-        Config.setConfigFolderBase(event.getModConfigurationDirectory());
-        Config.extractRecipes();
-        MPSItems.populateItems();
-        MPSItems.populateComponents();
+//        File newConfig = new File(event.getModConfigurationDirectory() + "/machinemuse/powersuits.cfg");
+//        Config.init(new Configuration(newConfig));
+
+
+//        Config.extractRecipes();
+
+
+
+
     }
 
     public void init(FMLInitializationEvent event) {
-        Config.loadPowerModules();
-        Config.getMaximumArmorPerPiece();
-        Config.getMaximumFlyingSpeedmps();
-        Config.useMouseWheel();
-        Config.useGraphicalMeters();
-        Config.getSalvageChance();
-        Config.baseMaxHeat();
-        Config.allowConflictingKeybinds();
-        Config.fontAntiAliasing();
-        Config.useCustomFonts();
-        Config.glowMultiplier();
-        Config.useShaders();
-        Config.getWeightCapacity();
-        Config.keybindHUDon();
-        Config.keybindHUDx();
-        Config.keybindHUDy();
-        Config.toggleModuleSpam();
-        Config.useAdvancedOreScannerMessage();
-        Config.useOldAutoFeeder();
-        Config.useCheatyLeatherRecipe();
-        Config.useHUDStuff();
-        Config.use24hClock();
-        Config.fontDetail();
-        Config.fontURI();
-        Config.fontName();
-        EntityRegistry.registerModEntity(EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, ModularPowersuits.getInstance(), 64, 20, true);
-        EntityRegistry.registerModEntity(EntitySpinningBlade.class, "entitySpinningBlade", 2478, ModularPowersuits.getInstance(), 64, 20, true);
-        EntityRegistry.registerModEntity(EntityLuxCapacitor.class, "entityLuxCapacitor", 2479, ModularPowersuits.getInstance(), 64, 20, true);
+        MPSModules.loadPowerModules();
+
+
+//        Config.useAdvancedOreScannerMessage(); // Fixme: obsolete
+
+
+
+
+        EntityRegistry.registerModEntity(new ResourceLocation(MODID, "entityPlasmaBolt"), EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, ModularPowersuits.getInstance(), 64, 20, true);
+        EntityRegistry.registerModEntity(new ResourceLocation(MODID, "entitySpinningBlade"), EntitySpinningBlade.class, "entitySpinningBlade", 2478, ModularPowersuits.getInstance(), 64, 20, true);
+        EntityRegistry.registerModEntity(BlockLuxCapacitor.getInstance().getRegistryName(), EntityLuxCapacitor.class, "entityLuxCapacitor", 2479, ModularPowersuits.getInstance(), 64, 20, true);
         MPSPacketList.registerPackets();
         NetworkRegistry.INSTANCE.registerGuiHandler(ModularPowersuits.getInstance(), MPSGuiHandler.getInstance());
         TerminalHandler.registerHandler();
+        MinecraftForge.EVENT_BUS.register(new PlayerLoginHandlerThingy()); // doesn't seem to work if fired preinit
     }
 
     public void postInit(FMLPostInitializationEvent event) {
         ModCompatibility.registerModSpecificModules();
-        Config.addCustomInstallCosts();
-        Config.getConfig().save();
+//        Config.addCustomInstallCosts(); // Fixme: replace with similar function in MPSConfig
+//        Config.getConfig().save();
     }
 
     public void registerEvents(){
@@ -83,6 +75,4 @@ public class CommonProxy {
     }
 
     public void registerRenderers() {}
-
-    public void sendModeChange(int dMode, String newMode) {}
 }

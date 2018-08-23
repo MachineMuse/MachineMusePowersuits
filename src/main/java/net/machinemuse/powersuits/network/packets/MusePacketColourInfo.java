@@ -1,15 +1,15 @@
 package net.machinemuse.powersuits.network.packets;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.numina.network.MusePackager;
+import io.netty.buffer.ByteBufInputStream;
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-
-import java.io.DataInputStream;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -29,7 +29,7 @@ public class MusePacketColourInfo extends MusePacket {
     }
 
     @Override
-    public MusePackager packager() {
+    public IMusePackager packager() {
         return getPackagerInstance();
     }
 
@@ -42,22 +42,21 @@ public class MusePacketColourInfo extends MusePacket {
     @Override
     public void handleServer(EntityPlayerMP player) {
         ItemStack stack = player.inventory.getStackInSlot(itemSlot);
-        if (stack != null && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound renderTag = MuseItemUtils.getMuseRenderTag(stack);
-            renderTag.setIntArray("colours", tagData);
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
+            NBTTagCompound renderTag = MPSNBTUtils.getMuseRenderTag(stack);
+            renderTag.setIntArray(NuminaNBTConstants.TAG_COLOURS, tagData);
         }
     }
 
-    private static MusePacketColourInfoPackager PACKAGERINSTANCE;
     public static MusePacketColourInfoPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketColourInfoPackager();
-        return PACKAGERINSTANCE;
+        return MusePacketColourInfoPackager.INSTANCE;
     }
 
-    public static class MusePacketColourInfoPackager extends MusePackager {
+    public enum MusePacketColourInfoPackager implements IMusePackager {
+        INSTANCE;
+
         @Override
-        public MusePacket read(DataInputStream datain, EntityPlayer player) {
+        public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
             int itemSlot = readInt(datain);
             int[] tagData = readIntArray(datain);
             return new MusePacketColourInfo(player, itemSlot, tagData);

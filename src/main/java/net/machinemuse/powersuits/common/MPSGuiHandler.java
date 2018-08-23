@@ -1,10 +1,9 @@
 package net.machinemuse.powersuits.common;
 
-import net.machinemuse.general.gui.*;
-import net.machinemuse.general.gui.frame.PortableCraftingContainer;
-import net.minecraft.client.Minecraft;
+import net.machinemuse.powersuits.client.gui.PortableCraftingContainer;
+import net.machinemuse.powersuits.client.gui.PortableCraftingGui;
+import net.machinemuse.powersuits.client.gui.tinker.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.stats.AchievementList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
@@ -38,7 +37,7 @@ public final class MPSGuiHandler implements IGuiHandler {
     @SideOnly(Side.CLIENT)
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        Minecraft.getMinecraft().thePlayer.addStat(AchievementList.OPEN_INVENTORY, 1);
+//        Minecraft.getMinecraft().player.addStat(AchievementList.OPEN_INVENTORY, 1);
         switch (ID) {
             case 0:
                 return new GuiTinkerTable(player, x, y, z);

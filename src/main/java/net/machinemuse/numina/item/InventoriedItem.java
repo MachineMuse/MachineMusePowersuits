@@ -1,5 +1,6 @@
 package net.machinemuse.numina.item;
 
+import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,7 +25,7 @@ public class InventoriedItem implements IInventoriedItem {
 
     @Override
     public int getSelectedSlot( ItemStack stack) {
-        NBTTagCompound tag = NuminaItemUtils.getTagCompound(stack);
+        NBTTagCompound tag = MuseNBTUtils.getNBTTag(stack);
         int integer;
         if (tag.hasKey("selected")) {
             integer = tag.getInteger("selected");
@@ -38,13 +39,13 @@ public class InventoriedItem implements IInventoriedItem {
 
     @Override
     public void setSelectedSlot(ItemStack stack, int i) {
-        NBTTagCompound tag = NuminaItemUtils.getTagCompound(stack);
+        NBTTagCompound tag = MuseNBTUtils.getNBTTag(stack);
         tag.setInteger("selected", i);
     }
 
     @Override
     public NBTTagList getContentsAsNBTTagList(ItemStack stack) {
-        NBTTagCompound tag = NuminaItemUtils.getTagCompound(stack);
+        NBTTagCompound tag = MuseNBTUtils.getNBTTag(stack);
         NBTTagList tagList;
         if (tag.hasKey("contents")) {
             tagList = tag.getTagList("contents", 10);
@@ -62,7 +63,7 @@ public class InventoriedItem implements IInventoriedItem {
         NBTTagList list = this.getContentsAsNBTTagList(stack);
         List<ItemStack> stackList = new ArrayList<>();
         for (int i = 0; i < list.tagCount(); i++) {
-            stackList.add(ItemStack.loadItemStackFromNBT(list.getCompoundTagAt(i)));
+            stackList.add(new ItemStack(list.getCompoundTagAt(i)));
         }
         return stackList;
     }
@@ -72,7 +73,7 @@ public class InventoriedItem implements IInventoriedItem {
         NBTTagList list = new NBTTagList();
         for (ItemStack item : contents)
             list.appendTag(item.writeToNBT(new NBTTagCompound()));
-        NuminaItemUtils.getTagCompound(stack).setTag("contents", list);
+        MuseNBTUtils.getNBTTag(stack).setTag("contents", list);
     }
 
     @Override
@@ -84,7 +85,7 @@ public class InventoriedItem implements IInventoriedItem {
 
     @Override
     public int getNumStacks(ItemStack stack) {
-        NBTTagCompound tag = NuminaItemUtils.getTagCompound(stack);
+        NBTTagCompound tag = MuseNBTUtils.getNBTTag(stack);
         return tag.hasKey("contents") ? tag.getTagList("contents", 10).tagCount() : 0;
     }
 }

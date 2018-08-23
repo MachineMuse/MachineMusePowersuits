@@ -1,12 +1,11 @@
 package net.machinemuse.powersuits.control;
 
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.general.gui.clickable.ClickableKeybinding;
-import net.machinemuse.general.gui.clickable.ClickableModule;
-import net.machinemuse.numina.general.MuseLogger;
-import net.machinemuse.numina.geometry.MusePoint2D;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
+import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableKeybinding;
+import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.common.Loader;
@@ -17,32 +16,22 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class KeybindManager {
+public enum KeybindManager {
+    INSTANCE;
     // only stores keybindings relevant to us!!
-    protected final Set<ClickableKeybinding> keybindings;
-    protected static KeybindManager instance;
+    protected final Set<ClickableKeybinding> keybindings = new HashSet();
 
-    protected KeybindManager() {
-        keybindings = new HashSet();
-    }
     private static KeyBindingHelper keyBindingHelper = new KeyBindingHelper();
 
-    public static KeybindManager getInstance() {
-        if (instance == null) {
-            instance = new KeybindManager();
-        }
-        return instance;
-    }
-
     public static Set<ClickableKeybinding> getKeybindings() {
-        return getInstance().keybindings;
+        return INSTANCE.keybindings;
     }
 
     public static KeyBinding addKeybinding(String keybindDescription, int keycode, MusePoint2D position) {
         KeyBinding kb = new KeyBinding(keybindDescription, keycode, KeybindKeyHandler.mps);
 //        boolean free = !KeyBinding.HASH.containsItem(keycode);
         boolean free = !keyBindingHelper.keyBindingHasKey(keycode);
-        getInstance().keybindings.add(new ClickableKeybinding(kb, position, free, false));
+        INSTANCE.keybindings.add(new ClickableKeybinding(kb, position, free, false));
         return kb;
     }
 
@@ -62,8 +51,8 @@ public class KeybindManager {
                 file.createNewFile();
             }
             writer = new BufferedWriter(new FileWriter(file));
-            List<IPowerModule> modulesToWrite = MuseItemUtils.getPlayerInstalledModules(Minecraft.getMinecraft().thePlayer);
-            for (ClickableKeybinding keybinding : getInstance().keybindings) {
+            List<IPowerModule> modulesToWrite = ModuleManager.INSTANCE.getPlayerInstalledModules(Minecraft.getMinecraft().player);
+            for (ClickableKeybinding keybinding : INSTANCE.keybindings) {
                 writer.write(keybinding.getKeyBinding().getKeyCode() + ":" + keybinding.getPosition().x() + ':' + keybinding.getPosition().y() + ':' + keybinding.displayOnHUD + ':' + keybinding.toggleval + '\n');
                 for (ClickableModule module : keybinding.getBoundModules()) {
                     writer.write(module.getModule().getDataName() + '~' + module.getPosition().x() + '~' + module.getPosition().y() + '\n');
@@ -107,7 +96,7 @@ public class KeybindManager {
                         }
                         workingKeybinding = new ClickableKeybinding(new KeyBinding(Keyboard.getKeyName(id), id, KeybindKeyHandler.mps), position, free, displayOnHUD);
                         workingKeybinding.toggleval = toggleval;
-                        getInstance().keybindings.add(workingKeybinding);
+                        INSTANCE.keybindings.add(workingKeybinding);
                     } else {
                         workingKeybinding = null;
                     }
@@ -115,7 +104,7 @@ public class KeybindManager {
                 } else if (line.contains("~") && workingKeybinding != null) {
                     String[] exploded = line.split("~");
                     MusePoint2D position = new MusePoint2D(Double.parseDouble(exploded[1]), Double.parseDouble(exploded[2]));
-                    IPowerModule module = ModuleManager.getModule(exploded[0]);
+                    IPowerModule module = ModuleManager.INSTANCE.getModule(exploded[0]);
                     if (module != null) {
                         ClickableModule cmodule = new ClickableModule(module, position);
                         workingKeybinding.bindModule(cmodule);

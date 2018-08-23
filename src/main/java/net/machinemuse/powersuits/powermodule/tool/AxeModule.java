@@ -1,15 +1,16 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
-import net.machinemuse.api.moduletrigger.IToggleableModule;
-import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
+import net.machinemuse.numina.api.module.IBlockBreakingModule;
+import net.machinemuse.numina.api.module.IToggleableModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.ElectricItemUtils;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
@@ -21,48 +22,35 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
-import java.util.List;
-
 
 public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
-    public static final String MODULE_AXE = "Axe";
-    public static final String AXE_ENERGY_CONSUMPTION = "Axe Energy Consumption";
-    public static final String AXE_HARVEST_SPEED = "Axe Harvest Speed";
-    public static final String AXE_SEARCH_RADIUS = "Axe Search Radius";
     private static final ItemStack emulatedTool = new ItemStack(Items.IRON_AXE);
-
-
-    public AxeModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
-        addBaseProperty(AXE_ENERGY_CONSUMPTION, 50, "J");
-        addBaseProperty(AXE_HARVEST_SPEED, 8, "x");
-        addTradeoffProperty("Overclock", AXE_ENERGY_CONSUMPTION, 950);
-        addTradeoffProperty("Overclock", AXE_HARVEST_SPEED, 22);
+    public AxeModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
+        addBasePropertyDouble(MPSModuleConstants.AXE_ENERGY_CONSUMPTION, 500, "RF");
+        addBasePropertyDouble(MPSModuleConstants.AXE_HARVEST_SPEED, 8, "x");
+        addTradeoffPropertyDouble("Overclock", MPSModuleConstants.AXE_ENERGY_CONSUMPTION, 950);
+        addTradeoffPropertyDouble("Overclock", MPSModuleConstants.AXE_HARVEST_SPEED, 22);
         // Removed until further research can be done!
-//        addTradeoffProperty("Radius", AXE_ENERGY_CONSUMPTION, 1000);
-//        addTradeoffProperty("Radius", AXE_SEARCH_RADIUS, 3);
+//        addTradeoffPropertyDouble("Radius", AXE_ENERGY_CONSUMPTION, 1000);
+//        addTradeoffPropertyDouble("Radius", AXE_SEARCH_RADIUS, 3);
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_TOOL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_TOOL;
     }
 
     @Override
     public String getDataName() {
-        return MODULE_AXE;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "axe";
+        return MPSModuleConstants.MODULE_AXE__DATANAME;
     }
 
     @Override
     public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
         if (ToolHelpers.isEffectiveTool(state, emulatedTool)) {
-            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION)) {
+            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.AXE_ENERGY_CONSUMPTION)) {
                 return true;
             }
         }
@@ -72,7 +60,7 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
         if (ForgeHooks.canToolHarvestBlock(worldIn, pos, emulatedTool)) {
-            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION));
+            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.AXE_ENERGY_CONSUMPTION));
             return true;
         }
         return false;
@@ -80,7 +68,7 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
-        event.setNewSpeed((float) (event.getNewSpeed() * ModuleManager.computeModularProperty(event.getEntityPlayer().inventory.getCurrentItem(), AXE_HARVEST_SPEED)));
+        event.setNewSpeed((float) (event.getNewSpeed() * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(event.getEntityPlayer().inventory.getCurrentItem(), MPSModuleConstants.AXE_HARVEST_SPEED)));
     }
 
     @Override

@@ -1,13 +1,18 @@
 package net.machinemuse.powersuits.powermodule.weapon;
 
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
-import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
+import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.*;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.MuseHeatUtils;
+import net.machinemuse.powersuits.utils.MusePlayerUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
@@ -21,34 +26,29 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 /**
  * Created by User: Andrew2448
  * 5:56 PM 6/14/13
  */
 public class LightningModule extends PowerModuleBase implements IRightClickModule {
-    public static final String MODULE_LIGHTNING = "Lightning Summoner";
-    public static final String LIGHTNING_ENERGY_CONSUMPTION = "Energy Consumption";
-    public static final String HEAT = "Heat Emission";
+    public LightningModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.solenoid, 2));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
 
-    public LightningModule(List<IModularItem> validItems) {
-        super(validItems);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 2));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
-        addBaseProperty(LIGHTNING_ENERGY_CONSUMPTION, 490000, "");
-        addBaseProperty(HEAT, 100, "");
+        addBasePropertyInteger(MPSModuleConstants.LIGHTNING_ENERGY_CONSUMPTION, 4900000, "RF");
+        addBasePropertyInteger(MPSModuleConstants.HEAT_EMISSION, 100, "");
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_WEAPON;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_WEAPON;
     }
 
     @Override
     public String getDataName() {
-        return MODULE_LIGHTNING;
+        return MPSModuleConstants.MODULE_LIGHTNING__DATANAME;
     }
 
     @Override
@@ -61,12 +61,12 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
         if (hand == EnumHand.MAIN_HAND) {
             try {
                 double range = 64;
-                double energyConsumption = ModuleManager.computeModularProperty(itemStackIn, LIGHTNING_ENERGY_CONSUMPTION);
+                int energyConsumption = ModuleManager.INSTANCE.getOrSetModularPropertyInteger(itemStackIn, MPSModuleConstants.LIGHTNING_ENERGY_CONSUMPTION);
                 if (energyConsumption < ElectricItemUtils.getPlayerEnergy(playerIn)) {
                     ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
-                    MuseHeatUtils.heatPlayer(playerIn, ModuleManager.computeModularProperty(itemStackIn, HEAT));
-                    RayTraceResult raytraceResult = MusePlayerUtils.doCustomRayTrace(playerIn.worldObj, playerIn, true, range);
-                    worldIn.spawnEntityInWorld(new EntityLightningBolt(playerIn.worldObj, raytraceResult.hitVec.xCoord, raytraceResult.hitVec.yCoord, raytraceResult.hitVec.zCoord, false));
+                    MuseHeatUtils.heatPlayer(playerIn, ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.HEAT_EMISSION));
+                    RayTraceResult raytraceResult = MusePlayerUtils.doCustomRayTrace(playerIn.world, playerIn, true, range);
+                    worldIn.spawnEntity(new EntityLightningBolt(playerIn.world, raytraceResult.hitVec.x, raytraceResult.hitVec.y, raytraceResult.hitVec.z, false));
                 }
             } catch (Exception ignored) {
                 return ActionResult.newResult(EnumActionResult.FAIL, itemStackIn);

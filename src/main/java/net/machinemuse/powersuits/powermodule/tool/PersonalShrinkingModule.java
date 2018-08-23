@@ -1,12 +1,15 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.moduletrigger.IPlayerTickModule;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
+import net.machinemuse.numina.api.module.IPlayerTickModule;
+import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.MuseCommonStrings;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.powersuits.utils.modulehelpers.PersonalShrinkingModuleHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,8 +21,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 /**
  * Created by User: Korynkai
  * 5:41 PM 2014-11-19
@@ -29,30 +30,24 @@ import java.util.List;
     TODO: the mechanics have changed a bit. This module will req
  */
 public class PersonalShrinkingModule extends PowerModuleBase implements IRightClickModule, IPlayerTickModule {
-    public static final String MODULE_CM_PSD = "Personal Shrinking Device";
     private final ItemStack cpmPSD = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("cm2", "psd")), 1);
-    public PersonalShrinkingModule(List<IModularItem> validItems) {
-        super(validItems);
+    public PersonalShrinkingModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
         NBTTagCompound nbt = new NBTTagCompound();
         nbt.setInteger("fluid", 4000);
         cpmPSD.setTagCompound(nbt);
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 4));
-        addInstallCost(cpmPSD);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 4));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), cpmPSD);
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_TOOL;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_TOOL;
     }
 
     @Override
     public String getDataName() {
-        return MODULE_CM_PSD;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "cmPSD";
+        return MPSModuleConstants.MODULE_CM_PSD__DATANAME;
     }
 
     @Override
@@ -67,20 +62,20 @@ public class PersonalShrinkingModule extends PowerModuleBase implements IRightCl
 
     @Override
     public EnumActionResult onItemUseFirst(ItemStack itemStackIn, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-        return cpmPSD.getItem().onItemUseFirst(itemStackIn, player, world, pos, side, hitX, hitY, hitZ, hand);
+        return cpmPSD.getItem().onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand);
     }
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        if (!MuseItemUtils.getCanShrink(item)) {
-            MuseItemUtils.setCanShrink(item, true);
+        if (!PersonalShrinkingModuleHelper.getCanShrink(item)) {
+            PersonalShrinkingModuleHelper.setCanShrink(item, true);
         }
     }
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-        if (MuseItemUtils.getCanShrink(item)) {
-            MuseItemUtils.setCanShrink(item, false);
+        if (PersonalShrinkingModuleHelper.getCanShrink(item)) {
+            PersonalShrinkingModuleHelper.setCanShrink(item, false);
         }
     }
 

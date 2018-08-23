@@ -1,16 +1,15 @@
 package net.machinemuse.powersuits.network.packets;
 
-import net.machinemuse.general.gui.MuseGui;
-import net.machinemuse.numina.network.MusePackager;
+import io.netty.buffer.ByteBufInputStream;
+import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
+import net.machinemuse.powersuits.client.gui.MuseGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.io.DataInputStream;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -30,7 +29,7 @@ public class MusePacketInventoryRefresh extends MusePacket {
     }
 
     @Override
-    public MusePackager packager() {
+    public IMusePackager packager() {
         return getPackagerInstance();
     }
 
@@ -48,16 +47,15 @@ public class MusePacketInventoryRefresh extends MusePacket {
         ((MuseGui)(Minecraft.getMinecraft().currentScreen)).refresh();
     }
 
-    private static MusePacketInventoryRefreshPackager PACKAGERINSTANCE;
     public static MusePacketInventoryRefreshPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketInventoryRefreshPackager();
-        return PACKAGERINSTANCE;
+        return MusePacketInventoryRefreshPackager.INSTANCE;
     }
 
-    public static class MusePacketInventoryRefreshPackager extends MusePackager {
+    public enum MusePacketInventoryRefreshPackager implements IMusePackager {
+        INSTANCE;
+
         @Override
-        public MusePacket read(DataInputStream datain, EntityPlayer player) {
+        public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
             int itemSlot = readInt(datain);
             ItemStack stack = readItemStack(datain);
             return new MusePacketInventoryRefresh(player, itemSlot, stack);

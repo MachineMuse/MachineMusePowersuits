@@ -1,12 +1,12 @@
 package net.machinemuse.numina.network;
 
-import net.machinemuse.numina.item.IModeChangingItem;
+import io.netty.buffer.ByteBufInputStream;
+import net.machinemuse.numina.api.item.IModeChangingItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import java.io.DataInputStream;
 import java.util.List;
 
 /**
@@ -15,7 +15,7 @@ import java.util.List;
  *
  * Ported to Java by lehjr on 11/14/16.
  */
-public class MusePacketModeChangeRequest extends MusePacket {
+public final class MusePacketModeChangeRequest extends MusePacket {
     String mode;
     int slot;
 
@@ -25,8 +25,8 @@ public class MusePacketModeChangeRequest extends MusePacket {
     }
 
     @Override
-    public MusePackager packager() {
-        return getPackagerInstance();
+    public IMusePackager packager() {
+        return MusePacketModeChangeRequestPackager.INSTANCE;
     }
 
     @Override
@@ -38,12 +38,14 @@ public class MusePacketModeChangeRequest extends MusePacket {
     @Override
     public void handleServer(EntityPlayerMP player) {
         if (slot > -1 && slot < 9) {
-            ItemStack stack = player.inventory.mainInventory[slot];
-            if (stack != null) {
+            ItemStack stack = player.inventory.mainInventory.get(slot);
+            if (!stack.isEmpty()) {
                 Item item = stack.getItem();
                 if (item instanceof IModeChangingItem) {
                     List<String> modes = ((IModeChangingItem) item).getValidModes(stack);
                     if (modes.contains(mode)) {
+                        System.out.println("active mode is: " + mode);
+
                         ((IModeChangingItem) item).setActiveMode(stack, mode);
                     }
                 }
@@ -51,16 +53,15 @@ public class MusePacketModeChangeRequest extends MusePacket {
         }
     }
 
-    private static MusePacketModeChangeRequestPackager PACKAGERINSTANCE;
     public static MusePacketModeChangeRequestPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketModeChangeRequestPackager();
-        return PACKAGERINSTANCE;
+        return MusePacketModeChangeRequestPackager.INSTANCE;
     }
 
-    public static class MusePacketModeChangeRequestPackager extends MusePackager {
+    public enum MusePacketModeChangeRequestPackager implements IMusePackager {
+        INSTANCE;
+
         @Override
-        public MusePacket read(DataInputStream datain, EntityPlayer player) {
+        public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
             int slot = readInt(datain);
             String mode = readString(datain);
             return new MusePacketModeChangeRequest(player, mode, slot);

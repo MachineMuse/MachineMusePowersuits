@@ -1,14 +1,18 @@
 package net.machinemuse.powersuits.item;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.electricity.IMuseElectricItem;
-import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
+import net.machinemuse.powersuits.api.electricity.adapter.IMuseElectricItem;
+import net.machinemuse.powersuits.client.render.modelspec.ModelRegistry;
+import net.machinemuse.powersuits.client.render.modelspec.TexturePartSpec;
+import net.machinemuse.powersuits.utils.MuseStringUtils;
+import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
+import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -17,26 +21,27 @@ import java.util.List;
  * Ported to Java by lehjr on 11/4/16.
  */
 public interface IModularItemBase extends IModularItem, IMuseElectricItem {
-    @SideOnly(Side.CLIENT)
-    int getColorFromItemStack(ItemStack stack, int p1);
+    default Colour getColorFromItemStack(ItemStack stack) {
+        try {
+            NBTTagCompound renderTag = MPSNBTUtils.getMuseRenderTag(stack);
+            if (renderTag.hasKey(MPSNBTConstants.NBT_TEXTURESPEC_TAG)) {
+                TexturePartSpec partSpec = (TexturePartSpec) ModelRegistry.getInstance().getPart(renderTag.getCompoundTag(MPSNBTConstants.NBT_TEXTURESPEC_TAG));
+                NBTTagCompound specTag = renderTag.getCompoundTag(MPSNBTConstants.NBT_TEXTURESPEC_TAG);
+                int index = partSpec.getColourIndex(specTag);
+                int[] colours = renderTag.getIntArray(NuminaNBTConstants.TAG_COLOURS);
+                return new Colour(colours[index]);
+            }
+        } catch (Exception e ) {
+            MuseLogger.logException("something failed here: ", e);
+        }
+        return Colour.WHITE;
+    }
 
-    Colour getGlowFromItemStack(ItemStack stack);
+    default String formatInfo(String string, double value) {
+        return string + '\t' + MuseStringUtils.formatNumberShort(value);
+    }
 
-    Colour getColorFromItemStack(ItemStack stack);
-
-    @SideOnly(Side.CLIENT)
-    void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> currentTipList, boolean advancedToolTips);
-
-
-    String formatInfo(String string, double value);
-
-    List<String> getLongInfo(EntityPlayer player, ItemStack stack);
-
-    double getArmorDouble(EntityPlayer player, ItemStack stack);
-
-    double getPlayerEnergy(EntityPlayer player);
-
-    void drainPlayerEnergy(EntityPlayer player, double drainEnergy);
-
-    void givePlayerEnergy(EntityPlayer player, double joulesToGive);
+    default double getArmorDouble(EntityPlayer player, ItemStack stack) {
+        return 0;
+    }
 }

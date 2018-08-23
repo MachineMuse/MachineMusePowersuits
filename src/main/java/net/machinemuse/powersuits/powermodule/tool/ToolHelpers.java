@@ -25,7 +25,7 @@ import java.util.Set;
 public class ToolHelpers {
     public static boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
         String tool = state.getBlock().getHarvestTool(state);
-        if (stack == null || tool == null) return false;
+        if (stack.isEmpty() || tool == null) return false;
         return stack.getItem().getHarvestLevel(stack, tool, null, null) >= state.getBlock().getHarvestLevel(state);
     }
 
@@ -45,11 +45,11 @@ public class ToolHelpers {
         if (effectiveTool == null) {
             Item.ToolMaterial material;
             if (emulatedTool.getItem() instanceof ItemTool) {
-                material = ((ItemTool) emulatedTool.getItem()).getToolMaterial();
+                material = Item.ToolMaterial.valueOf(((ItemTool) emulatedTool.getItem()).getToolMaterialName());
             } else {
                 material = Item.ToolMaterial.IRON;
-            }
-            if (emulatedTool.getStrVsBlock(state) >= material.getEfficiencyOnProperMaterial())
+                }
+            if (emulatedTool.getDestroySpeed(state) >= material.getEfficiency())
                 return true;
         }
         return false;

@@ -1,0 +1,35 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:enderio_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " E ",
+    "SBS",
+    " C "
+  ],
+  "key": {
+    "E": {
+      "type": "forge:ore_dict",
+      "ore": "gemEmerald"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "ingotElectricalSteel"
+    },
+    "B": {
+      "item": "enderio:item_basic_capacitor",
+      "data": 0
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "itemSimpleMachineChassi"
+    }
+  },
+  "result": {
+    "item": "powersuits:tile.tinkertable"
+  }
+}

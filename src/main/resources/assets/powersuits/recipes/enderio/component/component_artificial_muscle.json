@@ -1,0 +1,28 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:enderio_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CDC",
+    "CCC",
+    "CCC"
+  ],
+  "key": {
+    "D": {
+      "type": "forge:ore_dict",
+      "ore": "ballDarkSteel"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "componentCarbonMyofiber"
+    }
+  },
+  "result": {
+    "item": "powersuits:powerarmorcomponent",
+    "data": 17
+  }
+}

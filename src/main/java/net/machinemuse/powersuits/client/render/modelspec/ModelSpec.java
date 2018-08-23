@@ -1,8 +1,13 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import net.machinemuse.numina.scala.MuseRegistry;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.util.math.Vec3d;
+import net.machinemuse.powersuits.client.model.obj.OBJModelPlus;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.resources.I18n;
+import net.minecraftforge.common.model.IModelState;
+import net.minecraftforge.common.model.TRSRTransformation;
+
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -10,28 +15,51 @@ import net.minecraft.util.math.Vec3d;
  *
  * Ported to Java by lehjr on 11/8/16.
  */
-public class ModelSpec extends MuseRegistry<ModelPartSpec> {
-    private IBakedModel model;
-    public Vec3d offset;
-    public Vec3d rotation;
-    public static String filename;
+public class ModelSpec extends SpecBase {
+    private final OBJModelPlus.OBJBakedModelPus model;
+    private final IModelState modelState;
 
-    public ModelSpec(IBakedModel model, Vec3d offset, Vec3d rotation, String filename) {
+    public ModelSpec(final OBJModelPlus.OBJBakedModelPus model, final IModelState state, final String name, final boolean isDefault, final EnumSpecType specType) {
+        super(name, isDefault, specType);
+        this.modelState = state;
         this.model = model;
-        this.offset = offset;
-        this.rotation = rotation;
-        this.filename = filename;
     }
 
-    public IBakedModel getModel() {
+    public TRSRTransformation getTransform(ItemCameraTransforms.TransformType transformType) {
+        Optional<TRSRTransformation> transformation = modelState.apply(Optional.of(transformType));
+        return transformation.orElse(TRSRTransformation.identity());
+    }
+
+    @Override
+    public String getDisaplayName() {
+        return I18n.format(new StringBuilder("model.")
+                .append(this.getOwnName())
+                .append(".modelName")
+                .toString());
+    }
+
+    @Override
+    public String getOwnName() {
+            String name = ModelRegistry.getInstance().getName(this);
+            return (name != null) ? name : "";
+    }
+
+    public OBJModelPlus.OBJBakedModelPus getModel() {
         return model;
     }
 
-    public void applyOffsetAndRotation() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ModelSpec modelSpec = (ModelSpec) o;
+        return Objects.equals(model, modelSpec.model) &&
+                Objects.equals(modelState, modelSpec.modelState);
     }
 
-    public String getOwnName() {
-        String name = ModelRegistry.getInstance().getName(this);
-        return (name != null) ? name : "";
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), model, modelState);
     }
 }

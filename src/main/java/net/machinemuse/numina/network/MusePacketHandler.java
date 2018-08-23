@@ -1,11 +1,13 @@
 package net.machinemuse.numina.network;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import com.google.common.collect.Maps;
 import io.netty.buffer.ByteBufInputStream;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageCodec;
-import net.machinemuse.numina.general.MuseLogger;
-import net.machinemuse.numina.scala.MuseNumericRegistry;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,9 +20,7 @@ import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.EnumMap;
 import java.util.List;
 
@@ -32,17 +32,32 @@ import java.util.List;
 @ChannelHandler.Sharable
 public final class MusePacketHandler extends MessageToMessageCodec<FMLProxyPacket, MusePacket> {
     public static String networkChannelName;
-    public static MuseNumericRegistry<MusePackager> packagers;
+    public static BiMap<Integer, IMusePackager> packagers;
     public static EnumMap<Side, FMLEmbeddedChannel> channels;
+    private volatile static MusePacketHandler INSTANCE;
+
+    public static MusePacketHandler getInstance() {
+        if (INSTANCE == null) {
+            synchronized (MusePacketHandler.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new MusePacketHandler();
+                }
+            }
+        }
+        return INSTANCE;
+    }
 
     private MusePacketHandler() {
         this.networkChannelName = "Numina";
-        this.packagers = new MuseNumericRegistry<>();
+        this.packagers = Maps.synchronizedBiMap(HashBiMap.create());
         this.channels = NetworkRegistry.INSTANCE.newChannel(this.networkChannelName, this);
     }
 
-    static {
-        new MusePacketHandler();
+    public void addPackager(IMusePackager packagerIn) {
+        // checks the map to see if the packager is already listed
+        if (!packagers.inverse().containsKey(packagerIn)) {
+            packagers.put(packagers.size(), packagerIn);
+            }
     }
 
     public void encode(ChannelHandlerContext ctx, MusePacket msg, List<Object> out) {
@@ -55,19 +70,17 @@ public final class MusePacketHandler extends MessageToMessageCodec<FMLProxyPacke
 
     @SideOnly(Side.CLIENT)
     private EntityPlayer getClientPlayer() {
-        return Minecraft.getMinecraft().thePlayer;
+        return Minecraft.getMinecraft().player;
     }
 
     public void decode(ChannelHandlerContext ctx, FMLProxyPacket msg, List<Object> out) {
-        DataInputStream data = new DataInputStream((InputStream)new ByteBufInputStream(msg.payload()));
-        int packetType;
-
+        ByteBufInputStream data = new ByteBufInputStream(msg.payload());
         INetHandler handler = msg.handler();
         try {
+            int packetType = data.readInt();
             if (handler instanceof NetHandlerPlayServer) {
-                EntityPlayerMP player = ((NetHandlerPlayServer) handler).playerEntity;
-                packetType = data.readInt();
-                MusePackager packagerServer = this.packagers.get(packetType);
+                EntityPlayerMP player = ((NetHandlerPlayServer) handler).player;
+                IMusePackager packagerServer = this.packagers.get(packetType);
                 MusePacket packetServer = packagerServer.read(data, player);
                 packetServer.handleServer(player);
 
@@ -76,8 +89,7 @@ public final class MusePacketHandler extends MessageToMessageCodec<FMLProxyPacke
                     throw new IOException("Error with (INetHandler) handler. Should be instance of NetHandlerPlayClient.");
                 }
                 EntityPlayer player = this.getClientPlayer();
-                packetType = data.readInt();
-                MusePackager packagerClient = this.packagers.get(packetType);
+                IMusePackager packagerClient = this.packagers.get(packetType);
                 MusePacket packetClient = packagerClient.read(data, player);
                 packetClient.handleClient(player);
             }

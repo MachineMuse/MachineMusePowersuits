@@ -1,23 +1,19 @@
 package net.machinemuse.powersuits.event;
 
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.general.gui.MuseIcon;
-import net.machinemuse.general.gui.clickable.ClickableKeybinding;
-import net.machinemuse.general.gui.clickable.ClickableModule;
-import net.machinemuse.numina.geometry.Colour;
-import net.machinemuse.numina.geometry.DrawableMuseRect;
-import net.machinemuse.numina.render.MuseIconUtils;
-import net.machinemuse.numina.render.MuseTextureUtils;
-import net.machinemuse.powersuits.client.render.helpers.ModelHelper;
-import net.machinemuse.powersuits.common.Config;
+import net.machinemuse.numina.client.render.MuseIconUtils;
+import net.machinemuse.numina.client.render.MuseTextureUtils;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.numina.utils.math.geometry.DrawableMuseRect;
+import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.client.event.MuseIcon;
+import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableKeybinding;
+import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
+import net.machinemuse.powersuits.client.helper.ModelHelper;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.KeybindManager;
-import net.machinemuse.powersuits.powermodule.misc.BinocularsModule;
-import net.machinemuse.powersuits.powermodule.movement.FlightControlModule;
-import net.machinemuse.powersuits.powermodule.movement.GliderModule;
-import net.machinemuse.powersuits.powermodule.movement.JetBootsModule;
-import net.machinemuse.powersuits.powermodule.movement.JetPackModule;
-import net.machinemuse.utils.MuseItemUtils;
-import net.machinemuse.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
@@ -29,14 +25,14 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import static net.machinemuse.powersuits.powermodule.misc.BinocularsModule.BINOCULARS_MODULE;
-
 /**
  * Ported to Java by lehjr on 10/24/16.
  */
 public class RenderEventHandler {
     private static boolean ownFly;
-    private final DrawableMuseRect frame = new DrawableMuseRect(Config.keybindHUDx(), Config.keybindHUDy(), Config.keybindHUDx() + (double)16, Config.keybindHUDy() + (double)16, true, Colour.DARKGREEN.withAlpha(0.2), Colour.GREEN.withAlpha(0.2));
+    private static final MPSConfig config = MPSConfig.INSTANCE;
+
+    private final DrawableMuseRect frame = new DrawableMuseRect(config.keybindHUDx(), config.keybindHUDy(), config.keybindHUDx() + (double)16, config.keybindHUDy() + (double)16, true, Colour.DARKGREEN.withAlpha(0.2), Colour.GREEN.withAlpha(0.2));
 
     public RenderEventHandler() {
         this.ownFly = false;
@@ -46,7 +42,7 @@ public class RenderEventHandler {
     @SubscribeEvent
     public void preTextureStitch(TextureStitchEvent.Pre event) {
         MuseIcon.registerIcons(event);
-        ModelHelper.loadArmorModels(false);
+        ModelHelper.loadArmorModels(event);
     }
 
     @SideOnly(Side.CLIENT)
@@ -71,10 +67,10 @@ public class RenderEventHandler {
     }
 
     private boolean playerHasFlightOn(EntityPlayer player) {
-        return ModuleManager.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), JetPackModule.MODULE_JETPACK) ||
-                ModuleManager.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), GliderModule.MODULE_GLIDER) ||
-                ModuleManager.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.FEET), JetBootsModule.MODULE_JETBOOTS) ||
-                ModuleManager.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.HEAD), FlightControlModule.MODULE_FLIGHT_CONTROL);
+        return ModuleManager.INSTANCE.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), MPSModuleConstants.MODULE_JETPACK__DATANAME) ||
+                ModuleManager.INSTANCE.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), MPSModuleConstants.MODULE_GLIDER__DATANAME) ||
+                ModuleManager.INSTANCE.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.FEET), MPSModuleConstants.MODULE_JETBOOTS__DATANAME) ||
+                ModuleManager.INSTANCE.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.HEAD), MPSModuleConstants.MODULE_FLIGHT_CONTROL__DATANAME);
     }
 
     @SubscribeEvent
@@ -88,8 +84,8 @@ public class RenderEventHandler {
     @SubscribeEvent
     public void onFOVUpdate(FOVUpdateEvent e) {
         ItemStack helmet = e.getEntity().getItemStackFromSlot(EntityEquipmentSlot.HEAD);
-        if (ModuleManager.itemHasActiveModule(helmet, BINOCULARS_MODULE)) {
-            e.setNewfov(e.getNewfov() / (float)ModuleManager.computeModularProperty(helmet, BinocularsModule.FOV_MULTIPLIER));
+        if (ModuleManager.INSTANCE.itemHasActiveModule(helmet, MPSModuleConstants.BINOCULARS_MODULE__DATANAME)) {
+            e.setNewfov(e.getNewfov() / (float)ModuleManager.INSTANCE.getOrSetModularPropertyDouble(helmet, MPSModuleConstants.FOV_MULTIPLIER));
         }
     }
 
@@ -103,16 +99,16 @@ public class RenderEventHandler {
     }
     @SideOnly(Side.CLIENT)
     public void drawKeybindToggles() {
-        if (Config.keybindHUDon()) {
+        if (config.keybindHUDon()) {
             Minecraft mc = Minecraft.getMinecraft();
-            EntityPlayerSP player = mc.thePlayer;
+            EntityPlayerSP player = mc.player;
             ScaledResolution screen = new ScaledResolution(mc);
-            frame.setLeft(Config.keybindHUDx());
-            frame.setTop(Config.keybindHUDy());
+            frame.setLeft(config.keybindHUDx());
+            frame.setTop(config.keybindHUDy());
             frame.setBottom(frame.top() + 16);
             for (ClickableKeybinding kb:   KeybindManager.getKeybindings()) {
                 if (kb.displayOnHUD) {
-                    double stringwidth = net.machinemuse.utils.render.MuseRenderer.getStringWidth(kb.getLabel());
+                    double stringwidth = MuseRenderer.getStringWidth(kb.getLabel());
                     frame.setWidth(stringwidth + kb.getBoundModules().size() * 16);
                     frame.draw();
                     MuseRenderer.drawString(kb.getLabel(), frame.left() + 1, frame.top() + 3, (kb.toggleval) ? Colour.RED : Colour.GREEN);
@@ -121,7 +117,7 @@ public class RenderEventHandler {
                         MuseTextureUtils.pushTexture(MuseTextureUtils.TEXTURE_QUILT);
                         boolean active = false;
                         for (ItemStack stack : MuseItemUtils.modularItemsEquipped(player)) {
-                            if (ModuleManager.itemHasActiveModule(stack, module.getModule().getDataName()))
+                            if (ModuleManager.INSTANCE.itemHasActiveModule(stack, module.getModule().getDataName()))
                                 active = true;
                         }
 

@@ -1,81 +1,81 @@
 {
-  "Glider":{
+  "glider":{
     "category":"master",
     "sounds":[
       {
-        "name":"powersuits:Glider",
+        "name":"powersuits:glider",
         "stream":false
       }
     ]
   },
-  "GUIInstall":{
+  "gui_install":{
     "category":"master",
     "sounds":[
       {
-        "name":"powersuits:GUIInstall",
+        "name":"powersuits:gui_install",
         "stream":false
       }
     ]
   },
-  "GUISelect":{
+  "gui_select":{
     "category":"master",
     "sounds":[
       {
-        "name":"powersuits:GUISelect",
+        "name":"powersuits:gui_select",
         "stream":false
       }
     ]
   },
-  "JetBoots":{
+  "jet_boots":{
     "category":"master",
     "sounds":[
       {
-        "name":"powersuits:JetBoots",
+        "name":"powersuits:jet_boots",
         "stream":false
       }
     ]
   },
-  "Jetpack":{
+  "jetpack":{
     "category":"master",
     "sounds":[
       {
-        "name":"powersuits:Jetpack",
+        "name":"powersuits:jetpack",
         "stream":false
       }
     ]
   },
-  "JumpAssist":{
+  "jump_assist":{
     "category":"master",
     "sounds":[
       {
-        "name":"powersuits:JumpAssist",
+        "name":"powersuits:jump_assist",
         "stream":false
       }
     ]
   },
-  "MMMPSboop":{
+  "mmmps_boop":{
     "category":"master",
     "sounds":[
       {
-        "name":"powersuits:MMMPSboop",
+        "name":"powersuits:mmmps_boop",
         "stream":false
       }
     ]
   },
-  "SwimAssist":{
+  "swim_assist":{
     "category":"master",
     "sounds":[
       {
-        "name":"powersuits:SwimAssist",
+        "name":"powersuits:swim_assist",
         "stream":false
       }
     ]
   },
-  "WaterElectrolyzer":{
+  "water_electrolyzer":{
     "category":"master",
     "sounds":[
       {
-        "name":"powersuits:WaterElectrolyzer",
+        "name":"powersuits:water_electrolyzer",
         "stream":false
       }
     ]

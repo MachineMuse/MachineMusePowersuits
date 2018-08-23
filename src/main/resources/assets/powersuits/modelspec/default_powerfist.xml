@@ -1,0 +1,145 @@
+<modelSpec specName="default_powerfist" type="power fist" default="true">
+    <models>
+        <model file="powersuits:models/item/powerfist/powerfist.obj" localizedName="PowerFist" textures="powersuits:models/powerfist">
+            <itemCameraTransforms>
+                <trsrTransformation type="third_person_right_hand" translation="8, 8.01, 9" rotation="-15, 180, 0" scale="0.630, 0.630, 0.630"/>
+                <trsrTransformation type="first_person_right_hand" translation="11.8, 8, 7" rotation="-16, -162, 0" scale="0.5, 0.5, 0.5"/>
+                <trsrTransformation type="ground" translation="0, 5, 0" rotation="0,0,0" scale="0.630, 0.630, 0.630"/>
+            </itemCameraTransforms>
+            <binding slot="mainhand" target="RightHand">
+                <part partName="mainarm"/>
+                <part partName="armorright"/>
+                <part partName="armorleft"/>
+                <part partName="wristtopright"/>
+                <part partName="wristtopleft"/>
+                <part partName="wristbottomright"/>
+                <part partName="wristbottomleft"/>
+                <part partName="fingerguard"/>
+                <part partName="crystalholder"/>
+                <part defaultglow="true" partName="crystal"/>
+                <part partName="supportright1"/>
+                <part partName="supportright2"/>
+                <part partName="supportright3"/>
+                <part partName="supportright4"/>
+                <part partName="supportright5"/>
+                <part partName="supportbaseright"/>
+                <part partName="supportrightfront"/>
+                <part partName="supportbaseleft"/>
+                <part partName="supportleftfront"/>
+                <part partName="supportleft1"/>
+                <part partName="supportleft2"/>
+                <part partName="supportleft3"/>
+                <part partName="supportleft4"/>
+                <part partName="supportleft5"/>
+                <part partName="palm"/>
+            </binding>
+        </model>
+        <model file="powersuits:models/item/powerfist/powerfist_fingers_normal.obj" localizedName="PowerFistFingers" textures="powersuits:models/powerfist">
+            <itemCameraTransforms>
+                <trsrTransformation type="third_person_right_hand" translation="8, 8.01, 9" rotation="-15, 180, 0" scale="0.630, 0.630, 0.630"/>
+                <trsrTransformation type="first_person_right_hand" translation="11.8, 8, 7" rotation="-16, -162, 0" scale="0.5, 0.5, 0.5"/>
+                <trsrTransformation type="ground" translation="0, 5, 0" rotation="0,0,0" scale="0.630, 0.630, 0.630"/>
+            </itemCameraTransforms>
+            <binding slot="mainhand" target="RightHand" itemState="normal">
+                <part partName="index1"/>
+                <part partName="index2"/>
+                <part partName="middlefinger1"/>
+                <part partName="middlefinger2"/>
+                <part partName="ringfinger1"/>
+                <part partName="ringfinger2"/>
+                <part partName="pinky1"/>
+                <part partName="pinky2"/>
+                <part partName="thumb1"/>
+                <part partName="thumb2"/>
+            </binding>
+        </model>
+        <model file="powersuits:models/item/powerfist/powerfist_fingers_firing.obj" localizedName="PowerFistFingers" textures="powersuits:models/powerfist">
+            <itemCameraTransforms>
+                <trsrTransformation type="third_person_right_hand" translation="8, 8.01, 9" rotation="-15, 180, 0" scale="0.630, 0.630, 0.630"/>
+                <trsrTransformation type="first_person_right_hand" translation="8.8, 8, 7" rotation="-16, -162, 0" scale="0.5, 0.5, 0.5"/>
+                <trsrTransformation type="ground" translation="0, 5, 0" rotation="0,0,0" scale="0.630, 0.630, 0.630"/>
+            </itemCameraTransforms>
+            <binding slot="mainhand" target="RightHand" itemState="firing">
+                <part partName="index1"/>
+                <part partName="index2"/>
+                <part partName="middlefinger1"/>
+                <part partName="middlefinger2"/>
+                <part partName="ringfinger1"/>
+                <part partName="ringfinger2"/>
+                <part partName="pinky1"/>
+                <part partName="pinky2"/>
+                <part partName="thumb1"/>
+                <part partName="thumb2"/>
+            </binding>
+        </model>
+        <model file="powersuits:models/item/powerfist/powerfist_left.obj" localizedName="PowerFist" textures="powersuits:models/powerfist">
+            <itemCameraTransforms>
+                <trsrTransformation type="third_person_left_hand" translation="13.2, 8.01, 9" rotation="-15, 180, 0" scale="0.630, 0.630, 0.630"/>
+                <trsrTransformation type="first_person_left_hand" translation="6.8, 8, 7" rotation="344, 162, 0" scale="0.5, 0.5, 0.5"/>
+            </itemCameraTransforms>
+            <binding slot="offhand" target="LeftHand">
+                <part partName="mainarm"/>
+                <part partName="armorright"/>
+                <part partName="armorleft"/>
+                <part partName="wristtopright"/>
+                <part partName="wristtopleft"/>
+                <part partName="wristbottomright"/>
+                <part partName="wristbottomleft"/>
+                <part partName="fingerguard"/>
+                <part partName="crystalholder"/>
+                <part defaultglow="true" partName="crystal"/>
+                <part partName="supportright1"/>
+                <part partName="supportright2"/>
+                <part partName="supportright3"/>
+                <part partName="supportright4"/>
+                <part partName="supportright5"/>
+                <part partName="supportbaseright"/>
+                <part partName="supportrightfront"/>
+                <part partName="supportbaseleft"/>
+                <part partName="supportleftfront"/>
+                <part partName="supportleft1"/>
+                <part partName="supportleft2"/>
+                <part partName="supportleft3"/>
+                <part partName="supportleft4"/>
+                <part partName="supportleft5"/>
+                <part partName="palm"/>
+            </binding>
+        </model>
+        <model file="powersuits:models/item/powerfist/powerfist_fingers_normal_left.obj" localizedName="PowerFistFingers" textures="powersuits:models/powerfist">
+            <itemCameraTransforms>
+                <trsrTransformation type="third_person_left_hand" translation="13.2, 8.01, 9" rotation="-15, 180, 0" scale="0.630, 0.630, 0.630"/>
+                <trsrTransformation type="first_person_left_hand" translation="6.8, 8, 7" rotation="344, 162, 0" scale="0.5, 0.5, 0.5"/>
+            </itemCameraTransforms>
+            <binding slot="offhand" target="LeftHand" itemState="normal">
+                <part partName="index1"/>
+                <part partName="index2"/>
+                <part partName="middlefinger1"/>
+                <part partName="middlefinger2"/>
+                <part partName="ringfinger1"/>
+                <part partName="ringfinger2"/>
+                <part partName="pinky1"/>
+                <part partName="pinky2"/>
+                <part partName="thumb1"/>
+                <part partName="thumb2"/>
+            </binding>
+        </model>
+        <model file="powersuits:models/item/powerfist/powerfist_fingers_firing_left.obj" localizedName="PowerFistFingers" textures="powersuits:models/powerfist">
+            <itemCameraTransforms>
+                <trsrTransformation type="third_person_left_hand" translation="13.2, 8.01, 9" rotation="-15, 180, 0" scale="0.630, 0.630, 0.630"/>
+                <trsrTransformation type="first_person_left_hand" translation="6.8, 8, 7" rotation="344, 162, 0" scale="0.5, 0.5, 0.5"/>
+            </itemCameraTransforms>
+            <binding slot="offhand" target="LeftHand" itemState="firing">
+                <part partName="index1"/>
+                <part partName="index2"/>
+                <part partName="middlefinger1"/>
+                <part partName="middlefinger2"/>
+                <part partName="ringfinger1"/>
+                <part partName="ringfinger2"/>
+                <part partName="pinky1"/>
+                <part partName="pinky2"/>
+                <part partName="thumb1"/>
+                <part partName="thumb2"/>
+            </binding>
+        </model>
+    </models>
+</modelSpec>

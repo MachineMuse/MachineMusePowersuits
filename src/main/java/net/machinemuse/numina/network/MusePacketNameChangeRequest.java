@@ -1,10 +1,9 @@
 package net.machinemuse.numina.network;
 
+import io.netty.buffer.ByteBufInputStream;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.io.DataInputStream;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -24,8 +23,8 @@ public class MusePacketNameChangeRequest extends MusePacket {
     }
 
     @Override
-    public MusePackager packager() {
-        return getPackagerInstance();
+    public IMusePackager packager() {
+        return MusePacketNameChangeRequestPackager.INSTANCE;
     }
 
     @Override
@@ -37,21 +36,19 @@ public class MusePacketNameChangeRequest extends MusePacket {
     @SideOnly(Side.CLIENT)
     @Override
     public void handleClient(EntityPlayer player) {
-        EntityPlayer anotherPlayer = (EntityPlayer) player.worldObj.getEntityByID(entityID);
+        EntityPlayer anotherPlayer = (EntityPlayer) player.world.getEntityByID(entityID);
         anotherPlayer.refreshDisplayName();
     }
 
-    private static MusePacketNameChangeRequestPackager PACKAGERINSTANCE;
-
     public static MusePacketNameChangeRequestPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketNameChangeRequestPackager();
-        return PACKAGERINSTANCE;
+        return MusePacketNameChangeRequestPackager.INSTANCE;
     }
 
-    public static class MusePacketNameChangeRequestPackager extends MusePackager {
+    public enum MusePacketNameChangeRequestPackager implements IMusePackager {
+        INSTANCE;
+
         @Override
-        public MusePacket read(DataInputStream datain, EntityPlayer player) {
+        public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
             String username = readString(datain);
             String newnick = readString(datain);
             return new MusePacketNameChangeRequest(player, username, newnick, 0);

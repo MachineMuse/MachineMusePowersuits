@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:ic2_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WPW",
+    "W W"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "P": {
+      "item": "ic2:re_battery",
+      "data": 26
+    }
+  },
+  "result": {
+    "item": "powersuits:powerarmorcomponent",
+    "data": 5
+  }
+}

@@ -1,13 +1,18 @@
 package net.machinemuse.powersuits.powermodule.weapon;
 
-import net.machinemuse.api.IModularItem;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.moduletrigger.IPlayerTickModule;
-import net.machinemuse.api.moduletrigger.IRightClickModule;
-import net.machinemuse.general.gui.MuseIcon;
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
+import net.machinemuse.numina.api.module.IPlayerTickModule;
+import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.utils.*;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.utils.MuseHeatUtils;
+import net.machinemuse.powersuits.utils.MusePlayerUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,48 +24,27 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 public class RailgunModule extends PowerModuleBase implements IRightClickModule, IPlayerTickModule {
-    // private List<String> particles;
-    // private Iterator<String> iterator;
-    public static final String MODULE_RAILGUN = "Railgun";
-    public static final String IMPULSE = "Railgun Total Impulse";
-    public static final String ENERGY = "Railgun Energy Cost";
-    public static final String HEAT = "Railgun Heat Emission";
-    public static final String TIMER = "cooldown";
-
-    public RailgunModule(List<IModularItem> validItems) {
-        super(validItems);
-        // particles = Arrays.asList("smoke", "snowballpoof", "portal",
-        // "splash", "bubble", "townaura",
-        // "hugeexplosion", "flame", "heart", "crit", "magicCrit", "note",
-        // "enchantmenttable", "lava", "footstep", "reddust", "dripWater",
-        // "dripLava", "slime");
-        // iterator = particles.iterator();
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.solenoid, 6));
-        addInstallCost(MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
-        addBaseProperty(IMPULSE, 500, "Ns");
-        addBaseProperty(ENERGY, 500, "J");
-        addBaseProperty(HEAT, 2, "");
-        addTradeoffProperty("Voltage", IMPULSE, 2500);
-        addTradeoffProperty("Voltage", ENERGY, 2500);
-        addTradeoffProperty("Voltage", HEAT, 10);
+    public RailgunModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 6));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
+        addBasePropertyDouble(MPSModuleConstants.RAILGUN_TOTAL_IMPULSE, 500, "Ns");
+        addBasePropertyDouble(MPSModuleConstants.RAILGUN_ENERGY_COST, 500, "J");
+        addBasePropertyDouble(MPSModuleConstants.RAILGUN_HEAT_EMISSION , 2, "");
+        addTradeoffPropertyDouble("Voltage", MPSModuleConstants.RAILGUN_TOTAL_IMPULSE, 2500);
+        addTradeoffPropertyDouble("Voltage", MPSModuleConstants.RAILGUN_ENERGY_COST, 2500);
+        addTradeoffPropertyDouble("Voltage", MPSModuleConstants.RAILGUN_HEAT_EMISSION , 10);
     }
 
     @Override
-    public String getCategory() {
-        return MuseCommonStrings.CATEGORY_WEAPON;
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_WEAPON;
     }
 
     @Override
     public String getDataName() {
-        return MODULE_RAILGUN;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "railgun";
+        return MPSModuleConstants.MODULE_RAILGUN__DATANAME;
     }
 
     public void drawParticleStreamTo(EntityPlayer source, World world, double x, double y, double z) {
@@ -70,11 +54,11 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
         double yoffset = -.2;
         double zoffset = 0.3f;
         Vec3d horzdir = direction.normalize();
-        horzdir = new Vec3d(horzdir.xCoord, 0, horzdir.zCoord);
+        horzdir = new Vec3d(horzdir.x, 0, horzdir.z);
         horzdir = horzdir.normalize();
-        double cx = source.posX + direction.xCoord * xoffset - direction.yCoord * horzdir.xCoord * yoffset - horzdir.zCoord * zoffset;
-        double cy = source.posY + source.getEyeHeight() + direction.yCoord * xoffset + (1 - Math.abs(direction.yCoord)) * yoffset;
-        double cz = source.posZ + direction.zCoord * xoffset - direction.yCoord * horzdir.zCoord * yoffset + horzdir.xCoord * zoffset;
+        double cx = source.posX + direction.x * xoffset - direction.y * horzdir.x * yoffset - horzdir.z * zoffset;
+        double cy = source.posY + source.getEyeHeight() + direction.y * xoffset + (1 - Math.abs(direction.y)) * yoffset;
+        double cz = source.posZ + direction.z * xoffset - direction.y * horzdir.z * yoffset + horzdir.x * zoffset;
         double dx = x - cx;
         double dy = y - cy;
         double dz = z - cz;
@@ -92,35 +76,34 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         if (hand == EnumHand.MAIN_HAND) {
             double range = 64;
-            double timer = MuseItemUtils.getDoubleOrZero(itemStackIn, TIMER);
-            double energyConsumption = ModuleManager.computeModularProperty(itemStackIn, ENERGY);
+            double timer = MuseItemUtils.getDoubleOrZero(itemStackIn, MPSModuleConstants.TIMER);
+            double energyConsumption = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.RAILGUN_ENERGY_COST);
             if (ElectricItemUtils.getPlayerEnergy(playerIn) > energyConsumption && timer == 0) {
-                ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
-                MuseItemUtils.setDoubleOrRemove(itemStackIn, TIMER, 10);
-                MuseHeatUtils.heatPlayer(playerIn, ModuleManager.computeModularProperty(itemStackIn, HEAT));
-                RayTraceResult hitMOP = MusePlayerUtils.doCustomRayTrace(playerIn.worldObj, playerIn, true, range);
+                ElectricItemUtils.drainPlayerEnergy(playerIn, (int) energyConsumption);
+                MuseItemUtils.setDoubleOrRemove(itemStackIn, MPSModuleConstants.TIMER, 10);
+                MuseHeatUtils.heatPlayer(playerIn, ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.RAILGUN_HEAT_EMISSION ));
+                RayTraceResult hitMOP = MusePlayerUtils.doCustomRayTrace(playerIn.world, playerIn, true, range);
                 // TODO: actual railgun sound
                 worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
-                double damage = ModuleManager.computeModularProperty(itemStackIn, IMPULSE) / 100.0;
+                double damage = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.RAILGUN_TOTAL_IMPULSE) / 100.0;
                 double knockback = damage / 20.0;
                 Vec3d lookVec = playerIn.getLookVec();
                 if (hitMOP != null) {
                     switch (hitMOP.typeOfHit) {
                         case ENTITY:
-                            drawParticleStreamTo(playerIn, worldIn, hitMOP.hitVec.xCoord, hitMOP.hitVec.yCoord, hitMOP.hitVec.zCoord);
+                            drawParticleStreamTo(playerIn, worldIn, hitMOP.hitVec.x, hitMOP.hitVec.y, hitMOP.hitVec.z);
                             DamageSource damageSource = DamageSource.causePlayerDamage(playerIn);
                             if (hitMOP.entityHit.attackEntityFrom(damageSource, (int) damage)) {
-                                hitMOP.entityHit.addVelocity(lookVec.xCoord * knockback, Math.abs(lookVec.yCoord + 0.2f) * knockback, lookVec.zCoord
-                                        * knockback);
+                                hitMOP.entityHit.addVelocity(lookVec.x * knockback, Math.abs(lookVec.y + 0.2f) * knockback, lookVec.z * knockback);
                             }
                             break;
                         case BLOCK:
-                            drawParticleStreamTo(playerIn, worldIn, hitMOP.hitVec.xCoord, hitMOP.hitVec.yCoord, hitMOP.hitVec.zCoord);
+                            drawParticleStreamTo(playerIn, worldIn, hitMOP.hitVec.x, hitMOP.hitVec.y, hitMOP.hitVec.z);
                             break;
                         default:
                             break;
                     }
-                    playerIn.addVelocity(-lookVec.xCoord * knockback, Math.abs(-lookVec.yCoord + 0.2f) * knockback, -lookVec.zCoord * knockback);
+                    playerIn.addVelocity(-lookVec.x * knockback, Math.abs(-lookVec.y + 0.2f) * knockback, -lookVec.z * knockback);
 
                     worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
                 }
@@ -148,8 +131,8 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack stack) {
-        double timer = MuseItemUtils.getDoubleOrZero(stack, TIMER);
-        if (timer > 0) MuseItemUtils.setDoubleOrRemove(stack, TIMER, timer - 1 > 0 ? timer - 1 : 0);
+        double timer = MuseItemUtils.getDoubleOrZero(stack, MPSModuleConstants.TIMER);
+        if (timer > 0) MuseItemUtils.setDoubleOrRemove(stack, MPSModuleConstants.TIMER, timer - 1 > 0 ? timer - 1 : 0);
     }
 
     @Override

@@ -1,41 +1,47 @@
 package net.machinemuse.powersuits.powermodule;
 
-import net.machinemuse.api.*;
-import net.machinemuse.numina.render.MuseTextureUtils;
-import net.machinemuse.powersuits.common.Config;
-import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
+import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.numina.api.nbt.*;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.powersuits.common.config.MPSConfig;
+import net.machinemuse.powersuits.item.armor.*;
+import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import java.util.*;
+import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
-public abstract class PowerModuleBase implements ILocalizeableModule {
-    protected List<ItemStack> defaultInstallCost;
-    protected List<IModularItem> validItems;
+import static net.machinemuse.numina.api.constants.NuminaNBTConstants.TAG_ONLINE;
+
+public abstract class PowerModuleBase implements IPowerModule {
+    EnumModuleTarget moduleTarget;
     protected Map<String, List<IPropertyModifier>> propertyModifiers;
     protected static Map<String, String> units = new HashMap<>();
     protected NBTTagCompound defaultTag;
     protected boolean isAllowed;
-    protected TextureAtlasSprite icon;
 
-    public PowerModuleBase(String name, List<IModularItem> validItems) {
-        this.validItems = validItems;
-        this.defaultInstallCost = new ArrayList();
+    public PowerModuleBase(String dataNameIn, EnumModuleTarget moduleTargetIn) {
+        this.moduleTarget = moduleTargetIn;
         this.propertyModifiers = new HashMap();
         this.defaultTag = new NBTTagCompound();
-        this.defaultTag.setBoolean(MuseItemUtils.ONLINE, true);
-        this.isAllowed = Config.getConfig().get("Modules", name, true).getBoolean(true);
+        this.defaultTag.setBoolean(TAG_ONLINE, true);
+        this.isAllowed = MPSConfig.INSTANCE.getModuleAllowedorDefault(dataNameIn, true);
     }
 
-    public PowerModuleBase(List<IModularItem> validItems) {
-        this.validItems = validItems;
-        this.defaultInstallCost = new ArrayList();
+    public PowerModuleBase(EnumModuleTarget moduleTargetIn) {
+        this.moduleTarget = moduleTargetIn;
         this.propertyModifiers = new HashMap();
         this.defaultTag = new NBTTagCompound();
-        this.defaultTag.setBoolean(MuseItemUtils.ONLINE, true);
-        this.isAllowed = Config.getConfig().get("Modules", getDataName(), true).getBoolean(true);
+        this.defaultTag.setBoolean(TAG_ONLINE, true);
+        this.isAllowed = this.isAllowed = MPSConfig.INSTANCE.getModuleAllowedorDefault(getDataName(), true);
     }
 
     public static String getUnit(String propertyName) {
@@ -44,45 +50,40 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
     }
 
     @Override
-    public TextureAtlasSprite getIcon(ItemStack item) {
-        return icon;
+    public EnumModuleTarget getTarget() {
+        return this.moduleTarget;
     }
 
     @Override
-    public List<ItemStack> getInstallCost() {
-        if(ModuleManager.hasCustomInstallCost(this.getDataName())) {
-            return ModuleManager.getCustomInstallCost(this.getDataName());
-        } else {
-            return defaultInstallCost;
-        }
-    }
-
-    public PowerModuleBase addInstallCost(ItemStack stack) {
-        this.defaultInstallCost.add(stack);
-        return this;
-    }
+    public abstract TextureAtlasSprite getIcon(ItemStack item);
 
     @Override
-    public boolean isValidForItem(ItemStack stack) {
+    public boolean isValidForItem(@Nonnull ItemStack stack) {
+        if (stack.isEmpty() || !(stack.getItem() instanceof IModularItem))
+            return false;
         Item item = stack.getItem();
-        return item instanceof IModularItem && this.validItems.contains(item);
+        switch (getTarget()) {
+            case ALLITEMS:
+                return true;
+            case TOOLONLY:
+                return item instanceof ItemPowerFist;
+            case ARMORONLY:
+                return item instanceof ItemPowerArmor;
+            case HEADONLY:
+                return item instanceof ItemPowerArmorHelmet;
+            case TORSOONLY:
+                return item instanceof ItemPowerArmorChestplate;
+            case LEGSONLY:
+                return item instanceof ItemPowerArmorLeggings;
+            case FEETONLY:
+                return item instanceof ItemPowerArmorBoots;
+        }
+        return false;
     }
 
     @Override
     public Map<String, List<IPropertyModifier>> getPropertyModifiers() {
         return propertyModifiers;
-    }
-
-    @Override
-    public double applyPropertyModifiers(NBTTagCompound itemTag, String propertyName, double propertyValue) {
-        Iterable<IPropertyModifier> propertyModifiersIterable = propertyModifiers.get(propertyName);
-        if (propertyModifiersIterable != null && itemTag.hasKey(this.getDataName())) {
-            NBTTagCompound moduleTag = itemTag.getCompoundTag(this.getDataName());
-            for (IPropertyModifier modifier : propertyModifiersIterable) {
-                propertyValue = modifier.applyModifier(moduleTag, propertyValue);
-            }
-        }
-        return propertyValue;
     }
 
     @Override
@@ -99,49 +100,127 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
         this.isAllowed = allowed;
     }
 
-    public PowerModuleBase addTradeoffProperty(String tradeoffName, String propertyName, double multiplier) {
-        double propFromConfig = Config.getConfig().get("Properties", getDataName() + '.' + propertyName + '.' + tradeoffName + ".multiplier", multiplier)
-                .getDouble(multiplier);
-        return addPropertyModifier(propertyName, new PropertyModifierLinearAdditive(tradeoffName, propFromConfig));
-    }
-
-    public PowerModuleBase addTradeoffProperty(String tradeoffName, String propertyName, double multiplier, String unit) {
-        double propFromConfig = Config.getConfig().get("Properties", getDataName() + '.' + propertyName + '.' + tradeoffName + ".multiplier", multiplier)
-                .getDouble(multiplier);
-        units.put(propertyName, unit);
-        return addPropertyModifier(propertyName, new PropertyModifierLinearAdditive(tradeoffName, propFromConfig));
-    }
-
     public PowerModuleBase addPropertyModifier(String propertyName, IPropertyModifier modifier) {
         List<IPropertyModifier> modifiers = propertyModifiers.get(propertyName);
         if (modifiers == null) {
             modifiers = new LinkedList();
-            propertyModifiers.put(propertyName, modifiers);
         }
         modifiers.add(modifier);
+        propertyModifiers.put(propertyName, modifiers);
         return this;
     }
 
-    public PowerModuleBase addSimpleTradeoff(IPowerModule module, String tradeoffName, String firstPropertyName, String firstUnits,
-                                             double firstPropertyBase, double firstPropertyMultiplier, String secondPropertyName,
-                                             String secondUnits, double secondPropertyBase,
-                                             double secondPropertyMultiplier) {
-        this.addBaseProperty(firstPropertyName, firstPropertyBase, firstUnits);
-        this.addTradeoffProperty(tradeoffName, firstPropertyName, firstPropertyMultiplier);
-        this.addBaseProperty(secondPropertyName, secondPropertyBase, secondUnits);
-        this.addTradeoffProperty(tradeoffName, secondPropertyName, secondPropertyMultiplier);
-        return this;
+    @Override
+    public double applyPropertyModifiers(NBTTagCompound itemTag, String propertyName, double propertyValue) {
+        Iterable<IPropertyModifier> propertyModifiersIterable = propertyModifiers.get(propertyName);
+        if (propertyModifiersIterable != null && itemTag.hasKey(this.getDataName())) {
+            NBTTagCompound moduleTag = itemTag.getCompoundTag(this.getDataName());
+            for (IPropertyModifier modifier : propertyModifiersIterable) {
+                if (modifier instanceof IPropertyModifierDouble)
+                    propertyValue = ((IPropertyModifierDouble) modifier).applyModifier(moduleTag, propertyValue);
+                else if (modifier instanceof IPropertyModifierInteger)
+                    propertyValue = ((IPropertyModifierInteger) modifier).applyModifier(moduleTag, propertyValue);
+            }
+        }
+        return propertyValue;
     }
 
-    public PowerModuleBase addBaseProperty(String propertyName, double baseVal) {
-        double propFromConfig = Config.getConfig().get("Properties", getDataName() + '.' + propertyName + ".base", baseVal).getDouble(baseVal);
-        return addPropertyModifier(propertyName, new PropertyModifierFlatAdditive(propFromConfig));
+
+    /** Double ------------------------------------------------------------------------------------ */
+    /**
+     * Adds a base key and multiplierValue to the map based on the config setting.
+     */
+    public PowerModuleBase addTradeoffPropertyDouble(String tradeoffName, String propertyName, double multiplier) {
+        String key = new StringBuilder(getDataName()).append('.').append(propertyName).append('.').append(tradeoffName).append(".multiplier").toString();
+        double propFromConfig = MPSConfig.INSTANCE.getPropertyDoubleOrDefault(key, multiplier);
+        return addPropertyModifier(propertyName, new PropertyModifierLinearAdditiveDouble(tradeoffName, propFromConfig));
     }
 
-    public PowerModuleBase addBaseProperty(String propertyName, double baseVal, String unit) {
-        double propFromConfig = Config.getConfig().get("Properties", getDataName() + '.' + propertyName + ".base", baseVal).getDouble(baseVal);
+    /**
+     * Adds a base key and value to the map based on the config setting.
+     * Also adds a [ propertyName, unitOfMeasureLabel ] k-v pair to a map used for displyaing a label
+     */
+    public PowerModuleBase addTradeoffPropertyDouble(String tradeoffName, String propertyName, double multiplier, String unit) {
         units.put(propertyName, unit);
-        return addPropertyModifier(propertyName, new PropertyModifierFlatAdditive(propFromConfig));
+        return addTradeoffPropertyDouble(tradeoffName, propertyName, multiplier);
+    }
+
+    public PowerModuleBase addSimpleTradeoffDouble(IPowerModule module,
+                                                   String tradeoffName,
+                                                   String firstPropertyName,
+                                                   String firstUnits,
+                                                   double firstPropertyBase,
+                                                   double firstPropertyMultiplier,
+                                                   String secondPropertyName,
+                                                   String secondUnits,
+                                                   double secondPropertyBase,
+                                                   double secondPropertyMultiplier) {
+        this.addBasePropertyDouble(firstPropertyName, firstPropertyBase, firstUnits);
+        this.addTradeoffPropertyDouble(tradeoffName, firstPropertyName, firstPropertyMultiplier);
+        this.addBasePropertyDouble(secondPropertyName, secondPropertyBase, secondUnits);
+        this.addTradeoffPropertyDouble(tradeoffName, secondPropertyName, secondPropertyMultiplier);
+        return this;
+    }
+
+    /**
+     * Adds a base key and value to the map based on the config setting.
+     */
+    public PowerModuleBase addBasePropertyDouble(String propertyName, double baseVal) {
+        String key = new StringBuilder(getDataName()).append('.').append(propertyName).append(".base").toString();
+        double propFromConfig = MPSConfig.INSTANCE.getPropertyDoubleOrDefault(key, baseVal);
+        return addPropertyModifier(propertyName, new PropertyModifierFlatAdditiveDouble(propFromConfig));
+    }
+
+    /**
+     * Adds a base key and value to the map based on the config setting.
+     * Also adds a [ propertyName, unitOfMeasureLabel ] k-v pair to a map used for displyaing a label
+     */
+    public PowerModuleBase addBasePropertyDouble(String propertyName, double baseVal, String unit) {
+        units.put(propertyName, unit);
+        return addBasePropertyDouble(propertyName, baseVal);
+    }
+
+
+    /** Integer ----------------------------------------------------------------------------------- */
+    public PowerModuleBase addIntTradeoffProperty(String tradeoffName, String propertyName, int multiplier, String unit, int roundTo, int offset) {
+        units.put(propertyName, unit);
+        String key = new StringBuilder(getDataName()).append('.').append(propertyName).append('.').append(tradeoffName).append(".multiplier").toString();
+        int propFromConfig = MPSConfig.INSTANCE.getPropertyIntegerOrDefault(key, multiplier);
+        return addPropertyModifier(propertyName, new PropertyModifierIntLinearAdditive(tradeoffName, multiplier, roundTo, offset));
+    }
+
+    public PowerModuleBase addTradeoffPropertyInteger(String tradeoffName, String propertyName, int multiplier) {
+        String key = new StringBuilder(getDataName()).append('.').append(propertyName).append('.').append(tradeoffName).append(".multiplier").toString();
+        int propFromConfig = MPSConfig.INSTANCE.getPropertyIntegerOrDefault(key, multiplier);
+        return addPropertyModifier(propertyName, new PropertyModifierLinearAdditiveInteger(tradeoffName, propFromConfig));
+    }
+
+
+    public PowerModuleBase addTradeoffPropertyInteger(String tradeoffName, String propertyName, int multiplier, String unit) {
+        units.put(propertyName, unit);
+        return addTradeoffPropertyInteger(tradeoffName, propertyName, multiplier);
+    }
+
+//    public PowerModuleBase addSimpleTradeoffInteger(IPowerModule module, String tradeoffName, String firstPropertyName, String firstUnits,
+//                                                    int firstPropertyBase, int firstPropertyMultiplier, String secondPropertyName,
+//                                                    String secondUnits, int secondPropertyBase,
+//                                                    int secondPropertyMultiplier) {
+//        this.addBasePropertyInteger(firstPropertyName, firstPropertyBase, firstUnits);
+//        this.addTradeoffPropertyInteger(tradeoffName, firstPropertyName, firstPropertyMultiplier);
+//        this.addBasePropertyInteger(secondPropertyName, secondPropertyBase, secondUnits);
+//        this.addTradeoffPropertyInteger(tradeoffName, secondPropertyName, secondPropertyMultiplier);
+//        return this;
+//    }
+
+    public PowerModuleBase addBasePropertyInteger(String propertyName, int baseVal) {
+        String key = new StringBuilder(getDataName()).append('.').append(propertyName).append(".base").toString();
+        int propFromConfig = MPSConfig.INSTANCE.getPropertyIntegerOrDefault(key, baseVal);
+        return addPropertyModifier(propertyName, new PropertyModifierFlatAdditiveInteger(propFromConfig));
+    }
+
+    public PowerModuleBase addBasePropertyInteger(String propertyName, int baseVal, String unit) {
+        units.put(propertyName, unit);
+        return addBasePropertyInteger(propertyName, baseVal);
     }
 
     public boolean equals(PowerModuleBase other) {
@@ -150,6 +229,6 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
 
     @Override
     public String getUnlocalizedName() {
-        return "Unknown Module";
+        return getDataName();
     }
 }
