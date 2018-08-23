@@ -15,6 +15,10 @@ import net.minecraftforge.fml.common.ModContainer;
 import java.util.List;
 
 public class ModCompatibility {
+    public static boolean isTeslaLoaded() {
+        return Loader.isModLoaded("tesla");
+    }
+
     public static boolean isTechRebornLoaded() {
         return Loader.isModLoaded("techreborn");
     }

@@ -11,11 +11,13 @@ import com.raoulvdberge.refinedstorage.api.network.item.INetworkItemProvider;
 import crazypants.enderio.api.tool.ITool;
 import forestry.api.arboriculture.IToolGrafter;
 import mekanism.api.IMekWrench;
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.item.IModeChangingItem;
 import net.machinemuse.numina.api.item.IModularItem;
 import net.machinemuse.numina.api.module.IBlockBreakingModule;
 import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.capabilities.MPSCapProvider;
@@ -39,6 +41,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.common.Optional;
 
 import javax.annotation.Nonnull;
@@ -426,5 +430,17 @@ public class ItemPowerFist extends MPSItemElectricTool
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
         return new MPSCapProvider(stack);
+    }
+
+    @Override
+    public boolean showDurabilityBar(final ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public double getDurabilityForDisplay(final ItemStack stack) {
+        int capacity = ModuleManager.INSTANCE.getOrSetModularPropertyInteger(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
+        int energy =  Math.min(capacity, (int) Math.round(MuseItemUtils.getIntOrZero(stack, NuminaNBTConstants.CURRENT_ENERGY)));
+        return 1 - energy/(float) capacity;
     }
 }

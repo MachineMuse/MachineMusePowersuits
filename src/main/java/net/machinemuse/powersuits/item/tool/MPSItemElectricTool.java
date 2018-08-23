@@ -52,18 +52,4 @@ public class MPSItemElectricTool extends ItemTool implements IModularItemBase, I
     public double getArmorDouble(EntityPlayer player, ItemStack stack) {
         return 0;
     }
-
-    @Override
-    public boolean showDurabilityBar(final ItemStack stack) {
-        return true;
-    }
-
-    @Override
-    public double getDurabilityForDisplay(final ItemStack stack) {
-        final IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
-        if (energyStorage == null) {
-            return 1;
-        }
-        return 1 - energyStorage.getEnergyStored() / (float) energyStorage.getMaxEnergyStored();
-    }
 }

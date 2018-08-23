@@ -25,12 +25,14 @@ public abstract class ElectricAdapter {
             return new ForgeEnergyAdapter(itemStack);
 
             // TESLA (need all 3 in order to get power in and out)
-        } else if (itemStack.hasCapability(TeslaCapabilities.CAPABILITY_HOLDER, null) &&
+        } else if (ModCompatibility.isTeslaLoaded() &&
+                itemStack.hasCapability(TeslaCapabilities.CAPABILITY_HOLDER, null) &&
                 itemStack.hasCapability(TeslaCapabilities.CAPABILITY_CONSUMER, null) &&
-                itemStack.hasCapability(TeslaCapabilities.CAPABILITY_PRODUCER, null)) {
+                itemStack.hasCapability(TeslaCapabilities.CAPABILITY_PRODUCER, null)){
 
 //            System.out.println("Tesla energy");
-            return new TeslaEnergyAdapter(itemStack);
+                return new TeslaEnergyAdapter(itemStack);
+
 
             // RF API
         } else if (ModCompatibility.isRFAPILoaded() && i instanceof IEnergyContainerItem) {

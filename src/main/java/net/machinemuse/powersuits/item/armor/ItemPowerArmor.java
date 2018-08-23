@@ -1,7 +1,9 @@
 package net.machinemuse.powersuits.item.armor;
 
 import com.google.common.collect.Multimap;
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.item.IArmorTraits;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
@@ -230,11 +232,15 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
     @Override
     public double getDurabilityForDisplay(final ItemStack stack) {
-        final IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
-        if (energyStorage == null) {
-            return 1;
-        }
-        return 1 - energyStorage.getEnergyStored() / (float) energyStorage.getMaxEnergyStored();
+//        final IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
+//        if (energyStorage == null) {
+//            return 1;
+//        }
+//        return 1 - energyStorage.getEnergyStored() / (float) energyStorage.getMaxEnergyStored();
+        // removes annoying flicker
+        int capacity = ModuleManager.INSTANCE.getOrSetModularPropertyInteger(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
+        int energy =  Math.min(capacity, (int) Math.round(MuseItemUtils.getIntOrZero(stack, NuminaNBTConstants.CURRENT_ENERGY)));
+        return 1 - energy/(float) capacity;
     }
 
     @Override

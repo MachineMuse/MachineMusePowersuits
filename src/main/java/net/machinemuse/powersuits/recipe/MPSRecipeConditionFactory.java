@@ -48,10 +48,23 @@ public class MPSRecipeConditionFactory implements IConditionFactory {
 
             // Vanilla reciples only as fallback
             if (key.equals("powersuits:vanilla_recipes_enabled)")) {
-                return () -> (ModCompatibility.isEnderIOLoaded() &&
-                        ModCompatibility.isGregTechLoaded() &&
-                        ModCompatibility.isIndustrialCraftLoaded() &&
-                        ModCompatibility.isTechRebornLoaded() &&
+
+                System.out.println("recipe test: " +
+                        (ModCompatibility.isEnderIOLoaded() ||
+                        ModCompatibility.isGregTechLoaded() ||
+                        ModCompatibility.isIndustrialCraftLoaded() ||
+                        ModCompatibility.isTechRebornLoaded() ||
+                        ModCompatibility.isThermalExpansionLoaded()
+                ));
+
+
+
+
+
+                return () -> (ModCompatibility.isEnderIOLoaded() ||
+                        ModCompatibility.isGregTechLoaded() ||
+                        ModCompatibility.isIndustrialCraftLoaded() ||
+                        ModCompatibility.isTechRebornLoaded() ||
                         ModCompatibility.isThermalExpansionLoaded()
                 ) != value;
             }
