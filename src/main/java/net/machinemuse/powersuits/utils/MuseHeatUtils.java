@@ -31,7 +31,7 @@ public class MuseHeatUtils {
     }
 
     public static double getMaxHeat(ItemStack stack) {
-        return ModuleManager.INSTANCE.computeModularProperty(stack, MAXIMUM_HEAT);
+        return ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MAXIMUM_HEAT);
     }
 
     public static void coolPlayer(EntityPlayer player, double coolDegrees) {

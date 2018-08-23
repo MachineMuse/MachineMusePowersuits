@@ -3,11 +3,7 @@ package net.machinemuse.powersuits.common.config;
 import io.netty.buffer.ByteBufInputStream;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
-import net.minecraft.nbt.NBTTagCompound;
 
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -29,14 +25,17 @@ public class MPSServerSettings {
     /** Modules ----------------------------------------------------------------------------------- */
     public final Map<String, Boolean> allowedModules;
     public final Map<String, Double> propertyDouble;
-
+    public final Map<String, Integer> propertyInteger;
 
     /** Energy ------------------------------------------------------------------------------------ */
     public final double mekRatio;
     public final double ic2Ratio;
-    public final double rfRatio;
     public final double refinedStorageRatio;
     public final double ae2Ratio;
+    public final int maxTier1;
+    public final int maxTier2;
+    public final int maxTier3;
+    public final int maxTier4;
 
     /**
      * Server side instance.
@@ -54,14 +53,18 @@ public class MPSServerSettings {
         /** Modules ------------------------------------------------------------------------------- */
         allowedModules = new TreeMap<>(MPSSettings.modules.allowedModules);
         propertyDouble = new TreeMap<>(MPSSettings.modules.propertyDouble);
+        propertyInteger = new TreeMap<>(MPSSettings.modules.propertyInteger);       
 
 
         /** Energy -------------------------------------------------------------------------------- */
         mekRatio = MPSSettings.energy.mekRatio;
         ic2Ratio = MPSSettings.energy.ic2Ratio;
-        rfRatio = MPSSettings.energy.rfRatio;
         refinedStorageRatio = MPSSettings.energy.refinedStorageRatio;
         ae2Ratio = MPSSettings.energy.ae2Ratio;
+        maxTier1 = MPSSettings.energy.maxTier1;
+        maxTier2 = MPSSettings.energy.maxTier2;
+        maxTier3 = MPSSettings.energy.maxTier3;
+        maxTier4 = MPSSettings.energy.maxTier4;
     }
 
     /**
@@ -83,16 +86,19 @@ public class MPSServerSettings {
 
         allowedModules = MusePackager.INSTANCE.readMap(datain, String.class, Boolean.class);
         propertyDouble = MusePackager.INSTANCE.readMap(datain, String.class, Double.class);
+        propertyInteger = MusePackager.INSTANCE.readMap(datain, String.class, Integer.class);
 
 
 
         /** Energy -------------------------------------------------------------------------------- */
         mekRatio = MusePackager.INSTANCE.readDouble(datain);
         ic2Ratio = MusePackager.INSTANCE.readDouble(datain);
-        rfRatio = MusePackager.INSTANCE.readDouble(datain);
         refinedStorageRatio = MusePackager.INSTANCE.readDouble(datain);
         ae2Ratio = MusePackager.INSTANCE.readDouble(datain);
-
+        maxTier1 = MusePackager.INSTANCE.readInt(datain);
+        maxTier2 = MusePackager.INSTANCE.readInt(datain);
+        maxTier3 = MusePackager.INSTANCE.readInt(datain);
+        maxTier4 = MusePackager.INSTANCE.readInt(datain);
 
 
 
@@ -118,12 +124,17 @@ public class MPSServerSettings {
         /** Modules ------------------------------------------------------------------------------- */
         packet.writeMap(allowedModules, true);
         packet.writeMap(propertyDouble, true);
+        packet.writeMap(propertyInteger, true);
+        
 
         /** Energy -------------------------------------------------------------------------------- */
         packet.writeDouble(mekRatio);
         packet.writeDouble(ic2Ratio);
-        packet.writeDouble(rfRatio);
         packet.writeDouble(refinedStorageRatio);
         packet.writeDouble(ae2Ratio);
+        packet.writeInt(maxTier1);
+        packet.writeInt(maxTier2);
+        packet.writeInt(maxTier3);
+        packet.writeInt(maxTier4);
     }
 }

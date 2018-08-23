@@ -5,8 +5,6 @@ import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.numina.common.config.NuminaServerSettings;
 import net.minecraft.entity.player.EntityPlayer;
 
-import java.io.DataInputStream;
-
 /**
  * Sync settings between server and client
  */

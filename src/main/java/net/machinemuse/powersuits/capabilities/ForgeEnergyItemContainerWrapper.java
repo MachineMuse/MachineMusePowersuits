@@ -3,7 +3,6 @@ package net.machinemuse.powersuits.capabilities;
 import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.module.IModuleManager;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
-import net.machinemuse.powersuits.api.electricity.ElectricConversions;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.energy.EnergyStorage;
 
@@ -24,8 +23,7 @@ public class ForgeEnergyItemContainerWrapper extends EnergyStorage {
      * @param moduleManagerIn
      */
     public ForgeEnergyItemContainerWrapper(@Nonnull ItemStack container, IModuleManager moduleManagerIn) {
-        // not working?!?!?!
-        super(ElectricConversions.museEnergyToRF(moduleManagerIn.computeModularProperty(container, NuminaNBTConstants.MAXIMUM_ENERGY)));
+        super(moduleManagerIn.getOrSetModularPropertyInteger(container, NuminaNBTConstants.MAXIMUM_ENERGY));
         this.moduleManager = moduleManagerIn;
         this.container = container;
     }
@@ -35,12 +33,17 @@ public class ForgeEnergyItemContainerWrapper extends EnergyStorage {
         if (!canReceive())
             return 0;
 
-        // getting energy here with getEnergyStored() sets it for later use
-        int energyReceived = Math.min(getMaxEnergyStored() - getEnergyStored(), Math.min(this.maxReceive, energyProvided));
+//        // getting energy here with getEnergyStored() sets it for later use
+//        this.energy = getEnergyStored();
+//        this.capacity = getMaxEnergyStored();
+
+
+//        int energyReceived = Math.min(getMaxEnergyStored() - getEnergyStored(), Math.min(this.maxReceive, energyProvided));
+        int energyReceived = Math.min(this.capacity - this.energy, Math.min(this.maxReceive, energyProvided));
+
         if (!simulate) {
-            energy += energyReceived;
-            MuseItemUtils.setDoubleOrRemove(container, NuminaNBTConstants.CURRENT_ENERGY, Math.min(
-                    ElectricConversions.museEnergyFromRF(energy), getMaxEnergyStored()));
+            this.energy += energyReceived;
+            MuseItemUtils.setIntegerOrRemove(container, NuminaNBTConstants.CURRENT_ENERGY, Math.min(this.energy, getMaxEnergyStored()));
         }
         return energyReceived;
     }
@@ -51,25 +54,26 @@ public class ForgeEnergyItemContainerWrapper extends EnergyStorage {
             return 0;
 
         // getting energy here with getEnergyStored() sets it for later use
-        int energyExtracted = Math.min(getEnergyStored(), Math.min(this.maxExtract, energyRequested));
+//        int energyExtracted = Math.min(getEnergyStored(), Math.min(this.maxExtract, energyRequested));
+        int energyExtracted = Math.min(energy, Math.min(this.maxExtract, energyRequested));
+
         if (!simulate) {
             energy -= energyExtracted;
-            MuseItemUtils.setDoubleOrRemove(container, NuminaNBTConstants.CURRENT_ENERGY, Math.min(
-                    ElectricConversions.museEnergyFromRF(energy), getMaxEnergyStored()));
+            MuseItemUtils.setIntegerOrRemove(container, NuminaNBTConstants.CURRENT_ENERGY, Math.min(energy, getMaxEnergyStored()));
         }
         return energyExtracted;
     }
 
     @Override
     public int getEnergyStored() {
-        this.energy = ElectricConversions.museEnergyToRF(MuseItemUtils.getDoubleOrZero(container, NuminaNBTConstants.CURRENT_ENERGY));
-        return energy;
+        this.energy = Math.min(this.capacity, (int) Math.round(MuseItemUtils.getIntOrZero(container, NuminaNBTConstants.CURRENT_ENERGY)));
+        return  this.energy;
     }
 
     @Override
     public int getMaxEnergyStored() {
         this.capacity = this.maxExtract =
-                this.maxReceive = ElectricConversions.museEnergyToRF(moduleManager.computeModularProperty(container, NuminaNBTConstants.MAXIMUM_ENERGY));
+                this.maxReceive = moduleManager.getOrSetModularPropertyInteger(container, NuminaNBTConstants.MAXIMUM_ENERGY);
         return capacity;
     }
 

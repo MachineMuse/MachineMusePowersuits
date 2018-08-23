@@ -5,6 +5,7 @@ import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
@@ -26,21 +27,19 @@ import net.minecraft.world.World;
 //import net.machinemuse.powersuits.network.packets.MusePacketPlasmaBolt;
 
 public class PlasmaCannonModule extends PowerModuleBase implements IRightClickModule {
-    public static final String MODULE_PLASMA_CANNON = "Plasma Cannon";
-    public static final String PLASMA_CANNON_ENERGY_PER_TICK = "Plasma Energy Per Tick";
-    public static final String PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE = "Plasma Damage At Full Charge";
-    public static final String PLASMA_CANNON_EXPLOSIVENESS = "Plasma Explosiveness";
-
     public PlasmaCannonModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        addBaseProperty(PLASMA_CANNON_ENERGY_PER_TICK, 10, "J");
-        addBaseProperty(PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 2, "pt");
-        addTradeoffProperty("Amperage", PLASMA_CANNON_ENERGY_PER_TICK, 150, "J");
-        addTradeoffProperty("Amperage", PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 38, "pt");
-        addTradeoffProperty("Voltage", PLASMA_CANNON_ENERGY_PER_TICK, 50, "J");
-        addTradeoffProperty("Voltage", PLASMA_CANNON_EXPLOSIVENESS, 0.5, "Creeper");
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 2));
+
+
+        addBasePropertyDouble(MPSModuleConstants.PLASMA_CANNON_ENERGY_PER_TICK, 10, "J");
+        addBasePropertyDouble(MPSModuleConstants.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 2, "pt");
+        addTradeoffPropertyDouble("Amperage", MPSModuleConstants.PLASMA_CANNON_ENERGY_PER_TICK, 150, "J");
+        addTradeoffPropertyDouble("Amperage", MPSModuleConstants.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 38, "pt");
+        addTradeoffPropertyDouble("Voltage", MPSModuleConstants.PLASMA_CANNON_ENERGY_PER_TICK, 50, "J");
+        addTradeoffPropertyDouble("Voltage", MPSModuleConstants.PLASMA_CANNON_EXPLOSIVENESS, 0.5, "Creeper");
+
     }
 
     @Override
@@ -50,11 +49,7 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
 
     @Override
     public String getDataName() {
-        return MODULE_PLASMA_CANNON;
-    }
-
-    @Override
-    public String getUnlocalizedName() { return "plasmaCannon";
+        return MPSModuleConstants.MODULE_PLASMA_CANNON__DATANAME;
     }
 
     @Override
@@ -81,14 +76,14 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
         int chargeTicks = (int) MuseMathUtils.clampDouble(itemStack.getMaxItemUseDuration() - timeLeft, 10, 50);
 
         if (!worldIn.isRemote) {
-            double energyConsumption = ModuleManager.INSTANCE.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_ENERGY_PER_TICK) * chargeTicks;
+            double energyConsumption = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.PLASMA_CANNON_ENERGY_PER_TICK) * chargeTicks;
             if (entityLiving instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) entityLiving;
                 MuseHeatUtils.heatPlayer(player, energyConsumption / 500);
                 if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
-                    ElectricItemUtils.drainPlayerEnergy(player, energyConsumption);
-                    double explosiveness = ModuleManager.INSTANCE.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_EXPLOSIVENESS);
-                    double damagingness = ModuleManager.INSTANCE.computeModularProperty(itemStack, PlasmaCannonModule.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE);
+                    ElectricItemUtils.drainPlayerEnergy(player, (int) energyConsumption);
+                    double explosiveness = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.PLASMA_CANNON_EXPLOSIVENESS);
+                    double damagingness = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE);
 
                     EntityPlasmaBolt plasmaBolt = new EntityPlasmaBolt(worldIn, player, explosiveness, damagingness, chargeTicks);
                     worldIn.spawnEntity(plasmaBolt);

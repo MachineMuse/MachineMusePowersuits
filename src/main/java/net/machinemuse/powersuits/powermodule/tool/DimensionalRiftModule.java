@@ -5,12 +5,12 @@ import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.machinemuse.powersuits.utils.modulehelpers.DimensionalRiftHelper;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -32,16 +32,13 @@ import static net.machinemuse.numina.api.constants.NuminaNBTConstants.TAG_ONLINE
  * Created by Eximius88 on 2/3/14.
  */
 public class DimensionalRiftModule extends PowerModuleBase implements IRightClickModule {
-    public static final String MODULE_DIMENSIONAL_RIFT = "Dimensional Tear Generator";
-    public static final String DIMENSIONAL_RIFT_ENERGY_GENERATION = "Energy Consumption";
-    public static final String DIMENSIONAL_RIFT_HEAT_GENERATION = "Heat Generation";
-
     public DimensionalRiftModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        addBaseProperty(DIMENSIONAL_RIFT_HEAT_GENERATION, 55);
-        addBaseProperty(DIMENSIONAL_RIFT_ENERGY_GENERATION, 20000);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
+        addBasePropertyDouble(MPSModuleConstants.DIMENSIONAL_RIFT_HEAT_GENERATION, 55);
+        addBasePropertyInteger(MPSModuleConstants.DIMENSIONAL_RIFT_ENERGY_GENERATION, 200000);
+
         this.defaultTag.setBoolean(TAG_ONLINE, false);
     }
 
@@ -52,7 +49,7 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
 
     @Override
     public String getDataName() {
-        return MODULE_DIMENSIONAL_RIFT;
+        return MPSModuleConstants.MODULE_DIMENSIONAL_RIFT__DATANAME;
     }
 
     @Override
@@ -62,8 +59,8 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
             if (player.dimension != -1) {
                 player.setLocationAndAngles(0.5D, player.posY, 0.5D, player.rotationYaw, player.rotationPitch);
                 player.mcServer.getPlayerList().transferPlayerToDimension(player, -1, new DimensionalRiftHelper(player.mcServer.getWorld(-1)));
-                ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_ENERGY_GENERATION));
-                MuseHeatUtils.heatPlayer(player, ModuleManager.INSTANCE.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_HEAT_GENERATION));
+                ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.getOrSetModularPropertyInteger(itemStackIn, MPSModuleConstants.DIMENSIONAL_RIFT_ENERGY_GENERATION));
+                MuseHeatUtils.heatPlayer(player, ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.DIMENSIONAL_RIFT_HEAT_GENERATION));
             } else if (player.dimension == -1 || player.dimension == 1)
                 player.setLocationAndAngles(0.5D, player.posY, 0.5D, player.rotationYaw, player.rotationPitch);
             player.mcServer.getPlayerList().transferPlayerToDimension(player, 0, new DimensionalRiftHelper(player.mcServer.getWorld(0)));
@@ -79,8 +76,8 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
                 }
                 (player).setPositionAndUpdate(coords.getX() + 0.5D, yPos, coords.getZ() + 0.5D);
             }
-            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_ENERGY_GENERATION));
-            MuseHeatUtils.heatPlayer(player, ModuleManager.INSTANCE.computeModularProperty(itemStackIn, DIMENSIONAL_RIFT_HEAT_GENERATION));
+            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.getOrSetModularPropertyInteger(itemStackIn, MPSModuleConstants.DIMENSIONAL_RIFT_ENERGY_GENERATION));
+            MuseHeatUtils.heatPlayer(player, ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.DIMENSIONAL_RIFT_HEAT_GENERATION));
         }
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
@@ -97,11 +94,6 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
 
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "dimRiftGen";
     }
 
     @Override

@@ -1,17 +1,17 @@
-package net.machinemuse.powersuits.powermodule.misc;
+package net.machinemuse.powersuits.powermodule.environmental;
 
 import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.machinemuse.powersuits.utils.modulehelpers.AutoFeederHelper;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,16 +24,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class AutoFeederModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static final String MODULE_AUTO_FEEDER = "Auto-Feeder";
-    public static final String EATING_ENERGY_CONSUMPTION = "Eating Energy Consumption";
-    public static final String EATING_EFFICIENCY = "Auto-Feeder Efficiency";
-
     public AutoFeederModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        addBaseProperty(EATING_ENERGY_CONSUMPTION, 100);
-        addBaseProperty(EATING_EFFICIENCY, 50);
-        addTradeoffProperty("Efficiency", EATING_ENERGY_CONSUMPTION, 100);
-        addTradeoffProperty("Efficiency", EATING_EFFICIENCY, 50);
+        addBasePropertyDouble(MPSModuleConstants.EATING_ENERGY_CONSUMPTION, 100);
+        addBasePropertyDouble(MPSModuleConstants.EATING_EFFICIENCY, 50);
+        addTradeoffPropertyDouble("Efficiency", MPSModuleConstants.EATING_ENERGY_CONSUMPTION, 100);
+        addTradeoffPropertyDouble("Efficiency", MPSModuleConstants.EATING_EFFICIENCY, 50);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
     }
@@ -45,12 +41,7 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
 
     @Override
     public String getDataName() {
-        return MODULE_AUTO_FEEDER;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "autoFeeder";
+        return MPSModuleConstants.MODULE_AUTO_FEEDER__DATANAME;
     }
 
     @Override
@@ -58,8 +49,8 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
         double foodLevel = AutoFeederHelper.getFoodLevel(item);
         double saturationLevel = AutoFeederHelper.getSaturationLevel(item);
         IInventory inv = player.inventory;
-        double eatingEnergyConsumption = ModuleManager.INSTANCE.computeModularProperty(item, EATING_ENERGY_CONSUMPTION);
-        double efficiency = ModuleManager.INSTANCE.computeModularProperty(item, EATING_EFFICIENCY);
+        double eatingEnergyConsumption = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.EATING_ENERGY_CONSUMPTION);
+        double efficiency = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.EATING_EFFICIENCY);
         FoodStats foodStats = player.getFoodStats();
         int foodNeeded = 20 - foodStats.getFoodLevel();
         double saturationNeeded = 20 - foodStats.getSaturationLevel();
@@ -133,7 +124,7 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
                 // update value stored in buffer
                 AutoFeederHelper.setFoodLevel(item, AutoFeederHelper.getFoodLevel(item) - foodUsed);
                 // split the cost between using food and using saturation
-                ElectricItemUtils.drainPlayerEnergy(player, eatingEnergyConsumption * 0.5 * foodUsed);
+                ElectricItemUtils.drainPlayerEnergy(player, (int) (eatingEnergyConsumption * 0.5 * foodUsed));
 
                 if (saturationNeeded >= 1.0D) {
                     // using int for better precision
@@ -158,7 +149,7 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
                         // update value stored in buffer
                         AutoFeederHelper.setSaturationLevel(item, AutoFeederHelper.getSaturationLevel(item) - saturationUsed);
                         // split the cost between using food and using saturation
-                        ElectricItemUtils.drainPlayerEnergy(player, eatingEnergyConsumption * 0.5 * saturationUsed);
+                        ElectricItemUtils.drainPlayerEnergy(player, (int) (eatingEnergyConsumption * 0.5 * saturationUsed));
                     }
                 }
             }

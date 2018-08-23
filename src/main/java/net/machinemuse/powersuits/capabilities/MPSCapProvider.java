@@ -1,11 +1,8 @@
 package net.machinemuse.powersuits.capabilities;
 
-import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.api.electricity.adapter.IMuseElectricItem;
 import net.machinemuse.powersuits.api.module.ModuleManager;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -24,19 +21,8 @@ public final class MPSCapProvider implements ICapabilityProvider {
         this.container = container;
 
         if (!container.isEmpty() && container.getItem() instanceof IMuseElectricItem) {
-//            NBTTagCompound containerNBT = MuseNBTUtils.getMuseItemTag(container);
-            NBTTagCompound containerNBT = MuseNBTUtils.getNBTTag(container);
-
-            Item item = container.getItem();
-
-//            System.out.println("NBT here: " + containerNBT);
-
-
-
             energyContainerWrapper = new ForgeEnergyItemContainerWrapper(container, ModuleManager.INSTANCE);
         }
-
-
     }
 
 

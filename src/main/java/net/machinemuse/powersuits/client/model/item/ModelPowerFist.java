@@ -2,39 +2,33 @@ package net.machinemuse.powersuits.client.model.item;
 
 import com.google.common.collect.ImmutableList;
 import net.machinemuse.numina.api.constants.NuminaNBTConstants;
-import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.helper.ModelHelper;
 import net.machinemuse.powersuits.client.helper.ModelTransformCalibration;
-import net.machinemuse.powersuits.client.model.obj.OBJModelPlus;
-import net.machinemuse.powersuits.client.render.helpers.ModelPowerFistHelper;
 import net.machinemuse.powersuits.client.render.modelspec.ModelPartSpec;
 import net.machinemuse.powersuits.client.render.modelspec.ModelRegistry;
 import net.machinemuse.powersuits.client.render.modelspec.ModelSpec;
 import net.machinemuse.powersuits.client.render.modelspec.PartSpecBase;
-import net.machinemuse.powersuits.common.MPSItems;
-import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.event.ModelBakeEventHandler;
 import net.machinemuse.powersuits.item.IModularItemBase;
-import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
 import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.machinemuse.powersuits.utils.nbt.NBTTagAccessor;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.*;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
@@ -43,7 +37,6 @@ import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by lehjr on 12/19/16.
@@ -247,7 +240,7 @@ public class ModelPowerFist implements IBakedModel {
 
             if (entityIn instanceof EntityPlayer) {
                 if (!itemStack.isEmpty() && itemStack == entityIn.getHeldItemMainhand() && entityIn.isHandActive()
-                        && ModuleManager.INSTANCE.itemHasActiveModule(itemStack, PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
+                        && ModuleManager.INSTANCE.itemHasActiveModule(itemStack, MPSModuleConstants.MODULE_PLASMA_CANNON__DATANAME)) {
                     isFiring = true;
                 }
                 else

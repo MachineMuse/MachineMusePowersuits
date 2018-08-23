@@ -15,7 +15,9 @@ public class MPSPacketList {
         handler.addPackager( MusePacketInventoryRefresh.getPackagerInstance() );
         handler.addPackager( MusePacketInstallModuleRequest.getPackagerInstance() );
         handler.addPackager( MusePacketSalvageModuleRequest.getPackagerInstance() );
-        handler.addPackager( MusePacketTweakRequest.getPackagerInstance() );
+        handler.addPackager( MusePacketTweakRequestDouble.getPackagerInstance() );
+        handler.addPackager( MusePacketTweakRequestInteger.getPackagerInstance() );
+
         handler.addPackager( MusePacketCosmeticInfo.getPackagerInstance() );
         handler.addPackager( MusePacketPlayerUpdate.getPackagerInstance() );
         handler.addPackager( MusePacketToggleRequest.getPackagerInstance() );

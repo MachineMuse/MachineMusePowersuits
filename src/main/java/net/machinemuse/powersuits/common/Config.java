@@ -1,24 +1,5 @@
 package net.machinemuse.powersuits.common;
 
-import net.machinemuse.numina.api.module.IPowerModule;
-import net.machinemuse.powersuits.api.module.ModuleManager;
-import net.machinemuse.powersuits.powermodule.armor.DiamondPlatingModule;
-import net.machinemuse.powersuits.powermodule.armor.EnergyShieldModule;
-import net.machinemuse.powersuits.powermodule.armor.IronPlatingModule;
-import net.machinemuse.powersuits.powermodule.armor.LeatherPlatingModule;
-import net.machinemuse.powersuits.powermodule.cosmetic.*;
-import net.machinemuse.powersuits.powermodule.energy.*;
-import net.machinemuse.powersuits.powermodule.environmental.HeatSinkModule;
-import net.machinemuse.powersuits.powermodule.environmental.NitrogenCoolingSystem;
-import net.machinemuse.powersuits.powermodule.environmental.WaterTankModule;
-import net.machinemuse.powersuits.powermodule.misc.*;
-import net.machinemuse.powersuits.powermodule.movement.*;
-import net.machinemuse.powersuits.powermodule.tool.*;
-import net.machinemuse.powersuits.powermodule.weapon.*;
-
-import static net.machinemuse.numina.api.module.EnumModuleTarget.*;
-
-
 /**
  * Initial attempt at storing all tweakable/configurable values in one class.
  * This got really messy really fast so it's in the process of being

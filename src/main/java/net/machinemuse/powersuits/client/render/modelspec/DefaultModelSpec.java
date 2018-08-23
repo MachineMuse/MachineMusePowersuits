@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
 import net.machinemuse.numina.api.constants.NuminaNBTConstants;
-import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
@@ -17,8 +17,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static net.machinemuse.powersuits.powermodule.movement.JetPackModule.MODULE_JETPACK;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -100,7 +98,7 @@ public class DefaultModelSpec {
                                 // jet pack model not displayed by default
                                 if (partSpec.binding.getItemState().equals("all") ||
                                         (partSpec.binding.getItemState().equals("jetpack") &&
-                                                ModuleManager.INSTANCE.itemHasModule(stack, MODULE_JETPACK))) {
+                                                ModuleManager.INSTANCE.itemHasModule(stack, MPSModuleConstants.MODULE_JETPACK__DATANAME))) {
                                     prefArray.add(((ModelPartSpec) partSpec).multiSet(new NBTTagCompound(),
                                             getNewColourIndex(colours, spec.getColours(), partSpec.defaultcolourindex),
                                             ((ModelPartSpec) partSpec).getGlow()));

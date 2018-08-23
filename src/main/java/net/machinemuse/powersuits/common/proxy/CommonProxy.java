@@ -1,7 +1,10 @@
 package net.machinemuse.powersuits.common.proxy;
 
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
-import net.machinemuse.powersuits.common.*;
+import net.machinemuse.powersuits.common.MPSGuiHandler;
+import net.machinemuse.powersuits.common.MPSModules;
+import net.machinemuse.powersuits.common.ModCompatibility;
+import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
@@ -12,14 +15,11 @@ import net.machinemuse.powersuits.network.packets.MPSPacketList;
 import net.machinemuse.powersuits.powermodule.tool.TerminalHandler;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
-
-import java.io.File;
 
 import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
 

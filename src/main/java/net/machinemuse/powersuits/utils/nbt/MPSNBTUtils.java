@@ -5,12 +5,16 @@ import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
-import net.machinemuse.powersuits.client.render.modelspec.*;
+import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec;
+import net.machinemuse.powersuits.client.render.modelspec.ModelRegistry;
+import net.machinemuse.powersuits.client.render.modelspec.TexturePartSpec;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+
 import javax.annotation.Nonnull;
 import java.util.Objects;
+
 import static net.machinemuse.numina.api.constants.NuminaNBTConstants.TAG_RENDER;
 
 

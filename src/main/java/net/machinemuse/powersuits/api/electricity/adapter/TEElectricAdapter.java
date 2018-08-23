@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.api.electricity.adapter;
 
 import cofh.redstoneflux.api.IEnergyContainerItem;
-import net.machinemuse.powersuits.api.electricity.ElectricConversions;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -25,22 +24,22 @@ public class TEElectricAdapter extends ElectricAdapter {
     }
 
     @Override
-    public double getCurrentMPSEnergy() {
-        return ElectricConversions.museEnergyFromRF(this.item().getEnergyStored(this.stack()));
+    public int getEnergyStored() {
+        return this.item().getEnergyStored(this.stack);
     }
 
     @Override
-    public double getMaxMPSEnergy() {
-        return ElectricConversions.museEnergyFromRF(this.item().getMaxEnergyStored(this.stack()));
+    public int getMaxEnergyStored() {
+        return this.item().getMaxEnergyStored(this.stack);
     }
 
     @Override
-    public double drainMPSEnergy(final double requested) {
-        return ElectricConversions.museEnergyFromRF(this.item().extractEnergy(this.stack(), ElectricConversions.museEnergyToRF(requested), false));
+    public int extractEnergy(int requested, boolean simulate) {
+        return this.item().extractEnergy(this.stack, requested, simulate);
     }
 
     @Override
-    public double giveMPSEnergy(final double provided) {
-        return ElectricConversions.museEnergyFromRF(this.item().receiveEnergy(this.stack(), ElectricConversions.museEnergyToRF(provided), false));
+    public int receiveEnergy(int provided, boolean simulate) {
+        return this.item().receiveEnergy(this.stack, provided, simulate);
     }
 }

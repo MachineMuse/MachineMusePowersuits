@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.network.packets;
 
-import com.google.common.primitives.Ints;
 import io.netty.buffer.ByteBufInputStream;
 import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.item.IModularItem;
@@ -11,8 +10,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-
-import java.util.List;
 
 /**
  * Author: MachineMuse (Claire Semple)

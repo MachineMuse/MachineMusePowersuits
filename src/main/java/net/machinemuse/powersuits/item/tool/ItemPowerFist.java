@@ -15,14 +15,12 @@ import net.machinemuse.numina.api.item.IModularItem;
 import net.machinemuse.numina.api.module.IBlockBreakingModule;
 import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.capabilities.MPSCapProvider;
 import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.machinemuse.powersuits.item.IModularItemBase;
-import net.machinemuse.powersuits.powermodule.tool.GrafterModule;
-import net.machinemuse.powersuits.powermodule.tool.OmniWrenchModule;
+import net.machinemuse.powersuits.powermodule.tool.MADModule;
 import net.machinemuse.powersuits.powermodule.tool.RefinedStorageWirelessModule;
-import net.machinemuse.powersuits.powermodule.weapon.MeleeAssistModule;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.minecraft.block.state.IBlockState;
@@ -105,17 +103,17 @@ public class ItemPowerFist extends MPSItemElectricTool
      */
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase entityBeingHit, EntityLivingBase entityDoingHitting) {
-        if (ModuleManager.INSTANCE.itemHasActiveModule(stack, OmniWrenchModule.MODULE_OMNI_WRENCH)) {
+        if (ModuleManager.INSTANCE.itemHasActiveModule(stack, MPSModuleConstants.MODULE_OMNI_WRENCH__DATANAME)) {
             entityBeingHit.rotationYaw += 90.0f;
             entityBeingHit.rotationYaw %= 360.0f;
         }
-        if (entityDoingHitting instanceof EntityPlayer && ModuleManager.INSTANCE.itemHasActiveModule(stack, MeleeAssistModule.MODULE_MELEE_ASSIST)) {
+        if (entityDoingHitting instanceof EntityPlayer && ModuleManager.INSTANCE.itemHasActiveModule(stack, MPSModuleConstants.MODULE_MELEE_ASSIST__DATANAME)) {
             EntityPlayer player = (EntityPlayer) entityDoingHitting;
-            double drain = ModuleManager.INSTANCE.computeModularProperty(stack, MeleeAssistModule.PUNCH_ENERGY);
+            double drain = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.PUNCH_ENERGY);
             if (ElectricItemUtils.getPlayerEnergy(player) > drain) {
-                ElectricItemUtils.drainPlayerEnergy(player, drain);
-                double damage = ModuleManager.INSTANCE.computeModularProperty(stack, MeleeAssistModule.PUNCH_DAMAGE);
-                double knockback = ModuleManager.INSTANCE.computeModularProperty(stack, MeleeAssistModule.PUNCH_KNOCKBACK);
+                ElectricItemUtils.drainPlayerEnergy(player, (int) drain);
+                double damage = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.PUNCH_DAMAGE);
+                double knockback = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.PUNCH_KNOCKBACK);
                 DamageSource damageSource = DamageSource.causePlayerDamage(player);
                 if (entityBeingHit.attackEntityFrom(damageSource, (float) (int) damage)) {
                     Vec3d lookVec = player.getLookVec();
@@ -145,6 +143,16 @@ public class ItemPowerFist extends MPSItemElectricTool
         return true;
     }
 
+    @Override
+    public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
+        super.onBlockStartBreak(itemstack, pos, player);
+        IPowerModule module = ModuleManager.INSTANCE.getModule(MPSModuleConstants.MODULE_MAD_MODULE__DATANAME);
+        if (ModuleManager.INSTANCE.itemHasActiveModule(itemstack, MPSModuleConstants.MODULE_MAD_MODULE__DATANAME)) {
+            return (((MADModule) module).onBlockStartBreak(itemstack, pos, player));
+        }
+        return false;
+    }
+
     /**
      * An itemstack sensitive version of getDamageVsEntity - allows items to
      * handle damage based on
@@ -155,8 +163,11 @@ public class ItemPowerFist extends MPSItemElectricTool
      * @param itemStack  The itemstack
      * @return the damage
      */
+
+    // FIXME: no longer valid
+
     public float getDamageVsEntity(Entity par1Entity, ItemStack itemStack) {
-        return (float) ModuleManager.INSTANCE.computeModularProperty(itemStack, MeleeAssistModule.PUNCH_DAMAGE);
+        return (float) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.PUNCH_DAMAGE);
     }
 
     @Override
@@ -250,19 +261,18 @@ public class ItemPowerFist extends MPSItemElectricTool
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         ItemStack itemStack = player.getHeldItem(hand);
         String mode = this.getActiveMode(itemStack);
-        IPowerModule module2;
-        IPowerModule module = module2 = ModuleManager.INSTANCE.getModule(mode);
-        if (module2 instanceof IRightClickModule) {
-            return ((IRightClickModule)module2).onItemUse(itemStack, player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+        IPowerModule module = ModuleManager.INSTANCE.getModule(mode);
+        if (module instanceof IRightClickModule) {
+            return ((IRightClickModule)module).onItemUse(itemStack, player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
         }
         return EnumActionResult.PASS;
     }
 
     @Optional.Method(modid = "forestry")
     public float getSaplingModifier(ItemStack stack, World world, EntityPlayer player, BlockPos pos) {
-        if (ModuleManager.INSTANCE.itemHasActiveModule(stack, GrafterModule.MODULE_GRAFTER)) {
-            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.computeModularProperty(stack, GrafterModule.GRAFTER_ENERGY_CONSUMPTION));
-            MuseHeatUtils.heatPlayer(player, ModuleManager.INSTANCE.computeModularProperty(stack, GrafterModule.GRAFTER_HEAT_GENERATION));
+        if (ModuleManager.INSTANCE.itemHasActiveModule(stack, MPSModuleConstants.MODULE_GRAFTER__DATANAME)) {
+            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.getOrSetModularPropertyInteger(stack, MPSModuleConstants.GRAFTER_ENERGY_CONSUMPTION));
+            MuseHeatUtils.heatPlayer(player, ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.GRAFTER_HEAT_GENERATION));
             return 100.0f;
         }
         return 0.0f;
@@ -284,12 +294,12 @@ public class ItemPowerFist extends MPSItemElectricTool
     /* TE Crescent Hammer */
     @Override
     public boolean isUsable(ItemStack itemStack, EntityLivingBase entityLivingBase, Entity entity) {
-        return entityLivingBase instanceof EntityPlayer && this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
+        return entityLivingBase instanceof EntityPlayer && this.getActiveMode(itemStack).equals(MPSModuleConstants.MODULE_OMNI_WRENCH__DATANAME);
     }
     /* TE Crescent Hammer */
     @Override
     public boolean isUsable(ItemStack itemStack, EntityLivingBase entityLivingBase, BlockPos blockPos) {
-        return entityLivingBase instanceof EntityPlayer && this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
+        return entityLivingBase instanceof EntityPlayer && this.getActiveMode(itemStack).equals(MPSModuleConstants.MODULE_OMNI_WRENCH__DATANAME);
     }
 
     /* TE Crescent Hammer */
@@ -343,7 +353,7 @@ public class ItemPowerFist extends MPSItemElectricTool
     /* AE wrench */
     @Override
     public boolean canWrench(ItemStack itemStack, EntityPlayer entityPlayer, BlockPos blockPos) {
-        return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
+        return this.getActiveMode(itemStack).equals(MPSModuleConstants.MODULE_OMNI_WRENCH__DATANAME);
     }
 
 //    /* Buildcraft Wrench */
@@ -366,19 +376,19 @@ public class ItemPowerFist extends MPSItemElectricTool
     /* EnderIO Tool */
     @Override
     public boolean canUse(@Nonnull EnumHand enumHand, @Nonnull EntityPlayer entityPlayer, @Nonnull BlockPos blockPos) {
-        return this.getActiveMode(entityPlayer.getHeldItem(enumHand)).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
+        return this.getActiveMode(entityPlayer.getHeldItem(enumHand)).equals(MPSModuleConstants.MODULE_OMNI_WRENCH__DATANAME);
     }
 
     /* EnderIO Tool */
     @Override
     public boolean shouldHideFacades(ItemStack itemStack, EntityPlayer entityPlayer) {
-        return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
+        return this.getActiveMode(itemStack).equals(MPSModuleConstants.MODULE_OMNI_WRENCH__DATANAME);
     }
 
     /* Mekanism Wrench */
     @Override
     public boolean canUseWrench(ItemStack itemStack, EntityPlayer entityPlayer, BlockPos blockPos) {
-        return this.getActiveMode(itemStack).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
+        return this.getActiveMode(itemStack).equals(MPSModuleConstants.MODULE_OMNI_WRENCH__DATANAME);
     }
 
     @Override
@@ -412,8 +422,6 @@ public class ItemPowerFist extends MPSItemElectricTool
 
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
-
-        // NBT provided here is empty or null, so it's useless for this.
         return new MPSCapProvider(stack);
     }
 }

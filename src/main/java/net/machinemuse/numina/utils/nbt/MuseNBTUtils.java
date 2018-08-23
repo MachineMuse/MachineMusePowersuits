@@ -1,5 +1,6 @@
 package net.machinemuse.numina.utils.nbt;
 
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -27,6 +28,28 @@ public class MuseNBTUtils {
         NBTTagCompound properties = (stackTag.hasKey(TAG_ITEM_PREFIX)) ? stackTag.getCompoundTag(TAG_ITEM_PREFIX) : new NBTTagCompound();
         stackTag.setTag(TAG_ITEM_PREFIX, properties);
         return properties;
+    }
+
+    // Store commonly recalculated values in a compound tag.
+    @Nullable
+    public static NBTTagCompound getMuseValuesTag(@Nonnull ItemStack stack) {
+        if (stack.isEmpty())
+            return null;
+
+        NBTTagCompound itemTag = getMuseItemTag(stack);
+        NBTTagCompound valuesTag;
+        if (itemTag.hasKey(NuminaNBTConstants.TAG_VALUES)) {
+            valuesTag = itemTag.getCompoundTag(NuminaNBTConstants.TAG_VALUES);
+        } else {
+            valuesTag = new NBTTagCompound();
+            itemTag.setTag(NuminaNBTConstants.TAG_VALUES, valuesTag);
+        }
+        return valuesTag;
+    }
+
+    public static void removeMuseValuesTag(@Nonnull ItemStack stack) {
+        NBTTagCompound itemTag = getMuseItemTag(stack);
+        itemTag.removeTag(NuminaNBTConstants.TAG_VALUES);
     }
 
     public static NBTTagCompound getNBTTag(@Nonnull ItemStack itemStack) {

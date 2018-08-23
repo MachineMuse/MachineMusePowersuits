@@ -5,11 +5,11 @@ import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IBlockBreakingModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -25,10 +25,6 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
 public class ChiselModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
-    public static final String MODULE_CHISEL = "Chisel";
-    public static final String CHISEL_HARVEST_SPEED = "CHISEL Harvest Speed";
-    public static final String CHISEL_ENERGY_CONSUMPTION = "CHISEL Energy Consumption";
-
     // TODO Fixme put actual item.
     private static final ItemStack emulatedTool = new ItemStack(
             Item.REGISTRY.getObject(new ResourceLocation("chisel", "chisel_iron")), 1);
@@ -37,10 +33,10 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
         //        ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(GameRegistry.findItem("minecraft", "obsidian"), 2)); // depreciated, left for now for reference
         ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Item.getItemFromBlock(Blocks.OBSIDIAN), 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
-        addBaseProperty(CHISEL_ENERGY_CONSUMPTION, 50, "J");
-        addBaseProperty(CHISEL_HARVEST_SPEED, 8, "x");
-        addTradeoffProperty("Overclock", CHISEL_ENERGY_CONSUMPTION, 950);
-        addTradeoffProperty("Overclock", CHISEL_HARVEST_SPEED, 22);
+        addBasePropertyDouble(MPSModuleConstants.CHISEL_ENERGY_CONSUMPTION, 50, "J");
+        addBasePropertyDouble(MPSModuleConstants.CHISEL_HARVEST_SPEED, 8, "x");
+        addTradeoffPropertyDouble("Overclock", MPSModuleConstants.CHISEL_ENERGY_CONSUMPTION, 950);
+        addTradeoffPropertyDouble("Overclock", MPSModuleConstants.CHISEL_HARVEST_SPEED, 22);
     }
 
     @Override
@@ -50,18 +46,13 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public String getDataName() {
-        return MODULE_CHISEL;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "chisel";
+        return MPSModuleConstants.MODULE_CHISEL__DATANAME;
     }
 
     @Override
     public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
         if (ToolHelpers.isEffectiveTool(state, emulatedTool)) {
-            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.INSTANCE.computeModularProperty(stack, CHISEL_ENERGY_CONSUMPTION)) {
+            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.CHISEL_ENERGY_CONSUMPTION)) {
                 return true;
             }
         }
@@ -71,7 +62,7 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
         if (ForgeHooks.canToolHarvestBlock(worldIn, pos, emulatedTool)) {
-            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, ModuleManager.INSTANCE.computeModularProperty(stack, CHISEL_ENERGY_CONSUMPTION));
+            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, (int) Math.round(ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.CHISEL_ENERGY_CONSUMPTION)));
             return true;
         }
         return false;
@@ -80,7 +71,7 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
         event.setNewSpeed((float) (event.getNewSpeed() *
-                ModuleManager.INSTANCE.computeModularProperty(event.getEntityPlayer().inventory.getCurrentItem(), CHISEL_HARVEST_SPEED)));
+                ModuleManager.INSTANCE.getOrSetModularPropertyDouble(event.getEntityPlayer().inventory.getCurrentItem(), MPSModuleConstants.CHISEL_HARVEST_SPEED)));
     }
 
     @Override

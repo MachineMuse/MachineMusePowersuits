@@ -1,8 +1,7 @@
 package net.machinemuse.powersuits.api.electricity;
 
-import net.machinemuse.powersuits.api.module.ModuleManager;
-import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.common.config.MPSConfig;
+import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -18,25 +17,15 @@ public final class ElectricConversions {
     public static final String IC2_TIER = "IC2 Tier";
 
     public static int getTier(final ItemStack stack) {
-        return (int) ModuleManager.INSTANCE.computeModularProperty(stack, IC2_TIER);
+        return ElectricItemUtils.getTierForItem(stack);
     }
 
     public static double museEnergyToEU(final double museEnergy) {
         return museEnergy / config.getIC2Ratio();
     }
 
-    public static double museEnergyFromEU(final double eu) {
-        return eu * config.getIC2Ratio();
-    }
-
-
-    /* Thermal Expansion -------------------------------------------------------------------------- */
-    public static int museEnergyToRF(final double museEnergy) {
-        return (int)Math.ceil(museEnergy / config.getRFRatio());
-    }
-
-    public static double museEnergyFromRF(final int rf) {
-        return rf * config.getRFRatio();
+    public static int museEnergyFromEU(final double eu) {
+        return (int) Math.round(eu * config.getIC2Ratio());
     }
 
     /* Mekanism ------------------------------------------------------------------------------------ */
@@ -44,9 +33,16 @@ public final class ElectricConversions {
         return Math.ceil(museEnergy / config.getMekRatio());
     }
 
-    public static double museEnergyFromMek(final double mj) { // no current conversion rate
-        return mj * config.getMekRatio();
+    public static int museEnergyFromMek(final double mj) { // no current conversion rate
+        return (int) Math.round(mj * config.getMekRatio());
     }
+
+
+
+
+
+
+
 
     /* Applied Energistics 2 ---------------------------------------------------------------------- */
     public static double museEnergyFromAE(final double ae) {

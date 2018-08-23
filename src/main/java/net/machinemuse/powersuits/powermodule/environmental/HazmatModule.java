@@ -12,12 +12,10 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
 
 public class HazmatModule extends PowerModuleBase {
-    public static final String MODULE_HAZMAT = "Radiation Shielding";
-
     public HazmatModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.ironPlating, 3));
-        addBaseProperty(MPSModuleConstants.WEIGHT, 0.5);
+//        addBasePropertyDouble(MPSModuleConstants.WEIGHT, 0.5);
     }
 
     @Override
@@ -27,12 +25,7 @@ public class HazmatModule extends PowerModuleBase {
 
     @Override
     public String getDataName() {
-        return MODULE_HAZMAT;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "hazmat";
+        return MPSModuleConstants.MODULE_HAZMAT__DATANAME;
     }
 
     @Override

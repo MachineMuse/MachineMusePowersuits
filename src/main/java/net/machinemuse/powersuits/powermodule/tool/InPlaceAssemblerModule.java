@@ -1,15 +1,15 @@
-package net.machinemuse.powersuits.powermodule.misc;
+package net.machinemuse.powersuits.powermodule.tool;
 
 import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,8 +23,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class InPlaceAssemblerModule extends PowerModuleBase implements IRightClickModule {
-    public static final String MODULE_PORTABLE_CRAFTING = "In-Place Assembler";
-
     public InPlaceAssemblerModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
@@ -38,12 +36,7 @@ public class InPlaceAssemblerModule extends PowerModuleBase implements IRightCli
 
     @Override
     public String getDataName() {
-        return MODULE_PORTABLE_CRAFTING;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "portableCraftingTable";
+        return MPSModuleConstants.MODULE_PORTABLE_CRAFTING__DATANAME;
     }
 
     @Override

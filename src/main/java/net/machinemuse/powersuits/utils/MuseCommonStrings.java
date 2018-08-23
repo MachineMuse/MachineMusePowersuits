@@ -5,7 +5,6 @@ import net.machinemuse.numina.api.item.IModeChangingItem;
 import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
-import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.electricity.adapter.ElectricAdapter;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
@@ -70,8 +69,8 @@ public abstract class MuseCommonStrings {
 
         ElectricAdapter adapter = ElectricAdapter.wrap(stack);
         if (adapter != null) {
-            String energyinfo = I18n.format("tooltip.energy") + " " + MuseStringUtils.formatNumberShort(adapter.getCurrentMPSEnergy()) + '/'
-                    + MuseStringUtils.formatNumberShort(adapter.getMaxMPSEnergy());
+            String energyinfo = I18n.format("tooltip.energy") + " " + MuseStringUtils.formatNumberShort(adapter.getEnergyStored()) + '/'
+                    + MuseStringUtils.formatNumberShort(adapter.getMaxEnergyStored());
             currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character,
                     MuseStringUtils.FormatCodes.Aqua));
         }
@@ -109,9 +108,9 @@ public abstract class MuseCommonStrings {
         return moduleTag.getDouble(propertyName);
     }
 
-    public static double getTotalWeight(ItemStack stack) {
-        return ModuleManager.INSTANCE.computeModularProperty(stack, MPSModuleConstants.WEIGHT);
-    }
+//    public static double getTotalWeight(ItemStack stack) {
+//        return ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.WEIGHT);
+//    }
 
     public static List<String> getItemInstalledModules(EntityPlayer player, ItemStack stack) {
         NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);

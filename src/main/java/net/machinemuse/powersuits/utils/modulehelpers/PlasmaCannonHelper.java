@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.utils.modulehelpers;
 
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
-import net.machinemuse.powersuits.powermodule.weapon.PlasmaCannonModule;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 public class PlasmaCannonHelper {
     public static int getPlayerPlasma(EntityPlayer player) {
         ItemStack powerfist = player.getHeldItemMainhand();
-        if (!powerfist.isEmpty() && player.isHandActive() && ModuleManager.INSTANCE.itemHasActiveModule(powerfist, PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
+        if (!powerfist.isEmpty() && player.isHandActive() && ModuleManager.INSTANCE.itemHasActiveModule(powerfist, MPSModuleConstants.MODULE_PLASMA_CANNON__DATANAME)) {
             int actualCount = (-player.getItemInUseCount() + 72000);
             return (actualCount > 50 ? 50 : actualCount) * 2;
         }
@@ -20,7 +20,7 @@ public class PlasmaCannonHelper {
 
     public static int getMaxPlasma(EntityPlayer player) {
         ItemStack powerfist = player.getHeldItemMainhand();
-        if (!powerfist.isEmpty() && player.isHandActive() && ModuleManager.INSTANCE.itemHasActiveModule(powerfist, PlasmaCannonModule.MODULE_PLASMA_CANNON)) {
+        if (!powerfist.isEmpty() && player.isHandActive() && ModuleManager.INSTANCE.itemHasActiveModule(powerfist, MPSModuleConstants.MODULE_PLASMA_CANNON__DATANAME)) {
             return 100;
         }
         return 0;

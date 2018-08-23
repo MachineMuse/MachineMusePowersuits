@@ -3,11 +3,11 @@ package net.machinemuse.powersuits.common;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.powermodule.environmental.AirtightSealModule;
 import net.machinemuse.powersuits.powermodule.environmental.ApiaristArmorModule;
 import net.machinemuse.powersuits.powermodule.environmental.HazmatModule;
-import net.machinemuse.powersuits.powermodule.environmental.AirtightSealModule;
-import net.machinemuse.powersuits.powermodule.misc.ThaumGogglesModule;
 import net.machinemuse.powersuits.powermodule.tool.*;
+import net.machinemuse.powersuits.powermodule.vision.ThaumGogglesModule;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModAPIManager;
 import net.minecraftforge.fml.common.ModContainer;
@@ -153,6 +153,12 @@ public class ModCompatibility {
         if (isCOFHCoreLoaded()) {
             ModuleManager.INSTANCE.addModule(new OmniWrenchModule(EnumModuleTarget.TOOLONLY));
         }
+
+        // Mekanism
+        if(isMekanismLoaded()) {
+            ModuleManager.INSTANCE.addModule(new MADModule(EnumModuleTarget.TOOLONLY));
+        }
+
 
         // Thaumcraft
         if (isThaumCraftLoaded() && enableThaumGogglesModule()) {

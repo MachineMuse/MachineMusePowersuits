@@ -5,11 +5,11 @@ import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,9 +28,6 @@ import java.util.Optional;
  * 1:42 AM 6/22/13
  */
 public class AppEngWirelessModule extends PowerModuleBase implements IRightClickModule {
-    public static final String MODULE_APPENG_WIRELESS = "AppEng Wireless Terminal";
-    private ItemStack wirelessTerminal;
-
     public AppEngWirelessModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
@@ -45,12 +42,7 @@ public class AppEngWirelessModule extends PowerModuleBase implements IRightClick
 
     @Override
     public String getDataName() {
-        return MODULE_APPENG_WIRELESS;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "appengWireless";
+        return MPSModuleConstants.MODULE_APPENG_WIRELESS__DATANAME;
     }
 
     @Override

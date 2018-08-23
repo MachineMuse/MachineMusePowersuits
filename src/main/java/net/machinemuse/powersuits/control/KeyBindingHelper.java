@@ -47,4 +47,14 @@ public class KeyBindingHelper {
 
         }
     }
+
+    public void removeKey(KeyBinding key) {
+        try {
+            if (getKeyBindingMap() != null)
+                hash.removeKey(key);
+        }
+        catch (Exception ignored) {
+
+        }
+    }
 }

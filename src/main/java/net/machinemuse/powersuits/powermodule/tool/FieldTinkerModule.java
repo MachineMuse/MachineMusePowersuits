@@ -4,6 +4,7 @@ import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.ModularPowersuits;
@@ -40,12 +41,7 @@ public class FieldTinkerModule extends PowerModuleBase implements IRightClickMod
 
     @Override
     public String getDataName() {
-        return "Field Tinker Module";
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "fieldTinkerer";
+        return MPSModuleConstants.MODULE_FIELD_TINKER__DATANAME;
     }
 
     @Override

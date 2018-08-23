@@ -1,9 +1,9 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
 import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
-import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;

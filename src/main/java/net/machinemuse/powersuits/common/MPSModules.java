@@ -6,19 +6,20 @@ import net.machinemuse.powersuits.powermodule.armor.DiamondPlatingModule;
 import net.machinemuse.powersuits.powermodule.armor.EnergyShieldModule;
 import net.machinemuse.powersuits.powermodule.armor.IronPlatingModule;
 import net.machinemuse.powersuits.powermodule.armor.LeatherPlatingModule;
-import net.machinemuse.powersuits.powermodule.cosmetic.*;
+import net.machinemuse.powersuits.powermodule.cosmetic.TransparentArmorModule;
 import net.machinemuse.powersuits.powermodule.energy.*;
-import net.machinemuse.powersuits.powermodule.environmental.HeatSinkModule;
-import net.machinemuse.powersuits.powermodule.environmental.NitrogenCoolingSystem;
-import net.machinemuse.powersuits.powermodule.environmental.WaterTankModule;
-import net.machinemuse.powersuits.powermodule.misc.*;
+import net.machinemuse.powersuits.powermodule.environmental.*;
 import net.machinemuse.powersuits.powermodule.movement.*;
+import net.machinemuse.powersuits.powermodule.special.ClockModule;
+import net.machinemuse.powersuits.powermodule.special.CompassModule;
+import net.machinemuse.powersuits.powermodule.special.InvisibilityModule;
+import net.machinemuse.powersuits.powermodule.special.MagnetModule;
 import net.machinemuse.powersuits.powermodule.tool.*;
+import net.machinemuse.powersuits.powermodule.vision.BinocularsModule;
+import net.machinemuse.powersuits.powermodule.vision.NightVisionModule;
 import net.machinemuse.powersuits.powermodule.weapon.*;
 
 import static net.machinemuse.numina.api.module.EnumModuleTarget.*;
-import static net.machinemuse.numina.api.module.EnumModuleTarget.FEETONLY;
-import static net.machinemuse.numina.api.module.EnumModuleTarget.LEGSONLY;
 
 public class MPSModules {
 
@@ -37,8 +38,6 @@ public class MPSModules {
         addModule(new IronPlatingModule(ARMORONLY));
         addModule(new DiamondPlatingModule(ARMORONLY));
         addModule(new EnergyShieldModule(ARMORONLY));
-        addModule(new HeatSinkModule(ARMORONLY));
-
 
         /* Cosmetic ----------------------------- */
         addModule(new TransparentArmorModule(ARMORONLY));
@@ -97,7 +96,7 @@ public class MPSModules {
         addModule(new MobRepulsorModule(TORSOONLY));
         addModule(new WaterTankModule(TORSOONLY));
         addModule(new NitrogenCoolingSystem(TORSOONLY));
-        addModule(new MechanicalAssistance(TORSOONLY));
+//        addModule(new MechanicalAssistance(TORSOONLY)); // TODO replace with slot expansion module
         //addModule(new CoalGenerator(TORSOONLY)); //doesn't seem to be working
 
 

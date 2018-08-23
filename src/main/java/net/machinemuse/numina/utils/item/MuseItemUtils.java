@@ -313,6 +313,40 @@ public class MuseItemUtils {
     }
 
     /**
+     * Checks the given NBTTag and returns the value if it exists, otherwise 0.
+     */
+    public static double getScaledIntOrZero(NBTTagCompound itemProperties, String string) {
+        int value = 0;
+        if (itemProperties != null) {
+            if (itemProperties.hasKey(string)) {
+                value = itemProperties.getInteger(string);
+            }
+        }
+        return value > 0 ? value/10000.0D : value;
+    }
+
+    public static double getScaledIntOrZero(ItemStack stack, String string) {
+        return getScaledIntOrZero(MuseNBTUtils.getMuseItemTag(stack), string);
+    }
+
+    /**
+     * Checks the given NBTTag and returns the value if it exists, otherwise 0.
+     */
+    public static double getIntOrZero(NBTTagCompound itemProperties, String string) {
+        int value = 0;
+        if (itemProperties != null) {
+            if (itemProperties.hasKey(string)) {
+                value = itemProperties.getInteger(string);
+            }
+        }
+        return value;
+    }
+
+    public static double getIntOrZero(ItemStack stack, String string) {
+        return getIntOrZero(MuseNBTUtils.getMuseItemTag(stack), string);
+    }
+
+    /**
      * Bouncer for succinctness. Checks the item's modular properties and
      * returns the value if it exists, otherwise 0.
      */
@@ -342,8 +376,25 @@ public class MuseItemUtils {
         setDoubleOrRemove(MuseNBTUtils.getMuseItemTag(stack), string, value);
     }
 
+    /**
+     * Sets the value of the given nbt tag, or removes it if the value would be
+     * zero.
+     */
+    public static void setIntegerOrRemove(NBTTagCompound itemProperties, String string, int value) {
+        if (itemProperties != null) {
+            if (value == 0) {
+                itemProperties.removeTag(string);
+            } else {
+                itemProperties.setInteger(string, value);
+            }
+        }
+    }
 
-
-
-
+    /**
+     * Sets the given itemstack's modular property, or removes it if the value
+     * would be zero.
+     */
+    public static void setIntegerOrRemove(@Nonnull ItemStack stack, String string, int value) {
+        setIntegerOrRemove(MuseNBTUtils.getMuseItemTag(stack), string, value);
+    }
 }

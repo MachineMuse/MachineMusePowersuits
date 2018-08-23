@@ -5,12 +5,12 @@ import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.machinemuse.powersuits.utils.modulehelpers.OmniProbeHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -33,7 +33,6 @@ import net.minecraftforge.fml.common.Loader;
  * TODO: Fix ProjectRed (may require PR to ProjectRed)
  */
 public class OmniProbeModule extends PowerModuleBase implements IRightClickModule, IPlayerTickModule {
-    public static final String MODULE_OMNIPROBE = "Prototype OmniProbe";
     private ItemStack conduitProbe;
     private ItemStack rednetMeter;
     private ItemStack cpmPSD;
@@ -76,7 +75,7 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
 
     @Override
     public String getDataName() {
-        return MODULE_OMNIPROBE;
+        return MPSModuleConstants.MODULE_OMNIPROBE__DATANAME;
     }
 
     @Override
@@ -122,7 +121,7 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         if (!OmniProbeHelper.getEIOFacadeTransparency(item)) {
-            OmniProbeHelper.setEIONoCompete(item, MODULE_OMNIPROBE);
+            OmniProbeHelper.setEIONoCompete(item, MPSModuleConstants.MODULE_OMNIPROBE__DATANAME);
             OmniProbeHelper.setEIOFacadeTransparency(item, true);
         }
     }
@@ -130,7 +129,7 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
         if ((OmniProbeHelper.getEIONoCompete(item) != null) && (!OmniProbeHelper.getEIONoCompete(item).isEmpty())) {
-            if (OmniProbeHelper.getEIONoCompete(item).equals(MODULE_OMNIPROBE)) {
+            if (OmniProbeHelper.getEIONoCompete(item).equals(MPSModuleConstants.MODULE_OMNIPROBE__DATANAME)) {
                 OmniProbeHelper.setEIONoCompete(item, "");
                 if (OmniProbeHelper.getEIOFacadeTransparency(item)) {
                     OmniProbeHelper.setEIOFacadeTransparency(item, false);

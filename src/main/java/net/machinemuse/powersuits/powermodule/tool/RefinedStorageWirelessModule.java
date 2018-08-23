@@ -8,13 +8,13 @@ import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
@@ -32,8 +32,6 @@ import javax.annotation.Nonnull;
  * Created by leon on 4/26/17.
  */
 public class RefinedStorageWirelessModule extends PowerModuleBase implements IRightClickModule {
-    public static final String MODULE_REF_STOR_WIRELESS = "Refined Storage Wireless Grid";
-    public static final String REF_STOR_WIRELESS_ENERGY_CONSUMPTION = "Energy Consumption";
 //    public static ItemStack emulatedTool;
     public static final ResourceLocation wirelessGridRegName = new ResourceLocation("refinedstorage", "wireless_grid");
     public static final ResourceLocation wirelessCraftingGridRegName = new ResourceLocation("refinedstorage", "wireless_crafting_grid");
@@ -55,7 +53,7 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
 
     @Override
     public String getDataName() {
-        return MODULE_REF_STOR_WIRELESS;
+        return MPSModuleConstants.MODULE_REF_STOR_WIRELESS__DATANAME;
     }
 
     @Override
@@ -77,7 +75,7 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
             emulatedTool.setTagCompound(tag);
             ActionResult result = emulatedTool.getItem().onItemRightClick(worldIn, playerIn, hand);
             double energyUsed = ((energy - emulatedTool.getTagCompound().getInteger("Energy")) * MPSConfig.INSTANCE.getRSRatio()) ;
-            ElectricItemUtils.drainPlayerEnergy(playerIn, energyUsed);
+            ElectricItemUtils.drainPlayerEnergy(playerIn, (int) energyUsed);
             return ActionResult.newResult(result.getType(), itemStackIn);
         }
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
@@ -146,11 +144,6 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(getEmulatedTool()).getParticleTexture();
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "refinedStorageWireless";
     }
 
     private NBTTagCompound initializeDefaults(NBTTagCompound nbt) {

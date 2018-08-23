@@ -1,12 +1,13 @@
-package net.machinemuse.powersuits.powermodule.misc;
+package net.machinemuse.powersuits.powermodule.environmental;
 
 import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
-import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.numina.client.sound.Musique;
+import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
@@ -21,13 +22,10 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
-    public static final String WATERBREATHING_ENERGY_CONSUMPTION = "Jolt Energy";
-    public static final String MODULE_WATER_ELECTROLYZER = "Water Electrolyzer";
-
     public WaterElectrolyzerModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.lvcapacitor, 1));
-        addBaseProperty(WaterElectrolyzerModule.WATERBREATHING_ENERGY_CONSUMPTION, 1000, "J");
+        addBasePropertyDouble(MPSModuleConstants.WATERBREATHING_ENERGY_CONSUMPTION, 1000, "J");
     }
 
     @Override
@@ -37,7 +35,7 @@ public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerT
 
     @Override
     public String getDataName() {
-        return MODULE_WATER_ELECTROLYZER;
+        return MPSModuleConstants.MODULE_WATER_ELECTROLYZER__DATANAME;
     }
 
     @Override
@@ -47,8 +45,8 @@ public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerT
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        double energy = ElectricItemUtils.getPlayerEnergy(player);
-        double energyConsumption = ModuleManager.INSTANCE.computeModularProperty(item, WATERBREATHING_ENERGY_CONSUMPTION);
+        int energy = ElectricItemUtils.getPlayerEnergy(player);
+        int energyConsumption = (int) Math.round(ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.WATERBREATHING_ENERGY_CONSUMPTION));
         if (energy > energyConsumption && player.getAir() < 10) {
 
             if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {

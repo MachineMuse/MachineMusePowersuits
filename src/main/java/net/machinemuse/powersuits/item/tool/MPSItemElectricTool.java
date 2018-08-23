@@ -3,11 +3,8 @@ package net.machinemuse.powersuits.item.tool;
 //import appeng.api.config.AccessRestriction;
 
 import com.google.common.collect.Sets;
-import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.powersuits.api.electricity.adapter.IMuseElectricItem;
-import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.item.IModularItemBase;
-import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
@@ -21,7 +18,6 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
@@ -55,11 +51,6 @@ public class MPSItemElectricTool extends ItemTool implements IModularItemBase, I
     @Override
     public double getArmorDouble(EntityPlayer player, ItemStack stack) {
         return 0;
-    }
-
-    @Override
-    public double getMaxMPSEnergy(@Nonnull ItemStack stack) {
-        return ModuleManager.INSTANCE.computeModularProperty(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
     }
 
     @Override

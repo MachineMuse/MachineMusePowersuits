@@ -9,7 +9,7 @@
 //import net.machinemuse.powersuits.common.Config;
 //import net.machinemuse.powersuits.item.ItemComponent;
 //import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-//import net.machinemuse.powersuits.powermodule.PropertyModifierIntLinearAdditive;
+//import net.machinemuse.numina.api.nbt.PropertyModifierIntLinearAdditive;
 //import net.machinemuse.powersuits.utils.ElectricItemUtils;
 //import net.machinemuse.powersuits.utils.MuseCommonStrings;
 //import net.machinemuse.powersuits.utils.MuseStringUtils;
@@ -61,9 +61,9 @@
 //    }
 //
 //    public void betterSearchForValuables(ItemStack itemStack, EntityPlayer player, World world) {
-//        int xRadius = (int) ModuleManager.INSTANCE.INSTANCE.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_X);
-//        int yRadius = (int) ModuleManager.INSTANCE.INSTANCE.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_Y);
-//        int zRadius = (int) ModuleManager.INSTANCE.INSTANCE.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_Z);
+//        int xRadius = (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_X);
+//        int yRadius = (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_Y);
+//        int zRadius = (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_Z);
 //
 //        BlockPos pos =  player.getPosition();
 //
@@ -81,8 +81,8 @@
 //                    IBlockState state = world.getBlockState(newpos);
 //                    value = getValue(state);
 //                    totalValue += value;
-//                    ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.INSTANCE.computeModularProperty(itemStack, ORE_SCANNER_ENERGY_CONSUMPTION));
-//                    totalEnergy += ModuleManager.INSTANCE.INSTANCE.computeModularProperty(itemStack, ORE_SCANNER_ENERGY_CONSUMPTION);
+//                    ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_ENERGY_CONSUMPTION));
+//                    totalEnergy += ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_ENERGY_CONSUMPTION);
 //                    if (value > highestValue) {
 //                        highestValue = value;
 //                        Block block = state.getBlock();
@@ -105,15 +105,15 @@
 //
 //                if (Config.useAdvancedOreScannerMessage()) {
 ////                    player.sendMessage(new TextComponentString("[Ore Scanner] Total ore value: " + totalValue + " --- Most valuable: " + highestValue + "\nSearch radius: " +
-////                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_X) + 1) + "x" +
-////                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_Y) + 1) + "x" +
-////                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_Z) + 1) +
+////                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_X) + 1) + "x" +
+////                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_Y) + 1) + "x" +
+////                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_Z) + 1) +
 ////                            " --- Energy used: " + MuseStringUtils.formatNumberFromUnits(totalEnergy, "J")));
 //
 //                    player.sendMessage(new TextComponentString("[Ore Scanner] Total ore value: " + totalValue + " --- Most valuable: " + highestvalueblockname + "\nSearch radius: " +
-//                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_X) + 1) + "x" +
-//                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_Y) + 1) + "x" +
-//                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.computeModularProperty(itemStack, ORE_SCANNER_RADIUS_Z) + 1) +
+//                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_X) + 1) + "x" +
+//                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_Y) + 1) + "x" +
+//                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_Z) + 1) +
 //                            " --- Energy used: " + MuseStringUtils.formatNumberFromUnits(totalEnergy, "J")));
 //                } else {
 ////                    player.sendMessage(new TextComponentString("[Ore Scanner] Total ore value: " + totalValue + " --- Most valuable: " + highestValue));

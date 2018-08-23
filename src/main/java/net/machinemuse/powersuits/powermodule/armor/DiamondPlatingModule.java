@@ -8,6 +8,7 @@ import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
+import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
 
@@ -15,8 +16,9 @@ public class DiamondPlatingModule extends PowerModuleBase {
     public DiamondPlatingModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(this.getDataName(), MuseItemUtils.copyAndResize(ItemComponent.diamonddPlating, 1));
-        addTradeoffProperty(MPSModuleConstants.ARMOR_PLATING_THICKNESS, MPSModuleConstants.ARMOR_VALUE_PHYSICAL, 6, MPSModuleConstants.POINTS);
-        addTradeoffProperty(MPSModuleConstants.ARMOR_PLATING_THICKNESS, MPSModuleConstants.WEIGHT, 6000, "g");
+        addTradeoffPropertyDouble(MPSModuleConstants.ARMOR_PLATING_THICKNESS, MPSModuleConstants.ARMOR_VALUE_PHYSICAL, 6, MPSModuleConstants.POINTS);
+        addTradeoffPropertyDouble(MPSModuleConstants.ARMOR_PLATING_THICKNESS, MuseHeatUtils.MAXIMUM_HEAT, 400, "");
+        addTradeoffPropertyInteger(MPSModuleConstants.ARMOR_PLATING_THICKNESS, MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override
@@ -26,11 +28,7 @@ public class DiamondPlatingModule extends PowerModuleBase {
 
     @Override
     public String getDataName() {
-        return MPSModuleConstants.MODULE_DIAMOND_PLATING;
-    }
-
-    @Override
-    public String getUnlocalizedName() { return "diamondPlating";
+        return MPSModuleConstants.MODULE_DIAMOND_PLATING__DATANAME;
     }
 
     @Override

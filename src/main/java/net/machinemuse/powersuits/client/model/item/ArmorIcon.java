@@ -5,7 +5,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.client.helper.ModelHelper;
-import net.machinemuse.powersuits.item.*;
+import net.machinemuse.powersuits.item.IModularItemBase;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorHelmet;

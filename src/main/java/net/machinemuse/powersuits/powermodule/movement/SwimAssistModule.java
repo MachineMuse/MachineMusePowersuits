@@ -4,9 +4,10 @@ import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
-import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.numina.client.sound.Musique;
+import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
@@ -21,16 +22,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 
 public class SwimAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static final String MODULE_SWIM_BOOST = "Swim Boost";
-    public static final String SWIM_BOOST_AMOUNT = "Underwater Movement Boost";
-    public static final String SWIM_BOOST_ENERGY_CONSUMPTION = "Swim Boost Energy Consumption";
-
     public SwimAssistModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 2));
-        addTradeoffProperty("Thrust", SWIM_BOOST_ENERGY_CONSUMPTION, 100, "J");
-        addTradeoffProperty("Thrust", SWIM_BOOST_AMOUNT, 1, "m/s");
+        addTradeoffPropertyDouble("Thrust", MPSModuleConstants.SWIM_BOOST_ENERGY_CONSUMPTION, 100, "J");
+        addTradeoffPropertyDouble("Thrust", MPSModuleConstants.SWIM_BOOST_AMOUNT, 1, "m/s");
     }
 
     @Override
@@ -40,11 +37,7 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
 
     @Override
     public String getDataName() {
-        return MODULE_SWIM_BOOST;
-    }
-
-    @Override
-    public String getUnlocalizedName() { return "swimAssist";
+        return MPSModuleConstants.MODULE_SWIM_BOOST__DATANAME;
     }
 
     @Override
@@ -66,8 +59,8 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
                 if (jumpkey || sneakkey) {
                     moveRatio += 0.2 * 0.2;
                 }
-                double swimAssistRate = ModuleManager.INSTANCE.computeModularProperty(item, SWIM_BOOST_AMOUNT) * 0.05 * moveRatio;;
-                double swimEnergyConsumption = ModuleManager.INSTANCE.computeModularProperty(item, SWIM_BOOST_ENERGY_CONSUMPTION);
+                double swimAssistRate = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.SWIM_BOOST_AMOUNT) * 0.05 * moveRatio;;
+                double swimEnergyConsumption = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.SWIM_BOOST_ENERGY_CONSUMPTION);
                 if (swimEnergyConsumption < ElectricItemUtils.getPlayerEnergy(player)) {
                     if (player.world.isRemote && NuminaConfig.useSounds()) {
                         Musique.playerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST, SoundCategory.PLAYERS, 1.0f, 1.0f, true);

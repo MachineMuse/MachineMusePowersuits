@@ -2,16 +2,14 @@ package net.machinemuse.powersuits.event;
 
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.numina.general.MuseMathUtils;
-import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
-import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.machinemuse.powersuits.utils.MusePlayerUtils;
-import net.machinemuse.powersuits.utils.PlayerWeightUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -34,8 +32,8 @@ public class PlayerUpdateHandler {
             EntityPlayer player = (EntityPlayer) e.getEntity();
 
             List<ItemStack> modularItemsEquipped = MuseItemUtils.modularItemsEquipped(player);
-            double totalWeight = PlayerWeightUtils.getPlayerWeight(player);
-            double weightCapacity = MPSConfig.INSTANCE.getWeightCapacity();
+//            double totalWeight = PlayerWeightUtils.getPlayerWeight(player);
+//            double weightCapacity = MPSConfig.INSTANCE.getWeightCapacity();
 
             for (ItemStack stack : modularItemsEquipped) {
                 // Temporary Advanced Rocketry hack Not the best way but meh.
@@ -82,10 +80,10 @@ public class PlayerUpdateHandler {
 
             if (foundItem) {
                 player.fallDistance = (float) MovementManager.computeFallHeightFromVelocity(MuseMathUtils.clampDouble(player.motionY, -1000.0, 0.0));
-                if (totalWeight > weightCapacity) {
-                    player.motionX *= weightCapacity / totalWeight;
-                    player.motionZ *= weightCapacity / totalWeight;
-                }
+//                if (totalWeight > weightCapacity) {
+//                    player.motionX *= weightCapacity / totalWeight;
+//                    player.motionZ *= weightCapacity / totalWeight;
+//                }
 
                 // Heat update
                 MuseHeatUtils.coolPlayer(player, MusePlayerUtils.getPlayerCoolingBasedOnMaterial(player));

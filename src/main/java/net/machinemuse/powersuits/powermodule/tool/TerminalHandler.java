@@ -45,7 +45,7 @@ public class TerminalHandler implements
     @Override
     public boolean usePower(EntityPlayer entityPlayer, double v, @Nonnull ItemStack itemStack) {
         if ((v * MPSConfig.INSTANCE.getAE2Ratio()) < (ElectricItemUtils.getPlayerEnergy(entityPlayer) * MPSConfig.INSTANCE.getAE2Ratio())) {
-            ElectricItemUtils.drainPlayerEnergy(entityPlayer, (v * MPSConfig.INSTANCE.getAE2Ratio()));
+            ElectricItemUtils.drainPlayerEnergy(entityPlayer, (int) (v * MPSConfig.INSTANCE.getAE2Ratio()));
             return true;
         }
         return false;

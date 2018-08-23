@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.item.armor;
 
 import com.google.common.collect.Multimap;
-import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.item.IArmorTraits;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
@@ -11,9 +10,6 @@ import net.machinemuse.powersuits.capabilities.MPSCapProvider;
 import net.machinemuse.powersuits.client.model.item.armor.ArmorModelInstance;
 import net.machinemuse.powersuits.client.model.item.armor.IArmorModel;
 import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.machinemuse.powersuits.powermodule.cosmetic.TransparentArmorModule;
-import net.machinemuse.powersuits.powermodule.environmental.ApiaristArmorModule;
-import net.machinemuse.powersuits.powermodule.misc.InvisibilityModule;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
@@ -36,7 +32,6 @@ import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nonnull;
 import java.util.UUID;
 
 /**
@@ -90,8 +85,8 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         if (type == "overlay")  // this is to allow a tint to be applied tot the armor
             return MPSResourceConstants.BLANK_ARMOR_MODEL_PATH;
         if (armor.getItem() instanceof ItemPowerArmor) {
-            if ((slot == EntityEquipmentSlot.CHEST && ModuleManager.INSTANCE.itemHasActiveModule(armor, InvisibilityModule.MODULE_ACTIVE_CAMOUFLAGE)) ||
-                    (ModuleManager.INSTANCE.itemHasActiveModule(armor, TransparentArmorModule.MODULE_TRANSPARENT_ARMOR)))
+            if ((slot == EntityEquipmentSlot.CHEST && ModuleManager.INSTANCE.itemHasActiveModule(armor, MPSModuleConstants.MODULE_ACTIVE_CAMOUFLAGE__DATANAME)) ||
+                    (ModuleManager.INSTANCE.itemHasActiveModule(armor, MPSModuleConstants.MODULE_TRANSPARENT_ARMOR__DATANAME)))
                 return MPSResourceConstants.BLANK_ARMOR_MODEL_PATH;
             return MPSNBTUtils.getArmorTexture(armor, slot);
         }
@@ -121,8 +116,8 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
             ModelBiped model = ArmorModelInstance.getInstance();
             ((IArmorModel) model).setVisibleSection(armorSlot);
 
-            if (ModuleManager.INSTANCE.itemHasActiveModule(armor, TransparentArmorModule.MODULE_TRANSPARENT_ARMOR) ||
-                    (armorSlot == EntityEquipmentSlot.CHEST && ModuleManager.INSTANCE.itemHasActiveModule(armor, MPSModuleConstants.MODULE_ACTIVE_CAMOUFLAGE))) {
+            if (ModuleManager.INSTANCE.itemHasActiveModule(armor, MPSModuleConstants.MODULE_TRANSPARENT_ARMOR__DATANAME) ||
+                    (armorSlot == EntityEquipmentSlot.CHEST && ModuleManager.INSTANCE.itemHasActiveModule(armor, MPSModuleConstants.MODULE_ACTIVE_CAMOUFLAGE__DATANAME))) {
                 ((IArmorModel) model).setVisibleSection(null);
             }
 
@@ -170,9 +165,9 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         double totalArmor = 0.0;
         NBTTagCompound props = MuseNBTUtils.getMuseItemTag(stack);
         double energy = ElectricItemUtils.getPlayerEnergy(player);
-        double physArmor = ModuleManager.INSTANCE.computeModularProperty(stack, MPSModuleConstants.ARMOR_VALUE_PHYSICAL);
-        double enerArmor = ModuleManager.INSTANCE.computeModularProperty(stack, MPSModuleConstants.ARMOR_VALUE_ENERGY);
-        double enerConsum = ModuleManager.INSTANCE.computeModularProperty(stack, MPSModuleConstants.ARMOR_ENERGY_CONSUMPTION);
+        double physArmor = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_VALUE_PHYSICAL);
+        double enerArmor = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_VALUE_ENERGY);
+        double enerConsum = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_ENERGY_CONSUMPTION);
         totalArmor += physArmor;
         if (energy > enerConsum) {
             totalArmor += enerArmor;
@@ -204,12 +199,16 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
                 if (!source.equals(DamageSource.ON_FIRE) || MuseHeatUtils.getPlayerHeat(player) < MuseHeatUtils.getMaxHeat(player))
                     MuseHeatUtils.heatPlayer(player, damage);
             } else {
-                double enerConsum = ModuleManager.INSTANCE.computeModularProperty(stack, MPSModuleConstants.ARMOR_ENERGY_CONSUMPTION);
+                double enerConsum = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_ENERGY_CONSUMPTION);
                 double drain = enerConsum * damage;
                 if (entity instanceof EntityPlayer)
-                    ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entity, drain);
-                else
-                    this.drainMPSEnergyFrom(stack, drain);
+                    ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entity, (int) drain);
+                else {
+                    final IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
+                    if (energyStorage != null) {
+                        energyStorage.extractEnergy((int) drain, false);
+                    }
+                }
             }
         }
     }
@@ -217,16 +216,11 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
     @Optional.Method(modid = "forestry")
     @Override
     public boolean protectEntity(final EntityLivingBase player, final ItemStack armor, final String cause, final boolean doProtect) {
-        if (ModuleManager.INSTANCE.itemHasActiveModule(armor, ApiaristArmorModule.MODULE_APIARIST_ARMOR)) {
-            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) player, ModuleManager.INSTANCE.computeModularProperty(armor, ApiaristArmorModule.APIARIST_ARMOR_ENERGY_CONSUMPTION));
+        if (ModuleManager.INSTANCE.itemHasActiveModule(armor, MPSModuleConstants.MODULE_APIARIST_ARMOR__DATANAME)) {
+            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) player, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(armor, MPSModuleConstants.APIARIST_ARMOR_ENERGY_CONSUMPTION));
             return true;
         }
         return false;
-    }
-
-    @Override
-    public double getMaxMPSEnergy(@Nonnull ItemStack stack) {
-        return ModuleManager.INSTANCE.computeModularProperty(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
     }
 
     @Override

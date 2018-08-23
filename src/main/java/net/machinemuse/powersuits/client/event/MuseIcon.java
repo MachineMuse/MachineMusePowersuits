@@ -93,6 +93,7 @@ public class MuseIcon {
     // hoe using vanilla texture
     public static TextureAtlasSprite leafBlower;
     public static TextureAtlasSprite luxCapacitor;
+    public static TextureAtlasSprite madModule;
     public static TextureAtlasSprite mffsFieldTeleporter;
     public static TextureAtlasSprite ocTerminal;
     public static TextureAtlasSprite omniProbe;
@@ -187,6 +188,7 @@ public class MuseIcon {
         fieldTinkerer = register(event, "modules/transparentarmor");
         leafBlower = register(event, "modules/leafblower");
         luxCapacitor = register(event, "modules/bluelight");
+        madModule = register(event, "modules/atomic_disassembler");
         mffsFieldTeleporter = register(event, "modules/fieldteleporter");
         ocTerminal = register(event, "modules/ocTerminal");
         omniProbe = register(event, "modules/omniprobe");

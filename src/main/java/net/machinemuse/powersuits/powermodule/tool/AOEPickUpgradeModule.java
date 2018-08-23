@@ -5,11 +5,11 @@ import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IBlockBreakingModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
@@ -23,14 +23,13 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
  * Created by Eximius88 on 1/29/14.
  */
 public class AOEPickUpgradeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
-    public static final String MODULE_AOE_PICK_UPGRADE = "Diamond Drill Upgrade";
     //public static final ItemStack ironPickaxe = new ItemStack(Item.pickaxeIron);
     public static final String ENERGY_CONSUMPTION = "Energy Consumption";
     public AOEPickUpgradeModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         //ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Item.diamond, 3));
-        addBaseProperty(ENERGY_CONSUMPTION, 5, "J");
+        addBasePropertyDouble(ENERGY_CONSUMPTION, 5, "J");
     }
 
     @Override
@@ -40,12 +39,7 @@ public class AOEPickUpgradeModule extends PowerModuleBase implements IBlockBreak
 
     @Override
     public String getDataName() {
-        return MODULE_AOE_PICK_UPGRADE;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "aoePickUpgrade";
+        return MPSModuleConstants.MODULE_AOE_PICK_UPGRADE__DATANAME;
     }
 
     @Override

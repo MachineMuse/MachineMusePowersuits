@@ -130,7 +130,7 @@ public class KeybindConfigFrame implements IGuiFrame {
                 closestKeybind.bindModule((ClickableModule) selectedClickie);
             } else if (selectedClickie != null && selectedClickie instanceof ClickableKeybinding && trashKeybindButton.hitBox(x, y)) {
                 KeyBinding binding = ((ClickableKeybinding) selectedClickie).getKeyBinding();
-                KeyBinding.KEYBIND_ARRAY.remove(binding);
+                keyBindingHelper.removeKey(binding);
 //                KeyBinding.HASH.removeObject(binding.getKeyCode());
                 keyBindingHelper.removeKey(binding.getKeyCode());
                 KeybindManager.getKeybindings().remove(selectedClickie);

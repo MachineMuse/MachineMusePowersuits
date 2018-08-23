@@ -2,10 +2,8 @@ package net.machinemuse.powersuits.common.config;
 
 import jline.internal.Nullable;
 import net.machinemuse.numina.common.Numina;
-import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.common.MPSCreativeTab;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import org.apache.commons.io.FileUtils;
@@ -147,6 +145,32 @@ public enum MPSConfig {
         }
     }
 
+    public int getPropertyIntegerOrDefault(String name, int value) {
+        //TODO: use this after porting finished
+        //return getServerSettings() != null ? getServerSettings().propertyDouble.getOrDefault(name, value) : MPSSettings.modules.propertyDouble.getOrDefault(name, value);
+        if (getServerSettings() != null) {
+            if (getServerSettings().propertyInteger.isEmpty() || !getServerSettings().propertyInteger.containsKey(name)) {
+                System.out.println("Property config values missing: ");
+                System.out.println("property: " + name);
+                System.out.println("value: " + value);
+//                getServerSettings().propertyInteger.put(name, value);
+                missingModuleIntegers.put(name, value);
+            }
+            return getServerSettings().propertyInteger.getOrDefault(name, value);
+        } else {
+            if (MPSSettings.modules.propertyInteger.isEmpty() || !MPSSettings.modules.propertyInteger.containsKey(name)) {
+                System.out.println("Property config values missing: ");
+                System.out.println("property: " + name);
+                System.out.println("value: " + value);
+//                MPSSettings.modules.propertyInteger.put(name, value);
+                missingModuleIntegers.put(name, value);
+            }
+            return MPSSettings.modules.propertyInteger.getOrDefault(name, value);
+        }
+    }
+
+
+
     /** Models ------------------------------------------------------------------------------------ */
     public boolean modelSetUp() {
 //        return getServerSettings() != null ? getServerSettings().modelSetup : MPSSettings.modelconfig.modelSetup;
@@ -181,21 +205,18 @@ public enum MPSConfig {
 
 
     /** Energy ------------------------------------------------------------------------------------ */
-    // 1MJ (MPS) = 1 MJ (Mekanism)
+
+
+
+
+    // 1 RF = 0.1 MJ (Mekanism)
     public static double getMekRatio() {
         return getServerSettings() != null ? getServerSettings().mekRatio : MPSSettings.energy.mekRatio;
     }
 
-    // 1 MJ = 2.5 EU
-    // 1 EU = 0.4 MJ
+    // 1 RF = 0.25 EU
     public static double getIC2Ratio() {
         return getServerSettings() != null ? getServerSettings().ic2Ratio : MPSSettings.energy.ic2Ratio;
-    }
-
-    // 1 MJ = 10 RF
-    // 1 RF = 0.1 MJ
-    public static double getRFRatio() {
-        return getServerSettings() != null ? getServerSettings().rfRatio : MPSSettings.energy.rfRatio;
     }
 
     // (Refined Storage) 1 RS = 1 RF
@@ -203,10 +224,25 @@ public enum MPSConfig {
         return getServerSettings() != null ? getServerSettings().refinedStorageRatio : MPSSettings.energy.refinedStorageRatio;
     }
 
-    // 1 MJ = 5 AE
-    // 1 AE = 0.2 MJ
+    // 1 RF = 0.5 AE
     public static double getAE2Ratio() {
         return getServerSettings() != null ? getServerSettings().ae2Ratio : MPSSettings.energy.ae2Ratio;
+    }
+
+    public static int getTier1MaxRF() {
+        return getServerSettings() != null ? getServerSettings().maxTier1 : MPSSettings.energy.maxTier1;
+    }
+
+    public static int getTier2MaxRF() {
+        return getServerSettings() != null ? getServerSettings().maxTier2 : MPSSettings.energy.maxTier2;
+    }
+
+    public static int getTier3MaxRF() {
+        return getServerSettings() != null ? getServerSettings().maxTier3 : MPSSettings.energy.maxTier3;
+    }
+
+    public static int getTier4MaxRF() {
+        return getServerSettings() != null ? getServerSettings().maxTier4 : MPSSettings.energy.maxTier4;
     }
 
     /**
@@ -228,6 +264,27 @@ public enum MPSConfig {
         }
         return;
     }
+
+    /**
+     * The annotation based config system lacks the ability to handle
+     * Writes the missing values to a file
+     */
+    Map<String, Integer> missingModuleIntegers = new HashMap<>();
+    public void configIntegerKVGen() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (Map.Entry<String, Integer> line : new TreeMap<>(missingModuleIntegers).entrySet()) { // treemap sorts the keys
+            stringBuilder.append("put( \"").append(line.getKey()).append("\", ").append(line.getValue()).append("D );\n");
+        }
+
+        try {
+            FileUtils.writeStringToFile(new File(getConfigFolder(), "missingConfigIntegers.txt"), stringBuilder.toString(), Charset.defaultCharset(), false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return;
+    }
+
 
     public static boolean doAdditionalInfo() {
         return FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT && Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);

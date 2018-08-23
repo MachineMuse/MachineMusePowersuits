@@ -8,7 +8,6 @@ import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.machinemuse.powersuits.utils.modulehelpers.FluidUtils;
 import net.minecraft.block.Block;
@@ -26,19 +25,16 @@ import net.minecraft.util.math.MathHelper;
  * 4:35 PM 6/21/13
  */
 public class WaterTankModule extends PowerModuleBase implements IPlayerTickModule {
-    public static final String MODULE_WATER_TANK = "Water Tank";
-    public static final String WATER_TANK_SIZE = "Tank Size";
-    public static final String ACTIVATION_PERCENT = "Heat Activation Percent";
     final ItemStack bucketWater = new ItemStack(Items.WATER_BUCKET);
 
     public WaterTankModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        addBaseProperty(WATER_TANK_SIZE, 200);
-        addBaseProperty(MPSModuleConstants.WEIGHT, 1000);
-        addBaseProperty(ACTIVATION_PERCENT, 0.5);
-        addTradeoffProperty("Activation Percent", ACTIVATION_PERCENT, 0.5, "%");
-        addTradeoffProperty("Tank Size", WATER_TANK_SIZE, 800, " buckets");
-        addTradeoffProperty("Tank Size", MPSModuleConstants.WEIGHT, 4000, "g");
+        addBasePropertyDouble(MPSModuleConstants.WATER_TANK_SIZE, 200);
+//        addBasePropertyDouble(MPSModuleConstants.WEIGHT, 1000);
+        addBasePropertyDouble(MPSModuleConstants.ACTIVATION_PERCENT, 0.5);
+        addTradeoffPropertyDouble("Activation Percent", MPSModuleConstants.ACTIVATION_PERCENT, 0.5, "%");
+        addTradeoffPropertyDouble("Tank Size", MPSModuleConstants.WATER_TANK_SIZE, 800, " buckets");
+//        addTradeoffPropertyDouble("Tank Size", MPSModuleConstants.WEIGHT, 4000, "g");
         ModuleManager.INSTANCE.addInstallCost(getDataName(),bucketWater);
         ModuleManager.INSTANCE.addInstallCost(getDataName(),new ItemStack(Blocks.GLASS, 8));
         ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 2));
@@ -56,23 +52,18 @@ public class WaterTankModule extends PowerModuleBase implements IPlayerTickModul
 
     @Override
     public String getDataName() {
-        return MODULE_WATER_TANK;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "waterTank";
+        return MPSModuleConstants.MODULE_WATER_TANK__DATANAME;
     }
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        if (FluidUtils.getWaterLevel(item) > ModuleManager.INSTANCE.computeModularProperty(item, WATER_TANK_SIZE)) {
-            FluidUtils.setWaterLevel(item, ModuleManager.INSTANCE.computeModularProperty(item, WATER_TANK_SIZE));
+        if (FluidUtils.getWaterLevel(item) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.WATER_TANK_SIZE)) {
+            FluidUtils.setWaterLevel(item, ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.WATER_TANK_SIZE));
         }
 
         // Fill tank if player is in water
         Block block = player.world.getBlockState(player.getPosition()).getBlock();
-        if (((block == Blocks.WATER) || block == Blocks.FLOWING_WATER) && FluidUtils.getWaterLevel(item) < ModuleManager.INSTANCE.computeModularProperty(item, WATER_TANK_SIZE)) {
+        if (((block == Blocks.WATER) || block == Blocks.FLOWING_WATER) && FluidUtils.getWaterLevel(item) < ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.WATER_TANK_SIZE)) {
             FluidUtils.setWaterLevel(item, FluidUtils.getWaterLevel(item) + 1);
         }
 
@@ -81,14 +72,14 @@ public class WaterTankModule extends PowerModuleBase implements IPlayerTickModul
         int zCoord = MathHelper.floor(player.posZ);
         boolean isRaining = (player.world.getBiomeForCoordsBody(player.getPosition()).getRainfall() > 0) && (player.world.isRaining() || player.world.isThundering());
         if (isRaining && player.world.canBlockSeeSky(player.getPosition().add(0,1,0))
-                && (player.world.getTotalWorldTime() % 5) == 0 && FluidUtils.getWaterLevel(item) < ModuleManager.INSTANCE.computeModularProperty(item, WATER_TANK_SIZE)) {
+                && (player.world.getTotalWorldTime() % 5) == 0 && FluidUtils.getWaterLevel(item) < ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.WATER_TANK_SIZE)) {
             FluidUtils.setWaterLevel(item, FluidUtils.getWaterLevel(item) + 1);
         }
 
         // Apply cooling
         double currentHeat = MuseHeatUtils.getPlayerHeat(player);
         double maxHeat = MuseHeatUtils.getMaxHeat(player);
-        if ((currentHeat / maxHeat) >= ModuleManager.INSTANCE.computeModularProperty(item, ACTIVATION_PERCENT) && FluidUtils.getWaterLevel(item) > 0) {
+        if ((currentHeat / maxHeat) >= ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.ACTIVATION_PERCENT) && FluidUtils.getWaterLevel(item) > 0) {
             MuseHeatUtils.coolPlayer(player, 1);
             FluidUtils.setWaterLevel(item, FluidUtils.getWaterLevel(item) - 1);
             for (int i = 0; i < 4; i++) {

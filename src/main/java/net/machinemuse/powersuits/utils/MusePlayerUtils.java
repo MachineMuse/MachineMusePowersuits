@@ -4,10 +4,10 @@ import net.machinemuse.numina.api.item.IModularItem;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.PlayerInputMap;
-import net.machinemuse.powersuits.powermodule.movement.FlightControlModule;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -194,7 +194,7 @@ public class MusePlayerUtils {
             double flightVerticality = 0;
             ItemStack helm = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);;
             if (helm != null && helm.getItem() instanceof IModularItem) {
-                flightVerticality = ModuleManager.INSTANCE.computeModularProperty(helm, FlightControlModule.FLIGHT_VERTICALITY);
+                flightVerticality = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(helm, MPSModuleConstants.FLIGHT_VERTICALITY);
             }
 
             desiredDirection = new Vec3d(

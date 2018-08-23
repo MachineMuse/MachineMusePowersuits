@@ -44,6 +44,8 @@ public final class MusePacketModeChangeRequest extends MusePacket {
                 if (item instanceof IModeChangingItem) {
                     List<String> modes = ((IModeChangingItem) item).getValidModes(stack);
                     if (modes.contains(mode)) {
+                        System.out.println("active mode is: " + mode);
+
                         ((IModeChangingItem) item).setActiveMode(stack, mode);
                     }
                 }

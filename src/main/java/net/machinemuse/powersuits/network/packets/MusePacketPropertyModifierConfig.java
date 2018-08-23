@@ -7,8 +7,8 @@
 //import net.machinemuse.numina.network.MusePacket;
 //import net.machinemuse.powersuits.api.module.ModuleManager;
 //import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-//import net.machinemuse.powersuits.powermodule.PropertyModifierFlatAdditive;
-//import net.machinemuse.powersuits.powermodule.PropertyModifierLinearAdditive;
+//import net.machinemuse.numina.api.nbt.PropertyModifierFlatAdditiveDouble;
+//import net.machinemuse.numina.api.nbt.PropertyModifierLinearAdditive;
 //import net.minecraft.entity.player.EntityPlayer;
 //import net.minecraftforge.fml.relauncher.Side;
 //import net.minecraftforge.fml.relauncher.SideOnly;
@@ -51,8 +51,8 @@
 //                List<IPropertyModifier> propmodlist = entry.getValue();
 //                writeInt(propmodlist.size());
 //                for (IPropertyModifier propmod : propmodlist) {
-//                    if (propmod instanceof PropertyModifierFlatAdditive)
-//                        writeDouble(((PropertyModifierFlatAdditive) propmod).valueAdded);
+//                    if (propmod instanceof PropertyModifierFlatAdditiveDouble)
+//                        writeDouble(((PropertyModifierFlatAdditiveDouble) propmod).valueAdded);
 //                    else if (propmod instanceof PropertyModifierLinearAdditive)
 //                        writeDouble(((PropertyModifierLinearAdditive) propmod).multiplier);
 //                    else writeDouble(0);
@@ -84,8 +84,8 @@
 //                List<IPropertyModifier> proplist = module.getPropertyModifiers().get(propName);
 //                for (int m = 0; m < numModifiers; m++) {
 //                    IPropertyModifier propMod = proplist.get(m);
-//                    if (propMod instanceof PropertyModifierFlatAdditive)
-//                        ((PropertyModifierFlatAdditive) propMod).valueAdded = d.readDouble(data);
+//                    if (propMod instanceof PropertyModifierFlatAdditiveDouble)
+//                        ((PropertyModifierFlatAdditiveDouble) propMod).valueAdded = d.readDouble(data);
 //                    else if (propMod instanceof PropertyModifierLinearAdditive)
 //                        ((PropertyModifierLinearAdditive) propMod).multiplier = d.readDouble(data);
 //                    else d.readDouble(data);

@@ -4,6 +4,7 @@ import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -27,9 +28,6 @@ import java.util.Random;
  * 10:48 PM 6/11/13
  */
 public class FlintAndSteelModule extends PowerModuleBase implements IRightClickModule {
-
-    public static final String MODULE_FLINT_AND_STEEL = "Flint and Steel";
-    public static final String IGNITION_ENERGY_CONSUMPTION = "Ignition Energy Consumption";
     public final ItemStack fas = new ItemStack(Items.FLINT_AND_STEEL);
     final Random ran = new Random();
 
@@ -37,7 +35,7 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), fas);
-        addBaseProperty(IGNITION_ENERGY_CONSUMPTION, 1000, "J");
+        addBasePropertyInteger(MPSModuleConstants.IGNITION_ENERGY_CONSUMPTION, 10000, "RF");
     }
 
     @Override
@@ -52,12 +50,7 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
 
     @Override
     public String getDataName() {
-        return MODULE_FLINT_AND_STEEL;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "flintAndSteel";
+        return MPSModuleConstants.MODULE_FLINT_AND_STEEL__DATANAME;
     }
 
     @Override
@@ -67,7 +60,7 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
 
     @Override
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        double energyConsumption = ModuleManager.INSTANCE.computeModularProperty(stack, IGNITION_ENERGY_CONSUMPTION);
+        int energyConsumption = ModuleManager.INSTANCE.getOrSetModularPropertyInteger(stack, MPSModuleConstants.IGNITION_ENERGY_CONSUMPTION);
         if (energyConsumption < ElectricItemUtils.getPlayerEnergy(playerIn)) {
             pos = pos.offset(facing);
             if (!playerIn.canPlayerEdit(pos, facing, stack)) {

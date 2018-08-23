@@ -1,20 +1,19 @@
-package net.machinemuse.powersuits.powermodule.misc;
+package net.machinemuse.powersuits.powermodule.vision;
 
 import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IToggleableModule;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
 
 import java.lang.reflect.Method;
 
 public class ThaumGogglesModule extends PowerModuleBase implements IToggleableModule {
-    public static final String MODULE_THAUM_GOGGLES = "Aurameter";
     ItemStack gogglesStack = null;
 
     public ThaumGogglesModule(EnumModuleTarget moduleTarget) {
@@ -38,12 +37,7 @@ public class ThaumGogglesModule extends PowerModuleBase implements IToggleableMo
 
     @Override
     public String getDataName() {
-        return MODULE_THAUM_GOGGLES;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "aurameter";
+        return MPSModuleConstants.MODULE_THAUM_GOGGLES__DATANAME;
     }
 
     @Override

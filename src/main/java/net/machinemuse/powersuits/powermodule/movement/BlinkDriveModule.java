@@ -6,12 +6,12 @@ import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.machinemuse.powersuits.utils.MusePlayerUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
@@ -23,18 +23,15 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 public class BlinkDriveModule extends PowerModuleBase implements IRightClickModule {
-    public static final String MODULE_BLINK_DRIVE = "Blink Drive";
-    public static final String BLINK_DRIVE_ENERGY_CONSUMPTION = "Blink Drive Energy Consuption";
-    public static final String BLINK_DRIVE_RANGE = "Blink Drive Range";
-
     public BlinkDriveModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        addBaseProperty(BLINK_DRIVE_ENERGY_CONSUMPTION, 1000, "J");
-        addBaseProperty(BLINK_DRIVE_RANGE, 5, "m");
-        addTradeoffProperty("Range", BLINK_DRIVE_ENERGY_CONSUMPTION, 3000);
-        addTradeoffProperty("Range", BLINK_DRIVE_RANGE, 59);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
+
+        addBasePropertyInteger(MPSModuleConstants.BLINK_DRIVE_ENERGY_CONSUMPTION, 10000, "RF");
+        addBasePropertyInteger(MPSModuleConstants.BLINK_DRIVE_RANGE, 5, "m");
+        addTradeoffPropertyInteger("Range", MPSModuleConstants.BLINK_DRIVE_ENERGY_CONSUMPTION, 3000);
+        addTradeoffPropertyInteger("Range", MPSModuleConstants.BLINK_DRIVE_RANGE, 59);
     }
 
     @Override
@@ -44,18 +41,14 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public String getDataName() {
-        return MODULE_BLINK_DRIVE;
-    }
-
-    @Override
-    public String getUnlocalizedName() { return "blinkDrive";
+        return MPSModuleConstants.MODULE_BLINK_DRIVE__DATANAME;
     }
 
     @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         SoundEvent enderman_portal =  SoundEvent.REGISTRY.getObject(new ResourceLocation("entity.endermen.teleport"));
-        double range = ModuleManager.INSTANCE.computeModularProperty(itemStackIn, BLINK_DRIVE_RANGE);
-        double energyConsumption = ModuleManager.INSTANCE.computeModularProperty(itemStackIn, BLINK_DRIVE_ENERGY_CONSUMPTION);
+        int range = ModuleManager.INSTANCE.getOrSetModularPropertyInteger(itemStackIn, MPSModuleConstants.BLINK_DRIVE_RANGE);
+        int energyConsumption = ModuleManager.INSTANCE.getOrSetModularPropertyInteger(itemStackIn, MPSModuleConstants.BLINK_DRIVE_ENERGY_CONSUMPTION);
         if (ElectricItemUtils.getPlayerEnergy(playerIn) > energyConsumption) {
             NuminaPlayerUtils.resetFloatKickTicks(playerIn);
             ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);

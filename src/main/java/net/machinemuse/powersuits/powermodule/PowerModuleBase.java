@@ -3,7 +3,8 @@ package net.machinemuse.powersuits.powermodule;
 import net.machinemuse.numina.api.item.IModularItem;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPowerModule;
-import net.machinemuse.numina.api.nbt.IPropertyModifier;
+import net.machinemuse.numina.api.nbt.*;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.armor.*;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
@@ -86,18 +87,6 @@ public abstract class PowerModuleBase implements IPowerModule {
     }
 
     @Override
-    public double applyPropertyModifiers(NBTTagCompound itemTag, String propertyName, double propertyValue) {
-        Iterable<IPropertyModifier> propertyModifiersIterable = propertyModifiers.get(propertyName);
-        if (propertyModifiersIterable != null && itemTag.hasKey(this.getDataName())) {
-            NBTTagCompound moduleTag = itemTag.getCompoundTag(this.getDataName());
-            for (IPropertyModifier modifier : propertyModifiersIterable) {
-                propertyValue = modifier.applyModifier(moduleTag, propertyValue);
-            }
-        }
-        return propertyValue;
-    }
-
-    @Override
     public NBTTagCompound getNewTag() {
         return (NBTTagCompound) defaultTag.copy();
     }
@@ -111,47 +100,127 @@ public abstract class PowerModuleBase implements IPowerModule {
         this.isAllowed = allowed;
     }
 
-    public PowerModuleBase addTradeoffProperty(String tradeoffName, String propertyName, double multiplier) {
-        String key = new StringBuilder(getDataName()).append('.').append(propertyName).append('.').append(tradeoffName).append(".multiplier").toString();
-        double propFromConfig = MPSConfig.INSTANCE.getPropertyDoubleOrDefault(key, multiplier);
-        return addPropertyModifier(propertyName, new PropertyModifierLinearAdditive(tradeoffName, propFromConfig));
-    }
-
-    public PowerModuleBase addTradeoffProperty(String tradeoffName, String propertyName, double multiplier, String unit) {
-        units.put(propertyName, unit);
-        return addTradeoffProperty(tradeoffName, propertyName, multiplier);
-        }
-
     public PowerModuleBase addPropertyModifier(String propertyName, IPropertyModifier modifier) {
         List<IPropertyModifier> modifiers = propertyModifiers.get(propertyName);
         if (modifiers == null) {
             modifiers = new LinkedList();
-            propertyModifiers.put(propertyName, modifiers);
         }
         modifiers.add(modifier);
+        propertyModifiers.put(propertyName, modifiers);
         return this;
     }
 
-    public PowerModuleBase addSimpleTradeoff(IPowerModule module, String tradeoffName, String firstPropertyName, String firstUnits,
-                                             double firstPropertyBase, double firstPropertyMultiplier, String secondPropertyName,
-                                             String secondUnits, double secondPropertyBase,
-                                             double secondPropertyMultiplier) {
-        this.addBaseProperty(firstPropertyName, firstPropertyBase, firstUnits);
-        this.addTradeoffProperty(tradeoffName, firstPropertyName, firstPropertyMultiplier);
-        this.addBaseProperty(secondPropertyName, secondPropertyBase, secondUnits);
-        this.addTradeoffProperty(tradeoffName, secondPropertyName, secondPropertyMultiplier);
+    @Override
+    public double applyPropertyModifiers(NBTTagCompound itemTag, String propertyName, double propertyValue) {
+        Iterable<IPropertyModifier> propertyModifiersIterable = propertyModifiers.get(propertyName);
+        if (propertyModifiersIterable != null && itemTag.hasKey(this.getDataName())) {
+            NBTTagCompound moduleTag = itemTag.getCompoundTag(this.getDataName());
+            for (IPropertyModifier modifier : propertyModifiersIterable) {
+                if (modifier instanceof IPropertyModifierDouble)
+                    propertyValue = ((IPropertyModifierDouble) modifier).applyModifier(moduleTag, propertyValue);
+                else if (modifier instanceof IPropertyModifierInteger)
+                    propertyValue = ((IPropertyModifierInteger) modifier).applyModifier(moduleTag, propertyValue);
+            }
+        }
+        return propertyValue;
+    }
+
+
+    /** Double ------------------------------------------------------------------------------------ */
+    /**
+     * Adds a base key and multiplierValue to the map based on the config setting.
+     */
+    public PowerModuleBase addTradeoffPropertyDouble(String tradeoffName, String propertyName, double multiplier) {
+        String key = new StringBuilder(getDataName()).append('.').append(propertyName).append('.').append(tradeoffName).append(".multiplier").toString();
+        double propFromConfig = MPSConfig.INSTANCE.getPropertyDoubleOrDefault(key, multiplier);
+        return addPropertyModifier(propertyName, new PropertyModifierLinearAdditiveDouble(tradeoffName, propFromConfig));
+    }
+
+    /**
+     * Adds a base key and value to the map based on the config setting.
+     * Also adds a [ propertyName, unitOfMeasureLabel ] k-v pair to a map used for displyaing a label
+     */
+    public PowerModuleBase addTradeoffPropertyDouble(String tradeoffName, String propertyName, double multiplier, String unit) {
+        units.put(propertyName, unit);
+        return addTradeoffPropertyDouble(tradeoffName, propertyName, multiplier);
+    }
+
+    public PowerModuleBase addSimpleTradeoffDouble(IPowerModule module,
+                                                   String tradeoffName,
+                                                   String firstPropertyName,
+                                                   String firstUnits,
+                                                   double firstPropertyBase,
+                                                   double firstPropertyMultiplier,
+                                                   String secondPropertyName,
+                                                   String secondUnits,
+                                                   double secondPropertyBase,
+                                                   double secondPropertyMultiplier) {
+        this.addBasePropertyDouble(firstPropertyName, firstPropertyBase, firstUnits);
+        this.addTradeoffPropertyDouble(tradeoffName, firstPropertyName, firstPropertyMultiplier);
+        this.addBasePropertyDouble(secondPropertyName, secondPropertyBase, secondUnits);
+        this.addTradeoffPropertyDouble(tradeoffName, secondPropertyName, secondPropertyMultiplier);
         return this;
     }
 
-    public PowerModuleBase addBaseProperty(String propertyName, double baseVal) {
+    /**
+     * Adds a base key and value to the map based on the config setting.
+     */
+    public PowerModuleBase addBasePropertyDouble(String propertyName, double baseVal) {
         String key = new StringBuilder(getDataName()).append('.').append(propertyName).append(".base").toString();
         double propFromConfig = MPSConfig.INSTANCE.getPropertyDoubleOrDefault(key, baseVal);
-        return addPropertyModifier(propertyName, new PropertyModifierFlatAdditive(propFromConfig));
+        return addPropertyModifier(propertyName, new PropertyModifierFlatAdditiveDouble(propFromConfig));
     }
 
-    public PowerModuleBase addBaseProperty(String propertyName, double baseVal, String unit) {
+    /**
+     * Adds a base key and value to the map based on the config setting.
+     * Also adds a [ propertyName, unitOfMeasureLabel ] k-v pair to a map used for displyaing a label
+     */
+    public PowerModuleBase addBasePropertyDouble(String propertyName, double baseVal, String unit) {
         units.put(propertyName, unit);
-        return addBaseProperty(propertyName, baseVal);
+        return addBasePropertyDouble(propertyName, baseVal);
+    }
+
+
+    /** Integer ----------------------------------------------------------------------------------- */
+    public PowerModuleBase addIntTradeoffProperty(String tradeoffName, String propertyName, int multiplier, String unit, int roundTo, int offset) {
+        units.put(propertyName, unit);
+        String key = new StringBuilder(getDataName()).append('.').append(propertyName).append('.').append(tradeoffName).append(".multiplier").toString();
+        int propFromConfig = MPSConfig.INSTANCE.getPropertyIntegerOrDefault(key, multiplier);
+        return addPropertyModifier(propertyName, new PropertyModifierIntLinearAdditive(tradeoffName, multiplier, roundTo, offset));
+    }
+
+    public PowerModuleBase addTradeoffPropertyInteger(String tradeoffName, String propertyName, int multiplier) {
+        String key = new StringBuilder(getDataName()).append('.').append(propertyName).append('.').append(tradeoffName).append(".multiplier").toString();
+        int propFromConfig = MPSConfig.INSTANCE.getPropertyIntegerOrDefault(key, multiplier);
+        return addPropertyModifier(propertyName, new PropertyModifierLinearAdditiveInteger(tradeoffName, propFromConfig));
+    }
+
+
+    public PowerModuleBase addTradeoffPropertyInteger(String tradeoffName, String propertyName, int multiplier, String unit) {
+        units.put(propertyName, unit);
+        return addTradeoffPropertyInteger(tradeoffName, propertyName, multiplier);
+    }
+
+//    public PowerModuleBase addSimpleTradeoffInteger(IPowerModule module, String tradeoffName, String firstPropertyName, String firstUnits,
+//                                                    int firstPropertyBase, int firstPropertyMultiplier, String secondPropertyName,
+//                                                    String secondUnits, int secondPropertyBase,
+//                                                    int secondPropertyMultiplier) {
+//        this.addBasePropertyInteger(firstPropertyName, firstPropertyBase, firstUnits);
+//        this.addTradeoffPropertyInteger(tradeoffName, firstPropertyName, firstPropertyMultiplier);
+//        this.addBasePropertyInteger(secondPropertyName, secondPropertyBase, secondUnits);
+//        this.addTradeoffPropertyInteger(tradeoffName, secondPropertyName, secondPropertyMultiplier);
+//        return this;
+//    }
+
+    public PowerModuleBase addBasePropertyInteger(String propertyName, int baseVal) {
+        String key = new StringBuilder(getDataName()).append('.').append(propertyName).append(".base").toString();
+        int propFromConfig = MPSConfig.INSTANCE.getPropertyIntegerOrDefault(key, baseVal);
+        return addPropertyModifier(propertyName, new PropertyModifierFlatAdditiveInteger(propFromConfig));
+    }
+
+    public PowerModuleBase addBasePropertyInteger(String propertyName, int baseVal, String unit) {
+        units.put(propertyName, unit);
+        return addBasePropertyInteger(propertyName, baseVal);
     }
 
     public boolean equals(PowerModuleBase other) {
@@ -159,5 +228,7 @@ public abstract class PowerModuleBase implements IPowerModule {
     }
 
     @Override
-    public abstract String getUnlocalizedName();
+    public String getUnlocalizedName() {
+        return getDataName();
+    }
 }

@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.network.packets;
 
 import io.netty.buffer.ByteBufInputStream;
-import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
@@ -21,14 +20,14 @@ import net.minecraft.nbt.NBTTagCompound;
  *
  * Ported to Java by lehjr on 11/14/16.
  */
-public class MusePacketTweakRequest extends MusePacket {
+public class MusePacketTweakRequestDouble extends MusePacket {
     final EntityPlayer player;
     final int itemSlot;
     final String moduleName;
     final String tweakName;
     double tweakValue;
 
-    public MusePacketTweakRequest(EntityPlayer player, int itemSlot, String moduleName, String tweakName, double tweakValue) {
+    public MusePacketTweakRequestDouble(EntityPlayer player, int itemSlot, String moduleName, String tweakName, double tweakValue) {
         this.player = player;
         this.itemSlot = itemSlot;
         this.moduleName = moduleName;
@@ -54,9 +53,11 @@ public class MusePacketTweakRequest extends MusePacket {
         if (moduleName != null && tweakName != null) {
             ItemStack stack = player.inventory.getStackInSlot(itemSlot);
             NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
+
             if (itemTag != null && ModuleManager.INSTANCE.tagHasModule(itemTag, moduleName)) {
+                MuseNBTUtils.removeMuseValuesTag(stack);
                 NBTTagCompound moduleTag = itemTag.getCompoundTag(moduleName);
-                moduleTag.setDouble(tweakName, MuseMathUtils.clampDouble(tweakValue, 0, 1));
+                moduleTag.setDouble(tweakName, tweakValue);
             }
         }
     }
@@ -74,7 +75,7 @@ public class MusePacketTweakRequest extends MusePacket {
             String moduleName = readString(datain);
             String tweakName = readString(datain);
             double tweakValue = readDouble(datain);
-            return new MusePacketTweakRequest(player, itemSlot, moduleName, tweakName, tweakValue);
+            return new MusePacketTweakRequestDouble(player, itemSlot, moduleName, tweakName, tweakValue);
         }
     }
 }

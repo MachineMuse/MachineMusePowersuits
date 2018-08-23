@@ -4,7 +4,7 @@ import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.block.itemblock.ItemBlockLuxCapacitor;
 import net.machinemuse.powersuits.block.itemblock.ItemBlockTinkerTable;
-import net.machinemuse.powersuits.item.*;
+import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorHelmet;

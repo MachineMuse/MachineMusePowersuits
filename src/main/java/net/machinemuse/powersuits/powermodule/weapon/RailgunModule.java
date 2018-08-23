@@ -5,6 +5,7 @@ import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -24,22 +25,16 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class RailgunModule extends PowerModuleBase implements IRightClickModule, IPlayerTickModule {
-    public static final String MODULE_RAILGUN = "Railgun";
-    public static final String IMPULSE = "Railgun Total Impulse";
-    public static final String ENERGY = "Railgun Energy Cost";
-    public static final String HEAT = "Railgun Heat Emission";
-    public static final String TIMER = "cooldown";
-
     public RailgunModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 6));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
-        addBaseProperty(IMPULSE, 500, "Ns");
-        addBaseProperty(ENERGY, 500, "J");
-        addBaseProperty(HEAT, 2, "");
-        addTradeoffProperty("Voltage", IMPULSE, 2500);
-        addTradeoffProperty("Voltage", ENERGY, 2500);
-        addTradeoffProperty("Voltage", HEAT, 10);
+        addBasePropertyDouble(MPSModuleConstants.RAILGUN_TOTAL_IMPULSE, 500, "Ns");
+        addBasePropertyDouble(MPSModuleConstants.RAILGUN_ENERGY_COST, 500, "J");
+        addBasePropertyDouble(MPSModuleConstants.RAILGUN_HEAT_EMISSION , 2, "");
+        addTradeoffPropertyDouble("Voltage", MPSModuleConstants.RAILGUN_TOTAL_IMPULSE, 2500);
+        addTradeoffPropertyDouble("Voltage", MPSModuleConstants.RAILGUN_ENERGY_COST, 2500);
+        addTradeoffPropertyDouble("Voltage", MPSModuleConstants.RAILGUN_HEAT_EMISSION , 10);
     }
 
     @Override
@@ -49,12 +44,7 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
 
     @Override
     public String getDataName() {
-        return MODULE_RAILGUN;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "railgun";
+        return MPSModuleConstants.MODULE_RAILGUN__DATANAME;
     }
 
     public void drawParticleStreamTo(EntityPlayer source, World world, double x, double y, double z) {
@@ -86,16 +76,16 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         if (hand == EnumHand.MAIN_HAND) {
             double range = 64;
-            double timer = MuseItemUtils.getDoubleOrZero(itemStackIn, TIMER);
-            double energyConsumption = ModuleManager.INSTANCE.computeModularProperty(itemStackIn, ENERGY);
+            double timer = MuseItemUtils.getDoubleOrZero(itemStackIn, MPSModuleConstants.TIMER);
+            double energyConsumption = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.RAILGUN_ENERGY_COST);
             if (ElectricItemUtils.getPlayerEnergy(playerIn) > energyConsumption && timer == 0) {
-                ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
-                MuseItemUtils.setDoubleOrRemove(itemStackIn, TIMER, 10);
-                MuseHeatUtils.heatPlayer(playerIn, ModuleManager.INSTANCE.computeModularProperty(itemStackIn, HEAT));
+                ElectricItemUtils.drainPlayerEnergy(playerIn, (int) energyConsumption);
+                MuseItemUtils.setDoubleOrRemove(itemStackIn, MPSModuleConstants.TIMER, 10);
+                MuseHeatUtils.heatPlayer(playerIn, ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.RAILGUN_HEAT_EMISSION ));
                 RayTraceResult hitMOP = MusePlayerUtils.doCustomRayTrace(playerIn.world, playerIn, true, range);
                 // TODO: actual railgun sound
                 worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
-                double damage = ModuleManager.INSTANCE.computeModularProperty(itemStackIn, IMPULSE) / 100.0;
+                double damage = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.RAILGUN_TOTAL_IMPULSE) / 100.0;
                 double knockback = damage / 20.0;
                 Vec3d lookVec = playerIn.getLookVec();
                 if (hitMOP != null) {
@@ -141,8 +131,8 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack stack) {
-        double timer = MuseItemUtils.getDoubleOrZero(stack, TIMER);
-        if (timer > 0) MuseItemUtils.setDoubleOrRemove(stack, TIMER, timer - 1 > 0 ? timer - 1 : 0);
+        double timer = MuseItemUtils.getDoubleOrZero(stack, MPSModuleConstants.TIMER);
+        if (timer > 0) MuseItemUtils.setDoubleOrRemove(stack, MPSModuleConstants.TIMER, timer - 1 > 0 ? timer - 1 : 0);
     }
 
     @Override

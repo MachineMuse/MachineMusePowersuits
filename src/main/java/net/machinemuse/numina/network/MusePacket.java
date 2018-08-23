@@ -3,9 +3,6 @@ package net.machinemuse.numina.network;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufOutputStream;
 import io.netty.buffer.Unpooled;
-import net.jpountz.lz4.LZ4BlockOutputStream;
-import net.jpountz.lz4.LZ4Compressor;
-import net.jpountz.lz4.LZ4Factory;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -21,7 +18,6 @@ import javax.annotation.Nonnull;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.zip.GZIPOutputStream;
 
@@ -180,22 +176,22 @@ public abstract class MusePacket {
         }
     }
 
-    /**
-     * Adapted from 1.7.10
-     */
-    public byte[] compressLZ4(NBTTagCompound nbt) {
-        ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
-        try {
-            // LZ4 adaptation
-            DataOutputStream dataoutputstream = new DataOutputStream(new LZ4BlockOutputStream(bytearrayoutputstream));
-            CompressedStreamTools.write(nbt, dataoutputstream);
-            // bytearrayoutputstream only updates if dataoutputstream closes
-            dataoutputstream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return bytearrayoutputstream.toByteArray();
-    }
+//    /**
+//     * Adapted from 1.7.10
+//     */
+//    public byte[] compressLZ4(NBTTagCompound nbt) {
+//        ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
+//        try {
+//            // LZ4 adaptation
+//            DataOutputStream dataoutputstream = new DataOutputStream(new LZ4BlockOutputStream(bytearrayoutputstream));
+//            CompressedStreamTools.write(nbt, dataoutputstream);
+//            // bytearrayoutputstream only updates if dataoutputstream closes
+//            dataoutputstream.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return bytearrayoutputstream.toByteArray();
+//    }
 
     /**
      * "adapted" from 1.7.10
@@ -204,6 +200,10 @@ public abstract class MusePacket {
         ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
         try {
             DataOutputStream dataoutputstream = new DataOutputStream(new GZIPOutputStream(bytearrayoutputstream));
+
+            System.out.println("nbt here: " + nbt);
+
+
             CompressedStreamTools.write(nbt, dataoutputstream);
 
             // bytearrayoutputstream only updates if dataoutputstream closes

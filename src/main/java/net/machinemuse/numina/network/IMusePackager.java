@@ -1,10 +1,6 @@
 package net.machinemuse.numina.network;
 
 import io.netty.buffer.ByteBufInputStream;
-import io.netty.buffer.Unpooled;
-import net.jpountz.lz4.LZ4BlockInputStream;
-import net.jpountz.lz4.LZ4Factory;
-import net.jpountz.lz4.LZ4SafeDecompressor;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -14,7 +10,6 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
@@ -143,24 +138,24 @@ public interface IMusePackager {
         return ItemStack.EMPTY;
     }
 
-    // Netty project Lz4FrameEncoderTest
-    // https://programtalk.com/vs/?source=netty/codec/src/test/java/io/netty/handler/codec/compression/Lz4FrameEncoderTest.java
-    default ByteBufInputStream decompressLZ4(ByteBufInputStream compressed, int originalLength) throws Exception {
-//        System.out.println("original length: " + originalLength);
-        LZ4BlockInputStream lz4Is = new LZ4BlockInputStream(compressed);
-        byte[] decompressed = new byte[originalLength];
-        int remaining = originalLength;
-        while (remaining > 0) {
-            int read = lz4Is.read(decompressed, originalLength - remaining, remaining);
-            if (read > 0) {
-                remaining -= read;
-            } else {
-                break;
-            }
-        }
-        lz4Is.close();
-        return new ByteBufInputStream(Unpooled.wrappedBuffer(decompressed));
-    }
+//    // Netty project Lz4FrameEncoderTest
+//    // https://programtalk.com/vs/?source=netty/codec/src/test/java/io/netty/handler/codec/compression/Lz4FrameEncoderTest.java
+//    default ByteBufInputStream decompressLZ4(ByteBufInputStream compressed, int originalLength) throws Exception {
+////        System.out.println("original length: " + originalLength);
+//        LZ4BlockInputStream lz4Is = new LZ4BlockInputStream(compressed);
+//        byte[] decompressed = new byte[originalLength];
+//        int remaining = originalLength;
+//        while (remaining > 0) {
+//            int read = lz4Is.read(decompressed, originalLength - remaining, remaining);
+//            if (read > 0) {
+//                remaining -= read;
+//            } else {
+//                break;
+//            }
+//        }
+//        lz4Is.close();
+//        return new ByteBufInputStream(Unpooled.wrappedBuffer(decompressed));
+//    }
 
     /**
      * Load the compressed compound from the inputstream.

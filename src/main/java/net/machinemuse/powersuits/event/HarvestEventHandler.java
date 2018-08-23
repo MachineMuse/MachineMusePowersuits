@@ -33,14 +33,12 @@ public class HarvestEventHandler {
         if (stack != null && stack.getItem() instanceof IModularItem) {
             // TODO: add a way to look for the actual tool required instead of looping through multiple checks.
 
-            for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IBlockBreakingModule.class)) {
-                if (ModuleManager.INSTANCE.itemHasActiveModule(stack, module.getDataName()) && ((IBlockBreakingModule)module).canHarvestBlock(stack, state, player)) {
-                    if (event.getNewSpeed() == 0) {
+            for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IBlockBreakingModule.class))
+                if (ModuleManager.INSTANCE.itemHasActiveModule(stack, module.getDataName()) && ((IBlockBreakingModule) module).canHarvestBlock(stack, state, player)) {
+                    if (event.getNewSpeed() == 0)
                         event.setNewSpeed(1);
-                    }
-                    ((IBlockBreakingModule)module).handleBreakSpeed(event);
+                    ((IBlockBreakingModule) module).handleBreakSpeed(event);
                 }
-            }
         }
     }
 }

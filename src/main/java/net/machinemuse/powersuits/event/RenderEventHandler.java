@@ -6,6 +6,7 @@ import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.DrawableMuseRect;
 import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableKeybinding;
@@ -13,11 +14,6 @@ import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
 import net.machinemuse.powersuits.client.helper.ModelHelper;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.KeybindManager;
-import net.machinemuse.powersuits.powermodule.misc.BinocularsModule;
-import net.machinemuse.powersuits.powermodule.movement.FlightControlModule;
-import net.machinemuse.powersuits.powermodule.movement.GliderModule;
-import net.machinemuse.powersuits.powermodule.movement.JetBootsModule;
-import net.machinemuse.powersuits.powermodule.movement.JetPackModule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
@@ -28,8 +24,6 @@ import net.minecraftforge.client.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import static net.machinemuse.powersuits.powermodule.misc.BinocularsModule.BINOCULARS_MODULE;
 
 /**
  * Ported to Java by lehjr on 10/24/16.
@@ -73,10 +67,10 @@ public class RenderEventHandler {
     }
 
     private boolean playerHasFlightOn(EntityPlayer player) {
-        return ModuleManager.INSTANCE.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), JetPackModule.MODULE_JETPACK) ||
-                ModuleManager.INSTANCE.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), GliderModule.MODULE_GLIDER) ||
-                ModuleManager.INSTANCE.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.FEET), JetBootsModule.MODULE_JETBOOTS) ||
-                ModuleManager.INSTANCE.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.HEAD), FlightControlModule.MODULE_FLIGHT_CONTROL);
+        return ModuleManager.INSTANCE.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), MPSModuleConstants.MODULE_JETPACK__DATANAME) ||
+                ModuleManager.INSTANCE.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), MPSModuleConstants.MODULE_GLIDER__DATANAME) ||
+                ModuleManager.INSTANCE.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.FEET), MPSModuleConstants.MODULE_JETBOOTS__DATANAME) ||
+                ModuleManager.INSTANCE.itemHasActiveModule(player.getItemStackFromSlot(EntityEquipmentSlot.HEAD), MPSModuleConstants.MODULE_FLIGHT_CONTROL__DATANAME);
     }
 
     @SubscribeEvent
@@ -90,8 +84,8 @@ public class RenderEventHandler {
     @SubscribeEvent
     public void onFOVUpdate(FOVUpdateEvent e) {
         ItemStack helmet = e.getEntity().getItemStackFromSlot(EntityEquipmentSlot.HEAD);
-        if (ModuleManager.INSTANCE.itemHasActiveModule(helmet, BINOCULARS_MODULE)) {
-            e.setNewfov(e.getNewfov() / (float)ModuleManager.INSTANCE.computeModularProperty(helmet, BinocularsModule.FOV_MULTIPLIER));
+        if (ModuleManager.INSTANCE.itemHasActiveModule(helmet, MPSModuleConstants.BINOCULARS_MODULE__DATANAME)) {
+            e.setNewfov(e.getNewfov() / (float)ModuleManager.INSTANCE.getOrSetModularPropertyDouble(helmet, MPSModuleConstants.FOV_MULTIPLIER));
         }
     }
 

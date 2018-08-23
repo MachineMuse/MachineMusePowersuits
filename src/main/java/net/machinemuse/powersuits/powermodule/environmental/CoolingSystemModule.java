@@ -1,16 +1,16 @@
-package net.machinemuse.powersuits.powermodule.misc;
+package net.machinemuse.powersuits.powermodule.environmental;
 
 import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,16 +18,12 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
-    public static final String MODULE_COOLING_SYSTEM = "Cooling System";
-    public static final String COOLING_BONUS = "Cooling Bonus";
-    public static final String ENERGY = "Cooling System Energy Consumption";
-
     public CoolingSystemModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Items.ENDER_EYE, 4));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
-        addTradeoffProperty("Power", COOLING_BONUS, 4, "%");
-        addTradeoffProperty("Power", ENERGY, 10, "J/t");
+        addTradeoffPropertyDouble("Power", MPSModuleConstants.COOLING_BONUS, 4, "%");
+        addTradeoffPropertyDouble("Power", MPSModuleConstants.COOLING_SYSTEM_ENERGY_CONSUMPTION, 10, "J/t");
     }
 
     @Override
@@ -37,20 +33,15 @@ public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickM
 
     @Override
     public String getDataName() {
-        return MODULE_COOLING_SYSTEM;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "coolingSystem";
+        return MPSModuleConstants.MODULE_COOLING_SYSTEM__DATANAME;
     }
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         double heatBefore = MuseHeatUtils.getPlayerHeat(player);
-        MuseHeatUtils.coolPlayer(player, 0.1 * ModuleManager.INSTANCE.computeModularProperty(item, COOLING_BONUS));
+        MuseHeatUtils.coolPlayer(player, 0.1 * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.COOLING_BONUS));
         double cooling = heatBefore - MuseHeatUtils.getPlayerHeat(player);
-        ElectricItemUtils.drainPlayerEnergy(player, cooling * ModuleManager.INSTANCE.computeModularProperty(item, ENERGY));
+        ElectricItemUtils.drainPlayerEnergy(player, (int) (cooling * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.COOLING_SYSTEM_ENERGY_CONSUMPTION)));
     }
 
     @Override

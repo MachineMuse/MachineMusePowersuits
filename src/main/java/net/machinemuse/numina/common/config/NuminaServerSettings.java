@@ -4,8 +4,6 @@ import io.netty.buffer.ByteBufInputStream;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
 
-import java.io.DataInputStream;
-
 public class NuminaServerSettings {
     public final double mekRatio;
     public final double ic2Ratio;

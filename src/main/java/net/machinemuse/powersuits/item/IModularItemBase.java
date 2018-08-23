@@ -6,24 +6,13 @@ import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
 import net.machinemuse.powersuits.api.electricity.adapter.IMuseElectricItem;
-import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.render.modelspec.ModelRegistry;
 import net.machinemuse.powersuits.client.render.modelspec.TexturePartSpec;
-import net.machinemuse.powersuits.powermodule.cosmetic.CosmeticGlowModule;
-import net.machinemuse.powersuits.powermodule.cosmetic.TintModule;
 import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
-import net.machinemuse.powersuits.utils.nbt.NBTTagAccessor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-
-import static net.machinemuse.numina.general.MuseMathUtils.clampDouble;
 
 /**
  * Author: MachineMuse (Claire Semple)

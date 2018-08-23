@@ -1,9 +1,8 @@
 package net.machinemuse.powersuits.event;
 
-import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.machinemuse.powersuits.client.helper.ModelHelper;
-import net.machinemuse.powersuits.client.model.item.ArmorIcon;
 import net.machinemuse.powersuits.client.model.block.ModelLuxCapacitor;
+import net.machinemuse.powersuits.client.model.item.ArmorIcon;
 import net.machinemuse.powersuits.client.model.item.ModelPowerFist;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.minecraft.client.renderer.block.model.IBakedModel;

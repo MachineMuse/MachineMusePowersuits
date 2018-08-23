@@ -3,9 +3,9 @@ package net.machinemuse.powersuits.utils.modulehelpers;
 import net.machinemuse.numina.api.item.IModularItem;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
-import net.machinemuse.powersuits.powermodule.environmental.WaterTankModule;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,7 +20,7 @@ public class FluidUtils {
     public static double getPlayerWater(EntityPlayer player) {
         double water = 0;
         for (ItemStack stack : MuseItemUtils.getModularItemsInInventory(player)) {
-            if (stack.getItem() instanceof ItemPowerArmorChestplate && ModuleManager.INSTANCE.itemHasActiveModule(stack, WaterTankModule.MODULE_WATER_TANK)) {
+            if (stack.getItem() instanceof ItemPowerArmorChestplate && ModuleManager.INSTANCE.itemHasActiveModule(stack, MPSModuleConstants.MODULE_WATER_TANK__DATANAME)) {
                 water = getWaterLevel(stack);
             }
         }
@@ -30,8 +30,8 @@ public class FluidUtils {
     public static double getMaxWater(EntityPlayer player) {
         double water = 0;
         for (ItemStack stack : MuseItemUtils.getModularItemsInInventory(player)) {
-            if (stack.getItem() instanceof ItemPowerArmorChestplate && ModuleManager.INSTANCE.itemHasActiveModule(stack, WaterTankModule.MODULE_WATER_TANK)) {
-                water = ModuleManager.INSTANCE.computeModularProperty(stack, WaterTankModule.WATER_TANK_SIZE);
+            if (stack.getItem() instanceof ItemPowerArmorChestplate && ModuleManager.INSTANCE.itemHasActiveModule(stack, MPSModuleConstants.MODULE_WATER_TANK__DATANAME)) {
+                water = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.WATER_TANK_SIZE);
             }
         }
         return water;

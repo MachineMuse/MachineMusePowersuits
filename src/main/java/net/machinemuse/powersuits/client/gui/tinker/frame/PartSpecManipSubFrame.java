@@ -1,9 +1,9 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
 import net.machinemuse.numina.api.constants.NuminaNBTConstants;
+import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.network.PacketSender;
-import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.math.Colour;
@@ -29,7 +29,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 

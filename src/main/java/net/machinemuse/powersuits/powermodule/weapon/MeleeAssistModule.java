@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.powermodule.weapon;
 import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -11,19 +12,14 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
 
 public class MeleeAssistModule extends PowerModuleBase {
-    public static final String MODULE_MELEE_ASSIST = "Melee Assist";
-    public static final String PUNCH_ENERGY = "Punch Energy Consumption";
-    public static final String PUNCH_DAMAGE = "Melee Damage";
-    public static final String PUNCH_KNOCKBACK = "Melee Knockback";
-
     public MeleeAssistModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        addBaseProperty(PUNCH_ENERGY, 10, "J");
-        addBaseProperty(PUNCH_DAMAGE, 2, "pt");
-        addTradeoffProperty("Impact", PUNCH_ENERGY, 100, "J");
-        addTradeoffProperty("Impact", PUNCH_DAMAGE, 8, "pt");
-        addTradeoffProperty("Carry-through", PUNCH_ENERGY, 20, "J");
-        addTradeoffProperty("Carry-through", PUNCH_KNOCKBACK, 1, "P");
+        addBasePropertyDouble(MPSModuleConstants.PUNCH_ENERGY, 10, "J");
+        addBasePropertyDouble(MPSModuleConstants.PUNCH_DAMAGE, 2, "pt");
+        addTradeoffPropertyDouble("Impact", MPSModuleConstants.PUNCH_ENERGY, 100, "J");
+        addTradeoffPropertyDouble("Impact", MPSModuleConstants.PUNCH_DAMAGE, 8, "pt");
+        addTradeoffPropertyDouble("Carry-through", MPSModuleConstants.PUNCH_ENERGY, 20, "J");
+        addTradeoffPropertyDouble("Carry-through", MPSModuleConstants.PUNCH_KNOCKBACK, 1, "P");
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.lvcapacitor, 1));
     }
@@ -35,12 +31,7 @@ public class MeleeAssistModule extends PowerModuleBase {
 
     @Override
     public String getDataName() {
-        return MODULE_MELEE_ASSIST;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "meleeAssist";
+        return MPSModuleConstants.MODULE_MELEE_ASSIST__DATANAME;
     }
 
     @Override

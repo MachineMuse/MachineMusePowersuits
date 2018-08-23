@@ -7,12 +7,8 @@ import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
-import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.machinemuse.powersuits.utils.MuseStringUtils;
-import net.machinemuse.powersuits.utils.PlayerWeightUtils;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -24,7 +20,8 @@ public class DetailedSummaryFrame extends ScrollableFrame {
     public static final double SCALEFACTOR = 1;
     protected EntityPlayer player;
     protected double weight;
-    protected double energy;
+    protected int slotPoints;
+    protected int energy;
     protected double armor;
 
     public DetailedSummaryFrame(EntityPlayer player, MusePoint2D topleft,
@@ -36,13 +33,17 @@ public class DetailedSummaryFrame extends ScrollableFrame {
 
     @Override
     public void update(double mousex, double mousey) {
-        weight = PlayerWeightUtils.getPlayerWeight(player);
         energy = 0;
         armor = 0;
+        slotPoints = 0;
+
         for(ItemStack stack : MuseItemUtils.modularItemsEquipped(player)) {
-            energy += ModuleManager.INSTANCE.computeModularProperty(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
-            armor += ModuleManager.INSTANCE.computeModularProperty(stack, MPSModuleConstants.ARMOR_VALUE_PHYSICAL);
-            armor += ModuleManager.INSTANCE.computeModularProperty(stack, MPSModuleConstants.ARMOR_VALUE_ENERGY);
+            energy += ModuleManager.INSTANCE.getOrSetModularPropertyInteger(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
+            slotPoints += ModuleManager.INSTANCE.getOrSetModularPropertyInteger(stack, MPSModuleConstants.SLOT_POINTS);
+
+
+            armor += ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_VALUE_PHYSICAL);
+            armor += ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_VALUE_ENERGY);
         }
     }
 
@@ -57,7 +58,7 @@ public class DetailedSummaryFrame extends ScrollableFrame {
             MuseRenderer.drawCenteredString(I18n.format("gui.equippedTotals"), (border.left() + border.right())/2, nexty);
             nexty += 10;
 
-
+            // Max Energy
             String formattedValue = MuseStringUtils.formatNumberFromUnits(energy, PowerModuleBase.getUnit(NuminaNBTConstants.MAXIMUM_ENERGY));
             String name = I18n.format("gui.energyStorage");
             double valueWidth = MuseRenderer.getStringWidth(formattedValue);
@@ -69,8 +70,16 @@ public class DetailedSummaryFrame extends ScrollableFrame {
             MuseRenderer.drawRightAlignedString(formattedValue, border.right() - margin, nexty + 9 * (namesList.size() - 1) / 2);
             nexty += 10*namesList.size()+1;
 
-            formattedValue = MuseStringUtils.wrapFormatTags(MuseStringUtils.formatNumberFromUnits(weight, PowerModuleBase.getUnit(MPSModuleConstants.WEIGHT)), weight > MPSConfig.INSTANCE.getWeightCapacity() ? MuseStringUtils.FormatCodes.Red : MuseStringUtils.FormatCodes.BrightGreen);
-            name = I18n.format("gui.weight");
+            // FIXME: no max slot points set yet
+            // Slot points
+
+
+            //----
+            formattedValue = MuseStringUtils.wrapFormatTags(MuseStringUtils.formatNumberFromUnits(slotPoints, "pts"), MuseStringUtils.FormatCodes.BrightGreen);
+
+            //------
+//            formattedValue = MuseStringUtils.wrapFormatTags(MuseStringUtils.formatNumberFromUnits(weight, PowerModuleBase.getUnit(MPSModuleConstants.WEIGHT)), weight > MPSConfig.INSTANCE.getWeightCapacity() ? MuseStringUtils.FormatCodes.Red : MuseStringUtils.FormatCodes.BrightGreen);
+            name = I18n.format("gui.slotpoints");
             valueWidth = MuseRenderer.getStringWidth(formattedValue);
             allowedNameWidth = border.width() - valueWidth - margin * 2;
             namesList = MuseStringUtils.wrapStringToVisualLength(name, allowedNameWidth);

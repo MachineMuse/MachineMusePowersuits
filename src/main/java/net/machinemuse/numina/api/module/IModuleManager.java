@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,28 +38,58 @@ public interface IModuleManager {
         return retList;
     }
 
-    default double computeModularProperty(@Nonnull ItemStack stack, String propertyName) {
+    /**
+     * Call this whenever the value changes, such as changing a setting or installing a module
+     */
+    default double computeModularPropertyDouble (@Nonnull ItemStack stack, String propertyName) {
+        return (double) computeModularProperty(stack, propertyName);
+    }
+
+    // fixme: this requires sync between logical sides.
+    default double getOrSetModularPropertyDouble(@Nonnull ItemStack stack, String propertyName) {
+        double propertyValue = 0;
+        NBTTagCompound valuesTag = MuseNBTUtils.getMuseValuesTag(stack);
+        if (!valuesTag.hasKey(propertyName, Constants.NBT.TAG_DOUBLE)) {
+            propertyValue = computeModularPropertyDouble(stack, propertyName);
+            if (propertyValue > 0)
+            valuesTag.setDouble(propertyName, propertyValue);
+        } else {
+            propertyValue = valuesTag.getDouble(propertyName);
+            if (propertyValue == 0)
+                valuesTag.removeTag(propertyName);
+        }
+        return propertyValue;
+    }
+
+    default Object computeModularProperty(@Nonnull ItemStack stack, String propertyName) {
         double propertyValue = 0;
         NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
-//        if (propertyName == "Maximum Energy") {
-//
-//            System.out.println("propertyName: " + propertyName);
-//            System.out.println("num modules: " + getAllModules().size());
-//        }
-
-
         for (IPowerModule module : getAllModules()) {
             if (itemHasActiveModule(stack, module.getDataName())) {
                 propertyValue = module.applyPropertyModifiers(itemTag, propertyName, propertyValue);
-//                propertyValue += module.applyPropertyModifiers(itemTag, propertyName, propertyValue);
-
-//                if (propertyName == "Maximum Energy")
-//                    System.out.println("propertyValue: " + propertyValue);
-
             }
         }
-//        if (propertyName == "Maximum Energy")
-//            System.out.println("propertyValue: " + propertyValue);
+        return propertyValue;
+    }
+
+    default int computeModularPropertyInteger (@Nonnull ItemStack stack, String propertyName) {
+        return (int) Math.round((double)computeModularProperty(stack, propertyName));
+    }
+
+    // fixme: this requires sync between logical sides.
+    default int getOrSetModularPropertyInteger(@Nonnull ItemStack stack, String propertyName) {
+        int propertyValue = 0;
+        NBTTagCompound valuesTag = MuseNBTUtils.getMuseValuesTag(stack);
+        if (!valuesTag.hasKey(propertyName, Constants.NBT.TAG_INT)) {
+            propertyValue = computeModularPropertyInteger(stack, propertyName);
+            if (propertyValue > 0) {
+                valuesTag.setInteger(propertyName, propertyValue);
+            }
+        } else {
+            propertyValue = valuesTag.getInteger(propertyName);
+            if (propertyValue == 0)
+                valuesTag.removeTag(propertyName);
+        }
         return propertyValue;
     }
 
@@ -168,6 +199,8 @@ public interface IModuleManager {
     NonNullList<ItemStack> getInstallCost(String dataName);
 
     void addInstallCost(String moduleName, @Nonnull ItemStack installCostList);
+
+    void addInstallCost(String dataName, NonNullList<ItemStack> installCost);
 
     boolean hasCustomInstallCost(String dataName);
 

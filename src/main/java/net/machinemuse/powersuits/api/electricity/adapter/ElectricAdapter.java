@@ -20,18 +20,11 @@ public abstract class ElectricAdapter {
         if (itemStack.isEmpty())
             return null;
         Item i = itemStack.getItem();
-        if (i instanceof IMuseElectricItem) {
-//
-//            System.out.println("MuseElectricItem");
-            return new MuseElectricAdapter(itemStack);
-
         // Forge Energy
-        } else if (itemStack.hasCapability(CapabilityEnergy.ENERGY, null)) {
-//            System.out.println("Forge Energy");
+        if (itemStack.hasCapability(CapabilityEnergy.ENERGY, null)) {
+            return new ForgeEnergyAdapter(itemStack);
 
-                return new ForgeEnergyAdapter(itemStack);
-
-        // TESLA (need all 3 in order to get power in and out)
+            // TESLA (need all 3 in order to get power in and out)
         } else if (itemStack.hasCapability(TeslaCapabilities.CAPABILITY_HOLDER, null) &&
                 itemStack.hasCapability(TeslaCapabilities.CAPABILITY_CONSUMER, null) &&
                 itemStack.hasCapability(TeslaCapabilities.CAPABILITY_PRODUCER, null)) {
@@ -39,13 +32,13 @@ public abstract class ElectricAdapter {
 //            System.out.println("Tesla energy");
             return new TeslaEnergyAdapter(itemStack);
 
-        // RF API
+            // RF API
         } else if (ModCompatibility.isRFAPILoaded() && i instanceof IEnergyContainerItem) {
 
 //            System.out.println("RF API");
             return new TEElectricAdapter(itemStack);
 
-        // Industrialcraft
+            // Industrialcraft
         } else if (ModCompatibility.isIndustrialCraftLoaded() && i instanceof IElectricItem) {
 //            System.out.println("IC2 energy");
             return new IC2ElectricAdapter(itemStack);
@@ -54,11 +47,11 @@ public abstract class ElectricAdapter {
         }
     }
 
-    public abstract double getCurrentMPSEnergy();
+    public abstract int getEnergyStored();
 
-    public abstract double getMaxMPSEnergy();
+    public abstract int getMaxEnergyStored();
 
-    public abstract double drainMPSEnergy(double requested);
+    public abstract int extractEnergy(int requested, boolean simulate);
 
-    public abstract double giveMPSEnergy(double provided);
+    public abstract int receiveEnergy(int provided, boolean simulate);
 }

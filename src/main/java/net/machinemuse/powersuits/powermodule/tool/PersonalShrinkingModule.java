@@ -5,10 +5,10 @@ import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.machinemuse.powersuits.utils.modulehelpers.PersonalShrinkingModuleHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -30,7 +30,6 @@ import net.minecraft.world.World;
     TODO: the mechanics have changed a bit. This module will req
  */
 public class PersonalShrinkingModule extends PowerModuleBase implements IRightClickModule, IPlayerTickModule {
-    public static final String MODULE_CM_PSD = "Personal Shrinking Device";
     private final ItemStack cpmPSD = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("cm2", "psd")), 1);
     public PersonalShrinkingModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
@@ -48,12 +47,7 @@ public class PersonalShrinkingModule extends PowerModuleBase implements IRightCl
 
     @Override
     public String getDataName() {
-        return MODULE_CM_PSD;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "cmPSD";
+        return MPSModuleConstants.MODULE_CM_PSD__DATANAME;
     }
 
     @Override

@@ -3,7 +3,6 @@ package net.machinemuse.numina.utils.math;
 import net.machinemuse.numina.utils.MuseLogger;
 import org.lwjgl.opengl.GL11;
 
-import javax.vecmath.Vector4d;
 import javax.vecmath.Vector4f;
 import java.awt.*;
 import java.util.Objects;

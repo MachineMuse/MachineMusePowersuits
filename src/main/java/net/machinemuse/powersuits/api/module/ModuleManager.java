@@ -55,6 +55,13 @@ public enum ModuleManager implements IModuleManager {
     }
 
     @Override
+    public void addInstallCost(String dataName, NonNullList<ItemStack> installCost) {
+        NonNullList<ItemStack> costForModule = getInstallCost(dataName);
+        costForModule.addAll(installCost);
+        installCosts.put(dataName, costForModule);
+    }
+
+    @Override
     public boolean hasCustomInstallCost(String dataName) {
         return customInstallCosts.containsKey(dataName);
     }

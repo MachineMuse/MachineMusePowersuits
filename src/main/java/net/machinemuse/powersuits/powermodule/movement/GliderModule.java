@@ -7,12 +7,12 @@ import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -20,8 +20,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Vec3d;
 
 public class GliderModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static final String MODULE_GLIDER = "Glider";
-
     public GliderModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.gliderWing, 2));
@@ -34,12 +32,7 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
 
     @Override
     public String getDataName() {
-        return MODULE_GLIDER;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "glider";
+        return MPSModuleConstants.MODULE_GLIDER__DATANAME;
     }
 
     @Override
@@ -54,7 +47,7 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
         boolean hasParachute = false;
         NuminaPlayerUtils.resetFloatKickTicks(player);
         if (torso != null && torso.getItem() instanceof IModularItem) {
-            hasParachute = ModuleManager.INSTANCE.itemHasActiveModule(torso, ParachuteModule.MODULE_PARACHUTE);
+            hasParachute = ModuleManager.INSTANCE.itemHasActiveModule(torso, MPSModuleConstants.MODULE_PARACHUTE__DATANAME);
         }
         if (sneakkey && player.motionY < 0 && (!hasParachute || forwardkey > 0)) {
             if (player.motionY < -0.1) {

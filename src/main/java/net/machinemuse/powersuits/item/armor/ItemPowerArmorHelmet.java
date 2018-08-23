@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.item.armor;
 
 import forestry.api.core.IArmorNaturalist;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
-import net.machinemuse.powersuits.powermodule.environmental.ApiaristArmorModule;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -23,6 +23,6 @@ public class ItemPowerArmorHelmet extends ItemPowerArmor implements IArmorNatura
 
     @Optional.Method(modid = "forestry")
     public boolean canSeePollination(final EntityPlayer player, final ItemStack helm, final boolean doSee) {
-        return ModuleManager.INSTANCE.itemHasActiveModule(helm, ApiaristArmorModule.MODULE_APIARIST_ARMOR);
+        return ModuleManager.INSTANCE.itemHasActiveModule(helm, MPSModuleConstants.MODULE_APIARIST_ARMOR__DATANAME);
     }
 }

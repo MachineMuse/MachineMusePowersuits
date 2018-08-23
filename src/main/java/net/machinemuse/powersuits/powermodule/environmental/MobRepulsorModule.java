@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.powermodule.misc;
+package net.machinemuse.powersuits.powermodule.environmental;
 
 
 import net.machinemuse.numina.api.module.EnumModuleCategory;
@@ -12,7 +12,6 @@ import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.boss.EntityDragon;
@@ -33,13 +32,9 @@ import java.util.List;
  * 8:26 PM 4/25/13
  */
 public class MobRepulsorModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
-    public static final String MODULE_MOB_REPULSOR = "Mob Repulsor";
-    public static final String MOB_REPULSOR_ENERGY_CONSUMPTION = "Repulsor Energy Consumption";
-
     public MobRepulsorModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        addBaseProperty(MOB_REPULSOR_ENERGY_CONSUMPTION, 250);
-        addBaseProperty(MPSModuleConstants.WEIGHT, 2000);
+        addBasePropertyDouble(MPSModuleConstants.MOB_REPULSOR_ENERGY_CONSUMPTION, 2500);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.magnet, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
     }
@@ -51,19 +46,14 @@ public class MobRepulsorModule extends PowerModuleBase implements IPlayerTickMod
 
     @Override
     public String getDataName() {
-        return MODULE_MOB_REPULSOR;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "mobRepulsor";
+        return MPSModuleConstants.MODULE_MOB_REPULSOR__DATANAME;
     }
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.INSTANCE.computeModularProperty(item, MOB_REPULSOR_ENERGY_CONSUMPTION)) {
+        if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.MOB_REPULSOR_ENERGY_CONSUMPTION)) {
             if (player.world.getTotalWorldTime() % 20 == 0) {
-                ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.computeModularProperty(item, MOB_REPULSOR_ENERGY_CONSUMPTION));
+                ElectricItemUtils.drainPlayerEnergy(player, (int) Math.round(ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.MOB_REPULSOR_ENERGY_CONSUMPTION)));
             }
             repulse(player.world, (int) player.posX, (int) player.posY, (int) player.posZ);
         }

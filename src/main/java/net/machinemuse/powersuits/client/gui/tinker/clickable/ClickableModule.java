@@ -8,6 +8,7 @@ import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.client.gui.GuiIcons;
 import net.machinemuse.powersuits.utils.MuseStringUtils;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
 
 import java.util.ArrayList;
@@ -57,11 +58,28 @@ public class ClickableModule extends Clickable {
     }
 
     public void drawPartial(double xmino, double ymino, double xmaxo, double ymaxo) {
+//         IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, world, null);
+
+
+
         double left = getPosition().x() - 8;
         double top = getPosition().y() - 8;
 
         MuseTextureUtils.pushTexture(MuseTextureUtils.TEXTURE_QUILT);
+
+        TextureAtlasSprite icon = getModule().getIcon(null);
+
+
+
+
+
+
         MuseIconUtils.drawIconAt(left, top, getModule().getIcon(null), Colour.WHITE);
+
+
+
+
+
         MuseTextureUtils.popTexture();
 
         if (!allowed) {

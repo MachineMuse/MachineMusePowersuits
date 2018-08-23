@@ -25,27 +25,27 @@ public class IC2ElectricAdapter extends ElectricAdapter {
         return this.item;
     }
 
-    @Override
-    public double getCurrentMPSEnergy() {
-        return ElectricConversions.museEnergyFromEU(ElectricItem.manager.getCharge(this.stack()));
-    }
-
-    @Override
-    public double getMaxMPSEnergy() {
-        return ElectricConversions.museEnergyFromEU(this.item().getMaxCharge(this.stack()));
-    }
-
-    @Override
-    public double drainMPSEnergy(final double requested) {
-        return ElectricConversions.museEnergyFromEU(ElectricItem.manager.discharge(this.stack(), ElectricConversions.museEnergyToEU(requested), this.getTier(), true, false, false));
-    }
-
-    @Override
-    public double giveMPSEnergy(final double provided) {
-        return ElectricConversions.museEnergyFromEU(ElectricItem.manager.charge(this.stack(), ElectricConversions.museEnergyToEU(provided), this.getTier(), true, false));
-    }
-
     public int getTier() {
-        return this.item().getTier(this.stack());
+        return this.item.getTier(this.stack);
+    }
+
+    @Override
+    public int getEnergyStored() {
+        return ElectricConversions.museEnergyFromEU(ElectricItem.manager.getCharge(this.stack));
+    }
+
+    @Override
+    public int getMaxEnergyStored() {
+        return ElectricConversions.museEnergyFromEU(this.item.getMaxCharge(this.stack));
+    }
+
+    @Override
+    public int extractEnergy(int requested, boolean simulate) {
+        return ElectricConversions.museEnergyFromEU(ElectricItem.manager.discharge(this.stack, ElectricConversions.museEnergyToEU(requested), this.getTier(), true, false, simulate));
+    }
+
+    @Override
+    public int receiveEnergy(int provided, boolean simulate) {
+        return ElectricConversions.museEnergyFromEU(ElectricItem.manager.charge(this.stack, ElectricConversions.museEnergyToEU(provided), this.getTier(), true, simulate));
     }
 }

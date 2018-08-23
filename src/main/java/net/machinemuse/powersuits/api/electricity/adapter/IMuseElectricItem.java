@@ -7,17 +7,12 @@ import cofh.redstoneflux.api.IEnergyContainerItem;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItemManager;
 import ic2.api.item.ISpecialElectricItem;
-import mekanism.api.energy.IEnergizedItem;
-import net.machinemuse.numina.api.constants.NuminaNBTConstants;
-import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.electricity.ElectricConversions;
-import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.common.Optional;
-
-import javax.annotation.Nonnull;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -36,110 +31,72 @@ public interface IMuseElectricItem
         ISpecialElectricItem,
         IElectricItemManager {
 
-    /**
-     * Call to get the energy of an item
-     *
-     * @param stack ItemStack to set
-     * @return Current energy level
-     */
-    default double getCurrentMPSEnergy(@Nonnull ItemStack stack) {
-        return MuseItemUtils.getDoubleOrZero(stack, NuminaNBTConstants.CURRENT_ENERGY);
-    }
-
-    /**
-     * Call to set the energy of an item
-     *
-     * @param stack ItemStack to set
-     * @return Maximum energy level
-     */
-    double getMaxMPSEnergy(@Nonnull ItemStack stack);
-//    {
-//        return ModuleManager.computeModularProperty(stack, ElectricItemUtils.MAXIMUM_ENERGY);
-//    }
-
-    /**
-     * Call to set the energy of an item
-     *
-     * @param stack ItemStack to set
-     * @param energy Level to set it to
-     */
-    default void setCurrentMPSEnergy(@Nonnull ItemStack stack, double energy) {
-        MuseItemUtils.setDoubleOrRemove(stack, NuminaNBTConstants.CURRENT_ENERGY, Math.min(energy, getMaxMPSEnergy(stack)));
-    }
-
-    /**
-     * Call to drain energy from an item
-     *
-     * @param stack ItemStack being requested for energy
-     * @param requested Amount of energy to drain
-     * @return Amount of energy successfully drained
-     */
-    default double drainMPSEnergyFrom(@Nonnull ItemStack stack, double requested) {
-        double available = getCurrentMPSEnergy(stack);
-        if (available > requested) {
-            setCurrentMPSEnergy(stack, available - requested);
-            return requested;
-        } else {
-            setCurrentMPSEnergy(stack, 0);
-            return available;
-        }
-    }
-
-    /**
-     * Call to give energy to an item
-     *
-     * @param stack ItemStack being provided with energy
-     * @param provided Amount of energy to add
-     * @return Amount of energy added
-     */
-    default double giveMPSEnergyTo(@Nonnull ItemStack stack, double provided) {
-        double available = getCurrentMPSEnergy(stack);
-        double max = getMaxMPSEnergy(stack);
-
-        if (available + provided < max) {
-            setCurrentMPSEnergy(stack, available + provided);
-            return provided;
-        } else {
-            setCurrentMPSEnergy(stack, max);
-            return max - available;
-        }
-    }
-
-    default boolean canProvideEnergy(@Nonnull ItemStack itemStack) {
-        if (!itemStack.isEmpty()) {
-            Item item = itemStack.getItem();
-            if (itemStack.getItem() instanceof IEnergizedItem)
-                return ((IEnergizedItem)item).canSend(itemStack);
-        }
-        return true;
-    }
-
-
-
     /* Industrialcraft 2 -------------------------------------------------------------------------- */
     @Override
-    default IMuseElectricItem getManager(ItemStack stack) {
+    default IElectricItemManager getManager(ItemStack stack) {
         return this;
     }
 
-    @Override
-    default void chargeFromArmor(ItemStack itemStack, EntityLivingBase entity) {
-        ElectricItem.rawManager.chargeFromArmor(itemStack, entity);
+    default double getTransferLimit(ItemStack itemStack) {
+        if (itemStack.isEmpty() || !(itemStack.getItem() instanceof IMuseElectricItem))
+            return 0;
+        IMuseElectricItem iMuseElectricItem = (IMuseElectricItem) itemStack.getItem();
+        return ElectricConversions.museEnergyToEU(iMuseElectricItem.getMaxEnergyStored(itemStack) * 0.75);
     }
 
     @Override
-    default boolean use(ItemStack itemStack, double amount, EntityLivingBase entity) {
-        return ElectricItem.rawManager.use(itemStack, ElectricConversions.museEnergyToEU(amount), entity);
+    default double charge(ItemStack itemStack, double amount, int tier, boolean ignoreTransferLimit, boolean simulate){
+        // some machines use "Inifinity" and it converts to "-1" This negates their weird effect.
+        if (amount == Double.POSITIVE_INFINITY || amount == Double.NEGATIVE_INFINITY)
+            amount = Integer.MAX_VALUE * 0.25D;
+
+        int transfer = (ignoreTransferLimit || amount < getTransferLimit(itemStack)) ? ElectricConversions.museEnergyFromEU(amount) : ElectricConversions.museEnergyFromEU(getTransferLimit(itemStack));
+        transfer = Math.abs(transfer);
+
+        return ElectricConversions.museEnergyToEU(receiveEnergy(itemStack, transfer, simulate));
     }
 
     @Override
-    default double getCharge(ItemStack itemStack) {
-        return ElectricConversions.museEnergyToEU(getCurrentMPSEnergy(itemStack));
+    default double discharge(ItemStack itemStack, double amount, int tier, boolean ignoreTransferLimit, boolean externally, boolean simulate) {
+        // some machines use "Inifinity" and it converts to "-1" This negates their weird effect.
+        if (amount == Double.POSITIVE_INFINITY || amount == Double.NEGATIVE_INFINITY)
+            amount = Integer.MAX_VALUE * 0.25D;
+
+        int transfer = (ignoreTransferLimit || amount < getTransferLimit(itemStack)) ? ElectricConversions.museEnergyFromEU(amount) : ElectricConversions.museEnergyFromEU(getTransferLimit(itemStack));
+        transfer = Math.abs(transfer);
+
+        return ElectricConversions.museEnergyToEU(extractEnergy(itemStack, transfer, simulate));
     }
 
     @Override
     default double getMaxCharge(ItemStack itemStack) {
-        return ElectricConversions.museEnergyToEU(getMaxMPSEnergy(itemStack));
+        return ElectricConversions.museEnergyToEU(getMaxEnergyStored(itemStack));
+    }
+
+    @Override
+    default double getCharge(ItemStack itemStack) {
+        return ElectricConversions.museEnergyToEU(getEnergyStored(itemStack));
+    }
+
+
+    @Override
+    default boolean canUse(ItemStack itemStack, double amount) {
+        return ElectricConversions.museEnergyFromEU(amount) < getEnergyStored(itemStack);
+    }
+
+    @Override
+    default boolean use(ItemStack itemStack, double amount, EntityLivingBase entityLivingBase) {
+        return ElectricItem.rawManager.use(itemStack, ElectricConversions.museEnergyToEU(amount), entityLivingBase);
+    }
+
+    @Override
+    default void chargeFromArmor(ItemStack itemStack, EntityLivingBase entityLivingBase) {
+        ElectricItem.rawManager.chargeFromArmor(itemStack, entityLivingBase);
+    }
+
+    @Override
+    default String getToolTip(ItemStack itemStack) {
+        return null;
     }
 
     @Override
@@ -147,67 +104,28 @@ public interface IMuseElectricItem
         return ElectricConversions.getTier(itemStack);
     }
 
-    @Override
-    default double charge(ItemStack itemStack, double amount, int tier, boolean ignoreTransferLimit, boolean simulate){
-        double current = getCurrentMPSEnergy(itemStack);
-        double transfer = (ignoreTransferLimit || amount < getTransferLimit(itemStack)) ? ElectricConversions.museEnergyFromEU(amount) : getTransferLimit(itemStack);
-        double given = giveMPSEnergyTo(itemStack, transfer);
-        if (simulate) {
-            setCurrentMPSEnergy(itemStack, current);
-        }
-        return ElectricConversions.museEnergyToEU(given);
-    }
-
-    @Override
-    default boolean canUse(ItemStack itemStack, double amount) {
-        return ElectricConversions.museEnergyFromEU(amount) < getCurrentMPSEnergy(itemStack);
-    }
-
-    @Override
-    default double discharge(ItemStack itemStack, double amount, int tier, boolean ignoreTransferLimit, boolean externally, boolean simulate) {
-        double current = getCurrentMPSEnergy(itemStack);
-        double transfer = (ignoreTransferLimit || amount < getTransferLimit(itemStack)) ? ElectricConversions.museEnergyFromEU(amount) : getTransferLimit(itemStack);
-        double taken = drainMPSEnergyFrom(itemStack, transfer);
-        if (simulate) {
-            setCurrentMPSEnergy(itemStack, current);
-        }
-        return ElectricConversions.museEnergyToEU(taken);
-    }
-
-    default double getTransferLimit(ItemStack itemStack) {
-        return ElectricConversions.museEnergyToEU(Math.sqrt(getMaxMPSEnergy(itemStack)));
-    }
-
-    @Override
-    String getToolTip(ItemStack itemStack);
-
-
     /* Thermal Expansion -------------------------------------------------------------------------- */
-    default int receiveEnergy(ItemStack stack, int energy, boolean simulate) {
-        double current = getCurrentMPSEnergy(stack);
-        double receivedME = ElectricConversions.museEnergyFromRF(energy);
-        double eatenME = giveMPSEnergyTo(stack, receivedME);
-        if (simulate) {
-            setCurrentMPSEnergy(stack, current);
-        }
-        return ElectricConversions.museEnergyToRF(eatenME);
+    @Override
+    default int receiveEnergy(ItemStack container, int maxExtract, boolean simulate) {
+        IEnergyStorage energyStorage = container.getCapability(CapabilityEnergy.ENERGY, null);
+        return energyStorage != null ? energyStorage.receiveEnergy(maxExtract, simulate) : 0;
     }
 
-    default int extractEnergy(ItemStack stack, int energy, boolean simulate) {
-        double current = getCurrentMPSEnergy(stack);
-        double requesteddME = ElectricConversions.museEnergyFromRF(energy);
-        double takenME = drainMPSEnergyFrom(stack, requesteddME);
-        if (simulate) {
-            setCurrentMPSEnergy(stack, current);
-        }
-        return ElectricConversions.museEnergyToRF(takenME);
+    @Override
+    default int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
+        IEnergyStorage energyStorage = container.getCapability(CapabilityEnergy.ENERGY, null);
+        return energyStorage != null ? energyStorage.extractEnergy(maxExtract, simulate) : 0;
     }
 
-    default int getEnergyStored(ItemStack theItem) {
-        return ElectricConversions.museEnergyToRF(getCurrentMPSEnergy(theItem));
+    @Override
+    default int getEnergyStored(ItemStack container) {
+        IEnergyStorage energyStorage = container.getCapability(CapabilityEnergy.ENERGY, null);
+        return energyStorage != null ? energyStorage.getEnergyStored() : 0;
     }
 
-    default int getMaxEnergyStored(ItemStack theItem) {
-        return ElectricConversions.museEnergyToRF(getMaxMPSEnergy(theItem));
+    @Override
+    default int getMaxEnergyStored(ItemStack container) {
+        IEnergyStorage energyStorage = container.getCapability(CapabilityEnergy.ENERGY, null);
+        return energyStorage != null ? energyStorage.getMaxEnergyStored() : 0;
     }
 }

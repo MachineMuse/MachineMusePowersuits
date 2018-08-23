@@ -1,10 +1,10 @@
-package net.machinemuse.powersuits.powermodule;
+package net.machinemuse.numina.api.nbt;
 
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class PropertyModifierIntLinearAdditive extends PropertyModifierLinearAdditive {
-    protected int roundTo = 0;
+public class PropertyModifierIntLinearAdditive extends PropertyModifierLinearAdditiveDouble {
+    protected int roundTo = 1;
     protected int offset = 0;
 
     public PropertyModifierIntLinearAdditive(String tradeoffName, double multiplier, int roundTo, int offset) {
@@ -14,9 +14,9 @@ public class PropertyModifierIntLinearAdditive extends PropertyModifierLinearAdd
     }
 
     @Override
-    public double applyModifier(NBTTagCompound moduleTag, double value) {
+    public Double applyModifier(NBTTagCompound moduleTag, double value) {
         long result = (long) (value + multiplier * MuseItemUtils.getDoubleOrZero(moduleTag, tradeoffName));
-        return roundWithOffset(result, roundTo, offset);
+        return Double.valueOf(roundWithOffset(result, roundTo, offset));
     }
 
     public long roundWithOffset(double input, int roundTo, int offset) {

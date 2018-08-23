@@ -4,11 +4,11 @@ import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IBlockBreakingModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -28,17 +28,14 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
  * Time: 5:53 PM
  */
 public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule {
-    public static final String MODULE_SCOOP = "Scoop";
-    public static final String SCOOP_HARVEST_SPEED = "Scoop Harvest Speed";
-    public static final String SCOOP_ENERGY_CONSUMPTION = "Scoop Energy Consumption";
     public static final ItemStack emulatedTool = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("forestry", "scoop")), 1);
 
     public ScoopModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(),emulatedTool);
         ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
-        addBaseProperty(SCOOP_ENERGY_CONSUMPTION, 2000, "J");
-        addBaseProperty(SCOOP_HARVEST_SPEED, 5, "x");
+        addBasePropertyInteger(MPSModuleConstants.SCOOP_ENERGY_CONSUMPTION, 20000, "RF");
+        addBasePropertyInteger(MPSModuleConstants.SCOOP_HARVEST_SPEED, 5, "x");
     }
 
     @Override
@@ -48,12 +45,7 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
 
     @Override
     public String getDataName() {
-        return MODULE_SCOOP;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "scoop";
+        return MPSModuleConstants.MODULE_SCOOP__DATANAME;
     }
 
     @Override
@@ -64,7 +56,7 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
     @Override
     public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
         if (ToolHelpers.isEffectiveTool(state, emulatedTool)) {
-            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.INSTANCE.computeModularProperty(stack, SCOOP_ENERGY_CONSUMPTION)) {
+            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.SCOOP_ENERGY_CONSUMPTION)) {
                 return true;
             }
         }
@@ -74,7 +66,7 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
         if (ForgeHooks.canToolHarvestBlock(worldIn, pos, emulatedTool)) {
-            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, ModuleManager.INSTANCE.computeModularProperty(stack, SCOOP_ENERGY_CONSUMPTION));
+            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, ModuleManager.INSTANCE.getOrSetModularPropertyInteger(stack, MPSModuleConstants.SCOOP_ENERGY_CONSUMPTION));
             return true;
         }
         return false;
@@ -83,7 +75,7 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
         event.setNewSpeed((float) (event.getNewSpeed() *
-                ModuleManager.INSTANCE.computeModularProperty(event.getEntityPlayer().inventory.getCurrentItem(), SCOOP_HARVEST_SPEED)));
+                ModuleManager.INSTANCE.getOrSetModularPropertyDouble(event.getEntityPlayer().inventory.getCurrentItem(), MPSModuleConstants.SCOOP_HARVEST_SPEED)));
     }
 
     @Override

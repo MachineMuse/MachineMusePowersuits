@@ -65,16 +65,6 @@ package net.machinemuse.powersuits.powermodule.tool;// package andrew.powersuits
 // }
 //
 // @Override
-// public String getUnlocalizedName() {
-//         return I18n.format("module.ocTerminal.name");
-// }
-//
-// @Override
-// public String getDescription() {
-//         return "An OpenComputers terminal integrated in your power tool.";
-// }
-//
-// @Override
 // public void onRightClick(EntityPlayer player, World world, ItemStack stack) {
 // /*        if (!player.isSneaking() && stack.hasTagCompound()) {
 //       String key = stack.getTagCompound().getString("oc:key");

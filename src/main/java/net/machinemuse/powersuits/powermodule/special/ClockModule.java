@@ -1,13 +1,13 @@
-package net.machinemuse.powersuits.powermodule.misc;
+package net.machinemuse.powersuits.powermodule.special;
 
 import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.init.Items;
@@ -18,8 +18,6 @@ import net.minecraft.item.ItemStack;
  * 11:12 PM 6/11/13
  */
 public class ClockModule extends PowerModuleBase implements IToggleableModule {
-
-    public static final String MODULE_CLOCK = "Clock";
     public static final ItemStack clock = new ItemStack(Items.CLOCK);
 
     public ClockModule(EnumModuleTarget moduleTarget) {
@@ -40,11 +38,6 @@ public class ClockModule extends PowerModuleBase implements IToggleableModule {
 
     @Override
     public String getDataName() {
-        return MODULE_CLOCK;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "clock";
+        return MPSModuleConstants.MODULE_CLOCK__DATANAME;
     }
 }

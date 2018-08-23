@@ -4,9 +4,10 @@ import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
-import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.numina.client.sound.Musique;
+import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
@@ -15,7 +16,6 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.machinemuse.powersuits.utils.MusePlayerUtils;
-import net.machinemuse.powersuits.utils.PlayerWeightUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -25,17 +25,15 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class JetBootsModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-    public static final String MODULE_JETBOOTS = "Jet Boots";
-    public static final String JET_ENERGY_CONSUMPTION = "Jetboots Energy Consumption";
-    public static final String JET_THRUST = "Jetboots Thrust";
+
 
     public JetBootsModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 2));
-        addBaseProperty(JET_ENERGY_CONSUMPTION, 0);
-        addBaseProperty(JET_THRUST, 0);
-        addTradeoffProperty("Thrust", JET_ENERGY_CONSUMPTION, 75);
-        addTradeoffProperty("Thrust", JET_THRUST, 0.08);
+        addBasePropertyDouble(MPSModuleConstants.JETBOOTS_ENERGY_CONSUMPTION, 0);
+        addBasePropertyDouble(MPSModuleConstants.JETBOOTS_THRUST, 0);
+        addTradeoffPropertyDouble("Thrust", MPSModuleConstants.JETBOOTS_ENERGY_CONSUMPTION, 75);
+        addTradeoffPropertyDouble("Thrust", MPSModuleConstants.JETBOOTS_THRUST, 0.08);
     }
 
     @Override
@@ -45,12 +43,7 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
 
     @Override
     public String getDataName() {
-        return MODULE_JETBOOTS;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "jetBoots";
+        return MPSModuleConstants.MODULE_JETBOOTS__DATANAME;
     }
 
     @Override
@@ -62,24 +55,23 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
         PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
         boolean jumpkey = movementInput.jumpKey;
         ItemStack helmet = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
-        boolean hasFlightControl = ModuleManager.INSTANCE.itemHasActiveModule(helmet, FlightControlModule.MODULE_FLIGHT_CONTROL);
-        double jetEnergy = ModuleManager.INSTANCE.computeModularProperty(item, JET_ENERGY_CONSUMPTION);
-        double thrust = ModuleManager.INSTANCE.computeModularProperty(item, JET_THRUST);
+        boolean hasFlightControl = ModuleManager.INSTANCE.itemHasActiveModule(helmet, MPSModuleConstants.MODULE_FLIGHT_CONTROL__DATANAME);
+        double jetEnergy = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.JETBOOTS_ENERGY_CONSUMPTION);
+        double thrust = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.JETBOOTS_THRUST);
 
         if (jetEnergy < ElectricItemUtils.getPlayerEnergy(player)) {
-            thrust *= MusePlayerUtils.getWeightPenaltyRatio(PlayerWeightUtils.getPlayerWeight(player), 25000);
             if (hasFlightControl && thrust > 0) {
                 thrust = MusePlayerUtils.thrust(player, thrust, true);
                 if ((player.world.isRemote) && NuminaConfig.useSounds()) {
                     Musique.playerSound(player, SoundDictionary.SOUND_EVENT_JETBOOTS, SoundCategory.PLAYERS, (float) (thrust * 12.5), 1.0f, true);
                 }
-                ElectricItemUtils.drainPlayerEnergy(player, thrust * jetEnergy);
+                ElectricItemUtils.drainPlayerEnergy(player, (int) (thrust * jetEnergy));
             } else if (jumpkey && player.motionY < 0.5) {
                 thrust = MusePlayerUtils.thrust(player, thrust, false);
                 if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
                     Musique.playerSound(player, SoundDictionary.SOUND_EVENT_JETBOOTS, SoundCategory.PLAYERS, (float) (thrust * 12.5), 1.0f, true);
                 }
-                ElectricItemUtils.drainPlayerEnergy(player, thrust * jetEnergy);
+                ElectricItemUtils.drainPlayerEnergy(player, (int) (thrust * jetEnergy));
             } else {
                 if ((player.world.isRemote) && NuminaConfig.useSounds()) {
                     Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_JETBOOTS);

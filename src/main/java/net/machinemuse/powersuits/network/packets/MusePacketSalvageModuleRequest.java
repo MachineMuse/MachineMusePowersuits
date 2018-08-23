@@ -6,6 +6,7 @@ import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.minecraft.entity.player.EntityPlayer;
@@ -57,6 +58,7 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
             IPowerModule moduleType = ModuleManager.INSTANCE.getModule(moduleName);
             NonNullList<ItemStack> refund = ModuleManager.INSTANCE.getInstallCost(moduleName);
             if (ModuleManager.INSTANCE.itemHasModule(stack, moduleName)) {
+                MuseNBTUtils.removeMuseValuesTag(stack);
                 Set<Integer> slots = new HashSet<>();
                 ModuleManager.INSTANCE.removeModule(stack, moduleName);
                 for (ItemStack refundItem : refund) {
@@ -72,7 +74,6 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
         }
     }
 
-    private static MusePacketSalvageModuleRequestPackager PACKAGERINSTANCE;
     public static MusePacketSalvageModuleRequestPackager getPackagerInstance() {
         return  MusePacketSalvageModuleRequestPackager.INSTANCE;
     }

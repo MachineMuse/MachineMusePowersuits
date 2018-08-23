@@ -6,6 +6,7 @@ import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -61,9 +62,12 @@ public class MusePacketInstallModuleRequest extends MusePacket {
             }
             NonNullList<ItemStack> cost = ModuleManager.INSTANCE.getInstallCost(moduleName);
             if ((!ModuleManager.INSTANCE.itemHasModule(stack, moduleName) && MuseItemUtils.hasInInventory(cost, player.inventory)) || player.capabilities.isCreativeMode) {
+                MuseNBTUtils.removeMuseValuesTag(stack);
+
+
                 ModuleManager.INSTANCE.itemAddModule(stack, moduleType);
                 for (ItemStack stackInCost : cost) {
-                    ElectricItemUtils.givePlayerEnergy(player, ElectricItemUtils.jouleValueOfComponent(stackInCost));
+                    ElectricItemUtils.givePlayerEnergy(player, ElectricItemUtils.rfValueOfComponent(stackInCost));
                 }
                 List<Integer> slotsToUpdate = new ArrayList<>();
                 if (!player.capabilities.isCreativeMode) {

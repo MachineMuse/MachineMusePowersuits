@@ -7,8 +7,6 @@ import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.common.config.MPSServerSettings;
 import net.minecraft.entity.player.EntityPlayer;
 
-import java.io.DataInputStream;
-
 /**
  * Sync settings between server and client
  */
