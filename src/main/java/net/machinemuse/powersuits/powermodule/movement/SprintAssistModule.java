@@ -52,7 +52,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         if (item == player.getItemStackFromSlot(EntityEquipmentSlot.LEGS)) { // now you actually have to wear these to get the speed boost
             double horzMovement = player.distanceWalkedModified - player.prevDistanceWalkedModified;
-            double totalEnergy = ElectricItemUtils.getPlayerEnergy(player);
+            double totalEnergy = ElectricItemUtils.getMaxPlayerEnergy(player);
             if (horzMovement > 0) { // stop doing drain calculations when player hasn't moved
                 if (player.isSprinting()) {
                     double exhaustion = Math.round(horzMovement * 100.0F) * 0.01;

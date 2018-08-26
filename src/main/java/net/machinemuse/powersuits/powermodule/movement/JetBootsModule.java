@@ -59,7 +59,7 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
         double jetEnergy = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.JETBOOTS_ENERGY_CONSUMPTION);
         double thrust = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.JETBOOTS_THRUST);
 
-        if (jetEnergy < ElectricItemUtils.getPlayerEnergy(player)) {
+        if (jetEnergy < ElectricItemUtils.getMaxPlayerEnergy(player)) {
             if (hasFlightControl && thrust > 0) {
                 thrust = MusePlayerUtils.thrust(player, thrust, true);
                 if ((player.world.isRemote) && NuminaConfig.useSounds()) {

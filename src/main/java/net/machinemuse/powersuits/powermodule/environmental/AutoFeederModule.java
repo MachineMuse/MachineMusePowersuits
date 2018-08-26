@@ -105,13 +105,13 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
         if (foodNeeded > 0 && AutoFeederHelper.getFoodLevel(item) >= 1) {
             int foodUsed = 0;
             // if buffer has enough to fill player stat
-            if (AutoFeederHelper.getFoodLevel(item) >= foodNeeded && foodNeeded * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
+            if (AutoFeederHelper.getFoodLevel(item) >= foodNeeded && foodNeeded * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getMaxPlayerEnergy(player)) {
                 foodUsed = foodNeeded;
             // if buffer has some but not enough to fill the player stat
-            } else if ((foodNeeded - AutoFeederHelper.getFoodLevel(item)) > 0  && AutoFeederHelper.getFoodLevel(item) * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
+            } else if ((foodNeeded - AutoFeederHelper.getFoodLevel(item)) > 0  && AutoFeederHelper.getFoodLevel(item) * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getMaxPlayerEnergy(player)) {
                 foodUsed = (int)AutoFeederHelper.getFoodLevel(item);
             // last resort where using just 1 unit from buffer
-            } else if (eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player) && AutoFeederHelper.getFoodLevel(item) >= 1) {
+            } else if (eatingEnergyConsumption * 0.5 < ElectricItemUtils.getMaxPlayerEnergy(player) && AutoFeederHelper.getFoodLevel(item) >= 1) {
                 foodUsed = 1;
             }
             if (foodUsed > 0) {
@@ -130,13 +130,13 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
                     // using int for better precision
                     int saturationUsed = 0;
                     // if buffer has enough to fill player stat
-                    if (AutoFeederHelper.getSaturationLevel(item) >= saturationNeeded && saturationNeeded * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
+                    if (AutoFeederHelper.getSaturationLevel(item) >= saturationNeeded && saturationNeeded * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getMaxPlayerEnergy(player)) {
                         saturationUsed = (int) saturationNeeded;
                     // if buffer has some but not enough to fill the player stat
-                    } else if ((saturationNeeded - AutoFeederHelper.getSaturationLevel(item)) > 0  && AutoFeederHelper.getSaturationLevel(item) * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player)) {
+                    } else if ((saturationNeeded - AutoFeederHelper.getSaturationLevel(item)) > 0  && AutoFeederHelper.getSaturationLevel(item) * eatingEnergyConsumption * 0.5 < ElectricItemUtils.getMaxPlayerEnergy(player)) {
                         saturationUsed = (int) AutoFeederHelper.getSaturationLevel(item);
                     // last resort where using just 1 unit from buffer
-                    } else if (eatingEnergyConsumption * 0.5 < ElectricItemUtils.getPlayerEnergy(player) && AutoFeederHelper.getSaturationLevel(item) >= 1) {
+                    } else if (eatingEnergyConsumption * 0.5 < ElectricItemUtils.getMaxPlayerEnergy(player) && AutoFeederHelper.getSaturationLevel(item) >= 1) {
                         saturationUsed = 1;
                     }
 

@@ -97,7 +97,7 @@
 //            }
 //        }
 //
-//        if (ElectricItemUtils.getPlayerEnergy(player) > totalEnergy) {
+//        if (ElectricItemUtils.getMaxPlayerEnergy(player) > totalEnergy) {
 //            ElectricItemUtils.drainPlayerEnergy(player, totalEnergy);
 //            if (world.isRemote) {
 //                if (highestvalueblockname.isEmpty())

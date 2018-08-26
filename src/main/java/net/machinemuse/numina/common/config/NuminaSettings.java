@@ -85,7 +85,7 @@ public class NuminaSettings {
     public static int maxTier4 = (int) (1 * Math.pow(10, 8));
 
 
-    @Mod.EventBusSubscriber
+    @Mod.EventBusSubscriber(modid = NuminaConstants.MODID)
     public static class ConfigSyncHandler {
         @SubscribeEvent
         public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {

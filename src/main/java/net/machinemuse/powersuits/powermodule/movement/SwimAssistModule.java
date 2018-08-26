@@ -61,7 +61,7 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
                 }
                 double swimAssistRate = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.SWIM_BOOST_AMOUNT) * 0.05 * moveRatio;;
                 double swimEnergyConsumption = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.SWIM_BOOST_ENERGY_CONSUMPTION);
-                if (swimEnergyConsumption < ElectricItemUtils.getPlayerEnergy(player)) {
+                if (swimEnergyConsumption < ElectricItemUtils.getMaxPlayerEnergy(player)) {
                     if (player.world.isRemote && NuminaConfig.useSounds()) {
                         Musique.playerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST, SoundCategory.PLAYERS, 1.0f, 1.0f, true);
                     }

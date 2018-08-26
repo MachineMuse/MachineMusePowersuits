@@ -27,7 +27,43 @@ public class ElectricItemUtils {
         return electrics;
     }
 
-    public static int getPlayerEnergy(EntityPlayer player) {
+    public static void chargeEmulatedToolFromPlayerEnergy(EntityPlayer player, @Nonnull ItemStack emulatedTool) {
+        ElectricAdapter adapter = ElectricAdapter.wrap(emulatedTool);
+        if (adapter == null)
+            return;
+
+        int maxCharge = adapter.getMaxEnergyStored();
+        int charge = adapter.getEnergyStored();
+
+        if (maxCharge == charge)
+            return;
+
+        int playerEnergy = getMaxPlayerEnergy(player);
+        if (playerEnergy > (maxCharge - charge)) {
+            adapter.receiveEnergy(maxCharge - charge, false);
+            drainPlayerEnergy(player, maxCharge - charge);
+        } else {
+            adapter.receiveEnergy(playerEnergy, false);
+            drainPlayerEnergy(player, playerEnergy);
+        }
+    }
+
+
+    public static int getItemEnergy(@Nonnull ItemStack itemStack) {
+        ElectricAdapter adapter = ElectricAdapter.wrap(itemStack);
+        if (adapter != null)
+            return adapter.getEnergyStored();
+        return 0;
+    }
+
+    public static int getMaxItemEnergy(@Nonnull ItemStack itemStack) {
+        ElectricAdapter adapter = ElectricAdapter.wrap(itemStack);
+        if (adapter != null)
+            return adapter.getEnergyStored();
+        return 0;
+    }
+
+    public static int getMaxPlayerEnergy(EntityPlayer player) {
         int avail = 0;
         for (ElectricAdapter adapter: electricItemsEquipped(player))
             avail += adapter.getEnergyStored();

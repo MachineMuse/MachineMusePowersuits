@@ -37,7 +37,7 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        double totalEnergy = ElectricItemUtils.getPlayerEnergy(player);
+        double totalEnergy = ElectricItemUtils.getMaxPlayerEnergy(player);
         PotionEffect nightVision = null;
         if (player.isPotionActive(nightvision)) {
             nightVision = player.getActivePotionEffect(nightvision);

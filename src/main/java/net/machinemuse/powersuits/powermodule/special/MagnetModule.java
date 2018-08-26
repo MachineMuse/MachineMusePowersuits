@@ -51,7 +51,7 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack stack) {
-        if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.INSTANCE.getOrSetModularPropertyInteger(stack, MPSModuleConstants.MAGNET_ENERGY_CONSUMPTION)) {
+        if (ElectricItemUtils.getMaxPlayerEnergy(player) > ModuleManager.INSTANCE.getOrSetModularPropertyInteger(stack, MPSModuleConstants.MAGNET_ENERGY_CONSUMPTION)) {
             if ((player.world.getTotalWorldTime() % 20) == 0) {
                 ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.getOrSetModularPropertyInteger(stack, MPSModuleConstants.MAGNET_ENERGY_CONSUMPTION));
             }

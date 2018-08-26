@@ -77,7 +77,7 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
             double range = 64;
             double timer = MuseItemUtils.getDoubleOrZero(itemStackIn, MPSModuleConstants.TIMER);
             double energyConsumption = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.RAILGUN_ENERGY_COST);
-            if (ElectricItemUtils.getPlayerEnergy(playerIn) > energyConsumption && timer == 0) {
+            if (ElectricItemUtils.getMaxPlayerEnergy(playerIn) > energyConsumption && timer == 0) {
                 ElectricItemUtils.drainPlayerEnergy(playerIn, (int) energyConsumption);
                 MuseItemUtils.setDoubleOrRemove(itemStackIn, MPSModuleConstants.TIMER, 10);
                 MuseHeatUtils.heatPlayer(playerIn, ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.RAILGUN_HEAT_EMISSION ));

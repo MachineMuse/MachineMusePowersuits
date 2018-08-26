@@ -166,7 +166,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
     public double getArmorDouble(EntityPlayer player, ItemStack stack) {
         double totalArmor = 0.0;
         NBTTagCompound props = MuseNBTUtils.getMuseItemTag(stack);
-        double energy = ElectricItemUtils.getPlayerEnergy(player);
+        double energy = ElectricItemUtils.getMaxPlayerEnergy(player);
         double physArmor = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_VALUE_PHYSICAL);
         double enerArmor = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_VALUE_ENERGY);
         double enerConsum = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_ENERGY_CONSUMPTION);

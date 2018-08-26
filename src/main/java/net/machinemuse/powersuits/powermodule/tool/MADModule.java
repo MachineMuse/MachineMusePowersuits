@@ -1,14 +1,18 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
+import ic2.api.item.ElectricItem;
 import mekanism.common.config.MekanismConfig.general;
 import mekanism.common.item.ItemAtomicDisassembler;
 import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IBlockBreakingModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.ModCompatibility;
+import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.minecraft.block.state.IBlockState;
@@ -23,6 +27,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
+import javax.annotation.Nonnull;
+
 //
 
 
@@ -34,25 +40,25 @@ public class MADModule extends PowerModuleBase implements IBlockBreakingModule, 
 
     //FIXME: need to create a proper storage location for all these emulated tools.
 
-
-
     public MADModule(EnumModuleTarget moduleTargetIn) {
         super(moduleTargetIn);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("mekanism", "atomicdisassembler")), 1));
 
         if (ModCompatibility.isMekanismLoaded()) {
-            emulatedTool = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("mekanism", "atomicdisassembler")), 1);
-            NBTTagCompound nbt = emulatedTool.getTagCompound();
-            if (nbt == null)
-                nbt = new NBTTagCompound();
-
-            NBTTagCompound nbt2 = nbt.getCompoundTag("mekData");
-            if (nbt2 == null)
-                nbt2 = new NBTTagCompound();
+            NBTTagCompound nbt = new NBTTagCompound();
+            NBTTagCompound nbt2 = new NBTTagCompound();
 
             nbt2.setInteger("mode", 3);
             nbt2.setDouble("energyStored", 1000000.0);
             nbt.setTag("mekData", nbt2);
-            emulatedTool.setTagCompound(nbt);
+
+
+            emulatedTool = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("mekanism", "atomicdisassembler")), 1,0, nbt);
+
+
+            System.out.println("emulated tool nbt here: " + emulatedTool.getTagCompound());
         }
     }
 
@@ -64,61 +70,29 @@ public class MADModule extends PowerModuleBase implements IBlockBreakingModule, 
         return false;
     }
 
-    // MPS Version
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-
-        // FIXME: should this be handled here or in other modules?
-
-        if (state.getBlockHardness(worldIn, pos) != 0.0D) {
-            ElectricItemUtils.drainPlayerEnergy((EntityPlayer)entityLiving, (int) (general.DISASSEMBLER_USAGE *
-                            ((ItemAtomicDisassembler) emulatedTool.getItem()).getEfficiency(emulatedTool)));
-        } else {
-            ElectricItemUtils.drainPlayerEnergy((EntityPlayer)entityLiving, (int) (general.DISASSEMBLER_USAGE *
-                    (((ItemAtomicDisassembler) emulatedTool.getItem()).getEfficiency(emulatedTool)) / 2));
-        }
-
-        if (!worldIn.isRemote) {
-            NBTTagCompound nbt = emulatedTool.getTagCompound();
-            if (nbt == null)
-                nbt = new NBTTagCompound();
-
-            NBTTagCompound nbt2 = nbt.getCompoundTag("mekData");
-            if (nbt2 == null)
-                nbt2 = new NBTTagCompound();
-
-            int playerEnergy = ElectricItemUtils.getPlayerEnergy((EntityPlayer)entityLiving)/10;
-            nbt2.setInteger("mode", 3);
-            nbt2.setDouble("energyStored",  playerEnergy > 1000000.0 ? 1000000.0 : playerEnergy);
-            nbt.setTag("mekData", nbt2);
-            emulatedTool.setTagCompound(nbt);
-        }
-        return true;
+        // Nothing actually happens here because canHarvest is set to return false
+        return false;
     }
 
     // MPS Version
     public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
-
-        // TODO: set emulatedTool power value based on player energy
-
+        // set mode for the device
         NBTTagCompound nbt = emulatedTool.getTagCompound();
-        if (!player.world.isRemote) {
-            if (nbt == null)
-                nbt = new NBTTagCompound();
-
-            NBTTagCompound nbt2 = nbt.getCompoundTag("mekData");
-            if (nbt2 == null)
-                nbt2 = new NBTTagCompound();
-
-            int playerEnergy = ElectricItemUtils.getPlayerEnergy(player)/10;
-
+        if (nbt == null) {
+            nbt = new NBTTagCompound();
+            NBTTagCompound nbt2 = new NBTTagCompound();
             nbt2.setInteger("mode", 3);
-            nbt2.setDouble("energyStored", playerEnergy > 1000000.0 ? 1000000.0 : playerEnergy);
             nbt.setTag("mekData", nbt2);
             emulatedTool.setTagCompound(nbt);
         }
+
+        // charge the device for usage
+        ElectricItemUtils.chargeEmulatedToolFromPlayerEnergy(player, emulatedTool);
         return emulatedTool.getItem().onBlockStartBreak(emulatedTool, pos, player);
     }
+
 
     @Override
     public void handleBreakSpeed(PlayerEvent.BreakSpeed event) {

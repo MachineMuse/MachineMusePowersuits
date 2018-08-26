@@ -38,7 +38,7 @@ public class InvisibilityModule extends PowerModuleBase implements IPlayerTickMo
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        double totalEnergy = ElectricItemUtils.getPlayerEnergy(player);
+        double totalEnergy = ElectricItemUtils.getMaxPlayerEnergy(player);
         PotionEffect invis = null;
         if (player.isPotionActive(invisibility)) {
             invis = player.getActivePotionEffect(invisibility);

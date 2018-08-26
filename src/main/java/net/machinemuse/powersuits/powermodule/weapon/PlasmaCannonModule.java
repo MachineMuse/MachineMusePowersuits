@@ -54,7 +54,7 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
 
     @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        if (hand == EnumHand.MAIN_HAND && ElectricItemUtils.getPlayerEnergy(playerIn) > 500) {
+        if (hand == EnumHand.MAIN_HAND && ElectricItemUtils.getMaxPlayerEnergy(playerIn) > 500) {
             playerIn.setActiveHand(hand);
             return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
         }
@@ -80,7 +80,7 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
             if (entityLiving instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) entityLiving;
                 MuseHeatUtils.heatPlayer(player, energyConsumption / 500);
-                if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
+                if (ElectricItemUtils.getMaxPlayerEnergy(player) > energyConsumption) {
                     ElectricItemUtils.drainPlayerEnergy(player, (int) energyConsumption);
                     double explosiveness = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.PLASMA_CANNON_EXPLOSIVENESS);
                     double damagingness = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE);

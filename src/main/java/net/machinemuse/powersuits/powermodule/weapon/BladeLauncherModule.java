@@ -44,7 +44,7 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
     @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         if (hand == EnumHand.MAIN_HAND) {
-            if (ElectricItemUtils.getPlayerEnergy(playerIn) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.BLADE_ENERGY)) {
+            if (ElectricItemUtils.getMaxPlayerEnergy(playerIn) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.BLADE_ENERGY)) {
                 playerIn.setActiveHand(hand);
                 return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
             }
@@ -67,7 +67,7 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
         // int chargeTicks = Math.max(itemStack.getMaxItemUseDuration() - par4, 10);
         if (!worldIn.isRemote) {
             int energyConsumption = (int) Math.round(ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.BLADE_ENERGY));
-            if (ElectricItemUtils.getPlayerEnergy((EntityPlayer) entityLiving) > energyConsumption) {
+            if (ElectricItemUtils.getMaxPlayerEnergy((EntityPlayer) entityLiving) > energyConsumption) {
                 ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, energyConsumption);
                 EntitySpinningBlade blade = new EntitySpinningBlade(worldIn, entityLiving);
                 worldIn.spawnEntity(blade);

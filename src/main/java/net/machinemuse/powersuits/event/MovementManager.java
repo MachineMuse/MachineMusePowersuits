@@ -45,7 +45,7 @@ public class MovementManager {
                     && ModuleManager.INSTANCE.itemHasActiveModule(stack, MPSModuleConstants.MODULE_JUMP_ASSIST__DATANAME)) {
                 double jumpAssist = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.JUMP_MULTIPLIER) * 2;
                 double drain = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.JUMP_ENERGY_CONSUMPTION);
-                int avail = ElectricItemUtils.getPlayerEnergy(player);
+                int avail = ElectricItemUtils.getMaxPlayerEnergy(player);
                 if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
                     Musique.playerSound(player, SoundDictionary.SOUND_EVENT_JUMP_ASSIST, SoundCategory.PLAYERS, (float) (jumpAssist / 8.0), (float) 1, false);
                 }
@@ -76,7 +76,7 @@ public class MovementManager {
                     }
 
                     double drain = distanceAbsorb * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(boots, MPSModuleConstants.SHOCK_ABSORB_ENERGY_CONSUMPTION);
-                    int avail = ElectricItemUtils.getPlayerEnergy(player);
+                    int avail = ElectricItemUtils.getMaxPlayerEnergy(player);
                     if (drain < avail) {
                         ElectricItemUtils.drainPlayerEnergy(player, (int) drain);
                         event.setDistance((float) (event.getDistance() - distanceAbsorb));

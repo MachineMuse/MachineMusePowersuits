@@ -18,7 +18,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
@@ -49,7 +48,7 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
     @Override
     public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
         if (ToolHelpers.isEffectiveTool(state, emulatedTool)) {
-            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.PICKAXE_ENERGY_CONSUMPTION)) {
+            if (ElectricItemUtils.getMaxPlayerEnergy(player) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.PICKAXE_ENERGY_CONSUMPTION)) {
                 return true;
             }
         }

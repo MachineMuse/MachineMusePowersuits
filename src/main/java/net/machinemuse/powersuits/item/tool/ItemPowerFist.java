@@ -41,8 +41,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.common.Optional;
 
 import javax.annotation.Nonnull;
@@ -116,7 +114,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         if (entityDoingHitting instanceof EntityPlayer && ModuleManager.INSTANCE.itemHasActiveModule(stack, MPSModuleConstants.MODULE_MELEE_ASSIST__DATANAME)) {
             EntityPlayer player = (EntityPlayer) entityDoingHitting;
             double drain = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.PUNCH_ENERGY);
-            if (ElectricItemUtils.getPlayerEnergy(player) > drain) {
+            if (ElectricItemUtils.getMaxPlayerEnergy(player) > drain) {
                 ElectricItemUtils.drainPlayerEnergy(player, (int) drain);
                 double damage = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.PUNCH_DAMAGE);
                 double knockback = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.PUNCH_KNOCKBACK);
