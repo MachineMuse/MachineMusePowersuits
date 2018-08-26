@@ -43,7 +43,7 @@ public class BlockTinkerTable extends BlockHorizontal {
         setUnlocalizedName(name);
         setRegistryName(ModularPowersuits.MODID, "tile." + name.toLowerCase());
         setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
-        GameRegistry.registerTileEntity(TileEntityTinkerTable.class, name);
+        GameRegistry.registerTileEntity(TileEntityTinkerTable.class, getRegistryName());
     }
 
     @Override

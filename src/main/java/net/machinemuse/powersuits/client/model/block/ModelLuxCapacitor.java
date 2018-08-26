@@ -8,6 +8,7 @@ import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.client.helper.ModelHelper;
 import net.machinemuse.powersuits.client.helper.ModelLuxCapacitorHelper;
+import net.machinemuse.powersuits.common.MPSItems;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -37,7 +38,7 @@ import static net.minecraft.block.BlockDirectional.FACING;
 
 @SideOnly(Side.CLIENT)
 public class ModelLuxCapacitor implements IBakedModel {
-    public static final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(BlockLuxCapacitor.getInstance().getRegistryName().toString());
+    public static final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(MPSItems.INSTANCE.luxCapacitor.getRegistryName().toString());
     public IBakedModel wrapper;
     protected Function<ResourceLocation, TextureAtlasSprite> textureGetter;
     Colour colour;
@@ -76,7 +77,7 @@ public class ModelLuxCapacitor implements IBakedModel {
     }
 
     public static ModelResourceLocation getModelResourceLocation(EnumFacing facing) {
-        return new ModelResourceLocation(BlockLuxCapacitor.getInstance().getRegistryName().toString(), "facing=" + facing.getName());
+        return new ModelResourceLocation(MPSItems.INSTANCE.luxCapacitor.getRegistryName().toString(), "facing=" + facing.getName());
     }
 
     @Override

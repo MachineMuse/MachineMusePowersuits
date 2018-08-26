@@ -48,7 +48,6 @@ public class ElectricItemUtils {
         }
     }
 
-
     public static int getItemEnergy(@Nonnull ItemStack itemStack) {
         ElectricAdapter adapter = ElectricAdapter.wrap(itemStack);
         if (adapter != null)

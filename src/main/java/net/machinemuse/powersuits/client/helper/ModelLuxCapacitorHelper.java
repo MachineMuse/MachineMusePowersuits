@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableList;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
+import net.machinemuse.powersuits.common.MPSItems;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -52,14 +53,14 @@ public enum ModelLuxCapacitorHelper {
 
                     TRSRTransformation transform = new TRSRTransformation(facing);
                     IBakedModel bakedModel = ModelHelper.getBakedModel(baseModelLocation, transform);
-                    return bakedModel.getQuads(BlockLuxCapacitor.getInstance().getDefaultState().withProperty(BlockDirectional.FACING, facing), null, 0);
+                    return bakedModel.getQuads(MPSItems.INSTANCE.luxCapacitor.getDefaultState().withProperty(BlockDirectional.FACING, facing), null, 0);
                 }
 
                 List<BakedQuad> getLensColoredQuads(Colour color, @Nullable EnumFacing facing) {
                     facing = (facing != null) ? facing : EnumFacing.NORTH;
                     TRSRTransformation transform = new TRSRTransformation(facing);
                     IBakedModel bakedModel = ModelHelper.getBakedModel(lensModelLocation, transform);
-                    List<BakedQuad> quads = bakedModel.getQuads(BlockLuxCapacitor.getInstance().getDefaultState().withProperty(BlockDirectional.FACING, facing), null, 0);
+                    List<BakedQuad> quads = bakedModel.getQuads(MPSItems.INSTANCE.luxCapacitor.getDefaultState().withProperty(BlockDirectional.FACING, facing), null, 0);
                     return ModelHelper.getColoredQuadsWithGlow(quads, color, true);
                 }
 

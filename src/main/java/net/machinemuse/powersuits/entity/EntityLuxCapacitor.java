@@ -4,6 +4,7 @@ import io.netty.buffer.ByteBuf;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
+import net.machinemuse.powersuits.common.MPSItems;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -83,7 +84,7 @@ public class EntityLuxCapacitor extends EntityThrowable implements IEntityAdditi
                     if (blockToStickTo.isNormalCube(world.getBlockState(blockPos), world, blockPos) &&
                             !(blockToStickTo instanceof BlockLuxCapacitor) && color != null) {
                         // FIXME: disabled while working on models.
-                        world.setBlockState(blockPos, ((IExtendedBlockState) BlockLuxCapacitor.getInstance().getDefaultState().
+                        world.setBlockState(blockPos, ((IExtendedBlockState) MPSItems.INSTANCE.luxCapacitor.getDefaultState().
                                 withProperty(FACING, dir)).withProperty(COLOR, color));
                         world.setTileEntity(blockPos, new TileEntityLuxCapacitor(color));
 
@@ -97,7 +98,7 @@ public class EntityLuxCapacitor extends EntityThrowable implements IEntityAdditi
                             // FIXME: disabled while working on models
                             if (blockToStickTo.isNormalCube(world.getBlockState(blockPos2), world, blockPos) &&
                                     !(blockToStickTo instanceof BlockLuxCapacitor) && color != null) {
-                                world.setBlockState(blockPos, ((IExtendedBlockState) BlockLuxCapacitor.getInstance().getDefaultState().
+                                world.setBlockState(blockPos, ((IExtendedBlockState) MPSItems.INSTANCE.luxCapacitor.getDefaultState().
                                         withProperty(FACING, dir)).withProperty(COLOR, color));
                                 world.setTileEntity(blockPos, new TileEntityLuxCapacitor(color));
                                 break;

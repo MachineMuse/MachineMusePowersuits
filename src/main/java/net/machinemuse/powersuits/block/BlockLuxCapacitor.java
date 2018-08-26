@@ -57,20 +57,8 @@ public class BlockLuxCapacitor extends BlockDirectional {
     };
 
     public static final String name = "luxCapacitor";
-    private volatile static BlockLuxCapacitor INSTANCE;
 
-    public static BlockLuxCapacitor getInstance() {
-        if (INSTANCE == null) {
-            synchronized (BlockLuxCapacitor.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new BlockLuxCapacitor();
-                }
-            }
-        }
-        return INSTANCE;
-    }
-
-    private BlockLuxCapacitor() {
+    public BlockLuxCapacitor() {
         super(Material.CIRCUITS);
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN));
         // IMPORTANT: enabling default state with extended state like the line below causes model loading issues
@@ -85,7 +73,7 @@ public class BlockLuxCapacitor extends BlockDirectional {
         setLightLevel(1.0f);
         setTickRandomly(false);
         setHarvestLevel("pickaxe", 0);
-        GameRegistry.registerTileEntity(TileEntityLuxCapacitor.class, name);
+        GameRegistry.registerTileEntity(TileEntityLuxCapacitor.class, this.getRegistryName());
     }
 
     @SuppressWarnings("deprecation")

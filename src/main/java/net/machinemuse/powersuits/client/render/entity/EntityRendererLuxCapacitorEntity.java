@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.client.render.entity;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.client.model.block.ModelLuxCapacitor;
+import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.client.Minecraft;
@@ -29,7 +30,7 @@ public class EntityRendererLuxCapacitorEntity extends MuseEntityRenderer <Entity
     @Override
     public void doRender(EntityLuxCapacitor entity, double x, double y, double z, float entityYaw, float partialTicks) {
         if (luxCapacitorModel != null) {
-            blockState = ((IExtendedBlockState) BlockLuxCapacitor.getInstance().getDefaultState().
+            blockState = ((IExtendedBlockState) MPSItems.INSTANCE.luxCapacitor.getDefaultState().
                     withProperty(BlockDirectional.FACING, EnumFacing.DOWN)).withProperty(COLOR, entity.color);
             GL11.glPushMatrix();
             GL11.glTranslated(x, y, z);

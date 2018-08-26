@@ -1,5 +1,6 @@
 package net.machinemuse.numina.common;
 
+import net.machinemuse.numina.api.constants.NuminaConstants;
 import net.machinemuse.numina.common.proxy.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -11,16 +12,13 @@ import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
 import javax.annotation.Nonnull;
 import java.io.File;
 
-import static net.machinemuse.numina.api.constants.NuminaConstants.MODID;
-import static net.machinemuse.numina.api.constants.NuminaConstants.VERSION;
-
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 6:06 AM, 6/18/13
  *
  * Ported to Java by lehjr on 11/15/16.
  */
-@Mod(modid = MODID, version = VERSION)
+@Mod(modid = NuminaConstants.MODID, version = NuminaConstants.VERSION, name = NuminaConstants.NAME)
 public enum Numina {
     INSTANCE;
 
@@ -49,7 +47,6 @@ public enum Numina {
     @Mod.EventHandler
     private void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
-//        JSONRecipeList.loadRecipesFromDir(Numina.getInstance().configDir.toString() + "/machinemuse/recipes/");
     }
 
     @Mod.EventHandler

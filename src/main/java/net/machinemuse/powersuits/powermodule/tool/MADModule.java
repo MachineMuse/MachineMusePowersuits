@@ -47,24 +47,12 @@ public class MADModule extends PowerModuleBase implements IBlockBreakingModule, 
         ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("mekanism", "atomicdisassembler")), 1));
 
         if (ModCompatibility.isMekanismLoaded()) {
-            NBTTagCompound nbt = new NBTTagCompound();
-            NBTTagCompound nbt2 = new NBTTagCompound();
-
-            nbt2.setInteger("mode", 3);
-            nbt2.setDouble("energyStored", 1000000.0);
-            nbt.setTag("mekData", nbt2);
-
-
-            emulatedTool = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("mekanism", "atomicdisassembler")), 1,0, nbt);
-
-
-            System.out.println("emulated tool nbt here: " + emulatedTool.getTagCompound());
+            emulatedTool = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("mekanism", "atomicdisassembler")), 1);
         }
     }
 
     @Override
     public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
-
         // TODO: check more than this, like power?
 //        return state.getBlock() != Blocks.BEDROCK;
         return false;

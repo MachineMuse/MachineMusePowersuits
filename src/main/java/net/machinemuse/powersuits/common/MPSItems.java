@@ -45,6 +45,10 @@ public enum MPSItems {
 
     // Blocks -------------------------------------------------------------------------------------
     public static BlockTinkerTable tinkerTable = new BlockTinkerTable();
+    public static ItemBlockTinkerTable itemTinkerTable = new ItemBlockTinkerTable();
+
+    public static BlockLuxCapacitor luxCapacitor = new BlockLuxCapacitor();
+    public static ItemBlockLuxCapacitor itemLuxCapacitor = new ItemBlockLuxCapacitor();
 
 
     // Fluid --------------------------------------------------------------------------------------
@@ -63,8 +67,9 @@ public enum MPSItems {
                 powerFist,
                 components,
 
-                ItemBlockTinkerTable.getInstance(),
-                ItemBlockLuxCapacitor.getInstance()
+
+                itemTinkerTable,
+                itemLuxCapacitor
                 );
 
 
@@ -82,10 +87,10 @@ public enum MPSItems {
     @SubscribeEvent
     public static void initBlocks(RegistryEvent.Register<Block> event) {
         event.getRegistry().register(tinkerTable);
-        event.getRegistry().register(BlockLuxCapacitor.getInstance());
+        event.getRegistry().register(luxCapacitor);
 
 
-        event.getRegistry().register(blockLiquidNitrogen); // TODO?
+        event.getRegistry().register(blockLiquidNitrogen);
 
     }
 

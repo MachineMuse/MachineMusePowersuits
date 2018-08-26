@@ -21,13 +21,6 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         Numina.INSTANCE.configDir = new File(event.getModConfigurationDirectory(), NuminaConstants.CONFIG_FOLDER);
         File recipesFolder = new File(Numina.getInstance().configDir, "/recipes");
-
-        System.out.println("Numina config dir: " + Numina.getInstance().configDir.getAbsolutePath());
-
-
-
-
-
         recipesFolder.mkdirs();
         recipesFolder.mkdir();
     }

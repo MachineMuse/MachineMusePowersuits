@@ -49,7 +49,7 @@ public class EventRegisterRenderers {
         regRenderer(Item.getItemFromBlock(MPSItems.INSTANCE.tinkerTable));
 
         // Lux Capacitor
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(BlockLuxCapacitor.getInstance()), 0, ModelLuxCapacitor.modelResourceLocation);
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(MPSItems.INSTANCE.luxCapacitor), 0, ModelLuxCapacitor.modelResourceLocation);
 
         // Components
         Item components = mpsItems.components;
