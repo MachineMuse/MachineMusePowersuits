@@ -66,7 +66,7 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
             }
             isIC2Classic = false;
         }
-        addBasePropertyInteger(MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION, 1000);
+        addBasePropertyInteger(MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION, 1000, "RF");
         ModuleManager.INSTANCE.addInstallCost(getDataName(),emulatedTool);
     }
 

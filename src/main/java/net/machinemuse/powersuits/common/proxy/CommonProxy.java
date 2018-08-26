@@ -1,10 +1,7 @@
 package net.machinemuse.powersuits.common.proxy;
 
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
-import net.machinemuse.powersuits.common.MPSGuiHandler;
-import net.machinemuse.powersuits.common.MPSModules;
-import net.machinemuse.powersuits.common.ModCompatibility;
-import net.machinemuse.powersuits.common.ModularPowersuits;
+import net.machinemuse.powersuits.common.*;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
@@ -40,13 +37,14 @@ public class CommonProxy {
 
 //        Config.extractRecipes();
 
-
+        MPSItems.INSTANCE.initFluids();
 
 
     }
 
     public void init(FMLInitializationEvent event) {
         MPSModules.loadPowerModules();
+
 
 
 //        Config.useAdvancedOreScannerMessage(); // Fixme: obsolete

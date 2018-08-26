@@ -19,7 +19,10 @@ import java.util.List;
 public class RadialSelectionFrame implements IGuiFrame {
     protected List<ClickableModule> modeButtons = new ArrayList<>();
     protected final long spawnTime;
-    protected int selectedModule = -1;
+    protected int selectedModuleOriginal = -1;
+    protected int selectedModuleNew = -1;
+
+
     protected EntityPlayer player;
     protected MusePoint2D center;
     protected double radius;
@@ -33,12 +36,12 @@ public class RadialSelectionFrame implements IGuiFrame {
         this.stack = player.inventory.getCurrentItem();
         loadItems();
         //Determine which mode is currently active
-		if (stack != null && stack.getItem() instanceof IModeChangingItem) {
+		if (!stack.isEmpty() && stack.getItem() instanceof IModeChangingItem) {
 	        if (modeButtons != null) {
 	            int i = 0;
 	            for (ClickableModule mode : modeButtons) {
 	            	if (mode.getModule().getDataName().equals(((IModeChangingItem) stack.getItem()).getActiveMode(stack))) {
-	                	selectedModule = i;
+	                	selectedModuleOriginal = i;
 	                    break;
 	                }
                     i++;
@@ -81,7 +84,8 @@ public class RadialSelectionFrame implements IGuiFrame {
             int i = 0;
             for (ClickableModule module : modeButtons) {
                 if (module.hitBox(x, y)) {
-                	selectedModule = i;
+                    selectedModuleNew = i;
+//                	selectedModuleOriginal = i;
                     break;
                 }
                 i++;
@@ -90,8 +94,8 @@ public class RadialSelectionFrame implements IGuiFrame {
     }
 
     public ClickableModule getSelectedModule() {
-        if (modeButtons.size() > selectedModule && selectedModule != -1) {
-            return modeButtons.get(selectedModule);
+        if (modeButtons.size() > selectedModuleNew && selectedModuleNew != -1) {
+            return modeButtons.get(selectedModuleNew);
         } else {
             return null;
         }
@@ -105,10 +109,12 @@ public class RadialSelectionFrame implements IGuiFrame {
     	if (System.currentTimeMillis() - spawnTime > 250) {
         	selectModule(mousex, mousey);
     	}
-    	//Switch to selected mode
-		if (getSelectedModule() != null && stack != null && stack.getItem() instanceof IModeChangingItem) {
-	    	((IModeChangingItem) stack.getItem()).setActiveMode(stack, getSelectedModule().getModule().getDataName());
-	    	PacketSender.sendToServer(new MusePacketModeChangeRequest(player, getSelectedModule().getModule().getDataName(), player.inventory.currentItem));
+    	//Switch to selected mode if mode changed
+		if (getSelectedModule() != null && selectedModuleOriginal != selectedModuleNew && !stack.isEmpty() && stack.getItem() instanceof IModeChangingItem) {
+		    // update to detect mode changes
+		    selectedModuleOriginal = selectedModuleNew;
+		    ((IModeChangingItem) stack.getItem()).setActiveMode(stack, getSelectedModule().getModule().getDataName());
+		    PacketSender.sendToServer(new MusePacketModeChangeRequest(player, getSelectedModule().getModule().getDataName(), player.inventory.currentItem));
 		}
     }
 

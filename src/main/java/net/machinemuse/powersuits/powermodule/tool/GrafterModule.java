@@ -20,7 +20,6 @@ public class GrafterModule extends PowerModuleBase {
     private static ItemStack grafter = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("forestry", "grafter")), 1);
     public GrafterModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-//        ItemStack stack = GameRegistry.findItemStack("Forestry", "grafter", 1);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), grafter);
         addBasePropertyInteger(MPSModuleConstants.GRAFTER_ENERGY_CONSUMPTION, 10000, "RF");
         addBasePropertyInteger(MPSModuleConstants.GRAFTER_HEAT_GENERATION, 20);

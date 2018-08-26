@@ -52,11 +52,6 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
     }
 
     @Override
-    public String getUnlocalizedName() {
-        return "lightningSummoner";
-    }
-
-    @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         if (hand == EnumHand.MAIN_HAND) {
             try {

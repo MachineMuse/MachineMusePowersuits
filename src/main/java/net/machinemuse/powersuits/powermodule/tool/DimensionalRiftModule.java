@@ -37,8 +37,7 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         addBasePropertyDouble(MPSModuleConstants.DIMENSIONAL_RIFT_HEAT_GENERATION, 55);
-        addBasePropertyInteger(MPSModuleConstants.DIMENSIONAL_RIFT_ENERGY_GENERATION, 200000);
-
+        addBasePropertyInteger(MPSModuleConstants.DIMENSIONAL_RIFT_ENERGY_CONSUMPTION, 200000);
         this.defaultTag.setBoolean(TAG_ONLINE, false);
     }
 
@@ -59,7 +58,7 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
             if (player.dimension != -1) {
                 player.setLocationAndAngles(0.5D, player.posY, 0.5D, player.rotationYaw, player.rotationPitch);
                 player.mcServer.getPlayerList().transferPlayerToDimension(player, -1, new DimensionalRiftHelper(player.mcServer.getWorld(-1)));
-                ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.getOrSetModularPropertyInteger(itemStackIn, MPSModuleConstants.DIMENSIONAL_RIFT_ENERGY_GENERATION));
+                ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.getOrSetModularPropertyInteger(itemStackIn, MPSModuleConstants.DIMENSIONAL_RIFT_ENERGY_CONSUMPTION));
                 MuseHeatUtils.heatPlayer(player, ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.DIMENSIONAL_RIFT_HEAT_GENERATION));
             } else if (player.dimension == -1 || player.dimension == 1)
                 player.setLocationAndAngles(0.5D, player.posY, 0.5D, player.rotationYaw, player.rotationPitch);
@@ -76,7 +75,7 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
                 }
                 (player).setPositionAndUpdate(coords.getX() + 0.5D, yPos, coords.getZ() + 0.5D);
             }
-            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.getOrSetModularPropertyInteger(itemStackIn, MPSModuleConstants.DIMENSIONAL_RIFT_ENERGY_GENERATION));
+            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.getOrSetModularPropertyInteger(itemStackIn, MPSModuleConstants.DIMENSIONAL_RIFT_ENERGY_CONSUMPTION));
             MuseHeatUtils.heatPlayer(player, ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.DIMENSIONAL_RIFT_HEAT_GENERATION));
         }
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);

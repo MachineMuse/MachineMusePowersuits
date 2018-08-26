@@ -1,5 +1,7 @@
 package net.machinemuse.powersuits.capabilities;
 
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.electricity.adapter.IMuseElectricItem;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.minecraft.item.ItemStack;
@@ -19,6 +21,12 @@ public final class MPSCapProvider implements ICapabilityProvider {
 
     public MPSCapProvider(final ItemStack container) {
         this.container = container;
+
+
+        // todo: fluid handlers for cooling system modules
+
+
+
 
         if (!container.isEmpty() && container.getItem() instanceof IMuseElectricItem) {
             energyContainerWrapper = new ForgeEnergyItemContainerWrapper(container, ModuleManager.INSTANCE);

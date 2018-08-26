@@ -145,22 +145,22 @@ public abstract class PowerModuleBase implements IPowerModule {
         return addTradeoffPropertyDouble(tradeoffName, propertyName, multiplier);
     }
 
-    public PowerModuleBase addSimpleTradeoffDouble(IPowerModule module,
-                                                   String tradeoffName,
-                                                   String firstPropertyName,
-                                                   String firstUnits,
-                                                   double firstPropertyBase,
-                                                   double firstPropertyMultiplier,
-                                                   String secondPropertyName,
-                                                   String secondUnits,
-                                                   double secondPropertyBase,
-                                                   double secondPropertyMultiplier) {
-        this.addBasePropertyDouble(firstPropertyName, firstPropertyBase, firstUnits);
-        this.addTradeoffPropertyDouble(tradeoffName, firstPropertyName, firstPropertyMultiplier);
-        this.addBasePropertyDouble(secondPropertyName, secondPropertyBase, secondUnits);
-        this.addTradeoffPropertyDouble(tradeoffName, secondPropertyName, secondPropertyMultiplier);
-        return this;
-    }
+//    public PowerModuleBase addSimpleTradeoffDouble(IPowerModule module,
+//                                                   String tradeoffName,
+//                                                   String firstPropertyName,
+//                                                   String firstUnits,
+//                                                   double firstPropertyBase,
+//                                                   double firstPropertyMultiplier,
+//                                                   String secondPropertyName,
+//                                                   String secondUnits,
+//                                                   double secondPropertyBase,
+//                                                   double secondPropertyMultiplier) {
+//        this.addBasePropertyDouble(firstPropertyName, firstPropertyBase, firstUnits);
+//        this.addTradeoffPropertyDouble(tradeoffName, firstPropertyName, firstPropertyMultiplier);
+//        this.addBasePropertyDouble(secondPropertyName, secondPropertyBase, secondUnits);
+//        this.addTradeoffPropertyDouble(tradeoffName, secondPropertyName, secondPropertyMultiplier);
+//        return this;
+//    }
 
     /**
      * Adds a base key and value to the map based on the config setting.

@@ -23,7 +23,7 @@ public class ShockAbsorberModule extends PowerModuleBase implements IToggleableM
 //        addSimpleTradeoffDouble(this, "Power", SHOCK_ABSORB_ENERGY_CONSUMPTION, "RF/m", 0, 100, SHOCK_ABSORB_MULTIPLIER, "%", 0, 1);
 
         this.addBasePropertyDouble(MPSModuleConstants.SHOCK_ABSORB_ENERGY_CONSUMPTION, 0, "RF/m");
-        this.addTradeoffPropertyDouble("Power", MPSModuleConstants.SHOCK_ABSORB_ENERGY_CONSUMPTION, 10);
+        this.addTradeoffPropertyDouble("Power", MPSModuleConstants.SHOCK_ABSORB_ENERGY_CONSUMPTION, 100);
         this.addBasePropertyDouble(MPSModuleConstants.SHOCK_ABSORB_MULTIPLIER, 0, "%");
         this.addTradeoffPropertyDouble("Power", MPSModuleConstants.SHOCK_ABSORB_MULTIPLIER, 1);
         this.addBasePropertyInteger(MPSModuleConstants.SLOT_POINTS, 4);

@@ -25,7 +25,7 @@ public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerT
     public WaterElectrolyzerModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.lvcapacitor, 1));
-        addBasePropertyDouble(MPSModuleConstants.WATERBREATHING_ENERGY_CONSUMPTION, 1000, "J");
+        addBasePropertyDouble(MPSModuleConstants.WATERBREATHING_ENERGY_CONSUMPTION, 10000, "RF");
     }
 
     @Override
@@ -36,11 +36,6 @@ public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerT
     @Override
     public String getDataName() {
         return MPSModuleConstants.MODULE_WATER_ELECTROLYZER__DATANAME;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "waterElectrolyzer";
     }
 
     @Override

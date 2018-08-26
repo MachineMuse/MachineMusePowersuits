@@ -32,7 +32,7 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 2));
         addBasePropertyDouble(MPSModuleConstants.JETBOOTS_ENERGY_CONSUMPTION, 0);
         addBasePropertyDouble(MPSModuleConstants.JETBOOTS_THRUST, 0);
-        addTradeoffPropertyDouble("Thrust", MPSModuleConstants.JETBOOTS_ENERGY_CONSUMPTION, 75);
+        addTradeoffPropertyDouble("Thrust", MPSModuleConstants.JETBOOTS_ENERGY_CONSUMPTION, 750, "RF");
         addTradeoffPropertyDouble("Thrust", MPSModuleConstants.JETBOOTS_THRUST, 0.08);
     }
 

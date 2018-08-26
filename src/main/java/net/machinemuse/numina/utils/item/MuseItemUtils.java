@@ -66,14 +66,24 @@ public class MuseItemUtils {
     /**
      * Scans a specified inventory for modular items.
      *
-     * @param inv IInventory to scan.
+     * @param player's whose inventory to scan.
      * @return A List of inventory slots containing an IModularItem
      */
-    public static List<Integer> getModularItemSlotsInInventory(IInventory inv) {
-        ArrayList<Integer> slots = new ArrayList<>();
+    public static List<Integer> getModularItemSlotsEquiped(EntityPlayer player) {
+        // mainhand ... a hotbar number
+        // offhand .... 40
+        // head ....... 39
+        // chest ...... 38
+        // legs ....... 37
+        // feet ....... 36
 
-        for (int i = 0; i < inv.getSizeInventory(); i++) {
-            ItemStack stack = inv.getStackInSlot(i);
+        ArrayList<Integer> slots = new ArrayList<>();
+        ItemStack stack = player.getHeldItemMainhand();
+        if(!stack.isEmpty() && stack.getItem() instanceof IModularItem)
+            slots.add(player.inventory.currentItem);
+
+        for (int i = 36; i < player.inventory.getSizeInventory(); i++) {
+            stack = player.inventory.getStackInSlot(i);
             if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
                 slots.add(i);
             }

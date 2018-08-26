@@ -53,7 +53,7 @@ public class ItemComponent extends Item {
     public static ItemStack magnet;
     public static ItemStack solarPanel;
     public static ItemStack computerChip;
-    public static ItemStack liquidNitrogen; // FIXME
+//    public static ItemStack liquidNitrogen; // FIXME
     public static ItemStack rubberHose;
 
     private ItemComponent() {
@@ -117,7 +117,7 @@ public class ItemComponent extends Item {
         magnet = addComponent(19, "componentMagnet", "A metallic device that generates a magnetic field which pulls items towards the player.");
         computerChip = addComponent(20, "componentComputerChip", "An upgraded control circuit that contains a CPU which is capable of more advanced calculations.");
         rubberHose = addComponent(21,"componentRubberHose", "A heavily insulated rubber hose capable of withstanding extreme heat or cold");
-        liquidNitrogen = addComponent(22, "componentLiquidNitrogen", "A bucket of Liquid Nitrogen");
+//        liquidNitrogen = addComponent(22, "componentLiquidNitrogen", "A bucket of Liquid Nitrogen"); // replaced with an atcual fluid bucket
     }
 
     @Override

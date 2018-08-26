@@ -18,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
@@ -31,7 +32,7 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBasePropertyDouble(MPSModuleConstants.PICKAXE_ENERGY_CONSUMPTION, 500, "RF");
         addBasePropertyDouble(MPSModuleConstants.PICKAXE_HARVEST_SPEED, 8, "x");
-        addTradeoffPropertyDouble("Overclock", MPSModuleConstants.PICKAXE_ENERGY_CONSUMPTION, 950);
+        addTradeoffPropertyDouble("Overclock", MPSModuleConstants.PICKAXE_ENERGY_CONSUMPTION, 9500);
         addTradeoffPropertyDouble("Overclock", MPSModuleConstants.PICKAXE_HARVEST_SPEED, 52);
     }
 
@@ -68,10 +69,6 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
         event.setNewSpeed((float) (event.getNewSpeed() * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(event.getEntityPlayer().inventory.getCurrentItem(), MPSModuleConstants.PICKAXE_HARVEST_SPEED)));
-        System.out.println("original speed: " + event.getOriginalSpeed());
-        System.out.println("new speed: " + event.getNewSpeed());
-
-
     }
 
     @Override

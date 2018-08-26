@@ -33,12 +33,6 @@ public class ForgeEnergyItemContainerWrapper extends EnergyStorage {
         if (!canReceive())
             return 0;
 
-//        // getting energy here with getEnergyStored() sets it for later use
-//        this.energy = getEnergyStored();
-//        this.capacity = getMaxEnergyStored();
-
-
-//        int energyReceived = Math.min(getMaxEnergyStored() - getEnergyStored(), Math.min(this.maxReceive, energyProvided));
         int energyReceived = Math.min(this.capacity - this.energy, Math.min(this.maxReceive, energyProvided));
 
         if (!simulate) {
@@ -55,10 +49,10 @@ public class ForgeEnergyItemContainerWrapper extends EnergyStorage {
 
         // getting energy here with getEnergyStored() sets it for later use
 //        int energyExtracted = Math.min(getEnergyStored(), Math.min(this.maxExtract, energyRequested));
-        int energyExtracted = Math.min(energy, Math.min(this.maxExtract, energyRequested));
+        int energyExtracted = Math.min(this.energy, Math.min(this.maxExtract, energyRequested));
 
         if (!simulate) {
-            energy -= energyExtracted;
+            this.energy -= energyExtracted;
             MuseItemUtils.setIntegerOrRemove(container, NuminaNBTConstants.CURRENT_ENERGY, Math.min(energy, getMaxEnergyStored()));
         }
         return energyExtracted;

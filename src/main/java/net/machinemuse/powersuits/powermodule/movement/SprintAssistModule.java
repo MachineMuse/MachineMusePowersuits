@@ -30,10 +30,22 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
 
     public SprintAssistModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        addSimpleTradeoffDouble(this, "Power", MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, "J", 0, 10, MPSModuleConstants.SPRINT_SPEED_MULTIPLIER, "%", 1, 2);
-        addSimpleTradeoffDouble(this, "Compensation", MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, "J", 0, 2, MPSModuleConstants.SPRINT_FOOD_COMPENSATION, "%", 0, 1);
-        addSimpleTradeoffDouble(this, "Walking Assist", MPSModuleConstants.WALKING_ENERGY_CONSUMPTION, "J", 0, 10, MPSModuleConstants.WALKING_SPEED_MULTIPLIER, "%", 1, 1);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 4));
+
+        addBasePropertyDouble(MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 0, "RF");
+        addTradeoffPropertyDouble("Power", MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 100);
+        addBasePropertyDouble(MPSModuleConstants.SPRINT_SPEED_MULTIPLIER, 1, "%");
+        addTradeoffPropertyDouble("Power", MPSModuleConstants.SPRINT_SPEED_MULTIPLIER, 2);
+
+        addBasePropertyDouble(MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 0, "RF");
+        addTradeoffPropertyDouble("Compensation", MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 20);
+        addBasePropertyDouble(MPSModuleConstants.SPRINT_FOOD_COMPENSATION, 0, "%");
+        addTradeoffPropertyDouble("Compensation", MPSModuleConstants.SPRINT_FOOD_COMPENSATION, 1);
+
+        addBasePropertyDouble(MPSModuleConstants.WALKING_ENERGY_CONSUMPTION, 0, "RF");
+        addTradeoffPropertyDouble("Walking Assist", MPSModuleConstants.WALKING_ENERGY_CONSUMPTION, 100);
+        addBasePropertyDouble(MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 1, "%");
+        addTradeoffPropertyDouble("Walking Assist", MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 1);
     }
 
     @Override

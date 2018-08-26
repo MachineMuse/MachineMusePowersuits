@@ -4,6 +4,7 @@ import net.machinemuse.powersuits.api.electricity.adapter.ElectricAdapter;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -16,10 +17,11 @@ import java.util.List;
 public class ElectricItemUtils {
     public static List<ElectricAdapter> electricItemsEquipped(EntityPlayer player) {
         List<ElectricAdapter> electrics = new ArrayList<>();
-        for (int i  = 0; i < player.inventory.getSizeInventory(); i++) {
-            ElectricAdapter adapter  = ElectricAdapter.wrap(player.inventory.getStackInSlot(i));
+        // Only check the entity equipment slots for items. This is all armor slots and both hand slots.
+        for (EntityEquipmentSlot slot: EntityEquipmentSlot.values()) {
+            ElectricAdapter adapter  = ElectricAdapter.wrap(player.getItemStackFromSlot(slot));
             if (adapter != null) {
-                electrics.add(0, adapter);
+                electrics.add(adapter);
             }
         }
         return electrics;

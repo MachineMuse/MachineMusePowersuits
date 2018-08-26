@@ -33,11 +33,10 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.magnet, 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
 
-        addBasePropertyInteger(MPSModuleConstants.MAGNET_ENERGY_CONSUMPTION, 2000);
+        addBasePropertyInteger(MPSModuleConstants.MAGNET_ENERGY_CONSUMPTION, 0, "RF");
+        addTradeoffPropertyInteger("Power", MPSModuleConstants.MAGNET_ENERGY_CONSUMPTION, 2000);
         addBasePropertyInteger(MPSModuleConstants.MAGNET_RADIUS, 5);
-        addTradeoffPropertyInteger(MPSModuleConstants.MAGNET_RADIUS, MPSModuleConstants.MAGNET_RADIUS, 10);
-
-//        addBasePropertyDouble(MPSModuleConstants.WEIGHT, 1000);
+        addTradeoffPropertyInteger("Power", MPSModuleConstants.MAGNET_RADIUS, 10);
     }
 
     @Override

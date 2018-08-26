@@ -79,11 +79,6 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
     }
 
     @Override
-    public String getUnlocalizedName() {
-        return "omniProbe";
-    }
-
-    @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }

@@ -24,18 +24,19 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
+
+// FIXME!!!! this module does nothing. Maybe rewrite it to use it as an actual chisel
 public class ChiselModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
     // TODO Fixme put actual item.
     private static final ItemStack emulatedTool = new ItemStack(
             Item.REGISTRY.getObject(new ResourceLocation("chisel", "chisel_iron")), 1);
     public ChiselModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        //        ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(GameRegistry.findItem("minecraft", "obsidian"), 2)); // depreciated, left for now for reference
         ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Item.getItemFromBlock(Blocks.OBSIDIAN), 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
-        addBasePropertyDouble(MPSModuleConstants.CHISEL_ENERGY_CONSUMPTION, 50, "J");
+        addBasePropertyDouble(MPSModuleConstants.CHISEL_ENERGY_CONSUMPTION, 500, "RF");
         addBasePropertyDouble(MPSModuleConstants.CHISEL_HARVEST_SPEED, 8, "x");
-        addTradeoffPropertyDouble("Overclock", MPSModuleConstants.CHISEL_ENERGY_CONSUMPTION, 950);
+        addTradeoffPropertyDouble("Overclock", MPSModuleConstants.CHISEL_ENERGY_CONSUMPTION, 9500);
         addTradeoffPropertyDouble("Overclock", MPSModuleConstants.CHISEL_HARVEST_SPEED, 22);
     }
 

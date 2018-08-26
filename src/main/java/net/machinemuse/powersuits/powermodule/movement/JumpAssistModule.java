@@ -20,9 +20,17 @@ import net.minecraft.item.ItemStack;
 public class JumpAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
     public JumpAssistModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        addSimpleTradeoffDouble(this, "Power", MPSModuleConstants.JUMP_ENERGY_CONSUMPTION, "J", 0, 25, MPSModuleConstants.JUMP_MULTIPLIER, "%", 1, 4);
-        addSimpleTradeoffDouble(this, "Compensation", MPSModuleConstants.JUMP_ENERGY_CONSUMPTION, "J", 0, 5, MPSModuleConstants.JUMP_FOOD_COMPENSATION, "%", 0, 1);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 4));
+
+        addBasePropertyDouble(MPSModuleConstants.JUMP_ENERGY_CONSUMPTION, 0, "RF");
+        addTradeoffPropertyDouble("Power", MPSModuleConstants.JUMP_ENERGY_CONSUMPTION, 250);
+        addBasePropertyDouble(MPSModuleConstants.JUMP_MULTIPLIER, 1, "%");
+        addTradeoffPropertyDouble("Power", MPSModuleConstants.JUMP_MULTIPLIER, 4);
+
+        addBasePropertyDouble(MPSModuleConstants.JUMP_ENERGY_CONSUMPTION, 0, "RF");
+        addTradeoffPropertyDouble("Compensation", MPSModuleConstants.JUMP_ENERGY_CONSUMPTION, 50);
+        addBasePropertyDouble(MPSModuleConstants.JUMP_FOOD_COMPENSATION, 0, "%");
+        addTradeoffPropertyDouble("Compensation", MPSModuleConstants.JUMP_FOOD_COMPENSATION, 1);
     }
 
     @Override

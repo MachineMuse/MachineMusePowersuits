@@ -164,7 +164,7 @@ public class MPSModuleConstants {
     public static final String AXE_SEARCH_RADIUS = "Axe Search Radius";
     public static final String CHISEL_HARVEST_SPEED = "CHISEL Harvest Speed";
     public static final String CHISEL_ENERGY_CONSUMPTION = "CHISEL Energy Consumption";
-    public static final String DIMENSIONAL_RIFT_ENERGY_GENERATION = "Energy Consumption";
+    public static final String DIMENSIONAL_RIFT_ENERGY_CONSUMPTION = "Energy Consumption";
     public static final String DIMENSIONAL_RIFT_HEAT_GENERATION = "Heat Generation";
     public static final String IGNITION_ENERGY_CONSUMPTION = "Ignition Energy Consumption";
     public static final String GRAFTER_ENERGY_CONSUMPTION = "Grafter Energy Consumption";

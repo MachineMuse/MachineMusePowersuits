@@ -30,13 +30,14 @@ item.powerArmorComponent.componentCarbonMyofiber.name=Carbon Myofiber
 item.powerArmorComponent.componentControlCircuit.name=Control Circuit
 item.powerArmorComponent.componentMyofiberGel.name=Myofiber Gel
 item.powerArmorComponent.componentArtificialMuscle.name=Artificial Muscle
-
 item.powerArmorComponent.componentSolarPanel.name=Solar Panel
 item.powerArmorComponent.componentMagnet.name=Magnet
 item.powerArmorComponent.componentComputerChip.name=Computer Chip
 item.powerArmorComponent.componentLiquidNitrogen.name=Liquid Nitrogen Bucket
 item.powerArmorComponent.componentRubberHose.name=Insulated Rubber Hose
 item.powerArmorComponent.componentRawCarbon.name=Raw Carbon
+
+fluid.liquid_nitrogen=Liquid Nitrogen
 
 # Armor
 module.leatherPlating.name=Leather Plating

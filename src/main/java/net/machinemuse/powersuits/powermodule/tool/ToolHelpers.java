@@ -15,6 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 
+import javax.annotation.Nonnull;
 import java.util.Objects;
 import java.util.Set;
 
@@ -23,13 +24,13 @@ import java.util.Set;
  *  by lehjr on 11/27/16.
  */
 public class ToolHelpers {
-    public static boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
+    public static boolean canHarvestBlock(@Nonnull ItemStack stack, IBlockState state, EntityPlayer player) {
         String tool = state.getBlock().getHarvestTool(state);
         if (stack.isEmpty() || tool == null) return false;
         return stack.getItem().getHarvestLevel(stack, tool, null, null) >= state.getBlock().getHarvestLevel(state);
     }
 
-    public static boolean isEffectiveTool(IBlockState state, ItemStack emulatedTool) {
+    public static boolean isEffectiveTool(IBlockState state, @Nonnull ItemStack emulatedTool) {
         String effectiveTool = state.getBlock().getHarvestTool(state);
         Set<String> emulatedToolClass = emulatedTool.getItem().getToolClasses(emulatedTool);
 

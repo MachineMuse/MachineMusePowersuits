@@ -16,9 +16,9 @@ public class MeleeAssistModule extends PowerModuleBase {
         super(moduleTarget);
         addBasePropertyDouble(MPSModuleConstants.PUNCH_ENERGY, 10, "J");
         addBasePropertyDouble(MPSModuleConstants.PUNCH_DAMAGE, 2, "pt");
-        addTradeoffPropertyDouble("Impact", MPSModuleConstants.PUNCH_ENERGY, 100, "J");
+        addTradeoffPropertyDouble("Impact", MPSModuleConstants.PUNCH_ENERGY, 1000, "RF");
         addTradeoffPropertyDouble("Impact", MPSModuleConstants.PUNCH_DAMAGE, 8, "pt");
-        addTradeoffPropertyDouble("Carry-through", MPSModuleConstants.PUNCH_ENERGY, 20, "J");
+        addTradeoffPropertyDouble("Carry-through", MPSModuleConstants.PUNCH_ENERGY, 200, "RF");
         addTradeoffPropertyDouble("Carry-through", MPSModuleConstants.PUNCH_KNOCKBACK, 1, "P");
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.lvcapacitor, 1));

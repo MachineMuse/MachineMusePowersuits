@@ -52,4 +52,9 @@ public class MPSItemElectricTool extends ItemTool implements IModularItemBase, I
     public double getArmorDouble(EntityPlayer player, ItemStack stack) {
         return 0;
     }
+
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return slotChanged || !oldStack.equals(newStack);
+    }
 }

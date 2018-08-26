@@ -8,13 +8,21 @@ import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
+import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.fluids.UniversalBucket;
+
+import javax.annotation.Nullable;
 
 /**
  * Created by Eximius88 on 1/17/14.
@@ -23,12 +31,14 @@ public class NitrogenCoolingSystem extends PowerModuleBase implements IPlayerTic
     public NitrogenCoolingSystem(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         //ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Item.netherStar, 1));
-        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.liquidNitrogen, 1));
+
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(
+                UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, MPSItems.INSTANCE.liquidNitrogen), 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.rubberHose, 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.computerChip, 2));
         addTradeoffPropertyDouble("Power", MPSModuleConstants.COOLING_BONUS, 7, "%");
-        addTradeoffPropertyDouble("Power", MPSModuleConstants.NITROGEN_COOLING_SYSTEM_ENERGY_CONSUMPTION, 16, "J/t");
+        addTradeoffPropertyDouble("Power", MPSModuleConstants.NITROGEN_COOLING_SYSTEM_ENERGY_CONSUMPTION, 160, "RF/t");
     }
 
     @Override

@@ -20,7 +20,7 @@ public class MFFSFieldTeleporterModule extends PowerModuleBase {
 
     public MFFSFieldTeleporterModule(EnumModuleTarget moduleTarget) throws IllegalAccessException, NoSuchFieldException, ClassNotFoundException {
         super(moduleTarget);
-        addBasePropertyDouble(FIELD_TELEPORTER_ENERGY_CONSUMPTION, 20000, "J");
+        addBasePropertyDouble(FIELD_TELEPORTER_ENERGY_CONSUMPTION, 200000, "RF");
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
     }
 
@@ -32,11 +32,6 @@ public class MFFSFieldTeleporterModule extends PowerModuleBase {
     @Override
     public String getDataName() {
         return MODULE_FIELD_TELEPORTER;
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return "mffsFieldTeleporter";
     }
 
     @Override

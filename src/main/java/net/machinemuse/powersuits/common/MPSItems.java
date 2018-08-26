@@ -4,6 +4,8 @@ import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.block.itemblock.ItemBlockLuxCapacitor;
 import net.machinemuse.powersuits.block.itemblock.ItemBlockTinkerTable;
+import net.machinemuse.powersuits.fluid.BlockFluidLiquidNitrogen;
+import net.machinemuse.powersuits.fluid.LiquidNitrogen;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
@@ -14,6 +16,8 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -29,15 +33,25 @@ public enum MPSItems {
     INSTANCE;
 
     // Armor --------------------------------------------------------------------------------------
-    public static Item powerArmorHead = itemRegister(new ItemPowerArmorHelmet(), "powerarmor_head", "powerArmorHelmet");
-    public static Item powerArmorTorso = itemRegister(new ItemPowerArmorChestplate(), "powerarmor_torso", "powerArmorChestplate");
-    public static Item powerArmorLegs = itemRegister(new ItemPowerArmorLeggings(), "powerarmor_legs", "powerArmorLeggings");
-    public static Item powerArmorFeet = itemRegister(new ItemPowerArmorBoots(), "powerarmor_feet", "powerArmorBoots");
+    public static Item powerArmorHead = initItem(new ItemPowerArmorHelmet(), "powerarmor_head", "powerArmorHelmet");
+    public static Item powerArmorTorso = initItem(new ItemPowerArmorChestplate(), "powerarmor_torso", "powerArmorChestplate");
+    public static Item powerArmorLegs = initItem(new ItemPowerArmorLeggings(), "powerarmor_legs", "powerArmorLeggings");
+    public static Item powerArmorFeet = initItem(new ItemPowerArmorBoots(), "powerarmor_feet", "powerArmorBoots");
     // HandHeld -----------------------------------------------------------------------------------
-    public static Item powerFist = itemRegister(new ItemPowerFist(), "power_fist", "powerFist");
+    public static Item powerFist = initItem(new ItemPowerFist(), "power_fist", "powerFist");
 
     // Components ---------------------------------------------------------------------------------
     public static Item components = ItemComponent.getInstance();
+
+    // Blocks -------------------------------------------------------------------------------------
+    public static BlockTinkerTable tinkerTable = new BlockTinkerTable();
+
+
+    // Fluid --------------------------------------------------------------------------------------
+    public static LiquidNitrogen liquidNitrogen = new LiquidNitrogen();
+    public static BlockFluidLiquidNitrogen blockLiquidNitrogen = new BlockFluidLiquidNitrogen();
+
+
 
     @SubscribeEvent
     public static void regigisterItems(RegistryEvent.Register<Item> event) {
@@ -58,7 +72,7 @@ public enum MPSItems {
         ((ItemComponent)components).registerOres();
     }
 
-    private static Item itemRegister(Item item, String regName, String unlocalizedName) {
+    private static Item initItem(Item item, String regName, String unlocalizedName) {
         // including the ModID in the unlocalized name helps keep the names unique so they can be used as keys for maps
         item.setUnlocalizedName(new StringBuilder(MODID).append(".").append(unlocalizedName).toString());
         item.setRegistryName(new ResourceLocation(MODID, regName));
@@ -67,9 +81,19 @@ public enum MPSItems {
 
     @SubscribeEvent
     public static void initBlocks(RegistryEvent.Register<Block> event) {
-        event.getRegistry().register(BlockTinkerTable.getInstance());
+        event.getRegistry().register(tinkerTable);
         event.getRegistry().register(BlockLuxCapacitor.getInstance());
-//        event.getRegistry().register(new BlockLiquidNitrogen()); // TODO?
+
+
+        event.getRegistry().register(blockLiquidNitrogen); // TODO?
+
+    }
+
+
+    public static void initFluids() {
+        FluidRegistry.enableUniversalBucket();
+        FluidRegistry.registerFluid(liquidNitrogen);
+        FluidRegistry.addBucketForFluid(liquidNitrogen);
 
     }
  }

@@ -58,7 +58,7 @@ public class AOEPickUpgradeModule extends PowerModuleBase implements IBlockBreak
 
     @Override
     public ItemStack getEmulatedTool() {
-        return null; // FIXME
+        return ItemStack.EMPTY; // FIXME
     }
 
     @Override

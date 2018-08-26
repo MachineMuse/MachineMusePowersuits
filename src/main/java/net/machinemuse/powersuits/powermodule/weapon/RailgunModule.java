@@ -30,10 +30,10 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 6));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
         addBasePropertyDouble(MPSModuleConstants.RAILGUN_TOTAL_IMPULSE, 500, "Ns");
-        addBasePropertyDouble(MPSModuleConstants.RAILGUN_ENERGY_COST, 500, "J");
+        addBasePropertyDouble(MPSModuleConstants.RAILGUN_ENERGY_COST, 5000, "RF");
         addBasePropertyDouble(MPSModuleConstants.RAILGUN_HEAT_EMISSION , 2, "");
         addTradeoffPropertyDouble("Voltage", MPSModuleConstants.RAILGUN_TOTAL_IMPULSE, 2500);
-        addTradeoffPropertyDouble("Voltage", MPSModuleConstants.RAILGUN_ENERGY_COST, 2500);
+        addTradeoffPropertyDouble("Voltage", MPSModuleConstants.RAILGUN_ENERGY_COST, 25000);
         addTradeoffPropertyDouble("Voltage", MPSModuleConstants.RAILGUN_HEAT_EMISSION , 10);
     }
 
@@ -49,7 +49,6 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
 
     public void drawParticleStreamTo(EntityPlayer source, World world, double x, double y, double z) {
         Vec3d direction = source.getLookVec().normalize();
-        double scale = 1.0;
         double xoffset = 1.3f;
         double yoffset = -.2;
         double zoffset = 0.3f;

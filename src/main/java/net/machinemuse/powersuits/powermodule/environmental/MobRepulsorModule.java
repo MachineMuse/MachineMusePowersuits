@@ -34,7 +34,7 @@ import java.util.List;
 public class MobRepulsorModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
     public MobRepulsorModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        addBasePropertyDouble(MPSModuleConstants.MOB_REPULSOR_ENERGY_CONSUMPTION, 2500);
+        addBasePropertyDouble(MPSModuleConstants.MOB_REPULSOR_ENERGY_CONSUMPTION, 2500, "RF");
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.magnet, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
     }

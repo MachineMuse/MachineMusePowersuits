@@ -25,9 +25,9 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
     public AquaAffinityModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 1));
-        addBasePropertyDouble(MPSModuleConstants.AQUA_AFFINITY_ENERGY_CONSUMPTION, 0, "J");
+        addBasePropertyDouble(MPSModuleConstants.AQUA_AFFINITY_ENERGY_CONSUMPTION, 0, "RF");
         addBasePropertyDouble(MPSModuleConstants.UNDERWATER_HARVEST_SPEED, 0.2, "%");
-        addTradeoffPropertyDouble("Power", MPSModuleConstants.AQUA_AFFINITY_ENERGY_CONSUMPTION, 100);
+        addTradeoffPropertyDouble("Power", MPSModuleConstants.AQUA_AFFINITY_ENERGY_CONSUMPTION, 1000);
         addTradeoffPropertyDouble("Power", MPSModuleConstants.UNDERWATER_HARVEST_SPEED, 0.8);
     }
 
@@ -43,22 +43,28 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
 
     @Override
     public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
+        if (player.isInsideOfMaterial(Material.WATER) || !player.onGround) {
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-        if (entityLiving.isInsideOfMaterial(Material.WATER) || !entityLiving.onGround) {
+        if (entityLiving.isInsideOfMaterial(Material.WATER) ){
+//                || !entityLiving.onGround) { // jumping or falling will pass this check
+
             ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving,
                     (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.AQUA_AFFINITY_ENERGY_CONSUMPTION));
         }
-        return true;
+        return false;
     }
 
     @Override
     public void handleBreakSpeed(BreakSpeed event) {
         EntityPlayer player = event.getEntityPlayer();
         ItemStack stack = player.inventory.getCurrentItem();
+
         if (event.getNewSpeed() > 1
                 && (player.isInsideOfMaterial(Material.WATER) || !player.onGround)
                 && ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.AQUA_AFFINITY_ENERGY_CONSUMPTION)) {
@@ -68,7 +74,7 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
 
     @Override
     public ItemStack getEmulatedTool() {
-        return null;
+        return ItemStack.EMPTY;
     }
 
     @Override

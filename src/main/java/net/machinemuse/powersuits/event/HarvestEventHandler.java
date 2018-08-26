@@ -17,7 +17,7 @@ public class HarvestEventHandler {
         EntityPlayer player = event.getEntityPlayer();
         IBlockState state = event.getTargetBlock();
         ItemStack stack = player.inventory.getCurrentItem();
-        if (stack != null && stack.getItem() instanceof ItemPowerFist && ((ItemPowerFist) stack.getItem()).canHarvestBlock(stack, state, player)) {
+        if (!stack.isEmpty() && stack.getItem() instanceof ItemPowerFist && ((ItemPowerFist) stack.getItem()).canHarvestBlock(stack, state, player)) {
             event.setCanHarvest(true);
         }
     }
@@ -27,10 +27,12 @@ public class HarvestEventHandler {
         // Note: here we can actually get the position if needed. we can't om the harvest check.
         IBlockState state = event.getState();
         EntityPlayer player = event.getEntityPlayer();
-        if (event.getNewSpeed() < event.getOriginalSpeed())
-            event.setNewSpeed(event.getOriginalSpeed());
+
         ItemStack stack = player.inventory.getCurrentItem();
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
+            if (event.getNewSpeed() < event.getOriginalSpeed())
+                event.setNewSpeed(event.getOriginalSpeed());
+
             // TODO: add a way to look for the actual tool required instead of looping through multiple checks.
 
             for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IBlockBreakingModule.class))

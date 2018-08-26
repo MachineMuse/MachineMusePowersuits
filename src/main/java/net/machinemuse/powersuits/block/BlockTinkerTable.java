@@ -30,19 +30,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class BlockTinkerTable extends BlockHorizontal {
     public static final String name = "tinkerTable";
 
-    private volatile static BlockTinkerTable INSTANCE;
-    public static BlockTinkerTable getInstance() {
-        if (INSTANCE == null) {
-            synchronized (BlockTinkerTable.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new BlockTinkerTable();
-                }
-            }
-        }
-        return INSTANCE;
-    }
-
-    private BlockTinkerTable() {
+    public BlockTinkerTable() {
         super(Material.IRON);
         setHardness(1.5F);
         setResistance(1000.0F);
@@ -57,11 +45,6 @@ public class BlockTinkerTable extends BlockHorizontal {
         setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
         GameRegistry.registerTileEntity(TileEntityTinkerTable.class, name);
     }
-
-//    @Override
-//    public EnumBlockRenderType getRenderType(IBlockState state) {
-//        return EnumBlockRenderType.MODEL;
-//    }
 
     @Override
     public boolean isOpaqueCube(IBlockState state) {

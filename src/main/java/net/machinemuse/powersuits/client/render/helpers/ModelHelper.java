@@ -114,7 +114,7 @@
 //
 //    /*
 //     * This is a slightly modified version of Forge's example (@author shadekiller666) for the Tesseract model.
-//     * With this we can generate an extended blockstate to get the quads of any group in a model without
+//     * With this we can generate an extended blockstates to get the quads of any group in a model without
 //     * having to rebake the model. In this perticular case, the setup is for gettting an extended state that
 //     * will hide all groups but one. However, this can easily be altered to hide fewer parts if needed.
 //     *

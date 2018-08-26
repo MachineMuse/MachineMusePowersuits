@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.block.itemblock;
 
 import net.machinemuse.powersuits.block.BlockTinkerTable;
+import net.machinemuse.powersuits.common.MPSItems;
 import net.minecraft.item.ItemBlock;
 
 /*
@@ -21,12 +22,8 @@ public class ItemBlockTinkerTable extends ItemBlock {
     }
 
     private ItemBlockTinkerTable() {
-        super(BlockTinkerTable.getInstance());
-//        setUnlocalizedName(BlockTinkerTable.getInstance().getUnlocalizedName());
-        setRegistryName(BlockTinkerTable.getInstance().getRegistryName());
-        System.out.println("tinker table reg name " + this.getRegistryName());
-        System.out.println("tinker table unlocalized name " + this.getUnlocalizedName());
-
+        super(MPSItems.INSTANCE.tinkerTable);
+        setRegistryName(MPSItems.INSTANCE.tinkerTable.getRegistryName());
         this.hasSubtypes = false;
     }
 }

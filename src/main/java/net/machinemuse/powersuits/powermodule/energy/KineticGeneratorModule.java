@@ -33,6 +33,10 @@ public class KineticGeneratorModule extends PowerModuleBase implements IPlayerTi
         addTradeoffPropertyInteger("Energy Generated", MPSModuleConstants.SLOT_POINTS, 3);
         addBasePropertyInteger(MPSModuleConstants.SLOT_POINTS, 1);
 
+
+        // TODO: kinetic generation should cause player speed reduction
+
+
 //        addBasePropertyDouble(KINETIC_ENERGY_GENERATION, 200);
 //        addTradeoffPropertyDouble("Energy Generated", KINETIC_ENERGY_GENERATION, 600, " Joules");
 //
