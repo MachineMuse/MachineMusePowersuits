@@ -28,8 +28,6 @@ public enum MPSConfig {
     /** Server side settings setup ---------------------------------------------------------------- */
     private static MPSServerSettings serverSettings;
     public static void setServerSettings(@Nullable final MPSServerSettings serverSettingsIn) {
-        System.out.println("setting new server side settings");
-
         serverSettings = serverSettingsIn;
     }
 
@@ -40,14 +38,7 @@ public enum MPSConfig {
 
 
     /** Creative tab ------------------------------------------------------------------------------ */
-    private static CreativeTabs mpsCreativeTab;
-
-    public static CreativeTabs getCreativeTab() {
-        if (mpsCreativeTab == null)
-            mpsCreativeTab = new MPSCreativeTab();
-        return mpsCreativeTab;
-    }
-
+    public static CreativeTabs mpsCreativeTab = new MPSCreativeTab();
 
     /** HUD Settings ------------------------------------------------------------------------------ */
     public boolean useHUDStuff() {

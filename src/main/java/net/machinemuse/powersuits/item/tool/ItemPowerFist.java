@@ -88,7 +88,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         super(0.0f, 0.0f, ToolMaterial.DIAMOND); // FIXME
         this.setMaxStackSize(1);
         this.setMaxDamage(0);
-        this.setCreativeTab(MPSConfig.INSTANCE.getCreativeTab());
+        this.setCreativeTab(MPSConfig.INSTANCE.mpsCreativeTab);
     }
 
 

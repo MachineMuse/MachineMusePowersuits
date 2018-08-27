@@ -35,7 +35,7 @@ public class BlockTinkerTable extends BlockHorizontal {
         setHardness(1.5F);
         setResistance(1000.0F);
         setHarvestLevel("pickaxe", 2);
-        setCreativeTab(MPSConfig.INSTANCE.getCreativeTab());
+        setCreativeTab(MPSConfig.INSTANCE.mpsCreativeTab);
         setSoundType(SoundType.METAL);
         setLightOpacity(0);
         setLightLevel(0.4f);

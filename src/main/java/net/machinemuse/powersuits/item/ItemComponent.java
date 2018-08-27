@@ -53,7 +53,6 @@ public class ItemComponent extends Item {
     public static ItemStack magnet;
     public static ItemStack solarPanel;
     public static ItemStack computerChip;
-//    public static ItemStack liquidNitrogen; // FIXME
     public static ItemStack rubberHose;
 
     private ItemComponent() {
@@ -62,7 +61,7 @@ public class ItemComponent extends Item {
         this.setUnlocalizedName("item.powerArmorComponent.");
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
-        this.setCreativeTab(MPSConfig.INSTANCE.getCreativeTab());
+        this.setCreativeTab(MPSConfig.INSTANCE.mpsCreativeTab);
         this.populate();
     }
 
@@ -117,7 +116,6 @@ public class ItemComponent extends Item {
         magnet = addComponent(19, "componentMagnet", "A metallic device that generates a magnetic field which pulls items towards the player.");
         computerChip = addComponent(20, "componentComputerChip", "An upgraded control circuit that contains a CPU which is capable of more advanced calculations.");
         rubberHose = addComponent(21,"componentRubberHose", "A heavily insulated rubber hose capable of withstanding extreme heat or cold");
-//        liquidNitrogen = addComponent(22, "componentLiquidNitrogen", "A bucket of Liquid Nitrogen"); // replaced with an atcual fluid bucket
     }
 
     @Override
@@ -137,8 +135,10 @@ public class ItemComponent extends Item {
      */
     @Override
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-        for (Integer meta : names.keySet()) {
-            items.add(new ItemStack(this, 1, meta));
+        if (this.isInCreativeTab(tab)) {
+            for (Integer meta : names.keySet()) {
+                items.add(new ItemStack(this, 1, meta));
+            }
         }
     }
 }

@@ -53,7 +53,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
     public ItemPowerArmor(int renderIndex, EntityEquipmentSlot entityEquipmentSlot) {
         super(ItemArmor.ArmorMaterial.IRON, renderIndex, entityEquipmentSlot);
         this.setMaxStackSize(1);
-        this.setCreativeTab(MPSConfig.INSTANCE.getCreativeTab());
+        this.setCreativeTab(MPSConfig.INSTANCE.mpsCreativeTab);
     }
 
     @Override
