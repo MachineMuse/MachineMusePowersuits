@@ -163,12 +163,12 @@
       [ { "oredictName" : "ingotIron" }, { "oredictName" : "ingotIron" } ]
     ],
     "result" : {
-      "oredictName" : "componentPlatingBasic"
+      "oredictName" : "componentPlatingIron"
     }
   },
   {
     "ingredients" : [
-      [ { "oredictName" : "componentPlatingBasic" } ]
+      [ { "oredictName" : "componentPlatingIron" } ]
     ],
     "result" : {
       "oredictName" : "ingotIron",
@@ -182,12 +182,12 @@
       [ { "oredictName" : "gemDiamond" }, { "oredictName" : "gemDiamond" } ]
     ],
     "result" : {
-      "oredictName" : "componentPlatingAdvanced"
+      "oredictName" : "componentPlatingDiamond"
     }
   },
   {
     "ingredients" : [
-      [ { "oredictName" : "componentPlatingAdvanced" } ]
+      [ { "oredictName" : "componentPlatingDiamond" } ]
     ],
     "result" : {
       "oredictName" : "gemDiamond",

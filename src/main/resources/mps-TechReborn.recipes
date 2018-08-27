@@ -165,12 +165,12 @@
       [ { "oredictName" : "ingotSteel" }, { "oredictName" : "ingotSteel" } ]
     ],
     "result" : {
-      "oredictName" : "componentPlatingBasic"
+      "oredictName" : "componentPlatingIron"
     }
   },
   {
     "ingredients" : [
-      [ { "oredictName" : "componentPlatingBasic" } ]
+      [ { "oredictName" : "componentPlatingIron" } ]
     ],
     "result" : {
       "oredictName" : "ingotSteel",
@@ -184,12 +184,12 @@
       [ { "oredictName" : "plateIridium" }, { "oredictName" : "plateIridium" } ]
     ],
     "result" : {
-      "oredictName" : "componentPlatingAdvanced"
+      "oredictName" : "componentPlatingDiamond"
     }
   },
   {
     "ingredients" : [
-      [ { "oredictName" : "componentPlatingAdvanced" } ]
+      [ { "oredictName" : "componentPlatingDiamond" } ]
     ],
     "result" : {
       "oredictName" : "plateIridium",
