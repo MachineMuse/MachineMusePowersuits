@@ -8,6 +8,7 @@ import net.machinemuse.powersuits.client.render.modelspec.SpecBase;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,9 +48,9 @@ public class PartManipContainer extends ScrollableFrame {
         this.modelframes = getModelframes();
     }
 
-    @Nullable
+    @Nonnull
     public ItemStack getItem() {
-        return (itemSelect.getSelectedItem() != null) ? itemSelect.getSelectedItem().getItem() : null;
+        return (itemSelect.getSelectedItem() != null) ? itemSelect.getSelectedItem().getItem() : ItemStack.EMPTY;
     }
 
     @Nullable

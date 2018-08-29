@@ -15,6 +15,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +30,8 @@ import java.util.List;
  */
 @SideOnly(Side.CLIENT)
 public class DefaultModelSpec {
-    public static NBTTagCompound makeModelPrefs(ItemStack stack) {
-        if (stack != null) {
+    public static NBTTagCompound makeModelPrefs(@Nonnull ItemStack stack) {
+        if (!stack.isEmpty()) {
             if (stack.getItem() instanceof ItemPowerArmor)
                 return makeModelPrefs(stack, ((ItemPowerArmor) stack.getItem()).armorType);
             if (stack.getItem() instanceof ItemPowerFist)
@@ -39,7 +40,7 @@ public class DefaultModelSpec {
         return new NBTTagCompound();
     }
 
-    public static NBTTagCompound makeModelPrefs(ItemStack stack, EntityEquipmentSlot slot) {
+    public static NBTTagCompound makeModelPrefs(@Nonnull ItemStack stack, EntityEquipmentSlot slot) {
         if (stack.isEmpty())
             return new NBTTagCompound();
 

@@ -61,7 +61,7 @@ public class PlayerModelViewFrame implements IGuiFrame {
         EntityPlayer player = mc.player;
         ItemStack heldItem = player.getHeldItemOffhand();
 
-        if (heldItem != null && MuseItemUtils.stackEqualExact(selectedItem, heldItem))
+        if (!heldItem.isEmpty() && MuseItemUtils.stackEqualExact(selectedItem, heldItem))
             return EntityEquipmentSlot.OFFHAND;
         return EntityEquipmentSlot.MAINHAND;
     }
