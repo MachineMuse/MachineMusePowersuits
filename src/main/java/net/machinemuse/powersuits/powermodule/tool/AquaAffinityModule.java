@@ -29,6 +29,8 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
         addBasePropertyDouble(MPSModuleConstants.UNDERWATER_HARVEST_SPEED, 0.2, "%");
         addTradeoffPropertyDouble("Power", MPSModuleConstants.AQUA_AFFINITY_ENERGY_CONSUMPTION, 1000);
         addTradeoffPropertyDouble("Power", MPSModuleConstants.UNDERWATER_HARVEST_SPEED, 0.8);
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

@@ -12,6 +12,7 @@ import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,6 +24,8 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
     public GliderModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.gliderWing, 2));
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override
@@ -35,30 +38,30 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
         return MPSModuleConstants.MODULE_GLIDER__DATANAME;
     }
 
-    @Override
-    public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        Vec3d playerHorzFacing = player.getLookVec();
-        playerHorzFacing = new Vec3d(playerHorzFacing.x, 0, playerHorzFacing.z);
-        playerHorzFacing.normalize();
-        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
-        boolean sneakkey = movementInput.sneakKey;
-        float forwardkey = movementInput.forwardKey;
-        ItemStack torso = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-        boolean hasParachute = false;
-        NuminaPlayerUtils.resetFloatKickTicks(player);
-        if (torso != null && torso.getItem() instanceof IModularItem) {
-            hasParachute = ModuleManager.INSTANCE.itemHasActiveModule(torso, MPSModuleConstants.MODULE_PARACHUTE__DATANAME);
-        }
-        if (sneakkey && player.motionY < 0 && (!hasParachute || forwardkey > 0)) {
-            if (player.motionY < -0.1) {
-                float vol = (float)( player.motionX*player.motionX + player.motionZ * player.motionZ);
-                double motionYchange = Math.min(0.08, -0.1 - player.motionY);
-                player.motionY += motionYchange;
-                player.motionX += playerHorzFacing.x * motionYchange;
-                player.motionZ += playerHorzFacing.z * motionYchange;
+    @Override // FIXME: skip reduncant checks?
+    public void onPlayerTickActive(EntityPlayer player, ItemStack itemStack) {
+        if (!itemStack.isEmpty() && itemStack.getItem() instanceof ItemPowerArmorChestplate
+                && ItemStack.areItemStackTagsEqual(itemStack, player.getItemStackFromSlot(EntityEquipmentSlot.CHEST))) {
+            Vec3d playerHorzFacing = player.getLookVec();
+            playerHorzFacing = new Vec3d(playerHorzFacing.x, 0, playerHorzFacing.z);
+            playerHorzFacing.normalize();
+            PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
+            boolean sneakkey = movementInput.sneakKey;
+            float forwardkey = movementInput.forwardKey;
+            boolean hasParachute = false;
+            NuminaPlayerUtils.resetFloatKickTicks(player);
+            hasParachute = ModuleManager.INSTANCE.itemHasActiveModule(itemStack, MPSModuleConstants.MODULE_PARACHUTE__DATANAME);
+            if (sneakkey && player.motionY < 0 && (!hasParachute || forwardkey > 0)) {
+                if (player.motionY < -0.1) {
+                    float vol = (float) (player.motionX * player.motionX + player.motionZ * player.motionZ);
+                    double motionYchange = Math.min(0.08, -0.1 - player.motionY);
+                    player.motionY += motionYchange;
+                    player.motionX += playerHorzFacing.x * motionYchange;
+                    player.motionZ += playerHorzFacing.z * motionYchange;
 
-                // sprinting speed
-                player.jumpMovementFactor += 0.03f;
+                    // sprinting speed
+                    player.jumpMovementFactor += 0.03f;
+                }
             }
         }
     }

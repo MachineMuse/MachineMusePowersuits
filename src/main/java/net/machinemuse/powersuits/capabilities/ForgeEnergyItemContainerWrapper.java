@@ -17,13 +17,13 @@ public class ForgeEnergyItemContainerWrapper extends EnergyStorage {
     ItemStack container;
     IModuleManager moduleManager;
 
-    /** TODO: need to set an NNBT tag for the max value instead of recalculating over and over.
+    /** TODO: need to set an NNBT tag for the max getValue instead of recalculating over and over.
      *
      * @param container
      * @param moduleManagerIn
      */
     public ForgeEnergyItemContainerWrapper(@Nonnull ItemStack container, IModuleManager moduleManagerIn) {
-        super(moduleManagerIn.getOrSetModularPropertyInteger(container, NuminaNBTConstants.MAXIMUM_ENERGY));
+        super((int) moduleManagerIn.getOrSetModularPropertyDouble(container, NuminaNBTConstants.MAXIMUM_ENERGY));
         this.moduleManager = moduleManagerIn;
         this.container = container;
     }
@@ -60,14 +60,14 @@ public class ForgeEnergyItemContainerWrapper extends EnergyStorage {
 
     @Override
     public int getEnergyStored() {
-        this.energy = Math.min(this.capacity, (int) Math.round(MuseItemUtils.getIntOrZero(container, NuminaNBTConstants.CURRENT_ENERGY)));
+        this.energy = Math.min(this.capacity, (int) Math.round(MuseItemUtils.getDoubleOrZero(container, NuminaNBTConstants.CURRENT_ENERGY)));
         return  this.energy;
     }
 
     @Override
     public int getMaxEnergyStored() {
         this.capacity = this.maxExtract =
-                this.maxReceive = moduleManager.getOrSetModularPropertyInteger(container, NuminaNBTConstants.MAXIMUM_ENERGY);
+                this.maxReceive = (int) moduleManager.getOrSetModularPropertyDouble(container, NuminaNBTConstants.MAXIMUM_ENERGY);
         return capacity;
     }
 

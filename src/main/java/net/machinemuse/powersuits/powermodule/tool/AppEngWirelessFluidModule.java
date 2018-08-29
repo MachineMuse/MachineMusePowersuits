@@ -37,6 +37,8 @@ public class AppEngWirelessFluidModule extends PowerModuleBase implements IRight
         //this is for versions of ExtraCells-1.7.10-2.3.0b142 and newer
         Optional<ItemStack> wirelessFluidTerminal = ECApi.instance().items().wirelessFluidTerminal().maybeStack(1);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), wirelessFluidTerminal.get());
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

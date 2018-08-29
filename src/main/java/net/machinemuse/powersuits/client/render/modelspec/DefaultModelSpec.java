@@ -139,7 +139,7 @@ public class DefaultModelSpec {
     }
 
     /**
-     * new array means setting a new array index for the same value
+     * new array means setting a new array index for the same getValue
      */
     public static int getNewColourIndex(List<Integer> colours, List<Integer> oldColours, Integer index) {
         return colours.indexOf(oldColours.get(index != null ? index : 0));

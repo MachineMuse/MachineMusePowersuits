@@ -1,18 +1,8 @@
 package net.machinemuse.powersuits.fluid;
 
 import net.machinemuse.powersuits.api.constants.MPSModConstants;
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-
-import javax.annotation.Nullable;
-import java.awt.*;
 
 public class LiquidNitrogen extends Fluid {
 
@@ -103,6 +93,8 @@ public class LiquidNitrogen extends Fluid {
 //        return super.setColor(color);
 //    }
 //
+
+//    // TODO
 //    @Override
 //    public boolean doesVaporize(FluidStack fluidStack) {
 //        return super.doesVaporize(fluidStack);
@@ -112,46 +104,10 @@ public class LiquidNitrogen extends Fluid {
 //    public void vaporize(@Nullable EntityPlayer player, World worldIn, BlockPos pos, FluidStack fluidStack) {
 //        super.vaporize(player, worldIn, pos, fluidStack);
 //    }
-//
-//    @Override
-//    public String getLocalizedName(FluidStack stack) {
-//        return super.getLocalizedName(stack);
-//    }
-//
-//    @Override
-//    public String getUnlocalizedName(FluidStack stack) {
-//        return super.getUnlocalizedName(stack);
-//    }
-//
-//    @Override
-//    public String getUnlocalizedName() {
-//        return super.getUnlocalizedName();
-//    }
-//
-//    @Override
-//    public EnumRarity getRarity() {
-//        return super.getRarity();
-//    }
-//
+
 //    @Override
 //    public int getColor() {
 //        return super.getColor();
-//    }
-//
-//    @Override
-//    public ResourceLocation getStill() {
-//        return super.getStill();
-//    }
-//
-//    @Override
-//    public ResourceLocation getFlowing() {
-//        return super.getFlowing();
-//    }
-//
-//    @Nullable
-//    @Override
-//    public ResourceLocation getOverlay() {
-//        return super.getOverlay();
 //    }
 //
 //    @Override

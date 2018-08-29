@@ -11,7 +11,7 @@ import java.util.function.BooleanSupplier;
 public class MPSRecipeConditionFactory implements IConditionFactory {
     @Override
     public BooleanSupplier parse(JsonContext context, JsonObject json) {
-        boolean value = JsonUtils.getBoolean(json , "value", true);
+        boolean value = JsonUtils.getBoolean(json , "getValue", true);
 
         if(JsonUtils.hasField(json, "type")) {
             String key = JsonUtils.getString(json, "type");

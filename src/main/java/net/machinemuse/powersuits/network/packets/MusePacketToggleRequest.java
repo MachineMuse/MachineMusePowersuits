@@ -39,14 +39,12 @@ public class MusePacketToggleRequest extends MusePacket{
         ModuleManager.INSTANCE.toggleModuleForPlayer(player, module, active);
     }
 
-    private static MusePacketToggleRequestPackager PACKAGERINSTANCE;
     public static MusePacketToggleRequestPackager getPackagerInstance() {
-        if (PACKAGERINSTANCE == null)
-            PACKAGERINSTANCE = new MusePacketToggleRequestPackager();
-        return PACKAGERINSTANCE;
+        return MusePacketToggleRequestPackager.INSTANCE;
     }
 
-    public static class MusePacketToggleRequestPackager implements IMusePackager {
+    public enum MusePacketToggleRequestPackager implements IMusePackager {
+        INSTANCE;
         @Override
         public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
             String module = readString(datain);

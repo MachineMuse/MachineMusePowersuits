@@ -7,7 +7,6 @@ import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableList;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
-import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.client.renderer.block.model.BakedQuad;

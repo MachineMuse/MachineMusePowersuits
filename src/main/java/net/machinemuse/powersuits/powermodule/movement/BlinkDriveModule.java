@@ -28,10 +28,13 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
 
-        addBasePropertyInteger(MPSModuleConstants.BLINK_DRIVE_ENERGY_CONSUMPTION, 10000, "RF");
-        addBasePropertyInteger(MPSModuleConstants.BLINK_DRIVE_RANGE, 5, "m");
-        addTradeoffPropertyInteger("Range", MPSModuleConstants.BLINK_DRIVE_ENERGY_CONSUMPTION, 30000);
-        addTradeoffPropertyInteger("Range", MPSModuleConstants.BLINK_DRIVE_RANGE, 59);
+        addBasePropertyDouble(MPSModuleConstants.BLINK_DRIVE_ENERGY_CONSUMPTION, 10000, "RF");
+        addBasePropertyDouble(MPSModuleConstants.BLINK_DRIVE_RANGE, 5, "m");
+        addTradeoffPropertyDouble("Range", MPSModuleConstants.BLINK_DRIVE_ENERGY_CONSUMPTION, 30000);
+        addTradeoffPropertyDouble("Range", MPSModuleConstants.BLINK_DRIVE_RANGE, 59);
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
+        addIntTradeoffProperty(MPSModuleConstants.BLINK_DRIVE_RANGE, MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
     }
 
     @Override
@@ -47,8 +50,8 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
     @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         SoundEvent enderman_portal =  SoundEvent.REGISTRY.getObject(new ResourceLocation("entity.endermen.teleport"));
-        int range = ModuleManager.INSTANCE.getOrSetModularPropertyInteger(itemStackIn, MPSModuleConstants.BLINK_DRIVE_RANGE);
-        int energyConsumption = ModuleManager.INSTANCE.getOrSetModularPropertyInteger(itemStackIn, MPSModuleConstants.BLINK_DRIVE_ENERGY_CONSUMPTION);
+        int range = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.BLINK_DRIVE_RANGE);
+        int energyConsumption = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.BLINK_DRIVE_ENERGY_CONSUMPTION);
         if (ElectricItemUtils.getMaxPlayerEnergy(playerIn) > energyConsumption) {
             NuminaPlayerUtils.resetFloatKickTicks(playerIn);
             ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);

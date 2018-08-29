@@ -15,14 +15,9 @@ import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.UniversalBucket;
-
-import javax.annotation.Nullable;
 
 /**
  * Created by Eximius88 on 1/17/14.
@@ -37,8 +32,12 @@ public class NitrogenCoolingSystem extends PowerModuleBase implements IPlayerTic
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.rubberHose, 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.computerChip, 2));
-        addTradeoffPropertyDouble("Power", MPSModuleConstants.COOLING_BONUS, 7, "%");
-        addTradeoffPropertyDouble("Power", MPSModuleConstants.NITROGEN_COOLING_SYSTEM_ENERGY_CONSUMPTION, 160, "RF/t");
+
+        addTradeoffPropertyDouble("Nitrogen Cooling Power", MPSModuleConstants.COOLING_BONUS, 7, "%");
+        addTradeoffPropertyDouble("Nitrogen Cooling Power", MPSModuleConstants.NITROGEN_COOLING_SYSTEM_ENERGY_CONSUMPTION, 160, "RF/t");
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1, "pts");
+        addIntTradeoffProperty("Nitrogen Cooling Power", MPSModuleConstants.SLOT_POINTS, 4, "m", 1, 0);
     }
 
     @Override

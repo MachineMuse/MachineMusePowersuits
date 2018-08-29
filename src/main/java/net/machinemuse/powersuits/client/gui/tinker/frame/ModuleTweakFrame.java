@@ -1,7 +1,9 @@
 package net.machinemuse.powersuits.client.gui.tinker.frame;
 
 import net.machinemuse.numina.api.module.IPowerModule;
-import net.machinemuse.numina.api.nbt.*;
+import net.machinemuse.numina.api.nbt.IPropertyModifier;
+import net.machinemuse.numina.api.nbt.IPropertyModifierDouble;
+import net.machinemuse.numina.api.nbt.PropertyModifierLinearAdditiveDouble;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
@@ -13,7 +15,6 @@ import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableTinkerSlider;
 import net.machinemuse.powersuits.network.packets.MusePacketTweakRequestDouble;
-import net.machinemuse.powersuits.network.packets.MusePacketTweakRequestInteger;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -128,12 +129,13 @@ public class ModuleTweakFrame extends ScrollableFrame {
                     }
 
                     // Integer
-                } else if (modifier instanceof IPropertyModifierInteger) {
-                    currIntVal = (int) modifier.applyModifier(moduleTag, currIntVal != null ? currIntVal : 0);
-                    if (modifier instanceof PropertyModifierLinearAdditiveInteger) {
-                        tweaks.put(((PropertyModifierLinearAdditiveInteger) modifier).getTradeoffName(), Integer.class);
-                    }
                 }
+//                else if (modifier instanceof IPropertyModifierInteger) {
+//                    currIntVal = (int) modifier.applyModifier(moduleTag, currIntVal != null ? currIntVal : 0);
+//                    if (modifier instanceof PropertyModifierLinearAdditiveInteger) {
+//                        tweaks.put(((PropertyModifierLinearAdditiveInteger) modifier).getTradeoffName(), Integer.class);
+//                    }
+//                }
             }
             if (curDoubleVal != null) {
                 propertyStrings.put(property.getKey(), curDoubleVal);
@@ -182,14 +184,14 @@ public class ModuleTweakFrame extends ScrollableFrame {
         if (selectedSlider != null && itemTarget.getSelectedItem() != null && moduleTarget.getSelectedModule() != null) {
             ClickableItem item = itemTarget.getSelectedItem();
             IPowerModule module = moduleTarget.getSelectedModule().getModule();
-            double tweakValue = MuseMathUtils.clampDouble(selectedSlider.value(), 0, 1);
+            double tweakValue = MuseMathUtils.clampDouble(selectedSlider.getValue(), 0, 1);
 
             if (tweaks.containsKey(selectedSlider.name())) {
                 MusePacket tweakRequest = null;
                 if ( tweaks.get(selectedSlider.name()).equals(Double.class) ) {
                     tweakRequest = new MusePacketTweakRequestDouble(player, item.inventorySlot, module.getDataName(), selectedSlider.name(), tweakValue);
                 } else if ( tweaks.get(selectedSlider.name()).equals(Integer.class) ) {
-                    tweakRequest = new MusePacketTweakRequestInteger(player, item.inventorySlot, module.getDataName(), selectedSlider.name(), (int) (tweakValue * 10000));
+//                    tweakRequest = new MusePacketTweakRequestInteger(player, item.inventorySlot, module.getDataName(), selectedSlider.name(), (int) (tweakValue * 10000));
                 }
 
                 if (tweakRequest != null)

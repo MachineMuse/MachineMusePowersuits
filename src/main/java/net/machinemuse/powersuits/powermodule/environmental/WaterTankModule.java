@@ -29,15 +29,17 @@ public class WaterTankModule extends PowerModuleBase implements IPlayerTickModul
 
     public WaterTankModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        addBasePropertyDouble(MPSModuleConstants.WATER_TANK_SIZE, 200);
-//        addBasePropertyDouble(MPSModuleConstants.WEIGHT, 1000);
-        addBasePropertyDouble(MPSModuleConstants.ACTIVATION_PERCENT, 0.5);
-        addTradeoffPropertyDouble("Activation Percent", MPSModuleConstants.ACTIVATION_PERCENT, 0.5, "%");
-        addTradeoffPropertyDouble("Tank Size", MPSModuleConstants.WATER_TANK_SIZE, 800, " buckets");
-//        addTradeoffPropertyDouble("Tank Size", MPSModuleConstants.WEIGHT, 4000, "g");
         ModuleManager.INSTANCE.addInstallCost(getDataName(),bucketWater);
         ModuleManager.INSTANCE.addInstallCost(getDataName(),new ItemStack(Blocks.GLASS, 8));
         ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 2));
+
+        addBasePropertyDouble(MPSModuleConstants.WATER_TANK_SIZE, 200);
+        addBasePropertyDouble(MPSModuleConstants.ACTIVATION_PERCENT, 0.5);
+        addTradeoffPropertyDouble("Activation Percent", MPSModuleConstants.ACTIVATION_PERCENT, 0.5, "%");
+        addTradeoffPropertyDouble("Tank Size", MPSModuleConstants.WATER_TANK_SIZE, 800, " buckets");
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
+        addIntTradeoffProperty(MPSModuleConstants.WATER_TANK_SIZE, MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
     }
 
     @Override

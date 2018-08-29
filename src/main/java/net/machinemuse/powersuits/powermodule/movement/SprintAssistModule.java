@@ -9,6 +9,7 @@ import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorLeggings;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -16,8 +17,10 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTSizeTracker;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.common.util.Constants;
 
 import java.util.Objects;
 
@@ -46,6 +49,9 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
         addTradeoffPropertyDouble("Walking Assist", MPSModuleConstants.WALKING_ENERGY_CONSUMPTION, 100);
         addBasePropertyDouble(MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 1, "%");
         addTradeoffPropertyDouble("Walking Assist", MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 1);
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
+        addIntTradeoffProperty(MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
     }
 
     @Override
@@ -80,9 +86,9 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
     }
 
     @Override
-    public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-        if (item != null) {
-            NBTTagList modifiers = item.getTagCompound().getTagList("AttributeModifiers", (byte) 10);
+    public void onPlayerTickInactive(EntityPlayer player, ItemStack itemStack) {
+        if (!itemStack.isEmpty() && itemStack.getItem() instanceof ItemPowerArmorLeggings) {
+            NBTTagList modifiers = itemStack.getTagCompound().getTagList("AttributeModifiers", Constants.NBT.TAG_COMPOUND);
             if (!modifiers.hasNoTags()) {
                 for (int i = 0; i < modifiers.tagCount(); i++) {
                     NBTTagCompound tag = modifiers.getCompoundTagAt(i);
@@ -95,7 +101,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
     }
 
     public void setMovementModifier(ItemStack item, double multiplier) {
-        NBTTagList modifiers = item.getTagCompound().getTagList("AttributeModifiers", (byte) 10); // Type 10 for tag compound
+        NBTTagList modifiers = item.getTagCompound().getTagList("AttributeModifiers", Constants.NBT.TAG_COMPOUND);
         NBTTagCompound sprintModifiers = new NBTTagCompound();
         item.getTagCompound().setTag("AttributeModifiers", modifiers);
         for (int i = 0; i < modifiers.tagCount(); i++) {

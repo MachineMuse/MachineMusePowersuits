@@ -133,7 +133,7 @@
 //
 //        try {
 //            IModelState state = new IModelState() {
-//                private final Optional<TRSRTransformation> value = Optional.of(TRSRTransformation.identity());
+//                private final Optional<TRSRTransformation> getValue = Optional.of(TRSRTransformation.identity());
 //
 //                @Override
 //                public Optional<TRSRTransformation> apply(Optional<? extends IModelPart> part) {
@@ -142,7 +142,7 @@
 //                        if (parts.hasNext()) {
 //                            String name = parts.next();
 //                            // only interested in the root level
-//                            if (!parts.hasNext() && hiddenIn.contains(name)) return value;
+//                            if (!parts.hasNext() && hiddenIn.contains(name)) return getValue;
 //                        }
 //                    }
 //                    return Optional.absent();

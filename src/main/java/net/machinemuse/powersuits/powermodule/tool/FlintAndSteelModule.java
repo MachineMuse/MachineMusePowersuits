@@ -35,7 +35,8 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), fas);
-        addBasePropertyInteger(MPSModuleConstants.IGNITION_ENERGY_CONSUMPTION, 10000, "RF");
+        addBasePropertyDouble(MPSModuleConstants.IGNITION_ENERGY_CONSUMPTION, 10000, "RF");
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override
@@ -60,7 +61,7 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
 
     @Override
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        int energyConsumption = ModuleManager.INSTANCE.getOrSetModularPropertyInteger(stack, MPSModuleConstants.IGNITION_ENERGY_CONSUMPTION);
+        int energyConsumption = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.IGNITION_ENERGY_CONSUMPTION);
         if (energyConsumption < ElectricItemUtils.getMaxPlayerEnergy(playerIn)) {
             pos = pos.offset(facing);
             if (!playerIn.canPlayerEdit(pos, facing, stack)) {

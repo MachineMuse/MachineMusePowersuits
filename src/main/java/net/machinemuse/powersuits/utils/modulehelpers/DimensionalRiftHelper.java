@@ -101,7 +101,7 @@ public class DimensionalRiftHelper extends Teleporter {
 
     /**
      * called periodically to remove out-of-date portal locations from the cache list. Argument par1 is a
-     * WorldServer.getTotalWorldTime() value.
+     * WorldServer.getTotalWorldTime() getValue.
      */
     public void removeStalePortalLocations(long worldTime) {
         if (worldTime % 100L == 0L) {

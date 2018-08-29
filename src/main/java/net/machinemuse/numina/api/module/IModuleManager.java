@@ -39,7 +39,7 @@ public interface IModuleManager {
     }
 
     /**
-     * Call this whenever the value changes, such as changing a setting or installing a module
+     * Call this whenever the getValue changes, such as changing a setting or installing a module
      */
     default double computeModularPropertyDouble (@Nonnull ItemStack stack, String propertyName) {
         return (double) computeModularProperty(stack, propertyName);
@@ -72,26 +72,26 @@ public interface IModuleManager {
         return propertyValue;
     }
 
-    default int computeModularPropertyInteger (@Nonnull ItemStack stack, String propertyName) {
-        return (int) Math.round((double)computeModularProperty(stack, propertyName));
-    }
-
-    // fixme: this requires sync between logical sides.
-    default int getOrSetModularPropertyInteger(@Nonnull ItemStack stack, String propertyName) {
-        int propertyValue = 0;
-        NBTTagCompound valuesTag = MuseNBTUtils.getMuseValuesTag(stack);
-        if (!valuesTag.hasKey(propertyName, Constants.NBT.TAG_INT)) {
-            propertyValue = computeModularPropertyInteger(stack, propertyName);
-            if (propertyValue > 0) {
-                valuesTag.setInteger(propertyName, propertyValue);
-            }
-        } else {
-            propertyValue = valuesTag.getInteger(propertyName);
-            if (propertyValue == 0)
-                valuesTag.removeTag(propertyName);
-        }
-        return propertyValue;
-    }
+//    default int computeModularPropertyInteger (@Nonnull ItemStack stack, String propertyName) {
+//        return (int) Math.round((double)computeModularProperty(stack, propertyName));
+//    }
+//
+////    // fixme: this requires sync between logical sides.
+//    default int getOrSetModularPropertyInteger(@Nonnull ItemStack stack, String propertyName) {
+//        int propertyValue = 0;
+//        NBTTagCompound valuesTag = MuseNBTUtils.getMuseValuesTag(stack);
+//        if (!valuesTag.hasKey(propertyName, Constants.NBT.TAG_INT)) {
+//            propertyValue = computeModularPropertyInteger(stack, propertyName);
+//            if (propertyValue > 0) {
+//                valuesTag.setInteger(propertyName, propertyValue);
+//            }
+//        } else {
+//            propertyValue = valuesTag.getInteger(propertyName);
+//            if (propertyValue == 0)
+//                valuesTag.removeTag(propertyName);
+//        }
+//        return propertyValue;
+//    }
 
     default List<IPowerModule> getValidModulesForItem(@Nonnull ItemStack stack) {
         List<IPowerModule> validModules = new ArrayList();

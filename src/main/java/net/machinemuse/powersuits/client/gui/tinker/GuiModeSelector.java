@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.client.gui.tinker;
 
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.powersuits.client.gui.MuseGui;
-import net.machinemuse.powersuits.client.gui.tinker.frame.RadialSelectionFrame;
+import net.machinemuse.powersuits.client.gui.RadialSelectionFrame;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.input.Keyboard;

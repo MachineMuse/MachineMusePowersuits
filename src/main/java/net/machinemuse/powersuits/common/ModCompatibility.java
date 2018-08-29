@@ -2,7 +2,9 @@ package net.machinemuse.powersuits.common;
 
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.powermodule.environmental.AirtightSealModule;
 import net.machinemuse.powersuits.powermodule.environmental.ApiaristArmorModule;
 import net.machinemuse.powersuits.powermodule.environmental.HazmatModule;
@@ -146,9 +148,10 @@ public class ModCompatibility {
     }
 
     public static boolean enableThaumGogglesModule() {
-        boolean defaultval = isThaumCraftLoaded();
-//        return Config.getConfig().get("Special Modules", "Thaumcraft Goggles Module", defaultval).getBoolean(defaultval);
-        return false;
+
+        System.out.println("MPSConfig.INSTANCE.getModuleAllowedorDefault(MPSModuleConstants.MODULE_THAUM_GOGGLES__DATANAME, isThaumCraftLoaded())" + MPSConfig.INSTANCE.getModuleAllowedorDefault(MPSModuleConstants.MODULE_THAUM_GOGGLES__DATANAME, isThaumCraftLoaded()));
+
+        return MPSConfig.INSTANCE.getModuleAllowedorDefault(MPSModuleConstants.MODULE_THAUM_GOGGLES__DATANAME, isThaumCraftLoaded());
     }
 
     public static void registerModSpecificModules() {

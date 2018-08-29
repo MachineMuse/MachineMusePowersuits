@@ -37,7 +37,7 @@ public class ClickableSlider extends Clickable {
     @Override
     public void draw() {
         MuseRenderer.drawCenteredString(name, position.x(), position.y());
-        this.insideRect.setRight(position.x() + width * (value() - 0.5) + cornersize);
+        this.insideRect.setRight(position.x() + width * (getValue() - 0.5) + cornersize);
         this.outsideRect.draw();
         this.insideRect.draw();
     }
@@ -48,22 +48,7 @@ public class ClickableSlider extends Clickable {
                 Math.abs(position.y() + 12 - y) < 4;
     }
 
-    public double value() {
-// TODO: messing around with precision .. need to finish this and setup for tinker slider
-//        double toBeTruncated = new Double("3.5789055");
-//        double internalTest = BigDecimal.valueOf(valueInternal)
-//                .setScale(2, RoundingMode.HALF_UP)
-//                .doubleValue();
-//
-//        double truncatedDouble = BigDecimal.valueOf(toBeTruncated)
-//                .setScale(2, RoundingMode.HALF_UP)
-//                .doubleValue();
-//        System.out.println("truncated: " + truncatedDouble );
-//
-//        System.out.println("valueInternal: " + valueInternal);
-//        System.out.println("internal test: " + internalTest);
-
-
+    public double getValue() {
         return valueInternal;
     }
 

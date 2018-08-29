@@ -58,6 +58,7 @@ public class PlayerUpdateHandler {
                 }
             }
 
+            // FIXME: redundant checks
             boolean foundItemWithModule;
             for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IPlayerTickModule.class)) {
                 foundItemWithModule = false;

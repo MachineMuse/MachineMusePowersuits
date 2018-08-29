@@ -33,10 +33,14 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.magnet, 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
 
-        addBasePropertyInteger(MPSModuleConstants.MAGNET_ENERGY_CONSUMPTION, 0, "RF");
-        addTradeoffPropertyInteger("Power", MPSModuleConstants.MAGNET_ENERGY_CONSUMPTION, 2000);
-        addBasePropertyInteger(MPSModuleConstants.MAGNET_RADIUS, 5);
-        addTradeoffPropertyInteger("Power", MPSModuleConstants.MAGNET_RADIUS, 10);
+        addBasePropertyDouble(MPSModuleConstants.MAGNET_ENERGY_CONSUMPTION, 0, "RF");
+        addTradeoffPropertyDouble("Power", MPSModuleConstants.MAGNET_ENERGY_CONSUMPTION, 2000);
+        addBasePropertyDouble(MPSModuleConstants.MAGNET_RADIUS, 5);
+        addTradeoffPropertyDouble("Power", MPSModuleConstants.MAGNET_RADIUS, 10);
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
+        addIntTradeoffProperty(MPSModuleConstants.MAGNET_RADIUS, MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
+
     }
 
     @Override
@@ -51,9 +55,9 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack stack) {
-        if (ElectricItemUtils.getMaxPlayerEnergy(player) > ModuleManager.INSTANCE.getOrSetModularPropertyInteger(stack, MPSModuleConstants.MAGNET_ENERGY_CONSUMPTION)) {
+        if (ElectricItemUtils.getMaxPlayerEnergy(player) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.MAGNET_ENERGY_CONSUMPTION)) {
             if ((player.world.getTotalWorldTime() % 20) == 0) {
-                ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.getOrSetModularPropertyInteger(stack, MPSModuleConstants.MAGNET_ENERGY_CONSUMPTION));
+                ElectricItemUtils.drainPlayerEnergy(player, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.MAGNET_ENERGY_CONSUMPTION));
             }
             int range = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.MAGNET_RADIUS);
             World world = player.world;

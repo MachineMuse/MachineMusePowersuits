@@ -34,6 +34,8 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
         addBasePropertyDouble(MPSModuleConstants.HOE_ENERGY_CONSUMPTION, 500, "RF");
         addTradeoffPropertyDouble("Search Radius", MPSModuleConstants.HOE_ENERGY_CONSUMPTION, 9500);
         addTradeoffPropertyDouble("Search Radius", MPSModuleConstants.HOE_SEARCH_RADIUS, 8, "m");
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

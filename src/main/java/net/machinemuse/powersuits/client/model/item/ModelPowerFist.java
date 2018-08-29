@@ -11,7 +11,7 @@ import net.machinemuse.powersuits.client.render.modelspec.ModelPartSpec;
 import net.machinemuse.powersuits.client.render.modelspec.ModelRegistry;
 import net.machinemuse.powersuits.client.render.modelspec.ModelSpec;
 import net.machinemuse.powersuits.client.render.modelspec.PartSpecBase;
-import net.machinemuse.powersuits.event.ModelBakeEventHandler;
+import net.machinemuse.powersuits.client.event.ModelBakeEventHandler;
 import net.machinemuse.powersuits.item.IModularItemBase;
 import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.machinemuse.powersuits.utils.nbt.NBTTagAccessor;

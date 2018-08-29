@@ -38,8 +38,8 @@ public class DetailedSummaryFrame extends ScrollableFrame {
         slotPoints = 0;
 
         for(ItemStack stack : MuseItemUtils.modularItemsEquipped(player)) {
-            energy += ModuleManager.INSTANCE.getOrSetModularPropertyInteger(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
-            slotPoints += ModuleManager.INSTANCE.getOrSetModularPropertyInteger(stack, MPSModuleConstants.SLOT_POINTS);
+            energy += (int)ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
+            slotPoints += (int)ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.SLOT_POINTS);
 
 
             armor += ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_VALUE_PHYSICAL);

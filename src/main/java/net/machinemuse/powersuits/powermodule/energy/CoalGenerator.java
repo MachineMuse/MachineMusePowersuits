@@ -24,11 +24,13 @@ import net.minecraft.item.ItemStack;
 public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
     public CoalGenerator(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Blocks.FURNACE));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
+
         addBasePropertyDouble(MPSModuleConstants.MAX_COAL_STORAGE, 128);
         addBasePropertyDouble(MPSModuleConstants.COAL_HEAT_GEN, 2.5);
         addBasePropertyDouble(MPSModuleConstants.COAL_ENERGY_GEN, 300);
-        ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Blocks.FURNACE));
-        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5, "pts");
     }
 
     @Override
@@ -38,13 +40,13 @@ public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule,
         if (coalNeeded > 0) {
             for (int i = 0; i < inv.getSizeInventory(); i++) {
                 ItemStack stack = inv.getStackInSlot(i);
-                if (stack != null && stack.getItem() == Items.COAL) {
+                if (!stack.isEmpty() && stack.getItem() == Items.COAL) {
                     int loopTimes = coalNeeded < stack.getCount() ? coalNeeded : stack.getCount();
                     for (int i2 = 0; i2 < loopTimes; i2++) {
                         CoalGenHelper.setCoalLevel(item, CoalGenHelper.getCoalLevel(item) + 1);
                         player.inventory.decrStackSize(i, 1);
                         if (stack.getCount() == 0) {
-                            player.inventory.setInventorySlotContents(i, null);
+                            player.inventory.setInventorySlotContents(i, ItemStack.EMPTY);
                         }
                     }
                     if (ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.MAX_COAL_STORAGE) - CoalGenHelper.getCoalLevel(item) < 1) {

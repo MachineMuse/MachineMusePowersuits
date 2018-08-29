@@ -12,6 +12,7 @@ import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.ItemComponent;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,6 +23,8 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
     public ParachuteModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.parachute, 2));
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override
@@ -35,22 +38,21 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
     }
 
     @Override
-    public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
-        float forwardkey = movementInput.forwardKey;
-        boolean sneakkey = movementInput.sneakKey;
-        ItemStack torso = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-        boolean hasGlider = false;
-        NuminaPlayerUtils.resetFloatKickTicks(player);
-        if (torso != null && torso.getItem() instanceof IModularItem) {
-            hasGlider = ModuleManager.INSTANCE.itemHasActiveModule(torso, MPSModuleConstants.MODULE_GLIDER__DATANAME);
-        }
-        if (sneakkey && player.motionY < -0.1 && (!hasGlider || forwardkey <= 0)) {
-            double totalVelocity = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ + player.motionY * player.motionY);
-            if (totalVelocity > 0) {
-                player.motionX = player.motionX * 0.1 / totalVelocity;
-                player.motionY = player.motionY * 0.1 / totalVelocity;
-                player.motionZ = player.motionZ * 0.1 / totalVelocity;
+    public void onPlayerTickActive(EntityPlayer player, ItemStack itemStack) {
+        if (!itemStack.isEmpty() && itemStack.getItem() instanceof ItemPowerArmorChestplate
+                && ItemStack.areItemStackTagsEqual(itemStack, player.getItemStackFromSlot(EntityEquipmentSlot.CHEST))) {
+            PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
+            float forwardkey = movementInput.forwardKey;
+            boolean sneakkey = movementInput.sneakKey;
+            boolean hasGlider = false;
+            NuminaPlayerUtils.resetFloatKickTicks(player);
+            if (sneakkey && player.motionY < -0.1 && (!hasGlider || forwardkey <= 0)) {
+                double totalVelocity = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ + player.motionY * player.motionY);
+                if (totalVelocity > 0) {
+                    player.motionX = player.motionX * 0.1 / totalVelocity;
+                    player.motionY = player.motionY * 0.1 / totalVelocity;
+                    player.motionZ = player.motionZ * 0.1 / totalVelocity;
+                }
             }
         }
     }

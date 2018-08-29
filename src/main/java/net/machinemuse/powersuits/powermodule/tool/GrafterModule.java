@@ -21,8 +21,9 @@ public class GrafterModule extends PowerModuleBase {
     public GrafterModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), grafter);
-        addBasePropertyInteger(MPSModuleConstants.GRAFTER_ENERGY_CONSUMPTION, 10000, "RF");
-        addBasePropertyInteger(MPSModuleConstants.GRAFTER_HEAT_GENERATION, 20);
+        addBasePropertyDouble(MPSModuleConstants.GRAFTER_ENERGY_CONSUMPTION, 10000, "RF");
+        addBasePropertyDouble(MPSModuleConstants.GRAFTER_HEAT_GENERATION, 20);
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

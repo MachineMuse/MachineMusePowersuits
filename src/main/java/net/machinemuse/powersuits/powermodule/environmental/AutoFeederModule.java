@@ -26,12 +26,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class AutoFeederModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
     public AutoFeederModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
+
         addBasePropertyDouble(MPSModuleConstants.EATING_ENERGY_CONSUMPTION, 100);
         addBasePropertyDouble(MPSModuleConstants.EATING_EFFICIENCY, 50);
         addTradeoffPropertyDouble("Efficiency", MPSModuleConstants.EATING_ENERGY_CONSUMPTION, 1000, "RF");
         addTradeoffPropertyDouble("Efficiency", MPSModuleConstants.EATING_EFFICIENCY, 50);
-        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
-        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
+        addIntTradeoffProperty("Efficiency", MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
     }
 
     @Override
@@ -51,6 +55,7 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
         IInventory inv = player.inventory;
         double eatingEnergyConsumption = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.EATING_ENERGY_CONSUMPTION);
         double efficiency = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.EATING_EFFICIENCY);
+
         FoodStats foodStats = player.getFoodStats();
         int foodNeeded = 20 - foodStats.getFoodLevel();
         double saturationNeeded = 20 - foodStats.getSaturationLevel();
@@ -59,14 +64,14 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
         if (MPSConfig.INSTANCE.useOldAutoFeeder()) {
             for (int i = 0; i < inv.getSizeInventory(); i++) {
                 ItemStack stack = inv.getStackInSlot(i);
-                if (stack != null && stack.getItem() instanceof ItemFood) {
+                if (!stack.isEmpty() && stack.getItem() instanceof ItemFood) {
                     ItemFood food = (ItemFood) stack.getItem();
                     for (int a = 0; a < stack.getCount(); a++) {
                         foodLevel += food.getHealAmount(stack) * efficiency / 100.0;
                         //  copied this from FoodStats.addStats()
                         saturationLevel += Math.min(food.getHealAmount(stack) * food.getSaturationModifier(stack) * 2.0F, 20F) * efficiency / 100.0;
                     }
-                    player.inventory.setInventorySlotContents(i, null);
+                    player.inventory.setInventorySlotContents(i, ItemStack.EMPTY);
                 }
             }
             AutoFeederHelper.setFoodLevel(item, foodLevel);
@@ -76,7 +81,7 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
                 if (foodNeeded < foodLevel)
                     break;
                 ItemStack stack = inv.getStackInSlot(i);
-                if (stack != null && stack.getItem() instanceof ItemFood) {
+                if (!stack.isEmpty() && stack.getItem() instanceof ItemFood) {
                     ItemFood food = (ItemFood) stack.getItem();
                     while (true) {
                         if (foodNeeded > foodLevel) {
@@ -85,7 +90,7 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
                             saturationLevel += Math.min(food.getHealAmount(stack) * (double)food.getSaturationModifier(stack) * 2.0D, 20D) * efficiency / 100.0;
                             stack.setCount(stack.getCount() -1);
                             if (stack.getCount() == 0) {
-                                player.inventory.setInventorySlotContents(i, null);
+                                player.inventory.setInventorySlotContents(i, ItemStack.EMPTY);
                                 break;
                             } else
                                 player.inventory.setInventorySlotContents(i, stack);
@@ -121,7 +126,7 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
                         foodStatNBT.getInteger("foodLevel") + foodUsed);
                 // put the values back into foodstats
                 foodStats.readNBT(foodStatNBT);
-                // update value stored in buffer
+                // update getValue stored in buffer
                 AutoFeederHelper.setFoodLevel(item, AutoFeederHelper.getFoodLevel(item) - foodUsed);
                 // split the cost between using food and using saturation
                 ElectricItemUtils.drainPlayerEnergy(player, (int) (eatingEnergyConsumption * 0.5 * foodUsed));
@@ -146,7 +151,7 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
                         foodStatNBT.setFloat("foodSaturationLevel", foodStatNBT.getFloat("foodSaturationLevel") + saturationUsed);
                         // put the values back into foodstats
                         foodStats.readNBT(foodStatNBT);
-                        // update value stored in buffer
+                        // update getValue stored in buffer
                         AutoFeederHelper.setSaturationLevel(item, AutoFeederHelper.getSaturationLevel(item) - saturationUsed);
                         // split the cost between using food and using saturation
                         ElectricItemUtils.drainPlayerEnergy(player, (int) (eatingEnergyConsumption * 0.5 * saturationUsed));

@@ -38,6 +38,8 @@ public class PersonalShrinkingModule extends PowerModuleBase implements IRightCl
         cpmPSD.setTagCompound(nbt);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 4));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), cpmPSD);
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

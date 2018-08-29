@@ -57,6 +57,8 @@ public class ClickableModule extends Clickable {
         drawPartial(left, top, left + 16, top + 16);
     }
 
+    // TODO: switch to models in order to handle icons overrriden with resource packs or items with no icons
+
     public void drawPartial(double xmino, double ymino, double xmaxo, double ymaxo) {
 //         IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, world, null);
 
@@ -67,19 +69,9 @@ public class ClickableModule extends Clickable {
 
         MuseTextureUtils.pushTexture(MuseTextureUtils.TEXTURE_QUILT);
 
-        TextureAtlasSprite icon = getModule().getIcon(null);
-
-
-
-
-
+//        TextureAtlasSprite icon = getModule().getIcon(null);
 
         MuseIconUtils.drawIconAt(left, top, getModule().getIcon(null), Colour.WHITE);
-
-
-
-
-
         MuseTextureUtils.popTexture();
 
         if (!allowed) {

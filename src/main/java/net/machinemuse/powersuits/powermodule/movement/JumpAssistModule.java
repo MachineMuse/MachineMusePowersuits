@@ -31,6 +31,10 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
         addTradeoffPropertyDouble("Compensation", MPSModuleConstants.JUMP_ENERGY_CONSUMPTION, 50);
         addBasePropertyDouble(MPSModuleConstants.JUMP_FOOD_COMPENSATION, 0, "%");
         addTradeoffPropertyDouble("Compensation", MPSModuleConstants.JUMP_FOOD_COMPENSATION, 1);
+
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
+        addIntTradeoffProperty(MPSModuleConstants.JUMP_ENERGY_CONSUMPTION, MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
     }
 
     @Override

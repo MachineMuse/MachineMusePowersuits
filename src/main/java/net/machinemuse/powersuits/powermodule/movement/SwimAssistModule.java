@@ -28,6 +28,9 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 2));
         addTradeoffPropertyDouble("Thrust", MPSModuleConstants.SWIM_BOOST_ENERGY_CONSUMPTION, 1000, "RF");
         addTradeoffPropertyDouble("Thrust", MPSModuleConstants.SWIM_BOOST_AMOUNT, 1, "m/s");
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
+        addIntTradeoffProperty("Thrust", MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
     }
 
     @Override

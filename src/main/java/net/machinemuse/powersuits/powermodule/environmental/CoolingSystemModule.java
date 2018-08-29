@@ -22,9 +22,13 @@ public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickM
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Items.ENDER_EYE, 4));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
-        addTradeoffPropertyDouble("Power", MPSModuleConstants.COOLING_BONUS, 4, "%");
-        addTradeoffPropertyDouble("Power", MPSModuleConstants.COOLING_SYSTEM_ENERGY_CONSUMPTION, 100, "RF/t");
+
+        addTradeoffPropertyDouble("Water Cooling Power", MPSModuleConstants.COOLING_BONUS, 4, "%");
+        addTradeoffPropertyDouble("Water Cooling Power", MPSModuleConstants.COOLING_SYSTEM_ENERGY_CONSUMPTION, 100, "RF/t");
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1, "pts");
+        addIntTradeoffProperty("Water Cooling Power", MPSModuleConstants.SLOT_POINTS, 4, "m", 1, 0);
     }
+
 
     @Override
     public EnumModuleCategory getCategory() {

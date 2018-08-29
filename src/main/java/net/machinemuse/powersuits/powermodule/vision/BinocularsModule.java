@@ -24,6 +24,7 @@ public class BinocularsModule extends PowerModuleBase implements IToggleableModu
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.laserHologram, 1));
         addBasePropertyDouble(MPSModuleConstants.FOV_MULTIPLIER, 0.5);
         addTradeoffPropertyDouble("FOV multiplier", MPSModuleConstants.FOV_MULTIPLIER, 9.5, "%");
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

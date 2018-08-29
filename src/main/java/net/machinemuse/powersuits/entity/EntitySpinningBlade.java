@@ -26,7 +26,7 @@ public class EntitySpinningBlade extends EntityThrowable {
     public static final int SIZE = 24;
     public double damage;
     public Entity shootingEntity;
-    public ItemStack shootingItem;
+    public ItemStack shootingItem = ItemStack.EMPTY;
 
     public EntitySpinningBlade(World world) {
         super(world);
@@ -37,7 +37,7 @@ public class EntitySpinningBlade extends EntityThrowable {
         this.shootingEntity = shootingEntity;
         if (shootingEntity instanceof EntityPlayer) {
             this.shootingItem = ((EntityPlayer) shootingEntity).inventory.getCurrentItem();
-            if (this.shootingItem != null) {
+            if (!this.shootingItem.isEmpty()) {
                 this.damage = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(shootingItem, MPSModuleConstants.BLADE_DAMAGE);
             }
         }

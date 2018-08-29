@@ -275,7 +275,7 @@ public class ItemPowerFist extends MPSItemElectricTool
     @Optional.Method(modid = "forestry")
     public float getSaplingModifier(ItemStack stack, World world, EntityPlayer player, BlockPos pos) {
         if (ModuleManager.INSTANCE.itemHasActiveModule(stack, MPSModuleConstants.MODULE_GRAFTER__DATANAME)) {
-            ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.getOrSetModularPropertyInteger(stack, MPSModuleConstants.GRAFTER_ENERGY_CONSUMPTION));
+            ElectricItemUtils.drainPlayerEnergy(player, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.GRAFTER_ENERGY_CONSUMPTION));
             MuseHeatUtils.heatPlayer(player, ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.GRAFTER_HEAT_GENERATION));
             return 100.0f;
         }
@@ -437,8 +437,8 @@ public class ItemPowerFist extends MPSItemElectricTool
 
     @Override
     public double getDurabilityForDisplay(final ItemStack stack) {
-        int capacity = ModuleManager.INSTANCE.getOrSetModularPropertyInteger(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
-        int energy =  Math.min(capacity, (int) Math.round(MuseItemUtils.getIntOrZero(stack, NuminaNBTConstants.CURRENT_ENERGY)));
+        int capacity = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
+        int energy =  Math.min(capacity, (int) Math.round(MuseItemUtils.getDoubleOrZero(stack, NuminaNBTConstants.CURRENT_ENERGY)));
         return 1 - energy/(float) capacity;
     }
 }

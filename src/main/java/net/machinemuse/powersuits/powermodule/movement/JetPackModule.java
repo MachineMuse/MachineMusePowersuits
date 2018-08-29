@@ -31,6 +31,9 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
         addBasePropertyDouble(MPSModuleConstants.JETPACK_THRUST, 0, "N");
         addTradeoffPropertyDouble("Thrust", MPSModuleConstants.JETPACK_ENERGY_CONSUMPTION, 1500);
         addTradeoffPropertyDouble("Thrust", MPSModuleConstants.JETPACK_THRUST, 0.16);
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
+        addIntTradeoffProperty("Thrust", MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
     }
 
     @Override
@@ -51,7 +54,7 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
         PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
         boolean jumpkey = movementInput.jumpKey;
         ItemStack helmet = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
-        boolean hasFlightControl = helmet != null && helmet.getItem() instanceof IModularItem
+        boolean hasFlightControl = !helmet.isEmpty() && helmet.getItem() instanceof IModularItem
                 && ModuleManager.INSTANCE.itemHasActiveModule(helmet, MPSModuleConstants.MODULE_FLIGHT_CONTROL__DATANAME);
         double jetEnergy = 0;
         double thrust = 0;

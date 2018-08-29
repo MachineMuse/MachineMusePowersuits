@@ -1,8 +1,5 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import ic2.api.item.ElectricItem;
-import mekanism.common.config.MekanismConfig.general;
-import mekanism.common.item.ItemAtomicDisassembler;
 import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IBlockBreakingModule;
@@ -27,8 +24,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
-import javax.annotation.Nonnull;
-
 //
 
 
@@ -45,6 +40,8 @@ public class MADModule extends PowerModuleBase implements IBlockBreakingModule, 
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("mekanism", "atomicdisassembler")), 1));
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
 
         if (ModCompatibility.isMekanismLoaded()) {
             emulatedTool = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("mekanism", "atomicdisassembler")), 1);

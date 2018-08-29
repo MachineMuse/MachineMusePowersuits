@@ -4,7 +4,6 @@ import net.machinemuse.numina.api.item.IModularItem;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.api.nbt.*;
-import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.armor.*;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
@@ -118,8 +117,8 @@ public abstract class PowerModuleBase implements IPowerModule {
             for (IPropertyModifier modifier : propertyModifiersIterable) {
                 if (modifier instanceof IPropertyModifierDouble)
                     propertyValue = ((IPropertyModifierDouble) modifier).applyModifier(moduleTag, propertyValue);
-                else if (modifier instanceof IPropertyModifierInteger)
-                    propertyValue = ((IPropertyModifierInteger) modifier).applyModifier(moduleTag, propertyValue);
+//                else if (modifier instanceof IPropertyModifierInteger)
+//                    propertyValue = ((IPropertyModifierInteger) modifier).applyModifier(moduleTag, propertyValue);
             }
         }
         return propertyValue;
@@ -137,7 +136,7 @@ public abstract class PowerModuleBase implements IPowerModule {
     }
 
     /**
-     * Adds a base key and value to the map based on the config setting.
+     * Adds a base key and getValue to the map based on the config setting.
      * Also adds a [ propertyName, unitOfMeasureLabel ] k-v pair to a map used for displyaing a label
      */
     public PowerModuleBase addTradeoffPropertyDouble(String tradeoffName, String propertyName, double multiplier, String unit) {
@@ -163,7 +162,7 @@ public abstract class PowerModuleBase implements IPowerModule {
 //    }
 
     /**
-     * Adds a base key and value to the map based on the config setting.
+     * Adds a base key and getValue to the map based on the config setting.
      */
     public PowerModuleBase addBasePropertyDouble(String propertyName, double baseVal) {
         String key = new StringBuilder(getDataName()).append('.').append(propertyName).append(".base").toString();
@@ -172,7 +171,7 @@ public abstract class PowerModuleBase implements IPowerModule {
     }
 
     /**
-     * Adds a base key and value to the map based on the config setting.
+     * Adds a base key and getValue to the map based on the config setting.
      * Also adds a [ propertyName, unitOfMeasureLabel ] k-v pair to a map used for displyaing a label
      */
     public PowerModuleBase addBasePropertyDouble(String propertyName, double baseVal, String unit) {
@@ -186,20 +185,20 @@ public abstract class PowerModuleBase implements IPowerModule {
         units.put(propertyName, unit);
         String key = new StringBuilder(getDataName()).append('.').append(propertyName).append('.').append(tradeoffName).append(".multiplier").toString();
         int propFromConfig = MPSConfig.INSTANCE.getPropertyIntegerOrDefault(key, multiplier);
-        return addPropertyModifier(propertyName, new PropertyModifierIntLinearAdditive(tradeoffName, multiplier, roundTo, offset));
+        return addPropertyModifier(propertyName, new PropertyModifierIntLinearAdditive(tradeoffName, propFromConfig, roundTo, offset));
     }
-
-    public PowerModuleBase addTradeoffPropertyInteger(String tradeoffName, String propertyName, int multiplier) {
-        String key = new StringBuilder(getDataName()).append('.').append(propertyName).append('.').append(tradeoffName).append(".multiplier").toString();
-        int propFromConfig = MPSConfig.INSTANCE.getPropertyIntegerOrDefault(key, multiplier);
-        return addPropertyModifier(propertyName, new PropertyModifierLinearAdditiveInteger(tradeoffName, propFromConfig));
-    }
-
-
-    public PowerModuleBase addTradeoffPropertyInteger(String tradeoffName, String propertyName, int multiplier, String unit) {
-        units.put(propertyName, unit);
-        return addTradeoffPropertyInteger(tradeoffName, propertyName, multiplier);
-    }
+//
+//    public PowerModuleBase addTradeoffPropertyInteger(String tradeoffName, String propertyName, int multiplier) {
+//        String key = new StringBuilder(getDataName()).append('.').append(propertyName).append('.').append(tradeoffName).append(".multiplier").toString();
+//        int propFromConfig = MPSConfig.INSTANCE.getPropertyIntegerOrDefault(key, multiplier);
+//        return addPropertyModifier(propertyName, new PropertyModifierLinearAdditiveInteger(tradeoffName, propFromConfig));
+//    }
+//
+//
+//    public PowerModuleBase addTradeoffPropertyInteger(String tradeoffName, String propertyName, int multiplier, String unit) {
+//        units.put(propertyName, unit);
+//        return addTradeoffPropertyInteger(tradeoffName, propertyName, multiplier);
+//    }
 
 //    public PowerModuleBase addSimpleTradeoffInteger(IPowerModule module, String tradeoffName, String firstPropertyName, String firstUnits,
 //                                                    int firstPropertyBase, int firstPropertyMultiplier, String secondPropertyName,
@@ -211,17 +210,17 @@ public abstract class PowerModuleBase implements IPowerModule {
 //        this.addTradeoffPropertyInteger(tradeoffName, secondPropertyName, secondPropertyMultiplier);
 //        return this;
 //    }
-
-    public PowerModuleBase addBasePropertyInteger(String propertyName, int baseVal) {
-        String key = new StringBuilder(getDataName()).append('.').append(propertyName).append(".base").toString();
-        int propFromConfig = MPSConfig.INSTANCE.getPropertyIntegerOrDefault(key, baseVal);
-        return addPropertyModifier(propertyName, new PropertyModifierFlatAdditiveInteger(propFromConfig));
-    }
-
-    public PowerModuleBase addBasePropertyInteger(String propertyName, int baseVal, String unit) {
-        units.put(propertyName, unit);
-        return addBasePropertyInteger(propertyName, baseVal);
-    }
+//
+//    public PowerModuleBase addBasePropertyInteger(String propertyName, int baseVal) {
+//        String key = new StringBuilder(getDataName()).append('.').append(propertyName).append(".base").toString();
+//        int propFromConfig = MPSConfig.INSTANCE.getPropertyIntegerOrDefault(key, baseVal);
+//        return addPropertyModifier(propertyName, new PropertyModifierFlatAdditiveInteger(propFromConfig));
+//    }
+//
+//    public PowerModuleBase addBasePropertyInteger(String propertyName, int baseVal, String unit) {
+//        units.put(propertyName, unit);
+//        return addBasePropertyInteger(propertyName, baseVal);
+//    }
 
     public boolean equals(PowerModuleBase other) {
         return other != null && other.getDataName().equals(this.getDataName());

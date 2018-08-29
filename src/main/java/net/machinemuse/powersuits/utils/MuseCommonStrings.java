@@ -23,26 +23,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class MuseCommonStrings {
-
-
-    /**
-     * Module names
-     */
-    public static final String MODULE_ANTIGRAVITY = "Antigravity Drive";
-
-    /**
-     * Categories for modules
-     */
-    public static final String CATEGORY_ARMOR = "Armor";
-    public static final String CATEGORY_ENERGY = "Energy";
-    public static final String CATEGORY_TOOL = "Tool";
-    public static final String CATEGORY_WEAPON = "Weapon";
-    public static final String CATEGORY_MOVEMENT = "Movement";
-    public static final String CATEGORY_COSMETIC = "Cosmetic";
-    public static final String CATEGORY_VISION = "Vision";
-    public static final String CATEGORY_ENVIRONMENTAL = "Environment";
-    public static final String CATEGORY_SPECIAL = "Special";
-
     /**
      * Adds information to the item's tooltip when 'getting' it.
      *

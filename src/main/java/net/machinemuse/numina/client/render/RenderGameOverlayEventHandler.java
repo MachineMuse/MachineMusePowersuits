@@ -73,7 +73,7 @@ public class RenderGameOverlayEventHandler {
         EntityPlayerSP player = mc.player;
         int i = player.inventory.currentItem;
         ItemStack stack = player.inventory.getCurrentItem();
-        if (stack != null && stack.getItem() instanceof IModeChangingItem) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModeChangingItem) {
 
             IModeChangingItem item = (IModeChangingItem)(stack.getItem());
             ScaledResolution screen = new ScaledResolution(mc);

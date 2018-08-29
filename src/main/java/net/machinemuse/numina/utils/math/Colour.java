@@ -80,7 +80,7 @@ public class Colour {
      *
      * note: full values for RGBA will yield -1
      *
-     * @return int value of this colour
+     * @return int getValue of this colour
      */
     public int getInt() {
         int val = 0;
@@ -102,7 +102,7 @@ public class Colour {
     }
 
     /**
-     * Returns a colour with RGB set to the same value ie. a shade of grey.
+     * Returns a colour with RGB set to the same getValue ie. a shade of grey.
      */
     public static Colour getGreyscale(float value, float alpha) {
         return new Colour(value, value, value, alpha);
@@ -154,7 +154,7 @@ public class Colour {
     /**
      * Handles RRGGBB and RRGGBBAA hex strings
      * @param hexString
-     * @return new colour based on value or default of white if error
+     * @return new colour based on getValue or default of white if error
      */
     public static Colour fromHexString(String hexString) {
         try {

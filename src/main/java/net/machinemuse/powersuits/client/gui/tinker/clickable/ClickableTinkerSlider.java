@@ -19,11 +19,15 @@ public class ClickableTinkerSlider extends ClickableSlider {
     }
 
     @Override
-    public double value() {
-        if (moduleTag.hasKey(name, Constants.NBT.TAG_INT))
-            return moduleTag.getInteger(name)/10000.0D;
-        if (moduleTag.hasKey(name, Constants.NBT.TAG_DOUBLE))
+    public double getValue() {
+        if (moduleTag.hasKey(name, Constants.NBT.TAG_DOUBLE)) {
+            isDouble = true;
             return moduleTag.getDouble(name);
+        } else if (moduleTag.hasKey(name, Constants.NBT.TAG_INT)) {
+            isDouble = false;
+            return moduleTag.getInteger(name)/10000.0D;
+        }
+
         return 0;
     }
 
@@ -31,9 +35,10 @@ public class ClickableTinkerSlider extends ClickableSlider {
         double xval = position.x() - x;
         double xratio = MuseMathUtils.clampDouble(0.5 - (xval / width), 0, 1);
 
-        if (isDouble)
+        if (isDouble || moduleTag.hasKey(name, Constants.NBT.TAG_DOUBLE)) {
             moduleTag.setDouble(name, xratio);
-        else
+        } else {
             moduleTag.setInteger(name, (int) (xratio * 10000));
+        }
     }
 }

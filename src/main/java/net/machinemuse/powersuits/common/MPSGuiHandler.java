@@ -18,14 +18,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  *
  * Ported to Java by lehjr on 11/3/16.
  */
-public final class MPSGuiHandler implements IGuiHandler {
-    private static MPSGuiHandler INSTANCE;
-
-    public static MPSGuiHandler getInstance() {
-        if (INSTANCE == null)
-            INSTANCE = new MPSGuiHandler();
-        return INSTANCE;
-    }
+public enum MPSGuiHandler implements IGuiHandler {
+    INSTANCE;
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {

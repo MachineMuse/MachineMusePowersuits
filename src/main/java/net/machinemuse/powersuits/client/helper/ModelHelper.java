@@ -185,7 +185,7 @@ public class ModelHelper {
 //
 //        try {
 //            IModelState state = new IModelState() {
-//                private final java.util.Optional<TRSRTransformation> value = java.util.Optional.of(TRSRTransformation.identity());
+//                private final java.util.Optional<TRSRTransformation> getValue = java.util.Optional.of(TRSRTransformation.identity());
 //
 //                @Override
 //                public java.util.Optional<TRSRTransformation> apply(java.util.Optional<? extends IModelPart> part) {
@@ -194,7 +194,7 @@ public class ModelHelper {
 //                        if (parts.hasNext()) {
 //                            String name = parts.next();
 //                            // only interested in the root level
-//                            if (!parts.hasNext() && hiddenIn.contains(name)) return value;
+//                            if (!parts.hasNext() && hiddenIn.contains(name)) return getValue;
 //                        }
 //                    }
 //                    return java.util.Optional.empty();

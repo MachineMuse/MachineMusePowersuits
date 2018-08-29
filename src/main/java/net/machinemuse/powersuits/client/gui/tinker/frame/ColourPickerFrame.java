@@ -124,8 +124,8 @@ public class ColourPickerFrame implements IGuiFrame {
         if (this.selectedSlider != null) {
             this.selectedSlider.setValueByX(mousex);
             if (colours().length > selectedColour) {
-//                colours()[selectedColour] = Colour.getInt(rslider.value(), gslider.value(), bslider.value(), 1.0);
-                colours()[selectedColour] = Colour.getInt(rslider.value(), gslider.value(), bslider.value(), aslider.value());
+//                colours()[selectedColour] = Colour.getInt(rslider.getValue(), gslider.getValue(), bslider.getValue(), 1.0);
+                colours()[selectedColour] = Colour.getInt(rslider.getValue(), gslider.getValue(), bslider.getValue(), aslider.getValue());
 
                 EntityPlayerSP player = Minecraft.getMinecraft().player;
                 if (player.world.isRemote)
@@ -198,7 +198,7 @@ public class ColourPickerFrame implements IGuiFrame {
             List<Integer> intList = Arrays.stream(getIntArray(nbtTagIntArray)).boxed().collect(Collectors.toList());
 
             if (intList.size() > 1) {
-                intList.remove(selectedColour); // with integer list, will default to index rather than value
+                intList.remove(selectedColour); // with integer list, will default to index rather than getValue
 
                 setColourTagMaybe(intList);
 

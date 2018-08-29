@@ -239,7 +239,7 @@ public class MuseItemUtils {
         }
         // Then try to add the items to empty slots
         for (int i = 0; i < player.inventory.getSizeInventory() && itemsToGive.getCount() > 0; i++) {
-            if (player.inventory.getStackInSlot(i) == null) {
+            if (player.inventory.getStackInSlot(i).isEmpty()) {
                 ItemStack destination = new ItemStack(itemsToGive.getItem(), 0, itemsToGive.getItemDamage());
                 transferStackWithChance(itemsToGive, destination, chanceOfSuccess);
                 if (destination.getCount() > 0) {
@@ -294,7 +294,7 @@ public class MuseItemUtils {
             }
             for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
                 ItemStack invstack = player.inventory.getStackInSlot(i);
-                if (invstack != null && invstack.getItem() == itemstack.getItem() && invstack.isStackable() && invstack.getCount() < invstack.getMaxStackSize() && invstack.getCount() < player.inventory.getInventoryStackLimit() && (!invstack.getHasSubtypes() || invstack.getItemDamage() == itemstack.getItemDamage())) {
+                if (!invstack.isEmpty() && invstack.getItem() == itemstack.getItem() && invstack.isStackable() && invstack.getCount() < invstack.getMaxStackSize() && invstack.getCount() < player.inventory.getInventoryStackLimit() && (!invstack.getHasSubtypes() || invstack.getItemDamage() == itemstack.getItemDamage())) {
                     return true;
                 }
             }
@@ -310,7 +310,7 @@ public class MuseItemUtils {
     }
 
     /**
-     * Checks the given NBTTag and returns the value if it exists, otherwise 0.
+     * Checks the given NBTTag and returns the getValue if it exists, otherwise 0.
      */
     public static double getDoubleOrZero(NBTTagCompound itemProperties, String string) {
         double value = 0;
@@ -322,50 +322,50 @@ public class MuseItemUtils {
         return value;
     }
 
-    /**
-     * Checks the given NBTTag and returns the value if it exists, otherwise 0.
-     */
-    public static double getScaledIntOrZero(NBTTagCompound itemProperties, String string) {
-        int value = 0;
-        if (itemProperties != null) {
-            if (itemProperties.hasKey(string)) {
-                value = itemProperties.getInteger(string);
-            }
-        }
-        return value > 0 ? value/10000.0D : value;
-    }
-
-    public static double getScaledIntOrZero(ItemStack stack, String string) {
-        return getScaledIntOrZero(MuseNBTUtils.getMuseItemTag(stack), string);
-    }
-
-    /**
-     * Checks the given NBTTag and returns the value if it exists, otherwise 0.
-     */
-    public static double getIntOrZero(NBTTagCompound itemProperties, String string) {
-        int value = 0;
-        if (itemProperties != null) {
-            if (itemProperties.hasKey(string)) {
-                value = itemProperties.getInteger(string);
-            }
-        }
-        return value;
-    }
-
-    public static double getIntOrZero(ItemStack stack, String string) {
-        return getIntOrZero(MuseNBTUtils.getMuseItemTag(stack), string);
-    }
+//    /**
+//     * Checks the given NBTTag and returns the getValue if it exists, otherwise 0.
+//     */
+//    public static double getScaledIntOrZero(NBTTagCompound itemProperties, String string) {
+//        int value = 0;
+//        if (itemProperties != null) {
+//            if (itemProperties.hasKey(string)) {
+//                value = itemProperties.getInteger(string);
+//            }
+//        }
+//        return value > 0 ? value/10000.0D : value;
+//    }
+//
+//    public static double getScaledIntOrZero(ItemStack stack, String string) {
+//        return getScaledIntOrZero(MuseNBTUtils.getMuseItemTag(stack), string);
+//    }
+//
+//    /**
+//     * Checks the given NBTTag and returns the getValue if it exists, otherwise 0.
+//     */
+//    public static double getIntOrZero(NBTTagCompound itemProperties, String string) {
+//        int value = 0;
+//        if (itemProperties != null) {
+//            if (itemProperties.hasKey(string)) {
+//                value = itemProperties.getInteger(string);
+//            }
+//        }
+//        return value;
+//    }
+//
+//    public static double getIntOrZero(ItemStack stack, String string) {
+//        return getIntOrZero(MuseNBTUtils.getMuseItemTag(stack), string);
+//    }
 
     /**
      * Bouncer for succinctness. Checks the item's modular properties and
-     * returns the value if it exists, otherwise 0.
+     * returns the getValue if it exists, otherwise 0.
      */
     public static double getDoubleOrZero(ItemStack stack, String string) {
         return getDoubleOrZero(MuseNBTUtils.getMuseItemTag(stack), string);
     }
 
     /**
-     * Sets the value of the given nbt tag, or removes it if the value would be
+     * Sets the getValue of the given nbt tag, or removes it if the getValue would be
      * zero.
      */
     public static void setDoubleOrRemove(NBTTagCompound itemProperties, String string, double value) {
@@ -379,7 +379,7 @@ public class MuseItemUtils {
     }
 
     /**
-     * Sets the given itemstack's modular property, or removes it if the value
+     * Sets the given itemstack's modular property, or removes it if the getValue
      * would be zero.
      */
     public static void setDoubleOrRemove(@Nonnull ItemStack stack, String string, double value) {
@@ -387,7 +387,7 @@ public class MuseItemUtils {
     }
 
     /**
-     * Sets the value of the given nbt tag, or removes it if the value would be
+     * Sets the getValue of the given nbt tag, or removes it if the getValue would be
      * zero.
      */
     public static void setIntegerOrRemove(NBTTagCompound itemProperties, String string, int value) {
@@ -401,7 +401,7 @@ public class MuseItemUtils {
     }
 
     /**
-     * Sets the given itemstack's modular property, or removes it if the value
+     * Sets the given itemstack's modular property, or removes it if the getValue
      * would be zero.
      */
     public static void setIntegerOrRemove(@Nonnull ItemStack stack, String string, int value) {

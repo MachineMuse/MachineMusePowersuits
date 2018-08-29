@@ -29,7 +29,10 @@ public class AOEPickUpgradeModule extends PowerModuleBase implements IBlockBreak
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         //ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Item.diamond, 3));
-        addBasePropertyDouble(ENERGY_CONSUMPTION, 5, "J");
+        addBasePropertyDouble(ENERGY_CONSUMPTION, 5, "RF");
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
+        addIntTradeoffProperty(ENERGY_CONSUMPTION, MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
     }
 
     @Override

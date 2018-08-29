@@ -1,7 +1,5 @@
 package net.machinemuse.powersuits.api.constants;
 
-import static net.machinemuse.powersuits.api.constants.MPSModConstants.MODID;
-
 public class MPSModuleConstants {
     /**
      * String literals as constants to eliminate case sensitivity issues etc.
@@ -42,7 +40,7 @@ public class MPSModuleConstants {
     public static final String ARMOR_VALUE_ENERGY = "Armor (Energy)";
     public static final String ARMOR_ENERGY_CONSUMPTION = "Energy Per Damage";
     public static final String ARMOR_PLATING_THICKNESS = "Plating Thickness";
-    public static final String MODULE_FIELD_STRENGTH = "fieldStrength";
+    public static final String MODULE_FIELD_STRENGTH = "Field Strength";
 
     public static final String MODULE_LEATHER_PLATING__DATANAME = "leatherPlating";
     public static final String MODULE_IRON_PLATING__DATANAME = "ironPlating";
@@ -232,7 +230,7 @@ public class MPSModuleConstants {
     public static final String RAILGUN_TOTAL_IMPULSE = "Railgun Total Impulse";
     public static final String RAILGUN_ENERGY_COST = "Railgun Energy Cost";
     public static final String RAILGUN_HEAT_EMISSION = "Railgun Heat Emission";
-    public static final String TIMER = "cooldown";
+    public static final String TIMER = "Cooldown";
 
     public static final String MODULE_BLADE_LAUNCHER__DATANAME = "bladeLauncher";
     public static final String MODULE_LIGHTNING__DATANAME = "lightningSummoner";

@@ -144,7 +144,7 @@ public abstract class MusePacket {
      */
     public void writeNBTTagCompound(final NBTTagCompound nbt) {
         try {
-            if (nbt == null) {
+            if (nbt == null || nbt.hasNoTags()) {
                 this.bytesOut.writeInt(-1);
             }
             else {
@@ -200,10 +200,6 @@ public abstract class MusePacket {
         ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
         try {
             DataOutputStream dataoutputstream = new DataOutputStream(new GZIPOutputStream(bytearrayoutputstream));
-
-            System.out.println("nbt here: " + nbt);
-
-
             CompressedStreamTools.write(nbt, dataoutputstream);
 
             // bytearrayoutputstream only updates if dataoutputstream closes
@@ -296,7 +292,7 @@ public abstract class MusePacket {
 //        } else if (objectType == HashMap.class) {
 //            writeMapToStream((Map) o);
         } else
-            throw new TypeNotPresentException(o.getClass().getName(), new Throwable("map key or value type handler not found!!"));
+            throw new TypeNotPresentException(o.getClass().getName(), new Throwable("map key or getValue type handler not found!!"));
     }
 
 

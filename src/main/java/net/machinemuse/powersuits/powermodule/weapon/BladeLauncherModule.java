@@ -25,10 +25,11 @@ import net.minecraft.world.World;
 public class BladeLauncherModule extends PowerModuleBase implements IRightClickModule {
     public BladeLauncherModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        addBasePropertyDouble(MPSModuleConstants.BLADE_ENERGY, 5000, "RF");
-        addBasePropertyDouble(MPSModuleConstants.BLADE_DAMAGE, 6, "pt");
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.mvcapacitor, 1));
+        addBasePropertyDouble(MPSModuleConstants.BLADE_ENERGY, 5000, "RF");
+        addBasePropertyDouble(MPSModuleConstants.BLADE_DAMAGE, 6, "pt");
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

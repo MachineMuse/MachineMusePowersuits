@@ -66,8 +66,10 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
             }
             isIC2Classic = false;
         }
-        addBasePropertyInteger(MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION, 1000, "RF");
         ModuleManager.INSTANCE.addInstallCost(getDataName(),emulatedTool);
+
+        addBasePropertyDouble(MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION, 1000, "RF");
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override
@@ -85,7 +87,7 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
             if (isIC2Classic) {
                 if (block == rubber_wood && ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION) < ElectricItemUtils.getMaxPlayerEnergy(player)) {
                     if (attemptExtract.invoke( "attemptExtract", null, player, world, pos, facing, null).equals(true)) {
-                        ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.getOrSetModularPropertyInteger(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION));
+                        ElectricItemUtils.drainPlayerEnergy(player, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION));
                         return EnumActionResult.SUCCESS;
                     }
                 }
@@ -94,7 +96,7 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
             else {
                 if (block == rubber_wood && ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION) < ElectricItemUtils.getMaxPlayerEnergy(player)) {
                     if (attemptExtract.invoke( "attemptExtract", player, world, pos, facing, state, null).equals(true)) {
-                        ElectricItemUtils.drainPlayerEnergy(player, ModuleManager.INSTANCE.getOrSetModularPropertyInteger(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION));
+                        ElectricItemUtils.drainPlayerEnergy(player, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION));
                         return EnumActionResult.SUCCESS;
                     }
                 }

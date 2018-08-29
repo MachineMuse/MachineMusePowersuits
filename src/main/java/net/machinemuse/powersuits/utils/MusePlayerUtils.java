@@ -107,32 +107,6 @@ public class MusePlayerUtils {
                 return pickedBlock;
             }
         }
-
-        // float one = 1.0F;
-        // float pitch = player.prevRotationPitch + (player.rotationPitch -
-        // player.prevRotationPitch) * one;
-        // float yaw = player.prevRotationYaw + (player.rotationYaw -
-        // player.prevRotationYaw) * one;
-        // double posx = player.prevPosX + (player.posX - player.prevPosX) *
-        // (double) one;
-        // double posy = player.prevPosY + (player.posY - player.prevPosY) *
-        // (double) one + 1.62D - (double) player.yOffset;
-        // double posz = player.prevPosZ + (player.posZ - player.prevPosZ) *
-        // (double) one;
-        // Vec3 posVector = World.getWorldVec3Pool().getVecFromPool(posx, posy,
-        // posz);
-        // float yawz = MathHelper.cos(-yaw * 0.017453292F - (float) Math.PI);
-        // float yawx = MathHelper.sin(-yaw * 0.017453292F - (float) Math.PI);
-        // float pitchhorizontal = -MathHelper.cos(-pitch * 0.017453292F);
-        // float pitchvertical = MathHelper.sin(-pitch * 0.017453292F);
-        // float directionx = yawx * pitchhorizontal;
-        // float directionz = yawz * pitchhorizontal;
-        // Vec3 rayToCheck = posVector.addVector((double) directionx *
-        // reachDistance, (double) pitchvertical * reachDistance, (double)
-        // directionz
-        // * reachDistance);
-        // return World.rayTraceBlocks_do_do(posVector, rayToCheck,
-        // collisionFlag, !collisionFlag);
     }
 
     public static void teleportEntity(EntityPlayer entityPlayer, RayTraceResult rayTraceResult) {
@@ -193,7 +167,7 @@ public class MusePlayerUtils {
             double scaleStrafe = (strafeX * strafeX + strafeZ * strafeZ);
             double flightVerticality = 0;
             ItemStack helm = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);;
-            if (helm != null && helm.getItem() instanceof IModularItem) {
+            if (!helm.isEmpty() && helm.getItem() instanceof IModularItem) {
                 flightVerticality = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(helm, MPSModuleConstants.FLIGHT_VERTICALITY);
             }
 
@@ -325,7 +299,7 @@ public class MusePlayerUtils {
         if (player.isInLava())
             return 0;
 
-        double cool = ((2.0 - getBiome(player).getTemperature(new BlockPos((int)player.posX, (int)player.posY, (int)player.posZ))/2)); // Algorithm that returns a value from 0.0 -> 1.0. Biome temperature is from 0.0 -> 2.0
+        double cool = ((2.0 - getBiome(player).getTemperature(new BlockPos((int)player.posX, (int)player.posY, (int)player.posZ))/2)); // Algorithm that returns a getValue from 0.0 -> 1.0. Biome temperature is from 0.0 -> 2.0
         if (player.isInWater())
             cool += 0.5;
 

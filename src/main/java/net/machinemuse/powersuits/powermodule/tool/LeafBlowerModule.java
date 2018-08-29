@@ -31,10 +31,12 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Items.IRON_INGOT, 3));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
-        addBasePropertyInteger(MPSModuleConstants.LEAF_BLOWER_ENERGY_CONSUMPTION, 500, "RF");
-        addTradeoffPropertyInteger(MPSModuleConstants.LEAF_BLOWER_RADIUS, MPSModuleConstants.LEAF_BLOWER_ENERGY_CONSUMPTION, 9500);
-        addBasePropertyInteger(MPSModuleConstants.LEAF_BLOWER_RADIUS, 1, "m");
-        addTradeoffPropertyInteger(MPSModuleConstants.LEAF_BLOWER_RADIUS, MPSModuleConstants.LEAF_BLOWER_RADIUS, 15);
+        addBasePropertyDouble(MPSModuleConstants.LEAF_BLOWER_ENERGY_CONSUMPTION, 500, "RF");
+        addTradeoffPropertyDouble(MPSModuleConstants.LEAF_BLOWER_RADIUS, MPSModuleConstants.LEAF_BLOWER_ENERGY_CONSUMPTION, 9500);
+        addBasePropertyDouble(MPSModuleConstants.LEAF_BLOWER_RADIUS, 1, "m");
+        addTradeoffPropertyDouble(MPSModuleConstants.LEAF_BLOWER_RADIUS, MPSModuleConstants.LEAF_BLOWER_RADIUS, 15);
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

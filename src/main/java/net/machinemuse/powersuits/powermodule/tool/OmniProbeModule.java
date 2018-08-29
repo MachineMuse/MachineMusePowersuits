@@ -66,6 +66,8 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
             tHighest = conduitProbe;
         }
         ModuleManager.INSTANCE.addInstallCost(getDataName(), tHighest);
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override
@@ -123,7 +125,7 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-        if ((OmniProbeHelper.getEIONoCompete(item) != null) && (!OmniProbeHelper.getEIONoCompete(item).isEmpty())) {
+        if (!(OmniProbeHelper.getEIONoCompete(item).isEmpty()) && (!OmniProbeHelper.getEIONoCompete(item).isEmpty())) {
             if (OmniProbeHelper.getEIONoCompete(item).equals(MPSModuleConstants.MODULE_OMNIPROBE__DATANAME)) {
                 OmniProbeHelper.setEIONoCompete(item, "");
                 if (OmniProbeHelper.getEIOFacadeTransparency(item)) {

@@ -16,9 +16,11 @@ public class AdvancedBatteryModule extends PowerModuleBase {
     public AdvancedBatteryModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.mvcapacitor, 1));
-        addBasePropertyInteger(NuminaNBTConstants.MAXIMUM_ENERGY, 1000000, "RF");
-        addTradeoffPropertyInteger(MPSModuleConstants.BATTERY_SIZE, NuminaNBTConstants.MAXIMUM_ENERGY, 4000000);
-        addTradeoffPropertyInteger(MPSModuleConstants.BATTERY_SIZE, MPSModuleConstants.SLOT_POINTS, 4);
+        addBasePropertyDouble(NuminaNBTConstants.MAXIMUM_ENERGY, 1000000, "RF");
+        addTradeoffPropertyDouble(MPSModuleConstants.BATTERY_SIZE, NuminaNBTConstants.MAXIMUM_ENERGY, 4000000);
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
+        addIntTradeoffProperty(MPSModuleConstants.BATTERY_SIZE, MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
     }
 
     @Override

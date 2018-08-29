@@ -34,9 +34,10 @@ public class ThermalGeneratorModule extends PowerModuleBase implements IPlayerTi
         ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.ironPlating, 1));
 //        }
 
-        addBasePropertyInteger(MPSModuleConstants.THERMAL_ENERGY_GENERATION, 250);
-        addTradeoffPropertyInteger("Energy Generated", MPSModuleConstants.THERMAL_ENERGY_GENERATION, 250, "RF");
-        addTradeoffPropertyInteger("Energy Generated", MPSModuleConstants.SLOT_POINTS, 6);
+        addBasePropertyDouble(MPSModuleConstants.THERMAL_ENERGY_GENERATION, 250);
+        addTradeoffPropertyDouble("Energy Generated", MPSModuleConstants.THERMAL_ENERGY_GENERATION, 250, "RF");
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
+        addIntTradeoffProperty("Energy Generated", MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
     }
 
     @Override
@@ -55,11 +56,11 @@ public class ThermalGeneratorModule extends PowerModuleBase implements IPlayerTi
         double maxHeat = MuseHeatUtils.getMaxHeat(player);
         if (player.world.getTotalWorldTime() % 20 == 0) {
             if (player.isBurning()) {
-                ElectricItemUtils.givePlayerEnergy(player, 4 * ModuleManager.INSTANCE.getOrSetModularPropertyInteger(item, MPSModuleConstants.THERMAL_ENERGY_GENERATION));
+                ElectricItemUtils.givePlayerEnergy(player, (int) (4 * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.THERMAL_ENERGY_GENERATION)));
             } else if (currentHeat >= 200) {
-                ElectricItemUtils.givePlayerEnergy(player, 2 * ModuleManager.INSTANCE.getOrSetModularPropertyInteger(item, MPSModuleConstants.THERMAL_ENERGY_GENERATION));
+                ElectricItemUtils.givePlayerEnergy(player, (int) (2 * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.THERMAL_ENERGY_GENERATION)));
             } else if ((currentHeat / maxHeat) >= 0.5) {
-                ElectricItemUtils.givePlayerEnergy(player, ModuleManager.INSTANCE.getOrSetModularPropertyInteger(item, MPSModuleConstants.THERMAL_ENERGY_GENERATION));
+                ElectricItemUtils.givePlayerEnergy(player, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.THERMAL_ENERGY_GENERATION));
             }
         }
     }

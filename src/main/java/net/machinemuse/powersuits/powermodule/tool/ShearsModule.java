@@ -44,8 +44,10 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(),new ItemStack(Items.IRON_INGOT, 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
-        addBasePropertyInteger(MPSModuleConstants.SHEARING_ENERGY_CONSUMPTION, 1000, "RF");
-        addBasePropertyInteger(MPSModuleConstants.SHEARING_HARVEST_SPEED, 8, "x");
+        addBasePropertyDouble(MPSModuleConstants.SHEARING_ENERGY_CONSUMPTION, 1000, "RF");
+        addBasePropertyDouble(MPSModuleConstants.SHEARING_HARVEST_SPEED, 8, "x");
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override
@@ -78,7 +80,7 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
                     ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
                     ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
                 }
-                ElectricItemUtils.drainPlayerEnergy(playerIn, ModuleManager.INSTANCE.getOrSetModularPropertyInteger(itemStackIn, MPSModuleConstants.SHEARING_ENERGY_CONSUMPTION));
+                ElectricItemUtils.drainPlayerEnergy(playerIn, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.SHEARING_ENERGY_CONSUMPTION));
                 return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
             }
         }
@@ -132,7 +134,7 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
                     entityitem.setDefaultPickupDelay(); // this is 10
                     entityitem.world.spawnEntity(entityitem);
                 }
-                ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, ModuleManager.INSTANCE.getOrSetModularPropertyInteger(itemStack, MPSModuleConstants.SHEARING_ENERGY_CONSUMPTION));
+                ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.SHEARING_ENERGY_CONSUMPTION));
                 ((EntityPlayer) (entityLiving)).addStat(StatList.getBlockStats(block), 1);
                 return true;
             }

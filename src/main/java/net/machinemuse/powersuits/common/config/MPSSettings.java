@@ -164,8 +164,8 @@ public class MPSSettings {
 
             // Vision ---------------------------------------------------------------------
             put(MPSModuleConstants.BINOCULARS_MODULE__DATANAME, true);
-            put(MPSModuleConstants.MODULE_NIGHT_VISION__DATANAME, true); // done via mod compat
-            put(MPSModuleConstants.MODULE_THAUM_GOGGLES__DATANAME, true);
+            put(MPSModuleConstants.MODULE_NIGHT_VISION__DATANAME, true);
+            put(MPSModuleConstants.MODULE_THAUM_GOGGLES__DATANAME, true);// done via mod compat
 
             // Tools --------------------------------------------------------------------------------------
             put(MPSModuleConstants.MODULE_AOE_PICK_UPGRADE__DATANAME, true);

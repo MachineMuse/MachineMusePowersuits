@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.client.gui.tinker.frame;
+package net.machinemuse.powersuits.client.gui;
 
 import net.machinemuse.numina.api.item.IModeChangingItem;
 import net.machinemuse.numina.api.module.IPowerModule;
@@ -10,6 +10,7 @@ import net.machinemuse.numina.utils.math.geometry.SpiralPointToPoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableModule;
+import net.machinemuse.powersuits.client.gui.tinker.frame.IGuiFrame;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 

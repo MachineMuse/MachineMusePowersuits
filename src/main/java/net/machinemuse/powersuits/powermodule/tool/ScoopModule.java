@@ -34,8 +34,10 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(),emulatedTool);
         ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
-        addBasePropertyInteger(MPSModuleConstants.SCOOP_ENERGY_CONSUMPTION, 20000, "RF");
-        addBasePropertyInteger(MPSModuleConstants.SCOOP_HARVEST_SPEED, 5, "x");
+        addBasePropertyDouble(MPSModuleConstants.SCOOP_ENERGY_CONSUMPTION, 20000, "RF");
+        addBasePropertyDouble(MPSModuleConstants.SCOOP_HARVEST_SPEED, 5, "x");
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override
@@ -66,7 +68,7 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
         if (ForgeHooks.canToolHarvestBlock(worldIn, pos, emulatedTool)) {
-            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, ModuleManager.INSTANCE.getOrSetModularPropertyInteger(stack, MPSModuleConstants.SCOOP_ENERGY_CONSUMPTION));
+            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.SCOOP_ENERGY_CONSUMPTION));
             return true;
         }
         return false;

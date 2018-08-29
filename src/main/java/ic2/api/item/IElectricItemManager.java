@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
  * - store and retrieve the charge
  * - handle charging, taking amount, tier, transfer limit, canProvideEnergy and simulate into account
  * - replace item IDs if appropriate (getChargedItemId() and getEmptyItemId())
- * - update and manage the damage value for the visual charge indicator
+ * - update and manage the damage getValue for the visual charge indicator
  *
  * Implementation hints:
  * - operations require the tier to be at least as high as the item being manipulated
@@ -36,7 +36,7 @@ public interface IElectricItemManager {
      * @param amount max amount of energy to charge in EU
      * @param tier tier of the charging device, has to be at least as high as the item to charge
      * @param ignoreTransferLimit ignore any transfer limits, infinite charge rate
-     * @param simulate don't actually change the item, just determine the return value
+     * @param simulate don't actually change the item, just determine the return getValue
      * @return Energy transferred into the electric item
      */
     double charge(ItemStack stack, double amount, int tier, boolean ignoreTransferLimit, boolean simulate);
@@ -53,7 +53,7 @@ public interface IElectricItemManager {
      * @param tier tier of the discharging device, has to be at least as high as the item to discharge
      * @param ignoreTransferLimit ignore any transfer limits, infinite discharge rate
      * @param externally use the supplied item externally, i.e. to power something else as if it was a battery
-     * @param simulate don't actually discharge the item, just determine the return value
+     * @param simulate don't actually discharge the item, just determine the return getValue
      * @return Energy retrieved from the electric item
      */
     double discharge(ItemStack stack, double amount, int tier, boolean ignoreTransferLimit, boolean externally, boolean simulate);

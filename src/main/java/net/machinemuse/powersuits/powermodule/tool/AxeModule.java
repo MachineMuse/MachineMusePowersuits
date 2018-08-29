@@ -32,6 +32,8 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
         addBasePropertyDouble(MPSModuleConstants.AXE_HARVEST_SPEED, 8, "x");
         addTradeoffPropertyDouble("Overclock", MPSModuleConstants.AXE_ENERGY_CONSUMPTION, 9500);
         addTradeoffPropertyDouble("Overclock", MPSModuleConstants.AXE_HARVEST_SPEED, 22);
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

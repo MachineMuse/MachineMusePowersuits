@@ -85,7 +85,7 @@ public class ClientTickHandler {
     public void findInstalledModules(EntityPlayer player) {
         if (player != null) {
             ItemStack helmet = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
-            if (helmet != null && helmet.getItem() instanceof ItemPowerArmorHelmet) {
+            if (!helmet.isEmpty() && helmet.getItem() instanceof ItemPowerArmorHelmet) {
                 if (ModuleManager.INSTANCE.itemHasActiveModule(helmet, MPSModuleConstants.MODULE_AUTO_FEEDER__DATANAME)) {
                     modules.add(MPSModuleConstants.MODULE_AUTO_FEEDER__DATANAME);
                 }
@@ -98,14 +98,14 @@ public class ClientTickHandler {
             }
 
             ItemStack chest = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-            if (chest != null && chest.getItem() instanceof ItemPowerArmorChestplate) {
+            if (!chest.isEmpty() && chest.getItem() instanceof ItemPowerArmorChestplate) {
                 if (ModuleManager.INSTANCE.itemHasActiveModule(chest, MPSModuleConstants.MODULE_WATER_TANK__DATANAME)) {
                     modules.add(MPSModuleConstants.MODULE_WATER_TANK__DATANAME);
                 }
             }
 
             ItemStack powerfist = player.getHeldItemMainhand();
-            if (powerfist != null && powerfist.getItem() instanceof ItemPowerFist) {
+            if (!powerfist.isEmpty() && powerfist.getItem() instanceof ItemPowerFist) {
                 if (ModuleManager.INSTANCE.itemHasActiveModule(powerfist, MPSModuleConstants.MODULE_PLASMA_CANNON__DATANAME))
                     modules.add(MPSModuleConstants.MODULE_PLASMA_CANNON__DATANAME);
             }

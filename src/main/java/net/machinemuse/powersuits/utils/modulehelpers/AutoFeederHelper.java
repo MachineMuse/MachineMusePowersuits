@@ -38,7 +38,7 @@ public class AutoFeederHelper {
     }
 
     public static void setSaturationLevel(@Nonnull ItemStack stack, double d) {
-        if (stack != null && stack.getItem() instanceof IModularItem) {
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
             itemTag.setDouble(TAG_SATURATION, d);
         }

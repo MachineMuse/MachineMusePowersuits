@@ -94,7 +94,6 @@ public class ScrollableFrame implements IGuiFrame {
 
     @Override
     public List<String> getToolTip(int x, int y) {
-        // TODO Auto-generated method stub
         return null;
     }
 }

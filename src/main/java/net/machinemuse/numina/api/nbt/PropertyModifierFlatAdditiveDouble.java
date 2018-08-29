@@ -17,7 +17,7 @@ public class PropertyModifierFlatAdditiveDouble implements IPropertyModifierDoub
      *
      * @param moduleTag unused
      * @param value
-     * @return value + this.valueAdded
+     * @return getValue + this.valueAdded
      */
     @Override
     public Double applyModifier(NBTTagCompound moduleTag, double value) {

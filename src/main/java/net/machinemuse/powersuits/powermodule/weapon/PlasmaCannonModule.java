@@ -40,6 +40,7 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
         addTradeoffPropertyDouble("Voltage", MPSModuleConstants.PLASMA_CANNON_ENERGY_PER_TICK, 500, "RF");
         addTradeoffPropertyDouble("Voltage", MPSModuleConstants.PLASMA_CANNON_EXPLOSIVENESS, 0.5, "Creeper");
 
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

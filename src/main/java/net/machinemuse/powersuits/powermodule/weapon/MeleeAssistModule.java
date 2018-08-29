@@ -14,14 +14,16 @@ import net.minecraft.item.ItemStack;
 public class MeleeAssistModule extends PowerModuleBase {
     public MeleeAssistModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        addBasePropertyDouble(MPSModuleConstants.PUNCH_ENERGY, 10, "J");
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.lvcapacitor, 1));
+
+        addBasePropertyDouble(MPSModuleConstants.PUNCH_ENERGY, 10, "RF");
         addBasePropertyDouble(MPSModuleConstants.PUNCH_DAMAGE, 2, "pt");
         addTradeoffPropertyDouble("Impact", MPSModuleConstants.PUNCH_ENERGY, 1000, "RF");
         addTradeoffPropertyDouble("Impact", MPSModuleConstants.PUNCH_DAMAGE, 8, "pt");
         addTradeoffPropertyDouble("Carry-through", MPSModuleConstants.PUNCH_ENERGY, 200, "RF");
         addTradeoffPropertyDouble("Carry-through", MPSModuleConstants.PUNCH_KNOCKBACK, 1, "P");
-        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
-        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.lvcapacitor, 1));
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

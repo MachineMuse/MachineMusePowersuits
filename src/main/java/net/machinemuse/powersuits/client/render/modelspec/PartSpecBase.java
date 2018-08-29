@@ -12,7 +12,7 @@ public abstract class PartSpecBase {
     public final SpecBase spec;
     final String partName;
     final SpecBinding binding;
-    Integer defaultcolourindex; // index value of NBTIntArray (array of colours as Int's.)
+    Integer defaultcolourindex; // index getValue of NBTIntArray (array of colours as Int's.)
 
     public PartSpecBase(final SpecBase spec,
                         final SpecBinding binding,

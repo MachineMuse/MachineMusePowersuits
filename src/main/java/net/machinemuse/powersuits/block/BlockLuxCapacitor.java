@@ -61,9 +61,6 @@ public class BlockLuxCapacitor extends BlockDirectional {
     public BlockLuxCapacitor() {
         super(Material.CIRCUITS);
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN));
-        // IMPORTANT: enabling default state with extended state like the line below causes model loading issues
-//        setDefaultState(((IExtendedBlockState) blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN)).withProperty(COLOR, defaultColor));
-//        setCreativeTab(Config.getCreativeTab());
         setUnlocalizedName(name);
         setRegistryName(ModularPowersuits.MODID, "tile." + name.toLowerCase());
         setHardness(0.05F);
@@ -152,11 +149,6 @@ public class BlockLuxCapacitor extends BlockDirectional {
     public int getMetaFromState(IBlockState state) {
         return state.getValue(FACING).getIndex();
     }
-//
-//    @Override
-//    public boolean isVisuallyOpaque() {
-//        return false;
-//    }
 
     @Override
     public boolean hasTileEntity(IBlockState state) {

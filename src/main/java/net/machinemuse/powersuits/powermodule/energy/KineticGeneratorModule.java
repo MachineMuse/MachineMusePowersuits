@@ -27,22 +27,11 @@ public class KineticGeneratorModule extends PowerModuleBase implements IPlayerTi
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
 
-        addBasePropertyInteger(MPSModuleConstants.KINETIC_ENERGY_GENERATION, 2000);
-        addTradeoffPropertyInteger("Energy Generated", MPSModuleConstants.KINETIC_ENERGY_GENERATION, 6000, "RF");
-        addBasePropertyDouble(MPSModuleConstants.KINETIC_HEAT_GENERATION, 5);// TODO: switch to int
-        addTradeoffPropertyInteger("Energy Generated", MPSModuleConstants.SLOT_POINTS, 3);
-        addBasePropertyInteger(MPSModuleConstants.SLOT_POINTS, 1);
-
-
-        // TODO: kinetic generation should cause player speed reduction
-
-
-//        addBasePropertyDouble(KINETIC_ENERGY_GENERATION, 200);
-//        addTradeoffPropertyDouble("Energy Generated", KINETIC_ENERGY_GENERATION, 600, " Joules");
-//
-//        addBasePropertyDouble(KINETIC_HEAT_GENERATION, 5);
-//        addBasePropertyDouble(MPSModuleConstants.WEIGHT, 1000);
-//        addTradeoffPropertyDouble("Energy Generated", MPSModuleConstants.WEIGHT, 3000, "g");
+        addBasePropertyDouble(MPSModuleConstants.KINETIC_ENERGY_GENERATION, 2000);
+        addTradeoffPropertyDouble("Energy Generated", MPSModuleConstants.KINETIC_ENERGY_GENERATION, 6000, "RF");
+        addBasePropertyDouble(MPSModuleConstants.KINETIC_HEAT_GENERATION, 5);
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
+        addIntTradeoffProperty("Energy Generated", MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
   }
 
     @Override

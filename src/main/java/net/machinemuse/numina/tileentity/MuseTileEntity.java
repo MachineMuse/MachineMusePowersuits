@@ -9,6 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -57,14 +58,15 @@ public class MuseTileEntity extends TileEntity {
             return null;
     }
 
+    @Nonnull
     public ItemStack getItemStack(NBTTagCompound nbt, String name) {
         if (nbt.hasKey(name))
             return new ItemStack(nbt.getCompoundTag(name));
         else
-            return null;
+            return ItemStack.EMPTY;
     }
 
-    public void writeItemStack(NBTTagCompound nbt, String name, ItemStack stack) {
+    public void writeItemStack(NBTTagCompound nbt, String name, @Nonnull ItemStack stack) {
         NBTTagCompound itemnbt = new NBTTagCompound();
         stack.writeToNBT(itemnbt);
         nbt.setTag(name, itemnbt);

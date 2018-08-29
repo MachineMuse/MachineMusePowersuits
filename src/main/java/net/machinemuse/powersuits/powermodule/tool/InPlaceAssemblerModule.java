@@ -27,6 +27,8 @@ public class InPlaceAssemblerModule extends PowerModuleBase implements IRightCli
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Blocks.CRAFTING_TABLE, 1));
+
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

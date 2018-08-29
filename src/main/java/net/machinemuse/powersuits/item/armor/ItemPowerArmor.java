@@ -238,8 +238,8 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 //        }
 //        return 1 - energyStorage.getEnergyStored() / (float) energyStorage.getMaxEnergyStored();
         // removes annoying flicker
-        int capacity = ModuleManager.INSTANCE.getOrSetModularPropertyInteger(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
-        int energy =  Math.min(capacity, (int) Math.round(MuseItemUtils.getIntOrZero(stack, NuminaNBTConstants.CURRENT_ENERGY)));
+        int capacity = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
+        int energy =  Math.min(capacity, (int) Math.round(MuseItemUtils.getDoubleOrZero(stack, NuminaNBTConstants.CURRENT_ENERGY)));
         return 1 - energy/(float) capacity;
     }
 

@@ -28,7 +28,7 @@ public class GradientAndArcCalculator {
     public static DoubleBuffer getArcPoints(double startangle, double endangle, double radius, double xoffset, double yoffset, double zoffset) {
         // roughly 8 vertices per Minecraft 'pixel' - should result in at least
         // 2 vertices per real pixel on the screen.
-//        int numVertices = (int) Math.ceil(Math.abs((endangle - startangle) * 16 * Math.PI)); // value from wayyyyy back early on
+//        int numVertices = (int) Math.ceil(Math.abs((endangle - startangle) * 16 * Math.PI)); // getValue from wayyyyy back early on
         int numVertices =  (int) Math.ceil(Math.abs((endangle - startangle) * 2 * Math.PI));
         double theta = (endangle - startangle) / numVertices;
         DoubleBuffer buffer = BufferUtils.createDoubleBuffer(numVertices * 3);
