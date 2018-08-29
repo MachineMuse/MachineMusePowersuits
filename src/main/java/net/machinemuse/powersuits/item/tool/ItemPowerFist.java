@@ -64,7 +64,6 @@ import java.util.List;
         @Optional.Interface(iface = "crazypants.enderio.api.tool.ITool", modid = "EnderIO", striprefs = true),
         @Optional.Interface(iface = "forestry.api.arboriculture.IToolGrafter", modid = "forestry", striprefs = true),
         @Optional.Interface(iface = "com.raoulvdberge.refinedstorage.api.network.item.INetworkItemProvider", modid = "refinedstorage", striprefs = true),
-
 //        @Optional.Interface(iface = "mods.railcraft.api.core.items.IToolCrowbar", modid = "Railcraft", striprefs = true),
 //        @Optional.Interface(iface = "powercrystals.minefactoryreloaded.api.IMFRHammer", modid = "MineFactoryReloaded", striprefs = true),
         @Optional.Interface(iface = "cofh.api.item.IToolHammer", modid = "cofhcore", striprefs = true),
@@ -399,10 +398,9 @@ public class ItemPowerFist extends MPSItemElectricTool
     @Override
     @Nonnull
     @Optional.Method(modid = "refinedstorage")
-    public INetworkItem provide(INetworkItemHandler handler, EntityPlayer player, ItemStack itemStackIn) {
-        return RefinedStorageWirelessModule.provide(handler, player, itemStackIn);
+    public INetworkItem provide(INetworkItemHandler handler, EntityPlayer player, ItemStack stack) {
+        return RefinedStorageWirelessModule.provide(handler, player, stack);
     }
-
 
     /* IModeChangingItem -------------------------------------------------------------------------- */
     @Nullable

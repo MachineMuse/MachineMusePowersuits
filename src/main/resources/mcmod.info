@@ -20,14 +20,18 @@
         "forestry",
         "railcraft",
         "mineFactoryreloaded",
-        "cofhcore",
+        "redstoneflux",
         "buildcraft|core",
         "appliedenergistics2",
+        "extracells",
         "ic2",
         "thaumcraft",
         "galacticraftcore",
         "numina",
-        "chisel"
+        "chisel",
+        "cofhcore",
+        "refinedstorage",
+        "tesla"
         ],
     "useDependencyInformation": true
 }]
