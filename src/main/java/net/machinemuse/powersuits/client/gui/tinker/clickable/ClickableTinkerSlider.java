@@ -12,33 +12,19 @@ public class ClickableTinkerSlider extends ClickableSlider {
     NBTTagCompound moduleTag;
     boolean isDouble;
 
-    public ClickableTinkerSlider(MusePoint2D topmiddle, boolean isDouble, double width, NBTTagCompound moduleTag, String name) {
+    public ClickableTinkerSlider(MusePoint2D topmiddle, double width, NBTTagCompound moduleTag, String name) {
         super(topmiddle, width, name);
         this.moduleTag = moduleTag;
-        this.isDouble = isDouble;
     }
 
     @Override
     public double getValue() {
-        if (moduleTag.hasKey(name, Constants.NBT.TAG_DOUBLE)) {
-            isDouble = true;
-            return moduleTag.getDouble(name);
-        } else if (moduleTag.hasKey(name, Constants.NBT.TAG_INT)) {
-            isDouble = false;
-            return moduleTag.getInteger(name)/10000.0D;
-        }
-
-        return 0;
+        return (moduleTag.hasKey(name)) ? moduleTag.getDouble(name) : 0;
     }
 
-    public void moveSlider(double x, double y) {
-        double xval = position.x() - x;
-        double xratio = MuseMathUtils.clampDouble(0.5 - (xval / width), 0, 1);
-
-        if (isDouble || moduleTag.hasKey(name, Constants.NBT.TAG_DOUBLE)) {
-            moduleTag.setDouble(name, xratio);
-        } else {
-            moduleTag.setInteger(name, (int) (xratio * 10000));
-        }
+    @Override
+    public void setValueByX(double x) {
+        super.setValueByX(x);
+        moduleTag.setDouble(name, valueInternal);
     }
 }

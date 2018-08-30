@@ -53,9 +53,9 @@ public enum KeybindManager {
             writer = new BufferedWriter(new FileWriter(file));
             List<IPowerModule> modulesToWrite = ModuleManager.INSTANCE.getPlayerInstalledModules(Minecraft.getMinecraft().player);
             for (ClickableKeybinding keybinding : INSTANCE.keybindings) {
-                writer.write(keybinding.getKeyBinding().getKeyCode() + ":" + keybinding.getPosition().x() + ':' + keybinding.getPosition().y() + ':' + keybinding.displayOnHUD + ':' + keybinding.toggleval + '\n');
+                writer.write(keybinding.getKeyBinding().getKeyCode() + ":" + keybinding.getPosition().getX() + ':' + keybinding.getPosition().getY() + ':' + keybinding.displayOnHUD + ':' + keybinding.toggleval + '\n');
                 for (ClickableModule module : keybinding.getBoundModules()) {
-                    writer.write(module.getModule().getDataName() + '~' + module.getPosition().x() + '~' + module.getPosition().y() + '\n');
+                    writer.write(module.getModule().getDataName() + '~' + module.getPosition().getX() + '~' + module.getPosition().getY() + '\n');
                 }
             }
         } catch (Exception e) {

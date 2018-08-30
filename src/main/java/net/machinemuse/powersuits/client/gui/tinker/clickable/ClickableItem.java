@@ -37,8 +37,8 @@ public class ClickableItem extends Clickable {
 
     @Override
     public boolean hitBox(double x, double y) {
-        boolean hitx = Math.abs(x - getPosition().x()) < offsetx;
-        boolean hity = Math.abs(y - getPosition().y()) < offsety;
+        boolean hitx = Math.abs(x - getPosition().getX()) < offsetx;
+        boolean hity = Math.abs(y - getPosition().getY()) < offsety;
         return hitx && hity;
     }
 
@@ -48,16 +48,16 @@ public class ClickableItem extends Clickable {
     }
 
     /**
-     * Draws the specified itemstack at the *relative* coordinates x,y. Used
+     * Draws the specified itemstack at the *relative* coordinates getX,getY. Used
      * mainly in clickables.
      */
     @Override
     public void draw() {
         MuseRenderer.drawItemAt(
-                getPosition().x() - offsetx,
-                getPosition().y() - offsety, item);
+                getPosition().getX() - offsetx,
+                getPosition().getY() - offsety, item);
         if (inventorySlot > 35 || Minecraft.getMinecraft().player.inventory.getCurrentItem() == item) {
-            MuseRenderer.drawString("e", getPosition().x() + 3, getPosition().y() + 1, Colour.DARKGREEN);
+            MuseRenderer.drawString("e", getPosition().getX() + 3, getPosition().getY() + 1, Colour.DARKGREEN);
         }
     }
 }

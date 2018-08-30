@@ -24,10 +24,10 @@ public class ClickableButton extends Clickable {
         this.position = position;
         this.radius = new MusePoint2D(MuseRenderer.getStringWidth(label) / 2 + 2, 6);
         this.rect = new DrawableMuseRect(
-                position.x() - radius.x(),
-                position.y() - radius.y(),
-                position.x() + radius.x(),
-                position.y() + radius.y(),
+                position.getX() - radius.getX(),
+                position.getY() - radius.getY(),
+                position.getX() + radius.getX(),
+                position.getY() + radius.getY(),
                 new Colour(0.5F, 0.6F, 0.8F, 1),
                 new Colour(0.3F, 0.3F, 0.3F, 1)
         );
@@ -52,15 +52,15 @@ public class ClickableButton extends Clickable {
             topcolour = new Colour(0.8F, 0.3F, 0.3F, 1);
             bottomcolour = new Colour(0.8F, 0.6F, 0.6F, 1);
         }
-        this.rect.setLeft(position.x() - radius.x());
-        this.rect.setTop(position.y() - radius.y());
-        this.rect.setRight(position.x() + radius.x());
-        this.rect.setBottom(position.y() + radius.y());
+        this.rect.setLeft(position.getX() - radius.getX());
+        this.rect.setTop(position.getY() - radius.getY());
+        this.rect.setRight(position.getX() + radius.getX());
+        this.rect.setBottom(position.getY() + radius.getY());
         this.rect.setOutsideColour(topcolour);
         this.rect.setInsideColour(bottomcolour);
         this.rect.draw();
-        MuseRenderer.drawCenteredString(this.label, position.x(),
-                position.y() - 4);
+        MuseRenderer.drawCenteredString(this.label, position.getX(),
+                position.getY() - 4);
     }
 
     /*
@@ -71,8 +71,8 @@ public class ClickableButton extends Clickable {
      */
     @Override
     public boolean hitBox(double x, double y) {
-        boolean hitx = Math.abs(position.x() - x) < radius.x();
-        boolean hity = Math.abs(position.y() - y) < radius.y();
+        boolean hitx = Math.abs(position.getX() - x) < radius.getX();
+        boolean hity = Math.abs(position.getY() - y) < radius.getY();
         return hitx && hity;
     }
 

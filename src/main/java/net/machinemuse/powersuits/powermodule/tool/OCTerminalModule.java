@@ -81,9 +81,9 @@ package net.machinemuse.powersuits.powermodule.tool;// package andrew.powersuits
 // }
 //
 // @Override
-// public void onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-// /*        if (world.getTileEntity(x, y, z) instanceof ServerRack) {
-//       ServerRack rack = (ServerRack) world.getTileEntity(x, y, z);
+// public void onItemUse(ItemStack stack, EntityPlayer player, World world, int getX, int getY, int z, int side, float hitX, float hitY, float hitZ) {
+// /*        if (world.getTileEntity(getX, getY, z) instanceof ServerRack) {
+//       ServerRack rack = (ServerRack) world.getTileEntity(getX, getY, z);
 //       if (side == rack.facing().ordinal()) {
 //           double l = 2 / 16.0;
 //     double h = 14 / 16.0;
@@ -122,9 +122,9 @@ package net.machinemuse.powersuits.powermodule.tool;// package andrew.powersuits
 // }
 //
 // @Override
-// public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-//         if (world.getTileEntity(x, y, z) instanceof ServerRack) {
-//                 ServerRack rack = (ServerRack) world.getTileEntity(x, y, z);
+// public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int getX, int getY, int z, int side, float hitX, float hitY, float hitZ) {
+//         if (world.getTileEntity(getX, getY, z) instanceof ServerRack) {
+//                 ServerRack rack = (ServerRack) world.getTileEntity(getX, getY, z);
 //                 if (side == rack.facing().ordinal()) {
 //                         double l = 2 / 16.0;
 //                         double h = 14 / 16.0;

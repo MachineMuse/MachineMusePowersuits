@@ -15,8 +15,8 @@ public class MuseTESR<T extends TileEntitySpecialRenderer> {
 //    }
 //
 //    @Override
-//    public void renderTileEntityAt(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage) {
-//        super.renderTileEntityAt(te, x, y, z, partialTicks, destroyStage);
+//    public void renderTileEntityAt(TileEntity te, double getX, double getY, double z, float partialTicks, int destroyStage) {
+//        super.renderTileEntityAt(te, getX, getY, z, partialTicks, destroyStage);
 //    }
 
 //    @Override //FIXME: fixe to match above

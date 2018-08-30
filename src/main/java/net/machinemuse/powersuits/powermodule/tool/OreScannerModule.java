@@ -67,15 +67,15 @@
 //
 //        BlockPos pos =  player.getPosition();
 //
-//        int x = pos.getX();
-//        int y = pos.getY();
+//        int getX = pos.getX();
+//        int getY = pos.getY();
 //        int z = pos.getZ();
 //
 //        int totalValue = 0, totalEnergy = 0, highestValue = 0;//, getValue;
 //        Integer getValue;
 //        String highestvalueblockname = "";
-//        for (int sX = x - xRadius; sX <= x + xRadius; sX++) {
-//            for (int sY = y - yRadius; sY <= y + yRadius; sY++) {
+//        for (int sX = getX - xRadius; sX <= getX + xRadius; sX++) {
+//            for (int sY = getY - yRadius; sY <= getY + yRadius; sY++) {
 //                for (int sZ = z - zRadius; sZ <= z + zRadius; sZ++) {
 //                    BlockPos newpos = new BlockPos(sX, sY, sZ);
 //                    IBlockState state = world.getBlockState(newpos);
@@ -105,14 +105,14 @@
 //
 //                if (Config.useAdvancedOreScannerMessage()) {
 ////                    player.sendMessage(new TextComponentString("[Ore Scanner] Total ore getValue: " + totalValue + " --- Most valuable: " + highestValue + "\nSearch radius: " +
-////                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_X) + 1) + "x" +
-////                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_Y) + 1) + "x" +
+////                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_X) + 1) + "getX" +
+////                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_Y) + 1) + "getX" +
 ////                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_Z) + 1) +
 ////                            " --- Energy used: " + MuseStringUtils.formatNumberFromUnits(totalEnergy, "J")));
 //
 //                    player.sendMessage(new TextComponentString("[Ore Scanner] Total ore getValue: " + totalValue + " --- Most valuable: " + highestvalueblockname + "\nSearch radius: " +
-//                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_X) + 1) + "x" +
-//                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_Y) + 1) + "x" +
+//                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_X) + 1) + "getX" +
+//                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_Y) + 1) + "getX" +
 //                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_Z) + 1) +
 //                            " --- Energy used: " + MuseStringUtils.formatNumberFromUnits(totalEnergy, "J")));
 //                } else {

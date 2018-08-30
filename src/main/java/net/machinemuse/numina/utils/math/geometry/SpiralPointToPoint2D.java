@@ -30,7 +30,7 @@ public class SpiralPointToPoint2D extends MusePoint2D {
     public SpiralPointToPoint2D(MusePoint2D center,
     		                    MusePoint2D target,
                                 double timeTo, boolean outwards) {
-        this(center.x(), center.y(), target.x(), target.y(), timeTo, outwards);
+        this(center.getX(), center.getY(), target.getX(), target.getY(), timeTo, outwards);
     }
 
     public SpiralPointToPoint2D(MusePoint2D center,
@@ -42,7 +42,7 @@ public class SpiralPointToPoint2D extends MusePoint2D {
     public SpiralPointToPoint2D(MusePoint2D center,
                                 double radius, double rotation,
                                 double timeTo, boolean outward) {
-        this(center.x(), center.y(), radius * Math.cos(rotation), radius * Math.sin(rotation), timeTo, outward);
+        this(center.getX(), center.getY(), radius * Math.cos(rotation), radius * Math.sin(rotation), timeTo, outward);
         this.radius = radius;
         this.rotation = rotation;
     }
@@ -71,15 +71,15 @@ public class SpiralPointToPoint2D extends MusePoint2D {
     }
 
     @Override
-    public double x() {
-    	//x = r × cos(θ)
-    	return center.x() + (radius * getRatio()) * Math.cos(getTheta());
+    public double getX() {
+    	//getX = r × cos(θ)
+    	return center.getX() + (radius * getRatio()) * Math.cos(getTheta());
     }
 
     @Override
-    public double y() {
-    	//y = r × sin(θ)
-    	return center.y() + (radius * getRatio()) * Math.sin(getTheta()); 
+    public double getY() {
+    	//getY = r × sin(θ)
+    	return center.getY() + (radius * getRatio()) * Math.sin(getTheta());
     }
 }
 

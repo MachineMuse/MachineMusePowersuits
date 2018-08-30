@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.client.gui;
+package net.machinemuse.powersuits.client.gui.hud;
 
 import net.machinemuse.numina.api.item.IModeChangingItem;
 import net.machinemuse.numina.api.module.IPowerModule;
@@ -33,7 +33,7 @@ public class RadialSelectionFrame implements IGuiFrame {
     	spawnTime = System.currentTimeMillis();
         this.player = player;
         this.center = bottomright.plus(topleft).times(0.5);
-        this.radius = Math.min(center.minus(topleft).x(), center.minus(topleft).y());
+        this.radius = Math.min(center.minus(topleft).getX(), center.minus(topleft).getY());
         this.stack = player.inventory.getCurrentItem();
         loadItems();
         //Determine which mode is currently active
@@ -123,7 +123,7 @@ public class RadialSelectionFrame implements IGuiFrame {
         ClickableModule module = getSelectedModule();
         if (module != null) {
             MusePoint2D pos = module.getPosition();
-                MuseRenderer.drawCircleAround(pos.x(), pos.y(), 10);
+                MuseRenderer.drawCircleAround(pos.getX(), pos.getY(), 10);
         }
     }
 

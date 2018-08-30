@@ -44,19 +44,19 @@
 //            MuseLogger.logDebug("Recipe for " + this.recipe.result.getRecipeOutput().getUnlocalizedName());
 //        else
 //            MuseLogger.logDebug("Recipe output ItemStack is NULL!!");
-//        for (int y=0; y < height; y++) {
-//            if (recipe.ingredients[y] != null) {
-//                for (int x=0; x < width; x++) {
+//        for (int getY=0; getY < height; getY++) {
+//            if (recipe.ingredients[getY] != null) {
+//                for (int getX=0; getX < width; getX++) {
 //                    List<ItemStack> itemStacks = new ArrayList<>();
-//                    if(recipe.ingredients[y].length > x) itemStacks = recipe.getIngredient(recipe.ingredients[y][x]);
+//                    if(recipe.ingredients[getY].length > getX) itemStacks = recipe.getIngredient(recipe.ingredients[getY][getX]);
 //                    if (itemStacks == null) {
-//                        MuseLogger.logDebug("cell " + x + ", " + y + " is NULL");
+//                        MuseLogger.logDebug("cell " + getX + ", " + getY + " is NULL");
 //                        inputs.add(null);
 //                    } else if (itemStacks.isEmpty()) {
 //                        recipe.setIsValid(false);
 //                    } else {
 //                        inputs.add(itemStacks.get(0));
-//                        MuseLogger.logDebug("cell " + x + ", " + y + " is: " + itemStacks.get(0).getDisplayName());
+//                        MuseLogger.logDebug("cell " + getX + ", " + getY + " is: " + itemStacks.get(0).getDisplayName());
 //                    }
 //                }
 //            }

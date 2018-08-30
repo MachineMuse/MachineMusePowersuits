@@ -24,27 +24,27 @@ public class MuseRect {
     }
 
     public double left() {
-        return ul.x();
+        return ul.getX();
     }
 
     public double right() {
-        return ul.x() + wh.x();
+        return ul.getX() + wh.getX();
     }
 
     public double top() {
-        return ul.y();
+        return ul.getY();
     }
 
     public double bottom() {
-        return ul.y() + wh.y();
+        return ul.getY() + wh.getY();
     }
 
     public double width() {
-        return wh.x();
+        return wh.getX();
     }
 
     public double height() {
-        return wh.y();
+        return wh.getY();
     }
 
     public MuseRect setLeft(double value) {
@@ -53,7 +53,7 @@ public class MuseRect {
     }
 
     public MuseRect setRight(double value) {
-        wh.x = value - ul.x();
+        wh.x = value - ul.getX();
         return this;
     }
 
@@ -63,7 +63,7 @@ public class MuseRect {
     }
 
     public MuseRect setBottom(double value) {
-        wh.y = value - ul.y();
+        wh.y = value - ul.getY();
         return this;
     }
 

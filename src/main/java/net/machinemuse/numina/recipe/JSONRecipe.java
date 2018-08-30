@@ -49,11 +49,11 @@
 //            isValid = false;
 //            return;
 //        }
-//        for (int y = 0; y < height; y++) {
-//            if (ingredients[y] != null) {
-//                for (int x = 0; x < width; x++) {
+//        for (int getY = 0; getY < height; getY++) {
+//            if (ingredients[getY] != null) {
+//                for (int getX = 0; getX < width; getX++) {
 //                    List<ItemStack> itemStacks = new ArrayList<>();
-//                    if (ingredients[y].length > x) itemStacks = getIngredient(ingredients[y][x]);
+//                    if (ingredients[getY].length > getX) itemStacks = getIngredient(ingredients[getY][getX]);
 //                    if (itemStacks != null && itemStacks.isEmpty()) {
 //                        isValid = false;
 //                    }
@@ -107,18 +107,18 @@
 //        return !mismatch;
 //    }
 //
-//    private ItemStack getInvStack(InventoryCrafting inv, int x, int y) {
-//        if (x < 0 || y < 0) {
+//    private ItemStack getInvStack(InventoryCrafting inv, int getX, int getY) {
+//        if (getX < 0 || getY < 0) {
 //            return null;
 //        } else {
-//            return inv.getStackInRowAndColumn(x, y);
+//            return inv.getStackInRowAndColumn(getX, getY);
 //        }
 //    }
 //
-//    public SimpleItemMatcher getMatcher(int x, int y) {
-//        if (y >= 0 && y < ingredients.length) {
-//            if (x >= 0 && x < ingredients[y].length) {
-//                return ingredients[y][x];
+//    public SimpleItemMatcher getMatcher(int getX, int getY) {
+//        if (getY >= 0 && getY < ingredients.length) {
+//            if (getX >= 0 && getX < ingredients[getY].length) {
+//                return ingredients[getY][getX];
 //            }
 //        }
 //        return null;

@@ -1,7 +1,5 @@
 package net.machinemuse.powersuits.item.tool;
 
-//import appeng.api.implementations.items.IAEWrench;
-
 import appeng.api.implementations.items.IAEWrench;
 import buildcraft.api.tools.IToolWrench;
 import cofh.api.item.IToolHammer;

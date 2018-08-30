@@ -85,7 +85,7 @@ public class PartManipContainer extends ScrollableFrame {
     }
 
     public PartSpecManipSubFrame createNewFrame(SpecBase modelspec, PartSpecManipSubFrame prev) {
-        MuseRelativeRect newborder = new MuseRelativeRect(this.topleft.x() + 4, this.topleft.y() + 4, this.bottomright.x(), this.topleft.y() + 10);
+        MuseRelativeRect newborder = new MuseRelativeRect(this.topleft.getX() + 4, this.topleft.getY() + 4, this.bottomright.getX(), this.topleft.getY() + 10);
         newborder.setBelow((prev!= null) ? prev.border : null);
         return new PartSpecManipSubFrame(modelspec, this.colourSelect, this.itemSelect, newborder);
     }

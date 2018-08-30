@@ -269,12 +269,12 @@ public class OBJModelPlus implements IModel {
                             FMLLog.log.error("OBJModelPlus.Parser: (Model: '{}', Line: {}) material '{}' referenced but was not found", objFrom, lineNum, data);
                         }
                         usemtlCounter++;
-                    } else if (key.equalsIgnoreCase("v")) // Vertices: x y z [w] - w Defaults to 1.0
+                    } else if (key.equalsIgnoreCase("v")) // Vertices: getX getY z [w] - w Defaults to 1.0
                     {
                         float[] coords = parseFloats(splitData);
                         Vector4f pos = new Vector4f(coords[0], coords[1], coords[2], coords.length == 4 ? coords[3] : 1.0F);
                         this.vertices.add(new Vertex(pos, material));
-                    } else if (key.equalsIgnoreCase("vn")) // Vertex normals: x y z
+                    } else if (key.equalsIgnoreCase("vn")) // Vertex normals: getX getY z
                     {
                         this.normals.add(new Normal(parseFloats(splitData)));
                     } else if (key.equalsIgnoreCase("vt")) // Vertex Textures: u [v] [w] - v/w Defaults to 0

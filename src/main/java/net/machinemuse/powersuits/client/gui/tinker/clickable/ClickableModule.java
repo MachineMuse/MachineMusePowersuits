@@ -8,7 +8,6 @@ import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.client.gui.GuiIcons;
 import net.machinemuse.powersuits.utils.MuseStringUtils;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
 
 import java.util.ArrayList;
@@ -52,8 +51,8 @@ public class ClickableModule extends Clickable {
     @Override
     public void draw() {
         double k = Integer.MAX_VALUE;
-        double left = getPosition().x() - 8;
-        double top = getPosition().y() - 8;
+        double left = getPosition().getX() - 8;
+        double top = getPosition().getY() - 8;
         drawPartial(left, top, left + 16, top + 16);
     }
 
@@ -64,8 +63,8 @@ public class ClickableModule extends Clickable {
 
 
 
-        double left = getPosition().x() - 8;
-        double top = getPosition().y() - 8;
+        double left = getPosition().getX() - 8;
+        double top = getPosition().getY() - 8;
 
         MuseTextureUtils.pushTexture(MuseTextureUtils.TEXTURE_QUILT);
 
@@ -75,18 +74,18 @@ public class ClickableModule extends Clickable {
         MuseTextureUtils.popTexture();
 
         if (!allowed) {
-            String string = MuseStringUtils.wrapFormatTags("x", MuseStringUtils.FormatCodes.DarkRed);
-            MuseRenderer.drawString(string, getPosition().x() + 3, getPosition().y() + 1);
+            String string = MuseStringUtils.wrapFormatTags("getX", MuseStringUtils.FormatCodes.DarkRed);
+            MuseRenderer.drawString(string, getPosition().getX() + 3, getPosition().getY() + 1);
         }
         else if (installed) {
-            new GuiIcons.Checkmark(getPosition().x() - 8 + 1, getPosition().y() - 8 + 1, checkmarkcolour, null, null, null, null);
+            new GuiIcons.Checkmark(getPosition().getX() - 8 + 1, getPosition().getY() - 8 + 1, checkmarkcolour, null, null, null, null);
         }
     }
 
     @Override
     public boolean hitBox(double x, double y) {
-        boolean hitx = Math.abs(x - getPosition().x()) < 8;
-        boolean hity = Math.abs(y - getPosition().y()) < 8;
+        boolean hitx = Math.abs(x - getPosition().getX()) < 8;
+        boolean hity = Math.abs(y - getPosition().getY()) < 8;
         return hitx && hity;
     }
 

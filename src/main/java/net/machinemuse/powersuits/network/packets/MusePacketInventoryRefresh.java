@@ -11,6 +11,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 12:28 PM, 5/6/13
@@ -22,7 +24,7 @@ public class MusePacketInventoryRefresh extends MusePacket {
     int slot;
     ItemStack stack;
 
-    public MusePacketInventoryRefresh(EntityPlayer player, int slot, ItemStack stack) {
+    public MusePacketInventoryRefresh(EntityPlayer player, int slot, @Nonnull ItemStack stack) {
         this.player = player;
         this.slot = slot;
         this.stack = stack;

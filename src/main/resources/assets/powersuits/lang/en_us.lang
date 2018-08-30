@@ -7,11 +7,12 @@ tile.tinkerTable.name=Power Armor Tinker Table
 itemGroup.powersuits=Modular Powersuits
 
 item.powersuits.powerArmorBoots.name=Power Armor Boots
-item.powersuits.powerArmorLeggings.name=Power Armor Leggings
+item.powersuits.powerArmorLeggings.name=Power Armor LeggingsPower Armor Tinker Table
 item.powersuits.powerArmorChestplate.name=Power Armor Chestplate
 item.powersuits.powerArmorHelmet.name=Power Armor Helmet
 item.powersuits.powerFist.name=Power Fist
 
+# Components
 item.powerArmorComponent.componentWiring.name=Wiring
 item.powerArmorComponent.componentSolenoid.name=Solenoid
 item.powerArmorComponent.componentServo.name=Servo Motor
@@ -204,10 +205,11 @@ module.plasmaCannon.name=Plasma Cannon
 module.plasmaCannon.desc=Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.
 module.railgun.name=Railgun
 module.railgun.desc=An assembly which accelerates a projectile to supersonic speeds using magnetic force. Heavy recoil.
-
+gui.slotpoints=Slot Points
 gui.noModulesFound.line1=No modular powersuit items
 gui.noModulesFound.line2=found in inventory. Make some!
 
+# GUI
 gui.red=Red
 gui.green=Green
 gui.blue=Blue
@@ -243,7 +245,7 @@ tooltip.noModules=No installed modules! This item is useless until you add some 
 tooltip.installedModules=Installed Modules:
 tooltip.mode=Mode:
 
-
+# Default Model Helm
 model.mps_helm.modelName=MPS Helm
 model.mps_helm.helm_main.partName=Helmet
 model.mps_helm.visor.partName=Visor
@@ -251,6 +253,7 @@ model.mps_helm.helm_tubes.partName=Tubes
 model.mps_helm.helm_tube_entry2.partName=Right Tube Entry
 model.mps_helm.helm_tube_entry1.partName=Left Tube Entry
 
+# Default Model Chestplate
 model.mps_chest.modelName=MPS Chestplate
 model.mps_chest.backpack.partName=Backpack
 model.mps_chest.polySurface36.partName=Accessory
@@ -259,27 +262,32 @@ model.mps_chest.chest_padding.partName=Chest Padding
 model.mps_chest.crystal_belt.partName=Belt Crystal
 model.mps_chest.chest_main.partName=Chest Plating
 
+# Default Model Jetpack
 model.jetpack.modelName=MPS Jetpack
 model.jetpack.default.partName=Main
 model.jetpack.jetpack5.partName=Secondary
 model.jetpack.jetpack_glow.partName=Lights
 
+# Default Model Arms
 model.mps_arms.modelName=MPS Arms
 model.mps_arms.crystal_shoulder_2.partName=Right Shoulder Crystal
 model.mps_arms.arms3.partName=Right Arm
 model.mps_arms.crystal_shoulder_1.partName=Left Shoulder Crystal
 model.mps_arms.arms2.partName=Left Arm
 
+# Default Model Pantaloons
 model.mps_pantaloons.modelName=MPS Pantaloons
 model.mps_pantaloons.leg2.partName=Left Leg
 model.mps_pantaloons.leg1.partName=Right Leg
 
+# Default Model Boots
 model.mps_boots.modelName=MPS Boots
 model.mps_boots.boots1.partName=Right Boot
 model.mps_boots.boots2.partName=Left Boot
 
-
+# Armor Model 2
 model.armor2.modelName=Armor 2
+
 model.armor2.helmetglow1.partName=Helmet Tubes and Visor
 model.armor2.helmetmain.partName=Helmet
 
@@ -320,6 +328,8 @@ textureSpec.feet.partName=Feet
 
 textureSpec.citizenjoe_armorskin.specName=Citizen Joe Armor Skin
 
+
+# PowerFist main model
 model.powerfist.modelName=Power Fist Right Hand
 model.powerfist.mainarm.partName=Main Arm
 model.powerfist.armorright.partName=Armor Right

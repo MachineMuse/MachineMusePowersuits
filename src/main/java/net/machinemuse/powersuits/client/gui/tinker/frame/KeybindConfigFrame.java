@@ -103,8 +103,8 @@ public class KeybindConfigFrame implements IGuiFrame {
         List<IPowerModule> installedModules = ModuleManager.INSTANCE.getPlayerInstalledModules(player);
         List<MusePoint2D> points = GradientAndArcCalculator.pointsInLine(
                 installedModules.size(),
-                new MusePoint2D(ul.x() + 10, ul.y() + 10),
-                new MusePoint2D(ul.x() + 10, br.y() - 10));
+                new MusePoint2D(ul.getX() + 10, ul.getY() + 10),
+                new MusePoint2D(ul.getX() + 10, br.getY() - 10));
         Iterator<MusePoint2D> pointIterator = points.iterator();
         for (IPowerModule module : installedModules) {
             if (module instanceof IToggleableModule && !alreadyAdded(module)) {
@@ -189,8 +189,8 @@ public class KeybindConfigFrame implements IGuiFrame {
 
     private void clampClickiePosition(IClickable clickie) {
         MusePoint2D position = clickie.getPosition();
-        position.setX(clampDouble(position.x(), ul.x(), br.x()));
-        position.setY(clampDouble(position.y(), ul.y(), br.y()));
+        position.setX(clampDouble(position.getX(), ul.getX(), br.getX()));
+        position.setY(clampDouble(position.getY(), ul.getY(), br.getY()));
     }
 
     private double clampDouble(double x, double lower, double upper) {
@@ -212,10 +212,10 @@ public class KeybindConfigFrame implements IGuiFrame {
                 MusePoint2D tangentTarget = directionVector.times(16).plus(module.getPosition());
                 MusePoint2D midpointTangent = otherModule.getPosition().midpoint(tangentTarget);
                 if (midpointTangent.distanceTo(module.getPosition()) > 2) {
-                    otherModule.move(midpointTangent.x(), midpointTangent.y());
+                    otherModule.move(midpointTangent.getX(), midpointTangent.getY());
                 }
                 // Point2D away = directionVector.times(0).plus(modulePosition);
-                // module.move(away.x(), away.y());
+                // module.move(away.getX(), away.getY());
             }
         }
     }
@@ -226,7 +226,7 @@ public class KeybindConfigFrame implements IGuiFrame {
         RenderState.blendingOn();
         RenderState.on2D();
         if (selecting) {
-            MuseRenderer.drawCenteredString(I18n.format("gui.pressKey"), center.x(), center.y());
+            MuseRenderer.drawCenteredString(I18n.format("gui.pressKey"), center.getX(), center.getY());
             RenderState.off2D();
             RenderState.blendingOff();
             return;
@@ -234,13 +234,13 @@ public class KeybindConfigFrame implements IGuiFrame {
         newKeybindButton.draw();
         trashKeybindButton.draw();
         MuseTextureUtils.pushTexture(MuseTextureUtils.TEXTURE_QUILT);
-        MuseRenderer.drawCenteredString(I18n.format("gui.keybindInstructions1"), center.x(), center.y() + 40);
-        MuseRenderer.drawCenteredString(I18n.format("gui.keybindInstructions2"), center.x(), center.y() + 50);
-        MuseRenderer.drawCenteredString(I18n.format("gui.keybindInstructions3"), center.x(), center.y() + 60);
-        MuseRenderer.drawCenteredString(I18n.format("gui.keybindInstructions4"), center.x(), center.y() + 70);
+        MuseRenderer.drawCenteredString(I18n.format("gui.keybindInstructions1"), center.getX(), center.getY() + 40);
+        MuseRenderer.drawCenteredString(I18n.format("gui.keybindInstructions2"), center.getX(), center.getY() + 50);
+        MuseRenderer.drawCenteredString(I18n.format("gui.keybindInstructions3"), center.getX(), center.getY() + 60);
+        MuseRenderer.drawCenteredString(I18n.format("gui.keybindInstructions4"), center.getX(), center.getY() + 70);
         if (takenTime + 1000 > System.currentTimeMillis()) {
             MusePoint2D pos = newKeybindButton.getPosition().plus(new MusePoint2D(0, -20));
-            MuseRenderer.drawCenteredString(I18n.format("gui.keybindTaken"), pos.x(), pos.y());
+            MuseRenderer.drawCenteredString(I18n.format("gui.keybindTaken"), pos.getX(), pos.getY());
         }
         for (ClickableModule module : modules) {
             module.draw();

@@ -18,15 +18,8 @@ public class ModuleSelectionSubFrame {
     public ModuleSelectionSubFrame(String category, MuseRelativeRect border) {
         this.category = category;
         this.border = border;
-        this.moduleButtons = new ArrayList<ClickableModule>();
+        this.moduleButtons = new ArrayList<>();
     }
-
-    // public void draw() {
-    // MuseRenderer.drawString(this.category, border.left(), border.top());
-    // for (ClickableModule clickie : moduleButtons) {
-    // clickie.draw();
-    // }
-    // }
 
     public ClickableModule addModule(IPowerModule module) {
         ClickableModule clickie = new ClickableModule(module, new MusePoint2D(0, 0));

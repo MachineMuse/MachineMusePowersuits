@@ -87,9 +87,9 @@ public class ClickableKeybinding extends ClickableButton {
             GL11.glPushMatrix();
             GL11.glScaled(0.5, 0.5, 0.5);
             if (displayOnHUD) {
-                MuseRenderer.drawString(MuseStringUtils.wrapFormatTags("HUD", MuseStringUtils.FormatCodes.BrightGreen), this.position.x()*2 + 6,this.position.y()*2 + 6);
+                MuseRenderer.drawString(MuseStringUtils.wrapFormatTags("HUD", MuseStringUtils.FormatCodes.BrightGreen), this.position.getX()*2 + 6,this.position.getY()*2 + 6);
             } else {
-                MuseRenderer.drawString(MuseStringUtils.wrapFormatTags("x", MuseStringUtils.FormatCodes.Red), this.position.x()*2 + 6,this.position.y()*2 + 6);
+                MuseRenderer.drawString(MuseStringUtils.wrapFormatTags("getX", MuseStringUtils.FormatCodes.Red), this.position.getX()*2 + 6,this.position.getY()*2 + 6);
             }
             GL11.glPopMatrix();
         }
@@ -137,7 +137,7 @@ public class ClickableKeybinding extends ClickableButton {
                 MusePoint2D directionVector = euclideanDistance.normalize();
                 MusePoint2D tangentTarget = directionVector.times(getTargetDistance()).plus(this.getPosition());
                 MusePoint2D midpointTangent = module.getPosition().midpoint(tangentTarget);
-                module.move(midpointTangent.x(), midpointTangent.y());
+                module.move(midpointTangent.getX(), midpointTangent.getY());
             }
         }
     }

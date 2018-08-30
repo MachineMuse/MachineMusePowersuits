@@ -71,8 +71,8 @@ public class ModuleSelectionFrame extends ScrollableFrame {
         ClickableModule module = getSelectedModule();
         if (module != null) {
             MusePoint2D pos = moduleButtons.get(selectedModule).getPosition();
-            if (pos.y() > this.currentscrollpixels + border.top() + 4 && pos.y() < this.currentscrollpixels + border.top() + border.height() - 4) {
-                MuseRenderer.drawCircleAround(pos.x(), pos.y(), 10);
+            if (pos.getY() > this.currentscrollpixels + border.top() + 4 && pos.getY() < this.currentscrollpixels + border.top() + border.height() - 4) {
+                MuseRenderer.drawCircleAround(pos.getX(), pos.getY(), 10);
             }
         }
     }

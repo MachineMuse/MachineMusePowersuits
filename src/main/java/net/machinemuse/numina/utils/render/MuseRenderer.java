@@ -230,14 +230,14 @@ public abstract class MuseRenderer {
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glBegin(GL11.GL_LINES);
         gradientColour.withAlpha(gradientRatio).doGL();
-        GL11.glVertex3d(midpoint.x(), midpoint.y(), 1);
+        GL11.glVertex3d(midpoint.getX(), midpoint.getY(), 1);
         gradientColour.withAlpha(0.0).doGL();
-        GL11.glVertex3d(firstpoint.x(), firstpoint.y(), 1);
+        GL11.glVertex3d(firstpoint.getX(), firstpoint.getY(), 1);
 
         gradientColour.withAlpha(gradientRatio).doGL();
-        GL11.glVertex3d(secondpoint.x(), secondpoint.y(), 1);
+        GL11.glVertex3d(secondpoint.getX(), secondpoint.getY(), 1);
         Colour.WHITE.withAlpha(1.0).doGL();
-        GL11.glVertex3d(midpoint.x(), midpoint.y(), 1);
+        GL11.glVertex3d(midpoint.getX(), midpoint.getY(), 1);
         GL11.glEnd();
         GL11.glPopAttrib();
     }

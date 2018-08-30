@@ -14,16 +14,16 @@ public class FlyFromPointToPoint2D extends MusePoint2D {
     }
 
     public FlyFromPointToPoint2D(MusePoint2D prev, MusePoint2D target, double timeTo) {
-        this(prev.x(), prev.y(), target.x(), target.y(), timeTo);
+        this(prev.getX(), prev.getY(), target.getX(), target.getY(), timeTo);
     }
 
     @Override
-    public double x() {
+    public double getX() {
         return doRatio(prev.x, x);
     }
 
     @Override
-    public double y() {
+    public double getY() {
         return doRatio(prev.y, y);
     }
 

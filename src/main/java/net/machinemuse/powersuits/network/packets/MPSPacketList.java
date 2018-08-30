@@ -12,7 +12,7 @@ public class MPSPacketList {
     static final MusePacketHandler handler = MusePacketHandler.getInstance();
 
     public static void registerPackets() {
-        handler.addPackager( MusePacketInventoryRefresh.getPackagerInstance() );
+//        handler.addPackager( MusePacketInventoryRefresh.getPackagerInstance() );
         handler.addPackager( MusePacketInstallModuleRequest.getPackagerInstance() );
         handler.addPackager( MusePacketSalvageModuleRequest.getPackagerInstance() );
         handler.addPackager( MusePacketTweakRequestDouble.getPackagerInstance() );

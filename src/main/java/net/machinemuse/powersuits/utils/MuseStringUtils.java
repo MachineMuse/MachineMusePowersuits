@@ -32,7 +32,7 @@ public abstract class MuseStringUtils {
         femto	f	0.000 000 000 000 001
         atto	a	0.000 000 000 000 000 001
         zepto	z	0.000 000 000 000 000 000 001
-        yocto	y	0.000 000 000 000 000 000 000 001
+        yocto	getY	0.000 000 000 000 000 000 000 001
 
 */
     // milli, micro, etc.

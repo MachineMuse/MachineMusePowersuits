@@ -24,8 +24,8 @@ public class ClickableLabel implements IClickable {
      */
     @Override
     public void draw() {
-        MuseRenderer.drawCenteredString(this.label, position.x(),
-                position.y() - 4);
+        MuseRenderer.drawCenteredString(this.label, position.getX(),
+                position.getY() - 4);
     }
 
     @Override

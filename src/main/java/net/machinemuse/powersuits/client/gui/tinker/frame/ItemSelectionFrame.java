@@ -93,8 +93,8 @@ public class ItemSelectionFrame extends ScrollableFrame {
     private void drawSelection() {
         if (selectedItemStack != -1) {
             MuseRenderer.drawCircleAround(
-                    Math.floor(itemButtons.get(selectedItemStack).getPosition().x()),
-                    Math.floor(itemButtons.get(selectedItemStack).getPosition().y()),
+                    Math.floor(itemButtons.get(selectedItemStack).getPosition().getX()),
+                    Math.floor(itemButtons.get(selectedItemStack).getPosition().getY()),
                     10);
         }
     }

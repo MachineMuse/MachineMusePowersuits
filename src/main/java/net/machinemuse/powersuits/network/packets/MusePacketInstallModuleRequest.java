@@ -15,6 +15,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,20 +65,17 @@ public class MusePacketInstallModuleRequest extends MusePacket {
             if ((!ModuleManager.INSTANCE.itemHasModule(stack, moduleName) && MuseItemUtils.hasInInventory(cost, player.inventory)) || player.capabilities.isCreativeMode) {
                 MuseNBTUtils.removeMuseValuesTag(stack);
 
-
                 ModuleManager.INSTANCE.itemAddModule(stack, moduleType);
                 for (ItemStack stackInCost : cost) {
                     ElectricItemUtils.givePlayerEnergy(player, ElectricItemUtils.rfValueOfComponent(stackInCost));
                 }
-                List<Integer> slotsToUpdate = new ArrayList<>();
+
                 if (!player.capabilities.isCreativeMode) {
-                    slotsToUpdate = MuseItemUtils.deleteFromInventory(cost, inventory);
+                    MuseItemUtils.deleteFromInventory(cost, inventory);
                 }
-                slotsToUpdate.add(itemSlot);
-                for (Integer slotiter : slotsToUpdate) {
-                    MusePacket reply = new MusePacketInventoryRefresh(player, slotiter, inventory.getStackInSlot(slotiter));
-                    PacketSender.sendTo(reply, player);
-                }
+
+                // use builtin handler
+                player.inventoryContainer.detectAndSendChanges();
             }
         }
     }

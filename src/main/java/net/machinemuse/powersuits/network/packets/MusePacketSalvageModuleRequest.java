@@ -53,23 +53,17 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
     @Override
     public void handleServer(EntityPlayerMP player) {
         if (moduleName != null) {
-            InventoryPlayer inventory = player.inventory;
             ItemStack stack = player.inventory.getStackInSlot(itemSlot);
-            IPowerModule moduleType = ModuleManager.INSTANCE.getModule(moduleName);
             NonNullList<ItemStack> refund = ModuleManager.INSTANCE.getInstallCost(moduleName);
             if (ModuleManager.INSTANCE.itemHasModule(stack, moduleName)) {
                 MuseNBTUtils.removeMuseValuesTag(stack);
-                Set<Integer> slots = new HashSet<>();
+
                 ModuleManager.INSTANCE.removeModule(stack, moduleName);
                 for (ItemStack refundItem : refund) {
-                    slots.addAll(MuseItemUtils.giveOrDropItemWithChance(refundItem.copy(), player, MPSConfig.INSTANCE.getSalvageChance()));
+                    MuseItemUtils.giveOrDropItemWithChance(refundItem.copy(), player, MPSConfig.INSTANCE.getSalvageChance());
                 }
-                slots.add(itemSlot);
-
-                for (Integer slotiter : slots) {
-                    MusePacket reply = new MusePacketInventoryRefresh(player, slotiter, inventory.getStackInSlot(slotiter));
-                    PacketSender.sendTo(reply, player);
-                }
+                // use built in handler
+                player.inventoryContainer.detectAndSendChanges();
             }
         }
     }

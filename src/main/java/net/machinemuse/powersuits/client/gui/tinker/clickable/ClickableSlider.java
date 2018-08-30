@@ -5,6 +5,7 @@ import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.DrawableMuseRect;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.minecraftforge.common.util.Constants;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -26,8 +27,8 @@ public class ClickableSlider extends Clickable {
         this.width = width;
         this.name = name;
         this.position = pos;
-        this.insideRect = new DrawableMuseRect(position.x() - width / 2.0 - cornersize, position.y() + 8, 0, position.y() + 16, Colour.LIGHTBLUE, Colour.ORANGE);
-        this.outsideRect = new DrawableMuseRect(position.x() - width / 2.0 - cornersize, position.y() + 8, position.x() + width / 2.0 + cornersize, position.y() + 16, Colour.LIGHTBLUE, Colour.DARKBLUE);
+        this.insideRect = new DrawableMuseRect(position.getX() - width / 2.0 - cornersize, position.getY() + 8, 0, position.getY() + 16, Colour.LIGHTBLUE, Colour.ORANGE);
+        this.outsideRect = new DrawableMuseRect(position.getX() - width / 2.0 - cornersize, position.getY() + 8, position.getX() + width / 2.0 + cornersize, position.getY() + 16, Colour.LIGHTBLUE, Colour.DARKBLUE);
     }
 
     public String name() {
@@ -36,16 +37,16 @@ public class ClickableSlider extends Clickable {
 
     @Override
     public void draw() {
-        MuseRenderer.drawCenteredString(name, position.x(), position.y());
-        this.insideRect.setRight(position.x() + width * (getValue() - 0.5) + cornersize);
+        MuseRenderer.drawCenteredString(name, position.getX(), position.getY());
+        this.insideRect.setRight(position.getX() + width * (getValue() - 0.5) + cornersize);
         this.outsideRect.draw();
         this.insideRect.draw();
     }
 
     @Override
     public boolean hitBox(double x, double y) {
-        return Math.abs(position.x() - x) < width / 2 &&
-                Math.abs(position.y() + 12 - y) < 4;
+        return Math.abs(position.getX() - x) < width / 2 &&
+                Math.abs(position.getY() + 12 - y) < 4;
     }
 
     public double getValue() {
@@ -53,8 +54,7 @@ public class ClickableSlider extends Clickable {
     }
 
     public void setValueByX(double x) {
-        double v = (x - pos.x()) / width + 0.5;
-        valueInternal = MuseMathUtils.clampDouble(v, 0, 1);
+        valueInternal = MuseMathUtils.clampDouble((x - pos.getX()) / width + 0.5, 0, 1);
     }
 
     public void setValue(double v) {

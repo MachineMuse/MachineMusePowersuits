@@ -22,28 +22,28 @@ public class MuseRelativeRect extends MuseRect {
         if (rightofme != null) {
             return rightofme.right();
         }
-        return ul.x();
+        return ul.getX();
     }
 
     public double right() {
         if (leftofme != null) {
             return leftofme.left();
         }
-        return left() + wh.x();
+        return left() + wh.getX();
     }
 
     public double top() {
         if (belowme != null) {
             return belowme.bottom();
         }
-        return ul.y();
+        return ul.getY();
     }
 
     public double bottom() {
         if (aboveme != null) {
             return aboveme.top();
         }
-        return top() + wh.y();
+        return top() + wh.getY();
     }
 
     public MuseRelativeRect setBelow(MuseRect belowme) {
