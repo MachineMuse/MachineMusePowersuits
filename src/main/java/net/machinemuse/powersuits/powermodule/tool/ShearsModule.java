@@ -45,7 +45,7 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
         ModuleManager.INSTANCE.addInstallCost(getDataName(),new ItemStack(Items.IRON_INGOT, 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBasePropertyDouble(MPSModuleConstants.SHEARING_ENERGY_CONSUMPTION, 1000, "RF");
-        addBasePropertyDouble(MPSModuleConstants.SHEARING_HARVEST_SPEED, 8, x");
+        addBasePropertyDouble(MPSModuleConstants.SHEARING_HARVEST_SPEED, 8, "x");
 
         addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }

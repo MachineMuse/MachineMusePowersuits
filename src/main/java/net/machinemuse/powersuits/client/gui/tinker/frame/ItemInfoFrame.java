@@ -64,19 +64,19 @@
 //    }
 //
 //    @Override
-//    public void onMouseDown(double getX, double getY, int button) {
+//    public void onMouseDown(double x, double y, int button) {
 //        // TODO Auto-generated method stub
 //
 //    }
 //
 //    @Override
-//    public void onMouseUp(double getX, double getY, int button) {
+//    public void onMouseUp(double x, y, int button) {
 //        // TODO Auto-generated method stub
 //
 //    }
 //
 //    @Override
-//    public List<String> getToolTip(int getX, int getY) {
+//    public List<String> getToolTip(int x, int y) {
 //        // TODO Auto-generated method stub
 //        return null;
 //    }

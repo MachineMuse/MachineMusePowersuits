@@ -29,7 +29,7 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBasePropertyDouble(MPSModuleConstants.AXE_ENERGY_CONSUMPTION, 500, "RF");
-        addBasePropertyDouble(MPSModuleConstants.AXE_HARVEST_SPEED, 8, x");
+        addBasePropertyDouble(MPSModuleConstants.AXE_HARVEST_SPEED, 8, "x");
         addTradeoffPropertyDouble("Overclock", MPSModuleConstants.AXE_ENERGY_CONSUMPTION, 9500);
         addTradeoffPropertyDouble("Overclock", MPSModuleConstants.AXE_HARVEST_SPEED, 22);
 

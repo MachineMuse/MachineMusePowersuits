@@ -87,7 +87,7 @@ public class DimensionalRiftHelper extends Teleporter {
                     } else if ((y <= -2)) {
                         this.worldServerInstance.setBlockState(new BlockPos(ex + x, ey + y, ez + z), Blocks.STONE.getDefaultState());
                     } else if ((y == 0) && ((x == 2) || (x == -2) || (z == 2) || (z == -2))) {
-                        //this.worldServerInstance.setBlock(ex + getX, ey + getY, ez + z, 0, 5, 3);
+                        //this.worldServerInstance.setBlock(ex + x, ey + y, ez + z, 0, 5, 3);
                     } else {
                         this.worldServerInstance.setBlockState(new BlockPos(ex + x, ey + y, ez + z), Blocks.AIR.getDefaultState());
                     }

@@ -39,7 +39,7 @@ public class MPSSettings {
 
 
         @Config.LangKey(MPSConfigConstants.CONFIG_HUD_KEYBIND_HUD_Y)
-        @Config.Comment("getY position")
+        @Config.Comment("y position")
         @Config.RangeDouble(min = 0)
         public double keybindHUDy = 32.0;
 
