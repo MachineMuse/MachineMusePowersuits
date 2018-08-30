@@ -90,6 +90,6 @@ public class MusePoint2D {
 
     @Override
     public String toString() {
-        return String.format("getX: " + x + ", getY: " + y);
+        return String.format(x: " + x + ", getY: " + y);
     }
 }

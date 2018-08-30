@@ -30,7 +30,7 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
         ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Items.IRON_INGOT, 3));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBasePropertyDouble(MPSModuleConstants.PICKAXE_ENERGY_CONSUMPTION, 500, "RF");
-        addBasePropertyDouble(MPSModuleConstants.PICKAXE_HARVEST_SPEED, 8, "getX");
+        addBasePropertyDouble(MPSModuleConstants.PICKAXE_HARVEST_SPEED, 8, "x");
         addTradeoffPropertyDouble("Overclock", MPSModuleConstants.PICKAXE_ENERGY_CONSUMPTION, 9500);
         addTradeoffPropertyDouble("Overclock", MPSModuleConstants.PICKAXE_HARVEST_SPEED, 52);
 

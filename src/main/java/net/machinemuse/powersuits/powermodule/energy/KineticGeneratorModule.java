@@ -49,13 +49,13 @@ public class KineticGeneratorModule extends PowerModuleBase implements IPlayerTi
         if (!player.isAirBorne) {
             NBTTagCompound tag = MuseNBTUtils.getMuseItemTag(item);
             boolean isNotWalking = (player.getRidingEntity() != null) || (player.isInWater());
-            if ((!tag.hasKey("getX")) || (isNotWalking))
-                tag.setInteger("getX", (int) player.posX);
+            if ((!tag.hasKey("x")) || (isNotWalking))
+                tag.setInteger("x", (int) player.posX);
             if ((!tag.hasKey("z")) || (isNotWalking))
                 tag.setInteger("z", (int) player.posZ);
-            double distance = Math.sqrt((tag.getInteger("getX") - (int) player.posX) * (tag.getInteger("getX") - (int) player.posX) + (tag.getInteger("z") - (int) player.posZ) * (tag.getInteger("z") - (int) player.posZ));
+            double distance = Math.sqrt((tag.getInteger("x") - (int) player.posX) * (tag.getInteger("x") - (int) player.posX) + (tag.getInteger("z") - (int) player.posZ) * (tag.getInteger("z") - (int) player.posZ));
             if (distance >= 5.0) {
-                tag.setInteger("getX", (int) player.posX);
+                tag.setInteger("x", (int) player.posX);
                 tag.setInteger("z", (int) player.posZ);
                 if (player.isSprinting()) {
                     ElectricItemUtils.givePlayerEnergy(player, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.KINETIC_ENERGY_GENERATION));

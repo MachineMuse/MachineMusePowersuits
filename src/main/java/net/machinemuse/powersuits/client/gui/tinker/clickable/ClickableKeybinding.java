@@ -89,7 +89,7 @@ public class ClickableKeybinding extends ClickableButton {
             if (displayOnHUD) {
                 MuseRenderer.drawString(MuseStringUtils.wrapFormatTags("HUD", MuseStringUtils.FormatCodes.BrightGreen), this.position.getX()*2 + 6,this.position.getY()*2 + 6);
             } else {
-                MuseRenderer.drawString(MuseStringUtils.wrapFormatTags("getX", MuseStringUtils.FormatCodes.Red), this.position.getX()*2 + 6,this.position.getY()*2 + 6);
+                MuseRenderer.drawString(MuseStringUtils.wrapFormatTags(x", MuseStringUtils.FormatCodes.Red), this.position.getX()*2 + 6,this.position.getY()*2 + 6);
             }
             GL11.glPopMatrix();
         }

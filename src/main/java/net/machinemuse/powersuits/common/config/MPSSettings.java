@@ -10,7 +10,7 @@ import java.util.Map;
 import static net.machinemuse.numina.api.constants.NuminaConstants.*;
 import static net.machinemuse.powersuits.api.constants.MPSModConstants.MODID;
 
-@Config(modid = MODID, name = MPSConfigConstants.CONFIG_FILE + "getX" )
+@Config(modid = MODID, name = MPSConfigConstants.CONFIG_FILE)
 public class MPSSettings {
     /**
      * The are all client side settings
@@ -33,7 +33,7 @@ public class MPSSettings {
 
 
         @Config.LangKey(MPSConfigConstants.CONFIG_HUD_KEYBIND_HUD_X)
-        @Config.Comment("getX position")
+        @Config.Comment("x position")
         @Config.RangeDouble(min = 0)
         public double keybindHUDx = 8.0;
 

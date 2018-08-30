@@ -105,14 +105,14 @@
 //
 //                if (Config.useAdvancedOreScannerMessage()) {
 ////                    player.sendMessage(new TextComponentString("[Ore Scanner] Total ore getValue: " + totalValue + " --- Most valuable: " + highestValue + "\nSearch radius: " +
-////                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_X) + 1) + "getX" +
-////                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_Y) + 1) + "getX" +
+////                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_X) + 1) + x" +
+////                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_Y) + 1) + "x" +
 ////                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_Z) + 1) +
 ////                            " --- Energy used: " + MuseStringUtils.formatNumberFromUnits(totalEnergy, "J")));
 //
 //                    player.sendMessage(new TextComponentString("[Ore Scanner] Total ore getValue: " + totalValue + " --- Most valuable: " + highestvalueblockname + "\nSearch radius: " +
-//                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_X) + 1) + "getX" +
-//                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_Y) + 1) + "getX" +
+//                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_X) + 1) + "x" +
+//                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_Y) + 1) + "x" +
 //                            (2 * (int) ModuleManager.INSTANCE.INSTANCE.getOrSetModularPropertyDouble(itemStack, ORE_SCANNER_RADIUS_Z) + 1) +
 //                            " --- Energy used: " + MuseStringUtils.formatNumberFromUnits(totalEnergy, "J")));
 //                } else {

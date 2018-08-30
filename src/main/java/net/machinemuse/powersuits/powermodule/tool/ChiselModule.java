@@ -35,7 +35,7 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
         ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Item.getItemFromBlock(Blocks.OBSIDIAN), 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBasePropertyDouble(MPSModuleConstants.CHISEL_ENERGY_CONSUMPTION, 500, "RF");
-        addBasePropertyDouble(MPSModuleConstants.CHISEL_HARVEST_SPEED, 8, "getX");
+        addBasePropertyDouble(MPSModuleConstants.CHISEL_HARVEST_SPEED, 8, x");
         addTradeoffPropertyDouble("Overclock", MPSModuleConstants.CHISEL_ENERGY_CONSUMPTION, 9500);
         addTradeoffPropertyDouble("Overclock", MPSModuleConstants.CHISEL_HARVEST_SPEED, 22);
 

@@ -74,7 +74,7 @@ public class ClickableModule extends Clickable {
         MuseTextureUtils.popTexture();
 
         if (!allowed) {
-            String string = MuseStringUtils.wrapFormatTags("getX", MuseStringUtils.FormatCodes.DarkRed);
+            String string = MuseStringUtils.wrapFormatTags("x", MuseStringUtils.FormatCodes.DarkRed);
             MuseRenderer.drawString(string, getPosition().getX() + 3, getPosition().getY() + 1);
         }
         else if (installed) {

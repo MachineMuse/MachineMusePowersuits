@@ -35,7 +35,7 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
         ModuleManager.INSTANCE.addInstallCost(getDataName(),emulatedTool);
         ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBasePropertyDouble(MPSModuleConstants.SCOOP_ENERGY_CONSUMPTION, 20000, "RF");
-        addBasePropertyDouble(MPSModuleConstants.SCOOP_HARVEST_SPEED, 5, "getX");
+        addBasePropertyDouble(MPSModuleConstants.SCOOP_HARVEST_SPEED, 5, "x");
 
         addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
