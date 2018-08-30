@@ -95,7 +95,7 @@ public enum MPSItems {
 
 
     public static void initFluids() {
-        FluidRegistry.enableUniversalBucket();
+//        FluidRegistry.enableUniversalBucket();
         FluidRegistry.registerFluid(liquidNitrogen);
         FluidRegistry.addBucketForFluid(liquidNitrogen);
 

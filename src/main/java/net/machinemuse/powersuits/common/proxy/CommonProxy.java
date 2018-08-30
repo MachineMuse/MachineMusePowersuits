@@ -30,27 +30,11 @@ import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
  */
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
-//        File newConfig = new File(event.getModConfigurationDirectory() + "/machinemuse/powersuits.cfg");
-//        Config.init(new Configuration(newConfig));
-
-
-//        Config.extractRecipes();
-
         MPSItems.INSTANCE.initFluids();
-
-
     }
 
     public void init(FMLInitializationEvent event) {
         MPSModules.loadPowerModules();
-
-
-
-//        Config.useAdvancedOreScannerMessage(); // Fixme: obsolete
-
-
-
-
         EntityRegistry.registerModEntity(new ResourceLocation(MODID, "entityPlasmaBolt"), EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, ModularPowersuits.getInstance(), 64, 20, true);
         EntityRegistry.registerModEntity(new ResourceLocation(MODID, "entitySpinningBlade"), EntitySpinningBlade.class, "entitySpinningBlade", 2478, ModularPowersuits.getInstance(), 64, 20, true);
         EntityRegistry.registerModEntity(MPSItems.INSTANCE.luxCapacitor.getRegistryName(), EntityLuxCapacitor.class, "entityLuxCapacitor", 2479, ModularPowersuits.getInstance(), 64, 20, true);
@@ -63,7 +47,6 @@ public class CommonProxy {
     public void postInit(FMLPostInitializationEvent event) {
         ModCompatibility.registerModSpecificModules();
 //        Config.addCustomInstallCosts(); // Fixme: replace with similar function in MPSConfig
-//        Config.getConfig().save();
     }
 
     public void registerEvents(){

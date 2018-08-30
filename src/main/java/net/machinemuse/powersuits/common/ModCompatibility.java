@@ -124,10 +124,6 @@ public class ModCompatibility {
     }
 
     public static boolean isRenderPlayerAPILoaded() {
-
-        System.out.println("is renderplayer api loaded: " + Loader.isModLoaded("RenderPlayerAPIPlugin"));
-
-
         return Loader.isModLoaded("RenderPlayerAPIPlugin");
     }
 
@@ -148,9 +144,6 @@ public class ModCompatibility {
     }
 
     public static boolean enableThaumGogglesModule() {
-
-        System.out.println("MPSConfig.INSTANCE.getModuleAllowedorDefault(MPSModuleConstants.MODULE_THAUM_GOGGLES__DATANAME, isThaumCraftLoaded())" + MPSConfig.INSTANCE.getModuleAllowedorDefault(MPSModuleConstants.MODULE_THAUM_GOGGLES__DATANAME, isThaumCraftLoaded()));
-
         return MPSConfig.INSTANCE.getModuleAllowedorDefault(MPSModuleConstants.MODULE_THAUM_GOGGLES__DATANAME, isThaumCraftLoaded());
     }
 

@@ -78,7 +78,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
                         + (border.left() + border.right()) / 2;
                 if (xoffset + 16 * itemsToCheck.size() > x && xoffset < x) {
                     int index = (int) (x - xoffset) / 16;
-                    return (List<String>) itemsToCheck.get(index).getTooltip(player, ITooltipFlag.TooltipFlags.NORMAL);
+                    return itemsToCheck.get(index).getTooltip(player, ITooltipFlag.TooltipFlags.NORMAL);
                 }
             }
         }
@@ -167,7 +167,6 @@ public class InstallSalvageFrame extends ScrollableFrame {
      * requires communicating with the server.
      */
     private void doInstall() {
-        ItemStack stack = targetItem.getSelectedItem().getItem();
         IPowerModule module = targetModule.getSelectedModule().getModule();
         if (player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(ModuleManager.INSTANCE.getInstallCost(module.getDataName()), player.inventory)) {
             Musique.playClientSound(SoundDictionary.SOUND_EVENT_GUI_INSTALL, SoundCategory.BLOCKS, 1, null);

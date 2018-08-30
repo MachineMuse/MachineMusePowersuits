@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.common;
 
 import net.machinemuse.powersuits.common.proxy.CommonProxy;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -21,18 +22,15 @@ import static net.machinemuse.powersuits.common.ModularPowersuits.VERSION;
  * Ported to Java by lehjr on 11/14/16.
  */
 @Mod(modid = MODID, version = VERSION, dependencies = "required-after:numina@[@numina_version@,)")
-public final class ModularPowersuits {
+public enum ModularPowersuits {
+    INSTANCE;
+
     public static final String MODID = "powersuits";
     public static final String VERSION = "@VERSION@";
 
     @Nonnull
-    private static ModularPowersuits INSTANCE;
-
-    @Nonnull
     @Mod.InstanceFactory
     public static ModularPowersuits getInstance() {
-        if (INSTANCE == null)
-            INSTANCE = new ModularPowersuits();
         return INSTANCE;
     }
 
@@ -40,6 +38,10 @@ public final class ModularPowersuits {
     public static CommonProxy proxy;
 
     public static Configuration config = null;
+
+    static {
+        FluidRegistry.enableUniversalBucket();
+    }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
