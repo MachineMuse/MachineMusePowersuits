@@ -55,7 +55,7 @@ public class MusePacketCosmeticInfo extends MusePacket {
             } else {
                 renderTag = itemTag.getCompoundTag(NuminaNBTConstants.TAG_RENDER);
             }
-            if (tagData.hasNoTags()) {
+            if (tagData == null || tagData.hasNoTags()) {
                 MuseLogger.logDebug("Removing tag " + tagName);
                 renderTag.removeTag(tagName);
             } else {

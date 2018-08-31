@@ -30,12 +30,10 @@ import java.util.zip.GZIPOutputStream;
 public abstract class MusePacket {
     private PacketBuffer bytes;
     private ByteBufOutputStream bytesOut;
-//    private final DataOutputStream dataout;
 
     public MusePacket() {
         this.bytes = new PacketBuffer(Unpooled.buffer());
         this.bytesOut = new ByteBufOutputStream(this.bytes);
-//        this.dataout = new DataOutputStream(bytesOut);
     }
 
     public abstract IMusePackager packager();
@@ -46,14 +44,9 @@ public abstract class MusePacket {
         return bytesOut;
     }
 
-
     public ByteBuf bytes() {
         return this.bytes;
     }
-
-//    public DataOutputStream dataout() {
-//        return this.dataout;
-//    }
 
     /**
      * Gets the MC packet associated with this MusePacket
@@ -61,7 +54,6 @@ public abstract class MusePacket {
      * @return Packet250CustomPayload
      */
     public FMLProxyPacket getFMLProxyPacket() throws IOException {
-//        this.dataout.writeInt(MusePacketHandler.getInstance().packagers.inverse().get(this.packager()));
         this.bytesOut.writeInt(MusePacketHandler.getInstance().packagers.inverse().get(this.packager()));
 
         this.write();
@@ -145,12 +137,12 @@ public abstract class MusePacket {
     public void writeNBTTagCompound(final NBTTagCompound nbt) {
         try {
             if (nbt == null || nbt.hasNoTags()) {
+                System.out.println("NBT is null or has no tags");
                 this.bytesOut.writeInt(-1);
             }
             else {
-//                byte[] compressednbt = compressLZ4(nbt);
                 byte[] compressednbt = compressGZip(nbt);
-//                this.bytesOut.writeInt(compressednbt.length); // needed for LZ4 decompression
+                this.bytesOut.writeShort(compressednbt.length); // needed for LZ4 decompression
                 this.bytesOut.write(compressednbt);
             }
         } catch (IOException exception) {
@@ -175,23 +167,6 @@ public abstract class MusePacket {
             MuseLogger.logException("PROBLEM WRITING DATA TO PACKET:", exception);
         }
     }
-
-//    /**
-//     * Adapted from 1.7.10
-//     */
-//    public byte[] compressLZ4(NBTTagCompound nbt) {
-//        ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
-//        try {
-//            // LZ4 adaptation
-//            DataOutputStream dataoutputstream = new DataOutputStream(new LZ4BlockOutputStream(bytearrayoutputstream));
-//            CompressedStreamTools.write(nbt, dataoutputstream);
-//            // bytearrayoutputstream only updates if dataoutputstream closes
-//            dataoutputstream.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return bytearrayoutputstream.toByteArray();
-//    }
 
     /**
      * "adapted" from 1.7.10
@@ -219,7 +194,6 @@ public abstract class MusePacket {
         byte[] bytes = writeMapToBytes(map);
         try {
             if (compressOrNot) {
-//                bytes = compressBytesLZ4(bytes);
                 bytes = compressBytesGZip(bytes);
             }
             bytesOut.writeBoolean(compressOrNot);
@@ -295,7 +269,6 @@ public abstract class MusePacket {
             throw new TypeNotPresentException(o.getClass().getName(), new Throwable("map key or getValue type handler not found!!"));
     }
 
-
     // https://stackoverflow.com/questions/37204975/decompressing-byte-using-lz4
     byte[] compressBytesGZip(final byte[] data) {
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
@@ -311,14 +284,4 @@ public abstract class MusePacket {
         }
         return new byte[0];
     }
-
-//    byte[] compressBytesLZ4(final byte[] data) {
-////        LZ4Factory lz4Factory = LZ4Factory.safeInstance();
-//        LZ4Factory lz4Factory = LZ4Factory.fastestInstance();
-//        LZ4Compressor fastCompressor = lz4Factory.fastCompressor(); // TODO: is one of the other compression settings a better option?
-//        int maxCompressedLength = fastCompressor.maxCompressedLength(data.length);
-//        byte[] comp = new byte[maxCompressedLength];
-//        int compressedLength = fastCompressor.compress(data, 0, data.length, comp, 0, maxCompressedLength);
-//        return Arrays.copyOf(comp, compressedLength);
-//    }
 }

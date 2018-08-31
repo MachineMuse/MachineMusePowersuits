@@ -124,84 +124,16 @@ public interface IMusePackager {
     }
 
     /**
-     * Reads an ItemStack from the InputStream
-     */
-    default ItemStack readItemStack(ByteBufInputStream dataIn) {
-        try {
-            if (dataIn.readBoolean()) {
-                NBTTagCompound tag = readNBTTagCompound(dataIn);
-                return new ItemStack(tag);
-            }
-        } catch (Exception e) {
-
-        }
-        return ItemStack.EMPTY;
-    }
-
-//    // Netty project Lz4FrameEncoderTest
-//    // https://programtalk.com/vs/?source=netty/codec/src/test/java/io/netty/handler/codec/compression/Lz4FrameEncoderTest.java
-//    default ByteBufInputStream decompressLZ4(ByteBufInputStream compressed, int originalLength) throws Exception {
-////        System.out.println("original length: " + originalLength);
-//        LZ4BlockInputStream lz4Is = new LZ4BlockInputStream(compressed);
-//        byte[] decompressed = new byte[originalLength];
-//        int remaining = originalLength;
-//        while (remaining > 0) {
-//            int read = lz4Is.read(decompressed, originalLength - remaining, remaining);
-//            if (read > 0) {
-//                remaining -= read;
-//            } else {
-//                break;
-//            }
-//        }
-//        lz4Is.close();
-//        return new ByteBufInputStream(Unpooled.wrappedBuffer(decompressed));
-//    }
-
-    /**
-     * Load the compressed compound from the inputstream.
-     */
-    default NBTTagCompound readCompressedGZip(ByteBufInputStream dataIn) throws IOException {
-        DataInputStream datainputstream = new DataInputStream(new BufferedInputStream(new GZIPInputStream(dataIn)));
-        NBTTagCompound nbttagcompound;
-        try {
-            nbttagcompound = CompressedStreamTools.read(datainputstream, NBTSizeTracker.INFINITE);
-        } finally {
-            datainputstream.close();
-        }
-        return nbttagcompound;
-    }
-
-//    default NBTTagCompound readCompressedLZ4(ByteBufInputStream dataIn) throws IOException {
-//        ByteBufInputStream dataDecompressed;
-//        DataInputStream datainputstream = null;
-//        NBTTagCompound nbttagcompound = new NBTTagCompound();
-//        try {
-//            int originalLength = dataIn.readInt();
-//            if (originalLength > 0) {
-//                dataDecompressed = decompressLZ4(dataIn, originalLength);
-//                // LZ4 adaptation of vanilla method
-//                datainputstream = new DataInputStream(new BufferedInputStream(dataDecompressed));
-//                nbttagcompound = CompressedStreamTools.read(datainputstream, NBTSizeTracker.INFINITE);
-//            }
-//        } catch (Exception e) {
-//            MuseLogger.logException("PROBLEM READING DATA FROM PACKET D:", e);
-//        } finally {
-//            if (datainputstream != null)
-//                datainputstream.close();
-//        }
-//        return nbttagcompound;
-//    }
-
-    /**
      * Reads a compressed NBTTagCompound from the InputStream
      */
     default NBTTagCompound readNBTTagCompound(ByteBufInputStream dataIn) {
+        short length;
         try {
-//            return readCompressedLZ4(dataIn);
-            return readCompressedGZip(dataIn);
+            length = dataIn.readShort();
+            return (length != -1) ? CompressedStreamTools.readCompressed(dataIn) : new NBTTagCompound();
         } catch (IOException e) {
             MuseLogger.logException("PROBLEM READING DATA FROM PACKET D:", e);
-            return null;
+            return new NBTTagCompound();
         }
     }
 
@@ -246,16 +178,6 @@ public interface IMusePackager {
         }
         return hashMap;
     }
-
-//    // https://stackoverflow.com/questions/37204975/decompressing-byte-using-lz4
-//    default byte[] decompressLZ4Bytes(final byte[] compressed) {
-////        LZ4Factory lz4Factory = LZ4Factory.safeInstance();
-//        LZ4Factory lz4Factory = LZ4Factory.fastestInstance();
-//        LZ4SafeDecompressor decompressor = lz4Factory.safeDecompressor();
-//        byte[] decomp = new byte[compressed.length * 4];//you might need to allocate more
-//        decomp = decompressor.decompress(Arrays.copyOf(compressed, compressed.length), decomp.length);
-//        return decomp;
-//    }
 
     default byte[] decompressGZipBytes(final byte[] compressed) {
         byte[] decomp = new byte[compressed.length * 4];//you might need to allocate more

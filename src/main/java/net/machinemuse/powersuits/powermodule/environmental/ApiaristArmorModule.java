@@ -19,7 +19,7 @@ import net.minecraft.util.ResourceLocation;
 public class ApiaristArmorModule extends PowerModuleBase {
     public ApiaristArmorModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        ItemStack stack = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("forestry", "craftingMaterial")), 6);
+        ItemStack stack = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("forestry", "crafting_material")),  6, 2);
         stack.setItemDamage(3);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), stack);
         addBasePropertyDouble(MPSModuleConstants.APIARIST_ARMOR_ENERGY_CONSUMPTION, 100, "RF");

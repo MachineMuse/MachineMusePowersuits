@@ -261,7 +261,8 @@ public class PartSpecManipSubFrame {
             int columnNumber = (int)((x - this.border.left()) / 8);
             PartSpecBase spec = partSpecs.get(Math.max(Math.min(lineNumber, partSpecs.size() - 1), 0));
             MuseLogger.logDebug("Line " + lineNumber + " Column " + columnNumber);
-            switch (columnNumber) {
+
+           switch (columnNumber) {
                 // removes the associated tag from the render tag making the part not visible
                 case 0: {
                     if (spec instanceof TexturePartSpec)
