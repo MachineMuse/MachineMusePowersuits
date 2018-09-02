@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.common.proxy;
 
 import api.player.model.ModelPlayerAPI;
 import net.machinemuse.powersuits.client.event.EventRegisterRenderers;
+import net.machinemuse.powersuits.client.event.ModelBakeEventHandler;
 import net.machinemuse.powersuits.client.model.item.armor.SMovingArmorModel;
 import net.machinemuse.powersuits.client.model.obj.OBJPlusLoader;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
@@ -10,7 +11,6 @@ import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.KeybindKeyHandler;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.event.ClientTickHandler;
-import net.machinemuse.powersuits.client.event.ModelBakeEventHandler;
 import net.machinemuse.powersuits.event.PlayerUpdateHandler;
 import net.machinemuse.powersuits.event.RenderEventHandler;
 import net.minecraftforge.client.model.ModelLoaderRegistry;

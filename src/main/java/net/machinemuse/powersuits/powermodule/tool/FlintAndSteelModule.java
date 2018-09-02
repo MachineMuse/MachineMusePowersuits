@@ -62,7 +62,7 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
     @Override
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         int energyConsumption = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.IGNITION_ENERGY_CONSUMPTION);
-        if (energyConsumption < ElectricItemUtils.getMaxPlayerEnergy(playerIn)) {
+        if (energyConsumption < ElectricItemUtils.getPlayerEnergy(playerIn)) {
             pos = pos.offset(facing);
             if (!playerIn.canPlayerEdit(pos, facing, stack)) {
                 return EnumActionResult.FAIL;

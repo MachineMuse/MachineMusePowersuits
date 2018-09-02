@@ -219,8 +219,8 @@ public class ModCompatibility {
             ModuleManager.INSTANCE.addModule(new RefinedStorageWirelessModule(EnumModuleTarget.TOOLONLY));
         }
 
-//        if (isScannableLoaded()) {
-//            ModuleManager.INSTANCE.addModule(new ScannableModule(Collections.singletonList((IModularItem) MPSItems.INSTANCE.powerFist)));
-//        }
+        if (isScannableLoaded()) {
+            ModuleManager.INSTANCE.addModule(new OreScannerModule(EnumModuleTarget.TOOLONLY));
+        }
     }
 }

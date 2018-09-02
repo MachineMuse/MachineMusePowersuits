@@ -105,7 +105,7 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
     @Override
     public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
         if (ToolHelpers.isEffectiveTool(state, emulatedTool)) {
-            if (ElectricItemUtils.getMaxPlayerEnergy(player) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.SHEARING_ENERGY_CONSUMPTION)) {
+            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.SHEARING_ENERGY_CONSUMPTION)) {
                 return true;
             }
         }
@@ -119,7 +119,7 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
         }
         Block block = state.getBlock();
 
-        if (block instanceof IShearable && ElectricItemUtils.getMaxPlayerEnergy(((EntityPlayer) entityLiving)) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.SHEARING_ENERGY_CONSUMPTION)) {
+        if (block instanceof IShearable && ElectricItemUtils.getPlayerEnergy(((EntityPlayer) entityLiving)) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.SHEARING_ENERGY_CONSUMPTION)) {
             IShearable target = (IShearable) block;
             if (target.isShearable(itemStack, entityLiving.world, pos)) {
                 List<ItemStack> drops = target.onSheared(itemStack, entityLiving.world, pos, EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemStack));

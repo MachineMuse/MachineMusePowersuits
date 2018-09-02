@@ -41,7 +41,7 @@ public class WaterElectrolyzerModule extends PowerModuleBase implements IPlayerT
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        int energy = ElectricItemUtils.getMaxPlayerEnergy(player);
+        int energy = ElectricItemUtils.getPlayerEnergy(player);
         int energyConsumption = (int) Math.round(ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.WATERBREATHING_ENERGY_CONSUMPTION));
         if (energy > energyConsumption && player.getAir() < 10) {
 

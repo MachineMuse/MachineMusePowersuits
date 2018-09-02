@@ -37,7 +37,7 @@ public class ForgeEnergyItemContainerWrapper extends EnergyStorage {
 
         if (!simulate) {
             this.energy += energyReceived;
-            MuseItemUtils.setIntegerOrRemove(container, NuminaNBTConstants.CURRENT_ENERGY, Math.min(this.energy, getMaxEnergyStored()));
+            MuseItemUtils.setDoubleOrRemove(container, NuminaNBTConstants.CURRENT_ENERGY, Math.min(this.energy, getMaxEnergyStored()));
         }
         return energyReceived;
     }
@@ -53,7 +53,7 @@ public class ForgeEnergyItemContainerWrapper extends EnergyStorage {
 
         if (!simulate) {
             this.energy -= energyExtracted;
-            MuseItemUtils.setIntegerOrRemove(container, NuminaNBTConstants.CURRENT_ENERGY, Math.min(energy, getMaxEnergyStored()));
+            MuseItemUtils.setDoubleOrRemove(container, NuminaNBTConstants.CURRENT_ENERGY, Math.min(energy, getMaxEnergyStored()));
         }
         return energyExtracted;
     }

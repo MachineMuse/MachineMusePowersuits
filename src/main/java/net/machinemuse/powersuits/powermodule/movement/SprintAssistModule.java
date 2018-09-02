@@ -17,7 +17,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTSizeTracker;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
@@ -58,7 +57,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         if (item == player.getItemStackFromSlot(EntityEquipmentSlot.LEGS)) { // now you actually have to wear these to get the speed boost
             double horzMovement = player.distanceWalkedModified - player.prevDistanceWalkedModified;
-            double totalEnergy = ElectricItemUtils.getMaxPlayerEnergy(player);
+            double totalEnergy = ElectricItemUtils.getPlayerEnergy(player);
             if (horzMovement > 0) { // stop doing drain calculations when player hasn't moved
                 if (player.isSprinting()) {
                     double exhaustion = Math.round(horzMovement * 100.0F) * 0.01;

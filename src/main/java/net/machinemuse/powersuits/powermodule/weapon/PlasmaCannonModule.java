@@ -55,7 +55,7 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
 
     @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        if (hand == EnumHand.MAIN_HAND && ElectricItemUtils.getMaxPlayerEnergy(playerIn) > 500) {
+        if (hand == EnumHand.MAIN_HAND && ElectricItemUtils.getPlayerEnergy(playerIn) > 500) {
             playerIn.setActiveHand(hand);
             return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
         }
@@ -76,21 +76,25 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
     public void onPlayerStoppedUsing(ItemStack itemStack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
         int chargeTicks = (int) MuseMathUtils.clampDouble(itemStack.getMaxItemUseDuration() - timeLeft, 10, 50);
 
+
+        System.out.println();
+        System.out.println("time left: " + timeLeft);
+        System.out.println("max use duration: " + itemStack.getMaxItemUseDuration());
+        System.out.println("charge ticks: " + chargeTicks);
+
+
         if (!worldIn.isRemote) {
             double energyConsumption = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.PLASMA_CANNON_ENERGY_PER_TICK) * chargeTicks;
             if (entityLiving instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) entityLiving;
-                MuseHeatUtils.heatPlayer(player, energyConsumption / 500);
-                if (ElectricItemUtils.getMaxPlayerEnergy(player) > energyConsumption) {
+                MuseHeatUtils.heatPlayer(player, energyConsumption / 5000);
+                if (ElectricItemUtils.getPlayerEnergy(player) > energyConsumption) {
                     ElectricItemUtils.drainPlayerEnergy(player, (int) energyConsumption);
                     double explosiveness = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.PLASMA_CANNON_EXPLOSIVENESS);
                     double damagingness = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE);
 
                     EntityPlasmaBolt plasmaBolt = new EntityPlasmaBolt(worldIn, player, explosiveness, damagingness, chargeTicks);
                     worldIn.spawnEntity(plasmaBolt);
-                    // switched to IEntityAdditionalSpawnData
-                    //MusePacketPlasmaBolt packet = new MusePacketPlasmaBolt(player, plasmaBolt.getEntityId(), plasmaBolt.size);
-                    //PacketSender.sendToAll(packet);
                 }
             }
         }

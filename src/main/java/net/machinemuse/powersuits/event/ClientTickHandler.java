@@ -7,12 +7,12 @@ import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
-import net.machinemuse.powersuits.client.gui.hud.EnergyMeter;
-import net.machinemuse.powersuits.client.gui.hud.HeatMeter;
-import net.machinemuse.powersuits.client.gui.hud.PlasmaChargeMeter;
-import net.machinemuse.powersuits.client.gui.hud.WaterMeter;
-import net.machinemuse.powersuits.client.gui.tinker.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.common.config.MPSConfig;
+import net.machinemuse.powersuits.common.gui.hud.EnergyMeter;
+import net.machinemuse.powersuits.common.gui.hud.HeatMeter;
+import net.machinemuse.powersuits.common.gui.hud.PlasmaChargeMeter;
+import net.machinemuse.powersuits.common.gui.hud.WaterMeter;
+import net.machinemuse.powersuits.common.gui.tinker.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
@@ -135,7 +135,7 @@ public class ClientTickHandler {
 
         if (event.phase == TickEvent.Phase.END) {
             EntityPlayer player = Minecraft.getMinecraft().player;
-            modules = new ArrayList<String>();
+            modules = new ArrayList<>();
             findInstalledModules(player);
             if (player != null && Minecraft.getMinecraft().isGuiEnabled() && MuseItemUtils.modularItemsEquipped(player).size() > 0 && Minecraft.getMinecraft().currentScreen == null) {
                 Minecraft mc = Minecraft.getMinecraft();
@@ -195,9 +195,10 @@ public class ClientTickHandler {
                     } else if (Objects.equals(modules.get(i), MPSModuleConstants.MODULE_WATER_TANK__DATANAME)) {
                         drawWaterMeter = true;
                     }
-                    else if (Objects.equals(modules.get(i), MPSModuleConstants.MODULE_PLASMA_CANNON__DATANAME)) {
-                        drawPlasmaMeter = true;
-                    }
+                    // redundant check
+//                    else if (Objects.equals(modules.get(i), MPSModuleConstants.MODULE_PLASMA_CANNON__DATANAME)) {
+//                        drawPlasmaMeter = true;
+//                    }
                 }
                 drawMeters(player, screen);
             }
@@ -215,8 +216,8 @@ public class ClientTickHandler {
     	double left = screen.getScaledWidth() - 34;
 
         // energy
-        double maxEnergy = ElectricItemUtils.getMaxEnergy(player);
-        double currEnergy = ElectricItemUtils.getMaxPlayerEnergy(player);
+        double maxEnergy = ElectricItemUtils.getMaxPlayerEnergy(player);
+        double currEnergy = ElectricItemUtils.getPlayerEnergy(player);
         String currEnergyStr = MuseStringUtils.formatNumberShort(currEnergy) + "RF";
         String maxEnergyStr = MuseStringUtils.formatNumberShort(maxEnergy);
 
@@ -235,6 +236,7 @@ public class ClientTickHandler {
         // plasma
         double maxPlasma = PlasmaCannonHelper.getMaxPlasma(player);
         double currPlasma = PlasmaCannonHelper.getPlayerPlasma(player);
+
         String currPlasmaStr = MuseStringUtils.formatNumberShort(currPlasma);
         String maxPlasmaStr = MuseStringUtils.formatNumberShort(maxPlasma);
 
@@ -257,40 +259,35 @@ public class ClientTickHandler {
                 }
             } else water = null;
 
-            if (maxPlasma > 0 && drawPlasmaMeter ){
+            if (maxPlasma > 0 /* && drawPlasmaMeter */){
                 numMeters ++;
                 if (plasma == null) {
                     plasma = new PlasmaChargeMeter();
                 }
             } else plasma = null;
 
-//          double stringX = left - (double)(numMeters * 8) - 2;
             double stringX = left - 2;
             final int totalMeters = numMeters;
             //"(totalMeters-numMeters) * 8" = 0 for whichever of these is first,
             //but including it won't hurt and this makes it easier to swap them around.
 
             if (energy != null) {
-//        	    energy.draw(left - (numMeters * 8), top, currEnergy / maxEnergy);
                 energy.draw(left, top + (totalMeters-numMeters) * 8, currEnergy / maxEnergy);
                 MuseRenderer.drawRightAlignedString(currEnergyStr, stringX  , top);
                 numMeters --;
             }
 
-// 	    	heat.draw(left - (numMeters * 8), top, currHeat / maxHeat);
             heat.draw(left, top + (totalMeters-numMeters) * 8, MuseMathUtils.clampDouble(currHeat, 0, maxHeat) / maxHeat);
             MuseRenderer.drawRightAlignedString(currHeatStr, stringX, top + (totalMeters-numMeters) * 8);
             numMeters --;
 
             if (water != null) {
-//                water.draw(left - (numMeters * 8), top, currWater / maxWater);
                 water.draw(left, top + (totalMeters-numMeters) * 8, currWater / maxWater);
                 MuseRenderer.drawRightAlignedString(currWaterStr, stringX, top + (totalMeters-numMeters) * 8);
                 numMeters --;
             }
 
             if (plasma != null) {
-//    	    	plasma.draw(left - (numMeters * 8), top, currPlasma / maxPlasma);
                 plasma.draw(left, top + (totalMeters-numMeters) * 8, currPlasma / maxPlasma);
                 MuseRenderer.drawRightAlignedString(currPlasmaStr, stringX, top + (totalMeters-numMeters) * 8);
             }
@@ -310,7 +307,7 @@ public class ClientTickHandler {
                 numReadouts += 1;
             }
 
-            if (maxPlasma > 0 && drawPlasmaMeter ) {
+            if (maxPlasma > 0 /* && drawPlasmaMeter */) {
                 MuseRenderer.drawString(currPlasmaStr + '/' + maxPlasmaStr + "%", 2, 2 + (numReadouts * 9));
             }
         }

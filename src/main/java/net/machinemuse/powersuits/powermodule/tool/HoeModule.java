@@ -46,7 +46,7 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
     @Override
     public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         double energyConsumed = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.HOE_ENERGY_CONSUMPTION);
-        if (!playerIn.canPlayerEdit(pos, facing, itemStack) || ElectricItemUtils.getMaxPlayerEnergy(playerIn) < energyConsumed) {
+        if (!playerIn.canPlayerEdit(pos, facing, itemStack) || ElectricItemUtils.getPlayerEnergy(playerIn) < energyConsumed) {
             return EnumActionResult.FAIL;
         } else {
             int hook = net.minecraftforge.event.ForgeEventFactory.onHoeUse(itemStack, playerIn, worldIn, pos);

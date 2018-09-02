@@ -7,6 +7,7 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -46,14 +47,28 @@ public class Musique {
     }
 
     public static String makeSoundString(EntityPlayer player, String soundname) {
-        String soundprefix = "Numina";
+        String soundprefix = "numina";
         return soundprefix + player.getCommandSenderEntity().getName() + soundname;
+    }
+
+    public static void playerSound(EntityPlayer player, ResourceLocation location, SoundCategory categoryIn, float volume, Float pitch, Boolean continuous) {
+        SoundEvent soundEvent = SoundEvent.REGISTRY.getObject(location);
+        if (soundEvent != null) {
+            System.out.println(soundEvent.getSoundName().toString());
+            playerSound(player, soundEvent, categoryIn, volume, pitch, continuous);
+        } else {
+            soundEvent = new SoundEvent(location);
+            if (soundEvent != null)
+                playerSound(player, soundEvent, categoryIn, volume, pitch, continuous);
+            else
+                MuseLogger.logError("Sound event not found for " + location.toString());
+        }
     }
 
     public static void playerSound(EntityPlayer player, SoundEvent soundEvt, SoundCategory categoryIn, float volume, Float pitch, Boolean continuous) {
         pitch = (pitch != null) ? pitch : 1.0F;
         continuous = (continuous != null) ? continuous : true;
-        if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
+        if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds() && soundEvt != null) {
             MovingSoundPlayer sound = soundMap.get(soundEvt);
 
             if (sound != null && (sound.isDonePlaying() || !sound.canRepeat())) {
@@ -68,6 +83,20 @@ public class Musique {
                 mcsound().playSound(newsound);
                 soundMap.put(soundEvt, newsound);
             }
+        }
+    }
+
+    public static void stopPlayerSound(EntityPlayer player, ResourceLocation location) {
+        SoundEvent soundEvent = SoundEvent.REGISTRY.getObject(location);
+        if (soundEvent != null) {
+            System.out.println(soundEvent.getSoundName().toString());
+            stopPlayerSound(player, soundEvent);
+        } else {
+            soundEvent = new SoundEvent(location);
+            if (soundEvent != null)
+                stopPlayerSound(player, soundEvent);
+            else
+                MuseLogger.logError("Sound event not found for " + location.toString());
         }
     }
 

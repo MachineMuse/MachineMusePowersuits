@@ -44,7 +44,7 @@ public class TerminalHandler implements
     @Optional.Method(modid = "appliedenergistics2")
     @Override
     public boolean usePower(EntityPlayer entityPlayer, double v, @Nonnull ItemStack itemStack) {
-        if ((v * MPSConfig.INSTANCE.getAE2Ratio()) < (ElectricItemUtils.getMaxPlayerEnergy(entityPlayer) * MPSConfig.INSTANCE.getAE2Ratio())) {
+        if ((v * MPSConfig.INSTANCE.getAE2Ratio()) < (ElectricItemUtils.getPlayerEnergy(entityPlayer) * MPSConfig.INSTANCE.getAE2Ratio())) {
             ElectricItemUtils.drainPlayerEnergy(entityPlayer, (int) (v * MPSConfig.INSTANCE.getAE2Ratio()));
             return true;
         }
@@ -54,7 +54,7 @@ public class TerminalHandler implements
     @Optional.Method(modid = "appliedenergistics2")
     @Override
     public boolean hasPower(EntityPlayer entityPlayer, double v, @Nonnull ItemStack itemStack) {
-        return ((v * MPSConfig.INSTANCE.getAE2Ratio()) < (ElectricItemUtils.getMaxPlayerEnergy(entityPlayer) * MPSConfig.INSTANCE.getAE2Ratio()));
+        return ((v * MPSConfig.INSTANCE.getAE2Ratio()) < (ElectricItemUtils.getPlayerEnergy(entityPlayer) * MPSConfig.INSTANCE.getAE2Ratio()));
     }
 
     @Optional.Method(modid = "extracells")

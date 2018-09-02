@@ -58,7 +58,7 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
             try {
                 double range = 64;
                 int energyConsumption = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.LIGHTNING_ENERGY_CONSUMPTION);
-                if (energyConsumption < ElectricItemUtils.getMaxPlayerEnergy(playerIn)) {
+                if (energyConsumption < ElectricItemUtils.getPlayerEnergy(playerIn)) {
                     ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
                     MuseHeatUtils.heatPlayer(playerIn, ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.HEAT_EMISSION));
                     RayTraceResult raytraceResult = MusePlayerUtils.doCustomRayTrace(playerIn.world, playerIn, true, range);

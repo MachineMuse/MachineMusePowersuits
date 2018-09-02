@@ -1,8 +1,10 @@
 package net.machinemuse.powersuits.common;
 
-import net.machinemuse.powersuits.client.gui.PortableCraftingContainer;
-import net.machinemuse.powersuits.client.gui.PortableCraftingGui;
-import net.machinemuse.powersuits.client.gui.tinker.*;
+import net.machinemuse.powersuits.common.gui.PortableCraftingContainer;
+import net.machinemuse.powersuits.common.gui.PortableCraftingGui;
+import net.machinemuse.powersuits.common.gui.ScannerContainer;
+import net.machinemuse.powersuits.common.gui.ScannerGUI;
+import net.machinemuse.powersuits.common.gui.tinker.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -25,13 +27,16 @@ public enum MPSGuiHandler implements IGuiHandler {
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID == 4)
             return new PortableCraftingContainer(player.inventory, world, new BlockPos(x,y,z));
+        if (ID ==6) {
+            return new ScannerContainer(player, player.getActiveHand());
+        }
         return null;
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-//        Minecraft.getMinecraft().player.addStat(AchievementList.OPEN_INVENTORY, 1);
+        //        Minecraft.getMinecraft().player.addStat(AchievementList.OPEN_INVENTORY, 1);
         switch (ID) {
             case 0:
                 return new GuiTinkerTable(player, x, y, z);
@@ -45,6 +50,8 @@ public enum MPSGuiHandler implements IGuiHandler {
                 return new PortableCraftingGui(player, world, new BlockPos(x,y,z));
             case 5:
             	return new GuiModeSelector(player);
+            case 6:
+                return new ScannerGUI(new ScannerContainer(player, player.getActiveHand()));
             default:
                 return null;
         }

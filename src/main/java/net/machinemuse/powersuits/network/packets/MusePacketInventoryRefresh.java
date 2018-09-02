@@ -3,7 +3,7 @@
 //import io.netty.buffer.ByteBufInputStream;
 //import net.machinemuse.numina.network.IMusePackager;
 //import net.machinemuse.numina.network.MusePacket;
-//import net.machinemuse.powersuits.client.gui.MuseGui;
+//import net.machinemuse.powersuits.common.gui.MuseGui;
 //import net.minecraft.client.Minecraft;
 //import net.minecraft.entity.player.EntityPlayer;
 //import net.minecraft.inventory.IInventory;

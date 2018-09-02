@@ -66,7 +66,7 @@ public class MPSModules {
         addModule(new BlinkDriveModule(TOOLONLY));
         addModule(new AquaAffinityModule(TOOLONLY));
         addModule(new InPlaceAssemblerModule(TOOLONLY));
-//        addModule(new OreScannerModule(TOOLONLY));
+//        addModule(new OreScannerModule(TOOLONLY)); Enabled by mod compat as "Scannable" module
         addModule(new LeafBlowerModule(TOOLONLY));
         addModule(new FlintAndSteelModule(TOOLONLY));
         addModule(new LightningModule(TOOLONLY));

@@ -52,7 +52,7 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
         SoundEvent enderman_portal =  SoundEvent.REGISTRY.getObject(new ResourceLocation("entity.endermen.teleport"));
         int range = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.BLINK_DRIVE_RANGE);
         int energyConsumption = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.BLINK_DRIVE_ENERGY_CONSUMPTION);
-        if (ElectricItemUtils.getMaxPlayerEnergy(playerIn) > energyConsumption) {
+        if (ElectricItemUtils.getPlayerEnergy(playerIn) > energyConsumption) {
             NuminaPlayerUtils.resetFloatKickTicks(playerIn);
             ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
             worldIn.playSound(playerIn, playerIn.getPosition(), enderman_portal, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));

@@ -38,7 +38,7 @@ public class ElectricItemUtils {
         if (maxCharge == charge)
             return;
 
-        int playerEnergy = getMaxPlayerEnergy(player);
+        int playerEnergy = getPlayerEnergy(player);
         if (playerEnergy > (maxCharge - charge)) {
             adapter.receiveEnergy(maxCharge - charge, false);
             drainPlayerEnergy(player, maxCharge - charge);
@@ -62,14 +62,14 @@ public class ElectricItemUtils {
         return 0;
     }
 
-    public static int getMaxPlayerEnergy(EntityPlayer player) {
+    public static int getPlayerEnergy(EntityPlayer player) {
         int avail = 0;
         for (ElectricAdapter adapter: electricItemsEquipped(player))
             avail += adapter.getEnergyStored();
         return avail;
     }
 
-    public static int getMaxEnergy(EntityPlayer player) {
+    public static int getMaxPlayerEnergy(EntityPlayer player) {
         int avail = 0;
         for (ElectricAdapter adapter: electricItemsEquipped(player))
             avail += adapter.getMaxEnergyStored();

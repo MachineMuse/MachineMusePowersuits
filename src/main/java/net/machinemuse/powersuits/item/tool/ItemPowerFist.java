@@ -88,8 +88,6 @@ public class ItemPowerFist extends MPSItemElectricTool
         this.setCreativeTab(MPSConfig.INSTANCE.mpsCreativeTab);
     }
 
-
-
     /**
      * FORGE: Overridden to allow custom tool effectiveness
      */
@@ -111,7 +109,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         if (entityDoingHitting instanceof EntityPlayer && ModuleManager.INSTANCE.itemHasActiveModule(stack, MPSModuleConstants.MODULE_MELEE_ASSIST__DATANAME)) {
             EntityPlayer player = (EntityPlayer) entityDoingHitting;
             double drain = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.PUNCH_ENERGY);
-            if (ElectricItemUtils.getMaxPlayerEnergy(player) > drain) {
+            if (ElectricItemUtils.getPlayerEnergy(player) > drain) {
                 ElectricItemUtils.drainPlayerEnergy(player, (int) drain);
                 double damage = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.PUNCH_DAMAGE);
                 double knockback = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.PUNCH_KNOCKBACK);
@@ -204,7 +202,7 @@ public class ItemPowerFist extends MPSItemElectricTool
      * How long it takes to use or consume an item
      */
     @Override
-    public int getMaxItemUseDuration(ItemStack par1ItemStack) {
+    public int getMaxItemUseDuration(ItemStack itemStack) {
         return 72000;
     }
 

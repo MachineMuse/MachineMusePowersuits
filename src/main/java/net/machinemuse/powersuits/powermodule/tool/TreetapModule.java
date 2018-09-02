@@ -85,7 +85,7 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
         try {
             // IC2 Classic
             if (isIC2Classic) {
-                if (block == rubber_wood && ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION) < ElectricItemUtils.getMaxPlayerEnergy(player)) {
+                if (block == rubber_wood && ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION) < ElectricItemUtils.getPlayerEnergy(player)) {
                     if (attemptExtract.invoke( "attemptExtract", null, player, world, pos, facing, null).equals(true)) {
                         ElectricItemUtils.drainPlayerEnergy(player, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION));
                         return EnumActionResult.SUCCESS;
@@ -94,7 +94,7 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
             }
             // IC2 Experimental
             else {
-                if (block == rubber_wood && ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION) < ElectricItemUtils.getMaxPlayerEnergy(player)) {
+                if (block == rubber_wood && ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION) < ElectricItemUtils.getPlayerEnergy(player)) {
                     if (attemptExtract.invoke( "attemptExtract", player, world, pos, facing, state, null).equals(true)) {
                         ElectricItemUtils.drainPlayerEnergy(player, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION));
                         return EnumActionResult.SUCCESS;

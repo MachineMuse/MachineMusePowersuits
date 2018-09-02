@@ -72,7 +72,7 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
                 return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
             }
 
-            int energy = (int)MuseMathUtils.clampDouble(ElectricItemUtils.getMaxPlayerEnergy(playerIn) * MPSConfig.INSTANCE.getRSRatio(), 0, 3500);
+            int energy = (int)MuseMathUtils.clampDouble(ElectricItemUtils.getPlayerEnergy(playerIn) * MPSConfig.INSTANCE.getRSRatio(), 0, 3500);
             tag.setInteger("Energy", energy);
             emulatedTool.setTagCompound(tag);
             ActionResult result = emulatedTool.getItem().onItemRightClick(worldIn, playerIn, hand);
