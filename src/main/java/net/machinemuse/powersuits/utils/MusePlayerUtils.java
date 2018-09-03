@@ -28,20 +28,22 @@ public class MusePlayerUtils {
     static final double root2 = Math.sqrt(2);
 
     public static RayTraceResult raytraceEntities(World world, EntityPlayer player, boolean collisionFlag, double reachDistance) {
-
         RayTraceResult pickedEntity = null;
         Vec3d playerPosition = new Vec3d(player.posX, player.posY + player.getEyeHeight(), player.posZ);
         Vec3d playerLook = player.getLookVec();
+        Vec3d playerViewOffset = new Vec3d(
+                playerPosition.x + playerLook.x * reachDistance,
+                playerPosition.y + playerLook.y * reachDistance,
+                playerPosition.z + playerLook.z * reachDistance);
 
-        Vec3d playerViewOffset = new Vec3d(playerPosition.x + playerLook.x * reachDistance, playerPosition.y
-                + playerLook.y * reachDistance, playerPosition.z + playerLook.z * reachDistance);
+        //FIXME: reverted to an older boxToScan because newer one did not change based on direction facing for some reason
+//        double playerBorder = 1.1 * reachDistance;
+//        AxisAlignedBB boxToScan = player.getEntityBoundingBox().expand(playerBorder, playerBorder, playerBorder);
 
-        double playerBorder = 1.1 * reachDistance;
-        AxisAlignedBB boxToScan = player.getEntityBoundingBox().expand(playerBorder, playerBorder, playerBorder);
-        // AxisAlignedBB boxToScan =
-        // player.boundingBox.addCoord(playerLook.xCoord * reachDistance,
-        // playerLook.yCoord * reachDistance, playerLook.zCoord
-        // * reachDistance);
+        AxisAlignedBB boxToScan =
+                player.getEntityBoundingBox().expand(playerLook.x * reachDistance,
+                        playerLook.y * reachDistance, playerLook.z
+                                * reachDistance);
 
         List entitiesHit = world.getEntitiesWithinAABBExcludingEntity(player, boxToScan);
         double closestEntity = reachDistance;
@@ -54,7 +56,6 @@ public class MusePlayerUtils {
                 float border = entityHit.getCollisionBorderSize();
                 AxisAlignedBB aabb = entityHit.getEntityBoundingBox().expand((double) border, (double) border, (double) border);
                 RayTraceResult raytraceResult = aabb.calculateIntercept(playerPosition, playerViewOffset);
-
                 if (raytraceResult != null) {
                     if (aabb.contains(playerPosition)) {
                         if (0.0D < closestEntity || closestEntity == 0.0D) {
@@ -92,7 +93,6 @@ public class MusePlayerUtils {
         // Somehow this destroys the playerPosition vector -.-
         RayTraceResult pickedBlock = raytraceBlocks(world, player, collisionFlag, reachDistance);
         RayTraceResult pickedEntity = raytraceEntities(world, player, collisionFlag, reachDistance);
-
         if (pickedBlock == null) {
             return pickedEntity;
         } else if (pickedEntity == null) {

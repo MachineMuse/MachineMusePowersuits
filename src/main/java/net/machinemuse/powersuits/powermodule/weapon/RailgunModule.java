@@ -90,6 +90,10 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
                 double knockback = damage / 20.0;
                 Vec3d lookVec = playerIn.getLookVec();
                 if (hitMOP != null) {
+                    System.out.println("type of hit: " + hitMOP.typeOfHit.name());
+                    System.out.println("hit location: " + hitMOP.hitVec.toString());
+
+
                     switch (hitMOP.typeOfHit) {
                         case ENTITY:
                             drawParticleStreamTo(playerIn, worldIn, hitMOP.hitVec.x, hitMOP.hitVec.y, hitMOP.hitVec.z);
@@ -106,7 +110,11 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
                     }
                     playerIn.addVelocity(-lookVec.x * knockback, Math.abs(-lookVec.y + 0.2f) * knockback, -lookVec.z * knockback);
 
-                    worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
+//                    worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
+                    // FIxme: testing different sound
+                    worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
+
+
                 }
                 playerIn.setActiveHand(hand);
                 return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);

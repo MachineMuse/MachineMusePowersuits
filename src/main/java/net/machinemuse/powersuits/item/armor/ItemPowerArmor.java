@@ -135,8 +135,11 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
         if (equipmentSlot == this.armorType) {
             multimap.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), new AttributeModifier(ARMOR_MODIFIERS[equipmentSlot.getIndex()], SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), 0.25, 0));
-        }
 
+                // TODo:
+//            multimap.put(SharedMonsterAttributes.ARMOR_TOUGHNESS.getName(), new AttributeModifier(ARMOR_MODIFIERS[equipmentSlot.getIndex()], "Armor toughness", (double)this.toughness, 0));
+
+        }
         return multimap;
     }
 

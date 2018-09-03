@@ -49,8 +49,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
         addBasePropertyDouble(MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 1, "%");
         addTradeoffPropertyDouble("Walking Assist", MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 1);
 
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
-        addIntTradeoffProperty(MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 4);
     }
 
     @Override
@@ -122,6 +121,11 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
             modifiers.appendTag(new AttributeModifier(0, TAGUUID, 0.25,
                     SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(),
                     SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), EntityEquipmentSlot.LEGS).toNBT());
+
+//            // testing this
+//            modifiers.appendTag(new AttributeModifier(0, TAGUUID, 2.25,
+//                    SharedMonsterAttributes.ARMOR_TOUGHNESS.getName(),
+//                    SharedMonsterAttributes.ARMOR_TOUGHNESS.getName(), EntityEquipmentSlot.LEGS).toNBT());
         }
     }
 

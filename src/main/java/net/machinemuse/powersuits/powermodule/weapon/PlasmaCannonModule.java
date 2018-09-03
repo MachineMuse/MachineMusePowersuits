@@ -76,13 +76,6 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
     public void onPlayerStoppedUsing(ItemStack itemStack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
         int chargeTicks = (int) MuseMathUtils.clampDouble(itemStack.getMaxItemUseDuration() - timeLeft, 10, 50);
 
-
-        System.out.println();
-        System.out.println("time left: " + timeLeft);
-        System.out.println("max use duration: " + itemStack.getMaxItemUseDuration());
-        System.out.println("charge ticks: " + chargeTicks);
-
-
         if (!worldIn.isRemote) {
             double energyConsumption = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.PLASMA_CANNON_ENERGY_PER_TICK) * chargeTicks;
             if (entityLiving instanceof EntityPlayer) {

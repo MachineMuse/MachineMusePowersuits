@@ -87,6 +87,7 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
         return EnumActionResult.PASS;
     }
 
+    /** Everything below this line ported/copied from li/cil/scannable/common/item/ItemScanner -------------------------------------------------------------------------- */
     @Override
     public ActionResult onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         if (playerIn.isSneaking()) {
@@ -220,9 +221,6 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
      * The boolean value indicates whether or not there is any module installed into the scanner that returns a scan result.
      * Some modules, like the range extender, do not return a scan result, but are still valid modules. So this is probably
      * the simplest way of doing this.
-     *
-     * Coppied from li/cil/scannable/common/item/ItemScanner
-     *
      */
     private static boolean collectModules(final ItemStack stack, final List<ItemStack> modules) {
         boolean hasProvider = false;
