@@ -5,6 +5,8 @@ import net.machinemuse.powersuits.common.gui.MuseGui;
 import net.machinemuse.powersuits.common.gui.tinker.frame.KeybindConfigFrame;
 import net.machinemuse.powersuits.common.gui.tinker.frame.TabSelectFrame;
 import net.machinemuse.powersuits.control.KeybindManager;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 
 import java.io.IOException;
@@ -20,8 +22,14 @@ public class KeyConfigGui extends MuseGui {
         super();
         KeybindManager.readInKeybinds();
         this.player = player;
-        this.xSize = 256;
-        this.ySize = 226;
+//        this.xSize = 256;
+//        this.ySize = 226;
+//        this.xSize = 400;
+//        this.ySize = 244;
+        ScaledResolution screen = new ScaledResolution(Minecraft.getMinecraft());
+        this.xSize = screen.getScaledWidth() - 50;
+        this.ySize = screen.getScaledHeight() - 50;
+        
         this.worldx = x;
         this.worldy = y;
         this.worldz = z;

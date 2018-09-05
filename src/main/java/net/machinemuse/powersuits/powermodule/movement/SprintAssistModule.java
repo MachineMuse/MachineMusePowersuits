@@ -5,6 +5,7 @@ import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
@@ -27,17 +28,14 @@ import java.util.Objects;
  * Ported by leon on 10/18/16.
  */
 public class SprintAssistModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
-
-    public static final UUID TAGUUID = new UUID(-7931854408382894632L, -8160638015224787553L);
-
     public SprintAssistModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 4));
 
         addBasePropertyDouble(MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 0, "RF");
-        addTradeoffPropertyDouble("Power", MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 100);
-        addBasePropertyDouble(MPSModuleConstants.SPRINT_SPEED_MULTIPLIER, 1, "%");
-        addTradeoffPropertyDouble("Power", MPSModuleConstants.SPRINT_SPEED_MULTIPLIER, 2);
+        addTradeoffPropertyDouble("Sprint Assist", MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 100);
+        addBasePropertyDouble(MPSModuleConstants.SPRINT_SPEED_MULTIPLIER, .01, "%");
+        addTradeoffPropertyDouble("Sprint Assist", MPSModuleConstants.SPRINT_SPEED_MULTIPLIER, 2.49);
 
         addBasePropertyDouble(MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 0, "RF");
         addTradeoffPropertyDouble("Compensation", MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 20);
@@ -46,8 +44,8 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
 
         addBasePropertyDouble(MPSModuleConstants.WALKING_ENERGY_CONSUMPTION, 0, "RF");
         addTradeoffPropertyDouble("Walking Assist", MPSModuleConstants.WALKING_ENERGY_CONSUMPTION, 100);
-        addBasePropertyDouble(MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 1, "%");
-        addTradeoffPropertyDouble("Walking Assist", MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 1);
+        addBasePropertyDouble(MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 0.01, "%");
+        addTradeoffPropertyDouble("Walking Assist", MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 1.99);
 
         addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 4);
     }
@@ -65,7 +63,8 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
                         double sprintMultiplier = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.SPRINT_SPEED_MULTIPLIER);
                         double exhaustionComp = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.SPRINT_FOOD_COMPENSATION);
                         ElectricItemUtils.drainPlayerEnergy(player, (int) (sprintCost * horzMovement * 5));
-                        setMovementModifier(item, sprintMultiplier * 1.2);
+                        setMovementModifier(item, sprintMultiplier);
+                        player.capabilities.setPlayerWalkSpeed((float) 0.1);
                         player.getFoodStats().addExhaustion((float) (-0.01 * exhaustion * exhaustionComp));
                         player.jumpMovementFactor = player.getAIMoveSpeed() * .2f;
                     }
@@ -74,6 +73,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
                     if (cost < totalEnergy) {
                         double walkMultiplier = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.WALKING_SPEED_MULTIPLIER);
                         ElectricItemUtils.drainPlayerEnergy(player, (int) (cost * horzMovement * 5));
+                        player.capabilities.setPlayerWalkSpeed((float) 0.1);
                         setMovementModifier(item, walkMultiplier);
                         player.jumpMovementFactor = player.getAIMoveSpeed() * .2f;
                     }
@@ -86,48 +86,18 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack itemStack) {
         if (!itemStack.isEmpty() && itemStack.getItem() instanceof ItemPowerArmorLeggings) {
-            NBTTagList modifiers = itemStack.getTagCompound().getTagList("AttributeModifiers", Constants.NBT.TAG_COMPOUND);
-            if (!modifiers.hasNoTags()) {
-                for (int i = 0; i < modifiers.tagCount(); i++) {
-                    NBTTagCompound tag = modifiers.getCompoundTagAt(i);
-                    if (Objects.equals(new net.machinemuse.powersuits.powermodule.movement.AttributeModifier(tag).name, "Sprint Assist")) {
-                        tag.setDouble("Amount", 0);
-                    }
-                }
-            }
+            // TODO: remove or add config option. Only needed for cleanup of old tag
+            NBTTagCompound itemTag = itemStack.getTagCompound();
+            itemTag.removeTag("AttributeModifiers");
+
+            MuseNBTUtils.getMuseItemTag(itemStack).setDouble(MPSModuleConstants.TAG_SPRINT_ASSIST_VALUE, 0);
         }
     }
 
-    public void setMovementModifier(ItemStack item, double multiplier) {
-        NBTTagList modifiers = item.getTagCompound().getTagList("AttributeModifiers", Constants.NBT.TAG_COMPOUND);
-        NBTTagCompound sprintModifiers = new NBTTagCompound();
-        item.getTagCompound().setTag("AttributeModifiers", modifiers);
-        for (int i = 0; i < modifiers.tagCount(); i++) {
-            NBTTagCompound tag = modifiers.getCompoundTagAt(i);
-            if (Objects.equals(new AttributeModifier(tag).name, "Sprint Assist")) {
-                sprintModifiers = tag;
-                sprintModifiers.setInteger("Operation", 1);
-                sprintModifiers.setDouble("Amount", multiplier - 1);
-                sprintModifiers.setString("Slot", EntityEquipmentSlot.LEGS.getName());
-            }
-        }
-
-        //TODO: fix this so knockback does not have to be readded
-        // this should be when first created
-        if (sprintModifiers.hasNoTags()) {
-            modifiers.appendTag(new AttributeModifier(1, TAGUUID, multiplier - 1, "generic.movementSpeed", "Sprint Assist", EntityEquipmentSlot.LEGS).toNBT());
-
-            // add knockback resistance back because it doesn't show in tooltip after AttributeModifiers tag is added
-            modifiers.appendTag(new AttributeModifier(0, TAGUUID, 0.25,
-                    SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(),
-                    SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), EntityEquipmentSlot.LEGS).toNBT());
-
-//            // testing this
-//            modifiers.appendTag(new AttributeModifier(0, TAGUUID, 2.25,
-//                    SharedMonsterAttributes.ARMOR_TOUGHNESS.getName(),
-//                    SharedMonsterAttributes.ARMOR_TOUGHNESS.getName(), EntityEquipmentSlot.LEGS).toNBT());
-        }
+    public void setMovementModifier(ItemStack itemStack, double multiplier) {
+        MuseNBTUtils.getMuseItemTag(itemStack).setDouble(MPSModuleConstants.TAG_SPRINT_ASSIST_VALUE, multiplier);
     }
+
 
     @Override
     public EnumModuleCategory getCategory() {

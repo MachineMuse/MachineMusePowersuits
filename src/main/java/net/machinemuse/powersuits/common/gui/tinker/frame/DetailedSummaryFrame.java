@@ -23,12 +23,17 @@ public class DetailedSummaryFrame extends ScrollableFrame {
     protected int slotPoints;
     protected int energy;
     protected double armor;
+    protected ItemSelectionFrame itemSelectionFrame;
 
-    public DetailedSummaryFrame(EntityPlayer player, MusePoint2D topleft,
+    public DetailedSummaryFrame(EntityPlayer player,
+                                MusePoint2D topleft,
                                 MusePoint2D bottomright,
-                                Colour borderColour, Colour insideColour) {
+                                Colour borderColour,
+                                Colour insideColour,
+                                ItemSelectionFrame itemSelectionFrame) {
         super(topleft.times(1.0 / SCALEFACTOR), bottomright.times(1.0 / SCALEFACTOR), borderColour, insideColour);
         this.player = player;
+        this.itemSelectionFrame = itemSelectionFrame;
     }
 
     @Override
@@ -37,11 +42,13 @@ public class DetailedSummaryFrame extends ScrollableFrame {
         armor = 0;
         slotPoints = 0;
 
+        if (itemSelectionFrame.getSelectedItem() != null) {
+            slotPoints += (int)ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemSelectionFrame.getSelectedItem().getItem(), MPSModuleConstants.SLOT_POINTS);
+        }
+
         for(ItemStack stack : MuseItemUtils.modularItemsEquipped(player)) {
             energy += (int)ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
-            slotPoints += (int)ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.SLOT_POINTS);
-
-
+//            slotPoints += (int)ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.SLOT_POINTS);
             armor += ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_VALUE_PHYSICAL);
             armor += ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_VALUE_ENERGY);
         }
@@ -70,26 +77,22 @@ public class DetailedSummaryFrame extends ScrollableFrame {
             MuseRenderer.drawRightAlignedString(formattedValue, border.right() - margin, nexty + 9 * (namesList.size() - 1) / 2);
             nexty += 10*namesList.size()+1;
 
-            // FIXME: no max slot points set yet
             // Slot points
-
-
-            //----
-            formattedValue = MuseStringUtils.wrapFormatTags(MuseStringUtils.formatNumberFromUnits(slotPoints, "pts"), MuseStringUtils.FormatCodes.BrightGreen);
-
-            //------
-//            formattedValue = MuseStringUtils.wrapFormatTags(MuseStringUtils.formatNumberFromUnits(weight, PowerModuleBase.getUnit(MPSModuleConstants.WEIGHT)), weight > MPSConfig.INSTANCE.getWeightCapacity() ? MuseStringUtils.FormatCodes.Red : MuseStringUtils.FormatCodes.BrightGreen);
-            name = I18n.format("gui.slotpoints");
-            valueWidth = MuseRenderer.getStringWidth(formattedValue);
-            allowedNameWidth = border.width() - valueWidth - margin * 2;
-            namesList = MuseStringUtils.wrapStringToVisualLength(name, allowedNameWidth);
-            assert namesList != null;
-            for(int i = 0; i<namesList.size(); i++) {
-                MuseRenderer.drawString(namesList.get(i), border.left() + margin, nexty + 9*i);
+            if (slotPoints > 0) {
+                formattedValue = MuseStringUtils.wrapFormatTags(MuseStringUtils.formatNumberFromUnits(slotPoints, "pts"), MuseStringUtils.FormatCodes.BrightGreen);
+                name = I18n.format("gui.slotpoints");
+                valueWidth = MuseRenderer.getStringWidth(formattedValue);
+                allowedNameWidth = border.width() - valueWidth - margin * 2;
+                namesList = MuseStringUtils.wrapStringToVisualLength(name, allowedNameWidth);
+                assert namesList != null;
+                for (int i = 0; i < namesList.size(); i++) {
+                    MuseRenderer.drawString(namesList.get(i), border.left() + margin, nexty + 9 * i);
+                }
+                MuseRenderer.drawRightAlignedString(formattedValue, border.right() - margin, nexty + 9 * (namesList.size() - 1) / 2);
+                nexty += 10 * namesList.size() + 1;
             }
-            MuseRenderer.drawRightAlignedString(formattedValue, border.right() - margin, nexty + 9 * (namesList.size() - 1) / 2);
-            nexty += 10*namesList.size()+1;
 
+            // Armor points
             formattedValue = MuseStringUtils.formatNumberFromUnits(armor, "pts");
             name = I18n.format("gui.armor");
             valueWidth = MuseRenderer.getStringWidth(formattedValue);
@@ -107,19 +110,14 @@ public class DetailedSummaryFrame extends ScrollableFrame {
 
     @Override
     public void onMouseDown(double x, double y, int button) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void onMouseUp(double x, double y, int button) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public List<String> getToolTip(int x, int y) {
-        // TODO Auto-generated method stub
         return null;
     }
 }

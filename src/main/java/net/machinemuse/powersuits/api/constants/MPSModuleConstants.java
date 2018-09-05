@@ -103,6 +103,7 @@ public class MPSModuleConstants {
 
 
     // Movement -----------------------------------------------------------------------------------
+    public static final String TAG_SPRINT_ASSIST_VALUE = "someArbitraryTag";
     public static final String BLINK_DRIVE_ENERGY_CONSUMPTION = "Blink Drive Energy Consuption";
     public static final String BLINK_DRIVE_RANGE = "Blink Drive Range";
     public static final String FLIGHT_VERTICALITY = "Y-look ratio";

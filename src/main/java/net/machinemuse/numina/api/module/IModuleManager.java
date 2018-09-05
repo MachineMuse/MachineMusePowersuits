@@ -2,6 +2,7 @@ package net.machinemuse.numina.api.module;
 
 import net.machinemuse.numina.api.item.IModeChangingItem;
 import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -186,8 +187,7 @@ public interface IModuleManager {
             return false;
         }
         if (module instanceof IRightClickModule && itemStack.getItem() instanceof IModeChangingItem) {
-            // MuseLogger.logDebug("Module: " + moduleName + " vs Mode: " +
-            // MuseItemUtils.getActiveMode(itemStack));
+//             MuseLogger.logDebug("Module: " + moduleName + " vs Mode: " + ((IModeChangingItem) itemStack.getItem()).getActiveMode(itemStack));
             IModeChangingItem item = (IModeChangingItem) itemStack.getItem();
 
             return moduleName.equals(item.getActiveMode(itemStack));

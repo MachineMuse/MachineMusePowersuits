@@ -19,6 +19,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeDesert;
 import net.minecraft.world.chunk.Chunk;
 
 import java.lang.reflect.Field;
@@ -307,7 +308,7 @@ public class MusePlayerUtils {
         if ((int)player.posY > 128)
             cool += 0.5;
 
-        if (!player.world.isDaytime() && "Desert".equals(getBiome(player).getBiomeName())) { // If nighttime and in the desert, increase cooling
+        if (!player.world.isDaytime() && getBiome(player) instanceof BiomeDesert) { // If nighttime and in the desert, increase cooling
             cool += 0.8;
         }
 
@@ -319,7 +320,9 @@ public class MusePlayerUtils {
 
     public static Biome getBiome(EntityPlayer player) {
         Chunk chunk = player.world.getChunkFromBlockCoords(player.getPosition());
-        return chunk.getBiome(new BlockPos((int) player.posX & 15, player.posY, (int) player.posZ & 15), player.world.getBiomeProvider());
+        return chunk.getBiome(player.getPosition(), player.world.getBiomeProvider());
+
+//        return chunk.getBiome(new BlockPos((int) player.posX & 15, player.posY, (int) player.posZ & 15), player.world.getBiomeProvider());
     }
 
     public static void setFOVMult(EntityPlayer player, float fovmult) {

@@ -5,6 +5,8 @@ import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRect;
 import net.machinemuse.powersuits.common.gui.MuseGui;
 import net.machinemuse.powersuits.common.gui.tinker.frame.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -20,15 +22,21 @@ public class CosmeticGui extends MuseGui {
     int worldy;
     int worldz;
     ItemSelectionFrame itemSelect;
-    ItemStack lastSelectedItem;
+//    ItemStack lastSelectedItem;
 
     public CosmeticGui(EntityPlayer player, int worldx, int worldy, int worldz) {
         this.player = player;
         this.worldx = worldx;
         this.worldy = worldy;
         this.worldz = worldz;
-        this.xSize = 256;
-        this.ySize = 200;
+//        this.xSize = 256;
+//        this.ySize = 200;
+//        this.xSize = 400;
+//        this.ySize = 244;
+
+        ScaledResolution screen = new ScaledResolution(Minecraft.getMinecraft());
+        this.xSize = Math.min(screen.getScaledWidth() - 50, 500);
+        this.ySize = Math.min(screen.getScaledHeight() - 50, 300);
     }
 
     /**

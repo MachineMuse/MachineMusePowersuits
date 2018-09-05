@@ -16,8 +16,4 @@ public class PortableCraftingContainer extends ContainerWorkbench {
     public boolean canInteractWith(EntityPlayer player) {
         return true;
     }
-
-    public void onCraftGuiClosed(EntityPlayer player) {
-        super.onContainerClosed(player);
-    }
 }

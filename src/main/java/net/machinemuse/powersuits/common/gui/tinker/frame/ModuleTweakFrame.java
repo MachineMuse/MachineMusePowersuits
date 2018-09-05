@@ -34,9 +34,12 @@ public class ModuleTweakFrame extends ScrollableFrame {
 
     public ModuleTweakFrame(
             EntityPlayerSP player,
-            MusePoint2D topleft, MusePoint2D bottomright,
-            Colour borderColour, Colour insideColour,
-            ItemSelectionFrame itemTarget, ModuleSelectionFrame moduleTarget) {
+            MusePoint2D topleft,
+            MusePoint2D bottomright,
+            Colour borderColour,
+            Colour insideColour,
+            ItemSelectionFrame itemTarget,
+            ModuleSelectionFrame moduleTarget) {
         super(topleft.times(1 / SCALERATIO), bottomright.times(1 / SCALERATIO), borderColour, insideColour);
         this.itemTarget = itemTarget;
         this.moduleTarget = moduleTarget;

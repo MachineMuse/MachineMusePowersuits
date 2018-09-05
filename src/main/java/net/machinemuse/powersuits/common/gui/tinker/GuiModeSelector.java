@@ -4,6 +4,7 @@ import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.powersuits.common.gui.MuseGui;
 import net.machinemuse.powersuits.common.gui.hud.RadialSelectionFrame;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.input.Keyboard;
 
@@ -15,8 +16,12 @@ public class GuiModeSelector extends MuseGui {
 
     public GuiModeSelector(EntityPlayer player) {
         this.player = player;
-        this.xSize = 256;
-        this.ySize = 200;
+//        this.xSize = 256;
+//        this.ySize = 200;
+// todo?
+        ScaledResolution screen = new ScaledResolution(Minecraft.getMinecraft());
+        this.xSize = Math.min(screen.getScaledWidth() - 50, 500);
+        this.ySize = Math.min(screen.getScaledHeight() - 50, 300);
     }
 
     /**

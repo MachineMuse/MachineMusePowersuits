@@ -137,7 +137,7 @@ public abstract class MusePacket {
     public void writeNBTTagCompound(final NBTTagCompound nbt) {
         try {
             if (nbt == null || nbt.hasNoTags()) {
-                System.out.println("NBT is null or has no tags");
+//                System.out.println("NBT is null or has no tags");
                 this.bytesOut.writeInt(-1);
             }
             else {

@@ -1,6 +1,8 @@
 package net.machinemuse.powersuits.network.packets;
 
 import io.netty.buffer.ByteBufInputStream;
+import net.machinemuse.numina.api.item.IModeChangingItem;
+import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
@@ -51,11 +53,14 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
             NonNullList<ItemStack> refund = ModuleManager.INSTANCE.getInstallCost(moduleName);
             if (ModuleManager.INSTANCE.itemHasModule(stack, moduleName)) {
                 MuseNBTUtils.removeMuseValuesTag(stack);
-
                 ModuleManager.INSTANCE.removeModule(stack, moduleName);
                 for (ItemStack refundItem : refund) {
                     MuseItemUtils.giveOrDropItemWithChance(refundItem.copy(), player, MPSConfig.INSTANCE.getSalvageChance());
                 }
+
+                if (stack.getItem() instanceof IModeChangingItem && ModuleManager.INSTANCE.getModule(moduleName) instanceof IRightClickModule)
+                    ((IModeChangingItem) stack.getItem()).setActiveMode(stack, "");
+
                 // use built in handler
                 player.inventoryContainer.detectAndSendChanges();
             }

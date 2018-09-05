@@ -50,6 +50,11 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
             UUID.randomUUID(),
             UUID.randomUUID()};
 
+    @Override
+    public boolean isDamageable() {
+        return false;
+    }
+
     public ItemPowerArmor(int renderIndex, EntityEquipmentSlot entityEquipmentSlot) {
         super(ItemArmor.ArmorMaterial.IRON, renderIndex, entityEquipmentSlot);
         this.setMaxStackSize(1);
@@ -130,15 +135,18 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
     }
 
     @Override
-    public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
-        Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
+    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+        Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+        if (slot == this.armorType) {
+            multimap.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), new AttributeModifier(ARMOR_MODIFIERS[slot.getIndex()], SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), 0.25, 0));
 
-        if (equipmentSlot == this.armorType) {
-            multimap.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), new AttributeModifier(ARMOR_MODIFIERS[equipmentSlot.getIndex()], SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), 0.25, 0));
+            if (ModuleManager.INSTANCE.itemHasActiveModule(stack, MPSModuleConstants.MODULE_DIAMOND_PLATING__DATANAME) || ModuleManager.INSTANCE.itemHasActiveModule(stack, MPSModuleConstants.MODULE_ENERGY_SHIELD__DATANAME)) {
+                multimap.put(SharedMonsterAttributes.ARMOR_TOUGHNESS.getName(), new AttributeModifier(ARMOR_MODIFIERS[slot.getIndex()], "Armor toughness", 2.5, 0));
+            }
 
-                // TODo:
-//            multimap.put(SharedMonsterAttributes.ARMOR_TOUGHNESS.getName(), new AttributeModifier(ARMOR_MODIFIERS[equipmentSlot.getIndex()], "Armor toughness", (double)this.toughness, 0));
-
+            if (slot == EntityEquipmentSlot.LEGS && ModuleManager.INSTANCE.itemHasActiveModule(stack, MPSModuleConstants.MODULE_SPRINT_ASSIST__DATANAME)) {
+                multimap.put(SharedMonsterAttributes.MOVEMENT_SPEED.getName(), new AttributeModifier(ARMOR_MODIFIERS[slot.getIndex()], "Sprint Assist", MuseItemUtils.getDoubleOrZero(stack, MPSModuleConstants.TAG_SPRINT_ASSIST_VALUE), 0));
+            }
         }
         return multimap;
     }
@@ -230,16 +238,14 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
     @Override
     public boolean showDurabilityBar(final ItemStack stack) {
-        return true;
+        int capacity = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
+        if (capacity> 0)
+            return true;
+        return false;
     }
 
     @Override
     public double getDurabilityForDisplay(final ItemStack stack) {
-//        final IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
-//        if (energyStorage == null) {
-//            return 1;
-//        }
-//        return 1 - energyStorage.getEnergyStored() / (float) energyStorage.getMaxEnergyStored();
         // removes annoying flicker
         int capacity = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
         int energy =  Math.min(capacity, (int) Math.round(MuseItemUtils.getDoubleOrZero(stack, NuminaNBTConstants.CURRENT_ENERGY)));

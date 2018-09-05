@@ -426,7 +426,10 @@ public class ItemPowerFist extends MPSItemElectricTool
 
     @Override
     public boolean showDurabilityBar(final ItemStack stack) {
-        return true;
+        int capacity = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
+        if (capacity> 0)
+            return true;
+        return false;
     }
 
     @Override

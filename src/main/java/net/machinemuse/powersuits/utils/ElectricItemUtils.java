@@ -76,22 +76,26 @@ public class ElectricItemUtils {
         return avail;
     }
 
-    public static void drainPlayerEnergy(EntityPlayer player, int drainAmount) {
+    public static int drainPlayerEnergy(EntityPlayer player, int drainAmount) {
         int drainleft = drainAmount;
-        for (ElectricAdapter adapter: electricItemsEquipped(player))
+        for (ElectricAdapter adapter: electricItemsEquipped(player)) {
             if (drainleft > 0)
                 drainleft = drainleft - adapter.extractEnergy(drainleft, false);
             else
                 break;
+        }
+        return drainAmount - drainleft;
     }
 
-    public static void givePlayerEnergy(EntityPlayer player, int rfToGive) {
+    public static int givePlayerEnergy(EntityPlayer player, int rfToGive) {
         int rfLeft = rfToGive;
-        for (ElectricAdapter adapter: electricItemsEquipped(player))
+        for (ElectricAdapter adapter: electricItemsEquipped(player)) {
             if (rfLeft > 0) {
                 rfLeft = rfLeft - adapter.receiveEnergy(rfLeft, false);
             } else
                 break;
+        }
+        return rfToGive - rfLeft;
     }
 
     public static int rfValueOfComponent(ItemStack stackInCost) {

@@ -59,7 +59,6 @@ public class MusePacketInstallModuleRequest extends MusePacket {
             NonNullList<ItemStack> cost = ModuleManager.INSTANCE.getInstallCost(moduleName);
             if ((!ModuleManager.INSTANCE.itemHasModule(stack, moduleName) && MuseItemUtils.hasInInventory(cost, player.inventory)) || player.capabilities.isCreativeMode) {
                 MuseNBTUtils.removeMuseValuesTag(stack);
-
                 ModuleManager.INSTANCE.itemAddModule(stack, moduleType);
                 for (ItemStack stackInCost : cost) {
                     ElectricItemUtils.givePlayerEnergy(player, ElectricItemUtils.rfValueOfComponent(stackInCost));

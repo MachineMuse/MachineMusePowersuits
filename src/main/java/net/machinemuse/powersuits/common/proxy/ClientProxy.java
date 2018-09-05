@@ -10,7 +10,7 @@ import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.KeybindKeyHandler;
 import net.machinemuse.powersuits.control.KeybindManager;
-import net.machinemuse.powersuits.event.ClientTickHandler;
+import net.machinemuse.powersuits.client.event.ClientTickHandler;
 import net.machinemuse.powersuits.event.PlayerUpdateHandler;
 import net.machinemuse.powersuits.event.RenderEventHandler;
 import net.minecraftforge.client.model.ModelLoaderRegistry;

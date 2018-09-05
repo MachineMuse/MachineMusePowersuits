@@ -90,10 +90,6 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
                 double knockback = damage / 20.0;
                 Vec3d lookVec = playerIn.getLookVec();
                 if (hitMOP != null) {
-                    System.out.println("type of hit: " + hitMOP.typeOfHit.name());
-                    System.out.println("hit location: " + hitMOP.hitVec.toString());
-
-
                     switch (hitMOP.typeOfHit) {
                         case ENTITY:
                             drawParticleStreamTo(playerIn, worldIn, hitMOP.hitVec.x, hitMOP.hitVec.y, hitMOP.hitVec.z);

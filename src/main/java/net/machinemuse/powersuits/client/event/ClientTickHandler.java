@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.event;
+package net.machinemuse.powersuits.client.event;
 
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.network.MusePacket;
@@ -54,7 +54,7 @@ public class ClientTickHandler {
 
     public ArrayList<String> modules;
     private boolean drawWaterMeter = false;
-    private boolean drawPlasmaMeter = false;
+//    private boolean drawPlasmaMeter = false;
 
     @SubscribeEvent
     public void onPreClientTick(TickEvent.ClientTickEvent event) {
