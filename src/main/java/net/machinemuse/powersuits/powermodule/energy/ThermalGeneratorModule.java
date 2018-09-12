@@ -4,6 +4,7 @@ package net.machinemuse.powersuits.powermodule.energy;
 import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
+import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
@@ -11,7 +12,6 @@ import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -53,7 +53,7 @@ public class ThermalGeneratorModule extends PowerModuleBase implements IPlayerTi
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         double currentHeat = MuseHeatUtils.getPlayerHeat(player);
-        double maxHeat = MuseHeatUtils.getMaxHeat(player);
+        double maxHeat = MuseHeatUtils.getPlayerMaxHeat(player);
         if (player.world.getTotalWorldTime() % 20 == 0) {
             if (player.isBurning()) {
                 ElectricItemUtils.givePlayerEnergy(player, (int) (4 * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.THERMAL_ENERGY_GENERATION)));

@@ -46,7 +46,7 @@ public class DetailedSummaryFrame extends ScrollableFrame {
             slotPoints += (int)ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemSelectionFrame.getSelectedItem().getItem(), MPSModuleConstants.SLOT_POINTS);
         }
 
-        for(ItemStack stack : MuseItemUtils.modularItemsEquipped(player)) {
+        for(ItemStack stack : MuseItemUtils.getModularItemsEquipped(player)) {
             energy += (int)ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
 //            slotPoints += (int)ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.SLOT_POINTS);
             armor += ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_VALUE_PHYSICAL);

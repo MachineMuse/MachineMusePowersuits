@@ -13,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 /**
  * Packet for requesting to purchase an upgrade. Player-to-server. Server
@@ -55,14 +56,11 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
                 MuseNBTUtils.removeMuseValuesTag(stack);
                 ModuleManager.INSTANCE.removeModule(stack, moduleName);
                 for (ItemStack refundItem : refund) {
-                    MuseItemUtils.giveOrDropItemWithChance(refundItem.copy(), player, MPSConfig.INSTANCE.getSalvageChance());
+                    MuseItemUtils.giveOrDropItemWithChance(player, refundItem.copy(), MPSConfig.INSTANCE.getSalvageChance());
                 }
 
                 if (stack.getItem() instanceof IModeChangingItem && ModuleManager.INSTANCE.getModule(moduleName) instanceof IRightClickModule)
                     ((IModeChangingItem) stack.getItem()).setActiveMode(stack, "");
-
-                // use built in handler
-                player.inventoryContainer.detectAndSendChanges();
             }
         }
     }

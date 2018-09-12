@@ -165,7 +165,6 @@ public class MusePlayerUtils {
             Vec3d desiredDirection = player.getLookVec().normalize();
             double strafeX = desiredDirection.z;
             double strafeZ = -desiredDirection.x;
-            double scaleStrafe = (strafeX * strafeX + strafeZ * strafeZ);
             double flightVerticality = 0;
             ItemStack helm = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);;
             if (!helm.isEmpty() && helm.getItem() instanceof IModularItem) {
@@ -277,14 +276,6 @@ public class MusePlayerUtils {
         return thrustUsed;
     }
 
-    public static double getWeightPenaltyRatio(double currentWeight, double capacity) {
-        if (currentWeight < capacity) {
-            return 1;
-        } else {
-            return capacity / currentWeight;
-        }
-    }
-
     public static EntityPlayer toPlayer(Object data) {
         EntityPlayer player = null;
         try {
@@ -297,6 +288,7 @@ public class MusePlayerUtils {
     }
 
     public static double getPlayerCoolingBasedOnMaterial(EntityPlayer player) {
+        // Fixme: heat player if in lava
         if (player.isInLava())
             return 0;
 
@@ -321,8 +313,6 @@ public class MusePlayerUtils {
     public static Biome getBiome(EntityPlayer player) {
         Chunk chunk = player.world.getChunkFromBlockCoords(player.getPosition());
         return chunk.getBiome(player.getPosition(), player.world.getBiomeProvider());
-
-//        return chunk.getBiome(new BlockPos((int) player.posX & 15, player.posY, (int) player.posZ & 15), player.world.getBiomeProvider());
     }
 
     public static void setFOVMult(EntityPlayer player, float fovmult) {

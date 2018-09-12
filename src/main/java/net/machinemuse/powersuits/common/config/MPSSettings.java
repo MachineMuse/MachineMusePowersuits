@@ -92,11 +92,25 @@ public class MPSSettings {
         @Config.RangeDouble(min = 0, max = 1.0)
         public double getSalvageChance = 0.9;
 
-        //TODO: eleiminate
-        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_HEAT)
-        @Config.Comment("ItemModuleBase Heat Cap")
-        public double baseMaxHeat = 50.0;
+        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_HEAT_POWERFIST)
+        @Config.Comment("PowerFist Base Heat Cap")
+        public double baseMaxHeatPowerFist = 5.0;
 
+        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_HEAT_HELMET)
+        @Config.Comment("Power Armor Helmet Heat Cap")
+        public double baseMaxHeatHelmet = 5.0;
+
+        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_HEAT_CHEST)
+        @Config.Comment("Power Armor Chestplate Heat Cap")
+        public double baseMaxHeatChest = 20.0;
+
+        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_HEAT_LEGS)
+        @Config.Comment("Power Armor Leggings Heat Cap")
+        public double baseMaxHeatLegs = 15.0;
+
+        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_HEAT_FEET)
+        @Config.Comment("ItemModuleBase Heat Cap")
+        public double baseMaxHeatFeet = 5.0;
     }
 
     /**

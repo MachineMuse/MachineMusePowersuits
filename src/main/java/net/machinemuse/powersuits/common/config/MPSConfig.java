@@ -2,12 +2,19 @@ package net.machinemuse.powersuits.common.config;
 
 import net.machinemuse.numina.common.Numina;
 import net.machinemuse.powersuits.common.MPSCreativeTab;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorHelmet;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorLeggings;
+import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import org.apache.commons.io.FileUtils;
 import org.lwjgl.input.Keyboard;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
@@ -65,10 +72,6 @@ public enum MPSConfig {
         return MPSSettings.hud.useGraphicalMeters;
     }
 
-
-
-
-
     /** General ----------------------------------------------------------------------------------- */
     // Client side settings
     public boolean use24hClock() {
@@ -88,11 +91,6 @@ public enum MPSConfig {
         return getServerSettings() != null ? getServerSettings().useOldAutoFeeder : MPSSettings.general.useOldAutoFeeder;
     }
 
-    // TODO: drop this
-    public double getWeightCapacity() {
-        return getServerSettings() != null ? getServerSettings().getWeightCapacity : MPSSettings.general.getWeightCapacity;
-    }
-
     public static double getMaximumArmorPerPiece() {
         return getServerSettings() != null ? getServerSettings().maximumArmorPerPiece : MPSSettings.general.getMaximumArmorPerPiece;
     }
@@ -102,8 +100,30 @@ public enum MPSConfig {
         return getServerSettings() != null ? getServerSettings().getSalvageChance : MPSSettings.general.getSalvageChance;
     }
 
-    public double baseMaxHeat() {
-        return getServerSettings() != null ? getServerSettings().baseMaxHeat : MPSSettings.general.baseMaxHeat;
+    public double getBaseMaxHeat(@Nonnull ItemStack itemStack) {
+        if (itemStack.getItem() instanceof ItemPowerFist) {
+           return getServerSettings() != null ? getServerSettings().baseMaxHeatPowerFist : MPSSettings.general.baseMaxHeatPowerFist;
+        }
+
+        if (itemStack.getItem() instanceof ItemPowerArmorHelmet) {
+            return getServerSettings() != null ? getServerSettings().baseMaxHeatHelmet : MPSSettings.general.baseMaxHeatHelmet;
+        }
+
+
+        if (itemStack.getItem() instanceof ItemPowerArmorChestplate) {
+            return getServerSettings() != null ? getServerSettings().baseMaxHeatChest : MPSSettings.general.baseMaxHeatChest;
+        }
+
+
+        if (itemStack.getItem() instanceof ItemPowerArmorLeggings) {
+            return getServerSettings() != null ? getServerSettings().baseMaxHeatLegs : MPSSettings.general.baseMaxHeatLegs;
+        }
+
+        if (itemStack.getItem() instanceof ItemPowerArmorBoots) {
+            return getServerSettings() != null ? getServerSettings().baseMaxHeatFeet : MPSSettings.general.baseMaxHeatFeet;
+        }
+
+       return 0;
     }
 
     /** Modules ----------------------------------------------------------------------------------- */

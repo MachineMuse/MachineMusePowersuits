@@ -90,12 +90,12 @@ public class MPSModules {
         addModule(new GliderModule(TORSOONLY));
         addModule(new JetPackModule(TORSOONLY));
         addModule(new InvisibilityModule(TORSOONLY));
-        addModule(new CoolingSystemModule(TORSOONLY));
+        addModule(new BasicCoolingSystemModule(TORSOONLY));
         addModule(new MagnetModule(TORSOONLY));
         addModule(new ThermalGeneratorModule(TORSOONLY));
         addModule(new MobRepulsorModule(TORSOONLY));
         addModule(new WaterTankModule(TORSOONLY));
-        addModule(new NitrogenCoolingSystem(TORSOONLY));
+        addModule(new AdvancedCoolingSystem(TORSOONLY));
 //        addModule(new MechanicalAssistance(TORSOONLY)); // TODO replace with slot expansion module
         //addModule(new CoalGenerator(TORSOONLY)); //doesn't seem to be working
 

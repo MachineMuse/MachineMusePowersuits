@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.client.event;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
+import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
@@ -20,7 +21,6 @@ import net.machinemuse.powersuits.item.armor.ItemPowerArmorHelmet;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.machinemuse.powersuits.utils.modulehelpers.AutoFeederHelper;
 import net.machinemuse.powersuits.utils.modulehelpers.FluidUtils;
@@ -137,7 +137,7 @@ public class ClientTickHandler {
             EntityPlayer player = Minecraft.getMinecraft().player;
             modules = new ArrayList<>();
             findInstalledModules(player);
-            if (player != null && Minecraft.getMinecraft().isGuiEnabled() && MuseItemUtils.modularItemsEquipped(player).size() > 0 && Minecraft.getMinecraft().currentScreen == null) {
+            if (player != null && Minecraft.getMinecraft().isGuiEnabled() && MuseItemUtils.getModularItemsEquipped(player).size() > 0 && Minecraft.getMinecraft().currentScreen == null) {
                 Minecraft mc = Minecraft.getMinecraft();
                 ScaledResolution screen = new ScaledResolution(mc);
                 for (int i = 0; i < modules.size(); i++) {
@@ -195,10 +195,6 @@ public class ClientTickHandler {
                     } else if (Objects.equals(modules.get(i), MPSModuleConstants.MODULE_WATER_TANK__DATANAME)) {
                         drawWaterMeter = true;
                     }
-                    // redundant check
-//                    else if (Objects.equals(modules.get(i), MPSModuleConstants.MODULE_PLASMA_CANNON__DATANAME)) {
-//                        drawPlasmaMeter = true;
-//                    }
                 }
                 drawMeters(player, screen);
             }
@@ -222,7 +218,7 @@ public class ClientTickHandler {
         String maxEnergyStr = MuseStringUtils.formatNumberShort(maxEnergy);
 
         // heat
-        double maxHeat = MuseHeatUtils.getMaxHeat(player);
+        double maxHeat = MuseHeatUtils.getPlayerMaxHeat(player);
         double currHeat = MuseHeatUtils.getPlayerHeat(player);
         String currHeatStr = MuseStringUtils.formatNumberShort(currHeat);
         String maxHeatStr = MuseStringUtils.formatNumberShort(maxHeat);
@@ -236,12 +232,11 @@ public class ClientTickHandler {
         // plasma
         double maxPlasma = PlasmaCannonHelper.getMaxPlasma(player);
         double currPlasma = PlasmaCannonHelper.getPlayerPlasma(player);
-
         String currPlasmaStr = MuseStringUtils.formatNumberShort(currPlasma);
         String maxPlasmaStr = MuseStringUtils.formatNumberShort(maxPlasma);
 
         if (MPSConfig.INSTANCE.useGraphicalMeters()) {
-            int numMeters = 1;
+            int numMeters = 0;
 
             if (maxEnergy > 0) {
                 numMeters ++;
@@ -250,7 +245,11 @@ public class ClientTickHandler {
                 }
             } else energy = null;
 
-            if (heat == null) heat = new HeatMeter();
+            if (maxHeat > 0) {
+                numMeters ++;
+                if (heat == null)
+                    heat = new HeatMeter();
+            } else heat = null;
 
             if (maxWater > 0 && drawWaterMeter ) {
                 numMeters ++;

@@ -27,7 +27,11 @@ public class MPSConfigConstants {
     public static final String CONFIG_GENERAL_WEIGHT_LIMIT = CONFIG_PREFIX_GENERAL + "weightLimit";
     public static final String CONFIG_GENERAL_GET_MAX_ARMOR_PER_PIECE = CONFIG_PREFIX_GENERAL + "getMaximumArmorPerPiece";
     public static final String CONFIG_GENERAL_SALVAGE_CHANCE = CONFIG_PREFIX_GENERAL + "salvageChance";
-    public static final String CONFIG_GENERAL_BASE_MAX_HEAT = CONFIG_PREFIX_GENERAL + "baseMaxHeat";
+    public static final String CONFIG_GENERAL_BASE_MAX_HEAT_POWERFIST = CONFIG_PREFIX_GENERAL + "baseMaxHeatPowerfist";
+    public static final String CONFIG_GENERAL_BASE_MAX_HEAT_HELMET = CONFIG_PREFIX_GENERAL + "baseMaxHeatHelmet";
+    public static final String CONFIG_GENERAL_BASE_MAX_HEAT_CHEST = CONFIG_PREFIX_GENERAL + "baseMaxHeatChest";
+    public static final String CONFIG_GENERAL_BASE_MAX_HEAT_LEGS = CONFIG_PREFIX_GENERAL + "baseMaxHeatLegs";
+    public static final String CONFIG_GENERAL_BASE_MAX_HEAT_FEET = CONFIG_PREFIX_GENERAL + "baseMaxHeatFeet";
 
 
     // Modules

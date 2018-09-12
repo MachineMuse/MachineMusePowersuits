@@ -83,10 +83,24 @@ public class MPSModuleConstants {
     public static final String APIARIST_ARMOR_ENERGY_CONSUMPTION = "Apiarist Armor Energy Consumption";
     public static final String EATING_ENERGY_CONSUMPTION = "Eating Energy Consumption";
     public static final String EATING_EFFICIENCY = "Auto-Feeder Efficiency";
+    public static final String BASIC_COOLING_POWER = "Water Cooling Power";
+
+
+
+    // TODO: -------
+    public static final String BASIC_COOLING_SYSTEM__DATANAME = "basicCoolingSystem";
+
+
+
+
+    public static final String ADVANCED_COOLING_SYSTEM__DATANAME = "advancedCoolingSystem";
+
+
+
     public static final String COOLING_BONUS = "Cooling Bonus";
-    public static final String COOLING_SYSTEM_ENERGY_CONSUMPTION = "Cooling System Energy Consumption";
+    public static final String BASIC_COOLING_SYSTEM_ENERGY_CONSUMPTION = "Cooling System Energy Consumption";
     public static final String MOB_REPULSOR_ENERGY_CONSUMPTION = "Repulsor Energy Consumption";
-    public static final String NITROGEN_COOLING_SYSTEM_ENERGY_CONSUMPTION = "NitrogenCoolingSysEnergy Consumption";
+    public static final String ADVANCED_COOLING_SYSTEM_ENERGY_CONSUMPTION = "NitrogenCoolingSysEnergy Consumption";
     public static final String WATER_TANK_SIZE = "Tank Size";
     public static final String ACTIVATION_PERCENT = "Heat Activation Percent";
     public static final String WATERBREATHING_ENERGY_CONSUMPTION = "Jolt Energy";
@@ -95,8 +109,8 @@ public class MPSModuleConstants {
     public static final String MODULE_APIARIST_ARMOR__DATANAME = "apiaristArmor";
     public static final String MODULE_HAZMAT__DATANAME = "hazmat";
     public static final String MODULE_AUTO_FEEDER__DATANAME = "autoFeeder";
-    public static final String MODULE_COOLING_SYSTEM__DATANAME = "coolingSystem";
-    public static final String MODULE_NITROGEN_COOLING_SYSTEM__DATANAME = "nitrogenCoolingSystem";
+    public static final String MODULE_COOLING_SYSTEM__DATANAME = "basicCoolingSystem";
+    public static final String MODULE_NITROGEN_COOLING_SYSTEM__DATANAME = "advancedCoolingSystem";
     public static final String MODULE_MOB_REPULSOR__DATANAME = "mobRepulsor";
     public static final String MODULE_WATER_ELECTROLYZER__DATANAME = "waterElectrolyzer";
     public static final String MODULE_WATER_TANK__DATANAME = "waterTank";

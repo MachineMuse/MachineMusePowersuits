@@ -1,5 +1,9 @@
 package net.machinemuse.numina.api.item;
 
+import net.minecraft.item.ItemStack;
+
+import javax.annotation.Nonnull;
+
 /**
  * Interface for ItemPowerArmor and ItemPowerTool to share.
  *
@@ -8,5 +12,5 @@ package net.machinemuse.numina.api.item;
  * Ported to Java by lehjr on 11/3/16.
  */
 public interface IModularItem {
-
+    double getMaxBaseHeat(@Nonnull ItemStack itemStack);
 }

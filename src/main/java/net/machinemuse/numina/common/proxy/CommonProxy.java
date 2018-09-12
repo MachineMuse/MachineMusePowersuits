@@ -1,6 +1,7 @@
 package net.machinemuse.numina.common.proxy;
 
 import net.machinemuse.numina.api.constants.NuminaConstants;
+import net.machinemuse.numina.capabilities.heat.CapabilityHeat;
 import net.machinemuse.numina.common.Numina;
 import net.machinemuse.numina.event.NuminaPlayerTracker;
 import net.machinemuse.numina.network.NuminaPackets;
@@ -19,6 +20,7 @@ import java.io.File;
  */
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
+        CapabilityHeat.register();
         Numina.INSTANCE.configDir = new File(event.getModConfigurationDirectory(), NuminaConstants.CONFIG_FOLDER);
         File recipesFolder = new File(Numina.getInstance().configDir, "/recipes");
         recipesFolder.mkdirs();

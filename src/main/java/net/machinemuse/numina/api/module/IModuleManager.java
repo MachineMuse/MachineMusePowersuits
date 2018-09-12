@@ -2,7 +2,6 @@ package net.machinemuse.numina.api.module;
 
 import net.machinemuse.numina.api.item.IModeChangingItem;
 import net.machinemuse.numina.api.item.IModularItem;
-import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -124,7 +123,7 @@ public interface IModuleManager {
     }
 
     default void toggleModuleForPlayer(EntityPlayer player, String dataName, boolean toggleval) {
-        for (ItemStack stack : MuseItemUtils.modularItemsEquipped(player)) {
+        for (ItemStack stack : MuseItemUtils.getModularItemsEquipped(player)) {
             NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
             toggleModule(itemTag, dataName, toggleval);
         }
@@ -143,7 +142,7 @@ public interface IModuleManager {
 
     default List<IPowerModule> getPlayerInstalledModules(EntityPlayer player) {
         List<IPowerModule> installedModules = new ArrayList();
-        for (ItemStack stack : MuseItemUtils.modularItemsEquipped(player)) {
+        for (ItemStack stack : MuseItemUtils.getModularItemsEquipped(player)) {
             NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
             for (IPowerModule module : getValidModulesForItem(stack)) {
                 if (tagHasModule(itemTag, module.getDataName())) {
@@ -152,6 +151,10 @@ public interface IModuleManager {
             }
         }
         return installedModules;
+    }
+
+    default boolean isModuleOnline(@Nonnull ItemStack itemStack, String moduleName) {
+        return isModuleOnline(MuseNBTUtils.getMuseItemTag(itemStack), moduleName);
     }
 
     default boolean isModuleOnline(NBTTagCompound itemTag, String moduleName) {

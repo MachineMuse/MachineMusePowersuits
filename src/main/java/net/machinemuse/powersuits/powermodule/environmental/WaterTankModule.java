@@ -8,7 +8,6 @@ import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.machinemuse.powersuits.utils.modulehelpers.FluidUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -19,6 +18,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.MathHelper;
+import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 
 /**
  * Created by User: Andrew2448
@@ -80,7 +80,7 @@ public class WaterTankModule extends PowerModuleBase implements IPlayerTickModul
 
         // Apply cooling
         double currentHeat = MuseHeatUtils.getPlayerHeat(player);
-        double maxHeat = MuseHeatUtils.getMaxHeat(player);
+        double maxHeat = MuseHeatUtils.getPlayerMaxHeat(player);
         if ((currentHeat / maxHeat) >= ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.ACTIVATION_PERCENT) && FluidUtils.getWaterLevel(item) > 0) {
             MuseHeatUtils.coolPlayer(player, 1);
             FluidUtils.setWaterLevel(item, FluidUtils.getWaterLevel(item) - 1);

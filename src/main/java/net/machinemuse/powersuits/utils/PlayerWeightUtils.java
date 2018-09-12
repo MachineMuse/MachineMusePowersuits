@@ -10,7 +10,7 @@
 //
 //    public static double getPlayerWeight(EntityPlayer player) {
 //        double weight = 0;
-//        for (ItemStack stack : MuseItemUtils.modularItemsEquipped(player)) {
+//        for (ItemStack stack : MuseItemUtils.getModularItemsEquipped(player)) {
 //            weight += ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.WEIGHT);
 //        }
 //        return weight;

@@ -31,5 +31,6 @@ public class NuminaConstants {
     public static final String CONFIG_TIER_3_ENERGY_LVL = CONFIG_PREFIX + "tier3EnergyLevel";
     public static final String CONFIG_TIER_4_ENERGY_LVL = CONFIG_PREFIX + "tier4EnergyLevel";
 
-
+    // String for overheat damage
+    public static final String OVERHEAT_DAMAGE = "Overheat";
 }

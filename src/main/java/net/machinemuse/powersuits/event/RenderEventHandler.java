@@ -116,7 +116,7 @@ public class RenderEventHandler {
                     for (ClickableModule module:  kb.getBoundModules()) {
                         MuseTextureUtils.pushTexture(MuseTextureUtils.TEXTURE_QUILT);
                         boolean active = false;
-                        for (ItemStack stack : MuseItemUtils.modularItemsEquipped(player)) {
+                        for (ItemStack stack : MuseItemUtils.getModularItemsEquipped(player)) {
                             if (ModuleManager.INSTANCE.itemHasActiveModule(stack, module.getModule().getDataName()))
                                 active = true;
                         }

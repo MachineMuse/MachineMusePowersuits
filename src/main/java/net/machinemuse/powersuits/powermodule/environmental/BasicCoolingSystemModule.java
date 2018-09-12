@@ -4,6 +4,7 @@ import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
+import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
@@ -11,24 +12,22 @@ import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
-    public CoolingSystemModule(EnumModuleTarget moduleTarget) {
+public class BasicCoolingSystemModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
+    public BasicCoolingSystemModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Items.ENDER_EYE, 4));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
 
-        addTradeoffPropertyDouble("Water Cooling Power", MPSModuleConstants.COOLING_BONUS, 4, "%");
-        addTradeoffPropertyDouble("Water Cooling Power", MPSModuleConstants.COOLING_SYSTEM_ENERGY_CONSUMPTION, 100, "RF/t");
+        addTradeoffPropertyDouble(MPSModuleConstants.BASIC_COOLING_POWER, MPSModuleConstants.COOLING_BONUS, 4, "%");
+        addTradeoffPropertyDouble(MPSModuleConstants.BASIC_COOLING_POWER, MPSModuleConstants.BASIC_COOLING_SYSTEM_ENERGY_CONSUMPTION, 100, "RF/t");
         addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1, "pts");
-        addIntTradeoffProperty("Water Cooling Power", MPSModuleConstants.SLOT_POINTS, 4, "m", 1, 0);
+        addIntTradeoffProperty(MPSModuleConstants.BASIC_COOLING_POWER, MPSModuleConstants.SLOT_POINTS, 4, "m", 1, 0);
     }
-
 
     @Override
     public EnumModuleCategory getCategory() {
@@ -37,7 +36,7 @@ public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickM
 
     @Override
     public String getDataName() {
-        return MPSModuleConstants.MODULE_COOLING_SYSTEM__DATANAME;
+        return MPSModuleConstants.BASIC_COOLING_SYSTEM__DATANAME;
     }
 
     @Override
@@ -45,7 +44,7 @@ public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickM
         double heatBefore = MuseHeatUtils.getPlayerHeat(player);
         MuseHeatUtils.coolPlayer(player, 0.1 * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.COOLING_BONUS));
         double cooling = heatBefore - MuseHeatUtils.getPlayerHeat(player);
-        ElectricItemUtils.drainPlayerEnergy(player, (int) (cooling * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.COOLING_SYSTEM_ENERGY_CONSUMPTION)));
+        ElectricItemUtils.drainPlayerEnergy(player, (int) (cooling * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.BASIC_COOLING_SYSTEM_ENERGY_CONSUMPTION)));
     }
 
     @Override
@@ -54,6 +53,6 @@ public class CoolingSystemModule extends PowerModuleBase implements IPlayerTickM
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.coolingSystem;
+        return MuseIcon.basicCoolingSystem;
     }
 }

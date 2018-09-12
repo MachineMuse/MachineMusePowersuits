@@ -1,7 +1,5 @@
 package net.machinemuse.powersuits.item.armor;
 
-//import appeng.api.config.AccessRestriction;
-
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.item.IModularItemBase;
 import net.machinemuse.powersuits.utils.MuseCommonStrings;

@@ -27,7 +27,7 @@ public class MuseIcon {
     public static TextureAtlasSprite hazmat;
     public static TextureAtlasSprite heatSink;
     public static TextureAtlasSprite mechAssistance;
-    public static TextureAtlasSprite nitrogenCoolingSystem;
+    public static TextureAtlasSprite advancedCoolingSystem;
     /* Water tank module uses vanilla bucket of water icon */
 
     /* Cosmetic ----------------------------------------------------------------------------------- */
@@ -54,7 +54,7 @@ public class MuseIcon {
 
     // clock uses vanilla icon
     // compass uses vanilla icon
-    public static TextureAtlasSprite coolingSystem;
+    public static TextureAtlasSprite basicCoolingSystem;
 
     public static TextureAtlasSprite portableCraftingTable;
     public static TextureAtlasSprite invisibility;
@@ -128,7 +128,7 @@ public class MuseIcon {
         hazmat = register(event, "modules/greenstar");
         heatSink = register(event, "modules/heatresistantplating2");
         mechAssistance = register(event, "modules/mechassistance");
-        nitrogenCoolingSystem = register(event, "modules/coolingsystem");
+        advancedCoolingSystem = register(event, "modules/coolingsystem");
         /* Water tank module uses vanilla bucket of water icon */
 
         /* Cosmetic ----------------------------------------------------------------------------------- */
@@ -153,7 +153,7 @@ public class MuseIcon {
         airtightSeal = register(event, "modules/glasspane");
         autoFeeder = register(event, "modules/autofeeder");
         binoculars = register(event, "modules/binoculars");
-        coolingSystem = register(event, "modules/coolingsystem");
+        basicCoolingSystem = register(event, "modules/coolingsystem");
         portableCraftingTable = register(event, "modules/portablecrafting");
         invisibility = register(event, "modules/bluedrone");
         magnet = register(event, "modules/magnetmodule");

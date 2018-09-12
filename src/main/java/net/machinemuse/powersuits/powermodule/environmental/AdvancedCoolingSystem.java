@@ -4,6 +4,7 @@ import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
+import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
@@ -12,7 +13,6 @@ import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -22,22 +22,20 @@ import net.minecraftforge.fluids.UniversalBucket;
 /**
  * Created by Eximius88 on 1/17/14.
  */
-public class NitrogenCoolingSystem extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
-    public NitrogenCoolingSystem(EnumModuleTarget moduleTarget) {
+public class AdvancedCoolingSystem extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
+    public AdvancedCoolingSystem(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        //ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Item.netherStar, 1));
-
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(
                 UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, MPSItems.INSTANCE.liquidNitrogen), 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.rubberHose, 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.computerChip, 2));
 
-        addTradeoffPropertyDouble("Nitrogen Cooling Power", MPSModuleConstants.COOLING_BONUS, 7, "%");
-        addTradeoffPropertyDouble("Nitrogen Cooling Power", MPSModuleConstants.NITROGEN_COOLING_SYSTEM_ENERGY_CONSUMPTION, 160, "RF/t");
+        addTradeoffPropertyDouble("Advanced Cooling Power", MPSModuleConstants.COOLING_BONUS, 7, "%");
+        addTradeoffPropertyDouble("Advanced Cooling Power", MPSModuleConstants.ADVANCED_COOLING_SYSTEM_ENERGY_CONSUMPTION, 160, "RF/t");
 
         addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1, "pts");
-        addIntTradeoffProperty("Nitrogen Cooling Power", MPSModuleConstants.SLOT_POINTS, 4, "m", 1, 0);
+        addIntTradeoffProperty("Advanced Cooling Power", MPSModuleConstants.SLOT_POINTS, 4, "m", 1, 0);
     }
 
     @Override
@@ -45,7 +43,7 @@ public class NitrogenCoolingSystem extends PowerModuleBase implements IPlayerTic
         double heatBefore = MuseHeatUtils.getPlayerHeat(player);
         MuseHeatUtils.coolPlayer(player, 0.210 * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.COOLING_BONUS));
         double cooling = heatBefore - MuseHeatUtils.getPlayerHeat(player);
-        ElectricItemUtils.drainPlayerEnergy(player, (int) (cooling * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.NITROGEN_COOLING_SYSTEM_ENERGY_CONSUMPTION)));
+        ElectricItemUtils.drainPlayerEnergy(player, (int) (cooling * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.ADVANCED_COOLING_SYSTEM_ENERGY_CONSUMPTION)));
     }
 
     @Override
@@ -59,11 +57,11 @@ public class NitrogenCoolingSystem extends PowerModuleBase implements IPlayerTic
 
     @Override
     public String getDataName() {
-        return MPSModuleConstants.MODULE_NITROGEN_COOLING_SYSTEM__DATANAME;
+        return MPSModuleConstants.ADVANCED_COOLING_SYSTEM__DATANAME;
     }
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.nitrogenCoolingSystem;
+        return MuseIcon.advancedCoolingSystem;
     }
 }

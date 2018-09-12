@@ -78,7 +78,7 @@ public class Musique {
             if (sound != null) {
                 sound.updateVolume(volume).updatePitch(pitch).updateRepeat(continuous);
             } else {
-                MuseLogger.logDebug("New sound: " + soundEvt.getSoundName());
+//                MuseLogger.logDebug("New sound: " + soundEvt.getSoundName());
                 MovingSoundPlayer newsound = new MovingSoundPlayer(soundEvt, categoryIn, player, volume * 2.0f, pitch, continuous);
                 mcsound().playSound(newsound);
                 soundMap.put(soundEvt, newsound);

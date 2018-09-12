@@ -17,9 +17,11 @@ public class MPSServerSettings {
     public final double getWeightCapacity;
     public final double maximumArmorPerPiece;
     public final double getSalvageChance;
-    public final double baseMaxHeat;
-
-
+    public final double baseMaxHeatPowerFist;
+    public final double baseMaxHeatHelmet;
+    public final double baseMaxHeatChest;
+    public final double baseMaxHeatLegs;
+    public final double baseMaxHeatFeet;
 
 
     /** Modules ----------------------------------------------------------------------------------- */
@@ -47,8 +49,11 @@ public class MPSServerSettings {
         getWeightCapacity = MPSSettings.general.getWeightCapacity;
         maximumArmorPerPiece = MPSSettings.general.getMaximumArmorPerPiece;
         getSalvageChance = MPSSettings.general.getSalvageChance;
-        baseMaxHeat = MPSSettings.general.baseMaxHeat;
-
+        baseMaxHeatPowerFist = MPSSettings.general.baseMaxHeatPowerFist;
+        baseMaxHeatHelmet = MPSSettings.general.baseMaxHeatHelmet;
+        baseMaxHeatChest = MPSSettings.general.baseMaxHeatChest;
+        baseMaxHeatLegs = MPSSettings.general.baseMaxHeatLegs;
+        baseMaxHeatFeet = MPSSettings.general.baseMaxHeatFeet;
 
         /** Modules ------------------------------------------------------------------------------- */
         allowedModules = new TreeMap<>(MPSSettings.modules.allowedModules);
@@ -77,7 +82,11 @@ public class MPSServerSettings {
         getWeightCapacity = MusePackager.INSTANCE.readDouble(datain);
         maximumArmorPerPiece = MusePackager.INSTANCE.readDouble(datain);
         getSalvageChance = MusePackager.INSTANCE.readDouble(datain);
-        baseMaxHeat = MusePackager.INSTANCE.readDouble(datain);
+        baseMaxHeatPowerFist = MusePackager.INSTANCE.readDouble(datain);
+        baseMaxHeatHelmet = MusePackager.INSTANCE.readDouble(datain);
+        baseMaxHeatChest = MusePackager.INSTANCE.readDouble(datain);
+        baseMaxHeatLegs = MusePackager.INSTANCE.readDouble(datain);
+        baseMaxHeatFeet = MusePackager.INSTANCE.readDouble(datain);
 
 
         /** Modules ------------------------------------------------------------------------------- */
@@ -118,7 +127,11 @@ public class MPSServerSettings {
         packet.writeDouble(getWeightCapacity);
         packet.writeDouble(maximumArmorPerPiece);
         packet.writeDouble(getSalvageChance);
-        packet.writeDouble(baseMaxHeat);
+        packet.writeDouble(baseMaxHeatPowerFist);
+        packet.writeDouble(baseMaxHeatHelmet);
+        packet.writeDouble(baseMaxHeatChest);
+        packet.writeDouble(baseMaxHeatLegs);
+        packet.writeDouble(baseMaxHeatFeet);
 
 
         /** Modules ------------------------------------------------------------------------------- */

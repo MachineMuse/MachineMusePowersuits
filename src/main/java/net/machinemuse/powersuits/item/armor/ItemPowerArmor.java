@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.item.armor;
 
 import com.google.common.collect.Multimap;
-import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.item.IArmorTraits;
+import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
@@ -13,7 +13,6 @@ import net.machinemuse.powersuits.client.model.item.armor.ArmorModelInstance;
 import net.machinemuse.powersuits.client.model.item.armor.IArmorModel;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.utils.ElectricItemUtils;
-import net.machinemuse.powersuits.utils.MuseHeatUtils;
 import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
@@ -26,6 +25,7 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -34,6 +34,7 @@ import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.util.UUID;
 
 /**
@@ -61,6 +62,86 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         this.setCreativeTab(MPSConfig.INSTANCE.mpsCreativeTab);
     }
 
+    /**
+     * This just a method that determines whether or not otherwise unhandled damage sources are handled by the armor
+     *
+     * Note, slot is equivilant to the EntityEquipmentSlot index (not slotIndex)
+     */
+    @Override
+    public boolean handleUnblockableDamage(EntityLivingBase entity, @Nonnull ItemStack armor, DamageSource source, double damage, int slot) {
+
+        if (source.damageType.equals("electricity") || source.damageType.equals("radiation") || source.damageType.equals("sulphuric_acid"))
+               return  ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.MODULE_HAZMAT__DATANAME);
+
+        // Galacticraft
+        if (slot == 3 && source.getDamageType().equals("oxygen_suffocation"))
+            return ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.AIRTIGHT_SEAL_MODULE__DATANAME);
+
+        // this still needs tweaking (extra planets)
+        if (source.getDamageType().equals("pressure")) {
+            if (slot == 3)
+                return ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.AIRTIGHT_SEAL_MODULE__DATANAME) && ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.MODULE_HAZMAT__DATANAME);
+            else
+                return ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.MODULE_HAZMAT__DATANAME);
+
+//            for (ItemStack armorStack : entity.getArmorInventoryList()) {
+//                if (armorStack.getItem() instanceof this)
+//                    return false;
+//
+//
+//
+//
+////                if (ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.AIRTIGHT_SEAL_MODULE__DATANAME))
+//
+//
+//
+//
+//            }
+        }
+
+
+
+        // TODO: Galacticraft "thermal", "sulphuric_acid", "pressure"
+        // TODO: Advanced Rocketry: CapabilitySpaceArmor.PROTECTIVEARMOR;
+
+
+        System.out.println("damage source: " + source.getDamageType() + " not protected. Damage ammount:" + damage );
+        return false;
+    }
+
+    /**
+     * Inherited from ISpecialArmor, allows us to customize how the armor
+     * handles being damaged.
+     */
+    @Override
+    public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
+        DamageSource overheatDamage = MuseHeatUtils.overheatDamage;
+
+        if (source == null ||
+                source.equals(overheatDamage)) { // fixme: overheat should not make it here without being passed through unblockable damage
+            return;
+        }
+
+        // isFireDamage includes heat related damage sources such as lava
+        if (source.isFireDamage()) {
+            EntityPlayer player = (EntityPlayer) entity;
+            if (!source.equals(DamageSource.ON_FIRE) ||
+                    MuseHeatUtils.getPlayerHeat(player) < MuseHeatUtils.getPlayerMaxHeat(player)) // fixme: should keep applying heat anyway? heat above max is now applied to damage
+                MuseHeatUtils.heatPlayer(player, damage);
+        } else {
+            double enerConsum = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_ENERGY_CONSUMPTION);
+            double drain = enerConsum * damage;
+            if (entity instanceof EntityPlayer)
+                ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entity, (int) drain);
+            else {
+                final IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
+                if (energyStorage != null) {
+                    energyStorage.extractEnergy((int) drain, false);
+                }
+            }
+        }
+    }
+
     @Override
     public ISpecialArmor.ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
         int priority = 0;
@@ -68,7 +149,10 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         if (source.isFireDamage() && !(source.equals(MuseHeatUtils.overheatDamage))) {
             return new ISpecialArmor.ArmorProperties(priority, 0.25, (int) (25 * damage));
         }
-        if (ModuleManager.INSTANCE.itemHasModule(armor, "Radiation Shielding") && (source.damageType.equals("electricity") || source.damageType.equals("radiation"))) {
+        if (ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.MODULE_HAZMAT__DATANAME) &&
+                (source.damageType.equals("electricity") ||
+                        source.damageType.equals("radiation") ||
+                        source.damageType.equals("sulphuric_acid"))) {
             return new ISpecialArmor.ArmorProperties(priority, 0.25, (int) (25 * damage));
         }
         double armorDouble2;
@@ -88,6 +172,89 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
     }
 
     @Override
+    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+        Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+        if (slot == this.armorType) {
+            multimap.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), new AttributeModifier(ARMOR_MODIFIERS[slot.getIndex()], SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), 0.25, 0));
+
+            if (ModuleManager.INSTANCE.itemHasActiveModule(stack, MPSModuleConstants.MODULE_DIAMOND_PLATING__DATANAME) || ModuleManager.INSTANCE.itemHasActiveModule(stack, MPSModuleConstants.MODULE_ENERGY_SHIELD__DATANAME)) {
+                multimap.put(SharedMonsterAttributes.ARMOR_TOUGHNESS.getName(), new AttributeModifier(ARMOR_MODIFIERS[slot.getIndex()], "Armor toughness", 2.5, 0));
+            }
+
+            if (slot == EntityEquipmentSlot.LEGS && ModuleManager.INSTANCE.itemHasActiveModule(stack, MPSModuleConstants.MODULE_SPRINT_ASSIST__DATANAME)) {
+                multimap.put(SharedMonsterAttributes.MOVEMENT_SPEED.getName(), new AttributeModifier(ARMOR_MODIFIERS[slot.getIndex()], "Sprint Assist", MuseItemUtils.getDoubleOrZero(stack, MPSModuleConstants.TAG_SPRINT_ASSIST_VALUE), 0));
+            }
+        }
+        return multimap;
+    }
+
+    @Override
+    public int getItemEnchantability() {
+        return 0;
+    }
+
+    @Override
+    public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
+        return (int) this.getArmorDouble(player, armor);
+    }
+
+    @Override
+    public double getArmorDouble(EntityPlayer player, ItemStack stack) {
+        double totalArmor = 0.0;
+        double energy = ElectricItemUtils.getPlayerEnergy(player);
+        double physArmor = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_VALUE_PHYSICAL);
+        double enerArmor = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_VALUE_ENERGY);
+        double enerConsum = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_ENERGY_CONSUMPTION);
+        totalArmor += physArmor;
+        if (energy > enerConsum) {
+            totalArmor += enerArmor;
+        }
+        totalArmor = Math.min(MPSConfig.INSTANCE.getMaximumArmorPerPiece(), totalArmor);
+        return totalArmor;
+    }
+
+    @Optional.Method(modid = "forestry")
+    @Override
+    public boolean protectEntity(final EntityLivingBase player, final ItemStack armor, final String cause, final boolean doProtect) {
+        if (ModuleManager.INSTANCE.itemHasActiveModule(armor, MPSModuleConstants.MODULE_APIARIST_ARMOR__DATANAME)) {
+            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) player, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(armor, MPSModuleConstants.APIARIST_ARMOR_ENERGY_CONSUMPTION));
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean showDurabilityBar(final ItemStack stack) {
+        int capacity = 0;
+        final IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
+        if (energyStorage != null)
+            capacity = energyStorage.getMaxEnergyStored();
+
+        if (capacity> 0)
+            return true;
+        return false;
+    }
+
+    @Override
+    public double getDurabilityForDisplay(final ItemStack stack) {
+        final IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
+        return 1 - (energyStorage != null ? energyStorage.getEnergyStored() / (float) energyStorage.getMaxEnergyStored() : 0);
+    }
+
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
+        // NBT provided here is empty or null, so it's useless for this.
+        return new MPSCapProvider(stack);
+    }
+
+    // Cosmetics ----------------------------------------------------------------------------------
+
+    @Override
+    public boolean hasColor(ItemStack stack) {
+        return true;
+    }
+
+    @Override
     public String getArmorTexture(ItemStack armor, Entity entity, EntityEquipmentSlot slot, String type) {
         if (type == "overlay")  // this is to allow a tint to be applied tot the armor
             return MPSResourceConstants.BLANK_ARMOR_MODEL_PATH;
@@ -99,12 +266,6 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         }
         return MPSResourceConstants.BLANK_ARMOR_MODEL_PATH;
     }
-
-//    @Override
-//    public int getColor(ItemStack stack) {
-//        Colour c = this.getColorFromItemStack(stack);
-//        return c.getInt();
-//    }
 
     @Override
     public boolean hasOverlay(ItemStack stack) {
@@ -132,129 +293,5 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
             return model;
         }
         return _default;
-    }
-
-    @Override
-    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-        Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-        if (slot == this.armorType) {
-            multimap.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), new AttributeModifier(ARMOR_MODIFIERS[slot.getIndex()], SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), 0.25, 0));
-
-            if (ModuleManager.INSTANCE.itemHasActiveModule(stack, MPSModuleConstants.MODULE_DIAMOND_PLATING__DATANAME) || ModuleManager.INSTANCE.itemHasActiveModule(stack, MPSModuleConstants.MODULE_ENERGY_SHIELD__DATANAME)) {
-                multimap.put(SharedMonsterAttributes.ARMOR_TOUGHNESS.getName(), new AttributeModifier(ARMOR_MODIFIERS[slot.getIndex()], "Armor toughness", 2.5, 0));
-            }
-
-            if (slot == EntityEquipmentSlot.LEGS && ModuleManager.INSTANCE.itemHasActiveModule(stack, MPSModuleConstants.MODULE_SPRINT_ASSIST__DATANAME)) {
-                multimap.put(SharedMonsterAttributes.MOVEMENT_SPEED.getName(), new AttributeModifier(ARMOR_MODIFIERS[slot.getIndex()], "Sprint Assist", MuseItemUtils.getDoubleOrZero(stack, MPSModuleConstants.TAG_SPRINT_ASSIST_VALUE), 0));
-            }
-        }
-        return multimap;
-    }
-
-    @Override
-    public int getItemEnchantability() {
-        return 0;
-    }
-
-    @Override
-    public boolean hasColor(ItemStack stack) {
-//        if (MPSNBTUtils.hasHighPolyModel(stack, ((ItemPowerArmor) stack.getItem()).armorType)) {
-//            return false;
-//        }
-        return true;
-    }
-
-    @Override
-    public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
-        return (int) this.getArmorDouble(player, armor);
-    }
-
-    public double getHeatResistance(EntityPlayer player, ItemStack stack) {
-        return MuseHeatUtils.getMaxHeat(stack);
-    }
-
-    @Override
-    public double getArmorDouble(EntityPlayer player, ItemStack stack) {
-        double totalArmor = 0.0;
-        NBTTagCompound props = MuseNBTUtils.getMuseItemTag(stack);
-        double energy = ElectricItemUtils.getPlayerEnergy(player);
-        double physArmor = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_VALUE_PHYSICAL);
-        double enerArmor = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_VALUE_ENERGY);
-        double enerConsum = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_ENERGY_CONSUMPTION);
-        totalArmor += physArmor;
-        if (energy > enerConsum) {
-            totalArmor += enerArmor;
-        }
-        totalArmor = Math.min(MPSConfig.INSTANCE.getMaximumArmorPerPiece(), totalArmor);
-        return totalArmor;
-    }
-
-    /**
-     * Inherited from ISpecialArmor, allows us to customize how the armor
-     * handles being damaged.
-     */
-    @Override
-    public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
-        NBTTagCompound itemProperties = MuseNBTUtils.getMuseItemTag(stack);
-        if (entity instanceof EntityPlayer) {
-            DamageSource overheatDamage = MuseHeatUtils.overheatDamage;
-            if (source == null) {
-                if (overheatDamage == null) {
-                    return;
-                }
-            } else if (source.equals(overheatDamage)) {
-                return;
-            }
-
-            // isFireDamage includes heat related damage sources such as lava
-            if (source.isFireDamage()) {
-                EntityPlayer player = (EntityPlayer) entity;
-                if (!source.equals(DamageSource.ON_FIRE) || MuseHeatUtils.getPlayerHeat(player) < MuseHeatUtils.getMaxHeat(player))
-                    MuseHeatUtils.heatPlayer(player, damage);
-            } else {
-                double enerConsum = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_ENERGY_CONSUMPTION);
-                double drain = enerConsum * damage;
-                if (entity instanceof EntityPlayer)
-                    ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entity, (int) drain);
-                else {
-                    final IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
-                    if (energyStorage != null) {
-                        energyStorage.extractEnergy((int) drain, false);
-                    }
-                }
-            }
-        }
-    }
-
-    @Optional.Method(modid = "forestry")
-    @Override
-    public boolean protectEntity(final EntityLivingBase player, final ItemStack armor, final String cause, final boolean doProtect) {
-        if (ModuleManager.INSTANCE.itemHasActiveModule(armor, MPSModuleConstants.MODULE_APIARIST_ARMOR__DATANAME)) {
-            ElectricItemUtils.drainPlayerEnergy((EntityPlayer) player, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(armor, MPSModuleConstants.APIARIST_ARMOR_ENERGY_CONSUMPTION));
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean showDurabilityBar(final ItemStack stack) {
-        int capacity = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
-        if (capacity> 0)
-            return true;
-        return false;
-    }
-
-    @Override
-    public double getDurabilityForDisplay(final ItemStack stack) {
-        // removes annoying flicker
-        int capacity = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
-        int energy =  Math.min(capacity, (int) Math.round(MuseItemUtils.getDoubleOrZero(stack, NuminaNBTConstants.CURRENT_ENERGY)));
-        return 1 - energy/(float) capacity;
-    }
-
-    @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
-        // NBT provided here is empty or null, so it's useless for this.
-        return new MPSCapProvider(stack);
     }
 }

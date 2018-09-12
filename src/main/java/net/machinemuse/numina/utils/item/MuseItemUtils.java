@@ -10,6 +10,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -23,7 +24,7 @@ public class MuseItemUtils {
      * @return A List of ItemStacks in the equipment slots which implement
      *         IModularItem
      */
-    public static NonNullList<ItemStack> modularItemsEquipped(EntityPlayer player) {
+    public static NonNullList<ItemStack> getModularItemsEquipped(EntityPlayer player) {
         NonNullList<ItemStack> modulars = NonNullList.create();
         for (EntityEquipmentSlot slot: EntityEquipmentSlot.values()) {
             ItemStack itemStack = player.getItemStackFromSlot(slot);
@@ -222,44 +223,55 @@ public class MuseItemUtils {
             return stack1.getCount() < stack1.getMaxStackSize();
     }
 
-    public static Set<Integer> giveOrDropItems(@Nonnull ItemStack itemsToGive, EntityPlayer player) {
-        return giveOrDropItemWithChance(itemsToGive, player, 1.0);
+//    public static Set<Integer> giveOrDropItems(@Nonnull ItemStack itemsToGive, EntityPlayer player) {
+//        return giveOrDropItemWithChance(itemsToGive, player, 1.0);
+//    }
+
+    /**
+     * Called from server side
+     */
+    public static void giveOrDropItemWithChance(EntityPlayer player, @Nonnull ItemStack itemsToGive, double chanceOfSuccess) {
+        if (!player.world.isRemote)
+            return;
+        if (MuseMathUtils.nextDouble() < chanceOfSuccess) {
+            ItemHandlerHelper.giveItemToPlayer(player, itemsToGive);
+        }
     }
 
-    public static Set<Integer> giveOrDropItemWithChance(@Nonnull ItemStack itemsToGive, EntityPlayer player, double chanceOfSuccess) {
-        Set<Integer> slots = new HashSet<>();
-
-        // First try to add the items to existing stacks
-        for (int i = 0; i < player.inventory.getSizeInventory() && itemsToGive.getCount() > 0; i++) {
-            ItemStack currentStack = player.inventory.getStackInSlot(i);
-            if (canStackTogether(currentStack, itemsToGive)) {
-                slots.add(i);
-                transferStackWithChance(itemsToGive, currentStack, chanceOfSuccess);
-            }
-        }
-        // Then try to add the items to empty slots
-        for (int i = 0; i < player.inventory.getSizeInventory() && itemsToGive.getCount() > 0; i++) {
-            if (player.inventory.getStackInSlot(i).isEmpty()) {
-                ItemStack destination = new ItemStack(itemsToGive.getItem(), 0, itemsToGive.getItemDamage());
-                transferStackWithChance(itemsToGive, destination, chanceOfSuccess);
-                if (destination.getCount() > 0) {
-                    player.inventory.setInventorySlotContents(i, destination);
-                    slots.add(i);
-                }
-            }
-        }
-        // Finally spawn the items in the world.
-        if (itemsToGive.getCount()> 0) {
-            for (int i = 0; i < itemsToGive.getCount(); i++) {
-                if (MuseMathUtils.nextDouble() < chanceOfSuccess) {
-                    ItemStack copyStack = itemsToGive.copy();
-                    copyStack.setCount(1);
-                    player.dropItem(copyStack, false);
-                }
-            }
-        }
-        return slots;
-    }
+//    public static Set<Integer> giveOrDropItemWithChance(@Nonnull ItemStack itemsToGive, EntityPlayer player, double chanceOfSuccess) {
+//        Set<Integer> slots = new HashSet<>();
+//
+//        // First try to add the items to existing stacks
+//        for (int i = 0; i < player.inventory.getSizeInventory() && itemsToGive.getCount() > 0; i++) {
+//            ItemStack currentStack = player.inventory.getStackInSlot(i);
+//            if (canStackTogether(currentStack, itemsToGive)) {
+//                slots.add(i);
+//                transferStackWithChance(itemsToGive, currentStack, chanceOfSuccess);
+//            }
+//        }
+//        // Then try to add the items to empty slots
+//        for (int i = 0; i < player.inventory.getSizeInventory() && itemsToGive.getCount() > 0; i++) {
+//            if (player.inventory.getStackInSlot(i).isEmpty()) {
+//                ItemStack destination = new ItemStack(itemsToGive.getItem(), 0, itemsToGive.getItemDamage());
+//                transferStackWithChance(itemsToGive, destination, chanceOfSuccess);
+//                if (destination.getCount() > 0) {
+//                    player.inventory.setInventorySlotContents(i, destination);
+//                    slots.add(i);
+//                }
+//            }
+//        }
+//        // Finally spawn the items in the world.
+//        if (itemsToGive.getCount()> 0) {
+//            for (int i = 0; i < itemsToGive.getCount(); i++) {
+//                if (MuseMathUtils.nextDouble() < chanceOfSuccess) {
+//                    ItemStack copyStack = itemsToGive.copy();
+//                    copyStack.setCount(1);
+//                    player.dropItem(copyStack, false);
+//                }
+//            }
+//        }
+//        return slots;
+//    }
 
     /**
      * Helper function for making recipes. Returns a copy of the itemstack with
@@ -386,25 +398,25 @@ public class MuseItemUtils {
         setDoubleOrRemove(MuseNBTUtils.getMuseItemTag(stack), string, value);
     }
 
-    /**
-     * Sets the getValue of the given nbt tag, or removes it if the getValue would be
-     * zero.
-     */
-    public static void setIntegerOrRemove(NBTTagCompound itemProperties, String string, int value) {
-        if (itemProperties != null) {
-            if (value == 0) {
-                itemProperties.removeTag(string);
-            } else {
-                itemProperties.setInteger(string, value);
-            }
-        }
-    }
-
-    /**
-     * Sets the given itemstack's modular property, or removes it if the getValue
-     * would be zero.
-     */
-    public static void setIntegerOrRemove(@Nonnull ItemStack stack, String string, int value) {
-        setIntegerOrRemove(MuseNBTUtils.getMuseItemTag(stack), string, value);
-    }
+//    /**
+//     * Sets the getValue of the given nbt tag, or removes it if the getValue would be
+//     * zero.
+//     */
+//    public static void setIntegerOrRemove(NBTTagCompound itemProperties, String string, int value) {
+//        if (itemProperties != null) {
+//            if (value == 0) {
+//                itemProperties.removeTag(string);
+//            } else {
+//                itemProperties.setInteger(string, value);
+//            }
+//        }
+//    }
+//
+//    /**
+//     * Sets the given itemstack's modular property, or removes it if the getValue
+//     * would be zero.
+//     */
+//    public static void setIntegerOrRemove(@Nonnull ItemStack stack, String string, int value) {
+//        setIntegerOrRemove(MuseNBTUtils.getMuseItemTag(stack), string, value);
+//    }
 }
